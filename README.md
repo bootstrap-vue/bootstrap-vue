@@ -27,6 +27,19 @@ You can then use component in your html, like so:
 
 ## Components
 
+### Alert
+Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
+
+#### Usage
+```html
+<b-alert 
+  :show="showVariable"
+  :state="state"
+  dismissible>
+  This is an alert
+</b-alert>
+```
+
 ### Accordion
 Extend the default collapse behavior to create an accordion. It requires both <code>target</code> and <code>target-group</code> attributes for this to work.
 
@@ -64,19 +77,6 @@ Extend the default collapse behavior to create an accordion. It requires both <c
     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
   </div>
 </b-collapse>
-```
-
-### Alert
-Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
-
-#### Usage
-```html
-<b-alert 
-  :show="showVariable"
-  :state="state"
-  dismissible>
-  This is an alert
-</b-alert>
 ```
 
 ### Breadcrumb
@@ -428,7 +428,8 @@ List groups are a flexible and powerful component for displaying not only simple
     <b-badge type="pill" class="pull-xs-right">1</b-badge>
     Morbi leo risus
   </b-list-group-item>
-</b-list-group>```
+</b-list-group>
+```
 
 ### Media
 The media object is an abstract element used as the basis for building more complex and repetitive components (like blog comments, Tweets, etc).
@@ -484,7 +485,8 @@ Roll your own navigation style by extending the base .nav component.
   <b-nav-item link="#">Link</b-nav-item>
   <b-nav-item link="#">Another Link</b-nav-item>
   <b-nav-item link="#" disabled>Disabled</b-nav-item>
-</b-nav>```
+</b-nav>
+```
 
 ### Navbar
 The navbar is a simple wrapper for positioning branding, navigation, and other elements into a concise navigation header.
@@ -564,7 +566,8 @@ Provide up-to-date feedback on the progress of a workflow or action with simple 
   value="25" 
   striped>
   25%
-</b-progress>```
+</b-progress>
+```
 
 ### Tables
 For tabular data.
