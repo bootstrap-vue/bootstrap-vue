@@ -22,7 +22,7 @@ setup(Vue);
 *Note: You will need **Babel Loader** in your Webpack config file to support ES6 syntax.
 You can then use component in your html, like so:
 ```html
-<v-alert>Hello</b-alert>
+<b-alert>Hello</b-alert>
 ```
 
 ## Components
