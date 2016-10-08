@@ -1,0 +1,61 @@
+{
+  "name": "bootstrap-vue",
+  "version": "0.0.2",
+  "description": "Bootstrap 4 Components For VueJS 2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pi0/bootstrap-vue.git"
+  },
+  "main": "dist/vuestrapBase-bundle.js",
+  "scripts": {
+    "build": "npm run docs && npm run dev && npm run dev-bundle && npm run dist && npm run dist-bundle",
+    "dist": "webpack --colors --progress --config webpack.build.js --env production",
+    "dist-bundle": "webpack --colors --progress --config webpack.build.js --env production --bundle true",
+    "dev": "webpack --colors --progress --config webpack.build.js --env development",
+    "dev-bundle": "webpack --colors --progress --config webpack.build.js --env development --bundle true",
+    "docs": "webpack --colors --progress --config  webpack.build.js --env docs",
+    "serve-docs": "webpack-dev-server --port 8081 --inline --hot --quiet --config webpack.build.js --env docs",
+    "release": "bash build/release.sh && bash build/gh-pages.sh"
+  },
+  "keywords": [
+    "Bootstrap",
+    "Bootstrap4",
+    "Web",
+    "Components",
+    "Polymer",
+    "Vue",
+    "VueJS",
+    "Vue2"
+  ],
+  "author": {
+    "name": "Pooya Parsa",
+    "email": "pooya@pi0.ir",
+    "url": "https://github.com/pi0"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pi0/bootstrap-vue/issues"
+  },
+  "devDependencies": {
+    "postcss-loader": "latest",
+    "babel-core": "latest",
+    "babel-eslint": "latest",
+    "babel-loader": "latest",
+    "css-loader": "latest",
+    "director": "latest",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
+    "gritcode-components": "latest",
+    "highlightjs-loader": "latest",
+    "html-loader": "latest",
+    "json-loader": "latest",
+    "node-sass": "latest",
+    "optimist": "latest",
+    "sass-loader": "latest",
+    "style-loader": "latest",
+    "tether": "latest",
+    "webpack": "^2.1.0-beta.25",
+    "webpack-dev-server": "^2.1.0-beta.8",
+    "vue": "latest"
+  },
+  "homepage": "https://github.com/pi0/bootstrap-vue#readme"
+}
