@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Bootstrap-Vue by pi0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Bootstrap-Vue</h1>
+      <h2 class="project-tagline">Bootstrap 4 Components For Vue.js 2</h2>
+      <a href="https://github.com/pi0/bootstrap-vue" class="btn">View on GitHub</a>
+      <a href="https://github.com/pi0/bootstrap-vue/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/pi0/bootstrap-vue/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="bootstrap-vue" class="anchor" href="#bootstrap-vue" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bootstrap Vue</h1>
+
+<p><a href="https://v4-alpha.getbootstrap.com/">Twitter Bootstrap 4</a> Components For <a href="https://vuejs.org/">Vue.js 2</a></p>
+
+<p><a href="https://npmjs.com/bootstrap-vue/"><img src="https://nodei.co/npm/bootstrap-vue.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM"></a></p>
+
+<p align="center"><img src="./banner.png"></p>
+
+<h2>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h2>
+
+<p>Install via <strong>NPM</strong>:   </p>
+
+<p><code>npm i --save-dev bootstrap-vue</code></p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> <span class="pl-smi">Vue</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>vue<span class="pl-pds">'</span></span>
+
+<span class="pl-c">// Globally register bootstrap-vue components</span>
+<span class="pl-k">import</span> {<span class="pl-smi">setup</span>} <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>bootstrap-vue<span class="pl-pds">'</span></span>;
+<span class="pl-en">setup</span>(Vue);</pre></div>
+
+<p><em>Note: You will need *</em>Babel Loader** in your Webpack config file to support ES6 syntax.
+You can then use component in your html, like so:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-alert</span>&gt;Hello&lt;/<span class="pl-ent">b</span><span class="pl-e">-alert</span>&gt;</pre></div>
+
+<h2>
+<a id="components" class="anchor" href="#components" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Components</h2>
+
+<h3>
+<a id="alert" class="anchor" href="#alert" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Alert</h3>
+
+<p>Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.</p>
+
+<h4>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-alert</span> 
+  :<span class="pl-e">show</span>=<span class="pl-s"><span class="pl-pds">"</span>showVariable<span class="pl-pds">"</span></span>
+  :<span class="pl-e">state</span>=<span class="pl-s"><span class="pl-pds">"</span>state<span class="pl-pds">"</span></span>
+  <span class="pl-e">dismissible</span>&gt;
+  This is an alert
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-alert</span>&gt;</pre></div>
+
+<h3>
+<a id="accordion" class="anchor" href="#accordion" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Accordion</h3>
+
+<p>Extend the default collapse behavior to create an accordion. It requires both <code>target</code> and <code>target-group</code> attributes for this to work.</p>
+
+<h4>
+<a id="usage-1" class="anchor" href="#usage-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-c">&lt;!-- item 1 --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span> <span class="pl-e">target</span>=<span class="pl-s"><span class="pl-pds">"</span>item-1<span class="pl-pds">"</span></span> <span class="pl-e">target-group</span>=<span class="pl-s"><span class="pl-pds">"</span>accordion-1<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Collapsible Group Item #1&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-collapse</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>item-1<span class="pl-pds">"</span></span> <span class="pl-e">group</span>=<span class="pl-s"><span class="pl-pds">"</span>accordion-1<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>card card-block<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">h5</span>&gt;First&lt;/<span class="pl-ent">h5</span>&gt;
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-collapse</span>&gt;
+
+<span class="pl-c">&lt;!-- item 2 --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span> <span class="pl-e">target</span>=<span class="pl-s"><span class="pl-pds">"</span>item-2<span class="pl-pds">"</span></span> <span class="pl-e">target-group</span>=<span class="pl-s"><span class="pl-pds">"</span>accordion-1<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Collapsible Group Item #2&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-collapse</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>item-2<span class="pl-pds">"</span></span> <span class="pl-e">group</span>=<span class="pl-s"><span class="pl-pds">"</span>accordion-1<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>card card-block<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">h5</span>&gt;Second&lt;/<span class="pl-ent">h5</span>&gt;
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-collapse</span>&gt;
+
+<span class="pl-c">&lt;!-- item 3--&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span> <span class="pl-e">target</span>=<span class="pl-s"><span class="pl-pds">"</span>item-3<span class="pl-pds">"</span></span> <span class="pl-e">target-group</span>=<span class="pl-s"><span class="pl-pds">"</span>accordion-1<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Collapsible Group Item #3&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-collapse</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>item-3<span class="pl-pds">"</span></span> <span class="pl-e">group</span>=<span class="pl-s"><span class="pl-pds">"</span>accordion-1<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>card card-block<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">h5</span>&gt;Third&lt;/<span class="pl-ent">h5</span>&gt;
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-collapse</span>&gt;</pre></div>
+
+<h3>
+<a id="breadcrumb" class="anchor" href="#breadcrumb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Breadcrumb</h3>
+
+<p>Indicate the current page’s location within a navigational hierarchy.</p>
+
+<h4>
+<a id="usage-2" class="anchor" href="#usage-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-breadcrumb</span> 
+  :<span class="pl-e">list:</span> <span class="pl-s"><span class="pl-pds">"</span>[{text: 'Home', link: '#', active: true}, {text: 'Library', active: false}]<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-breadcrumb</span>&gt;</pre></div>
+
+<h3>
+<a id="button-checkbox" class="anchor" href="#button-checkbox" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Button Checkbox</h3>
+
+<p>Allows to elect one or more items in the nested group of buttons.</p>
+
+<h4>
+<a id="usage-3" class="anchor" href="#usage-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-button-checkbox</span> 
+  :<span class="pl-e">model</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span>model<span class="pl-pds">"</span></span>
+  :<span class="pl-e">list</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span> [{</span>
+<span class="pl-s">      text: 'First',</span>
+<span class="pl-s">      value: 'first',</span>
+<span class="pl-s">    }, {</span>
+<span class="pl-s">      text: 'Second',</span>
+<span class="pl-s">      value: 'second',</span>
+<span class="pl-s">    }, {</span>
+<span class="pl-s">      text: 'Third',</span>
+<span class="pl-s">      value: 'third',</span>
+<span class="pl-s">    }]<span class="pl-pds">"</span></span>
+  <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span>
+  <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>primary<span class="pl-pds">"</span></span>
+  <span class="pl-e">return-object</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-button-checkbox</span>&gt;</pre></div>
+
+<h3>
+<a id="button-group" class="anchor" href="#button-group" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Button Group</h3>
+
+<p>Group a series of buttons together on a single line with the button group.</p>
+
+<h4>
+<a id="usage-4" class="anchor" href="#usage-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-button-group</span> <span class="pl-e">vertical</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-button</span>&gt;Left&lt;/<span class="pl-ent">b</span><span class="pl-e">-button</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-button</span>&gt;Middle&lt;/<span class="pl-ent">b</span><span class="pl-e">-button</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-button</span>&gt;Right&lt;/<span class="pl-ent">b</span><span class="pl-e">-button</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-button-group</span>&gt;</pre></div>
+
+<h3>
+<a id="button-radio" class="anchor" href="#button-radio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Button Radio</h3>
+
+<p>Allows to select only one item out of a group of buttons.</p>
+
+<h4>
+<a id="usage-5" class="anchor" href="#usage-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-button-radio</span> 
+  :<span class="pl-e">model</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span>model<span class="pl-pds">"</span></span>
+  :<span class="pl-e">list</span>=<span class="pl-s"><span class="pl-pds">"</span>[{</span>
+<span class="pl-s">      text: 'First',</span>
+<span class="pl-s">      value: 'first',</span>
+<span class="pl-s">    }, {</span>
+<span class="pl-s">      text: 'Second',</span>
+<span class="pl-s">      value: 'second',</span>
+<span class="pl-s">    }, {</span>
+<span class="pl-s">      text: 'Third',</span>
+<span class="pl-s">      value: 'third',</span>
+<span class="pl-s">    }]<span class="pl-pds">"</span></span>
+  <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span>
+  <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>primary<span class="pl-pds">"</span></span>
+  <span class="pl-e">return-boject</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-button-radio</span>&gt;</pre></div>
+
+<h3>
+<a id="buttons" class="anchor" href="#buttons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Buttons</h3>
+
+<p>Use Bootstrap’s custom button styles for actions in forms, dialogs, and more. Includes support for a handful of contextual variations, sizes, states, and more.</p>
+
+<h4>
+<a id="usage-6" class="anchor" href="#usage-6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-c">&lt;!-- colour variants --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>primary<span class="pl-pds">"</span></span>&gt;Primary&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>secondary<span class="pl-pds">"</span></span>&gt;Secondary&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>success<span class="pl-pds">"</span></span>&gt;Success&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>warning<span class="pl-pds">"</span></span>&gt;Warning&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>danger<span class="pl-pds">"</span></span>&gt;Danger&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+
+<span class="pl-c">&lt;!-- outlined variants --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>primary-outline<span class="pl-pds">"</span></span>&gt;Primary&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>secondary-outline<span class="pl-pds">"</span></span>&gt;Secondary&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>success-outline<span class="pl-pds">"</span></span>&gt;Success&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>warning-outline<span class="pl-pds">"</span></span>&gt;Warning&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>danger-outline<span class="pl-pds">"</span></span>&gt;Danger&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+
+<span class="pl-c">&lt;!-- button types --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>link<span class="pl-pds">"</span></span> <span class="pl-e">link</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Button Link&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>primary<span class="pl-pds">"</span></span> <span class="pl-e">disabled</span>&gt;Disabled&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-btn</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>primary<span class="pl-pds">"</span></span> <span class="pl-e">block</span>&gt;Block&lt;/<span class="pl-ent">b</span><span class="pl-e">-btn</span>&gt;</pre></div>
+
+<h3>
+<a id="card" class="anchor" href="#card" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Card</h3>
+
+<p>A card is a flexible and extensible content container.</p>
+
+<h4>
+<a id="usage-7" class="anchor" href="#usage-7" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-card</span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span> <span class="pl-e">align</span>=<span class="pl-s"><span class="pl-pds">"</span>left<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">img</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>card-img img-fluid<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://placehold.it/350x150<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span>Card image cap<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>card-block<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">h4</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>card-title<span class="pl-pds">"</span></span>&gt;Card title&lt;/<span class="pl-ent">h4</span>&gt;
+    &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>card-text<span class="pl-pds">"</span></span>&gt;Some quick example text to build on the card title and make up the bulk of the card's content.&lt;/<span class="pl-ent">p</span>&gt;
+  &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-card</span>&gt;</pre></div>
+
+<h3>
+<a id="carousel" class="anchor" href="#carousel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Carousel</h3>
+
+<h4>
+<a id="usage-8" class="anchor" href="#usage-8" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-carousel</span> :<span class="pl-e">interval</span>=<span class="pl-s"><span class="pl-pds">"</span>5000<span class="pl-pds">"</span></span> :<span class="pl-e">controls</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span> :<span class="pl-e">indicators</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-slide</span>&gt;
+    &lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://placehold.it/1200x400?text=one<span class="pl-pds">"</span></span>&gt;
+  &lt;/<span class="pl-ent">b</span><span class="pl-e">-slide</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-slide</span>&gt;
+    &lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://placehold.it/1200x400?text=two<span class="pl-pds">"</span></span>&gt;
+  &lt;/<span class="pl-ent">b</span><span class="pl-e">-slide</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-slide</span>&gt;
+    &lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://placehold.it/1200x400?text=three<span class="pl-pds">"</span></span>&gt;
+  &lt;/<span class="pl-ent">b</span><span class="pl-e">-slide</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-carousel</span>&gt;</pre></div>
+
+<h3>
+<a id="collapse" class="anchor" href="#collapse" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Collapse</h3>
+
+<p>Click the buttons below to show and hide another element. It requires either <code>target</code> or <code>target-group</code> attribute for this to work.</p>
+
+<h4>
+<a id="usage-9" class="anchor" href="#usage-9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-c">&lt;!-- triggers --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span> <span class="pl-e">target</span>=<span class="pl-s"><span class="pl-pds">"</span>collapse-1<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn btn-default<span class="pl-pds">"</span></span>&gt;Toogle first&lt;/<span class="pl-ent">button</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span> <span class="pl-e">target</span>=<span class="pl-s"><span class="pl-pds">"</span>collapse-2<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn btn-default<span class="pl-pds">"</span></span>&gt;Toogle second&lt;/<span class="pl-ent">button</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span> <span class="pl-e">target-group</span>=<span class="pl-s"><span class="pl-pds">"</span>group-1<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn btn-default<span class="pl-pds">"</span></span>&gt;Toogle all&lt;/<span class="pl-ent">button</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-collapse-toggle</span>&gt;
+
+<span class="pl-c">&lt;!-- item 1 --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-collapse</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>collapse-1<span class="pl-pds">"</span></span> <span class="pl-e">group</span>=<span class="pl-s"><span class="pl-pds">"</span>group-1<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>card card-block<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">h5</span>&gt;First&lt;/<span class="pl-ent">h5</span>&gt;
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-collapse</span>&gt;
+
+<span class="pl-c">&lt;!-- item 2 --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-collapse</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>collapse-2<span class="pl-pds">"</span></span> <span class="pl-e">group</span>=<span class="pl-s"><span class="pl-pds">"</span>group-1<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>card card-block<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">h5</span>&gt;Second&lt;/<span class="pl-ent">h5</span>&gt;
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-collapse</span>&gt;</pre></div>
+
+<h3>
+<a id="dropdown" class="anchor" href="#dropdown" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dropdown</h3>
+
+<p>Dropdowns are toggleable, contextual overlays for displaying lists of links.</p>
+
+<h4>
+<a id="usage-10" class="anchor" href="#usage-10" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-dropdown</span> 
+  <span class="pl-e">text</span>=<span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span>
+  <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span>
+  <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>primary<span class="pl-pds">"</span></span>
+  :<span class="pl-e">arrow</span>=<span class="pl-s"><span class="pl-pds">"</span>arrow<span class="pl-pds">"</span></span>
+  :<span class="pl-e">caret</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>
+  <span class="pl-e">dropup</span>&gt;
+  &lt;<span class="pl-ent">ul</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>dropdown-menu dropdown-menu-left<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">li</span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>dropdown-item<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Completed&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+      &lt;<span class="pl-ent">li</span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>dropdown-item<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Pending&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;/<span class="pl-ent">ul</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-dropdown</span>&gt;</pre></div>
+
+<h3>
+<a id="dropdown-select" class="anchor" href="#dropdown-select" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dropdown Select</h3>
+
+<p>Dropdown select allows to select an item from the list and update the model.</p>
+
+<h4>
+<a id="usage-11" class="anchor" href="#usage-11" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-dropdown-select</span> 
+  :<span class="pl-e">list</span>=<span class="pl-s"><span class="pl-pds">"</span>[</span>
+<span class="pl-s">    {</span>
+<span class="pl-s">      text: 'First',</span>
+<span class="pl-s">      value: 'first',</span>
+<span class="pl-s">    }, {</span>
+<span class="pl-s">      text: 'Second',</span>
+<span class="pl-s">      value: 'second',</span>
+<span class="pl-s">    }, {</span>
+<span class="pl-s">      text: 'Third',</span>
+<span class="pl-s">      value: 'third',</span>
+<span class="pl-s">    }]<span class="pl-pds">"</span></span>
+  :<span class="pl-e">model</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span>model<span class="pl-pds">"</span></span>
+  <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span>
+  <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>primary<span class="pl-pds">"</span></span>
+  <span class="pl-e">position</span>=<span class="pl-s"><span class="pl-pds">"</span>left<span class="pl-pds">"</span></span>
+  <span class="pl-e">default-text</span>=<span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span>
+  :<span class="pl-e">force-default</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>
+  :<span class="pl-e">caret</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>
+  <span class="pl-e">dropup</span>
+  <span class="pl-e">return-object</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-dropdown-select</span>&gt;</pre></div>
+
+<h3>
+<a id="form-checkbox" class="anchor" href="#form-checkbox" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Form Checkbox</h3>
+
+<p>A Checkbox input for selection of one or more items.</p>
+
+<h4>
+<a id="usage-12" class="anchor" href="#usage-12" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-form-checkbox</span> 
+  :<span class="pl-e">list</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span>[{</span>
+<span class="pl-s">    text: 'First',</span>
+<span class="pl-s">    value: 'first',</span>
+<span class="pl-s">  }, {</span>
+<span class="pl-s">    text: 'Second',</span>
+<span class="pl-s">    value: 'second',</span>
+<span class="pl-s">  }, {</span>
+<span class="pl-s">    text: 'Third',</span>
+<span class="pl-s">    value: 'third',</span>
+<span class="pl-s">    disabled: true</span>
+<span class="pl-s">  }]<span class="pl-pds">"</span></span>
+  :<span class="pl-e">state</span>=<span class="pl-s"><span class="pl-pds">"</span>'default'<span class="pl-pds">"</span></span>
+  :<span class="pl-e">custom</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>
+  <span class="pl-e">vertical</span>
+  <span class="pl-e">return-object</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-form-checkbox</span>&gt;</pre></div>
+
+<h3>
+<a id="form-input" class="anchor" href="#form-input" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Form Input</h3>
+
+<p>A textual input.</p>
+
+<h4>
+<a id="usage-13" class="anchor" href="#usage-13" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-form-input</span> 
+  :<span class="pl-e">model</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span>model<span class="pl-pds">"</span></span>
+  <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>
+  <span class="pl-e">label</span>=<span class="pl-s"><span class="pl-pds">"</span>Example Label<span class="pl-pds">"</span></span>
+  <span class="pl-e">placeholder</span>=<span class="pl-s"><span class="pl-pds">"</span>Placeholder<span class="pl-pds">"</span></span>
+  <span class="pl-e">description</span>=<span class="pl-s"><span class="pl-pds">"</span>We'll never share your email with anyone else.<span class="pl-pds">"</span></span>
+  <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span>
+  :<span class="pl-e">state</span>=<span class="pl-s"><span class="pl-pds">"</span>'success'<span class="pl-pds">"</span></span>
+  <span class="pl-e">state-icon</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-form-input</span>&gt;</pre></div>
+
+<h3>
+<a id="form-radio" class="anchor" href="#form-radio" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Form Radio</h3>
+
+<p>A radio input for selection of only one item.</p>
+
+<h4>
+<a id="usage-14" class="anchor" href="#usage-14" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-form-radio</span> 
+  :<span class="pl-e">model</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span>model<span class="pl-pds">"</span></span>
+  :<span class="pl-e">list</span>=<span class="pl-s"><span class="pl-pds">"</span>[</span>
+<span class="pl-s">    {</span>
+<span class="pl-s">      name: 'First',</span>
+<span class="pl-s">      value: 'first',</span>
+<span class="pl-s">    }, {</span>
+<span class="pl-s">      name: 'Second',</span>
+<span class="pl-s">      value: 'second',</span>
+<span class="pl-s">    }, {</span>
+<span class="pl-s">      name: 'Third (disabled)',</span>
+<span class="pl-s">      value: 'third',</span>
+<span class="pl-s">      disabled: true,</span>
+<span class="pl-s">    }]<span class="pl-pds">"</span></span>
+  :<span class="pl-e">state</span>=<span class="pl-s"><span class="pl-pds">"</span>'success'<span class="pl-pds">"</span></span>
+  :<span class="pl-e">custom</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>
+  <span class="pl-e">vertical</span>
+  <span class="pl-e">return-object</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-form-radio</span>&gt;</pre></div>
+
+<h3>
+<a id="form-select" class="anchor" href="#form-select" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Form Select</h3>
+
+<p>A textual input.</p>
+
+<h4>
+<a id="usage-15" class="anchor" href="#usage-15" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-form-select</span> 
+  :<span class="pl-e">model</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span>model<span class="pl-pds">"</span></span>
+  :<span class="pl-e">options</span>=<span class="pl-s"><span class="pl-pds">"</span>options<span class="pl-pds">"</span></span>
+  :<span class="pl-e">default-option</span>=<span class="pl-s"><span class="pl-pds">"</span>{text: 'Please select one',value: 'default'}<span class="pl-pds">"</span></span>
+  <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>
+  <span class="pl-e">label</span>=<span class="pl-s"><span class="pl-pds">"</span>Example Label<span class="pl-pds">"</span></span>
+  <span class="pl-e">description</span>=<span class="pl-s"><span class="pl-pds">"</span>We'll never share your gender with anyone else.<span class="pl-pds">"</span></span>
+  <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span>
+  :<span class="pl-e">state</span>=<span class="pl-s"><span class="pl-pds">"</span>'success'<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-form-select</span>&gt;</pre></div>
+
+<h3>
+<a id="form-textarea" class="anchor" href="#form-textarea" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Form textarea</h3>
+
+<p>A textarea input.</p>
+
+<h4>
+<a id="usage-16" class="anchor" href="#usage-16" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-form-textarea</span> 
+  :<span class="pl-e">model</span>.<span class="pl-e">sync</span>=<span class="pl-s"><span class="pl-pds">"</span>model<span class="pl-pds">"</span></span>
+  <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>
+  <span class="pl-e">label</span>=<span class="pl-s"><span class="pl-pds">"</span>Example Label<span class="pl-pds">"</span></span>
+  <span class="pl-e">description</span>=<span class="pl-s"><span class="pl-pds">"</span>Extra textarea description.<span class="pl-pds">"</span></span>
+  <span class="pl-e">rows</span>=<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>
+  :<span class="pl-e">state</span>=<span class="pl-s"><span class="pl-pds">"</span>'success'<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-form-textarea</span>&gt;</pre></div>
+
+<h3>
+<a id="images" class="anchor" href="#images" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Images</h3>
+
+<p>Opt your images into responsive behavior (so they never become larger than their parent elements) and add lightweight styles to them—all via classes.</p>
+
+<h4>
+<a id="usage-17" class="anchor" href="#usage-17" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://placehold.it/150x150?text=150x150<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span>...<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>img-rounded<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://placehold.it/150x150?text=150x150<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span>...<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>img-circle<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://placehold.it/150x150?text=150x150<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span>...<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>img-thumbnail<span class="pl-pds">"</span></span>&gt;
+&lt;<span class="pl-ent">img</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://placehold.it/1000x150?text=1000x150 - responsive<span class="pl-pds">"</span></span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span>...<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>img-fluid<span class="pl-pds">"</span></span> &gt;</pre></div>
+
+<h3>
+<a id="jumbotron" class="anchor" href="#jumbotron" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Jumbotron</h3>
+
+<p>A lightweight, flexible component that can optionally extend the entire viewport to showcase key marketing messages on your site.</p>
+
+<h4>
+<a id="usage-18" class="anchor" href="#usage-18" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-jumbotron</span> <span class="pl-e">fluid</span>&gt;
+  &lt;<span class="pl-ent">h1</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>display-3<span class="pl-pds">"</span></span>&gt;Hello, world!&lt;/<span class="pl-ent">h1</span>&gt;
+  &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>lead<span class="pl-pds">"</span></span>&gt;This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.&lt;/<span class="pl-ent">p</span>&gt;
+  &lt;<span class="pl-ent">hr</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>m-y-md<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">p</span>&gt;It uses utility classes for typography and spacing to space content out within the larger container.&lt;/<span class="pl-ent">p</span>&gt;
+  &lt;<span class="pl-ent">p</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>lead<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">a</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn btn-primary btn-lg<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span> <span class="pl-e">role</span>=<span class="pl-s"><span class="pl-pds">"</span>button<span class="pl-pds">"</span></span>&gt;Learn more&lt;/<span class="pl-ent">a</span>&gt;
+  &lt;/<span class="pl-ent">p</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-jumbotron</span>&gt;</pre></div>
+
+<h3>
+<a id="list-group" class="anchor" href="#list-group" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>List Group</h3>
+
+<p>List groups are a flexible and powerful component for displaying not only simple lists of elements, but complex ones with custom content.</p>
+
+<h4>
+<a id="usage-19" class="anchor" href="#usage-19" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-list-group</span> <span class="pl-e">flush</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-list-group-item</span> <span class="pl-e">state</span>=<span class="pl-s"><span class="pl-pds">"</span>success<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">b</span><span class="pl-e">-badge</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>pill<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>pull-xs-right<span class="pl-pds">"</span></span>&gt;14&lt;/<span class="pl-ent">b</span><span class="pl-e">-badge</span>&gt;
+    Cras justo odio
+  &lt;/<span class="pl-ent">b</span><span class="pl-e">-list-group-item</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-list-group-item</span>&gt;
+    &lt;<span class="pl-ent">b</span><span class="pl-e">-badge</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>pill<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>pull-xs-right<span class="pl-pds">"</span></span>&gt;2&lt;/<span class="pl-ent">b</span><span class="pl-e">-badge</span>&gt;
+    Dapibus ac facilisis in
+  &lt;/<span class="pl-ent">b</span><span class="pl-e">-list-group-item</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-list-group-item</span>&gt;
+    &lt;<span class="pl-ent">b</span><span class="pl-e">-badge</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>pill<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>pull-xs-right<span class="pl-pds">"</span></span>&gt;1&lt;/<span class="pl-ent">b</span><span class="pl-e">-badge</span>&gt;
+    Morbi leo risus
+  &lt;/<span class="pl-ent">b</span><span class="pl-e">-list-group-item</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-list-group</span>&gt;</pre></div>
+
+<h3>
+<a id="media" class="anchor" href="#media" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Media</h3>
+
+<p>The media object is an abstract element used as the basis for building more complex and repetitive components (like blog comments, Tweets, etc).</p>
+
+<h4>
+<a id="usage-20" class="anchor" href="#usage-20" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-media</span> <span class="pl-e">position</span>=<span class="pl-s"><span class="pl-pds">"</span>top left<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">slot</span>=<span class="pl-s"><span class="pl-pds">"</span>aside<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;
+      &lt;<span class="pl-ent">img</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>media-object<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://placehold.it/50x50?text=media<span class="pl-pds">"</span></span>&gt;
+    &lt;/<span class="pl-ent">a</span>&gt;
+  &lt;/<span class="pl-ent">div</span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">slot</span>=<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">h4</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>media-heading<span class="pl-pds">"</span></span>&gt;Media heading&lt;/<span class="pl-ent">h4</span>&gt; 
+    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+  &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-media</span>&gt;</pre></div>
+
+<h3>
+<a id="modal" class="anchor" href="#modal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Modal</h3>
+
+<p>Modals are streamlined, but flexible, dialog prompts with the minimum required functionality and smart defaults.</p>
+
+<h4>
+<a id="usage-21" class="anchor" href="#usage-21" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-c">&lt;!-- trigger --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-button</span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>primary<span class="pl-pds">"</span></span> <span class="pl-e">v-on:click</span>=<span class="pl-s"><span class="pl-pds">"</span>$root.$emmit('show::modal', 'modal1')<span class="pl-pds">"</span></span>&gt;
+  Show Modal
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-button</span>&gt;
+
+<span class="pl-c">&lt;!-- modal --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-modal</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>modal1<span class="pl-pds">"</span></span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> :<span class="pl-e">fade</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">slot</span>=<span class="pl-s"><span class="pl-pds">"</span>modal-header<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">h3</span>&gt;header&lt;/<span class="pl-ent">h3</span>&gt;
+  &lt;/<span class="pl-ent">div</span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">slot</span>=<span class="pl-s"><span class="pl-pds">"</span>modal-body<span class="pl-pds">"</span></span>&gt;
+    body
+  &lt;/<span class="pl-ent">div</span>&gt;
+  &lt;<span class="pl-ent">div</span> <span class="pl-e">slot</span>=<span class="pl-s"><span class="pl-pds">"</span>modal-footer<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn btn-primary<span class="pl-pds">"</span></span> <span class="pl-e">v-on:click</span>=<span class="pl-s"><span class="pl-pds">"</span>$root.$emmit('hide::modal', 'modal1')<span class="pl-pds">"</span></span>&gt;
+      OK
+    &lt;/<span class="pl-ent">button</span>&gt;
+  &lt;/<span class="pl-ent">div</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-modal</span>&gt;</pre></div>
+
+<h3>
+<a id="nav" class="anchor" href="#nav" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Nav</h3>
+
+<p>Roll your own navigation style by extending the base .nav component.</p>
+
+<h4>
+<a id="usage-22" class="anchor" href="#usage-22" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-nav</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span> :<span class="pl-e">vertical</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-nav-item</span> <span class="pl-e">link</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span> <span class="pl-e">active</span>&gt;Active&lt;/<span class="pl-ent">b</span><span class="pl-e">-nav-item</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-nav-item</span> <span class="pl-e">link</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Link&lt;/<span class="pl-ent">b</span><span class="pl-e">-nav-item</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-nav-item</span> <span class="pl-e">link</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Another Link&lt;/<span class="pl-ent">b</span><span class="pl-e">-nav-item</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-nav-item</span> <span class="pl-e">link</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span> <span class="pl-e">disabled</span>&gt;Disabled&lt;/<span class="pl-ent">b</span><span class="pl-e">-nav-item</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-nav</span>&gt;</pre></div>
+
+<h3>
+<a id="navbar" class="anchor" href="#navbar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Navbar</h3>
+
+<p>The navbar is a simple wrapper for positioning branding, navigation, and other elements into a concise navigation header.</p>
+
+<h4>
+<a id="usage-23" class="anchor" href="#usage-23" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-navbar</span> <span class="pl-e">fixed</span>=<span class="pl-s"><span class="pl-pds">"</span>top<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>light<span class="pl-pds">"</span></span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span> <span class="pl-e">full</span>&gt;
+  &lt;<span class="pl-ent">a</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>navbar-brand<span class="pl-pds">"</span></span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Navbar&lt;/<span class="pl-ent">a</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-nav</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>navbar<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>pull-xs-left<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">b</span><span class="pl-e">-nav-item</span> <span class="pl-e">link</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span> <span class="pl-e">active</span>&gt;Home &lt;<span class="pl-ent">span</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>sr-only<span class="pl-pds">"</span></span>&gt;(current)&lt;/<span class="pl-ent">span</span>&gt;&lt;/<span class="pl-ent">b</span><span class="pl-e">-nav-item</span>&gt;
+    &lt;<span class="pl-ent">b</span><span class="pl-e">-nav-item</span> <span class="pl-e">link</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Features&lt;/<span class="pl-ent">b</span><span class="pl-e">-nav-item</span>&gt;
+    &lt;<span class="pl-ent">b</span><span class="pl-e">-nav-item</span> <span class="pl-e">link</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Pricing&lt;/<span class="pl-ent">b</span><span class="pl-e">-nav-item</span>&gt;
+    &lt;<span class="pl-ent">b</span><span class="pl-e">-nav-item</span> <span class="pl-e">link</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;About&lt;/<span class="pl-ent">b</span><span class="pl-e">-nav-item</span>&gt;
+  &lt;/<span class="pl-ent">b</span><span class="pl-e">-nav</span>&gt;
+  &lt;<span class="pl-ent">form</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-inline navbar-form pull-xs-right<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">input</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>form-control<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span> <span class="pl-e">placeholder</span>=<span class="pl-s"><span class="pl-pds">"</span>Search<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn btn-success-outline<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>submit<span class="pl-pds">"</span></span>&gt;Search&lt;/<span class="pl-ent">button</span>&gt;
+  &lt;/<span class="pl-ent">form</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-navbar</span>&gt;</pre></div>
+
+<h3>
+<a id="pager" class="anchor" href="#pager" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pager</h3>
+
+<p>Quick previous and next links for simple pagination implementations with light markup and styles. It’s great for simple sites like blogs or magazines.</p>
+
+<h4>
+<a id="usage-24" class="anchor" href="#usage-24" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-pager</span>&gt;
+  &lt;<span class="pl-ent">li</span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Previous&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;<span class="pl-ent">li</span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Next&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-pager</span>&gt;
+&lt;<span class="pl-ent">hr</span>&gt;
+&lt;<span class="pl-ent">b</span><span class="pl-e">-pager</span>&gt;
+  &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>pager-prev<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Older&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+  &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>pager-next<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>#<span class="pl-pds">"</span></span>&gt;Newer&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-pager</span>&gt;</pre></div>
+
+<h3>
+<a id="pagination" class="anchor" href="#pagination" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pagination</h3>
+
+<p>Provide pagination links for your site or app with the multi-page pagination component.</p>
+
+<h4>
+<a id="usage-25" class="anchor" href="#usage-25" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-pagination</span> 
+  <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span>
+  <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>primary<span class="pl-pds">"</span></span>
+  :<span class="pl-e">total-rows</span>=<span class="pl-s"><span class="pl-pds">"</span>100<span class="pl-pds">"</span></span>
+  :<span class="pl-e">current-page</span>=<span class="pl-s"><span class="pl-pds">"</span>currentPageVariable<span class="pl-pds">"</span></span>
+  :<span class="pl-e">per-page</span>=<span class="pl-s"><span class="pl-pds">"</span>10<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-pagination</span>&gt;</pre></div>
+
+<h3>
+<a id="popover" class="anchor" href="#popover" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Popover</h3>
+
+<p>Add small overlay content to any element for housing secondary information. Popover rely on on the 3rd party library <a href="http://github.hubspot.com/tether/">tether</a> for positioning.</p>
+
+<h4>
+<a id="usage-26" class="anchor" href="#usage-26" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-c">&lt;!-- tooltip with a text --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-popover</span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span> <span class="pl-e">text</span>=<span class="pl-s"><span class="pl-pds">"</span>Lorem ipsum dolor.<span class="pl-pds">"</span></span> <span class="pl-e">position</span>=<span class="pl-s"><span class="pl-pds">"</span>top<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn<span class="pl-pds">"</span></span>&gt;popover top&lt;/<span class="pl-ent">button</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-popover</span>&gt;
+
+
+<span class="pl-c">&lt;!-- tooltip with an html content --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-popover</span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span> <span class="pl-e">position</span>=<span class="pl-s"><span class="pl-pds">"</span>right<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn<span class="pl-pds">"</span></span>&gt;popover right (html)&lt;/<span class="pl-ent">button</span>&gt;
+  &lt;<span class="pl-ent">em</span> <span class="pl-e">slot</span>=<span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span>&gt;Lorem ipsum dolor.&lt;/<span class="pl-ent">em</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-popover</span>&gt;</pre></div>
+
+<h3>
+<a id="progress" class="anchor" href="#progress" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Progress</h3>
+
+<p>Provide up-to-date feedback on the progress of a workflow or action with simple yet flexible progress bars.</p>
+
+<h4>
+<a id="usage-27" class="anchor" href="#usage-27" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-progress</span> 
+  <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>primary<span class="pl-pds">"</span></span>
+  <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>25<span class="pl-pds">"</span></span> 
+  <span class="pl-e">striped</span>&gt;
+  25%
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-progress</span>&gt;</pre></div>
+
+<h3>
+<a id="tables" class="anchor" href="#tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tables</h3>
+
+<p>For tabular data.</p>
+
+<h4>
+<a id="usage-28" class="anchor" href="#usage-28" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-table</span> <span class="pl-e">hover</span> <span class="pl-e">responsive</span>&gt;
+  &lt;<span class="pl-ent">table</span>&gt;
+    &lt;<span class="pl-ent">thead</span>&gt;
+      &lt;<span class="pl-ent">tr</span>&gt;
+        &lt;<span class="pl-ent">th</span>&gt;#&lt;/<span class="pl-ent">th</span>&gt;
+        &lt;<span class="pl-ent">th</span>&gt;First Name&lt;/<span class="pl-ent">th</span>&gt;
+        &lt;<span class="pl-ent">th</span>&gt;Last Name&lt;/<span class="pl-ent">th</span>&gt;
+        &lt;<span class="pl-ent">th</span>&gt;Username&lt;/<span class="pl-ent">th</span>&gt;
+      &lt;/<span class="pl-ent">tr</span>&gt;
+    &lt;/<span class="pl-ent">thead</span>&gt;
+    &lt;<span class="pl-ent">tbody</span>&gt;
+      &lt;<span class="pl-ent">tr</span>&gt;
+        &lt;<span class="pl-ent">th</span> <span class="pl-e">scope</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;1&lt;/<span class="pl-ent">th</span>&gt;
+        &lt;<span class="pl-ent">td</span>&gt;Mark&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;<span class="pl-ent">td</span>&gt;Otto&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;<span class="pl-ent">td</span>&gt;@mdo&lt;/<span class="pl-ent">td</span>&gt;
+      &lt;/<span class="pl-ent">tr</span>&gt;
+      &lt;<span class="pl-ent">tr</span>&gt;
+        &lt;<span class="pl-ent">th</span> <span class="pl-e">scope</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;2&lt;/<span class="pl-ent">th</span>&gt;
+        &lt;<span class="pl-ent">td</span>&gt;Jacob&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;<span class="pl-ent">td</span>&gt;Thornton&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;<span class="pl-ent">td</span>&gt;@fat&lt;/<span class="pl-ent">td</span>&gt;
+      &lt;/<span class="pl-ent">tr</span>&gt;
+      &lt;<span class="pl-ent">tr</span>&gt;
+        &lt;<span class="pl-ent">th</span> <span class="pl-e">scope</span>=<span class="pl-s"><span class="pl-pds">"</span>row<span class="pl-pds">"</span></span>&gt;3&lt;/<span class="pl-ent">th</span>&gt;
+        &lt;<span class="pl-ent">td</span> <span class="pl-e">colspan</span>=<span class="pl-s"><span class="pl-pds">"</span>2<span class="pl-pds">"</span></span>&gt;Larry the Bird&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;<span class="pl-ent">td</span>&gt;@twitter&lt;/<span class="pl-ent">td</span>&gt;
+      &lt;/<span class="pl-ent">tr</span>&gt;
+    &lt;/<span class="pl-ent">tbody</span>&gt;
+  &lt;/<span class="pl-ent">table</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-table</span>&gt;</pre></div>
+
+<h3>
+<a id="tabs" class="anchor" href="#tabs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tabs</h3>
+
+<h4>
+<a id="usage-29" class="anchor" href="#usage-29" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-tabs</span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>md<span class="pl-pds">"</span></span> :<span class="pl-e">fade</span>=<span class="pl-s"><span class="pl-pds">"</span>false<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-tab</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>tab-1<span class="pl-pds">"</span></span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>Tab 1<span class="pl-pds">"</span></span>&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, quidem!&lt;/<span class="pl-ent">b</span><span class="pl-e">-tab</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-tab</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>tab-2<span class="pl-pds">"</span></span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>Tab 2<span class="pl-pds">"</span></span>&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, corporis?&lt;/<span class="pl-ent">b</span><span class="pl-e">-tab</span>&gt;
+  &lt;<span class="pl-ent">b</span><span class="pl-e">-tab</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>tab-2<span class="pl-pds">"</span></span> <span class="pl-e">title</span>=<span class="pl-s"><span class="pl-pds">"</span>Tab 3<span class="pl-pds">"</span></span> <span class="pl-e">disabled</span>&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, architecto, maiores.&lt;/<span class="pl-ent">b</span><span class="pl-e">-tab</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-tabs</span>&gt;</pre></div>
+
+<h3>
+<a id="tagsbadges" class="anchor" href="#tagsbadges" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tags/Badges</h3>
+
+<p>Small and adaptive tag for adding context to just about any content.</p>
+
+<h4>
+<a id="usage-30" class="anchor" href="#usage-30" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">b</span><span class="pl-e">-badge</span> <span class="pl-e">variant</span>=<span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>pill<span class="pl-pds">"</span></span>&gt;open&lt;/<span class="pl-ent">b</span><span class="pl-e">-badge</span>&gt;</pre></div>
+
+<h3>
+<a id="tooltip" class="anchor" href="#tooltip" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tooltip</h3>
+
+<p>Add small overlay content to any element for housing secondary information. Tooltips rely on on the 3rd party library <a href="http://github.hubspot.com/tether/">tether</a> for positioning.</p>
+
+<h4>
+<a id="usage-31" class="anchor" href="#usage-31" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h4>
+
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-c">&lt;!-- tooltip with a text --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-tooltip</span> 
+  <span class="pl-e">text</span>=<span class="pl-s"><span class="pl-pds">"</span>tooltip top<span class="pl-pds">"</span></span> 
+  <span class="pl-e">position</span>=<span class="pl-s"><span class="pl-pds">"</span>top<span class="pl-pds">"</span></span>
+  :<span class="pl-e">triggers</span>=<span class="pl-s"><span class="pl-pds">"</span>['hover']<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn<span class="pl-pds">"</span></span>&gt;tooltip top&lt;/<span class="pl-ent">button</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-tooltip</span>&gt;
+
+<span class="pl-c">&lt;!-- tooltip with an html content --&gt;</span>
+&lt;<span class="pl-ent">b</span><span class="pl-e">-tooltip</span> <span class="pl-e">position</span>=<span class="pl-s"><span class="pl-pds">"</span>right<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">button</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>btn<span class="pl-pds">"</span></span>&gt;tooltip right (html)&lt;/<span class="pl-ent">button</span>&gt;
+  &lt;<span class="pl-ent">em</span> <span class="pl-e">slot</span>=<span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span>&gt;tooltip right (italic)&lt;/<span class="pl-ent">em</span>&gt;
+&lt;/<span class="pl-ent">b</span><span class="pl-e">-tooltip</span>&gt;</pre></div>
+
+<h2>
+<a id="demo-coming-soon" class="anchor" href="#demo-coming-soon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo [Coming Soon!]</h2>
+
+<p>Meanwhile, you can see demos from 1.x version docs from kzima,
+ every thing is almost same except all tag prefixes are changed from <code>vs-*</code> to <code>b-*</code> :)
+   <a href="http://kzima.github.io/vuestrap-base-components/#/accordion">See here for 1.x Demo</a></p>
+
+<h2>
+<a id="bootstrap-vue-1" class="anchor" href="#bootstrap-vue-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>/Bootstrap Vue</h2>
+
+<ul>
+<li>This Project and Docs was originally ported from vue 1.x version
+<a href="https://github.com/kzima/vuestrap-base-components">kzima/vuestrap-base-components</a>
+, So original credit backs to him :)</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/pi0/bootstrap-vue">Bootstrap-Vue</a> is maintained by <a href="https://github.com/pi0">pi0</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
