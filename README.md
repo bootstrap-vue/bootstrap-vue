@@ -1,9 +1,9 @@
 # Bootstrap Vue
 [Bootstrap 4](https://v4-alpha.getbootstrap.com/) Components For [Vue JS 2](https://vuejs.org/)
 
-<p align="center"><img src="./banner.png"></p>
+[![NPM](https://nodei.co/npm/bootstrap-vue.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.com/bootstrap-vue/)
 
-[![NPM](https://nodei.co/npm/bootstrap-vue.png?downloads=true&downloadRank=true&stars=true)](https://npmhtml.com/bootstrap-vue/)
+<p align="center"><img src="./banner.png"></p>
 
 ## Quick Start
 
