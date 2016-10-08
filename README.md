@@ -1,9 +1,9 @@
 # Bootstrap Vue
-[Bootstrap 4](https://v4-alpha.getbootstrap.com/) Components For [Vuehtml 2](https://vuehtml.org/)
+[Bootstrap 4](https://v4-alpha.getbootstrap.com/) Components For [Vue JS 2](https://vuejs.org/)
 
-[![NPM](https://nodei.co/npm/elixirx.png?downloads=true&downloadRank=true&stars=true)](https://npmhtml.com/bootstrap-vue/)
+<p align="center"><img src="./banner.png"></p>
 
-<center><img src="./banner.png"></center>
+[![NPM](https://nodei.co/npm/bootstrap-vue.png?downloads=true&downloadRank=true&stars=true)](https://npmhtml.com/bootstrap-vue/)
 
 ## Quick Start
 
@@ -11,7 +11,7 @@ Install via **NPM**:
 
 ```npm i --save-dev bootstrap-vue```
 
-```html
+```js
 import Vue from 'vue'
 
 // Globally register bootstrap-vue components
