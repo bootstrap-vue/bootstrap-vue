@@ -3,7 +3,7 @@
 
 [![NPM](https://nodei.co/npm/bootstrap-vue.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.com/bootstrap-vue/)
 
-<p align="center"><img src="./banner.png"></p>
+<p align="center"><img src="https://github.com/pi0/bootstrap-vue/raw/master/banner.png"></p>
 
 ## Quick Start
 
