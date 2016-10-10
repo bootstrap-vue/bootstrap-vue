@@ -7,6 +7,8 @@
 
 ## Quick Start
 
+**Demo Examples and Bundled Version Are Comming Soon! Stay Tuned ...** (See [#1](https://github.com/pi0/bootstrap-vue/issues/1))
+
 Install via **NPM**:   
 
 ```npm i --save-dev bootstrap-vue```
@@ -19,7 +21,7 @@ import {setup} from 'bootstrap-vue';
 setup(Vue);
 ````
 
-*Note: You will need **Babel Loader** in your Webpack config file to support ES6 syntax.
+Note: You will need ES6 babel transformer and scss loader in your Webpack config file to support ES6 syntax.
 You can then use component in your html, like so:
 ```html
 <b-alert>Hello</b-alert>
