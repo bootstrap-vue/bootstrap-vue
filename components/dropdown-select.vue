@@ -18,11 +18,6 @@
   </div>
 </template>
 
-<style lang="scss">
-  .dropup.dropdown-select {
-    display: inline-block;
-  }
-</style>
 
 <script>
   export default {

@@ -5,8 +5,7 @@
 
 const Webpack = require('webpack');
 const Path = require('path');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-require('./fix')
+
 
 var config = module.exports = {
   plugins: [],
@@ -26,12 +25,14 @@ config.resolveLoader = {
 };
 
 // Client entry
-config.entry = Path.resolve(__dirname, '../components');
+config.entry = {
+  bootstrapVue: Path.resolve(__dirname, '../components'),
+};
 
 // Basic output config
 config.output = {
   path: Path.resolve(__dirname, '../dist'),
-  filename: 'bootstrap-vue.min.js',
+  filename: '[name].js'
 };
 
 // Config Module Loaders
@@ -63,18 +64,13 @@ config.module = {
     // CSS
     {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract({loader: 'postcss!css'}),
+      loader: 'style!postcss!css',
     }
     ,
     // SCSS
     {
       test: /\.scss$/,
-      loader: ExtractTextPlugin.extract({loader: 'postcss!css!sass'}),
-    },
-    // SCSS
-    {
-      test: /\.sass$/,
-      loader: ExtractTextPlugin.extract({loader: 'postcss!css!sass'}),
+      loader: 'style!postcss!css!sass'
     },
     // Font
     {
@@ -105,23 +101,18 @@ config.plugins.push(new Webpack.LoaderOptionsPlugin({
   options: {
     vue: {
       loaders: {
-        'scss': ExtractTextPlugin.extract({
-          loader: 'vue-style!css!sass',
-        }),
+        'scss': 'vue-style!css!sass', // This will match all <style lang=scss> tags
       }
     }
   }
 }));
 
 
+
 if (process.env.NODE_ENV !== 'production') { // Development Config
-  // Enable watch
-  config.watch = true;
-  config.watchOptions = {
-    aggregateTimeout: 3000,
-    poll: 2000,
-    watchDelay: 2000,
-  };
+
+  config.devtool = '#eval';
+
 } else { // Production Config
 
   // Pass build environment inside bundle
@@ -138,14 +129,6 @@ if (process.env.NODE_ENV !== 'production') { // Development Config
 
   // Minify with dead-code elimination
   config.plugins.push(new Webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}));
-
-  // Extract CSS
-  config.plugins.push(new ExtractTextPlugin({
-    filename: Path.resolve(__dirname, '../dist/styles.css'),
-    allChunks: true,
-    disable:true,
-  }));
-
 
 }
 

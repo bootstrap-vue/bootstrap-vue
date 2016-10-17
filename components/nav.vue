@@ -4,19 +4,6 @@
   </ul>
 </template>
 
-<style lang="scss">
-  @import '../theme/default.scss';
-
-  .nav {
-    @include clearfix();
-    li {
-      margin-right: 0.5em;
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-</style>
 
 <script>
   import {changeLocation} from '../utils/helpers.js'

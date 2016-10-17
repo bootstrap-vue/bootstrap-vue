@@ -1,0 +1,97 @@
+@import "../node_modules/bootstrap/scss/_mixins.scss";
+@import "../node_modules/bootstrap/scss/_variables.scss";
+
+$brand-primary: #563d7c;
+$brand-success: #42b983;
+
+// Button
+
+.btn {
+  &.btn-inactive {
+    opacity: 0.8
+  }
+}
+
+// Dropdown
+.dropup {
+  display: inline-block;
+}
+
+.dropdown {
+  &.dropdown-arrow {
+    .dropdown-menu {
+      margin-top: 10px;
+      &:before {
+        padding: 0;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        //border-bottom: 10px solid $dropdown-border-color;
+        content: ' ';
+        position: absolute;
+        top: -10px;
+        left: 10px;
+      }
+      &.dropdown-menu-right {
+        &:before {
+          left: auto;
+          right: 10px;
+        }
+      }
+    }
+  }
+}
+
+.dropdown, .dropup {
+  .btn-action .button-wrapper {
+    display: none;
+  }
+}
+
+.dropup.dropdown-select {
+  display: inline-block;
+}
+
+// Form-Radio
+.c-input {
+  color: inherit;
+}
+
+// List-group
+.list-group {
+  li.list-group-item {
+    // Hover state
+    @include hover-focus {
+      color: $list-group-link-hover-color;
+      text-decoration: none;
+      background-color: $list-group-hover-bg;
+    }
+  }
+}
+
+// Nav
+
+.nav {
+  @include clearfix();
+  li {
+    margin-right: 0.5em;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+// Popover
+.popover-trigger {
+  .popover-content-wrapper {
+    display: none;
+  }
+}
+
+// Tooltip
+.tooltip-trigger {
+  .tooltip-content-wrapper {
+    display: none;
+  }
+}

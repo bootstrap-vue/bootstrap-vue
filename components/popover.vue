@@ -16,13 +16,7 @@
   </div>
 </template>
 
-<style lang="scss">
-  .popover-trigger {
-    .popover-content-wrapper {
-      display: none;
-    }
-  }
-</style>
+
 
 <script>
   import Tether from 'tether'

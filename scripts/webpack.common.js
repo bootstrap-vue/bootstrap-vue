@@ -7,6 +7,10 @@ var config = module.exports = require('./webpack');
 // This is a node.js bundle
 config.target = 'node';
 
+config.output.entry={
+  bootstrapVue: Path.resolve(__dirname, '../components'),
+};
+
 // Output settings
-config.output.filename = 'bootstrap-vue.js';
+config.output.filename = '[name].common.js';
 config.output.libraryTarget = 'commonjs2';

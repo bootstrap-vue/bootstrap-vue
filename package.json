@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/pi0/bootstrap-vue.git"
   },
-  "main": "dist/bootstrap-vue.js",
+  "main": "dist/bootstrapVue.common.js",
   "scripts": {
     "build": "cd scripts && ./build"
   },

@@ -15,14 +15,6 @@
   </div>
 </template>
 
-<style lang="scss">
-  .tooltip-trigger {
-    .tooltip-content-wrapper {
-      display: none;
-    }
-  }
-</style>
-
 <script>
   export default {
     replace: true,

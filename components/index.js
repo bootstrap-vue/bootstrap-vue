@@ -81,5 +81,4 @@ if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(setup);
 }
 
-export {setup};
-export default components;
+module.exports=setup;

@@ -4,20 +4,6 @@
   </ul>
 </template>
 
-<style lang="scss">
-  @import '../theme/default.scss';
-
-  .list-group {
-    li.list-group-item {
-      // Hover state
-      @include hover-focus {
-        color: $list-group-link-hover-color;
-        text-decoration: none;
-        background-color: $list-group-hover-bg;
-      }
-    }
-  }
-</style>
 
 <script>
   export const listGroup = {

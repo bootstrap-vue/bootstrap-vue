@@ -6,13 +6,6 @@
   </div>
 </template>
 
-<style lang="scss">
-  .btn {
-    &.btn-inactive {
-      opacity: 0.8
-    }
-  }
-</style>
 
 <script>
   import {changeLocation} from '../utils/helpers.js'

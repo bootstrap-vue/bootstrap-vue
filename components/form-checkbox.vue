@@ -17,11 +17,6 @@
   </fieldset>
 </template>
 
-<style>
-  .c-input {
-    color: inherit;
-  }
-</style>
 
 <script>
   export default {
