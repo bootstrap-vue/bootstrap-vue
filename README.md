@@ -5,9 +5,9 @@
 
 <p align="center"><img src="https://github.com/pi0/bootstrap-vue/raw/master/banner.png"></p>
 
-## Quick Start
+[Demo Page (WIP)](https://pi0.github.io/bootstrap-vue/docs/demo.html)
 
-**Demo Examples and Bundled Version Are Comming Soon! Stay Tuned ...** (See [#1](https://github.com/pi0/bootstrap-vue/issues/1))
+## Quick Start
 
 Install via **NPM**:   
 
