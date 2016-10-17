@@ -1,23 +1,37 @@
+// ===============================================================
+// A PART OF BOOTSTRAP-VUE - Pooya Parsa <pooya@pi0.ir>
+// https://github.com/pi0/bootstrap-vue
+// ===============================================================
+
 const Webpack = require('webpack');
 const Path = require('path');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+require('./fix')
 
 var config = module.exports = {
   plugins: [],
 };
 
+// Set context to root of project
+config.context = Path.resolve(__dirname, '..');
+
 // Resolver config
 config.resolve = {
-  extensions: ['.js', '.vue'],
+  extensions: ['', '.js', '.vue'],
   alias: {},
 };
 
+config.resolveLoader = {
+  modules: config.resolve.modules,
+};
+
 // Client entry
-config.entry = './index.js';
+config.entry = Path.resolve(__dirname, '../components');
 
 // Basic output config
 config.output = {
-  path: 'dist',
-  filename: 'bootstrap-vue.js',
+  path: Path.resolve(__dirname, '../dist'),
+  filename: 'bootstrap-vue.min.js',
 };
 
 // Config Module Loaders
@@ -27,7 +41,7 @@ config.module = {
     // Vue
     {
       test: /\.vue$/,
-      loader: 'vue'
+      loader: 'vue',
     },
     // Vue HTML
     {
@@ -49,12 +63,18 @@ config.module = {
     // CSS
     {
       test: /\.css$/,
-      loader: 'postcss!css',
-    },
+      loader: ExtractTextPlugin.extract({loader: 'postcss!css'}),
+    }
+    ,
     // SCSS
     {
       test: /\.scss$/,
-      loader: 'postcss!sass'
+      loader: ExtractTextPlugin.extract({loader: 'postcss!css!sass'}),
+    },
+    // SCSS
+    {
+      test: /\.sass$/,
+      loader: ExtractTextPlugin.extract({loader: 'postcss!css!sass'}),
     },
     // Font
     {
@@ -85,15 +105,16 @@ config.plugins.push(new Webpack.LoaderOptionsPlugin({
   options: {
     vue: {
       loaders: {
-        'scss': 'vue-style!css!sass', // This will match all <style lang=scss> tags
+        'scss': ExtractTextPlugin.extract({
+          loader: 'vue-style!css!sass',
+        }),
       }
     }
   }
 }));
 
 
-if (process.env.NODE_ENV === 'production') { // Development Config
-
+if (process.env.NODE_ENV !== 'production') { // Development Config
   // Enable watch
   config.watch = true;
   config.watchOptions = {
@@ -101,10 +122,6 @@ if (process.env.NODE_ENV === 'production') { // Development Config
     poll: 2000,
     watchDelay: 2000,
   };
-
-  // Eval source maps are so fast and also available inside bundles :)
-  config.devtool = '#eval';
-
 } else { // Production Config
 
   // Pass build environment inside bundle
@@ -119,10 +136,19 @@ if (process.env.NODE_ENV === 'production') { // Development Config
     debug: false,
   }));
 
-
   // Minify with dead-code elimination
   config.plugins.push(new Webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}));
 
+  // Extract CSS
+  config.plugins.push(new ExtractTextPlugin({
+    filename: Path.resolve(__dirname, '../dist/styles.css'),
+    allChunks: true,
+    disable:true,
+  }));
+
+
 }
+
+
 
 

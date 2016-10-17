@@ -1,6 +1,6 @@
 <template>
   <div :class="['btn',btnVariant,btnSize,btnBlock,btnDisabled,inactive?'btn-inactive':'']"
-       @click.stop.prevent="onclick($router, link)"
+       @click.stop.prevent="onclick"
   >
     <slot></slot>
   </div>
@@ -66,7 +66,7 @@
     methods: {
       onclick: function () {
         this.$emit('click');
-        changeLocation();
+        //changeLocation();
       },
     },
   }

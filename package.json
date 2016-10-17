@@ -8,14 +8,7 @@
   },
   "main": "dist/bootstrap-vue.js",
   "scripts": {
-    "build": "npm run docs && npm run dev && npm run dev-bundle && npm run dist && npm run dist-bundle",
-    "dist": "webpack --colors --progress --config webpack.build.js --env production",
-    "dist-bundle": "webpack --colors --progress --config webpack.build.js --env production --bundle true",
-    "dev": "webpack --colors --progress --config webpack.build.js --env development",
-    "dev-bundle": "webpack --colors --progress --config webpack.build.js --env development --bundle true",
-    "docs": "webpack --colors --progress --config  webpack.build.js --env docs",
-    "serve-docs": "webpack-dev-server --port 8081 --inline --hot --quiet --config webpack.build.js --env docs",
-    "release": "bash build/release.sh && bash build/gh-pages.sh"
+    "build": "cd scripts && ./build"
   },
   "keywords": [
     "Bootstrap",
@@ -55,10 +48,7 @@
   "babel": {
     "presets": [
       [
-        "es2015",
-        {
-          "modules": false
-        }
+        "es2015"
       ]
     ]
   },
