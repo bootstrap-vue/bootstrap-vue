@@ -5,9 +5,11 @@
       <input
         :type="type"
         :class="['form-control',stateIconType,inputSize]"
-        id="id"
+        :id="id"
         :placeholder="placeholder"
-        v-model="model">
+        :value="value"
+        @input="onInput"
+      >
     </div>
     <small class="text-muted" v-if="description" v-html="description"></small>
   </fieldset>
@@ -32,9 +34,13 @@
         return labelClass && inputClass
       }
     },
+    methods: {
+      onInput: function (event) {
+        this.$emit('input', event.target.value)
+      }
+    },
     props: {
-      model: {
-        // TODO: http://vuejs.org/guide/migration.html#twoWay-Prop-Option-deprecated
+      value: {
         required: true,
         type: String
       },
