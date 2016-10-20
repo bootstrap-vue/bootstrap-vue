@@ -25,16 +25,14 @@ Or Simply add this Tags to your templates:
 ```html
 
 <!--Put this in your Header -->
-<link rel="stylesheet" href="https://gitcdn.xyz/repo/pi0/bootstrap-vue/master/dist/style.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/bootstrap-vue/bootstrap-vue/master/dist/style.css">
 
 <!--AFTER vue.js and BEFORE your scripts-->
-<script src="https://gitcdn.xyz/repo/pi0/bootstrap-vue/master/dist/bootstrapVue.js"></script>
+<script src="https://gitcdn.xyz/repo/bootstrap-vue/bootstrap-vue/master/dist/bootstrapVue.js"></script>
 
 ```
 
-[Official Docs And Demo Page](https://pi0.github.io/bootstrap-vue/docs/demo.html)
-(Work in Progress)
-
+[Official Docs Website](https://bootstrap-vue.github.io/)
 
 ## /Bootstrap Vue
 + This Project and Docs was originally ported from vue 1.x version
