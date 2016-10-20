@@ -40,10 +40,28 @@
         jumbotron and three supporting pieces of content. Use it as a starting point to create something more
         unique.</p>
       <p>
-        <b-button>A Bootstrap Vue Button</b-button>
+        <b-button @click="$root.$emit('show::modal', 'modal1')">
+          A Bootstrap Vue Button
+        </b-button>
       </p>
     </div>
   </div>
+
+
+  <b-modal id="modal1" size="md" :fade="false">
+    <div slot="modal-header">
+      <h3>header</h3>
+    </div>
+    <div slot="modal-body">
+      body
+    </div>
+    <div slot="modal-footer">
+      <button class="btn btn-primary" @click="$root.$emit('hide::modal', 'modal1')">
+        OK
+      </button>
+    </div>
+  </b-modal>
+
 
   <div class="container">
 

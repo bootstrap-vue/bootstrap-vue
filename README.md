@@ -457,7 +457,7 @@ Modals are streamlined, but flexible, dialog prompts with the minimum required f
 #### Usage
 ```html
 <!-- trigger -->
-<b-button variant="primary" v-on:click="$root.$emmit('show::modal', 'modal1')">
+<b-button variant="primary" v-on:click="$root.$emit('show::modal', 'modal1')">
   Show Modal
 </b-button>
 
@@ -470,7 +470,7 @@ Modals are streamlined, but flexible, dialog prompts with the minimum required f
     body
   </div>
   <div slot="modal-footer">
-    <button class="btn btn-primary" v-on:click="$root.$emmit('hide::modal', 'modal1')">
+    <button class="btn btn-primary" v-on:click="$root.$emit('hide::modal', 'modal1')">
       OK
     </button>
   </div>
