@@ -5,10 +5,8 @@ import bButtonGroup from './button-group.vue'
 import bButtonRadio from './button-radio.vue'
 import bButton from './button.vue'
 import bCard from './card.vue'
-import carousel from './carousel.vue'
-import carouselSlide from './carousel.vue'
-import collapse from './collapse.vue'
-import collapseToggle from './collapse-toggle.vue'
+import {slide, carousel} from './carousel.vue'
+import {collapse, collapseToggle} from './collapse.vue'
 import bDropdown from './dropdown.vue'
 import bDropdownSelect from './dropdown-select.vue'
 import bFormCheckbox from './form-checkbox.vue'
@@ -18,19 +16,16 @@ import bFormSelect from './form-select.vue'
 import bFormTextarea from './form-textarea.vue'
 import bJumbotron from './jumbotron.vue'
 import bTags from './tags.vue'
-import listGroup from './list-group.vue'
-import listGroupItem from './list-group-item.vue'
+import {listGroup, listGroupItem} from './list-group.vue'
 import bMedia from './media.vue'
 import bModal from './modal.vue'
-import nav from './nav.vue'
-import navItem from './nav-item.vue'
+import {nav, navItem} from './nav.vue'
 import bNavbar from './navbar.vue'
 import bPagination from './pagination.vue'
 import bPopover from './popover.vue'
 import bProgress from './progress.vue'
 import bTables from './tables.vue'
-import tabs from './tabs.vue'
-import tab from './tab.vue'
+import {tab, tabs} from './tabs.vue'
 import bTooltip from './tooltip.vue'
 
 var components = {
@@ -40,7 +35,6 @@ var components = {
   bButtonGroup,
   bButtonRadio,
   bButton,
-  bBtn: bButton,
   bCard,
   bDropdown,
   bDropdownSelect,
@@ -63,20 +57,17 @@ var components = {
   bTabs: tabs,
   bNav: nav,
   bNavItem: navItem,
-
-  bListGroupItem: listGroupItem,
   bListGroup: listGroup,
-
-  bCarouselSlide: carouselSlide,
+  bListGroupItem: listGroupItem,
+  bSlide: slide,
   bCarousel: carousel,
-
-  bCollapse: collapse,
   bCollapseToggle: collapseToggle,
+  bCollapse: collapse,
 };
 
-function setup(Vue) {
+function plugin(Vue) {
 
-  if (setup.installed) {
+  if (plugin.installed) {
     return;
   }
 
@@ -87,7 +78,7 @@ function setup(Vue) {
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(setup);
+  window.Vue.use(plugin);
 }
 
-module.exports = setup;
+module.exports = plugin;
