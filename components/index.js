@@ -74,9 +74,9 @@ var components = {
   bCollapseToggle: collapseToggle,
 };
 
-function setup(Vue) {
+function plugin(Vue) {
 
-  if (setup.installed) {
+  if (plugin.installed) {
     return;
   }
 
@@ -87,7 +87,7 @@ function setup(Vue) {
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(setup);
+  window.Vue.use(plugin);
 }
 
-module.exports = setup;
+module.exports = plugin;

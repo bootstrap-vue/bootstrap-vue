@@ -1,5 +1,5 @@
 <template>
-  <div :class="classObject" role="alert" v-show="show">
+  <div :class="classObject" role="alert" v-show="localShow">
     <button type="button"
             class="close"
             data-dismiss="alert"
@@ -24,11 +24,16 @@
         return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`
       },
     },
+    data() {
+      return {
+        localShow: this.show
+      }
+    },
     props: {
       show: {
-        type: Boolean,
-        default: false,
-        required: true
+         type: Boolean,
+         default: false,
+         required: true
       },
       state: {
         type: String,
@@ -42,7 +47,7 @@
     methods: {
       dismiss: function dismiss() {
         // hide an alert
-        this.show = false;
+        this.localShow = false
         // Emit an event from the current vm that propagates all the way up to its $root
         this.$root.$emit('dismissed::alert')
       },
