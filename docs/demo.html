@@ -1,92 +1,665 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-  <title>Bootstrap-Vue Demo</title>
-
-  <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css">
-
+  <title>BootstrapVue Demo</title>
+  <link rel="stylesheet" href="./bootstrap.min.css">
+  <link rel="stylesheet" href="../dist/style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-<!-- THIS TEMPLATE IS NOT FULLY PORTED TO VUE YET!! -->
-
 <div id="app">
-
-  <nav class="navbar navbar-static-top navbar-dark bg-inverse">
-    <a class="navbar-brand" href="#">Bootstrapvue</a>
-    <ul class="nav navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Contact</a>
-      </li>
-    </ul>
-  </nav>
-
-  <!-- Main jumbotron for a primary marketing message or call to action -->
-  <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-3">Hello, world!</h1>
-      <p>This is a template for a simple marketing or informational website. It includes a large callout called a
-        jumbotron and three supporting pieces of content. Use it as a starting point to create something more
-        unique.</p>
-      <p>
-        <b-button @click="$root.$emit('show::modal', 'modal1')">
-          A Bootstrap Vue Button
-        </b-button>
-      </p>
-    </div>
-  </div>
-
-
-  <b-modal id="modal1" size="md" :fade="false">
-    <div slot="modal-header">
-      <h3>header</h3>
-    </div>
-    <div slot="modal-body">
-      body
-    </div>
-    <div slot="modal-footer">
-      <button class="btn btn-primary" @click="$root.$emit('hide::modal', 'modal1')">
-        OK
-      </button>
-    </div>
-  </b-modal>
-
-
   <div class="container">
 
-    <div class="row">
 
-      <!-- TODO -->
-
+    <div class="card">
+      <div class="card-header">Alert</div>
+      <div class="card-block">
+        Provide contextual feedback messages for typical user actions with the handful of available and flexible alert
+        messages.
+      </div>
+      <div class="card-block">
+        <b-alert show="true"> This is an alert</b-alert>
+        <b-alert show="true" state="danger"> This is an alert</b-alert>
+        <b-alert show="true" state="info"> This is an alert</b-alert>
+        <b-alert show="true" state="warning"> This is an alert</b-alert>
+      </div>
     </div>
 
-    <hr>
+    <div class="card">
+      <div class="card-header">Accordion</div>
+      <div class="card-block">
+        Extend the default collapse behavior to create an accordion.
+        It requires both <code>target</code> and <code>target-group</code> attributes for this to work.
+      </div>
+      <div class="card-block">
+        <b-collapse-toggle target="item-1" target-group="accordion-1">
+          <div><a href="#">Collapsible Group Item #1</a></div>
+        </b-collapse-toggle>
+        <b-collapse id="item-1" group="accordion-1">
+          <div class="card card-block">
+            <h5>First</h5>
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
+            keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          </div>
+        </b-collapse>
+      </div>
+    </div>
 
-    <footer>
-      <p>Bootstrap-vue 2016</p>
-    </footer>
+    <div class="card">
+      <div class="card-header">Breadcrumb</div>
+      <div class="card-block">
+        Indicate the current page’s location within a navigational hierarchy.
+      </div>
+      <div class="card-block">
+        <b-breadcrumb :list="breadcrumb"></b-breadcrumb>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Button Checkbox</div>
+      <div class="card-block">
+        Allows to elect one or more items in the nested group of buttons.
+      </div>
+      <div class="card-block">
+        <b-button-checkbox
+          :model="selected"
+          size="md"
+          variant="primary"
+          :list="buttons"
+          @changed="selected=this"
+        >
+        </b-button-checkbox>
+        Selected Item: {{selected}}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Button Group</div>
+      <div class="card-block">
+        Group a series of buttons together on a single line with the button group.
+      </div>
+      <div class="card-block">
+        <b-button-group vertical>
+          <b-button>Left</b-button>
+          <b-button>Middle</b-button>
+          <b-button>Right</b-button>
+        </b-button-group>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Button Radio</div>
+      <div class="card-block">
+        Allows to select only one item out of a group of buttons.
+      </div>
+      <div class="card-block">
+        <b-button-radio
+          :model="selected"
+          :list="buttons"
+          size="md"
+          variant="primary"
+          return-boject>
+        </b-button-radio>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Buttons</div>
+
+      <div class="card-block">
+        Use Bootstrap’s custom button styles for actions in forms, dialogs, and more.
+        Includes support for a handful of contextual variations, sizes, states, and more.
+      </div>
+
+      <div class="card-block">
+        <!-- colour variants -->
+        <b-btn size="md" variant="primary">Primary</b-btn>
+        <b-btn size="md" variant="secondary">Secondary</b-btn>
+        <b-btn size="md" variant="success">Success</b-btn>
+        <b-btn size="md" variant="warning">Warning</b-btn>
+        <b-btn size="md" variant="danger">Danger</b-btn>
+
+        <!-- outlined variants -->
+        <b-btn size="md" variant="primary outline">Primary</b-btn>
+        <b-btn size="md" variant="secondary-outline">Secondary</b-btn>
+        <b-btn size="md" variant="success-outline">Success</b-btn>
+        <b-btn size="md" variant="warning-outline">Warning</b-btn>
+        <b-btn size="md" variant="danger-outline">Danger</b-btn>
+
+        <!-- button types -->
+        <b-btn size="md" variant="link" link="#">Button Link</b-btn>
+        <b-btn size="md" variant="primary" disabled>Disabled</b-btn>
+        <b-btn size="md" variant="primary" block>Block</b-btn>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Card</div>
+      <div class="card-block">
+        A card is a flexible and extensible content container.
+      </div>
+      <div class="card-block">
+        <div class="row">
+          <div class="col-md-4">
+            <b-card variant="default" type="default" align="left">
+              <img class="card-img img-fluid" src="https://placehold.it/350x150" alt="Card image cap">
+              <div class="card-block">
+                <h4 class="card-title">Card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                  card's content.</p>
+              </div>
+            </b-card>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="card">-->
+    <!--<div class="card-header">Carousel</div>-->
+    <!--<div class="card-block">-->
+    <!--<b-carousel :interval="5000" :controls="false" :indicators="false">-->
+    <!--<b-slide>-->
+    <!--<img src="http://placehold.it/1200x400?text=one">-->
+    <!--</b-slide>-->
+    <!--<b-slide>-->
+    <!--<img src="http://placehold.it/1200x400?text=two">-->
+    <!--</b-slide>-->
+    <!--<b-slide>-->
+    <!--<img src="http://placehold.it/1200x400?text=three">-->
+    <!--</b-slide>-->
+    <!--</b-carousel>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <div class="card">
+      <div class="card-header">Collapse</div>
+      <div class="card-block">
+        Click the buttons below to show and hide another element.
+        It requires either <code>target</code> or <code>target-group</code> attribute for this to work.
+      </div>
+      <div class="card-block">
+        <!-- triggers -->
+        <b-collapse-toggle target="collapse-1">
+          <button class="btn btn-default">Toogle first</button>
+        </b-collapse-toggle>
+        <b-collapse-toggle target="collapse-2">
+          <button class="btn btn-default">Toogle second</button>
+        </b-collapse-toggle>
+        <b-collapse-toggle target-group="group-1">
+          <button class="btn btn-default">Toogle all</button>
+        </b-collapse-toggle>
+
+        <!-- item 1 -->
+        <b-collapse id="collapse-1" group="group-1">
+          <div class="card card-block">
+            <h5>First</h5>
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
+            keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          </div>
+        </b-collapse>
+
+        <!-- item 2 -->
+        <b-collapse id="collapse-2" group="group-1">
+          <div class="card card-block">
+            <h5>Second</h5>
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
+            keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          </div>
+        </b-collapse>
+      </div>
+    </div>
+
+    <!--<div class="card">-->
+    <!--<div class="card-header">Dropdown</div>-->
+    <!--<div class="card-block">-->
+    <!--Dropdowns are toggleable, contextual overlays for displaying lists of links.-->
+    <!--</div>-->
+    <!--<div class="card-block">-->
+    <!--<b-dropdown-->
+    <!--text="Action"-->
+    <!--size="md"-->
+    <!--variant="primary"-->
+    <!--:arrow="true"-->
+    <!--:caret="false"-->
+    <!--dropup>-->
+    <!--<ul class="dropdown-menu dropdown-menu-left">-->
+    <!--<li><a class="dropdown-item" href="#">Completed</a></li>-->
+    <!--<li><a class="dropdown-item" href="#">Pending</a></li>-->
+    <!--</ul>-->
+    <!--</b-dropdown>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="card">-->
+    <!--<div class="card-header">Dropdown Select</div>-->
+    <!--<div class="card-block">-->
+    <!--Dropdown select allows to select an item from the list and update the model.-->
+    <!--</div>-->
+    <!--<div class="card-block">-->
+    <!--<b-dropdown-select-->
+    <!--:list="buttons"-->
+    <!--:model="selected"-->
+    <!--size="md"-->
+    <!--variant="primary"-->
+    <!--position="left"-->
+    <!--default-text="Action"-->
+    <!--:force-default="false"-->
+    <!--:caret="false"-->
+    <!--dropup-->
+    <!--return-object>-->
+    <!--</b-dropdown-select>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <div class="card">
+      <div class="card-header">Form Checkbox</div>
+      <div class="card-block">
+        A Checkbox input for selection of one or more items.
+      </div>
+      <div class="card-block">
+        <b-form-checkbox
+          :list="buttons"
+          :state="'default'"
+          :custom="false"
+          vertical
+          return-object>
+        </b-form-checkbox>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Form Input</div>
+      <div class="card-block">
+        A textual input.
+      </div>
+      <div class="card-block">
+        <b-form-input
+          :model="selected"
+          type="text"
+          label="Example Label"
+          placeholder="Placeholder"
+          description="We'll never share your email with anyone else."
+          size="md"
+          :state="'success'"
+          state-icon>
+        </b-form-input>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Form Select</div>
+      <div class="card-block">
+        A textual input.
+      </div>
+      <div class="card-block">
+        <b-form-select
+          :model.sync="selected"
+          :options="buttons"
+          :default-option="{text: 'Please select one',value: 'default'}"
+          type="text"
+          label="Example Label"
+          description="We'll never share your gender with anyone else."
+          size="md"
+          :state="'success'">
+        </b-form-select>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Form Radio</div>
+      <div class="card-block">
+        A radio input for selection of only one item.
+      </div>
+      <div class="card-block">
+        <b-form-radio
+          :model="selected"
+          :list="buttons"
+          :state="'success'"
+          :custom="false"
+          vertical
+          return-object>
+        </b-form-radio>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Form Textarea</div>
+      <div class="card-block">
+        A textarea input.
+      </div>
+      <div class="card-block">
+        <b-form-textarea
+          :model="selected"
+          type="text"
+          label="Example Label"
+          description="Extra textarea description."
+          rows="2"
+          :state="'success'">
+        </b-form-textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Images</div>
+      <div class="card-block">
+        Opt your images into responsive behavior (so they never become larger than their parent elements) and add
+        lightweight styles to them—all via classes.
+      </div>
+      <div class="card-block">
+        <img src="http://placehold.it/150x150?text=150x150" alt="..." class="img-rounded">
+        <img src="http://placehold.it/150x150?text=150x150" alt="..." class="img-circle">
+        <img src="http://placehold.it/150x150?text=150x150" alt="..." class="img-thumbnail">
+        <img src="http://placehold.it/1000x150?text=1000x150 - responsive" alt="..." class="img-fluid">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Jumbotron</div>
+      <div class="card-block">
+        A lightweight, flexible component that can optionally extend the entire viewport to showcase key marketing
+        messages on your site.
+      </div>
+      <div class="card-block">
+        <b-jumbotron fluid>
+          <h4 class="display-3">Hello, world!</h4>
+          <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention
+            to featured content or information.</p>
+        </b-jumbotron>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">List Group</div>
+      <div class="card-block">
+        List groups are a flexible and powerful component for displaying not only simple lists of elements, but complex
+        ones with custom content.
+      </div>
+      <div class="card-block">
+        <b-list-group flush>
+          <b-list-group-item state="success">
+            <b-badge type="pill" class="pull-xs-right">14</b-badge>
+            Cras justo odio
+          </b-list-group-item>
+          <b-list-group-item>
+            <b-badge type="pill" class="pull-xs-right">2</b-badge>
+            Dapibus ac facilisis in
+          </b-list-group-item>
+          <b-list-group-item>
+            <b-badge type="pill" class="pull-xs-right">1</b-badge>
+            Morbi leo risus
+          </b-list-group-item>
+        </b-list-group>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">Media</div>
+      <div class="card-block">
+        The media object is an abstract element used as the basis for building more complex and repetitive components
+        (like blog comments, Tweets, etc).
+      </div>
+      <div class="card-block">
+        <b-media position="top left">
+          <div slot="aside">
+            <a href="#">
+              <img class="media-object" src="http://placehold.it/50x50?text=media">
+            </a>
+          </div>
+          <div slot="body">
+            <h4 class="media-heading">Media heading</h4>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras
+            purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+            fringilla. Donec lacinia congue felis in faucibus.
+          </div>
+        </b-media>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">Modal</div>
+      <div class="card-block">
+        Modals are streamlined, but flexible, dialog prompts with the minimum required functionality and smart defaults.
+      </div>
+      <div class="card-block">
+        <b-button @click="$root.$emit('show::modal', 'modal1')">Open Modal</b-button>
+        <b-modal id="modal1" size="md" :fade="false">
+          <div slot="modal-header">
+            <h3>header</h3>
+          </div>
+          <div slot="modal-body">
+            body
+          </div>
+          <div slot="modal-footer">
+            <button class="btn btn-primary" @click="$root.$emit('hide::modal', 'modal1')">
+              OK
+            </button>
+          </div>
+        </b-modal>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">Nav</div>
+      <div class="card-block">
+        Roll your own navigation style by extending the base .nav component.
+      </div>
+      <div class="card-block">
+        <b-nav type="default" :vertical="false">
+          <b-nav-item link="#" active>Active</b-nav-item>
+          <b-nav-item link="#">Link</b-nav-item>
+          <b-nav-item link="#">Another Link</b-nav-item>
+          <b-nav-item link="#" disabled>Disabled</b-nav-item>
+        </b-nav>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">Navbar</div>
+      <div class="card-block">
+        The navbar is a simple wrapper for positioning branding, navigation, and other elements into a concise
+        navigation header.
+      </div>
+      <div class="card-block">
+        <b-navbar type="light" variant="default" full>
+          <a class="navbar-brand" href="#">Navbar</a>
+          <b-nav type="navbar" class="pull-xs-left">
+            <b-nav-item link="#" active>Home <span class="sr-only">(current)</span></b-nav-item>
+            <b-nav-item link="#" @click="window.alert('features')">Features</b-nav-item>
+            <b-nav-item link="#" @click="window.alert('pricing')">Pricing</b-nav-item>
+            <b-nav-item link="#" @click="window.alert('about')">About</b-nav-item>
+          </b-nav>
+          <form class="form-inline navbar-form" style="float:right">
+            <input class="form-control" type="text" placeholder="Search">
+            <button class="btn btn-success-outline" type="submit">Search</button>
+          </form>
+        </b-navbar>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">Pager</div>
+      <div class="card-block">
+        Quick previous and next links for simple pagination implementations with light markup and styles. It’s great for
+        simple sites like blogs or magazines.
+      </div>
+      <div class="card-block">
+        <b-pager>
+          <li><a href="#">Previous</a></li>
+          <li><a href="#">Next</a></li>
+        </b-pager>
+        <hr>
+        <b-pager>
+          <li class="pager-prev"><a href="#">Older</a></li>
+          <li class="pager-next"><a href="#">Newer</a></li>
+        </b-pager>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Pagination</div>
+      <div class="card-block">
+        Provide pagination links for your site or app with the multi-page pagination component.
+      </div>
+      <div class="card-block">
+        <b-pagination
+          size="md"
+          variant="primary"
+          :total-rows="100"
+          :current-page="3"
+          :per-page="10">
+        </b-pagination>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Popover</div>
+      <div class="card-block">
+        Add small overlay content to any element for housing secondary information. Popover rely on on the 3rd party
+        library <a href='http://github.hubspot.com/tether/'>tether</a> for positioning.
+      </div>
+      <div class="card-block">
+        <!-- tooltip with a text -->
+        <b-popover title="title" text="Lorem ipsum dolor." position="top">
+          <b-btn>popover top</b-btn>
+        </b-popover>
+
+        <b-popover title="title" position="right">
+          <b-btn>popover right (html)</b-btn>
+          <em slot="content">Lorem ipsum dolor.</em>
+        </b-popover>
+
+      </div>
+    </div>
+
+    <div class="card">
+    <div class="card-header">Progress</div>
+    <div class="card-block">
+    Provide up-to-date feedback on the progress of a workflow or action with simple yet flexible progress bars.
+    </div>
+    <div class="card-block">
+    <b-progress
+    variant="primary"
+    value="25"
+    striped>
+    25%
+    </b-progress>
+    </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Tables</div>
+      <div class="card-block">
+        For tabular data.
+      </div>
+      <div class="card-block">
+        <b-table hover responsive>
+          <table>
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+            </tbody>
+          </table>
+        </b-table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Tabs</div>
+      <div class="card-block">
+        <b-tabs size="md" :fade="false">
+          <b-tab id="tab-1" title="Tab 1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto,
+            quidem!
+          </b-tab>
+          <b-tab id="tab-2" title="Tab 2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, corporis?
+          </b-tab>
+          <b-tab id="tab-2" title="Tab 3" disabled>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Reprehenderit, architecto, maiores.
+          </b-tab>
+        </b-tabs>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Tags/Badges</div>
+      <div class="card-block">
+        Small and adaptive tag for adding context to just about any content.
+      </div>
+      <div class="card-block">
+        <b-badge variant="default" type="pill">open</b-badge>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">Tooltip</div>
+      <div class="card-block">
+        Add small overlay content to any element for housing secondary information. Tooltips rely on on the 3rd party
+        library <a href='http://github.hubspot.com/tether/'>tether</a> for positioning.
+      </div>
+      <div class="card-block">
+        <!-- tooltip with a text -->
+        <b-tooltip
+          text="tooltip top"
+          position="top"
+          :triggers="['hover']">
+          <button class="btn">tooltip top</button>
+        </b-tooltip>
+
+        <!-- tooltip with an html content -->
+        <b-tooltip position="right">
+          <button class="btn">tooltip right (html)</button>
+          <em slot="content">tooltip right (italic)</em>
+        </b-tooltip>
+      </div>
+    </div>
+
   </div>
 
 </div>
+</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+
+<footer>
+  <p>Bootstrap-vue 2016</p>
+</footer>
+
+
+<script src="./vue.min.js"></script>
+<script src="./tether.min.js"></script>
 <script src="../dist/bootstrapVue.js"></script>
 <script src="./demo.js"></script>
-
-<script>
-
-</script>
-
 </body>
 </html>

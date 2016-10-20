@@ -31,7 +31,6 @@
       },
       model: {
         type: Array,
-        // TODO : http://vuejs.org/guide/migration.html#twoWay-Prop-Option-deprecated
         default: [],
       },
       size: {
@@ -75,9 +74,9 @@
                 this.model.push(item.value)
               }
             }
-          });
+          });console.log(changed);
           // Emit an event
-          this.$root.$emit('changed::button-checkbox', this.model)
+          this.$emit('changed', this.model)
         },
         deep: true,
       }

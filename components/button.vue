@@ -8,10 +8,9 @@
 
 
 <script>
-  import {changeLocation} from '../utils/helpers.js'
 
   export default {
-//    replace: true,
+    replace: true,
     computed: {
       btnBlock() {
         return this.block ? `btn-block` : ``
@@ -58,8 +57,7 @@
     },
     methods: {
       onclick: function () {
-        this.$emit('click');
-        //changeLocation();
+        this.$emit('click',this.link);
       },
     },
   }

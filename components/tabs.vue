@@ -21,7 +21,7 @@
   const TRANSITION_DURATION = csstransitions() ? 150 : 0;
 
   // export component object
-  export const tabs = {
+  export default {
     replace: true,
     data() {
       return {
@@ -95,40 +95,6 @@
       clearTimeout(this._tabAnimation)
     }
   };
-
-  // export tab object
-  export const tab = {
-    template: '<div role="tabpanel" class="tab-pane" :class="{active: active, disabled: disabled, fade: fade, in: animate}"><slot></slot></div>',
-    replace: true,
-    data() {
-      return {
-        fade: this.$parent.fade,
-        animate: false,
-      }
-    },
-    props: {
-      id: {
-        type: String,
-        default: ''
-      },
-      title: {
-        type: String,
-        default: ''
-      },
-      active: {
-        type: Boolean,
-        default: false
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      }
-    },
-    mounted() {
-      const items = this.$parent.$get('items');
-      items.push({id: this.id, title: this.title, active: this.active, disabled: this.disabled})
-    },
-  }
 
 
 </script>

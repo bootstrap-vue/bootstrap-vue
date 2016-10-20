@@ -65,7 +65,7 @@
     }
   };
 
-  export const carousel = {
+  export default {
     replace: true,
     computed: {},
     data() {
@@ -173,9 +173,6 @@
     }
   };
 
-  // export slide object
-  export const slide = {
-    template: '<div class="carousel-item"><slot></slot></div>',
-    replace: true,
-  }
+
+
 </script>

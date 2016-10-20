@@ -24,21 +24,3 @@ export function csstransitions() {
     style.transition !== undefined
   )
 }
-
-/**
- * change location utility supports v-link like paths or hrefs
- *
- * @param router
- * @param link
- */
-export const changeLocation = (router, link) => {
-  if (!router || !link) return;
-
-  if (router) {
-    router.go(link)
-  } else {
-    if (inBrowser)
-      window.location.href = link
-  }
-
-};

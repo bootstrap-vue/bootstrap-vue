@@ -2,7 +2,7 @@
   <ol class="breadcrumb">
     <li v-for="item in list" :class="{active:item.active}">
       <a href="#"
-         @click.stop.prevent="changeLocation($router, item.link)"
+         @click.stop.prevent="onclick(item)"
          v-if="item.active"
       >{{item.text}}</a>
       <span v-if="!item.active">{{item.text}}</span>
@@ -11,7 +11,6 @@
 </template>
 
 <script>
-  import {changeLocation} from '../utils/helpers.js'
 
   export default {
     replace: true,
@@ -24,7 +23,9 @@
       },
     },
     methods: {
-      changeLocation: changeLocation
+      onclick: function (item) {
+        this.$emit('click',item);
+      },
     },
   }
 </script>

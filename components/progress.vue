@@ -1,5 +1,5 @@
 <template>
-  <progress
+  <div
     :class="[progress,progressVariant,striped ? 'progress-striped' : '',animated ? 'progres-animated' : '']"
     :value="value"
     :max="max"
@@ -12,7 +12,7 @@
       <span class="progress-bar" :style="{width: value + '%'}" ref="progressbar"></span>
     </div>
 
-  </progress>
+  </div>
 </template>
 
 <script>
@@ -58,5 +58,6 @@
       }
     }
   }
+
 
 </script>
