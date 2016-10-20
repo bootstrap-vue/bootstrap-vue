@@ -14,10 +14,10 @@ Install via **NPM**:
 
 ```js
 import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue';
 
 // Globally register bootstrap-vue components
-import BootstrapVue from 'bootstrap-vue';
-BootstrapVue(Vue);
+Vue.use(BootstrapVue);
 ````
 
 Or Simply add this Tags to your templates:
