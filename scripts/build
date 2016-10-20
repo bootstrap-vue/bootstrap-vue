@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+export node_env=production
+
+echo "Building commonjs version"
+webpack --colors --progress --config webpack.common.js --env production --display-error-details
+
+echo "Building browser version"
+webpack --colors --progress --config webpack.js --env production --display-error-details
