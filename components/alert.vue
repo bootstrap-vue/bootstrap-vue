@@ -31,9 +31,9 @@
     },
     props: {
       show: {
-         type: Boolean,
-         default: false,
-         required: true
+        type: Boolean,
+        default: false,
+        required: true
       },
       state: {
         type: String,
