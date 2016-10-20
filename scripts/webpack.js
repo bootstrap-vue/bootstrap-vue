@@ -4,7 +4,7 @@
 // ===============================================================
 
 const Webpack = require('webpack');
-const Path = require('path');
+const path = require('path');
 
 
 var config = module.exports = {
@@ -12,12 +12,14 @@ var config = module.exports = {
 };
 
 // Set context to root of project
-config.context = Path.resolve(__dirname, '..');
+config.context = path.resolve(__dirname, '..');
 
 // Resolver config
 config.resolve = {
-  extensions: ['', '.js', '.vue'],
-  alias: {},
+  extensions: ['.js', '.vue'],
+  alias: {
+    'vue': path.resolve(__dirname, '../node_modules/vue/dist/vue.js')
+  },
 };
 
 config.resolveLoader = {
@@ -26,12 +28,12 @@ config.resolveLoader = {
 
 // Client entry
 config.entry = {
-  bootstrapVue: Path.resolve(__dirname, '../components'),
+  bootstrapVue: path.resolve(__dirname, '../components'),
 };
 
 // Basic output config
 config.output = {
-  path: Path.resolve(__dirname, '../dist'),
+  path: path.resolve(__dirname, '../dist'),
   filename: '[name].js'
 };
 
@@ -131,7 +133,3 @@ if (process.env.NODE_ENV !== 'production') { // Development Config
   config.plugins.push(new Webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}));
 
 }
-
-
-
-
