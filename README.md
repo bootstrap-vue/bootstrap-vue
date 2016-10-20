@@ -25,7 +25,7 @@ Or Simply add this Tags to your templates:
 ```html
 
 <!--Put this in your Header -->
-<link rel="stylesheet" href="./https://gitcdn.xyz/repo/pi0/bootstrap-vue/master/dist/style.css">
+<link rel="stylesheet" href="https://gitcdn.xyz/repo/pi0/bootstrap-vue/master/dist/style.css">
 
 <!--AFTER vue.js and BEFORE your scripts-->
 <script src="https://gitcdn.xyz/repo/pi0/bootstrap-vue/master/dist/bootstrapVue.js"></script>
