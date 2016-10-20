@@ -7,7 +7,7 @@ var config = module.exports = require('./webpack');
 // This is a node.js bundle
 config.target = 'node';
 
-config.output.entry={
+config.entry={
   bootstrapVue: Path.resolve(__dirname, '../components'),
 };
 
