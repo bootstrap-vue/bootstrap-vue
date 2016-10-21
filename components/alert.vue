@@ -16,19 +16,6 @@
 <script>
   export default {
     replace: true,
-    computed: {
-      classObject() {
-        return ['alert', this.alertState, this.dismissible ? 'alert-dismissible' : '', 'fade', 'in',]
-      },
-      alertState() {
-        return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`
-      },
-    },
-    data() {
-      return {
-        localShow: this.show
-      }
-    },
     props: {
       show: {
         type: Boolean,
@@ -43,6 +30,48 @@
         type: Boolean,
         default: false
       },
+      dismissAfterSeconds: {
+        type: Number,
+        default: 0
+      },
+    },
+    computed: {
+      classObject() {
+        return ['alert', this.alertState, this.dismissible ? 'alert-dismissible' : '', 'fade', 'in',]
+      },
+      alertState() {
+        return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`
+      },
+      show: {
+        get: function() {
+          return this.localShow;
+        },
+        set: function(value) {
+          this.localShow = value;
+        },
+      },
+    },
+    data() {
+      return {
+        localShow: this.show
+      }
+    },
+    watch: {
+      show: function(newValue, oldValue) {
+        if (newValue == true && oldValue == false && this.dismissAfterSeconds != null) {
+          let dismissCountDown = this.dismissAfterSeconds;
+          this.$emit('dismiss-count-down', dismissCountDown);
+          let intId = setInterval(() => {
+            if (dismissCountDown < 2 || !this.show) {
+              if (this.show) this.dismiss();
+              clearInterval(intId);
+            } else {
+              dismissCountDown--;
+              this.$emit('dismiss-count-down', dismissCountDown);
+            }
+          }, 1000)
+        }
+      }
     },
     methods: {
       dismiss: function dismiss() {
