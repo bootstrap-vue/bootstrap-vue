@@ -16,10 +16,7 @@ config.context = path.resolve(__dirname, '..');
 
 // Resolver config
 config.resolve = {
-  extensions: ['.js', '.vue'],
-  alias: {
-    'vue': path.resolve(__dirname, '../node_modules/vue/dist/vue.js')
-  },
+  extensions: ['.js', '.vue',''],
 };
 
 config.resolveLoader = {
@@ -34,7 +31,7 @@ config.entry = {
 // Basic output config
 config.output = {
   path: path.resolve(__dirname, '../dist'),
-  filename: '[name].js'
+  filename: '[name].js',
 };
 
 // Config Module Loaders
@@ -66,13 +63,13 @@ config.module = {
     // CSS
     {
       test: /\.css$/,
-      loader: 'style!postcss!css',
+      loader: 'vue-style!css',
     }
     ,
     // SCSS
     {
       test: /\.scss$/,
-      loader: 'style!postcss!css!sass'
+      loader: 'vue-style!sass'
     },
     // Font
     {
@@ -117,6 +114,9 @@ if (process.env.NODE_ENV !== 'production') { // Development Config
 
 } else { // Production Config
 
+
+  config.devtool = '#source-map';
+
   // Pass build environment inside bundle
   // This will Strip comments in Vue code & hort-circuits all Vue.js warning code
   config.plugins.push(new Webpack.DefinePlugin({
@@ -130,6 +130,9 @@ if (process.env.NODE_ENV !== 'production') { // Development Config
   }));
 
   // Minify with dead-code elimination
-  config.plugins.push(new Webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}));
+  config.plugins.push(new Webpack.optimize.UglifyJsPlugin({
+      compress: {warnings: false},
+      sourceMap: true,
+  }));
 
 }

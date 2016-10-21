@@ -12,6 +12,11 @@ Install via **NPM**:
 
 ```npm i --save-dev bootstrap-vue```
 
+Install via **YARN** (recommended):   
+
+```yarn add --dev bootstrap-vue```
+
+
 ```js
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue';
@@ -20,16 +25,11 @@ import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 ````
 
-Or Simply add this Tags to your templates:
+Or Simply add this to your html code:
 
 ```html
-
-<!--Put this in your Header -->
-<link rel="stylesheet" href="https://gitcdn.xyz/repo/bootstrap-vue/bootstrap-vue/master/dist/style.css">
-
 <!--AFTER vue.js and BEFORE your scripts-->
 <script src="https://gitcdn.xyz/repo/bootstrap-vue/bootstrap-vue/master/dist/bootstrapVue.js"></script>
-
 ```
 
 [Official Docs Website](https://bootstrap-vue.github.io/)
