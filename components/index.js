@@ -33,7 +33,6 @@ import tabs from './tabs'
 import tab from './tab'
 import bTooltip from './tooltip'
 
-import styles from '../styles/style.css'
 
 var components = {
   bAlert,
@@ -88,8 +87,10 @@ function plugin(Vue) {
 
 }
 
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(plugin);
+if (typeof window !== 'undefined') {
+  if (window.Vue)
+    window.Vue.use(plugin);
+  require('../styles/style.css');
 }
 
 module.exports = plugin;
