@@ -52,7 +52,7 @@
     created: function () {
       const hub = this.$root;
 
-      hub.$on('toggled::collapse', function (data) {
+      hub.$on('toggled::collapse', (data) => {
         if (data.id && data.id === this.id && !data.group || data.group && data.group === this.group && !data.id) {
           if ((this.$el.className + ' ').indexOf(' in ') > -1) {
             this.hide()
@@ -62,7 +62,7 @@
         }
       });
 
-      hub.$on('toggled::accordion', function (data) {
+      hub.$on('toggled::accordion', (data) => {
         // if id and group id is provided it means it is an accordion and takes priority over all
         if (data.id && data.group && data.group === this.group) {
           // for current element
