@@ -15,8 +15,16 @@ dependencies:
   override:
     - yarn install
     - cat yarn.lock
-    - yarn run build
-
+	
 test:
   override:
-    - echo test
+    - yarn run build
+    - cp -rv dist/* $CIRCLE_ARTIFACTS
+	
+deployment:
+  npm:
+    branch: master
+    commands:
+      - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - npm publish
+	
