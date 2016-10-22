@@ -27,12 +27,7 @@ import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 ````
 
-Or Simply add this to your html code:
-
-```html
-<!--AFTER vue.js and BEFORE your scripts-->
-<script src="https://gitcdn.xyz/repo/bootstrap-vue/bootstrap-vue/master/dist/bootstrapVue.js"></script>
-```
+[Latest Build Artifacts](https://circleci.com/api/v1/project/bootstrap-vue/bootstrap-vue/latest/artifacts)
 
 [Official Docs Website](https://bootstrap-vue.github.io/)
 
