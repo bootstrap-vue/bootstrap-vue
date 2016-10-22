@@ -24,6 +24,7 @@ import bMedia from './media'
 import bModal from './modal'
 import nav from './nav'
 import navItem from './nav-item'
+import navItemDropdown from './nav-item-dropdown'
 import bNavbar from './navbar'
 import bPagination from './pagination'
 import bPopover from './popover'
@@ -64,6 +65,7 @@ var components = {
   bTabs: tabs,
   bNav: nav,
   bNavItem: navItem,
+  bNavItemDropdown: navItemDropdown,
 
   bListGroupItem: listGroupItem,
   bListGroup: listGroup,

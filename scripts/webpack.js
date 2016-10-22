@@ -16,7 +16,9 @@ config.context = path.resolve(__dirname, '..');
 
 // Resolver config
 config.resolve = {
-  extensions: ['.js', '.vue',''],
+  extensions: ['.js', '.vue'],
+  // If false it will also try to use no extension from above
+  enforceExtension: false,
 };
 
 config.resolveLoader = {
