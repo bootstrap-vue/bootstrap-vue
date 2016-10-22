@@ -1,4 +1,6 @@
 # Bootstrap Vue
+[![CircleCI](https://circleci.com/gh/bootstrap-vue/bootstrap-vue.github.io.svg?style=svg&circle-token=3d59d237ad7b37002982771ef7b40a5bb197b1ba)](https://circleci.com/gh/bootstrap-vue/bootstrap-vue.github.io)
+
 [Twitter Bootstrap 4](https://v4-alpha.getbootstrap.com/) Components For [Vue.js 2](https://vuejs.org/)
 
 [![NPM](https://nodei.co/npm/bootstrap-vue.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.com/bootstrap-vue/)
