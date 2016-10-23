@@ -92,7 +92,7 @@ function plugin(Vue) {
 if (typeof window !== 'undefined') {
   if (window.Vue)
     window.Vue.use(plugin);
-  require('../styles/style.css');
+  //require('../styles/style.css');
 }
 
 module.exports = plugin;
