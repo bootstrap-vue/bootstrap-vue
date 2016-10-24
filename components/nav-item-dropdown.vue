@@ -3,7 +3,7 @@
     <a :class="['nav-link', dropdownToggle]" href="" v-on:click.prevent="" aria-haspopup="true" :aria-expanded="show" :disabled="disabled" v-if="text" v-html="text">
     </a>
     <slot name="nav-link" v-if="!text">Slot "nav-link"</slot>
-    <div class="dropdown-menu">
+    <div :class="{'dropdown-menu': true, 'dropdown-menu-right': rightAlignment}">
       <slot></slot>
     </div>
   </li>
@@ -12,7 +12,6 @@
 
 <script>
   export default {
-    replace: true,
     data() {
       return {
         show: false
@@ -21,7 +20,7 @@
     computed: {
       dropdownToggle() {
         return this.caret ? 'dropdown-toggle' : ''
-      },
+      }
     },
     props: {
       caret: {
@@ -36,10 +35,15 @@
         type: Boolean,
         default: false
       },
+      rightAlignment: {
+        type: Boolean,
+        default: false
+      },
       disabled: {
         type: Boolean,
         default: false
       },
+      class: ['class']
     },
     methods: {
       toggle(e) {
