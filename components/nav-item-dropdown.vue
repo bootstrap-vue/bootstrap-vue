@@ -1,5 +1,5 @@
 <template>
-  <li :class="{'nav-item': true, open: show, dropdown: !dropup, dropup: dropup}" @click="toggle($event)">
+  <li :class="{'nav-item': true, open: show, dropdown: !dropup, dropup: dropup}" @click.stop="toggle($event)">
     <a :class="['nav-link', dropdownToggle]" href="" v-on:click.prevent="" aria-haspopup="true" :aria-expanded="show" :disabled="disabled" v-if="text" v-html="text">
     </a>
     <slot name="nav-link" v-if="!text">Slot "nav-link"</slot>
