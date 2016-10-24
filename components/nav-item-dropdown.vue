@@ -1,6 +1,6 @@
 <template>
-  <li :class="{'nav-item': true, open: show, dropdown: !dropup, dropup: dropup}" @click.stop="toggle($event)">
-    <a :class="['nav-link', dropdownToggle]" href="" v-on:click.prevent="" aria-haspopup="true" :aria-expanded="show" :disabled="disabled" v-if="text" v-html="text">
+  <li :class="{'nav-item': true, open: show, dropdown: !dropup, dropup: dropup}">
+    <a @click.stop="toggle($event)" :class="['nav-link', dropdownToggle]" href="" v-on:click.prevent="" aria-haspopup="true" :aria-expanded="show" :disabled="disabled" v-if="text" v-html="text">
     </a>
     <slot name="nav-link" v-if="!text">Slot "nav-link"</slot>
     <div :class="{'dropdown-menu': true, 'dropdown-menu-right': rightAlignment}">
