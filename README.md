@@ -12,12 +12,11 @@
 
 Install via **NPM**:   
 
-```npm i --save-dev bootstrap-vue```
+`npm i --save-dev bootstrap-vue`
 
 Install via **YARN** (recommended):   
 
-```yarn add --dev bootstrap-vue```
-
+`yarn add --dev bootstrap-vue`
 
 ```js
 import Vue from 'vue'
@@ -25,9 +24,13 @@ import BootstrapVue from 'bootstrap-vue';
 
 // Globally register bootstrap-vue components
 Vue.use(BootstrapVue);
-````
+```
 
-[Latest Build Artifacts](https://circleci.com/api/v1/project/bootstrap-vue/bootstrap-vue/latest/artifacts)
+Or simply include js inside HTML templates: (CDN Powered by unpkg)
+
+```html
+	<script src="https://unpkg.com/bootstrap-vue/dist/bootstrapVue.js"></script>
+```
 
 [Official Docs Website](https://bootstrap-vue.github.io/)
 
