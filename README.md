@@ -29,7 +29,7 @@ Vue.use(BootstrapVue);
 Or simply include js inside HTML templates: (CDN Powered by unpkg)
 
 ```html
-	<script src="https://unpkg.com/bootstrap-vue/dist/bootstrapVue.js"></script>
+<script src="https://unpkg.com/bootstrap-vue/dist/bootstrapVue.js"></script>
 ```
 
 [Official Docs Website](https://bootstrap-vue.github.io/)
