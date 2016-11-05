@@ -2,7 +2,7 @@
   <div class="dropdown-select" :class="{open: show, dropdown: !dropup, dropup: dropup}">
     <button
       :id="id"
-      class="['btn','dropdown',dropdownToggle,btnVariant,btnSize]"
+      :class="['btn','dropdown',dropdownToggle,btnVariant,btnSize]"
       role="button"
       aria-haspopup="true"
       aria-expanded="show"
