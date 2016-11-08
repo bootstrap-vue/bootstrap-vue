@@ -1,11 +1,11 @@
 <template>
   <ol class="breadcrumb">
-    <li v-for="item in list" :class="{active:item.active}">
+    <li class="breadcrumb-item" v-for="item in list" :class="{active:item.active}">
       <a href="#"
          @click.stop.prevent="onclick(item)"
-         v-if="item.active"
+         v-if="!item.active"
       >{{item.text}}</a>
-      <span v-if="!item.active">{{item.text}}</span>
+      <span v-if="item.active">{{item.text}}</span>
     </li>
   </ol>
 </template>
