@@ -95,5 +95,5 @@ if (typeof window !== 'undefined') {
   //require('../styles/style.css');
 }
 
+components.default = plugin;
 module.exports = components;
-module.exports.default = plugin;
