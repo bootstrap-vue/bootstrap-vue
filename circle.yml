@@ -13,7 +13,7 @@ dependencies:
     - yarn --version
 
   override:
-    - yarn install
+    - NODE_ENV=dev yarn install
     - cat yarn.lock
     
 test:
