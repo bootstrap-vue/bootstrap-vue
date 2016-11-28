@@ -32,7 +32,7 @@ export default {
       }
     },
     mounted() {
-      const items = this.$parent.$get('items');
+      const items = this.$parent.items;
       items.push({id: this.id, title: this.title, active: this.active, disabled: this.disabled})
     },
 }
