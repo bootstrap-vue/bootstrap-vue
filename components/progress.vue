@@ -1,6 +1,6 @@
 <template>
-  <div
-    :class="[progress,progressVariant,striped ? 'progress-striped' : '',animated ? 'progres-animated' : '']"
+  <progress
+    :class="[progressVariant, striped ? 'progress-striped' : '', animated ? 'progress-animated' : '']"
     :value="value"
     :max="max"
     :aria-valuenow="value"
@@ -12,33 +12,32 @@
       <span class="progress-bar" :style="{width: value + '%'}" ref="progressbar"></span>
     </div>
 
-  </div>
+  </progress>
 </template>
-
 <script>
   export default {
     replace: true,
     computed: {
       progressVariant() {
-        return !this.variant || this.variant === `default` ? `progress-primary` : `progress-${this.variant}`
+        return !this.variant || this.variant === `default` ? `progress` : `progress progress-${this.variant}`
       },
     },
     props: {
-      animated: {
+      striped: {
         type: Boolean,
         default: false,
       },
-      max: {
-        type: Number,
-        default: 100,
-      },
-      striped: {
+      animated: {
         type: Boolean,
         default: false,
       },
       value: {
         type: Number,
         default: 0,
+      },
+      max: {
+        type: Number,
+        default: 100,
       },
       variant: {
         type: String,
@@ -58,6 +57,4 @@
       }
     }
   }
-
-
 </script>
