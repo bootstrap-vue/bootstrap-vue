@@ -71,16 +71,16 @@
         if (activeTab !== -1) {
           // setting animate to false will trigger fade out effect
           this.items[activeTab].active = false;
-          this.$children[activeTab].$set('animate', false);
-          this.$children[activeTab].$set('active', false)
+          this.$set(this.$children[activeTab], 'animate', false);
+          this.$set(this.$children[activeTab], 'active', false);
         }
 
         // set new active tab and animate (if fade flag is set to true)
-        this.$children[index].$set('active', true);
+        this.$set(this.$children[index], 'active', true);
         this._tabAnimation = setTimeout(() => {
           // setting animate to true will trigger fade in effect
           this.items[index].active = true;
-          this.$children[index].$set('animate', true);
+          this.$set(this.$children[index], 'animate', true);
           this.$root.$emit('changed::tab', this.items[index].id)
         }, this.fade ? TRANSITION_DURATION : 0)
       },
