@@ -11,6 +11,7 @@ export default {
       return {
         fade: this.$parent.fade,
         animate: false,
+        active: false
       }
     },
     props: {
@@ -21,10 +22,6 @@ export default {
       title: {
         type: String,
         default: ''
-      },
-      active: {
-        type: Boolean,
-        default: false
       },
       disabled: {
         type: Boolean,
