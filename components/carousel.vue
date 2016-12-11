@@ -119,10 +119,10 @@
       },
       // start auto rotate slides
       start() {
-        if (this.interval === 0 || typeof this.interval === 'undefined') return;
-        this._intervalId = setInterval(function () {
-          this.next()
-        }, this.interval);
+          if (this.interval === 0 || typeof this.interval === 'undefined') return;
+          this._intervalId = setInterval( () => {
+              this.next()
+          }, this.interval);
       }
     },
     mounted() {
@@ -158,12 +158,12 @@
         this._items[oldVal].classList.add(this.direction.outgoing);
         this._items[val].classList.remove(this.direction.incoming);
         // wait for animation to finish and cleanup classes
-        this._carouselAnimation = setTimeout(function () {
-          this._items[oldVal].classList.remove(this.direction.outgoing, 'active');
-          this._items[val].classList.remove(this.direction.overlay);
-          this.animating = false;
-          // trigger an event
-          $root.$emit('slid::carousel', val)
+        this._carouselAnimation = setTimeout( ()  => {
+            this._items[oldVal].classList.remove(this.direction.outgoing, 'active');
+            this._items[val].classList.remove(this.direction.overlay);
+            this.animating = false;
+            // trigger an event
+            this.$root.$emit('slid::carousel', val)
         }, TRANSITION_DURATION);
       }
     },

@@ -6,7 +6,7 @@ import bButtonRadio from './button-radio'
 import bButton from './button'
 import bCard from './card'
 import bCarousel from './carousel'
-import bCarouselSlide from './carousel'
+import bCarouselSlide from './carousel-slide'
 import bCollapse from './collapse'
 import bCollapseToggle from './collapse-toggle'
 import bDropdown from './dropdown'
@@ -67,7 +67,7 @@ export {
   bNavItemDropdown,
   bListGroupItem,
   bListGroup,
-  bCarouselSlide,
+  bCarouselSlide as bSlide,
   bCarousel,
   bCollapse,
   bCollapseToggle
