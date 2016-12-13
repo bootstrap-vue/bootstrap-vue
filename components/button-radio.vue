@@ -1,6 +1,6 @@
 <template>
   <div class="btn-group" data-toggle="buttons">
-    <label :class="{btn:true,btnVariant,btnSize,disabled:item.disabled,active:selection == item.value}"
+    <label :class="['btn', btnVariant, btnSize, {disabled:item.disabled, active:selection == item.value}]"
            v-for="item in list">
       <input
         type="radio"
@@ -19,6 +19,7 @@
     data() {
       return {
         selection: '',
+        model: {}
       }
     },
     computed: {
@@ -33,9 +34,6 @@
       },
     },
     props: {
-      model: {
-        required: true
-      },
       list: {
         type: Array,
         default: [],
@@ -59,7 +57,7 @@
         handler() {
           // set the model based on selection
           if (this.returnObject) {
-            this.list.forEach(function (item) {
+            this.list.forEach( (item) => {
               if (item.value === this.selection)
                 this.model = item
             })
