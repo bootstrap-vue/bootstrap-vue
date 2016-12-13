@@ -1,7 +1,7 @@
 <template>
   <fieldset :class="['form-group',inputState]">
-    <label :for="id" v-if="label" class="control-label">{{label}}</label>
-    <div class="inputClass">
+    <label :for="id" v-if="label" :class="['control-label',labelClass]">{{label}}</label>
+    <div :class="inputClass">
       <input
         :type="type"
         :class="['form-control',stateIconType,inputSize]"
@@ -77,6 +77,8 @@
         type: Boolean,
         default: true
       },
+      inputClass: {},
+      labelClass: {},
     },
   }
 
