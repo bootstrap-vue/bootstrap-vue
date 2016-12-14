@@ -50,7 +50,8 @@
       return {
         diff: 1,
         showPrev: false,
-        showNext: false
+        showNext: false,
+        currentPage: 0,
       }
     },
     computed: {
@@ -104,11 +105,12 @@
 
       },
     },
+    watch: {
+      currentPage: function (newPage) {
+        this.$emit('change', newPage)
+      }
+    },
     props: {
-      currentPage: {
-        type: Number,
-        default: 1,
-      },
       limit: {
         type: Number,
         default: 7,
