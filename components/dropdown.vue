@@ -1,30 +1,20 @@
 <template>
-  <div :class="{ open: show, dropdown: !dropup, dropup: dropup, 'dropdown-arrow': arrow}"
+  <div v-if="text" :class="['btn-group', {'dropup' : dropup}]"
        @click="toggle($event)">
-    <div class="btn-action">
-      <button
-        id="dLabel"
-        :class="['btn',dropdownToggle,btnVariant,btnSize]"
-        aria-haspopup="true"
-        :aria-expanded="show"
-        :disabled="disabled"
-        v-if="text">
-        <span v-html="text"> </span>
-        <span class="caret"> </span>
-      </button>
-      <div class="button-wrapper">
-        <slot name="button" v-if="!text"></slot>
-      </div>
-    </div>
-    <span role="button"><slot> </slot></span>
+        <button type="button" :class="['btn', btnVariant, btnSize, dropdownToggle]" 
+        data-toggle="dropdown" 
+        aria-haspopup="true" 
+        :disabled="disabled" 
+        :aria-expanded="show">
+          <span v-html="text"></span>
+        </button>
+        <div :class="['dropdown-menu', {'d-block' : show}]">
+          <slot></slot>
+        </div>
   </div>
 </template>
 
-
 <script>
-
-  // import dependencies
-
   // export component object
   export default {
     replace: true,
@@ -49,10 +39,6 @@
         type: Boolean,
         default: true
       },
-      arrow: {
-        type: Boolean,
-        default: false
-      },
       text: {
         type: String,
         default: ''
@@ -76,23 +62,8 @@
     },
     methods: {
       toggle(e) {
-        // hide an alert
         this.show = !this.show;
-        // Dispatch an event from the current vm that propagates all the way up to its $root
-        if (this.show) {
-          this.$root.$emit('shown::dropdown');
-          e.stopPropagation()
-        } else {
-          this.$root.$emit('hidden::dropdown');
-        }
       }
     },
-    created: function () {
-      const hub = this.$root;
-      hub.$on('hide::dropdown', function () {
-        this.show = false
-      });
-    },
   }
-
 </script>
