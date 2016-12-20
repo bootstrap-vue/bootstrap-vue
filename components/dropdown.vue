@@ -62,8 +62,23 @@
     },
     methods: {
       toggle(e) {
+        // hide an alert
         this.show = !this.show;
+        // Dispatch an event from the current vm that propagates all the way up to its $root
+        if (this.show) {
+          this.$root.$emit('shown::dropdown');
+          e.stopPropagation()
+        } else {
+          this.$root.$emit('hidden::dropdown');
+        }
       }
     },
+    created: function () {
+      const hub = this.$root;
+      hub.$on('hide::dropdown', function () {
+        this.show = false
+      });
+    },
   }
+
 </script>
