@@ -43,17 +43,17 @@ config.module = {
     // Vue
     {
       test: /\.vue$/,
-      loader: 'vue',
+      loader: 'vue-loader',
     },
     // Vue HTML
     {
       test: /\.html$/,
-      loader: 'vue-html'
+      loader: 'vue-html-loader'
     },
     // JS
     {
       test: /\.js$/,
-      loader: 'babel',
+      loader: 'babel-loader',
       // important: exclude files in node_modules, otherwise it's going to be really slow!
       exclude: /node_modules|vendor/
     },
