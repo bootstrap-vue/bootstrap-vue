@@ -1,84 +1,96 @@
 <template>
-  <div v-if="text" :class="['btn-group', {'dropup' : dropup}]"
-       @click="toggle($event)">
-        <button type="button" :class="['btn', btnVariant, btnSize, dropdownToggle]" 
-        data-toggle="dropdown" 
-        aria-haspopup="true" 
-        :disabled="disabled" 
-        :aria-expanded="show">
-          <span v-html="text"></span>
-        </button>
-        <div :class="['dropdown-menu', {'d-block' : show}]">
-          <slot></slot>
+    <div :class="['btn-group',open?'open':'',dropup?'dropup':'']">
+
+        <b-button :class="[split?'':'dropdown-toggle']"
+                  id="dropdownMenuButton"
+                  @click="click"
+                  aria-haspopup="true"
+                  :aria-expanded="open"
+                  :variant="variant"
+                  :size="size"
+                  :disabled="disabled"
+        >
+            {{text}}
+        </b-button>
+
+        <b-button class="dropdown-toggle dropdown-toggle-split"
+                  v-if="split"
+                  @click="toggle"
+                  :variant="variant"
+                  :size="size"
+                  :disabled="disabled"
+        >
+            <span class="sr-only">Toggle Dropdown</span>
+        </b-button>
+
+        <div :class="['dropdown-menu',right?'dropdown-menu-right':'']" v-if="open">
+            <slot></slot>
         </div>
-  </div>
+
+    </div>
 </template>
 
 <script>
-  // export component object
-  export default {
-    replace: true,
-    data() {
-      return {
-        show: false
-      }
-    },
-    computed: {
-      btnVariant() {
-        return !this.variant || this.variant === `default` ? `btn-secondary` : `btn-${this.variant}`
-      },
-      btnSize() {
-        return !this.size || this.size === `default` ? `` : `btn-${this.size}`
-      },
-      dropdownToggle() {
-        return this.caret ? 'dropdown-toggle' : ''
-      },
-    },
-    props: {
-      caret: {
-        type: Boolean,
-        default: true
-      },
-      text: {
-        type: String,
-        default: ''
-      },
-      size: {
-        type: String,
-        default: 'default'
-      },
-      variant: {
-        type: String,
-        default: 'default'
-      },
-      dropup: {
-        type: Boolean,
-        default: false
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-    },
-    methods: {
-      toggle(e) {
-        // hide an alert
-        this.show = !this.show;
-        // Dispatch an event from the current vm that propagates all the way up to its $root
-        if (this.show) {
-          this.$root.$emit('shown::dropdown');
-          e.stopPropagation()
-        } else {
-          this.$root.$emit('hidden::dropdown');
-        }
-      }
-    },
-    created: function () {
-      const hub = this.$root;
-      hub.$on('hide::dropdown', function () {
-        this.show = false
-      });
-    },
-  }
+    export default {
+        data() {
+            return {
+                open: false
+            }
+        },
+        props: {
+            split: {
+                type: Boolean,
+                default: false
+            },
+            text: {
+                type: String,
+                default: ''
+            },
+            size: {
+                type: String,
+                default: null,
+            },
+            variant: {
+                type: String,
+                default: null,
+            },
+            dropup: {
+                type: Boolean,
+                default: false
+            },
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+            right: {
+                type: Boolean,
+                default: false,
+            },
+        },
+        mounted(){
+            document.documentElement.addEventListener('click', () => this.setState(false),true);
+        },
+        methods: {
+            toggle(){
+                this.setState(!this.open);
+            },
+            setState(state) {
+                if (this.open == state) return; // Avoid duplicated emits
+                this.open = state;
+
+                if (this.open) {
+                    this.$emit('shown');
+                } else {
+                    this.$emit('hidden');
+                }
+            },
+            click(){
+                if (this.split)
+                    this.$emit('click');
+                else
+                    this.toggle();
+            }
+        },
+    }
 
 </script>

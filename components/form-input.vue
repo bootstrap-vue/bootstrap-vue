@@ -1,86 +1,106 @@
 <template>
-  <fieldset :class="['form-group',inputState]">
-    <label :for="id" v-if="label" :class="['control-label',labelClass]">{{label}}</label>
-    <div :class="inputClass">
-      <input
-        :type="type"
-        :class="['form-control',stateIconType,inputSize]"
-        :id="id"
-        :placeholder="placeholder"
-        :value="value"
-        @input="onInput"
-      >
+    <div :class="['form-group','row',inputState]">
+        <label :for="id" v-if="label" :class="['col-form-label','col-xs-2',labelClass]">{{label}}</label>
+        <div class="col-xs-10">
+            <input
+                    :type="type"
+                    :class="['form-control',inputClass,stateIconType,inputSize]"
+                    :id="id"
+                    ref="input"
+                    :placeholder="placeholder"
+                    :value="localValue"
+                    @input="onInput($event.target.value)"
+            >
+            <small class="text-muted" v-if="description" v-html="description"></small>
+        </div>
     </div>
-    <small class="text-muted" v-if="description" v-html="description"></small>
-  </fieldset>
 </template>
 
 <script>
-  import {uniqueId} from '../utils/helpers.js'
+    import {uniqueId} from '../utils/helpers.js'
 
-  export default {
-    replace: true,
-    computed: {
-      inputState() {
-        return !this.state || this.state === `default` ? `` : `has-${this.state}`
-      },
-      stateIconType() {
-        return !this.stateIcon || this.stateIcon === `default` ? `` : `form-control-${this.state}`
-      },
-      inputSize() {
-        return !this.size || this.size === `default` ? `` : `form-control-${this.size}`
-      },
-      row() {
-        return labelClass && inputClass
-      }
-    },
-    methods: {
-      onInput: function (event) {
-        this.$emit('input', event.target.value)
-      }
-    },
-    props: {
-      value: {
-        required: true,
-        type: String
-      },
-      type: {
-        type: String,
-        default: 'text',
-        required: true
-      },
-      id: {
-        type: String,
-        default: uniqueId
-      },
-      label: {
-        type: String,
-        default: ''
-      },
-      placeholder: {
-        type: String,
-        default: ''
-      },
-      description: {
-        type: String,
-        default: ''
-      },
-      size: {
-        type: String,
-        default: ''
-      },
-      state: {
-        type: String,
-        default: ''
-      },
-      stateIcon: {
-        type: Boolean,
-        default: true
-      },
-      inputClass: {},
-      labelClass: {},
-    },
-  }
+    export default {
+        computed: {
+            inputState() {
+                return this.state ? `has-${this.state}` : '';
+            },
+            stateIconType() {
+                return this.stateIcon ? `form-control-${this.state}` : '';
+            },
+            inputSize() {
+                return this.size ? `form-control-${this.size}` : '';
+            },
+            value: {
+                get: function () {
+                    return this.localValue;
+                },
+                set: function (val) {
+                    this.localValue = val;
+                }
+            }
+        },
+        methods: {
+            onInput: function (value) {
+                if (this.formatter) {
+                    let formattedValue = this.formatter(value);
+                    if (formattedValue != value) {
+                        value = formattedValue;
+                        this.$refs.input.value = formattedValue;
+                    }
+                }
+                this.localValue = value;
+                this.$emit('input', value);
+            }
+        },
+        data() {
+            return {
+                localValue: this.value,
+            }
+        },
+        props: {
+            type: {
+                type: String,
+                default: 'text',
+            },
+            id: {
+                type: String,
+                default: uniqueId
+            },
+            label: {
+                type: String,
+                default: null
+            },
+            placeholder: {
+                type: String,
+                default: null
+            },
+            description: {
+                type: String,
+                default: null
+            },
+            size: {
+                type: String,
+                default: null
+            },
+            state: {
+                type: String,
+                default: null
+            },
+            stateIcon: {
+                type: Boolean,
+                default: true
+            },
+            inputClass: {
+                type: String,
+            },
+            labelClass: {
+                type: String,
+            },
+            formatter: {
+                type: Function,
+            }
+        },
+    }
 
 
 </script>

@@ -8,7 +8,8 @@
   },
   "main": "dist/bootstrapVue.common.js",
   "scripts": {
-    "build": "cd scripts && ./build"
+    "build": "cd scripts && ./build",
+    "dev": "nuxt dev"
   },
   "keywords": [
     "Bootstrap",
@@ -26,6 +27,7 @@
     "url": "https://github.com/pi0"
   },
   "license": "MIT",
+  "homepage": "https://bootstrap-vue.github.io",
   "bugs": {
     "url": "https://github.com/bootstrap-vue/bootstrap-vue/issues"
   },
@@ -35,20 +37,18 @@
     "babel-preset-es2015": "latest",
     "bootstrap": "^4.0.0-alpha.5",
     "css-loader": "latest",
+    "node-sass": "latest",
+    "nuxt": "latest",
     "postcss-loader": "latest",
     "sass-loader": "latest",
     "tether": "latest",
     "vue": "latest",
     "vue-loader": "latest",
     "vue-template-compiler": "latest",
-    "webpack": "^2.1.0-beta.25"
+    "webpack": "^2.2.0-rc.2"
   },
-  "homepage": "https://bootstrap-vue.github.io",
-  "babel": {
-    "presets": [
-      [
-        "es2015"
-      ]
-    ]
+  "dependencies": {
+    "highlightjs": "latest",
+    "vue-style-loader": "latest"
   }
 }

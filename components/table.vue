@@ -10,13 +10,13 @@
             </thead>
             <tbody>
             <tr v-for="item in _items">
-                <template v-for="(field,key) in fields">
-                    <td>{{item[key]}}</td>
-                </template>
+                <td v-for="(field,key) in fields">
+                    <slot :name="key" :value="item[key]" :item="item">{{item[key]}}</slot>
+                </td>
             </tr>
             </tbody>
         </table>
-        <div class="text-center">
+        <div class="text-center" v-if="pagination">
             <b-pagination size="md"
                           variant="primary"
                           :total-rows="items.length"
@@ -32,24 +32,27 @@
 
         data: () => {
             return {
-                current: 0,
+                current: 1,
                 size: 10,
             }
         },
 
-        props: ['items', 'fields'],
+        props: ['items', 'fields','pagination'],
 
         computed: {
             _items: function () {
-                return this.items.slice(this.current * this.size, (this.current + 1) * this.size);
+                if (!this.items) return [];
+                return this.items.slice((this.current - 1) * this.size, this.current * this.size);
             }
         },
 
         methods: {
             change: function (newPage) {
-                this.current = newPage - 1;
+                this.current = newPage;
             },
         }
 
     }
 </script>
+
+

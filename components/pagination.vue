@@ -51,7 +51,7 @@
         diff: 1,
         showPrev: false,
         showNext: false,
-        currentPage: 0,
+        currentPage: 1,
       }
     },
     computed: {
