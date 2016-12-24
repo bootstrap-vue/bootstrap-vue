@@ -31,9 +31,22 @@ Or simply include js inside HTML templates: (CDN Powered by unpkg)
 <script src="https://unpkg.com/bootstrap-vue/dist/bootstrapVue.js"></script>
 ```
 
+## Bootstrap CSS
+
+Because Bootstrap can be customized so heavily, this package does not include the Bootstrap CSS. You can load the bootstrap@4.0.0-alpha.5 CSS in several ways:
+* [Via CDN](https://v4-alpha.getbootstrap.com/getting-started/introduction/#quick-start)
+* Bundled with your own CSS
+* [Via npm or yarn](https://v4-alpha.getbootstrap.com/getting-started/download/#npm), using the [webpack css loader](https://github.com/webpack/css-loader), and including like this:
+```js
+import 'path/to/node_modules/bootstrap/dist/css/bootstrap.css'
+// OR
+import 'path/to/node_modules/bootstrap/dist/css/bootstrap-flex.css'
+```
+
+## Docs
 [Official Docs Website](https://bootstrap-vue.github.io/)
 
-## /Bootstrap Vue
-+ This Project and Docs was originally ported from vue 1.x version
+## Credits
++ This project and docs were originally ported from the Vue 1.x version
  [kzima/vuestrap-base-components](https://github.com/kzima/vuestrap-base-components)
- , So original credit backs to him :)
+ , so original credit backs to him :)
