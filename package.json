@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "0.3.12",
+  "version": "0.4.0",
   "description": "Bootstrap 4 Components for Vue.js 2",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   "main": "dist/bootstrapVue.common.js",
   "scripts": {
     "build": "cd scripts && ./build",
-    "dev": "nuxt dev"
+    "docs-dev": "nuxt dev"
   },
   "keywords": [
     "Bootstrap",
@@ -45,10 +45,15 @@
     "vue": "2.1.7",
     "vue-loader": "latest",
     "vue-template-compiler": "2.1.7",
-    "webpack": "^2.2.0-rc.2"
-  },
-  "dependencies": {
+    "webpack": "^2.2.0-rc.2",
     "highlightjs": "latest",
     "vue-style-loader": "latest"
+  },
+  "babel": {
+    "presets": [
+      [
+        "es2015"
+      ]
+    ]
   }
 }

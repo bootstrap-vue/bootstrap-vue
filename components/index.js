@@ -34,7 +34,6 @@ import bTabs from './tabs.vue'
 import bTab from './tab.vue'
 import bTooltip from './tooltip.vue'
 
-
 export {
     bAlert,
     bBreadcrumb,

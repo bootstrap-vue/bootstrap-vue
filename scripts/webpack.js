@@ -1,6 +1,6 @@
 // ===============================================================
 // A PART OF BOOTSTRAP-VUE - Pooya Parsa <pooya@pi0.ir>
-// https://github.com/pi0/bootstrap-vue
+// https://github.com/bootstrap-vue/bootstrap-vue
 // ===============================================================
 
 const Webpack = require('webpack');
@@ -16,7 +16,7 @@ config.context = path.resolve(__dirname, '..');
 
 // Resolver config
 config.resolve = {
-    extensions: ['.js', '.vue'],
+    extensions: ['.js', '.vue',''],
     // If false it will also try to use no extension from above
     enforceExtension: false,
 };
@@ -27,13 +27,13 @@ config.resolveLoader = {
 
 // Client entry
 config.entry = {
-    bootstrapVue: path.resolve(__dirname, '../components'),
+    bootstrapVue: path.resolve(__dirname, '../index'),
 };
 
 // Basic output config
 config.output = {
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].js',
+    filename: 'bootstrap-vue.js',
 };
 
 // Config Module Loaders
