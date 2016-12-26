@@ -1,5 +1,5 @@
 <template>
-    <layout :component="component" :events="events">
+    <div :docs="docs">
         <template slot="name">
             Alert
         </template>
@@ -41,35 +41,37 @@
             &lt;/b-alert&gt;
         </template>
 
-    </layout>
+    </div>
 </template>
 
 <script>
-    import layout from '../../../layouts/docs-components.vue';
+    import layout from '../../../layouts/components.vue';
 
     export default {
         components: {layout},
         data(){
             return {
-                component: 'bAlert',
+                docs:{
+                    component: 'bAlert',
+                    events: [
+                        {
+                            event: 'dismissed',
+                            description: 'Alert dismissed',
+                        },
+                        {
+                            event: 'dismiss-count-down',
+                            args: [
+                                {
+                                    arg: 'dismissCountDown',
+                                    description: 'Time remaining to dismissed',
+                                }
+                            ],
+                            description: 'When dismissAfterSeconds enabled, this event emits every second on countdown.',
+                        }
+                    ],
+                },
                 show_alert: true,
                 dismissCountDown: 0,
-                events: [
-                    {
-                        event: 'dismissed',
-                        description: 'Alert dismissed',
-                    },
-                    {
-                        event: 'dismiss-count-down',
-                        args: [
-                            {
-                                arg: 'dismissCountDown',
-                                description: 'Time remaining to dismissed',
-                            }
-                        ],
-                        description: 'When dismissAfterSeconds enabled, this event emits every second on countdown.',
-                    }
-                ],
             }
         },
         methods: {

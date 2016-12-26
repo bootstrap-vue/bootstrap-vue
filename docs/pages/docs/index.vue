@@ -79,13 +79,13 @@
 </template>
 
 <script>
-    import layout from '../../layouts/docs.vue';
     import site from  '../../data/site';
+    import layout from '../../layouts/docs.vue';
 
     export default {
         components: {layout},
-        computed:{
+        computed: {
             site
-        },
+        }
     }
 </script>

@@ -1,17 +1,23 @@
 <template>
-    <div :class="['btn',btnVariant,btnSize,btnBlock,btnDisabled,inactive?'btn-inactive':'']"
-         @click.stop.prevent="onclick"
-    >
+    <div :class="classObject" @click.stop.prevent="click">
         <slot></slot>
     </div>
 </template>
 
 
 <script>
-
     export default {
-        replace: true,
         computed: {
+            classObject(){
+                return [
+                    'btn',
+                    this.btnVariant,
+                    this.btnSize,
+                    this.btnBlock,
+                    this.btnDisabled,
+                    this.inactive ? 'btn-inactive' : ''
+                ];
+            },
             btnBlock() {
                 return this.block ? `btn-block` : '';
             },
@@ -56,7 +62,7 @@
             },
         },
         methods: {
-            onclick: function () {
+            click: function () {
                 this.$emit('click', this.link);
             },
         },

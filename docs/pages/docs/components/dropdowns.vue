@@ -1,5 +1,5 @@
 <template>
-    <layout :component="component" :events="events">
+    <layout :docs="docs">
         <template slot="name">
             Dropdowns
         </template>
@@ -57,19 +57,20 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/docs-components.vue';
+    import layout from '../../../layouts/components.vue';
 
     export default {
         components: {layout},
         data(){
             return {
-                component: 'bDropdown',
-                events: [
-                    {
-                        event: 'click',
-                        description: 'Only in split mode',
-                    },
-                ],
+                docs:{
+                    component: 'bDropdown',
+                    events: [
+                        {event: 'shown', description: ''},
+                        {event: 'hidden', description: ''},
+                        {event: 'click', description: 'Only in split mode'},
+                    ],
+                }
             }
         },
         methods: {

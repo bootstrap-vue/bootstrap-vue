@@ -1,19 +1,28 @@
 <template>
-    <div :class="['form-group','row',inputState]">
-        <label :for="id" v-if="label" :class="['col-form-label','col-xs-2',labelClass]">{{label}}</label>
-        <div class="col-xs-10">
-            <input
-                    :type="type"
-                    :class="['form-control',inputClass,stateIconType,inputSize]"
-                    :id="id"
-                    ref="input"
-                    :placeholder="placeholder"
-                    :value="localValue"
-                    @input="onInput($event.target.value)"
-            >
-            <small class="text-muted" v-if="description" v-html="description"></small>
-        </div>
-    </div>
+    <b-form-fieldset :state="state" :label="label" :description="description" :feedback="feedback" :id="id">
+        <input
+                v-if="!textarea"
+                :type="type"
+                :class="['form-control',stateIconType,inputSize]"
+                :id="id"
+                :name="name"
+                :placeholder="placeholder"
+                :value="value"
+                @input="onInput($event.target.value)"
+                ref="input"
+        />
+        <textarea
+                v-if="textarea"
+                :type="type"
+                :class="['form-control',stateIconType,inputSize]"
+                :id="id"
+                :name="name"
+                :placeholder="placeholder"
+                :value="value"
+                @input="onInput($event.target.value)"
+                ref="input"
+        ></textarea>
+    </b-form-fieldset>
 </template>
 
 <script>
@@ -21,26 +30,15 @@
 
     export default {
         computed: {
-            inputState() {
-                return this.state ? `has-${this.state}` : '';
-            },
             stateIconType() {
                 return this.stateIcon ? `form-control-${this.state}` : '';
             },
             inputSize() {
                 return this.size ? `form-control-${this.size}` : '';
-            },
-            value: {
-                get: function () {
-                    return this.localValue;
-                },
-                set: function (val) {
-                    this.localValue = val;
-                }
             }
         },
         methods: {
-            onInput: function (value) {
+            onInput(value) {
                 if (this.formatter) {
                     let formattedValue = this.formatter(value);
                     if (formattedValue != value) {
@@ -48,25 +46,24 @@
                         this.$refs.input.value = formattedValue;
                     }
                 }
-                this.localValue = value;
                 this.$emit('input', value);
             }
         },
-        data() {
-            return {
-                localValue: this.value,
-            }
-        },
         props: {
+            value: {
+                type: String,
+                default: null
+            },
             type: {
                 type: String,
-                default: 'text',
+                default: 'text'
             },
             id: {
                 type: String,
                 default: uniqueId
             },
-            label: {
+
+            name: {
                 type: String,
                 default: null
             },
@@ -74,31 +71,49 @@
                 type: String,
                 default: null
             },
-            description: {
-                type: String,
-                default: null
-            },
+
             size: {
                 type: String,
                 default: null
             },
-            state: {
-                type: String,
+
+            rows: {
+                type: Number,
                 default: null
             },
+
+            textarea: {
+                type: Boolean,
+                default: false
+            },
+
             stateIcon: {
                 type: Boolean,
                 default: true
             },
-            inputClass: {
-                type: String,
-            },
-            labelClass: {
-                type: String,
-            },
             formatter: {
                 type: Function,
-            }
+            },
+
+
+            // FIELD SET
+            state: {
+                type: String,
+                default: null
+            },
+            label: {
+                type: String,
+                default: null
+            },
+            description: {
+                type: String,
+                default: null
+            },
+            feedback: {
+                type: String,
+                default: null
+            },
+            // FIELD SET
         },
     }
 

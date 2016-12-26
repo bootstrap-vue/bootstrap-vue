@@ -15,6 +15,11 @@
 
 <script>
     export default {
+        data() {
+            return {
+                localShow: this.show
+            }
+        },
         props: {
             show: {
                 type: Boolean,
@@ -30,12 +35,12 @@
             },
             dismissAfterSeconds: {
                 type: Number,
-                default: null,
+                default: null
             },
         },
         computed: {
             classObject() {
-                return ['alert', this.alertState, this.dismissible ? 'alert-dismissible' : '', 'fade', 'in',]
+                return ['alert', this.alertState, this.dismissible ? 'alert-dismissible' : '', 'fade', 'in']
             },
             alertState() {
                 return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`
@@ -46,24 +51,19 @@
                 },
                 set: function (value) {
                     this.localShow = value;
-                },
+                }
             },
-        },
-        data() {
-            return {
-                localShow: this.show
-            }
-        },
-        mounted(){
-            if (this.dismissAfterSeconds) {
-                this.dismissCounter();
-            }
         },
         watch: {
             show: function (newValue, oldValue) {
                 if (this.dismissAfterSeconds && newValue == true && oldValue == false) {
                     this.dismissCounter();
                 }
+            }
+        },
+        mounted(){
+            if (this.dismissAfterSeconds) {
+                this.dismissCounter();
             }
         },
         methods: {

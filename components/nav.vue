@@ -1,25 +1,42 @@
 <template>
-  <ul :class="{'nav': true, 'nav-stacked': vertical, 'nav-pills': type == 'pills', 'navbar-nav': type == 'navbar' }">
-    <slot></slot>
-  </ul>
+    <nav :class="classObject">
+        <slot></slot>
+    </nav>
 </template>
 
 
 <script>
 
-  export default {
-    replace: true,
-    computed: {},
-    props: {
-      vertical: {
-        type: Boolean,
-        default: false,
-      },
-      type: {
-        type: String,
-        default: '',
-      },
-    },
-  };
+    export default {
+        computed: {
+            classObject(){
+                return [
+                    'nav',
+                    this.inline ? 'nav-inline' : '',
+                    this.tabs ? 'nav-tabs' : '',
+                    this.pills ? 'nav-pills' : '',
+                    this.stacked ? 'nav-stacked' : '',
+                ];
+            }
+        },
+        props: {
+            inline: {
+                type: Boolean,
+                default: true
+            },
+            tabs: {
+                type: Boolean,
+                default: false
+            },
+            pills: {
+                type: Boolean,
+                default: false
+            },
+            stacked: {
+                type: Boolean,
+                default: false
+            },
+        },
+    };
 
 </script>

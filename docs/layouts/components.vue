@@ -38,17 +38,18 @@
                 </b-table>
             </template>
 
-            <template v-if="events && events.length > 0">
+            <template v-if="docs.events && docs.events.length > 0">
                 <h2>Events</h2>
                 <br>
-                <b-table :items="events" :fields="events_fields">
+                <b-table :items="docs.events" :fields="events_fields">
                     <template slot="event" scope="field">
                         <code>{{field.value}}</code>
                     </template>
                     <template slot="args" scope="field">
-                        <template v-for="arg in field.value">
-                            <code>{{arg.arg}}</code> {{arg.description}}
-                        </template>
+                        <div v-for="arg in field.value">
+                            <code>{{arg.arg}}</code>
+                            <span v-html="arg.description"/>
+                        </div>
                     </template>
                 </b-table>
             </template>
@@ -66,8 +67,13 @@
         components: {layout, mSidebar},
 
         props: {
-            component: {type: String},
-            events: {type: Array, default: () => []},
+            docs: {
+                type: Object, default: () => {
+                    return {
+                        events: []
+                    }
+                }
+            },
         },
 
         computed: {
@@ -82,17 +88,17 @@
                 return {
                     event: {label: 'Event'},
                     args: {label: 'Arguments'},
-                    description: {label: 'Description'},
+                    description: {label: 'Description'}
                 }
             },
             props_items(){
-                let component = Vue.options.components[this.component];
+                let component = Vue.options.components[this.docs.component];
                 let props = component.options.props;
                 return Object.keys(props).map(prop => {
                     let p = props[prop];
                     return {
                         prop: prop,
-                        type: p.type ? p.type.name : '??',
+                        type: p.type ? p.type.name : '-',
                         default: (p.default instanceof Function) ? '[Computed]' : p.default + '',
                     };
                 });

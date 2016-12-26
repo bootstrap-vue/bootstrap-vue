@@ -1,33 +1,37 @@
 <template>
-  <li class="nav-item">
-    <a href="#"
-       @click.stop.prevent="onclick()"
-       :class="['nav-link',active ? 'active' : '',disabled ? 'disabled' : '']">
-      <slot></slot>
-    </a></li>
+    <a class="nav-item"
+       href="#"
+       @click.stop.prevent="onclick"
+       :class="classObject">
+        <slot></slot>
+    </a>
 </template>
 
 <script>
-export default {
-    replace: true,
-    props: {
-      link: {
-        type: String,
-        default: '',
-      },
-      active: {
-        type: Boolean,
-        default: false,
-      },
-      disabled: {
-        type: Boolean,
-        default: false,
-      },
-    },
-    methods: {
-      onclick: function () {
-        this.$emit('click',this.link);
-      },
-    },
-  }
+    export default {
+        computed: {
+            classObject(){
+                return ['nav-link', this.active ? 'active' : '', this.disabled ? 'disabled' : ''];
+            }
+        },
+        props: {
+            link: {
+                type: String,
+                default: ''
+            },
+            active: {
+                type: Boolean,
+                default: false
+            },
+            disabled: {
+                type: Boolean,
+                default: false
+            }
+        },
+        methods: {
+            onclick: function () {
+                this.$emit('click', this.link);
+            }
+        }
+    }
 </script>

@@ -4,15 +4,14 @@
             <a href="#"
                @click.stop.prevent="onclick(item)"
                v-if="!item.active"
-            >{{item.text}}</a>
-            <span v-if="item.active">{{item.text}}</span>
+               v-html="item.text"
+            />
+            <span v-if="item.active" v-html="item.text"/>
         </li>
     </ol>
 </template>
 
 <script>
-
-
     export default {
         computed: {},
         props: {

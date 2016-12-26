@@ -67,17 +67,16 @@
                 </div>
             </div>
         </div>
-
     </layout>
 </template>
 
 <script>
-    import layout from '../layouts/default.vue';
+    import layout from '../layouts/site.vue';
     import site from  '../data/site';
 
     export default {
         components: {layout},
-        computed:{
+        computed: {
             site
         },
     }

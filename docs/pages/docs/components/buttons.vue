@@ -1,5 +1,5 @@
 <template>
-    <layout :component="component" :events="events">
+    <layout :docs="docs">
         <template slot="name">
             Buttons
         </template>
@@ -34,25 +34,27 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/docs-components.vue';
+    import layout from '../../../layouts/components.vue';
 
     export default {
         components: {layout},
         data(){
             return {
-                component: 'bButton',
-                events: [
-                    {
-                        event: 'click',
-                        description: 'when clicked on button',
-                        args: [
-                            {
-                                arg: 'link',
-                                description: ''
-                            }
-                        ]
-                    },
-                ],
+                docs:{
+                    component: 'bButton',
+                    events: [
+                        {
+                            event: 'click',
+                            description: 'when clicked on button',
+                            args: [
+                                {
+                                    arg: 'link',
+                                    description: ''
+                                }
+                            ]
+                        },
+                    ],
+                }
             }
         },
         methods: {

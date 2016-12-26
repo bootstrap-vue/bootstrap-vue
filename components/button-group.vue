@@ -6,13 +6,12 @@
 
 <script>
     export default {
-        replace: true,
         computed: {
             classObject(){
                 return [
-                    'btn-' + (this.toolbar ? 'toolbar' : 'group')
-                    , this.vertical ? 'btn-group-vertical' : '',
-                    this.size ? ('btn-group-' + this.size) : '',
+                    'btn-' + (this.toolbar ? 'toolbar' : 'group'),
+                    this.vertical ? 'btn-group-vertical' : '',
+                    this.size ? ('btn-group-' + this.size) : ''
                 ];
             }
         },

@@ -11,11 +11,11 @@ import bCollapse from './collapse.vue'
 import bCollapseToggle from './collapse-toggle.vue'
 import bDropdown from './dropdown.vue'
 import bDropdownSelect from './dropdown-select.vue'
+import bFormFieldset from './form-fieldset.vue'
 import bFormCheckbox from './form-checkbox.vue'
 import bFormRadio from './form-radio.vue'
 import bFormInput from './form-input.vue'
 import bFormSelect from './form-select.vue'
-import bFormTextarea from './form-textarea.vue'
 import bJumbotron from './jumbotron.vue'
 import bTags from './tags.vue'
 import bListGroup from './list-group.vue'
@@ -29,7 +29,6 @@ import bNavbar from './navbar.vue'
 import bPagination from './pagination.vue'
 import bPopover from './popover.vue'
 import bProgress from './progress.vue'
-import bTables from './tables.vue'
 import bTable from './table.vue'
 import bTabs from './tabs.vue'
 import bTab from './tab.vue'
@@ -37,41 +36,40 @@ import bTooltip from './tooltip.vue'
 
 
 export {
-  bAlert,
-  bBreadcrumb,
-  bButtonCheckbox,
-  bButtonGroup,
-  bButtonRadio,
-  bButton,
-  bButton as bBtn,
-  bCard,
-  bDropdown,
-  bDropdownSelect,
-  bFormCheckbox,
-  bFormRadio,
-  bFormInput,
-  bFormSelect,
-  bFormTextarea,
-  bJumbotron,
-  bTags,
-  bMedia,
-  bModal,
-  bNavbar,
-  bPagination,
-  bPopover,
-  bProgress,
-  bTables,
-  bTable,
-  bTooltip,
-  bTab,
-  bTabs,
-  bNav,
-  bNavItem,
-  bNavItemDropdown,
-  bListGroupItem,
-  bListGroup,
-  bCarouselSlide as bSlide,
-  bCarousel,
-  bCollapse,
-  bCollapseToggle
+    bAlert,
+    bBreadcrumb,
+    bButtonCheckbox,
+    bButtonGroup,
+    bButtonRadio,
+    bButton,
+    bButton as bBtn,
+    bCard,
+    bDropdown,
+    bDropdownSelect,
+    bFormCheckbox,
+    bFormFieldset,
+    bFormRadio,
+    bFormInput,
+    bFormSelect,
+    bJumbotron,
+    bTags,
+    bMedia,
+    bModal,
+    bNavbar,
+    bPagination,
+    bPopover,
+    bProgress,
+    bTable,
+    bTooltip,
+    bTab,
+    bTabs,
+    bNav,
+    bNavItem,
+    bNavItemDropdown,
+    bListGroupItem,
+    bListGroup,
+    bCarouselSlide as bSlide,
+    bCarousel,
+    bCollapse,
+    bCollapseToggle
 }

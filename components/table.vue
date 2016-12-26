@@ -20,8 +20,8 @@
             <b-pagination size="md"
                           variant="primary"
                           :total-rows="items.length"
-                          :per-page="size"
-                          @change="change"
+                          :per-page="perPage"
+                          v-model="current"
             />
         </div>
     </section>
@@ -33,24 +33,35 @@
         data: () => {
             return {
                 current: 1,
-                size: 10,
             }
         },
 
-        props: ['items', 'fields','pagination'],
+        props: {
+            items: {
+                type: Array,
+                default: () => []
+            },
+            fields: {
+                type: Object,
+                default: () => {}
+            },
+            pagination: {
+                type: Boolean,
+                default: false
+            },
+            perPage: {
+                type: Number,
+                default: 20,
+            },
+        },
 
         computed: {
             _items: function () {
                 if (!this.items) return [];
-                return this.items.slice((this.current - 1) * this.size, this.current * this.size);
+                return this.items.slice((this.current - 1) * this.perPage, this.current * this.perPage);
             }
         },
 
-        methods: {
-            change: function (newPage) {
-                this.current = newPage;
-            },
-        }
 
     }
 </script>

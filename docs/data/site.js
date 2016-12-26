@@ -1,7 +1,4 @@
 export default {
-    themes: '/themes',
-    baseurl: '/',
-    current_version: '0.0.3',
     nav: [
         {
             title: "Getting started",
@@ -18,6 +15,13 @@ export default {
                 {"title": "Button group"},
                 {"title": "Dropdowns"},
                 {"title": "Form Inputs"},
+                {"title": "Form Radio"},
+                {"title": "Form Checkbox"},
+                {"title": "Form Select"},
+                {"title": "Nav"},
+                {"title": "NavBar"},
+                {"title": "Pagination"},
+                {"title": "Tables"},
             ]
         },
     ],

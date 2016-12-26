@@ -26,10 +26,10 @@
 </template>
 
 <script>
-    import layout from './default.vue';
+    import layout from './site.vue';
     import mSidebar from '../includes/sidebar.vue';
 
-    export default{
+    export default {
         components: {layout, mSidebar}
     }
 </script>

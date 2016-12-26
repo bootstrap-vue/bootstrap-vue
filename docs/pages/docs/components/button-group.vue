@@ -1,5 +1,5 @@
 <template>
-    <layout :component="component" :events="events">
+    <layout :docs="docs">
         <template slot="name">
             Button group
         </template>
@@ -48,14 +48,16 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/docs-components.vue';
+    import layout from '../../../layouts/components.vue';
 
     export default {
         components: {layout},
         data(){
             return {
-                component: 'bButtonGroup',
-                events: [],
+                docs:{
+                    component: 'bButtonGroup',
+                    events: [],
+                },
             }
         },
         methods: {},
