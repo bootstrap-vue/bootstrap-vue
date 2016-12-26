@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 6
+    version: 7
 
   post:
     - curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -28,6 +28,7 @@ deployment:
       - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - npm publish
   docs:
+    branch: master
     commands:
-      - yarn docs-gen
+      - yarn docs-deploy
     
