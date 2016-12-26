@@ -49,7 +49,7 @@
     "vue-template-compiler": "2.1.7",
     "webpack": "^2.2.0-rc.2",
     "highlightjs": "latest",
-    "vue-style-loader": "latest",
+    "vue-style-loader": "latest"
   },
   "babel": {
     "presets": [

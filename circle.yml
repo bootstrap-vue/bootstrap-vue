@@ -4,17 +4,20 @@ machine:
 
 dependencies:
   cache_directories:
-    - "~/.yarn-cache"
+    - ~/.yarn
+    - ~/.cache/yarn
+
+  pre:
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
 
   override:
-    - curl -o- -L https://yarnpkg.com/install.sh | bash
     - NODE_ENV=dev yarn install
-    
+
 test:
   override:
     - yarn build
     - cp -rv dist/* $CIRCLE_ARTIFACTS
-    
+
 deployment:
   npm:
     tag: /v[0-9]+(\.[0-9]+)*/
@@ -25,4 +28,3 @@ deployment:
     branch: master
     commands:
       - yarn docs-deploy
-    
