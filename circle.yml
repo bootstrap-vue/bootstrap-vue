@@ -2,19 +2,13 @@ machine:
   node:
     version: 6
 
-  post:
-    - curl -o- -L https://yarnpkg.com/install.sh | bash
-
 dependencies:
   cache_directories:
     - "~/.yarn-cache"
 
-  pre:
-    - yarn --version
-
   override:
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
     - NODE_ENV=dev yarn install
-    - cat yarn.lock
     
 test:
   override:
