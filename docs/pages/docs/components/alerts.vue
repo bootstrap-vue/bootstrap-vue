@@ -1,5 +1,5 @@
 <template>
-    <div :docs="docs">
+    <layout :docs="docs">
         <template slot="name">
             Alert
         </template>
@@ -41,7 +41,7 @@
             &lt;/b-alert&gt;
         </template>
 
-    </div>
+    </layout>
 </template>
 
 <script>

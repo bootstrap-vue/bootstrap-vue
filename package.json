@@ -9,7 +9,9 @@
   "main": "dist/bootstrapVue.common.js",
   "scripts": {
     "build": "cd scripts && ./build",
-    "docs-dev": "nuxt dev"
+    "docs-dev": "nuxt dev",
+    "docs-gen": "nuxt generate",
+    "docs-deploy": "gh-pages -d dist"
   },
   "keywords": [
     "Bootstrap",
@@ -47,7 +49,7 @@
     "vue-template-compiler": "2.1.7",
     "webpack": "^2.2.0-rc.2",
     "highlightjs": "latest",
-    "vue-style-loader": "latest"
+    "vue-style-loader": "latest",
   },
   "babel": {
     "presets": [

@@ -18,7 +18,7 @@ dependencies:
     
 test:
   override:
-    - yarn run build
+    - yarn build
     - cp -rv dist/* $CIRCLE_ARTIFACTS
     
 deployment:
@@ -27,4 +27,7 @@ deployment:
     commands:
       - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - npm publish
+  docs:
+    commands:
+      - yarn docs-gen
     
