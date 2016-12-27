@@ -1,13 +1,19 @@
 machine:
+  environment:
+    YARN_VERSION: 0.18.1
+    PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   node:
     version: 6
 
 dependencies:
-  cache_directories:
-    - ~/.yarn
-    - ~/.cache/yarn
   pre:
-    - curl -o- -L https://yarnpkg.com/install.sh | bash
+    - |
+      if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
+        curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+      fi
+  cache_directories:
+      - ~/.yarn
+      - ~/.cache/yarn
   override:
     - NODE_ENV=dev yarn install
 
