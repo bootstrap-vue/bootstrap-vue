@@ -35,7 +35,7 @@ Both vue 2 and bootstrap 4 are changing so fast, specially bootstrap 4 is still 
 
 Package   | Compatible Version
 ----------|---------------------
-Vu        | 2.1.7
+Vue js        | 2.1.7
 Bootstrap | 4.0.0-alpha.5
 Webpack   | 2.2.0-rc.2
 
