@@ -6,6 +6,7 @@ module.exports = {
     plugins: [
         '~plugins/bootstrap-vue.js',
         '~plugins/highlightjs.js',
+        '~plugins/ga.js',
     ],
     css: [
         path.resolve(__dirname, 'node_modules/bootstrap/dist/css/bootstrap-flex.css'),

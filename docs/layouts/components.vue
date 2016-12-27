@@ -5,6 +5,9 @@
             Over a dozen reusable components built to provide buttons, dropdowns, input groups, navigation, alerts, and
             much more.
         </template>
+        <template slot="actions">
+            <b-btn size="sm" @click="viewSrc" variant="success">Component source</b-btn>
+        </template>
         <template slot="content">
 
             <h1 class="bd-title" id="content">
@@ -15,6 +18,7 @@
             </p>
 
             <h2>Examples</h2>
+            <small class="text-muted">To view this examples source code use edit page button</small>
             <br>
             <div class="bd-example">
                 <slot name="demo"></slot>
@@ -102,6 +106,20 @@
                         default: (p.default instanceof Function) ? '[Computed]' : p.default + '',
                     };
                 });
+            },
+            githubURL(){
+                const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components';
+                let component = this.docs.component
+                    .replace(/(?:^|\.?)([A-Z])/g, (x, y) => "-" + y.toLowerCase())
+                    .replace(/^b-/, "");
+                return base + '/' + component + '.vue';
+            },
+        },
+
+        methods: {
+            viewSrc(){
+                window.open(this.githubURL, '_blank');
+                this.$ga.event('docs', 'view_source', this.docs.component);
             },
         },
 

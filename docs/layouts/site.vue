@@ -20,5 +20,8 @@
 
     export default {
         components: {mNav, mFooter},
+        mounted(){
+            this.$ga.page(window.location.pathname);
+        }
     }
 </script>

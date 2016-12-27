@@ -28,7 +28,7 @@
                             <a class="nav-item nav-link "
                                href="https://github.com/bootstrap-vue/bootstrap-vue"
                                target="_blank"
-                            >Fork on GitHub</a>
+                            >❤ Fork on GitHub</a>
                         </li>
                     </ul>
                 </div>
