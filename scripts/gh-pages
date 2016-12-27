@@ -5,6 +5,8 @@ cd ..
 git clone $GH_PAGES_REPO dist
 yarn docs-gen
 cd dist
+git config --global user.email "pooya@pi0.ir"
+git config --global user.name "bootstrap-vue-bot"
 git add --all
 git commit -m "Published by CI"
 git push -ff
