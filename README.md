@@ -1,11 +1,11 @@
-<p align="center"><img src="https://github.com/pi0/bootstrap-vue/raw/master/banner.png"></p>
-
 # Bootstrap Vue
 [Twitter Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
 
 [![CircleCI](https://circleci.com/gh/bootstrap-vue/bootstrap-vue.svg?style=svg)](https://circleci.com/gh/bootstrap-vue/bootstrap-vue)
 
 [![NPM](https://nodei.co/npm-dl/bootstrap-vue.png?months=3&height=3)](https://nodei.co/npm/bootstrap-vue/)
+
+<p align="center"><img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/banner.png"></p>
 
 ## Quick Start
 

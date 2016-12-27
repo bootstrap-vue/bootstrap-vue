@@ -21,7 +21,7 @@
     "build": "cd scripts && ./build",
     "docs-dev": "nuxt dev",
     "docs-gen": "nuxt generate",
-    "docs-deploy": "cs scripts && ./gh-pages"
+    "docs-deploy": "cd scripts && ./gh-pages"
   },
   "keywords": [
     "Bootstrap",
