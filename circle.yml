@@ -6,17 +6,15 @@ dependencies:
   cache_directories:
     - ~/.yarn
     - ~/.cache/yarn
-
   pre:
     - curl -o- -L https://yarnpkg.com/install.sh | bash
-
   override:
     - NODE_ENV=dev yarn install
 
-test:
+compile:
   override:
     - yarn build
-    - cp -rv dist/* $CIRCLE_ARTIFACTS
+    - cp -rv build/* $CIRCLE_ARTIFACTS
 
 deployment:
   npm:

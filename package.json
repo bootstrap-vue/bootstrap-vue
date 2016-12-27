@@ -2,11 +2,21 @@
   "name": "bootstrap-vue",
   "version": "0.4.0",
   "description": "Bootstrap 4 Components for Vue.js 2",
+  "main": "build/bootstrap-vue.common.js",
+  "license": "MIT",
+  "homepage": "https://bootstrap-vue.github.io",
+  "author": {
+    "name": "Pooya Parsa",
+    "email": "pooya@pi0.ir",
+    "url": "https://github.com/pi0"
+  },
+  "bugs": {
+    "url": "https://github.com/bootstrap-vue/bootstrap-vue/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bootstrap-vue/bootstrap-vue.git"
   },
-  "main": "dist/bootstrapVue.common.js",
   "scripts": {
     "build": "cd scripts && ./build",
     "docs-dev": "nuxt dev",
@@ -21,17 +31,47 @@
     "Polymer",
     "Vue",
     "VueJS",
-    "Vue2"
+    "Vue2",
+    "WebComponents",
+    "jquery",
+    "vue-strap",
+    "vueify",
+    "vuestrap",
+    "CSS",
+    "Flexbox",
+    "Alert",
+    "Breadcrumb",
+    "Button",
+    "Checkbox",
+    "Radio",
+    "Card",
+    "Carousel",
+    "Slider",
+    "Collapse",
+    "Dropdown",
+    "Select",
+    "Option",
+    "Input",
+    "Jumbotron",
+    "List",
+    "Nav",
+    "Modal",
+    "Navbar",
+    "Pagination",
+    "Popover",
+    "Progress",
+    "Tab",
+    "Table",
+    "Tag",
+    "Tooltip",
+    "Thether"
   ],
-  "author": {
-    "name": "Pooya Parsa",
-    "email": "pooya@pi0.ir",
-    "url": "https://github.com/pi0"
-  },
-  "license": "MIT",
-  "homepage": "https://bootstrap-vue.github.io",
-  "bugs": {
-    "url": "https://github.com/bootstrap-vue/bootstrap-vue/issues"
+  "babel": {
+    "presets": [
+      [
+        "es2015"
+      ]
+    ]
   },
   "devDependencies": {
     "babel-core": "latest",
@@ -39,6 +79,7 @@
     "babel-preset-es2015": "latest",
     "bootstrap": "^4.0.0-alpha.5",
     "css-loader": "latest",
+    "highlightjs": "latest",
     "node-sass": "latest",
     "nuxt": "latest",
     "postcss-loader": "latest",
@@ -46,16 +87,8 @@
     "tether": "latest",
     "vue": "2.1.7",
     "vue-loader": "latest",
+    "vue-style-loader": "latest",
     "vue-template-compiler": "2.1.7",
-    "webpack": "^2.2.0-rc.2",
-    "highlightjs": "latest",
-    "vue-style-loader": "latest"
-  },
-  "babel": {
-    "presets": [
-      [
-        "es2015"
-      ]
-    ]
+    "webpack": "^2.2.0-rc.2"
   }
 }

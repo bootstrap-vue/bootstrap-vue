@@ -16,8 +16,7 @@ config.context = path.resolve(__dirname, '..');
 
 // Resolver config
 config.resolve = {
-    extensions: ['.js', '.vue',''],
-    // If false it will also try to use no extension from above
+    extensions: ['.js', '.vue'],
     enforceExtension: false,
 };
 
@@ -32,7 +31,7 @@ config.entry = {
 
 // Basic output config
 config.output = {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../build'),
     filename: 'bootstrap-vue.js',
 };
 
