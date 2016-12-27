@@ -22,6 +22,10 @@ compile:
     - yarn build
 #    - cp -rv build/* $CIRCLE_ARTIFACTS
 
+test:
+  override:
+    - echo "test"
+
 deployment:
   npm:
     tag: /v[0-9]+(\.[0-9]+)*/
