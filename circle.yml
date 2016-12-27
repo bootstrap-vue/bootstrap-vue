@@ -20,7 +20,7 @@ dependencies:
 compile:
   override:
     - yarn build
-    - cp -rv build/* $CIRCLE_ARTIFACTS
+#    - cp -rv build/* $CIRCLE_ARTIFACTS
 
 deployment:
   npm:
