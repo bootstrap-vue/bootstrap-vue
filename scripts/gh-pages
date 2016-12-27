@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -x -e
+cd ..
+rm -r dist
+git clone $GH_PAGES_REPO dist
+yarn docs-gen
+cd dist
+git add --all
+git commit -m "Published by CI"
+git push

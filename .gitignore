@@ -1,3 +1,7 @@
 node_modules/
-npm-debug*
-dist
+*.log
+/dist
+/build
+*.iml
+.idea
+.nuxt

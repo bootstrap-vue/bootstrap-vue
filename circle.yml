@@ -1,30 +1,34 @@
 machine:
+  environment:
+    YARN_VERSION: 0.18.1
+    PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   node:
     version: 6
 
-  post:
-    - curl -o- -L https://yarnpkg.com/install.sh | bash
-
 dependencies:
-  cache_directories:
-    - "~/.yarn-cache"
-
   pre:
-    - yarn --version
-
+    - |
+      if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
+        curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+      fi
+  cache_directories:
+      - ~/.yarn
+      - ~/.cache/yarn
   override:
     - NODE_ENV=dev yarn install
-    - cat yarn.lock
-    
-test:
+
+compile:
   override:
-    - yarn run build
-    - cp -rv dist/* $CIRCLE_ARTIFACTS
-    
+    - yarn build
+#    - cp -rv build/* $CIRCLE_ARTIFACTS
+
 deployment:
   npm:
     tag: /v[0-9]+(\.[0-9]+)*/
     commands:
       - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - npm publish
-    
+  docs:
+    branch: master
+    commands:
+      - yarn docs-deploy

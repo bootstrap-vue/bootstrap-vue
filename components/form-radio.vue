@@ -1,90 +1,76 @@
 <template>
-  <fieldset :class="['form-group',inputState]">
-    <div class="radio" v-for="item in list" :class="{ 'radio-inline': !vertical, disabled: item.disabled }">
-      <label :class="{ 'c-input': custom, 'c-radio': custom }">
-        <input
-          :id="item.id"
-          type="radio"
-          :name="name"
-          :value="item.value"
-          autocomplete="off"
-          v-model="selection"
-          :disabled="item.disabled">
-        <span class="c-indicator" v-if="custom"></span> {{item.name}}
-      </label>
-    </div>
-  </fieldset>
+    <fieldset :class="['form-group',this.stacked?'custom-controls-stacked':'',inputState]">
+        <label :class="['custom-control','custom-radio']" v-for="item in items">
+            <input
+                    v-model="localValue"
+                    class="custom-control-input"
+                    type="radio"
+                    :id="item.id"
+                    :name="name"
+                    :value="item.value"
+                    :disabled="item.disabled"
+            >
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">{{item.text}}</span>
+        </label>
+    </fieldset>
 </template>
 
 
 <script>
-  export default {
-    replace: true,
-    data() {
-      return {
-        selection: '',
-      }
-    },
-    computed: {
-      inputState() {
-        return !this.state || this.state === `default` ? `` : `has-${this.state}`
-      },
-    },
-    props: {
-      model: {
-        // TODO: http://vuejs.org/guide/migration.html#twoWay-Prop-Option-deprecated
-        required: true
-      },
-      name: {
-        type: String,
-        default: 'options'
-      },
-      list: {
-        type: Array,
-        default: [],
-        required: true
-      },
-      custom: {
-        type: Boolean,
-        default: true
-      },
-      vertical: {
-        type: Boolean,
-        default: false
-      },
-      state: {
-        type: String,
-        default: 'default'
-      },
-      returnObject: {
-        type: Boolean,
-        default: false
-      },
-    },
-    watch: {
-      selection: {
-        handler() {
-          // set the model based on selection
-          if (this.returnObject) {
-            this.list.forEach(function (item) {
-              if (item.value === this.selection) {
-                this.model = item
-              }
-            })
-          } else {
-            this.model = this.selection
-          }
-          // dispatch an event
-          this.$root.$emit('changed::button-radio', this.model)
+    import {uniqueId} from '../utils/helpers.js'
+
+    export default {
+        data() {
+            return {
+                localValue: this.value,
+            }
         },
-        deep: true,
-      }
-    },
-    mounted() {
-      // handle initial selection
-      this.selection = this.model.value
+        computed: {
+            inputState() {
+                return this.state ? `has-${this.state}` : '';
+            },
+        },
+        props: {
+            value: {
+                default: null
+            },
+            name: {
+                type: String,
+                default: uniqueId,
+            },
+            items: {
+                type: Array,
+                default: () => [],
+                required: true
+            },
+            stacked: {
+                type: Boolean,
+                default: false
+            },
+            state: {
+                type: String,
+                default: null,
+            },
+            returnObject: {
+                type: Boolean,
+                default: false,
+            }
+        },
+        watch: {
+            localValue(value, old_value){
+                if (value === old_value) return;
+                if (this.returnObject) {
+                    this.items.forEach(item => {
+                        if (item.value === value) {
+                            value = item;
+                        }
+                    });
+                }
+                this.$emit('input', value);
+            }
+        },
     }
-  }
 
 
 </script>
