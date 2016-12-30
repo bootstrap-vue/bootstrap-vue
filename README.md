@@ -30,7 +30,7 @@ Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setu
 
 Actually [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components) are also implemented, but they are still under development, so if you relly need them, feel free to explore and use and making pull requestes so anyone else can use them earlier ;)
 
-# Supprted versions
+# Supported versions
 Both vue 2 and bootstrap 4 are changing so fast, specially bootstrap 4 is still in *alpha* stage. We keep trying to stay up to date with latest changes. currently this versions are officially tested and supported:
 
 Package   | Compatible Version
