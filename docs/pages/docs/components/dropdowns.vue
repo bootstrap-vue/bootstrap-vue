@@ -45,11 +45,9 @@
 
         <template slot="usage">
             &lt;b-dropdown text=&quot;Split Dropdown Button&quot; variant=&quot;success&quot; split @click=&quot;click&quot;&gt;
-            &emsp; &lt;div class=&quot;dropdown-menu&quot;&gt;
             &emsp; &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Action&lt;/a&gt;
             &emsp; &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Another action&lt;/a&gt;
             &emsp; &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Something else here&lt;/a&gt;
-            &lt;/div&gt;
             &lt;/b-dropdown&gt;
         </template>
 
