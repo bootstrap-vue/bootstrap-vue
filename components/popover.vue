@@ -49,7 +49,7 @@
     },
     data() {
         return {
-            showState: this.state,
+            showState: this.show,
         }
     },
     computed: {
@@ -126,7 +126,7 @@
        */
       toggle(e, newState) {
         // change state
-        this.show = (typeof newState !== 'undefined') ? newState : !this.show;
+        this.showState = (typeof newState !== 'undefined') ? newState : !this.showState;
       },
 
       /**
