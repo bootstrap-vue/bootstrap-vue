@@ -205,7 +205,7 @@
 
       // display popover if prop is set on load
       if (this.showState) {
-        this.showPopup();
+        this.showPopover();
       }
     },
 
