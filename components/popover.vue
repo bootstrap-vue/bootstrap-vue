@@ -23,10 +23,14 @@
 
   export default {
     replace: true,
+
     props: {
       position: {
         type: String,
         default: 'top',
+        validator(value) {
+          return ['top', 'bottom', 'left', 'right'].includes(value);
+        },
       },
       triggers: {
         type: Array,
@@ -47,16 +51,43 @@
         default: false,
       },
     },
+
     data() {
-        return {
-            showState: this.show,
-        }
+      return {
+        showState: this.show,
+      }
     },
+
     computed: {
-        popoverAlignment() {
-            return !this.position || this.position === `default` ? `popover-top` : `popover-${this.position}`
+      popoverAlignment() {
+        return !this.position || this.position === `default` ? `popover-top` : `popover-${this.position}`
+      },
+      positionParameters() {
+        switch(this.position) {
+          case 'bottom':
+            return {
+              attachment: 'top center',
+              targetAttachment: 'bottom center'
+            };
+          case 'left':
+            return {
+              attachment: 'middle right',
+              targetAttachment: 'middle left'
+            };
+          case 'right':
+            return {
+              attachment: 'middle left',
+              targetAttachment: 'middle right'
+            };
+          default:
+            return {
+              attachment: 'bottom center',
+              targetAttachment: 'top center'
+            };
         }
+      }
     },
+
     watch: {
       /**
        * Propogate 'show' property change
@@ -65,6 +96,7 @@
       show(newShow) {
         this.showState = newShow;
       },
+      
       /**
        * Affect 'show' state in response to status change
        * @param  {Boolean} newShowState
@@ -75,49 +107,27 @@
         // Dispatch an event from the current vm that propagates all the way up to its $root
         // element is shown
         if (newShowState) {
-            let position = null;
-            if (this.position === 'bottom') {
-                position = {
-                    attachment: 'top center',
-                    targetAttachment: 'bottom center'
-                }
-            } else if (this.position === 'left') {
-                position = {
-                    attachment: 'middle right',
-                    targetAttachment: 'middle left'
-                }
-            } else if (this.position === 'right') {
-                position = {
-                    attachment: 'middle left',
-                    targetAttachment: 'middle right'
-                }
-            } else {
-                position = {
-                    attachment: 'bottom center',
-                    targetAttachment: 'top center'
-                }
-            }
+          // let tether do the magic, after element is shown
+          this._popover.style.display = 'block';
+          this._tether = new Tether({
+            element: this._popover,
+            target: this._trigger,
+            attachment: this.positionParameters.attachment,
+            targetAttachment: this.positionParameters.targetAttachment,
+          });
+          this.$root.$emit('shown::popover');
 
-            // let tether do the magic, after element is shown
-            this._popover.style.display = 'block';
-            this._tether = new Tether({
-                element: this._popover,
-                target: this._trigger,
-                attachment: position.attachment,
-                targetAttachment: position.targetAttachment,
-            });
-            this.$root.$emit('shown::popover');
-
-            // element gets hidden
+          // element gets hidden
         } else {
-            if (this._tether) {
-                this._popover.style.display = 'none';
-                this._tether.destroy()
-            }
-            this.$root.$emit('hidden::popover')
+          if (this._tether) {
+            this._popover.style.display = 'none';
+            this._tether.destroy()
+          }
+          this.$root.$emit('hidden::popover')
         }
       }
     },
+
     methods: {
       /**
        * Toggle 'show' state
@@ -159,10 +169,12 @@
         }
       }
     },
+
     created() {
       const hub = this.$root;
       hub.$on('hide::popover', ()=>this.toggle(null, false));
     },
+
     mounted() {
       // TODO animations
 
