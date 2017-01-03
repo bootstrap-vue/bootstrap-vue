@@ -96,7 +96,7 @@
       show(newShow) {
         this.showState = newShow;
       },
-      
+
       /**
        * Affect 'show' state in response to status change
        * @param  {Boolean} newShowState
@@ -105,26 +105,7 @@
         this.$emit('showChange', newShowState);
 
         // Dispatch an event from the current vm that propagates all the way up to its $root
-        // element is shown
-        if (newShowState) {
-          // let tether do the magic, after element is shown
-          this._popover.style.display = 'block';
-          this._tether = new Tether({
-            element: this._popover,
-            target: this._trigger,
-            attachment: this.positionParameters.attachment,
-            targetAttachment: this.positionParameters.targetAttachment,
-          });
-          this.$root.$emit('shown::popover');
-
-          // element gets hidden
-        } else {
-          if (this._tether) {
-            this._popover.style.display = 'none';
-            this._tether.destroy()
-          }
-          this.$root.$emit('hidden::popover')
-        }
+        newShowState ? this.showPopover() : this.hidePopover();
       }
     },
 
@@ -137,6 +118,32 @@
       toggle(e, newState) {
         // change state
         this.showState = (typeof newState !== 'undefined') ? newState : !this.showState;
+      },
+
+      /**
+       * Display popover and fire event
+       */
+      showPopover() {
+        // let tether do the magic, after element is shown
+        this._popover.style.display = 'block';
+        this._tether = new Tether({
+          element: this._popover,
+          target: this._trigger,
+          attachment: this.positionParameters.attachment,
+          targetAttachment: this.positionParameters.targetAttachment,
+        });
+        this.$root.$emit('shown::popover');
+      },
+
+      /**
+       * Hide popover and fire event
+       */
+      hidePopover() {
+        if (this._tether) {
+          this._popover.style.display = 'none';
+          this._tether.destroy()
+        }
+        this.$root.$emit('hidden::popover');
       },
 
       /**
@@ -195,7 +202,13 @@
         this._trigger.addEventListener('focus', (e) => _this._eventHandler(e));
         this._trigger.addEventListener('blur', (e) => _this._eventHandler(e))
       }
+
+      // display popover if prop is set on load
+      if (this.showState) {
+        this.showPopup();
+      }
     },
+
     beforeDestroy() {
       // clean up listeners
       this._trigger.removeEventListener('click', () => _this._eventHandler());
