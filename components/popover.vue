@@ -162,7 +162,7 @@
         // }
 
         // stop propagation to avoid accidental closing on ide::popover event
-        e.stopPropagation();
+        //e.stopPropagation();
 
         // hide popover
         if (e.type === 'click') {
