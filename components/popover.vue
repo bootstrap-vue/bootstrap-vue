@@ -198,7 +198,7 @@
         this._trigger.addEventListener('mouseenter', (e) => _this._eventHandler(e));
         this._trigger.addEventListener('mouseleave', (e) => _this._eventHandler(e))
       }
-      if (this.triggers.indexOf('focus') !== -1 && this._trigger.tagName.toLowerCase() === 'input') {
+      if (this.triggers.indexOf('focus') !== -1) {
         this._trigger.addEventListener('focus', (e) => _this._eventHandler(e));
         this._trigger.addEventListener('blur', (e) => _this._eventHandler(e))
       }
