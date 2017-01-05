@@ -45,14 +45,6 @@
             alertState() {
                 return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`
             },
-            show: {
-                get: function () {
-                    return this.localShow;
-                },
-                set: function (value) {
-                    this.localShow = value;
-                }
-            },
         },
         watch: {
             show: function (newValue, oldValue) {
