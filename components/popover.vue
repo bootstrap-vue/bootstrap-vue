@@ -39,9 +39,20 @@
         },
       },
       triggers: {
-        type: Array,
+        type: [String, Array],
         default() {
           return ['click', 'focus']
+        },
+        validator(value) {
+          if (typeof value === 'string') {
+            return Object.keys(triggerListeners).includes(value);
+          } else if (Array.isArray(value)) {
+            let keys = Object.keys(triggerListeners);
+            value.forEach(item => {
+              if (!keys.includes(item)) return false;
+            });
+            return true;
+          } else return false;
         }
       },
       title: {
@@ -61,6 +72,7 @@
     data() {
       return {
         showState: this.show,
+        appliedTriggers: []
       }
     },
 
@@ -112,6 +124,10 @@
 
         // Dispatch an event from the current vm that propagates all the way up to its $root
         newShowState ? this.showPopover() : this.hidePopover();
+      },
+
+      triggers(newTriggers) {
+        this.updateListeners(newTriggers);
       }
     },
 
@@ -172,28 +188,70 @@
 
         // hide popover
         if (e.type === 'click') {
-          this.toggle(e)
+          this.showState = !this.showState;
         } else {
           if (e.type === 'mouseenter' || e.type === 'focus') {
-            this.toggle(e, true)
+            this.showState = true;
           } else {
-            this.toggle(e, false)
+            this.showState = false;
           }
         }
       },
 
-      updateListeners() {
+      /**
+       * @param {String, Array} triggers
+       */
+      updateListeners(triggers) {
+        let newTriggers = [];
+        let removeTriggers = [];
 
+        if(typeof triggers === 'string') {
+          triggers = [triggers];
+        }
+
+        triggers.forEach(item => {
+          if (!this.appliedTriggers.includes(item))
+            newTriggers.push(item);
+        });
+
+        this.appliedTriggers.forEach(item => {
+          if (!triggers.includes(item))
+            removeTriggers.push(item);
+        });
+
+        newTriggers.forEach(item => this.addListener(item));
+
+        removeTriggers.forEach(item => this.removeListener(item));
       },
 
-      removeListeners() {
+      /**
+       * @param {String} trigger
+       */
+      addListener(trigger) {
+        for (var item in triggerListeners[trigger]) {
+          this._trigger.addEventListener(item.key, e => _this._eventHandler(e));
+        };
+      },
 
+      /**
+       * @param {String} trigger
+       */
+      removeListener(trigger) {
+        for (var item in triggerListeners[trigger]) {
+          item => this._trigger.removeEventListener(item.key, e => _this._eventHandler(e));
+        };
+      },
+
+      removeAllListeners() {
+        for (var trigger in this.appliedTriggers) {
+          this.removeListener(trigger);
+        }
       }
     },
 
     created() {
       const hub = this.$root;
-      hub.$on('hide::popover', ()=>this.toggle(null, false));
+      hub.$on('hide::popover', ()=> {this.showState = false});
     },
 
     mounted() {
@@ -205,17 +263,8 @@
       this._popover.style.display = 'none';
       const _this = this;
 
-      // add listeners for specified triggers anb complementary click event
-      this._trigger.addEventListener('click', (e) => _this._eventHandler(e));
-
-      if (this.triggers.indexOf('hover') !== -1) {
-        this._trigger.addEventListener('mouseenter', (e) => _this._eventHandler(e));
-        this._trigger.addEventListener('mouseleave', (e) => _this._eventHandler(e))
-      }
-      if (this.triggers.indexOf('focus') !== -1) {
-        this._trigger.addEventListener('focus', (e) => _this._eventHandler(e));
-        this._trigger.addEventListener('blur', (e) => _this._eventHandler(e))
-      }
+      // add listeners for specified triggers and complementary click event
+      this.updateListeners(this.triggers);
 
       // display popover if prop is set on load
       if (this.showState) {
@@ -225,11 +274,7 @@
 
     beforeDestroy() {
       // clean up listeners
-      this._trigger.removeEventListener('click', () => _this._eventHandler());
-      this._trigger.removeEventListener('mouseenter', () => _this._eventHandler());
-      this._trigger.removeEventListener('mouseleave', () => _this._eventHandler());
-      this._trigger.removeEventListener('focus', () => _this._eventHandler());
-      this._trigger.removeEventListener('blur', () => _this._eventHandler())
+      this.removeAllListeners();
     }
   }
 
