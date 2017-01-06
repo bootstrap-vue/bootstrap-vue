@@ -21,11 +21,16 @@
 <script>
   import Tether from 'tether'
 
+  // Controls which events are mapped for each named trigger, and the expected popover behavior for each.
   const triggerListeners = {
     click: {click: 'toggle'},
     hover: {mouseenter: 'show', mouseleave: 'hide'},
     focus: {focus: 'show', blur: 'hide'}
   };
+
+  // Subsequent events within the defined timeframe, in milliseconds, will be ignored. Allows for safe stacking of
+  // similar event hooks without the popover flickering.
+  const debounceMilliseconds = 200;
 
   export default {
     replace: true,
@@ -72,7 +77,8 @@
     data() {
       return {
         showState: this.show,
-        appliedTriggers: []
+        appliedTriggers: [],
+        lastEvent: null
       }
     },
 
@@ -133,16 +139,6 @@
 
     methods: {
       /**
-       * Toggle 'show' state
-       * @param  {Object} e
-       * @param  {Boolean} newState (if set use it's value)
-       */
-      toggle(e, newState) {
-        // change state
-        this.showState = (typeof newState !== 'undefined') ? newState : !this.showState;
-      },
-
-      /**
        * Display popover and fire event
        */
       showPopover() {
@@ -172,78 +168,82 @@
        * Handle multiple event triggers
        * @param  {Object} e
        */
-      _eventHandler(e) {
-        // if both click and hover are set, on desktop devices click will take precedence
-        if ((e.type === 'mouseenter' || e.type === 'mouseleave') && this.triggers.indexOf('click') !== -1) {
-          return
-        }
-        // TODO
-        // if both click and focus are set, focus will take precedence
-        // if (e.type === 'click' && this.triggers.indexOf('focus') !== -1) {
-        //   return
-        // }
+      eventHandler(e) {
+        // If this event is right after a previous successful event, ignore it
+        if (this.lastEvent != false && e.timeStamp <= this.lastEvent + debounceMilliseconds) return;
 
-        // stop propagation to avoid accidental closing on ide::popover event
-        //e.stopPropagation();
+        // Look up the expected popover action for the event
+        for (let trigger in triggerListeners) {
+          for (let event in triggerListeners[trigger]) {
+            if (event === e.type) {
+              let action = triggerListeners[trigger][event];
 
-        // hide popover
-        if (e.type === 'click') {
-          this.showState = !this.showState;
-        } else {
-          if (e.type === 'mouseenter' || e.type === 'focus') {
-            this.showState = true;
-          } else {
-            this.showState = false;
+              // If the expected event action is the opposite of the current state, allow it
+              if (action === 'toggle' || (this.showState && action === 'hide') || action === 'show') {
+                this.showState = !this.showState;
+                this.lastEvent = e.timeStamp;
+              }
+              return;
+            }
           }
         }
       },
 
       /**
+       * Study the 'triggers' component property and apply all selected triggers
        * @param {String, Array} triggers
        */
       updateListeners(triggers) {
         let newTriggers = [];
         let removeTriggers = [];
 
+        // Type cast for when input is string
         if(typeof triggers === 'string') {
           triggers = [triggers];
         }
 
+        // Look for new events not yet mapped (all of them on first load)
         triggers.forEach(item => {
           if (!this.appliedTriggers.includes(item))
             newTriggers.push(item);
         });
 
+        // Disable any removed event triggers
         this.appliedTriggers.forEach(item => {
           if (!triggers.includes(item))
             removeTriggers.push(item);
         });
 
+        // Apply trigger mapping changes
         newTriggers.forEach(item => this.addListener(item));
-
         removeTriggers.forEach(item => this.removeListener(item));
       },
 
       /**
+       * Add all event hooks for the given trigger
        * @param {String} trigger
        */
       addListener(trigger) {
-        for (var item in triggerListeners[trigger]) {
-          this._trigger.addEventListener(item.key, e => _this._eventHandler(e));
-        };
+        for (let item in triggerListeners[trigger]) {
+          this._trigger.addEventListener(item, e => this.eventHandler(e));
+        }
       },
 
       /**
+       * Remove all event hooks for the given trigger
        * @param {String} trigger
        */
       removeListener(trigger) {
-        for (var item in triggerListeners[trigger]) {
-          item => this._trigger.removeEventListener(item.key, e => _this._eventHandler(e));
-        };
+        for (let item in triggerListeners[trigger]) {
+          this._trigger.removeEventListener(item, e => this.eventHandler(e));
+        }
       },
 
+      /**
+       * Remove all event listeners
+       */
       removeAllListeners() {
-        for (var trigger in this.appliedTriggers) {
+        for (let trigger in this.appliedTriggers) {
           this.removeListener(trigger);
         }
       }
@@ -261,7 +261,6 @@
       this._trigger = this.$refs.trigger.children[0];
       this._popover = this.$refs.popover;
       this._popover.style.display = 'none';
-      const _this = this;
 
       // add listeners for specified triggers and complementary click event
       this.updateListeners(this.triggers);
