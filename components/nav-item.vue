@@ -31,6 +31,11 @@
         methods: {
             onclick: function () {
                 this.$emit('click', this.link);
+                try {
+                    this.$router.push(this.link);
+                } catch (e) {
+                    console.log(e);
+                }
             }
         }
     }
