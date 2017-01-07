@@ -6,10 +6,9 @@
       <div class="popover-arrow"></div>
       <h3 class="popover-title" v-if="title">{{title}}</h3>
       <div class="popover-content">
-        <span v-html="text" v-if="text"></span>
-        <div class="popover-content-wrapper">
-          <slot name="content" v-if="!text"></slot>
-        </div>
+      <div class="popover-content-wrapper">
+        <slot name="content"><span v-html="content"></span></slot>
+      </div>
       </div>
     </div>
 
@@ -28,15 +27,15 @@
     focus: {focus: 'show', blur: 'hide'}
   };
 
-  // Subsequent events within the defined timeframe, in milliseconds, will be ignored. Allows for safe stacking of
-  // similar event hooks without the popover flickering.
+  // When using multiple event hooks, subsequent events within the defined timeframe, in milliseconds, will be ignored.
+  // Allows for safe stacking of similar event hooks without the popover flickering.
   const debounceMilliseconds = 200;
 
   export default {
     replace: true,
 
     props: {
-      position: {
+      placement: {
         type: String,
         default: 'top',
         validator(value) {
@@ -44,14 +43,17 @@
         },
       },
       triggers: {
-        type: [String, Array],
+        type: [Boolean, String, Array],
         default() {
           return ['click', 'focus']
         },
         validator(value) {
-          if (typeof value === 'string') {
+          // Allow falsy value to disable all event triggers (equivalent to 'manual') in Bootstrap 4
+          if (value == false)
+            return true;
+          else if (typeof value === 'string')
             return Object.keys(triggerListeners).includes(value);
-          } else if (Array.isArray(value)) {
+          else if (Array.isArray(value)) {
             let keys = Object.keys(triggerListeners);
             value.forEach(item => {
               if (!keys.includes(item)) return false;
@@ -64,7 +66,7 @@
         type: String,
         default: '',
       },
-      text: {
+      content: {
         type: String,
         default: '',
       },
@@ -72,6 +74,33 @@
         type: Boolean,
         default: false,
       },
+      constraints: {
+        type: Array,
+        default() { return [] }
+      },
+      offset: {
+        type: String,
+        default: '0 0',
+        validator(value) {
+          return /^(\d+\s\d+)$/.test(value);
+        }
+      },
+      delay: {
+        type: [Number, Object],
+        default: 0,
+        validator(value) {
+          if (typeof value === 'number')
+            return value >= 0;
+
+          else if (value !== null && typeof value === 'object')
+            return typeof value.show === 'number'
+              && typeof value.hide === 'number'
+              && value.show >= 0
+              && value.hide >= 0;
+
+          return false;
+        }
+      }
     },
 
     data() {
@@ -84,10 +113,11 @@
 
     computed: {
       popoverAlignment() {
-        return !this.position || this.position === `default` ? `popover-top` : `popover-${this.position}`
+        return !this.placement || this.placement === `default` ? `popover-top` : `popover-${this.placement}`
       },
-      positionParameters() {
-        switch(this.position) {
+
+      placementParameters() {
+        switch(this.placement) {
           case 'bottom':
             return {
               attachment: 'top center',
@@ -109,6 +139,10 @@
               targetAttachment: 'top center'
             };
         }
+      },
+
+      useDebounce() {
+        return Array.isArray(this.triggers) && this.triggers.length > 1;
       }
     },
 
@@ -126,10 +160,12 @@
        * @param  {Boolean} newShowState
        */
       showState(newShowState) {
-        this.$emit('showChange', newShowState);
+        clearTimeout(this._timeout);
 
-        // Dispatch an event from the current vm that propagates all the way up to its $root
-        newShowState ? this.showPopover() : this.hidePopover();
+        this._timeout = setTimeout(() => {
+          this.$emit('showChange', newShowState);
+          newShowState ? this.showPopover() : this.hidePopover();
+        }, this.getDelay(newShowState));
       },
 
       triggers(newTriggers) {
@@ -145,10 +181,12 @@
         // let tether do the magic, after element is shown
         this._popover.style.display = 'block';
         this._tether = new Tether({
-          element: this._popover,
-          target: this._trigger,
-          attachment: this.positionParameters.attachment,
-          targetAttachment: this.positionParameters.targetAttachment,
+          element           : this._popover,
+          target            : this._trigger,
+          offset            : this.offset,
+          constraints       : this.constraints,
+          attachment        : this.placementParameters.attachment,
+          targetAttachment  : this.placementParameters.targetAttachment,
         });
         this.$root.$emit('shown::popover');
       },
@@ -165,12 +203,39 @@
       },
 
       /**
+       * Get the currently applicable popover delay
+       * @returns Number
+       */
+      getDelay(state) {
+        if (typeof this.delay === 'object')
+          return state ? this.delay.show : this.delay.hide;
+
+        return this.delay;
+      },
+
+      toggleShowState() {
+        let newState = !this.showState;
+        clearTimeout(this._timeout);
+
+        if (this.currentDelay == 0) {
+          this.showState = newState;
+          return;
+        }
+
+        this._timeout = setTimeout(() => {
+          this.showState = newState
+        }, this.currentDelay);
+      },
+
+      /**
        * Handle multiple event triggers
        * @param  {Object} e
        */
       eventHandler(e) {
+        console.log('Event: ' + e.type);
+
         // If this event is right after a previous successful event, ignore it
-        if (this.lastEvent != false && e.timeStamp <= this.lastEvent + debounceMilliseconds) return;
+        if (this.useDebounce && this.lastEvent != null && e.timeStamp <= this.lastEvent + debounceMilliseconds) return;
 
         // Look up the expected popover action for the event
         for (let trigger in triggerListeners) {
@@ -197,10 +262,10 @@
         let newTriggers = [];
         let removeTriggers = [];
 
-        // Type cast for when input is string
-        if(typeof triggers === 'string') {
+        if (triggers == false)
+          triggers = [];
+        else if(typeof triggers === 'string')
           triggers = [triggers];
-        }
 
         // Look for new events not yet mapped (all of them on first load)
         triggers.forEach(item => {
@@ -261,6 +326,7 @@
       this._trigger = this.$refs.trigger.children[0];
       this._popover = this.$refs.popover;
       this._popover.style.display = 'none';
+      this._timeout = 0;
 
       // add listeners for specified triggers and complementary click event
       this.updateListeners(this.triggers);
@@ -274,6 +340,8 @@
     beforeDestroy() {
       // clean up listeners
       this.removeAllListeners();
+      clearTimeout(this._timeout);
+      this._timeout = null;
     }
   }
 
