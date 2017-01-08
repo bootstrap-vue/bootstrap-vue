@@ -2,7 +2,7 @@
   <div>
     <span class="popover-trigger" ref="trigger"><slot></slot></span>
 
-    <div :class="['popover',popoverAlignment]" ref="popover">
+    <div tabindex="-1" :class="['popover',popoverAlignment]" ref="popover" @focus="$emit('focus')" @blur="$emit('blur')">
       <div class="popover-arrow"></div>
       <h3 class="popover-title" v-if="title">{{title}}</h3>
       <div class="popover-content">
