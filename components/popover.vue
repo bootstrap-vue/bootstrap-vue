@@ -6,9 +6,9 @@
       <div class="popover-arrow"></div>
       <h3 class="popover-title" v-if="title">{{title}}</h3>
       <div class="popover-content">
-      <div class="popover-content-wrapper">
-        <slot name="content"><span v-html="content"></span></slot>
-      </div>
+        <div class="popover-content-wrapper">
+          <slot name="content"><span v-html="content"></span></slot>
+        </div>
       </div>
     </div>
 
@@ -106,7 +106,6 @@
     data() {
       return {
         showState: this.show,
-        appliedTriggers: [],
         lastEvent: null
       }
     },
@@ -114,6 +113,15 @@
     computed: {
       popoverAlignment() {
         return !this.placement || this.placement === `default` ? `popover-top` : `popover-${this.placement}`
+      },
+
+      normalizedTriggers() {
+        if (this.triggers == false)
+          return [];
+        else if(typeof triggers === 'string')
+          return [this.triggers];
+        else
+          return this.triggers;
       },
 
       placementParameters() {
@@ -142,7 +150,7 @@
       },
 
       useDebounce() {
-        return Array.isArray(this.triggers) && this.triggers.length > 1;
+        return this.normalizedTriggers.length > 1;
       }
     },
 
@@ -168,8 +176,8 @@
         }, this.getDelay(newShowState));
       },
 
-      triggers(newTriggers) {
-        this.updateListeners(newTriggers);
+      normalizedTriggers(newTriggers, oldTriggers) {
+        this.updateListeners(newTriggers, oldTriggers);
       }
     },
 
@@ -258,23 +266,18 @@
        * Study the 'triggers' component property and apply all selected triggers
        * @param {String, Array} triggers
        */
-      updateListeners(triggers) {
+      updateListeners(triggers, appliedTriggers = []) {
         let newTriggers = [];
         let removeTriggers = [];
 
-        if (triggers == false)
-          triggers = [];
-        else if(typeof triggers === 'string')
-          triggers = [triggers];
-
         // Look for new events not yet mapped (all of them on first load)
         triggers.forEach(item => {
-          if (!this.appliedTriggers.includes(item))
+          if (!appliedTriggers.includes(item))
             newTriggers.push(item);
         });
 
         // Disable any removed event triggers
-        this.appliedTriggers.forEach(item => {
+        appliedTriggers.forEach(item => {
           if (!triggers.includes(item))
             removeTriggers.push(item);
         });
@@ -308,7 +311,7 @@
        * Remove all event listeners
        */
       removeAllListeners() {
-        for (let trigger in this.appliedTriggers) {
+        for (let trigger in this.normalizedTriggers) {
           this.removeListener(trigger);
         }
       }
@@ -329,7 +332,7 @@
       this._timeout = 0;
 
       // add listeners for specified triggers and complementary click event
-      this.updateListeners(this.triggers);
+      this.updateListeners(this.normalizedTriggers);
 
       // display popover if prop is set on load
       if (this.showState) {
