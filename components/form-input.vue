@@ -1,5 +1,5 @@
 <template>
-    <b-form-fieldset :state="state" :label="label" :description="description" :feedback="feedback" :id="id">
+    <b-form-fieldset :state="state" :layout="layout" :label="label" :description="description" :feedback="feedback" :id="id">
         <input
                 v-if="!textarea"
                 :type="type"
@@ -97,6 +97,10 @@
 
 
             // FIELD SET
+            layout: {
+                type: String,
+                default: null
+            },
             state: {
                 type: String,
                 default: null
