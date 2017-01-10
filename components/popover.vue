@@ -240,8 +240,6 @@
        * @param  {Object} e
        */
       eventHandler(e) {
-        console.log('Event: ' + e.type);
-
         // If this event is right after a previous successful event, ignore it
         if (this.useDebounce && this.lastEvent != null && e.timeStamp <= this.lastEvent + debounceMilliseconds) return;
 
