@@ -10,32 +10,33 @@
 <p align="center"><img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/banner.png"></p>
 
 # Getting started
-Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setup guide, examples and more docs.
+Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
 
 # Current included stable components
 
-- Alerts
-- Breadcrumb
-- Buttons
-- Button group
-- Dropdowns
-- Form Inputs
-- Form Radio
-- Form Checkbox
-- Form Select
-- Nav
-- NavBar
-- Pagination
-- Tables (with pagination and custom rendering support)
+- [Alerts](https://bootstrap-vue.github.io/docs/components/alerts)
+- [Breadcrumb](https://bootstrap-vue.github.io/docs/components/breadcrumb)
+- [Buttons](https://bootstrap-vue.github.io/docs/components/buttons)
+- [Button group](https://bootstrap-vue.github.io/docs/components/button-group)
+- [Dropdowns](https://bootstrap-vue.github.io/docs/components/dropdowns)
+- [Form Inputs](https://bootstrap-vue.github.io/docs/components/form-inputs)
+- [Form Radio](https://bootstrap-vue.github.io/docs/components/form-radio)
+- [Form Checkbox](https://bootstrap-vue.github.io/docs/components/form-checkbox)
+- [Form Select](https://bootstrap-vue.github.io/docs/components/form-select)
+- [Nav](https://bootstrap-vue.github.io/docs/components/nav)
+- [NavBar](https://bootstrap-vue.github.io/docs/components/navbar)
+- [Pagination](https://bootstrap-vue.github.io/docs/components/pagination)
+- [Popover](https://bootstrap-vue.github.io/docs/components/popover)
+- [Tables](https://bootstrap-vue.github.io/docs/components/tables) (with pagination and custom rendering support)
 
-Actually [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components) are also implemented, but they are still under development, so if you relly need them, feel free to explore and use and making pull requestes so anyone else can use them earlier ;)
+Additionally, [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components) are available, but they are still under development. If you really need to use them, feel free to experiment and submit pull requests to benefit other users of this package.
 
 # Supported versions
-Both vue 2 and bootstrap 4 are changing so fast, specially bootstrap 4 is still in *alpha* stage. We keep trying to stay up to date with latest changes. currently this versions are officially tested and supported:
+Both Vue v2 and Bootstrap v4 are changing so fast, specifically Bootstrap 4 is still in *alpha* stage. We do our best to stay up-to-date with the latest changes. Currently these versions are officially tested and supported:
 
 Package   | Compatible Version
 ----------|---------------------
-Vue js        | 2.1.7
+Vue js    | 2.1.7
 Bootstrap | 4.0.0-alpha.5
 Webpack   | 2.2.0-rc.2
 
