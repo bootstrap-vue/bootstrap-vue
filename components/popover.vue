@@ -2,13 +2,12 @@
   <div>
     <span class="popover-trigger" ref="trigger"><slot></slot></span>
 
-    <div :class="['popover',popoverAlignment]" ref="popover">
+    <div tabindex="-1" :class="['popover',popoverAlignment]" ref="popover" @focus="$emit('focus')" @blur="$emit('blur')">
       <div class="popover-arrow"></div>
       <h3 class="popover-title" v-if="title">{{title}}</h3>
       <div class="popover-content">
-        <span v-html="text" v-if="text"></span>
         <div class="popover-content-wrapper">
-          <slot name="content" v-if="!text"></slot>
+          <slot name="content"><span v-html="content"></span></slot>
         </div>
       </div>
     </div>
@@ -21,129 +20,306 @@
 <script>
   import Tether from 'tether'
 
+  // Controls which events are mapped for each named trigger, and the expected popover behavior for each.
+  const triggerListeners = {
+    click: {click: 'toggle'},
+    hover: {mouseenter: 'show', mouseleave: 'hide'},
+    focus: {focus: 'show', blur: 'hide'}
+  };
+
+  // When using multiple event hooks, subsequent events within the defined timeframe, in milliseconds, will be ignored.
+  // Allows for safe stacking of similar event hooks without the popover flickering.
+  const debounceMilliseconds = 200;
+
   export default {
     replace: true,
-    data() {
-      return {
-        show: false,
-      }
-    },
-    computed: {
-      popoverAlignment() {
-        return !this.position || this.position === `default` ? `popover-top` : `popover-${this.position}`
-      }
-    },
+
     props: {
-      position: {
+      placement: {
         type: String,
         default: 'top',
+        validator(value) {
+          return ['top', 'bottom', 'left', 'right'].includes(value);
+        },
       },
       triggers: {
-        type: Array,
+        type: [Boolean, String, Array],
         default() {
           return ['click', 'focus']
+        },
+        validator(value) {
+          // Allow falsy value to disable all event triggers (equivalent to 'manual') in Bootstrap 4
+          if (value == false)
+            return true;
+          else if (typeof value === 'string')
+            return Object.keys(triggerListeners).includes(value);
+          else if (Array.isArray(value)) {
+            let keys = Object.keys(triggerListeners);
+            value.forEach(item => {
+              if (!keys.includes(item)) return false;
+            });
+            return true;
+          } else return false;
         }
       },
       title: {
         type: String,
         default: '',
       },
-      text: {
+      content: {
         type: String,
         default: '',
       },
+      show: {
+        type: Boolean,
+        default: false,
+      },
+      constraints: {
+        type: Array,
+        default() { return [] }
+      },
+      offset: {
+        type: String,
+        default: '0 0',
+        validator(value) {
+          return /^(\d+\s\d+)$/.test(value);
+        }
+      },
+      delay: {
+        type: [Number, Object],
+        default: 0,
+        validator(value) {
+          if (typeof value === 'number')
+            return value >= 0;
+
+          else if (value !== null && typeof value === 'object')
+            return typeof value.show === 'number'
+              && typeof value.hide === 'number'
+              && value.show >= 0
+              && value.hide >= 0;
+
+          return false;
+        }
+      }
     },
-    methods: {
 
-      /**
-       * Toggle 'show' state
-       * @param  {Object} e
-       * @param  {Boolean} newState (if set use it's value)
-       */
-      toggle(e, newState) {
-        // change state
-        this.show = (typeof newState !== 'undefined') ? newState : !this.show;
+    data() {
+      return {
+        showState: this.show,
+        lastEvent: null
+      }
+    },
 
-        // Dispatch an event from the current vm that propagates all the way up to its $root
-        // element is shown
-        if (this.show) {
-          let position = {
-            attachment: 'bottom center',
-            targetAttachment: 'top center'
-          };
-          if (this.position === 'bottom') {
-            position = {
+    computed: {
+      popoverAlignment() {
+        return !this.placement || this.placement === `default` ? `popover-top` : `popover-${this.placement}`
+      },
+
+      normalizedTriggers() {
+        if (this.triggers == false)
+          return [];
+        else if(typeof triggers === 'string')
+          return [this.triggers];
+        else
+          return this.triggers;
+      },
+
+      placementParameters() {
+        switch(this.placement) {
+          case 'bottom':
+            return {
               attachment: 'top center',
               targetAttachment: 'bottom center'
-            }
-          }
-          if (this.position === 'left') {
-            position = {
+            };
+          case 'left':
+            return {
               attachment: 'middle right',
               targetAttachment: 'middle left'
-            }
-          }
-          if (this.position === 'right') {
-            position = {
+            };
+          case 'right':
+            return {
               attachment: 'middle left',
               targetAttachment: 'middle right'
-            }
-          }
-
-          // let tether do the magic, after element is shown
-          this._popover.style.display = 'block';
-          this._tether = new Tether({
-            element: this._popover,
-            target: this._trigger,
-            attachment: position.attachment,
-            targetAttachment: position.targetAttachment,
-          });
-          this.$root.$emit('shown::popover');
-
-          // element gets hidden
-        } else {
-          if (this._tether) {
-            this._popover.style.display = 'none';
-            this._tether.destroy()
-          }
-          this.$root.$emit('hidden::popover')
+            };
+          default:
+            return {
+              attachment: 'bottom center',
+              targetAttachment: 'top center'
+            };
         }
+      },
+
+      useDebounce() {
+        return this.normalizedTriggers.length > 1;
+      }
+    },
+
+    watch: {
+      /**
+       * Propogate 'show' property change
+       * @param  {Boolean} newShow
+       */
+      show(newShow) {
+        this.showState = newShow;
+      },
+
+      /**
+       * Affect 'show' state in response to status change
+       * @param  {Boolean} newShowState
+       */
+      showState(newShowState) {
+        clearTimeout(this._timeout);
+
+        this._timeout = setTimeout(() => {
+          this.$emit('showChange', newShowState);
+          newShowState ? this.showPopover() : this.hidePopover();
+        }, this.getDelay(newShowState));
+      },
+
+      normalizedTriggers(newTriggers, oldTriggers) {
+        this.updateListeners(newTriggers, oldTriggers);
+      }
+    },
+
+    methods: {
+      /**
+       * Display popover and fire event
+       */
+      showPopover() {
+        // let tether do the magic, after element is shown
+        this._popover.style.display = 'block';
+        this._tether = new Tether({
+          element           : this._popover,
+          target            : this._trigger,
+          offset            : this.offset,
+          constraints       : this.constraints,
+          attachment        : this.placementParameters.attachment,
+          targetAttachment  : this.placementParameters.targetAttachment,
+        });
+        this.$root.$emit('shown::popover');
+      },
+
+      /**
+       * Hide popover and fire event
+       */
+      hidePopover() {
+        if (this._tether) {
+          this._popover.style.display = 'none';
+          this._tether.destroy()
+        }
+        this.$root.$emit('hidden::popover');
+      },
+
+      /**
+       * Get the currently applicable popover delay
+       * @returns Number
+       */
+      getDelay(state) {
+        if (typeof this.delay === 'object')
+          return state ? this.delay.show : this.delay.hide;
+
+        return this.delay;
+      },
+
+      toggleShowState() {
+        let newState = !this.showState;
+        clearTimeout(this._timeout);
+
+        if (this.currentDelay == 0) {
+          this.showState = newState;
+          return;
+        }
+
+        this._timeout = setTimeout(() => {
+          this.showState = newState
+        }, this.currentDelay);
       },
 
       /**
        * Handle multiple event triggers
        * @param  {Object} e
        */
-      _eventHandler(e) {
-        // if both click and hover are set, on desktop devices click will take precedence
-        if ((e.type === 'mouseenter' || e.type === 'mouseleave') && this.triggers.indexOf('click') !== -1) {
-          return
-        }
-        // TODO
-        // if both click and focus are set, focus will take precedence
-        // if (e.type === 'click' && this.triggers.indexOf('focus') !== -1) {
-        //   return
-        // }
+      eventHandler(e) {
+        // If this event is right after a previous successful event, ignore it
+        if (this.useDebounce && this.lastEvent != null && e.timeStamp <= this.lastEvent + debounceMilliseconds) return;
 
-        // stop propagation to avoid accidental closing on ide::popover event
-        e.stopPropagation();
+        // Look up the expected popover action for the event
+        for (let trigger in triggerListeners) {
+          for (let event in triggerListeners[trigger]) {
+            if (event === e.type) {
+              let action = triggerListeners[trigger][event];
 
-        // hide popover
-        if (e.type === 'click') {
-          this.toggle(e)
-        } else {
-          if (e.type === 'mouseenter' || e.type === 'focus') {
-            this.toggle(e, true)
-          } else {
-            this.toggle(e, false)
+              // If the expected event action is the opposite of the current state, allow it
+              if (action === 'toggle' || (this.showState && action === 'hide') || action === 'show') {
+                this.showState = !this.showState;
+                this.lastEvent = e.timeStamp;
+              }
+              return;
+            }
           }
+        }
+      },
+
+      /**
+       * Study the 'triggers' component property and apply all selected triggers
+       * @param {String, Array} triggers
+       */
+      updateListeners(triggers, appliedTriggers = []) {
+        let newTriggers = [];
+        let removeTriggers = [];
+
+        // Look for new events not yet mapped (all of them on first load)
+        triggers.forEach(item => {
+          if (!appliedTriggers.includes(item))
+            newTriggers.push(item);
+        });
+
+        // Disable any removed event triggers
+        appliedTriggers.forEach(item => {
+          if (!triggers.includes(item))
+            removeTriggers.push(item);
+        });
+
+        // Apply trigger mapping changes
+        newTriggers.forEach(item => this.addListener(item));
+        removeTriggers.forEach(item => this.removeListener(item));
+      },
+
+      /**
+       * Add all event hooks for the given trigger
+       * @param {String} trigger
+       */
+      addListener(trigger) {
+        for (let item in triggerListeners[trigger]) {
+          this._trigger.addEventListener(item, e => this.eventHandler(e));
+        }
+      },
+
+      /**
+       * Remove all event hooks for the given trigger
+       * @param {String} trigger
+       */
+      removeListener(trigger) {
+        for (let item in triggerListeners[trigger]) {
+          this._trigger.removeEventListener(item, e => this.eventHandler(e));
+        }
+      },
+
+      /**
+       * Remove all event listeners
+       */
+      removeAllListeners() {
+        for (let trigger in this.normalizedTriggers) {
+          this.removeListener(trigger);
         }
       }
     },
-    created: function () {
+
+    created() {
       const hub = this.$root;
-      hub.$on('hide::popover', ()=>this.toggle(null, false));
+      hub.$on('hide::popover', ()=> {this.showState = false});
     },
+
     mounted() {
       // TODO animations
 
@@ -151,27 +327,22 @@
       this._trigger = this.$refs.trigger.children[0];
       this._popover = this.$refs.popover;
       this._popover.style.display = 'none';
-      const _this = this;
+      this._timeout = 0;
 
-      // add listeners for specified triggers anb complementary click event
-      this._trigger.addEventListener('click', (e) => _this._eventHandler(e));
+      // add listeners for specified triggers and complementary click event
+      this.updateListeners(this.normalizedTriggers);
 
-      if (this.triggers.indexOf('hover') !== -1) {
-        this._trigger.addEventListener('mouseenter', (e) => _this._eventHandler(e));
-        this._trigger.addEventListener('mouseleave', (e) => _this._eventHandler(e))
-      }
-      if (this.triggers.indexOf('focus') !== -1 && this._trigger.tagName.toLowerCase() === 'input') {
-        this._trigger.addEventListener('focus', (e) => _this._eventHandler(e));
-        this._trigger.addEventListener('blur', (e) => _this._eventHandler(e))
+      // display popover if prop is set on load
+      if (this.showState) {
+        this.showPopover();
       }
     },
+
     beforeDestroy() {
       // clean up listeners
-      this._trigger.removeEventListener('click', () => _this._eventHandler());
-      this._trigger.removeEventListener('mouseenter', () => _this._eventHandler());
-      this._trigger.removeEventListener('mouseleave', () => _this._eventHandler());
-      this._trigger.removeEventListener('focus', () => _this._eventHandler());
-      this._trigger.removeEventListener('blur', () => _this._eventHandler())
+      this.removeAllListeners();
+      clearTimeout(this._timeout);
+      this._timeout = null;
     }
   }
 
