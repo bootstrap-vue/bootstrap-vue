@@ -73,19 +73,21 @@
       ]
     ]
   },
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.5",
+    "tether": "latest",
+    "vue": "2.1.7"
+  },
   "devDependencies": {
     "babel-core": "latest",
     "babel-loader": "latest",
     "babel-preset-es2015": "latest",
-    "bootstrap": "^4.0.0-alpha.5",
     "css-loader": "latest",
     "highlightjs": "latest",
     "node-sass": "latest",
     "nuxt": "latest",
     "postcss-loader": "latest",
     "sass-loader": "latest",
-    "tether": "latest",
-    "vue": "2.1.7",
     "vue-analytics": "latest",
     "vue-loader": "latest",
     "vue-style-loader": "latest",
