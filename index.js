@@ -3,9 +3,9 @@ import * as components from './components';
 function plugin(Vue) {
     if (plugin.installed) return;
 
-    Object.keys(components).forEach(key =>
+    Object.keys(components).forEach(function(key){
         Vue.component(key, components[key])
-    );
+    });
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
