@@ -76,7 +76,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.5",
     "tether": "latest",
-    "vue": "2.1.7"
+    "vue": "2.1.8"
   },
   "devDependencies": {
     "babel-core": "latest",
@@ -91,7 +91,7 @@
     "vue-analytics": "latest",
     "vue-loader": "latest",
     "vue-style-loader": "latest",
-    "vue-template-compiler": "2.1.7",
-    "webpack": "^2.2.0-rc.2"
+    "vue-template-compiler": "2.1.8",
+    "webpack": "^2.2.0-rc.4"
   }
 }

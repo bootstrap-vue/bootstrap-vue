@@ -3693,9 +3693,9 @@ vue-style-loader@^1.0.0, vue-style-loader@latest:
   dependencies:
     loader-utils "^0.2.7"
 
-vue-template-compiler@2.1.7, vue-template-compiler@^2.1.7:
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.1.7.tgz#5e1fc983271d3ac24c79abb64b71383357e2cea5"
+vue-template-compiler@2.1.8, vue-template-compiler@^2.1.7:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.1.8.tgz#12dd1cc63793f59be580c694a61610cb9369d629"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -3704,9 +3704,9 @@ vue-template-es2015-compiler@^1.2.2:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.0.tgz#e4f672ab1718a3abf9171a080daefac31be117e1"
 
-vue@2.1.7, vue@^2.1.7:
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.1.7.tgz#747880cb70a50c66cb8791aacfee7a6dab7fc842"
+vue@2.1.8, vue@^2.1.7:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.1.8.tgz#ae30aa86024fccf5535292ce414e7b4c221a1756"
 
 vuex@^2.1.1:
   version "2.1.1"
@@ -3771,7 +3771,7 @@ webpack@2.2.0-rc.2:
     webpack-sources "^0.1.0"
     yargs "^6.0.0"
 
-webpack@^2.2.0-rc.2:
+webpack@^2.2.0-rc.4:
   version "2.2.0-rc.4"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.2.0-rc.4.tgz#3d4bd04976be45fcb20c0eab7fe5a96f5ad53068"
   dependencies:

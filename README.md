@@ -36,17 +36,14 @@ Both Vue v2 and Bootstrap v4 are changing so fast, specifically Bootstrap 4 is s
 
 Package   | Compatible Version
 ----------|---------------------
-Vue js    | 2.1.7
+Vue js    | 2.1.8
 Bootstrap | 4.0.0-alpha.5
-Webpack   | 2.2.0-rc.2
-
-
+Webpack   | 2.2.0-rc.4
    
    
-
+# License
 The MIT License (MIT)
-
-Copyright (c) 2016 Pooya Parsa <pooya@pi0.ir>
+Copyright (c) 2016 Pooya Parsa
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
