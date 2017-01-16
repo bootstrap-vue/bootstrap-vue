@@ -1,5 +1,6 @@
 <template>
-    <b-form-fieldset :state="state" :layout="layout" :label="label" :description="description" :feedback="feedback" :id="id">
+    <b-form-fieldset :state="state" :layout="layout" :label="label" :description="description" :feedback="feedback"
+                     :id="id">
 
         <select :class="['custom-select',inputSize]"
                 :id="id"
@@ -29,7 +30,8 @@
             }
         },
         mounted(){
-            this.change(this.selected);
+            if (this.selected)
+                this.change(this.selected);
         },
         computed: {
             allOptions(){
@@ -50,6 +52,7 @@
             },
             defaultOption: {
                 default: () => {
+                    return {}
                 },
             },
             value: {
@@ -59,15 +62,15 @@
                 type: String,
                 default: ''
             },
-            disabled:{
-                type:Boolean,
-                default:false
+            disabled: {
+                type: Boolean,
+                default: false
             },
 
             // FIELD SET
             layout: {
-              type: String,
-              default: null
+                type: String,
+                default: null
             },
             state: {
                 type: String,
