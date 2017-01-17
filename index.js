@@ -1,4 +1,4 @@
-import components from './components';
+import * as components from './components';
 
 const VuePlugin = {
     install(Vue){
