@@ -15,39 +15,19 @@
 
                 <a class="navbar-brand" href="#">BootStrap VUE</a>
 
-                <b-nav class="navbar-nav">
+                <b-nav>
                     <b-nav-item link="#" active>Home <span class="sr-only">(current)</span></b-nav-item>
                     <b-nav-item link="#">Features</b-nav-item>
                     <b-nav-item link="#">Pricing</b-nav-item>
                     <b-nav-item link="#">About</b-nav-item>
                 </b-nav>
-                <form class="form-inline float-xs-right">
-                    <input class="form-control" type="text" placeholder="Search">
-                    <b-btn>Search</b-btn>
-                </form>
+
+                <b-form inline>
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <b-btn class="my-2 my-sm-0">Search</b-btn>
+                </b-form>
+
             </b-navbar>
-
-            <br>
-            <br>
-            <br>
-            <br>
-
-            <b-navbar fixed="bottom" type="dark" variant="inverse" full>
-
-                <a class="navbar-brand" href="#">Footer</a>
-
-                <b-nav class="navbar-nav">
-                    <b-nav-item link="#" active>Home <span class="sr-only">(current)</span></b-nav-item>
-                    <b-nav-item link="#">Features</b-nav-item>
-                    <b-nav-item link="#">Pricing</b-nav-item>
-                    <b-nav-item link="#">About</b-nav-item>
-                </b-nav>
-                <form class="form-inline float-xs-right">
-                    <input class="form-control" type="text" placeholder="Search">
-                    <b-btn>Search</b-btn>
-                </form>
-            </b-navbar>
-
 
         </template>
 
@@ -56,12 +36,17 @@
 
             &lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;BootStrap VUE&lt;/a&gt;
 
-            &lt;b-nav class=&quot;navbar-nav&quot;&gt;
+            &lt;b-nav&gt;
             &lt;b-nav-item link=&quot;#&quot; active&gt;Home &lt;span class=&quot;sr-only&quot;&gt;(current)&lt;/span&gt;&lt;/b-nav-item&gt;
             &lt;b-nav-item link=&quot;#&quot;&gt;Features&lt;/b-nav-item&gt;
             &lt;b-nav-item link=&quot;#&quot;&gt;Pricing&lt;/b-nav-item&gt;
             &lt;b-nav-item link=&quot;#&quot;&gt;About&lt;/b-nav-item&gt;
             &lt;/b-nav&gt;
+
+            &lt;b-form inline&gt;
+            &lt;input class=&quot;form-control mr-sm-2&quot; type=&quot;text&quot; placeholder=&quot;Search&quot;&gt;
+            &lt;b-btn class=&quot;my-2 my-sm-0&quot;&gt;Search&lt;/b-btn&gt;
+            &lt;/b-form&gt;
 
             &lt;/b-navbar&gt;
         </template>

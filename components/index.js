@@ -11,6 +11,7 @@ import bCollapse from './collapse.vue'
 import bCollapseToggle from './collapse-toggle.vue'
 import bDropdown from './dropdown.vue'
 import bDropdownSelect from './dropdown-select.vue'
+import bForm from './form.vue'
 import bFormFieldset from './form-fieldset.vue'
 import bFormCheckbox from './form-checkbox.vue'
 import bFormRadio from './form-radio.vue'
@@ -45,6 +46,7 @@ export {
     bCard,
     bDropdown,
     bDropdownSelect,
+    bForm,
     bFormCheckbox,
     bFormFieldset,
     bFormRadio,

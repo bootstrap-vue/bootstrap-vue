@@ -1,9 +1,8 @@
 <template>
-    <nav :class="classObject">
+    <div :class="classObject">
         <slot></slot>
-    </nav>
+    </div>
 </template>
-
 
 <script>
 
@@ -11,7 +10,8 @@
         computed: {
             classObject(){
                 return [
-                    'nav',
+                    'navbar-nav',
+                    'mr-auto',
                     this.inline ? 'nav-inline' : '',
                     this.tabs ? 'nav-tabs' : '',
                     this.pills ? 'nav-pills' : '',

@@ -1,6 +1,17 @@
 <template>
     <nav :class="classObject">
+
+        <button class="navbar-toggler navbar-toggler-right"
+                type="button"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                v-if="toggleable"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
         <slot></slot>
+
     </nav>
 </template>
 
@@ -15,7 +26,8 @@
                     this.navbarType,
                     this.navbarVariant,
                     this.navbarfixed,
-                    this.full ? 'navbar-full' : ''
+                    this.full ? 'navbar-full' : '',
+                    'navbar-toggleable-md',
                 ];
             },
             navbarType() {
@@ -36,6 +48,10 @@
             variant: {
                 type: String,
                 default: 'faded',
+            },
+            toggleable: {
+                type: Boolean,
+                default: false,
             },
             fixed: {
                 type: String,
