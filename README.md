@@ -14,20 +14,20 @@ Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setu
 
 # Current included stable components
 
-- [Alerts](https://bootstrap-vue.github.io/docs/components/alerts)
-- [Breadcrumb](https://bootstrap-vue.github.io/docs/components/breadcrumb)
-- [Buttons](https://bootstrap-vue.github.io/docs/components/buttons)
-- [Button group](https://bootstrap-vue.github.io/docs/components/button-group)
-- [Dropdowns](https://bootstrap-vue.github.io/docs/components/dropdowns)
-- [Form Inputs](https://bootstrap-vue.github.io/docs/components/form-inputs)
-- [Form Radio](https://bootstrap-vue.github.io/docs/components/form-radio)
-- [Form Checkbox](https://bootstrap-vue.github.io/docs/components/form-checkbox)
-- [Form Select](https://bootstrap-vue.github.io/docs/components/form-select)
-- [Nav](https://bootstrap-vue.github.io/docs/components/nav)
-- [NavBar](https://bootstrap-vue.github.io/docs/components/navbar)
-- [Pagination](https://bootstrap-vue.github.io/docs/components/pagination)
-- [Popover](https://bootstrap-vue.github.io/docs/components/popover)
-- [Tables](https://bootstrap-vue.github.io/docs/components/tables) (with pagination and custom rendering support)
+- Alerts
+- Breadcrumb
+- Buttons
+- Button group
+- Dropdowns
+- Form Inputs
+- Form Radio
+- Form Checkbox
+- Form Select
+- Nav
+- NavBar
+- Pagination
+- Popover
+- Tables (with pagination and custom rendering support)
 
 Additionally, [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components) are available, but they are still under development. If you really need to use them, feel free to experiment and submit pull requests to benefit other users of this package.
 
