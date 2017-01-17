@@ -68,7 +68,7 @@
           this._modalAnimation = setTimeout(() => {
             _this._body.classList.add('modal-open');
             _this.animateModal = true;
-            _this.$root.$emit('shown::modal')
+            _this.$root.$emit('shown::modal', this.id)
           }, (_this.fade) ? TRANSITION_DURATION : 0)
         }, 0)
       },
@@ -83,7 +83,7 @@
             _this._body.classList.remove('modal-open');
             // no hide the modal wrapper
             _this.$el.style.display = 'none';
-            _this.$root.$emit('hidden::modal')
+            _this.$root.$emit('hidden::modal', this.id)
           }, (_this.fade) ? TRANSITION_DURATION : 0)
         }, (_this.fade) ? TRANSITION_DURATION : 0)
       },
