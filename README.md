@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/l/bootstrap-vue.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
 
 [![npm](https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
-[![npm](https://img.shields.io/badge/vue.js-2.1.9-green.svg?style=flat-swuare)](https://www.npmjs.com/package/bootstrap-vue)
+[![npm](https://img.shields.io/badge/vue.js-2.1.9-green.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
 
 # Bootstrap Vue
 [Twitter Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
