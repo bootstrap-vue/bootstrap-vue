@@ -25,7 +25,7 @@
   },
   "keywords": [
     "Bootstrap",
-    "Bootstrap4",
+    "Bootstrap 4",
     "Web",
     "Components",
     "Polymer",
@@ -70,14 +70,16 @@
     "presets": [
       [
         "es2015",
-        { "modules": false }
+        {
+          "modules": false
+        }
       ]
     ]
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.5",
+    "bootstrap": "^4.0.0-",
     "tether": "latest",
-    "vue": "2.1.8"
+    "vue": "latest"
   },
   "devDependencies": {
     "babel-core": "latest",
@@ -92,7 +94,7 @@
     "vue-analytics": "latest",
     "vue-loader": "latest",
     "vue-style-loader": "latest",
-    "vue-template-compiler": "2.1.8",
-    "webpack": "^2.2.0-rc.4"
+    "vue-template-compiler": "latest",
+    "webpack": "^2.2.0-rc.7"
   }
 }

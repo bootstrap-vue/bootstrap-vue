@@ -1,8 +1,10 @@
-[![CircleCI branch](https://img.shields.io/circleci/project/github/bootstrap-vue/bootstrap-vue/master.svg?style=flat-square)]()
-[![npm](https://img.shields.io/npm/dt/bootstrap-vue.svg?style=flat-square)]()
-[![npm](https://img.shields.io/npm/v/bootstrap-vue.svg?style=flat-square)]()
-[![npm](https://img.shields.io/npm/l/bootstrap-vue.svg?style=flat-square)]()
-[![deps](https://img.shields.io/david/dev/bootstrap-vue/bootstrap-vue.svg)]()
+[![CircleCI branch](https://img.shields.io/circleci/project/github/bootstrap-vue/bootstrap-vue/master.svg?style=flat-square)](https://circleci.com/projects/gh/bootstrap-vue)
+[![npm](https://img.shields.io/npm/dt/bootstrap-vue.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
+[![npm](https://img.shields.io/npm/v/bootstrap-vue.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
+[![npm](https://img.shields.io/npm/l/bootstrap-vue.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
+
+[![npm](https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
+[![npm](https://img.shields.io/badge/vue.js-2.1.9-green.svg?style=flat-swuare)](https://www.npmjs.com/package/bootstrap-vue)
 
 # Bootstrap Vue
 [Twitter Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
@@ -18,7 +20,7 @@ Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setu
 - [Breadcrumb](https://bootstrap-vue.github.io/docs/components/breadcrumb)
 - [Buttons](https://bootstrap-vue.github.io/docs/components/buttons)
 - [Button group](https://bootstrap-vue.github.io/docs/components/button-group)
-- [Dropdowns](https://bootstrap-vue.github.io/docs/components/dropdowns)
+- [Dropdown](https://bootstrap-vue.github.io/docs/components/dropdowns)
 - [Form Inputs](https://bootstrap-vue.github.io/docs/components/form-inputs)
 - [Form Radio](https://bootstrap-vue.github.io/docs/components/form-radio)
 - [Form Checkbox](https://bootstrap-vue.github.io/docs/components/form-checkbox)
@@ -32,13 +34,8 @@ Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setu
 Additionally, [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components) are available, but they are still under development. If you really need to use them, feel free to experiment and submit pull requests to benefit other users of this package.
 
 # Supported versions
-Both Vue v2 and Bootstrap v4 are changing so fast, specifically Bootstrap 4 is still in *alpha* stage. We do our best to stay up-to-date with the latest changes. Currently these versions are officially tested and supported:
-
-Package   | Compatible Version
-----------|---------------------
-Vue js    | 2.1.8
-Bootstrap | 4.0.0-alpha.5
-Webpack   | 2.2.0-rc.4
+Both Vue v2 and Bootstrap v4 are changing so fast, specifically Bootstrap 4 is still in *alpha* stage. 
+We do our best to stay up-to-date with the latest changes. Latest supported versions are indicated in badges on top of this page.
    
    
 # License
