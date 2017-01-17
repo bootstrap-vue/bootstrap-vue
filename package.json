@@ -19,8 +19,8 @@
   },
   "scripts": {
     "build": "cd scripts && ./build",
-    "docs-dev": "nuxt dev",
-    "docs-gen": "nuxt generate",
+    "docs-dev": "node node_modules/nuxt/bin/nuxt dev",
+    "docs-gen": "node node_modules/nuxt/bin/nuxt generate",
     "docs-deploy": "cd scripts && ./gh-pages"
   },
   "keywords": [
