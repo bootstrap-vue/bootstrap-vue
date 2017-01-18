@@ -1,13 +1,13 @@
+# Bootstrap Vue
+[Twitter Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
+
 [![CircleCI branch](https://img.shields.io/circleci/project/github/bootstrap-vue/bootstrap-vue/master.svg?style=flat-square)](https://circleci.com/projects/gh/bootstrap-vue)
 [![npm](https://img.shields.io/npm/dt/bootstrap-vue.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
 [![npm](https://img.shields.io/npm/v/bootstrap-vue.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
 [![npm](https://img.shields.io/npm/l/bootstrap-vue.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
 
 [![npm](https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
-[![npm](https://img.shields.io/badge/vue.js-2.1.9-green.svg?style=flat-swuare)](https://www.npmjs.com/package/bootstrap-vue)
-
-# Bootstrap Vue
-[Twitter Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
+[![npm](https://img.shields.io/badge/vue.js-2.1.10-green.svg?style=flat-swuare)](https://www.npmjs.com/package/bootstrap-vue)
 
 <p align="center"><img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/banner.png"></p>
 

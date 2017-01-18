@@ -14,4 +14,4 @@ if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(VuePlugin);
 }
 
-module.exports = VuePlugin;
+export default VuePlugin;

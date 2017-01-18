@@ -1,8 +1,8 @@
 {
   "name": "bootstrap-vue",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Bootstrap 4 Components for Vue.js 2",
-  "main": "index.js",
+  "main": "build/bootstrap-vue.common.js",
   "license": "MIT",
   "homepage": "https://bootstrap-vue.github.io",
   "author": {
@@ -76,7 +76,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0-",
     "tether": "latest",
-    "vue": "latest"
+    "vue": "2.1.10"
   },
   "devDependencies": {
     "babel-core": "latest",
@@ -89,9 +89,10 @@
     "postcss-loader": "latest",
     "sass-loader": "latest",
     "vue-analytics": "latest",
-    "vue-loader": "latest",
+    "vue-loader": "^10.0.2",
+    "vue-server-renderer": "2.1.10",
     "vue-style-loader": "latest",
     "vue-template-compiler": "latest",
-    "webpack": "^2.2.0-rc.7"
+    "webpack": "^2.2.0-"
   }
 }
