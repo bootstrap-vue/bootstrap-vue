@@ -13,19 +13,22 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md-3 push-md-9 bd-sidebar">
-                    <m-sidebar></m-sidebar>
-                </div>
-                <div class="col-12 col-md-9 pull-md-3 bd-content">
-                    <div class="float-xs-right">
-                        <b-button-group toolbar>
-                            <slot name="actions"></slot>
-                            <b-btn size="sm" @click="issue" variant="warning">‼ Report an issue</b-btn>
-                            <b-btn size="sm" @click="editPage" variant="info">📝️Edit this page</b-btn>
-                        </b-button-group>
-                    </div>
+
+                <div class="col-12 col-md-9 bd-content">
+
+                    <b-button-group class="float-right mb-auto">
+                        <b-btn size="sm" @click="issue" >Report an issue</b-btn>
+                        <b-btn size="sm" @click="editPage" >Edit this page</b-btn>
+                        <slot name="actions"></slot>
+                    </b-button-group>
+
                     <slot name="content"></slot>
                 </div>
+
+                <div class="col-12 col-md-3 bd-sidebar">
+                    <m-sidebar></m-sidebar>
+                </div>
+
             </div>
         </div>
 

@@ -22,9 +22,8 @@
                     <b-nav-item link="#">About</b-nav-item>
                 </b-nav>
 
-                <b-form inline>
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <b-btn class="my-2 my-sm-0">Search</b-btn>
+                <b-form inline class="ml-sm-3">
+                    <input class="form-control" type="text" placeholder="Search">
                 </b-form>
 
             </b-navbar>

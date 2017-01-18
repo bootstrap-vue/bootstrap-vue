@@ -6,7 +6,7 @@
             much more.
         </template>
         <template slot="actions">
-            <b-btn size="sm" @click="viewSrc" variant="success">Component source</b-btn>
+            <b-btn size="sm" @click="viewSrc">{{componentName}}.vue</b-btn>
         </template>
         <template slot="content">
 
@@ -107,12 +107,14 @@
                     };
                 });
             },
+            componentName(){
+                return this.docs.component
+                    .replace(/(?:^|\.?)([A-Z])/g, (x, y) => "-" + y.toLowerCase())
+                    .replace(/^b-/, "")
+            },
             githubURL(){
                 const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components';
-                let component = this.docs.component
-                    .replace(/(?:^|\.?)([A-Z])/g, (x, y) => "-" + y.toLowerCase())
-                    .replace(/^b-/, "");
-                return base + '/' + component + '.vue';
+                return base + '/' + this.componentName + '.vue';
             },
         },
 

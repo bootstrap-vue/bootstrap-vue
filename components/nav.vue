@@ -10,17 +10,21 @@
         computed: {
             classObject(){
                 return [
-                    'navbar-nav',
-                    'mr-auto',
+                    'nav',
                     this.inline ? 'nav-inline' : '',
                     this.tabs ? 'nav-tabs' : '',
                     this.pills ? 'nav-pills' : '',
                     this.stacked ? 'nav-stacked' : '',
+                    this.fill ? 'nav-fill' : '',
                 ];
             }
         },
         props: {
             inline: {
+                type: Boolean,
+                default: true
+            },
+            fill: {
                 type: Boolean,
                 default: true
             },

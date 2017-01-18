@@ -1,7 +1,7 @@
 <template>
-    <div :class="classObject" @click.stop.prevent="click">
+    <button :class="classObject" @click.stop.prevent="click">
         <slot></slot>
-    </div>
+    </button>
 </template>
 
 
