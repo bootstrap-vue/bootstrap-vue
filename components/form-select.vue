@@ -1,5 +1,5 @@
 <template>
-    <b-form-fieldset :state="state" :layout="layout" :label="label" :description="description" :feedback="feedback"
+    <b-form-fieldset :state="state" :horizontal="horizontal" :label="label" :description="description" :feedback="feedback"
                      :id="id">
 
         <select :class="['custom-select',inputSize]"
@@ -68,9 +68,9 @@
             },
 
             // FIELD SET
-            layout: {
-                type: String,
-                default: null
+            horizontal: {
+                type: Boolean,
+                default: true
             },
             state: {
                 type: String,

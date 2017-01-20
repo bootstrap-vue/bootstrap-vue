@@ -16,10 +16,10 @@
                 return this.state ? `has-${this.state}` : '';
             },
             labelLayout() {
-              return this.layout == 'horizontal' ? 'col-xs-2' : 'col-xs-12';
+              return this.horizontal ? 'col-xs-2' : 'col-xs-12';
             },
             inputLayout() {
-              return this.layout == 'horizontal' ? 'col-xs-10' : 'col-xs-12';
+              return this.horizontal ? 'col-xs-10' : 'col-xs-12';
             }
         },
         props: {
@@ -31,9 +31,9 @@
                 type: String,
                 default: null
             },
-            layout: {
-                type: String,
-                default: 'horizontal'
+            horizontal: {
+                type: Boolean,
+                default: false
             },
             label: {
                 type: String,

@@ -26,7 +26,7 @@
             },
             fill: {
                 type: Boolean,
-                default: true
+                default: false
             },
             tabs: {
                 type: Boolean,
