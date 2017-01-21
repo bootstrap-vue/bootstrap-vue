@@ -4,7 +4,6 @@
             @click.stop.prevent="click"
 
             :is="componentType"
-            active-class="active"
             :to="to"
             :exact="exact"
     >
@@ -72,7 +71,7 @@
                 default: 'secondary'
             },
             to: {
-                type: String,
+                type: [String, Object],
                 default: '',
             },
             exact: {
