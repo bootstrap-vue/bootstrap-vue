@@ -1,5 +1,5 @@
 <template>
-<span :class="['tag',labelVariant,labelType]">
+<span :class="['badge',labelVariant,labelType]">
 	<slot></slot>
 </span>
 </template>
@@ -9,7 +9,7 @@
     replace: true,
     computed: {
       labelVariant() {
-        return !this.variant || this.variant === `default` ? `tag-default` : `tag-${this.variant}`
+        return !this.variant || this.variant === `default` ? `badge-default` : `badge-${this.variant}`
       },
       labelType() {
         return !this.type ? `` : `tag-${this.type}`

@@ -19,6 +19,7 @@
                 :name="name"
                 :placeholder="placeholder"
                 :value="value"
+                :rows="rows"
                 @input="onInput($event.target.value)"
                 ref="input"
         ></textarea>

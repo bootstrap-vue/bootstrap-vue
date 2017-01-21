@@ -18,7 +18,7 @@ import bFormRadio from './form-radio.vue'
 import bFormInput from './form-input.vue'
 import bFormSelect from './form-select.vue'
 import bJumbotron from './jumbotron.vue'
-import bTags from './tags.vue'
+import bBadge from './badge.vue'
 import bListGroup from './list-group.vue'
 import bListGroupItem from './list-group-item.vue'
 import bMedia from './media.vue'
@@ -53,7 +53,7 @@ export {
     bFormInput,
     bFormSelect,
     bJumbotron,
-    bTags,
+    bBadge,
     bMedia,
     bModal,
     bNavbar,
