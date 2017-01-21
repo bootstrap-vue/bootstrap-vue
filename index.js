@@ -4,7 +4,7 @@ const VuePlugin = {
     install: function (Vue) {
         if (VuePlugin.installed) return;
         VuePlugin.installed = true;
-        for (let key in components) {
+        for (var key in components) {
             Vue.component(key, components[key])
         }
     }
