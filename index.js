@@ -1,7 +1,7 @@
 import * as components from './components';
 
 const VuePlugin = {
-    install(Vue){
+    install: function (Vue) {
         if (VuePlugin.installed) return;
         VuePlugin.installed = true;
         for (let key in components) {
