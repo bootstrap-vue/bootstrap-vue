@@ -3,7 +3,7 @@
 
     <!-- Indicators -->
     <ol class="carousel-indicators" v-show="indicators">
-      <li v-for="(item,index) in slides" :class="{active:item == index}" @click="changeSlide(index)"></li>
+      <li v-for="(item,indicatorIndex) in slides" :class="{active:indicatorIndex === index}" @click="changeSlide(indicatorIndex)"></li>
     </ol>
 
     <!-- Wrapper for slides -->
