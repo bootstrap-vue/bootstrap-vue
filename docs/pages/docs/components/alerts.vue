@@ -45,13 +45,13 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+    import layout, {head} from '../../../layouts/components.vue';
 
     export default {
         components: {layout},
         data(){
             return {
-                docs:{
+                docs: {
                     component: 'bAlert',
                     events: [
                         {

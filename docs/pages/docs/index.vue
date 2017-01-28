@@ -21,8 +21,8 @@
             <br>
             <b-alert :show="true">
                 <strong>Important</strong>
-                Bootstrap Vue Does not ships with bootstrap 4 css files! With both methods,
-                you have to add bootstrap stylesheets to everything working fine!
+                Bootstrap Vue Does not ships with bootstrap 4 css files!
+                With both methods, you have to add bootstrap stylesheets in order to everything working fine!
             </b-alert>
 
             <h3 id="cdn">CDN</h3>

@@ -70,6 +70,12 @@
     export default{
         components: {layout, mSidebar},
 
+        head(){
+            return {
+                title: this.componentName + ' - Bootstrap-Vue',
+            }
+        },
+
         props: {
             docs: {
                 type: Object, default: () => {
