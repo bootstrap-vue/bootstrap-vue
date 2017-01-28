@@ -121,7 +121,7 @@
         methods: {
             viewSrc(){
                 window.open(this.githubURL, '_blank');
-                this.$ga.event('docs', 'view_source', this.docs.component);
+                // this.$ga.event('docs', 'view_source', this.docs.component);
             },
         },
 

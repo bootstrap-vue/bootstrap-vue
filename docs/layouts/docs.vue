@@ -61,11 +61,11 @@
         methods: {
             editPage(){
                 window.open(this.github, '_blank');
-                this.$ga.event('docs', 'edit_page');
+                //this.$ga.event('docs', 'edit_page');
             },
             issue(){
                 window.open('https://github.com/bootstrap-vue/bootstrap-vue/issues/new', '_blank');
-                this.$ga.event('docs', 'open_issue');
+                //this.$ga.event('docs', 'open_issue');
             },
         },
         mounted(){
