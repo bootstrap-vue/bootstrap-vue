@@ -40,7 +40,7 @@
         },
         computed: {
             classObject() {
-                return ['alert', this.alertState, this.dismissible ? 'alert-dismissible' : '', 'fade', 'in']
+                return ['alert', this.alertState, this.dismissible ? 'alert-dismissible' : '']
             },
             alertState() {
                 return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`
@@ -61,7 +61,7 @@
         methods: {
             dismiss() {
                 this.localShow = false;
-                this.$root.$emit('dismissed')
+                this.$emit('dismissed')
             },
             dismissCounter(){
                 let dismissCountDown = this.dismissAfterSeconds;
