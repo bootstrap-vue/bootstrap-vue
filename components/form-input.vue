@@ -1,29 +1,27 @@
 <template>
-    <b-form-fieldset :state="state" :layout="layout" :label="label" :description="description" :feedback="feedback" :id="id">
-        <input
-                v-if="!textarea"
-                :type="type"
-                :class="['form-control',stateIconType,inputSize]"
-                :id="id"
-                :name="name"
-                :placeholder="placeholder"
-                :value="value"
-                @input="onInput($event.target.value)"
-                ref="input"
-        />
-        <textarea
-                v-if="textarea"
-                :type="type"
-                :class="['form-control',stateIconType,inputSize]"
-                :id="id"
-                :name="name"
-                :placeholder="placeholder"
-                :value="value"
-                :rows="rows"
-                @input="onInput($event.target.value)"
-                ref="input"
-        ></textarea>
-    </b-form-fieldset>
+    <input
+            v-if="!textarea"
+            :type="type"
+            :class="['form-control',stateIconType,inputSize]"
+            :id="id"
+            :name="name"
+            :placeholder="placeholder"
+            :value="value"
+            @input="onInput($event.target.value)"
+            ref="input"
+    />
+    <textarea
+            v-else
+            :type="type"
+            :class="['form-control',stateIconType,inputSize]"
+            :id="id"
+            :name="name"
+            :placeholder="placeholder"
+            :value="value"
+            :rows="rows"
+            @input="onInput($event.target.value)"
+            ref="input"
+    ></textarea>
 </template>
 
 <script>
@@ -95,30 +93,6 @@
             formatter: {
                 type: Function,
             },
-
-
-            // FIELD SET
-            layout: {
-                type: String,
-                default: null
-            },
-            state: {
-                type: String,
-                default: null
-            },
-            label: {
-                type: String,
-                default: null
-            },
-            description: {
-                type: String,
-                default: null
-            },
-            feedback: {
-                type: String,
-                default: null
-            },
-            // FIELD SET
         },
     }
 
