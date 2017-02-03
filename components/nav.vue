@@ -1,7 +1,7 @@
 <template>
-    <div :class="classObject">
+    <component :is="type" :class="classObject">
         <slot></slot>
-    </div>
+    </component>
 </template>
 
 <script>
@@ -9,20 +9,20 @@
     export default {
         computed: {
             classObject(){
-                return [
-                    'nav',
-                    this.inline ? 'nav-inline' : '',
-                    this.tabs ? 'nav-tabs' : '',
-                    this.pills ? 'nav-pills' : '',
-                    this.stacked ? 'nav-stacked' : '',
-                    this.fill ? 'nav-fill' : '',
-                ];
+                return {
+                    'nav': true,
+                    'navbar-nav': this.isNavBar,
+                    'nav-tabs': this.tabs,
+                    'nav-pills': this.pills,
+                    'nav-stacked': this.stacked,
+                    'nav-fill': this.fill
+                }
             }
         },
         props: {
-            inline: {
-                type: Boolean,
-                default: true
+            type: {
+                type: String,
+                default: 'ul',
             },
             fill: {
                 type: Boolean,
@@ -39,6 +39,10 @@
             stacked: {
                 type: Boolean,
                 default: false
+            },
+            isNavBar: {
+                type: Boolean,
+                default: false,
             },
         },
     };

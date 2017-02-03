@@ -8,7 +8,6 @@ import bCard from './card.vue'
 import bCarousel from './carousel.vue'
 import bCarouselSlide from './carousel-slide.vue'
 import bCollapse from './collapse.vue'
-import bCollapseToggle from './collapse-toggle.vue'
 import bDropdown from './dropdown.vue'
 import bDropdownSelect from './dropdown-select.vue'
 import bForm from './form.vue'
@@ -26,6 +25,7 @@ import bModal from './modal.vue'
 import bNav from './nav.vue'
 import bNavItem from './nav-item.vue'
 import bNavItemDropdown from './nav-item-dropdown.vue'
+import bNavToggle from './nav-toggle.vue'
 import bNavbar from './navbar.vue'
 import bPagination from './pagination.vue'
 import bPopover from './popover.vue'
@@ -67,10 +67,10 @@ export {
     bNav,
     bNavItem,
     bNavItemDropdown,
+    bNavToggle,
     bListGroupItem,
     bListGroup,
     bCarouselSlide as bSlide,
     bCarousel,
     bCollapse,
-    bCollapseToggle
 }

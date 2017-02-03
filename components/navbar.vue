@@ -1,17 +1,6 @@
 <template>
     <nav :class="classObject">
-
-        <button class="navbar-toggler navbar-toggler-right"
-                type="button"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                v-if="toggleable"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
         <slot></slot>
-
     </nav>
 </template>
 
@@ -23,31 +12,20 @@
             classObject() {
                 return [
                     'navbar',
-                    this.navbarType,
-                    this.navbarVariant,
-                    this.navbarfixed,
+                    this.type ? `navbar-${this.type}` : '',
+                    this.variant ? `bg-${this.variant}` : '',
+                    this.fixed ? `navbar-fixed-${this.fixed}` : '',
                     this.full ? 'navbar-full' : '',
-                    'navbar-toggleable-md',
+                    this.toggleable ? 'navbar-toggleable-md' : '',
                 ];
-            },
-            navbarType() {
-                return `navbar-${this.type}`;
-            },
-            navbarVariant() {
-                return `bg-${this.variant}`;
-            },
-            navbarfixed() {
-                return this.fixed ? `navbar-fixed-${this.fixed}` : '';
             },
         },
         props: {
             type: {
                 type: String,
-                default: 'light',
             },
             variant: {
                 type: String,
-                default: 'faded',
             },
             toggleable: {
                 type: Boolean,
@@ -55,7 +33,6 @@
             },
             fixed: {
                 type: String,
-                default: '',
             },
             full: {
                 type: Boolean,
