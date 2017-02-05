@@ -14,7 +14,7 @@
                     'navbar-nav': this.isNavBar,
                     'nav-tabs': this.tabs,
                     'nav-pills': this.pills,
-                    'nav-stacked': this.stacked,
+                    'flex-column': this.vertical,
                     'nav-fill': this.fill
                 }
             }
@@ -36,7 +36,7 @@
                 type: Boolean,
                 default: false
             },
-            stacked: {
+            vertical: {
                 type: Boolean,
                 default: false
             },
