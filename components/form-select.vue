@@ -1,6 +1,5 @@
 <template>
     <select :class="['custom-select',inputSize]"
-            :id="id"
             v-model="selected"
             :options="allOptions"
             :disabled="disabled"
