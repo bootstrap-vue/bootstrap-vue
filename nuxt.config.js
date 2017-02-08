@@ -8,6 +8,10 @@ module.exports = {
         title: 'Bootstrap Vue',
     },
 
+    generate: {
+        dir: 'docs-dist',
+    },
+
     plugins: [
         '~plugins/bootstrap-vue.js',
         '~plugins/highlightjs.js',
