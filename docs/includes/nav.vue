@@ -1,38 +1,42 @@
-<template>			
-	<nav class="navbar navbar-toggleable-md navbar-light">
-	  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	  </button>
-	  
-		<router-link class="navbar-brand" to="/">
-			Bootstrap Vue
-		</router-link>
-		
-		<div class="collapse navbar-collapse d-flex justify-content-between" id="bd-main-nav">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<router-link class="nav-item nav-link" to="/" active-class="active" :exact="true">
-						Bootstrap Vue
-					</router-link>
-				</li>
+<template>
+    <b-navbar toggleable type="inverse" variant="inverse" class="main-nav shadow">
 
-				<li class="nav-item">
-					<router-link class="nav-item nav-link " to="/docs" active-class="active">Documentation</router-link>
-				</li>
-			</ul>
+        <b-nav-toggle target="bd-main-nav"/>
 
-			<ul class="navbar-nav">
-			<li class="nav-item">
-					<a class="nav-item nav-link "
-					   href="https://github.com/bootstrap-vue/bootstrap-vue"
-					   target="_blank"
-					>❤ Fork on GitHub</a>
-				</li>
-			</ul>
-		</div>
-		
-	</nav>
+        <router-link class="navbar-brand nuxt-link-active" to="/">
+            <span>Bootstrap Vue</span>
+        </router-link>
+
+        <b-collapse isNav class="justify-content-between" id="bd-main-nav">
+
+            <b-nav isNavBar>
+                <b-nav-item to="/" exact>Home</b-nav-item>
+                <b-nav-item to="/docs" exact>Documentation</b-nav-item>
+            </b-nav>
+
+            <b-nav isNavBar>
+                <a class="nav-item nav-link "
+                   href="https://github.com/bootstrap-vue/bootstrap-vue"
+                   target="_blank"
+                >❤ Fork on GitHub
+                </a>
+            </b-nav>
+
+        </b-collapse>
+
+    </b-navbar>
+
 </template>
+
+<style>
+    .main-nav{
+      background-color: #563d7c;
+    }
+
+    .navbar-brand span {
+        color: white;
+    }
+</style>
 
 <script>
     import site from  '../data/site';
