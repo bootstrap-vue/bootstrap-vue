@@ -15,7 +15,7 @@ module.exports = {
     ],
     css: [
         path.resolve(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.css'),
-        path.resolve(__dirname, 'node_modules/highlightjs/styles/atom-one-light.css'),
+        path.resolve(__dirname, 'node_modules/highlightjs/styles/atom-one-dark.css'),
         '~assets/css/docs.min.css',
         '~assets/css/styles.css',
     ],
