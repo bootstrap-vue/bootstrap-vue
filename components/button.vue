@@ -1,8 +1,7 @@
 <template>
     <button :class="classObject"
-
             @click.stop.prevent="click"
-
+            :href="to"
             :is="componentType"
             :to="to"
             :exact="exact"
