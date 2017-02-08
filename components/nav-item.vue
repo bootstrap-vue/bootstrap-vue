@@ -3,9 +3,8 @@
         <component
                 class="nav-item"
                 :class="classObject"
-
                 @click.stop.prevent="onclick"
-
+                href=""
                 :is="componentType"
                 active-class="active"
                 :to="to"
