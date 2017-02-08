@@ -27,12 +27,10 @@ test:
     - echo "test"
 
 deployment:
-  npm:
+  release:
     tag: /v[0-9]+(\.[0-9]+)*/
     commands:
       - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - npm publish
-  docs:
-    tag: /v[0-9]+(\.[0-9]+)*/
-    commands:
       - yarn docs-deploy
+
