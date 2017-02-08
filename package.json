@@ -2,7 +2,7 @@
   "name": "bootstrap-vue",
   "version": "0.7.1",
   "description": "Bootstrap 4 Components for Vue.js 2",
-  "main": "build/bootstrap-vue.common.js",
+  "main": "dist/bootstrap-vue.common.js",
   "license": "MIT",
   "homepage": "https://bootstrap-vue.github.io",
   "author": {
