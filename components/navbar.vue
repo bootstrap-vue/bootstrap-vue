@@ -23,6 +23,7 @@
         props: {
             type: {
                 type: String,
+                default: 'light',
             },
             variant: {
                 type: String,

@@ -27,7 +27,7 @@
             },
             position: {
                 type: String,
-                default: 'left',
+                default: 'right',
             },
             target: {
                 required: true,
