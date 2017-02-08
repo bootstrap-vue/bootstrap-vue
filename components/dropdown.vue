@@ -67,7 +67,8 @@
             },
         },
         mounted(){
-            document.documentElement.addEventListener('click', () => this.setState(false),true);
+            if (typeof document !== 'undefined')
+                document.documentElement.addEventListener('click', () => this.setState(false), true);
         },
         methods: {
             toggle(){
