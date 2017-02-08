@@ -33,6 +33,6 @@ deployment:
       - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - npm publish
   docs:
-    branch: master
+    tag: /v[0-9]+(\.[0-9]+)*/
     commands:
       - yarn docs-deploy
