@@ -30,7 +30,7 @@ deployment:
   release:
     tag: /v[0-9]+(\.[0-9]+)*/
     commands:
+      - yarn docs-deploy
       - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - npm publish
-      - yarn docs-deploy
 
