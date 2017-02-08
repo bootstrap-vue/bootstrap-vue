@@ -68,14 +68,14 @@
         },
         mounted(){
             if (typeof document !== 'undefined')
-                document.documentElement.addEventListener('click', () => this.setState(false), true);
+                document.documentElement.addEventListener('click', this.clickOut);
         },
         methods: {
             toggle(){
-                this.setState(!this.show);
+                this.setShow(!this.show);
             },
-            setState(state) {
-                if (this.show == state) return; // Avoid duplicated emits
+            setShow(state) {
+                if (this.show === state) return; // Avoid duplicated emits
                 this.show = state;
 
                 if (this.show) {
@@ -83,6 +83,9 @@
                 } else {
                     this.$emit('hidden');
                 }
+            },
+            clickOut(){
+                this.setShow(false);
             },
             click(){
                 if (this.split)
