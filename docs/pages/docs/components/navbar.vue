@@ -11,12 +11,12 @@
 
         <template slot="demo">
 
-            <b-navbar toggleable>
+            <b-navbar toggleable type="inverse" variant="inverse">
 
                 <b-nav-toggle target="nav_collapse"/>
 
-                <a class="navbar-brand" to="/">
-                    <span>Bootstrap4</span>
+                <a class="navbar-brand" style="color:white" to="/">
+                    <span>Bootstrap</span>
                 </a>
 
                 <b-collapse isNav id="nav_collapse">

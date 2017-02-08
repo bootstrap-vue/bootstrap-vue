@@ -11,7 +11,7 @@
 
             <b-nav isNavBar>
                 <b-nav-item to="/" exact>Home</b-nav-item>
-                <b-nav-item to="/docs" exact>Documentation</b-nav-item>
+                <b-nav-item to="/docs">Documentation</b-nav-item>
             </b-nav>
 
             <b-nav isNavBar>
@@ -33,9 +33,6 @@
       background-color: #563d7c;
     }
 
-    .navbar-brand span {
-        color: white;
-    }
 </style>
 
 <script>
