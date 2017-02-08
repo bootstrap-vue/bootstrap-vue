@@ -1,15 +1,14 @@
 <template>
-    <div :class="['btn-group',open?'open':'',dropup?'dropup':'']">
+    <div :class="['btn-group',show?'show':'',dropup?'dropup':'']">
 
         <b-button :class="[split?'':'dropdown-toggle']"
                   id="dropdownMenuButton"
                   @click="click"
                   aria-haspopup="true"
-                  :aria-expanded="open"
+                  :aria-expanded="show"
                   :variant="variant"
                   :size="size"
-                  :disabled="disabled"
-        >
+                  :disabled="disabled">
             {{text}}
         </b-button>
 
@@ -23,7 +22,7 @@
             <span class="sr-only">Toggle Dropdown</span>
         </b-button>
 
-        <div :class="['dropdown-menu',right?'dropdown-menu-right':'']" v-if="open">
+        <div :class="['dropdown-menu',right?'dropdown-menu-right':'']" v-if="show">
             <slot></slot>
         </div>
 
@@ -34,7 +33,7 @@
     export default {
         data() {
             return {
-                open: false
+                show: false
             }
         },
         props: {
@@ -72,13 +71,13 @@
         },
         methods: {
             toggle(){
-                this.setState(!this.open);
+                this.setState(!this.show);
             },
             setState(state) {
-                if (this.open == state) return; // Avoid duplicated emits
-                this.open = state;
+                if (this.show == state) return; // Avoid duplicated emits
+                this.show = state;
 
-                if (this.open) {
+                if (this.show) {
                     this.$emit('shown');
                 } else {
                     this.$emit('hidden');
