@@ -15,6 +15,7 @@ export default {
                 {"title": "Button group"},
                 {"title": "Dropdowns"},
                 {"title": "Form Inputs"},
+                {"title": "Form Fieldset"},
                 {"title": "Form Radio"},
                 {"title": "Form Checkbox"},
                 {"title": "Form Select"},

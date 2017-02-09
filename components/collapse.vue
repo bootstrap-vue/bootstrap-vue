@@ -1,94 +1,83 @@
 <template>
-  <div :id="id" class="collapse">
-    <slot></slot>
-  </div>
+    <div :class="classObject"
+         :aria-expanded="show"
+         :style="styleObject"
+    >
+        <slot></slot>
+    </div>
 </template>
 
 <script>
-  import {csstransitions} from '../utils/helpers.js'
-  import '../utils/ie9_polyfill.js'
+    import {TRANSITION_DURATION} from '../utils/helpers.js'
 
-  // for browsers that do not support transitions like IE9 just change immediately
-  const TRANSITION_DURATION = csstransitions() ? 350 : 0;
+    // export component object
+    export default {
 
-  // export component object
-  export default {
-    replace: true,
-    props: {
-      id: {
-        type: String,
-        default: '',
-      },
-      group: {
-        type: String,
-        default: '',
-      }
-    },
-    methods: {
-      show() {
-        this.$el.classList.remove('collapse');
-        const height = this.$el.scrollHeight;
-        this.$el.classList.add('collapsing');
-        this.$el.offsetWidth;
-        this.$el.style.height = height + 'px';
-        this._collapseAnimation = setTimeout(()=> {
-          this.$el.classList.remove('collapsing');
-          this.$el.classList.add('collapse', 'in')
-        }, TRANSITION_DURATION)
-      },
-      hide() {
-        this.$el.classList.remove('collapse');
-        this.$el.classList.remove('in');
-        this.$el.classList.add('collapsing');
-        this.$el.offsetWidth;
-        this.$el.style.height = '0px';
-        this._collapseAnimation = setTimeout(()=> {
-          this.$el.classList.remove('collapsing');
-          this.$el.classList.add('collapse')
-        }, TRANSITION_DURATION)
-      },
-    },
-
-    created: function () {
-      const hub = this.$root;
-
-      hub.$on('toggled::collapse', (data) => {
-        if (data.id && data.id === this.id && !data.group || data.group && data.group === this.group && !data.id) {
-          if ((this.$el.className + ' ').indexOf(' in ') > -1) {
-            this.hide()
-          } else {
-            this.show()
-          }
-        }
-      });
-
-      hub.$on('toggled::accordion', (data) => {
-        // if id and group id is provided it means it is an accordion and takes priority over all
-        if (data.id && data.group && data.group === this.group) {
-          // for current element
-          if (data.id === this.id) {
-            // collapse if selected item is already opened
-            if ((this.$el.className + ' ').indexOf(' in ') > -1) {
-              this.hide()
-            } else {
-              this.show()
+        data(){
+            return {
+                collapsing: false,
+                show: false,
+                height: 0,
             }
-          } else {
-            // ignore if non-selected item is already closed
-            if ((this.$el.className + ' ').indexOf(' in ') === -1) return;
+        },
 
-            // close all items in the group, and open the one selected
-            this.hide()
-          }
+        computed: {
+            classObject() {
+                return {
+                    'navbar-collapse': this.isNav,
+                    collapsing: this.collapsing,
+                    collapse: !this.collapsing,
+                    show: this.show,
+                };
+            },
+
+            styleObject(){
+                let obj = {};
+                if (this.collapsing && this.height) obj.height = this.height + 'px';
+                return obj;
+            },
+
+            scrollHeight(){
+                return 100;//this.$el.scrollHeight;
+            },
+        },
+
+        props: {
+            isNav: {
+                type: Boolean,
+                default: false,
+            },
+            id: {
+                type: String,
+                required: true,
+            }
+        },
+
+        methods: {
+            toggle() {
+                if (this.collapsing) return;
+
+                this.collapsing = true;
+                this.height = (this.show ? 0 : this.scrollHeight);
+
+                this._collapseAnimation = setTimeout(() => {
+                    this.collapsing = false;
+                    this.show = !this.show;
+                }, TRANSITION_DURATION)
+            },
+        },
+
+        created(){
+            this.$root.$on('collapse::toggle', (target) => {
+                if (target !== this.id) return;
+                this.toggle();
+            });
+        },
+
+        destroyed() {
+            clearTimeout(this._collapseAnimation)
         }
-      });
-    },
-    destroyed() {
-      clearTimeout(this._collapseAnimation)
-    }
-  };
-
-
+    };
 
 
 </script>

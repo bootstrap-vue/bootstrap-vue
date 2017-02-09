@@ -11,29 +11,32 @@
 
         <template slot="demo">
 
-            <b-button-group toolbar>
-                <b-button-group>
-                    <b-button>Left</b-button>
-                    <b-button>Middle</b-button>
-                    <b-button>Right</b-button>
-                </b-button-group>
+            <div class="row">
 
-                <b-button-group size="sm">
-                    <b-button>Left</b-button>
-                    <b-button>Middle</b-button>
-                    <b-button>Right</b-button>
-                </b-button-group>
+                <div class="col">
+                    <b-button-group vertical>
+                        <b-button variant="success">Top</b-button>
+                        <b-button variant="info">Middle</b-button>
+                        <b-button variant="primary">Bottom</b-button>
+                    </b-button-group>
+                </div>
 
-            </b-button-group>
+                <div class="col">
+                    <b-button-group>
+                        <b-button>Left</b-button>
+                        <b-button>Middle</b-button>
+                        <b-button>Right</b-button>
+                    </b-button-group>
+                </div>
+                <div class="col">
+                    <b-button-group size="sm">
+                        <b-button>Left</b-button>
+                        <b-button>Middle</b-button>
+                        <b-button>Right</b-button>
+                    </b-button-group>
+                </div>
+            </div>
 
-            <br>
-            <br>
-
-            <b-button-group vertical>
-                <b-button variant="success">Top</b-button>
-                <b-button variant="info">Middle</b-button>
-                <b-button variant="primary">Bottom</b-button>
-            </b-button-group>
         </template>
 
         <template slot="usage">

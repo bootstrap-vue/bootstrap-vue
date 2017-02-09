@@ -31,7 +31,7 @@ config.entry = {
 
 // Basic output config
 config.output = {
-    path: path.resolve(__dirname, '../build'),
+    path: path.resolve(__dirname, '../dist'),
     filename: 'bootstrap-vue.js',
 };
 

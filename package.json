@@ -1,8 +1,8 @@
 {
   "name": "bootstrap-vue",
-  "version": "0.4.1",
+  "version": "0.7.1",
   "description": "Bootstrap 4 Components for Vue.js 2",
-  "main": "build/bootstrap-vue.common.js",
+  "main": "dist/bootstrap-vue.common.js",
   "license": "MIT",
   "homepage": "https://bootstrap-vue.github.io",
   "author": {
@@ -19,13 +19,13 @@
   },
   "scripts": {
     "build": "cd scripts && ./build",
-    "docs-dev": "nuxt dev",
-    "docs-gen": "nuxt generate",
+    "docs-dev": "node node_modules/nuxt/bin/nuxt dev",
+    "docs-gen": "node node_modules/nuxt/bin/nuxt generate",
     "docs-deploy": "cd scripts && ./gh-pages"
   },
   "keywords": [
     "Bootstrap",
-    "Bootstrap4",
+    "Bootstrap 4",
     "Web",
     "Components",
     "Polymer",
@@ -73,23 +73,26 @@
       ]
     ]
   },
-  "devDependencies": {
-    "babel-core": "latest",
-    "babel-loader": "latest",
-    "babel-preset-es2015": "latest",
-    "bootstrap": "^4.0.0-alpha.5",
-    "css-loader": "latest",
-    "highlightjs": "latest",
-    "node-sass": "latest",
-    "nuxt": "latest",
-    "postcss-loader": "latest",
-    "sass-loader": "latest",
+  "dependencies": {
+    "bootstrap": "^4.0.0-",
     "tether": "latest",
-    "vue": "2.1.7",
-    "vue-analytics": "latest",
-    "vue-loader": "latest",
-    "vue-style-loader": "latest",
-    "vue-template-compiler": "2.1.7",
-    "webpack": "^2.2.0-rc.2"
+    "vue": "2.1.10"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "css-loader": "^0.26.1",
+    "highlightjs": "^9.8.0",
+    "node-sass": "^4.5.0",
+    "nuxt": "0.9.7",
+    "postcss-loader": "^1.2.2",
+    "sass-loader": "^5.0.0",
+    "vue-analytics": "^2.2.0",
+    "vue-loader": "^10.0.2",
+    "vue-server-renderer": "2.1.10",
+    "vue-style-loader": "^2.0.0",
+    "vue-template-compiler": "2.1.10",
+    "webpack": "^2.2.0"
   }
 }

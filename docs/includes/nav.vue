@@ -1,41 +1,39 @@
 <template>
-    <header class="navbar navbar-light navbar-static-top bd-navbar">
-        <div class="container">
+    <b-navbar toggleable type="inverse" variant="inverse" class="main-nav shadow">
 
+        <b-nav-toggle target="bd-main-nav"/>
 
-            <nav>
-                <div class="clearfix">
-                    <button class="navbar-toggler float-xs-right hidden-sm-up" type="button" data-toggle="collapse" data-target="#bd-main-nav" aria-controls="bd-main-nav" aria-expanded="false" aria-label="Toggle navigation"></button>
-                    <router-link class="navbar-brand hidden-sm-up" to="/">
-                        Bootstrap Vue
-                    </router-link>
-                </div>
-                <div class="collapse navbar-toggleable-xs" id="bd-main-nav">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item">
-                            <router-link class="nav-item nav-link" to="/" active-class="active" :exact="true">
-                                Bootstrap Vue
-                            </router-link>
-                        </li>
+        <router-link class="navbar-brand nuxt-link-active" to="/">
+            <span>Bootstrap Vue</span>
+        </router-link>
 
-                        <li class="nav-item">
-                            <router-link class="nav-item nav-link " to="/docs" active-class="active">Documentation</router-link>
-                        </li>
-                    </ul>
+        <b-collapse isNav class="justify-content-between" id="bd-main-nav">
 
-                    <ul class="nav navbar-nav" style="float: right;">
-                    <li class="nav-item">
-                            <a class="nav-item nav-link "
-                               href="https://github.com/bootstrap-vue/bootstrap-vue"
-                               target="_blank"
-                            >❤ Fork on GitHub</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </header>
+            <b-nav isNavBar>
+                <b-nav-item to="/" exact>Home</b-nav-item>
+                <b-nav-item to="/docs">Documentation</b-nav-item>
+            </b-nav>
+
+            <b-nav isNavBar>
+                <a class="nav-item nav-link "
+                   href="https://github.com/bootstrap-vue/bootstrap-vue"
+                   target="_blank"
+                >❤ Fork on GitHub
+                </a>
+            </b-nav>
+
+        </b-collapse>
+
+    </b-navbar>
+
 </template>
+
+<style>
+    .main-nav{
+      background-color: #563d7c;
+    }
+
+</style>
 
 <script>
     import site from  '../data/site';

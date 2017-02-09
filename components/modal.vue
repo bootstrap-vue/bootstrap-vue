@@ -1,7 +1,7 @@
 <template>
   <div style="display: none">
     <div :id="id"
-         :class="{ modal:true,fade: fade, in: animateModal || !fade }"
+         :class="{ modal:true,fade: fade, show: animateModal || !fade }"
          style="display: block"
          @click="onClickOut($event)">
       <div :class="['modal-dialog','modal-'+size]" role="document" style="z-index: 9999">
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="modal-backdrop" :class="{ fade: fade, in: animateBackdrop || !fade }"></div>
+    <div class="modal-backdrop" :class="{ fade: fade, show: animateBackdrop || !fade }"></div>
   </div>
 </template>
 
@@ -62,13 +62,13 @@
         this.$el.style.display = 'block';
         this._body = document.querySelector('body');
         const _this = this;
-        // wait for the display block, and then add class "in" class on the modal
+        // wait for the display block, and then add class "show" class on the modal
         this._modalAnimation = setTimeout(() => {
           _this.animateBackdrop = true;
           this._modalAnimation = setTimeout(() => {
             _this._body.classList.add('modal-open');
             _this.animateModal = true;
-            _this.$root.$emit('shown::modal')
+            _this.$root.$emit('shown::modal', this.id)
           }, (_this.fade) ? TRANSITION_DURATION : 0)
         }, 0)
       },
@@ -83,7 +83,7 @@
             _this._body.classList.remove('modal-open');
             // no hide the modal wrapper
             _this.$el.style.display = 'none';
-            _this.$root.$emit('hidden::modal')
+            _this.$root.$emit('hidden::modal', this.id)
           }, (_this.fade) ? TRANSITION_DURATION : 0)
         }, (_this.fade) ? TRANSITION_DURATION : 0)
       },

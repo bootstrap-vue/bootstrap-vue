@@ -1,7 +1,13 @@
 <template>
-    <div :class="classObject" @click.stop.prevent="click">
+    <button :class="classObject"
+            @click.stop.prevent="click"
+            :href="to"
+            :is="componentType"
+            :to="to"
+            :exact="exact"
+    >
         <slot></slot>
-    </div>
+    </button>
 </template>
 
 
@@ -17,6 +23,9 @@
                     this.btnDisabled,
                     this.inactive ? 'btn-inactive' : ''
                 ];
+            },
+            componentType(){
+                return this.to ? 'router-link' : 'a';
             },
             btnBlock() {
                 return this.block ? `btn-block` : '';
@@ -60,10 +69,21 @@
                 type: String,
                 default: 'secondary'
             },
+            to: {
+                type: [String, Object],
+                default: '',
+            },
+            exact: {
+                type: Boolean,
+                default: false,
+            },
         },
         methods: {
             click: function () {
                 this.$emit('click', this.link);
+                if (this.$router && this.to && this.to.length) {
+                    this.$router.push(this.to);
+                }
             },
         },
     }

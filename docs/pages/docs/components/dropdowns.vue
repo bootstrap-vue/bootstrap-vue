@@ -12,34 +12,30 @@
         </template>
 
         <template slot="demo">
-            <b-button-group toolbar>
 
-                <b-dropdown text="Dropdown Button sm" size="sm">
+                <b-dropdown text="Dropdown Button sm" size="sm" class="m-md-2">
                     <a class="dropdown-item">Action</a>
                     <a class="dropdown-item">Another action</a>
                     <a class="dropdown-item">Something else here</a>
                 </b-dropdown>
 
-                <b-dropdown text="Split Dropdown Button" variant="success" split @click="click">
+                <b-dropdown text="Split Dropdown Button" variant="success" split @click="click" class="m-md-2">
                     <a class="dropdown-item">Action</a>
                     <a class="dropdown-item">Another action</a>
                     <a class="dropdown-item">Something else here...</a>
                 </b-dropdown>
 
-                <b-dropdown text="Drop-Up" dropup variant="info">
+                <b-dropdown text="Drop-Up" dropup variant="info" class="m-md-2">
                     <a class="dropdown-item">Action</a>
                     <a class="dropdown-item">Another action</a>
                     <a class="dropdown-item">Something else here</a>
                 </b-dropdown>
 
-                <b-dropdown text="Right align" variant="warning" right>
+                <b-dropdown text="Right align" variant="warning" right class="m-md-2">
                     <a class="dropdown-item">Action</a>
                     <a class="dropdown-item">Another action</a>
                     <a class="dropdown-item">Something else here</a>
                 </b-dropdown>
-
-
-            </b-button-group>
 
         </template>
 

@@ -12,20 +12,12 @@
             classObject() {
                 return [
                     'navbar',
-                    this.navbarType,
-                    this.navbarVariant,
-                    this.navbarfixed,
-                    this.full ? 'navbar-full' : ''
+                    this.type ? `navbar-${this.type}` : '',
+                    this.variant ? `bg-${this.variant}` : '',
+                    this.fixed ? `navbar-fixed-${this.fixed}` : '',
+                    this.full ? 'navbar-full' : '',
+                    this.toggleable ? 'navbar-toggleable-md' : '',
                 ];
-            },
-            navbarType() {
-                return `navbar-${this.type}`;
-            },
-            navbarVariant() {
-                return `bg-${this.variant}`;
-            },
-            navbarfixed() {
-                return this.fixed ? `navbar-fixed-${this.fixed}` : '';
             },
         },
         props: {
@@ -35,11 +27,13 @@
             },
             variant: {
                 type: String,
-                default: 'faded',
+            },
+            toggleable: {
+                type: Boolean,
+                default: false,
             },
             fixed: {
                 type: String,
-                default: '',
             },
             full: {
                 type: Boolean,

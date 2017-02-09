@@ -9,21 +9,24 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in _items">
+            <tr v-for="item in _items" :key="items_key">
                 <td v-for="(field,key) in fields">
                     <slot :name="key" :value="item[key]" :item="item">{{item[key]}}</slot>
                 </td>
             </tr>
             </tbody>
         </table>
-        <div class="text-center" v-if="pagination">
+
+        <div class="justify-content-center row my-1" v-if="pagination">
+
             <b-pagination size="md"
-                          variant="primary"
                           :total-rows="items.length"
                           :per-page="perPage"
                           v-model="current"
             />
+
         </div>
+
     </section>
 </template>
 
@@ -52,6 +55,10 @@
             perPage: {
                 type: Number,
                 default: 20,
+            },
+            items_key: {
+                type: String,
+                default: null,
             },
         },
 
