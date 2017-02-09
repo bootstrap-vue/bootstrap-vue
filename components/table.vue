@@ -31,7 +31,10 @@
 </template>
 
 <script>
+    import Pagination from './pagination.vue'
+
     export default{
+        components: { bPagination: Pagination },
 
         data: () => {
             return {
