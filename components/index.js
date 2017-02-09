@@ -8,16 +8,16 @@ import bCard from './card.vue'
 import bCarousel from './carousel.vue'
 import bCarouselSlide from './carousel-slide.vue'
 import bCollapse from './collapse.vue'
-import bCollapseToggle from './collapse-toggle.vue'
 import bDropdown from './dropdown.vue'
 import bDropdownSelect from './dropdown-select.vue'
+import bForm from './form.vue'
 import bFormFieldset from './form-fieldset.vue'
 import bFormCheckbox from './form-checkbox.vue'
 import bFormRadio from './form-radio.vue'
 import bFormInput from './form-input.vue'
 import bFormSelect from './form-select.vue'
 import bJumbotron from './jumbotron.vue'
-import bTags from './tags.vue'
+import bBadge from './badge.vue'
 import bListGroup from './list-group.vue'
 import bListGroupItem from './list-group-item.vue'
 import bMedia from './media.vue'
@@ -25,6 +25,7 @@ import bModal from './modal.vue'
 import bNav from './nav.vue'
 import bNavItem from './nav-item.vue'
 import bNavItemDropdown from './nav-item-dropdown.vue'
+import bNavToggle from './nav-toggle.vue'
 import bNavbar from './navbar.vue'
 import bPagination from './pagination.vue'
 import bPopover from './popover.vue'
@@ -45,13 +46,14 @@ export {
     bCard,
     bDropdown,
     bDropdownSelect,
+    bForm,
     bFormCheckbox,
     bFormFieldset,
     bFormRadio,
     bFormInput,
     bFormSelect,
     bJumbotron,
-    bTags,
+    bBadge,
     bMedia,
     bModal,
     bNavbar,
@@ -65,10 +67,10 @@ export {
     bNav,
     bNavItem,
     bNavItemDropdown,
+    bNavToggle,
     bListGroupItem,
     bListGroup,
     bCarouselSlide as bSlide,
     bCarousel,
     bCollapse,
-    bCollapseToggle
 }

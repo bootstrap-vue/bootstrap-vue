@@ -5,19 +5,26 @@
                 {{ group.title }}
             </router-link>
 
-            <ul class="nav bd-sidenav">
-                <li v-for="page in group.pages">
-                    <router-link :to="'/docs/'+group.slug+'/'+page.title.replace(' ','-').toLowerCase()"
-                                 active-class="active"
-                    >
-                        {{ page.title }}
-                    </router-link>
-                </li>
-            </ul>
+            <b-nav class="bd-sidenav">
+                <b-nav-item
+                        v-for="page in group.pages"
+                        :to="'/docs/'+group.slug+'/'+page.title.replace(' ','-').toLowerCase()"
+                >
+                    {{ page.title }}
+                </b-nav-item>
+            </b-nav>
 
         </div>
     </nav>
 </template>
+
+<style>
+    .bd-sidebar .nav > li > a.active {
+        /*color: #0275d8;*/
+        color: black;
+        font-weight: bold;
+    }
+</style>
 
 <script>
     import site from '../data/site';

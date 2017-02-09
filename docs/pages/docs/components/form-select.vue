@@ -12,9 +12,6 @@
             <b-form-select v-model="selected"
                            :options="options"
                            :defaultOption="defaultOption"
-                           label="Example Label"
-                           description="We'll never share your gender with anyone else."
-                           feedback="Please Select Some Item"
                            state="success"
             >
             </b-form-select>

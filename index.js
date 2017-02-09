@@ -1,16 +1,17 @@
 import * as components from './components';
 
-function plugin(Vue) {
-    if (plugin.installed) return;
-
-    Object.keys(components).forEach(key =>
-        Vue.component(key, components[key])
-    );
-}
+const VuePlugin = {
+    install: function (Vue) {
+        if (VuePlugin.installed) return;
+        VuePlugin.installed = true;
+        for (var key in components) {
+            Vue.component(key, components[key])
+        }
+    }
+};
 
 if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(plugin);
+    window.Vue.use(VuePlugin);
 }
 
-export * from './components';
-export default plugin;
+export default VuePlugin;

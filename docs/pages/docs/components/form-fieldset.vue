@@ -1,7 +1,7 @@
 <template>
     <layout :docs="docs">
         <template slot="name">
-            Textual inputs
+            Form fieldsets
         </template>
 
         <template slot="description">
@@ -10,34 +10,32 @@
 
         <template slot="demo">
 
-            <b-form-input v-model="text"
-                          type="text"
-                          placeholder="Enter your name"
-                          :state="text.length?'success':'warning'"
-                          :formatter="format"
-            ></b-form-input>
+            <b-form-fieldset
+                    :feedback="text.length?'':'Please enter something'"
+                    description="We'll convert your name to lowercase automatically."
+                    label="Example Label"
+                    :state="text.length?'success':'warning'"
+            >
 
-            <br>
-            <br>
+                <b-form-input v-model="text"></b-form-input>
 
-            <b-form-input textarea
-                          v-model="text"
-                          placeholder="Text area mode"
-            ></b-form-input>
-
-            <br>
-            <p>Value: {{text}}</p>
+            </b-form-fieldset>
 
 
         </template>
 
         <template slot="usage">
-            &lt;b-form-input v-model=&quot;text&quot;
-            type=&quot;text&quot;
-            placeholder=&quot;Enter your name&quot;
+            &lt;b-form-fieldset
+            :feedback=&quot;text.length?&#039;&#039;:&#039;Please enter something&#039;&quot;
+            description=&quot;We&#039;ll convert your name to lowercase automatically.&quot;
+            label=&quot;Example Label&quot;
             :state=&quot;text.length?&#039;success&#039;:&#039;warning&#039;&quot;
-            :formatter=&quot;format&quot;
-            &gt;&lt;/b-form-input&gt;
+            &gt;
+
+            &lt;b-form-input v-model=&quot;text&quot;&gt;&lt;/b-form-input&gt;
+
+            &lt;/b-form-fieldset&gt;
+
         </template>
 
     </layout>
@@ -50,14 +48,14 @@
         components: {layout},
         data(){
             return {
-                docs:{
+                docs: {
                     component: 'bFormInput',
                     events: [
                         {
                             event: 'input',
                             description: 'On text input',
                             args: [
-                                {arg: 'text',description: 'New text value'}
+                                {arg: 'text', description: 'New text value'}
                             ],
                         },
                     ],

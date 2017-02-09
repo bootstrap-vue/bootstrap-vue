@@ -1,28 +1,32 @@
 <template>
-    <nav :class="classObject">
+    <component :is="type" :class="classObject">
         <slot></slot>
-    </nav>
+    </component>
 </template>
-
 
 <script>
 
     export default {
         computed: {
             classObject(){
-                return [
-                    'nav',
-                    this.inline ? 'nav-inline' : '',
-                    this.tabs ? 'nav-tabs' : '',
-                    this.pills ? 'nav-pills' : '',
-                    this.stacked ? 'nav-stacked' : '',
-                ];
+                return {
+                    'nav': true,
+                    'navbar-nav': this.isNavBar,
+                    'nav-tabs': this.tabs,
+                    'nav-pills': this.pills,
+                    'flex-column': this.vertical,
+                    'nav-fill': this.fill
+                }
             }
         },
         props: {
-            inline: {
+            type: {
+                type: String,
+                default: 'ul',
+            },
+            fill: {
                 type: Boolean,
-                default: true
+                default: false
             },
             tabs: {
                 type: Boolean,
@@ -32,9 +36,13 @@
                 type: Boolean,
                 default: false
             },
-            stacked: {
+            vertical: {
                 type: Boolean,
                 default: false
+            },
+            isNavBar: {
+                type: Boolean,
+                default: false,
             },
         },
     };

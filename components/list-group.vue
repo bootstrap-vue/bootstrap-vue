@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  export const listGroup = {
+  export default {
     replace: true,
     props: {
       flush: {

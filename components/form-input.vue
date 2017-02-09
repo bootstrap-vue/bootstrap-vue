@@ -1,28 +1,28 @@
 <template>
-    <b-form-fieldset :state="state" :label="label" :description="description" :feedback="feedback" :id="id">
-        <input
-                v-if="!textarea"
-                :type="type"
-                :class="['form-control',stateIconType,inputSize]"
-                :id="id"
-                :name="name"
-                :placeholder="placeholder"
-                :value="value"
-                @input="onInput($event.target.value)"
-                ref="input"
-        />
-        <textarea
-                v-if="textarea"
-                :type="type"
-                :class="['form-control',stateIconType,inputSize]"
-                :id="id"
-                :name="name"
-                :placeholder="placeholder"
-                :value="value"
-                @input="onInput($event.target.value)"
-                ref="input"
-        ></textarea>
-    </b-form-fieldset>
+    <input
+            v-if="!textarea"
+            :type="type"
+            :class="['form-control',stateIconType,inputSize]"
+            :id="id"
+            :name="name"
+            :placeholder="placeholder"
+            :value="value"
+            @input="onInput($event.target.value)"
+            @change="onChange($event.target.value)"
+            ref="input"
+    />
+    <textarea
+            v-else
+            :type="type"
+            :class="['form-control',stateIconType,inputSize]"
+            :id="id"
+            :name="name"
+            :placeholder="placeholder"
+            :value="value"
+            :rows="rows"
+            @input="onInput($event.target.value)"
+            ref="input"
+    ></textarea>
 </template>
 
 <script>
@@ -39,6 +39,9 @@
         },
         methods: {
             onInput(value) {
+                this.$emit('input', value);
+            },
+            onChange(value) {
                 if (this.formatter) {
                     let formattedValue = this.formatter(value);
                     if (formattedValue != value) {
@@ -51,7 +54,7 @@
         },
         props: {
             value: {
-                type: String,
+                type: [String, Number],
                 default: null
             },
             type: {
@@ -94,26 +97,6 @@
             formatter: {
                 type: Function,
             },
-
-
-            // FIELD SET
-            state: {
-                type: String,
-                default: null
-            },
-            label: {
-                type: String,
-                default: null
-            },
-            description: {
-                type: String,
-                default: null
-            },
-            feedback: {
-                type: String,
-                default: null
-            },
-            // FIELD SET
         },
     }
 

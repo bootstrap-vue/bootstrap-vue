@@ -13,30 +13,30 @@
         <template slot="demo">
 
             <b-nav>
-                <b-nav-item link="#" active>Active</b-nav-item>
-                <b-nav-item link="#">Link</b-nav-item>
-                <b-nav-item link="#">Another Link</b-nav-item>
-                <b-nav-item link="#" disabled>Disabled</b-nav-item>
+                <b-nav-item active>Active</b-nav-item>
+                <b-nav-item>Link</b-nav-item>
+                <b-nav-item>Another Link</b-nav-item>
+                <b-nav-item disabled>Disabled</b-nav-item>
             </b-nav>
 
             <br>
             <br>
 
             <b-nav tabs>
-                <b-nav-item link="#" active>Active</b-nav-item>
-                <b-nav-item link="#">Link</b-nav-item>
-                <b-nav-item link="#">Another Link</b-nav-item>
-                <b-nav-item link="#" disabled>Disabled</b-nav-item>
+                <b-nav-item active>Active</b-nav-item>
+                <b-nav-item>Link</b-nav-item>
+                <b-nav-item>Another Link</b-nav-item>
+                <b-nav-item disabled>Disabled</b-nav-item>
             </b-nav>
 
             <br>
             <br>
 
             <b-nav pills>
-                <b-nav-item link="#" active>Active</b-nav-item>
-                <b-nav-item link="#">Link</b-nav-item>
-                <b-nav-item link="#">Another Link</b-nav-item>
-                <b-nav-item link="#" disabled>Disabled</b-nav-item>
+                <b-nav-item active>Active</b-nav-item>
+                <b-nav-item>Link</b-nav-item>
+                <b-nav-item>Another Link</b-nav-item>
+                <b-nav-item disabled>Disabled</b-nav-item>
             </b-nav>
 
             <br>

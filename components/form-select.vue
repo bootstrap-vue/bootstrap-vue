@@ -1,20 +1,15 @@
 <template>
-    <b-form-fieldset :state="state" :label="label" :description="description" :feedback="feedback" :id="id">
-
-        <select :class="['custom-select',inputSize]"
-                :id="id"
-                v-model="selected"
-                :options="allOptions"
-                :disabled="disabled"
-        >
-            <option v-for="option in allOptions"
-                    :value="option.value"
-                    v-html="option.text"
-                    :disabled="option.disabled"
-            ></option>
-        </select>
-
-    </b-form-fieldset>
+    <select :class="['custom-select',inputSize]"
+            v-model="selected"
+            :options="allOptions"
+            :disabled="disabled"
+    >
+        <option v-for="option in allOptions"
+                :value="option.value"
+                v-html="option.text"
+                :disabled="option.disabled"
+        ></option>
+    </select>
 </template>
 
 <script>
@@ -29,7 +24,8 @@
             }
         },
         mounted(){
-            this.change(this.selected);
+            if (this.selected)
+                this.change(this.selected);
         },
         computed: {
             allOptions(){
@@ -50,6 +46,7 @@
             },
             defaultOption: {
                 default: () => {
+                    return {}
                 },
             },
             value: {
@@ -59,33 +56,10 @@
                 type: String,
                 default: ''
             },
-            disabled:{
-                type:Boolean,
-                default:false
+            disabled: {
+                type: Boolean,
+                default: false
             },
-
-            // FIELD SET
-            state: {
-                type: String,
-                default: null
-            },
-            label: {
-                type: String,
-                default: null
-            },
-            description: {
-                type: String,
-                default: null
-            },
-            feedback: {
-                type: String,
-                default: null
-            },
-            id: {
-                type: String,
-                default: uniqueId
-            },
-            // FIELD SET
         },
         watch: {
             selected(new_val, old_val){
