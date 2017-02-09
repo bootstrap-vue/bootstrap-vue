@@ -8,6 +8,7 @@
             :placeholder="placeholder"
             :value="value"
             @input="onInput($event.target.value)"
+            @change="onChange($event.target.value)"
             ref="input"
     />
     <textarea
@@ -38,6 +39,9 @@
         },
         methods: {
             onInput(value) {
+                this.$emit('input', value);
+            },
+            onChange(value) {
                 if (this.formatter) {
                     let formattedValue = this.formatter(value);
                     if (formattedValue != value) {
