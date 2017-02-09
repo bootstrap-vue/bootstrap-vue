@@ -22,6 +22,7 @@ export default {
                 {"title": "Nav"},
                 {"title": "NavBar"},
                 {"title": "Pagination"},
+                {"title": "Popover"},
                 {"title": "Tables"},
             ]
         },
