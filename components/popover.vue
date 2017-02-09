@@ -4,7 +4,7 @@
 
     <div tabindex="-1" :class="['popover',popoverAlignment]" ref="popover" @focus="$emit('focus')" @blur="$emit('blur')">
       <div class="popover-arrow"></div>
-      <h3 class="popover-title" v-if="title">{{title}}</h3>
+      <h3 class="popover-title" v-if="title" v-html="title"></h3>
       <div class="popover-content">
         <div class="popover-content-wrapper">
           <slot name="content"><span v-html="content"></span></slot>
@@ -118,7 +118,7 @@
       normalizedTriggers() {
         if (this.triggers == false)
           return [];
-        else if(typeof triggers === 'string')
+        else if(typeof this.triggers === 'string')
           return [this.triggers];
         else
           return this.triggers;
@@ -196,6 +196,10 @@
           attachment        : this.placementParameters.attachment,
           targetAttachment  : this.placementParameters.targetAttachment,
         });
+
+        // Make sure the popup is rendered in the correct location
+        this._tether.position();
+
         this.$root.$emit('shown::popover');
       },
 
@@ -205,9 +209,9 @@
       hidePopover() {
         if (this._tether) {
           this._popover.style.display = 'none';
-          this._tether.destroy()
+          this._tether.destroy();
+          this.$root.$emit('hidden::popover');
         }
-        this.$root.$emit('hidden::popover');
       },
 
       /**
@@ -262,7 +266,8 @@
 
       /**
        * Study the 'triggers' component property and apply all selected triggers
-       * @param {String, Array} triggers
+       * @param {Array} triggers
+       * @param {Array} appliedTriggers
        */
       updateListeners(triggers, appliedTriggers = []) {
         let newTriggers = [];
@@ -340,6 +345,7 @@
 
     beforeDestroy() {
       // clean up listeners
+      this.hidePopover();
       this.removeAllListeners();
       clearTimeout(this._timeout);
       this._timeout = null;
