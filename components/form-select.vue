@@ -18,7 +18,8 @@
     export default {
         data(){
             let selected = this.value;
-            if (!selected || !selected.length) selected = this.defaultOption.value;
+            if (!selected || !selected.length) 
+                selected = this.defaultOption?this.defaultOption.value:null;
             return {
                 selected,
             }
@@ -29,7 +30,10 @@
         },
         computed: {
             allOptions(){
-                return [].concat(this.defaultOption, this.options);
+                if(this.defaultOption)
+                    return [].concat(this.defaultOption, this.options);
+                else
+                    return this.options;
             },
             inputState() {
                 return this.state ? `has-${this.state}` : null;
@@ -45,9 +49,7 @@
                 required: true,
             },
             defaultOption: {
-                default: () => {
-                    return {}
-                },
+                default: null,
             },
             value: {
                 default: '',
