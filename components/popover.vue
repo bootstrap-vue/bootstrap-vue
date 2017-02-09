@@ -196,6 +196,10 @@
           attachment        : this.placementParameters.attachment,
           targetAttachment  : this.placementParameters.targetAttachment,
         });
+
+        // Make sure the popup is rendered in the correct location
+        this._tether.position();
+
         this.$root.$emit('shown::popover');
       },
 
