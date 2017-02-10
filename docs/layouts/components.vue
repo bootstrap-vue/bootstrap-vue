@@ -106,10 +106,21 @@
                 let props = component.options.props;
                 return Object.keys(props).map(prop => {
                     let p = props[prop];
+
+                    // Default value
+                    let default_val = p.default;
+                    if (default_val instanceof Function) default_val = default_val();
+
+                    // Type
+                    let type = p.type || Object;
+                    if (Array.isArray(type)) {
+                        type = type.map(t => t.name).join(' or ');
+                    } else type = type.name;
+
                     return {
                         prop: prop,
-                        type: p.type ? p.type.name : '-',
-                        default: (p.default instanceof Function) ? '[Computed]' : p.default + '',
+                        type: type,
+                        default: JSON.stringify(default_val),
                     };
                 });
             },
