@@ -41,23 +41,24 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs: {
-                    component: 'bPagination',
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bPagination'
 
-                },
-                currentPage: 1,
-            }
-        },
-        methods: {
-            details(item){
-                alert(JSON.stringify(item));
-            }
-        },
+            },
+            currentPage: 1
+        };
+    },
+    methods: {
+        details(item) {
+            // eslint-disable-next-line no-alert
+            alert(JSON.stringify(item));
+        }
     }
+};
 </script>

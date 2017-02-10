@@ -19,12 +19,12 @@
                 type: Array,
                 default: () => [],
                 required: true
-            },
+            }
         },
         methods: {
-            onclick: function (item) {
+            onclick(item) {
                 this.$emit('click', item);
-            },
-        },
-    }
+            }
+        }
+    };
 </script>

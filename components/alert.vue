@@ -18,17 +18,17 @@
         data() {
             return {
                 countDownTimerId: null,
-                dismissed: false,
-            }
+                dismissed: false
+            };
         },
         computed: {
             classObject() {
-                return ['alert', this.alertState, this.dismissible ? 'alert-dismissible' : '']
+                return ['alert', this.alertState, this.dismissible ? 'alert-dismissible' : ''];
             },
             alertState() {
-                return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`
+                return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`;
             },
-            localShow(){
+            localShow() {
                 return !this.dismissed && (this.show || this.countDownTimerId);
             }
         },
@@ -48,43 +48,47 @@
             show: {
                 type: Boolean,
                 default: false
-            },
+            }
         },
         watch: {
-            show(){
+            show() {
                 this.dismissed = false;
             },
-            dismissAfterSeconds(){
+            dismissAfterSeconds() {
                 this.dismissed = false;
                 this.dismissCounter();
-            },
+            }
         },
-        mounted(){
-            if (this.dismissAfterSeconds)
+        mounted() {
+            if (this.dismissAfterSeconds) {
                 this.dismissCounter();
+            }
         },
         methods: {
-            clearCounter(){
-                if (this.countDownTimerId)
+            clearCounter() {
+                if (this.countDownTimerId) {
                     clearInterval(this.countDownTimerId);
+                }
             },
             dismiss() {
                 this.dismissed = true;
                 this.$emit('dismissed');
                 this.clearCounter();
             },
-            dismissCounter(){
+            dismissCounter() {
                 this.clearCounter();
 
                 let dismissCountDown = this.dismissAfterSeconds;
                 this.$emit('dismiss-count-down', dismissCountDown);
 
                 this.countDownTimerId = setInterval(() => {
-                    if (dismissCountDown < 2) return this.dismiss();
+                    if (dismissCountDown < 2) {
+                        return this.dismiss();
+                    }
                     dismissCountDown--;
                     this.$emit('dismiss-count-down', dismissCountDown);
                 }, 1000);
-            },
+            }
         }
-    }
+    };
 </script>

@@ -63,17 +63,17 @@
 </template>
 
 <script>
-    import layout from './docs.vue';
-    import mSidebar from '../includes/sidebar.vue';
     import Vue from 'vue';
+    import mSidebar from '../includes/sidebar.vue';
+    import layout from './docs.vue';
 
     export default{
         components: {layout, mSidebar},
 
-        head(){
+        head() {
             return {
-                title: this.componentName + ' - Bootstrap-Vue',
-            }
+                title: this.componentName + ' - Bootstrap-Vue'
+            };
         },
 
         props: {
@@ -81,9 +81,9 @@
                 type: Object, default: () => {
                     return {
                         events: []
-                    }
+                    };
                 }
-            },
+            }
         },
 
         computed: {
@@ -99,48 +99,52 @@
                     event: {label: 'Event'},
                     args: {label: 'Arguments'},
                     description: {label: 'Description'}
-                }
+                };
             },
-            props_items(){
-                let component = Vue.options.components[this.docs.component];
-                let props = component.options.props;
+            props_items() {
+                const component = Vue.options.components[this.docs.component];
+                const props = component.options.props;
                 return Object.keys(props).map(prop => {
-                    let p = props[prop];
+                    const p = props[prop];
 
                     // Default value
                     let default_val = p.default;
-                    if (default_val instanceof Function) default_val = default_val();
+                    if (default_val instanceof Function) {
+                        default_val = default_val();
+                    }
 
                     // Type
                     let type = p.type || Object;
                     if (Array.isArray(type)) {
                         type = type.map(t => t.name).join(' or ');
-                    } else type = type.name;
+                    } else {
+                        type = type.name;
+                    }
 
                     return {
-                        prop: prop,
-                        type: type,
-                        default: JSON.stringify(default_val),
+                        prop,
+                        type,
+                        default: JSON.stringify(default_val)
                     };
                 });
             },
-            componentName(){
+            componentName() {
                 return this.docs.component
-                    .replace(/(?:^|\.?)([A-Z])/g, (x, y) => "-" + y.toLowerCase())
-                    .replace(/^b-/, "")
+                    .replace(/(?:^|\.?)([A-Z])/g, (x, y) => '-' + y.toLowerCase())
+                    .replace(/^b-/, '');
             },
-            githubURL(){
+            githubURL() {
                 const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components';
                 return base + '/' + this.componentName + '.vue';
-            },
+            }
         },
 
         methods: {
-            viewSrc(){
+            viewSrc() {
                 window.open(this.githubURL, '_blank');
                 // this.$ga.event('docs', 'view_source', this.docs.component);
-            },
-        },
+            }
+        }
 
-    }
+    };
 </script>

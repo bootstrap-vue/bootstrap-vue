@@ -5,22 +5,22 @@ module.exports = {
     dev: process.env.NODE_ENV !== 'production',
 
     head: {
-        title: 'Bootstrap Vue',
+        title: 'Bootstrap Vue'
     },
 
     generate: {
-        dir: 'docs-dist',
+        dir: 'docs-dist'
     },
 
     plugins: [
         '~plugins/bootstrap-vue.js',
         '~plugins/highlightjs.js',
-        '~plugins/ga.js',
+        '~plugins/ga.js'
     ],
     css: [
         path.resolve(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.css'),
         path.resolve(__dirname, 'node_modules/highlightjs/styles/atom-one-dark.css'),
         '~assets/css/docs.min.css',
-        '~assets/css/styles.css',
-    ],
+        '~assets/css/styles.css'
+    ]
 };

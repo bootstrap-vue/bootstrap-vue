@@ -48,84 +48,85 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs: {
-                    component: 'bTable',
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bTable'
 
-                },
-                items: [
-                    {
-                        "isActive": true,
-                        "age": 40,
-                        "name": {
-                            "first": "Dickerson",
-                            "last": "Macdonald"
-                        },
-
-                    },
-                    {
-                        "isActive": false,
-                        "age": 21,
-                        "name": {
-                            "first": "Larsen",
-                            "last": "Shaw"
-                        },
-
-                    },
-                    {
-                        "isActive": false,
-                        "age": 26,
-                        "name": {
-                            "first": "Mitzi",
-                            "last": "Navarro"
-                        },
-
-                    },
-                    {
-                        "isActive": false,
-                        "age": 22,
-                        "name": {
-                            "first": "Geneva",
-                            "last": "Wilson"
-                        },
-
-                    },
-                    {
-                        "isActive": true,
-                        "age": 38,
-                        "name": {
-                            "first": "Jami",
-                            "last": "Carney"
-                        },
-
-                    },
-                    {
-                        "isActive": false,
-                        "age": 27,
-                        "name": {
-                            "first": "Essie",
-                            "last": "Dunlap"
-                        },
-
+            },
+            items: [
+                {
+                    isActive: true,
+                    age: 40,
+                    name: {
+                        first: 'Dickerson',
+                        last: 'Macdonald'
                     }
-                ],
-                fields: {
-                    name: {label: 'Person Full name'},
-                    age: {label: 'Person age'},
-                    isActive: {label: 'is Active'},
-                    actions: {label: 'Actions'},
+
                 },
+                {
+                    isActive: false,
+                    age: 21,
+                    name: {
+                        first: 'Larsen',
+                        last: 'Shaw'
+                    }
+
+                },
+                {
+                    isActive: false,
+                    age: 26,
+                    name: {
+                        first: 'Mitzi',
+                        last: 'Navarro'
+                    }
+
+                },
+                {
+                    isActive: false,
+                    age: 22,
+                    name: {
+                        first: 'Geneva',
+                        last: 'Wilson'
+                    }
+
+                },
+                {
+                    isActive: true,
+                    age: 38,
+                    name: {
+                        first: 'Jami',
+                        last: 'Carney'
+                    }
+
+                },
+                {
+                    isActive: false,
+                    age: 27,
+                    name: {
+                        first: 'Essie',
+                        last: 'Dunlap'
+                    }
+
+                }
+            ],
+            fields: {
+                name: {label: 'Person Full name'},
+                age: {label: 'Person age'},
+                isActive: {label: 'is Active'},
+                actions: {label: 'Actions'}
             }
-        },
-        methods: {
-            details(item){
-                alert(JSON.stringify(item));
-            }
-        },
+        };
+    },
+    methods: {
+        details(item) {
+            // eslint-disable-next-line no-alert
+            alert(JSON.stringify(item));
+        }
     }
+};
 </script>

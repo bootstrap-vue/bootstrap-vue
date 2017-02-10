@@ -34,33 +34,34 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs:{
-                    component: 'bButton',
-                    events: [
-                        {
-                            event: 'click',
-                            description: 'when clicked on button',
-                            args: [
-                                {
-                                    arg: 'link',
-                                    description: ''
-                                }
-                            ]
-                        },
-                    ],
-                }
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bButton',
+                events: [
+                    {
+                        event: 'click',
+                        description: 'when clicked on button',
+                        args: [
+                            {
+                                arg: 'link',
+                                description: ''
+                            }
+                        ]
+                    }
+                ]
             }
-        },
-        methods: {
-            clicked(){
-                window.alert("Clicked on me!");
-            }
-        },
+        };
+    },
+    methods: {
+        clicked() {
+            // eslint-disable-next-line no-alert
+            window.alert('Clicked on me!');
+        }
     }
+};
 </script>

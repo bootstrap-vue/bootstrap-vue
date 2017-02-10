@@ -20,11 +20,10 @@ dependencies:
 compile:
   override:
     - yarn build
-#    - cp -rv build/* $CIRCLE_ARTIFACTS
 
 test:
   override:
-    - echo "test"
+    - yarn test
 
 deployment:
   release:

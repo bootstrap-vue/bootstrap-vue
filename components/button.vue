@@ -14,7 +14,7 @@
 <script>
     export default {
         computed: {
-            classObject(){
+            classObject() {
                 return [
                     'btn',
                     this.btnVariant,
@@ -24,20 +24,20 @@
                     this.inactive ? 'btn-inactive' : ''
                 ];
             },
-            componentType(){
+            componentType() {
                 return this.to ? 'router-link' : 'a';
             },
             btnBlock() {
                 return this.block ? `btn-block` : '';
             },
             btnVariant() {
-                return !this.variant ? `btn-secondary` : `btn-${this.variant}`
+                return this.variant ? `btn-${this.variant}` : `btn-secondary`;
             },
             btnSize() {
-                return !this.size ? '' : `btn-${this.size}`
+                return this.size ? `btn-${this.size}` : '';
             },
             btnDisabled() {
-                return this.disabled ? 'disabled' : ''
+                return this.disabled ? 'disabled' : '';
             }
         },
         props: {
@@ -67,20 +67,20 @@
             },
             to: {
                 type: [String, Object],
-                default: '',
+                default: ''
             },
             exact: {
                 type: Boolean,
-                default: false,
-            },
+                default: false
+            }
         },
         methods: {
-            click: function () {
+            click() {
                 this.$emit('click', this.to);
-                if (this.$router && this.to && this.to.length) {
+                if (this.$router && this.to) {
                     this.$router.push(this.to);
                 }
-            },
-        },
-    }
+            }
+        }
+    };
 </script>

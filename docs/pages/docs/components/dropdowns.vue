@@ -51,26 +51,27 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs:{
-                    component: 'bDropdown',
-                    events: [
-                        {event: 'shown', description: ''},
-                        {event: 'hidden', description: ''},
-                        {event: 'click', description: 'Only in split mode'},
-                    ],
-                }
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bDropdown',
+                events: [
+                    {event: 'shown', description: ''},
+                    {event: 'hidden', description: ''},
+                    {event: 'click', description: 'Only in split mode'}
+                ]
             }
-        },
-        methods: {
-            click(){
-                window.alert('Clicked!');
-            }
-        },
+        };
+    },
+    methods: {
+        click() {
+            // eslint-disable-next-line no-alert
+            window.alert('Clicked!');
+        }
     }
+};
 </script>

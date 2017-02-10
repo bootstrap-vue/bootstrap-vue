@@ -18,21 +18,20 @@
 
 
 <script>
-    import {uniqueId} from '../utils/helpers.js'
 
     export default {
         data() {
             return {
-                localChecked: this.checked,
-            }
+                localChecked: this.checked
+            };
         },
-        mounted(){
+        mounted() {
             this.change(this.localChecked);
         },
         computed: {
             inputState() {
                 return this.state ? `has-${this.state}` : '';
-            },
+            }
         },
         props: {
             id: {
@@ -44,7 +43,7 @@
                 default: null
             },
             _value: {
-                default: true,
+                default: true
             },
             disabled: {
                 type: Boolean,
@@ -52,25 +51,24 @@
             },
             checked: {
                 type: Boolean,
-                default: false,
+                default: false
             },
             inline: {
                 type: Boolean,
-                default: true,
+                default: true
             },
             custom: {
                 type: Boolean,
-                default: true,
-            },
+                default: true
+            }
         },
         methods: {
-            change(checked){
+            change(checked) {
                 this.localChecked = checked;
                 this.$emit('change', checked);
                 this.$emit('input', checked ? this._value : undefined);
-            },
-        },
-    }
-
+            }
+        }
+    };
 
 </script>

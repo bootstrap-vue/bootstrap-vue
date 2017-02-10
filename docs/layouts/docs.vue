@@ -41,42 +41,43 @@
 </template>
 
 <script>
-    import layout from './site.vue';
     import mSidebar from '../includes/sidebar.vue';
+    import layout from './site.vue';
 
     export default {
         components: {layout, mSidebar},
-        data(){
-            return {}
+        data() {
+            return {};
         },
         methods: {
-            editPage(){
+            editPage() {
                 const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/docs/pages';
                 let path = window.location.pathname;
-                if (path.endsWith('/docs') || path.endsWith('/docs/'))
+                if (path.endsWith('/docs') || path.endsWith('/docs/')) {
                     path += '/index';
-                let github_url = base + path + '.vue';
+                }
+                const github_url = base + path + '.vue';
                 window.open(github_url, '_blank');
-                //this.$ga.event('docs', 'edit_page');
+                // this.$ga.event('docs', 'edit_page');
             },
-            issue(){
+            issue() {
                 window.open('https://github.com/bootstrap-vue/bootstrap-vue/issues/new', '_blank');
-                //this.$ga.event('docs', 'open_issue');
-            },
+                // this.$ga.event('docs', 'open_issue');
+            }
         },
-        mounted(){
+        mounted() {
             if (!document.disqus) {
-                let disqus_script = document.getElementById('disqus_script');
+                const disqus_script = document.getElementById('disqus_script');
                 if (disqus_script) {
-                    let script = document.createElement('script');
+                    const script = document.createElement('script');
                     script.src = '//bootstrap-vue.disqus.com/embed.js';
-                    script.setAttribute('data-timestamp', +new Date());
+                    script.setAttribute('data-timestamp', Number(new Date()));
                     disqus_script.appendChild(script);
                     document.disqus = true;
                 }
-            } else {
-                if (DISQUS) DISQUS.reset({reload: true});
+            } else if (document.DISQUS) {
+                document.DISQUS.reset({reload: true});
             }
         }
-    }
+    };
 </script>

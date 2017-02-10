@@ -7,7 +7,7 @@
 <script>
     export default {
         computed: {
-            classObject(){
+            classObject() {
                 return [
                     'btn-' + (this.toolbar ? 'toolbar' : 'group'),
                     this.vertical ? 'btn-group-vertical' : '',
@@ -27,7 +27,7 @@
             size: {
                 type: String,
                 default: null
-            },
-        },
-    }
+            }
+        }
+    };
 </script>

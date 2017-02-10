@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import {uniqueId} from '../utils/helpers.js'
+    import {uniqueId} from '../utils/helpers';
 
     export default {
         computed: {
@@ -43,8 +43,8 @@
             },
             onChange(value) {
                 if (this.formatter) {
-                    let formattedValue = this.formatter(value);
-                    if (formattedValue != value) {
+                    const formattedValue = this.formatter(value);
+                    if (formattedValue !== value) {
                         value = formattedValue;
                         this.$refs.input.value = formattedValue;
                     }
@@ -95,10 +95,9 @@
                 default: true
             },
             formatter: {
-                type: Function,
-            },
-        },
-    }
-
+                type: Function
+            }
+        }
+    };
 
 </script>

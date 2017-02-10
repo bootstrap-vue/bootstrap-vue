@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import {csstransitions} from '../utils/helpers.js'
+  import {csstransitions} from '../utils/helpers';
 
   // this is directly linked to the bootstrap animation timing in _tabs.scss
   // for browsers that do not support transitions like IE9 just change slide immediately
@@ -22,79 +22,80 @@
 
   // export component object
   export default {
-    replace: true,
-    data() {
-      return {
-        items: []
-      }
-    },
-    computed: {
-      btnSize() {
-        return !this.size || this.size === 'default' ? '' : `btn-${this.size}`
+      replace: true,
+      data() {
+          return {
+              items: []
+          };
       },
-    },
-    props: {
-      fade: {
-        type: Boolean,
-        default: true
+      computed: {
+          btnSize() {
+              return !this.size || this.size === 'default' ? '' : `btn-${this.size}`;
+          }
       },
-      size: {
-        type: String,
-        default: 'md'
-      }
-    },
-    methods: {
+      props: {
+          fade: {
+              type: Boolean,
+              default: true
+          },
+          size: {
+              type: String,
+              default: 'md'
+          }
+      },
+      methods: {
 
       /**
        * get an index of an active tab
        * @return {Number}
        */
-      getActive() {
-        let active = -1;
-        this.items.forEach((item, index) => {
-          if (item.active) {
-            active = index
-          }
-        });
-        return active
-      },
+          getActive() {
+              let active = -1;
+              this.items.forEach((item, index) => {
+                  if (item.active) {
+                      active = index;
+                  }
+              });
+              return active;
+          },
 
       /**
        * set active tab on the items collection and the child 'tab' component
        */
-      setActive(index) {
+          setActive(index) {
         // ignore disabled
-        if (this.items[index].disabled) return;
+              if (this.items[index].disabled) {
+                  return;
+              }
 
         // deactivate previous active tab
-        const activeTab = this.getActive();
-        if (activeTab !== -1) {
+              const activeTab = this.getActive();
+              if (activeTab !== -1) {
           // setting animate to false will trigger fade out effect
-          this.items[activeTab].active = false;
-          this.$set(this.$children[activeTab], 'animate', false);
-          this.$set(this.$children[activeTab], 'active', false);
-        }
+                  this.items[activeTab].active = false;
+                  this.$set(this.$children[activeTab], 'animate', false);
+                  this.$set(this.$children[activeTab], 'active', false);
+              }
 
         // set new active tab and animate (if fade flag is set to true)
-        this.$set(this.$children[index], 'active', true);
-        this._tabAnimation = setTimeout(() => {
+              this.$set(this.$children[index], 'active', true);
+              this._tabAnimation = setTimeout(() => {
           // setting animate to true will trigger fade in effect
-          this.items[index].active = true;
-          this.$set(this.$children[index], 'animate', true);
-          this.$root.$emit('changed::tab', this.items[index].id)
-        }, this.fade ? TRANSITION_DURATION : 0)
+                  this.items[index].active = true;
+                  this.$set(this.$children[index], 'animate', true);
+                  this.$root.$emit('changed::tab', this.items[index].id);
+              }, this.fade ? TRANSITION_DURATION : 0);
+          }
       },
-    },
-    mounted() {
+      mounted() {
       // if no active tab, set the first one by default
-      if (this.getActive() === -1) {
-        this.setActive(0)
+          if (this.getActive() === -1) {
+              this.setActive(0);
+          }
+      },
+      destroyed() {
+          clearTimeout(this._tabAnimation);
       }
-    },
-    destroyed() {
-      clearTimeout(this._tabAnimation)
-    }
   };
-
 
 </script>

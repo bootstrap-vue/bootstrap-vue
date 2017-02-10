@@ -18,18 +18,18 @@
 
 
 <script>
-    import {uniqueId} from '../utils/helpers.js'
+    import {uniqueId} from '../utils/helpers';
 
     export default {
         data() {
             return {
-                localValue: this.value,
-            }
+                localValue: this.value
+            };
         },
         computed: {
             inputState() {
                 return this.state ? `has-${this.state}` : '';
-            },
+            }
         },
         props: {
             value: {
@@ -37,7 +37,7 @@
             },
             name: {
                 type: String,
-                default: uniqueId,
+                default: uniqueId
             },
             items: {
                 type: Array,
@@ -50,16 +50,18 @@
             },
             state: {
                 type: String,
-                default: null,
+                default: null
             },
             returnObject: {
                 type: Boolean,
-                default: false,
+                default: false
             }
         },
         watch: {
-            localValue(value, old_value){
-                if (value === old_value) return;
+            localValue(value, old_value) {
+                if (value === old_value) {
+                    return;
+                }
                 if (this.returnObject) {
                     this.items.forEach(item => {
                         if (item.value === value) {
@@ -69,8 +71,7 @@
                 }
                 this.$emit('input', value);
             }
-        },
-    }
-
+        }
+    };
 
 </script>

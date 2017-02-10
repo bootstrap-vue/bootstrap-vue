@@ -13,47 +13,47 @@
 </template>
 
 <script>
-    export default {
-        computed: {
-            inputState() {
-                return this.state ? `has-${this.state}` : '';
-            },
-            labelLayout() {
-                return this.horizontal ? 'col-xs-2' : 'col-xs-12';
-            },
-            inputLayout() {
-                return this.horizontal ? 'col-xs-10' : 'col-xs-12';
-            }
+export default {
+    computed: {
+        inputState() {
+            return this.state ? `has-${this.state}` : '';
         },
-        props: {
-            id: {
-                type: String,
-                default: null
-            },
-            state: {
-                type: String,
-                default: null
-            },
-            horizontal: {
-                type: Boolean,
-                default: false
-            },
-            enabled: {
-                type: Boolean,
-                default: true
-            },
-            label: {
-                type: String,
-                default: null
-            },
-            description: {
-                type: String,
-                default: null
-            },
-            feedback: {
-                type: String,
-                default: null
-            },
+        labelLayout() {
+            return this.horizontal ? 'col-xs-2' : 'col-xs-12';
         },
+        inputLayout() {
+            return this.horizontal ? 'col-xs-10' : 'col-xs-12';
+        }
+    },
+    props: {
+        id: {
+            type: String,
+            default: null
+        },
+        state: {
+            type: String,
+            default: null
+        },
+        horizontal: {
+            type: Boolean,
+            default: false
+        },
+        enabled: {
+            type: Boolean,
+            default: true
+        },
+        label: {
+            type: String,
+            default: null
+        },
+        description: {
+            type: String,
+            default: null
+        },
+        feedback: {
+            type: String,
+            default: null
+        }
     }
+};
 </script>

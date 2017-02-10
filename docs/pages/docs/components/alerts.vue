@@ -44,41 +44,41 @@
 </template>
 
 <script>
-    import layout, {head} from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs: {
-                    component: 'bAlert',
-                    events: [
-                        {
-                            event: 'dismissed',
-                            description: 'Alert dismissed',
-                        },
-                        {
-                            event: 'dismiss-count-down',
-                            args: [
-                                {
-                                    arg: 'dismissCountDown',
-                                    description: 'Time remaining to dismissed',
-                                }
-                            ],
-                            description: 'When dismissAfterSeconds enabled, this event emits every second on countdown.',
-                        }
-                    ],
-                },
-                dismissCountDown: 0,
-            }
-        },
-        methods: {
-            countDownChanged(dismissCountDown){
-                this.dismissCountDown = dismissCountDown;
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bAlert',
+                events: [
+                    {
+                        event: 'dismissed',
+                        description: 'Alert dismissed'
+                    },
+                    {
+                        event: 'dismiss-count-down',
+                        args: [
+                            {
+                                arg: 'dismissCountDown',
+                                description: 'Time remaining to dismissed'
+                            }
+                        ],
+                        description: 'When dismissAfterSeconds enabled, this event emits every second on countdown.'
+                    }
+                ]
             },
-            showAlert(){
-                this.dismissCountDown = 5;
-            }
+            dismissCountDown: 0
+        };
+    },
+    methods: {
+        countDownChanged(dismissCountDown) {
+            this.dismissCountDown = dismissCountDown;
         },
+        showAlert() {
+            this.dismissCountDown = 5;
+        }
     }
+};
 </script>

@@ -20,9 +20,9 @@
 
     export default {
         components: {mNav, mFooter},
-        mounted(){
+        mounted() {
             // this.$ga.page(window.location.pathname);
             window.ga('send', 'pageview');
         }
-    }
+    };
 </script>

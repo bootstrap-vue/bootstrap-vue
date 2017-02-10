@@ -110,14 +110,14 @@
         data() {
             return {
                 triggerExamples: [
-                  'click',
-                  'focus',
-                  'hover',
+                    'click',
+                    'focus',
+                    'hover',
                   ['click', 'focus'],
                   ['click', 'hover'],
                   ['focus', 'hover']
                 ],
-                docs:{
+                docs: {
                     component: 'bPopover',
                     events: [
                         {
@@ -137,20 +137,22 @@
                         {
                             event: 'blur',
                             description: 'When the popover loses focus.'
-                        },
-                    ],
+                        }
+                    ]
                 }
-            }
+            };
         },
         methods: {
-            clickEventConfirmed(){
-                window.alert("Form submitted!");
+            clickEventConfirmed() {
+                // eslint-disable-next-line no-alert
+                alert('Form submitted!');
             },
             triggersToString(input) {
-                if (Array.isArray(input))
+                if (Array.isArray(input)) {
                     return input.join(' + ');
+                }
                 return input;
             }
-        },
-    }
+        }
+    };
 </script>

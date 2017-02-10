@@ -14,25 +14,25 @@
 
 <script>
   export default {
-    replace: true,
-    computed: {
-      align() {
-        return this.position.split(' ')
+      replace: true,
+      computed: {
+          align() {
+              return this.position.split(' ');
+          },
+          mediaVerticalAlign() {
+              const verticalAlign = this.align[0];
+              return `media-${verticalAlign}`;
+          },
+          mediaHorizontalAlign() {
+              const horizontalAlign = this.align[1];
+              return `media-${horizontalAlign}`;
+          }
       },
-      mediaVerticalAlign() {
-        const verticalAlign = this.align[0]
-        return `media-${verticalAlign}`
-      },
-      mediaHorizontalAlign() {
-        const horizontalAlign = this.align[1]
-        return `media-${horizontalAlign}`
-      },
-    },
-    props: {
-      position: {
-        type: String,
-        default: 'top left'
-      },
-    },
-  }
+      props: {
+          position: {
+              type: String,
+              default: 'top left'
+          }
+      }
+  };
 </script>

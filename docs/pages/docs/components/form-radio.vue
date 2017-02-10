@@ -34,31 +34,31 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs: {
-                    component: 'bFormRadio',
-                    events: [
-                        {
-                            event: 'input',
-                            description: 'On text input',
-                            args: [
-                                {arg: 'input', description: 'New selected value'},
-                            ],
-                        },
-                    ],
-                },
-                value: 'third',
-                items: [
-                    {text: 'Toggle this custom radio', value: 'first'},
-                    {text: 'Or toggle this other custom radio', value: 'second'},
-                    {text: 'This one is Disabled', value: 'third', disabled: true},
-                ],
-            }
-        },
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bFormRadio',
+                events: [
+                    {
+                        event: 'input',
+                        description: 'On text input',
+                        args: [
+                            {arg: 'input', description: 'New selected value'}
+                        ]
+                    }
+                ]
+            },
+            value: 'third',
+            items: [
+                {text: 'Toggle this custom radio', value: 'first'},
+                {text: 'Or toggle this other custom radio', value: 'second'},
+                {text: 'This one is Disabled', value: 'third', disabled: true}
+            ]
+        };
     }
+};
 </script>

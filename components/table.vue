@@ -31,15 +31,15 @@
 </template>
 
 <script>
-    import Pagination from './pagination.vue'
+    import Pagination from './pagination.vue';
 
     export default{
-        components: { bPagination: Pagination },
+        components: {bPagination: Pagination},
 
         data: () => {
             return {
-                current: 1,
-            }
+                current: 1
+            };
         },
 
         props: {
@@ -57,23 +57,23 @@
             },
             perPage: {
                 type: Number,
-                default: 20,
+                default: 20
             },
             items_key: {
                 type: String,
-                default: null,
-            },
-        },
-
-        computed: {
-            _items: function () {
-                if (!this.items) return [];
-                return this.items.slice((this.current - 1) * this.perPage, this.current * this.perPage);
+                default: null
             }
         },
 
+        computed: {
+            _items() {
+                if (!this.items) {
+                    return [];
+                }
+                return this.items.slice((this.current - 1) * this.perPage, this.current * this.perPage);
+            }
+        }
 
-    }
+    };
 </script>
-
 

@@ -17,45 +17,47 @@
 
 <script>
 
-    export default {
-        computed: {
-            classObject(){
-                return [
-                    'nav-link',
-                    this.active ? 'active' : '',
-                    this.disabled ? 'disabled' : ''
-                ];
-            },
-            componentType(){
-                return this.to ? 'router-link' : 'a';
-            },
+export default {
+    computed: {
+        classObject() {
+            return [
+                'nav-link',
+                this.active ? 'active' : '',
+                this.disabled ? 'disabled' : ''
+            ];
         },
-        props: {
-            active: {
-                type: Boolean,
-                default: false
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            to: {
-                type: [String, Object],
-                default: '',
-            },
-            exact: {
-                type: Boolean,
-                default: false,
-            },
+        componentType() {
+            return this.to ? 'router-link' : 'a';
+        }
+    },
+    props: {
+        active: {
+            type: Boolean,
+            default: false
         },
-        methods: {
-            onclick: function () {
-                this.$emit('click', this.to);
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        to: {
+            type: [String, Object],
+            default: ''
+        },
+        exact: {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+        onclick() {
+            this.$emit('click', this.to);
 
-                if (this.to && this.to.length) {
-                    if (this.$router) this.$router.push(this.to);
+            if (this.to) {
+                if (this.$router) {
+                    this.$router.push(this.to);
                 }
             }
         }
     }
+};
 </script>

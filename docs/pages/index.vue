@@ -71,13 +71,13 @@
 </template>
 
 <script>
-    import layout from '../layouts/site.vue';
-    import site from  '../data/site';
+import layout from '../layouts/site.vue';
+import site from '../data/site';
 
-    export default {
-        components: {layout},
-        computed: {
-            site
-        },
+export default {
+    components: {layout},
+    computed: {
+        site
     }
+};
 </script>
