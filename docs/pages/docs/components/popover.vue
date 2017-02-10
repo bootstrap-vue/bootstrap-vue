@@ -11,43 +11,42 @@
 
         <template slot="demo">
 
-
-            <h4>Placement</h4>
+            <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
             <div class="row">
                 <div class="col-md-3 my-1 text-center" v-for="placement in ['top', 'left', 'right', 'bottom']">
                     <b-popover
                             :placement="placement"
                             content="Heya!"
                     >
-                        <button class="btn btn-primary">{{ placement }}</button>
+                        <b-btn variant="primary">{{ placement }}</b-btn>
                     </b-popover>
                 </div>
             </div>
 
-            <h4>Triggers</h4>
+            <h4 class="mt-sm-4 ms-sm-4 text-muted">Triggers</h4>
             <div class="row">
                 <div class="col-md-4 my-1 text-center" v-for="trigger in triggerExamples">
                     <b-popover
                             :triggers="trigger"
                             content="Trigger warning!"
                     >
-                        <button class="btn btn-primary">{{ triggersToString(trigger) }}</button>
+                        <b-btn variant="primary">{{ triggersToString(trigger) }}</b-btn>
                     </b-popover>
                 </div>
             </div>
 
-            <h4>Content via properties or slots</h4>
+            <h4 class="mt-sm-4 ms-sm-4 text-muted">Content via properties or slots</h4>
             <div class="row">
                 <div class="col-md-6 my-1 text-center">
                     <b-popover
                             content="Embedding content using properties is easier as well as simpler to make dynamic."
                     >
-                        <button class="btn btn-primary">Using properties</button>
+                        <b-btn variant="primary">Using properties</b-btn>
                     </b-popover>
                 </div>
                 <div class="col-md-6 my-1 text-center">
                     <b-popover>
-                        <button class="btn btn-primary">Using slots</button>
+                        <b-btn variant="primary">Using slots</b-btn>
                         <span slot="content">
                             Embedding content <span style="color: red">using slots</span> affords you <em>greater <strong>control.</strong></em>
                         </span>
@@ -55,33 +54,36 @@
                 </div>
             </div>
 
-            <h4>Delay</h4>
+            <h4 class="mt-sm-4 ms-sm-4 text-muted">Delay</h4>
             <div class="row">
+
                 <div class="col-md-4 my-1 text-center">
                     <b-popover
                             :delay="1000"
                             content="Sorry, I'm a little sleepy."
-                            triggers="click"
+                            :triggers="['click','hover']"
                     >
-                        <button class="btn btn-primary">1000ms</button>
+                        <b-btn variant="primary">1000ms</b-btn>
                     </b-popover>
                 </div>
+
                 <div class="col-md-4 my-1 text-center">
                     <b-popover
                             :delay="{show: 1000, hide: 0}"
                             content="This will disappear right away!"
-                            triggers="click"
+                            :triggers="['click','hover']"
                     >
-                        <button class="btn btn-primary">1000ms on show</button>
+                        <b-btn variant="primary">1000ms on show</b-btn>
                     </b-popover>
                 </div>
+
                 <div class="col-md-4 my-1 text-center">
                     <b-popover
                             :delay="{show: 0, hide: 1000}"
                             content="This will disappear after a second's delay."
-                            triggers="click"
+                            :triggers="['click','hover']"
                     >
-                        <button class="btn btn-primary">1000ms on hide</button>
+                        <b-btn variant="primary">1000ms on hide</b-btn>
                     </b-popover>
                 </div>
             </div>
@@ -90,7 +92,7 @@
 
         <template slot="usage">
             &lt;b-popover title="My Popover Title"&gt;
-            &emsp; &lt;a class="btn btn-primary" role="button" @click="clickEventConfirmed">Submit&lt;/a&gt;
+            &emsp; &lt;b-btn @click=&quot;clickEventConfirmed&quot;&gt;Submit&lt;/b-btn&gt;
             &emsp; &lt;div class="text-xs-center" slot="content"&gt;
             &emsp;&emsp;  Isn't this lovely?
             &emsp; &lt;/div&gt;
