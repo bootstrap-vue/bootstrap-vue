@@ -111,7 +111,7 @@
                     let default_val = p.default;
 
                     if (default_val instanceof Function) {
-                        if (default_val.name && default_val.name !== '_default') {
+                        if (default_val.name && default_val.name !== '_default' && default_val.name !== 'default') {
                             default_val = default_val.name + '()';
                         } else {
                             default_val = default_val();
