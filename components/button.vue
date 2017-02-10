@@ -53,10 +53,6 @@
                 type: Boolean,
                 default: false
             },
-            link: {
-                type: String,
-                default: ''
-            },
             role: {
                 type: String,
                 default: ''
@@ -80,7 +76,7 @@
         },
         methods: {
             click: function () {
-                this.$emit('click', this.link);
+                this.$emit('click', this.to);
                 if (this.$router && this.to && this.to.length) {
                     this.$router.push(this.to);
                 }
