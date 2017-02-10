@@ -13,9 +13,9 @@
             <h1 class="bd-title" id="content">
                 <slot name="name"></slot>
             </h1>
-            <p>
+            <div>
                 <slot name="description"></slot>
-            </p>
+            </div>
 
             <h2>Examples</h2>
             <small class="text-muted">To view this examples source code use edit page button</small>
