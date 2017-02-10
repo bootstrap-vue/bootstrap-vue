@@ -22,13 +22,12 @@
                 Dismissible Alert!
             </b-alert>
 
-            <b-alert :show="show_alert"
-                     :dismissAfterSeconds="5"
+            <b-alert :dismissAfterSeconds="dismissCountDown"
                      dismissible
                      state="warning"
                      @dismiss-count-down="countDownChanged"
             >
-                This alert will dismiss after {{dismissCountDown}} Seconds...
+                This alert will dismiss after {{dismissCountDown}} seconds...
             </b-alert>
 
             <b-btn @click="showAlert" variant="info">Show alert with count-down timer</b-btn>
@@ -70,7 +69,6 @@
                         }
                     ],
                 },
-                show_alert: true,
                 dismissCountDown: 0,
             }
         },
@@ -79,8 +77,7 @@
                 this.dismissCountDown = dismissCountDown;
             },
             showAlert(){
-                this.show_alert = false;
-                this.show_alert = true;
+                this.dismissCountDown = 5;
             }
         },
     }
