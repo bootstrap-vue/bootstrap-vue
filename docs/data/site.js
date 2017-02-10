@@ -1,4 +1,9 @@
+// eslint-disable-next-line import/extensions
+import pkg from '../../package.json';
+
 export default {
+    version: pkg.version,
+
     nav: [
         {
             title: 'Getting started',
@@ -27,4 +32,5 @@ export default {
             ]
         }
     ]
-};
+}
+;

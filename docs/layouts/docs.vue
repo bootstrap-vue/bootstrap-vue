@@ -75,8 +75,8 @@
                     disqus_script.appendChild(script);
                     document.disqus = true;
                 }
-            } else if (document.DISQUS) {
-                document.DISQUS.reset({reload: true});
+            } else if (window.DISQUS) {
+                window.DISQUS.reset({reload: true});
             }
         }
     };

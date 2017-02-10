@@ -1,7 +1,7 @@
 <template>
     <layout>
         <template slot="title">Getting Started</template>
-        <template slot="lead">Let's go!</template>
+        <template slot="lead"></template>
         <template slot="content">
             <h1 class="bd-title" id="content">
                 Introduction

@@ -107,13 +107,21 @@
                 return Object.keys(props).map(prop => {
                     const p = props[prop];
 
-                    // Default value
+                    // Describe value
                     let default_val = p.default;
                     if (default_val instanceof Function) {
-                        default_val = default_val();
+                        if (default_val.name && default_val.name !== '_default')
+                            default_val = default_val.name + '()';
+                        else
+                            default_val = default_val();
                     }
+                    if (typeof default_val !== 'string') {
+                        default_val = JSON.stringify(default_val);
+                    }
+                    if (default_val === "" || default_val === null)
+                        default_val = '-';
 
-                    // Type
+                    // Describe type
                     let type = p.type || Object;
                     if (Array.isArray(type)) {
                         type = type.map(t => t.name).join(' or ');
@@ -124,7 +132,7 @@
                     return {
                         prop,
                         type,
-                        default: JSON.stringify(default_val)
+                        default: default_val
                     };
                 });
             },

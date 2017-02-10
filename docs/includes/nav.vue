@@ -1,39 +1,43 @@
 <template>
-    <b-navbar toggleable type="inverse" variant="inverse" class="main-nav shadow">
+    <div class="container">
+        <b-navbar toggleable class="main-nav bd-navbar">
 
-        <b-nav-toggle target="bd-main-nav"/>
+            <b-nav-toggle target="bd-main-nav"/>
 
-        <router-link class="navbar-brand nuxt-link-active" to="/">
-            <span>Bootstrap Vue</span>
-        </router-link>
+            <router-link class="navbar-brand nuxt-link-active" to="/">
+                <span>Bootstrap Vue</span>
+            </router-link>
 
-        <b-collapse isNav class="justify-content-between" id="bd-main-nav">
+            <b-collapse isNav class="justify-content-between" id="bd-main-nav">
 
-            <b-nav isNavBar>
-                <b-nav-item to="/" exact>Home</b-nav-item>
-                <b-nav-item to="/docs">Documentation</b-nav-item>
-            </b-nav>
+                <b-nav isNavBar>
+                    <b-nav-item to="/" exact>Home</b-nav-item>
+                    <b-nav-item to="/docs">Documentation</b-nav-item>
+                </b-nav>
 
-            <b-nav isNavBar>
-                <a class="nav-item nav-link "
-                   href="https://github.com/bootstrap-vue/bootstrap-vue"
-                   target="_blank"
-                >❤ Fork on GitHub
-                </a>
-            </b-nav>
+                <b-nav isNavBar>
+                    <!--<a class="nav-item nav-link "-->
+                    <!--href="https://github.com/bootstrap-vue/bootstrap-vue"-->
+                    <!--target="_blank"-->
+                    <!--&gt;❤ Fork on GitHub-->
+                    <!--</a>-->
 
-        </b-collapse>
+                    <div class="nav-item nav-link">
+                        <iframe src="https://ghbtns.com/github-btn.html?user=bootstrap-vue&repo=bootstrap-vue&type=fork&count=true"
+                                frameborder="0" scrolling="0" width="100px" height="20px">
+                        </iframe>
+                        <iframe src="https://ghbtns.com/github-btn.html?user=bootstrap-vue&repo=bootstrap-vue&type=star&count=true&"
+                                frameborder="0" scrolling="0" width="100px" height="20px">
+                        </iframe>
+                    </div>
 
-    </b-navbar>
+                </b-nav>
 
+            </b-collapse>
+
+        </b-navbar>
+    </div>
 </template>
-
-<style>
-    .main-nav{
-      background-color: #563d7c;
-    }
-
-</style>
 
 <script>
     import site from '../data/site';
