@@ -10,15 +10,27 @@
 
         <template slot="demo">
 
+
             <b-form-input v-model="text"
                           type="text"
                           placeholder="Enter your name"
                           :state="text.length?'success':'warning'"
                           :formatter="format"
             ></b-form-input>
+            <small class="text-muted">We will convert your name to lowercase instantly</small>
 
-            <br>
-            <br>
+            <br><br>
+
+            <b-form-input v-model="text"
+                          type="text"
+                          placeholder="Enter your name"
+                          :state="text.length?'success':'warning'"
+                          :formatter="format"
+                          lazyFormatter
+            ></b-form-input>
+            <small class="text-muted">This one is a little lazy!</small>
+
+            <br><br>
 
             <b-form-input textarea
                           v-model="text"

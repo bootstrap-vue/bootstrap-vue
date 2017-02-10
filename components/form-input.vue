@@ -38,10 +38,7 @@
             }
         },
         methods: {
-            onInput(value) {
-                this.$emit('input', value);
-            },
-            onChange(value) {
+            format(value){
                 if (this.formatter) {
                     const formattedValue = this.formatter(value);
                     if (formattedValue !== value) {
@@ -49,6 +46,16 @@
                         this.$refs.input.value = formattedValue;
                     }
                 }
+                return value;
+            },
+            onInput(value) {
+                if (!this.lazyFormatter) {
+                    value = this.format(value);
+                }
+                this.$emit('input', value);
+            },
+            onChange(value) {
+                value = this.format(value);
                 this.$emit('input', value);
             }
         },
@@ -96,6 +103,10 @@
             },
             formatter: {
                 type: Function
+            },
+            lazyFormatter: {
+                type: Boolean,
+                default: false
             }
         }
     };
