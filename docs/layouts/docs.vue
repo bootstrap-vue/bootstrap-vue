@@ -17,8 +17,8 @@
                 <div class="col-12 col-md-9 bd-content">
 
                     <b-button-group class="float-right mb-auto">
-                        <b-btn size="sm" @click="issue" >Report an issue</b-btn>
-                        <b-btn size="sm" @click="editPage" >Edit this page</b-btn>
+                        <b-btn size="sm" @click="issue">Report an issue</b-btn>
+                        <b-btn size="sm" @click="editPage">Edit this page</b-btn>
                         <slot name="actions"></slot>
                     </b-button-group>
 
@@ -49,18 +49,14 @@
         data(){
             return {}
         },
-        computed: {
-            github(){
+        methods: {
+            editPage(){
                 const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/docs/pages';
                 let path = window.location.pathname;
                 if (path.endsWith('/docs') || path.endsWith('/docs/'))
                     path += '/index';
-                return base + path + '.vue'
-            }
-        },
-        methods: {
-            editPage(){
-                window.open(this.github, '_blank');
+                let github_url = base + path + '.vue';
+                window.open(github_url, '_blank');
                 //this.$ga.event('docs', 'edit_page');
             },
             issue(){
