@@ -38,7 +38,7 @@
             }
         },
         methods: {
-            format(value){
+            format(value) {
                 if (this.formatter) {
                     const formattedValue = this.formatter(value);
                     if (formattedValue !== value) {

@@ -1,9 +1,9 @@
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
-// var inBrowser = typeof window !== 'undefined';
+// const inBrowser = typeof window !== 'undefined';
 
 // pulled from http://stackoverflow.com/questions/1349404/generate-a-string-of-5-random-characters-in-javascript
-export const uniqueId = function uniqueId () {
+export function uniqueId() {
     var text = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -11,7 +11,7 @@ export const uniqueId = function uniqueId () {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
-};
+}
 
 // check if browser support css3 transitions
 export function csstransitions() {

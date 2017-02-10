@@ -7,8 +7,8 @@ module.exports = {
     head: {
         title: 'Bootstrap Vue',
         meta: [
-            { charset: 'utf-8' },
-            { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+            {charset: 'utf-8'},
+            {name: 'viewport', content: 'width=device-width, initial-scale=1'}
         ],
         link: [
             {rel: 'icon', href: '/banner.png', sizes: '16x16', type: 'image/png'}

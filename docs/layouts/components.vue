@@ -109,17 +109,22 @@
 
                     // Describe value
                     let default_val = p.default;
+
                     if (default_val instanceof Function) {
-                        if (default_val.name && default_val.name !== '_default')
+                        if (default_val.name && default_val.name !== '_default') {
                             default_val = default_val.name + '()';
-                        else
+                        } else {
                             default_val = default_val();
+                        }
                     }
+
                     if (typeof default_val !== 'string') {
                         default_val = JSON.stringify(default_val);
                     }
-                    if (default_val === "" || default_val === null)
+
+                    if (default_val === '' || default_val === null) {
                         default_val = '-';
+                    }
 
                     // Describe type
                     let type = p.type || Object;
