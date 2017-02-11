@@ -4,7 +4,7 @@
                 class="nav-item"
                 :class="classObject"
                 @click.stop.prevent="onclick"
-                href=""
+                :href="to"
                 :is="componentType"
                 active-class="active"
                 :to="to"
