@@ -17,7 +17,7 @@
             </tbody>
         </table>
 
-        <div class="justify-content-center row my-1" v-if="pagination">
+        <div class="justify-content-center row my-1" v-if="pagination && items.length>perPage">
 
             <b-pagination size="md"
                           :total-rows="items.length"
