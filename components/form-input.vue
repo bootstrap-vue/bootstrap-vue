@@ -20,6 +20,7 @@
             :value="value"
             :rows="rows"
             @input="onInput($event.target.value)"
+            @change="onChange($event.target.value)"
             ref="input"
     ></textarea>
 </template>
@@ -46,6 +47,7 @@
                     }
                 }
                 this.$emit('input', value);
+                this.$emit('change', value);
             }
         },
         props: {
