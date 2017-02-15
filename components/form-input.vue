@@ -9,6 +9,7 @@
             :value="value"
             @input="onInput($event.target.value)"
             @change="onChange($event.target.value)"
+            @keyup="onKeyUp($event)"
             ref="input"
     />
     <textarea
@@ -22,6 +23,7 @@
             :rows="rows"
             @input="onInput($event.target.value)"
             @change="onChange($event.target.value)"
+            @keyup="onKeyUp($event)"
             ref="input"
     ></textarea>
 </template>
@@ -59,6 +61,9 @@
                 value = this.format(value);
                 this.$emit('input', value);
                 this.$emit('change', value);
+            },
+            onKeyUp(e) {
+                this.$emit('keyup', e)
             }
         },
         props: {
