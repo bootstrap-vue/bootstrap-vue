@@ -63,7 +63,7 @@
                 this.$emit('change', value);
             },
             onKeyUp(e) {
-                this.$emit('keyup', e)
+                this.$emit('keyup', e);
             }
         },
         props: {
