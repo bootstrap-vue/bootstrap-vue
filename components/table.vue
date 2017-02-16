@@ -10,14 +10,14 @@
             </thead>
             <tbody>
             <tr v-for="item in _items" :key="items_key">
-                <td v-for="(field,key) in fields">
+                <td v-for="(field,key) in fields" :class="[field.class]">
                     <slot :name="key" :value="item[key]" :item="item">{{item[key]}}</slot>
                 </td>
             </tr>
             </tbody>
         </table>
 
-        <div class="justify-content-center row my-1" v-if="pagination">
+        <div class="justify-content-center row my-1" v-if="pagination && items.length>perPage">
 
             <b-pagination size="md"
                           :total-rows="items.length"
