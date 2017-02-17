@@ -49,7 +49,7 @@ export default {
     data() {
         return {
             docs: {
-                component: 'bFormInput',
+                component: 'bFormFieldset',
                 events: [
                     {
                         event: 'input',
