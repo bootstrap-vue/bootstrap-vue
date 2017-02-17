@@ -206,7 +206,7 @@
                 },
                 currentPage: 1,
                 perPage: 5,
-                filter: null,
+                filter: null
             };
         },
         methods: {

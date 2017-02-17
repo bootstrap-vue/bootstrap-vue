@@ -25,7 +25,7 @@
             },
             inputLayout() {
                 return this.horizontal ? 'col-sm-' + (12 - this.labelSize) : 'col-sm-' + this.labelSize;
-            },
+            }
         },
         props: {
             for_id: {

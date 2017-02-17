@@ -26,17 +26,17 @@
     export default{
         components: {bPagination: Pagination},
 
-        data(){
+        data() {
             return {
                 sort: null,
-                sortDesc: true,
-            }
+                sortDesc: true
+            };
         },
 
         props: {
             sortable: {
                 type: Boolean,
-                default: false,
+                default: false
             },
             items: {
                 type: Array,
@@ -82,24 +82,23 @@
                 let items = this.items;
 
                 //
-                let fix = (v) => {
+                const fix = v => {
                     if (v instanceof Object) {
                         return Object.keys(v).map(k => fix(v[k])).join(' ');
-                    } else {
-                        return String(v);
                     }
+                    return String(v);
                 };
 
                 // Apply filter
                 if (this.filter && this.filter.length > 0) {
-                    let regex = new RegExp('.*' + this.filter + '.*', "ig");
+                    const regex = new RegExp('.*' + this.filter + '.*', 'ig');
                     items = items.filter(item => regex.test(fix(item)));
                 }
 
                 // Apply Sort
                 if (this.sort) {
                     items = items.sort((a, b) => {
-                        let r = fix(a[this.sort]).localeCompare(fix(b[this.sort]));
+                        const r = fix(a[this.sort]).localeCompare(fix(b[this.sort]));
                         return this.sortDesc ? r : r * -1;
                     });
                 }
