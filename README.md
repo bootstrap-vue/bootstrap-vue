@@ -18,7 +18,7 @@ Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setu
 
 # Current included stable components
 
-- [Alerts](https://bootstrap-vue.github.io/docs/components/alerts)
+- [Alerts](https://bootstrap-vue.github.io/docs/components/alerts) **New features**
 - [Breadcrumb](https://bootstrap-vue.github.io/docs/components/breadcrumb)
 - [Buttons](https://bootstrap-vue.github.io/docs/components/buttons)
 - [Button group](https://bootstrap-vue.github.io/docs/components/button-group)
@@ -28,10 +28,10 @@ Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setu
 - [Form Checkbox](https://bootstrap-vue.github.io/docs/components/form-checkbox)
 - [Form Select](https://bootstrap-vue.github.io/docs/components/form-select)
 - [Nav](https://bootstrap-vue.github.io/docs/components/nav)
-- [NavBar](https://bootstrap-vue.github.io/docs/components/navbar)
+- [NavBar](https://bootstrap-vue.github.io/docs/components/navbar) **New features**
 - [Pagination](https://bootstrap-vue.github.io/docs/components/pagination)
-- [Popover](https://bootstrap-vue.github.io/docs/components/popover)
-- [Tables](https://bootstrap-vue.github.io/docs/components/tables) (with pagination and custom rendering support)
+- [Popover](https://bootstrap-vue.github.io/docs/components/popover) **New features**
+- [Tables](https://bootstrap-vue.github.io/docs/components/tables) **New features**
 
 Additionally, [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components) are available, but they are still under development. If you really need to use them, feel free to experiment and submit pull requests to benefit other users of this package.
 

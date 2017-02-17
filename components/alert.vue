@@ -29,7 +29,7 @@
                 return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`;
             },
             localShow() {
-                return !this.dismissed && (this.show || this.countDownTimerId);
+                return !this.dismissed && (this.countDownTimerId || this.show);
             }
         },
         props: {
@@ -41,46 +41,44 @@
                 type: Boolean,
                 default: false
             },
-            dismissAfterSeconds: {
-                type: Number,
-                default: null
-            },
             show: {
-                type: Boolean,
+                type: [Boolean, Number],
                 default: false
             }
         },
         watch: {
             show() {
-                this.dismissed = false;
-            },
-            dismissAfterSeconds() {
-                this.dismissed = false;
-                this.dismissCounter();
+                this.showChanged();
             }
         },
         mounted() {
-            if (this.dismissAfterSeconds) {
-                this.dismissCounter();
-            }
+            this.showChanged();
         },
         methods: {
-            clearCounter() {
-                if (this.countDownTimerId) {
-                    clearInterval(this.countDownTimerId);
-                }
-            },
             dismiss() {
                 this.dismissed = true;
                 this.$emit('dismissed');
                 this.clearCounter();
             },
-            dismissCounter() {
-                this.clearCounter();
+            clearCounter() {
+                if (this.countDownTimerId) {
+                    clearInterval(this.countDownTimerId);
+                }
+            },
+            showChanged() {
+                // Reset dismiss status
+                this.dismissed = false;
 
-                let dismissCountDown = this.dismissAfterSeconds;
+                // No timer for boolean values
+                if (this.show === true || this.show === false || this.show === null) {
+                    return;
+                }
+
+                let dismissCountDown = this.show;
                 this.$emit('dismiss-count-down', dismissCountDown);
 
+                // Start counter
+                this.clearCounter();
                 this.countDownTimerId = setInterval(() => {
                     if (dismissCountDown < 2) {
                         return this.dismiss();

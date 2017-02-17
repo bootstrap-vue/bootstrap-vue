@@ -2,9 +2,9 @@
     <input
             v-if="!textarea"
             :type="type"
-            :class="['form-control',stateIconType,inputSize]"
-            :id="id"
+            :class="['form-control',inputState,inputSize]"
             :name="name"
+            :id="$parent.for_id"
             :placeholder="placeholder"
             :value="value"
             @input="onInput($event.target.value)"
@@ -14,9 +14,9 @@
     <textarea
             v-else
             :type="type"
-            :class="['form-control',stateIconType,inputSize]"
-            :id="id"
+            :class="['form-control',inputState,inputSize]"
             :name="name"
+            :id="$parent.for_id"
             :placeholder="placeholder"
             :value="value"
             :rows="rows"
@@ -26,12 +26,11 @@
 </template>
 
 <script>
-    import {uniqueId} from '../utils/helpers';
-
     export default {
         computed: {
-            stateIconType() {
-                return this.stateIcon ? `form-control-${this.state}` : '';
+            inputState() {
+                const state = this.state || this.$parent.state;
+                return state ? `form-control-${state}` : '';
             },
             inputSize() {
                 return this.size ? `form-control-${this.size}` : '';
@@ -68,10 +67,6 @@
                 type: String,
                 default: 'text'
             },
-            id: {
-                type: String,
-                default: uniqueId
-            },
 
             name: {
                 type: String,
@@ -97,9 +92,9 @@
                 default: false
             },
 
-            stateIcon: {
-                type: Boolean,
-                default: true
+            state: {
+                type: String,
+                default: null
             },
             formatter: {
                 type: Function

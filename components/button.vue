@@ -1,9 +1,9 @@
 <template>
     <button :class="classObject"
             @click.stop.prevent="click"
-            :href="to"
+            :href="href || to"
             :is="componentType"
-            :to="to"
+            :to="to || href"
             :exact="exact"
     >
         <slot></slot>
@@ -25,7 +25,7 @@
                 ];
             },
             componentType() {
-                return this.to ? 'router-link' : 'a';
+                return this.href ? (this.$route ? 'router-link' : 'a') : 'button';
             },
             btnBlock() {
                 return this.block ? `btn-block` : '';
@@ -68,6 +68,9 @@
             to: {
                 type: [String, Object],
                 default: ''
+            },
+            href: {
+                type: String
             },
             exact: {
                 type: Boolean,

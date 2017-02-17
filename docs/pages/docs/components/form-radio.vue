@@ -13,9 +13,9 @@
 
         <template slot="demo">
 
-            <b-form-radio v-model="value" :items="items"/>
+            <b-form-radio v-model="value" :items="items" />
 
-            <b-form-radio v-model="value" :items="items" stacked returnObject />
+            <b-form-radio v-model="value" :items="items" stacked returnObject state="warning" />
 
             <div>
                 <span>Selected Item: </span>

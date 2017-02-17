@@ -1,5 +1,5 @@
 <template>
-    <select :class="['custom-select',inputSize]"
+    <select :class="['form-control','custom-select',inputSize]"
             v-model="selected"
             :options="allOptions"
             :disabled="disabled"
@@ -35,9 +35,6 @@
                     return [].concat(this.defaultOption, this.options);
                 }
                 return this.options;
-            },
-            inputState() {
-                return this.state ? `has-${this.state}` : null;
             },
             inputSize() {
                 return this.size ? `form-control-${this.size}` : null;

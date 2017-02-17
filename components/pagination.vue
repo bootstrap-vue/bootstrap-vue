@@ -2,39 +2,40 @@
     <div class="btn-group pagination" role="group" aria-label="Pagination">
 
         <button type="button"
-                :class="['btn','btn-secondary',btnSize]"
+                :class="['btn','btn-'+secondaryVariant,btnSize]"
                 :disabled="currentPage == 1 "
                 @click.prevent="(currentPage == 1) ? _return : currentPage--">
             <span aria-hidden="true">&laquo;</span>
         </button>
 
         <button type="button"
-                :class="['btn','btn-secondary',btnSize,currentPage == 1 ?  'active' : '']"
+                :class="['btn','btn-'+secondaryVariant,btnSize,currentPage === 1 ?  'active' : '']"
                 @click.prevent="currentPage = 1"
                 v-show="showPrev">1
         </button>
 
-        <span :class="['btn','btn-secondary',btnSize]" v-show="showPrev">...</span>
+        <span :class="['btn','btn-'+secondaryVariant,btnSize]" v-show="showPrev">...</span>
 
         <button type="button"
                 :class="['btn',
                 btnSize,
-                btnVariant(index),index + diff == currentPage ? 'active' : '',
-                index + diff != currentPage ? 'hidden-xs-down' : '']"
+                btnVariant(index),
+                index + diff === currentPage ? 'active' : '',
+                index + diff !== currentPage ? 'hidden-xs-down' : '']"
                 v-for="(item,index) in pageLinks"
                 @click.prevent="currentPage = index + diff">{{index + diff}}
         </button>
 
-        <span :class="['btn','btn-secondary',btnSize]" v-show="showNext">...</span>
+        <span :class="['btn','btn-'+secondaryVariant,btnSize]" v-show="showNext">...</span>
 
         <button type="button"
-                :class="['btn','btn-secondary',btnSize,numberOfPages == currentPage ? 'active' : '']"
+                :class="['btn','btn-'+secondaryVariant,btnSize,numberOfPages === currentPage ? 'active' : '']"
                 v-show="showNext"
                 @click.prevent="currentPage = numberOfPages">{{numberOfPages}}
         </button>
 
         <button type="button"
-                :class="['btn','btn-secondary',btnSize]"
+                :class="['btn','btn-'+secondaryVariant,btnSize]"
                 :disabled="currentPage == numberOfPages"
                 @click.prevent="(currentPage == numberOfPages) ? _return : currentPage++">
             <span aria-hidden="true">&raquo;</span>
@@ -50,7 +51,7 @@
                 diff: 1,
                 showPrev: false,
                 showNext: false,
-                currentPage: 1
+                currentPage: this.value
             };
         },
         computed: {
@@ -98,7 +99,7 @@
         },
         methods: {
             btnVariant(index) {
-                return (index + this.diff === this.currentPage) ? `btn-${this.variant}` : `btn-secondary`;
+                return (index + this.diff === this.currentPage) ? `btn-${this.variant}` : `btn-${this.secondaryVariant}`;
             },
             _return() {
 
@@ -107,9 +108,18 @@
         watch: {
             currentPage(newPage) {
                 this.$emit('input', newPage);
+            },
+            value(newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    this.currentPage = newValue;
+                }
             }
         },
         props: {
+            value: {
+                type: Number,
+                default: 1
+            },
             limit: {
                 type: Number,
                 default: 7
@@ -124,11 +134,15 @@
             },
             size: {
                 type: String,
-                default: 'secondary'
+                default: 'md'
             },
             variant: {
                 type: String,
-                default: ''
+                default: 'primary'
+            },
+            secondaryVariant: {
+                type: String,
+                default: 'secondary'
             }
         }
     };

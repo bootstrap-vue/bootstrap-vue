@@ -13,50 +13,51 @@
             <h1 class="bd-title" id="content">
                 <slot name="name"></slot>
             </h1>
-            <div>
-                <slot name="description"></slot>
-            </div>
 
-            <h2>Examples</h2>
+            <slot name="desc">
+                <p>
+                    <slot name="description"></slot>
+                </p>
+            </slot>
+
+            <h2>Demo</h2>
             <small class="text-muted">To view this examples source code use edit page button</small>
             <br>
             <div class="bd-example">
                 <slot name="demo"></slot>
             </div>
 
-            <h2>Usage</h2>
-            <code v-code class="html">
-                <slot name="usage"></slot>
-            </code>
-
             <template v-if="props_items && props_items.length > 0">
                 <h2>Properties</h2>
                 <br>
-                <b-table :items="props_items" :fields="props_fields">
-                    <template slot="prop" scope="field">
-                        <code>{{field.value}}</code>
-                    </template>
-                    <template slot="default" scope="field">
-                        <code>{{field.value}}</code>
-                    </template>
-                </b-table>
+                <section>
+                    <b-table :items="props_items" :fields="props_fields" stripped>
+                        <template slot="default" scope="field">
+                            <code>{{field.value}}</code>
+                        </template>
+                    </b-table>
+                </section>
             </template>
 
             <template v-if="docs.events && docs.events.length > 0">
                 <h2>Events</h2>
                 <br>
-                <b-table :items="docs.events" :fields="events_fields">
-                    <template slot="event" scope="field">
-                        <code>{{field.value}}</code>
-                    </template>
-                    <template slot="args" scope="field">
-                        <div v-for="arg in field.value">
-                            <code>{{arg.arg}}</code>
-                            <span v-html="arg.description"/>
-                        </div>
-                    </template>
-                </b-table>
+                <section>
+                    <b-table :items="docs.events" :fields="events_fields" stripped>
+                        <template slot="args" scope="field">
+                            <div v-for="arg in field.value">
+                                <code>{{arg.arg}}</code>
+                                <span v-html="arg.description"/>
+                            </div>
+                        </template>
+                    </b-table>
+                </section>
             </template>
+
+            <h2>Usage</h2>
+            <code v-code class="html">
+                <slot name="usage"></slot>
+            </code>
 
         </template>
     </layout>

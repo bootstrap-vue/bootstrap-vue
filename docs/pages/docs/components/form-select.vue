@@ -9,12 +9,15 @@
         </template>
 
         <template slot="demo">
-            <b-form-select v-model="selected"
-                           :options="options"
-                           :defaultOption="defaultOption"
-                           state="success"
-            >
-            </b-form-select>
+
+            <b-form-fieldset :state="selected!=='default'?'success':'warning'" label="Select one option">
+                <b-form-select v-model="selected"
+                               :options="options"
+                               :defaultOption="defaultOption"
+                               state="success"
+                >
+                </b-form-select>
+            </b-form-fieldset>
 
             <div>Selected: <strong>{{selected}}</strong></div>
 
@@ -36,25 +39,25 @@
 </template>
 
 <script>
-import layout from '../../../layouts/components.vue';
+    import layout from '../../../layouts/components.vue';
 
-export default {
-    components: {layout},
-    data() {
-        return {
-            docs: {
-                component: 'bFormSelect'
-            },
-            selected: 'c',
-            defaultOption: {text: 'Please select some item', value: 'default'},
-            options: [
-                {text: 'This is First option', value: 'a'},
-                {text: 'Default Selected Option', value: 'b'},
-                {text: 'This is another option', value: 'c'},
-                {text: 'This one is disabled', value: 'd', disabled: true}
-            ]
-        };
-    },
-    methods: {}
-};
+    export default {
+        components: {layout},
+        data() {
+            return {
+                docs: {
+                    component: 'bFormSelect'
+                },
+                selected: 'default',
+                defaultOption: {text: 'Please select some item', value: 'default'},
+                options: [
+                    {text: 'This is First option', value: 'a'},
+                    {text: 'Default Selected Option', value: 'b'},
+                    {text: 'This is another option', value: 'c'},
+                    {text: 'This one is disabled', value: 'd', disabled: true}
+                ]
+            };
+        },
+        methods: {}
+    };
 </script>

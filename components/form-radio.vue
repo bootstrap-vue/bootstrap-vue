@@ -7,11 +7,11 @@
                     type="radio"
                     :id="item.id"
                     :name="name"
-                    :value="item.value"
+                    :value="item[valueKey]"
                     :disabled="item.disabled"
             >
             <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">{{item.text}}</span>
+            <span class="custom-control-description">{{item[textKey]}}</span>
         </label>
     </fieldset>
 </template>
@@ -34,6 +34,14 @@
         props: {
             value: {
                 default: null
+            },
+            valueKey: {
+                type: String,
+                default: 'value'
+            },
+            textKey: {
+                type: String,
+                default: 'text'
             },
             name: {
                 type: String,

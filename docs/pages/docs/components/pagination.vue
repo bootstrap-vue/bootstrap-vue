@@ -15,10 +15,22 @@
             <h2>currentPage: {{currentPage}}</h2>
             <br>
 
-            <div style="text-align: center;">
+            <div>
+                <h6>Default</h6>
                 <b-pagination size="md"
-                              variant="danger"
                               :total-rows="100"
+                              v-model="currentPage"
+                              :per-page="10"
+                >
+                </b-pagination>
+
+                <br>
+
+                <h6>Styled</h6>
+                <b-pagination size="md"
+                              :total-rows="100"
+                              variant="primary"
+                              secondaryVariant="info"
                               v-model="currentPage"
                               :per-page="10"
                 >
@@ -41,24 +53,24 @@
 </template>
 
 <script>
-import layout from '../../../layouts/components.vue';
+    import layout from '../../../layouts/components.vue';
 
-export default {
-    components: {layout},
-    data() {
-        return {
-            docs: {
-                component: 'bPagination'
+    export default {
+        components: {layout},
+        data() {
+            return {
+                docs: {
+                    component: 'bPagination'
 
-            },
-            currentPage: 1
-        };
-    },
-    methods: {
-        details(item) {
-            // eslint-disable-next-line no-alert
-            alert(JSON.stringify(item));
+                },
+                currentPage: 3
+            };
+        },
+        methods: {
+            details(item) {
+                // eslint-disable-next-line no-alert
+                alert(JSON.stringify(item));
+            }
         }
-    }
-};
+    };
 </script>

@@ -14,7 +14,7 @@ export default {
             title: 'Components',
             slug: 'components',
             pages: [
-                {title: 'Alerts'},
+                {title: 'Alerts', new: true},
                 {title: 'Breadcrumb'},
                 {title: 'Buttons'},
                 {title: 'Button group'},
@@ -25,10 +25,10 @@ export default {
                 {title: 'Form Checkbox'},
                 {title: 'Form Select'},
                 {title: 'Nav'},
-                {title: 'NavBar'},
+                {title: 'NavBar', new: true},
                 {title: 'Pagination'},
-                {title: 'Popover'},
-                {title: 'Tables'}
+                {title: 'Popover', new: true},
+                {title: 'Tables', new: true}
             ]
         }
     ]
