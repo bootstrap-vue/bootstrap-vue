@@ -1,6 +1,6 @@
 <template>
     <button :class="classObject"
-            @click="onclick"
+            @click.stop="onclick"
             :href="href || to"
             :is="componentType"
             :to="to || href"
