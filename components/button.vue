@@ -67,7 +67,7 @@
                 default: 'primary'
             },
             to: {
-                type: [String, Object],
+                type: [String, Object]
             },
             href: {
                 type: String
@@ -77,7 +77,7 @@
                 default: false
             },
             target: {
-                type: String,
+                type: String
             }
         },
         methods: {

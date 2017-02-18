@@ -40,17 +40,17 @@
                 default: false
             },
             to: {
-                type: [String, Object],
+                type: [String, Object]
             },
             href: {
-                type: String,
+                type: String
             },
             exact: {
                 type: Boolean,
                 default: false
             },
             target: {
-                type: String,
+                type: String
             }
         },
         methods: {
