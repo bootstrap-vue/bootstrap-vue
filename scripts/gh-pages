@@ -3,23 +3,24 @@ set -x -e
 cd ..
 
 # Ensure clean dist dir
-[ -d docs-dist ] && rm -rv docs-dist
+[ -d docs-dist ] && rm -frv docs-dist
 mkdir -p docs-dist
 
 # Gen docs
 yarn docs-gen
 
 # Prepare git
-git config --global user.email "pooya@pi0.ir"
-git config --global user.name "bootstrap-vue-bot"
+# git config --global user.email "pooya@pi0.ir"
+# git config --global user.name "bootstrap-vue-bot"
 
 # Fetch gh-pages
 cd docs-dist
 git init
-git remote add origin $GH_PAGES_REPO
+git remote add origin git@github.com:bootstrap-vue/bootstrap-vue.github.io.git
 git fetch origin
 
 # Commit new docs
 git add --all
-git commit -m "Published by CI"
+#git commit -m "Published by CI"
+git commit -m "Update Docs"
 git push -ff origin master

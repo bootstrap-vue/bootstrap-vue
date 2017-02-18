@@ -6,8 +6,8 @@ const config = module.exports = require('./webpack');
 // This is a node.js bundle
 config.target = 'node';
 
-config.entry={
-  bootstrapVue: Path.resolve(__dirname, '../index'),
+config.entry = {
+    bootstrapVue: Path.resolve(__dirname, '../index')
 };
 
 // Output settings

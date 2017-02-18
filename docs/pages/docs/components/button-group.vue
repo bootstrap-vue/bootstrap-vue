@@ -51,18 +51,18 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs:{
-                    component: 'bButtonGroup',
-                    events: [],
-                },
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bButtonGroup',
+                events: []
             }
-        },
-        methods: {},
-    }
+        };
+    },
+    methods: {}
+};
 </script>

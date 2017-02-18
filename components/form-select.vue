@@ -1,5 +1,5 @@
 <template>
-    <select :class="['custom-select',inputSize]"
+    <select :class="['form-control','custom-select',inputSize]"
             v-model="selected"
             :options="allOptions"
             :disabled="disabled"
@@ -13,44 +13,44 @@
 </template>
 
 <script>
-    import {uniqueId} from '../utils/helpers.js'
 
     export default {
-        data(){
+        data() {
             let selected = this.value;
-            if (!selected || !selected.length) selected = this.defaultOption.value;
+            if (!selected) {
+                selected = this.defaultOption ? this.defaultOption.value : null;
+            }
             return {
-                selected,
+                selected
+            };
+        },
+        mounted() {
+            if (this.selected) {
+                this.change(this.selected);
             }
         },
-        mounted(){
-            if (this.selected)
-                this.change(this.selected);
-        },
         computed: {
-            allOptions(){
-                return [].concat(this.defaultOption, this.options);
-            },
-            inputState() {
-                return this.state ? `has-${this.state}` : null;
+            allOptions() {
+                if (this.defaultOption) {
+                    return [].concat(this.defaultOption, this.options);
+                }
+                return this.options;
             },
             inputSize() {
                 return this.size ? `form-control-${this.size}` : null;
-            },
+            }
         },
         props: {
             options: {
                 type: Array,
                 default: [],
-                required: true,
+                required: true
             },
             defaultOption: {
-                default: () => {
-                    return {}
-                },
+                default: null
             },
             value: {
-                default: '',
+                default: ''
             },
             size: {
                 type: String,
@@ -59,19 +59,20 @@
             disabled: {
                 type: Boolean,
                 default: false
-            },
+            }
         },
         watch: {
-            selected(new_val, old_val){
-                if (new_val !== old_val)
-                    this.change(new_val)
+            selected(new_val, old_val) {
+                if (new_val !== old_val) {
+                    this.change(new_val);
+                }
             }
         },
         methods: {
-            change(val){
+            change(val) {
                 this.$emit('input', val);
             }
         }
-    }
+    };
 
 </script>

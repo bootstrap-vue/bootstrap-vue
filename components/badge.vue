@@ -12,9 +12,9 @@
                 return !this.variant || this.variant === `default` ? `badge-default` : `badge-${this.variant}`;
             },
             badgeType() {
-                return !this.type ? `` : `badge-${this.type}`;
+                return this.type ? `badge-${this.type}` : '';
             },
-            badgePill(){
+            badgePill() {
                 return this.pill ? 'badge-pill' : '';
             }
         },
@@ -32,5 +32,5 @@
                 default: false
             }
         }
-    }
+    };
 </script>

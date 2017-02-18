@@ -17,8 +17,8 @@
                 <div class="col-12 col-md-9 bd-content">
 
                     <b-button-group class="float-right mb-auto">
-                        <b-btn size="sm" @click="issue" >Report an issue</b-btn>
-                        <b-btn size="sm" @click="editPage" >Edit this page</b-btn>
+                        <b-btn size="sm" @click="issue">Report an issue</b-btn>
+                        <b-btn size="sm" @click="editPage">Edit this page</b-btn>
                         <slot name="actions"></slot>
                     </b-button-group>
 
@@ -41,46 +41,43 @@
 </template>
 
 <script>
-    import layout from './site.vue';
     import mSidebar from '../includes/sidebar.vue';
+    import layout from './site.vue';
 
     export default {
         components: {layout, mSidebar},
-        data(){
-            return {}
-        },
-        computed: {
-            github(){
-                const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/docs/pages';
-                let path = window.location.pathname;
-                if (path.endsWith('/docs') || path.endsWith('/docs/'))
-                    path += '/index';
-                return base + path + '.vue'
-            }
+        data() {
+            return {};
         },
         methods: {
-            editPage(){
-                window.open(this.github, '_blank');
-                //this.$ga.event('docs', 'edit_page');
+            editPage() {
+                const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/docs/pages';
+                let path = window.location.pathname;
+                if (path.endsWith('/docs') || path.endsWith('/docs/')) {
+                    path += '/index';
+                }
+                const github_url = base + path + '.vue';
+                window.open(github_url, '_blank');
+                // this.$ga.event('docs', 'edit_page');
             },
-            issue(){
+            issue() {
                 window.open('https://github.com/bootstrap-vue/bootstrap-vue/issues/new', '_blank');
-                //this.$ga.event('docs', 'open_issue');
-            },
+                // this.$ga.event('docs', 'open_issue');
+            }
         },
-        mounted(){
+        mounted() {
             if (!document.disqus) {
-                let disqus_script = document.getElementById('disqus_script');
+                const disqus_script = document.getElementById('disqus_script');
                 if (disqus_script) {
-                    let script = document.createElement('script');
+                    const script = document.createElement('script');
                     script.src = '//bootstrap-vue.disqus.com/embed.js';
-                    script.setAttribute('data-timestamp', +new Date());
+                    script.setAttribute('data-timestamp', Number(new Date()));
                     disqus_script.appendChild(script);
                     document.disqus = true;
                 }
-            } else {
-                if (DISQUS) DISQUS.reset({reload: true});
+            } else if (window.DISQUS) {
+                window.DISQUS.reset({reload: true});
             }
         }
-    }
+    };
 </script>

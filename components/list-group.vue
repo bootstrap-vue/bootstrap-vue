@@ -5,13 +5,13 @@
 </template>
 
 <script>
-  export default {
+export default {
     replace: true,
     props: {
-      flush: {
-        type: Boolean,
-        default: false,
-      },
-    },
-  };
+        flush: {
+            type: Boolean,
+            default: false
+        }
+    }
+};
 </script>

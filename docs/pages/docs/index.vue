@@ -1,7 +1,7 @@
 <template>
     <layout>
         <template slot="title">Getting Started</template>
-        <template slot="lead">Let's go!</template>
+        <template slot="lead"></template>
         <template slot="content">
             <h1 class="bd-title" id="content">
                 Introduction
@@ -79,13 +79,13 @@
 </template>
 
 <script>
-    import site from  '../../data/site';
-    import layout from '../../layouts/docs.vue';
+import site from '../../data/site';
+import layout from '../../layouts/docs.vue';
 
-    export default {
-        components: {layout},
-        computed: {
-            site
-        }
+export default {
+    components: {layout},
+    computed: {
+        site
     }
+};
 </script>

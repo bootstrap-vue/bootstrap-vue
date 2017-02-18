@@ -4,96 +4,114 @@
             Popover
         </template>
 
-        <template slot="description">
-            The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
-            element, and is customizable.
+        <template slot="desc">
+            <p>
+                The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
+                element, and is customizable.
+            </p>
+            <br>
+            For more advanced usage, you can use
+            <a href="https://github.com/SirLamer/click-confirm" target="_blank">Click Confirm</a>
+            component by @SirLamer which is based on popover.
+            <br>
+            <br>
+            <div class="text-center">
+                <img src="~static/click-confirm.png">
+                <br>
+                <small class="text-muted">click-confirm example</small>
+            </div>
+
         </template>
 
         <template slot="demo">
 
-
-            <h3>Placement</h3>
+            <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
             <div class="row">
-                <div class="col-md-3" v-for="placement in ['top','left','right', 'bottom']">
-                    <b-popout
+                <div class="col-md-3 my-1 text-center" v-for="placement in ['top', 'left', 'right', 'bottom']">
+                    <b-popover
                             :placement="placement"
                             content="Heya!"
                     >
-                        {{ placement }}
-                    </b-popout>
+                        <b-btn variant="primary">{{ placement }}</b-btn>
+                    </b-popover>
                 </div>
             </div>
 
-            <h3>Triggers</h3>
+            <h4 class="mt-sm-4 ms-sm-4 text-muted">Triggers</h4>
             <div class="row">
-                <div class="col-md-4" v-for="trigger in TriggerExamples">
-                    <b-popout
+                <div class="col-md-4 my-1 text-center" v-for="trigger in triggerExamples">
+                    <b-popover
                             :triggers="trigger"
                             content="Trigger warning!"
                     >
-                        {{ triggersToString(trigger) }}
-                    </b-popout>
+                        <b-btn variant="primary">{{ triggersToString(trigger) }}</b-btn>
+                    </b-popover>
                 </div>
             </div>
 
-            <h3>Content via properties or slots</h3>
+            <h4 class="mt-sm-4 ms-sm-4 text-muted">Content via properties or slots</h4>
             <div class="row">
-                <div class="col-md-6">
-                    <b-popout
+                <div class="col-md-6 my-1 text-center">
+                    <b-popover
                             content="Embedding content using properties is easier as well as simpler to make dynamic."
-                            title="Title Property">
-                        Using properties
-                    </b-popout>
+                    >
+                        <b-btn variant="primary">Using properties</b-btn>
+                    </b-popover>
                 </div>
-                <div class="col-md-6">
-                    <b-popout>
-                        Using slots
-                        <span slot="title">
-                            <em>Title Slot</em>
-                        </span>
+                <div class="col-md-6 my-1 text-center">
+                    <b-popover>
+                        <b-btn variant="primary">Using slots</b-btn>
                         <span slot="content">
-                            Embedding content using slots <em>affords you <strong>greater control.</strong></em>
+                            Embedding content <span
+                                style="color: red">using slots</span> affords you <em>greater <strong>control.</strong></em>
                         </span>
-                    </b-popout>
+                    </b-popover>
                 </div>
             </div>
 
-            <h3>Delay</h3>
+            <h4 class="mt-sm-4 ms-sm-4 text-muted">Delay</h4>
             <div class="row">
-                <div class="col-md-4">
-                    <b-popout
-                            delay="2000"
-                            content="Tooltip"
-                            triggers="click"
+
+                <div class="col-md-4 my-1 text-center">
+                    <b-popover
+                            :delay="1000"
+                            content="Sorry, I'm a little sleepy."
+                            :triggers="['click','hover']"
                     >
-                        2000ms
-                    </b-popout>
-                    <b-popout
-                            delay="{show: 1000, hide: 0}"
+                        <b-btn variant="primary">1000ms</b-btn>
+                    </b-popover>
+                </div>
+
+                <div class="col-md-4 my-1 text-center">
+                    <b-popover
+                            :delay="{show: 1000, hide: 0}"
                             content="This will disappear right away!"
-                            triggers="click"
+                            :triggers="['click','hover']"
                     >
-                        1000ms on show only
-                    </b-popout>
-                    <b-popout
-                            delay="{show: 0, hide: 1000}"
+                        <b-btn variant="primary">1000ms on show</b-btn>
+                    </b-popover>
+                </div>
+
+                <div class="col-md-4 my-1 text-center">
+                    <b-popover
+                            :delay="{show: 0, hide: 1000}"
                             content="This will disappear after a second's delay."
-                            triggers="click"
+                            :triggers="['click','hover']"
                     >
-                        1000ms on hide only
-                    </b-popout>
+                        <b-btn variant="primary">1000ms on hide</b-btn>
+                    </b-popover>
                 </div>
             </div>
 
         </template>
 
         <template slot="usage">
-            <b-popover title="My Popover Title">
-                <a class="btn btn-primary" role="button" @click="clickEventConfirmed">Submit</a>
-                <div class="text-xs-center" slot="content">
-                    Isn't this lovely?
-                </div>
-            </b-popover>
+            &lt;b-popover title="My Popover Title"&gt;
+            &emsp; &lt;b-btn @click=&quot;clickEventConfirmed&quot;&gt;Submit&lt;/b-btn&gt;
+            &emsp; &lt;div class="text-xs-center" slot="content"&gt;
+            &emsp;&emsp; Isn't this lovely?
+            &emsp; &lt;/div&gt;
+            &lt;/b-popover&gt;
         </template>
 
     </layout>
@@ -107,14 +125,14 @@
         data() {
             return {
                 triggerExamples: [
-                  'click',
-                  'focus',
-                  'hover',
-                  ['click', 'focus'],
-                  ['click', 'hover'],
-                  ['focus', 'hover']
+                    'click',
+                    'focus',
+                    'hover',
+                    ['click', 'focus'],
+                    ['click', 'hover'],
+                    ['focus', 'hover']
                 ],
-                docs:{
+                docs: {
                     component: 'bPopover',
                     events: [
                         {
@@ -134,22 +152,22 @@
                         {
                             event: 'blur',
                             description: 'When the popover loses focus.'
-                        },
-                    ],
-                },
-                methods: {
-                    triggersToString(input) {
-                        if (Array.isArray(input))
-                          return input.join(' + ');
-                        return input;
-                    }
+                        }
+                    ]
                 }
-            }
+            };
         },
         methods: {
-            clickEventConfirmed(){
-                window.alert("Form submitted!");
+            clickEventConfirmed() {
+                // eslint-disable-next-line no-alert
+                alert('Form submitted!');
+            },
+            triggersToString(input) {
+                if (Array.isArray(input)) {
+                    return input.join(' + ');
+                }
+                return input;
             }
-        },
-    }
+        }
+    };
 </script>

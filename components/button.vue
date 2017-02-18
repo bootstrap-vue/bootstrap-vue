@@ -1,9 +1,9 @@
 <template>
     <button :class="classObject"
             @click.stop.prevent="click"
-            :href="to"
+            :href="href || to"
             :is="componentType"
-            :to="to"
+            :to="to || href"
             :exact="exact"
     >
         <slot></slot>
@@ -14,7 +14,7 @@
 <script>
     export default {
         computed: {
-            classObject(){
+            classObject() {
                 return [
                     'btn',
                     this.btnVariant,
@@ -24,20 +24,20 @@
                     this.inactive ? 'btn-inactive' : ''
                 ];
             },
-            componentType(){
-                return this.to ? 'router-link' : 'a';
+            componentType() {
+                return this.href ? (this.$route ? 'router-link' : 'a') : 'button';
             },
             btnBlock() {
                 return this.block ? `btn-block` : '';
             },
             btnVariant() {
-                return !this.variant ? `btn-secondary` : `btn-${this.variant}`
+                return this.variant ? `btn-${this.variant}` : `btn-secondary`;
             },
             btnSize() {
-                return !this.size ? '' : `btn-${this.size}`
+                return this.size ? `btn-${this.size}` : '';
             },
             btnDisabled() {
-                return this.disabled ? 'disabled' : ''
+                return this.disabled ? 'disabled' : '';
             }
         },
         props: {
@@ -53,10 +53,6 @@
                 type: Boolean,
                 default: false
             },
-            link: {
-                type: String,
-                default: ''
-            },
             role: {
                 type: String,
                 default: ''
@@ -71,20 +67,23 @@
             },
             to: {
                 type: [String, Object],
-                default: '',
+                default: ''
+            },
+            href: {
+                type: String
             },
             exact: {
                 type: Boolean,
-                default: false,
-            },
+                default: false
+            }
         },
         methods: {
-            click: function () {
-                this.$emit('click', this.link);
-                if (this.$router && this.to && this.to.length) {
+            click() {
+                this.$emit('click', this.to);
+                if (this.$router && this.to) {
                     this.$router.push(this.to);
                 }
-            },
-        },
-    }
+            }
+        }
+    };
 </script>

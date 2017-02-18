@@ -17,14 +17,22 @@
     export default {
         data() {
             return {
-                localShow: this.show
+                countDownTimerId: null,
+                dismissed: false
+            };
+        },
+        computed: {
+            classObject() {
+                return ['alert', this.alertState, this.dismissible ? 'alert-dismissible' : ''];
+            },
+            alertState() {
+                return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`;
+            },
+            localShow() {
+                return !this.dismissed && (this.countDownTimerId || this.show);
             }
         },
         props: {
-            show: {
-                type: Boolean,
-                default: false
-            },
             state: {
                 type: String,
                 default: 'info'
@@ -33,49 +41,52 @@
                 type: Boolean,
                 default: false
             },
-            dismissAfterSeconds: {
-                type: Number,
-                default: null
-            },
-        },
-        computed: {
-            classObject() {
-                return ['alert', this.alertState, this.dismissible ? 'alert-dismissible' : '']
-            },
-            alertState() {
-                return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`
-            },
+            show: {
+                type: [Boolean, Number],
+                default: false
+            }
         },
         watch: {
-            show: function (newValue, oldValue) {
-                if (this.dismissAfterSeconds && newValue == true && oldValue == false) {
-                    this.dismissCounter();
-                }
+            show() {
+                this.showChanged();
             }
         },
-        mounted(){
-            if (this.dismissAfterSeconds) {
-                this.dismissCounter();
-            }
+        mounted() {
+            this.showChanged();
         },
         methods: {
             dismiss() {
-                this.localShow = false;
-                this.$emit('dismissed')
+                this.dismissed = true;
+                this.$emit('dismissed');
+                this.clearCounter();
             },
-            dismissCounter(){
-                let dismissCountDown = this.dismissAfterSeconds;
+            clearCounter() {
+                if (this.countDownTimerId) {
+                    clearInterval(this.countDownTimerId);
+                }
+            },
+            showChanged() {
+                // Reset dismiss status
+                this.dismissed = false;
+
+                // No timer for boolean values
+                if (this.show === true || this.show === false || this.show === null) {
+                    return;
+                }
+
+                let dismissCountDown = this.show;
                 this.$emit('dismiss-count-down', dismissCountDown);
-                let intId = setInterval(() => {
-                    if (dismissCountDown < 2 || !this.show) {
-                        if (this.show) this.dismiss();
-                        clearInterval(intId);
-                    } else {
-                        dismissCountDown--;
-                        this.$emit('dismiss-count-down', dismissCountDown);
+
+                // Start counter
+                this.clearCounter();
+                this.countDownTimerId = setInterval(() => {
+                    if (dismissCountDown < 2) {
+                        return this.dismiss();
                     }
+                    dismissCountDown--;
+                    this.$emit('dismiss-count-down', dismissCountDown);
                 }, 1000);
             }
         }
-    }
+    };
 </script>

@@ -2,7 +2,7 @@
     <layout>
         <main class="bd-masthead" id="content">
             <div class="container">
-                <span class="bd-booticon">
+                <span class="bd-booticon outline">
                     <img src="~static/banner.png" alt="." style="max-width: 80%;">
                 </span>
 
@@ -14,7 +14,9 @@
                     <router-link to="/docs" class="btn btn-lg">Getting Started</router-link>
                 </p>
 
-                <!--<p class="version">Currently v{{ site.current_version }}</p>-->
+                <p class="version">
+                    Currently: {{site.version}}
+                </p>
 
             </div>
         </main>
@@ -43,9 +45,11 @@
                             // Globally register bootstrap-vue components
                             Vue.use(BootstrapVue);
                         </code>
-                        <b-btn @click="$router.push('/docs#npm')">
-                            NPM Usage Guide
-                        </b-btn>
+                        <div class="text-center">
+                            <b-btn @click="$router.push('/docs#npm')" variant="success">
+                                Learn more
+                            </b-btn>
+                        </div>
 
                     </div>
 
@@ -58,9 +62,11 @@
                         <code v-code>
                             &lt;script src=&quot;https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
                         </code>
-                        <b-btn @click="$router.push('/docs#cdn')">
-                            CDN Usage Guide
-                        </b-btn>
+                        <div class="text-center">
+                            <b-btn @click="$router.push('/docs#cdn')" variant="success">
+                                Learn more
+                            </b-btn>
+                        </div>
 
                     </div>
 
@@ -72,12 +78,14 @@
 
 <script>
     import layout from '../layouts/site.vue';
-    import site from  '../data/site';
+    import site from '../data/site';
 
     export default {
         components: {layout},
         computed: {
-            site
-        },
-    }
+            site() {
+                return site;
+            }
+        }
+    };
 </script>

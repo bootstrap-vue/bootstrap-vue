@@ -12,59 +12,61 @@
 
 <script>
   export default {
-    data() {
-      return {
-        show: false
-      }
-    },
-    computed: {
-      dropdownToggle() {
-        return this.caret ? 'dropdown-toggle' : ''
-      }
-    },
-    props: {
-      caret: {
-        type: Boolean,
-        default: true
+      data() {
+          return {
+              show: false
+          };
       },
-      text: {
-        type: String,
-        default: ''
+      computed: {
+          dropdownToggle() {
+              return this.caret ? 'dropdown-toggle' : '';
+          }
       },
-      dropup: {
-        type: Boolean,
-        default: false
+      props: {
+          caret: {
+              type: Boolean,
+              default: true
+          },
+          text: {
+              type: String,
+              default: ''
+          },
+          dropup: {
+              type: Boolean,
+              default: false
+          },
+          rightAlignment: {
+              type: Boolean,
+              default: false
+          },
+          disabled: {
+              type: Boolean,
+              default: false
+          },
+          class: ['class']
       },
-      rightAlignment: {
-        type: Boolean,
-        default: false
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      class: ['class']
-    },
-    methods: {
-      toggle(e) {
+      methods: {
+          toggle(e) {
         // return if disabled
-        if (this.disabled) return;
+              if (this.disabled) {
+                  return;
+              }
         // hide an alert
-        this.show = !this.show;
+              this.show = !this.show;
         // Dispatch an event from the current vm that propagates all the way up to its $root
-        if (this.show) {
-          this.$root.$emit('shown::dropdown');
-          e.stopPropagation()
-        } else {
-          this.$root.$emit('hidden::dropdown');
-        }
+              if (this.show) {
+                  this.$root.$emit('shown::dropdown');
+                  e.stopPropagation();
+              } else {
+                  this.$root.$emit('hidden::dropdown');
+              }
+          }
+      },
+      created() {
+          const hub = this.$root;
+          hub.$on('hide::dropdown', () => {
+              this.show = false;
+          });
       }
-    },
-    created: function () {
-      const hub = this.$root;
-      hub.$on('hide::dropdown', () => {
-        this.show = false
-      });
-    },
-  }
+  };
 </script>

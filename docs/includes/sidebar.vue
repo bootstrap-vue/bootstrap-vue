@@ -11,6 +11,7 @@
                         :to="'/docs/'+group.slug+'/'+page.title.replace(' ','-').toLowerCase()"
                 >
                     {{ page.title }}
+                    <span class="badge badge-danger" v-if="page.new">NEW</span>
                 </b-nav-item>
             </b-nav>
 
@@ -30,10 +31,10 @@
     import site from '../data/site';
 
     export default {
-        data(){
+        data() {
             return {
-                site,
-            }
+                site
+            };
         }
-    }
+    };
 </script>

@@ -8,13 +8,13 @@
 
 <script>
   export default {
-    replace: true,
-    computed: {},
-    props: {
-      fluid: {
-        type: Boolean,
-        default: false
+      replace: true,
+      computed: {},
+      props: {
+          fluid: {
+              type: Boolean,
+              default: false
+          }
       }
-    }
-  }
+  };
 </script>

@@ -29,33 +29,33 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs: {
-                    component: 'bFormCheckbox',
-                    events: [
-                        {
-                            event: 'input',
-                            args: [
-                                {
-                                    arg: '_value',
-                                    description: 'The internal <code>_value</code> if checked or <code>undefined</code>'
-                                },
-                            ],
-                        },
-                        {
-                            event: 'change',
-                            description: 'On Changed',
-                            args: [{arg: 'checked'}]
-                        },
-                    ],
-                },
-                check1: '',
-            }
-        },
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bFormCheckbox',
+                events: [
+                    {
+                        event: 'input',
+                        args: [
+                            {
+                                arg: '_value',
+                                description: 'The internal <code>_value</code> if checked or <code>undefined</code>'
+                            }
+                        ]
+                    },
+                    {
+                        event: 'change',
+                        description: 'On Changed',
+                        args: [{arg: 'checked'}]
+                    }
+                ]
+            },
+            check1: ''
+        };
     }
+};
 </script>

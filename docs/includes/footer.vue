@@ -27,13 +27,13 @@
 </template>
 
 <script>
-    import site from  '../data/site';
+    import site from '../data/site';
 
     export default{
-        data(){
+        data() {
             return {
-                site,
-            }
+                site
+            };
         }
-    }
+    };
 </script>

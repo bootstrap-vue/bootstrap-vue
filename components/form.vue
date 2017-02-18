@@ -5,19 +5,20 @@
 </template>
 
 <script>
-    export default {
-        computed: {
-            classObject(){
-                return [
-                    this.inline ? 'form-inline' : ''
-                ];
-            },
-        },
-        props: {
-            inline: {
-                type:Boolean,
-                default: false,
-            }
-        },
+export default {
+    computed: {
+        classObject() {
+            return [
+                this.inline ? 'form-inline' : ''
+            ];
+        }
+    },
+    props: {
+        inline: {
+            type: Boolean,
+            default: false
+        }
     }
+};
+
 </script>

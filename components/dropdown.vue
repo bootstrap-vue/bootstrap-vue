@@ -30,70 +30,74 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                show: false
-            }
+export default {
+    data() {
+        return {
+            show: false
+        };
+    },
+    props: {
+        split: {
+            type: Boolean,
+            default: false
         },
-        props: {
-            split: {
-                type: Boolean,
-                default: false
-            },
-            text: {
-                type: String,
-                default: ''
-            },
-            size: {
-                type: String,
-                default: null,
-            },
-            variant: {
-                type: String,
-                default: null,
-            },
-            dropup: {
-                type: Boolean,
-                default: false
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            right: {
-                type: Boolean,
-                default: false,
-            },
+        text: {
+            type: String,
+            default: ''
         },
-        mounted(){
-            if (typeof document !== 'undefined')
-                document.documentElement.addEventListener('click', this.clickOut);
+        size: {
+            type: String,
+            default: null
         },
-        methods: {
-            toggle(){
-                this.setShow(!this.show);
-            },
-            setShow(state) {
-                if (this.show === state) return; // Avoid duplicated emits
-                this.show = state;
+        variant: {
+            type: String,
+            default: null
+        },
+        dropup: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        right: {
+            type: Boolean,
+            default: false
+        }
+    },
+    mounted() {
+        if (typeof document !== 'undefined') {
+            document.documentElement.addEventListener('click', this.clickOut);
+        }
+    },
+    methods: {
+        toggle() {
+            this.setShow(!this.show);
+        },
+        setShow(state) {
+            if (this.show === state) {
+                return;
+            } // Avoid duplicated emits
+            this.show = state;
 
-                if (this.show) {
-                    this.$emit('shown');
-                } else {
-                    this.$emit('hidden');
-                }
-            },
-            clickOut(){
-                this.setShow(false);
-            },
-            click(){
-                if (this.split)
-                    this.$emit('click');
-                else
-                    this.toggle();
+            if (this.show) {
+                this.$emit('shown');
+            } else {
+                this.$emit('hidden');
             }
         },
+        clickOut() {
+            this.setShow(false);
+        },
+        click() {
+            if (this.split) {
+                this.$emit('click');
+            } else {
+                this.toggle();
+            }
+        }
     }
+};
 
 </script>
