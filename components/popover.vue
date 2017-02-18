@@ -39,7 +39,7 @@
         type: String,
         default: 'top',
         validator(value) {
-          return ['top', 'bottom', 'left', 'right'].includes(value);
+          return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0;
         },
       },
       triggers: {
@@ -52,11 +52,11 @@
           if (value == false)
             return true;
           else if (typeof value === 'string')
-            return Object.keys(triggerListeners).includes(value);
+            return Object.keys(triggerListeners).indexOf(value) >= 0;
           else if (Array.isArray(value)) {
             let keys = Object.keys(triggerListeners);
             value.forEach(item => {
-              if (!keys.includes(item)) return false;
+              if (keys.indexOf(item) == -1) return false;
             });
             return true;
           } else return false;
@@ -275,13 +275,13 @@
 
         // Look for new events not yet mapped (all of them on first load)
         triggers.forEach(item => {
-          if (!appliedTriggers.includes(item))
+          if (appliedTriggers.indexOf(item) == -1)
             newTriggers.push(item);
         });
 
         // Disable any removed event triggers
         appliedTriggers.forEach(item => {
-          if (!triggers.includes(item))
+          if (triggers.indexOf(item) == -1)
             removeTriggers.push(item);
         });
 
