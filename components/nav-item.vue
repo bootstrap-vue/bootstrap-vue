@@ -1,14 +1,14 @@
 <template>
     <li class="nav-item">
         <component
-                class="nav-item"
                 :class="classObject"
-                @click.stop.prevent="onclick"
-                :href="to"
+                @click="onclick"
+                :href="href || to"
                 :is="componentType"
                 active-class="active"
                 :to="to"
                 :exact="exact"
+                :target="target"
         >
             <slot></slot>
         </component>
@@ -17,47 +17,46 @@
 
 <script>
 
-export default {
-    computed: {
-        classObject() {
-            return [
-                'nav-link',
-                this.active ? 'active' : '',
-                this.disabled ? 'disabled' : ''
-            ];
+    export default {
+        computed: {
+            classObject() {
+                return [
+                    'nav-link',
+                    this.active ? 'active' : '',
+                    this.disabled ? 'disabled' : ''
+                ];
+            },
+            componentType() {
+                return this.to ? 'router-link' : 'a';
+            }
         },
-        componentType() {
-            return this.to ? 'router-link' : 'a';
-        }
-    },
-    props: {
-        active: {
-            type: Boolean,
-            default: false
+        props: {
+            active: {
+                type: Boolean,
+                default: false
+            },
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+            to: {
+                type: [String, Object],
+            },
+            href: {
+                type: String,
+            },
+            exact: {
+                type: Boolean,
+                default: false
+            },
+            target: {
+                type: String,
+            }
         },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        to: {
-            type: [String, Object],
-            default: ''
-        },
-        exact: {
-            type: Boolean,
-            default: false
-        }
-    },
-    methods: {
-        onclick() {
-            this.$emit('click', this.to);
-
-            if (this.to) {
-                if (this.$router) {
-                    this.$router.push(this.to);
-                }
+        methods: {
+            onclick() {
+                this.$emit('click', this.to);
             }
         }
-    }
-};
+    };
 </script>

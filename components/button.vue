@@ -1,10 +1,11 @@
 <template>
     <button :class="classObject"
-            @click.stop.prevent="click"
+            @click="onclick"
             :href="href || to"
             :is="componentType"
             :to="to || href"
             :exact="exact"
+            :target="target"
     >
         <slot></slot>
     </button>
@@ -63,11 +64,10 @@
             },
             variant: {
                 type: String,
-                default: 'secondary'
+                default: 'primary'
             },
             to: {
                 type: [String, Object],
-                default: ''
             },
             href: {
                 type: String
@@ -75,10 +75,13 @@
             exact: {
                 type: Boolean,
                 default: false
+            },
+            target: {
+                type: String,
             }
         },
         methods: {
-            click() {
+            onclick() {
                 this.$emit('click', this.to);
                 if (this.$router && this.to) {
                     this.$router.push(this.to);
