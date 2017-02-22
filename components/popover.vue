@@ -48,8 +48,8 @@ export default {
                 return ['click', 'focus'];
             },
             validator(value) {
-                // Allow falsy value to disable all event triggers (equivalent to 'manual') in Bootstrap 4
-                if (value === false) {
+                // Allow falsey value to disable all event triggers (equivalent to 'manual') in Bootstrap 4
+                if (value === false || value === '') {
                     return true;
                 } else if (typeof value === 'string') {
                     return Object.keys(triggerListeners).indexOf(value) !== -1;
