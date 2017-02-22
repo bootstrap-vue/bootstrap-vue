@@ -267,7 +267,7 @@ export default {
                         const action = triggerListeners[trigger][event];
 
                         // If the expected event action is the opposite of the current state, allow it
-                        if (action === 'toggle' || (this.showState && action === 'hide') || action === 'show') {
+                        if (action === 'toggle' || (this.showState && action === 'hide') || (!this.showState && action === 'show')) {
                             this.showState = !this.showState;
                             this.lastEvent = e.timeStamp;
                         }
