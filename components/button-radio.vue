@@ -20,18 +20,15 @@
             return {
                 selection: '',
                 model: {}
-            }
+            };
         },
         computed: {
             btnVariant() {
-                return !this.variant || this.variant === `default` ? `btn-secondary` : `btn-${this.variant}`
+                return !this.variant || this.variant === `default` ? `btn-secondary` : `btn-${this.variant}`;
             },
             btnSize() {
-                return !this.size || this.size === `default` ? `` : `btn-${this.size}`
-            },
-            btnActive() {
-                return item.value
-            },
+                return !this.size || this.size === `default` ? `` : `btn-${this.size}`;
+            }
         },
         props: {
             list: {
@@ -50,29 +47,30 @@
             returnObject: {
                 type: Boolean,
                 default: false
-            },
+            }
         },
         watch: {
             selection: {
                 handler() {
                     // set the model based on selection
                     if (this.returnObject) {
-                        this.list.forEach((item) => {
-                            if (item.value === this.selection)
-                                this.model = item
-                        })
+                        this.list.forEach(item => {
+                            if (item.value === this.selection) {
+                                this.model = item;
+                            }
+                        });
                     } else {
-                        this.model = this.selection
+                        this.model = this.selection;
                     }
                     // Emit an event
-                    this.$root.$emit('changed::button-radio', this.model)
+                    this.$root.$emit('changed::button-radio', this.model);
                 },
-                deep: true,
+                deep: true
             }
         },
         mounted() {
             // handle initial selection
-            this.selection = this.model.value
+            this.selection = this.model.value;
         }
-    }
+    };
 </script>

@@ -6,6 +6,6 @@
 
 <script>
   export default {
-    replace: true,
+      replace: true
   };
 </script>

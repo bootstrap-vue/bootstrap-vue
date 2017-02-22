@@ -10,15 +10,27 @@
 
         <template slot="demo">
 
+
             <b-form-input v-model="text"
                           type="text"
                           placeholder="Enter your name"
                           :state="text.length?'success':'warning'"
                           :formatter="format"
             ></b-form-input>
+            <small class="text-muted">We will convert your name to lowercase instantly</small>
 
-            <br>
-            <br>
+            <br><br>
+
+            <b-form-input v-model="text"
+                          type="text"
+                          placeholder="Enter your name"
+                          :state="text.length?'success':'warning'"
+                          :formatter="format"
+                          lazyFormatter
+            ></b-form-input>
+            <small class="text-muted">This one is a little lazy!</small>
+
+            <br><br>
 
             <b-form-input textarea
                           v-model="text"
@@ -44,31 +56,31 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs:{
-                    component: 'bFormInput',
-                    events: [
-                        {
-                            event: 'input',
-                            description: 'On text input',
-                            args: [
-                                {arg: 'text',description: 'New text value'}
-                            ],
-                        },
-                    ],
-                },
-                text: '',
-            }
-        },
-        methods: {
-            format(value){
-                return value.toLowerCase();
-            }
-        },
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bFormInput',
+                events: [
+                    {
+                        event: 'input',
+                        description: 'On text input',
+                        args: [
+                            {arg: 'text', description: 'New text value'}
+                        ]
+                    }
+                ]
+            },
+            text: ''
+        };
+    },
+    methods: {
+        format(value) {
+            return value.toLowerCase();
+        }
     }
+};
 </script>

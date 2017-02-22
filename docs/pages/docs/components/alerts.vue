@@ -10,28 +10,30 @@
         </template>
 
         <template slot="demo">
-            <b-alert :show="true">
+            <b-alert show>
                   Default Alert
             </b-alert>
 
-            <b-alert :show="true" state="success">
+            <b-alert state="success" show>
                   Success Alert
             </b-alert>
 
-            <b-alert :show="true" state="danger" dismissible>
+            <b-alert state="danger" dismissible :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">
                 Dismissible Alert!
             </b-alert>
 
-            <b-alert :show="show_alert"
-                     :dismissAfterSeconds="5"
+            <b-alert :show="dismissCountDown"
                      dismissible
                      state="warning"
                      @dismiss-count-down="countDownChanged"
             >
-                This alert will dismiss after {{dismissCountDown}} Seconds...
+                This alert will dismiss after {{dismissCountDown}} seconds...
             </b-alert>
 
-            <b-btn @click="showAlert" variant="info">Show alert with count-down timer</b-btn>
+            <b-btn @click="showAlert" variant="info" class="m-1">Show alert with count-down timer</b-btn>
+            <b-btn @click="showDismissibleAlert=true" variant="info" class="m-1">
+                Show dismissible alert ({{showDismissibleAlert?'visible':'hidden'}})
+            </b-btn>
 
         </template>
 
@@ -45,43 +47,42 @@
 </template>
 
 <script>
-    import layout, {head} from '../../../layouts/components.vue';
+    import layout from '../../../layouts/components.vue';
 
     export default {
         components: {layout},
-        data(){
+        data() {
             return {
                 docs: {
                     component: 'bAlert',
                     events: [
                         {
                             event: 'dismissed',
-                            description: 'Alert dismissed',
+                            description: 'Alert dismissed'
                         },
                         {
                             event: 'dismiss-count-down',
                             args: [
                                 {
                                     arg: 'dismissCountDown',
-                                    description: 'Time remaining to dismissed',
+                                    description: 'Time remaining to dismissed'
                                 }
                             ],
-                            description: 'When dismissAfterSeconds enabled, this event emits every second on countdown.',
+                            description: 'When dismissAfterSeconds enabled, this event emits every second on countdown.'
                         }
-                    ],
+                    ]
                 },
-                show_alert: true,
-                dismissCountDown: 0,
-            }
+                dismissCountDown: null,
+                showDismissibleAlert: false
+            };
         },
         methods: {
-            countDownChanged(dismissCountDown){
+            countDownChanged(dismissCountDown) {
                 this.dismissCountDown = dismissCountDown;
             },
-            showAlert(){
-                this.show_alert = false;
-                this.show_alert = true;
+            showAlert() {
+                this.dismissCountDown = 5;
             }
-        },
-    }
+        }
+    };
 </script>

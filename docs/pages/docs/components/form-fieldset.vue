@@ -42,31 +42,31 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs: {
-                    component: 'bFormInput',
-                    events: [
-                        {
-                            event: 'input',
-                            description: 'On text input',
-                            args: [
-                                {arg: 'text', description: 'New text value'}
-                            ],
-                        },
-                    ],
-                },
-                text: '',
-            }
-        },
-        methods: {
-            format(value){
-                return value.toLowerCase();
-            }
-        },
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bFormFieldset',
+                events: [
+                    {
+                        event: 'input',
+                        description: 'On text input',
+                        args: [
+                            {arg: 'text', description: 'New text value'}
+                        ]
+                    }
+                ]
+            },
+            text: ''
+        };
+    },
+    methods: {
+        format(value) {
+            return value.toLowerCase();
+        }
     }
+};
 </script>

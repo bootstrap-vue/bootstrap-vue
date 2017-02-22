@@ -3,8 +3,8 @@
 
 <script>
     export default {
-        fetch({redirect}){
-            redirect('/docs/components/alerts')
+        fetch({redirect}) {
+            redirect('/docs/components/alerts');
         }
-    }
+    };
 </script>

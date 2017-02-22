@@ -1,14 +1,14 @@
 <template>
     <li class="nav-item">
         <component
-                class="nav-item"
                 :class="classObject"
-                @click.stop.prevent="onclick"
-                href=""
+                @click="onclick"
+                :href="href || to"
                 :is="componentType"
                 active-class="active"
                 :to="to"
                 :exact="exact"
+                :target="target"
         >
             <slot></slot>
         </component>
@@ -19,16 +19,16 @@
 
     export default {
         computed: {
-            classObject(){
+            classObject() {
                 return [
                     'nav-link',
                     this.active ? 'active' : '',
                     this.disabled ? 'disabled' : ''
                 ];
             },
-            componentType(){
+            componentType() {
                 return this.to ? 'router-link' : 'a';
-            },
+            }
         },
         props: {
             active: {
@@ -40,22 +40,23 @@
                 default: false
             },
             to: {
-                type: [String, Object],
-                default: '',
+                type: [String, Object]
+            },
+            href: {
+                type: String
             },
             exact: {
                 type: Boolean,
-                default: false,
+                default: false
             },
+            target: {
+                type: String
+            }
         },
         methods: {
-            onclick: function () {
+            onclick() {
                 this.$emit('click', this.to);
-
-                if (this.to && this.to.length) {
-                    if (this.$router) this.$router.push(this.to);
-                }
             }
         }
-    }
+    };
 </script>

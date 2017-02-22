@@ -1,22 +1,24 @@
 # Bootstrap Vue
 [Twitter Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
 
-[![CircleCI branch](https://img.shields.io/circleci/project/github/bootstrap-vue/bootstrap-vue/master.svg?style=flat-square)](https://circleci.com/projects/gh/bootstrap-vue)
-[![npm](https://img.shields.io/npm/dt/bootstrap-vue.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
-[![npm](https://img.shields.io/npm/v/bootstrap-vue.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
-[![npm](https://img.shields.io/npm/l/bootstrap-vue.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
-
-[![npm](https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg?style=flat-square)](https://www.npmjs.com/package/bootstrap-vue)
-[![npm](https://img.shields.io/badge/vue.js-2.1.10-green.svg?style=flat-swuare)](https://www.npmjs.com/package/bootstrap-vue)
-
-<p align="center"><img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/banner.png"></p>
+<p align="center">
+<img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/banner.png" width="200px">
+<br>
+<img alt="" src="https://img.shields.io/circleci/project/github/bootstrap-vue/bootstrap-vue/master.svg">
+<img alt="" src="https://img.shields.io/npm/dt/bootstrap-vue.svg">
+<img alt="" src="https://img.shields.io/npm/v/bootstrap-vue.svg">
+<img alt="" src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg">
+<a href="https://www.codacy.com/app/pi0/bootstrap-vue?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bootstrap-vue/bootstrap-vue&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/efdefff98c8848a9b6038b164f10acc6"/></a>
+<img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg">
+<img alt="" src="https://img.shields.io/badge/vue.js-2.1.10-green.svg">
+</p>
 
 # Getting started
 Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
 
 # Current included stable components
 
-- [Alerts](https://bootstrap-vue.github.io/docs/components/alerts)
+- [Alerts](https://bootstrap-vue.github.io/docs/components/alerts) **New features**
 - [Breadcrumb](https://bootstrap-vue.github.io/docs/components/breadcrumb)
 - [Buttons](https://bootstrap-vue.github.io/docs/components/buttons)
 - [Button group](https://bootstrap-vue.github.io/docs/components/button-group)
@@ -26,10 +28,10 @@ Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setu
 - [Form Checkbox](https://bootstrap-vue.github.io/docs/components/form-checkbox)
 - [Form Select](https://bootstrap-vue.github.io/docs/components/form-select)
 - [Nav](https://bootstrap-vue.github.io/docs/components/nav)
-- [NavBar](https://bootstrap-vue.github.io/docs/components/navbar)
+- [NavBar](https://bootstrap-vue.github.io/docs/components/navbar) **New features**
 - [Pagination](https://bootstrap-vue.github.io/docs/components/pagination)
-- [Popover](https://bootstrap-vue.github.io/docs/components/popover)
-- [Tables](https://bootstrap-vue.github.io/docs/components/tables) (with pagination and custom rendering support)
+- [Popover](https://bootstrap-vue.github.io/docs/components/popover) **New features**
+- [Tables](https://bootstrap-vue.github.io/docs/components/tables) **New features**
 
 Additionally, [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components) are available, but they are still under development. If you really need to use them, feel free to experiment and submit pull requests to benefit other users of this package.
 

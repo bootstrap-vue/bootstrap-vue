@@ -15,7 +15,7 @@
                 <template
                         v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
                     <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']">
-                        <b-button :size="size" :variant="variant" @click="clicked">
+                        <b-button :size="size" :variant="variant" href="#">
                             {{variant}} {{size}}
                         </b-button>
                     </div>
@@ -34,33 +34,34 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs:{
-                    component: 'bButton',
-                    events: [
-                        {
-                            event: 'click',
-                            description: 'when clicked on button',
-                            args: [
-                                {
-                                    arg: 'link',
-                                    description: ''
-                                }
-                            ]
-                        },
-                    ],
-                }
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bButton',
+                events: [
+                    {
+                        event: 'click',
+                        description: 'when clicked on button',
+                        args: [
+                            {
+                                arg: 'link',
+                                description: ''
+                            }
+                        ]
+                    }
+                ]
             }
-        },
-        methods: {
-            clicked(){
-                window.alert("Clicked on me!");
-            }
-        },
+        };
+    },
+    methods: {
+        clicked() {
+            // eslint-disable-next-line no-alert
+            window.alert('Clicked on me!');
+        }
     }
+};
 </script>

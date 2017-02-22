@@ -23,34 +23,34 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs: {
-                    component: 'bBreadcrumb',
-                    events: [
-                        {
-                            event: 'click',
-                            args: [
-                                {
-                                    arg: 'item',
-                                    description: 'The item which clicked on',
-                                }
-                            ],
-                            description: 'Only if item is not active',
-                        },
-                    ],
-                },
-                items: [
-                    {text: 'Home', link: '#', active: true},
-                    {text: 'Manage', link: '#', active: true},
-                    {text: 'Library', active: false}
-                ],
-            }
-        },
-        methods: {},
-    }
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bBreadcrumb',
+                events: [
+                    {
+                        event: 'click',
+                        args: [
+                            {
+                                arg: 'item',
+                                description: 'The item which clicked on'
+                            }
+                        ],
+                        description: 'Only if item is not active'
+                    }
+                ]
+            },
+            items: [
+                {text: 'Home', link: '#', active: true},
+                {text: 'Manage', link: '#', active: true},
+                {text: 'Library', active: false}
+            ]
+        };
+    },
+    methods: {}
+};
 </script>

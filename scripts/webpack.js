@@ -3,12 +3,11 @@
 // https://github.com/bootstrap-vue/bootstrap-vue
 // ===============================================================
 
-const Webpack = require('webpack');
 const path = require('path');
+const Webpack = require('webpack');
 
-
-var config = module.exports = {
-    plugins: [],
+const config = module.exports = {
+    plugins: []
 };
 
 // Set context to root of project
@@ -17,22 +16,22 @@ config.context = path.resolve(__dirname, '..');
 // Resolver config
 config.resolve = {
     extensions: ['.js', '.vue'],
-    enforceExtension: false,
+    enforceExtension: false
 };
 
 config.resolveLoader = {
-    modules: config.resolve.modules,
+    modules: config.resolve.modules
 };
 
 // Client entry
 config.entry = {
-    bootstrapVue: path.resolve(__dirname, '../index'),
+    bootstrapVue: path.resolve(__dirname, '../index')
 };
 
 // Basic output config
 config.output = {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'bootstrap-vue.js',
+    filename: 'bootstrap-vue.js'
 };
 
 // Config Module Loaders
@@ -42,7 +41,7 @@ config.module = {
         // Vue
         {
             test: /\.vue$/,
-            loader: 'vue-loader',
+            loader: 'vue-loader'
         },
         // Vue HTML
         {
@@ -64,9 +63,8 @@ config.module = {
         // CSS
         {
             test: /\.css$/,
-            loader: 'vue-style-loader!css-loader',
-        }
-        ,
+            loader: 'vue-style-loader!css-loader'
+        },
         // SCSS
         {
             test: /\.scss$/,
@@ -91,8 +89,8 @@ config.module = {
         // Node
         {
             test: /\.node$/,
-            loader: "node-loader"
-        },
+            loader: 'node-loader'
+        }
     ]
 };
 
@@ -101,38 +99,34 @@ config.plugins.push(new Webpack.LoaderOptionsPlugin({
     options: {
         vue: {
             loaders: {
-                'scss': 'css-loader!sass-loader', // This will match all <style lang=scss> tags
+                scss: 'css-loader!sass-loader' // This will match all <style lang=scss> tags
             }
         }
     }
 }));
 
-
-if (process.env.NODE_ENV !== 'production') { // Development Config
-
-    config.devtool = '#eval';
-
-} else { // Production Config
-
-
+if (process.env.NODE_ENV === 'production') {
+    // Production Config
     config.devtool = '#source-map';
 
     // Pass build environment inside bundle
     // This will Strip comments in Vue code & hort-circuits all Vue.js warning code
     config.plugins.push(new Webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }));
 
     // The UglifyJsPlugin will no longer put loaders into minimize mode, and the debug option has been deprecated.
     config.plugins.push(new Webpack.LoaderOptionsPlugin({
         minimize: true,
-        debug: false,
+        debug: false
     }));
 
     // Minify with dead-code elimination
     config.plugins.push(new Webpack.optimize.UglifyJsPlugin({
         compress: {warnings: false},
-        sourceMap: true,
+        sourceMap: true
     }));
-
+} else {
+    // Development Config
+    config.devtool = '#eval';
 }

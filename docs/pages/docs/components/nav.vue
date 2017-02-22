@@ -57,17 +57,17 @@
 </template>
 
 <script>
-    import layout from '../../../layouts/components.vue';
+import layout from '../../../layouts/components.vue';
 
-    export default {
-        components: {layout},
-        data(){
-            return {
-                docs: {
-                    component: 'bNav',
-                }
+export default {
+    components: {layout},
+    data() {
+        return {
+            docs: {
+                component: 'bNav'
             }
-        },
-        methods: {},
-    }
+        };
+    },
+    methods: {}
+};
 </script>

@@ -17,7 +17,7 @@
 
 <script>
   export default {
-    replace: true,
-    computed: {},
-  }
+      replace: true,
+      computed: {}
+  };
 </script>

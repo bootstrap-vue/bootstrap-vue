@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import HighlightJs from 'highlightjs';
 
-Vue.directive('code',{
+Vue.directive('code', {
     // When the bound element is inserted into the DOM...
-    inserted: function (el) {
+    inserted(el) {
         // Focus the element
-        HighlightJs.highlightBlock(el)
+        HighlightJs.highlightBlock(el);
     }
 });

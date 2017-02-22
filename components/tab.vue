@@ -6,32 +6,32 @@
 
 <script>
 export default {
- replace: true,
+    replace: true,
     data() {
-      return {
-        fade: this.$parent.fade,
-        animate: false,
-        active: false
-      }
+        return {
+            fade: this.$parent.fade,
+            animate: false,
+            active: false
+        };
     },
     props: {
-      id: {
-        type: String,
-        default: ''
-      },
-      title: {
-        type: String,
-        default: ''
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      }
+        id: {
+            type: String,
+            default: ''
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
     },
     mounted() {
-      const items = this.$parent.items;
-      items.push({id: this.id, title: this.title, active: this.active, disabled: this.disabled})
-    },
-}
+        const items = this.$parent.items;
+        items.push({id: this.id, title: this.title, active: this.active, disabled: this.disabled});
+    }
+};
 
 </script>
