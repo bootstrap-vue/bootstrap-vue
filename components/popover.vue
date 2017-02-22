@@ -48,7 +48,7 @@ export default {
                 return ['click', 'focus'];
             },
             validator(value) {
-                // Allow falsey value to disable all event triggers (equivalent to 'manual') in Bootstrap 4
+                // Allow falsy value to disable all event triggers (equivalent to 'manual') in Bootstrap 4
                 if (value === false || value === '') {
                     return true;
                 } else if (typeof value === 'string') {
