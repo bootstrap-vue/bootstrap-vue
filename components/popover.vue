@@ -27,10 +27,6 @@ const triggerListeners = {
     focus: {focus: 'show', blur: 'hide'}
 };
 
-// When using multiple event hooks, subsequent events within the defined timeframe, in milliseconds, will be ignored.
-// Allows for safe stacking of similar event hooks without the popover flickering.
-const debounceMilliseconds = 200;
-
 export default {
     replace: true,
 
@@ -48,7 +44,7 @@ export default {
                 return ['click', 'focus'];
             },
             validator(value) {
-                // Allow falsey value to disable all event triggers (equivalent to 'manual') in Bootstrap 4
+                // Allow falsy value to disable all event triggers (equivalent to 'manual') in Bootstrap 4
                 if (value === false || value === '') {
                     return true;
                 } else if (typeof value === 'string') {
@@ -104,6 +100,13 @@ export default {
                 }
 
                 return false;
+            }
+        },
+        debounce: {
+            type: [Number],
+            default: 100,
+            validator(value) {
+                return value >= 0;
             }
         }
     },
@@ -255,7 +258,7 @@ export default {
          */
         eventHandler(e) {
             // If this event is right after a previous successful event, ignore it
-            if (this.useDebounce && this.lastEvent !== null && e.timeStamp <= this.lastEvent + debounceMilliseconds) {
+            if (this.useDebounce && this.debounce > 0 && this.lastEvent !== null && e.timeStamp <= this.lastEvent + this.debounce) {
                 return;
             }
 
