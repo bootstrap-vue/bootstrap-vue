@@ -12,7 +12,7 @@
         </thead>
         <tbody>
         <tr v-for="item in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]">
-            <td v-for="(field,key) in fields">
+            <td v-for="(field,key) in fields" :class="field.class">
                 <slot :name="key" :value="item[key]" :item="item">{{item[key]}}</slot>
             </td>
         </tr>
