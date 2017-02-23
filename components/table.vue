@@ -3,7 +3,7 @@
         <thead>
         <tr>
             <th @click="headClick(field,key)"
-                :class="[field.sortable?'sorting':null,sort===key?'sorting_'+(sortDesc?'desc':'asc'):'']"
+                :class="[field.sortable?'sorting':null,sort===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class]"
                 v-for="field,key in fields"
             >
                 {{field.label}}
