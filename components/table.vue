@@ -3,7 +3,7 @@
         <thead>
         <tr>
             <th @click="headClick(field,key)"
-                :class="[field.sortable?'sorting':null,sort===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class]"
+                :class="[field.sortable?'sorting':null,sort===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class?field.class:null]"
                 v-for="field,key in fields"
             >
                 {{field.label}}
@@ -12,7 +12,7 @@
         </thead>
         <tbody>
         <tr v-for="item in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]">
-            <td v-for="(field,key) in fields">
+            <td v-for="(field,key) in fields" :class="[field.class?field.class:null]">
                 <slot :name="key" :value="item[key]" :item="item">{{item[key]}}</slot>
             </td>
         </tr>
