@@ -13,7 +13,6 @@ const config = module.exports = {
 // Set context to root of project
 config.context = path.resolve(__dirname, '..');
 
-
 // Resolver config
 config.resolve = {
     extensions: ['.js', '.vue'],
@@ -32,13 +31,13 @@ config.entry = {
 // Basic output config
 config.output = {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'bootstrap-vue.js',
+    filename: 'bootstrap-vue.js'
 };
 
 // Plugins
 config.plugins = [
     new Webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
 ];
 
