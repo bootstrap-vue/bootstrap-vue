@@ -90,7 +90,7 @@
     "node-sass": "^4.5.0",
     "nuxt": "0.9.7",
     "postcss-loader": "^1.2.2",
-    "sass-loader": "^5.0.0",
+    "sass-loader": "^6.0.2",
     "vue-analytics": "^2.2.0",
     "vue-loader": "^10.0.2",
     "vue-server-renderer": "2.1.10",
