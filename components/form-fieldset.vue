@@ -42,7 +42,7 @@
             },
             labelSize: {
                 type: Number,
-                default: 3
+                default: 6
             },
             enabled: {
                 type: Boolean,

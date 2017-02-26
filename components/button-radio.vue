@@ -11,6 +11,7 @@
                     :disabled="item.disabled"
                     v-html="item.text"
             />
+        </label>
     </div>
 </template>
 

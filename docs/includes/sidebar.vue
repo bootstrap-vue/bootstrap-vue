@@ -9,6 +9,7 @@
                 <b-nav-item
                         v-for="page in group.pages"
                         :to="'/docs/'+group.slug+'/'+page.title.replace(' ','-').toLowerCase()"
+                        :key="group.slug"
                 >
                     {{ page.title }}
                     <span class="badge badge-danger" v-if="page.new">NEW</span>
