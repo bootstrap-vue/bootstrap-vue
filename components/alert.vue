@@ -70,7 +70,7 @@
                 this.dismissed = false;
 
                 // No timer for boolean values
-                if (this.show === true || this.show === false || this.show === null) {
+                if (this.show === true || this.show === false || this.show === null || this.show === 0) {
                     return;
                 }
 

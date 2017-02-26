@@ -10,16 +10,16 @@
 
         <template slot="demo">
 
-            <b-form-fieldset
-                    :feedback="text.length?'':'Please enter something'"
-                    description="We'll convert your name to lowercase automatically."
-                    label="Example Label"
-                    :state="text.length?'success':'warning'"
-            >
+                <b-form-fieldset
+                        :feedback="text.length?'':'Please enter something'"
+                        description="We'll convert your name to lowercase automatically."
+                        label="Example Label"
+                        :state="text.length?'success':'warning'"
+                >
 
-                <b-form-input v-model="text"></b-form-input>
+                    <b-form-input v-model="text"></b-form-input>
 
-            </b-form-fieldset>
+                </b-form-fieldset>
 
 
         </template>

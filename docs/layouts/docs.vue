@@ -17,9 +17,9 @@
                 <div class="col-12 col-md-9 bd-content">
 
                     <b-button-group class="float-right mb-auto">
-                        <b-btn size="sm" @click="issue">Report an issue</b-btn>
-                        <b-btn size="sm" @click="editPage">Edit this page</b-btn>
-                        <slot name="actions"></slot>
+                        <b-btn variant="secondary" size="sm" @click="issue">Report an issue</b-btn>
+                        <b-btn variant="secondary" size="sm" @click="editPage">Edit this page</b-btn>
+                        <slot variant="secondary" name="actions"></slot>
                     </b-button-group>
 
                     <slot name="content"></slot>
@@ -32,10 +32,10 @@
             </div>
         </div>
 
-        <div class="container">
-            <div id="disqus_script"></div>
-            <div id="disqus_thread"></div>
-        </div>
+        <!--<div class="container">-->
+        <!--<div id="disqus_script"></div>-->
+        <!--<div id="disqus_thread"></div>-->
+        <!--</div>-->
 
     </layout>
 </template>
@@ -46,9 +46,7 @@
 
     export default {
         components: {layout, mSidebar},
-        data() {
-            return {};
-        },
+
         methods: {
             editPage() {
                 const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/docs/pages';
@@ -66,18 +64,18 @@
             }
         },
         mounted() {
-            if (!document.disqus) {
-                const disqus_script = document.getElementById('disqus_script');
-                if (disqus_script) {
-                    const script = document.createElement('script');
-                    script.src = '//bootstrap-vue.disqus.com/embed.js';
-                    script.setAttribute('data-timestamp', Number(new Date()));
-                    disqus_script.appendChild(script);
-                    document.disqus = true;
-                }
-            } else if (window.DISQUS) {
-                window.DISQUS.reset({reload: true});
-            }
+//            if (!document.disqus) {
+//                const disqus_script = document.getElementById('disqus_script');
+//                if (disqus_script) {
+//                    const script = document.createElement('script');
+//                    script.src = '//bootstrap-vue.disqus.com/embed.js';
+//                    script.setAttribute('data-timestamp', Number(new Date()));
+//                    disqus_script.appendChild(script);
+//                    document.disqus = true;
+//                }
+//            } else if (window.DISQUS) {
+//                window.DISQUS.reset({reload: true});
+//            }
         }
     };
 </script>

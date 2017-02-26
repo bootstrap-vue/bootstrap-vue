@@ -43,67 +43,15 @@ config.module = {
             test: /\.vue$/,
             loader: 'vue-loader'
         },
-        // Vue HTML
-        {
-            test: /\.html$/,
-            loader: 'vue-html-loader'
-        },
         // JS
         {
             test: /\.js$/,
             loader: 'babel-loader',
             // important: exclude files in node_modules, otherwise it's going to be really slow!
             exclude: /node_modules|vendor/
-        },
-        // JSON
-        {
-            test: /\.json$/,
-            loader: 'json-loader'
-        },
-        // CSS
-        {
-            test: /\.css$/,
-            loader: 'vue-style-loader!css-loader'
-        },
-        // SCSS
-        {
-            test: /\.scss$/,
-            loader: 'vue-style-loader!sass-loader'
-        },
-        // Font
-        {
-            test: /\.(eot|svg|ttf|woff|woff2)$/,
-            loader: 'file'
-        },
-        // Media
-        {
-            test: /\.(png|jpg|gif|svg)$/,
-            loader: 'url',
-            query: {
-                // limit for base64 inlining in bytes
-                limit: 10000,
-                // custom naming format if file is larger than the threshold
-                name: '[name].[ext]?[hash]'
-            }
-        },
-        // Node
-        {
-            test: /\.node$/,
-            loader: 'node-loader'
         }
     ]
 };
-
-// Config Vue style loader
-config.plugins.push(new Webpack.LoaderOptionsPlugin({
-    options: {
-        vue: {
-            loaders: {
-                scss: 'css-loader!sass-loader' // This will match all <style lang=scss> tags
-            }
-        }
-    }
-}));
 
 if (process.env.NODE_ENV === 'production') {
     // Production Config
