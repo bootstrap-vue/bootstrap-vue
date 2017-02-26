@@ -11,9 +11,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="item in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]">
+        <tr v-for="(item,index) in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]">
             <td v-for="(field,key) in fields" :class="[field.class?field.class:null]">
-                <slot :name="key" :value="item[key]" :item="item">{{item[key]}}</slot>
+                <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
         </tr>
         </tbody>
