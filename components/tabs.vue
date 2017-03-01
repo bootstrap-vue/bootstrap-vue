@@ -24,7 +24,9 @@
   export default {
       replace: true,
       data() {
+          let currentTab = this.value || 0
           return {
+              currentTab,
               items: []
           };
       },
@@ -41,6 +43,18 @@
           size: {
               type: String,
               default: 'md'
+          },
+          value: {
+              type: Number,
+              default: 0
+          }
+      },
+      watch: {
+          currentTab (val) {
+              this.$emit('input', val)
+          },
+          value (val) {
+             this.setActive(val);
           }
       },
       methods: {
@@ -85,12 +99,15 @@
                   this.$set(this.$children[index], 'animate', true);
                   this.$root.$emit('changed::tab', this.items[index].id);
               }, this.fade ? TRANSITION_DURATION : 0);
+
+          // store currentActive
+              this.currentTab = index
           }
       },
       mounted() {
       // if no active tab, set the first one by default
           if (this.getActive() === -1) {
-              this.setActive(0);
+              this.setActive(this.currentTab);
           }
       },
       destroyed() {
