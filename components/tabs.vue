@@ -1,6 +1,6 @@
 <template>
-  <div class="tabs">
-    <ul class="nav nav-tabs">
+  <div class="tabs" >
+    <ul :class="['nav','nav-' + navStyle]">
       <li class="nav-item" v-for="(item,index) in items" @click="setActive(index)">
                 <span :class="['nav-link','btn',btnSize,item.active ? 'active' : '',item.disabled ? 'disabled' : '']">
                     {{item.title}}
@@ -47,6 +47,10 @@
           value: {
               type: Number,
               default: 0
+          },
+          navStyle: {
+              type: String,
+              default: 'tabs'
           }
       },
       watch: {
