@@ -1,5 +1,5 @@
 <template>
-  <div role="tabpanel" class="tab-pane" :class="{active: active, disabled: disabled, fade: fade, in: animate}">
+  <div role="tabpanel" class="tab-pane" :class="{active: active, disabled: disabled, fade: fade, in: animate, show: active}">
     <slot></slot>
   </div>
 </template>
