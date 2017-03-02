@@ -9,7 +9,9 @@
                   :variant="variant"
                   :size="size"
                   :disabled="disabled">
-            {{text}}
+            <slot name="text">
+                {{text}}
+            </slot>
         </b-button>
 
         <b-button class="dropdown-toggle dropdown-toggle-split"
@@ -30,74 +32,74 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            show: false
-        };
-    },
-    props: {
-        split: {
-            type: Boolean,
-            default: false
+    export default {
+        data() {
+            return {
+                show: false
+            };
         },
-        text: {
-            type: String,
-            default: ''
+        props: {
+            split: {
+                type: Boolean,
+                default: false
+            },
+            text: {
+                type: String,
+                default: ''
+            },
+            size: {
+                type: String,
+                default: null
+            },
+            variant: {
+                type: String,
+                default: null
+            },
+            dropup: {
+                type: Boolean,
+                default: false
+            },
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+            right: {
+                type: Boolean,
+                default: false
+            }
         },
-        size: {
-            type: String,
-            default: null
+        mounted() {
+            if (typeof document !== 'undefined') {
+                document.documentElement.addEventListener('click', this.clickOut);
+            }
         },
-        variant: {
-            type: String,
-            default: null
-        },
-        dropup: {
-            type: Boolean,
-            default: false
-        },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        right: {
-            type: Boolean,
-            default: false
-        }
-    },
-    mounted() {
-        if (typeof document !== 'undefined') {
-            document.documentElement.addEventListener('click', this.clickOut);
-        }
-    },
-    methods: {
-        toggle() {
-            this.setShow(!this.show);
-        },
-        setShow(state) {
-            if (this.show === state) {
-                return;
-            } // Avoid duplicated emits
-            this.show = state;
+        methods: {
+            toggle() {
+                this.setShow(!this.show);
+            },
+            setShow(state) {
+                if (this.show === state) {
+                    return;
+                } // Avoid duplicated emits
+                this.show = state;
 
-            if (this.show) {
-                this.$emit('shown');
-            } else {
-                this.$emit('hidden');
-            }
-        },
-        clickOut() {
-            this.setShow(false);
-        },
-        click() {
-            if (this.split) {
-                this.$emit('click');
-            } else {
-                this.toggle();
+                if (this.show) {
+                    this.$emit('shown');
+                } else {
+                    this.$emit('hidden');
+                }
+            },
+            clickOut() {
+                this.setShow(false);
+            },
+            click() {
+                if (this.split) {
+                    this.$emit('click');
+                } else {
+                    this.toggle();
+                }
             }
         }
-    }
-};
+    };
 
 </script>
