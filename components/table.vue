@@ -1,5 +1,5 @@
 <template>
-    <table :class="['table',stripped?'table-striped':'',hover?'table-hover':'']">
+    <table :class="['table',striped?'table-striped':'',hover?'table-hover':'']">
         <thead>
         <tr>
             <th @click="headClick(field,key)"
@@ -47,7 +47,7 @@
                 default: () => {
                 }
             },
-            stripped: {
+            striped: {
                 type: Boolean,
                 default: false
             },

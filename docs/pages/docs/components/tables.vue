@@ -27,7 +27,7 @@
             </div>
 
             <b-table
-                    stripped
+                    striped
                     hover
                     :items="items"
                     :fields="fields"
