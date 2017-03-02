@@ -31,7 +31,7 @@
                 <h2>Properties</h2>
                 <br>
                 <section>
-                    <b-table :items="props_items" :fields="props_fields" stripped>
+                    <b-table :items="props_items" :fields="props_fields" striped>
                         <template slot="default" scope="field">
                             <code>{{field.value}}</code>
                         </template>
@@ -43,7 +43,7 @@
                 <h2>Events</h2>
                 <br>
                 <section>
-                    <b-table :items="docs.events" :fields="events_fields" stripped>
+                    <b-table :items="docs.events" :fields="events_fields" striped>
                         <template slot="args" scope="field">
                             <div v-for="arg in field.value">
                                 <code>{{arg.arg}}</code>
