@@ -1,88 +1,66 @@
 <template>
-    <div :class="classObject"
-         :aria-expanded="show"
-         :style="styleObject"
-    >
-        <slot></slot>
-    </div>
+    <transition name="collapse">
+        <div :class="classObject" v-show="show">
+            <slot></slot>
+        </div>
+    </transition>
 </template>
 
+<style scoped>
+    .collapse-enter-active, .collapse-leave-active {
+        transition: all .35s ease;
+        overflow: hidden;
+        max-height: 100vh;
+    }
+
+    .collapse-enter, .collapse-leave-to {
+        max-height: 0;
+    }
+</style>
+
 <script>
-import {TRANSITION_DURATION} from '../utils/helpers';
+    export default {
 
-// export component object
-export default {
-
-    data() {
-        return {
-            collapsing: false,
-            show: false,
-            height: 0
-        };
-    },
-
-    computed: {
-        classObject() {
+        data() {
             return {
-                'navbar-collapse': this.isNav,
-                collapsing: this.collapsing,
-                collapse: !this.collapsing,
-                show: this.show
+                show: false,
             };
         },
 
-        styleObject() {
-            const obj = {};
-            if (this.collapsing && this.height) {
-                obj.height = this.height + 'px';
-            }
-            return obj;
+        computed: {
+            classObject() {
+                return {
+                    'navbar-collapse': this.isNav,
+                    show: this.show
+                };
+            },
         },
 
-        scrollHeight() {
-            return 100;// this.$el.scrollHeight;
-        }
-    },
-
-    props: {
-        isNav: {
-            type: Boolean,
-            default: false
-        },
-        id: {
-            type: String,
-            required: true
-        }
-    },
-
-    methods: {
-        toggle() {
-            if (this.collapsing) {
-                return;
+        props: {
+            isNav: {
+                type: Boolean,
+                default: false
+            },
+            id: {
+                type: String,
+                required: true
             }
+        },
 
-            this.collapsing = true;
-            this.height = (this.show ? 0 : this.scrollHeight);
-
-            this._collapseAnimation = setTimeout(() => {
-                this.collapsing = false;
+        methods: {
+            toggle() {
                 this.show = !this.show;
-            }, TRANSITION_DURATION);
-        }
-    },
-
-    created() {
-        this.$root.$on('collapse::toggle', target => {
-            if (target !== this.id) {
-                return;
             }
-            this.toggle();
-        });
-    },
+        },
 
-    destroyed() {
-        clearTimeout(this._collapseAnimation);
-    }
-};
+        created() {
+            this.$root.$on('collapse::toggle', target => {
+                if (target !== this.id) {
+                    return;
+                }
+                this.toggle();
+            });
+        },
+    };
 
 </script>
