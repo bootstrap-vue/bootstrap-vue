@@ -23,7 +23,7 @@
 
         data() {
             return {
-                show: false,
+                show: false
             };
         },
 
@@ -33,7 +33,7 @@
                     'navbar-collapse': this.isNav,
                     show: this.show
                 };
-            },
+            }
         },
 
         props: {
@@ -60,7 +60,7 @@
                 }
                 this.toggle();
             });
-        },
+        }
     };
 
 </script>
