@@ -3,7 +3,7 @@
         <component
                 :class="classObject"
                 @click="onclick"
-                :href="href || to"
+                :href="hrefString"
                 :is="componentType"
                 active-class="active"
                 :to="to"
@@ -28,6 +28,9 @@
             },
             componentType() {
                 return this.to ? 'router-link' : 'a';
+            },
+            hrefString() {
+                return typeof this.to === 'object' ? this.href || undefined : this.href || this.to;
             }
         },
         props: {
