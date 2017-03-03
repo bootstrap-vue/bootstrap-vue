@@ -21,10 +21,10 @@
                 return this.state ? `has-${this.state}` : '';
             },
             labelLayout() {
-                return this.horizontal ? 'col-sm-' + this.labelSize : 'col-sm-12' + (12 - this.labelSize);
+                return this.horizontal ? ('col-sm-' + this.labelSize) : ('col-sm-' + (12 - this.labelSize));
             },
             inputLayout() {
-                return this.horizontal ? 'col-sm-' + (12 - this.labelSize) : 'col-sm-' + this.labelSize;
+                return this.horizontal ? ('col-sm-' + (12 - this.labelSize)) : ('col-sm-' + this.labelSize);
             }
         },
         props: {
