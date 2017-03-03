@@ -10,7 +10,7 @@
 <img alt="" src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg">
 <a href="https://www.codacy.com/app/pi0/bootstrap-vue?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bootstrap-vue/bootstrap-vue&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/efdefff98c8848a9b6038b164f10acc6"/></a>
 <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg">
-<img alt="" src="https://img.shields.io/badge/vue.js-2.2.0-green.svg">
+<img alt="" src="https://img.shields.io/badge/vue.js-2.2.1-green.svg">
 </p>
 
 # Getting started
