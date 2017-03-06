@@ -91,6 +91,13 @@ export default {
             if (this.closeOnBackdrop && e.target.id && e.target.id === this.id) {
                 this.hide();
             }
+        },
+        pressedButton(e) {
+            // support for esc key press
+            const key = e.which || e.keyCode;
+            if (key === 27) { // 27 is esc
+                this.hide();
+            }
         }
     },
     created() {
@@ -99,16 +106,11 @@ export default {
         hub.$on('hide::modal', id => id === this.id && this.hide());
     },
     mounted() {
-    // support for esc key press
-        document.addEventListener('keydown', e => {
-            const key = e.which || e.keyCode;
-            if (key === 27) { // 27 is esc
-                this.hide();
-            }
-        });
+        document.addEventListener('keydown', this.pressedButton);
     },
     destroyed() {
         clearTimeout(this._modalAnimation);
+        document.removeEventListener('keydown', this.pressedButton);
     }
 };
 
