@@ -35,7 +35,8 @@ export default {
     data() {
         return {
             animateBackdrop: false,
-            animateModal: false
+            animateModal: false,
+            visible: false
         };
     },
     props: {
@@ -58,6 +59,7 @@ export default {
     },
     methods: {
         show() {
+            this.visible = true;
             this.$el.style.display = 'block';
             this._body = document.querySelector('body');
             const _this = this;
@@ -72,6 +74,7 @@ export default {
             }, 0);
         },
         hide() {
+            this.visible = false;
             const _this = this;
       // first animate modal out
             this.animateModal = false;
@@ -93,6 +96,11 @@ export default {
             }
         },
         pressedButton(e) {
+            if( !this.visible ) {
+                // if not visible don't do anything
+                return;
+            }
+
             // support for esc key press
             const key = e.which || e.keyCode;
             if (key === 27) { // 27 is esc
