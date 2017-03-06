@@ -68,13 +68,6 @@
     "Tooltip",
     "Thether"
   ],
-  "babel": {
-    "presets": [
-      [
-        "es2015"
-      ]
-    ]
-  },
   "dependencies": {
     "bootstrap": "^4.0.0-",
     "tether": "latest",
