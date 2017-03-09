@@ -2,9 +2,9 @@
     <div class="tabs">
         <ul :class="['nav','nav-' + navStyle]">
             <li class="nav-item" v-for="(item,index) in items" @click="setActive(index)">
-                <span :class="['nav-link','btn',btnSize,item.active ? 'active' : '',item.disabled ? 'disabled' : '']">
+                <a :class="['nav-link',small ? 'small' : '',item.active ? 'active' : '',item.disabled ? 'disabled' : '']" href="#">
                     {{item.title}}
-                </span>
+                </a>
             </li>
         </ul>
         <div class="tab-content">
@@ -30,19 +30,14 @@
                 items: []
             };
         },
-        computed: {
-            btnSize() {
-                return !this.size || this.size === 'default' ? '' : `btn-${this.size}`;
-            }
-        },
         props: {
             fade: {
                 type: Boolean,
                 default: true
             },
-            size: {
-                type: String,
-                default: 'md'
+            small: {
+                type: Boolean,
+                default: false
             },
             value: {
                 type: Number,
