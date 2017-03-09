@@ -32,7 +32,12 @@
 </template>
 
 <script>
+    import bButton from 'bootstrap-vue/components/button.vue'
+
     export default {
+        components: {
+            bButton
+        },
         data() {
             return {
                 show: false
