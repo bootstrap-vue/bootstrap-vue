@@ -2,7 +2,7 @@
     <div class="tabs">
         <ul :class="['nav','nav-' + navStyle]">
             <li class="nav-item" v-for="(item,index) in items" @click="setActive(index)">
-                <a :class="['nav-link',small ? 'small' : '',item.active ? 'active' : '',item.disabled ? 'disabled' : '']" href="#">
+                <a :class="['nav-link',small ? 'small' : '',item.active ? 'active' : '',item.disabled ? 'disabled' : '']" href="#" @click.prevent="">
                     {{item.title}}
                 </a>
             </li>
