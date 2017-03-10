@@ -32,7 +32,7 @@
 </template>
 
 <script>
-    import bButton from 'bootstrap-vue/components/button.vue'
+    import bButton from './button.vue'
 
     export default {
         components: {
