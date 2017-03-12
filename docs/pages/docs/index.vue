@@ -21,7 +21,7 @@
             <br>
             <b-alert :show="true">
                 <strong>Important</strong>
-                Bootstrap Vue Does not ships with bootstrap css files.
+                Bootstrap Vue does not ship with bootstrap css files.
                 With both methods, you will still need to include Bootstrap's CSS.
             </b-alert>
 
