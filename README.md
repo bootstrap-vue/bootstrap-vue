@@ -37,9 +37,9 @@ Please refer to [Official Documentation](https://bootstrap-vue.github.io) for se
 
 Get it via your favorite package manager:
 ```bash
-$ npm i bootstrap-vue@latest
+$ yarn add bootstrap-vue
 # OR
-$ yarn add bootstrap-vue@latest
+$ npm i bootstrap-vue
 ```
 
 Register components:
@@ -53,12 +53,12 @@ Vue.use(BootstrapVue);
 
 **WEB**
 
-Simply include js inside your HTML templates,(free CDN from Powered by unpkg)
+Simply include this inside your HTML templates,(free CDN powered by unpkg)
 ```html
 <script src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>
 ```
 
-**NUXT.js**
+**NUXT.JS**
 
 If you are using [nuxt.js](https://github.com/nuxt/nuxt.js), you can register bootstrap-vue components using [nuxt helpers](https://github.com/fandogh/nuxt-helpers).
 
