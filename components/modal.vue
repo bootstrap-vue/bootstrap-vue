@@ -1,17 +1,17 @@
 <template>
-    <div v-if="visible">
+    <div>
         <div :id="id"
              :class="['modal',fade?'fade':null,visible?'show':null]"
-             style="display: block"
+             :style="{display:visible?'block':'none'}"
              @click="onClickOut($event)">
             <div :class="['modal-dialog','modal-'+size]">
                 <div class="modal-content">
 
                     <div class="modal-header" v-if="!hideHeader">
                         <slot name="modal-header">
-                            <div class="modal-title">
+                            <h5 class="modal-title">
                                 <slot name="modal-title">{{title}}</slot>
-                            </div>
+                            </h5>
                             <button type="button" class="close" aria-label="Close" @click="hide">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -32,9 +32,17 @@
                 </div>
             </div>
         </div>
-        <div :class="['modal-backdrop','show',fade?'fade':null]"></div>
+        <transition enter-class="hidden">
+            <div :class="['modal-backdrop','show',fade?'fade':null]" v-if="visible"></div>
+        </transition>
     </div>
 </template>
+
+<style scoped>
+    .hidden {
+        opacity: 0 !important;
+    }
+</style>
 
 <script>
     export default {
