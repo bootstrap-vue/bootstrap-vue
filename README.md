@@ -51,7 +51,7 @@ import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 ```
 
-**CDN**
+**WEB**
 
 Simply include js inside your HTML templates,(free CDN from Powered by unpkg)
 ```html
@@ -60,9 +60,9 @@ Simply include js inside your HTML templates,(free CDN from Powered by unpkg)
 
 **Nuxt.js**
 
-If you are using [nuxt.js](github.com/nuxt/nuxt.js), you can register bootstrap-vue components using [nuxt helpers](https://github.com/fandogh/nuxt-helpers).
+If you are using [nuxt.js](https://github.com/nuxt/nuxt.js), you can register bootstrap-vue components using [nuxt helpers](https://github.com/fandogh/nuxt-helpers).
 
-# Supported components
+# Included components
 
 **Stable**
 
@@ -98,6 +98,6 @@ Additionally, [many more components](https://github.com/bootstrap-vue/bootstrap-
 
 # License
 The MIT License (MIT) - Copyright (c) 2016-present Pooya Parsa.   
-Designed and built with all the love in the world.   
+Designed and built with all the love in the world.
 Maintained by the [core team](https://github.com/orgs/bootstrap-vue/people) with the help of our contributors.
 Documentation is generated using [Nuxt.js](https://nuxtjs.org)
