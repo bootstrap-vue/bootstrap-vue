@@ -110,8 +110,8 @@ export default {
     },
     created() {
         const hub = this.$root;
-        hub.$on('show::modal', id => id === this.id && this.show());
-        hub.$on('hide::modal', id => id === this.id && this.hide());
+        hub.$on('show::modal', id => id === this.id && this.show()).bind(this);
+        hub.$on('hide::modal', id => id === this.id && this.hide()).bind(this);
     },
     mounted() {
         document.addEventListener('keydown', this.pressedButton);
