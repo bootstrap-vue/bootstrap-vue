@@ -1,24 +1,72 @@
 # Bootstrap Vue
-[Twitter Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
 
 <p align="center">
-<img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/banner.png" width="200px">
+<a href="https://bootstrap-vue.github.io">
+    <img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/banner.png" width="200px">
+</a>
 <br>
-<img alt="" src="https://img.shields.io/circleci/project/github/bootstrap-vue/bootstrap-vue/master.svg">
-<img alt="" src="https://img.shields.io/npm/dt/bootstrap-vue.svg">
-<img alt="" src="https://img.shields.io/npm/v/bootstrap-vue.svg">
-<img alt="" src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg">
-<a href="https://www.codacy.com/app/pi0/bootstrap-vue?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bootstrap-vue/bootstrap-vue&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/efdefff98c8848a9b6038b164f10acc6"/></a>
-<img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg">
-<img alt="" src="https://img.shields.io/badge/vue.js-2.2.x-green.svg">
+<a href="https://circleci.com/gh/bootstrap-vue/bootstrap-vue">
+    <img alt="" src="https://img.shields.io/circleci/project/github/bootstrap-vue/bootstrap-vue/master.svg">
+</a>
+<a href="https://www.npmjs.com/package/bootstrap-vue">
+    <img alt="" src="https://img.shields.io/npm/dt/bootstrap-vue.svg">
+</a>
+<a href="https://www.npmjs.com/package/bootstrap-vue">
+    <img alt="" src="https://img.shields.io/npm/v/bootstrap-vue.svg">
+</a>
+<a href="https://github.com/sindresorhus/xo">
+    <img alt="" src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg">
+</a>
+<a href="https://v4-alpha.getbootstrap.com">
+    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg">
+</a>
+<a href="https://vuejs.org">
+    <img alt="" src="https://img.shields.io/badge/vue.js-2.2.x-green.svg">
+</a>
+<a href="https://www.codacy.com/app/pi0/bootstrap-vue?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bootstrap-vue/bootstrap-vue&amp;utm_campaign=Badge_Grade">
+    <img src="https://api.codacy.com/project/badge/Grade/efdefff98c8848a9b6038b164f10acc6"/>
+</a>
 </p>
+
+> [Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue 2](https://vuejs.org/)
 
 # Getting started
 Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
 
-# Current included stable components
+**NPM**
 
-- [Alerts](https://bootstrap-vue.github.io/docs/components/alerts) **New features**
+Get it via your favorite package manager:
+```bash
+$ npm i bootstrap-vue@latest
+# OR
+$ yarn add bootstrap-vue@latest
+```
+
+Register components:
+```js
+import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue';
+
+// Globally register bootstrap-vue components
+Vue.use(BootstrapVue);
+```
+
+**CDN**
+
+Simply include js inside your HTML templates,(free CDN from Powered by unpkg)
+```html
+<script src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>
+```
+
+**Nuxt.js**
+
+If you are using [nuxt.js](github.com/nuxt/nuxt.js), you can register bootstrap-vue components using [nuxt helpers](https://github.com/fandogh/nuxt-helpers).
+
+# Supported components
+
+**Stable**
+
+- [Alerts](https://bootstrap-vue.github.io/docs/components/alerts)
 - [Breadcrumb](https://bootstrap-vue.github.io/docs/components/breadcrumb)
 - [Buttons](https://bootstrap-vue.github.io/docs/components/buttons)
 - [Button group](https://bootstrap-vue.github.io/docs/components/button-group)
@@ -28,36 +76,28 @@ Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setu
 - [Form Checkbox](https://bootstrap-vue.github.io/docs/components/form-checkbox)
 - [Form Select](https://bootstrap-vue.github.io/docs/components/form-select)
 - [Nav](https://bootstrap-vue.github.io/docs/components/nav)
-- [NavBar](https://bootstrap-vue.github.io/docs/components/navbar) **New features**
+- [NavBar](https://bootstrap-vue.github.io/docs/components/navbar)
 - [Pagination](https://bootstrap-vue.github.io/docs/components/pagination)
-- [Popover](https://bootstrap-vue.github.io/docs/components/popover) **New features**
-- [Tables](https://bootstrap-vue.github.io/docs/components/tables) **New features**
+- [Popover](https://bootstrap-vue.github.io/docs/components/popover)
+- [Tables](https://bootstrap-vue.github.io/docs/components/tables)
 
-Additionally, [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components) are available, but they are still under development. If you really need to use them, feel free to experiment and submit pull requests to benefit other users of this package.
+**Under development**
 
-# Supported versions
-Both Vue v2 and Bootstrap v4 are changing so fast, specifically Bootstrap 4 is still in *alpha* stage. 
-We do our best to stay up-to-date with the latest changes. Latest supported versions are indicated in badges on top of this page.
-   
-   
+Additionally, [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components) are available and working, but they are still under development.
+ 
+- [Modals](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/modal.vue)
+- [Badge](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/badge.vue)
+- [Card](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/card.vue)
+- [Carousel](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/carousel.vue)
+- [Jumbotrons](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/carousel.vue)
+- [Media](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/media.vue)
+- [Progress](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/progress.vue)
+- [Tab](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/tab.vue) 
+- [Tabs](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/tabs.vue)
+- [Tooltip](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/tooltip.vue)
+
 # License
-The MIT License (MIT)
-Copyright (c) 2016 Pooya Parsa
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+The MIT License (MIT) - Copyright (c) 2016-present Pooya Parsa.   
+Designed and built with all the love in the world.   
+Maintained by the [core team](https://github.com/orgs/bootstrap-vue/people) with the help of our contributors.
+Documentation is generated using [Nuxt.js](https://nuxtjs.org)
