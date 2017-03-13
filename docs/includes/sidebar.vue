@@ -12,7 +12,8 @@
                         :key="group.slug"
                 >
                     {{ page.title }}
-                    <span class="badge badge-danger" v-if="page.new">NEW</span>
+                    <span class="badge badge-success" v-if="page.new">NEW</span>
+                    <span class="badge badge-danger" v-if="page.experimental">EXP</span>
                 </b-nav-item>
             </b-nav>
 

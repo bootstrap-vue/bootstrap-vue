@@ -24,11 +24,12 @@ export default {
                 {title: 'Form Radio'},
                 {title: 'Form Checkbox'},
                 {title: 'Form Select'},
+                {title: 'Modals', experimental:true},
                 {title: 'Nav'},
                 {title: 'NavBar'},
                 {title: 'Pagination'},
-                {title: 'Popover', new: true},
-                {title: 'Tables', new: true}
+                {title: 'Popover'},
+                {title: 'Tables'}
             ]
         }
     ]

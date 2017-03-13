@@ -27,6 +27,11 @@
                 <slot name="demo"></slot>
             </div>
 
+            <h2>Usage</h2>
+            <code v-code class="html">
+                <slot name="usage"></slot>
+            </code>
+
             <template v-if="props_items && props_items.length > 0">
                 <h2>Properties</h2>
                 <br>
@@ -35,6 +40,15 @@
                         <template slot="default" scope="field">
                             <code>{{field.value}}</code>
                         </template>
+                    </b-table>
+                </section>
+            </template>
+
+            <template v-if="docs.slots && docs.slots.length > 0">
+                <h2>Slots</h2>
+                <br>
+                <section>
+                    <b-table :items="docs.slots" :fields="slots_fields" striped>
                     </b-table>
                 </section>
             </template>
@@ -54,10 +68,6 @@
                 </section>
             </template>
 
-            <h2>Usage</h2>
-            <code v-code class="html">
-                <slot name="usage"></slot>
-            </code>
 
         </template>
     </layout>
@@ -100,6 +110,12 @@
                     event: {label: 'Event'},
                     args: {label: 'Arguments'},
                     description: {label: 'Description'}
+                };
+            },
+            slots_fields() {
+                return {
+                    name: {label: 'Slot'},
+                    description: {label: 'Description'},
                 };
             },
             props_items() {
