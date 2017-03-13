@@ -115,7 +115,7 @@
             slots_fields() {
                 return {
                     name: {label: 'Slot'},
-                    description: {label: 'Description'},
+                    description: {label: 'Description'}
                 };
             },
             props_items() {

@@ -61,11 +61,11 @@
         props: {
             id: {
                 type: String,
-                default: null,
+                default: null
             },
             title: {
                 type: String,
-                default: 'Save',
+                default: 'Save'
             },
             size: {
                 type: String,
@@ -81,7 +81,7 @@
             },
             onClose: {
                 type: Function,
-                default: null,
+                default: null
             },
             saveTitle: {
                 type: String,
@@ -89,7 +89,7 @@
             },
             onSave: {
                 type: Function,
-                default: null,
+                default: null
             },
             closeOnBackdrop: {
                 type: Boolean,
@@ -102,7 +102,7 @@
             hideFooter: {
                 type: Boolean,
                 default: false
-            },
+            }
         },
         methods: {
             show() {

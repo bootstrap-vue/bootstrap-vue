@@ -57,23 +57,24 @@
                     slots: [
                         {
                             name: 'modal-header',
-                            description: 'Entire modal header container',
+                            description: 'Entire modal header container'
                         },
                         {
                             name: 'modal-title',
-                            description: 'Modal title',
+                            description: 'Modal title'
                         },
                         {
                             name: 'modal-footer',
-                            description: 'Modal footer content',
-                        },
+                            description: 'Modal footer content'
+                        }
                     ]
                 }
             };
         },
         methods: {
-            onSave(){
+            onSave() {
                 if (!this.name) {
+                    /* eslint-disable no-alert */
                     alert('Please enter your name');
                     return false;
                 }

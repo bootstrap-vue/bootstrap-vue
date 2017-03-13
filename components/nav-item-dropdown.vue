@@ -85,6 +85,6 @@
             clickOut() {
                 this.setShow(false);
             }
-        },
+        }
     };
 </script>
