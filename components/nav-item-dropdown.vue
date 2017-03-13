@@ -52,14 +52,14 @@
         methods: {
             setShow(state) {
                 if (this.show === state) {
-                    return;
-                } // Avoid duplicated emits
+                    return; // Avoid duplicated emits
+                }
                 this.show = state;
 
                 if (this.show) {
-                    this.$root.$emit('shown::dropdown');
+                    this.$root.$emit('shown::dropdown', this);
                 } else {
-                    this.$root.$emit('hidden::dropdown');
+                    this.$root.$emit('hidden::dropdown', this);
                 }
             },
             toggle() {
@@ -70,14 +70,15 @@
             }
         },
         created() {
-            const hub = this.$root;
-            hub.$on('hide::dropdown', () => {
-                this.show = false;
+            this.$root.$on('shown::dropdown', el => {
+                if (el !== this) {
+                    this.clickOut();
+                }
             });
         },
         mounted() {
             if (typeof document !== 'undefined') {
-                document.documentElement.addEventListener('click', this.clickOut, true);
+                document.documentElement.addEventListener('click', this.clickOut);
             }
         }
     };

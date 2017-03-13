@@ -78,20 +78,27 @@
                 document.documentElement.addEventListener('click', this.clickOut);
             }
         },
+        created() {
+            this.$root.$on('shown::dropdown', el => {
+                if (el !== this) {
+                    this.clickOut();
+                }
+            });
+        },
         methods: {
             toggle() {
                 this.setShow(!this.show);
             },
             setShow(state) {
                 if (this.show === state) {
-                    return;
-                } // Avoid duplicated emits
+                    return; // Avoid duplicated emits
+                }
                 this.show = state;
 
                 if (this.show) {
-                    this.$emit('shown');
+                    this.$root.$emit('shown::dropdown', this);
                 } else {
-                    this.$emit('hidden');
+                    this.$root.$emit('hidden::dropdown', this);
                 }
             },
             clickOut() {
