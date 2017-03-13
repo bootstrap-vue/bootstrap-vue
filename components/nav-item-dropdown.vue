@@ -1,7 +1,13 @@
 <template>
-  <li :class="{'nav-item': true, open: show, dropdown: !dropup, dropup: dropup}">
-    <a @click.stop="toggle($event)" :class="['nav-link', dropdownToggle]" href="" v-on:click.prevent="" aria-haspopup="true" :aria-expanded="show" :disabled="disabled">
-      <slot>Slot</slot>
+  <li :class="{'nav-item': true, show: show,
+               dropdown: !dropup, dropup: dropup}">
+    <a @click.stop="toggle($event)"
+       :class="['nav-link', dropdownToggle]"
+       href="" v-on:click.prevent=""
+       aria-haspopup="true"
+       :aria-expanded="show"
+       :disabled="disabled">
+      <slot>{{ text }}</slot>
     </a>
     <div :class="{'dropdown-menu': true, 'dropdown-menu-right': rightAlignment}">
       <slot name="dropdown-menu">Slot "items"</slot>
