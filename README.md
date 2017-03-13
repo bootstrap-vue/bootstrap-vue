@@ -6,22 +6,22 @@
 </a>
 <br>
 <a href="https://circleci.com/gh/bootstrap-vue/bootstrap-vue">
-    <img alt="" src="https://img.shields.io/circleci/project/github/bootstrap-vue/bootstrap-vue/master.svg">
+    <img alt="" src="https://img.shields.io/circleci/project/github/bootstrap-vue/bootstrap-vue/master.svg?style=flat-square">
 </a>
 <a href="https://www.npmjs.com/package/bootstrap-vue">
-    <img alt="" src="https://img.shields.io/npm/dt/bootstrap-vue.svg">
+    <img alt="" src="https://img.shields.io/npm/dt/bootstrap-vue.svg?style=flat-square">
 </a>
 <a href="https://www.npmjs.com/package/bootstrap-vue">
-    <img alt="" src="https://img.shields.io/npm/v/bootstrap-vue.svg">
+    <img alt="" src="https://img.shields.io/npm/v/bootstrap-vue.svg?style=flat-square">
 </a>
 <a href="https://github.com/sindresorhus/xo">
-    <img alt="" src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg">
+    <img alt="" src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg?style=flat-square">
 </a>
 <a href="https://v4-alpha.getbootstrap.com">
-    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg">
+    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg?style=flat-square">
 </a>
 <a href="https://vuejs.org">
-    <img alt="" src="https://img.shields.io/badge/vue.js-2.2.x-green.svg">
+    <img alt="" src="https://img.shields.io/badge/vue.js-2.2.x-green.svg?style=flat-square">
 </a>
 <a href="https://www.codacy.com/app/pi0/bootstrap-vue?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bootstrap-vue/bootstrap-vue&amp;utm_campaign=Badge_Grade">
     <img src="https://api.codacy.com/project/badge/Grade/efdefff98c8848a9b6038b164f10acc6"/>
@@ -31,7 +31,7 @@
 > [Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue 2](https://vuejs.org/)
 
 # Getting started
-Please head to [Official Docs Website](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
+Please refer to [Official Documentation](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
 
 **NPM**
 
@@ -58,7 +58,7 @@ Simply include js inside your HTML templates,(free CDN from Powered by unpkg)
 <script src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>
 ```
 
-**Nuxt.js**
+**NUXT.js**
 
 If you are using [nuxt.js](https://github.com/nuxt/nuxt.js), you can register bootstrap-vue components using [nuxt helpers](https://github.com/fandogh/nuxt-helpers).
 
