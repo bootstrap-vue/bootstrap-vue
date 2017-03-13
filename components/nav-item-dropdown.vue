@@ -1,10 +1,9 @@
 <template>
   <li :class="{'nav-item': true, show: show,
                dropdown: !dropup, dropup: dropup}">
-    <a @click.stop="toggle($event)"
+    <a @click.stop.prevent="toggle($event)"
        :class="['nav-link', dropdownToggle]"
-       href="" v-on:click.prevent=""
-       aria-haspopup="true"
+       href="" aria-haspopup="true"
        :aria-expanded="show"
        :disabled="disabled">
       <slot>{{ text }}</slot>
@@ -52,27 +51,35 @@
           class: ['class']
       },
       methods: {
-          toggle(e) {
-        // return if disabled
-              if (this.disabled) {
+          setShow(state) {
+              if (this.show === state) {
                   return;
-              }
-        // hide an alert
-              this.show = !this.show;
-        // Dispatch an event from the current vm that propagates all the way up to its $root
+              } // Avoid duplicated emits
+              this.show = state;
+
               if (this.show) {
                   this.$root.$emit('shown::dropdown');
-                  e.stopPropagation();
               } else {
                   this.$root.$emit('hidden::dropdown');
               }
-          }
+          },
+          toggle() {
+              this.setShow(!this.show);
+          },
+          clickOut() {
+              this.setShow(false);
+          },
       },
       created() {
           const hub = this.$root;
           hub.$on('hide::dropdown', () => {
               this.show = false;
           });
+      },
+      mounted() {
+          if (typeof document !== 'undefined') {
+              document.documentElement.addEventListener('click', this.clickOut);
+          }
       }
   };
 </script>
