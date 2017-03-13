@@ -68,7 +68,7 @@
           },
           clickOut() {
               this.setShow(false);
-          },
+          }
       },
       created() {
           const hub = this.$root;
