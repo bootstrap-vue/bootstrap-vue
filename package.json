@@ -71,24 +71,24 @@
   "dependencies": {
     "bootstrap": "^4.0.0-",
     "tether": "latest",
-    "vue": "^2.2.1"
+    "vue": "^2.2.3"
   },
   "devDependencies": {
-    "babel-core": "^6.22.1",
-    "babel-loader": "^6.2.10",
-    "babel-preset-es2015": "^6.22.0",
-    "css-loader": "^0.26.1",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.0",
+    "babel-preset-es2015": "^6.24.0",
+    "css-loader": "^0.27.2",
     "eslint-plugin-html": "^2.0.0",
     "highlightjs": "^9.8.0",
     "node-sass": "^4.5.0",
     "nuxt": "^0.9.9",
     "postcss-loader": "^1.2.2",
-    "sass-loader": "^6.0.2",
-    "vue-analytics": "^2.2.0",
+    "sass-loader": "^6.0.3",
+    "vue-analytics": "^3.0.0",
     "vue-loader": "^11.1.4",
-    "vue-server-renderer": "^2.2.1",
+    "vue-server-renderer": "^2.2.3",
     "vue-style-loader": "^2.0.2",
-    "vue-template-compiler": "^2.2.1",
+    "vue-template-compiler": "^2.2.3",
     "webpack": "^2.2.0",
     "xo": "^0.17.1"
   },
