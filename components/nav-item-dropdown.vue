@@ -49,6 +49,23 @@
             },
             class: ['class']
         },
+        created() {
+            this.$root.$on('shown::dropdown', el => {
+                if (el !== this) {
+                    this.clickOut();
+                }
+            });
+        },
+        mounted() {
+            if (typeof document !== 'undefined') {
+                document.documentElement.addEventListener('click', this.clickOut);
+            }
+        },
+        destroyed() {
+            if (typeof document !== 'undefined') {
+                document.removeEventListener('click', this.clickOut);
+            }
+        },
         methods: {
             setShow(state) {
                 if (this.show === state) {
@@ -69,17 +86,5 @@
                 this.setShow(false);
             }
         },
-        created() {
-            this.$root.$on('shown::dropdown', el => {
-                if (el !== this) {
-                    this.clickOut();
-                }
-            });
-        },
-        mounted() {
-            if (typeof document !== 'undefined') {
-                document.documentElement.addEventListener('click', this.clickOut);
-            }
-        }
     };
 </script>

@@ -11,6 +11,7 @@
                   :disabled="disabled">
             <slot name="text">
                 {{text}}
+
             </slot>
         </b-button>
 
@@ -76,6 +77,11 @@
         mounted() {
             if (typeof document !== 'undefined') {
                 document.documentElement.addEventListener('click', this.clickOut);
+            }
+        },
+        destroyed() {
+            if (typeof document !== 'undefined') {
+                document.removeEventListener('click', this.clickOut);
             }
         },
         created() {
