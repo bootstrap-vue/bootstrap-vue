@@ -96,7 +96,7 @@ export default {
             }
         },
         pressedButton(e) {
-            if( !this.visible ) {
+            if (!this.visible) {
                 // if not visible don't do anything
                 return;
             }
