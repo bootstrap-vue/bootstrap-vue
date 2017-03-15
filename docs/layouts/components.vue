@@ -4,6 +4,7 @@
         <template slot="lead">
             Over a dozen reusable components built to provide buttons, dropdowns, input groups, navigation, alerts, and
             much more.
+
         </template>
         <template slot="actions">
             <b-btn size="sm" @click="viewSrc">{{componentName}}.vue</b-btn>
@@ -77,6 +78,7 @@
     import Vue from 'vue';
     import mSidebar from '../includes/sidebar.vue';
     import layout from './docs.vue';
+    import _ from 'lodash';
 
     export default{
         components: {layout, mSidebar},
@@ -152,7 +154,7 @@
                     }
 
                     return {
-                        prop,
+                        prop: _.snakeCase(prop),
                         type,
                         default: default_val
                     };

@@ -13,7 +13,7 @@
                 >
                     {{ page.title }}
                     <span class="badge badge-success" v-if="page.new">NEW</span>
-                    <span class="badge badge-danger" v-if="page.experimental">EXP</span>
+                    <span class="badge badge-danger" v-if="page.experimental">BETA</span>
                 </b-nav-item>
             </b-nav>
 
