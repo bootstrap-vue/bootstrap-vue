@@ -22,7 +22,7 @@ export default {
                 {title: 'Form Inputs'},
                 {title: 'Form Fieldset'},
                 {title: 'Form Radio'},
-                {title: 'Form Checkbox'},
+                {title: 'Form Checkbox', new: true},
                 {title: 'Form Select'},
                 {title: 'Modals', experimental: true},
                 {title: 'Nav'},

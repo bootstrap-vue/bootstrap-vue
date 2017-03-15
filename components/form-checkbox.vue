@@ -5,11 +5,10 @@
                 type="checkbox"
                 :id="id"
                 :name="name"
-                :value="_value"
+                :value="value"
                 :disabled="disabled"
-                @change="change($event.target.checked)"
-                :checked="localChecked"
-
+                :checked="checked===value"
+                @change="$emit('change',$event.target.checked?value:uncheckedValue)"
         >
         <span class="custom-control-indicator" v-if="custom"></span>
         <span :class="[custom?'custom-control-description':null]"><slot></slot></span>
@@ -22,11 +21,12 @@
     export default {
         data() {
             return {
-                localChecked: this.checked
-            };
+
+            }
         },
-        mounted() {
-            this.change(this.localChecked);
+        model: {
+            prop: 'checked',
+            event: 'change'
         },
         computed: {
             inputState() {
@@ -42,14 +42,16 @@
                 type: String,
                 default: null
             },
-            _value: {
+            value: {
                 default: true
             },
-            disabled: {
-                type: Boolean,
+            uncheckedValue: {
                 default: false
             },
             checked: {
+                default: true
+            },
+            disabled: {
                 type: Boolean,
                 default: false
             },
@@ -60,13 +62,6 @@
             custom: {
                 type: Boolean,
                 default: true
-            }
-        },
-        methods: {
-            change(checked) {
-                this.localChecked = checked;
-                this.$emit('change', checked);
-                this.$emit('input', checked ? this._value : undefined);
             }
         }
     };

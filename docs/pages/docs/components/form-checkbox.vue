@@ -5,23 +5,22 @@
         </template>
 
         <template slot="description">
-            This component uses a special <code>_value</code> Property to keep compatible with <code>v-model</code>
-            directive.
+
         </template>
 
         <template slot="demo">
 
-            <b-form-checkbox v-model="check1" _value="Option1" checked>
-                CheckBox Default
+            <b-form-checkbox v-model="state" value="accepted" unchecked-value="not_accepted">
+                I accept terms and use
             </b-form-checkbox>
 
-            <div>Value: {{check1}}</div>
+            <div>State: <strong>{{state}}</strong></div>
 
         </template>
 
         <template slot="usage">
-            &lt;b-form-checkbox v-model=&quot;check1&quot; _value=&quot;Option1&quot; checked&gt;
-            CheckBox Default
+            &lt;b-form-checkbox v-model=&quot;check1&quot; value=&quot;Option1&quot;
+            Tick me
             &lt;/b-form-checkbox&gt;
         </template>
 
@@ -54,7 +53,7 @@ export default {
                     }
                 ]
             },
-            check1: ''
+            state: 'please_accept'
         };
     }
 };
