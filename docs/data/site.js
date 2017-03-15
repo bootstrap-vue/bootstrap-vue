@@ -24,7 +24,7 @@ export default {
                 {title: 'Form Radio'},
                 {title: 'Form Checkbox', new: true},
                 {title: 'Form Select'},
-                {title: 'Modals', experimental: true},
+                {title: 'Modals', new: true},
                 {title: 'Nav'},
                 {title: 'NavBar'},
                 {title: 'Pagination'},
