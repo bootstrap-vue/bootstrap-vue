@@ -5,10 +5,10 @@
            href="" aria-haspopup="true"
            :aria-expanded="show"
            :disabled="disabled">
-            <slot>{{ text }}</slot>
+            <slot name="text">{{ text }}</slot>
         </a>
         <div :class="{'dropdown-menu': true, 'dropdown-menu-right': rightAlignment}">
-            <slot name="dropdown-menu">Slot "items"</slot>
+            <slot></slot>
         </div>
     </li>
 </template>
