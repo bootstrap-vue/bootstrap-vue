@@ -76,9 +76,9 @@
 
 <script>
     import Vue from 'vue';
+    import _ from 'lodash';
     import mSidebar from '../includes/sidebar.vue';
     import layout from './docs.vue';
-    import _ from 'lodash';
 
     export default{
         components: {layout, mSidebar},
