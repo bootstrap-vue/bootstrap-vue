@@ -38,15 +38,6 @@ export default {
                 component: 'bFormCheckbox',
                 events: [
                     {
-                        event: 'input',
-                        args: [
-                            {
-                                arg: '_value',
-                                description: 'The internal <code>_value</code> if checked or <code>undefined</code>'
-                            }
-                        ]
-                    },
-                    {
                         event: 'change',
                         description: 'On Changed',
                         args: [{arg: 'checked'}]
