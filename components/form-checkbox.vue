@@ -19,11 +19,6 @@
 <script>
 
     export default {
-        data() {
-            return {
-
-            }
-        },
         model: {
             prop: 'checked',
             event: 'change'
