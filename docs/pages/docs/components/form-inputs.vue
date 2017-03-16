@@ -5,82 +5,32 @@
         </template>
 
         <template slot="description">
-            See examples below.
-        </template>
-
-        <template slot="demo">
-
-
-            <b-form-input v-model="text"
-                          type="text"
-                          placeholder="Enter your name"
-                          :state="text.length?'success':'warning'"
-                          :formatter="format"
-            ></b-form-input>
-            <small class="text-muted">We will convert your name to lowercase instantly</small>
-
-            <br><br>
-
-            <b-form-input v-model="text"
-                          type="text"
-                          placeholder="Enter your name"
-                          :state="text.length?'success':'warning'"
-                          :formatter="format"
-                          lazyFormatter
-            ></b-form-input>
-            <small class="text-muted">This one is a little lazy!</small>
-
-            <br><br>
-
-            <b-form-input textarea
-                          v-model="text"
-                          placeholder="Text area mode"
-            ></b-form-input>
-
-            <br>
-            <p>Value: {{text}}</p>
-
 
         </template>
-
-        <template slot="usage">
-            &lt;b-form-input v-model=&quot;text&quot;
-            type=&quot;text&quot;
-            placeholder=&quot;Enter your name&quot;
-            :state=&quot;text.length?&#039;success&#039;:&#039;warning&#039;&quot;
-            :formatter=&quot;format&quot;
-            &gt;&lt;/b-form-input&gt;
-        </template>
-
     </layout>
 </template>
 
 <script>
-import layout from '../../../layouts/components.vue';
+    import layout from '../../../layouts/components.vue';
 
-export default {
-    components: {layout},
-    data() {
-        return {
-            docs: {
-                component: 'bFormInput',
-                events: [
-                    {
-                        event: 'input',
-                        description: 'On text input',
-                        args: [
-                            {arg: 'text', description: 'New text value'}
-                        ]
-                    }
-                ]
-            },
-            text: ''
-        };
-    },
-    methods: {
-        format(value) {
-            return value.toLowerCase();
+    export default {
+        components: {layout},
+        computed: {
+            docs() {
+                return {
+                    component: 'bFormInput',
+                    jsfiddle: 'j08b7c4o',
+                    events: [
+                        {
+                            event: 'input',
+                            description: 'On text input',
+                            args: [
+                                {arg: 'text', description: 'New text value'}
+                            ]
+                        }
+                    ]
+                };
+            }
         }
-    }
-};
+    };
 </script>

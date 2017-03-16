@@ -1,17 +1,17 @@
 <template>
     <layout>
-        <div class="bd-pageheader">
-            <div class="container">
-                <h1>
-                    <slot name="title"></slot>
-                </h1>
-                <p class="lead">
-                    <slot name="lead"></slot>
-                </p>
-            </div>
-        </div>
+        <!--<div class="bd-pageheader">-->
+            <!--<div class="container">-->
+                <!--<h1>-->
+                    <!--<slot name="title"></slot>-->
+                <!--</h1>-->
+                <!--<p class="lead">-->
+                    <!--<slot name="lead"></slot>-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
 
-        <div class="container">
+        <div class="container mt-4">
             <div class="row">
 
                 <div class="col-12 col-md-9 bd-content">

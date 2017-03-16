@@ -33,9 +33,9 @@
                         <h4>NPM</h4>
                         <p>Install via your favorite package manager</p>
                         <code v-code class="shell">
+                            $ yarn add bootstrap-vue
+                            # or using npm ...
                             $ npm i bootstrap-vue@latest
-                            # OR
-                            $ yarn add bootstrap-vue@latest
                         </code>
                         <p>Register components</p>
                         <code v-code class="js">
@@ -46,7 +46,7 @@
                             Vue.use(BootstrapVue);
                         </code>
                         <div class="text-center">
-                            <b-btn @click="$router.push('/docs#npm')" variant="success">
+                            <b-btn @click="$router.push('/docs#npm')" variant="secondary">
                                 Learn more
                             </b-btn>
                         </div>
@@ -60,10 +60,10 @@
                             Simply include js inside your HTML templates,(free CDN from Powered by unpkg)
                         </p>
                         <code v-code>
-                            &lt;script src=&quot;https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
+                            &lt;script src=&quot;https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;/&gt;
                         </code>
                         <div class="text-center">
-                            <b-btn @click="$router.push('/docs#cdn')" variant="success">
+                            <b-btn @click="$router.push('/docs#cdn')" variant="secondary">
                                 Learn more
                             </b-btn>
                         </div>
