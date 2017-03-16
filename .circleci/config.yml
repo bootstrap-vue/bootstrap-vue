@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    working_directory: /usr/src/app
+    docker:
+      - image: banian/node
+    steps:
+      # Checkout repository
+      - checkout
+
+      # Restore cache
+        - restore_cache:
+        key: yarn-{{ checksum "yarn.lock" }}
+
+      # Install dependencies
+      - run:
+        name: Install Dependencies
+        command: yarn
+
+      # Keep cache
+      - save_cache:
+        key: yarn-{{ checksum "yarn.lock" }}
+        paths:
+          - node_modules
+
+      # Deploy to NPM
+      - deploy:
+          command: |
+            if [[ ${CIRCLE_COMMIT} =~ v[0-9]+(\.[0-9]+)* ]]; then
+              echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+              npm publish
+            fi
