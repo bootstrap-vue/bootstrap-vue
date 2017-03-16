@@ -12,11 +12,10 @@
         <div v-if="height===0" class="text-center">
             <img src="//jsfiddle.net/img/embeddable/logo-dark.png" alt="jsfiddle">
             <br>
-            <div class="text-muted mt-1">
-                Loading Fiddle
-                <br>
-                <a :href="url" target="_blank">(Edit in JSFiddle)</a>
-            </div>
+            <small class="text-muted mt-1">
+                <span> Loading JSFiddle </span>
+                <a :href="url" target="_blank" class="text-muted">(Edit in JSFiddle) </a>
+            </small>
         </div>
     </div>
 </template>
