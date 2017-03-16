@@ -21,7 +21,17 @@ jobs:
       - save_cache:
         key: yarn-{{ checksum "yarn.lock" }}
         paths:
-          - node_modules
+          - "node_modules"
+
+      # Build
+      - run:
+        name: Build
+        command: yarn build
+
+      # Test
+      - run:
+        name: Tests
+        command: yarn test
 
       # Deploy to NPM
       - deploy:
