@@ -9,7 +9,7 @@ jobs:
       - checkout
 
       # Restore cache
-        - restore_cache:
+      - restore_cache:
         key: yarn-{{ checksum "yarn.lock" }}
 
       # Install dependencies
