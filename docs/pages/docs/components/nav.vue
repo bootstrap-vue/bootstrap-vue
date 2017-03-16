@@ -21,10 +21,10 @@
             docs() {
                 return {
                     component: 'bNav',
-                    components:['bNavItem'],
-                    jsfiddle: '8s202srp',
+                    components: ['bNavItem'],
+                    jsfiddle: '8s202srp'
                 };
-            },
+            }
         }
-    }
+    };
 </script>

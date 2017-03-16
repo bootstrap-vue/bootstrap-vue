@@ -19,8 +19,8 @@
             docs() {
                 return {
                     component: 'bTable',
-                    jsfiddle:'a5s95a3q'
-                }
+                    jsfiddle: 'a5s95a3q'
+                };
             }
         }
     };

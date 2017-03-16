@@ -21,7 +21,7 @@
             docs() {
                 return {
                     component: 'bModal',
-                    jsfiddle:'bofh9aaa',
+                    jsfiddle: 'bofh9aaa',
                     slots: [
                         {
                             name: 'modal-header',
@@ -36,8 +36,8 @@
                             description: 'Modal footer content'
                         }
                     ]
-                }
+                };
             }
         }
-    }
+    };
 </script>

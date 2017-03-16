@@ -22,8 +22,8 @@
                 return {
                     component: 'bPagination',
                     jsfiddle: 'atb4cnjg'
-                }
+                };
             }
         }
-    }
+    };
 </script>

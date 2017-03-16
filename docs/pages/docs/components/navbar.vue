@@ -20,9 +20,9 @@
             docs() {
                 return {
                     component: 'bNavbar',
-                    components:['bNavItemDropdown','bNavToggle','bCollapse','bNavItem'],
-                    jsfiddle:'gfqucs0z',
-                }
+                    components: ['bNavItemDropdown', 'bNavToggle', 'bCollapse', 'bNavItem'],
+                    jsfiddle: 'gfqucs0z'
+                };
             }
         }
     };

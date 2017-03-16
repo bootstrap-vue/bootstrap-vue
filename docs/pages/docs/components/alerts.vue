@@ -37,7 +37,7 @@
                             description: 'When dismissAfterSeconds enabled, this event emits every second on countdown.'
                         }
                     ]
-                }
+                };
             }
         }
     };

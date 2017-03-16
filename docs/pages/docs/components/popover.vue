@@ -33,7 +33,7 @@
             docs() {
                 return {
                     component: 'bPopover',
-                    jsfiddle:'rx6n8d1L',
+                    jsfiddle: 'rx6n8d1L',
                     events: [
                         {
                             event: 'showChange',
@@ -54,8 +54,8 @@
                             description: 'When the popover loses focus.'
                         }
                     ]
-                }
+                };
             }
-        },
+        }
     };
 </script>

@@ -26,13 +26,13 @@
         data() {
             return {
                 height: 0
-            }
+            };
         },
         computed: {
             src() {
                 let url = `//jsfiddle.net/${this.slug}/embedded/${this.tabs}/${this.theme}?`;
                 ['fontColor', 'accentColor', 'bodyColor', 'menuColor'].forEach(attr => {
-                    if (this[attr] && this[attr].length) {
+                    if (this[attr] && this[attr].length > 0) {
                         url += `${attr}=${this[attr]}&`;
                     }
                 });
@@ -45,7 +45,7 @@
         props: {
             slug: {
                 type: String,
-                required: true,
+                required: true
             },
             uid: {
                 type: String,
@@ -57,19 +57,19 @@
             },
             theme: {
                 type: String,
-                default: 'light',
+                default: 'light'
             },
             fontColor: {
                 type: String,
-                default: '',
+                default: ''
             },
             accentColor: {
                 type: String,
-                default: '',
+                default: ''
             },
             bodyColor: {
                 type: String,
-                default: '',
+                default: ''
             },
             menuColor: {
                 type: String,
@@ -81,18 +81,20 @@
                 let height;
                 if (this.slug === data.slug) {
                     height = data.height <= 0 ? 400 : data.height + 50;
-                    return this.height = height;
+                    this.height = height;
+                    return height;
                 }
             },
             onMessage(event) {
-                let data, eventName;
-                eventName = event.data[0];
-                data = event.data[1];
+                const eventName = event.data[0];
+                const data = event.data[1];
                 switch (eventName) {
                     case 'embed':
                         return this.setHeight(data);
                     case 'resultsFrame':
                         return this.setHeight(data);
+                    default:
+                        break;
                 }
             }
         },
@@ -106,5 +108,5 @@
                 window.removeEventListener('message', this.onMessage);
             }
         }
-    }
+    };
 </script>

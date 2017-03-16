@@ -19,7 +19,7 @@ export default {
         return {
             docs: {
                 component: 'bFormFieldset',
-                jsfiddle:'7ztq8nzd',
+                jsfiddle: '7ztq8nzd',
                 events: [
                     {
                         event: 'input',

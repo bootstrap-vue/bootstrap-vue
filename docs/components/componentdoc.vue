@@ -59,7 +59,7 @@
             events: {
                 type: Array,
                 default: () => []
-            },
+            }
         },
         computed: {
             props_fields() {
@@ -115,10 +115,10 @@
                     }
 
                     if (default_val === '' || default_val === null || default_val === 'null') {
-                            default_val = '';
+                        default_val = '';
                     }
 
-                    default_val = (default_val||'').replace(/"/g,'\'');
+                    default_val = (default_val || '').replace(/"/g, '\'');
 
                     return {
                         prop: _.kebabCase(prop),
@@ -136,14 +136,14 @@
             },
             githubURL() {
                 const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components';
-                return base + '/' + _.kebabCase(this.component).replace('b-','') + '.vue';
+                return base + '/' + _.kebabCase(this.component).replace('b-', '') + '.vue';
             }
         },
         methods: {
             isConst(str) {
                 str = str || '';
-                return ['true','false','',null,'[]'].indexOf(str) === -1 && str.indexOf('[') === -1;
+                return ['true', 'false', '', null, '[]'].indexOf(str) === -1 && str.indexOf('[') === -1;
             }
         }
-    }
+    };
 </script>

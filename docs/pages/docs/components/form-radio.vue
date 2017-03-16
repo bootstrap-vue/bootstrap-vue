@@ -22,7 +22,7 @@
             docs() {
                 return {
                     component: 'bFormRadio',
-                    jsfiddle:'dtjL91t7',
+                    jsfiddle: 'dtjL91t7',
                     events: [
                         {
                             event: 'input',
@@ -32,7 +32,7 @@
                             ]
                         }
                     ]
-                }
+                };
             }
         }
     };

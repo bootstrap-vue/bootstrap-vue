@@ -37,12 +37,12 @@
 
 <script>
     import mSidebar from '../includes/sidebar.vue';
-    import layout from './docs.vue';
     import jsfiddle from '../components/jsfiddle.vue';
     import componentdoc from '../components/componentdoc.vue';
+    import layout from './docs.vue';
 
-    export default{
-        components: {layout, mSidebar, jsfiddle,componentdoc},
+    export default {
+        components: {layout, mSidebar, jsfiddle, componentdoc},
 
         head() {
             return {
@@ -54,6 +54,6 @@
             docs: {
                 type: Object
             }
-        },
+        }
     };
 </script>
