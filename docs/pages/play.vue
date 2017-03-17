@@ -19,7 +19,7 @@
                         <input type="hidden" :value="html_fiddle" name="html">
                         <input type="hidden" :value="js_fiddle" name="js">
                         <input name="resources" type="hidden"
-                               value="//unpkg.com/vue@latest,//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css,//unpkg.com/bootstrap-vue/dist/bootstrap-vue.js">
+                               value="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css,//unpkg.com/vue@latest,//unpkg.com/bootstrap-vue/dist/bootstrap-vue.js">
                         <b-btn size="sm" type="submit">
                             <span>Export to JSFiddle</span>
                         </b-btn>
@@ -199,7 +199,11 @@
                 // Inject options
                 let js = this.js.trim();
                 js = `{el:'#result` + '\',\r\n' + js.substring(1);
-                return `new Vue(${js})`;
+                return `
+window.onload = function () {
+    new Vue(${js})
+}
+                `.trim();
             },
             html_fiddle() {
                 return `
