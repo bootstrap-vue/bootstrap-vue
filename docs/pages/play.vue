@@ -88,9 +88,9 @@
 
 <script>
     import Vue from 'vue/dist/vue.common';
-    import layout from '~/layouts/site.vue';
-    import * as Components from '~/../components';
-    import codemirror from '~/components/codemirror.vue';
+    import layout from '../layouts/site.vue';
+    import * as Components from '../../components';
+    import codemirror from '../components/codemirror.vue';
 
     const exampleHTML = `
 <b-progress v-model="counter"
@@ -129,12 +129,12 @@
                 originalWarn: null,
                 originalError: null,
                 vertical: false,
-                full: false,
-            }
+                full: false
+            };
         },
         head() {
             return {
-                title: 'Playground' + ' - Bootstrap Vue'
+                title: 'Playground - Bootstrap Vue'
             };
         },
         watch: {
@@ -183,7 +183,7 @@
                 }
 
                 if (!text.indexOf) {
-                    text = '' + text;
+                    text = String(text);
                 }
 
                 if (text.indexOf('[HMR]') !== -1) {
@@ -208,7 +208,7 @@
                 if (this.vm) {
                     try {
                         this.vm.$destroy();
-                    } catch (e) {
+                    } catch (err) {
                     }
                     this.vm = null;
                 }
@@ -223,16 +223,17 @@
                 try {
                     let options;
                     try {
+                        /* eslint-disable no-eval */
                         eval('options=' + this.js);
-                    } catch (e) {
-                        throw "Error while compiling JS: " + e;
+                    } catch (err) {
+                        throw new Error(`Compiling JS: ${err}`);
                     }
                     options.el = '#result';
                     options.components = Components;
                     options.template = `<div>${this.html}</div>`;
                     this.vm = new Vue(options);
-                } catch (e) {
-                    console.error(e);
+                } catch (err) {
+                    console.error(err);
                 }
             },
             toggleVertical() {
@@ -241,7 +242,7 @@
             toggleFull() {
                 this.full = !this.full;
             },
-            clear(){
+            clear() {
                 this.messages.splice(0);
             }
         }

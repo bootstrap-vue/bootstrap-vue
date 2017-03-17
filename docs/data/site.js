@@ -15,20 +15,22 @@ export default {
             slug: 'components',
             pages: [
                 {title: 'Alerts'},
+                {title: 'Badge'},
                 {title: 'Breadcrumb'},
                 {title: 'Buttons'},
                 {title: 'Button group'},
                 {title: 'Dropdowns'},
                 {title: 'Form Inputs'},
-                {title: 'Form Fieldset'},
+                {title: 'Form Checkbox'},
                 {title: 'Form Radio'},
-                {title: 'Form Checkbox', new: true},
                 {title: 'Form Select'},
-                {title: 'Modals', new: true},
+                {title: 'Form Fieldset'},
+                {title: 'Modals'},
                 {title: 'Nav'},
                 {title: 'NavBar'},
                 {title: 'Pagination'},
                 {title: 'Popover'},
+                {title: 'Progress'},
                 {title: 'Tables'}
             ]
         }

@@ -12,11 +12,17 @@
         mounted() {
             const CodeMirror = require('codemirror');
 
+            /* eslint-disable import/no-unassigned-import */
             require('codemirror/mode/javascript/javascript');
+            /* eslint-disable import/no-unassigned-import */
             require('codemirror/mode/vue/vue');
+            /* eslint-disable import/no-unassigned-import */
             require('codemirror/mode/htmlmixed/htmlmixed');
+            /* eslint-disable import/no-unassigned-import */
             require('codemirror/addon/edit/closetag');
+            /* eslint-disable import/no-unassigned-import */
             require('codemirror/addon/edit/closebrackets');
+            /* eslint-disable import/no-unassigned-import */
             require('codemirror/addon/fold/xml-fold');
 
             this.CM = CodeMirror.fromTextArea(this.$refs.textArea, {
@@ -62,7 +68,7 @@
             lineNumbers: {
                 type: Boolean,
                 default: true
-            },
+            }
         }
-    }
+    };
 </script>

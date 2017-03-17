@@ -27,6 +27,8 @@ module.exports = {
     css: [
         path.resolve(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.css'),
         path.resolve(__dirname, 'node_modules/highlightjs/styles/github-gist.css'),
+        path.resolve(__dirname, 'node_modules/codemirror/lib/codemirror.css'),
+        path.resolve(__dirname, 'node_modules/codemirror/theme/material.css'),
         '~assets/css/docs.min.css',
         '~assets/css/styles.css'
     ]
