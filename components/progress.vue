@@ -25,7 +25,6 @@
 
 <script>
     export default {
-        replace: true,
         computed: {
             classObject() {
                 return [
@@ -38,15 +37,15 @@
             styleObject() {
                 return {
                     width: this.progress + '%'
-                }
+                };
             },
             progressVariant() {
                 return this.variant ? `progress-bar-${this.variant}` : null;
             },
             progress() {
-                let p = Math.pow(10, this.precision);
+                const p = Math.pow(10, this.precision);
                 return Math.round((100 * p * this.value) / this.max) / p;
-            },
+            }
         },
         props: {
             striped: {
@@ -59,7 +58,7 @@
             },
             precision: {
                 type: Number,
-                default: 0,
+                default: 0
             },
             value: {
                 type: Number,
@@ -71,7 +70,7 @@
             },
             variant: {
                 type: String,
-                default: null,
+                default: null
             },
             showProgress: {
                 type: Boolean,
