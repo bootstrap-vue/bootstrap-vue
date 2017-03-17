@@ -1,5 +1,5 @@
 <template>
-    <textarea ref="textArea" v-model="value"></textarea>
+    <textarea ref="textArea" :value="value"></textarea>
 </template>
 
 <script>
@@ -45,6 +45,13 @@
             this.CM.on('change', () => {
                 this.$emit('input', this.CM.getValue());
             });
+        },
+        watch: {
+            value(new_val, old_val) {
+                if (!old_val || old_val === '') {
+                    this.CM.setValue(new_val);
+                }
+            }
         },
         beforeDestroy() {
             if (this.CM) {

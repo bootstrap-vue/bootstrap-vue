@@ -11,7 +11,10 @@
                     <span>You can clone docs repo, to hack and develop components.</span>
                     <span> changes will be reflected and hot-reloaded instantly.</span>
                     <br>
-                    Please refer to <router-link to="/docs">Documentation</router-link> for more info about available tags.
+                    Please refer to
+                    <router-link to="/docs">Documentation</router-link>
+                    for more info about available tags.
+
                 </div>
                 <div class="col-md-1">
                     <form method='post' action='https://jsfiddle.net/api/post/library/pure/'
@@ -137,8 +140,8 @@
         components: {layout},
         data() {
             return {
-                html: exampleHTML.trim(),
-                js: exampleJS.trim(),
+                html: '',
+                js: '',
                 vm: null,
                 messages: [],
                 originalLog: null,
@@ -162,7 +165,11 @@
             }
         },
         mounted() {
+            this.html = exampleHTML.trim();
+            this.js = exampleJS.trim();
+
             this.run();
+
             if (typeof window !== 'undefined') {
                 this.originalLog = console.log;
                 this.originalWarn = console.warn;

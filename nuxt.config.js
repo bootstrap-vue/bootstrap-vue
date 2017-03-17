@@ -15,6 +15,15 @@ module.exports = {
         ]
     },
 
+    build: {
+        vendor: [
+            'lodash',
+            'highlightjs',
+            'codemirror',
+            'vue/dist/vue.common'
+        ]
+    },
+
     generate: {
         dir: 'docs-dist'
     },
