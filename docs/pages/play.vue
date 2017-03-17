@@ -2,14 +2,30 @@
     <layout>
         <div class="container mt-3">
 
-            <b-alert show state="success" dismissible>
-                <span>Welcome to BootstrapVue playground ! </span>
-                <span>Here you can interactively play and test components with a fresh vue instance.</span>
-                <br>
-                <Strong>TIP: </Strong>
-                <span>You can clone docs repo, to hack and develop components.</span>
-                <span> changes will be reflected and hot-reloaded instantly.</span>
-            </b-alert>
+            <div class="mb-3 row">
+                <div class="col-md-10">
+                    <span>Welcome to BootstrapVue playground! </span>
+                    <span>Here you can interactively play and test components with a fresh vue instance.</span>
+                    <br>
+                    <Strong>TIP: </Strong>
+                    <span>You can clone docs repo, to hack and develop components.</span>
+                    <span> changes will be reflected and hot-reloaded instantly.</span>
+                </div>
+                <div class="col-md-1">
+                    <form method='post' action='https://jsfiddle.net/api/post/library/pure/'
+                          target='_blank'
+                          v-if="vm"
+                    >
+                        <input type="hidden" :value="html_fiddle" name="html">
+                        <input type="hidden" :value="js_fiddle" name="js">
+                        <input name="resources" type="hidden"
+                               value="//unpkg.com/vue@latest,//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css,//unpkg.com/bootstrap-vue/dist/bootstrap-vue.js">
+                        <b-btn size="sm" type="submit">
+                            <span>Export to JSFiddle</span>
+                        </b-btn>
+                    </form>
+                </div>
+            </div>
 
             <transition-group class="row" tag="div" name="flip">
                 <div key="A" :class="full?'col-12':'col'">
@@ -46,7 +62,8 @@
                     <div class="card mt-2">
                         <div class="card-header card-outline-success">
                             <span>Result</span>
-                            <b-btn size="sm" @click="toggleVertical" variant="outline-info" class="float-right" v-if="!full">
+                            <b-btn size="sm" @click="toggleVertical" variant="outline-info" class="float-right"
+                                   v-if="!full">
                                 <span>{{vertical ? 'Horizontal' : 'Vertical'}}</span>
                             </b-btn>
                         </div>
@@ -176,6 +193,20 @@
                 console.warn = this.originalWarn;
                 console.error = this.originalError;
             }
+        },
+        computed: {
+            js_fiddle() {
+                // Inject options
+                let js = this.js.trim();
+                js = `{el:'#result` + '\',\r\n' + js.substring(1);
+                return `new Vue(${js})`;
+            },
+            html_fiddle() {
+                return `
+<div id='result'>
+    ${this.html}
+</div>`.trim();
+            },
         },
         methods: {
             log(tag, text) {

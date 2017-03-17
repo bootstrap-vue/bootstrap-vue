@@ -62,7 +62,7 @@
             },
             theme: {
                 type: String,
-                default: 'material'
+                default: 'default'
             },
             tabMode: {
                 type: String,
