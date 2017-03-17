@@ -8,3 +8,4 @@ nuxt.config.js
 banner.png
 .npmignore
 .babelrc
+docs-dist
