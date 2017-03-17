@@ -32,6 +32,7 @@
                 &lt;script src=&quot;https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
             </code>
 
+            <br>
             <h3 id="npm">NPM</h3>
             <p>
                 If you are using module bundlers such as Webpack, Rollup, Laravel elixir, etc you may prefer directly
@@ -39,16 +40,20 @@
                 To get started use <strong>yarn</strong> or <strong>npm</strong> to get latest version.
             </p>
             <code v-code class="shell">
-                npm i bootstrap-vue@latest
-                yarn add bootstrap-vue@latest
-            </code>
+                $ yarn add bootstrap-vue
+
+              # or using npm ...
+              $ npm i bootstrap-vue@latest
+</code>
             <p>
                 Now you have to register bootstrap-vue components inside Vue.
             </p>
+
+            <br>
             <h4>Option 1: use pre-compiled version to include all components</h4>
             <p>
                 This is the simplest way, as is does not requires you having library dependencies.
-                The drawback is you have to include full commonjs bundle, which is about ~70kb minified.
+                All package is <strong>~20kb</strong> gzipped.
             </p>
             <code v-code class="js">
                 import Vue from 'vue'
@@ -57,8 +62,10 @@
                 // Globally register bootstrap-vue components
                 Vue.use(BootstrapVue);
             </code>
-            <h4>Option 2: import individual components</h4>
-            <p>
+
+            <br><br>
+            <h4 class="text-muted">Option 2: import individual components (Not recommended)</h4>
+            <p class="text-muted">
                 With this option you only will require the components you need.
             </p>
             <code v-code class="js">
