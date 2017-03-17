@@ -110,14 +110,10 @@
     import * as Components from '../../components';
 
     const exampleHTML = `
-<b-progress v-model="counter"
-            variant="success"
-            :precision="1"
-            show-progress
-            animated
-></b-progress>
-<br>
-<b-btn @click="clicked">{{text}}</b-btn>
+<b-progress v-model="counter" variant="success" :precision="1"
+            show-progress animated></b-progress>
+
+<b-btn class="mt-4" @click="clicked">{{text}}</b-btn>
 `;
 
     const exampleJS = `
@@ -129,7 +125,8 @@
     methods: {
         clicked() {
             this.counter = Math.random()*100;
-            console.log("Change progress to " + Math.round(this.counter*100)/100);
+            console.log("Change progress to " +
+                        Math.round(this.counter*100)/100);
         }
     }
 }`;
@@ -198,7 +195,7 @@
             js_fiddle() {
                 // Inject options
                 let js = this.js.trim();
-                js = `{el:'#result` + '\',\r\n' + js.substring(1);
+                js = `{el:'#app` + '\',\r\n' + js.substring(1);
                 return `
 window.onload = function () {
     new Vue(${js})
@@ -207,7 +204,7 @@ window.onload = function () {
             },
             html_fiddle() {
                 return `
-<div id='result'>
+<div id='app'>
     ${this.html}
 </div>`.trim();
             },
