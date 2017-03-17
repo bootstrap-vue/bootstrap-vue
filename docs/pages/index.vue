@@ -88,15 +88,11 @@
     import layout from '../layouts/site.vue';
     import site from '../data/site';
 
-
     export default {
         components: {layout},
         computed: {
             site() {
                 return site;
-            },
-            install_methods() {
-                return install_methods;
             }
         }
     };

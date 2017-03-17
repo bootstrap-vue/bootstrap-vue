@@ -14,7 +14,7 @@
         props: {
             placement: {
                 type: String,
-                default: 'top',
+                default: 'top'
             },
             text: {
                 type: String,

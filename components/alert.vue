@@ -23,7 +23,7 @@
         },
         created() {
             if (this.state) {
-                console.warn("<b-alrt> state property is deprecated, please use variant instead.")
+                console.warn('<b-alrt> state property is deprecated, please use variant instead.');
             }
         },
         computed: {
@@ -31,7 +31,7 @@
                 return ['alert', this.alertVariant, this.dismissible ? 'alert-dismissible' : ''];
             },
             alertVariant() {
-                let variant = this.state || this.variant || 'info';
+                const variant = this.state || this.variant || 'info';
                 return `alert-${variant}`;
             },
             localShow() {

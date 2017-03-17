@@ -133,7 +133,6 @@
     }
 }`;
 
-
     export default {
         components: {layout},
         data() {
@@ -197,7 +196,7 @@
             js_fiddle() {
                 // Inject options
                 let js = this.js.trim();
-                js = `{el:'#app` + '\',\r\n' + js.substring(1);
+                js = `{el:'#app',\r\n` + js.substring(1);
                 return `
 window.onload = function () {
     new Vue(${js})
@@ -209,7 +208,7 @@ window.onload = function () {
 <div id='app'>
     ${this.html}
 </div>`.trim();
-            },
+            }
         },
         methods: {
             log(tag, text) {

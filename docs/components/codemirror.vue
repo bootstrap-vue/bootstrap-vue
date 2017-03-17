@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    var CodeMirror;
+    let CodeMirror;
 
     if (typeof window !== 'undefined') {
         CodeMirror = require('codemirror');
@@ -39,7 +39,7 @@
                 lineNumbers: this.lineNumbers,
                 autoCloseTags: true,
                 autoCloseBrackets: true,
-                readOnly: this.readOnly,
+                readOnly: this.readOnly
             });
 
             this.CM.on('change', () => {

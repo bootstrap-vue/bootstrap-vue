@@ -6,8 +6,11 @@
 
         <code v-code class="html">
             <{{componentName}}
-            <template v-for="prop in props_items">  {{isConst(prop.default) ? '' : ':'}}{{prop.prop}}="{{prop.default}}"<br></template>
-            <template v-for="event in events"> @{{event.event}}=""<br></template>></code>
+
+            <template v-for="prop in props_items">
+                {{isConst(prop.default) ? '' : ':'}}{{prop.prop}}="{{prop.default}}"<br></template>
+            <template v-for="event in events"> @{{event.event}}=""<br></template>
+            ></code>
 
         <template v-if="props_items && props_items.length > 0">
             <h4>Properties</h4>
@@ -103,7 +106,7 @@
                     let default_val = p.default;
 
                     if (default_val instanceof Function && !Array.isArray(default_val)) {
-                            default_val = default_val();
+                        default_val = default_val();
                     }
 
                     if (typeof default_val !== 'string') {
@@ -138,10 +141,7 @@
         methods: {
             isConst(str) {
                 str = str || '';
-                return ['true', 'false', '', null, '[]'].indexOf(str) === -1
-                    && str.indexOf('[') === -1
-                    && !/[0-9]+/.test(str)
-                    ;
+                return ['true', 'false', '', null, '[]'].indexOf(str) === -1 && str.indexOf('[') === -1 && !/[0-9]+/.test(str);
             }
         }
     };
