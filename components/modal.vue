@@ -1,12 +1,19 @@
 <template>
     <div>
-        <div :id="id"
-             :class="['modal',fade?'fade':null,visible?'show':null]"
-             :style="{display:visible?'block':'none'}"
-             @click="onClickOut($event)">
-            <div :class="['modal-dialog','modal-'+size]">
-                <div class="modal-content">
-
+        <transition enter-class="hidden"
+                    enter-to-class="show"
+                    enter-active-class=""
+                    leave-class="show"
+                    leave-active-class=""
+                    leave-to-class="hidden"
+                    v-on:after-enter="afterEnter"
+        >
+            <div :id="id"
+                 v-show="visible"
+                 :class="['modal',{fade :fade}]"
+                 @click="onClickOut($event)">
+                <div :class="['modal-dialog','modal-'+size]">
+                    <div class="modal-content">
                     <div class="modal-header" v-if="!hideHeader">
                         <slot name="modal-header">
                             <h5 class="modal-title">
@@ -29,11 +36,13 @@
                         </slot>
                     </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
+        </transition>
+
         <transition enter-class="hidden">
-            <div :class="['modal-backdrop','show',fade?'fade':null]" v-if="visible"></div>
+            <div :class="['modal-backdrop','show',{fade: fade}]" v-if="visible"></div>
         </transition>
     </div>
 </template>
@@ -42,6 +51,10 @@
     .hidden {
         opacity: 0 !important;
     }
+    .modal {
+        display:block;
+    }
+
 </style>
 
 <script>
@@ -118,7 +131,7 @@
                     return;
                 }
                 this.visible = false;
-                this.$root.$emit('hide::modal', this.id);
+                this.$root.$emit('hidden::modal', this.id);
                 this.body.classList.remove('modal-open');
             },
             $save() {
@@ -153,20 +166,23 @@
                 if (key === 27) { // 27 is esc
                     this.hide();
                 }
+            },
+            afterEnter: function(el){
+                el.classList.add('show');
             }
         },
         created() {
             this.$root.$on('show::modal', id => {
                 if (id === this.id) {
-                    this.show();
-                }
-            });
+                this.show();
+            }
+        });
 
             this.$root.$on('hide::modal', id => {
                 if (id === this.id) {
-                    this.hide();
-                }
-            });
+                this.hide();
+            }
+        });
         },
         mounted() {
             if (typeof document !== 'undefined') {
