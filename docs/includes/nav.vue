@@ -10,17 +10,15 @@
         <b-collapse isNav class="justify-content-between" id="bd-main-nav">
 
             <b-nav isNavBar>
-                <b-nav-item to="/" exact>Home</b-nav-item>
+                <b-nav-item to="/play">
+                    Playground
+                    <b-badge variant="success">BETA</b-badge>
+                </b-nav-item>
                 <b-nav-item to="/docs">Documentation</b-nav-item>
+
             </b-nav>
 
             <b-nav isNavBar>
-                <!--<a class="nav-item nav-link "-->
-                <!--href="https://github.com/bootstrap-vue/bootstrap-vue"-->
-                <!--target="_blank"-->
-                <!--&gt;❤ Fork on GitHub-->
-                <!--</a>-->
-
                 <div class="nav-item nav-link">
                     <iframe src="https://ghbtns.com/github-btn.html?user=bootstrap-vue&repo=bootstrap-vue&type=fork&count=true"
                             frameborder="0" scrolling="0" width="100px" height="20px">

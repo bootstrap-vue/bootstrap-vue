@@ -1,0 +1,249 @@
+<template>
+    <layout>
+        <div class="container mt-3">
+
+            <b-alert show state="success" dismissible>
+                <span>Welcome to Bootstrap Vue playground ! </span>
+                <span>Here you can interactively play and test components with a fresh vue instance.</span>
+                <br>
+                <Strong>TIP: </Strong>
+                <span>You can clone docs repo, to hack and develop components.</span>
+                <span> changes will be reflected and hot-reloaded instantly.</span>
+            </b-alert>
+
+            <transition-group class="row" tag="div" name="flip">
+                <div key="A" :class="full?'col-12':'col'">
+                    <transition-group class="row" tag="div" name="flip">
+                        <div :class="`col-md-${(vertical&&!full)?6:12} col-sm-12`" key="A1">
+                            <!--Template-->
+                            <div class="card mt-2">
+                                <div class="card-header card-outline-info">
+                                    <span>Template</span>
+                                    <b-btn size="sm" @click="toggleFull" variant="outline-info" class="float-right">
+                                        <span>{{full ? 'Split' : 'Full'}}</span>
+                                    </b-btn>
+                                </div>
+                                <codemirror v-model="html" mode="htmlmixed" theme="material"></codemirror>
+                            </div>
+                        </div>
+                        <div :class="`col-md-${(vertical&&!full)?6:12} col-sm-12`" key="A2">
+                            <!--JS-->
+                            <div class="card mt-2">
+                                <div class="card-header card-outline-warning">
+                                    <span>JS</span>
+                                    <b-btn size="sm" @click="toggleFull" variant="outline-info" class="float-right">
+                                        <span>{{full ? 'Split' : 'Full'}}</span>
+                                    </b-btn>
+                                </div>
+                                <codemirror v-model="js" mode="javascript" theme="material"></codemirror>
+                            </div>
+                        </div>
+                    </transition-group>
+                </div>
+                <div key="B" :class="`col-md-${(vertical || full)?12:6} col-sm-12`">
+                    <!--Result-->
+                    <div class="card mt-2">
+                        <div class="card-header card-outline-success">
+                            <span>Result</span>
+                            <b-btn size="sm" @click="toggleVertical" variant="outline-info" class="float-right" v-if="!full">
+                                <span>{{vertical ? 'Horizontal' : 'Vertical'}}</span>
+                            </b-btn>
+                        </div>
+                        <div class="card-block">
+                            <div id="result-container" ref="result"></div>
+                        </div>
+                    </div>
+
+                    <!--Console-->
+                    <div class="">
+                        <div class="card mt-2">
+                            <div class="card-header card-outline-secondary">
+                                <span>Console</span>
+                                <b-btn size="sm" @click="clear" variant="outline-danger" class="float-right"
+                                       v-if="messages.length">
+                                    <span>Clear</span>
+                                </b-btn>
+                            </div>
+                            <div class="card-block">
+                                <div v-for="message in messages">
+                                    <b-badge :variant="message[0]">{{message[0]}}</b-badge>
+                                    <span class="text-muted"> {{message[1]}}</span>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition-group>
+
+        </div>
+    </layout>
+</template>
+
+<style>
+    .flip-move {
+        transition: all .3s;
+    }
+</style>
+
+<script>
+    import Vue from 'vue/dist/vue.common';
+    import layout from '~/layouts/site.vue';
+    import * as Components from '~/../components';
+    import codemirror from '~/components/codemirror.vue';
+
+    const exampleHTML = `
+<b-progress v-model="counter"
+            variant="success"
+            :precision="1"
+            show-progress
+            animated
+></b-progress>
+<br>
+<b-btn @click="clicked">{{text}}</b-btn>
+`;
+
+    const exampleJS = `
+{
+    data: {
+        text: "Click me",
+        counter: 45,
+    },
+    methods: {
+        clicked() {
+            this.counter = Math.random()*100;
+            console.log("Change progress to " + Math.round(this.counter*100)/100);
+        }
+    }
+}`;
+
+    export default {
+        components: {layout, codemirror},
+        data() {
+            return {
+                html: exampleHTML.trim(),
+                js: exampleJS.trim(),
+                vm: null,
+                messages: [],
+                originalLog: null,
+                originalWarn: null,
+                originalError: null,
+                vertical: false,
+                full: false,
+            }
+        },
+        head() {
+            return {
+                title: 'Playground' + ' - Bootstrap Vue'
+            };
+        },
+        watch: {
+            html() {
+                this.run();
+            },
+            js() {
+                this.run();
+            }
+        },
+        mounted() {
+            this.run();
+            if (typeof window !== 'undefined') {
+                this.originalLog = console.log;
+                this.originalWarn = console.warn;
+                this.originalError = console.error;
+                const self = this;
+
+                console.warn = function (text) {
+                    self.log('warning', text);
+                    self.originalWarn.apply(console, arguments);
+                };
+
+                console.log = function (text) {
+                    self.log('info', text);
+                    self.originalLog.apply(console, arguments);
+                };
+
+                console.error = function (text) {
+                    self.log('danger', text);
+                    self.originalError.apply(console, arguments);
+                };
+            }
+        },
+        beforeDestroy() {
+            if (typeof window !== 'undefined') {
+                console.log = this.originalLog;
+                console.warn = this.originalWarn;
+                console.error = this.originalError;
+            }
+        },
+        methods: {
+            log(tag, text) {
+                if (!text) {
+                    return;
+                }
+
+                if (!text.indexOf) {
+                    text = '' + text;
+                }
+
+                if (text.indexOf('[HMR]') !== -1) {
+                    return;
+                }
+
+                // There is a bug when having more than 2 vue instances in detecting mutations.
+                if (text.indexOf('Avoid mutating a prop directly') !== -1) {
+                    return;
+                }
+
+                if (text.indexOf('[Vue warn]') !== -1) {
+                    tag = 'warning';
+                }
+
+                text = text.replace('[Vue warn]: ', '');
+
+                this.messages.unshift([tag, text]);
+            },
+            run() {
+                // Destroy old VM if exists
+                if (this.vm) {
+                    try {
+                        this.vm.$destroy();
+                    } catch (e) {
+                    }
+                    this.vm = null;
+                }
+
+                // Set HTML
+                this.$refs.result.innerHTML = `<div id="result"></div>`;
+
+                // Clear messages
+                this.clear();
+
+                // Try Create new VM
+                try {
+                    let options;
+                    try {
+                        eval('options=' + this.js);
+                    } catch (e) {
+                        throw "Error while compiling JS: " + e;
+                    }
+                    options.el = '#result';
+                    options.components = Components;
+                    options.template = `<div>${this.html}</div>`;
+                    this.vm = new Vue(options);
+                } catch (e) {
+                    console.error(e);
+                }
+            },
+            toggleVertical() {
+                this.vertical = !this.vertical;
+            },
+            toggleFull() {
+                this.full = !this.full;
+            },
+            clear(){
+                this.messages.splice(0);
+            }
+        }
+    };
+</script>
