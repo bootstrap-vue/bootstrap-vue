@@ -64,7 +64,7 @@
             },
             variant: {
                 type: String,
-                default: 'primary'
+                default: null
             },
             to: {
                 type: [String, Object]
