@@ -1,40 +1,49 @@
 <template>
     <div>
-        <div :id="id"
-             :class="['modal',fade?'fade':null,visible?'show':null]"
-             :style="{display:visible?'block':'none'}"
-             @click="onClickOut($event)">
-            <div :class="['modal-dialog','modal-'+size]">
-                <div class="modal-content">
+        <transition-group enter-class="hidden"
+                          enter-to-class="show"
+                          enter-active-class=""
+                          leave-class="show"
+                          leave-active-class=""
+                          leave-to-class="hidden"
+                          v-on:after-enter="afterEnter"
+        >
+            <div key="modal" :id="id"
+                 v-show="visible"
+                 :class="['modal',{fade :fade}]"
+                 @click="onClickOut($event)">
 
-                    <div class="modal-header" v-if="!hideHeader">
-                        <slot name="modal-header">
-                            <h5 class="modal-title">
-                                <slot name="modal-title">{{title}}</slot>
-                            </h5>
-                            <button type="button" class="close" aria-label="Close" @click="hide">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </slot>
+                <div :class="['modal-dialog','modal-'+size]">
+                    <div class="modal-content">
+
+                        <div class="modal-header" v-if="!hideHeader">
+                            <slot name="modal-header">
+                                <h5 class="modal-title">
+                                    <slot name="modal-title">{{title}}</slot>
+                                </h5>
+                                <button type="button" class="close" aria-label="Close" @click="hide">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </slot>
+                        </div>
+
+                        <div class="modal-body">
+                            <slot></slot>
+                        </div>
+
+                        <div class="modal-footer" v-if="!hideFooter">
+                            <slot name="modal-footer">
+                                <b-btn variant="secondary" @click="$close">{{closeTitle}}</b-btn>
+                                <b-btn variant="primary" @click="$save">{{saveTitle}}</b-btn>
+                            </slot>
+                        </div>
+
                     </div>
-
-                    <div class="modal-body">
-                        <slot></slot>
-                    </div>
-
-                    <div class="modal-footer" v-if="!hideFooter">
-                        <slot name="modal-footer">
-                            <b-btn variant="secondary" @click="$close">{{closeTitle}}</b-btn>
-                            <b-btn variant="primary" @click="$save">{{saveTitle}}</b-btn>
-                        </slot>
-                    </div>
-
                 </div>
             </div>
-        </div>
-        <transition enter-class="hidden">
-            <div :class="['modal-backdrop','show',fade?'fade':null]" v-if="visible"></div>
-        </transition>
+
+            <div key="modal-backdrop" :class="['modal-backdrop',{fade: fade}]" v-if="visible"></div>
+        </transition-group>
     </div>
 </template>
 
@@ -42,6 +51,12 @@
     .hidden {
         opacity: 0 !important;
     }
+
+    /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style*/
+    .modal {
+        display:block;
+    }
+
 </style>
 
 <script>
@@ -118,7 +133,7 @@
                     return;
                 }
                 this.visible = false;
-                this.$root.$emit('hide::modal', this.id);
+                this.$root.$emit('hidden::modal', this.id);
                 this.body.classList.remove('modal-open');
             },
             $save() {
@@ -153,6 +168,10 @@
                 if (key === 27) { // 27 is esc
                     this.hide();
                 }
+            },
+            afterEnter(el) {
+                // add show class to keep el showed just after transition is ended, because transition removes all used classes
+                el.classList.add('show');
             }
         },
         created() {
