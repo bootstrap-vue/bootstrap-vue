@@ -1,49 +1,47 @@
 <template>
     <div>
-        <transition enter-class="hidden"
-                    enter-to-class="show"
-                    enter-active-class=""
-                    leave-class="show"
-                    leave-active-class=""
-                    leave-to-class="hidden"
-                    v-on:after-enter="afterEnter"
+        <transition-group enter-class="hidden"
+                          enter-to-class="show"
+                          enter-active-class=""
+                          leave-class="show"
+                          leave-active-class=""
+                          leave-to-class="hidden"
+                          v-on:after-enter="afterEnter"
         >
-            <div :id="id"
+            <div key="modal" :id="id"
                  v-show="visible"
                  :class="['modal',{fade :fade}]"
                  @click="onClickOut($event)">
                 <div :class="['modal-dialog','modal-'+size]">
                     <div class="modal-content">
-                    <div class="modal-header" v-if="!hideHeader">
-                        <slot name="modal-header">
-                            <h5 class="modal-title">
-                                <slot name="modal-title">{{title}}</slot>
-                            </h5>
-                            <button type="button" class="close" aria-label="Close" @click="hide">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </slot>
-                    </div>
 
-                    <div class="modal-body">
-                        <slot></slot>
-                    </div>
+                        <div class="modal-header" v-if="!hideHeader">
+                            <slot name="modal-header">
+                                <h5 class="modal-title">
+                                    <slot name="modal-title">{{title}}</slot>
+                                </h5>
+                                <button type="button" class="close" aria-label="Close" @click="hide">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </slot>
+                        </div>
 
-                    <div class="modal-footer" v-if="!hideFooter">
-                        <slot name="modal-footer">
-                            <b-btn variant="secondary" @click="$close">{{closeTitle}}</b-btn>
-                            <b-btn variant="primary" @click="$save">{{saveTitle}}</b-btn>
-                        </slot>
-                    </div>
+                        <div class="modal-body">
+                            <slot></slot>
+                        </div>
+
+                        <div class="modal-footer" v-if="!hideFooter">
+                            <slot name="modal-footer">
+                                <b-btn variant="secondary" @click="$close">{{closeTitle}}</b-btn>
+                                <b-btn variant="primary" @click="$save">{{saveTitle}}</b-btn>
+                            </slot>
+                        </div>
 
                     </div>
                 </div>
             </div>
-        </transition>
-
-        <transition enter-class="hidden">
-            <div :class="['modal-backdrop','show',{fade: fade}]" v-if="visible"></div>
-        </transition>
+            <div key="modal-backdrop" :class="['modal-backdrop',{fade: fade}]" v-if="visible"></div>
+        </transition-group>
     </div>
 </template>
 
