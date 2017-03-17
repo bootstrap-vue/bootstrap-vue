@@ -1,5 +1,5 @@
 <template>
-<span :class="['badge',badgeVariant,badgeType,badgePill]">
+<span :class="['badge',badgeVariant,badgePill]">
 	<slot></slot>
 </span>
 </template>
@@ -11,9 +11,6 @@
             badgeVariant() {
                 return !this.variant || this.variant === `default` ? `badge-default` : `badge-${this.variant}`;
             },
-            badgeType() {
-                return this.type ? `badge-${this.type}` : '';
-            },
             badgePill() {
                 return this.pill ? 'badge-pill' : '';
             }
@@ -22,10 +19,6 @@
             variant: {
                 type: String,
                 default: 'default'
-            },
-            type: {
-                type: String,
-                default: ''
             },
             pill: {
                 type: Boolean,
