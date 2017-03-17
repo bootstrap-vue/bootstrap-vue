@@ -21,6 +21,7 @@ module.exports = {
 
     plugins: [
         '~plugins/bootstrap-vue.js',
+        '~plugins/codemirror.js',
         '~plugins/highlightjs.js',
         '~plugins/ga.js'
     ],

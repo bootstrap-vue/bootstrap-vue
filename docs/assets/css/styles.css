@@ -1,9 +1,13 @@
+/* From Vue.JS Docs */
 .hljs {
-    padding-bottom: 1em;
-    padding-top: 0;
+    overflow-x: auto;
+    position: relative;
+    background-color: #f9f9f9;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.125);
+    line-height: 1.1em;
+    padding: 0 0 1em 1em;
     white-space: pre-line;
     margin-bottom: 1em;
-    /*border: 1px dotted dimgrey;*/
 }
 
 code {

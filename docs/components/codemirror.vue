@@ -3,6 +3,27 @@
 </template>
 
 <script>
+    var CodeMirror;
+
+    if (typeof window !== 'undefined') {
+        CodeMirror = require('codemirror');
+
+        /* eslint-disable import/no-unassigned-import */
+        require('codemirror/mode/javascript/javascript');
+        /* eslint-disable import/no-unassigned-import */
+        require('codemirror/mode/shell/shell');
+        /* eslint-disable import/no-unassigned-import */
+        require('codemirror/mode/vue/vue');
+        /* eslint-disable import/no-unassigned-import */
+        require('codemirror/mode/htmlmixed/htmlmixed');
+        /* eslint-disable import/no-unassigned-import */
+        require('codemirror/addon/edit/closetag');
+        /* eslint-disable import/no-unassigned-import */
+        require('codemirror/addon/edit/closebrackets');
+        /* eslint-disable import/no-unassigned-import */
+        require('codemirror/addon/fold/xml-fold');
+    }
+
     export default {
         data() {
             return {
@@ -10,21 +31,6 @@
             };
         },
         mounted() {
-            const CodeMirror = require('codemirror');
-
-            /* eslint-disable import/no-unassigned-import */
-            require('codemirror/mode/javascript/javascript');
-            /* eslint-disable import/no-unassigned-import */
-            require('codemirror/mode/vue/vue');
-            /* eslint-disable import/no-unassigned-import */
-            require('codemirror/mode/htmlmixed/htmlmixed');
-            /* eslint-disable import/no-unassigned-import */
-            require('codemirror/addon/edit/closetag');
-            /* eslint-disable import/no-unassigned-import */
-            require('codemirror/addon/edit/closebrackets');
-            /* eslint-disable import/no-unassigned-import */
-            require('codemirror/addon/fold/xml-fold');
-
             this.CM = CodeMirror.fromTextArea(this.$refs.textArea, {
                 mode: this.mode,
                 theme: this.theme,
@@ -32,7 +38,8 @@
                 lineWrapping: this.lineWrapping,
                 lineNumbers: this.lineNumbers,
                 autoCloseTags: true,
-                autoCloseBrackets: true
+                autoCloseBrackets: true,
+                readOnly: this.readOnly,
             });
 
             this.CM.on('change', () => {
@@ -55,7 +62,7 @@
             },
             theme: {
                 type: String,
-                default: ''
+                default: 'material'
             },
             tabMode: {
                 type: String,
@@ -68,6 +75,10 @@
             lineNumbers: {
                 type: Boolean,
                 default: true
+            },
+            readOnly: {
+                type: Boolean,
+                default: false
             }
         }
     };
