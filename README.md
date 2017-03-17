@@ -1,4 +1,4 @@
-# Bootstrap Vue
+# BootstrapVue
 
 <p align="center">
 <a href="https://bootstrap-vue.github.io">

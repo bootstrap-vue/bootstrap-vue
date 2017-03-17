@@ -21,21 +21,31 @@
                 dismissed: false
             };
         },
+        created() {
+            if (this.state) {
+                console.warn("<b-alrt> state property is deprecated, please use variant instead.")
+            }
+        },
         computed: {
             classObject() {
-                return ['alert', this.alertState, this.dismissible ? 'alert-dismissible' : ''];
+                return ['alert', this.alertVariant, this.dismissible ? 'alert-dismissible' : ''];
             },
-            alertState() {
-                return !this.state || this.state === `default` ? `alert-success` : `alert-${this.state}`;
+            alertVariant() {
+                let variant = this.state || this.variant || 'info';
+                return `alert-${variant}`;
             },
             localShow() {
                 return !this.dismissed && (this.countDownTimerId || this.show);
             }
         },
         props: {
-            state: {
+            variant: {
                 type: String,
                 default: 'info'
+            },
+            state: {
+                type: String,
+                default: null
             },
             dismissible: {
                 type: Boolean,
