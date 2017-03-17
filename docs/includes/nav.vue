@@ -4,7 +4,7 @@
         <b-nav-toggle target="bd-main-nav"/>
 
         <router-link class="navbar-brand nuxt-link-active" to="/">
-            <span>Bootstrap Vue</span>
+            <span>BootstrapVue</span>
         </router-link>
 
         <b-collapse isNav class="justify-content-between" id="bd-main-nav">

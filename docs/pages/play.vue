@@ -3,7 +3,7 @@
         <div class="container mt-3">
 
             <b-alert show state="success" dismissible>
-                <span>Welcome to Bootstrap Vue playground ! </span>
+                <span>Welcome to BootstrapVue playground ! </span>
                 <span>Here you can interactively play and test components with a fresh vue instance.</span>
                 <br>
                 <Strong>TIP: </Strong>
@@ -135,7 +135,7 @@
         },
         head() {
             return {
-                title: 'Playground - Bootstrap Vue'
+                title: 'Playground - BootstrapVue'
             };
         },
         watch: {
