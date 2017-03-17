@@ -172,15 +172,15 @@
         created() {
             this.$root.$on('show::modal', id => {
                 if (id === this.id) {
-                this.show();
-            }
-        });
+                    this.show();
+                }
+            });
 
             this.$root.$on('hide::modal', id => {
                 if (id === this.id) {
-                this.hide();
-            }
-        });
+                    this.hide();
+                }
+            });
         },
         mounted() {
             if (typeof document !== 'undefined') {
