@@ -51,9 +51,9 @@ import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 ```
 
-**WEB**
+**CDN**
 
-Simply include this inside your HTML templates,(free CDN powered by unpkg)
+Simply include this inside your HTML templates:
 ```html
 <script src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>
 ```
@@ -80,21 +80,37 @@ If you are using [nuxt.js](https://github.com/nuxt/nuxt.js), you can register bo
 - [Pagination](https://bootstrap-vue.github.io/docs/components/pagination)
 - [Popover](https://bootstrap-vue.github.io/docs/components/popover)
 - [Tables](https://bootstrap-vue.github.io/docs/components/tables)
-
-**Under development**
-
-Additionally, [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components) are available and working, but they are still under development.
- 
 - [Modals](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/modal.vue)
 - [Badge](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/badge.vue)
+- [Progress](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/progress.vue)
+
+**Even more**
+Additionally, [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components)
+are available, but they are still not documented or under development.
+ 
 - [Card](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/card.vue)
 - [Carousel](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/carousel.vue)
 - [Jumbotrons](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/carousel.vue)
 - [Media](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/media.vue)
-- [Progress](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/progress.vue)
 - [Tab](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/tab.vue) 
 - [Tabs](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/tabs.vue)
 - [Tooltip](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/tooltip.vue)
+
+# Playground & Contribution
+If you want to play with bootstrap-vue components without any local setup just head to
+[BootstrapVue Playground](https://bootstrap-vue.github.io/play) and you can interactively play and test components with a fresh vue instance.
+
+If you want to keep your changes or make PRs reporting components misbehaviour you can save them in JSFiddle and provide that link in issues. 
+
+Also if you want to hack and improve components locally, you can follow this steps:
+- Clone this repo `git clone https://github.com/bootstrap-vue/bootstrap-vue.git`
+- Make sure you have node & yarn installed locally
+- Run `yarn install` to get all dependencies installed
+- Run `yarn docs-dev` to run local development server.
+- Head to **http://localhost:3000/play**
+- Now you can locally make changes to components (they are located at `components` directory). 
+  Changes will be applied with webpack hot-reloading without need to reload page.
+- Finally feel free to share your awesome hacks with others and opening a PR.
 
 # License
 The MIT License (MIT) - Copyright (c) 2016-present Pooya Parsa.   
