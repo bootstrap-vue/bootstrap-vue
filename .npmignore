@@ -1,1 +1,10 @@
 docs
+scripts
+.nuxt
+.idea
+.circleci
+nuxt.config.js
+*.iml
+banner.png
+.npmignore
+.babelrc
