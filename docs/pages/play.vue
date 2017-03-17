@@ -10,6 +10,8 @@
                     <Strong>TIP: </Strong>
                     <span>You can clone docs repo, to hack and develop components.</span>
                     <span> changes will be reflected and hot-reloaded instantly.</span>
+                    <br>
+                    Please refer to <router-link to="/docs">Documentation</router-link> for more info about available tags.
                 </div>
                 <div class="col-md-1">
                     <form method='post' action='https://jsfiddle.net/api/post/library/pure/'

@@ -11,7 +11,9 @@
                 </p>
 
                 <p class="lead">
-                    <router-link to="/docs" class="btn btn-lg">Getting Started</router-link>
+                    <router-link to="/docs" class="btn mr-1">Documentation</router-link>
+
+                    <router-link to="/play" class="btn">Playground</router-link>
                 </p>
 
                 <p class="version">
