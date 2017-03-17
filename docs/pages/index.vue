@@ -59,8 +59,9 @@
                     <div class="col-sm-6 mb-3">
                         <h4>CDN</h4>
                         <p>Simply include js inside your HTML templates</p>
-                        <div v-code class="html" >
+                        <div v-code class="html">
                             &lt;script src=&quot;https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;/&gt;
+
                         </div>
                         <div class="text-center">
                             <br>
@@ -74,6 +75,12 @@
         </div>
     </layout>
 </template>
+
+<style>
+    .bd-masthead {
+        margin-top: -30px;
+    }
+</style>
 
 <script>
     import layout from '../layouts/site.vue';

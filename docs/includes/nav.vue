@@ -1,5 +1,5 @@
 <template>
-    <b-navbar toggleable class="main-nav">
+    <b-navbar toggleable class="main-nav fixed-top">
 
         <b-nav-toggle target="bd-main-nav"/>
 
@@ -10,11 +10,12 @@
         <b-collapse isNav class="justify-content-between" id="bd-main-nav">
 
             <b-nav isNavBar>
+                <b-nav-item to="/docs">Documentation</b-nav-item>
+
                 <b-nav-item to="/play">
                     Playground
-                    <b-badge variant="success">BETA</b-badge>
+                    <small><b-badge variant="success">BETA</b-badge></small>
                 </b-nav-item>
-                <b-nav-item to="/docs">Documentation</b-nav-item>
 
             </b-nav>
 
@@ -38,6 +39,8 @@
 <style>
     .main-nav {
         box-shadow: 0 0 5px rgba(57, 70, 78, .2) !important;
+        background: white;
+        z-index: 1050;
     }
 </style>
 

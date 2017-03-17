@@ -8,6 +8,8 @@
 
         <m-nav></m-nav>
 
+        <div style="margin-bottom: 80px"></div>
+
         <slot></slot>
 
         <m-footer></m-footer>

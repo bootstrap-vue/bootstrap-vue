@@ -23,7 +23,7 @@
                                         <span>{{full ? 'Split' : 'Full'}}</span>
                                     </b-btn>
                                 </div>
-                                <codemirror v-model="html" mode="htmlmixed" theme="material"></codemirror>
+                                <codemirror v-model="html" mode="htmlmixed"></codemirror>
                             </div>
                         </div>
                         <div :class="`col-md-${(vertical&&!full)?6:12} col-sm-12`" key="A2">
@@ -35,11 +35,12 @@
                                         <span>{{full ? 'Split' : 'Full'}}</span>
                                     </b-btn>
                                 </div>
-                                <codemirror v-model="js" mode="javascript" theme="material"></codemirror>
+                                <codemirror v-model="js" mode="javascript"></codemirror>
                             </div>
                         </div>
                     </transition-group>
                 </div>
+
                 <div key="B" :class="`col-md-${(vertical || full)?12:6} col-sm-12`">
                     <!--Result-->
                     <div class="card mt-2">
@@ -90,7 +91,6 @@
     import Vue from 'vue/dist/vue.common';
     import layout from '../layouts/site.vue';
     import * as Components from '../../components';
-    import codemirror from '../components/codemirror.vue';
 
     const exampleHTML = `
 <b-progress v-model="counter"
@@ -117,8 +117,9 @@
     }
 }`;
 
+
     export default {
-        components: {layout, codemirror},
+        components: {layout},
         data() {
             return {
                 html: exampleHTML.trim(),
