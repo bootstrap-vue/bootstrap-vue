@@ -12,6 +12,7 @@
                  v-show="visible"
                  :class="['modal',{fade :fade}]"
                  @click="onClickOut($event)">
+
                 <div :class="['modal-dialog','modal-'+size]">
                     <div class="modal-content">
 
@@ -40,6 +41,7 @@
                     </div>
                 </div>
             </div>
+
             <div key="modal-backdrop" :class="['modal-backdrop',{fade: fade}]" v-if="visible"></div>
         </transition-group>
     </div>
@@ -49,6 +51,8 @@
     .hidden {
         opacity: 0 !important;
     }
+
+    /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style*/
     .modal {
         display:block;
     }
@@ -166,6 +170,7 @@
                 }
             },
             afterEnter: function(el){
+                // add show class to keep el showed just after transition is ended, because transition removes all used classes
                 el.classList.add('show');
             }
         },
