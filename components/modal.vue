@@ -169,7 +169,7 @@
                     this.hide();
                 }
             },
-            afterEnter: function(el){
+            afterEnter(el){
                 // add show class to keep el showed just after transition is ended, because transition removes all used classes
                 el.classList.add('show');
             }
