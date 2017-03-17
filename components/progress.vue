@@ -40,7 +40,7 @@
                 };
             },
             progressVariant() {
-                return this.variant ? `progress-bar-${this.variant}` : null;
+                return this.variant ? `bg-${this.variant}` : null;
             },
             progress() {
                 const p = Math.pow(10, this.precision);
