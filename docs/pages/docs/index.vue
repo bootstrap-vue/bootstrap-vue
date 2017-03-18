@@ -25,13 +25,13 @@
                 include package into your project.
                 To get started use <strong>yarn</strong> or <strong>npm</strong> to get latest version.
             </p>
-            <code v-code class="shell">
+            <div v-code class="shell">
                 # Using YARN
                 yarn add bootstrap-vue
 
                 # Using NPM
                 npm install --save bootstrap-vue
-            </code>
+            </div>
             <p>
                 Then register components in your app entrypoint:
             </p>
