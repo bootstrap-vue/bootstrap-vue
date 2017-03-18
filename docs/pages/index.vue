@@ -35,25 +35,25 @@
                         <h4>NPM</h4>
 
                         <p>Install via your favorite package manager</p>
-                        <code v-code class="bash">
+                        <div v-code class="bash">
                             # Using YARN
                             yarn add bootstrap-vue
 
                             # Using NPM
                             npm install --save bootstrap-vue
-                        </code>
+                        </div>
 
                         <p>Register components</p>
-                        <code v-code class="js">
+                        <div v-code class="js">
                             import Vue from 'vue'
                             import BootstrapVue from 'bootstrap-vue';
 
                             Vue.use(BootstrapVue);
-                         </code>
+                         </div>
 
                         <div class="text-center">
                             <br>
-                            <b-btn @click="$router.push('/docs')" variant="secondary">
+                            <b-btn to="/docs" variant="secondary">
                                 <span>Learn more</span>
                             </b-btn>
                         </div>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="text-center">
                             <br>
-                            <b-btn @click="$router.push('/docs')" variant="secondary">
+                            <b-btn to="/docs" variant="secondary">
                                 <span>Learn more</span>
                             </b-btn>
                         </div>

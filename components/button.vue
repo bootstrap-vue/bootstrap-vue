@@ -1,16 +1,8 @@
 <template>
-    <button :class="classObject"
-            @click.stop="onclick"
-            :href="href || to"
-            :is="componentType"
-            :to="to || href"
-            :exact="exact"
-            :target="target"
-    >
+    <button :class="classObject" :is="componentType" :to="to" :href="href" @click="onclick">
         <slot></slot>
     </button>
 </template>
-
 
 <script>
     export default {
@@ -26,7 +18,7 @@
                 ];
             },
             componentType() {
-                return this.href ? (this.$route ? 'router-link' : 'a') : 'button';
+                return (this.href || this.to) ? 'b-link' : 'button';
             },
             btnBlock() {
                 return this.block ? `btn-block` : '';
@@ -71,21 +63,11 @@
             },
             href: {
                 type: String
-            },
-            exact: {
-                type: Boolean,
-                default: false
-            },
-            target: {
-                type: String
             }
         },
         methods: {
             onclick() {
-                this.$emit('click', this.to);
-                if (this.$router && this.to) {
-                    this.$router.push(this.to);
-                }
+                this.$emit('click');
             }
         }
     };

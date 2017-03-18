@@ -34,6 +34,7 @@ import bTable from './table.vue';
 import bTabs from './tabs.vue';
 import bTab from './tab.vue';
 import bTooltip from './tooltip.vue';
+import bLink from './link.vue';
 
 export {
     bAlert,
@@ -72,5 +73,6 @@ export {
     bListGroup,
     bCarouselSlide as bSlide,
     bCarousel,
-    bCollapse
+    bCollapse,
+    bLink
 };

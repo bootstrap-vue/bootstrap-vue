@@ -1,17 +1,8 @@
 <template>
-    <li class="nav-item">
-        <component
-                :class="classObject"
-                @click="onclick"
-                :href="hrefString"
-                :is="componentType"
-                active-class="active"
-                :to="to"
-                :exact="exact"
-                :target="target"
-        >
+    <li class="nav-item" @click="onclick">
+        <b-link :class="classObject" :to="to" :href="href" :exact="exact">
             <slot></slot>
-        </component>
+        </b-link>
     </li>
 </template>
 
@@ -25,12 +16,6 @@
                     this.active ? 'active' : '',
                     this.disabled ? 'disabled' : ''
                 ];
-            },
-            componentType() {
-                return this.to ? 'router-link' : 'a';
-            },
-            hrefString() {
-                return typeof this.to === 'object' ? this.href || undefined : this.href || this.to;
             }
         },
         props: {
@@ -49,16 +34,15 @@
                 type: String
             },
             exact: {
-                type: Boolean,
-                default: false
-            },
-            target: {
-                type: String
+                type: Boolean
             }
         },
         methods: {
             onclick() {
-                this.$emit('click', this.to);
+                // Hide all drop-downs including navbar-toggle
+                this.$root.$emit('hidden::dropdown', this);
+
+                this.$emit('click');
             }
         }
     };

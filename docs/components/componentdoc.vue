@@ -4,10 +4,10 @@
         <h2><code>{{tag}}</code></h2>
         <a :href="githubURL" target="_blank" class="text-muted">(view source)</a>
 
-        <code v-code class="html">
+        <div v-code class="html">
             <{{componentName}}
             <template v-for="prop in props_items" v-if="prop.default">{{isConst(prop.default) ? '' : ':'}}{{prop.prop}}="{{prop.default}}"<br></template>>
-        </code>
+        </div>
         <template v-if="props_items && props_items.length > 0">
             <h4>Properties</h4>
             <section>
