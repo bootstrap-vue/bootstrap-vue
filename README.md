@@ -87,12 +87,12 @@ Choosing the best variant for your build environment helps even less bundle size
 
 Variant     | Environments                 | Usage
 ------------|------------------------------|------------------------------------------------------------------------
-ES module   | Webpack 2 / Rollup           | `import bootstrap-vue from 'bootstrap-vue/dist/bootstrap-vue.es.js`
-Commonjs 2  | Webpack 1 / Other blunderers | `import bootstrap-vue from 'bootstrap-vue`
-UMD         | Browser, etc                 | `<script src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>`
+ES Module   | Webpack 2 / Rollup           | `import bootstrap-vue from 'bootstrap-vue/dist/bootstrap-vue.es.js`
+commonjs2   | Webpack 1 / Other Bundlers   | `import bootstrap-vue from 'bootstrap-vue`
+UMD         | Browser                      | `<script src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>`
 
 # Included components
-
+K
 **Stable**
 
 - [Alerts](https://bootstrap-vue.github.io/docs/components/alerts)
