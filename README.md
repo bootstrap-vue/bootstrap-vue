@@ -92,7 +92,7 @@ commonjs2   | Webpack 1 / Other Bundlers   | `import bootstrap-vue from 'bootstr
 UMD         | Browser                      | `<script src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>`
 
 # Included components
-K
+
 **Stable**
 
 - [Alerts](https://bootstrap-vue.github.io/docs/components/alerts)
