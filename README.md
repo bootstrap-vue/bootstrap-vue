@@ -71,7 +71,6 @@ UMD Bundle size about 86kb - <strong>~16kb gzipped</strong>
 ```html
 <!-- Add this to <head> -->
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css"/>
-<link type="text/css" rel="stylesheet" href="//unpkg.com/tether/dist/css/tether.min.css"/>
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue/dist/bootstrap-vue.css"/>
 
 <!-- Add this after vue.js -->
