@@ -12,8 +12,10 @@
                     <span> changes will be reflected and hot-reloaded instantly.</span>
                     <br>
                     Please refer to
+
                     <router-link to="/docs">Documentation</router-link>
                     for more info about available tags.
+
 
                 </div>
                 <div class="col-md-1">
@@ -23,8 +25,7 @@
                     >
                         <input type="hidden" :value="html_fiddle" name="html">
                         <input type="hidden" :value="js_fiddle" name="js">
-                        <input name="resources" type="hidden"
-                               value="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css,//unpkg.com/vue@latest,//unpkg.com/bootstrap-vue/dist/bootstrap-vue.js">
+                        <input name="resources" type="hidden" :value="fiddle_dependencies.join(',')">
                         <b-btn size="sm" type="submit">
                             <span>Export to JSFiddle</span>
                         </b-btn>
@@ -200,6 +201,15 @@
             }
         },
         computed: {
+            fiddle_dependencies() {
+                return [
+                    '//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css',
+                    '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css',
+                    '//unpkg.com/vue@latest/dist/vue.min.js',
+                    '//unpkg.com/tether@latest/dist/js/tether.min.js',
+                    '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
+                ];
+            },
             js_fiddle() {
                 // Inject options
                 let js = this.js.trim();
