@@ -1,7 +1,7 @@
 const path = require('path');
 const Webpack = require('webpack');
 
-module.exports = function conf(env) {
+module.exports = function (env) {
     const config = {
         plugins: []
     };
@@ -35,7 +35,7 @@ module.exports = function conf(env) {
     };
 
     // Basic output config
-    const dot = (val) => val ? ('.' + val) : '';
+    const dot = val => val ? ('.' + val) : '';
     config.output = {
         path: path.resolve(__dirname, '../dist'),
         filename: `[name]${dot(env.target)}${dot(env.libraryTarget)}.js`

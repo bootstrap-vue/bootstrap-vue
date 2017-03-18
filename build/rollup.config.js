@@ -19,8 +19,8 @@ module.exports = {
             cssModules: {
                 generateScopedName: '[name]__[local]'
             },
-            css(style, styles, compiler){
-                fs.writeFileSync(path.resolve(dist, `${name}.css`), new CleanCSS().minify(style).styles)
+            css(style) {
+                fs.writeFileSync(path.resolve(dist, `${name}.css`), new CleanCSS().minify(style).styles);
             }
         }),
         buble(),
