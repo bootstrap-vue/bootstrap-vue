@@ -33,34 +33,63 @@
 # Getting started
 Please refer to [Official Documentation](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
 
-**NPM**
+**NPM (Webpack, Rollup)**
 
 Get it via your favorite package manager:
 ```bash
-$ yarn add bootstrap-vue
-# OR
-$ npm i bootstrap-vue
+# Using YARN
+yarn add bootstrap-vue
+
+# Using NPM
+npm install --save bootstrap-vue
 ```
 
-Register components:
+Then register components in your app entrypoint:
 ```js
 import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue';
 
-// Globally register bootstrap-vue components
+// ES build is more efficient by reducing unneeded components with tree-shaking.
+// (Needs Webpack 2 or Rollup)
+import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.es';
+
+// Use commonjs version if es build is not working
+// import BootstrapVue from 'bootstrap-vue';
+
+// Import styles if style-loader is available
+// You have to manually add css files if lines below are not working
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+// Globally register components
 Vue.use(BootstrapVue);
 ```
 
-**CDN**
+**CDN (Browser)**
 
-Simply include this inside your HTML templates:
+UMD Bundle size about 86kb - <strong>~16kb gzipped</strong>
+
 ```html
-<script src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>
+<!-- Add this to <head> -->
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css"/>
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue/dist/bootstrap-vue.css"/>
+
+<!-- Add this after vue.js -->
+<script src="//unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>
 ```
 
 **NUXT.JS**
 
-If you are using [nuxt.js](https://github.com/nuxt/nuxt.js), you can register bootstrap-vue components using [nuxt helpers](https://github.com/fandogh/nuxt-helpers).
+If you are using [nuxt.js](https://github.com/nuxt/nuxt.js), you can easily register bootstrap-vue components using [nuxt helpers](https://github.com/fandogh/nuxt-helpers).
+
+# Build variants
+BootstrapVue builds are using by rollup & rollup-plugin-vue. And are about 86kb(**16kb gzipped**). 
+Choosing the best variant for your build environment helps even less bundle sizes using tree-shaking.
+
+Variant     | Environments                 | Usage
+------------|------------------------------|------------------------------------------------------------------------
+ES module   | Webpack 2 / Rollup           | `import bootstrap-vue from 'bootstrap-vue/dist/bootstrap-vue.es.js`
+Commonjs 2  | Webpack 1 / Other blunderers | `import bootstrap-vue from 'bootstrap-vue`
+UMD         | Browser, etc                 | `<script src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>`
 
 # Included components
 

@@ -36,10 +36,11 @@
 
                         <p>Install via your favorite package manager</p>
                         <code v-code class="bash">
-                            $ yarn add bootstrap-vue
+                            # Using YARN
+                            yarn add bootstrap-vue
 
-                            # or using npm ...
-                            $ npm i bootstrap-vue@latest
+                            # Using NPM
+                            npm install --save bootstrap-vue
                         </code>
 
                         <p>Register components</p>
@@ -47,13 +48,12 @@
                             import Vue from 'vue'
                             import BootstrapVue from 'bootstrap-vue';
 
-                            // Globally register bootstrap-vue components
                             Vue.use(BootstrapVue);
                          </code>
 
                         <div class="text-center">
                             <br>
-                            <b-btn @click="$router.push('/docs#npm')" variant="secondary">
+                            <b-btn @click="$router.push('/docs')" variant="secondary">
                                 <span>Learn more</span>
                             </b-btn>
                         </div>
@@ -62,11 +62,12 @@
                         <h4>CDN</h4>
                         <p>Simply include js inside your HTML templates</p>
                         <div v-code class="html">
-                            &lt;script src=&quot;https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;/&gt;
+                            &lt;!-- Add this after vue.js --&gt;
+                            &lt;script src=&quot;//unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
                         </div>
                         <div class="text-center">
                             <br>
-                            <b-btn @click="$router.push('/docs#cdn')" variant="secondary">
+                            <b-btn @click="$router.push('/docs')" variant="secondary">
                                 <span>Learn more</span>
                             </b-btn>
                         </div>

@@ -17,68 +17,55 @@
             </p>
 
             <h2>Quick start</h2>
-
             <br>
-            <b-alert :show="true">
-                <strong>Important</strong>
-                BootstrapVue does not ship with bootstrap css files.
-                With both methods, you will still need to include Bootstrap's CSS.
-            </b-alert>
 
-            <h3 id="cdn">CDN</h3>
-            If you are simply including vue in your website, then the only thing to get started with bootstrap-vue
-            components is adding this line AFTER including vue.js:
-            <code v-code class="html">
-                &lt;script src=&quot;https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
-            </code>
-
-            <br>
-            <h3 id="npm">NPM</h3>
+            <h3 id="npm">NPM (Webpack, Rollup)</h3>
             <p>
                 If you are using module bundlers such as Webpack, Rollup, Laravel elixir, etc you may prefer directly
                 include package into your project.
                 To get started use <strong>yarn</strong> or <strong>npm</strong> to get latest version.
             </p>
             <code v-code class="shell">
-                $ yarn add bootstrap-vue
+                # Using YARN
+                yarn add bootstrap-vue
 
-              # or using npm ...
-              $ npm i bootstrap-vue@latest
-</code>
+                # Using NPM
+                npm install --save bootstrap-vue
+            </code>
             <p>
-                Now you have to register bootstrap-vue components inside Vue.
-            </p>
-
-            <br>
-            <h4>Option 1: use pre-compiled version to include all components</h4>
-            <p>
-                This is the simplest way, as is does not requires you having library dependencies.
-                All package is <strong>~20kb</strong> gzipped.
+                Then register components in your app entrypoint:
             </p>
             <code v-code class="js">
                 import Vue from 'vue'
-                import BootstrapVue from 'bootstrap-vue';
 
-                // Globally register bootstrap-vue components
+                // ES build is more efficient by reducing unneeded components with tree-shaking.
+                // (Needs Webpack 2 or Rollup)
+                import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.es';
+
+                // Use commonjs version if es build is not working
+                // import BootstrapVue from 'bootstrap-vue';
+
+                // Import styles if style-loader is available
+                // You have to manually add css files if lines below are not working
+                import 'bootstrap/dist/css/bootstrap.css'
+                import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+                // Globally register components
                 Vue.use(BootstrapVue);
             </code>
 
-            <br><br>
-            <h4 class="text-muted">Option 2: import individual components (Not recommended)</h4>
-            <p class="text-muted">
-                With this option you only will require the components you need.
-            </p>
-            <code v-code class="js">
-                import Vue from 'vue';
-                import Alert from 'bootstrap-vue/components/alert.vue'
+            <br>
 
-                // Register Alert component
-                Vue.use('bAlert',Alert);
+            <h3 id="cdn">CDN (Browser)</h3>
+            UMD Bundle size about 86kb (<strong>~16kb gzipped</strong>)
 
-                // OR Inside your templates:
-                export default {
-                &emsp; components: {bAlert:Alert}
-                }
+            <code v-code class="html">
+                &lt;!-- Add this to &lt;head&gt; --&gt;
+                &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css&quot;/&gt;
+                &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;//unpkg.com/bootstrap-vue/dist/bootstrap-vue.css&quot;/&gt;
+
+                &lt;!-- Add this after vue.js --&gt;
+                &lt;script src=&quot;//unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
             </code>
 
         </template>
@@ -86,9 +73,9 @@
 </template>
 
 <script>
-import layout from '../../layouts/docs.vue';
+    import layout from '../../layouts/docs.vue';
 
-export default {
-    components: {layout}
-};
+    export default {
+        components: {layout}
+    };
 </script>
