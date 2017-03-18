@@ -252,6 +252,10 @@ window.onload = function () {
 
                 text = text.replace('[Vue warn]: ', '');
 
+                if(this.messages.length > 10) {
+                    this.messages.splice(10);
+                }
+
                 this.messages.unshift([tag, text]);
             },
             run() {
