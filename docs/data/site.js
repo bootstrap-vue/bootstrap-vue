@@ -31,7 +31,8 @@ export default {
                 {title: 'Pagination'},
                 {title: 'Popover'},
                 {title: 'Progress'},
-                {title: 'Tables'}
+                {title: 'Tables'},
+                {title: 'Tooltips'}
             ]
         }
     ]

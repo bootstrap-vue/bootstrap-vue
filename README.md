@@ -113,6 +113,7 @@ UMD         | Browser                      | `<script src="https://unpkg.com/boo
 - [Modals](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/modal.vue)
 - [Badge](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/badge.vue)
 - [Progress](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/progress.vue)
+- [Tooltip](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/tooltip.vue)
 
 **Even more**
 Additionally, [many more components](https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components)
@@ -124,7 +125,6 @@ are available, but they are still not documented or under development.
 - [Media](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/media.vue)
 - [Tab](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/tab.vue) 
 - [Tabs](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/tabs.vue)
-- [Tooltip](https://github.com/bootstrap-vue/bootstrap-vue/blob/master/components/tooltip.vue)
 
 # Playground & Contribution
 If you want to play with bootstrap-vue components without any local setup just head to

@@ -1,32 +1,38 @@
 <template>
     <div>
-        <div :class="classObject" role="tooltip" style="opacity: 1">
-            <div class="tooltip-inner">
-                <slot name="text">{{text}}</slot>
+        <span ref="trigger"><slot></slot></span>
+
+        <transition name="tooltip">
+            <div tabindex="-1" :class="['tooltip','tooltip-' + this.placement]" ref="popover" @focus="$emit('focus')"
+                 @blur="$emit('blur')"
+                 style="opacity: 1"
+            >
+                <div class="tooltip-inner">
+                    <slot name="content"><span v-html="content || title"></span></slot>
+                </div>
             </div>
-        </div>
-        <slot></slot>
+        </transition>
     </div>
 </template>
 
+<style>
+    .tooltip-enter-active, .tooltip-leave-active {
+        transition: opacity .5s
+    }
+    .tooltip-visible {
+        opacity: 1;
+    }
+</style>
+
 <script>
+    import popover from './popover.vue';
+
     export default {
+        extends: popover,
         props: {
-            placement: {
-                type: String,
-                default: 'top'
-            },
-            text: {
-                type: String,
-                default: null
-            }
-        },
-        computed: {
-            classObject() {
-                return [
-                    'tooltip',
-                    'tooltip-' + this.placement
-                ];
+            triggers: {
+                type: [Boolean, String, Array],
+                default: 'hover',
             }
         }
     };

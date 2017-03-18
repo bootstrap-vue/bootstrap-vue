@@ -127,10 +127,16 @@
     import {debounce} from 'lodash';
 
     const exampleHTML = `
-<b-progress v-model="counter" variant="success" :precision="1"
-            show-progress animated></b-progress>
+<b-tooltip content="Click on me" placement="right" show>
+  <b-btn class="mb-4" @click="clicked">{{text}}</b-btn>
+</b-tooltip>
 
-<b-btn class="mt-4" @click="clicked">{{text}}</b-btn>
+<b-progress v-model="counter"
+            variant="success"
+            :precision="1"
+            show-progress
+            animated
+></b-progress>
 `;
 
     const exampleJS = `
@@ -226,11 +232,7 @@
                 // Inject options
                 let js = this.js.trim();
                 js = `{el:'#app',\r\n` + js.substring(1);
-                return `
-window.onload = function () {
-    new Vue(${js})
-}
-                `.trim();
+                return `new Vue(${js})`.trim();
             },
             html_fiddle() {
                 return `

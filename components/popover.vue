@@ -37,7 +37,7 @@
             },
             triggers: {
                 type: [Boolean, String, Array],
-                default: ['click', 'focus'],
+                default: () => ['click', 'focus'],
                 validator(value) {
                     // Allow falsy value to disable all event triggers (equivalent to 'manual') in Bootstrap 4
                     if (value === false || value === '') {
