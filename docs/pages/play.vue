@@ -13,8 +13,18 @@
                     <br>
                     Please refer to
 
+
+
+
+
+
                     <router-link to="/docs">Documentation</router-link>
                     for more info about available tags.
+
+
+
+
+
 
 
                 </div>
@@ -114,6 +124,7 @@
     import Vue from 'vue/dist/vue.common';
     import layout from '../layouts/site.vue';
     import * as Components from '../../components';
+    import {debounce} from 'lodash';
 
     const exampleHTML = `
 <b-progress v-model="counter" variant="success" :precision="1"
@@ -149,7 +160,8 @@
                 originalWarn: null,
                 originalError: null,
                 vertical: false,
-                full: false
+                full: false,
+                lazy_run_: null,
             };
         },
         head() {
@@ -159,10 +171,10 @@
         },
         watch: {
             html() {
-                this.run();
+                this.lazy_run();
             },
             js() {
-                this.run();
+                this.lazy_run();
             }
         },
         mounted() {
@@ -225,6 +237,12 @@ window.onload = function () {
 <div id='app'>
     ${this.html}
 </div>`.trim();
+            },
+            lazy_run() {
+                if (!this.lazy_run_) {
+                    this.lazy_run_ = debounce(this.run.bind(this), 500);
+                }
+                return this.lazy_run_;
             }
         },
         methods: {
@@ -252,7 +270,7 @@ window.onload = function () {
 
                 text = text.replace('[Vue warn]: ', '');
 
-                if(this.messages.length > 10) {
+                if (this.messages.length > 10) {
                     this.messages.splice(10);
                 }
 
