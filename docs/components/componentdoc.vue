@@ -6,12 +6,8 @@
 
         <code v-code class="html">
             <{{componentName}}
-
-            <template v-for="prop in props_items">
-                {{isConst(prop.default) ? '' : ':'}}{{prop.prop}}="{{prop.default}}"<br></template>
-            <template v-for="event in events"> @{{event.event}}=""<br></template>
-            ></code>
-
+            <template v-for="prop in props_items" v-if="prop.default">{{isConst(prop.default) ? '' : ':'}}{{prop.prop}}="{{prop.default}}"<br></template>>
+        </code>
         <template v-if="props_items && props_items.length > 0">
             <h4>Properties</h4>
             <section>
