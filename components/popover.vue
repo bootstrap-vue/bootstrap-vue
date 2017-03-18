@@ -158,6 +158,17 @@
 
             useDebounce() {
                 return this.normalizedTriggers.length > 1;
+            },
+
+            tetherOptions() {
+                return {
+                    element: this._popover,
+                    target: this._trigger,
+                    offset: this.offset,
+                    constraints: this.constraints,
+                    attachment: this.placementParameters.attachment,
+                    targetAttachment: this.placementParameters.targetAttachment
+                };
             }
         },
 
@@ -189,6 +200,18 @@
 
             normalizedTriggers(newTriggers, oldTriggers) {
                 this.updateListeners(newTriggers, oldTriggers);
+            },
+
+            placement() {
+                this.setOptions();
+            },
+
+            offset() {
+                this.setOptions();
+            },
+
+            constraints() {
+                this.setOptions();
             }
         },
 
@@ -199,19 +222,21 @@
             showPopover() {
                 // let tether do the magic, after element is shown
                 this._popover.style.display = 'block';
-                this._tether = new Tether({
-                    element: this._popover,
-                    target: this._trigger,
-                    offset: this.offset,
-                    constraints: this.constraints,
-                    attachment: this.placementParameters.attachment,
-                    targetAttachment: this.placementParameters.targetAttachment
-                });
+                this._tether = new Tether(this.tetherOptions);
 
                 // Make sure the popup is rendered in the correct location
                 this._tether.position();
 
                 this.$root.$emit('shown::popover');
+            },
+
+            /**
+             * Update tether options
+             */
+            setOptions() {
+                if (this._tether) {
+                    this._tether.setOptions(this.tetherOptions);
+                }
             },
 
             /**
@@ -344,6 +369,18 @@
             const hub = this.$root;
             hub.$on('hide::popover', () => {
                 this.showState = false;
+            });
+
+            // Workaround to resolve issues like #151
+            if (this.$router) {
+                this.$router.beforeEach((to, from, next) => {
+                    next();
+                    this.hidePopover();
+                });
+            }
+
+            hub.$on('hide::modal', () => {
+                this.hidePopover();
             });
         },
 

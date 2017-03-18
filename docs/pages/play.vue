@@ -11,28 +11,13 @@
                     <span>You can clone docs repo, to hack and develop components.</span>
                     <span> changes will be reflected and hot-reloaded instantly.</span>
                     <br>
-                    Please refer to
-
-
-
-
-
-
+                    <span>Please refer to</span>
                     <router-link to="/docs">Documentation</router-link>
-                    for more info about available tags.
-
-
-
-
-
-
-
+                    <span>for more info about available tags.</span>
                 </div>
                 <div class="col-md-1">
                     <form method='post' action='https://jsfiddle.net/api/post/library/pure/'
-                          target='_blank'
-                          v-if="vm"
-                    >
+                          target='_blank' v-if="vm">
                         <input type="hidden" :value="html_fiddle" name="html">
                         <input type="hidden" :value="js_fiddle" name="js">
                         <input name="resources" type="hidden" :value="fiddle_dependencies.join(',')">
@@ -122,12 +107,12 @@
 
 <script>
     import Vue from 'vue/dist/vue.common';
+    import {debounce} from 'lodash';
     import layout from '../layouts/site.vue';
     import * as Components from '../../components';
-    import {debounce} from 'lodash';
 
     const exampleHTML = `
-<b-tooltip content="Click on me" placement="right" show>
+<b-tooltip content="Click on me" placement="right">
   <b-btn class="mb-4" @click="clicked">{{text}}</b-btn>
 </b-tooltip>
 
@@ -167,7 +152,7 @@
                 originalError: null,
                 vertical: false,
                 full: false,
-                lazy_run_: null,
+                lazy_run_: null
             };
         },
         head() {

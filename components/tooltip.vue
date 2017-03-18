@@ -3,9 +3,8 @@
         <span ref="trigger"><slot></slot></span>
 
         <transition name="tooltip">
-            <div tabindex="-1" :class="['tooltip','tooltip-' + this.placement]" ref="popover" @focus="$emit('focus')"
-                 @blur="$emit('blur')"
-                 style="opacity: 1"
+            <div tabindex="-1" :class="['tooltip','tooltip-' + this.placement,showState?'tooltip-visible':null]"
+                 ref="popover" @focus="$emit('focus')" @blur="$emit('blur')"
             >
                 <div class="tooltip-inner">
                     <slot name="content"><span v-html="content || title"></span></slot>
@@ -17,8 +16,10 @@
 
 <style>
     .tooltip-enter-active, .tooltip-leave-active {
-        transition: opacity .5s
+        transition: opacity .5s;
+        opacity: 0;
     }
+
     .tooltip-visible {
         opacity: 1;
     }
@@ -32,7 +33,7 @@
         props: {
             triggers: {
                 type: [Boolean, String, Array],
-                default: 'hover',
+                default: 'hover'
             }
         }
     };
