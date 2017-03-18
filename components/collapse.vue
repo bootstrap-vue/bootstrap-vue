@@ -60,6 +60,12 @@
                 }
                 this.toggle();
             });
+
+            this.$root.$on('hidden::dropdown', target => {
+                if (target !== this.id) {
+                    this.show = false;
+                }
+            });
         }
     };
 
