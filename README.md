@@ -50,10 +50,10 @@ import Vue from 'vue'
 
 // ES build is more efficient by reducing unneeded components with tree-shaking.
 // (Needs Webpack 2 or Rollup)
-import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.es';
+import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
 
 // Use commonjs version if es build is not working
-// import BootstrapVue from 'bootstrap-vue';
+import BootstrapVue from 'bootstrap-vue';
 
 // Import styles if style-loader is available
 // You have to manually add css files if lines below are not working
@@ -87,7 +87,7 @@ Choosing the best variant for your build environment helps even less bundle size
 
 Variant     | Environments                 | Usage
 ------------|------------------------------|------------------------------------------------------------------------
-ES Module   | Webpack 2 / Rollup           | `import bootstrap-vue from 'bootstrap-vue/dist/bootstrap-vue.es.js`
+ES Module   | Webpack 2 / Rollup           | `import bootstrap-vue from 'bootstrap-vue/dist/bootstrap-vue.esm`
 commonjs2   | Webpack 1 / Other Bundlers   | `import bootstrap-vue from 'bootstrap-vue`
 UMD         | Browser                      | `<script src="https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js"></script>`
 

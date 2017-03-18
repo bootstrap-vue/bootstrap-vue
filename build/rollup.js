@@ -15,7 +15,7 @@ rollup(config).then(bundle => {
 
     bundle.write({
         format: 'es',
-        dest: path.resolve(dist, config.moduleName + '.es.js'),
+        dest: path.resolve(dist, config.moduleName + '.esm.js'),
         sourceMap: true
     }).catch(console.error);
 
