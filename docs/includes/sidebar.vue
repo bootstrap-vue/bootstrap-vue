@@ -1,5 +1,5 @@
 <template>
-    <nav class="bd-links sticky-top" id="docsNavbarContent">
+    <nav class="bd-links" id="docsNavbarContent">
         <div class="bd-toc-item active" v-for="group in site.nav">
             <router-link class="bd-toc-link" :to="'/docs/'+group.slug">
                 {{ group.title }}
@@ -26,9 +26,6 @@
         /*color: #0275d8;*/
         color: black;
         font-weight: bold;
-    }
-    .bd-links {
-        top: 80px;
     }
 </style>
 
