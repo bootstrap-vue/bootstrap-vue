@@ -11,7 +11,7 @@
                 </p>
 
                 <p class="lead">
-                    <router-link to="/docs" class="btn mr-1">Documentation</router-link>
+                    <router-link to="/docs" class="btn mr-1 mb-1">Documentation</router-link>
 
                     <router-link to="/play" class="btn">Playground</router-link>
                 </p>
@@ -63,7 +63,6 @@
                         <p>Simply include js inside your HTML templates</p>
                         <div v-code class="html">
                             &lt;script src=&quot;https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;/&gt;
-
                         </div>
                         <div class="text-center">
                             <br>
