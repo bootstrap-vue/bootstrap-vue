@@ -28,7 +28,7 @@
         props: {
             activeClass: {
                 type: String,
-                default: 'active',
+                default: 'active'
             },
             to: {
                 type: [String, Object]
@@ -37,5 +37,5 @@
                 type: String
             }
         }
-    }
+    };
 </script>

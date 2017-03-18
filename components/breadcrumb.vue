@@ -13,7 +13,7 @@
         computed: {
             componentType() {
                 return this.to ? 'router-link' : 'a';
-            },
+            }
         },
         props: {
             items: {
