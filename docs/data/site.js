@@ -27,6 +27,7 @@ export default {
                 {title: 'Form Radio'},
                 {title: 'Form Select'},
                 {title: 'Form Fieldset'},
+                {title: 'Jumbotron', new: true},
                 {title: 'List Group', new: true},
                 {title: 'Modals'},
                 {title: 'Nav'},
