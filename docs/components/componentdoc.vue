@@ -135,7 +135,7 @@
                 return base + '/' + _.kebabCase(this.component).replace('b-', '') + '.vue';
             },
             propsString() {
-                return this.props_items.filter(prop => !!prop.default).map(prop => {
+                return this.props_items.map(prop => {
                     return (this.isConst(prop.default) ? '' : ':') + prop.prop + '="' + prop.default + '"';
                 }).join('\r\n');
             },
