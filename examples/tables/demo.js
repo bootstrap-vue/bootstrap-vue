@@ -1,4 +1,4 @@
-new Vue({
+window.app = new Vue({
     el: '#app',
     data: {
         fields: {
@@ -121,6 +121,7 @@ new Vue({
     },
     methods: {
         details(item) {
+            /* eslint-disable no-alert */
             alert(JSON.stringify(item));
         }
     }

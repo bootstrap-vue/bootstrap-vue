@@ -1,4 +1,4 @@
-new Vue({
+window.app = new Vue({
     el: '#app',
     data: {
         value: 'third',
@@ -13,5 +13,5 @@ new Vue({
             value: 'third',
             disabled: true
         }]
-    },
+    }
 });

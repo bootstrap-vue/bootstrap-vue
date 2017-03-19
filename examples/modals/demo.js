@@ -1,12 +1,13 @@
-new Vue({
+window.app = new Vue({
     el: '#app',
     data: {
         name: '',
-        names: [],
+        names: []
     },
     methods: {
         onSave() {
             if (!this.name) {
+                /* eslint-disable no-alert */
                 alert('Please enter your name');
                 return false;
             }

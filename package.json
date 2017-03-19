@@ -3,10 +3,10 @@
   "version": "0.10.0-alpha.6",
   "description": "Bootstrap 4 Components for Vue.js 2",
   "main": "dist/bootstrap-vue.common.js",
-  "web":"dist/bootstrap-vue.js",
-  "module":"dist/bootstrap-vue.esm.js",
-  "jsnext:main":"dist/bootstrap-vue.esm.js",
-  "style":"dist/bootstrap-vue.css",
+  "web": "dist/bootstrap-vue.js",
+  "module": "dist/bootstrap-vue.esm.js",
+  "jsnext:main": "dist/bootstrap-vue.esm.js",
+  "style": "dist/bootstrap-vue.css",
   "license": "MIT",
   "homepage": "https://bootstrap-vue.github.io",
   "author": {
@@ -26,7 +26,8 @@
     "docs-dev": "nuxt dev",
     "docs-gen": "nuxt generate",
     "docs-deploy": "cd scripts && ./gh-pages",
-    "test": "xo"
+    "lint": "xo",
+    "lint-fix": "xo --fix"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-",
@@ -41,7 +42,9 @@
     "codemirror": "^5.24.2",
     "cross-env": "^3.2.4",
     "css-loader": "^0.27.2",
+    "eslint-config-vue": "^2.0.2",
     "eslint-plugin-html": "^2.0.0",
+    "eslint-plugin-vue": "^2.0.1",
     "highlightjs": "^9.8.0",
     "lodash": "latest",
     "node-sass": "^4.5.0",
@@ -61,23 +64,25 @@
     "vue-style-loader": "^2.0.2",
     "vue-template-compiler": "^2.2.3",
     "webpack": "^2.2.0",
-    "xo": "^0.17.1"
+    "xo": "^0.18.0"
   },
   "xo": {
     "space": 4,
-    "esnext": true,
     "plugins": [
-      "html"
+      "vue"
+    ],
+    "extensions":[
+      "vue"
     ],
     "ignores": [
       "docs/plugins/ga.js"
     ],
-    "extensions": [
-      "vue"
-    ],
     "envs": [
       "node",
       "browser"
+    ],
+    "globals": [
+      "Vue"
     ],
     "rules": {
       "camelcase": 0

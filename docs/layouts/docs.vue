@@ -56,26 +56,10 @@
                 }
                 const github_url = base + path + '.vue';
                 window.open(github_url, '_blank');
-                // this.$ga.event('docs', 'edit_page');
             },
             issue() {
                 window.open('https://github.com/bootstrap-vue/bootstrap-vue/issues/new', '_blank');
-                // this.$ga.event('docs', 'open_issue');
             }
-        },
-        mounted() {
-//            if (!document.disqus) {
-//                const disqus_script = document.getElementById('disqus_script');
-//                if (disqus_script) {
-//                    const script = document.createElement('script');
-//                    script.src = '//bootstrap-vue.disqus.com/embed.js';
-//                    script.setAttribute('data-timestamp', Number(new Date()));
-//                    disqus_script.appendChild(script);
-//                    document.disqus = true;
-//                }
-//            } else if (window.DISQUS) {
-//                window.DISQUS.reset({reload: true});
-//            }
         }
     };
 </script>

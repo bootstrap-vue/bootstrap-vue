@@ -53,7 +53,7 @@
         watch: {
             selection: {
                 handler() {
-                    // set the model based on selection
+                    // Set the model based on selection
                     if (this.returnObject) {
                         this.list.forEach(item => {
                             if (item.value === this.selection) {
@@ -70,7 +70,7 @@
             }
         },
         mounted() {
-            // handle initial selection
+            // Handle initial selection
             this.selection = this.model.value;
         }
     };

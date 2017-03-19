@@ -13,7 +13,7 @@ export function uniqueId() {
     return text;
 }
 
-// check if browser support css3 transitions
+// Check if browser support css3 transitions
 export function csstransitions() {
     if (typeof (document) === 'undefined') {
         return false;
@@ -28,5 +28,5 @@ export function csstransitions() {
     );
 }
 
-// for browsers that do not support transitions like IE9 just change immediately
+// For browsers that do not support transitions like IE9 just change immediately
 export const TRANSITION_DURATION = csstransitions() ? 350 : 0;

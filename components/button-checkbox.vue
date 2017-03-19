@@ -66,29 +66,11 @@
         },
         watch: {
             list: {
-//                handler(val) {
-//                    this.model = []
-//                    this.list.forEach((item) = > {
-//                        if (item.checked
-//                )
-//                    {
-//                        if (this.returnObject) {
-//                            this.model.push(item)
-//                        } else {
-//                            this.model.push(item.value)
-//                        }
-//                    }
-//                })
-//                    ;
-//                    console.log(changed);
-//                    // Emit an event
-//                    this.$emit('changed', this.model)
-//                },
-//                deep: true,
+
             }
         },
         mounted() {
-            // handle initial selection
+            // Handle initial selection
             this.list.forEach(item => {
                 if (this.returnObject) {
                     this.model.forEach(modelItem => {

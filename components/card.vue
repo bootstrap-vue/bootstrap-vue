@@ -34,7 +34,7 @@
         },
         watch: {
             'type'(val) {
-                // get first card-block or div and apply a card-image-overlay class if image-overlay slected
+                // Get first card-block or div and apply a card-image-overlay class if image-overlay slected
                 const div = this.$el.getElementsByClassName('card-block')[0] || this.$el.getElementsByTagName('div')[0];
                 if (val === 'image-overlay') {
                     div.classList.add('card-img-overlay');

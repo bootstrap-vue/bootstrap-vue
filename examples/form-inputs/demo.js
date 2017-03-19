@@ -1,7 +1,7 @@
-new Vue({
+window.app = new Vue({
     el: '#app',
     data: {
-        text: '',
+        text: ''
     },
     methods: {
         format(value) {

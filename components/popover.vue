@@ -220,7 +220,7 @@
              * Display popover and fire event
              */
             showPopover() {
-                // let tether do the magic, after element is shown
+                // Let tether do the magic, after element is shown
                 this._popover.style.display = 'block';
                 this._tether = new Tether(this.tetherOptions);
 
@@ -385,23 +385,23 @@
         },
 
         mounted() {
-            // configure tether
+            // Configure tether
             this._trigger = this.$refs.trigger.children[0];
             this._popover = this.$refs.popover;
             this._popover.style.display = 'none';
             this._timeout = 0;
 
-            // add listeners for specified triggers and complementary click event
+            // Add listeners for specified triggers and complementary click event
             this.updateListeners(this.normalizedTriggers);
 
-            // display popover if prop is set on load
+            // Display popover if prop is set on load
             if (this.showState) {
                 this.showPopover();
             }
         },
 
         beforeDestroy() {
-            // clean up listeners
+            // Clean up listeners
             this.hidePopover();
             this.removeAllListeners();
             clearTimeout(this._timeout);

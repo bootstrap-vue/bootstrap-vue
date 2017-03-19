@@ -1,4 +1,4 @@
-new Vue({
+window.app = new Vue({
     el: '#app',
     data: {
         triggerExamples: [
@@ -7,7 +7,7 @@ new Vue({
             'hover', ['click', 'focus'],
             ['click', 'hover'],
             ['focus', 'hover']
-        ],
+        ]
     },
     methods: {
         triggersToString(input) {

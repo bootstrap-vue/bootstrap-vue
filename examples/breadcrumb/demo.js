@@ -1,12 +1,12 @@
-new Vue({
+window.app = new Vue({
     el: '#app',
     data: {
         items: [{
             text: 'Admin',
-            link: '#',
+            link: '#'
         }, {
             text: 'Manage',
-            link: '#',
+            link: '#'
         }, {
             text: 'Library',
             active: true

@@ -1,4 +1,4 @@
-new Vue({
+window.app = new Vue({
     el: '#app',
     data: {
         selected: 'default',
@@ -20,5 +20,5 @@ new Vue({
             value: 'd',
             disabled: true
         }]
-    },
+    }
 });

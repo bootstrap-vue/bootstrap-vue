@@ -46,7 +46,7 @@
 
         head() {
             return {
-//                title: this.componentName + ' - Bootstrap-Vue'
+                title: 'Components - Bootstrap-Vue'
             };
         },
 

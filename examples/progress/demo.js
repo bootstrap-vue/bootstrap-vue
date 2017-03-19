@@ -1,7 +1,7 @@
-new Vue({
+window.app = new Vue({
     el: '#app',
     data: {
-        progress: Math.random() * 100,
+        progress: Math.random() * 100
     },
     methods: {
         clicked() {

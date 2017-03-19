@@ -16,11 +16,11 @@
 <script>
     import {csstransitions} from '../utils/helpers';
 
-    // this is directly linked to the bootstrap animation timing in _tabs.scss
-    // for browsers that do not support transitions like IE9 just change slide immediately
+    // This is directly linked to the bootstrap animation timing in _tabs.scss
+    // For browsers that do not support transitions like IE9 just change slide immediately
     const TRANSITION_DURATION = csstransitions() ? 150 : 0;
 
-    // export component object
+    // Export component object
     export default {
         replace: true,
         data() {
@@ -59,7 +59,7 @@
         methods: {
 
             /**
-             * get an index of an active tab
+             * Get an index of an active tab
              * @return {Number}
              */
             getActive() {
@@ -73,7 +73,7 @@
             },
 
             /**
-             * set active tab on the items collection and the child 'tab' component
+             * Set active tab on the items collection and the child 'tab' component
              */
             setActive(index) {
                 // ignore disabled
@@ -81,30 +81,30 @@
                     return;
                 }
 
-                // deactivate previous active tab
+                // Deactivate previous active tab
                 const activeTab = this.getActive();
                 if (activeTab !== -1) {
-                    // setting animate to false will trigger fade out effect
+                    // Setting animate to false will trigger fade out effect
                     this.items[activeTab].active = false;
                     this.$set(this.$children[activeTab], 'animate', false);
                     this.$set(this.$children[activeTab], 'active', false);
                 }
 
-                // set new active tab and animate (if fade flag is set to true)
+                // Set new active tab and animate (if fade flag is set to true)
                 this.$set(this.$children[index], 'active', true);
                 this._tabAnimation = setTimeout(() => {
-                    // setting animate to true will trigger fade in effect
+                    // Setting animate to true will trigger fade in effect
                     this.items[index].active = true;
                     this.$set(this.$children[index], 'animate', true);
                     this.$root.$emit('changed::tab', this.items[index].id);
                 }, this.fade ? TRANSITION_DURATION : 0);
 
-                // store currentActive
+                // Store currentActive
                 this.currentTab = index;
             }
         },
         mounted() {
-            // if no active tab, set the first one by default
+            // If no active tab, set the first one by default
             if (this.getActive() === -1) {
                 this.setActive(this.currentTab);
             }
