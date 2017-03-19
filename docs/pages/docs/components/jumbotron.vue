@@ -20,7 +20,7 @@
             docs() {
                 return {
                     component: 'bJumbotron',
-                    jsfiddle: 'bptLavov',
+                    jsfiddle: 'bptLavov'
                 };
             }
         }
