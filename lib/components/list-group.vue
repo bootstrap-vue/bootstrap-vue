@@ -1,17 +1,21 @@
 <template>
-  <ul :class="{'list-group': true, 'list-group-flush': flush}">
-    <slot></slot>
-  </ul>
+    <component :is="tag" :class="['list-group',flush?'list-group-flush':null]">
+        <slot></slot>
+    </component>
 </template>
 
 <script>
-export default {
-    replace: true,
-    props: {
-        flush: {
-            type: Boolean,
-            default: false
+    export default {
+        replace: true,
+        props: {
+            tag: {
+                type: String,
+                default: 'div'
+            },
+            flush: {
+                type: Boolean,
+                default: false
+            }
         }
-    }
-};
+    };
 </script>

@@ -1,30 +1,68 @@
 <template>
-  <li :class="['list-group-item',listState,active ? 'active' : '',disabled ? 'disabled' : '']">
-    <slot></slot>
-  </li>
+    <component :is="myTag" :class="classObject" ref="item" :to="to" :href="href">
+        <slot></slot>
+    </component>
 </template>
 
 <script>
-export default {
-    computed: {
-        listState() {
-            return !this.state || this.state === `default` ? `` : `list-group-item-${this.state}`;
-        }
-    },
-    replace: true,
-    props: {
-        active: {
-            type: Boolean,
-            default: false
+    const actionTags = ['a', 'router-link', 'button', 'b-link'];
+
+    export default {
+        computed: {
+            classObject() {
+                return [
+                    'list-group-item',
+                    this.listState,
+                    this.active ? 'active' : null,
+                    this.disabled ? 'disabled' : null,
+                    this.isAction ? 'list-group-item-action' : null
+                ];
+            },
+            isAction() {
+                if (this.action === false) {
+                    return false;
+                }
+                return this.action || this.to || this.href || actionTags.indexOf(this.tag) !== -1;
+            },
+            listState() {
+                return this.variant ? `list-group-item-${this.variant}` : null;
+            },
+            myTag() {
+                if (this.tag) {
+                    return this.tag;
+                }
+                return (this.to || this.href) ? 'b-link' : 'div';
+            }
         },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        state: {
-            type: String,
-            default: 'default'
+        props: {
+            tag: {
+                type: String,
+                default: null
+            },
+            active: {
+                type: Boolean,
+                default: false
+            },
+            action: {
+                type: Boolean,
+                default: null
+            },
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+            variant: {
+                type: String,
+                default: null
+            },
+            to: {
+                type: String,
+                default: null
+            },
+            href: {
+                type: String,
+                default: null
+            }
         }
-    }
-};
+    };
 </script>
