@@ -63,7 +63,7 @@ Vue.use(BootstrapVue);
 
 ### CDN (Browser)
 
-UMD Bundle size about 86kb - <strong>~16kb gzipped</strong>
+Package size about 86kb (<strong>~16kb gzipped</strong>)
 
 ```html
 <!-- Add this to <head> -->
