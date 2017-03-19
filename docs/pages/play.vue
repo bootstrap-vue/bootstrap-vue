@@ -4,7 +4,6 @@
 
             <div class="mb-3 row">
                 <div class="col-md-10">
-                    <span>Welcome to BootstrapVue playground! </span>
                     <span>Here you can interactively play and test components with a fresh vue instance.</span>
                     <br>
                     <Strong>TIP: </Strong>
@@ -12,14 +11,15 @@
                     <span> changes will be reflected and hot-reloaded instantly.</span>
                     <br>
                     <span>Please refer to</span>
-                    <router-link to="/docs">Documentation</router-link>
-                    <span>for more info about available tags.</span>
+                    <router-link to="/docs"> Docs </router-link>
+                    <span>for more info about available tags and usage.</span>
                 </div>
                 <div class="col-md-1">
                     <form method='post' action='https://jsfiddle.net/api/post/library/pure/'
                           target='_blank' v-if="vm">
                         <input type="hidden" :value="html_fiddle" name="html">
                         <input type="hidden" :value="js_fiddle" name="js">
+                        <input type="hidden" value="l" name="js_wrap">
                         <input name="resources" type="hidden" :value="fiddle_dependencies.join(',')">
                         <b-btn size="sm" type="submit">
                             <span>Export to JSFiddle</span>
@@ -112,11 +112,11 @@
     import * as Components from '../../components';
 
     const exampleHTML = `
-<b-tooltip content="Click on me" placement="right">
-  <b-btn class="mb-4" @click="clicked">{{text}}</b-btn>
+<b-tooltip content="Something random" placement="right">
+  <b-btn class="mb-4" @click="clicked">Change progress</b-btn>
 </b-tooltip>
 
-<b-progress v-model="counter"
+<b-progress :value="progress"
             variant="success"
             :precision="1"
             show-progress
@@ -127,14 +127,12 @@
     const exampleJS = `
 {
     data: {
-        text: "Click me",
-        counter: 45,
+        progress: Math.random() * 100
     },
     methods: {
         clicked() {
-            this.counter = Math.random()*100;
-            console.log("Change progress to " +
-                        Math.round(this.counter*100)/100);
+            this.progress = Math.round(Math.random()*10000)/100;
+            console.log("Change progress to " + this.progress);
         }
     }
 }`;
