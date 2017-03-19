@@ -18,7 +18,7 @@
         computed: {
             docs() {
                 return {
-                    jsfiddle: 'L9f7cmms',
+                    jsfiddle: 'f0qsxezp',
                     component: 'bCollapse',
                     events: [
                         {
