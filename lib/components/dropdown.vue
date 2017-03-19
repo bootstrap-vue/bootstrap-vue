@@ -29,8 +29,8 @@
 </template>
 
 <script>
-    import bButton from './button.vue';
     import clickOut from '../mixins/clickout';
+    import bButton from './button.vue';
 
     export default {
         mixins: [

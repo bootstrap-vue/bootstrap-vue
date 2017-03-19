@@ -50,7 +50,7 @@
                     return 'card-inverse';
                 }
                 // Auto inverse colored cards
-                if (this.inverse === null && this.variant && this.variant.length &&
+                if (this.inverse === null && this.variant && this.variant.length > 0 &&
                     this.variant.indexOf('outline') === -1) {
                     return 'card-inverse';
                 }
@@ -119,11 +119,11 @@
             // Image
             img: {
                 type: String,
-                default: null,
+                default: null
             },
             imgAlt: {
                 type: String,
-                default: null,
+                default: null
             },
             overlay: {
                 type: Boolean,

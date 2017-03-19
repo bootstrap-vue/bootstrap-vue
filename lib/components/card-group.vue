@@ -8,11 +8,11 @@
     export default {
         computed: {
             type() {
-                if(this.deck) {
+                if (this.deck) {
                     return 'deck';
                 }
 
-                if(this.columns) {
+                if (this.columns) {
                     return 'columns';
                 }
 
