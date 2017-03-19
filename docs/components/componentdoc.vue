@@ -131,7 +131,7 @@
                 return '<' + this.componentName + '>';
             },
             githubURL() {
-                const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components';
+                const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/lib/components';
                 return base + '/' + _.kebabCase(this.component).replace('b-', '') + '.vue';
             },
             propsString() {
