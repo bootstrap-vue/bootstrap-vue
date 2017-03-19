@@ -11,9 +11,7 @@
                 </p>
 
                 <p class="lead">
-                    <router-link to="/docs" class="btn mr-1 mb-1">Documentation</router-link>
-
-                    <router-link to="/play" class="btn">Playground</router-link>
+                    <router-link to="/docs" class="btn mr-1 mb-1">Getting started</router-link>
                 </p>
 
                 <p class="version">
@@ -63,7 +61,7 @@
                         <p>Simply include js inside your HTML templates</p>
                         <div v-code class="html">
                             &lt;!-- Add this after vue.js --&gt;
-                            &lt;script src=&quot;//unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
+                            &lt;script src=&quot;//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
                         </div>
                         <div class="text-center">
                             <br>

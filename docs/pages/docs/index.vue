@@ -62,11 +62,11 @@
             <div v-code class="html">
                 &lt;!-- Add this to &lt;head&gt; --&gt;
                 &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css&quot;/&gt;
-                &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;//unpkg.com/bootstrap-vue/dist/bootstrap-vue.css&quot;/&gt;
+                &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css&quot;/&gt;
 
                 &lt;!-- Add this after vue.js --&gt;
-                &lt;script src=&quot;//unpkg.com/tether/dist/js/tether.min.js&quot;&gt;&lt;/script&gt;
-                &lt;script src=&quot;//unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
+                &lt;script src=&quot;//unpkg.com/tether@latest/dist/js/tether.min.js&quot;&gt;&lt;/script&gt;
+                &lt;script src=&quot;//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
             </div>
 
         </template>
