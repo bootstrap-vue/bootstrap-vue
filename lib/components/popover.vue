@@ -99,14 +99,10 @@
             },
             debounce: {
                 type: [Number],
-                default: 500,
+                default: 300,
                 validator(value) {
                     return value >= 0;
                 }
-            },
-            type: {
-                type: String,
-                default: 'popover'
             }
         },
 
