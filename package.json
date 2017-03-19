@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "0.10.0-alpha.6",
+  "version": "0.10.0-alpha.7",
   "description": "Bootstrap 4 Components for Vue.js 2",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
@@ -27,7 +27,7 @@
     "docs-gen": "nuxt generate",
     "docs-deploy": "cd scripts && ./gh-pages",
     "lint": "xo",
-    "lint-fix": "xo --fix"
+    "test":"yarn lint"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-",
