@@ -19,7 +19,7 @@
             docs() {
                 return {
                     jsfiddle: 'L9f7cmms',
-                    component: 'f0qsxezp',
+                    component: 'bCollapse',
                     events: [
                         {
                             event: 'collapse::toggle',
