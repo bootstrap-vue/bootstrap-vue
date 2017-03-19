@@ -19,6 +19,7 @@ export default {
                 {title: 'Breadcrumb'},
                 {title: 'Buttons'},
                 {title: 'Button group'},
+                {title: 'Card', new: true},
                 {title: 'Dropdowns'},
                 {title: 'Form Inputs'},
                 {title: 'Form Checkbox'},
@@ -32,7 +33,7 @@ export default {
                 {title: 'Popover'},
                 {title: 'Progress'},
                 {title: 'Tables'},
-                {title: 'Tooltips'}
+                {title: 'Tooltips', new: true}
             ]
         }
     ]

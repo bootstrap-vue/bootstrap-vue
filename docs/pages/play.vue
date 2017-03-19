@@ -112,9 +112,7 @@
     import * as Components from '../../components';
 
     const exampleHTML = `
-<b-tooltip content="Something random" placement="right">
-  <b-btn class="mb-4" @click="clicked">Change progress</b-btn>
-</b-tooltip>
+<b-btn class="mb-4" @click="clicked">Change progress</b-btn>
 
 <b-progress :value="progress"
             variant="success"

@@ -5,6 +5,7 @@ import bButtonGroup from './button-group.vue';
 import bButtonRadio from './button-radio.vue';
 import bButton from './button.vue';
 import bCard from './card.vue';
+import bCardGroup from './card-group.vue';
 import bCarousel from './carousel.vue';
 import bCarouselSlide from './carousel-slide.vue';
 import bCollapse from './collapse.vue';
@@ -45,6 +46,7 @@ export {
     bButton,
     bButton as bBtn,
     bCard,
+    bCardGroup,
     bDropdown,
     bDropdownSelect,
     bForm,

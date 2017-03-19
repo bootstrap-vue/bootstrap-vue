@@ -1,7 +1,7 @@
  /*
  ---
- name: Tooltips - BootstrapVue
- description: https://bootstrap-vue.github.io/docs/components/tooltips
+ name: Cards - BootstrapVue
+ description: https://bootstrap-vue.github.io/docs/components/card
  authors:
    - Pooya Parsa
  resources:
