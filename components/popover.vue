@@ -174,7 +174,7 @@
 
         watch: {
             /**
-             * Propogate 'show' property change
+             * Propagate 'show' property change
              * @param  {Boolean} newShow
              */
             show(newShow) {
@@ -184,8 +184,13 @@
             /**
              * Affect 'show' state in response to status change
              * @param  {Boolean} newShowState
+             * @param oldShowState
              */
-            showState(newShowState) {
+            showState(newShowState, oldShowState) {
+                if (newShowState === oldShowState) {
+                    return;
+                }
+
                 clearTimeout(this._timeout);
 
                 this._timeout = setTimeout(() => {
@@ -220,6 +225,12 @@
              * Display popover and fire event
              */
             showPopover() {
+                if (this.showState === true) {
+                    this.hidePopover();
+                }
+
+                this.showState = true;
+
                 // Let tether do the magic, after element is shown
                 this._popover.style.display = 'block';
                 this._tether = new Tether(this.tetherOptions);
@@ -243,10 +254,12 @@
              * Hide popover and fire event
              */
             hidePopover() {
+                this.showState = false;
+                this._popover.style.display = 'none';
+                this.$root.$emit('hidden::popover');
+
                 if (this._tether) {
-                    this._popover.style.display = 'none';
                     this._tether.destroy();
-                    this.$root.$emit('hidden::popover');
                 }
             },
 
@@ -260,20 +273,6 @@
                 }
 
                 return this.delay;
-            },
-
-            toggleShowState() {
-                const newState = !this.showState;
-                clearTimeout(this._timeout);
-
-                if (this.currentDelay === 0) {
-                    this.showState = newState;
-                    return;
-                }
-
-                this._timeout = setTimeout(() => {
-                    this.showState = newState;
-                }, this.currentDelay);
             },
 
             /**
@@ -375,12 +374,12 @@
             if (this.$router) {
                 this.$router.beforeEach((to, from, next) => {
                     next();
-                    this.hidePopover();
+                    this.beforeDestroy();
                 });
             }
 
             hub.$on('hide::modal', () => {
-                this.hidePopover();
+                this.beforeDestroy();
             });
         },
 
