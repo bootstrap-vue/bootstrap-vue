@@ -1,4 +1,4 @@
-import Vue from 'vue';
-import BootstrapVue from '../../index';
+import Vue from "vue";
+import BootstrapVue from "../../lib";
 
 Vue.use(BootstrapVue);

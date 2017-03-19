@@ -1,10 +1,5 @@
 <template>
-    <a
-            :href="hrefString"
-            :is="componentType"
-            :active-class="activeClass"
-            :to="toObject"
-    >
+    <a :is="componentType" :active-class="activeClass" :to="toObject" :href="hrefString">
         <slot></slot>
     </a>
 </template>

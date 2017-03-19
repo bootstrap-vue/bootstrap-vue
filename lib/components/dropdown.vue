@@ -1,18 +1,14 @@
 <template>
-    <div :class="['btn-group',show?'show':'',dropup?'dropup':'']">
+    <div :class="['dropdown','btn-group',visible?'show':'',dropup?'dropup':'']">
 
         <b-button :class="[split?'':'dropdown-toggle']"
-                  id="dropdownMenuButton"
                   @click="click"
                   aria-haspopup="true"
-                  :aria-expanded="show"
+                  :aria-expanded="visible"
                   :variant="variant"
                   :size="size"
                   :disabled="disabled">
-            <slot name="text">
-                {{text}}
-
-            </slot>
+            <slot name="text">{{text}}</slot>
         </b-button>
 
         <b-button class="dropdown-toggle dropdown-toggle-split"
@@ -25,7 +21,7 @@
             <span class="sr-only">Toggle Dropdown</span>
         </b-button>
 
-        <div :class="['dropdown-menu',right?'dropdown-menu-right':'']" v-if="show">
+        <div :class="['dropdown-menu',right?'dropdown-menu-right':'']">
             <slot></slot>
         </div>
 
@@ -34,14 +30,18 @@
 
 <script>
     import bButton from './button.vue';
+    import clickOut from '../mixins/clickout';
 
     export default {
+        mixins: [
+            clickOut
+        ],
         components: {
             bButton
         },
         data() {
             return {
-                show: false
+                visible: false
             };
         },
         props: {
@@ -74,41 +74,32 @@
                 default: false
             }
         },
-        mounted() {
-            if (typeof document !== 'undefined') {
-                document.documentElement.addEventListener('click', this.clickOut);
-            }
-        },
-        destroyed() {
-            if (typeof document !== 'undefined') {
-                document.removeEventListener('click', this.clickOut);
-            }
-        },
         created() {
             this.$root.$on('shown::dropdown', el => {
                 if (el !== this) {
-                    this.clickOut();
+                    this.visible = false;
                 }
             });
         },
-        methods: {
-            toggle() {
-                this.setShow(!this.show);
-            },
-            setShow(state) {
-                if (this.show === state) {
+        watch: {
+            visible(state, old) {
+                if (state === old) {
                     return; // Avoid duplicated emits
                 }
-                this.show = state;
 
-                if (this.show) {
+                if (state) {
                     this.$root.$emit('shown::dropdown', this);
                 } else {
                     this.$root.$emit('hidden::dropdown', this);
                 }
+            }
+        },
+        methods: {
+            toggle() {
+                this.visible = !this.visible;
             },
-            clickOut() {
-                this.setShow(false);
+            clickOutListener() {
+                this.visible = false;
             },
             click() {
                 if (this.split) {

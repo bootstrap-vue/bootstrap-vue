@@ -109,7 +109,7 @@
     import Vue from 'vue/dist/vue.common';
     import {debounce} from 'lodash';
     import layout from '../layouts/site.vue';
-    import * as Components from '../../components';
+    import * as Components from '../../lib/components';
 
     const exampleHTML = `
 <b-btn class="mb-4" @click="clicked">Change progress</b-btn>
