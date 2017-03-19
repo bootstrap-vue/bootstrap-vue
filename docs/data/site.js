@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/extensions
-import pkg from '../../package.json';
+import pkg from "../../package.json";
 
 export default {
     version: pkg.version,
@@ -20,6 +20,7 @@ export default {
                 {title: 'Buttons'},
                 {title: 'Button group'},
                 {title: 'Card', new: true},
+                {title: 'Collapse'},
                 {title: 'Dropdowns'},
                 {title: 'Form Inputs'},
                 {title: 'Form Checkbox'},
