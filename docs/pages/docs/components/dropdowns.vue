@@ -22,6 +22,7 @@
             docs() {
                 return {
                     component: 'bDropdown',
+                    components: ['bDropdownItem'],
                     jsfiddle: '8205xLmk',
                     events: [
                         {event: 'shown', description: ''},
