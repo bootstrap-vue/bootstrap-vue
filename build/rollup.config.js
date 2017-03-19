@@ -8,10 +8,11 @@ const CleanCSS = require('clean-css');
 const {name, dependencies} = require('../package.json');
 
 const base = path.resolve(__dirname, '..');
+const lib = path.resolve(base, 'lib');
 const dist = path.resolve(base, 'dist');
 
 module.exports = {
-    entry: path.resolve(base, 'index.js'),
+    entry: path.resolve(lib, 'index.js'),
     external: Object.keys(dependencies),
     moduleName: name,
     plugins: [
