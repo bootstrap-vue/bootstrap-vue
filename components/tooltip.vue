@@ -1,27 +1,21 @@
 <template>
     <div>
         <span ref="trigger"><slot></slot></span>
-
-        <transition name="tooltip">
-            <div tabindex="-1" :class="['tooltip','tooltip-' + this.placement,showState?'tooltip-visible':null]"
-                 ref="popover" @focus="$emit('focus')" @blur="$emit('blur')"
-            >
-                <div class="tooltip-inner">
-                    <slot name="content"><span v-html="content || title"></span></slot>
-                </div>
+        <div tabindex="-1" :class="['tooltip','tooltip-' + this.placement]"
+             ref="popover" @focus="$emit('focus')" @blur="$emit('blur')"
+             :style="{opacity:showState?1:0}"
+        >
+            <div class="tooltip-inner">
+                <slot name="content"><span v-html="content || title"></span></slot>
             </div>
-        </transition>
+        </div>
     </div>
 </template>
 
 <style>
-    .tooltip-enter-active, .tooltip-leave-active {
-        transition: opacity .5s;
-        opacity: 0;
-    }
-
-    .tooltip-visible {
-        opacity: 1;
+    .tooltip {
+        display: block !important;
+        transition: all 0.3s;
     }
 </style>
 
