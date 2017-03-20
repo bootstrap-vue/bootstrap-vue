@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 
 module.exports = {
     srcDir: path.resolve(__dirname, 'docs', 'nuxt'),
@@ -33,7 +34,12 @@ module.exports = {
     },
 
     generate: {
-        dir: 'docs-dist'
+        dir: 'docs-dist',
+        routeParams: {
+            '/docs/components/:component': fs.readdirSync('docs/components').filter(c => c !== 'index.js').map(component => {
+                return {component}
+            })
+        }
     },
 
     plugins: [
