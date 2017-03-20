@@ -37,7 +37,7 @@ module.exports = {
         dir: 'docs-dist',
         routeParams: {
             '/docs/components/:component': fs.readdirSync('docs/components').filter(c => c !== 'index.js').map(component => {
-                return {component}
+                return {component};
             })
         }
     },
