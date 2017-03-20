@@ -123,17 +123,16 @@
 `;
 
     const exampleJS = `
-{
-    data: {
-        progress: Math.random() * 100
-    },
-    methods: {
-        clicked() {
-            this.progress = Math.round(Math.random()*10000)/100;
-            console.log("Change progress to " + this.progress);
-        }
+data: {
+    progress: Math.random() * 100
+},
+methods: {
+    clicked() {
+        this.progress = Math.round(Math.random()*10000)/100;
+        console.log("Change progress to " + this.progress);
     }
-}`;
+}
+`;
 
     export default {
         components: {layout},
@@ -178,17 +177,14 @@
 
                 console.warn = function (text) {
                     self.log('warning', text);
-                    self.originalWarn.apply(console, arguments);
                 };
 
                 console.log = function (text) {
                     self.log('info', text);
-                    self.originalLog.apply(console, arguments);
                 };
 
                 console.error = function (text) {
                     self.log('danger', text);
-                    self.originalError.apply(console, arguments);
                 };
             }
         },
@@ -210,16 +206,11 @@
                 ];
             },
             js_fiddle() {
-                // Inject options
-                let js = this.js.trim();
-                js = `{el:'#app',\r\n` + js.substring(1);
-                return `new Vue(${js})`.trim();
+                let js = `new Vue({el:'#app',\r\n${this.js.trim()}})`.trim();
+                return `window.onload = function() {${js}}`;
             },
             html_fiddle() {
-                return `
-<div id='app'>
-    ${this.html}
-</div>`.trim();
+                return `<div id='app'>\r\n${this.html}\r\n</div>`.trim();
             },
             lazy_run() {
                 if (!this.lazy_run_) {
@@ -280,7 +271,7 @@
                     let options;
                     try {
                         /* eslint-disable no-eval */
-                        eval('options=' + this.js);
+                        eval('options={' + this.js + '}');
                     } catch (err) {
                         throw new Error(`Compiling JS: ${err}`);
                     }
