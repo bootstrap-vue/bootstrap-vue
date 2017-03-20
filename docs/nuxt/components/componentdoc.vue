@@ -3,11 +3,6 @@
 
         <h2><code>{{tag}}</code></h2>
         <a :href="githubURL" target="_blank" class="text-muted">(view source)</a>
-        <div v-code class="html mt-2">
-            <{{componentName}}
-            {{propsString}}
-            >
-        </div>
 
         <template v-if="props_items && props_items.length > 0">
             <h4>Properties</h4>
@@ -133,17 +128,6 @@
             githubURL() {
                 const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/lib/components';
                 return base + '/' + _.kebabCase(this.component).replace('b-', '') + '.vue';
-            },
-            propsString() {
-                return this.props_items.map(prop => {
-                    return (this.isConst(prop.default) ? '' : ':') + prop.prop + '="' + prop.default + '"';
-                }).join('\r\n');
-            }
-        },
-        methods: {
-            isConst(str) {
-                str = str || '';
-                return ['true', 'false', '', null, '[]'].indexOf(str) === -1 && str.indexOf('[') === -1 && !/[0-9]+/.test(str);
             }
         }
     };
