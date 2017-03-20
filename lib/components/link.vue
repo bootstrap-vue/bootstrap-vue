@@ -1,5 +1,5 @@
 <template>
-    <a :is="componentType" :active-class="activeClass" :to="toObject" :href="hrefString">
+    <a :is="componentType" :active-class="activeClass" :to="toObject" :href="hrefString" :exact="exact">
         <slot></slot>
     </a>
 </template>
@@ -30,7 +30,11 @@
             },
             href: {
                 type: String
-            }
+            },
+            exact: {
+                type: Boolean,
+                default: false
+            },
         }
     };
 </script>

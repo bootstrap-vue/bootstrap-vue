@@ -1,9 +1,9 @@
 <template>
-    <b-navbar toggleable class="main-nav">
+    <b-navbar toggleable class="main-nav" sticky="top">
 
         <b-nav-toggle target="bd-main-nav"></b-nav-toggle>
 
-        <b-link class="navbar-brand nuxt-link-active" to="/">
+        <b-link class="navbar-brand nuxt-link-active" to="/" exact>
             <span>BootstrapVue</span>
         </b-link>
 
@@ -14,9 +14,6 @@
 
                 <b-nav-item to="/play">
                     <span>Playground</span>
-                    <small>
-                        <b-badge variant="success">BETA</b-badge>
-                    </small>
                 </b-nav-item>
 
             </b-nav>
@@ -43,6 +40,10 @@
         box-shadow: 0 0 5px rgba(57, 70, 78, .2) !important;
         background: white;
         z-index: 1050;
+    }
+
+    .main-nav .nav-link.active, .main-nav .navbar-brand.active {
+        border-bottom: 3px solid #4fc08d;
     }
 </style>
 
