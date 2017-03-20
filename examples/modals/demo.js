@@ -16,6 +16,9 @@ window.app = new Vue({
             }
             this.names.push(this.name);
             this.name = '';
+
+            // Ensure modal closes
+            this.$root.$emit('hide::modal', 'modal1');
         }
     }
 });

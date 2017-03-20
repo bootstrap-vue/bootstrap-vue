@@ -10,14 +10,12 @@
     </div>
 
     <!-- Modal Component -->
-    <b-modal id="modal1"
-             title="Submit your name"
-             @ok="submit"
-             @shown="clearName"
-    >
-        <b-form-input type="text"
-                      placeholder="Enter your name" v-model="name"
-        ></b-form-input>
+    <b-modal id="modal1" title="Submit your name" @ok="submit" @shown="clearName">
+
+        <form @submit.stop.prevent="submit">
+            <b-form-input type="text" placeholder="Enter your name" v-model="name"></b-form-input>
+        </form>
+
     </b-modal>
 
 </div>
