@@ -15,6 +15,10 @@ module.exports = {
         ]
     },
 
+    loading: {
+        color: '#4fc08d'
+    },
+
     build: {
         extend(config) {
             config.module.rules.push({

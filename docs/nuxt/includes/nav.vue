@@ -40,9 +40,15 @@
         box-shadow: 0 0 5px rgba(57, 70, 78, .2) !important;
         background: white;
         z-index: 1050;
+        padding-bottom: 0;
     }
 
-    .main-nav .nav-link.active, .main-nav .navbar-brand.active {
+    .main-nav .nav-link, .main-nav .navbar-brand {
+        padding-bottom: 10px;
+        border-bottom: 3px solid transparent;
+    }
+
+    .main-nav .nav-link.active {
         border-bottom: 3px solid #4fc08d;
     }
 </style>
