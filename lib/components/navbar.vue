@@ -14,8 +14,8 @@ export default {
                 'navbar',
                 this.type ? `navbar-${this.type}` : '',
                 this.variant ? `bg-${this.variant}` : '',
-                this.fixed ? `navbar-fixed-${this.fixed}` : '',
-                this.full ? 'navbar-full' : '',
+                this.fixed ? `fixed-${this.fixed}` : '',
+                this.sticky ? 'sticky-top' : '',
                 this.toggleable ? 'navbar-toggleable-md' : ''
             ];
         }
@@ -35,9 +35,8 @@ export default {
         fixed: {
             type: String
         },
-        full: {
-            type: Boolean,
-            default: false
+        sticky: {
+            type: String
         }
     }
 };
