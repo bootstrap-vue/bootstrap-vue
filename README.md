@@ -27,10 +27,10 @@
 
 > [Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
 
-👻 Lot's of improvements specially on docs are coming
- 
-⚠ If you are using older version, please be note about new usage guides below.
-bootstrap-vue now has a separate css file for packaging quality reasons️⚠️
+🚧 Under development 1.0.0 will come soon.
+👻 Lot's of improvements specially on docs are coming.
+⚠ If you are using older versions, please read usage guides below.
+⚠ bootstrap-vue now has a separate css file for packaging quality improvements.
 
 # Getting started
 Please refer to [Official Documentation](https://bootstrap-vue.github.io) for setup guide, examples and documentation.

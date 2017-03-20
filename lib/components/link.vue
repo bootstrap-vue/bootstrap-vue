@@ -34,7 +34,7 @@
             exact: {
                 type: Boolean,
                 default: false
-            },
+            }
         }
     };
 </script>
