@@ -8,6 +8,8 @@
 
         <m-nav></m-nav>
 
+        <div style="margin-bottom: 80px"></div>
+
         <slot></slot>
 
         <m-footer></m-footer>
@@ -19,10 +21,6 @@
     import mFooter from '../includes/footer.vue';
 
     export default {
-        components: {mNav, mFooter},
-        mounted() {
-            // this.$ga.page(window.location.pathname);
-            window.ga('send', 'pageview');
-        }
+        components: {mNav, mFooter}
     };
 </script>

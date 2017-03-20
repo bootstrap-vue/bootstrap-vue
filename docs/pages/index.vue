@@ -11,7 +11,7 @@
                 </p>
 
                 <p class="lead">
-                    <router-link to="/docs" class="btn btn-lg">Getting Started</router-link>
+                    <router-link to="/docs" class="btn mr-1 mb-1">Getting started</router-link>
                 </p>
 
                 <p class="version">
@@ -31,50 +31,56 @@
                 <div class="row">
                     <div class="col-sm-6 mb-3">
                         <h4>NPM</h4>
+
                         <p>Install via your favorite package manager</p>
-                        <code v-code class="shell">
-                            $ yarn add bootstrap-vue
-                            # or using npm ...
-                            $ npm i bootstrap-vue@latest
-                        </code>
+                        <div v-code class="bash">
+                            # Using YARN
+                            yarn add bootstrap-vue
+
+                            # Using NPM
+                            npm install --save bootstrap-vue
+                        </div>
+
                         <p>Register components</p>
-                        <code v-code class="js">
+                        <div v-code class="js">
                             import Vue from 'vue'
                             import BootstrapVue from 'bootstrap-vue';
 
-                            // Globally register bootstrap-vue components
                             Vue.use(BootstrapVue);
-                        </code>
+                         </div>
+
                         <div class="text-center">
-                            <b-btn @click="$router.push('/docs#npm')" variant="secondary">
-                                Learn more
+                            <br>
+                            <b-btn to="/docs" variant="secondary">
+                                <span>Learn more</span>
                             </b-btn>
                         </div>
-
                     </div>
-
                     <div class="col-sm-6 mb-3">
-
                         <h4>CDN</h4>
-                        <p>
-                            Simply include js inside your HTML templates,(free CDN from Powered by unpkg)
-                        </p>
-                        <code v-code>
-                            &lt;script src=&quot;https://unpkg.com/bootstrap-vue/dist/bootstrap-vue.js&quot;/&gt;
-                        </code>
+                        <p>Simply include js inside your HTML templates</p>
+                        <div v-code class="html">
+                            &lt;!-- Add this after vue.js --&gt;
+                            &lt;script src=&quot;//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
+                        </div>
                         <div class="text-center">
-                            <b-btn @click="$router.push('/docs#cdn')" variant="secondary">
-                                Learn more
+                            <br>
+                            <b-btn to="/docs" variant="secondary">
+                                <span>Learn more</span>
                             </b-btn>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
     </layout>
 </template>
+
+<style>
+    .bd-masthead {
+        margin-top: -30px;
+    }
+</style>
 
 <script>
     import layout from '../layouts/site.vue';

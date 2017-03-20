@@ -21,16 +21,11 @@
                 return {
                     jsfiddle: 'L9f7cmms',
                     component: 'bButton',
+                    components: ['bLink'],
                     events: [
                         {
                             event: 'click',
-                            description: 'when clicked on button',
-                            args: [
-                                {
-                                    arg: 'link',
-                                    description: ''
-                                }
-                            ]
+                            description: 'when clicked on button'
                         }
                     ]
                 };

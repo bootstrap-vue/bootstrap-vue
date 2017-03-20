@@ -13,13 +13,6 @@
             For more advanced usage, you can use
             <a href="https://github.com/SirLamer/click-confirm" target="_blank">Click Confirm</a>
             component by @SirLamer which is based on popover.
-            <br>
-            <br>
-            <div class="text-center">
-                <img src="~static/click-confirm.png">
-                <br>
-                <small class="text-muted">click-confirm example</small>
-            </div>
         </template>
     </layout>
 </template>

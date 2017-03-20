@@ -1,13 +1,13 @@
 <template>
     <div>
 
-        <h2 style="display: inline">{{tag}}</h2>
+        <h2><code>{{tag}}</code></h2>
         <a :href="githubURL" target="_blank" class="text-muted">(view source)</a>
-
-        <code v-code class="html">
+        <div v-code class="html mt-2">
             <{{componentName}}
-            <template v-for="prop in props_items">&emsp;&emsp;{{isConst(prop.default)?'':':'}}{{prop.prop}}="{{prop.default}}"<br></template>
-            <template v-for="event in events">&emsp;&emsp;@{{event.event}}=""<br></template>></code>
+            {{propsString}}
+            >
+        </div>
 
         <template v-if="props_items && props_items.length > 0">
             <h4>Properties</h4>
@@ -40,7 +40,7 @@
 </template>
 
 <style scoped>
-    h4 {
+    h1, h2, h3, h4, h5 {
         padding: 20px 0;
     }
 </style>
@@ -102,12 +102,8 @@
                     // Describe value
                     let default_val = p.default;
 
-                    if (default_val instanceof Function) {
-                        if (default_val.name && default_val.name !== '_default' && default_val.name !== 'default') {
-                            default_val = default_val.name + '()';
-                        } else {
-                            default_val = default_val();
-                        }
+                    if (default_val instanceof Function && !Array.isArray(default_val)) {
+                        default_val = default_val();
                     }
 
                     if (typeof default_val !== 'string') {
@@ -137,12 +133,17 @@
             githubURL() {
                 const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/components';
                 return base + '/' + _.kebabCase(this.component).replace('b-', '') + '.vue';
+            },
+            propsString() {
+                return this.props_items.map(prop => {
+                    return (this.isConst(prop.default) ? '' : ':') + prop.prop + '="' + prop.default + '"';
+                }).join('\r\n');
             }
         },
         methods: {
             isConst(str) {
                 str = str || '';
-                return ['true', 'false', '', null, '[]'].indexOf(str) === -1 && str.indexOf('[') === -1;
+                return ['true', 'false', '', null, '[]'].indexOf(str) === -1 && str.indexOf('[') === -1 && !/[0-9]+/.test(str);
             }
         }
     };

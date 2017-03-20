@@ -1,0 +1,14 @@
+<div id="app">
+    <b-btn @click="$root.$emit('show::modal','modal1')">Launch demo modal</b-btn>
+
+    <div class="mt-3 mb-3">
+        Submitted Names:
+        <ul>
+            <li v-for="n in names">{{n}}</li>
+        </ul>
+    </div>
+
+    <b-modal id="modal1" title="Submit your name" :on-save="onSave" save-title="Submit">
+        <b-form-input type="text" placeholder="Enter your name" v-model="name"></b-form-input>
+    </b-modal>
+</div>
