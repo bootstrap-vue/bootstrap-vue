@@ -8,7 +8,7 @@
             <b-nav class="bd-sidenav">
                 <b-nav-item
                         v-for="page in group.pages"
-                        :to="'/docs/'+group.slug+'/'+page.title.replace(' ','-').toLowerCase()"
+                        :to="'/docs/'+group.slug+'/'+(page.slug||(page.title.replace(' ','-').toLowerCase()))"
                         :key="group.slug"
                 >
                     {{ page.title }}
@@ -30,7 +30,7 @@
 </style>
 
 <script>
-    import site from '../data/site';
+    import site from '../..';
 
     export default {
         data() {

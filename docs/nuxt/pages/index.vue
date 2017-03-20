@@ -15,69 +15,14 @@
                 </p>
 
                 <p class="version">
-                    Currently: {{site.version}}
+                    Currently: {{site.package_info.version}}
                 </p>
 
             </div>
         </main>
 
         <div class="bd-featurette">
-            <div class="container">
-                <h2 class="bd-featurette-title">Easy to get started.</h2>
-                <p class="lead">
-                    Quickly include packaged js inside your templates or use NPM.
-                </p>
-
-                <div class="row">
-                    <div class="col-sm-6 mb-3">
-                        <h4>NPM</h4>
-
-                        <p>Install via your favorite package manager</p>
-                        <div v-code class="bash">
-                            # Using YARN
-                            yarn add bootstrap-vue
-
-                            # Using NPM
-                            npm install --save bootstrap-vue
-
-
-                        </div>
-
-                        <p>Register components</p>
-                        <div v-code class="js">
-                            import Vue from 'vue'
-                            import BootstrapVue from 'bootstrap-vue';
-
-                            Vue.use(BootstrapVue);
-
-
-                        </div>
-
-                        <div class="text-center">
-                            <br>
-                            <b-btn to="/docs" variant="secondary">
-                                <span>Learn more</span>
-                            </b-btn>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 mb-3">
-                        <h4>CDN</h4>
-                        <p>Simply include js inside your HTML templates</p>
-                        <div v-code class="html">
-                            &lt;!-- Add this after vue.js --&gt;
-                            &lt;script src=&quot;//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js&quot;&gt;&lt;/script&gt;
-
-
-                        </div>
-                        <div class="text-center">
-                            <br>
-                            <b-btn to="/docs" variant="secondary">
-                                <span>Learn more</span>
-                            </b-btn>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="container" v-html="landing"></div>
         </div>
     </div>
 </template>
@@ -89,10 +34,14 @@
 </style>
 
 <script>
-    import site from '../data/site';
+    import landing from '../../LANDING.md';
+    import site from '../..';
 
     export default {
         computed: {
+            landing() {
+                return landing;
+            },
             site() {
                 return site;
             }

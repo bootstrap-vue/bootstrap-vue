@@ -1,12 +1,14 @@
 {
+  "title": "Button",
   "component": "bButton",
   "components": [
     "bLink"
   ],
   "jsfiddle": "L9f7cmms",
-  "events": {
-    "click": {
+  "events": [
+    {
+      "event": "click",
       "description": "when clicked on button"
     }
-  }
+  ]
 }

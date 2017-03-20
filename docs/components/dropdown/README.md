@@ -1,3 +1,3 @@
-# Alerts
+# Dropdowns
 
-> Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
+> Dropdowns are toggleable, contextual overlays for displaying lists of links and more. They’re made interactive with the included Bootstrap dropdown JavaScript plugin.

@@ -27,6 +27,7 @@
     "docs-gen": "nuxt generate",
     "docs-deploy": "cd scripts && ./gh-pages",
     "lint": "xo",
+    "lint-fix": "xo --fix",
     "test": "yarn lint"
   },
   "dependencies": {
@@ -35,39 +36,28 @@
     "vue": "^2.2.3"
   },
   "devDependencies": {
-    "babel-core": "^6.24.0",
-    "babel-loader": "^6.4.0",
-    "babel-preset-es2015": "^6.24.0",
     "clean-css": "^4.0.9",
     "codemirror": "^5.24.2",
     "cross-env": "^3.2.4",
-    "css-loader": "^0.27.2",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-html": "^2.0.0",
     "eslint-plugin-vue": "^2.0.1",
+    "highlight-loader": "^0.7.2",
     "highlightjs": "^9.8.0",
     "html-loader": "^0.4.5",
     "lodash": "latest",
     "markdown-loader": "^2.0.0",
     "marked": "^0.3.6",
-    "node-sass": "^4.5.0",
     "nuxt": "^0.9.9",
-    "postcss-loader": "^1.2.2",
     "rollup": "^0.41.6",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-plugin-vue": "^2.3.1",
-    "sass-loader": "^6.0.3",
-    "uglify-js": "^2.8.13",
-    "vue-analytics": "^3.0.0",
     "vue-loader": "^11.1.4",
-    "vue-server-renderer": "^2.2.3",
     "vue-style-loader": "^2.0.2",
     "vue-template-compiler": "^2.2.3",
-    "whatwg-fetch": "^2.0.3",
-    "webpack": "^2.2.0",
     "xo": "^0.18.0"
   },
   "xo": {
@@ -79,7 +69,7 @@
       "vue"
     ],
     "ignores": [
-      "docs/plugins/ga.js"
+      "docs/nuxt/plugins/ga.js"
     ],
     "envs": [
       "node",
@@ -89,7 +79,8 @@
       "Vue"
     ],
     "rules": {
-      "camelcase": 0
+      "camelcase": 0,
+      "import/extensions": 0
     }
   },
   "keywords": [

@@ -1,6 +1,9 @@
+import package_info from '../package.json';
 import components from './components';
 
 export default {
+    package_info,
+
     nav: [
         {
             title: 'Getting started',
@@ -10,7 +13,12 @@ export default {
         {
             title: 'Components',
             slug: 'components',
-            pages: components
+            pages: Object.keys(components).map(key => {
+                return {
+                    title: components[key].meta.title,
+                    slug: key
+                };
+            })
         }
     ]
-}
+};

@@ -16,20 +16,13 @@ module.exports = {
     },
 
     build: {
-        vendor: [
-            'lodash',
-            'highlightjs',
-            'codemirror',
-            'vue/dist/vue.common',
-            'marked',
-            'whatwg-fetch'
-        ],
-        extend (config) {
+        extend(config) {
             config.module.rules.push({
                 test: /\.md$/,
                 use: [
-                    {loader: "html-loader"},
-                    {loader: "markdown-loader", options: {}}
+                    {loader: 'html-loader'},
+                    {loader: 'highlight-loader'},
+                    {loader: 'markdown-loader', options: {}}
                 ]
             });
         }
@@ -42,8 +35,6 @@ module.exports = {
     plugins: [
         '~plugins/bootstrap-vue.js',
         '~plugins/codemirror.js',
-        '~plugins/highlightjs.js',
-        '~plugins/markdown.js',
         '~plugins/ga.js'
     ],
     css: [

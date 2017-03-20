@@ -1,8 +1,9 @@
 {
+  "title": "Breadcrumb",
   "component": "bBreadcrumb",
   "jsfiddle": "aL7wdszr",
-  "events": {
-    "click": {
+  "events": [
+    {
       "event": "click",
       "args": {
         "item": {
@@ -11,5 +12,5 @@
       },
       "description": "Only if item is not active"
     }
-  }
+  ]
 }
