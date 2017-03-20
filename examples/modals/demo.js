@@ -5,7 +5,10 @@ window.app = new Vue({
         names: []
     },
     methods: {
-        onSave() {
+        clearName() {
+            this.name = "";
+        },
+        submit() {
             if (!this.name) {
                 /* eslint-disable no-alert */
                 alert('Please enter your name');

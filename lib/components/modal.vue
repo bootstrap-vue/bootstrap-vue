@@ -11,7 +11,8 @@
             <div key="modal" :id="id"
                  v-show="visible"
                  :class="['modal',{fade :fade}]"
-                 @click="onClickOut($event)">
+                 @click="onClickOut($event)"
+            >
 
                 <div :class="['modal-dialog','modal-'+size]">
                     <div class="modal-content">
@@ -33,8 +34,8 @@
 
                         <div class="modal-footer" v-if="!hideFooter">
                             <slot name="modal-footer">
-                                <b-btn variant="secondary" @click="$close">{{closeTitle}}</b-btn>
-                                <b-btn variant="primary" @click="$save">{{saveTitle}}</b-btn>
+                                <b-btn variant="secondary" @click="hide(false)">{{closeTitle}}</b-btn>
+                                <b-btn variant="primary" @click="hide(true)">{{okTitle}}</b-btn>
                             </slot>
                         </div>
 
@@ -54,9 +55,8 @@
 
     /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style*/
     .modal {
-        display:block;
+        display: block;
     }
-
 </style>
 
 <script>
@@ -80,7 +80,7 @@
             },
             title: {
                 type: String,
-                default: 'Save'
+                default: ''
             },
             size: {
                 type: String,
@@ -94,17 +94,9 @@
                 type: String,
                 default: 'Close'
             },
-            onClose: {
-                type: Function,
-                default: null
-            },
-            saveTitle: {
+            okTitle: {
                 type: String,
                 default: 'OK'
-            },
-            onSave: {
-                type: Function,
-                default: null
             },
             closeOnBackdrop: {
                 type: Boolean,
@@ -127,29 +119,23 @@
                 this.visible = true;
                 this.$root.$emit('shown::modal', this.id);
                 this.body.classList.add('modal-open');
+                this.$emit('shown');
             },
-            hide() {
+            hide(isOK) {
                 if (!this.visible) {
                     return;
                 }
                 this.visible = false;
                 this.$root.$emit('hidden::modal', this.id);
                 this.body.classList.remove('modal-open');
-            },
-            $save() {
-                if (this.onSave) {
-                    if (this.onSave() === false) {
-                        // Cancel event
-                        return;
-                    }
+
+                this.$emit('hidden', isOK);
+
+                if (isOK === true) {
+                    this.$emit('ok');
+                } else if (isOK === false) {
+                    this.$emit('cancel');
                 }
-                this.hide();
-            },
-            $close() {
-                if (this.onClose) {
-                    this.onClose();
-                }
-                this.hide();
             },
             onClickOut(e) {
                 // If backdrop clicked, hide modal

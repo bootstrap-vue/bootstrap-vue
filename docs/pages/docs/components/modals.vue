@@ -22,6 +22,24 @@
                 return {
                     component: 'bModal',
                     jsfiddle: 'bofh9aaa',
+                    events: [
+                        {
+                            event: 'shown',
+                            description: 'always emits when modal is shown'
+                        },
+                        {
+                            event: 'hidden',
+                            description: 'always emits when modal is hidden'
+                        },
+                        {
+                            event: 'ok',
+                            description: 'when default ok button pressed'
+                        },
+                        {
+                            event: 'cancel',
+                            description: 'when default cancel button pressed'
+                        }
+                    ],
                     slots: [
                         {
                             name: 'modal-header',
