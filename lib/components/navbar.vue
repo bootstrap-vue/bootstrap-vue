@@ -12,11 +12,11 @@
             classObject() {
                 return [
                     'navbar',
-                    this.type ? `navbar-${this.type}` : '',
-                    this.variant ? `bg-${this.variant}` : '',
-                    this.fixed ? `fixed-${this.fixed}` : '',
-                    this.sticky ? 'sticky-top' : '',
-                    this.toggleable ? 'navbar-toggleable-md' : ''
+                    this.type ? `navbar-${this.type}` : null,
+                    this.variant ? `bg-${this.variant}` : null,
+                    this.fixed ? `fixed-${this.fixed}` : null,
+                    this.sticky ? 'sticky-top' : null,
+                    this.toggleable ? `navbar-toggleable-${this.toggleBreakpoint}` : null
                 ];
             }
         },
@@ -31,6 +31,10 @@
             toggleable: {
                 type: Boolean,
                 default: false
+            },
+            toggleBreakpoint: {
+                type: String,
+                default: 'sm'
             },
             fixed: {
                 type: String
