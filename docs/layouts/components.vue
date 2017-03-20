@@ -1,26 +1,19 @@
 <template>
     <layout>
         <template slot="title">Components</template>
-        <template slot="lead">
-            Over a dozen reusable components built to provide buttons, dropdowns, input groups, navigation, alerts, and
-            much more.
-        </template>
-        <template slot="actions">
-            <!--<b-btn size="sm" @click="viewSrc">{{componentName}}.vue</b-btn>-->
-        </template>
         <template slot="content">
 
             <h2 class="bd-title" id="content">
                 <slot name="name"></slot>
             </h2>
 
-            <slot name="desc">
-                <p>
-                    <slot name="description"></slot>
-                </p>
-            </slot>
+            <p>
+                <slot name="description"></slot>
+            </p>
 
-            <h4>Example</h4>
+            <slot name="notes"></slot>
+
+            <h4 class="mt-4">Example</h4>
             <jsfiddle :slug="`${docs.jsfiddle}`"
                       tabs="result,html,js"
             ></jsfiddle>
@@ -32,7 +25,6 @@
         </template>
     </layout>
 </template>
-
 
 
 <script>

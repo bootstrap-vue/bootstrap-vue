@@ -4,12 +4,12 @@
             Popover
         </template>
 
-        <template slot="desc">
-            <p>
-                The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
-                element, and is customizable.
-            </p>
-            <br>
+        <template slot="description">
+            The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
+            element, and is customizable.
+        </template>
+
+        <template slot="notes">
             For more advanced usage, you can use
             <a href="https://github.com/SirLamer/click-confirm" target="_blank">Click Confirm</a>
             component by @SirLamer which is based on popover.

@@ -1,42 +1,19 @@
 <template>
     <layout>
-        <!--<div class="bd-pageheader">-->
-            <!--<div class="container">-->
-                <!--<h1>-->
-                    <!--<slot name="title"></slot>-->
-                <!--</h1>-->
-                <!--<p class="lead">-->
-                    <!--<slot name="lead"></slot>-->
-                <!--</p>-->
-            <!--</div>-->
-        <!--</div>-->
-
         <div class="container mt-4">
             <div class="row">
-
                 <div class="col-12 col-md-9 bd-content">
-
                     <b-button-group class="float-right mb-auto">
-                        <b-btn variant="secondary" size="sm" @click="issue">Report an issue</b-btn>
-                        <b-btn variant="secondary" size="sm" @click="editPage">Edit this page</b-btn>
-                        <slot variant="secondary" name="actions"></slot>
+                        <b-btn size="sm" :to="editPageURL" target="_blank">Report an issue</b-btn>
+                        <b-btn size="sm" :to="issueURL" target="_blank">Edit this page</b-btn>
                     </b-button-group>
-
                     <slot name="content"></slot>
                 </div>
-
                 <div class="col-12 col-md-3 bd-sidebar">
                     <m-sidebar></m-sidebar>
                 </div>
-
             </div>
         </div>
-
-        <!--<div class="container">-->
-        <!--<div id="disqus_script"></div>-->
-        <!--<div id="disqus_thread"></div>-->
-        <!--</div>-->
-
     </layout>
 </template>
 
@@ -46,19 +23,19 @@
 
     export default {
         components: {layout, mSidebar},
-
-        methods: {
-            editPage() {
+        computed: {
+            editPageURL() {
                 const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/docs/pages';
-                let path = window.location.pathname;
+                let path = this.$route.path;
                 if (path.endsWith('/docs') || path.endsWith('/docs/')) {
                     path += '/index';
                 }
-                const github_url = base + path + '.vue';
-                window.open(github_url, '_blank');
+                return base + path + '.vue';
             },
-            issue() {
-                window.open('https://github.com/bootstrap-vue/bootstrap-vue/issues/new', '_blank');
+            issueURL() {
+                // TODO: add appreciate query params for proper issue title
+                // (It is an undocumented gitGub feature??)
+                return 'https://github.com/bootstrap-vue/bootstrap-vue/issues/new';
             }
         }
     };
