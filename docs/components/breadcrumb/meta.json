@@ -1,0 +1,15 @@
+{
+  "component": "bBreadcrumb",
+  "jsfiddle": "aL7wdszr",
+  "events": {
+    "click": {
+      "event": "click",
+      "args": {
+        "item": {
+          "description": "The item which clicked on"
+        }
+      },
+      "description": "Only if item is not active"
+    }
+  }
+}

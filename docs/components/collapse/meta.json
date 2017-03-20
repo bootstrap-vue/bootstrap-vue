@@ -1,0 +1,13 @@
+{
+  "component": "bCollapse",
+  "jsfiddle": "f0qsxezp",
+  "events": {
+    "event": "collapse::toggle",
+    "description": "toggles when this event emits on $root",
+    "args": {
+      "id": {
+        "description": "collapse id"
+      }
+    }
+  }
+}

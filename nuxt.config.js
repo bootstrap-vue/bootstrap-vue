@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    srcDir: path.resolve(__dirname, 'docs'),
+    srcDir: path.resolve(__dirname, 'docs', 'nuxt'),
     dev: process.env.NODE_ENV !== 'production',
 
     head: {
@@ -20,8 +20,19 @@ module.exports = {
             'lodash',
             'highlightjs',
             'codemirror',
-            'vue/dist/vue.common'
-        ]
+            'vue/dist/vue.common',
+            'marked',
+            'whatwg-fetch'
+        ],
+        extend (config) {
+            config.module.rules.push({
+                test: /\.md$/,
+                use: [
+                    {loader: "html-loader"},
+                    {loader: "markdown-loader", options: {}}
+                ]
+            });
+        }
     },
 
     generate: {
@@ -32,6 +43,7 @@ module.exports = {
         '~plugins/bootstrap-vue.js',
         '~plugins/codemirror.js',
         '~plugins/highlightjs.js',
+        '~plugins/markdown.js',
         '~plugins/ga.js'
     ],
     css: [

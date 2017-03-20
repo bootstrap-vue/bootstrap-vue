@@ -27,7 +27,7 @@
     "docs-gen": "nuxt generate",
     "docs-deploy": "cd scripts && ./gh-pages",
     "lint": "xo",
-    "test":"yarn lint"
+    "test": "yarn lint"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-",
@@ -46,7 +46,10 @@
     "eslint-plugin-html": "^2.0.0",
     "eslint-plugin-vue": "^2.0.1",
     "highlightjs": "^9.8.0",
+    "html-loader": "^0.4.5",
     "lodash": "latest",
+    "markdown-loader": "^2.0.0",
+    "marked": "^0.3.6",
     "node-sass": "^4.5.0",
     "nuxt": "^0.9.9",
     "postcss-loader": "^1.2.2",
@@ -63,6 +66,7 @@
     "vue-server-renderer": "^2.2.3",
     "vue-style-loader": "^2.0.2",
     "vue-template-compiler": "^2.2.3",
+    "whatwg-fetch": "^2.0.3",
     "webpack": "^2.2.0",
     "xo": "^0.18.0"
   },
@@ -71,7 +75,7 @@
     "plugins": [
       "vue"
     ],
-    "extensions":[
+    "extensions": [
       "vue"
     ],
     "ignores": [

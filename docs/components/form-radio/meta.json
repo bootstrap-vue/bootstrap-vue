@@ -1,0 +1,12 @@
+{
+  "component": "bFormRadio",
+  "jsfiddle": "dtjL91t7",
+  "events": {
+    "input": {
+      "description": "On text input",
+      "args": {
+        "input": "New selected value"
+      }
+    }
+  }
+}

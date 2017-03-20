@@ -1,0 +1,20 @@
+{
+  "component": "bDropdown",
+  "jsfiddle": "8205xLmk",
+  "components": [
+    "bDropdownItem"
+  ],
+  "events": [
+    {
+      "event": "shown",
+      "description": ""
+    },
+    {
+      "event": "hidden",
+      "description": ""
+    },
+    {
+      "event": "click",
+      "description": "Only in split mode"}
+  ]
+}
