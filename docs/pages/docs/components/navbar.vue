@@ -20,8 +20,8 @@
             docs() {
                 return {
                     component: 'bNavbar',
-                    components: ['bNavItemDropdown', 'bNavToggle', 'bCollapse', 'bNavItem'],
-                    jsfiddle: 'qv4dzgjx'
+                    components: ['bNavItemDropdown', 'bNavToggle', 'bNavItem'],
+                    jsfiddle: 'gfqucs0z'
                 };
             }
         }
