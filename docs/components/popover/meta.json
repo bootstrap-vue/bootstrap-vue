@@ -1,0 +1,25 @@
+{
+  "title": "Popover",
+  "component": "bPopover",
+  "jsfiddle": "rx6n8d1L",
+  "events": [
+    {
+      "event": "showChange",
+      "description": "Emitted each time the Popover display status changes.",
+      "args": [
+        {
+          "arg": "newShowState",
+          "description": "Boolean representation of the new Popover show/hide status."
+        }
+      ]
+    },
+    {
+      "event": "focus",
+      "description": "When the popover receives focus, usually artificially because the user clicked/tapped on it. Intended to simulate focus being maintained on the target when desired."
+    },
+    {
+      "event": "blur",
+      "description": "When the popover loses focus."
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 const path = require('path');
+/* eslint-disable import/no-extraneous-dependencies */
 const Webpack = require('webpack');
 
 module.exports = function (env) {
