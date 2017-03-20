@@ -6,7 +6,7 @@ window.app = new Vue({
     },
     methods: {
         clearName() {
-            this.name = "";
+            this.name = '';
         },
         submit() {
             if (!this.name) {

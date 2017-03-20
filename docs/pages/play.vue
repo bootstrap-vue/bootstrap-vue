@@ -206,7 +206,7 @@ methods: {
                 ];
             },
             js_fiddle() {
-                let js = `new Vue({el:'#app',\r\n${this.js.trim()}})`.trim();
+                const js = `new Vue({el:'#app',\r\n${this.js.trim()}})`.trim();
                 return `window.onload = function() {${js}}`;
             },
             html_fiddle() {
