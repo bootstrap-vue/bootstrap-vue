@@ -106,7 +106,9 @@
 <script>
     import Vue from 'vue/dist/vue.common';
     import {debounce} from 'lodash';
-    import * as Components from '../../../lib/components';
+    import BootstrapVue from '../../../lib';
+
+    BootstrapVue.install(Vue);
 
     const exampleHTML = `
 <b-btn class="mb-4" @click="clicked">Change progress</b-btn>
@@ -242,6 +244,8 @@ methods: {
                     this.messages.splice(10);
                 }
 
+                this.originalLog(text);
+
                 this.messages.unshift([tag, text]);
             },
             run() {
@@ -273,7 +277,6 @@ methods: {
                         throw new Error(`Compiling JS: ${err}`);
                     }
                     options.el = '#result';
-                    options.components = Components;
                     options.template = `<div>${this.html}</div>`;
                     this.vm = new Vue(options);
                 } catch (err) {

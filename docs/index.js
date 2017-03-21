@@ -16,6 +16,7 @@ export default {
             pages: Object.keys(components).map(key => {
                 return {
                     title: components[key].meta.title,
+                    new: components[key].meta.new,
                     slug: key
                 };
             })

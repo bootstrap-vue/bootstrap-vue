@@ -2,6 +2,7 @@
   "title": "Collapse",
   "component": "bCollapse",
   "jsfiddle": "f0qsxezp",
+  "new": true,
   "events": [
     {
       "event": "collapse::toggle",
