@@ -1,0 +1,29 @@
+/* From Vue.JS Docs */
+.hljs {
+    overflow-x: auto;
+    position: relative;
+    background-color: #f9f9f9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+    padding: 0 0 1em 1em;
+    white-space: pre-line;
+    margin-bottom: 1em;
+}
+
+.CodeMirror {
+    background-color: #f9f9f9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+}
+
+code {
+    background: transparent !important;
+    color: #5cb85c;
+}
+
+.bd-masthead {
+    color: white;
+    background-image: linear-gradient(135deg, #4fc08d, #4fc08d);
+}
+
+.bd-masthead .lead {
+    color: white;
+}

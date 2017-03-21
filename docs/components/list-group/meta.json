@@ -1,0 +1,8 @@
+{
+  "title": "List group",
+  "component": "bListGroup",
+  "components": [
+    "bListGroupItem"
+  ],
+  "jsfiddle": "eeb2n9tv"
+}

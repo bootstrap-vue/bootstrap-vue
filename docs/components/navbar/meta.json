@@ -1,0 +1,10 @@
+{
+  "title": "Navbar",
+  "component": "bNavbar",
+  "components": [
+    "bNavItemDropdown",
+    "bNavToggle",
+    "bNavItem"
+  ],
+  "jsfiddle": "gfqucs0z"
+}

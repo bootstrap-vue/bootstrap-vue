@@ -1,1 +1,12 @@
 docs
+build
+.nuxt
+.idea
+.circleci
+*.iml
+banner.png
+.npmignore
+.babelrc
+docs-dist
+nuxt.config.js
+examples

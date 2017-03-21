@@ -1,0 +1,9 @@
+<div id="app">
+    <b-form-radio v-model="value" :items="items"></b-form-radio>
+
+    <b-form-radio v-model="value" :items="items" stacked return-object state="success"></b-form-radio>
+
+    <br>
+    <span>Selected Item: </span>
+    <span>{{value}}</span>
+</div>

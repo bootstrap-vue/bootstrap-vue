@@ -1,7 +1,6 @@
 node_modules/
 *.log
 /dist
-/build
 *.iml
 .idea
 .nuxt

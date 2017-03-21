@@ -1,11 +1,12 @@
 const path = require('path');
+const fs = require('fs');
 
 module.exports = {
-    srcDir: path.resolve(__dirname, 'docs'),
+    srcDir: path.resolve(__dirname, 'docs', 'nuxt'),
     dev: process.env.NODE_ENV !== 'production',
 
     head: {
-        title: 'Bootstrap Vue',
+        title: 'BootstrapVue',
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'}
@@ -15,18 +16,41 @@ module.exports = {
         ]
     },
 
+    loading: {
+        color: '#4fc08d'
+    },
+
+    build: {
+        extend(config) {
+            config.module.rules.push({
+                test: /\.md$/,
+                use: [
+                    {loader: 'html-loader'},
+                    {loader: 'highlight-loader'},
+                    {loader: 'markdown-loader', options: {}}
+                ]
+            });
+        }
+    },
+
     generate: {
-        dir: 'docs-dist'
+        dir: 'docs-dist',
+        routeParams: {
+            '/docs/components/:component': fs.readdirSync('docs/components').filter(c => c !== 'index.js').map(component => {
+                return {component};
+            })
+        }
     },
 
     plugins: [
         '~plugins/bootstrap-vue.js',
-        '~plugins/highlightjs.js',
+        '~plugins/codemirror.js',
         '~plugins/ga.js'
     ],
     css: [
         path.resolve(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.css'),
-        path.resolve(__dirname, 'node_modules/highlightjs/styles/atom-one-dark.css'),
+        path.resolve(__dirname, 'node_modules/highlightjs/styles/github-gist.css'),
+        path.resolve(__dirname, 'node_modules/codemirror/lib/codemirror.css'),
         '~assets/css/docs.min.css',
         '~assets/css/styles.css'
     ]
