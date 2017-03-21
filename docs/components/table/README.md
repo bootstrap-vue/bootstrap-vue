@@ -31,13 +31,13 @@ Items are real table data records. Example format:
 ]
 ```
   
-## Custom rendering
+### Custom rendering
 Custom rendering for each field is possible using **scoped slots**.
 If you want to add an extra field which does not exits on records, just add it to `fields` array.  Example:
  
 ```html
-<template slot="name" scope="name">
-      {{name.first}} {{name.last}}
+<template slot="name" scope="field">
+      {{field.name.first}} {{field.name.last}}
 </template>
 ```
 
