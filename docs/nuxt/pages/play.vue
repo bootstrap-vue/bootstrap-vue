@@ -245,7 +245,7 @@ methods: {
                 this.messages.unshift([tag, text]);
             },
             run() {
-                // commit latest changes
+                // Commit latest changes
                 this.commit();
 
                 // Destroy old VM if exists
