@@ -1,7 +1,6 @@
 {
   "title": "Modal",
   "component": "bModal",
-  "new": true,
   "jsfiddle": "bofh9aaa",
   "events": [
     {

@@ -1,26 +1,27 @@
 <template>
     <fieldset :class="['form-group',this.stacked?'custom-controls-stacked':'',inputState]">
-        <label :class="['custom-control','custom-radio']" v-for="item in items">
+        <label :class="['custom-control','custom-radio']" v-for="option in formOptions">
             <input
                     v-model="localValue"
                     class="custom-control-input"
                     type="radio"
-                    :id="item.id"
+                    :id="option.id"
                     :name="name"
-                    :value="item[valueKey]"
-                    :disabled="item.disabled"
+                    :value="option.value"
+                    :disabled="option.disabled"
             >
             <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">{{item[textKey]}}</span>
+            <span class="custom-control-description" v-html="option.text"></span>
         </label>
     </fieldset>
 </template>
 
 
 <script>
-    import {uniqueId} from '../utils/helpers';
+    import formOptions from '../mixins/form_options';
 
     export default {
+        mixins: [formOptions],
         data() {
             return {
                 localValue: this.value
@@ -32,24 +33,10 @@
             }
         },
         props: {
-            value: {
-                default: null
-            },
-            valueKey: {
-                type: String,
-                default: 'value'
-            },
-            textKey: {
-                type: String,
-                default: 'text'
-            },
-            name: {
-                type: String,
-                default: uniqueId
-            },
-            items: {
-                type: Array,
-                default: () => [],
+            value: {},
+            options: {
+                type: [Array, Object],
+                default: null,
                 required: true
             },
             stacked: {
@@ -63,21 +50,6 @@
             returnObject: {
                 type: Boolean,
                 default: false
-            }
-        },
-        watch: {
-            localValue(value, old_value) {
-                if (value === old_value) {
-                    return;
-                }
-                if (this.returnObject) {
-                    this.items.forEach(item => {
-                        if (item.value === value) {
-                            value = item;
-                        }
-                    });
-                }
-                this.$emit('input', value);
             }
         }
     };
