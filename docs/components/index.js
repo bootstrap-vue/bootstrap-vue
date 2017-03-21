@@ -11,6 +11,7 @@ export default {
     'dropdown': require('./dropdown').default,
     'form-checkbox': require('./form-checkbox').default,
     'form-fieldset': require('./form-fieldset').default,
+    'form-file': require('./form-file').default,
     'form-input': require('./form-input').default,
     'form-radio': require('./form-radio').default,
     'form-select': require('./form-select').default,

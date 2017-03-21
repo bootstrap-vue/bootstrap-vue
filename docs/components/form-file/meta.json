@@ -1,0 +1,15 @@
+{
+  "title": "Form File",
+  "component": "bFormFile",
+  "jsfiddle": "3dw5djb1",
+  "events": [
+    {
+      "event": "change",
+      "description": "original change event on input"
+    },
+    {
+      "event": "input",
+      "description": "returns first selected file or null if deselected"
+    }
+  ]
+}
