@@ -6,8 +6,8 @@
             <div class="row">
                 <div class="col-12 col-md-9 bd-content">
                     <b-button-group class="float-right mb-2">
-                        <b-btn size="sm" :to="issueURL" target="_blank">Report an issue</b-btn>
-                        <b-btn size="sm" :to="editPageURL" target="_blank">Edit this page</b-btn>
+                        <b-btn size="sm" :href="issueURL" target="_blank">Report an issue</b-btn>
+                        <b-btn size="sm" :href="editPageURL" target="_blank">Edit this page</b-btn>
                     </b-button-group>
                     <br>
 
