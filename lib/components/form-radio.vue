@@ -6,7 +6,6 @@
                     class="custom-control-input"
                     type="radio"
                     :id="option.id"
-                    :name="name"
                     :value="option.value"
                     :disabled="option.disabled"
             >
