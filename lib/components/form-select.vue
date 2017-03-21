@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import formOptions from '../mixins/form_options';
+    import formOptions from '../mixins/form-options';
 
     export default {
         mixins: [formOptions],
