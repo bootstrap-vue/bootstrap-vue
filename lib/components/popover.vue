@@ -174,10 +174,10 @@
                     targetAttachment: this.placementParameters.targetAttachment
                 };
             },
-            
+
             setPopoverStyle() {
                 return this.popoverStyle;
-            },
+            }
 
         },
 
