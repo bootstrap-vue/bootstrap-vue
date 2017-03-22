@@ -54,10 +54,10 @@
             class: ['class']
         },
         created() {
-            // to keep one dropdown opened at page
+            // To keep one dropdown opened at page
             this.$root.$on('shown::dropdown', el => {
                 if (el !== this) {
-                    this.close()
+                    this.close();
                 }
             });
         },
@@ -79,14 +79,14 @@
                 this.visible = !this.visible;
             },
             open() {
-                this.visible = true
+                this.visible = true;
             },
             close() {
-                this.visible = false
+                this.visible = false;
             },
             clickOutListener() {
-                this.close()
-            },
+                this.close();
+            }
         }
     };
 </script>
