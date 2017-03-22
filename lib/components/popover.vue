@@ -177,7 +177,7 @@
             popoverMaxWidth() {
                 var sizing = {
                     'v-sm': '75px',
-                    'sm': '250px',
+                    'sm': '276px',
                     'md': '450px',
                     'lg': '575px',
                     'v-lg': '750px',
