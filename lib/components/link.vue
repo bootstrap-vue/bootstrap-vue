@@ -36,7 +36,7 @@
         },
         methods: {
             click() {
-                this.$emit('click')
+                this.$emit('click');
             }
         }
     };
