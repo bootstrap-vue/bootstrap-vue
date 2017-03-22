@@ -2,7 +2,7 @@
     <div>
         <span ref="trigger"><slot></slot></span>
 
-        <div tabindex="-1" :class="['popover',popoverAlignment]" ref="popover" @focus="$emit('focus')" @blur="$emit('blur')" :style="setPopoverStyle">
+        <div tabindex="-1" :class="['popover',popoverAlignment]" ref="popover" @focus="$emit('focus')" @blur="$emit('blur')" :style="popoverStyle">
             <div class="popover-arrow"></div>
             <h3 class="popover-title" v-if="title" v-html="title"></h3>
             <div class="popover-content">
@@ -105,12 +105,7 @@
             },
             popoverStyle: {
                 type: Object,
-                default() {
-                    return null;
-                },
-                validator(value) {
-                    return (typeof value === 'object');
-                }
+                default: null
             }
         },
 
@@ -173,12 +168,7 @@
                     attachment: this.placementParameters.attachment,
                     targetAttachment: this.placementParameters.targetAttachment
                 };
-            },
-
-            setPopoverStyle() {
-                return this.popoverStyle;
             }
-
         },
 
         watch: {
