@@ -1,5 +1,5 @@
 <template>
-    <a :is="componentType" :active-class="activeClass" :to="to" :href="hrefString" :exact="exact">
+    <a :is="componentType" :active-class="activeClass" :to="to" :href="hrefString" :exact="exact" @click="click">
         <slot></slot>
     </a>
 </template>
@@ -32,6 +32,11 @@
             exact: {
                 type: Boolean,
                 default: false
+            }
+        },
+        methods: {
+            click() {
+                this.$emit('click');
             }
         }
     };
