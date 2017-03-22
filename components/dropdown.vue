@@ -10,7 +10,7 @@
                   :size="size"
                   :disabled="disabled">
             <slot name="text">
-                {{text}}
+                <span v-html="text"></span>
             </slot>
         </b-button>
 
