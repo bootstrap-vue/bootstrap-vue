@@ -109,7 +109,7 @@
                     return null;
                 },
                 validator(value) {
-                    return typeof value === 'object';
+                    return (typeof value === 'object');
                 }
             }
         },
