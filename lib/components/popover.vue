@@ -110,7 +110,7 @@
                 },
                 validator(value) {
                     return typeof value === 'object';
-                },
+                }
             }
         },
 
