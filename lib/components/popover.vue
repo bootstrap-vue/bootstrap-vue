@@ -2,7 +2,7 @@
     <div>
         <span ref="trigger"><slot></slot></span>
 
-        <div tabindex="-1" :class="['popover',popoverAlignment]" ref="popover" @focus="$emit('focus')" @blur="$emit('blur')" v-bind:style="popoverMaxWidth">
+        <div tabindex="-1" :class="['popover',popoverAlignment]" ref="popover" @focus="$emit('focus')" @blur="$emit('blur')" :style="setPopoverStyle">
             <div class="popover-arrow"></div>
             <h3 class="popover-title" v-if="title" v-html="title"></h3>
             <div class="popover-content">
@@ -103,12 +103,14 @@
                     return value >= 0;
                 }
             },
-            maxwidth: {
-                type: String,
-                default: 'sm',
+            popoverStyle: {
+                type: Object,
+                default() {
+                    return null;
+                },
                 validator(value) {
-                    return ['v-sm', 'sm', 'md', 'lg', 'v-lg'].indexOf(value) !== -1;
-                }
+                    return typeof value === 'object';
+                },
             }
         },
 
@@ -172,22 +174,11 @@
                     targetAttachment: this.placementParameters.targetAttachment
                 };
             },
-
-            //Sets max-width manually for each option
-            popoverMaxWidth() {
-                var sizing = {
-                    'v-sm': '75px',
-                    'sm': '276px',
-                    'md': '450px',
-                    'lg': '575px',
-                    'v-lg': '750px',
-                };
-
-                return {
-                    'max-width': sizing[this.maxwidth],
-                };
-            }
             
+            setPopoverStyle() {
+                return this.popoverStyle;
+            },
+
         },
 
         watch: {
