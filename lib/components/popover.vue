@@ -103,7 +103,7 @@
                     return value >= 0;
                 }
             },
-            maxWidth: {
+            maxwidth: {
                 type: String,
                 default: 'sm',
                 validator(value) {
@@ -176,7 +176,7 @@
             //Sets max-width manually for each option
             popoverMaxWidth() {
                 var sizing = {
-                    'v-sm': '100px',
+                    'v-sm': '75px',
                     'sm': '250px',
                     'md': '450px',
                     'lg': '575px',
@@ -184,7 +184,7 @@
                 };
 
                 return {
-                    'max-width': sizing[this.maxWidth],
+                    'max-width': sizing[this.maxwidth],
                 };
             }
             
