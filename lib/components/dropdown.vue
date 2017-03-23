@@ -2,7 +2,7 @@
     <div :class="['dropdown','btn-group',visible?'show':'',dropup?'dropup':'']">
 
         <b-button :class="[split?'':'dropdown-toggle']"
-                  @click.native="click"
+                  @click="click"
                   aria-haspopup="true"
                   :aria-expanded="visible"
                   :variant="variant"
