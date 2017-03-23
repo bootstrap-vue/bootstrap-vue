@@ -171,16 +171,16 @@ methods: {
                 this.originalError = console.error;
                 const self = this;
 
-                console.warn = function (text) {
-                    self.log('warning', text);
+                console.warn = function () {
+                    self.log('warning', arguments);
                 };
 
-                console.log = function (text) {
-                    self.log('info', text);
+                console.log = function () {
+                    self.log('info', arguments);
                 };
 
-                console.error = function (text) {
-                    self.log('danger', text);
+                console.error = function () {
+                    self.log('danger', arguments);
                 };
             }
         },
@@ -216,37 +216,18 @@ methods: {
             }
         },
         methods: {
-            log(tag, text) {
-                if (!text) {
-                    return;
+            log(tag, args) {
+                const argsArr = [tag];
+                for (let i = 0; i < args.length; i++) {
+                    argsArr.push(args[i]);
                 }
 
-                if (!text.indexOf) {
-                    text = String(text);
-                }
-
-                if (text.indexOf('[HMR]') !== -1) {
-                    return;
-                }
-
-                // There is a bug when having more than 2 vue instances in detecting mutations.
-                if (text.indexOf('Avoid mutating a prop directly') !== -1) {
-                    return;
-                }
-
-                if (text.indexOf('[Vue warn]') !== -1) {
-                    tag = 'warning';
-                }
-
-                text = text.replace('[Vue warn]: ', '');
+                this.originalLog.apply(console, argsArr);
 
                 if (this.messages.length > 10) {
                     this.messages.splice(10);
                 }
-
-                this.originalLog(text);
-
-                this.messages.unshift([tag, text]);
+                this.messages.unshift([argsArr.shift(), argsArr.map(JSON.stringify).join(' ')]);
             },
             run() {
                 // Commit latest changes
