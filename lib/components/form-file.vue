@@ -134,9 +134,9 @@
                 // Can be disabled by setting no-traverse
                 const items = e.dataTransfer && e.dataTransfer.items;
                 if (items && !this.noTraverse) {
-                    let queue = [];
+                    const queue = [];
                     for (let i = 0; i < items.length; i++) {
-                        let item = items[i].webkitGetAsEntry();
+                        const item = items[i].webkitGetAsEntry();
                         if (item) {
                             queue.push(this.traverseFileTree(item));
                         }
