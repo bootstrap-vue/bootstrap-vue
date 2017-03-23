@@ -120,7 +120,7 @@
             onFileChange(e) {
                 const files = e.target.files || e.dataTransfer.files;
                 this.$emit('change', files);
-                
+
                 if (!files) {
                     this.selectedFile = null;
                     return;
