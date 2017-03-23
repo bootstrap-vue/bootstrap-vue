@@ -127,9 +127,30 @@
         },
         methods: {
             onFileChange(e) {
-                const files = e.target.files || e.dataTransfer.files;
-                this.$emit('change', files);
+                // Always emit original event
+                this.$emit('change', e);
 
+                // Check if special `items` prop is available on event (drop mode)
+                // Can be disabled by setting no-traverse
+                const items = e.dataTransfer && e.dataTransfer.items;
+                if (items && !this.noTraverse) {
+                    let queue = [];
+                    for (let i = 0; i < items.length; i++) {
+                        let item = items[i].webkitGetAsEntry();
+                        if (item) {
+                            queue.push(this.traverseFileTree(item));
+                        }
+                    }
+                    Promise.all(queue).then(filesArr => {
+                        this.setFiles(Array.prototype.concat.apply([], filesArr));
+                    });
+                    return;
+                }
+
+                // Normal handling
+                this.setFiles(e.target.files || e.dataTransfer.files);
+            },
+            setFiles(files) {
                 if (!files) {
                     this.selectedFile = null;
                     return;
@@ -165,6 +186,30 @@
                 if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
                     this.onFileChange(e);
                 }
+            },
+            traverseFileTree(item, path) {
+                // Based on http://stackoverflow.com/questions/3590058
+                return new Promise(resolve => {
+                    path = path || '';
+                    if (item.isFile) {
+                        // Get file
+                        item.file(file => {
+                            file.$path = path; // Inject $path to file obj
+                            resolve(file);
+                        });
+                    } else if (item.isDirectory) {
+                        // Get folder contents
+                        item.createReader().readEntries(entries => {
+                            const queue = [];
+                            for (let i = 0; i < entries.length; i++) {
+                                queue.push(this.traverseFileTree(entries[i], path + item.name + '/'));
+                            }
+                            Promise.all(queue).then(filesArr => {
+                                resolve(Array.prototype.concat.apply([], filesArr));
+                            });
+                        });
+                    }
+                });
             }
         },
         props: {
@@ -185,6 +230,10 @@
                 default: false
             },
             directory: {
+                type: Boolean,
+                default: false
+            },
+            noTraverse: {
                 type: Boolean,
                 default: false
             },
