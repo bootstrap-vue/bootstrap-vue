@@ -14,7 +14,7 @@
         data() {
             return {
                 target: null
-            }
+            };
         },
         computed: {
             inputState() {
