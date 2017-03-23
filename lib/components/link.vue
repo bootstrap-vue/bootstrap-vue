@@ -35,8 +35,9 @@
             }
         },
         methods: {
-            click() {
-                this.$emit('click');
+            click(e) {
+                this.$emit('click', e);
+                this.$root.$emit('shown::dropdown', this)
             }
         }
     };

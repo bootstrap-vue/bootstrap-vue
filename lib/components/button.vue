@@ -66,8 +66,8 @@
             }
         },
         methods: {
-            onclick() {
-                this.$emit('click');
+            onclick(e) {
+                this.$emit('click', e);
             }
         }
     };

@@ -2,7 +2,7 @@
     <div :class="['dropdown','btn-group',visible?'show':'',dropup?'dropup':'']">
 
         <b-button :class="[split?'':'dropdown-toggle']"
-                  @click="click"
+                  @click.native="click"
                   aria-haspopup="true"
                   :aria-expanded="visible"
                   :variant="variant"
@@ -101,9 +101,10 @@
             clickOutListener() {
                 this.visible = false;
             },
-            click() {
+            click(e) {
                 if (this.split) {
-                    this.$emit('click');
+                    this.$emit('click', e);
+                    this.$root.$emit('shown::dropdown', this);
                 } else {
                     this.toggle();
                 }
