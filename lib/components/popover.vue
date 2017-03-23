@@ -259,7 +259,9 @@
              */
             refreshPosition() {
                 if (this.showState === true) {
-                    this._tether.position();
+                    this.$nextTick(() => {
+                        this._tether.position();
+                    });
                 }
             },
 
