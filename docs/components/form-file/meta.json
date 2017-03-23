@@ -1,6 +1,7 @@
 {
   "title": "Form File",
   "component": "bFormFile",
+  "new": "true",
   "jsfiddle": "3dw5djb1",
   "events": [
     {
@@ -9,7 +10,7 @@
     },
     {
       "event": "input",
-      "description": "returns first selected file or null if deselected"
+      "description": "[see above docs]"
     }
   ]
 }

@@ -4,8 +4,8 @@
     <br> Selected file: {{file && file.name}}
 
     <div class="mt-3">
-        <!-- Customized labels -->
-        <b-form-file v-model="file2" browse-label="Attachment2"></b-form-file>
-        <br> Selected file : {{file2 && file2.name}}
+        <!-- Multiple files -->
+        <b-form-file v-model="files" multiple></b-form-file>
+        <br> Selected file : {{files.map(f=>f.name).join(',')}}
     </div>
 </div>

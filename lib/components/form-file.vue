@@ -1,44 +1,119 @@
 <template>
-    <label :lang="lang" :class="['custom-file',unique_class]">
+    <label class="custom-file" @dragover.stop.prevent="dragover">
 
-        <!-- Inject strings -->
-        <style>
-            .{{unique_class}} .custom-file-control::after {
-                content: "{{selectedLabel}}" !important;
-            }
+        <!-- Drop Here Target -->
+        <span
+                class="drop-here"
+                v-if="dragging"
+                @dragover.stop.prevent="dragover"
+                @drop.stop.prevent="drop"
+                @dragleave.stop.prevent="dragging=false"
+                :data-drop="dropLabel"
+        ></span>
 
-            .{{unique_class}} .custom-file-control::before {
-                content: "{{chooseLabel}}" !important;
-            }
-        </style>
+        <!-- Real Form input -->
+        <input type="file"
+               :id="id"
+               class="custom-file-input"
+               @change="onFileChange"
+               :multiple="multiple"
+               :webkitdirectory="directory"
+               ref="input"
+        >
 
-        <input type="file" :id="id" class="custom-file-input" @change="onFileChange">
-        <span class="custom-file-control"></span>
+        <!-- Overlay Labels -->
+        <span :class="['custom-file-control',dragging?'dragging':null]"
+              :data-choose="computedChooseLabel"
+              :data-selected="selectedLabel"
+        ></span>
 
     </label>
 </template>
+
+<style>
+    .custom-file-control {
+        overflow: hidden;
+    }
+
+    .custom-file-control {
+        overflow: hidden;
+    }
+
+    .custom-file-control.dragging {
+        overflow: hidden;
+        filter: blur(3px);
+    }
+
+    .custom-file-control::after {
+        content: attr(data-selected);
+    }
+
+    .custom-file-control::before {
+        content: attr(data-choose);
+    }
+
+    .custom-file .drop-here {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, .5);
+        border-radius: 3px;
+        z-index: 99999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .custom-file .drop-here::before {
+        color: white;
+        content: attr(data-drop);
+    }
+
+</style>
 
 <script>
     export default {
         data() {
             return {
-                selectedFile: null
+                selectedFile: null,
+                dragging: false
             };
         },
         computed: {
             selectedLabel() {
-                if (!this.selectedFile) {
-                    return this.browseLabel;
+                if (!this.selectedFile || this.selectedFile.length === 0) {
+                    return this.emptyLabel || 'No file chosen';
                 }
+
+                if (this.multiple) {
+                    if (this.selectedFile.length === 1) {
+                        return this.selectedFile[0].name;
+                    }
+
+                    return this.selectedFormat
+                        .replace(':names', this.selectedFile.map(file => file.name).join(','))
+                        .replace(':count', this.selectedFile.length);
+                }
+
                 return this.selectedFile.name;
             },
-            unique_class() {
-                return 'form_file_' + this._uid;
+            computedChooseLabel() {
+                return this.chooseLabel || (this.multiple ? 'Choose Files' : 'Choose File');
             }
         },
         watch: {
-            selectedFile(newVal) {
-                this.$emit('input', newVal);
+            selectedFile(newVal, oldVal) {
+                if (newVal === oldVal) {
+                    return;
+                }
+
+                if (!newVal && this.multiple) {
+                    this.$emit('input', []);
+                } else {
+                    this.$emit('input', newVal);
+                }
             }
         },
         methods: {
@@ -47,12 +122,41 @@
 
                 const files = e.target.files || e.dataTransfer.files;
 
-                if (!files || files.length === 0) {
+                if (!files) {
                     this.selectedFile = null;
                     return;
                 }
 
-                this.selectedFile = files[0];
+                if (!this.multiple) {
+                    this.selectedFile = files[0];
+                    return;
+                }
+
+                // Convert files to array
+                const filesArray = [];
+                for (let i = 0; i < files.length; i++) {
+                    filesArray.push(files[i]);
+                }
+
+                this.selectedFile = filesArray;
+            },
+            dragover(e) {
+                if (this.noDrop) {
+                    return;
+                }
+
+                this.dragging = true;
+                e.dataTransfer.dropEffect = 'copy';
+            },
+            drop(e) {
+                if (this.noDrop) {
+                    return;
+                }
+
+                this.dragging = false;
+                if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                    this.onFileChange(e);
+                }
             }
         },
         props: {
@@ -60,17 +164,33 @@
                 type: String,
                 default: null
             },
-            lang: {
+            emptyLabel: {
                 type: String,
-                default: 'en'
-            },
-            browseLabel: {
-                type: String,
-                default: 'Browse'
+                default: null
             },
             chooseLabel: {
                 type: String,
-                default: 'Choose file...'
+                default: null
+            },
+            multiple: {
+                type: Boolean,
+                default: false
+            },
+            directory: {
+                type: Boolean,
+                default: false
+            },
+            selectedFormat: {
+                type: String,
+                default: ':count Files'
+            },
+            noDrop: {
+                type: Boolean,
+                default: false
+            },
+            dropLabel: {
+                type: String,
+                default: 'Drop files here'
             }
         }
     };
