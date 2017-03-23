@@ -37,7 +37,7 @@
         methods: {
             click(e) {
                 this.$emit('click', e);
-                this.$root.$emit('shown::dropdown', this)
+                this.$root.$emit('shown::dropdown', this);
             }
         }
     };
