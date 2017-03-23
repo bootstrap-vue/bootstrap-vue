@@ -19,7 +19,7 @@ be relied for production.
 
 ### Customizations
 Language strings and chosen file name is injected using `data-` props to css `content`. 
-Local customization can be easily done with provided props such as `empty-label`, `choose-label`, `selected-format` and `drop-label`.
+Local customization can be easily done with provided props such as `placeholder`, `choose-label`, `selected-format` and `drop-label`.
 If you want to globally change labels, you can add something like this to your global stylesheets.
 Also it is advised to use [:lang()](https://developer.mozilla.org/en-US/docs/Web/CSS/:lang) for multi-language sites.
 

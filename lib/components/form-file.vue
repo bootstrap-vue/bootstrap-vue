@@ -1,30 +1,36 @@
 <template>
-    <label class="custom-file" @dragover.stop.prevent="dragover">
+    <label :class="[custom?'custom-file':null,inputClass]"
+           @dragover.stop.prevent="dragover"
+    >
 
         <!-- Drop Here Target -->
-        <span
-                class="drop-here"
-                v-if="dragging"
-                @dragover.stop.prevent="dragover"
-                @drop.stop.prevent="drop"
-                @dragleave.stop.prevent="dragging=false"
-                :data-drop="dropLabel"
+        <span class="drop-here"
+              v-if="dragging"
+              @dragover.stop.prevent="dragover"
+              @drop.stop.prevent="drop"
+              @dragleave.stop.prevent="dragging=false"
+              :data-drop="dropLabel"
         ></span>
 
         <!-- Real Form input -->
         <input type="file"
+               :name="name"
                :id="id"
+               :disabled="disabled"
+               ref="input"
+               :accept="accept"
+
                class="custom-file-input"
                @change="onFileChange"
                :multiple="multiple"
                :webkitdirectory="directory"
-               ref="input"
         >
 
         <!-- Overlay Labels -->
-        <span :class="['custom-file-control',dragging?'dragging':null]"
+        <span :class="['custom-file-control',dragging?'dragging':null,inputClass]"
               :data-choose="computedChooseLabel"
               :data-selected="selectedLabel"
+              v-if="custom"
         ></span>
 
     </label>
@@ -74,7 +80,10 @@
 </style>
 
 <script>
+    import formMixin from '../mixins/form';
+
     export default {
+        mixins: [formMixin],
         data() {
             return {
                 selectedFile: null,
@@ -84,7 +93,7 @@
         computed: {
             selectedLabel() {
                 if (!this.selectedFile || this.selectedFile.length === 0) {
-                    return this.emptyLabel || 'No file chosen';
+                    return this.placeholder || 'No file chosen';
                 }
 
                 if (this.multiple) {
@@ -159,11 +168,11 @@
             }
         },
         props: {
-            id: {
+            accept: {
                 type: String,
                 default: null
             },
-            emptyLabel: {
+            placeholder: {
                 type: String,
                 default: null
             },
