@@ -155,7 +155,7 @@
                     this.selectedFile = null;
                     return;
                 }
-
+;
                 if (!this.multiple) {
                     this.selectedFile = files[0];
                     return;
@@ -164,8 +164,9 @@
                 // Convert files to array
                 const filesArray = [];
                 for (let i = 0; i < files.length; i++) {
-                    filesArray.push(files[i]);
+                    files[i].type.match(this.accept) && filesArray.push(files[i]);
                 }
+
 
                 this.selectedFile = filesArray;
             },
@@ -215,7 +216,7 @@
         props: {
             accept: {
                 type: String,
-                default: null
+                default: ''
             },
             placeholder: {
                 type: String,
