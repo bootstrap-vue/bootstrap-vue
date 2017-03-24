@@ -164,7 +164,9 @@
                 // Convert files to array
                 const filesArray = [];
                 for (let i = 0; i < files.length; i++) {
-                    if (files[i].type.match(this.accept)) filesArray.push(files[i]);
+                    if (files[i].type.match(this.accept)) {
+                        filesArray.push(files[i])
+                    }
                 }
 
                 this.selectedFile = filesArray;
