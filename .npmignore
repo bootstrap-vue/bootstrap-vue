@@ -8,5 +8,5 @@ banner.png
 .npmignore
 .babelrc
 docs-dist
-nuxt.config.js
+build/nuxt.config.js
 examples
