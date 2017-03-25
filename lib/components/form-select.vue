@@ -1,5 +1,11 @@
 <template>
-    <select :class="['form-control','custom-select',inputSize]" v-model="localValue" :disabled="disabled">
+    <select :class="[inputClass,custom?'custom-select':null]"
+            :name="name"
+            :id="id"
+            v-model="localValue"
+            :disabled="disabled"
+            ref="input"
+    >
         <option v-for="option in formOptions"
                 :value="option.value"
                 v-html="option.text"
@@ -10,32 +16,20 @@
 
 <script>
     import formOptions from '../mixins/form-options';
+    import formMixin from '../mixins/form';
 
     export default {
-        mixins: [formOptions],
+        mixins: [formMixin, formOptions],
         data() {
             return {
                 localValue: this.value
             };
-        },
-        computed: {
-            inputSize() {
-                return this.size ? `form-control-${this.size}` : null;
-            }
         },
         props: {
             value: {},
             options: {
                 type: [Array, Object],
                 required: true
-            },
-            size: {
-                type: String,
-                default: ''
-            },
-            disabled: {
-                type: Boolean,
-                default: false
             },
             returnObject: {
                 type: Boolean,

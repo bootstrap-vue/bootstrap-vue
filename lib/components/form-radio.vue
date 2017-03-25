@@ -1,26 +1,32 @@
 <template>
-    <fieldset :class="['form-group',this.stacked?'custom-controls-stacked':'',inputState]">
-        <label :class="['custom-control','custom-radio']" v-for="option in formOptions">
+    <div :class="[inputClass,this.stacked?'custom-controls-stacked':'']">
+        <label :class="[checkboxClass,custom?'custom-radio':null]" v-for="option in formOptions">
             <input
                     v-model="localValue"
-                    class="custom-control-input"
+                    :class="custom?'custom-control-input':null"
                     type="radio"
-                    :id="option.id"
                     :value="option.value"
+                    :name="option.name"
+                    :id="option.id"
                     :disabled="option.disabled"
+                    ref="inputs"
             >
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description" v-html="option.text"></span>
+
+            <span class="custom-control-indicator" v-if="custom"></span>
+
+            <span :class="custom?'custom-control-description':null" v-html="option.text"></span>
+
         </label>
-    </fieldset>
+    </div>
 </template>
 
-
 <script>
-    import formOptions from '../mixins/form-options';
+    import formOptionsMixin from '../mixins/form-options';
+    import formMixin from '../mixins/form';
+    import formCheckBoxMixin from '../mixins/form-checkbox';
 
     export default {
-        mixins: [formOptions],
+        mixins: [formMixin, formCheckBoxMixin, formOptionsMixin],
         data() {
             return {
                 localValue: this.value
@@ -41,10 +47,6 @@
             stacked: {
                 type: Boolean,
                 default: false
-            },
-            state: {
-                type: String,
-                default: null
             },
             returnObject: {
                 type: Boolean,
