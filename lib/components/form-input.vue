@@ -16,6 +16,8 @@
             @input="onInput($event.target.value)"
             @change="onChange($event.target.value)"
             @keyup="onKeyUp($event)"
+            @focus="$emit('focus')"
+            @blur="$emit('blur')"
     />
 </template>
 
