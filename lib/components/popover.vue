@@ -216,6 +216,14 @@
 
             constraints() {
                 this.setOptions();
+            },
+
+            content() {
+                this.refreshPosition();
+            },
+
+            title() {
+                this.refreshPosition();
             }
         },
 
@@ -235,7 +243,7 @@
                 this._tether = new Tether(this.tetherOptions);
 
                 // Make sure the popup is rendered in the correct location
-                this._tether.position();
+                this.refreshPosition();
 
                 this.$root.$emit('shown::popover');
             },
@@ -250,6 +258,17 @@
             },
 
             /**
+             * Refresh the Popover position in order to respond to changes
+             */
+            refreshPosition() {
+                if (this.showState === true) {
+                    this.$nextTick(() => {
+                        this._tether.position();
+                    });
+                }
+            },
+
+            /**
              * Hide popover and fire event
              */
             hidePopover() {
@@ -259,6 +278,7 @@
 
                 if (this._tether) {
                     this._tether.destroy();
+                    this._tether = null;
                 }
             },
 
