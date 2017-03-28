@@ -68,7 +68,7 @@
                     return;
                 }
 
-                this.tabs.forEach((item) => {
+                this.tabs.forEach(item => {
                     this.$set(item, 'fade', val);
                 });
             }
