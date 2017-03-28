@@ -2791,7 +2791,7 @@ html-loader@^0.4.5:
     loader-utils "^1.0.2"
     object-assign "^4.1.0"
 
-html-minifier@^3.0.1, html-minifier@^3.2.3:
+html-minifier@^3.0.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/html-minifier/-/html-minifier-3.4.1.tgz#0bf3c54d7f116d500b78c51fc4246039922dc250"
   dependencies:
@@ -2804,7 +2804,7 @@ html-minifier@^3.0.1, html-minifier@^3.2.3:
     relateurl "0.2.x"
     uglify-js "2.8.x"
 
-html-minifier@^3.4.2:
+html-minifier@^3.2.3, html-minifier@^3.4.2:
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/html-minifier/-/html-minifier-3.4.2.tgz#31896baaf735c1d95f7a0b7291f9dc36c0720752"
   dependencies:
@@ -5822,7 +5822,7 @@ vue-style-loader@^2.0.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@*, vue-template-compiler@^2.2.5:
+vue-template-compiler@*, vue-template-compiler@2.2.5, vue-template-compiler@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.2.5.tgz#71b1366c3f716e8137a87f82591de9f816609b57"
   dependencies:
@@ -5839,11 +5839,7 @@ vue-template-validator@^1.1.5:
   dependencies:
     chalk "^1.1.1"
 
-vue@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.5.tgz#528eba68447d7eff99f86767b31176aa656c6963"
-
-vue@^2.2.6:
+vue@^2.2.5, vue@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.6.tgz#451714b394dd6d4eae7b773c40c2034a59621aed"
 
