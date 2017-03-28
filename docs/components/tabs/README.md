@@ -18,9 +18,7 @@
 
 **Cards Integration**
 
-Tabs support integrating with cards. Just add `card` prop!
-
-Note that you should add `no-block` prop on `<b-card>` element in order to decorate header.
+Tabs support integrating with bootstrap cards. Just add `card` property. Note that you should add `no-block` prop on `<b-card>` element in order to decorate header.
 
 ```html
 <b-card no-block>
@@ -34,9 +32,9 @@ Note that you should add `no-block` prop on `<b-card>` element in order to decor
 
 **Pills variant**
 
-Just add `nav-style="pills"` property to tabs component.
+Just add `pills` property to tabs component.
 
 **Fade**
 
-Fade is enabled by default when changing tabs. It can disabled with `no-fade` prop.
+Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
 
