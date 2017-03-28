@@ -48,14 +48,14 @@
     "lodash": "latest",
     "markdown-loader": "^2.0.0",
     "marked": "^0.3.6",
-    "nuxt": "^0.10.5",
+    "nuxt": "0.10.5",
     "rollup": "^0.41.6",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-plugin-vue": "^2.3.1",
-    "vue-template-compiler":"2.2.5",
+    "vue-template-compiler":">=2.2.6",
     "xo": "^0.18.1"
   },
   "xo": {

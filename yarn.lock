@@ -3877,7 +3877,7 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-nuxt@^0.10.5:
+nuxt@0.10.5:
   version "0.10.5"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-0.10.5.tgz#1e31a85c39f2af94821b85beede2afd208c525c1"
   dependencies:
@@ -5822,9 +5822,9 @@ vue-style-loader@^2.0.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@*, vue-template-compiler@2.2.5, vue-template-compiler@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.2.5.tgz#71b1366c3f716e8137a87f82591de9f816609b57"
+vue-template-compiler@*, vue-template-compiler@>=2.2.6, vue-template-compiler@^2.2.5:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.2.6.tgz#2e2928daf0cd0feca9dfc35a9729adeae173ec68"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
