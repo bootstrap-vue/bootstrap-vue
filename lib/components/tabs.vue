@@ -82,7 +82,7 @@
                 return !this.noFade;
             },
             navStyle() {
-                return this.pills ? 'pills' : 'tabs'
+                return this.pills ? 'pills' : 'tabs';
             }
         },
         methods: {
@@ -153,7 +153,7 @@
             });
 
             this.setTab(tabIndex, true);
-        },
+        }
     };
 
 </script>

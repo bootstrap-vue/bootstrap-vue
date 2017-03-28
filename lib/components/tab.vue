@@ -22,7 +22,7 @@
                 fade: false,
                 localActive: false,
                 lazy: true
-            }
+            };
         },
         props: {
             id: {
