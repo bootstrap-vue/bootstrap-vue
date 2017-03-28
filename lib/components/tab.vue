@@ -9,10 +9,10 @@
 <script>
 export default {
     replace: true,
-    methods:{
-        afterEnter(el){
+    methods: {
+        afterEnter(el) {
             el.classList.add('show');
-        },
+        }
     },
     data() {
         return {
