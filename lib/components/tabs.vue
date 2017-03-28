@@ -1,39 +1,38 @@
 <template>
     <div class="tabs">
-        <ul :class="['nav','nav-' + navStyle]">
-            <li class="nav-item" v-for="(item,index) in items" @click="setActive(index)">
-                <a :class="['nav-link',small ? 'small' : '',item.active ? 'active' : '',item.disabled ? 'disabled' : '']" href="#" @click.prevent="">
-                    {{item.title}}
-                </a>
-            </li>
-        </ul>
-        <div class="tab-content">
+        <div :class="{'card-header': card}">
+            <ul :class="['nav','nav-' + navStyle, card? 'card-header-'+navStyle: null]">
+                <li class="nav-item" v-for="(tab, index) in tabs">
+                    <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
+                       :href="tab.href"
+                       @click.prevent.stop="setTab(index)"
+                       v-html="tab.title"
+                    ></a>
+                </li>
+            </ul>
+        </div>
+        <div :class="['tab-content',{'card-block': card}]">
             <slot></slot>
         </div>
     </div>
 </template>
 
 <script>
-    import {csstransitions} from '../utils/helpers';
-
-    // This is directly linked to the bootstrap animation timing in _tabs.scss
-    // For browsers that do not support transitions like IE9 just change slide immediately
-    const TRANSITION_DURATION = csstransitions() ? 150 : 0;
-
-    // Export component object
     export default {
-        replace: true,
         data() {
-            const currentTab = this.value || 0;
             return {
-                currentTab,
-                items: []
+                currentTab: this.value || 0,
+                tabs: []
             };
         },
         props: {
-            fade: {
+            noFade: {
                 type: Boolean,
-                default: true
+                default: false
+            },
+            card: {
+                type: Boolean,
+                default: false
             },
             small: {
                 type: Boolean,
@@ -43,74 +42,117 @@
                 type: Number,
                 default: 0
             },
-            navStyle: {
-                type: String,
-                default: 'tabs'
+            pills: {
+                type: Boolean,
+                default: false
+            },
+            lazy: {
+                type: Boolean,
+                default: false
             }
         },
         watch: {
-            currentTab(val) {
+            currentTab(val, old) {
+                if (val === old) {
+                    return;
+                }
+
+                this.$root.$emit('changed::tab', this, val, this.tabs[val]);
                 this.$emit('input', val);
             },
-            value(val) {
-                this.setActive(val);
+            value(val, old) {
+                if (val === old) {
+                    return;
+                }
+
+                this.setTab(val);
+            },
+            fade(val, old) {
+                if (val === old) {
+                    return;
+                }
+
+                this.tabs.forEach(item => {
+                    this.$set(item, 'fade', val);
+                });
+            }
+        },
+        computed: {
+            fade() {
+                return !this.noFade;
+            },
+            navStyle() {
+                return this.pills ? 'pills' : 'tabs';
             }
         },
         methods: {
-
             /**
-             * Get an index of an active tab
-             * @return {Number}
+             * Move to next tab
              */
-            getActive() {
-                let active = -1;
-                this.items.forEach((item, index) => {
-                    if (item.active) {
-                        active = index;
-                    }
-                });
-                return active;
+            nextTab() {
+                this.setTab(this.currentTab + 1);
             },
 
             /**
-             * Set active tab on the items collection and the child 'tab' component
+             * Move to previous tab
              */
-            setActive(index) {
-                // ignore disabled
-                if (this.items[index].disabled) {
+            previousTab() {
+                this.setTab(this.currentTab - 1);
+            },
+
+            /**
+             * Set active tab on the tabs collection and the child 'tab' component
+             */
+            setTab(index, force) {
+                // Prevent setting same tab!
+                if (!force && index === this.currentTab) {
+                    return;
+                }
+
+                const tab = this.tabs[index];
+
+                // Don't go beyond indexes!
+                if (!tab) {
+                    return;
+                }
+
+                // Ignore disabled
+                if (tab.disabled) {
                     return;
                 }
 
                 // Deactivate previous active tab
-                const activeTab = this.getActive();
-                if (activeTab !== -1) {
-                    // Setting animate to false will trigger fade out effect
-                    this.items[activeTab].active = false;
-                    this.$set(this.$children[activeTab], 'animate', false);
-                    this.$set(this.$children[activeTab], 'active', false);
+                if (this.tabs[this.currentTab]) {
+                    this.$set(this.tabs[this.currentTab], 'localActive', false);
                 }
 
-                // Set new active tab and animate (if fade flag is set to true)
-                this.$set(this.$children[index], 'active', true);
-                this._tabAnimation = setTimeout(() => {
-                    // Setting animate to true will trigger fade in effect
-                    this.items[index].active = true;
-                    this.$set(this.$children[index], 'animate', true);
-                    this.$root.$emit('changed::tab', this.items[index].id);
-                }, this.fade ? TRANSITION_DURATION : 0);
+                // Set new tab as active
+                this.$set(tab, 'localActive', true);
 
-                // Store currentActive
+                // Update currentTab
                 this.currentTab = index;
             }
         },
         mounted() {
-            // If no active tab, set the first one by default
-            if (this.getActive() === -1) {
-                this.setActive(this.currentTab);
-            }
-        },
-        destroyed() {
-            clearTimeout(this._tabAnimation);
+            // Probe tabs
+            this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
+                .map(tab => tab.componentInstance);
+
+            this.tabs.forEach(tab => {
+                this.$set(tab, 'fade', this.fade);
+                this.$set(tab, 'lazy', this.lazy);
+            });
+
+            // Set initial active tab
+            let tabIndex = this.currentTab;
+
+            this.tabs.forEach((tab, index) => {
+                if (tab.active) {
+                    tabIndex = index;
+                }
+            });
+
+            this.setTab(tabIndex, true);
         }
     };
 

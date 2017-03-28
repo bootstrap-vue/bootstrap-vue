@@ -217,6 +217,11 @@ methods: {
         },
         methods: {
             log(tag, args) {
+                // We have to ignore props mutation warning due to vue bug when we have two instances
+                if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
+                    return;
+                }
+
                 const argsArr = [tag];
                 for (let i = 0; i < args.length; i++) {
                     argsArr.push(args[i]);
@@ -227,7 +232,7 @@ methods: {
                 if (this.messages.length > 10) {
                     this.messages.splice(10);
                 }
-                this.messages.unshift([argsArr.shift(), argsArr.map(JSON.stringify).join(' ')]);
+                this.messages.unshift([argsArr.shift(), argsArr.map(String).join(' ')]);
             },
             run() {
                 // Commit latest changes
