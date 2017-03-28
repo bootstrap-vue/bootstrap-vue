@@ -11,6 +11,7 @@
             <div key="modal" :id="id"
                  v-show="visible"
                  :class="['modal',{fade :fade}]"
+                 @click="onClickOut($event)"
             >
 
                 <div :class="['modal-dialog','modal-'+size]">
@@ -45,7 +46,6 @@
             <div key="modal-backdrop"
                  :class="['modal-backdrop',{fade: fade}]"
                  v-if="visible"
-                 @click="onClickOut($event)"
             ></div>
         </transition-group>
     </div>
