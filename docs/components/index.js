@@ -24,5 +24,6 @@ export default {
     'popover': require('./popover').default,
     'progress': require('./progress').default,
     'table': require('./table').default,
+    'tabs': require('./tabs').default,
     'tooltip': require('./tooltip').default
 };
