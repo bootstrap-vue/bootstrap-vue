@@ -3877,9 +3877,9 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-nuxt@^0.10.3:
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-0.10.3.tgz#739872e43b7e3a77d8b52686d2fc20bb3bbc92bd"
+nuxt@^0.10.5:
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-0.10.5.tgz#1e31a85c39f2af94821b85beede2afd208c525c1"
   dependencies:
     ansi-html "^0.0.7"
     autoprefixer "^6.7.7"
@@ -5843,6 +5843,10 @@ vue@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.5.tgz#528eba68447d7eff99f86767b31176aa656c6963"
 
+vue@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.6.tgz#451714b394dd6d4eae7b773c40c2034a59621aed"
+
 vuex@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-2.2.1.tgz#a42d0ce18cb0e0359258f84bfd76835ed468c185"
@@ -6031,9 +6035,9 @@ xo-init@^0.5.0:
     the-argv "^1.0.0"
     write-pkg "^2.0.0"
 
-xo@^0.18.0:
-  version "0.18.0"
-  resolved "https://registry.yarnpkg.com/xo/-/xo-0.18.0.tgz#7c9e7932259a9cd2b1b8b602cbc7ee84bb5f858d"
+xo@^0.18.1:
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/xo/-/xo-0.18.1.tgz#529bb1cbd612f200221d76df90639d5c88cedf54"
   dependencies:
     arrify "^1.0.0"
     debug "^2.2.0"
