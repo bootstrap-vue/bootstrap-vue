@@ -90,9 +90,9 @@
             }
         },
         mounted() {
-            const items = this.$slots.default.filter(item=>item.componentInstance||false);
+            const items = this.$slots.default.filter(item => item.componentInstance || false);
             this.items = items.map(item => item.componentInstance);
-            this.items.forEach(function(item) {
+            this.items.forEach(function (item) {
                 this.$set(item, 'fade', this.fade);
             }, this);
 
