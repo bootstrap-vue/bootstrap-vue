@@ -20,7 +20,7 @@
             const currentTab = this.value || 0;
             return {
                 currentTab,
-                items:[]
+                items: []
             };
         },
         props: {
@@ -82,19 +82,19 @@
                 }
 
                 this.$set(this.items[index], 'active', true);
-                    this.items[index].active = true;
-                    this.$root.$emit('changed::tab', this.items[index].id);
+                this.items[index].active = true;
+                this.$root.$emit('changed::tab', this.items[index].id);
 
                 // Store currentActive
                 this.currentTab = index;
             }
         },
         mounted() {
-                let items = this.$slots.default.filter( item =>  item.componentInstance || false);
-                this.items = items.map(item => item.componentInstance);
-                this.items.forEach(function(item){
-                    this.$set(item, 'fade', this.fade);
-                },this);
+            const items = this.$slots.default.filter(item=>item.componentInstance||false);
+            this.items = items.map(item => item.componentInstance);
+            this.items.forEach(function(item) {
+                this.$set(item, 'fade', this.fade);
+            }, this);
 
             // If no active tab, set the first one by default
             if (this.getActive() === -1) {
