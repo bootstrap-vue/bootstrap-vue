@@ -1,7 +1,7 @@
 <template>
     <div class="tabs">
-        <div :class="card?'card-header':null">
-            <ul :class="['nav','nav-' + navStyle,card?'card-header-'+navStyle:null]">
+        <div :class="{'card-header': card}">
+            <ul :class="['nav','nav-' + navStyle, card? 'card-header-'+navStyle: null]">
                 <li class="nav-item" v-for="(tab, index) in tabs">
                     <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
                        :href="tab.href"
@@ -11,7 +11,7 @@
                 </li>
             </ul>
         </div>
-        <div :class="['tab-content',card?'card-block':null]">
+        <div :class="['tab-content',{'card-block': card}]">
             <slot></slot>
         </div>
     </div>
@@ -42,9 +42,13 @@
                 type: Number,
                 default: 0
             },
-            navStyle: {
-                type: String,
-                default: 'tabs'
+            pills: {
+                type: Boolean,
+                default: false
+            },
+            lazy: {
+                type: Boolean,
+                default: false
             }
         },
         watch: {
@@ -76,6 +80,9 @@
         computed: {
             fade() {
                 return !this.noFade;
+            },
+            navStyle() {
+                return this.pills ? 'pills' : 'tabs'
             }
         },
         methods: {
@@ -116,12 +123,10 @@
 
                 // Deactivate previous active tab
                 if (this.tabs[this.currentTab]) {
-                    this.tabs[this.currentTab].localActive = false;
                     this.$set(this.tabs[this.currentTab], 'localActive', false);
                 }
 
                 // Set new tab as active
-                tab.localActive = true;
                 this.$set(tab, 'localActive', true);
 
                 // Update currentTab
@@ -135,6 +140,7 @@
 
             this.tabs.forEach(tab => {
                 this.$set(tab, 'fade', this.fade);
+                this.$set(tab, 'lazy', this.lazy);
             });
 
             // Set initial active tab
@@ -148,9 +154,6 @@
 
             this.setTab(tabIndex, true);
         },
-        destroyed() {
-            clearTimeout(this._tabAnimation);
-        }
     };
 
 </script>
