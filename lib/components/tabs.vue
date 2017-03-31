@@ -135,8 +135,11 @@
         },
         mounted() {
             // Probe tabs
-            this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
-                .map(tab => tab.componentInstance);
+            if (this.$slots.default) {
+                this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
+                    .map(tab => tab.componentInstance);
+
+            }
 
             this.tabs.forEach(tab => {
                 this.$set(tab, 'fade', this.fade);
