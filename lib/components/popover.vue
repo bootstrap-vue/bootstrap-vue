@@ -262,7 +262,7 @@
              * Refresh the Popover position in order to respond to changes
              */
             refreshPosition() {
-                if (this.showState === true) {
+                if (this._tether) {
                     this.$nextTick(() => {
                         this._tether.position();
                     });
