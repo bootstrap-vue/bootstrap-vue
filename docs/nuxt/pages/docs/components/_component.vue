@@ -7,7 +7,7 @@
 
         <componentdoc :component="meta.component" :events="meta.events" :slots="meta.slots"></componentdoc>
 
-        <componentdoc :component="component" v-for="component in meta.components"></componentdoc>
+        <componentdoc :component="component" :key="component" v-for="component in meta.components"></componentdoc>
     </div>
 </template>
 
@@ -22,7 +22,7 @@
         components: {jsfiddle, componentdoc},
         layout: 'docs',
 
-        async data({params: {component}, redirect}) {
+        asyncData({params: {component}, redirect}) {
             if (!component) {
                 component = 'alert';
             }

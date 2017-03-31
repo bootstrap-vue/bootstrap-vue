@@ -22,7 +22,17 @@
         </main>
 
         <div class="bd-featurette">
-            <div class="container" v-html="landing"></div>
+            <div class="container">
+                <h2 class="bd-featurette-title">Easy to get started.</h2>
+
+                <p class="lead">
+                    Quickly add to your webpack builds or use NPM
+                 </p>
+
+                <div class="text-center">
+                    <b-btn to="/docs">Getting started</b-btn>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -34,14 +44,10 @@
 </style>
 
 <script>
-    import landing from '../../LANDING.md';
     import site from '../..';
 
     export default {
         computed: {
-            landing() {
-                return landing;
-            },
             site() {
                 return site;
             }

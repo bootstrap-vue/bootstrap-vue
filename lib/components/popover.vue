@@ -3,7 +3,7 @@
         <span ref="trigger"><slot></slot></span>
 
         <div tabindex="-1" :class="['popover',popoverAlignment]" ref="popover" @focus="$emit('focus')"
-             @blur="$emit('blur')">
+             @blur="$emit('blur')" :style="popoverStyle">
             <div class="popover-arrow"></div>
             <h3 class="popover-title" v-if="title" v-html="title"></h3>
             <div class="popover-content">
@@ -103,6 +103,10 @@
                 validator(value) {
                     return value >= 0;
                 }
+            },
+            popoverStyle: {
+                type: Object,
+                default: null
             }
         },
 
@@ -370,13 +374,18 @@
             },
 
             /**
-             * Remove all event listeners
+             * Cleanup component listeners
              */
-            removeAllListeners() {
+            cleanup() {
+                // Remove all event listeners
                 // eslint-disable-next-line guard-for-in
                 for (const trigger in this.normalizedTriggers) {
                     this.removeListener(trigger);
                 }
+
+                clearTimeout(this._timeout);
+                this._timeout = null;
+                this.hidePopover();
             }
         },
 
@@ -390,12 +399,12 @@
             if (this.$router) {
                 this.$router.beforeEach((to, from, next) => {
                     next();
-                    this.beforeDestroy();
+                    this.cleanup();
                 });
             }
 
             hub.$on('hide::modal', () => {
-                this.beforeDestroy();
+                this.cleanup();
             });
         },
 
@@ -416,11 +425,7 @@
         },
 
         beforeDestroy() {
-            // Clean up listeners
-            this.hidePopover();
-            this.removeAllListeners();
-            clearTimeout(this._timeout);
-            this._timeout = null;
+            this.cleanup();
         }
     };
 

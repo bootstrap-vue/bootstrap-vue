@@ -2,7 +2,8 @@ const path = require('path');
 const fs = require('fs');
 
 module.exports = {
-    srcDir: path.resolve(__dirname, 'docs', 'nuxt'),
+    rootDir: path.resolve(__dirname, '..'),
+    srcDir: path.resolve(__dirname, '..', 'docs', 'nuxt'),
     dev: process.env.NODE_ENV !== 'production',
 
     head: {
@@ -35,10 +36,10 @@ module.exports = {
 
     generate: {
         dir: 'docs-dist',
-        routeParams: {
-            '/docs/components/:component': fs.readdirSync('docs/components').filter(c => c !== 'index.js').map(component => {
-                return {component};
-            })
+        routes: () => {
+            return fs.readdirSync('docs/components')
+                .filter(c => c !== 'index.js')
+                .map(component => '/docs/components/' + component);
         }
     },
 
@@ -48,9 +49,9 @@ module.exports = {
         '~plugins/ga.js'
     ],
     css: [
-        path.resolve(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.css'),
-        path.resolve(__dirname, 'node_modules/highlightjs/styles/github-gist.css'),
-        path.resolve(__dirname, 'node_modules/codemirror/lib/codemirror.css'),
+        path.resolve(__dirname, '../node_modules/bootstrap/dist/css/bootstrap.css'),
+        path.resolve(__dirname, '../node_modules/highlightjs/styles/github-gist.css'),
+        path.resolve(__dirname, '../node_modules/codemirror/lib/codemirror.css'),
         '~assets/css/docs.min.css',
         '~assets/css/styles.css'
     ]

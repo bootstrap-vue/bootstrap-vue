@@ -3,11 +3,10 @@
         <thead>
         <tr>
             <th @click="headClick(field,key)"
-                :class="[field.sortable?'sorting':null,sort===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class?field.class:null]"
+                :class="[field.sortable?'sorting':null,sortBy===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class?field.class:null]"
                 v-for="field,key in fields"
-            >
-                {{field.label}}
-            </th>
+                v-html="field.label"
+            ></th>
         </tr>
         </thead>
         <tbody>
@@ -23,21 +22,33 @@
 <script>
     import Pagination from './pagination.vue';
 
-    export default{
+    const toString = v => {
+        if (!v) {
+            return '';
+        }
+
+        if (v instanceof Object) {
+            return Object.keys(v).map(k => toString(v[k])).join(' ');
+        }
+
+        return String(v);
+    };
+
+    const defaultSortCompare = (a, b, sortBy) => {
+        return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {numeric: true});
+    };
+
+    export default {
         components: {bPagination: Pagination},
 
         data() {
             return {
-                sort: null,
+                sortBy: null,
                 sortDesc: true
             };
         },
 
         props: {
-            sortable: {
-                type: Boolean,
-                default: false
-            },
             items: {
                 type: Array,
                 default: () => []
@@ -68,7 +79,15 @@
                 default: 1
             },
             filter: {
-                type: String,
+                type: [String, RegExp, Function],
+                default: null
+            },
+            sortCompare: {
+                type: Function,
+                default: null
+            },
+            itemsProvider: {
+                type: Function,
                 default: null
             }
         },
@@ -79,26 +98,32 @@
                     return [];
                 }
 
+                if (this.itemsProvider) {
+                    return this.itemsProvider(this);
+                }
+
                 let items = this.items;
 
-                //
-                const fix = v => {
-                    if (v instanceof Object) {
-                        return Object.keys(v).map(k => fix(v[k])).join(' ');
-                    }
-                    return String(v);
-                };
-
                 // Apply filter
-                if (this.filter && this.filter.length > 0) {
-                    const regex = new RegExp('.*' + this.filter + '.*', 'ig');
-                    items = items.filter(item => regex.test(fix(item)));
+                if (this.filter) {
+                    if (this.filter instanceof Function) {
+                        items = items.filter(this.filter);
+                    } else {
+                        let regex;
+                        if (this.filter instanceof RegExp) {
+                            regex = this.filter;
+                        } else {
+                            regex = new RegExp('.*' + this.filter + '.*', 'ig');
+                        }
+                        items = items.filter(item => regex.test(toString(item)));
+                    }
                 }
 
                 // Apply Sort
-                if (this.sort) {
+                const sortCompare = this.sortCompare || defaultSortCompare;
+                if (this.sortBy) {
                     items = items.sort((a, b) => {
-                        const r = fix(a[this.sort]).localeCompare(fix(b[this.sort]));
+                        const r = sortCompare(a, b, this.sortBy);
                         return this.sortDesc ? r : r * -1;
                     });
                 }
@@ -111,25 +136,25 @@
                 return items;
             }
         },
-
         methods: {
             headClick(field, key) {
                 if (!field.sortable) {
+                    this.sortBy = null;
                     return;
                 }
 
-                if (key === this.sort) {
+                if (key === this.sortBy) {
                     this.sortDesc = !this.sortDesc;
                 }
-                this.sort = key;
+
+                this.sortBy = key;
             }
         }
-
     };
 </script>
 
 
-<style scoped>
+<style>
     /* https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.css */
 
     table thead > tr > th.sorting_asc, table thead > tr > th.sorting_desc, table thead > tr > th.sorting,
@@ -194,18 +219,5 @@
     table thead .sorting_asc_disabled:before,
     table thead .sorting_desc_disabled:after {
         opacity: 0;
-    }
-
-    div.dataTables_scrollBody table thead .sorting:after,
-    div.dataTables_scrollBody table thead .sorting_asc:after,
-    div.dataTables_scrollBody table thead .sorting_desc:after {
-        display: none;
-    }
-
-    table.dataTable.table-condensed .sorting:after,
-    table.dataTable.table-condensed .sorting_asc:after,
-    table.dataTable.table-condensed .sorting_desc:after {
-        top: 6px;
-        right: 6px;
     }
 </style>

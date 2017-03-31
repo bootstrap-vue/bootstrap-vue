@@ -43,7 +43,10 @@
                 </div>
             </div>
 
-            <div key="modal-backdrop" :class="['modal-backdrop',{fade: fade}]" v-if="visible"></div>
+            <div key="modal-backdrop"
+                 :class="['modal-backdrop',{fade: fade}]"
+                 v-if="visible"
+            ></div>
         </transition-group>
     </div>
 </template>

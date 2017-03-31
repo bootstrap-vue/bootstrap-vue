@@ -7,8 +7,12 @@
 </template>
 
 <script>
+    import bLink from './link.vue';
 
     export default {
+        components: {
+            bLink
+        },
         computed: {
             classObject() {
                 return [
@@ -38,11 +42,10 @@
             }
         },
         methods: {
-            onclick() {
+            onclick(e) {
                 // Hide all drop-downs including navbar-toggle
-                this.$root.$emit('hidden::dropdown', this);
-
-                this.$emit('click');
+                this.$root.$emit('shown::dropdown', this);
+                this.$emit('click', e);
             }
         }
     };
