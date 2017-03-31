@@ -1,0 +1,9 @@
+{
+  "title": "Tabs",
+  "new": true,
+  "component": "bTabs",
+  "components": [
+    "bTab"
+  ],
+  "jsfiddle": "3xwmm1qt"
+}

@@ -1,12 +1,13 @@
 <template>
-    <label :class="[custom?'custom-control':null,custom?'custom-checkbox':null,inline?'form-check-inline':null]">
+    <label :class="[inputClass,checkboxClass,custom?'custom-checkbox':null]">
         <input
-                :class="[custom?'custom-control-input':null]"
                 type="checkbox"
                 :id="id"
                 :name="name"
                 :value="value"
                 :disabled="disabled"
+
+                :class="[custom?'custom-control-input':null]"
                 :checked="checked===value"
                 @change="$emit('change',$event.target.checked?value:uncheckedValue)"
         >
@@ -15,28 +16,17 @@
     </label>
 </template>
 
-
 <script>
+    import formMixin from '../mixins/form';
+    import formCheckBoxMixin from '../mixins/form-checkbox';
 
     export default {
+        mixins: [formMixin, formCheckBoxMixin],
         model: {
             prop: 'checked',
             event: 'change'
         },
-        computed: {
-            inputState() {
-                return this.state ? `has-${this.state}` : '';
-            }
-        },
         props: {
-            id: {
-                type: String,
-                default: null
-            },
-            name: {
-                type: String,
-                default: null
-            },
             value: {
                 default: true
             },
@@ -44,18 +34,6 @@
                 default: false
             },
             checked: {
-                default: true
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            inline: {
-                type: Boolean,
-                default: true
-            },
-            custom: {
-                type: Boolean,
                 default: true
             }
         }

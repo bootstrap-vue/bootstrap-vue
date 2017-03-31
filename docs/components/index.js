@@ -7,10 +7,12 @@ export default {
     'button': require('./button').default,
     'button-group': require('./button-group').default,
     'card': require('./card').default,
+    'carousel': require('./carousel').default,
     'collapse': require('./collapse').default,
     'dropdown': require('./dropdown').default,
     'form-checkbox': require('./form-checkbox').default,
     'form-fieldset': require('./form-fieldset').default,
+    'form-file': require('./form-file').default,
     'form-input': require('./form-input').default,
     'form-radio': require('./form-radio').default,
     'form-select': require('./form-select').default,
@@ -23,5 +25,6 @@ export default {
     'popover': require('./popover').default,
     'progress': require('./progress').default,
     'table': require('./table').default,
+    'tabs': require('./tabs').default,
     'tooltip': require('./tooltip').default
 };

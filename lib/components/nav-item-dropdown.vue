@@ -1,9 +1,9 @@
 <template>
-    <li :class="{'nav-item': true, show: show,dropdown: !dropup, dropup: dropup}">
+    <li :class="{'nav-item': true, show: visible,dropdown: !dropup, dropup: dropup}">
         <a @click.stop.prevent="toggle($event)"
            :class="['nav-link', dropdownToggle]"
            href="" aria-haspopup="true"
-           :aria-expanded="show"
+           :aria-expanded="visible"
            :disabled="disabled">
             <slot name="text">{{ text }}</slot>
         </a>
@@ -14,10 +14,15 @@
 </template>
 
 <script>
+    import clickOut from '../mixins/clickout';
+
     export default {
+        mixins: [
+            clickOut
+        ],
         data() {
             return {
-                show: false
+                visible: false
             };
         },
         computed: {
@@ -49,40 +54,38 @@
             class: ['class']
         },
         created() {
+            // To keep one dropdown opened at page
             this.$root.$on('shown::dropdown', el => {
                 if (el !== this) {
-                    this.clickOut();
+                    this.close();
                 }
             });
         },
-        mounted() {
-            if (typeof document !== 'undefined') {
-                document.documentElement.addEventListener('click', this.clickOut);
-            }
-        },
-        destroyed() {
-            if (typeof document !== 'undefined') {
-                document.removeEventListener('click', this.clickOut);
-            }
-        },
-        methods: {
-            setShow(state) {
-                if (this.show === state) {
+        watch: {
+            visible(state, old) {
+                if (state === old) {
                     return; // Avoid duplicated emits
                 }
-                this.show = state;
 
-                if (this.show) {
+                if (state) {
                     this.$root.$emit('shown::dropdown', this);
                 } else {
                     this.$root.$emit('hidden::dropdown', this);
                 }
-            },
+            }
+        },
+        methods: {
             toggle() {
-                this.setShow(!this.show);
+                this.visible = !this.visible;
             },
-            clickOut() {
-                this.setShow(false);
+            open() {
+                this.visible = true;
+            },
+            close() {
+                this.visible = false;
+            },
+            clickOutListener() {
+                this.close();
             }
         }
     };

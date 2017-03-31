@@ -1,37 +1,40 @@
 <template>
-    <div :class="['form-group','row',inputState]" v-if="enabled">
-        <label :for="for_id" v-if="label" :class="['col-form-label',labelLayout]" v-html="label"/>
-        <div :class="inputLayout">
+    <div :class="['form-group','row',inputState]">
+        <label :for="target" v-if="label" :class="['col-form-label',labelLayout]" v-html="label"></label>
+        <div :class="inputLayout" ref="content">
             <slot></slot>
             <div class="form-text text-muted" v-if="feedback" v-html="feedback"></div>
             <small class="form-text text-muted" v-if="description" v-html="description"></small>
         </div>
     </div>
-    <div v-else>
-        <slot></slot>
-    </div>
 </template>
 
 <script>
-    import {uniqueId} from '../utils/helpers';
-
     export default {
+        data() {
+            return {
+                target: null
+            };
+        },
         computed: {
             inputState() {
                 return this.state ? `has-${this.state}` : '';
             },
             labelLayout() {
-                return this.horizontal ? ('col-sm-' + this.labelSize) : ('col-sm-' + (12 - this.labelSize));
+                return this.horizontal ? ('col-sm-' + this.labelSize) : 'col-12';
             },
             inputLayout() {
-                return this.horizontal ? ('col-sm-' + (12 - this.labelSize)) : ('col-sm-' + this.labelSize);
+                return this.horizontal ? ('col-sm-' + (12 - this.labelSize)) : 'col-12';
             }
         },
+        mounted() {
+            const content = this.$refs.content;
+            if (!content) {
+                return;
+            }
+            this.target = content.children[0].id;
+        },
         props: {
-            for_id: {
-                type: String,
-                default: uniqueId
-            },
             state: {
                 type: String,
                 default: null
@@ -42,11 +45,7 @@
             },
             labelSize: {
                 type: Number,
-                default: 6
-            },
-            enabled: {
-                type: Boolean,
-                default: true
+                default: 3
             },
             label: {
                 type: String,

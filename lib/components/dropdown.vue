@@ -101,9 +101,10 @@
             clickOutListener() {
                 this.visible = false;
             },
-            click() {
+            click(e) {
                 if (this.split) {
-                    this.$emit('click');
+                    this.$emit('click', e);
+                    this.$root.$emit('shown::dropdown', this);
                 } else {
                     this.toggle();
                 }

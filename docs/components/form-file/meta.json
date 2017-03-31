@@ -1,0 +1,16 @@
+{
+  "title": "Form File",
+  "component": "bFormFile",
+  "new": "true",
+  "jsfiddle": "3dw5djb1",
+  "events": [
+    {
+      "event": "change",
+      "description": "original change event on input"
+    },
+    {
+      "event": "input",
+      "description": "[see above docs]"
+    }
+  ]
+}

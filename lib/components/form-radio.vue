@@ -1,26 +1,32 @@
 <template>
-    <fieldset :class="['form-group',this.stacked?'custom-controls-stacked':'',inputState]">
-        <label :class="['custom-control','custom-radio']" v-for="item in items">
+    <div :class="[inputClass,this.stacked?'custom-controls-stacked':'']">
+        <label :class="[checkboxClass,custom?'custom-radio':null]" v-for="option in formOptions">
             <input
                     v-model="localValue"
-                    class="custom-control-input"
+                    :class="custom?'custom-control-input':null"
                     type="radio"
-                    :id="item.id"
-                    :name="name"
-                    :value="item[valueKey]"
-                    :disabled="item.disabled"
+                    :value="option.value"
+                    :name="option.name"
+                    :id="option.id"
+                    :disabled="option.disabled"
+                    ref="inputs"
             >
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">{{item[textKey]}}</span>
+
+            <span class="custom-control-indicator" v-if="custom"></span>
+
+            <span :class="custom?'custom-control-description':null" v-html="option.text"></span>
+
         </label>
-    </fieldset>
+    </div>
 </template>
 
-
 <script>
-    import {uniqueId} from '../utils/helpers';
+    import formOptionsMixin from '../mixins/form-options';
+    import formMixin from '../mixins/form';
+    import formCheckBoxMixin from '../mixins/form-checkbox';
 
     export default {
+        mixins: [formMixin, formCheckBoxMixin, formOptionsMixin],
         data() {
             return {
                 localValue: this.value
@@ -32,52 +38,19 @@
             }
         },
         props: {
-            value: {
-                default: null
-            },
-            valueKey: {
-                type: String,
-                default: 'value'
-            },
-            textKey: {
-                type: String,
-                default: 'text'
-            },
-            name: {
-                type: String,
-                default: uniqueId
-            },
-            items: {
-                type: Array,
-                default: () => [],
+            value: {},
+            options: {
+                type: [Array, Object],
+                default: null,
                 required: true
             },
             stacked: {
                 type: Boolean,
                 default: false
             },
-            state: {
-                type: String,
-                default: null
-            },
             returnObject: {
                 type: Boolean,
                 default: false
-            }
-        },
-        watch: {
-            localValue(value, old_value) {
-                if (value === old_value) {
-                    return;
-                }
-                if (this.returnObject) {
-                    this.items.forEach(item => {
-                        if (item.value === value) {
-                            value = item;
-                        }
-                    });
-                }
-                this.$emit('input', value);
             }
         }
     };

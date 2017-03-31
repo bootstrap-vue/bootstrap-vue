@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "0.10.0-rc.1",
+  "version": "0.11.0",
   "description": "Bootstrap 4 Components for Vue.js 2",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
@@ -23,21 +23,21 @@
   },
   "scripts": {
     "build": "node build/rollup",
-    "docs-dev": "nuxt dev",
-    "docs-gen": "nuxt generate",
+    "docs-dev": "nuxt dev build",
+    "docs-gen": "nuxt generate build",
     "docs-deploy": "cd scripts && ./gh-pages",
     "lint": "xo",
     "lint-fix": "xo --fix",
     "test": "yarn lint"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-",
+    "bootstrap": "^4.0.0-alpha.6",
     "tether": "latest",
-    "vue": "^2.2.3"
+    "vue": "^2.2.6"
   },
   "devDependencies": {
-    "clean-css": "^4.0.9",
-    "codemirror": "^5.24.2",
+    "clean-css": "^4.0.10",
+    "codemirror": "^5.25.0",
     "cross-env": "^3.2.4",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-html": "^2.0.0",
@@ -48,17 +48,15 @@
     "lodash": "latest",
     "markdown-loader": "^2.0.0",
     "marked": "^0.3.6",
-    "nuxt": "^0.9.9",
+    "nuxt": "^0.10.5",
     "rollup": "^0.41.6",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-plugin-vue": "^2.3.1",
-    "vue-loader": "^11.1.4",
-    "vue-style-loader": "^2.0.2",
-    "vue-template-compiler": "^2.2.3",
-    "xo": "^0.18.0"
+    "vue": "2.2.5",
+    "xo": "^0.18.1"
   },
   "xo": {
     "space": 4,
@@ -86,6 +84,8 @@
   "keywords": [
     "Bootstrap",
     "Bootstrap 4",
+    "Bootstrap for Vue",
+    "SSR",
     "Web",
     "Components",
     "Polymer",
@@ -116,6 +116,8 @@
     "List",
     "Nav",
     "Modal",
+    "Upload",
+    "Dropzone",
     "Navbar",
     "Pagination",
     "Popover",
