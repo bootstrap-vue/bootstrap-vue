@@ -138,7 +138,6 @@
             if (this.$slots.default) {
                 this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
                     .map(tab => tab.componentInstance);
-
             }
 
             this.tabs.forEach(tab => {
