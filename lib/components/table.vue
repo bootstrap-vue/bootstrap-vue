@@ -89,6 +89,10 @@
             itemsProvider: {
                 type: Function,
                 default: null
+            },
+            value: {
+                type: Number,
+                default: 0
             }
         },
 
@@ -127,12 +131,11 @@
                         return this.sortDesc ? r : r * -1;
                     });
                 }
-
+                this.$emit('input', items.length);
                 // Apply pagination
                 if (this.perPage) {
                     items = items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
                 }
-
                 return items;
             }
         },
