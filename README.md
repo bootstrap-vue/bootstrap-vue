@@ -23,16 +23,17 @@
 <a href="https://vuejs.org">
     <img alt="" src="https://img.shields.io/badge/vue.js-2.2.x-green.svg?style=flat-square">
 </a>
+<a href="https://bootstrap-vue.now.sh/">
+    <img alt="" src="https://bootstrap-vue.now.sh/badge.svg">
+</a>
+
 </p>
 
 > [Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
 
-🚧 [Release Notes](https://github.com/bootstrap-vue/bootstrap-vue/releases)
+ ⚠ [Release Notes](https://github.com/bootstrap-vue/bootstrap-vue/releases)
 
-✔ If you are using older versions, please read usage guides below.      
-⚠ bootstrap-vue now has a separate css file for packaging quality improvements.   
-
-# Getting started
+# ✔ Getting started
 Please refer to [Official Documentation](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
 
 ### NPM (Webpack, Rollup)
