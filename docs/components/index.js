@@ -7,7 +7,7 @@ export default {
     'button': require('./button').default,
     'button-group': require('./button-group').default,
     'card': require('./card').default,
-    //'carousel': require('./carousel').default,
+    // 'carousel': require('./carousel').default,
     'collapse': require('./collapse').default,
     'dropdown': require('./dropdown').default,
     'form-checkbox': require('./form-checkbox').default,
