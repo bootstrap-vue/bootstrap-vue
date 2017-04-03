@@ -9,6 +9,7 @@
                        v-html="tab.title"
                     ></a>
                 </li>
+                <slot name="tabs"></slot>
             </ul>
         </div>
         <div :class="['tab-content',{'card-block': card}]">
@@ -18,6 +19,8 @@
 </template>
 
 <script>
+    import observeDom from '../utils/observe-dom';
+
     export default {
         data() {
             return {
@@ -131,30 +134,51 @@
 
                 // Update currentTab
                 this.currentTab = index;
+            },
+
+            /**
+             * Dynamically update tabs
+             */
+            _updateTabs() {
+                // Probe tabs
+                if (this.$slots.default) {
+                    this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
+                        .map(tab => tab.componentInstance);
+                } else {
+                    this.tabs = [];
+                }
+
+                this.tabs.forEach(tab => {
+                    this.$set(tab, 'fade', this.fade);
+                    this.$set(tab, 'lazy', this.lazy);
+                });
+
+                // Set initial active tab
+                let tabIndex = this.currentTab;
+
+                this.tabs.forEach((tab, index) => {
+                    if (tab.active) {
+                        tabIndex = index;
+                    }
+                });
+
+                this.setTab(tabIndex, true);
+            },
+
+            /**
+             * Wait for next tick so we can ensure DOM is updated before we inspect it
+             */
+            updateTabs() {
+                this.$nextTick(() => {
+                    this._updateTabs();
+                });
             }
         },
         mounted() {
-            // Probe tabs
-            if (this.$slots.default) {
-                this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
-                    .map(tab => tab.componentInstance);
-            }
+            this.updateTabs();
 
-            this.tabs.forEach(tab => {
-                this.$set(tab, 'fade', this.fade);
-                this.$set(tab, 'lazy', this.lazy);
-            });
-
-            // Set initial active tab
-            let tabIndex = this.currentTab;
-
-            this.tabs.forEach((tab, index) => {
-                if (tab.active) {
-                    tabIndex = index;
-                }
-            });
-
-            this.setTab(tabIndex, true);
+            // Observe Child changes so we can notify tabs change
+            observeDom(this.$el, this.updateTabs.bind(this));
         }
     };
 
