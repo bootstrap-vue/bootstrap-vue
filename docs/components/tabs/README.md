@@ -38,3 +38,17 @@ Just add `pills` property to tabs component.
 
 Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
 
+**Add Tabs without content**
+
+If you want to add extra tabs that do not have any content, you can put them in `tabs` slot:
+
+```html
+    <b-tabs>
+    
+        <!-- Add your tabs here-->
+    
+        <template slot="tabs">
+            <b-nav-item to="#" @click="onClick">Another tab</b-nav-item>
+        </template>
+    </b-tabs>
+```

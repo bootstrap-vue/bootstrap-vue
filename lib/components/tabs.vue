@@ -14,6 +14,7 @@
         </div>
         <div :class="['tab-content',{'card-block': card}]">
             <slot></slot>
+            <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
     </div>
 </template>
