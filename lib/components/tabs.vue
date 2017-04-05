@@ -6,8 +6,11 @@
                     <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
                        :href="tab.href"
                        @click.prevent.stop="setTab(index)"
-                       v-html="tab.title"
-                    ></a>
+                       v-if="!tab.headHtml"
+                       >{{ tab.title }}</a>
+                    <div :class="['tab-head',{small: small, active: tab.localActive, disabled: tab.disabled}]"
+                         v-else
+                         v-html="tab.headHtml"></div>
                 </li>
                 <slot name="tabs"></slot>
             </ul>
