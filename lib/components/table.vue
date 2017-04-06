@@ -55,8 +55,7 @@
             },
             fields: {
                 type: Object,
-                default: () => {
-                }
+                default: () => {}
             },
             striped: {
                 type: Boolean,
@@ -89,6 +88,10 @@
             itemsProvider: {
                 type: Function,
                 default: null
+            },
+            value: {
+                type: Array,
+                default: () => []
             }
         },
 
@@ -115,7 +118,11 @@
                         } else {
                             regex = new RegExp('.*' + this.filter + '.*', 'ig');
                         }
-                        items = items.filter(item => regex.test(toString(item)));
+                        items = items.filter(item => {
+                            const test = regex.test(toString(item));
+                            regex.lastIndex = 0;
+                            return test;
+                        });
                     }
                 }
 
@@ -128,11 +135,12 @@
                     });
                 }
 
+                this.$emit('input', items);
+
                 // Apply pagination
                 if (this.perPage) {
                     items = items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
                 }
-
                 return items;
             }
         },
