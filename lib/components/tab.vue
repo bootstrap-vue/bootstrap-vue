@@ -15,10 +15,10 @@
     export default {
         methods: {
             enter() {
-                this.show = true
+                this.show = true;
             },
             beforeLeave() {
-                this.show = false
+                this.show = false;
             }
         },
         data() {
