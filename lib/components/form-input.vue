@@ -28,7 +28,7 @@
         mixins: [formMixin],
         computed: {
             rowsCount() {
-                return (this.value || '').split('\n').length;
+                return (this.value || '').toString().split('\n').length;
             }
         },
         methods: {

@@ -1,9 +1,18 @@
 {
   "title": "Tabs",
-  "new": true,
   "component": "bTabs",
   "components": [
     "bTab"
+  ],
+  "slots": [
+    {
+      "name": "tabs",
+      "description": "Additional tabs without content"
+    },
+    {
+      "name": "empty",
+      "description": "Renders this slot if no tabs are present"
+    }
   ],
   "jsfiddle": "3xwmm1qt"
 }

@@ -3,7 +3,7 @@
  name: Carousel - BootstrapVue
  description: https://bootstrap-vue.github.io/docs/components/carousel
  authors:
-   - Pooya Parsa Phinome
+   - Phinome
  resources:
    - https://unpkg.com/bootstrap@next/dist/css/bootstrap.min.css
    - https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css
