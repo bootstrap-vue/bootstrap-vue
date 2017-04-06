@@ -119,9 +119,9 @@
                             regex = new RegExp('.*' + this.filter + '.*', 'ig');
                         }
                         items = items.filter(item => {
-                            let test = regex.test(toString(item));
+                            const test = regex.test(toString(item));
                             regex.lastIndex = 0;
-                            return test
+                            return test;
                         });
                     }
                 }
