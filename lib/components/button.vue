@@ -5,7 +5,12 @@
 </template>
 
 <script>
+    import bLink from './link.vue';
+
     export default {
+        components: {
+            bLink
+        },
         computed: {
             classObject() {
                 return [
@@ -18,7 +23,7 @@
                 ];
             },
             componentType() {
-                return (this.href || this.to) ? 'b-link' : 'button';
+                return (this.href || this.to) ? bLink : 'button';
             },
             btnBlock() {
                 return this.block ? `btn-block` : '';
