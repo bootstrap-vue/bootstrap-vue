@@ -15,7 +15,7 @@ export default {
                 {
                     title: 'Contributing',
                     slug: 'contributing'
-                },
+                }
             ]
         },
         {
