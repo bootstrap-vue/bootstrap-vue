@@ -31,3 +31,8 @@ blockquote {
     font-size: 1.25rem;
     font-weight: 300;
 }
+
+h1, h2, h3, h4, h5 {
+    padding-top: 25px;
+    padding-bottom: 15px;
+}

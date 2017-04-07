@@ -3,16 +3,24 @@ import components from './components';
 
 export default {
     package_info,
-
     nav: [
         {
-            title: 'Getting started',
+            title: 'BootstrapVue',
             slug: '',
-            pages: []
+            pages: [
+                {
+                    title: 'Quick Start',
+                    slug: 'setup'
+                },
+                {
+                    title: 'Contributing',
+                    slug: 'contributing'
+                },
+            ]
         },
         {
             title: 'Components',
-            slug: 'components',
+            slug: 'components/',
             pages: Object.keys(components).map(key => {
                 return {
                     title: components[key].meta.title,
