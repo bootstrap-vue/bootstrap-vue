@@ -21,6 +21,6 @@ window.app = new Vue({
                 value: 'd',
                 disabled: true
             }]
-    },
+    }
 });
 

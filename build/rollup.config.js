@@ -13,8 +13,8 @@ const lib = path.resolve(base, 'lib');
 const dist = path.resolve(base, 'dist');
 
 // Ensure dist directory exists
-if(!fs.existsSync(dist)){
-    fs.mkdirSync(dist)
+if (!fs.existsSync(dist)) {
+    fs.mkdirSync(dist);
 }
 
 module.exports = {
