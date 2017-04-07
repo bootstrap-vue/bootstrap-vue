@@ -2,7 +2,7 @@
 
 > For tabular data. Tables support pagination and custom rendering.
 
-### `fields`
+### Fields
 Fields prop is used to display table columns. 
 keys are used to extract real value from each raw.
 Example format:
@@ -17,7 +17,7 @@ age: {
 }
 ```
 
-### `items`
+### Items
 Items are real table data records. Example format:
 
 ```js
