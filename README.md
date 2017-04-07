@@ -36,7 +36,7 @@
 # ✔ Getting started
 Please refer to [Official Documentation](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
 
-Grab package:
+Get the package:
 ```bash
 yarn add bootstrap-vue
 ```
