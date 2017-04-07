@@ -63,7 +63,10 @@
 </style>
 
 <script>
+    import bBtn from './button.vue';
+
     export default {
+        components: {bBtn},
         data() {
             return {
                 visible: false
