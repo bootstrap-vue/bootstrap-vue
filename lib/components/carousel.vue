@@ -63,7 +63,7 @@
                 default: false
             },
             height: {
-                type: String,
+                type: String
             },
             background: {
                 type: String
@@ -160,7 +160,6 @@
 
                     currentSlide.classList.remove(direction.current);
                     nextSlide.classList.remove(direction.next, direction.overlay);
-
                 }, 500);
             }
         },
