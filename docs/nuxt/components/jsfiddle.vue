@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="slug && slug.length">
         <iframe
                 width="100%"
                 :height="height"
