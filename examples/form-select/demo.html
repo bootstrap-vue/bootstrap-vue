@@ -1,8 +1,10 @@
 <div id="app">
-    <b-form-fieldset :state="selected!=='default'?'success':'warning'" label="Select one option">
-        <b-form-select v-model="selected" :options="options" :default-option="defaultOption" state="success">
-        </b-form-select>
-    </b-form-fieldset>
+
+    <b-form-select v-model="selected"
+                   :options="options"
+                   calss="mb-3"
+    ></b-form-select>
 
     <div>Selected: <strong>{{selected}}</strong></div>
+
 </div>
