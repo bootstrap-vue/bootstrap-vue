@@ -1,8 +1,6 @@
-# BootstrapVue
-
 <p align="center">
 <a href="https://bootstrap-vue.github.io">
-    <img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/banner.png" width="200px">
+    <img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/banner.png" width="300px">
 </a>
 <br>
 <a href="https://circleci.com/gh/bootstrap-vue/bootstrap-vue">
