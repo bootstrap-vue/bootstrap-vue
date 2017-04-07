@@ -1,11 +1,9 @@
 <template>
-  <div class="carousel-item">
-    <slot></slot>
-  </div>
+    <div class="carousel-item">
+        <slot></slot>
+    </div>
 </template>
 
 <script>
-  export default {
-      replace: true
-  };
+    export default {};
 </script>

@@ -10,7 +10,6 @@
 
 <script>
     export default {
-        replace: true,
         computed: {},
         props: {
             fluid: {
