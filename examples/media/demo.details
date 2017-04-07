@@ -1,0 +1,15 @@
+ /*
+ ---
+ name: Media - BootstrapVue
+ description: https://bootstrap-vue.github.io/docs/components/media
+ authors:
+   - Pooya Parsa
+ resources:
+   - https://unpkg.com/bootstrap@next/dist/css/bootstrap.min.css
+   - https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css
+   - https://unpkg.com/vue@latest/dist/vue.min.js
+   - https://unpkg.com/tether@latest/dist/js/tether.min.js
+   - https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js
+ js_wrap: l
+...
+*/

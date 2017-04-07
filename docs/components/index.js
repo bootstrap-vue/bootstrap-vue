@@ -19,6 +19,7 @@ export default {
     'jumbotron': require('./jumbotron').default,
     'list-group': require('./list-group').default,
     'modal': require('./modal').default,
+    'media': require('./media').default,
     'nav': require('./nav').default,
     'navbar': require('./navbar').default,
     'pagination': require('./pagination').default,
