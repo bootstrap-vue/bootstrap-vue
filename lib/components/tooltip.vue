@@ -20,10 +20,10 @@
 </style>
 
 <script>
-    import popover from './popover.vue';
+    import bPopover from './popover.vue';
 
     export default {
-        extends: popover,
+        extends: bPopover,
         props: {
             triggers: {
                 type: [Boolean, String, Array],

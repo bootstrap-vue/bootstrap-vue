@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import Pagination from './pagination.vue';
+    import bPagination from './pagination.vue';
 
     const toString = v => {
         if (!v) {
@@ -39,8 +39,7 @@
     };
 
     export default {
-        components: {bPagination: Pagination},
-
+        components: {bPagination},
         data() {
             return {
                 sortBy: null,
@@ -55,7 +54,8 @@
             },
             fields: {
                 type: Object,
-                default: () => {}
+                default: () => {
+                }
             },
             striped: {
                 type: Boolean,

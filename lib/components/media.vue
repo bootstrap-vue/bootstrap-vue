@@ -14,7 +14,6 @@
 
 <script>
   export default {
-      replace: true,
       computed: {
           align() {
               return this.position.split(' ');

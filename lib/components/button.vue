@@ -8,9 +8,7 @@
     import bLink from './link.vue';
 
     export default {
-        components: {
-            bLink
-        },
+        components: {bLink},
         computed: {
             classObject() {
                 return [
@@ -23,7 +21,7 @@
                 ];
             },
             componentType() {
-                return (this.href || this.to) ? bLink : 'button';
+                return (this.href || this.to) ? 'b-link' : 'button';
             },
             btnBlock() {
                 return this.block ? `btn-block` : '';
