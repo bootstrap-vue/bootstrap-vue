@@ -6,11 +6,12 @@
                 :class="[field.sortable?'sorting':null,sortBy===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class?field.class:null]"
                 v-for="field,key in fields"
                 v-html="field.label"
+                :key="key"
             ></th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(item,index) in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]">
+        <tr v-for="(item,index) in _items" :key="item[items_key]" :class="[item.state?'table-'+item.state:null]">
             <td v-for="(field,key) in fields" :class="[field.class?field.class:null]">
                 <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
@@ -20,42 +21,25 @@
 </template>
 
 <script>
-    import bPagination from './pagination.vue';
-
-    const toString = v => {
-        if (!v) {
-            return '';
-        }
-
-        if (v instanceof Object) {
-            return Object.keys(v).map(k => toString(v[k])).join(' ');
-        }
-
-        return String(v);
-    };
-
-    const defaultSortCompare = (a, b, sortBy) => {
-        return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {numeric: true});
-    };
+    import LocalAdapter from '../utils/local-adapter';
 
     export default {
-        components: {bPagination},
         data() {
             return {
                 sortBy: null,
                 sortDesc: true
             };
         },
-
         props: {
             items: {
-                type: Array,
-                default: () => []
+                type: Array
             },
             fields: {
+                type: Object
+            },
+            adapter: {
                 type: Object,
-                default: () => {
-                }
+                default: () => new LocalAdapter(this)
             },
             striped: {
                 type: Boolean,
@@ -72,90 +56,27 @@
             items_key: {
                 type: String,
                 default: null
-            },
-            currentPage: {
-                type: Number,
-                default: 1
-            },
-            filter: {
-                type: [String, RegExp, Function],
-                default: null
-            },
-            sortCompare: {
-                type: Function,
-                default: null
-            },
-            itemsProvider: {
-                type: Function,
-                default: null
-            },
-            value: {
-                type: Array,
-                default: () => []
             }
         },
 
         computed: {
             _items() {
-                if (!this.items) {
-                    return [];
-                }
-
-                if (this.itemsProvider) {
-                    return this.itemsProvider(this);
-                }
-
-                let items = this.items;
-
-                // Apply filter
-                if (this.filter) {
-                    if (this.filter instanceof Function) {
-                        items = items.filter(this.filter);
-                    } else {
-                        let regex;
-                        if (this.filter instanceof RegExp) {
-                            regex = this.filter;
-                        } else {
-                            regex = new RegExp('.*' + this.filter + '.*', 'ig');
-                        }
-                        items = items.filter(item => {
-                            const test = regex.test(toString(item));
-                            regex.lastIndex = 0;
-                            return test;
-                        });
-                    }
-                }
-
-                // Apply Sort
-                const sortCompare = this.sortCompare || defaultSortCompare;
-                if (this.sortBy) {
-                    items = items.sort((a, b) => {
-                        const r = sortCompare(a, b, this.sortBy);
-                        return this.sortDesc ? r : r * -1;
-                    });
-                }
-
+                const items = this.adapter.items();
                 this.$emit('input', items);
-
-                // Apply pagination
-                if (this.perPage) {
-                    items = items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
-                }
-                return items;
             }
         },
         methods: {
             headClick(field, key) {
                 if (!field.sortable) {
-                    this.sortBy = null;
+                    this.adapter.setSortBy(null);
                     return;
                 }
 
                 if (key === this.sortBy) {
-                    this.sortDesc = !this.sortDesc;
+                    this.adapter.toggleSortDesc();
                 }
 
-                this.sortBy = key;
+                this.adapter.setSortBy(key);
             }
         }
     };
