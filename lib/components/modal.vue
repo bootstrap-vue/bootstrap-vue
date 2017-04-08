@@ -15,7 +15,7 @@
             >
 
                 <div :class="['modal-dialog','modal-'+size]">
-                    <div class="modal-content">
+                    <div class="modal-content" @click.stop>
 
                         <div class="modal-header" v-if="!hideHeader">
                             <slot name="modal-header">
@@ -157,9 +157,9 @@
                     this.body.classList.remove('modal-open');
                 }
             },
-            onClickOut(e) {
+            onClickOut() {
                 // If backdrop clicked, hide modal
-                if (this.closeOnBackdrop && e.target.id && e.target.id === this.id) {
+                if (this.closeOnBackdrop) {
                     this.hide();
                 }
             },
