@@ -10,7 +10,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(item,index) in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]">
+        <tr v-for="(item,index) in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]" @click="invokeClicked(item, index)">
             <td v-for="(field,key) in fields" :class="[field.class?field.class:null]">
                 <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
@@ -48,6 +48,10 @@
         },
 
         props: {
+            clicked: {
+                type: Function,
+                default: null
+            },
             items: {
                 type: Array,
                 default: () => []
@@ -145,6 +149,11 @@
             }
         },
         methods: {
+            invokeClicked(item, index) {
+              if (this.clicked) {
+                this.clicked(item, index)
+              }
+            },
             headClick(field, key) {
                 if (!field.sortable) {
                     this.sortBy = null;
