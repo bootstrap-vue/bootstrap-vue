@@ -143,7 +143,7 @@
         methods: {
             rowClicked(item, index) {
                 if (this.rowClick) {
-                    this.rowClick(item, index)
+                    this.rowClick(item, index);
                 }
             },
             headClick(field, key) {
