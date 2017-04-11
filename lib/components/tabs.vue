@@ -66,6 +66,7 @@
 
                 this.$root.$emit('changed::tab', this, val, this.tabs[val]);
                 this.$emit('input', val);
+                this.tabs[val].$emit('click');
             },
             value(val, old) {
                 if (val === old) {
