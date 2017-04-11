@@ -49,10 +49,6 @@
         },
 
         props: {
-            rowClick: {
-                type: Function,
-                default: null
-            },
             items: {
                 type: Array,
                 default: () => []
@@ -142,9 +138,7 @@
         },
         methods: {
             rowClicked(item, index) {
-                if (this.rowClick) {
-                    this.rowClick(item, index);
-                }
+                this.$emit('row-clicked', item, index);
             },
             headClick(field, key) {
                 if (!field.sortable) {
