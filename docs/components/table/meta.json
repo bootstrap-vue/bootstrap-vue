@@ -5,7 +5,7 @@
   "events": [
     {
       "event": "row-clicked",
-      "description": "Emitted each time the Popover display status changes.",
+      "description": "Emitted when a row clicked.",
       "args": [
         {
           "arg": "(item,index)",
