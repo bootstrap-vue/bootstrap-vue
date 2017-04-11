@@ -184,7 +184,7 @@
             this.updateTabs();
 
             // Observe Child changes so we can notify tabs change
-            observeDom(this.$el, this.updateTabs.bind(this), {subtree: true});
+            observeDom(this.$el, this.updateTabs.bind(this), {subtree: false});
         }
     };
 
