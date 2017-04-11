@@ -404,7 +404,7 @@
             }
 
             const cleanup = () => {
-                this.cleanup()
+                this.cleanup();
             };
 
             hub.$on('hide::modal', cleanup);
