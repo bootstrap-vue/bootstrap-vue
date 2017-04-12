@@ -1,7 +1,9 @@
 <template>
-    <transition name="collapse">
+    <transition @enter="enter" @leave="leave" name="collapse">
         <div :class="classObject" v-show="show">
-            <slot></slot>
+            <div ref="content">
+                <slot></slot>
+            </div>
         </div>
     </transition>
 </template>
@@ -10,11 +12,10 @@
     .collapse-enter-active, .collapse-leave-active {
         transition: all .35s ease;
         overflow: hidden;
-        max-height: 100vh;
     }
 
     .collapse-enter, .collapse-leave-to {
-        max-height: 0;
+        height: 0;
     }
 </style>
 
@@ -50,6 +51,13 @@
         methods: {
             toggle() {
                 this.show = !this.show;
+            },
+            enter(el) {
+                const height = getComputedStyle(this.$refs.content).height;
+                el.style.height = height;
+            },
+            leave(el) {
+                el.style.height = 0;
             }
         },
 
