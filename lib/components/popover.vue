@@ -28,12 +28,64 @@
 
     export default {
         props: {
+            constraints: {
+                type: Array,
+                default() {
+                    return [];
+                }
+            },
+            content: {
+                type: String,
+                default: ''
+            },
+            debounce: {
+                type: [Number],
+                default: 300,
+                validator(value) {
+                    return value >= 0;
+                }
+            },
+            delay: {
+                type: [Number, Object],
+                default: 0,
+                validator(value) {
+                    if (typeof value === 'number') {
+                        return value >= 0;
+                    } else if (value !== null && typeof value === 'object') {
+                        return typeof value.show === 'number' &&
+                            typeof value.hide === 'number' &&
+                            value.show >= 0 &&
+                            value.hide >= 0;
+                    }
+
+                    return false;
+                }
+            },
+            offset: {
+                type: String,
+                default: '0 0',
+                validator(value) {
+                    return /^(\d+\s\d+)$/.test(value);
+                }
+            },
             placement: {
                 type: String,
                 default: 'top',
                 validator(value) {
                     return ['top', 'bottom', 'left', 'right'].indexOf(value) !== -1;
                 }
+            },
+            popoverStyle: {
+                type: Object,
+                default: null
+            },
+            show: {
+                type: Boolean,
+                default: false
+            },
+            title: {
+                type: String,
+                default: ''
             },
             triggers: {
                 type: [Boolean, String, Array],
@@ -55,58 +107,6 @@
                     }
                     return false;
                 }
-            },
-            title: {
-                type: String,
-                default: ''
-            },
-            content: {
-                type: String,
-                default: ''
-            },
-            show: {
-                type: Boolean,
-                default: false
-            },
-            constraints: {
-                type: Array,
-                default() {
-                    return [];
-                }
-            },
-            offset: {
-                type: String,
-                default: '0 0',
-                validator(value) {
-                    return /^(\d+\s\d+)$/.test(value);
-                }
-            },
-            delay: {
-                type: [Number, Object],
-                default: 0,
-                validator(value) {
-                    if (typeof value === 'number') {
-                        return value >= 0;
-                    } else if (value !== null && typeof value === 'object') {
-                        return typeof value.show === 'number' &&
-                            typeof value.hide === 'number' &&
-                            value.show >= 0 &&
-                            value.hide >= 0;
-                    }
-
-                    return false;
-                }
-            },
-            debounce: {
-                type: [Number],
-                default: 300,
-                validator(value) {
-                    return value >= 0;
-                }
-            },
-            popoverStyle: {
-                type: Object,
-                default: null
             }
         },
 
@@ -118,10 +118,6 @@
         },
 
         computed: {
-            popoverAlignment() {
-                return !this.placement || this.placement === `default` ? `popover-top` : `popover-${this.placement}`;
-            },
-
             normalizedTriggers() {
                 if (this.triggers === false) {
                     return [];
@@ -156,8 +152,8 @@
                 }
             },
 
-            useDebounce() {
-                return this.normalizedTriggers.length > 1;
+            popoverAlignment() {
+                return !this.placement || this.placement === `default` ? `popover-top` : `popover-${this.placement}`;
             },
 
             tetherOptions() {
@@ -169,10 +165,34 @@
                     attachment: this.placementParameters.attachment,
                     targetAttachment: this.placementParameters.targetAttachment
                 };
+            },
+
+            useDebounce() {
+                return this.normalizedTriggers.length > 1;
             }
         },
 
         watch: {
+            constraints() {
+                this.setOptions();
+            },
+
+            content() {
+                this.refreshPosition();
+            },
+
+            normalizedTriggers(newTriggers, oldTriggers) {
+                this.updateListeners(newTriggers, oldTriggers);
+            },
+
+            offset() {
+                this.setOptions();
+            },
+
+            placement() {
+                this.setOptions();
+            },
+
             /**
              * Propagate 'show' property change
              * @param  {Boolean} newShow
@@ -203,26 +223,6 @@
                 }, this.getDelay(newShowState));
             },
 
-            normalizedTriggers(newTriggers, oldTriggers) {
-                this.updateListeners(newTriggers, oldTriggers);
-            },
-
-            placement() {
-                this.setOptions();
-            },
-
-            offset() {
-                this.setOptions();
-            },
-
-            constraints() {
-                this.setOptions();
-            },
-
-            content() {
-                this.refreshPosition();
-            },
-
             title() {
                 this.refreshPosition();
             }
@@ -230,69 +230,29 @@
 
         methods: {
             /**
-             * Display popover and fire event
+             * Cleanup component listeners
              */
-            showPopover() {
-                if (this.showState === true) {
-                    this.hidePopover();
+            cleanup() {
+                // Remove all event listeners
+                // eslint-disable-next-line guard-for-in
+                for (const trigger in this.normalizedTriggers) {
+                    this.removeListener(trigger);
                 }
 
-                this.showState = true;
-
-                // Let tether do the magic, after element is shown
-                this._popover.style.display = 'block';
-                this._tether = new Tether(this.tetherOptions);
-
-                // Make sure the popup is rendered in the correct location
-                this.refreshPosition();
-
-                this.$root.$emit('shown::popover');
+                clearTimeout(this._timeout);
+                this._timeout = null;
+                this.hidePopover();
             },
 
             /**
-             * Update tether options
+             * Add all event hooks for the given trigger
+             * @param {String} trigger
              */
-            setOptions() {
-                if (this._tether) {
-                    this._tether.setOptions(this.tetherOptions);
+            addListener(trigger) {
+                // eslint-disable-next-line guard-for-in
+                for (const item in triggerListeners[trigger]) {
+                    this._trigger.addEventListener(item, e => this.eventHandler(e));
                 }
-            },
-
-            /**
-             * Refresh the Popover position in order to respond to changes
-             */
-            refreshPosition() {
-                if (this._tether) {
-                    this.$nextTick(() => {
-                        this._tether.position();
-                    });
-                }
-            },
-
-            /**
-             * Hide popover and fire event
-             */
-            hidePopover() {
-                this.showState = false;
-                this._popover.style.display = 'none';
-                this.$root.$emit('hidden::popover');
-
-                if (this._tether) {
-                    this._tether.destroy();
-                    this._tether = null;
-                }
-            },
-
-            /**
-             * Get the currently applicable popover delay
-             * @returns Number
-             */
-            getDelay(state) {
-                if (typeof this.delay === 'object') {
-                    return state ? this.delay.show : this.delay.hide;
-                }
-
-                return this.delay;
             },
 
             /**
@@ -324,6 +284,83 @@
             },
 
             /**
+             * Get the currently applicable popover delay
+             * @returns Number
+             */
+            getDelay(state) {
+                if (typeof this.delay === 'object') {
+                    return state ? this.delay.show : this.delay.hide;
+                }
+
+                return this.delay;
+            },
+
+            /**
+             * Hide popover and fire event
+             */
+            hidePopover() {
+                this.showState = false;
+                this._popover.style.display = 'none';
+                this.$root.$emit('hidden::popover');
+
+                if (this._tether) {
+                    this._tether.destroy();
+                    this._tether = null;
+                }
+            },
+
+            /**
+             * Refresh the Popover position in order to respond to changes
+             */
+            refreshPosition() {
+                if (this._tether) {
+                    this.$nextTick(() => {
+                        this._tether.position();
+                    });
+                }
+            },
+
+            /**
+             * Remove all event hooks for the given trigger
+             * @param {String} trigger
+             */
+            removeListener(trigger) {
+                // eslint-disable-next-line guard-for-in
+                for (const item in triggerListeners[trigger]) {
+                    this._trigger.removeEventListener(item, e => this.eventHandler(e));
+                }
+            },
+
+            /**
+             * Update tether options
+             */
+            setOptions() {
+                if (this._tether) {
+                    this._tether.setOptions(this.tetherOptions);
+                }
+            },
+
+            /**
+             * Display popover and fire event
+             */
+            showPopover() {
+                if (this.showState === true) {
+                    this.hidePopover();
+                }
+
+                this.showState = true;
+
+                // Let tether do the magic, after element is shown
+                this._popover.style.display = 'block';
+                this._tether = new Tether(this.tetherOptions);
+
+                // Make sure the popup is rendered in the correct location
+                this.refreshPosition();
+
+                this.$root.$emit('shown::popover');
+            },
+
+            /**
              * Study the 'triggers' component property and apply all selected triggers
              * @param {Array} triggers
              * @param {Array} appliedTriggers
@@ -349,43 +386,6 @@
                 // Apply trigger mapping changes
                 newTriggers.forEach(item => this.addListener(item));
                 removeTriggers.forEach(item => this.removeListener(item));
-            },
-
-            /**
-             * Add all event hooks for the given trigger
-             * @param {String} trigger
-             */
-            addListener(trigger) {
-                // eslint-disable-next-line guard-for-in
-                for (const item in triggerListeners[trigger]) {
-                    this._trigger.addEventListener(item, e => this.eventHandler(e));
-                }
-            },
-
-            /**
-             * Remove all event hooks for the given trigger
-             * @param {String} trigger
-             */
-            removeListener(trigger) {
-                // eslint-disable-next-line guard-for-in
-                for (const item in triggerListeners[trigger]) {
-                    this._trigger.removeEventListener(item, e => this.eventHandler(e));
-                }
-            },
-
-            /**
-             * Cleanup component listeners
-             */
-            cleanup() {
-                // Remove all event listeners
-                // eslint-disable-next-line guard-for-in
-                for (const trigger in this.normalizedTriggers) {
-                    this.removeListener(trigger);
-                }
-
-                clearTimeout(this._timeout);
-                this._timeout = null;
-                this.hidePopover();
             }
         },
 
