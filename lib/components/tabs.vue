@@ -144,7 +144,7 @@
             /**
              * Dynamically update tabs
              */
-            _updateTabs() {
+            updateTabs() {
                 // Probe tabs
                 if (this.$slots.default) {
                     this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
@@ -175,15 +175,6 @@
                 }
 
                 this.setTab(tabIndex || 0, true);
-            },
-
-            /**
-             * Wait for next tick so we can ensure DOM is updated before we inspect it
-             */
-            updateTabs() {
-                this.$nextTick(() => {
-                    this._updateTabs();
-                });
             }
         },
         mounted() {
