@@ -1,9 +1,7 @@
 <template>
     <transition @enter="enter" @leave="leave" name="collapse">
         <div :class="classObject" v-show="show">
-            <div ref="content">
-                <slot></slot>
-            </div>
+            <slot></slot>
         </div>
     </transition>
 </template>
@@ -53,8 +51,11 @@
                 this.show = !this.show;
             },
             enter(el) {
-                const height = getComputedStyle(this.$refs.content).height;
-                el.style.height = height;
+                let height = 0;
+                Array.prototype.forEach.call(el.children, c => {
+                    height += parseInt(getComputedStyle(c).height);
+                });
+                el.style.height = `${height}px`;
             },
             leave(el) {
                 el.style.height = 0;
