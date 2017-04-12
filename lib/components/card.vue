@@ -56,13 +56,13 @@
                 }
             },
             cardAlign() {
-                return `text-${this.align}`;
+                return this.align ? `text-${this.align}` : null;
             }
         },
         props: {
             align: {
                 type: String,
-                default: 'left'
+                default: null
             },
             inverse: {
                 type: Boolean,
