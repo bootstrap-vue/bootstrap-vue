@@ -15,7 +15,7 @@
             >
 
                 <div :class="['modal-dialog','modal-'+size]">
-                    <div class="modal-content">
+                    <div class="modal-content" @click.stop>
 
                         <div class="modal-header" v-if="!hideHeader">
                             <slot name="modal-header">
@@ -63,7 +63,10 @@
 </style>
 
 <script>
+    import bBtn from './button.vue';
+
     export default {
+        components: {bBtn},
         data() {
             return {
                 visible: false
@@ -128,21 +131,35 @@
                 if (!this.visible) {
                     return;
                 }
-                this.visible = false;
-                this.$root.$emit('hidden::modal', this.id);
-                this.body.classList.remove('modal-open');
 
-                this.$emit('hidden', isOK);
+                // Create event object
+                let canceled = false;
+                const e = {
+                    isOK,
+                    cancel() {
+                        canceled = true;
+                    }
+                };
+
+                // Emit events
+                this.$emit('hidden', e);
 
                 if (isOK === true) {
-                    this.$emit('ok');
+                    this.$emit('ok', e);
                 } else if (isOK === false) {
-                    this.$emit('cancel');
+                    this.$emit('cancel', e);
+                }
+
+                // Hide if not canceled
+                if (!canceled) {
+                    this.visible = false;
+                    this.$root.$emit('hidden::modal', this.id);
+                    this.body.classList.remove('modal-open');
                 }
             },
-            onClickOut(e) {
+            onClickOut() {
                 // If backdrop clicked, hide modal
-                if (this.closeOnBackdrop && e.target.id && e.target.id === this.id) {
+                if (this.closeOnBackdrop) {
                     this.hide();
                 }
             },

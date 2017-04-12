@@ -403,9 +403,12 @@
                 });
             }
 
-            hub.$on('hide::modal', () => {
+            const cleanup = () => {
                 this.cleanup();
-            });
+            };
+
+            hub.$on('hide::modal', cleanup);
+            hub.$on('changed::tab', cleanup);
         },
 
         mounted() {

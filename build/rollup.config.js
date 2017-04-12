@@ -12,6 +12,11 @@ const base = path.resolve(__dirname, '..');
 const lib = path.resolve(base, 'lib');
 const dist = path.resolve(base, 'dist');
 
+// Ensure dist directory exists
+if (!fs.existsSync(dist)) {
+    fs.mkdirSync(dist);
+}
+
 module.exports = {
     entry: path.resolve(lib, 'index.js'),
     external: Object.keys(dependencies),

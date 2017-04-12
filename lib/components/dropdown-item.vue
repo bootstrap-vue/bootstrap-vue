@@ -5,10 +5,10 @@
 </template>
 
 <script>
-    import Link from './link.vue';
+    import bLink from './link.vue';
 
     export default {
-        extends: Link,
+        extends: bLink,
         computed: {
             itemType() {
                 return (this.href || this.to) ? this.componentType : 'button';

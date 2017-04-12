@@ -8,17 +8,13 @@ window.app = new Vue({
         clearName() {
             this.name = '';
         },
-        submit() {
+        submit(e) {
             if (!this.name) {
-                /* eslint-disable no-alert */
-                alert('Please enter your name');
-                return false;
+                return e.cancel();
             }
+
             this.names.push(this.name);
             this.name = '';
-
-            // Ensure modal closes
-            this.$root.$emit('hide::modal', 'modal1');
         }
     }
 });

@@ -9,15 +9,24 @@
     },
     {
       "event": "hidden",
-      "description": "always emits when modal is hidden"
+      "description": "always emits when modal is hidden",
+      "args": {
+        "e": "Close event. See docs"
+      }
     },
     {
       "event": "ok",
-      "description": "when default ok button pressed"
+      "description": "when default ok button pressed",
+      "args": {
+        "e": "Close event. See docs"
+      }
     },
     {
       "event": "cancel",
-      "description": "when default cancel button pressed"
+      "description": "when default cancel button pressed",
+      "args": {
+        "e": "Close event. See docs"
+      }
     }
   ],
   "slots": [

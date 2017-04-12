@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    import site from '../data/site';
+    import site from '../..';
 
     export default{
         data() {

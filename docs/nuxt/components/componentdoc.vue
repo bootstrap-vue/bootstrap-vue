@@ -79,6 +79,10 @@
             },
             props_items() {
                 const component = Vue.options.components[this.component];
+                if (!component) {
+                    return {};
+                }
+
                 const props = component.options.props;
                 return Object.keys(props).map(prop => {
                     const p = props[prop];

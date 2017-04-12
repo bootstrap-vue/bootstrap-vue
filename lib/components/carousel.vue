@@ -1,10 +1,11 @@
 <template>
-    <div class="carousel slide" data-ride="carousel" @mouseenter="pause()" @mouseleave="start()">
-
+    <div class="carousel slide" @mouseenter="pause" @mouseleave="start" :style="{background,height}">
         <!-- Indicators -->
         <ol class="carousel-indicators" v-show="indicators">
-            <li v-for="(item,indicatorIndex) in slides" :class="{active:indicatorIndex === index}"
-                @click="changeSlide(indicatorIndex)"></li>
+            <li v-for="n in slides.length"
+                :class="{active:n-1 === index}"
+                @click="index=n-1"
+            ></li>
         </ol>
 
         <!-- Wrapper for slides -->
@@ -13,67 +14,39 @@
         </div>
 
         <!-- Controls -->
-        <a class="carousel-control-prev" href="#" role="button" data-slide="prev" @click.stop.prevent="prev" v-show="controls">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#" role="button" data-slide="next" @click.stop.prevent="next" v-show="controls">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+        <template v-if="controls">
+            <a class="carousel-control-prev" href="#" role="button" data-slide="prev" @click.stop.prevent="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#" role="button" data-slide="next" @click.stop.prevent="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </template>
     </div>
 </template>
 
 <script>
-
-    /**
-     * Carousel Notes
-     * - Ie9 does not support transitions and might require javascript fallbacks. B4 deliberately dropped support for this.
-     * - It is not accessible.
-     *
-     * How it works:
-     * - active element applies the transition to the slide but not triggers it
-     * - we need to use 'right' and 'left' classes to trigger animation
-     * - 'next' and 'prev' class makes the incoming slide positioned absolute, so it can follow outgoing slide
-     *
-     * To slide right to left we have to:
-     * - add class 'active', 'next', and right to the next slide
-     * - add class 'left' on the current slide same time as remove the 'right' class on the incoming one
-     * - remove all classes and only leave 'active' on the incoming slide
-     *
-     */
-
-    import {csstransitions} from '../utils/helpers';
-
-    // This is directly linked to the bootstrap animation timing in _carousel.scss
-    // For browsers that do not support transitions like IE9 just change slide immediately
-    const TRANSITION_DURATION = csstransitions() ? 600 : 0;
-
-    // When next is set, we want to move from right to left
-    // When previous is set, we want to move from left to right
     const DIRECTION = {
-        rtl: {
-            outgoing: 'left',
-            incoming: 'right',
-            overlay: 'next'
+        next: {
+            current: 'carousel-item-left',
+            next: 'carousel-item-right',
+            overlay: 'carousel-item-next'
         },
-        ltr: {
-            outgoing: 'right',
-            incoming: 'left',
-            overlay: 'prev'
+        prev: {
+            current: 'carousel-item-right',
+            next: 'carousel-item-left',
+            overlay: 'carousel-item-prev'
         }
     };
 
     export default {
-        replace: true,
-        computed: {},
         data() {
             return {
                 index: 0,
-                slidesCount: 0,
-                animating: false,
-                slides: [],
-                direction: DIRECTION.rtl
+                isSliding: false,
+                slides: []
             };
         },
         props: {
@@ -83,38 +56,38 @@
             },
             indicators: {
                 type: Boolean,
-                default: true
+                default: false
             },
             controls: {
                 type: Boolean,
-                default: true
+                default: false
+            },
+            height: {
+                type: String
+            },
+            background: {
+                type: String
             }
         },
         methods: {
             // Previous slide
             prev() {
-                if (this.animating) {
-                    return;
-                }
-                this.index--;
-                if (this.index < 0) {
-                    this.index = this.slidesCount;
+                if (this.index <= 0) {
+                    this.index = this.slides.length - 1;
+                } else {
+                    this.index--;
                 }
             },
+
             // Next slide
             next() {
-                if (this.animating) {
-                    return;
-                }
-                this.index++;
-                if (this.index > this.slidesCount) {
+                if (this.index >= this.slides.length - 1) {
                     this.index = 0;
+                } else {
+                    this.index++;
                 }
             },
-            // On slide change
-            changeSlide(index) {
-                this.index = index;
-            },
+
             // Pause auto rotation
             pause() {
                 if (this.interval === 0 || typeof this.interval === 'undefined') {
@@ -122,6 +95,7 @@
                 }
                 clearInterval(this._intervalId);
             },
+
             // Start auto rotate slides
             start() {
                 if (this.interval === 0 || typeof this.interval === 'undefined') {
@@ -134,44 +108,59 @@
         },
         mounted() {
             // Get all slides
-            this._items = this.$el.querySelectorAll('.carousel-item');
-            this.slidesCount = this._items.length - 1;
-            this.slides = Array.apply(null, {length: this._items.length}).map(Number.call, Number);
+            this.slides = this.$el.querySelectorAll('.carousel-item');
 
             // Set first slide as active
-            this._items[0].classList.add('active');
+            this.slides[0].classList.add('active');
 
             // Auto rotate slides
             this.start();
         },
         watch: {
             index(val, oldVal) {
-                this.animating = true;
-                this.direction = DIRECTION.rtl;
-
-                // When previous is pressed we want to move from left to right
-                if (val < oldVal) {
-                    this.direction = DIRECTION.ltr;
+                if (val === oldVal) {
+                    return;
                 }
 
-                // Lets animate
-                // prepare next slide to animate (position it on the opposite side of the direction as a starting point)
-                this._items[val].classList.add(this.direction.incoming, this.direction.overlay);
-                // Reflow
-                // this._items[val].offsetWidth;
-                // add class active
-                this._items[val].classList.add('active');
-                // Trigger animation on outgoing and incoming slide
-                this._items[oldVal].classList.add(this.direction.outgoing);
-                this._items[val].classList.remove(this.direction.incoming);
-                // Wait for animation to finish and cleanup classes
+                if (this.isSliding) {
+                    this.index = oldVal;
+                    return;
+                }
+
+                // Determine sliding direction
+                let direction = (val > oldVal) ? DIRECTION.next : DIRECTION.prev;
+
+                // Rotates
+                if (oldVal === 0 && val === this.slides.length - 1) {
+                    direction = DIRECTION.prev;
+                } else if (oldVal === this.slides.length - 1 && val === 0) {
+                    direction = DIRECTION.next;
+                }
+
+                // Determine current and next slides
+                const currentSlide = this.slides[oldVal];
+                const nextSlide = this.slides[val];
+
+                if (!currentSlide || !nextSlide) {
+                    return;
+                }
+
+                // Start animating
+                this.isSliding = true;
+
+                nextSlide.classList.add(direction.next, direction.overlay);
+                currentSlide.classList.add(direction.current);
+
                 this._carouselAnimation = setTimeout(() => {
-                    this._items[oldVal].classList.remove(this.direction.outgoing, 'active');
-                    this._items[val].classList.remove(this.direction.overlay);
-                    this.animating = false;
-                    // Trigger an event
-                    this.$root.$emit('slid::carousel', val);
-                }, TRANSITION_DURATION);
+                    this.isSliding = false;
+                    this.$emit('slide', val);
+
+                    currentSlide.classList.remove('active');
+                    nextSlide.classList.add('active');
+
+                    currentSlide.classList.remove(direction.current);
+                    nextSlide.classList.remove(direction.next, direction.overlay);
+                }, 500);
             }
         },
         destroyed() {

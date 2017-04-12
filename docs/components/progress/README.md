@@ -1,6 +1,4 @@
 # Progress
 
-> The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
-  element, and is customizable.
-  
-For more advanced usage, you can use <a href="https://github.com/SirLamer/click-confirm" target="_blank">Click Confirm</a> component by @SirLamer which is based on popover.
+> Use our custom progress component for displaying simple or complex progress bars.
+We don’t use the HTML5 `<progress>` element, ensuring you can animate them, and place text labels over them.

@@ -10,7 +10,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(item,index) in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]">
+        <tr v-for="(item,index) in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]" @click="rowClicked(item, index)">
             <td v-for="(field,key) in fields" :class="[field.class?field.class:null]">
                 <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import Pagination from './pagination.vue';
+    import bPagination from './pagination.vue';
 
     const toString = v => {
         if (!v) {
@@ -39,8 +39,7 @@
     };
 
     export default {
-        components: {bPagination: Pagination},
-
+        components: {bPagination},
         data() {
             return {
                 sortBy: null,
@@ -55,7 +54,8 @@
             },
             fields: {
                 type: Object,
-                default: () => {}
+                default: () => {
+                }
             },
             striped: {
                 type: Boolean,
@@ -145,6 +145,9 @@
             }
         },
         methods: {
+            rowClicked(item, index) {
+                this.$emit('row-clicked', item, index);
+            },
             headClick(field, key) {
                 if (!field.sortable) {
                     this.sortBy = null;

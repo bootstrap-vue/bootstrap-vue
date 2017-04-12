@@ -1,69 +1,21 @@
 <div id="app">
-    <!-- Simple -->
-    <h4>Simple</h4>
-    <b-carousel>
-        <b-slide>
-            <img class="d-block img-fluid" src="http://placeskull.com/200/200/ABABAB/-1/0" alt="" data-holder-rendered="true" />
-        </b-slide>
-        <b-slide>
-            <img class="d-block img-fluid" src="http://placeskull.com/200/200/E8117F/-1/0" alt="" data-holder-rendered="true" />
-        </b-slide>
-    </b-carousel>
+    <b-carousel controls indicators :interval="3000" background="grey">
 
-    <!-- Standard -->
-    <h4>Standard</h4>
-    <b-carousel controls :interval="3000" indicators>
-        <b-slide>
-            <img class="d-block img-fluid" src="http://placeskull.com/200/200/ABABAB/-1/0" alt="" data-holder-rendered="true" />
-            <div class="carousel-caption d-none d-md-block">
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </div>
-        </b-slide>
-        <b-slide>
-            <img class="d-block img-fluid" src="http://placeskull.com/200/200/E8117F/-1/0" alt="" data-holder-rendered="true" />
-            <div class="carousel-caption d-none d-md-block">
-                <h3>Second slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </div>
-        </b-slide>
-    </b-carousel>
+        <!-- Text slides -->
+        <b-carousel-slide background="grey" height="300px"
+                          caption="First slide"
+                          text="Nulla vitae elit libero, a pharetra augue mollis interdum.">
+        </b-carousel-slide>
 
-    <!-- With no Controls -->
-    <h4>With no Controls</h4>
-    <b-carousel :controls="false" :interval="3000" indicators>
-        <b-slide>
-            <img class="d-block img-fluid" src="http://placeskull.com/200/200/ABABAB/-1/0" alt="" data-holder-rendered="true" />
-            <div class="carousel-caption d-none d-md-block">
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </div>
-        </b-slide>
-        <b-slide>
-            <img class="d-block img-fluid" src="http://placeskull.com/200/200/E8117F/-1/0" alt="" data-holder-rendered="true" />
-            <div class="carousel-caption d-none d-md-block">
-                <h3>Second slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </div>
-        </b-slide>
-    </b-carousel>
+        <!-- Slides with custom text -->
+        <b-carousel-slide background="grey" height="300px">
+            Hello world
+        </b-carousel-slide>
 
-    <!-- With no indicators -->
-    <h4>With no indicators</h4>
-     <b-carousel :controls="false" :interval="3000" :indicators="false">
-        <b-slide>
-            <img class="d-block img-fluid" src="http://placeskull.com/200/200/ABABAB/-1/0" alt="" data-holder-rendered="true" />
-            <div class="carousel-caption d-none d-md-block">
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </div>
-        </b-slide>
-        <b-slide>
-            <img class="d-block img-fluid" src="http://placeskull.com/200/200/E8117F/-1/0" alt="" data-holder-rendered="true" />
-            <div class="carousel-caption d-none d-md-block">
-                <h3>Second slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </div>
-        </b-slide>
+        <!-- Slides with image -->
+        <b-carousel-slide background="grey" height="300px"
+                          img="http://placeskull.com/600/300/ABABAB/-1/0">
+        </b-carousel-slide>
+
     </b-carousel>
 </div>

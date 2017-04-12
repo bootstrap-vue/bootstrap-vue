@@ -1,5 +1,17 @@
 {
   "title": "Table",
   "component": "bTable",
-  "jsfiddle": "a5s95a3q"
+  "jsfiddle": "a5s95a3q",
+  "events": [
+    {
+      "event": "row-clicked",
+      "description": "Emitted when a row clicked.",
+      "args": [
+        {
+          "arg": "(item,index)",
+          "description": "Selected item and its index."
+        }
+      ]
+    }
+  ]
 }

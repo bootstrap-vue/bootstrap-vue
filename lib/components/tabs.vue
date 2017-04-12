@@ -7,7 +7,7 @@
                        :href="tab.href"
                        @click.prevent.stop="setTab(index)"
                        v-if="!tab.headHtml"
-                       >{{ tab.title }}</a>
+                    >{{ tab.title }}</a>
                     <div :class="['tab-head',{small: small, active: tab.localActive, disabled: tab.disabled}]"
                          v-else
                          v-html="tab.headHtml"></div>
@@ -28,7 +28,7 @@
     export default {
         data() {
             return {
-                currentTab: this.value || 0,
+                currentTab: this.value,
                 tabs: []
             };
         },
@@ -66,6 +66,7 @@
 
                 this.$root.$emit('changed::tab', this, val, this.tabs[val]);
                 this.$emit('input', val);
+                this.tabs[val].$emit('click');
             },
             value(val, old) {
                 if (val === old) {
@@ -160,11 +161,13 @@
                 // Set initial active tab
                 let tabIndex = this.currentTab;
 
-                this.tabs.forEach((tab, index) => {
-                    if (tab.active) {
-                        tabIndex = index;
-                    }
-                });
+                if (this.currentTab === null || this.currentTab === undefined) {
+                    this.tabs.forEach((tab, index) => {
+                        if (tab.active) {
+                            tabIndex = index;
+                        }
+                    });
+                }
 
                 this.setTab(tabIndex, true);
             },
@@ -182,7 +185,7 @@
             this.updateTabs();
 
             // Observe Child changes so we can notify tabs change
-            observeDom(this.$el, this.updateTabs.bind(this));
+            observeDom(this.$el, this.updateTabs.bind(this), {subtree: false});
         }
     };
 

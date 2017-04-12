@@ -9,7 +9,10 @@
 </template>
 
 <script>
+    import bLink from './link.vue';
+
     export default {
+        components: {bLink},
         computed: {
             componentType() {
                 return this.to ? 'router-link' : 'a';

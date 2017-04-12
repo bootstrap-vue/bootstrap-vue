@@ -1,0 +1,11 @@
+{
+  "title": "Media",
+  "component": "bMedia",
+  "jsfiddle": "ey4x3q0q",
+  "slots": [
+    {
+      "name": "aside",
+      "description": "Media Aside"
+    }
+  ]
+}
