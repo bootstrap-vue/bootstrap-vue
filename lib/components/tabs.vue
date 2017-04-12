@@ -15,7 +15,7 @@
                 <slot name="tabs"></slot>
             </ul>
         </div>
-        <div :class="['tab-content',{'card-block': card}]">
+        <div :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
@@ -169,7 +169,12 @@
                     });
                 }
 
-                this.setTab(tabIndex, true);
+                // Workaround to fix problem when currentTab is removed
+                if (tabIndex > this.tabs.length - 1) {
+                    tabIndex = this.tabs.length - 1;
+                }
+
+                this.setTab(tabIndex || 0, true);
             },
 
             /**
@@ -185,7 +190,7 @@
             this.updateTabs();
 
             // Observe Child changes so we can notify tabs change
-            observeDom(this.$el, this.updateTabs.bind(this), {subtree: false});
+            observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {subtree: false});
         }
     };
 
