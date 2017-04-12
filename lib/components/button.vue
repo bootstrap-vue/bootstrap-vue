@@ -5,7 +5,10 @@
 </template>
 
 <script>
+    import bLink from './link.vue';
+
     export default {
+        components: {bLink},
         computed: {
             classObject() {
                 return [

@@ -2,8 +2,10 @@
     <div class="container">
         <div v-html="readme"></div>
 
-        <h4 class="mt-4">Example</h4>
-        <jsfiddle :slug="`${meta.jsfiddle}`" tabs="result,html,js"></jsfiddle>
+        <template v-if="meta.jsfiddle && meta.jsfiddle.length">
+            <h4 class="mt-4">Example</h4>
+            <jsfiddle :slug="`${meta.jsfiddle}`" tabs="result,html,js"></jsfiddle>
+        </template>
 
         <componentdoc :component="meta.component" :events="meta.events" :slots="meta.slots"></componentdoc>
 

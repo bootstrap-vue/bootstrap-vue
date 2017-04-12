@@ -7,7 +7,6 @@
 
 <script>
     export default {
-        replace: true,
         computed: {
             classObject() {
                 return [

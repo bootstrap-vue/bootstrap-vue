@@ -21,7 +21,6 @@
 
 <script>
     export default {
-        replace: true,
         data() {
             return {
                 show: false,

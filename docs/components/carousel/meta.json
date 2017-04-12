@@ -1,5 +1,6 @@
 {
   "title": "Carousel",
   "component": "bCarousel",
-  "jsfiddle": "???"
+  "components": ["bCarouselSlide"],
+  "jsfiddle": "dd71ezon"
 }

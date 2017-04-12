@@ -10,9 +10,7 @@
     import bLink from './link.vue';
 
     export default {
-        components: {
-            bLink
-        },
+        components: {bLink},
         computed: {
             classObject() {
                 return [

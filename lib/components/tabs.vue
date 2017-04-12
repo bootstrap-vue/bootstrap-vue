@@ -6,22 +6,29 @@
                     <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
                        :href="tab.href"
                        @click.prevent.stop="setTab(index)"
-                       v-html="tab.title"
-                    ></a>
+                       v-if="!tab.headHtml"
+                    >{{ tab.title }}</a>
+                    <div :class="['tab-head',{small: small, active: tab.localActive, disabled: tab.disabled}]"
+                         v-else
+                         v-html="tab.headHtml"></div>
                 </li>
+                <slot name="tabs"></slot>
             </ul>
         </div>
         <div :class="['tab-content',{'card-block': card}]">
             <slot></slot>
+            <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
     </div>
 </template>
 
 <script>
+    import observeDom from '../utils/observe-dom';
+
     export default {
         data() {
             return {
-                currentTab: this.value || 0,
+                currentTab: this.value,
                 tabs: []
             };
         },
@@ -59,6 +66,7 @@
 
                 this.$root.$emit('changed::tab', this, val, this.tabs[val]);
                 this.$emit('input', val);
+                this.tabs[val].$emit('click');
             },
             value(val, old) {
                 if (val === old) {
@@ -131,28 +139,53 @@
 
                 // Update currentTab
                 this.currentTab = index;
+            },
+
+            /**
+             * Dynamically update tabs
+             */
+            _updateTabs() {
+                // Probe tabs
+                if (this.$slots.default) {
+                    this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
+                        .map(tab => tab.componentInstance);
+                } else {
+                    this.tabs = [];
+                }
+
+                this.tabs.forEach(tab => {
+                    this.$set(tab, 'fade', this.fade);
+                    this.$set(tab, 'lazy', this.lazy);
+                });
+
+                // Set initial active tab
+                let tabIndex = this.currentTab;
+
+                if (this.currentTab === null || this.currentTab === undefined) {
+                    this.tabs.forEach((tab, index) => {
+                        if (tab.active) {
+                            tabIndex = index;
+                        }
+                    });
+                }
+
+                this.setTab(tabIndex, true);
+            },
+
+            /**
+             * Wait for next tick so we can ensure DOM is updated before we inspect it
+             */
+            updateTabs() {
+                this.$nextTick(() => {
+                    this._updateTabs();
+                });
             }
         },
         mounted() {
-            // Probe tabs
-            this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
-                .map(tab => tab.componentInstance);
+            this.updateTabs();
 
-            this.tabs.forEach(tab => {
-                this.$set(tab, 'fade', this.fade);
-                this.$set(tab, 'lazy', this.lazy);
-            });
-
-            // Set initial active tab
-            let tabIndex = this.currentTab;
-
-            this.tabs.forEach((tab, index) => {
-                if (tab.active) {
-                    tabIndex = index;
-                }
-            });
-
-            this.setTab(tabIndex, true);
+            // Observe Child changes so we can notify tabs change
+            observeDom(this.$el, this.updateTabs.bind(this), {subtree: false});
         }
     };
 

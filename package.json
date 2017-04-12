@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "0.11.0",
+  "version": "0.12.2",
   "description": "Bootstrap 4 Components for Vue.js 2",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
@@ -22,7 +22,8 @@
     "url": "git+https://github.com/bootstrap-vue/bootstrap-vue.git"
   },
   "scripts": {
-    "build": "node build/rollup",
+    "build": "rollup -c build/rollup.config.js",
+    "watch": "rollup -c build/rollup.config.js --watch",
     "docs-dev": "nuxt dev build",
     "docs-gen": "nuxt generate build",
     "docs-deploy": "cd scripts && ./gh-pages",
@@ -38,7 +39,7 @@
   "devDependencies": {
     "clean-css": "^4.0.10",
     "codemirror": "^5.25.0",
-    "cross-env": "^3.2.4",
+    "cross-env": "^4.0.0",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-html": "^2.0.0",
     "eslint-plugin-vue": "^2.0.1",
@@ -52,9 +53,10 @@
     "rollup": "^0.41.6",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-plugin-vue": "^2.3.1",
+    "rollup-watch": "^3.2.2",
     "vue": "2.2.5",
     "xo": "^0.18.1"
   },

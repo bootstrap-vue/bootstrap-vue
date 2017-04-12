@@ -6,7 +6,6 @@
 
 <script>
     export default {
-        replace: true,
         props: {
             tag: {
                 type: String,

@@ -5,9 +5,12 @@
 </template>
 
 <script>
+    import bLink from './link.vue';
+
     const actionTags = ['a', 'router-link', 'button', 'b-link'];
 
     export default {
+        components: {bLink},
         computed: {
             classObject() {
                 return [

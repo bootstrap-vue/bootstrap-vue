@@ -6,7 +6,6 @@
 
 <script>
     export default {
-        replace: true,
         computed: {
             badgeVariant() {
                 return !this.variant || this.variant === `default` ? `badge-default` : `badge-${this.variant}`;

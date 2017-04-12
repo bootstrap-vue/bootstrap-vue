@@ -10,7 +10,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(item,index) in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]">
+        <tr v-for="(item,index) in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]" @click="rowClicked(item, index)">
             <td v-for="(field,key) in fields" :class="[field.class?field.class:null]">
                 <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import Pagination from './pagination.vue';
+    import bPagination from './pagination.vue';
 
     const toString = v => {
         if (!v) {
@@ -39,8 +39,7 @@
     };
 
     export default {
-        components: {bPagination: Pagination},
-
+        components: {bPagination},
         data() {
             return {
                 sortBy: null,
@@ -89,6 +88,10 @@
             itemsProvider: {
                 type: Function,
                 default: null
+            },
+            value: {
+                type: Array,
+                default: () => []
             }
         },
 
@@ -115,7 +118,11 @@
                         } else {
                             regex = new RegExp('.*' + this.filter + '.*', 'ig');
                         }
-                        items = items.filter(item => regex.test(toString(item)));
+                        items = items.filter(item => {
+                            const test = regex.test(toString(item));
+                            regex.lastIndex = 0;
+                            return test;
+                        });
                     }
                 }
 
@@ -128,15 +135,19 @@
                     });
                 }
 
+                this.$emit('input', items);
+
                 // Apply pagination
                 if (this.perPage) {
                     items = items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
                 }
-
                 return items;
             }
         },
         methods: {
+            rowClicked(item, index) {
+                this.$emit('row-clicked', item, index);
+            },
             headClick(field, key) {
                 if (!field.sortable) {
                     this.sortBy = null;
