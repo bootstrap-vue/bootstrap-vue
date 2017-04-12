@@ -53,7 +53,7 @@
             enter(el) {
                 let height = 0;
                 Array.prototype.forEach.call(el.children, c => {
-                    height += parseInt(getComputedStyle(c).height);
+                    height += parseInt(getComputedStyle(c).height, 10);
                 });
                 el.style.height = `${height}px`;
             },
