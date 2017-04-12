@@ -58,7 +58,7 @@
                 el.style.height = `${height}px`;
             },
             leave(el) {
-                el.style.height = 0;
+                el.style.height = null;
             }
         },
 
