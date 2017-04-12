@@ -230,6 +230,17 @@
 
         methods: {
             /**
+             * Add all event hooks for the given trigger
+             * @param {String} trigger
+             */
+            addListener(trigger) {
+                // eslint-disable-next-line guard-for-in
+                for (const item in triggerListeners[trigger]) {
+                    this._trigger.addEventListener(item, e => this.eventHandler(e));
+                }
+            },
+
+            /**
              * Cleanup component listeners
              */
             cleanup() {
@@ -242,17 +253,6 @@
                 clearTimeout(this._timeout);
                 this._timeout = null;
                 this.hidePopover();
-            },
-
-            /**
-             * Add all event hooks for the given trigger
-             * @param {String} trigger
-             */
-            addListener(trigger) {
-                // eslint-disable-next-line guard-for-in
-                for (const item in triggerListeners[trigger]) {
-                    this._trigger.addEventListener(item, e => this.eventHandler(e));
-                }
             },
 
             /**
