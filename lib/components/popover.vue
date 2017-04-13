@@ -155,7 +155,7 @@
             /**
              * Class property to be used for Popover rendering
              *
-             * @return string
+             * @return String
              */
             popoverAlignment() {
                 return !this.placement || this.placement === `default` ? `popover-top` : `popover-${this.placement}`;
@@ -164,75 +164,56 @@
             /**
              * Determine if the Popover should be shown.
              *
-             * @return boolean
+             * @return Boolean
              */
             showState() {
                 return this.show !== false && (this.triggerState || this.show);
-            },
-
-            /**
-             * Tether construct params for each show event.
-             *
-             * @return Object
-             */
-            tetherOptions() {
-                return {
-                    element: this._popover,
-                    target: this._trigger,
-                    offset: this.offset,
-                    constraints: this.constraints,
-                    attachment: placementParams[this.placement].attachment,
-                    targetAttachment: placementParams[this.placement].targetAttachment
-                };
-            },
-
-            /**
-             * Determine if debounce should be used.
-             *
-             * @return boolean
-             */
-            useDebounce() {
-                return this.normalizedTriggers.length > 1;
             }
         },
 
         watch: {
+            /**
+             * Refresh Tether display properties
+             */
             constraints() {
                 this.setOptions();
             },
 
-            content() {
-                this.refreshPosition();
-            },
-
+            /**
+             * Refresh Popover event triggers
+             * @param {Array} newTriggers
+             * @param {Array} oldTriggers
+             */
             normalizedTriggers(newTriggers, oldTriggers) {
                 this.updateListeners(newTriggers, oldTriggers);
             },
 
+            /**
+             * Refresh Tether display properties
+             */
             offset() {
                 this.setOptions();
             },
 
+            /**
+             * Refresh Tether display properties
+             */
             placement() {
                 this.setOptions();
             },
 
             /**
              * Affect 'show' state in response to status change
-             * @param  {Boolean} newShowState
+             * @param  {Boolean} val
              */
             showState(val) {
                 clearTimeout(this._timeout);
                 let delay = this.getDelay(val);
 
                 if (delay)
-                    this._timeout = setTimeout(() => {this.togglePopover(val)}, delay);
+                    this._timeout = setTimeout(() => this.togglePopover(val), delay);
                 else
                     this.togglePopover(val);
-            },
-
-            title() {
-                this.refreshPosition();
             }
         },
 
@@ -249,20 +230,8 @@
             },
 
             /**
-             * Cleanup component listeners
+             * Tidy removal of Tether object from the DOM
              */
-            cleanup() {
-                // Remove all event listeners
-                // eslint-disable-next-line guard-for-in
-                for (const trigger in this.normalizedTriggers) {
-                    this.removeListener(trigger);
-                }
-
-                clearTimeout(this._timeout);
-                this._timeout = null;
-                this.hidePopover();
-            },
-
             destroyTether() {
                 if (this._tether) {
                     this._tether.destroy();
@@ -275,8 +244,8 @@
              * @param  {Object} e
              */
             eventHandler(e) {
-                // If this event is right after a previous successful event, ignore it
-                if (this.useDebounce && this.debounce > 0 && this.lastEvent !== null && e.timeStamp <= this.lastEvent + this.debounce) {
+                // If this event is right after a previous successful event, ignore it (debounce)
+                if (this.normalizedTriggers.length > 1 && this.debounce > 0 && this.lastEvent !== null && e.timeStamp <= this.lastEvent + this.debounce) {
                     return;
                 }
 
@@ -312,12 +281,26 @@
             },
 
             /**
+             * Tether construct params for each show event.
+             *
+             * @return Object
+             */
+            getTetherOptions() {
+                return {
+                    element: this._popover,
+                    target: this._trigger,
+                    offset: this.offset,
+                    constraints: this.constraints,
+                    attachment: placementParams[this.placement].attachment,
+                    targetAttachment: placementParams[this.placement].targetAttachment
+                };
+            },
+
+            /**
              * Hide popover and fire event
              */
             hidePopover() {
                 this._popover.style.display = 'none';
-                this.$root.$emit('hidden::popover');
-
                 this.destroyTether();
             },
 
@@ -326,7 +309,7 @@
              */
             refreshPosition() {
                 if (this._tether) {
-                    this.$nextTick(() => { this._tether.position(); });
+                    this.$nextTick(() => {this._tether.position()});
                 }
             },
 
@@ -346,7 +329,7 @@
              */
             setOptions() {
                 if (this._tether) {
-                    this._tether.setOptions(this.tetherOptions);
+                    this._tether.setOptions(this.getTetherOptions());
                 }
             },
 
@@ -359,20 +342,23 @@
 
                 // Let tether do the magic, after element is shown
                 this._popover.style.display = 'block';
-                this._tether = new Tether(this.tetherOptions);
+                this._tether = new Tether(this.getTetherOptions());
 
                 // Make sure the popup is rendered in the correct location
                 this.refreshPosition();
-
-                this.$root.$emit('shown::popover');
             },
 
+            /**
+             * Handle Popover show or hide instruction
+             */
             togglePopover(newShowState) {
                 this.$emit('showChange', newShowState);
                 if (newShowState) {
                     this.showPopover();
+                    this.$root.$emit('shown::popover');
                 } else {
                     this.hidePopover();
+                    this.$root.$emit('hidden::popover');
                 }
             },
 
@@ -406,25 +392,9 @@
         },
 
         created() {
-            const hub = this.$root;
-            hub.$on('hide::popover', () => {
+            this.$root.$on('hide::popover', () => {
                 this.triggerState = false;
             });
-
-            // Workaround to resolve issues like #151
-            if (this.$router) {
-                this.$router.beforeEach((to, from, next) => {
-                    next();
-                    this.cleanup();
-                });
-            }
-
-            const cleanup = () => {
-                this.cleanup();
-            };
-
-            hub.$on('hide::modal', cleanup);
-            hub.$on('changed::tab', cleanup);
         },
 
         mounted() {
@@ -443,18 +413,14 @@
             }
         },
 
-        /*
-        beforeUpdate() {
-            console.log('called beforeUpdate');
+        updated() {
+            this.refreshPosition();
         },
 
-        updated() {
-            console.log('called update');
-        }
-        */
-
         beforeDestroy() {
-            this.cleanup();
+            this.normalizedTriggers.forEach(item => this.removeListener(item));
+            clearTimeout(this._timeout);
+            this.destroyTether();
         }
     };
 
