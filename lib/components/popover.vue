@@ -207,13 +207,15 @@
              * @param  {Boolean} val
              */
             showState(val) {
-                clearTimeout(this._timeout);
-                let delay = this.getDelay(val);
+                const delay = this.getDelay(val);
 
-                if (delay)
+                clearTimeout(this._timeout);
+
+                if (delay) {
                     this._timeout = setTimeout(() => this.togglePopover(val), delay);
-                else
+                } else {
                     this.togglePopover(val);
+                }
             }
         },
 
@@ -309,7 +311,9 @@
              */
             refreshPosition() {
                 if (this._tether) {
-                    this.$nextTick(() => {this._tether.position()});
+                    this.$nextTick(() => {
+                        this._tether.position();
+                    });
                 }
             },
 
@@ -368,8 +372,8 @@
              * @param {Array} appliedTriggers
              */
             updateListeners(triggers, appliedTriggers = []) {
-                let newTriggers = [];
-                let removeTriggers = [];
+                const newTriggers = [];
+                const removeTriggers = [];
 
                 // Look for new events not yet mapped (all of them on first load)
                 triggers.forEach(item => {
