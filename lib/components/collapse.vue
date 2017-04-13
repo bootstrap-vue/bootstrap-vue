@@ -1,5 +1,5 @@
 <template>
-    <transition name="collapse">
+    <transition @enter="enter" @leave="leave" name="collapse">
         <div :class="classObject" v-show="show">
             <slot></slot>
         </div>
@@ -10,11 +10,10 @@
     .collapse-enter-active, .collapse-leave-active {
         transition: all .35s ease;
         overflow: hidden;
-        max-height: 100vh;
     }
 
     .collapse-enter, .collapse-leave-to {
-        max-height: 0;
+        height: 0;
     }
 </style>
 
@@ -50,6 +49,16 @@
         methods: {
             toggle() {
                 this.show = !this.show;
+            },
+            enter(el) {
+                let height = 0;
+                Array.prototype.forEach.call(el.children, c => {
+                    height += parseInt(getComputedStyle(c).height, 10);
+                });
+                el.style.height = `${height}px`;
+            },
+            leave(el) {
+                el.style.height = null;
             }
         },
 

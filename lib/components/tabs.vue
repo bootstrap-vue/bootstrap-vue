@@ -15,7 +15,7 @@
                 <slot name="tabs"></slot>
             </ul>
         </div>
-        <div :class="['tab-content',{'card-block': card}]">
+        <div :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
@@ -144,7 +144,7 @@
             /**
              * Dynamically update tabs
              */
-            _updateTabs() {
+            updateTabs() {
                 // Probe tabs
                 if (this.$slots.default) {
                     this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
@@ -169,23 +169,19 @@
                     });
                 }
 
-                this.setTab(tabIndex, true);
-            },
+                // Workaround to fix problem when currentTab is removed
+                if (tabIndex > this.tabs.length - 1) {
+                    tabIndex = this.tabs.length - 1;
+                }
 
-            /**
-             * Wait for next tick so we can ensure DOM is updated before we inspect it
-             */
-            updateTabs() {
-                this.$nextTick(() => {
-                    this._updateTabs();
-                });
+                this.setTab(tabIndex || 0, true);
             }
         },
         mounted() {
             this.updateTabs();
 
             // Observe Child changes so we can notify tabs change
-            observeDom(this.$el, this.updateTabs.bind(this), {subtree: false});
+            observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {subtree: false});
         }
     };
 
