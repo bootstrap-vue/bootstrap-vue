@@ -26,6 +26,26 @@
         focus: {focus: 'show', blur: 'hide'}
     };
 
+    const placementParams = {
+        top: {
+            attachment: 'bottom center',
+            targetAttachment: 'top center'
+        },
+        bottom: {
+            attachment: 'top center',
+            targetAttachment: 'bottom center'
+        },
+        left:
+        {
+            attachment: 'middle right',
+            targetAttachment: 'middle left'
+        },
+        right: {
+            attachment: 'middle left',
+            targetAttachment: 'middle right'
+        }
+    };
+
     export default {
         props: {
             constraints: {
@@ -81,7 +101,7 @@
             },
             show: {
                 type: Boolean,
-                default: false
+                default: null
             },
             title: {
                 type: String,
@@ -112,12 +132,17 @@
 
         data() {
             return {
-                showState: this.show,
+                triggerState: this.show,
                 lastEvent: null
             };
         },
 
         computed: {
+            /**
+             * Arrange event trigger hooks as array for all input types.
+             *
+             * @return Array
+             */
             normalizedTriggers() {
                 if (this.triggers === false) {
                     return [];
@@ -127,46 +152,45 @@
                 return this.triggers;
             },
 
-            placementParameters() {
-                switch (this.placement) {
-                    case 'bottom':
-                        return {
-                            attachment: 'top center',
-                            targetAttachment: 'bottom center'
-                        };
-                    case 'left':
-                        return {
-                            attachment: 'middle right',
-                            targetAttachment: 'middle left'
-                        };
-                    case 'right':
-                        return {
-                            attachment: 'middle left',
-                            targetAttachment: 'middle right'
-                        };
-                    default:
-                        return {
-                            attachment: 'bottom center',
-                            targetAttachment: 'top center'
-                        };
-                }
-            },
-
+            /**
+             * Class property to be used for Popover rendering
+             *
+             * @return string
+             */
             popoverAlignment() {
                 return !this.placement || this.placement === `default` ? `popover-top` : `popover-${this.placement}`;
             },
 
+            /**
+             * Determine if the Popover should be shown.
+             *
+             * @return boolean
+             */
+            showState() {
+                return this.show !== false && (this.triggerState || this.show);
+            },
+
+            /**
+             * Tether construct params for each show event.
+             *
+             * @return Object
+             */
             tetherOptions() {
                 return {
                     element: this._popover,
                     target: this._trigger,
                     offset: this.offset,
                     constraints: this.constraints,
-                    attachment: this.placementParameters.attachment,
-                    targetAttachment: this.placementParameters.targetAttachment
+                    attachment: placementParams[this.placement].attachment,
+                    targetAttachment: placementParams[this.placement].targetAttachment
                 };
             },
 
+            /**
+             * Determine if debounce should be used.
+             *
+             * @return boolean
+             */
             useDebounce() {
                 return this.normalizedTriggers.length > 1;
             }
@@ -194,33 +218,17 @@
             },
 
             /**
-             * Propagate 'show' property change
-             * @param  {Boolean} newShow
-             */
-            show(newShow) {
-                this.showState = newShow;
-            },
-
-            /**
              * Affect 'show' state in response to status change
              * @param  {Boolean} newShowState
-             * @param oldShowState
              */
-            showState(newShowState, oldShowState) {
-                if (newShowState === oldShowState) {
-                    return;
-                }
-
+            showState(val) {
                 clearTimeout(this._timeout);
+                let delay = this.getDelay(val);
 
-                this._timeout = setTimeout(() => {
-                    this.$emit('showChange', newShowState);
-                    if (newShowState) {
-                        this.showPopover();
-                    } else {
-                        this.hidePopover();
-                    }
-                }, this.getDelay(newShowState));
+                if (delay)
+                    this._timeout = setTimeout(() => {this.togglePopover(val)}, delay);
+                else
+                    this.togglePopover(val);
             },
 
             title() {
@@ -255,6 +263,13 @@
                 this.hidePopover();
             },
 
+            destroyTether() {
+                if (this._tether) {
+                    this._tether.destroy();
+                    this._tether = null;
+                }
+            },
+
             /**
              * Handle multiple event triggers
              * @param  {Object} e
@@ -273,8 +288,8 @@
                             const action = triggerListeners[trigger][event];
 
                             // If the expected event action is the opposite of the current state, allow it
-                            if (action === 'toggle' || (this.showState && action === 'hide') || (!this.showState && action === 'show')) {
-                                this.showState = !this.showState;
+                            if (action === 'toggle' || (this.triggerState && action === 'hide') || (!this.triggerState && action === 'show')) {
+                                this.triggerState = !this.triggerState;
                                 this.lastEvent = e.timeStamp;
                             }
                             return;
@@ -285,6 +300,7 @@
 
             /**
              * Get the currently applicable popover delay
+             *
              * @returns Number
              */
             getDelay(state) {
@@ -299,14 +315,10 @@
              * Hide popover and fire event
              */
             hidePopover() {
-                this.showState = false;
                 this._popover.style.display = 'none';
                 this.$root.$emit('hidden::popover');
 
-                if (this._tether) {
-                    this._tether.destroy();
-                    this._tether = null;
-                }
+                this.destroyTether();
             },
 
             /**
@@ -314,9 +326,7 @@
              */
             refreshPosition() {
                 if (this._tether) {
-                    this.$nextTick(() => {
-                        this._tether.position();
-                    });
+                    this.$nextTick(() => { this._tether.position(); });
                 }
             },
 
@@ -344,11 +354,8 @@
              * Display popover and fire event
              */
             showPopover() {
-                if (this.showState === true) {
-                    this.hidePopover();
-                }
-
-                this.showState = true;
+                // Just in case
+                this.destroyTether();
 
                 // Let tether do the magic, after element is shown
                 this._popover.style.display = 'block';
@@ -360,14 +367,23 @@
                 this.$root.$emit('shown::popover');
             },
 
+            togglePopover(newShowState) {
+                this.$emit('showChange', newShowState);
+                if (newShowState) {
+                    this.showPopover();
+                } else {
+                    this.hidePopover();
+                }
+            },
+
             /**
              * Study the 'triggers' component property and apply all selected triggers
              * @param {Array} triggers
              * @param {Array} appliedTriggers
              */
             updateListeners(triggers, appliedTriggers = []) {
-                const newTriggers = [];
-                const removeTriggers = [];
+                let newTriggers = [];
+                let removeTriggers = [];
 
                 // Look for new events not yet mapped (all of them on first load)
                 triggers.forEach(item => {
@@ -392,7 +408,7 @@
         created() {
             const hub = this.$root;
             hub.$on('hide::popover', () => {
-                this.showState = false;
+                this.triggerState = false;
             });
 
             // Workaround to resolve issues like #151
@@ -426,6 +442,16 @@
                 this.showPopover();
             }
         },
+
+        /*
+        beforeUpdate() {
+            console.log('called beforeUpdate');
+        },
+
+        updated() {
+            console.log('called update');
+        }
+        */
 
         beforeDestroy() {
             this.cleanup();
