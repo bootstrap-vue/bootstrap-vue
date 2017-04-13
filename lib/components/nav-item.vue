@@ -1,6 +1,6 @@
 <template>
     <li class="nav-item" @click="onclick">
-        <b-link :class="classObject" :to="to" :href="href" :exact="exact">
+        <b-link :is="itemType" :class="classObject" :to="to" :href="href" :exact="exact">
             <slot></slot>
         </b-link>
     </li>
@@ -12,6 +12,9 @@
     export default {
         components: {bLink},
         computed: {
+            itemType() {
+                return (this.href || this.to) ? 'b-link' : 'button';
+            },
             classObject() {
                 return [
                     'nav-link',
