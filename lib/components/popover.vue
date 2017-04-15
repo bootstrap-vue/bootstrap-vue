@@ -2,7 +2,7 @@
     <div>
         <span ref="trigger"><slot></slot></span>
 
-        <div tabindex="-1" :class="['popover',popoverAlignment]" ref="popover" @focus="$emit('focus')"
+        <div tabindex="-1" class="popover fade" :class="[classState ? 'show' : '', popoverAlignment]" ref="popover" @focus="$emit('focus')"
              @blur="$emit('blur')" :style="popoverStyle">
             <div class="popover-arrow"></div>
             <h3 class="popover-title" v-if="title" v-html="title"></h3>
@@ -20,13 +20,13 @@
     import Tether from 'tether';
 
     // Controls which events are mapped for each named trigger, and the expected popover behavior for each.
-    const triggerListeners = {
+    const TRIGGER_LISTENERS = {
         click: {click: 'toggle'},
         hover: {mouseenter: 'show', mouseleave: 'hide'},
         focus: {focus: 'show', blur: 'hide'}
     };
 
-    const placementParams = {
+    const PLACEMENT_PARAMS = {
         top: {
             attachment: 'bottom center',
             targetAttachment: 'top center'
@@ -45,6 +45,10 @@
             targetAttachment: 'middle right'
         }
     };
+
+    const TETHER_CLASS_PREFIX = 'tether-';
+
+    const TRANSITION_DURATION = 150;
 
     export default {
         props: {
@@ -92,7 +96,7 @@
                 type: String,
                 default: 'top',
                 validator(value) {
-                    return ['top', 'bottom', 'left', 'right'].indexOf(value) !== -1;
+                    return Object.keys(PLACEMENT_PARAMS).indexOf(value) !== -1;
                 }
             },
             popoverStyle: {
@@ -115,9 +119,9 @@
                     if (value === false || value === '') {
                         return true;
                     } else if (typeof value === 'string') {
-                        return Object.keys(triggerListeners).indexOf(value) !== -1;
+                        return Object.keys(TRIGGER_LISTENERS).indexOf(value) !== -1;
                     } else if (Array.isArray(value)) {
-                        const keys = Object.keys(triggerListeners);
+                        const keys = Object.keys(TRIGGER_LISTENERS);
                         value.forEach(item => {
                             if (keys.indexOf(item) === -1) {
                                 return false;
@@ -133,6 +137,7 @@
         data() {
             return {
                 triggerState: this.show,
+                classState: this.show,
                 lastEvent: null
             };
         },
@@ -226,7 +231,7 @@
              */
             addListener(trigger) {
                 // eslint-disable-next-line guard-for-in
-                for (const item in triggerListeners[trigger]) {
+                for (const item in TRIGGER_LISTENERS[trigger]) {
                     this._trigger.addEventListener(item, e => this.eventHandler(e));
                 }
             },
@@ -235,9 +240,12 @@
              * Tidy removal of Tether object from the DOM
              */
             destroyTether() {
-                if (this._tether) {
+                if (this._tether && !this.showState) {
                     this._tether.destroy();
                     this._tether = null;
+
+                    const regx = new RegExp('(^|[^-]\\b)(' + TETHER_CLASS_PREFIX + '\\S*)', 'g');
+                    this._trigger.className = this._trigger.className.replace(regx, '');
                 }
             },
 
@@ -253,10 +261,10 @@
 
                 // Look up the expected popover action for the event
                 // eslint-disable-next-line guard-for-in
-                for (const trigger in triggerListeners) {
-                    for (const event in triggerListeners[trigger]) {
+                for (const trigger in TRIGGER_LISTENERS) {
+                    for (const event in TRIGGER_LISTENERS[trigger]) {
                         if (event === e.type) {
-                            const action = triggerListeners[trigger][event];
+                            const action = TRIGGER_LISTENERS[trigger][event];
 
                             // If the expected event action is the opposite of the current state, allow it
                             if (action === 'toggle' || (this.triggerState && action === 'hide') || (!this.triggerState && action === 'show')) {
@@ -293,8 +301,8 @@
                     target: this._trigger,
                     offset: this.offset,
                     constraints: this.constraints,
-                    attachment: placementParams[this.placement].attachment,
-                    targetAttachment: placementParams[this.placement].targetAttachment
+                    attachment: PLACEMENT_PARAMS[this.placement].attachment,
+                    targetAttachment: PLACEMENT_PARAMS[this.placement].targetAttachment
                 };
             },
 
@@ -302,8 +310,12 @@
              * Hide popover and fire event
              */
             hidePopover() {
-                this._popover.style.display = 'none';
-                this.destroyTether();
+                this.classState = false;
+                clearTimeout(this._timeout);
+                this._timeout = setTimeout(() => {
+                    this._popover.style.display = 'none';
+                    this.destroyTether();
+                }, TRANSITION_DURATION);
             },
 
             /**
@@ -323,7 +335,7 @@
              */
             removeListener(trigger) {
                 // eslint-disable-next-line guard-for-in
-                for (const item in triggerListeners[trigger]) {
+                for (const item in TRIGGER_LISTENERS[trigger]) {
                     this._trigger.removeEventListener(item, e => this.eventHandler(e));
                 }
             },
@@ -341,15 +353,19 @@
              * Display popover and fire event
              */
             showPopover() {
-                // Just in case
-                this.destroyTether();
+                clearTimeout(this._timeout);
 
-                // Let tether do the magic, after element is shown
+                if (!this._tether) {
+                    this._tether = new Tether(this.getTetherOptions());
+                }
                 this._popover.style.display = 'block';
-                this._tether = new Tether(this.getTetherOptions());
 
                 // Make sure the popup is rendered in the correct location
                 this.refreshPosition();
+
+                this.$nextTick(() => {
+                    this.classState = true;
+                });
             },
 
             /**
@@ -405,7 +421,6 @@
             // Configure tether
             this._trigger = this.$refs.trigger.children[0];
             this._popover = this.$refs.popover;
-            this._popover.style.display = 'none';
             this._timeout = 0;
 
             // Add listeners for specified triggers and complementary click event
