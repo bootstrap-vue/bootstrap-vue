@@ -46,6 +46,8 @@
         }
     };
 
+    const TETHER_CLASS_PREFIX = 'tether-';
+
     const TRANSITION_DURATION = 150;
 
     export default {
@@ -241,6 +243,9 @@
                 if (this._tether && !this.showState) {
                     this._tether.destroy();
                     this._tether = null;
+
+                    const regx = new RegExp('(^|[^-]\\b)(' + TETHER_CLASS_PREFIX + '\\S*)', 'g');
+                    this._trigger.className = this._trigger.className.replace(regx, '');
                 }
             },
 
