@@ -9,7 +9,7 @@
         >
             <div key="modal" :id="id"
                  v-show="visible"
-                 :class="['modal',{fade :fade, show :visible}]"
+                 :class="['modal',{fade: fade, show: visible}]"
                  @click="onClickOut($event)"
             >
 
@@ -43,7 +43,7 @@
             </div>
 
             <div key="modal-backdrop"
-                 :class="['modal-backdrop',{fade: fade, show :visible}]"
+                 :class="['modal-backdrop',{fade: fade, show: visible}]"
                  v-if="visible"
             ></div>
         </transition-group>
