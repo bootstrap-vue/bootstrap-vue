@@ -9,7 +9,7 @@
         >
             <div key="modal" :id="id"
                  v-show="visible"
-                 :class="['modal',{fade: fade, show: visible}}]"
+                 :class="['modal',{fade: fade, show: visible}]"
                  role="dialog"
                  @click="onClickOut($event)"
                  @keyup.esc="onEsc($event)"
