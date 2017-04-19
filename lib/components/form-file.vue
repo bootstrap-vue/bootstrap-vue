@@ -15,7 +15,7 @@
         <!-- Real Form input -->
         <input type="file"
                :name="name"
-               :id="id"
+               :id="id || ('b_'+_uid)"
                :disabled="disabled"
                ref="input"
                :accept="accept"
