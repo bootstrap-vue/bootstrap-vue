@@ -2,7 +2,7 @@
     <label :class="[inputClass,checkboxClass,custom?'custom-checkbox':null]">
         <input
                 type="checkbox"
-                :id="id"
+                :id="id || ('b_'+_uid)"
                 :name="name"
                 :value="value"
                 :disabled="disabled"
