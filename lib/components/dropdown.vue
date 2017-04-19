@@ -114,10 +114,10 @@
         methods: {
             toggle() {
                 this.visible = !this.visible;
-				if (this.visible) {
-					// focus the dropdown-menu
-					this.$refs.menu.focus();
-				}
+                if (this.visible) {
+                    // focus the dropdown-menu
+                    this.$refs.menu.focus();
+                }
             },
             clickOutListener() {
                 this.visible = false;
@@ -129,42 +129,42 @@
                 } else {
                     this.toggle();
                 }
+            },
+            onEsc(e) {
+                if (!this.visible || !this.closeOnEsc) {
+                    return;
+                }
+                this.visble = false;
+                // Return focus to button/toggle
+                (this.split ? this.$refs.toggle : this.$refs.button).focus();
+                // In case dropdown inside Modal
+                e.stopPropagation();
+            },
+            onKeyMove(e, up) {
+                if (!this.visible || this.disabled) {
+                    return;
+                }
+                // get current list of enabled dropdown-items
+                // if ES6 then items = [...this.$refs.menu.querySelectorAll('.dropdown-item:not(.disabled)')]
+                var items = [].slice.call(this.$refs.menu.querySelectorAll('.dropdown-item:not(.disabled)'));
+                if (!items.length) {
+                    return;
+                }
+                items.forEach(function(i) {
+                    // ensure dropdown-items are not in tab sequence, but still focusable
+                    i.setAttribute('tabindex','-1');
+                }
+                var index = items.indexOf(e.target);
+                if (up) {
+                    index--;
+                } else if (index < items.length) {
+                    index++;
+                }
+                if (index < 0) {
+                    index = 0;
+				}
+                items[index].focus();
             }
-			onEsc(e) {
-				if (!this.visible || !this.closeOnEsc) {
-					return;
-				}
-				this.visble = false;
-				// Return focus to button/toggle
-				(this.split ? this.$refs.toggle : this.$refs.button).focus();
-				// In case dropdown inside Modal
-				e.stopPropagation();
-			},
-			onKeyMove(e, up) {
-				if (!this.visible || this.disabled) {
-					return;
-				}
-				// get current list of enabled dropdown-items
-				// if ES6 then items = [...this.$refs.menu.querySelectorAll('.dropdown-item:not(.disabled)')]
-				var items = [].slice.call(this.$refs.menu.querySelectorAll('.dropdown-item:not(.disabled)'));
-				if (!items.length) {
-					return;
-				}
-				items.forEach(function(i) {
-					// ensure dropdown-items are not in tab sequence, but still focusable
-					i.setAttribute('tabindex','-1');
-				}
-				var index = items.indexOf(e.target);
-				if (up) {
-					index--;
-				} else if (index < items.length) {
-					index++;
-				}
-				if (index < 0) {
-					index = 0;
-				}
-				items[index].focus();
-			}
         }
     };
 
