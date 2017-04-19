@@ -26,10 +26,10 @@
         <div :class="['dropdown-menu',right?'dropdown-menu-right':'']"
              ref="menu"
              tabindex="-1"
-		     @keydown.esc="onEsc($event)"
-		     @keydown.up="onKeyMove($event,true)"
-		     @keydown.down="onKeyMove($event,false)"
-		     @keydown.tab="toggle"
+             @keydown.esc="onEsc($event)"
+             @keydown.up="onKeyMove($event,true)"
+             @keydown.down="onKeyMove($event,false)"
+             @keydown.tab="toggle"
         >
             <slot></slot>
         </div>
@@ -162,7 +162,7 @@
                 }
                 if (index < 0) {
                     index = 0;
-				}
+                }
                 items[index].focus();
             }
         }
