@@ -17,7 +17,7 @@
             >
 
                 <div :class="['modal-dialog','modal-'+size]">
-                    <div class="modal-content" 
+                    <div class="modal-content"
                             tabindex="-1"
                             role="document"
                             ref="content"
@@ -199,7 +199,7 @@
             enforceFocus(e) {
                 // If focus leaves modal, bring it back
                 // eventListener bound on document
-                if (this.visible && 
+                if (this.visible &&
                         document !== e.target &&
                         this.$refs.content &&
                         this.$refs.content !== e.target &&
