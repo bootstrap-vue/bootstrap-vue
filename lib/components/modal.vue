@@ -1,16 +1,15 @@
 <template>
     <div>
         <transition-group enter-class="hidden"
-                          enter-to-class="show"
+                          enter-to-class=""
                           enter-active-class=""
                           leave-class="show"
                           leave-active-class=""
                           leave-to-class="hidden"
-                          v-on:after-enter="afterEnter"
         >
             <div key="modal" :id="id"
                  v-show="visible"
-                 :class="['modal',{fade :fade}]"
+                 :class="['modal',{fade: fade, show: visible}]"
                  @click="onClickOut($event)"
             >
 
@@ -44,7 +43,7 @@
             </div>
 
             <div key="modal-backdrop"
-                 :class="['modal-backdrop',{fade: fade}]"
+                 :class="['modal-backdrop',{fade: fade, show: visible}]"
                  v-if="visible"
             ></div>
         </transition-group>
@@ -174,11 +173,6 @@
                 if (key === 27) { // 27 is esc
                     this.hide();
                 }
-            },
-            afterEnter(el) {
-                // Add show class to keep el showed just after transition is ended,
-                // Because transition removes all used classes
-                el.classList.add('show');
             }
         },
         created() {
