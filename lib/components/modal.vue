@@ -203,7 +203,7 @@
                         document !== e.target &&
                         this.$refs.content &&
                         this.$refs.content !== e.target &&
-                        !this.$refs.content.contains(e.target) {
+                        !this.$refs.content.contains(e.target)) {
                     this.$refs.content.focus();
                 }
             }
