@@ -86,7 +86,7 @@
                 type: Boolean,
                 default: true
             },
-            toggletext: {
+            toggleText: {
                 type: String,
                 default: 'Toggle Dropdown'
             }
