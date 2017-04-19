@@ -153,7 +153,7 @@
                 items.forEach(function(i) {
                     // ensure dropdown-items are not in tab sequence, but still focusable
                     i.setAttribute('tabindex','-1');
-                }
+                });
                 var index = items.indexOf(e.target);
                 if (up) {
                     index--;
