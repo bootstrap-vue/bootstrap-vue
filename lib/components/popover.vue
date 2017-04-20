@@ -89,7 +89,7 @@
                 type: String,
                 default: '0 0',
                 validator(value) {
-                    return /^(\d+\s\d+)$/.test(value);
+                    return /^^((0\s?)|([+-]?[0-9]+(px|%)\s?)){2}$/.test(value);
                 }
             },
             placement: {
