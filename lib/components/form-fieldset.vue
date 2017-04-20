@@ -3,7 +3,7 @@
         <label :for="target" v-if="label" :class="['col-form-label',labelLayout]" v-html="label"></label>
         <div :class="inputLayout" ref="content">
             <slot></slot>
-            <div class="form-text text-muted" v-if="feedback" v-html="feedback"></div>
+            <div class="form-text form-control-feedback" role="alert" v-if="feedback" v-html="feedback"></div>
             <small class="form-text text-muted" v-if="description" v-html="description"></small>
         </div>
     </div>
@@ -32,7 +32,7 @@
             if (!content) {
                 return;
             }
-            this.target = content.children[0].id;
+            this.target = content.querySelector(this.inputSelector).id || false;
         },
         props: {
             state: {
@@ -58,6 +58,10 @@
             feedback: {
                 type: String,
                 default: null
+            },
+            inputSelector: {
+                type: String,
+                default: 'input, select, textarea'
             }
         }
     };
