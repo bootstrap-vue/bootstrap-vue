@@ -1,7 +1,7 @@
 <template>
     <select :class="[inputClass,custom?'custom-select':null]"
             :name="name"
-            :id="id"
+            :id="id || ('b_'+_uid)"
             v-model="localValue"
             :disabled="disabled"
             ref="input"
