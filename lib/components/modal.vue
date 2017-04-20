@@ -1,50 +1,63 @@
 <template>
     <div>
         <transition-group enter-class="hidden"
-                          enter-to-class="show"
+                          enter-to-class=""
                           enter-active-class=""
                           leave-class="show"
                           leave-active-class=""
                           leave-to-class="hidden"
-                          v-on:after-enter="afterEnter"
         >
             <div key="modal" :id="id"
                  v-show="visible"
-                 :class="['modal',{fade :fade}]"
+                 :class="['modal',{fade: fade, show: visible}]"
+                 role="dialog"
                  @click="onClickOut($event)"
+                 @keyup.esc="onEsc($event)"
             >
 
                 <div :class="['modal-dialog','modal-'+size]">
-                    <div class="modal-content" @click.stop>
+                    <div class="modal-content"
+                            tabindex="-1"
+                            role="document"
+                            ref="content"
+                            :aria-labeledby="hideHeader ? '' : (id + '_modal_title')"
+                            :aria-describedby="id + '_modal_body'"
+                            @click.stop
+                    >
 
-                        <div class="modal-header" v-if="!hideHeader">
+                        <header class="modal-header" v-if="!hideHeader">
                             <slot name="modal-header">
-                                <h5 class="modal-title">
+                                <h5 class="modal-title" :id="id + '_modal_title'">
                                     <slot name="modal-title">{{title}}</slot>
                                 </h5>
-                                <button type="button" class="close" aria-label="Close" @click="hide">
+                                <button type="button"
+                                        v-if="!hideHeaderClose"
+                                        class="close"
+                                        :aria-label="closeTitle"
+                                        @click="hide"
+                                >
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </slot>
-                        </div>
+                        </header>
 
-                        <div class="modal-body">
+                        <div class="modal-body" :id="id + '_modal_body'">
                             <slot></slot>
                         </div>
 
-                        <div class="modal-footer" v-if="!hideFooter">
+                        <footer class="modal-footer" v-if="!hideFooter">
                             <slot name="modal-footer">
                                 <b-btn variant="secondary" @click="hide(false)">{{closeTitle}}</b-btn>
                                 <b-btn variant="primary" @click="hide(true)">{{okTitle}}</b-btn>
                             </slot>
-                        </div>
+                        </footer>
 
                     </div>
                 </div>
             </div>
 
             <div key="modal-backdrop"
-                 :class="['modal-backdrop',{fade: fade}]"
+                 :class="['modal-backdrop',{fade: fade, show: visible}]"
                  v-if="visible"
             ></div>
         </transition-group>
@@ -108,11 +121,19 @@
                 type: Boolean,
                 default: true
             },
+            closeOnEsc: {
+                type: Boolean,
+                default: true
+            },
             hideHeader: {
                 type: Boolean,
                 default: false
             },
             hideFooter: {
+                type: Boolean,
+                default: false
+            },
+            hideHeaderClose: {
                 type: Boolean,
                 default: false
             }
@@ -163,22 +184,22 @@
                     this.hide();
                 }
             },
-            pressedButton(e) {
-                // If not visible don't do anything
-                if (!this.visible) {
-                    return;
-                }
-
-                // Support for esc key press
-                const key = e.which || e.keyCode;
-                if (key === 27) { // 27 is esc
+            onEsc() {
+                // If ESC presses, hide modal
+                if (this.visible && this.closeOnEsc) {
                     this.hide();
                 }
             },
-            afterEnter(el) {
-                // Add show class to keep el showed just after transition is ended,
-                // Because transition removes all used classes
-                el.classList.add('show');
+            enforceFocus(e) {
+                // If focus leaves modal, bring it back
+                // eventListener bound on document
+                if (this.visible &&
+                        document !== e.target &&
+                        this.$refs.content &&
+                        this.$refs.content !== e.target &&
+                        !this.$refs.content.contains(e.target)) {
+                    this.$refs.content.focus();
+                }
             }
         },
         created() {
@@ -196,12 +217,12 @@
         },
         mounted() {
             if (typeof document !== 'undefined') {
-                document.addEventListener('keydown', this.pressedButton);
+                document.addEventListener('focus', this.enforceFocus);
             }
         },
         destroyed() {
             if (typeof document !== 'undefined') {
-                document.removeEventListener('keydown', this.pressedButton);
+                document.removeEventListener('focus', this.enforceFocus);
             }
         }
     };
