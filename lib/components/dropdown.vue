@@ -1,7 +1,7 @@
 <template>
     <div :class="['dropdown','btn-group',visible?'show':'',dropup?'dropup':'']">
 
-        <b-button :class="[split?'':'dropdown-toggle']"
+        <b-button :class="[split?'':'dropdown-toggle',link?'btn-link':'']"
                   @click="click"
                   aria-haspopup="true"
                   :aria-expanded="visible"
@@ -12,6 +12,7 @@
         </b-button>
 
         <b-button class="dropdown-toggle dropdown-toggle-split"
+                  :class="[link?'btn-link':'']"
                   v-if="split"
                   @click="toggle"
                   :variant="variant"
@@ -70,6 +71,10 @@
                 default: false
             },
             right: {
+                type: Boolean,
+                default: false
+            },
+            link: {
                 type: Boolean,
                 default: false
             }
