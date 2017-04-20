@@ -89,7 +89,7 @@
                 type: String,
                 default: '0 0',
                 validator(value) {
-                    // Regex test for a pair of units, either 0, px, or percentage
+                    // Regex test for a pair of units, either 0 exactly, px, or percentage
                     return /^((0\s?)|([+-]?[0-9]+(px|%)\s?)){2}$/.test(value);
                 }
             },
@@ -112,7 +112,7 @@
                 type: String,
                 default: '0 0',
                 validator(value) {
-                    // Regex test for a pair of units, either 0, px, or percentage
+                    // Regex test for a pair of units, either 0 exactly, px, or percentage
                     return /^((0\s?)|([+-]?[0-9]+(px|%)\s?)){2}$/.test(value);
                 }
             },
