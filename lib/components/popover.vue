@@ -89,7 +89,8 @@
                 type: String,
                 default: '0 0',
                 validator(value) {
-                    return /^^((0\s?)|([+-]?[0-9]+(px|%)\s?)){2}$/.test(value);
+                    // Regex test for a pair of units, either 0, px, or percentage
+                    return /^((0\s?)|([+-]?[0-9]+(px|%)\s?)){2}$/.test(value);
                 }
             },
             placement: {
@@ -106,6 +107,14 @@
             show: {
                 type: Boolean,
                 default: null
+            },
+            targetOffset: {
+                type: String,
+                default: '0 0',
+                validator(value) {
+                    // Regex test for a pair of units, either 0, px, or percentage
+                    return /^((0\s?)|([+-]?[0-9]+(px|%)\s?)){2}$/.test(value);
+                }
             },
             title: {
                 type: String,
@@ -299,10 +308,11 @@
                 return {
                     element: this._popover,
                     target: this._trigger,
-                    offset: this.offset,
                     constraints: this.constraints,
                     attachment: PLACEMENT_PARAMS[this.placement].attachment,
-                    targetAttachment: PLACEMENT_PARAMS[this.placement].targetAttachment
+                    targetAttachment: PLACEMENT_PARAMS[this.placement].targetAttachment,
+                    offset: this.offset,
+                    targetOffset: this.targetOffset
                 };
             },
 
