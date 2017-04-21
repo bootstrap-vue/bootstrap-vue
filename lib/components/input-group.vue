@@ -12,12 +12,17 @@
             classObject() {
                 return [
                     'input-group',
-                    this.size ? ('input-group-' + this.size) : ''
+                    this.size ? ('input-group-' + this.size) : '',
+                    this.state ? ('has-' + this.state) : ''
                 ];
             }
         },
         props: {
             size: {
+                type: String,
+                default: null
+            },
+            state: {
                 type: String,
                 default: null
             }
