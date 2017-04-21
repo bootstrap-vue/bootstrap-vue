@@ -9,7 +9,7 @@
     export default {
         computed: {
             thisId() {
-                return: this.id || ('b_input_group_addon_' + this._uid);
+                return this.id || ('b_input_group_addon_' + this._uid);
             }
         },
         props: {
