@@ -1,6 +1,6 @@
 <template>
     <ol class="breadcrumb">
-        <li v-if="items" v-for="item in items" :class="['breadcrumb-item', item.active ? 'active' : null]">
+        <li v-if="items" v-for="item in items" :class="['breadcrumb-item', item.active ? 'active' : null]" @click="onclick(item)">
             <span v-if="item.active" v-html="item.text"></span>
             <b-link v-else :to="item.to||item.href||item.link" v-html="item.text"></b-link>
         </li>
