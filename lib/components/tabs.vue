@@ -12,7 +12,8 @@
                        :href="tab.href"
                        @click.prevent.stop="setTab(index)"
                        v-if="!tab.headHtml"
-                    >{{ tab.title }}</a>
+                        v-html="tab.title"
+                    ></a>
                     <div :class="['tab-head',{small: small, active: tab.localActive, disabled: tab.disabled}]"
                          v-else
                          v-html="tab.headHtml"></div>
