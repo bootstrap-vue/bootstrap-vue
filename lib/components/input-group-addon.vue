@@ -11,7 +11,7 @@
             thisId() {
                 return: 'b_input_group_addon_' + this._uid;
             }
-        }
+        },
         props: {
             id: {
                 type: String,
