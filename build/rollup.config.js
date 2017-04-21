@@ -4,6 +4,8 @@ const vue = require('rollup-plugin-vue');
 const buble = require('rollup-plugin-buble');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
+const uglify = require('rollup-plugin-uglify');
+import { minify } from 'uglify-js-harmony';
 const CleanCSS = require('clean-css');
 const {camelCase} = require('lodash');
 const {name, dependencies} = require('../package.json');
@@ -32,7 +34,8 @@ module.exports = {
         }),
         buble(),
         resolve({external: ['vue']}),
-        commonjs()
+        commonjs(),
+        uglify({}, minify)
     ],
     globals: {
         tether: 'Tether'
