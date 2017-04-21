@@ -22,7 +22,7 @@
             <span class="sr-only">Toggle Dropdown</span>
         </b-button>
 
-        <div :class="['dropdown-menu',right?'dropdown-menu-right':'']">
+        <div :class="['dropdown-menu',right?'dropdown-menu-right':'']" tabindex="-1">
             <slot></slot>
         </div>
 

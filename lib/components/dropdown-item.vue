@@ -1,5 +1,5 @@
 <template>
-    <a :is="itemType" class="dropdown-item" :to="to" :href="hrefString"  @click="click">
+    <a :is="itemType" class="dropdown-item" :to="to" :href="hrefString"  @click="click" tabindex="0">
         <slot></slot>
     </a>
 </template>
