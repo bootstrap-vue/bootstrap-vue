@@ -1,5 +1,11 @@
 <template>
-    <transition @enter="enter" @leave="leave" name="collapse">
+    <transition
+            @enter="enter"
+            @after-enter="clearHeight"
+            @leave="leave"
+            @after-leave="clearHeight"
+            name="collapse"
+    >
         <div :class="classObject" v-show="show">
             <slot></slot>
         </div>
@@ -13,7 +19,7 @@
     }
 
     .collapse-enter, .collapse-leave-to {
-        height: 0;
+        /*height: 0;*/
     }
 </style>
 
@@ -51,15 +57,22 @@
                 this.show = !this.show;
             },
             enter(el) {
-                let height = 0;
-                Array.prototype.forEach.call(el.children, c => {
-                    height += parseInt(getComputedStyle(c).height, 10);
-                });
-                el.style.height = `${height}px`;
+                el.style.height = 'auto';
+                const realHeight = getComputedStyle(el).height;
+                el.style.height = '0px';
+                el.offsetHeight; // force repaint
+                el.style.height = realHeight;
             },
             leave(el) {
+                el.style.height = 'auto';
+                const realHeight = getComputedStyle(el).height;
+                el.style.height = realHeight;
+                el.offsetHeight; // force repaint
+                el.style.height = '0px';
+            },
+            clearHeight(el) {
                 el.style.height = null;
-            }
+            },
         },
 
         created() {
