@@ -1,13 +1,20 @@
 <template>
     <div :class="classObject">
-        <slot name="left"></slot>
+        <slot name="left">
+            <b-input-group-addon v-if="left" v-html="left"></b-input-group-addon>
+        </slot>
         <slot></slot>
-        <slot name="right"></slot>
+        <slot name="right">
+            <b-input-group-addon v-if="right" v-html="right"></b-input-group-addon>
+        </slot>
     </div>
 </template>
 
 <script>
+    import bInputGroupAddon from './input-group-addon.vue';
+
     export default {
+        components: {bInputGroupAddon},
         computed: {
             classObject() {
                 return [
@@ -23,6 +30,14 @@
                 default: null
             },
             state: {
+                type: String,
+                default: null
+            },
+            left: {
+                type: String,
+                default: null
+            },
+            right: {
                 type: String,
                 default: null
             }
