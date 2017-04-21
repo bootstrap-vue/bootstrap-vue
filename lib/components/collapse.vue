@@ -60,19 +60,25 @@
                 el.style.height = 'auto';
                 const realHeight = getComputedStyle(el).height;
                 el.style.height = '0px';
-                el.offsetHeight; // force repaint
+
+                /* eslint-disable no-unused-expressions */
+                el.offsetHeight; // Force repaint
+
                 el.style.height = realHeight;
             },
             leave(el) {
                 el.style.height = 'auto';
                 const realHeight = getComputedStyle(el).height;
                 el.style.height = realHeight;
-                el.offsetHeight; // force repaint
+
+                /* eslint-disable no-unused-expressions */
+                el.offsetHeight; // Force repaint
+
                 el.style.height = '0px';
             },
             clearHeight(el) {
                 el.style.height = null;
-            },
+            }
         },
 
         created() {

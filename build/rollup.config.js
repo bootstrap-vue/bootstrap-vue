@@ -5,7 +5,7 @@ const buble = require('rollup-plugin-buble');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const uglify = require('rollup-plugin-uglify');
-import { minify } from 'uglify-js-harmony';
+const {minify} = require('uglify-js-harmony');
 const CleanCSS = require('clean-css');
 const {camelCase} = require('lodash');
 const {name, dependencies} = require('../package.json');
