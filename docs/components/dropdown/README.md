@@ -5,6 +5,7 @@
 Simple usage:
 ```html
 <b-dropdown text="Dropdown" variant="success"  class="m-md-2">
+    <b-dropdown-header>This is a heading</b-dropdown-header>
     <b-dropdown-item>Action</b-dropdown-item>
     <b-dropdown-item>Another action</b-dropdown-item>
     <b-dropdown-divider></b-dropdown-divider>
