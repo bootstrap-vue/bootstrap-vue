@@ -4,6 +4,16 @@
   "jsfiddle": "bofh9aaa",
   "events": [
     {
+      "event": "change",
+      "args": [
+        {
+          "arg": "is_visible",
+          "description": ""
+        }
+      ],
+      "description": "new modal visibility state"
+    },
+    {
       "event": "shown",
       "description": "always emits when modal is shown"
     },

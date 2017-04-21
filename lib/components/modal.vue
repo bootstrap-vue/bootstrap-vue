@@ -8,8 +8,8 @@
                           leave-to-class="hidden"
         >
             <div key="modal" :id="id"
-                 v-show="visible"
-                 :class="['modal',{fade: fade, show: visible}]"
+                 v-show="is_visible"
+                 :class="['modal',{fade: fade, show: is_visible}]"
                  role="dialog"
                  @click="onClickOut($event)"
                  @keyup.esc="onEsc($event)"
@@ -17,12 +17,12 @@
 
                 <div :class="['modal-dialog','modal-'+size]">
                     <div class="modal-content"
-                            tabindex="-1"
-                            role="document"
-                            ref="content"
-                            :aria-labeledby="hideHeader ? '' : (id + '_modal_title')"
-                            :aria-describedby="id + '_modal_body'"
-                            @click.stop
+                         tabindex="-1"
+                         role="document"
+                         ref="content"
+                         :aria-labeledby="hideHeader ? '' : (id + '_modal_title')"
+                         :aria-describedby="id + '_modal_body'"
+                         @click.stop
                     >
 
                         <header class="modal-header" v-if="!hideHeader">
@@ -57,8 +57,8 @@
             </div>
 
             <div key="modal-backdrop"
-                 :class="['modal-backdrop',{fade: fade, show: visible}]"
-                 v-if="visible"
+                 :class="['modal-backdrop',{fade: fade, show: is_visible}]"
+                 v-if="is_visible"
             ></div>
         </transition-group>
     </div>
@@ -82,13 +82,30 @@
         components: {bBtn},
         data() {
             return {
-                visible: false
+                is_visible: false
             };
+        },
+        model: {
+            prop: 'visible',
+            event: 'change'
         },
         computed: {
             body() {
                 if (typeof document !== 'undefined') {
                     return document.querySelector('body');
+                }
+            }
+        },
+        watch: {
+            visible(new_val, old_val) {
+                if (new_val === old_val) {
+                    return;
+                }
+
+                if (new_val) {
+                    this.show();
+                } else {
+                    this.hide();
                 }
             }
         },
@@ -140,16 +157,17 @@
         },
         methods: {
             show() {
-                if (this.visible) {
+                if (this.is_visible) {
                     return;
                 }
-                this.visible = true;
+                this.is_visible = true;
                 this.$root.$emit('shown::modal', this.id);
                 this.body.classList.add('modal-open');
                 this.$emit('shown');
+                this.$emit('change', true);
             },
             hide(isOK) {
-                if (!this.visible) {
+                if (!this.is_visible) {
                     return;
                 }
 
@@ -163,6 +181,7 @@
                 };
 
                 // Emit events
+                this.$emit('change', false);
                 this.$emit('hidden', e);
 
                 if (isOK === true) {
@@ -173,7 +192,7 @@
 
                 // Hide if not canceled
                 if (!canceled) {
-                    this.visible = false;
+                    this.is_visible = false;
                     this.$root.$emit('hidden::modal', this.id);
                     this.body.classList.remove('modal-open');
                 }
@@ -186,18 +205,18 @@
             },
             onEsc() {
                 // If ESC presses, hide modal
-                if (this.visible && this.closeOnEsc) {
+                if (this.is_visible && this.closeOnEsc) {
                     this.hide();
                 }
             },
             enforceFocus(e) {
                 // If focus leaves modal, bring it back
                 // eventListener bound on document
-                if (this.visible &&
-                        document !== e.target &&
-                        this.$refs.content &&
-                        this.$refs.content !== e.target &&
-                        !this.$refs.content.contains(e.target)) {
+                if (this.is_visible &&
+                    document !== e.target &&
+                    this.$refs.content &&
+                    this.$refs.content !== e.target &&
+                    !this.$refs.content.contains(e.target)) {
                     this.$refs.content.focus();
                 }
             }
@@ -218,6 +237,10 @@
         mounted() {
             if (typeof document !== 'undefined') {
                 document.addEventListener('focus', this.enforceFocus);
+            }
+
+            if (this.visible === true) {
+                this.show();
             }
         },
         destroyed() {
