@@ -1,5 +1,9 @@
 <template>
     <div class="tabs">
+    <div v-if="position=='bottom'" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
+            <slot></slot>
+            <slot name="empty" v-if="!tabs || !tabs.length"></slot>
+        </div>
         <div :class="{'card-header': card}">
             <ul :class="['nav','nav-' + navStyle, card? 'card-header-'+navStyle: null]">
                 <li class="nav-item" v-for="(tab, index) in tabs">
@@ -15,7 +19,7 @@
                 <slot name="tabs"></slot>
             </ul>
         </div>
-        <div :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
+        <div v-if="position=='top'" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
@@ -56,6 +60,10 @@
             lazy: {
                 type: Boolean,
                 default: false
+            },
+            position: {
+                type: String,
+                default: "top"
             }
         },
         watch: {
