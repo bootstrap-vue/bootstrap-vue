@@ -27,7 +27,8 @@
                 default: null
             },
             href: {
-                type: String
+                type: String,
+                default: '#'
             },
             exact: {
                 type: Boolean,
