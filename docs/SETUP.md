@@ -30,7 +30,7 @@ If style-loader is not available, you have to manually include both bootstrap an
 
 #### Using individual components
 If for any reason just want to use a specific component, you can do this by directly importing that component.
-This is not recommended as entire package gzipped size is ~20Kb and requires a supported vue bundler.
+This is not recommended as entire package gzipped size is ~15Kb and requires a supported vue bundler.
 ```js
 import {bAlert, bBtn} from 'bootstrap-vue/lib/components'
 ```
