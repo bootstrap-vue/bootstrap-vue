@@ -17,5 +17,11 @@
     {
       "event": "click",
       "description": "Only in split mode"}
+  ],
+  "slots": [
+    {
+      "name": "text",
+      "description": "Can be used to implement custom text with icons and more styling"
+    }
   ]
 }
