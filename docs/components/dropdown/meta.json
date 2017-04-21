@@ -16,7 +16,8 @@
     },
     {
       "event": "click",
-      "description": "Only in split mode"}
+      "description": "Only in split mode"
+    }
   ],
   "slots": [
     {
