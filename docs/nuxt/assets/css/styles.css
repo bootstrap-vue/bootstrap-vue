@@ -32,7 +32,7 @@ blockquote {
     font-weight: 300;
 }
 
-h1, h2, h3, h4, h5 {
+.bd-content h1, .bd-content h2, .bd-content h3, .bd-content h4, .bd-content h5 {
     padding-top: 25px;
     padding-bottom: 15px;
 }
