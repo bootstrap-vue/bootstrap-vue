@@ -1,8 +1,8 @@
 <template>
     <span class="input-group-button">
-        <slot>
-          <b-button :disabled="disabled" :variant="variant" href="" v-html="text"></b-button>
-        </slot>
+        <b-button :disabled="disabled" :variant="variant" href="">
+            <slot></slot>
+        </b-button>
     </span>
 </template>
 
@@ -14,10 +14,6 @@
             bButton
         },
         props: {
-            text: {
-                type: String,
-                default: ''
-            },
             disabled: {
                 type: Boolean,
                 default: false
