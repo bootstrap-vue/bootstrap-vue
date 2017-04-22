@@ -1,27 +1,9 @@
 <template>
-    <span class="input-group-button">
-        <b-button :disabled="disabled" :variant="variant" href="">
-            <slot></slot>
-        </b-button>
-    </span>
+    <div class="input-group-btn">
+        <slot></slot>
+    </div>
 </template>
 
 <script>
-    import bButton from './button.vue';
-
-    export default {
-        components: {
-            bButton
-        },
-        props: {
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            variant: {
-                type: String,
-                default: null
-            }
-        }
-    };
+    export default {}
 </script>
