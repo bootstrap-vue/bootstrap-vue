@@ -1,5 +1,11 @@
 <template>
-    <button :class="classObject" :is="componentType" :to="to" :href="href" @click="onclick">
+    <button :class="classObject"
+            :is="componentType"
+            :to="to"
+            :href="href"
+            @click="onclick"
+            :disabled="disabled"
+    >
         <slot></slot>
     </button>
 </template>
