@@ -3,7 +3,9 @@
   "component": "bDropdown",
   "jsfiddle": "8205xLmk",
   "components": [
-    "bDropdownItem"
+    "bDropdownItem",
+    "bDropdownHeader",
+    "bDropdownDivider"
   ],
   "events": [
     {
