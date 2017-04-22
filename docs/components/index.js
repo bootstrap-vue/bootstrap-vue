@@ -16,6 +16,7 @@ export default {
     'form-input': require('./form-input').default,
     'form-radio': require('./form-radio').default,
     'form-select': require('./form-select').default,
+    'input-group': require('./input-group').default,
     'jumbotron': require('./jumbotron').default,
     'list-group': require('./list-group').default,
     'modal': require('./modal').default,
