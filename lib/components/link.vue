@@ -2,6 +2,7 @@
     <a :is="componentType"
        :active-class="activeClass"
        :disabled="disabled"
+       :aria-disabled="disabled ? 'true' : 'false'"
        :to="to"
        :href="hrefString"
        :exact="exact"
