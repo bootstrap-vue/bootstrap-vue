@@ -76,7 +76,12 @@
         },
         methods: {
             onclick(e) {
-                this.$emit('click', e);
+                if (this.disabled) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                } else {
+                    this.$emit('click', e);
+                }
             }
         }
     };
