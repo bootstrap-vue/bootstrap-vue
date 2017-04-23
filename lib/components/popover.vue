@@ -27,26 +27,18 @@
     };
 
     const PLACEMENT_PARAMS = {
-        top: {
-            attachment: 'bottom center',
-            targetAttachment: 'top center'
-        },
-        bottom: {
-            attachment: 'top center',
-            targetAttachment: 'bottom center'
-        },
-        left:
-        {
-            attachment: 'middle right',
-            targetAttachment: 'middle left'
-        },
-        right: {
-            attachment: 'middle left',
-            targetAttachment: 'middle right'
-        }
+        top: 'bottom center',
+        bottom: 'top center',
+        left: 'middle right',
+        right: 'middle left'
     };
 
-    const TETHER_CLASS_PREFIX = 'tether-';
+    const TETHER_CLASS_PREFIX = 'bs-tether';
+
+    const TETHER_CLASSES = {
+        element: false,
+        enabled: false
+    };
 
     const TRANSITION_DURATION = 150;
 
@@ -306,12 +298,13 @@
              */
             getTetherOptions() {
                 return {
+                    attachment: PLACEMENT_PARAMS[this.placement],
                     element: this._popover,
                     target: this._trigger,
-                    constraints: this.constraints,
-                    attachment: PLACEMENT_PARAMS[this.placement].attachment,
-                    targetAttachment: PLACEMENT_PARAMS[this.placement].targetAttachment,
+                    classes: TETHER_CLASSES,
+                    classPrefix: TETHER_CLASS_PREFIX,
                     offset: this.offset,
+                    constraints: this.constraints,
                     targetOffset: this.targetOffset
                 };
             },
@@ -431,6 +424,7 @@
             // Configure tether
             this._trigger = this.$refs.trigger.children[0];
             this._popover = this.$refs.popover;
+            this._popover.style.display = 'none';
             this._timeout = 0;
 
             // Add listeners for specified triggers and complementary click event
