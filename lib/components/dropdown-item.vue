@@ -5,6 +5,7 @@
        :href="hrefString"
        :disabled="disabled"
        tabindex="-1"
+       role="menuitem"
        @click="click"
     ><slot></slot></a>
 </template>
