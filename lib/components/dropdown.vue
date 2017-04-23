@@ -25,7 +25,7 @@
         <div ref="menu"
              role="menu"
              :class="['dropdown-menu',right?'dropdown-menu-right':'']"
-             @keydown.esc.stop.prevent="onEsc"
+             @keyup.esc="onEsc"
              @keydown.up="focusNext($event,true)"
              @keydown.down="focusNext($event,false)"
         ><slot></slot></div>
@@ -131,9 +131,13 @@
                 }
             },
             onEsc(e) {
-                this.visible = false;
-                // Return focus to original button
-                (this.split ? this.$refs.toggle : this.$refs.button).focus();
+                if (this.visible) {
+                    this.visible = false;
+                    // Return focus to original button
+                    (this.split ? this.$refs.toggle : this.$refs.button).focus();
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
             },
             onNext(e, up) {
                 if (!this.visible) {
@@ -150,7 +154,7 @@
                 if (up) {
                     index--;
                 } else if (index < items.length - 2) {
-                    index++
+                    index++;
                 }
                 if (index < 0) {
                     index = 0;
