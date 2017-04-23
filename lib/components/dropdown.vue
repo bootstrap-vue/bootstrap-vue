@@ -3,6 +3,7 @@
 
         <b-button :class="[split?'':'dropdown-toggle',link?'btn-link':'']"
                   @click="click"
+                  ref="button"
                   aria-haspopup="true"
                   :aria-expanded="visible"
                   :variant="variant"
@@ -13,19 +14,21 @@
 
         <b-button class="dropdown-toggle dropdown-toggle-split"
                   :class="[link?'btn-link':'']"
+                  ref="toggle"
                   v-if="split"
                   @click="toggle"
                   :variant="variant"
                   :size="size"
                   :disabled="disabled"
-        >
-            <span class="sr-only">Toggle Dropdown</span>
-        </b-button>
+        ><span class="sr-only">{{toggleText}}</span></b-button>
 
-        <div :class="['dropdown-menu',right?'dropdown-menu-right':'']" tabindex="-1">
-            <slot></slot>
-        </div>
-
+        <div ref="menu"
+             role="menu"
+             :class="['dropdown-menu',right?'dropdown-menu-right':'']"
+             @keydown.esc.stop.prevent="onEsc"
+             @keydown.up="focusNext($event,true)"
+             @keydown.down="focusNext($event,false)"
+        ><slot></slot></div>
     </div>
 </template>
 
@@ -33,6 +36,8 @@
     import clickOut from '../mixins/clickout';
     import bButton from './button.vue';
 
+    const ITEM_SELECTOR = '.dropdown-item,.dropdown-header,.dropdown-divider';
+    
     export default {
         mixins: [
             clickOut
@@ -54,6 +59,10 @@
                 type: String,
                 default: ''
             },
+            toggleText: {
+                type: String,
+                default: 'Toggle Dropdown'
+            }
             size: {
                 type: String,
                 default: null
@@ -102,6 +111,13 @@
         methods: {
             toggle() {
                 this.visible = !this.visible;
+                if (this.visible) {
+                    // Focus first non-dsabled item
+                    const first = this.$refs.menu.querySelector(ITEM_SELECTOR);
+                    if (first) {
+                        first.focus();
+                    }
+                }
             },
             clickOutListener() {
                 this.visible = false;
@@ -113,6 +129,33 @@
                 } else {
                     this.toggle();
                 }
+            },
+            onEsc(e) {
+                this.visible = false;
+                // Return focus to original button
+                (this.split ? this.$refs.toggle : this.$refs.button).focus();
+            },
+            onNext(e, up) {
+                if (!this.visible) {
+                    return;
+                }
+                const items = [...this.$refs.menu.querySelectorAll(ITEM_SELECTOR)];
+                if (items.length < 1) {
+                    return;
+                }
+                let index = items.indexOf(e.taqrget);
+                if (index < 0) {
+                    return;
+                }
+                if (up) {
+                    index--;
+                } else if (index < items.length - 2) {
+                    index++
+                }
+                if (index < 0) {
+                    index = 0;
+                }
+                items[index].focus();
             }
         }
     };
