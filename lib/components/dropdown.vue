@@ -62,7 +62,7 @@
             toggleText: {
                 type: String,
                 default: 'Toggle Dropdown'
-            }
+            },
             size: {
                 type: String,
                 default: null
