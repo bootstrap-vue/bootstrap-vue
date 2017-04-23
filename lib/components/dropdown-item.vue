@@ -1,7 +1,12 @@
 <template>
-    <a :is="itemType" class="dropdown-item" :to="to" :href="hrefString"  @click="click" tabindex="0">
-        <slot></slot>
-    </a>
+    <a :is="itemType"
+       :class="[dropdown-item,{ disabled: disabled}]"
+       :to="to"
+       :href="hrefString"
+       :disabled="disabled"
+       :tabindex="disabled ? '-1' : '0'"
+       @click="click"
+    ><slot></slot></a>
 </template>
 
 <script>
