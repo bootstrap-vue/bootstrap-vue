@@ -1,5 +1,5 @@
 <template>
-    <component :is="tag" tabindex="-1" class="dropdown-header">
+    <component :is="tag" class="dropdown-header">
         <slot></slot>
     </component>
 </template>
