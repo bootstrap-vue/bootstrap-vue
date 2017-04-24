@@ -41,7 +41,7 @@
     import clickOut from '../mixins/clickout';
     import bButton from './button.vue';
 
-    const ITEM_SELECTOR = '.dropdown-item:not(.disabled):not([disabled]';
+    const ITEM_SELECTOR = '.dropdown-item:not(.disabled):not([disabled]),dropdown-header';
     
     export default {
         mixins: [
@@ -165,7 +165,7 @@
                     this.visible = false;
                 }
             },
-            onNext(e, up) {
+            focusNext(e, up) {
                 if (!this.visible) {
                     return;
                 }
@@ -178,8 +178,7 @@
                     return;
                 }
 
-                let index = items.indexOf(e.taqrget);
-
+                let index = items.indexOf(e.target);
                 if (up && index > 0) {
                     index--;
                 } else if (!up && index < items.length - 1) {
