@@ -46,7 +46,7 @@
                     return null;
                 }
                 const input = content.querySelector(this.inputSelector);
-                return (input && input.id) ? input.id : null;
+                this.target = (input && input.id) ? input.id : null;
             }
         },
         mounted() {
