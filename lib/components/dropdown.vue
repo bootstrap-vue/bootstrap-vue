@@ -1,41 +1,50 @@
 <template>
-    <div :class="['dropdown','btn-group',visible?'show':'',dropup?'dropup':'']">
+    <div :class="['dropdown','btn-group',{dropup: dropup, show: visible}]">
 
-        <b-button :class="[split?'':'dropdown-toggle',link?'btn-link':'']"
-                  @click="click"
-                  aria-haspopup="true"
-                  :aria-expanded="visible"
-                  :variant="variant"
-                  :size="size"
-                  :disabled="disabled">
-            <slot name="text">{{text}}</slot>
-        </b-button>
-
-        <b-button class="dropdown-toggle dropdown-toggle-split"
-                  :class="[link?'btn-link':'']"
-                  v-if="split"
-                  @click="toggle"
+        <b-button :class="{'dropdown-toggle': !split, 'btn-link': link}"
+                  ref="button"
+                  :id="'b_dropdown_button_' + _uid"
+                  :aria-haspopup="split ? null : 'true'"
+                  :aria-expanded="split ? null : (visible ? 'true' : 'false')"
                   :variant="variant"
                   :size="size"
                   :disabled="disabled"
-        >
-            <span class="sr-only">Toggle Dropdown</span>
-        </b-button>
+                  @click.stop.prevent="click"
+        ><slot name="text">{{text}}</slot></b-button>
 
-        <div :class="['dropdown-menu',right?'dropdown-menu-right':'']" tabindex="-1">
-            <slot></slot>
-        </div>
+        <b-button :class="['dropdown-toggle','dropdown-toggle-split',{'btn-link': link}]"
+                  v-if="split"
+                  ref="toggle"
+                  :aria-haspopup="split ? 'true' : null"
+                  :aria-expanded="split ? (visible ? 'true' : 'false') : null"
+                  :variant="variant"
+                  :size="size"
+                  :disabled="disabled"
+                  @click.stop.prevent="toggle"
+        ><span class="sr-only">{{toggleText}}</span></b-button>
+
+        <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
+             ref="menu"
+             role="menu"
+             :aria-labelledby="split ? null : 'b_dropdown_button_' + _uid"
+             @keyup.esc="onEsc"
+             @keydown.tab="onTab"
+             @keydown.up="focusNext($event,true)"
+             @keydown.down="focusNext($event,false)"
+        ><slot></slot></div>
 
     </div>
 </template>
 
 <script>
     import clickOut from '../mixins/clickout';
+    import dDown from '../mixins/dropdown';
     import bButton from './button.vue';
 
     export default {
         mixins: [
-            clickOut
+            clickOut,
+            dDown
         ],
         components: {
             bButton
@@ -46,13 +55,9 @@
             };
         },
         props: {
-            split: {
-                type: Boolean,
-                default: false
-            },
-            text: {
+            toggleText: {
                 type: String,
-                default: ''
+                default: 'Toggle Dropdown'
             },
             size: {
                 type: String,
@@ -62,29 +67,10 @@
                 type: String,
                 default: null
             },
-            dropup: {
-                type: Boolean,
-                default: false
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            right: {
-                type: Boolean,
-                default: false
-            },
             link: {
                 type: Boolean,
                 default: false
             }
-        },
-        created() {
-            this.$root.$on('shown::dropdown', el => {
-                if (el !== this) {
-                    this.visible = false;
-                }
-            });
         },
         watch: {
             visible(state, old) {
@@ -94,25 +80,46 @@
 
                 if (state) {
                     this.$root.$emit('shown::dropdown', this);
+                    /*
+                      If this is a touch-enabled device we add extra
+                      empty mouseover listeners to the body's immediate children;
+                      only needed because of broken event delegation on iOS
+                      https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+                    */
+                    if (document && 'ontouchstart' in document.documentElement) {
+                        document.body.children.addEventListener('mouseover', this.noop);
+                    }
                 } else {
                     this.$root.$emit('hidden::dropdown', this);
+                    /*
+                      If this is a touch-enabled device we remove the extra
+                      empty mouseover listeners we added for iOS support
+                    */
+                    if (document && 'ontouchstart' in document.documentElement) {
+                        document.body.children.removeEventListener('mouseover', this.noop);
+                    }
                 }
             }
         },
         methods: {
-            toggle() {
-                this.visible = !this.visible;
-            },
             clickOutListener() {
                 this.visible = false;
             },
             click(e) {
+                if (this.disabled) {
+                    this.visible = false;
+                    return;
+                }
+
                 if (this.split) {
                     this.$emit('click', e);
                     this.$root.$emit('shown::dropdown', this);
                 } else {
                     this.toggle();
                 }
+            },
+            noop() {
+                // Do nothing event handler
             }
         }
     };

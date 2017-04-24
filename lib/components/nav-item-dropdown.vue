@@ -1,24 +1,37 @@
 <template>
-    <li :class="{'nav-item': true, show: visible,dropdown: !dropup, dropup: dropup}">
-        <a @click.stop.prevent="toggle($event)"
-           :class="['nav-link', dropdownToggle]"
-           href="" aria-haspopup="true"
+    <li :class="['nav-item',{dropdown: !dropup, dropup: dropup, show: visible}]">
+
+        <a :class="['nav-link', dropdownToggle, {disabled: disabled}]"
+           href=""
+           ref="button"
+           :id="'b_dropdown_button_' + _uid"
+           aria-haspopup="true"
            :aria-expanded="visible"
-           :disabled="disabled">
-            <slot name="text">{{ text }}</slot>
-        </a>
-        <div :class="{'dropdown-menu': true, 'dropdown-menu-right': rightAlignment}">
-            <slot></slot>
-        </div>
+           :disabled="disabled"
+            @click.stop.prevent="toggle($event)"
+        ><slot name="text">{{ text }}</slot></a>
+
+        <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
+             role="menu"
+             ref="menu"
+             :aria-labelledby="'b_dropdown_button_' + _uid"
+             @keyup.esc="onEsc"
+             @keydown.tab="onTab"
+             @keydown.up="focusNext($event,true)"
+             @keydown.down="focusNext($event,false)"
+        ><slot></slot></div>
+
     </li>
 </template>
 
 <script>
     import clickOut from '../mixins/clickout';
+    import dDown from '../mixins/dropdown';
 
     export default {
         mixins: [
-            clickOut
+            clickOut,
+            dDown
         ],
         data() {
             return {
@@ -35,31 +48,7 @@
                 type: Boolean,
                 default: true
             },
-            text: {
-                type: String,
-                default: ''
-            },
-            dropup: {
-                type: Boolean,
-                default: false
-            },
-            rightAlignment: {
-                type: Boolean,
-                default: false
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
             class: ['class']
-        },
-        created() {
-            // To keep one dropdown opened at page
-            this.$root.$on('shown::dropdown', el => {
-                if (el !== this) {
-                    this.close();
-                }
-            });
         },
         watch: {
             visible(state, old) {
@@ -75,17 +64,8 @@
             }
         },
         methods: {
-            toggle() {
-                this.visible = !this.visible;
-            },
-            open() {
-                this.visible = true;
-            },
-            close() {
-                this.visible = false;
-            },
             clickOutListener() {
-                this.close();
+                this.visible = false;
             }
         }
     };
