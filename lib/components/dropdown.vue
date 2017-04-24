@@ -136,7 +136,7 @@
                     // Focus first non-dsabled item
                     const items = this.getItems();
                     if (items.length > 0) {
-                        items.[0].focus();
+                        items[0].focus();
                     }
                 }
             },
