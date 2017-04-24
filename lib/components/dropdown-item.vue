@@ -1,10 +1,11 @@
 <template>
     <a :is="itemType"
-       :class="[dropdown-item,{ disabled: disabled}]"
+       :class="[dropdown-item,{ disabled: disabled }]"
        :to="to"
        :href="hrefString"
        :disabled="disabled"
-       :tabindex="disabled ? '-1' : '0'"
+       tabindex="-1"
+       role="menuitem"
        @click="click"
     ><slot></slot></a>
 </template>
