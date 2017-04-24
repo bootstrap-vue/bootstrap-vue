@@ -11,7 +11,7 @@
             @click.stop.prevent="toggle($event)"
         ><slot name="text">{{ text }}</slot></a>
 
-        <div :class="['dropdown-menu',{'dropdown-menu-right': right}"
+        <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
              role="menu"
              ref="menu"
              :aria-labelledby="'b_dropdown_button_' + _uid"
