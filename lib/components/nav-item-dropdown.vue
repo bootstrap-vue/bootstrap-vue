@@ -5,7 +5,7 @@
            :class="['nav-link', dropdownToggle]"
            href=""
            ref="button"
-           :id="b_dropdown_button_' + _uid"
+           :id="'b_dropdown_button_' + _uid"
            aria-haspopup="true"
            :aria-expanded="visible"
            :disabled="disabled"
@@ -13,7 +13,7 @@
 
         <div role="menu"
              ref="menu"
-             :aria-labelledby="b_dropdown_button_' + _uid"
+             :aria-labelledby="'b_dropdown_button_' + _uid"
              :class="{'dropdown-menu': true, 'dropdown-menu-right': rightAlignment}"
              @keyup.esc="onEsc"
              @keydown.tab="onTab"
