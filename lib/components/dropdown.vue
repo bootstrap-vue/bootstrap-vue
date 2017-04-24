@@ -74,7 +74,7 @@
                 default: false
             },
             id: {
-                type String,
+                type: String,
                 default: null
             }
         },
