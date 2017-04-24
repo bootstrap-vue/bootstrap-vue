@@ -2,7 +2,7 @@
     <li :class="{'nav-item': true, show: visible, dropdown: !dropup, dropup: dropup}">
 
         <a @click.stop.prevent="toggle($event)"
-           :class="['nav-link', dropdownToggle]"
+           :class="['nav-link', dropdownToggle, {disabled:disabled}]"
            href=""
            ref="button"
            :id="'b_dropdown_button_' + _uid"
