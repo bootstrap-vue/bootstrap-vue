@@ -1,5 +1,5 @@
 <template>
-    <div role="separator" tabindex="-1" class="dropdown-divider"></div>
+    <div role="separator" class="dropdown-divider"></div>
 </template>
 
 <script>
