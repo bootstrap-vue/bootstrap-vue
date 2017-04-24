@@ -1,7 +1,7 @@
 <template>
-    <li :class="['nav-item',{show: visible, dropdown: !dropup, dropup: dropup}]">
+    <li :class="['nav-item',{dropdown: !dropup, dropup: dropup, show: visible}]">
 
-        <a :class="['nav-link', dropdownToggle, {disabled:disabled}]"
+        <a :class="['nav-link', dropdownToggle, {disabled: disabled}]"
            href=""
            ref="button"
            :id="'b_dropdown_button_' + _uid"
