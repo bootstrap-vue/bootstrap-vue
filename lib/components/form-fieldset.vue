@@ -1,10 +1,22 @@
 <template>
     <div :class="['form-group','row',inputState]">
-        <label :for="target" v-if="label" :class="['col-form-label',labelLayout]" v-html="label"></label>
+        <label :for="target"
+               v-if="label"
+               :class="['col-form-label',labelLayout]"
+               v-html="label"
+        ></label>
         <div :class="inputLayout" ref="content">
             <slot></slot>
-            <div class="form-text form-control-feedback" role="alert" v-if="feedback" v-html="feedback"></div>
-            <small class="form-text text-muted" v-if="description" v-html="description"></small>
+            <div class="form-text form-control-feedback"
+                 v-if="feedback"
+                 role="alert"
+                 aria-live="polite"
+                 v-html="feedback"
+            ></div>
+            <small class="form-text text-muted"
+                   v-if="description"
+                   v-html="description"
+            ></small>
         </div>
     </div>
 </template>
@@ -27,12 +39,21 @@
                 return this.horizontal ? ('col-sm-' + (12 - this.labelSize)) : 'col-12';
             }
         },
-        mounted() {
-            const content = this.$refs.content;
-            if (!content) {
-                return;
+        methods: {
+            updateTarget() {
+                const content = this.$refs.content;
+                if (!content) {
+                    return null;
+                }
+                const input = content.querySelector(this.inputSelector);
+                this.target = (input && input.id) ? input.id : null;
             }
-            this.target = content.querySelector(this.inputSelector).id || false;
+        },
+        mounted() {
+            this.updateTarget();
+        },
+        updated() {
+            this.updateTarget();
         },
         props: {
             state: {
@@ -61,7 +82,7 @@
             },
             inputSelector: {
                 type: String,
-                default: 'input, select, textarea'
+                default: 'input, select, textarea, .dropdown, .dropup'
             }
         }
     };
