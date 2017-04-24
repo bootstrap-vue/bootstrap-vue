@@ -134,9 +134,9 @@
                 this.visible = !this.visible;
                 if (this.visible) {
                     // Focus first non-dsabled item
-                    const first = this.$refs.menu.querySelector(ITEM_SELECTOR);
-                    if (first) {
-                        first.focus();
+                    const items = this.getItems();
+                    if (items.length > 0) {
+                        items.[0].focus();
                     }
                 }
             },
@@ -154,10 +154,10 @@
             onEsc(e) {
                 if (this.visible) {
                     this.visible = false;
-                    // Return focus to original button
-                    (this.split ? this.$refs.toggle : this.$refs.button).focus();
                     e.preventDefault();
                     e.stopPropagation();
+                    // Return focus to original button
+                    (this.split ? this.$refs.toggle : this.$refs.button).focus();
                 }
             },
             onTab() {
@@ -173,15 +173,12 @@
                 e.preventDefault();
                 e.stopPropagation();
 
-                const items = [...this.$refs.menu.querySelectorAll(ITEM_SELECTOR)];
+                const items = this.getItems();
                 if (items.length < 1) {
                     return;
                 }
 
                 let index = items.indexOf(e.taqrget);
-                if (index < 0) {
-                    return;
-                }
 
                 if (up && index > 0) {
                     index--;
@@ -194,7 +191,11 @@
 
                 items[index].focus();
             },
+            getItems() {
+                return [...this.$refs.menu.querySelectorAll(ITEM_SELECTOR)];
+            },
             noop() {
+                // Do nothing
             }
         }
     };
