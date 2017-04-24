@@ -41,7 +41,7 @@
     import clickOut from '../mixins/clickout';
     import bButton from './button.vue';
 
-    const ITEM_SELECTOR = '.dropdown-item:not(.disabled):not([disabled];
+    const ITEM_SELECTOR = '.dropdown-item:not(.disabled):not([disabled]';
     
     export default {
         mixins: [
