@@ -1,20 +1,20 @@
 <template>
-    <li :class="{'nav-item': true, show: visible, dropdown: !dropup, dropup: dropup}">
+    <li :class="['nav-item',{show: visible, dropdown: !dropup, dropup: dropup}]">
 
-        <a @click.stop.prevent="toggle($event)"
-           :class="['nav-link', dropdownToggle, {disabled:disabled}]"
+        <a :class="['nav-link', dropdownToggle, {disabled:disabled}]"
            href=""
            ref="button"
            :id="'b_dropdown_button_' + _uid"
            aria-haspopup="true"
            :aria-expanded="visible"
            :disabled="disabled"
+            @click.stop.prevent="toggle($event)"
         ><slot name="text">{{ text }}</slot></a>
 
-        <div role="menu"
+        <div :class="['dropdown-menu',{'dropdown-menu-right': right}"
+             role="menu"
              ref="menu"
              :aria-labelledby="'b_dropdown_button_' + _uid"
-             :class="{'dropdown-menu': true, 'dropdown-menu-right': rightAlignment}"
              @keyup.esc="onEsc"
              @keydown.tab="onTab"
              @keydown.up="focusNext($event,true)"
@@ -26,12 +26,12 @@
 
 <script>
     import clickOut from '../mixins/clickout';
-
-    const ITEM_SELECTOR = '.dropdown-item:not(.disabled):not([disabled]),.dropdown-header';
+    import dDown from '../mixins/dropdown';
 
     export default {
         mixins: [
-            clickOut
+            clickOut,
+            dDown
         ],
         data() {
             return {
@@ -48,31 +48,7 @@
                 type: Boolean,
                 default: true
             },
-            text: {
-                type: String,
-                default: ''
-            },
-            dropup: {
-                type: Boolean,
-                default: false
-            },
-            rightAlignment: {
-                type: Boolean,
-                default: false
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
             class: ['class']
-        },
-        created() {
-            // To keep one dropdown opened at page
-            this.$root.$on('shown::dropdown', el => {
-                if (el !== this) {
-                    this.visible = false;
-                }
-            });
         },
         watch: {
             visible(state, old) {
@@ -88,63 +64,8 @@
             }
         },
         methods: {
-            toggle() {
-                if (this.disabled) {
-                    this.visible = false;
-                } else {
-                    this.visible = !this.visible;
-                    if (this.visible) {
-                        // Focus first item
-                        const items = this.getItems();
-                        if (items.length > 0) {
-                            items[0].focus();
-                        }
-                    }
-                }
-            },
             clickOutListener() {
                 this.visible = false;
-            },
-            onEsc(e) {
-                if (this.visible) {
-                    this.visible = false;
-                    e.preventDefault();
-                    e.stopPropagation();
-                    // Return focus to original button
-                    this.$refs.button.focus();
-                }
-            },
-            onTab() {
-                if (this.visible) {
-                    this.visible = false;
-                }
-            },
-            focusNext(e, up) {
-                if (!this.visible) {
-                    return;
-                }
-
-                e.preventDefault();
-                e.stopPropagation();
-
-                const items = this.getItems();
-                if (items.length < 1) {
-                    return;
-                }
-
-                let index = items.indexOf(e.target);
-                if (up && index > 0) {
-                    index--;
-                } else if (!up && index < items.length - 1) {
-                    index++;
-                }
-                if (index < 0) {
-                    index = 0;
-                }
-                items[index].focus();
-            },
-            getItems() {
-                return [...this.$refs.menu.querySelectorAll(ITEM_SELECTOR)];
             }
         }
     };
