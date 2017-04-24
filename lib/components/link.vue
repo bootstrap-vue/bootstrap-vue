@@ -28,7 +28,7 @@
                 type: String,
                 default: 'active'
             },
-            disbled: {
+            disabled: {
                 type: Boolean,
                 default: false
             },
