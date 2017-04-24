@@ -25,6 +25,7 @@
     export default {
         data() {
             return {
+                target: null
             };
         },
         computed: {
@@ -39,7 +40,7 @@
             }
         },
         methods: {
-            target() {
+            updateTarget() {
                 const content = this.$refs.content;
                 if (!content) {
                     return null;
@@ -47,6 +48,12 @@
                 const input = content.querySelector(this.inputSelector);
                 return (input && input.id) ? input.id : null;
             }
+        },
+        mounted() {
+            this.updateTarget();
+        },
+        updated() {
+            this.updateTarget();
         },
         props: {
             state: {
@@ -75,7 +82,7 @@
             },
             inputSelector: {
                 type: String,
-                default: 'input, select, textarea'
+                default: 'input, select, textarea, .dropdown, .dropup'
             }
         }
     };
