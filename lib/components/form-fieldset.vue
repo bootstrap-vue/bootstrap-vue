@@ -47,7 +47,7 @@
                 const input = content.querySelector(this.inputSelector);
                 return (input && input.id) ? input.id : null;
             }
-        }
+        },
         props: {
             state: {
                 type: String,
