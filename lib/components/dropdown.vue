@@ -108,17 +108,21 @@
 
                 if (state) {
                     this.$root.$emit('shown::dropdown', this);
-                    // if this is a touch-enabled device we add extra
-                    // empty mouseover listeners to the body's immediate children;
-                    // only needed because of broken event delegation on iOS
-                    // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+                    /*
+                      If this is a touch-enabled device we add extra
+                      empty mouseover listeners to the body's immediate children;
+                      only needed because of broken event delegation on iOS
+                      https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+                    */
                     if (document && 'ontouchstart' in document.documentElement) {
                         document.body.children.addEventListener('mouseover', this.noop);
                     }
                 } else {
                     this.$root.$emit('hidden::dropdown', this);
-                    // if this is a touch-enabled device we remove the extra
-                    // empty mouseover listeners we added for iOS support
+                    /*
+                      If this is a touch-enabled device we remove the extra
+                      empty mouseover listeners we added for iOS support
+                    */
                     if (document && 'ontouchstart' in document.documentElement) {
                         document.body.children.removeEventListener('mouseover', this.noop);
                     }
@@ -165,7 +169,7 @@
                 if (!this.visible) {
                     return;
                 }
-                
+
                 e.preventDefault();
                 e.stopPropagation();
 
@@ -173,12 +177,12 @@
                 if (items.length < 1) {
                     return;
                 }
-                
+
                 let index = items.indexOf(e.taqrget);
                 if (index < 0) {
                     return;
                 }
-                
+
                 if (up && index > 0) {
                     index--;
                 } else if (!up && index < items.length - 1) {
@@ -187,11 +191,10 @@
                 if (index < 0) {
                     index = 0;
                 }
-                
+
                 items[index].focus();
             },
             noop() {
-                return;
             }
         }
     };
