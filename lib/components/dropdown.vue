@@ -131,6 +131,11 @@
         },
         methods: {
             toggle() {
+                if (this.disabled) {
+                    this.visible = false;
+                    return;
+                }
+
                 this.visible = !this.visible;
                 if (this.visible) {
                     // Focus first non-dsabled item
@@ -144,6 +149,11 @@
                 this.visible = false;
             },
             click(e) {
+                if (this.disabled) {
+                    this.visible = false;
+                    return;
+                }
+
                 if (this.split) {
                     this.$emit('click', e);
                     this.$root.$emit('shown::dropdown', this);
@@ -194,7 +204,7 @@
                 return [...this.$refs.menu.querySelectorAll(ITEM_SELECTOR)];
             },
             noop() {
-                // Do nothing
+                // Do nothing event handler
             }
         }
     };
