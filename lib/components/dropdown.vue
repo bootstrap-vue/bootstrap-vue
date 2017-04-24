@@ -4,8 +4,9 @@
         <b-button :class="[split?'':'dropdown-toggle',link?'btn-link':'']"
                   @click="click"
                   ref="button"
-                  aria-haspopup="true"
-                  :aria-expanded="visible"
+                  :id="'b_dropdown_button_' + _uid"
+                  :aria-haspopup="split ? null : 'true'"
+                  :aria-expanded="split ? null : (visible ? 'true' : 'false')"
                   :variant="variant"
                   :size="size"
                   :disabled="disabled">
@@ -16,6 +17,8 @@
                   :class="[link?'btn-link':'']"
                   ref="toggle"
                   v-if="split"
+                  :aria-haspopup="split ? 'true' : null"
+                  :aria-expanded="split ? (visible ? 'true' : 'false') : null"
                   @click="toggle"
                   :variant="variant"
                   :size="size"
@@ -24,8 +27,10 @@
 
         <div ref="menu"
              role="menu"
+             :aria-labelledby="split ? null : 'b_dropdown_button_' + _uid"
              :class="['dropdown-menu',right?'dropdown-menu-right':'']"
              @keyup.esc="onEsc"
+             @keydown.tab="onTab"
              @keydown.up="focusNext($event,true)"
              @keydown.down="focusNext($event,false)"
         ><slot></slot></div>
@@ -36,7 +41,7 @@
     import clickOut from '../mixins/clickout';
     import bButton from './button.vue';
 
-    const ITEM_SELECTOR = '.dropdown-item,.dropdown-header,.dropdown-divider';
+    const ITEM_SELECTOR = '.dropdown-item:not(.disabled):not([disabled];
     
     export default {
         mixins: [
@@ -103,8 +108,20 @@
 
                 if (state) {
                     this.$root.$emit('shown::dropdown', this);
+                    // if this is a touch-enabled device we add extra
+                    // empty mouseover listeners to the body's immediate children;
+                    // only needed because of broken event delegation on iOS
+                    // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+                    if (document && 'ontouchstart' in document.documentElement) {
+                        document.body.children.addEventListener('mouseover', this.noop);
+                    }
                 } else {
                     this.$root.$emit('hidden::dropdown', this);
+                    // if this is a touch-enabled device we remove the extra
+                    // empty mouseover listeners we added for iOS support
+                    if (document && 'ontouchstart' in document.documentElement) {
+                        document.body.children.removeEventListener('mouseover', this.noop);
+                    }
                 }
             }
         },
@@ -139,27 +156,42 @@
                     e.stopPropagation();
                 }
             },
+            onTab() {
+                if (this.visible) {
+                    this.visible = false;
+                }
+            },
             onNext(e, up) {
                 if (!this.visible) {
                     return;
                 }
+                
+                e.preventDefault();
+                e.stopPropagation();
+
                 const items = [...this.$refs.menu.querySelectorAll(ITEM_SELECTOR)];
                 if (items.length < 1) {
                     return;
                 }
+                
                 let index = items.indexOf(e.taqrget);
                 if (index < 0) {
                     return;
                 }
-                if (up) {
+                
+                if (up && index > 0) {
                     index--;
-                } else if (index < items.length - 2) {
+                } else if (!up && index < items.length - 1) {
                     index++;
                 }
                 if (index < 0) {
                     index = 0;
                 }
+                
                 items[index].focus();
+            },
+            noop() {
+                return;
             }
         }
     };
