@@ -95,7 +95,7 @@
                     this.visible = !this.visible;
                     if (this.visible) {
                         // Focus first item
-                        const items = getitems();
+                        const items = getItems();
                         if (items.length > 0) {
                             items[0].focus();
                         }
