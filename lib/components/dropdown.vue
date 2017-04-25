@@ -1,5 +1,7 @@
 <template>
-    <div :class="['dropdown','btn-group',{dropup: dropup, show: visible}]">
+    <div :class="['dropdown','btn-group',{dropup: dropup, show: visible}]"
+         :id="id || ('b_' + _uid)"
+    >
 
         <b-button :class="{'dropdown-toggle': !split, 'btn-link': link}"
                   ref="button"
@@ -70,6 +72,10 @@
             link: {
                 type: Boolean,
                 default: false
+            },
+            id: {
+                type: String,
+                default: null
             }
         },
         watch: {
