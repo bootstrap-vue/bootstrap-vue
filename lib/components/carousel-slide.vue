@@ -1,7 +1,7 @@
 <template>
     <div class="carousel-item" :style="{background,height}">
         <img class="d-block img-fluid" v-if="img" :src="img" :alt="imgAlt">
-        <div class="carousel-caption d-none d-md-block">
+        <div :class="{ 'carousel-caption': !!caption }">
             <h3 v-if="caption" v-html="caption"></h3>
             <p v-if="text" v-html="text"></p>
             <slot></slot>
@@ -25,7 +25,6 @@
             text: {
                 type: String
             },
-
             background: {
                 type: String
             },
