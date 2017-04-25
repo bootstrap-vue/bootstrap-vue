@@ -72,35 +72,6 @@
                 default: false
             }
         },
-        watch: {
-            visible(state, old) {
-                if (state === old) {
-                    return; // Avoid duplicated emits
-                }
-
-                if (state) {
-                    this.$root.$emit('shown::dropdown', this);
-                    /*
-                      If this is a touch-enabled device we add extra
-                      empty mouseover listeners to the body's immediate children;
-                      only needed because of broken event delegation on iOS
-                      https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
-                    */
-                    if (document && 'ontouchstart' in document.documentElement) {
-                        document.body.children.addEventListener('mouseover', this.noop);
-                    }
-                } else {
-                    this.$root.$emit('hidden::dropdown', this);
-                    /*
-                      If this is a touch-enabled device we remove the extra
-                      empty mouseover listeners we added for iOS support
-                    */
-                    if (document && 'ontouchstart' in document.documentElement) {
-                        document.body.children.removeEventListener('mouseover', this.noop);
-                    }
-                }
-            }
-        },
         methods: {
             clickOutListener() {
                 this.visible = false;
@@ -118,9 +89,6 @@
                     this.toggle();
                 }
             },
-            noop() {
-                // Do nothing event handler
-            }
         }
     };
 

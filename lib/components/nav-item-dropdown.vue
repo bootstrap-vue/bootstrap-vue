@@ -55,19 +55,6 @@
             },
             class: ['class']
         },
-        watch: {
-            visible(state, old) {
-                if (state === old) {
-                    return; // Avoid duplicated emits
-                }
-
-                if (state) {
-                    this.$root.$emit('shown::dropdown', this);
-                } else {
-                    this.$root.$emit('hidden::dropdown', this);
-                }
-            }
-        },
         methods: {
             clickOutListener() {
                 this.visible = false;
