@@ -7,7 +7,9 @@
        :href="hrefString"
        :exact="exact"
        @click="click"
-    ><slot></slot></a>
+    >
+        <slot></slot>
+    </a>
 </template>
 
 <script>
@@ -38,7 +40,7 @@
             },
             href: {
                 type: String,
-                default: '#'
+                default: ''
             },
             exact: {
                 type: Boolean,
@@ -47,10 +49,12 @@
         },
         methods: {
             click(e) {
-                if (this.disabled) {
+                if (this.disabled || this.href === '#') {
                     e.preventDefault();
                     e.stopPropagation();
-                } else {
+                }
+
+                if (!this.disabled) {
                     this.$emit('click', e);
                     this.$root.$emit('shown::dropdown', this);
                 }
