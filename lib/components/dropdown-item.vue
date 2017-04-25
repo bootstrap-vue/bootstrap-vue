@@ -1,13 +1,15 @@
 <template>
     <a :is="itemType"
-       :class="[dropdown-item,{ disabled: disabled }]"
+       :class="['dropdown-item',{ disabled }]"
        :to="to"
        :href="hrefString"
        :disabled="disabled"
        tabindex="-1"
        role="menuitem"
        @click="click"
-    ><slot></slot></a>
+    >
+        <slot></slot>
+    </a>
 </template>
 
 <script>
