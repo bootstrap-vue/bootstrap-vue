@@ -1,6 +1,6 @@
 <template>
     <div :class="['jumbotron',fluid?'jumbotron-fluid':null]">
-        <div class="container">
+        <div :class="containerFluid ? 'container-fluid' : 'container'">
             <h1 v-if="header" class="display-3" v-html="header"></h1>
             <p v-if="lead" class="lead" v-html="lead"></p>
             <slot></slot>
@@ -13,6 +13,10 @@
         computed: {},
         props: {
             fluid: {
+                type: Boolean,
+                default: false
+            },
+            containerFluid: {
                 type: Boolean,
                 default: false
             },
