@@ -1,5 +1,5 @@
 <template>
-    <div :class="['dropdown','btn-group',{dropup: dropup, show: visible}]">
+    <div :class="['dropdown','btn-group',{dropup, show: visible}]">
 
         <b-button :class="{'dropdown-toggle': !split, 'btn-link': link}"
                   ref="button"
@@ -38,13 +38,13 @@
 
 <script>
     import clickOut from '../mixins/clickout';
-    import dDown from '../mixins/dropdown';
+    import dropdown from '../mixins/dropdown';
     import bButton from './button.vue';
 
     export default {
         mixins: [
             clickOut,
-            dDown
+            dropdown
         ],
         components: {
             bButton

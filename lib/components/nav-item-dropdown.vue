@@ -31,12 +31,12 @@
 
 <script>
     import clickOut from '../mixins/clickout';
-    import dDown from '../mixins/dropdown';
+    import dropdown from '../mixins/dropdown';
 
     export default {
         mixins: [
             clickOut,
-            dDown
+            dropdown
         ],
         data() {
             return {
