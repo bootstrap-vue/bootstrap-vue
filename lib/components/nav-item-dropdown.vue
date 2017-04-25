@@ -8,8 +8,11 @@
            aria-haspopup="true"
            :aria-expanded="visible"
            :disabled="disabled"
-            @click.stop.prevent="toggle($event)"
-        ><slot name="text">{{ text }}</slot></a>
+           @click.stop.prevent="toggle($event)"
+           v-html="text"
+        >
+            <slot name="text"></slot>
+        </a>
 
         <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
              role="menu"
@@ -19,7 +22,9 @@
              @keydown.tab="onTab"
              @keydown.up="focusNext($event,true)"
              @keydown.down="focusNext($event,false)"
-        ><slot></slot></div>
+        >
+            <slot></slot>
+        </div>
 
     </li>
 </template>
