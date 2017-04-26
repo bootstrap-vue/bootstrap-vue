@@ -7,6 +7,7 @@
        tabindex="-1"
        role="menuitem"
        @click="click"
+       @click.native="click"
     >
         <slot></slot>
     </a>
