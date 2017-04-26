@@ -71,7 +71,7 @@
 
     /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style*/
     .modal {
-        display: block;
+        display: block; !important;
     }
 </style>
 
