@@ -88,7 +88,7 @@
                 } else {
                     this.toggle();
                 }
-            },
+            }
         }
     };
 
