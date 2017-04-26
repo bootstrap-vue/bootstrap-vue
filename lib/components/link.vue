@@ -16,7 +16,7 @@
     export default {
         computed: {
             componentType() {
-                return (this.$router && this.to) ? 'router-link' : 'a';
+                return (this.$router && this.to && !this.disabled) ? 'router-link' : 'a';
             },
             hrefString() {
                 if (this.to) {
