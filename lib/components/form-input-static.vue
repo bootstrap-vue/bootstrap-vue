@@ -22,11 +22,8 @@
             },
             formatter: {
                 type: Function
-            },
-            lazyFormatter: {
-                type: Boolean,
-                default: false
             }
         }
     };
+
 </script>
