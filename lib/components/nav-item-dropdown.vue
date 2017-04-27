@@ -8,9 +8,8 @@
            :aria-expanded="visible"
            :disabled="disabled"
            @click.stop.prevent="toggle($event)"
-           v-html="text"
         >
-            <slot name="text"></slot>
+            <slot name="text"><span v-html="text"></span></slot>
         </a>
 
         <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
