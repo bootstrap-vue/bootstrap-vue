@@ -82,7 +82,7 @@
             },
             inputSelector: {
                 type: String,
-                default: 'input, select, textarea, .dropdown, .dropup'
+                default: 'input,select,textarea,.form-control,.form-control-static,.dropdown,.dropup'
             }
         }
     };
