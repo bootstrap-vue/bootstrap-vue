@@ -1,5 +1,5 @@
 <template>
-    <input
+    <input  v-if="!static"
             :type="type"
             :value="value"
             :name="name"
@@ -19,6 +19,9 @@
             @focus="$emit('focus')"
             @blur="$emit('blur')"
     />
+    <p v-if="static" :id="id || ('b_'+_uid)" :class="['form-control-static',inputClass]">
+        {{ staticValue }}
+    </p>
 </template>
 
 <script>
@@ -29,6 +32,9 @@
         computed: {
             rowsCount() {
                 return (this.value || '').toString().split('\n').length;
+            },
+            staticValue() {
+                return this.formatter ? this.formatter(value) : value;
             }
         },
         methods: {
@@ -64,6 +70,10 @@
             type: {
                 type: String,
                 default: 'text'
+            },
+            static: {
+                type: Boolean,
+                default: false
             },
             placeholder: {
                 type: String,
