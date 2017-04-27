@@ -19,24 +19,24 @@
            @focus="$emit('focus')"
            @blur="$emit('blur')"
     />
-    <p v-else :id="_id"
-       :class="['form-control-static',inputClass]"
-       v-html="staticValue"
-    ></p>
+    <form-input-static v-else
+                       :id="_id"
+                       :value="value"
+                       :formatter="formatter"
+    ></form-input-static>
 </template>
 
 <script>
     import formMixin from '../mixins/form';
+    import formInputStatic from './form-input-static';
     import generateId from '../mixins/generate-id';
 
     export default {
         mixins: [formMixin, generateId],
+        components: {formInputStatic},
         computed: {
             rowsCount() {
                 return (this.value || '').toString().split('\n').length;
-            },
-            staticValue() {
-                return this.formatter ? this.formatter(value) : value;
             }
         },
         methods: {
