@@ -15,7 +15,7 @@
         <!-- Real Form input -->
         <input type="file"
                :name="name"
-               :id="id || ('b_'+_uid)"
+               :id="_id"
                :disabled="disabled"
                ref="input"
                :accept="accept"
@@ -81,9 +81,10 @@
 
 <script>
     import formMixin from '../mixins/form';
+    import generateId from '../mixins/generate-id';
 
     export default {
-        mixins: [formMixin],
+        mixins: [formMixin, generateId],
         data() {
             return {
                 selectedFile: null,
