@@ -28,8 +28,8 @@
 
 <script>
     import formMixin from '../mixins/form';
-    import bFormInputStatic from './form-input-static.vue';
     import generateId from '../mixins/generate-id';
+    import bFormInputStatic from './form-input-static.vue';
 
     export default {
         mixins: [formMixin, generateId],
