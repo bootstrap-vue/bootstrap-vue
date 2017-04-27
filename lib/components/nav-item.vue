@@ -1,6 +1,11 @@
 <template>
     <li class="nav-item" @click="onclick">
-        <b-link :class="classObject" :to="to" :href="href" :exact="exact">
+        <b-link :class="classObject"
+                :to="to"
+                :href="href"
+                :exact="exact"
+                :disabled="disabled"
+        >
             <slot></slot>
         </b-link>
     </li>

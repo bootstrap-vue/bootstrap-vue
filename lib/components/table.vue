@@ -46,7 +46,6 @@
                 sortDesc: true
             };
         },
-
         props: {
             items: {
                 type: Array,
@@ -105,7 +104,7 @@
                     return this.itemsProvider(this);
                 }
 
-                let items = this.items;
+                let items = this.items.slice();
 
                 // Apply filter
                 if (this.filter) {
