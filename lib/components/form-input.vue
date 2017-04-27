@@ -1,34 +1,36 @@
 <template>
-    <input  v-if="!static"
-            :type="type"
-            :value="value"
-            :name="name"
-            :id="id || ('b_'+_uid)"
-            :disabled="disabled"
-            ref="input"
+    <input v-if="!static"
+           :type="type"
+           :value="value"
+           :name="name"
+           :id="_id"
+           :disabled="disabled"
+           ref="input"
 
-            :is="textarea?'textarea':'input'"
-            :class="['form-control',inputClass]"
-            :rows="rows || rowsCount"
+           :is="textarea?'textarea':'input'"
+           :class="['form-control',inputClass]"
+           :rows="rows || rowsCount"
 
-            :placeholder="placeholder"
+           :placeholder="placeholder"
 
-            @input="onInput($event.target.value)"
-            @change="onChange($event.target.value)"
-            @keyup="onKeyUp($event)"
-            @focus="$emit('focus')"
-            @blur="$emit('blur')"
+           @input="onInput($event.target.value)"
+           @change="onChange($event.target.value)"
+           @keyup="onKeyUp($event)"
+           @focus="$emit('focus')"
+           @blur="$emit('blur')"
     />
-    <p v-if="static" :id="id || ('b_'+_uid)" :class="['form-control-static',inputClass]">
-        {{ staticValue }}
-    </p>
+    <p v-else :id="_id"
+       :class="['form-control-static',inputClass]"
+       v-html="staticValue"
+    ></p>
 </template>
 
 <script>
     import formMixin from '../mixins/form';
+    import generateId from '../mixins/generate-id';
 
     export default {
-        mixins: [formMixin],
+        mixins: [formMixin, generateId],
         computed: {
             rowsCount() {
                 return (this.value || '').toString().split('\n').length;

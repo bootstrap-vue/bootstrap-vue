@@ -1,7 +1,7 @@
 <template>
     <select :class="[inputClass,custom?'custom-select':null]"
             :name="name"
-            :id="id || ('b_'+_uid)"
+            :id="_id"
             v-model="localValue"
             :disabled="disabled"
             ref="input"
@@ -17,9 +17,10 @@
 <script>
     import formOptions from '../mixins/form-options';
     import formMixin from '../mixins/form';
+    import generateId from '../mixins/generate-id';
 
     export default {
-        mixins: [formMixin, formOptions],
+        mixins: [formMixin, formOptions, generateId],
         data() {
             return {
                 localValue: this.value
