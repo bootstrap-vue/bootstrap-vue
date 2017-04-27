@@ -2,7 +2,9 @@
     <p :id="_id"
        :class="['form-control-static',inputClass]"
        v-html="staticValue"
-    ></p>
+    >
+        <slot></slot>
+    </p>
 </template>
 
 <script>
