@@ -13,7 +13,7 @@
         mixins: [formMixin, generateId],
         computed: {
             staticValue() {
-                return this.formatter ? this.formatter(value) : value;
+                return this.formatter ? this.formatter(this.value) : this.value;
             }
         },
         props: {
