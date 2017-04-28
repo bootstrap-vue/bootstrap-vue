@@ -4,5 +4,4 @@
 <% if(commit.title.toLowerCase().indexOf('eslint')!==-1) return; %>
 <% if(commit.title.toLowerCase().indexOf('update')==0) return; %>
 * __<%= commit.title %>__ (<%= commit.authorName %>) - <%= commit.sha1 %>
-<%= commit.messageLines.join("\n    ") %>
 <% }) %>

@@ -1,5 +1,6 @@
 {
   "title": "Form Input",
   "component": "bFormInput",
+  "components": ["bFormInputStatic"],
   "jsfiddle": "j08b7c4o"
 }
