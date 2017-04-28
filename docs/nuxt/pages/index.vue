@@ -15,7 +15,11 @@
                 </p>
 
                 <p class="version">
-                    Currently: {{site.package_info.version}}
+                    Latest : {{site.package_info.version}}
+                    <br>
+                    <a href="https://github.com/bootstrap-vue/bootstrap-vue/releases"
+                       target="_blank"
+                       class="btn mr-1 mb-1">ChangeLog</a>
                 </p>
 
             </div>
