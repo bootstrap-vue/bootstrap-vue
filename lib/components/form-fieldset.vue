@@ -43,7 +43,7 @@
                         return 'text-right';
                     case 'left':
                     default:
-                        return 'text-left';
+                        return null;
                 }
             },
             inputLayout() {
@@ -82,7 +82,7 @@
             labelTextAlign: {
                 type: String,
                 required: false,
-                default: 'left'
+                default: null
             },
             label: {
                 type: String,
