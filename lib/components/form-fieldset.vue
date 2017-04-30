@@ -2,7 +2,7 @@
     <div :class="['form-group','row',inputState]">
         <label :for="target"
                v-if="label"
-               :class="['col-form-label',labelLayout]"
+               :class="['col-form-label',labelLayout,labelAlignClass]"
                v-html="label"
         ></label>
         <div :class="inputLayout" ref="content">
@@ -34,6 +34,17 @@
             },
             labelLayout() {
                 return this.horizontal ? ('col-sm-' + this.labelSize) : 'col-12';
+            },
+            labelAlignClass() {
+                switch (this.labelTextAlign.toLowerCase()) {
+                    case 'center':
+                        return 'text-center';
+                    case 'right':
+                        return 'text-right';
+                    case 'left':
+                    default:
+                        return 'text-left';
+                }
             },
             inputLayout() {
                 return this.horizontal ? ('col-sm-' + (12 - this.labelSize)) : 'col-12';
@@ -67,6 +78,11 @@
             labelSize: {
                 type: Number,
                 default: 3
+            },
+            labelTextAlign: {
+                type: String,
+                required: false,
+                default: 'left'
             },
             label: {
                 type: String,
