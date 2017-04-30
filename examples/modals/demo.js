@@ -14,7 +14,7 @@ window.app = new Vue({
             }
 
             this.names.push(this.name);
-            this.name = '';
+            this.clearName();
         }
     }
 });
