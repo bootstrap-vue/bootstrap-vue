@@ -1,31 +1,39 @@
 <template>
-    <input
-            :type="type"
-            :value="value"
-            :name="name"
-            :id="id || ('b_'+_uid)"
-            :disabled="disabled"
-            ref="input"
+    <input v-if="!static"
+           :type="type"
+           :value="value"
+           :name="name"
+           :id="_id"
+           :disabled="disabled"
+           ref="input"
 
-            :is="textarea?'textarea':'input'"
-            :class="['form-control',inputClass]"
-            :rows="rows || rowsCount"
+           :is="textarea?'textarea':'input'"
+           :class="['form-control',inputClass]"
+           :rows="rows || rowsCount"
 
-            :placeholder="placeholder"
+           :placeholder="placeholder"
 
-            @input="onInput($event.target.value)"
-            @change="onChange($event.target.value)"
-            @keyup="onKeyUp($event)"
-            @focus="$emit('focus')"
-            @blur="$emit('blur')"
+           @input="onInput($event.target.value)"
+           @change="onChange($event.target.value)"
+           @keyup="onKeyUp($event)"
+           @focus="$emit('focus')"
+           @blur="$emit('blur')"
     />
+    <b-form-input-static v-else
+                         :id="_id"
+                         :value="value"
+                         :formatter="formatter"
+    ></b-form-input-static>
 </template>
 
 <script>
     import formMixin from '../mixins/form';
+    import generateId from '../mixins/generate-id';
+    import bFormInputStatic from './form-input-static.vue';
 
     export default {
-        mixins: [formMixin],
+        mixins: [formMixin, generateId],
+        components: {bFormInputStatic},
         computed: {
             rowsCount() {
                 return (this.value || '').toString().split('\n').length;
@@ -64,6 +72,10 @@
             type: {
                 type: String,
                 default: 'text'
+            },
+            static: {
+                type: Boolean,
+                default: false
             },
             placeholder: {
                 type: String,

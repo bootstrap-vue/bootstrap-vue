@@ -15,7 +15,10 @@
                 </p>
 
                 <p class="version">
-                    Currently: {{site.package_info.version}}
+                    Latest :
+                    <a href="https://github.com/bootstrap-vue/bootstrap-vue/releases"
+                       target="_blank">{{site.package_info.version}}
+                    </a>
                 </p>
 
             </div>
@@ -40,6 +43,9 @@
 <style>
     .bd-masthead {
         margin-top: -30px;
+    }
+    .version a{
+        color: white;
     }
 </style>
 

@@ -1,7 +1,6 @@
 {
   "title": "Input Groups",
   "component": "bInputGroup",
-  "new": true,
   "components": [
     "bInputGroupAddon",
     "bInputGroupButton"

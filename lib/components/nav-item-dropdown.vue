@@ -1,17 +1,15 @@
 <template>
-    <li :class="['nav-item',{dropdown: !dropup, dropup: dropup, show: visible}]">
+    <li :class="['nav-item','dropdown', {dropup, show: visible}]">
 
-        <a :class="['nav-link', dropdownToggle, {disabled: disabled}]"
+        <a :class="['nav-link', dropdownToggle, {disabled}]"
            href=""
            ref="button"
-           :id="'b_dropdown_button_' + _uid"
            aria-haspopup="true"
            :aria-expanded="visible"
            :disabled="disabled"
            @click.stop.prevent="toggle($event)"
-           v-html="text"
         >
-            <slot name="text"></slot>
+            <slot name="text"><span v-html="text"></span></slot>
         </a>
 
         <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"

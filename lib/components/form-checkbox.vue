@@ -2,7 +2,7 @@
     <label :class="[inputClass,checkboxClass,custom?'custom-checkbox':null]">
         <input
                 type="checkbox"
-                :id="id || ('b_'+_uid)"
+                :id="_id"
                 :name="name"
                 :value="value"
                 :disabled="disabled"
@@ -19,9 +19,10 @@
 <script>
     import formMixin from '../mixins/form';
     import formCheckBoxMixin from '../mixins/form-checkbox';
+    import generateId from '../mixins/generate-id';
 
     export default {
-        mixins: [formMixin, formCheckBoxMixin],
+        mixins: [formMixin, formCheckBoxMixin, generateId],
         model: {
             prop: 'checked',
             event: 'change'

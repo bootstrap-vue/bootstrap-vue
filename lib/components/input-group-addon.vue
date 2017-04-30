@@ -1,17 +1,14 @@
-
 <template>
-    <span class="input-group-addon" :id="thisId">
+    <span class="input-group-addon" :id="_id">
         <slot></slot>
     </span>
 </template>
 
 <script>
+    import generateId from '../mixins/generate-id';
+
     export default {
-        computed: {
-            thisId() {
-                return this.id || ('b_input_group_addon_' + this._uid);
-            }
-        },
+        mixins: [generateId],
         props: {
             id: {
                 type: String,
