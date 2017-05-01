@@ -50,8 +50,7 @@
             caret: {
                 type: Boolean,
                 default: true
-            },
-            class: ['class']
+            }
         },
         methods: {
             clickOutListener() {
