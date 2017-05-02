@@ -204,12 +204,13 @@
                 }
             },
             onEsc() {
-                // If ESC presses, hide modal
+                // If ESC pressed, hide modal
                 if (this.is_visible && this.closeOnEsc) {
                     this.hide();
                 }
             },
             enforceFocus(e) {
+                // TODO: Chage timing of this event
                 // If focus leaves modal, bring it back
                 // eventListener bound on document
                 if (this.is_visible &&
