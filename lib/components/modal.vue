@@ -172,6 +172,9 @@
                 this.body.classList.add('modal-open');
                 this.$emit('shown');
                 this.$emit('change', true);
+                if (typeof document !== 'undefined') {
+                    document.addEventListener('focusin', this.enforceFocus, false);
+                }
                 this.$nextTick(function () {
                     // Make sure DOM is updated before focusing
                     this.focusFirst();
@@ -203,6 +206,9 @@
 
                 // Hide if not canceled
                 if (!canceled) {
+                    if (typeof document !== 'undefined') {
+                        document.removeEventListener('focusin', this.enforceFocus, false);
+                    }
                     this.is_visible = false;
                     this.$root.$emit('hidden::modal', this._id);
                     this.body.classList.remove('modal-open');
@@ -263,17 +269,14 @@
             });
         },
         mounted() {
-            if (typeof document !== 'undefined') {
-                document.addEventListener('focusin', this.enforceFocus);
-            }
-
             if (this.visible === true) {
                 this.show();
             }
         },
         destroyed() {
+            // Make sure event listener is rmoved
             if (typeof document !== 'undefined') {
-                document.removeEventListener('focusin', this.enforceFocus);
+                document.removeEventListener('focusin', this.enforceFocus, false);
             }
         }
     };
