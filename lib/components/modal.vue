@@ -94,7 +94,7 @@
         data() {
             return {
                 is_visible: false,
-                returnFocus: null
+                return_focus: this.returnFocus || null
             };
         },
         model: {
@@ -161,6 +161,10 @@
             hideHeaderClose: {
                 type: Boolean,
                 default: false
+            },
+            returnFocus: {
+                type: [String, HTMLElement],
+                default: null
             }
         },
         methods: {
@@ -213,7 +217,7 @@
                     if (typeof document !== 'undefined') {
                         // Remove focus handler
                         document.removeEventListener('focusin', this.enforceFocus, false);
-                        // return focus to original button if provided
+                        // Return focus to original button/trigger element if provided
                         this.returnFocusTo();
                     }
                     this.is_visible = false;
@@ -251,10 +255,10 @@
                 el.focus();
             },
             returnFocusTo() {
-                if (this.returnFocus) {
-                    const el = (typeof this.returnFocus === 'string') ?
+                if (this.return_focus) {
+                    const el = (typeof this.return_focus === 'string') ?
                         document.querySelector(this.returnFocus) :
-                        this.returnFocus;
+                        this.return_focus;
 
                     if (el && typeof el.focus === 'function') {
                         el.focus();
@@ -276,7 +280,7 @@
         created() {
             this.$root.$on('show::modal', (id, triggerEl) => {
                 if (id === this._id) {
-                    this.returnFocus = triggerEl || null;
+                    this.return_focus = triggerEl || this.return_focus || this.returnFocus || null;
                     this.show();
                 }
             });
