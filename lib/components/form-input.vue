@@ -63,9 +63,6 @@
             },
             onKeyUp(e) {
                 this.$emit('keyup', e);
-            },
-            focus() {
-                this.$refs.input.focus()
             }
         },
         props: {
