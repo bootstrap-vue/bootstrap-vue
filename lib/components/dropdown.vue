@@ -23,7 +23,9 @@
                   :size="size"
                   :disabled="disabled"
                   @click.stop.prevent="toggle"
-        ><span class="sr-only">{{toggleText}}</span></b-button>
+        >
+            <span class="sr-only">{{toggleText}}</span>
+        </b-button>
 
         <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
              ref="menu"
