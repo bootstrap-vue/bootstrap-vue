@@ -93,7 +93,8 @@
         components: {bBtn},
         data() {
             return {
-                is_visible: false
+                is_visible: false,
+                returnFocus: null
             };
         },
         model: {
@@ -212,6 +213,8 @@
                     if (typeof document !== 'undefined') {
                         // Remove focus handler
                         document.removeEventListener('focusin', this.enforceFocus, false);
+                        // return focus to original button if provided
+                        this.returnFocusTo();
                     }
                     this.is_visible = false;
                     this.$root.$emit('hidden::modal', this._id);
@@ -247,6 +250,17 @@
                 }
                 el.focus();
             },
+            returnFocusTo() {
+                if (this.returnFocus) {
+                    const el = (typeof this.returnFocus === 'string') ?
+                        document.querySelector(this.returnFocus) :
+                        this.returnFocus;
+
+                    if (el && typeof el.focus === 'function') {
+                        el.focus();
+                    }
+                }
+            },
             enforceFocus(e) {
                 // If focus leaves modal, bring it back
                 // Event Listener bound on document
@@ -260,8 +274,9 @@
             }
         },
         created() {
-            this.$root.$on('show::modal', id => {
+            this.$root.$on('show::modal', (id, triggerEl) => {
                 if (id === this._id) {
+                    this.returnFocus = triggerEl || null;
                     this.show();
                 }
             });
