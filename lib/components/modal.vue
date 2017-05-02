@@ -204,7 +204,7 @@
                 // Hide if not canceled
                 if (!canceled) {
                     this.is_visible = false;
-                    this.$root.$emit('hidden::modal', this.id);
+                    this.$root.$emit('hidden::modal', this._id);
                     this.body.classList.remove('modal-open');
                 }
             },
@@ -224,13 +224,13 @@
                 // Focus the modal's first focusable item, searching footer, then body, then header, else the modal
                 let el;
                 if (this.$refs.footer) {
-                    el = this.$refs.footer.querySeletor(SELECTOR);
+                    el = this.$refs.footer.querySelector(SELECTOR);
                 }
                 if (!el && this.$refs.body) {
-                    el = this.$refs.body.querySeletor(SELECTOR);
+                    el = this.$refs.body.querySelector(SELECTOR);
                 }
                 if (!el && this.$refs.header) {
-                    el = this.$refs.header.querySeletor(SELECTOR);
+                    el = this.$refs.header.querySelector(SELECTOR);
                 }
                 if (!el) {
                     el = this.$refs.content;
@@ -251,13 +251,13 @@
         },
         created() {
             this.$root.$on('show::modal', id => {
-                if (id === this.id) {
+                if (id === this._id) {
                     this.show();
                 }
             });
 
             this.$root.$on('hide::modal', id => {
-                if (id === this.id) {
+                if (id === this._id) {
                     this.hide();
                 }
             });
