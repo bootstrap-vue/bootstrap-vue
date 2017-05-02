@@ -7,7 +7,7 @@
                           leave-active-class=""
                           leave-to-class="hidden"
         >
-            <div key="modal" :id="id"
+            <div key="modal" :id="_id"
                  v-show="is_visible"
                  :class="['modal',{fade: fade, show: is_visible}]"
                  role="dialog"
@@ -20,14 +20,14 @@
                          tabindex="-1"
                          role="document"
                          ref="content"
-                         :aria-labeledby="hideHeader ? '' : (id + '_modal_title')"
+                         :aria-labeledby="hideHeader ? '' : (_id + '_modal_title')"
                          :aria-describedby="id + '_modal_body'"
                          @click.stop
                     >
 
-                        <header class="modal-header" v-if="!hideHeader">
+                        <header class="modal-header" ref="header" v-if="!hideHeader">
                             <slot name="modal-header">
-                                <h5 class="modal-title" :id="id + '_modal_title'">
+                                <h5 class="modal-title" :id="_id + '_modal_title'">
                                     <slot name="modal-title">{{title}}</slot>
                                 </h5>
                                 <button type="button"
@@ -41,11 +41,11 @@
                             </slot>
                         </header>
 
-                        <div class="modal-body" :id="id + '_modal_body'">
+                        <div class="modal-body" ref="body" :id="_id + '_modal_body'">
                             <slot></slot>
                         </div>
 
-                        <footer class="modal-footer" v-if="!hideFooter">
+                        <footer class="modal-footer" ref="footer" v-if="!hideFooter">
                             <slot name="modal-footer">
                                 <b-btn variant="secondary" @click="hide(false)">{{closeTitle}}</b-btn>
                                 <b-btn variant="primary" @click="hide(true)">{{okTitle}}</b-btn>
@@ -69,16 +69,27 @@
         opacity: 0 !important;
     }
 
-    /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style*/
+    /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style */
     .modal {
         display: block;
     }
 </style>
 
 <script>
+    import generateId from '../mixins/generate-id';
     import bBtn from './button.vue';
 
+    const SELECTOR = [
+        'button:not([disabled])',
+        'input:not([disabled])',
+        'select:not([disabled])',
+        'textarea:not([disabled])',
+        'a:not([disabled]):not(.disabled)',
+        '[tabindex]:not([disabled]):not(.disabled)'
+    ].join(',');
+
     export default {
+        mixins: [generateId],
         components: {bBtn},
         data() {
             return {
@@ -110,10 +121,6 @@
             }
         },
         props: {
-            id: {
-                type: String,
-                default: null
-            },
             title: {
                 type: String,
                 default: ''
@@ -165,6 +172,10 @@
                 this.body.classList.add('modal-open');
                 this.$emit('shown');
                 this.$emit('change', true);
+                this.$nextTick(function() {
+                    // Make sure DOM is updated before focusing
+                    this.focusFirst();
+                });
             },
             hide(isOK) {
                 if (!this.is_visible) {
@@ -209,10 +220,26 @@
                     this.hide();
                 }
             },
+            focusFirst() {
+                // Focus the modal's first focusable item, searching footer, then body, then header, else the modal
+                let el;
+                if (this.$refs.footer) {
+                    el = this.$refs.footer.querySeletor(SELECTOR);
+                }
+                if (!el && this.$refs.body) {
+                    el = this.$refs.body.querySeletor(SELECTOR);
+                }
+                if (!el && this.$refs.header) {
+                    el = this.$refs.header.querySeletor(SELECTOR);
+                }
+                if (!el) {
+                    el = this.$refs.content;
+                }
+                el.focus();
+            },
             enforceFocus(e) {
-                // TODO: Chage timing of this event
                 // If focus leaves modal, bring it back
-                // eventListener bound on document
+                // Event Listener bound on document
                 if (this.is_visible &&
                     document !== e.target &&
                     this.$refs.content &&
