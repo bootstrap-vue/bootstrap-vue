@@ -172,7 +172,7 @@
                 this.body.classList.add('modal-open');
                 this.$emit('shown');
                 this.$emit('change', true);
-                this.$nextTick(function() {
+                this.$nextTick(function () {
                     // Make sure DOM is updated before focusing
                     this.focusFirst();
                 });
