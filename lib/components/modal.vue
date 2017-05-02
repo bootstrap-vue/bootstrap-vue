@@ -264,7 +264,7 @@
         },
         mounted() {
             if (typeof document !== 'undefined') {
-                document.addEventListener('focus', this.enforceFocus);
+                document.addEventListener('focusin', this.enforceFocus);
             }
 
             if (this.visible === true) {
@@ -273,7 +273,7 @@
         },
         destroyed() {
             if (typeof document !== 'undefined') {
-                document.removeEventListener('focus', this.enforceFocus);
+                document.removeEventListener('focusin', this.enforceFocus);
             }
         }
     };
