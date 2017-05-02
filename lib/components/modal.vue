@@ -7,7 +7,7 @@
                           leave-active-class=""
                           leave-to-class="hidden"
         >
-            <div key="modal" :id="_id"
+            <div key="modal" :id="id"
                  v-show="is_visible"
                  :class="['modal',{fade: fade, show: is_visible}]"
                  role="dialog"
@@ -20,14 +20,14 @@
                          tabindex="-1"
                          role="document"
                          ref="content"
-                         :aria-labeledby="hideHeader ? '' : (_id + '_modal_title')"
-                         :aria-describedby="id + '_modal_body'"
+                         :aria-labelledby="(hideHeader || !id) ? null : (id + '_modal_title')"
+                         :aria-describedby="id ? (id + '_modal_body') : null"
                          @click.stop
                     >
 
                         <header class="modal-header" ref="header" v-if="!hideHeader">
                             <slot name="modal-header">
-                                <h5 class="modal-title" :id="_id + '_modal_title'">
+                                <h5 class="modal-title" :id="id ? (id + '_modal_title') : null">
                                     <slot name="modal-title">{{title}}</slot>
                                 </h5>
                                 <button type="button"
@@ -41,7 +41,7 @@
                             </slot>
                         </header>
 
-                        <div class="modal-body" ref="body" :id="_id + '_modal_body'">
+                        <div class="modal-body" ref="body" :id="id ? (id + '_modal_body') : null">
                             <slot></slot>
                         </div>
 
@@ -76,10 +76,9 @@
 </style>
 
 <script>
-    import generateId from '../mixins/generate-id';
     import bBtn from './button.vue';
 
-    const SELECTOR = [
+    const FOCUS_SELECTOR = [
         'button:not([disabled])',
         'input:not([disabled])',
         'select:not([disabled])',
@@ -89,7 +88,6 @@
     ].join(',');
 
     export default {
-        mixins: [generateId],
         components: {bBtn},
         data() {
             return {
@@ -122,6 +120,10 @@
             }
         },
         props: {
+            id: {
+                type: String,
+                default: null
+            },
             title: {
                 type: String,
                 default: ''
@@ -221,7 +223,7 @@
                         this.returnFocusTo();
                     }
                     this.is_visible = false;
-                    this.$root.$emit('hidden::modal', this._id);
+                    this.$root.$emit('hidden::modal', this.id);
                     this.body.classList.remove('modal-open');
                 }
             },
@@ -241,13 +243,13 @@
                 // Focus the modal's first focusable item, searching footer, then body, then header, else the modal
                 let el;
                 if (this.$refs.footer) {
-                    el = this.$refs.footer.querySelector(SELECTOR);
+                    el = this.$refs.footer.querySelector(FOCUS_SELECTOR);
                 }
                 if (!el && this.$refs.body) {
-                    el = this.$refs.body.querySelector(SELECTOR);
+                    el = this.$refs.body.querySelector(FOCUS_SELECTOR);
                 }
                 if (!el && this.$refs.header) {
-                    el = this.$refs.header.querySelector(SELECTOR);
+                    el = this.$refs.header.querySelector(FOCUS_SELECTOR);
                 }
                 if (!el) {
                     el = this.$refs.content;
@@ -279,14 +281,14 @@
         },
         created() {
             this.$root.$on('show::modal', (id, triggerEl) => {
-                if (id === this._id) {
+                if (id === this.id) {
                     this.return_focus = triggerEl || this.return_focus || this.returnFocus || null;
                     this.show();
                 }
             });
 
             this.$root.$on('hide::modal', id => {
-                if (id === this._id) {
+                if (id === this.id) {
                     this.hide();
                 }
             });
