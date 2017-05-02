@@ -173,6 +173,9 @@
                 this.$emit('shown');
                 this.$emit('change', true);
                 if (typeof document !== 'undefined') {
+                    // Guard against infinite focus loop
+                    document.removeEventListener('focusin', this.enforceFocus, false);
+                    // Handle constrained focus
                     document.addEventListener('focusin', this.enforceFocus, false);
                 }
                 this.$nextTick(function () {
@@ -207,6 +210,7 @@
                 // Hide if not canceled
                 if (!canceled) {
                     if (typeof document !== 'undefined') {
+                        // Remove focus handler
                         document.removeEventListener('focusin', this.enforceFocus, false);
                     }
                     this.is_visible = false;
