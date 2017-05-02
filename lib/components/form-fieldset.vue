@@ -82,7 +82,7 @@
             labelTextAlign: {
                 type: String,
                 required: false,
-                default: null
+                default: ''
             },
             label: {
                 type: String,
