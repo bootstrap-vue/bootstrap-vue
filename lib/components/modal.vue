@@ -20,14 +20,14 @@
                          tabindex="-1"
                          role="document"
                          ref="content"
-                         :aria-labeledby="hideHeader ? '' : (id + '_modal_title')"
-                         :aria-describedby="id + '_modal_body'"
+                         :aria-labelledby="(hideHeader || !id) ? null : (id + '_modal_title')"
+                         :aria-describedby="id ? (id + '_modal_body') : null"
                          @click.stop
                     >
 
-                        <header class="modal-header" v-if="!hideHeader">
+                        <header class="modal-header" ref="header" v-if="!hideHeader">
                             <slot name="modal-header">
-                                <h5 class="modal-title" :id="id + '_modal_title'">
+                                <h5 class="modal-title" :id="id ? (id + '_modal_title') : null">
                                     <slot name="modal-title">{{title}}</slot>
                                 </h5>
                                 <button type="button"
@@ -41,11 +41,11 @@
                             </slot>
                         </header>
 
-                        <div class="modal-body" :id="id + '_modal_body'">
+                        <div class="modal-body" ref="body" :id="id ? (id + '_modal_body') : null">
                             <slot></slot>
                         </div>
 
-                        <footer class="modal-footer" v-if="!hideFooter">
+                        <footer class="modal-footer" ref="footer" v-if="!hideFooter">
                             <slot name="modal-footer">
                                 <b-btn variant="secondary" @click="hide(false)">{{closeTitle}}</b-btn>
                                 <b-btn variant="primary" @click="hide(true)">{{okTitle}}</b-btn>
@@ -69,7 +69,7 @@
         opacity: 0 !important;
     }
 
-    /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style*/
+    /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style */
     .modal {
         display: block;
     }
@@ -78,11 +78,21 @@
 <script>
     import bBtn from './button.vue';
 
+    const FOCUS_SELECTOR = [
+        'button:not([disabled])',
+        'input:not([disabled])',
+        'select:not([disabled])',
+        'textarea:not([disabled])',
+        'a:not([disabled]):not(.disabled)',
+        '[tabindex]:not([disabled]):not(.disabled)'
+    ].join(',');
+
     export default {
         components: {bBtn},
         data() {
             return {
-                is_visible: false
+                is_visible: false,
+                return_focus: this.returnFocus || null
             };
         },
         model: {
@@ -153,6 +163,10 @@
             hideHeaderClose: {
                 type: Boolean,
                 default: false
+            },
+            returnFocus: {
+                type: [String, HTMLElement],
+                default: null
             }
         },
         methods: {
@@ -165,6 +179,16 @@
                 this.body.classList.add('modal-open');
                 this.$emit('shown');
                 this.$emit('change', true);
+                if (typeof document !== 'undefined') {
+                    // Guard against infinite focus loop
+                    document.removeEventListener('focusin', this.enforceFocus, false);
+                    // Handle constrained focus
+                    document.addEventListener('focusin', this.enforceFocus, false);
+                }
+                this.$nextTick(function () {
+                    // Make sure DOM is updated before focusing
+                    this.focusFirst();
+                });
             },
             hide(isOK) {
                 if (!this.is_visible) {
@@ -192,6 +216,12 @@
 
                 // Hide if not canceled
                 if (!canceled) {
+                    if (typeof document !== 'undefined') {
+                        // Remove focus handler
+                        document.removeEventListener('focusin', this.enforceFocus, false);
+                        // Return focus to original button/trigger element if provided
+                        this.returnFocusTo();
+                    }
                     this.is_visible = false;
                     this.$root.$emit('hidden::modal', this.id);
                     this.body.classList.remove('modal-open');
@@ -204,14 +234,42 @@
                 }
             },
             onEsc() {
-                // If ESC presses, hide modal
+                // If ESC pressed, hide modal
                 if (this.is_visible && this.closeOnEsc) {
                     this.hide();
                 }
             },
+            focusFirst() {
+                // Focus the modal's first focusable item, searching footer, then body, then header, else the modal
+                let el;
+                if (this.$refs.footer) {
+                    el = this.$refs.footer.querySelector(FOCUS_SELECTOR);
+                }
+                if (!el && this.$refs.body) {
+                    el = this.$refs.body.querySelector(FOCUS_SELECTOR);
+                }
+                if (!el && this.$refs.header) {
+                    el = this.$refs.header.querySelector(FOCUS_SELECTOR);
+                }
+                if (!el) {
+                    el = this.$refs.content;
+                }
+                el.focus();
+            },
+            returnFocusTo() {
+                if (this.return_focus) {
+                    const el = (typeof this.return_focus === 'string') ?
+                        document.querySelector(this.returnFocus) :
+                        this.return_focus;
+
+                    if (el && typeof el.focus === 'function') {
+                        el.focus();
+                    }
+                }
+            },
             enforceFocus(e) {
                 // If focus leaves modal, bring it back
-                // eventListener bound on document
+                // Event Listener bound on document
                 if (this.is_visible &&
                     document !== e.target &&
                     this.$refs.content &&
@@ -222,8 +280,9 @@
             }
         },
         created() {
-            this.$root.$on('show::modal', id => {
+            this.$root.$on('show::modal', (id, triggerEl) => {
                 if (id === this.id) {
+                    this.return_focus = triggerEl || this.return_focus || this.returnFocus || null;
                     this.show();
                 }
             });
@@ -235,17 +294,14 @@
             });
         },
         mounted() {
-            if (typeof document !== 'undefined') {
-                document.addEventListener('focus', this.enforceFocus);
-            }
-
             if (this.visible === true) {
                 this.show();
             }
         },
         destroyed() {
+            // Make sure event listener is rmoved
             if (typeof document !== 'undefined') {
-                document.removeEventListener('focus', this.enforceFocus);
+                document.removeEventListener('focusin', this.enforceFocus, false);
             }
         }
     };
