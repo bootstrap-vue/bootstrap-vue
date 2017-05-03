@@ -262,7 +262,9 @@
                         document.querySelector(this.returnFocus) :
                         this.return_focus;
 
-                    if (el && typeof el.focus === 'function') {
+                    if (el && el.$el && typeof el.$el.focus === 'function') {
+                        el.$el.focus();
+                    } else if (el && typeof el.focus === 'function') {
                         el.focus();
                     }
                 }
