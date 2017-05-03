@@ -8,14 +8,10 @@ export default {
             title: 'BootstrapVue',
             slug: '',
             pages: [
-                {
-                    title: 'Quick Start',
-                    slug: 'setup'
-                },
-                {
-                    title: 'Contributing',
-                    slug: 'contributing'
-                }
+                {title: 'Quick Start', slug: 'setup'},
+                {title: 'CLI', slug: 'cli'},
+                {title: 'Validation', slug: 'validation'},
+                {title: 'Contributing', slug: 'contributing'}
             ]
         },
         {

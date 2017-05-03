@@ -22,7 +22,7 @@
                 btnVariant(index),
                 index + diff === currentPage ? 'active' : '',
                 index + diff !== currentPage ? 'hidden-xs-down' : '']"
-                v-for="(item,index) in pageLinks"
+                v-for="_,index in pageLinks"
                 @click.prevent="currentPage = index + diff">{{index + diff}}
         </button>
 
@@ -63,38 +63,39 @@
                 return !this.size || this.size === `default` ? `` : `btn-${this.size}`;
             },
             pageLinks() {
-                let result = this.limit;
                 if (this.currentPage > this.numberOfPages) {
                     this.currentPage = 1;
                 }
+
+                // Defaults
                 this.diff = 1;
                 this.showPrev = false;
                 this.showNext = false;
+
                 // If less pages than limit just show this pages
                 if (this.numberOfPages <= this.limit) {
                     return this.numberOfPages;
                 }
-                // If at the beggining of the list or at the end show full number of pages within limit - 2
-                // -2 is reserves space for two buttons: "..." and "first/last button"
+
+                // If at the beginning of the list
                 if (this.currentPage <= this.limit - 2) {
                     this.diff = 1;
                     this.showNext = true;
-                    result = this.limit - 2;
+                    return this.limit - 2;
                 }
-                // At the end of the range
+
+                // If at the end of the list
                 if (this.currentPage > this.numberOfPages - this.limit + 2) {
                     this.diff = this.numberOfPages - this.limit + 3;
                     this.showPrev = true;
-                    result = this.limit - 2;
+                    return this.limit - 2;
                 }
-                // If somehere in the middle show just limit - 4 links in the middle and one button on the left with "..." and on button on the right preceeded with "..."
-                if (this.currentPage >= this.limit - 2 && this.currentPage <= this.numberOfPages - this.limit + 2) {
-                    this.diff = this.currentPage - 1;
-                    this.showPrev = true;
-                    this.showNext = true;
-                    result = this.limit - 4;
-                }
-                return result;
+
+                // Else we are somewhere in the middle
+                this.diff = this.currentPage - 1;
+                this.showPrev = this.currentPage >= this.limit;
+                this.showNext = this.currentPage <= this.numberOfPages - this.limit + 1;
+                return this.limit;
             }
         },
         methods: {
@@ -106,7 +107,11 @@
             }
         },
         watch: {
-            currentPage(newPage) {
+            currentPage(newPage, oldPage) {
+                if (newPage === oldPage) {
+                    return;
+                }
+
                 this.$emit('input', newPage);
             },
             value(newValue, oldValue) {
@@ -122,7 +127,7 @@
             },
             limit: {
                 type: Number,
-                default: 7
+                default: 3
             },
             perPage: {
                 type: Number,

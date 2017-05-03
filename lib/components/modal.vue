@@ -79,12 +79,12 @@
     import bBtn from './button.vue';
 
     const FOCUS_SELECTOR = [
-        'button:not([disabled])',
-        'input:not([disabled])',
-        'select:not([disabled])',
-        'textarea:not([disabled])',
-        'a:not([disabled]):not(.disabled)',
-        '[tabindex]:not([disabled]):not(.disabled)'
+        'button:not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
+        'input:not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
+        'select:not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
+        'textarea:not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
+        'a:not([disabled]):not(.disabled):not([style*="display: none"]):not([style*="display:none"])',
+        '[tabindex]:not([disabled]):not(.disabled):not([style*="display: none"]):not([style*="display:none"])'
     ].join(',');
 
     export default {
@@ -165,7 +165,6 @@
                 default: false
             },
             returnFocus: {
-                type: [String, HTMLElement],
                 default: null
             }
         },
@@ -262,7 +261,9 @@
                         document.querySelector(this.returnFocus) :
                         this.return_focus;
 
-                    if (el && typeof el.focus === 'function') {
+                    if (el && el.$el && typeof el.$el.focus === 'function') {
+                        el.$el.focus();
+                    } else if (el && typeof el.focus === 'function') {
                         el.focus();
                     }
                 }
