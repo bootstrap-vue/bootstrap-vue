@@ -2,8 +2,14 @@
     <div>
         <span ref="trigger"><slot></slot></span>
 
-        <div tabindex="-1" class="popover fade" :class="[classState ? 'show' : '', popoverAlignment]" ref="popover" @focus="$emit('focus')"
-             @blur="$emit('blur')" :style="popoverStyle">
+        <div tabindex="-1"
+             class="popover fade"
+             :class="[classState ? 'show' : '', popoverAlignment]"
+             ref="popover"
+             @focus="$emit('focus')"
+             @blur="$emit('blur')"
+             :style="popoverStyle"
+        >
             <div class="popover-arrow"></div>
             <h3 class="popover-title" v-if="title" v-html="title"></h3>
             <div class="popover-content">
@@ -422,7 +428,7 @@
 
         mounted() {
             // Configure tether
-            this._trigger = this.$refs.trigger.children[0];
+            this._trigger = this.$refs.trigger.children[0] || this.$refs.trigger;
             this._popover = this.$refs.popover;
             this._popover.style.display = 'none';
             this._timeout = 0;
