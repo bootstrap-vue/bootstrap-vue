@@ -165,7 +165,6 @@
                 default: false
             },
             returnFocus: {
-                type: [String, HTMLElement],
                 default: null
             }
         },
