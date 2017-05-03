@@ -4,7 +4,6 @@
        :disabled="disabled"
        :aria-disabled="disabled ? 'true' : 'false'"
        :to="to"
-       :href="href"
        :exact="exact"
        @click="click"
     >
@@ -31,10 +30,6 @@
             to: {
                 type: [String, Object],
                 default: null
-            },
-            href: {
-                type: String,
-                default: ''
             },
             exact: {
                 type: Boolean,
