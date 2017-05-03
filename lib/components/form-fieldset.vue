@@ -36,15 +36,7 @@
                 return this.horizontal ? ('col-sm-' + this.labelSize) : 'col-12';
             },
             labelAlignClass() {
-                switch (this.labelTextAlign.toLowerCase()) {
-                    case 'center':
-                        return 'text-center';
-                    case 'right':
-                        return 'text-right';
-                    case 'left':
-                    default:
-                        return null;
-                }
+                return this.labelTextAlign ? `text-${this.labelTextAlign}` : null;
             },
             inputLayout() {
                 return this.horizontal ? ('col-sm-' + (12 - this.labelSize)) : 'col-12';
@@ -81,8 +73,7 @@
             },
             labelTextAlign: {
                 type: String,
-                required: false,
-                default: ''
+                default: null
             },
             label: {
                 type: String,
