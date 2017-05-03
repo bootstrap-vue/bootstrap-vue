@@ -64,3 +64,12 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 - remove the bootstrap.js file from your page scripts or build pipeline
 - if Bootstrap is the only thing relying on jQuery, you can safely remove it—bootstrap-vue **does not** depend on jQuery
 - don't forget to include the `bootstrap-vue.css` file!
+
+## Advanced Tips
+
+### auto generated ids
+Some HTML tags like `aria-*` and `for` need dom id reference in order to get working.
+They are automatically added if `id` attribute is available on target element and it is *highly recommended adding them manually*.
+For enabling auto generated ids you can set `window.UNSAFE_UID` or `process.env.UNSAFE_UID` 
+to `true` but it is highly discouraged as `_uid` is internal and should not be used as part of the application state. [vuejs/vue#5573](https://github.com/vuejs/vue/issues/5573)
+Enabling may also introduce problems if you are using SSR.
