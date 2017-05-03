@@ -58,13 +58,6 @@ Variant        | Environments                 | Package path
 commonjs2      | Webpack 1 / ...              | `dist/bootstrap-vue.common.js`
 UMD            | Browser                      | `dist/bootstrap-vue.js`
 
-## Migrating a project already using Bootstrap
-If you've already been using Bootstrap 4, there are a couple adjustments you may need to make to your project:
-
-- remove the bootstrap.js file from your page scripts or build pipeline
-- if Bootstrap is the only thing relying on jQuery, you can safely remove it—bootstrap-vue **does not** depend on jQuery
-- don't forget to include the `bootstrap-vue.css` file!
-
 ## Advanced Tips
 
 ### auto generated ids
