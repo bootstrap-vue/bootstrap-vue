@@ -4,7 +4,7 @@
        :disabled="disabled"
        :aria-disabled="disabled ? 'true' : 'false'"
        :to="to"
-       :href="hrefString"
+       :href="href"
        :exact="exact"
        @click="click"
     >
@@ -17,12 +17,6 @@
         computed: {
             componentType() {
                 return (this.$router && this.to) ? 'router-link' : 'a';
-            },
-            hrefString() {
-                if (this.to) {
-                    return this.to.path || this.to;
-                }
-                return this.href;
             }
         },
         props: {
