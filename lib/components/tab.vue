@@ -3,8 +3,8 @@
         <div role="tabpanel"
              class="tab-pane"
              :class="[{show, fade, disabled, active: localActive}]"
-             :id="id || null"
              :aria-hidden="localActive ? 'false' : 'true'"
+             :aria-controlledby="controlledBy || null"
              v-if="localActive || !lazy"
              v-show="localActive || lazy"
              ref="panel">
@@ -33,6 +33,10 @@
         },
         props: {
             id: {
+                type: String,
+                default: ''
+            },
+            controlledBy: {
                 type: String,
                 default: ''
             },
