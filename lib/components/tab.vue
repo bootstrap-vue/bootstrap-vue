@@ -33,11 +33,15 @@
         },
         computed: {
             controlledBy() {
-                return this.id ? (this.id + '__BV_tab_button__') : null;
+                return this.buttonId || (this.id ? (this.id + '__BV_tab_button__') : null);
             }
         },
         props: {
             id: {
+                type: String,
+                default: ''
+            },
+            buttonId: {
                 type: String,
                 default: ''
             },
