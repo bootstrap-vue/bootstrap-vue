@@ -1,7 +1,10 @@
 <template>
-    <ol class="breadcrumb">
-        <li v-for="item in items2" :class="['breadcrumb-item', item.__active ? 'active' : null]"
-            @click="onclick(item)">
+    <ol class="breadcrumb" role="navigation">
+        <li v-for="item in items2"
+            :class="['breadcrumb-item', item.__active ? 'active' : null]"
+            @click="onclick(item)"
+            role="presentation"
+        >
             <span v-if="item.active" v-html="item.text"></span>
             <b-link v-else :to="item.to" :href="item.href || item.link" v-html="item.text"></b-link>
         </li>
