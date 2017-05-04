@@ -186,7 +186,7 @@
                     this.tabs = [];
                 }
 
-                this.tabs.forEach((tab, index) => {
+                this.tabs.forEach(tab => {
                     this.$set(tab, 'fade', this.fade);
                     this.$set(tab, 'lazy', this.lazy);
                 });
