@@ -47,7 +47,7 @@
             };
         },
         props: {
-            items: {
+            tableItems: {
                 type: Array,
                 default: () => []
             },
@@ -96,7 +96,7 @@
 
         computed: {
             _items() {
-                if (!this.items) {
+                if (!this.tableItems) {
                     return [];
                 }
 
@@ -104,7 +104,7 @@
                     return this.itemsProvider(this);
                 }
 
-                let items = this.items.slice();
+                let items = this.tableItems.slice();
 
                 // Apply filter
                 if (this.filter) {
