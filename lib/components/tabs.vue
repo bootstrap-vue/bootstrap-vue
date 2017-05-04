@@ -128,38 +128,53 @@
         },
         methods: {
             /**
+             * Util: Return the sign of a number (as -1, 0, or 1)
+             */
+            sign(x) {
+                reutrn (x === 0) ? 0 : (x > 0 ? 1 : -1);
+            },
+            
+            /**
              * Move to next tab
              */
             nextTab() {
-                this.setTab(this.currentTab + 1);
+                this.setTab(this.currentTab, false, 1);
             },
 
             /**
              * Move to previous tab
              */
             previousTab() {
-                this.setTab(this.currentTab - 1);
+                this.setTab(this.currentTab, false, -1);
             },
 
             /**
              * Set active tab on the tabs collection and the child 'tab' component
              */
-            setTab(index, force) {
+            setTab(index, force, offset) {
+                offset = offset || 0;
+                
                 // Prevent setting same tab!
-                if (!force && index === this.currentTab) {
+                if (!force && (index + offset) === this.currentTab) {
                     return;
                 }
 
-                const tab = this.tabs[index];
+                const tab = this.tabs[index + offset];
 
                 // Don't go beyond indexes!
                 if (!tab) {
                     return;
                 }
 
-                // Ignore disabled
+                // Ignore or Skip disabled
                 if (tab.disabled) {
-                    return;
+                    if (!offset) {
+                        reutrn;
+                    } else {
+                        // Skip to next non disabled tab in offset direction (recursive)
+                        this.setTab(index, force, offset + this.sign(offset));
+                        return;
+                    }
                 }
 
                 // Deactivate previous active tab
@@ -171,7 +186,7 @@
                 this.$set(tab, 'localActive', true);
 
                 // Update currentTab
-                this.currentTab = index;
+                this.currentTab = index + offset;
             },
 
             /**
@@ -203,11 +218,12 @@
                 }
 
                 // Workaround to fix problem when currentTab is removed
+                let offset = 0;
                 if (tabIndex > this.tabs.length - 1) {
-                    tabIndex = this.tabs.length - 1;
+                    offset = -1;
                 }
 
-                this.setTab(tabIndex || 0, true);
+                this.setTab(tabIndex || 0, true, offset);
             }
         },
         mounted() {
