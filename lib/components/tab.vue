@@ -3,6 +3,7 @@
         <div role="tabpanel"
              :class="['tab-pane', {show, fade, disabled, active: localActive}]"
              :aria-hidden="localActive ? 'false' : 'true'"
+             :aira-expanded="localActive ? 'true' : 'false'"
              :aria-lableledby="controlledBy || null"
              v-if="localActive || !lazy"
              v-show="localActive || lazy"
