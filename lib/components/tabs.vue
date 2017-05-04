@@ -15,6 +15,10 @@
                 @keydown.up="prevTab"
                 @keydown.right="nextTab"
                 @keydown.down="nextTab"
+                @keydown.shift.left="setTab(-1,false,1)"
+                @keydown.shift.up="setTab(-1,false,1)"
+                @keydown.shift.right="setTab(tabs.length,false,-1)"
+                @keydown.shift.down="setTab(tabs.length,false,-1)"
             >
                 <li class="nav-item" v-for="(tab, index) in tabs" role="presentation">
                     <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
