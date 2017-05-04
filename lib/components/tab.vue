@@ -4,7 +4,7 @@
              class="tab-pane"
              :class="[{show, fade, disabled, active: localActive}]"
              :aria-hidden="localActive ? 'false' : 'true'"
-             :aria-controlledby="controlledBy || null"
+             :aria-lableledby="labelledBy || null"
              v-if="localActive || !lazy"
              v-show="localActive || lazy"
              ref="panel">
@@ -28,15 +28,12 @@
                 fade: false,
                 localActive: false,
                 lazy: true,
-                show: false
+                show: false,
+                labelledBy: ''
             };
         },
         props: {
             id: {
-                type: String,
-                default: ''
-            },
-            controlledBy: {
                 type: String,
                 default: ''
             },
