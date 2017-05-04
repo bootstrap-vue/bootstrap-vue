@@ -1,18 +1,12 @@
 <template>
-    <div class="tabs" :id="id">
-        <div v-if="bottom" 
-             :class="['tab-content',{'card-block': card}]"
-             :id="(id ? id : _uid) + '__tab_content_')"
-             :aria-labelledby="(id ? id : _uid) + '__tab_' + currentTab + '_'"
-             :aria-live="lazy ? 'assertive' : 'polite'"
-             ref="tabsContainer"
-        >
+    <div class="tabs">
+        <div v-if="bottom" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
 
         <div :class="{'card-header': card}">
-            <ul :class="['nav','nav-' + navStyle, card? 'card-header-'+navStyle: null]"
+            <ul :class="['nav','nav-' + navStyle, card ? 'card-header-'+navStyle : null]"
                 role="tablist"
                 tabindex="0"
                 :aria-setsize="tabs.length"
@@ -22,15 +16,13 @@
                 @keydown.right="nextTab"
                 @keydown.down="nextTab"
             >
-                <li class="nav-item" 
-                    v-for="(tab, index) in tabs"
-                >
+                <li class="nav-item" v-for="(tab, index) in tabs" role="presentation">
                     <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
                        :href="tab.href"
                        :role="tab"
                        :aria-selected="tab.localActive ? 'true' : 'false'"
-                       :aria-controls="(id ? id : _uid) + '__tab_content_')"
-                       :id="(id ? id : _uid) + '__tab_' + index + '_')
+                       :aria-controls="tab.id || null"
+                       :id="tab.controlledBy || null"
                        @click.prevent.stop="setTab(index)"
                        @keydown.space.prevent.stop="setTab(index)"
                        @keydown.enter.prevent.stop="setTab(index)"
@@ -48,13 +40,7 @@
             </ul>
         </div>
 
-        <div v-if="!bottom" 
-             :class="['tab-content',{'card-block': card}]"
-             :id="(id ? id : _uid) + '__tab_content_')"
-             :aria-labelledby="(id ? id : _uid) + '__tab_' + currentTab + '_'"
-             :aria-live="lazy ? 'assertive' : 'polite'"
-             ref="tabsContainer"
-        >
+        <div v-if="!bottom" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
@@ -72,6 +58,10 @@
             };
         },
         props: {
+            id: {
+                type: String,
+                default: ''
+            },
             noFade: {
                 type: Boolean,
                 default: false
@@ -196,7 +186,7 @@
                     this.tabs = [];
                 }
 
-                this.tabs.forEach(tab => {
+                this.tabs.forEach((tab, index) => {
                     this.$set(tab, 'fade', this.fade);
                     this.$set(tab, 'lazy', this.lazy);
                 });
