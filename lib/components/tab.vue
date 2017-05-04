@@ -4,7 +4,7 @@
              class="tab-pane"
              :class="[{show, fade, disabled, active: localActive}]"
              :aria-hidden="localActive ? 'false' : 'true'"
-             :aria-lableledby="labelledBy || null"
+             :aria-lableledby="controlledBy || null"
              v-if="localActive || !lazy"
              v-show="localActive || lazy"
              ref="panel">
@@ -28,9 +28,13 @@
                 fade: false,
                 localActive: false,
                 lazy: true,
-                show: false,
-                labelledBy: ''
+                show: false
             };
+        },
+        computed: {
+            controlledBy() {
+                return this.id ? (this.id + '__BV_tab_button__') : null;
+            }
         },
         props: {
             id: {
