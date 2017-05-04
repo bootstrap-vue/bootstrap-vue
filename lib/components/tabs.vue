@@ -131,7 +131,7 @@
              * Util: Return the sign of a number (as -1, 0, or 1)
              */
             sign(x) {
-                reutrn (x === 0) ? 0 : (x > 0 ? 1 : -1);
+                return (x === 0) ? 0 : (x > 0 ? 1 : -1);
             },
 
             /**
@@ -153,7 +153,7 @@
              */
             setTab(index, force, offset) {
                 offset = offset || 0;
-                
+
                 // Prevent setting same tab!
                 if (!force && (index + offset) === this.currentTab) {
                     return;
@@ -168,13 +168,11 @@
 
                 // Ignore or Skip disabled
                 if (tab.disabled) {
-                    if (!offset) {
-                        reutrn;
-                    } else {
+                    if (offset) {
                         // Skip to next non disabled tab in offset direction (recursive)
                         this.setTab(index, force, offset + this.sign(offset));
-                        return;
                     }
+                    return;
                 }
 
                 // Deactivate previous active tab
