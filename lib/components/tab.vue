@@ -1,8 +1,7 @@
 <template>
     <transition @enter="enter" @before-leave="beforeLeave" mode="out-in">
         <div role="tabpanel"
-             class="tab-pane"
-             :class="[{show, fade, disabled, active: localActive}]"
+             :class="['tab-pane', {show, fade, disabled, active: localActive}]"
              :aria-hidden="localActive ? 'false' : 'true'"
              :aria-lableledby="controlledBy || null"
              v-if="localActive || !lazy"
