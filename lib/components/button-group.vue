@@ -1,5 +1,7 @@
 <template>
-    <div :class="classObject" role="group">
+    <div :class="classObject"
+         :role="toolbar ? 'toolbar' : 'group'"
+    >
         <slot></slot>
     </div>
 </template>
@@ -28,6 +30,6 @@
                 type: String,
                 default: null
             }
-        }
+        },
     };
 </script>
