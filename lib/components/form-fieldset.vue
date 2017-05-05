@@ -16,6 +16,7 @@
                  :id="feedbackId"
                  role="alert"
                  aria-live="assertive"
+                 aria-atomic="true"
                  v-html="feedback"
             ></div>
             <small v-if="description"
