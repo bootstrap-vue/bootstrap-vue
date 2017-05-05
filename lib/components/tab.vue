@@ -4,7 +4,7 @@
              :class="['tab-pane', {show, fade, disabled, active: localActive}]"
              :aria-hidden="localActive ? 'false' : 'true'"
              :aria-expanded="localActive ? 'true' : 'false'"
-             :aria-lableledby="controlledBy || null"
+             :aria-lablelledby="controlledBy || null"
              v-if="localActive || !lazy"
              v-show="localActive || lazy"
              ref="panel">
