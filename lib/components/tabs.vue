@@ -6,15 +6,37 @@
         </div>
 
         <div :class="{'card-header': card}">
-            <ul :class="['nav','nav-' + navStyle, card? 'card-header-'+navStyle: null]">
-                <li class="nav-item" v-for="(tab, index) in tabs">
+            <ul :class="['nav','nav-' + navStyle, card ? 'card-header-'+navStyle : null]"
+                role="tablist"
+                tabindex="0"
+                :aria-setsize="tabs.length"
+                :aria-posinset="currentTab + 1"
+                @keydown.left="prevTab"
+                @keydown.up="prevTab"
+                @keydown.right="nextTab"
+                @keydown.down="nextTab"
+                @keydown.shift.left="setTab(-1,false,1)"
+                @keydown.shift.up="setTab(-1,false,1)"
+                @keydown.shift.right="setTab(tabs.length,false,-1)"
+                @keydown.shift.down="setTab(tabs.length,false,-1)"
+            >
+                <li class="nav-item" v-for="(tab, index) in tabs" role="presentation">
                     <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
                        :href="tab.href"
+                       :role="tab"
+                       :aria-selected="tab.localActive ? 'true' : 'false'"
+                       :aria-controls="tab.id || null"
+                       :id="tab.controlledBy || null"
                        @click.prevent.stop="setTab(index)"
+                       @keydown.space.prevent.stop="setTab(index)"
+                       @keydown.enter.prevent.stop="setTab(index)"
+                       tabindex="-1"
                        v-if="!tab.headHtml"
-                        v-html="tab.title"
+                       v-html="tab.title"
                     ></a>
                     <div :class="['tab-head',{small: small, active: tab.localActive, disabled: tab.disabled}]"
+                         role="heading"
+                         tabindex="-1"
                          v-else
                          v-html="tab.headHtml"></div>
                 </li>
@@ -40,6 +62,10 @@
             };
         },
         props: {
+            id: {
+                type: String,
+                default: ''
+            },
             noFade: {
                 type: Boolean,
                 default: false
@@ -106,37 +132,50 @@
         },
         methods: {
             /**
+             * Util: Return the sign of a number (as -1, 0, or 1)
+             */
+            sign(x) {
+                return (x === 0) ? 0 : (x > 0 ? 1 : -1);
+            },
+
+            /**
              * Move to next tab
              */
             nextTab() {
-                this.setTab(this.currentTab + 1);
+                this.setTab(this.currentTab, false, 1);
             },
 
             /**
              * Move to previous tab
              */
             previousTab() {
-                this.setTab(this.currentTab - 1);
+                this.setTab(this.currentTab, false, -1);
             },
 
             /**
              * Set active tab on the tabs collection and the child 'tab' component
              */
-            setTab(index, force) {
+            setTab(index, force, offset) {
+                offset = offset || 0;
+
                 // Prevent setting same tab!
-                if (!force && index === this.currentTab) {
+                if (!force && (index + offset) === this.currentTab) {
                     return;
                 }
 
-                const tab = this.tabs[index];
+                const tab = this.tabs[index + offset];
 
                 // Don't go beyond indexes!
                 if (!tab) {
                     return;
                 }
 
-                // Ignore disabled
+                // Ignore or Skip disabled
                 if (tab.disabled) {
+                    if (offset) {
+                        // Skip to next non disabled tab in offset direction (recursive)
+                        this.setTab(index, force, offset + this.sign(offset));
+                    }
                     return;
                 }
 
@@ -149,7 +188,7 @@
                 this.$set(tab, 'localActive', true);
 
                 // Update currentTab
-                this.currentTab = index;
+                this.currentTab = index + offset;
             },
 
             /**
@@ -181,11 +220,12 @@
                 }
 
                 // Workaround to fix problem when currentTab is removed
+                let offset = 0;
                 if (tabIndex > this.tabs.length - 1) {
-                    tabIndex = this.tabs.length - 1;
+                    offset = -1;
                 }
 
-                this.setTab(tabIndex || 0, true);
+                this.setTab(tabIndex || 0, true, offset);
             }
         },
         mounted() {
