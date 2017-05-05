@@ -42,7 +42,7 @@
                 return (this.id && this.description) ? (this.id + '__BV_description_') : null;
             },
             feedbackId() {
-                return (this.id && this.feedback) ? (this.id + '__BV_description_') : null;
+                return (this.id && this.feedback) ? (this.id + '__BV_feedback_') : null;
             },
             describedBy() {
                 if (this.id && (this.label || this.feedback || this.description)) {
@@ -59,13 +59,13 @@
             },
             labelLayout() {
                 if (this.labelSrOnly) {
-                    reutrn null;
+                    return null;
                 }
                 return this.horizontal ? ('col-sm-' + this.labelSize) : 'col-12';
             },
             labelAlignClass() {
                 if (this.labelSrOnly) {
-                    reutrn null;
+                    return null;
                 }
                 return this.labelTextAlign ? `text-${this.labelTextAlign}` : null;
             },
