@@ -2,7 +2,7 @@
     <a :is="itemType"
        :class="['dropdown-item',{ disabled }]"
        :to="to"
-       :href="hrefString"
+       :href="href"
        :disabled="disabled"
        tabindex="-1"
        role="menuitem"
