@@ -31,7 +31,7 @@
                 return [
                     'btn-' + (this.toolbar ? 'toolbar' : 'group'),
                     this.vertical ? 'btn-group-vertical' : '',
-                    (this.justify && !this.virtical) ? 'justify-content-between' : '',
+                    (this.justify && !this.vertical) ? 'justify-content-between' : '',
                     this.size ? ('btn-group-' + this.size) : ''
                 ];
             },
@@ -105,7 +105,7 @@
                 const items = Array.prototype.slice.call(this.$el.querySelectorAll(ITEM_SELECTOR));
                 items.forEach(item => {
                     // Ensure tabfocus is -1 on any new elements
-                    item.setAttribute('tabindex','-1');
+                    item.setAttribute('tabindex', '-1');
                 });
                 return items;
             }
@@ -113,7 +113,7 @@
         mounted() {
             if (this.isKeyNav) {
                 // Pre-set the tabindexes if the markup does not include tabindex="-1" on the toolbar items
-                getItems();
+                this.getItems();
             }
         }
     };
