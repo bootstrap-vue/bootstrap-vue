@@ -105,7 +105,7 @@
                 const items = Array.prototype.slice.call(this.$el.querySelectorAll(ITEM_SELECTOR));
                 items.forEach(item => {
                     // Ensure tabfocus is -1 on any new elements
-                    item.setAttribute('tabindex', '-1');
+                    item.tabIndex = -1;
                 });
                 return items;
             }
