@@ -87,6 +87,8 @@
                 if (!this.isKeyNav) {
                     return;
                 }
+                e.preventDefault();
+                e.stopPropagation();
                 const items = this.getItems();
                 if (items.length > 0) {
                     items[0].focus();
@@ -96,6 +98,8 @@
                 if (!this.isKeyNav) {
                     return;
                 }
+                e.preventDefault();
+                e.stopPropagation();
                 const items = this.getItems();
                 if (items.length > 0) {
                     items[items.length - 1].focus();
