@@ -50,7 +50,7 @@
         props: {
             id: {
                 type: String
-            }
+            },
             caret: {
                 type: Boolean,
                 default: true
