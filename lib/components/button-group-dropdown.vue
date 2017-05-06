@@ -49,8 +49,7 @@
         },
         props: {
             id: {
-                type: String,
-                default: ''
+                type: String
             }
             caret: {
                 type: Boolean,
