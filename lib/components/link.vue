@@ -33,7 +33,7 @@
     export default {
         computed: {
             routerAvailable() {
-                return !!this.$router;
+                return Boolean(this.$router);
             },
             _href() {
                 if (this.disabled) {
