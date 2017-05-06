@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "0.15.3",
+  "version": "0.15.4",
   "description": "Bootstrap 4 Components for Vue.js 2",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
