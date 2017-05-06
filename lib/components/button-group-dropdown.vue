@@ -32,6 +32,7 @@
 <script>
     import clickOut from '../mixins/clickout';
     import dropdown from '../mixins/dropdown';
+
     export default {
         mixins: [
             clickOut,
