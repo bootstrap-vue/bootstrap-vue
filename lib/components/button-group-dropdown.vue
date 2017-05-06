@@ -9,6 +9,8 @@
                   :size="size"
                   :disabled="disabled"
                   @click.stop.prevent="click"
+                  @kedown.space.stop.prevent="click"
+                  @kedown.enter.stop.prevent="click"
         >
             <slot name="text">{{text}}</slot>
         </b-button>
