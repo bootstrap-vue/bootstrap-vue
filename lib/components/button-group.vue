@@ -7,10 +7,10 @@
          @keydown.up="focusNext($event,true)"
          @keydown.right="focusNext($event,false)"
          @keydown.down="focusNext($event,false)"
-         @keydown.shift.left="focusFirst"
-         @keydown.shift.up="focusFirst"
-         @keydown.shift.right="focusLast"
-         @keydown.shift.down="focusLast"
+         @keydown.shift.left="focusFirst($event)"
+         @keydown.shift.up="focusFirst($event)"
+         @keydown.shift.right="focusLast($event)"
+         @keydown.shift.down="focusLast($event)"
     >
         <slot></slot>
     </div>
@@ -83,7 +83,7 @@
                 }
                 items[index].focus();
             },
-            focusFirst() {
+            focusFirst(e) {
                 if (!this.isKeyNav) {
                     return;
                 }
@@ -94,7 +94,7 @@
                     items[0].focus();
                 }
             },
-            focusLast() {
+            focusLast(e) {
                 if (!this.isKeyNav) {
                     return;
                 }
