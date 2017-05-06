@@ -1,16 +1,15 @@
 <template>
-    <a :is="itemType"
-       :class="['dropdown-item',{ disabled }]"
-       :to="to"
-       :href="href"
-       :disabled="disabled"
-       tabindex="-1"
-       role="menuitem"
-       @click="click"
-       @click.native="click"
+    <b-link :class="['dropdown-item',{ disabled }]"
+            :to="to"
+            :href="href"
+            :disabled="disabled"
+            tabindex="-1"
+            role="menuitem"
+            @click="dropdown_click"
+            @click.native="dropdown_click"
     >
         <slot></slot>
-    </a>
+    </b-link>
 </template>
 
 <script>
@@ -18,9 +17,13 @@
 
     export default {
         extends: bLink,
-        computed: {
-            itemType() {
-                return (this.href || this.to) ? this.componentType : 'button';
+        methods: {
+            dropdown_click(e) {
+                if (!this.disabled) {
+                    this.$root.$emit('shown::dropdown', this);
+                }
+
+                this.click(e);
             }
         }
     };
