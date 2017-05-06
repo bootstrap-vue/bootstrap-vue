@@ -98,7 +98,7 @@
                 }
                 const items = this.getItems();
                 if (items.length > 0) {
-                    items[items.length -1].focus();
+                    items[items.length - 1].focus();
                 }
             },
             getItems() {
@@ -111,7 +111,7 @@
             }
         },
         mounted() {
-            if (typeof doument !== undefined && this.isKeyNav) {
+            if (this.isKeyNav) {
                 // Pre-set the tabindexes if the markup does not include tabindex="-1" on the toolbar items
                 getItems();
             }
