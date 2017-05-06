@@ -2,12 +2,14 @@
     <li :class="['nav-item','dropdown', {dropup, show: visible}]">
 
         <a :class="['nav-link', dropdownToggle, {disabled}]"
-           href=""
+           href="#"
            ref="button"
            aria-haspopup="true"
            :aria-expanded="visible"
            :disabled="disabled"
            @click.stop.prevent="toggle($event)"
+           @keydown.enter.stop.prevent="toggle($event)"
+           @keydown.space.stop.prevent="toggle($event)"
         >
             <slot name="text"><span v-html="text"></span></slot>
         </a>
