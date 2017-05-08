@@ -1,9 +1,9 @@
 # ScrollSpy
 
-> Directive `v-b-scrollspy` applied to the `b-nav` or `b-navbar` element that you want to have nav-links shown as `active`
+> Directive `v-b-scrollspy` applied to the `b-nav` or `b-navbar` element(s) that you want to have nav-links shown as `active`
 based on the scrolling of another element (i.e. `body`).
 
-**Note:** Is applied backwards compared to Bootstrap V4. In **Bootstrap-Vue** the `v-b-scrollspy` directive
+**Note:** The directive is applied backwards compared to native Bootstrap V4. In **Bootstrap-Vue** the `v-b-scrollspy` directive
 is applied to the target element that has the nav-links, and the option(s) specify the element to monitor scrolling on.
 
 ## Usage:
