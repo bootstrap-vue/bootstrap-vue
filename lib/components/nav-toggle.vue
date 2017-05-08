@@ -3,6 +3,8 @@
             type="button"
             :aria-label="label"
             @click="onclick"
+            :aria-controls="target"
+            :aria-explanded="toggleState"
     >
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -17,6 +19,9 @@ export default {
                 'navbar-toggler',
                 'navbar-toggler-' + this.position
             ];
+        },
+        toggleState() {
+            return false;
         }
     },
 
