@@ -6,8 +6,6 @@ based on the scrolling of another element (i.e. `body`).
 **Note:** The directive is applied backwards compared to native Bootstrap V4. In **Bootstrap-Vue** the `v-b-scrollspy` directive
 is applied to the target element that has the nav-links, and the option(s) specify the element to monitor scrolling on.
 
-`nav-link` in document targets must have unique `is`s that match the `nav-link` `href` attributes.`router-link`s are ignored.
-
 ## Usage:
 Assume body is the scroll element, and use default offset of 10 pixels
 ```html
