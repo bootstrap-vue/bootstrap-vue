@@ -6,7 +6,7 @@
 
         <slot></slot>
 
-        <slot name="left">
+        <slot name="right">
             <div v-if="right" class="input-group-addon" v-html="right"></div>
         </slot>
     </div>
