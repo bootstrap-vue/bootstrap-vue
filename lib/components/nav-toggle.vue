@@ -3,7 +3,7 @@
             type="button"
             :aria-label="label"
             @click="onclick"
-            :aria-controls="target"
+            :aria-controls="target.id ? target.id : target"
             :aria-explanded="toggleState"
     >
         <span class="navbar-toggler-icon"></span>
@@ -19,12 +19,13 @@ export default {
                 'navbar-toggler',
                 'navbar-toggler-' + this.position
             ];
-        },
-        toggleState() {
-            return false;
         }
     },
-
+    data() {
+        return {
+            toggleState: false
+        };
+    },
     props: {
         label: {
             type: String,
@@ -38,7 +39,6 @@ export default {
             required: true
         }
     },
-
     methods: {
         onclick() {
             const target = this.target;
@@ -47,6 +47,13 @@ export default {
             }
             this.$root.$emit('collapse::toggle', this.target);
         }
+    },
+    created() {
+        this.$root.$on('collapse::toggle::state', (target, state) => {
+            if (target === this.target) {
+                this.toggleState = state;
+            }
+        });
     }
 };
 </script>
