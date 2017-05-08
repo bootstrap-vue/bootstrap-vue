@@ -4,8 +4,9 @@
         <a :class="['nav-link', dropdownToggle, {disabled}]"
            href="#"
            ref="button"
+           :id="id ? (id + '__BV_button_') : null"
            aria-haspopup="true"
-           :aria-expanded="visible"
+           :aria-expanded="visible ? 'true' : 'false'"
            :disabled="disabled"
            @click.stop.prevent="toggle($event)"
            @keydown.enter.stop.prevent="toggle($event)"
@@ -17,7 +18,7 @@
         <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
              role="menu"
              ref="menu"
-             :aria-labelledby="'b_dropdown_button_' + _uid"
+             :aria-labelledby="id ? (id + '__BV_button_') : null"
              @keyup.esc="onEsc"
              @keydown.tab="onTab"
              @keydown.up="focusNext($event,true)"
@@ -49,6 +50,9 @@
             }
         },
         props: {
+            id: {
+                type: String
+            },
             caret: {
                 type: Boolean,
                 default: true

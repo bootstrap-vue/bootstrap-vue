@@ -6,7 +6,7 @@
             @after-leave="clearHeight"
             name="collapse"
     >
-        <div :class="classObject" v-show="show">
+        <div :class="classObject" v-show="show" :aria-expanded="show ? 'true' : 'false'">
             <slot></slot>
         </div>
     </transition>
@@ -55,6 +55,7 @@
         methods: {
             toggle() {
                 this.show = !this.show;
+                this.emitState();
             },
             enter(el) {
                 el.style.height = 'auto';
@@ -78,9 +79,11 @@
             },
             clearHeight(el) {
                 el.style.height = null;
+            },
+            emitState() {
+                this.$root.$emit('collapse::toggle::state', this.id, this.state);
             }
         },
-
         created() {
             this.$root.$on('collapse::toggle', target => {
                 if (target !== this.id) {
@@ -88,6 +91,9 @@
                 }
                 this.toggle();
             });
+        },
+        mounted() {
+            this.emitState();
         }
     };
 
