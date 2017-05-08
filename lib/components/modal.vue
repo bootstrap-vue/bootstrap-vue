@@ -250,7 +250,9 @@
                 if (!el) {
                     el = this.$refs.content;
                 }
-                el.focus();
+                if (el && el.focus) {
+                    el.focus();
+                }
             },
             returnFocusTo() {
                 if (this.return_focus) {
