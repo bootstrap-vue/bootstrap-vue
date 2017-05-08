@@ -91,7 +91,6 @@
                 }
                 this.toggle();
             });
-            this.emitState();
         },
         mounted() {
             this.emitState();
