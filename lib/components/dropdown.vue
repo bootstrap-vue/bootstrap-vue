@@ -31,7 +31,7 @@
         <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
              ref="menu"
              role="menu"
-             :aria-labelledby="split ? (id ? (id + '__BV_toggle_') : null) : (id ? (id + '__BV_button_') : null)"
+             :aria-labelledby="id ? (split ? (id + '__BV_toggle_') : (id + '__BV_button_')) : null)"
              @keyup.esc="onEsc"
              @keydown.tab="onTab"
              @keydown.up="focusNext($event,true)"
