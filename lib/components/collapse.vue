@@ -6,9 +6,7 @@
             @after-leave="clearHeight"
             name="collapse"
     >
-        <div :class="classObject"
-             v-show="show"
-             :aria-expanded="show ? 'true' : 'false'>
+        <div :class="classObject" v-show="show" :aria-expanded="show ? 'true' : 'false'">
             <slot></slot>
         </div>
     </transition>
