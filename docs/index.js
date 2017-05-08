@@ -41,6 +41,6 @@ export default {
                 {title: 'Validation', slug: 'validation'},
                 {title: 'Contributing', slug: 'contributing'}
             ]
-        },
+        }
     ]
 };
