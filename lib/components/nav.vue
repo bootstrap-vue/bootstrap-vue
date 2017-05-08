@@ -1,5 +1,8 @@
 <template>
-    <component :is="type" :class="classObject">
+    <component :is="type"
+               :class="classObject"
+               :role="isNavBar ? null : 'navigation'"
+    >
         <slot></slot>
     </component>
 </template>
