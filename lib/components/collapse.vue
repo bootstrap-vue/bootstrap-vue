@@ -81,7 +81,7 @@
                 el.style.height = null;
             },
             emitState() {
-                this.$root.emit('collapse::toggle::state', this.id, this.state);
+                this.$root.$emit('collapse::toggle::state', this.id, this.state);
             }
         },
         created() {
