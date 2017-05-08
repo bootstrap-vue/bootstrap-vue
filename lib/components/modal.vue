@@ -3,6 +3,7 @@
         <transition-group enter-class="hidden"
                           enter-to-class=""
                           enter-active-class=""
+                          @after-enter="focusFirst"
                           leave-class="show"
                           leave-active-class=""
                           leave-to-class="hidden"
@@ -184,10 +185,6 @@
                     // Handle constrained focus
                     document.addEventListener('focusin', this.enforceFocus, false);
                 }
-                this.$nextTick(function () {
-                    // Make sure DOM is updated before focusing
-                    this.focusFirst();
-                });
             },
             hide(isOK) {
                 if (!this.is_visible) {
@@ -253,7 +250,9 @@
                 if (!el) {
                     el = this.$refs.content;
                 }
-                el.focus();
+                if (el && el.focus) {
+                    el.focus();
+                }
             },
             returnFocusTo() {
                 if (this.return_focus) {
