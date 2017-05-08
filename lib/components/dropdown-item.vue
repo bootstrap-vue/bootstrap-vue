@@ -17,6 +17,7 @@
 
     export default {
         extends: bLink,
+        components: {bLink},
         methods: {
             dropdown_click(e) {
                 if (!this.disabled) {
