@@ -1,6 +1,6 @@
 <template>
     <!-- When VueRouter is available -->
-    <a v-if="routerAvailable && to"
+    <a v-if="isRouterLink"
        is="router-link"
        :active-class="activeClass"
        :exact-active-class="exactActiveClass"
@@ -32,8 +32,8 @@
 
     export default {
         computed: {
-            routerAvailable() {
-                return Boolean(this.$router);
+            isRouterLink() {
+                return this.$router && !this.to;
             },
             _href() {
                 if (this.disabled) {
