@@ -19,8 +19,8 @@
 </template>
 
 <script>
-    import bLink from './link.vue';
     import linkMixin from '../mixins/link';
+    import bLink from './link.vue';
 
     export default {
         components: {bLink},
