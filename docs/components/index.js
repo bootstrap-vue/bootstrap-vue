@@ -6,7 +6,7 @@ export default {
     'breadcrumb': require('./breadcrumb').default,
     'button': require('./button').default,
     'button-group': require('./button-group').default,
-    'button-toolbar': require('./button-toolbr').default,
+    'button-toolbar': require('./button-toolbar').default,
     'card': require('./card').default,
     'carousel': require('./carousel').default,
     'collapse': require('./collapse').default,
