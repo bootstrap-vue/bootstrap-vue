@@ -1,9 +1,14 @@
 <template>
-    <div :class="classObject" role="alert" v-if="localShow">
+    <div v-if="localShow"
+         :class="classObject"
+         role="alert"
+         aria-live="polite"
+         aria-atomic="true"
+    >
         <button type="button"
                 class="close"
                 data-dismiss="alert"
-                aria-label="Close"
+                aria-label="dismissLabel"
                 v-if="dismissible"
                 @click.stop.prevent="dismiss"
         >
@@ -50,6 +55,10 @@
             dismissible: {
                 type: Boolean,
                 default: false
+            },
+            dismissLabel: {
+                type: String,
+                default: 'Close'
             },
             show: {
                 type: [Boolean, Number],

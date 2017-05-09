@@ -1,19 +1,19 @@
 <template>
-    <li :class="['nav-item','dropdown', {dropup, show: visible}]">
+    <div :class="['btn-group','dropdown', {dropup, show: visible}]">
 
-        <a :class="['nav-link', dropdownToggle, {disabled}]"
-           href="#"
-           ref="button"
-           :id="id ? (id + '__BV_button_') : null"
-           aria-haspopup="true"
-           :aria-expanded="visible ? 'true' : 'false'"
-           :disabled="disabled"
-           @click.stop.prevent="toggle($event)"
-           @keydown.enter.stop.prevent="toggle($event)"
-           @keydown.space.stop.prevent="toggle($event)"
+        <b-button :class="{'dropdown-toggle': !split, 'btn-link': link}"
+                  ref="button"
+                  :id="id ? (id + '__BV_button_') : null"
+                  :aria-expanded="visible ? 'true' : 'false'"
+                  :variant="variant"
+                  :size="size"
+                  :disabled="disabled"
+                  @click.stop.prevent="click"
+                  @kedown.space.stop.prevent="click"
+                  @kedown.enter.stop.prevent="click"
         >
-            <slot name="text"><span v-html="text"></span></slot>
-        </a>
+            <slot name="text">{{text}}</slot>
+        </b-button>
 
         <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
              role="menu"
@@ -27,7 +27,7 @@
             <slot></slot>
         </div>
 
-    </li>
+    </div>
 </template>
 
 <script>

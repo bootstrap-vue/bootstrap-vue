@@ -55,13 +55,9 @@
                 type: Boolean,
                 default: false
             },
-            role: {
-                type: String,
-                default: ''
-            },
             size: {
                 type: String,
-                default: 'md'
+                default: null
             },
             variant: {
                 type: String,

@@ -1,27 +1,27 @@
 <template>
-    <a :is="itemType"
-       :class="['dropdown-item',{ disabled }]"
-       :to="to"
-       :href="hrefString"
-       :disabled="disabled"
-       tabindex="-1"
-       role="menuitem"
-       @click="click"
-       @click.native="click"
+    <b-link class="dropdown-item"
+            :active="active"
+            :disabled="disabled"
+            :href="href"
+            :to="to"
+            :tag="tag"
+            :exact="exact"
+            :append="append"
+            :replace="replace"
+            :active-class="activeClass"
+            :exact-active-class="exactActiveClass"
+            :event="event"
     >
         <slot></slot>
-    </a>
+    </b-link>
 </template>
 
 <script>
+    import linkMixin from '../mixins/link';
     import bLink from './link.vue';
 
     export default {
-        extends: bLink,
-        computed: {
-            itemType() {
-                return (this.href || this.to) ? this.componentType : 'button';
-            }
-        }
+        components: {bLink},
+        mixins: [linkMixin]
     };
 </script>
