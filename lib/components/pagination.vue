@@ -1,42 +1,58 @@
 <template>
-    <div class="btn-group pagination" role="group" aria-label="Pagination">
+    <div :class="['btn-group','pagination',btnSize]" 
+         role="group"
+         :aria-label="ariaLabel ? ariaLabel : null"
+    >
 
         <button type="button"
-                :class="['btn','btn-'+secondaryVariant,btnSize]"
+                :class="['btn','btn-'+secondaryVariant]"
                 :disabled="currentPage == 1 "
+                :aria-label="labelPrevPage"
                 @click.prevent="(currentPage == 1) ? _return : currentPage--">
             <span aria-hidden="true">&laquo;</span>
         </button>
 
         <button type="button"
-                :class="['btn','btn-'+secondaryVariant,btnSize,currentPage === 1 ?  'active' : '']"
+                :class="['btn','btn-'+secondaryVariant,currentPage === 1 ?  'active' : '']"
+                :aria-label="labelPage + ' 1'"
+                :aria-current="currentpage === 1 ? 'true' : 'false'"
+                :aria-setsize="numberOfPages"
+                :aria-posinset="1"
                 @click.prevent="currentPage = 1"
                 v-show="showPrev">1
         </button>
 
-        <span :class="['btn','btn-'+secondaryVariant,btnSize]" v-show="showPrev">...</span>
+        <span:class="['btn','btn-'+secondaryVariant]" v-show="showPrev">...</span>
 
         <button type="button"
                 :class="['btn',
-                btnSize,
                 btnVariant(index),
                 index + diff === currentPage ? 'active' : '',
                 index + diff !== currentPage ? 'hidden-xs-down' : '']"
+                :aria-label="labelPage + ' ' + (index + diff)"
+                :aria-current="currentpage === (index + diff) ? 'true' : 'false'"
+                :aria-setsize="numberOfPages"
+                :aria-posinset="index + diff"
                 v-for="_,index in pageLinks"
                 @click.prevent="currentPage = index + diff">{{index + diff}}
         </button>
 
-        <span :class="['btn','btn-'+secondaryVariant,btnSize]" v-show="showNext">...</span>
+        <span :class="['btn','btn-'+secondaryVariant]" v-show="showNext">...</span>
 
         <button type="button"
-                :class="['btn','btn-'+secondaryVariant,btnSize,numberOfPages === currentPage ? 'active' : '']"
+                :class="['btn','btn-'+secondaryVariant,numberOfPages === currentPage ? 'active' : '']"
+                :aria-label="labelPage + ' ' + numberOfPages"
+                :aria-current="currentpage === numberOfPages ? 'true' : 'false'"
+                :aria-setsize="numberOfPages"
+                :aria-posinset="numberOfPages"
                 v-show="showNext"
                 @click.prevent="currentPage = numberOfPages">{{numberOfPages}}
         </button>
 
         <button type="button"
-                :class="['btn','btn-'+secondaryVariant,btnSize]"
+                :class="['btn','btn-'+secondaryVariant]"
                 :disabled="currentPage == numberOfPages"
+                :aria-label="labelNextPage"
                 @click.prevent="(currentPage == numberOfPages) ? _return : currentPage++">
             <span aria-hidden="true">&raquo;</span>
         </button>
@@ -60,7 +76,7 @@
                 return (result < 1) ? 1 : result;
             },
             btnSize() {
-                return !this.size || this.size === `default` ? `` : `btn-${this.size}`;
+                return !this.size || this.size === `default` ? `` : `pagination-${this.size}`;
             },
             pageLinks() {
                 if (this.currentPage > this.numberOfPages) {
@@ -148,6 +164,22 @@
             secondaryVariant: {
                 type: String,
                 default: 'secondary'
+            },
+            ariaLabel {
+                type: String,
+                default: 'Pagination'
+            },
+            labelPrevPage: {
+                type: String,
+                default: 'First Page'
+            },
+            labelNextPage: {
+                type: String,
+                default: 'Last Page'
+            },
+            labelPage: {
+                type: String,
+                default: 'Page'
             }
         }
     };
