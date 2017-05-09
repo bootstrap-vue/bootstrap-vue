@@ -13,7 +13,7 @@
         </button>
 
         <button type="button"
-                :class="['btn','btn-'+secondaryVariant,currentPage === 1 ?  'active' : '']"
+                :class="['btn','btn-'+secondaryVariant,isActivePage(1) ?  'active' : '']"
                 :aria-label="labelPage + ' 1'"
                 :aria-current="currentpage === 1 ? 'true' : 'false'"
                 :aria-setsize="numberOfPages"
@@ -25,10 +25,8 @@
         <span:class="['btn','btn-'+secondaryVariant]" v-show="showPrev">...</span>
 
         <button type="button"
-                :class="['btn',
-                btnVariant(index),
-                index + diff === currentPage ? 'active' : '',
-                index + diff !== currentPage ? 'hidden-xs-down' : '']"
+                class="btn"
+                :class="[btnVariant(index),isActivePage(index + diff) ? 'active' : '',isActivePage(index + diff) ? '' : 'hidden-xs-down']"
                 :aria-label="labelPage + ' ' + (index + diff)"
                 :aria-current="currentpage === (index + diff) ? 'true' : 'false'"
                 :aria-setsize="numberOfPages"
@@ -40,7 +38,7 @@
         <span :class="['btn','btn-'+secondaryVariant]" v-show="showNext">...</span>
 
         <button type="button"
-                :class="['btn','btn-'+secondaryVariant,numberOfPages === currentPage ? 'active' : '']"
+                :class="['btn','btn-'+secondaryVariant,isActivePage(numberOfPages) ? 'active' : '']"
                 :aria-label="labelPage + ' ' + numberOfPages"
                 :aria-current="currentpage === numberOfPages ? 'true' : 'false'"
                 :aria-setsize="numberOfPages"
@@ -77,6 +75,9 @@
             },
             btnSize() {
                 return !this.size || this.size === `default` ? `` : `pagination-${this.size}`;
+            },
+            isActivePage(p) {
+                return p === currentPage ? true : false;
             },
             pageLinks() {
                 if (this.currentPage > this.numberOfPages) {
