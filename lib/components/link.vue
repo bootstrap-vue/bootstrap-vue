@@ -6,7 +6,7 @@
        :exact-active-class="exactActiveClass"
        :disabled="disabled"
        :aria-disabled="disabled ? 'true' : 'false'"
-       :to="_to"
+       :to="to"
        :exact="exact"
        :append="append"
        :replace="replace"
@@ -33,7 +33,7 @@
     export default {
         computed: {
             isRouterLink() {
-                return this.$router && !this.to;
+                return this.$router && this.to && !this.disabled;
             },
             _href() {
                 if (this.disabled) {
@@ -47,15 +47,6 @@
 
                 // Fallback to `to` prop
                 if (this.to && typeof this.to === 'string') {
-                    return this.to;
-                }
-            },
-            _to() {
-                if (this.disabled) {
-                    return null;
-                }
-
-                if (this.to) {
                     return this.to;
                 }
             }
