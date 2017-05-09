@@ -36,7 +36,7 @@
                 ];
             },
             isKeyNav() {
-                return this.toolbar && this.toolbarkeyNav;
+                return this.toolbar && this.toolbarKeyNav;
             }
         },
         props: {
@@ -56,7 +56,7 @@
                 type: String,
                 default: null
             },
-            toobarKeyNav: {
+            toolbarKeyNav: {
                 type: Boolean,
                 default: false
             }
