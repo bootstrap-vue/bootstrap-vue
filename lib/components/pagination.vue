@@ -149,7 +149,7 @@
                 }
             },
             focusCurrent() {
-                const btn = this.$refs.buttons.find(el => parseInt(el.getAttribute('aria-posinset'),10) === this.currentPage);
+                const btn = this.$refs.buttons.find(el => parseInt(el.getAttribute('aria-posinset'), 10) === this.currentPage);
                 if (btn && btn.focus) {
                     btn.focus();
                 } else {
