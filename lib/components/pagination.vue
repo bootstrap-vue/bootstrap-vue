@@ -23,7 +23,7 @@
                 v-show="showPrev"
         >1</button>
 
-        <span:class="['btn','btn-'+secondaryVariant]" v-show="showPrev">...</span>
+        <span :class="['btn','btn-'+secondaryVariant]" v-show="showPrev">...</span>
 
         <button type="button"
                 class="btn"
