@@ -28,7 +28,7 @@
             size: {
                 type: String,
                 default: null
-            },
+            }
         }
     };
 </script>
