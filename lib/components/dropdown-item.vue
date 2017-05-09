@@ -1,12 +1,16 @@
 <template>
-    <b-link :class="['dropdown-item',{ disabled }]"
-            :to="to"
-            :href="href"
+    <b-link class="dropdown-item"
+            :active="active"
             :disabled="disabled"
-            tabindex="-1"
-            role="menuitem"
-            @click="dropdown_click"
-            @click.native="dropdown_click"
+            :href="href"
+            :to="to"
+            :tag="tag"
+            :exact="exact"
+            :append="append"
+            :replace="replace"
+            :active-class="activeClass"
+            :exact-active-class="exactActiveClass"
+            :event="event"
     >
         <slot></slot>
     </b-link>
@@ -14,18 +18,10 @@
 
 <script>
     import bLink from './link.vue';
+    import linkMixin from '../mixins/link';
 
     export default {
-        extends: bLink,
         components: {bLink},
-        methods: {
-            dropdown_click(e) {
-                if (!this.disabled) {
-                    this.$root.$emit('shown::dropdown', this);
-                }
-
-                this.click(e);
-            }
-        }
+        mixins: [linkMixin]
     };
 </script>
