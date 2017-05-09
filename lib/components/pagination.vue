@@ -79,7 +79,7 @@
                 return !this.size || this.size === `default` ? `` : `pagination-${this.size}`;
             },
             isActive(page) {
-                return page === currentPage ? true : false;
+                return page === this.currentPage;
             },
             pageLinks() {
                 if (this.currentPage > this.numberOfPages) {
