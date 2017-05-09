@@ -48,7 +48,7 @@
         border-bottom: 3px solid transparent;
     }
 
-    .main-nav .nav-link.active {
+    .main-nav .nav-link.nuxt-link-active {
         border-bottom: 3px solid #4fc08d;
     }
 </style>
