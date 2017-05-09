@@ -29,9 +29,8 @@
         computed: {
             classObject() {
                 return [
-                    'btn-toolbar,
-                    (this.justify && !this.vertical) ? 'justify-content-between' : '',
-                    this.size ? ('btn-group-' + this.size) : ''
+                    'btn-toolbar',
+                    (this.justify && !this.vertical) ? 'justify-content-between' : ''
                 ];
             }
         },
@@ -39,10 +38,6 @@
             justify: {
                 type: Boolean,
                 default: false
-            },
-            size: {
-                type: String,
-                default: null
             },
             KeyNav: {
                 type: Boolean,
