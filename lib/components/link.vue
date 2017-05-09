@@ -1,7 +1,6 @@
 <template>
     <!-- When VueRouter is available -->
-    <a v-if="routerAvailable"
-       is="router-link"
+    <a v-if="routerAvailable && to"
        :active-class="activeClass"
        :exact-active-class="exactActiveClass"
        :disabled="disabled"
@@ -52,15 +51,11 @@
             },
             _to() {
                 if (!this.routerAvailable || this.disabled) {
-                    return '#';
+                    return null;
                 }
 
                 if (this.to) {
                     return this.to;
-                }
-
-                if (this.href) {
-                    return this.href;
                 }
             }
         },
