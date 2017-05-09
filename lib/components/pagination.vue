@@ -8,50 +8,52 @@
                 :class="['btn','btn-'+secondaryVariant]"
                 :disabled="currentPage == 1 "
                 :aria-label="labelPrevPage"
-                @click.prevent="(currentPage == 1) ? _return : currentPage--">
+                @click.prevent="(currentPage == 1) ? _return : currentPage--"
+        >
             <span aria-hidden="true">&laquo;</span>
         </button>
 
         <button type="button"
-                :class="['btn','btn-'+secondaryVariant,isActivePage(1) ?  'active' : '']"
+                :class="['btn','btn-'+secondaryVariant,isActive(1)?'active':'']"
                 :aria-label="labelPage + ' 1'"
-                :aria-current="currentpage === 1 ? 'true' : 'false'"
+                :aria-current="isActive(1) ? 'true' : 'false'"
                 :aria-setsize="numberOfPages"
                 :aria-posinset="1"
                 @click.prevent="currentPage = 1"
-                v-show="showPrev">1
-        </button>
+                v-show="showPrev"
+        >1</button>
 
         <span:class="['btn','btn-'+secondaryVariant]" v-show="showPrev">...</span>
 
         <button type="button"
                 class="btn"
-                :class="[btnVariant(index),isActivePage(index + diff) ? 'active' : '',isActivePage(index + diff) ? '' : 'hidden-xs-down']"
+                :class="[btnVariant(index),isActive(index + diff)?'active':'',isActive(index + diff)?'':'hidden-xs-down']"
                 :aria-label="labelPage + ' ' + (index + diff)"
-                :aria-current="currentpage === (index + diff) ? 'true' : 'false'"
+                :aria-current="isActive(index + diff) ? 'true' : 'false'"
                 :aria-setsize="numberOfPages"
                 :aria-posinset="index + diff"
                 v-for="_,index in pageLinks"
-                @click.prevent="currentPage = index + diff">{{index + diff}}
-        </button>
+                @click.prevent="currentPage = index + diff"
+        >{{index + diff}}</button>
 
         <span :class="['btn','btn-'+secondaryVariant]" v-show="showNext">...</span>
 
         <button type="button"
-                :class="['btn','btn-'+secondaryVariant,isActivePage(numberOfPages) ? 'active' : '']"
+                :class="['btn','btn-'+secondaryVariant,isActive(numberOfPages) ? 'active' : '']"
                 :aria-label="labelPage + ' ' + numberOfPages"
-                :aria-current="currentpage === numberOfPages ? 'true' : 'false'"
+                :aria-current="isActive(numberOfPages) ? 'true' : 'false'"
                 :aria-setsize="numberOfPages"
                 :aria-posinset="numberOfPages"
                 v-show="showNext"
-                @click.prevent="currentPage = numberOfPages">{{numberOfPages}}
-        </button>
+                @click.prevent="currentPage = numberOfPages"
+        >{{numberOfPages}}</button>
 
         <button type="button"
                 :class="['btn','btn-'+secondaryVariant]"
                 :disabled="currentPage == numberOfPages"
                 :aria-label="labelNextPage"
-                @click.prevent="(currentPage == numberOfPages) ? _return : currentPage++">
+                @click.prevent="isActive(numberOfPages) ? _return : currentPage++"
+        >
             <span aria-hidden="true">&raquo;</span>
         </button>
 
@@ -76,8 +78,8 @@
             btnSize() {
                 return !this.size || this.size === `default` ? `` : `pagination-${this.size}`;
             },
-            isActivePage(p) {
-                return p === currentPage ? true : false;
+            isActive(page) {
+                return page === currentPage ? true : false;
             },
             pageLinks() {
                 if (this.currentPage > this.numberOfPages) {
