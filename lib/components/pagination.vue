@@ -29,7 +29,7 @@
                 :aria-posinset="1"
                 tabindex="-1"
                 ref="buttons"
-                v-if"showPrev"
+                v-if="showPrev"
                 @click.prevent="currentPage = 1"
         >1</button>
 
