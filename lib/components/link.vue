@@ -51,7 +51,7 @@
                 }
             },
             _to() {
-                if (!this.routerAvailable || this.disabled) {
+                if (this.disabled) {
                     return null;
                 }
 
