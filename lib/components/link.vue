@@ -1,6 +1,7 @@
 <template>
     <!-- When VueRouter is available -->
     <a v-if="routerAvailable && to"
+       is='router-link'
        :active-class="activeClass"
        :exact-active-class="exactActiveClass"
        :disabled="disabled"
