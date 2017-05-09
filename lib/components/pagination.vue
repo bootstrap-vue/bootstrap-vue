@@ -168,7 +168,7 @@
                 type: String,
                 default: 'secondary'
             },
-            ariaLabel {
+            ariaLabel: {
                 type: String,
                 default: 'Pagination'
             },
