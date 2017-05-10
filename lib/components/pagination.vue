@@ -93,9 +93,6 @@
             btnSize() {
                 return !this.size || this.size === `default` ? `` : `pagination-${this.size}`;
             },
-            isActive(page) {
-                return page === this.currentPage;
-            },
             pageLinks() {
                 if (this.currentPage > this.numberOfPages) {
                     this.currentPage = 1;
@@ -133,6 +130,9 @@
             }
         },
         methods: {
+            isActive(page) {
+                return page === this.currentPage;
+            },
             btnVariant(index) {
                 return (index + this.diff === this.currentPage) ? `btn-${this.variant}` : `btn-${this.secondaryVariant}`;
             },
