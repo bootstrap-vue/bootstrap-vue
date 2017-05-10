@@ -148,28 +148,27 @@
                 buttons.push(this.$refs.buttonNext);
                 return buttons;
             },
+            setBtnFocus(btn) {
+                this.$nextTick(() => {
+                    btn.focus();
+                });
+            },
             focusFirst() {
                 const btn = this.getButtons().find(el => !el.disabled);
                 if (btn && btn.focus && btn !== document.activeElement) {
-                    this.$nextTick(() => {
-                        btn.focus();
-                    });
+                    this.setBtnFocus(btn);
                 }
             },
             focusLast() {
                 const btn = this.getButtons().reverse().find(el => !el.disabled);
                 if (btn && btn.focus && btn !== document.activeElement) {
-                    this.$nextTick(() => {
-                        btn.focus();
-                    });
+                    this.setBtnFocus(btn);
                 }
             },
             focusCurrent() {
                 const btn = this.getButtons().find(el => parseInt(el.getAttribute('aria-posinset'), 10) === this.currentPage);
                 if (btn && btn.focus) {
-                    this.$nextTick(() => {
-                        btn.focus();
-                    });
+                    this.setBtnFocus(btn);
                 } else {
                     // Fallback if current page is not in button list
                     this.focusFirst();
@@ -179,9 +178,7 @@
                 const buttons = this.getButtons();
                 const idx = buttons.indexOf(document.activeElement);
                 if (idx > 0 && !buttons[idx - 1].disabled && buttons[idx - 1].focus) {
-                    this.$nextTick(() => {
-                        buttons[idx - 1].focus();
-                    });
+                    this.setBtnFocus(buttons[idx - 1]);
                 }
             },
             focusNext() {
@@ -189,9 +186,7 @@
                 const idx = buttons.indexOf(document.activeElement);
                 const cnt = buttons.length - 1;
                 if (idx < cnt && !buttons[idx + 1].disabled && buttons[idx + 1].focus) {
-                    this.$nextTick(() => {
-                        buttons[idx + 1].focus();
-                    });
+                    this.setBtnFocus(buttons[idx + 1]);
                 }
             },
             _return() {
