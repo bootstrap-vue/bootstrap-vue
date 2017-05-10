@@ -159,7 +159,7 @@
             focusLast() {
                 const btn = this.getButtons().reverse().find(el => !el.disabled);
                 if (btn && btn.focus && btn !== document.activeElement) {
-                    this.$nextTick(() +> {
+                    this.$nextTick(() => {
                         btn.focus();
                     });
                 }
@@ -167,7 +167,7 @@
             focusCurrent() {
                 const btn = this.getButtons().find(el => parseInt(el.getAttribute('aria-posinset'), 10) === this.currentPage);
                 if (btn && btn.focus) {
-                    this.$nextTick(() +> {
+                    this.$nextTick(() => {
                         btn.focus();
                     });
                 } else {
@@ -179,7 +179,7 @@
                 const buttons = this.getButtons();
                 const idx = buttons.indexOf(document.activeElement);
                 if (idx > 0 && !buttons[idx - 1].disabled && buttons[idx - 1].focus) {
-                    this.$nextTick(() +> {
+                    this.$nextTick(() => {
                         buttons[idx - 1].focus();
                     });
                 }
@@ -189,7 +189,7 @@
                 const idx = buttons.indexOf(document.activeElement);
                 const cnt = buttons.length - 1;
                 if (idx < cnt && !buttons[idx + 1].disabled && buttons[idx + 1].focus) {
-                    this.$nextTick(() +> {
+                    this.$nextTick(() => {
                         buttons[idx + 1].focus();
                     });
                 }
