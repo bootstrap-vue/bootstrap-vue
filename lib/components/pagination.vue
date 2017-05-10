@@ -3,7 +3,7 @@
          role="group"
          tabindex="0"
          :aria-label="ariaLabel ? ariaLabel : null"
-         @focusin="focusCurrent"
+         @focusin.self="focusCurrent"
          @keydown.left.prevent="focusPrev"
          @keydown.right.prevent="focusNext"
          @keydown.shift.left.prevent="focusFirst"
