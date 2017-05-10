@@ -151,7 +151,7 @@
             focusFirst() {
                 const btn = this.getButtons().find(el => !el.disabled);
                 if (btn && btn.focus && btn !== document.activeElement) {
-                    this.$nextTick(() +> {
+                    this.$nextTick(() => {
                         btn.focus();
                     });
                 }
