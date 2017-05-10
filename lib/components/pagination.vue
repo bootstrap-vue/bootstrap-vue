@@ -151,36 +151,47 @@
             focusFirst() {
                 const btn = this.getButtons().find(el => !el.disabled);
                 if (btn && btn.focus && btn !== document.activeElement) {
-                    btn.focus();
+                    this.$nextTick(() +> {
+                        btn.focus();
+                    });
                 }
             },
             focusLast() {
                 const btn = this.getButtons().reverse().find(el => !el.disabled);
                 if (btn && btn.focus && btn !== document.activeElement) {
-                    btn.focus();
+                    this.$nextTick(() +> {
+                        btn.focus();
+                    });
                 }
             },
             focusCurrent() {
                 const btn = this.getButtons().find(el => parseInt(el.getAttribute('aria-posinset'), 10) === this.currentPage);
                 if (btn && btn.focus) {
-                    btn.focus();
+                    this.$nextTick(() +> {
+                        btn.focus();
+                    });
                 } else {
                     // Fallback if current page is not in button list
                     this.focusFirst();
                 }
             },
             focusPrev() {
-                const idx = this.getButtons().indexOf(document.activeElement);
-                if (idx > 0 && !this.$refs.buttons[idx - 1].disabled && this.$refs.buttons[idx - 1].focus) {
-                    this.$refs.buttons[idx - 1].focus();
+                const buttons = this.getButtons();
+                const idx = buttons.indexOf(document.activeElement);
+                if (idx > 0 && !buttons[idx - 1].disabled && buttons[idx - 1].focus) {
+                    this.$nextTick(() +> {
+                        buttons[idx - 1].focus();
+                    });
                 }
             },
             focusNext() {
                 const buttons = this.getButtons();
-                const idx = buttons().indexOf(document.activeElement);
+                const idx = buttons.indexOf(document.activeElement);
                 const cnt = buttons.length - 1;
                 if (idx < cnt && !buttons[idx + 1].disabled && buttons[idx + 1].focus) {
-                    buttons[idx + 1].focus();
+                    this.$nextTick(() +> {
+                        buttons[idx + 1].focus();
+                    });
                 }
             },
             _return() {
