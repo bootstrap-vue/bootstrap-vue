@@ -1,5 +1,9 @@
 <template>
-    <div class="carousel-item" :style="{background,height}">
+    <div class="carousel-item"
+         role="listitem"
+         :id="id || null"
+         :style="{background,height}"
+    >
         <img class="d-block img-fluid" v-if="img" :src="img" :alt="imgAlt">
         <div :class="contentClasses">
             <h3 v-if="caption" v-html="caption"></h3>
@@ -12,6 +16,9 @@
 <script>
     export default {
         props: {
+            id: {
+                type="string"
+            },
             img: {
                 type: String
             },
