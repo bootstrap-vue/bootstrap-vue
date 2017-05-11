@@ -60,6 +60,8 @@
                data-slide="prev"
                :aria-controls="id ? (id + '__BV_inner_') : null"
                @click.stop.prevent="prev"
+               @keydown.enter.stop.prevent="prev"
+               @keydown.space.stop.prevent="prev"
             >
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">{{labelPrev}}</span>
@@ -70,6 +72,8 @@
                data-slide="next"
                :aria-controls="id ? (id + '__BV_inner_') : null"
                @click.stop.prevent="next"
+               @keydown.enter.stop.prevent="next"
+               @keydown.space.stop.prevent="next"
             >
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">{{labelNext}}</span>
