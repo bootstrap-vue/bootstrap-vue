@@ -3,7 +3,6 @@
          role="region"
          :id="id || null"
          :style="{background,height}"
-         tabindex="-1"
          @mouseenter="pause"
          @mouseleave="start"
          @focusin="pause"
