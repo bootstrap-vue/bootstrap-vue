@@ -292,8 +292,8 @@
                     currentSlide.tabIndex = -1;
 
                     if (!this._intervalId) {
+                        // Focus the slide for screen readers if not in play mode
                         currentSlide.tabIndex = 0;
-                        // focus the slide for screen readers if not in play mode
                         this.$nextTick(() => {
                             currentSlide.focus();
                         });
