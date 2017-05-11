@@ -181,7 +181,7 @@
             // Focus first indicator
             focusActiveIndicator() {
                 if (this.indicators & this.$refs.indicators.length > 0) {
-                    thjis.$nextTick(() => {
+                    this.$nextTick(() => {
                         this.$refs.indicators[this.index].focus();
                     });
                 }
@@ -200,7 +200,7 @@
             },
 
             focusNextIndicator() {
-                if (indicators & this.$refs.indicators.length > 0) {
+                if (this.indicators & this.$refs.indicators.length > 0) {
                     const idx = this.$refs.indicators.indexOf(el => Boolean(el === document.activeElement));
                     if (idx > 0 && idx < this.$refs.indicators - 1) {
                         this.$nextTick(() => {
