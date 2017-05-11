@@ -173,7 +173,7 @@
             
             // Re-Start auto rotate slides when focus leaves the carousel
             restart(e) {
-                if (!e.relatedTarget || !this.$el.contains(e.relatedTarget) {
+                if (!e.relatedTarget || !this.$el.contains(e.relatedTarget)) {
                     this.start();
                 }
             },
