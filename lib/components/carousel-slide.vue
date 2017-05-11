@@ -17,7 +17,7 @@
     export default {
         props: {
             id: {
-                type="string"
+                type: String
             },
             img: {
                 type: String
