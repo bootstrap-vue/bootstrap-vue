@@ -3,6 +3,7 @@
          role="region"
          :id="id || null"
          :style="{background,height}"
+         :aria-busy="isSliding ? 'true' : 'false'"
          @mouseenter="pause"
          @mouseleave="start"
          @focusin="pause"
@@ -11,10 +12,11 @@
          @keydown.right="next"
     >
         <!-- Indicators -->
-        <ol role="menu" 
+        <ol role="group" 
             class="carousel-indicators"
             v-show="indicators"
             :aria-hidden="indicators ? 'false' : 'true'"
+            :aria-label="indicators && labelIndicators ? labelIndicators : null"
             :aria-owns="indictors && id ? (id + '__BV_inner_') : null"
             :aria-activedescendant="slides[index].id || null"
             :tabindex="indicators ? '0' : '-1'"
@@ -25,7 +27,7 @@
             @keydown.down.stop.prevent="focusNextIndicator"
         >
             <li v-for="n in slides.length"
-                role="menuitem"
+                role="button"
                 tabindex="-1"
                 ref="indcators"
                 :id="id ? (id + '__BV_indicator_' + n + '_') : null"
@@ -33,7 +35,7 @@
                 :aria-current="n-1 === index ? 'true' : 'false'"
                 :aria-posinset="n"
                 :aria-setsize="slides.length"
-                :aria-label="labelGoto + ' ' + n"
+                :aria-label="labelGotoSlide + ' ' + n"
                 :aria-describedby="slides[n-1].id || null"
                 :aria-controls="id ? (id + '__BV_inner_') : null"
                 @click="index=n-1"
@@ -44,7 +46,7 @@
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner"
-             role="listbox"
+             role="list"
             :id="id ? (id + '__BV_inner_') : null"
         >
             <slot></slot>
@@ -110,9 +112,13 @@
                 type: String,
                 default: 'Next Slide'
             },
-            labelGoto: {
+            labelGotoSlide: {
                 type: String,
                 default: 'Goto Slide'
+            },
+            labelIndicators: {
+                type: String,
+                default: 'Select a slide to disaplay'
             },
             interval: {
                 type: Number,
@@ -158,6 +164,9 @@
                     return;
                 }
                 clearInterval(this._intervalId);
+                this._intervalId = null;
+                // Make current slide focusable for screen readers
+                this.slides[this.index].tabIndex = 0;
             },
 
             // Start auto rotate slides
@@ -165,6 +174,9 @@
                 if (this.interval === 0 || typeof this.interval === 'undefined') {
                     return;
                 }
+                this.slides.forEach(slide => {
+                    slide.tabIndex = -1;
+                });
                 this._intervalId = setInterval(() => {
                     this.next();
                 }, this.interval);
@@ -220,12 +232,14 @@
                 slide.setAttribute('aria-current', idx === 0 ? 'true' : 'false');
                 slide.setAttribute('aria-posinset', String(n));
                 slide.setAttribute('aria-setsize', String(this.slides.length));
+                slide.tabIndex = -1;
                 if (this.id) {
                     slide.setAttribute('aria-controlledby', this.id + '__BV_indicator_' + n + '_');
                 }
             });
 
             // Auto rotate slides
+            this._intervalId = null;
             this.start();
         },
         watch: {
@@ -269,8 +283,21 @@
 
                     currentSlide.classList.remove('active');
                     currentSlide.setAttribute('aria-current', 'false');
+                    currentSlide.setAttribute('aria-hidden', 'true');
+                    currentSlide.tabIndex = -1;
+
                     nextSlide.classList.add('active');
                     nextSlide.setAttribute('aria-current', 'true');
+                    currentSlide.setAttribute('aria-hidden', 'false');
+                    currentSlide.tabIndex = -1;
+
+                    if (!this._intervalId) {
+                        currentSlide.tabIndex = 0;
+                        // focus the slide for screen readers if not in play mode
+                        this.$nextTick(() => {
+                            currentSlide.focus();
+                        });
+                    }
 
                     currentSlide.classList.remove(direction.current);
                     nextSlide.classList.remove(direction.next, direction.overlay);
