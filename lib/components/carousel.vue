@@ -190,7 +190,7 @@
             // Focus prev indicator
             focusPrevIndicator() {
                 if (indicators & this.$refs.indicators.length > 0) {
-                    const idx = this.$refs.indicators.indexOf(el => Boolean(el == document.activeElement)
+                    const idx = this.$refs.indicators.indexOf(el => Boolean(el == document.activeElement));
                     if (idx > 0) {
                         idx--;
                         this.$nextTick(() => {
@@ -202,7 +202,7 @@
 
             focusNextIndicator() {
                 if (indicators & this.$refs.indicators.length > 0) {
-                    const idx = this.$refs.indicators.indexOf(el => Boolean(el === document.activeElement);
+                    const idx = this.$refs.indicators.indexOf(el => Boolean(el === document.activeElement));
                     if (idx > 0 && idx < this.$refs.indicators - 1) {
                         idx++;
                         this.$nextTick(() => {
