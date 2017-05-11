@@ -23,7 +23,7 @@
                 <li class="nav-item" v-for="(tab, index) in tabs" role="presentation">
                     <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
                        :href="tab.href"
-                       :role="tab"
+                       role="tab"
                        :aria-selected="tab.localActive ? 'true' : 'false'"
                        :aria-controls="tab.id || null"
                        :id="tab.controlledBy || null"
