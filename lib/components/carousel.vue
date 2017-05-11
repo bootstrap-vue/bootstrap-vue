@@ -192,9 +192,8 @@
                 if (indicators & this.$refs.indicators.length > 0) {
                     const idx = this.$refs.indicators.indexOf(el => Boolean(el == document.activeElement));
                     if (idx > 0) {
-                        idx--;
                         this.$nextTick(() => {
-                            this.$refs.indicators[idx].focus();
+                            this.$refs.indicators[idx - 1].focus();
                         });
                     }
                 }
@@ -204,9 +203,8 @@
                 if (indicators & this.$refs.indicators.length > 0) {
                     const idx = this.$refs.indicators.indexOf(el => Boolean(el === document.activeElement));
                     if (idx > 0 && idx < this.$refs.indicators - 1) {
-                        idx++;
                         this.$nextTick(() => {
-                            this.$refs.indicators[idx].focus();
+                            this.$refs.indicators[idx + 1].focus();
                         });
                     }
                 }
