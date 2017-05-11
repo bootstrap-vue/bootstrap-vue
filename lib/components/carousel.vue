@@ -18,7 +18,7 @@
             :aria-hidden="indicators ? 'false' : 'true'"
             :aria-owns="indictors && id ? (id + '__BV_inner_') : null"
             :aria-activedescendant="slides[index].id || null"
-            :tabindex="indicators ? '0' : '-1"
+            :tabindex="indicators ? '0' : '-1'"
             @focusin.self="focusActiveIndicator"
             @keydown.left.stop.prevent="focusPrevIndicator"
             @keydown.up.stop.prevent="focusPrevIndicator"
