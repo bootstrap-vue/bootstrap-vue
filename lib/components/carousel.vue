@@ -220,7 +220,7 @@
             this.slides[0].classList.add('active');
             this.slides.forEach((slide, idx) => {
                 const n = idx + 1;
-                slide.setAttribute('aria-current', idx === 0 ? 'true', 'flase');
+                slide.setAttribute('aria-current', idx === 0 ? 'true' : 'false');
                 slide.setAttribute('aria-posinset', String(n));
                 slide.setAttribute('aria-setsize', String(this.slides.length));
                 if (this.id) {
