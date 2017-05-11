@@ -240,6 +240,11 @@
                 }
             },
             focusFirst() {
+                // If activeElement is child of content, no need to change focus
+                if (document.activeElement && this.$refs.content.contains(document.activeElement)) {
+                    return;
+                }
+
                 // Focus the modal's first focusable item, searching footer, then body, then header, else the modal
                 let el;
                 if (this.$refs.footer) {
