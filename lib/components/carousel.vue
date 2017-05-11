@@ -122,7 +122,7 @@
             },
             labelIndicators: {
                 type: String,
-                default: 'Select a slide to disaplay'
+                default: 'Select a slide to display'
             },
             interval: {
                 type: Number,
