@@ -170,17 +170,17 @@
                     this.next();
                 }, this.interval);
             },
-            
+
             // Re-Start auto rotate slides when focus leaves the carousel
             restart(e) {
                 if (!e.relatedTarget || !this.$el.contains(e.relatedTarget)) {
                     this.start();
                 }
             },
-            
+
             // Focus first indicator
             focusActiveIndicator() {
-                if (indicators & this.$refs.indicators.length > 0) {
+                if (this.indicators & this.$refs.indicators.length > 0) {
                     thjis.$nextTick(() => {
                         this.$refs.indicators[this.index].focus();
                     });
@@ -189,8 +189,8 @@
 
             // Focus prev indicator
             focusPrevIndicator() {
-                if (indicators & this.$refs.indicators.length > 0) {
-                    const idx = this.$refs.indicators.indexOf(el => Boolean(el == document.activeElement));
+                if (this.indicators & this.$refs.indicators.length > 0) {
+                    const idx = this.$refs.indicators.indexOf(el => Boolean(el === document.activeElement));
                     if (idx > 0) {
                         this.$nextTick(() => {
                             this.$refs.indicators[idx - 1].focus();
@@ -222,9 +222,9 @@
                 slide.setAttribute('aria-posinset', String(n));
                 slide.setAttribute('aria-setsize', String(this.slides.length));
                 if (this.id) {
-                    slide.setAttribute('aria-controlledby', id + '__BV_indicator_' + n + '_');
+                    slide.setAttribute('aria-controlledby', this.id + '__BV_indicator_' + n + '_');
                 }
-            })
+            });
 
             // Auto rotate slides
             this.start();
@@ -269,9 +269,9 @@
                     this.$emit('slide', val);
 
                     currentSlide.classList.remove('active');
-                    currentSlide.setAttribute('aria-current','false');
+                    currentSlide.setAttribute('aria-current', 'false');
                     nextSlide.classList.add('active');
-                    nextSlide.setAttribute('aria-current','true');
+                    nextSlide.setAttribute('aria-current', 'true');
 
                     currentSlide.classList.remove(direction.current);
                     nextSlide.classList.remove(direction.next, direction.overlay);
