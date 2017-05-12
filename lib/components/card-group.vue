@@ -1,7 +1,7 @@
 <template>
     <component :is="tag" :class="['card-' + type]">
         <slot></slot>
-    </div>
+    </component>
 </template>
 
 <script>
