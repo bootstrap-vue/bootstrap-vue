@@ -21,8 +21,8 @@
         },
         props: {
             tag: {
-               type: String,
-               default: 'div'
+                type: String,
+                default: 'div'
             },
             deck: {
                 type: Boolean,
