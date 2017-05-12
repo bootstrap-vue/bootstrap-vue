@@ -1,5 +1,5 @@
 <template>
-    <div :class="['card',cardVariant,cardAlign,cardInverse]">
+    <component :is="tag" :class="['card',cardVariant,cardAlign,cardInverse]">
         <!-- Card Image Slot-->
         <slot name="img" ref="img">
             <img v-if="img" :src="img" :alt="imgAlt" class="card-img">
@@ -73,6 +73,10 @@
                 type: String,
                 default: null
             },
+            tag: {
+                type: String,
+                default: 'div'
+            }
 
             // Header
             header: {
