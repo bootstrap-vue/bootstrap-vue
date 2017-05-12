@@ -1,5 +1,5 @@
 <template>
-    <component :is="tag" class="tabs">
+    <component :is="tag" :id="id || null" class="tabs">
         <div v-if="bottom" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
