@@ -1,6 +1,6 @@
 <template>
     <transition @enter="enter" @before-leave="beforeLeave" mode="out-in">
-        <div role="tabpanel"
+        <component :is="tag" role="tabpanel"
              :class="['tab-pane', {show, fade, disabled, active: localActive}]"
              :aria-hidden="localActive ? 'false' : 'true'"
              :aria-expanded="localActive ? 'true' : 'false'"
@@ -9,7 +9,7 @@
              v-show="localActive || lazy"
              ref="panel">
              <slot></slot>
-        </div>
+        </component>
     </transition>
 </template>
 
@@ -40,6 +40,10 @@
             id: {
                 type: String,
                 default: ''
+            },
+            tag: {
+                type: String,
+                default: 'div'
             },
             buttonId: {
                 type: String,
