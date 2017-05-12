@@ -1,5 +1,5 @@
 <template>
-    <div class="tabs">
+    <component :is="tag" :id="id || null" class="tabs">
         <div v-if="bottom" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
@@ -48,7 +48,7 @@
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
-    </div>
+    </component>
 </template>
 
 <script>
@@ -65,6 +65,10 @@
             id: {
                 type: String,
                 default: ''
+            },
+            tag: {
+                type: String,
+                default: 'div'
             },
             noFade: {
                 type: Boolean,

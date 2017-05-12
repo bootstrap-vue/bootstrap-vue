@@ -1,7 +1,7 @@
 <template>
-    <div :class="['card-' + type]">
+    <component :is="tag" :class="['card-' + type]">
         <slot></slot>
-    </div>
+    </component>
 </template>
 
 <script>
@@ -20,6 +20,10 @@
             }
         },
         props: {
+            tag: {
+                type: String,
+                default: 'div'
+            },
             deck: {
                 type: Boolean,
                 default: false
