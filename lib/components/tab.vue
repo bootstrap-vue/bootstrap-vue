@@ -1,13 +1,16 @@
 <template>
     <transition @enter="enter" @before-leave="beforeLeave" mode="out-in">
-        <component :is="tag" role="tabpanel"
-             :class="['tab-pane', {show, fade, disabled, active: localActive}]"
-             :aria-hidden="localActive ? 'false' : 'true'"
-             :aria-expanded="localActive ? 'true' : 'false'"
-             :aria-lablelledby="controlledBy || null"
-             v-if="localActive || !lazy"
-             v-show="localActive || lazy"
-             ref="panel">
+        <component :is="tag"
+                   :id="id || null"
+                   role="tabpanel"
+                   :class="['tab-pane', {show, fade, disabled, active: localActive}]"
+                   :aria-hidden="localActive ? 'false' : 'true'"
+                   :aria-expanded="localActive ? 'true' : 'false'"
+                   :aria-lablelledby="controlledBy || null"
+                   v-if="localActive || !lazy"
+                   v-show="localActive || lazy"
+                   ref="panel"
+        >
              <slot></slot>
         </component>
     </transition>
