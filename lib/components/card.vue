@@ -30,7 +30,7 @@
                 <div v-html="footer"></div>
             </slot>
         </component>
-    </div>
+    </component>
 </template>
 
 <script>
