@@ -15,6 +15,20 @@
                 <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
         </tr>
+        <tr v-if="showEmpty && items.length === 0"
+            :colspan="fields.length"
+        >
+            <slot name="empty">
+                <div v-html="emptyText"></div>
+            </slot>
+        </tr>
+        <tr v-if="showEmpty && items.length > 0 && _items.length === 0"
+            :colspan="fields.length"
+        >
+            <slot name="emptyfiltered">
+                <div v-html="emptyFilteredText"></div>
+            </slot>
+        </tr>
         </tbody>
     </table>
 </template>
@@ -91,6 +105,18 @@
             value: {
                 type: Array,
                 default: () => []
+            },
+            showEmpty: {
+                type: Boolean,
+                default: false
+            },
+            emptyText: {
+                type: String,
+                default: 'There are no records to show`
+            }
+            emptyFilteredText: {
+                type: String,
+                default: 'There are no records matching your request`
             }
         },
 
