@@ -76,7 +76,7 @@
             tag: {
                 type: String,
                 default: 'div'
-            }
+            },
 
             // Header
             header: {
