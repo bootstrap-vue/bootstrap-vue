@@ -45,6 +45,11 @@
             }
         },
         methods: {
+            setItemFocus(item) {
+                this.$nextTick(() => {
+                    item.focus();
+                });
+            },
             focusNext(e, prev) {
                 if (!this.keyNav) {
                     return;
@@ -64,7 +69,7 @@
                 if (index < 0) {
                     index = 0;
                 }
-                items[index].focus();
+                this.setItemFocus(items[index]);
             },
             focusFirst(e) {
                 if (!this.keyNav) {
@@ -74,7 +79,7 @@
                 e.stopPropagation();
                 const items = this.getItems();
                 if (items.length > 0) {
-                    items[0].focus();
+                    this.setItemFocus(items[0]);
                 }
             },
             focusLast(e) {
@@ -85,7 +90,7 @@
                 e.stopPropagation();
                 const items = this.getItems();
                 if (items.length > 0) {
-                    items[items.length - 1].focus();
+                    this.setItemFocus([items.length - 1]);
                 }
             },
             getItems() {

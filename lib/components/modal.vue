@@ -48,7 +48,7 @@
 
                         <footer class="modal-footer" ref="footer" v-if="!hideFooter">
                             <slot name="modal-footer">
-                                <b-btn variant="secondary" @click="hide(false)">{{closeTitle}}</b-btn>
+                                <b-btn variant="secondary" @click="hide(false)" v-if="!okOnly">{{closeTitle}}</b-btn>
                                 <b-btn variant="primary" @click="hide(true)">{{okTitle}}</b-btn>
                             </slot>
                         </footer>
@@ -161,6 +161,10 @@
                 type: Boolean,
                 default: false
             },
+            okOnly: {
+                type: Boolean,
+                default: false
+            },
             hideHeaderClose: {
                 type: Boolean,
                 default: false
@@ -236,6 +240,11 @@
                 }
             },
             focusFirst() {
+                // If activeElement is child of content, no need to change focus
+                if (document.activeElement && this.$refs.content.contains(document.activeElement)) {
+                    return;
+                }
+
                 // Focus the modal's first focusable item, searching footer, then body, then header, else the modal
                 let el;
                 if (this.$refs.footer) {
