@@ -112,11 +112,11 @@
             },
             emptyText: {
                 type: String,
-                default: 'There are no records to show`
+                default: 'There are no records to show'
             }
             emptyFilteredText: {
                 type: String,
-                default: 'There are no records matching your request`
+                default: 'There are no records matching your request'
             }
         },
 
