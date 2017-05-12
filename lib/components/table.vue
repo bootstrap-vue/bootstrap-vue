@@ -19,14 +19,14 @@
             :colspan="fields.length"
         >
             <slot name="empty">
-                <div v-html="emptyText"></div>
+                <div class="text-center" v-html="emptyText"></div>
             </slot>
         </tr>
         <tr v-if="showEmpty && items.length > 0 && _items.length === 0"
             :colspan="fields.length"
         >
             <slot name="emptyfiltered">
-                <div v-html="emptyFilteredText"></div>
+                <div class="text-center" v-html="emptyFilteredText"></div>
             </slot>
         </tr>
         </tbody>
@@ -113,7 +113,7 @@
             emptyText: {
                 type: String,
                 default: 'There are no records to show'
-            }
+            },
             emptyFilteredText: {
                 type: String,
                 default: 'There are no records matching your request'
