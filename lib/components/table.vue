@@ -41,12 +41,12 @@
                 <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
         </tr>
-        <tr v-if="showEmpty && items.length === 0" :colspan="fields.length" role="row">
+        <tr v-if="showEmpty && items.length === 0" :colspan="Object.keys(fields).length" role="row">
             <slot name="empty">
                 <div class="text-center" v-html="emptyText"></div>
             </slot>
         </tr>
-        <tr v-else-if="showEmpty && _items.length === 0" :colspan="fields.length" role="row">
+        <tr v-else-if="showEmpty && _items.length === 0" :colspan="Object.keys(fields).length" role="row">
             <slot name="emptyfiltered">
                 <div class="text-center" v-html="emptyFilteredText"></div>
             </slot>
