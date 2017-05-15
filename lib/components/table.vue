@@ -1,30 +1,52 @@
 <template>
-    <table :class="['table',striped?'table-striped':'',hover?'table-hover':'']">
-        <thead>
-        <tr>
-            <th @click="headClick(field,key)"
+    <table :id="id || null"
+           role="grid"
+           :class="tableClass"
+    >
+        <thead :class="headVaraiant ? ('thead-' + headVariant) : ''">
+        <tr role="row">
+            <th v-for="field,key in fields"
+                @click="headClick(field,key)"
+                @keydown.enter="headClick(field,key)"
+                @keydown.space.prevent="headClick(field,key)"
                 :class="[field.sortable?'sorting':null,sortBy===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class?field.class:null]"
-                v-for="field,key in fields"
+                :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
+                :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
+                :tabindex="field.sortable?'0':null"
                 v-html="field.label"
             ></th>
         </tr>
         </thead>
+        <tfoot v-if="footClone" :class="footVaraiant ? ('thead-' + footVariant) : ''">
+        <tr role="row">
+            <th v-for="field,key in fields"
+                @click="headClick(field,key)"
+                @keydown.enter="headClick(field,key)"
+                @keydown.space.prevent="headClick(field,key)"
+                :class="[field.sortable?'sorting':null,sortBy===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class?field.class:null]"
+                :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
+                :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
+                :tabindex="field.sortable?'0':null"
+                v-html="field.label"
+            ></th>
+        </tr>
+        </tfoot>
         <tbody>
-        <tr v-for="(item,index) in _items" :key="items_key" :class="[item.state?'table-'+item.state:null]" @click="rowClicked(item, index)">
+        <tr v-for="(item,index) in _items"
+            role="row"
+            :key="items_key" :class="[item.state?'table-'+item.state:null]"
+            @click="rowClicked(item, index)"
+        >
             <td v-for="(field,key) in fields" :class="[field.class?field.class:null]">
                 <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
         </tr>
-        <tr v-if="showEmpty && items.length === 0"
-            :colspan="fields.length"
-        >
+        <tr v-if="showEmpty && items.length === 0" :colspan="Object.keys(fields).length" role="row">
             <slot name="empty">
                 <div class="text-center" v-html="emptyText"></div>
             </slot>
         </tr>
-        <tr v-if="showEmpty && items.length > 0 && _items.length === 0"
-            :colspan="fields.length"
-        >
+        <tr v-else-if="showEmpty && _items.length === 0" :colspan="Object.keys(fields).length" role="row">
             <slot name="emptyfiltered">
                 <div class="text-center" v-html="emptyFilteredText"></div>
             </slot>
@@ -74,9 +96,33 @@
                 type: Boolean,
                 default: false
             },
+            bordered: {
+                type: Boolean,
+                default: false
+            },
+            inverse: {
+                type: Boolean,
+                default: false
+            },
             hover: {
                 type: Boolean,
                 default: false
+            },
+            small: {
+                type: Boolean,
+                default: false
+            },
+            responsive: {
+                type: Boolean,
+                default: false
+            },
+            headVariant: {
+                type: String,
+                default: ''
+            },
+            footVariant: {
+                type: String,
+                default: ''
             },
             perPage: {
                 type: Number,
@@ -106,6 +152,18 @@
                 type: Array,
                 default: () => []
             },
+            footClone: {
+                type: Boolean,
+                default: false
+            },
+            labelSortAsc: {
+                type: String,
+                default: 'Click to sort Ascending'
+            },
+            labelSortDesc: {
+                type: String,
+                default: 'Click to sort Descending'
+            },
             showEmpty: {
                 type: Boolean,
                 default: false
@@ -121,6 +179,17 @@
         },
 
         computed: {
+            tableClass() {
+                return [
+                    'table',
+                    striped ? 'table-striped' : '',
+                    hover ? 'table-hover' : '',
+                    inverse ? 'table-inverse' : '',
+                    bordered ? 'table-bordered' : '',
+                    responsive ? '.table-responsive' : '',
+                    small ? 'table-sm' : ''
+                ];
+            },
             _items() {
                 if (!this.items) {
                     return [];
@@ -196,12 +265,18 @@
     table thead > tr > th.sorting_asc, table thead > tr > th.sorting_desc, table thead > tr > th.sorting,
     table thead > tr > td.sorting_asc,
     table thead > tr > td.sorting_desc,
-    table thead > tr > td.sorting {
+    table thead > tr > td.sorting,
+    table tfoot > tr > th.sorting_asc, table tfoot > tr > th.sorting_desc, table tfoot > tr > th.sorting,
+    table tfoot > tr > td.sorting_asc,
+    table tfoot > tr > td.sorting_desc,
+    table tfoot > tr > td.sorting {
         padding-right: 30px;
     }
 
     table thead > tr > th:active,
-    table thead > tr > td:active {
+    table thead > tr > td:active,
+    table tfoot > tr > th:active,
+    table tfoot > tr > td:active {
         outline: none;
     }
 
@@ -209,7 +284,12 @@
     table thead .sorting_asc,
     table thead .sorting_desc,
     table thead .sorting_asc_disabled,
-    table thead .sorting_desc_disabled {
+    table thead .sorting_desc_disabled,
+    table tfoot .sorting,
+    table tfoot .sorting_asc,
+    table tfoot .sorting_desc,
+    table tfoot .sorting_asc_disabled,
+    table tfoot .sorting_desc_disabled {
         cursor: pointer;
         position: relative;
     }
@@ -222,7 +302,16 @@
     table thead .sorting_asc_disabled:before,
     table thead .sorting_asc_disabled:after,
     table thead .sorting_desc_disabled:before,
-    table thead .sorting_desc_disabled:after {
+    table thead .sorting_desc_disabled:after,
+    table tfoot .sorting:before, table thead .sorting:after,
+    table tfoot .sorting_asc:before,
+    table tfoot .sorting_asc:after,
+    table tfoot .sorting_desc:before,
+    table tfoot .sorting_desc:after,
+    table tfoot .sorting_asc_disabled:before,
+    table tfoot .sorting_asc_disabled:after,
+    table tfoot .sorting_desc_disabled:before,
+    table tfoot .sorting_desc_disabled:after {
         position: absolute;
         bottom: 0.9em;
         display: block;
@@ -233,7 +322,12 @@
     table thead .sorting_asc:before,
     table thead .sorting_desc:before,
     table thead .sorting_asc_disabled:before,
-    table thead .sorting_desc_disabled:before {
+    table thead .sorting_desc_disabled:before,
+    table tfoot .sorting:before,
+    table tfoot .sorting_asc:before,
+    table tfoot .sorting_desc:before,
+    table tfoot .sorting_asc_disabled:before,
+    table tfoot .sorting_desc_disabled:before {
         right: 1em;
         content: "\2191";
     }
@@ -242,18 +336,27 @@
     table thead .sorting_asc:after,
     table thead .sorting_desc:after,
     table thead .sorting_asc_disabled:after,
-    table thead .sorting_desc_disabled:after {
+    table thead .sorting_desc_disabled:after,
+    table tfoot .sorting:after,
+    table tfoot .sorting_asc:after,
+    table tfoot .sorting_desc:after,
+    table tfoot .sorting_asc_disabled:after,
+    table tfoot .sorting_desc_disabled:after {
         right: 0.5em;
         content: "\2193";
     }
 
     table thead .sorting_asc:before,
-    table thead .sorting_desc:after {
+    table thead .sorting_desc:after,
+    table tfoot .sorting_asc:before,
+    table tfoot .sorting_desc:after {
         opacity: 1;
     }
 
     table thead .sorting_asc_disabled:before,
-    table thead .sorting_desc_disabled:after {
+    table thead .sorting_desc_disabled:after,
+    table tfoot .sorting_asc_disabled:before,
+    table tfoot .sorting_desc_disabled:after {
         opacity: 0;
     }
 </style>
