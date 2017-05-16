@@ -450,6 +450,13 @@
             this.normalizedTriggers.forEach(item => this.removeListener(item));
             clearTimeout(this._timeout);
             this.destroyTether();
+        },
+
+        destroyed() {
+            // Tether is moving the popover element outside of Vue's control and leaking dom nodes
+            if (this._popover.parentElement === document.body) {
+                document.body.removeChild(this._popover);
+            }
         }
     };
 
