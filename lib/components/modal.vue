@@ -96,27 +96,10 @@
                 return_focus: this.returnFocus || null
             };
         },
-        model: {
-            prop: 'visible',
-            event: 'change'
-        },
         computed: {
             body() {
                 if (typeof document !== 'undefined') {
                     return document.querySelector('body');
-                }
-            }
-        },
-        watch: {
-            visible(new_val, old_val) {
-                if (new_val === old_val) {
-                    return;
-                }
-
-                if (new_val) {
-                    this.show();
-                } else {
-                    this.hide();
                 }
             }
         },
@@ -301,11 +284,6 @@
                     this.hide();
                 }
             });
-        },
-        mounted() {
-            if (this.visible === true) {
-                this.show();
-            }
         },
         destroyed() {
             // Make sure event listener is rmoved
