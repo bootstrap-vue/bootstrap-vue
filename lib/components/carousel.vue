@@ -231,14 +231,15 @@
 
             // Set first slide as active
             this.slides[0].classList.add('active');
+            const self = this;
             this.slides.forEach((slide, idx) => {
                 const n = idx + 1;
                 slide.setAttribute('aria-current', idx === 0 ? 'true' : 'false');
                 slide.setAttribute('aria-posinset', String(n));
-                slide.setAttribute('aria-setsize', String(this.slides.length));
+                slide.setAttribute('aria-setsize', String(self.slides.length));
                 slide.tabIndex = -1;
-                if (this.id) {
-                    slide.setAttribute('aria-controlledby', this.id + '__BV_indicator_' + n + '_');
+                if (self.id) {
+                    slide.setAttribute('aria-controlledby', self.id + '__BV_indicator_' + n + '_');
                 }
             });
 
