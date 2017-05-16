@@ -182,12 +182,12 @@
             tableClass() {
                 return [
                     'table',
-                    striped ? 'table-striped' : '',
-                    hover ? 'table-hover' : '',
-                    inverse ? 'table-inverse' : '',
-                    bordered ? 'table-bordered' : '',
-                    responsive ? '.table-responsive' : '',
-                    small ? 'table-sm' : ''
+                    this.striped ? 'table-striped' : '',
+                    this.hover ? 'table-hover' : '',
+                    this.inverse ? 'table-inverse' : '',
+                    this.bordered ? 'table-bordered' : '',
+                    this.responsive ? '.table-responsive' : '',
+                    this.small ? 'table-sm' : ''
                 ];
             },
             _items() {
