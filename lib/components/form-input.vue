@@ -65,7 +65,7 @@
                 this.$emit('keyup', e);
             },
             focus() {
-                this.$refs.input.focus()
+                this.$refs.input.focus();
             }
         },
         props: {
