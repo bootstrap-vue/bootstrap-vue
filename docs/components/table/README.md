@@ -9,7 +9,8 @@ Example format:
 ```js
 name: {
     label: 'Person Full name',
-    sortable: true
+    sortable: true,
+    invisible:true // Dynamically remove the field if needed from the table.
 },
 age: {
     label: 'Person age',
