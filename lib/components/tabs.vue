@@ -1,5 +1,5 @@
 <template>
-    <div class="tabs">
+    <component :is="tag" :id="id || null" class="tabs">
         <div v-if="bottom" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
@@ -11,8 +11,8 @@
                 tabindex="0"
                 :aria-setsize="tabs.length"
                 :aria-posinset="currentTab + 1"
-                @keydown.left="prevTab"
-                @keydown.up="prevTab"
+                @keydown.left="previousTab"
+                @keydown.up="previousTab"
                 @keydown.right="nextTab"
                 @keydown.down="nextTab"
                 @keydown.shift.left="setTab(-1,false,1)"
@@ -23,7 +23,7 @@
                 <li class="nav-item" v-for="(tab, index) in tabs" role="presentation">
                     <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
                        :href="tab.href"
-                       :role="tab"
+                       role="tab"
                        :aria-selected="tab.localActive ? 'true' : 'false'"
                        :aria-controls="tab.id || null"
                        :id="tab.controlledBy || null"
@@ -48,7 +48,7 @@
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
-    </div>
+    </component>
 </template>
 
 <script>
@@ -65,6 +65,10 @@
             id: {
                 type: String,
                 default: ''
+            },
+            tag: {
+                type: String,
+                default: 'div'
             },
             noFade: {
                 type: Boolean,
