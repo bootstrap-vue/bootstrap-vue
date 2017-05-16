@@ -6,7 +6,12 @@
             role="presentation"
         >
             <span v-if="item.active" v-html="item.text"></span>
-            <b-link v-else :to="item.to" :href="item.href || item.link" v-html="item.text"></b-link>
+            <b-link v-else
+                    :to="item.to"
+                    :href="item.href || item.link"
+                    v-html="item.text"
+                    @click="onclick"
+            ></b-link>
         </li>
         <slot></slot>
     </ol>
@@ -49,9 +54,6 @@
         methods: {
             onclick(item) {
                 this.$emit('click', item);
-                if (this.$router && this.to) {
-                    this.$router.push(this.to);
-                }
             }
         }
     };
