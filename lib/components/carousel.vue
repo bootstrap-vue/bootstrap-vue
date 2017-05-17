@@ -16,9 +16,9 @@
             class="carousel-indicators"
             v-show="indicators"
             :aria-hidden="indicators ? 'false' : 'true'"
-            :aria-label="indicators && labelIndicators ? labelIndicators : null"
-            :aria-owns="indictors && id ? (id + '__BV_inner_') : null"
-            :aria-activedescendant="slides[index].id || null"
+            :aria-label="(indicators && labelIndicators) ? labelIndicators : null"
+            :aria-owns="(indictors && id) ? (id + '__BV_inner_') : null"
+            :aria-activedescendant="(slides.length > 0 && slides[index].id) ? slides[index].id : null"
             :tabindex="indicators ? '0' : '-1'"
             @focusin.self="focusActiveIndicator"
             @keydown.left.stop.prevent="focusPrevIndicator"
@@ -47,7 +47,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner"
              role="list"
-            :id="id ? (id + '__BV_inner_') : null"
+             :id="id ? (id + '__BV_inner_') : null"
         >
             <slot></slot>
         </div>
@@ -227,18 +227,19 @@
         },
         mounted() {
             // Get all slides
-            this.slides = this.$el.querySelectorAll('.carousel-item');
+            this.slides = Array.prototype.slice.call(this.$el.querySelectorAll('.carousel-item'));
 
             // Set first slide as active
             this.slides[0].classList.add('active');
+            const self = this;
             this.slides.forEach((slide, idx) => {
                 const n = idx + 1;
                 slide.setAttribute('aria-current', idx === 0 ? 'true' : 'false');
                 slide.setAttribute('aria-posinset', String(n));
-                slide.setAttribute('aria-setsize', String(this.slides.length));
+                slide.setAttribute('aria-setsize', String(self.slides.length));
                 slide.tabIndex = -1;
-                if (this.id) {
-                    slide.setAttribute('aria-controlledby', this.id + '__BV_indicator_' + n + '_');
+                if (self.id) {
+                    slide.setAttribute('aria-controlledby', self.id + '__BV_indicator_' + n + '_');
                 }
             });
 
