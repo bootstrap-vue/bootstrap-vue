@@ -23,6 +23,7 @@
              @keydown.tab="onTab"
              @keydown.up="focusNext($event,true)"
              @keydown.down="focusNext($event,false)"
+             @mouseover="focusHovered($event)"
         >
             <slot></slot>
         </div>

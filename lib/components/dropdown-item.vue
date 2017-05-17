@@ -1,5 +1,6 @@
 <template>
     <b-link class="dropdown-item"
+            role="menuitem"
             :active="active"
             :disabled="disabled"
             :href="href"
