@@ -16,8 +16,8 @@
             class="carousel-indicators"
             v-show="indicators"
             :aria-hidden="indicators ? 'false' : 'true'"
-            :aria-label="indicators && labelIndicators ? labelIndicators : null"
-            :aria-owns="indictors && id ? (id + '__BV_inner_') : null"
+            :aria-label="(indicators && labelIndicators) ? labelIndicators : null"
+            :aria-owns="(indictors && id) ? (id + '__BV_inner_') : null"
             :aria-activedescendant="(slides.length > 0 && slides[index].id) ? slides[index].id : null"
             :tabindex="indicators ? '0' : '-1'"
             @focusin.self="focusActiveIndicator"
@@ -47,7 +47,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner"
              role="list"
-            :id="id ? (id + '__BV_inner_') : null"
+             :id="id ? (id + '__BV_inner_') : null"
         >
             <slot></slot>
         </div>
