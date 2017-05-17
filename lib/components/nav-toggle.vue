@@ -2,9 +2,9 @@
     <button :class="classObject"
             type="button"
             :aria-label="label"
-            @click="onclick"
             :aria-controls="target.id ? target.id : target"
-            :aria-explanded="toggleState"
+            :aria-expanded="toggleState ? 'true' : 'false'"
+            @click="onclick"
     >
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -50,7 +50,7 @@ export default {
     },
     created() {
         this.$root.$on('collapse::toggle::state', (target, state) => {
-            if (target === this.target) {
+            if (target === this.target || target === this.target.id) {
                 this.toggleState = state;
             }
         });
