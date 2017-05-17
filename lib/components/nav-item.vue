@@ -12,6 +12,7 @@
                 :active-class="activeClass"
                 :exact-active-class="exactActiveClass"
                 :event="event"
+                @click="$emit('click')"
         >
             <slot></slot>
         </b-link>
