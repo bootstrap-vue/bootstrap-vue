@@ -35,7 +35,7 @@
     "bootstrap": "^4.0.0-alpha.6",
     "tether": "latest",
     "uglify-js-harmony": "^2.7.5",
-    "vue": "^2.2.6"
+    "vue": "^2.3.0"
   },
   "devDependencies": {
     "clean-css": "^4.0.12",
