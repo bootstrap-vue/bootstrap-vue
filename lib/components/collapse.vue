@@ -6,7 +6,7 @@
             @after-leave="clearHeight"
             name="collapse"
     >
-        <div :id="id || null" :class="classObject" v-show="show" :aria-expanded="show ? 'true' : 'false'">
+        <div :id="id || null" :class="classObject" v-show="show">
             <slot></slot>
         </div>
     </transition>
@@ -81,7 +81,7 @@
                 el.style.height = null;
             },
             emitState() {
-                this.$root.$emit('collapse::toggle::state', this.id, this.state);
+                this.$root.$emit('collapse::toggle::state', this.id, this.show);
             }
         },
         created() {
