@@ -22,8 +22,12 @@
     "url": "git+https://github.com/bootstrap-vue/bootstrap-vue.git"
   },
   "scripts": {
-    "build": "rollup -c build/rollup.config.js",
-    "watch": "rollup -c build/rollup.config.js --watch",
+    "build": "npm run build:core && npm run build:extra",
+    "build:core": "rollup -c build/rollup.config.js",
+    "build:extra": "rollup -c build/rollup.extra.config.js",
+    "watch": "npm run watch:core",
+    "watch:core": "rollup -c build/rollup.config.js --watch",
+    "watch:extra": "rollup -c build/rollup.extra.config.js --watch",
     "docs-dev": "nuxt dev build",
     "docs-gen": "nuxt generate build",
     "docs-deploy": "cd scripts && ./gh-pages",
