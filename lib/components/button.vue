@@ -3,6 +3,8 @@
             :is="componentType"
             :to="to"
             :href="href"
+            :rel="rel"
+            :target="target"
             @click="onclick"
             :disabled="disabled"
     >
@@ -67,6 +69,12 @@
                 type: [String, Object]
             },
             href: {
+                type: String
+            },
+            target: {
+                type: String
+            },
+            rel: {
                 type: String
             }
         },
