@@ -39,7 +39,6 @@
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "tether": "latest",
-    "uglify-js-harmony": "^2.7.5",
     "vue": "^2.2.6"
   },
   "devDependencies": {
@@ -65,7 +64,8 @@
     "rollup-plugin-uglify": "^1.0.2",
     "rollup-plugin-vue": "^2.3.1",
     "rollup-watch": "^3.2.2",
-    "xo": "^0.18.1"
+    "xo": "^0.18.1",
+    "uglify-js-harmony": "^2.7.5"
   },
   "jest": {
     "testRegex": "spec.js$",
