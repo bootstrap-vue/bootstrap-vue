@@ -15,11 +15,17 @@
                     this.variant ? `bg-${this.variant}` : null,
                     this.fixed ? `fixed-${this.fixed}` : null,
                     this.sticky ? 'sticky-top' : null,
-                    this.toggleable ? this.toggleClass : null
+                    this.toggleable ? this.toggleableClass : null
                 ];
             },
-            toggleClass() {
-                return ['navbar-toggleable' + this.toggleBreakpoint].join('-');
+            toggleableClass() {
+                let className = 'navbar-toggleable';
+
+                if (this.toggleBreakpoint) {
+                    className += `-${this.toggleBreakpoint}`;
+                }
+
+                return className;
             }
         },
         props: {
