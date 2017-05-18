@@ -66,7 +66,7 @@
                 type: String,
                 default: null
             },
-            target {
+            target: {
                 type: String,
                 default: null
             },
