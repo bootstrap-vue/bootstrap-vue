@@ -171,6 +171,10 @@
             },
             returnFocus: {
                 default: null
+            },
+            visible: {
+                type: Boolean,
+                default: false
             }
         },
         methods: {
