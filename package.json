@@ -87,7 +87,8 @@
       "vue"
     ],
     "ignores": [
-      "docs/nuxt/plugins/ga.js"
+      "docs/nuxt/plugins/ga.js",
+      "__tests__"
     ],
     "envs": [
       "node",
