@@ -31,9 +31,10 @@
     "docs-dev": "nuxt dev build",
     "docs-gen": "nuxt generate build",
     "docs-deploy": "cd scripts && ./gh-pages",
-    "lint": "xo",
     "lint-fix": "xo --fix",
-    "test": "yarn lint"
+    "test:lint": "xo",
+    "test:jest": "jest",
+    "test": "yarn test:lint && yarn test:jest"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
@@ -51,6 +52,8 @@
     "highlight-loader": "^0.7.2",
     "highlightjs": "^9.8.0",
     "html-loader": "^0.4.5",
+    "jest": "^20.0.3",
+    "jest-vue-preprocessor": "^0.2.0",
     "lodash": "latest",
     "markdown-loader": "^2.0.0",
     "marked": "^0.3.6",
@@ -63,6 +66,17 @@
     "rollup-plugin-vue": "^2.3.1",
     "rollup-watch": "^3.2.2",
     "xo": "^0.18.1"
+  },
+  "jest": {
+    "testRegex": "spec.js$",
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
+    }
   },
   "xo": {
     "space": 4,
