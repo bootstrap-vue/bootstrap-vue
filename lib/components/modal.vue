@@ -140,31 +140,31 @@
                 default: false
             },
             noCloseOnBackdrop: {
-                type: Boolean
+                type: Boolean,
                 default: false
             },
             noCloseOnEsc: {
-                type: Boolean
+                type: Boolean,
                 default: false
             },
             hideHeader: {
-                type: Boolean
+                type: Boolean,
                 default: false
             },
             hideFooter: {
-                type: Boolean
+                type: Boolean,
                 default: false
             },
             okOnly: {
-                type: Boolean
+                type: Boolean,
                 default: false
             },
             hideHeaderClose: {
-                type: Boolean
+                type: Boolean,
                 default: false
             },
             visible: {
-                type: Boolean
+                type: Boolean,
                 default: false
             },
             returnFocus: {
