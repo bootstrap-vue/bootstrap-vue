@@ -8,13 +8,13 @@
                           leave-active-class=""
                           leave-to-class="hidden"
         >
-            <div :class="['modal',{fade: fade, show: is_visible}]"
+            <div :class="['modal',{fade: !noFade, show: is_visible}]"
                  :id="id || null"
                  role="dialog"
                  ref="modal"
                  key="modal"
                  v-show="is_visible"
-                 @click.self="onClickOut()"
+                 @click="onClickOut()"
                  @keyup.esc="onEsc()"
             >
 
@@ -60,7 +60,7 @@
             </div>
 
             <div key="modal-backdrop"
-                 :class="['modal-backdrop',{fade: fade, show: is_visible}]"
+                 :class="['modal-backdrop',{fade: !noFade, show: is_visible}]"
                  v-if="is_visible"
             ></div>
         </transition-group>
@@ -135,9 +135,32 @@
                 type: String,
                 default: 'md'
             },
-            fade: {
-                type: Boolean,
-                default: false
+            noFade: {
+                type: Boolean
+            },
+            noCloseOnBackdrop: {
+                type: Boolean
+            },
+            noCloseOnEsc: {
+                type: Boolean
+            },
+            hideHeader: {
+                type: Boolean
+            },
+            hideFooter: {
+                type: Boolean
+            },
+            okOnly: {
+                type: Boolean
+            },
+            hideHeaderClose: {
+                type: Boolean
+            },
+            returnFocus: {
+                default: null
+            },
+            visible: {
+                type: Boolean
             },
             closeTitle: {
                 type: String,
@@ -146,37 +169,6 @@
             okTitle: {
                 type: String,
                 default: 'OK'
-            },
-            noCloseOnBackdrop: {
-                type: Boolean,
-                default: false
-            },
-            noCloseOnEsc: {
-                type: Boolean,
-                default: false
-            },
-            hideHeader: {
-                type: Boolean,
-                default: false
-            },
-            hideFooter: {
-                type: Boolean,
-                default: false
-            },
-            okOnly: {
-                type: Boolean,
-                default: false
-            },
-            hideHeaderClose: {
-                type: Boolean,
-                default: false
-            },
-            returnFocus: {
-                default: null
-            },
-            visible: {
-                type: Boolean,
-                default: false
             }
         },
         methods: {
