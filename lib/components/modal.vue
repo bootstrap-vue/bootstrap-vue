@@ -8,12 +8,14 @@
                           leave-active-class=""
                           leave-to-class="hidden"
         >
-            <div key="modal" :id="id"
-                 v-show="is_visible"
-                 :class="['modal',{fade: fade, show: is_visible}]"
+            <div :class="['modal',{fade: fade, show: is_visible}]"
+                 :id="id || null"
                  role="dialog"
-                 @click="onClickOut($event)"
-                 @keyup.esc="onEsc($event)"
+                 ref="modal"
+                 key="modal"
+                 v-show="is_visible"
+                 @click.self="onClickOut()"
+                 @keyup.esc="onEsc()"
             >
 
                 <div :class="['modal-dialog','modal-'+size]">
@@ -135,7 +137,7 @@
             },
             fade: {
                 type: Boolean,
-                default: true
+                default: false
             },
             closeTitle: {
                 type: String,
@@ -145,13 +147,13 @@
                 type: String,
                 default: 'OK'
             },
-            closeOnBackdrop: {
+            noCloseOnBackdrop: {
                 type: Boolean,
-                default: true
+                default: false
             },
-            closeOnEsc: {
+            noCloseOnEsc: {
                 type: Boolean,
-                default: true
+                default: false
             },
             hideHeader: {
                 type: Boolean,
@@ -233,13 +235,13 @@
             },
             onClickOut() {
                 // If backdrop clicked, hide modal
-                if (this.closeOnBackdrop) {
+                if (this.is_visible && !this.noCloseOnBackdrop) {
                     this.hide();
                 }
             },
             onEsc() {
                 // If ESC pressed, hide modal
-                if (this.is_visible && this.closeOnEsc) {
+                if (this.is_visible && !this.noCloseOnEsc) {
                     this.hide();
                 }
             },
