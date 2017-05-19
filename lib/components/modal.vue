@@ -136,31 +136,39 @@
                 default: 'md'
             },
             noFade: {
-                type: Boolean
+                type: Boolean,
+                default: false
             },
             noCloseOnBackdrop: {
                 type: Boolean
+                default: false
             },
             noCloseOnEsc: {
                 type: Boolean
+                default: false
             },
             hideHeader: {
                 type: Boolean
+                default: false
             },
             hideFooter: {
                 type: Boolean
+                default: false
             },
             okOnly: {
                 type: Boolean
+                default: false
             },
             hideHeaderClose: {
                 type: Boolean
-            },
-            returnFocus: {
-                default: null
+                default: false
             },
             visible: {
                 type: Boolean
+                default: false
+            },
+            returnFocus: {
+                default: null
             },
             closeTitle: {
                 type: String,
