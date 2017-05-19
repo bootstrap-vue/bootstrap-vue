@@ -242,7 +242,7 @@
             fieldClass(field) {
                 return [
                     field.sortable ? 'sorting' : '',
-                    (field.sortable && sortBy===key) ? 'sorting_' + (sortDesc ? 'desc' : 'asc') : '',
+                    (field.sortable && this.sortBy === key) ? 'sorting_' + (this.sortDesc ? 'desc' : 'asc') : '',
                     field.class ? field.class : '',
                     field.invisible ? 'invisible' : ''
                 ];
