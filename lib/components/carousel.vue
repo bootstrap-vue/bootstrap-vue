@@ -4,7 +4,6 @@
          :id="id || null"
          :style="{background,height}"
          :aria-busy="isSliding ? 'true' : 'false'"
-         :aria-activedescendant="(slides.length > 0 && slides[index].id) ? slides[index].id : null"
          @mouseenter="pause"
          @mouseleave="start"
          @focusin="pause"
@@ -55,7 +54,6 @@
             :aria-hidden="indicators ? 'false' : 'true'"
             :aria-label="(indicators && labelIndicators) ? labelIndicators : null"
             :aria-owns="(indicators && id) ? (id + '__BV_inner_') : null"
-            :aria-activedescendant="(slides.length > 0 && slides[index].id) ? slides[index].id : null"
         >
             <li v-for="n in slides.length"
                 role="button"
