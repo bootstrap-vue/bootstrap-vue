@@ -186,7 +186,7 @@
                     this.hover ? 'table-hover' : '',
                     this.inverse ? 'table-inverse' : '',
                     this.bordered ? 'table-bordered' : '',
-                    this.responsive ? '.table-responsive' : '',
+                    this.responsive ? 'table-responsive' : '',
                     this.small ? 'table-sm' : ''
                 ];
             },
@@ -294,7 +294,8 @@
         position: relative;
     }
 
-    table thead .sorting:before, table thead .sorting:after,
+    table thead .sorting:before,
+    table thead .sorting:after,
     table thead .sorting_asc:before,
     table thead .sorting_asc:after,
     table thead .sorting_desc:before,
@@ -303,7 +304,8 @@
     table thead .sorting_asc_disabled:after,
     table thead .sorting_desc_disabled:before,
     table thead .sorting_desc_disabled:after,
-    table tfoot .sorting:before, table thead .sorting:after,
+    table tfoot .sorting:before,
+    table tfoot .sorting:after,
     table tfoot .sorting_asc:before,
     table tfoot .sorting_asc:after,
     table tfoot .sorting_desc:before,
@@ -316,6 +318,29 @@
         bottom: 0.9em;
         display: block;
         opacity: 0.3;
+    }
+
+    table.table-sm thead .sorting:before,
+    table.table-sm thead .sorting:after,
+    table.table-sm thead .sorting_asc:before,
+    table.table-sm thead .sorting_asc:after,
+    table.table-sm thead .sorting_desc:before,
+    table.table-sm thead .sorting_desc:after,
+    table.table-sm thead .sorting_asc_disabled:before,
+    table.table-sm thead .sorting_asc_disabled:after,
+    table.table-sm thead .sorting_desc_disabled:before,
+    table.table-sm thead .sorting_desc_disabled:after,
+    table.table-sm tfoot .sorting:before,
+    table.table-sm tfoot .sorting:after,
+    table.table-sm tfoot .sorting_asc:before,
+    table.table-sm tfoot .sorting_asc:after,
+    table.table-sm tfoot .sorting_desc:before,
+    table.table-sm tfoot .sorting_desc:after,
+    table.table-sm tfoot .sorting_asc_disabled:before,
+    table.table-sm tfoot .sorting_asc_disabled:after,
+    table.table-sm tfoot .sorting_desc_disabled:before,
+    table.table-sm tfoot .sorting_desc_disabled:after {
+        bottom: 0.4em;
     }
 
     table thead .sorting:before,
