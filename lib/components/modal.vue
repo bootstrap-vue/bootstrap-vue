@@ -23,14 +23,14 @@
                          tabindex="-1"
                          role="document"
                          ref="content"
-                         :aria-labelledby="(hideHeader || !id) ? null : (id + '_modal_title')"
-                         :aria-describedby="id ? (id + '_modal_body') : null"
+                         :aria-labelledby="(hideHeader || !id) ? null : (id + '__BV_title_')"
+                         :aria-describedby="id ? (id + '__BV_body_') : null"
                          @click.stop
                     >
 
                         <header class="modal-header" ref="header" v-if="!hideHeader">
                             <slot name="modal-header">
-                                <h5 class="modal-title" :id="id ? (id + '_modal_title') : null">
+                                <h5 class="modal-title" :id="id ? (id + '__BV_title_') : null">
                                     <slot name="modal-title">{{title}}</slot>
                                 </h5>
                                 <button type="button"
@@ -44,7 +44,7 @@
                             </slot>
                         </header>
 
-                        <div class="modal-body" ref="body" :id="id ? (id + '_modal_body') : null">
+                        <div class="modal-body" ref="body" :id="id ? (id + '__BV_body_') : null">
                             <slot></slot>
                         </div>
 
