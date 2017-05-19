@@ -1,5 +1,5 @@
 <template>
-    <component :is="myTag" :class="classObject" ref="item" :to="to" :href="href">
+    <component :is="myTag" :class="classObject" ref="item" :to="to" :href="href" :target="target" :rel="rel">
         <slot></slot>
     </component>
 </template>
@@ -63,6 +63,14 @@
                 default: null
             },
             href: {
+                type: String,
+                default: null
+            },
+            target: {
+                type: String,
+                default: null
+            },
+            rel: {
                 type: String,
                 default: null
             }

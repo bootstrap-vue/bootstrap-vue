@@ -5,6 +5,8 @@
                 :disabled="disabled"
                 :href="href"
                 :to="to"
+                :target="target"
+                :rel="rel"
                 :tag="tag"
                 :exact="exact"
                 :append="append"

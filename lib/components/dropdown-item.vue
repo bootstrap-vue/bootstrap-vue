@@ -12,6 +12,8 @@
             :active-class="activeClass"
             :exact-active-class="exactActiveClass"
             :event="event"
+            :target="target"
+            :rel="rel"
             @click="$emit('click')"
     >
         <slot></slot>

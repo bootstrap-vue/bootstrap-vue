@@ -23,6 +23,8 @@
        :disabled="disabled"
        :aria-disabled="disabled ? 'true' : 'false'"
        :href="_href"
+       :target="target || null"
+       :rel="computedRel"
        :class="linkClassObject"
        @click="linkClick"
     >
