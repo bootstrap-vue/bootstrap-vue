@@ -17,7 +17,7 @@ age: {
     sortable: false
 }
 ```
-Supported field properties:
+**Supported field properties:**
 
 | Property | Type | Description
 | ---------| ---- | -----------
@@ -41,7 +41,7 @@ Items are real table data records. Example format:
 ]
 ```
 
-Supported item record modifier properties (make sure your field keys do not conflict with these names):
+**Supported item record modifier properties (make sure your field keys do not conflict with these names):**
 
 | Property | Type | Description
 | ---------| ---- | -----------
