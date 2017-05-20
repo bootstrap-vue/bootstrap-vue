@@ -120,6 +120,6 @@ The slot's scope variable (`data` in the above example) will have the following 
 
 | Property | Type | Description
 | -------- | ---- | -----------
-| value | Any | The value for this key in the record (`null` if a virtual column)
+| value | Any | The value for this key in the record (`null` or `undefined` if a virtual column)
 | item | Object | The entire record (i.e. `items[index]`) for this row
 | index | Number | The row number (zero based)
