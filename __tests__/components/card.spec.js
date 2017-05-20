@@ -22,20 +22,21 @@ describe('card', async() => {
         expect($refs.img_overlay_card.$el.textContent.trim()).toContain('Overlay cards are cute!')
     });
 
-    it('should contain card block', async() => {
+    it('all examples should contain card block', async() => {
         const { app: { $refs, $el } } = window;
 
         const refs = ['simple_card', 'standard_card', 'img_card', 'img_overlay_card']
 
         refs.forEach((ref) => {
             const childNodes = [...$refs[ref].$el.childNodes]
-            const cardBlock = childNodes.find(el => el.classList && el.classList.contains('card-block'))
+            const cardBlock = childNodes.find(el => el.classList && el.classList.contains(
+                'card-block'))
 
             expect(cardBlock).toBeDefined()
         })
     });
 
-    it('should display card header', async() => {
+    it('standard_card should display card header', async() => {
         const { app: { $refs, $el } } = window;
 
         const childNodes = [...$refs.standard_card.$el.childNodes]
@@ -46,7 +47,7 @@ describe('card', async() => {
         expect(headerEl.textContent).toContain(headerText)
     });
 
-    it('should display card footer', async() => {
+    it('standard_card should display card footer', async() => {
         const { app: { $refs, $el } } = window;
 
         const childNodes = [...$refs.standard_card.$el.childNodes]
@@ -55,5 +56,21 @@ describe('card', async() => {
 
         expect(footerEl).toBeDefined()
         expect(footerEl.textContent).toContain(footerText)
+    });
+
+    it('should contain <img> with matching src', async() => {
+        const { app: { $refs, $el } } = window;
+
+        const vmsWithImg = ['img_card', 'img_overlay_card']
+
+        vmsWithImg.forEach((vmRef) => {
+            const vm = $refs[vmRef]
+            const src = vm.img
+            const childNodes = [...vm.$el.childNodes]
+            const imgEl = childNodes.find(el => el.tagName && el.tagName === 'IMG')
+
+            expect(imgEl).toBeDefined()
+            expect(imgEl.src).toEqual(src)
+        })
     });
 });
