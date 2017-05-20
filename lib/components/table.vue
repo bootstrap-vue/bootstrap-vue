@@ -3,13 +3,13 @@
            role="grid"
            :class="tableClass"
     >
-        <thead :class="headVaraiant ? ('thead-' + headVariant) : ''">
+        <thead :class="headVariant ? ('thead-' + headVariant) : ''">
         <tr role="row">
             <th v-for="field,key in fields"
                 @click="headClick(field,key)"
                 @keydown.enter="headClick(field,key)"
                 @keydown.space.prevent="headClick(field,key)"
-                :class="[field.sortable?'sorting':null,sortBy===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class?field.class:null,field.invisible?'invisible':null]"
+                :class="fieldClass(field)"
                 :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
                 :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                 :tabindex="field.sortable?'0':null"
@@ -23,7 +23,7 @@
                 @click="headClick(field,key)"
                 @keydown.enter="headClick(field,key)"
                 @keydown.space.prevent="headClick(field,key)"
-                :class="[field.sortable?'sorting':null,sortBy===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class?field.class:null,field.invisible?'invisible':null]"
+                :class="fieldClass(field)"
                 :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
                 :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                 :tabindex="field.sortable?'0':null"
@@ -83,6 +83,10 @@
             };
         },
         props: {
+            id: {
+                type: String,
+                default: ''
+            },
             items: {
                 type: Array,
                 default: () => []
@@ -186,7 +190,7 @@
                     this.hover ? 'table-hover' : '',
                     this.inverse ? 'table-inverse' : '',
                     this.bordered ? 'table-bordered' : '',
-                    this.responsive ? '.table-responsive' : '',
+                    this.responsive ? 'table-responsive' : '',
                     this.small ? 'table-sm' : ''
                 ];
             },
@@ -239,6 +243,14 @@
             }
         },
         methods: {
+            fieldClass(field) {
+                return [
+                    field.sortable ? 'sorting' : '',
+                    (field.sortable && this.sortBy === key) ? 'sorting_' + (this.sortDesc ? 'desc' : 'asc') : '',
+                    field.class ? field.class : '',
+                    field.invisible ? 'invisible' : ''
+                ];
+            },
             rowClicked(item, index) {
                 this.$emit('row-clicked', item, index);
             },
@@ -262,101 +274,46 @@
 <style>
     /* https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.css */
 
-    table thead > tr > th.sorting_asc, table thead > tr > th.sorting_desc, table thead > tr > th.sorting,
-    table thead > tr > td.sorting_asc,
-    table thead > tr > td.sorting_desc,
-    table thead > tr > td.sorting,
-    table tfoot > tr > th.sorting_asc, table tfoot > tr > th.sorting_desc, table tfoot > tr > th.sorting,
-    table tfoot > tr > td.sorting_asc,
-    table tfoot > tr > td.sorting_desc,
-    table tfoot > tr > td.sorting {
+    table > thead > tr > .sorting,
+    table > tfoot > tr > .sorting {
         padding-right: 30px;
-    }
-
-    table thead > tr > th:active,
-    table thead > tr > td:active,
-    table tfoot > tr > th:active,
-    table tfoot > tr > td:active {
-        outline: none;
-    }
-
-    table thead .sorting,
-    table thead .sorting_asc,
-    table thead .sorting_desc,
-    table thead .sorting_asc_disabled,
-    table thead .sorting_desc_disabled,
-    table tfoot .sorting,
-    table tfoot .sorting_asc,
-    table tfoot .sorting_desc,
-    table tfoot .sorting_asc_disabled,
-    table tfoot .sorting_desc_disabled {
         cursor: pointer;
         position: relative;
     }
 
-    table thead .sorting:before, table thead .sorting:after,
-    table thead .sorting_asc:before,
-    table thead .sorting_asc:after,
-    table thead .sorting_desc:before,
-    table thead .sorting_desc:after,
-    table thead .sorting_asc_disabled:before,
-    table thead .sorting_asc_disabled:after,
-    table thead .sorting_desc_disabled:before,
-    table thead .sorting_desc_disabled:after,
-    table tfoot .sorting:before, table thead .sorting:after,
-    table tfoot .sorting_asc:before,
-    table tfoot .sorting_asc:after,
-    table tfoot .sorting_desc:before,
-    table tfoot .sorting_desc:after,
-    table tfoot .sorting_asc_disabled:before,
-    table tfoot .sorting_asc_disabled:after,
-    table tfoot .sorting_desc_disabled:before,
-    table tfoot .sorting_desc_disabled:after {
+    table thead > tr > .sorting:before,
+    table thead > tr > .sorting:after,
+    table tfoot > tr > .sorting:before,
+    table thead > tr > .sorting:after {
         position: absolute;
         bottom: 0.9em;
         display: block;
         opacity: 0.3;
     }
 
-    table thead .sorting:before,
-    table thead .sorting_asc:before,
-    table thead .sorting_desc:before,
-    table thead .sorting_asc_disabled:before,
-    table thead .sorting_desc_disabled:before,
-    table tfoot .sorting:before,
-    table tfoot .sorting_asc:before,
-    table tfoot .sorting_desc:before,
-    table tfoot .sorting_asc_disabled:before,
-    table tfoot .sorting_desc_disabled:before {
+    table.table-sm > thead > tr > .sorting:before,
+    table.table-sm > thead > tr > .sorting:after,
+    table.table-sm > tfoot > tr > .sorting:before,
+    table.table-sm > thead > tr > .sorting:after {
+        bottom: 0.4em;
+    }
+
+    table > thead > tr > .sorting:before,
+    table > tfoot > tr > .sorting:before {
         right: 1em;
         content: "\2191";
     }
 
-    table thead .sorting:after,
-    table thead .sorting_asc:after,
-    table thead .sorting_desc:after,
-    table thead .sorting_asc_disabled:after,
-    table thead .sorting_desc_disabled:after,
-    table tfoot .sorting:after,
-    table tfoot .sorting_asc:after,
-    table tfoot .sorting_desc:after,
-    table tfoot .sorting_asc_disabled:after,
-    table tfoot .sorting_desc_disabled:after {
+    table > thead > tr > .sorting:after,
+    table > tfoot > tr > .sorting:after {
         right: 0.5em;
         content: "\2193";
     }
 
-    table thead .sorting_asc:before,
-    table thead .sorting_desc:after,
-    table tfoot .sorting_asc:before,
-    table tfoot .sorting_desc:after {
+    table > thead > tr > .sorting_asc:before,
+    table > thead > tr > .sorting_desc:after,
+    table > tfoot > tr > .sorting_asc:before,
+    table > tfoot > tr > .sorting_desc:after {
         opacity: 1;
-    }
-
-    table thead .sorting_asc_disabled:before,
-    table thead .sorting_desc_disabled:after,
-    table tfoot .sorting_asc_disabled:before,
-    table tfoot .sorting_desc_disabled:after {
-        opacity: 0;
     }
 </style>
