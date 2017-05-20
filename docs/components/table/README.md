@@ -104,7 +104,7 @@ If you want to add an extra field which does not exits on records, just add it t
 </template>
 <template slot="nameage" scope="data">
     <!-- A Virtul composite column -->
-    {{data.item.first}} is {{data.item.age}} years old
+    {{data.item.name.first}} is {{data.item.age}} years old
 </template>
 ```
 
