@@ -103,7 +103,7 @@ If you want to add an extra field which does not exits on records, just add it t
     {{data.value.first}} {{data.value.last}}
 </template>
 <template slot="nameage" scope="data">
-    <!-- A Virtul column -->
+    <!-- A Virtul composite column -->
     {{data.item.first}} is {{data.item.age}} years old
 </template>
 ```
