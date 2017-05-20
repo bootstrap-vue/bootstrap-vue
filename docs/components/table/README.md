@@ -7,14 +7,16 @@ Fields prop is used to display table columns.
 keys are used to extract real value from each raw.
 Example format:
 ```js
-name: {
-    label: 'Person Full name',
-    sortable: true,
-    invisible:true // Dynamically remove the field if needed from the table.
-},
-age: {
-    label: 'Person age',
-    sortable: false
+{
+    name: {
+        label: 'Person Full name',
+        sortable: true,
+        invisible:true // Dynamically remove the field if needed from the table.
+    },
+    age: {
+        label: 'Person age',
+        sortable: false
+    }
 }
 ```
 **Supported field properties:**
