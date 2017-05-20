@@ -53,7 +53,7 @@ Custom rendering for each field is possible using **scoped slots**.
 If you want to add an extra field which does not exits on records, just add it to `fields` array.  Example:
 
 ```js
- fields: [
+ fields: {
     index: {
         // A virtual column
         label: 'Index'
@@ -70,7 +70,7 @@ If you want to add an extra field which does not exits on records, just add it t
         // A virtual column
         label: 'First name and age'
     }
- ],
+ },
  items: [
     {
         name: {
