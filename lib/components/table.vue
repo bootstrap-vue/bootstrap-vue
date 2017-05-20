@@ -3,7 +3,7 @@
            role="grid"
            :class="tableClass"
     >
-        <thead :class="headVaraiant ? ('thead-' + headVariant) : ''">
+        <thead :class="headVariant ? ('thead-' + headVariant) : ''">
         <tr role="row">
             <th v-for="field,key in fields"
                 @click="headClick(field,key)"
@@ -83,6 +83,10 @@
             };
         },
         props: {
+            id: {
+                type: String,
+                default: ''
+            },
             items: {
                 type: Array,
                 default: () => []
