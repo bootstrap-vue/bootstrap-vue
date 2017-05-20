@@ -8,12 +8,14 @@
                           leave-active-class=""
                           leave-to-class="hidden"
         >
-            <div key="modal" :id="id"
-                 v-show="is_visible"
-                 :class="['modal',{fade: fade, show: is_visible}]"
+            <div :class="['modal',{fade: !noFade, show: is_visible}]"
+                 :id="id || null"
                  role="dialog"
-                 @click="onClickOut($event)"
-                 @keyup.esc="onEsc($event)"
+                 ref="modal"
+                 key="modal"
+                 v-show="is_visible"
+                 @click="onClickOut()"
+                 @keyup.esc="onEsc()"
             >
 
                 <div :class="['modal-dialog','modal-'+size]">
@@ -21,14 +23,14 @@
                          tabindex="-1"
                          role="document"
                          ref="content"
-                         :aria-labelledby="(hideHeader || !id) ? null : (id + '_modal_title')"
-                         :aria-describedby="id ? (id + '_modal_body') : null"
+                         :aria-labelledby="(hideHeader || !id) ? null : (id + '__BV_title_')"
+                         :aria-describedby="id ? (id + '__BV_body_') : null"
                          @click.stop
                     >
 
                         <header class="modal-header" ref="header" v-if="!hideHeader">
                             <slot name="modal-header">
-                                <h5 class="modal-title" :id="id ? (id + '_modal_title') : null">
+                                <h5 class="modal-title" :id="id ? (id + '__BV_title_') : null">
                                     <slot name="modal-title">{{title}}</slot>
                                 </h5>
                                 <button type="button"
@@ -42,7 +44,7 @@
                             </slot>
                         </header>
 
-                        <div class="modal-body" ref="body" :id="id ? (id + '_modal_body') : null">
+                        <div class="modal-body" ref="body" :id="id ? (id + '__BV_body_') : null">
                             <slot></slot>
                         </div>
 
@@ -58,7 +60,7 @@
             </div>
 
             <div key="modal-backdrop"
-                 :class="['modal-backdrop',{fade: fade, show: is_visible}]"
+                 :class="['modal-backdrop',{fade: !noFade, show: is_visible}]"
                  v-if="is_visible"
             ></div>
         </transition-group>
@@ -133,25 +135,17 @@
                 type: String,
                 default: 'md'
             },
-            fade: {
+            noFade: {
                 type: Boolean,
-                default: true
+                default: false
             },
-            closeTitle: {
-                type: String,
-                default: 'Close'
-            },
-            okTitle: {
-                type: String,
-                default: 'OK'
-            },
-            closeOnBackdrop: {
+            noCloseOnBackdrop: {
                 type: Boolean,
-                default: true
+                default: false
             },
-            closeOnEsc: {
+            noCloseOnEsc: {
                 type: Boolean,
-                default: true
+                default: false
             },
             hideHeader: {
                 type: Boolean,
@@ -169,12 +163,20 @@
                 type: Boolean,
                 default: false
             },
-            returnFocus: {
-                default: null
-            },
             visible: {
                 type: Boolean,
                 default: false
+            },
+            returnFocus: {
+                default: null
+            },
+            closeTitle: {
+                type: String,
+                default: 'Close'
+            },
+            okTitle: {
+                type: String,
+                default: 'OK'
             }
         },
         methods: {
@@ -233,13 +235,13 @@
             },
             onClickOut() {
                 // If backdrop clicked, hide modal
-                if (this.closeOnBackdrop) {
+                if (this.is_visible && !this.noCloseOnBackdrop) {
                     this.hide();
                 }
             },
             onEsc() {
                 // If ESC pressed, hide modal
-                if (this.is_visible && this.closeOnEsc) {
+                if (this.is_visible && !this.noCloseOnEsc) {
                     this.hide();
                 }
             },
