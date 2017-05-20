@@ -34,7 +34,6 @@ Items are real table data records. Example format:
 ```js
 [
     {
-        isActive: false,  // Adds special bootstrap styles
         state: 'success', // Displays record green 
         age: 27,
         name: 'Havij'
@@ -42,12 +41,11 @@ Items are real table data records. Example format:
 ]
 ```
 
-Supported item modifier props (make sure your field keys do not conflict with these names):
+Supported item record modifier properties (make sure your field keys do not conflict with these names):
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| lisActive | Boolean | Adds special bootstrap styles
-| state | String | Bootstrap contextual state (`active`, `success`, `info`, `warning`, `danger`)
+| state | String | Bootstrap contextual state applied to row (`active`, `success`, `info`, `warning`, `danger`)
 
 
 ### Custom rendering
@@ -59,4 +57,3 @@ If you want to add an extra field which does not exits on records, just add it t
       {{field.name.first}} {{field.name.last}}
 </template>
 ```
-
