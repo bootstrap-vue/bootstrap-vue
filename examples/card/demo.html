@@ -1,6 +1,6 @@
 <div id="app">
     <!-- Simple -->
-    <b-card class="mb-2" variant="success">Simple Card</b-card>
+    <b-card class="mb-2" variant="success" ref="simple_card">Simple Card</b-card>
 
     <!-- Standard -->
     <b-card header="Card header text"
@@ -8,6 +8,7 @@
             title="Card title"
             sub-title="Card subtitle"
             show-footer
+            ref="standard_card"
     >
         <small slot="footer" class="text-muted">
             Last updated 3 mins ago
@@ -18,6 +19,7 @@
     <b-card img="http://placeskull.com/200/200/ABABAB/-1/0"
             title="Skulls are nice"
             class="mb-2"
+            ref="img_card"
     >
         This is my opinion :)
     </b-card>
@@ -26,6 +28,7 @@
     <b-card overlay
             img="http://placeskull.com/200/200/E8117F/-1/0"
             class="mb-2"
+            ref="img_overlay_card"
     >
         Overlay cards are cute!
     </b-card>
