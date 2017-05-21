@@ -2,7 +2,7 @@
     <div class="row">
         <template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
             <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']">
-                <b-button :size="size" :variant="variant" href="" :ref="`btn_${variant.replace(/-/g, '_')}`">
+                <b-button :size="size" :variant="variant" href="" :ref="`btn${size ? `_${size}` : ''}_${variant.replace(/-/g, '_')}`">
                     {{variant}} {{size}}
                 </b-button>
             </div>
