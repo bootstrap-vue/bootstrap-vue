@@ -3,13 +3,13 @@
            role="grid"
            :class="tableClass"
     >
-        <thead :class="headVaraiant ? ('thead-' + headVariant) : ''">
+        <thead :class="headVariant ? ('thead-' + headVariant) : ''">
         <tr role="row">
             <th v-for="field,key in fields"
                 @click="headClick(field,key)"
                 @keydown.enter="headClick(field,key)"
                 @keydown.space.prevent="headClick(field,key)"
-                :class="fieldClass(field)"
+                :class="fieldClass(field,key)"
                 :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
                 :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                 :tabindex="field.sortable?'0':null"
@@ -23,7 +23,7 @@
                 @click="headClick(field,key)"
                 @keydown.enter="headClick(field,key)"
                 @keydown.space.prevent="headClick(field,key)"
-                :class="fieldClass(field)"
+                :class="fieldClass(field,key)"
                 :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
                 :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                 :tabindex="field.sortable?'0':null"
@@ -83,6 +83,10 @@
             };
         },
         props: {
+            id: {
+                type: String,
+                default: ''
+            },
             items: {
                 type: Array,
                 default: () => []
@@ -239,7 +243,7 @@
             }
         },
         methods: {
-            fieldClass(field) {
+            fieldClass(field, key) {
                 return [
                     field.sortable ? 'sorting' : '',
                     (field.sortable && this.sortBy === key) ? 'sorting_' + (this.sortDesc ? 'desc' : 'asc') : '',
