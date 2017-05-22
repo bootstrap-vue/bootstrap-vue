@@ -5743,11 +5743,11 @@ rollup-plugin-node-resolve@^3.0.0:
     is-module "^1.0.0"
     resolve "^1.1.6"
 
-rollup-plugin-uglify@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-uglify/-/rollup-plugin-uglify-2.0.1.tgz#67b37ad1efdafbd83af4c36b40c189ee4866c969"
+rollup-plugin-uglify@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-uglify/-/rollup-plugin-uglify-1.0.2.tgz#d4aa6f5df13522eae1ba17780c7c4c7096038359"
   dependencies:
-    uglify-js "^3.0.9"
+    uglify-js "^2.6.1"
 
 rollup-plugin-vue@^2.4.0:
   version "2.4.0"
@@ -6363,7 +6363,7 @@ uglify-js@2.8.x, uglify-js@^2.6, uglify-js@^2.6.1, uglify-js@^2.8.5:
   optionalDependencies:
     uglify-to-browserify "~1.0.0"
 
-uglify-js@3.0.x, uglify-js@^3.0.9:
+uglify-js@3.0.x:
   version "3.0.10"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.0.10.tgz#e220e7dbc05ce1f9bb08268b221aa0cf152fb4e2"
   dependencies:
