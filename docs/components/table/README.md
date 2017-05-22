@@ -4,7 +4,7 @@
 
 ### fields
 Fields prop is used to display table columns. 
-keys are used to extract real value from each raw.
+keys are used to extract real value from each row.
 Example format:
 ```js
 {
@@ -23,11 +23,11 @@ Example format:
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| label | String | Appears in the table header
-| sortable | Boolean | Enable sorting on this column
-| variant | String | Apply contextual class to column (`active`, `success`, `info`, `warning`, `danger`)
-| class | String | Class name (or space separated classes) to add to `th` and `td`
-| invisible | Boolean | Make column visually removed from the table (visibility:hidden)
+| `label` | String | Appears in the table header
+| `sortable` | Boolean | Enable sorting on this column
+| `variant` | String | Apply contextual class to column (`active`, `success`, `info`, `warning`, `danger`)
+| `class` | String | Class name (or space separated classes) to add to `th` and `td`
+| `invisible` | Boolean | Make column visually removed from the table (visibility:hidden)
 
 *Field properties, if not present, default to null*
 
@@ -48,8 +48,8 @@ Items are real table data records. Example format:
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| _rowVariant | String | Bootstrap contextual state applied to row (`active`, `success`, `info`, `warning`, `danger`)
-| state | String | **deprecated** in favour of _rowVariant
+| `_rowVariant` | String | Bootstrap contextual state applied to row (`active`, `success`, `info`, `warning`, `danger`)
+| `state` | String | **deprecated** in favour of `_rowVariant`
 
 
 ### Custom rendering
@@ -122,6 +122,6 @@ The slot's scope variable (`data` in the above example) will have the following 
 
 | Property | Type | Description
 | -------- | ---- | -----------
-| value | Any | The value for this key in the record (`null` or `undefined` if a virtual column)
-| item | Object | The entire record (i.e. `items[index]`) for this row
-| index | Number | The row number (zero based)
+| `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column)
+| `item` | Object | The entire record (i.e. `items[index]`) for this row
+| `index` | Number | The row number (zero based)
