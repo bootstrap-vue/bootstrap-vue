@@ -48,6 +48,12 @@ expect.extend({
             pass: vnode.$el._prevClass.indexOf(className) !== -1,
         };
     },
+    toNotHaveClass(vnode, className) {
+        return {
+            message: `expected NOT to have class '${className}'`,
+            pass: vnode.$el._prevClass.indexOf(className) === -1,
+        };
+    },
     isComponent(vnode, component) {
         return {
             message: `expected to be ${component}`,
