@@ -1,15 +1,22 @@
-import {readFileSync} from 'fs';
-import {resolve} from 'path';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 import Vue from 'vue/dist/vue.common';
 import BootstrapVue from '../lib';
 
 const readFile = (path) => String(readFileSync(resolve(__dirname, '../examples', path)));
+const throwIfNotVueInstance = vm => {
+    if (!vm instanceof Vue) {
+        // debugging breadcrumbs in case a non-Vue instance gets erroneously passed
+        // makes the error easier to fix than example: "Cannot read _prevClass of undefined"
+        throw new TypeError('The matcher `vmToHaveClasses` expects Vue instance.')
+    }
+}
 
 export function loadFixture(name) {
     const template = readFile(`${name}/demo.html`);
     const js = readFile(`${name}/demo.js`);
 
-    return async () => {
+    return async() => {
         // Mount template
         document.body.innerHTML = template;
 
@@ -26,7 +33,7 @@ export function loadFixture(name) {
 }
 
 export async function testVM() {
-    it(`vm mounts`, async () => {
+    it(`vm mounts`, async() => {
         return expect(window.app.$el).toBeDefined();
     });
 }
@@ -42,22 +49,37 @@ export async function setData(app, key, value) {
 
 // Extend Jest marchers
 expect.extend({
-    toHaveClass(vnode, className) {
+    toHaveClass(vm, className) {
+        throwIfNotVueInstance(vm)
+
         return {
-            message: `expected to have class '${className}'`,
-            pass: vnode.$el._prevClass.indexOf(className) !== -1,
+            message: `expected <${vm.$options._componentTag}> to have class '${className}'`,
+            pass: vm.$el._prevClass.indexOf(className) !== -1,
         };
     },
-    toNotHaveClass(vnode, className) {
+    toHaveAllClasses(vm, classList) {
+        throwIfNotVueInstance(vm)
+
+        let pass = true;
+        let missingClassNames = []
+
+        classList.forEach(className => {
+            if (!vm.$el._prevClass.includes(className)) {
+                pass = false
+                missingClassNames.push(className)
+            }
+        })
+
         return {
-            message: `expected NOT to have class '${className}'`,
-            pass: vnode.$el._prevClass.indexOf(className) === -1,
-        };
+            // more debugging breadcrumbs
+            message: `Expected <${vm.$options._componentTag}> to have all classes in [ ${classList.join(', ')} ], but was missing [ ${missingClassNames.join(', ')} ] class${missingClassNames.length > 1 ? 'es' : ''}.`,
+            pass
+        }
     },
-    isComponent(vnode, component) {
+    isComponent(vm, component) {
         return {
             message: `expected to be ${component}`,
-            pass: vnode.$el.constructor.name === component
+            pass: vm.$el.constructor.name === component
         };
     },
 });
