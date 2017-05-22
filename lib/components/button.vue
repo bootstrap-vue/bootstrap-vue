@@ -24,8 +24,7 @@
                     this.btnVariant,
                     this.btnSize,
                     this.btnBlock,
-                    this.btnDisabled,
-                    this.inactive ? 'btn-inactive' : ''
+                    this.btnDisabled
                 ];
             },
             componentType() {
@@ -50,10 +49,6 @@
                 default: false
             },
             disabled: {
-                type: Boolean,
-                default: false
-            },
-            inactive: {
                 type: Boolean,
                 default: false
             },
