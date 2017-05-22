@@ -38,7 +38,9 @@
             :class="rowClass(item)"
             @click="rowClicked(item, index)"
         >
-            <td v-for="(field,key) in fields" :class="[field.class?field.class:null]">
+            <td v-for="(field,key) in fields"
+                :class="cellClass(field)"
+            >
                 <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
         </tr>
@@ -254,10 +256,15 @@
                 return [
                     field.sortable ? 'sorting' : '',
                     (field.sortable && this.sortBy === key) ? 'sorting_' + (this.sortDesc ? 'desc' : 'asc') : '',
-                    field.variant ? (`table-' + field.variant) : '',
+                    field.variant ? ('table-' + field.variant) : '',
                     field.class ? field.class : '',
                     field.invisible ? 'invisible' : ''
                 ];
+            },
+            cellClass(field, key) {
+                    field.variant ? ('table-' + field.variant) : '',
+                    field.class ? field.class : '',
+                    field.invisible ? 'invisible' : ''
             },
             rowClass(item) {
                 // Prefer item._rowVariant over deprecated item.state
@@ -265,7 +272,7 @@
                 return [
                     variant ? ('table-' + variant) : ''
                 ];
-            }
+            },
             rowClicked(item, index) {
                 this.$emit('row-clicked', item, index);
             },
