@@ -261,7 +261,7 @@
                     field.invisible ? 'invisible' : ''
                 ];
             },
-            cellClass(field, key) {
+            cellClass(field) {
                     field.variant ? ('table-' + field.variant) : '',
                     field.class ? field.class : '',
                     field.invisible ? 'invisible' : ''
