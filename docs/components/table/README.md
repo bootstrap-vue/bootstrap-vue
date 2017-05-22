@@ -125,3 +125,6 @@ The slot's scope variable (`data` in the above example) will have the following 
 | `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column)
 | `item` | Object | The entire record (i.e. `items[index]`) for this row
 | `index` | Number | The row number (zero based)
+
+_Note that `index` will not always be the actual row's index number, as it is 
+computed after pagination and filtering have been applied to the origional table data_
