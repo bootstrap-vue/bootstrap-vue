@@ -25,6 +25,7 @@ Example format:
 | ---------| ---- | -----------
 | label | String | Appears in the table header
 | sortable | Boolean | Enable sorting on this column
+| variant | String | Apply contextual class to column (`active`, `success`, `info`, `warning`, `danger`)
 | class | String | Class name (or space separated classes) to add to `th` and `td`
 | invisible | Boolean | Make column visually removed from the table (visibility:hidden)
 
@@ -47,7 +48,8 @@ Items are real table data records. Example format:
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| state | String | Bootstrap contextual state applied to row (`active`, `success`, `info`, `warning`, `danger`)
+| _rowVariant | String | Bootstrap contextual state applied to row (`active`, `success`, `info`, `warning`, `danger`)
+| state | String | **deprecated** in favour of _rowVariant
 
 
 ### Custom rendering
