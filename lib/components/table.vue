@@ -90,14 +90,7 @@
             _rowVariant: true
         };
 
-        return toString(
-            Object.keys(v).filter(
-                k => !exclude[k]
-            ).reduce((o, k) => {
-                o[k] = v[k];
-                return o;
-            }, {})
-        );
+        return toString(Object.keys(v).filter(k => !exclude[k]).reduce((o, k) => { o[k] = v[k]; return o; }, {}));
     };
     
     const defaultSortCompare = (a, b, sortBy) => {
