@@ -79,6 +79,27 @@
         return String(v);
     };
 
+    const recToString = v => {
+        if (!(v instanceof Object)) {
+            return '';
+        }
+
+        // Exclude these fields from record stringification
+        const exclude = {
+            state: true,
+            _rowVariant: true
+        };
+
+        return toString(
+            Object.keys(v).filter(
+                k => !exclude[k]
+            ).reduce((o, k) => {
+                o[k] = v[k];
+                return o;
+            }, {})
+        );
+    };
+    
     const defaultSortCompare = (a, b, sortBy) => {
         return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {numeric: true});
     };
@@ -226,7 +247,7 @@
                             regex = new RegExp('.*' + this.filter + '.*', 'ig');
                         }
                         items = items.filter(item => {
-                            const test = regex.test(toString(item));
+                            const test = regex.test(recToString(item));
                             regex.lastIndex = 0;
                             return test;
                         });
