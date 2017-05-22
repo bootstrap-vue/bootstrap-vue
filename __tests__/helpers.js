@@ -76,10 +76,12 @@ expect.extend({
             pass
         }
     },
-    isComponent(vm, component) {
+    toBeComponent(vm, componentTag) {
+        throwIfNotVueInstance(vm)
+
         return {
-            message: `expected to be ${component}`,
-            pass: vm.$el.constructor.name === component
+            message: `expected to be <${componentTag}>`,
+            pass: vm.$options._componentTag === componentTag
         };
     },
 });
