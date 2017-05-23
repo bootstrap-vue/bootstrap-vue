@@ -1,11 +1,11 @@
 <template>
-    <label :class="[custom?'custom-file':null,inputClass]"
+    <div :class="['form-control', custom?'custom-file':null, inputClass]"
            @dragover.stop.prevent="dragover"
     >
 
         <!-- Drop Here Target -->
         <span class="drop-here"
-              v-if="dragging"
+              v-if="dragging && custom"
               @dragover.stop.prevent="dragover"
               @drop.stop.prevent="drop"
               @dragleave.stop.prevent="dragging=false"
@@ -14,16 +14,15 @@
 
         <!-- Real Form input -->
         <input type="file"
-               :name="name"
-               :id="_id"
-               :disabled="disabled"
                ref="input"
-               :accept="accept"
-
-               class="custom-file-input"
-               @change="onFileChange"
+               class="custom ? 'custom-file-input' : ''"
+               :name="name"
+               :id="id || null"
+               :disabled="disabled"
+               :accept="accept || null"
                :multiple="multiple"
                :webkitdirectory="directory"
+               @change="onFileChange"
         >
 
         <!-- Overlay Labels -->
@@ -33,10 +32,10 @@
               v-if="custom"
         ></span>
 
-    </label>
+    </div>
 </template>
 
-<style>
+<style scoped>
     .custom-file-control {
         overflow: hidden;
     }
@@ -81,10 +80,9 @@
 
 <script>
     import formMixin from '../mixins/form';
-    import generateId from '../mixins/generate-id';
 
     export default {
-        mixins: [formMixin, generateId],
+        mixins: [formMixin],
         data() {
             return {
                 selectedFile: null,
@@ -173,7 +171,7 @@
                 this.selectedFile = filesArray;
             },
             dragover(e) {
-                if (this.noDrop) {
+                if (this.noDrop || !this.custom) {
                     return;
                 }
 
