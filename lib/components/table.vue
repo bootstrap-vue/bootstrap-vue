@@ -34,19 +34,28 @@
         <tbody>
         <tr v-for="(item,index) in _items"
             role="row"
-            :key="items_key" :class="[item.state?'table-'+item.state:null]"
+            :key="items_key"
+            :class="rowClass(item)"
             @click="rowClicked(item, index)"
         >
-            <td v-for="(field,key) in fields" :class="[field.class?field.class:null]">
+            <td v-for="(field,key) in fields"
+                :class="cellClass(field)"
+            >
                 <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
         </tr>
-        <tr v-if="showEmpty && items.length === 0" :colspan="Object.keys(fields).length" role="row">
+        <tr v-if="showEmpty && items.length === 0"
+            :colspan="Object.keys(fields).length"
+            role="row"
+        >
             <slot name="empty">
                 <div class="text-center" v-html="emptyText"></div>
             </slot>
         </tr>
-        <tr v-else-if="showEmpty && _items.length === 0" :colspan="Object.keys(fields).length" role="row">
+        <tr v-else-if="showEmpty && _items.length === 0"
+            :colspan="Object.keys(fields).length"
+            role="row"
+        >
             <slot name="emptyfiltered">
                 <div class="text-center" v-html="emptyFilteredText"></div>
             </slot>
@@ -70,6 +79,20 @@
         return String(v);
     };
 
+    const recToString = v => {
+        if (!(v instanceof Object)) {
+            return '';
+        }
+
+        // Exclude these fields from record stringification
+        const exclude = {
+            state: true,
+            _rowVariant: true
+        };
+
+        return toString(Object.keys(v).filter(k => !exclude[k]).reduce((o, k) => { o[k] = v[k]; return o; }, {}));
+    };
+    
     const defaultSortCompare = (a, b, sortBy) => {
         return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {numeric: true});
     };
@@ -217,7 +240,7 @@
                             regex = new RegExp('.*' + this.filter + '.*', 'ig');
                         }
                         items = items.filter(item => {
-                            const test = regex.test(toString(item));
+                            const test = regex.test(recToString(item));
                             regex.lastIndex = 0;
                             return test;
                         });
@@ -247,8 +270,21 @@
                 return [
                     field.sortable ? 'sorting' : '',
                     (field.sortable && this.sortBy === key) ? 'sorting_' + (this.sortDesc ? 'desc' : 'asc') : '',
+                    field.variant ? ('table-' + field.variant) : '',
                     field.class ? field.class : '',
                     field.invisible ? 'invisible' : ''
+                ];
+            },
+            cellClass(field) {
+                    field.variant ? ('table-' + field.variant) : '',
+                    field.class ? field.class : '',
+                    field.invisible ? 'invisible' : ''
+            },
+            rowClass(item) {
+                // Prefer item._rowVariant over deprecated item.state
+                const variant = item._rowVariant || item.state || null;
+                return [
+                    variant ? ('table-' + variant) : ''
                 ];
             },
             rowClicked(item, index) {
@@ -272,7 +308,7 @@
 
 
 <style>
-    /* https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.css */
+    /* Based on https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.css */
 
     table > thead > tr > .sorting,
     table > tfoot > tr > .sorting {
