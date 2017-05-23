@@ -1,81 +1,104 @@
 <template>
-    <div :class="['btn-group','pagination',btnSize]"
-         role="group"
-         tabindex="0"
-         :aria-label="ariaLabel ? ariaLabel : null"
-         @focusin.self="focusCurrent"
-         @keydown.left.prevent="focusPrev"
-         @keydown.right.prevent="focusNext"
-         @keydown.shift.left.prevent="focusFirst"
-         @keydown.shift.right.prevent="focusLast"
+    <ul :class="['pagination',btnSize]"
+        role="group"
+        tabindex="0"
+        :aria-label="ariaLabel ? ariaLabel : null"
+        @focusin.self="focusCurrent"
+        @keydown.left.prevent="focusPrev"
+        @keydown.right.prevent="focusNext"
+        @keydown.shift.left.prevent="focusFirst"
+        @keydown.shift.right.prevent="focusLast"
     >
 
-        <button type="button"
-                :class="['btn','btn-'+secondaryVariant]"
-                :disabled="isActive(1)"
-                :aria-label="labelPrevPage"
-                tabindex="-1"
-                ref="buttonPrev"
-                @click.prevent="isActive(1) ? _return : currentPage--"
-        >
-            <span aria-hidden="true">&laquo;</span>
-        </button>
+        <li class="page-item">
+            <span v-if="isActive(1)" class="page-link" :aria-label="labelPrevPage">
+                <span aria-hidden="true">&laquo;</span>
+            </span>
+            <a v-else
+               role="button"
+               class="page-link"
+               :aria-label="labelPrevPage"
+               tabindex="-1"
+               href="#"
+               @click.prevent="isActive(1) ? _return : currentPage--"
+               @keydown.enter.prevent="isActive(1) ? _return : currentPage--"
+               @keydown.space.prevent="isActive(1) ? _return : currentPage--"
+            ><span aria-hidden="true">&laquo;</span></a>
+        <li>
 
-        <button type="button"
-                :class="['btn','btn-'+secondaryVariant,isActive(1)?'active':'']"
-                :aria-label="labelPage + ' 1'"
-                :aria-current="isActive(1) ? 'true' : 'false'"
-                :aria-setsize="numberOfPages"
-                :aria-posinset="1"
-                tabindex="-1"
-                ref="buttonFirst"
-                v-if="showPrev"
-                @click.prevent="currentPage = 1"
-        >1</button>
+        <li class="page-item" v-if="showPrev">
+            <a role="button"
+               :class="['page-link', isActive(1)?'active':'']"
+               :aria-label="labelPage + ' 1'"
+               :aria-current="isActive(1) ? 'true' : 'false'"
+               :aria-posinset="1"
+               :aria-setsize="numberOfPages"
+               tabindex="-1"
+               @click.prevent="currentPage = 1"
+               @keydown.enter.prevent="currentPage = 1"
+               @keydown.space.prevent="currentPage = 1"
+            >1</a>
+        </li>
 
-        <span :class="['btn','btn-'+secondaryVariant]" v-show="showPrev">...</span>
+        <li class="page-item" v-if="showPrev">
+            <span :class="page-link">...</span>
+        </li>
 
-        <button type="button"
-                :class="['btn',btnVariant(index),isActive(index + diff)?'active':'',isActive(index + diff)?'':'hidden-xs-down']"
-                :aria-label="labelPage + ' ' + (index + diff)"
-                :aria-current="isActive(index + diff) ? 'true' : 'false'"
-                :aria-setsize="numberOfPages"
-                :aria-posinset="index + diff"
-                tabindex="-1"
-                ref="buttonPages"
-                v-for="_,index in pageLinks"
-                @click.prevent="currentPage = index + diff"
-        >{{index + diff}}</button>
+        <li class="page-item" v-for="_,index in pageLinks">
+            <a role="button"
+               :class="['page-link', isActive(index + diff)?'active':'' , isActive(index + diff)?'':'hidden-xs-down']"
+               :aria-label="labelPage + ' ' + (index + diff)"
+               :aria-current="isActive(index + diff) ? 'true' : 'false'"
+               :aria-posinset="index + diff"
+               :aria-setsize="numberOfPages"
+               tabindex="-1"
+               @click.prevent="currentPage = index + diff"
+               @keydown.enter.prevent="currentPage = index + diff"
+               @keydown.space.prevent="currentPage = index + diff"
+            >{{index + diff}}</a>
+        </li>
 
-        <span :class="['btn','btn-'+secondaryVariant]" v-show="showNext">...</span>
+        <li class="page-item" v-if="showNext">
+            <span class="page-link">...</span>
+        </li>
 
-        <button type="button"
-                :class="['btn','btn-'+secondaryVariant,isActive(numberOfPages) ? 'active' : '']"
-                :aria-label="labelPage + ' ' + numberOfPages"
-                :aria-current="isActive(numberOfPages) ? 'true' : 'false'"
-                :aria-setsize="numberOfPages"
-                :aria-posinset="numberOfPages"
-                tabindex="-1"
-                ref="buttonLast"
-                v-if="showNext"
-                @click.prevent="currentPage = numberOfPages"
-        >{{numberOfPages}}</button>
+        <li class="page-item" v-if="showNext">
+            <a role="button"
+               :class="['page-link', isActive(numberOfPages) ? 'active' : '']"
+               :aria-label="labelPage + ' ' + numberOfPages"
+               :aria-current="isActive(numberOfPages) ? 'true' : 'false'"
+               :aria-posinset="numberOfPages"
+               :aria-setsize="numberOfPages"
+               tabindex="-1"
+               @click.prevent="currentPage = numberOfPages"
+               @keydown.enter.prevent="currentPage = numberOfPages"
+               @keydown.space.prevent="currentPage = numberOfPages"
+            >{{numberOfPages}}</a>
+        </li>
 
-        <button type="button"
-                :class="['btn','btn-'+secondaryVariant]"
-                :disabled="isActive(numberOfPages)"
-                :aria-label="labelNextPage"
-                tabindex="-1"
-                ref="buttonNext"
-                @click.prevent="isActive(numberOfPages) ? _return : currentPage++"
-        >
-            <span aria-hidden="true">&raquo;</span>
-        </button>
+        <li class="page-item">
+            <span v-if="isActive(numberOfPages)" class="page-link" :aria-label="labelNextPage">
+                <span aria-hidden="true">&raquo;</span>
+            </span>
+            <a v-else
+               role="button"
+               class="page-link""
+               :aria-label="labelNextPage"
+               tabindex="-1"
+               @click.prevent="isActive(numberOfPages) ? _return : currentPage++"
+               @keydown.enter.prevent="isActive(numberOfPages) ? _return : currentPage++"
+               @keydown.space.prevent="isActive(numberOfPages) ? _return : currentPage++"
+            ><span aria-hidden="true">&raquo;</span></a>
+        </li>
 
-    </div>
+    </ul>
 </template>
 
 <script>
+    function isVisible(el) {
+        return el && el.offsetWidth > 0 && el.offsetHeight > 0;
+    }
+
     export default {
         data() {
             return {
@@ -91,7 +114,7 @@
                 return (result < 1) ? 1 : result;
             },
             btnSize() {
-                return !this.size || this.size === `default` ? `` : `pagination-${this.size}`;
+                return this.size ? `pagination-${this.size}` : '';
             },
             pageLinks() {
                 if (this.currentPage > this.numberOfPages) {
@@ -133,20 +156,12 @@
             isActive(page) {
                 return page === this.currentPage;
             },
-            btnVariant(index) {
-                return (index + this.diff === this.currentPage) ? `btn-${this.variant}` : `btn-${this.secondaryVariant}`;
-            },
             getButtons() {
-                let buttons = [this.$refs.buttonPrev];
-                if (this.showPrev) {
-                    buttons.push(this.$refs.buttonFirst);
-                }
-                buttons = buttons.concat(this.$refs.buttonPages);
-                if (this.showNext) {
-                    buttons.push(this.$refs.buttonLast);
-                }
-                buttons.push(this.$refs.buttonNext);
-                return buttons;
+                const buttons = Array.prototype.slice.call(this.$el.querySelectorAll('a'));
+                return buttons.filter(btn => {
+                    // Return only visible buttons
+                    return btn && btn.offsetWidth > 0 && btn.offsetHeight > 0;
+                });
             },
             setBtnFocus(btn) {
                 this.$nextTick(() => {
@@ -200,6 +215,9 @@
                 }
 
                 this.$emit('input', newPage);
+
+                // Ensure current button is focused
+                this.focusCurrent();
             },
             value(newValue, oldValue) {
                 if (newValue !== oldValue) {
@@ -227,14 +245,6 @@
             size: {
                 type: String,
                 default: 'md'
-            },
-            variant: {
-                type: String,
-                default: 'primary'
-            },
-            secondaryVariant: {
-                type: String,
-                default: 'secondary'
             },
             ariaLabel: {
                 type: String,
