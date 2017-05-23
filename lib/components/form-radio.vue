@@ -1,5 +1,5 @@
 <template>
-    <div :class="['bv-radio-group', inputClass, this.stacked?'custom-controls-stacked':'']"
+    <div :class="[inputClass, this.stacked?'custom-controls-stacked':'']"
          :id="id || null"
          role="radiogroup"
     >
