@@ -10,23 +10,22 @@
         @keydown.shift.right.prevent="focusLast"
     >
 
-        <li class="page-item">
-            <span v-if="isActive(1)" class="page-link" :aria-label="labelPrevPage">
-                <span aria-hidden="true">&laquo;</span>
-            </span>
-            <a v-else
-               role="button"
+        <li v-if="isActive(1)" class="page-item disabled" aria-hidden="true">
+            <span class="page-link">&laquo;</span>
+        </li>
+        <li v-else class="page-item">
+            <a role="button"
                class="page-link"
                :aria-label="labelPrevPage"
                tabindex="-1"
                href="#"
-               @click.prevent="isActive(1) ? _return : currentPage--"
-               @keydown.enter.prevent="isActive(1) ? _return : currentPage--"
-               @keydown.space.prevent="isActive(1) ? _return : currentPage--"
+               @click.prevent="setPage($event, currentPage - 1)"
+               @keydown.enter.prevent="setPage($event, currentPage - 1)"
+               @keydown.space.prevent="setPage($event, currentPage - 1)"
             ><span aria-hidden="true">&laquo;</span></a>
         <li>
 
-        <li class="page-item" v-if="showPrev">
+        <li  v-if="showPrev" class="page-item">
             <a role="button"
                :class="['page-link', isActive(1)?'active':'']"
                :aria-label="labelPage + ' 1'"
@@ -34,17 +33,17 @@
                :aria-posinset="1"
                :aria-setsize="numberOfPages"
                tabindex="-1"
-               @click.prevent="currentPage = 1"
-               @keydown.enter.prevent="currentPage = 1"
-               @keydown.space.prevent="currentPage = 1"
+               @click.prevent="setPage($event, 1)"
+               @keydown.enter.prevent="setPage($event, 1)"
+               @keydown.space.prevent="setPage($event, 1)"
             >1</a>
         </li>
 
-        <li class="page-item" v-if="showPrev">
-            <span :class="page-link">...</span>
+        <li v-if="showPrev" class="page-item disabled" role="seperator">
+            <span :class="page-link">&hellip;</span>
         </li>
 
-        <li class="page-item" v-for="_,index in pageLinks">
+        <li class="page-item" v-for="_,index in pageLinks" :key="index">
             <a role="button"
                :class="['page-link', isActive(index + diff)?'active':'' , isActive(index + diff)?'':'hidden-xs-down']"
                :aria-label="labelPage + ' ' + (index + diff)"
@@ -52,14 +51,14 @@
                :aria-posinset="index + diff"
                :aria-setsize="numberOfPages"
                tabindex="-1"
-               @click.prevent="currentPage = index + diff"
-               @keydown.enter.prevent="currentPage = index + diff"
-               @keydown.space.prevent="currentPage = index + diff"
+               @click.prevent="setPage($event, index + diff)"
+               @keydown.enter.prevent="setPage($event, index + diff)"
+               @keydown.space.prevent="setPage($event, index + diff)"
             >{{index + diff}}</a>
         </li>
 
-        <li class="page-item" v-if="showNext">
-            <span class="page-link">...</span>
+        <li v-if="showNext" class="page-item disabled" role="seperator">
+            <span class="page-link">&hellip;</span>
         </li>
 
         <li class="page-item" v-if="showNext">
@@ -70,24 +69,23 @@
                :aria-posinset="numberOfPages"
                :aria-setsize="numberOfPages"
                tabindex="-1"
-               @click.prevent="currentPage = numberOfPages"
-               @keydown.enter.prevent="currentPage = numberOfPages"
-               @keydown.space.prevent="currentPage = numberOfPages"
+               @click.prevent="setPage($event, numberOfPages)"
+               @keydown.enter.prevent="setPage($event, numberOfPages)"
+               @keydown.space.prevent="setPage($event, numberOfPages)"
             >{{numberOfPages}}</a>
         </li>
 
-        <li class="page-item">
-            <span v-if="isActive(numberOfPages)" class="page-link" :aria-label="labelNextPage">
-                <span aria-hidden="true">&raquo;</span>
-            </span>
-            <a v-else
-               role="button"
-               class="page-link""
+        <li v-if="isActive(numberOfPages)" class="page-item disabled" aria-hidden="true">
+            <span class="page-link">&raquo;</span>
+        </li>
+        <li v-else class="page-item">
+            <a role="button"
+               class="page-link"
                :aria-label="labelNextPage"
                tabindex="-1"
-               @click.prevent="isActive(numberOfPages) ? _return : currentPage++"
-               @keydown.enter.prevent="isActive(numberOfPages) ? _return : currentPage++"
-               @keydown.space.prevent="isActive(numberOfPages) ? _return : currentPage++"
+               @click.prevent="setPage($event, currentPage + 1)"
+               @keydown.enter.prevent="setPage($event, currentPage + 1)"
+               @keydown.space.prevent="setPage($event, currentPage + 1)"
             ><span aria-hidden="true">&raquo;</span></a>
         </li>
 
@@ -96,7 +94,7 @@
 
 <script>
     function isVisible(el) {
-        return el && el.offsetWidth > 0 && el.offsetHeight > 0;
+        return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
     }
 
     export default {
@@ -156,12 +154,21 @@
             isActive(page) {
                 return page === this.currentPage;
             },
+            setPage(e, num) {
+                this.currentPage = num;
+                this.$nextTick(() => {
+                    // Keep the current button focused if possible
+                    if (isVisible(e.target) && e.target.focus) {
+                        e.target.focus();
+                    } else {
+                        this.focusCurrent();
+                    }
+                }
+            },
             getButtons() {
-                const buttons = Array.prototype.slice.call(this.$el.querySelectorAll('a'));
-                return buttons.filter(btn => {
-                    // Return only visible buttons
-                    return btn && btn.offsetWidth > 0 && btn.offsetHeight > 0;
-                });
+                const buttons = Array.prototype.slice.call(this.$el.querySelectorAll('a.page-link'));
+                // Return only buttons that are visible
+                return buttons.filter(btn => isVisible(btn));
             },
             setBtnFocus(btn) {
                 this.$nextTick(() => {
@@ -215,9 +222,6 @@
                 }
 
                 this.$emit('input', newPage);
-
-                // Ensure current button is focused
-                this.focusCurrent();
             },
             value(newValue, oldValue) {
                 if (newValue !== oldValue) {
@@ -266,3 +270,14 @@
     };
 
 </script>
+
+<style scoped>
+    .page-item.disabled {
+        cursor: not-allowed;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        opacity: .65;
+    }
+</style>
