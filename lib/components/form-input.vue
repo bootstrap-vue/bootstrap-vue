@@ -1,18 +1,15 @@
 <template>
     <input v-if="!static"
+           ref="input"
            :type="type"
            :value="value"
            :name="name"
-           :id="_id"
+           :id="id || null"
            :disabled="disabled"
-           ref="input"
-
            :is="textarea?'textarea':'input'"
            :class="['form-control',inputClass]"
            :rows="rows || rowsCount"
-
            :placeholder="placeholder"
-
            @input="onInput($event.target.value)"
            @change="onChange($event.target.value)"
            @keyup="onKeyUp($event)"
@@ -20,7 +17,7 @@
            @blur="$emit('blur')"
     />
     <b-form-input-static v-else
-                         :id="_id"
+                         :id="id || null"
                          :value="value"
                          :formatter="formatter"
     ></b-form-input-static>
@@ -28,11 +25,10 @@
 
 <script>
     import formMixin from '../mixins/form';
-    import generateId from '../mixins/generate-id';
     import bFormInputStatic from './form-input-static.vue';
 
     export default {
-        mixins: [formMixin, generateId],
+        mixins: [formMixin],
         components: {bFormInputStatic},
         computed: {
             rowsCount() {
