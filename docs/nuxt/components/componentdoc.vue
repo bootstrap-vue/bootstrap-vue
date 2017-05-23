@@ -65,15 +65,18 @@
                 }
                 const hasRequied = props.length > 0 && props.filter(p => p.required).length > 0;
 
-                return {
+                const fields = {
                     prop: {label: 'Property'},
                     type: {label: 'Type'},
-                    required: {
-                        label: 'Required',
-                        invisible: !hasRequired
-                    },
                     default: {label: 'Default Value'}
                 };
+
+                // Add the required column if there are required field(s)
+                if (hasRequired) {
+                    fileds.required = {label: 'Required'};
+                }
+
+                return fields;
             },
             events_fields() {
                 return {
