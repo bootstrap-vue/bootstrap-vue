@@ -1,5 +1,8 @@
 <template>
-    <div :class="[inputClass,this.stacked?'custom-controls-stacked':'']">
+    <div :class="['bv-radio-group', inputClass, this.stacked?'custom-controls-stacked':'']"
+         :id="id || null"
+         role="radiogroup"
+    >
         <label :class="[checkboxClass,custom?'custom-radio':null]" v-for="option in formOptions">
             <input
                     v-model="localValue"
@@ -11,11 +14,8 @@
                     :disabled="option.disabled"
                     ref="inputs"
             >
-
-            <span class="custom-control-indicator" v-if="custom"></span>
-
+            <span class="custom-control-indicator" aria-hidden="true" v-if="custom"></span>
             <span :class="custom?'custom-control-description':null" v-html="option.text"></span>
-
         </label>
     </div>
 </template>
