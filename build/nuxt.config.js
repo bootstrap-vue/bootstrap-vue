@@ -22,6 +22,7 @@ module.exports = {
     },
 
     build: {
+        extractCSS: true,
         extend(config) {
             config.module.rules.push({
                 test: /\.md$/,

@@ -58,11 +58,25 @@
         },
         computed: {
             props_fields() {
-                return {
+                const component = Vue.options.components[this.component];
+                let props = [];
+                if (component) {
+                    props = component.options.props;
+                }
+                const hasRequied = props.length > 0 && props.filter(p => p.required).length > 0;
+
+                const fields = {
                     prop: {label: 'Property'},
                     type: {label: 'Type'},
                     default: {label: 'Default Value'}
                 };
+
+                // Add the required column if there are required field(s)
+                if (hasRequired) {
+                    fileds.required = {label: 'Required'};
+                }
+
+                return fields;
             },
             events_fields() {
                 return {
@@ -114,10 +128,14 @@
                     }
 
                     default_val = (default_val || '').replace(/"/g, '\'');
+                    
+                    // Requied prop?
+                    required = p.required ? 'Yes' : '';
 
                     return {
                         prop: _.kebabCase(prop),
                         type,
+                        required,
                         typeClass,
                         default: default_val
                     };
