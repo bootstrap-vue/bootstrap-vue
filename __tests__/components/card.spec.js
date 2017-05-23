@@ -23,10 +23,10 @@ describe('card', async() => {
     it('should contain class names', async() => {
         const { app: { $refs, $el } } = window
 
-        expect($refs.simple_card).toHaveClass('card card-success card-inverse')
+        expect($refs.simple_card).toHaveAllClasses(['card', 'card-success', 'card-inverse'])
         expect($refs.standard_card).toHaveClass('card')
         expect($refs.img_card).toHaveClass('card')
-        expect($refs.img_overlay_card).toHaveClass('card card-inverse')
+        expect($refs.img_overlay_card).toHaveAllClasses(['card', 'card-inverse'])
 
         const blockEl = [...$refs.img_overlay_card.$el.childNodes]
             .find(el => el.classList && el.classList.contains('card-block'))
@@ -38,9 +38,9 @@ describe('card', async() => {
         const { app: { $refs, $el } } = window
 
         expect($refs.simple_card.$el.textContent).toContain('Simple Card')
-        expect($refs.standard_card.$el.textContent.trim()).toContain('Last updated 3 mins ago')
-        expect($refs.img_card.$el.textContent.trim()).toContain('This is my opinion :)')
-        expect($refs.img_overlay_card.$el.textContent.trim()).toContain('Overlay cards are cute!')
+        expect($refs.standard_card.$el.textContent).toContain('Last updated 3 mins ago')
+        expect($refs.img_card.$el.textContent).toContain('This is my opinion :)')
+        expect($refs.img_overlay_card.$el.textContent).toContain('Overlay cards are cute!')
     })
 
     it('standard_card should display card header', async() => {
