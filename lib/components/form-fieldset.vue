@@ -136,7 +136,7 @@
             },
             inputSelector: {
                 type: String,
-                default: '.bv-radio-group,.bv-check-group,input,select,textarea,.form-control,.form-control-static,.dropdown,.dropup'
+                default: '[role="radiogroup"],input,select,textarea,.form-control,.form-control-static,.dropdown,.dropup'
             }
         }
     };
