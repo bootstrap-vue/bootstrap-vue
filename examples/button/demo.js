@@ -1,3 +1,8 @@
 window.app = new Vue({
-    el: '#app'
+    el: '#app',
+    methods: {
+        handleClick(event) {
+            alert('You clicked, I listened.')
+        },
+    }
 });

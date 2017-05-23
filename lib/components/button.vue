@@ -1,5 +1,5 @@
 <template>
-    <button :class="classObject"
+    <button :class="classList"
             :is="componentType"
             :to="to"
             :href="href"
@@ -18,14 +18,13 @@
     export default {
         components: {bLink},
         computed: {
-            classObject() {
+            classList() {
                 return [
                     'btn',
                     this.btnVariant,
                     this.btnSize,
                     this.btnBlock,
-                    this.btnDisabled,
-                    this.inactive ? 'btn-inactive' : ''
+                    this.btnDisabled
                 ];
             },
             componentType() {
@@ -50,10 +49,6 @@
                 default: false
             },
             disabled: {
-                type: Boolean,
-                default: false
-            },
-            inactive: {
                 type: Boolean,
                 default: false
             },
