@@ -70,7 +70,7 @@
                     type: {label: 'Type'},
                     required: {
                         label: 'Required',
-                        invisible: hasRequired
+                        invisible: !hasRequired
                     },
                     default: {label: 'Default Value'}
                 };
