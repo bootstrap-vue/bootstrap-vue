@@ -61,6 +61,7 @@
                 return {
                     prop: {label: 'Property'},
                     type: {label: 'Type'},
+                    required: {label: 'Required'},
                     default: {label: 'Default Value'}
                 };
             },
@@ -114,10 +115,14 @@
                     }
 
                     default_val = (default_val || '').replace(/"/g, '\'');
+                    
+                    // Requied prop?
+                    required = p.required ? 'True' : '';
 
                     return {
                         prop: _.kebabCase(prop),
                         type,
+                        required,
                         typeClass,
                         default: default_val
                     };
