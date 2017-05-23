@@ -76,6 +76,9 @@
         },
         methods: {
             updateTarget() {
+                if (this.for && this.$el && this.$el.querySelector('#' + this.for)) {
+                    return this.for;
+                }
                 const content = this.$refs.content;
                 if (!content) {
                     return null;
@@ -92,6 +95,10 @@
         },
         props: {
             id: {
+                type: String,
+                default: null
+            },
+            for: {
                 type: String,
                 default: null
             },
@@ -129,7 +136,7 @@
             },
             inputSelector: {
                 type: String,
-                default: 'input,select,textarea,.form-control,.form-control-static,.dropdown,.dropup'
+                default: '.bv-radio-group,.bv-check-group,input,select,textarea,.form-control,.form-control-static,.dropdown,.dropup'
             }
         }
     };
