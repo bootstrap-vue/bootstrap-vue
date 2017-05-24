@@ -17,10 +17,6 @@
         transition: all .35s ease;
         overflow: hidden;
     }
-
-    .collapse-enter, .collapse-leave-to {
-        /*height: 0;*/
-    }
 </style>
 
 <script>
