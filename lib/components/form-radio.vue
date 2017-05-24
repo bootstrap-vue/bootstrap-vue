@@ -4,15 +4,14 @@
          role="radiogroup"
     >
         <label :class="[checkboxClass,custom?'custom-radio':null]" v-for="option in formOptions">
-            <input
-                    v-model="localValue"
-                    :class="custom?'custom-control-input':null"
-                    type="radio"
-                    :value="option.value"
-                    :name="option.name"
-                    :id="option.id"
-                    :disabled="option.disabled"
-                    ref="inputs"
+            <input v-model="localValue"
+                   :class="custom?'custom-control-input':null"
+                   type="radio"
+                   :value="option.value"
+                   :name="option.name"
+                   :id="option.id"
+                   :disabled="option.disabled"
+                   ref="inputs"
             >
             <span class="custom-control-indicator" aria-hidden="true" v-if="custom"></span>
             <span :class="custom?'custom-control-description':null" v-html="option.text"></span>
