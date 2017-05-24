@@ -16,7 +16,7 @@
         <!-- Real Form input -->
         <input type="file"
                ref="input"
-               class="custom ? 'custom-file-input' : ''"
+               :class="custom ? 'custom-file-input' : ''"
                :name="name"
                :id="id || null"
                :disabled="disabled"
