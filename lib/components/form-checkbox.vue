@@ -1,7 +1,7 @@
 <template>
     <label :class="[inputClass,checkboxClass,custom?'custom-checkbox':null]">
         <input type="checkbox"
-               :id="_id"
+               :id="id || null"
                :name="name"
                :value="value"
                :disabled="disabled"
@@ -9,6 +9,7 @@
                :checked="isChecked"
                @change="handleChange">
         <span class="custom-control-indicator"
+              aria-hidden="true"
               v-if="custom"></span>
         <span :class="[custom?'custom-control-description':null]">
             <slot></slot>
@@ -19,10 +20,9 @@
 <script>
 import formMixin from '../mixins/form';
 import formCheckBoxMixin from '../mixins/form-checkbox';
-import generateId from '../mixins/generate-id';
 
 export default {
-    mixins: [formMixin, formCheckBoxMixin, generateId],
+    mixins: [formMixin, formCheckBoxMixin],
     model: {
         prop: 'checked',
         event: 'change'

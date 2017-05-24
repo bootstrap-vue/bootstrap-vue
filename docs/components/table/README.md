@@ -26,8 +26,8 @@ Example format:
 | `label` | String | Appears in the table header
 | `sortable` | Boolean | Enable sorting on this column
 | `variant` | String | Apply contextual class to column (`active`, `success`, `info`, `warning`, `danger`)
-| `class` | String | Class name (or space separated classes) to add to `th` and `td`
-| `invisible` | Boolean | Make column visually removed from the table (visibility:hidden)
+| `class` | String | Class name (or space separated classes) to add to `th` and `td` in the column
+| `invisible` | Boolean | Make column visually removed from the table (`visibility:hidden`)
 
 *Field properties, if not present, default to null*
 
@@ -54,7 +54,8 @@ Items are real table data records. Example format:
 
 ### Custom rendering
 Custom rendering for each field is possible using **scoped slots**.
-If you want to add an extra field which does not exits on records, just add it to `fields` array.  Example:
+If you want to add an extra field which does not exist in the records,
+just add it to the `fields` array.  Example:
 
 ```js
  fields: {
@@ -67,7 +68,7 @@ If you want to add an extra field which does not exits on records, just add it t
         label: 'Full Name'
     },
     sex: {
-        A regular column
+        // A regular column
         label: 'Sex'
     },
     nameage: {
@@ -96,18 +97,20 @@ If you want to add an extra field which does not exits on records, just add it t
 ```
 
 ```html
-<template slot="index" scope="data">
+<b-table :fields="fields" :items="items">
+  <template slot="index" scope="data">
     <!-- A Virtul column -->
     {{data.index + 1}}
-</template>
-<template slot="name" scope="data">
+  </template>
+  <template slot="name" scope="data">
     <!-- A custom formatted column -->
     {{data.value.first}} {{data.value.last}}
-</template>
-<template slot="nameage" scope="data">
+  </template>
+  <template slot="nameage" scope="data">
     <!-- A Virtul composite column -->
     {{data.item.name.first}} is {{data.item.age}} years old
-</template>
+  </template>
+</b-table>
 ```
 
 will render a table like so:
