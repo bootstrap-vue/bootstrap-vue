@@ -14,7 +14,7 @@
 
 <style>
     .tooltip {
-        display: block !important;
+        display: block;
         transition: all 0.3s;
     }
 </style>
