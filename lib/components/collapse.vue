@@ -28,7 +28,7 @@
 
         data() {
             return {
-                show: false
+                show: this.showOnInit
             };
         },
 
@@ -49,6 +49,9 @@
             id: {
                 type: String,
                 required: true
+            },
+            showOnInit: {
+                type: Boolean
             }
         },
 
