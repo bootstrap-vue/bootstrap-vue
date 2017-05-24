@@ -1,5 +1,5 @@
 <template>
-    <li :class="['nav-item','dropdown', {dropup, show: visible}]">
+    <li :id="id || null" :class="['nav-item','dropdown', {dropup, show: visible}]">
 
         <a :class="['nav-link', dropdownToggle, {disabled}]"
            href="#"
