@@ -1,5 +1,5 @@
 <template>
-    <div :class="['btn-group','dropdown', {dropup, show: visible}]">
+    <div :id="id || null" :class="['btn-group','dropdown', {dropup, show: visible}]">
 
         <b-button :class="{'dropdown-toggle': !split, 'btn-link': link}"
                   ref="button"
