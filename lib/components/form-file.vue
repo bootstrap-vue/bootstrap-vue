@@ -1,6 +1,7 @@
 <template>
     <div :class="['form-control', custom?'custom-file':null, inputClass]"
-           @dragover.stop.prevent="dragover"
+         :id="id ? (id + '__BV_file_outer_') : null"
+         @dragover.stop.prevent="dragover"
     >
 
         <!-- Drop Here Target -->
@@ -22,11 +23,13 @@
                :accept="accept || null"
                :multiple="multiple"
                :webkitdirectory="directory"
+               :aria-describedby="(custom && id) ? (id + '__BV_file_control_') : null"
                @change="onFileChange"
         >
 
         <!-- Overlay Labels -->
         <span :class="['custom-file-control',dragging?'dragging':null,inputClass]"
+              :id="id ? (id + '__BV_file_control_') : null"
               :data-choose="computedChooseLabel"
               :data-selected="selectedLabel"
               v-if="custom"
