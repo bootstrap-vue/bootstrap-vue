@@ -1,7 +1,7 @@
 <template>
-    <select :class="[inputClass,custom?'custom-select':null]"
+    <select :class="['form-control',inputClass,custom?'custom-select':null]"
             :name="name"
-            :id="_id"
+            :id="id || null"
             v-model="localValue"
             :disabled="disabled"
             ref="input"
@@ -17,7 +17,6 @@
 <script>
     import formOptions from '../mixins/form-options';
     import formMixin from '../mixins/form';
-    import generateId from '../mixins/generate-id';
 
     export default {
         mixins: [formMixin, formOptions, generateId],
