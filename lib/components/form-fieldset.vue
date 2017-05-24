@@ -1,7 +1,8 @@
 <template>
     <div :class="['form-group','row',inputState]"
-        role="group"
-        :aria-describedby="describedBy"
+         :id="id || null"
+         role="group"
+         :aria-describedby="describedBy"
     >
         <label v-if="label"
                :for="target"
