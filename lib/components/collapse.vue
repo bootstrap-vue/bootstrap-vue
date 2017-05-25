@@ -43,10 +43,9 @@
         },
 
         watch: {
-            visible(newVal, oldVal){
-                if (newVal !== this.show) {
-                    this.toggle()
-                }
+            visible(newVal) {
+                this.show = newVal;
+                this.emitState();
             },
         },
 
