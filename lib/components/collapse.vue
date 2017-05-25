@@ -30,7 +30,6 @@
 
         computed: {
             classObject() {
-                // console.log('class object evaluated')
                 return {
                     'navbar-collapse': this.isNav,
                     show: this.show
@@ -48,7 +47,6 @@
                 if (newVal !== this.show) {
                     this.show = newVal;
                     this.emitState();
-                    this.$emit('change', this.show);
                 }
             },
         },
@@ -97,6 +95,7 @@
                 el.style.height = null;
             },
             emitState() {
+                this.$emit('input', this.show);
                 this.$root.$emit('collapse::toggle::state', this.id, this.show);
             }
         },
