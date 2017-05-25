@@ -12,25 +12,25 @@ Other elements can easily toggle collapse using `v-b-toggle` directive.
     <b-btn v-b-toggle="'collapse1'">Toggle Collapse</b-btn>
 ```
 
-The collapse component can be toggled open initially using the `showOnInit` prop.
+The component's collapsed state can also be set with `v-model`.
 
 ```html
-<b-btn v-b-toggle.collapse1>Toggle Collapse</b-btn>
+<b-btn @click="showCollapse = !showCollapse">Toggle Collapse</b-btn>
 
-<b-collapse show-on-init id="collapse1">
-
+<b-collapse v-model="showCollapse" id="collapse1">
     <b-card>
       I should start open!
-
-      <b-btn v-b-toggle.collapse2 size="sm">Toggle Inner Collapse</b-btn>
-
-      <b-collapse id=collapse2 class="mt-2">
-        <b-card>
-          But I'll start closed.
-        </b-card>
-      </b-collapse>
-
     </b-card>
+</b-collapse>
 
-  </b-collapse>
+<script>
+{
+    // inside the vue
+    data() {
+        return {
+            showCollapse: true
+        }
+    }
+}
+</script>
 ```

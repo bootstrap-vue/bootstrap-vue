@@ -24,17 +24,30 @@
 
         data() {
             return {
-                show: this.showOnInit
+                show: this.visible
             };
         },
 
         computed: {
             classObject() {
+                // console.log('class object evaluated')
                 return {
                     'navbar-collapse': this.isNav,
                     show: this.show
                 };
             }
+        },
+
+        model: {
+            prop: 'visible',
+        },
+
+        watch: {
+            visible(newVal, oldVal){
+                if (newVal !== this.show) {
+                    this.toggle()
+                }
+            },
         },
 
         props: {
@@ -46,8 +59,9 @@
                 type: String,
                 required: true
             },
-            showOnInit: {
-                type: Boolean
+            visible: {
+                type: Boolean,
+                default: false
             }
         },
 
