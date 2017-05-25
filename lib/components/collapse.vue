@@ -30,7 +30,6 @@
 
         computed: {
             classObject() {
-                // console.log('class object evaluated')
                 return {
                     'navbar-collapse': this.isNav,
                     show: this.show
@@ -40,7 +39,7 @@
 
         model: {
             prop: 'visible',
-            event: 'change'
+            event: 'input'
         },
 
         watch: {
@@ -48,7 +47,6 @@
                 if (newVal !== this.show) {
                     this.show = newVal;
                     this.emitState();
-                    this.$emit('change', this.show);
                 }
             },
         },
@@ -98,6 +96,7 @@
             },
             emitState() {
                 this.$root.$emit('collapse::toggle::state', this.id, this.show);
+                this.$emit('input', this.show);
             }
         },
         created() {
