@@ -95,6 +95,7 @@
                 el.style.height = null;
             },
             emitState() {
+                this.$emit('input', this.show);
                 this.$root.$emit('collapse::toggle::state', this.id, this.show);
                 this.$emit('input', this.show);
             }
