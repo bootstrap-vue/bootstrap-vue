@@ -188,6 +188,7 @@
                 if (this.is_visible) {
                     return;
                 }
+                this.$emit('show');
                 this.is_visible = true;
                 this.$root.$emit('shown::modal', this.id);
                 this.body.classList.add('modal-open');
@@ -214,15 +215,15 @@
                     }
                 };
 
-                // Emit `ok` and `cancel` events
+                // Emit events
+                this.$emit('change', false);
+                this.$emit('hide',e);
+
                 if (isOK === true) {
                     this.$emit('ok', e);
                 } else if (isOK === false) {
                     this.$emit('cancel', e);
                 }
-
-                // Call `change` event after we know what we did
-                this.$emit('change', false);
 
                 // Hide if not canceled
                 if (!canceled) {
