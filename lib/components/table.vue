@@ -17,7 +17,7 @@
             ></th>
         </tr>
         </thead>
-        <tfoot v-if="footClone" :class="footVaraiant ? ('thead-' + footVariant) : ''">
+        <tfoot v-if="footClone" :class="footVariant ? ('thead-' + footVariant) : ''">
         <tr role="row">
             <th v-for="field,key in fields"
                 @click="headClick(field,key)"
@@ -44,21 +44,17 @@
                 <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
         </tr>
-        <tr v-if="showEmpty && items.length === 0"
-            :colspan="Object.keys(fields).length"
-            role="row"
-        >
-            <slot name="empty">
-                <div class="text-center" v-html="emptyText"></div>
-            </slot>
-        </tr>
-        <tr v-else-if="showEmpty && _items.length === 0"
-            :colspan="Object.keys(fields).length"
-            role="row"
-        >
-            <slot name="emptyfiltered">
-                <div class="text-center" v-html="emptyFilteredText"></div>
-            </slot>
+        <tr v-if="showEmpty && _items.length === 0" role="row">
+            <td v-if="filter" :colspan="Object.keys(fields).length">
+                <slot name="emptyfiltered">
+                    <div class="text-center" v-html="emptyFilteredText"></div>
+                </slot>
+            </td>
+            <td v-else :colspan="Object.keys(fields).length">
+                <slot name="empty">
+                    <div class="text-center" v-html="emptyText"></div>
+                </slot>
+            </td>
         </tr>
         </tbody>
     </table>
