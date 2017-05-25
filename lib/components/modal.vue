@@ -214,15 +214,15 @@
                     }
                 };
 
-                // Emit events
-                this.$emit('change', false);
-                this.$emit('hidden', e);
-
+                // Emit `ok` and `cancel` events
                 if (isOK === true) {
                     this.$emit('ok', e);
                 } else if (isOK === false) {
                     this.$emit('cancel', e);
                 }
+
+                // Call `change` event after we know what we did
+                this.$emit('change', false);
 
                 // Hide if not canceled
                 if (!canceled) {
@@ -234,6 +234,7 @@
                     }
                     this.is_visible = false;
                     this.$root.$emit('hidden::modal', this.id);
+                    this.$emit('hidden', e);
                     this.body.classList.remove('modal-open');
                 }
             },
