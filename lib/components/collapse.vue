@@ -40,12 +40,16 @@
 
         model: {
             prop: 'visible',
+            event: 'change'
         },
 
         watch: {
             visible(newVal) {
-                this.show = newVal;
-                this.emitState();
+                if (newVal !== this.show) {
+                    this.show = newVal;
+                    this.emitState();
+                    this.$emit('change', this.show);
+                }
             },
         },
 
