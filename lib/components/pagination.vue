@@ -1,7 +1,7 @@
 <template>
     <ul :class="['pagination',btnSize]"
         role="group"
-        tabindex="0"
+        :aria-disabled="disabled ? 'true' : 'false'"
         :aria-label="ariaLabel ? ariaLabel : null"
         @focusin.self="focusCurrent"
         @keydown.left.prevent="focusPrev"
@@ -10,7 +10,7 @@
         @keydown.shift.right.prevent="focusLast"
     >
 
-        <li v-if="isActive(1)" class="page-item disabled" aria-hidden="true">
+        <li v-if="isActive(1) || disabled" class="page-item disabled" aria-hidden="true">
             <span class="page-link">&laquo;</span>
         </li>
         <li v-else class="page-item">
@@ -27,7 +27,9 @@
 
         <li  v-if="showPrev" class="page-item">
             <a role="button"
-               :class="['page-link', isActive(1)?'active':'']"
+               :class="['page-link', {disabled}, isActive(1)?'active':'']"
+               :disabled="disabled"
+               :aria-disabled="disabled ? 'true' : 'false'"
                :aria-label="labelPage + ' 1'"
                :aria-current="isActive(1) ? 'true' : 'false'"
                :aria-posinset="1"
@@ -45,7 +47,9 @@
 
         <li class="page-item" v-for="_,index in pageLinks" :key="index">
             <a role="button"
-               :class="['page-link', isActive(index + diff)?'active':'' , isActive(index + diff)?'':'hidden-xs-down']"
+               :class="['page-link',{disabled},isActive(index + diff)?'active':'',isActive(index + diff)?'':'hidden-xs-down']"
+               :disabled="disabled"
+               :aria-disabled="disabled ? 'true' : 'false'"
                :aria-label="labelPage + ' ' + (index + diff)"
                :aria-current="isActive(index + diff) ? 'true' : 'false'"
                :aria-posinset="index + diff"
@@ -63,7 +67,9 @@
 
         <li class="page-item" v-if="showNext">
             <a role="button"
-               :class="['page-link', isActive(numberOfPages) ? 'active' : '']"
+               :class="['page-link', {disabled}, isActive(numberOfPages) ? 'active' : '']"
+               :disabled="disabled"
+               :aria-disabled="disabled ? 'true' : 'false'"
                :aria-label="labelPage + ' ' + numberOfPages"
                :aria-current="isActive(numberOfPages) ? 'true' : 'false'"
                :aria-posinset="numberOfPages"
@@ -75,7 +81,7 @@
             >{{numberOfPages}}</a>
         </li>
 
-        <li v-if="isActive(numberOfPages)" class="page-item disabled" aria-hidden="true">
+        <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" aria-hidden="true">
             <span class="page-link">&raquo;</span>
         </li>
         <li v-else class="page-item">
@@ -155,6 +161,11 @@
                 return page === this.currentPage;
             },
             setPage(e, num) {
+                if (disabled) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                }
                 this.currentPage = num;
                 this.$nextTick(() => {
                     // Keep the current button focused if possible
@@ -230,6 +241,10 @@
             }
         },
         props: {
+            disabled: {
+                type: Boolean,
+                default: false
+            },
             value: {
                 type: Number,
                 default: 1
