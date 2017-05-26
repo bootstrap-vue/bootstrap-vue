@@ -243,7 +243,7 @@
         props: {
             disabled: {
                 type: Boolean,
-                default: 3
+                default: false
             },
             value: {
                 type: Number,
