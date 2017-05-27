@@ -181,10 +181,9 @@ The slot's scope variable (`data` in the above example) will have the following 
 
 | Property | Type | Description
 | -------- | ---- | -----------
-| `label` | String | The label value
+| `label` | String | The fileds label value
 | `column` | String | The fields's `key` value
 | `field` | Object | the field's object (from the `fields` prop)
-| `index` | Number | The column number (zero based)
 
 
 ### `v-model` Binding
