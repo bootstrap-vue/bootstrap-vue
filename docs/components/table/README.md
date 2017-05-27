@@ -3,7 +3,7 @@
 > For tabular data. Tables support pagination and custom rendering.
 
 ### `fields` prop
-Thee `fields` prop is used to display table columns. 
+The `fields` prop is used to display table columns. 
 keys are used to extract real value from each row.
 Example format:
 ```js
