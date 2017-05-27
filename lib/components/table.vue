@@ -265,7 +265,7 @@
         },
         mounted() {
             if (this.hasProvider) {
-                this._updateItems();
+                this._providerUpdate();
             }
             this.$root.$on('table::refresh', (id) => {
                 if (id === this.id) {
