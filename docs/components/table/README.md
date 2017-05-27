@@ -54,11 +54,11 @@ Supported item record modifier properties (make sure your field keys do not conf
 | `_rowVariant` | String | Bootstrap contextual state applied to row (`active`, `success`, `info`, `warning`, `danger`)
 | `state` | String | **deprecated** in favour of `_rowVariant`
 
-**Note** `state` is deprecated. `_rowVariant`, if present in hte record, will be prefered.
+**Note** `state` is deprecated. `_rowVariant`, if present in the record, will be prefered.
 
 `items` can also be a reference to a *provider* function, which returns an `Array` of data.
 
-Providers can also be asynchronous:
+Provider functions can also be asynchronous:
 - Either returning `null` (or `undefined`) and calling a callback, when the data is 
 ready, with the data array as the only argument
 - By returning a `Promise` that resolves to an array.
