@@ -259,12 +259,12 @@
         mounted() {
             if (this.hasProvider) {
                 this._updateItems();
-                this.$root.$on('table::refresh', (id) => {
-                    if (id === this.id) {
-                        this._providerUpdate();
-                    }
-                });
             }
+            this.$root.$on('table::refresh', (id) => {
+                if (id === this.id) {
+                    this._providerUpdate();
+                }
+            });
         },
         computed: {
             tableClass() {
@@ -404,9 +404,10 @@
                     this._updateProvider()
                 }
             },
-            _providerCallback(data) {
-                this.localItems = (data && data.length > 0) ? data.slice() : [];
+            _providerSetLocal(items) {
+                this.localItems = (items && items.length > 0) ? items.slice() : [];
                 this.$emit('refreshed');
+                this.$root.$emit('table::refreshed', this.id);
             },
             _providerUpdate() {
                 // Refresh the provider items
@@ -422,7 +423,7 @@
                     filter: this.filter,
                     sortBy: this.sortBy,
                     sortDesc: this.sortDesc,
-                    callback: this._providerCallback
+                    callback: this._providerSetLocal
                 });
 
                 if (!data) {
@@ -433,13 +434,11 @@
                 if (data.then && typeof data.then === 'function') {
                     // Provider returned Promise
                     data.then((items) => {
-                        this.localItems = (items && items.length > 0) ? items.slice() : [];
-                        this.$emit('refreshed');
+                        this._providerSetLocal(items);
                     });
                 } else {
                     // Provider returned Array data
-                    this.localItems = data.length > 0 ? data.slice() : [];
-                    this.$emit('refreshed');
+                    this._providerSetLocal(data);
                 }
             }
         }
@@ -499,6 +498,6 @@
     }
 
     table[aria-busy="true"] {
-        opacity: .5;
+        opacity: .6;
     }
 </style>
