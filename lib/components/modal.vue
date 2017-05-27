@@ -188,6 +188,7 @@
                 if (this.is_visible) {
                     return;
                 }
+                this.$emit('show');
                 this.is_visible = true;
                 this.$root.$emit('shown::modal', this.id);
                 this.body.classList.add('modal-open');
@@ -216,7 +217,7 @@
 
                 // Emit events
                 this.$emit('change', false);
-                this.$emit('hidden', e);
+                this.$emit('hide',e);
 
                 if (isOK === true) {
                     this.$emit('ok', e);
@@ -234,6 +235,7 @@
                     }
                     this.is_visible = false;
                     this.$root.$emit('hidden::modal', this.id);
+                    this.$emit('hidden', e);
                     this.body.classList.remove('modal-open');
                 }
             },
