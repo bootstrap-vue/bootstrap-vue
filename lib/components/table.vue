@@ -408,7 +408,7 @@
                     }
                     this.sortBy = key;
                 }
-                this.$emit('head-clicked', key, this.sortDesc);
+                this.$emit('head-clicked', key, this.sortBy, this.sortDesc);
             },
             refresh() {
                 // Expose refresh method
