@@ -428,15 +428,14 @@
                     return;
                 }
 
-                // Call provider function with context
+                // Call provider function with context and optional callback
                 const data = this.items({
                     perPage: this.perPage,
                     currentPage: this.currentPage,
                     filter: this.filter,
                     sortBy: this.sortBy,
-                    sortDesc: this.sortDesc,
-                    callback: this._providerSetLocal
-                });
+                    sortDesc: this.sortDesc
+                }, this._providerSetLocal);
 
                 if (!data) {
                     // Provider is using callback
