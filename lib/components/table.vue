@@ -116,7 +116,14 @@
             },
             items: {
                 type: [Array, Function],
-                default: () => this.itemsProvider ? this.itemsProvider : [] // Deprecate itemsProvider
+                default: () => {
+                    if (this.itemsProvider) {
+                        // Deprecate itemsProvider
+                        console.warn('b-table: prop items-provider has been deprecated. Use items instead');
+                        return this.itemsProvider;
+                    }
+                    return [];
+                }
             },
             fields: {
                 type: Object,
@@ -270,6 +277,7 @@
             tableClass() {
                 return [
                     'table',
+                    'b-table',
                     this.striped ? 'table-striped' : '',
                     this.hover ? 'table-hover' : '',
                     this.inverse ? 'table-inverse' : '',
@@ -288,12 +296,16 @@
             hasProvider() {
                 return this.items instanceof Function;
             },
+            providerFiltering() {
+                return Boolean(this.hasProvider && !this.noProviderFiltering);
+            },
+            providerSorting() {
+                return Boolean(this.hasProvider && !this.noProviderSorting);
+            },
+            providerPaging() {
+                return Boolean(this.hasProvider && !this.noProviderPaging);
+            }
             _items() {
-                // Conditionals
-                const providerFiltering = Boolean(this.hasProvider && !this.noProviderFiltering);
-                const providerSorting = Boolean(this.hasProvider && !this.noProviderSorting);
-                const providerPaging = Boolean(this.hasProvider && !this.noProviderPaging);
-
                 // Grab some props/data to ensure reactivity
                 const perPage = this.perPage;
                 const currentPage = this.currentPage;
@@ -312,7 +324,7 @@
                 items = items.slice();
 
                 // Apply local filter
-                if (filter && !providerFiltering) {
+                if (filter && !this.providerFiltering) {
                     if (filter instanceof Function) {
                         items = items.filter(filter);
                     } else {
@@ -331,7 +343,7 @@
                 }
 
                 // Apply local Sort
-                if (this.sortBy && !providerSorting) {
+                if (this.sortBy && !this.providerSorting) {
                     items = items.sort((a, b) => {
                         const r = sortCompare(a, b, this.sortBy);
                         return this.sortDesc ? r : r * -1;
@@ -339,7 +351,7 @@
                 }
 
                 // Apply local pagination
-                if (perPage && !providerPaging) {
+                if (perPage && !this.providerPaging) {
                     items = items.slice((currentPage - 1) * perPage, currentPage * perPage);
                 }
 
@@ -445,59 +457,59 @@
     };
 </script>
 
-<style scoped>
+<style>
     /* Based on https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.css */
 
-    table > thead > tr > .sorting,
-    table > tfoot > tr > .sorting {
+    table.b-table > thead > tr > .sorting,
+    table.b-table > tfoot > tr > .sorting {
         padding-right: 30px;
         cursor: pointer;
         position: relative;
     }
 
-    table thead > tr > .sorting:before,
-    table thead > tr > .sorting:after,
-    table tfoot > tr > .sorting:before,
-    table thead > tr > .sorting:after {
+    table.b-table thead > tr > .sorting:before,
+    table.b-table thead > tr > .sorting:after,
+    table.b-table tfoot > tr > .sorting:before,
+    table.b-table thead > tr > .sorting:after {
         position: absolute;
         bottom: 0.9em;
         display: block;
         opacity: 0.3;
     }
 
-    table.table-sm > thead > tr > .sorting:before,
-    table.table-sm > thead > tr > .sorting:after,
-    table.table-sm > tfoot > tr > .sorting:before,
-    table.table-sm > thead > tr > .sorting:after {
+    table.b-table.table-sm > thead > tr > .sorting:before,
+    table.b-table.table-sm > thead > tr > .sorting:after,
+    table.b-table.table-sm > tfoot > tr > .sorting:before,
+    table.b-table.table-sm > thead > tr > .sorting:after {
         bottom: 0.4em;
     }
 
-    table > thead > tr > .sorting:before,
-    table > tfoot > tr > .sorting:before {
+    table.b-table > thead > tr > .sorting:before,
+    table.b-table > tfoot > tr > .sorting:before {
         right: 1em;
         content: "\2191";
     }
 
-    table > thead > tr > .sorting:after,
-    table > tfoot > tr > .sorting:after {
+    table.b-table > thead > tr > .sorting:after,
+    table.b-table > tfoot > tr > .sorting:after {
         right: 0.5em;
         content: "\2193";
     }
 
-    table > thead > tr > .sorting_asc:before,
-    table > thead > tr > .sorting_desc:after,
-    table > tfoot > tr > .sorting_asc:before,
-    table > tfoot > tr > .sorting_desc:after {
+    table.b-table > thead > tr > .sorting_asc:before,
+    table.b-table > thead > tr > .sorting_desc:after,
+    table.b-table > tfoot > tr > .sorting_asc:before,
+    table.b-table > tfoot > tr > .sorting_desc:after {
         opacity: 1;
     }
 
     /* Busy table styling */
 
-    table[aria-busy="false"] {
+    table.b-table[aria-busy="false"] {
         opacity: 1;
     }
 
-    table[aria-busy="true"] {
+    table.b-table[aria-busy="true"] {
         opacity: .6;
     }
 </style>
