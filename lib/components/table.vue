@@ -304,7 +304,7 @@
             },
             providerPaging() {
                 return Boolean(this.hasProvider && !this.noProviderPaging);
-            }
+            },
             _items() {
                 // Grab some props/data to ensure reactivity
                 const perPage = this.perPage;
