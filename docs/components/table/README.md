@@ -253,7 +253,7 @@ function myProvider(ctx) {
 ```
 
 `b-table` provides a `busy` prop that will flag the table as busy, which you can 
-set to `true` just before your async fetch, and then set it to `true` once you have your data, and just 
+set to `true` just before your async fetch, and then set it to `false` once you have your data, and just 
 before you send it to the table for display.
 
 By default, the items provider function is responsible for **all** paging, filtering, and sorting 
