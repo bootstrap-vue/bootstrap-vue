@@ -16,7 +16,7 @@
                     :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null"
                 >
-                  <slot :name="'HEAD_'+key" :label="field.label" :column="key" :field="field" v-html="field.label">
+                  <slot :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
                     {{field.label}}
                   </slot>
                 </th>
