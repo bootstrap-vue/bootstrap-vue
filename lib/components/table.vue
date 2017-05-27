@@ -41,33 +41,33 @@
                     {{field.label}}
                   </slot>
                 </th>
-        </tr>
+            </tr>
         </tfoot>
         <tbody>
-        <tr v-for="(item,index) in _items"
-            role="row"
-            :key="items_key"
-            :class="rowClass(item)"
-            @click="rowClicked($event,item,index)"
-        >
-            <td v-for="(field,key) in fields" :class="tdClass(field)">
-                <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
-            </td>
-        </tr>
-        <tr v-if="showEmpty && (!_items  || _items.length === 0)" role="row">
-            <td :colspan="Object.keys(fields).length">
-                <div v-if="filter" role="alert" aria-live="polite">
-                    <slot name="emptyfiltered">
-                        <div class="text-center my-2" v-html="emptyFilteredText"></div>
-                    </slot>
-                </div>
-                <div v-else role="alert" aria-live="polite">
-                    <slot name="empty">
-                        <div class="text-center my-2" v-html="emptyText"></div>
-                    </slot>
-                </div>
-            </td>
-        </tr>
+            <tr v-for="(item,index) in _items"
+                role="row"
+                :key="items_key"
+                :class="rowClass(item)"
+                @click="rowClicked($event,item,index)"
+            >
+                <td v-for="(field,key) in fields" :class="tdClass(field)">
+                    <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
+                </td>
+            </tr>
+            <tr v-if="showEmpty && (!_items  || _items.length === 0)" role="row">
+                <td :colspan="Object.keys(fields).length">
+                    <div v-if="filter" role="alert" aria-live="polite">
+                        <slot name="emptyfiltered">
+                            <div class="text-center my-2" v-html="emptyFilteredText"></div>
+                        </slot>
+                    </div>
+                    <div v-else role="alert" aria-live="polite">
+                        <slot name="empty">
+                            <div class="text-center my-2" v-html="emptyText"></div>
+                        </slot>
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 </template>

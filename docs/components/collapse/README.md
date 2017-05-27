@@ -5,9 +5,32 @@
 Other elements can easily toggle collapse using `v-b-toggle` directive.
 
 ```html
-    <!-- Using modifiers --> 
+    <!-- Using modifiers -->
     <b-btn v-b-toggle.collapse1>Toggle Collapse</b-btn>
-    
-    <!-- Using value --> 
+
+    <!-- Using value -->
     <b-btn v-b-toggle="'collapse1'">Toggle Collapse</b-btn>
+```
+
+The component's collapsed state can also be set with `v-model`.
+
+```html
+<b-btn @click="showCollapse = !showCollapse">Toggle Collapse</b-btn>
+
+<b-collapse v-model="showCollapse" id="collapse1">
+    <b-card>
+      I should start open!
+    </b-card>
+</b-collapse>
+
+<script>
+{
+    // inside the vue
+    data() {
+        return {
+            showCollapse: true
+        }
+    }
+}
+</script>
 ```

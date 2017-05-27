@@ -17,10 +17,6 @@
         transition: all .35s ease;
         overflow: hidden;
     }
-
-    .collapse-enter, .collapse-leave-to {
-        /*height: 0;*/
-    }
 </style>
 
 <script>
@@ -28,7 +24,7 @@
 
         data() {
             return {
-                show: false
+                show: this.visible
             };
         },
 
@@ -41,6 +37,20 @@
             }
         },
 
+        model: {
+            prop: 'visible',
+            event: 'input'
+        },
+
+        watch: {
+            visible(newVal) {
+                if (newVal !== this.show) {
+                    this.show = newVal;
+                    this.emitState();
+                }
+            },
+        },
+
         props: {
             isNav: {
                 type: Boolean,
@@ -49,6 +59,10 @@
             id: {
                 type: String,
                 required: true
+            },
+            visible: {
+                type: Boolean,
+                default: false
             }
         },
 
@@ -81,6 +95,7 @@
                 el.style.height = null;
             },
             emitState() {
+                this.$emit('input', this.show);
                 this.$root.$emit('collapse::toggle::state', this.id, this.show);
             }
         },
