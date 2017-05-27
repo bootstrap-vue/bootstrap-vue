@@ -47,7 +47,7 @@ Supported field properties:
 ]
 ```
 
-Supported item record modifier properties (make sure your field keys do not conflict with these names):
+Supported optional item record modifier properties (make sure your field keys do not conflict with these names):
 
 | Property | Type | Description
 | ---------| ---- | -----------
@@ -56,14 +56,14 @@ Supported item record modifier properties (make sure your field keys do not conf
 
 **Note** `state` is deprecated. `_rowVariant`, if present in the record, will be prefered.
 
-`items` can also be a reference to a *provider* function, which returns an `Array` of data.
+`items` can also be a reference to a *provider* function, which returns an `Array` of items data.
 
 Provider functions can also be asynchronous:
 - Either returning `null` (or `undefined`) and calling a callback, when the data is 
 ready, with the data array as the only argument
 - By returning a `Promise` that resolves to an array.
 
-See the **"Using Item Provider functions"** section below for more details.
+See the **"Using Items Provider functions"** section below for more details.
 
 
 ### Custom Data Rendering
@@ -181,7 +181,7 @@ The slot's scope variable (`data` in the above example) will have the following 
 
 | Property | Type | Description
 | -------- | ---- | -----------
-| `label` | String | The fileds label value
+| `label` | String | The fileds label value (also available as `data.field.label`)
 | `column` | String | The fields's `key` value
 | `field` | Object | the field's object (from the `fields` prop)
 
@@ -191,17 +191,17 @@ If you bind a variable to the `v-model` prop, the contents of this variable will
 be the currently disaplyed item records. This variable should be treated as readonly.
 
 
-### Using Provider Functions
+### Using Items Provider Functions
 As mentioned under the `items` prop section, it is possible to use a function to provide 
 the row data (items), by specifying a function reference via the `items` prop.
 
 **Note:** The `items-provider` prop has been deprecaated in favour of providing a function
-reference to the `items` prop.
+reference to the `items` prop. A console warning will be issued if `items-provider` is used.
 
 The providerfunction is called with the following signature:
 
 ```js
-provider(ctx)
+provider(ctx, [callback])
 ```
 
 The `ctx` is the context object associated with the table state, and contains the
@@ -214,7 +214,8 @@ following six properties:
 | `filter` | String or RegExp or Function | the value of the `Filter` prop
 | `sortBy` | String | The current column key being sorted, or `null` if not sorting
 | `sortDesc` | Boolean | The current sort direction (`true` for descending, `false` for ascending)
-| `callback` | Function | Callback from asyncronous data
+
+The second argument `callback` is an optional parameter for when when using the callback asynchronous method.
 
 **Example 1: returning an array of data (synchronous):**
 ```js
@@ -223,18 +224,24 @@ function myProvider(ctx) {
 
     // perform any items processing needed
     
-    return items;
+    // Must rturn an array
+    return items || [];
 }
 ```
 
 **Example 2: Using callback to return data (asynchronous):**
 ```js
-function myProvider(ctx) {
-    let items = [];
+function myProvider(ctx, callback) {
+    let params = '?page=' + ctx.currentPage + '&size=' + ctx.perPage;
 
-    fetchData('/some/url').then((data) => {
-        ctx.callback(items);
+    this.fetchData('/some/url' + params).then((data) => {
+        // Pluck the array of items off our axios response
+        let items = data.items;
+        // Provide the array of items to the callabck
+        callback(items);
     })
+
+    // Must return null or undefined
     return null;
 }
 ```
@@ -242,19 +249,45 @@ function myProvider(ctx) {
 **Example 3: Using a Promise to return data (asynchronous):**
 ```js
 function myProvider(ctx) {
-    let items = [];
+    let promise = axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage);
 
-    let promise = axios.get('/some/url');
-
+    // Must return a promise that resolves to an array of items
     return promise.then((data) => {
-        return(data);
+        // Pluck the array of items off our axios response
+        let items = data.items;
+        // Must return an array of items
+        return(items);
     });
 }
 ```
 
 `b-table` provides a `busy` prop that will flag the table as busy, which you can 
 set to `true` just before your async fetch, and then set it to `false` once you have your data, and just 
-before you send it to the table for display.
+before you send it to the table for display. Example:
+
+```html
+<b-table id="my-table" :busy="isBusy" :items="myProvider" :fields="fields" ....>
+</b-table>
+```
+```js
+data () {
+    return {
+        isBusy = false
+    };
+}
+methods: {
+    myProvider(ctx) {
+        this.isBusy = true
+        let promise = axios.get('/some/url');
+
+        return promise.then((data) => {
+            const items = data.items;
+            this.isBusy = false
+            return(items);
+        });
+    }
+ }
+```
 
 By default, the items provider function is responsible for **all** paging, filtering, and sorting 
 of the data, before passing it to `b-tqable` for display.
@@ -276,9 +309,24 @@ trigger the calling of the provider function.  So be sure to bind to the `per-pa
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
 (unless you have the `no-provider-` respective prop set to true).
 
+**Event based refreshing of data:**
 You may also trigger the refresh of the provider function by emitting the 
-event `table::refresh` on `$orrt` with the single argument being the `id` of your `b-table`.
+event `table::refresh` on `$oot` with the single argument being the `id` of your `b-table`.
 
+```js
+    this.$root.$emit('table::refresh', 'my-table');
+```
+
+Or by calling the refresh method on the table reference
+```html
+<b-table ref="table" ... >
+</b-table>
+```
+```js
+    this.$refs.table.refresh();
+```
+
+These refresh event/methods are only applicable when `items` is a provider function.
 
 ### Server Side Rendering
 Special care must be taken when using server side rendering (SSR) and an `items` provider
