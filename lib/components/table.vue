@@ -317,7 +317,7 @@
                 let items = this.hasProvider ? this.localItems : this.items;
 
                 if (!items) {
-                    this.$nextTick(this._updateProvider);
+                    this.$nextTick(this._providerUpdate);
                     return [];
                 }
 
@@ -413,7 +413,7 @@
             refresh() {
                 // Expose refresh method
                 if (this.hasProvider) {
-                    this._updateProvider()
+                    this._providerUpdate();
                 }
             },
             _providerSetLocal(items) {
