@@ -46,7 +46,6 @@
         <tbody>
             <tr v-for="(item,index) in _items"
                 role="row"
-                :key="items_key"
                 :class="rowClass(item)"
                 @click="rowClicked($event,item,index)"
             >
@@ -163,10 +162,6 @@
             },
             perPage: {
                 type: Number,
-                default: null
-            },
-            items_key: {
-                type: String,
                 default: null
             },
             currentPage: {
