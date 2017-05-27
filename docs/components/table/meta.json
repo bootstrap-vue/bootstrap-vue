@@ -12,6 +12,26 @@
           "description": "Selected item and its index."
         }
       ]
+    },
+    {
+      "event": "head-clicked",
+      "description": "Emitted when a header or footer cell is clicked.",
+      "args": [
+        {
+          "arg": "(key,sortDesc)",
+          "description": "Cliked column key and the new sort direction. key will be null when no sorting"
+        }
+      ]
+    },
+    {
+      "event": "refreshed",
+      "description": "Emitted when the items provider function has returned data.",
+      "args": [
+        {
+          "arg": "",
+          "description": "Called when the items provider function has returned data"
+        }
+      ]
     }
   ]
 }
