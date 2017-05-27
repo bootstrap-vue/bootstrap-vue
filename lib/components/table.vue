@@ -37,7 +37,7 @@
                   <slot v-if="$scopedSlots['FOOT_'+key]" :name="'FOOT_'+key" :label="field.label" :column="key" :field="field">
                     {{field.label}}
                   </slot>
-                  <slot v-else :name="'HEAD_'+key" :label="field.label" :column="key" :field="field" v-html="field.label">
+                  <slot v-else :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
                     {{field.label}}
                   </slot>
                 </th>
