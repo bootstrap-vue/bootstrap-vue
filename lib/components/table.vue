@@ -1,34 +1,46 @@
 <template>
     <table :id="id || null"
            role="grid"
+           :aria-busy="busy ? 'true' : 'false'"
            :class="tableClass"
     >
-        <thead :class="headVariant ? ('thead-' + headVariant) : ''">
-        <tr role="row">
-            <th v-for="field,key in fields"
-                @click="headClick(field,key)"
-                @keydown.enter="headClick(field,key)"
-                @keydown.space.prevent="headClick(field,key)"
-                :class="fieldClass(field,key)"
-                :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
-                :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
-                :tabindex="field.sortable?'0':null"
-                v-html="field.label"
-            ></th>
-        </tr>
+        <thead :class="headClass">
+            <tr role="row">
+                <th v-for="field,key in fields"
+                    @click.stop.prevent="headClick($event,field,key)"
+                    @keydown.enter.stop.prevent="headClick($event,field,key)"
+                    @keydown.space.stop.prevent="headClick($event,field,key)"
+                    :key="key"
+                    :class="fieldClass(field,key)"
+                    :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
+                    :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
+                    :tabindex="field.sortable?'0':null"
+                >
+                  <slot :name="'HEAD_'+key" :label="field.label" :column="key" :field="field" v-html="field.label">
+                    {{field.label}}
+                  </slot>
+                </th>
+            </tr>
         </thead>
-        <tfoot v-if="footClone" :class="footVaraiant ? ('thead-' + footVariant) : ''">
-        <tr role="row">
-            <th v-for="field,key in fields"
-                @click="headClick(field,key)"
-                @keydown.enter="headClick(field,key)"
-                @keydown.space.prevent="headClick(field,key)"
-                :class="fieldClass(field,key)"
-                :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
-                :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
-                :tabindex="field.sortable?'0':null"
-                v-html="field.label"
-            ></th>
+        <tfoot v-if="footClone" :class="footClass">
+            <tr role="row">
+                <th v-for="field,key in fields"
+                    @click.stop.prevent="headClick($event,field,key)"
+                    @keydown.enter.stop.prevent="headClick($event,field,key)"
+                    @keydown.space.stop.prevent="headClick($event,field,key)"
+                    :key="key"
+                    :class="fieldClass(field,key)"
+                    :aria-label="field.sortable ? ((sortDesc) ? labelSortAsc : labelSortDesc) : null"
+                    :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
+                    :tabindex="field.sortable?'0':null"
+                >            
+                  <slot v-if="$scopedSlots['FOOT_'+key]" :name="'FOOT_'+key" :label="field.label" :column="key" :field="field">
+                    {{field.label}}
+                  </slot>
+                  <slot v-else :name="'HEAD_'+key" :label="field.label" :column="key" :field="field" v-html="field.label">
+                    {{field.label}}
+                  </slot>
+                </th>
         </tr>
         </tfoot>
         <tbody>
@@ -36,73 +48,65 @@
             role="row"
             :key="items_key"
             :class="rowClass(item)"
-            @click="rowClicked(item, index)"
+            @click="rowClicked($event,item,index)"
         >
-            <td v-for="(field,key) in fields"
-                :class="cellClass(field)"
-            >
+            <td v-for="(field,key) in fields" :class="tdClass(field)">
                 <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
             </td>
         </tr>
-        <tr v-if="showEmpty && items.length === 0"
-            :colspan="Object.keys(fields).length"
-            role="row"
-        >
-            <slot name="empty">
-                <div class="text-center" v-html="emptyText"></div>
-            </slot>
-        </tr>
-        <tr v-else-if="showEmpty && _items.length === 0"
-            :colspan="Object.keys(fields).length"
-            role="row"
-        >
-            <slot name="emptyfiltered">
-                <div class="text-center" v-html="emptyFilteredText"></div>
-            </slot>
+        <tr v-if="showEmpty && (!_items  || _items.length === 0)" role="row">
+            <td :colspan="Object.keys(fields).length">
+                <div v-if="filter" role="alert" aria-live="polite">
+                    <slot name="emptyfiltered">
+                        <div class="text-center my-2" v-html="emptyFilteredText"></div>
+                    </slot>
+                </div>
+                <div v-else role="alert" aria-live="polite">
+                    <slot name="empty">
+                        <div class="text-center my-2" v-html="emptyText"></div>
+                    </slot>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
 </template>
 
 <script>
-    import bPagination from './pagination.vue';
-
     const toString = v => {
         if (!v) {
             return '';
         }
-
         if (v instanceof Object) {
             return Object.keys(v).map(k => toString(v[k])).join(' ');
         }
-
         return String(v);
     };
 
-    const recToString = v => {
-        if (!(v instanceof Object)) {
+    const recToString = (obj) => {
+        if (!(obj instanceof Object)) {
             return '';
         }
-
         // Exclude these fields from record stringification
-        const exclude = {
-            state: true,
-            _rowVariant: true
-        };
-
-        return toString(Object.keys(v).filter(k => !exclude[k]).reduce((o, k) => { o[k] = v[k]; return o; }, {}));
+        const exclude = { state: true, _rowVariant: true };
+        return toString(Object.keys(obj).filter(k => !exclude[k]).reduce((o, k) => {
+            o[k] = obj[k];
+            return o;
+        }, {}));
     };
-    
+
     const defaultSortCompare = (a, b, sortBy) => {
-        return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {numeric: true});
+        return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
+            numeric: true
+        });
     };
 
     export default {
-        components: {bPagination},
         data() {
             return {
                 sortBy: null,
-                sortDesc: true
+                sortDesc: true,
+                localItems: []
             };
         },
         props: {
@@ -111,13 +115,12 @@
                 default: ''
             },
             items: {
-                type: Array,
-                default: () => []
+                type: [Array, Function],
+                default: () => this.itemsProvider ? this.itemsProvider : [] // Deprecate itemsProvider
             },
             fields: {
                 type: Object,
-                default: () => {
-                }
+                default: {}
             },
             striped: {
                 type: Boolean,
@@ -172,12 +175,29 @@
                 default: null
             },
             itemsProvider: {
+                // Deprecated in favour of items
                 type: Function,
                 default: null
             },
+            noProviderPaging: {
+                type: Boolean,
+                default: false
+            },
+            noProviderSorting: {
+                type: Boolean,
+                default: false
+            },
+            noProviderFiltering: {
+                type: Boolean,
+                default: false
+            },
+            busy: {
+                type: Boolean,
+                default: false
+            },
             value: {
                 type: Array,
-                default: () => []
+                default: []
             },
             footClone: {
                 type: Boolean,
@@ -204,7 +224,48 @@
                 default: 'There are no records matching your request'
             }
         },
-
+        watch: {
+            items(newVal, oldVal) {
+                if (oldVal !== newVal) {
+                    this._providerUpdate();
+                }
+            },
+            sortDesc(newVal, oldVal) {
+                if (oldVal !== newVal && !this.noProviderSorting) {
+                    this._providerUpdate();
+                }
+            },
+            sortBy(newVal, oldVal) {
+                if (oldVal !== newVal && !this.noProviderSorting) {
+                    this._providerUpdate();
+                }
+            },
+            perPage(newVal, oldVal) {
+                if (oldVal !== newVal && !this.noProviderPaging) {
+                    this._providerUpdate();
+                }
+            },
+            currentPage(newVal, oldVal) {
+                if (oldVal !== newVal && !this.noProviderPaging) {
+                    this._providerUpdate();
+                }
+            },
+            filter(newVal, oldVal) {
+                if (oldVal !== newVal && !this.noProviderFiltering) {
+                    this._providerUpdate();
+                }
+            }
+        },
+        mounted() {
+            if (this.hasProvider) {
+                this._updateItems();
+                this.$root.$on('table::refresh', (id) => {
+                    if (id === this.id) {
+                        this._providerUpdate();
+                    }
+                });
+            }
+        },
         computed: {
             tableClass() {
                 return [
@@ -217,27 +278,49 @@
                     this.small ? 'table-sm' : ''
                 ];
             },
+            headClass() {
+                return this.headVariant ? 'thead-' + this.headVariant : '';
+            },
+            footClass() {
+                const variant = this.footVariant || this.headVariant || null;
+                return variant ? 'thead-' + variant : '';
+            },
+            hasProvider() {
+                return this.items instanceof Function;
+            },
             _items() {
-                if (!this.items) {
+                // Conditionals
+                const providerFiltering = Boolean(this.hasProvider && !this.noProviderFiltering);
+                const providerSorting = Boolean(this.hasProvider && !this.noProviderSorting);
+                const providerPaging = Boolean(this.hasProvider && !this.noProviderPaging);
+
+                // Grab some props/data to ensure reactivity
+                const perPage = this.perPage;
+                const currentPage = this.currentPage;
+                const filter = this.filter;
+                const sortBy = this.sortBy;
+                const sortDesc = this.sortDesc;
+                const sortCompare = this.sortCompare || defaultSortCompare;
+
+                let items = this.hasProvider ? this.localItems : this.items;
+
+                if (!items) {
+                    this.$nextTick(this._updateProvider);
                     return [];
                 }
 
-                if (this.itemsProvider) {
-                    return this.itemsProvider(this);
-                }
+                items = items.slice();
 
-                let items = this.items.slice();
-
-                // Apply filter
-                if (this.filter) {
-                    if (this.filter instanceof Function) {
-                        items = items.filter(this.filter);
+                // Apply local filter
+                if (filter && !providerFiltering) {
+                    if (filter instanceof Function) {
+                        items = items.filter(filter);
                     } else {
                         let regex;
-                        if (this.filter instanceof RegExp) {
-                            regex = this.filter;
+                        if (filter instanceof RegExp) {
+                            regex = filter;
                         } else {
-                            regex = new RegExp('.*' + this.filter + '.*', 'ig');
+                            regex = new RegExp('.*' + filter + '.*', 'ig');
                         }
                         items = items.filter(item => {
                             const test = regex.test(recToString(item));
@@ -247,21 +330,21 @@
                     }
                 }
 
-                // Apply Sort
-                const sortCompare = this.sortCompare || defaultSortCompare;
-                if (this.sortBy) {
+                // Apply local Sort
+                if (this.sortBy && !providerSorting) {
                     items = items.sort((a, b) => {
                         const r = sortCompare(a, b, this.sortBy);
                         return this.sortDesc ? r : r * -1;
                     });
                 }
 
-                this.$emit('input', items);
-
-                // Apply pagination
-                if (this.perPage) {
-                    items = items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
+                // Apply local pagination
+                if (perPage && !providerPaging) {
+                    items = items.slice((currentPage - 1) * perPage, currentPage * perPage);
                 }
+
+                // Update the value model with the filtered/sorted/paginated data set
+                this.$emit('input', items);
                 return items;
             }
         },
@@ -271,14 +354,14 @@
                     field.sortable ? 'sorting' : '',
                     (field.sortable && this.sortBy === key) ? 'sorting_' + (this.sortDesc ? 'desc' : 'asc') : '',
                     field.variant ? ('table-' + field.variant) : '',
-                    field.class ? field.class : '',
-                    field.invisible ? 'invisible' : ''
+                    field.class ? field.class : ''
                 ];
             },
-            cellClass(field) {
+            tdClass(field) {
+                return [
                     field.variant ? ('table-' + field.variant) : '',
-                    field.class ? field.class : '',
-                    field.invisible ? 'invisible' : ''
+                    field.class ? field.class : ''
+                ];
             },
             rowClass(item) {
                 // Prefer item._rowVariant over deprecated item.state
@@ -287,27 +370,83 @@
                     variant ? ('table-' + variant) : ''
                 ];
             },
-            rowClicked(item, index) {
+            rowClicked(e, item, index) {
+                if (this.busy) {
+                    // If table is busy (via provider) then don't propagate
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                }
                 this.$emit('row-clicked', item, index);
             },
-            headClick(field, key) {
+            headClick(e, field, key) {
+                if (this.busy) {
+                    // If table is busy (via provider) then don't propagate
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                }
                 if (!field.sortable) {
                     this.sortBy = null;
+                } else {
+                    if (key === this.sortBy) {
+                        this.sortDesc = !this.sortDesc;
+                    } else {
+                        this.sortDesc = true;
+                    }
+                    this.sortBy = key;
+                }
+                this.$emit('head-clicked', key, this.sortDesc);
+            },
+            refresh() {
+                // Expose refresh method
+                if (this.hasProvider) {
+                    this._updateProvider()
+                }
+            },
+            _providerCallback(data) {
+                this.localItems = (data && data.length > 0) ? data.slice() : [];
+                this.$emit('refreshed');
+            },
+            _providerUpdate() {
+                // Refresh the provider items
+                if (this.busy || !this.hasProvider) {
+                    // Don't refresh remote data if we are 'busy' or if no provider
                     return;
                 }
 
-                if (key === this.sortBy) {
-                    this.sortDesc = !this.sortDesc;
+                // Call provider function with context
+                const data = this.items({
+                    perPage: this.perPage,
+                    currentPage: this.currentPage,
+                    filter: this.filter,
+                    sortBy: this.sortBy,
+                    sortDesc: this.sortDesc,
+                    callback: this._providerCallback
+                });
+
+                if (!data) {
+                    // Provider is using callback
+                    return;
                 }
 
-                this.sortBy = key;
+                if (data.then && typeof data.then === 'function') {
+                    // Provider returned Promise
+                    data.then((items) => {
+                        this.localItems = (items && items.length > 0) ? items.slice() : [];
+                        this.$emit('refreshed');
+                    });
+                } else {
+                    // Provider returned Array data
+                    this.localItems = data.length > 0 ? data.slice() : [];
+                    this.$emit('refreshed');
+                }
             }
         }
     };
 </script>
 
-
-<style>
+<style scoped>
     /* Based on https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.css */
 
     table > thead > tr > .sorting,
@@ -351,5 +490,15 @@
     table > tfoot > tr > .sorting_asc:before,
     table > tfoot > tr > .sorting_desc:after {
         opacity: 1;
+    }
+
+    /* Busy table styling */
+
+    table[aria-busy="false"] {
+        opacity: 1;
+    }
+
+    table[aria-busy="true"] {
+        opacity: .5;
     }
 </style>
