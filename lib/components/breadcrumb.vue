@@ -1,8 +1,8 @@
 <template>
     <ol class="breadcrumb" role="navigation">
-        <li v-for="item in items2"
-            :class="['breadcrumb-item', item.__active ? 'active' : null]"
-            @click="onclick(item)"
+        <li v-for="item in normalizedItems"
+            :class="['breadcrumb-item', item.active ? 'active' : null]"
+            @click="onClick(item)"
             role="presentation"
         >
             <span v-if="item.active" v-html="item.text"></span>
@@ -10,7 +10,6 @@
                     :to="item.to"
                     :href="item.href || item.link"
                     v-html="item.text"
-                    @click="onclick"
             ></b-link>
         </li>
         <slot></slot>
@@ -26,18 +25,27 @@
             componentType() {
                 return this.to ? 'router-link' : 'a';
             },
-            items2() {
-                const last = this.items.length > 0 && this.items[this.items.length - 1];
+            normalizedItems() {
+                let userDefinedActive = false;
 
-                return this.items.map(item => {
+                return this.items.map((item, index, originalItems) => {
+                    // if no active state is defined,
+                    // default to the last item in the array as active
+                    const isLast = index === originalItems.length - 1;
+
+                    // nothing defined except the text
                     if (typeof item === 'string') {
-                        return {text: item, link: '#', active: item === last};
+                        return {text: item, link: '#', active: isLast};
                     }
 
-                    if (item.active !== true && item.active !== false) {
-                        item.__active = item === last;
-                    } else {
-                        item.__active = item.active;
+                    // don't default the active state if given a boolean value,
+                    // or if a user defined value has already been given
+                    if (item.active !== true && item.active !== false && !userDefinedActive) {
+                        item.active = isLast;
+                    } else if (item.active) {
+                        // here we know we've been given an active value,
+                        // so we won't set a default value
+                        userDefinedActive = true;
                     }
 
                     return item;
@@ -52,7 +60,7 @@
             }
         },
         methods: {
-            onclick(item) {
+            onClick(item) {
                 this.$emit('click', item);
             }
         }
