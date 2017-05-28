@@ -304,6 +304,15 @@
             providerPaging() {
                 return Boolean(this.hasProvider && !this.noProviderPaging);
             },
+            context() {
+                return {
+                    perPage: this.perPage,
+                    currentPage: this.currentPage,
+                    filter: this.filter,
+                    sortBy: this.sortBy,
+                    sortDesc: this.sortDesc
+                };
+            },
             _items() {
                 // Grab some props/data to ensure reactivity
                 const perPage = this.perPage;
@@ -397,17 +406,27 @@
                     e.stopPropagation();
                     return;
                 }
+                let changed = false;
                 if (!field.sortable) {
-                    this.sortBy = null;
+                    if (this.sortBy) {
+                        this.sortBy = null;
+                        changed = true;
+                    }
                 } else {
                     if (key === this.sortBy) {
                         this.sortDesc = !this.sortDesc;
+                        changed = true;
                     } else {
                         this.sortDesc = true;
+                        this.sortBy = key;
+                        changed = true;
                     }
-                    this.sortBy = key;
                 }
                 this.$emit('head-clicked', key, this.sortBy, this.sortDesc);
+                if (changed) {
+                    // Sorting parameters changed
+                    this.$emit('sort-changed', this.context);
+                }
             },
             refresh() {
                 // Expose refresh method
@@ -428,13 +447,7 @@
                 }
 
                 // Call provider function with context and optional callback
-                const data = this.items({
-                    perPage: this.perPage,
-                    currentPage: this.currentPage,
-                    filter: this.filter,
-                    sortBy: this.sortBy,
-                    sortDesc: this.sortDesc
-                }, this._providerSetLocal);
+                const data = this.items(this.context, this._providerSetLocal);
 
                 if (!data) {
                     // Provider is using callback
