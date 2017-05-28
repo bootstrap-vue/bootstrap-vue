@@ -414,13 +414,14 @@
                     }
                 } else {
                     if (key === this.sortBy) {
+                        // Change sorting direction on column
                         this.sortDesc = !this.sortDesc;
-                        changed = true;
                     } else {
-                        this.sortDesc = true;
+                        // Start sorting this column descending
                         this.sortBy = key;
-                        changed = true;
+                        this.sortDesc = true;
                     }
+                    changed = true;
                 }
                 this.$emit('head-clicked', key, this.sortBy, this.sortDesc);
                 if (changed) {
