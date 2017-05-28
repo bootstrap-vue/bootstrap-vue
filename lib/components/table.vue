@@ -86,11 +86,15 @@
         if (!(obj instanceof Object)) {
             return '';
         }
+
         // Exclude these fields from record stringification
         const exclude = { state: true, _rowVariant: true };
-        return toString(Object.keys(obj).filter(k => !exclude[k]).reduce((o, k) => {
+
+        return toString(Object.keys(obj).reduce((o, k) => {
+          if(!exclude[k]) {
             o[k] = obj[k];
-            return o;
+          }
+          return o;
         }, {}));
     };
 
