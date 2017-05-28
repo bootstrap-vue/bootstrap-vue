@@ -1,16 +1,16 @@
 <template>
-    <ol class="breadcrumb" role="navigation">
+    <ol class="breadcrumb"
+        role="navigation">
         <li v-for="item in normalizedItems"
             :class="['breadcrumb-item', item.active ? 'active' : null]"
             @click="onClick(item)"
-            role="presentation"
-        >
-            <span v-if="item.active" v-html="item.text"></span>
+            role="presentation">
+            <span v-if="item.active"
+                  v-html="item.text"></span>
             <b-link v-else
                     :to="item.to"
                     :href="item.href || item.link"
-                    v-html="item.text"
-            ></b-link>
+                    v-html="item.text"></b-link>
         </li>
         <slot></slot>
     </ol>
@@ -20,7 +20,7 @@
     import bLink from './link.vue';
 
     export default {
-        components: {bLink},
+        components: { bLink },
         computed: {
             componentType() {
                 return this.to ? 'router-link' : 'a';
@@ -35,7 +35,7 @@
 
                     // nothing defined except the text
                     if (typeof item === 'string') {
-                        return {text: item, link: '#', active: isLast};
+                        return { text: item, link: '#', active: isLast };
                     }
 
                     // don't default the active state if given a boolean value,
