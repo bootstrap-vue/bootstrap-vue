@@ -1,5 +1,5 @@
 <template>
-    <div class="input-group-addon" :id="id || null">
+    <div class="input-group-addon" :id="id">
         <slot></slot>
     </div>
 </template>
