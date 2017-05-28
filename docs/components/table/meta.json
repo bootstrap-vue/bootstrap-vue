@@ -24,6 +24,16 @@
       ]
     },
     {
+      "event": "sort-changed",
+      "description": "Emitted when the sorting on the table has changed",
+      "args": [
+        {
+          "arg": "(ctx)",
+          "description": "Table state context object. Identical to ctx provided to items provider function."
+        }
+      ]
+    },
+    {
       "event": "refreshed",
       "description": "Emitted when the items provider function has returned data.",
       "args": [
