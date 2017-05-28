@@ -6,7 +6,10 @@
         </slot>
 
         <!-- Card Header-->
-        <component v-if="header || showHeader" :is="headerTag" class="card-header">
+        <component v-if="header || showHeader"
+                   :is="headerTag"
+                   :class="['card-header', headerVariant?('bg-'+headerVariant):'', headerClass]"
+        >
             <slot name="header">
                 <div v-html="header"></div>
             </slot>
@@ -25,7 +28,10 @@
         </div>
 
         <!-- Card Footer-->
-        <component v-if="footer || showFooter" :is="footerTag" class="card-footer">
+        <component v-if="footer || showFooter"
+                   :is="footerTag"
+                   :class="['card-footer', footerVariant?('bg-'+footerVariant):'', footerClass]"
+        >
             <slot name="footer">
                 <div v-html="footer"></div>
             </slot>
@@ -87,6 +93,14 @@
                 type: Boolean,
                 default: false
             },
+            headerVariant: {
+                type: String,
+                default: null
+            },
+            headerClass: {
+                type: [String, Array],
+                default: ''
+            },
             headerTag: {
                 type: String,
                 default: 'div'
@@ -100,6 +114,14 @@
             showFooter: {
                 type: Boolean,
                 default: false
+            },
+            footerVariant: {
+                type: String,
+                default: null
+            },
+            footerClass: {
+                type: [String, Array],
+                default: ''
             },
             footerTag: {
                 type: String,
