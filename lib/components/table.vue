@@ -479,7 +479,7 @@
     table.b-table.table-sm > thead > tr > .sorting:after,
     table.b-table.table-sm > tfoot > tr > .sorting:before,
     table.b-table.table-sm > thead > tr > .sorting:after {
-        bottom: 0.4em;
+        bottom: 0.45em;
     }
 
     table.b-table > thead > tr > .sorting:before,
