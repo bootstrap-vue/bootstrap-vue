@@ -25,7 +25,7 @@ Supported field properties:
 | `label` | String | Appears in the table header
 | `sortable` | Boolean | Enable sorting on this column
 | `variant` | String | Apply contextual class to column (`active`, `success`, `info`, `warning`, `danger`)
-| `class` | String | Class name (or array of class names) to add to `th` and `td` in the column
+| `class` | String or Array | Class name (or array of class names) to add to `th` and `td` in the column
 
 *Field properties, if not present, default to null*
 
