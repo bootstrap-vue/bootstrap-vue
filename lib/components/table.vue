@@ -12,7 +12,7 @@
                     @keydown.space.stop.prevent="headClick($event,field,key)"
                     :key="key"
                     :class="fieldClass(field,key)"
-                    :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
+                    :aria-label="field.sortable ? ((sortDesc && sortBy === key) ? labelSortAsc : labelSortDesc) : null"
                     :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null"
                 >
@@ -30,7 +30,7 @@
                     @keydown.space.stop.prevent="headClick($event,field,key)"
                     :key="key"
                     :class="fieldClass(field,key)"
-                    :aria-label="field.sortable ? ((sortDesc) ? labelSortAsc : labelSortDesc) : null"
+                    :aria-label="field.sortable ? ((sortDesc && sortBy === key) ? labelSortAsc : labelSortDesc) : null"
                     :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null"
                 >            
