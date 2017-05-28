@@ -95,7 +95,7 @@
             },
             headerVariant: {
                 type: String,
-                default: null;
+                default: null
             },
             headerClass: {
                 type: [String, Array],
@@ -117,7 +117,7 @@
             },
             footerVariant: {
                 type: String,
-                default: null;
+                default: null
             },
             footerClass: {
                 type: [String, Array],
