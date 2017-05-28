@@ -17,7 +17,7 @@
                     :tabindex="field.sortable?'0':null"
                 >
                   <slot :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
-                    {{field.label}}
+                    <div v-html="field.label"></div>
                   </slot>
                 </th>
             </tr>
@@ -35,10 +35,10 @@
                     :tabindex="field.sortable?'0':null"
                 >            
                   <slot v-if="$scopedSlots['FOOT_'+key]" :name="'FOOT_'+key" :label="field.label" :column="key" :field="field">
-                    {{field.label}}
+                    <div v-html="field.label"></div>
                   </slot>
                   <slot v-else :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
-                    {{field.label}}
+                    <div v-html="field.label"></div>
                   </slot>
                 </th>
             </tr>
