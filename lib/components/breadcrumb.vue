@@ -27,11 +27,12 @@
             },
             normalizedItems() {
                 let userDefinedActive = false;
+                const originalItemsLength = this.items.length;
 
-                return this.items.map((item, index, originalItems) => {
+                return this.items.map((item, index) => {
                     // if no active state is defined,
                     // default to the last item in the array as active
-                    const isLast = index === originalItems.length - 1;
+                    const isLast = index === originalItemsLength - 1;
 
                     // nothing defined except the text
                     if (typeof item === 'string') {
