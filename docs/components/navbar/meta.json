@@ -4,7 +4,9 @@
   "components": [
     "bNavItemDropdown",
     "bNavToggle",
-    "bNavItem"
+    "bNavItem",
+    "bNavText",
+    "bNavForm"
   ],
   "jsfiddle": "gfqucs0z"
 }

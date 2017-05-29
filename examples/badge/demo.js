@@ -1,3 +1,15 @@
 window.app = new Vue({
-    el: '#app'
+    el: '#app',
+    data() {
+        return {
+            variants: [
+                'default',
+                'primary',
+                'success',
+                'info',
+                'warning',
+                'danger',
+            ]
+        }
+    },
 });
