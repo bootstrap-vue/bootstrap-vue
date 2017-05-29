@@ -209,13 +209,13 @@
                     this.tabs = [];
                 }
 
-                // Get initial active tab
-                let tabIndex = this.currentTab;
-
                 this.tabs.forEach(tab => {
                     this.$set(tab, 'fade', this.fade);
                     this.$set(tab, 'lazy', this.lazy);
                 });
+
+                // Get initial active tab
+                let tabIndex = this.currentTab;
 
                 if (tabIndex === null || tabIndex === undefined) {
                     // Find last active tab in current tabs
