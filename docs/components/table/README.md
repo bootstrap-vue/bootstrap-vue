@@ -1,6 +1,6 @@
 # Tables
 
-> For tabular data. Tables support pagination and custom rendering.
+> For tabular data. Tables support pagination, custom rendering, and asynchronous data.
 
 ### `fields` prop
 The `fields` prop is used to display table columns. 
@@ -57,10 +57,9 @@ Supported optional item record modifier properties (make sure your field keys do
 **Note** `state` is deprecated. `_rowVariant`, if present in the record, will be prefered.
 
 `items` can also be a reference to a *provider* function, which returns an `Array` of items data.
-
 Provider functions can also be asynchronous:
-- Either returning `null` (or `undefined`) and calling a callback, when the data is 
-ready, with the data array as the only argument
+- By returning `null` (or `undefined`) and calling a callback, when the data is 
+ready, with the data array as the only argument to the callback,
 - By returning a `Promise` that resolves to an array.
 
 See the **"Using Items Provider functions"** section below for more details.
@@ -93,18 +92,12 @@ just add it to the `fields` array.  Example:
  },
  items: [
     {
-        name: {
-            first: 'John',
-            last: 'Doe'
-        },
+        name: { first: 'John', last: 'Doe' },
         sex: 'Male',
         age: 42
     },
     {
-        name: {
-            first: 'Jane',
-            last: 'Doe'
-        },
+        name: { first: 'Jane', last: 'Doe' },
         sex: 'Female',
         age: 36
     }
@@ -156,9 +149,9 @@ It is also possible to provide custom rendering for the tables `thead` and
 `foot-clone` is set to `true`.
 
 Scoped slots for the header and footer cells uses a special naming
-convetion of `HEAD_<fieldkey>` and `FOOT_<fieldkey>` respectivly. if a `TFOOT_`
+convetion of `HEAD_<fieldkey>` and `FOOT_<fieldkey>` respectivly. if a `FOOT_`
 slot for a field is not provided, but a `HEAD_` slot is provided, then
-the footer will use the `THEAD_` slot.
+the footer will use the `HEAD_` slot.
 
 ```html
 <b-table :fields="fields" :items="items"  foot-clone>
@@ -167,11 +160,11 @@ the footer will use the `THEAD_` slot.
     {{data.value.first}} {{data.value.last}}
   </template>
   <template slot="HEAD_name" scope="data">
-    <!-- A custom formatted header cell for field 'name'-->
+    <!-- A custom formatted header cell for field 'name' -->
     <em>{{data.label}}</em>
   </template>
   <template slot="FOOT_name" scope="data">
-    <!-- A custom formatted footer cell  for field 'name'-->
+    <!-- A custom formatted footer cell  for field 'name' -->
     <strong>{{data.label}}</strong>
   </template>
 </b-table>
@@ -188,7 +181,9 @@ The slot's scope variable (`data` in the above example) will have the following 
 
 ### `v-model` Binding
 If you bind a variable to the `v-model` prop, the contents of this variable will
-be the currently disaplyed item records. This variable should be treated as readonly.
+be the currently disaplyed item records. This variable (the `value` prop) should
+be treated as readonly. Do not bind any value directly to the `value` prop. Use
+the `v-model` binding.
 
 
 ### Using Items Provider Functions
@@ -201,11 +196,11 @@ reference to the `items` prop. A console warning will be issued if `items-provid
 The providerfunction is called with the following signature:
 
 ```js
-provider(ctx, [callback])
+    provider(ctx, [callback])
 ```
 
 The `ctx` is the context object associated with the table state, and contains the
-following six properties:
+following five properties:
 
 | Property | Type | Description
 | -------- | ---- | -----------
@@ -290,7 +285,7 @@ methods: {
 ```
 
 By default, the items provider function is responsible for **all** paging, filtering, and sorting 
-of the data, before passing it to `b-tqable` for display.
+of the data, before passing it to `b-table` for display.
 
 You can disable provider paging, filtering, and sorting (individually) by setting the
 following `b-table` prop(s) to `true`:
@@ -307,7 +302,7 @@ maximum, `perPage` number of records.
 Note that `b-table` needs refernce to your pagination and filtering values in order to
 trigger the calling of the provider function.  So be sure to bind to the `per-page`,
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
-(unless you have the `no-provider-` respective prop set to true).
+(unless you have the `no-provider-` respective prop set to `true`).
 
 **Event based refreshing of data:**
 You may also trigger the refresh of the provider function by emitting the 
@@ -327,6 +322,28 @@ Or by calling the refresh method on the table reference
 ```
 
 These refresh event/methods are only applicable when `items` is a provider function.
+
+
+**Detection of sorting change:**
+By listening on `b-table`'s `sort-changed` event, you can detect when the sorting key and direction have changed.
+
+```html
+<b-table @sort-changed="sortingChanged" ...>
+</b-table>
+```
+
+The `sort-changed` event provides a single argument of the table's current state context object.
+This context object has the same format as used by items provider functions.
+
+```js
+methods: {
+    sortingChanged(ctx) {
+        // ctx.sortBy ==> Field key for sorting by (or null for no sorting)
+        // ctx.sortDesc => true if sorting descending, false otherwise
+    }
+}
+```
+
 
 ### Server Side Rendering
 Special care must be taken when using server side rendering (SSR) and an `items` provider
