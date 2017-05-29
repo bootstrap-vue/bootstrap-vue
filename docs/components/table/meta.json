@@ -18,8 +18,8 @@
       "description": "Emitted when a header or footer cell is clicked.",
       "args": [
         {
-          "arg": "(column,sortBy,sortDesc)",
-          "description": "Column key clicked, the new current sortBy key and the new sort direction. sortBy will be null when no sorting"
+          "arg": "(key,field)",
+          "description": "Column key clicked, field definition object."
         }
       ]
     },
