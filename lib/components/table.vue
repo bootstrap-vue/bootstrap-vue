@@ -7,9 +7,9 @@
         <thead :class="headClass">
             <tr role="row">
                 <th v-for="field,key in fields"
-                    @click.stop.prevent="headClick($event,field,key)"
-                    @keydown.enter.stop.prevent="headClick($event,field,key)"
-                    @keydown.space.stop.prevent="headClick($event,field,key)"
+                    @click.stop.prevent="headClicked($event,field,key)"
+                    @keydown.enter.stop.prevent="headClicked($event,field,key)"
+                    @keydown.space.stop.prevent="headClicked($event,field,key)"
                     :key="key"
                     :class="fieldClass(field,key)"
                     :aria-label="field.sortable ? ((sortDesc && sortBy === key) ? labelSortAsc : labelSortDesc) : null"
@@ -25,9 +25,9 @@
         <tfoot v-if="footClone" :class="footClass">
             <tr role="row">
                 <th v-for="field,key in fields"
-                    @click.stop.prevent="headClick($event,field,key)"
-                    @keydown.enter.stop.prevent="headClick($event,field,key)"
-                    @keydown.space.stop.prevent="headClick($event,field,key)"
+                    @click.stop.prevent="headClicked($event,field,key)"
+                    @keydown.enter.stop.prevent="headClicked($event,field,key)"
+                    @keydown.space.stop.prevent="headClicked($event,field,key)"
                     :key="key"
                     :class="fieldClass(field,key)"
                     :aria-label="field.sortable ? ((sortDesc && sortBy === key) ? labelSortAsc : labelSortDesc) : null"
@@ -122,7 +122,7 @@
                 default: () => {
                     if (this.itemsProvider) {
                         // Deprecate itemsProvider
-                        console.warn('b-table: prop items-provider has been deprecated. Use items instead');
+                        console.warn('b-table: prop items-provider has been deprecated. Pass a function to items instead');
                         return this.itemsProvider;
                     }
                     return [];
@@ -399,18 +399,18 @@
                 }
                 this.$emit('row-clicked', item, index);
             },
-            headClick(e, field, key) {
+            headClicked(e, field, key) {
                 if (this.busy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
                     return;
                 }
-                let changed = false;
+                let sortChanged = false;
                 if (!field.sortable) {
                     if (this.sortBy) {
                         this.sortBy = null;
-                        changed = true;
+                        sortChanged = true;
                     }
                 } else {
                     if (key === this.sortBy) {
@@ -421,10 +421,10 @@
                         this.sortBy = key;
                         this.sortDesc = true;
                     }
-                    changed = true;
+                    sortChanged = true;
                 }
-                this.$emit('head-clicked', key, this.sortBy, this.sortDesc);
-                if (changed) {
+                this.$emit('head-clicked', key, field);
+                if (sortChanged) {
                     // Sorting parameters changed
                     this.$emit('sort-changed', this.context);
                 }
