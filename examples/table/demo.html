@@ -68,6 +68,11 @@
     </b-table>
 
     <h2>Inverse Table</h2>
+    <div class="my-1 row">
+        <div class="justify-content-center col-12 my-2">
+            <b-pagination size="md" :total-rows="items.length" :per-page="4" v-model="currentPage" />
+        </div>
+    </div>
     <b-table ref="table_inverse"
              small
              inverse
@@ -76,7 +81,7 @@
              show-empty
              :items="items"
              :fields="fields"
-             :per-page="8"
+             :per-page="4"
              :current-page="currentPage"
     >
         <template slot="name" scope="data">
