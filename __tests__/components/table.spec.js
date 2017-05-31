@@ -53,7 +53,7 @@ describe('table', async() => {
     it('table_inverse should have thead and tbody', async() => {
         const { app: { $refs, $el } } = window
 
-        const table = $refs.table_inverse.$el
+        const parts = [...$refs.table_inverse.$el.children]
 
         const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
         expect(thead).toBeDefined()
