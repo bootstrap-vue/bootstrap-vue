@@ -74,7 +74,7 @@ describe('table', async() => {
         const columns = [ 4, 4, 4 ]
 
         tables.forEach((table, idx) => {
-            const thead = [...$refs.[table].$el.children].find(el => el && el.tagName === 'THEAD')
+            const thead = [...$refs[table].$el.children].find(el => el && el.tagName === 'THEAD')
             expect(thead).toBeDefined();
             if (thead) {
                 const tr = thead.children.find(el => el && el.tagName === 'TR')
