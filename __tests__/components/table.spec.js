@@ -208,4 +208,73 @@ describe('table', async() => {
 
     })
 
+    it('table_basic should contain custom formated columns', async() => {
+        const { app: { $refs, $el } } = window
+
+        const tbody = [...$refs.table_basic.$el.children].find(el => el && el.tagName === 'TBODY')
+        expect(tbody).toBeDefined()
+        if (tbody) {
+            const tr = [...tbody.children].find(el => el && el.tagName === 'TR')
+            expect(tr).toBeDefined()
+            if (tr) {
+                expect(tr.children[0].textContent).toContain('Dickerson Macdonald')
+                expect(tr.children[1].textContent).toContain('40')
+                expect(tr.children[2].textContent).toContain('Yes')
+                expect(tr.children[3].textContent).toContain('Details')
+                expect(tr.children[3].children[0].tagName).toBe('BUTTON')
+            }
+        }
+    })
+
+    it('table_paginated should contain custom formated columns', async() => {
+        const { app: { $refs, $el } } = window
+
+        const tbody = [...$refs.table_basic.$el.children].find(el => el && el.tagName === 'TBODY')
+        expect(tbody).toBeDefined()
+        if (tbody) {
+            const tr = [...tbody.children].find(el => el && el.tagName === 'TR')
+            expect(tr).toBeDefined()
+            if (tr) {
+                expect(tr.children[0].textContent).toContain('Dickerson Macdonald')
+                expect(tr.children[1].textContent).toContain('40')
+                expect(tr.children[2].textContent).toContain('Active')
+                expect(tr.children[3].children[0].tagName).toBe('INPUT')
+            }
+        }
+    })
+
+    it('table_paginated should contain custom formated headers', async() => {
+        const { app: { $refs, $el } } = window
+
+        const thead = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'THEAD')
+        expect(thead).toBeDefined()
+        if (thead) {
+            const tr = [...thead.children].find(el => el && el.tagName === 'TR')
+            expect(tr).toBeDefined()
+            if (tr) {
+                expect(tr.children[0].textContent).toContain('Person Full name')
+                expect(tr.children[1].textContent).toContain('Person age')
+                expect(tr.children[2].textContent).toContain('is Active')
+                expect(tr.children[3].textContent).toContain('Select')
+            }
+        }
+    })
+
+    it('table_paginated should contain custom formated footers', async() => {
+        const { app: { $refs, $el } } = window
+
+        const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
+        expect(tfoot).toBeDefined()
+        if (thead) {
+            const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
+            expect(tr).toBeDefined()
+            if (tr) {
+                expect(tr.children[0].textContent).toContain('Showing 5 People')
+                expect(tr.children[1].textContent).toContain('Person age')
+                expect(tr.children[2].textContent).toContain('is Active')
+                expect(tr.children[3].textContent).toContain('Selected: 0')
+            }
+        }
+    })
+
 });
