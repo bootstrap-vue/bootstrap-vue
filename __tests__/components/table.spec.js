@@ -26,7 +26,7 @@ describe('table', async() => {
         const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
 
         tables.forEach(table => {
-            expect(table.getAttribute('role')).toBe('grid')
+            expect($refs[table].$el.getAttribute('role')).toBe('grid')
         })
     })
 
@@ -36,7 +36,7 @@ describe('table', async() => {
         const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
 
         tables.forEach(table => {
-            expect(table.getAttribute('aria-busy')).toBe('false')
+            expect($refs[table].$el.getAttribute('aria-busy')).toBe('false')
         })
     })
 
