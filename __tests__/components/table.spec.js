@@ -229,7 +229,7 @@ describe('table', async() => {
     it('table_paginated should contain custom formated columns', async() => {
         const { app: { $refs, $el } } = window
 
-        const tbody = [...$refs.table_basic.$el.children].find(el => el && el.tagName === 'TBODY')
+        const tbody = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TBODY')
         expect(tbody).toBeDefined()
         if (tbody) {
             const tr = [...tbody.children].find(el => el && el.tagName === 'TR')
@@ -265,7 +265,7 @@ describe('table', async() => {
 
         const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
         expect(tfoot).toBeDefined()
-        if (thead) {
+        if (tfoot) {
             const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
             expect(tr).toBeDefined()
             if (tr) {
