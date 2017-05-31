@@ -4,7 +4,7 @@ describe('table', async() => {
     beforeEach(loadFixture('table'));
     testVM();
 
-    it('all examples should contain class names', async() => {
+    it('all example tables should contain class names', async() => {
         const { app: { $refs, $el } } = window
         let thead
         let tfoot
@@ -14,18 +14,12 @@ describe('table', async() => {
         ])
 
         expect($refs.table_paginated).toHaveAllClasses([
-            'table', 'b-table', 'table-striped', 'table-bordered', 'table-hover', 'table-sm', 'table-responsive'
+            'table', 'b-table', 'table-sm', 'table-striped', 'table-bordered', 'table-hover', 'table-responsive'
         ])
-        thead = $refs.table_paginated.$el.children[0]
-        expect(thead.classList && thead.classList.contains('thead-inverse')).toBe(true)
-        tfoot = $refs.table_paginated.$el.children[2]
-        expect(tfoot.classList && tfoot.classList.contains('thead-default')).toBe(true)
 
         expect($refs.table_inverse).toHaveAllClasses([
             'table', 'b-table', 'table-sm', 'table-bordered', 'table-inverse'
         ])
-        thead = $refs.table_innverse.$el.children[0]
-        expect(thead.classList && thead.classList.contains('thead-default')).toBe(true)
     })
     
     it('table_basic should have thead and tbody', async() => {
