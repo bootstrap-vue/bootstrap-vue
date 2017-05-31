@@ -237,7 +237,7 @@ describe('table', async() => {
         expect(tbody).toBeDefined()
         if (tbody) {
             const trs = [...tbody.children]
-            expect(trs.length).toBeEqualTo(vm.perPage)
+            expect(trs.length).toBe(vm.perPage)
             trs.forEach( tr => {
                 expect(tr.getAttribute('role')).toBe('row')
             })
@@ -340,7 +340,7 @@ describe('table', async() => {
         expect(tbody).toBeDefined();
         if (tbody) {
             const trs = [...tbody.children]
-            expect(trs.length).toBeEqualTo(vm.perPage)
+            expect(trs.length).toBe(vm.perPage)
             trs.forEach((tr, idx) => {
                 tr.click()
                 expect(spy).toHaveBeenCalledWith(vm.value[idx], idx)
