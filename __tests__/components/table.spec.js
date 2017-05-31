@@ -35,10 +35,10 @@ describe('table', async() => {
         expect(tfoot).not.toBeDefined()
     })
 
-    it('table_paginated should have thead and tbody and tfoot', async() => {
+    it('table_paginated should have thead, tbody and tfoot', async() => {
         const { app: { $refs, $el } } = window
 
-        const parts = [...$refs.table_basic.$el.children]
+        const parts = [...$refs.table_paginated.$el.children]
 
         const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
         expect(thead).toBeDefined()
@@ -53,7 +53,7 @@ describe('table', async() => {
     it('table_inverse should have thead and tbody', async() => {
         const { app: { $refs, $el } } = window
 
-        const table = $refs.table_basic.$el
+        const table = $refs.table_inverse.$el
 
         const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
         expect(thead).toBeDefined()
@@ -111,7 +111,7 @@ describe('table', async() => {
             const thead = [...$refs[table].$el.children].find(el => el && el.tagName === 'THEAD')
             expect(thead).toBeDefined()
             if (thead) {
-                const tr = [...thead.children].find(el => el & el.tagName === 'TR')
+                const tr = [...thead.children].find(el => el && el.tagName === 'TR')
                 expect(tr).toBeDefined()
                 if (tr) {
                     sortables.forEach((sortable, idx) => {
@@ -137,7 +137,7 @@ describe('table', async() => {
         expect(tfoot).toBeDefined()
 
         if (tfoot) {
-            const tr = [...tfoot.children].find(el => el & el.tagName === 'TR')
+            const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
             expect(tr).toBeDefined()
             if (tr) {
                 sortables.forEach((sortable, idx) => {
