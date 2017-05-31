@@ -90,7 +90,7 @@ describe('table', async() => {
         const thead = [...$refs.table_paginated.children].find(el => el && el.tagName === 'THEAD')
         expect(thead).toBeDefined();
         if (thead) {
-            expect(tfoot.classList.contains('thead-inverse')).toBe(true)
+            expect(thead.classList.contains('thead-inverse')).toBe(true)
         }
     })
 
