@@ -379,7 +379,7 @@
             },
             tdClass(field) {
                 return [
-                    field.variant ? (this.inverse ? 'bg-' : 'table-') + field.variant) : '',
+                    field.variant ? ((this.inverse ? 'bg-' : 'table-') + field.variant) : '',
                     field.class ? field.class : ''
                 ];
             },
