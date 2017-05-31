@@ -85,6 +85,24 @@ describe('table', async() => {
         expect(tfoot).not.toBeDefined()
     })
 
+    it('table_paginated thead should contain class thead-inverse', async() => {
+        const { app: { $refs, $el } } = window
+        const thead = [...$refs.table_paginated.clidren].find(el => el && el.tagName === 'THEAD')
+        expect(thead).toBeDefined();
+        if (thead) {
+            expect(thead.toHaveClass('thead-inverse'))
+        }
+    })
+
+    it('table_paginated tfoot should contain class thead-default', async() => {
+        const { app: { $refs, $el } } = window
+        const tfoot = [...$refs.table_paginated.clidren].find(el => el && el.tagName === 'TFOOT')
+        expect(tfoot).toBeDefined();
+        if (tfoot) {
+            expect(tfoot.toHaveClass('thead-default'))
+        }
+    })
+
     it('all examples have four columns', async() => {
         const { app: { $refs, $el } } = window
 
@@ -105,7 +123,7 @@ describe('table', async() => {
 
     })
 
-    it('all examples should show the correct number of rows', async() => {
+    it('all examples should show the correct number of visible rows', async() => {
         const { app: { $refs, $el } } = window
 
         const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
