@@ -71,24 +71,20 @@ describe('table', async() => {
         const { app: { $refs, $el } } = window
 
         const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
+        const columns = [ 4, 4, 4 ]
 
-        tables.forEach(table => {
+        tables.forEach((table, idx) => {
             const thead = [...$refs.[table].$el.children].find(el => el && el.tagName === 'THEAD')
             expect(thead).toBeDefined();
             if (thead) {
-                const tr = thead.children[0]
+                const tr = thead.children.find(el => el && el.tagName === 'TR')
                 expect(tr).toBeDefined()
                 if (tr) {
-                    expect(tr && tr.children.length).toBe(4)
+                    expect(tr.children.length).toBe(columns[idx])
                 }
             }
         }
 
-        tr = $refs.table_paginated.$el.children[0].children[0]
-        expect(tr && tr.children.length).toBe(4)
-
-        tr = $refs.table_inverse.$el.children[0].children[0]
-        expect(tr && tr.children.length).toBe(4)
     })
 
     it('all examples should show the correct number of rows', async() => {
@@ -98,7 +94,7 @@ describe('table', async() => {
         const rows = [ 12, 5, 4 ]
 
         tables.forEach((table, idx) => {
-            const tbody = [...$refs.[table].$el.children].find(el => el && el.tagName === 'TBODY')
+            const tbody = [...$refs[table].$el.children].find(el => el && el.tagName === 'TBODY')
             expect(tbody).toBeDefined()
             if (tbody) {
                 expect(tbody.children.length).toBe(rows[idx])
@@ -114,10 +110,10 @@ describe('table', async() => {
         const sortables = [ true, true, false, false ]
 
         tables.forEach( table => {
-            const thead = [...$refs.[table].$el.children].find(el => el && el.tagName === 'THEAD')
+            const thead = [...$refs[table].$el.children].find(el => el && el.tagName === 'THEAD')
             expect(thead).toBeDefined()
             if (thead) {
-                const tr = thead.children[0]
+                const tr = [...thead.children].find(el => el & el.tagName === 'TR')
                 expect(tr).toBeDefined()
                 if (tr) {
                     sortables.forEach((sortable, idx) => {
@@ -140,8 +136,9 @@ describe('table', async() => {
         const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
 
         expect(tfoot).toBeDefined()
+
         if (tfoot) {
-            const tr = tfoot.children[0]
+            const tr = [...tfoot.children].find(el => el & el.tagName === 'TR')
             expect(tr).toBeDefined()
             if (tr) {
                 sortables.forEach((sortable, idx) => {
@@ -159,23 +156,18 @@ describe('table', async() => {
     it('all examples should have variant success on 3rd row', async() => {
         const { app: { $refs, $el } } = window
 
-        const tables = [ 'table_basic', 'table_paginated' ]
+        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
+        const classes = [ 'table-success', 'table-success', 'bg-success' ]
 
-        tables.forEach( table => {
+        tables.forEach((table, idx) => {
             const tbody = [...$refs[table].$el.children].find(el => el && el.tagName == 'TBODY')
             expect(tbody).toBeDefined();
             if (tbody) {
                 const tr = tbody.children[2];
-                expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains('table-success')).toBe(true)
+                expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(classes[idx])).toBe(true)
             }
         });
 
-        const tbody = [...$refs.table_inverse.$el.children].find(el => el && el.tagName === 'TBODY')
-        expect(tbody).toBeDefined();
-        if (tbody) {
-            const tr = tbody.children[2];
-            expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains('table-success')).toBe(true);
-        }
     })
 
 });
