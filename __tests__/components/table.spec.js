@@ -75,7 +75,7 @@ describe('table', async() => {
             const thead = [...$refs[table].$el.children].find(el => el && el.tagName === 'THEAD')
             expect(thead).toBeDefined();
             if (thead) {
-                const tr = thead.children.find(el => el && el.tagName === 'TR')
+                const tr = [...thead.children].find(el => el && el.tagName === 'TR')
                 expect(tr).toBeDefined()
                 if (tr) {
                     expect(tr.children.length).toBe(columns[idx])
@@ -101,7 +101,7 @@ describe('table', async() => {
 
     })
 
-    it('all examples have sortable headers', async() => {
+    it('all examples have sortable & unsortable headers', async() => {
         const { app: { $refs, $el } } = window
         
         const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
@@ -117,6 +117,7 @@ describe('table', async() => {
                     sortables.forEach((sortable, idx) => {
                         const th = tr.children[idx]
                         expect(th).toBeDefined()
+                        expect(th.tagName).toBe('TH')
                         if (th) {
                             expect(th.classList.contains('sorting')).toBe(sortable)
                         }
@@ -127,7 +128,7 @@ describe('table', async() => {
 
     })
 
-    it('table_paginated has sortable footers', async() => {
+    it('table_paginated has sortable & unsortable footers', async() => {
         const { app: { $refs, $el } } = window
         
         const sortables = [ true, true, false, false ]
@@ -142,6 +143,7 @@ describe('table', async() => {
                 sortables.forEach((sortable, idx) => {
                     const th = tr.children[idx]
                     expect(th).toBeDefined()
+                    expect(th.tagName).toBe('TH')
                     if (th) {
                         expect(th.classList.contains('sorting')).toBe(sortable)
                     }
