@@ -91,7 +91,7 @@
         const exclude = { state: true, _rowVariant: true };
 
         return toString(Object.keys(obj).reduce((o, k) => {
-          if(!exclude[k]) {
+          if (!exclude[k]) {
             o[k] = obj[k];
           }
           return o;
