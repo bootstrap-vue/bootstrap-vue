@@ -345,7 +345,7 @@ describe('table', async() => {
                 tr.click()
                 expect(spy).toHaveBeenCalledWith(vm.value[idx], idx)
             })
-        })
+        }
     })
 
 });
