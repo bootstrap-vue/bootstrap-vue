@@ -87,7 +87,7 @@ describe('table', async() => {
 
     it('table_paginated thead should contain class thead-inverse', async() => {
         const { app: { $refs, $el } } = window
-        const thead = [...$refs.table_paginated.children].find(el => el && el.tagName === 'THEAD')
+        const thead = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'THEAD')
         expect(thead).toBeDefined();
         if (thead) {
             expect(thead.classList.contains('thead-inverse')).toBe(true)
@@ -96,7 +96,7 @@ describe('table', async() => {
 
     it('table_paginated tfoot should contain class thead-default', async() => {
         const { app: { $refs, $el } } = window
-        const tfoot = [...$refs.table_paginated.children].find(el => el && el.tagName === 'TFOOT')
+        const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
         expect(tfoot).toBeDefined();
         if (tfoot) {
             expect(tfoot.classList.contains('thead-default')).toBe(true)
