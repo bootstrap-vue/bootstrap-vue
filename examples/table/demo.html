@@ -59,10 +59,30 @@
             Select
         </template>
         <template slot="actions" scope="data">
-            <input type="checkbox" @click.stop v-model="selected" value="data.item">
+            <input type="checkbox" @click.stop v-model="selectedReacords" value="data.item">
         </template>
         <template slot="FOOT_actions" scope="data">
-            Selected: {{ selected.length }}
+            Selected: {{ selectedRecords.length }}
+        </template>
+    </b-table>
+
+    <h2>Inverse Table</h2>
+    <b-table ref="table_inverse"
+             small
+             inverse
+             bordered
+             dead-varient="default"
+             :items="items"
+             :fields="fields"
+    >
+        <template slot="name" scope="data">
+            {{ data.value.first }} {{ data.value.last }}
+        </template>
+        <template slot="isActive" scope="data">
+            {{ data.value ? 'Active' : 'Inactive' }}
+        </template>
+        <template slot="actions" scope="data">
+            <b-btn size="sm" @click.stop="details(item.item)">Details</b-btn>
         </template>
     </b-table>
 
