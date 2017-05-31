@@ -20,6 +20,26 @@ describe('table', async() => {
         ])
     })
     
+    it('all example tables should have ARIA role', async() => {
+        const { app: { $refs, $el } } = window
+
+        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
+
+        tables.forEach(table => {
+            expect(table.$el.getAttribute('role')).toBe('grid')
+        })
+    })
+
+    it('all example tables should have attribute aria-busy="false"', async() => {
+        const { app: { $refs, $el } } = window
+
+        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
+
+        tables.forEach(table => {
+            expect(table.$el.getAttribute('aria-busy')).toBe('false')
+        })
+    })
+
     it('table_basic should have thead and tbody', async() => {
         const { app: { $refs, $el } } = window
 
