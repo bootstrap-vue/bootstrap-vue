@@ -147,19 +147,18 @@ describe('table', async() => {
         const sortables = [ true, true, false, false ]
 
         tables.forEach( table => {
-            const thead = [...$refs[table].$el.children].find(el => el && el.tagName === 'THEAD')
+            const vm = $refs[table]
+            const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
             expect(thead).toBeDefined()
             if (thead) {
                 const tr = [...thead.children].find(el => el && el.tagName === 'TR')
                 expect(tr).toBeDefined()
                 if (tr) {
-                    sortables.forEach((sortable, idx) => {
-                        const th = tr.children[idx]
-                        expect(th).toBeDefined()
-                        expect(th.tagName).toBe('TH')
-                        if (th) {
-                            expect(th.classList.contains('sorting')).toBe(sortable)
-                        }
+                    const fieldKeys = Object.keys(vm.fields)
+                    const ths = [...tr.children]
+                    expect(ths.length).toBe(fieldKeys.length)
+                    ths.forEach((th, idx) => {
+                        expect(th.classList.contains('sorting')).toBe(vm.fields[fieldKeys[idx]].sortable || false)
                     })
                 }
             }
@@ -169,23 +168,19 @@ describe('table', async() => {
 
     it('table_paginated has sortable & unsortable footers', async() => {
         const { app: { $refs, $el } } = window
-        
-        const sortables = [ true, true, false, false ]
-        const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
+        const vm = $refs.table_paginated
+        const fieldKeys = Object.keys(vm.fields)
 
+        const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'TFOOT')
         expect(tfoot).toBeDefined()
-
         if (tfoot) {
             const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
             expect(tr).toBeDefined()
             if (tr) {
-                sortables.forEach((sortable, idx) => {
-                    const th = tr.children[idx]
-                    expect(th).toBeDefined()
-                    expect(th.tagName).toBe('TH')
-                    if (th) {
-                        expect(th.classList.contains('sorting')).toBe(sortable)
-                    }
+                const ths = [...tr.children]
+                expect(ths.length).toBe(fieldKeys.length)
+                ths.forEach((th, idx) => {
+                    expect(th.classList.contains('sorting')).toBe(vm.fields[fieldKeys[idx]].sortable || false)
                 })
             }
         }
@@ -410,7 +405,7 @@ describe('table', async() => {
             if (tr) {
                 let sortBy = null
                 const ths = [...tr.children]
-                expect(ths.length > 0).toBe(fieldKeys.length)
+                expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
                     th.click()
                     if (vm.fields[fieldKeys[idx]].sortable) {
@@ -447,7 +442,7 @@ describe('table', async() => {
             if (tr) {
                 let sortBy = null
                 const ths = [...tr.children]
-                expect(ths.length > 0).toBe(fieldKeys.length)
+                expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
                     th.click()
                     if (vm.fields[fieldKeys[idx]].sortable) {
