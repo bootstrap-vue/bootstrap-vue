@@ -185,7 +185,7 @@
 
                 // Deactivate any previous active tab(s)
                 this.tabs.forEach( t => {
-                    if (t !== tab && t.active) {
+                    if (t !== tab && t.localActive) {
                         this.$set(t, 'localActive', false);
                     }
                 });
