@@ -335,7 +335,7 @@ describe('table', async() => {
         const vm = $refs.table_paginated
         const spy = jest.fn()
 
-        vm.$on('row-click', spy)
+        vm.$on('row-clicked', spy)
         const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY');
         expect(tbody).toBeDefined();
         if (tbody) {
