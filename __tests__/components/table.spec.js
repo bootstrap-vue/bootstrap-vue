@@ -20,7 +20,7 @@ describe('table', async() => {
         ])
     })
     
-    it('all example tables should have ARIA role', async() => {
+    it('all example tables should have ARIA role="grid"', async() => {
         const { app: { $refs, $el } } = window
 
         const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
@@ -103,20 +103,20 @@ describe('table', async() => {
         }
     })
 
-    it('all examples have four columns', async() => {
+    it('all examples have correct number of columns', async() => {
         const { app: { $refs, $el } } = window
 
         const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
-        const columns = [ 4, 4, 4 ]
 
         tables.forEach((table, idx) => {
-            const thead = [...$refs[table].$el.children].find(el => el && el.tagName === 'THEAD')
+            const vm = $refs[table]
+            const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
             expect(thead).toBeDefined();
             if (thead) {
                 const tr = [...thead.children].find(el => el && el.tagName === 'TR')
                 expect(tr).toBeDefined()
                 if (tr) {
-                    expect(tr.children.length).toBe(columns[idx])
+                    expect(tr.children.length).toBe(Object.keys(vm.fields).length)
                 }
             }
         })
@@ -125,15 +125,16 @@ describe('table', async() => {
 
     it('all examples should show the correct number of visible rows', async() => {
         const { app: { $refs, $el } } = window
+        const app = window.app
 
         const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
-        const rows = [ 12, 5, 4 ]
 
         tables.forEach((table, idx) => {
-            const tbody = [...$refs[table].$el.children].find(el => el && el.tagName === 'TBODY')
+            const vm = $refs[table]
+            const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
             expect(tbody).toBeDefined()
             if (tbody) {
-                expect(tbody.children.length).toBe(rows[idx])
+                expect(tbody.children.length).toBe(vm.perPage || app.items.length)
             }
         })
 
@@ -330,7 +331,7 @@ describe('table', async() => {
         }
     })
 
-    it('each data row should emit a row-clicked event with the item and index when clicked', async() => {
+    it('each data row should emit a row-clicked event with the item,index when clicked', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_paginated
         const spy = jest.fn()
@@ -345,6 +346,126 @@ describe('table', async() => {
                 tr.click()
                 expect(spy).toHaveBeenCalledWith(vm.value[idx], idx)
             })
+        }
+    })
+
+    it('each header th should emit a head-clicked event with key,field when clicked', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_paginated
+        const spy = jest.fn()
+        const fieldKeys = Object.keys(vm.fields)
+
+        vm.$on('head-clicked', spy)
+        const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD');
+        expect(thead).toBeDefined()
+        if (thead) {
+            const tr = [...thead.children].find(el => el && el.tagName === 'TR')
+            expect(tr).toBeDefined()
+            if (tr) {
+                const ths = [...tr.children]
+                expect(ths.length).toBe(fieldKeys.length)
+                ths.forEach((th, idx) => {
+                    th.click()
+                    expect(spy).toHaveBeenCalledWith(fieldKeys[idx], vm.fields[fieldKeys[idx]])
+                })
+            }
+        }
+    })
+
+    it('each footer th should emit a head-clicked event with key,field when clicked', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_paginated
+        const spy = jest.fn()
+        const fieldKeys = Object.keys(vm.fields)
+
+        vm.$on('head-clicked', spy)
+        const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'TFOOT');
+        expect(tfoot).toBeDefined()
+        if (tfoot) {
+            const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
+            expect(tr).toBeDefined()
+            if (tr) {
+                const ths = [...tr.children]
+                expect(ths.length).toBe(fieldKeys.length)
+                ths.forEach((th, idx) => {
+                    th.click()
+                    expect(spy).toHaveBeenCalledWith(fieldKeys[idx], vm.fields[fieldKeys[idx]])
+                })
+            }
+        }
+    })
+
+    it('sortable header th should emit a sort-changed event with context when clicked and sort changed', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_paginated
+        const spy = jest.fn()
+        const fieldKeys = Object.keys(vm.fields);
+
+        vm.$on('sort-changed', spy)
+        const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD');
+        expect(thead).toBeDefined();
+        if (thead) {
+            const tr = [...thead.children].find(el => el && el.tagName === 'TR')
+            expect(tr).toBeDefined()
+            if (tr) {
+                let sortBy = null
+                const ths = [...tr.children]
+                expect(ths.length > 0).toBe(fieldKeys.length)
+                ths.forEach((th, idx) => {
+                    th.click()
+                    if (vm.fields[fieldKeys[idx]].sortable) {
+                        expect(spy).toHaveBeenCalledWith(vm.context)
+                        expect(vm.context.sortBy).toBe(fieldKeys[idx])
+                        sortBy = vm.context.sortBy
+                    } else {
+                        if (vm.context.sortBy) {
+                            expect(spy).toHaveBeenCalledWith(vm.context)
+                            expect(vm.context.sortBy).toBe(null)
+                            sortBy = vm.context.sortBy
+                        } else {
+                            expect(spy).not.toHaveBeenCalled()
+                            expect(vm.context.sortBy).toBe(sortBy)
+                        }
+                    }
+                })
+            }
+        }
+    })
+
+    it('sortable footer th should emit a sort-changed event with context when clicked and sort changed', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_paginated
+        const spy = jest.fn()
+        const fieldKeys = Object.keys(vm.fields);
+
+        vm.$on('sort-changed', spy)
+        const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'TFOOT')
+        expect(tfoot).toBeDefined()
+        if (tfoot) {
+            const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
+            expect(tr).toBeDefined()
+            if (tr) {
+                let sortBy = null
+                const ths = [...tr.children]
+                expect(ths.length > 0).toBe(fieldKeys.length)
+                ths.forEach((th, idx) => {
+                    th.click()
+                    if (vm.fields[fieldKeys[idx]].sortable) {
+                        expect(spy).toHaveBeenCalledWith(vm.context)
+                        expect(vm.context.sortBy).toBe(fieldKeys[idx])
+                        sortBy = vm.context.sortBy
+                    } else {
+                        if (vm.context.sortBy) {
+                            expect(spy).toHaveBeenCalledWith(vm.context)
+                            expect(vm.context.sortBy).toBe(null)
+                            sortBy = vm.context.sortBy
+                        } else {
+                            expect(spy).not.toHaveBeenCalled()
+                            expect(vm.context.sortBy).toBe(sortBy)
+                        }
+                    }
+                })
+            }
         }
     })
 
