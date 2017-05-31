@@ -6,8 +6,6 @@ describe('table', async() => {
 
     it('all example tables should contain class names', async() => {
         const { app: { $refs, $el } } = window
-        let thead
-        let tfoot
 
         expect($refs.table_basic).toHaveAllClasses([
             'table', 'b-table', 'table-striped', 'table-hover'
@@ -83,7 +81,7 @@ describe('table', async() => {
                     expect(tr.children.length).toBe(columns[idx])
                 }
             }
-        }
+        })
 
     })
 
@@ -99,7 +97,7 @@ describe('table', async() => {
             if (tbody) {
                 expect(tbody.children.length).toBe(rows[idx])
             }
-        }
+        })
 
     })
 
@@ -122,10 +120,10 @@ describe('table', async() => {
                         if (th) {
                             expect(th.classList.contains('sorting')).toBe(sortable)
                         }
-                    });
+                    })
                 }
             }
-        });
+        })
 
     })
 
@@ -147,7 +145,7 @@ describe('table', async() => {
                     if (th) {
                         expect(th.classList.contains('sorting')).toBe(sortable)
                     }
-                });
+                })
             }
         }
 
@@ -163,7 +161,7 @@ describe('table', async() => {
             const tbody = [...$refs[table].$el.children].find(el => el && el.tagName == 'TBODY')
             expect(tbody).toBeDefined();
             if (tbody) {
-                const tr = tbody.children[2];
+                const tr = tbody.children[2]
                 expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(classes[idx])).toBe(true)
             }
         });
