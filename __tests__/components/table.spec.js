@@ -90,7 +90,7 @@ describe('table', async() => {
         const thead = [...$refs.table_paginated.children].find(el => el && el.tagName === 'THEAD')
         expect(thead).toBeDefined();
         if (thead) {
-            expect(thead.toHaveClass('thead-inverse'))
+            expect(tfoot.classList.contains('thead-inverse')).toBe(true)
         }
     })
 
@@ -99,7 +99,7 @@ describe('table', async() => {
         const tfoot = [...$refs.table_paginated.children].find(el => el && el.tagName === 'TFOOT')
         expect(tfoot).toBeDefined();
         if (tfoot) {
-            expect(tfoot.toHaveClass('thead-default'))
+            expect(tfoot.classList.contains('thead-default')).toBe(true)
         }
     })
 
