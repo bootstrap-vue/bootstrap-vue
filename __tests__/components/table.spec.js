@@ -191,6 +191,59 @@ describe('table', async() => {
 
     })
 
+    it('sortable columns should have ARIA labels in thead', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_paginated
+        const ariaLabel = vm.labelSortDesc
+
+        const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
+        expect(thead).toBeDefined()
+        if (thead) {
+            const tr = [...thead.children].find(el => el && el.tagName === 'TR')
+            expect(tr).toBeDefined()
+            if (tr) {
+                expect(tr.children[0].getAttribute('aria-label')).toBe(ariaLabel)
+                expect(tr.children[1].getAttribute('aria-label')).toBe(ariaLabel)
+                expect(tr.children[2].getAttribute('aria-label')).toBe(null)
+                expect(tr.children[3].getAttribute('aria-label')).toBe(null)
+            }
+        }
+    })
+
+    it('sortable columns should have ARIA labels in tfoot', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_paginated
+        const ariaLabel = vm.labelSortDesc
+
+        const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
+        expect(tfoot).toBeDefined()
+        if (tfoot) {
+            const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
+            expect(tr).toBeDefined()
+            if (tr) {
+                expect(tr.children[0].getAttribute('aria-label')).toBe(ariaLabel)
+                expect(tr.children[1].getAttribute('aria-label')).toBe(ariaLabel)
+                expect(tr.children[2].getAttribute('aria-label')).toBe(null)
+                expect(tr.children[3].getAttribute('aria-label')).toBe(null)
+            }
+        }
+    })
+
+    it('each data row should have ARIA role "row"', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_paginated
+
+        const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+        expect(tbody).toBeDefined()
+        if (tbody) {
+            const trs = [...tbody.children]
+            expect(trs.length).toBeEqualTo(vm.perPage)
+            trs.forEach( tr => {
+                expect(tr.getAttribute('role')).toBe('row')
+            })
+        }
+    })
+
     it('all examples should have variant success on 3rd row', async() => {
         const { app: { $refs, $el } } = window
 
@@ -275,6 +328,24 @@ describe('table', async() => {
                 expect(tr.children[3].textContent).toContain('Selected: 0')
             }
         }
+    })
+
+    it('each data row should emit a row-clicked event with the item and index when clicked', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_paginated
+        const spy = jest.fn()
+
+        vm.$on('row-click', spy)
+        const tbody = [...vm.$el.children]..find(el => el && el.tagName === 'TBODY');
+        expect(tbody).toBeDefined();
+        if (tbody) {
+            const trs = [...tbody.children]
+            expect(trs.length).toBeEqualTo(vm.perPage)
+            trs.forEach((tr, idx) => {
+                tr.click()
+                expect(spy).toHaveBeenCalledWith(vm.value[idx], idx)
+            })
+        })
     })
 
 });
