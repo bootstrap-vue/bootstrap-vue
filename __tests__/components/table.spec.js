@@ -31,30 +31,30 @@ describe('table', async() => {
     it('table_basic should have thead and tbody', async() => {
         const { app: { $refs, $el } } = window
 
-        const table = $refs.table_basic.$el
+        const parts = [...$refs.table_basic.$el.children]
 
-        const thead [...table.children].find(el => el.tagName && el.tagName === 'THEAD')
+        const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
         expect(thead && thead.tagName === 'THEAD').toBe(true)
 
-        const tbody [...table.children].find(el => el.tagName && el.tagName === 'TBODY')
+        const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
         expect(tbody && tbody.tagName === 'TBODY').toBe(true)
 
-        const tfoot [...table.children].find(el => el.tagName && el.tagName === 'TFOOT')
+        const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
         expect(tfoot && tfoot.tagName === 'TFOOT').toBe(false)
     })
 
     it('table_paginated should have thead and tbody and tfoot', async() => {
         const { app: { $refs, $el } } = window
 
-        const table = $refs.table_basic.$el
+        const parts = [...$refs.table_basic.$el.children]
 
-        const thead [...table.children].find(el => el.tagName && el.tagName === 'THEAD')
+        const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
         expect(thead && thead.tagName === 'THEAD').toBe(true)
 
-        const tbody [...table.children].find(el => el.tagName && el.tagName === 'TBODY')
+        const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
         expect(tbody && tbody.tagName === 'TBODY').toBe(true)
 
-        const tfoot [...table.children].find(el => el.tagName && el.tagName === 'TFOOT')
+        const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
         expect(tfoot && tfoot.tagName === 'TFOOT').toBe(true)
     })
 
@@ -63,14 +63,14 @@ describe('table', async() => {
 
         const table = $refs.table_basic.$el
 
-        const thead [...table.children].find(el => el.tagName && el.tagName === 'THEAD')
+        const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
         expect(thead && thead.tagName === 'THEAD').toBe(true)
 
-        const tbody [...table.children].find(el => el.tagName && el.tagName === 'TBODY')
+        const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
         expect(tbody && tbody.tagName === 'TBODY').toBe(true)
 
-        const tfoot [...table.children].find(el => el.tagName && el.tagName === 'TFOOT')
-        expect(tfoot && tfoot.tagName === 'TFOOT').toBe(true)
+        const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
+        expect(tfoot && tfoot.tagName === 'TFOOT').toBe(false)
     })
 
     it('all examples have four columns', async() => {
@@ -79,13 +79,13 @@ describe('table', async() => {
         let th
 
         tr = $refs.table_basic.$el.children[0].children[0]
-        expect(tr && tr.children,length > 4).toBe(true)
+        expect(tr && tr.children.length > 4).toBe(true)
 
         tr = $refs.table_paginated.$el.children[0].children[0]
-        expect(tr && tr.children,length > 4).toBe(true)
+        expect(tr && tr.children.length > 4).toBe(true)
 
         tr = $refs.table_inverse.$el.children[0].children[0]
-        expect(tr && tr.children,length > 4).toBe(true)
+        expect(tr && tr.children.length > 4).toBe(true)
     })
 
     it('all examples should show the correct number of rows', async() => {
@@ -93,13 +93,13 @@ describe('table', async() => {
         let tbody
 
         tbody = $refs.table_basic.$el.children[1]
-        expect(tbody && tbody.children.lenghth === 12).toBe(true)
+        expect(tbody && tbody.children.length === 12).toBe(true)
 
         tbody = $refs.table_paginated.$el.children[1]
-        expect(tbody && tbody.children.lenghth === 5).toBe(true)
+        expect(tbody && tbody.children.length === 5).toBe(true)
 
         tbody = $refs.table_inverse.$el.children[1];
-        expect(tbody && tbody.children.lenghth === 8).toBe(true)
+        expect(tbody && tbody.children.length === 4).toBe(true)
     })
 
     it('all examples have sortable headers', async() => {
