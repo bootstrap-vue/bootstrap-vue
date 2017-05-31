@@ -413,7 +413,7 @@ describe('table', async() => {
                         expect(vm.context.sortBy).toBe(fieldKeys[idx])
                         sortBy = vm.context.sortBy
                     } else {
-                        if (vm.context.sortBy) {
+                        if (sortBy) {
                             expect(spy).toHaveBeenCalledWith(vm.context)
                             expect(vm.context.sortBy).toBe(null)
                             sortBy = vm.context.sortBy
@@ -450,7 +450,7 @@ describe('table', async() => {
                         expect(vm.context.sortBy).toBe(fieldKeys[idx])
                         sortBy = vm.context.sortBy
                     } else {
-                        if (vm.context.sortBy) {
+                        if (sortBy) {
                             expect(spy).toHaveBeenCalledWith(vm.context)
                             expect(vm.context.sortBy).toBe(null)
                             sortBy = vm.context.sortBy
