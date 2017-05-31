@@ -203,7 +203,7 @@
             },
             value: {
                 type: Array,
-                default: []
+                default: () => []
             },
             footClone: {
                 type: Boolean,
