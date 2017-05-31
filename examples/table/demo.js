@@ -17,10 +17,10 @@ window.app = new Vue({
                 label: 'Actions'
             }
         },
-        currentPage: 1,
+        currentPage: 2,
         perPage: 5,
         filter: null,
-        checked: [],
+        selectedRecords: [],
         visibleRecords: [],
         isBusy: false,
         items: [
