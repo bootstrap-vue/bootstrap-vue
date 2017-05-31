@@ -20,104 +20,61 @@ window.app = new Vue({
         currentPage: 1,
         perPage: 5,
         filter: null,
-        items: [{
-            isActive: true,
-            age: 40,
-            name: {
-                first: 'Dickerson',
-                last: 'Macdonald'
+        checked: [],
+        visibleRecords: [],
+        isBusy: false,
+        items: [
+            {
+                isActive: true,
+                age: 40,
+                name: { first: 'Dickerson', last: 'Macdonald' }
+            }, {
+                isActive: false,
+                age: 21,
+                name: { first: 'Larsen', last: 'Shaw' }
+            }, {
+                isActive: false,
+                age: 26,
+                state: 'success',
+                name: { first: 'Mitzi', last: 'Navarro' }
+            }, {
+                isActive: false,
+                age: 22,
+                name: { first: 'Geneva', last: 'Wilson' }
+            }, {
+                isActive: true,
+                age: 38,
+                name: { first: 'Jami', last: 'Carney'  }
+            }, {
+                isActive: false,
+                age: 27,
+                name: { first: 'Essie', last: 'Dunlap' }
+            }, {
+                isActive: true,
+                age: 65,
+                name: { first: 'Alfred', last: 'Macdonald' }
+            }, {
+                isActive: false,
+                age: 21,
+                name: { first: 'Lauren', last: 'Shaw' }
+            }, {
+                isActive: false,
+                age: 29,
+                name: { first: 'Mini', last: 'Navarro' }
+            }, {
+                isActive: false,
+                age: 22,
+                name: { first: 'Frank', last: 'Wilson' }
+            }, {
+                isActive: true,
+                age: 38,
+                name: { first: 'Jami-Lee', last: 'Curtis' }
+            }, {
+                isActive: false,
+                age: 72,
+                name: { first: 'Elsie', last: 'Dunlap' }
             }
-
-        }, {
-            isActive: false,
-            age: 21,
-            name: {
-                first: 'Larsen',
-                last: 'Shaw'
-            }
-
-        }, {
-            isActive: false,
-            age: 26,
-            state: 'success',
-            name: {
-                first: 'Mitzi',
-                last: 'Navarro'
-            }
-
-        }, {
-            isActive: false,
-            age: 22,
-            name: {
-                first: 'Geneva',
-                last: 'Wilson'
-            }
-
-        }, {
-            isActive: true,
-            age: 38,
-            name: {
-                first: 'Jami',
-                last: 'Carney'
-            }
-
-        }, {
-            isActive: false,
-            age: 27,
-            name: {
-                first: 'Essie',
-                last: 'Dunlap'
-            }
-
-        }, {
-            isActive: true,
-            age: 40,
-            name: {
-                first: 'Dickerson',
-                last: 'Macdonald'
-            }
-
-        }, {
-            isActive: false,
-            age: 21,
-            name: {
-                first: 'Larsen',
-                last: 'Shaw'
-            }
-
-        }, {
-            isActive: false,
-            age: 26,
-            name: {
-                first: 'Mitzi',
-                last: 'Navarro'
-            }
-
-        }, {
-            isActive: false,
-            age: 22,
-            name: {
-                first: 'Geneva',
-                last: 'Wilson'
-            }
-
-        }, {
-            isActive: true,
-            age: 38,
-            name: {
-                first: 'Jami',
-                last: 'Carney'
-            }
-
-        }, {
-            isActive: false,
-            age: 27,
-            name: {
-                first: 'Essie',
-                last: 'Dunlap'
-            }
-
-        }]
+        ]
     },
     methods: {
         details(item) {
