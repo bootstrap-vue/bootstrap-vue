@@ -32,7 +32,7 @@ describe('table', async() => {
         expect(tbody).toBeDefined()
 
         const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
-        expect(tfoot).not().toBeDefined()
+        expect(tfoot).not.toBeDefined()
     })
 
     it('table_paginated should have thead and tbody and tfoot', async() => {
@@ -62,7 +62,7 @@ describe('table', async() => {
         expect(tbody).toBeDefined()
 
         const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
-        expect(tfoot).not().toBeDefined()
+        expect(tfoot).not.toBeDefined()
     })
 
     it('all examples have four columns', async() => {
