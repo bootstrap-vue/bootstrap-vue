@@ -17,7 +17,7 @@ window.app = new Vue({
                 label: 'Actions'
             }
         },
-        currentPage: 2,
+        currentPage: 1,
         perPage: 5,
         filter: null,
         selectedRecords: [],
@@ -35,7 +35,7 @@ window.app = new Vue({
             }, {
                 isActive: false,
                 age: 26,
-                state: 'success',
+                _rowVariant: 'success',
                 name: { first: 'Mitzi', last: 'Navarro' }
             }, {
                 isActive: false,
