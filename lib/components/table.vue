@@ -379,7 +379,7 @@
             },
             tdClass(field) {
                 return [
-                    field.variant ? ('table-' + field.variant) : '',
+                    field.variant ? (this.inverse ? 'bg-' : 'table-') + field.variant) : '',
                     field.class ? field.class : ''
                 ];
             },
@@ -387,7 +387,7 @@
                 // Prefer item._rowVariant over deprecated item.state
                 const variant = item._rowVariant || item.state || null;
                 return [
-                    variant ? ('table-' + variant) : ''
+                    variant ? ((this.inverse ? 'bg-' : 'table-') + variant) : ''
                 ];
             },
             rowClicked(e, item, index) {
