@@ -28,13 +28,13 @@ describe('table', async() => {
         const parts = [...$refs.table_basic.$el.children]
 
         const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
-        expect(thead && thead.tagName === 'THEAD').toBe(true)
+        expect(thead).toBeDefined()
 
         const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
-        expect(tbody && tbody.tagName === 'TBODY').toBe(true)
+        expect(tbody).toBeDefined()
 
         const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
-        expect(tfoot && tfoot.tagName === 'TFOOT').toBe(false)
+        expect(tfoot).not().toBeDefined()
     })
 
     it('table_paginated should have thead and tbody and tfoot', async() => {
@@ -43,13 +43,13 @@ describe('table', async() => {
         const parts = [...$refs.table_basic.$el.children]
 
         const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
-        expect(thead && thead.tagName === 'THEAD').toBe(true)
+        expect(thead).toBeDefined()
 
         const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
-        expect(tbody && tbody.tagName === 'TBODY').toBe(true)
+        expect(tbody).toBeDefined()
 
         const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
-        expect(tfoot && tfoot.tagName === 'TFOOT').toBe(true)
+        expect(tfoot).toBeDefined()
     })
 
     it('table_inverse should have thead and tbody', async() => {
@@ -58,93 +58,124 @@ describe('table', async() => {
         const table = $refs.table_basic.$el
 
         const thead = parts.find(el => el.tagName && el.tagName === 'THEAD')
-        expect(thead && thead.tagName === 'THEAD').toBe(true)
+        expect(thead).toBeDefined()
 
         const tbody = parts.find(el => el.tagName && el.tagName === 'TBODY')
-        expect(tbody && tbody.tagName === 'TBODY').toBe(true)
+        expect(tbody).toBeDefined()
 
         const tfoot = parts.find(el => el.tagName && el.tagName === 'TFOOT')
-        expect(tfoot && tfoot.tagName === 'TFOOT').toBe(false)
+        expect(tfoot).not().toBeDefined()
     })
 
     it('all examples have four columns', async() => {
         const { app: { $refs, $el } } = window
-        let tr
-        let th
 
-        tr = $refs.table_basic.$el.children[0].children[0]
-        expect(tr && tr.children.length > 4).toBe(true)
+        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
+
+        tables.forEach(table => {
+            const thead = [...$refs.[table].$el.children].find(el => el && el.tagName === 'THEAD')
+            expect(thead).toBeDefined();
+            if (thead) {
+                const tr = thead.children[0]
+                expect(tr).toBeDefined()
+                if (tr) {
+                    expect(tr && tr.children.length).toBe(4)
+                }
+            }
+        }
 
         tr = $refs.table_paginated.$el.children[0].children[0]
-        expect(tr && tr.children.length > 4).toBe(true)
+        expect(tr && tr.children.length).toBe(4)
 
         tr = $refs.table_inverse.$el.children[0].children[0]
-        expect(tr && tr.children.length > 4).toBe(true)
+        expect(tr && tr.children.length).toBe(4)
     })
 
     it('all examples should show the correct number of rows', async() => {
         const { app: { $refs, $el } } = window
-        let tbody
 
-        tbody = $refs.table_basic.$el.children[1]
-        expect(tbody && tbody.children.length === 12).toBe(true)
+        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
+        const rows = [ 12, 5, 4 ]
 
-        tbody = $refs.table_paginated.$el.children[1]
-        expect(tbody && tbody.children.length === 5).toBe(true)
+        tables.forEach((table, idx) => {
+            const tbody = [...$refs.[table].$el.children].find(el => el && el.tagName === 'TBODY')
+            expect(tbody).toBeDefined()
+            if (tbody) {
+                expect(tbody.children.length).toBe(rows[idx])
+            }
+        }
 
-        tbody = $refs.table_inverse.$el.children[1];
-        expect(tbody && tbody.children.length === 4).toBe(true)
     })
 
     it('all examples have sortable headers', async() => {
         const { app: { $refs, $el } } = window
-        let tr
-        let th
+        
+        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
+        const sortables = [ true, true, false, false ]
 
-        tr = $refs.table_basic.$el.children[0].children[0]
-        th = tr.children[0]
-        expect(th.classList && th.classList.contains('sorting')).toBe(true)
-        th = tr.children[1]
-        expect(th.classList && th.classList.contains('sorting')).toBe(true)
-        th = tr.children[2]
-        expect(th.classList && th.classList.contains('sorting')).toBe(false)
-        th = tr.children[3]
-        expect(th.classList && th.classList.contains('sorting')).toBe(false)
+        tables.forEach( table => {
+            const thead = [...$refs.[table].$el.children].find(el => el && el.tagName === 'THEAD')
+            expect(thead).toBeDefined()
+            if (thead) {
+                const tr = thead.children[0]
+                expect(tr).toBeDefined()
+                if (tr) {
+                    sortables.forEach((sortable, idx) => {
+                        const th = tr.children[idx]
+                        expect(th).toBeDefined()
+                        if (th) {
+                            expect(th.classList.contains('sorting')).toBe(sortable)
+                        }
+                    });
+                }
+            }
+        });
 
-        tr = $refs.table_paginated.$el.children[0].children[0]
-        th = tr.children[0]
-        expect(th.classList && th.classList.contains('sorting')).toBe(true)
-        th = tr.children[1]
-        expect(th.classList && th.classList.contains('sorting')).toBe(true)
-        th = tr.children[2]
-        expect(th.classList && th.classList.contains('sorting')).toBe(false)
-        th = tr.children[3]
-        expect(th.classList && th.classList.contains('sorting')).toBe(false)
+    })
 
-        tr = $refs.table_inverse.$el.children[0].children[0]
-        th = tr.children[0]
-        expect(th.classList && th.classList.contains('sorting')).toBe(true)
-        th = tr.children[1]
-        expect(th.classList && th.classList.contains('sorting')).toBe(true)
-        th = tr.children[2]
-        expect(th.classList && th.classList.contains('sorting')).toBe(false)
-        th = tr.children[3]
-        expect(th.classList && th.classList.contains('sorting')).toBe(false)
+    it('table_paginated has sortable footers', async() => {
+        const { app: { $refs, $el } } = window
+        
+        const sortables = [ true, true, false, false ]
+        const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
+
+        expect(tfoot).toBeDefined()
+        if (tfoot) {
+            const tr = tfoot.children[0]
+            expect(tr).toBeDefined()
+            if (tr) {
+                sortables.forEach((sortable, idx) => {
+                    const th = tr.children[idx]
+                    expect(th).toBeDefined()
+                    if (th) {
+                        expect(th.classList.contains('sorting')).toBe(sortable)
+                    }
+                });
+            }
+        }
+
     })
 
     it('all examples should have variant success on 3rd row', async() => {
         const { app: { $refs, $el } } = window
-        let tbody
-        let tr
 
-        tr = $refs.table_basic.$el.children[1].children[2];
-        expect(tr && tr.classList && tr.classList.contains('table-success')).toBe(true)
+        const tables = [ 'table_basic', 'table_paginated' ]
 
-        tr = $refs.table_paginated.$el.children[1].children[2];
-        expect(tr && tr.classList && tr.classList.contains('table-success')).toBe(true)
+        tables.forEach( table => {
+            const tbody = [...$refs[table].$el.children].find(el => el && el.tagName == 'TBODY')
+            expect(tbody).toBeDefined();
+            if (tbody) {
+                const tr = tbody.children[2];
+                expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains('table-success')).toBe(true)
+            }
+        });
 
-        tr = $refs.table_inverse.$el.children[1].children[2];
-        expect(tr && tr.classList && tr.classList.contains('bg-success')).toBe(true)
+        const tbody = [...$refs.table_inverse.$el.children].find(el => el && el.tagName === 'TBODY')
+        expect(tbody).toBeDefined();
+        if (tbody) {
+            const tr = tbody.children[2];
+            expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains('table-success')).toBe(true);
+        }
     })
 
 });
