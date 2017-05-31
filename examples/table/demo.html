@@ -72,9 +72,12 @@
              small
              inverse
              bordered
-             dead-varient="default"
+             head-varient="default"
+             show-empty
              :items="items"
              :fields="fields"
+             :per-page="8"
+             :current-page="currentPage"
     >
         <template slot="name" scope="data">
             {{ data.value.first }} {{ data.value.last }}
