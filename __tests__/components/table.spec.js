@@ -474,23 +474,23 @@ describe('table', async() => {
         const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
         expect(tbody).toBeDefined()
         if (tbody) {
-            expect(app.items.length > 1).toBe(true)
+            expect(app.items.length > 5).toBe(true)
 
             vm.$on('input', spy)
 
             // Set page size to be 1 less then number of items
             await setData(app, 'currentPage', 1)
-            await setData(app, 'perPage', app.items.length - 1)
+            await setData(app, 'perPage', app.items.length - 2)
             await nextTick()
-            expect(vm.perPage).toBe(app.items.length - 1)
-            expect(vm.value.length).toBe(app.items.length - 1)
-            expect(tbody.children.length).toBe(app.items.length - 1)
+            expect(vm.perPage).toBe(app.items.length - 2)
+            expect(vm.value.length).toBe(app.items.length - 2)
+            expect(tbody.children.length).toBe(app.items.length - 2)
 
             // Goto page 2, should have length 1
             await setData(app, 'currentPage', 2)
             await nextTick()
-            expect(vm.value.length).toBe(1)
-            expect(tbody.children.length).toBe(1)
+            expect(vm.value.length).toBe(2)
+            expect(tbody.children.length).toBe(2)
 
             expect(spy).toHaveBeenCalled()
         }
