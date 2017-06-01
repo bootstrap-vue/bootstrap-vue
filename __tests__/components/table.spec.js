@@ -363,7 +363,6 @@ describe('table', async() => {
             expect(trs.length).toBe(vm.perPage)
             trs.forEach((tr, idx) => {
                 tr.click()
-                await nextTick()
                 expect(spy).toHaveBeenCalledWith(vm.value[idx], idx)
             })
         }
@@ -386,7 +385,6 @@ describe('table', async() => {
                 expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
                     th.click()
-                    await nextTick()
                     expect(spy).toHaveBeenCalledWith(fieldKeys[idx], vm.fields[fieldKeys[idx]])
                 })
             }
@@ -410,7 +408,6 @@ describe('table', async() => {
                 expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
                     th.click()
-                    await nextTick()
                     expect(spy).toHaveBeenCalledWith(fieldKeys[idx], vm.fields[fieldKeys[idx]])
                 })
             }
@@ -435,7 +432,6 @@ describe('table', async() => {
                 expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
                     th.click()
-                    await nextTick()
                     if (vm.fields[fieldKeys[idx]].sortable) {
                         expect(spy).toHaveBeenCalledWith(vm.context)
                         expect(vm.context.sortBy).toBe(fieldKeys[idx])
@@ -474,7 +470,6 @@ describe('table', async() => {
                 expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
                     th.click()
-                    await nextTick()
                     if (vm.fields[fieldKeys[idx]].sortable) {
                         expect(spy).toHaveBeenCalledWith(vm.context)
                         expect(vm.context.sortBy).toBe(fieldKeys[idx])
