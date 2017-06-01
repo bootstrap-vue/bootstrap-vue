@@ -469,19 +469,24 @@ describe('table', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_paginated
         const app = window.app
+        const spy = jest.fn()
 
         const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
         expect(tbody).toBeDefined()
         if (tbody) {
             expect(app.items.length > 1).toBe(true)
-            
-            app.currentPage = 1
+
+            vm.$on('input', spy)
+
             app.perPage = app.items.length - 1
-            
+            expect(spy).toHaveBeenCalled();
+            spy.mockClear()
             expect(tbody.children.length).toBe(vm.perPage)
             expect(vm.value.length).toBe(vm.perPage)
 
             app.currentPage = 2
+            expect(spy).toHaveBeenCalled();
+            spy.mockClear()
             expect(tbody.children.length).toBe(1)
             expect(vm.value.length).toBe(1)
         }
@@ -491,6 +496,7 @@ describe('table', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_paginated
         const app = window.app
+        const spy = jest.fn()
 
         expect(vm.showEmpty).toBe(true)
         
@@ -499,18 +505,24 @@ describe('table', async() => {
         if (tbody) {
             expect(app.items.length > 1).toBe(true)
             
-            app.currentPage = 1
+            vm.$on('input', spy)
+
             app.perPage = app.items.length
-            
+            expect(spy).toHaveBeenCalled();
+            spy.mockClear()
             expect(tbody.children.length).toBe(app.items.length)
             expect(vm.value.length).toBe(app.items.length)
 
             app.filter = app.items[0].name.last
+            expect(spy).toHaveBeenCalled();
+            spy.mockClear()
             expect(tbody.children.length < app.items.length).toBe(true)
             expect(vm.value.length < app.items.length).toBe(true)
             
             // Empty filter alert
             app.filter = 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ'
+            expect(spy).toHaveBeenCalled();
+            spy.mockClear()
             expect(tbody.children.length).toBe(1)
             expect(vm.value.length).toBe(0)
             expect(tbody.textContent).toContain(vm.emptyFilteredText)
@@ -521,6 +533,7 @@ describe('table', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_paginated
         const app = window.app
+        const spy = jest.fn()
 
         expect(vm.showEmpty).toBe(true)
 
@@ -528,14 +541,18 @@ describe('table', async() => {
         expect(tbody).toBeDefined()
         if (tbody) {
             expect(app.items.length > 1).toBe(true)
-            
-            app.currentPage = 1
+
+            vm.$on('input', spy)
+
             app.perPage = app.items.length
-            
+            expect(spy).toHaveBeenCalled();
+            spy.mockClear()
             expect(tbody.children.length).toBe(app.items.length)
             expect(vm.value.length).toBe(app.items.length)
 
             app.items = []
+            expect(spy).toHaveBeenCalled();
+            spy.mockClear()
             expect(app.items.length).toBe(0)
             expect(vm.value.length).toBe(0)
             expect(tbody.children.length).toBe(1)
