@@ -27,7 +27,7 @@
             </b-form-fieldset>
         </div>
         <div class="justify-content-center col-12 my-2">
-            <b-pagination size="md" :total-rows="items.length" :per-page="perPage" v-model="currentPage" />
+            <b-pagination size="md" :total-rows="items.length" :per-page="perPage" v-model="currentPage"></b-pagination>
         </div>
     </div>
     <b-table ref="table_paginated"
@@ -70,7 +70,7 @@
     <h2>Inverse Table</h2>
     <div class="my-1 row">
         <div class="justify-content-center col-12 my-2">
-            <b-pagination size="md" :total-rows="items.length" :per-page="4" v-model="currentPage" />
+            <b-pagination size="md" :total-rows="items.length" :per-page="perPage" v-model="currentPage" />
         </div>
     </div>
     <b-table ref="table_inverse"
@@ -81,7 +81,7 @@
              show-empty
              :items="items"
              :fields="fields"
-             :per-page="4"
+             :per-page="perPage"
              :current-page="currentPage"
     >
         <template slot="name" scope="data">
