@@ -465,7 +465,7 @@ describe('table', async() => {
         }
     })
 
-    it.skip('table_paginated pagination works', async() => {
+    it('table_paginated pagination works', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_paginated
         const app = window.app
@@ -481,14 +481,12 @@ describe('table', async() => {
             // Set page size to be 1 less then number of items
             await setData(app, 'currentPage', 1)
             await setData(app, 'perPage', app.items.length - 1)
-            await nextTick()
             expect(vm.perPage).toBe(app.items.length - 1)
             expect(vm.value.length).toBe(app.items.length - 1)
             expect(tbody.children.length).toBe(app.items.length - 1)
 
             // Goto page 2, should have length 1
             await setData(app, 'currentPage', 2)
-            await nextTick()
             expect(vm.value.length).toBe(1)
             expect(tbody.children.length).toBe(1)
 
