@@ -422,6 +422,7 @@ describe('table', async() => {
                             expect(vm.context.sortBy).toBe(null)
                         }
                     }
+                    spy.mockClear()
                 })
             }
         }
@@ -459,6 +460,7 @@ describe('table', async() => {
                             expect(vm.context.sortBy).toBe(null)
                         }
                     }
+                    spy.mockClear()
                 })
             }
         }
