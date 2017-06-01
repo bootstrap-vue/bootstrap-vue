@@ -416,10 +416,10 @@ describe('table', async() => {
                         if (sortBy) {
                             expect(spy).toHaveBeenCalledWith(vm.context)
                             expect(vm.context.sortBy).toBe(null)
-                            sortBy = vm.context.sortBy
+                            sortBy = null
                         } else {
                             expect(spy).not.toHaveBeenCalled()
-                            expect(vm.context.sortBy).toBe(sortBy)
+                            expect(vm.context.sortBy).toBe(null)
                         }
                     }
                 })
@@ -453,10 +453,10 @@ describe('table', async() => {
                         if (sortBy) {
                             expect(spy).toHaveBeenCalledWith(vm.context)
                             expect(vm.context.sortBy).toBe(null)
-                            sortBy = vm.context.sortBy
+                            sortBy = null
                         } else {
                             expect(spy).not.toHaveBeenCalled()
-                            expect(vm.context.sortBy).toBe(sortBy)
+                            expect(vm.context.sortBy).toBe(null)
                         }
                     }
                 })
