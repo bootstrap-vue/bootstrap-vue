@@ -474,35 +474,38 @@ describe('table', async() => {
         const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
         expect(tbody).toBeDefined()
         if (tbody) {
-            expect(app.items.length > 5).toBe(true)
+            expect(app.items.length > 10).toBe(true)
+            expect(app.items.length < 15).toBe(true)
 
             vm.$on('input', spy)
 
             // Set page size to be 1 less then number of items
             await setData(app, 'currentPage', 1)
-            await setData(app, 'perPage', app.items.length - 2)
+            await setData(app, 'perPage', 10)
             await nextTick()
-            expect(vm.perPage).toBe(app.items.length - 2)
-            expect(vm.value.length).toBe(app.items.length - 2)
-            expect(tbody.children.length).toBe(app.items.length - 2)
+            expect(vm.perPage).toBe(15)
+            expect(vm.value.length).toBe(10)
+            expect(tbody.children.length).toBe(10)
 
             // Goto page 2, should have length 1
             await setData(app, 'currentPage', 2)
             await nextTick()
-            expect(vm.value.length).toBe(2)
-            expect(tbody.children.length).toBe(2)
+            expect(vm.value.length).toBe(app.items.length - 10)
+            expect(tbody.children.length).toBe(app.items.length - 10)
 
             expect(spy).toHaveBeenCalled()
         }
     })
 
-    it.skip('table_paginated filtering works', async() => {
+    it('table_paginated filtering works', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_paginated
         const app = window.app
         const spy = jest.fn()
 
         expect(vm.showEmpty).toBe(true)
+        expect(app.items.length > 10).toBe(true)
+        expect(app.items.length < 15).toBe(true)
         
         const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
         expect(tbody).toBeDefined()
@@ -511,9 +514,9 @@ describe('table', async() => {
             
             vm.$on('input', spy)
 
-            // Set page size to number of items
+            // Set page size to max number of items
             await setData(app, 'currentPage', 1)
-            await setData(app, 'perPage', app.items.length)
+            await setData(app, 'perPage', 15)
             await nextTick()
             expect(vm.value.length).toBe(app.items.length)
             expect(tbody.children.length).toBe(app.items.length)
@@ -535,7 +538,7 @@ describe('table', async() => {
         }
     })
 
-    it.skip('table_paginated shows empty message when no items', async() => {
+    it('table_paginated shows empty message when no items', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_paginated
         const app = window.app
@@ -546,13 +549,14 @@ describe('table', async() => {
         const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
         expect(tbody).toBeDefined()
         if (tbody) {
-            expect(app.items.length > 1).toBe(true)
+            expect(app.items.length > 10).toBe(true)
+            expect(app.items.length < 15).toBe(true)
 
             vm.$on('input', spy)
 
             // Set page size to number of items
             await setData(app, 'currentPage', 1)
-            await setData(app, 'perPage', app.items.length)
+            await setData(app, 'perPage', 15)
             await nextTick()
             expect(vm.value.length).toBe(app.items.length)
             expect(tbody.children.length).toBe(app.items.length)
