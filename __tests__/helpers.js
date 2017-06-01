@@ -38,8 +38,10 @@ export async function testVM() {
     });
 }
 
-export async function nextTick() {
-    await Vue.nextTick();
+export function nextTick() {
+    return new Promise((resolve, reject) => {
+        Vue.nextTick(resolve)
+    });
 }
 
 export async function setData(app, key, value) {
