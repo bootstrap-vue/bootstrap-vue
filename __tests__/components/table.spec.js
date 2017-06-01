@@ -478,14 +478,17 @@ describe('table', async() => {
 
             vm.$on('input', spy)
 
-            app.perPage = app.items.length - 1
-            expect(spy).toHaveBeenCalled();
+            // Set page size to be 1 less then number of items
+            setData(app, 'currentPage', 1)
+            setData(app, 'perPage', app.items.length - 1)
+            expect(spy).toHaveBeenCalled()
             spy.mockClear()
             expect(tbody.children.length).toBe(vm.perPage)
             expect(vm.value.length).toBe(vm.perPage)
 
-            app.currentPage = 2
-            expect(spy).toHaveBeenCalled();
+            // Goto page 2, should have length 1
+            setData(app, 'currentPage', 2)
+            expect(spy).toHaveBeenCalled()
             spy.mockClear()
             expect(tbody.children.length).toBe(1)
             expect(vm.value.length).toBe(1)
@@ -507,25 +510,28 @@ describe('table', async() => {
             
             vm.$on('input', spy)
 
-            app.perPage = app.items.length
+            // Set page size to number of items
+            setData(app, 'currentPage', 1)
+            setData(app, 'perPage', app.items.length)
             expect(spy).toHaveBeenCalled();
             spy.mockClear()
             expect(tbody.children.length).toBe(app.items.length)
             expect(vm.value.length).toBe(app.items.length)
 
-            app.filter = app.items[0].name.last
+            // Apply Fiter
+            setData(app, 'filter', String(app.items[0].name.last))
             expect(spy).toHaveBeenCalled();
             spy.mockClear()
             expect(tbody.children.length < app.items.length).toBe(true)
             expect(vm.value.length < app.items.length).toBe(true)
             
             // Empty filter alert
-            app.filter = 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ'
+            setData(app, 'filter', 'ZZZZZZZZZZZZZZZZZzzzzzzzzzzzzzzzzz........')
             expect(spy).toHaveBeenCalled();
             spy.mockClear()
             expect(tbody.children.length).toBe(1)
             expect(vm.value.length).toBe(0)
-            expect(tbody.textContent).toContain(vm.emptyFilteredText)
+            expect(tbody.children[0].children[0].textContent).toContain(vm.emptyFilteredText)
         }
     })
 
@@ -544,13 +550,16 @@ describe('table', async() => {
 
             vm.$on('input', spy)
 
-            app.perPage = app.items.length
+            // Set page size to number of items
+            setData(app, 'currentPage', 1)
+            setData(app, 'perPage', app.items.length)
             expect(spy).toHaveBeenCalled();
             spy.mockClear()
             expect(tbody.children.length).toBe(app.items.length)
             expect(vm.value.length).toBe(app.items.length)
 
-            app.items = []
+            // Set items to empty list
+            setData(app, 'items', [])
             expect(spy).toHaveBeenCalled();
             spy.mockClear()
             expect(app.items.length).toBe(0)
