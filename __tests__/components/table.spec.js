@@ -481,17 +481,17 @@ describe('table', async() => {
             // Set page size to be 1 less then number of items
             setData(app, 'currentPage', 1)
             setData(app, 'perPage', app.items.length - 1)
-            expect(spy).toHaveBeenCalled()
-            spy.mockClear()
+            nextTick()
             expect(tbody.children.length).toBe(vm.perPage)
             expect(vm.value.length).toBe(vm.perPage)
 
             // Goto page 2, should have length 1
             setData(app, 'currentPage', 2)
-            expect(spy).toHaveBeenCalled()
-            spy.mockClear()
+            nextTick()
             expect(tbody.children.length).toBe(1)
             expect(vm.value.length).toBe(1)
+
+            expect(spy).toHaveBeenCalled()
         }
     })
 
@@ -513,25 +513,24 @@ describe('table', async() => {
             // Set page size to number of items
             setData(app, 'currentPage', 1)
             setData(app, 'perPage', app.items.length)
-            expect(spy).toHaveBeenCalled();
-            spy.mockClear()
+            nextTick()
             expect(tbody.children.length).toBe(app.items.length)
             expect(vm.value.length).toBe(app.items.length)
 
             // Apply Fiter
             setData(app, 'filter', String(app.items[0].name.last))
-            expect(spy).toHaveBeenCalled();
-            spy.mockClear()
+            nextTick()
             expect(tbody.children.length < app.items.length).toBe(true)
             expect(vm.value.length < app.items.length).toBe(true)
             
             // Empty filter alert
             setData(app, 'filter', 'ZZZZZZZZZZZZZZZZZzzzzzzzzzzzzzzzzz........')
-            expect(spy).toHaveBeenCalled();
-            spy.mockClear()
+            nextTick()
             expect(tbody.children.length).toBe(1)
             expect(vm.value.length).toBe(0)
             expect(tbody.children[0].children[0].textContent).toContain(vm.emptyFilteredText)
+
+            expect(spy).toHaveBeenCalled();
         }
     })
 
@@ -553,19 +552,19 @@ describe('table', async() => {
             // Set page size to number of items
             setData(app, 'currentPage', 1)
             setData(app, 'perPage', app.items.length)
-            expect(spy).toHaveBeenCalled();
-            spy.mockClear()
+            nextTick()
             expect(tbody.children.length).toBe(app.items.length)
             expect(vm.value.length).toBe(app.items.length)
 
             // Set items to empty list
             setData(app, 'items', [])
-            expect(spy).toHaveBeenCalled();
-            spy.mockClear()
+            nextTick()
             expect(app.items.length).toBe(0)
             expect(vm.value.length).toBe(0)
             expect(tbody.children.length).toBe(1)
             expect(tbody.textContent).toContain(vm.emptyText)
+
+            expect(spy).toHaveBeenCalled();
         }
     })
 });
