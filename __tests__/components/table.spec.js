@@ -190,7 +190,7 @@ describe('table', async() => {
                     expect(tr.getAttribute('role')).toBe('row')
                 })
             }
-        }
+        })
     })
 
     it('all example tables should have attribute aria-busy="false" when busy is false', async() => {
@@ -277,7 +277,7 @@ describe('table', async() => {
                 const variant = vm.inverse ? 'bg-success' : 'table-succecss'
                 expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(variant)).toBe(true)
             }
-        });
+        })
     })
 
     it('table_basic should contain custom formatted columns', async() => {
