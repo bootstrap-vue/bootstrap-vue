@@ -483,7 +483,7 @@ describe('table', async() => {
             await setData(app, 'currentPage', 1)
             await setData(app, 'perPage', 10)
             await nextTick()
-            expect(vm.perPage).toBe(15)
+            expect(vm.perPage).toBe(10)
             expect(vm.value.length).toBe(10)
             expect(tbody.children.length).toBe(10)
 
