@@ -20,26 +20,6 @@ describe('table', async() => {
         ])
     })
     
-    it('all example tables should have ARIA role="grid"', async() => {
-        const { app: { $refs, $el } } = window
-
-        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
-
-        tables.forEach(table => {
-            expect($refs[table].$el.getAttribute('role')).toBe('grid')
-        })
-    })
-
-    it('all example tables should have attribute aria-busy="false"', async() => {
-        const { app: { $refs, $el } } = window
-
-        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
-
-        tables.forEach(table => {
-            expect($refs[table].$el.getAttribute('aria-busy')).toBe('false')
-        })
-    })
-
     it('table_basic should have thead and tbody', async() => {
         const { app: { $refs, $el } } = window
 
@@ -120,7 +100,6 @@ describe('table', async() => {
                 }
             }
         })
-
     })
 
     it('all examples should show the correct number of visible rows', async() => {
@@ -137,7 +116,6 @@ describe('table', async() => {
                 expect(tbody.children.length).toBe(vm.perPage || app.items.length)
             }
         })
-
     })
 
     it('all examples have sortable & unsortable headers', async() => {
@@ -185,6 +163,62 @@ describe('table', async() => {
         }
     })
 
+    it('all example tables should have ARIA role="grid"', async() => {
+        const { app: { $refs, $el } } = window
+
+        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
+
+        tables.forEach(table => {
+            expect($refs[table].$el.getAttribute('role')).toBe('grid')
+        })
+    })
+
+    it('each data row should have ARIA role "row"', async() => {
+        const { app: { $refs, $el } } = window
+        const app = window.app
+
+        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
+
+        tables.forEach(table => {
+            const vm = $refs[table]
+            const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+            expect(tbody).toBeDefined()
+            if (tbody) {
+                const trs = [...tbody.children]
+                expect(trs.length).toBe(vm.perPage || app.items.length)
+                trs.forEach( tr => {
+                    expect(tr.getAttribute('role')).toBe('row')
+                })
+            }
+        }
+    })
+
+    it('all example tables should have attribute aria-busy="false" when busy is false', async() => {
+        const { app: { $refs, $el } } = window
+
+        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
+
+        await setData(app, 'isBusy', false)
+        await nextTick()
+
+        tables.forEach(table => {
+            expect($refs[table].$el.getAttribute('aria-busy')).toBe('false')
+        })
+    })
+
+    it('table_paginated should have attribute aria-busy="true" when busy is true', async() => {
+        const { app: { $refs, $el } } = window
+        const app = window.app
+
+        await setData(app, 'isBusy', true)
+        await nextTick()
+        expect($refs.table_paginated.$el.getAttribute('aria-busy')).toBe('true')
+
+        await setData(app, 'isBusy', false)
+        await nextTick()
+        expect($refs.table_paginated.$el.getAttribute('aria-busy')).toBe('false')
+    })
+
     it('sortable columns should have ARIA labels in thead', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_paginated
@@ -223,39 +257,30 @@ describe('table', async() => {
         }
     })
 
-    it('each data row should have ARIA role "row"', async() => {
+    it('all examples should have variant "success" on 1st row', async() => {
         const { app: { $refs, $el } } = window
-        const vm = $refs.table_paginated
-
-        const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-        expect(tbody).toBeDefined()
-        if (tbody) {
-            const trs = [...tbody.children]
-            expect(trs.length).toBe(vm.perPage)
-            trs.forEach( tr => {
-                expect(tr.getAttribute('role')).toBe('row')
-            })
-        }
-    })
-
-    it('all examples should have variant success on 3rd row', async() => {
-        const { app: { $refs, $el } } = window
+        const app = window.app
 
         const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
-        const classes = [ 'table-success', 'table-success', 'bg-success' ]
+
+        const items = app.items.slice()
+        items[0]._rowVariant = 'success'
+        await setData(app, 'items', items)
+        await nextTick()
 
         tables.forEach((table, idx) => {
-            const tbody = [...$refs[table].$el.children].find(el => el && el.tagName == 'TBODY')
+            const vm = $refs[table]
+            const tbody = [...vm.$el.children].find(el => el && el.tagName == 'TBODY')
             expect(tbody).toBeDefined();
             if (tbody) {
-                const tr = tbody.children[2]
-                expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(classes[idx])).toBe(true)
+                const tr = tbody.children[0]
+                const variant = vm.inverse ? 'bg-success' : 'table-succecss'
+                expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(variant)).toBe(true)
             }
         });
-
     })
 
-    it('table_basic should contain custom formated columns', async() => {
+    it('table_basic should contain custom formatted columns', async() => {
         const { app: { $refs, $el } } = window
         const app = window.app
         const vm = $refs.table_basic
@@ -273,7 +298,7 @@ describe('table', async() => {
         }
     })
 
-    it('table_paginated should contain custom formated columns', async() => {
+    it('table_paginated should contain custom formatted columns', async() => {
         const { app: { $refs, $el } } = window
         const app = window.app
         const vm = $refs.table_basic
@@ -291,7 +316,7 @@ describe('table', async() => {
         }
     })
 
-    it('table_paginated should contain custom formated headers', async() => {
+    it('table_paginated should contain custom formatted headers', async() => {
         const { app: { $refs, $el } } = window
 
         const thead = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'THEAD')
@@ -308,7 +333,7 @@ describe('table', async() => {
         }
     })
 
-    it('table_paginated should contain custom formated footers', async() => {
+    it('table_paginated should contain custom formatted footers', async() => {
         const { app: { $refs, $el } } = window
 
         const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
@@ -338,6 +363,7 @@ describe('table', async() => {
             expect(trs.length).toBe(vm.perPage)
             trs.forEach((tr, idx) => {
                 tr.click()
+                await nextTick()
                 expect(spy).toHaveBeenCalledWith(vm.value[idx], idx)
             })
         }
@@ -360,6 +386,7 @@ describe('table', async() => {
                 expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
                     th.click()
+                    await nextTick()
                     expect(spy).toHaveBeenCalledWith(fieldKeys[idx], vm.fields[fieldKeys[idx]])
                 })
             }
@@ -383,6 +410,7 @@ describe('table', async() => {
                 expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
                     th.click()
+                    await nextTick()
                     expect(spy).toHaveBeenCalledWith(fieldKeys[idx], vm.fields[fieldKeys[idx]])
                 })
             }
@@ -407,6 +435,7 @@ describe('table', async() => {
                 expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
                     th.click()
+                    await nextTick()
                     if (vm.fields[fieldKeys[idx]].sortable) {
                         expect(spy).toHaveBeenCalledWith(vm.context)
                         expect(vm.context.sortBy).toBe(fieldKeys[idx])
@@ -445,6 +474,7 @@ describe('table', async() => {
                 expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
                     th.click()
+                    await nextTick()
                     if (vm.fields[fieldKeys[idx]].sortable) {
                         expect(spy).toHaveBeenCalledWith(vm.context)
                         expect(vm.context.sortBy).toBe(fieldKeys[idx])
@@ -474,12 +504,13 @@ describe('table', async() => {
         const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
         expect(tbody).toBeDefined()
         if (tbody) {
+            // We need between 11 and 14 ites for this test
             expect(app.items.length > 10).toBe(true)
             expect(app.items.length < 15).toBe(true)
 
             vm.$on('input', spy)
 
-            // Set page size to be 1 less then number of items
+            // Page size to be less then number of items
             await setData(app, 'currentPage', 1)
             await setData(app, 'perPage', 10)
             await nextTick()
@@ -554,7 +585,7 @@ describe('table', async() => {
 
             vm.$on('input', spy)
 
-            // Set page size to number of items
+            // Set page size to show all items
             await setData(app, 'currentPage', 1)
             await setData(app, 'perPage', 15)
             await nextTick()
