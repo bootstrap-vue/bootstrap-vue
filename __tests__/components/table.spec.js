@@ -163,7 +163,6 @@ describe('table', async() => {
                 }
             }
         })
-
     })
 
     it('table_paginated has sortable & unsortable footers', async() => {
@@ -184,7 +183,6 @@ describe('table', async() => {
                 })
             }
         }
-
     })
 
     it('sortable columns should have ARIA labels in thead', async() => {
@@ -259,17 +257,17 @@ describe('table', async() => {
 
     it('table_basic should contain custom formated columns', async() => {
         const { app: { $refs, $el } } = window
+        const app = window.app
+        const vm = $refs.table_basic
 
-        const tbody = [...$refs.table_basic.$el.children].find(el => el && el.tagName === 'TBODY')
+        const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
         expect(tbody).toBeDefined()
         if (tbody) {
             const tr = [...tbody.children].find(el => el && el.tagName === 'TR')
             expect(tr).toBeDefined()
             if (tr) {
-                expect(tr.children[0].textContent).toContain('Dickerson Macdonald')
-                expect(tr.children[1].textContent).toContain('40')
-                expect(tr.children[2].textContent).toContain('Yes')
-                expect(tr.children[3].textContent).toContain('Details')
+                expect(tr.children[0].textContent).toContain(vm.items[0].name.first + ' ' + vm.items[0].name.last)
+                expect(tr.children[1].textContent).toContain(String(vm.items[0].age))
                 expect(tr.children[3].children[0].tagName).toBe('BUTTON')
             }
         }
@@ -277,6 +275,8 @@ describe('table', async() => {
 
     it('table_paginated should contain custom formated columns', async() => {
         const { app: { $refs, $el } } = window
+        const app = window.app
+        const vm = $refs.table_basic
 
         const tbody = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TBODY')
         expect(tbody).toBeDefined()
@@ -284,9 +284,8 @@ describe('table', async() => {
             const tr = [...tbody.children].find(el => el && el.tagName === 'TR')
             expect(tr).toBeDefined()
             if (tr) {
-                expect(tr.children[0].textContent).toContain('Dickerson Macdonald')
-                expect(tr.children[1].textContent).toContain('40')
-                expect(tr.children[2].textContent).toContain('Active')
+                expect(tr.children[0].textContent).toContain(vm.items[0].name.first + ' ' + vm.items[0].name.last)
+                expect(tr.children[1].textContent).toContain(String(vm.items[0].age))
                 expect(tr.children[3].children[0].tagName).toBe('INPUT')
             }
         }
@@ -466,4 +465,81 @@ describe('table', async() => {
         }
     })
 
+    it('table_paginated pagination works', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_paginated
+        const app = window.app
+
+        const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+        expect(tbody).toBeDefined()
+        if (tbody) {
+            expect(app.items.length > 1).toBe(true)
+            
+            app.currentPage = 1
+            app.perPage = app.items.length - 1
+            
+            expect(tbody.children.length).toBe(vm.perPage)
+            expect(vm.value.length).toBe(vm.perPage)
+
+            app.currentPage = 2
+            expect(tbody.children.length).toBe(1)
+            expect(vm.value.length).toBe(1)
+        }
+    })
+
+    it('table_paginated filtering works', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_paginated
+        const app = window.app
+
+        expect(vm.showEmpty).toBe(true)
+        
+        const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+        expect(tbody).toBeDefined()
+        if (tbody) {
+            expect(app.items.length > 1).toBe(true)
+            
+            app.currentPage = 1
+            app.perPage = app.items.length
+            
+            expect(tbody.children.length).toBe(app.items.length)
+            expect(vm.value.length).toBe(app.items.length)
+
+            app.filter = app.items[0].name.last
+            expect(tbody.children.length < app.items.length).toBe(true)
+            expect(vm.value.length < app.items.length).toBe(true)
+            
+            // Empty filter alert
+            app.filter = 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ'
+            expect(tbody.children.length).toBe(1)
+            expect(vm.value.length).toBe(0)
+            expect(tbody.textContent).toContain(vm.emptyFilteredText)
+        }
+    })
+
+    it('table_paginated shows empty message when no items', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_paginated
+        const app = window.app
+
+        expect(vm.showEmpty).toBe(true)
+
+        const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+        expect(tbody).toBeDefined()
+        if (tbody) {
+            expect(app.items.length > 1).toBe(true)
+            
+            app.currentPage = 1
+            app.perPage = app.items.length
+            
+            expect(tbody.children.length).toBe(app.items.length)
+            expect(vm.value.length).toBe(app.items.length)
+
+            app.items = []
+            expect(app.items.length).toBe(0)
+            expect(vm.value.length).toBe(0)
+            expect(tbody.children.length).toBe(1)
+            expect(tbody.textContent).toContain(vm.emptyText)
+        }
+    })
 });
