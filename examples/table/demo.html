@@ -40,6 +40,7 @@
              show-empty
              head-variant="inverse"
              foot-variant="default"
+             :busy="isBusy"
              :items="items"
              :fields="fields"
              :current-page="currentPage"
@@ -83,6 +84,7 @@
              :fields="fields"
              :per-page="perPage"
              :current-page="currentPage"
+             :busy="isBusy"
     >
         <template slot="name" scope="data">
             {{ data.value.first }} {{ data.value.last }}
