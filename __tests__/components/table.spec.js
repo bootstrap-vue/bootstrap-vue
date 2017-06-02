@@ -274,7 +274,7 @@ describe('table', async() => {
             expect(tbody).toBeDefined();
             if (tbody) {
                 const tr = tbody.children[0]
-                const variant = vm.inverse ? 'bg-success' : 'table-succecss'
+                const variant = vm.inverse ? 'bg-success' : 'table-success'
                 expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(variant)).toBe(true)
             }
         })
