@@ -435,6 +435,7 @@
             this.$data._trigger = this.$refs.trigger.children[0] || this.$refs.trigger;
             this.$data._popover = this.$refs.popover;
             this.$data._popover.style.display = 'none';
+            this.$data._tether = new Tether(this.getTetherOptions());
             this.$data._timeout = 0;
 
             // Add listeners for specified triggers and complementary click event
