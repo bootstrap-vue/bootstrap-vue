@@ -8,7 +8,12 @@ const throwIfNotVueInstance = vm => {
     if (!vm instanceof Vue) {
         // debugging breadcrumbs in case a non-Vue instance gets erroneously passed
         // makes the error easier to fix than example: "Cannot read _prevClass of undefined"
-        throw new TypeError('The matcher `vmToHaveClasses` expects Vue instance.')
+        throw new TypeError(`The matcher function expects Vue instance. Given ${typeof vm}`)
+    }
+}
+const throwIfNotArray = array => {
+    if (!Array.isArray(array)) {
+        throw new TypeError(`The matcher requires an array. Given ${typeof array}`)
     }
 }
 
@@ -59,6 +64,7 @@ expect.extend({
     },
     toHaveAllClasses(vm, classList) {
         throwIfNotVueInstance(vm)
+        throwIfNotArray(classList)
 
         let pass = true;
         let missingClassNames = []
