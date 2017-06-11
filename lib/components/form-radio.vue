@@ -11,6 +11,7 @@
                    :name="option.name"
                    :id="option.id"
                    :disabled="option.disabled"
+                   @click="onClick"
                    ref="inputs"
             >
             <span class="custom-control-indicator" aria-hidden="true" v-if="custom"></span>
@@ -50,6 +51,14 @@
             returnObject: {
                 type: Boolean,
                 default: false
+            }
+        },
+        methods: {
+            onClick(e) {
+                if (this.value !== e.target.value) {
+                    // run on the next tick to have this.value updated at a time of 'change' event
+                    this.$nextTick(() => this.$emit('change', e.target.value))
+                }
             }
         }
     };
