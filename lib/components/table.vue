@@ -99,9 +99,18 @@
     };
 
     const defaultSortCompare = (a, b, sortBy) => {
-        return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
-            numeric: true
-        });
+        if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
+            if (a[sortBy] < b[sortBy]) {
+                return -1;
+            } else if (a[sortBy] > b[sortBy]) {
+                return 1;
+            }
+            return 0;
+        } else {
+            return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
+                numeric: true
+            });
+        }
     };
 
     export default {
