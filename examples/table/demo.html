@@ -9,7 +9,7 @@
             {{ data.value ? 'Yes' : 'No' }}
         </template>
         <template slot="actions" scope="data">
-            <b-btn size="sm" @click.stop="details(item.item)">Details</b-btn>
+            <b-btn size="sm" @click.stop="details(data.item)">Details</b-btn>
         </template>
     </b-table>
 
@@ -93,7 +93,26 @@
             {{ data.value ? 'Active' : 'Inactive' }}
         </template>
         <template slot="actions" scope="data">
-            <b-btn size="sm" @click.stop="details(item.item)">Details</b-btn>
+            <b-btn size="sm" @click.stop="details(data.item)">Details</b-btn>
+        </template>
+    </b-table>
+
+    <h2>Provider Test Table</h2>
+    <b-table ref="table_provider"
+             small
+             head-variant="default"
+             show-empty
+             :items="[]"
+             :fields="fields"
+    >
+        <template slot="name" scope="data">
+            {{ data.value.first }} {{ data.value.last }}
+        </template>
+        <template slot="isActive" scope="data">
+            {{ data.value ? 'Active' : 'Inactive' }}
+        </template>
+        <template slot="actions" scope="data">
+            <b-btn size="sm" @click.stop="details(data.item)">Details</b-btn>
         </template>
     </b-table>
 
