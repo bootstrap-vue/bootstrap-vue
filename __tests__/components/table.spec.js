@@ -605,9 +605,9 @@ describe('table', async() => {
         const spy = jest.fn()
 
         vm.$on('refreshed', spy)
-        await setData(vm,'items', app.providerArray);
+        vm.items = app.providerArray;
         await nextTick()
-        await sleep(50)
+        await sleep(100)
         expect(spy).toHaveBeenCalled()
         expect(vm.value.length).toBe(app.items.length)
     })
