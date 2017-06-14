@@ -23,6 +23,7 @@ window.app = new Vue({
         selectedRecords: [],
         visibleRecords: [],
         isBusy: false,
+        provder: () => [],
         items: [
             {
                 isActive: true,
