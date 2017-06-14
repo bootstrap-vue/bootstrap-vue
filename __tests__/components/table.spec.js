@@ -1,4 +1,4 @@
-import {loadFixture, testVM, setData, nextTick} from '../helpers';
+import {loadFixture, testVM, setData, nextTick, sleep} from '../helpers';
 
 describe('table', async() => {
     beforeEach(loadFixture('table'));
