@@ -604,11 +604,16 @@ describe('table', async() => {
         const vm = $refs.table_provider
         const spy = jest.fn()
 
+        expect(vm.value.length).toBe(0)
+
         vm.$on('refreshed', spy)
         await setData(app, 'provider', app.providerArray);
         await nextTick()
+        
         await sleep(100)
         expect(spy).toHaveBeenCalled()
+
+        await nextTick()
         expect(vm.value.length).toBe(app.items.length)
     })
 
