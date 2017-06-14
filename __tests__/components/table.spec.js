@@ -604,17 +604,35 @@ describe('table', async() => {
         const vm = $refs.table_provider
         const spy = jest.fn()
 
-        expect(vm.value.length).toBe(0)
-
         vm.$on('refreshed', spy)
         await setData(app, 'provider', app.providerArray);
         await nextTick()
-        
         await sleep(100)
         expect(spy).toHaveBeenCalled()
+    })
 
+    it('table_provider should emit a refreshed event for providerCallback', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_provider
+        const spy = jest.fn()
+
+        vm.$on('refreshed', spy)
+        await setData(app, 'provider', app.providerCallback);
         await nextTick()
-        expect(vm.value.length).toBe(app.items.length)
+        await sleep(100)
+        expect(spy).toHaveBeenCalled()
+    })
+
+    it('table_provider should emit a refreshed event for providerPromise', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_provider
+        const spy = jest.fn()
+
+        vm.$on('refreshed', spy)
+        await setData(app, 'provider', app.providerPromise);
+        await nextTick()
+        await sleep(100)
+        expect(spy).toHaveBeenCalled()
     })
 
 });
