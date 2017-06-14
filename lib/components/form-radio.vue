@@ -16,6 +16,7 @@
             <span class="custom-control-indicator" aria-hidden="true" v-if="custom"></span>
             <span :class="custom?'custom-control-description':null" v-html="option.text"></span>
         </label>
+        <div class="description" v-if="option.description">{{option.description}}</div>
     </div>
 </template>
 
