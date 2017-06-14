@@ -49,6 +49,12 @@ export async function setData(app, key, value) {
     await nextTick();
 }
 
+// Usage: await sleep(1000);
+export function sleep(ms) {
+    ms = ms || 0;
+    return new Promise(r => setTimeout(r, ms));
+}
+
 // Extend Jest marchers
 expect.extend({
     toHaveClass(vm, className) {
