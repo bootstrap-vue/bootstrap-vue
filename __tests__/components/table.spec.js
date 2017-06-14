@@ -599,6 +599,7 @@ describe('table', async() => {
         }
     })
 
+/*
     it('table_provider should emit a refreshed event for providerArray', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_provider
@@ -611,5 +612,5 @@ describe('table', async() => {
         expect(spy).toHaveBeenCalled()
         expect(vm.value.length).toBe(app.items.length)
     })
-
+*/
 });
