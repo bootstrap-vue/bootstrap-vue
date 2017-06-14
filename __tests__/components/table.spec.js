@@ -598,4 +598,18 @@ describe('table', async() => {
             expect(spy).toHaveBeenCalled();
         }
     })
+
+    it('table_provider should emit a refreshed event for providerArray', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.table_provider
+        const spy = jest.fn()
+
+        vm.$on('refreshed', spy)
+        await setData(vm,'items', app.providerArray);
+        await nextTick()
+        await sleep(50)
+        expect(spy).toHaveBeenCalled()
+        expect(vm.value.length).toBe(app.items.length)
+    })
+
 });
