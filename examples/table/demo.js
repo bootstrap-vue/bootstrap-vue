@@ -80,6 +80,26 @@ window.app = new Vue({
         details(item) {
             /* eslint-disable no-alert */
             alert(JSON.stringify(item));
+        },
+        providerArray(ctx) {
+            // Array based provider
+            return this.items.slice();
+        },
+        providerCallback(ctx, cb) {
+            // Callback based provider
+            const items = this.items.slice();
+            setTimeout(() => {
+                cb(items);
+            }, 1)
+            return null;
+        },
+        providerPromise(ctx) {
+            // Promise based provider
+            const items = this.items.slice();
+            const p = new Promise(resolve => setTimeout(resolve, 1));
+            return p.then(() => {
+               return items;
+            });
         }
     }
 });
