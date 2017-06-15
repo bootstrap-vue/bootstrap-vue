@@ -5,7 +5,7 @@
   "events": [
     {
       "event": "input",
-      "description": "when page changes via user interaction or programatically",
+      "description": "when page changes via user interaction or programmatically",
       "args": [
         {
           "arg": "page",
