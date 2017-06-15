@@ -11,5 +11,5 @@ The value should be bound via `v-model` in your app.
 - `input` is emitted anytime the page number changes (either programmatically or via user interction)
 - `change` is emitted only when the page number changes based on user interaction
 
-Both events provide the signel argument of hte current page number (starting from 1)
+Both events provide the single argument of the current page number (starting from 1)
 
