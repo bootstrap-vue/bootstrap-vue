@@ -77,12 +77,33 @@ window.app = new Vue({
             }
         ]
     },
+    computed: {
+        provider() {
+            // we are usig provider wrappers here to trigger a reload
+            if (this.providerType === 'promise') {
+                return this._promiseProvider;
+            } else if (this.providerType === 'callback') {
+                return this._callbackProvider;
+            } else {
+                return this._arrayProvider;
+            }
+        }
+    },
     methods: {
         details(item) {
             /* eslint-disable no-alert */
             alert(JSON.stringify(item));
         },
-        provider(ctx, cb) {
+        _arrayProvider(ctx) {
+            return this._provider(ctx);
+        },
+        _callbackProvider(ctx, cb) {
+            return this._provider(ctx, cb);
+        },
+        _promiseProvider(ctx) {
+            return this._provider(ctx);
+        },
+        _provider(ctx, cb) {
             const items = this.items.slice();
             if (this.providerType === 'callback') {
                 setTimeout(() => {
