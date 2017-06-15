@@ -175,6 +175,7 @@
                         this.focusCurrent();
                     }
                 });
+                this.$emit('change', this.currentPage);
             },
             getButtons() {
                 const buttons = Array.prototype.slice.call(this.$el.querySelectorAll('a.page-link'));
