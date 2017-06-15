@@ -604,11 +604,17 @@ describe('table', async() => {
         const vm = $refs.table_provider
         const spy = jest.fn()
 
-        vm.$on('refreshed', spy)
         await setData(app, 'provider', app.providerArray);
         await nextTick()
         await sleep(100)
+
+        vm.$on('refreshed', spy)
+        vm.refresh();
+        await nextTick()
+        await sleep(100)
+
         expect(spy).toHaveBeenCalled()
+        expect(vm.value.length).toBe(app.items.length)
     })
 
     it('table_provider should emit a refreshed event for providerCallback', async() => {
