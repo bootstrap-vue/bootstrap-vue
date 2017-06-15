@@ -98,6 +98,14 @@
     </b-table>
 
     <h2>Provider Test Table</h2>
+    <div class="my-1">
+        <b-form-fieldset horizontal label="Provider" :label-size="6">
+            <b-form-select
+                 v-model="providerType"
+                 :options="[{text:'Array',value:'array'},{text:'Callback',value:'callback'},{text:'Promise',value:'promise'}]"
+            ></b-form-select>
+        </b-form-fieldset>
+    </div>
     <b-table ref="table_provider"
              id="table_provider"
              small
