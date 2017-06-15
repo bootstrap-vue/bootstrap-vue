@@ -23,7 +23,7 @@ window.app = new Vue({
         selectedRecords: [],
         visibleRecords: [],
         isBusy: false,
-        provider: () => [],
+        providerType: 'array',
         items: [
             {
                 isActive: true,
@@ -82,25 +82,21 @@ window.app = new Vue({
             /* eslint-disable no-alert */
             alert(JSON.stringify(item));
         },
-        providerArray(ctx) {
-            // Array based provider
-            return this.items.slice();
-        },
-        providerCallback(ctx, cb) {
-            // Callback based provider
+        provider(ctx, cb) {
             const items = this.items.slice();
-            setTimeout(() => {
-                cb(items);
-            }, 1)
-            return null;
-        },
-        providerPromise(ctx) {
-            // Promise based provider
-            const items = this.items.slice();
-            const p = new Promise(resolve => setTimeout(resolve, 1));
-            return p.then(() => {
-               return items;
-            });
+            if (this.providerType === 'callback') {
+                setTimeout(() => {
+                    cb(items);
+                }, 1)
+                return;
+            } else if (this.providerType === 'promise') {
+                const p = new Promise(resolve => setTimeout(resolve, 1));
+                return p.then(() => {
+                   return items;
+                });
+            } else {
+                return items;
+            }
         }
     }
 });
