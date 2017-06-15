@@ -604,17 +604,14 @@ describe('table', async() => {
         const vm = $refs.table_provider
         const spy = jest.fn()
 
-        await nextTick()
-        expect(vm.value.length).toBe(app.items.length)
-
         await setData(app, 'providerType', 'array')
         await nextTick()
-        await sleep(250)
+        await sleep(100)
 
         vm.$on('refreshed', spy)
         vm.refresh();
         await nextTick()
-        await sleep(250)
+        await sleep(100)
 
         expect(spy).toHaveBeenCalled()
         // expect(vm.value.length).toBe(app.items.length)
@@ -625,10 +622,15 @@ describe('table', async() => {
         const vm = $refs.table_provider
         const spy = jest.fn()
 
-        vm.$on('refreshed', spy)
         await setData(app, 'providerType', 'callback')
         await nextTick()
         await sleep(100)
+
+        vm.$on('refreshed', spy)
+        vm.refresh();
+        await nextTick()
+        await sleep(100)
+
         expect(spy).toHaveBeenCalled()
     })
 
@@ -637,10 +639,15 @@ describe('table', async() => {
         const vm = $refs.table_provider
         const spy = jest.fn()
 
-        vm.$on('refreshed', spy)
         await setData(app, 'providerType', 'promise')
         await nextTick()
         await sleep(100)
+
+        vm.$on('refreshed', spy)
+        vm.refresh();
+        await nextTick()
+        await sleep(100)
+
         expect(spy).toHaveBeenCalled()
     })
 
