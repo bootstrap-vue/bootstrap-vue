@@ -28,7 +28,7 @@
         },
         created() {
             if (this.state) {
-                console.warn('<b-alrt> state property is deprecated, please use variant instead.');
+                console.warn('<b-alert> "state" property is deprecated, please use "variant" property instead.');
             }
         },
         computed: {
