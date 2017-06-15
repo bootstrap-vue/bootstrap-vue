@@ -604,7 +604,7 @@ describe('table', async() => {
         const vm = $refs.table_provider
         const spy = jest.fn()
 
-        await setData(app, 'provider', app.providerArray);
+        await setData(app, 'providerType', 'array');
         await nextTick()
         await sleep(100)
 
@@ -623,7 +623,7 @@ describe('table', async() => {
         const spy = jest.fn()
 
         vm.$on('refreshed', spy)
-        await setData(app, 'provider', app.providerCallback);
+        await setData(app, 'providerType', 'callback');
         await nextTick()
         await sleep(100)
         expect(spy).toHaveBeenCalled()
@@ -635,7 +635,7 @@ describe('table', async() => {
         const spy = jest.fn()
 
         vm.$on('refreshed', spy)
-        await setData(app, 'provider', app.providerPromise);
+        await setData(app, 'providerType', 'promise');
         await nextTick()
         await sleep(100)
         expect(spy).toHaveBeenCalled()
