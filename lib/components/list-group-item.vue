@@ -59,7 +59,7 @@
                 default: null
             },
             to: {
-                type: String,
+                type: [String, Object],
                 default: null
             },
             href: {
