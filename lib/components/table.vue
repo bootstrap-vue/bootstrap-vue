@@ -48,8 +48,9 @@
                 role="row"
                 :class="rowClass(item)"
                 @click="rowClicked($event,item,index)"
+                @hover="rowHovered($event,item,index)"
             >
-                <td v-for="(field,key) in fields" :class="tdClass(field)">
+                <td v-for="(field,key) in fields" :class="tdClass(field, item, key)">
                     <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
                 </td>
             </tr>
@@ -386,9 +387,14 @@
                     field.class ? field.class : ''
                 ];
             },
-            tdClass(field) {
+            tdClass(field, item, key) {
+                let cellVariant = '';
+                if (item._cellVariants && item._cellVariants[key]) {
+                    cellVariant = (this.inverse ? 'bg-' : 'table-') + item._cellVariants[key];
+                }
                 return [
-                    field.variant ? ((this.inverse ? 'bg-' : 'table-') + field.variant) : '',
+                    (field.variant && !cellVariant) ? ((this.inverse ? 'bg-' : 'table-') + field.variant) : '',
+                    cellVariant,
                     field.class ? field.class : ''
                 ];
             },
@@ -407,6 +413,15 @@
                     return;
                 }
                 this.$emit('row-clicked', item, index);
+            },
+            rowHovered(e, item, index) {
+                if (this.busy) {
+                    // If table is busy (via provider) then don't propagate
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                }
+                this.$emit('row-hovered', item, index);
             },
             headClicked(e, field, key) {
                 if (this.busy) {
