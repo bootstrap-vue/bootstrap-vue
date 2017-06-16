@@ -307,6 +307,7 @@ trigger the calling of the provider function.  So be sure to bind to the `per-pa
 **Event based refreshing of data:**
 You may also trigger the refresh of the provider function by emitting the 
 event `table::refresh` on `$oot` with the single argument being the `id` of your `b-table`.
+You must have a unique ID on your table for this to work.
 
 ```js
     this.$root.$emit('table::refresh', 'my-table');
