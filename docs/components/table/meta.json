@@ -5,11 +5,21 @@
   "events": [
     {
       "event": "row-clicked",
-      "description": "Emitted when a row clicked.",
+      "description": "Emitted when a row is clicked.",
       "args": [
         {
           "arg": "(item,index)",
-          "description": "Selected item and its index."
+          "description": "Item data and its index of the row being clicked."
+        }
+      ]
+    },
+    {
+      "event": "row-hovered",
+      "description": "Emitted when a row is hovered.",
+      "args": [
+        {
+          "arg": "(item,index)",
+          "description": "Item data and its index of the row being hovered."
         }
       ]
     },
