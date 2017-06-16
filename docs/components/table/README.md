@@ -35,12 +35,15 @@ Supported field properties:
 ```js
 [
     {
-        _rowVariant: 'success', // Displays record green
+        _rowVariant: 'success', // Displays record row green
         age: 27,
         name: 'Havij'
     },
     {
-        _rowVariant: 'danger', // Displays record red
+        _cellVariants: { 
+            age: 'danger',  // Displayes cell for field 'age' red
+            name: 'success' // Displayes cell for field 'name' green
+        },
         age: 42,
         name: 'Robert'
     }
@@ -52,6 +55,7 @@ Supported optional item record modifier properties (make sure your field keys do
 | Property | Type | Description
 | ---------| ---- | -----------
 | `_rowVariant` | String | Bootstrap contextual state applied to row (`active`, `success`, `info`, `warning`, `danger`)
+| `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (`active`, `success`, `info`, `warning`, `danger`)
 | `state` | String | **deprecated** in favour of `_rowVariant`
 
 **Note** `state` is deprecated. `_rowVariant`, if present in the record, will be prefered.
