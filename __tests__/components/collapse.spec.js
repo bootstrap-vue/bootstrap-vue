@@ -141,29 +141,29 @@ describe('collapse', async() => {
 
         expect(col1.$el.classList.contains('show')).toBe(true)
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('true')
-        expect(col2.$el..classList.contains('show')).toBe(false)
+        expect(col2.$el.classList.contains('show')).toBe(false)
         expect(btn2.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col3.$el..classList.contains('show')).toBe(false)
+        expect(col3.$el.classList.contains('show')).toBe(false)
         expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
 
         btn2.$el.click();
         await nextTick()
         
-        expect(col1.$el..classList.contains('show')).toBe(false)
+        expect(col1.$el.classList.contains('show')).toBe(false)
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col2.$el..classList.contains('show')).toBe(true)
+        expect(col2.$el.classList.contains('show')).toBe(true)
         expect(btn2.$el.getAttribute('aria-expanded')).toBe('true')
-        expect(col3.$el..classList.contains('show')).toBe(false)
+        expect(col3.$el.classList.contains('show')).toBe(false)
         expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
 
         btn2.$el.click();
         await nextTick()
         
-        expect(col1.$el..classList.contains('show')).toBe(false)
+        expect(col1.$el.classList.contains('show')).toBe(false)
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col2.$el..classList.contains('show')).toBe(false)
+        expect(col2.$el.classList.contains('show')).toBe(false)
         expect(btn2.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col3.$el..classList.contains('show')).toBe(false)
+        expect(col3.$el.classList.contains('show')).toBe(false)
         expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
     })
 
