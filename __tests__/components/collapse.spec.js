@@ -1,4 +1,4 @@
-import {loadFixture, testVM, setData, nextTick} from '../helpers';
+import {loadFixture, testVM, setData, nextTick, sleep} from '../helpers';
 
 describe('collapse', async() => {
     beforeEach(loadFixture('collapse'));
@@ -104,6 +104,7 @@ describe('collapse', async() => {
 
         await setData(app, 'showCollapse', false);
         await nextTick()
+        await sleep(200)
 
         expect(col.$el.style.display).toBe('none')
         expect(btn.$el.getAttribute('aria-expanded')).toBe('false')
@@ -118,8 +119,9 @@ describe('collapse', async() => {
         expect(col.$el.style.display).toBe('none')
         expect(btn.$el.getAttribute('aria-expanded')).toBe('false')
 
-        btn.$el.click();
+        btn.$el.click()
         await nextTick()
+        await sleep(200)
         
         expect(col.$el.style.display).toBe('')
         expect(btn.$el.getAttribute('aria-expanded')).toBe('true')
@@ -133,34 +135,36 @@ describe('collapse', async() => {
         const btn2 = $refs.accordion_2_btn
         const col2 = $refs.accordion_2
         const btn3 = $refs.accordion_3_btn
-        const col4 = $refs.accordion_3
+        const col3 = $refs.accordion_3
 
         expect(col1.$el.style.display).toBe('')
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('true')
-        expect(col1.$el.style.display).toBe('none')
-        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col1.$el.style.display).toBe('none')
-        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(col2.$el.style.display).toBe('none')
+        expect(btn2.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(col3.$el.style.display).toBe('none')
+        expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
 
         btn2.$el.click();
         await nextTick()
+        await sleep(200)
         
         expect(col1.$el.style.display).toBe('none')
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col1.$el.style.display).toBe('')
-        expect(btn1.$el.getAttribute('aria-expanded')).toBe('true')
-        expect(col1.$el.style.display).toBe('none')
-        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(col2.$el.style.display).toBe('')
+        expect(btn2.$el.getAttribute('aria-expanded')).toBe('true')
+        expect(col3.$el.style.display).toBe('none')
+        expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
 
         btn2.$el.click();
         await nextTick()
+        await sleep(200)
         
         expect(col1.$el.style.display).toBe('none')
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col1.$el.style.display).toBe('none')
-        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col1.$el.style.display).toBe('none')
-        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(col2.$el.style.display).toBe('none')
+        expect(btn2.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(col3.$el.style.display).toBe('none')
+        expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
     })
 
 });
