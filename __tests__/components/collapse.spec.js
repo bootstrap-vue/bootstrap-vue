@@ -7,11 +7,11 @@ describe('collapse', async() => {
     it('v-b-toggle examples should have aria-controls ID', async() => {
         const { app: { $refs, $el } } = window
 
-        const collapse = {
+        const collapse = [
             'collapse_mod',
             'collapse_arg',
             'collapse_open'
-        }
+        ]
 
         collapse.forEach(col => {
             expect($refs[col + '_btn'].$el.getAttribute('aria-controls')).toBe($refs[col].id)
