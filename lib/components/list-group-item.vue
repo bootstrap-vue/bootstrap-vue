@@ -44,9 +44,7 @@ export default {
             return (this.to || this.href) ? 'b-link' : 'div';
         }
     },
-    props: {
-        ...linkProps,
-
+    props: Object.assign(linkProps, {
         action: {
             type: Boolean,
             default: null
@@ -56,6 +54,6 @@ export default {
             type: String,
             default: null
         },
-    }
+    })
 };
 </script>
