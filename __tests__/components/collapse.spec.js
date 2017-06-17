@@ -92,7 +92,7 @@ describe('collapse', async() => {
         expect($refs.accordion_2.$el.style.display).toBe('none')
         expect($refs.accordion_3.$el.style.display).toBe('none')
     })
-/*
+
     it('v-model example should change state on data update', async() => {
         const { app: { $refs, $el } } = window
 
@@ -100,7 +100,7 @@ describe('collapse', async() => {
         const col = $refs.collapse_vmod
 
         expect(app.showCollapse).toBe(true)
-        expect(col.$el.style.display).toBe('')
+        expect(col.$el.classList.contains('show').toBe(true)
         expect(btn.$el.getAttribute('aria-expanded')).toBe('true')
 
         await setData(app, 'showCollapse', false);
@@ -109,10 +109,10 @@ describe('collapse', async() => {
         expect(app.showCollapse).toBe(false)
         await nextTick()
 
-        expect(col.$el.style.display).toBe('none')
+        expect(col.$el.classList.contains('show').toBe(false)
         expect(btn.$el.getAttribute('aria-expanded')).toBe('false')
     })
-*/
+
     it('basic example should change visibility on click', async() => {
         const { app: { $refs, $el } } = window
 
