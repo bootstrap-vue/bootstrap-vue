@@ -11,11 +11,16 @@
 <script>
 import bLink from './link.vue';
 import { omitLinkProps, props as linkProps } from '../mixins/link';
-const linkPropsNoDefault = {
+
+// Grab a fresh object of link props
+// less the 'disabled' prop used on the button,
+// and less the 'href' and 'to' props
+// that we will reconstruct without any defaults
+// so our computed 'componentType' functions properly
+const noConflictLinkProps = Object.assign(omitLinkProps('disabled', 'href', 'to'), {
     href: { type: linkProps.href.type },
     to: { type: linkProps.to.type }
-};
-const noConflictLinkProps = Object.assign(omitLinkProps('disabled', 'href', 'to'), linkPropsNoDefault);
+});
 
 export default {
     components: { bLink },
@@ -59,6 +64,8 @@ export default {
             }, {});
         },
     },
+
+    // merge our prepared link props with button props
     props: Object.assign(noConflictLinkProps, {
         block: {
             type: Boolean,
@@ -77,6 +84,7 @@ export default {
             default: null
         },
     }),
+
     methods: {
         onClick(e) {
             if (this.disabled) {
