@@ -1,15 +1,15 @@
 <template>
     <ol class="breadcrumb"
         role="navigation">
-        <li v-for="item in normalizedItems"
-            :class="['breadcrumb-item', item.active ? 'active' : null]"
-            @click="onClick(item._originalItem)"
+        <li v-for="normalizedItem in normalizedItems"
+            :class="['breadcrumb-item', normalizedItem.active ? 'active' : null]"
+            @click="onClick(normalizedItem._originalItem, normalizedItem)"
             role="presentation">
-            <span v-if="item.active"
-                  v-html="item.text"></span>
+            <span v-if="normalizedItem.active"
+                  v-html="normalizedItem.text"></span>
             <b-link v-else
-                    v-bind="item._linkProps"
-                    v-html="item.text"></b-link>
+                    v-bind="normalizedItem._linkProps"
+                    v-html="normalizedItem.text"></b-link>
         </li>
         <slot></slot>
     </ol>
