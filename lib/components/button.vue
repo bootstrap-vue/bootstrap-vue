@@ -1,7 +1,7 @@
 <template>
     <button v-bind="boundProps"
-            :class="classList"
             :is="componentType"
+            :class="classList"
             :disabled="disabled"
             @click="onClick">
         <slot></slot>
@@ -10,14 +10,13 @@
 
 <script>
 import bLink from './link.vue';
-import { omitLinkProps, computed } from '../mixins/link';
+import { omitLinkProps } from '../mixins/link';
+const noConflictLinkProps = omitLinkProps('disabled');
 
 export default {
     components: { bLink },
 
     computed: {
-        linkProps: computed.linkProps,
-
         classList() {
             return [
                 'btn',
@@ -49,11 +48,15 @@ export default {
         },
 
         boundProps() {
-            return this.componentType === 'b-link' ? this.linkProps : {}
+            return this.componentType === 'button' ? {} : Object.keys(noConflictLinkProps).reduce((memo, prop) => {
+                memo[prop] = this[prop];
+
+                return memo;
+            }, {});
         },
     },
     props: {
-        ...omitLinkProps('disabled'),
+        ...noConflictLinkProps,
 
         block: {
             type: Boolean,
