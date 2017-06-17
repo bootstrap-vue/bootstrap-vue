@@ -60,20 +60,20 @@ Turn a group of collapses into an accordion by supplying the accordion group
 identifier via the `accordion` prop:
 
 ```html
-<b-btn class='btn-block" v-b-toggle.collapse1>Collapsible Group 1</b-btn>
+<b-btn block v-b-toggle.collapse1>Collapsible Group 1</b-btn>
 <b-collapse id="collapse1" accodion="my-accordion" visible>
     <b-card>
       Accordion Panel 1<br>
       I start opened because <code>visible</code> is <code>true</code>
     </b-card>
 </b-collapse>
-<b-btn class='btn-block mt-1" v-b-toggle.collapse2>Collapsible Group 2</b-btn>
+<b-btn block class="mt-2" v-b-toggle.collapse2>Collapsible Group 2</b-btn>
 <b-collapse id="collapse2" accodion="my-accordion">
     <b-card>
       Accordion Panel 2
     </b-card>
 </b-collapse>
-<b-btn class='btn-block mt-1" v-b-toggle.collapse3>Collapsible Group 3</b-btn>
+<b-btn block class="mt-2" v-b-toggle.collapse3>Collapsible Group 3</b-btn>
 <b-collapse id="collapse3" accodion="my-accordion">
     <b-card>
       Accordion Panel 3
