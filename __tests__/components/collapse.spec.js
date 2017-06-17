@@ -76,7 +76,7 @@ describe('collapse', async() => {
 
         const collapse = [
             'collapse_open',
-            'collapse_vmod'
+            'collapse_vmod',
             'accordian_1'
         ]
 
