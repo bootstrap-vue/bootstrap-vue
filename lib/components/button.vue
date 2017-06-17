@@ -1,9 +1,9 @@
 <template>
-    <button :class="classList"
+    <button v-bind="boundProps"
+            :class="classList"
             :is="componentType"
-            v-bind="boundProps"
-            @click="onClick"
-            :disabled="disabled">
+            :disabled="disabled"
+            @click="onClick">
         <slot></slot>
     </button>
 </template>
