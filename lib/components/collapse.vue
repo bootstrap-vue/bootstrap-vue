@@ -56,7 +56,7 @@
                 required: true
             },
             accordion: { 
-                type; String.
+                type: String,
                 default: null
             },
             visible: {
@@ -109,11 +109,18 @@
                 this.toggle();
             });
             this.$root.$on('accordion::toggle', (openedId, accordion) => {
-                if (openedId === this.id || accordion !== this.accordion || !this.show) {
+                if (!this.accordion || accordion !== this.accordion) {
                     return;
                 }
-                // Close this accordion collapse component
-                this.toggle();
+                if (openedId === this.id) {
+                    if (!this.show) {
+                        this.toggle();
+                    }
+                } else {
+                    if (this.show) {
+                        this.toggle();
+                    }
+                }
             });
         },
         mounted() {
