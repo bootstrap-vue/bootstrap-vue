@@ -70,20 +70,20 @@
 
     <h2>Accordion example</h2>
 
-    <b-btn block variant="primary" v-b-toggle.accordion1>Toggle Accordion 1</b-btn>
-    <b-collapse id="accordion1" visible accordion="my-accordion">
+    <b-btn block ref="accordion_1_btn" variant="primary" v-b-toggle.accordion1>Toggle Accordion 1</b-btn>
+    <b-collapse ref="accordion_1" id="accordion1" visible accordion="my-accordion">
         <b-card>
             Accordion 1 contents Here
         </b-card>
     </b-collapse>
-    <b-btn block variant="primary" v-b-toggle.accordion2 class="mt-2">Toggle Accordion 2</b-btn>
-    <b-collapse id="accordion2" accordion="my-accordion">
+    <b-btn block ref="accordion_2_btn" variant="primary" v-b-toggle.accordion2 class="mt-2">Toggle Accordion 2</b-btn>
+    <b-collapse ref="accordion_2" id="accordion2" accordion="my-accordion">
         <b-card>
             Accordion 2 contents Here
         </b-card>
     </b-collapse>
-    <b-btn block variant="primary" v-b-toggle.accordion3 class="mt-2">Toggle Accordion 3</b-btn>
-    <b-collapse id="accordion3" accordion="my-accordion">
+    <b-btn block ref="accordion_3_btn" variant="primary" v-b-toggle.accordion3 class="mt-2">Toggle Accordion 3</b-btn>
+    <b-collapse ref="accordion_3" id="accordion3" accordion="my-accordion">
         <b-card>
             Accordion 3 contents Here
         </b-card>
