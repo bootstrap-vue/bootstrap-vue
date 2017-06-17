@@ -5,10 +5,22 @@
   "events": [
     {
       "event": "collapse::toggle",
-      "description": "toggles when this event emits on $root",
+      "description": "toggles visible state when this event emits on $root",
       "args": {
         "id": {
-          "description": "collapse id"
+          "description": "collapse id to toggle"
+        }
+      }
+    },
+    {
+      "event": "accordion::toggle",
+      "description": "toggles visible when this event emits on $root",
+      "args": {
+        "id": {
+          "description": "collapse id that should be open"
+        },
+        "accordion": {
+          "description": "accordion group identifier"
         }
       }
     }
