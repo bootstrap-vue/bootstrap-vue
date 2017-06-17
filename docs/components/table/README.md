@@ -142,7 +142,7 @@ The slot's scope variable (`data` in the above example) will have the following 
 | `index` | Number | The row number (zero based)
 
 **Note** that `index` will not always be the actual row's index number, as it is 
-computed after pagination and filtering have been applied to the origional
+computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the displayed row number. This
 number will align with the indexes from the optional `v-model` bound variable.
 
