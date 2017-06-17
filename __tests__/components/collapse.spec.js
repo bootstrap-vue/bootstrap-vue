@@ -1,4 +1,4 @@
-import {loadFixture, testVM} from '../helpers';
+import {loadFixture, testVM, setData, nextTick} from '../helpers';
 
 describe('collapse', async() => {
     beforeEach(loadFixture('collapse'));
@@ -32,8 +32,8 @@ describe('collapse', async() => {
             'collapse_mod_btn',
             'collapse_arg_btn',
             'collapse_multi_btn',
-            'accordian_2_btn',
-            'accordian_3_btn'
+            'accordion_2_btn',
+            'accordion_3_btn'
         ]
 
         buttons.forEach(btn => {
@@ -49,8 +49,8 @@ describe('collapse', async() => {
             'collapse_arg',
             'collapse_multi_1',
             'collapse_multi_2',
-            'accordian_2',
-            'accordian_3'
+            'accordion_2',
+            'accordion_3'
         ]
 
         collapse.forEach(col => {
@@ -58,12 +58,12 @@ describe('collapse', async() => {
         })
     })
 
-    it('v-b-toggle open example should have attribute aria-expanded="true"', async() => {
+    it('v-b-toggle open examples should have attribute aria-expanded="true"', async() => {
         const { app: { $refs, $el } } = window
 
         const buttons = [
             'collapse_open_btn',
-            'accordian_1_btn'
+            'accordion_1_btn'
         ]
 
         buttons.forEach(btn => {
@@ -77,7 +77,7 @@ describe('collapse', async() => {
         const collapse = [
             'collapse_open',
             'collapse_vmod',
-            'accordian_1'
+            'accordion_1'
         ]
 
         collapse.forEach(col => {
@@ -88,22 +88,25 @@ describe('collapse', async() => {
     it('Accorian example should have appropriate CSS "display"', async() => {
         const { app: { $refs, $el } } = window
 
-        expect($refs.accordian_1.$el.style.display).toBe('')
-        expect($refs.accordian_2.$el.style.display).toBe('none')
-        expect($refs.accordian_3.$el.style.display).toBe('none')
+        expect($refs.accordion_1.$el.style.display).toBe('')
+        expect($refs.accordion_2.$el.style.display).toBe('none')
+        expect($refs.accordion_3.$el.style.display).toBe('none')
     })
 
     it('v-model example should change state on data update', async() => {
         const { app: { $refs, $el } } = window
 
-        expect($refs.collapse_vmod.$el.style.display).toBe('')
-        expect($refs.collapse_vmod_btn.$el.getAttribute('aria-expanded')).toBe('true')
+        const btn = $refs.collapse_vmod_btn
+        const col = $refs.collapse_vmod
+
+        expect(col.$el.style.display).toBe('')
+        expect(btn.$el.getAttribute('aria-expanded')).toBe('true')
 
         await setData(app, 'showCollapse', false);
         await nextTick()
 
-        expect($refs.collapse_vmod.$el.style.display).toBe('none')
-        expect($refs.collapse_vmod_btn.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(col.$el.style.display).toBe('none')
+        expect(btn.$el.getAttribute('aria-expanded')).toBe('false')
     })
 
     it('basic example should change visibility on click', async() => {
@@ -113,7 +116,7 @@ describe('collapse', async() => {
         const col = $refs.collapse_mod
 
         expect(col.$el.style.display).toBe('none')
-        expect(btn.collapse_mod_btn.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn.$el.getAttribute('aria-expanded')).toBe('false')
 
         btn.$el.click();
         await nextTick()
@@ -133,31 +136,31 @@ describe('collapse', async() => {
         const col4 = $refs.accordion_3
 
         expect(col1.$el.style.display).toBe('')
-        expect(btn1.collapse_mod_btn.$el.getAttribute('aria-expanded')).toBe('true')
+        expect(btn1.$el.getAttribute('aria-expanded')).toBe('true')
         expect(col1.$el.style.display).toBe('none')
-        expect(btn1.collapse_mod_btn.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
         expect(col1.$el.style.display).toBe('none')
-        expect(btn1.collapse_mod_btn.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
 
         btn2.$el.click();
         await nextTick()
         
         expect(col1.$el.style.display).toBe('none')
-        expect(btn1.collapse_mod_btn.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
         expect(col1.$el.style.display).toBe('')
-        expect(btn1.collapse_mod_btn.$el.getAttribute('aria-expanded')).toBe('true')
+        expect(btn1.$el.getAttribute('aria-expanded')).toBe('true')
         expect(col1.$el.style.display).toBe('none')
-        expect(btn1.collapse_mod_btn.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
 
         btn2.$el.click();
         await nextTick()
         
         expect(col1.$el.style.display).toBe('none')
-        expect(btn1.collapse_mod_btn.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
         expect(col1.$el.style.display).toBe('none')
-        expect(btn1.collapse_mod_btn.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
         expect(col1.$el.style.display).toBe('none')
-        expect(btn1.collapse_mod_btn.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
     })
 
 });
