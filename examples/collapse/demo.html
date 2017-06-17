@@ -35,6 +35,24 @@
         </b-card>
     </b-collapse>
 
+    <h2><code>v-model</code> Example</h2>
+
+    <p>
+        <b-btn ref="collapse_vmod_btn" 
+               variant="primary"
+               aria-controls="collapse4"
+               :aria-expanded="showCollapse ? 'true' : 'false'"
+               @click="showCollapse = !showCollapse"
+        >
+            Toggle Collapse 4
+        </b-btn>
+    </p>
+    <b-collapse ref="collapse_vmod" v-model="showCollapse" id="collapse4">
+        <b-card>
+            Initially visible Collapse 4 contents Here
+        </b-card>
+    </b-collapse>
+
     <h2>Multiple Targets Example</h2>
 
     <p>
@@ -48,19 +66,6 @@
     <p>This paragraph doesn't collapse</p>
     <b-collapse ref="collapse_multi_2" id="multi2">
         <b-card>Multi-Collapse 2 contents Here</b-card>
-    </b-collapse>
-
-    <h2>Initially Open Example</h2>
-
-    <p>
-        <b-btn ref="collapse_open_btn" variant="primary" v-b-toggle.collapse3>
-            Toggle Collapse 3
-        </b-btn>
-    </p>
-    <b-collapse ref="collapse_open" visible id="collapse3">
-        <b-card>
-            Initially visible Collapse 3 contents Here
-        </b-card>
     </b-collapse>
 
     <h2>Accordion example</h2>
