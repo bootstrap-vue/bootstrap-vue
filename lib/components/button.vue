@@ -10,14 +10,14 @@
 
 <script>
 import bLink from './link.vue';
-import linkBase from '../mixins/link-base';
+import { omitLinkProps, computedLinkProps } from '../mixins/link';
 
 export default {
     components: { bLink },
 
-    mixins: [linkBase],
-
     computed: {
+        computedLinkProps,
+
         classList() {
             return [
                 'btn',
@@ -49,10 +49,12 @@ export default {
         },
 
         boundProps() {
-            return this.componentType === 'b-link' ? this.bLinkProps : {}
+            return this.componentType === 'b-link' ? this.computedLinkProps : {}
         },
     },
     props: {
+        ...omitLinkProps('disabled'),
+
         block: {
             type: Boolean,
             default: false

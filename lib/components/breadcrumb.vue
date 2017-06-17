@@ -17,8 +17,8 @@
 
 <script>
 import bLink from './link.vue';
-import linkBase from '../mixins/link-base';
-const bLinkPropKeys = Object.keys(linkBase.props);
+import { linkProps } from '../mixins/link';
+const bLinkPropKeys = Object.keys(linkProps);
 
 export default {
     components: { bLink },
@@ -31,7 +31,7 @@ export default {
             const originalItemsLength = this.items.length;
 
             return this.items.map((item, index) => {
-                let normalizedItem = { _originalItem: item};
+                let normalizedItem = { _originalItem: item };
                 // if no active state is defined,
                 // default to the last item in the array as active
                 const isLast = index === originalItemsLength - 1;
@@ -53,9 +53,9 @@ export default {
                     userDefinedActive = true;
                 }
 
-                if (item.link) {
+                if (normalizedItem.link) {
                     // default the link value to bLink's href prop
-                    item.href = item.link;
+                    normalizedItem.href = normalizedItem.link;
                 }
 
                 // stuff all the bLink props into a single place
@@ -63,7 +63,7 @@ export default {
                 // for dynamic prop proxying
                 normalizedItem._linkProps = Object.keys(normalizedItem).reduce((memo, itemProp) => {
                     if (bLinkPropKeys.includes(itemProp)) {
-                        Object.assign(memo, { [itemProp]: normalizedItem[itemProp] });
+                        memo[itemProp] = normalizedItem[itemProp];
                     }
 
                     return memo;

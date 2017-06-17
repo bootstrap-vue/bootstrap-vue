@@ -2,23 +2,23 @@
     <component :is="myTag"
                :class="classObject"
                ref="item"
-               v-bind="bLinkProps">
+               v-bind="computedLinkProps">
         <slot></slot>
     </component>
 </template>
 
 <script>
 import bLink from './link.vue';
-import linkBase from '../mixins/link-base'
+import { linkProps, computedLinkProps } from '../mixins/link'
 
 const actionTags = ['a', 'router-link', 'button', 'b-link'];
 
 export default {
-    mixins: [linkBase],
-
     components: { bLink },
 
     computed: {
+        computedLinkProps,
+
         classObject() {
             return [
                 'list-group-item',
@@ -45,6 +45,8 @@ export default {
         }
     },
     props: {
+        ...linkProps,
+
         action: {
             type: Boolean,
             default: null

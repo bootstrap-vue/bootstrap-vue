@@ -1,7 +1,7 @@
 <template>
     <li class="nav-item">
         <b-link class="nav-link"
-                v-bind="bLinkProps"
+                v-bind="computedLinkProps"
                 @click="$emit('click', $event)">
             <slot></slot>
         </b-link>
