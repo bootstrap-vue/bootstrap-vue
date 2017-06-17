@@ -17,7 +17,7 @@
 
 <script>
 import bLink from './link.vue';
-import { linkProps } from '../mixins/link';
+import { props as linkProps } from '../mixins/link';
 const bLinkPropKeys = Object.keys(linkProps);
 
 export default {

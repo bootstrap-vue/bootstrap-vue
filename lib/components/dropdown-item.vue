@@ -1,7 +1,7 @@
 <template>
     <b-link class="dropdown-item"
             role="menuitem"
-            v-bind="computedLinkProps"
+            v-bind="linkProps"
             @click="$emit('click', $event)">
         <slot></slot>
     </b-link>

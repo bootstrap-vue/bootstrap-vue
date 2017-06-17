@@ -10,13 +10,13 @@
 
 <script>
 import bLink from './link.vue';
-import { omitLinkProps, computedLinkProps } from '../mixins/link';
+import { omitLinkProps, computed } from '../mixins/link';
 
 export default {
     components: { bLink },
 
     computed: {
-        computedLinkProps,
+        linkProps: computed.linkProps,
 
         classList() {
             return [
@@ -49,7 +49,7 @@ export default {
         },
 
         boundProps() {
-            return this.componentType === 'b-link' ? this.computedLinkProps : {}
+            return this.componentType === 'b-link' ? this.linkProps : {}
         },
     },
     props: {
