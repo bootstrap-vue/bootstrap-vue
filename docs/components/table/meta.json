@@ -5,11 +5,51 @@
   "events": [
     {
       "event": "row-clicked",
-      "description": "Emitted when a row clicked.",
+      "description": "Emitted when a row is clicked.",
       "args": [
         {
           "arg": "(item,index)",
-          "description": "Selected item and its index."
+          "description": "Item data and its index of the row being clicked."
+        }
+      ]
+    },
+    {
+      "event": "row-hovered",
+      "description": "Emitted when a row is hovered.",
+      "args": [
+        {
+          "arg": "(item,index)",
+          "description": "Item data and its index of the row being hovered."
+        }
+      ]
+    },
+    {
+      "event": "head-clicked",
+      "description": "Emitted when a header or footer cell is clicked.",
+      "args": [
+        {
+          "arg": "(key,field)",
+          "description": "Column key clicked, field definition object."
+        }
+      ]
+    },
+    {
+      "event": "sort-changed",
+      "description": "Emitted when the sorting on the table has changed",
+      "args": [
+        {
+          "arg": "(ctx)",
+          "description": "Table state context object. Identical to ctx provided to items provider function."
+        }
+      ]
+    },
+    {
+      "event": "refreshed",
+      "description": "Emitted when the items provider function has returned data.",
+      "args": [
+        {
+          "arg": "",
+          "description": "Called when the items provider function has returned data"
         }
       ]
     }
