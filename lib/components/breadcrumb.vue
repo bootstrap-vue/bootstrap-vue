@@ -3,7 +3,7 @@
         role="navigation">
         <li v-for="item in normalizedItems"
             :class="['breadcrumb-item', item.active ? 'active' : null]"
-            @click="onClick(item)"
+            @click="onClick(item._originalItem)"
             role="presentation">
             <span v-if="item.active"
                   v-html="item.text"></span>
@@ -31,7 +31,7 @@ export default {
             const originalItemsLength = this.items.length;
 
             return this.items.map((item, index) => {
-                let normalizedItem = {};
+                let normalizedItem = { _originalItem: item};
                 // if no active state is defined,
                 // default to the last item in the array as active
                 const isLast = index === originalItemsLength - 1;
