@@ -38,7 +38,7 @@ The component's collapsed state can also be set with `v-model`.
 ### Accodion Support
 
 Turn a group of collapses into an accordion by supplying the accordion group
-identifier via hte `accordion` prop.
+identifier via the `accordion` prop.
 
 ```html
 <b-btn class='d-block" v-b-toggle.collapse1>Collapsible Group 1</b-btn>
