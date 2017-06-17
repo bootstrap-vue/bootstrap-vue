@@ -19,7 +19,7 @@ Other elements can easily toggle collapse using `v-b-toggle` directive.
 </b-collapse>
 ```
 
-To make teh collape show initially, set the `visible` prop:
+To make the collape show initially, set the `visible` prop:
 
 ```html
 <b-btn v-b-toggle.collapse1>Toggle Collapse</b-btn>
@@ -31,7 +31,7 @@ To make teh collape show initially, set the `visible` prop:
 </b-collapse>
 ```
 
-The component's collapsed state can also be set with `v-model`.
+The component's collapsed (visible) state can also be set with `v-model`.
 
 ```html
 <b-btn @click="showCollapse = !showCollapse">Toggle Collapse</b-btn>
@@ -81,5 +81,5 @@ identifier via the `accordion` prop:
 </b-collapse>
 ```
 
-**Note:** If using the `v-model` feature of collaspe in accorion mode, do 
-not bind the `v-model` of collapses in the accordion group  to the same variable.
+**Note:** If using the `v-model` feature of collaspe in accordion mode, do not
+bind `v-model` or `visible` of the collapses in the accordion group to the same variable.
