@@ -1,31 +1,22 @@
 <template>
     <b-link class="dropdown-item"
             role="menuitem"
-            :active="active"
-            :disabled="disabled"
-            :href="href"
-            :to="to"
-            :tag="tag"
-            :exact="exact"
-            :append="append"
-            :replace="replace"
-            :active-class="activeClass"
-            :exact-active-class="exactActiveClass"
-            :event="event"
-            :target="target"
-            :rel="rel"
-            @click="$emit('click')"
-    >
+            v-bind="bLinkProps"
+            @click="$emit('click', $event)">
         <slot></slot>
     </b-link>
 </template>
 
 <script>
-    import linkMixin from '../mixins/link';
-    import bLink from './link.vue';
+import linkMixin from '../mixins/link';
+import { bLinkProps } from '../mixins/link-base-props';
+import bLink from './link.vue';
 
-    export default {
-        components: {bLink},
-        mixins: [linkMixin]
-    };
+export default {
+    components: { bLink },
+    mixins: [linkMixin],
+    computed: {
+        bLinkProps
+    }
+};
 </script>

@@ -1,32 +1,20 @@
 <template>
     <li class="nav-item">
         <b-link class="nav-link"
-                :active="active"
-                :disabled="disabled"
-                :href="href"
-                :to="to"
-                :target="target"
-                :rel="rel"
-                :tag="tag"
-                :exact="exact"
-                :append="append"
-                :replace="replace"
-                :active-class="activeClass"
-                :exact-active-class="exactActiveClass"
-                :event="event"
-                @click="$emit('click')"
-        >
+                v-bind="bLinkProps"
+                @click="$emit('click', $event)">
             <slot></slot>
         </b-link>
     </li>
 </template>
 
 <script>
-    import linkMixin from '../mixins/link';
-    import bLink from './link.vue';
+import linkMixin from '../mixins/link';
+import linkBase from '../mixins/link-base-props'
+import bLink from './link.vue';
 
-    export default {
-        components: {bLink},
-        mixins: [linkMixin]
-    };
+export default {
+    components: { bLink },
+    mixins: [linkMixin, linkBase]
+};
 </script>

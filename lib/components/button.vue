@@ -1,87 +1,84 @@
 <template>
     <button :class="classList"
             :is="componentType"
-            :to="to"
-            :href="href"
-            :rel="rel"
-            :target="target"
-            @click="onclick"
-            :disabled="disabled"
-    >
+            v-bind="boundProps"
+            @click="onClick"
+            :disabled="disabled">
         <slot></slot>
     </button>
 </template>
 
 <script>
-    import bLink from './link.vue';
+import bLink from './link.vue';
+import linkBase from '../mixins/link-base-props';
 
-    export default {
-        components: {bLink},
-        computed: {
-            classList() {
-                return [
-                    'btn',
-                    this.btnVariant,
-                    this.btnSize,
-                    this.btnBlock,
-                    this.btnDisabled
-                ];
-            },
-            componentType() {
-                return (this.href || this.to) ? 'b-link' : 'button';
-            },
-            btnBlock() {
-                return this.block ? `btn-block` : '';
-            },
-            btnVariant() {
-                return this.variant ? `btn-${this.variant}` : `btn-secondary`;
-            },
-            btnSize() {
-                return this.size ? `btn-${this.size}` : '';
-            },
-            btnDisabled() {
-                return this.disabled ? 'disabled' : '';
-            }
+export default {
+    components: { bLink },
+
+    mixins: [linkBase],
+
+    computed: {
+        classList() {
+            return [
+                'btn',
+                this.btnVariant,
+                this.btnSize,
+                this.btnBlock,
+                this.btnDisabled
+            ];
         },
-        props: {
-            block: {
-                type: Boolean,
-                default: false
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            size: {
-                type: String,
-                default: null
-            },
-            variant: {
-                type: String,
-                default: null
-            },
-            to: {
-                type: [String, Object]
-            },
-            href: {
-                type: String
-            },
-            target: {
-                type: String
-            },
-            rel: {
-                type: String
-            }
+
+        componentType() {
+            return (this.href || this.to) ? 'b-link' : 'button';
         },
-        methods: {
-            onclick(e) {
-                if (this.disabled) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                } else {
-                    this.$emit('click', e);
-                }
+
+        btnBlock() {
+            return this.block ? `btn-block` : '';
+        },
+
+        btnVariant() {
+            return this.variant ? `btn-${this.variant}` : `btn-secondary`;
+        },
+
+        btnSize() {
+            return this.size ? `btn-${this.size}` : '';
+        },
+
+        btnDisabled() {
+            return this.disabled ? 'disabled' : '';
+        },
+
+        boundProps() {
+            return this.componentType === 'b-link' ? this.bLinkProps : {}
+        },
+    },
+    props: {
+        block: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        size: {
+            type: String,
+            default: null
+        },
+        variant: {
+            type: String,
+            default: null
+        },
+    },
+    methods: {
+        onClick(e) {
+            if (this.disabled) {
+                e.stopPropagation();
+                e.preventDefault();
+            } else {
+                this.$emit('click', e);
             }
         }
-    };
+    }
+};
 </script>

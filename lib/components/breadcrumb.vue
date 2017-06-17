@@ -8,8 +8,7 @@
             <span v-if="item.active"
                   v-html="item.text"></span>
             <b-link v-else
-                    :to="item.to"
-                    :href="item.href || item.link"
+                    v-bind="item._linkProps"
                     v-html="item.text"></b-link>
         </li>
         <slot></slot>
@@ -17,53 +16,74 @@
 </template>
 
 <script>
-    import bLink from './link.vue';
+import bLink from './link.vue';
+import { props as linkProps } from '../mixins/link-base-props';
+const bLinkPropKeys = Object.keys(linkProps);
 
-    export default {
-        components: { bLink },
-        computed: {
-            componentType() {
-                return this.to ? 'router-link' : 'a';
-            },
-            normalizedItems() {
-                let userDefinedActive = false;
-                const originalItemsLength = this.items.length;
+export default {
+    components: { bLink },
+    computed: {
+        componentType() {
+            return this.to ? 'router-link' : 'a';
+        },
+        normalizedItems() {
+            let userDefinedActive = false;
+            const originalItemsLength = this.items.length;
 
-                return this.items.map((item, index) => {
-                    // if no active state is defined,
-                    // default to the last item in the array as active
-                    const isLast = index === originalItemsLength - 1;
+            return this.items.map((item, index) => {
+                let normalizedItem = {};
+                // if no active state is defined,
+                // default to the last item in the array as active
+                const isLast = index === originalItemsLength - 1;
 
-                    // nothing defined except the text
-                    if (typeof item === 'string') {
-                        return { text: item, link: '#', active: isLast };
+                // nothing defined except the text
+                if (typeof item === 'string') {
+                    normalizedItem = { text: item, link: '#', active: isLast };
+                } else {
+                    Object.assign(normalizedItem, item);
+                }
+
+                // don't default the active state if given a boolean value,
+                // or if a user defined value has already been given
+                if (normalizedItem.active !== true && normalizedItem.active !== false && !userDefinedActive) {
+                    normalizedItem.active = isLast;
+                } else if (normalizedItem.active) {
+                    // here we know we've been given an active value,
+                    // so we won't set a default value
+                    userDefinedActive = true;
+                }
+
+                if (item.link) {
+                    // default the link value to bLink's href prop
+                    item.href = item.link;
+                }
+
+                // stuff all the bLink props into a single place
+                // so we can bind to the component
+                // for dynamic prop proxying
+                normalizedItem._linkProps = Object.keys(normalizedItem).reduce((memo, itemProp) => {
+                    if (bLinkPropKeys.includes(itemProp)) {
+                        Object.assign(memo, { [itemProp]: normalizedItem[itemProp] });
                     }
 
-                    // don't default the active state if given a boolean value,
-                    // or if a user defined value has already been given
-                    if (item.active !== true && item.active !== false && !userDefinedActive) {
-                        item.active = isLast;
-                    } else if (item.active) {
-                        // here we know we've been given an active value,
-                        // so we won't set a default value
-                        userDefinedActive = true;
-                    }
+                    return memo;
+                }, {});
 
-                    return item;
-                });
-            }
-        },
-        props: {
-            items: {
-                type: Array,
-                default: () => [],
-                required: true
-            }
-        },
-        methods: {
-            onClick(item) {
-                this.$emit('click', item);
-            }
+                return normalizedItem;
+            });
         }
-    };
+    },
+    props: {
+        items: {
+            type: Array,
+            default: () => [],
+            required: true
+        }
+    },
+    methods: {
+        onClick(item) {
+            this.$emit('click', item);
+        }
+    }
+};
 </script>
