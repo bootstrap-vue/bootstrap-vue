@@ -99,10 +99,14 @@ describe('collapse', async() => {
         const btn = $refs.collapse_vmod_btn
         const col = $refs.collapse_vmod
 
+        expect(app.showCollapse).toBe(true)
         expect(col.$el.style.display).toBe('')
         expect(btn.$el.getAttribute('aria-expanded')).toBe('true')
 
         await setData(app, 'showCollapse', false);
+        await nextTick()
+
+        expect(app.showCollapse).toBe(false)
         await nextTick()
 
         expect(col.$el.style.display).toBe('none')
