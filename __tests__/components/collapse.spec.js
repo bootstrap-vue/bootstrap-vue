@@ -100,7 +100,7 @@ describe('collapse', async() => {
         const col = $refs.collapse_vmod
 
         expect(app.showCollapse).toBe(true)
-        expect(col.$el.classList.contains('show').toBe(true)
+        expect(col.$el.classList.contains('show')).toBe(true)
         expect(btn.$el.getAttribute('aria-expanded')).toBe('true')
 
         await setData(app, 'showCollapse', false);
@@ -109,7 +109,7 @@ describe('collapse', async() => {
         expect(app.showCollapse).toBe(false)
         await nextTick()
 
-        expect(col.$el.classList.contains('show').toBe(false)
+        expect(col.$el.classList.contains('show')).toBe(false)
         expect(btn.$el.getAttribute('aria-expanded')).toBe('false')
     })
 
