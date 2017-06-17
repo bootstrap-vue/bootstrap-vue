@@ -10,8 +10,15 @@
 
 <script>
 import bLink from './link.vue';
-import { omitLinkProps } from '../mixins/link';
-const noConflictLinkProps = omitLinkProps('disabled');
+import { omitLinkProps, props as linkProps } from '../mixins/link';
+const linkPropsNoDefault = {
+    href: { type: linkProps.href.type },
+    to: { type: linkProps.to.type }
+};
+const noConflictLinkProps = {
+    ...omitLinkProps('disabled', 'href', 'to'),
+    ...linkPropsNoDefault
+};
 
 export default {
     components: { bLink },
