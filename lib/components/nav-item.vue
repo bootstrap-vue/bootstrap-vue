@@ -10,11 +10,10 @@
 
 <script>
 import linkMixin from '../mixins/link';
-import linkBase from '../mixins/link-base-props'
 import bLink from './link.vue';
 
 export default {
     components: { bLink },
-    mixins: [linkMixin, linkBase]
+    mixins: [linkMixin]
 };
 </script>

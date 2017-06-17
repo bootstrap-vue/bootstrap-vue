@@ -9,7 +9,7 @@
 
 <script>
 import bLink from './link.vue';
-import linkBase from '../mixins/link-base-props'
+import linkBase from '../mixins/link-base'
 
 const actionTags = ['a', 'router-link', 'button', 'b-link'];
 

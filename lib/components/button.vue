@@ -10,7 +10,7 @@
 
 <script>
 import bLink from './link.vue';
-import linkBase from '../mixins/link-base-props';
+import linkBase from '../mixins/link-base';
 
 export default {
     components: { bLink },
