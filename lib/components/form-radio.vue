@@ -1,20 +1,20 @@
 <template>
-    <div :class="[inputClass,this.stacked?'custom-controls-stacked':'']"
-         :id="id || null"
+    <div :id="id || null"
+         :class="[inputClass, this.stacked?'custom-controls-stacked':'']"
          role="radiogroup"
     >
         <label :class="[checkboxClass,custom?'custom-radio':null]" v-for="option in formOptions">
-            <input v-model="localValue"
+            <input :id="option.id || null"
                    :class="custom?'custom-control-input':null"
+                   ref="inputs"
                    type="radio"
+                   v-model="localValue"
                    :value="option.value"
                    :name="option.name"
-                   :id="option.id"
                    :disabled="option.disabled"
-                   @click="onClick"
-                   ref="inputs"
+                   @change="$emit('change', returnObject ? option : option.value)"
             >
-            <span class="custom-control-indicator" aria-hidden="true" v-if="custom"></span>
+            <span v-if="custom" class="custom-control-indicator" aria-hidden="true"></span>
             <span :class="custom?'custom-control-description':null" v-html="option.text"></span>
         </label>
     </div>
@@ -51,14 +51,6 @@
             returnObject: {
                 type: Boolean,
                 default: false
-            }
-        },
-        methods: {
-            onClick(e) {
-                if (this.value !== e.target.value) {
-                    // run on the next tick to have this.value updated at a time of 'change' event
-                    this.$nextTick(() => this.$emit('change', e.target.value))
-                }
             }
         }
     };
