@@ -1,11 +1,12 @@
 <template>
-    <ol class="breadcrumb"
-        role="navigation">
-        <li v-for="item in normalizedItems"
+    <ol class="breadcrumb">
+        <li v-for="(item, idx) in normalizedItems"
             :class="['breadcrumb-item', item.active ? 'active' : null]"
             @click="onClick(item)"
-            role="presentation">
+            role="presentation"
+        >
             <span v-if="item.active"
+                  aria-current="true"
                   v-html="item.text"></span>
             <b-link v-else
                     :to="item.to"
