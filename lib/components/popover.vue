@@ -145,7 +145,11 @@
             return {
                 triggerState: this.show,
                 classState: this.show,
-                lastEvent: null
+                lastEvent: null,
+                _trigger: null,
+                _popover: null,
+                _tether: null,
+                _timeout: null
             };
         },
 
@@ -221,10 +225,10 @@
             showState(val) {
                 const delay = this.getDelay(val);
 
-                clearTimeout(this._timeout);
+                clearTimeout(this.$data._timeout);
 
                 if (delay) {
-                    this._timeout = setTimeout(() => this.togglePopover(val), delay);
+                    this.$data._timeout = setTimeout(() => this.togglePopover(val), delay);
                 } else {
                     this.togglePopover(val);
                 }
@@ -239,7 +243,7 @@
             addListener(trigger) {
                 // eslint-disable-next-line guard-for-in
                 for (const item in TRIGGER_LISTENERS[trigger]) {
-                    this._trigger.addEventListener(item, e => this.eventHandler(e));
+                    this.$data._trigger.addEventListener(item, e => this.eventHandler(e));
                 }
             },
 
@@ -247,12 +251,12 @@
              * Tidy removal of Tether object from the DOM
              */
             destroyTether() {
-                if (this._tether && !this.showState) {
-                    this._tether.destroy();
-                    this._tether = null;
+                if (this.$data._tether && !this.showState) {
+                    this.$data._tether.destroy();
+                    this.$data._tether = null;
 
                     const regx = new RegExp('(^|[^-]\\b)(' + TETHER_CLASS_PREFIX + '\\S*)', 'g');
-                    this._trigger.className = this._trigger.className.replace(regx, '');
+                    this.$data._trigger.className = this.$data._trigger.className.replace(regx, '');
                 }
             },
 
@@ -305,8 +309,8 @@
             getTetherOptions() {
                 return {
                     attachment: PLACEMENT_PARAMS[this.placement],
-                    element: this._popover,
-                    target: this._trigger,
+                    element: this.$data._popover,
+                    target: this.$data._trigger,
                     classes: TETHER_CLASSES,
                     classPrefix: TETHER_CLASS_PREFIX,
                     offset: this.offset,
@@ -320,9 +324,9 @@
              */
             hidePopover() {
                 this.classState = false;
-                clearTimeout(this._timeout);
-                this._timeout = setTimeout(() => {
-                    this._popover.style.display = 'none';
+                clearTimeout(this.$data._timeout);
+                this.$data._timeout = setTimeout(() => {
+                    this.$data._popover.style.display = 'none';
                     this.destroyTether();
                 }, TRANSITION_DURATION);
             },
@@ -331,9 +335,9 @@
              * Refresh the Popover position in order to respond to changes
              */
             refreshPosition() {
-                if (this._tether) {
+                if (this.$data._tether) {
                     this.$nextTick(() => {
-                        this._tether.position();
+                        this.$data._tether.position();
                     });
                 }
             },
@@ -345,7 +349,7 @@
             removeListener(trigger) {
                 // eslint-disable-next-line guard-for-in
                 for (const item in TRIGGER_LISTENERS[trigger]) {
-                    this._trigger.removeEventListener(item, e => this.eventHandler(e));
+                    this.$data._trigger.removeEventListener(item, e => this.eventHandler(e));
                 }
             },
 
@@ -353,8 +357,8 @@
              * Update tether options
              */
             setOptions() {
-                if (this._tether) {
-                    this._tether.setOptions(this.getTetherOptions());
+                if (this.$data._tether) {
+                    this.$data._tether.setOptions(this.getTetherOptions());
                 }
             },
 
@@ -362,12 +366,12 @@
              * Display popover and fire event
              */
             showPopover() {
-                clearTimeout(this._timeout);
+                clearTimeout(this.$data._timeout);
 
-                if (!this._tether) {
-                    this._tether = new Tether(this.getTetherOptions());
+                if (!this.$data._tether) {
+                    this.$data._tether = new Tether(this.getTetherOptions());
                 }
-                this._popover.style.display = 'block';
+                this.$data._popover.style.display = 'block';
 
                 // Make sure the popup is rendered in the correct location
                 this.refreshPosition();
@@ -428,10 +432,11 @@
 
         mounted() {
             // Configure tether
-            this._trigger = this.$refs.trigger.children[0] || this.$refs.trigger;
-            this._popover = this.$refs.popover;
-            this._popover.style.display = 'none';
-            this._timeout = 0;
+            this.$data._trigger = this.$refs.trigger.children[0] || this.$refs.trigger;
+            this.$data._popover = this.$refs.popover;
+            this.$data._popover.style.display = 'none';
+            this.$data._tether = new Tether(this.getTetherOptions());
+            this.$data._timeout = 0;
 
             // Add listeners for specified triggers and complementary click event
             this.updateListeners(this.normalizedTriggers);
@@ -448,14 +453,14 @@
 
         beforeDestroy() {
             this.normalizedTriggers.forEach(item => this.removeListener(item));
-            clearTimeout(this._timeout);
+            clearTimeout(this.$data._timeout);
             this.destroyTether();
         },
 
         destroyed() {
             // Tether is moving the popover element outside of Vue's control and leaking dom nodes
-            if (this._popover.parentElement === document.body) {
-                document.body.removeChild(this._popover);
+            if (this.$data._popover.parentElement === document.body) {
+                document.body.removeChild(this.$data._popover);
             }
         }
     };
