@@ -23,8 +23,6 @@ describe('breadcrumb', async() => {
         const vm = $refs.breadcrumb1
         const $ol = vm.$el
 
-        expect($ol.getAttribute('role')).toBe('navigation')
-
         Array.from($ol.children).forEach($li => {
             if ($li.tagName === 'LI') {
                 expect($li.getAttribute('role')).toBe('presentation')
@@ -40,6 +38,20 @@ describe('breadcrumb', async() => {
         app.items2.forEach((item, i) => {
             if (item.active) {
                 expect($listItems[i].classList.contains('active')).toBe(true)
+            }
+        })
+    })
+
+    it('should apply aria-current to active class element', async() => {
+        const { app: { $refs, $el } } = window
+        const vm = $refs.breadcrumb2
+        const $listItems = Array.from(vm.$el.children)
+
+        app.items2.forEach((item, i) => {
+            if (item.active) {
+                expect($listItems[i].firstElementChild.hasAttribute('aria-current')).toBe(true)
+            } else {
+                expect($listItems[i].firstElementChild.hasAttribute('aria-current')).toBe(false)
             }
         })
     })
