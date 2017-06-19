@@ -22,7 +22,7 @@
                @click.prevent="setPage($event, currentPage - 1)"
                @keydown.enter.prevent="setPage($event, currentPage - 1)"
                @keydown.space.prevent="setPage($event, currentPage - 1)"
-            ><span aria-hidden="true">&laquo;</span></a>
+            ><span aria-hidden="true" v-html="prevText"></span></a>
         <li>
 
         <li  v-if="showPrev" class="page-item">
@@ -92,7 +92,7 @@
                @click.prevent="setPage($event, currentPage + 1)"
                @keydown.enter.prevent="setPage($event, currentPage + 1)"
                @keydown.space.prevent="setPage($event, currentPage + 1)"
-            ><span aria-hidden="true">&raquo;</span></a>
+            ><span aria-hidden="true" v-html="nextText"></span></a>
         </li>
 
     </ul>
@@ -274,10 +274,18 @@
                 type: String,
                 default: 'Previous Page'
             },
+            prevText: {
+                type: String,
+                default: '&laquo;'
+            }
             labelNextPage: {
                 type: String,
                 default: 'Next Page'
             },
+            nextText: {
+                type: String,
+                default: '&raquo;'
+            }
             labelPage: {
                 type: String,
                 default: 'Page'
