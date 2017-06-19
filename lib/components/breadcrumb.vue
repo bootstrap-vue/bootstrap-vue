@@ -6,7 +6,7 @@
             role="presentation"
         >
             <span v-if="item.active"
-                  aria-current="ariaCurrent"
+                  :aria-current="ariaCurrent"
                   v-html="item.text"></span>
             <b-link v-else
                     :to="item.to"
