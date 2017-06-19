@@ -49,9 +49,9 @@ describe('breadcrumb', async() => {
 
         app.items2.forEach((item, i) => {
             if (item.active) {
-                expect($listItems[i].firstElementChild.getAttribute('aria-current')).toBe('location')
+                expect($listItems[i].firstElementChild.hasAttribute('aria-current')).toBe(true)
             } else {
-                expect($listItems[i].firstElementChild.getAttribute('aria-current')).toBe(null)
+                expect($listItems[i].firstElementChild.hasAttribute('aria-current')).toBe(false)
             }
         })
     })
