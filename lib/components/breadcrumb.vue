@@ -6,7 +6,7 @@
             role="presentation"
         >
             <span v-if="item.active"
-                  aria-current="location"
+                  aria-current="ariaCurrent"
                   v-html="item.text"></span>
             <b-link v-else
                     :to="item.to"
@@ -60,7 +60,7 @@
                 default: () => [],
                 required: true
             },
-            aria-current: {
+            ariaCurrent: {
                 type: String,
                 default: 'location'
             }
