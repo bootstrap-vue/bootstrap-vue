@@ -23,9 +23,6 @@ const bLinkPropKeys = Object.keys(linkProps);
 export default {
     components: { bLink },
     computed: {
-        componentType() {
-            return this.to ? 'router-link' : 'a';
-        },
         normalizedItems() {
             let userDefinedActive = false;
             const originalItemsLength = this.items.length;
