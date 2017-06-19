@@ -49,7 +49,7 @@ describe('breadcrumb', async() => {
 
         app.items2.forEach((item, i) => {
             if (item.active) {
-                expect($listItems[i].firstElementChild.getAttribute('aria-current')).toBe('true')
+                expect($listItems[i].firstElementChild.getAttribute('aria-current')).toBe('location')
             } else {
                 expect($listItems[i].firstElementChild.getAttribute('aria-current')).toBe(null)
             }
