@@ -42,14 +42,16 @@ describe('breadcrumb', async() => {
         })
     })
 
-    it('should apply aria-current to active class', async() => {
+    it('should apply aria-current to active class element', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.breadcrumb2
         const $listItems = Array.from(vm.$el.children)
 
         app.items2.forEach((item, i) => {
             if (item.active) {
-                expect($listItems[i].getAttribute('aria-current')).toBe('true')
+                expect($listItems[i].firstElementChild.getAttribute('aria-current')).toBe('true')
+            } else {
+                expect($listItems[i].firstElementChild.getAttribute('aria-current')).toBe(null)
             }
         })
     })
