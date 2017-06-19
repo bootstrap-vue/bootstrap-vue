@@ -4,6 +4,7 @@
  description: https://bootstrap-vue.github.io/docs/components/tables
  authors:
    - Pooya Parsa
+   - Troy Morehouse
  resources:
    - https://unpkg.com/bootstrap@next/dist/css/bootstrap.min.css
    - https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css

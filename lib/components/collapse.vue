@@ -21,13 +21,11 @@
 
 <script>
     export default {
-
         data() {
             return {
                 show: this.visible
             };
         },
-
         computed: {
             classObject() {
                 return {
@@ -36,12 +34,10 @@
                 };
             }
         },
-
         model: {
             prop: 'visible',
             event: 'input'
         },
-
         watch: {
             visible(newVal) {
                 if (newVal !== this.show) {
@@ -50,7 +46,6 @@
                 }
             },
         },
-
         props: {
             isNav: {
                 type: Boolean,
@@ -60,12 +55,15 @@
                 type: String,
                 required: true
             },
+            accordion: { 
+                type: String,
+                default: null
+            },
             visible: {
                 type: Boolean,
                 default: false
             }
         },
-
         methods: {
             toggle() {
                 this.show = !this.show;
@@ -97,6 +95,10 @@
             emitState() {
                 this.$emit('input', this.show);
                 this.$root.$emit('collapse::toggle::state', this.id, this.show);
+                if (this.accordion && this.show) {
+                    // Tell the other collapses in this accordion to close
+                    this.$root.$emit('accordion::toggle', this.id, this.accordion);
+                }
             }
         },
         created() {
@@ -105,6 +107,20 @@
                     return;
                 }
                 this.toggle();
+            });
+            this.$root.$on('accordion::toggle', (openedId, accordion) => {
+                if (!this.accordion || accordion !== this.accordion) {
+                    return;
+                }
+                if (openedId === this.id) {
+                    if (!this.show) {
+                        this.toggle();
+                    }
+                } else {
+                    if (this.show) {
+                        this.toggle();
+                    }
+                }
             });
         },
         mounted() {
