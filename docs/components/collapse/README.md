@@ -1,18 +1,38 @@
 # Collapse
 
-> The Bootstrap collapse plugin allows you to toggle content on your pages with a few classes.
+> The Bootstrap `b-collapse` component and `v-b-toggle` directive allows you to
+> toggle content visibility on your pages.
 
-Other elements can easily toggle collapse using `v-b-toggle` directive.
+Other elements can easily toggle `b-collapse` components using the `v-b-toggle` directive.
 
 ```html
-    <!-- Using modifiers -->
-    <b-btn v-b-toggle.collapse1>Toggle Collapse</b-btn>
+<!-- Using modifiers -->
+<b-btn v-b-toggle.collapse1>Toggle Collapse</b-btn>
 
-    <!-- Using value -->
-    <b-btn v-b-toggle="'collapse1'">Toggle Collapse</b-btn>
+<!-- Using value -->
+<b-btn v-b-toggle="'collapse1'">Toggle Collapse</b-btn>
+
+<!-- element to collapse -->
+<b-collapse id="collapse1">
+    <b-card>
+      I am collapsable content!
+    </b-card>
+</b-collapse>
 ```
 
-The component's collapsed state can also be set with `v-model`.
+To make the collape show initially, set the `visible` prop:
+
+```html
+<b-btn v-b-toggle.collapse1>Toggle Collapse</b-btn>
+
+<b-collapse visible id="collapse1">
+    <b-card>
+      I should start open!
+    </b-card>
+</b-collapse>
+```
+
+The component's collapsed (visible) state can also be set with `v-model` which binds to the visible prop:
 
 ```html
 <b-btn @click="showCollapse = !showCollapse">Toggle Collapse</b-btn>
@@ -34,3 +54,64 @@ The component's collapsed state can also be set with `v-model`.
 }
 </script>
 ```
+
+You can even collapse multiple `b-collapse` components via a single `v-b-toggle` by 
+providing multiple target ids using modifers:
+
+```html
+<b-btn v-b-toggle.collapse1.collapse2>Toggle Collapse 1 and 2</b-btn>
+
+<!-- elements to collapse -->
+<b-collapse id="collapse1">
+    <b-card>
+      I am collapsable content 1!
+    </b-card>
+</b-collapse>
+<b-collapse id="collapse2">
+    <b-card>
+      I am collapsable content 2!
+    </b-card>
+</b-collapse>
+```
+
+
+### Accordion Support
+
+Turn a group of `b-collapse` components into an accordion by supplying
+an accordion group identifier via the `accordion` prop:
+
+```html
+<b-btn block v-b-toggle.collapse1>Collapsible Group 1</b-btn>
+<b-collapse id="collapse1" accordion="my-accordion" visible>
+    <b-card>
+      Accordion Panel 1<br>
+      I start opened because <code>visible</code> is <code>true</code>
+    </b-card>
+</b-collapse>
+<b-btn block class="mt-2" v-b-toggle.collapse2>Collapsible Group 2</b-btn>
+<b-collapse id="collapse2" accordion="my-accordion">
+    <b-card>
+      Accordion Panel 2
+    </b-card>
+</b-collapse>
+<b-btn block class="mt-2" v-b-toggle.collapse3>Collapsible Group 3</b-btn>
+<b-collapse id="collapse3" accordion="my-accordion">
+    <b-card>
+      Accordion Panel 3
+    </b-card>
+</b-collapse>
+```
+
+**Notes:**
+- If using the `v-model` feature of collaspe in accordion mode, do not
+bind the `v-model` or `visible` of all the collapses in the accordion group to the same variable.
+- Ensure, at most, only one `b-collapse` in the accordion group has the `visible` 
+prop and/or `v-model` set to `true`.
+
+### ARIA compliance
+
+The `v-b-toggle` directive will automatically add the ARIA attributes `aria-controls` and `aria-expanded`
+to the component that the directive appears on.  `aria-expanded` will reflect the state of 
+the tartget `b-collapse` component, while `aria-controls` will be set to the ID(s) 
+of the target `b-collapse` component(s).
+
