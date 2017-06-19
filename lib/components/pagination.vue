@@ -23,7 +23,7 @@
                @keydown.enter.prevent="setPage($event, currentPage - 1)"
                @keydown.space.prevent="setPage($event, currentPage - 1)"
             ><span aria-hidden="true">&laquo;</span></a>
-        <li>
+        </li>
 
         <li  v-if="showPrev" class="page-item">
             <a role="button"
