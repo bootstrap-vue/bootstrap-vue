@@ -10,6 +10,7 @@
         @keydown.shift.right.prevent="focusLast"
     >
 
+        <!-- Previous button -->
         <li v-if="isActive(1) || disabled" class="page-item disabled" aria-hidden="true">
             <span class="page-link">&laquo;</span>
         </li>
@@ -23,29 +24,34 @@
                @keydown.enter.prevent="setPage($event, currentPage - 1)"
                @keydown.space.prevent="setPage($event, currentPage - 1)"
             ><span aria-hidden="true" v-html="prevText"></span></a>
-        <li>
-
-        <li  v-if="showPrev" class="page-item">
-            <a role="button"
-               :class="['page-link', {disabled}, isActive(1)?'active':'']"
-               :disabled="disabled"
-               :aria-disabled="disabled ? 'true' : 'false'"
-               :aria-label="labelPage + ' 1'"
-               :aria-current="isActive(1) ? 'true' : 'false'"
-               :aria-posinset="1"
-               :aria-setsize="numberOfPages"
-               tabindex="-1"
-               @click.prevent="setPage($event, 1)"
-               @keydown.enter.prevent="setPage($event, 1)"
-               @keydown.space.prevent="setPage($event, 1)"
-            >1</a>
         </li>
 
-        <li v-if="showPrev" class="page-item disabled" role="seperator">
-            <span :class="page-link">&hellip;</span>
-        </li>
+        <!-- Page 1 Button + Ellipsis -->
+        <template v-if="showFirst">
+            <!-- Page 1 -->
+            <li class="page-item">
+                <a role="button"
+                   :class="['page-link', {disabled}, isActive(1)?'active':'']"
+                   :disabled="disabled"
+                   :aria-disabled="disabled ? 'true' : 'false'"
+                   :aria-label="labelPage + ' 1'"
+                   :aria-current="isActive(1) ? 'true' : 'false'"
+                   :aria-posinset="1"
+                   :aria-setsize="numberOfPages"
+                   tabindex="-1"
+                   @click.prevent="setPage($event, 1)"
+                   @keydown.enter.prevent="setPage($event, 1)"
+                   @keydown.space.prevent="setPage($event, 1)"
+                >1</a>
+            </li>
+            <!-- Ellipsis -->
+            <li class="page-item disabled" role="seperator">
+                <span :class="page-link">&hellip;</span>
+            </li>
+        </template>
 
-        <li class="page-item" v-for="_,index in pageLinks" :key="index">
+        <!-- Intermediate page buttons -->
+        <li class="page-item" v-for="(_,index) in pageLinks" :key="index + diff">
             <a role="button"
                :class="['page-link',{disabled},isActive(index + diff)?'active':'',isActive(index + diff)?'':'hidden-xs-down']"
                :disabled="disabled"
@@ -61,26 +67,31 @@
             >{{index + diff}}</a>
         </li>
 
-        <li v-if="showNext" class="page-item disabled" role="seperator">
-            <span class="page-link">&hellip;</span>
-        </li>
+        <!-- Ellipsis + Last Page # Button -->
+        <template v-if="showLast">
+            <!-- Ellipsis -->
+            <li class="page-item disabled" role="seperator">
+                <span class="page-link">&hellip;</span>
+            </li>
+            <!-- Last Page -->
+            <li class="page-item" v-if="showNext">
+                <a role="button"
+                   :class="['page-link', {disabled}, isActive(numberOfPages) ? 'active' : '']"
+                   :disabled="disabled"
+                   :aria-disabled="disabled ? 'true' : 'false'"
+                   :aria-label="labelPage + ' ' + numberOfPages"
+                   :aria-current="isActive(numberOfPages) ? 'true' : 'false'"
+                   :aria-posinset="numberOfPages"
+                   :aria-setsize="numberOfPages"
+                   tabindex="-1"
+                   @click.prevent="setPage($event, numberOfPages)"
+                   @keydown.enter.prevent="setPage($event, numberOfPages)"
+                   @keydown.space.prevent="setPage($event, numberOfPages)"
+                >{{numberOfPages}}</a>
+            </li>
+        </template>
 
-        <li class="page-item" v-if="showNext">
-            <a role="button"
-               :class="['page-link', {disabled}, isActive(numberOfPages) ? 'active' : '']"
-               :disabled="disabled"
-               :aria-disabled="disabled ? 'true' : 'false'"
-               :aria-label="labelPage + ' ' + numberOfPages"
-               :aria-current="isActive(numberOfPages) ? 'true' : 'false'"
-               :aria-posinset="numberOfPages"
-               :aria-setsize="numberOfPages"
-               tabindex="-1"
-               @click.prevent="setPage($event, numberOfPages)"
-               @keydown.enter.prevent="setPage($event, numberOfPages)"
-               @keydown.space.prevent="setPage($event, numberOfPages)"
-            >{{numberOfPages}}</a>
-        </li>
-
+        <!-- Next page -->
         <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" aria-hidden="true">
             <span class="page-link">&raquo;</span>
         </li>
@@ -99,6 +110,7 @@
 </template>
 
 <script>
+    // Determine if an HTML element is visible - Faster than CSS check
     function isVisible(el) {
         return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
     }
@@ -107,8 +119,8 @@
         data() {
             return {
                 diff: 1,
-                showPrev: false,
-                showNext: false,
+                showFirst: false,
+                showLast: false,
                 currentPage: this.value
             };
         },
@@ -122,15 +134,19 @@
             },
             pageLinks() {
                 if (this.currentPage > this.numberOfPages) {
+                    // Ensure we dont go past number of pages
+                    this.currentPage = this.numberOfPages;
+                } else if (this.currentPage < 1) {
+                    // Esure we don't go before page 1
                     this.currentPage = 1;
                 }
 
                 // Defaults
                 this.diff = 1;
-                this.showPrev = false;
-                this.showNext = false;
+                this.showFirst = false;
+                this.showLast = false;
 
-                // If less pages than limit just show this pages
+                // If less pages than limit just show the intermediate pages
                 if (this.numberOfPages <= this.limit) {
                     return this.numberOfPages;
                 }
@@ -138,21 +154,21 @@
                 // If at the beginning of the list
                 if (this.currentPage <= this.limit - 2) {
                     this.diff = 1;
-                    this.showNext = true;
+                    this.showLast = true;
                     return this.limit - 2;
                 }
 
                 // If at the end of the list
                 if (this.currentPage > this.numberOfPages - this.limit + 2) {
                     this.diff = this.numberOfPages - this.limit + 3;
-                    this.showPrev = true;
+                    this.showFirst = true;
                     return this.limit - 2;
                 }
 
                 // Else we are somewhere in the middle
                 this.diff = this.currentPage - 1;
-                this.showPrev = this.currentPage >= this.limit;
-                this.showNext = this.currentPage <= this.numberOfPages - this.limit + 1;
+                this.showFirst = this.currentPage >= this.limit;
+                this.showLast = this.currentPage <= (this.numberOfPages - this.limit + 1);
                 return this.limit;
             }
         },
@@ -277,7 +293,7 @@
             prevText: {
                 type: String,
                 default: '&laquo;'
-            }
+            },
             labelNextPage: {
                 type: String,
                 default: 'Next Page'
@@ -285,7 +301,7 @@
             nextText: {
                 type: String,
                 default: '&raquo;'
-            }
+            },
             labelPage: {
                 type: String,
                 default: 'Page'
