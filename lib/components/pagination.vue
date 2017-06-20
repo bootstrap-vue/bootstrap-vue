@@ -51,7 +51,7 @@
 
         <!-- Pages links -->
         <li v-for="page in pageList"
-            :class="pageItemClasses(page, true)"
+            :class="pageItemClasses(page)"
             :key="page.number"
         >
             <a :role="buttonRole"
@@ -219,7 +219,7 @@ export default {
         isActive(page) {
             return page === this.currentPage;
         },
-        pageItemClasses(page, hideXs) {
+        pageItemClasses(page) {
             const active = this.isActive(page.number);
             return [
                 'page-item',
