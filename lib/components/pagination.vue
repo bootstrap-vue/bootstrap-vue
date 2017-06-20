@@ -11,20 +11,22 @@
     >
 
         <!-- Goto First Page button -->
-        <li v-if="isActive(1) || disabled" class="page-item disabled" aria-hidden="true">
-            <span class="page-link" v-html="firstText"></span>
-        </li>
-        <li v-else class="page-item">
-            <a :role="buttonRole"
-               class="page-link"
-               :aria-label="labelFirstPage"
-               tabindex="-1"
-               href="#"
-               @click.prevent="setPage($event, 1)"
-               @keydown.enter.prevent="setPage($event, 1)"
-               @keydown.space.prevent="setPage($event, 1)"
-            ><span aria-hidden="true" v-html="firstText"></span></a>
-        </li>
+        <template v-if="!hideGotoEndButtons">
+            <li v-if="isActive(1) || disabled" class="page-item disabled" aria-hidden="true">
+                <span class="page-link" v-html="firstText"></span>
+            </li>
+            <li v-else class="page-item">
+                <a :role="buttonRole"
+                   class="page-link"
+                   :aria-label="labelFirstPage"
+                   tabindex="-1"
+                   href="#"
+                   @click.prevent="setPage($event, 1)"
+                   @keydown.enter.prevent="setPage($event, 1)"
+                   @keydown.space.prevent="setPage($event, 1)"
+                ><span aria-hidden="true" v-html="firstText"></span></a>
+            </li>
+        </template>
 
         <!-- Goto Previous page button -->
         <li v-if="isActive(1) || disabled" class="page-item disabled" aria-hidden="true">
@@ -88,20 +90,21 @@
         </li>
 
         <!-- Goto Last page -->
-        <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" aria-hidden="true">
-            <span class="page-link" v-html="lastText"></span>
-        </li>
-        <li v-else class="page-item">
-            <a :role="buttonRole"
-               class="page-link"
-               :aria-label="labelLastPage"
-               tabindex="-1"
-               @click.prevent="setPage($event, numberOfPages)"
-               @keydown.enter.prevent="setPage($event, numberOfPages)"
-               @keydown.space.prevent="setPage($event, numberOfPages)"
-            ><span aria-hidden="true" v-html="lastText"></span></a>
-        </li>
-
+        <template v-if="!hideGotoEndButtons">
+            <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" aria-hidden="true">
+                <span class="page-link" v-html="lastText"></span>
+            </li>
+            <li v-else class="page-item">
+                <a :role="buttonRole"
+                   class="page-link"
+                   :aria-label="labelLastPage"
+                   tabindex="-1"
+                   @click.prevent="setPage($event, numberOfPages)"
+                   @keydown.enter.prevent="setPage($event, numberOfPages)"
+                   @keydown.space.prevent="setPage($event, numberOfPages)"
+                ><span aria-hidden="true" v-html="lastText"></span></a>
+            </li>
+        </template>
     </ul>
 </template>
 
@@ -339,6 +342,10 @@ export default {
         size: {
             type: String,
             default: 'md'
+        },
+        hideGotoEndButtons: {
+            type: Boolean,
+            default: flase
         },
         ariaLabel: {
             type: String,
