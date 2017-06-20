@@ -324,7 +324,7 @@ export default {
         },
         firstText: {
             type: String,
-            default: '&lt;&lt;'
+            default: '&laquo'
         },
         labelPrevPage: {
             type: String,
@@ -332,7 +332,7 @@ export default {
         },
         prevText: {
             type: String,
-            default: '&lt;'
+            default: '&lsaquo;'
         },
         labelNextPage: {
             type: String,
@@ -340,7 +340,7 @@ export default {
         },
         nextText: {
             type: String,
-            default: '&gt;'
+            default: '&rsaquo;'
         },
         labelLastPage: {
             type: String,
@@ -348,7 +348,7 @@ export default {
         },
         lastText: {
             type: String,
-            default: '&gt;&gt;'
+            default: '&raquo;'
         },
         labelPage: {
             type: String,
