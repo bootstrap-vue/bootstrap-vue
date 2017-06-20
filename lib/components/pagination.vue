@@ -10,7 +10,23 @@
         @keydown.shift.right.prevent="focusLast"
     >
 
-        <!-- Previous button -->
+        <!-- Goto First Page button -->
+        <li v-if="isActive(1) || disabled" class="page-item disabled" aria-hidden="true">
+            <span class="page-link" v-html="firstText"></span>
+        </li>
+        <li v-else class="page-item">
+            <a :role="buttonRole"
+               class="page-link"
+               :aria-label="labelFirstPage"
+               tabindex="-1"
+               href="#"
+               @click.prevent="setPage($event, 1)"
+               @keydown.enter.prevent="setPage($event, 1)"
+               @keydown.space.prevent="setPage($event, 1)"
+            ><span aria-hidden="true" v-html="firstText"></span></a>
+        </li>
+
+        <!-- Goto Previous page button -->
         <li v-if="isActive(1) || disabled" class="page-item disabled" aria-hidden="true">
             <span class="page-link" v-html="prevText"></span>
         </li>
@@ -26,68 +42,37 @@
             ><span aria-hidden="true" v-html="prevText"></span></a>
         </li>
 
-        <!-- Page 1 -->
-        <li :class="pageItemClasses(1, false)" v-if="showFirstPage">
-            <a :role="buttonRole"
-               :class="pageLinkClasses(1)"
-               :disabled="disabled"
-               :aria-disabled="disabled ? 'true' : 'false'"
-               :aria-label="labelPage + ' 1'"
-               :aria-current="isActive(1) ? 'true' : 'false'"
-               :aria-posinset="1"
-               :aria-setsize="numberOfPages"
-               tabindex="-1"
-               @click.prevent="setPage($event, 1)"
-               @keydown.enter.prevent="setPage($event, 1)"
-               @keydown.space.prevent="setPage($event, 1)"
-            >1</a>
-        </li>
-
-        <!-- First Ellipsis -->
-        <li v-if="showFirstDots" class="page-item disabled" role="seperator">
+        <!-- First Ellipsis Bookend -->
+        <li v-if="showFirstDots" class="page-item disabled hidden-xs-down" role="seperator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
-        <!-- Intermediate pages -->
-        <li v-for="(_,idx) in pageLinks" :class="pageItemClasses(idx + offset, true)" :key="idx+offset">
+        <!-- Pages links -->
+        <li v-for="page in pageLinks"
+            :class="pageItemClasses(page, true)"
+            :key="page"
+        >
             <a :role="buttonRole"
-               :class="pageLinkClasses(idx + offset)"
+               :class="pageLinkClasses(page)"
                :disabled="disabled"
                :aria-disabled="disabled ? 'true' : 'false'"
-               :aria-label="labelPage + ' ' + (idx + offset)"
-               :aria-current="isActive(idx + offset) ? 'true' : 'false'"
-               :aria-posinset="idx + offset"
+               :aria-label="labelPage + ' ' + page.number"
+               :aria-current="isActive(page) ? 'true' : 'false'"
+               :aria-posinset="page.number"
                :aria-setsize="numberOfPages"
                tabindex="-1"
-               @click.prevent="setPage($event, idx + offset)"
-               @keydown.enter.prevent="setPage($event, idx + offset)"
-               @keydown.space.prevent="setPage($event, idx + offset)"
-            >{{idx + offset}}</a>
+               @click.prevent="setPage($event, page.number)"
+               @keydown.enter.prevent="setPage($event, page.number)"
+               @keydown.space.prevent="setPage($event, page.number)"
+            >{{ page}}</a>
         </li>
 
-        <!-- Last Ellipsis -->
-        <li v-if="showLastDots" class="page-item disabled" role="seperator">
+        <!-- Last Ellipsis Bookend -->
+        <li v-if="showLastDots" class="page-item disabled hidden-xs-down" role="seperator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
-        <!-- Last Page -->
-        <li :class="pageItemClasses(numberOfPages, false)" v-if="showLastPage">
-            <a :role="buttonRole"
-               :class="pageLinkClasses(numberOfPages)"
-               :disabled="disabled"
-               :aria-disabled="disabled ? 'true' : 'false'"
-               :aria-label="labelPage + ' ' + numberOfPages"
-               :aria-current="isActive(numberOfPages) ? 'true' : 'false'"
-               :aria-posinset="numberOfPages"
-               :aria-setsize="numberOfPages"
-               tabindex="-1"
-               @click.prevent="setPage($event, numberOfPages)"
-               @keydown.enter.prevent="setPage($event, numberOfPages)"
-               @keydown.space.prevent="setPage($event, numberOfPages)"
-            >{{numberOfPages}}</a>
-        </li>
-
-        <!-- Next page -->
+        <!-- Goto Next page -->
         <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" aria-hidden="true">
             <span class="page-link" v-html="nextText"></span>
         </li>
@@ -102,6 +87,21 @@
             ><span aria-hidden="true" v-html="nextText"></span></a>
         </li>
 
+        <!-- Goto Last page -->
+        <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" aria-hidden="true">
+            <span class="page-link" v-html="lastText"></span>
+        </li>
+        <li v-else class="page-item">
+            <a :role="buttonRole"
+               class="page-link"
+               :aria-label="labelLastPage"
+               tabindex="-1"
+               @click.prevent="setPage($event, numberOfPages)"
+               @keydown.enter.prevent="setPage($event, numberOfPages)"
+               @keydown.space.prevent="setPage($event, numberOfPages)"
+            ><span aria-hidden="true" v-html="lastText"></span></a>
+        </li>
+
     </ul>
 </template>
 
@@ -111,13 +111,20 @@ function isVisible(el) {
     return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
 }
 
+// Make an aray of N to N+X
+function makePageArray(startNum, numEntries) {
+    return Array.apply(null, {length: numEntries}).map(function(value, index){
+        return { number: index + startNum, className: null };
+    });
+}
+
+// Threshold of limit size when we start/stop showing ellipsis
+const ELLIPSIS_THRESHOLD = 4;
+
 export default {
     data() {
         return {
-            offset: 1,
-            showFirstPage: false,
             showFirstDots: false,
-            showLastPage: false,
             showLastDots: false,
             currentPage: this.value
         };
@@ -138,73 +145,62 @@ export default {
                 this.currentPage = 1;
             }
 
-            // Defaults
-            this.offset = 1;
-            this.showFirstPage = false;
+            // - Hide first ellipsis marker
             this.showFirstDots = false;
-            this.showLastPage = false;
+            // - Hide last ellipsis marker
             this.showLastDots = false;
 
-            // Special case
+            let numLimks = this.limit;
+            let startNum = 1;
+
             if (this.numberOfPages <= this.limit) {
-                return this.numberOfPages;
-            }
-
-            // Special case
-            if (this.limit === 1 || this.limit === 2) {
-                this.offset = this.currentPage;
-                return 1;
-            }
-
-            // Special case
-            if (this.limit === 3 || this.limit === 4) {
-                this.showFirstDots = true;
+                // Special Case: Less pages available than the limit of displayed pages
+                numLinks = this.numberOfPages;
+            } else if (this.currentPage < (this.limit - 1) && this.limit > ELLIPSIS_THRESHOLD) {
+                // We are near the beginning of the page list
                 this.showLastDots = true;
-                this.offset = this.currentPage;
-                return 1;
-            }
-
-            if (this.currentPage <= this.limit - 2) {
-                // We are at the beginning of the list
-                this.showLastPage = true;
-                this.showLastDots = true;
-                this.offset = 1;
-                return this.limit - 2;
-            }
-
-            if (this.currentPage > this.numberOfPages - this.limit + 2) {
-                // We are at the end of the list
-                this.showFirstPage = true;
+                numLinks = numLinks - 1;
+            } else if ((this.numberOfPages - this.currentPage + 2) < this.limit && this.limit > ELLIPSIS_THRESHOLD) {
+                // We are near the end of the list
                 this.showFirstDots = true;
-                this.offset = this.numberOfPages - this.limit + 3;
-                return this.limit - 2;
+                numLinks = numLinks - 1;
+                startNum = this.numberOfPages - this.limit + 2;
+            } else {
+                // We are somewhere in the middle of the page list
+                if (this.limit > ELLIPSIS_THRESHOLD) {
+                    this.showFirstDots = true;
+                    this.showLastDots = true;
+                    numLinks = numLinks - 2;
+                }
+                startNum = this.currentPage - Math.floor(numLinks / 2);
+                if (startNum < 1) {
+                    startNume = 1;
+                } else if (startNum > (this.numberOfPages - numLinks)) {
+                    startNum = this.numberOfPages - numLinks + 1;
+                }
             }
 
-            // We are somewhere in the middle
-            this.showFirstPage = true;
-            this.showFirstDots = true;
-            this.showLastPage = true;
-            this.showLastDots = true;
-            limit = this.limit - 4;
-            this.offset = this.currentPage - Math.floor(limit / 2);
-            return limit;
+            // Return list of intermediate page numbers to generate
+            return makeArray(startNum, numLinks);
         }
     },
     methods: {
         isActive(page) {
             return page === this.currentPage;
         },
-        pageItemClasses(num, hideXs) {
-            const active = this.isActive(num);
+        pageItemClasses(page, hideXs) {
+            const active = this.isActive(page.number);
             return [
                 'page-item',
                 this.disabled ? 'disabled' : '',
                 active ? 'active' : '',
-                (hideXs && !active) ? 'hidden-xs-down' : ''
+                page.className,
+                // TODO: move hidden-xs-down + hidden-sm-up to page.className
+                (hideXs && !active && this.numberOfPages >= 5) ? 'hidden-xs-down' : ''
             ];
         },
-        pageLinkClasses(num) {
-            const active = this.isActive(num);
+        pageLinkClasses(page) {
+            const active = this.isActive(page.number);
             return [
                 'page-link',
                 this.disabled ? 'disabled' : '',
@@ -322,9 +318,17 @@ export default {
             type: String,
             default: 'Pagination'
         },
+        labelFirstPage: {
+            type: String,
+            default: 'Goto first page'
+        },
+        firstText: {
+            type: String,
+            default: '&lt;&lt;'
+        },
         labelPrevPage: {
             type: String,
-            default: 'Previous Page'
+            default: 'Goto previous page'
         },
         prevText: {
             type: String,
@@ -332,15 +336,23 @@ export default {
         },
         labelNextPage: {
             type: String,
-            default: 'Next Page'
+            default: 'Goto next page'
         },
         nextText: {
             type: String,
             default: '&gt;'
         },
+        labelLastPage: {
+            type: String,
+            default: 'Goto last page'
+        },
+        lastText: {
+            type: String,
+            default: '&gt;&gt;'
+        },
         labelPage: {
             type: String,
-            default: 'Page'
+            default: 'Goto page'
         },
         ellipsisText: {
             type: String,
