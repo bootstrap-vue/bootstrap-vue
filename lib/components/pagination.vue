@@ -26,70 +26,66 @@
             ><span aria-hidden="true" v-html="prevText"></span></a>
         </li>
 
-        <!-- Page 1 Button + Ellipsis -->
-        <template v-if="showFirst">
-            <!-- Page 1 -->
-            <li class="page-item">
-                <a role="button"
-                   :class="['page-link', {disabled}, isActive(1)?'active':'']"
-                   :disabled="disabled"
-                   :aria-disabled="disabled ? 'true' : 'false'"
-                   :aria-label="labelPage + ' 1'"
-                   :aria-current="isActive(1) ? 'true' : 'false'"
-                   :aria-posinset="1"
-                   :aria-setsize="numberOfPages"
-                   tabindex="-1"
-                   @click.prevent="setPage($event, 1)"
-                   @keydown.enter.prevent="setPage($event, 1)"
-                   @keydown.space.prevent="setPage($event, 1)"
-                >1</a>
-            </li>
-            <!-- Ellipsis -->
-            <li class="page-item disabled" role="seperator">
-                <span :class="page-link">&hellip;</span>
-            </li>
-        </template>
-
-        <!-- Intermediate page buttons -->
-        <li class="page-item" v-for="(_,index) in pageLinks" :key="index + diff">
+        <!-- Page 1 -->
+        <li class="page-item" v-if="showFirstPage">
             <a role="button"
-               :class="['page-link',{disabled},isActive(index + diff)?'active':'',isActive(index + diff)?'':'hidden-xs-down']"
+               :class="pageLinkClasses(1, false)"
                :disabled="disabled"
                :aria-disabled="disabled ? 'true' : 'false'"
-               :aria-label="labelPage + ' ' + (index + diff)"
-               :aria-current="isActive(index + diff) ? 'true' : 'false'"
-               :aria-posinset="index + diff"
+               :aria-label="labelPage + ' 1'"
+               :aria-current="isActive(1) ? 'true' : 'false'"
+               :aria-posinset="1"
                :aria-setsize="numberOfPages"
                tabindex="-1"
-               @click.prevent="setPage($event, index + diff)"
-               @keydown.enter.prevent="setPage($event, index + diff)"
-               @keydown.space.prevent="setPage($event, index + diff)"
-            >{{index + diff}}</a>
+               @click.prevent="setPage($event, 1)"
+               @keydown.enter.prevent="setPage($event, 1)"
+               @keydown.space.prevent="setPage($event, 1)"
+            >1</a>
         </li>
 
-        <!-- Ellipsis + Last Page # Button -->
-        <template v-if="showLast">
-            <!-- Ellipsis -->
-            <li class="page-item disabled" role="seperator">
-                <span class="page-link">&hellip;</span>
-            </li>
-            <!-- Last Page -->
-            <li class="page-item" v-if="showNext">
-                <a role="button"
-                   :class="['page-link', {disabled}, isActive(numberOfPages) ? 'active' : '']"
-                   :disabled="disabled"
-                   :aria-disabled="disabled ? 'true' : 'false'"
-                   :aria-label="labelPage + ' ' + numberOfPages"
-                   :aria-current="isActive(numberOfPages) ? 'true' : 'false'"
-                   :aria-posinset="numberOfPages"
-                   :aria-setsize="numberOfPages"
-                   tabindex="-1"
-                   @click.prevent="setPage($event, numberOfPages)"
-                   @keydown.enter.prevent="setPage($event, numberOfPages)"
-                   @keydown.space.prevent="setPage($event, numberOfPages)"
-                >{{numberOfPages}}</a>
-            </li>
-        </template>
+        <!-- First Ellipsis -->
+        <li v-if="showFirstDots" class="page-item disabled" role="seperator">
+            <span :class="page-link">&hellip;</span>
+        </li>
+
+        <!-- Intermediate pages -->
+        <li class="page-item" v-for="(_,idx) in pageLinks" :key="idx+offset">
+            <a role="button"
+               :class="pageLinkClasses(idx + offset, true)"
+               :disabled="disabled"
+               :aria-disabled="disabled ? 'true' : 'false'"
+               :aria-label="labelPage + ' ' + (idx + offset)"
+               :aria-current="isActive(idx + offset) ? 'true' : 'false'"
+               :aria-posinset="idx + offset"
+               :aria-setsize="numberOfPages"
+               tabindex="-1"
+               @click.prevent="setPage($event, idx + offset)"
+               @keydown.enter.prevent="setPage($event, idx + offset)"
+               @keydown.space.prevent="setPage($event, idx + offset)"
+            >{{idx + offset}}</a>
+        </li>
+
+        <!-- Last Ellipsis -->
+        <li v-if="showLastDots" class="page-item disabled" role="seperator">
+            <span class="page-link">&hellip;</span>
+        </li>
+
+        <!-- Last Page -->
+        <li class="page-item" v-if="showLastPage">
+            <a role="button"
+               :class="pageLinkClasses(numberOfPages, false)"
+               :disabled="disabled"
+               :aria-disabled="disabled ? 'true' : 'false'"
+               :aria-label="labelPage + ' ' + numberOfPages"
+               :aria-current="isActive(numberOfPages) ? 'true' : 'false'"
+               :aria-posinset="numberOfPages"
+               :aria-setsize="numberOfPages"
+               tabindex="-1"
+               @click.prevent="setPage($event, numberOfPages)"
+               @keydown.enter.prevent="setPage($event, numberOfPages)"
+               @keydown.space.prevent="setPage($event, numberOfPages)"
+            >{{numberOfPages}}</a>
+        </li>
 
         <!-- Next page -->
         <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" aria-hidden="true">
@@ -118,9 +114,11 @@
     export default {
         data() {
             return {
-                diff: 1,
-                showFirst: false,
-                showLast: false,
+                offset: 1,
+                showFirstPage: false,
+                showFirstDots: false,
+                showLastPage: false,
+                showLastDots: false,
                 currentPage: this.value
             };
         },
@@ -133,48 +131,77 @@
                 return this.size ? `pagination-${this.size}` : '';
             },
             pageLinks() {
+                // Sanity checks
                 if (this.currentPage > this.numberOfPages) {
-                    // Ensure we dont go past number of pages
                     this.currentPage = this.numberOfPages;
                 } else if (this.currentPage < 1) {
-                    // Esure we don't go before page 1
                     this.currentPage = 1;
                 }
 
                 // Defaults
-                this.diff = 1;
-                this.showFirst = false;
-                this.showLast = false;
+                this.offset = 1;
+                this.showFirstPage = false;
+                this.showFirstDots = false;
+                this.showLastPage = false;
+                this.showLastDots = false;
 
-                // If less pages than limit just show the intermediate pages
+                // Special case
                 if (this.numberOfPages <= this.limit) {
                     return this.numberOfPages;
                 }
 
-                // If at the beginning of the list
+                // Special case
+                if (this.limit === 1 || this.limit === 2) {
+                    this.offset = this.currentPage;
+                    return 1;
+                }
+
+                // Special case
+                if (this.limit === 3 || this.limit === 4) {
+                    this.showFirstDots = true;
+                    this.showLastDots = true;
+                    this.offset = this.currentPage;
+                    return 1;
+                }
+
                 if (this.currentPage <= this.limit - 2) {
-                    this.diff = 1;
-                    this.showLast = true;
+                    // We are at the beginning of the list
+                    this.showLastPage = true;
+                    this.showLastDots = true;
+                    this.offset = 1;
                     return this.limit - 2;
                 }
 
-                // If at the end of the list
                 if (this.currentPage > this.numberOfPages - this.limit + 2) {
-                    this.diff = this.numberOfPages - this.limit + 3;
-                    this.showFirst = true;
+                    // We are at the end of the list
+                    this.showFirstPage = true;
+                    this.showFirstDots = true;
+                    this.offset = this.numberOfPages - this.limit + 3;
                     return this.limit - 2;
                 }
 
-                // Else we are somewhere in the middle
-                this.diff = this.currentPage - 1;
-                this.showFirst = this.currentPage >= this.limit;
-                this.showLast = this.currentPage <= (this.numberOfPages - this.limit + 1);
-                return this.limit;
+                // We are somewhere in the middle
+                this.showFirstPage = true;
+                this.showFirstDots = true;
+                this.showLastPage = true;
+                this.showLastDots = true;
+                limit = this.limit - 4;
+                this.offset = this.currentPage - Math.ceil(limit / 2);
+                return limit;
             }
         },
         methods: {
             isActive(page) {
                 return page === this.currentPage;
+            },
+            pageLinkClasses(page, hideXs) {
+                const active = isActive(page);
+                return [
+                    'page-link',
+                    disabled ? 'disabled' : '',
+                    active ? 'active' : '',
+                    (hideXs && !active) ? 'hidden-xs-down' : ''
+                ];
             },
             setPage(e, num) {
                 if (disabled) {
@@ -238,9 +265,6 @@
                 if (idx < cnt && !buttons[idx + 1].disabled && buttons[idx + 1].focus) {
                     this.setBtnFocus(buttons[idx + 1]);
                 }
-            },
-            _return() {
-
             }
         },
         watch: {
@@ -248,6 +272,8 @@
                 if (newPage === oldPage) {
                     return;
                 }
+
+                this.calcValues();
 
                 this.$emit('input', newPage);
             },
