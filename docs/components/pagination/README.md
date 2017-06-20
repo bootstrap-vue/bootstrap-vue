@@ -19,8 +19,16 @@ Pagination supports selveral props that allow you to customize the apperance.
 | `lastText` | The "goto last page" button text (html supported)
 | `ellipsisText` | the `...` spacer text (html supported)
 
-One smaller screens (`xs`), some of the page buttons will be hidden to ensure pagination
-fits on a single line
+### Small screen support (`xs`)
+One smaller screens, some of the page buttons will be hidden to ensure pagination
+fits on a single line.
+
+- The ellipsis indicators will be hidden on screens `xs` and smaller.
+- Page number buttons will be limitted to a maximum of 3 visible on `xs` screens and smaller.
+
+This ensures that no more than 3 page number buttons are visible,
+along with the goto _first_, _prev_, _next_, and _last_ buttons.
+
 
 ### events
 - `input` is emitted anytime the page number changes (either programmatically or via user interction)
