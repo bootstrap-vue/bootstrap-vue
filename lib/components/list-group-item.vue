@@ -9,12 +9,12 @@
 
 <script>
 import bLink from './link.vue';
-import { props as linkProps, computed, omitLinkProps } from '../mixins/link'
+import { props as originalLinkProps, computed, omitLinkProps } from '../mixins/link'
 // copy link props, but exclude defaults for 'href' & 'to'
 // to ensure proper component tag computation
 const linkProps = Object.assign(omitLinkProps('href', 'to'), {
-    href: { type: linkProps.href.type },
-    to: { type: linkProps.to.type }
+    href: { type: originalLinkProps.href.type },
+    to: { type: originalLinkProps.to.type }
 });
 
 const actionTags = ['a', 'router-link', 'button', 'b-link'];

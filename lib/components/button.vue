@@ -10,15 +10,15 @@
 
 <script>
 import bLink from './link.vue';
-import { omitLinkProps, props as linkProps, computed } from '../mixins/link';
+import { omitLinkProps, props as originalLinkProps, computed } from '../mixins/link';
 
 // Grab a fresh object of link props (omitLinkProps does this)
 // less the 'href' and 'to' props
 // that we will reconstruct without any defaults
 // so our computed 'componentType' functions properly
 const linkProps = Object.assign(omitLinkProps('href', 'to'), {
-    href: { type: linkProps.href.type },
-    to: { type: linkProps.to.type }
+    href: { type: originalLinkProps.href.type },
+    to: { type: originalLinkProps.to.type }
 });
 
 export default {
