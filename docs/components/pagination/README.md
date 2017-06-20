@@ -13,8 +13,10 @@ Pagination supports selveral props that allow you to customize the apperance.
 | Prop | Description
 | ---- | -----------
 | `limit` | Limit the maximum numbr of buttons (including ellipsis, but not prev/next)
-| `prevText` | The "previous page" button text (html supported)
-| `nextText` | The "next page" button text (html supported)
+| `firstText` | The "goto first page" button text (html supported)
+| `prevText` | The "goto previous page" button text (html supported)
+| `nextText` | The "goto next page" button text (html supported)
+| `lastText` | The "goto last page" button text (html supported)
 | `ellipsisText` | the `...` spacer text (html supported)
 
 One smaller screens (`xs`), some of the page buttons will be hidden to ensure pagination
