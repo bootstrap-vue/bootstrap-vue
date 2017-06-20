@@ -48,9 +48,9 @@
         </li>
 
         <!-- Pages links -->
-        <li v-for="page in pageLinks"
+        <li v-for="page in pageList"
             :class="pageItemClasses(page, true)"
-            :key="page"
+            :key="page.number"
         >
             <a :role="buttonRole"
                :class="pageLinkClasses(page)"
@@ -64,7 +64,7 @@
                @click.prevent="setPage($event, page.number)"
                @keydown.enter.prevent="setPage($event, page.number)"
                @keydown.space.prevent="setPage($event, page.number)"
-            >{{ page}}</a>
+            >{{ page.number }}</a>
         </li>
 
         <!-- Last Ellipsis Bookend -->
@@ -112,8 +112,8 @@ function isVisible(el) {
 }
 
 // Make an aray of N to N+X
-function makePageArray(startNum, numEntries) {
-    return Array.apply(null, {length: numEntries}).map(function(value, index){
+function makePageArray(startNum, numPages) {
+    return Array.apply(null, {length: numPages}).map(function(value, index){
         return { number: index + startNum, className: null };
     });
 }
@@ -137,12 +137,12 @@ export default {
         btnSize() {
             return this.size ? `pagination-${this.size}` : '';
         },
-        pageLinks() {
+        pageList() {
             // Sanity checks
             if (this.currentPage > this.numberOfPages) {
-                this.currentPage = this.numberOfPages;
+              this.currentPage = this.numberOfPages;
             } else if (this.currentPage < 1) {
-                this.currentPage = 1;
+              this.currentPage = 1;
             }
 
             // - Hide first ellipsis marker
@@ -150,38 +150,67 @@ export default {
             // - Hide last ellipsis marker
             this.showLastDots = false;
 
-            let numLimks = this.limit;
+            let numLinks = this.limit;
             let startNum = 1;
 
             if (this.numberOfPages <= this.limit) {
-                // Special Case: Less pages available than the limit of displayed pages
-                numLinks = this.numberOfPages;
+              // Special Case: Less pages available than the limit of displayed pages
+              numLinks = this.numberOfPages;
             } else if (this.currentPage < (this.limit - 1) && this.limit > ELLIPSIS_THRESHOLD) {
-                // We are near the beginning of the page list
-                this.showLastDots = true;
-                numLinks = numLinks - 1;
+              // We are near the beginning of the page list
+              numLinks = numLinks - 1;
+              this.showLastDots = true;
             } else if ((this.numberOfPages - this.currentPage + 2) < this.limit && this.limit > ELLIPSIS_THRESHOLD) {
-                // We are near the end of the list
-                this.showFirstDots = true;
-                numLinks = numLinks - 1;
-                startNum = this.numberOfPages - this.limit + 2;
+              // We are near the end of the list
+              this.showFirstDots = true;
+              numLinks = numLinks - 1;
+              startNum = this.numberOfPages - numLinks + 1;
             } else {
-                // We are somewhere in the middle of the page list
-                if (this.limit > ELLIPSIS_THRESHOLD) {
-                    this.showFirstDots = true;
-                    this.showLastDots = true;
-                    numLinks = numLinks - 2;
-                }
-                startNum = this.currentPage - Math.floor(numLinks / 2);
-                if (startNum < 1) {
-                    startNume = 1;
-                } else if (startNum > (this.numberOfPages - numLinks)) {
-                    startNum = this.numberOfPages - numLinks + 1;
-                }
+              // We are somewhere in the middle of the page list
+              if (this.limit > ELLIPSIS_THRESHOLD) {
+                this.showFirstDots = true;
+                this.showLastDots = true;
+                numLinks = numLinks - 2;
+              }
+              startNum = this.currentPage - Math.floor(numLinks / 2);
             }
 
-            // Return list of intermediate page numbers to generate
-            return makeArray(startNum, numLinks);
+            // Sanity checks
+            if (startNum < 1) {
+              startNum = 1;
+            } else if (startNum > (this.numberOfPages - numLinks)) {
+              startNum = this.numberOfPages - numLinks + 1;
+            }
+
+            // Generate list of page numbers
+            const pages = makePageArray(startNum, numLinks);
+
+            // We limit to a total of 3 page buttons on small screens
+            // ellipsis will also be hidden on small screens
+            if (pages.length > 3) {
+                const idx = this.currentPage - startNum;
+                console.log('idx:', idx);
+                if (idx === 0) {
+                    // Keep leftmost 3 buttons visible
+                    for (i = 3; i < pages.length; i++) {
+                        pages[i].className = 'hidden-xs-down';
+                    }
+                } else if (idx === pages.length - 1) {
+                    // Keep rightmost 3 buttons visible
+                    for (i = 0; i < pages.length - 3; i++) {
+                        pages[i].className = 'hidden-xs-down';
+                    }
+                } else {
+                    // hide left buttons
+                    for (i = 0; i < idx - 1; i++) {
+                        pages[i].className = 'hidden-xs-down';
+                    }
+                    // hide right buttons
+                    for (i = pages.length - 1; i > idx + 1; i--) {
+                        pages[i].className = 'hidden-xs-down';
+                    }
+                }
+            }
         }
     },
     methods: {
