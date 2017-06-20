@@ -9,13 +9,13 @@
 
 <script>
 import bLink from './link.vue';
-import { props as linkProps, computed } from '../mixins/link'
+import { props as linkProps, computed, omitLinkProps } from '../mixins/link'
 // copy link props, but exclude defaults for 'href' & 'to'
 // to ensure proper component tag computation
-const linkPropsNoDefaults = Object.assign({}, linkProps, {
+const linkProps = Object.assign(omitLinkProps('href', 'to'), {
     href: { type: linkProps.href.type },
     to: { type: linkProps.to.type }
-})
+});
 
 const actionTags = ['a', 'router-link', 'button', 'b-link'];
 
@@ -54,7 +54,7 @@ export default {
     },
 
     // merge the link props with list-group-item props
-    props: Object.assign(linkPropsNoDefaults, {
+    props: Object.assign(linkProps, {
         action: {
             type: Boolean,
             default: null

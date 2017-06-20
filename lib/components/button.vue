@@ -1,5 +1,5 @@
 <template>
-    <button v-bind="boundProps"
+    <button v-bind="conditionalLinkProps"
             :is="componentType"
             :class="classList"
             :disabled="disabled"
@@ -10,14 +10,13 @@
 
 <script>
 import bLink from './link.vue';
-import { omitLinkProps, props as linkProps } from '../mixins/link';
+import { omitLinkProps, props as linkProps, computed } from '../mixins/link';
 
-// Grab a fresh object of link props
-// less the 'disabled' prop used on the button,
-// and less the 'href' and 'to' props
+// Grab a fresh object of link props (omitLinkProps does this)
+// less the 'href' and 'to' props
 // that we will reconstruct without any defaults
 // so our computed 'componentType' functions properly
-const noConflictLinkProps = Object.assign(omitLinkProps('disabled', 'href', 'to'), {
+const linkProps = Object.assign(omitLinkProps('href', 'to'), {
     href: { type: linkProps.href.type },
     to: { type: linkProps.to.type }
 });
@@ -26,6 +25,8 @@ export default {
     components: { bLink },
 
     computed: {
+        linkProps: computed.linkProps,
+
         classList() {
             return [
                 'btn',
@@ -56,17 +57,13 @@ export default {
             return this.disabled ? 'disabled' : '';
         },
 
-        boundProps() {
-            return this.componentType === 'button' ? {} : Object.keys(noConflictLinkProps).reduce((memo, prop) => {
-                memo[prop] = this[prop];
-
-                return memo;
-            }, {});
+        conditionalLinkProps() {
+            return this.componentType === 'button' ? {} : this.linkProps;
         },
     },
 
     // merge our prepared link props with button props
-    props: Object.assign(noConflictLinkProps, {
+    props: Object.assign(linkProps, {
         block: {
             type: Boolean,
             default: false
