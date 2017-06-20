@@ -345,7 +345,7 @@ export default {
         },
         hideGotoEndButtons: {
             type: Boolean,
-            default: flase
+            default: false
         },
         ariaLabel: {
             type: String,
