@@ -158,19 +158,19 @@ export default {
               numLinks = this.numberOfPages;
             } else if (this.currentPage < (this.limit - 1) && this.limit > ELLIPSIS_THRESHOLD) {
               // We are near the beginning of the page list
-              numLinks = numLinks - 1;
+              numLinks = this.limit - 1;
               this.showLastDots = true;
             } else if ((this.numberOfPages - this.currentPage + 2) < this.limit && this.limit > ELLIPSIS_THRESHOLD) {
               // We are near the end of the list
               this.showFirstDots = true;
-              numLinks = numLinks - 1;
+              numLinks = this.limit - 1;
               startNum = this.numberOfPages - numLinks + 1;
             } else {
               // We are somewhere in the middle of the page list
               if (this.limit > ELLIPSIS_THRESHOLD) {
                 this.showFirstDots = true;
                 this.showLastDots = true;
-                numLinks = numLinks - 2;
+                numLinks = this.limit - 2;
               }
               startNum = this.currentPage - Math.floor(numLinks / 2);
             }
@@ -186,10 +186,9 @@ export default {
             const pages = makePageArray(startNum, numLinks);
 
             // We limit to a total of 3 page buttons on small screens
-            // ellipsis will also be hidden on small screens
+            // Ellipsis will also be hidden on small screens
             if (pages.length > 3) {
                 const idx = this.currentPage - startNum;
-                console.log('idx:', idx);
                 if (idx === 0) {
                     // Keep leftmost 3 buttons visible
                     for (i = 3; i < pages.length; i++) {
@@ -201,11 +200,11 @@ export default {
                         pages[i].className = 'hidden-xs-down';
                     }
                 } else {
-                    // hide left buttons
+                    // hide left button(s)
                     for (i = 0; i < idx - 1; i++) {
                         pages[i].className = 'hidden-xs-down';
                     }
-                    // hide right buttons
+                    // hide right button(s)
                     for (i = pages.length - 1; i > idx + 1; i--) {
                         pages[i].className = 'hidden-xs-down';
                     }
@@ -223,9 +222,7 @@ export default {
                 'page-item',
                 this.disabled ? 'disabled' : '',
                 active ? 'active' : '',
-                page.className,
-                // TODO: move hidden-xs-down + hidden-sm-up to page.className
-                (hideXs && !active && this.numberOfPages >= 5) ? 'hidden-xs-down' : ''
+                page.className
             ];
         },
         pageLinkClasses(page) {
