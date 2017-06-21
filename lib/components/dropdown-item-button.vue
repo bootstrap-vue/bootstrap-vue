@@ -18,7 +18,7 @@ export default {
     },
     methods: {
         onClick(e) {
-            this.$parent.$el.click(e);
+            this.$root.$emit("clicked::link", this);
             this.$emit("click", e);
         },
     }
