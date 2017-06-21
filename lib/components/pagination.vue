@@ -122,7 +122,7 @@ function makePageArray(startNum, numPages) {
 }
 
 // Threshold of limit size when we start/stop showing ellipsis
-const ELLIPSIS_THRESHOLD = 4;
+const ELLIPSIS_THRESHOLD = 3;
 
 export default {
     data() {
