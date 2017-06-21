@@ -2,7 +2,7 @@
     <component :is="myTag"
                :class="classObject"
                ref="item"
-               v-bind="linkProps">
+               v-bind="conditionalLinkProps">
         <slot></slot>
     </component>
 </template>
@@ -10,11 +10,12 @@
 <script>
 import bLink from './link.vue';
 import { props as originalLinkProps, computed, omitLinkProps } from '../mixins/link'
-// copy link props, but exclude defaults for 'href' & 'to'
+// copy link props, but exclude defaults for 'href', 'to', & 'tag'
 // to ensure proper component tag computation
 const linkProps = Object.assign(omitLinkProps('href', 'to'), {
     href: { type: originalLinkProps.href.type },
-    to: { type: originalLinkProps.to.type }
+    to: { type: originalLinkProps.to.type },
+    tag: { type: originalLinkProps.tag.type }
 });
 
 const actionTags = ['a', 'router-link', 'button', 'b-link'];
@@ -34,22 +35,31 @@ export default {
                 this.isAction ? 'list-group-item-action' : null
             ];
         },
+
         isAction() {
             if (this.action === false) {
                 return false;
             }
 
-            return this.action || this.to || this.href || actionTags.includes(this.tag);
+            // this previously could return a string,
+            // coercing to a boolean for more consistent expected value
+            return !!(this.action || this.to || this.href || actionTags.includes(this.tag));
         },
+
         listState() {
             return this.variant ? `list-group-item-${this.variant}` : null;
         },
+
         myTag() {
             if (this.tag) {
                 return this.tag;
             }
 
             return (this.to || this.href) ? 'b-link' : 'div';
+        },
+
+        conditionalLinkProps() {
+            return this.myTag !== 'b-link' ? {} : this.linkProps;
         }
     },
 
