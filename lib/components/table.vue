@@ -12,6 +12,7 @@
                     @keydown.space.stop.prevent="headClicked($event,field,key)"
                     :key="key"
                     :class="fieldClass(field,key)"
+                    :style="field.thStyle || {}"
                     :aria-label="field.sortable ? ((sortDesc && sortBy === key) ? labelSortAsc : labelSortDesc) : null"
                     :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null"
@@ -30,6 +31,7 @@
                     @keydown.space.stop.prevent="headClicked($event,field,key)"
                     :key="key"
                     :class="fieldClass(field,key)"
+                    :style="field.thStyle || {}"
                     :aria-label="field.sortable ? ((sortDesc && sortBy === key) ? labelSortAsc : labelSortDesc) : null"
                     :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null"
@@ -384,7 +386,8 @@
                     field.sortable ? 'sorting' : '',
                     (field.sortable && this.sortBy === key) ? 'sorting_' + (this.sortDesc ? 'desc' : 'asc') : '',
                     field.variant ? ('table-' + field.variant) : '',
-                    field.class ? field.class : ''
+                    field.class ? field.class : '',
+                    field.thClass ? field.thClass : ''
                 ];
             },
             tdClass(field, item, key) {
@@ -395,7 +398,8 @@
                 return [
                     (field.variant && !cellVariant) ? ((this.inverse ? 'bg-' : 'table-') + field.variant) : '',
                     cellVariant,
-                    field.class ? field.class : ''
+                    field.class ? field.class : '',
+                    field.tdClass ? field.tdClass : ''
                 ];
             },
             rowClass(item) {
