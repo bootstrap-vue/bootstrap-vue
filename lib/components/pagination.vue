@@ -45,7 +45,7 @@
         </li>
 
         <!-- First Ellipsis Bookend -->
-        <li v-if="showFirstDots" class="page-item disabled hidden-xs-down" role="seperator">
+        <li v-if="showFirstDots && !noEllipsis" class="page-item disabled hidden-xs-down" role="seperator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
@@ -70,7 +70,7 @@
         </li>
 
         <!-- Last Ellipsis Bookend -->
-        <li v-if="showLastDots" class="page-item disabled hidden-xs-down" role="seperator">
+        <li v-if="showLastDots && !noEllipsis" class="page-item disabled hidden-xs-down" role="seperator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
@@ -386,6 +386,10 @@ export default {
         labelPage: {
             type: String,
             default: 'Goto page'
+        },
+        noEllipsis: {
+            type: Boolean,
+            default: false
         },
         ellipsisText: {
             type: String,
