@@ -19,6 +19,8 @@
 </template>
 
 <script>
+    import warn from '../utils/warn';
+
     export default {
         data() {
             return {
@@ -28,7 +30,7 @@
         },
         created() {
             if (this.state) {
-                console.warn('<b-alert> "state" property is deprecated, please use "variant" property instead.');
+                warn('<b-alert> "state" property is deprecated, please use "variant" property instead.');
             }
         },
         computed: {

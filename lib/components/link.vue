@@ -11,7 +11,7 @@
        :append="append"
        :replace="replace"
        :event="event"
-       :tag="tag"
+       :tag="componentTag"
        :class="linkClassObject"
        @click.native="linkClick">
         <slot></slot>
