@@ -13,7 +13,7 @@
        :event="event"
        :tag="tag"
        :class="linkClassObject"
-       @click="linkClick">
+       @click.native="linkClick">
         <slot></slot>
     </a>
 
