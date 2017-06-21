@@ -13,8 +13,8 @@ Pagination supports selveral props that allow you to customize the apperance.
 
 | Prop | Description
 | ---- | -----------
-| `limit` | Limit the maximum numbr of buttons (including ellipsis if present, but not first/prev/next/last)
-| `total-rows` | The totl number of records in your data
+| `limit` | Limit the maximum numbr of page buttons (including ellipsis if present, but not the first/prev/next/last buttons)
+| `total-rows` | The total number of records in your data
 | `per-page` | The maximum number of data records per page
 | `first-text` | The "goto first page" button text (html supported)
 | `prev-text` | The "goto previous page" button text (html supported)
@@ -28,9 +28,6 @@ Ellipsis inidcator(s) will only be ever shown at the front and/or end of
 the page number buttons. For `limit` values less than or equal to `4`, the ellipsis indicator(s) will never
 be shown for practial display reasons.
 
-`b-pagination` provides various `xxx-label` attributes which are used for `aria-label`
-attributes on the various elements within the component, to help
-assistive technology users
 
 ### Small screen support (`xs`)
 On smaller screens (i.e. mobile), some of the pagination buttons will be hidden to
@@ -42,9 +39,19 @@ minimize the potntial of the pagination interface wraping onto multiple lines:
 This ensures that no more than 3 page number buttons are visible,
 along with the goto _first_, _prev_, _next_, and _last_ buttons.
 
+### Accessibility
+`b-pagination` provides various `xxx-label` attributes which are used for `aria-label`
+attributes on the various elements within the component, to help
+assistive technology users
 
-### events
-- `input` is emitted anytime the page number changes (either programmatically or via user interction)
+Keyboard navigtion is also supported out of the box:
+- Tabbing into the pagination component will autofocus the current page button
+- Left and right arrow keys will focus the previous and next buttons in the page
+list, and `ENTER` and `SAPCE` keys will select (click) the focused page button
+
+### Events
+`b-pagination` provides two events that are emitted on the component:
+- `input` is emitted anytime the page number changes (either programmatically or via user interaction)
 - `change` is emitted only when the page number changes based on user interaction
 
 Both events provide the single argument of the current page number (starting from 1)
