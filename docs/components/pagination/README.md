@@ -25,7 +25,7 @@ Pagination supports selveral props that allow you to customize the apperance.
 | `hide-goto-end-buttons` | never display goto first/last buttons
 
 Ellipsis inidcator(s) will only be ever shown at the front and/or end of
-the page number buttons. For `limit` values less than or equal to `4`, the ellipsis indicator(s) will never
+the page number buttons. For `limit` values less than `4`, the ellipsis indicator(s) will never
 be shown for practial display reasons.
 
 
