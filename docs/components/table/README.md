@@ -26,6 +26,8 @@ Supported field properties:
 | `sortable` | Boolean | Enable sorting on this column
 | `variant` | String | Apply contextual class to column (`active`, `success`, `info`, `warning`, `danger`)
 | `class` | String or Array | Class name (or array of class names) to add to `th` and `td` in the column
+| `thClass` | String or Array | Class name (or array of class names) to add to header/footer `th` cell
+| `tdClass` | String or Array | Class name (or array of class names) to add to data `td` cell
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field header
 
 *Field properties, if not present, default to null*
