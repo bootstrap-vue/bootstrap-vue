@@ -26,8 +26,11 @@ Supported field properties:
 | `sortable` | Boolean | Enable sorting on this column
 | `variant` | String | Apply contextual class to column (`active`, `success`, `info`, `warning`, `danger`)
 | `class` | String or Array | Class name (or array of class names) to add to `th` and `td` in the column
+| `thStyle` | Object | Javscript object representing CSS styles you would like to apply to the table field header
 
 *Field properties, if not present, default to null*
+
+for information on the syntax supported by `thStyle`, see [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles) in the Vue.js guide.
 
 ### `items` Prop
 `items` are real table data record objects in array format. Example format:
