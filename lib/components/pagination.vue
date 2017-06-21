@@ -45,7 +45,7 @@
         </li>
 
         <!-- First Ellipsis Bookend -->
-        <li v-if="showFirstDots && !noEllipsis" class="page-item disabled hidden-xs-down" role="seperator">
+        <li v-if="showFirstDots" class="page-item disabled hidden-xs-down" role="seperator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
@@ -70,7 +70,7 @@
         </li>
 
         <!-- Last Ellipsis Bookend -->
-        <li v-if="showLastDots && !noEllipsis" class="page-item disabled hidden-xs-down" role="seperator">
+        <li v-if="showLastDots" class="page-item disabled hidden-xs-down" role="seperator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
@@ -157,32 +157,36 @@ export default {
             let startNum = 1;
 
             if (this.numberOfPages <= this.limit) {
-              // Special Case: Less pages available than the limit of displayed pages
-              numLinks = this.numberOfPages;
+                // Special Case: Less pages available than the limit of displayed pages
+                numLinks = this.numberOfPages;
             } else if (this.currentPage < (this.limit - 1) && this.limit > ELLIPSIS_THRESHOLD) {
-              // We are near the beginning of the page list
-              numLinks = this.limit - 1;
-              this.showLastDots = true;
+                // We are near the beginning of the page list
+                if (!this.hideEllipsis) {
+                    numLinks = this.limit - 1;
+                    this.showLastDots = true;
+                }
             } else if ((this.numberOfPages - this.currentPage + 2) < this.limit && this.limit > ELLIPSIS_THRESHOLD) {
-              // We are near the end of the list
-              this.showFirstDots = true;
-              numLinks = this.limit - 1;
-              startNum = this.numberOfPages - numLinks + 1;
+                // We are near the end of the list
+                if (!this.hideEllipsis) {
+                    this.showFirstDots = true;
+                    numLinks = this.limit - 1;
+                }
+                startNum = this.numberOfPages - numLinks + 1;
             } else {
-              // We are somewhere in the middle of the page list
-              if (this.limit > ELLIPSIS_THRESHOLD) {
-                this.showFirstDots = true;
-                this.showLastDots = true;
-                numLinks = this.limit - 2;
-              }
-              startNum = this.currentPage - Math.floor(numLinks / 2);
+                // We are somewhere in the middle of the page list
+                if (this.limit > ELLIPSIS_THRESHOLD && !this.hideEllipsis) {
+                    this.showFirstDots = true;
+                    this.showLastDots = true;
+                    numLinks = this.limit - 2;
+                }
+                startNum = this.currentPage - Math.floor(numLinks / 2);
             }
 
             // Sanity checks
             if (startNum < 1) {
-              startNum = 1;
+                startNum = 1;
             } else if (startNum > (this.numberOfPages - numLinks)) {
-              startNum = this.numberOfPages - numLinks + 1;
+                startNum = this.numberOfPages - numLinks + 1;
             }
 
             // Generate list of page numbers
@@ -213,6 +217,8 @@ export default {
                     }
                 }
             }
+            
+            return pages;
         }
     },
     methods: {
@@ -387,7 +393,7 @@ export default {
             type: String,
             default: 'Goto page'
         },
-        noEllipsis: {
+        hideEllipsis: {
             type: Boolean,
             default: false
         },
