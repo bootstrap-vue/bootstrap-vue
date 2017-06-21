@@ -35,7 +35,7 @@ export default {
 
                 // nothing defined except the text
                 if (typeof item === 'string') {
-                    normalizedItem = { text: item, link: '#', active: isLast };
+                    Object.assign(normalizedItem, { text: item, link: '#', active: isLast });
                 } else {
                     Object.assign(normalizedItem, item);
                 }
