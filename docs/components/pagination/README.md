@@ -4,8 +4,9 @@
   It’s great for simple sites like blogs or magazines.
   Provide pagination links for your site or app with the multi-page pagination component.
 
-`b-pagination` is a custom input component that provides a current page number (starting from 1) input.
-The value should be bound via `v-model` in your app.
+`b-pagination` is a custom input component that provides a current page number input control.
+The value should be bound via `v-model` in your app. Page numbers are indexed from 1. The number
+of pages is computed from the provided prop values for `total-rows` and `per-page`.
 
 ### Customizing
 Pagination supports selveral props that allow you to customize the apperance.
@@ -13,17 +14,27 @@ Pagination supports selveral props that allow you to customize the apperance.
 | Prop | Description
 | ---- | -----------
 | `limit` | Limit the maximum numbr of buttons (including ellipsis if present, but not first/prev/next/last)
+| `total-rows` | The totl number of records in your data
+| `per-page` | The maximum number of data records per page
 | `first-text` | The "goto first page" button text (html supported)
 | `prev-text` | The "goto previous page" button text (html supported)
 | `next-text` | The "goto next page" button text (html supported)
 | `last-text` | The "goto last page" button text (html supported)
-| `ellipsis-text` | the `...` spacer text (html supported)
+| `ellipsis-text` | the `...` indicator text (html supported)
 | `hide-ellipsis` | never show ellipsis indicators
 | `hide-goto-end-buttons` | never display goto first/last buttons
 
+Ellipsis inidcator(s) will only be ever shown at the front and/or end of
+the page number buttons. For `limit` values less than or equal to `4`, the ellipsis indicator(s) will never
+be shown for practial display reasons.
+
+`b-pagination` provides various `xxx-label` attributes which are used for `aria-label`
+attributes on the various elements within the component, to help
+assistive technology users
+
 ### Small screen support (`xs`)
-One smaller screens, some of the page buttons will be hidden to ensure pagination
-fits on a single line.
+On smaller screens (i.e. mobile), some of the pagination buttons will be hidden to
+minimize the potntial of the pagination interface wraping onto multiple lines:
 
 - The ellipsis indicators will be hidden on screens `xs` and smaller.
 - Page number buttons will be limitted to a maximum of 3 visible on `xs` screens and smaller.
