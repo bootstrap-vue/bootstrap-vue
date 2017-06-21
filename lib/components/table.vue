@@ -386,7 +386,8 @@
                     field.sortable ? 'sorting' : '',
                     (field.sortable && this.sortBy === key) ? 'sorting_' + (this.sortDesc ? 'desc' : 'asc') : '',
                     field.variant ? ('table-' + field.variant) : '',
-                    field.class ? field.class : ''
+                    field.class ? field.class : '',
+                    field.thClass ? field.thClass : ''
                 ];
             },
             tdClass(field, item, key) {
@@ -397,7 +398,8 @@
                 return [
                     (field.variant && !cellVariant) ? ((this.inverse ? 'bg-' : 'table-') + field.variant) : '',
                     cellVariant,
-                    field.class ? field.class : ''
+                    field.class ? field.class : '',
+                    field.tdClass ? field.tdClass : ''
                 ];
             },
             rowClass(item) {
