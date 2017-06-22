@@ -125,6 +125,26 @@
                 } else {
                     this.$emit('input', newVal);
                 }
+            },
+            value(newVal, oldVal) {
+                if (newVal === oldVal) {
+                    return;
+                }
+
+                // User is clearing the file input
+                if (!newVal) {
+                    try {
+                        // Wrapped in try in case IE < 11 craps out
+                        this.$refs.input.value = '';
+                    } catch (e) {
+                    }
+                    // IE < 11 doesn't support setting file to null
+                    // So we use this little extra hack to reset the value, just in case
+                    this.$refs.input.type = '';
+                    this.$refs.input.type = 'file';
+                    
+                    this.selectedFile = null;
+                }
             }
         },
         methods: {
@@ -217,6 +237,10 @@
             }
         },
         props: {
+            value : {
+                type: [Object, Array],
+                default: null
+            },
             accept: {
                 type: String,
                 default: ''
