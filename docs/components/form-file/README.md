@@ -39,4 +39,31 @@ Also it is advised to use [:lang()](https://developer.mozilla.org/en-US/docs/Web
 }
 ```
 
+### Clearing the file selection
+Because of limitations in the value binding with `<input type="file">` elements, `v-model` for `b-form-file`is
+unidirectional, and cannot be used to set or clear the file(s) selection.  To get around this 
+limitation `b-form-file` provides a `reset()` method that can be called to clear the file input.
+
+To take advantage of the `reset()` method, you will need to obtain a reference to the `b-form-file` component:
+
+```html
+<div id="#app">
+    <b-form-file v-model="file" ref="fileinput"></b-formfile>
+    <b-button @click="clearFiles">Reset</b-button>
+</div>
+```
+
+```js
+window.app = new Vue({
+    el: '#app',
+    data: {
+        file: null
+    },
+    methods: {
+        clearFiles() {
+            this.$refs.fileinput.reset();
+        }
+    }
+});
+```
 
