@@ -82,13 +82,38 @@
     import bBtn from './button.vue';
 
     const FOCUS_SELECTOR = [
-        'button:not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
-        'input:not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
-        'select:not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
-        'textarea:not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
-        'a:not([disabled]):not(.disabled):not([style*="display: none"]):not([style*="display:none"])',
-        '[tabindex]:not([disabled]):not(.disabled):not([style*="display: none"]):not([style*="display:none"])'
+        'button:not([disabled])',
+        'input:not([disabled])',
+        'select:not([disabled])',
+        'textarea:not([disabled])',
+        'a:not([disabled]):not(.disabled)',
+        '[tabindex]:not([disabled]):not(.disabled)'
     ].join(',');
+
+    // Determine if an HTML element is visible - Faster than CSS check
+    function isVisible(el) {
+        return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
+    }
+    
+    // Find the first visible element contained in a given root element
+    function findFirstVisible(root, selector) {
+        if (!root || !root.querySelectorAll || !selector) {
+            return null;
+        }
+        let els = Array.prototype.slice.call(root.querySelectorAll(selector));
+
+        /* IE 10 & 11 do not support native array.find() */
+        /* return els.find(el => isVisible(el)); */
+        let el = null;
+        let i = 0;
+        while (!el && i < els.length) {
+            if (isVisible(els[i])) {
+                el = els[i];
+            }
+            i++;
+        }
+        return el;
+    }
 
     export default {
         components: {bBtn},
@@ -260,13 +285,13 @@
                 // Focus the modal's first focusable item, searching footer, then body, then header, else the modal
                 let el;
                 if (this.$refs.footer) {
-                    el = this.$refs.footer.querySelector(FOCUS_SELECTOR);
+                    el = findFirstVisible(this.$refs.footer, FOCUS_SELECTOR);
                 }
                 if (!el && this.$refs.body) {
-                    el = this.$refs.body.querySelector(FOCUS_SELECTOR);
+                    el = findFirstVisible(this.$refs.body, FOCUS_SELECTOR);
                 }
                 if (!el && this.$refs.header) {
-                    el = this.$refs.header.querySelector(FOCUS_SELECTOR);
+                    el = findFirstVisible(this.$refs.header, FOCUS_SELECTOR);
                 }
                 if (!el) {
                     el = this.$refs.content;
