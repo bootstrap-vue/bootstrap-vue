@@ -95,7 +95,7 @@
         return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
     }
     
-    // Find hte first visible element
+    // Find the first visible element contained in a given root element
     function findFirstVisible(root, selector) {
         if (!root || !root.querySelectorAll || !selector) {
             return null;
