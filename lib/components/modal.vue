@@ -105,9 +105,9 @@
         /* return els.find(el => isVisible(el)); */
         let el = null;
         let i = 0;
-        while (!el || i < els.length) {
-            if (isVisible(els[i]) {
-                els = els[i];
+        while (!el && i < els.length) {
+            if (isVisible(els[i])) {
+                el = els[i];
             }
             i++;
         }
