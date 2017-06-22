@@ -101,7 +101,8 @@
             return null;
         }
         let els = Array.prototype.slice.call(root.querySelectorAll(selector));
-        
+
+        /* IE 10 & 11 do not support native array.find() */
         /* return els.find(el => isVisible(el)); */
         let el = null;
         let i = 0;
