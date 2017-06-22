@@ -141,7 +141,7 @@
                 this.$refs.input.type = '';
                 this.$refs.input.type = 'file';
 
-                this.selectedFile = null;
+                this.selectedFile = this.multiple ? [] : null;
             },
             onFileChange(e) {
                 // Always emit original event
