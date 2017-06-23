@@ -50,8 +50,16 @@
 
                         <footer class="modal-footer" ref="footer" v-if="!hideFooter">
                             <slot name="modal-footer">
-                                <b-btn variant="secondary" @click="hide(false)" v-if="!okOnly">{{closeTitle}}</b-btn>
-                                <b-btn variant="primary" @click="hide(true)" :disabled="okDisabled">{{okTitle}}</b-btn>
+                                <b-btn v-if="!okOnly"
+                                       variant="secondary"
+                                       :size="buttonSize"
+                                       @click="hide(false)"
+                                >{{closeTitle}}</b-btn>
+                                <b-btn variant="primary"
+                                       :size="buttonSize"
+                                       :disabled="okDisabled"
+                                       @click="hide(true)"
+                                >{{okTitle}}</b-btn>
                             </slot>
                         </footer>
 
@@ -158,6 +166,10 @@
                 type: String,
                 default: 'md'
             },
+            buttonSize: {
+                type: String,
+                default: 'md'
+            },  
             noFade: {
                 type: Boolean,
                 default: false
