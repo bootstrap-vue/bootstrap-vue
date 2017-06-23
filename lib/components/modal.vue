@@ -54,14 +54,12 @@
                                        variant="secondary"
                                        :size="buttonSize"
                                        @click="hide(false)"
-                                       v-html="closeTitle"
-                                ></b-btn>
+                                ><slot name="modal-cancel">{{ closeTitle }}</slot></b-btn>
                                 <b-btn variant="primary"
                                        :size="buttonSize"
                                        :disabled="okDisabled"
                                        @click="hide(true)"
-                                       v-html="okTitle"
-                                ></b-btn>
+                                ><slot name="modal-ok">{{ okTitle }}</slot></b-btn>
                             </slot>
                         </footer>
 
