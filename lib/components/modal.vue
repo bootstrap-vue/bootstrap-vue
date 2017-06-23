@@ -36,7 +36,7 @@
                                 <button type="button"
                                         v-if="!hideHeaderClose"
                                         class="close"
-                                        :aria-label="closeTitle"
+                                        :aria-label="headerCloseLabel"
                                         @click="hide"
                                 >
                                     <span aria-hidden="true">&times;</span>
@@ -50,8 +50,16 @@
 
                         <footer class="modal-footer" ref="footer" v-if="!hideFooter">
                             <slot name="modal-footer">
-                                <b-btn variant="secondary" @click="hide(false)" v-if="!okOnly">{{closeTitle}}</b-btn>
-                                <b-btn variant="primary" @click="hide(true)" :disabled="okDisabled">{{okTitle}}</b-btn>
+                                <b-btn v-if="!okOnly"
+                                       variant="secondary"
+                                       :size="buttonSize"
+                                       @click="hide(false)"
+                                ><slot name="modal-cancel">{{ closeTitle }}</slot></b-btn>
+                                <b-btn variant="primary"
+                                       :size="buttonSize"
+                                       :disabled="okDisabled"
+                                       @click="hide(true)"
+                                ><slot name="modal-ok">{{ okTitle }}</slot></b-btn>
                             </slot>
                         </footer>
 
@@ -102,15 +110,13 @@
         }
         let els = Array.prototype.slice.call(root.querySelectorAll(selector));
 
-        /* IE 10 & 11 do not support native array.find() */
-        /* return els.find(el => isVisible(el)); */
-        let el = null;
-        let i = 0;
-        while (!el && i < els.length) {
+        // IE 10 & 11 do not support native array.find()
+        // So we try native find first, then fall back to a loop
+        let el = els.find ? els.find(el => isVisible(el)) : null;
+        for (let i = 0; !el && i < els.length; i++) {
             if (isVisible(els[i])) {
                 el = els[i];
             }
-            i++;
         }
         return el;
     }
@@ -160,6 +166,10 @@
                 type: String,
                 default: 'md'
             },
+            buttonSize: {
+                type: String,
+                default: 'md'
+            },  
             noFade: {
                 type: Boolean,
                 default: false
@@ -169,6 +179,10 @@
                 default: false
             },
             noCloseOnEsc: {
+                type: Boolean,
+                default: false
+            },
+            noAutoFocus: {
                 type: Boolean,
                 default: false
             },
@@ -198,6 +212,10 @@
             },
             returnFocus: {
                 default: null
+            },
+            headerCloseLabel: {
+                type: String,
+                default: 'Close'
             },
             closeTitle: {
                 type: String,
@@ -242,7 +260,7 @@
 
                 // Emit events
                 this.$emit('change', false);
-                this.$emit('hide',e);
+                this.$emit('hide', e);
 
                 if (isOK === true) {
                     this.$emit('ok', e);
@@ -277,23 +295,31 @@
                 }
             },
             focusFirst() {
+                // Don't try and focus if we are SSR
+                if (typeof document !== 'undefined') {
+                    return;
+                }
+
                 // If activeElement is child of content, no need to change focus
                 if (document.activeElement && this.$refs.content.contains(document.activeElement)) {
                     return;
                 }
 
-                // Focus the modal's first focusable item, searching footer, then body, then header, else the modal
                 let el;
-                if (this.$refs.footer) {
-                    el = findFirstVisible(this.$refs.footer, FOCUS_SELECTOR);
-                }
-                if (!el && this.$refs.body) {
-                    el = findFirstVisible(this.$refs.body, FOCUS_SELECTOR);
-                }
-                if (!el && this.$refs.header) {
-                    el = findFirstVisible(this.$refs.header, FOCUS_SELECTOR);
+                if (!this.noAutoFocus) {
+                    // Focus the modal's first focusable item, searching body, footer, then header
+                    if (this.$refs.body) {
+                        el = findFirstVisible(this.$refs.body, FOCUS_SELECTOR);
+                    }
+                    if (!el && this.$refs.footer) {
+                        el = findFirstVisible(this.$refs.footer, FOCUS_SELECTOR);
+                    }
+                    if (!el && this.$refs.header) {
+                        el = findFirstVisible(this.$refs.header, FOCUS_SELECTOR);
+                    }
                 }
                 if (!el) {
+                    // Focus the modal content wrapper
                     el = this.$refs.content;
                 }
                 if (el && el.focus) {
@@ -301,14 +327,19 @@
                 }
             },
             returnFocusTo() {
-                if (this.return_focus) {
-                    const el = (typeof this.return_focus === 'string') ?
-                        document.querySelector(this.returnFocus) :
-                        this.return_focus;
+                // Prrefer returnFocus prop over event specified value
+                let el = this.returnFocus || this.return_focus || null;
 
+                if (el) {
+                    if (typeof el === 'string') {
+                        // CSS Selector
+                        el = document.querySelector(el);
+                    }
                     if (el && el.$el && typeof el.$el.focus === 'function') {
+                        // Component vm reference
                         el.$el.focus();
                     } else if (el && typeof el.focus === 'function') {
+                        // Plain element
                         el.focus();
                     }
                 }
@@ -328,7 +359,7 @@
         created() {
             this.$root.$on('show::modal', (id, triggerEl) => {
                 if (id === this.id) {
-                    this.return_focus = triggerEl || this.return_focus || this.returnFocus || null;
+                    this.return_focus = triggerEl || null;
                     this.show();
                 }
             });
