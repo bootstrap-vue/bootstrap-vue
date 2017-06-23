@@ -58,6 +58,14 @@
     {
       "name": "modal-footer",
       "description": "Modal footer content. Also removes default OK and CANCEL buttons."
+    },
+    {
+      "name": "modal-ok",
+      "description": "Modal OK button content."
+    },
+    {
+      "name": "modal-close",
+      "description": "Modal Close button content."
     }
   ]
 }
