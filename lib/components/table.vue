@@ -35,7 +35,7 @@
                     :aria-label="field.sortable ? ((sortDesc && sortBy === key) ? labelSortAsc : labelSortDesc) : null"
                     :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null"
-                >            
+                >
                   <slot v-if="$scopedSlots['FOOT_'+key]" :name="'FOOT_'+key" :label="field.label" :column="key" :field="field">
                     <div v-html="field.label"></div>
                   </slot>
@@ -75,6 +75,8 @@
 </template>
 
 <script>
+    import warn from '../utils/warn';
+
     const toString = v => {
         if (!v) {
             return '';
@@ -134,7 +136,7 @@
                 default: () => {
                     if (this.itemsProvider) {
                         // Deprecate itemsProvider
-                        console.warn('b-table: prop items-provider has been deprecated. Pass a function to items instead');
+                        warn('b-table: prop items-provider has been deprecated. Pass a function to items instead');
                         return this.itemsProvider;
                     }
                     return [];

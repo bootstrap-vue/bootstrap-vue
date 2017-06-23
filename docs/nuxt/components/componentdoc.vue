@@ -63,7 +63,7 @@
                 if (component) {
                     props = component.options.props;
                 }
-                const hasRequied = props.length > 0 && props.filter(p => p.required).length > 0;
+                const hasRequired = props.length > 0 && props.filter(p => p.required).length > 0;
 
                 const fields = {
                     prop: {label: 'Property'},
@@ -128,9 +128,9 @@
                     }
 
                     default_val = (default_val || '').replace(/"/g, '\'');
-                    
+
                     // Requied prop?
-                    required = p.required ? 'Yes' : '';
+                    const required = p.required ? 'Yes' : '';
 
                     return {
                         prop: _.kebabCase(prop),

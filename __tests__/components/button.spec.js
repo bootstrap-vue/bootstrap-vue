@@ -83,6 +83,7 @@ describe('button', async() => {
         vm.$on('click', spy)
         vm.$el.click()
 
+        expect(vm.disabled).toBe(true)
         expect(vm.$el.disabled).toBe(true)
         expect(spy).not.toHaveBeenCalled()
     })
