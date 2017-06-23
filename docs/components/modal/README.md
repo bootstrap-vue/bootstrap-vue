@@ -127,13 +127,8 @@ methods: {
 ### Prevent Closing
 
 To prevent modal from closing (for example when validation fails)
-you can call the `cancel()` method of the event object passed to the `ok`,
-`cancel` and `hide` component events.
-
-Note that events `ok` and `cancel` are emitted by modal's built in **OK** and **Close**
-buttons respectively. These events will, by default, not be emitted if you have provided your own 
-buttons in the `modal-footer` slot or have hidden the footer. In this case use the `hide` event
-to control cancelling of the modal close.
+you can call the `cancel()` method of the event object passed to your `ok` (**OK** button),
+`cancel` (**Close** button) and `hide` event handlers.
 
 ```html
 <b-modal @hide="save">
@@ -161,9 +156,14 @@ methods: {
 }
 ```
 
+Note that events `ok` and `cancel` are emitted by modal's built in **OK** and **Close**
+buttons respectively. These events will, by default, not be emitted if you have provided your own 
+buttons in the `modal-footer` slot or have hidden the footer. In this case use the `hide` event
+to control cancelling of the modal close.
+
 The close event object contans a single property and a single method:
 
-| Propery Or Method | Type | Description
+| Propery or Method | Type | Description
 | ------------ | ------ | --------------------------------------------
 | `e.cancel()` | Method | When called prevents the modal from closing
 | `isOK` | Prroperty | Will be one of: `true` (Default **OK** Clicked), `false` (Default **Close** clicked), the argument provided to the `hide()` method, or `undefined` otherwise (i.e. close on Esc, or close on backdrop click)
@@ -174,7 +174,7 @@ will be only emitted when the argument to `hide()` is strictly `true`
 or `fase` respectively. the argument passed to `hide()` will be placed into the
 `isOK` property ofthe close event object.
 
-### Accesibility
+### Accessibility
 
 `b-modal` provides several accessibility features, including auto focus, return
 focus, and keyboard (tab) _focus containment_.
@@ -219,7 +219,20 @@ methods: {
 }
 ```
 
-#### Returning focus to the triggering element
+To disable the auto-focus feature, add the prop `no-auto-focus` on the
+component. This will disable searching for a focusable element within 
+body, footer, and header. With `no-auto-focus` set, the modal-content
+will be focused instead.
+
+`no-auto-focus`may be required when you have modal with long body content (without 
+focusable items) that causes the modal to overflow the height of the viewport, 
+and in-turn automatically scrolls down to the footer buttons.
+
+#### Returning focus to the triggering element on modal close
+
+For accessibility reasons, it is desireable to return focus to the element
+that triggered the opening of the modal, when the modal closes.  `b-modal`
+provides several methods and options for returning focus to the triggering element.
 
 ##### Specify Return Focus Element via the `return-focus` Prop:
 
