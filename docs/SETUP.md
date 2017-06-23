@@ -60,9 +60,8 @@ UMD            | Browser                      | `dist/bootstrap-vue.js`
 
 ## Advanced Tips
 
-### auto generated ids
-Some HTML tags like `aria-*` and `for` need dom id reference in order to get working.
-They are automatically added if `id` attribute is available on target element and it is *highly recommended adding them manually*.
-For enabling auto generated ids you can set `window.UNSAFE_UID` or `process.env.UNSAFE_UID` 
-to `true` but it is highly discouraged as `_uid` is internal and should not be used as part of the application state. [vuejs/vue#5573](https://github.com/vuejs/vue/issues/5573)
-Enabling may also introduce problems if you are using SSR.
+### ARIA compliance
+Some HTML tags like `aria-*` and `for` need a dom `id` reference in order to get it working.
+The attributes are automatically added if `id` attribute is available on target
+element and it is *highly recommended adding a unique `id`* to each component. Components that
+benefit from `id` for ARIA will have `id` listed in their props in the documentation.

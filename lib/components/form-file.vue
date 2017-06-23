@@ -128,6 +128,21 @@
             }
         },
         methods: {
+            reset() {
+                try {
+                    // Wrapped in try in case IE < 11 craps out
+                    this.$refs.input.value = '';
+                } catch (e) {
+                }
+
+                // IE < 11 doesn't support setting input.value to '' or null
+                // So we use this little extra hack to reset the value, just in case
+                // This also appears to work on modern browsers as well.
+                this.$refs.input.type = '';
+                this.$refs.input.type = 'file';
+
+                this.selectedFile = this.multiple ? [] : null;
+            },
             onFileChange(e) {
                 // Always emit original event
                 this.$emit('change', e);

@@ -4,6 +4,7 @@
   "jsfiddle": "8205xLmk",
   "components": [
     "bDropdownItem",
+    "bDropdownItemButton",
     "bDropdownHeader",
     "bDropdownDivider"
   ],
