@@ -62,4 +62,6 @@ UMD            | Browser                      | `dist/bootstrap-vue.js`
 
 ### ARIA compliance
 Some HTML tags like `aria-*` and `for` need a dom `id` reference in order to get it working.
-The attributes are automatically added if `id` attribute is available on target element and it is *highly recommended adding `id`* to each component.
+The attributes are automatically added if `id` attribute is available on target
+element and it is *highly recommended adding a unique `id`* to each component. Components that
+benefit from `id` for ARIA will have `id` listed in their props in the documentation.
