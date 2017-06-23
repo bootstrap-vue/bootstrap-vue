@@ -36,7 +36,7 @@
                                 <button type="button"
                                         v-if="!hideHeaderClose"
                                         class="close"
-                                        :aria-label="closeTitle"
+                                        :aria-label="headerCloseLabel"
                                         @click="hide"
                                 >
                                     <span aria-hidden="true">&times;</span>
@@ -196,6 +196,10 @@
             },
             returnFocus: {
                 default: null
+            },
+            headerCloseLabel: {
+                type: String,
+                default: 'Close'
             },
             closeTitle: {
                 type: String,
