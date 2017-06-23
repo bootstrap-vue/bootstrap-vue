@@ -240,7 +240,7 @@
 
                 // Emit events
                 this.$emit('change', false);
-                this.$emit('hide',e);
+                this.$emit('hide', e);
 
                 if (isOK === true) {
                     this.$emit('ok', e);
@@ -280,16 +280,16 @@
                     return;
                 }
 
-                // Focus the modal's first focusable item, searching body, then header, then footer, else the modal
+                // Focus the modal's first focusable item, searching body, then footer, then header, else the modal
                 let el;
                 if (this.$refs.body) {
                     el = findFirstVisible(this.$refs.body, FOCUS_SELECTOR);
                 }
-                if (!el && this.$refs.header) {
-                    el = findFirstVisible(this.$refs.header, FOCUS_SELECTOR);
-                }
                 if (!el && this.$refs.footer) {
                     el = findFirstVisible(this.$refs.footer, FOCUS_SELECTOR);
+                }
+                if (!el && this.$refs.header) {
+                    el = findFirstVisible(this.$refs.header, FOCUS_SELECTOR);
                 }
                 if (!el) {
                     el = this.$refs.content;
@@ -299,14 +299,19 @@
                 }
             },
             returnFocusTo() {
-                if (this.return_focus) {
-                    const el = (typeof this.return_focus === 'string') ?
-                        document.querySelector(this.returnFocus) :
-                        this.return_focus;
+                // Prrefer returnFocus prop over event specified value
+                let el = this.returnFocus || this.return_focus || null;
 
+                if (el) {
+                    if (typeof el === 'string') {
+                        // CSS Selector
+                        el = document.querySelector(el);
+                    }
                     if (el && el.$el && typeof el.$el.focus === 'function') {
+                        // Component vm reference
                         el.$el.focus();
                     } else if (el && typeof el.focus === 'function') {
+                        // Plain element
                         el.focus();
                     }
                 }
@@ -326,7 +331,7 @@
         created() {
             this.$root.$on('show::modal', (id, triggerEl) => {
                 if (id === this.id) {
-                    this.return_focus = triggerEl || this.return_focus || this.returnFocus || null;
+                    this.return_focus = triggerEl || null;
                     this.show();
                 }
             });
