@@ -6,6 +6,7 @@
            :name="name"
            :id="id || null"
            :disabled="disabled"
+           :readonly="readonly"
            :is="textarea?'textarea':'input'"
            :class="['form-control',inputClass]"
            :rows="rows || rowsCount"
@@ -71,6 +72,10 @@
             type: {
                 type: String,
                 default: 'text'
+            },
+            readonly: {
+                type: Boolean,
+                default: false
             },
             static: {
                 type: Boolean,
