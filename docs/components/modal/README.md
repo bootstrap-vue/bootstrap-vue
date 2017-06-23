@@ -4,8 +4,22 @@
   They support a number of use cases from user notification to completely custom content and feature
   a handful of helpful sub-components, sizes, accessibility, and more.
 
-Modals, by default, have an OK and a Cancel button.  These buttons can be cusomized
-by setting various props on the component.
+Modals, by default, have an **OK** and a **Close** button in the footer. These buttons can
+be cusomized by setting various props on the component. You can cusomize the size of the buttons,
+disable the **OK** button, hide the **Close** button (i.e. OK Only), and provide custom
+button content using the `ok-title` and `close-title` props, or using the named
+slots `modal-ok` and `modal-close`.
+
+`b-modal` supports close on ESC (enabled by default), close on backdrop click (enabled by default), and 
+the `X` close button in the header (by default). HTese features may be disabled by setting the the
+props `no-close-on-esc`, `no-close-on-backdrop`, and `hide-header-close` respectively.
+
+You can override the modal title via the named slot `modal-title`, override the
+header completely via the `modal-header` slot, and override the footer completely
+via the `modal-footer` slot. Note when using the `modal-footer` slot the default
+**OK** and **Close** buttons will not be present. If you use the `modal-header`
+slot the default header `X` close button will not be present, nor can you use
+the `modal-title` slot.
 
 ### Toggle Modal Visibility
 
@@ -25,6 +39,9 @@ Other elements can easily show modals using `v-b-modal` directive.
     Hello From Modal 1!
 </b-modal>
 ```
+
+Focus will automatically be returned to the trigger element once the modal closes.
+See the  **Accessibility** section below for details.
 
 #### Using `show()` and `hide()` component methods.
 
@@ -51,6 +68,9 @@ methods: {
 }
 ```
 
+The `hide()` method accepts an optional argument. See section **Prevent Closing**
+below for details.
+
 #### Using `v-model` property.
 
 `v-model` property is always automatically synced with modal state and you
@@ -76,11 +96,11 @@ When using the `v-model` property, do not use the `visible` property at the same
 
 #### Directly emiting events
 
-You can emit `show::modal` and `hide::modal` event on `$root` with single
-argument which is the modal's id.
+You can emit `show::modal` and `hide::modal` event on `$root` with first
+argument which is the modal's id:
 
 ```html
-<b-button @click="showModal">
+<b-button @click="showModal" ref="btnShow">
     Open Modal
 </b-button>
 <b-modal id="modal1">
@@ -96,6 +116,9 @@ methods: {
     },
     hideModal() {
         this.$root.$emit('hide::modal','modal1');
+        // Return focus to our Open Modal button
+        // See accessibility below for additional return-focus methods
+        this.$refs.btnShow.$el.focus();
     }
 }
 ```
@@ -107,9 +130,9 @@ To prevent modal from closing (for example when validation fails)
 you can call the `cancel()` method of the event object passed to the `ok`,
 `cancel` and `hide` component events.
 
-Note that events `ok` and `cancel` are emitted by modal's built in **OK** and **Cancel**
-buttons respectively. These events will not be emiited if you have provided your own 
-buttons in the `footer` slot or have hidden the footer. In this case use the `hide` event
+Note that events `ok` and `cancel` are emitted by modal's built in **OK** and **Close**
+buttons respectively. These events will, by default, not be emitted if you have provided your own 
+buttons in the `modal-footer` slot or have hidden the footer. In this case use the `hide` event
 to control cancelling of the modal close.
 
 ```html
@@ -137,6 +160,19 @@ methods: {
     }
 }
 ```
+
+The close event object contans a single property and a single method:
+
+| Propery Or Method | Type | Description
+| ------------ | ------ | --------------------------------------------
+| `e.cancel()` | Method | When called prevents the modal from closing
+| `isOK` | Prroperty | Will be one of: `true` (Default **OK** Clicked), `false` (Default **Close** clicked), the argument provided to the `hide()` method, or `undefined` otherwise (i.e. close on Esc, or close on backdrop click)
+
+You can set the value of `isOK` by passing an argument to the component's
+`hide()` method for advanced control. Note: The `ok` and `cancel` events
+will be only emitted when the argument to `hide()` is strictly `true`
+or `fase` respectively. the argument passed to `hide()` will be placed into the
+`isOK` property ofthe close event object.
 
 ### Accesibility
 
@@ -185,7 +221,7 @@ methods: {
 
 #### Returning focus to the triggering element
 
-##### Specify Return Focus Element via the `return-focus` Prop
+##### Specify Return Focus Element via the `return-focus` Prop:
 
 You can also specify an element to return focus to, when modal closes, by setting
 the `return-focus` prop to one of the folowing:
@@ -200,13 +236,13 @@ This method for returning focus is handy when you use the modal's `show()`
 and `hide()` methods, or the `v-model` prop. Note this property takes
 precedence over other methods of specifying the return focus element.
 
-##### Auto Return Focus
+##### Auto Return Focus:
 
 When modal is opened via the `v-b-modal` directive on an element, focus will be
-returend to this element automatically when modal closes, unless an element has
+returned to this element automatically when modal closes, unless an element has
 been specified via the `return-focus` prop.
 
-##### Specify Return Focus via Event
+##### Specify Return Focus via Event:
 
 When using the `show::modal` event (emitted on `$root`), you can specify a second argument
 which is the element to return focus to.  This argument accepts the same types
@@ -216,7 +252,7 @@ as the `return-focus` prop.
 this.$root.$emit('show::modal', 'modal1', '#focusThisOnClose');
 ```
 
-Tip: if using a click evnet (or similar) to trigger modal to open, pass the
+Tip: if using a click event (or similar) to trigger modal to open, pass the
 event's `target` property:
 
 ```html
