@@ -102,15 +102,13 @@
         }
         let els = Array.prototype.slice.call(root.querySelectorAll(selector));
 
-        /* IE 10 & 11 do not support native array.find() */
-        /* return els.find(el => isVisible(el)); */
-        let el = null;
-        let i = 0;
-        while (!el && i < els.length) {
+        // IE 10 & 11 do not support native array.find()
+        // So we try native find first, then fall back to a loop
+        let el = els.find ? els.find(el => isVisible(el)) : null;
+        for (let i = 0; !el && i < els.length; i++) {
             if (isVisible(els[i])) {
                 el = els[i];
             }
-            i++;
         }
         return el;
     }
@@ -282,16 +280,16 @@
                     return;
                 }
 
-                // Focus the modal's first focusable item, searching footer, then body, then header, else the modal
+                // Focus the modal's first focusable item, searching body, then header, then footer, else the modal
                 let el;
-                if (this.$refs.footer) {
-                    el = findFirstVisible(this.$refs.footer, FOCUS_SELECTOR);
-                }
-                if (!el && this.$refs.body) {
+                if (this.$refs.body) {
                     el = findFirstVisible(this.$refs.body, FOCUS_SELECTOR);
                 }
                 if (!el && this.$refs.header) {
                     el = findFirstVisible(this.$refs.header, FOCUS_SELECTOR);
+                }
+                if (!el && this.$refs.footer) {
+                    el = findFirstVisible(this.$refs.footer, FOCUS_SELECTOR);
                 }
                 if (!el) {
                     el = this.$refs.content;
