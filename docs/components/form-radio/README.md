@@ -1,4 +1,4 @@
-# Forms Radio
+# Form Radio Input
 
 > For cross browser consistency, `b-form-radio` uses Bottstrap's custom
 radio input to replace the browser default radio input. It is built on top of
