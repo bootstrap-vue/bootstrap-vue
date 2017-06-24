@@ -28,7 +28,7 @@ You can also use the `b-form-input-static` component to create static form contr
 ### Control sizing
 Set heights using thw `size` prop to `sm` or `lg` for small or large respectively.
 
-To control width, place the input inside standard Bootstrap grid columns.
+To control width, place the input inside standard Bootstrap grid column.
 
 ### Contextual States
 Bootstrap includes validation styles for danger, warning, and success states on most form controls.
@@ -41,7 +41,7 @@ soft validation before a user attempts to submit a form.
 - `success` is ideal for situations when you have per-field validation throughout a form
 and want to encourage a user through the rest of the fields.
 
-To apply one ofhte contextual steates on `b-form-input`, set the `state` prop
+To apply one of the contextual steates on `b-form-input`, set the `state` prop
 to `danger`, `warning`, or `success`.
 
 #### Conveying contextual validation state to assistive technologies and colorblind users:
