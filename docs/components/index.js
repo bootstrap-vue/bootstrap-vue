@@ -11,6 +11,7 @@ export default {
     'carousel': require('./carousel').default,
     'collapse': require('./collapse').default,
     'dropdown': require('./dropdown').default,
+    'form': require('./form').default,
     'form-checkbox': require('./form-checkbox').default,
     'form-fieldset': require('./form-fieldset').default,
     'form-file': require('./form-file').default,
