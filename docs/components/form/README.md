@@ -3,7 +3,7 @@
 > Bootstrap form component that optionally supports inline form styles
 
 ### Inline form
-Set the `inline` property to generate an inline form.
+Set the `inline` property to generate a Bootstrap inline form.
 
 ### Related components
 See also:
