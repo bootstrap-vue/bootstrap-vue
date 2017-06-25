@@ -1,6 +1,6 @@
 <template>
     <div :id="id || null"
-         :class="[inputClass, this.stacked?'custom-controls-stacked':'']"
+         :class="[inputState, this.stacked?'custom-controls-stacked':'']"
          role="radiogroup"
     >
         <label :class="[checkboxClass,custom?'custom-radio':null]" v-for="option in formOptions">
@@ -33,7 +33,7 @@
             };
         },
         computed: {
-            inputClass() {
+            inputState() {
                 return this.state ? `has-${this.state}` : '';
             }
         },
