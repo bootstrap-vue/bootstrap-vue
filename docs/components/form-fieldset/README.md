@@ -1,4 +1,4 @@
-# Form fieldset
+# Form fieldset (Form group)
 
 > The `b-form=fieldset` component is the easiest way to add some structure to forms. Its
 purpose is to provide a label and control pairing, help text and feedback text, as well
