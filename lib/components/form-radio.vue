@@ -33,7 +33,7 @@
             };
         },
         computed: {
-            inputState() {
+            inputClass() {
                 return this.state ? `has-${this.state}` : '';
             }
         },
