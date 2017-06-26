@@ -52,11 +52,11 @@ import {bAlert, bBtn} from 'bootstrap-vue/lib/components'
 Choosing the best variant for your build environment / packager helps less bundle sizes.
 If your bundler supports es modules, it will automatically prefer it over commonjs.
 
-Variant        | Environments                 | Package path
----------------|------------------------------|------------------------------------------------------------------------
-**ES Module**  | Webpack 2 / Rollup           | `dist/bootstrap-vue.esm.js`
-commonjs2      | Webpack 1 / ...              | `dist/bootstrap-vue.common.js`
-UMD            | Browser                      | `dist/bootstrap-vue.js`
+| Variant        | Environments         | Package path
+| -------------- | -------------------- | -----------------------------------
+| **ES Module**  | Webpack 2 / Rollup   | `dist/bootstrap-vue.esm.js`
+| commonjs2      | Webpack 1 / ...      | `dist/bootstrap-vue.common.js`
+| UMD            | Browser              | `dist/bootstrap-vue.js`
 
 ## Advanced Tips
 
