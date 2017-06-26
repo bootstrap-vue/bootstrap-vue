@@ -24,10 +24,8 @@ const linkProps = Object.assign(omitLinkProps('href', 'to'), {
 
 export default {
     components: { bLink },
-
     computed: {
         linkProps: computed.linkProps,
-
         classList() {
             return [
                 'btn',
@@ -37,36 +35,28 @@ export default {
                 this.btnDisabled
             ];
         },
-
         componentType() {
             return (this.href || this.to) ? 'b-link' : 'button';
         },
-
         btnBlock() {
             return this.block ? `btn-block` : '';
         },
-
         btnVariant() {
             return this.variant ? `btn-${this.variant}` : `btn-secondary`;
         },
-
         btnSize() {
             return this.size ? `btn-${this.size}` : '';
         },
-
         btnDisabled() {
             return this.disabled ? 'disabled' : '';
         },
-        
         btnType() {
             return (this.href || this.to) ? null : this.type; 
         },
-
         conditionalLinkProps() {
             return this.componentType === 'button' ? {} : this.linkProps;
         }
     },
-
     // merge our prepared link props with button props
     props: Object.assign(linkProps, {
         block: {
@@ -90,7 +80,6 @@ export default {
             default: 'button'
         }
     }),
-
     methods: {
         onClick(e) {
             if (this.disabled) {
