@@ -28,7 +28,6 @@ Ellipsis inidcator(s) will only be ever shown at the front and/or end of
 the page number buttons. For `limit` values less than or equal to `3`, the ellipsis
 indicator(s) will never be shown for practial display reasons.
 
-
 ### Small screen support (`xs`)
 On smaller screens (i.e. mobile), some of the pagination buttons will be hidden to
 minimize the potntial of the pagination interface wraping onto multiple lines:
@@ -40,14 +39,29 @@ This ensures that no more than 3 page number buttons are visible,
 along with the goto _first_, _prev_, _next_, and _last_ buttons.
 
 ### Accessibility
-`b-pagination` provides various `xxx-label` attributes which are used for `aria-label`
-attributes on the various elements within the component, to help
-assistive technology users
+The `b-pagination` component provides many features to support assistive technology users,
+including `aria-label`, `aria-posinset` and `aria-setsize`.  The features are
+automatically aplied, and can be cusomized.
 
-Keyboard navigtion is also supported out of the box:
+#### ARIA button labels:
+`b-pagination` provides various `label-*` props which are used to set the `aria-label`
+attributes on the various elements within the component, to help
+assistive technology users.
+
+| Prop | `aria-label` content default
+| ---- | -----------
+| `label-first-page` | "Goto first page"
+| `label-prev-page` | "Goto previous page"
+| `label-next-page` | "Goto next page"
+| `label-last-page` | "Goto last page"
+| `label-page` | "Goto page" apprended with the page number
+| `aria-label` | "Pagination". applied to the outer pagination container
+
+#### Keyboard navigtion support:
+`b-pagination` supports keyborad navigation out of the box.
 - Tabbing into the pagination component will autofocus the current page button
-- Left and right arrow keys will focus the previous and next buttons in the page
-list, and `ENTER` and `SAPCE` keys will select (click) the focused page button
+- `LEFT` and `RIGHT` arrow keys will focus the previous and next buttons in the page
+list, respectively, and `ENTER` or `SAPCE` keys will select (click) the focused page button
 
 ### Events
 `b-pagination` provides two events that are emitted on the component:
