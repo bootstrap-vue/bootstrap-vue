@@ -20,3 +20,7 @@ setting the `justify` prop. This setting has no effect when `vertical` is set.
 ### See also
 Also check out the [`<b-button-toolabr>`](./button-toolbar) component for generating
 toolbars containing button groups and input groups.
+
+### Tooltips and popovers
+Due to the specific implementation (and some other components), tooltips and popovers
+on elements within a button-group will have adverse effect on styling.
