@@ -2,6 +2,7 @@
     <button v-bind="conditionalLinkProps"
             :is="componentType"
             :class="classList"
+            :type="btnType"
             :disabled="disabled"
             @click="onClick">
         <slot></slot>
@@ -56,10 +57,14 @@ export default {
         btnDisabled() {
             return this.disabled ? 'disabled' : '';
         },
+        
+        btnType() {
+            return (this.href || this.to) ? null : this.type; 
+        },
 
         conditionalLinkProps() {
             return this.componentType === 'button' ? {} : this.linkProps;
-        },
+        }
     },
 
     // merge our prepared link props with button props
@@ -80,6 +85,10 @@ export default {
             type: String,
             default: null
         },
+        type: {
+            type: String,
+            default: 'button'
+        }
     }),
 
     methods: {
