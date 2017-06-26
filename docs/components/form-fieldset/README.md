@@ -4,9 +4,7 @@
 purpose is to provide a label and control pairing, help text and feedback text, as well
 as contextual state visual feedback
 
-### Options
-
-#### Label:
+### Label
 The content of the generted `<label>` element (html supported).
 You may optionally visually hide the label by setting the prop `label-sr-only`.
 
@@ -19,15 +17,16 @@ The label may also optionally be alligned `left`, `center` or `right` by setting
 the respective value via the prop `label-text-align`. Alignment has no effect if
 `label-sr-only` is set.
 
-#### Description:
+### Description
 Optional descriptive text which is always shown with the `.text-muted` class (html supported).
 
-#### Feedback:
+### Feedback
 Optional text to provide textual state feedback (html supported).
 
-#### Contextual visual state:
+### Contextual visual state
 Optional contextual visual feedback state of `danger`, `warning` or `success`.
-You should always provide `feedback` content to assit users using assistive technologies.
+You should always provide content via the `feedback` prop to assit users
+using assistive technologies when setting a contextual state.
 
 ### Accessibility
 To enable auto-generateion of `aria-*` attributes, you must supply a unique `id`
