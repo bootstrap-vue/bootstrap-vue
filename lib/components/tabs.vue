@@ -1,12 +1,12 @@
 <template>
-    <component :is="tag" :id="id || null" class="tabs">
-        <div v-if="bottom" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
+    <component :is="tag" :id="id || null" :class="['tabs',{'row': position === 'left' || position === 'right'}]">
+        <div v-if="position === 'bottom'" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
 
-        <div :class="{'card-header': card}">
-            <ul :class="['nav','nav-' + navStyle, card ? 'card-header-'+navStyle : null]"
+        <div :class="{'card-header': card,'col col-auto': position === 'left' || position === 'right','flex-last': position === 'right'}">
+            <ul :class="['nav','nav-' + navStyle,card ? 'card-header-'+navStyle : null,{'flex-column': position === 'left' || position === 'right'}]"
                 role="tablist"
                 tabindex="0"
                 :aria-setsize="tabs.length"
@@ -44,7 +44,7 @@
             </ul>
         </div>
 
-        <div v-if="!bottom" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
+        <div v-if="position !== 'bottom'" :class="['tab-content',{'card-block': card,'col': position === 'left' || position === 'right'}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
@@ -94,9 +94,9 @@
                 type: Boolean,
                 default: false
             },
-            bottom: {
-                type: Boolean,
-                default: false
+            position: {
+                type: String,
+                default: 'top'
             }
         },
         watch: {
