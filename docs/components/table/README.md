@@ -314,7 +314,7 @@ trigger the calling of the provider function.  So be sure to bind to the `per-pa
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
 (unless you have the `no-provider-` respective prop set to `true`).
 
-**Event based refreshing of data:**
+#### Event based refreshing of data:
 You may also trigger the refresh of the provider function by emitting the 
 event `table::refresh` on `$oot` with the single argument being the `id` of your `b-table`.
 You must have a unique ID on your table for this to work.
@@ -335,7 +335,7 @@ Or by calling the refresh method on the table reference
 These refresh event/methods are only applicable when `items` is a provider function.
 
 
-**Detection of sorting change:**
+#### Detection of sorting change:
 By listening on `b-table`'s `sort-changed` event, you can detect when the sorting key and direction have changed.
 
 ```html
@@ -359,5 +359,5 @@ methods: {
 ### Server Side Rendering
 Special care must be taken when using server side rendering (SSR) and an `items` provider
 function. Make sure you handle any special situations that may be needed server side
-when fetching your data.
+when fetching your data!
 
