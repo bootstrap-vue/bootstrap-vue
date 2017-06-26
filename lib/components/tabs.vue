@@ -1,12 +1,12 @@
 <template>
-    <component :is="tag" :id="id || null" :class="['tabs',{'row': position === 'left' || position === 'right'}]">
-        <div v-if="position === 'bottom'" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
+    <component :is="tag" :id="id || null" :class="['tabs',{'row': computedPosition === 'left' || computedPosition === 'right'}]">
+        <div v-if="computedPosition === 'bottom'" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
 
-        <div :class="{'card-header': card,'col col-auto': position === 'left' || position === 'right','flex-last': position === 'right'}">
-            <ul :class="['nav','nav-' + navStyle,card ? 'card-header-'+navStyle : null,{'flex-column': position === 'left' || position === 'right'}]"
+        <div :class="{'card-header': card,'col col-auto': computedPosition === 'left' || computedPosition === 'right','flex-last': computedPosition === 'right'}">
+            <ul :class="['nav','nav-' + navStyle,card ? 'card-header-'+navStyle : null,{'flex-column': computedPosition === 'left' || computedPosition === 'right'}]"
                 role="tablist"
                 tabindex="0"
                 :aria-setsize="tabs.length"
@@ -44,7 +44,7 @@
             </ul>
         </div>
 
-        <div v-if="position !== 'bottom'" :class="['tab-content',{'card-block': card,'col': position === 'left' || position === 'right'}]" ref="tabsContainer">
+        <div v-if="computedPosition !== 'bottom'" :class="['tab-content',{'card-block': card,'col': computedPosition === 'left' || computedPosition === 'right'}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
@@ -94,6 +94,10 @@
                 type: Boolean,
                 default: false
             },
+            bottom: {
+                type: Boolean,
+                default: false
+            },
             position: {
                 type: String,
                 default: 'top'
@@ -132,6 +136,14 @@
             },
             navStyle() {
                 return this.pills ? 'pills' : 'tabs';
+            },
+            computedPosition() {
+                if (this.bottom) {
+                    console.warn('Using the bottom property is deprecated and will be removed in a future version, use position="bottom" instead')
+                    return 'bottom'
+                }
+
+                return this.position
             }
         },
         methods: {
