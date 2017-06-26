@@ -2,6 +2,7 @@
 
 > Custom `<select>` menus need only a custom class, .custom-select to trigger the custom styles.
 
+### Options
 `options` can be an array or a key-value object. Available fields:
  
 - **`text`** Display text
@@ -10,13 +11,13 @@
 
 If you want to customize fields (for example using `name` field for display text) you can easily change them using `text-field` and `value-field` props.
 
-**Array**
+#### Array:
 
 ```js
 ['A', 'B', 'C', {text:'D', disabled: true}, 'E', 'F']
 ```
 
-**Array of objects**
+#### Array of objects:
 
 ```js
 [
@@ -26,7 +27,7 @@ If you want to customize fields (for example using `name` field for display text
 ]
 ```
 
-**Object**
+#### Object:
 
 Keys are mapped to value and values are mapped to option object. 
 
