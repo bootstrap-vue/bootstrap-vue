@@ -3,7 +3,8 @@
             type="button"
             role="menuitem"
             :disabled="disabled"
-            @click="onClick">
+            @click="onClick"
+    >
         <slot></slot>
     </button>
 </template>

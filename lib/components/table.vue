@@ -17,9 +17,9 @@
                     :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null"
                 >
-                  <slot :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
-                    <div v-html="field.label"></div>
-                  </slot>
+                    <slot :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
+                        <div v-html="field.label"></div>
+                    </slot>
                 </th>
             </tr>
         </thead>
@@ -36,12 +36,12 @@
                     :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null"
                 >
-                  <slot v-if="$scopedSlots['FOOT_'+key]" :name="'FOOT_'+key" :label="field.label" :column="key" :field="field">
-                    <div v-html="field.label"></div>
-                  </slot>
-                  <slot v-else :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
-                    <div v-html="field.label"></div>
-                  </slot>
+                    <slot v-if="$scopedSlots['FOOT_'+key]" :name="'FOOT_'+key" :label="field.label" :column="key" :field="field">
+                        <div v-html="field.label"></div>
+                    </slot>
+                    <slot v-else :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
+                        <div v-html="field.label"></div>
+                    </slot>
                 </th>
             </tr>
         </tfoot>

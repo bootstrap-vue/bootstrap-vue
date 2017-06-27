@@ -4,7 +4,8 @@
             :class="classList"
             :type="btnType"
             :disabled="disabled"
-            @click="onClick">
+            @click="onClick"
+    >
         <slot></slot>
     </button>
 </template>

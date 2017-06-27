@@ -7,7 +7,8 @@
                 aria-haspopup="true"
                 aria-expanded="show"
                 @click.prevent="toggle($event)"
-                :disabled="disabled">
+                :disabled="disabled"
+        >
             <span class="checked-items" v-html="displayItem"></span>
         </button>
         <ul class="dropdown-menu" :class="{'dropdown-menu-right' : position == 'right'}" aria-labelledby="dLabel">

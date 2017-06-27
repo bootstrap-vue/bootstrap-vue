@@ -75,17 +75,6 @@
     </div>
 </template>
 
-<style scoped>
-    .hidden {
-        opacity: 0 !important;
-    }
-
-    /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style */
-    .modal {
-        display: block;
-    }
-</style>
-
 <script>
     import bBtn from './button.vue';
 
@@ -383,3 +372,14 @@
         }
     };
 </script>
+
+<style scoped>
+    .hidden {
+        opacity: 0 !important;
+    }
+
+    /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style */
+    .modal {
+        display: block;
+    }
+</style>
