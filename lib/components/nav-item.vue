@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import { props as linkProps, computed } from '../mixins/link';
-import bLink from './link.vue';
+    import { props as linkProps, computed } from '../mixins/link';
+    import bLink from './link.vue';
 
-export default {
-    components: { bLink },
-    props: linkProps,
-    computed: {
-        linkProps: computed.linkProps
-    }
-};
+    export default {
+        components: { bLink },
+        props: linkProps,
+        computed: {
+            linkProps: computed.linkProps
+        }
+    };
 </script>

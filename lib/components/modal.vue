@@ -102,7 +102,7 @@
     function isVisible(el) {
         return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
     }
-    
+
     // Find the first visible element contained in a given root element
     function findFirstVisible(root, selector) {
         if (!root || !root.querySelectorAll || !selector) {
@@ -169,7 +169,7 @@
             buttonSize: {
                 type: String,
                 default: 'md'
-            },  
+            },
             noFade: {
                 type: Boolean,
                 default: false
@@ -382,5 +382,4 @@
             }
         }
     };
-
 </script>

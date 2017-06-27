@@ -9,18 +9,18 @@
 </template>
 
 <script>
-export default {
-    props: {
-        disabled: {
-            type: Boolean,
-            default: false
-        }
-    },
-    methods: {
-        onClick(e) {
-            this.$root.$emit("clicked::link", this);
-            this.$emit("click", e);
+    export default {
+        props: {
+            disabled: {
+                type: Boolean,
+                default: false
+            }
         },
-    }
-};
+        methods: {
+            onClick(e) {
+                this.$root.$emit("clicked::link", this);
+                this.$emit("click", e);
+            },
+        }
+    };
 </script>

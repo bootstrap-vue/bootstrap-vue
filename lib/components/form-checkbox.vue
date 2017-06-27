@@ -18,44 +18,43 @@
 </template>
 
 <script>
-import formMixin from '../mixins/form';
-import formCheckBoxMixin from '../mixins/form-checkbox';
+    import formMixin from '../mixins/form';
+    import formCheckBoxMixin from '../mixins/form-checkbox';
 
-export default {
-    mixins: [formMixin, formCheckBoxMixin],
-    model: {
-        prop: 'checked',
-        event: 'change'
-    },
-    props: {
-        value: {
-            default: true
+    export default {
+        mixins: [formMixin, formCheckBoxMixin],
+        model: {
+            prop: 'checked',
+            event: 'change'
         },
-        uncheckedValue: {
-            default: false
+        props: {
+            value: {
+                default: true
+            },
+            uncheckedValue: {
+                default: false
+            },
+            checked: {
+                default: true
+            }
         },
-        checked: {
-            default: true
-        }
-    },
-    computed: {
-        isChecked() {
-            return this.checked.includes(this.value);
-        }
-    },
-    methods: {
-        handleChange({ target: { checked } }) {
-            if (Array.isArray(this.checked)) {
-                if (this.isChecked) {
-                    this.$emit('change', this.checked.filter(x => x !== this.value));
+        computed: {
+            isChecked() {
+                return this.checked.includes(this.value);
+            }
+        },
+        methods: {
+            handleChange({ target: { checked } }) {
+                if (Array.isArray(this.checked)) {
+                    if (this.isChecked) {
+                        this.$emit('change', this.checked.filter(x => x !== this.value));
+                    } else {
+                        this.$emit('change', [...this.checked, this.value]);
+                    }
                 } else {
-                    this.$emit('change', [...this.checked, this.value]);
+                    this.$emit('change', checked ? this.value : this.uncheckedValue)
                 }
-            } else {
-                this.$emit('change', checked ? this.value : this.uncheckedValue)
             }
         }
-    }
-};
-
+    };
 </script>

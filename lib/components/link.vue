@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import linkMixin from '../mixins/link';
+    import linkMixin from '../mixins/link';
 
-export default {
-    mixins: [linkMixin]
-};
+    export default {
+        mixins: [linkMixin]
+    };
 </script>
