@@ -35,7 +35,7 @@
     "lint-fix": "xo --fix",
     "test:lint": "xo",
     "test:jest": "jest",
-    "test": "yarn test:jest"
+    "test": "npm run test:jest"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
