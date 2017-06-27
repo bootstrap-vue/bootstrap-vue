@@ -25,6 +25,6 @@ If you want to hack and improve components locally, you can follow this steps:
 If you want to see your changes in your project instead of playground:
 
 - Execute `yarn link` inside *bootstrap-vue* directory.
-- In your project run `yarn link-bootstrap-vue`
+- In your project run `yarn link bootstrap-vue`
 - Run `yarn watch` inside *bootstrap-vue*
 - Now every time you change a component, a new production version will be built and ready on your project. 
