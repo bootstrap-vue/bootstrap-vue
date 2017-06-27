@@ -11,49 +11,48 @@
 </template>
 
 <script>
-
-export default {
-    computed: {
-        classObject() {
-            return [
-                'navbar-toggler',
-                'navbar-toggler-' + this.position
-            ];
-        }
-    },
-    data() {
-        return {
-            toggleState: false
-        };
-    },
-    props: {
-        label: {
-            type: String,
-            default: 'Toggle navigation'
-        },
-        position: {
-            type: String,
-            default: 'right'
-        },
-        target: {
-            required: true
-        }
-    },
-    methods: {
-        onclick() {
-            const target = this.target;
-            if (target.toggle) {
-                target.toggle();
+    export default {
+        computed: {
+            classObject() {
+                return [
+                    'navbar-toggler',
+                    'navbar-toggler-' + this.position
+                ];
             }
-            this.$root.$emit('collapse::toggle', this.target);
-        }
-    },
-    created() {
-        this.$root.$on('collapse::toggle::state', (target, state) => {
-            if (target === this.target || target === this.target.id) {
-                this.toggleState = state;
+        },
+        data() {
+            return {
+                toggleState: false
+            };
+        },
+        props: {
+            label: {
+                type: String,
+                default: 'Toggle navigation'
+            },
+            position: {
+                type: String,
+                default: 'right'
+            },
+            target: {
+                required: true
             }
-        });
-    }
-};
+        },
+        methods: {
+            onclick() {
+                const target = this.target;
+                if (target.toggle) {
+                    target.toggle();
+                }
+                this.$root.$emit('collapse::toggle', this.target);
+            }
+        },
+        created() {
+            this.$root.$on('collapse::toggle::state', (target, state) => {
+                if (target === this.target || target === this.target.id) {
+                    this.toggleState = state;
+                }
+            });
+        }
+    };
 </script>

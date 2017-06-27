@@ -38,49 +38,6 @@
     </div>
 </template>
 
-<style scoped>
-    .custom-file-control {
-        overflow: hidden;
-    }
-
-    .custom-file-control {
-        overflow: hidden;
-    }
-
-    .custom-file-control.dragging {
-        overflow: hidden;
-        filter: blur(3px);
-    }
-
-    .custom-file-control::after {
-        content: attr(data-selected);
-    }
-
-    .custom-file-control::before {
-        content: attr(data-choose);
-    }
-
-    .custom-file .drop-here {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, .5);
-        border-radius: 3px;
-        z-index: 99999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .custom-file .drop-here::before {
-        color: white;
-        content: attr(data-drop);
-    }
-
-</style>
-
 <script>
     import formMixin from '../mixins/form';
 
@@ -271,3 +228,46 @@
         }
     };
 </script>
+
+<style scoped>
+    .custom-file-control {
+        overflow: hidden;
+    }
+
+    .custom-file-control {
+        overflow: hidden;
+    }
+
+    .custom-file-control.dragging {
+        overflow: hidden;
+        filter: blur(3px);
+    }
+
+    .custom-file-control::after {
+        content: attr(data-selected);
+    }
+
+    .custom-file-control::before {
+        content: attr(data-choose);
+    }
+
+    .custom-file .drop-here {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, .5);
+        border-radius: 3px;
+        z-index: 99999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .custom-file .drop-here::before {
+        color: white;
+        content: attr(data-drop);
+    }
+
+</style>

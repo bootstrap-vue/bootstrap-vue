@@ -12,13 +12,6 @@
     </transition>
 </template>
 
-<style scoped>
-    .collapse-enter-active, .collapse-leave-active {
-        transition: all .35s ease;
-        overflow: hidden;
-    }
-</style>
-
 <script>
     export default {
         data() {
@@ -55,7 +48,7 @@
                 type: String,
                 required: true
             },
-            accordion: { 
+            accordion: {
                 type: String,
                 default: null
             },
@@ -129,3 +122,10 @@
     };
 
 </script>
+
+<style scoped>
+    .collapse-enter-active, .collapse-leave-active {
+        transition: all .35s ease;
+        overflow: hidden;
+    }
+</style>

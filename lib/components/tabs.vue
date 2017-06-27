@@ -242,5 +242,4 @@
             observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {subtree: false});
         }
     };
-
 </script>

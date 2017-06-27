@@ -15,13 +15,6 @@
     </div>
 </template>
 
-<style>
-    .tooltip {
-        display: block;
-        transition: all 0.3s;
-    }
-</style>
-
 <script>
     import popover from '../mixins/popover';
 
@@ -39,3 +32,10 @@
         }
     };
 </script>
+
+<style>
+    .tooltip {
+        display: block;
+        transition: all 0.3s;
+    }
+</style>

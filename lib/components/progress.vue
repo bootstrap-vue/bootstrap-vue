@@ -17,12 +17,6 @@
     </div>
 </template>
 
-<style>
-    .progress-bar {
-        transition: all .5s;
-    }
-</style>
-
 <script>
     export default {
         computed: {
@@ -83,3 +77,9 @@
         }
     };
 </script>
+
+<style>
+    .progress-bar {
+        transition: all .5s;
+    }
+</style>
