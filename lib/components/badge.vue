@@ -1,7 +1,7 @@
 <template>
-<span :class="['badge',badgeVariant,badgePill]">
-	<slot></slot>
-</span>
+    <span :class="['badge',badgeVariant,badgePill]">
+        <slot></slot>
+    </span>
 </template>
 
 <script>
