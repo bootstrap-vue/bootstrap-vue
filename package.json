@@ -49,12 +49,9 @@
     "watch": "npm run watch:core",
     "watch:core": "rollup -c build/rollup.config.js --watch",
     "watch:extra": "rollup -c build/rollup.extra.config.js --watch",
-    "nuxt": "node --preserve-symlinks node_modules/nuxt/bin/nuxt",
-    "docs-dev": "npm run nuxt dev build",
-    "docs-gen": "npm run nuxt generate build",
-    "docs-deploy": "cd scripts && ./gh-pages",
-    "lint-fix": "xo --fix",
-    "test:lint": "xo",
+    "docs-dev": "nuxt dev",
+    "docs-gen": "nuxt generate",
+    "docs-build": "nuxt build",
     "test:jest": "jest",
     "test": "npm run test:jest"
   },
@@ -64,6 +61,7 @@
     "vue": "^2.3.3"
   },
   "devDependencies": {
+    "@nuxtjs/pwa": "^0.2.0",
     "clean-css": "^4.1.5",
     "codemirror": "^5.27.4",
     "cross-env": "^5.0.1",
@@ -86,7 +84,6 @@
     "rollup-plugin-uglify": "^2.0.1",
     "rollup-plugin-vue": "^2.4.0",
     "rollup-watch": "^4.0.0",
-    "xo": "^0.18.2",
     "uglify-js-harmony": "^2.7.7"
   },
   "jest": {
@@ -98,30 +95,6 @@
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
       ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
-    }
-  },
-  "xo": {
-    "space": 4,
-    "plugins": [
-      "vue"
-    ],
-    "extensions": [
-      "vue"
-    ],
-    "ignores": [
-      "docs/nuxt/plugins/ga.js",
-      "__tests__"
-    ],
-    "envs": [
-      "node",
-      "browser"
-    ],
-    "globals": [
-      "Vue"
-    ],
-    "rules": {
-      "camelcase": 0,
-      "import/extensions": 0
     }
   },
   "keywords": [
