@@ -198,21 +198,21 @@ export default {
                 const idx = this.currentPage - startNum;
                 if (idx === 0) {
                     // Keep leftmost 3 buttons visible
-                    for (i = 3; i < pages.length; i++) {
+                    for (let i = 3; i < pages.length; i++) {
                         pages[i].className = 'hidden-xs-down';
                     }
                 } else if (idx === pages.length - 1) {
                     // Keep rightmost 3 buttons visible
-                    for (i = 0; i < pages.length - 3; i++) {
+                    for (let i = 0; i < pages.length - 3; i++) {
                         pages[i].className = 'hidden-xs-down';
                     }
                 } else {
                     // hide left button(s)
-                    for (i = 0; i < idx - 1; i++) {
+                    for (let i = 0; i < idx - 1; i++) {
                         pages[i].className = 'hidden-xs-down';
                     }
                     // hide right button(s)
-                    for (i = pages.length - 1; i > idx + 1; i--) {
+                    for (let i = pages.length - 1; i > idx + 1; i--) {
                         pages[i].className = 'hidden-xs-down';
                     }
                 }
