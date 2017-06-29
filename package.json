@@ -9,11 +9,32 @@
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
   "homepage": "https://bootstrap-vue.github.io",
-  "author": {
-    "name": "Pooya Parsa",
-    "email": "pooya@pi0.ir",
-    "url": "https://github.com/pi0"
-  },
+  "contributors": [
+    {
+      "name": "Pooya Parsa",
+      "url": "https://github.com/pi0"
+    },
+    {
+      "name": "Troy Morehouse",
+      "url": "https://github.com/tmorehouse"
+    },
+    {
+      "name": "SirLamer",
+      "url": "https://github.com/SirLamer"
+    },
+    {
+      "name": "Vitaly Mosin",
+      "url": "https://github.com/mosinve"
+    },
+    {
+      "name": "vizo",
+      "url": "https://github.com/vizo"
+    },
+    {
+      "name": "Alex Regan",
+      "url": "https://github.com/alexsasharegan"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/bootstrap-vue/bootstrap-vue/issues"
   },
