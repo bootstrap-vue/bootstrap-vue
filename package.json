@@ -84,7 +84,7 @@
     "rollup-plugin-uglify": "^2.0.1",
     "rollup-plugin-vue": "^2.4.0",
     "rollup-watch": "^4.0.0",
-    "uglify-js-harmony": "^2.7.7"
+    "uglify-es": "^3.0.21"
   },
   "jest": {
     "testRegex": "spec.js$",
