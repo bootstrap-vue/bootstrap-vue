@@ -46,14 +46,18 @@ export default {
                 target.toggle();
             }
             this.$root.$emit('collapse::toggle', this.target);
-        }
-    },
-    created() {
-        this.$root.$on('collapse::toggle::state', (target, state) => {
+        },
+        hadleStateEvt(target, state) {
             if (target === this.target || target === this.target.id) {
                 this.toggleState = state;
             }
-        });
+        }
+    },
+    mounted() {
+        this.$root.$on('collapse::toggle::state', this.handleStateEvt);
+    },
+    beforeDestroy() {
+        this.$root.$off('collapse::toggle::state', this.handleStateEvt);
     }
 };
 </script>
