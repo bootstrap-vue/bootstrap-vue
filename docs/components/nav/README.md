@@ -76,6 +76,12 @@ When using `b-nav` within a `b-navbar`, set the `navbar-nav` prop.
 ### Tabbed content
 See the [`b-tabs`](./tabs) component.
 
+### Regarding accessibility
+If you’re using `b-nav` to provide a navigation bar, be sure to add a
+`role="navigation"` to the most logical parent container of `b-nav`, or wrap
+a `<nav>` element around `b-nav`. Do not add the role to the `b-nav` itself,
+as this would prevent it from being announced as an actual list by assistive technologies.
+
 ### See Also
 - [`b-tabs`](./tabs) to create tabbable panes of local content, even via dropdown menus.
 - [`b-navbar`](./navbar) a wrapper that positions branding, navigation, and other elements in a concise header.
