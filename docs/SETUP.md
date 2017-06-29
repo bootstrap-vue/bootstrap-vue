@@ -52,16 +52,8 @@ import {bAlert, bBtn} from 'bootstrap-vue/lib/components'
 Choosing the best variant for your build environment / packager helps less bundle sizes.
 If your bundler supports es modules, it will automatically prefer it over commonjs.
 
-Variant        | Environments                 | Package path
----------------|------------------------------|------------------------------------------------------------------------
-**ES Module**  | Webpack 2 / Rollup           | `dist/bootstrap-vue.esm.js`
-commonjs2      | Webpack 1 / ...              | `dist/bootstrap-vue.common.js`
-UMD            | Browser                      | `dist/bootstrap-vue.js`
-
-## Advanced Tips
-
-### ARIA compliance
-Some HTML tags like `aria-*` and `for` need a dom `id` reference in order to get it working.
-The attributes are automatically added if `id` attribute is available on target
-element and it is *highly recommended adding a unique `id`* to each component. Components that
-benefit from `id` for ARIA will have `id` listed in their props in the documentation.
+| Variant        | Environments         | Package path
+| -------------- | -------------------- | -----------------------------------
+| **ES Module**  | Webpack 2 / Rollup   | `dist/bootstrap-vue.esm.js`
+| commonjs2      | Webpack 1 / ...      | `dist/bootstrap-vue.common.js`
+| UMD            | Browser              | `dist/bootstrap-vue.js`

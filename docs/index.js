@@ -9,7 +9,8 @@ export default {
             title: 'BootstrapVue',
             slug: '',
             pages: [
-                {title: 'Quick Start', slug: 'setup'}
+                {title: 'Quick Start', slug: 'setup'},
+                {title: 'Contributing', slug: 'contributing'}
             ]
         },
         {
@@ -32,15 +33,6 @@ export default {
                     slug: key
                 };
             })
-        },
-        {
-            title: 'Misc',
-            slug: '',
-            pages: [
-                {title: 'CLI', slug: 'cli'},
-                {title: 'Validation', slug: 'validation'},
-                {title: 'Contributing', slug: 'contributing'}
-            ]
         }
     ]
 };

@@ -1,8 +1,5 @@
 <template>
-    <component :is="type"
-               :class="classObject"
-               :role="isNavBar ? null : 'navigation'"
-    >
+    <component :is="type" :class="classObject">
         <slot></slot>
     </component>
 </template>
@@ -18,7 +15,8 @@ export default {
                 'nav-tabs': this.tabs,
                 'nav-pills': this.pills,
                 'flex-column': this.vertical,
-                'nav-fill': this.fill
+                'nav-fill': this.fill,
+                'nav-justified': this.justified
             };
         }
     },
@@ -28,6 +26,10 @@ export default {
             default: 'ul'
         },
         fill: {
+            type: Boolean,
+            default: false
+        },
+        justified: {
             type: Boolean,
             default: false
         },

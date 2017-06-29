@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -x -e
-cd ..
 
 # Ensure clean dist dir
 [ -d docs-dist ] && rm -frv docs-dist
@@ -8,10 +7,6 @@ mkdir -p docs-dist
 
 # Gen docs
 yarn docs-gen
-
-# Prepare git
-# git config --global user.email "pooya@pi0.ir"
-# git config --global user.name "bootstrap-vue-bot"
 
 # Fetch gh-pages
 cd docs-dist
@@ -21,6 +16,5 @@ git fetch origin
 
 # Commit new docs
 git add --all
-#git commit -m "Published by CI"
 git commit -m "Update Docs"
 git push -ff origin master

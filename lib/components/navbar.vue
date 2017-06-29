@@ -48,7 +48,8 @@
                 type: String
             },
             sticky: {
-                type: String
+                type: Boolean,
+                default: false
             }
         }
     };

@@ -6,7 +6,7 @@
     >
         <thead :class="headClass">
             <tr role="row">
-                <th v-for="field,key in fields"
+                <th v-for="(field,key) in fields"
                     @click.stop.prevent="headClicked($event,field,key)"
                     @keydown.enter.stop.prevent="headClicked($event,field,key)"
                     @keydown.space.stop.prevent="headClicked($event,field,key)"
@@ -25,7 +25,7 @@
         </thead>
         <tfoot v-if="footClone" :class="footClass">
             <tr role="row">
-                <th v-for="field,key in fields"
+                <th v-for="(field,key) in fields"
                     @click.stop.prevent="headClicked($event,field,key)"
                     @keydown.enter.stop.prevent="headClicked($event,field,key)"
                     @keydown.space.stop.prevent="headClicked($event,field,key)"
@@ -48,11 +48,12 @@
         <tbody>
             <tr v-for="(item,index) in _items"
                 role="row"
+                :key="index"
                 :class="rowClass(item)"
                 @click="rowClicked($event,item,index)"
                 @hover="rowHovered($event,item,index)"
             >
-                <td v-for="(field,key) in fields" :class="tdClass(field, item, key)">
+                <td v-for="(field,key) in fields" :key="key" :class="tdClass(field, item, key)">
                     <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
                 </td>
             </tr>
@@ -133,8 +134,8 @@
             },
             items: {
                 type: [Array, Function],
-                default: () => {
-                    if (this.itemsProvider) {
+                default() {
+                    if (this && this.itemsProvider) {
                         // Deprecate itemsProvider
                         warn('b-table: prop items-provider has been deprecated. Pass a function to items instead');
                         return this.itemsProvider;
