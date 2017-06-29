@@ -39,7 +39,6 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
-    "tether": "latest",
     "vue": "2.*.*"
   },
   "devDependencies": {
