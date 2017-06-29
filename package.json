@@ -51,9 +51,10 @@
     "watch:extra": "rollup -c build/rollup.extra.config.js --watch",
     "docs-dev": "nuxt dev",
     "docs-gen": "nuxt generate",
-    "docs-build": "nuxt build",
-    "test:jest": "jest",
-    "test": "npm run test:jest"
+    "docs-publish": "./build/gh-pages",
+    "test": "jest",
+    "prepublish": "npm run build && npm run test",
+    "postpublish": "npm run docs-publish"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
