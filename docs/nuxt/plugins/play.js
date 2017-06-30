@@ -17,6 +17,8 @@ const loadVue = text => {
     return { name, template, script, options }
 }
 
+const removeNode = node => node.parentNode.removeChild(node)
+
 Vue.directive('play', (el, binding, vnode, oldVnode) => {
     // Get all code-snippets
     let pres = Array.from(el.querySelectorAll('pre.hljs'))
@@ -50,8 +52,11 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
                 // Distroy old instance
                 if (vm) {
                     vm.$destroy()
-                    vm.$el.parentNode.removeChild(vm.$el)
+                    removeNode(vm.$el)
                     vm.$el.innerHTML = ""
+                }
+                if (name) {
+                        Array.from(document.querySelectorAll(`.vue-example-${name}`)).forEach(removeNode)
                 }
 
                 // Create a placeholder after pre
@@ -60,7 +65,7 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
 
                 // CreateVM
                 vm = new Vue(Object.assign({}, options, {
-                    template: `<div class='vue-example'>${template}</div>`,
+                    template: `<div class='vue-example vue-example-${name}'>${template}</div>`,
                     el: holder
                 }))
             } catch (e) {

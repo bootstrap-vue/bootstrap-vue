@@ -42,6 +42,8 @@ export default {
   }
 }
 </script>
+
+<!-- alert.vue -->
 ```
 
 ### Alert contextual variants
