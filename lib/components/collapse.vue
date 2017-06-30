@@ -20,7 +20,10 @@
 </style>
 
 <script>
+    import listenOnRoot from '../mixins/listen-on-root';
+
     export default {
+        mixins: [listenOnRoot],
         data() {
             return {
                 show: this.visible
@@ -99,16 +102,14 @@
                     // Tell the other collapses in this accordion to close
                     this.$root.$emit('accordion::toggle', this.id, this.accordion);
                 }
-            }
-        },
-        created() {
-            this.$root.$on('collapse::toggle', target => {
+            },
+            handleToggleEvt(target) {
                 if (target !== this.id) {
                     return;
                 }
                 this.toggle();
-            });
-            this.$root.$on('accordion::toggle', (openedId, accordion) => {
+            },
+            handleAccordionEvt(openedId, accordion) {
                 if (!this.accordion || accordion !== this.accordion) {
                     return;
                 }
@@ -121,7 +122,11 @@
                         this.toggle();
                     }
                 }
-            });
+            }
+        },
+        created() {
+            this.listenOnRoot('collapse::toggle', this.handleToggleEvt);
+            this.listenOnRoot('accordion::toggle', this.handleAccordionEvt);
         },
         mounted() {
             this.emitState();

@@ -16,6 +16,8 @@ module.exports = {
     build: {
         extractCSS: true,
         extend(config) {
+            config.resolve.alias['vue'] = 'vue/dist/vue.common'
+
             config.module.rules.push({
                 test: /\.md$/,
                 use: [
