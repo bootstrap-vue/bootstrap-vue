@@ -70,7 +70,7 @@
                     return this.labelSize;
                 }
                 return this.labelCols;
-            }
+            },
             labelLayout() {
                 if (this.labelSrOnly) {
                     return null;
