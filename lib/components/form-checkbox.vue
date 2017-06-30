@@ -20,6 +20,7 @@
 <script>
 import formMixin from '../mixins/form';
 import formCheckBoxMixin from '../mixins/form-checkbox';
+import arrayIncludes from '../utils/arrayIncludes';
 
 export default {
     mixins: [formMixin, formCheckBoxMixin],
@@ -40,7 +41,7 @@ export default {
     },
     computed: {
         isChecked() {
-            return this.checked.includes(this.value);
+            return arrayIncludes(this.checked, this.value);
         }
     },
     methods: {

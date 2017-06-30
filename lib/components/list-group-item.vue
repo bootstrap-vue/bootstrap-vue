@@ -9,7 +9,8 @@
 
 <script>
 import bLink from './link.vue';
-import { props as originalLinkProps, computed, omitLinkProps } from '../mixins/link'
+import { props as originalLinkProps, computed, omitLinkProps } from '../mixins/link';
+import arrayIncludes from '../utils/arrayIncludes';
 // copy link props, but exclude defaults for 'href', 'to', & 'tag'
 // to ensure proper component tag computation
 const linkProps = Object.assign(omitLinkProps('href', 'to'), {
@@ -43,7 +44,7 @@ export default {
 
             // this previously could return a string,
             // coercing to a boolean for more consistent expected value
-            return !!(this.action || this.to || this.href || actionTags.includes(this.tag));
+            return !!(this.action || this.to || this.href || arrayIncludes(actionTags, this.tag));
         },
 
         listState() {
