@@ -3,7 +3,7 @@
 >  Use Bootstrap’s custom `b-button` component for actions in forms, dialogs, and more.
    Includes support for a handful of contextual variations, sizes, states, and more.
    
-The `b-buton` component generally renders a `<button>` element. However, you can also
+The `b-button` component generally renders a `<button>` element. However, you can also
 render a an `<a>` element by proding an `href` prop vale. You man also generate
 `vue-router` `<router-link>` when providing a value for the `to` prop (`vue-router`
 is  required).
@@ -35,7 +35,7 @@ default passing and size of a button.
 
 ### Disabled state
 Set the `disabled` prop to disable button default funtionality. `disabled` also 
-works with buttons rednered as `<a>` elements and `router-link`
+works with buttons rednered as `<a>` elements and `<router-link>`
 
 ### Button type
 When neither `href` nor `to` props are provided, `b-button` renders an html `<button>`
