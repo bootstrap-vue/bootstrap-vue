@@ -296,7 +296,7 @@
             },
             focusFirst() {
                 // Don't try and focus if we are SSR
-                if (typeof document !== 'undefined') {
+                if (typeof document === 'undefined') {
                     return;
                 }
                 this.$nextTick(() => {
