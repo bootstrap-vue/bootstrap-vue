@@ -50,6 +50,7 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
                 // Distroy old instance
                 if (vm) {
                     vm.$destroy()
+                    vm.$el.parentNode.removeChild(vm.$el)
                     vm.$el.innerHTML = ""
                 }
 
