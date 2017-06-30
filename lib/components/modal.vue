@@ -88,6 +88,7 @@
 
 <script>
     import bBtn from './button.vue';
+    import listenOnRoot from '../mixins/listen-on-root';
 
     const FOCUS_SELECTOR = [
         'button:not([disabled])',
@@ -122,6 +123,7 @@
     }
 
     export default {
+        mixins: [listenOnRoot],
         components: {bBtn},
         data() {
             return {
@@ -355,21 +357,22 @@
                     !this.$refs.content.contains(e.target)) {
                     this.$refs.content.focus();
                 }
-            }
-        },
-        created() {
-            this.$root.$on('show::modal', (id, triggerEl) => {
+            },
+            showHandler(id, triggerEl) {
                 if (id === this.id) {
                     this.return_focus = triggerEl || null;
                     this.show();
                 }
-            });
-
-            this.$root.$on('hide::modal', id => {
+            },
+            hideHandler(id) {
                 if (id === this.id) {
                     this.hide();
                 }
-            });
+            }
+        },
+        created() {
+            this.listenOnRoot('show::modal', this.showHandler);
+            this.listenOnRoot('hide::modal', this.hideHandler);
         },
         mounted() {
             if (this.visible === true) {
