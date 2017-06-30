@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <span ref="trigger"><slot></slot></span>
+    <div class="d-inline-block">
+        <span class="d-inline-block" ref="trigger"><slot></slot></span>
         <div :class="['tooltip','tooltip-' + this.placement]"
              :style="{opacity:showState?1:0}"
              tabindex="-1"
