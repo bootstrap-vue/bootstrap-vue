@@ -4,6 +4,54 @@
   They support a number of use cases from user notification to completely custom content and feature
   a handful of helpful sub-components, sizes, accessibility, and more.
 
+```html
+<template>
+  <b-btn @click="$root.$emit('show::modal','modal1')">Launch demo modal</b-btn>
+
+  <!-- Main UI -->
+  <div class="mt-3 mb-3">
+    Submitted Names:
+    <ul>
+      <li v-for="n in names">{{n}}</li>
+    </ul>
+  </div>
+
+  <!-- Modal Component -->
+  <b-modal id="modal1" title="Submit your name" @ok="submit" @shown="clearName">
+    
+    <form @submit.stop.prevent="submit">
+      <b-form-input type="text" placeholder="Enter your name" v-model="name"></b-form-input>
+    </form>
+    
+  </b-modal>
+</template>
+
+<script>
+export default {
+  data: {
+    name: '',
+    names: []
+  },
+  methods: {
+    clearName() {
+        this.name = '';
+      },
+      submit(e) {
+        if (!this.name) {
+          alert('Please enter your name');
+          return e.cancel();
+        }
+        
+        this.names.push(this.name);
+        this.name = '';
+      }
+  }
+}
+</script>
+
+<!-- modal.vue -->
+```
+
 Modals, by default, have an **OK** and a **Close** button in the footer. These buttons can
 be cusomized by setting various props on the component. You can cusomize the size of the buttons,
 disable the **OK** button, hide the **Close** button (i.e. OK Only), and provide custom

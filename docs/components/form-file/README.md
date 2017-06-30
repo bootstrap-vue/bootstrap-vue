@@ -3,6 +3,31 @@
 > Customized, cross-browser consistant, file input control that supports single file,
 multiple files, and directory upload (for browsers that support directory mode)
 
+```html
+<template>
+  <!-- Simple File -->
+  <b-form-file v-model="file"></b-form-file>
+  <br> Selected file: {{file && file.name}}
+
+  <div class="mt-3">
+    <!-- Customized labels -->
+    <b-form-file v-model="file2" choose-label="Attachment2"></b-form-file>
+    <br> Selected file : {{file2 && file2.name}}
+  </div>
+</template>
+
+<script>
+export default {
+ data: {
+    file: null,
+    file2: null
+  }
+}
+</script>
+
+<!-- form-file.vue -->
+```
+
 For cross browser consistency, Form file defaults to the Bootstrap custom file
 input to replace the browser defaults. They’re built on top of semantic and accessible
 markup, so it is a solid replacement for the default file input.

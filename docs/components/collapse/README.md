@@ -3,6 +3,45 @@
 > The Bootstrap `b-collapse` component and `v-b-toggle` directive allows you to
 > toggle content visibility on your pages.
 
+```html
+<p>
+<b-btn v-b-toggle.collapse1 variant="primary">Toggle Collapse</b-btn>
+</p>
+
+<b-collapse id="collapse1">
+<b-card>
+    Collapse contents Here
+    <b-btn v-b-toggle.collapse2 size="sm">Toggle Inner Collapse</b-btn>
+    <b-collapse id=collapse2 class="mt-2">
+    <b-card>Hello!</b-card>
+    </b-collapse>
+</b-card>
+</b-collapse>
+
+<hr>
+
+<b-btn block v-b-toggle.accordion1 variant="primary">Accordion 1</b-btn>
+<b-collapse id="accordion1" visible accordion="my-accordion">
+<b-card>
+    Accordion 1 contents Here
+</b-card>
+</b-collapse>
+<b-btn block class="mt-1" v-b-toggle.accordion2 variant="primary">Accordion 2</b-btn>
+<b-collapse id="accordion2" accordion="my-accordion">
+<b-card>
+    Accordion 2 contents Here
+</b-card>
+</b-collapse>
+<b-btn block class="mt-1" v-b-toggle.accordion3 variant="primary">Accordion 3</b-btn>
+<b-collapse id="accordion3" accordion="my-accordion">
+<b-card>
+    Accordion 3 contents Here
+</b-card>
+</b-collapse>
+
+<!-- collapse.vue -->
+```
+
 Other elements can easily toggle `b-collapse` components using the `v-b-toggle` directive.
 
 ```html

@@ -1,6 +1,28 @@
 # Input Groups
 > Easily extend form controls by adding text, buttons, or button groups on either side of textual inputs.
 
+```html
+<b-input-group left="$" right=".00">
+  <b-form-input></b-form-input>
+</b-input-group>
+
+<br><br>
+
+<b-input-group left="Username">
+  <b-form-input></b-form-input>
+
+  <!-- Attach Right button -->
+  <b-input-group-button slot="right">
+    <b-dropdown text="Dropdown" variant="success" right>
+      <b-dropdown-item>Action</b-dropdown-item>
+      <b-dropdown-item>Action</b-dropdown-item>
+    </b-dropdown>
+  </b-input-group-button>
+
+</b-input-group>
+
+<!-- input-group.vue -->
+```
 
 ### Usage
 You can attach left or right Addons via props or named slots.

@@ -2,6 +2,50 @@
 
 > Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
 
+```html
+<template>
+  <b-alert show>
+        Default Alert
+    </b-alert>
+
+    <b-alert variant="success" show>
+        Success Alert
+    </b-alert>
+
+    <b-alert variant="danger" dismissible :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">
+        Dismissible Alert!
+    </b-alert>
+
+    <b-alert :show="dismissCountDown" dismissible variant="warning" @dismiss-count-down="countDownChanged">
+        This alert will dismiss after {{dismissCountDown}} seconds...
+    </b-alert>
+
+    <b-btn @click="showAlert" variant="info" class="m-1">Show alert with count-down timer</b-btn>
+    <b-btn @click="showDismissibleAlert=true" variant="info" class="m-1">
+        Show dismissible alert ({{showDismissibleAlert?'visible':'hidden'}})
+    </b-btn>
+</template>
+
+<script>
+export default {
+  data: {
+    dismissCountDown: null,
+    showDismissibleAlert: false
+  },
+  methods: {
+    countDownChanged(dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
+      },
+      showAlert() {
+        this.dismissCountDown = 5
+      }
+  }
+}
+</script>
+
+<!-- alert.vue -->
+```
+
 ### Alert contextual variants
 For proper styling, use one of the four required contextual variants by setting the
 `variant` prop to one of the following: `info`, `success`, `warning` or `danger`.

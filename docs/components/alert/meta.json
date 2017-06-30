@@ -1,7 +1,6 @@
 {
   "title": "Alert",
   "component": "bAlert",
-  "jsfiddle": "src29p6L",
   "events": [
     {
       "event": "dismissed",

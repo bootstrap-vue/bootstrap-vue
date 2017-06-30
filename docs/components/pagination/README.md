@@ -4,6 +4,33 @@
   It’s great for simple sites like blogs or magazines.
   Provide pagination links for your site or app with the multi-page pagination component.
 
+```html
+<template>
+    <h6>Default</h6>
+    <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10">
+    </b-pagination>
+
+    <br>
+    <br>
+
+    <b-pagination size="md" :total-rows="100" variant="primary" secondary-variant="info" v-model="currentPage" :per-page="10">
+    </b-pagination>
+
+    <br>
+    <div>currentPage: {{currentPage}}</div>
+</template>
+
+<script>
+export default {
+ data: {
+    currentPage: 3
+ }
+}
+</script>
+
+<!-- pagination.vue -->
+```
+
 `b-pagination` is a custom input component that provides a current page number input control.
 The value should be bound via `v-model` in your app. Page numbers are indexed from 1. The number
 of pages is computed from the provided prop values for `total-rows` and `per-page`.

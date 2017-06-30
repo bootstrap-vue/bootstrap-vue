@@ -55,7 +55,8 @@ module.exports = {
     plugins: [
         '~plugins/bootstrap-vue.js',
         '~plugins/codemirror.js',
-        '~plugins/ga.js'
+        '~plugins/ga.js',
+        '~plugins/play.js'
     ],
 
     modules: [

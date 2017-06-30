@@ -3,6 +3,42 @@
 > Create various text style inputs such as: `text`, `password`, `number`, `url`,
 `search`, and more. Also supports creating `textarea` controls.
 
+```html
+<template>
+  <b-form-input v-model="text" type="text" placeholder="Enter your name" :state="text.length?'success':'warning'" :formatter="format"></b-form-input>
+  <small class="text-muted">We will convert your name to lowercase instantly</small>
+
+  <br>
+  <br>
+
+  <b-form-input v-model="text" type="text" placeholder="Enter your name" :state="text.length?'success':'warning'" :formatter="format" lazy-formatter></b-form-input>
+  <small class="text-muted">This one is a little lazy!</small>
+
+  <br>
+  <br>
+
+  <b-form-input textarea v-model="text" placeholder="Text area mode"></b-form-input>
+
+  <br>
+  <p>Value: {{text}}</p>
+</template>
+
+<script>
+export default {
+  data: {
+    text: '',
+  },
+  methods: {
+    format(value) {
+      return value.toLowerCase();
+    }
+  }
+}
+</script>
+
+<!-- form-input.vue -->
+```
+
 ### Formatter
 `b-form-input` supports optional formatting by passing a function reference to  the `formatter` prop.
 
