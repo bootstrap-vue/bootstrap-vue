@@ -18,6 +18,8 @@
 <script>
 import bLink from './link.vue';
 import { props as linkProps } from '../mixins/link';
+import arrayIncludes from '../utils/arrayIncludes';
+
 const bLinkPropKeys = Object.keys(linkProps);
 
 export default {
@@ -59,7 +61,7 @@ export default {
                 // so we can bind to the component
                 // for dynamic prop proxying
                 normalizedItem._linkProps = Object.keys(normalizedItem).reduce((memo, itemProp) => {
-                    if (bLinkPropKeys.includes(itemProp)) {
+                    if (arrayIncludes(bLinkPropKeys, itemProp)) {
                         memo[itemProp] = normalizedItem[itemProp];
                     }
 

@@ -20,6 +20,9 @@
 <script>
 import formMixin from '../mixins/form';
 import formCheckBoxMixin from '../mixins/form-checkbox';
+import arrayIncludes from '../utils/arrayIncludes';
+import isArray from '../utils/isArray';
+
 
 export default {
     mixins: [formMixin, formCheckBoxMixin],
@@ -40,12 +43,12 @@ export default {
     },
     computed: {
         isChecked() {
-            return this.checked.includes(this.value);
+            return arrayIncludes(this.checked, this.value);
         }
     },
     methods: {
         handleChange({ target: { checked } }) {
-            if (Array.isArray(this.checked)) {
+            if (isArray(this.checked)) {
                 if (this.isChecked) {
                     this.$emit('change', this.checked.filter(x => x !== this.value));
                 } else {

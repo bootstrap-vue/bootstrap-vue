@@ -296,35 +296,36 @@
             },
             focusFirst() {
                 // Don't try and focus if we are SSR
-                if (typeof document !== 'undefined') {
+                if (typeof document === 'undefined') {
                     return;
                 }
+                this.$nextTick(() => {
+                    // If activeElement is child of content, no need to change focus
+                    if (document.activeElement && this.$refs.content.contains(document.activeElement)) {
+                        return;
+                    }
 
-                // If activeElement is child of content, no need to change focus
-                if (document.activeElement && this.$refs.content.contains(document.activeElement)) {
-                    return;
-                }
-
-                let el;
-                if (!this.noAutoFocus) {
-                    // Focus the modal's first focusable item, searching body, footer, then header
-                    if (this.$refs.body) {
-                        el = findFirstVisible(this.$refs.body, FOCUS_SELECTOR);
+                    let el;
+                    if (!this.noAutoFocus) {
+                        // Focus the modal's first focusable item, searching body, footer, then header
+                        if (this.$refs.body) {
+                            el = findFirstVisible(this.$refs.body, FOCUS_SELECTOR);
+                        }
+                        if (!el && this.$refs.footer) {
+                            el = findFirstVisible(this.$refs.footer, FOCUS_SELECTOR);
+                        }
+                        if (!el && this.$refs.header) {
+                            el = findFirstVisible(this.$refs.header, FOCUS_SELECTOR);
+                        }
                     }
-                    if (!el && this.$refs.footer) {
-                        el = findFirstVisible(this.$refs.footer, FOCUS_SELECTOR);
+                    if (!el) {
+                        // Focus the modal content wrapper
+                        el = this.$refs.content;
                     }
-                    if (!el && this.$refs.header) {
-                        el = findFirstVisible(this.$refs.header, FOCUS_SELECTOR);
+                    if (el && el.focus) {
+                        el.focus();
                     }
-                }
-                if (!el) {
-                    // Focus the modal content wrapper
-                    el = this.$refs.content;
-                }
-                if (el && el.focus) {
-                    el.focus();
-                }
+                });
             },
             returnFocusTo() {
                 // Prrefer returnFocus prop over event specified value
