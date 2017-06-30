@@ -7,7 +7,7 @@
         <template v-if="props_items && props_items.length > 0">
             <h4>Properties</h4>
             <section>
-                <b-table :items="props_items" :fields="props_fields" striped>
+                <b-table :items="props_items" :fields="props_fields" head-variant="default" striped>
                     <template slot="default" scope="field">
                         <code>{{field.value}}</code>
                     </template>
@@ -17,12 +17,12 @@
 
         <template v-if="slots && slots.length > 0">
             <h4>Slots</h4>
-            <b-table :items="slots" :fields="slots_fields" striped></b-table>
+            <b-table :items="slots" :fields="slots_fields" head-variant="default" striped></b-table>
         </template>
 
         <template v-if="events && events.length > 0">
             <h4>Events</h4>
-            <b-table :items="events" :fields="events_fields" striped>
+            <b-table :items="events" :fields="events_fields" head-variant="default" striped>
                 <template slot="args" scope="field">
                     <div v-for="arg in field.value">
                         <code>{{arg.arg}}</code>
@@ -32,6 +32,17 @@
             </b-table>
         </template>
     </div>
+
+    <b-card class="my-2">
+        <small class="font-italic">
+            Trying to get native browser events working on your component? Use the <code>.native</code>
+            modifier to capture browser native events such as: <code>@click.native="..."</code>,
+            <code>@mouseover.native="..."</code>, etc. See the the official
+            <a href="https://vuejs.org/v2/guide/components.html#Binding-Native-Events-to-Components">Vue.js docuementation</a>
+            for more information.
+        </small>
+    </b-card>
+
 </template>
 
 <style scoped>
