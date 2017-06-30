@@ -1,6 +1,6 @@
 # Form Select
 
-> Custom `<select>` menus need only a custom class, .custom-select to trigger the custom styles.
+> Bootstrap custom `<select>` using custom styles. Provide options based on an array, array of objects. or an object.
 
 ### Options
 `options` can be an array or a key-value object. Available fields:
@@ -49,6 +49,9 @@ setting the `return-object` prop to `true`, you can return the entire option obj
 Set heights using thw `size` prop to `sm` or `lg` for small or large respectively.
 
 To control width, place the input inside standard Bootstrap grid column.
+
+### Non custom select
+Set the prop `plain` to have a native browser `<select>` rendered.
 
 ### Contextual States
 Bootstrap includes validation styles for danger, warning, and success states on most form controls.
