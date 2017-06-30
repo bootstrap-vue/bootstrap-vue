@@ -1,6 +1,6 @@
 # Form Select
 
-> Custom `<select>` menus need only a custom class, .custom-select to trigger the custom styles.
+> Bootstrap custom `<select>` using custom styles. Provide options based on an array, array of objects. or an object.
 
 ### Options
 `options` can be an array or a key-value object. Available fields:
@@ -73,3 +73,6 @@ Ensure that an alternative indication of state is also provided. For instance, y
 could include a hint about state in the form control's `<label>` text itself, or by
 providing an additional help text block. Specifically for assistive technologies, 
 invalid form controls can also be assigned an `aria-invalid="true"` attribute.
+
+### Non custom select
+Set the prop `plain` to have a native browser `<select>` rendered.

@@ -1,6 +1,6 @@
 # Form Checkbox Input
 
-> For cross browser consistency, `b-form-checkbox` uses Bottstrap's custom
+> For cross browser consistency, `b-form-checkbox` uses Bootstrap's custom
 checkbox input to replace the browser default checkbox input. It is built on top of
 semantic and accessible markup, so it is a solid replacement for the default checkbox input.
 

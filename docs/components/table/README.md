@@ -220,7 +220,7 @@ following five properties:
 | `sortBy` | String | The current column key being sorted, or `null` if not sorting
 | `sortDesc` | Boolean | The current sort direction (`true` for descending, `false` for ascending)
 
-The second argument `callback` is an optional parameter for when when using the callback asynchronous method.
+The second argument `callback` is an optional parameter for when using the callback asynchronous method.
 
 **Example 1: returning an array of data (synchronous):**
 ```js
@@ -229,7 +229,7 @@ function myProvider(ctx) {
 
     // perform any items processing needed
     
-    // Must rturn an array
+    // Must return an array
     return items || [];
 }
 ```
