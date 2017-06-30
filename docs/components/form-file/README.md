@@ -1,6 +1,6 @@
 # Form File Input
 
-> Customized, cross-browser consitant, file input control that supports single file,
+> Customized, cross-browser consistant, file input control that supports single file,
 multiple files, and directory upload (for browsers that support directory mode)
 
 For cross browser consistency, Form file defaults to the Bootstrap custom file

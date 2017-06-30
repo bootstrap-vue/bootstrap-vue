@@ -1,6 +1,9 @@
 # Tabs
 
-**Basic usage**
+> Tabs is an extension of navs, to create tabbable panes of local content, even via dropdown menus.
+
+
+### Basic usage
 
 ```html
 <b-tabs>
@@ -16,7 +19,7 @@
 </b-tabs>
 ```
 
-**Cards Integration**
+### Cards Integration
 
 Tabs support integrating with bootstrap cards. Just add `card` property. Note that you should add `no-block` prop on `<b-card>` element in order to decorate header.
 
@@ -30,15 +33,15 @@ Tabs support integrating with bootstrap cards. Just add `card` property. Note th
 </b-card>
 ```
 
-**Pills variant**
+### Pills variant
 
 Just add `pills` property to tabs component.
 
-**Fade**
+### Fade
 
 Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
 
-**Add Tabs without content**
+### Add Tabs without content
 
 If you want to add extra tabs that do not have any content, you can put them in `tabs` slot:
 

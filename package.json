@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "0.17.0",
+  "version": "0.17.1",
   "description": "Bootstrap 4 Components for Vue.js 2",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
@@ -54,7 +54,8 @@
     "docs-publish": "./build/gh-pages",
     "test": "jest",
     "prepublish": "npm run build && npm run test",
-    "postpublish": "npm run docs-publish"
+    "postpublish": "npm run docs-publish",
+    "release": "standard-version"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
@@ -85,6 +86,7 @@
     "rollup-plugin-uglify": "^2.0.1",
     "rollup-plugin-vue": "^2.4.0",
     "rollup-watch": "^4.0.0",
+    "standard-version": "^4.2.0",
     "uglify-es": "^3.0.21"
   },
   "jest": {
