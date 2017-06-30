@@ -104,35 +104,9 @@
 </style>
 
 <script>
-    import Vue from 'vue/dist/vue.common';
+    import Vue from 'vue';
     import {debounce} from 'lodash';
-    import BootstrapVue from '../../../lib';
-
-    BootstrapVue.install(Vue);
-
-    const exampleHTML = `
-<b-btn class="mb-4" @click="clicked">Change progress</b-btn>
-
-<b-progress :value="progress"
-            variant="success"
-            :precision="1"
-            show-progress
-            animated
-></b-progress>
-`;
-
-    const exampleJS = `
-data: {
-    progress: Math.random() * 100
-},
-methods: {
-    clicked() {
-        this.progress = Math.round(Math.random()*10000)/100;
-        console.log("Change progress to " + this.progress);
-    }
-}
-`;
-
+  
     export default {
         data() {
             return {
@@ -282,8 +256,8 @@ methods: {
                 if (typeof window === 'undefined' || !window.localStorage) {
                     return;
                 }
-                this.js = window.localStorage.getItem('playground_js') || exampleJS;
-                this.html = window.localStorage.getItem('playground_html') || exampleHTML;
+                this.js = window.localStorage.getItem('playground_js') || '';
+                this.html = window.localStorage.getItem('playground_html') || '';
             },
             commit() {
                 if (typeof window === 'undefined' || !window.localStorage) {
