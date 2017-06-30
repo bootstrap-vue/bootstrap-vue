@@ -75,13 +75,19 @@ pre.editable:after {
     position: absolute;
     top: 0;
     right: 0;
-    color: #ccc;
+    color: #aaa;
     text-align: right;
-    font-size: 0.75em;
+    font-size: .75em;
     padding: 5px 10px 0;
     line-height: 15px;
     height: 15px;
     font-weight: 600;
+}
+
+pre.editable:hover:after {
+    font-size: .9em;
+    color: #444;
+    cursor: pointer;
 }
 
 pre.editable.live:after {
