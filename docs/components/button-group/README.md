@@ -2,6 +2,34 @@
 
 > Group a series of buttons together on a single line with `b-button group`.
 
+```html
+<div class="row">
+<div class="col">
+    <b-button-group vertical>
+    <b-button variant="success">Top</b-button>
+    <b-button variant="info">Middle</b-button>
+    <b-button variant="primary">Bottom</b-button>
+    </b-button-group>
+</div>
+<div class="col">
+    <b-button-group>
+    <b-button>Left</b-button>
+    <b-button>Middle</b-button>
+    <b-button>Right</b-button>
+    </b-button-group>
+</div>
+<div class="col">
+    <b-button-group size="sm">
+    <b-button>Left</b-button>
+    <b-button>Middle</b-button>
+    <b-button>Right</b-button>
+    </b-button-group>
+</div>
+</div>
+
+<!-- button-group.vue -->
+```
+
 ### Sizing
 Set the size prop to `lg` or `sm` to render larger or smaller, respectively, buttons.
 There is no need to specify the size on the individual buttons.

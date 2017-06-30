@@ -4,6 +4,39 @@
 radio input to replace the browser default radio input. It is built on top of
 semantic and accessible markup, so it is a solid replacement for the default radio input.
 
+```html
+<template>
+  <b-form-radio v-model="value2" :options="options" stacked="success">
+  </b-form-radio>
+  
+  <br>
+  <span>Selected: </span>
+  <span>{{value2}}</span>
+</tmplate>
+
+<script>
+export default {
+  data: {
+    value1: 'third',
+    value2: 'third',
+    options: [{
+      text: 'Toggle this custom radio',
+      value: 'first'
+    }, {
+      text: 'Or toggle this other custom radio',
+      value: 'second'
+    }, {
+      text: 'This one is Disabled',
+      value: 'third',
+      disabled: true
+    }]
+  }
+}
+</script>
+
+<!-- form-radio.vue -->
+```
+
 ### Options
 
 Please see options in [`<b-form-select>`](./form-select) docs for details on passing options

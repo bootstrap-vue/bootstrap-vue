@@ -2,7 +2,21 @@
 
 >  Use Bootstrap’s custom `b-button` component for actions in forms, dialogs, and more.
    Includes support for a handful of contextual variations, sizes, states, and more.
-   
+
+```html
+<div class="row">
+<template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
+    <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']">
+    <b-button :size="size" :variant="variant" href="">
+        {{variant}} {{size}}
+    </b-button>
+    </div>
+</template>
+</div>
+
+<!-- button.vue -->
+```
+
 The `b-button` component generally renders a `<button>` element. However, you can also
 render a an `<a>` element by proding an `href` prop vale. You man also generate
 `vue-router` `<router-link>` when providing a value for the `to` prop (`vue-router`

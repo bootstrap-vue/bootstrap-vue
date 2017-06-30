@@ -4,6 +4,40 @@
 purpose is to provide a label and control pairing, help text and feedback text, as well
 as contextual state visual feedback
 
+```html
+<template>
+<b-form-fieldset
+    :feedback="feedback" 
+    description="We'll convert your name to lowercase automatically."
+    label="Example Label"
+    :state="state"
+    :label-size="1"
+>
+
+<b-form-input v-model="name"></b-form-input>
+
+</b-form-fieldset>
+</tmplate>
+
+<script>
+export default {
+  computed: {
+    feedback() {
+      return this.name.length ? '' : 'Please enter something';
+    },
+    state() {
+      return this.name.length ? 'success':'warning';
+    },
+  },
+  data: {
+    name: '',
+  }
+}
+</script>
+
+<!-- form-fieldset.vue -->
+```
+
 ### Label
 The content of the generted `<label>` element (html supported).
 You may optionally visually hide the label by setting the prop `label-sr-only`.
