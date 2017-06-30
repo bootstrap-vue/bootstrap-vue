@@ -11,8 +11,10 @@
 </template>
 
 <script>
+import listenOnRoot from '../mixins/listen-on-root';
 
 export default {
+    mixins: [listenOnRoot],
     computed: {
         classObject() {
             return [
@@ -53,11 +55,8 @@ export default {
             }
         }
     },
-    mounted() {
-        this.$root.$on('collapse::toggle::state', this.handleStateEvt);
-    },
-    beforeDestroy() {
-        this.$root.$off('collapse::toggle::state', this.handleStateEvt);
+    created() {
+        this.listenOnRoot('collapse::toggle::state', this.handleStateEvt);
     }
 };
 </script>
