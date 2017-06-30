@@ -20,7 +20,10 @@
 </style>
 
 <script>
+    import listenOnRoot from '../mixins/listen-on-root';
+
     export default {
+        mixins: [listenOnRoot],
         data() {
             return {
                 show: this.visible
@@ -121,14 +124,12 @@
                 }
             }
         },
-        mounted() {
-            this.$root.$on('collapse::toggle', this.handleToggleEvt);
-            this.$root.$on('accordion::toggle', this.handleAccordionEvt);
-            this.emitState();
+        created() {
+            this.listenOnRoot('collapse::toggle', this.handleToggleEvt);
+            this.listenOnRoot('accordion::toggle', this.handleAccordionEvt);
         },
-        beforeDestroy() {
-            this.$root.$off('collapse::toggle', this.handleToggleEvt);
-            this.$root.$off('accordion::toggle', this.handleAccordionEvt);
+        mounted() {
+            this.emitState();
         }
     };
 
