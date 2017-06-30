@@ -17,7 +17,7 @@ as contextual state visual feedback
 <b-form-input v-model="name"></b-form-input>
 
 </b-form-fieldset>
-</tmplate>
+</template>
 
 <script>
 export default {

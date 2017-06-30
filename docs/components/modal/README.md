@@ -24,7 +24,7 @@
     </form>
     
   </b-modal>
-</tmplate>
+</template>
 
 <script>
 export default {

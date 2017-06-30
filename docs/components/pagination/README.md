@@ -18,7 +18,7 @@
 
     <br>
     <div>currentPage: {{currentPage}}</div>
-</tmplate>
+</template>
 
 <script>
 export default {

@@ -5,8 +5,8 @@
 
 ```html
 <template>
-  <b-breadcrumb :items="items" />
-</tmplate>
+  <b-breadcrumb :items="items"/>
+</template>
 
 <script>
 export default {

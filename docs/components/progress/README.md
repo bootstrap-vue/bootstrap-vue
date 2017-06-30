@@ -8,7 +8,7 @@ We don’t use the HTML5 `<progress>` element, ensuring you can animate them, an
     <b-progress v-model="counter" :precision="1" show-progress animated></b-progress>
 
     <b-btn class="mt-4" @click="clicked">Click me</b-btn>
-</tmplate>
+</template>
 
 <script>
 export default {

@@ -21,7 +21,7 @@
 
   <br>
   <p>Value: {{text}}</p>
-</tmplate>
+</template>
 
 <script>
 export default {

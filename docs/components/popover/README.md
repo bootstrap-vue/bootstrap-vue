@@ -62,7 +62,7 @@
       </b-popover>
     </div>
   </div>
-</tmplate>
+</template>
 
 <script>
 export default {

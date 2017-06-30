@@ -10,7 +10,7 @@
     ></b-form-select>
 
   <div>Selected: <strong>{{selected}}</strong></div>
-</tmplate>
+</template>
 
 <script>
 export default {

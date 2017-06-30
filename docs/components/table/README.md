@@ -33,7 +33,7 @@
     <b-pagination size="md" :total-rows="this.items.length" :per-page="perPage" v-model="currentPage" />
   </div>
   
-</tmplate>
+</template>
 
 <script>
 export default {

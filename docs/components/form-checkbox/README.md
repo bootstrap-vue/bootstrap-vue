@@ -11,7 +11,7 @@ semantic and accessible markup, so it is a solid replacement for the default che
   </b-form-checkbox>
 
   <div>State: <strong>{{state}}</strong></div>
-</tmplate>
+</template>
 
 <script>
 export default {

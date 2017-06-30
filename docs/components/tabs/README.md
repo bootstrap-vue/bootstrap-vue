@@ -59,7 +59,7 @@
       </div>
     </b-tabs>
   </b-card>
-</tmplate>
+</template>
 
 <script>
 export default {

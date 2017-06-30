@@ -14,7 +14,7 @@ multiple files, and directory upload (for browsers that support directory mode)
     <b-form-file v-model="file2" choose-label="Attachment2"></b-form-file>
     <br> Selected file : {{file2 && file2.name}}
   </div>
-</tmplate>
+</template>
 
 <script>
 export default {
