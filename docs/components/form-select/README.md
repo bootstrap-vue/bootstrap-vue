@@ -50,9 +50,6 @@ Set heights using thw `size` prop to `sm` or `lg` for small or large respectivel
 
 To control width, place the input inside standard Bootstrap grid column.
 
-### Non custom select
-Set the prop `plain` to have a native browser `<select>` rendered.
-
 ### Contextual States
 Bootstrap includes validation styles for danger, warning, and success states on most form controls.
 
@@ -76,3 +73,6 @@ Ensure that an alternative indication of state is also provided. For instance, y
 could include a hint about state in the form control's `<label>` text itself, or by
 providing an additional help text block. Specifically for assistive technologies, 
 invalid form controls can also be assigned an `aria-invalid="true"` attribute.
+
+### Non custom select
+Set the prop `plain` to have a native browser `<select>` rendered.
