@@ -357,21 +357,22 @@
                     !this.$refs.content.contains(e.target)) {
                     this.$refs.content.focus();
                 }
-            }
-        },
-        created() {
-            this.listenOnRoot('show::modal', (id, triggerEl) => {
+            },
+            showHandler(id, triggerEl) {
                 if (id === this.id) {
                     this.return_focus = triggerEl || null;
                     this.show();
                 }
-            });
-
-            this.listenOnRoot('hide::modal', id => {
+            },
+            hideHandler(id) {
                 if (id === this.id) {
                     this.hide();
                 }
-            });
+            }
+        },
+        created() {
+            this.listenOnRoot('show::modal', this.showHandler);
+            this.listenOnRoot('hide::modal', this.hideHandler);
         },
         mounted() {
             if (this.visible === true) {
