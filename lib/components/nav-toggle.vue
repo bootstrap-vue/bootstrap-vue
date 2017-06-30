@@ -49,7 +49,7 @@ export default {
             }
             this.$root.$emit('collapse::toggle', this.target);
         },
-        hadleStateEvt(target, state) {
+        handleStateEvt(target, state) {
             if (target === this.target || target === this.target.id) {
                 this.toggleState = state;
             }
