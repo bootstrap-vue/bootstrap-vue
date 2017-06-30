@@ -4,32 +4,37 @@
          role="group"
          :aria-describedby="describedBy"
     >
-        <label v-if="label"
+        <label v-if="label || $slots['label']"
                :for="target"
                :id="labelId"
                :class="[labelSrOnly ? 'sr-only' : 'col-form-label',labelLayout,labelAlignClass]"
-               v-html="label"
-        ></label>
+        >
+            <slot name="label"><span v-html="label"></span></slot>
+        </label>
         <div :class="inputLayout" ref="content">
             <slot></slot>
-            <div v-if="feedback"
+            <div v-if="feedback || $slots['feedback']"
                  class="form-text form-control-feedback"
                  :id="feedbackId"
                  role="alert"
                  aria-live="assertive"
                  aria-atomic="true"
-                 v-html="feedback"
-            ></div>
-            <small v-if="description"
+            >
+                <slot name="feedback"><span v-html="feedback"></span></slot>
+            </div>
+            <small v-if="description || $slots['description']"
                    class="form-text text-muted"
                    :id="descriptionId"
-                   v-html="description"
-            ></small>
+            >
+                <slot name="description"><span v-html="description"></span></slot>
+            </small>
         </div>
     </div>
 </template>
 
 <script>
+    import warn from '../utils/warn';
+
     export default {
         data() {
             return {
@@ -59,11 +64,18 @@
             inputState() {
                 return this.state ? `has-${this.state}` : '';
             },
+            computedLabelCols() {
+                if (this.labelSize) {
+                    warn('b-form-fieldset: prop label-size has been deprecated. Use label-cols instead');
+                    return this.labelSize;
+                }
+                return this.labelCols;
+            },
             labelLayout() {
                 if (this.labelSrOnly) {
                     return null;
                 }
-                return this.horizontal ? ('col-sm-' + this.labelSize) : 'col-12';
+                return this.horizontal ? ('col-sm-' + this.computedLabelCols) : 'col-12';
             },
             labelAlignClass() {
                 if (this.labelSrOnly) {
@@ -72,7 +84,7 @@
                 return this.labelTextAlign ? `text-${this.labelTextAlign}` : null;
             },
             inputLayout() {
-                return this.horizontal ? ('col-sm-' + (12 - this.labelSize)) : 'col-12';
+                return this.horizontal ? ('col-sm-' + (12 - this.computedLabelCols)) : 'col-12';
             }
         },
         methods: {
@@ -111,9 +123,19 @@
                 type: Boolean,
                 default: false
             },
-            labelSize: {
+            labelCols: {
                 type: Number,
-                default: 3
+                default: 3,
+                validator(value) {
+                    if (value >= 1 && value <= 11) {
+                        return true;
+                    }
+                    warn('b-form-fieldset: label-cols must be a value between 1 and 11');
+                    return false;
+                }
+            },
+            labelSize: {
+                type: Number
             },
             labelTextAlign: {
                 type: String,
