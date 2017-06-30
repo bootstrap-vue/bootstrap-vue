@@ -1,7 +1,7 @@
 {
   "title": "Form Fieldset",
   "component": "bFormFieldset",
-  "jsfiddle": "7ztq8nzd",
+  "jsfiddle": "tsrx358f",
   "slots": [
     {
       "name": "label",
