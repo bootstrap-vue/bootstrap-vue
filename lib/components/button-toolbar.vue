@@ -39,7 +39,7 @@
                 type: Boolean,
                 default: false
             },
-            KeyNav: {
+            keyNav: {
                 type: Boolean,
                 default: false
             }
