@@ -60,7 +60,7 @@ with the .sr-only class.
 
 ### Additional content inside alerts
 Alerts can also contain additional HTML elements like headings and paragraphs,
-which will be styles with the apropriate color matching the variant.
+which will be styled with the appropriate color matching the variant.
 
 #### Color of links within alerts:
 Use the `.alert-link` utility class to quickly provide matching colored links
