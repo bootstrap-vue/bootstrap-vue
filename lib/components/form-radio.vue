@@ -40,6 +40,14 @@
         },
         props: {
             value: {},
+            size: {
+                type: String,
+                default: null
+            },
+            state: {
+                type: String,
+                default: null
+            },
             options: {
                 type: [Array, Object],
                 default: null,
