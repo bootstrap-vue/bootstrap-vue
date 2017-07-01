@@ -59,7 +59,7 @@ export default {
     }, {
       isActive: false,
       age: 9,
-      state: 'success',
+      _rowVariant: 'success',
       name: {
         first: 'Mitzi',
         last: 'Navarro'
@@ -98,6 +98,10 @@ export default {
       }
 
     }, {
+       _cellVariants: { 
+          age: 'danger',
+          name: 'success'
+      },
       isActive: false,
       age: 21,
       name: {
@@ -369,10 +373,10 @@ the `v-model` binding.
 As mentioned under the `items` prop section, it is possible to use a function to provide 
 the row data (items), by specifying a function reference via the `items` prop.
 
-**Note:** The `items-provider` prop has been deprecaated in favour of providing a function
+**Note:** The `items-provider` prop has been deprecated in favour of providing a function
 reference to the `items` prop. A console warning will be issued if `items-provider` is used.
 
-The providerfunction is called with the following signature:
+The provider function is called with the following signature:
 
 ```js
     provider(ctx, [callback])
