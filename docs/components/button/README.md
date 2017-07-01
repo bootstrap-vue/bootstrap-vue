@@ -18,7 +18,7 @@
 ```
 
 The `b-button` component generally renders a `<button>` element. However, you can also
-render a an `<a>` element by proding an `href` prop vale. You man also generate
+render an `<a>` element by proding an `href` prop value. You man also generate
 `vue-router` `<router-link>` when providing a value for the `to` prop (`vue-router`
 is  required).
 
@@ -53,11 +53,11 @@ works with buttons rednered as `<a>` elements and `<router-link>`
 
 ### Button type
 When neither `href` nor `to` props are provided, `b-button` renders an html `<button>`
-element.  You cn specify the button's type by setting the prop `type` to `button`,
+element.  You can specify the button's type by setting the prop `type` to `button`,
 `submit` or `reset`.  The default type is `button`.
 
 ### Router links
-Refer to [`vue-router`](https://router.vuejs.org/) docs for the various router-link related props.
+Refer to [`vue-router`](https://router.vuejs.org/) docs for the various `<router-link>` related props.
 
 Note the `tag`attribute for `router-link` is refered to as `router-tag` in `bootstrap-vue`
 
