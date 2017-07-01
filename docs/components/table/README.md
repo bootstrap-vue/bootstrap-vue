@@ -4,6 +4,7 @@
 
 ```html
 <template>
+ <div>
   <div class="justify-content-center my-1 row">
     <div class="col-6">
       <b-form-fieldset horizontal label="Rows per page" :label-size="6">
@@ -35,6 +36,7 @@
     </template>
   </b-table>
 
+ </div> 
 </template>
 
 <script>

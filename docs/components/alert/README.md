@@ -4,7 +4,8 @@
 
 ```html
 <template>
-  <b-alert show>
+  <div>
+   <b-alert show>
         Default Alert
     </b-alert>
 
@@ -24,6 +25,7 @@
     <b-btn @click="showDismissibleAlert=true" variant="info" class="m-1">
         Show dismissible alert ({{showDismissibleAlert?'visible':'hidden'}})
     </b-btn>
+  </div>
 </template>
 
 <script>

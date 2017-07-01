@@ -6,11 +6,13 @@ semantic and accessible markup, so it is a solid replacement for the default che
 
 ```html
 <template>
-  <b-form-checkbox v-model="state" value="accepted" unchecked-value="not_accepted">
-    I accept terms and use
-  </b-form-checkbox>
+  <div>
+    <b-form-checkbox v-model="state" value="accepted" unchecked-value="not_accepted">
+      I accept terms and use
+    </b-form-checkbox>
 
-  <div>State: <strong>{{state}}</strong></div>
+    <div>State: <strong>{{state}}</strong></div>
+  </div>
 </template>
 
 <script>

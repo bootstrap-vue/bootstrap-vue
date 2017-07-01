@@ -4,8 +4,7 @@
 
 ```html
 <template>
-<!-- Example #1 -->
-
+<div>
   <!-- Tabs with card integration -->
   <b-card no-block>
     <b-tabs small card ref="tabs" v-model="tabIndex">
@@ -36,8 +35,6 @@
   <br>
   <br>
 
-  <!-- Example #2 -->
-
   <b-card no-block>
     <b-tabs card>
       <!-- Render Tabs -->
@@ -59,6 +56,8 @@
       </div>
     </b-tabs>
   </b-card>
+
+</div>
 </template>
 
 <script>

@@ -5,6 +5,7 @@ multiple files, and directory upload (for browsers that support directory mode)
 
 ```html
 <template>
+<div>
   <!-- Simple File -->
   <b-form-file v-model="file"></b-form-file>
   <br> Selected file: {{file && file.name}}
@@ -14,6 +15,7 @@ multiple files, and directory upload (for browsers that support directory mode)
     <b-form-file v-model="file2" choose-label="Attachment2"></b-form-file>
     <br> Selected file : {{file2 && file2.name}}
   </div>
+</div>
 </template>
 
 <script>
