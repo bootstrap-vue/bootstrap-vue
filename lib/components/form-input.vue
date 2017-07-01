@@ -1,15 +1,15 @@
 <template>
     <input v-if="!static"
            ref="input"
-           :type="type"
+           :type="textarea ? null : type"
            :value="value"
            :name="name"
            :id="id || null"
            :disabled="disabled"
            :readonly="readonly"
-           :is="textarea?'textarea':'input'"
-           :class="['form-control',inputClass]"
-           :rows="rows || rowsCount"
+           :is="textarea ? 'textarea' : 'input'"
+           :class="inputClass"
+           :rows="textarea ? (rows || rowsCount) : null"
            :placeholder="placeholder"
            @input="onInput($event.target.value)"
            @change="onChange($event.target.value)"
@@ -36,6 +36,13 @@
         computed: {
             rowsCount() {
                 return (this.value || '').toString().split('\n').length;
+            },
+            inputClass() {
+                return [
+                    'form-control',
+                    this.size ? `form-control-${this.size}` : null,
+                    this.state ? `form-control-${this.state}` : null
+                ];
             }
         },
         methods: {

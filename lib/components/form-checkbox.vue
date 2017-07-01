@@ -1,5 +1,5 @@
 <template>
-    <label :class="[inputClass,checkboxClass,custom?'custom-checkbox':null]">
+    <label :class="[inputClass,checkboxClass]">
         <input type="checkbox"
                :id="id || null"
                :name="name"
@@ -11,7 +11,7 @@
         <span class="custom-control-indicator"
               aria-hidden="true"
               v-if="custom"></span>
-        <span :class="[custom?'custom-control-description':null]">
+        <span :class="custom ? 'custom-control-description' : null">
             <slot></slot>
         </span>
     </label>
@@ -47,11 +47,17 @@ export default {
         }
     },
     computed: {
-        isChecked() {
-            return arrayIncludes(this.checked, this.value);
-        },
         custom() {
             return !this.plain;
+        },
+        inputClass() {
+            return [
+                this.size ? `form-control-${this.size}` : null,
+                this.custom ? 'custom-checkbox' : null
+            ];
+        },
+        isChecked() {
+            return arrayIncludes(this.checked, this.value);
         }
     },
     methods: {
