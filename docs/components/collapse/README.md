@@ -59,7 +59,7 @@ Other elements can easily toggle `b-collapse` components using the `v-b-toggle` 
 </b-collapse>
 ```
 
-To make the collape show initially, set the `visible` prop:
+To make the collapse show initially, set the `visible` prop:
 
 ```html
 <b-btn v-b-toggle.collapse1>Toggle Collapse</b-btn>
