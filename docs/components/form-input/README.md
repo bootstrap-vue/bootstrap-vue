@@ -52,10 +52,10 @@ The `formatter` function receives a single argument which is the control's curre
 should return the formatted value.
 
 ### Textarea
-Render a `textarea` control by setting the `textarea` prop to `true`. The
+Render a `<textarea>` element by setting the `textarea` prop to `true`. The
 `type` prop is ignored when prop `textarea` is set.
 
-By default `textarea` will automatically size its height based on on the number
+By default the `<textarea>` will automatically size its height based on on the number
 lines (separated by newlines) of text it contains. You can override this behaviour by supplying
 a numeric value to the `rows` prop. The `rows` prop has no effect on other input types.
 
@@ -105,10 +105,10 @@ providing an additional help text block. Specifically for assistive technologies
 invalid form controls can also be assigned an `aria-invalid="true"` attribute.
 
 ### ARIA `aria-invalid` attribute
-When `form-input` has an invalid contextual state (i.e. `danger`) you may also
+When `<form-input>` has an invalid contextual state (i.e. `danger`) you may also
 want to set the `<b-form-input>` prop `invalid` to `true`, or a string value.
 
-Supported `invaid` values are:
+Supported `invalid` values are:
 - `false` (default) No errors detected
 - `true` The value has failed validation.
 - `grammar` A grammatical error has been detected.
