@@ -68,7 +68,15 @@ Set heights using the `size` prop to `sm` or `lg` for small or large respectivel
 To control width, place the input inside standard Bootstrap grid column.
 
 ### Contextual States
-Bootstrap includes validation styles for danger, warning, and success states on most form controls.
+Bootstrap includes validation styles for danger, warning, and success states
+on most form controls. Note that these states will not appear unless the
+`<b-form-input>` is wrapped in a `<b-form fieldset>` which also has the same
+`state` value.
+
+On `<b-form-input>`, these states will add the corresponding validtion state
+icon at the right of the input. Validation icons are url()s configured via
+Bootstrap V4's Sass variables that are applied to background-image declarations
+for each state.
 
 Generally speaking, you’ll want to use a particular state for specific types of feedback:
 - `danger` is great for when there’s a blocking or required field. A user must fill in
@@ -78,8 +86,10 @@ soft validation before a user attempts to submit a form.
 - `success` is ideal for situations when you have per-field validation throughout a form
 and want to encourage a user through the rest of the fields.
 
-To apply one of the contextual steates on `b-form-input`, set the `state` prop
-to `danger`, `warning`, or `success`.
+To apply one of the contextual states on `b-form-input`, set the `state` prop
+to `danger`, `warning`, or `success`. Remember that you will not see the validation 
+state icon unless the input is wrapped in a `<b-form-fieldset>` which also
+has the same `state` applied!
 
 #### Conveying contextual validation state to assistive technologies and colorblind users:
 Using these contextual states to denote the state of a form control only provides
