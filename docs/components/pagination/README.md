@@ -22,9 +22,9 @@
 
 <script>
 export default {
- data: {
-    currentPage: 3
- }
+    data: {
+        currentPage: 3
+    }
 }
 </script>
 
@@ -57,7 +57,7 @@ indicator(s) will never be shown for practial display reasons.
 
 ### Small screen support (`xs`)
 On smaller screens (i.e. mobile), some of the pagination buttons will be hidden to
-minimize the potntial of the pagination interface wraping onto multiple lines:
+minimize the potential of the pagination interface wraping onto multiple lines:
 
 - The ellipsis indicators will be hidden on screens `xs` and smaller.
 - Page number buttons will be limitted to a maximum of 3 visible on `xs` screens and smaller.
@@ -70,10 +70,10 @@ The `b-pagination` component provides many features to support assistive technol
 including `aria-label`, `aria-posinset` and `aria-setsize`.  The features are
 automatically aplied, and can be cusomized.
 
-#### ARIA button labels:
+#### Accessibility:
 `b-pagination` provides various `label-*` props which are used to set the `aria-label`
-attributes on the various elements within the component, to help
-assistive technology users.
+attributes on the various elements within the component, to help users of
+assistive technology.
 
 | Prop | `aria-label` content default
 | ---- | -----------
