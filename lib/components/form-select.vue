@@ -20,7 +20,7 @@
     import formCustomMixin from '../mixins/form-custom';
 
     export default {
-        mixins: [formMixin, formOptions],
+        mixins: [formMixin, formCustomMixin, formOptions],
         data() {
             return {
                 localValue: this.value
