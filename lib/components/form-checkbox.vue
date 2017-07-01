@@ -40,6 +40,10 @@ export default {
         checked: {
             default: true
         },
+        size: {
+            type: String,
+            default: null
+        },
         plain: {
             type: Boolean,
             default: false
