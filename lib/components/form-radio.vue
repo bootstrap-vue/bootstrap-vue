@@ -1,9 +1,8 @@
 <template>
-    <div :id="id || null"
-         :class="[inputClass, inputState, this.stacked?'custom-controls-stacked':'']"
-         role="radiogroup"
-    >
-        <label :class="[checkboxClass,custom?'custom-radio':null]" v-for="option in formOptions">
+    <div :id="id || null" :class="inputClass" role="radiogroup">
+        <label :class="[checkboxClass, custom?'custom-radio':null]"
+               v-for="option in formOptions"
+        >
             <input :id="option.id || null"
                    :class="custom?'custom-control-input':null"
                    ref="inputs"
@@ -34,12 +33,21 @@
             };
         },
         computed: {
-            inputState() {
-                return this.state ? `has-${this.state}` : '';
+            inputClass() {
+                return [
+                    this.size ? `form-control-${this.size}` : null,
+                    this.state ? `has-${this.state}` : '',
+                    this.stacked?'custom-controls-stacked':''
+                 ];
             }
         },
         props: {
             value: {},
+            options: {
+                type: [Array, Object],
+                default: null,
+                required: true
+            },
             size: {
                 type: String,
                 default: null
@@ -47,11 +55,6 @@
             state: {
                 type: String,
                 default: null
-            },
-            options: {
-                type: [Array, Object],
-                default: null,
-                required: true
             },
             stacked: {
                 type: Boolean,
