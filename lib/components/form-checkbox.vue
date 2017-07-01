@@ -19,6 +19,7 @@
 
 <script>
 import formMixin from '../mixins/form';
+import formCustomMixin from '../mixins/form-custom';
 import formCheckBoxMixin from '../mixins/form-checkbox';
 import arrayIncludes from '../utils/arrayIncludes';
 import isArray from '../utils/isArray';
@@ -43,10 +44,6 @@ export default {
         size: {
             type: String,
             default: null
-        },
-        plain: {
-            type: Boolean,
-            default: false
         }
     },
     computed: {
