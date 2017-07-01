@@ -63,7 +63,7 @@ Easily convert a `b-form-input` control to a Bootstrap static form control by se
 You can also use the `b-form-input-static` component to create static form controls.
 
 ### Control sizing
-Set heights using thw `size` prop to `sm` or `lg` for small or large respectively.
+Set heights using the `size` prop to `sm` or `lg` for small or large respectively.
 
 To control width, place the input inside standard Bootstrap grid column.
 
