@@ -1,5 +1,5 @@
 <template>
-    <div :id="id || null" :class="inputClass" role="radiogroup">
+    <div :id="id || null" :class="inputClass" role="radiogroup" :aria-invalid="ariaInvalid">
         <label :class="[checkboxClass, custom?'custom-radio':null]"
                v-for="option in formOptions"
         >
@@ -39,6 +39,12 @@
                     this.state ? `has-${this.state}` : '',
                     this.stacked ? 'custom-controls-stacked' : ''
                  ];
+            },
+            ariaInvalid() {
+                if (this.invalid === true || this.invalid === 'true') {
+                    return 'true';
+                }
+                return null;
             }
         },
         props: {
@@ -55,6 +61,10 @@
             state: {
                 type: String,
                 default: null
+            },
+            invalid: {
+                type: [Boolean, String],
+                default: false
             },
             stacked: {
                 type: Boolean,
