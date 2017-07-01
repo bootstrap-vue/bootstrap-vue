@@ -1,5 +1,5 @@
 <template>
-    <select :class="['form-control',inputClass,custom?'custom-select':null]"
+    <select :class="inputClass"
             :name="name"
             :id="id || null"
             v-model="localValue"
@@ -25,6 +25,15 @@
             return {
                 localValue: this.value
             };
+        },
+        computed: {
+            inputClass() {
+                return [
+                    'form-control',
+                    this.size ? `form-control-${this.size}` : null,
+                    this.custom ? 'custom-select' : null
+                ];
+            }
         },
         props: {
             value: {},
