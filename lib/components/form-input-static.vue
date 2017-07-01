@@ -23,6 +23,10 @@
             },
             formatter: {
                 type: Function
+            },
+            size: {
+                type: String,
+                default: null
             }
         }
     };
