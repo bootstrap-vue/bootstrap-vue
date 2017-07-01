@@ -4,6 +4,7 @@
             :id="id || null"
             v-model="localValue"
             :disabled="disabled"
+            :aria-invalid="ariaInvalid"
             ref="input"
     >
         <option v-for="option in formOptions"
@@ -33,10 +34,23 @@
                     this.size ? `form-control-${this.size}` : null,
                     this.custom ? 'custom-select' : null
                 ];
+            },
+            ariaInvalid() {
+                if (this.invalid === false || this.invalid === 'false') {
+                    return null;
+                }
+                if (this.invalid === true || this.invalid === 'true') {
+                    return 'true';
+                }
+                return null;
             }
         },
         props: {
             value: {},
+            invalid: {
+                type: [Boolean, String],
+                default: false
+            },
             size: {
                 type: String,
                 default: null
