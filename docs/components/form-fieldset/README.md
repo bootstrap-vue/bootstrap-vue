@@ -1,8 +1,8 @@
 # Form fieldset (Form group)
 
-> The `b-form-fieldset` component is the easiest way to add some structure to forms. Its
+> The `<b-form-fieldset>` component is the easiest way to add some structure to forms. Its
 purpose is to provide a label and control pairing, help text and feedback text, as well
-as contextual state visual feedback
+as contextual state visual feedback.
 
 ```html
 <template>
@@ -70,12 +70,12 @@ You should always provide content via the `feedback` prop to assist users
 using assistive technologies when setting a contextual state.
 
 ### Accessibility
-To enable auto-generation of `aria-*` attributes, you must supply a unique `id`
-prop to `b-form-fieldset`.
+To enable auto-generation of `aria-*` attributes, **you must** supply a unique `id`
+prop to `<b-form-fieldset>`.
 
 To automatically associate the label to the first input element, you must provide
 a unique `id` prop on the input component. You may optionally specify which containing
-input component the label is for by setting the `b-form-fieldset` prop `for` to the
+input component the label is for by setting the `<b-form-fieldset>` prop `for` to the
 id string of the input.
 
 It is highly recommended that you provide a unique `id` prop on your input element.
