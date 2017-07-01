@@ -147,8 +147,7 @@ bind the `v-model` or `visible` of all the collapses in the accordion group to t
 - Ensure, at most, only one `b-collapse` in the accordion group has the `visible` 
 prop and/or `v-model` set to `true`.
 
-### ARIA compliance
-
+### Accessibility
 The `v-b-toggle` directive will automatically add the ARIA attributes `aria-controls` and `aria-expanded`
 to the component that the directive appears on.  `aria-expanded` will reflect the state of 
 the tartget `b-collapse` component, while `aria-controls` will be set to the ID(s) 
