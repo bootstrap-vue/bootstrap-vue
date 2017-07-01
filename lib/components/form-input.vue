@@ -20,6 +20,8 @@
     <b-form-input-static v-else
                          :id="id || null"
                          :value="value"
+                         :size="size"
+                         :state="state"
                          :formatter="formatter"
     ></b-form-input-static>
 </template>
@@ -72,6 +74,14 @@
             type: {
                 type: String,
                 default: 'text'
+            },
+            size: {
+                type: String,
+                default: null
+            },
+            state: {
+                type: String,
+                default: null
             },
             readonly: {
                 type: Boolean,
