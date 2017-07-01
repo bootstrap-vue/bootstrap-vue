@@ -43,15 +43,16 @@ Use the prop `label` to set the content of the generted `<label>` element (html 
 or by using the named slot `label`, You may optionally visually hide the label by setting
 the prop `label-sr-only`.
 
-By default, the label apepars above the input element, but you may optionallu set
-the prop `horizontal` to place the label on the same line and control the width
+By default, the label apepars above the input element, but you may optionally set
+the prop `horizontal` to place the label on the same line, and control the width
 of the label by setting `label-cols` to the number of columns (default of `3`,
 valid range of 1 through 11). `label-cols` has no effect if the layout is
-not `horizontal`.
+not `horizontal`. For `xs` sized viewports hte label will revert to being displayed
+above the input control.
 
 _**Note**: `label-size` has been deprecated in favour of `label-cols`._
 
-The label may also optionally be alligned `left`, `center` or `right` by setting
+The label texy may also optionally be alligned `left`, `center` or `right` by setting
 the respective value via the prop `label-text-align`. Alignment has no effect if
 `label-sr-only` is set.
 
@@ -64,8 +65,8 @@ Show optional text to provide textual state feedback (html supported) by setting
 prop `feedback` or using the named slot `feedback`.
 
 ### Contextual visual state
-Optional contextual visual feedback state of `danger`, `warning` or `success`.
-You should always provide content via the `feedback` prop to assit users
+Optional contextual visual feedback states of `danger`, `warning` or `success`.
+You should always provide content via the `feedback` prop to assist users
 using assistive technologies when setting a contextual state.
 
 ### Accessibility
