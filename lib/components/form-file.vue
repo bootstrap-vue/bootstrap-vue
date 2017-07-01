@@ -83,9 +83,10 @@
 
 <script>
     import formMixin from '../mixins/form';
+    import formCustomMixin from '../mixins/form-custom';
 
     export default {
-        mixins: [formMixin],
+        mixins: [formMixin, formCustomMixin],
         data() {
             return {
                 selectedFile: null,
@@ -112,9 +113,6 @@
             },
             computedChooseLabel() {
                 return this.chooseLabel || (this.multiple ? 'Choose Files' : 'Choose File');
-            },
-            custom() {
-                return !this.plain;
             }
         },
         watch: {
@@ -270,10 +268,6 @@
             dropLabel: {
                 type: String,
                 default: 'Drop files here'
-            },
-            plain: {
-                type: Boolean,
-                default: false
             }
         }
     };
