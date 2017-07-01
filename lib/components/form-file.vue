@@ -1,5 +1,5 @@
 <template>
-    <div :class="['form-control', custom?'custom-file':null, inputClass]"
+    <div :class="custom?'custom-file':null"
          :id="id ? (id + '__BV_file_outer_') : null"
          @dragover.stop.prevent="dragover"
     >
