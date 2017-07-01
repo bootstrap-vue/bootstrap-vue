@@ -214,7 +214,7 @@ The close event object contans a single property and a single method:
 | Propery or Method | Type | Description
 | ------------ | ------ | --------------------------------------------
 | `e.cancel()` | Method | When called prevents the modal from closing
-| `isOK` | Prroperty | Will be one of: `true` (Default **OK** Clicked), `false` (Default **Close** clicked), the argument provided to the `hide()` method, or `undefined` otherwise (i.e. close on Esc, or close on backdrop click)
+| `isOK` | Property | Will be one of: `true` (Default **OK** Clicked), `false` (Default **Close** clicked), the argument provided to the `hide()` method, or `undefined` otherwise (i.e. close on Esc, or close on backdrop click)
 
 You can set the value of `isOK` by passing an argument to the component's
 `hide()` method for advanced control. Note: The `ok` and `cancel` events
