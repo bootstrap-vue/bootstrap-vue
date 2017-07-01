@@ -37,7 +37,7 @@
                 return [
                     this.size ? `form-control-${this.size}` : null,
                     this.state ? `has-${this.state}` : '',
-                    this.stacked?'custom-controls-stacked':''
+                    this.stacked ? 'custom-controls-stacked' : ''
                  ];
             }
         },
