@@ -28,6 +28,10 @@
         },
         props: {
             value: {},
+            size: {
+                type: String,
+                default: null
+            },
             options: {
                 type: [Array, Object],
                 required: true
