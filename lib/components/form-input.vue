@@ -101,7 +101,7 @@
                 default: null
             },
             invalid: {
-                type: [Boolean, String]
+                type: [Boolean, String],
                 default: false
             },
             readonly: {
