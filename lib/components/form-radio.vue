@@ -23,10 +23,11 @@
 <script>
     import formOptionsMixin from '../mixins/form-options';
     import formMixin from '../mixins/form';
+    import formCustomMixin from '../mixins/form-custom';
     import formCheckBoxMixin from '../mixins/form-checkbox';
 
     export default {
-        mixins: [formMixin, formCheckBoxMixin, formOptionsMixin],
+        mixins: [formMixin, formCustomMixin, formCheckBoxMixin, formOptionsMixin],
         data() {
             return {
                 localValue: this.value
