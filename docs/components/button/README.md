@@ -18,7 +18,7 @@
 ```
 
 The `b-button` component generally renders a `<button>` element. However, you can also
-render an `<a>` element by proding an `href` prop value. You man also generate
+render an `<a>` element by providing an `href` prop value. You man also generate
 `vue-router` `<router-link>` when providing a value for the `to` prop (`vue-router`
 is  required).
 
@@ -44,12 +44,12 @@ In need of a button, but not the hefty background colors they bring? Use the
 and `outline-danger`.
 
 #### Link variant:
-Variant `link` will reder a button with the appearance of a link while maintaning the
+Variant `link` will render a button with the appearance of a link while maintaning the
 default passing and size of a button.
 
 ### Disabled state
 Set the `disabled` prop to disable button default funtionality. `disabled` also 
-works with buttons rednered as `<a>` elements and `<router-link>`
+works with buttons, rendered as `<a>` elements and `<router-link>`.
 
 ### Button type
 When neither `href` nor `to` props are provided, `b-button` renders an html `<button>`
@@ -59,7 +59,7 @@ element.  You can specify the button's type by setting the prop `type` to `butto
 ### Router links
 Refer to [`vue-router`](https://router.vuejs.org/) docs for the various `<router-link>` related props.
 
-Note the `tag`attribute for `router-link` is refered to as `router-tag` in `bootstrap-vue`
+Note the `tag` attribute for `router-link` is refered to as `router-tag` in `bootstrap-vue`.
 
 ### Alias
-`<b-button>` can also be used by its shorter alias `<b-btn>`
+`<b-button>` can also be used by its shorter alias `<b-btn>`.
