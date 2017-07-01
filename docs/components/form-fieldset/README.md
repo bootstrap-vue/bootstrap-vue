@@ -39,20 +39,20 @@ export default {
 ```
 
 ### Label
-Use the prop `label` to set the content of the generted `<label>` element (html supported),
+Use the prop `label` to set the content of the generated `<label>` element (html supported),
 or by using the named slot `label`, You may optionally visually hide the label by setting
 the prop `label-sr-only`.
 
-By default, the label apepars above the input element, but you may optionally set
+By default, the label appears above the input element, but you may optionally set
 the prop `horizontal` to place the label on the same line, and control the width
 of the label by setting `label-cols` to the number of columns (default of `3`,
 valid range of 1 through 11). `label-cols` has no effect if the layout is
-not `horizontal`. For `xs` sized viewports hte label will revert to being displayed
+not `horizontal`. For `xs` sized viewports the label will revert to being displayed
 above the input control.
 
 _**Note**: `label-size` has been deprecated in favour of `label-cols`._
 
-The label texy may also optionally be alligned `left`, `center` or `right` by setting
+The label text may also optionally be aligned `left`, `center` or `right` by setting
 the respective value via the prop `label-text-align`. Alignment has no effect if
 `label-sr-only` is set.
 
@@ -70,7 +70,7 @@ You should always provide content via the `feedback` prop to assist users
 using assistive technologies when setting a contextual state.
 
 ### Accessibility
-To enable auto-generateion of `aria-*` attributes, you must supply a unique `id`
+To enable auto-generation of `aria-*` attributes, you must supply a unique `id`
 prop to `b-form-fieldset`.
 
 To automatically associate the label to the first input element, you must provide
