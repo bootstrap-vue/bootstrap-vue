@@ -17,6 +17,7 @@
 <script>
     import formOptions from '../mixins/form-options';
     import formMixin from '../mixins/form';
+    import formCustomMixin from '../mixins/form-custom';
 
     export default {
         mixins: [formMixin, formOptions],
