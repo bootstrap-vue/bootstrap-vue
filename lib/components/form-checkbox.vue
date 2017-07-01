@@ -26,7 +26,7 @@ import isArray from '../utils/isArray';
 
 
 export default {
-    mixins: [formMixin, formCheckBoxMixin],
+    mixins: [formMixin, formCustomMixin, formCheckBoxMixin],
     model: {
         prop: 'checked',
         event: 'change'
