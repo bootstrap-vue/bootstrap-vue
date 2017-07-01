@@ -14,7 +14,6 @@
     <b-form-fieldset horizontal label="Filter" class="col-6" :label-size="2">
       <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
     </b-form-fieldset>
-  </div>
 
   <!-- Main table element -->
   <b-table striped hover :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage" :filter="filter">
@@ -33,6 +32,7 @@
     <b-pagination size="md" :total-rows="this.items.length" :per-page="perPage" v-model="currentPage" />
   </div>
   
+ </div> 
 </template>
 
 <script>
