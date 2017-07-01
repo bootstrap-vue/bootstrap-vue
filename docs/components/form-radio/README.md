@@ -6,12 +6,14 @@ semantic and accessible markup, so it is a solid replacement for the default rad
 
 ```html
 <template>
+<div>
   <b-form-radio v-model="value2" :options="options" stacked>
   </b-form-radio>
   
   <br>
   <span>Selected: </span>
   <span>{{value2}}</span>
+</div>  
 </template>
 
 <script>

@@ -5,17 +5,17 @@
   They can also be used as navigation with the right modifier class.
 
 ```html
-<div id="app">
-  <b-list-group>
-    <b-list-group-item active>Awesome list</b-list-group-item>
-    <b-list-group-item to="#">
-      Action links are easy
-    </b-list-group-item>
-    <b-list-group-item>
-      This is a text only item
-    </b-list-group-item>
-  </b-list-group>
-</div>
+<b-list-group>
+  <b-list-group-item active>
+    Awesome list
+  </b-list-group-item>
+  <b-list-group-item to="#">
+    Action links are easy
+  </b-list-group-item>
+  <b-list-group-item>
+    This is a text only item
+  </b-list-group-item>
+</b-list-group>
 
 <!-- list-group.vue -->
 ```

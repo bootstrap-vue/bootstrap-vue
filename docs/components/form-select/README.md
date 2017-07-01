@@ -4,12 +4,14 @@
 
 ```html
 <template>
+<div>
    <b-form-select v-model="selected" 
                    :options="options"
                    calss="mb-3"
     ></b-form-select>
 
   <div>Selected: <strong>{{selected}}</strong></div>
+</div>  
 </template>
 
 <script>

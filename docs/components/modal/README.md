@@ -6,6 +6,7 @@
 
 ```html
 <template>
+<div>
   <b-btn @click="$root.$emit('show::modal','modal1')">Launch demo modal</b-btn>
 
   <!-- Main UI -->
@@ -24,6 +25,7 @@
     </form>
     
   </b-modal>
+</div>  
 </template>
 
 <script>

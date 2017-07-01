@@ -5,9 +5,10 @@ We don’t use the HTML5 `<progress>` element, ensuring you can animate them, an
 
 ```html
 <template>
+<div>
     <b-progress v-model="counter" :precision="1" show-progress animated></b-progress>
-
     <b-btn class="mt-4" @click="clicked">Click me</b-btn>
+</div>    
 </template>
 
 <script>

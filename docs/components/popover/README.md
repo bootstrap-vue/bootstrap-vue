@@ -5,7 +5,9 @@
 
 ```html
 <template>
- <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
+<div>
+  
+  <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
   <div class="row">
     <div class="col-md-3 my-1 text-center" v-for="placement in ['top', 'left', 'right', 'bottom']">
       <b-popover :placement="placement" content="Heya!">
@@ -62,6 +64,8 @@
       </b-popover>
     </div>
   </div>
+
+</div>  
 </template>
 
 <script>

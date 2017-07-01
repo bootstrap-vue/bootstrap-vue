@@ -5,6 +5,7 @@
 
 ```html
 <template>
+<div>
   <b-form-input v-model="text" type="text" placeholder="Enter your name" :state="text.length?'success':'warning'" :formatter="format"></b-form-input>
   <small class="text-muted">We will convert your name to lowercase instantly</small>
 
@@ -21,6 +22,7 @@
 
   <br>
   <p>Value: {{text}}</p>
+</div>  
 </template>
 
 <script>
