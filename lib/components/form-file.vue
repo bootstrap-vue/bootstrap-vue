@@ -20,6 +20,8 @@
                :name="name"
                :id="id || null"
                :disabled="disabled"
+               :required="required"
+               :aria-required="required ? 'true' : null"
                :accept="accept || null"
                :multiple="multiple"
                :webkitdirectory="directory"
