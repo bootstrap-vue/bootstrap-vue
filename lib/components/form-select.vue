@@ -42,7 +42,7 @@
                 if (this.invalid === true || this.invalid === 'true') {
                     return 'true';
                 }
-                return this.invalid;
+                return null;
             }
         },
         props: {
