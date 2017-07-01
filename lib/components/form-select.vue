@@ -4,6 +4,8 @@
             :id="id || null"
             v-model="localValue"
             :disabled="disabled"
+            :required="required"
+            :aria-required="required ? 'true' : null"
             :aria-invalid="ariaInvalid"
             ref="input"
     >
@@ -36,9 +38,6 @@
                 ];
             },
             ariaInvalid() {
-                if (this.invalid === false || this.invalid === 'false') {
-                    return null;
-                }
                 if (this.invalid === true || this.invalid === 'true') {
                     return 'true';
                 }

@@ -6,6 +6,8 @@
            :name="name"
            :id="id || null"
            :disabled="disabled"
+           :required="required"
+           :aria-required="required ? 'true' : null"
            :aria-invalid="ariaInvalid"
            :readonly="readonly"
            :is="textarea ? 'textarea' : 'input'"

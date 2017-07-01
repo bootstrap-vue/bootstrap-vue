@@ -1,5 +1,10 @@
 <template>
-    <div :id="id || null" :class="inputClass" role="radiogroup" :aria-invalid="ariaInvalid">
+    <div :id="id || null"
+         :class="inputClass"
+         role="radiogroup"
+         :aria-required="required ? 'true' : null"
+         :aria-invalid="ariaInvalid"
+    >
         <label :class="[checkboxClass, custom?'custom-radio':null]"
                v-for="option in formOptions"
         >
@@ -9,8 +14,9 @@
                    type="radio"
                    v-model="localValue"
                    :value="option.value"
-                   :name="option.name"
-                   :disabled="option.disabled"
+                   :name="name"
+                   :required="name && required"
+                   :disabled="option.disabled || disabled"
                    @change="$emit('change', returnObject ? option : option.value)"
             >
             <span v-if="custom" class="custom-control-indicator" aria-hidden="true"></span>

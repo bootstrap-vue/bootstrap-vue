@@ -5,6 +5,8 @@
                :name="name"
                :value="value"
                :disabled="disabled"
+               :required="required"
+               :aria-required="required ? 'true' : null"
                :class="[custom?'custom-control-input':null]"
                :checked="isChecked"
                @change="handleChange">
