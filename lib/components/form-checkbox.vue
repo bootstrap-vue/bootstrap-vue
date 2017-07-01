@@ -39,6 +39,10 @@ export default {
         },
         checked: {
             default: true
+        },
+        plain: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
