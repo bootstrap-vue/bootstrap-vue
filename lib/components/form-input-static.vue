@@ -27,6 +27,10 @@
             size: {
                 type: String,
                 default: null
+            },
+            state: {
+                type: String,
+                default: null
             }
         }
     };
