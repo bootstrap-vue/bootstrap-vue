@@ -55,9 +55,9 @@ be relied for production.
 ### Drag and Drop
 Drop mode is enabled by default. it can disabled by setting the `no-drop` prop.
 
-### Accept
+### Limiting to certain file types
 You can limit the file types by setting the `accept` prop to a string containing the
-allowed file type. To specify more than one value, separate the values with a comma.
+allowed file type(s). To specify more than one type, separate the values with a comma.
 
 ```html
 <!-- Accept all image formats by IANA media type wildcard-->
@@ -70,7 +70,7 @@ allowed file type. To specify more than one value, separate the values with a co
 <b-form-file accept=".jpg, .png, .gif"></b-form-file>
 ```
 
-To accept any file type, leve `accept` as null (default). You can mix and match IAMA
+To accept any file type, leve `accept` as null (default). You can mix and match IANA
 media types and extensions.
 
 Refer to [IANA Media Types](http://www.iana.org/assignments/media-types/) for a complete
@@ -78,9 +78,10 @@ list of standard media types.
 
 ### Customizations
 Language strings and chosen file name is injected using `data-` props to css `content`. 
-Local customization can be easily done with provided props such as `placeholder`, `choose-label`, `selected-format` and `drop-label`.
-If you want to globally change labels, you can add something like this to your global stylesheets.
-Also it is advised to use [:lang()](https://developer.mozilla.org/en-US/docs/Web/CSS/:lang) for multi-language sites.
+Local customization can be easily done with provided props such as `placeholder`,
+`choose-label`, `selected-format` and `drop-label`. If you want to globally change
+labels, you can add something like this to your global stylesheets. Also it is advised
+to use [:lang()](https://developer.mozilla.org/en-US/docs/Web/CSS/:lang) for multi-language sites.
 
 ```css
 /* Globally localize BootstrapVue file upload labels */
