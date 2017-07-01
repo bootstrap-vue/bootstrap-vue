@@ -102,14 +102,16 @@ to use [:lang()](https://developer.mozilla.org/en-US/docs/Web/CSS/:lang) for mul
 ```
 
 ### Non custom file input
-You can have `b-form-file` render a browser native file input by setting the `plain` prop.
+You can have `<b-form-file>` render a browser native file input by setting the `plain` prop.
 
 ### Clearing the file selection
-Because of limitations in the value binding with `<input type="file">` elements, `v-model` for `b-form-file`is
-unidirectional, and cannot be used to set or clear the file(s) selection.  To get around this 
-limitation `b-form-file` provides a `reset()` method that can be called to clear the file input.
+Because of limitations in the value binding with `<input type="file">` elements, `v-model`
+for `<b-form-file>` is unidirectional, and cannot be used to set or clear the file(s) selection.
+To get around this limitation, `<b-form-file>` provides a `reset()` method that can be
+called to clear the file input.
 
-To take advantage of the `reset()` method, you will need to obtain a reference to the `b-form-file` component:
+To take advantage of the `reset()` method, you will need to obtain a reference
+to the `<b-form-file>` component:
 
 ```html
 <div id="#app">
