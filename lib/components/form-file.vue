@@ -112,6 +112,9 @@
             },
             computedChooseLabel() {
                 return this.chooseLabel || (this.multiple ? 'Choose Files' : 'Choose File');
+            },
+            custom() {
+                return !this.plain;
             }
         },
         watch: {
@@ -267,6 +270,10 @@
             dropLabel: {
                 type: String,
                 default: 'Drop files here'
+            },
+            plain: {
+                type: Boolean,
+                default: false
             }
         }
     };
