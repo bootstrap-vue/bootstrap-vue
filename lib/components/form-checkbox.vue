@@ -19,13 +19,14 @@
 
 <script>
 import formMixin from '../mixins/form';
+import formCustomMixin from '../mixins/form-custom';
 import formCheckBoxMixin from '../mixins/form-checkbox';
 import arrayIncludes from '../utils/arrayIncludes';
 import isArray from '../utils/isArray';
 
 
 export default {
-    mixins: [formMixin, formCheckBoxMixin],
+    mixins: [formMixin, formCustomMixin, formCheckBoxMixin],
     model: {
         prop: 'checked',
         event: 'change'
@@ -39,11 +40,18 @@ export default {
         },
         checked: {
             default: true
+        },
+        size: {
+            type: String,
+            default: null
         }
     },
     computed: {
         isChecked() {
             return arrayIncludes(this.checked, this.value);
+        },
+        custom() {
+            return !this.plain;
         }
     },
     methods: {

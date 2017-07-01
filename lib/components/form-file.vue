@@ -83,9 +83,10 @@
 
 <script>
     import formMixin from '../mixins/form';
+    import formCustomMixin from '../mixins/form-custom';
 
     export default {
-        mixins: [formMixin],
+        mixins: [formMixin, formCustomMixin],
         data() {
             return {
                 selectedFile: null,

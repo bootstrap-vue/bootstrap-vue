@@ -17,9 +17,10 @@
 <script>
     import formOptions from '../mixins/form-options';
     import formMixin from '../mixins/form';
+    import formCustomMixin from '../mixins/form-custom';
 
     export default {
-        mixins: [formMixin, formOptions],
+        mixins: [formMixin, formCustomMixin, formOptions],
         data() {
             return {
                 localValue: this.value
@@ -27,6 +28,10 @@
         },
         props: {
             value: {},
+            size: {
+                type: String,
+                default: null
+            },
             options: {
                 type: [Array, Object],
                 required: true
