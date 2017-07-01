@@ -14,7 +14,15 @@
     <br>
     <br>
 
-    <b-pagination size="md" :total-rows="100" variant="primary" secondary-variant="info" v-model="currentPage" :per-page="10">
+    <h6>Small</h6>
+    <b-pagination size="sm" :total-rows="100" v-model="currentPage" :per-page="10">
+    </b-pagination>
+
+    <br>
+    <br>
+
+    <h6>Large</h6>
+    <b-pagination size="lg" :total-rows="100" v-model="currentPage" :per-page="10">
     </b-pagination>
 
     <br>
@@ -24,21 +32,21 @@
 
 <script>
 export default {
- data: {
-    currentPage: 3
- }
+    data: {
+        currentPage: 3
+    }
 }
 </script>
 
 <!-- pagination.vue -->
 ```
 
-`b-pagination` is a custom input component that provides a current page number input control.
+`<b-pagination>` is a custom input component that provides a current page number input control.
 The value should be bound via `v-model` in your app. Page numbers are indexed from 1. The number
 of pages is computed from the provided prop values for `total-rows` and `per-page`.
 
 ### Customizing
-Pagination supports selveral props that allow you to customize the apperance.
+`<b-pagination>` supports selveral props that allow you to customize the apperance.
 
 | Prop | Description
 | ---- | -----------
@@ -58,8 +66,8 @@ the page number buttons. For `limit` values less than or equal to `3`, the ellip
 indicator(s) will never be shown for practial display reasons.
 
 ### Small screen support (`xs`)
-On smaller screens (i.e. mobile), some of the pagination buttons will be hidden to
-minimize the potntial of the pagination interface wraping onto multiple lines:
+On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to
+minimize the potential of the pagination interface wraping onto multiple lines:
 
 - The ellipsis indicators will be hidden on screens `xs` and smaller.
 - Page number buttons will be limitted to a maximum of 3 visible on `xs` screens and smaller.
@@ -68,14 +76,14 @@ This ensures that no more than 3 page number buttons are visible,
 along with the goto _first_, _prev_, _next_, and _last_ buttons.
 
 ### Accessibility
-The `b-pagination` component provides many features to support assistive technology users,
+The `<b-pagination>` component provides many features to support assistive technology users,
 including `aria-label`, `aria-posinset` and `aria-setsize`.  The features are
 automatically aplied, and can be cusomized.
 
-#### ARIA button labels:
-`b-pagination` provides various `label-*` props which are used to set the `aria-label`
-attributes on the various elements within the component, to help
-assistive technology users.
+#### Accessibility:
+`<b-pagination>` provides various `*-label-*` props which are used to set the `aria-label`
+attributes on the various elements within the component, to help users of
+assistive technology.
 
 | Prop | `aria-label` content default
 | ---- | -----------
@@ -87,13 +95,13 @@ assistive technology users.
 | `aria-label` | "Pagination". applied to the outer pagination container
 
 #### Keyboard navigtion support:
-`b-pagination` supports keyborad navigation out of the box.
+`<b-pagination>` supports keyborad navigation out of the box.
 - Tabbing into the pagination component will autofocus the current page button
-- `LEFT` and `RIGHT` arrow keys will focus the previous and next buttons in the page
-list, respectively, and `ENTER` or `SAPCE` keys will select (click) the focused page button
+- <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the page
+list, respectively, and <kbd>ENTER</kbd> or <kbd>SAPCE</kbd> keys will select (click) the focused page button
 
 ### Events
-`b-pagination` provides two events that are emitted on the component:
+`<b-pagination>` provides two events that are emitted on the component:
 - `input` is emitted anytime the page number changes (either programmatically or via user interaction)
 - `change` is emitted only when the page number changes based on user interaction
 

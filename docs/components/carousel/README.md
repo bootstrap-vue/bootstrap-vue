@@ -50,7 +50,7 @@
 ```
 
 ### Accessibility
-By providing a document unique value via the `id` prop, `b-carousel` will enable acessibility
-features.  It is highlt recommended to alway ad adn ID to all components.
+By providing a document unique value via the `id` prop, `<b-carousel>` will enable accessibility
+features.  It is highly recommended to always add an ID to all components.
 
-All controls have aria labels.  these can be customized by setting the various `label-*` props.
+All controls have aria labels.  These can be customized by setting the various `label-*` props.

@@ -196,15 +196,15 @@
                 type: Boolean,
                 default: false
             },
+            hideHeaderClose: {
+                type: Boolean,
+                default: false
+            },
             okOnly: {
                 type: Boolean,
                 default: false
             },
             okDisabled: {
-                type: Boolean,
-                default: false
-            },
-            hideHeaderClose: {
                 type: Boolean,
                 default: false
             },

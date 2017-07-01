@@ -1,19 +1,27 @@
 # Tables
 
-> For tabular data. Tables support pagination, custom rendering, and asynchronous data.
+> For tabular data. Tables support pagination, sorting, custom rendering, and asynchronous data.
 
 ```html
 <template>
- <div class="justify-content-centermy-1 row">
+ <div>
+  <div class="justify-content-center my-1 row">
+    <div class="col-6">
+      <b-form-fieldset horizontal label="Rows per page" :label-size="6">
+        <b-form-select :options="[{text:5,value:5},{text:10,value:10},{text:15,value:15}]" v-model="perPage">
+        </b-form-select>
+      </b-form-fieldset>
+    </div>
+    <div class="col-6">
+      <b-form-fieldset horizontal label="Filter" :label-size="2">
+        <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+      </b-form-fieldset>
+    </div>
+  </div>
 
-    <b-form-fieldset horizontal label="Rows per page" class="col-6" :label-size="6">
-      <b-form-select :options="[{text:5,value:5},{text:10,value:10},{text:15,value:15}]" v-model="perPage">
-      </b-form-select>
-    </b-form-fieldset>
-
-    <b-form-fieldset horizontal label="Filter" class="col-6" :label-size="2">
-      <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
-    </b-form-fieldset>
+  <div class="justify-content-center row my-1">
+    <b-pagination size="md" :total-rows="this.items.length" :per-page="perPage" v-model="currentPage" />
+  </div>
 
   <!-- Main table element -->
   <b-table striped hover :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage" :filter="filter">
@@ -28,16 +36,12 @@
     </template>
   </b-table>
 
-  <div class="justify-content-center row my-1">
-    <b-pagination size="md" :total-rows="this.items.length" :per-page="perPage" v-model="currentPage" />
-  </div>
-  
  </div> 
 </template>
 
 <script>
 export default {
- data: {
+  data: {
     items: [{
       isActive: true,
       age: 40,
@@ -57,7 +61,7 @@ export default {
     }, {
       isActive: false,
       age: 9,
-      state: 'success',
+      _rowVariant: 'success',
       name: {
         first: 'Mitzi',
         last: 'Navarro'
@@ -96,6 +100,10 @@ export default {
       }
 
     }, {
+       _cellVariants: { 
+          age: 'danger',
+          name: 'success'
+      },
       isActive: false,
       age: 21,
       name: {
@@ -197,7 +205,9 @@ Supported field properties:
 
 *Field properties, if not present, default to null*
 
-For information on the syntax supported by `thStyle`, see [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles) in the Vue.js guide.
+For information on the syntax supported by `thStyle`, see
+[Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
+in the Vue.js guide.
 
 
 ### `items` Prop
@@ -326,7 +336,7 @@ It is also possible to provide custom rendering for the tables `thead` and
 Scoped slots for the header and footer cells uses a special naming
 convetion of `HEAD_<fieldkey>` and `FOOT_<fieldkey>` respectivly. if a `FOOT_`
 slot for a field is not provided, but a `HEAD_` slot is provided, then
-the footer will use the `HEAD_` slot.
+the footer will use the `HEAD_` slot content.
 
 ```html
 <b-table :fields="fields" :items="items"  foot-clone>
@@ -365,10 +375,10 @@ the `v-model` binding.
 As mentioned under the `items` prop section, it is possible to use a function to provide 
 the row data (items), by specifying a function reference via the `items` prop.
 
-**Note:** The `items-provider` prop has been deprecaated in favour of providing a function
+**Note:** The `items-provider` prop has been deprecated in favour of providing a function
 reference to the `items` prop. A console warning will be issued if `items-provider` is used.
 
-The providerfunction is called with the following signature:
+The provider function is called with the following signature:
 
 ```js
     provider(ctx, [callback])
@@ -431,9 +441,9 @@ function myProvider(ctx) {
 }
 ```
 
-`b-table` provides a `busy` prop that will flag the table as busy, which you can 
-set to `true` just before your async fetch, and then set it to `false` once you have your data, and just 
-before you send it to the table for display. Example:
+`<b-table>` provides a `busy` prop that will flag the table as busy, which you can 
+set to `true` just before your async fetch, and then set it to `false` once you have
+your data, and just before you send it to the table for display. Example:
 
 ```html
 <b-table id="my-table" :busy="isBusy" :items="myProvider" :fields="fields" ....>
@@ -474,14 +484,14 @@ following `b-table` prop(s) to `true`:
 When `no-provider-paging` is `false` (default), you should only return at
 maximum, `perPage` number of records.
 
-Note that `b-table` needs refernce to your pagination and filtering values in order to
+Note that `<b-table>` needs refernce to your pagination and filtering values in order to
 trigger the calling of the provider function.  So be sure to bind to the `per-page`,
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
 (unless you have the `no-provider-` respective prop set to `true`).
 
 #### Event based refreshing of data:
 You may also trigger the refresh of the provider function by emitting the 
-event `table::refresh` on `$oot` with the single argument being the `id` of your `b-table`.
+event `table::refresh` on `$root` with the single argument being the `id` of your `b-table`.
 You must have a unique ID on your table for this to work.
 
 ```js
@@ -501,7 +511,8 @@ These refresh event/methods are only applicable when `items` is a provider funct
 
 
 #### Detection of sorting change:
-By listening on `b-table`'s `sort-changed` event, you can detect when the sorting key and direction have changed.
+By listening on `<b-table>` `sort-changed` event, you can detect when the sorting key
+and direction have changed.
 
 ```html
 <b-table @sort-changed="sortingChanged" ...>
@@ -514,8 +525,8 @@ This context object has the same format as used by items provider functions.
 ```js
 methods: {
     sortingChanged(ctx) {
-        // ctx.sortBy ==> Field key for sorting by (or null for no sorting)
-        // ctx.sortDesc => true if sorting descending, false otherwise
+        // ctx.sortBy   ==> Field key for sorting by (or null for no sorting)
+        // ctx.sortDesc ==> true if sorting descending, false otherwise
     }
 }
 ```
