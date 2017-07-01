@@ -6,6 +6,7 @@
            :name="name"
            :id="id || null"
            :disabled="disabled"
+           :aria-invalid="ariaInvalid"
            :readonly="readonly"
            :is="textarea ? 'textarea' : 'input'"
            :class="inputClass"
@@ -43,6 +44,15 @@
                     this.size ? `form-control-${this.size}` : null,
                     this.state ? `form-control-${this.state}` : null
                 ];
+            },
+            ariaInvalid() {
+                if (this.invalid === false) {
+                    return null;
+                }
+                if (this.invalid === true) {
+                    return 'true';
+                }
+                return this.invalid;
             }
         },
         methods: {
@@ -89,6 +99,10 @@
             state: {
                 type: String,
                 default: null
+            },
+            invalid: {
+                type: [Boolean, String],
+                default: false
             },
             readonly: {
                 type: Boolean,
