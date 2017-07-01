@@ -48,6 +48,9 @@ export default {
     computed: {
         isChecked() {
             return arrayIncludes(this.checked, this.value);
+        },
+        custom() {
+            return !this.plain;
         }
     },
     methods: {
