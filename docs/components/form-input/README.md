@@ -104,3 +104,12 @@ could include a hint about state in the form control's `<label>` text itself, or
 providing an additional help text block. Specifically for assistive technologies, 
 invalid form controls can also be assigned an `aria-invalid="true"` attribute.
 
+### ARIA `aria-invalid` attribute
+When `form-input` has an invalid contextual state (i.e. `danger`) you may also
+want to set the `<b-form-input>` prop `invalid` to `true`, or a string value.
+
+Supported `invaid` values are:
+- `false` (default) No errors detected
+- `true` The value has failed validation.
+- `grammar` A grammatical error has been detected.
+- `spelling` A spelling error has been detected.
