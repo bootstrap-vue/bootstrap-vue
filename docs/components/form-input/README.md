@@ -42,7 +42,7 @@ export default {
 ```
 
 ### Formatter
-`b-form-input` supports optional formatting by passing a function reference to  the `formatter` prop.
+`<b-form-input>` supports optional formatting by passing a function reference to  the `formatter` prop.
 
 By default, formatting occurs when the control's input event fires.  You can use  the boolean
 prop `lazy-formatter` to restrict the formatter function to being called on the
@@ -60,9 +60,10 @@ lines (separated by newlines) of text it contains. You can override this behavio
 a numeric value to the `rows` prop. The `rows` prop has no effect on other input types.
 
 ### Static Control
-Easily convert a `b-form-input` control to a Bootstrap static form control by setting the prop `static` to true.
+Easily convert a `<b-form-input>` control to a Bootstrap static form
+control by setting the prop `static` to true.
 
-You can also use the `b-form-input-static` component to create static form controls.
+You can also use the `<b-form-input-static>` component to create static form controls.
 
 ### Control sizing
 Set heights using the `size` prop to `sm` or `lg` for small or large respectively.
@@ -88,7 +89,7 @@ soft validation before a user attempts to submit a form.
 - `success` is ideal for situations when you have per-field validation throughout a form
 and want to encourage a user through the rest of the fields.
 
-To apply one of the contextual states on `b-form-input`, set the `state` prop
+To apply one of the contextual states on `<b-form-input>`, set the `state` prop
 to `danger`, `warning`, or `success`. Remember that you will not see the validation 
 state icon unless the input is wrapped in a `<b-form-fieldset>` which also
 has the same `state` applied!
