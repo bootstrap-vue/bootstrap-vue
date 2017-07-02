@@ -1,15 +1,18 @@
 <template>
     <input v-if="!static"
            ref="input"
-           :type="type"
+           :type="textarea ? null : type"
            :value="value"
            :name="name"
            :id="id || null"
            :disabled="disabled"
+           :required="required"
+           :aria-required="required ? 'true' : null"
+           :aria-invalid="ariaInvalid"
            :readonly="readonly"
-           :is="textarea?'textarea':'input'"
-           :class="['form-control',inputClass]"
-           :rows="rows || rowsCount"
+           :is="textarea ? 'textarea' : 'input'"
+           :class="inputClass"
+           :rows="textarea ? (rows || rowsCount) : null"
            :placeholder="placeholder"
            @input="onInput($event.target.value)"
            @change="onChange($event.target.value)"
@@ -20,6 +23,8 @@
     <b-form-input-static v-else
                          :id="id || null"
                          :value="value"
+                         :size="size"
+                         :state="state"
                          :formatter="formatter"
     ></b-form-input-static>
 </template>
@@ -34,6 +39,22 @@
         computed: {
             rowsCount() {
                 return (this.value || '').toString().split('\n').length;
+            },
+            inputClass() {
+                return [
+                    'form-control',
+                    this.size ? `form-control-${this.size}` : null,
+                    this.state ? `form-control-${this.state}` : null
+                ];
+            },
+            ariaInvalid() {
+                if (this.invalid === false) {
+                    return null;
+                }
+                if (this.invalid === true) {
+                    return 'true';
+                }
+                return this.invalid;
             }
         },
         methods: {
@@ -72,6 +93,18 @@
             type: {
                 type: String,
                 default: 'text'
+            },
+            size: {
+                type: String,
+                default: null
+            },
+            state: {
+                type: String,
+                default: null
+            },
+            invalid: {
+                type: [Boolean, String],
+                default: false
             },
             readonly: {
                 type: Boolean,

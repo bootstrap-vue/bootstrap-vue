@@ -1,5 +1,5 @@
 <template>
-    <div :class="['form-control', custom?'custom-file':null, inputClass]"
+    <div :class="custom?'custom-file':null"
          :id="id ? (id + '__BV_file_outer_') : null"
          @dragover.stop.prevent="dragover"
     >
@@ -20,6 +20,8 @@
                :name="name"
                :id="id || null"
                :disabled="disabled"
+               :required="required"
+               :aria-required="required ? 'true' : null"
                :accept="accept || null"
                :multiple="multiple"
                :webkitdirectory="directory"
@@ -83,9 +85,10 @@
 
 <script>
     import formMixin from '../mixins/form';
+    import formCustomMixin from '../mixins/form-custom';
 
     export default {
-        mixins: [formMixin],
+        mixins: [formMixin, formCustomMixin],
         data() {
             return {
                 selectedFile: null,

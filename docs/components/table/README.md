@@ -1,6 +1,112 @@
 # Tables
 
-> For tabular data. Tables support pagination, custom rendering, and asynchronous data.
+> For tabular data. Tables support pagination, sorting, custom rendering, and asynchronous data.
+
+```html
+<template>
+ <div>
+  <div class="my-1 row">
+    <div class="col-6">
+      <b-form-fieldset horizontal label="Rows per page" :label-size="6">
+        <b-form-select :options="[{text:5,value:5},{text:10,value:10},{text:15,value:15}]" v-model="perPage">
+        </b-form-select>
+      </b-form-fieldset>
+    </div>
+    <div class="col-6">
+      <b-form-fieldset horizontal label="Filter" :label-size="3">
+        <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+      </b-form-fieldset>
+    </div>
+  </div>
+
+  <div class="justify-content-center my-1">
+    <b-pagination size="md" :total-rows="items.length" :per-page="perPage" v-model="currentPage" />
+  </div>
+
+  <!-- Main table element -->
+  <b-table striped hover 
+           :items="items"
+           :fields="fields"
+           :current-page="currentPage"
+           :per-page="perPage"
+           :filter="filter"
+  >
+    <template slot="name" scope="item">
+      {{item.value.first}} {{item.value.last}}
+    </template>
+    <template slot="isActive" scope="item">
+      {{item.value?'Yes :)':'No :('}}
+    </template>
+    <template slot="actions" scope="item">
+      <b-btn size="sm" @click="details(item.item)">Details</b-btn>
+    </template>
+  </b-table>
+
+ </div> 
+</template>
+
+<script>
+export default {
+  data: {
+    items: [
+      {
+        isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
+      }, {
+        isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }
+      }, {
+        _rowVariant: 'success',
+        isActive: false, age: 9, name: { first: 'Mitzi', last: 'Navarro' }
+      }, {
+        isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' }
+      }, {
+        isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' }
+      }, {
+        isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
+      }, {
+        isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
+      }, {
+        _cellVariants: { age: 'danger', name: 'success' },
+        isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }
+      }, {
+        isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' }
+      }, {
+        isActive: false, age: 22, name: { first: 'Geneva', last: 'Wilson' }
+      }, {
+        isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' }
+      }, {
+        isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
+      }
+    ],
+    fields: {
+      name: {
+        label: 'Person Full name',
+        sortable: true
+      },
+      age: {
+        label: 'Person age',
+        sortable: true
+      },
+      isActive: {
+        label: 'is Active'
+      },
+      actions: {
+        label: 'Actions'
+      }
+    },
+    currentPage: 1,
+    perPage: 5,
+    filter: null
+  },
+  methods: {
+    details(item) {
+      alert(JSON.stringify(item));
+    }
+  }
+}
+</script>
+
+<!-- table.vue -->
+```
 
 ### `fields` prop
 The `fields` prop is used to display table columns. 
@@ -22,17 +128,19 @@ Supported field properties:
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| `label` | String | Appears in the table header
+| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set)
 | `sortable` | Boolean | Enable sorting on this column
-| `variant` | String | Apply contextual class to column (`active`, `success`, `info`, `warning`, `danger`)
-| `class` | String or Array | Class name (or array of class names) to add to `th` and `td` in the column
-| `thClass` | String or Array | Class name (or array of class names) to add to header/footer `th` cell
-| `tdClass` | String or Array | Class name (or array of class names) to add to data `td` cell
-| `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field header
+| `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column column (`active`, `success`, `info`, `warning`, `danger`)
+| `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column
+| `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
+| `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
+| `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
 
 *Field properties, if not present, default to null*
 
-For information on the syntax supported by `thStyle`, see [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles) in the Vue.js guide.
+For information on the syntax supported by `thStyle`, see
+[Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
+in the Vue.js guide.
 
 
 ### `items` Prop
@@ -64,7 +172,8 @@ Supported optional item record modifier properties (make sure your field keys do
 | `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (`active`, `success`, `info`, `warning`, `danger`)
 | `state` | String | **deprecated** in favour of `_rowVariant`
 
-**Note** `state` is deprecated. `_rowVariant`, if present in the record, will be prefered.
+**Note** `state` is deprecated. The property `_rowVariant`, if present in
+the record, will be prefered.
 
 `items` can also be a reference to a *provider* function, which returns an `Array` of items data.
 Provider functions can also be asynchronous:
@@ -73,6 +182,26 @@ ready, with the data array as the only argument to the callback,
 - By returning a `Promise` that resolves to an array.
 
 See the **"Using Items Provider functions"** section below for more details.
+
+### Table Options
+
+`<b-table>` provides several props to alter the style of the table:
+
+| prop | Description
+| ---- | -----------
+| `striped` | Add zebra-striping to the table rows within the `<tbody>`
+| `bordered` | For borders on all sides of the table and cells.
+| `inverse` | Invert the colors — with light text on dark backgrounds
+| `small` | To make tables more compact by cutting cell padding in half.
+| `hover` | To enable a hover state on table rows within a `<tbody>`
+| `responsive` | Create responsive table to make it scroll horizontally on small devices (under 768px)
+| `foot-clone` | Turns on the table footer, and defaults with the same contents a the table header
+| `head-variant` | Use `default` or `inverse` to make `<thead>` appear light or dark gray, respectively
+| `foot-variant` | Use `default` or `inverse` to make `<tfoot>` appear light or dark gray, respectively. Has no effect if `foot-clone` is not set
+| `busy` | If set to `true` will make the table opaque and disable click events. Handy when using items provider functions.
+| `show-empty` | If `true`, Show a message if no records can be displayed (see `empty-text` and `empty-filter-text`)
+| `empty-text` | Text to display if there are no records in the original `items` array. YOu cn also use the named slot `empty` to set the content for `empty-text`
+| `empty-filtered-text` | Text to display if there are no records in the **filtered** `items` array. You can also use the name slot `emptyfiltered` to set the content for `empty-filtered-text`
 
 
 ### Custom Data Rendering
@@ -161,7 +290,7 @@ It is also possible to provide custom rendering for the tables `thead` and
 Scoped slots for the header and footer cells uses a special naming
 convetion of `HEAD_<fieldkey>` and `FOOT_<fieldkey>` respectivly. if a `FOOT_`
 slot for a field is not provided, but a `HEAD_` slot is provided, then
-the footer will use the `HEAD_` slot.
+the footer will use the `HEAD_` slot content.
 
 ```html
 <b-table :fields="fields" :items="items"  foot-clone>
@@ -191,19 +320,26 @@ The slot's scope variable (`data` in the above example) will have the following 
 
 ### `v-model` Binding
 If you bind a variable to the `v-model` prop, the contents of this variable will
-be the currently disaplyed item records. This variable (the `value` prop) should
-be treated as readonly. Do not bind any value directly to the `value` prop. Use
-the `v-model` binding.
+be the currently disaplyed item records (zero based index, up to `page-size` - 1).
+This variable (the `value` prop) should usually be treated as readonly.
+
+The records within the v-model are a filtered/paginated shallow copy of `items`, and 
+hence any changes to a record's properties in the v-model will be reflected in 
+the original `items` array (except when `items` is set to a provider function).
+Deleteing a record from the v-model will **not** remove the record from the
+original items array.
+
+**Note:** Do not bind any value directly to the `value` prop. Use the `v-model` binding.
 
 
 ### Using Items Provider Functions
 As mentioned under the `items` prop section, it is possible to use a function to provide 
 the row data (items), by specifying a function reference via the `items` prop.
 
-**Note:** The `items-provider` prop has been deprecaated in favour of providing a function
+**Note:** The `items-provider` prop has been deprecated in favour of providing a function
 reference to the `items` prop. A console warning will be issued if `items-provider` is used.
 
-The providerfunction is called with the following signature:
+The provider function is called with the following signature:
 
 ```js
     provider(ctx, [callback])
@@ -266,9 +402,9 @@ function myProvider(ctx) {
 }
 ```
 
-`b-table` provides a `busy` prop that will flag the table as busy, which you can 
-set to `true` just before your async fetch, and then set it to `false` once you have your data, and just 
-before you send it to the table for display. Example:
+`<b-table>` provides a `busy` prop that will flag the table as busy, which you can 
+set to `true` just before your async fetch, and then set it to `false` once you have
+your data, and just before you send it to the table for display. Example:
 
 ```html
 <b-table id="my-table" :busy="isBusy" :items="myProvider" :fields="fields" ....>
@@ -309,14 +445,14 @@ following `b-table` prop(s) to `true`:
 When `no-provider-paging` is `false` (default), you should only return at
 maximum, `perPage` number of records.
 
-Note that `b-table` needs refernce to your pagination and filtering values in order to
+Note that `<b-table>` needs refernce to your pagination and filtering values in order to
 trigger the calling of the provider function.  So be sure to bind to the `per-page`,
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
 (unless you have the `no-provider-` respective prop set to `true`).
 
 #### Event based refreshing of data:
 You may also trigger the refresh of the provider function by emitting the 
-event `table::refresh` on `$oot` with the single argument being the `id` of your `b-table`.
+event `table::refresh` on `$root` with the single argument being the `id` of your `b-table`.
 You must have a unique ID on your table for this to work.
 
 ```js
@@ -336,7 +472,8 @@ These refresh event/methods are only applicable when `items` is a provider funct
 
 
 #### Detection of sorting change:
-By listening on `b-table`'s `sort-changed` event, you can detect when the sorting key and direction have changed.
+By listening on `<b-table>` `sort-changed` event, you can detect when the sorting key
+and direction have changed.
 
 ```html
 <b-table @sort-changed="sortingChanged" ...>
@@ -349,8 +486,8 @@ This context object has the same format as used by items provider functions.
 ```js
 methods: {
     sortingChanged(ctx) {
-        // ctx.sortBy ==> Field key for sorting by (or null for no sorting)
-        // ctx.sortDesc => true if sorting descending, false otherwise
+        // ctx.sortBy   ==> Field key for sorting by (or null for no sorting)
+        // ctx.sortDesc ==> true if sorting descending, false otherwise
     }
 }
 ```

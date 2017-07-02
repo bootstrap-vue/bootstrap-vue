@@ -1,17 +1,20 @@
 <template>
-    <label :class="[inputClass,checkboxClass,custom?'custom-checkbox':null]">
+    <label :class="[inputClass,checkboxClass]">
         <input type="checkbox"
                :id="id || null"
                :name="name"
                :value="value"
                :disabled="disabled"
+               :required="required"
+               autocomplete="off"
+               :aria-required="required ? 'true' : null"
                :class="[custom?'custom-control-input':null]"
                :checked="isChecked"
                @change="handleChange">
         <span class="custom-control-indicator"
               aria-hidden="true"
               v-if="custom"></span>
-        <span :class="[custom?'custom-control-description':null]">
+        <span :class="custom ? 'custom-control-description' : null">
             <slot></slot>
         </span>
     </label>
@@ -19,13 +22,14 @@
 
 <script>
 import formMixin from '../mixins/form';
+import formCustomMixin from '../mixins/form-custom';
 import formCheckBoxMixin from '../mixins/form-checkbox';
 import arrayIncludes from '../utils/arrayIncludes';
 import isArray from '../utils/isArray';
 
 
 export default {
-    mixins: [formMixin, formCheckBoxMixin],
+    mixins: [formMixin, formCustomMixin, formCheckBoxMixin],
     model: {
         prop: 'checked',
         event: 'change'
@@ -39,9 +43,22 @@ export default {
         },
         checked: {
             default: true
+        },
+        size: {
+            type: String,
+            default: null
         }
     },
     computed: {
+        custom() {
+            return !this.plain;
+        },
+        inputClass() {
+            return [
+                this.size ? `form-control-${this.size}` : null,
+                this.custom ? 'custom-checkbox' : null
+            ];
+        },
         isChecked() {
             return arrayIncludes(this.checked, this.value);
         }

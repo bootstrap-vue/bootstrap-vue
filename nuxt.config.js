@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const marked = require("marked");
+const marked = require('marked');
 
 // Markdown renderer with BS4 tables support
 const renderer = new marked.Renderer();
@@ -55,7 +55,9 @@ module.exports = {
     plugins: [
         '~plugins/bootstrap-vue.js',
         '~plugins/codemirror.js',
-        '~plugins/ga.js'
+        '~plugins/ga.js',
+        '~plugins/play.js',
+        '~/plugins/docs.js'
     ],
 
     modules: [

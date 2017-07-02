@@ -1,3 +1,95 @@
 # Button toolbar
 
 > Group a series of button-groups and/or input-groups together on a single line, with optional keyboard navigation
+
+**Example 1:** with button groups & Keyboard navigation
+
+```html
+<b-button-toolbar key-nav  aria-label="Toolbar with button groups">
+  <b-button-group class="mx-1">
+    <b-btn>&laquo;</b-btn>
+    <b-btn>&lsaquo;</b-btn>
+  </b-button-group>
+  <b-button-group class="mx-1">
+    <b-btn>Edit</b-btn>
+    <b-btn>Undo</b-btn>
+    <b-btn>Redo</b-btn>
+  </b-button-group>
+  <b-button-group class="mx-1">
+    <b-btn>&rsaquo;</b-btn>
+    <b-btn>&raquo;</b-btn>
+  </b-button-group>
+</b-button-toolbar>
+
+<!-- button-toolbar1.vue -->
+```
+
+**Example 2:** with mixture of small button groups and small input groups
+
+```html
+<b-button-toolbar aria-label="Toolbar with button groups and input groups">
+  <b-button-group size="sm" class="mx-1">
+    <b-btn>New</b-btn>
+    <b-btn>Edit</b-btn>
+  </b-button-group>
+  <b-input-group size="sm" class="w-25 mx-1" left="$" right=".00">
+    <b-form-input value="123" class="text-right"></b-form-input>
+  </b-input-group>
+  <b-input-group  size="sm" class="w-25 mx-1" left="Size">
+    <b-form-select value="Medium" :options="['Large','Medium','Small']"></b-form-select>
+  </b-input-group>
+    <b-button-group  size="sm" class="mx-1">
+    <b-btn>Save</b-btn>
+    <b-btn>Cancel</b-btn>
+  </b-button-group>
+</b-button-toolbar>
+
+<!-- button-toolbar2.vue -->
+```
+
+### Usage
+
+```html
+<b-button-toolbar aria-label="My Toolbar">
+  <b-button-group size="sm" class="mx-1">
+    <b-btn>New</b-btn>
+    <b-btn>Edit</b-btn>
+  </b-button-group>
+  <b-input-group size="sm" class="w-25 mx-1" left="$" right=".00">
+    <b-form-input value="123" class="text-right"></b-form-input>
+  </b-input-group>
+  <b-button-group  size="sm" class="mx-1">
+    <b-btn>Save</b-btn>
+    <b-btn>Cancel</b-btn>
+  </b-button-group>
+</b-button-toolbar>
+```
+
+Feel free to mix input groups with button groups in your toolbars.
+Similar to the example above, you’ll likely need some utility classes
+though to space things properly.
+
+Note, if you want smaller or larger buttons or controls, set the `size`
+prop on the `<b-button-group>`s and `<b-input-group>`s.
+
+### Justify
+Make the toolbar span the maximum available width, by increasing spacing between the
+button-groups and input-groups, by setting the prop `justify`.
+
+### Keyboard Navigation
+Enable optional keyboard navigation by setting the prop `key-nav`.
+
+| Keypress | Action
+| -------- | ------
+| <kbd>LEFT</kbd> or <kbd>UP</kbd> | Move to the previous non-disabled item in the toolbar
+| <kbd>RIGHT</kbd> or <kbd>DOWN</kbd> | Move to the next non-disabled item in the toolbar
+| <kbd>SHIFT</kbd>+<kbd>LEFT</kbd> or <kbd>SHIFT</kbd>+<kbd>UP</kbd> | Move to the first non-disabled item in the toolbar
+| <kbd>SHIFT</kbd>+<kbd>RIGHT</kbd> or <kbd>SHIFT</kbd>+<kbd>DOWN</kbd> | Move to the last non-disabled item in the toolbar
+| <kbd>TAB</kbd> | Move to the next control on the page
+| <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Move to the previous control on the page
+
+**Caution:** If you have textual inputs in your toolbar, leave keyboard navigation off,
+as it is not possble to use key presses to jump out of a text (or test-like) input.
+
+
+

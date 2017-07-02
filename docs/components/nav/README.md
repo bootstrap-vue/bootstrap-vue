@@ -4,6 +4,37 @@
   from the base `b-nav` class to the active and disabled states.
   Swap modifier props to switch between each style.
 
+```html
+<b-nav>
+  <b-nav-item active>Active</b-nav-item>
+  <b-nav-item>Link</b-nav-item>
+  <b-nav-item>Another Link</b-nav-item>
+  <b-nav-item disabled>Disabled</b-nav-item>
+</b-nav>
+
+<br>
+<br>
+
+<b-nav tabs>
+  <b-nav-item active>Active</b-nav-item>
+  <b-nav-item>Link</b-nav-item>
+  <b-nav-item>Another Link</b-nav-item>
+  <b-nav-item disabled>Disabled</b-nav-item>
+</b-nav>
+
+<br>
+<br>
+
+<b-nav pills>
+  <b-nav-item active>Active</b-nav-item>
+  <b-nav-item>Link</b-nav-item>
+  <b-nav-item>Another Link</b-nav-item>
+  <b-nav-item disabled>Disabled</b-nav-item>
+</b-nav>
+
+<!-- nav.vue -->
+```
+
 ### Link Appearance
 The base `b-nav` component is built with flexbox and provides a strong
 foundation for building all types of navigation components. It includes
