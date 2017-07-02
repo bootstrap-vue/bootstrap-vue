@@ -12,6 +12,7 @@
                    :class="custom?'custom-control-input':null"
                    ref="inputs"
                    type="radio"
+                   autocomplete="off"
                    v-model="localValue"
                    :value="option.value"
                    :name="name"
