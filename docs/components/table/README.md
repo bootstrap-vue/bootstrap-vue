@@ -19,12 +19,18 @@
     </div>
   </div>
 
-  <div class="justify-content-center row my-1">
-    <b-pagination size="md" :total-rows="this.items.length" :per-page="perPage" v-model="currentPage" />
+  <div class="justify-content-center my-1">
+    <b-pagination size="md" :total-rows="items.length" :per-page="perPage" v-model="currentPage" />
   </div>
 
   <!-- Main table element -->
-  <b-table striped hover :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage" :filter="filter">
+  <b-table striped hover 
+           :items="items"
+           :fields="fields"
+           :current-page="currentPage"
+           :per-page="perPage"
+           :filter="filter"
+  >
     <template slot="name" scope="item">
       {{item.value.first}} {{item.value.last}}
     </template>
@@ -42,108 +48,35 @@
 <script>
 export default {
   data: {
-    items: [{
-      isActive: true,
-      age: 40,
-      name: {
-        first: 'Dickerson',
-        last: 'Macdonald'
+    items: [
+      {
+        isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
+      }, {
+        isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }
+      }, {
+        _rowVariant: 'success',
+        isActive: false, age: 9, name: { first: 'Mitzi', last: 'Navarro' }
+      }, {
+        isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' }
+      }, {
+        isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' }
+      }, {
+        isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
+      }, {
+        isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
+      }, {
+        _cellVariants: { age: 'danger', name: 'success' },
+        isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }
+      }, {
+        isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' }
+      }, {
+        isActive: false, age: 22, name: { first: 'Geneva', last: 'Wilson' }
+      }, {
+        isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' }
+      }, {
+        isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
       }
-
-    }, {
-      isActive: false,
-      age: 21,
-      name: {
-        first: 'Larsen',
-        last: 'Shaw'
-      }
-
-    }, {
-      isActive: false,
-      age: 9,
-      _rowVariant: 'success',
-      name: {
-        first: 'Mitzi',
-        last: 'Navarro'
-      }
-
-    }, {
-      isActive: false,
-      age: 89,
-      name: {
-        first: 'Geneva',
-        last: 'Wilson'
-      }
-
-    }, {
-      isActive: true,
-      age: 38,
-      name: {
-        first: 'Jami',
-        last: 'Carney'
-      }
-
-    }, {
-      isActive: false,
-      age: 27,
-      name: {
-        first: 'Essie',
-        last: 'Dunlap'
-      }
-
-    }, {
-      isActive: true,
-      age: 40,
-      name: {
-        first: 'Dickerson',
-        last: 'Macdonald'
-      }
-
-    }, {
-       _cellVariants: { 
-          age: 'danger',
-          name: 'success'
-      },
-      isActive: false,
-      age: 21,
-      name: {
-        first: 'Larsen',
-        last: 'Shaw'
-      }
-
-    }, {
-      isActive: false,
-      age: 26,
-      name: {
-        first: 'Mitzi',
-        last: 'Navarro'
-      }
-
-    }, {
-      isActive: false,
-      age: 22,
-      name: {
-        first: 'Geneva',
-        last: 'Wilson'
-      }
-
-    }, {
-      isActive: true,
-      age: 38,
-      name: {
-        first: 'Jami',
-        last: 'Carney'
-      }
-
-    }, {
-      isActive: false,
-      age: 27,
-      name: {
-        first: 'Essie',
-        last: 'Dunlap'
-      }
-
-    }],
+    ],
     fields: {
       name: {
         label: 'Person Full name',
@@ -195,13 +128,13 @@ Supported field properties:
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| `label` | String | Appears in the table header
+| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set)
 | `sortable` | Boolean | Enable sorting on this column
-| `variant` | String | Apply contextual class to column (`active`, `success`, `info`, `warning`, `danger`)
-| `class` | String or Array | Class name (or array of class names) to add to `th` and `td` in the column
-| `thClass` | String or Array | Class name (or array of class names) to add to header/footer `th` cell
-| `tdClass` | String or Array | Class name (or array of class names) to add to data `td` cell
-| `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field header
+| `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column column (`active`, `success`, `info`, `warning`, `danger`)
+| `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column
+| `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
+| `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
+| `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
 
 *Field properties, if not present, default to null*
 
@@ -239,7 +172,8 @@ Supported optional item record modifier properties (make sure your field keys do
 | `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (`active`, `success`, `info`, `warning`, `danger`)
 | `state` | String | **deprecated** in favour of `_rowVariant`
 
-**Note** `state` is deprecated. `_rowVariant`, if present in the record, will be prefered.
+**Note** `state` is deprecated. The property `_rowVariant`, if present in
+the record, will be prefered.
 
 `items` can also be a reference to a *provider* function, which returns an `Array` of items data.
 Provider functions can also be asynchronous:
@@ -248,6 +182,26 @@ ready, with the data array as the only argument to the callback,
 - By returning a `Promise` that resolves to an array.
 
 See the **"Using Items Provider functions"** section below for more details.
+
+### Table Options
+
+`<b-table>` provides several props to alter the style of the table:
+
+| prop | Description
+| ---- | -----------
+| `striped` | Add zebra-striping to the table rows within the `<tbody>`
+| `bordered` | For borders on all sides of the table and cells.
+| `inverse` | Invert the colors — with light text on dark backgrounds
+| `small` | To make tables more compact by cutting cell padding in half.
+| `hover` | To enable a hover state on table rows within a `<tbody>`
+| `responsive` | Create responsive table to make it scroll horizontally on small devices (under 768px)
+| `foot-clone` | Turns on the table footer, and defaults with the same contents a the table header
+| `head-variant` | Use `default` or `inverse` to make `<thead>` appear light or dark gray, respectively
+| `foot-variant` | Use `default` or `inverse` to make `<tfoot>` appear light or dark gray, respectively. Has no effect if `foot-clone` is not set
+| `busy` | If set to `true` will make the table opaque and disable click events. Handy when using items provider functions.
+| `show-empty` | If `true`, Show a message if no records can be displayed (see `empty-text` and `empty-filter-text`)
+| `empty-text` | Text to display if there are no records in the original `items` array. YOu cn also use the named slot `empty` to set the content for `empty-text`
+| `empty-filtered-text` | Text to display if there are no records in the **filtered** `items` array. You can also use the name slot `emptyfiltered` to set the content for `empty-filtered-text`
 
 
 ### Custom Data Rendering
@@ -366,9 +320,16 @@ The slot's scope variable (`data` in the above example) will have the following 
 
 ### `v-model` Binding
 If you bind a variable to the `v-model` prop, the contents of this variable will
-be the currently disaplyed item records. This variable (the `value` prop) should
-be treated as readonly. Do not bind any value directly to the `value` prop. Use
-the `v-model` binding.
+be the currently disaplyed item records (zero based index, up to `page-size` - 1).
+This variable (the `value` prop) should usually be treated as readonly.
+
+The records within the v-model are a filtered/paginated shallow copy of `items`, and 
+hence any changes to a record's properties in the v-model will be reflected in 
+the original `items` array (except when `items` is set to a provider function).
+Deleteing a record from the v-model will **not** remove the record from the
+original items array.
+
+**Note:** Do not bind any value directly to the `value` prop. Use the `v-model` binding.
 
 
 ### Using Items Provider Functions

@@ -14,7 +14,7 @@
     },
     {
       "event": "accordion::toggle",
-      "description": "toggles visible state of accodion when this event emits on $root",
+      "description": "toggles visible state of accordion when this event emits on $root",
       "args": {
         "id": {
           "description": "collapse id that should be open"

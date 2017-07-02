@@ -7,22 +7,22 @@ element (i.e. `<body>`).
 ```html
 <template>
 <div>
-  <b-navbar v-b-scrollspy:spy-container="{offset:10, method:'auto'}" class="bg-faded" id="navbar-example">
+  <b-navbar v-b-scrollspy:scrollspy-example class="bg-faded" id="navbar-example">
     <b-link class="navbar-brand" href="#">
-      <span>BootstrapVue <small>(Scrolling on #spy-container)</small></span>
+      <span>BootstrapVue <small>(Scrolling on div)</small></span>
     </b-link>
     <b-nav pills>
-      <b-nav-item href="#fat">@fat</b-nav-item>
-      <b-nav-item href="#mdo">@mdo</b-nav-item>
+      <b-nav-item href="#fat" @click.stop="scrollIntoView($event)">@fat</b-nav-item>
+      <b-nav-item href="#mdo" @click.stop="scrollIntoView($event)">@mdo</b-nav-item>
       <b-nav-item-dropdown text="Dropdown 1,2,3" right-alignment>
-        <b-dropdown-item href="#one">one</b-dropdown-item>
-        <b-dropdown-item href="#two">two</b-dropdown-item>
+        <b-dropdown-item href="#one" @click.stop="scrollIntoView($event)">one</b-dropdown-item>
+        <b-dropdown-item href="#two" @click.stop="scrollIntoView($event)">two</b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item href="#three">three</b-dropdown-item>
+        <b-dropdown-item href="#three" @click.stop="scrollIntoView($event)">three</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
   </b-navbar>
-  <div id='spy-container' style="max-height: 500px; overflow-y: scroll">
+  <div id='scrollspy-example' style="position: relative; height: 400px; overflow-y: scroll">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sollicitudin
       scelerisque augue, sit amet finibus risus tempus quis. Suspendisse id est faucibus,
@@ -78,6 +78,23 @@ element (i.e. `<body>`).
 </div>
 </template>
 
+<script>
+export default {
+    methods: {
+        scrollInView($event) {
+            const href = $event.target.getAttribute('href');
+            if (href) {
+                const el = document.querySelector(href);
+                if (el) {
+                    el.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }
+    }
+}
+</script>
 <!-- scrollspy.vue ->
 ```
 
@@ -150,6 +167,9 @@ selector (i.e. `body`), or a node reference
 - If scroll element is not present, then we assume scrolling on `<body>`
 - If scroll element is a CSS selector, the first found element is chosen
 - If scroll element is not found, then ScrollSpy silently does nothing
+
+Note: When scrolling on an element other than `<body>`, ensure that the element has
+it's CSS `position` set to `relative`.
 
 ### Directive syntax
 ```

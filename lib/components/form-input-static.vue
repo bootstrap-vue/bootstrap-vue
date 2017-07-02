@@ -8,10 +8,7 @@
 </template>
 
 <script>
-    import formMixin from '../mixins/form';
-
     export default {
-        mixins: [formMixin],
         computed: {
             staticValue() {
                 return this.formatter ? this.formatter(this.value) : this.value;
@@ -25,6 +22,10 @@
             }
         },
         props: {
+            id: {
+                type: String,
+                default: null
+            },
             value: {
                 default: null
             },
