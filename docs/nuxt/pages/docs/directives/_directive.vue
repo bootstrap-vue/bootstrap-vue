@@ -6,24 +6,19 @@
 
 
 <script>
-    import directives from '../../../../directives';
+import directives from '../../../../directives';
 
-    export default {
-        layout: 'docs',
+export default {
+    layout: 'docs',
 
-        asyncData({params: {directive}, redirect}) {
-            const doc = directives[directive];
-            if (!doc) {
-                redirect('/docs');
-                return {};
-            }
-            return {...doc};
-        },
+    data() {
+        return Object.assign({ meta: {}, readme: '' }, directives[this.$route.params.directive])
+    },
 
-        head() {
-            return {
-                title: `${this.meta.title} - BootstrapVue`
-            };
-        }
-    };
+    head() {
+        return {
+            title: `${this.meta.title} - BootstrapVue`
+        };
+    }
+};
 </script>

@@ -21,7 +21,7 @@ const removeNode = node => node.parentNode.removeChild(node)
 
 Vue.directive('play', (el, binding, vnode, oldVnode) => {
     // Get all code-snippets
-    let pres = Array.from(el.querySelectorAll('pre.hljs'))
+    let pres = Array.prototype.slice.apply(el.querySelectorAll('pre.hljs'))
 
     // Iterate over them and parse
     pres.forEach(pre => {
@@ -56,7 +56,7 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
                     vm.$el.innerHTML = ""
                 }
                 if (name) {
-                        Array.from(document.querySelectorAll(`.vue-example-${name}`)).forEach(removeNode)
+                        Array.prototype.slice.apply(document.querySelectorAll(`.vue-example-${name}`)).forEach(removeNode)
                 }
 
                 // Create a placeholder after pre
