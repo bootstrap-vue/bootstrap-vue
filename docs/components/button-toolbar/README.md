@@ -2,51 +2,49 @@
 
 > Group a series of button-groups and/or input-groups together on a single line, with optional keyboard navigation
 
+**Example 1:** with button groups & Keyboard navigation
+
 ```html
-<template>
-  <div>
+<b-button-toolbar key-nav  aria-label="Toolbar with button groups">
+  <b-button-group class="mx-1">
+    <b-btn>&laquo;</b-btn>
+    <b-btn>&lsaquo;</b-btn>
+  </b-button-group>
+  <b-button-group class="mx-1">
+    <b-btn>Edit</b-btn>
+    <b-btn>Undo</b-btn>
+    <b-btn>Redo</b-btn>
+  </b-button-group>
+  <b-button-group class="mx-1">
+    <b-btn>&rsaquo;</b-btn>
+    <b-btn>&raquo;</b-btn>
+  </b-button-group>
+</b-button-toolbar>
 
-    <h5>Example 1: <small>with button groups &amp; Keyboard navigation</small></h5>
-    <b-button-toolbar key-nav  aria-label="Toolbar with button groups">
-      <b-button-group class="mx-1">
-        <b-btn>&laquo;</b-btn>
-        <b-btn>&lsaquo;</b-btn>
-      </b-button-group>
-      <b-button-group class="mx-1">
-        <b-btn>Edit</b-btn>
-        <b-btn>Undo</b-btn>
-        <b-btn>Redo</b-btn>
-      </b-button-group>
-      <b-button-group class="mx-1">
-        <b-btn>&rsaquo;</b-btn>
-        <b-btn>&raquo;</b-btn>
-      </b-button-group>
-    </b-button-toolbar>
+<!-- button-toolbar1.vue -->
+```
 
-    <br>
+**Example 2:** with mixture of small button groups and small input groups
 
-    <h5>Example 2: <small>with mixture of small button groups and small input groups</small></h5>
-    <b-button-toolbar aria-label="Toolbar with button groups and input groups">
-      <b-button-group size="sm" class="mx-1">
-        <b-btn>New</b-btn>
-        <b-btn>Edit</b-btn>
-      </b-button-group>
-      <b-input-group size="sm" class="w-25 mx-1" left="$" right=".00">
-        <b-form-input value="123" class="text-right"></b-form-input>
-      </b-input-group>
-      <b-input-group  size="sm" class="w-25 mx-1" left="Size">
-        <b-form-select value="Medium" :options="['Large','Medium','Small']"></b-form-select>
-      </b-input-group>
-       <b-button-group  size="sm" class="mx-1">
-        <b-btn>Save</b-btn>
-        <b-btn>Cancel</b-btn>
-      </b-button-group>
-    </b-button-toolbar>
+```html
+<b-button-toolbar aria-label="Toolbar with button groups and input groups">
+  <b-button-group size="sm" class="mx-1">
+    <b-btn>New</b-btn>
+    <b-btn>Edit</b-btn>
+  </b-button-group>
+  <b-input-group size="sm" class="w-25 mx-1" left="$" right=".00">
+    <b-form-input value="123" class="text-right"></b-form-input>
+  </b-input-group>
+  <b-input-group  size="sm" class="w-25 mx-1" left="Size">
+    <b-form-select value="Medium" :options="['Large','Medium','Small']"></b-form-select>
+  </b-input-group>
+    <b-button-group  size="sm" class="mx-1">
+    <b-btn>Save</b-btn>
+    <b-btn>Cancel</b-btn>
+  </b-button-group>
+</b-button-toolbar>
 
-  </div>
-</template>
-
-<!-- button-toolbar.vue -->
+<!-- button-toolbar2.vue -->
 ```
 
 ### Usage
