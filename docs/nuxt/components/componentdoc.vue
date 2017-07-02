@@ -9,7 +9,7 @@
             <section>
                 <b-table :items="props_items" :fields="props_fields" head-variant="default" striped>
                     <template slot="default" scope="field">
-                        <code>{{field.value}}</code>
+                        <code v-if="field.value">{{field.value}}</code>
                     </template>
                 </b-table>
             </section>
@@ -24,9 +24,9 @@
             <h4>Events</h4>
             <b-table :items="events" :fields="events_fields" head-variant="default" striped>
                 <template slot="args" scope="field">
-                    <div v-for="arg in field.value">
-                        <code>{{arg.arg}}</code>
-                        <span v-html="arg.description"/>
+                    <div v-for="arg in field.value" :key="arg">
+                        <code v-if="arg.arg">{{arg.arg}}</code>
+                        <span v-html="arg.description"></span>
                     </div>
                 </template>
             </b-table>
