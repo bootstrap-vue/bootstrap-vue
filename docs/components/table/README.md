@@ -5,7 +5,7 @@
 ```html
 <template>
  <div>
-  <div class="justify-content-center my-1 row">
+  <div class="my-1 row">
     <div class="col-6">
       <b-form-fieldset horizontal label="Rows per page" :label-size="6">
         <b-form-select :options="[{text:5,value:5},{text:10,value:10},{text:15,value:15}]" v-model="perPage">
@@ -13,7 +13,7 @@
       </b-form-fieldset>
     </div>
     <div class="col-6">
-      <b-form-fieldset horizontal label="Filter" :label-size="2">
+      <b-form-fieldset horizontal label="Filter" :label-size="3">
         <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
       </b-form-fieldset>
     </div>
