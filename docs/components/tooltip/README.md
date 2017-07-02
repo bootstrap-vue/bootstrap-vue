@@ -6,7 +6,7 @@
 ```html
 <div id="app" class="text-center">
   <br><br>
-  <b-tooltip content="Online!" show>
+  <b-tooltip content="Online!">
     <b-btn variant="outline-success">Live chat</b-btn>
   </b-tooltip>
 </div>
