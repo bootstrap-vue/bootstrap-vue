@@ -6,6 +6,7 @@
                :value="value"
                :disabled="disabled"
                :required="required"
+               autocomplete="off"
                :aria-required="required ? 'true' : null"
                :class="[custom?'custom-control-input':null]"
                :checked="isChecked"
