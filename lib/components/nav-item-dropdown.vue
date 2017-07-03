@@ -32,16 +32,10 @@
 </template>
 
 <script>
-    import clickOut from '../mixins/clickout';
     import dropdown from '../mixins/dropdown';
 
     export default {
-        mixins: [clickOut, dropdown ],
-        data() {
-            return {
-                visible: false
-            };
-        },
+        mixins: [dropdown],
         computed: {
             dropdownToggle() {
                 return this.noCaret ? '', 'dropdown-toggle';
@@ -54,11 +48,6 @@
             noCaret: {
                 type: Boolean,
                 default: false
-            }
-        },
-        methods: {
-            clickOutListener() {
-                this.visible = false;
             }
         }
     };
