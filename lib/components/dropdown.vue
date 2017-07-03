@@ -1,5 +1,5 @@
 <template>
-    <div :id="id || null" :class="['dropdown', {dropup, 'btn-group': split, show: visible}]">
+    <div :id="id || null" :class="['dropdown', 'btn-group', {dropup, show: visible}]">
 
         <b-button :class="{'dropdown-toggle': !split}"
                   ref="button"
@@ -46,13 +46,20 @@
 
 <script>
     import dropdown from '../mixins/dropdown';
-    import dropdownSplit from '../mixins/dropdown-split';
     import bButton from './button.vue';
 
     export default {
         mixins: [dropdown, dropdownSplit],
         components: {bButton},
         props: {
+            split: {
+                type: Boolean,
+                default: false
+            },
+            toggleText: {
+                type: String,
+                default: 'Toggle Dropdown'
+            },
             size: {
                 type: String,
                 default: null
