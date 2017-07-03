@@ -15,6 +15,10 @@
     {
       "event": "hidden",
       "description": "When menu is hidden"
+    },
+    {
+      "event": "click",
+      "description": "Only in split mode"
     }
   ],
   "slots": [
