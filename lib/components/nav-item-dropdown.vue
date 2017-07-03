@@ -38,7 +38,7 @@
         mixins: [dropdown],
         computed: {
             dropdownToggle() {
-                return this.noCaret ? '', 'dropdown-toggle';
+                return this.noCaret ? '' : 'dropdown-toggle';
             }
         },
         props: {
