@@ -43,7 +43,7 @@ Make horizontal `b-button-group` span the entire width of its prent container by
 setting the `justify` prop. This setting has no effect when `vertical` is set.
 
 ### Alias
-`b-button` group can also be used by its shorter alias `b-btn-group`.
+`b-button-group` can also be used by its shorter alias `b-btn-group`.
 
 ### See also
 Also check out the [`<b-button-toolabr>`](./button-toolbar) component for generating
