@@ -46,20 +46,13 @@
 
 <script>
     import dropdown from '../mixins/dropdown';
+    import dropdownSplit from '../mixins/dropdown-split';
     import bButton from './button.vue';
 
     export default {
-        mixins: [dropdown],
+        mixins: [dropdown, dropdownSplit],
         components: {bButton},
         props: {
-            split: {
-                type: Boolean,
-                default: false
-            },
-            toggleText: {
-                type: String,
-                default: 'Toggle Dropdown'
-            },
             size: {
                 type: String,
                 default: null
