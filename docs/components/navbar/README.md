@@ -47,3 +47,6 @@
 
 <!-- navbar.vue -->
 ```
+
+For `<b-nav-item-dropdown>` usage, see the [`<b-dropdown>`](./dropdown) docs.
+Note split dropdowns are not supported in `<b-navbar>`.
