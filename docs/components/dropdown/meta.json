@@ -11,11 +11,11 @@
   "events": [
     {
       "event": "shown",
-      "description": ""
+      "description": "When dropdown is shown"
     },
     {
       "event": "hidden",
-      "description": ""
+      "description": "When dropdown is hidden"
     },
     {
       "event": "click",
@@ -24,8 +24,12 @@
   ],
   "slots": [
     {
-      "name": "text",
+      "name": "button-content",
       "description": "Can be used to implement custom text with icons and more styling"
+    },
+    {
+      "name": "text",
+      "description": "Deprecated. please use 'button-content' slot instead."
     }
   ]
 }
