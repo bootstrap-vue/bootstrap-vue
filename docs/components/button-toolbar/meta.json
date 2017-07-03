@@ -1,4 +1,8 @@
 {
   "title": "Button toolbar",
-  "component": "bButtonToolbar"
+  "component": "bButtonToolbar",
+  "components": [
+    "bButtonGroup",
+    "bButtonGroupDropdown"
+  ]
 }
