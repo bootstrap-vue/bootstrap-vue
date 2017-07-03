@@ -32,8 +32,8 @@
         
         <b-nav-item-dropdown right>
           
-          <!-- Using text slot -->
-          <template slot="text">
+          <!-- Using button-content slot -->
+          <template slot="button-content">
             <span style="font-weight: bold;">User</span>
           </template>
           
