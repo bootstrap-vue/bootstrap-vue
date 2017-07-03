@@ -1,7 +1,7 @@
 <template>
     <div :id="id || null" :class="['dropdown','btn-group',{dropup, show: visible}]">
 
-        <b-button :class="{'dropdown-toggle': !split, 'btn-link': link}"
+        <b-button :class="{'dropdown-toggle': !split}"
                   ref="button"
                   :id="id ? (id + '__BV_button_') : null"
                   :aria-haspopup="split ? null : 'true'"
@@ -11,10 +11,10 @@
                   :disabled="disabled"
                   @click.stop.prevent="click"
         >
-            <slot name="text">{{text}}</slot>
+            <slot name="button-content"><slot name="text">{{text}}</slot></slot>
         </b-button>
 
-        <b-button :class="['dropdown-toggle','dropdown-toggle-split',{'btn-link': link}]"
+        <b-button :class="['dropdown-toggle','dropdown-toggle-split']"
                   v-if="split"
                   ref="toggle"
                   :id="id ? (id + '__BV_toggle_') : null"
@@ -72,10 +72,6 @@
             variant: {
                 type: String,
                 default: null
-            },
-            link: {
-                type: Boolean,
-                default: false
             }
         },
         methods: {
