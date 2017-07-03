@@ -12,7 +12,7 @@
                   @kedown.space.stop.prevent="click"
                   @kedown.enter.stop.prevent="click"
         >
-            <slot name="text">{{text}}</slot>
+            <slot name="button-content"><slot name="text">{{text}}</slot></slot>
         </b-button>
 
         <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
