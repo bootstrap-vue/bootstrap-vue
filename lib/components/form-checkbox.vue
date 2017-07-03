@@ -50,9 +50,6 @@ export default {
         }
     },
     computed: {
-        custom() {
-            return !this.plain;
-        },
         inputClass() {
             return [
                 this.size ? `form-control-${this.size}` : null,
