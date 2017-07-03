@@ -42,9 +42,6 @@
             }
         },
         props: {
-            id: {
-                type: String
-            },
             noCaret: {
                 type: Boolean,
                 default: false
