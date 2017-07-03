@@ -12,7 +12,7 @@
            @keydown.enter.stop.prevent="toggle($event)"
            @keydown.space.stop.prevent="toggle($event)"
         >
-            <slot name="text"><span v-html="text"></span></slot>
+            <slot name="button-content"><slot name="text"><span v-html="text"></span></slot></slot>
         </a>
 
         <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
@@ -36,10 +36,7 @@
     import dropdown from '../mixins/dropdown';
 
     export default {
-        mixins: [
-            clickOut,
-            dropdown
-        ],
+        mixins: [clickOut, dropdown ],
         data() {
             return {
                 visible: false
@@ -47,16 +44,16 @@
         },
         computed: {
             dropdownToggle() {
-                return this.caret ? 'dropdown-toggle' : '';
+                return this.noCaret ? '', 'dropdown-toggle';
             }
         },
         props: {
             id: {
                 type: String
             },
-            caret: {
+            noCaret: {
                 type: Boolean,
-                default: true
+                default: false
             }
         },
         methods: {
