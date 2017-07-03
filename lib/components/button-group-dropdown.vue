@@ -55,9 +55,6 @@
         mixins: [dropdown],
         components: {bButton},
         props: {
-            id: {
-                type: String
-            },
             split: {
                 type: Boolean,
                 default: false
