@@ -45,22 +45,13 @@
 </template>
 
 <script>
-    import clickOut from '../mixins/clickout';
     import dropdown from '../mixins/dropdown';
     import bButton from './button.vue';
 
     export default {
-        mixins: [clickOut, dropdown],
+        mixins: [dropdown],
         components: {bButton},
-        data() {
-            return {
-                visible: false
-            };
-        },
         props: {
-            id: {
-                type: String
-            },
             split: {
                 type: Boolean,
                 default: false
@@ -77,25 +68,6 @@
                 type: String,
                 default: null
             }
-        },
-        methods: {
-            clickOutListener() {
-                this.visible = false;
-            },
-            click(e) {
-                if (this.disabled) {
-                    this.visible = false;
-                    return;
-                }
-
-                if (this.split) {
-                    this.$emit('click', e);
-                    this.$root.$emit('shown::dropdown', this);
-                } else {
-                    this.toggle();
-                }
-            }
         }
     };
-
 </script>
