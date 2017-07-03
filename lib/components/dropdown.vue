@@ -49,7 +49,7 @@
     import bButton from './button.vue';
 
     export default {
-        mixins: [dropdown, dropdownSplit],
+        mixins: [dropdown],
         components: {bButton},
         props: {
             split: {
