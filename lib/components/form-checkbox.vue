@@ -57,7 +57,11 @@ export default {
             ];
         },
         isChecked() {
-            return arrayIncludes(this.checked, this.value);
+            if (isArray(this.checked)) {
+                return arrayIncludes(this.checked, this.value);
+            } else {
+                return this.checked === this.value;
+            }
         }
     },
     methods: {
