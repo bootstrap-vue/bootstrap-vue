@@ -1,5 +1,5 @@
 <template>
-    <form :class="classObject">
+    <form :class="classObject" @submit="$emit('submit',$event)">
         <slot></slot>
     </form>
 </template>
