@@ -92,7 +92,7 @@ export default {
     methods: {
         // Convenience method to scroll an element that is offscreen into view
         // Not required for ScrollSpy to work
-        scrollInView($event) {
+        scrollIntoView($event) {
             const href = $event.target.getAttribute('href');
             if (href) {
                 const el = document.querySelector(href);
