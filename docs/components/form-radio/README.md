@@ -6,21 +6,32 @@ semantic and accessible markup, so it is a solid replacement for the default rad
 
 ```html
 <template>
-<div>
-  <b-form-radio v-model="value2" :options="options" stacked>
-  </b-form-radio>
-  
-  <br>
-  <span>Selected: </span>
-  <span>{{value2}}</span>
-</div>  
+  <div>
+    <h5>Inline radios (default)</h5>
+    <b-form-radio v-model="selected" :options="options"></b-form-radio>
+
+    <br>
+    
+    <h5>Stacked radios</h5>
+    <b-form-radio v-model="selected" :options="options" stacked></b-form-radio>
+
+    <br>
+    
+    <h5>Small Stacked radios</h5>
+    <b-form-radio v-model="selected" :options="options" stacked size="sm"></b-form-radio>
+
+    <hr>
+
+    <div>
+      Selected: <strong>{{ selected }}</strong>
+    </div>
+  </div> 
 </template>
 
 <script>
 export default {
   data: {
-    value1: 'third',
-    value2: 'third',
+    selected: 'first',
     options: [{
       text: 'Toggle this custom radio',
       value: 'first'
@@ -45,7 +56,11 @@ Please see options in [`<b-form-select>`](./form-select) docs for details on pas
 to `<b-form-radio>`
 
 ### Control sizing
-Set heights using the `size` prop to `sm` or `lg` for small or large text respectively. 
+Set heights using the `size` prop to `sm` or `lg` for small or large text respectively.
+
+### Inline or stacked
+By default `<b-form-radio>` generates inline radio inputs. Set the prop `stacked` to make
+the radios appear one over the other.
 
 ### Contextual States
 Bootstrap includes validation styles for danger, warning, and success states on most form controls.
