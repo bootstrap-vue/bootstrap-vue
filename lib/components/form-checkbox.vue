@@ -60,7 +60,7 @@ export default {
             if (isArray(this.checked)) {
                 return arrayIncludes(this.checked, this.value);
             } else {
-                return this.checked;
+                return this.checked === this.value;
             }
         }
     },
