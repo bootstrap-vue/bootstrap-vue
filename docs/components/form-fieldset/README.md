@@ -6,17 +6,15 @@ as contextual state visual feedback.
 
 ```html
 <template>
-<b-form-fieldset
-    :feedback="feedback" 
-    description="We'll convert your name to lowercase automatically."
-    label="Example Label"
-    :state="state"
-    :label-size="1"
->
-
-<b-form-input v-model="name"></b-form-input>
-
-</b-form-fieldset>
+  <b-form-fieldset
+      description="We'll convert your name to lowercase automatically."
+      label="Enter your name"
+      :feedback="feedback" 
+      :state="state"
+      :label-cols="3"
+  >
+    <b-form-input v-model="name"></b-form-input>
+  </b-form-fieldset>
 </template>
 
 <script>
@@ -35,7 +33,7 @@ export default {
 }
 </script>
 
-<!-- form-fieldset.vue -->
+<!-- form-fieldset-1.vue -->
 ```
 
 ### Label
@@ -76,6 +74,6 @@ prop to `<b-form-fieldset>`.
 To automatically associate the label to the first input element, you must provide
 a unique `id` prop on the input component. You may optionally specify which containing
 input component the label is for by setting the `<b-form-fieldset>` prop `for` to the
-id string of the input.
+`id` string of the input.
 
 It is highly recommended that you provide a unique `id` prop on your input element.
