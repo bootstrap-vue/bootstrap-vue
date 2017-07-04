@@ -45,7 +45,7 @@ Please see options in [`<b-form-select>`](./form-select) docs for details on pas
 to `<b-form-radio>`
 
 ### Control sizing
-Set heights using thw `size` prop to `sm` or `lg` for small or large respectively. 
+Set heights using the `size` prop to `sm` or `lg` for small or large text respectively. 
 
 ### Contextual States
 Bootstrap includes validation styles for danger, warning, and success states on most form controls.
