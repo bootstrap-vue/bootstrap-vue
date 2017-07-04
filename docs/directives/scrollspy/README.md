@@ -22,7 +22,7 @@ element (i.e. `<body>`).
       </b-nav-item-dropdown>
     </b-nav>
   </b-navbar>
-  <div id="scrollspy-example" style="position: relative; height: 400px; overflow-y: scroll;">
+  <div id="scrollspy-example" style="position: relative; height:400px; min-height: 400px; overflow-y: scroll;">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sollicitudin
       scelerisque augue, sit amet finibus risus tempus quis. Suspendisse id est faucibus,
