@@ -30,7 +30,7 @@
         >
 
         <!-- Overlay Labels -->
-        <span :class="['custom-file-control',dragging?'dragging':null,inputClass]"
+        <span :class="['custom-file-control',dragging?'dragging':null]"
               :id="id ? (id + '__BV_file_control_') : null"
               :data-choose="computedChooseLabel"
               :data-selected="selectedLabel"
