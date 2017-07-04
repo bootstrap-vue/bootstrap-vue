@@ -1,8 +1,8 @@
 # Button group
 
-> Group a series of buttons together on a single line with `b-button group`.
+> Group a series of buttons together on a single line with `<b-button group>`.
 
-##### Example 1: Default, Small, and Large button groups
+**Example 1:** Default, Small, and Large button groups
 ```html
 <div>
   <b-button-group>
@@ -29,7 +29,7 @@
 <!-- button-group-1.vue -->
 ```
 
-##### Example 2: Default button group with contextual variants
+**Example 2:** Default button group with contextual variants
 ```html
 <div>
   <b-button-group>
@@ -45,7 +45,7 @@
 <!-- button-group-2.vue -->
 ```
 
-##### Example 3: button group with dropdown menus
+**Example 3:** button group with dropdown menus
 ```html
 <div>
   <b-button-group>
@@ -70,7 +70,7 @@
 <!-- button-group-3.vue -->
 ```
 
-##### Example 4: Vertical button group
+**Example 4:** Vertical button group
 ```html
 <div>
   <b-button-group vertical>
