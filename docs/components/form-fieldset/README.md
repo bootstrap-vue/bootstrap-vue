@@ -115,3 +115,6 @@ input component the label is for by setting the `<b-form-fieldset>` prop `for` t
 `id` string of the input.
 
 It is highly recommended that you provide a unique `id` prop on your input element.
+
+### Alias
+`<b-form-fieldset>` can also be used via its shorter alias of `<b-form-group>`.
