@@ -1,7 +1,6 @@
 {
   "title": "Dropdown",
   "component": "bDropdown",
-  "jsfiddle": "8205xLmk",
   "components": [
     "bDropdownItem",
     "bDropdownItemButton",

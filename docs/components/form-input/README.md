@@ -5,24 +5,35 @@
 
 ```html
 <template>
-<div>
-  <b-form-input v-model="text" type="text" placeholder="Enter your name" :state="text.length?'success':'warning'" :formatter="format"></b-form-input>
-  <small class="text-muted">We will convert your name to lowercase instantly</small>
+  <div>
+    <b-form-input v-model="text"
+                  type="text"
+                  placeholder="Enter your name"
+                  :state="text.length?'success':'warning'"
+                  :formatter="format"
+    ></b-form-input>
+    <small class="text-muted">We will convert your name to lowercase instantly</small>
 
-  <br>
-  <br>
+    <br>
+    <br>
 
-  <b-form-input v-model="text" type="text" placeholder="Enter your name" :state="text.length?'success':'warning'" :formatter="format" lazy-formatter></b-form-input>
-  <small class="text-muted">This one is a little lazy!</small>
+    <b-form-input v-model="text"
+                  type="text"
+                  placeholder="Enter your name"
+                  :state="text.length?'success':'warning'"
+                  :formatter="format"
+                  lazy-formatter
+    ></b-form-input>
+    <small class="text-muted">This one is a little lazy!</small>
 
-  <br>
-  <br>
+    <br>
+    <br>
 
-  <b-form-input textarea v-model="text" placeholder="Text area mode"></b-form-input>
+    <b-form-input textarea v-model="text" placeholder="Text area mode"></b-form-input>
 
-  <br>
-  <p>Value: {{text}}</p>
-</div>  
+    <br>
+    <p>Value: {{text}}</p>
+  </div>  
 </template>
 
 <script>

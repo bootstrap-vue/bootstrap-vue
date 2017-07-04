@@ -13,6 +13,5 @@
       "name": "empty",
       "description": "Renders this slot if no tabs are present"
     }
-  ],
-  "jsfiddle": "3xwmm1qt"
+  ]
 }

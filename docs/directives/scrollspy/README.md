@@ -6,7 +6,7 @@ element (i.e. `<body>`).
 
 ```html
 <template>
-<div>
+<div style="position: relative;">
   <b-navbar v-b-scrollspy:scrollspy-example class="bg-faded" id="navbar-example">
     <b-link class="navbar-brand" href="#">
       <span>BootstrapVue <small>(Scrolling on div)</small></span>
@@ -22,7 +22,7 @@ element (i.e. `<body>`).
       </b-nav-item-dropdown>
     </b-nav>
   </b-navbar>
-  <div id='scrollspy-example' style="position: relative; height: 400px; overflow-y: scroll">
+  <div id="scrollspy-example" style="position: relative; height: 400px; overflow-y: scroll;">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sollicitudin
       scelerisque augue, sit amet finibus risus tempus quis. Suspendisse id est faucibus,

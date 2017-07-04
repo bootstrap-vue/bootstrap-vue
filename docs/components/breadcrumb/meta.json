@@ -1,7 +1,6 @@
 {
   "title": "Breadcrumb",
   "component": "bBreadcrumb",
-  "jsfiddle": "aL7wdszr",
   "events": [
     {
       "event": "click",
