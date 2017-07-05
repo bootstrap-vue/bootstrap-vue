@@ -200,8 +200,8 @@ See the **"Using Items Provider functions"** section below for more details.
 | `foot-variant` | Use `default` or `inverse` to make `<tfoot>` appear light or dark gray, respectively. Has no effect if `foot-clone` is not set
 | `busy` | If set to `true` will make the table opaque and disable click events. Handy when using items provider functions.
 | `show-empty` | If `true`, Show a message if no records can be displayed (see `empty-text` and `empty-filter-text`)
-| `empty-text` | Text to display if there are no records in the original `items` array. YOu cn also use the named slot `empty` to set the content for `empty-text`
-| `empty-filtered-text` | Text to display if there are no records in the **filtered** `items` array. You can also use the name slot `emptyfiltered` to set the content for `empty-filtered-text`
+| `empty-text` | Text to display if there are no records in the original `items` array. You can also use the named slot `empty` to set the content for `empty-text`
+| `empty-filtered-text` | Text to display if there are no records in the **filtered** `items` array. You can also use the named slot `emptyfiltered` to set the content for `empty-filtered-text`
 
 
 ### Custom Data Rendering
