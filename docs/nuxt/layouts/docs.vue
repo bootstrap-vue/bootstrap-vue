@@ -46,6 +46,8 @@ export default {
                 path = '';
             } else if (path === '/docs/setup') {
                 return base + '/SETUP.md';
+            } else if (/\/$/.test(path)) {
+                return base + path;
             }
             return base + path + '/README.md';
         },
