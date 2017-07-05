@@ -44,6 +44,8 @@ export default {
             let path = this.$route.path;
             if (path === '/') {
                 path = '';
+            } else if (path === '/docs/setup') {
+                return base + '/SETUP.md';
             }
             return base + path + '/README.md';
         },
