@@ -75,7 +75,7 @@ element (i.e. `<body>`).
       Vero VHS est adipisicing. Consectetur nisi DIY minim messenger bag. Cred ex in,
       sustainable delectus consectetur fanny pack iphone.
     </p>
-    <h4 id="pio">@pi0</h4>
+    <h4 id="pi0">@pi0</h4>
     <p v-for="i in 4">
       Veniam marfa mustache skateboard, adipisicing fugiat velit pitchfork beard. Freegan
       beard aliqua cupidatat mcsweeney's vero. Cupidatat four loko nisi, ea helvetica nulla
