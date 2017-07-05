@@ -6,7 +6,7 @@ window.app = new Vue({
             link: 'https://bootstrap-vue.github.io'
         }, {
             text: 'Admin',
-            to: '#',
+            href: '#',
             active: false
         }, {
             text: 'Manage',
