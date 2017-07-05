@@ -16,9 +16,10 @@
 </template>
 
 <script>
-import bLink from './link.vue';
+import bLink from './link';
 import { props as linkProps } from '../mixins/link';
 import arrayIncludes from '../utils/arrayIncludes';
+import assign from '../utils/assign';
 
 const bLinkPropKeys = Object.keys(linkProps);
 
@@ -37,9 +38,9 @@ export default {
 
                 // nothing defined except the text
                 if (typeof item === 'string') {
-                    Object.assign(normalizedItem, { text: item, link: '#', active: isLast });
+                    assign(normalizedItem, { text: item, link: '#', active: isLast });
                 } else {
-                    Object.assign(normalizedItem, item);
+                    assign(normalizedItem, item);
                 }
 
                 // don't default the active state if given a boolean value,

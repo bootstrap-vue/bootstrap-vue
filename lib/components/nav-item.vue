@@ -10,7 +10,7 @@
 
 <script>
 import { props as linkProps, computed } from '../mixins/link';
-import bLink from './link.vue';
+import bLink from './link';
 
 export default {
     components: { bLink },
