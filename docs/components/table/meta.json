@@ -1,7 +1,6 @@
 {
   "title": "Table",
   "component": "bTable",
-  "jsfiddle": "a5s95a3q",
   "events": [
     {
       "event": "row-clicked",

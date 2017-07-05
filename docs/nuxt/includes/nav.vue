@@ -36,7 +36,7 @@
 <style>
 .main-nav {
     box-shadow: 0 0 5px rgba(57, 70, 78, .2) !important;
-    background: rgb(70, 70, 70);
+    background: #24292e;
     z-index: 1050;
     padding-bottom: 0;
 }

@@ -3,10 +3,12 @@
 > Small and adaptive tag for adding context to just about any content.
 
 ```html
-<h3>Example heading <b-badge>New</b-badge></h3>
-<h4>Example heading <b-badge variant="primary">New</b-badge></h4>
-<h5>Example heading <b-badge pill variant="success">New</b-badge></h5>
-
+<div>
+  <h3>Example heading <b-badge>New</b-badge></h3>
+  <h4>Example heading <b-badge variant="primary">New</b-badge></h4>
+  <h5>Example heading <b-badge pill variant="success">New</b-badge></h5>
+</div>
+  
 <!-- badges.vue -->
 ```
 

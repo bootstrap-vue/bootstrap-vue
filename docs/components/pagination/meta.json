@@ -1,7 +1,6 @@
 {
   "title": "Pagination",
   "component": "bPagination",
-  "jsfiddle": "atb4cnjg",
   "events": [
     {
       "event": "input",

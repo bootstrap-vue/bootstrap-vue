@@ -3868,11 +3868,11 @@ map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
 
-markdown-loader@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/markdown-loader/-/markdown-loader-2.0.0.tgz#421862d38c4224fd3615eb648017ea385b562d78"
+markdown-loader@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/markdown-loader/-/markdown-loader-2.0.1.tgz#eed8bead82978bacf17b76a11c5593a013e2d976"
   dependencies:
-    loader-utils "^0.2.16"
+    loader-utils "^1.1.0"
     marked "^0.3.6"
 
 marked@^0.3.6:
@@ -4231,7 +4231,7 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-nuxt@^1.0.0-alpha.4:
+nuxt@1.0.0-alpha.4:
   version "1.0.0-alpha.4"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-1.0.0-alpha.4.tgz#d4e3c2aeaa80200611e58776b2792c68c0aadd5a"
   dependencies:
@@ -6077,9 +6077,9 @@ typescript@2.3.4:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 
-uglify-es@^3.0.21:
-  version "3.0.21"
-  resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.0.21.tgz#d32c3386255a25a5b6d83f386c1ba80e36679b64"
+uglify-es@^3.0.23:
+  version "3.0.23"
+  resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.0.23.tgz#9682c6ae347269ad6b0628bd8b3d6a3b391707c0"
   dependencies:
     commander "~2.9.0"
     source-map "~0.5.1"
