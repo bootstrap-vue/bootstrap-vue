@@ -4,7 +4,7 @@
   "events": [
     {
       "event": "submit",
-      "description": "Emitted when the form is being emitted",
+      "description": "Emitted when the form is being submitted",
       "args": [
         {
           "arg": "event",
