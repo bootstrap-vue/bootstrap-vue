@@ -4,6 +4,8 @@
 you want to have nav-links shown as `active` based on the scrolling of another
 element (i.e. `<body>`).
 
+**Note:** ScrollSpy directive is currently in the experimental stage.
+
 ```html
 <template>
 <div style="height:410px;">
