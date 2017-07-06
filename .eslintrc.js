@@ -4,23 +4,29 @@ module.exports = {
         'commonjs': true,
         'es6': true
     },
-    'extends': 'eslint:recommended',
+    'extends': ['plugin:vue-libs/recommended'],
     'parserOptions': {
         'ecmaVersion': 7,
         'ecmaFeatures': {
-            'jsx': true
+            'impliedStrict': true,
+            'experimentalObjectRestSpread': true,
+            'jsx': true // just in case?
         },
         'sourceType': 'module'
     },
-    // "parser": "babel-eslint",
-    // "parserOptions": {
-    //     "sourceType": "module",
-    //     "allowImportExportEverywhere": false,
-    //     "codeFrame": false
-    // },
+    'globals': {
+        'Tether': true,
+        'Promise': true
+    },
     'plugins': [
-        'html'
+        'html', 'vue'
     ],
+    'settings': {
+        'html/html-extensions': [
+            '.html',
+            '.vue'
+        ]
+    },
     'rules': {
         'accessor-pairs': 'error',
         'array-bracket-spacing': [
