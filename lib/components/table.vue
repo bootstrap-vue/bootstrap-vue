@@ -349,8 +349,17 @@
                     return [];
                 }
 
-                // Shallow copy of items, so we don't mutate thd original array
+                // Shallow copy of items, so we don't mutate the original array order/size
                 items = items.slice();
+
+                // Number of pages before filtering
+                let numOriginalPages = calcNumPages(items.length, perPage);
+
+                // Number of pages after filtering (recalculated once filtering completes)
+                let numFilteredPages = numOriginalPages;
+
+                // Number of Items after filtering (recalculated after filtering completes)
+                let numFilteredItems = items.length;
 
                 // Apply local filter
                 if (filter && !this.providerFiltering) {
@@ -369,6 +378,12 @@
                             return test;
                         });
                     }
+
+                    // Recalculate the number of items after filtering
+                    numFilteredItems = items.length;
+
+                    // Calculate number of pages after filtering
+                    numFilteredPages = calcNumPages(numFilteredItems, perPage);
                 }
 
                 // Apply local Sort
@@ -381,17 +396,17 @@
 
                 // Apply local pagination
                 if (perPage && !this.providerPaging) {
-                    // Calculate total possibly filtered items and number of pages
-                    const numItems = items.length;
-                    const numPages = calcNumPages(numItems, perPage);
-                    // Grab the current page
+                    // Grab the current page of data (which may be past filtered items)
                     items = items.slice((currentPage - 1) * perPage, currentPage * perPage);
-                    // Emit a pagination notification event
-                    this.$emit('paginated', numItems, perPage, currentPage > numPages ? numPages : currentPage);
                 }
 
                 // Update the value model with the filtered/sorted/paginated data set
                 this.$emit('input', items);
+
+                if (numOriginalPages !== numFilteredPages);
+                    // Emit a repaginate notification event, as number of pages has changed
+                    this.$emit('repaginate', numFilteredItems);
+                }
 
                 return items;
             }
