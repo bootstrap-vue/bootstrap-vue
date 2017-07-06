@@ -55,6 +55,16 @@
       ]
     },
     {
+      "event": "filtered",
+      "description": "Emitted when local fitering causes a change in the number of items.",
+      "args": [
+        {
+          "arg": "filteredItems",
+          "description": "Array of items after filtering (before pagination occurs)."
+        }
+      ]
+    },
+    {
       "event": "refreshed",
       "description": "Emitted when the items provider function has returned data."
     }
