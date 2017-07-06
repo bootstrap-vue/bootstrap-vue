@@ -131,7 +131,7 @@ export default {
 
 ### `fields` prop
 The `fields` prop is used to display table columns. 
-keys are used to extract real value from each row.
+Keys are used to extract real value from each row.
 Example format:
 ```js
 {
@@ -358,7 +358,7 @@ possible to filter data based on custom rendering of virtual columns. The items 
 is stringified and the filter searches that stringified data (excluding any properties
 that begin with an underscore (`_`) and the deprecated property `state`.
 
-Thw `filter` can be a string, a `RegExp` or a `function` reference.  If a function
+The `filter` can be a string, a `RegExp` or a `function` reference.  If a function
 is provided, the first argument is the original item record data object. The
 function should return `true` if the record matches your criteria or `false` if
 the record is to be filtered out.
@@ -372,7 +372,7 @@ The built-in default `sort-compare` function sorts the specified field `key` bas
 on the data in the underlying record object. The field value is first stringified
 if it is an object, and then sorted.
 
-The default `sort-compare` routine **cannot** sort virtual columns, nor can it sort
+The default `sort-compare` routine **cannot** sort neither virtual columns, nor 
 based on the custom rendering of the field data (which is used only for presentation).
 For this reason, you can provide your own custom sort compare routine by passing a
 function reference to the prop `sort-compare`.
@@ -514,7 +514,7 @@ following `b-table` prop(s) to `true`:
 When `no-provider-paging` is `false` (default), you should only return at
 maximum, `perPage` number of records.
 
-Note that `<b-table>` needs refernce to your pagination and filtering values in order to
+Note that `<b-table>` needs reference to your pagination and filtering values in order to
 trigger the calling of the provider function.  So be sure to bind to the `per-page`,
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
 (unless you have the respective `no-provider-*` prop set to `true`).
