@@ -119,11 +119,6 @@
         }
     };
 
-    const calcNumPages = (rows, perPage) => {
-        const result = Math.ceil(rows / perPage);
-        return (result < 1) ? 1 : result;
-    };
-
     export default {
         data() {
             return {
@@ -352,17 +347,11 @@
                 // Shallow copy of items, so we don't mutate the original array order/size
                 items = items.slice();
 
-                // Number of pages before filtering
-                let numOriginalPages = calcNumPages(items.length, perPage);
-
-                // Number of pages after filtering (recalculated once filtering completes)
-                let numFilteredPages = numOriginalPages;
-
-                // Number of Items after filtering (recalculated after filtering completes)
-                let numFilteredItems = items.length;
-
                 // Apply local filter
                 if (filter && !this.providerFiltering) {
+                    // Number of Items before filtering
+                    let numOriginalItems = items.length;
+
                     if (filter instanceof Function) {
                         items = items.filter(filter);
                     } else {
@@ -379,11 +368,10 @@
                         });
                     }
 
-                    // Recalculate the number of items after filtering
-                    numFilteredItems = items.length;
-
-                    // Calculate number of pages after filtering
-                    numFilteredPages = calcNumPages(numFilteredItems, perPage);
+                    if (numOriginalItems !== items.length) {
+                        // Emit a filtered notification event, as number of items has changed
+                        this.$emit('filtered', items);
+                    }
                 }
 
                 // Apply local Sort
@@ -402,11 +390,6 @@
 
                 // Update the value model with the filtered/sorted/paginated data set
                 this.$emit('input', items);
-
-                if (numOriginalPages !== numFilteredPages) {
-                    // Emit a repaginate notification event, as number of pages has changed
-                    this.$emit('repaginate', numFilteredItems);
-                }
 
                 return items;
             }
