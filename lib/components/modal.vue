@@ -123,7 +123,7 @@
     }
 
     export default {
-        mixins: [listenOnRoot],
+        mixins: [listenOnRootMixin],
         components: {bBtn},
         data() {
             return {
