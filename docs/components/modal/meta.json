@@ -8,7 +8,7 @@
       "args": [
         {
           "arg": "is_visible",
-          "description": "true if modal is visble, false otherwise"
+          "description": "true if modal is visible, false otherwise"
         }
       ]
     },
