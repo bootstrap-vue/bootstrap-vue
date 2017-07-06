@@ -4,13 +4,13 @@
   "events": [
     {
       "event": "change",
+      "description": "new modal visibility state",
       "args": [
         {
           "arg": "is_visible",
           "description": "true if modal is visble, false otherwise"
         }
-      ],
-      "description": "new modal visibility state"
+      ]
     },
     {
       "event": "shown",
