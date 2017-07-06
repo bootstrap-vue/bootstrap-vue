@@ -93,6 +93,7 @@
 <script>
     import bBtn from './button.vue';
     import listenOnRoot from '../mixins/listen-on-root';
+    import { from as arrayFrom } from '../utils/array'
 
     const FOCUS_SELECTOR = [
         'button:not([disabled])',
@@ -107,13 +108,13 @@
     function isVisible(el) {
         return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
     }
-    
+
     // Find the first visible element contained in a given root element
     function findFirstVisible(root, selector) {
         if (!root || !root.querySelectorAll || !selector) {
             return null;
         }
-        let els = Array.prototype.slice.call(root.querySelectorAll(selector));
+        let els = arrayFrom(root.querySelectorAll(selector));
 
         // IE 10 & 11 do not support native array.find()
         // So we try native find first, then fall back to a loop
@@ -175,7 +176,7 @@
             buttonSize: {
                 type: String,
                 default: 'md'
-            },  
+            },
             noFade: {
                 type: Boolean,
                 default: false
