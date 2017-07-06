@@ -513,7 +513,7 @@
     table.b-table thead > tr > .sorting:before,
     table.b-table thead > tr > .sorting:after,
     table.b-table tfoot > tr > .sorting:before,
-    table.b-table thead > tr > .sorting:after {
+    table.b-table tfoot > tr > .sorting:after {
         position: absolute;
         bottom: 0.9em;
         display: block;
@@ -523,7 +523,7 @@
     table.b-table.table-sm > thead > tr > .sorting:before,
     table.b-table.table-sm > thead > tr > .sorting:after,
     table.b-table.table-sm > tfoot > tr > .sorting:before,
-    table.b-table.table-sm > thead > tr > .sorting:after {
+    table.b-table.table-sm > tfoot > tr > .sorting:after {
         bottom: 0.45em;
     }
 
