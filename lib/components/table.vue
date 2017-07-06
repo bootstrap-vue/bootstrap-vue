@@ -403,7 +403,7 @@
                 // Update the value model with the filtered/sorted/paginated data set
                 this.$emit('input', items);
 
-                if (numOriginalPages !== numFilteredPages);
+                if (numOriginalPages !== numFilteredPages) {
                     // Emit a repaginate notification event, as number of pages has changed
                     this.$emit('repaginate', numFilteredItems);
                 }
