@@ -347,8 +347,8 @@
 
                 // Apply local filter
                 if (filter && !this.providerFiltering) {
-                    // Number of Items before filtering
-                    let numOriginalItems = items.length;
+                    // Number of items before filtering
+                    const numOriginalItems = items.length;
 
                     if (filter instanceof Function) {
                         items = items.filter(filter);
