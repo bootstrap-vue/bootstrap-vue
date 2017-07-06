@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import {formMixin, formCustomMixin, formCheckboxMixin} from '../mixins';
+import {formMixin, formCustomMixin, formCheckBoxMixin} from '../mixins';
 import {arrayIncludes, isArray} from '../utils';
 
 export default {
-    mixins: [formMixin, formCustomMixin, formCheckboxMixin],
+    mixins: [formMixin, formCustomMixin, formCheckBoxMixin],
     model: {
         prop: 'checked',
         event: 'change'
