@@ -58,7 +58,7 @@
                 </td>
             </tr>
             <tr v-if="showEmpty && (!_items  || _items.length === 0)" role="row">
-                <td :colspan="Object.keys(fields).length">
+                <td :colspan="keys(fields).length">
                     <div v-if="filter" role="alert" aria-live="polite">
                         <slot name="emptyfiltered">
                             <div class="text-center my-2" v-html="emptyFilteredText"></div>
@@ -77,13 +77,14 @@
 
 <script>
     import warn from '../utils/warn';
+    import { keys } from '../utils/object';
 
     const toString = v => {
         if (!v) {
             return '';
         }
         if (v instanceof Object) {
-            return Object.keys(v).map(k => toString(v[k])).join(' ');
+            return keys(v).map(k => toString(v[k])).join(' ');
         }
         return String(v);
     };
@@ -96,7 +97,7 @@
         // Exclude these fields from record stringification
         const exclude = { state: true, _rowVariant: true };
 
-        return toString(Object.keys(obj).reduce((o, k) => {
+        return toString(keys(obj).reduce((o, k) => {
           if (!exclude[k]) {
             o[k] = obj[k];
           }
@@ -384,6 +385,7 @@
             }
         },
         methods: {
+            keys,
             fieldClass(field, key) {
                 return [
                     field.sortable ? 'sorting' : '',
