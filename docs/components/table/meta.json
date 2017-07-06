@@ -55,12 +55,12 @@
       ]
     },
     {
-      "event": "repaginate",
-      "description": "Emitted when local fitering causes a change in the total number of pages.",
+      "event": "filtered",
+      "description": "Emitted when local fitering causes a change in the number of items.",
       "args": [
         {
-          "arg": "filteredRows",
-          "description": "Total number of data rows after filtering (before pagination)."
+          "arg": "filteredItems",
+          "description": "Array of items after filtering (before pagination occurs)."
         }
       ]
     },
