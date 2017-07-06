@@ -18,12 +18,10 @@
 </template>
 
 <script>
-    import formOptions from '../mixins/form-options';
-    import formMixin from '../mixins/form';
-    import formCustomMixin from '../mixins/form-custom';
+    import {formMixin, formOptionsMixin, formCustomMixin} from '../mixins';
 
     export default {
-        mixins: [formMixin, formCustomMixin, formOptions],
+        mixins: [formMixin, formCustomMixin, formOptionsMixin],
         data() {
             return {
                 localValue: this.value

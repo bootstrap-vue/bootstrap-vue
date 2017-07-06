@@ -20,7 +20,7 @@
 </style>
 
 <script>
-    import listenOnRoot from '../mixins/listen-on-root';
+    import {listenOnRootMixin} from '../mixins';
 
     export default {
         mixins: [listenOnRoot],

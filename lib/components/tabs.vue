@@ -52,7 +52,7 @@
 </template>
 
 <script>
-    import observeDom from '../utils/observe-dom';
+    import {observeDom} from '../utils';
 
     export default {
         data() {
