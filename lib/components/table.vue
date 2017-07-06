@@ -119,6 +119,11 @@
         }
     };
 
+    const calcNumPages = (rows, perPage) => {
+        const result = Math.ceil(rows / perPage);
+        return (result < 1) ? 1 : result;
+    };
+
     export default {
         data() {
             return {
@@ -137,7 +142,7 @@
                 default() {
                     if (this && this.itemsProvider) {
                         // Deprecate itemsProvider
-                        warn('b-table: prop items-provider has been deprecated. Pass a function to items instead');
+                        warn("b-table: prop 'items-provider' has been deprecated. Pass a function to 'items' instead");
                         return this.itemsProvider;
                     }
                     return [];
@@ -344,6 +349,7 @@
                     return [];
                 }
 
+                // Shallow copy of items, so we don't mutate thd original array
                 items = items.slice();
 
                 // Apply local filter
@@ -375,11 +381,18 @@
 
                 // Apply local pagination
                 if (perPage && !this.providerPaging) {
+                    // Calculate total possibly filtered items and number of pages
+                    const numItems = items.length;
+                    const numPages = calcNumPages(numItems, perPage);
+                    // Grab the current page
                     items = items.slice((currentPage - 1) * perPage, currentPage * perPage);
+                    // Emit a pagination notification event
+                    this.$emit('paginated', numItems, perPage, currentPage > numPages ? numPages : currentPage);
                 }
 
                 // Update the value model with the filtered/sorted/paginated data set
                 this.$emit('input', items);
+
                 return items;
             }
         },
