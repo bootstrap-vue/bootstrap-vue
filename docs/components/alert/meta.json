@@ -11,7 +11,8 @@
       "description": "When dismissAfterSeconds enabled, this event emits every second on countdown.",
       "args": [
           {
-            "dismissCountDown": "Time remaining to dismissed"
+            "arg": "dismissCountDown",
+            "description": "Time remaining to dismissed"
           }
       ]
     }
