@@ -19,8 +19,8 @@
     </div>
   </div>
 
-  <div class="justify-content-center my-1">
-    <b-pagination size="md" :total-rows="items.length" :per-page="perPage" v-model="currentPage" />
+  <div class="justify-content-center row my-1">
+    <b-pagination size="md" :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
   </div>
 
   <!-- Main table element -->
@@ -30,6 +30,7 @@
            :current-page="currentPage"
            :per-page="perPage"
            :filter="filter"
+           @repaginate="repaginate"
   >
     <template slot="name" scope="item">
       {{item.value.first}} {{item.value.last}}
@@ -46,37 +47,40 @@
 </template>
 
 <script>
+const items = [
+   {
+     isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
+   }, {
+     isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }
+   }, {
+     _rowVariant: 'success',
+     isActive: false, age: 9,  name: { first: 'Mitzi', last: 'Navarro' }
+   }, {
+     isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' }
+   }, {
+     isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' }
+   }, {
+     isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
+   }, {
+     isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
+   }, {
+     _cellVariants: { age: 'danger', isActive: 'warning' },
+     isActive: true,  age: 87, name: { first: 'Larsen', last: 'Shaw' }
+   }, {
+     isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' }
+   }, {
+     isActive: false, age: 22, name: { first: 'Geneva', last: 'Wilson' }
+   }, {
+     isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' }
+   }, {
+     isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
+   }
+];
+
 export default {
   data: {
-    items: [
-      {
-        isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
-      }, {
-        isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }
-      }, {
-        _rowVariant: 'success',
-        isActive: false, age: 9, name: { first: 'Mitzi', last: 'Navarro' }
-      }, {
-        isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' }
-      }, {
-        isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' }
-      }, {
-        isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
-      }, {
-        isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
-      }, {
-        _cellVariants: { age: 'danger', name: 'success' },
-        isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }
-      }, {
-        isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' }
-      }, {
-        isActive: false, age: 22, name: { first: 'Geneva', last: 'Wilson' }
-      }, {
-        isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' }
-      }, {
-        isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
-      }
-    ],
+    items: items,
+    totalRows: items.length,
     fields: {
       name: {
         label: 'Person Full name',
@@ -100,6 +104,10 @@ export default {
   methods: {
     details(item) {
       alert(JSON.stringify(item));
+    },
+    repaginate(filteredRows) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredRows;
     }
   }
 }
