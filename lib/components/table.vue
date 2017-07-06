@@ -93,14 +93,12 @@
             return '';
         }
 
-        // Exclude these fields from record stringification
-        const exclude = { state: true, _rowVariant: true };
-
         return toString(Object.keys(obj).reduce((o, k) => {
-          if (!exclude[k]) {
-            o[k] = obj[k];
-          }
-          return o;
+            // Ignore fields 'state' and ones that start with _
+            if (!(/^_/.test(k) || k === 'state')) {
+                o[k] = obj[k];
+            }
+            return o;
         }, {}));
     };
 
