@@ -55,6 +55,16 @@
       ]
     },
     {
+      "event": "repaginate",
+      "description": "Emitted when local fitering causes a change in the total number of pages.",
+      "args": [
+        {
+          "arg": "filteredRows",
+          "description": "Total number of data rows after filtering (before pagination)."
+        }
+      ]
+    },
+    {
       "event": "refreshed",
       "description": "Emitted when the items provider function has returned data."
     }
