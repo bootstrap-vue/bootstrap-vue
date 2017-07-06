@@ -50,9 +50,6 @@ export default {
         }
     },
     computed: {
-        custom() {
-            return !this.plain;
-        },
         inputClass() {
             return [
                 this.size ? `form-control-${this.size}` : null,
@@ -60,7 +57,11 @@ export default {
             ];
         },
         isChecked() {
-            return arrayIncludes(this.checked, this.value);
+            if (isArray(this.checked)) {
+                return arrayIncludes(this.checked, this.value);
+            } else {
+                return this.checked === this.value;
+            }
         }
     },
     methods: {
