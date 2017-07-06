@@ -32,16 +32,18 @@
            :filter="filter"
            @repaginate="repaginate"
   >
-    <template slot="name" scope="item">
-      {{item.value.first}} {{item.value.last}}
-    </template>
-    <template slot="isActive" scope="item">
-      {{item.value?'Yes :)':'No :('}}
-    </template>
-    <template slot="actions" scope="item">
-      <b-btn size="sm" @click="details(item.item)">Details</b-btn>
+    <template slot="name" scope="row">{{row.value.first}} {{row.value.last}}</template>
+    <template slot="isActive" scope="row">{{row.value?'Yes :)':'No :('}}</template>
+    <template slot="actions" scope="row">
+      <b-btn size="sm" @click="details(row.item,row.index,$event.target)">Details</b-btn>
     </template>
   </b-table>
+
+  <!-- Details modal -->
+  <b-modal id="modal1" @hide="resetDetails" ok-only>
+    <h4 class="my-1 py-1" slot="modal-header">Index: {{ modalDetails.index }}</h4>
+    <pre>{{ modalDetails.data }}</pre>
+  </b-modal>
 
  </div> 
 </template>
@@ -99,11 +101,18 @@ export default {
     },
     currentPage: 1,
     perPage: 5,
-    filter: null
+    filter: null,
+    modalDetails: { index:'', data:'' }
   },
   methods: {
-    details(item) {
-      alert(JSON.stringify(item));
+    details(item, index, button) {
+      this.modalDetails.data = JSON.stringify(item, null, 2);
+      this.modalDetails.index = index;
+      this.$root.$emit('show::modal','modal1', button);
+    },
+    resetModal() {
+      this.modalDetails.data = '';
+      this.modalDetails.index = '';
     },
     repaginate(filteredRows) {
       // Trigger pagination to update the number of buttons/pages due to filtering
