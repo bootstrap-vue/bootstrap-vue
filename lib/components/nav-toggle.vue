@@ -14,7 +14,7 @@
 import {listenOnRootMixin} from '../mixins';
 
 export default {
-    mixins: [listenOnRoot],
+    mixins: [listenOnRootMixin],
     computed: {
         classObject() {
             return [
