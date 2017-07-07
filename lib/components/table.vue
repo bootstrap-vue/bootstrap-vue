@@ -1,11 +1,10 @@
 <template>
     <table :id="id || null"
-           role="grid"
            :aria-busy="busy ? 'true' : 'false'"
            :class="tableClass"
     >
         <thead :class="headClass">
-            <tr role="row">
+            <tr>
                 <th v-for="(field,key) in fields"
                     @click.stop.prevent="headClicked($event,field,key)"
                     @keydown.enter.stop.prevent="headClicked($event,field,key)"
@@ -24,7 +23,7 @@
             </tr>
         </thead>
         <tfoot v-if="footClone" :class="footClass">
-            <tr role="row">
+            <tr>
                 <th v-for="(field,key) in fields"
                     @click.stop.prevent="headClicked($event,field,key)"
                     @keydown.enter.stop.prevent="headClicked($event,field,key)"
@@ -47,7 +46,6 @@
         </tfoot>
         <tbody>
             <tr v-for="(item,index) in _items"
-                role="row"
                 :key="index"
                 :class="rowClass(item)"
                 @click="rowClicked($event,item,index)"
@@ -57,7 +55,7 @@
                     <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
                 </td>
             </tr>
-            <tr v-if="showEmpty && (!_items  || _items.length === 0)" role="row">
+            <tr v-if="showEmpty && (!_items  || _items.length === 0)">
                 <td :colspan="Object.keys(fields).length">
                     <div v-if="filter" role="alert" aria-live="polite">
                         <slot name="emptyfiltered">

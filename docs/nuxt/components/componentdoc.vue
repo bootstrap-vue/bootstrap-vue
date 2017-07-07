@@ -7,7 +7,7 @@
         <template v-if="props_items && props_items.length > 0">
             <h4>Properties</h4>
             <section>
-                <b-table :items="props_items" :fields="props_fields" head-variant="default" striped>
+                <b-table :items="props_items" :fields="props_fields" small head-variant="default" striped>
                     <template slot="default" scope="field">
                         <code v-if="field.value">{{field.value}}</code>
                     </template>
@@ -17,12 +17,12 @@
 
         <template v-if="slots && slots.length > 0">
             <h4>Slots</h4>
-            <b-table :items="slots" :fields="slots_fields" head-variant="default" striped></b-table>
+            <b-table :items="slots" :fields="slots_fields" small head-variant="default" striped></b-table>
         </template>
 
         <template v-if="events && events.length > 0">
             <h4>Events</h4>
-            <b-table :items="events" :fields="events_fields" head-variant="default" striped>
+            <b-table :items="events" :fields="events_fields" small head-variant="default" striped>
                 <template slot="args" scope="field">
                     <div v-for="arg in field.value" :key="arg">
                         <code v-if="arg.arg">{{arg.arg}}</code>

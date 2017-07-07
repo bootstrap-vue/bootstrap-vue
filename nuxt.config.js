@@ -7,7 +7,8 @@ const renderer = new marked.Renderer();
 const originalTable = renderer.table
 renderer.table = function renderTable(header, body) {
     let r = originalTable.apply(this, arguments)
-    return r.replace('<table>', '<table class="table b-table table-striped">')
+    return r.replace('<table>', '<table class="table b-table table-sm table-striped">')
+        .replace('<thead>', '<thead class="thead-default">')
 }
 
 module.exports = {
