@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import { formMixin } from '../mixins/';
+    import { formMixin } from '../mixins';
     import bFormInputStatic from './form-input-static.vue';
 
     export default {

@@ -92,7 +92,7 @@
 
 <script>
     import bBtn from './button.vue';
-    import { listenOnRootMixin } from '../mixins/';
+    import { listenOnRootMixin } from '../mixins';
     import { from as arrayFrom } from '../utils/array'
 
     const FOCUS_SELECTOR = [

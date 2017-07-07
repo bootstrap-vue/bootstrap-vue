@@ -32,7 +32,7 @@
 </template>
 
 <script>
-    import { dropdownMixin } from '../mixins/';
+    import { dropdownMixin } from '../mixins';
 
     export default {
         mixins: [dropdownMixin],
