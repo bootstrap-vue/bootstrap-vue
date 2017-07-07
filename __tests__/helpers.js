@@ -5,16 +5,21 @@ import BootstrapVue from "../lib"
 
 const readFile = path => String(readFileSync(resolve(__dirname, "../examples", path)))
 
+const isVueInstance = vm => vm instanceof Vue
+const isHTMLElement = el => el instanceof HTMLElement
+
 const throwIfNotVueInstance = vm => {
-    if (!(vm instanceof Vue)) {
+    if (!isVueInstance(vm)) {
         // debugging breadcrumbs in case a non-Vue instance gets erroneously passed
         // makes the error easier to fix than example: "Cannot read _prevClass of undefined"
+        console.error(vm)
         throw new TypeError(`The matcher function expects Vue instance. Given ${typeof vm}`)
     }
 }
 
 const throwIfNotHTMLElement = el => {
-    if (!(el instanceof HTMLElement)) {
+    if (!isHTMLElement(el)) {
+        console.error(el)
         throw new TypeError(`The matcher function expects an HTML Element. Given ${typeof el}`)
     }
 }
@@ -68,35 +73,59 @@ export function sleep(ms) {
     return new Promise(r => setTimeout(r, ms))
 }
 
+const vmHasClass = (vm, className) => {
+    throwIfNotVueInstance(vm)
+    return vm.$el._prevClass.indexOf(className) !== -1
+}
+/**
+ * @param {HTMLElement} el
+ * @param {string} className
+ * @return {boolean}
+ */
+const elHasClass = (el, className) => {
+    throwIfNotHTMLElement(el)
+    return el.classList.contains(className)
+}
+/**
+ * @param {Vue|HTMLElement} node
+ * @param {string} className
+ * @return {boolean}
+ */
+const hasClass = (node, className) => (isVueInstance(node) ? vmHasClass(node, className) : elHasClass(node, className))
+
+const getVmTag = vm => vm.$options._componentTag
+const getHTMLTag = el => String(el.tagName).toLowerCase()
+const getTagName = node => (isVueInstance(node) ? getVmTag(node) : getHTMLTag(node))
+
 // Extend Jest marchers
 expect.extend({
-    toHaveClass(vm, className) {
-        throwIfNotVueInstance(vm)
-
+    toHaveClass(node, className) {
         return {
-            message: `expected <${vm.$options._componentTag}> to have class '${className}'`,
-            pass: vm.$el._prevClass.indexOf(className) !== -1
+            message: `expected <${getTagName(node)}> to have class '${className}'`,
+            pass: hasClass(node, className)
         }
     },
-    toHaveAllClasses(vm, classList) {
-        throwIfNotVueInstance(vm)
+    toHaveAllClasses(node, classList) {
         throwIfNotArray(classList)
 
         let pass = true
         let missingClassNames = []
 
         classList.forEach(className => {
-            if (!vm.$el._prevClass.includes(className)) {
+            if (!hasClass(node, className)) {
                 pass = false
                 missingClassNames.push(className)
             }
         })
 
+        const plural = missingClassNames.length > 1
+        const classStr = classList.join(", ")
+        const missingClassStr = missingClassNames.join(", ")
+        const tagName = getTagName(node)
+
         return {
             // more debugging breadcrumbs
-            message: `Expected <${vm.$options._componentTag}> to have all classes in [ ${classList.join(
-                ", "
-            )} ], but was missing [ ${missingClassNames.join(", ")} ] class${missingClassNames.length > 1
+            message: `Expected <${tagName}> to have all classes in [${classStr}], but was missing [${missingClassStr}] class${plural
                 ? "es"
                 : ""}.`,
             pass
@@ -107,7 +136,7 @@ expect.extend({
 
         return {
             message: `expected to be <${componentTag}>`,
-            pass: vm.$options._componentTag === componentTag
+            pass: getVmTag(vm) === componentTag
         }
     },
     toBeElement(el, tagName) {
