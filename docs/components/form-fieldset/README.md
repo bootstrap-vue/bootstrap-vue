@@ -111,10 +111,10 @@ value to the `state` property of the `<b-form-input>` control.
 To enable auto-generation of `aria-*` attributes, **you must** supply a unique `id`
 prop to `<b-form-fieldset>`.
 
-To automatically associate the label to the first input element, you must provide
-a unique `id` prop on the input component. You may optionally specify which containing
-input component the label is for by setting the `<b-form-fieldset>` prop `for` to the
-`id` string of the input.
+To automatically associate the label to the first input component, you **must** provide
+a unique `id` prop on the input component. You may manually specify which containing
+input component the label is for by setting the `<b-form-fieldset>` prop `label-for`
+to the value of the `id` string associated with the input or contaner element.
 
 It is highly recommended that you provide a unique `id` prop on your input element.
 
