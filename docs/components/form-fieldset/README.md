@@ -8,13 +8,14 @@ as contextual state visual feedback.
 ```html
 <template>
   <b-form-fieldset
+      id="fieldset1"
       description="Let us know your full name."
       label="Enter your name"
       :feedback="feedback" 
       :state="state"
       :label-cols="3"
   >
-    <b-form-input v-model="name"></b-form-input>
+    <b-form-input id="input1" invalid v-model="name"></b-form-input>
   </b-form-fieldset>
 </template>
 
@@ -42,13 +43,14 @@ export default {
 ```html
 <template>
   <b-form-fieldset
+      id="fieldset2"
       description="Let us know your full name."
       label="Enter your name"
       :feedback="feedback" 
       :state="state"
       :label-cols="3"
   >
-    <b-form-input v-model="name" :state="state"></b-form-input>
+    <b-form-input id="input2" v-model="name" :state="state"></b-form-input>
   </b-form-fieldset>
 </template>
 
