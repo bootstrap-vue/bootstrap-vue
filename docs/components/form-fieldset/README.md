@@ -41,7 +41,7 @@ export default {
 ```
 
 
-**Example 2:** HOrizontal with contextual state on fieldset and textual input (feedback icon)
+**Example 2:** Horizontal with contextual state on fieldset and textual input (feedback icon)
 ```html
 <template>
   <b-form-fieldset
