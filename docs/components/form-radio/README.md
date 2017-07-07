@@ -55,12 +55,11 @@ export default {
 Please see options in [`<b-form-select>`](./form-select) docs for details on passing options
 to `<b-form-radio>`
 
-### Control sizing
-Set heights using the `size` prop to `sm` or `lg` for small or large text respectively.
 
 ### Inline or stacked
 By default `<b-form-radio>` generates inline radio inputs. Set the prop `stacked` to make
 the radios appear one over the other.
+
 
 ### Contextual States
 Bootstrap includes validation styles for danger, warning, and success states on most form controls.
@@ -87,6 +86,7 @@ could include a hint about state in the form control's `<label>` text itself, or
 providing an additional help text block. Specifically for assistive technologies, 
 invalid form controls can also be assigned an `aria-invalid="true"` attribute (see below).
 
+
 ### ARIA `aria-invalid` attribute
 When `<b-form-radio>` has an invalid contextual state (i.e. `danger`) you may also
 want to set the `<b-form-radio>` prop `invalid` to `true`.
@@ -95,6 +95,6 @@ Supported `invalid` values are:
 - `false` (default) No errors detected
 - `true` The value has failed validation.
 
+
 ### Non custom radio inputs
 You can have `b-form-radio` render a browser native radio input by setting the `plain` prop.
-
