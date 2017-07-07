@@ -163,36 +163,6 @@ describe('table', async() => {
         }
     })
 
-    it('all example tables should have ARIA role="grid"', async() => {
-        const { app: { $refs, $el } } = window
-
-        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
-
-        tables.forEach(table => {
-            expect($refs[table].$el.getAttribute('role')).toBe('grid')
-        })
-    })
-
-    it('each data row should have ARIA role "row"', async() => {
-        const { app: { $refs, $el } } = window
-        const app = window.app
-
-        const tables = [ 'table_basic', 'table_paginated', 'table_inverse' ]
-
-        tables.forEach(table => {
-            const vm = $refs[table]
-            const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
-            expect(tbody).toBeDefined()
-            if (tbody) {
-                const trs = [...tbody.children]
-                expect(trs.length).toBe(vm.perPage || app.items.length)
-                trs.forEach( tr => {
-                    expect(tr.getAttribute('role')).toBe('row')
-                })
-            }
-        })
-    })
-
     it('all example tables should have attribute aria-busy="false" when busy is false', async() => {
         const { app: { $refs, $el } } = window
 

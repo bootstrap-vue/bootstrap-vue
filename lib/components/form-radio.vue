@@ -6,9 +6,9 @@
          :aria-invalid="ariaInvalid"
     >
         <label :class="[checkboxClass, custom?'custom-radio':null]"
-               v-for="option in formOptions"
+               v-for="(option, idx) in formOptions"
         >
-            <input :id="option.id || null"
+            <input :id="id ? (id + '__BV_radio_' + idx) : null"
                    :class="custom?'custom-control-input':null"
                    ref="inputs"
                    type="radio"
