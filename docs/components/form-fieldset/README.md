@@ -9,13 +9,12 @@ as contextual state visual feedback.
 <template>
   <b-form-fieldset
       id="fieldset1"
-      description="Let us know your full name."
+      description="Let us know your name."
       label="Enter your name"
       :feedback="feedback" 
       :state="state"
-      :label-cols="3"
   >
-    <b-form-input id="input1" invalid v-model="name"></b-form-input>
+    <b-form-input id="input1" :invalid="invalid" v-model="name"></b-form-input>
   </b-form-fieldset>
 </template>
 
@@ -26,8 +25,11 @@ export default {
       return this.name.length ? '' : 'Please enter something';
     },
     state() {
-      return this.name.length ? 'success':'warning';
+      return this.name.length ? 'success' : 'warning';
     },
+    invalid() {
+      return this.name.length ? null : 'true';
+    }
   },
   data: {
     name: '',
@@ -39,18 +41,19 @@ export default {
 ```
 
 
-**Example 2:** With contextual state on fieldset and textual input (feedback icon)
+**Example 2:** HOrizontal with contextual state on fieldset and textual input (feedback icon)
 ```html
 <template>
   <b-form-fieldset
       id="fieldset2"
+      horizontal
+      label="Your full name"
       description="Let us know your full name."
-      label="Enter your name"
       :feedback="feedback" 
       :state="state"
       :label-cols="3"
   >
-    <b-form-input id="input2" v-model="name" :state="state"></b-form-input>
+    <b-form-input id="input2" v-model.trim="name" :invalid="invalid" :state="state"></b-form-input>
   </b-form-fieldset>
 </template>
 
@@ -58,11 +61,20 @@ export default {
 export default {
   computed: {
     feedback() {
-      return this.name.length ? '' : 'Please enter something';
+      if (this.name.length === 0) {
+        return 'Please enter your name';
+      }
+      return /\S+\s+\S+/.test(this.name) ? '' : 'Please enter both your first and last name';
     },
     state() {
-      return this.name.length ? 'success':'warning';
+      if (this.name.length === 0) {
+        return 'danger';
+      }
+      return /\S+\s+\S+/.test(this.name) ? 'success' : 'warning';
     },
+    invalid() {
+      return /\S+\s+\S+/.test(this.name) ? null : 'true';
+    }
   },
   data: {
     name: '',
