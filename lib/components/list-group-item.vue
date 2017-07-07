@@ -10,7 +10,7 @@
 <script>
 import bLink from './link.vue';
 import { props as originalLinkProps, computed, omitLinkProps } from '../mixins/link';
-import arrayIncludes from '../utils/arrayIncludes';
+import {arrayIncludes} from '../utils';
 // copy link props, but exclude defaults for 'href', 'to', & 'tag'
 // to ensure proper component tag computation
 const linkProps = Object.assign(omitLinkProps('href', 'to'), {

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import linkMixin from '../mixins/link';
+import {linkMixin} from '../mixins';
 
 export default {
     mixins: [linkMixin]

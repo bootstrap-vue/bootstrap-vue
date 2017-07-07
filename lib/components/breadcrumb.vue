@@ -18,7 +18,7 @@
 <script>
 import bLink from './link.vue';
 import { props as linkProps } from '../mixins/link';
-import arrayIncludes from '../utils/arrayIncludes';
+import {arrayIncludes} from '../utils';
 
 const bLinkPropKeys = Object.keys(linkProps);
 

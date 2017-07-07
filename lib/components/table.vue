@@ -76,7 +76,7 @@
 </template>
 
 <script>
-    import warn from '../utils/warn';
+    import {warn} from '../utils';
 
     const toString = v => {
         if (!v) {
