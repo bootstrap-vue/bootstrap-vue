@@ -44,13 +44,12 @@ describe('button', async() => {
         expect(vmBlockDisabled).toHaveAllClasses(['btn', 'btn-block', 'disabled'])
     })
 
-    it('should use <b-link> when given href', async() => {
+    it('should use <a> when given href', async() => {
         const { app: { $refs, $el } } = window
-        const btnChildNode = $refs.btn_href.$children[0]
+        const btnRootNode = $refs.btn_href.$el
 
-        expect(btnChildNode).toBeInstanceOf(Vue)
-        expect(btnChildNode).toBeComponent('b-link')
-        expect(btnChildNode.href).toBe('https://github.com/bootstrap-vue/bootstrap-vue')
+        expect(btnRootNode).toBeElement('a')
+        expect(btnRootNode.href).toBe('https://github.com/bootstrap-vue/bootstrap-vue')
     })
 
     it('should emit "click" event when clicked', async() => {
