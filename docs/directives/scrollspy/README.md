@@ -4,7 +4,7 @@
 you want to have nav-links shown as `active` based on the scrolling of another
 element (i.e. `<body>`).
 
-**Note:** ScrollSpy directive is currently in the experimental stage.
+**Note:** `v-b-scrollspy` directive is currently in the experimental stage.
 
 ```html
 <template>
@@ -210,26 +210,14 @@ config = {
 }
 ```
 
-#### `element`
-- Element to be monitored for scrolling. defaults to `body`. can be an ID (`#foo`), a css Selector (`#foo div`), or a reference to an element node. If a CSS string, then the first matching element is used. if an ID is used it must start with `#`
+| Property | Type | Default | Description
+| -------- | ---- | ------- | -----------
+| `element` | String or Reference | `'body'` | Element to be monitored for scrolling. Can be an ID (`#foo`), a css Selector (`#foo div`), or a reference to an element/component node. If a CSS string, then the first matching element is used. If an ID is used it must start with `#`.
+| `offset` | Number | `10` | offset (in pixels) from top of scrolling viewport before triggering active state.
+| `method` | String | `auto` | `position` will calculate target offsets relative to the scroll container. `offset` will calculate the target offsets relative to the top of the window/viewport. `auto` will choose `offset` if  scroll element is `body`, else the method is `position`.
+| `throttle` | Number | `100` | Timeout in `ms` for resize events to stop firing before recalculating offsets.
 
-#### `offset`
-- offset from top of scrolling viewport before triggering active state.
-- number of pixels
-Default: `10`
-
-#### `method`
-method for calculating target offsets.
- - `auto` will choose `offset` if  scroll element is `body`, else the method is `position`
- - `position` will calculate target offsets relative to the scroll container.
- - `offset` will calculate the target offsets relative to the top of the window/viewport
-Default: `auto`
-
-#### `throttle`
-- Timeout in ms for resize events to stop firing before recalculating offsets.
-Default: 200
-
-If args/modifiers and a value (object or number) is passed, the value takes precedence over the arg and modifiers
+If args/modifiers and a value (object or number) is passed, the value takes precedence over the arg and modifiers.
 
 If any of the options are invalid types, then an error is written to the console.
 

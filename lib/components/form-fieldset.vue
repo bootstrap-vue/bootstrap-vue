@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import warn from '../utils/warn';
+    import {warn} from '../utils';
 
     export default {
         data() {

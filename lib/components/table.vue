@@ -76,7 +76,7 @@
 </template>
 
 <script>
-    import warn from '../utils/warn';
+    import {warn} from '../utils';
 
     const toString = v => {
         if (!v) {
@@ -93,14 +93,12 @@
             return '';
         }
 
-        // Exclude these fields from record stringification
-        const exclude = { state: true, _rowVariant: true };
-
         return toString(Object.keys(obj).reduce((o, k) => {
-          if (!exclude[k]) {
-            o[k] = obj[k];
-          }
-          return o;
+            // Ignore fields 'state' and ones that start with _
+            if (!(/^_/.test(k) || k === 'state')) {
+                o[k] = obj[k];
+            }
+            return o;
         }, {}));
     };
 
@@ -137,7 +135,7 @@
                 default() {
                     if (this && this.itemsProvider) {
                         // Deprecate itemsProvider
-                        warn('b-table: prop items-provider has been deprecated. Pass a function to items instead');
+                        warn("b-table: prop 'items-provider' has been deprecated. Pass a function to 'items' instead");
                         return this.itemsProvider;
                     }
                     return [];
@@ -344,10 +342,14 @@
                     return [];
                 }
 
+                // Shallow copy of items, so we don't mutate the original array order/size
                 items = items.slice();
 
                 // Apply local filter
                 if (filter && !this.providerFiltering) {
+                    // Number of items before filtering
+                    const numOriginalItems = items.length;
+
                     if (filter instanceof Function) {
                         items = items.filter(filter);
                     } else {
@@ -363,6 +365,11 @@
                             return test;
                         });
                     }
+
+                    if (numOriginalItems !== items.length) {
+                        // Emit a filtered notification event, as number of items has changed
+                        this.$emit('filtered', items);
+                    }
                 }
 
                 // Apply local Sort
@@ -375,11 +382,13 @@
 
                 // Apply local pagination
                 if (perPage && !this.providerPaging) {
+                    // Grab the current page of data (which may be past filtered items)
                     items = items.slice((currentPage - 1) * perPage, currentPage * perPage);
                 }
 
                 // Update the value model with the filtered/sorted/paginated data set
                 this.$emit('input', items);
+
                 return items;
             }
         },
@@ -513,7 +522,7 @@
     table.b-table thead > tr > .sorting:before,
     table.b-table thead > tr > .sorting:after,
     table.b-table tfoot > tr > .sorting:before,
-    table.b-table thead > tr > .sorting:after {
+    table.b-table tfoot > tr > .sorting:after {
         position: absolute;
         bottom: 0.9em;
         display: block;
@@ -523,7 +532,7 @@
     table.b-table.table-sm > thead > tr > .sorting:before,
     table.b-table.table-sm > thead > tr > .sorting:after,
     table.b-table.table-sm > tfoot > tr > .sorting:before,
-    table.b-table.table-sm > thead > tr > .sorting:after {
+    table.b-table.table-sm > tfoot > tr > .sorting:after {
         bottom: 0.45em;
     }
 

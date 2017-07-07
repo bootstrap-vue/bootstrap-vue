@@ -1,15 +1,15 @@
 # Tables
 
-> For tabular data. Tables support pagination, sorting, custom rendering, and asynchronous data.
+> For displaying tabular data. `<b-table>` supports pagination, filtering, sorting,
+custom rendering, events, and asynchronous data.
 
 ```html
 <template>
- <div>
+<div>
   <div class="my-1 row">
     <div class="col-6">
       <b-form-fieldset horizontal label="Rows per page" :label-cols="6">
-        <b-form-select :options="[{text:5,value:5},{text:10,value:10},{text:15,value:15}]" v-model="perPage">
-        </b-form-select>
+        <b-form-select :options="pageOptions" v-model="perPage"></b-form-select>
       </b-form-fieldset>
     </div>
     <div class="col-6">
@@ -19,64 +19,71 @@
     </div>
   </div>
 
-  <div class="justify-content-center my-1">
-    <b-pagination size="md" :total-rows="items.length" :per-page="perPage" v-model="currentPage" />
+  <div class="justify-content-center row my-1">
+    <b-pagination size="md" :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
   </div>
 
   <!-- Main table element -->
-  <b-table striped hover 
+  <b-table striped hover show-empty
            :items="items"
            :fields="fields"
            :current-page="currentPage"
            :per-page="perPage"
            :filter="filter"
+           @filtered="onFiltered"
   >
-    <template slot="name" scope="item">
-      {{item.value.first}} {{item.value.last}}
-    </template>
-    <template slot="isActive" scope="item">
-      {{item.value?'Yes :)':'No :('}}
-    </template>
-    <template slot="actions" scope="item">
-      <b-btn size="sm" @click="details(item.item)">Details</b-btn>
+    <template slot="name" scope="row">{{row.value.first}} {{row.value.last}}</template>
+    <template slot="isActive" scope="row">{{row.value?'Yes :)':'No :('}}</template>
+    <template slot="actions" scope="row">
+      <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
+      <b-btn size="sm" @click.stop="details(row.item,row.index,$event.target)">Details</b-btn>
     </template>
   </b-table>
 
- </div> 
+  <!-- Details modal -->
+  <b-modal id="modal1" @hide="resetDetails" ok-only>
+    <h4 class="my-1 py-1" slot="modal-header">Index: {{ modalDetails.index }}</h4>
+    <pre>{{ modalDetails.data }}</pre>
+  </b-modal>
+
+</div> 
 </template>
 
 <script>
+const items = [
+   {
+     isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
+   }, {
+     isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }
+   }, {
+     _rowVariant: 'success',
+     isActive: false, age: 9,  name: { first: 'Mitzi', last: 'Navarro' }
+   }, {
+     isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' }
+   }, {
+     isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' }
+   }, {
+     isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
+   }, {
+     isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
+   }, {
+     _cellVariants: { age: 'danger', isActive: 'warning' },
+     isActive: true,  age: 87, name: { first: 'Larsen', last: 'Shaw' }
+   }, {
+     isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' }
+   }, {
+     isActive: false, age: 22, name: { first: 'Geneva', last: 'Wilson' }
+   }, {
+     isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' }
+   }, {
+     isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
+   }
+];
+
 export default {
   data: {
-    items: [
-      {
-        isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
-      }, {
-        isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }
-      }, {
-        _rowVariant: 'success',
-        isActive: false, age: 9, name: { first: 'Mitzi', last: 'Navarro' }
-      }, {
-        isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' }
-      }, {
-        isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' }
-      }, {
-        isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
-      }, {
-        isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
-      }, {
-        _cellVariants: { age: 'danger', name: 'success' },
-        isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }
-      }, {
-        isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' }
-      }, {
-        isActive: false, age: 22, name: { first: 'Geneva', last: 'Wilson' }
-      }, {
-        isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' }
-      }, {
-        isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
-      }
-    ],
+    items: items,
+    totalRows: items.length,
     fields: {
       name: {
         label: 'Person Full name',
@@ -84,7 +91,8 @@ export default {
       },
       age: {
         label: 'Person age',
-        sortable: true
+        sortable: true,
+        'class': 'text-center'
       },
       isActive: {
         label: 'is Active'
@@ -95,11 +103,24 @@ export default {
     },
     currentPage: 1,
     perPage: 5,
-    filter: null
+    pageOptions: [{text:5,value:5},{text:10,value:10},{text:15,value:15}],
+    filter: null,
+    modalDetails: { index:'', data:'' }
   },
   methods: {
-    details(item) {
-      alert(JSON.stringify(item));
+    details(item, index, button) {
+      this.modalDetails.data = JSON.stringify(item, null, 2);
+      this.modalDetails.index = index;
+      this.$root.$emit('show::modal','modal1', button);
+    },
+    resetModal() {
+      this.modalDetails.data = '';
+      this.modalDetails.index = '';
+    },
+    onFiltered(filteredItems) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
     }
   }
 }
@@ -110,7 +131,7 @@ export default {
 
 ### `fields` prop
 The `fields` prop is used to display table columns. 
-keys are used to extract real value from each row.
+Keys are used to extract real value from each row.
 Example format:
 ```js
 {
@@ -200,8 +221,8 @@ See the **"Using Items Provider functions"** section below for more details.
 | `foot-variant` | Use `default` or `inverse` to make `<tfoot>` appear light or dark gray, respectively. Has no effect if `foot-clone` is not set
 | `busy` | If set to `true` will make the table opaque and disable click events. Handy when using items provider functions.
 | `show-empty` | If `true`, Show a message if no records can be displayed (see `empty-text` and `empty-filter-text`)
-| `empty-text` | Text to display if there are no records in the original `items` array. YOu cn also use the named slot `empty` to set the content for `empty-text`
-| `empty-filtered-text` | Text to display if there are no records in the **filtered** `items` array. You can also use the name slot `emptyfiltered` to set the content for `empty-filtered-text`
+| `empty-text` | Text to display if there are no records in the original `items` array. You can also use the named slot `empty` to set the content for `empty-text`
+| `empty-filtered-text` | Text to display if there are no records in the **filtered** `items` array. You can also use the named slot `emptyfiltered` to set the content for `empty-filtered-text`
 
 
 ### Custom Data Rendering
@@ -268,7 +289,7 @@ will render a table like so:
 | 2 | Jane Doe | Female | Jane is 36 years old
 
 
-The slot's scope variable (`data` in the above example) will have the following properties:
+The slot's scope variable (`data` in the above sample) will have the following properties:
 
 | Property | Type | Description
 | -------- | ---- | -----------
@@ -278,7 +299,7 @@ The slot's scope variable (`data` in the above example) will have the following 
 
 **Note** that `index` will not always be the actual row's index number, as it is 
 computed after pagination and filtering have been applied to the original
-table data. The `index` value will refer to the displayed row number. This
+table data. The `index` value will refer to the **displayed row number**. This
 number will align with the indexes from the optional `v-model` bound variable.
 
 
@@ -331,6 +352,54 @@ original items array.
 
 **Note:** Do not bind any value directly to the `value` prop. Use the `v-model` binding.
 
+### Filtering
+Filtering, when used, is aplied to the original items array data, and hence it is not
+possible to filter data based on custom rendering of virtual columns. The items row data
+is stringified and the filter searches that stringified data (excluding any properties
+that begin with an underscore (`_`) and the deprecated property `state`.
+
+The `filter` can be a string, a `RegExp` or a `function` reference.  If a function
+is provided, the first argument is the original item record data object. The
+function should return `true` if the record matches your criteria or `false` if
+the record is to be filtered out.
+
+When local filtering is applied, and the resultant number of items change, `<b-table>`
+will emit the `filtered` event, passing a single argument which is the complete list of
+items passing the filter routine. Treat this argument as read-only.
+
+### Sorting
+The built-in default `sort-compare` function sorts the specified field `key` based
+on the data in the underlying record object. The field value is first stringified
+if it is an object, and then sorted.
+
+The default `sort-compare` routine **cannot** sort neither virtual columns, nor 
+based on the custom rendering of the field data (which is used only for presentation).
+For this reason, you can provide your own custom sort compare routine by passing a
+function reference to the prop `sort-compare`.
+
+The `sort-compare` routine is passed three arguments. The first two arguments
+(`a` and `b`) are the record objects for the rows being compared, and the third
+argument is the field `key` being sorted on. The routine should return
+either `-1`, `0`, or `1` based on the result of the comparing of the two records.
+
+The default sort-compare routine works as follows:
+
+```js
+if (typeof a[key] === 'number' && typeof b[key] === 'number') {
+    // If both compared fields are native numbers
+    if (a[key] < b[key]) {
+        return -1;
+    } else if (a[key] > b[key]) {
+        return 1;
+    }
+    return 0;
+} else {
+    // Strinify the field data and use String.localeCompare
+    return toString(a[key]).localeCompare(toString(b[key]), undefined, {
+        numeric: true
+    });
+}
+```
 
 ### Using Items Provider Functions
 As mentioned under the `items` prop section, it is possible to use a function to provide 
@@ -430,7 +499,7 @@ methods: {
  }
 ```
 
-By default, the items provider function is responsible for **all** paging, filtering, and sorting 
+By default, the items provider function is responsible for **all paging, filtering, and sorting** 
 of the data, before passing it to `b-table` for display.
 
 You can disable provider paging, filtering, and sorting (individually) by setting the
@@ -445,10 +514,10 @@ following `b-table` prop(s) to `true`:
 When `no-provider-paging` is `false` (default), you should only return at
 maximum, `perPage` number of records.
 
-Note that `<b-table>` needs refernce to your pagination and filtering values in order to
+Note that `<b-table>` needs reference to your pagination and filtering values in order to
 trigger the calling of the provider function.  So be sure to bind to the `per-page`,
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
-(unless you have the `no-provider-` respective prop set to `true`).
+(unless you have the respective `no-provider-*` prop set to `true`).
 
 #### Event based refreshing of data:
 You may also trigger the refresh of the provider function by emitting the 

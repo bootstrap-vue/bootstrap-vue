@@ -1,4 +1,15 @@
 {
   "title": "Form Select",
-  "component": "bFormSelect"
+  "component": "bFormSelect",
+  "events": [
+    {
+      "event": "input",
+      "description": "Emitted with the select value changes",
+      "args": [
+        {
+          "arg": "value"
+        }
+      ]
+    }
+  ]
 }
