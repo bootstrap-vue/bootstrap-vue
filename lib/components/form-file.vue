@@ -84,7 +84,7 @@
 </style>
 
 <script>
-    import { formCustomMixin, formMixin } from '../mixins';
+    import { formCustomMixin, formMixin } from '../mixins/';
     import { from as arrayFrom } from '../utils/array';
 
     export default {

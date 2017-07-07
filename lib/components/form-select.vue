@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    import {formMixin, formOptionsMixin, formCustomMixin} from '../mixins';
+    import { formMixin, formOptionsMixin, formCustomMixin } from '../mixins/';
 
     export default {
         mixins: [formMixin, formCustomMixin, formOptionsMixin],

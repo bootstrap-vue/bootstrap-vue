@@ -45,7 +45,7 @@
 </template>
 
 <script>
-    import {dropdownMixin} from '../mixins';
+    import { dropdownMixin } from '../mixins/';
     import bButton from './button.vue';
 
     export default {

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    import {formOptionsMixin, formMixin, formCustomMixin, formCheckBoxMixin} from '../mixins';
+    import { formOptionsMixin, formMixin, formCustomMixin, formCheckBoxMixin } from '../mixins/';
 
     export default {
         mixins: [formMixin, formCustomMixin, formCheckBoxMixin, formOptionsMixin],

@@ -20,7 +20,7 @@
 </style>
 
 <script>
-    import {listenOnRootMixin} from '../mixins';
+    import { listenOnRootMixin } from '../mixins/';
 
     export default {
         mixins: [listenOnRootMixin],
@@ -58,7 +58,7 @@
                 type: String,
                 required: true
             },
-            accordion: { 
+            accordion: {
                 type: String,
                 default: null
             },

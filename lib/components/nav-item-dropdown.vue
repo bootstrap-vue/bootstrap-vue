@@ -32,10 +32,10 @@
 </template>
 
 <script>
-    import dropdown from '../mixins/dropdown';
+    import { dropdownMixin } from '../mixins/';
 
     export default {
-        mixins: [dropdown],
+        mixins: [dropdownMixin],
         computed: {
             dropdownToggle() {
                 return this.noCaret ? '' : 'dropdown-toggle';
