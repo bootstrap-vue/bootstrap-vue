@@ -84,9 +84,7 @@
 </style>
 
 <script>
-    import formMixin from '../mixins/form';
-    import formCustomMixin from '../mixins/form-custom';
-    import { from as arrayFrom } from '../utils/array'
+    import {formCustomMixin, formMixin} from '../mixins';
 
     export default {
         mixins: [formMixin, formCustomMixin],
@@ -163,7 +161,7 @@
                         }
                     }
                     Promise.all(queue).then(filesArr => {
-                        this.setFiles(arrayFrom(filesArr));
+                        this.setFiles(Array.prototype.concat.apply([], filesArr));
                     });
                     return;
                 }
@@ -228,7 +226,7 @@
                                 queue.push(this.traverseFileTree(entries[i], path + item.name + '/'));
                             }
                             Promise.all(queue).then(filesArr => {
-                                resolve(arrayFrom(filesArr));
+                                resolve(Array.prototype.concat.apply([], filesArr));
                             });
                         });
                     }

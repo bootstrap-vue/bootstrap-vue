@@ -4,11 +4,12 @@
   "events": [
     {
       "event": "click",
-      "args": {
-        "item": {
+      "args": [
+        {
+          "arg": "item",
           "description": "The item which clicked on"
         }
-      },
+      ],
       "description": "Only if item is not active"
     }
   ]

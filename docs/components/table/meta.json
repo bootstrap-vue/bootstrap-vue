@@ -56,7 +56,7 @@
     },
     {
       "event": "filtered",
-      "description": "Emitted when local fitering causes a change in the number of items.",
+      "description": "Emitted when local filtering causes a change in the number of items.",
       "args": [
         {
           "arg": "filteredItems",

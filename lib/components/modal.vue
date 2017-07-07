@@ -92,8 +92,12 @@
 
 <script>
     import bBtn from './button.vue';
+<<<<<<< HEAD
     import listenOnRoot from '../mixins/listen-on-root';
     import { from as arrayFrom } from '../utils/array'
+=======
+    import {listenOnRootMixin} from '../mixins';
+>>>>>>> b5f7cfc9defaf66ff950bd578cb01ee3ea1f395b
 
     const FOCUS_SELECTOR = [
         'button:not([disabled])',
@@ -128,7 +132,7 @@
     }
 
     export default {
-        mixins: [listenOnRoot],
+        mixins: [listenOnRootMixin],
         components: {bBtn},
         data() {
             return {

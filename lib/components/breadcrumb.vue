@@ -18,10 +18,9 @@
 <script>
 import bLink from './link.vue';
 import { props as linkProps } from '../mixins/link';
-import { arrayIncludes } from '../utils/array';
-import { assign, keys } from '../utils/object';
+import {arrayIncludes} from '../utils';
 
-const bLinkPropKeys = keys(linkProps);
+const bLinkPropKeys = Object.keys(linkProps);
 
 export default {
     components: { bLink },
@@ -38,9 +37,9 @@ export default {
 
                 // nothing defined except the text
                 if (typeof item === 'string') {
-                    assign(normalizedItem, { text: item, link: '#', active: isLast });
+                    Object.assign(normalizedItem, { text: item, link: '#', active: isLast });
                 } else {
-                    assign(normalizedItem, item);
+                    Object.assign(normalizedItem, item);
                 }
 
                 // don't default the active state if given a boolean value,
@@ -61,7 +60,7 @@ export default {
                 // stuff all the bLink props into a single place
                 // so we can bind to the component
                 // for dynamic prop proxying
-                normalizedItem._linkProps = keys(normalizedItem).reduce((memo, itemProp) => {
+                normalizedItem._linkProps = Object.keys(normalizedItem).reduce((memo, itemProp) => {
                     if (arrayIncludes(bLinkPropKeys, itemProp)) {
                         memo[itemProp] = normalizedItem[itemProp];
                     }

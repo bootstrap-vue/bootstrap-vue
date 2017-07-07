@@ -21,11 +21,8 @@
 </template>
 
 <script>
-import formMixin from '../mixins/form';
-import formCustomMixin from '../mixins/form-custom';
-import formCheckBoxMixin from '../mixins/form-checkbox';
-import { arrayIncludes, isArray } from '../utils/array';
-
+import {formMixin, formCustomMixin, formCheckBoxMixin} from '../mixins';
+import {arrayIncludes, isArray} from '../utils';
 
 export default {
     mixins: [formMixin, formCustomMixin, formCheckBoxMixin],

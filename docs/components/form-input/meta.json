@@ -9,7 +9,7 @@
       "args": [
         {
           "arg": "value",
-          "description": "current value of the input",
+          "description": "current value of the input"
         }
       ]
     },
@@ -19,7 +19,7 @@
       "args": [
         {
           "arg": "value",
-          "description": "current value of the input",
+          "description": "current value of the input"
         }
       ]
     },
@@ -29,17 +29,17 @@
       "args": [
         {
           "arg": "event",
-          "description": "native event",
+          "description": "native event"
         }
       ]
     },
     {
       "event": "focus",
-      "description": "When input receives focus.",
+      "description": "When input receives focus."
     },
     {
       "event": "blur",
-      "description": "When input loses focus.",
+      "description": "When input loses focus."
     }
   ]
 }
