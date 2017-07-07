@@ -35,6 +35,17 @@
 <script>
     import {warn} from '../utils';
 
+    const INPUT_SELECTOR = [
+        '[role="radiogroup"]',
+        'input',
+        'select',
+        'textarea',
+        '.form-control',
+        '.form-control-static',
+        '.dropdown',
+        '.dropup'
+    ].join(',');
+
     export default {
         data() {
             return {
@@ -89,9 +100,11 @@
         },
         methods: {
             updateTarget() {
-                if (this.for && this.$el && this.$el.querySelector('#' + this.for)) {
-                    return this.for;
+                if (this.labelFor) {
+                    // User supplied for target
+                    return this.labelFor;
                 }
+                // Else find first input with ID
                 const content = this.$refs.content;
                 if (!content) {
                     return null;
@@ -110,6 +123,17 @@
             id: {
                 type: String,
                 default: null
+            },
+            labelFor: {
+                type: String,
+                default() {
+                    if (this && this.for) {
+                        // Deprecate prop for
+                        warn("b-form-fieldet: prop 'for' has been deprecated. Use 'label-for' instead");
+                        return this.for;
+                    }
+                    return null;
+                }
             },
             for: {
                 type: String,
@@ -159,7 +183,7 @@
             },
             inputSelector: {
                 type: String,
-                default: '[role="radiogroup"],input,select,textarea,.form-control,.form-control-static,.dropdown,.dropup'
+                default: INPUT_SELECTOR
             }
         }
     };
