@@ -1,6 +1,4 @@
 import { loadFixture, testVM } from '../helpers'
-import { bLink } from '../../lib/components'
-import Vue from 'vue/dist/vue.common';
 
 /**
  * Button functionality to test:
