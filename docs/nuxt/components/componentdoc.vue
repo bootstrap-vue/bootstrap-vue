@@ -98,7 +98,7 @@
                     return {};
                 }
 
-                const props = component.options.props;
+                const props = component.options.props || {};
                 return Object.keys(props).map(prop => {
                     const p = props[prop];
 

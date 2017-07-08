@@ -1,4 +1,10 @@
 <div id="app">
-    <b-breadcrumb ref="breadcrumb1" :items="items" />
-    <b-breadcrumb ref="breadcrumb2" :items="items2" />
+    <b-breadcrumb ref="breadcrumb1">
+        <b-breadcrumb-item :items="items" />
+    </b-breadcrumb>
+    <b-breadcrumb ref="breadcrumb2">
+        <b-breadcrumb-item v-for="(item,index) in items2"
+                           v-bind="item"
+                           :key="index" />
+    </b-breadcrumb>
 </div>
