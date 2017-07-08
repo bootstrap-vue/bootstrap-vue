@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import { from as arrayFrom } from '../utils/array'
     const ITEM_SELECTOR = [
         '.btn:not(.disabled):not([disabled])',
         '.form-control:not(.disabled):not([disabled])',
@@ -99,7 +100,7 @@
                 }
             },
             getItems() {
-                let items = Array.prototype.slice.call(this.$el.querySelectorAll(ITEM_SELECTOR));
+                let items = arrayFrom(this.$el.querySelectorAll(ITEM_SELECTOR));
                 items.forEach(item => {
                     // Ensure tabfocus is -1 on any new elements
                     item.tabIndex = -1;

@@ -109,14 +109,16 @@
 </template>
 
 <script>
+import { from as arrayFrom } from '../utils/array'
+import range from '../utils/range'
 // Determine if an HTML element is visible - Faster than CSS check
 function isVisible(el) {
     return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
 }
 
-// Make an aray of N to N+X
+// Make an array of N to N+X
 function makePageArray(startNum, numPages) {
-    return Array.apply(null, {length: numPages}).map(function(value, index){
+    return range(numPages).map(function(value, index){
         return { number: index + startNum, className: null };
     });
 }
@@ -217,7 +219,7 @@ export default {
                     }
                 }
             }
-            
+
             return pages;
         }
     },
@@ -266,7 +268,7 @@ export default {
             this.$emit('change', this.currentPage);
         },
         getButtons() {
-            const buttons = Array.prototype.slice.call(this.$el.querySelectorAll('a.page-link'));
+            const buttons = arrayFrom(this.$el.querySelectorAll('a.page-link'));
             // Return only buttons that are visible
             return buttons.filter(btn => isVisible(btn));
         },

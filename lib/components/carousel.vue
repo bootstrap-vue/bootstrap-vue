@@ -76,6 +76,8 @@
 </template>
 
 <script>
+    import { from as arrayFrom } from '../utils/array'
+
     const DIRECTION = {
         next: {
             current: 'carousel-item-left',
@@ -189,11 +191,11 @@
                     this.start();
                 }
             }
-            
+
         },
         mounted() {
             // Get all slides
-            this.slides = Array.prototype.slice.call(this.$el.querySelectorAll('.carousel-item'));
+            this.slides = arrayFrom(this.$el.querySelectorAll('.carousel-item'));
 
             // Set first slide as active
             this.slides[0].classList.add('active');
