@@ -36,6 +36,11 @@
                 type: [Boolean, String, Array],
                 default: 'hover'
             }
+        },
+        data () {
+            return {
+                triggerName: 'tooltip'
+            }
         }
     };
 </script>

@@ -1,15 +1,14 @@
 <template>
-    <div :id="id || null" :class="['dropdown', 'btn-group', {dropup, show: visible}]">
+    <div :id="id || null" :class="['dropdown', 'btn-group', {dropup, show: classState}]">
 
         <b-button :class="{'dropdown-toggle': !split}"
                   ref="button"
                   :id="id ? (id + '__BV_button_') : null"
                   :aria-haspopup="split ? null : 'true'"
-                  :aria-expanded="split ? null : (visible ? 'true' : 'false')"
+                  :aria-expanded="split ? null : (classState ? 'true' : 'false')"
                   :variant="variant"
                   :size="size"
                   :disabled="disabled"
-                  @click.stop.prevent="click"
         >
             <slot name="button-content"><slot name="text">{{text}}</slot></slot>
         </b-button>
@@ -19,11 +18,10 @@
                   ref="toggle"
                   :id="id ? (id + '__BV_toggle_') : null"
                   :aria-haspopup="split ? 'true' : null"
-                  :aria-expanded="split ? (visible ? 'true' : 'false') : null"
+                  :aria-expanded="split ? (classState ? 'true' : 'false') : null"
                   :variant="variant"
                   :size="size"
                   :disabled="disabled"
-                  @click.stop.prevent="toggle"
         >
             <span class="sr-only">{{toggleText}}</span>
         </b-button>
@@ -67,6 +65,10 @@
             variant: {
                 type: String,
                 default: null
+            },
+            triggers: {
+                type: [Boolean, String, Array],
+                default: 'hover'
             }
         }
     };
