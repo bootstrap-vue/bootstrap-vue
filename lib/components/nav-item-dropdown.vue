@@ -1,14 +1,13 @@
 <template>
-    <li :id="id || null" :class="['nav-item','dropdown', {dropup, show: visible}]">
+    <li :id="id || null" :class="['nav-item','dropdown', {dropup, show: classState}]">
 
         <a :class="['nav-link', dropdownToggle, {disabled}]"
            href="#"
            ref="button"
            :id="id ? (id + '__BV_button_') : null"
            aria-haspopup="true"
-           :aria-expanded="visible ? 'true' : 'false'"
+           :aria-expanded="classState ? 'true' : 'false'"
            :disabled="disabled"
-           @click.stop.prevent="toggle($event)"
            @keydown.enter.stop.prevent="toggle($event)"
            @keydown.space.stop.prevent="toggle($event)"
         >
@@ -45,6 +44,10 @@
             noCaret: {
                 type: Boolean,
                 default: false
+            },
+            triggers: {
+                type: [Boolean, String, Array],
+                default: 'click'
             }
         }
     };
