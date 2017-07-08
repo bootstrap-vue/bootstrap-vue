@@ -3,7 +3,7 @@ import {loadFixture, testVM, setData, nextTick} from '../helpers';
 describe('collapse', async() => {
     beforeEach(loadFixture('collapse'));
     testVM();
-    
+
     it('v-b-toggle examples should have aria-controls ID', async() => {
         const { app: { $refs, $el } } = window
 
@@ -14,15 +14,15 @@ describe('collapse', async() => {
         ]
 
         collapse.forEach(col => {
-            expect($refs[col + '_btn'].$el.getAttribute('aria-controls')).toBe($refs[col].id)
+            expect($refs[col + '_btn'].getAttribute('aria-controls')).toBe($refs[col].id)
         })
     })
 
     it('multi example should have aria-controls with two IDs', async() => {
         const { app: { $refs, $el } } = window
 
-        expect($refs.collapse_multi_btn.$el.getAttribute('aria-controls')).toContain($refs.collapse_multi_1.id)
-        expect($refs.collapse_multi_btn.$el.getAttribute('aria-controls')).toContain($refs.collapse_multi_2.id)
+        expect($refs.collapse_multi_btn.getAttribute('aria-controls')).toContain($refs.collapse_multi_1.id)
+        expect($refs.collapse_multi_btn.getAttribute('aria-controls')).toContain($refs.collapse_multi_2.id)
     })
 
     it('v-b-toggle non open examples should have attribute aria-expanded="false"', async() => {
@@ -37,7 +37,7 @@ describe('collapse', async() => {
         ]
 
         buttons.forEach(btn => {
-            expect($refs[btn].$el.getAttribute('aria-expanded')).toBe('false')
+            expect($refs[btn].getAttribute('aria-expanded')).toBe('false')
         })
     })
 
@@ -67,7 +67,7 @@ describe('collapse', async() => {
         ]
 
         buttons.forEach(btn => {
-            expect($refs[btn].$el.getAttribute('aria-expanded')).toBe('true')
+            expect($refs[btn].getAttribute('aria-expanded')).toBe('true')
         })
     })
 
@@ -85,7 +85,7 @@ describe('collapse', async() => {
         })
     })
 
-    it('Accorian example should have appropriate CSS "display"', async() => {
+    it('Accordion example should have appropriate CSS "display"', async() => {
         const { app: { $refs, $el } } = window
 
         expect($refs.accordion_1.$el.style.display).toBe('')
@@ -101,7 +101,7 @@ describe('collapse', async() => {
 
         expect(app.showCollapse).toBe(true)
         expect(col.$el.classList.contains('show')).toBe(true)
-        expect(btn.$el.getAttribute('aria-expanded')).toBe('true')
+        expect(btn.getAttribute('aria-expanded')).toBe('true')
 
         await setData(app, 'showCollapse', false);
         await nextTick()
@@ -110,7 +110,7 @@ describe('collapse', async() => {
         await nextTick()
 
         expect(col.$el.classList.contains('show')).toBe(false)
-        expect(btn.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn.getAttribute('aria-expanded')).toBe('false')
     })
 
     it('basic example should change visibility on click', async() => {
@@ -120,13 +120,13 @@ describe('collapse', async() => {
         const col = $refs.collapse_mod
 
         expect(col.$el.style.display).toBe('none')
-        expect(btn.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn.getAttribute('aria-expanded')).toBe('false')
 
-        btn.$el.click()
+        btn.click()
         await nextTick()
-         
+
         expect(col.$el.style.display).toBe('')
-        expect(btn.$el.getAttribute('aria-expanded')).toBe('true')
+        expect(btn.getAttribute('aria-expanded')).toBe('true')
     })
 
     it('accordion example should change visibility on click', async() => {
@@ -140,31 +140,31 @@ describe('collapse', async() => {
         const col3 = $refs.accordion_3
 
         expect(col1.$el.classList.contains('show')).toBe(true)
-        expect(btn1.$el.getAttribute('aria-expanded')).toBe('true')
+        expect(btn1.getAttribute('aria-expanded')).toBe('true')
         expect(col2.$el.classList.contains('show')).toBe(false)
-        expect(btn2.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn2.getAttribute('aria-expanded')).toBe('false')
         expect(col3.$el.classList.contains('show')).toBe(false)
-        expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn3.getAttribute('aria-expanded')).toBe('false')
 
-        btn2.$el.click();
+        btn2.click();
         await nextTick()
-        
+
         expect(col1.$el.classList.contains('show')).toBe(false)
-        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn1.getAttribute('aria-expanded')).toBe('false')
         expect(col2.$el.classList.contains('show')).toBe(true)
-        expect(btn2.$el.getAttribute('aria-expanded')).toBe('true')
+        expect(btn2.getAttribute('aria-expanded')).toBe('true')
         expect(col3.$el.classList.contains('show')).toBe(false)
-        expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn3.getAttribute('aria-expanded')).toBe('false')
 
-        btn2.$el.click();
+        btn2.click();
         await nextTick()
-        
+
         expect(col1.$el.classList.contains('show')).toBe(false)
-        expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn1.getAttribute('aria-expanded')).toBe('false')
         expect(col2.$el.classList.contains('show')).toBe(false)
-        expect(btn2.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn2.getAttribute('aria-expanded')).toBe('false')
         expect(col3.$el.classList.contains('show')).toBe(false)
-        expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
+        expect(btn3.getAttribute('aria-expanded')).toBe('false')
     })
 
 });

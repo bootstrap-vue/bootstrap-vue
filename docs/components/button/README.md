@@ -1,25 +1,46 @@
 # Buttons
 
 >  Use Bootstrap’s custom `b-button` component for actions in forms, dialogs, and more.
-   Includes support for a handful of contextual variations, sizes, states, and more.
+   Includes support for a contextual variations, sizes, states, and more.
 
 ```html
-<div class="row">
-<template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
-    <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']">
-    <b-button :size="size" :variant="variant" href="">
-        {{variant}} {{size}}
-    </b-button>
+<template>
+    <div class="row">
+        <template v-for="variant in variants">
+            <div class="col-md-4 pb-2" v-for="size in sizes">
+                <b-button :size="size" :variant="variant">{{variant}} {{size}}</b-button>
+            </div>
+        </template>
     </div>
 </template>
-</div>
+
+<script>
+export default {
+    data: {
+        variants: [
+            "primary",
+            "secondary",
+            "success",
+            "warning",
+            "danger",
+            "outline-primary",
+            "outline-secondary",
+            "outline-success",
+            "outline-warning",
+            "outline-danger",
+            "link"
+        ],
+        sizes: ['sm','','lg'],
+    }
+}
+</script>
 
 <!-- button.vue -->
 ```
 
-The `<<b-button>` component generally renders a `<button>` element. However, you can also
+The `<b-button>` component generally renders a `<button>` element. However, you can also
 render an `<a>` element by providing an `href` prop value. You man also generate
-`vue-router` `<router-link>` when providing a value for the `to` prop (`vue-router`
+a `<router-link>` when providing a value for the `to` prop (`vue-router`
 is  required).
 
 ### Button Sizing
@@ -37,7 +58,7 @@ By default `<b-button>` will render with the `secondary` variant.
 `primary`, `secondary`, `success`, `warning`, and `danger`.
 
 #### Outline color variants:
-In need of a button, but not the hefty background colors they bring? Use the 
+In need of a button, but not the hefty background colors they bring? Use the
 `outline-*` variants to remove all background images and colors on any `<b-button>`:
 
 `outline-primary`, `outline-secondary`, `outline-success`, `outline-warning`,
@@ -48,7 +69,7 @@ Variant `link` will render a button with the appearance of a link while maintani
 default padding and size of a button.
 
 ### Disabled state
-Set the `disabled` prop to disable button default funtionality. `disabled` also 
+Set the `disabled` prop to disable button default funtionality. `disabled` also
 works with buttons, rendered as `<a>` elements and `<router-link>`.
 
 ### Button type
