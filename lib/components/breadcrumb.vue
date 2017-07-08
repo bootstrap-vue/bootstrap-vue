@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import bLink from './link';
+import bLink from './link.vue';
 import { props as linkProps } from '../mixins/link';
-import arrayIncludes from '../utils/arrayIncludes';
-import assign from '../utils/assign';
+import { arrayIncludes } from '../utils/array';
+import { assign, keys } from '../utils/object';
 
-const bLinkPropKeys = Object.keys(linkProps);
+const bLinkPropKeys = keys(linkProps);
 
 export default {
     components: { bLink },
@@ -61,7 +61,7 @@ export default {
                 // stuff all the bLink props into a single place
                 // so we can bind to the component
                 // for dynamic prop proxying
-                normalizedItem._linkProps = Object.keys(normalizedItem).reduce((memo, itemProp) => {
+                normalizedItem._linkProps = keys(normalizedItem).reduce((memo, itemProp) => {
                     if (arrayIncludes(bLinkPropKeys, itemProp)) {
                         memo[itemProp] = normalizedItem[itemProp];
                     }

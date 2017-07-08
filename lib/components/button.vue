@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import bLink from './link';
+import bLink from './link.vue';
 import { omitLinkProps, props as originalLinkProps, computed } from '../mixins/link';
-import assign from "../utils/assign"
+import { assign } from '../utils/object';
 
 // Grab a fresh object of link props (omitLinkProps does this)
 // less the 'href' and 'to' props

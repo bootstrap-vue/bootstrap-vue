@@ -7,12 +7,12 @@ multiple files, and directory upload (for browsers that support directory mode)
 <template>
 <div>
   <!-- Simple File -->
-  <b-form-file v-model="file"></b-form-file>
+  <b-form-file id="file_input1" v-model="file"></b-form-file>
   <br> Selected file: {{file && file.name}}
 
   <div class="mt-3">
     <!-- Customized labels -->
-    <b-form-file v-model="file2" choose-label="Attachment2"></b-form-file>
+    <b-form-file id="file_input2" v-model="file2" choose-label="Attachment2"></b-form-file>
     <br> Selected file : {{file2 && file2.name}}
   </div>
 </div>
@@ -103,6 +103,12 @@ to use [:lang()](https://developer.mozilla.org/en-US/docs/Web/CSS/:lang) for mul
 
 ### Non custom file input
 You can have `<b-form-file>` render a browser native file input by setting the `plain` prop.
+
+### Accessibility
+When using the custom version of  `<b-form-file>` input which hides the original input, it is
+highly recommended that you supply a unique ID string via the `id` prop. This will
+automatically render the extra ARIA atributes required to improve usability for
+persons using assitive technologies.
 
 ### Clearing the file selection
 Because of limitations in the value binding with `<input type="file">` elements, `v-model`
