@@ -5,23 +5,31 @@
 
 ```html
 <template>
-  <b-breadcrumb :items="items"/>
+  <b-breadcrumb>
+    <!--<b-breadcrumb-item
+        v-for="(link,idx) in links"
+        v-bind="link"
+        @click="alert(link)"
+    >
+        {{link.text}}
+    </b-breadcrumb-item>-->
+  </b-breadcrumb>
 </template>
 
 <script>
 export default {
-  data: {
-    items: [{
-      text: 'Admin',
-      href: '#',
-    }, {
-      text: 'Manage',
-      href: '#',
-    }, {
-      text: 'Library',
-      active: true
-    }]
-  }
+    data: {
+        links:[
+            {href: "/", text:"Home"},
+            {href: "/components", text:"Components"},
+            {href: "/components/breadcrumb", text:"Breadcrumb", active: true},
+        ]
+    },
+    methods: {
+        alert(thing) {
+            alert(JSON.stringify(thing,null,2))
+        }
+    }
 }
 </script>
 
