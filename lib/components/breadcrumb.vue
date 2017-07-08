@@ -12,13 +12,17 @@
                     v-html="normalizedItem.text"></b-link>
         </li>
         <slot></slot>
+
+        <script v-if="addMicrodata" type="application/ld+json">
+          {{ microdata }}
+        </script>
     </ol>
 </template>
 
 <script>
 import bLink from './link.vue';
 import { props as linkProps } from '../mixins/link';
-import {arrayIncludes} from '../utils';
+import arrayIncludes from '../utils/arrayIncludes';
 
 const bLinkPropKeys = Object.keys(linkProps);
 
@@ -70,7 +74,27 @@ export default {
 
                 return normalizedItem;
             });
+        },
+      microdata () {
+        const schema = {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          'itemListElement' : []
         }
+        
+        this.normalizedItems.forEach((item, index) => {
+          schema.itemListElement.push({
+            '@type': 'ListItem',
+            'position': index + 1,
+            'item': {
+              '@id': item.to || item.href,
+              'name': item.text
+            }
+          })
+        })
+
+        return JSON.stringify(schema)
+      }
     },
     props: {
         items: {
@@ -81,6 +105,10 @@ export default {
         ariaCurrent: {
             type: String,
             default: 'location'
+        },
+        addMicrodata: {
+          type: Boolean,
+          default: false
         }
     },
     methods: {
