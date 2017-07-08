@@ -14,16 +14,16 @@ const variants = colorVariants.concat(outlineVariants, "link")
 const sizes = ["sm", "", "lg"]
 
 const btnRefs = variants.reduce(
-    (memo, variant) => [
-        ...memo,
-        ...sizes.map(size => {
-            return {
-                variant,
-                size,
-                ref: `btn${size ? `_${size}` : ""}_${variant.replace(/-/g, "_")}`
-            }
-        })
-    ],
+    (memo, variant) =>
+        memo.concat(
+            sizes.map(size => {
+                return {
+                    variant,
+                    size,
+                    ref: `btn${size ? `_${size}` : ""}_${variant.replace(/-/g, "_")}`
+                }
+            })
+        ),
     []
 )
 
@@ -32,7 +32,7 @@ describe("button", async () => {
     testVM()
 
     it("should contain class names", async () => {
-        const { app: { $refs, $el } } = window
+        const { app: { $refs } } = window
 
         btnRefs.forEach(({ ref, variant, size }) => {
             // ref will contain an array of children because of v-for
