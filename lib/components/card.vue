@@ -56,8 +56,12 @@
                     return 'card-inverse';
                 }
                 // Auto inverse colored cards
-                if (this.inverse === null && this.variant && this.variant.length > 0 &&
-                    this.variant.indexOf('outline') === -1) {
+                if (
+                    this.inverse === null &&
+                    this.variant &&
+                    this.variant.length > 0 &&
+                    this.variant.indexOf('outline') === -1
+                ) {
                     return 'card-inverse';
                 }
             },

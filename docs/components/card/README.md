@@ -13,7 +13,6 @@
           class="mb-2"
           title="Card title"
           sub-title="Card subtitle"
-          show-footer
   >
      <small slot="footer" class="text-muted">
        Last updated 3 mins ago
@@ -35,6 +34,72 @@
   >
      Overlay cards are cute!
   </b-card>
+
+  <!-- Group -->
+  <b-card-group>
+    <b-card header="<code>b-card-group</code>"
+            class="mb-2"
+            title="Basic Group"
+            sub-title="Card subtitle"
+    >
+        <small slot="footer" class="text-muted">
+        Last updated 3 mins ago
+        </small>
+    </b-card>
+    <b-card header="<code>b-card-group</code>"
+            class="mb-2"
+            title="Basic Group"
+            sub-title="Card subtitle"
+    >
+        <small slot="footer" class="text-muted">
+        Last updated 3 mins ago
+        </small>
+    </b-card>
+  </b-card-group>
+
+  <!-- Group -->
+  <b-card-group deck>
+    <b-card header="<code>b-card-group</code>"
+            class="mb-2"
+            title="Deck Group"
+            sub-title="Card subtitle"
+    >
+        <small slot="footer" class="text-muted">
+        Last updated 3 mins ago
+        </small>
+    </b-card>
+    <b-card header="<code>b-card-group</code>"
+            class="mb-2"
+            title="Deck Group"
+            sub-title="Card subtitle"
+    >
+        <small slot="footer" class="text-muted">
+        Last updated 3 mins ago
+        </small>
+    </b-card>
+  </b-card-group>
+
+  <!-- Group -->
+  <b-card-group columns>
+    <b-card header="<code>b-card-group</code>"
+            class="mb-2"
+            title="Column Group"
+            sub-title="Card subtitle"
+    >
+        <small slot="footer" class="text-muted">
+        Last updated 3 mins ago
+        </small>
+    </b-card>
+    <b-card header="<code>b-card-group</code>"
+            class="mb-2"
+            title="Column Group"
+            sub-title="Card subtitle"
+    >
+        <small slot="footer" class="text-muted">
+        Last updated 3 mins ago
+        </small>
+    </b-card>
+  </b-card-group>
 </div>
 
 <!-- card.vue -->
