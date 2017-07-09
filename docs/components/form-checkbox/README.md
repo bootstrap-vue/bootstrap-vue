@@ -1,6 +1,6 @@
 # Form Checkbox Input
 
-> For cross browser consistency, `b-form-checkbox` uses Bootstrap's custom
+> For cross browser consistency, `<b-form-checkbox>` uses Bootstrap's custom
 checkbox input to replace the browser default checkbox input. It is built on top of
 semantic and accessible markup, so it is a solid replacement for the default checkbox input.
 
@@ -8,7 +8,7 @@ semantic and accessible markup, so it is a solid replacement for the default che
 ```html
 <template>
   <div>
-    <b-form-checkbox v-model="state" value="accepted" unchecked-value="not_accepted">
+    <b-form-checkbox id="checkbox1" v-model="state" value="accepted" unchecked-value="not_accepted">
       I accept terms and use
     </b-form-checkbox>
 
@@ -31,11 +31,19 @@ export default {
 ```html
 <template>
   <div>
-    <b-form-fieldset :label="label" :description="desc" :state="state" :feedback="feedback">
-      <b-form-checkbox v-model="selected" value="orange">Orange</b-form-checkbox>
-      <b-form-checkbox v-model="selected" value="apple">Apple</b-form-checkbox>
-      <b-form-checkbox v-model="selected" value="pineapple">Pineapple</b-form-checkbox>
-      <b-form-checkbox v-model="selected" value="grape">Grape</b-form-checkbox>
+    <b-form-fieldset id="fieldset2"
+                     :label="label"
+                     label-for="checkboxes2"
+                     :description="desc"
+                     :state="state"
+                     :feedback="feedback"
+    >
+      <div role="group" id="checkboxes2">
+        <b-form-checkbox v-model="selected" name="flavour" value="orange">Orange</b-form-checkbox>
+        <b-form-checkbox v-model="selected" name="flavour" value="apple">Apple</b-form-checkbox>
+        <b-form-checkbox v-model="selected" name="flavour" value="pineapple">Pineapple</b-form-checkbox>
+        <b-form-checkbox v-model="selected" name="flavour" value="grape">Grape</b-form-checkbox>
+      </div>
     </b-form-fieldset>
     <hr>
     <div>Selected: <strong>{{ selected }}</strong></div>
@@ -47,7 +55,7 @@ export default {
   data: {
     label: 'Choose Your Flavours:',
     desc: 'Select at most <b>2</b> flavours',
-    selected: []
+    selected: [] // Must be an array reference!
   },
   computed: {
     feedback() {
@@ -88,9 +96,17 @@ Only the value(s) of the chcekboxes will be returned in the `v-model` bound arra
 should provide unique values for each checkbox's `value` prop.
 
 
-### Control sizing
-Set heights/text size by setting the `size` prop to `sm` or `lg` for small or
-large respectively.
+### Multiple checkboxes and accessibility
+When binding multiple checkboxes together, you should set the `name` prop to the same value for
+all checkboxes in the group, as well as wrap the group in a `<div>` (or other block element)
+which has the aria attribute `role="group"`. This will inform users of assitive technologies
+that the checkboxes are related.
+
+When placing the group of checkboxes inside a `<b-form-fieldset>`, set a unique `id` on the
+element with `role="group"` and set the `label-for` prop of the `<b-form-fieldet>` to
+this `id` value (see **Example 2** above).  Whenever using grouped checkboxes, it is
+recommended that they be placed in a `<b-form-fieldset>` component to associate a `<label>`
+with the entire group of checkboxes.
 
 
 ### Contextual states
@@ -102,4 +118,8 @@ of the standard Bootstrap V4 `.has-*` state class applied.
 
 ### Non custom check inputs
 You can have `b-form-checkbox` render a browser native chechbox input by setting the `plain` prop.
+
+
+### See also
+- [`<b-form-fieldset>`](./form-fieldset)
 

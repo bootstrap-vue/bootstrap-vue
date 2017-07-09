@@ -12,12 +12,13 @@
 <script>
 import bLink from './link.vue';
 import { omitLinkProps, props as originalLinkProps, computed } from '../mixins/link';
+import { assign } from '../utils/object';
 
 // Grab a fresh object of link props (omitLinkProps does this)
 // less the 'href' and 'to' props
 // that we will reconstruct without any defaults
 // so our computed 'componentType' functions properly
-const linkProps = Object.assign(omitLinkProps('href', 'to'), {
+const linkProps = assign(omitLinkProps('href', 'to'), {
     href: { type: originalLinkProps.href.type },
     to: { type: originalLinkProps.to.type }
 });
@@ -51,14 +52,14 @@ export default {
             return this.disabled ? 'disabled' : '';
         },
         btnType() {
-            return (this.href || this.to) ? null : this.type; 
+            return (this.href || this.to) ? null : this.type;
         },
         conditionalLinkProps() {
             return this.componentType === 'button' ? {} : this.linkProps;
         }
     },
     // merge our prepared link props with button props
-    props: Object.assign(linkProps, {
+    props: assign(linkProps, {
         block: {
             type: Boolean,
             default: false

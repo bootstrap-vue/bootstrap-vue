@@ -45,11 +45,11 @@
 </template>
 
 <script>
-    import dropdown from '../mixins/dropdown';
+    import { dropdownMixin } from '../mixins';
     import bButton from './button.vue';
 
     export default {
-        mixins: [dropdown],
+        mixins: [dropdownMixin],
         components: {bButton},
         props: {
             split: {
