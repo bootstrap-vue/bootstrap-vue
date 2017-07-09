@@ -4,9 +4,7 @@ describe("card", async () => {
     beforeEach(loadFixture("card"))
     testVM()
 
-    // since our class test depends on the card block,
-    // run this test first
-    it("all examples should contain card block", async () => {
+    it("should contain '.card-block' class in the default slot", async () => {
         const { app: { $refs } } = window
 
         const refs = ["simple_card", "standard_card", "img_card", "img_overlay_card"]
@@ -17,6 +15,13 @@ describe("card", async () => {
 
             expect(cardBlock).toBeDefined()
         })
+    })
+
+    it("should not contain '.card-block' class if no-block specified", async () => {
+        const { app: { $refs } } = window
+
+        expect($refs.no_block.classList.contains("card-block")).toBe(false)
+        expect($refs.no_block_default_slot).toEqual($refs.no_block.children[0])
     })
 
     it("should contain class names", async () => {
@@ -78,5 +83,38 @@ describe("card", async () => {
             expect(imgEl).toBeDefined()
             expect(imgEl.src).toEqual(src)
         })
+    })
+
+    it("should use the 'tag' for element tag", async () => {
+        const { app: { $refs } } = window
+        const $titleCard = $refs.card_group.querySelector("#title-tag-test")
+        // Card ref -> .card-block -> title el
+        expect($titleCard).toBeElement("article")
+    })
+
+    it("should use the 'title-tag' for element tag", async () => {
+        const { app: { $refs } } = window
+        const $titleCard = $refs.card_group.querySelector("#title-tag-test")
+        // Card ref -> .card-block -> title el
+        expect($titleCard.children[0].children[0]).toBeElement("h1")
+    })
+
+    it("should use the 'sub-title-tag' for element tag", async () => {
+        const { app: { $refs } } = window
+        const $subtitleCard = $refs.card_group.querySelector("#sub-title-tag-test")
+        // Card ref -> .card-block -> subtitle el
+        expect($subtitleCard.children[0].children[0]).toBeElement("h2")
+    })
+
+    it("CardGroup: should apply '.card-group' class", async () => {
+        const { app: { $refs } } = window
+
+        expect($refs.card_group.classList.contains("card-group")).toBe(true)
+    })
+
+    it("CardGroup: should use the 'tag' for element tag", async () => {
+        const { app: { $refs } } = window
+
+        expect($refs.card_group).toBeElement("section")
     })
 })

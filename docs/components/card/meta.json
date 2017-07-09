@@ -1,5 +1,5 @@
 {
-  "title": "Card",
-  "component": "bCard",
-  "components":["bCardGroup"]
+    "title": "Card",
+    "component": "bCard",
+    "components": ["bCardHeader", "bCardFooter", "bCardGroup"]
 }
