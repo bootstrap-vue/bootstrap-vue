@@ -56,7 +56,7 @@
                 </td>
             </tr>
             <tr v-if="showEmpty && (!_items  || _items.length === 0)">
-                <td :colspan="Object.keys(fields).length">
+                <td :colspan="keys(fields).length">
                     <div v-if="filter" role="alert" aria-live="polite">
                         <slot name="emptyfiltered">
                             <div class="text-center my-2" v-html="emptyFilteredText"></div>
@@ -74,14 +74,15 @@
 </template>
 
 <script>
-    import {warn} from '../utils';
+    import { warn } from '../utils';
+    import { keys } from '../utils/object.js'
 
     const toString = v => {
         if (!v) {
             return '';
         }
         if (v instanceof Object) {
-            return Object.keys(v).map(k => toString(v[k])).join(' ');
+            return keys(v).map(k => toString(v[k])).join(' ');
         }
         return String(v);
     };
@@ -91,7 +92,7 @@
             return '';
         }
 
-        return toString(Object.keys(obj).reduce((o, k) => {
+        return toString(keys(obj).reduce((o, k) => {
             // Ignore fields 'state' and ones that start with _
             if (!(/^_/.test(k) || k === 'state')) {
                 o[k] = obj[k];
@@ -391,6 +392,7 @@
             }
         },
         methods: {
+            keys,
             fieldClass(field, key) {
                 return [
                     field.sortable ? 'sorting' : '',

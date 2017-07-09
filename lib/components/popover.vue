@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import {popoverMixin} from '../mixins';
+    import { popoverMixin } from '../mixins';
 
     export default {
         mixins: [popoverMixin],
