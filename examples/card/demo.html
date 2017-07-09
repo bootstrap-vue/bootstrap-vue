@@ -3,7 +3,7 @@
     <b-card class="mb-2" variant="success" ref="simple_card">Simple Card</b-card>
 
     <!-- Standard -->
-    <b-card header="Card header text"
+    <b-card :header="headerText"
             class="mb-2"
             title="Card title"
             sub-title="Card subtitle"
@@ -16,7 +16,7 @@
     </b-card>
 
     <!-- With image -->
-    <b-card img="http://placeskull.com/200/200/ABABAB/-1/0"
+    <b-card :img="img0"
             title="Skulls are nice"
             class="mb-2"
             ref="img_card"
@@ -26,7 +26,7 @@
 
     <!-- Overlay image -->
     <b-card overlay
-            img="http://placeskull.com/200/200/E8117F/-1/0"
+            :img="img1"
             class="mb-2"
             ref="img_overlay_card"
     >
