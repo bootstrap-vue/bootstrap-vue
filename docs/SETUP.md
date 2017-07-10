@@ -28,11 +28,28 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 If style-loader is not available, you have to manually include both bootstrap and bootstrap-vue css files in your css bundle
 
-#### Using individual components
+#### Using individual components and directives
 If for any reason just want to use a specific component, you can do this by directly importing that component.
 This is not recommended as entire package gzipped size is ~15Kb and requires a supported vue bundler.
 ```js
-import {bAlert, bBtn} from 'bootstrap-vue/lib/components'
+import {bAlert, bBtn, bCollapse} from 'bootstrap-vue/lib/components'
+import (bToggle, bScrollspy} from 'bootstrap-vue/lib/directives'
+
+new Vue({
+  // ...
+  components: {
+    bAlert,
+    bBtn,
+    bCollapse
+  },
+  directives: {
+    bToggle,
+    bScrollspy
+  },
+  // ...
+})
+
+
 ```
 
 ### CDN (Browser)

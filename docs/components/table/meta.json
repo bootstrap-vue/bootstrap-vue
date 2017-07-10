@@ -1,7 +1,6 @@
 {
   "title": "Table",
   "component": "bTable",
-  "jsfiddle": "a5s95a3q",
   "events": [
     {
       "event": "row-clicked",
@@ -52,6 +51,16 @@
         {
           "arg": "ctx",
           "description": "Table state context object. See docs."
+        }
+      ]
+    },
+    {
+      "event": "filtered",
+      "description": "Emitted when local filtering causes a change in the number of items.",
+      "args": [
+        {
+          "arg": "filteredItems",
+          "description": "Array of items after filtering (before pagination occurs)."
         }
       ]
     },

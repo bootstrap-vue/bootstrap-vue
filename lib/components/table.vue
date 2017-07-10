@@ -1,11 +1,10 @@
 <template>
     <table :id="id || null"
-           role="grid"
            :aria-busy="busy ? 'true' : 'false'"
            :class="tableClass"
     >
         <thead :class="headClass">
-            <tr role="row">
+            <tr>
                 <th v-for="(field,key) in fields"
                     @click.stop.prevent="headClicked($event,field,key)"
                     @keydown.enter.stop.prevent="headClicked($event,field,key)"
@@ -24,7 +23,7 @@
             </tr>
         </thead>
         <tfoot v-if="footClone" :class="footClass">
-            <tr role="row">
+            <tr>
                 <th v-for="(field,key) in fields"
                     @click.stop.prevent="headClicked($event,field,key)"
                     @keydown.enter.stop.prevent="headClicked($event,field,key)"
@@ -47,7 +46,6 @@
         </tfoot>
         <tbody>
             <tr v-for="(item,index) in _items"
-                role="row"
                 :key="index"
                 :class="rowClass(item)"
                 @click="rowClicked($event,item,index)"
@@ -57,8 +55,8 @@
                     <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
                 </td>
             </tr>
-            <tr v-if="showEmpty && (!_items  || _items.length === 0)" role="row">
-                <td :colspan="Object.keys(fields).length">
+            <tr v-if="showEmpty && (!_items  || _items.length === 0)">
+                <td :colspan="keys(fields).length">
                     <div v-if="filter" role="alert" aria-live="polite">
                         <slot name="emptyfiltered">
                             <div class="text-center my-2" v-html="emptyFilteredText"></div>
@@ -76,14 +74,15 @@
 </template>
 
 <script>
-    import warn from '../utils/warn';
+    import { warn } from '../utils';
+    import { keys } from '../utils/object.js'
 
     const toString = v => {
         if (!v) {
             return '';
         }
         if (v instanceof Object) {
-            return Object.keys(v).map(k => toString(v[k])).join(' ');
+            return keys(v).map(k => toString(v[k])).join(' ');
         }
         return String(v);
     };
@@ -93,14 +92,12 @@
             return '';
         }
 
-        // Exclude these fields from record stringification
-        const exclude = { state: true, _rowVariant: true };
-
-        return toString(Object.keys(obj).reduce((o, k) => {
-          if (!exclude[k]) {
-            o[k] = obj[k];
-          }
-          return o;
+        return toString(keys(obj).reduce((o, k) => {
+            // Ignore fields 'state' and ones that start with _
+            if (!(/^_/.test(k) || k === 'state')) {
+                o[k] = obj[k];
+            }
+            return o;
         }, {}));
     };
 
@@ -137,7 +134,7 @@
                 default() {
                     if (this && this.itemsProvider) {
                         // Deprecate itemsProvider
-                        warn('b-table: prop items-provider has been deprecated. Pass a function to items instead');
+                        warn("b-table: prop 'items-provider' has been deprecated. Pass a function to 'items' instead");
                         return this.itemsProvider;
                     }
                     return [];
@@ -344,10 +341,14 @@
                     return [];
                 }
 
+                // Shallow copy of items, so we don't mutate the original array order/size
                 items = items.slice();
 
                 // Apply local filter
                 if (filter && !this.providerFiltering) {
+                    // Number of items before filtering
+                    const numOriginalItems = items.length;
+
                     if (filter instanceof Function) {
                         items = items.filter(filter);
                     } else {
@@ -363,6 +364,11 @@
                             return test;
                         });
                     }
+
+                    if (numOriginalItems !== items.length) {
+                        // Emit a filtered notification event, as number of items has changed
+                        this.$emit('filtered', items);
+                    }
                 }
 
                 // Apply local Sort
@@ -375,15 +381,18 @@
 
                 // Apply local pagination
                 if (perPage && !this.providerPaging) {
+                    // Grab the current page of data (which may be past filtered items)
                     items = items.slice((currentPage - 1) * perPage, currentPage * perPage);
                 }
 
                 // Update the value model with the filtered/sorted/paginated data set
                 this.$emit('input', items);
+
                 return items;
             }
         },
         methods: {
+            keys,
             fieldClass(field, key) {
                 return [
                     field.sortable ? 'sorting' : '',
@@ -513,7 +522,7 @@
     table.b-table thead > tr > .sorting:before,
     table.b-table thead > tr > .sorting:after,
     table.b-table tfoot > tr > .sorting:before,
-    table.b-table thead > tr > .sorting:after {
+    table.b-table tfoot > tr > .sorting:after {
         position: absolute;
         bottom: 0.9em;
         display: block;
@@ -523,7 +532,7 @@
     table.b-table.table-sm > thead > tr > .sorting:before,
     table.b-table.table-sm > thead > tr > .sorting:after,
     table.b-table.table-sm > tfoot > tr > .sorting:before,
-    table.b-table.table-sm > thead > tr > .sorting:after {
+    table.b-table.table-sm > tfoot > tr > .sorting:after {
         bottom: 0.45em;
     }
 

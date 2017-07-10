@@ -4,9 +4,11 @@
 you want to have nav-links shown as `active` based on the scrolling of another
 element (i.e. `<body>`).
 
+**Note:** `v-b-scrollspy` directive is currently in the experimental stage.
+
 ```html
 <template>
-<div>
+<div style="height:410px;">
   <b-navbar v-b-scrollspy:scrollspy-example class="bg-faded" id="navbar-example">
     <b-link class="navbar-brand" href="#">
       <span>BootstrapVue <small>(Scrolling on div)</small></span>
@@ -20,9 +22,10 @@ element (i.e. `<body>`).
         <b-dropdown-divider></b-dropdown-divider>
         <b-dropdown-item href="#three" @click.stop="scrollIntoView($event)">three</b-dropdown-item>
       </b-nav-item-dropdown>
+      <b-nav-item href="#pi0" @click.stop="scrollIntoView($event)">@pi0</b-nav-item>
     </b-nav>
   </b-navbar>
-  <div id='scrollspy-example' style="position: relative; height: 400px; overflow-y: scroll">
+  <div id="scrollspy-example" style="position:relative; height:300px; overflow-y:scroll;">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sollicitudin
       scelerisque augue, sit amet finibus risus tempus quis. Suspendisse id est faucibus,
@@ -67,12 +70,20 @@ element (i.e. `<body>`).
       adipisicing craft beer vice keytar deserunt.
     </p>
     <h4 id="three">three</h4>
-    <p v-for="i in 5">
+    <p v-for="i in 3">
       Occaecat commodo aliqua delectus. Fap craft beer deserunt skateboard ea. Lomo bicycle
       rights adipisicing banh mi, velit ea sunt next level locavore single-origin coffee
       in magna veniam. High life id vinyl, echo park consequat quis aliquip banh mi pitchfork.
       Vero VHS est adipisicing. Consectetur nisi DIY minim messenger bag. Cred ex in,
       sustainable delectus consectetur fanny pack iphone.
+    </p>
+    <h4 id="pi0">@pi0</h4>
+    <p v-for="i in 4">
+      Veniam marfa mustache skateboard, adipisicing fugiat velit pitchfork beard. Freegan
+      beard aliqua cupidatat mcsweeney's vero. Cupidatat four loko nisi, ea helvetica nulla
+      carles. Tattooed cosby sweater food truck, mcsweeney's quis non freegan vinyl. Lo-fi wes
+      anderson +1 sartorial. Carles non aesthetic exercitation quis gentrify. Brooklyn
+      adipisicing craft beer vice keytar deserunt.
     </p>
   </div>
 </div>
@@ -81,7 +92,9 @@ element (i.e. `<body>`).
 <script>
 export default {
     methods: {
-        scrollInView($event) {
+        // Convenience method to scroll an element that is offscreen into view
+        // Not required for ScrollSpy to work
+        scrollIntoView($event) {
             const href = $event.target.getAttribute('href');
             if (href) {
                 const el = document.querySelector(href);
@@ -168,8 +181,12 @@ selector (i.e. `body`), or a node reference
 - If scroll element is a CSS selector, the first found element is chosen
 - If scroll element is not found, then ScrollSpy silently does nothing
 
-Note: When scrolling on an element other than `<body>`, ensure that the element has
-it's CSS `position` set to `relative`.
+**Requires relative positioning**
+
+No matter the implementation method, scrollspy requires the use of
+`position: relative;` on the element you’re scrolling on. In most cases this
+is the `<body>`. When scrollspying on elements other than the <body>, be 
+sure to have a CSS `height` set and `overflow-y: scroll;` applied.
 
 ### Directive syntax
 ```
@@ -193,26 +210,14 @@ config = {
 }
 ```
 
-#### `element`
-- Element to be monitored for scrolling. defaults to `body`. can be an ID (`#foo`), a css Selector (`#foo div`), or a reference to an element node. If a CSS string, then the first matching element is used. if an ID is used it must start with `#`
+| Property | Type | Default | Description
+| -------- | ---- | ------- | -----------
+| `element` | String or Reference | `'body'` | Element to be monitored for scrolling. Can be an ID (`#foo`), a css Selector (`#foo div`), or a reference to an element/component node. If a CSS string, then the first matching element is used. If an ID is used it must start with `#`.
+| `offset` | Number | `10` | offset (in pixels) from top of scrolling viewport before triggering active state.
+| `method` | String | `auto` | `position` will calculate target offsets relative to the scroll container. `offset` will calculate the target offsets relative to the top of the window/viewport. `auto` will choose `offset` if  scroll element is `body`, else the method is `position`.
+| `throttle` | Number | `100` | Timeout in `ms` for resize events to stop firing before recalculating offsets.
 
-#### `offset`
-- offset from top of scrolling viewport before triggering active state.
-- number of pixels
-Default: `10`
-
-#### `method`
-method for calculating target offsets.
- - `auto` will choose `offset` if  scroll element is `body`, else the method is `position`
- - `position` will calculate target offsets relative to the scroll container.
- - `offset` will calculate the target offsets relative to the top of the window/viewport
-Default: `auto`
-
-#### `throttle`
-- Timeout in ms for resize events to stop firing before recalculating offsets.
-Default: 200
-
-If args/modifiers and a value (object or number) is passed, the value takes precedence over the arg and modifiers
+If args/modifiers and a value (object or number) is passed, the value takes precedence over the arg and modifiers.
 
 If any of the options are invalid types, then an error is written to the console.
 

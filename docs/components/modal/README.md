@@ -54,7 +54,7 @@ export default {
 <!-- modal.vue -->
 ```
 
-Modals, by default, have an **OK** and a **Close** button in the footer. These buttons can
+`<b-modal>`, by default, has an **OK** and a **Close** button in the footer. These buttons can
 be cusomized by setting various props on the component. You can cusomize the size of the buttons,
 disable the **OK** button, hide the **Close** button (i.e. OK Only), and provide custom
 button content using the `ok-title` and `close-title` props, or using the named
@@ -71,7 +71,9 @@ via the `modal-footer` slot. Note when using the `modal-footer` slot the default
 slot the default header `X` close button will not be present, nor can you use
 the `modal-title` slot.
 
+
 ### Toggle Modal Visibility
+There are several methods that you can employ to toggle he visibility of `<b-modal>`.
 
 #### Using `v-b-modal` directive (recommended)
 
@@ -175,7 +177,6 @@ methods: {
 
 
 ### Prevent Closing
-
 To prevent `<b-modal>` from closing (for example when validation fails)
 you can call the `cancel()` method of the event object passed to your `ok` (**OK** button),
 `cancel` (**Close** button) and `hide` event handlers.
@@ -224,8 +225,12 @@ will be only emitted when the argument to `hide()` is strictly `true`
 or `fase` respectively. The argument passed to `hide()` will be placed into the
 `isOK` property of the close event object.
 
-### Accessibility
 
+### Modal sizing
+The width of `<b-modal>` can be set via the `size` prop to `lg`, `sm` or `md` (default).
+
+
+### Accessibility
 `<b-modal>` provides several accessibility features, including auto focus, return
 focus, and keyboard (tab) _focus containment_.
 
@@ -233,8 +238,8 @@ For `aria-labelledby` and `aria-described` by attributes to appear on the
 modal, you **must** supply an `id` attribute on `<b-modal>`. `aria-labeledby` will
 not be present if you have the header hidden.
 
-#### Auto Focus
 
+#### Auto Focus
 `<b-modal>` will autofocus the first visible, non-disabled, focusble element found 
 in the modal, searching in the following order:
 - Modal body

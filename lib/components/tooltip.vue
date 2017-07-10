@@ -23,10 +23,10 @@
 </style>
 
 <script>
-    import popover from '../mixins/popover';
+    import { popoverMixin } from '../mixins';
 
     export default {
-        mixins: [popover],
+        mixins: [popoverMixin],
         props: {
             content: {
                 type: String,

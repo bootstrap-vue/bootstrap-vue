@@ -21,12 +21,8 @@
 </template>
 
 <script>
-import formMixin from '../mixins/form';
-import formCustomMixin from '../mixins/form-custom';
-import formCheckBoxMixin from '../mixins/form-checkbox';
-import arrayIncludes from '../utils/arrayIncludes';
-import isArray from '../utils/isArray';
-
+import { formMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
+import { arrayIncludes, isArray } from '../utils/array';
 
 export default {
     mixins: [formMixin, formCustomMixin, formCheckBoxMixin],
@@ -50,9 +46,6 @@ export default {
         }
     },
     computed: {
-        custom() {
-            return !this.plain;
-        },
         inputClass() {
             return [
                 this.size ? `form-control-${this.size}` : null,
@@ -60,7 +53,11 @@ export default {
             ];
         },
         isChecked() {
-            return arrayIncludes(this.checked, this.value);
+            if (isArray(this.checked)) {
+                return arrayIncludes(this.checked, this.value);
+            } else {
+                return this.checked === this.value;
+            }
         }
     },
     methods: {

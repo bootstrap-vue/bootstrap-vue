@@ -6,21 +6,32 @@ semantic and accessible markup, so it is a solid replacement for the default rad
 
 ```html
 <template>
-<div>
-  <b-form-radio v-model="value2" :options="options" stacked>
-  </b-form-radio>
-  
-  <br>
-  <span>Selected: </span>
-  <span>{{value2}}</span>
-</div>  
+  <div>
+    <h5>Inline radios (default)</h5>
+    <b-form-radio id="radios1" v-model="selected" :options="options"></b-form-radio>
+
+    <br>
+    
+    <h5>Stacked radios</h5>
+    <b-form-radio id="radios2" v-model="selected" :options="options" stacked></b-form-radio>
+
+    <br>
+    
+    <h5>Small Stacked radios</h5>
+    <b-form-radio id="radios3" v-model="selected" :options="options" stacked size="sm"></b-form-radio>
+
+    <hr>
+
+    <div>
+      Selected: <strong>{{ selected }}</strong>
+    </div>
+  </div> 
 </template>
 
 <script>
 export default {
   data: {
-    value1: 'third',
-    value2: 'third',
+    selected: 'first',
     options: [{
       text: 'Toggle this custom radio',
       value: 'first'
@@ -44,8 +55,11 @@ export default {
 Please see options in [`<b-form-select>`](./form-select) docs for details on passing options
 to `<b-form-radio>`
 
-### Control sizing
-Set heights using thw `size` prop to `sm` or `lg` for small or large respectively. 
+
+### Inline or stacked
+By default `<b-form-radio>` generates inline radio inputs. Set the prop `stacked` to make
+the radios appear one over the other.
+
 
 ### Contextual States
 Bootstrap includes validation styles for danger, warning, and success states on most form controls.
@@ -72,6 +86,7 @@ could include a hint about state in the form control's `<label>` text itself, or
 providing an additional help text block. Specifically for assistive technologies, 
 invalid form controls can also be assigned an `aria-invalid="true"` attribute (see below).
 
+
 ### ARIA `aria-invalid` attribute
 When `<b-form-radio>` has an invalid contextual state (i.e. `danger`) you may also
 want to set the `<b-form-radio>` prop `invalid` to `true`.
@@ -80,6 +95,6 @@ Supported `invalid` values are:
 - `false` (default) No errors detected
 - `true` The value has failed validation.
 
+
 ### Non custom radio inputs
 You can have `b-form-radio` render a browser native radio input by setting the `plain` prop.
-

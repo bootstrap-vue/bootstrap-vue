@@ -5,32 +5,34 @@
   Swap modifier props to switch between each style.
 
 ```html
-<b-nav>
-  <b-nav-item active>Active</b-nav-item>
-  <b-nav-item>Link</b-nav-item>
-  <b-nav-item>Another Link</b-nav-item>
-  <b-nav-item disabled>Disabled</b-nav-item>
-</b-nav>
+<div>
+  <b-nav>
+    <b-nav-item active>Active</b-nav-item>
+    <b-nav-item>Link</b-nav-item>
+    <b-nav-item>Another Link</b-nav-item>
+    <b-nav-item disabled>Disabled</b-nav-item>
+  </b-nav>
 
-<br>
-<br>
+  <br>
+  <br>
 
-<b-nav tabs>
-  <b-nav-item active>Active</b-nav-item>
-  <b-nav-item>Link</b-nav-item>
-  <b-nav-item>Another Link</b-nav-item>
-  <b-nav-item disabled>Disabled</b-nav-item>
-</b-nav>
+  <b-nav tabs>
+    <b-nav-item active>Active</b-nav-item>
+    <b-nav-item>Link</b-nav-item>
+    <b-nav-item>Another Link</b-nav-item>
+    <b-nav-item disabled>Disabled</b-nav-item>
+  </b-nav>
 
-<br>
-<br>
+  <br>
+  <br>
 
-<b-nav pills>
-  <b-nav-item active>Active</b-nav-item>
-  <b-nav-item>Link</b-nav-item>
-  <b-nav-item>Another Link</b-nav-item>
-  <b-nav-item disabled>Disabled</b-nav-item>
-</b-nav>
+  <b-nav pills>
+    <b-nav-item active>Active</b-nav-item>
+    <b-nav-item>Link</b-nav-item>
+    <b-nav-item>Another Link</b-nav-item>
+    <b-nav-item disabled>Disabled</b-nav-item>
+  </b-nav>
+</div>
 
 <!-- nav.vue -->
 ```
