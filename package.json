@@ -60,7 +60,8 @@
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "tether": "latest",
-    "vue": "^2.3.3"
+    "vue": "^2.3.3",
+    "vue-functional-data-merge": "^1.0.4"
   },
   "devDependencies": {
     "@nuxtjs/pwa": "^0.2.0",
