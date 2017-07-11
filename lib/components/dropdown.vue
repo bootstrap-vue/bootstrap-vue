@@ -1,5 +1,6 @@
 <template>
-    <div :id="id || null" :class="['dropdown', 'btn-group', {dropup, show: visible}]">
+    <div :id="id || null"
+         :class="['dropdown', 'btn-group', {dropup, show: visible}]">
 
         <b-button :class="{'dropdown-toggle': !split}"
                   ref="button"
@@ -9,9 +10,10 @@
                   :variant="variant"
                   :size="size"
                   :disabled="disabled"
-                  @click.stop.prevent="click"
-        >
-            <slot name="button-content"><slot name="text">{{text}}</slot></slot>
+                  @click.stop.prevent="click">
+            <slot name="button-content">
+                <slot name="text">{{text}}</slot>
+            </slot>
         </b-button>
 
         <b-button :class="['dropdown-toggle','dropdown-toggle-split']"
@@ -23,8 +25,7 @@
                   :variant="variant"
                   :size="size"
                   :disabled="disabled"
-                  @click.stop.prevent="toggle"
-        >
+                  @click.stop.prevent="toggle">
             <span class="sr-only">{{toggleText}}</span>
         </b-button>
 
@@ -32,12 +33,12 @@
              ref="menu"
              role="menu"
              :aria-labelledby="id ? (id + (split ? '__BV_toggle_' : '__BV_button_')) : null"
+             @click="instanceClickOut"
              @keyup.esc="onEsc"
              @keydown.tab="onTab"
              @keydown.up="focusNext($event,true)"
              @keydown.down="focusNext($event,false)"
-             @mouseover="focusHovered($event)"
-        >
+             @mouseover="focusHovered($event)">
             <slot></slot>
         </div>
 
@@ -45,29 +46,34 @@
 </template>
 
 <script>
-    import { dropdownMixin } from '../mixins';
-    import bButton from './button.vue';
+import { dropdownMixin } from '../mixins';
+import bButton from './button.vue';
 
-    export default {
-        mixins: [dropdownMixin],
-        components: {bButton},
-        props: {
-            split: {
-                type: Boolean,
-                default: false
-            },
-            toggleText: {
-                type: String,
-                default: 'Toggle Dropdown'
-            },
-            size: {
-                type: String,
-                default: null
-            },
-            variant: {
-                type: String,
-                default: null
-            }
+export default {
+    mixins: [dropdownMixin],
+    components: { bButton },
+    props: {
+        split: {
+            type: Boolean,
+            default: false
+        },
+        toggleText: {
+            type: String,
+            default: 'Toggle Dropdown'
+        },
+        size: {
+            type: String,
+            default: null
+        },
+        variant: {
+            type: String,
+            default: null
         }
-    };
+    },
+    methods: {
+        instanceClickOut(e) {
+            this.visible = false;
+        },
+    }
+};
 </script>
