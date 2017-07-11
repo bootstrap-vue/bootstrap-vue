@@ -8,8 +8,7 @@
 </template>
 
 <script>
-import bLink, { props as originalLinkProps } from './link';
-import { computed } from '../mixins/link';
+import bLink, { props as originalLinkProps, computed } from './link';
 import { arrayIncludes } from '../utils/array';
 import { assign } from '../utils/object';
 // copy link props, but exclude defaults for 'href', 'to', & 'tag'

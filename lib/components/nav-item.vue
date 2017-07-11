@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import { props as linkProps, computed } from '../mixins/link';
-import bLink from './link';
+import bLink, { props as linkProps, computed } from './link';
 
 export default {
     components: { bLink },
