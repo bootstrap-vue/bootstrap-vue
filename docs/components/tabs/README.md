@@ -129,11 +129,11 @@ If you want to add extra tabs that do not have any content, you can put them in 
 
 ```html
     <b-tabs>
-    
+
         <!-- Add your tabs here-->
-    
+
         <template slot="tabs">
-            <b-nav-item to="#" @click="onClick">Another tab</b-nav-item>
+            <b-nav-item href="#" @click="onClick">Another tab</b-nav-item>
         </template>
     </b-tabs>
 ```
