@@ -198,7 +198,7 @@
         ]
       },
       btnSize() {
-        // Toobr button size options object
+        // Toolbar button size options object
         let size = this.toolbarSize;
         if (size ==='sm') {
           size = 'small';
@@ -249,16 +249,6 @@
         // Save a reference of the editor instance
         this.editor = editor;
 
-        // Handle content update
-        editor.on('NodeChange Change KeyUp', () => {
-          this.$emit('input', editor.getContent());
-        });
-
-        // Handle change event
-        editor.on('change', (edEvt) => {
-          this.$emit('change', editor.getContent(), edEvt);
-        });
-
         // Set the content when the editor opens
         editor.on('init', (edEvt) => {
           if (this.content) {
@@ -269,13 +259,21 @@
 
           this.$emit('input', editor.getContent())
           this.setBusyState(this.busy);
-          this.$emit('shown', edEvt);
+        });
+
+        // Handle content update
+        editor.on('NodeChange Change KeyUp', () => {
+          this.$emit('input', editor.getContent());
+        });
+
+        // Handle change event
+        editor.on('change', (edEvt) => {
+          this.$emit('change', editor.getContent(), edEvt);
         });
 
         // When the editor is removed
         editor.on('remove', () => {
           this.editor = null;
-          this.$emit('hidden');
         });
 
         // When the editor is focused
@@ -325,19 +323,34 @@
       enableEditor() {
         // Enable tinymce instance
         if (!this.editor) {
-          this.$nextTick(() => tinymce.init(this.opts));
+          // Instantiate the editor
+          tinymce.init(this.opts);
+        } else {
+          // Show the editor
+          this.editor.show();
         }
+        this.$emit('shown', editor);
       },
       disableEditor() {
         // Remove tinymce instance
         if (this.editor) {
-          this.editor.execCommand('mceFocus', false);
-          // Remove editor
-          this.editor.remove();
+          // Hide editor
+          this.editor.hide();
+          // Ensure original element is visible
           this.$refs.ed.removeAttribute('aria-hidden');
           this.$refs.ed.style.display = '';
-          this.editor = null;
         }
+        this.clearFullScreen();
+        this.$emit('hidden');
+      },
+      destroyEditor() {
+        // Remove tinymce instance
+        if (this.editor) {
+          this.editor.remove();
+        }
+        this.$refs.ed.removeAttribute('aria-hidden');
+        this.$refs.ed.style.display = '';
+        this.editor = null;
         this.clearFullScreen();
       },
       clearFullScreen() {
@@ -403,13 +416,15 @@
       } else {
         // initially display the editor?
         if (this.isEditing) {
-          this.$nextTick(this.enableEditor);
+          this.$nextTick(() => {
+            this.enableEditor();
+          });
         }
       }
     },
     beforeDestroy() {
-      // Disable editor
-      this.disableEditor();
+      // Remove ht editor
+      this.destroyEditor();
       this.editor = null;
     }
   };
