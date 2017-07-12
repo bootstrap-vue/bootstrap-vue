@@ -42,7 +42,7 @@
 
   // Returns an option object is the 2nd arg is truthy and has keys
   function objToOption(key, obj) {
-    cont o = {};
+    const o = {};
     if (obj && keys(obj).length > 0) {
       o[key] = obj;
     }
@@ -56,7 +56,7 @@
         revert: this.initial || this.value || ''
       };
     },
-    props {
+    props: {
       // Form Control options
       id: {
         type: String,
@@ -76,7 +76,7 @@
         type: String,
         default: '',
         editor: null
-      }
+      },
       // Current value for v-model
       value: {
         type: String,
@@ -92,8 +92,8 @@
       // tinymce options
       options: {
         type: Object,
-        default {}
-      }
+        default: {}
+      },
       toolbar: {
         type: [String, Array, Boolean],
         default: null
@@ -130,7 +130,7 @@
         type: String,
         default: null
       },
-      invalidElements {
+      invalidElements: {
         type: String,
         default: null
       },
@@ -194,7 +194,7 @@
       componentClasses() {
         return [
           'form-control',
-          (!isEditing && this.tag !== 'textarea') ? 'form-control-static' : ''
+          (!this.isEditing && this.tag !== 'textarea') ? 'form-control-static' : ''
         ]
       },
       btnSize() {
@@ -210,7 +210,7 @@
       opts() {
         // Generate tinymce init options
 
-        cont options = assign({}, (this.options && keys(this.options).length > 0) ? this.options : {});
+        const options = assign({}, (this.options && keys(this.options).length > 0) ? this.options : {});
 
         // Merge options. Helper props take precidence over this.options
         const opts = assign(
@@ -229,6 +229,7 @@
           this.bodyClass ? { body_class: this.bodyClass } : {},
           this.contentStyle ? { content_style: this.contntStyle } : {},
           {
+            branding: false,
             target: this.$refs.ed,
             hidden_input: false,
             setup: this.setupMce
@@ -236,7 +237,8 @@
         );
 
         // Ensure there isn't a 'selector' property, as we use 'target'
-        delete opts.selector || opts.selector = null;
+        opts.selector = null;
+        delete opts.selector;
 
         // Return the computed options
         return opts;
@@ -324,8 +326,6 @@
       enableEditor() {
         // Enable tinymce instance
         if (!this.editor) {
-          // Grab latest options
-          this.setOpts();
           this.$nextTick(() => tinymce.init(this.opts));
         }
       },
@@ -397,7 +397,7 @@
       }
     },
     mounted() {
-      if (!tinymce)
+      if (!tinymce) {
         warn('b-form-tinymce: tinymce not loaded. please load tinymce first.')
       } else {
         // initially display the editor?
