@@ -118,7 +118,7 @@
         type: Object,
         defult: null
       },
-      noStatusbar: {
+      hideStatusbar: {
         type: Boolean,
         default: false
       },
@@ -177,7 +177,7 @@
         // New value received, so update editor
         this.editor.setContent(newVal);
         // Return value as "sanitized" by tinymce
-        this.emit('input', this.editor.getContent());
+        this.$emit('input', this.editor.getContent());
       },
       busy(busyState, oldVal) {
         if (busyState === oldVal || !this.editor) {
@@ -205,7 +205,7 @@
         } else if (size === 'lg') {
           size = 'large'
         }
-        return size ? { toolbr_items_siz: size } : {};
+        return size ? { toolbar_items_size: size } : {};
       },
       opts() {
         // Generate tinymce init options
