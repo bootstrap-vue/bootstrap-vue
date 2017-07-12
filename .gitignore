@@ -3,6 +3,7 @@ node_modules/
 /dist
 *.iml
 .idea
+.vscode
 .nuxt
 docs-dist
 sw.js
