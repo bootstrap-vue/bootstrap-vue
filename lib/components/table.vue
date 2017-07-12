@@ -75,7 +75,8 @@
 
 <script>
     import { warn } from '../utils';
-    import { keys } from '../utils/object.js'
+    import { keys } from '../utils/object.js';
+    import { listenOnRootMixin } from '../mixins'
 
     const toString = v => {
         if (!v) {
@@ -117,6 +118,7 @@
     };
 
     export default {
+        mixins: [listenOnRootMixin],
         data() {
             return {
                 sortBy: null,
@@ -278,7 +280,7 @@
             if (this.hasProvider) {
                 this._providerUpdate();
             }
-            this.$root.$on('table::refresh', (id) => {
+            this.listenOnRoot('table::refresh', (id) => {
                 if (id === this.id) {
                     this._providerUpdate();
                 }
@@ -478,7 +480,7 @@
             _providerSetLocal(items) {
                 this.localItems = (items && items.length > 0) ? items.slice() : [];
                 this.$emit('refreshed');
-                this.$root.$emit('table::refreshed', this.id);
+                this.emitOnRoot('table::refreshed', this.id);
             },
             _providerUpdate() {
                 // Refresh the provider items

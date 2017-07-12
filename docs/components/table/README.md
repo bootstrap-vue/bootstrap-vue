@@ -46,7 +46,7 @@ custom rendering, events, and asynchronous data.
     <pre>{{ modalDetails.data }}</pre>
   </b-modal>
 
-</div> 
+</div>
 </template>
 
 <script>
@@ -130,7 +130,7 @@ export default {
 ```
 
 ### `fields` prop
-The `fields` prop is used to display table columns. 
+The `fields` prop is used to display table columns.
 Keys are used to extract real value from each row.
 Example format:
 ```js
@@ -175,7 +175,7 @@ in the Vue.js guide.
         name: 'Havij'
     },
     {
-        _cellVariants: { 
+        _cellVariants: {
             age: 'danger',  // Displayes cell for field 'age' red
             name: 'success' // Displayes cell for field 'name' green
         },
@@ -198,7 +198,7 @@ the record, will be prefered.
 
 `items` can also be a reference to a *provider* function, which returns an `Array` of items data.
 Provider functions can also be asynchronous:
-- By returning `null` (or `undefined`) and calling a callback, when the data is 
+- By returning `null` (or `undefined`) and calling a callback, when the data is
 ready, with the data array as the only argument to the callback,
 - By returning a `Promise` that resolves to an array.
 
@@ -297,7 +297,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `item` | Object | The entire record (i.e. `items[index]`) for this row
 | `index` | Number | The row number (zero based)
 
-**Note** that `index` will not always be the actual row's index number, as it is 
+**Note** that `index` will not always be the actual row's index number, as it is
 computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
 number will align with the indexes from the optional `v-model` bound variable.
@@ -344,8 +344,8 @@ If you bind a variable to the `v-model` prop, the contents of this variable will
 be the currently disaplyed item records (zero based index, up to `page-size` - 1).
 This variable (the `value` prop) should usually be treated as readonly.
 
-The records within the v-model are a filtered/paginated shallow copy of `items`, and 
-hence any changes to a record's properties in the v-model will be reflected in 
+The records within the v-model are a filtered/paginated shallow copy of `items`, and
+hence any changes to a record's properties in the v-model will be reflected in
 the original `items` array (except when `items` is set to a provider function).
 Deleteing a record from the v-model will **not** remove the record from the
 original items array.
@@ -372,7 +372,7 @@ The built-in default `sort-compare` function sorts the specified field `key` bas
 on the data in the underlying record object. The field value is first stringified
 if it is an object, and then sorted.
 
-The default `sort-compare` routine **cannot** sort neither virtual columns, nor 
+The default `sort-compare` routine **cannot** sort neither virtual columns, nor
 based on the custom rendering of the field data (which is used only for presentation).
 For this reason, you can provide your own custom sort compare routine by passing a
 function reference to the prop `sort-compare`.
@@ -402,7 +402,7 @@ if (typeof a[key] === 'number' && typeof b[key] === 'number') {
 ```
 
 ### Using Items Provider Functions
-As mentioned under the `items` prop section, it is possible to use a function to provide 
+As mentioned under the `items` prop section, it is possible to use a function to provide
 the row data (items), by specifying a function reference via the `items` prop.
 
 **Note:** The `items-provider` prop has been deprecated in favour of providing a function
@@ -433,7 +433,7 @@ function myProvider(ctx) {
     let items = [];
 
     // perform any items processing needed
-    
+
     // Must return an array
     return items || [];
 }
@@ -471,7 +471,7 @@ function myProvider(ctx) {
 }
 ```
 
-`<b-table>` provides a `busy` prop that will flag the table as busy, which you can 
+`<b-table>` provides a `busy` prop that will flag the table as busy, which you can
 set to `true` just before your async fetch, and then set it to `false` once you have
 your data, and just before you send it to the table for display. Example:
 
@@ -499,7 +499,7 @@ methods: {
  }
 ```
 
-By default, the items provider function is responsible for **all paging, filtering, and sorting** 
+By default, the items provider function is responsible for **all paging, filtering, and sorting**
 of the data, before passing it to `b-table` for display.
 
 You can disable provider paging, filtering, and sorting (individually) by setting the
@@ -520,7 +520,7 @@ trigger the calling of the provider function.  So be sure to bind to the `per-pa
 (unless you have the respective `no-provider-*` prop set to `true`).
 
 #### Event based refreshing of data:
-You may also trigger the refresh of the provider function by emitting the 
+You may also trigger the refresh of the provider function by emitting the
 event `table::refresh` on `$root` with the single argument being the `id` of your `b-table`.
 You must have a unique ID on your table for this to work.
 
