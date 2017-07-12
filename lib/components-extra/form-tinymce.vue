@@ -252,7 +252,6 @@
         // Handle content update
         editor.on('NodeChange Change KeyUp', () => {
           this.$emit('input', editor.getContent());
-          this.$emit('change', editor, editor.getContent());
         });
 
         // Handle change event
@@ -304,7 +303,7 @@
           icon: false,
           cmd: 'bvSave'
         };
-        editor.addCommand('bvCancel', this.triggerSave, this);
+        editor.addCommand('bvSave', this.triggerSave, this);
         editor.addButton('bv_save', bvSave);
         editor.addMenuItem('bv_save', bvSave);
 
@@ -335,6 +334,8 @@
           this.editor.execCommand('mceFocus', false);
           // Remove editor
           this.editor.remove();
+          this.$refs.ed.removeAttribute('aria-hidden');
+          this.$refs.ed.style.display = '';
           this.editor = null;
         }
         this.clearFullScreen();
@@ -343,7 +344,7 @@
         // Fix when removing editor when in full screen mode (classes aren't always removed)
         document.body.classList.remove('mce-fullscreen');
         document.getElementsByTagName('html')[0].classList.remove('mce-fullscreen')
-        const el = this.$ref.ed.parentElement;
+        const el = this.$refs.ed.parentElement;
         if (el && document.body.contains(el) && !isElementInView(el)) {
           // Ensure this component is still visible on screen
           el.scrollIntoView({behavior: 'smooth', block: 'start'});
@@ -363,14 +364,14 @@
           cancel() { cancelled = true; }
         };
         const val = this.editor.getContent();
-        this.emit('save', evt, this.editor.getContent());
+        this.$emit('save', evt, this.editor.getContent());
         if (cancelled) {
           // User canceled save
           this.editor.setContent(this.content)
           this.$emit('input', this.content)
         } else {
           this.content = this.editor.getContent();
-          this.emit('input', this.content);
+          this.$emit('input', this.content);
         }
       },
       triggerCancel() {
@@ -385,7 +386,7 @@
             reverted = Boolean(r);
           }
         };
-        this.emit('cancel',evt);
+        this.$emit('cancel',evt);
         if (!cancelled) {
           if (reverted) {
             this.content = this.revert;
