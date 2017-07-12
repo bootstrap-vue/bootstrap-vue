@@ -53,7 +53,8 @@
     data() {
       return {
         content: this.initial || this.value || '',
-        revert: this.initial || this.value || ''
+        revert: this.initial || this.value || '',
+        isVisible: false
       };
     },
     props: {
@@ -67,6 +68,11 @@
         default: false
       },
       readonly: {
+        type: Boolean,
+        default: false
+      },
+      noFormControl: {
+        // Dont add class `form-control`
         type: Boolean,
         default: false
       },
@@ -192,6 +198,9 @@
         return !this.readonly && !this.disabled;
       },
       componentClasses() {
+        if (this.noFormControl) {
+            return [];
+        }
         return [
           'form-control',
           (!this.isEditing && this.tag !== 'textarea') ? 'form-control-static' : ''
@@ -254,9 +263,10 @@
           if (this.content) {
             editor.setContent(this.content);
           }
-          // Add class form-control to allow fieldssets to apply state styling
-          editor.editorContainer.classList.add('form-control');
-
+          if (!this.noFormControl) {
+              // Add class form-control to allow fieldssets to apply state styling
+              editor.editorContainer.classList.add('form-control');
+          }
           this.$emit('input', editor.getContent())
           this.setBusyState(this.busy);
         });
