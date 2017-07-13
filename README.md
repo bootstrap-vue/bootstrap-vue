@@ -37,7 +37,7 @@ Please refer to [Official Documentation](https://bootstrap-vue.github.io) for se
 1. Download dependencies:
 ```bash
 yarn add bootstrap-vue
-yarn add bootstrap
+yarn add bootstrap@4.0.0-alpha.6
 yarn add -D style-loader
 ```
 
@@ -59,7 +59,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 1. Download the dependencies:
 ```bash
 yarn add bootstrap-vue
-yarn add bootstrap
+yarn add bootstrap@4.0.0-alpha.6
 yarn add -D style-loader
 ```
 
