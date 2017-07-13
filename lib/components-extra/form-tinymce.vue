@@ -2,13 +2,26 @@
   <component :is="tag"
              :id="id || null"
              :disabled="disabled && tag === 'textarea'"
-             :readonly="readonly && tag === 'textarea'"
              :class="componentClasses"
+             :style="componentStyles"
              ref="ed"
              v-html="value"></component>
 </template>
 
 <script>
+/* Notes:
+ *  edEvt contains the following handy properties/methods
+ *  Methods:
+ *    preventDefault()
+ *    stopPropagation()
+ *  Properties:
+ *    isNotDirty
+ *    hidden
+ *    startContent (good for reverting) (on save/cancle events)
+ *    undoManager
+ *    windowManager
+ *
+ */
   const inBrowser = document !== undefined && window !== undefined;
 
   // Requires TinyMCE to be loaded first. v4.6.4 and up
@@ -50,11 +63,16 @@
   }
 
   export default {
+    model: {
+      prop: 'value',
+      event: 'value'
+    },
     data() {
       return {
+        // Saved Content
         content: this.initial || this.value || '',
-        revert: this.initial || this.value || '',
-        isVisible: false
+        // Reference to tinymce editor instance
+        editor: null
       };
     },
     props: {
@@ -76,7 +94,6 @@
         type: Boolean,
         default: false
       },
-
       // Initial value for editor content, if provided
       initial: {
         type: String,
@@ -88,18 +105,17 @@
         type: String,
         default: ''
       },
-
       // component element tag
       tag: {
         type: String,
         default: 'div'
       },
-
       // tinymce options
       options: {
         type: Object,
         default: {}
       },
+      // tinymce helper options
       toolbar: {
         type: [String, Array, Boolean],
         default: null
@@ -152,50 +168,16 @@
         type: String,
         default: null
       },
+      // Editor and preview minimum height
+      minHeight: {
+        type: Number,
+        defunat: null
+      }
+    },
 
-      // Custom button/menu items text
-      saveText: {
-        type: String,
-        default: 'Save'
-      },
-      cancelText: {
-        type: String,
-        default: 'Cancel'
-      }
-    },
-    watch: {
-      isEditing(newVal, oldVal) {
-        if (newVal === oldVal) {
-          return;
-        }
-        if (newVal) {
-          // Enable Editor
-          this.enableEditor();
-        } else {
-          // Disble Editor
-          this.disableEditor();
-        }
-      },
-      value(newVal, oldVal) {
-        if (newVal === oldVal || !this.editor) {
-          return;
-        }
-        // New value received, so update editor
-        this.editor.setContent(newVal);
-        // Return value as "sanitized" by tinymce
-        this.$emit('input', this.editor.getContent());
-      },
-      busy(busyState, oldVal) {
-        if (busyState === oldVal || !this.editor) {
-          return;
-        }
-        // Set/Clear editor busy State
-        this.setBusyState(busyState);
-      }
-    },
     computed: {
       isEditing() {
-        return !this.readonly && !this.disabled;
+        return !this.disabled;
       },
       componentClasses() {
         if (this.noFormControl) {
@@ -205,6 +187,12 @@
           'form-control',
           (!this.isEditing && this.tag !== 'textarea') ? 'form-control-static' : ''
         ]
+      },
+      componentStyles() {
+        if (this.minHeight && this.minHeight > 0) {
+          return { minHeight: this.minHeight + 'px'};
+        } 
+        return {};
       },
       btnSize() {
         // Toolbar button size options object
@@ -237,6 +225,7 @@
           this.contentCss ? { content_css: this.contentCss } : {},
           this.bodyClass ? { body_class: this.bodyClass } : {},
           this.contentStyle ? { content_style: this.contntStyle } : {},
+          (this.minHeight && this.minHeight > 0) ? { min_height: this.minHeight }, {},
           {
             branding: false,
             target: this.$refs.ed,
@@ -253,12 +242,48 @@
         return opts;
       }
     },
+
+    watch: {
+      isEditing(newVal, oldVal) {
+        if (newVal === oldVal) {
+          return;
+        }
+        if (newVal) {
+          // Enable Editor
+          this.showEditor();
+        } else {
+          // Disble Editor
+          this.hideEditor();
+        }
+      },
+      value(newVal, oldVal) {
+        if (newVal === oldVal || !this.editor) {
+          return;
+        }
+
+        // New value received, so update editor
+        this.editor.setContent(newVal);
+        this.editor.undoManager.clear();
+        this.editor.isNotDirty = true;
+
+        // Return value as "sanitized" by tinymce
+        this.$emit('value', this.editor.getContent());
+      },
+      busy(busyState, oldVal) {
+        if (busyState === oldVal || !this.editor) {
+          return;
+        }
+        // Set/Clear editor busy State
+        this.setBusyState(busyState);
+      }
+    },
+
     methods: {
       setupMce(editor) {
         // Save a reference of the editor instance
         this.editor = editor;
 
-        // Set the content when the editor opens
+        // Set the intial content when the editor opens
         editor.on('init', (edEvt) => {
           if (this.content) {
             editor.setContent(this.content);
@@ -267,13 +292,21 @@
               // Add class form-control to allow fieldssets to apply state styling
               editor.editorContainer.classList.add('form-control');
           }
-          this.$emit('input', editor.getContent())
+          this.$emit('value', editor.getContent())
+          editor.isNotDirty = true;
+          this.editor.undoManager.clear();
           this.setBusyState(this.busy);
+        });
+
+        // When the editor is removed
+        editor.on('remove', () => {
+          this.editor = null;
+          this.$emit('removed');
         });
 
         // Handle content update
         editor.on('NodeChange Change KeyUp', () => {
-          this.$emit('input', editor.getContent());
+          this.$emit('value', editor.getContent());
         });
 
         // Handle change event
@@ -281,9 +314,9 @@
           this.$emit('change', editor.getContent(), edEvt);
         });
 
-        // When the editor is removed
-        editor.on('remove', () => {
-          this.editor = null;
+        // When the editor is considred dirty
+        editor.on('dirty', (edEvt) => {
+          this.$emit('dirty', edEvt);
         });
 
         // When the editor is focused
@@ -303,34 +336,15 @@
             // Out of full screen mode, so scroll input back in view if not in view
             el.scrollIntoView({behavior: 'smooth', block: 'start'});
           }
+          this.$emit('fullscreen', edEvt.state, edEvt);
         });
-
-        // Add our custom save button and menu item
-        const bvSave = {
-          text: this.saveText || 'Save',
-          icon: false,
-          cmd: 'bvSave'
-        };
-        editor.addCommand('bvSave', this.triggerSave, this);
-        editor.addButton('bv_save', bvSave);
-        editor.addMenuItem('bv_save', bvSave);
-
-        // Add our custom cancel button and menu item
-        const bvCancel = {
-          text: this.cancelText || 'Cancel',
-          icon: false,
-          cmd: 'bvCancel'
-        };
-        editor.addCommand('bvCancel', this.triggerCancel, this);
-        editor.addButton('bv_cancel', bvCancel);
-        editor.addMenuItem('bv_cancel', bvCancel);
 
         if (this.options && this.options.setup && typeof this.options.setup === 'function') {
           // Call user supplied setup function, and pass an insatnce of this for optional reference
           this.options.setup(editor, this);
         }
       },
-      enableEditor() {
+      showEditor() {
         // Enable tinymce instance
         if (!this.editor) {
           // Instantiate the editor
@@ -339,23 +353,34 @@
           // Show the editor
           this.editor.show();
         }
+//        this.editor.undoManager.clear();
+//        this.editor.isNotDirty = true;
         this.$emit('shown', editor);
       },
-      disableEditor() {
-        // Remove tinymce instance
+      hideEditor(disabled) {
+        // Remove tinymce instance, and optionally update disabled prop
         if (this.editor) {
           // Hide editor
           this.editor.hide();
           // Ensure original element is visible
           this.$refs.ed.removeAttribute('aria-hidden');
           this.$refs.ed.style.display = '';
+//          this.editor.undoManager.clear();
+//          this.editor.isNotDirty = true;
         }
+        // Ensure original element is visible
+        this.$refs.ed.removeAttribute('aria-hidden');
+        this.$refs.ed.style.display = '';
         this.clearFullScreen();
+        // Update disabled.sync prop
+        this.$emit('update:disable', Boolean(disabled));
+        // Emit hidden event
         this.$emit('hidden');
       },
       destroyEditor() {
         // Remove tinymce instance
         if (this.editor) {
+          this.editor.hide();
           this.editor.remove();
         }
         this.$refs.ed.removeAttribute('aria-hidden');
@@ -374,52 +399,91 @@
         }
       },
       setBusyState(state) {
+        // Set the editor busy (spinner) state
         if (this.editor) {
-          this.editor.setProgressState(state);
+          this.editor.setProgressState(Boolean(state));
         }
       },
-      triggerSave() {
-        if (!this.editor) {
-          return;
-        }
-        let cancelled = false;
+      triggerSave(edEvt) {
+        // save button clicked. stop native form from submitting
+        edEvt.stopPropagation();
+        edEvt.preventDefault();
+
+        this.$emit('input', this.editor.getContent());
+
+        // Our custom event
+        let doSave = true;
+        let doHide = true;
         const evt = {
-          cancel() { cancelled = true; }
+          cancel(hide) {
+            doSave = false;
+            doHide = Boolean(hide);
+          },
+          preventHide() {
+            doHide = true;
+          },
+          isDirty: !editor.isNotDirty,
+          content: editor.getContent(),
+          windowManager: editor.windowManager
         };
-        const val = this.editor.getContent();
-        this.$emit('save', evt, this.editor.getContent());
-        if (cancelled) {
-          // User canceled save
-          this.editor.setContent(this.content)
-          this.$emit('input', this.content)
-        } else {
-          this.content = this.editor.getContent();
-          this.$emit('input', this.content);
+
+        this.$emit('save', evt);
+
+        if (doSave) {
+          // Assume save was succesfull
+          this.editor.startContent = this.editor.getContant();
+          this.editor.isNotDirty = true;
+          this.editor.undoManager.clear();
         }
+
+        if (doHide) {
+          // Hide the editor
+          this.hideEditor(true);
+        }
+
+        this.$emit('saved', doClose, doSave);
       },
-      triggerCancel() {
-        if (!this.editor) {
-          return;
-        }
-        let cancelled = false;
-        let reverted = false;
+      triggerCancel(edEvt) {
+        // Cancel button clicked
+        edEvt.stopPropagation();
+        edEvt.preventDefault();
+
+        // Our custom event
+        let doClose = true;
+        let doRevert = false;
         const evt = {
-          cancel(r) {
-            cancelled = true;
-            reverted = Boolean(r);
-          }
+          preventClose(revert) {
+            doClose = false;
+            doRevert = Boolean
+          },
+          revert() {
+            doRevert = true;
+          },
+          isDirty: !editor.isNotDirty,
+          content: editor.getContent(),
+          windowManager: editor.windowManager
         };
-        this.$emit('cancel',evt);
-        if (!cancelled) {
-          if (reverted) {
-            this.content = this.revert;
-          }
-          this.editor.setContent(this.content)
-          this.$emit('input', this.content)
-          this.disableEditor();
+
+        this.$emit('cancel', evt);
+
+        if (doRevert) {
+          this.content = this.editor.startContent;
+          this.editor.setContent(this.content);
+          this.editor.isNotDirty = true;
+          this.editor.undoManager.clear();
+          this.$emit('value', this.content);
         }
+
+        if (doClose) {
+          this.editor.isNotDirty = true;
+          this.editor.undoManager.clear();
+          this.hideEditor(true);
+        }
+
+        this.emit('cancelled', doClose, doRevert);
       }
     },
+
     mounted() {
       if (!tinymce) {
         warn('b-form-tinymce: tinymce not loaded. please load tinymce first.')
@@ -427,13 +491,14 @@
         // initially display the editor?
         if (this.isEditing) {
           this.$nextTick(() => {
-            this.enableEditor();
+            this.showEditor();
           });
         }
       }
     },
+
     beforeDestroy() {
-      // Remove ht editor
+      // Remove th editor
       this.destroyEditor();
       this.editor = null;
     }
