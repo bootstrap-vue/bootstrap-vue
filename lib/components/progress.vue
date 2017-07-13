@@ -30,8 +30,8 @@
                 return [
                     'progress-bar',
                     this.progressVariant,
-                    (this.striped || this.animated) ? 'progress-bar-striped' : '',
-                    this.animated ? 'progress-bar-animated' : ''
+                    (this.striped || this.animated) ? 'progress-bar-striped' : null,
+                    this.animated ? 'progress-bar-animated' : null
                 ];
             },
             styleObject() {
