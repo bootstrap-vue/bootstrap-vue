@@ -9,22 +9,9 @@
 </template>
 
 <script>
-/* Notes:
- *  edEvt contains the following handy properties/methods
- *  Methods:
- *    preventDefault()
- *    stopPropagation()
- *  Properties:
- *    isNotDirty
- *    hidden
- *    startContent (good for reverting) (on save/cancle events)
- *    undoManager
- *    windowManager
- *
- */
   const inBrowser = document !== undefined && window !== undefined;
 
-  // Requires TinyMCE to be loaded first. v4.6.4 and up
+  // Requires TinyMCE to be loaded first. v4.6.4 and up preferably
   // import tinymce from 'tinymce';
 
   import { warn } from '../utils';
