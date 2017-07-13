@@ -76,7 +76,7 @@ Vue.use(BootstrapVue);
 ```
 
 #### Note on style-loader:
-If you are unable or do not want to add style-loader as a developer dependency, you have to manually include both [Bootstrap's](https://v4-alpha.getbootstrap.com/getting-started/download/) and [BootstrapVue's](https://unpkg.com/bootstrap-vue@0.18.0/dist/bootstrap-vue.css) CSS files in your bundle or reference them from `static/` via `index.html`.
+If you are unable or do not want to add style-loader as a developer dependency, you have to manually include both [Bootstrap's](https://v4-alpha.getbootstrap.com/getting-started/download/) and [BootstrapVue's](https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css) CSS files in your bundle or reference them from `static/` via `index.html`.
 
 # License
 MIT
