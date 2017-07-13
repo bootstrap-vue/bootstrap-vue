@@ -3,7 +3,6 @@
              :id="id || null"
              :disabled="disabled && tag === 'textarea'"
              :class="componentClasses"
-             :style="componentStyles"
              ref="ed"
              v-html="value"></component>
 </template>
@@ -196,6 +195,10 @@
 
         const options = assign({}, (this.options && keys(this.options).length > 0) ? this.options : {});
 
+        // Ensure there isn't a 'selector' property, as we use 'target' (below)
+        opts.selector = null;
+        delete opts.selector;
+
         // Merge options. Helper props take precidence over this.options
         const opts = assign(
           options,
@@ -221,10 +224,6 @@
           }
         );
 
-        // Ensure there isn't a 'selector' property, as we use 'target'
-        opts.selector = null;
-        delete opts.selector;
-
         // Return the computed options
         return opts;
       }
@@ -243,25 +242,18 @@
           this.hideEditor();
         }
       },
-      value(newVal, oldVal) {
-        if (newVal === oldVal || !this.editor) {
-          return;
-        }
-
-        // New value received, so update editor
-        this.editor.setContent(newVal);
-        this.editor.undoManager.clear();
-        this.editor.isNotDirty = true;
-
-        // Return value as "sanitized" by tinymce
-        this.$emit('value', this.editor.getContent());
-      },
       busy(busyState, oldVal) {
         if (busyState === oldVal || !this.editor) {
           return;
         }
         // Set/Clear editor busy State
-        this.setBusyState(busyState);
+        this.editor.setProgressState(busyState);
+      },
+      readonly(roState, oldVal) {
+        if (roState === oldVal || !this.editor) {
+          return;
+        }
+        this.editor.setMode(roState ? 'readonly' : 'design');
       }
     },
 
@@ -279,16 +271,21 @@
               // Add class form-control to allow fieldssets to apply state styling
               editor.editorContainer.classList.add('form-control');
           }
-          this.$emit('value', editor.getContent())
-          editor.isNotDirty = true;
-          this.editor.undoManager.clear();
-          this.setBusyState(this.busy);
+          this.$emit('value', editor.getContent());
+          editor.save();
+          editor.setDirty(false);
+          editor.undoManager.clear();
+          editor.setMode(this.readonly ? 'readonly' : 'design');
+          editor.setProgressState(this.busy);
         });
 
         // When the editor is removed
         editor.on('remove', () => {
+          // Ensure our original element is visible (tinymce forgets to do this)
+          this.$refs.ed.removeAttribute('aria-hidden');
+          this.$refs.ed.style.display = '';
+          this.clearFullScreen();
           this.editor = null;
-          this.$emit('removed');
         });
 
         // Handle content update
@@ -323,7 +320,7 @@
             // Out of full screen mode, so scroll input back in view if not in view
             el.scrollIntoView({behavior: 'smooth', block: 'start'});
           }
-          this.$emit('fullscreen', edEvt.state, edEvt);
+          this.$emit('fullscreen', edEvt.state);
         });
 
         if (this.options && this.options.setup && typeof this.options.setup === 'function') {
@@ -332,35 +329,22 @@
         }
       },
       showEditor() {
-        // Enable tinymce instance
-        if (!this.editor) {
-          // Instantiate the editor
-          tinymce.init(this.opts);
-        } else {
-          // Show the editor
-          this.editor.show();
-        }
-//        this.editor.undoManager.clear();
-//        this.editor.isNotDirty = true;
+        // Instantiate the editor
+        tinymce.init(this.opts);
         this.$emit('shown', editor);
       },
-      hideEditor(disabled) {
-        // Remove tinymce instance, and optionally update disabled prop
+      hideEditor() {
+        // Remove tinymce instance, and update disabled prop
         if (this.editor) {
           // Hide editor
           this.editor.hide();
-          // Ensure original element is visible
-          this.$refs.ed.removeAttribute('aria-hidden');
-          this.$refs.ed.style.display = '';
-//          this.editor.undoManager.clear();
-//          this.editor.isNotDirty = true;
+          this.editor.remove();
+          this.editor = null;
         }
-        // Ensure original element is visible
-        this.$refs.ed.removeAttribute('aria-hidden');
-        this.$refs.ed.style.display = '';
-        this.clearFullScreen();
+
         // Update disabled.sync prop
-        this.$emit('update:disable', Boolean(disabled));
+        this.$emit('update:disabled', true);
+
         // Emit hidden event
         this.$emit('hidden');
       },
@@ -369,10 +353,10 @@
         if (this.editor) {
           this.editor.hide();
           this.editor.remove();
+          this.editor = null;
         }
         this.$refs.ed.removeAttribute('aria-hidden');
         this.$refs.ed.style.display = '';
-        this.editor = null;
         this.clearFullScreen();
       },
       clearFullScreen() {
@@ -385,22 +369,17 @@
           el.scrollIntoView({behavior: 'smooth', block: 'start'});
         }
       },
-      setBusyState(state) {
-        // Set the editor busy (spinner) state
-        if (this.editor) {
-          this.editor.setProgressState(Boolean(state));
-        }
-      },
       triggerSave(edEvt) {
         // save button clicked. stop native form from submitting
         edEvt.stopPropagation();
         edEvt.preventDefault();
 
-        this.$emit('input', this.editor.getContent());
+        this.$emit('value', this.editor.getContent());
 
         // Our custom event
         let doSave = true;
         let doHide = true;
+        let content = this.editor.getConttent();
         const evt = {
           cancel(hide) {
             doSave = false;
@@ -409,23 +388,30 @@
           preventHide() {
             doHide = true;
           },
-          isDirty: !editor.isNotDirty,
-          content: editor.getContent(),
-          windowManager: editor.windowManager
+          setContent(c) {
+            content = c;
+          },
+          isDirty: this.editor.isDirty(),
+          content: content,
+          windowManager: this.editor.windowManager
         };
 
         this.$emit('save', evt);
 
         if (doSave) {
           // Assume save was succesfull
-          this.editor.startContent = this.editor.getContant();
-          this.editor.isNotDirty = true;
+          this.editorSetContent(content);
+          this.editor.save();
+          this.content = this.editorGetContent();
+          this.editor.startContent = this.content;
+          this.editor.setDirty(false);
           this.editor.undoManager.clear();
+          this.$emit('value', this.content);
         }
 
         if (doHide) {
           // Hide the editor
-          this.hideEditor(true);
+          this.hideEditor();
         }
 
         this.$emit('saved', doClose, doSave);
@@ -446,9 +432,9 @@
           revert() {
             doRevert = true;
           },
-          isDirty: !editor.isNotDirty,
-          content: editor.getContent(),
-          windowManager: editor.windowManager
+          isDirty: this.editor.isDirty(),
+          content: this.editor.getContent(),
+          windowManager: this.editor.windowManager
         };
 
         this.$emit('cancel', evt);
@@ -456,15 +442,15 @@
         if (doRevert) {
           this.content = this.editor.startContent;
           this.editor.setContent(this.content);
-          this.editor.isNotDirty = true;
+          this.editor.setDirty(false);
           this.editor.undoManager.clear();
           this.$emit('value', this.content);
         }
 
         if (doClose) {
-          this.editor.isNotDirty = true;
+          this.editor.setDirty(false);
           this.editor.undoManager.clear();
-          this.hideEditor(true);
+          this.hideEditor();
         }
 
         this.emit('cancelled', doClose, doRevert);
@@ -485,10 +471,9 @@
     },
 
     beforeDestroy() {
-      // Remove th editor
+      // Remove the editor
       this.destroyEditor();
       this.editor = null;
     }
   };
 </script>
-
