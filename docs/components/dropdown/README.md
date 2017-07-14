@@ -7,7 +7,7 @@
 ```html
 <div>
 
-  <b-dropdown text="Dropdown Button sm" class="m-md-2">
+  <b-dropdown id="ddown1" text="Dropdown Button sm" class="m-md-2">
     <b-dropdown-header>This is a heading</b-dropdown-header>
     <b-dropdown-item>Action</b-dropdown-item>
     <b-dropdown-item>Another action</b-dropdown-item>
@@ -18,7 +18,7 @@
 
   <br>
 
-  <b-dropdown text="Split Dropdown Button" variant="success" split class="m-md-2">
+  <b-dropdown id="ddown2" text="Split Dropdown Button" variant="success" split class="m-md-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here...</b-dropdown-item>
@@ -26,7 +26,7 @@
 
   <br>
 
-  <b-dropdown text="Right align" variant="warning" right class="m-md-2">
+  <b-dropdown id="ddown3" text="Right align" variant="warning" right class="m-md-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
@@ -34,7 +34,7 @@
 
   <br>
 
-  <b-dropdown text="Drop-Up" dropup variant="info" class="m-md-2">
+  <b-dropdown id="ddown4" text="Drop-Up" dropup variant="info" class="m-md-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
@@ -42,7 +42,7 @@
 
   <br>
 
-  <b-dropdown text="Dropdown using buttons as menu items" class="m-md-2">
+  <b-dropdown id="ddown5" text="Dropdown using buttons as menu items" class="m-md-2">
     <b-dropdown-item-button>I'm a button</b-dropdown-item-button>
     <b-dropdown-item-button>I'm also a button</b-dropdown-item-button>
     <b-dropdown-item-button>I don't look like a button, but I am!</b-dropdown-item-button>
