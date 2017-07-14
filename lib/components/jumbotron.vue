@@ -1,7 +1,7 @@
 <template>
     <div :class="['jumbotron',fluid?'jumbotron-fluid':null]">
         <div :class="containerFluid ? 'container-fluid' : 'container'">
-            <h1 v-if="header" class="display-3" v-html="header"></h1>
+            <h1 :is="headerTag" v-if="header" class="display-3" v-html="header"></h1>
             <p v-if="lead" class="lead" v-html="lead"></p>
             <slot></slot>
         </div>
@@ -23,6 +23,10 @@
             header: {
                 type: String,
                 default: null
+            },
+            headerTag: {
+                type: String,
+                default: 'h1'
             },
             lead: {
                 type: String,
