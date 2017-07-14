@@ -22,8 +22,8 @@
 
         <!-- Card Standard Blocks-->
         <div :class="blockClass" v-else>
-            <h4 v-if="title" class="card-title" v-html="title"></h4>
-            <h6 v-if="subTitle" class="card-subtitle mb-2 text-muted" v-html="subTitle"></h6>
+            <h4 v-if="title" :is="titleTag" class="card-title" v-html="title"></h4>
+            <h6 v-if="subTitle" :is="subTitleTag" class="card-subtitle mb-2 text-muted" v-html="subTitle"></h6>
             <slot></slot>
         </div>
 
@@ -125,9 +125,17 @@
                 type: String,
                 default: null
             },
+            titleTag: {
+                type: String,
+                default: 'h4'
+            },
             subTitle: {
                 type: String,
                 default: null
+            },
+            subTitleTag: {
+                type: String,
+                default: 'h6'
             },
             noBlock: {
                 type: Boolean,
