@@ -12,7 +12,7 @@
                 modifier to capture browser native events such as:
                 <code>@click.native="..."</code>,
                 <code>@mouseover.native="..."</code>, etc. See the the official
-                <a href="https://vuejs.org/v2/guide/components.html#Binding-Native-Events-to-Components">Vue.js docuementation</a>
+                <a href="https://vuejs.org/v2/guide/components.html#Binding-Native-Events-to-Components">Vue.js documentation</a>
                 for more information.
             </small>
         </b-card>
