@@ -1,6 +1,6 @@
 <template>
     <ul :class="['pagination',btnSize]"
-        :role="role"
+        role="group"
         :aria-disabled="disabled ? 'true' : 'false'"
         :aria-label="ariaLabel ? ariaLabel : null"
         @focusin.self="focusCurrent"
@@ -16,11 +16,11 @@
                 <span class="page-link" v-html="firstText"></span>
             </li>
             <li v-else class="page-item">
-                <a :role="buttonRole"
-                   class="page-link"
+                <a class="page-link"
                    :aria-label="labelFirstPage"
-                   tabindex="-1"
+                   :aria-controls="ariaControls || null"
                    href="#"
+                   tabindex="-1"
                    @click.prevent="setPage($event, 1)"
                    @keydown.enter.prevent="setPage($event, 1)"
                    @keydown.space.prevent="setPage($event, 1)"
@@ -33,11 +33,11 @@
             <span class="page-link" v-html="prevText"></span>
         </li>
         <li v-else class="page-item">
-            <a :role="buttonRole"
-               class="page-link"
+            <a class="page-link"
                :aria-label="labelPrevPage"
-               tabindex="-1"
+               :aria-controls="ariaControls || null"
                href="#"
+               tabindex="-1"
                @click.prevent="setPage($event, currentPage - 1)"
                @keydown.enter.prevent="setPage($event, currentPage - 1)"
                @keydown.space.prevent="setPage($event, currentPage - 1)"
@@ -45,7 +45,7 @@
         </li>
 
         <!-- First Ellipsis Bookend -->
-        <li v-if="showFirstDots" class="page-item disabled hidden-xs-down" role="seperator">
+        <li v-if="showFirstDots" class="page-item disabled hidden-xs-down" role="separator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
@@ -54,14 +54,15 @@
             :class="pageItemClasses(page)"
             :key="page.number"
         >
-            <a :role="buttonRole"
-               :class="pageLinkClasses(page)"
+            <a :class="pageLinkClasses(page)"
                :disabled="disabled"
                :aria-disabled="disabled ? 'true' : 'false'"
                :aria-label="labelPage + ' ' + page.number"
-               :aria-current="isActive(page) ? 'true' : 'false'"
+               :aria-current="isActive(page) ? 'true' : null"
                :aria-posinset="page.number"
                :aria-setsize="numberOfPages"
+               :aria-controls="ariaControls || null"
+               href="#"
                tabindex="-1"
                @click.prevent="setPage($event, page.number)"
                @keydown.enter.prevent="setPage($event, page.number)"
@@ -70,7 +71,7 @@
         </li>
 
         <!-- Last Ellipsis Bookend -->
-        <li v-if="showLastDots" class="page-item disabled hidden-xs-down" role="seperator">
+        <li v-if="showLastDots" class="page-item disabled hidden-xs-down" role="separator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
@@ -79,9 +80,10 @@
             <span class="page-link" v-html="nextText"></span>
         </li>
         <li v-else class="page-item">
-            <a :role="buttonRole"
-               class="page-link"
+            <a class="page-link"
                :aria-label="labelNextPage"
+               :aria-controls="ariaControls || null"
+               href="#"
                tabindex="-1"
                @click.prevent="setPage($event, currentPage + 1)"
                @keydown.enter.prevent="setPage($event, currentPage + 1)"
@@ -95,9 +97,10 @@
                 <span class="page-link" v-html="lastText"></span>
             </li>
             <li v-else class="page-item">
-                <a :role="buttonRole"
-                   class="page-link"
+                <a class="page-link"
                    :aria-label="labelLastPage"
+                   :aria-controls="ariaControls || null"
+                   href="#"
                    tabindex="-1"
                    @click.prevent="setPage($event, numberOfPages)"
                    @keydown.enter.prevent="setPage($event, numberOfPages)"
@@ -365,7 +368,7 @@ export default {
         },
         firstText: {
             type: String,
-            default: '&laquo'
+            default: '&laquo;'
         },
         labelPrevPage: {
             type: String,
@@ -403,13 +406,9 @@ export default {
             type: String,
             default: '&hellip;'
         },
-        role: {
+        ariaControls: {
             type: String,
-            default: 'group'
-        },
-        buttonRole: {
-            type: String,
-            default: 'button'
+            default: null
         }
     }
 };

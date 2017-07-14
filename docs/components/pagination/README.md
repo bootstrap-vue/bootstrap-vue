@@ -1,8 +1,7 @@
 # Pagination
 
-> Quick previous and next links for simple pagination implementations with light markup and styles.
-  It’s great for simple sites like blogs or magazines.
-  Provide pagination links for your site or app with the multi-page pagination component.
+> Quick first, previous, next, last, and page buttons for pagination control
+of another component (such as `<b-table>`).
 
 ```html
 <template>
@@ -11,13 +10,13 @@
     <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10">
     </b-pagination>
 
-    <br><br>
+    <br>
 
     <h6>Small</h6>
     <b-pagination size="sm" :total-rows="100" v-model="currentPage" :per-page="10">
     </b-pagination>
 
-    <br><br>
+    <br>
 
     <h6>Large</h6>
     <b-pagination size="lg" :total-rows="100" v-model="currentPage" :per-page="10">
@@ -75,13 +74,13 @@ along with the goto _first_, _prev_, _next_, and _last_ buttons.
 
 ### Accessibility
 The `<b-pagination>` component provides many features to support assistive technology users,
-including `aria-label`, `aria-posinset` and `aria-setsize`. The attributes are
-automatically applied, and can be customized.
+such as `aria-` attributes and keyboard navigation.
 
-When pagination is controling another component on the page (such as `<b-table>`), add
-the `aria-controls="<element-id>"` attribute to `<b-pagination>` and set its value
-to the `id` of the controlled element. This will help non-sighted users know
-what component is being updated/controlled.
+#### `aria-controls`:
+Whan pagination is controling anohter component on the page (such as `<b-table>`), set
+the `aria-controls` prop to the `id` of the element it is controling. This will help
+non-sighted users know what component is being updated/controlled.
+
 
 #### ARIA labels:
 `<b-pagination>` provides various `*-label-*` props which are used to set the `aria-label`
