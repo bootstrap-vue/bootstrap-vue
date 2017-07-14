@@ -11,15 +11,13 @@
     <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10">
     </b-pagination>
 
-    <br>
-    <br>
+    <br><br>
 
     <h6>Small</h6>
     <b-pagination size="sm" :total-rows="100" v-model="currentPage" :per-page="10">
     </b-pagination>
 
-    <br>
-    <br>
+    <br><br>
 
     <h6>Large</h6>
     <b-pagination size="lg" :total-rows="100" v-model="currentPage" :per-page="10">
@@ -46,11 +44,11 @@ The value should be bound via `v-model` in your app. Page numbers are indexed fr
 of pages is computed from the provided prop values for `total-rows` and `per-page`.
 
 ### Customizing
-`<b-pagination>` supports selveral props that allow you to customize the apperance.
+`<b-pagination>` supports several props that allow you to customize the apperance.
 
 | Prop | Description
 | ---- | -----------
-| `limit` | Limit the maximum numbr of page buttons (including ellipsis if present, but not the first/prev/next/last buttons)
+| `limit` | Limit the maximum numbr of displayed page buttons (including ellipsis if present, and excluding first/prev/next/last buttons)
 | `total-rows` | The total number of records in your data
 | `per-page` | The maximum number of data records per page
 | `first-text` | The "goto first page" button text (html supported)
@@ -77,12 +75,17 @@ along with the goto _first_, _prev_, _next_, and _last_ buttons.
 
 ### Accessibility
 The `<b-pagination>` component provides many features to support assistive technology users,
-including `aria-label`, `aria-posinset` and `aria-setsize`.  The features are
+including `aria-label`, `aria-posinset` and `aria-setsize`. The attributes are
 automatically aplied, and can be cusomized.
 
-#### Accessibility:
+Whan pagination is controling anohter component on the page (such as `<b-table>`), add
+the `aria-controls="<element-id>"` attribute to `<b-pagination>` and set its value
+to the `id` of the element it is controling. This will help non-sighted users know
+what component is being updated/controlled.
+
+#### ARIA labels:
 `<b-pagination>` provides various `*-label-*` props which are used to set the `aria-label`
-attributes on the various elements within the component, to help users of
+attributes on the various elements within the component, which will help users of
 assistive technology.
 
 | Prop | `aria-label` content default
@@ -91,8 +94,8 @@ assistive technology.
 | `label-prev-page` | "Goto previous page"
 | `label-next-page` | "Goto next page"
 | `label-last-page` | "Goto last page"
-| `label-page` | "Goto page" apprended with the page number
-| `aria-label` | "Pagination". applied to the outer pagination container
+| `label-page` | "Goto page", appended with the page number
+| `aria-label` | "Pagination", applied to the outer pagination container
 
 #### Keyboard navigtion support:
 `<b-pagination>` supports keyborad navigation out of the box.
