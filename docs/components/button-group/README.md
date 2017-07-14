@@ -2,36 +2,17 @@
 
 > Group a series of buttons together on a single line with `<b-button group>`.
 
-**Example 1:** Default, Small, and Large button groups
+**Example 1:** Default button group and button group using contextual variants
 ```html
 <div>
   <b-button-group>
     <b-button>Button 1</b-button>
     <b-button>Button 2</b-button>
     <b-button>Button 3</b-button>
+    <b-button>Button 4</b-button>
+    <b-button>Button 5</b-button>
   </b-button-group>
-  <br>
-  <br>
-  <b-button-group size="sm">
-    <b-button>Left</b-button>
-    <b-button>Middle</b-button>
-    <b-button>Right</b-button>
-  </b-button-group>
-  <br>
-  <br>
-  <b-button-group size="lg">
-    <b-button>Left</b-button>
-    <b-button>Middle</b-button>
-    <b-button>Right</b-button>
-  </b-button-group>
-</div>
-
-<!-- button-group-1.vue -->
-```
-
-**Example 2:** Default button group with contextual variants
-```html
-<div>
+  <br><br>
   <b-button-group>
     <b-button variant="success">Success</b-button>
     <b-button variant="info">Info</b-button>
@@ -42,10 +23,60 @@
   </b-button-group>
 </div>
 
+<!-- button-group-1.vue -->
+```
+
+### Sizing
+Set the size prop to `lg` or `sm` to render larger or smaller, respectively, buttons.
+There is no need to specify the size on the individual buttons.
+
+**Example 2:** Default, Small, and Large button groups
+```html
+<div>
+  <b-button-group>
+    <b-button>Button 1</b-button>
+    <b-button>Button 2</b-button>
+    <b-button>Button 3</b-button>
+  </b-button-group>
+  <br><br>
+  <b-button-group size="sm">
+    <b-button>Left</b-button>
+    <b-button>Middle</b-button>
+    <b-button>Right</b-button>
+  </b-button-group>
+  <br><br>
+  <b-button-group size="lg">
+    <b-button>Left</b-button>
+    <b-button>Middle</b-button>
+    <b-button>Right</b-button>
+  </b-button-group>
+</div>
+
 <!-- button-group-2.vue -->
 ```
 
-**Example 3:** button group with dropdown menus
+### Vertical variation
+Make a set of buttons appear vertically stacked rather than horizontally by setting
+the `vertical` prop. Split button dropdowns are not supported here.
+
+**Example 3:** Vertical button group
+```html
+<div>
+  <b-button-group vertical>
+    <b-button>Top</b-button>
+    <b-button>Middle</b-button>
+    <b-button>Bottom</b-button>
+  </b-button-group>
+</div>
+
+<!-- button-group-3.vue -->
+```
+
+### Dropdown menu support
+Add [`<b-dropdown>`](./dropdown) menus directly inside your `<b-button-group>`. Note
+that split dropdown menus are not supported when prop `vertical` is set.
+
+**Example 4:** button group with dropdown menus
 ```html
 <div>
   <b-button-group>
@@ -67,33 +98,8 @@
   </b-button-group>
 </div>
 
-<!-- button-group-3.vue -->
-```
-
-**Example 4:** Vertical button group
-```html
-<div>
-  <b-button-group vertical>
-    <b-button>Top</b-button>
-    <b-button>Middle</b-button>
-    <b-button>Bottom</b-button>
-  </b-button-group>
-</div>
-
 <!-- button-group-4.vue -->
 ```
-
-### Sizing
-Set the size prop to `lg` or `sm` to render larger or smaller, respectively, buttons.
-There is no need to specify the size on the individual buttons.
-
-### Vertical variation
-Make a set of buttons appear vertically stacked rather than horizontally by setting
-the `vertical` prop. Split button dropdowns are not supported here.
-
-### Dropdown menu support
-Add [`<b-dropdown>`](./dropdown) menus directly inside your `<b-button-group>`. Note
-that split dropdown menus are not supported when prop `vertical` is set.
 
 ### Alias
 `<b-button-group>` can also be used by its shorter alias `<b-btn-group>`.
