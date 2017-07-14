@@ -9,7 +9,7 @@
              @blur="$emit('blur')"
         >
             <div class="popover-arrow"></div>
-            <h3 class="popover-title" v-if="title" v-html="title"></h3>
+            <h3 :is="titletag" class="popover-title" v-if="title" v-html="title"></h3>
             <div class="popover-content">
                 <div class="popover-content-wrapper">
                     <slot name="content"><span v-html="content"></span></slot>
@@ -28,6 +28,10 @@
             title: {
                 type: String,
                 default: ''
+            },
+            titleTag: {
+                type: String,
+                default: 'h3'
             },
             content: {
                 type: String,
