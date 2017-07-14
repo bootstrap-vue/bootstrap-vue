@@ -34,7 +34,7 @@
                                 v-if="!hideHeader"
                         >
                             <slot name="modal-header">
-                                <h5 class="modal-title">
+                                <h5 :is="titleTag" class="modal-title">
                                     <slot name="modal-title">{{title}}</slot>
                                 </h5>
                                 <button type="button"
@@ -168,6 +168,10 @@
             title: {
                 type: String,
                 default: ''
+            },
+            titleTag: {
+                type: String,
+                default: 'h5'
             },
             size: {
                 type: String,
