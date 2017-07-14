@@ -381,6 +381,8 @@
         let doHide = true;
         let content = this.editor.getConttent();
         const evt = {
+          type: 'save',
+          target: edEvt.target,
           cancel(hide) {
             doSave = false;
             doHide = Boolean(hide);
@@ -425,6 +427,8 @@
         let doClose = true;
         let doRevert = false;
         const evt = {
+          type: 'cancel',
+          target: edEvt.target,
           preventClose(revert) {
             doClose = false;
             doRevert = Boolean
