@@ -1,6 +1,7 @@
 <template>
   <component :is="tag"
              :id="id || null"
+             :name="(name && tag === 'textarea') ? name : null"
              :disabled="disabled && tag === 'textarea'"
              :class="componentClasses"
              ref="ed"
@@ -15,6 +16,7 @@
 
   import { warn } from '../utils';
   import { keys, assign } from '../utils/object';
+  import formMixin from '../mixins/form';
 
   // Utility function to determine if element is within viewport
   function isElementInView(el) {
@@ -53,6 +55,7 @@
       prop: 'value',
       event: 'value'
     },
+    mixins: [formMixin],
     data() {
       return {
         // Saved Content
@@ -63,18 +66,6 @@
     },
     props: {
       // Form Control options
-      id: {
-        type: String,
-        default: null
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      readonly: {
-        type: Boolean,
-        default: false
-      },
       noFormControl: {
         // Dont add class `form-control`
         type: Boolean,
