@@ -1,6 +1,6 @@
-import {loadFixture, testVM} from '../helpers';
+import { loadFixture, testVM } from "../helpers";
 
-describe('form-select', async() => {
-    beforeEach(loadFixture('form-select'));
+describe("form-select", async () => {
+    beforeEach(loadFixture("form-select"));
     testVM();
 });

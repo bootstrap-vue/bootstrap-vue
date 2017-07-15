@@ -1,6 +1,6 @@
-import {loadFixture, testVM} from '../helpers';
+import { loadFixture, testVM } from "../helpers";
 
-describe('jumbotron', async() => {
-    beforeEach(loadFixture('jumbotron'));
+describe("jumbotron", async () => {
+    beforeEach(loadFixture("jumbotron"));
     testVM();
 });

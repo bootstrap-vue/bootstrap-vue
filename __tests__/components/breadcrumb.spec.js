@@ -1,71 +1,71 @@
-import { loadFixture, testVM } from "../helpers"
+import { loadFixture, testVM } from "../helpers";
 
 describe("breadcrumb", async () => {
-    beforeEach(loadFixture("breadcrumb"))
-    testVM()
+    beforeEach(loadFixture("breadcrumb"));
+    testVM();
 
     it("should apply bootstrap breadcrumb classes", async () => {
-        const { app: { $refs, $el } } = window
-        const $ol = $refs.breadcrumb1
+        const { app: { $refs, $el } } = window;
+        const $ol = $refs.breadcrumb1;
 
-        expect($ol.classList.contains("breadcrumb")).toBe(true)
+        expect($ol.classList.contains("breadcrumb")).toBe(true);
 
         Array.from($ol.children).forEach($li => {
             if ($li.tagName === "LI") {
-                expect($li.classList.contains("breadcrumb-item")).toBe(true)
+                expect($li.classList.contains("breadcrumb-item")).toBe(true);
             }
-        })
-    })
+        });
+    });
 
     it("should apply ARIA roles", async () => {
-        const { app: { $refs, $el } } = window
-        const $ol = $refs.breadcrumb1
+        const { app: { $refs, $el } } = window;
+        const $ol = $refs.breadcrumb1;
 
         Array.from($ol.children).forEach($li => {
             if ($li.tagName === "LI") {
-                expect($li.getAttribute("role")).toBe("presentation")
+                expect($li.getAttribute("role")).toBe("presentation");
             }
-        })
-    })
+        });
+    });
 
     it("should apply active class", async () => {
-        const { app: { $refs: { breadcrumb2: bCrumb }, items2 } } = window
+        const { app: { $refs: { breadcrumb2: bCrumb }, items2 } } = window;
 
         items2.forEach((item, i) => {
             if (item.active) {
-                expect(bCrumb.children[i].classList.contains("active")).toBe(true)
+                expect(bCrumb.children[i].classList.contains("active")).toBe(true);
             }
-        })
-    })
+        });
+    });
 
     it("should apply aria-current to active class element", async () => {
-        const { app: { $refs: { breadcrumb2: crumb }, items2 } } = window
-        const $listItems = Array.from(crumb.children)
+        const { app: { $refs: { breadcrumb2: crumb }, items2 } } = window;
+        const $listItems = Array.from(crumb.children);
 
         items2.forEach((item, i) => {
             if (item.active) {
-                expect($listItems[i].firstElementChild.hasAttribute("aria-current")).toBe(true)
+                expect($listItems[i].firstElementChild.hasAttribute("aria-current")).toBe(true);
             } else {
-                expect($listItems[i].firstElementChild.hasAttribute("aria-current")).toBe(false)
+                expect($listItems[i].firstElementChild.hasAttribute("aria-current")).toBe(false);
             }
-        })
-    })
+        });
+    });
 
     it("should default active class to last item only when no true active prop provided", async () => {
-        const { app: { $refs: { breadcrumb1: crumb }, items } } = window
-        const $listItems = Array.from(crumb.children)
-        const itemsLength = items.length
+        const { app: { $refs: { breadcrumb1: crumb }, items } } = window;
+        const $listItems = Array.from(crumb.children);
+        const itemsLength = items.length;
 
         items.forEach((item, i) => {
-            const isLast = i === itemsLength - 1
+            const isLast = i === itemsLength - 1;
 
             if (isLast) {
-                expect($listItems[i].classList.contains("active")).toBe(true)
+                expect($listItems[i].classList.contains("active")).toBe(true);
             } else {
-                expect($listItems[i].classList.contains("active")).toBe(false)
+                expect($listItems[i].classList.contains("active")).toBe(false);
             }
-        })
-    })
+        });
+    });
 
     // TODO: FC's can't emit events, so what to do here?
     // it("should emit a click event with the item when clicked", async () => {
@@ -81,4 +81,4 @@ describe("breadcrumb", async () => {
     //         expect(spy).toHaveBeenCalledWith(item)
     //     })
     // })
-})
+});

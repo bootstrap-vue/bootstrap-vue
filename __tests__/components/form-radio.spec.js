@@ -1,6 +1,6 @@
-import {loadFixture, testVM} from '../helpers';
+import { loadFixture, testVM } from "../helpers";
 
-describe('form-radio', async() => {
-    beforeEach(loadFixture('form-radio'));
+describe("form-radio", async () => {
+    beforeEach(loadFixture("form-radio"));
     testVM();
 });
