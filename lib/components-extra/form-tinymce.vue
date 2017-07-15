@@ -461,8 +461,11 @@
     },
 
     mounted() {
+      // Initialize the editor
       if (!tinymce) {
         warn('b-form-tinymce: tinymce not loaded. please load tinymce first.')
+      } else if (parseInt(tinymce.majorVersion,10) !== 4 && parseFloat(tinymce.minorVersion) < 6) {
+        warn('b-form-tinymce: tinymce version 4.6 or greater is needed.')
       } else {
         // initially display the editor?
         if (this.isEditing) {
