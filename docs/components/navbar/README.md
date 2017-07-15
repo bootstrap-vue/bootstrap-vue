@@ -8,39 +8,39 @@
 
     <b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
-    <b-link class="navbar-brand" href="#">
+    <b-link class="navbar-brand" to="#">
       <span>BootstrapVue</span>
     </b-link>
 
     <b-collapse is-nav id="nav_collapse">
-
+      
       <b-nav is-nav-bar>
         <b-nav-item>Support</b-nav-item>
         <b-nav-item>Docs</b-nav-item>
         <b-nav-item>Contact Us</b-nav-item>
       </b-nav>
-
+      
       <b-nav is-nav-bar class="ml-auto">
-
+        
         <!-- Navbar dropdowns -->
-        <b-nav-item-dropdown text="Lang" right>
-          <b-dropdown-item href="#">EN</b-dropdown-item>
-          <b-dropdown-item href="#">ES</b-dropdown-item>
-          <b-dropdown-item href="#">RU</b-dropdown-item>
-          <b-dropdown-item href="#">FA</b-dropdown-item>
+        <b-nav-item-dropdown id="lang_ddown" text="Lang" right>
+          <b-dropdown-item to="#">EN</b-dropdown-item>
+          <b-dropdown-item to="#">ES</b-dropdown-item>
+          <b-dropdown-item to="#">RU</b-dropdown-item>
+          <b-dropdown-item to="#">FA</b-dropdown-item>
         </b-nav-item-dropdown>
-
-        <b-nav-item-dropdown right>
-
+        
+        <b-nav-item-dropdown id="user_ddown" right>
+          
           <!-- Using button-content slot -->
           <template slot="button-content">
             <span style="font-weight: bold;">User</span>
           </template>
-
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Signout</b-dropdown-item>
+          
+          <b-dropdown-item to="#">Profile</b-dropdown-item>
+          <b-dropdown-item to="#">Signout</b-dropdown-item>
         </b-nav-item-dropdown>
-
+       
       </b-nav>
     </b-collapse>
 </b-navbar>
