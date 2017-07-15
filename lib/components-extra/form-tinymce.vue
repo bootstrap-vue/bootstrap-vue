@@ -83,8 +83,7 @@
       // Initial value for editor content, if provided
       initial: {
         type: String,
-        default: '',
-        editor: null
+        default: ''
       },
       // Current value for v-model
       value: {
@@ -163,7 +162,7 @@
 
     computed: {
       isEditing() {
-        return !this.disabled;
+        return !this.disabled || (this.editor && !this.editor.isHidden());
       },
       componentClasses() {
         if (this.noFormControl) {
