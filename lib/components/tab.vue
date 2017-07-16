@@ -29,7 +29,7 @@
         data() {
             return {
                 fade: false,
-                localActive: false,
+                localActive: this.active,
                 lazy: true,
                 show: false
             };
