@@ -3,6 +3,7 @@
              :id="id || null"
              :name="(name && tag === 'textarea') ? name : null"
              :disabled="disabled && tag === 'textarea'"
+             :required="required && tag === 'textarea'"
              :class="componentClasses"
              ref="ed"
              v-html="value"></component>
@@ -65,6 +66,11 @@
       };
     },
     props: {
+      // id, name, disabled, required from form mixin
+      readonly: {
+        type: Boolean,
+        default: false
+      },
       // Form Control options
       noFormControl: {
         // Dont add class `form-control`
@@ -87,65 +93,65 @@
         default: 'div'
       },
       // tinymce options
-      options: {
+      mceOptions: {
         type: Object,
         default: {}
       },
       // tinymce helper options
-      toolbar: {
+      mceToolbar: {
         type: [String, Array, Boolean],
         default: null
       },
-      toolbarSize: {
+      mceToolbarSize: {
         type: String,
         default: ''
       },
-      menu: {
+      mceMenu: {
         type: Object,
         default: null
       },
-      menubar: {
+      mceMenubar: {
         type: [String, Boolean],
         default: null
       },
-      plugins: {
+      mcePlugins: {
         type: String,
         default: null
       },
-      externalPlugins: {
+      mceExternalPlugins: {
         type: Object,
         defult: null
       },
-      hideStatusbar: {
+      mceHideStatusbar: {
         type: Boolean,
         default: false
       },
-      validElements: {
+      mceValidElements: {
         type: String,
         default: null
       },
-      extendedValidElements: {
+      mceExtendedValidElements: {
         type: String,
         default: null
       },
-      invalidElements: {
+      mceInvalidElements: {
         type: String,
         default: null
       },
-      contentCss: {
+      mceContentCss: {
         type: [String, Array, Boolean],
         default: null
       },
-      contentStyle: {
+      mceContentStyle: {
         type: [String, Array, Boolean],
         default: null
       },
-      bodyClass: {
+      mceBodyClass: {
         type: String,
         default: null
       },
       // Editor and preview minimum height
-      minHeight: {
+      mceMinHeight: {
         type: Number,
         defunat: null
       }
@@ -165,14 +171,14 @@
         ]
       },
       componentStyles() {
-        if (this.minHeight && this.minHeight > 0) {
-          return { minHeight: this.minHeight + 'px'};
+        if (this.mceMinHeight && this.mceMinHeight > 0) {
+          return { minHeight: this.mceMinHeight + 'px'};
         } 
         return {};
       },
       btnSize() {
         // Toolbar button size options object
-        let size = this.toolbarSize;
+        let size = this.mceToolbarSize;
         if (size ==='sm') {
           size = 'small';
         } else if (size === 'lg') {
@@ -183,7 +189,7 @@
       opts() {
         // Generate tinymce init options
 
-        const options = assign({}, (this.options && keys(this.options).length > 0) ? this.options : {});
+        const options = assign({}, (this.mceOptions && keys(this.mceOptions).length > 0) ? this.mceOptions : {});
 
         // Ensure there isn't a 'selector' property, as we use 'target' (below)
         opts.selector = null;
@@ -192,20 +198,20 @@
         // Merge options. Helper props take precidence over this.options
         const opts = assign(
           options,
-          objToOption('menu', merge(options.menu, this.menu)),
-          objToOption('external_plugins', merge(options.external_plugins, this.externalPlugins)),
-          (this.menubar === null || this.menubar === '' || this.menubar === true) ? {} : { menubar: this.menubar },
-          (this.toolbar === null || this.toolbar === '' || this.toolbar === true) ? {} : { toolbar: this.toolbar },
-          this.plugins ? { plugins: this.plugins } : {},
+          objToOption('menu', merge(options.menu, this.mceMenu)),
+          objToOption('external_plugins', merge(options.external_plugins, this.mceExternalPlugins)),
+          (this.mceMenubar === null || this.mceMenubar === '' || this.mceMenubar === true) ? {} : { menubar: this.mceMenubar },
+          (this.mceToolbar === null || this.mceToolbar === '' || this.mceToolbar === true) ? {} : { toolbar: this.mceToolbar },
+          this.mcePlugins ? { plugins: this.mcePlugins } : {},
           this.btnSize,
-          this.hideStatusbar ? { statusbar: false } : {},
-          this.validElements ? { valid_elements: this.validElements } : {},
-          this.extendedValidElements ? { extended_valid_elements: this.extendedValidElements } : {},
-          this.invalidElements ? { ivalid_elements: this.invalidElements } : {},
-          this.contentCss ? { content_css: this.contentCss } : {},
-          this.bodyClass ? { body_class: this.bodyClass } : {},
-          this.contentStyle ? { content_style: this.contntStyle } : {},
-          (this.minHeight && this.minHeight > 0) ? { min_height: this.minHeight }, {},
+          this.mceHideStatusbar ? { statusbar: false } : {},
+          this.mceValidElements ? { valid_elements: this.mceValidElements } : {},
+          this.mceExtendedValidElements ? { extended_valid_elements: this.mceExtendedValidElements } : {},
+          this.mceInvalidElements ? { ivalid_elements: this.mceInvalidElements } : {},
+          this.mceContentCss ? { content_css: this.mceContentCss } : {},
+          this.mceBodyClass ? { body_class: this.mceBodyClass } : {},
+          this.mceContentStyle ? { content_style: this.mceContntStyle } : {},
+          (this.mceMinHeight && this.mceMinHeight > 0) ? { min_height: this.mceMinHeight }, {},
           {
             branding: false,
             target: this.$refs.ed,
@@ -213,6 +219,11 @@
             setup: this.setupMce
           }
         );
+
+        // Do not allow 'save' plugin (as it conflicts with our save handlers)
+        if (opts.plugins && /\bsave\b/.test(opts.plugins) {
+            opts.plugins = opts.plugins.replace(/\bsave\b/g, '').replace(/\s\s+/g, ' ').trim();
+        }
 
         // Return the computed options
         return opts;
@@ -231,6 +242,13 @@
           // Disble Editor
           this.hideEditor();
         }
+      },
+      opts(newVal, oldVal) {
+        if (newVal === oldVal || !this.editor) {
+          return;
+        }
+        // Reconfigure Editor
+        // this.editor.settings = newVal;
       },
       busy(busyState, oldVal) {
         if (busyState === oldVal || !this.editor) {
@@ -312,6 +330,35 @@
           }
           this.$emit('fullscreen', edEvt.state);
         });
+
+        // Custom save button/menu
+        editor.addCommand('bvSave', this.triggerSave, this);
+        const bvSave = {
+          text: 'Save',
+          icon: 'save',
+          disbled: true,
+          cmd: 'bvSave',
+          onpostrender: function() {
+            // Handle enabling/disbleing of save button/menu
+            const self = this;
+            editor.on('NodeChange dirty change'), function(evt) {
+              self.disabled(!editor.isDirty());
+            }
+          }
+        };
+        editor.addButton('save', bvSave);
+        editor.addMenuItem('save', bvSave);
+
+        // Custom save button/menu
+        editor.addCommand('bvCancel', this.triggerCancel, this);
+        const bvCancel = {
+          text: 'Cancel',
+          icon: false,
+          disbled: false,
+          cmd: 'bvCancel'
+        };
+        editor.addButton('cancel', bvCancel);
+        editor.addMenuItem('cancel', bvCancel);
 
         if (this.options && this.options.setup && typeof this.options.setup === 'function') {
           // Call user supplied setup function, and pass an insatnce of this for optional reference
@@ -398,6 +445,7 @@
           this.editor.startContent = this.content;
           this.editor.setDirty(false);
           this.editor.undoManager.clear();
+          this.editor.nodeChanged();
           this.$emit('value', this.content);
         }
 
@@ -438,6 +486,7 @@
           this.editor.setContent(this.content);
           this.editor.setDirty(false);
           this.editor.undoManager.clear();
+          this.editor.nodeChanged();
           this.$emit('value', this.content);
         }
 
