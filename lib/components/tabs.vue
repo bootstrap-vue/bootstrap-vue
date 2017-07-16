@@ -84,7 +84,7 @@
             },
             value: {
                 type: Number,
-                default: 0
+                default: null
             },
             pills: {
                 type: Boolean,
@@ -183,15 +183,16 @@
                     return;
                 }
 
-                // Deactivate any previous active tab(s)
+                // Activate current tab, and deactivte any old tabs
                 this.tabs.forEach( t => {
-                    if (t !== tab && t.localActive) {
-                        this.$set(t, 'localActive', false);
+                    if (t === tab) {
+                        // Set new tab as active
+                        this.$set(t, 'localActive', true);
+                    } else {
+                        // Ensure non current tabs are not active
+                        this.$set(tab, 'localActive', false);
                     }
                 });
-
-                // Set new tab as active
-                this.$set(tab, 'localActive', true);
 
                 // Update currentTab
                 this.currentTab = index + offset;
@@ -218,9 +219,23 @@
                 let tabIndex = this.currentTab;
 
                 if (tabIndex === null || tabIndex === undefined) {
-                    // Find last active tab in current tabs
+                    // Make null for easier testing further on
+                    tabIndex = null;
+                }
+
+                if (tabIndex === null) {
+                    // Find first active non-dsabled tab in current tabs
                     this.tabs.forEach((tab, index) => {
-                        if (tab.active) {
+                        if (tab.active && !tab.disabled && tabIndex === null) {
+                            tabIndex = index;
+                        }
+                    });
+                }
+
+                if (tabIndex === null) {
+                    // Find first non-disabled tab in current tabs
+                    this.tabs.forEach((tab, index) => {
+                        if (!tab.disabled && tabIndex === null) {
                             tabIndex = index;
                         }
                     });
@@ -228,7 +243,7 @@
 
                 // Workaround to fix problem when currentTab is removed
                 let offset = 0;
-                if (tabIndex > this.tabs.length - 1) {
+                if (tabIndex >= this.tabs.length) {
                     offset = -1;
                 }
 
