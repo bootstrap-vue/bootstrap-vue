@@ -224,9 +224,9 @@
                 }
 
                 if (tabIndex === null) {
-                    // Find first active non-dsabled tab in current tabs
+                    // Find last active non-dsabled tab in current tabs
                     this.tabs.forEach((tab, index) => {
-                        if (tab.active && !tab.disabled && tabIndex === null) {
+                        if (tab.active && !tab.disabled) {
                             tabIndex = index;
                         }
                     });
