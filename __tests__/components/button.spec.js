@@ -7,7 +7,6 @@ import { loadFixture, testVM } from "../helpers";
  * - Props: [ disabled, block ]
  * - elements: [ <button/>, <a/> ]
  */
-
 const colorVariants = ["primary", "secondary", "success", "warning", "danger"];
 const outlineVariants = colorVariants.map(v => `outline-${v}`);
 const variants = colorVariants.concat(outlineVariants, "link");
@@ -49,7 +48,7 @@ describe("button", async () => {
     });
 
     it("should use <a> when given href", async () => {
-        const { app: { $refs, $el } } = window;
+        const { app: { $refs } } = window;
         const btnRootNode = $refs.btn_href;
 
         expect(btnRootNode).toBeElement("a");
