@@ -197,6 +197,10 @@
                 type: Boolean,
                 default: false
             },
+            noEnforceFocus: {
+                type: Boolean,
+                default: false
+            },
             hideHeader: {
                 type: Boolean,
                 default: false
@@ -359,7 +363,8 @@
             enforceFocus(e) {
                 // If focus leaves modal, bring it back
                 // Event Listener bound on document
-                if (this.is_visible &&
+                if (!this.noEnforceFocus &&
+                    this.is_visible &&
                     document !== e.target &&
                     this.$refs.content &&
                     this.$refs.content !== e.target &&
