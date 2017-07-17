@@ -44,16 +44,13 @@ describe("link", async () => {
         expect($refs.disabled).toHaveClass("disabled");
     });
 
-    /*
-    // HELP WANTED: Failing test.
-    it("should not invoke click handler when disabled and clicked on", async () => {
+    it("should NOT invoke click handler bound by Vue when disabled and clicked on", async () => {
         const { app: { $refs } } = window;
         $refs.click_disabled.click();
         expect(app.disabledClickSpy).not.toHaveBeenCalled();
     });
-    */
 
-    it("should not invoke click handler when disabled and clicked on", async () => {
+    it("should NOT invoke click handler bound using 'addEventListener' when disabled and clicked on", async () => {
         const { app: { $refs } } = window;
         const spy = jest.fn();
         $refs.click_disabled.addEventListener("click", spy);
@@ -61,13 +58,7 @@ describe("link", async () => {
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it("should have default prevented when disabled and clicked on", async () => {
-        const { app: { $refs } } = window;
-        $refs.click_disabled.click();
-        expect(app.testData.disabled_event.defaultPrevented).toBe(true);
-    });
-
-    it("should not emit 'clicked::link' on $root when clicked on", async () => {
+    it("should NOT emit 'clicked::link' on $root when clicked on", async () => {
         const { app: { $refs } } = window;
         const spy = jest.fn();
         app.$root.$on("clicked::link", spy);
@@ -79,6 +70,8 @@ describe("link", async () => {
         const { app: { $refs } } = window;
         $refs.click.click();
         expect(app.clickSpy).toHaveBeenCalled();
+        const firstCallArguments = app.clickSpy.mock.calls[0]
+        expect(firstCallArguments[0]).toBeInstanceOf(Event);
     });
 
     it("should emit 'clicked::link' on $root when clicked on", async () => {
