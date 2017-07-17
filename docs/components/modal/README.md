@@ -336,4 +336,7 @@ via the event will be ignored.
 When tabbing through elements within a `<b-modal>`, if focus attempts to leave the modal into the document,
 Focus will be brought back into the modal.
 
+In some circumstances, you may have a need to disable the enforce focus feature. You can do so
+by setting the prop `no-enforce-focus`.
+
 
