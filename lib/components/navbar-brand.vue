@@ -19,7 +19,7 @@ import { assign } from '../utils/object';
 // less the 'href', 'to', and 'tag' props
 // that we will reconstruct without any defaults
 // so our component functions properly
-const linkProps = assign(omitLinkProps('href', 'to'), {
+const linkProps = assign(omitLinkProps('href', 'to', 'tag'), {
     href: { type: originalLinkProps.href.type },
     to: { type: originalLinkProps.to.type },
     tag: { type: String, default: 'div' }
