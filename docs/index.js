@@ -1,21 +1,18 @@
-import package_info from '../package.json';
-import components from './components';
-import directives from './directives';
+import package_info from "../package.json";
+import components from "./components";
+import directives from "./directives";
 
 export default {
     package_info,
     nav: [
         {
-            title: 'BootstrapVue',
-            slug: '',
-            pages: [
-                {title: 'Quick Start', slug: 'setup'},
-                {title: 'Contributing', slug: 'contributing'}
-            ]
+            title: "BootstrapVue",
+            slug: "",
+            pages: [{ title: "Quick Start", slug: "setup" }, { title: "Contributing", slug: "contributing" }]
         },
         {
-            title: 'Components',
-            slug: 'components/',
+            title: "Components",
+            slug: "components/",
             pages: Object.keys(components).map(key => {
                 return {
                     title: components[key].meta.title,
@@ -25,8 +22,8 @@ export default {
             })
         },
         {
-            title: 'Directives',
-            slug: 'directives/',
+            title: "Directives",
+            slug: "directives/",
             pages: Object.keys(directives).map(key => {
                 return {
                     title: directives[key].meta.title,
