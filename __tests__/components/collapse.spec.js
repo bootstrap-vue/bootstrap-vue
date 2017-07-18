@@ -1,4 +1,4 @@
-import {loadFixture, testVM, setData, nextTick} from '../helpers';
+import {loadFixture, testVM, setData, nextTick, sleep} from '../helpers';
 
 describe('collapse', async() => {
     beforeEach(loadFixture('collapse'));
@@ -148,6 +148,8 @@ describe('collapse', async() => {
 
         btn2.$el.click();
         await nextTick()
+        // Wait for transition to end
+        await sleep(500);
         
         expect(col1.$el.classList.contains('show')).toBe(false)
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
@@ -158,6 +160,8 @@ describe('collapse', async() => {
 
         btn2.$el.click();
         await nextTick()
+        // Wait for transition to end
+        await sleep(500);
         
         expect(col1.$el.classList.contains('show')).toBe(false)
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
