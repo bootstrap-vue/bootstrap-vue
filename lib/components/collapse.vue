@@ -28,35 +28,18 @@
                 transitioning: false
             };
         },
-        computed: {
-            classObject() {
-                return {
-                    'navbar-collapse': this.isNav,
-                    'collapse': !this.transitioning,
-                    'show': this.show || this.transitioning
-                };
-            }
-        },
         model: {
             prop: 'visible',
             event: 'input'
         },
-        watch: {
-            visible(newVal) {
-                if (newVal !== this.show) {
-                    this.show = newVal;
-                    this.emitState();
-                }
-            },
-        },
         props: {
-            isNav: {
-                type: Boolean,
-                default: false
-            },
             id: {
                 type: String,
                 required: true
+            },
+            isNav: {
+                type: Boolean,
+                default: false
             },
             accordion: {
                 type: String,
@@ -67,20 +50,42 @@
                 default: false
             }
         },
+        watch: {
+            visible(newVal) {
+                if (newVal !== this.show) {
+                    this.show = newVal;
+                }
+            },
+            show(newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    this.emitState();
+                }
+            }
+        },
+        computed: {
+            classObject() {
+                return {
+                    'navbar-collapse': this.isNav,
+                    'collapse': !this.transitioning,
+                    'show': this.show && !this.transitioning
+                };
+            }
+        },
         methods: {
             toggle() {
                 this.show = !this.show;
-                this.emitState();
             },
             enter(el) {
                 el.style.height = 0;
                 this.reflow(el);
                 el.style.height = el.scrollHeight + 'px';
                 this.transitioning = true;
+                this.$emit('show');
             },
             afterEnter(el) {
                 el.style.height = null;
                 this.transitioning = false;
+                this.$emit('shown');
             },
             leave(el) {
                 el.style.height = 'auto';
@@ -89,10 +94,12 @@
                 this.reflow(el);
                 this.transitioning = true;
                 el.style.height = 0;
+                this.$emit('hide');
             },
             afterLeave(el) {
                 el.style.height = null;
                 this.transitioning = false;
+                this.$emit('hidden');
             },
             reflow(el) {
                 /* eslint-disable no-unused-expressions */
