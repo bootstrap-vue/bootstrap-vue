@@ -90,7 +90,7 @@
             leave(el) {
                 el.style.height = 'auto';
                 el.style.display = 'block';
-                el.style.height = el.scrollHeight + 'px';
+                el.style.height = el.getBoundingClientRect().height + 'px';
                 this.reflow(el);
                 this.transitioning = true;
                 el.style.height = 0;
