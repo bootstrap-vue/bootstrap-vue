@@ -8,9 +8,9 @@
            aria-haspopup="true"
            :aria-expanded="visible ? 'true' : 'false'"
            :disabled="disabled"
-           @click.stop.prevent="toggle($event)"
-           @keydown.enter.stop.prevent="toggle($event)"
-           @keydown.space.stop.prevent="toggle($event)"
+           @click.stop.prevent="toggle"
+           @keydown.enter.stop.prevent="toggle"
+           @keydown.space.stop.prevent="toggle"
         >
             <slot name="button-content"><slot name="text"><span v-html="text"></span></slot></slot>
         </a>
