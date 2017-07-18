@@ -4,19 +4,19 @@
   "events": [
     {
       "event": "show",
-      "description": "Emitted when collaspe has started to open"
+      "description": "emitted when collaspe has started to open"
     },
     {
       "event": "shown",
-      "description": "Emitted when collaspe has finised opening"
+      "description": "emitted when collaspe has finised opening"
     },
     {
       "event": "hide",
-      "description": "Emitted when collaspe has started to close"
+      "description": "emitted when collaspe has started to close"
     },
     {
       "event": "hidden",
-      "description": "Emitted when collaspe has finished closing"
+      "description": "emitted when collaspe has finished closing"
     },
     {
       "event": "collapse::toggle",
