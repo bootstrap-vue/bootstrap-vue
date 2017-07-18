@@ -143,9 +143,9 @@ describe('collapse', async() => {
         expect(btn2.$el.getAttribute('aria-expanded')).toBe('false')
         expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
 
-        expect(col1.$el.classList.contains('show')).toBe(true)
-        expect(col2.$el.classList.contains('show')).toBe(false)
-        expect(col3.$el.classList.contains('show')).toBe(false)
+        expect(col1.show).toBe(true)
+        expect(col2.show).toBe(false)
+        expect(col3.show).toBe(false)
 
         // Open pane 2 and close others
         btn2.$el.click()
@@ -163,10 +163,6 @@ describe('collapse', async() => {
 
         await nextTick()
 
-        expect(col1.$el.classList.contains('show')).toBe(false)
-        expect(col2.$el.classList.contains('show')).toBe(true)
-        expect(col3.$el.classList.contains('show')).toBe(false)
-
         // Close all accordion panes
         btn2.$el.click()
         await nextTick()
@@ -181,11 +177,6 @@ describe('collapse', async() => {
         expect(col2.show).toBe(false)
         expect(col3.show).toBe(false)
 
-        await nextTick()
-
-        expect(col1.$el.classList.contains('show')).toBe(false)
-        expect(col2.$el.classList.contains('show')).toBe(false)
-        expect(col3.$el.classList.contains('show')).toBe(false)
     })
 
 });
