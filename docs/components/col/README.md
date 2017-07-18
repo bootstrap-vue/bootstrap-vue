@@ -37,12 +37,12 @@
             </div>
             <div class="row">
                 <b-col>1 of 3</b-col>
-                <b-col size="5">2 of 3 (size = 5)</b-col>
+                <b-col cols="5">2 of 3 (cols = 5)</b-col>
                 <b-col>3 of 3</b-col>
             </div>
             <div class="row">
                 <b-col>1 of 3</b-col>
-                <b-col size="6">2 of 3 (size = 6)</b-col>
+                <b-col cols="6">2 of 3 (cols = 6)</b-col>
                 <b-col>3 of 3</b-col>
             </div>
 
@@ -55,14 +55,14 @@
             <div class="row justify-content-md-center">
                 <b-col col
                        lg="2">1 of 3</b-col>
-                <b-col size="12"
+                <b-col cols="12"
                        md="auto">Variable width content</b-col>
                 <b-col col
                        lg="2">3 of 3</b-col>
             </div>
             <div class="row">
                 <b-col>1 of 3</b-col>
-                <b-col size="12"
+                <b-col cols="12"
                        md="auto">Variable width content</b-col>
                 <b-col col
                        lg="2">3 of 3</b-col>
@@ -94,8 +94,8 @@
                 <b-col>col</b-col>
             </div>
             <div class="row">
-                <b-col size="8">col-8</b-col>
-                <b-col size="4">col-4</b-col>
+                <b-col cols="8">col-8</b-col>
+                <b-col cols="4">col-4</b-col>
             </div>
 
             <div class="row">
@@ -121,27 +121,28 @@
             <!-- Stack the columns on mobile by making one full-width and the other half-width -->
             <div class="row">
                 <b-col md="8">.col .col-md-8</b-col>
-                <b-col size="6"
+                <b-col cols="6"
                        md="4">.col-6 .col-md-4</b-col>
             </div>
 
             <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
             <div class="row">
-                <b-col size="6"
+                <b-col cols="6"
                        md="4">.col-6 .col-md-4</b-col>
-                <b-col size="6"
+                <b-col cols="6"
                        md="4">.col-6 .col-md-4</b-col>
-                <b-col size="6"
+                <b-col cols="6"
                        md="4">.col-6 .col-md-4</b-col>
             </div>
 
             <!-- Columns are always 50% wide, on mobile and desktop -->
             <div class="row">
-                <b-col size="6">.col-6</b-col>
-                <b-col size="6">.col-6</b-col>
+                <b-col cols="6">.col-6</b-col>
+                <b-col cols="6">.col-6</b-col>
             </div>
         </div>
     </div>
 </div>
+
 <!-- col.vue -->
 ```
