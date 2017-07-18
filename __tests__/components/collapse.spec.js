@@ -146,29 +146,33 @@ describe('collapse', async() => {
         expect(col3.$el.classList.contains('show')).toBe(false)
         expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
 
-        btn2.$el.click();
+        // OPen pane 2 and close others
+        btn2.$el.click()
         await nextTick()
         // Wait for transition to end
-        await sleep(500);
-        
-        expect(col1.$el.classList.contains('show')).toBe(false)
+        await sleep(1000)
+
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col2.$el.classList.contains('show')).toBe(true)
         expect(btn2.$el.getAttribute('aria-expanded')).toBe('true')
-        expect(col3.$el.classList.contains('show')).toBe(false)
         expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
 
-        btn2.$el.click();
+        expect(col1.$el.classList.contains('show')).toBe(false)
+        expect(col2.$el.classList.contains('show')).toBe(true)
+        expect(col3.$el.classList.contains('show')).toBe(false)
+
+        // Close all accordion panes
+        btn2.$el.click()
         await nextTick()
         // Wait for transition to end
-        await sleep(500);
+        await sleep(1000)
         
-        expect(col1.$el.classList.contains('show')).toBe(false)
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col2.$el.classList.contains('show')).toBe(false)
         expect(btn2.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col3.$el.classList.contains('show')).toBe(false)
         expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
+
+        expect(col1.$el.classList.contains('show')).toBe(false)
+        expect(col2.$el.classList.contains('show')).toBe(false)
+        expect(col3.$el.classList.contains('show')).toBe(false)
     })
 
 });
