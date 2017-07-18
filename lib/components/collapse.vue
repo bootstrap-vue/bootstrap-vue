@@ -81,7 +81,6 @@
             afterEnter(el) {
                 el.style.height = null;
                 this.transitioning = false;
-                this.emitState();
             },
             leave(el) {
                 el.style.height = 'auto';
@@ -94,7 +93,6 @@
             afterLeave(el) {
                 el.style.height = null;
                 this.transitioning = false;
-                this.emitState();
             },
             reflow(el) {
                 /* eslint-disable no-unused-expressions */
