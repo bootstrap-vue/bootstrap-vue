@@ -1,23 +1,21 @@
 <template>
     <transition
             @enter="enter"
-            @after-enter="clearHeight"
+            @after-enter="afterEnter"
             @leave="leave"
-            @after-leave="clearHeight"
-            name="collapse"
+            @after-leave="afterLeave"
+            enter-class=""
+            enter-active-class="collapsing"
+            enter-to-class=""
+            leave-class=""
+            leave-active-class="collapsing"
+            leave-to-class=""
     >
         <div :id="id || null" :class="classObject" v-show="show">
             <slot></slot>
         </div>
     </transition>
 </template>
-
-<style scoped>
-    .collapse-enter-active, .collapse-leave-active {
-        transition: all .35s ease;
-        overflow: hidden;
-    }
-</style>
 
 <script>
     import { listenOnRootMixin } from '../mixins';
@@ -26,14 +24,16 @@
         mixins: [listenOnRootMixin],
         data() {
             return {
-                show: this.visible
+                show: this.visible,
+                transitioning: false
             };
         },
         computed: {
             classObject() {
                 return {
                     'navbar-collapse': this.isNav,
-                    show: this.show
+                    'collapse': !this.transitioning,
+                    'show': this.show || this.transitioning
                 };
             }
         },
@@ -73,27 +73,32 @@
                 this.emitState();
             },
             enter(el) {
-                el.style.height = 'auto';
-                const realHeight = getComputedStyle(el).height;
-                el.style.height = '0px';
-
-                /* eslint-disable no-unused-expressions */
-                el.offsetHeight; // Force repaint
-
-                el.style.height = realHeight;
+                el.style.height = 0;
+                this.reflow(el);
+                el.style.height = el.scrollHeight + 'px';
+                this.transitioning = true;
+            },
+            afterEnter(el) {
+                el.style.height = null;
+                this.transitioning = false;
+                this.emitState();
             },
             leave(el) {
                 el.style.height = 'auto';
-                const realHeight = getComputedStyle(el).height;
-                el.style.height = realHeight;
-
+                el.style.display = 'block';
+                el.style.height = el.scrollHeight + 'px';
+                this.reflow(el);
+                this.transitioning = true;
+                el.style.height = 0;
+            },
+            afterLeave(el) {
+                el.style.height = null;
+                this.transitioning = false;
+                this.emitState();
+            },
+            reflow(el) {
                 /* eslint-disable no-unused-expressions */
                 el.offsetHeight; // Force repaint
-
-                el.style.height = '0px';
-            },
-            clearHeight(el) {
-                el.style.height = null;
             },
             emitState() {
                 this.$emit('input', this.show);
