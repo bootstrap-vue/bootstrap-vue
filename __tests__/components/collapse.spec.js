@@ -139,22 +139,29 @@ describe('collapse', async() => {
         const btn3 = $refs.accordion_3_btn
         const col3 = $refs.accordion_3
 
-        expect(col1.$el.classList.contains('show')).toBe(true)
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('true')
-        expect(col2.$el.classList.contains('show')).toBe(false)
         expect(btn2.$el.getAttribute('aria-expanded')).toBe('false')
-        expect(col3.$el.classList.contains('show')).toBe(false)
         expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
 
-        // OPen pane 2 and close others
+        expect(col1.$el.classList.contains('show')).toBe(true)
+        expect(col2.$el.classList.contains('show')).toBe(false)
+        expect(col3.$el.classList.contains('show')).toBe(false)
+
+        // Open pane 2 and close others
         btn2.$el.click()
         await nextTick()
-        // Wait for transition to end
-        await sleep(1000)
 
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
         expect(btn2.$el.getAttribute('aria-expanded')).toBe('true')
         expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
+
+        await nextTick()
+
+        expect(col1.show).toBe(false)
+        expect(col2.show).toBe(true)
+        expect(col3.show).toBe(false)
+
+        await nextTick()
 
         expect(col1.$el.classList.contains('show')).toBe(false)
         expect(col2.$el.classList.contains('show')).toBe(true)
@@ -163,12 +170,18 @@ describe('collapse', async() => {
         // Close all accordion panes
         btn2.$el.click()
         await nextTick()
-        // Wait for transition to end
-        await sleep(1000)
         
         expect(btn1.$el.getAttribute('aria-expanded')).toBe('false')
         expect(btn2.$el.getAttribute('aria-expanded')).toBe('false')
         expect(btn3.$el.getAttribute('aria-expanded')).toBe('false')
+
+        await nextTick()
+
+        expect(col1.show).toBe(false)
+        expect(col2.show).toBe(false)
+        expect(col3.show).toBe(false)
+
+        await nextTick()
 
         expect(col1.$el.classList.contains('show')).toBe(false)
         expect(col2.$el.classList.contains('show')).toBe(false)
