@@ -1,30 +1,34 @@
 /* vietnamese */
 @font-face {
-  font-family: 'Inconsolata';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Inconsolata Regular'), local('Inconsolata-Regular'), url(~assets/fonts/Inconsolata-Regular-vietnamese.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+    font-family: 'Inconsolata';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Inconsolata Regular'), local('Inconsolata-Regular'),
+        url(~assets/fonts/Inconsolata-Regular-vietnamese.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
 }
 /* latin-ext */
 @font-face {
-  font-family: 'Inconsolata';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Inconsolata Regular'), local('Inconsolata-Regular'), url(~assets/fonts/Inconsolata-Regular-latin-ext.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+    font-family: 'Inconsolata';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Inconsolata Regular'), local('Inconsolata-Regular'),
+        url(~assets/fonts/Inconsolata-Regular-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: 'Inconsolata';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Inconsolata Regular'), local('Inconsolata-Regular'), url(~assets/fonts/Inconsolata-Regular-latin.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+    font-family: 'Inconsolata';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Inconsolata Regular'), local('Inconsolata-Regular'),
+        url(~assets/fonts/Inconsolata-Regular-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }
 
 .hljs {
-    font-family: "Inconsolata", "Monaco", "Andale Mono", "Lucida Console", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+    font-family: "Inconsolata", "Monaco", "Andale Mono", "Lucida Console", "Bitstream Vera Sans Mono", "Courier New",
+        Courier, monospace !important;
     overflow-x: auto;
     position: relative;
     background-color: #f9f9f9;
@@ -45,7 +49,7 @@ code {
 .bd-masthead {
     color: white;
     background-image: none !important;
-    background-color:  #4fc08d;
+    background-color: #4fc08d;
 }
 
 .bd-masthead .lead {
@@ -57,7 +61,11 @@ blockquote {
     font-weight: 300;
 }
 
-.bd-content h1, .bd-content h2, .bd-content h3, .bd-content h4, .bd-content h5 {
+.bd-content h1,
+.bd-content h2,
+.bd-content h3,
+.bd-content h4,
+.bd-content h5 {
     padding-top: 25px;
     padding-bottom: 15px;
 }
@@ -92,4 +100,21 @@ pre.editable:hover:after {
 
 pre.editable.live:after {
     content: 'Live';
+}
+
+.bv-example-row .row + .row {
+    margin-top: 1rem;
+}
+
+.bv-example-row .row > .col:not(.header),
+.bv-example-row .row > [class^=col-] {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    background-color: rgba(86, 61, 124, .15);
+    border: 1px solid rgba(86, 61, 124, .2);
+}
+
+.bv-example-row-flex-cols .row {
+    min-height: 10rem;
+    background-color: rgba(255, 0, 0, .1);
 }
