@@ -6,6 +6,7 @@
     "bNavToggle",
     "bNavItem",
     "bNavText",
-    "bNavForm"
+    "bNavForm",
+    "bNavbarBrand"
   ]
 }
