@@ -1,15 +1,15 @@
 <template>
     <transition
-            @enter="enter"
-            @after-enter="afterEnter"
-            @leave="leave"
-            @after-leave="afterLeave"
             enter-class=""
             enter-active-class="collapsing"
             enter-to-class=""
             leave-class=""
             leave-active-class="collapsing"
             leave-to-class=""
+            @enter="onEnter"
+            @after-enter="onAfterEnter"
+            @leave="onLeave"
+            @after-leave="onAfterLeave"
     >
         <div :id="id || null" :class="classObject" v-show="show">
             <slot></slot>
@@ -75,19 +75,19 @@
             toggle() {
                 this.show = !this.show;
             },
-            enter(el) {
+            onEnter(el) {
                 el.style.height = 0;
                 this.reflow(el);
                 el.style.height = el.scrollHeight + 'px';
                 this.transitioning = true;
                 this.$emit('show');
             },
-            afterEnter(el) {
+            onAfterEnter(el) {
                 el.style.height = null;
                 this.transitioning = false;
                 this.$emit('shown');
             },
-            leave(el) {
+            onLeave(el) {
                 el.style.height = 'auto';
                 el.style.display = 'block';
                 el.style.height = el.getBoundingClientRect().height + 'px';
@@ -96,7 +96,7 @@
                 el.style.height = 0;
                 this.$emit('hide');
             },
-            afterLeave(el) {
+            onAfterLeave(el) {
                 el.style.height = null;
                 this.transitioning = false;
                 this.$emit('hidden');
@@ -124,10 +124,12 @@
                     return;
                 }
                 if (openedId === this.id) {
+                    // Open this collapse if not shown
                     if (!this.show) {
                         this.toggle();
                     }
                 } else {
+                    // Close this collapse if shown
                     if (this.show) {
                         this.toggle();
                     }
