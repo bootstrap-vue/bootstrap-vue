@@ -80,11 +80,11 @@ Buttons will appear pressed (with a darker background, darker border, and inset 
 when the prop `presed` is set to `true`.
 
 The `pressed` prop can be set to one of three values:
-- `true`: Sets the `.active` class and adds the atribute `aria-pressed="true"`.
-- `false`: Clears the `.active` class and adds the atribute `aria-pressed="false"`.
+- `true`: Sets the `.active` class and adds the attribute `aria-pressed="true"`.
+- `false`: Clears the `.active` class and adds the attribute `aria-pressed="false"`.
 - `null`: (default) Neither the class `.active` nor the attribute `aria-pressed` will be set.
 
-To create a button that can be toggled between avtive and non-active states, use
+To create a button that can be toggled between active and non-active states, use
 the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 
 ```html
