@@ -17,10 +17,20 @@
 <!-- button-1.vue -->
 ```
 
+### Element type
 The `<b-button>` component generally renders a `<button>` element. However, you can also
 render an `<a>` element by providing an `href` prop value. You man also generate
 `vue-router` `<router-link>` when providing a value for the `to` prop (`vue-router`
-is  required).
+is required).
+
+```html
+<div>
+  <b-button>I am a Button</b-button>
+  <b-button href="#">I am a Link</b-button>
+</div>
+
+<!-- button-2.vue -->
+```
 
 ### Button Sizing
 Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
@@ -57,7 +67,7 @@ works with buttons, rendered as `<a>` elements and `<router-link>`.
   <b-button variant="success">Not Disabled</b-button>
 </div>
 
-<!-- button-2.vue -->
+<!-- button-3.vue -->
 ```
 
 ### Button type
@@ -95,7 +105,7 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
   }
 </script>
 
-<!-- button-3.vue -->
+<!-- button-4.vue -->
 ```
 
 ### Router links
