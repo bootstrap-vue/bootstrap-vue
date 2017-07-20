@@ -74,7 +74,7 @@
 
                 // Add the required column if there are required field(s)
                 if (hasRequired) {
-                    fileds.required = {label: 'Required'};
+                    fields.required = {label: 'Required'};
                 }
 
                 return fields;
