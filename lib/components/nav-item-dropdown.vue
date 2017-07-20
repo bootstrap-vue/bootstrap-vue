@@ -23,13 +23,20 @@
              @keydown.tab="onTab"
              @keydown.up="focusNext($event,true)"
              @keydown.down="focusNext($event,false)"
-             @mouseover="focusHovered($event)"
         >
             <slot></slot>
         </div>
 
     </li>
 </template>
+
+<style scoped>
+    .dropdown-item:focus,
+    .dropdown-item:hover {
+        background-color: #eaeaea;
+        outline: none;
+    }
+</style>
 
 <script>
     import { dropdownMixin } from '../mixins';
