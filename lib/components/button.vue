@@ -31,7 +31,7 @@ export default {
     components: { bLink },
     data() {
         return {
-            hasFocus: false;
+            hasFocus: false
         };
     },
     computed: {
