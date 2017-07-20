@@ -14,7 +14,7 @@
 </template>
 </div>
 
-<!-- button.vue -->
+<!-- button-1.vue -->
 ```
 
 The `<b-button>` component generally renders a `<button>` element. However, you can also
@@ -55,6 +55,35 @@ works with buttons, rendered as `<a>` elements and `<router-link>`.
 When neither `href` nor `to` props are provided, `<b-button>` renders an html `<button>`
 element.  You can specify the button's type by setting the prop `type` to `button`,
 `submit` or `reset`.  The default type is `button`.
+
+### Pressed state and toggling
+Buttons will appear pressed (with a darker background, darker border, and inset shadow)
+when the prop `presed` is set to `true`.
+
+The `pressed` prop can be set to one of three values:
+- `true`: Sets the `.active` classs and adds the atribute `aria-pressed="true"`.
+- `false`: Clears the `.active` classs and adds the atribute `aria-pressed="false"`.
+- `null`: (default) Neither the class `.active` nor the attribute `aria-pressed` will be set.
+
+To create a button that can be toggled between avtive and non-active states, use
+the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
+
+```html
+<template>
+  <b-button :pressed="true" variant="success">Always Pressed</b-button>
+  <b-button :pressed.sync="myToggle" variant="primary">Toggle Me</b-button>
+</template>
+
+<script>
+  export default {
+    data: {
+      myToggle: false
+    }
+  }
+</script>
+
+<!-- button-2.vue -->
+```
 
 ### Router links
 Refer to [`vue-router`](https://router.vuejs.org/) docs for the various `<router-link>` related props.
