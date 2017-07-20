@@ -5,7 +5,7 @@
             :aria-pressed="ariaPressed"
             :type="btnType"
             :disabled="disabled"
-            :tabindex="(disabled && this.componentType !== 'button') ? '-1' : null"
+            :tabindex="(disabled && componentType !== 'button') ? '-1' : null"
             @click="onClick"
             @focusin="onFocus(true)"
             @focusout="onFocus(false)">
