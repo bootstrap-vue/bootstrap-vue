@@ -1,8 +1,10 @@
 # Introduction
 
 > **Bootstrap** is the world’s most popular framework for building responsive, mobile-first sites and applications. Inside you’ll find high quality HTML, CSS, and JavaScript to make starting any project easier than ever. 
-**Vue.js** is a library that focuses heavily on the ViewModel—the two-way data bindings that tie what we see and interact with on the screen with the application's data mode. 
-This library, **BootstrapVue**, helps you quickly integrate Bootstrap 4 components with Vue.js 2.
+
+>**Vue.js** is a library that focuses heavily on the ViewModel—the two-way data bindings that tie what we see and interact with on the screen with the application's data mode. 
+
+>This library, **BootstrapVue**, helps you quickly integrate Bootstrap 4 components with Vue.js 2.
 
 # Setup
 To get started use [Quick Start](/docs/setup) guide.
