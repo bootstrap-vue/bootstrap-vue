@@ -11,9 +11,12 @@
             @leave="onLeave"
             @after-leave="onAfterLeave"
     >
-        <div :id="id || null" :class="classObject" v-show="show">
-            <slot></slot>
-        </div>
+        <div v-show="show"
+             ref="collapse"
+             :id="id || null"
+             :class="classObject"
+             @click.native="clickHandler"
+        ><slot></slot></div>
     </transition>
 </template>
 
@@ -113,6 +116,13 @@
                     this.$root.$emit('accordion::toggle', this.id, this.accordion);
                 }
             },
+            clickHandler() {
+                if (!this.isNav || typeof document === 'undefined') {
+                    return;
+                }
+                // If we are in a nav/navbar, close the collapse when clicked
+                this.toggle();
+            },
             handleToggleEvt(target) {
                 if (target !== this.id) {
                     return;
@@ -134,14 +144,36 @@
                         this.toggle();
                     }
                 }
-            }
+            },
+            handleReszie() {
+                // Handler for orientation/resize to set collapsed state
+                if (getComputedStyle(this.$refs.collaspe).display === 'block') {
+                    // Initially open
+                    this.show = true;
+                } else {
+                    // Initiallly closed
+                    this.show = false;
+                }
+            },
         },
         created() {
             this.listenOnRoot('collapse::toggle', this.handleToggleEvt);
             this.listenOnRoot('accordion::toggle', this.handleAccordionEvt);
         },
         mounted() {
+            if (this.isNav && typeof document !== 'undefined') {
+                // Set up handlers
+                window.addEventListener('resize', this.handleResize, false);
+                window.addEventListener('orientationchange', this.handleResize, false);
+                this.handleResize();
+            }
             this.emitState();
+        },
+        destroyed() {
+            if (this.isNav && typeof document !== 'undefined') {
+                window.removeEventListener('resize', this.handleResize, false);
+                window.removeEventListener('orientationchange', this.handleResize, false);
+            }
         }
     };
 
