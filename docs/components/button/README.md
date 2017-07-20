@@ -51,6 +51,15 @@ default padding and size of a button.
 Set the `disabled` prop to disable button default funtionality. `disabled` also 
 works with buttons, rendered as `<a>` elements and `<router-link>`.
 
+```html
+<div>
+  <b-button disabled variant="success">Disabled</b-button>
+  <b-button variant="success">Not Disabled</b-button>
+</div>
+
+<!-- button-2.vue -->
+```
+
 ### Button type
 When neither `href` nor `to` props are provided, `<b-button>` renders an html `<button>`
 element.  You can specify the button's type by setting the prop `type` to `button`,
@@ -70,8 +79,12 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 
 ```html
 <template>
-  <b-button :pressed="true" variant="success">Always Pressed</b-button>
-  <b-button :pressed.sync="myToggle" variant="primary">Toggle Me</b-button>
+  <div>
+    <b-button :pressed="true" variant="success">Always Pressed</b-button>
+    <b-button :pressed="false" variant="success">Not Pressed</b-button>
+    <br><br>
+    <b-button :pressed.sync="myToggle" variant="primary">Toggle Me</b-button>
+  </div>
 </template>
 
 <script>
@@ -82,7 +95,7 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
   }
 </script>
 
-<!-- button-2.vue -->
+<!-- button-3.vue -->
 ```
 
 ### Router links
