@@ -5,7 +5,10 @@
             :aria-pressed="ariaPressed"
             :type="btnType"
             :disabled="disabled"
-            @click="onClick">
+            :tabindex="(disabled && this.componentType !== 'button') ? '-1' : null"
+            @click="onClick"
+            @focusin="onFocus(true)"
+            @focusout="onFocus(false)">
         <slot></slot>
     </button>
 </template>
@@ -26,6 +29,11 @@ const linkProps = assign(omitLinkProps('href', 'to'), {
 
 export default {
     components: { bLink },
+    data() {
+        return {
+            hasFocus: false;
+        };
+    },
     computed: {
         linkProps: computed.linkProps,
         classList() {
@@ -35,7 +43,8 @@ export default {
                 this.btnSize,
                 this.btnBlock,
                 this.btnDisabled,
-                this.btnPressed
+                this.btnPressed,
+                this.btnFocus
             ];
         },
         componentType() {
@@ -56,14 +65,19 @@ export default {
         btnType() {
             return (this.href || this.to) ? null : this.type;
         },
+        btnFocus() {
+            return this.hasFocus ? 'focus' : '';
+        },
+        isToggle() {
+            return this.pressed === true || this.pressed === false;
+        },
         btnPressed() {
             return this.pressed ? 'active' : '';
         },
         ariaPressed() {
-            if (this.pressed === true) {
-                return 'true';
-            } else if (this.pressed === false) {
-                return 'false';
+            if (this.isToggle) {
+                // Add aria-pressed state
+                return this.pressed ? 'true' : 'false';
             }
             // Remove aria-pressed attribute
             return null;
@@ -107,10 +121,18 @@ export default {
                 e.preventDefault();
             } else {
                 this.$emit('click', e);
-                if (this.pressed === true || this.pressed === false) {
+                if (this.isToggle) {
                     // Emit .sync notification about pressed prop state changing
                     this.$emit('update:pressed', !this.pressed);
                 }
+            }
+        },
+        onFocus(focused) {
+            if (this.isToggle && !this.disabled) {
+                // Add/remove focus class for toggle/pressed buttons
+                this.hasFocus = focused;
+            } else {
+                this.hasFocus = false;
             }
         }
     }
