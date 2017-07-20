@@ -20,7 +20,7 @@ import { assign } from '../utils/object';
 // focus handler for data-toggle="button"
 function handleToggleFocus(evt) {
     const el = evt.target;
-    if (el && el.classList.contains('btn') && el.getAttribute('data-toggle') === 'button')) {
+    if (el && el.classList.contains('btn') && el.getAttribute('data-toggle') === 'button') {
         if (evt.type === 'focusin') {
             el.classList.add('focus');
         } else if (evt.type === 'focusout') {
