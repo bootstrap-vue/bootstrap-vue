@@ -2,13 +2,12 @@
     <button v-bind="conditionalLinkProps"
             :is="componentType"
             :class="classList"
+            :data-toggle="isToggle ? 'button' : null"
             :aria-pressed="ariaPressed"
             :type="btnType"
             :disabled="disabled"
             :tabindex="(disabled && componentType !== 'button') ? '-1' : null"
-            @click="onClick"
-            @focusin="onFocus(true)"
-            @focusout="onFocus(false)">
+            @click="onClick">
         <slot></slot>
     </button>
 </template>
@@ -17,6 +16,24 @@
 import bLink from './link.vue';
 import { omitLinkProps, props as originalLinkProps, computed } from '../mixins/link';
 import { assign } from '../utils/object';
+
+// focus handler for data-toggle="button"
+function handleToggleFocus(evt) {
+    const el = evt.target;
+    if (el && el.classList.contains('btn') && el.getAttribute('data-toggle') === 'button')) {
+        if (evt.type === 'focusin') {
+            el.classList.add('focus');
+        } else if (evt.type === 'focusout') {
+            el.classList.remove('focus');
+        }
+    }
+}
+
+// Add our data-toggle="button" focus handler
+if (typeof document !== 'undefined') {
+    document.addEventListener('focusin', handleToggleFocus, false);
+    document.addEventListener('focusout', handleToggleFocus, false);
+}
 
 // Grab a fresh object of link props (omitLinkProps does this)
 // less the 'href' and 'to' props
@@ -29,11 +46,6 @@ const linkProps = assign(omitLinkProps('href', 'to'), {
 
 export default {
     components: { bLink },
-    data() {
-        return {
-            hasFocus: false
-        };
-    },
     computed: {
         linkProps: computed.linkProps,
         classList() {
@@ -43,8 +55,7 @@ export default {
                 this.btnSize,
                 this.btnBlock,
                 this.btnDisabled,
-                this.btnPressed,
-                this.btnFocus
+                this.btnPressed
             ];
         },
         componentType() {
@@ -64,9 +75,6 @@ export default {
         },
         btnType() {
             return (this.href || this.to) ? null : this.type;
-        },
-        btnFocus() {
-            return this.hasFocus ? 'focus' : '';
         },
         isToggle() {
             return this.pressed === true || this.pressed === false;
@@ -125,14 +133,6 @@ export default {
                     // Emit .sync notification about pressed prop state changing
                     this.$emit('update:pressed', !this.pressed);
                 }
-            }
-        },
-        onFocus(focused) {
-            if (this.isToggle && !this.disabled) {
-                // Add/remove focus class for toggle/pressed buttons
-                this.hasFocus = focused;
-            } else {
-                this.hasFocus = false;
             }
         }
     }
