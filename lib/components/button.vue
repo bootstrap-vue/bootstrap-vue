@@ -2,6 +2,7 @@
     <button v-bind="conditionalLinkProps"
             :is="componentType"
             :class="classList"
+            :aria-pressed="ariaPressed"
             :type="btnType"
             :disabled="disabled"
             @click="onClick">
@@ -33,7 +34,8 @@ export default {
                 this.btnVariant,
                 this.btnSize,
                 this.btnBlock,
-                this.btnDisabled
+                this.btnDisabled,
+                this.btnPressed
             ];
         },
         componentType() {
@@ -53,6 +55,18 @@ export default {
         },
         btnType() {
             return (this.href || this.to) ? null : this.type;
+        },
+        btnPressed() {
+            return this.pressed ? 'active' : '';
+        },
+        ariaPressed() {
+            if (this.pressed === true) {
+                return 'true';
+            } else if (this.pressed === false) {
+                return 'false';
+            }
+            // Remove aria-pressed attribute
+            return null;
         },
         conditionalLinkProps() {
             return this.componentType === 'button' ? {} : this.linkProps;
@@ -79,6 +93,11 @@ export default {
         type: {
             type: String,
             default: 'button'
+        },
+        pressed: {
+            // tri-state prop: true, false or null
+            type: Boolean,
+            default: null
         }
     }),
     methods: {
@@ -88,6 +107,10 @@ export default {
                 e.preventDefault();
             } else {
                 this.$emit('click', e);
+                if (this.pressed === true || this.pressed === false) {
+                    // Emit .sync notification about pressed prop state changing
+                    this.$emit('update:pressed', !this.pressed);
+                }
             }
         }
     }
