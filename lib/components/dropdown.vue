@@ -46,8 +46,6 @@
 <style scoped>
     .dropdown-item:focus,
     .dropdown-item:hover {
-        color: #1d1e1f;
-        text-decoration: none;
         background-color: #eaeaea;
         outline: none;
     }
