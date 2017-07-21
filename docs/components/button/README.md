@@ -5,22 +5,32 @@
 
 ```html
 <div class="row">
-<template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
-    <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']">
-    <b-button :size="size" :variant="variant" href="">
-        {{variant}} {{size}}
+<template v-for="var in ['primary','secondary','success','outline-success','warning','danger','link']">
+  <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']">
+    <b-button :size="size" :variant="var">
+      {{variant}} {{size}}
     </b-button>
-    </div>
+  </div>
 </template>
 </div>
 
-<!-- button.vue -->
+<!-- button-1.vue -->
 ```
 
+### Element type
 The `<b-button>` component generally renders a `<button>` element. However, you can also
 render an `<a>` element by providing an `href` prop value. You man also generate
 `vue-router` `<router-link>` when providing a value for the `to` prop (`vue-router`
-is  required).
+is required).
+
+```html
+<div>
+  <b-button>I am a Button</b-button>
+  <b-button href="#">I am a Link</b-button>
+</div>
+
+<!-- button-2.vue -->
+```
 
 ### Button Sizing
 Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
@@ -51,10 +61,76 @@ default padding and size of a button.
 Set the `disabled` prop to disable button default funtionality. `disabled` also 
 works with buttons, rendered as `<a>` elements and `<router-link>`.
 
+```html
+<div>
+  <b-button disabled variant="success">Disabled</b-button>
+  <b-button variant="success">Not Disabled</b-button>
+</div>
+
+<!-- button-3.vue -->
+```
+
 ### Button type
 When neither `href` nor `to` props are provided, `<b-button>` renders an html `<button>`
 element.  You can specify the button's type by setting the prop `type` to `button`,
 `submit` or `reset`.  The default type is `button`.
+
+### Pressed state and toggling
+Buttons will appear pressed (with a darker background, darker border, and inset shadow)
+when the prop `presed` is set to `true`.
+
+The `pressed` prop can be set to one of three values:
+- `true`: Sets the `.active` class and adds the attribute `aria-pressed="true"`.
+- `false`: Clears the `.active` class and adds the attribute `aria-pressed="false"`.
+- `null`: (default) Neither the class `.active` nor the attribute `aria-pressed` will be set.
+
+To create a button that can be toggled between active and non-active states, use
+the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
+
+```html
+<template>
+  <div>
+    <h5>Pressed and un-pressed state</h5>
+    <b-button :pressed="true" variant="success">Always Pressed</b-button>
+    <b-button :pressed="false" variant="success">Not Pressed</b-button>
+
+    <h5>Toggleable Button</h5>
+    <b-button :pressed.sync="myToggle0" variant="primary">Toggle Me</b-button>
+    <p>Pressed State: <strong>{{ myToggle }}</strong></p>
+
+    <h5>In a button group</h5>
+    <b-button-group size="sm">
+      <b-button v-for="btn in buttons" :pressed.sync="btn.state" :variant="btn.variant">
+        {{ btn.caption }}
+      </b-button>
+    </b-button-group>
+    <p>Pressed States: <strong>{{ btnStates }}</strong></p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data: {
+      myToggle: false,
+      buttons: [
+        { variant: 'primary', caption: 'Toggle 1', state: true },
+        { variant: 'danger', caption: 'Toggle 2', state: false },
+        { variant: 'warning', caption: 'Toggle 3', state: true },
+        { variant: 'success', caption: 'No Toggle', state: null },
+        { variant: 'outline-success', caption: 'Toggle 5', state: false },
+        { variant: 'outline-primary', caption: 'Toggle 6', state: false }
+      ]
+    },
+    computed: {
+      btnStates() {
+        return this.buttons.map(btn => btn.state);
+      }
+    }
+  }
+</script>
+
+<!-- button-4.vue -->
+```
 
 ### Router links
 Refer to [`vue-router`](https://router.vuejs.org/) docs for the various `<router-link>` related props.
@@ -63,3 +139,8 @@ Note the `tag` attribute for `<router-link>` is refered to as `router-tag` in `b
 
 ### Alias
 `<b-button>` can also be used by its shorter alias `<b-btn>`.
+
+### See also
+- [`<b-button-group>`](./button-group)
+- [`<b-button-toolbar>`](./button-toolbar)
+

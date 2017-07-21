@@ -2,8 +2,11 @@
     <button v-bind="conditionalLinkProps"
             :is="componentType"
             :class="classList"
+            :data-toggle="isToggle ? 'button' : null"
+            :aria-pressed="ariaPressed"
             :type="btnType"
             :disabled="disabled"
+            :tabindex="(disabled && componentType !== 'button') ? '-1' : null"
             @click="onClick">
         <slot></slot>
     </button>
@@ -13,6 +16,24 @@
 import bLink from './link.vue';
 import { omitLinkProps, props as originalLinkProps, computed } from '../mixins/link';
 import { assign } from '../utils/object';
+
+// focus handler for data-toggle="button"
+function handleToggleFocus(evt) {
+    const el = evt.target;
+    if (el && el.classList.contains('btn') && el.getAttribute('data-toggle') === 'button') {
+        if (evt.type === 'focusin') {
+            el.classList.add('focus');
+        } else if (evt.type === 'focusout') {
+            el.classList.remove('focus');
+        }
+    }
+}
+
+// Add our data-toggle="button" focus handler
+if (typeof document !== 'undefined') {
+    document.addEventListener('focusin', handleToggleFocus, false);
+    document.addEventListener('focusout', handleToggleFocus, false);
+}
 
 // Grab a fresh object of link props (omitLinkProps does this)
 // less the 'href' and 'to' props
@@ -33,7 +54,8 @@ export default {
                 this.btnVariant,
                 this.btnSize,
                 this.btnBlock,
-                this.btnDisabled
+                this.btnDisabled,
+                this.btnPressed
             ];
         },
         componentType() {
@@ -53,6 +75,20 @@ export default {
         },
         btnType() {
             return (this.href || this.to) ? null : this.type;
+        },
+        isToggle() {
+            return this.pressed === true || this.pressed === false;
+        },
+        btnPressed() {
+            return this.pressed ? 'active' : '';
+        },
+        ariaPressed() {
+            if (this.isToggle) {
+                // Add aria-pressed state
+                return this.pressed ? 'true' : 'false';
+            }
+            // Remove aria-pressed attribute
+            return null;
         },
         conditionalLinkProps() {
             return this.componentType === 'button' ? {} : this.linkProps;
@@ -79,6 +115,11 @@ export default {
         type: {
             type: String,
             default: 'button'
+        },
+        pressed: {
+            // tri-state prop: true, false or null
+            type: Boolean,
+            default: null
         }
     }),
     methods: {
@@ -88,6 +129,10 @@ export default {
                 e.preventDefault();
             } else {
                 this.$emit('click', e);
+                if (this.isToggle) {
+                    // Emit .sync notification about pressed prop state changing
+                    this.$emit('update:pressed', !this.pressed);
+                }
             }
         }
     }

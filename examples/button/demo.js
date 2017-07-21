@@ -4,5 +4,8 @@ window.app = new Vue({
         handleClick(event) {
             alert('You clicked, I listened.')
         },
+    },
+    data: {
+        btnToggle: null
     }
 });
