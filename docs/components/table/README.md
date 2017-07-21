@@ -302,6 +302,17 @@ computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
 number will align with the indexes from the optional `v-model` bound variable.
 
+When placing inputs, buttons, selects or links within a data cell scoped slot,
+be sure to add a `@click.stop` handler (which can be empty) to prevent the
+click on the input, button, select, or link, from triggering the `row-clicked`
+event:
+
+```html
+<template slot="actions" scope="cell">
+  <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
+  <b-btn size="sm" @click.stop="details(cell.item,cell.index,$event.target)">Details</b-btn>
+</template>
+```
 
 ### Header/Footer Custom Rendering
 It is also possible to provide custom rendering for the tables `thead` and
@@ -337,6 +348,18 @@ The slot's scope variable (`data` in the above example) will have the following 
 | `label` | String | The fileds label value (also available as `data.field.label`)
 | `column` | String | The fields's `key` value
 | `field` | Object | the field's object (from the `fields` prop)
+
+When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot,
+be sure to add a `@click.stop` handler (which can be empty) to prevent the
+click on the input, button, select, or link, from triggering a change in sorting,
+or a `head-clicked` event.
+
+```html
+<template slot="HEAD_actions" scope="foo">
+  <!-- We use click.stop here to prevent 'sort-changed' or 'head-clicked' events -->
+  <input tyep="checkbox" :value="foo.column" v-model="selected" @click.stop>
+</template>
+```
 
 
 ### `v-model` Binding
