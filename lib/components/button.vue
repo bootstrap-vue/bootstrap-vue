@@ -62,7 +62,7 @@ export default {
             return (this.href || this.to) ? 'b-link' : 'button';
         },
         btnBlock() {
-            return this.block ? `btn-block` : '';
+            return this.block ? 'btn-block' : '';
         },
         btnVariant() {
             return this.variant ? `btn-${this.variant}` : `btn-secondary`;
