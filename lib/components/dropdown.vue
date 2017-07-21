@@ -45,7 +45,8 @@
 
 <style scoped>
     .dropdown-item:focus,
-    .dropdown-item:hover {
+    .dropdown-item:hover,
+    .dropdown-header:focus {
         background-color: #eaeaea;
         outline: none;
     }
