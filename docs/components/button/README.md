@@ -5,12 +5,12 @@
 
 ```html
 <div class="row">
-<template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
-    <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']">
-    <b-button :size="size" :variant="variant" href="">
-        {{variant}} {{size}}
+<template v-for="var in ['primary','secondary','success','outline-success','warning','danger','link']">
+  <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']">
+    <b-button :size="size" :variant="var">
+      {{variant}} {{size}}
     </b-button>
-    </div>
+  </div>
 </template>
 </div>
 
@@ -90,17 +90,33 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 ```html
 <template>
   <div>
+    <h5>Pressed and un-pressed state</h5>
     <b-button :pressed="true" variant="success">Always Pressed</b-button>
     <b-button :pressed="false" variant="success">Not Pressed</b-button>
-    <br><br>
-    <b-button :pressed.sync="myToggle" variant="primary">Toggle Me</b-button>
+
+    <h5>Toggleable Button</h5>
+    <b-button :pressed.sync="myToggle0" variant="primary">Toggle Me</b-button>
+    <p>Pressed State: {{myToggle0}}</p>
+
+    <h5>In a button group</h5>
+    <b-button-group>
+      <b-button :pressed.sync="myToggle1" variant="primary">Toggle 1</b-button>
+      <b-button :pressed.sync="myToggle2" variant="danger">Toggle 2</b-button>
+      <b-button :pressed.sync="myToggle3" variant="warning">Toggle 3</b-button>
+      <b-button :pressed.sync="myToggle4" variant="outline-success">Toggle 4</b-button>
+    </b-button-group>
+    <p>Pressed States: [ {{myToggle1}}, {{myToggle2}}, {{myToggle3}}, {{myToggle4}} ]</p>
   </div>
 </template>
 
 <script>
   export default {
     data: {
-      myToggle: false
+      myToggle0: false,
+      myToggle1: true,
+      myToggle2: false,
+      myToggle3: true,
+      myToggle4: false
     }
   }
 </script>
@@ -115,3 +131,8 @@ Note the `tag` attribute for `<router-link>` is refered to as `router-tag` in `b
 
 ### Alias
 `<b-button>` can also be used by its shorter alias `<b-btn>`.
+
+### See also
+- [`<b-button-group>`](./button-group)
+- [`<b-button-toolbar>`](./button-toolbar)
+
