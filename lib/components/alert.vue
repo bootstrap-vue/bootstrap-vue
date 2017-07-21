@@ -84,7 +84,7 @@ export default {
         countdown() {
             const countdown = ~~this.show - 1;
 
-            if (countdown === 0) {
+            if (countdown < 1) {
                 return this.dismiss();
             }
 
