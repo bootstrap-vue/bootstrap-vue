@@ -96,27 +96,35 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 
     <h5>Toggleable Button</h5>
     <b-button :pressed.sync="myToggle0" variant="primary">Toggle Me</b-button>
-    <p>Pressed State: {{myToggle0}}</p>
+    <p>Pressed State: <strong>{{ myToggle }}</strong></p>
 
     <h5>In a button group</h5>
-    <b-button-group>
-      <b-button :pressed.sync="myToggle1" variant="primary">Toggle 1</b-button>
-      <b-button :pressed.sync="myToggle2" variant="danger">Toggle 2</b-button>
-      <b-button :pressed.sync="myToggle3" variant="warning">Toggle 3</b-button>
-      <b-button :pressed.sync="myToggle4" variant="outline-success">Toggle 4</b-button>
+    <b-button-group size="sm">
+      <b-button v-for="btn in buttons" :pressed.sync="btn.state" :variant="btn.variant">
+        {{ btn.caption }}
+      </b-button>
     </b-button-group>
-    <p>Pressed States: [ {{myToggle1}}, {{myToggle2}}, {{myToggle3}}, {{myToggle4}} ]</p>
+    <p>Pressed States: <strong>{{ btnStates }}</strong></p>
   </div>
 </template>
 
 <script>
   export default {
     data: {
-      myToggle0: false,
-      myToggle1: true,
-      myToggle2: false,
-      myToggle3: true,
-      myToggle4: false
+      myToggle: false,
+      buttons: [
+        { variant: 'primary', caption: 'Toggle 1', state: true },
+        { variant: 'danger', caption: 'Toggle 2', state: false },
+        { variant: 'warning', caption: 'Toggle 3', state: true },
+        { variant: 'success', caption: 'Toggle 4', state: false },
+        { variant: 'outline-success', caption: 'Toggle 5', state: false },
+        { variant: 'outline-primary', caption: 'Toggle 6', state: false }
+      ]
+    },
+    computed: {
+      btnStates() {
+        return this.buttons.map(btn => btn.state);
+      }
     }
   }
 </script>
