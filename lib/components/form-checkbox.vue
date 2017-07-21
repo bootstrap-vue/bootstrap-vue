@@ -6,6 +6,7 @@
                :value="value"
                :disabled="disabled"
                :required="required"
+               ref="check"
                autocomplete="off"
                :aria-required="required ? 'true' : null"
                :class="[custom?'custom-control-input':null]"
@@ -40,6 +41,10 @@ export default {
         checked: {
             default: true
         },
+        indeterminate: {
+            type: Boolean,
+            default: false,
+        },
         size: {
             type: String,
             default: null
@@ -60,6 +65,11 @@ export default {
             }
         }
     },
+    watch: {
+        indeterminate(newVal, oldVal) {
+            this.setIndeterminate(newVal);
+        }
+    },
     methods: {
         handleChange({ target: { checked } }) {
             if (isArray(this.checked)) {
@@ -71,7 +81,17 @@ export default {
             } else {
                 this.$emit('change', checked ? this.value : this.uncheckedValue)
             }
+            this.$emit('update:indeterminate', this.$refs.check.indeterminate);
+        },
+        setIndeterminate(state) {
+            this.$refs.check.indeterminate = state;
+            // Emit update event to prop
+            this.$emit('update:indeterminate', this.$refs.check.indeterminate);
         }
+    },
+    mounted() {
+        // Set initial indeterminate state
+        this.setIndeterminate(this.indeterminate);
     }
 };
 
