@@ -5,7 +5,7 @@
              @click="$emit('click', $event)">
         <slot></slot>
     </b-link>
-    <componentv-else :is="tag" class="navbar-brand">
+    <component v-else :is="tag" class="navbar-brand">
         <slot></slot>
     </component>
 </template>
