@@ -116,7 +116,7 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
         { variant: 'primary', caption: 'Toggle 1', state: true },
         { variant: 'danger', caption: 'Toggle 2', state: false },
         { variant: 'warning', caption: 'Toggle 3', state: true },
-        { variant: 'success', caption: 'Toggle 4', state: false },
+        { variant: 'success', caption: 'Toggle 4', state: null },
         { variant: 'outline-success', caption: 'Toggle 5', state: false },
         { variant: 'outline-primary', caption: 'Toggle 6', state: false }
       ]
