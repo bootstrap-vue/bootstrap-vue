@@ -11,7 +11,6 @@ semantic and accessible markup, so it is a solid replacement for the default che
     <b-form-checkbox id="checkbox1" v-model="state" value="accepted" unchecked-value="not_accepted">
       I accept terms and use
     </b-form-checkbox>
-
     <div>State: <strong>{{state}}</strong></div>
   </div>
 </template>
@@ -83,6 +82,32 @@ export default {
 <!-- form-checkbox-2.vue -->
 ```
 
+### Inline and Stacked checkboxes
+`<b-form-checbox>` components render as inline elements by default. Add a parent
+with class `.custom-controls-stacked` to ensure each form control is on a separate line.
+
+**Example 3: Inline & Stacked checkboxes:**
+```html
+<div>
+  <h5>Inline Checkboxes (default)</h5>
+  <div role="group">
+    <b-form-checkbox name="flavour" value="orange">Orange</b-form-checkbox>
+    <b-form-checkbox name="flavour" value="apple">Apple</b-form-checkbox>
+    <b-form-checkbox name="flavour" value="pineapple">Pineapple</b-form-checkbox>
+    <b-form-checkbox name="flavour" value="grape">Grape</b-form-checkbox>
+  </div>
+  <h5>Stacked Checkboxes</h5>
+  <div role="group" class="custom-controls-stacked">
+    <b-form-checkbox name="flavour" value="orange">Orange</b-form-checkbox>
+    <b-form-checkbox name="flavour" value="apple">Apple</b-form-checkbox>
+    <b-form-checkbox name="flavour" value="pineapple">Pineapple</b-form-checkbox>
+    <b-form-checkbox name="flavour" value="grape">Grape</b-form-checkbox>
+  </div>
+</div>
+
+<!-- form-checkbox-3.vue -->
+```
+
 ### Value(s)
 By default, `<b-form-checkbox>` value will be `true` when checked and `false` when unchecked.
 You can customize the checked and unchecked values by specifying the `value` and `unchecked-value`
@@ -133,7 +158,7 @@ prop (defaults to `false`). Clicking the checkbox will clear its indeterminate s
 The `indeterminate` prop can be synced to the checkboxe's state by v-binding the
 `indeterminate` prop with the `.sync` modifier.
 
-**Example 3: Single Indeterminate checkbox:**
+**Example 4: Single Indeterminate checkbox:**
 ```html
 <template>
   <div>
@@ -163,10 +188,10 @@ export default {
 }
 </script>
 
-<!-- form-checkbox-3.vue -->
+<!-- form-checkbox-4.vue -->
 ```
 
-**Example 4: Indeterminate checkbox use-case:**
+**Example 5: Indeterminate checkbox use-case:**
 ```html
 <template>
   <b-card>
@@ -177,11 +202,15 @@ export default {
       {{ allSelected ? 'Un-select' : 'Select' }}
       All Flavors
     </b-form-checkbox>
-    <div id="flavors" role="group" class="ml-2" aria-label="Individual flavors">
-      <b-form-checkbox v-for="flavor in flavors"
+    <div id="flavors"
+         role="group"
+         class="ml-2 custom-controls-stacked"
+         aria-label="Individual flavours"
+    >
+      <b-form-checkbox v-for="flavour in flavours"
                        v-model="selected"
-                       name="flav"
-                       :value="flavor"
+                       name="flavs"
+                       :value="flavour"
       >{{ flavor }}</b-form-checkbox>
     </div>
     <p aria-live="polite">Selected: <strong>{{ selected }}</strong></p>
@@ -191,7 +220,7 @@ export default {
 <script>
 export default {
     data: {
-        flavors: ['Orange', 'Grape', 'Apple', 'Lime', 'Berry'],
+        flavours: ['Orange', 'Grape', 'Apple', 'Lime', 'Very Berry'],
         selected: [],
         allSelected: false,
         indeterminate: false
@@ -200,15 +229,15 @@ export default {
         allSelected(newVal, oldVal) {
             // Handle selecting/deselecting all checkboxes
             if (newVal !== oldVal) {
-                this.selected = newVal ? this.flavors.slice() : [];
+                this.selected = newVal ? this.flavours.slice() : [];
             }
         }
         selected(newValue, oldValue) {
-            // Handle changes in individual flavor checkboxes
+            // Handle changes in individual flavour checkboxes
             if (newVal.length === 0) {
                 this.indeterminate = false;
                 this.allSelected = false;
-            } else if (newVal.length === this.flavors.length) {
+            } else if (newVal.length === this.flavours.length) {
                 this.indeterminate = false;
                 this.allSelected = true;
             } else {
@@ -219,7 +248,8 @@ export default {
     }
 }
 </script>
-<!-- form-checkbox-4.vue -->
+
+<!-- form-checkbox-5.vue -->
 ```
 
 #### Indeterminate state and accessibility
