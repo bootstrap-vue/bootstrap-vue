@@ -198,20 +198,21 @@ export default {
     <b-form-checkbox v-model="allSelected"
                      :indeterminate="indeterminate"
                      aria-describedby="flavours"
+                     @change="toggleAll"
      >
       {{ allSelected ? 'Un-select' : 'Select' }}
       All Flavors
     </b-form-checkbox>
     <div id="flavors"
          role="group"
-         class="ml-2 custom-controls-stacked"
+         class="ml-4 custom-controls-stacked"
          aria-label="Individual flavours"
     >
       <b-form-checkbox v-for="flavour in flavours"
                        v-model="selected"
                        name="flavs"
                        :value="flavour"
-      >{{ flavor }}</b-form-checkbox>
+      >{{ flavour }}</b-form-checkbox>
     </div>
     <p aria-live="polite">Selected: <strong>{{ selected }}</strong></p>
   </b-card>
@@ -225,14 +226,13 @@ export default {
         allSelected: false,
         indeterminate: false
     },
+    methods: {
+       toggleAll() {
+          this.selected = this.allSelected ? this.flavours.slice() : [];
+       }
+    },
     watch: {
-        allSelected(newVal, oldVal) {
-            // Handle selecting/deselecting all checkboxes
-            if (newVal !== oldVal) {
-                this.selected = newVal ? this.flavours.slice() : [];
-            }
-        }
-        selected(newValue, oldValue) {
+        selected(newVal, oldVal) {
             // Handle changes in individual flavour checkboxes
             if (newVal.length === 0) {
                 this.indeterminate = false;
