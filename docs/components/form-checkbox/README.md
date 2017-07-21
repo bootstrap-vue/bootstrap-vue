@@ -83,7 +83,7 @@ export default {
 <!-- form-checkbox-2.vue -->
 ```
 
-### Values
+### Value(s)
 By default, `<b-form-checkbox>` value will be `true` when checked and `false` when unchecked.
 You can customize the checked and unchecked values by specifying the `value` and `unchecked-value`
 properties.
@@ -91,12 +91,12 @@ properties.
 `v-model` binds to the `checked` property.  When you have multiple checkboxes that bind to a
 single data state variable, you **must** provide an array reference `[]` to your `v-model`!
 
-Note that when `v-model` is bound to multiple checkboxes, the `unchecked-value` is not used.
-Only the value(s) of the chcekboxes will be returned in the `v-model` bound array. You
+Note that when `v-model` is bound to multiple checkboxes, the `unchecked-value` is **not used**.
+Only the value(s) of the checked chcekboxes will be returned in the `v-model` bound array. You
 should provide unique values for each checkbox's `value` prop.
 
 
-### Multiple checkboxes and accessibility
+#### Multiple checkboxes and accessibility
 When binding multiple checkboxes together, you should set the `name` prop to the same value for
 all checkboxes in the group, as well as wrap the group in a `<div>` (or other block element)
 which has the aria attribute `role="group"`. This will inform users of assitive technologies
@@ -114,6 +114,119 @@ To apply contextual state colors to `<b-form-checkbox>`, it must be wrapped in
 a `<b-form-fieldset>` component (which has the `state` prop set to the state you
 would like), or wrapped in another element - such as a `<div>` - which has one
 of the standard Bootstrap V4 `.has-*` state class applied.
+
+
+### Indeterminate (tri-state) support
+Normally checkbox inputs can only have two states: `checked` or `unchecked`. They can
+have any value, but they either submit that value (checked) or don't (unchecked) with
+a form submission (although Bootstrap-Vue allows a value for the `unchecked` state)
+
+_Visually_, there are actually three states a checkbox can be in: `checked`,
+`unchecked`, or `indeterminate`.
+
+The `indeterminate` state is **visual only**. The checkbox is still either checked or
+unchecked as a state. That means the visual indeterminate state masks the real value
+of the checkbox, so that better make sense in your UI!
+
+`<b-form-checkbox>` supports setting this visual indeterminate state via the `indeterminate`
+prop (defaults to `false`). Clicking the checkbox will clear its indeterminate state.
+The `indeterminate` prop can be synced to the checkboxe's state by v-binding the
+`indeterminate` prop with the `.sync` modifier.
+
+**Example 3: Single Indeterminate checkbox:**
+```html
+<template>
+  <div>
+    <b-form-checkbox v-model="checked" :indeterminate.sync="indeterminate">
+      Click me to see what happens
+    </b-form-checkbox>
+    <br>
+    <div aria-live="polite">
+      Checked: <strong>{{ checked }}</strong><br>
+      Indeterminate: <strong>{{ indeterminate }}</strong>
+    </div>
+    <b-btn @click="toggleIndeterminate">Toggle Indeterminate State</b-btn>
+  </div>
+</template>
+
+<script>
+export default {
+    data: {
+        checked: true,
+        indeterminate: true
+    },
+    methods: {
+        toggleIndeterminate() {
+            this.indeterminate = !this.indeterminate;
+        }
+    }
+}
+</script>
+
+<!-- form-checkbox-3.vue -->
+```
+
+**Example 4: Indeterminate checkbox use-case:**
+```html
+<template>
+  <b-card>
+    <b-form-checkbox v-model="allSelected"
+                     :indeterminate="indeterminate"
+                     aria-describedby="flavours"
+     >
+      {{ allSelected ? 'Un-select' : 'Select' }}
+      All Flavors
+    </b-form-checkbox>
+    <div id="flavors" role="group" class="ml-2" aria-label="Individual flavors">
+      <b-form-checkbox v-for="flavor in flavors"
+                       v-model="selected"
+                       name="flav"
+                       :value="flavor"
+      >{{ flavor }}</b-form-checkbox>
+    </div>
+    <p aria-live="polite">Selected: <strong>{{ selected }}</strong></p>
+  </b-card>
+</template>
+
+<script>
+export default {
+    data: {
+        flavors: ['Orange', 'Grape', 'Apple', 'Lime', 'Berry'],
+        selected: [],
+        allSelected: false,
+        indeterminate: false
+    },
+    watch: {
+        allSelected(newVal, oldVal) {
+            // Handle selecting/deselecting all checkboxes
+            if (newVal !== oldVal) {
+                this.selected = newVal ? this.flavors.slice() : [];
+            }
+        }
+        selected(newValue, oldValue) {
+            // Handle changes in individual flavor checkboxes
+            if (newVal.length === 0) {
+                this.indeterminate = false;
+                this.allSelected = false;
+            } else if (newVal.length === this.flavors.length) {
+                this.indeterminate = false;
+                this.allSelected = true;
+            } else {
+                this.indeterminate = true;
+                this.allSelected = false;
+            }
+        }
+    }
+}
+</script>
+<!-- form-checkbox-4.vue -->
+```
+
+#### Indeterminate state and accessibility
+Not all screen readers will convey the indeterminate state to screen reader users.
+So it is recommended to provide some form of textual feedback to the user (possibly 
+by via the `.sr-only` class) if the indeterminate state has special contextual
+meaning in your application.
 
 
 ### Non custom check inputs
