@@ -1,5 +1,6 @@
 <template>
-    <div v-if="localShow"
+    <div v-if="show"
+         class="alert"
          :class="classObject"
          role="alert"
          aria-live="polite"
@@ -23,26 +24,26 @@ export default {
     data() {
         return {
             countDownTimerId: null,
-            dismissed: false,
             dismissCountDown: 0
         };
     },
     created() {
         if (this.state) {
+            // TODO: Remove this prop entirely on next MAJOR version release.
             warn('<b-alert> "state" property is deprecated, please use "variant" property instead.');
         }
     },
     computed: {
         classObject() {
-            return ['alert', this.alertVariant, this.dismissible ? 'alert-dismissible' : ''];
+            return [this.alertVariant, { "alert-dismissible": this.dismissible }];
         },
         alertVariant() {
-            const variant = this.state || this.variant || 'info';
-            return `alert-${variant}`;
-        },
-        localShow() {
-            return !this.dismissed && (this.countDownTimerId || this.show);
+            return `alert-${this.state || this.variant}`;
         }
+    },
+    model: {
+        prop: "show",
+        event: "change"
     },
     props: {
         variant: {
@@ -76,9 +77,19 @@ export default {
     },
     methods: {
         dismiss() {
-            this.dismissed = true;
-            this.$emit('dismissed');
             this.clearCounter();
+            this.$emit("change", false);
+            this.$emit('dismissed');
+        },
+        countdown() {
+            const countdown = ~~this.show - 1;
+
+            if (countdown === 0) {
+                return this.dismiss();
+            }
+
+            this.$emit("dismiss-count-down", countdown);
+            this.$emit("change", countdown);
         },
         clearCounter() {
             if (this.countDownTimerId) {
@@ -86,26 +97,18 @@ export default {
             }
         },
         showChanged() {
-            // Reset dismiss status
-            this.dismissed = false;
-
-            // No timer for boolean values
-            if (this.show === true || this.show === false || this.show === null || this.show === 0) {
+            // No timer for boolean or falsey values
+            // eslint-disable-next-line eqeqeq
+            if (typeof this.show === "boolean" || this.show == null || this.show <= 0) {
                 return;
             }
 
-            let dismissCountDown = this.show;
-            this.$emit('dismiss-count-down', dismissCountDown);
-
+            // Show is a countdown number
+            // but let's ensure it's an integer.
+            this.$emit('dismiss-count-down', ~~this.show);
             // Start counter
             this.clearCounter();
-            this.countDownTimerId = setInterval(() => {
-                if (dismissCountDown < 2) {
-                    return this.dismiss();
-                }
-                dismissCountDown--;
-                this.$emit('dismiss-count-down', dismissCountDown);
-            }, 1000);
+            this.countDownTimerId = setInterval(this.countdown, 1000);
         }
     }
 };
