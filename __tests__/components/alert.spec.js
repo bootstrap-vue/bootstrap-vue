@@ -1,38 +1,62 @@
-import {loadFixture, testVM, nextTick, setData} from '../helpers';
-import Vue from 'vue/dist/vue.common';
+import { loadFixture, testVM, nextTick, setData } from "../helpers";
 
-describe('alert', async () => {
-    beforeEach(loadFixture('alert'));
+const variants = ["success", "info", "warning", "danger"].map(v => {
+    return {
+        variant: v,
+        class: `alert-${v}`,
+        ref: `variant_${v}`
+    };
+});
+
+describe("alert", async () => {
+    beforeEach(loadFixture("alert"));
     testVM();
 
-    it('check class names', async () => {
-        const {app: {$refs, $el}} = window;
+    it("should contain appropriate class names", async () => {
+        const { app: { $refs } } = window;
 
-        expect($refs.default_alert).toHaveClass('alert alert-info');
-        expect($refs.success_alert).toHaveClass('alert alert-success');
+        for (const ctx of variants) {
+            // Use array notation due to v-for
+            expect($refs[ctx.ref][0]).toHaveAllClasses(["alert", ctx.class]);
+        }
     });
 
-    it('show prop', async () => {
-        const {app: {$refs, $el}} = window;
+    it("should render the dismiss button when passed the 'dismissible' attr", async () => {
+        const { app: { $refs } } = window;
+        const vm = $refs.dismissible_alert;
+        expect(vm).toHaveClass("alert-dismissible");
+
+        const closeBtn = vm.$el.querySelector("button.close");
+        expect(closeBtn).not.toBeNull();
+        expect(closeBtn).toBeElement("button");
+        expect(closeBtn).toHaveClass("close");
+    });
+
+    it("should hide/show using the show prop", async () => {
+        const { app: { $refs } } = window;
+        const vm = $refs.show_test;
 
         // Default is hidden
-        expect($el.textContent).not.toContain('Dismissible Alert!');
+        expect(vm.$el.textContent).not.toContain("Dismissible Alert!");
 
         // Make visible by changing visible state
-        await setData(app, 'showDismissibleAlert', true);
-        expect($el.textContent).toContain('Dismissible Alert!');
+        await setData(app, "showDismissibleAlert", true);
+        expect(vm.$el.textContent).toContain("Dismissible Alert!");
     });
 
-    it('dismiss button', async () => {
-        const {app: {$refs, $el}} = window;
-        const alert = $refs.success_alert;
+    it("should dismiss the alert when close button clicked and update v-model", async () => {
+        const { app: { $refs } } = window;
+        const vm = $refs.dismiss_test;
+        // Initial state is open
+        expect(app.dismiss_test_show).toBe(true);
 
-        expect(alert).toHaveClass('alert-dismissible');
-
-        const closeBtn = alert.$el.querySelector('.close');
+        const closeBtn = vm.$el.querySelector("button.close");
         expect(closeBtn).not.toBeNull();
+
         closeBtn.click();
         await nextTick();
-        expect($el.textContent).not.toContain('Success Alert');
+
+        expect(vm.$el.textContent).not.toContain("Success Alert");
+        expect(app.dismiss_test_show).toBe(false);
     });
 });
