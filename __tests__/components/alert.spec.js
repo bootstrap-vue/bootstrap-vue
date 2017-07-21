@@ -3,7 +3,7 @@ import { loadFixture, testVM, nextTick, setData } from "../helpers";
 const variants = ["success", "info", "warning", "danger"].map(v => {
     return {
         variant: v,
-        class: `alert-${v}`,
+        variantClass: `alert-${v}`,
         ref: `variant_${v}`
     };
 });
@@ -15,9 +15,9 @@ describe("alert", async () => {
     it("should contain appropriate class names", async () => {
         const { app: { $refs } } = window;
 
-        for (const ctx of variants) {
+        for (const { ref, variantClass } of variants) {
             // Use array notation due to v-for
-            expect($refs[ctx.ref][0]).toHaveAllClasses(["alert", ctx.class]);
+            expect($refs[ref][0]).toHaveAllClasses(["alert", variantClass]);
         }
     });
 
