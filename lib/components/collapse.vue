@@ -12,7 +12,6 @@
             @after-leave="onAfterLeave"
     >
         <div v-show="show"
-             ref="collapse"
              :id="id || null"
              :class="classObject"
              @click.native="clickHandler"
@@ -147,7 +146,7 @@
             },
             handleResize() {
                 // Handler for orientation/resize to set collapsed state
-              this.show = (getComputedStyle(this.$refs.collapse).display === 'block');
+              this.show = (getComputedStyle(this.$el).display === 'block');
             },
         },
         created() {
