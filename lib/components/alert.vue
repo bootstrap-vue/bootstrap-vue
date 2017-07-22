@@ -1,5 +1,5 @@
 <template>
-    <div v-if="show"
+    <div v-if="localShow"
          class="alert"
          :class="classObject"
          role="alert"
@@ -24,7 +24,8 @@ export default {
     data() {
         return {
             countDownTimerId: null,
-            dismissCountDown: 0
+            dismissCountDown: 0,
+            localShow: this.show
         };
     },
     created() {
@@ -68,7 +69,10 @@ export default {
         }
     },
     watch: {
-        show() {
+        show(newValue) {
+            // Prop validation can't guarantee integers,
+            // so use fast bitwise integer casting `~~`
+            this.localShow = typeof newValue === "number" ? ~~newValue : newValue
             this.showChanged();
         }
     },
@@ -78,18 +82,19 @@ export default {
     methods: {
         dismiss() {
             this.clearCounter();
-            this.$emit("change", false);
+            this.localShow = false;
+            this.$emit("change", this.localShow);
             this.$emit('dismissed');
         },
         countdown() {
-            const countdown = ~~this.show - 1;
+            this.localShow--;
 
-            if (countdown < 1) {
+            if (this.localShow < 1) {
                 return this.dismiss();
             }
 
-            this.$emit("dismiss-count-down", countdown);
-            this.$emit("change", countdown);
+            this.$emit("dismiss-count-down", this.localShow);
+            this.$emit("change", this.localShow);
         },
         clearCounter() {
             if (this.countDownTimerId) {
@@ -97,17 +102,19 @@ export default {
             }
         },
         showChanged() {
-            // No timer for boolean or falsey values
+            // Return early for boolean, or numbers that can't be counted down.
+            // Let prop validation take care of non Boolean/Number types.
             // eslint-disable-next-line eqeqeq
-            if (typeof this.show === "boolean" || this.show == null || this.show <= 0) {
+            if (typeof this.localShow === "boolean" || (typeof this.localShow === "number" && this.localShow < 1)) {
                 return;
             }
 
             // Show is a countdown number
             // but let's ensure it's an integer.
-            this.$emit('dismiss-count-down', ~~this.show);
-            // Start counter
+            this.$emit('dismiss-count-down', this.localShow);
+            // Remove any previous interval registered.
             this.clearCounter();
+            // Start counter
             this.countDownTimerId = setInterval(this.countdown, 1000);
         }
     }

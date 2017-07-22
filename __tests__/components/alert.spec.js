@@ -44,11 +44,29 @@ describe("alert", async () => {
         expect(vm.$el.textContent).toContain("Dismissible Alert!");
     });
 
+    it("should dismiss the alert when close button clicked and no v-model given", async () => {
+        const { app: { $refs } } = window;
+        const vm = $refs.dismissible_alert;
+        // Shown with content
+        expect(vm.$el.textContent).toContain("dismissible");
+
+        const closeBtn = vm.$el.querySelector("button.close");
+        expect(closeBtn).not.toBeNull();
+
+        closeBtn.click();
+        await nextTick();
+
+        // Hidden completely
+        expect(vm.$el.textContent).not.toContain("dismissible");
+    });
+
     it("should dismiss the alert when close button clicked and update v-model", async () => {
         const { app: { $refs } } = window;
         const vm = $refs.dismiss_test;
         // Initial state is open
         expect(app.dismiss_test_show).toBe(true);
+        // Text is shown
+        expect(vm.$el.textContent).toContain("Success Alert");
 
         const closeBtn = vm.$el.querySelector("button.close");
         expect(closeBtn).not.toBeNull();
