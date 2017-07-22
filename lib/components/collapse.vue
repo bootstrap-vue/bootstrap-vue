@@ -147,13 +147,7 @@
             },
             handleResize() {
                 // Handler for orientation/resize to set collapsed state
-                if (getComputedStyle(this.$refs.collaspe).display === 'block') {
-                    // Initially open
-                    this.show = true;
-                } else {
-                    // Initiallly closed
-                    this.show = false;
-                }
+              this.show = (getComputedStyle(this.$refs.collapse).display === 'block');
             },
         },
         created() {
