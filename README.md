@@ -24,7 +24,9 @@
 <a href="https://bootstrap-vue.now.sh/">
     <img alt="" src="https://bootstrap-vue.now.sh/badge.svg">
 </a>
-
+<a href="https://github.com/bootstrap-vue/bootstrap-vue">
+    <img alt="" src="https://david-dm.org/bootstrap-vue/bootstrap-vue.svg">
+</a>
 </p>
 
 > [Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
