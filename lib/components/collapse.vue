@@ -145,7 +145,7 @@
                     }
                 }
             },
-            handleReszie() {
+            handleResize() {
                 // Handler for orientation/resize to set collapsed state
                 if (getComputedStyle(this.$refs.collaspe).display === 'block') {
                     // Initially open
