@@ -2,6 +2,7 @@
     <div :id="id || null"
          :class="buttons ? btnGroupClasses : radioGroupClasses"
          role="radiogroup"
+         :data-toggle="buttons ? 'buttons' : null"
          :aria-required="required ? 'true' : null"
          :aria-invalid="invalid ? 'true' : null"
          @focusin.native="handleFocus"
