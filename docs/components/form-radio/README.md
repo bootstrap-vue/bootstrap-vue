@@ -66,6 +66,9 @@ setting the `button-variant` prop to one of the standard Bootstrap button varian
 The `buttons` prop has precedence over `plain`, and `button-variant` has no effect if
 `buttons` is not set.
 
+Button style radios will have the class `active` automatically applied to their label
+when they are in the checked state.
+
 ```html
 <template>
   <div>
