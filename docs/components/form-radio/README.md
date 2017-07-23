@@ -58,9 +58,9 @@ By default `<b-form-radio>` generates inline radio inputs. Set the prop `stacked
 the radios appear one over the other.
 
 
-### Buttons style
+### Button style radios
 Render radios with the look of buttons by setting the prop `buttons`. Set the button variant by
-setting the `button-variant` prop to one ofhte standard Bootstrap button variants (see
+setting the `button-variant` prop to one of the standard Bootstrap button variants (see
 [`<b-button>`](./button) for supported variants). The default `button-variant` is `secondary`.
 
 The `buttons` prop has precedence over `plain`, and `button-variant` has no effect if
