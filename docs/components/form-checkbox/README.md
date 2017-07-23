@@ -134,11 +134,53 @@ recommended that they be placed in a `<b-form-fieldset>` component to associate 
 with the entire group of checkboxes.
 
 
+### Button style checkboxes
+Render a checkbox with the look of a button by setting the prop `button`. Change the button variant by
+setting the `button-variant` prop to one of the standard Bootstrap button variants (see
+[`<b-button>`](./button) for supported variants). The default `button-variant` is `secondary`.
+
+Youy **must** wrap your button style checkbox(es) in a `<b-button-group>` component
+and add the attribute `data-toggle="buttons"` to get the proper Bootstrap CSS styling.
+
+Button style checkboxes will have the class `.active` automatically applied to the label
+when they are in the checked state.
+
+**Example 4: Button style checkboxes:**
+```html
+<div>
+  <h5>button style checkboxes</h5>
+  <b-button-group data-toggle="buttons">
+    <b-form-checkbox button name="flavour" value="orange">Orange</b-form-checkbox>
+    <b-form-checkbox button name="flavour" value="apple">Apple</b-form-checkbox>
+    <b-form-checkbox button name="flavour" value="pineapple">Pineapple</b-form-checkbox>
+    <b-form-checkbox button name="flavour" value="grape">Grape</b-form-checkbox>
+  </b-button-group>
+  <h5>button style checkboxes with variant <code>primary</code> and large buttons</h5>
+  <b-button-group size="lg" data-toggle="buttons">
+    <b-form-checkbox button button-variant"primary" name="flavour" value="orange">Orange</b-form-checkbox>
+    <b-form-checkbox button button-variant"primary" name="flavour" value="apple">Apple</b-form-checkbox>
+    <b-form-checkbox button button-variant"primary" name="flavour" value="pineapple">Pineapple</b-form-checkbox>
+    <b-form-checkbox button button-variant"primary" name="flavour" value="grape">Grape</b-form-checkbox>
+  </b-button-group>
+  <h5>Stacked (vertical) button style checkboxes</h5>
+  <b-button-group vertical data-toggle="buttons">
+    <b-form-checkbox button class="mb-0" name="flavour" value="orange">Orange</b-form-checkbox>
+    <b-form-checkbox button class="mb-0" name="flavour" value="apple">Apple</b-form-checkbox>
+    <b-form-checkbox button class="mb-0" name="flavour" value="pineapple">Pineapple</b-form-checkbox>
+    <b-form-checkbox button name="flavour" value="grape">Grape</b-form-checkbox>
+  </b-button-group>
+</div>
+
+<!-- form-checkbox-4.vue -->
+```
+
 ### Contextual states
 To apply contextual state colors to `<b-form-checkbox>`, it must be wrapped in
 a `<b-form-fieldset>` component (which has the `state` prop set to the state you
 would like), or wrapped in another element - such as a `<div>` - which has one
 of the standard Bootstrap V4 `.has-*` state class applied.
+
+**Note:** Contextual states are not supprted when `button` is set.
 
 
 ### Indeterminate (tri-state) support
@@ -158,7 +200,9 @@ prop (defaults to `false`). Clicking the checkbox will clear its indeterminate s
 The `indeterminate` prop can be synced to the checkboxe's state by v-binding the
 `indeterminate` prop with the `.sync` modifier.
 
-**Example 4: Single Indeterminate checkbox:**
+**Note:** indeterminate is not supprted when `button` is set.
+
+**Example 5: Single Indeterminate checkbox:**
 ```html
 <template>
   <div>
@@ -188,10 +232,10 @@ export default {
 }
 </script>
 
-<!-- form-checkbox-4.vue -->
+<!-- form-checkbox-5.vue -->
 ```
 
-**Example 5: Indeterminate checkbox use-case:**
+**Example 6: Indeterminate checkbox use-case:**
 ```html
 <template>
   <b-card>
@@ -249,7 +293,7 @@ export default {
 }
 </script>
 
-<!-- form-checkbox-5.vue -->
+<!-- form-checkbox-6.vue -->
 ```
 
 #### Indeterminate state and accessibility
@@ -262,7 +306,10 @@ meaning in your application.
 ### Non custom check inputs
 You can have `b-form-checkbox` render a browser native chechbox input by setting the `plain` prop.
 
+**Note:** The `plain` prop has no effect with `button` is set.
 
 ### See also
 - [`<b-form-fieldset>`](./form-fieldset)
+- [`<b-button-group>`](./button-group)
+- [`<b-button>`](./button)
 
