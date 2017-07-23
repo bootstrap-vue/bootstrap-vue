@@ -105,7 +105,7 @@
                     'btn',
                     `btn-${this.buttonVariant}`,
                     (option.disabled || this.disabled) ? 'disabled' : '',
-                    option.value === this.localValue ? 'active' ; null,
+                    option.value === this.localValue ? 'active' : null,
                     // Fix staking issue (remove space between buttons)
                     (this.stacked && idx === this.formOptions.length - 1) ? '', 'mb-0'
                 ];
