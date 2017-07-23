@@ -1,15 +1,19 @@
 <template>
     <div :id="id || null"
-         :class="inputClass"
+         :class="buttons ? btnGroupClasses : radioGroupClasses"
          role="radiogroup"
          :aria-required="required ? 'true' : null"
-         :aria-invalid="ariaInvalid"
+         :aria-invalid="invalid ? 'true' : null"
+         @focusin.native="handleFocus"
+         @focusout.native="handleFocus"
     >
-        <label :class="[checkboxClass, custom?'custom-radio':null]"
-               v-for="(option, idx) in formOptions"
+        <label v-for="(option, idx) in formOptions"
+               :class="buttons ? btnLabelClasses(option, idx) : labelClasses"
+               :key="idx"
+               :aria-pressed="buttons ? (option.value === this.localValue ? 'true' : 'false') : null"
         >
             <input :id="id ? (id + '__BV_radio_' + idx) : null"
-                   :class="custom?'custom-control-input':null"
+                   :class="(custom && !buttons) ? 'custom-control-input' : null"
                    ref="inputs"
                    type="radio"
                    autocomplete="off"
@@ -20,8 +24,8 @@
                    :disabled="option.disabled || disabled"
                    @change="$emit('change', returnObject ? option : option.value)"
             >
-            <span v-if="custom" class="custom-control-indicator" aria-hidden="true"></span>
-            <span :class="custom?'custom-control-description':null" v-html="option.text"></span>
+            <span v-if="custom && !buttons" class="custom-control-indicator" aria-hidden="true"></span>
+            <span :class="(custom && !buttons) ? 'custom-control-description' : null" v-html="option.text"></span>
         </label>
     </div>
 </template>
@@ -35,21 +39,6 @@
             return {
                 localValue: this.value
             };
-        },
-        computed: {
-            inputClass() {
-                return [
-                    this.size ? `form-control-${this.size}` : null,
-                    this.state ? `has-${this.state}` : '',
-                    this.stacked ? 'custom-controls-stacked' : ''
-                 ];
-            },
-            ariaInvalid() {
-                if (this.invalid === true || this.invalid === 'true') {
-                    return 'true';
-                }
-                return null;
-            }
         },
         props: {
             value: {},
@@ -74,11 +63,63 @@
                 type: Boolean,
                 default: false
             },
+            buttons: {
+                // Render as button style
+                type: Boolean,
+                default: false
+            },
+            buttonVariant: {
+                // Only applicable when rendered with button style
+                type: String,
+                defaultL 'secondary'
+            },
             returnObject: {
                 type: Boolean,
                 default: false
             }
+        },
+        computed: {
+            radioGroupClasses() {
+                return [
+                    this.size ? `form-control-${this.size}` : null,
+                    this.state ? `has-${this.state}` : '',
+                    this.stacked ? 'custom-controls-stacked' : ''
+               ];
+            },
+            btnGroupClasses() {
+                return [
+                    this.size ? `button-group-${this.size}` : null,
+                    this.stacked ? 'btn-group-vertical' : ''
+                 ];
+            },
+            labelClasses() {
+                return [
+                    this.checkboxClass,
+                    this.custom ? 'custom-radio' : null
+                ];
+            }
+        },
+        methods: {
+            btnLabelClasses(option, idx) {
+                return [
+                    'btn',
+                    `btn-${this.buttonVariant}`,
+                    (option.disabled || this.disabled) ? 'disabled' : '',
+                    option.value === this.localValue ? 'active' ; null,
+                    // Fix staking issue (remove space between buttons)
+                    (this.stacked && idx === this.formOptions.length - 1) ? '', 'mb-0'
+                ];
+            },
+            handleFocus(evt) {
+                // When in buttons mode, we need to add 'focus' class to label when radio focused
+                if (this.buttons && evt.target.tagName === 'INPUT') {
+                    if (evt.type ==='focusin') {
+                        evt.target.classList.add('focus');
+                    } else if (evt.type ==='focusout') {
+                        evt.target.classList.remove('focus');
+                    }
+                }
+            }
         }
     };
-
 </script>
