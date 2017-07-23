@@ -71,7 +71,7 @@
             buttonVariant: {
                 // Only applicable when rendered with button style
                 type: String,
-                defaultL 'secondary'
+                default: 'secondary'
             },
             returnObject: {
                 type: Boolean,
