@@ -97,6 +97,9 @@
                     this.checkboxClass,
                     this.custom ? 'custom-radio' : null
                 ];
+            },
+            inline() {
+                return !this.stacked;
             }
         },
         methods: {
