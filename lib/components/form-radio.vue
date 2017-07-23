@@ -112,11 +112,16 @@
             },
             handleFocus(evt) {
                 // When in buttons mode, we need to add 'focus' class to label when radio focused
-                if (this.buttons && evt.target.tagName === 'INPUT') {
+                const el = evt.target;
+                if (this.buttons && el && el.tagName === 'INPUT' && el.parentElement) {
+                    const label = el.parentElement;
+                    if (!label || label.tagName !== 'LABEL') {
+                        return;
+                    }
                     if (evt.type ==='focusin') {
-                        evt.target.classList.add('focus');
+                        label.classList.add('focus');
                     } else if (evt.type ==='focusout') {
-                        evt.target.classList.remove('focus');
+                        label.classList.remove('focus');
                     }
                 }
             }
