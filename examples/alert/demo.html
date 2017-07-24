@@ -1,37 +1,50 @@
 <div id="app">
+    <b-alert v-for="variant in variants"
+             :key="`variant-test-${variant}`"
+             :ref="`variant_${variant}`"
+             :variant="variant"
+             show>
+        {{ variant }}
+    </b-alert>
+    <b-alert ref="dismissible_alert"
+             dismissible
+             show>dismissible</b-alert>
     <b-alert show
-             ref="default_alert"
-    >
+             ref="default_alert">
         Default Alert
     </b-alert>
 
-    <b-alert ref="success_alert"
+    <b-alert ref="dismiss_test"
              variant="success"
              dismissible
-             show
-    >
+             v-model="dismiss_test_show">
         Success Alert
     </b-alert>
 
-    <b-alert variant="danger"
+    <b-alert ref="show_test"
+             variant="danger"
              dismissible
              :show="showDismissibleAlert"
-             @dismissed="showDismissibleAlert=false"
-    >
+             @dismissed="showDismissibleAlert=false">
         Dismissible Alert!
     </b-alert>
 
-    <b-alert :show="dismissCountDown"
+    <b-alert ref="dismissible_countdown_alert"
+             :show="dismissCountDown"
              dismissible
              variant="warning"
-             @dismiss-count-down="countDownChanged"
-    >
+             @dismiss-count-down="countDownChanged">
         This alert will dismiss after {{dismissCountDown}} seconds...
     </b-alert>
 
-    <b-btn @click="showAlert" variant="info" class="m-1">Show alert with count-down timer</b-btn>
+    <b-btn @click="showAlert"
+           variant="info"
+           class="m-1">Show alert with count-down timer</b-btn>
 
-    <b-btn @click="showDismissibleAlert=true" variant="info" class="m-1" ref="dismissible_alert_btn">
+    <b-btn @click="showDismissibleAlert=true"
+           variant="info"
+           class="m-1"
+           ref="dismissible_alert_btn">
         Show dismissible alert ({{showDismissibleAlert?'visible':'hidden'}})
     </b-btn>
 </div>
