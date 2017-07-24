@@ -1,10 +1,8 @@
 window.app = new Vue({
-    el: "#app",
+    el: '#app',
     data: {
         dismissCountDown: null,
-        showDismissibleAlert: false,
-        variants: ["success", "info", "warning", "danger"],
-        dismiss_test_show: true
+        showDismissibleAlert: false
     },
     methods: {
         countDownChanged(dismissCountDown) {
