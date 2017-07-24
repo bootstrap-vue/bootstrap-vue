@@ -1,15 +1,27 @@
-import { readFileSync } from "fs";
-import { resolve } from "path";
-import Vue from "vue/dist/vue.common";
-import BootstrapVue from "../lib";
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
+import Vue from 'vue/dist/vue.common';
+import BootstrapVue from '../lib';
 
-const readFile = path => String(readFileSync(resolve(__dirname, "../examples", path)));
+const readFile = (path) => String(readFileSync(resolve(__dirname, '../examples', path)));
+const throwIfNotVueInstance = vm => {
+    if (!vm instanceof Vue) {
+        // debugging breadcrumbs in case a non-Vue instance gets erroneously passed
+        // makes the error easier to fix than example: "Cannot read _prevClass of undefined"
+        throw new TypeError(`The matcher function expects Vue instance. Given ${typeof vm}`)
+    }
+}
+const throwIfNotArray = array => {
+    if (!Array.isArray(array)) {
+        throw new TypeError(`The matcher requires an array. Given ${typeof array}`)
+    }
+}
 
 export function loadFixture(name) {
     const template = readFile(`${name}/demo.html`);
     const js = readFile(`${name}/demo.js`);
 
-    return async () => {
+    return async() => {
         // Mount template
         document.body.innerHTML = template;
 
@@ -26,14 +38,14 @@ export function loadFixture(name) {
 }
 
 export async function testVM() {
-    it(`vm mounts`, async () => {
+    it(`vm mounts`, async() => {
         return expect(window.app.$el).toBeDefined();
     });
 }
 
 export function nextTick() {
     return new Promise((resolve, reject) => {
-        Vue.nextTick(resolve);
+        Vue.nextTick(resolve)
     });
 }
 
@@ -48,105 +60,42 @@ export function sleep(ms) {
     return new Promise(r => setTimeout(r, ms));
 }
 
-const isVueInstance = vm => vm instanceof Vue;
-const isHTMLElement = el => el instanceof HTMLElement;
-
-const throwIfNotVueInstance = vm => {
-    if (!isVueInstance(vm)) {
-        // debugging breadcrumbs in case a non-Vue instance gets erroneously passed
-        // makes the error easier to fix than example: "Cannot read _prevClass of undefined"
-        console.error(vm);
-        throw new TypeError(`The matcher function expects Vue instance. Given ${typeof vm}`);
-    }
-};
-
-const throwIfNotHTMLElement = el => {
-    if (!isHTMLElement(el)) {
-        console.error(el);
-        throw new TypeError(`The matcher function expects an HTML Element. Given ${typeof el}`);
-    }
-};
-
-const throwIfNotArray = array => {
-    if (!Array.isArray(array)) {
-        throw new TypeError(`The matcher requires an array. Given ${typeof array}`);
-    }
-};
-
-const vmHasClass = (vm, className) => {
-    throwIfNotVueInstance(vm);
-    return vm.$el._prevClass.indexOf(className) !== -1;
-};
-
-/**
- * @param {HTMLElement} el
- * @param {string} className
- * @return {boolean}
- */
-const elHasClass = (el, className) => {
-    throwIfNotHTMLElement(el);
-    return el.classList.contains(className);
-};
-
-/**
- * @param {Vue|HTMLElement} node
- * @param {string} className
- * @return {boolean}
- */
-const hasClass = (node, className) => (isVueInstance(node) ? vmHasClass(node, className) : elHasClass(node, className));
-
-const getVmTag = vm => vm.$options._componentTag;
-const getHTMLTag = el => String(el.tagName).toLowerCase();
-const getTagName = node => (isVueInstance(node) ? getVmTag(node) : getHTMLTag(node));
-
 // Extend Jest marchers
 expect.extend({
-    toHaveClass(node, className) {
+    toHaveClass(vm, className) {
+        throwIfNotVueInstance(vm)
+
         return {
-            message: `expected <${getTagName(node)}> to have class '${className}'`,
-            pass: hasClass(node, className)
+            message: `expected <${vm.$options._componentTag}> to have class '${className}'`,
+            pass: vm.$el._prevClass.indexOf(className) !== -1,
         };
     },
-    toHaveAllClasses(node, classList) {
-        throwIfNotArray(classList);
+    toHaveAllClasses(vm, classList) {
+        throwIfNotVueInstance(vm)
+        throwIfNotArray(classList)
 
         let pass = true;
-        let missingClassNames = [];
+        let missingClassNames = []
 
         classList.forEach(className => {
-            if (!hasClass(node, className)) {
-                pass = false;
-                missingClassNames.push(className);
+            if (!vm.$el._prevClass.includes(className)) {
+                pass = false
+                missingClassNames.push(className)
             }
-        });
-
-        const plural = missingClassNames.length > 1;
-        const classStr = classList.join(", ");
-        const missingClassStr = missingClassNames.join(", ");
-        const tagName = getTagName(node);
+        })
 
         return {
             // more debugging breadcrumbs
-            message: `Expected <${tagName}> to have all classes in [${classStr}], but was missing [${missingClassStr}] class${plural
-                ? "es"
-                : ""}.`,
+            message: `Expected <${vm.$options._componentTag}> to have all classes in [ ${classList.join(', ')} ], but was missing [ ${missingClassNames.join(', ')} ] class${missingClassNames.length > 1 ? 'es' : ''}.`,
             pass
-        };
+        }
     },
     toBeComponent(vm, componentTag) {
-        throwIfNotVueInstance(vm);
+        throwIfNotVueInstance(vm)
 
         return {
-            message: `Expected to be <${componentTag}>. Received: ${getVmTag(vm)}`,
-            pass: getVmTag(vm) === componentTag
+            message: `expected to be <${componentTag}>`,
+            pass: vm.$options._componentTag === componentTag
         };
     },
-    toBeElement(el, tagName) {
-        throwIfNotHTMLElement(el);
-
-        return {
-            message: `Expected to be <${String(tagName).toLowerCase()}>. Received: ${el.tagName.toLowerCase()}`,
-            pass: el.tagName === String(tagName).toUpperCase()
-        };
-    }
 });
