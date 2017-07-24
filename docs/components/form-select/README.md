@@ -48,8 +48,7 @@ By default, Bootstrap V4's custom select tyling is applied.
 
 #### Value:
 In non `multiple` mode, `<b-form-select>` returns the `value` of the currently
-selected option. By setting the `return-object` prop to `true`, you can
-return the _normalized_ option object for that `value`.
+selected option as a string.
 
 **Example 1: Custom Select (default)**
 ```html
@@ -91,7 +90,6 @@ be rendered using a native browser multi-select, but with the `.form-control` cl
 #### Value:
 In `multiple` mode, `<b-form-select>` always returns an array of option values.
 You should always provide an array reference as your `v-model` when in `multiple` mode.
-`return-object` has no effect when `multiple` is enabled.
 
 **Example 2: Multiple Select**
 ```html
