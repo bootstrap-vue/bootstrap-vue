@@ -180,7 +180,7 @@ a `<b-form-fieldset>` component (which has the `state` prop set to the state you
 would like), or wrapped in another element - such as a `<div>` - which has one
 of the standard Bootstrap V4 `.has-*` state class applied.
 
-**Note:** Contextual states are not supprted when `button` is set.
+**Note:** Contextual states are not supported when `button` is set.
 
 
 ### Indeterminate (tri-state) support
@@ -200,7 +200,7 @@ prop (defaults to `false`). Clicking the checkbox will clear its indeterminate s
 The `indeterminate` prop can be synced to the checkboxe's state by v-binding the
 `indeterminate` prop with the `.sync` modifier.
 
-**Note:** indeterminate is not supprted when `button` is set.
+**Note:** indeterminate is not supported when `button` is set.
 
 **Example 5: Single Indeterminate checkbox:**
 ```html
