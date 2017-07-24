@@ -50,7 +50,7 @@ Please see options in [`<b-form-select>`](./form-select) docs for details on pas
 options (value array) to `<b-form-radio>`
 
 ### Size
-Constrol the size of the radio text by setting the prop `size` to either `sm` for small or
+Control the size of the radio text by setting the prop `size` to either `sm` for small or
 `lg` for large.
 
 ### Inline or stacked
@@ -138,7 +138,7 @@ To apply one of the contextual states on `b-form-radio`, set the `state` prop
 to `danger`, `warning`, or `success`.  You may also wrap `<b-form-radio>` in a
 `<b-form-fieldset>` and set the contextual `state` prop on `<b-form-fieldset>` instead.
 
-**Note:** contextual state is not supported for radios rednered in `buttons` mode.
+**Note:** contextual state is not supported for radios rendered in `buttons` mode.
 
 #### Conveying contextual validation state to assistive technologies and colorblind users:
 Using these contextual states to denote the state of a form control only provides
