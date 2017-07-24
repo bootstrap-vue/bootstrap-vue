@@ -116,9 +116,10 @@ properties.
 `v-model` binds to the `checked` property.  When you have multiple checkboxes that bind to a
 single data state variable, you **must** provide an array reference `[]` to your `v-model`!
 
-Note that when `v-model` is bound to multiple checkboxes, the `unchecked-value` is **not used**.
-Only the value(s) of the checked chcekboxes will be returned in the `v-model` bound array. You
-should provide unique values for each checkbox's `value` prop.
+Note that when `v-model` is bound to multiple checkboxes (i.e an array ref), the
+`unchecked-value` is **not used**. Only the value(s) of the checked chcekboxes will
+be returned in the `v-model` bound array. You should provide unique values for each
+checkbox's `value` prop.
 
 
 #### Multiple checkboxes and accessibility
