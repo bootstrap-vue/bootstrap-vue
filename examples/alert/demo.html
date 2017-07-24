@@ -30,10 +30,9 @@
     </b-alert>
 
     <b-alert ref="dismissible_countdown_alert"
-             :show="dismissCountDown"
+             v-model="dismissCountDown"
              dismissible
-             variant="warning"
-             @dismiss-count-down="countDownChanged">
+             variant="warning">
         This alert will dismiss after {{dismissCountDown}} seconds...
     </b-alert>
 
