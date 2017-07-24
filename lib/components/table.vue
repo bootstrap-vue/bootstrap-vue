@@ -17,7 +17,8 @@
                     :tabindex="field.sortable?'0':null"
                 >
                   <slot :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
-                    <div v-html="field.label"></div>
+                    <component v-if='field.component' :is='field.component' :field='field' ></component>
+                    <div v-else v-html="field.label"></div>
                   </slot>
                 </th>
             </tr>
