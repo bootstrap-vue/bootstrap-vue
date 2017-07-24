@@ -1,12 +1,15 @@
 <template>
-    <div>
-        <span ref="trigger"><slot></slot></span>
-        <div tabindex="-1" :class="['tooltip','tooltip-' + this.placement]"
-             ref="popover" @focus="$emit('focus')" @blur="$emit('blur')"
+    <div class="d-inline-block">
+        <span class="d-inline-block" ref="trigger"><slot></slot></span>
+        <div :class="['tooltip','tooltip-' + this.placement]"
              :style="{opacity:showState?1:0}"
+             tabindex="-1"
+             ref="popover"
+             @focus="$emit('focus')"
+             @blur="$emit('blur')"
         >
             <div class="tooltip-inner">
-                <slot name="content"><span v-html="content || title"></span></slot>
+                <slot name="content"><span v-html="content"></span></slot>
             </div>
         </div>
     </div>
@@ -14,17 +17,21 @@
 
 <style>
     .tooltip {
-        display: block !important;
+        display: block;
         transition: all 0.3s;
     }
 </style>
 
 <script>
-    import bPopover from './popover.vue';
+    import { popoverMixin } from '../mixins';
 
     export default {
-        extends: bPopover,
+        mixins: [popoverMixin],
         props: {
+            content: {
+                type: String,
+                default: ''
+            },
             triggers: {
                 type: [Boolean, String, Array],
                 default: 'hover'

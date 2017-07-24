@@ -1,96 +1,151 @@
 <template>
     <table :id="id || null"
-           role="grid"
+           :aria-busy="busy ? 'true' : 'false'"
            :class="tableClass"
     >
-        <thead :class="headVaraiant ? ('thead-' + headVariant) : ''">
-        <tr role="row">
-            <th v-for="field,key in fields"
-                @click="headClick(field,key)"
-                @keydown.enter="headClick(field,key)"
-                @keydown.space.prevent="headClick(field,key)"
-                :class="[field.sortable?'sorting':null,sortBy===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class?field.class:null,field.invisible?'invisible':null]"
-                :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
-                :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
-                :tabindex="field.sortable?'0':null"
-                v-html="field.label"
-            ></th>
-        </tr>
+        <thead :class="headClass">
+            <tr>
+                <th v-for="(field,key) in fields"
+                    @click.stop.prevent="headClicked($event,field,key)"
+                    @keydown.enter.stop.prevent="headClicked($event,field,key)"
+                    @keydown.space.stop.prevent="headClicked($event,field,key)"
+                    :key="key"
+                    :class="fieldClass(field,key)"
+                    :style="field.thStyle || {}"
+                    :aria-label="field.sortable ? ((sortDesc && sortBy === key) ? labelSortAsc : labelSortDesc) : null"
+                    :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
+                    :tabindex="field.sortable?'0':null"
+                >
+                  <slot :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
+                    <component v-if='field.component' :is='field.component' :field='field' ></component>
+                    <div v-else v-html="field.label"></div>
+                  </slot>
+                </th>
+            </tr>
         </thead>
-        <tfoot v-if="footClone" :class="footVaraiant ? ('thead-' + footVariant) : ''">
-        <tr role="row">
-            <th v-for="field,key in fields"
-                @click="headClick(field,key)"
-                @keydown.enter="headClick(field,key)"
-                @keydown.space.prevent="headClick(field,key)"
-                :class="[field.sortable?'sorting':null,sortBy===key?'sorting_'+(sortDesc?'desc':'asc'):'',field.class?field.class:null,field.invisible?'invisible':null]"
-                :aria-label="field.sortable ? (sortDesc ? labelSortAsc : labelSortDesc) : null"
-                :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
-                :tabindex="field.sortable?'0':null"
-                v-html="field.label"
-            ></th>
-        </tr>
+        <tfoot v-if="footClone" :class="footClass">
+            <tr>
+                <th v-for="(field,key) in fields"
+                    @click.stop.prevent="headClicked($event,field,key)"
+                    @keydown.enter.stop.prevent="headClicked($event,field,key)"
+                    @keydown.space.stop.prevent="headClicked($event,field,key)"
+                    :key="key"
+                    :class="fieldClass(field,key)"
+                    :style="field.thStyle || {}"
+                    :aria-label="field.sortable ? ((sortDesc && sortBy === key) ? labelSortAsc : labelSortDesc) : null"
+                    :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
+                    :tabindex="field.sortable?'0':null"
+                >
+                  <slot v-if="$scopedSlots['FOOT_'+key]" :name="'FOOT_'+key" :label="field.label" :column="key" :field="field">
+                    <div v-html="field.label"></div>
+                  </slot>
+                  <slot v-else :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
+                    <div v-html="field.label"></div>
+                  </slot>
+                </th>
+            </tr>
         </tfoot>
         <tbody>
-        <tr v-for="(item,index) in _items"
-            role="row"
-            :key="items_key" :class="[item.state?'table-'+item.state:null]"
-            @click="rowClicked(item, index)"
-        >
-            <td v-for="(field,key) in fields" :class="[field.class?field.class:null]">
-                <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
-            </td>
-        </tr>
-        <tr v-if="showEmpty && items.length === 0" :colspan="Object.keys(fields).length" role="row">
-            <slot name="empty">
-                <div class="text-center" v-html="emptyText"></div>
-            </slot>
-        </tr>
-        <tr v-else-if="showEmpty && _items.length === 0" :colspan="Object.keys(fields).length" role="row">
-            <slot name="emptyfiltered">
-                <div class="text-center" v-html="emptyFilteredText"></div>
-            </slot>
-        </tr>
+            <tr v-for="(item,index) in _items"
+                :key="index"
+                :class="rowClass(item)"
+                @click="rowClicked($event,item,index)"
+                @hover="rowHovered($event,item,index)"
+            >
+                <td v-for="(field,key) in fields" :key="key" :class="tdClass(field, item, key)">
+                    <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
+                </td>
+            </tr>
+            <tr v-if="showEmpty && (!_items  || _items.length === 0)">
+                <td :colspan="keys(fields).length">
+                    <div v-if="filter" role="alert" aria-live="polite">
+                        <slot name="emptyfiltered">
+                            <div class="text-center my-2" v-html="emptyFilteredText"></div>
+                        </slot>
+                    </div>
+                    <div v-else role="alert" aria-live="polite">
+                        <slot name="empty">
+                            <div class="text-center my-2" v-html="emptyText"></div>
+                        </slot>
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 </template>
 
 <script>
-    import bPagination from './pagination.vue';
+    import { warn } from '../utils';
+    import { keys } from '../utils/object.js';
+    import { listenOnRootMixin } from '../mixins'
 
     const toString = v => {
         if (!v) {
             return '';
         }
-
         if (v instanceof Object) {
-            return Object.keys(v).map(k => toString(v[k])).join(' ');
+            return keys(v).map(k => toString(v[k])).join(' ');
         }
-
         return String(v);
     };
 
+    const recToString = (obj) => {
+        if (!(obj instanceof Object)) {
+            return '';
+        }
+
+        return toString(keys(obj).reduce((o, k) => {
+            // Ignore fields 'state' and ones that start with _
+            if (!(/^_/.test(k) || k === 'state')) {
+                o[k] = obj[k];
+            }
+            return o;
+        }, {}));
+    };
+
     const defaultSortCompare = (a, b, sortBy) => {
-        return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {numeric: true});
+        if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
+            if (a[sortBy] < b[sortBy]) {
+                return -1;
+            } else if (a[sortBy] > b[sortBy]) {
+                return 1;
+            }
+            return 0;
+        } else {
+            return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
+                numeric: true
+            });
+        }
     };
 
     export default {
-        components: {bPagination},
+        mixins: [listenOnRootMixin],
         data() {
             return {
                 sortBy: null,
-                sortDesc: true
+                sortDesc: true,
+                localItems: []
             };
         },
         props: {
+            id: {
+                type: String,
+                default: ''
+            },
             items: {
-                type: Array,
-                default: () => []
+                type: [Array, Function],
+                default() {
+                    if (this && this.itemsProvider) {
+                        // Deprecate itemsProvider
+                        warn("b-table: prop 'items-provider' has been deprecated. Pass a function to 'items' instead");
+                        return this.itemsProvider;
+                    }
+                    return [];
+                }
             },
             fields: {
                 type: Object,
-                default: () => {
-                }
+                default: {}
             },
             striped: {
                 type: Boolean,
@@ -128,10 +183,6 @@
                 type: Number,
                 default: null
             },
-            items_key: {
-                type: String,
-                default: null
-            },
             currentPage: {
                 type: Number,
                 default: 1
@@ -145,8 +196,25 @@
                 default: null
             },
             itemsProvider: {
+                // Deprecated in favour of items
                 type: Function,
                 default: null
+            },
+            noProviderPaging: {
+                type: Boolean,
+                default: false
+            },
+            noProviderSorting: {
+                type: Boolean,
+                default: false
+            },
+            noProviderFiltering: {
+                type: Boolean,
+                default: false
+            },
+            busy: {
+                type: Boolean,
+                default: false
             },
             value: {
                 type: Array,
@@ -177,186 +245,326 @@
                 default: 'There are no records matching your request'
             }
         },
-
+        watch: {
+            items(newVal, oldVal) {
+                if (oldVal !== newVal) {
+                    this._providerUpdate();
+                }
+            },
+            sortDesc(newVal, oldVal) {
+                if (oldVal !== newVal && !this.noProviderSorting) {
+                    this._providerUpdate();
+                }
+            },
+            sortBy(newVal, oldVal) {
+                if (oldVal !== newVal && !this.noProviderSorting) {
+                    this._providerUpdate();
+                }
+            },
+            perPage(newVal, oldVal) {
+                if (oldVal !== newVal && !this.noProviderPaging) {
+                    this._providerUpdate();
+                }
+            },
+            currentPage(newVal, oldVal) {
+                if (oldVal !== newVal && !this.noProviderPaging) {
+                    this._providerUpdate();
+                }
+            },
+            filter(newVal, oldVal) {
+                if (oldVal !== newVal && !this.noProviderFiltering) {
+                    this._providerUpdate();
+                }
+            }
+        },
+        mounted() {
+            if (this.hasProvider) {
+                this._providerUpdate();
+            }
+            this.listenOnRoot('table::refresh', (id) => {
+                if (id === this.id) {
+                    this._providerUpdate();
+                }
+            });
+        },
         computed: {
             tableClass() {
                 return [
                     'table',
+                    'b-table',
                     this.striped ? 'table-striped' : '',
                     this.hover ? 'table-hover' : '',
                     this.inverse ? 'table-inverse' : '',
                     this.bordered ? 'table-bordered' : '',
-                    this.responsive ? '.table-responsive' : '',
+                    this.responsive ? 'table-responsive' : '',
                     this.small ? 'table-sm' : ''
                 ];
             },
+            headClass() {
+                return this.headVariant ? 'thead-' + this.headVariant : '';
+            },
+            footClass() {
+                const variant = this.footVariant || this.headVariant || null;
+                return variant ? 'thead-' + variant : '';
+            },
+            hasProvider() {
+                return this.items instanceof Function;
+            },
+            providerFiltering() {
+                return Boolean(this.hasProvider && !this.noProviderFiltering);
+            },
+            providerSorting() {
+                return Boolean(this.hasProvider && !this.noProviderSorting);
+            },
+            providerPaging() {
+                return Boolean(this.hasProvider && !this.noProviderPaging);
+            },
+            context() {
+                return {
+                    perPage: this.perPage,
+                    currentPage: this.currentPage,
+                    filter: this.filter,
+                    sortBy: this.sortBy,
+                    sortDesc: this.sortDesc
+                };
+            },
             _items() {
-                if (!this.items) {
+                // Grab some props/data to ensure reactivity
+                const perPage = this.perPage;
+                const currentPage = this.currentPage;
+                const filter = this.filter;
+                const sortBy = this.sortBy;
+                const sortDesc = this.sortDesc;
+                const sortCompare = this.sortCompare || defaultSortCompare;
+
+                let items = this.hasProvider ? this.localItems : this.items;
+
+                if (!items) {
+                    this.$nextTick(this._providerUpdate);
                     return [];
                 }
 
-                if (this.itemsProvider) {
-                    return this.itemsProvider(this);
-                }
+                // Shallow copy of items, so we don't mutate the original array order/size
+                items = items.slice();
 
-                let items = this.items.slice();
+                // Apply local filter
+                if (filter && !this.providerFiltering) {
+                    // Number of items before filtering
+                    const numOriginalItems = items.length;
 
-                // Apply filter
-                if (this.filter) {
-                    if (this.filter instanceof Function) {
-                        items = items.filter(this.filter);
+                    if (filter instanceof Function) {
+                        items = items.filter(filter);
                     } else {
                         let regex;
-                        if (this.filter instanceof RegExp) {
-                            regex = this.filter;
+                        if (filter instanceof RegExp) {
+                            regex = filter;
                         } else {
-                            regex = new RegExp('.*' + this.filter + '.*', 'ig');
+                            regex = new RegExp('.*' + filter + '.*', 'ig');
                         }
                         items = items.filter(item => {
-                            const test = regex.test(toString(item));
+                            const test = regex.test(recToString(item));
                             regex.lastIndex = 0;
                             return test;
                         });
                     }
+
+                    if (numOriginalItems !== items.length) {
+                        // Emit a filtered notification event, as number of items has changed
+                        this.$emit('filtered', items);
+                    }
                 }
 
-                // Apply Sort
-                const sortCompare = this.sortCompare || defaultSortCompare;
-                if (this.sortBy) {
+                // Apply local Sort
+                if (this.sortBy && !this.providerSorting) {
                     items = items.sort((a, b) => {
                         const r = sortCompare(a, b, this.sortBy);
                         return this.sortDesc ? r : r * -1;
                     });
                 }
 
+                // Apply local pagination
+                if (perPage && !this.providerPaging) {
+                    // Grab the current page of data (which may be past filtered items)
+                    items = items.slice((currentPage - 1) * perPage, currentPage * perPage);
+                }
+
+                // Update the value model with the filtered/sorted/paginated data set
                 this.$emit('input', items);
 
-                // Apply pagination
-                if (this.perPage) {
-                    items = items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
-                }
                 return items;
             }
         },
         methods: {
-            rowClicked(item, index) {
+            keys,
+            fieldClass(field, key) {
+                return [
+                    field.sortable ? 'sorting' : '',
+                    (field.sortable && this.sortBy === key) ? 'sorting_' + (this.sortDesc ? 'desc' : 'asc') : '',
+                    field.variant ? ('table-' + field.variant) : '',
+                    field.class ? field.class : '',
+                    field.thClass ? field.thClass : ''
+                ];
+            },
+            tdClass(field, item, key) {
+                let cellVariant = '';
+                if (item._cellVariants && item._cellVariants[key]) {
+                    cellVariant = (this.inverse ? 'bg-' : 'table-') + item._cellVariants[key];
+                }
+                return [
+                    (field.variant && !cellVariant) ? ((this.inverse ? 'bg-' : 'table-') + field.variant) : '',
+                    cellVariant,
+                    field.class ? field.class : '',
+                    field.tdClass ? field.tdClass : ''
+                ];
+            },
+            rowClass(item) {
+                // Prefer item._rowVariant over deprecated item.state
+                const variant = item._rowVariant || item.state || null;
+                return [
+                    variant ? ((this.inverse ? 'bg-' : 'table-') + variant) : ''
+                ];
+            },
+            rowClicked(e, item, index) {
+                if (this.busy) {
+                    // If table is busy (via provider) then don't propagate
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                }
                 this.$emit('row-clicked', item, index);
             },
-            headClick(field, key) {
+            rowHovered(e, item, index) {
+                if (this.busy) {
+                    // If table is busy (via provider) then don't propagate
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                }
+                this.$emit('row-hovered', item, index);
+            },
+            headClicked(e, field, key) {
+                if (this.busy) {
+                    // If table is busy (via provider) then don't propagate
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return;
+                }
+                let sortChanged = false;
                 if (!field.sortable) {
-                    this.sortBy = null;
+                    if (this.sortBy) {
+                        this.sortBy = null;
+                        sortChanged = true;
+                    }
+                } else {
+                    if (key === this.sortBy) {
+                        // Change sorting direction on column
+                        this.sortDesc = !this.sortDesc;
+                    } else {
+                        // Start sorting this column descending
+                        this.sortBy = key;
+                        this.sortDesc = true;
+                    }
+                    sortChanged = true;
+                }
+                this.$emit('head-clicked', key, field);
+                if (sortChanged) {
+                    // Sorting parameters changed
+                    this.$emit('sort-changed', this.context);
+                }
+            },
+            refresh() {
+                // Expose refresh method
+                if (this.hasProvider) {
+                    this._providerUpdate();
+                }
+            },
+            _providerSetLocal(items) {
+                this.localItems = (items && items.length > 0) ? items.slice() : [];
+                this.$emit('refreshed');
+                this.emitOnRoot('table::refreshed', this.id);
+            },
+            _providerUpdate() {
+                // Refresh the provider items
+                if (this.busy || !this.hasProvider) {
+                    // Don't refresh remote data if we are 'busy' or if no provider
                     return;
                 }
 
-                if (key === this.sortBy) {
-                    this.sortDesc = !this.sortDesc;
+                // Call provider function with context and optional callback
+                const data = this.items(this.context, this._providerSetLocal);
+
+                if (!data) {
+                    // Provider is using callback
+                    return;
                 }
 
-                this.sortBy = key;
+                if (data.then && typeof data.then === 'function') {
+                    // Provider returned Promise
+                    data.then((items) => {
+                        this._providerSetLocal(items);
+                    });
+                } else {
+                    // Provider returned Array data
+                    this._providerSetLocal(data);
+                }
             }
         }
     };
 </script>
 
-
 <style>
-    /* https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.css */
+    /* Based on https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.css */
 
-    table thead > tr > th.sorting_asc, table thead > tr > th.sorting_desc, table thead > tr > th.sorting,
-    table thead > tr > td.sorting_asc,
-    table thead > tr > td.sorting_desc,
-    table thead > tr > td.sorting,
-    table tfoot > tr > th.sorting_asc, table tfoot > tr > th.sorting_desc, table tfoot > tr > th.sorting,
-    table tfoot > tr > td.sorting_asc,
-    table tfoot > tr > td.sorting_desc,
-    table tfoot > tr > td.sorting {
+    table.b-table > thead > tr > .sorting,
+    table.b-table > tfoot > tr > .sorting {
         padding-right: 30px;
-    }
-
-    table thead > tr > th:active,
-    table thead > tr > td:active,
-    table tfoot > tr > th:active,
-    table tfoot > tr > td:active {
-        outline: none;
-    }
-
-    table thead .sorting,
-    table thead .sorting_asc,
-    table thead .sorting_desc,
-    table thead .sorting_asc_disabled,
-    table thead .sorting_desc_disabled,
-    table tfoot .sorting,
-    table tfoot .sorting_asc,
-    table tfoot .sorting_desc,
-    table tfoot .sorting_asc_disabled,
-    table tfoot .sorting_desc_disabled {
         cursor: pointer;
         position: relative;
     }
 
-    table thead .sorting:before, table thead .sorting:after,
-    table thead .sorting_asc:before,
-    table thead .sorting_asc:after,
-    table thead .sorting_desc:before,
-    table thead .sorting_desc:after,
-    table thead .sorting_asc_disabled:before,
-    table thead .sorting_asc_disabled:after,
-    table thead .sorting_desc_disabled:before,
-    table thead .sorting_desc_disabled:after,
-    table tfoot .sorting:before, table thead .sorting:after,
-    table tfoot .sorting_asc:before,
-    table tfoot .sorting_asc:after,
-    table tfoot .sorting_desc:before,
-    table tfoot .sorting_desc:after,
-    table tfoot .sorting_asc_disabled:before,
-    table tfoot .sorting_asc_disabled:after,
-    table tfoot .sorting_desc_disabled:before,
-    table tfoot .sorting_desc_disabled:after {
+    table.b-table thead > tr > .sorting:before,
+    table.b-table thead > tr > .sorting:after,
+    table.b-table tfoot > tr > .sorting:before,
+    table.b-table tfoot > tr > .sorting:after {
         position: absolute;
         bottom: 0.9em;
         display: block;
         opacity: 0.3;
     }
 
-    table thead .sorting:before,
-    table thead .sorting_asc:before,
-    table thead .sorting_desc:before,
-    table thead .sorting_asc_disabled:before,
-    table thead .sorting_desc_disabled:before,
-    table tfoot .sorting:before,
-    table tfoot .sorting_asc:before,
-    table tfoot .sorting_desc:before,
-    table tfoot .sorting_asc_disabled:before,
-    table tfoot .sorting_desc_disabled:before {
+    table.b-table.table-sm > thead > tr > .sorting:before,
+    table.b-table.table-sm > thead > tr > .sorting:after,
+    table.b-table.table-sm > tfoot > tr > .sorting:before,
+    table.b-table.table-sm > tfoot > tr > .sorting:after {
+        bottom: 0.45em;
+    }
+
+    table.b-table > thead > tr > .sorting:before,
+    table.b-table > tfoot > tr > .sorting:before {
         right: 1em;
         content: "\2191";
     }
 
-    table thead .sorting:after,
-    table thead .sorting_asc:after,
-    table thead .sorting_desc:after,
-    table thead .sorting_asc_disabled:after,
-    table thead .sorting_desc_disabled:after,
-    table tfoot .sorting:after,
-    table tfoot .sorting_asc:after,
-    table tfoot .sorting_desc:after,
-    table tfoot .sorting_asc_disabled:after,
-    table tfoot .sorting_desc_disabled:after {
+    table.b-table > thead > tr > .sorting:after,
+    table.b-table > tfoot > tr > .sorting:after {
         right: 0.5em;
         content: "\2193";
     }
 
-    table thead .sorting_asc:before,
-    table thead .sorting_desc:after,
-    table tfoot .sorting_asc:before,
-    table tfoot .sorting_desc:after {
+    table.b-table > thead > tr > .sorting_asc:before,
+    table.b-table > thead > tr > .sorting_desc:after,
+    table.b-table > tfoot > tr > .sorting_asc:before,
+    table.b-table > tfoot > tr > .sorting_desc:after {
         opacity: 1;
     }
 
-    table thead .sorting_asc_disabled:before,
-    table thead .sorting_desc_disabled:after,
-    table tfoot .sorting_asc_disabled:before,
-    table tfoot .sorting_desc_disabled:after {
-        opacity: 0;
+    /* Busy table styling */
+
+    table.b-table[aria-busy="false"] {
+        opacity: 1;
+    }
+
+    table.b-table[aria-busy="true"] {
+        opacity: .6;
     }
 </style>

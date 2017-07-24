@@ -1,6 +1,5 @@
 {
   "title": "Card",
   "component": "bCard",
-  "components":["bCardGroup"],
-  "jsfiddle": "sjn78wt7"
+  "components":["bCardGroup"]
 }

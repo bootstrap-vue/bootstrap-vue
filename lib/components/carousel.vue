@@ -8,29 +8,57 @@
          @mouseleave="start"
          @focusin="pause"
          @focusout="restart($event)"
-         @keydown.left="prev"
-         @keydown.right="next"
+         @keydown.left.stop.prevent="prev"
+         @keydown.right.stop.prevent="next"
     >
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner"
+             role="list"
+             :id="id ? (id + '__BV_inner_') : null"
+        >
+            <slot></slot>
+        </div>
+
+        <!-- Controls -->
+        <template v-if="controls">
+            <a class="carousel-control-prev"
+               href="#"
+               role="button"
+               :aria-controls="id ? (id + '__BV_inner_') : null"
+               @click.stop.prevent="prev"
+               @keydown.enter.stop.prevent="prev"
+               @keydown.space.stop.prevent="prev"
+            >
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">{{labelPrev}}</span>
+            </a>
+            <a class="carousel-control-next"
+               href="#"
+               role="button"
+               :aria-controls="id ? (id + '__BV_inner_') : null"
+               @click.stop.prevent="next"
+               @keydown.enter.stop.prevent="next"
+               @keydown.space.stop.prevent="next"
+            >
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">{{labelNext}}</span>
+            </a>
+        </template>
+
         <!-- Indicators -->
-        <ol role="group" 
-            class="carousel-indicators"
+        <ol class="carousel-indicators"
+            role="group"
             v-show="indicators"
+            :id="id ? (id + '__BV_indicators_') : null"
             :aria-hidden="indicators ? 'false' : 'true'"
-            :aria-label="indicators && labelIndicators ? labelIndicators : null"
-            :aria-owns="indictors && id ? (id + '__BV_inner_') : null"
-            :aria-activedescendant="slides[index].id || null"
-            :tabindex="indicators ? '0' : '-1'"
-            @focusin.self="focusActiveIndicator"
-            @keydown.left.stop.prevent="focusPrevIndicator"
-            @keydown.up.stop.prevent="focusPrevIndicator"
-            @keydown.right.stop.prevent="focusNextIndicator"
-            @keydown.down.stop.prevent="focusNextIndicator"
+            :aria-label="(indicators && labelIndicators) ? labelIndicators : null"
+            :aria-owns="(indicators && id) ? (id + '__BV_inner_') : null"
         >
             <li v-for="n in slides.length"
                 role="button"
-                tabindex="-1"
-                ref="indcators"
                 :id="id ? (id + '__BV_indicator_' + n + '_') : null"
+                :tabindex="indicators ? '0' : '-1'"
                 :class="{active:n-1 === index}"
                 :aria-current="n-1 === index ? 'true' : 'false'"
                 :aria-posinset="n"
@@ -44,45 +72,12 @@
             ></li>
         </ol>
 
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner"
-             role="list"
-            :id="id ? (id + '__BV_inner_') : null"
-        >
-            <slot></slot>
-        </div>
-
-        <!-- Controls -->
-        <template v-if="controls">
-            <a class="carousel-control-prev"
-               href="#"
-               role="button"
-               data-slide="prev"
-               :aria-controls="id ? (id + '__BV_inner_') : null"
-               @click.stop.prevent="prev"
-               @keydown.enter.stop.prevent="prev"
-               @keydown.space.stop.prevent="prev"
-            >
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">{{labelPrev}}</span>
-            </a>
-            <a class="carousel-control-next"
-               href="#"
-               role="button"
-               data-slide="next"
-               :aria-controls="id ? (id + '__BV_inner_') : null"
-               @click.stop.prevent="next"
-               @keydown.enter.stop.prevent="next"
-               @keydown.space.stop.prevent="next"
-            >
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">{{labelNext}}</span>
-            </a>
-        </template>
     </div>
 </template>
 
 <script>
+    import { from as arrayFrom } from '../utils/array'
+
     const DIRECTION = {
         next: {
             current: 'carousel-item-left',
@@ -155,6 +150,10 @@
 
             // Next slide
             next() {
+                if (typeof document !== 'undefined' && document.visibilityState && document.hidden) {
+                    // Don't animate when page is not visible
+                    return;
+                }
                 if (this.index >= this.slides.length - 1) {
                     this.index = 0;
                 } else {
@@ -191,54 +190,24 @@
                 if (!e.relatedTarget || !this.$el.contains(e.relatedTarget)) {
                     this.start();
                 }
-            },
-
-            // Focus first indicator
-            focusActiveIndicator() {
-                if (this.indicators & this.$refs.indicators.length > 0) {
-                    this.$nextTick(() => {
-                        this.$refs.indicators[this.index].focus();
-                    });
-                }
-            },
-
-            // Focus prev indicator
-            focusPrevIndicator() {
-                if (this.indicators & this.$refs.indicators.length > 0) {
-                    const idx = this.$refs.indicators.indexOf(el => Boolean(el === document.activeElement));
-                    if (idx > 0) {
-                        this.$nextTick(() => {
-                            this.$refs.indicators[idx - 1].focus();
-                        });
-                    }
-                }
-            },
-
-            focusNextIndicator() {
-                if (this.indicators & this.$refs.indicators.length > 0) {
-                    const idx = this.$refs.indicators.indexOf(el => Boolean(el === document.activeElement));
-                    if (idx > 0 && idx < this.$refs.indicators - 1) {
-                        this.$nextTick(() => {
-                            this.$refs.indicators[idx + 1].focus();
-                        });
-                    }
-                }
             }
+
         },
         mounted() {
             // Get all slides
-            this.slides = this.$el.querySelectorAll('.carousel-item');
+            this.slides = arrayFrom(this.$el.querySelectorAll('.carousel-item'));
 
             // Set first slide as active
             this.slides[0].classList.add('active');
+            const self = this;
             this.slides.forEach((slide, idx) => {
                 const n = idx + 1;
                 slide.setAttribute('aria-current', idx === 0 ? 'true' : 'false');
                 slide.setAttribute('aria-posinset', String(n));
-                slide.setAttribute('aria-setsize', String(this.slides.length));
+                slide.setAttribute('aria-setsize', String(self.slides.length));
                 slide.tabIndex = -1;
-                if (this.id) {
-                    slide.setAttribute('aria-controlledby', this.id + '__BV_indicator_' + n + '_');
+                if (self.id) {
+                    slide.setAttribute('aria-controlledby', self.id + '__BV_indicator_' + n + '_');
                 }
             });
 
@@ -282,29 +251,29 @@
                 currentSlide.classList.add(direction.current);
 
                 this._carouselAnimation = setTimeout(() => {
-                    this.isSliding = false;
                     this.$emit('slide', val);
 
                     currentSlide.classList.remove('active');
                     currentSlide.setAttribute('aria-current', 'false');
                     currentSlide.setAttribute('aria-hidden', 'true');
                     currentSlide.tabIndex = -1;
+                    currentSlide.classList.remove(direction.current);
 
                     nextSlide.classList.add('active');
                     nextSlide.setAttribute('aria-current', 'true');
-                    currentSlide.setAttribute('aria-hidden', 'false');
-                    currentSlide.tabIndex = -1;
+                    nextSlide.setAttribute('aria-hidden', 'false');
+                    nextSlide.tabIndex = -1;
+                    nextSlide.classList.remove(direction.next, direction.overlay);
 
                     if (!this._intervalId) {
-                        // Focus the slide for screen readers if not in play mode
+                        // Focus the current slide for screen readers if not in play mode
                         currentSlide.tabIndex = 0;
                         this.$nextTick(() => {
                             currentSlide.focus();
                         });
                     }
 
-                    currentSlide.classList.remove(direction.current);
-                    nextSlide.classList.remove(direction.next, direction.overlay);
+                    this.isSliding = false;
                 }, 500);
             }
         },

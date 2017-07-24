@@ -4,7 +4,6 @@
   "components": [
     "bLink"
   ],
-  "jsfiddle": "L9f7cmms",
   "events": [
     {
       "event": "click",

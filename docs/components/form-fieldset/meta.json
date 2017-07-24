@@ -1,5 +1,18 @@
 {
   "title": "Form Fieldset",
   "component": "bFormFieldset",
-  "jsfiddle": "7ztq8nzd"
+  "slots": [
+    {
+      "name": "label",
+      "description": "Content to palce inside the <label> element."
+    },
+    {
+      "name": "description",
+      "description": "Content to palce in the description area."
+    },
+    {
+      "name": "feedback",
+      "description": "Content to place in the feedback area"
+    }
+  ]
 }

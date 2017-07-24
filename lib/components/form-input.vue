@@ -1,18 +1,19 @@
 <template>
     <input v-if="!static"
-           :type="type"
+           ref="input"
+           :type="textarea ? null : type"
            :value="value"
            :name="name"
-           :id="_id"
+           :id="id || null"
            :disabled="disabled"
-           ref="input"
-
-           :is="textarea?'textarea':'input'"
-           :class="['form-control',inputClass]"
-           :rows="rows || rowsCount"
-
+           :required="required"
+           :aria-required="required ? 'true' : null"
+           :aria-invalid="ariaInvalid"
+           :readonly="readonly"
+           :is="textarea ? 'textarea' : 'input'"
+           :class="inputClass"
+           :rows="textarea ? (rows || rowsCount) : null"
            :placeholder="placeholder"
-
            @input="onInput($event.target.value)"
            @change="onChange($event.target.value)"
            @keyup="onKeyUp($event)"
@@ -20,23 +21,40 @@
            @blur="$emit('blur')"
     />
     <b-form-input-static v-else
-                         :id="_id"
+                         :id="id || null"
                          :value="value"
+                         :size="size"
+                         :state="state"
                          :formatter="formatter"
     ></b-form-input-static>
 </template>
 
 <script>
-    import formMixin from '../mixins/form';
-    import generateId from '../mixins/generate-id';
+    import { formMixin } from '../mixins';
     import bFormInputStatic from './form-input-static.vue';
 
     export default {
-        mixins: [formMixin, generateId],
+        mixins: [formMixin],
         components: {bFormInputStatic},
         computed: {
             rowsCount() {
                 return (this.value || '').toString().split('\n').length;
+            },
+            inputClass() {
+                return [
+                    'form-control',
+                    this.size ? `form-control-${this.size}` : null,
+                    this.state ? `form-control-${this.state}` : null
+                ];
+            },
+            ariaInvalid() {
+                if (this.invalid === false) {
+                    return null;
+                }
+                if (this.invalid === true) {
+                    return 'true';
+                }
+                return this.invalid;
             }
         },
         methods: {
@@ -63,6 +81,9 @@
             },
             onKeyUp(e) {
                 this.$emit('keyup', e);
+            },
+            focus() {
+                this.$refs.input.focus();
             }
         },
         props: {
@@ -72,6 +93,22 @@
             type: {
                 type: String,
                 default: 'text'
+            },
+            size: {
+                type: String,
+                default: null
+            },
+            state: {
+                type: String,
+                default: null
+            },
+            invalid: {
+                type: [Boolean, String],
+                default: false
+            },
+            readonly: {
+                type: Boolean,
+                default: false
             },
             static: {
                 type: Boolean,

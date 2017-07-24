@@ -1,14 +1,16 @@
 {
   "title": "Form Checkbox",
   "component": "bFormCheckbox",
-  "jsfiddle": "hvswzcw3",
   "events": [
     {
       "event": "change",
       "description": "On Changed",
-      "args": {
-        "checked": {}
-      }
+      "args": [
+        {
+          "arg": "checked",
+          "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array."
+        }
+      ]
     }
   ]
 }

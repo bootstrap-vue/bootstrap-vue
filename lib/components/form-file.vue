@@ -1,11 +1,12 @@
 <template>
-    <label :class="[custom?'custom-file':null,inputClass]"
-           @dragover.stop.prevent="dragover"
+    <div :class="custom?'custom-file':null"
+         :id="id ? (id + '__BV_file_outer_') : null"
+         @dragover.stop.prevent="dragover"
     >
 
         <!-- Drop Here Target -->
         <span class="drop-here"
-              v-if="dragging"
+              v-if="dragging && custom"
               @dragover.stop.prevent="dragover"
               @drop.stop.prevent="drop"
               @dragleave.stop.prevent="dragging=false"
@@ -14,29 +15,32 @@
 
         <!-- Real Form input -->
         <input type="file"
-               :name="name"
-               :id="_id"
-               :disabled="disabled"
                ref="input"
-               :accept="accept"
-
-               class="custom-file-input"
-               @change="onFileChange"
+               :class="custom ? 'custom-file-input' : ''"
+               :name="name"
+               :id="id || null"
+               :disabled="disabled"
+               :required="required"
+               :aria-required="required ? 'true' : null"
+               :accept="accept || null"
                :multiple="multiple"
                :webkitdirectory="directory"
+               :aria-describedby="(custom && id) ? (id + '__BV_file_control_') : null"
+               @change="onFileChange"
         >
 
         <!-- Overlay Labels -->
-        <span :class="['custom-file-control',dragging?'dragging':null,inputClass]"
+        <span :class="['custom-file-control',dragging?'dragging':null]"
+              :id="id ? (id + '__BV_file_control_') : null"
               :data-choose="computedChooseLabel"
               :data-selected="selectedLabel"
               v-if="custom"
         ></span>
 
-    </label>
+    </div>
 </template>
 
-<style>
+<style scoped>
     .custom-file-control {
         overflow: hidden;
     }
@@ -80,11 +84,11 @@
 </style>
 
 <script>
-    import formMixin from '../mixins/form';
-    import generateId from '../mixins/generate-id';
+    import { formCustomMixin, formMixin } from '../mixins';
+    import { from as arrayFrom } from '../utils/array';
 
     export default {
-        mixins: [formMixin, generateId],
+        mixins: [formMixin, formCustomMixin],
         data() {
             return {
                 selectedFile: null,
@@ -127,6 +131,21 @@
             }
         },
         methods: {
+            reset() {
+                try {
+                    // Wrapped in try in case IE < 11 craps out
+                    this.$refs.input.value = '';
+                } catch (e) {
+                }
+
+                // IE < 11 doesn't support setting input.value to '' or null
+                // So we use this little extra hack to reset the value, just in case
+                // This also appears to work on modern browsers as well.
+                this.$refs.input.type = '';
+                this.$refs.input.type = 'file';
+
+                this.selectedFile = this.multiple ? [] : null;
+            },
             onFileChange(e) {
                 // Always emit original event
                 this.$emit('change', e);
@@ -143,7 +162,7 @@
                         }
                     }
                     Promise.all(queue).then(filesArr => {
-                        this.setFiles(Array.prototype.concat.apply([], filesArr));
+                        this.setFiles(arrayFrom(filesArr));
                     });
                     return;
                 }
@@ -173,7 +192,7 @@
                 this.selectedFile = filesArray;
             },
             dragover(e) {
-                if (this.noDrop) {
+                if (this.noDrop || !this.custom) {
                     return;
                 }
 
@@ -208,7 +227,7 @@
                                 queue.push(this.traverseFileTree(entries[i], path + item.name + '/'));
                             }
                             Promise.all(queue).then(filesArr => {
-                                resolve(Array.prototype.concat.apply([], filesArr));
+                                resolve(arrayFrom(filesArr));
                             });
                         });
                     }

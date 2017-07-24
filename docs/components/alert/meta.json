@@ -1,7 +1,6 @@
 {
   "title": "Alert",
   "component": "bAlert",
-  "jsfiddle": "src29p6L",
   "events": [
     {
       "event": "dismissed",
@@ -9,10 +8,13 @@
     },
     {
       "event": "dismiss-count-down",
-      "args": {
-        "dismissCountDown": "Time remaining to dismissed"
-      },
-      "description": "When dismissAfterSeconds enabled, this event emits every second on countdown."
+      "description": "When dismissAfterSeconds enabled, this event emits every second on countdown.",
+      "args": [
+          {
+            "arg": "dismissCountDown",
+            "description": "Time remaining to dismissed"
+          }
+      ]
     }
   ]
 }

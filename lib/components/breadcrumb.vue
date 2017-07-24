@@ -1,60 +1,93 @@
 <template>
-    <ol class="breadcrumb" role="navigation">
-        <li v-for="item in items2"
-            :class="['breadcrumb-item', item.__active ? 'active' : null]"
-            @click="onclick(item)"
-            role="presentation"
-        >
-            <span v-if="item.active" v-html="item.text"></span>
+    <ol class="breadcrumb">
+        <li v-for="normalizedItem in normalizedItems"
+            :class="['breadcrumb-item', normalizedItem.active ? 'active' : null]"
+            @click="onClick(normalizedItem._originalItem)"
+            role="presentation">
+            <span v-if="normalizedItem.active"
+                  :aria-current="ariaCurrent"
+                  v-html="normalizedItem.text"></span>
             <b-link v-else
-                    :to="item.to"
-                    :href="item.href || item.link"
-                    v-html="item.text"
-                    @click="onclick"
-            ></b-link>
+                    v-bind="normalizedItem._linkProps"
+                    v-html="normalizedItem.text"></b-link>
         </li>
         <slot></slot>
     </ol>
 </template>
 
 <script>
-    import bLink from './link.vue';
+import bLink from './link.vue';
+import { props as linkProps } from '../mixins/link';
+import { arrayIncludes } from '../utils/array';
+import { assign, keys } from '../utils/object';
 
-    export default {
-        components: {bLink},
-        computed: {
-            componentType() {
-                return this.to ? 'router-link' : 'a';
-            },
-            items2() {
-                const last = this.items.length > 0 && this.items[this.items.length - 1];
+const bLinkPropKeys = keys(linkProps);
 
-                return this.items.map(item => {
-                    if (typeof item === 'string') {
-                        return {text: item, link: '#', active: item === last};
+export default {
+    components: { bLink },
+    computed: {
+        normalizedItems() {
+            let userDefinedActive = false;
+            const originalItemsLength = this.items.length;
+
+            return this.items.map((item, index) => {
+                let normalizedItem = { _originalItem: item };
+                // if no active state is defined,
+                // default to the last item in the array as active
+                const isLast = index === originalItemsLength - 1;
+
+                // nothing defined except the text
+                if (typeof item === 'string') {
+                    assign(normalizedItem, { text: item, link: '#', active: isLast });
+                } else {
+                    assign(normalizedItem, item);
+                }
+
+                // don't default the active state if given a boolean value,
+                // or if a user defined value has already been given
+                if (normalizedItem.active !== true && normalizedItem.active !== false && !userDefinedActive) {
+                    normalizedItem.active = isLast;
+                } else if (normalizedItem.active) {
+                    // here we know we've been given an active value,
+                    // so we won't set a default value
+                    userDefinedActive = true;
+                }
+
+                if (normalizedItem.link) {
+                    // default the link value to bLink's href prop
+                    normalizedItem.href = normalizedItem.link;
+                }
+
+                // stuff all the bLink props into a single place
+                // so we can bind to the component
+                // for dynamic prop proxying
+                normalizedItem._linkProps = keys(normalizedItem).reduce((memo, itemProp) => {
+                    if (arrayIncludes(bLinkPropKeys, itemProp)) {
+                        memo[itemProp] = normalizedItem[itemProp];
                     }
 
-                    if (item.active !== true && item.active !== false) {
-                        item.__active = item === last;
-                    } else {
-                        item.__active = item.active;
-                    }
+                    return memo;
+                }, {});
 
-                    return item;
-                });
-            }
-        },
-        props: {
-            items: {
-                type: Array,
-                default: () => [],
-                required: true
-            }
-        },
-        methods: {
-            onclick(item) {
-                this.$emit('click', item);
-            }
+                return normalizedItem;
+            });
         }
-    };
+    },
+    props: {
+        items: {
+            type: Array,
+            default: () => [],
+            required: true
+        },
+        ariaCurrent: {
+            type: String,
+            default: 'location'
+        }
+    },
+    methods: {
+        onClick(item) {
+            this.$emit('click', item);
+        }
+    }
+};
 </script>

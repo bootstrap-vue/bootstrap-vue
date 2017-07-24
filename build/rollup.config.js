@@ -5,7 +5,7 @@ const buble = require('rollup-plugin-buble');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const uglify = require('rollup-plugin-uglify');
-const {minify} = require('uglify-js-harmony');
+const {minify} = require('uglify-es');
 const CleanCSS = require('clean-css');
 const {camelCase} = require('lodash');
 const {name, dependencies} = require('../package.json');
@@ -32,9 +32,9 @@ module.exports = {
                 fs.writeFileSync(path.resolve(dist, `${name}.css`), new CleanCSS().minify(style).styles);
             }
         }),
-        buble(),
         resolve({external: ['vue']}),
         commonjs(),
+        buble({objectAssign: 'Object.assign'}),
         uglify({}, minify)
     ],
     globals: {

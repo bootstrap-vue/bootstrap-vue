@@ -1,17 +1,94 @@
 {
   "title": "Table",
   "component": "bTable",
-  "jsfiddle": "a5s95a3q",
   "events": [
     {
       "event": "row-clicked",
-      "description": "Emitted when a row clicked.",
+      "description": "Emitted when a row is clicked.",
       "args": [
         {
-          "arg": "(item,index)",
-          "description": "Selected item and its index."
+          "arg": "item",
+          "description": "Item data of the row being clicked."
+        },
+        {
+          "arg": "index",
+          "description": "Index of the row being clicked."
         }
       ]
+    },
+    {
+      "event": "row-hovered",
+      "description": "Emitted when a row is hovered.",
+      "args": [
+        {
+          "arg": "item",
+          "description": "Item data of the row being hovered."
+        },
+        {
+          "arg": "index",
+          "description": "Index of the row being hovered."
+        }
+      ]
+    },
+    {
+      "event": "head-clicked",
+      "description": "Emitted when a header or footer cell is clicked.",
+      "args": [
+        {
+          "arg": "key",
+          "description": "Column key clicked (field name)."
+        },
+        {
+          "arg": "field",
+          "description": "Field definition object."
+        }
+      ]
+    },
+    {
+      "event": "sort-changed",
+      "description": "Emitted when the sorting on the table has changed",
+      "args": [
+        {
+          "arg": "ctx",
+          "description": "Table state context object. See docs."
+        }
+      ]
+    },
+    {
+      "event": "filtered",
+      "description": "Emitted when local filtering causes a change in the number of items.",
+      "args": [
+        {
+          "arg": "filteredItems",
+          "description": "Array of items after filtering (before pagination occurs)."
+        }
+      ]
+    },
+    {
+      "event": "refreshed",
+      "description": "Emitted when the items provider function has returned data."
+    }
+  ],
+  "slots": [
+    {
+      "name": "<field>",
+      "description": "Scoped slot for custom data rendering of field data"
+    },
+    {
+      "name": "HEAD_<field>",
+      "description": "Scoped slot for custom rendering of field header"
+    },
+    {
+      "name": "FOOT_<field>",
+      "description": "Scoped slot for custom rendering of field footer"
+    },
+    {
+      "name": "empty",
+      "description": "Content to display when no items are present in the `items` array"
+    },
+    {
+      "name": "emptyfiltered",
+      "description": "Content to display when no items are present in the filtered `items` array"
     }
   ]
 }

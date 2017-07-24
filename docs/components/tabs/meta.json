@@ -4,6 +4,17 @@
   "components": [
     "bTab"
   ],
+  "events": [
+    {
+      "event": "input",
+      "description": "Emits when a tab is shown",
+      "args": [
+        {
+          "arg": "tab_index"
+        }
+      ]
+    }
+  ],
   "slots": [
     {
       "name": "tabs",
@@ -13,6 +24,5 @@
       "name": "empty",
       "description": "Renders this slot if no tabs are present"
     }
-  ],
-  "jsfiddle": "3xwmm1qt"
+  ]
 }

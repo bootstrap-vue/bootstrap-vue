@@ -11,10 +11,9 @@
        :append="append"
        :replace="replace"
        :event="event"
-       :tag="tag"
+       :tag="componentTag"
        :class="linkClassObject"
-       @click="linkClick"
-    >
+       @click.native="linkClick">
         <slot></slot>
     </a>
 
@@ -23,17 +22,18 @@
        :disabled="disabled"
        :aria-disabled="disabled ? 'true' : 'false'"
        :href="_href"
+       :target="target || null"
+       :rel="computedRel"
        :class="linkClassObject"
-       @click="linkClick"
-    >
+       @click="linkClick">
         <slot></slot>
     </a>
 </template>
 
 <script>
-    import linkMixin from '../mixins/link';
+import { linkMixin } from '../mixins';
 
-    export default {
-        mixins: [linkMixin]
-    };
+export default {
+    mixins: [linkMixin]
+};
 </script>

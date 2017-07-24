@@ -1,5 +1,5 @@
 <template>
-    <li :class="['nav-item','dropdown', {dropup, show: visible}]">
+    <li :id="id || null" :class="['nav-item','dropdown', {dropup, show: visible}]">
 
         <a :class="['nav-link', dropdownToggle, {disabled}]"
            href="#"
@@ -12,7 +12,7 @@
            @keydown.enter.stop.prevent="toggle($event)"
            @keydown.space.stop.prevent="toggle($event)"
         >
-            <slot name="text"><span v-html="text"></span></slot>
+            <slot name="button-content"><slot name="text"><span v-html="text"></span></slot></slot>
         </a>
 
         <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
@@ -30,37 +30,29 @@
     </li>
 </template>
 
+<style scoped>
+    .dropdown-item:focus,
+    .dropdown-item:hover,
+    .dropdown-header:focus {
+        background-color: #eaeaea;
+        outline: none;
+    }
+</style>
+
 <script>
-    import clickOut from '../mixins/clickout';
-    import dropdown from '../mixins/dropdown';
+    import { dropdownMixin } from '../mixins';
 
     export default {
-        mixins: [
-            clickOut,
-            dropdown
-        ],
-        data() {
-            return {
-                visible: false
-            };
-        },
+        mixins: [dropdownMixin],
         computed: {
             dropdownToggle() {
-                return this.caret ? 'dropdown-toggle' : '';
+                return this.noCaret ? '' : 'dropdown-toggle';
             }
         },
         props: {
-            id: {
-                type: String
-            },
-            caret: {
+            noCaret: {
                 type: Boolean,
-                default: true
-            }
-        },
-        methods: {
-            clickOutListener() {
-                this.visible = false;
+                default: false
             }
         }
     };

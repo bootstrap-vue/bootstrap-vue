@@ -15,8 +15,17 @@
                     this.variant ? `bg-${this.variant}` : null,
                     this.fixed ? `fixed-${this.fixed}` : null,
                     this.sticky ? 'sticky-top' : null,
-                    this.toggleable ? `navbar-toggleable-${this.toggleBreakpoint}` : null
+                    this.toggleable ? this.toggleableClass : null
                 ];
+            },
+            toggleableClass() {
+                let className = 'navbar-toggleable';
+
+                if (this.toggleBreakpoint) {
+                    className += `-${this.toggleBreakpoint}`;
+                }
+
+                return className;
             }
         },
         props: {
@@ -33,13 +42,14 @@
             },
             toggleBreakpoint: {
                 type: String,
-                default: 'sm'
+                default: null
             },
             fixed: {
                 type: String
             },
             sticky: {
-                type: String
+                type: Boolean,
+                default: false
             }
         }
     };

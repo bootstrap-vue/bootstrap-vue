@@ -5,3 +5,6 @@ node_modules/
 .idea
 .nuxt
 docs-dist
+sw.js
+workbox*.js
+.DS_Store

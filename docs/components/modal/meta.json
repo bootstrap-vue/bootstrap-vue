@@ -1,17 +1,16 @@
 {
   "title": "Modal",
   "component": "bModal",
-  "jsfiddle": "bofh9aaa",
   "events": [
     {
       "event": "change",
+      "description": "new modal visibility state",
       "args": [
         {
           "arg": "is_visible",
-          "description": ""
+          "description": "true if modal is visible, false otherwise"
         }
-      ],
-      "description": "new modal visibility state"
+      ]
     },
     {
       "event": "shown",
@@ -19,38 +18,61 @@
     },
     {
       "event": "hidden",
-      "description": "always emits when modal is hidden",
-      "args": {
-        "e": "Close event. See docs"
-      }
+      "description": "always emits after modal is hidden",
+      "args": [
+        {
+          "e": "Close event object. Non Cancellable: See docs"
+        }
+      ]
+    },
+    {
+      "event": "hide",
+      "description": "always emits just before modal has hidden",
+      "args": [
+        {
+         "e": "Close event object. Cancellable: See docs"
+        }
+      ]
     },
     {
       "event": "ok",
-      "description": "when default ok button pressed",
-      "args": {
-        "e": "Close event. See docs"
-      }
+      "description": "when default OK button pressed, just before modal has hidden",
+      "args": [
+        {
+          "e": "Close event object. Cancellable: See docs"
+        }
+      ]
     },
     {
       "event": "cancel",
-      "description": "when default cancel button pressed",
-      "args": {
-        "e": "Close event. See docs"
-      }
+      "description": "when default CANCEL button pressed, just before modal has hidden",
+      "args": [
+        {
+          "e": "Close event object. Cancelable: See docs"
+        }
+      ]
     }
   ],
   "slots": [
     {
       "name": "modal-header",
-      "description": "Entire modal header container"
+      "description": "Entire modal header container. Also removes the top right X close button."
     },
     {
       "name": "modal-title",
-      "description": "Modal title"
+      "description": "Modal title. If modal-header slot is used, this slot will not be shown."
     },
     {
       "name": "modal-footer",
-      "description": "Modal footer content"
+      "description": "Modal footer content. Also removes default OK and CANCEL buttons."
+    },
+    {
+      "name": "modal-ok",
+      "description": "Modal OK button content."
+    },
+    {
+      "name": "modal-close",
+      "description": "Modal Close button content."
     }
   ]
 }

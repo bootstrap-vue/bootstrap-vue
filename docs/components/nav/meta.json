@@ -2,7 +2,7 @@
   "title": "Nav",
   "component": "bNav",
   "components": [
-    "bNavItem"
-  ],
-  "jsfiddle": "8s202srp"
+    "bNavItem",
+    "bNavItemDropdown"
+  ]
 }

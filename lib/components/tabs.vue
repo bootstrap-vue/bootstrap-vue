@@ -52,7 +52,7 @@
 </template>
 
 <script>
-    import observeDom from '../utils/observe-dom';
+    import {observeDom} from '../utils';
 
     export default {
         data() {
@@ -84,7 +84,7 @@
             },
             value: {
                 type: Number,
-                default: 0
+                default: null
             },
             pills: {
                 type: Boolean,
@@ -183,13 +183,16 @@
                     return;
                 }
 
-                // Deactivate previous active tab
-                if (this.tabs[this.currentTab]) {
-                    this.$set(this.tabs[this.currentTab], 'localActive', false);
-                }
-
-                // Set new tab as active
-                this.$set(tab, 'localActive', true);
+                // Activate current tab, and deactivte any old tabs
+                this.tabs.forEach( t => {
+                    if (t === tab) {
+                        // Set new tab as active
+                        this.$set(t, 'localActive', true);
+                    } else {
+                        // Ensure non current tabs are not active
+                        this.$set(tab, 'localActive', false);
+                    }
+                });
 
                 // Update currentTab
                 this.currentTab = index + offset;
@@ -212,12 +215,27 @@
                     this.$set(tab, 'lazy', this.lazy);
                 });
 
-                // Set initial active tab
+                // Get initial active tab
                 let tabIndex = this.currentTab;
 
-                if (this.currentTab === null || this.currentTab === undefined) {
+                if (tabIndex === null || tabIndex === undefined) {
+                    // Make null for easier testing further on
+                    tabIndex = null;
+                }
+
+                if (tabIndex === null) {
+                    // Find last active non-dsabled tab in current tabs
                     this.tabs.forEach((tab, index) => {
-                        if (tab.active) {
+                        if (tab.active && !tab.disabled) {
+                            tabIndex = index;
+                        }
+                    });
+                }
+
+                if (tabIndex === null) {
+                    // Find first non-disabled tab in current tabs
+                    this.tabs.forEach((tab, index) => {
+                        if (!tab.disabled && tabIndex === null) {
                             tabIndex = index;
                         }
                     });
@@ -225,7 +243,7 @@
 
                 // Workaround to fix problem when currentTab is removed
                 let offset = 0;
-                if (tabIndex > this.tabs.length - 1) {
+                if (tabIndex >= this.tabs.length) {
                     offset = -1;
                 }
 

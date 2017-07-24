@@ -1,11 +1,15 @@
 {
   "title": "Form File",
   "component": "bFormFile",
-  "jsfiddle": "3dw5djb1",
   "events": [
     {
       "event": "change",
-      "description": "original change event on input"
+      "description": "original native change event on input",
+      "args": [
+        {
+          "arg": "event"
+        }
+      ]
     },
     {
       "event": "input",

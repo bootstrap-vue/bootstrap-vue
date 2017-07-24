@@ -1,11 +1,20 @@
 {
   "title": "Pagination",
   "component": "bPagination",
-  "jsfiddle": "atb4cnjg",
   "events": [
     {
       "event": "input",
-      "description": "when page changes",
+      "description": "when page changes via user interaction or programmatically",
+      "args": [
+        {
+          "arg": "page",
+          "description": "Selected page number (starting with 1)"
+        }
+      ]
+    },
+    {
+      "event": "change",
+      "description": "when page changes via user interaction",
       "args": [
         {
           "arg": "page",

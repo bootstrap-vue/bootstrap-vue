@@ -1,5 +1,16 @@
 {
   "title": "Form Radio",
   "component": "bFormRadio",
-  "jsfiddle": "dtjL91t7"
+  "events": [
+    {
+      "event": "change",
+      "description": "Emitted when value changes via user interaction",
+      "args": [
+        {
+          "arg": "value",
+          "description": "value, or option object if return-object prop is true."
+        }
+      ]
+    }
+  ]
 }

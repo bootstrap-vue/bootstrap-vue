@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "0.15.7",
+  "version": "0.18.0",
   "description": "Bootstrap 4 Components for Vue.js 2",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
@@ -9,11 +9,32 @@
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
   "homepage": "https://bootstrap-vue.github.io",
-  "author": {
-    "name": "Pooya Parsa",
-    "email": "pooya@pi0.ir",
-    "url": "https://github.com/pi0"
-  },
+  "contributors": [
+    {
+      "name": "Pooya Parsa",
+      "url": "https://github.com/pi0"
+    },
+    {
+      "name": "Troy Morehouse",
+      "url": "https://github.com/tmorehouse"
+    },
+    {
+      "name": "SirLamer",
+      "url": "https://github.com/SirLamer"
+    },
+    {
+      "name": "Vitaly Mosin",
+      "url": "https://github.com/mosinve"
+    },
+    {
+      "name": "vizo",
+      "url": "https://github.com/vizo"
+    },
+    {
+      "name": "Alex Regan",
+      "url": "https://github.com/alexsasharegan"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/bootstrap-vue/bootstrap-vue/issues"
   },
@@ -22,65 +43,62 @@
     "url": "git+https://github.com/bootstrap-vue/bootstrap-vue.git"
   },
   "scripts": {
-    "build": "rollup -c build/rollup.config.js",
-    "watch": "rollup -c build/rollup.config.js --watch",
-    "docs-dev": "nuxt dev build",
-    "docs-gen": "nuxt generate build",
-    "docs-deploy": "cd scripts && ./gh-pages",
-    "lint": "xo",
-    "lint-fix": "xo --fix",
-    "test": "yarn lint"
+    "build": "npm run build:core && npm run build:extra",
+    "build:core": "rollup -c build/rollup.config.js",
+    "build:extra": "rollup -c build/rollup.extra.config.js",
+    "watch": "npm run watch:core",
+    "watch:core": "rollup -c build/rollup.config.js --watch",
+    "watch:extra": "rollup -c build/rollup.extra.config.js --watch",
+    "docs-dev": "nuxt dev",
+    "docs-gen": "nuxt generate",
+    "docs-publish": "./build/gh-pages",
+    "test": "jest",
+    "prepublish": "npm run build && npm run test",
+    "postpublish": "npm run docs-publish",
+    "release": "standard-version"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "tether": "latest",
-    "uglify-js-harmony": "^2.7.5",
-    "vue": "^2.2.6"
+    "vue": "^2.3.3"
   },
   "devDependencies": {
-    "clean-css": "^4.0.12",
-    "codemirror": "^5.25.2",
-    "cross-env": "^4.0.0",
-    "eslint-config-vue": "^2.0.2",
-    "eslint-plugin-html": "^2.0.0",
-    "eslint-plugin-vue": "^2.0.1",
+    "@nuxtjs/pwa": "^0.2.0",
+    "clean-css": "^4.1.5",
+    "codemirror": "^5.27.4",
+    "cross-env": "^5.0.1",
+    "eslint": "^4.1.1",
+    "eslint-plugin-html": "^3.0.0",
+    "eslint-plugin-vue": "^2.1.0",
+    "eslint-plugin-vue-libs": "^1.2.0",
     "highlight-loader": "^0.7.2",
     "highlightjs": "^9.8.0",
     "html-loader": "^0.4.5",
+    "jest": "^20.0.4",
+    "jest-vue-preprocessor": "^1.0.1",
     "lodash": "latest",
-    "markdown-loader": "^2.0.0",
+    "markdown-loader": "^2.0.1",
     "marked": "^0.3.6",
-    "nuxt": "^0.10.6",
-    "rollup": "^0.41.6",
+    "nuxt": "1.0.0-alpha.4",
+    "rollup": "^0.43.0",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-uglify": "^1.0.2",
-    "rollup-plugin-vue": "^2.3.1",
-    "rollup-watch": "^3.2.2",
-    "xo": "^0.18.1"
+    "rollup-plugin-uglify": "^2.0.1",
+    "rollup-plugin-vue": "^2.4.0",
+    "rollup-watch": "^4.0.0",
+    "standard-version": "^4.2.0",
+    "uglify-es": "^3.0.23"
   },
-  "xo": {
-    "space": 4,
-    "plugins": [
+  "jest": {
+    "testRegex": "spec.js$",
+    "moduleFileExtensions": [
+      "js",
       "vue"
     ],
-    "extensions": [
-      "vue"
-    ],
-    "ignores": [
-      "docs/nuxt/plugins/ga.js"
-    ],
-    "envs": [
-      "node",
-      "browser"
-    ],
-    "globals": [
-      "Vue"
-    ],
-    "rules": {
-      "camelcase": 0,
-      "import/extensions": 0
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
     }
   },
   "keywords": [

@@ -4,16 +4,19 @@
 If you are using module bundlers such as Webpack, Rollup, Laravel elixir/mix, etc you may prefer directly include package
 into your project. To get started use yarn or npm to get latest version.
 
-```sh
+
+1. Download dependencies:
+```bash
 # Using YARN
 yarn add bootstrap-vue
+yarn add bootstrap@4.0.0-alpha.6
+yarn add -D style-loader
 
 # Using NPM
 npm install --save bootstrap-vue
 ```
 
-Register BootstrapVue in your app entrypoint:
-
+2. Register BootstrapVue in your app entrypoint:
 ```js
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue';
@@ -21,18 +24,60 @@ import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 ```
 
-Import styles using style-loader:
+3. Import styles using style-loader:
 ```js
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
-If style-loader is not available, you have to manually include both bootstrap and bootstrap-vue css files in your css bundle
 
-#### Using individual components
+##### For users of Webpack or Webpack-Simple from `vue-cli` follow these instructions:
+1. Download the dependencies:
+```bash
+yarn add bootstrap-vue
+yarn add bootstrap@4.0.0-alpha.6
+yarn add -D style-loader
+```
+
+2. In `src/main.js`, add the following lines, in priority order:
+```js
+import Vue from 'vue';
+/* ( there may be other imports here ) */
+import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.css';
+/* ( there may be other imports here ) */
+
+Vue.use(BootstrapVue);
+```
+
+#### Note on style-loader:
+If you are unable or do not want to add style-loader as a developer dependency, you have to
+manually include both [Bootstrap's](https://v4-alpha.getbootstrap.com/getting-started/download/)
+and [BootstrapVue's](https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css) CSS files
+in your bundle or reference them from `static/` via `index.html`.
+
+
+#### Using individual components and directives
 If for any reason just want to use a specific component, you can do this by directly importing that component.
 This is not recommended as entire package gzipped size is ~15Kb and requires a supported vue bundler.
+
 ```js
-import {bAlert, bBtn} from 'bootstrap-vue/lib/components'
+import {bAlert, bBtn, bCollapse} from 'bootstrap-vue/lib/components'
+import (bToggle, bScrollspy} from 'bootstrap-vue/lib/directives'
+
+new Vue({
+  // ...
+  components: {
+    bAlert,
+    bBtn,
+    bCollapse
+  },
+  directives: {
+    bToggle,
+    bScrollspy
+  },
+  // ...
+})
 ```
 
 ### CDN (Browser)
@@ -52,17 +97,8 @@ import {bAlert, bBtn} from 'bootstrap-vue/lib/components'
 Choosing the best variant for your build environment / packager helps less bundle sizes.
 If your bundler supports es modules, it will automatically prefer it over commonjs.
 
-Variant        | Environments                 | Package path
----------------|------------------------------|------------------------------------------------------------------------
-**ES Module**  | Webpack 2 / Rollup           | `dist/bootstrap-vue.esm.js`
-commonjs2      | Webpack 1 / ...              | `dist/bootstrap-vue.common.js`
-UMD            | Browser                      | `dist/bootstrap-vue.js`
-
-## Advanced Tips
-
-### auto generated ids
-Some HTML tags like `aria-*` and `for` need dom id reference in order to get working.
-They are automatically added if `id` attribute is available on target element and it is *highly recommended adding them manually*.
-For enabling auto generated ids you can set `window.UNSAFE_UID` or `process.env.UNSAFE_UID` 
-to `true` but it is highly discouraged as `_uid` is internal and should not be used as part of the application state. [vuejs/vue#5573](https://github.com/vuejs/vue/issues/5573)
-Enabling may also introduce problems if you are using SSR.
+| Variant        | Environments         | Package path
+| -------------- | -------------------- | -----------------------------------
+| **ES Module**  | Webpack 2 / Rollup   | `dist/bootstrap-vue.esm.js`
+| commonjs2      | Webpack 1 / ...      | `dist/bootstrap-vue.common.js`
+| UMD            | Browser              | `dist/bootstrap-vue.js`

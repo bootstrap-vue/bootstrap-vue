@@ -1,7 +1,7 @@
 <template>
-    <div :id="id || null" :class="['dropdown','btn-group',{dropup, show: visible}]">
+    <div :id="id || null" :class="['dropdown', 'btn-group', {dropup, show: visible}]">
 
-        <b-button :class="{'dropdown-toggle': !split, 'btn-link': link}"
+        <b-button :class="{'dropdown-toggle': !split}"
                   ref="button"
                   :id="id ? (id + '__BV_button_') : null"
                   :aria-haspopup="split ? null : 'true'"
@@ -11,10 +11,10 @@
                   :disabled="disabled"
                   @click.stop.prevent="click"
         >
-            <slot name="text">{{text}}</slot>
+            <slot name="button-content"><slot name="text">{{text}}</slot></slot>
         </b-button>
 
-        <b-button :class="['dropdown-toggle','dropdown-toggle-split',{'btn-link': link}]"
+        <b-button :class="['dropdown-toggle','dropdown-toggle-split']"
                   v-if="split"
                   ref="toggle"
                   :id="id ? (id + '__BV_toggle_') : null"
@@ -43,22 +43,26 @@
     </div>
 </template>
 
+<style scoped>
+    .dropdown-item:focus,
+    .dropdown-item:hover,
+    .dropdown-header:focus {
+        background-color: #eaeaea;
+        outline: none;
+    }
+</style>
+
 <script>
-    import clickOut from '../mixins/clickout';
-    import dropdown from '../mixins/dropdown';
+    import { dropdownMixin } from '../mixins';
     import bButton from './button.vue';
 
     export default {
-        mixins: [clickOut, dropdown],
+        mixins: [dropdownMixin],
         components: {bButton},
-        data() {
-            return {
-                visible: false
-            };
-        },
         props: {
-            id: {
-                type: String
+            split: {
+                type: Boolean,
+                default: false
             },
             toggleText: {
                 type: String,
@@ -71,30 +75,7 @@
             variant: {
                 type: String,
                 default: null
-            },
-            link: {
-                type: Boolean,
-                default: false
-            }
-        },
-        methods: {
-            clickOutListener() {
-                this.visible = false;
-            },
-            click(e) {
-                if (this.disabled) {
-                    this.visible = false;
-                    return;
-                }
-
-                if (this.split) {
-                    this.$emit('click', e);
-                    this.$root.$emit('shown::dropdown', this);
-                } else {
-                    this.toggle();
-                }
             }
         }
     };
-
 </script>

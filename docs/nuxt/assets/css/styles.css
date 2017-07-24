@@ -1,5 +1,30 @@
-/* From Vue.JS Docs */
+/* vietnamese */
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Inconsolata Regular'), local('Inconsolata-Regular'), url(~assets/fonts/Inconsolata-Regular-vietnamese.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Inconsolata Regular'), local('Inconsolata-Regular'), url(~assets/fonts/Inconsolata-Regular-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Inconsolata Regular'), local('Inconsolata-Regular'), url(~assets/fonts/Inconsolata-Regular-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
 .hljs {
+    font-family: "Inconsolata", "Monaco", "Andale Mono", "Lucida Console", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
     overflow-x: auto;
     position: relative;
     background-color: #f9f9f9;
@@ -14,13 +39,13 @@
 }
 
 code {
-    background: transparent !important;
-    color: #5cb85c;
+    color: #795da3;
 }
 
 .bd-masthead {
     color: white;
-    background-image: linear-gradient(135deg, #4fc08d, #4fc08d);
+    background-image: none !important;
+    background-color:  #4fc08d;
 }
 
 .bd-masthead .lead {
@@ -35,4 +60,36 @@ blockquote {
 .bd-content h1, .bd-content h2, .bd-content h3, .bd-content h4, .bd-content h5 {
     padding-top: 25px;
     padding-bottom: 15px;
+}
+
+#__nuxt > .progress {
+    z-index: 100 !important;
+}
+
+.vue-example {
+    margin: 20px;
+}
+
+pre.editable:after {
+    content: '(double click to edit)';
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #aaa;
+    text-align: right;
+    font-size: .75em;
+    padding: 5px 10px 0;
+    line-height: 15px;
+    height: 15px;
+    font-weight: 600;
+}
+
+pre.editable:hover:after {
+    font-size: .9em;
+    color: #444;
+    cursor: pointer;
+}
+
+pre.editable.live:after {
+    content: 'Live';
 }

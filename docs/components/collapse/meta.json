@@ -1,16 +1,46 @@
 {
   "title": "Collapse",
   "component": "bCollapse",
-  "jsfiddle": "f0qsxezp",
   "events": [
     {
+      "event": "show",
+      "description": "emitted when collaspe has started to open"
+    },
+    {
+      "event": "shown",
+      "description": "emitted when collaspe has finised opening"
+    },
+    {
+      "event": "hide",
+      "description": "emitted when collaspe has started to close"
+    },
+    {
+      "event": "hidden",
+      "description": "emitted when collaspe has finished closing"
+    },
+    {
       "event": "collapse::toggle",
-      "description": "toggles when this event emits on $root",
-      "args": {
-        "id": {
-          "description": "collapse id"
+      "description": "toggles visible state of collaspe when this event emits on $root",
+      "args": [
+        {
+          "arg": "id",
+          "description": "collapse id to toggle"
         }
-      }
+      ]
+    },
+    {
+      "event": "accordion::toggle",
+      "description": "toggles visible state of accordion when this event emits on $root",
+      "args": [
+        {
+          "arg": "id",
+          "description": "collapse id that should be open"
+        },
+        {
+          "arg": "accordion",
+          "description": "accordion group identifier"
+        }
+      ]
     }
   ]
 }
