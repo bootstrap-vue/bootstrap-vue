@@ -13,11 +13,11 @@
         Success Alert
     </b-alert>
 
-    <b-alert variant="danger" dismissible :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">
+    <b-alert variant="danger" dismissible v-model="showDismissibleAlert">
         Dismissible Alert!
     </b-alert>
 
-    <b-alert :show="dismissCountDown" dismissible variant="warning" @dismiss-count-down="countDownChanged">
+    <b-alert v-model="dismissCountDown" dismissible variant="warning">
         This alert will dismiss after {{dismissCountDown}} seconds...
     </b-alert>
 
@@ -74,5 +74,5 @@ a close `X` button.  use the `dismiss-label` to change the hidden label text ass
 with the dismiss button.
 
 #### Auto dismissing alerts:
-To create a `<b-alert>` that dismisses automatically after a period of time, set 
-the `show` prop to the number of seconds you would like the `<b-alert>` to remain visible for.
+To create a `<b-alert>` that dismisses automatically after a period of time, assign 
+to the `v-model` prop, holding  the number of seconds you would like the `<b-alert>` to remain visible for.
