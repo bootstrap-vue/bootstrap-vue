@@ -12,10 +12,10 @@
 
         <!-- Goto First Page button -->
         <template v-if="!hideGotoEndButtons">
-            <li v-if="isActive(1) || disabled" class="page-item disabled" role="none" aria-hidden="true">
+            <li v-if="isActive(1) || disabled" class="page-item disabled" role="none presentation" aria-hidden="true">
                 <span class="page-link" v-html="firstText"></span>
             </li>
-            <li v-else class="page-item" role="none">
+            <li v-else class="page-item" role="none presentation">
                 <a class="page-link"
                    :aria-label="labelFirstPage"
                    :aria-controls="ariaControls || null"
@@ -30,10 +30,10 @@
         </template>
 
         <!-- Goto Previous page button -->
-        <li v-if="isActive(1) || disabled" class="page-item disabled" role="none" aria-hidden="true">
+        <li v-if="isActive(1) || disabled" class="page-item disabled" role="none presentation" aria-hidden="true">
             <span class="page-link" v-html="prevText"></span>
         </li>
-        <li v-else class="page-item" role="none">
+        <li v-else class="page-item" role="none presentation">
             <a class="page-link"
                :aria-label="labelPrevPage"
                :aria-controls="ariaControls || null"
@@ -52,7 +52,7 @@
         </li>
 
         <!-- Pages links -->
-        <li v-for="page in pageList" role="none" :class="pageItemClasses(page)" :key="page.number">
+        <li v-for="page in pageList" role="none presentation" :class="pageItemClasses(page)" :key="page.number">
             <a :class="pageLinkClasses(page)"
                :disabled="disabled"
                :aria-disabled="disabled ? 'true' : null"
@@ -74,10 +74,10 @@
         </li>
 
         <!-- Goto Next page -->
-        <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" role="none" aria-hidden="true">
+        <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" role="none presentation" aria-hidden="true">
             <span class="page-link" v-html="nextText"></span>
         </li>
-        <li v-else class="page-item"  role="none">
+        <li v-else class="page-item" role="none presentation">
             <a class="page-link"
                :aria-label="labelNextPage"
                :aria-controls="ariaControls || null"
@@ -92,10 +92,14 @@
 
         <!-- Goto Last page -->
         <template v-if="!hideGotoEndButtons">
-            <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" role="none" aria-hidden="true">
+            <li v-if="isActive(numberOfPages) || disabled"
+                class="page-item disabled"
+                role="none presentation"
+                aria-hidden="true"
+            >
                 <span class="page-link" v-html="lastText"></span>
             </li>
-            <li v-else class="page-item" role="none">
+            <li v-else class="page-item" role="none presentation">
                 <a class="page-link"
                    :aria-label="`${labelLastPage} {${numberOfPages})`"
                    :aria-controls="ariaControls || null"
