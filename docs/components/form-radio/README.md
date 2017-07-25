@@ -97,7 +97,6 @@ when they are in the checked state.
                   v-model="selected"
                   :options="options"
     ></b-form-radio>
-
     <hr>
 
     <div>
@@ -113,7 +112,7 @@ export default {
     options: [
       { text: 'Radio 1', value: 'radio1' },
       { text: 'Radio 3', value: 'radio2' },
-      { text: 'Radio 3 (disabled)', value: 'radio3', disabled: true }
+      { text: 'Radio 3 (disabled)', value: 'radio3', disabled: true },
       { text: 'Radio 4', value: 'radio4' }
     ]
   }
