@@ -1,5 +1,7 @@
 <template>
-    <label :class="[inputClass,checkboxClass]">
+    <label :class="button ? btnLabelClasses : labelClasses"
+           :aria-pressed="button ? (isChecked ? 'true' : 'false') : null"
+    >
         <input type="checkbox"
                :id="id || null"
                :name="name"
@@ -9,13 +11,16 @@
                ref="check"
                autocomplete="off"
                :aria-required="required ? 'true' : null"
-               :class="[custom?'custom-control-input':null]"
+               :class="(custom && !button ) ? 'custom-control-input' : null"
                :checked="isChecked"
+               @focusin.native="handleFocus"
+               @focusout.native="handleFocus"
                @change="handleChange">
-        <span class="custom-control-indicator"
+        <span v-if="custom && !button"
+              class="custom-control-indicator"
               aria-hidden="true"
-              v-if="custom"></span>
-        <span :class="custom ? 'custom-control-description' : null">
+        ></span>
+        <span :class="(custom && !button) ? 'custom-control-description' : null">
             <slot></slot>
         </span>
     </label>
@@ -48,13 +53,31 @@ export default {
         size: {
             type: String,
             default: null
+        },
+        button: {
+            type: Boolean,
+            default: false,
+        },
+        buttonVariant: {
+            type: String,
+            default: 'secondary',
         }
     },
     computed: {
-        inputClass() {
+        labelClasses() {
             return [
-                this.size ? `form-control-${this.size}` : null,
-                this.custom ? 'custom-checkbox' : null
+                this.size ? `form-control-${this.size}` : '',
+                this.custom ? 'custom-checkbox' : '',
+                this.checkboxClass
+            ];
+        },
+        btnLabelClasses() {
+            return [
+                'btn',
+                `btn-${this.buttonVariant}`,
+                this.size ? `btn-${this.size}` : '',
+                this.isChecked ? 'active' : '',
+                this.disabled ? 'disabled' : ''
             ];
         },
         isChecked() {
@@ -87,6 +110,16 @@ export default {
             this.$refs.check.indeterminate = state;
             // Emit update event to prop
             this.$emit('update:indeterminate', this.$refs.check.indeterminate);
+        },
+        handleFocus(evt) {
+            // Add or remove 'focus' class on label in button mode
+            if (this.button && evt.target === this.$refs.check) {
+                if (evt.type === 'focusin') {
+                    this.$el.classList.add('focus');
+                } else if (evt.type === 'focusout') {
+                    this.$el.classList.remove('focus');
+                }
+            }
         }
     },
     mounted() {
