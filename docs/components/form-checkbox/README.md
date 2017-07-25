@@ -88,22 +88,33 @@ with class `.custom-controls-stacked` to ensure each form control is on a separa
 
 **Example 3: Inline & Stacked checkboxes:**
 ```html
-<div>
-  <h5>Inline Checkboxes (default)</h5>
-  <div role="group">
-    <b-form-checkbox name="flavour" value="orange">Orange</b-form-checkbox>
-    <b-form-checkbox name="flavour" value="apple">Apple</b-form-checkbox>
-    <b-form-checkbox name="flavour" value="pineapple">Pineapple</b-form-checkbox>
-    <b-form-checkbox name="flavour" value="grape">Grape</b-form-checkbox>
+<template>
+  <div>
+    <h5>Inline Checkboxes (default)</h5>
+    <div role="group">
+      <b-form-checkbox name="flavour" v-model="a" value="orange">Orange</b-form-checkbox>
+      <b-form-checkbox name="flavour" v-model="a" value="apple">Apple</b-form-checkbox>
+      <b-form-checkbox name="flavour" v-model="a" value="pineapple">Pineapple</b-form-checkbox>
+      <b-form-checkbox name="flavour" v-model="a" value="grape">Grape</b-form-checkbox>
+    </div>
+    <h5>Stacked Checkboxes</h5>
+    <div role="group" class="custom-controls-stacked">
+      <b-form-checkbox name="flavour" v-model="b" value="orange">Orange</b-form-checkbox>
+      <b-form-checkbox name="flavour" v-model="b" value="apple">Apple</b-form-checkbox>
+      <b-form-checkbox name="flavour" v-model="b" value="pineapple">Pineapple</b-form-checkbox>
+      <b-form-checkbox name="flavour" v-model="b" value="grape">Grape</b-form-checkbox>
+    </div>
   </div>
-  <h5>Stacked Checkboxes</h5>
-  <div role="group" class="custom-controls-stacked">
-    <b-form-checkbox name="flavour" value="orange">Orange</b-form-checkbox>
-    <b-form-checkbox name="flavour" value="apple">Apple</b-form-checkbox>
-    <b-form-checkbox name="flavour" value="pineapple">Pineapple</b-form-checkbox>
-    <b-form-checkbox name="flavour" value="grape">Grape</b-form-checkbox>
-  </div>
-</div>
+</template>
+
+<script>
+export default {
+    data: {
+        a: [],
+        b: []
+    }
+}
+</script>
 
 <!-- form-checkbox-3.vue -->
 ```
@@ -148,31 +159,43 @@ when they are in the checked state.
 
 **Example 4: Button style checkboxes:**
 ```html
-<div>
-  <h5>button style checkboxes</h5>
-  <b-button-group data-toggle="buttons">
-    <b-form-checkbox button name="a" value="orange">Orange</b-form-checkbox>
-    <b-form-checkbox button name="a" value="apple">Apple</b-form-checkbox>
-    <b-form-checkbox button name="a" value="pineapple">Pineapple</b-form-checkbox>
-    <b-form-checkbox button name="a" value="grape">Grape</b-form-checkbox>
-  </b-button-group>
+<template>
+  <div>
+    <h5>button style checkboxes</h5>
+    <b-button-group data-toggle="buttons">
+      <b-form-checkbox button name="a" v-model="a" value="orange">Orange</b-form-checkbox>
+      <b-form-checkbox button name="a" v-model="a" value="apple">Apple</b-form-checkbox>
+      <b-form-checkbox button name="a" v-model="a" value="pineapple">Pineapple</b-form-checkbox>
+      <b-form-checkbox button name="a" v-model="a" value="grape">Grape</b-form-checkbox>
+    </b-button-group>
 
-  <h5>button style checkboxes with variant <code>primary</code> and large buttons</h5>
-  <b-button-group size="lg" data-toggle="buttons">
-    <b-form-checkbox button button-variant="primary" name="b" value="orange">Orange</b-form-checkbox>
-    <b-form-checkbox button button-variant="primary" name="b" value="apple">Apple</b-form-checkbox>
-    <b-form-checkbox button button-variant="primary" name="b" value="pineapple">Pineapple</b-form-checkbox>
-    <b-form-checkbox button button-variant="primary" name="b" value="grape">Grape</b-form-checkbox>
-  </b-button-group>
+    <h5>button style checkboxes with variant <code>primary</code> and large buttons</h5>
+    <b-button-group size="lg" data-toggle="buttons">
+      <b-form-checkbox button button-variant="primary" v-model="b" name="b" value="orange">Orange</b-form-checkbox>
+      <b-form-checkbox button button-variant="primary" v-model="b" name="b" value="apple">Apple</b-form-checkbox>
+      <b-form-checkbox button button-variant="primary" v-model="b" name="b" value="pineapple">Pineapple</b-form-checkbox>
+      <b-form-checkbox button button-variant="primary" v-model="b" name="b" value="grape">Grape</b-form-checkbox>
+    </b-button-group>
 
-  <h5>Stacked (vertical) button style checkboxes</h5>
-  <b-button-group vertical data-toggle="buttons">
-    <b-form-checkbox button class="mb-0" name="c" value="orange">Orange</b-form-checkbox>
-    <b-form-checkbox button class="mb-0" name="c" value="apple">Apple</b-form-checkbox>
-    <b-form-checkbox button class="mb-0" name="c" value="pineapple">Pineapple</b-form-checkbox>
-    <b-form-checkbox button name="flavour" value="c">Grape</b-form-checkbox>
-  </b-button-group>
-</div>
+    <h5>Stacked (vertical) button style checkboxes</h5>
+    <b-button-group vertical data-toggle="buttons">
+      <b-form-checkbox button class="mb-0" name="c" v-model="c" value="orange">Orange</b-form-checkbox>
+      <b-form-checkbox button class="mb-0" name="c" v-model="c" value="apple">Apple</b-form-checkbox>
+      <b-form-checkbox button class="mb-0" name="c" v-model="c" value="pineapple">Pineapple</b-form-checkbox>
+      <b-form-checkbox button name="flavour" v-model="c" value="grape">Grape</b-form-checkbox>
+    </b-button-group>
+  </div>
+</template>
+
+<script>
+export default {
+    data: {
+        a: [],
+        b: [],
+        c: []
+    }
+}
+</script>
 
 <!-- form-checkbox-4.vue -->
 ```
