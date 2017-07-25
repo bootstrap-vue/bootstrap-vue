@@ -17,6 +17,7 @@
             </li>
             <li v-else class="page-item">
                 <a class="page-link"
+                   role="button"
                    :aria-label="labelFirstPage"
                    :aria-controls="ariaControls || null"
                    href="#"
@@ -36,6 +37,7 @@
             <a class="page-link"
                :aria-label="labelPrevPage"
                :aria-controls="ariaControls || null"
+               role="button"
                href="#"
                tabindex="-1"
                @click.prevent="setPage($event, currentPage - 1)"
@@ -56,12 +58,11 @@
         >
             <a :class="pageLinkClasses(page)"
                :disabled="disabled"
-               :aria-disabled="disabled ? 'true' : 'false'"
+               :aria-disabled="disabled ? 'true' : null"
                :aria-label="labelPage + ' ' + page.number"
-               :aria-current="isActive(page) ? 'true' : null"
-               :aria-posinset="page.number"
-               :aria-setsize="numberOfPages"
+               :aria-current="isActive(page.number) ? 'true' : null"
                :aria-controls="ariaControls || null"
+               role="button"
                href="#"
                tabindex="-1"
                @click.prevent="setPage($event, page.number)"
@@ -83,6 +84,7 @@
             <a class="page-link"
                :aria-label="labelNextPage"
                :aria-controls="ariaControls || null"
+               role="button"
                href="#"
                tabindex="-1"
                @click.prevent="setPage($event, currentPage + 1)"
@@ -98,8 +100,9 @@
             </li>
             <li v-else class="page-item">
                 <a class="page-link"
-                   :aria-label="labelLastPage"
+                   :aria-label="`${labelLastPage} {${numberOfPages})`"
                    :aria-controls="ariaControls || null"
+                   role="button"
                    href="#"
                    tabindex="-1"
                    @click.prevent="setPage($event, numberOfPages)"
