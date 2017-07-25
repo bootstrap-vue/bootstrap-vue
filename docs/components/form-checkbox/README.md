@@ -154,15 +154,15 @@ when they are in the checked state.
     <b-form-checkbox button name="a" value="orange">Orange</b-form-checkbox>
     <b-form-checkbox button name="a" value="apple">Apple</b-form-checkbox>
     <b-form-checkbox button name="a" value="pineapple">Pineapple</b-form-checkbox>
-    <b-form-checkbox button name="ar" value="grape">Grape</b-form-checkbox>
+    <b-form-checkbox button name="a" value="grape">Grape</b-form-checkbox>
   </b-button-group>
 
   <h5>button style checkboxes with variant <code>primary</code> and large buttons</h5>
   <b-button-group size="lg" data-toggle="buttons">
-    <b-form-checkbox button button-variant"primary" name="b" value="orange">Orange</b-form-checkbox>
-    <b-form-checkbox button button-variant"primary" name="b" value="apple">Apple</b-form-checkbox>
-    <b-form-checkbox button button-variant"primary" name="b" value="pineapple">Pineapple</b-form-checkbox>
-    <b-form-checkbox button button-variant"primary" name="b" value="grape">Grape</b-form-checkbox>
+    <b-form-checkbox button button-variant="primary" name="b" value="orange">Orange</b-form-checkbox>
+    <b-form-checkbox button button-variant="primary" name="b" value="apple">Apple</b-form-checkbox>
+    <b-form-checkbox button button-variant="primary" name="b" value="pineapple">Pineapple</b-form-checkbox>
+    <b-form-checkbox button button-variant="primary" name="b" value="grape">Grape</b-form-checkbox>
   </b-button-group>
 
   <h5>Stacked (vertical) button style checkboxes</h5>
