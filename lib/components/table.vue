@@ -104,7 +104,7 @@
 
     const defaultSortCompare = (a, b, sortBy) => {
         if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-            return (a[sortBy] < b[sortBy] ? -1 : ((a[sortBy] > b[sortBy]) ? 1 : 0)
+            return a[sortBy] < b[sortBy] ? -1 : ((a[sortBy] > b[sortBy]) ? 1 : 0);
         } else {
             return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
                 numeric: true
