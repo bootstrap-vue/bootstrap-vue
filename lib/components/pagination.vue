@@ -57,9 +57,11 @@
                :disabled="disabled"
                :aria-disabled="disabled ? 'true' : null"
                :aria-label="labelPage + ' ' + page.number"
-               :aria-current="isActive(page.number) ? 'true' : null"
+               :aria-checked="isActive(page.number) ? 'true' : 'false'"
                :aria-controls="ariaControls || null"
-               role="menuitem"
+               :aria-posinset="page.number"
+               :aria-setsize="numberOfPages"
+               role="menuitemradio"
                href="#"
                tabindex="-1"
                @click.prevent="setPage($event, page.number)"
@@ -101,7 +103,7 @@
             </li>
             <li v-else class="page-item" role="none presentation">
                 <a class="page-link"
-                   :aria-label="`${labelLastPage} {${numberOfPages})`"
+                   :aria-label="labelLastPage"
                    :aria-controls="ariaControls || null"
                    role="menuitem"
                    href="#"
