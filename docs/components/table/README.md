@@ -85,21 +85,10 @@ export default {
     items: items,
     totalRows: items.length,
     fields: {
-      name: {
-        label: 'Person Full name',
-        sortable: true
-      },
-      age: {
-        label: 'Person age',
-        sortable: true,
-        'class': 'text-center'
-      },
-      isActive: {
-        label: 'is Active'
-      },
-      actions: {
-        label: 'Actions'
-      }
+      name:     { label: 'Person Full name', sortable: true },
+      age:      { label: 'Person age', sortable: true, 'class': 'text-center'  },
+      isActive: { label: 'is Active' },
+      actions:  { label: 'Actions' }
     },
     currentPage: 1,
     perPage: 5,
@@ -163,6 +152,8 @@ For information on the syntax supported by `thStyle`, see
 [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
 in the Vue.js guide.
 
+Any additional properties added to the field objects will be left intact - so you can access
+them via the named scoped slots for custom data, header, and footer rendering.
 
 ### `items` Prop
 `items` are real table data record objects in array format. Example format:
