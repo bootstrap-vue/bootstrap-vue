@@ -1,8 +1,8 @@
 <template>
     <ul :class="['pagination',btnSize]"
-        role="group"
         :aria-disabled="disabled ? 'true' : 'false'"
         :aria-label="ariaLabel ? ariaLabel : null"
+        role="menubar"
         @focusin.self="focusCurrent"
         @keydown.left.prevent="focusPrev"
         @keydown.right.prevent="focusNext"
@@ -12,13 +12,14 @@
 
         <!-- Goto First Page button -->
         <template v-if="!hideGotoEndButtons">
-            <li v-if="isActive(1) || disabled" class="page-item disabled" aria-hidden="true">
+            <li v-if="isActive(1) || disabled" class="page-item disabled" role="none presentation" aria-hidden="true">
                 <span class="page-link" v-html="firstText"></span>
             </li>
-            <li v-else class="page-item">
+            <li v-else class="page-item" role="none presentation">
                 <a class="page-link"
                    :aria-label="labelFirstPage"
                    :aria-controls="ariaControls || null"
+                   role="menuitem"
                    href="#"
                    tabindex="-1"
                    @click.prevent="setPage($event, 1)"
@@ -29,13 +30,14 @@
         </template>
 
         <!-- Goto Previous page button -->
-        <li v-if="isActive(1) || disabled" class="page-item disabled" aria-hidden="true">
+        <li v-if="isActive(1) || disabled" class="page-item disabled" role="none presentation" aria-hidden="true">
             <span class="page-link" v-html="prevText"></span>
         </li>
-        <li v-else class="page-item">
+        <li v-else class="page-item" role="none presentation">
             <a class="page-link"
                :aria-label="labelPrevPage"
                :aria-controls="ariaControls || null"
+               role="menuitem"
                href="#"
                tabindex="-1"
                @click.prevent="setPage($event, currentPage - 1)"
@@ -50,18 +52,16 @@
         </li>
 
         <!-- Pages links -->
-        <li v-for="page in pageList"
-            :class="pageItemClasses(page)"
-            :key="page.number"
-        >
+        <li v-for="page in pageList" role="none presentation" :class="pageItemClasses(page)" :key="page.number">
             <a :class="pageLinkClasses(page)"
                :disabled="disabled"
-               :aria-disabled="disabled ? 'true' : 'false'"
+               :aria-disabled="disabled ? 'true' : null"
                :aria-label="labelPage + ' ' + page.number"
-               :aria-current="isActive(page) ? 'true' : null"
+               :aria-checked="isActive(page.number) ? 'true' : 'false'"
+               :aria-controls="ariaControls || null"
                :aria-posinset="page.number"
                :aria-setsize="numberOfPages"
-               :aria-controls="ariaControls || null"
+               role="menuitemradio"
                href="#"
                tabindex="-1"
                @click.prevent="setPage($event, page.number)"
@@ -76,13 +76,14 @@
         </li>
 
         <!-- Goto Next page -->
-        <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" aria-hidden="true">
+        <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" role="none presentation" aria-hidden="true">
             <span class="page-link" v-html="nextText"></span>
         </li>
-        <li v-else class="page-item">
+        <li v-else class="page-item" role="none presentation">
             <a class="page-link"
                :aria-label="labelNextPage"
                :aria-controls="ariaControls || null"
+               role="menuitem"
                href="#"
                tabindex="-1"
                @click.prevent="setPage($event, currentPage + 1)"
@@ -93,13 +94,18 @@
 
         <!-- Goto Last page -->
         <template v-if="!hideGotoEndButtons">
-            <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" aria-hidden="true">
+            <li v-if="isActive(numberOfPages) || disabled"
+                class="page-item disabled"
+                role="none presentation"
+                aria-hidden="true"
+            >
                 <span class="page-link" v-html="lastText"></span>
             </li>
-            <li v-else class="page-item">
+            <li v-else class="page-item" role="none presentation">
                 <a class="page-link"
                    :aria-label="labelLastPage"
                    :aria-controls="ariaControls || null"
+                   role="menuitem"
                    href="#"
                    tabindex="-1"
                    @click.prevent="setPage($event, numberOfPages)"
