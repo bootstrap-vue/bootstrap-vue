@@ -186,7 +186,7 @@
                 default: null
             },
             sortBy: {
-                type String,
+                type: String,
                 default: null,
             },
             sortDesc: {
