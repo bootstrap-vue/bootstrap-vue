@@ -12,8 +12,8 @@
                     :key="key"
                     :class="fieldClass(field,key)"
                     :style="field.thStyle || {}"
-                    :aria-label="field.sortable ? ((sortDesc && sortBy === key) ? labelSortAsc : labelSortDesc) : null"
-                    :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
+                    :aria-label="field.sortable ? ((localSortDesc && localSortBy === key) ? labelSortAsc : labelSortDesc) : null"
+                    :aria-sort="(field.sortable && localSortBy === key) ? (loclSortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null"
                 >
                   <slot :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
@@ -31,8 +31,8 @@
                     :key="key"
                     :class="fieldClass(field,key)"
                     :style="field.thStyle || {}"
-                    :aria-label="field.sortable ? ((sortDesc && sortBy === key) ? labelSortAsc : labelSortDesc) : null"
-                    :aria-sort="(field.sortable && sortBy === key) ? (sortDesc ? 'descending' : 'ascending') : null"
+                    :aria-label="field.sortable ? ((localSortDesc && localSortBy === key) ? labelSortAsc : labelSortDesc) : null"
+                    :aria-sort="(field.sortable && localSortBy === key) ? (localSortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null"
                 >
                   <slot v-if="$scopedSlots['FOOT_'+key]" :name="'FOOT_'+key" :label="field.label" :column="key" :field="field">
@@ -104,12 +104,7 @@
 
     const defaultSortCompare = (a, b, sortBy) => {
         if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-            if (a[sortBy] < b[sortBy]) {
-                return -1;
-            } else if (a[sortBy] > b[sortBy]) {
-                return 1;
-            }
-            return 0;
+            return (a[sortBy] < b[sortBy] ? -1 : ((a[sortBy] > b[sortBy]) ? 1 : 0)
         } else {
             return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
                 numeric: true
@@ -121,8 +116,8 @@
         mixins: [listenOnRootMixin],
         data() {
             return {
-                sortBy: null,
-                sortDesc: true,
+                localSortBy: this.sortBy || '',
+                localSortDesc: this.sortDesc || false,
                 localItems: []
             };
         },
@@ -190,6 +185,14 @@
                 type: [String, RegExp, Function],
                 default: null
             },
+            sortBy: {
+                type String,
+                default: null,
+            },
+            sortDesc: {
+                type: Boolean,
+                default: false
+            },
             sortCompare: {
                 type: Function,
                 default: null
@@ -251,13 +254,32 @@
                 }
             },
             sortDesc(newVal, oldVal) {
-                if (oldVal !== newVal && !this.noProviderSorting) {
-                    this._providerUpdate();
+                if (newVal === this.localSortDesc) {
+                    return;
+                }
+                this.localSortDesc = newVal || false;
+            },
+            localSortDesc(newVal, oldVal) {
+                // Emit update to sort-desc.sync
+                if (newVal !== oldVal) {
+                    this.$emit('update:sort-desc', newVal);
+                    if (!this.noProviderSorting) {
+                        this._providerUpdate();
+                    }
                 }
             },
             sortBy(newVal, oldVal) {
-                if (oldVal !== newVal && !this.noProviderSorting) {
-                    this._providerUpdate();
+                if (newVal === this.localSortBy) {
+                    return;
+                }
+                this.localSortBy = newVal || null;
+            },
+            localSortBy(newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    this.$emit('update:sort-by', newVal);
+                    if (!this.noProviderSorting) {
+                        this._providerUpdate();
+                    }
                 }
             },
             perPage(newVal, oldVal) {
@@ -277,6 +299,8 @@
             }
         },
         mounted() {
+            this.localSortBy = this.sortBy;
+            this.localSortDesc = this.sortDesc;
             if (this.hasProvider) {
                 this._providerUpdate();
             }
@@ -323,8 +347,8 @@
                     perPage: this.perPage,
                     currentPage: this.currentPage,
                     filter: this.filter,
-                    sortBy: this.sortBy,
-                    sortDesc: this.sortDesc
+                    sortBy: this.localSortBy,
+                    sortDesc: this.localSortDesc
                 };
             },
             _items() {
@@ -332,8 +356,8 @@
                 const perPage = this.perPage;
                 const currentPage = this.currentPage;
                 const filter = this.filter;
-                const sortBy = this.sortBy;
-                const sortDesc = this.sortDesc;
+                const sortBy = this.localSortBy;
+                const sortDesc = this.localSortDesc;
                 const sortCompare = this.sortCompare || defaultSortCompare;
 
                 let items = this.hasProvider ? this.localItems : this.items;
@@ -374,9 +398,9 @@
                 }
 
                 // Apply local Sort
-                if (this.sortBy && !this.providerSorting) {
+                if (sortBy && !this.providerSorting) {
                     items = items.sort((a, b) => {
-                        const r = sortCompare(a, b, this.sortBy);
+                        const r = sortCompare(a, b, sortBy);
                         return this.sortDesc ? r : r * -1;
                     });
                 }
@@ -398,7 +422,7 @@
             fieldClass(field, key) {
                 return [
                     field.sortable ? 'sorting' : '',
-                    (field.sortable && this.sortBy === key) ? 'sorting_' + (this.sortDesc ? 'desc' : 'asc') : '',
+                    (field.sortable && this.localSortBy === key) ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc') : '',
                     field.variant ? ('table-' + field.variant) : '',
                     field.class ? field.class : '',
                     field.thClass ? field.thClass : ''
@@ -450,18 +474,19 @@
                 }
                 let sortChanged = false;
                 if (!field.sortable) {
-                    if (this.sortBy) {
-                        this.sortBy = null;
+                    if (this.localSortBy) {
+                        this.localSortBy = null;
+                        this.localSortDesc = false;
                         sortChanged = true;
                     }
                 } else {
-                    if (key === this.sortBy) {
-                        // Change sorting direction on column
-                        this.sortDesc = !this.sortDesc;
+                    if (key === this.localSortBy) {
+                        // Change sorting direction on current column
+                        this.localSortDesc = !this.localSortDesc;
                     } else {
-                        // Start sorting this column descending
-                        this.sortBy = key;
-                        this.sortDesc = true;
+                        // Start sorting this column ascending
+                        this.localSortBy = key;
+                        this.localSortDesc = false;
                     }
                     sortChanged = true;
                 }
@@ -550,10 +575,10 @@
         content: "\2193";
     }
 
-    table.b-table > thead > tr > .sorting_asc:before,
-    table.b-table > thead > tr > .sorting_desc:after,
-    table.b-table > tfoot > tr > .sorting_asc:before,
-    table.b-table > tfoot > tr > .sorting_desc:after {
+    table.b-table > thead > tr > .sorting_asc:after,
+    table.b-table > thead > tr > .sorting_desc:before,
+    table.b-table > tfoot > tr > .sorting_asc:after,
+    table.b-table > tfoot > tr > .sorting_desc:before {
         opacity: 1;
     }
 
