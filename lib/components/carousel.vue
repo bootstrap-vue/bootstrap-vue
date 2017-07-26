@@ -305,4 +305,5 @@
             clearInterval(this._intervalId);
         }
     };
+
 </script>
