@@ -9,20 +9,18 @@ of another component (such as `<b-table>`).
     <h6>Default</h6>
     <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10">
     </b-pagination>
-
     <br>
 
     <h6>Small</h6>
     <b-pagination size="sm" :total-rows="100" v-model="currentPage" :per-page="10">
     </b-pagination>
-
     <br>
 
     <h6>Large</h6>
     <b-pagination size="lg" :total-rows="100" v-model="currentPage" :per-page="10">
     </b-pagination>
-
     <br>
+
     <div>currentPage: {{currentPage}}</div>
 </div>    
 </template>
@@ -35,12 +33,14 @@ export default {
 }
 </script>
 
-<!-- pagination.vue -->
+<!-- pagination-1.vue -->
 ```
 
-`<b-pagination>` is a custom input component that provides a current page number input control.
-The value should be bound via `v-model` in your app. Page numbers are indexed from 1. The number
-of pages is computed from the provided prop values for `total-rows` and `per-page`.
+`<b-pagination>` is a custom input component that provides a current page number
+input control. The value should be bound via `v-model` in your app. Page numbers
+are indexed from 1. The number of pages is computed from the provided prop
+values for `total-rows` and `per-page`.
+
 
 ### Customizing
 `<b-pagination>` supports several props that allow you to customize the apperance.
@@ -62,6 +62,45 @@ Ellipsis inidcator(s) will only be ever shown at the front and/or end of
 the page number buttons. For `limit` values less than or equal to `3`, the ellipsis
 indicator(s) will never be shown for practical display reasons.
 
+### Alignment
+By default the pagination component is left aligned. Change the alignment to
+`center` or `right` (`right` is an alias for `end`) by setting the prop
+`align` to the appropriate value.
+
+```html
+<template>
+<div>
+    <h6>Left alignment (default)</h6>
+    <b-pagination :total-rows="100" v-model="currentPage" :per-page="10">
+    </b-pagination>
+    <br>
+
+    <h6>Center alignment</h6>
+    <b-pagination align="center" :total-rows="100" v-model="currentPage" :per-page="10">
+    </b-pagination>
+    <br>
+
+    <h6>Right (end) alignment</h6>
+    <b-pagination align="right" :total-rows="100" v-model="currentPage" :per-page="10">
+    </b-pagination>
+    <br>
+
+    <div>currentPage: {{currentPage}}</div>
+</div>    
+</template>
+
+<script>
+export default {
+    data: {
+        currentPage: 3
+    }
+}
+</script>
+
+<!-- pagination-2.vue -->
+```
+
+
 ### Small screen support (`xs`)
 On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to
 minimize the potential of the pagination interface wrapping onto multiple lines:
@@ -71,6 +110,7 @@ minimize the potential of the pagination interface wrapping onto multiple lines:
 
 This ensures that no more than 3 page number buttons are visible,
 along with the goto _first_, _prev_, _next_, and _last_ buttons.
+
 
 ### Accessibility
 The `<b-pagination>` component provides many features to support assistive technology users,
@@ -101,6 +141,7 @@ assistive technology.
 - Tabbing into the pagination component will autofocus the current page button
 - <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the page
 list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the focused page button
+
 
 ### Events
 `<b-pagination>` provides two events that are emitted on the component:

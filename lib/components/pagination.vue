@@ -1,5 +1,5 @@
 <template>
-    <ul :class="['pagination',btnSize]"
+    <ul :class="['pagination',btnSize,alignment]"
         :aria-disabled="disabled ? 'true' : 'false'"
         :aria-label="ariaLabel ? ariaLabel : null"
         role="menubar"
@@ -150,6 +150,14 @@ export default {
         },
         btnSize() {
             return this.size ? `pagination-${this.size}` : '';
+        },
+        alignment() {
+            if (this.align === 'center') {
+                return 'justify-content-center';
+            } else if  (this.align === 'end' || this.align === 'right') {
+                return 'justify-content-end';
+            }
+            return '';
         },
         pageList() {
             // Sanity checks
@@ -359,6 +367,10 @@ export default {
         size: {
             type: String,
             default: 'md'
+        },
+        align: {
+            type: String,
+            default: 'left'
         },
         hideGotoEndButtons: {
             type: Boolean,
