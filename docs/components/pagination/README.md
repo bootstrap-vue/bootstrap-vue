@@ -36,9 +36,10 @@ export default {
 <!-- pagination-1.vue -->
 ```
 
-`<b-pagination>` is a custom input component that provides a current page number input control.
-The value should be bound via `v-model` in your app. Page numbers are indexed from 1. The number
-of pages is computed from the provided prop values for `total-rows` and `per-page`.
+`<b-pagination>` is a custom input component that provides a current page number
+input control. The value should be bound via `v-model` in your app. Page numbers
+are indexed from 1. The number of pages is computed from the provided prop
+values for `total-rows` and `per-page`.
 
 
 ### Customizing
@@ -63,7 +64,8 @@ indicator(s) will never be shown for practical display reasons.
 
 ### Alignment
 By default the pagination component is left aligned. Change the alignment to
-`center` or `right` (`end`) by setting the prop `align` to the appropriate value.
+`center` or `right` (`right` is an alias for `end`) by setting the prop
+`align` to the appropriate value.
 
 ```html
 <template>
