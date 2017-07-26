@@ -268,6 +268,8 @@
                 // Start animating
                 this.isSliding = true;
 
+                this.$emit('input', this.index);
+
                 nextSlide.classList.add(direction.next, direction.overlay);
                 currentSlide.classList.add(direction.current);
 
@@ -295,7 +297,6 @@
                     }
 
                     this.isSliding = false;
-                    this.$emit('input', this.index);
                 }, 500);
             }
         },
