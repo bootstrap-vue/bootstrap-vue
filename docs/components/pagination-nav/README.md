@@ -140,13 +140,6 @@ assistive technology.
 list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the focused page button
 
 
-### Events
-`<b-pagination>` provides two events that are emitted on the component:
-- `input` is emitted anytime the current page changes (either programmatically or via user interaction)
-- `change` is emitted only when the current page changes based on user interaction
-
-Both events provide the single argument of the current page number (starting from 1)
-
 ### See also
 For pagination control of a component (such as `<b-table>`), use the
 [`<b-pagination>`](./pagination) component instead.
