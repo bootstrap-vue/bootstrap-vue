@@ -20,7 +20,6 @@
                 <b-link class="page-link"
                         v-bind="linkProps(1)"
                         :aria-label="labelFirstPage"
-                        :aria-controls="ariaControls || null"
                         role="menuitem"
                         tabindex="-1"
                 ><span aria-hidden="true" v-html="firstText"></span></b-link>
@@ -35,7 +34,6 @@
             <b-link class="page-link"
                     v-bind="linkProps(currentPage - 1)"
                     :aria-label="labelPrevPage"
-                    :aria-controls="ariaControls || null"
                     role="menuitem"
                     tabindex="-1"
             ><span aria-hidden="true" v-html="prevText"></span></b-link>
@@ -56,7 +54,6 @@
                     :aria-disabled="disabled ? 'true' : null"
                     :aria-label="labelPage + ' ' + page.number"
                     :aria-checked="isActive(page.number) ? 'true' : 'false'"
-                    :aria-controls="ariaControls || null"
                     :aria-posinset="page.number"
                     :aria-setsize="numberOfPages"
                     role="menuitemradio"
@@ -77,7 +74,6 @@
             <b-link class="page-link"
                     v-bind="linkProps(currentPage + 1)"
                     :aria-label="labelNextPage"
-                    :aria-controls="ariaControls || null"
                     role="menuitem"
                     tabindex="-1"
             ><span aria-hidden="true" v-html="nextText"></span></b-link>
@@ -96,7 +92,6 @@
                 <b-link class="page-link"
                         v-bind="linkProps(currentPage - 1)"
                         :aria-label="labelLastPage"
-                        :aria-controls="ariaControls || null"
                         role="menuitem"
                 ><span aria-hidden="true" v-html="lastText"></span></b-link>
             </li>
@@ -233,10 +228,6 @@ const props = assign(
         ellipsisText: {
             type: String,
             default: '&hellip;'
-        },
-        ariaControls: {
-            type: String,
-            default: null
         }
     },
     // Router specific props
