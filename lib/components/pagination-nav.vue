@@ -370,7 +370,7 @@ export default {
                     exactActiveClass: this.exactActiveClass,
                     append: this.append,
                     replace: this.replace
-                }
+                });
             }
             return props;
         },
