@@ -21,6 +21,7 @@
 
 <script>
     import { formMixin, formOptionsMixin, formCustomMixin } from '../mixins';
+    import { warn } from '../utils';
 
     export default {
         mixins: [formMixin, formCustomMixin, formOptionsMixin],
@@ -71,6 +72,11 @@
             returnObject: {
                 type: Boolean,
                 default: false
+            }
+        },
+        created() {
+            if (this.returnObject) {
+                warn('form-select: return-object has been deprecated');
             }
         }
     };
