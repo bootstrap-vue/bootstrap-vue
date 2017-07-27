@@ -3,7 +3,7 @@
             :name="name"
             :id="id || null"
             v-model="localValue"
-            :multiple="multiple"
+            :multiple="multiple || null"
             :size="multiple && multipleSize > 1 ? multipleSize : null"
             :disabled="disabled"
             :required="required"
