@@ -150,3 +150,6 @@ list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (c
 
 Both events provide the single argument of the current page number (starting from 1)
 
+### See Also
+For nvigation based pagination, please see the [`<b-pagination-nav>`](./pagination-nav)
+component.
