@@ -144,7 +144,7 @@ const ELLIPSIS_THRESHOLD = 3;
 const routerProps = pickLinkProps('activeClass','exactActiveClass','append','exact','replace','target','rel');
 
 // Props object
-const props = asign(
+const props = assign(
     // pagination-va specific props
     {
         baseUrl: {
