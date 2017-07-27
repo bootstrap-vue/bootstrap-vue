@@ -76,7 +76,7 @@
         },
         created() {
             if (this.returnObject) {
-                warn('form-select: return-object has been deprecated');
+                warn('form-select: return-object has been deprecated and will be removed in future releases');
             }
         }
     };
