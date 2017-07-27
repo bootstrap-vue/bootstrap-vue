@@ -60,23 +60,22 @@ const items = [
   { isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
   { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
   { _rowVariant: 'success',
-    isActive: false, age: 9,  name: { first: 'Mitzi', last: 'Navarro' } },
+    isActive: false, age: 9,  name: { first: 'Mini', last: 'Navarro' } },
   { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
   { isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' } },
   { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-  { isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+  { isActive: true,  age: 40, name: { first: 'Thor', last: 'Macdonald' } },
   { _cellVariants: { age: 'danger', isActive: 'warning' },
     isActive: true,  age: 87, name: { first: 'Larsen', last: 'Shaw' } },
   { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-  { isActive: false, age: 22, name: { first: 'Geneva', last: 'Wilson' } },
-  { isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' } },
-  { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } }
+  { isActive: false, age: 22, name: { first: 'Genevive', last: 'Wilson' } },
+  { isActive: true,  age: 38, name: { first: 'John', last: 'Carney' } },
+  { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
 ];
 
 export default {
   data: {
     items: items,
-    totalRows: items.length,
     fields: {
       name:     { label: 'Person Full name', sortable: true },
       age:      { label: 'Person age', sortable: true, 'class': 'text-center'  },
@@ -85,6 +84,7 @@ export default {
     },
     currentPage: 1,
     perPage: 5,
+    totalRows: items.length,
     pageOptions: [{text:5,value:5},{text:10,value:10},{text:15,value:15}],
     sortBy: null,
     sortDesc: false,
@@ -135,7 +135,7 @@ Supported field properties:
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set)
+| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key
 | `sortable` | Boolean | Enable sorting on this column
 | `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column (`active`, `success`, `info`, `warning`, `danger`)
 | `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column
@@ -143,13 +143,13 @@ Supported field properties:
 | `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
 
-*Field properties, if not present, default to null*
-
-For information on the syntax supported by `thStyle`, see
+Notes:
+ - Field properties, if not present, default to null unless otherwise stated above.
+ - `thClass` and `tdClass` will not work with classes that are defined in scoped CSS
+ - For information on the syntax supported by `thStyle`, see
 [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
 in the Vue.js guide.
-
-Any additional properties added to the field objects will be left intact - so you can access
+ - Any additional properties added to the field objects will be left intact - so you can access
 them via the named scoped slots for custom data, header, and footer rendering.
 
 ### Items (record data)
