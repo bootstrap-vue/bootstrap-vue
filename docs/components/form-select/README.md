@@ -38,13 +38,13 @@ Keys are mapped to value and values are mapped to option object.
   a: 'Item A',
   b: 'Item B',
   c: 'Item C',
-  d: {text: 'D', disabled: true},
-  e: {text: 'D', value:'overridden_value'}
+  d: {text: 'Item D', disabled: true},
+  e: {text: 'Item E', value:'overridden_value'}
 }
 ```
 
 ### Standard (single) select
-By default, Bootstrap V4's custom select tyling is applied.
+By default, Bootstrap V4's custom select styling is applied.
 
 #### Value:
 In non `multiple` mode, `<b-form-select>` returns the `value` of the currently
@@ -85,7 +85,8 @@ the number of rows to display. The default is to let the browser use it's defaul
 (typically 4).
 
 Multiple select does not support Bootstrap's custom select styling, so it will
-be rendered using a native browser multi-select, but with the `.form-control` class.
+be rendered using a native browser multi-select, but with the `.form-control`
+class applied.
 
 #### Value:
 In `multiple` mode, `<b-form-select>` always returns an array of option values.
@@ -153,7 +154,7 @@ providing an additional help text block (via `<b-form-fieldet>`). Specifically f
 assistive technologies, invalid form controls can also be assigned
 an `aria-invalid="true"` attribute (see below).
 
-### ARIA `aria-invalid` attribute
+#### ARIA `aria-invalid` attribute
 When `<b-form-select>` has an invalid contextual state (i.e. `danger`) you may also
 want to set the `<b-form-select>` prop `invalid` to `true`.
 
@@ -163,4 +164,4 @@ Supported `invaid` values are:
 
 ### Non custom select
 Set the prop `plain` to have a native browser `<select>` rendered.
-Multiple select wil always render as a `plain` select.
+Multiple select will always render as a `plain` select.
