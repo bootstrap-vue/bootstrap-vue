@@ -162,13 +162,13 @@ const props = asign(
     },
     // pagination common props
     {
-        value: {
-            type: Number,
-            default: 1
-        }
         disabled: {
             type: Boolean,
             default: false
+        },
+        value: {
+            type: Number,
+            default: 1
         },
         limit: {
             type: Number,
