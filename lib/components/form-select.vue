@@ -26,7 +26,7 @@
         mixins: [formMixin, formCustomMixin, formOptionsMixin],
         data() {
             return {
-                localValue: this.value
+                localValue: this.multiple ? (this.value || []) : this.value
             };
         },
         computed: {
