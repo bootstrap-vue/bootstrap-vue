@@ -80,7 +80,7 @@ export default {
 
 ### Multiple select support
 Enable multiple select mode by setting the prop `multiple`, and control how many
-rows are displayed in the multiple select listbox by setting `multiple-size` to
+rows are displayed in the multiple select list-box by setting `multiple-size` to
 the number of rows to display. The default is to let the browser use it's default
 (typically 4).
 
@@ -123,7 +123,7 @@ export default {
 ```
 
 ### Control sizing
-Set heights using thw `size` prop to `sm` or `lg` for small or large respectively.
+Set heights using the `size` prop to `sm` or `lg` for small or large respectively.
 
 To control width, place the input inside standard Bootstrap grid column.
 
@@ -139,7 +139,7 @@ soft validation before a user attempts to submit a form.
 - `success` is ideal for situations when you have per-field validation throughout a form
 and want to encourage a user through the rest of the fields.
 
-To apply one of the contextual steates on `<b-form-select>`, set the `state` prop
+To apply one of the contextual states on `<b-form-select>`, set the `state` prop
 to `danger`, `warning`, or `success` on the `<b-form-fieldset>` that wraps
 the `<b-form-select>`.
 
