@@ -13,7 +13,7 @@
                     :class="fieldClass(field,key)"
                     :style="field.thStyle || {}"
                     :aria-label="field.sortable ? ((localSortDesc && localSortBy === key) ? labelSortAsc : labelSortDesc) : null"
-                    :aria-sort="(field.sortable && localSortBy === key) ? (loclSortDesc ? 'descending' : 'ascending') : null"
+                    :aria-sort="(field.sortable && localSortBy === key) ? (localSortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null"
                 >
                   <slot :name="'HEAD_'+key" :label="field.label" :column="key" :field="field">
@@ -76,7 +76,7 @@
 <script>
     import { warn } from '../utils';
     import { keys } from '../utils/object.js';
-    import { listenOnRootMixin } from '../mixins'
+    import {listenOnRootMixin} from '../mixins';
 
     const toString = v => {
         if (!v) {
@@ -401,7 +401,7 @@
                 if (sortBy && !this.providerSorting) {
                     items = items.sort((a, b) => {
                         const r = sortCompare(a, b, sortBy);
-                        return this.sortDesc ? r : r * -1;
+                        return sortDesc ? r : r * -1;
                     });
                 }
 
