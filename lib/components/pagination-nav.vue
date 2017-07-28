@@ -140,7 +140,7 @@ const routerProps = pickLinkProps('activeClass','exactActiveClass','append','exa
 
 // Props object
 const props = assign(
-    // pagination-va specific props
+    // pagination-nav specific props
     {
         baseUrl: {
             type: String,
