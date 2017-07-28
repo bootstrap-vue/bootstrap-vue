@@ -142,13 +142,13 @@ const routerProps = pickLinkProps('activeClass','exactActiveClass','append','exa
 const props = assign(
     // pagination-nav specific props
     {
-        baseUrl: {
-            type: String,
-            default: '/'
-        },
         numberOfPages: {
             type: Number,
             default: 1
+        },
+        baseUrl: {
+            type: String,
+            default: '/'
         },
         useRouter: {
             type: Boolean,
@@ -348,7 +348,7 @@ export default {
     },
     methods: {
         makeLink(pagenum) {
-            if (this.linkGen && this.linkGen instance of Function) {
+            if (this.linkGen && this.linkGen instanceof Function) {
                 return this.linkGen(pagenum);
             }
             const link = `${this.baseUrl}${pagenum}`;
