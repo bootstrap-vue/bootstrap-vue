@@ -7,20 +7,25 @@ custom rendering, events, and asynchronous data.
 <template>
 <div>
   <div class="my-1 row">
-    <div class="col-6">
+    <div class="col-md-6">
       <b-form-fieldset horizontal label="Rows per page" :label-cols="6">
-        <b-form-select :options="pageOptions" v-model="perPage"></b-form-select>
+        <b-form-select :options="pageOptions" v-model="perPage" />
       </b-form-fieldset>
     </div>
-    <div class="col-6">
+    <div class="col-md-6">
       <b-form-fieldset horizontal label="Filter" :label-cols="3">
-        <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+        <b-form-input v-model="filter" placeholder="Type to Search" />
       </b-form-fieldset>
     </div>
   </div>
 
-  <div class="justify-content-center row my-1">
-    <b-pagination size="md" :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
+  <div class="row my-1">
+    <div class="col-sm-8">
+      <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
+    </div>
+    <div class="col-sm-4 text-md-right">
+      <b-button :disabled="!sortBy" @click="sortBy = null">Clear Sort</b-button>
+    </div>
   </div>
 
   <!-- Main table element -->
@@ -30,6 +35,8 @@ custom rendering, events, and asynchronous data.
            :current-page="currentPage"
            :per-page="perPage"
            :filter="filter"
+           :sort-by.sync="sortBy"
+           :sort-desc.sync="sortDesc"
            @filtered="onFiltered"
   >
     <template slot="name" scope="row">{{row.value.first}} {{row.value.last}}</template>
@@ -39,6 +46,10 @@ custom rendering, events, and asynchronous data.
       <b-btn size="sm" @click.stop="details(row.item,row.index,$event.target)">Details</b-btn>
     </template>
   </b-table>
+
+  <p>
+    Sort By: {{ sortBy || 'n/a' }}, Direction: {{ sortDesc ? 'descending' : 'ascending' }}
+  </p>
 
   <!-- Details modal -->
   <b-modal id="modal1" @hide="resetDetails" ok-only>
@@ -51,39 +62,25 @@ custom rendering, events, and asynchronous data.
 
 <script>
 const items = [
-   {
-     isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
-   }, {
-     isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }
-   }, {
-     _rowVariant: 'success',
-     isActive: false, age: 9,  name: { first: 'Mitzi', last: 'Navarro' }
-   }, {
-     isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' }
-   }, {
-     isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' }
-   }, {
-     isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
-   }, {
-     isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' }
-   }, {
-     _cellVariants: { age: 'danger', isActive: 'warning' },
-     isActive: true,  age: 87, name: { first: 'Larsen', last: 'Shaw' }
-   }, {
-     isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' }
-   }, {
-     isActive: false, age: 22, name: { first: 'Geneva', last: 'Wilson' }
-   }, {
-     isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' }
-   }, {
-     isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }
-   }
+  { isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+  { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
+  { _rowVariant: 'success',
+    isActive: false, age: 9,  name: { first: 'Mini', last: 'Navarro' } },
+  { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
+  { isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' } },
+  { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
+  { isActive: true,  age: 40, name: { first: 'Thor', last: 'Macdonald' } },
+  { _cellVariants: { age: 'danger', isActive: 'warning' },
+    isActive: true,  age: 87, name: { first: 'Larsen', last: 'Shaw' } },
+  { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
+  { isActive: false, age: 22, name: { first: 'Genevive', last: 'Wilson' } },
+  { isActive: true,  age: 38, name: { first: 'John', last: 'Carney' } },
+  { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
 ];
 
 export default {
   data: {
     items: items,
-    totalRows: items.length,
     fields: {
       name:     { label: 'Person Full name', sortable: true },
       age:      { label: 'Person age', sortable: true, 'class': 'text-center'  },
@@ -92,7 +89,10 @@ export default {
     },
     currentPage: 1,
     perPage: 5,
+    totalRows: items.length,
     pageOptions: [{text:5,value:5},{text:10,value:10},{text:15,value:15}],
+    sortBy: null,
+    sortDesc: false,
     filter: null,
     modalDetails: { index:'', data:'' }
   },
@@ -118,9 +118,10 @@ export default {
 <!-- table-1.vue -->
 ```
 
-### `fields` prop
-The `fields` prop is used to display table columns.
-Keys are used to extract real value from each row.
+### Fields (column definitions)
+The `fields` prop is used to display table columns. Keys (i.e. `age` or `name`
+as shown below) are used to extract real value from each row.
+
 Example format:
 ```js
 {
@@ -134,32 +135,37 @@ Example format:
     }
 }
 ```
+
 Supported field properties:
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set)
+| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key
 | `sortable` | Boolean | Enable sorting on this column
-| `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column column (`active`, `success`, `info`, `warning`, `danger`)
+| `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column (`active`, `success`, `info`, `warning`, `danger`)
 | `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column
 | `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
 | `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
 
-*Field properties, if not present, default to null*
-
-For information on the syntax supported by `thStyle`, see
+Notes:
+ - Field properties, if not present, default to null unless otherwise stated above.
+ - `thClass` and `tdClass` will not work with classes that are defined in scoped CSS
+ - For information on the syntax supported by `thStyle`, see
 [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
 in the Vue.js guide.
-
-Any additional properties added to the field objects will be left intact - so you can access
+ - Any additional properties added to the field objects will be left intact - so you can access
 them via the named scoped slots for custom data, header, and footer rendering.
 
-### `items` Prop
+### Items (record data)
 `items` are real table data record objects in array format. Example format:
 
 ```js
 [
+    {
+        age: 32,
+        name: 'Cyndi'
+    },
     {
         _rowVariant: 'success', // Displays record row green
         age: 27,
@@ -167,8 +173,8 @@ them via the named scoped slots for custom data, header, and footer rendering.
     },
     {
         _cellVariants: {
-            age: 'danger',  // Displayes cell for field 'age' red
-            name: 'success' // Displayes cell for field 'name' green
+            age: 'danger',  // Displays cell for field 'age' red
+            name: 'success' // Displays cell for field 'name' green
         },
         age: 42,
         name: 'Robert'
@@ -180,8 +186,8 @@ Supported optional item record modifier properties (make sure your field keys do
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| `_rowVariant` | String | Bootstrap contextual state applied to row (`active`, `success`, `info`, `warning`, `danger`)
-| `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (`active`, `success`, `info`, `warning`, `danger`)
+| `_rowVariant` | String | Bootstrap contextual state applied to row (Supported values: `active`, `success`, `info`, `warning`, `danger`)
+| `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`)
 | `state` | String | **deprecated** in favour of `_rowVariant`
 
 **Note** `state` is deprecated. The property `_rowVariant`, if present in
@@ -382,12 +388,28 @@ will emit the `filtered` event, passing a single argument which is the complete 
 items passing the filter routine. Treat this argument as read-only.
 
 ### Sorting
+As mentioned above in the **fields** section, you can make columns sortable. Clciking on
+sortable a column header will sort the column in ascending direction, while clicking
+on it again will switch the direction or sorting.  Clicking on a non-sortable column
+will clear the sorting.
+
+You can control which column is pre-sorted and the order of sorting (ascending or
+descending). To pre-specify the column to be sorted, set the `sort-by` prop to 
+the field's key.  Set the sort direction by setting `sort-desc` to either `true`
+(for descending) or `false` (for ascending, the default).
+
+The props `sort-by` and `sort-desc` can be turned into _two-way_ props by adding the `.sync`
+modifier. Your bound variables will then be updated accordingly based on the current sort critera.
+See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
+on the `.sync` prop modifier
+
+#### Sort-Compare routine
 The built-in default `sort-compare` function sorts the specified field `key` based
 on the data in the underlying record object. The field value is first stringified
 if it is an object, and then sorted.
 
-The default `sort-compare` routine **cannot** sort neither virtual columns, nor
-based on the custom rendering of the field data (which is used only for presentation).
+The default `sort-compare` routine **cannot** sort virtual columns, nor sort based
+on the custom rendering of the field data (which is used only for presentation).
 For this reason, you can provide your own custom sort compare routine by passing a
 function reference to the prop `sort-compare`.
 
@@ -401,14 +423,9 @@ The default sort-compare routine works as follows:
 ```js
 if (typeof a[key] === 'number' && typeof b[key] === 'number') {
     // If both compared fields are native numbers
-    if (a[key] < b[key]) {
-        return -1;
-    } else if (a[key] > b[key]) {
-        return 1;
-    }
-    return 0;
+    return a[key] < b[key] ? -1 : (a[key] > b[key] ? : 1 : 0);
 } else {
-    // Strinify the field data and use String.localeCompare
+    // Stringify the field data and use String.localeCompare
     return toString(a[key]).localeCompare(toString(b[key]), undefined, {
         numeric: true
     });
@@ -573,6 +590,14 @@ methods: {
         // ctx.sortDesc ==> true if sorting descending, false otherwise
     }
 }
+```
+
+You can also obtain the current sortBy and sortDesc values by using the `:sort-by.sync` and
+`:sort-desc.sync` two-way props respectively (see section **Sorting** above for details).
+
+```html
+<b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ...>
+</b-table>
 ```
 
 
