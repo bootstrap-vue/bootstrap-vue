@@ -154,6 +154,10 @@ const props = assign(
             type: Boolean,
             default: false
         },
+        linkGen: {
+            type: Function,
+            default: null
+        }
     },
     // pagination common props
     {
@@ -343,19 +347,24 @@ export default {
         }
     },
     methods: {
-        makeUrl(pagenum) {
-            return `${this.baseUrl}${pagenum}`;
+        makeLink(pagenum) {
+            if (this.linkGen && this.linkGen instance of Function) {
+                return this.linkGen(pagenum);
+            }
+            const link = `${this.baseUrl}${pagenum}`;
+            return this.useRouter ? { path: link } : link;
         },
         linkProps(pagenum) {
+            cont link = this.makeLink(pagenum);
             let props = {
-                href: this.makeUrl(pagenum),
+                href: typeof link === 'string' ? link : null,
                 target: this.target || null,
                 rel: this.rel || null,
                 disabled: this.disabled
             };
-            if (this.useRouter) {
+            if (this.useRouter || typeof link === 'object') {
                 props = assign(props, {
-                    to: props.href,
+                    to: link,
                     exact: this.exact,
                     activeClass: this.activeClass,
                     exactActiveClass: this.exactActiveClass,
