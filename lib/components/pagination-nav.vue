@@ -355,7 +355,7 @@ export default {
             return this.useRouter ? { path: link } : link;
         },
         linkProps(pagenum) {
-            cont link = this.makeLink(pagenum);
+            const link = this.makeLink(pagenum);
             let props = {
                 href: typeof link === 'string' ? link : null,
                 target: this.target || null,
