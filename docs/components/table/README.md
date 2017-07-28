@@ -7,20 +7,25 @@ custom rendering, events, and asynchronous data.
 <template>
 <div>
   <div class="my-1 row">
-    <div class="col-6">
+    <div class="col-md-6">
       <b-form-fieldset horizontal label="Rows per page" :label-cols="6">
-        <b-form-select :options="pageOptions" v-model="perPage"></b-form-select>
+        <b-form-select :options="pageOptions" v-model="perPage" />
       </b-form-fieldset>
     </div>
-    <div class="col-6">
+    <div class="col-md-6">
       <b-form-fieldset horizontal label="Filter" :label-cols="3">
-        <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+        <b-form-input v-model="filter" placeholder="Type to Search" />
       </b-form-fieldset>
     </div>
   </div>
 
-  <div class="my-1">
-    <b-pagination size="md" align="center" :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
+  <div class="row my-1">
+    <div class="col-sm-8">
+      <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
+    </div>
+    <div class="col-sm-4 text-md-right">
+      <b-button :disabled="!sortBy" @click="sortBy = null">Clear Sort</b-button>
+    </div>
   </div>
 
   <!-- Main table element -->
