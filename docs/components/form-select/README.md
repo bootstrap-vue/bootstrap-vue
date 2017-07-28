@@ -66,7 +66,7 @@ export default {
     selected: null,
     options: [
       { value: null, text: 'Please select some item' },
-      { value: 'a'. text: 'This is First option' },
+      { value: 'a', text: 'This is First option' },
       { value: 'b', text: 'Default Selected Option' },
       { value: 'c', text: 'This is another option' },
       { value: 'd', text: 'This one is disabled', disabled: true }
@@ -107,7 +107,7 @@ export default {
   data: {
     selected: ['b'],
     options: [
-      { value: 'a'. text: 'This is First option' },
+      { value: 'a', text: 'This is First option' },
       { value: 'b', text: 'Default Selected Option' },
       { value: 'c', text: 'This is another option' },
       { value: 'd', text: 'This one is disabled', disabled: true },
