@@ -262,7 +262,7 @@
             localSortDesc(newVal, oldVal) {
                 // Emit update to sort-desc.sync
                 if (newVal !== oldVal) {
-                    this.$emit('update:sort-desc', newVal);
+                    this.$emit('update:sortDesc', newVal);
                     if (!this.noProviderSorting) {
                         this._providerUpdate();
                     }
@@ -276,7 +276,7 @@
             },
             localSortBy(newVal, oldVal) {
                 if (newVal !== oldVal) {
-                    this.$emit('update:sort-by', newVal);
+                    this.$emit('update:sortBy', newVal);
                     if (!this.noProviderSorting) {
                         this._providerUpdate();
                     }
