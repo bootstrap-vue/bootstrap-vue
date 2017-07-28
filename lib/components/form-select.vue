@@ -3,6 +3,8 @@
             :name="name"
             :id="id || null"
             v-model="localValue"
+            :multiple="multiple || null"
+            :size="multiple && multipleSize > 1 ? multipleSize : null"
             :disabled="disabled"
             :required="required"
             :aria-required="required ? 'true' : null"
@@ -19,12 +21,13 @@
 
 <script>
     import { formMixin, formOptionsMixin, formCustomMixin } from '../mixins';
+    import { warn } from '../utils';
 
     export default {
         mixins: [formMixin, formCustomMixin, formOptionsMixin],
         data() {
             return {
-                localValue: this.value
+                localValue: this.multiple ? (this.value || []) : this.value
             };
         },
         computed: {
@@ -32,7 +35,7 @@
                 return [
                     'form-control',
                     this.size ? `form-control-${this.size}` : null,
-                    this.custom ? 'custom-select' : null
+                    (this.custom && !this.multiple) ? 'custom-select' : null
                 ];
             },
             ariaInvalid() {
@@ -56,9 +59,24 @@
                 type: [Array, Object],
                 required: true
             },
+            multiple: {
+                type: Boolean,
+                default: false
+            },
+            multipleSize: {
+                // Browsers default size to 0, which typically shows 4 rows in most browsers
+                // Size of 1 can bork out firefox
+                type: Number,
+                default: 0
+            },
             returnObject: {
                 type: Boolean,
                 default: false
+            }
+        },
+        created() {
+            if (this.returnObject) {
+                warn('form-select: return-object has been deprecated and will be removed in future releases');
             }
         }
     };
