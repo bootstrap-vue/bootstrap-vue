@@ -44,13 +44,13 @@ The `base-url` defaults to `/`.
 
 
 ### Router links
-By default `<b-pagination-nav>` genertes standard links with and HREF. To generate
-teh page links as router links, set the `use-router` prop.  The HREF will then become
+By default `<b-pagination-nav>` generates standard links with and HREF. To generate
+page links as router links, set the `use-router` prop.  The HREF will then become
 the `to` prop of the router link.
 
 
 ### Customizing
-`<b-pagination-nav>` supports several props that allow you to customize the apperance.
+`<b-pagination-nav>` supports several props that allow you to customize the appearance.
 
 | Prop | Description
 | ---- | -----------
