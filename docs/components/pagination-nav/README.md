@@ -1,4 +1,4 @@
-# Pagination Naviagtion
+# Pagination Navigation
 
 > Quick first, previous, next, last, and page buttons for pagination based navigation, supporting
 regular links or router links.
@@ -32,12 +32,12 @@ from 1 through `number-of-pages`.
 
 ### Current page
 You should **always** set the current page number by setting the prop `value` (or
-using `v-model`) to ensure that correct active page number is highligted.
+using `v-model`) to ensure that correct active page number is highlighted.
 
 
 ### Base URL
 A base URL for the pages can be specified via the prop `base-url`.  All page links
-will have an HREF (or TO in the case of router links) that is compsised of the 
+will have an HREF (or TO in the case of router links) that is comprised of the 
 `base-url` with the page number appended.
 
 The `base-url` defaults to `/`.
@@ -64,7 +64,7 @@ the `to` prop of the router link.
 | `hide-ellipsis` | never show ellipsis indicators
 | `hide-goto-end-buttons` | never display goto first/last buttons
 
-Ellipsis inidcator(s) will only be ever shown at the front and/or end of
+Ellipsis indicator(s) will only be ever shown at the front and/or end of
 the page number buttons. For `limit` values less than or equal to `3`, the ellipsis
 indicator(s) will never be shown for practical display reasons.
 
@@ -126,16 +126,16 @@ assistive technology.
 
 | Prop | `aria-label` content default
 | ---- | -----------
-| `label-first-page` | "Goto first page"
-| `label-prev-page` | "Goto previous page"
-| `label-next-page` | "Goto next page"
-| `label-last-page` | "Goto last page"
-| `label-page` | "Goto page", appended with the page number
+| `label-first-page` | "Go to first page"
+| `label-prev-page` | "Go to previous page"
+| `label-next-page` | "Go to next page"
+| `label-last-page` | "Go to last page"
+| `label-page` | "Go to page", appended with the page number
 | `aria-label` | "Pagination", applied to the outer pagination container
 
 #### Keyboard navigtion support:
 `<b-pagination>` supports keyboard navigation out of the box.
-- Tabbing into the pagination component will autofocus the current page button
+- Tabbing into the pagination component will auto-focus the current page button
 - <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the page
 list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the focused page button
 
