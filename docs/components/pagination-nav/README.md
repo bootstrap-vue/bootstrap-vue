@@ -9,6 +9,9 @@ regular links or router links.
     <h6>Default</h6>
     <b-pagination-nav base-url="#" :number-of-pages="10" v-model="currentPage" />
     <br>
+    <h6>With link generator function</h6>
+    <b-pagination-nav link-gen="linkGen" :number-of-pages="10" v-model="currentPage" />
+    <br>
 
     <div>currentPage: {{currentPage}}</div>
 </div>    
@@ -18,6 +21,11 @@ regular links or router links.
 export default {
     data: {
         currentPage: 1
+    },
+    methods: {
+        linkGen(pageNum) {
+            return '#page/' + pageNum + '/foobar';
+        }
     }
 }
 </script>
@@ -34,20 +42,36 @@ from 1 through `number-of-pages`.
 You should **always** set the current page number by setting the prop `value` (or
 using `v-model`) to ensure that correct active page number is highlighted.
 
+### Link generation
+By default, `<b-pagination-nav>` generates plain link tags, setting the HREF attribute
+to `base-url` concatenated with the page number.  The `base-url` prop defaults to '/'.
 
-### Base URL
-A base URL for the pages can be specified via the prop `base-url`.  All page links
-will have an HREF (or TO in the case of router links) that is comprised of the 
-`base-url` with the page number appended.
+#### Router links
+To generate page links as [`<router link>`](https://router.vuejs.org/en/api/router-link.html)
+components, set the `use-router` prop.  The HREF will then become the `to` prop of
+the router link.
 
-The `base-url` defaults to `/`.
+#### Link Generator function
+If you need finer grained control over the generated link URLs or `<router-link>` `to` props,
+you may set the `link-gen` prop to a function reference that accepts one argument which
+is a page number. The `link-gen` function should return either a string (for HREF) or a
+router `to` object. If the returned value is an object, then a router-link will always
+be generated.  IF the return value is a string, a link is generted by default unless
+the `use-router` prop is set.
 
+```js
+// For regular HREF (or string `to` prop if `use-router` is set)
+linkGen(pageNum) {
+    return '/foo/page/' + pageNum
+}
 
-### Router links
-By default `<b-pagination-nav>` generates standard links with and HREF. To generate
-page links as router links, set the `use-router` prop.  The HREF will then become
-the `to` prop of the router link.
-
+// Returning a router-link `to` object
+linkGen(pageNum) {
+    return { 
+        path: '/foo/page/' + pageNum
+    };
+}
+```
 
 ### Customizing
 `<b-pagination-nav>` supports several props that allow you to customize the appearance.
