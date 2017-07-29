@@ -7,7 +7,7 @@
            :id="id || null"
            :disabled="disabled"
            :required="required"
-           :autocomplete="autocomplete"
+           :autocomplete="autocomplete || null"
            :aria-required="required ? 'true' : null"
            :aria-invalid="ariaInvalid"
            :readonly="readonly"
