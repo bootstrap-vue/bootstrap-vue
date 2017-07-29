@@ -7,6 +7,7 @@
            :id="id || null"
            :disabled="disabled"
            :required="required"
+           :autocomplete="autocomplete"
            :aria-required="required ? 'true' : null"
            :aria-invalid="ariaInvalid"
            :readonly="readonly"
@@ -109,6 +110,10 @@
             readonly: {
                 type: Boolean,
                 default: false
+            },
+            autocomplete: {
+                type: String,
+                default: null
             },
             static: {
                 type: Boolean,
