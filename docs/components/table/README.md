@@ -127,7 +127,8 @@ Example format:
 {
     name: {
         label: 'Person Full name',
-        sortable: true
+        sortable: true,
+        formatter: 'personFullName'
     },
     age: {
         label: 'Person age',
@@ -147,6 +148,7 @@ Supported field properties:
 | `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
 | `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
+| `formatter` | String or Function | A formatter callback function, can be used instead of slots 
 
 Notes:
  - Field properties, if not present, default to null unless otherwise stated above.
@@ -223,8 +225,10 @@ See the **"Using Items Provider functions"** section below for more details.
 
 
 ### Custom Data Rendering
-Custom rendering for each data field in a row is possible using
-[scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots).
+Custom rendering for each data field in a row is possible using either 
+[scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or formatter callback function.
+
+####Slots
 If you want to add an extra field which does not exist in the records,
 just add it to the `fields` array.  Example:
 
@@ -310,6 +314,29 @@ event:
   <b-btn size="sm" @click.stop="details(cell.item,cell.index,$event.target)">Details</b-btn>
 </template>
 ```
+#### Formatter callback
+
+Other option to make custom field output is to use formatter callback function.
+To enable this field's property `formatter` is used. Value of this property may be 
+String or function reference. In case of String value, function must be defined at parent component's methods, 
+to provide formatter as `Function`, it must be declared at global scope (window or as global mixin at Vue).  
+
+Example:
+```js
+{
+    name: {
+        label: 'Person Full name',
+        sortable: true,
+        formatter: 'personFullName'
+    },
+    age: {
+        label: 'Person age',
+        sortable: false,
+        fomatter: personAge
+    }
+}
+```
+
 
 ### Header/Footer Custom Rendering
 It is also possible to provide custom rendering for the tables `thead` and

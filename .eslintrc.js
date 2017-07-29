@@ -77,10 +77,6 @@ module.exports = {
         'eqeqeq': 'off',
         'func-call-spacing': 'error',
         'func-name-matching': 'error',
-        'func-names': [
-            'error',
-            'never'
-        ],
         'func-style': 'error',
         'generator-star-spacing': 'error',
         'global-require': 'off',
@@ -240,8 +236,6 @@ module.exports = {
         'prefer-numeric-literals': 'error',
         'prefer-promise-reject-errors': 'error',
         'prefer-reflect': 'off',
-        'prefer-rest-params': 'error',
-        'prefer-spread': 'error',
         'prefer-template': 'off',
         'quote-props': 'off',
         'quotes': 'off',

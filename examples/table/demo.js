@@ -8,7 +8,8 @@ window.app = new Vue({
             },
             age: {
                 label: 'Person age',
-                sortable: true
+                sortable: true,
+                formatter: 'formatAge'
             },
             isActive: {
                 label: 'is Active'
@@ -79,13 +80,14 @@ window.app = new Vue({
     },
     computed: {
         provider() {
-            // we are usig provider wrappers here to trigger a reload
-            if (this.providerType === 'promise') {
-                return this._promiseProvider;
-            } else if (this.providerType === 'callback') {
-                return this._callbackProvider;
-            } else {
-                return this._arrayProvider;
+            // we are using provider wrappers here to trigger a reload
+            switch (this.providerType){
+                case 'promise':
+                    return this._promiseProvider;
+                case 'callback':
+                    return this._callbackProvider;
+                default:
+                    return this._arrayProvider;
             }
         }
     },
@@ -105,19 +107,22 @@ window.app = new Vue({
         },
         _provider(ctx, cb) {
             const items = this.items.slice();
-            if (this.providerType === 'callback') {
-                setTimeout(() => {
-                    cb(items);
-                }, 1)
-                return;
-            } else if (this.providerType === 'promise') {
-                const p = new Promise(resolve => setTimeout(resolve, 1));
-                return p.then(() => {
-                   return items;
-                });
-            } else {
-                return items;
+
+            switch (this.providerType){
+                case 'callback':
+                    setTimeout(() => {cb(items);}, 1)
+                    return;
+                case 'promise':
+                    const p = new Promise(resolve => setTimeout(resolve, 1));
+                    return p.then(() => {
+                        return items;
+                    });
+                default:
+                    return items;
             }
+        },
+        formatAge(value){
+            return `${value} years old`;
         }
     }
 });
