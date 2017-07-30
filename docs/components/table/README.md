@@ -148,7 +148,7 @@ Supported field properties:
 | `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
 | `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
-| `formatter` | String or Function | A formatter callback function, can be used instead of slots 
+| `formatter` | String or Function | A formatter callback function, can be used instead of slots for real table fields (i.e. fields, that have corresponding data at items array)
 
 Notes:
  - Field properties, if not present, default to null unless otherwise stated above.
@@ -158,6 +158,7 @@ Notes:
 in the Vue.js guide.
  - Any additional properties added to the field objects will be left intact - so you can access
 them via the named scoped slots for custom data, header, and footer rendering.
+- by design, slots and formatter are **mutually exclusive**. Ie. if formatter defined at field props, then slot will not be used even if it defined for this field.
 
 ### Items (record data)
 `items` are real table data record objects in array format. Example format:
