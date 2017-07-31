@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div v-html="readme" v-play></div>
+        <div class="bd-content" v-html="readme" v-play></div>
     </div>
 </template>
 
