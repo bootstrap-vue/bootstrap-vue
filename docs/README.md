@@ -28,11 +28,11 @@ for more information about browsers currently supported by Bootstrap 4.
 **JS**
 
 BootstrapVue is written in Vue! So this is up to your project and bundler that which browsers are supported.
-If you want support older IE, Android and IOS devices, you may want to use
+If you want to support older IE, Android and IOS devices, you may want to use
 [Babel Polyfill](https://babeljs.io/docs/usage/polyfill)
 
 **IE 11**
 
 You'll need babel-polyfill for BootstrapVue to work properly. In order to support this browser: 
 - npm install babel-polyfill --save
-- Import it in your app main entry point with _import 'babel-polyfill'_
+- Import it in your app main entry point with `import 'babel-polyfill'`
