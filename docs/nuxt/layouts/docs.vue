@@ -4,7 +4,7 @@
     
         <div class="container mt-5">
             <div class="row">
-                <div class="col-12 col-md-9 bd-content">
+                <div class="col-12 col-md-9">
                     <div class="float-right">
                         <a href="https://github.com/bootstrap-vue/bootstrap-vue/releases" target="_blank">
                             <img src="https://img.shields.io/github/release/bootstrap-vue/bootstrap-vue.svg?style=flat-square" alt="GitHub release">

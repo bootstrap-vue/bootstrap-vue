@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bd-content">
 
         <h2><code>{{tag}}</code></h2>
         <a :href="githubURL" target="_blank" class="text-muted">(view source)</a>

@@ -1,5 +1,5 @@
 <template>
-    <div class="container" v-html="readme"></div>
+    <div class="container bd-content" v-html="readme"></div>
 </template>
 
 <script>
