@@ -1,11 +1,8 @@
 <template>
-     <b-link v-if="isLink"
+     <component :is="componentTag" 
              class="navbar-brand"
-             v-bind="linkProps"
-             @click="$emit('click', $event)">
-        <slot></slot>
-    </b-link>
-    <component v-else :is="tag" class="navbar-brand">
+             v-bind="conditionalLinkProps"
+             @click="this.$emit('click', $event)">
         <slot></slot>
     </component>
 </template>
@@ -22,7 +19,7 @@ import { assign } from '../utils/object';
 const linkProps = assign(omitLinkProps('href', 'to', 'tag'), {
     href: { type: originalLinkProps.href.type },
     to: { type: originalLinkProps.to.type },
-    tag: { type: String, default: 'div' }
+    tag: { type: String }
 });
 
 export default {
@@ -31,7 +28,13 @@ export default {
     computed: {
         linkProps: computed.linkProps,
         isLink() {
-          return this.to || this.href;
+            return this.to || this.href;
+        },
+        componentTag(){
+            return this.isLink ? `b-link` : (this.tag || 'div');
+        },
+        conditionalLinkProps() {
+            return this.isLink ? this.linkProps : {};
         }
     }
 };
