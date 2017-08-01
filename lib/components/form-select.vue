@@ -4,7 +4,7 @@
             :id="id || null"
             v-model="localValue"
             :multiple="multiple || null"
-            :size="(multiple || selectSize > 1) ? multipleSize : null"
+            :size="(multiple || selectSize > 1) ? selectSize : null"
             :disabled="disabled"
             :required="required"
             :aria-required="required ? 'true' : null"
