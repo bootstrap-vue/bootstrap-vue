@@ -4,7 +4,7 @@
             :id="id || null"
             v-model="localValue"
             :multiple="multiple || null"
-            :size="multiple && multipleSize > 1 ? multipleSize : null"
+            :size="(multiple || selectSize > 1) ? multipleSize : null"
             :disabled="disabled"
             :required="required"
             :aria-required="required ? 'true' : null"
@@ -35,7 +35,7 @@
                 return [
                     'form-control',
                     this.size ? `form-control-${this.size}` : null,
-                    (this.custom && !this.multiple) ? 'custom-select' : null
+                    (this.plain || this.multiple || this.selectSize > 1) ? null : 'custom-select'
                 ];
             },
             ariaInvalid() {
@@ -63,7 +63,7 @@
                 type: Boolean,
                 default: false
             },
-            multipleSize: {
+            selectSize: {
                 // Browsers default size to 0, which typically shows 4 rows in most browsers
                 // Size of 1 can bork out firefox
                 type: Number,
