@@ -1,7 +1,7 @@
 # Form Select
 
 > Bootstrap custom `<select>` using custom styles. Provide options based on an
-array, array of objects. or an object.
+array, array of objects, or an object.
 
 ### Options
 `options` can be an array or a key-value object. Available fields:
@@ -39,7 +39,7 @@ Keys are mapped to value and values are mapped to option object.
   b: 'Item B',
   c: 'Item C',
   d: {text: 'Item D', disabled: true},
-  e: {text: 'Item E', value:'overridden_value'}
+  e: {text: 'Item E', value: 'overridden_value'}
 }
 ```
 
@@ -48,7 +48,7 @@ By default, Bootstrap V4's custom select styling is applied.
 
 #### Value:
 In non `multiple` mode, `<b-form-select>` returns the `value` of the currently
-selected option as a string.
+selected option as a **String**.
 
 **Example 1: Custom Select (default)**
 ```html
@@ -78,9 +78,48 @@ export default {
 <!-- form-select-1.vue -->
 ```
 
+#### Select sizing (displayed rows):
+You can use the `select-size` prop to switch the custom select into a select
+list-box, rather than a dropdown. Set the `select-size` prop to a numerical
+value greater than 1 to control how many rows of options are visible.
+
+Note when `select-size` is set to a value greater than 1, the Bootstrap V4 custom
+styling will **not** be applied.
+
+**Example 2: Select in list-box mode**
+```html
+<template>
+  <div>
+    <b-form-select v-model="selected" :options="options" class="mb-3" :select-size="4">
+    </b-form-select>
+    <div>Selected: <strong>{{ selected }}</strong></div>
+  </div>  
+</template>
+
+<script>
+export default {
+  data: {
+    selected: null,
+    options: [
+      { value: null, text: 'Please select some item' },
+      { value: 'a', text: 'This is option a' },
+      { value: 'b', text: 'Default Selected Option b' },
+      { value: 'c', text: 'This is option c' },
+      { value: 'd', text: 'This one is disabled', disabled: true },
+      { value: 'e', text: 'This is option e' },
+      { value: 'e', text: 'This is option f' }
+    ]
+  }
+}
+</script>
+
+<!-- form-select-2.vue -->
+```
+
+
 ### Multiple select support
 Enable multiple select mode by setting the prop `multiple`, and control how many
-rows are displayed in the multiple select list-box by setting `multiple-size` to
+rows are displayed in the multiple select list-box by setting `select-size` to
 the number of rows to display. The default is to let the browser use it's default
 (typically 4).
 
@@ -90,13 +129,13 @@ class applied.
 
 #### Value:
 In `multiple` mode, `<b-form-select>` always returns an array of option values.
-You should always provide an array reference as your `v-model` when in `multiple` mode.
+You must provide an array reference as your `v-model` when in `multiple` mode.
 
-**Example 2: Multiple Select**
+**Example 3: Multiple Select**
 ```html
 <template>
   <div>
-    <b-form-select multiple :multiple-size="4" v-model="selected" :options="options" class="mb-3">
+    <b-form-select multiple :select-size="4" v-model="selected" :options="options" class="mb-3">
     </b-form-select>
     <div>Selected: <strong>{{ selected }}</strong></div>
   </div>  
@@ -105,7 +144,7 @@ You should always provide an array reference as your `v-model` when in `multiple
 <script>
 export default {
   data: {
-    selected: ['b'],
+    selected: ['b'], // Array reference
     options: [
       { value: 'a', text: 'This is First option' },
       { value: 'b', text: 'Default Selected Option' },
@@ -119,13 +158,17 @@ export default {
 }
 </script>
 
-<!-- form-select-2.vue -->
+<!-- form-select-3.vue -->
 ```
 
 ### Control sizing
-Set heights using the `size` prop to `sm` or `lg` for small or large respectively.
+Set the form-control text size using the `size` prop to `sm` or `lg` for small or
+large respectively.
 
-To control width, place the input inside standard Bootstrap grid column.
+By default `<b-form-select>` will occupy the full width of the container that it
+appears in. To control the select width, place the input inside standard Bootstrap
+grid column.
+
 
 ### Contextual States
 Bootstrap includes validation styles for danger, warning, and success states on most form controls.
@@ -154,7 +197,7 @@ providing an additional help text block (via `<b-form-fieldet>`). Specifically f
 assistive technologies, invalid form controls can also be assigned
 an `aria-invalid="true"` attribute (see below).
 
-#### ARIA `aria-invalid` attribute
+#### ARIA `aria-invalid` attribute:
 When `<b-form-select>` has an invalid contextual state (i.e. `danger`) you may also
 want to set the `<b-form-select>` prop `invalid` to `true`.
 
@@ -163,5 +206,9 @@ Supported `invaid` values are:
 - `true` The value has failed validation.
 
 ### Non custom select
-Set the prop `plain` to have a native browser `<select>` rendered.
-Multiple select will always render as a `plain` select.
+Set the prop `plain` to have a native browser `<select>` rendered (although the class
+`.form-control` will always be placed on the select).
+
+Multiple select will always render as a `plain` select, as will any `<b-form-select>`
+that has the `select-size` prop set to a value greater than 1.
+
