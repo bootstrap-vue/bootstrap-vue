@@ -1,7 +1,7 @@
 # Form Select
 
 > Bootstrap custom `<select>` using custom styles. Provide options based on an
-array, array of objects. or an object.
+array, array of objects, or an object.
 
 ### Options
 `options` can be an array or a key-value object. Available fields:
@@ -78,7 +78,7 @@ export default {
 <!-- form-select-1.vue -->
 ```
 
-#### Slect sizing (displayed rows):
+#### Select sizing (displayed rows):
 You can use the `select-size` prop to switch the custom select into a select
 list-box, rather than a dropdown. Set the `select-size` prop to a numerical
 value greater than 1 to control how many rows of options are visible.
