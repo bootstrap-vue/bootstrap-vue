@@ -66,9 +66,9 @@
                 :aria-label="labelGotoSlide + ' ' + n"
                 :aria-describedby="slides[n-1].id || null"
                 :aria-controls="id ? (id + '__BV_inner_') : null"
-                @click="index=n-1"
-                @keydown.enter.stop.prevent="index=n-1"
-                @keydown.space.stop.prevent="index=n-1"
+                @click="setSlide(n-1)"
+                @keydown.enter.stop.prevent="setSlide(n-1)"
+                @keydown.space.stop.prevent="setSlide(n-1)"
             ></li>
         </ol>
 
@@ -136,31 +136,38 @@
             },
             background: {
                 type: String
+            },
+            value: {
+                type: Number,
+                defrault: 0
             }
         },
         methods: {
-            // Previous slide
-            prev() {
-                if (this.index <= 0) {
-                    this.index = this.slides.length - 1;
-                } else {
-                    this.index--;
-                }
-            },
-
-            // Next slide
-            next() {
+            // Set slide
+            setSlide(slide) {
                 if (typeof document !== 'undefined' && document.visibilityState && document.hidden) {
                     // Don't animate when page is not visible
                     return;
                 }
-                if (this.index >= this.slides.length - 1) {
-                    this.index = 0;
-                } else {
-                    this.index++;
+                // Wrap around?
+                if (slide >= this.slides.length - 1) {
+                    slide = 0;
+                } else if (slide < 0) {
+                    slide = this.slides.length - 1;
                 }
+                this.index = slide;
             },
 
+            // Previous slide
+            prev() {
+                this.setSlide(this.index - 1);
+            },
+
+            // Next slide
+            next() {
+                this.setSlide(this.index + 1);
+            },
+            
             // Pause auto rotation
             pause() {
                 if (this.interval === 0 || typeof this.interval === 'undefined') {
@@ -197,12 +204,18 @@
             // Get all slides
             this.slides = arrayFrom(this.$el.querySelectorAll('.carousel-item'));
 
-            // Set first slide as active
-            this.slides[0].classList.add('active');
+            // Set indicated slide as active
+            this.setSlide(this.value);
+
             const self = this;
             this.slides.forEach((slide, idx) => {
                 const n = idx + 1;
-                slide.setAttribute('aria-current', idx === 0 ? 'true' : 'false');
+                if (idx === self.index) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+                slide.setAttribute('aria-current', idx === self.index ? 'true' : 'false');
                 slide.setAttribute('aria-posinset', String(n));
                 slide.setAttribute('aria-setsize', String(self.slides.length));
                 slide.tabIndex = -1;
@@ -216,13 +229,20 @@
             this.start();
         },
         watch: {
+            value(newVal, oldval) {
+                if (newVal !== oldVal) {
+                    this.setSlide(newVal);
+                }
+            },
             index(val, oldVal) {
                 if (val === oldVal) {
                     return;
                 }
 
                 if (this.isSliding) {
+                    // Don't change slide while transitioning.
                     this.index = oldVal;
+                    this.$emit('input', this.index);
                     return;
                 }
 
@@ -240,12 +260,15 @@
                 const currentSlide = this.slides[oldVal];
                 const nextSlide = this.slides[val];
 
+                // Don't do anything if there aren't any slides to slide to
                 if (!currentSlide || !nextSlide) {
                     return;
                 }
 
                 // Start animating
                 this.isSliding = true;
+
+                this.$emit('input', this.index);
 
                 nextSlide.classList.add(direction.next, direction.overlay);
                 currentSlide.classList.add(direction.current);
