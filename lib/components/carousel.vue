@@ -149,6 +149,10 @@
                     // Don't animate when page is not visible
                     return;
                 }
+                if (this.isSliding) {
+                    // Don't change slide while transitioning
+                    return;
+                }
                 // Wrap around?
                 if (slide >= this.slides.length - 1) {
                     slide = 0;
@@ -200,6 +204,11 @@
             }
 
         },
+        created() {
+            // Create private properties
+            this._intervalId = null;
+            this._carouselAnimation = null;
+        },
         mounted() {
             // Get all slides
             this.slides = arrayFrom(this.$el.querySelectorAll('.carousel-item'));
@@ -242,6 +251,7 @@
                 if (this.isSliding) {
                     // Don't change slide while transitioning.
                     this.index = oldVal;
+                    // Reset value (slide index)
                     this.$emit('input', this.index);
                     return;
                 }
