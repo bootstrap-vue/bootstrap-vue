@@ -63,13 +63,15 @@ Note that with `no-block` enabled, `title` and `sub-title` will not be rendered.
 `sub-title` prop. Links can be added and placed next to each other by adding
 the `.card-link` class to a <a> tag (or `<b-link>`).
 
-Subtitles are used by setting the `subtitle` prop.
+With class `.card-text`, text can be added to the card. Text within `.card-text`
+can also be styled with the standard HTML tags.
 
 ```html
 <div>
   <b-card title="Card title" sub-title="Card subtitle">
     <p class="card-text">
-      Some quick example text to build on the card title and make up the bulk of the card's content.
+      Some quick example text to build on the <em>card title</em>
+      and make up the bulk of the card's content.
     </p>
     <a href="#" class="card-link">Card link</a>
     <b-link href="#" class="card-link">Another link</b-link>
@@ -80,8 +82,10 @@ Subtitles are used by setting the `subtitle` prop.
 ```
 
 #### Images:
-The prop `img` places an image on the top of the card. With class `.card-text`, text can be
-added to the card. Text within `.card-text` can also be styled with the standard HTML tags.
+The prop `img` places an image on the top of the card, and use the `img-alt` prop to
+specify a string to be placed in the image's `alt` attribute.  The image specified
+by the `img` prop will be responsive and will adjust it's width when the width of the
+card is changed.
 
 ```html
 <div>
@@ -99,7 +103,12 @@ Place the image in the background of the card by setting the boolean prop `overl
 
 ```html
 <div>
-  <b-card overlay img="https://placekitten.com/g/1000/200" title="Image Overlay" sub-title="Subtitle">
+  <b-card overlay
+          img="https://placekitten.com/g/1000/250"
+          img-alt="Card Imge"
+          title="Image Overlay"
+          sub-title="Subtitle"
+  >
     <p class="card-text">
       Some quick example text to build on the card and make up the bulk of the card's content.
     </p>
@@ -109,21 +118,44 @@ Place the image in the background of the card by setting the boolean prop `overl
 <!-- card-img-2.vue -->
 ```
 
+Take control overhte image tag by specifying an `<img>` element targetting the `img` named slot:
+This allwos you to override the default classes applied to the image:
+
+
+```html
+<div>
+  <b-card title="Image Slot">
+    <img slot="img" src="https://placekitten.com/g/800/250" ale="Kitten" class="card-img-top img-fluid" />
+    <p class="card-text">
+      Some quick example text to build on the card and make up the bulk of the card's content.
+    </p>
+  </b-card>
+</div>
+
+<!-- card-img-3.vue -->
+```
+
 #### Header and footer:
-Add an optional header and/or footer within a card via teh `header` and `footer`
-props or named slots.  When using props, you can control the tags used by
-setting the `header-tag` and `footer-tag` props (default is  `div`)
+Add an optional header and/or footer within a card via the `header`/`footer`
+props or named slots.  You can control the wrapper element tags used by setting
+the `header-tag` and `footer-tag` props (both default is  `div`)
+
 
 ```html
 <div>
   <b-card-group deck>
-    <b-card header="featured" footer="Card Footer" title="Title">
+    <b-card header="featured"
+            header-tag="header"
+            footer="Card Footer"
+            footer-tag="footer"
+            title="Title"
+    >
       <p class="card-text">Header and footers using props.</p>
       <b-button href="#" variant="primary">Go somewhere</b-button>
     </b-card>
-    <b-card title="Title">
-      <div slot="header">Featured</div>
-      <div slot="footer">Card footer</div>
+    <b-card title="Title" header-tag="header" footer-tag="footer">
+      <h4 slot="header">Featured</h4>
+      <em slot="footer">Card footer</em>
       <p class="card-text">Header and footers using slots.</p>
       <b-button href="#" variant="primary">Go somewhere</b-button>
     </b-card>
@@ -143,7 +175,10 @@ a fixed-width card.
   <b-card no-block style="width: 20rem;" img="https://placekitten.com/380/200" img-alt="Image">
     <h4 slot="header">Hello World</h4>
     <div class="card-block">
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <p class="card-text">
+        Some quick example text to build on the card 
+        title and make up the bulk of the card's content.
+      </p>
     </div>
     <b-list-group flush>
       <b-list-group-item>Cras justo odio</b-list-group-item>
