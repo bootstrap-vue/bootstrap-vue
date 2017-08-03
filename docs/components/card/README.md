@@ -17,7 +17,7 @@ Change the default `div` root tag to any other HTML element by specifying via th
   <b-card title="Card Title"
           img="http://placeskull.com/300/200/ABABAB/-1/0"
           img-alt="Image"
-          r=taqg="article"
+          tag="article"
           style="width: 20rem;"
           class="mb-2">
     <p class="card-text">
@@ -32,7 +32,7 @@ Change the default `div` root tag to any other HTML element by specifying via th
 
 ### Content types
 Cards support a wide variety of content, including images, text, list groups, 
-links, and more. Below are examples of what’s supported.
+links and more. Below are examples of what’s supported.
 
 #### Blocks:
 The building block of a card is the `.card-block` section. Use it whenever you need a padded
@@ -46,7 +46,7 @@ section within a card. By default the `<b-card>` content is placed in the block 
 <!-- card-block-1.vue -->
 ```
 
-Disable the `.card-block` class (and associated padding) by setting the prop `bo-block`.
+Disable the `.card-block` class (and associated padding) by setting the prop `no-block`.
 
 ```html
 <b-card no-block class="text-center">
@@ -59,11 +59,9 @@ Note that with `no-block` enabled, `title` and `sub-title` will not be rendered.
 ```
 
 #### Titles, text, and links:
-Card titles are adding via the `title` prop, while sub titles are added via the
+*Card titles* are adding via the `title` prop, and *sub-titles* are added via the
 `sub-title` prop. Links can be added and placed next to each other by adding
-the `.card-link` class to a <a> tag (or `<b-link>`).
-
-Subtitles are used by setting the `subtitle` prop.
+the `.card-link` class to a `<a>` tag (or `<b-link>`).
 
 ```html
 <div>
@@ -110,8 +108,10 @@ Place the image in the background of the card by setting the boolean prop `overl
 ```
 
 #### Header and footer:
-Add an optional header and/or footer within a card via teh `header` and `footer`
-props or named slots.  When using props, you can control the tags used by
+Add an optional header/footer within a card via `header`/`footer`
+props or named slots.  
+
+When using props, you can control the tags used by
 setting the `header-tag` and `footer-tag` props (default is  `div`)
 
 ```html
@@ -170,7 +170,7 @@ toggling the color of text within, as well as that of the card’s subcomponents
 via the prop `inverse`. Then, specify a dark background-color and border-color to go with it.
 
 ```html
-<b-card inverse title="Card Title" style="background-color:#333; border-color:#333;">
+<b-card inverse title="Card Title" class="bg-inverse">
   <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
   <b-button href="#" variant="primary">Go somewhere</b-button>
 </b-card>
@@ -180,7 +180,7 @@ via the prop `inverse`. Then, specify a dark background-color and border-color t
 
 ### Background and outline variants
 Cards include their own variant style for quickly changing the background-color and
-border-color of a card via hte `variant` prop. Darker solid variants require setting the
+border-color of a card via the `variant` prop. Darker solid variants require setting the
 boolean prop `inverse` to adjust the text color.
 
 **Supported solid background variants are:**
