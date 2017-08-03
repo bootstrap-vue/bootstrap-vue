@@ -8,7 +8,7 @@
         <button type="button"
                 class="close"
                 data-dismiss="alert"
-                aria-label="dismissLabel"
+                :aria-label="dismissLabel"
                 v-if="dismissible"
                 @click.stop.prevent="dismiss"
         >
