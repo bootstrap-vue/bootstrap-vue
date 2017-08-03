@@ -438,7 +438,7 @@ isn’t a bulletproof solution yet.
     <b-card img="http://placeskull.com/400/200/1010AB/-1/0" img-fluid img-alt="image">
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to additional
-        content. This card has even longer content than the first to show that equal height action.
+        content. This card has even longer content than the first.
       </p>
       <div slot="footer">
         <small class="text-muted">Footer Text</small>
