@@ -1,5 +1,19 @@
 {
   "title": "Card",
   "component": "bCard",
-  "components":["bCardGroup"]
+  "components":["bCardGroup"],
+  "slots": [
+    {
+      "name": "img",
+      "description": "Slot for custom img tag, for finer grained control of image"
+    },
+    {
+      "name": "header",
+      "description": "For custom rendering of header content"
+    },
+    {
+      "name": "footer",
+      "description": "For custom rendering of footer content"
+    }
+  ]
 }
