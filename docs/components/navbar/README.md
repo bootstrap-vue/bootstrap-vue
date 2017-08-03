@@ -58,7 +58,7 @@ color variants, or `inverse` for dark background color variants.
 
 
 ### Placement
-Control the placement of the nvabar by setting one of two props:
+Control the placement of the navbar by setting one of two props:
 
 | prop | type | default | description
 | ---- | ---- | ------- | -----------
@@ -248,9 +248,9 @@ Wrap `<b-nav is-nav-bar>` components in a `<b-collapse is-nav>` (remember to set
 to specify content that will collapse based on a particular breakpoint.
 
 Use `<b-nav-toggle>` to control the collapse component and set the `toggle-breakpoint` prop to
-the breakpoint you would like contnt to automatically collapse. Possible values are `sm` (default),
+the breakpoint you would like content to automatically collapse. Possible values are `sm` (default),
 `md`, and `lg`.
 
-See the first example on this page for refernce, and also refer to [`<b-collapse>`](./collapse) for
+See the first example on this page for reference, and also refer to [`<b-collapse>`](./collapse) for
 details on the collapse component.
 
