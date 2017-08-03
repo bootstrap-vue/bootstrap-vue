@@ -59,9 +59,11 @@ Note that with `no-block` enabled, `title` and `sub-title` will not be rendered.
 ```
 
 #### Titles, text, and links:
-*Card titles* are adding via the `title` prop, and *sub-titles* are added via the
+*Card titles* are adding via the `title` prop, and *sub titles* are added via the
 `sub-title` prop. Links can be added and placed next to each other by adding
-the `.card-link` class to a `<a>` tag (or `<b-link>`).
+the `.card-link` class to a <a> tag (or `<b-link>`).
+
+Subtitles are used by setting the `subtitle` prop.
 
 ```html
 <div>
@@ -108,10 +110,8 @@ Place the image in the background of the card by setting the boolean prop `overl
 ```
 
 #### Header and footer:
-Add an optional header/footer within a card via `header`/`footer`
-props or named slots.  
-
-When using props, you can control the tags used by
+Add an optional header and/or footer within a card via teh `header` and `footer`
+props or named slots.  When using props, you can control the tags used by
 setting the `header-tag` and `footer-tag` props (default is  `div`)
 
 ```html
@@ -170,7 +170,7 @@ toggling the color of text within, as well as that of the card’s subcomponents
 via the prop `inverse`. Then, specify a dark background-color and border-color to go with it.
 
 ```html
-<b-card inverse title="Card Title" class="bg-inverse">
+<b-card inverse title="Card Title" style="background-color:#333; border-color:#333;">
   <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
   <b-button href="#" variant="primary">Go somewhere</b-button>
 </b-card>
@@ -180,8 +180,10 @@ via the prop `inverse`. Then, specify a dark background-color and border-color t
 
 ### Background and outline variants
 Cards include their own variant style for quickly changing the background-color and
-border-color of a card via the `variant` prop. Darker solid variants require setting the
+border-color of a card via the `variant` prop. Darker solid variants my require setting the
 boolean prop `inverse` to adjust the text color.
+
+Note for non-`outline-*` variants, the `inverse` state is automatically applied.
 
 **Supported solid background variants are:**
 
@@ -189,19 +191,19 @@ boolean prop `inverse` to adjust the text color.
 
 ```html
 <div>
-  <b-card variant="primary" inverse class="mb-3 text-center">
+  <b-card variant="primary" class="mb-3 text-center">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
   </b-card>
-  <b-card variant="success" inverse class="mb-3 text-center">
+  <b-card variant="success" class="mb-3 text-center">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
   </b-card>
-  <b-card variant="info" inverse class="mb-3 text-center">
+  <b-card variant="info" class="mb-3 text-center">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
   </b-card>
-  <b-card variant="warning" inverse class="mb-3 text-center">
+  <b-card variant="warning" class="mb-3 text-center">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
   </b-card>
-  <b-card variant="danger" inverse class="mb-3 text-center">
+  <b-card variant="danger" class="mb-3 text-center">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
   </b-card>
 </div>
@@ -249,4 +251,167 @@ to users of assistive technologies – such as screen readers. Ensure that infor
 by the color is either obvious from the content itself (e.g. the visible text), or is
 included through alternative means, such as additional text hidden with the `.sr-only` class.
 
+### Card Groups
+In addition to styling the content within cards, BootstrapVue includes a `<b-card-group>`
+component for laying out series of cards. For the time being, these layout options are
+not yet responsive.
 
+Use card groups to render cards as a single, attached element with equal width and
+height columns. Card groups use display: flex; to achieve their uniform sizing.
+
+When using card groups with footers, their content will automatically line up.
+
+```html
+<div>
+  <b-card-group>
+    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+      <p class="card-text">
+        This is a wider card with supporting text below as a natural lead-in to
+        additional content. This content is a little bit longer.
+      </p>
+      <div slot="footer">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </div>
+    </b-card>
+    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+      <p class="card-text">
+        This card has supporting text below as a natural lead-in to additional content.
+      </p>
+      <div slot="footer">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </div>
+    </b-card>
+    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+      <p class="card-text">
+        This is a wider card with supporting text below as a natural lead-in to additional
+        content. This card has even longer content than the first to show that equal height action.
+      </p>
+      <div slot="footer">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </div>
+    </b-card>
+  </b-card-group>
+</div>
+
+<-- card-group-1.vue -->
+```
+
+#### Card decks:
+Need a set of equal width and height cards that aren’t attached to one another? Use
+card decks by setting the `deck` prop. And just like with regular card groups,
+card footers in decks will automatically line up.
+
+```html
+<div>
+  <b-card-group deck>
+    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+      <p class="card-text">
+        This is a wider card with supporting text below as a natural lead-in to
+        additional content. This content is a little bit longer.
+      </p>
+      <div slot="footer">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </div>
+    </b-card>
+    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+      <p class="card-text">
+        This card has supporting text below as a natural lead-in to additional content.
+      </p>
+      <div slot="footer">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </div>
+    </b-card>
+    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+      <p class="card-text">
+        This is a wider card with supporting text below as a natural lead-in to additional
+        content. This card has even longer content than the first to show that equal height action.
+      </p>
+      <div slot="footer">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </div>
+    </b-card>
+  </b-card-group>
+</div>
+
+<-- card-group-2.vue -->
+```
+
+#### Card columns:
+Cards can be organized into Masonry-like columns with by wrapping them in a `<b-card-group>`
+with the prop `columns` set. Cards are built with CSS column properties instead of flexbox for
+easier alignment. Cards are ordered from top to bottom and left to right.
+
+Heads up! Your mileage with card columns may vary. To prevent cards breaking across
+columns, we must set them to display: inline-block as column-break-inside: avoid
+isn’t a bulletproof solution yet.
+
+
+```html
+<div>
+  <b-card-group columns>
+
+    <b-card title="Card title that wraps to a new line"
+            img="http://placeskull.com/400/200/ABABAB/-1/0"
+            img-fluid
+            img-alt="image"
+    >
+      <p class="card-text">
+        This is a wider card with supporting text below as a natural lead-in to
+        additional content. This content is a little bit longer.
+      </p>
+    </b-card>
+
+    <b-card>
+      <blockquote class="card-blockquote">
+        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
+        <footer>
+          <small class="text-muted">Someone famous</small>
+        </footer>
+      </blockquote>
+    </b-card>
+
+    <b-card title="Title"
+            img="http://placeskull.com/400/200/10ABAB/-1/0"
+            img-fluid
+            img-alt="image"
+    >
+      <p class="card-text">
+        This card has supporting text below as a natural lead-in to additional content.
+      </p>
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </b-card>
+
+    <b-card variant="primary">
+      <blockquote class="card-blockquote" 
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        <footer>
+          <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+        </footer>
+      </blockquote>
+    </b-card>
+
+    <b-card title="Title">
+      <p class="card-text">
+        This card has supporting text below as a natural lead-in to additional content.
+      </p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </b-card>
+
+    <b-card img="http://placeskull.com/400/400/AB1010/-1/0" img-fuid img-alt="image" overlay>
+    </b-card>
+
+    <b-card img="http://placeskull.com/400/200/1010AB/-1/0" img-fluid img-alt="image">
+      <p class="card-text">
+        This is a wider card with supporting text below as a natural lead-in to additional
+        content. This card has even longer content than the first to show that equal height action.
+      </p>
+      <div slot="footer">
+        <small class="text-muted">Footer Text</small>
+      </div>
+    </b-card>
+
+  </b-card-group>
+</div>
+
+<-- card-group-3.vue -->
+```
