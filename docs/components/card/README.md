@@ -15,7 +15,7 @@ Change the default `div` root tag to any other HTML element by specifying via th
 ```html
 <div>
   <b-card title="Card Title"
-          img="http://placeskull.com/300/200/ABABAB/-1/0"
+          img="https://lorempixel.com/600/300/"
           img-alt="Image"
           tag="article"
           style="width: 20rem;"
@@ -125,7 +125,7 @@ This allwos you to override the default classes applied to the image:
 ```html
 <div>
   <b-card title="Image Slot">
-    <img slot="img" src="https://placekitten.com/g/800/250" ale="Kitten" class="card-img-top img-fluid" />
+    <img slot="img" src="http://lorempixel.com/900/250/sports/6/" ale="Kitten" class="card-img-top img-fluid" />
     <p class="card-text">
       Some quick example text to build on the card and make up the bulk of the card's content.
     </p>
@@ -299,7 +299,7 @@ When using card groups with footers, their content will automatically line up.
 ```html
 <div>
   <b-card-group>
-    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+    <b-card title="Title" img="https://placekitten.com/g/300/450" img-alt="Img">
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to
         additional content. This content is a little bit longer.
@@ -308,7 +308,7 @@ When using card groups with footers, their content will automatically line up.
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
     </b-card>
-    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+    <b-card title="Title" img="https://placekitten.com/g/300/450" img-alt="Img">
       <p class="card-text">
         This card has supporting text below as a natural lead-in to additional content.
       </p>
@@ -316,7 +316,7 @@ When using card groups with footers, their content will automatically line up.
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
     </b-card>
-    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+    <b-card title="Title" img="https://placekitten.com/g/300/450" img-alt="Img">
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to additional
         content. This card has even longer content than the first to show that equal height action.
@@ -339,7 +339,7 @@ card footers in decks will automatically line up.
 ```html
 <div>
   <b-card-group deck>
-    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img">
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to
         additional content. This content is a little bit longer.
@@ -348,7 +348,7 @@ card footers in decks will automatically line up.
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
     </b-card>
-    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img">
       <p class="card-text">
         This card has supporting text below as a natural lead-in to additional content.
       </p>
@@ -356,7 +356,7 @@ card footers in decks will automatically line up.
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
     </b-card>
-    <b-card title="Title" img="http://placeskull.com/100/180/ABABAB/-1/0" img-alt="Img">
+    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img">
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to additional
         content. This card has even longer content than the first to show that equal height action.
@@ -386,7 +386,7 @@ isn’t a bulletproof solution yet.
   <b-card-group columns>
 
     <b-card title="Card title that wraps to a new line"
-            img="http://placeskull.com/400/200/ABABAB/-1/0"
+            img="https://placekitten.com/g/400/450"
             img-fluid
             img-alt="image"
     >
@@ -406,7 +406,7 @@ isn’t a bulletproof solution yet.
     </b-card>
 
     <b-card title="Title"
-            img="http://placeskull.com/400/200/10ABAB/-1/0"
+            img="https://placekitten.com/500/350"
             img-fluid
             img-alt="image"
     >
@@ -432,10 +432,10 @@ isn’t a bulletproof solution yet.
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </b-card>
 
-    <b-card img="http://placeskull.com/400/400/AB1010/-1/0" img-fuid img-alt="image" overlay>
+    <b-card img="https://lorempixel.com/400/400/" img-fuid img-alt="image" overlay>
     </b-card>
 
-    <b-card img="http://placeskull.com/400/200/1010AB/-1/0" img-fluid img-alt="image">
+    <b-card img="https://lorempixel.com/400/200/" img-fluid img-alt="image">
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to additional
         content. This card has even longer content than the first.
