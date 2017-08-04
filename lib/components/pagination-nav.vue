@@ -90,7 +90,7 @@
             </li>
             <li v-else class="page-item" role="none presentation">
                 <b-link class="page-link"
-                        v-bind="linkProps(currentPage - 1)"
+                        v-bind="linkProps(numberOfPages)"
                         :aria-label="labelLastPage"
                         role="menuitem"
                 ><span aria-hidden="true" v-html="lastText"></span></b-link>
