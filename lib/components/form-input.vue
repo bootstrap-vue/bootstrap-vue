@@ -1,7 +1,8 @@
 <template>
     <input v-if="!static"
            ref="input"
-           :type="textarea ? null : type"
+           :is="isTextarea ? 'textarea' : 'input'"
+           :type="isTextarea ? null : type"
            :value="value"
            :name="name"
            :id="id || null"
@@ -11,9 +12,8 @@
            :aria-required="required ? 'true' : null"
            :aria-invalid="ariaInvalid"
            :readonly="readonly"
-           :is="textarea ? 'textarea' : 'input'"
            :class="inputClass"
-           :rows="textarea ? (rows || rowsCount) : null"
+           :rows="isTextarea ? (rows || rowsCount) : null"
            :placeholder="placeholder"
            @input="onInput($event.target.value, $event.target)"
            @change="onChange($event.target.value, $event.target)"
@@ -38,6 +38,9 @@
         mixins: [formMixin],
         components: {bFormInputStatic},
         computed: {
+            istextarea() {
+                return this.textarea || this.type === 'textarea';
+            },
             rowsCount() {
                 return (this.value || '').toString().split('\n').length;
             },
