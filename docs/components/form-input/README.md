@@ -53,15 +53,17 @@ export default {
 
 ### Input type
 `<b-form-input>` defaults to a `text` input, but you can set it to any other text-like
-type, such as `password`, `number`, `url`, etc, by setting the `type` prop.
+type, such as `password`, `number`, `url`, etc, by setting the `type` prop to the
+appropriate value.
 
 #### Textarea mode
-Render a `<textarea>` element by setting the `textarea` prop to `true`. The
-`type` prop is ignored when prop `textarea` is set.
+Render a `<textarea>` element by setting the `textarea` prop to `true` or by
+setting the `type` prop to `textarea`.
 
 By default the `<textarea>` will automatically size its height based on on the number
-lines (separated by newlines) of text it contains. You can override this behaviour by supplying
-a numeric value to the `rows` prop. The `rows` prop has no effect on other input types.
+lines of text (separated by newlines) it contains. You can override this behaviour
+by supplying a numeric value to the `rows` prop. The `rows` prop has no effect
+on other input types.
 
 
 ### Formatter
@@ -82,8 +84,7 @@ No formatting occurs if a `formatter` is not provided.
 Easily convert a `<b-form-input>` control to a Bootstrap static form
 control by setting the prop `static` to true.
 
-You can also use the [`<b-form-input-static>`](./form-input-static) component
-to create static form controls.
+You can also use the `<b-form-input-static>` component to create static form controls.
 
 
 ### Control sizing
