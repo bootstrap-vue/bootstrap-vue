@@ -41,7 +41,7 @@ export default {
     text3: ''
   },
   methods: {
-    format(value) {
+    format(value, el) {
       return value.toLowerCase();
     }
   }
@@ -65,14 +65,15 @@ a numeric value to the `rows` prop. The `rows` prop has no effect on other input
 
 
 ### Formatter
-`<b-form-input>` optionally supports formatting by passing a function reference to  the `formatter` prop.
+`<b-form-input>` optionally supports formatting by passing a function reference to
+the `formatter` prop.
 
-By default, formatting occurs when the control's native `input` event fires. You can use the boolean
-prop `lazy-formatter` to restrict the formatter function to being called on the
-control's native `change` event (which usually occurs on blur).
+By default, formatting occurs when the control's native `input` event fires. You can
+use the boolean prop `lazy-formatter` to restrict the formatter function to being
+called on the control's native `change` event (which usually occurs on blur).
 
-The `formatter` function receives a single argument which is the control's current value, and 
-should return the formatted value.
+The `formatter` function receives two arguments (the raw value of the input, and
+a reference to the input element) and should return the formatted value (as a string).
 
 No formatting occurs if a `formatter` is not provided.
 
@@ -81,7 +82,8 @@ No formatting occurs if a `formatter` is not provided.
 Easily convert a `<b-form-input>` control to a Bootstrap static form
 control by setting the prop `static` to true.
 
-You can also use the `<b-form-input-static>` component to create static form controls.
+You can also use the [`<b-form-input-static>`](./form-input-static) component
+to create static form controls.
 
 
 ### Control sizing
