@@ -26,7 +26,6 @@
                          :value="value"
                          :size="size"
                          :state="state"
-                         :formatter="formatter"
     ></b-form-input-static>
 </template>
 
