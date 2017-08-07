@@ -15,8 +15,8 @@
            :class="inputClass"
            :rows="textarea ? (rows || rowsCount) : null"
            :placeholder="placeholder"
-           @input="onInput($event.target.value)"
-           @change="onChange($event.target.value)"
+           @input="onInput($event.target.value, $event.target)"
+           @change="onChange($event.target.value, $event.target)"
            @keyup="onKeyUp($event)"
            @focus="$emit('focus')"
            @blur="$emit('blur')"
@@ -59,9 +59,9 @@
             }
         },
         methods: {
-            format(value) {
+            format(value, el) {
                 if (this.formatter) {
-                    const formattedValue = this.formatter(value);
+                    const formattedValue = this.formatter(value, el);
                     if (formattedValue !== value) {
                         value = formattedValue;
                         this.$refs.input.value = formattedValue;
@@ -69,14 +69,14 @@
                 }
                 return value;
             },
-            onInput(value) {
+            onInput(value, el) {
                 if (!this.lazyFormatter) {
-                    value = this.format(value);
+                    value = this.format(value, el);
                 }
                 this.$emit('input', value);
             },
-            onChange(value) {
-                value = this.format(value);
+            onChange(value, el) {
+                value = this.format(value, el);
                 this.$emit('input', value);
                 this.$emit('change', value);
             },
