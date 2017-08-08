@@ -2,16 +2,15 @@
     <p :id="id || null"
        :class="inputClass"
        v-html="staticValue"
-    >
-        <slot></slot>
-    </p>
+    ></p>
 </template>
 
 <script>
     export default {
         computed: {
             staticValue() {
-                return this.formatter ? this.formatter(this.value) : this.value;
+                const val = this.value;
+                return (val === '' || val === null) ? '&nbsp;' : val;
             },
             inputClass() {
                 return [
@@ -28,9 +27,6 @@
             },
             value: {
                 default: null
-            },
-            formatter: {
-                type: Function
             },
             size: {
                 type: String,

@@ -41,7 +41,7 @@ export default {
     text3: ''
   },
   methods: {
-    format(value) {
+    format(value, el) {
       return value.toLowerCase();
     }
   }
@@ -53,26 +53,29 @@ export default {
 
 ### Input type
 `<b-form-input>` defaults to a `text` input, but you can set it to any other text-like
-type, such as `password`, `number`, `url`, etc, by setting the `type` prop.
+type, such as `password`, `number`, `url`, etc, by setting the `type` prop to the
+appropriate value.
 
 #### Textarea mode
-Render a `<textarea>` element by setting the `textarea` prop to `true`. The
-`type` prop is ignored when prop `textarea` is set.
+Render a `<textarea>` element by setting the `textarea` prop to `true` or by
+setting the `type` prop to `textarea`.
 
 By default the `<textarea>` will automatically size its height based on on the number
-lines (separated by newlines) of text it contains. You can override this behaviour by supplying
-a numeric value to the `rows` prop. The `rows` prop has no effect on other input types.
+lines of text (separated by newlines) it contains. You can override this behaviour
+by supplying a numeric value to the `rows` prop. The `rows` prop has no effect
+on other input types.
 
 
 ### Formatter
-`<b-form-input>` optionally supports formatting by passing a function reference to  the `formatter` prop.
+`<b-form-input>` optionally supports formatting by passing a function reference to
+the `formatter` prop.
 
-By default, formatting occurs when the control's native `input` event fires. You can use the boolean
-prop `lazy-formatter` to restrict the formatter function to being called on the
-control's native `change` event (which usually occurs on blur).
+By default, formatting occurs when the control's native `input` event fires. You can
+use the boolean prop `lazy-formatter` to restrict the formatter function to being
+called on the control's native `change` event (which usually occurs on blur).
 
-The `formatter` function receives a single argument which is the control's current value, and 
-should return the formatted value.
+The `formatter` function receives two arguments (the raw value of the input, and
+a reference to the input element) and should return the formatted value (as a string).
 
 No formatting occurs if a `formatter` is not provided.
 
