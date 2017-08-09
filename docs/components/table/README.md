@@ -52,7 +52,7 @@ custom rendering, events, and asynchronous data.
   </p>
 
   <!-- Details modal -->
-  <b-modal id="modal1" @hide="resetDetails" ok-only>
+  <b-modal id="modal1" @hide="resetModal" ok-only>
     <h4 class="my-1 py-1" slot="modal-header">Index: {{ modalDetails.index }}</h4>
     <pre>{{ modalDetails.data }}</pre>
   </b-modal>
