@@ -8,3 +8,4 @@ docs-dist
 sw.js
 workbox*.js
 .DS_Store
+.vscode
