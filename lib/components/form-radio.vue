@@ -11,7 +11,7 @@
         <label v-for="(option, idx) in formOptions"
                :class="buttons ? btnLabelClasses(option, idx) : labelClasses"
                :key="idx"
-               :aria-pressed="buttons ? (option.value === this.localValue ? 'true' : 'false') : null"
+               :aria-pressed="buttons ? (option.value === localValue ? 'true' : 'false') : null"
         >
             <input :id="id ? (id + '__BV_radio_' + idx) : null"
                    :class="(custom && !buttons) ? 'custom-control-input' : null"
