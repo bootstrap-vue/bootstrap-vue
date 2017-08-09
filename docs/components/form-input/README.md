@@ -16,7 +16,7 @@
     <small class="text-muted">We will convert your name to lowercase instantly</small>
     <p>Value: {{ text1 }}</p>
 
-    <h5>Text input with lazy formatter (on bluer)</h5>
+    <h5>Text input with lazy formatter (on blur)</h5>
     <b-form-input v-model="text2"
                   type="text"
                   placeholder="Enter your name"
