@@ -95,7 +95,7 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
     <b-button :pressed="false" variant="success">Not Pressed</b-button>
 
     <h5>Toggleable Button</h5>
-    <b-button :pressed.sync="myToggle0" variant="primary">Toggle Me</b-button>
+    <b-button :pressed.sync="myToggle" variant="primary">Toggle Me</b-button>
     <p>Pressed State: <strong>{{ myToggle }}</strong></p>
 
     <h5>In a button group</h5>
