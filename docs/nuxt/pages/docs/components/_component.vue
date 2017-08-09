@@ -23,8 +23,8 @@
 
 
 <script>
-import componentdoc from '~components/componentdoc.vue';
-import docs from '../../../../components';
+import componentdoc from '~/components/componentdoc.vue';
+import docs from '~/../components';
 
 export default {
     components: { componentdoc },
