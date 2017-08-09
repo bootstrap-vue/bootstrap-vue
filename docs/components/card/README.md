@@ -104,7 +104,7 @@ Place the image in the background of the card by setting the boolean prop `overl
 ```html
 <div>
   <b-card overlay
-          img="http://lorempixel.com/900/250/sports/6/"
+          img="https://lorempixel.com/900/250/sports/6/"
           img-alt="Card Image"
           title="Image Overlay"
           sub-title="Subtitle"
@@ -125,7 +125,7 @@ This allwos you to override the default classes applied to the image:
 ```html
 <div>
   <b-card title="Image Slot">
-    <img slot="img" src="http://lorempixel.com/900/250/sports/5/" alt="img" class="card-img-top img-fluid" />
+    <img slot="img" src="https://lorempixel.com/900/250/sports/5/" alt="img" class="card-img-top img-fluid" />
     <p class="card-text">
       Some quick example text to build on the card and make up the bulk of the card's content.
     </p>
