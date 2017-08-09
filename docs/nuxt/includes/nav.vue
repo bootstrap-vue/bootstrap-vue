@@ -1,5 +1,5 @@
 <template>
-    <b-navbar toggleable class="main-nav pl-5 pr-5" type="inverse">
+    <b-navbar toggleable class="main-nav pl-5 pr-5">
     
         <b-nav-toggle target="bd-main-nav"></b-nav-toggle>
     
@@ -36,7 +36,7 @@
 <style>
 .main-nav {
     box-shadow: 0 0 5px rgba(57, 70, 78, .2) !important;
-    background: #24292e;
+    background: white;
     z-index: 1050;
     padding-bottom: 0;
 }

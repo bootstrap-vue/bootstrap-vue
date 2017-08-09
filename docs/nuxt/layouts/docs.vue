@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import mSidebar from '../includes/sidebar.vue';
-import mNav from '../includes/nav.vue';
-import mFooter from '../includes/footer.vue';
+import mSidebar from '~/includes/sidebar.vue';
+import mNav from '~/includes/nav.vue';
+import mFooter from '~/includes/footer.vue';
 
 export default {
     components: { mSidebar, mNav, mFooter },

@@ -6,6 +6,6 @@ node_modules/
 .nuxt
 docs-dist
 sw.js
-workbox*.js
+workbox*.js*
 .DS_Store
 .vscode

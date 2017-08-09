@@ -9,8 +9,8 @@
 </template>
 
 <script>
-    import mNav from '../includes/nav.vue';
-    import mFooter from '../includes/footer.vue';
+    import mNav from '~/includes/nav.vue';
+    import mFooter from '~/includes/footer.vue';
 
     export default {
         components: {mNav, mFooter}
