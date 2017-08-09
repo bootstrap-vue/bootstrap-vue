@@ -89,8 +89,7 @@
             },
             btnGroupClasses() {
                 return [
-                    'btn-group',
-                    this.size ? `btn-group-${this.size}` : null,
+                    this.size ? `button-group-${this.size}` : null,
                     this.stacked ? 'btn-group-vertical' : ''
                  ];
             },
