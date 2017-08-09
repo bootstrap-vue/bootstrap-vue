@@ -8,7 +8,7 @@ export default {
     'button-group': require('./button-group').default,
     'button-toolbar': require('./button-toolbar').default,
     'card': require('./card').default,
-    'carousel': require('./carousel').default,
+    // 'carousel': require('./carousel').default,
     'collapse': require('./collapse').default,
     'dropdown': require('./dropdown').default,
     'form': require('./form').default,
