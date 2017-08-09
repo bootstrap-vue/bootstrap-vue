@@ -15,7 +15,7 @@ Change the default `div` root tag to any other HTML element by specifying via th
 ```html
 <div>
   <b-card title="Card Title"
-          img="https://lorempixel.com/600/300/"
+          img="https://lorempixel.com/600/300/food/5/"
           img-alt="Image"
           tag="article"
           style="width: 20rem;"
@@ -53,10 +53,10 @@ Disable the `.card-block` class (and associated padding) by setting the prop `no
   This is some text without the default card block. Notice the lack of padding.
 </b-card>
 
-Note that with `no-block` enabled, `title` and `sub-title` will not be rendered.
-
 <!-- card-block-2.vue -->
 ```
+
+Note that with `no-block` enabled, `title` and `sub-title` will not be rendered.
 
 #### Titles, text, and links:
 *Card titles* are adding via the `title` prop, and *sub titles* are added via the
@@ -89,7 +89,7 @@ card is changed.
 
 ```html
 <div>
-  <b-card img="https://placekitten.com/1000/300" img-alt="Card image cap">
+  <b-card img="https://placekitten.com/1000/300" img-alt="Card image">
     <p class="card-text">
       Some quick example text to build on the card and make up the bulk of the card's content.
     </p>
@@ -104,8 +104,8 @@ Place the image in the background of the card by setting the boolean prop `overl
 ```html
 <div>
   <b-card overlay
-          img="https://placekitten.com/g/1000/250"
-          img-alt="Card Imge"
+          img="http://lorempixel.com/900/250/sports/6/"
+          img-alt="Card Image"
           title="Image Overlay"
           sub-title="Subtitle"
   >
@@ -118,14 +118,14 @@ Place the image in the background of the card by setting the boolean prop `overl
 <!-- card-img-2.vue -->
 ```
 
-Take control overhte image tag by specifying an `<img>` element targetting the `img` named slot:
+Take control over the image tag by specifying an `<img>` element targetting the `img` named slot:
 This allwos you to override the default classes applied to the image:
 
 
 ```html
 <div>
   <b-card title="Image Slot">
-    <img slot="img" src="http://lorempixel.com/900/250/sports/6/" ale="Kitten" class="card-img-top img-fluid" />
+    <img slot="img" src="http://lorempixel.com/900/250/sports/5/" alt="img" class="card-img-top img-fluid" />
     <p class="card-text">
       Some quick example text to build on the card and make up the bulk of the card's content.
     </p>
@@ -134,6 +134,9 @@ This allwos you to override the default classes applied to the image:
 
 <!-- card-img-3.vue -->
 ```
+
+When using the `img` slot, it is reccommended to apply the class `img-flud` (as in the above
+example) to ensure responsiveness.
 
 #### Header and footer:
 Add an optional header and/or footer within a card via the `header`/`footer`
@@ -154,7 +157,7 @@ the `header-tag` and `footer-tag` props (both default is  `div`)
       <b-button href="#" variant="primary">Go somewhere</b-button>
     </b-card>
     <b-card title="Title" header-tag="header" footer-tag="footer">
-      <h4 slot="header">Featured</h4>
+      <h6 slot="header">Featured</h6>
       <em slot="footer">Card footer</em>
       <p class="card-text">Header and footers using slots.</p>
       <b-button href="#" variant="primary">Go somewhere</b-button>
@@ -220,56 +223,41 @@ boolean prop `inverse` to adjust the text color.
 
 Note for non-`outline-*` variants, the `inverse` state is automatically applied.
 
-**Supported solid background variants are:**
-
-`primary`, `success`, `info`, `warning`, `danger`.
-
 ```html
 <div>
   <b-card variant="primary" class="mb-3 text-center">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
   <b-card variant="success" class="mb-3 text-center">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
   <b-card variant="info" class="mb-3 text-center">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
   <b-card variant="warning" class="mb-3 text-center">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
   <b-card variant="danger" class="mb-3 text-center">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-</div>
-
-<!-- card-variant-1.vue -->
-```
-
-**Supported outline variants are:**
-
-`outline-primary`, `outline-success`, `outline-info`, `outline-warning`, `outline-danger`.
-
-```html
-<div>
   <b-card variant="outline-primary" class="mb-3 text-center">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
   <b-card variant="outline-success" class="mb-3 text-center">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
   <b-card variant="outline-info" class="mb-3 text-center">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
   <b-card variant="outline-warning" class="mb-3 text-center">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
   <b-card variant="outline-danger" class="mb-3 text-center">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
 </div>
 
-<!-- card-variant-2.vue -->
+<!-- card-variants-1.vue -->
 ```
 
 #### Variant to class mapping:
@@ -279,6 +267,24 @@ pre-pending `card-` to the above variant names.
 #### Header and Footer variants:
 You can also apply the solid and outline variants individually to card headers and footers
 via the `header-variant` and `footer-variant` props respectively.
+
+```html
+<div>
+  <b-card header="Card Header"
+          header-tag="header"
+          header-variant="danger"
+          footer="Card Footer"
+          footer-tag="footer"
+          header-variant="successr"
+          title="Title"
+          style="width: 20rem;"
+  >
+    <p class="card-text">Header and footers variants.</p>
+  </b-card>
+</div>
+
+<!-- card-header-footer-variant.vue -->
+```
 
 #### Conveying meaning to assistive technologies:
 Using color to add meaning only provides a visual indication, which will not be conveyed
@@ -328,7 +334,7 @@ When using card groups with footers, their content will automatically line up.
   </b-card-group>
 </div>
 
-<-- card-group-1.vue -->
+<!-- card-group-1.vue -->
 ```
 
 #### Card decks:
@@ -368,7 +374,7 @@ card footers in decks will automatically line up.
   </b-card-group>
 </div>
 
-<-- card-group-2.vue -->
+<!-- card-group-2.vue -->
 ```
 
 #### Card columns:
@@ -448,5 +454,5 @@ isn’t a bulletproof solution yet.
   </b-card-group>
 </div>
 
-<-- card-group-3.vue -->
+<!-- card-group-3.vue -->
 ```
