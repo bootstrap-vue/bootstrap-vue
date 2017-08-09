@@ -154,7 +154,7 @@
                     return;
                 }
                 // Wrap around?
-                if (slide >= this.slides.length - 1) {
+                if (slide > this.slides.length - 1) {
                     slide = 0;
                 } else if (slide < 0) {
                     slide = this.slides.length - 1;
