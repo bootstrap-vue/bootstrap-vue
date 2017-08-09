@@ -4,8 +4,8 @@
 If you are using module bundlers such as Webpack, Rollup, Laravel elixir/mix, etc you may prefer directly include package
 into your project. To get started use yarn or npm to get latest version.
 
+1- Download dependencies:
 
-1. Download dependencies:
 ```bash
 # Using YARN
 yarn add bootstrap-vue
@@ -16,7 +16,8 @@ yarn add -D style-loader
 npm install --save bootstrap-vue
 ```
 
-2. Register BootstrapVue in your app entrypoint:
+2- Register BootstrapVue in your app entry point:
+
 ```js
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue';
@@ -24,21 +25,23 @@ import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);
 ```
 
-3. Import styles using style-loader:
+3- Import styles using style-loader:
 ```js
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 
 ##### For users of Webpack or Webpack-Simple from `vue-cli` follow these instructions:
-1. Download the dependencies:
+1 -  Download the dependencies:
+
 ```bash
 yarn add bootstrap-vue
 yarn add bootstrap@4.0.0-alpha.6
 yarn add -D style-loader
 ```
 
-2. In `src/main.js`, add the following lines, in priority order:
+2 - In `src/main.js`, add the following lines, in priority order:
+
 ```js
 import Vue from 'vue';
 /* ( there may be other imports here ) */
