@@ -12,26 +12,26 @@
 <a href="https://www.npmjs.com/package/bootstrap-vue">
     <img alt="" src="https://img.shields.io/npm/v/bootstrap-vue.svg?style=flat-square">
 </a>
-<a href="https://github.com/sindresorhus/xo">
-    <img alt="" src="https://img.shields.io/badge/code_style-XO-5ed9c7.svg?style=flat-square">
-</a>
+
+<br>
+
 <a href="https://v4-alpha.getbootstrap.com">
     <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg?style=flat-square">
 </a>
 <a href="https://vuejs.org">
-    <img alt="" src="https://img.shields.io/badge/vue.js-2.2.x-green.svg?style=flat-square">
-</a>
-<a href="https://bootstrap-vue.now.sh/">
-    <img alt="" src="https://bootstrap-vue.now.sh/badge.svg">
+    <img alt="" src="https://img.shields.io/badge/vue.js-2.4.x-green.svg?style=flat-square">
 </a>
 <a href="https://github.com/bootstrap-vue/bootstrap-vue">
-    <img alt="" src="https://david-dm.org/bootstrap-vue/bootstrap-vue.svg">
+    <img alt="" src="https://david-dm.org/bootstrap-vue/bootstrap-vue.svg?style=flat-square">
 </a>
-</p>
+
 
 > [Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
 
- ⚠ [Release Notes](https://github.com/bootstrap-vue/bootstrap-vue/releases)
+#### Join Slack Channel:  <a href="https://bootstrap-vue.now.sh/"> <img alt="" src="https://bootstrap-vue.now.sh/badge.svg"> </a>
+### [Release Notes](https://github.com/bootstrap-vue/bootstrap-vue/releases)
+
+### [Change Log](./CHANGELOG.md)
 
 # ✔ Getting started
 Please refer to [Official Documentation](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
@@ -46,9 +46,9 @@ yarn add -D style-loader
 2. Register BootstrapVue in your app entrypoint:
 ```js
 import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue';
+import BootstrapVue from 'bootstrap-vue'
 
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue)
 ```
 
 3. Import styles using style-loader:
@@ -67,14 +67,14 @@ yarn add -D style-loader
 
 2. In `src/main.js`, add the following lines, in priority order:
 ```js
-import Vue from 'vue';
+import Vue from 'vue'
 /* ( there may be other imports here ) */
-import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-import 'bootstrap/dist/css/bootstrap.css';
+import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap.css'
 /* ( there may be other imports here ) */
 
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue)
 ```
 
 #### Note on style-loader:
