@@ -17,6 +17,20 @@
       ]
     },
     {
+      "event": "row-dblclicked",
+      "description": "Emitted when a row is double clicked.",
+      "args": [
+        {
+          "arg": "item",
+          "description": "Item data of the row being double clicked."
+        },
+        {
+          "arg": "index",
+          "description": "Index of the row being double clicked."
+        }
+      ]
+    },
+    {
       "event": "row-hovered",
       "description": "Emitted when a row is hovered.",
       "args": [
