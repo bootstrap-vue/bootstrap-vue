@@ -9,3 +9,4 @@ sw.js
 workbox*.js*
 .DS_Store
 .vscode
+coverage

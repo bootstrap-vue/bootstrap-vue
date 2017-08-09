@@ -65,6 +65,7 @@
   "devDependencies": {
     "@nuxtjs/pwa": "^0.2.0",
     "clean-css": "^4.1.7",
+    "codecov": "^2.3.0",
     "codemirror": "^5.28.0",
     "cross-env": "^5.0.5",
     "eslint": "^4.1.1",
@@ -99,7 +100,9 @@
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
       ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
-    }
+    },
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   },
   "keywords": [
     "Bootstrap",
