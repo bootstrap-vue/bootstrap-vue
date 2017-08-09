@@ -50,7 +50,6 @@
             :key="index"
             :class="rowClass(item)"
             @click="rowClicked($event,item,index)"
-            @dblclick="rowDblClicked($event,item,index)"
             @hover="rowHovered($event,item,index)"
         >
             <template v-for="(field,key) in fields">
@@ -466,15 +465,6 @@
                     return;
                 }
                 this.$emit('row-clicked', item, index);
-            },
-            rowDblClicked(e, item, index) {
-                if (this.busy) {
-                    // If table is busy (via provider) then don't propagate
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return;
-                }
-                this.$emit('row-dblclicked', item, index);
             },
             rowHovered(e, item, index) {
                 if (this.busy) {
