@@ -19,7 +19,7 @@
     <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg?style=flat-square">
 </a>
 <a href="https://vuejs.org">
-    <img alt="" src="https://img.shields.io/badge/vue.js-2.2.x-green.svg?style=flat-square">
+    <img alt="" src="https://img.shields.io/badge/vue.js-2.4.x-green.svg?style=flat-square">
 </a>
 <a href="https://bootstrap-vue.now.sh/">
     <img alt="" src="https://bootstrap-vue.now.sh/badge.svg">
