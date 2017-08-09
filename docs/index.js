@@ -10,7 +10,8 @@ export default {
             slug: '',
             pages: [
                 {title: 'Quick Start', slug: 'setup'},
-                {title: 'Contributing', slug: 'contributing'}
+                {title: 'Contributing', slug: 'contributing'},
+                {title: 'Change Log', slug: 'changelog'}
             ]
         },
         {

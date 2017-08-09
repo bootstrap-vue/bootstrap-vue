@@ -35,7 +35,7 @@
 
 - 📘 [Documentation](https://bootstrap-vue.js.org)
 - 🔥 [Release Notes](https://github.com/bootstrap-vue/bootstrap-vue/releases)
-- 🔨 [Change Log](./CHANGELOG.md)
+- 🔨 [Change Log](https://bootstrap-vue.js.org/docs/changelog)
 - 💬 [Slack Community](https://bootstrap-vue.now.sh)
 
 # Quick Start
