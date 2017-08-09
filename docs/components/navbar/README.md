@@ -73,7 +73,7 @@ Navbars come with built-in support for a handful of sub-components. Choose from 
 - `<b-nav-item>` for link (and router-link) action items
 - `<b-nav-item-dropdown>` for navbar dropdown menus
 - `<b-nav-text>` for adding vertically centered strings of text.
-- `<b-narbar-form>` for any form controls and actions.
+- `<b-navbar-form>` for any form controls and actions.
 - `<b-navbar-toggler>` for use with the `<b-collapse>` component.
 - `<b-collapse is-nav>` for grouping and hiding navbar contents by a parent breakpoint.
 
@@ -86,7 +86,7 @@ tag type by setting the `tag` prop to the element you would like rendered:
 <div>
   <!-- As a link -->
   <b-navbar variant="faded" type="light">
-    <b-narbar-brand href="#">BootstrapVue</b-narbar-brand>
+    <b-navbar-brand href="#">BootstrapVue</b-navbar-brand>
   </b-navbar>
 </div>
 
@@ -97,7 +97,7 @@ tag type by setting the `tag` prop to the element you would like rendered:
 <div>
   <!-- As a heading -->
   <b-navbar variant="faded" type="light">
-    <b-narbar-brand tag="h1" class="mb-0">BootstrapVue</b-narbar-brand>
+    <b-navbar-brand tag="h1" class="mb-0">BootstrapVue</b-navbar-brand>
   </b-navbar>
 </div>
 
@@ -111,9 +111,9 @@ to properly size.  Here are some examples to demonstrate:
 <div>
   <!-- Just an image -->
   <b-navbar variant="faded" type="light">
-    <b-narbar-brand href="#">
+    <b-navbar-brand href="#">
       <img src="https://placekitten.com/g/30/30" alt="BV">
-    </b-narbar-brand>
+    </b-navbar-brand>
   </b-navbar>
 </div>
 
@@ -124,10 +124,10 @@ to properly size.  Here are some examples to demonstrate:
 <div>
   <!-- Image and text -->
   <b-navbar variant="faded" type="light">
-    <b-narbar-brand href="#">
+    <b-navbar-brand href="#">
       <img src="https://placekitten.com/g/30/30" class="d-inline-block align-top" alt="BV">
       BootstrapVue
-    </b-narbar-brand>
+    </b-navbar-brand>
   </b-navbar>
 </div>
 
@@ -253,4 +253,3 @@ the breakpoint you would like content to automatically collapse. Possible values
 
 See the first example on this page for reference, and also refer to [`<b-collapse>`](./collapse) for
 details on the collapse component.
-
