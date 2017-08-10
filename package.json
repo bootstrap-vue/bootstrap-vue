@@ -42,6 +42,10 @@
     "type": "git",
     "url": "git+https://github.com/bootstrap-vue/bootstrap-vue.git"
   },
+  "files": [
+    "lib",
+    "dist"
+  ],
   "scripts": {
     "build": "npm run build:core && npm run build:extra",
     "build:core": "rollup -c build/rollup.config.js",
