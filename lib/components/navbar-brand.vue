@@ -2,7 +2,7 @@
      <component :is="componentTag" 
              class="navbar-brand"
              v-bind="conditionalLinkProps"
-             @click="this.$emit('click', $event)">
+             @click="$emit('click', $event)">
         <slot></slot>
     </component>
 </template>
