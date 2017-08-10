@@ -17,7 +17,7 @@
         Dismissible Alert!
     </b-alert>
 
-    <b-alert :show="dismissCountDown" dismissible variant="warning" @dismiss-count-down="countDownChanged">
+    <b-alert :show="dismissCountDown" variant="warning" @dismiss-count-down="countDownChanged">
         This alert will dismiss after {{dismissCountDown}} seconds...
     </b-alert>
 
@@ -76,3 +76,5 @@ with the dismiss button.
 #### Auto dismissing alerts:
 To create a `<b-alert>` that dismisses automatically after a period of time, set 
 the `show` prop to the number of seconds you would like the `<b-alert>` to remain visible for.
+
+Note that the dismiss button will not be shown for auto-dismissing alerts.
