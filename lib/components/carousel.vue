@@ -204,7 +204,7 @@
                 if (!evt.relatedTarget || !this.$el.contains(evt.relatedTarget)) {
                     this.start();
                 }
-            }.
+            },
 
             // Update slide list
             updateSlides() {
