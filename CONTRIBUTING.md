@@ -28,3 +28,6 @@ If you want to see your changes in your project instead of the playground:
 - In your project run `yarn link bootstrap-vue`
 - Run `yarn watch` inside *bootstrap-vue*
 - Now every time you change a component, a new production version will be built and ready on your project. 
+
+### Pull requests
+Please ensure all pull requests are made aganst the `dev` branch on GitHub.
