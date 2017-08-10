@@ -8,12 +8,12 @@ regular links or router links.
 <div>
     <h6>Default</h6>
     <b-pagination-nav base-url="#" :number-of-pages="10" v-model="currentPage" />
-    <br>
-    <h6>With link generator function</h6>
+
+    <h6 class="mt-4">With link generator function</h6>
     <b-pagination-nav link-gen="linkGen" :number-of-pages="10" v-model="currentPage" />
     <br>
 
-    <div>currentPage: {{currentPage}}</div>
+    <div class="mt-4">currentPage: {{currentPage}}</div>
 </div>    
 </template>
 
@@ -107,6 +107,13 @@ export default {
 </script>
 ```
 
+### Page number generation
+By default, `<b-pagination-nav>` renders page numbers (1-N) in the page link
+buttons. You can override this behaviour by supplying a function reference to
+the `page-gen` property. The function reference should accept a single argument
+which is a page number (1-N). The `page-gen` function should return a string.
+
+Note HTML strings are currenly not supported.
 
 ### Customizing
 `<b-pagination-nav>` supports several props that allow you to customize the appearance.
