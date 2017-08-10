@@ -174,7 +174,7 @@ adjusts vertical alignment and horizontal spacing for strings of text.
     </b-navbar>
 </div>
 
-<!-- <navbar-text-1.vue -->
+<!-- navbar-text-1.vue -->
 ```
 
 #### `<b-nav-item-dropdown>`
