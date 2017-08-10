@@ -58,7 +58,7 @@
                     :aria-setsize="numberOfPages"
                     role="menuitemradio"
                     tabindex="-1"
-            >{{ page.number }}</b-link>
+            >{{ makePage(page.number) }}</b-link>
         </li>
 
         <!-- Last Ellipsis Bookend -->
@@ -155,6 +155,10 @@ const props = assign(
             default: false
         },
         linkGen: {
+            type: Function,
+            default: null
+        },
+        pageGen: {
             type: Function,
             default: null
         }
@@ -353,6 +357,12 @@ export default {
             }
             const link = `${this.baseUrl}${pagenum}`;
             return this.useRouter ? { path: link } : link;
+        },
+        makePage(pagenum) {
+            if (this.pageGen && this.pageGen instanceof Function) {
+                return this.pageGen(pagenum);
+            }
+            return pagenum;
         },
         linkProps(pagenum) {
             const link = this.makeLink(pagenum);
