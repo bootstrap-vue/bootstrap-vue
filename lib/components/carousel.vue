@@ -7,7 +7,7 @@
          @mouseenter="pause"
          @mouseleave="start"
          @focusin="pause"
-         @focusout="restart($event)"
+         @focusout="restart"
          @keydown.left.stop.prevent="prev"
          @keydown.right.stop.prevent="next"
     >
@@ -15,6 +15,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner"
              role="list"
+             ref="inner"
              :id="id ? (id + '__BV_inner_') : null"
         >
             <slot></slot>
@@ -61,8 +62,6 @@
                 :tabindex="indicators ? '0' : '-1'"
                 :class="{active:n-1 === index}"
                 :aria-current="n-1 === index ? 'true' : 'false'"
-                :aria-posinset="n"
-                :aria-setsize="slides.length"
                 :aria-label="labelGotoSlide + ' ' + n"
                 :aria-describedby="slides[n-1].id || null"
                 :aria-controls="id ? (id + '__BV_inner_') : null"
@@ -76,7 +75,8 @@
 </template>
 
 <script>
-    import { from as arrayFrom } from '../utils/array'
+    import { from as arrayFrom } from '../utils/array';
+    import {observeDom} from '../utils';
 
     const DIRECTION = {
         next: {
@@ -145,14 +145,16 @@
         methods: {
             // Set slide
             setSlide(slide) {
+                // Don't animate when page is not visible
                 if (typeof document !== 'undefined' && document.visibilityState && document.hidden) {
-                    // Don't animate when page is not visible
                     return;
                 }
-                if (this.isSliding) {
-                    // Don't change slide while transitioning
+
+                // Don't change slide while transitioning or no slides
+                if (this.isSliding || this.slides.length === 0) {
                     return;
                 }
+
                 // Wrap around?
                 if (slide > this.slides.length - 1) {
                     slide = 0;
@@ -185,7 +187,8 @@
 
             // Start auto rotate slides
             start() {
-                if (this.interval === 0 || typeof this.interval === 'undefined') {
+                // Don't start if no intetrval, or if we are already running
+                if (this.interval === 0 || typeof this.interval === 'undefined' || this._intervalId) {
                     return;
                 }
                 this.slides.forEach(slide => {
@@ -197,10 +200,36 @@
             },
 
             // Re-Start auto rotate slides when focus leaves the carousel
-            restart(e) {
-                if (!e.relatedTarget || !this.$el.contains(e.relatedTarget)) {
+            restart(evt) {
+                if (!evt.relatedTarget || !this.$el.contains(evt.relatedTarget)) {
                     this.start();
                 }
+            }.
+
+            // Update slide list
+            updateSlides() {
+                // Get all slides
+                this.slides = arrayFrom(this.$refs.inner.querySelectorAll('.carousel-item'));
+
+                const self = this;
+                this.slides.forEach((slide, idx) => {
+                    const n = idx + 1;
+                    if (idx === self.index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                    slide.setAttribute('aria-current', idx === self.index ? 'true' : 'false');
+                    slide.setAttribute('aria-posinset', String(n));
+                    slide.setAttribute('aria-setsize', String(self.slides.length));
+                    slide.tabIndex = -1;
+                    if (self.id) {
+                        slide.setAttribute('aria-controlledby', self.id + '__BV_indicator_' + n + '_');
+                    }
+                });
+
+                // Set indicated slide as active
+                this.setSlide(this.value);
             }
 
         },
@@ -211,27 +240,10 @@
         },
         mounted() {
             // Get all slides
-            this.slides = arrayFrom(this.$el.querySelectorAll('.carousel-item'));
+            this.updateSlides();
 
-            // Set indicated slide as active
-            this.setSlide(this.value);
-
-            const self = this;
-            this.slides.forEach((slide, idx) => {
-                const n = idx + 1;
-                if (idx === self.index) {
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.remove('active');
-                }
-                slide.setAttribute('aria-current', idx === self.index ? 'true' : 'false');
-                slide.setAttribute('aria-posinset', String(n));
-                slide.setAttribute('aria-setsize', String(self.slides.length));
-                slide.tabIndex = -1;
-                if (self.id) {
-                    slide.setAttribute('aria-controlledby', self.id + '__BV_indicator_' + n + '_');
-                }
-            });
+            // Observe child changes so we can update slide list
+            observeDom(this.$refs.inner, this.updateSlides.bind(this), {subtree: false});
 
             // Auto rotate slides
             this._intervalId = null;
