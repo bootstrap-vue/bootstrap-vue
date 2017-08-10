@@ -183,7 +183,7 @@ module.exports = {
         "prefer-promise-reject-errors": "error",
         "prefer-reflect": "off",
         "prefer-template": "off",
-        "quote-props": "off",
+        "quote-props": [2, "as-needed", { keywords: true }],
         quotes: [2, "double", "avoid-escape"],
         radix: ["error", "as-needed"],
         "require-await": "error",
