@@ -22,7 +22,7 @@
                    :required="name && required"
                    :disabled="option.disabled || disabled"
                    @focus="handleFocus"
-                   @blur"handleFocus"
+                   @blur="handleFocus"
                    @change="$emit('change', returnObject ? option : option.value)"
             >
             <span v-if="custom && !buttons" class="custom-control-indicator" aria-hidden="true"></span>
