@@ -184,7 +184,7 @@ module.exports = {
         "prefer-reflect": "off",
         "prefer-template": "off",
         "quote-props": "off",
-        quotes: "off",
+        quotes: [2, "double", "avoid-escape"],
         radix: ["error", "as-needed"],
         "require-await": "error",
         "rest-spread-spacing": "error",
