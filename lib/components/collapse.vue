@@ -14,7 +14,7 @@
         <div v-show="show"
              :id="id || null"
              :class="classObject"
-             @click.native="clickHandler"
+             @click="clickHandler"
         ><slot></slot></div>
     </transition>
 </template>
@@ -115,12 +115,15 @@
                     this.$root.$emit('accordion::toggle', this.id, this.accordion);
                 }
             },
-            clickHandler() {
-                if (!this.isNav || typeof document === 'undefined') {
+            clickHandler(evt) {
+                // If we are in a nav/navbar, close the collapse when non-disabled link clicked
+                const el = evt.target;
+                if (!this.isNav || !el || getComputedStyle(this.$el).display !== 'block') {
                     return;
                 }
-                // If we are in a nav/navbar, close the collapse when clicked
-                this.toggle();
+                if (el.classList.contains('nav-link') || el.classList.contains('dropdown-item')) {
+                    this.show = false;
+                }
             },
             handleToggleEvt(target) {
                 if (target !== this.id) {
@@ -145,8 +148,8 @@
                 }
             },
             handleResize() {
-                // Handler for orientation/resize to set collapsed state
-              this.show = (getComputedStyle(this.$el).display === 'block');
+                // Handler for orientation/resize to set collapsed state in nav/navbar
+                this.show = (getComputedStyle(this.$el).display === 'block');
             },
         },
         created() {
