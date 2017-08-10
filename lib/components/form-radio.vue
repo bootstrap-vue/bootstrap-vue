@@ -5,8 +5,6 @@
          :data-toggle="buttons ? 'buttons' : null"
          :aria-required="required ? 'true' : null"
          :aria-invalid="invalid ? 'true' : null"
-         @focusin.native="handleFocus"
-         @focusout.native="handleFocus"
     >
         <label v-for="(option, idx) in formOptions"
                :class="buttons ? btnLabelClasses(option, idx) : labelClasses"
@@ -23,6 +21,8 @@
                    :name="name"
                    :required="name && required"
                    :disabled="option.disabled || disabled"
+                   @focus="handleFocus"
+                   @blur"handleFocus"
                    @change="$emit('change', returnObject ? option : option.value)"
             >
             <span v-if="custom && !buttons" class="custom-control-indicator" aria-hidden="true"></span>
@@ -117,15 +117,11 @@
             },
             handleFocus(evt) {
                 // When in buttons mode, we need to add 'focus' class to label when radio focused
-                const el = evt.target;
-                if (this.buttons && el && el.tagName === 'INPUT' && el.parentElement) {
-                    const label = el.parentElement;
-                    if (!label || label.tagName !== 'LABEL') {
-                        return;
-                    }
-                    if (evt.type ==='focusin') {
+                if (this.buttons && evt.target && evt.target.parentElement) {
+                    const label = evt.target.parentElement;
+                    if (evt.type ==='focus') {
                         label.classList.add('focus');
-                    } else if (evt.type ==='focusout') {
+                    } else if (evt.type ==='blur') {
                         label.classList.remove('focus');
                     }
                 }
