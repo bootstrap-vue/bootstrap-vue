@@ -190,7 +190,7 @@
                         this.$set(t, 'localActive', true);
                     } else {
                         // Ensure non current tabs are not active
-                        this.$set(tab, 'localActive', false);
+                        this.$set(t, 'localActive', false);
                     }
                 });
 
