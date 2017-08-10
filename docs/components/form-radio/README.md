@@ -74,30 +74,30 @@ when they are in the checked state.
   <div>
     <h5>Button style radios</h5>
     <b-form-radio id="btnradios1"
+                  class="mb-4"
                   buttons
                   v-model="selected"
-                  :options="options"
-    ></b-form-radio>
+                  :options="options" />
     <br>
     
     <h5>Button style radios with <code>primary</code> variant and size <code>lg</code></h5>
     <b-form-radio id="btnradios2"
+                  class="mb-4"
                   buttons
                   button-variant="primary"
                   size="lg"
                   v-model="selected"
-                  :options="options"
-    ></b-form-radio>
+                  :options="options" />
     <br>
     
     <h5>Stacked button style radios</h5>
     <b-form-radio id="btnradios3"
+                  class="mb-4"
                   buttons
                   stacked
                   v-model="selected"
-                  :options="options"
-    ></b-form-radio>
-    <hr>
+                  :options="options" />
+    <br>
 
     <div>
       Selected: <strong>{{ selected }}</strong>
