@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.20.0"></a>
+# [0.20.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.19.0...v0.20.0) (2017-08-10)
+
+
+### Bug Fixes
+
+* **carousel:** Unable to reach last slide ([3628bcb](https://github.com/bootstrap-vue/bootstrap-vue/commit/3628bcb))
+* **docs:** broken setup page ([9d60069](https://github.com/bootstrap-vue/bootstrap-vue/commit/9d60069))
+* **docs:** Minor update to file-input example ([763a35a](https://github.com/bootstrap-vue/bootstrap-vue/commit/763a35a))
+* **docs:** myToggle0 ([a0ef988](https://github.com/bootstrap-vue/bootstrap-vue/commit/a0ef988))
+* **docs:** serve fonts on https ([51209dd](https://github.com/bootstrap-vue/bootstrap-vue/commit/51209dd))
+* **form-input:** isTextArea varname correction ([#785](https://github.com/bootstrap-vue/bootstrap-vue/issues/785)) ([cb44652](https://github.com/bootstrap-vue/bootstrap-vue/commit/cb44652))
+* **form-radio:** Add missing classes in button mode ([#779](https://github.com/bootstrap-vue/bootstrap-vue/issues/779)) ([ed4f4ef](https://github.com/bootstrap-vue/bootstrap-vue/commit/ed4f4ef))
+* **tabs:** Tabls not clickable (issue [#789](https://github.com/bootstrap-vue/bootstrap-vue/issues/789)) ([#790](https://github.com/bootstrap-vue/bootstrap-vue/issues/790)) ([c234580](https://github.com/bootstrap-vue/bootstrap-vue/commit/c234580))
+* **tests:** Set jest max workers to 1 ([f16fd8d](https://github.com/bootstrap-vue/bootstrap-vue/commit/f16fd8d))
+
+
+### Features
+
+* **alert:** Hide dismiss button for auto-dismissing alerts ([#791](https://github.com/bootstrap-vue/bootstrap-vue/issues/791)) ([080bb20](https://github.com/bootstrap-vue/bootstrap-vue/commit/080bb20))
+* **docs:** changelog page ([b2482cb](https://github.com/bootstrap-vue/bootstrap-vue/commit/b2482cb))
+* **table:** Add row-dblclicked event ([#780](https://github.com/bootstrap-vue/bootstrap-vue/issues/780)) ([1aaf915](https://github.com/bootstrap-vue/bootstrap-vue/commit/1aaf915))
+
+
+
 <a name="0.19.0"></a>
 # [0.19.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.18.0...v0.19.0) (2017-08-09)
 
