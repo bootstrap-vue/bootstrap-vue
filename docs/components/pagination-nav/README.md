@@ -73,6 +73,41 @@ linkGen(pageNum) {
 }
 ```
 
+Using an array of links to generate pagination:
+
+```html
+<template>
+  <div>
+    <b-pagination-nav link-gen="linkGen" :number-of-pages="links.length" v-model="currentPage" />
+    <br>
+    <p>
+      Page #: {{ currentPage }}<br>
+      Page Link: {{ pageLink }}
+    </p>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    currentPage: 1,
+    links: ['#foo','#bar', '#baz', '#faz']
+  },
+  computed: {
+    pageLink() {
+      return this.linkGen(this.currentPage);
+    }
+  },
+  methods: {
+    linkGen(pageNum) {
+      return this.links[pageNum - 1];
+    }
+  }
+}
+</script>
+```
+
+
 ### Customizing
 `<b-pagination-nav>` supports several props that allow you to customize the appearance.
 
