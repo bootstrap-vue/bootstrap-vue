@@ -272,10 +272,9 @@ via the `header-variant` and `footer-variant` props respectively.
 <div>
   <b-card header="Card Header"
           header-tag="header"
-          header-variant="danger"
           footer="Card Footer"
           footer-tag="footer"
-          header-variant="successr"
+          header-variant="success"
           title="Title"
           style="width: 20rem;"
   >
