@@ -21,7 +21,7 @@ controls and indicators.
       <b-carousel-slide caption="First slide"
                         text="Nulla vitae elit libero, a pharetra augue mollis interdum."
                         img="https://lorempixel.com/1024/480/technics/2/"
-      />
+      ></b-carousel-slide>
 
       <!-- Slides with custom text -->
       <b-carousel-slide img="https://lorempixel.com/1024/480/technics/4/">
@@ -29,7 +29,8 @@ controls and indicators.
       </b-carousel-slide>
 
       <!-- Slides with image only -->
-      <b-carousel-slide img="http://lorempixel.com/1024/480/technics/8/" />
+      <b-carousel-slide img="http://lorempixel.com/1024/480/technics/8/">
+      </b-carousel-slide>
 
       <!-- Slide with blank image to maintain aspect ratio -->
       <b-carousel-slide caption="Blank Image" :img="blankImg(1024,480)">
@@ -46,7 +47,7 @@ controls and indicators.
     <p class="mt-4">
       Slide #: {{ slide }}<br>
       Sliding: {{ sliding }}
-    <p>
+    </p>
 
   </div>
 </template>
