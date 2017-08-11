@@ -35,7 +35,7 @@ Cards support a wide variety of content, including images, text, list groups,
 links and more. Below are examples of what’s supported.
 
 #### Blocks:
-The building block of a card is the `.card-block` section. Use it whenever you need a padded
+The building block of a card is the `.card-body` section. Use it whenever you need a padded
 section within a card. By default the `<b-card>` content is placed in the block section:
 
 ```html
@@ -46,7 +46,7 @@ section within a card. By default the `<b-card>` content is placed in the block 
 <!-- card-block-1.vue -->
 ```
 
-Disable the `.card-block` class (and associated padding) by setting the prop `no-block`.
+Disable the `.card-body` class (and associated padding) by setting the prop `no-block`.
 
 ```html
 <b-card no-block class="text-center">
@@ -177,7 +177,7 @@ a fixed-width card.
 <div>
   <b-card no-block style="width: 20rem;" img="https://placekitten.com/380/200" img-alt="Image">
     <h4 slot="header">Hello World</h4>
-    <div class="card-block">
+    <div class="card-body">
       <p class="card-text">
         Some quick example text to build on the card 
         title and make up the bulk of the card's content.
@@ -188,7 +188,7 @@ a fixed-width card.
       <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
       <b-list-group-item>Vestibulum at eros</b-list-group-item>
     </b-list-group>
-    <div class="card-block">
+    <div class="card-body">
       <a href="#" class="card-link">Card link</a>
       <a href="#" class="card-link">Another link</a>
     </div>
