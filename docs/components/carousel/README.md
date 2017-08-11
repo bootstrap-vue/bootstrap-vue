@@ -29,7 +29,7 @@ controls and indicators.
       </b-carousel-slide>
 
       <!-- Slides with image only -->
-      <b-carousel-slide img="http://lorempixel.com/1024/480/technics/8/">
+      <b-carousel-slide img="https://lorempixel.com/1024/480/technics/8/">
       </b-carousel-slide>
 
       <!-- Slide with blank image to maintain aspect ratio -->
