@@ -2,7 +2,9 @@
 
 **Note:** Carousel component is not stable yet.
 
->  The carousel is a slideshow for cycling through a series of content, built with CSS 3D transforms and a bit of JavaScript. It works with a series of images, text, or custom markup. It also includes support for previous/next controls and indicators.
+>  The carousel is a slideshow for cycling through a series of content, built with CSS 3D transforms.
+It works with a series of images, text, or custom markup. It also includes support for previous/next
+controls and indicators.
 
 ```html
 <template>
@@ -12,8 +14,9 @@
                 indicators
                 background="#ababab"
                 :interval="4000"
-                :trasitioning.sync="trans"
                 v-model="slide"
+                @slide="onSlide"
+                @slid="onSlid"
     >
 
       <!-- Text slides with image -->
@@ -44,7 +47,7 @@
     
     <p class="mt-4">
       Slide #: {{ slide }}<br>
-      Transitioning: {{ trans }}
+      Sliding: {{ sliding }}
     <p>
 
   </div>
@@ -54,21 +57,50 @@
 export default {
   data: {
     slide: 0,
-    trans: null // Will be true if carousel is transitioning
+    sliding: null
   },
   methods: {
     blankImg(x, y) {
-      // Return a blank SVG image of a certen width and height
+      // Return a blank SVG image with specified width and height
       // Handy for maintaining aspect ratio for text only slides
       return "data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D" +
              "'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' " +
              "viewBox%3D'0 0 " + x + " " + y + "'%2F%3E";
+    },
+    onSlide(slide) {
+        this.sliding = true;
+    },
+    onSlid(slide) {
+        this.sliding = false;
     }
   }
 }
 </script>
 <!-- carousel-1.vue -->
 ```
+
+Carousels don’t automatically normalize slide dimensions. As such, you may need to use
+additional utilities or custom styles to appropriately size content. When using images
+in each slide, ensure they all have the same dimensions (or aspect ratio).
+
+
+### Interval
+Carousel defults to an interval of `5000`ms (5 seconds). To pause the caurousel from
+auto sliding, set the `interval` prop to `0`. To restart a paused carousel, set the
+`interval` back to the number of ms.
+
+
+### Controls and Indicators
+Set the prop `controls` to enable the previous and next control buttons.
+
+Set the prop `indicators` to show the slide indicator buttons.
+
+Both indicators andcontrols can be set at the same time
+
+
+### V-modal support
+Control which slide is howing programaticaly via `v-model` (which binds to the `value` prop
+
 
 ### Accessibility
 By providing a document unique value via the `id` prop, `<b-carousel>` will enable accessibility
