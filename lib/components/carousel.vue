@@ -157,19 +157,25 @@
                     return;
                 }
 
-                // Don't do anything if noting to slide to
-                if (this.slides.length === 0) {
+                const len = this.slides.length;
+                
+                // Don't do anything if nothing to slide to
+                if (len === 0) {
                     return;
                 }
                 
                 // Don't change slide while transitioning, wait until transition is done
                 if (this.isSliding) {
+                    // Schedule slide after sliding complete
                     this.$once('slid', () => this.setSlide(slide));
                     return;
                 }
 
-                // Wrap around if necessary
-                this.index = Math.max(0, Math.min(Math.floor(slide), this.slides.length - 1));
+                // Make sure we have an integer (you neve know!)
+                slide = Math.floor(slide);
+
+                // Set new slide index. Wrap around if necessary
+                this.index = slide >= len ? 0 : (slide >= 0 ? slide : len - 1);
             },
 
             // Previous slide
@@ -223,16 +229,14 @@
 
                 const id = this.id;
                 const numSlides = this.slides.length;
+
                 // Keep slide number in range
                 const index = Math.max(0, Math.min(Math.floor(this.index), numSlides - 1));
-                
+
                 this.slides.forEach((slide, idx) => {
                     const n = idx + 1;
-                    if (idx === index) {
-                        slide.classList.add('active');
-                    } else {
-                        slide.classList.remove('active');
-                    }
+
+                    slide.classList[idx === index ? 'add' : 'remove']('active');
                     slide.setAttribute('aria-current', idx === index ? 'true' : 'false');
                     slide.setAttribute('aria-posinset', String(n));
                     slide.setAttribute('aria-setsize', String(numSlides));
@@ -271,7 +275,7 @@
                     return;
                 }
                 if (!Boolean(newVal)) {
-                   // Pausing slide show
+                    // Pausing slide show
                     this.pause();
                 } else {
                     // Restarting or Changing interval
