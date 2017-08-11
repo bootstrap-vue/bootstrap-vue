@@ -207,7 +207,7 @@
             },
 
             // Re-Start auto rotate slides when focus/hover leaves the carousel
-            restartCycle(evt) {
+            restart(evt) {
                 if (!evt.relatedTarget || !this.$el.contains(evt.relatedTarget)) {
                     this.start();
                 }
