@@ -57,6 +57,7 @@
             :aria-owns="(indicators && id) ? (id + '__BV_inner_') : null"
         >
             <li v-for="n in slides.length"
+                :key="'slide_' + n"
                 role="button"
                 :id="id ? (id + '__BV_indicator_' + n + '_') : null"
                 :tabindex="indicators ? '0' : '-1'"
