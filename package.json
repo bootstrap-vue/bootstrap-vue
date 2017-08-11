@@ -64,7 +64,9 @@
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
     "tether": "latest",
-    "vue": "^2.4.2"
+    "vue": "^2.4.2",
+    "jquery": "jquery@>=3.0.0",
+    "popper.js": "^1.11.0"
   },
   "devDependencies": {
     "@nuxtjs/pwa": "^0.2.0",
