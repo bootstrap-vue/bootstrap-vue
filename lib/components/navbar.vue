@@ -19,13 +19,7 @@
                 ];
             },
             toggleableClass() {
-                let className = 'navbar-toggleable';
-
-                if (this.toggleBreakpoint) {
-                    className += `-${this.toggleBreakpoint}`;
-                }
-
-                return className;
+                return `navbar-expand-${this.toggleBreakpoint}`
             }
         },
         props: {
@@ -42,7 +36,7 @@
             },
             toggleBreakpoint: {
                 type: String,
-                default: null
+                default: 'lg'
             },
             fixed: {
                 type: String
