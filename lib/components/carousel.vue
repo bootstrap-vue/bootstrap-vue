@@ -171,7 +171,7 @@
                     return;
                 }
 
-                // Make sure we have an integer (you neve know!)
+                // Make sure we have an integer (you never know!)
                 slide = Math.floor(slide);
 
                 // Set new slide index. Wrap around if necessary
