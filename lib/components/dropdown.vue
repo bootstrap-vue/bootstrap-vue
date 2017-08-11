@@ -67,11 +67,6 @@
                 type: String,
                 default: null
             }
-        },
-        methods:{
-            log() {
-                console.log(...arguments)
-            }
         }
     };
 </script>
