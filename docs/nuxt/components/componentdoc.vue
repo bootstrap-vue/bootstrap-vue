@@ -24,7 +24,7 @@
             <h4>Events</h4>
             <b-table :items="events" :fields="events_fields" small head-variant="default" striped>
                 <template slot="args" scope="field">
-                    <div v-for="arg in field.value" :key="string(arg)">
+                    <div v-for="arg in field.value" :key="'' + arg">
                         <code v-if="arg.arg">{{arg.arg}}</code>
                         <span v-html="arg.description"></span>
                     </div>
