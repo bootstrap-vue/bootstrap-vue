@@ -34,8 +34,8 @@
 # Links
 
 - 📘 [Documentation](https://bootstrap-vue.js.org)
-- ▶ [Playground](https://bootstrap-vue.js.org/play)
-- 🔥 [Release Notes](https://github.com/bootstrap-vue/bootstrap-vue/releases)
+- 🔥 [Documentation (Beta)](https://bootstrap-vue.now.sh)
+- 🔨 [Release Notes](https://bootstrap-vue.js.org/docs/changelog)
 - 💬 [Slack Community](https://bootstrap-vue.now.sh)
 
 # Quick Start

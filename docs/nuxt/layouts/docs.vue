@@ -1,6 +1,7 @@
 <template>
     <div>
         <m-nav></m-nav>
+
         <div class="container-fluid">
             <div class="row flex-xl-nowrap2">
                 <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
