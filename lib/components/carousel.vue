@@ -81,12 +81,12 @@
     const DIRECTION = {
         next: {
             current: 'carousel-item-left',
-            next: 'carousel-item-right',
+            next: 'carousel-item-left',
             overlay: 'carousel-item-next'
         },
         prev: {
             current: 'carousel-item-right',
-            next: 'carousel-item-left',
+            next: 'carousel-item-right',
             overlay: 'carousel-item-prev'
         }
     };
@@ -94,8 +94,9 @@
     export default {
         data() {
             return {
-                index: 0,
+                index: this.value || 0,
                 isSliding: false,
+                intervalId: null,
                 slides: []
             };
         },
@@ -139,7 +140,12 @@
             },
             value: {
                 type: Number,
-                defrault: 0
+                default: 0
+            }
+        },
+        computed: {
+            isCycling() {
+                return Boolean(this.intervalId);
             }
         },
         methods: {
@@ -150,18 +156,19 @@
                     return;
                 }
 
-                // Don't change slide while transitioning or no slides
-                if (this.isSliding || this.slides.length === 0) {
+                // Don't do anything if noting to slide to
+                if (this.slides.length === 0) {
+                    return;
+                }
+                
+                // Don't change slide while transitioning, wait until transition is done
+                if (this.isSliding) {
+                    this.$once('slid', () => this.setSlide(slide));
                     return;
                 }
 
-                // Wrap around?
-                if (slide > this.slides.length - 1) {
-                    slide = 0;
-                } else if (slide < 0) {
-                    slide = this.slides.length - 1;
-                }
-                this.index = slide;
+                // Wrap around if necessary
+                this.index = Math.max(0, Math.min(Math.floor(slide), this.slides.length - 1));
             },
 
             // Previous slide
@@ -176,31 +183,31 @@
             
             // Pause auto rotation
             pause() {
-                if (this.interval === 0 || typeof this.interval === 'undefined') {
-                    return;
+                if (this.isCycling) {
+                    clearInterval(this.intervalId);
+                    this.intervalId = null;
+
+                    // Make current slide focusable for screen readers
+                    this.slides[this.index].tabIndex = 0;
                 }
-                clearInterval(this._intervalId);
-                this._intervalId = null;
-                // Make current slide focusable for screen readers
-                this.slides[this.index].tabIndex = 0;
             },
 
             // Start auto rotate slides
             start() {
                 // Don't start if no intetrval, or if we are already running
-                if (this.interval === 0 || typeof this.interval === 'undefined' || this._intervalId) {
+                if (!Bolean(this.interval) || this.isCycling) {
                     return;
                 }
                 this.slides.forEach(slide => {
                     slide.tabIndex = -1;
                 });
-                this._intervalId = setInterval(() => {
+                this.intervalId = setInterval(() => {
                     this.next();
                 }, this.interval);
             },
 
-            // Re-Start auto rotate slides when focus leaves the carousel
-            restart(evt) {
+            // Re-Start auto rotate slides when focus/hover leaves the carousel
+            restartCycle(evt) {
                 if (!evt.relatedTarget || !this.$el.contains(evt.relatedTarget)) {
                     this.start();
                 }
@@ -208,34 +215,41 @@
 
             // Update slide list
             updateSlides() {
+                this.pause();
+
                 // Get all slides
                 this.slides = arrayFrom(this.$refs.inner.querySelectorAll('.carousel-item'));
 
-                const self = this;
+                const id = this.id;
+                const numSlides = this.slides.length;
+                // Keep slide number in range
+                const index = Math.max(0, Math.min(Math.floor(this.index), numSlides - 1));
+                
                 this.slides.forEach((slide, idx) => {
                     const n = idx + 1;
-                    if (idx === self.index) {
+                    if (idx === index) {
                         slide.classList.add('active');
                     } else {
                         slide.classList.remove('active');
                     }
-                    slide.setAttribute('aria-current', idx === self.index ? 'true' : 'false');
+                    slide.setAttribute('aria-current', idx === index ? 'true' : 'false');
                     slide.setAttribute('aria-posinset', String(n));
-                    slide.setAttribute('aria-setsize', String(self.slides.length));
+                    slide.setAttribute('aria-setsize', String(numSlides));
                     slide.tabIndex = -1;
-                    if (self.id) {
-                        slide.setAttribute('aria-controlledby', self.id + '__BV_indicator_' + n + '_');
+                    if (id) {
+                        slide.setAttribute('aria-controlledby', id + '__BV_indicator_' + n + '_');
                     }
                 });
 
-                // Set indicated slide as active
-                this.setSlide(this.value);
+                // Set slide as active
+                this.setSlide(index);
+
+                this.start();
             }
 
         },
         created() {
             // Create private properties
-            this._intervalId = null;
             this._carouselAnimation = null;
         },
         mounted() {
@@ -244,10 +258,6 @@
 
             // Observe child changes so we can update slide list
             observeDom(this.$refs.inner, this.updateSlides.bind(this), {subtree: false});
-
-            // Auto rotate slides
-            this._intervalId = null;
-            this.start();
         },
         watch: {
             value(newVal, oldval) {
@@ -255,16 +265,21 @@
                     this.setSlide(newVal);
                 }
             },
-            index(val, oldVal) {
-                if (val === oldVal) {
+            interval(newVal, oldVal) {
+                if (newVal === oldVal) {
                     return;
                 }
-
-                if (this.isSliding) {
-                    // Don't change slide while transitioning.
-                    this.index = oldVal;
-                    // Reset value (slide index)
-                    this.$emit('input', this.index);
+                if (!Boolean(newVal)) {
+                   // Pausing slide show
+                    this.pause();
+                } else {
+                    // Restarting or Changing interval
+                    this.pause();
+                    this.start();
+                }
+            },
+            index(val, oldVal) {
+                if (val === oldVal || this.isSliding) {
                     return;
                 }
 
@@ -289,42 +304,53 @@
 
                 // Start animating
                 this.isSliding = true;
+                this.$emit('slide', val);
 
+                // Update v-model
                 this.$emit('input', this.index);
 
-                nextSlide.classList.add(direction.next, direction.overlay);
-                currentSlide.classList.add(direction.current);
+                nextSlide.classList.add(direction.overlay);
+                // Trigger a reflow of next slide
+                // eslint-ignore-next-line no-void
+                void(nextSlide.offsetHeight);
 
+                currentSlide.classList.add(direction.current);
+                nextSlide.classList.add(direction.next);
+
+                // Clear transition classes after 0.6s transition duration
                 this._carouselAnimation = setTimeout(() => {
-                    this.$emit('slide', val);
+                    nextSlide.classList.remove(direction.next);
+                    nextSlide.classList.remove(direction.overlay);
+                    nextSlide.classList.add('active');
 
                     currentSlide.classList.remove('active');
-                    currentSlide.setAttribute('aria-current', 'false');
-                    currentSlide.setAttribute('aria-hidden', 'true');
-                    currentSlide.tabIndex = -1;
                     currentSlide.classList.remove(direction.current);
+                    currentSlide.classList.remove(direction.overlay);
 
-                    nextSlide.classList.add('active');
+                    currentSlide.setAttribute('aria-current', 'false');
                     nextSlide.setAttribute('aria-current', 'true');
+                    currentSlide.setAttribute('aria-hidden', 'true');
                     nextSlide.setAttribute('aria-hidden', 'false');
+                    currentSlide.tabIndex = -1;
                     nextSlide.tabIndex = -1;
-                    nextSlide.classList.remove(direction.next, direction.overlay);
 
-                    if (!this._intervalId) {
-                        // Focus the current slide for screen readers if not in play mode
-                        currentSlide.tabIndex = 0;
+                    if (!this.isCycling) {
+                        // Focus the next slide for screen readers if not in play mode
+                        nextSlide.tabIndex = 0;
                         this.$nextTick(() => {
-                            currentSlide.focus();
+                            nextSlide.focus();
                         });
                     }
-
                     this.isSliding = false;
-                }, 500);
+                    // Notify ourselves that we're done sliding (slid)
+                    this.$emit('slid', val);
+                    
+                }, 601);
             }
         },
         destroyed() {
             clearTimeout(this._carouselAnimation);
-            clearInterval(this._intervalId);
+            clearInterval(this.intervalId);
         }
     };
 
