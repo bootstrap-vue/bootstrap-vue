@@ -78,6 +78,7 @@ export default {
 <!-- carousel-1.vue -->
 ```
 
+### Sizing
 Carousels don’t automatically normalize slide dimensions. As such, you may need to use
 additional utilities or custom styles to appropriately size content. When using images
 in each slide, ensure they all have the same dimensions (or aspect ratio).
@@ -94,15 +95,17 @@ Set the prop `controls` to enable the previous and next control buttons.
 
 Set the prop `indicators` to show the slide indicator buttons.
 
-Both indicators andcontrols can be set at the same time
+Both indicators and controls can be set at the same time or independently.
 
 
-### V-modal support
-Control which slide is howing programaticaly via `v-model` (which binds to the `value` prop
+### V-model support
+Programaticaly xontrol which slide is showing via `v-model` (which binds to the
+`value` prop). Note slides are indexed starting at `0`.
 
 
 ### Accessibility
-By providing a document unique value via the `id` prop, `<b-carousel>` will enable accessibility
-features.  It is highly recommended to always add an ID to all components.
+By providing a document unique value via the `id` prop, `<b-carousel>` will enable
+accessibility features.  It is highly recommended to always add an ID to all components.
 
-All controls have aria labels.  These can be customized by setting the various `label-*` props.
+All carousel controls and indicateors have aria labels.  These can be customized by
+setting the various `label-*` props.
