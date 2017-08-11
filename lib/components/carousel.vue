@@ -261,7 +261,7 @@
             observeDom(this.$refs.inner, this.updateSlides.bind(this), {subtree: false});
         },
         watch: {
-            value(newVal, oldval) {
+            value(newVal, oldVal) {
                 if (newVal !== oldVal) {
                     this.setSlide(newVal);
                 }
