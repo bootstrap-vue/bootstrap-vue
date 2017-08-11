@@ -1,5 +1,4 @@
 <template>
-<div>
     <b-navbar toggleable class="navbar-dark bd-navbar" fixed="top">
     
         <b-nav-toggle target="bd-main-nav"></b-nav-toggle>
@@ -37,16 +36,7 @@
             </b-nav>
     
         </b-collapse>
-    
     </b-navbar>
-
-    <b-alert show variant="warning">
-        <strong>Warning</strong>: We are heavily working on 1.0.0 release of BootstrapVue.
-        Currently neither this docs or beta releases are stable.
-        <br>
-        Please consider using <a href="https://bootstrap-vue.js.org" target="_blank"> Stable Docs </a> for your production projects.
-    </b-alert>
-</div>
 </template>
 
 <style>

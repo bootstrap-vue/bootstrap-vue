@@ -13,6 +13,8 @@
                 </div>
 
                 <div class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+                    <m-alert/>
+
                     <b-button-group class="mb-2 float-right">
                         <b-btn size="sm" :href="issueURL" target="_blank">Report an issue</b-btn>
                         <b-btn size="sm" :href="editPageURL" target="_blank">Edit this page</b-btn>
@@ -30,10 +32,10 @@ import mSidebar from '~/components/sidebar.vue';
 import mNav from '~/components/nav.vue';
 import mFooter from '~/components/footer.vue';
 import mSearch from '~/components/search.vue';
-
+import mAlert from '~/components/alert.vue';
 
 export default {
-    components: { mSidebar, mNav, mFooter, mSearch },
+    components: { mSidebar, mNav, mFooter, mSearch, mAlert },
     computed: {
         editPageURL() {
             const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master';
