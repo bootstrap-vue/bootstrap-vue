@@ -44,7 +44,7 @@
         computed: {
             blockClass() {
                 return [
-                    'card-block',
+                    'card-body',
                     this.overlay ? 'card-img-overlay' : null
                 ];
             },
