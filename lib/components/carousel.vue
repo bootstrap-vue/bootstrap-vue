@@ -195,7 +195,7 @@
             // Start auto rotate slides
             start() {
                 // Don't start if no intetrval, or if we are already running
-                if (!Bolean(this.interval) || this.isCycling) {
+                if (!Boolean(this.interval) || this.isCycling) {
                     return;
                 }
                 this.slides.forEach(slide => {
