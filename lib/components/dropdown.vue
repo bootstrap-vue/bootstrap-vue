@@ -1,5 +1,5 @@
 <template>
-    <div :id="id || null" :class="['dropdown', 'btn-group', {dropup, show: visible}]">
+    <div :id="id || null" :class="['dropdown', 'btn-group', { dropup, show: visible }]">
 
         <b-button :class="{'dropdown-toggle': !split}"
                   ref="button"
@@ -28,7 +28,7 @@
             <span class="sr-only">{{toggleText}}</span>
         </b-button>
 
-        <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
+        <div :class="['dropdown-menu',{'dropdown-menu-right': right, show: visible}]"
              ref="menu"
              role="menu"
              :aria-labelledby="id ? (id + (split ? '__BV_toggle_' : '__BV_button_')) : null"
@@ -42,15 +42,6 @@
 
     </div>
 </template>
-
-<style scoped>
-    .dropdown-item:focus,
-    .dropdown-item:hover,
-    .dropdown-header:focus {
-        background-color: #eaeaea;
-        outline: none;
-    }
-</style>
 
 <script>
     import { dropdownMixin } from '../mixins';
@@ -75,6 +66,11 @@
             variant: {
                 type: String,
                 default: null
+            }
+        },
+        methods:{
+            log() {
+                console.log(...arguments)
             }
         }
     };
