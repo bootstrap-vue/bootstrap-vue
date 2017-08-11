@@ -54,11 +54,11 @@
             @hover="rowHovered($event,item,index)"
         >
             <template v-for="(field,key) in fields">
-                <td v-if="hasFormatter(field)" :key="key" :class="tdClass(field, item, key)"
-                    v-html="callFormatter(item, key, field)">
-                </td>
-                <td v-else :class="tdClass(field, item, key)" :key="key">
+                <td v-if="!hasFormatter(field)" :class="tdClass(field, item, key)" :key="key">
                     <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
+                </td>
+                <td v-else :key="key" :class="tdClass(field, item, key)"
+                    v-html="callFormatter(item, key, field)">
                 </td>
             </template>
         </tr>

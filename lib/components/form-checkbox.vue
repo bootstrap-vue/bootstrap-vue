@@ -13,8 +13,8 @@
                :aria-required="required ? 'true' : null"
                :class="(custom && !button ) ? 'custom-control-input' : null"
                :checked="isChecked"
-               @focusin.native="handleFocus"
-               @focusout.native="handleFocus"
+               @focus="handleFocus"
+               @blur="handleFocus"
                @change="handleChange">
         <span v-if="custom && !button"
               class="custom-control-indicator"
@@ -113,11 +113,12 @@ export default {
         },
         handleFocus(evt) {
             // Add or remove 'focus' class on label in button mode
-            if (this.button && evt.target === this.$refs.check) {
-                if (evt.type === 'focusin') {
-                    this.$el.classList.add('focus');
-                } else if (evt.type === 'focusout') {
-                    this.$el.classList.remove('focus');
+            if (this.button && evt.target && evt.target.parentElement) {
+                const label = evt.target.parentElement;
+                if (evt.type === 'focus') {
+                    label.classList.add('focus');
+                } else if (evt.type === 'blur') {
+                    label.classList.remove('focus');
                 }
             }
         }

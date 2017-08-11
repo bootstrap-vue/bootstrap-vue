@@ -35,7 +35,7 @@
       <b-nav-item-dropdown right>
         <!-- Using button-content slot -->
         <template slot="button-content">
-          <span style="font-weight: bold;">User</span>
+          <em>User<em>
         </template>
         <b-dropdown-item to="#">Profile</b-dropdown-item>
         <b-dropdown-item to="#">Signout</b-dropdown-item>
@@ -169,12 +169,12 @@ adjusts vertical alignment and horizontal spacing for strings of text.
     <b-navbar-brand>BootstrapVue</b-navbar-brand>
     <b-collapse is-nav id="nav_text_collapse">
       <b-nav is-nav-bar>
-        <b-navbar-text>Navbar text</b-navbar-text>
+        <b-nav-text>Navbar text</b-nav-text>
       </b-nav>
     </b-navbar>
 </div>
 
-<!-- <navbar-text-1.vue -->
+<!-- navbar-text-1.vue -->
 ```
 
 #### `<b-nav-item-dropdown>`
@@ -196,7 +196,7 @@ Note split dropdowns are not supported in `<b-navbar>`.
           <b-dropdown-item to="#">RU</b-dropdown-item>
           <b-dropdown-item to="#">FA</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item-dropdown text="USer" right>
+        <b-nav-item-dropdown text="User" right>
           <b-dropdown-item to="#">Account</b-dropdown-item>
           <b-dropdown-item to="#">Settings</b-dropdown-item>
         </b-nav-item-dropdown>

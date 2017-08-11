@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.20.2"></a>
+## [0.20.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.1...v0.20.2) (2017-08-11)
+
+
+### Bug Fixes
+
+* **carousel:** Handle changes in slide content ([#809](https://github.com/bootstrap-vue/bootstrap-vue/issues/809)) ([6949e5f](https://github.com/bootstrap-vue/bootstrap-vue/commit/6949e5f))
+* **collapse:** Close collapse when clicked in navbar ([#803](https://github.com/bootstrap-vue/bootstrap-vue/issues/803)) ([3fdfbff](https://github.com/bootstrap-vue/bootstrap-vue/commit/3fdfbff))
+* **docs:** button update example ([#804](https://github.com/bootstrap-vue/bootstrap-vue/issues/804)) ([fb375aa](https://github.com/bootstrap-vue/bootstrap-vue/commit/fb375aa))
+* **form-checkbox:** Better focus handling in button mode ([06e1c7b](https://github.com/bootstrap-vue/bootstrap-vue/commit/06e1c7b))
+* **form-radio:** Better focus handling in button mode ([#801](https://github.com/bootstrap-vue/bootstrap-vue/issues/801)) ([a9bfbde](https://github.com/bootstrap-vue/bootstrap-vue/commit/a9bfbde))
+* **navbar-brand:** Removed erroneous this in template ([#806](https://github.com/bootstrap-vue/bootstrap-vue/issues/806)) ([0842043](https://github.com/bootstrap-vue/bootstrap-vue/commit/0842043))
+* **table:** workaround for Vue 2.4 SSR rendering bug ([ab7767f](https://github.com/bootstrap-vue/bootstrap-vue/commit/ab7767f))
+* **v-play:** disable vue global errorHandler ([9a7bdaf](https://github.com/bootstrap-vue/bootstrap-vue/commit/9a7bdaf))
+
+
+
 <a name="0.20.1"></a>
 ## [0.20.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.0...v0.20.1) (2017-08-10)
 
