@@ -1,43 +1,38 @@
 <template>
     <div>
         <m-nav></m-nav>
-    
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-12 col-md-9">
-                    <div class="float-right">
-                        <a href="https://github.com/bootstrap-vue/bootstrap-vue/releases" target="_blank">
-                            <img src="https://img.shields.io/github/release/bootstrap-vue/bootstrap-vue.svg?style=flat-square" alt="GitHub release">
-                        </a>
-                    </div>
-    
-                    <b-button-group class="mb-2">
+        <div class="container-fluid">
+            <div class="row flex-xl-nowrap2">
+                <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+                    <m-search/>
+                    <m-sidebar></m-sidebar>
+                </div>
+                
+                <div class="d-none d-xl-block col-xl-2 bd-toc">
+                </div>
+
+                <div class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+                    <b-button-group class="mb-2 float-right">
                         <b-btn size="sm" :href="issueURL" target="_blank">Report an issue</b-btn>
                         <b-btn size="sm" :href="editPageURL" target="_blank">Edit this page</b-btn>
                     </b-button-group>
                     <br>
-    
                     <nuxt/>
-                </div>
-    
-                <div class="col-12 col-md-3 bd-sidebar">
-                    <m-sidebar></m-sidebar>
                 </div>
             </div>
         </div>
-    
-        <m-footer></m-footer>
-    
     </div>
 </template>
 
 <script>
-import mSidebar from '~/includes/sidebar.vue';
-import mNav from '~/includes/nav.vue';
-import mFooter from '~/includes/footer.vue';
+import mSidebar from '~/components/sidebar.vue';
+import mNav from '~/components/nav.vue';
+import mFooter from '~/components/footer.vue';
+import mSearch from '~/components/search.vue';
+
 
 export default {
-    components: { mSidebar, mNav, mFooter },
+    components: { mSidebar, mNav, mFooter, mSearch },
     computed: {
         editPageURL() {
             const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master';

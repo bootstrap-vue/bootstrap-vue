@@ -15,7 +15,7 @@
             <slot name="button-content"><slot name="text"><span v-html="text"></span></slot></slot>
         </a>
 
-        <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
+        <div :class="['dropdown-menu',{'dropdown-menu-right': right, show: visible}]"
              role="menu"
              ref="menu"
              :aria-labelledby="id ? (id + '__BV_button_') : null"

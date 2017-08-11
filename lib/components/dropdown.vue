@@ -1,5 +1,5 @@
 <template>
-    <div :id="id || null" :class="['dropdown', 'btn-group', {dropup, show: visible}]">
+    <div :id="id || null" :class="['dropdown', 'btn-group', { dropup, show: visible }]">
 
         <b-button :class="{'dropdown-toggle': !split}"
                   ref="button"
@@ -28,7 +28,7 @@
             <span class="sr-only">{{toggleText}}</span>
         </b-button>
 
-        <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
+        <div :class="['dropdown-menu',{'dropdown-menu-right': right, show: visible}]"
              ref="menu"
              role="menu"
              :aria-labelledby="id ? (id + (split ? '__BV_toggle_' : '__BV_button_')) : null"
@@ -42,15 +42,6 @@
 
     </div>
 </template>
-
-<style scoped>
-    .dropdown-item:focus,
-    .dropdown-item:hover,
-    .dropdown-header:focus {
-        background-color: #eaeaea;
-        outline: none;
-    }
-</style>
 
 <script>
     import { dropdownMixin } from '../mixins';
@@ -79,3 +70,18 @@
         }
     };
 </script>
+
+<style>
+.dropdown-item:focus:not(.active),
+.dropdown-item:hover:not(.active),
+.dropdown-header:focus:not(.active)
+.dropdown-header:hover:not(.active) {
+    /* @See https://github.com/twbs/bootstrap/issues/23329 */
+    box-shadow: inset 0px 0px 400px 110px rgba(0, 0, 0, .09);
+}
+
+.dropdown-item:active,
+.dropdown-header:active {
+    box-shadow: initial;
+}
+</style>

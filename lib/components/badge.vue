@@ -8,7 +8,7 @@
     export default {
         computed: {
             badgeVariant() {
-                return !this.variant || this.variant === `default` ? `badge-default` : `badge-${this.variant}`;
+                return `badge-${this.variant}`;
             },
             badgePill() {
                 return this.pill ? 'badge-pill' : '';
@@ -17,7 +17,7 @@
         props: {
             variant: {
                 type: String,
-                default: 'default'
+                default: 'secondary'
             },
             pill: {
                 type: Boolean,

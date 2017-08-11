@@ -9,9 +9,9 @@ export default {
             title: 'BootstrapVue',
             slug: '',
             pages: [
-                {title: 'Quick Start', slug: 'setup'},
+                {title: 'Quick Start', slug: '/'},
                 {title: 'Contributing', slug: 'contributing'},
-                {title: 'Change Log', slug: 'changelog'}
+                {title: 'Release Notes', slug: 'changelog'}
             ]
         },
         {

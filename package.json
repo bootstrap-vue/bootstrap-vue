@@ -62,7 +62,7 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap": "^4.0.0-beta",
     "tether": "latest",
     "vue": "^2.4.2"
   },
