@@ -6,7 +6,7 @@
 <br>
 
 <a href="https://v4-alpha.getbootstrap.com">
-    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg?style=flat-square">
+    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--beta-800080.svg?style=flat-square">
 </a>
 <a href="https://vuejs.org">
     <img alt="" src="https://img.shields.io/badge/vue.js-2.4.x-green.svg?style=flat-square">
