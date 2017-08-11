@@ -1,5 +1,27 @@
 {
   "title": "Carousel",
   "component": "bCarousel",
-  "components": ["bCarouselSlide"]
+  "components": ["bCarouselSlide"],
+  "events": [
+    {
+      "event": "slide",
+      "description": "Emitted when transitioning to a new slide has started.",
+      "args": [
+        {
+          "arg": "slide",
+          "description": "Slide number that is being slid to."
+        }
+      ]
+    },
+    {
+      "event": "slid",
+      "description": "Emitted when transitioning to a new slide has finished.",
+      "args": [
+        {
+          "arg": "slide",
+          "description": "Slide number that was slid to."
+        }
+      ]
+    }
+},
 }

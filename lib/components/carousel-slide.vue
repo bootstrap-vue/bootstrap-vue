@@ -55,14 +55,11 @@
         },
         computed: {
             contentClasses() {
-                const classes = {
-                    'carousel-caption': Boolean(this.caption)
-                };
-                if (this.contentVisibleUp) {
-                    classes['d-none'] = true;
-                    classes[`d-${this.contentVisibleUp}-block`] = true;
-                }
-                return classes;
+                return [
+                    'carousel-caption',
+                    this.contentVisibleUp ? 'd-none' : '',
+                    this.contentVisibleUp ? `d-${this.contentVisibleUp}-block` : ''
+                ];
             }
         }
     };
