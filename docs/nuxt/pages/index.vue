@@ -1,10 +1,40 @@
 <template>
     <div>
-        <main class="bd-masthead" id="content">
+        <main class="bd-masthead" id="content" role="main">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-6 mx-auto col-md-6 order-md-2">
+        <img src="~/static/icon.png" alt="" class="img-fluid mb-3 mb-md-0">
+      </div>
+      <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
+        <h1 class="mb-3 bd-text-purple-bright">Bootstrap + Vue</h1>
+        <p class="lead">
+          Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a>
+          components with <a href="https://vuejs.org"> Vue.js </a>
+        </p>
+        <p class="lead mb-4 text-muted">
+          Bootstrap is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with our Sass variables and mixins, responsive grid system, extensive prebuilt components.
+        </p>
+        <p class="lead mb-4 text-muted">
+          Vue.js is a library that focuses heavily on the ViewModel—the two-way data bindings that tie what we see and interact with on the screen with the application's data mode.
+        </p>
+        <div class="d-flex flex-column flex-md-row lead mb-3">
+          <b-link to="/docs" class="btn btn-lg btn-bd-purple mb-3 mb-md-0 mr-md-3">Get started</b-link>
+          <b-link href="https://github.com/bootstrap-vue/bootstrap-vue" target="_blank" class="btn btn-lg btn-outline-secondary">Github</b-link>
+        </div>
+        <router-link class="text-muted mb-0" to="/docs/changelog">
+          Currently {{site.package_info.version}}
+        </router-link>
+      </div>
+    </div>
+  </div>
+</main>
+
+        <!-- <main class="bd-masthead" id="content">
             
             <div class="container">
                 <span class="bd-booticon outline">
-                    <img src="~static/icon.png" alt="." style="max-width: 80%;">
+                    
                 </span>
 
                 <p class="lead">
@@ -37,14 +67,11 @@
                     <b-btn to="/docs">Getting started</b-btn>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
-<style>
-    .bd-masthead {
-        margin-top: -30px;
-    }
+<style scoped>
     .version a{
         color: white;
     }

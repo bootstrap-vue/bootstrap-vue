@@ -3,11 +3,9 @@
 </template>
 
 <script>
-    import layout from '../../layouts/docs.vue';
-    import readme from '../../../README.md';
+    import readme from '~/../README.md';
 
     export default {
-        components: {layout},
         layout: 'docs',
         computed: {
             readme() {
