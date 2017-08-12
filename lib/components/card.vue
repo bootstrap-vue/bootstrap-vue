@@ -19,6 +19,8 @@
         <template v-if="noBody">
             <slot></slot>
         </template>
+        <!--Alternative method to get a no-body section-->
+        <slot name="no-body"></slot>
 
         <!-- Card Standard Body-->
         <div :class="blockClass" v-else>
@@ -26,6 +28,10 @@
             <h6 v-if="subTitle" :is="subTitleTag" class="card-subtitle mb-2 text-muted" v-html="subTitle"></h6>
             <slot></slot>
         </div>
+        <!--Alternative method to get a body section-->
+        <template v-if="$slots['body']">
+            <slot name="body"></slot>
+        </tamplate>
 
         <!-- Card Footer-->
         <component v-if="footer || $slots['footer']"
