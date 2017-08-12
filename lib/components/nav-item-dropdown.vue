@@ -72,6 +72,7 @@
     /* @See https://github.com/twbs/bootstrap/issues/23329 */
     box-shadow: inset 0px 0px 400px 110px rgba(0, 0, 0, .09);
 }
+
 .b-nav-dropdown .dropdown-item:active {
     box-shadow: initial;
 }
