@@ -43,7 +43,7 @@ values for `total-rows` and `per-page`.
 
 
 ### Customizing
-`<b-pagination>` supports several props that allow you to customize the apperance.
+`<b-pagination>` supports several props that allow you to customize the appearance.
 
 | Prop | Description
 | ---- | -----------
@@ -117,7 +117,7 @@ The `<b-pagination>` component provides many features to support assistive techn
 such as `aria-` attributes and keyboard navigation.
 
 #### `aria-controls`:
-Whan pagination is controling anohter component on the page (such as `<b-table>`), set
+When pagination is controling another component on the page (such as `<b-table>`), set
 the `aria-controls` prop to the `id` of the element it is controling. This will help
 non-sighted users know what component is being updated/controlled.
 
@@ -136,7 +136,7 @@ assistive technology.
 | `label-page` | "Goto page", appended with the page number
 | `aria-label` | "Pagination", applied to the outer pagination container
 
-#### Keyboard navigtion support:
+#### Keyboard navigation support:
 `<b-pagination>` supports keyboard navigation out of the box.
 - Tabbing into the pagination component will autofocus the current page button
 - <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the page
@@ -150,3 +150,6 @@ list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (c
 
 Both events provide the single argument of the current page number (starting from 1)
 
+### See Also
+For navigation based pagination, please see the [`<b-pagination-nav>`](./pagination-nav)
+component.
