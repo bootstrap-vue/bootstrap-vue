@@ -91,8 +91,8 @@
         }
     };
     
-    // Fallback Transition duration
-    const TRANS_DURATION = 601;
+    // Fallback Transition duration (with a little buffer) in ms
+    const TRANS_DURATION = 600 + 50;
 
     // Transition Event names
     const TransitionEndEvents = {
@@ -232,7 +232,7 @@
                 });
                 this.intervalId = setInterval(() => {
                     this.next();
-                }, this.interval);
+                }, Math.min(1000, this.interval);
             },
 
             // Re-Start auto rotate slides when focus/hover leaves the carousel
@@ -334,12 +334,16 @@
                 nextSlide.classList.add(direction.dirClass);
 
                 // Transition End handler
+                let called = false;
                 const onceTransEnd = (evt) => {
+                    if (called) {
+                        return;
+                    }
+                    called = true;
                     if (this.transitionEndEvent) {
                         currentSlide.removeEventListener(this.transitionEndEvent, onceTransEnd);
-                    } else {
-                        this._animationTimeout = null;
                     }
+                    this._animationTimeout = null;
 
                     nextSlide.classList.remove(direction.dirClass);
                     nextSlide.classList.remove(direction.overlayClass);
@@ -373,10 +377,9 @@
                 // Clear transition classes after transition ends
                 if (this.transitionEndEvent) {
                     currentSlide.addEventListener(this.transitionEndEvent, onceTransEnd);
-                } else {
-                    // Fallback to setTimeout
-                    this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION);
                 }
+                // Fallback to setTimeout
+                this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION);
             }
         },
         created() {
