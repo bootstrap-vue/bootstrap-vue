@@ -35,7 +35,7 @@
       <b-nav-item-dropdown right>
         <!-- Using button-content slot -->
         <template slot="button-content">
-          <em>User<em>
+          <em>User</em>
         </template>
         <b-dropdown-item to="#">Profile</b-dropdown-item>
         <b-dropdown-item to="#">Signout</b-dropdown-item>
