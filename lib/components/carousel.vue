@@ -77,20 +77,38 @@
 
 <script>
     import { from as arrayFrom } from '../utils/array';
-    import {observeDom} from '../utils';
+    import { observeDom } from '../utils';
 
+    // Slide directional classes
     const DIRECTION = {
         next: {
-            current: 'carousel-item-left',
-            next: 'carousel-item-left',
-            overlay: 'carousel-item-next'
+            dirClass: 'carousel-item-left',
+            overlayClass: 'carousel-item-next'
         },
         prev: {
-            current: 'carousel-item-right',
-            next: 'carousel-item-right',
-            overlay: 'carousel-item-prev'
+            dirClass: 'carousel-item-right',
+            overlayClass: 'carousel-item-prev'
         }
     };
+
+    // Transition Event names
+    const TransitionEndEvents = {
+        WebkitTransition: 'webkitTransitionEnd',
+        MozTransition: 'transitionend',
+        OTransition: 'otransitionend',
+        transition: 'transitionend'
+    };
+
+    // Return the brtowser specific transitionend event name
+    function getTransisionEndEvent(el) {
+        for (const name in TransitionEndEvents) {
+            if (el.style[name] !== undefined) {
+                return TransitionEndEvents[name];
+            }
+        }
+        // fallback
+        return 'transitionend';
+    }
 
     export default {
         data() {
@@ -98,6 +116,7 @@
                 index: this.value || 0,
                 isSliding: false,
                 intervalId: null,
+                transitionEndEvent: 'transitionend',
                 slides: []
             };
         },
@@ -253,11 +272,10 @@
             }
 
         },
-        created() {
-            // Create private properties
-            this._carouselAnimation = null;
-        },
         mounted() {
+            // Cache current browser transitionend event name
+            this.transitionEndEvent = getTransisionEndEvent(this.$el);
+
             // Get all slides
             this.updateSlides();
 
@@ -314,28 +332,31 @@
                 // Update v-model
                 this.$emit('input', this.index);
 
-                nextSlide.classList.add(direction.overlay);
+                nextSlide.classList.add(direction.overlayClass);
                 // Trigger a reflow of next slide
                 // eslint-ignore-next-line no-void
                 void(nextSlide.offsetHeight);
 
-                currentSlide.classList.add(direction.current);
-                nextSlide.classList.add(direction.next);
+                currentSlide.classList.add(direction.dirClass);
+                nextSlide.classList.add(direction.dirClass);
 
-                // Clear transition classes after 0.6s transition duration
-                this._carouselAnimation = setTimeout(() => {
-                    nextSlide.classList.remove(direction.next);
-                    nextSlide.classList.remove(direction.overlay);
+                // Transition End handler
+                const onceTransEnd = (evt) => {
+                    currentSlide.removeEventListener(this.transitionEndEvent, onceTransEnd);
+
+                    nextSlide.classList.remove(direction.dirClass);
+                    nextSlide.classList.remove(direction.overlayClass);
                     nextSlide.classList.add('active');
 
                     currentSlide.classList.remove('active');
-                    currentSlide.classList.remove(direction.current);
-                    currentSlide.classList.remove(direction.overlay);
+                    currentSlide.classList.remove(direction.dirClass);
+                    currentSlide.classList.remove(direction.overlayClass);
 
                     currentSlide.setAttribute('aria-current', 'false');
                     nextSlide.setAttribute('aria-current', 'true');
                     currentSlide.setAttribute('aria-hidden', 'true');
                     nextSlide.setAttribute('aria-hidden', 'false');
+
                     currentSlide.tabIndex = -1;
                     nextSlide.tabIndex = -1;
 
@@ -346,15 +367,17 @@
                             nextSlide.focus();
                         });
                     }
+
                     this.isSliding = false;
                     // Notify ourselves that we're done sliding (slid)
-                    this.$emit('slid', val);
-                    
-                }, 601);
+                    this.$nextTick(() => this.$emit('slid', val));
+                };
+
+                // Clear transition classes after transition ends
+                currentSlide.addEventListener(this.transitionEndEvent, onceTransEnd);
             }
         },
         destroyed() {
-            clearTimeout(this._carouselAnimation);
             clearInterval(this.intervalId);
         }
     };
