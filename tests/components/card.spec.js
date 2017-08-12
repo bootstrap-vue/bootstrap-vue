@@ -80,4 +80,11 @@ describe('card', async() => {
             expect(imgEl.src).toEqual(src)
         })
     })
+    
+    it('Bordered card should have classes', async() => {
+        // bordered_card
+        const { app: { $refs, $el } } = window
+
+        expect($refs.bordered_card).toHaveAllClasses(['card', 'border-primary'])
+    })
 })
