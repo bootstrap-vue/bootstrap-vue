@@ -31,7 +31,7 @@ Change the default `div` root tag to any other HTML element by specifying via th
 ```
 
 ### Content types
-Cards support a wide variety of content, including images, text, list groups, 
+Cards support a wide variety of content, including images, text, list groups,
 links and more. Below are examples of what’s supported.
 
 #### Card Body:
@@ -176,11 +176,11 @@ a fixed-width card.
 
 ```html
 <div>
-  <b-card no-body style="max-width: 20rem;" img="https://placekitten.com/380/200" img-alt="Image">
+  <b-card no-body style="max-width: 20rem;" img="https://placekitten.com/380/200" img-alt="Image" img-top>
     <h4 slot="header">Hello World</h4>
     <div class="card-body">
       <p class="card-text">
-        Some quick example text to build on the card 
+        Some quick example text to build on the card
         title and make up the bulk of the card's content.
       </p>
     </div>
@@ -447,7 +447,7 @@ isn’t a bulletproof solution yet.
     </b-card>
 
     <b-card variant="primary" inverse>
-      <blockquote class="card-blockquote" 
+      <blockquote class="card-blockquote"
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
         <footer>
           <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
