@@ -60,27 +60,35 @@
                 return this.invalid;
             }
         },
+        watch:{
+            value(newVal, oldVal) {
+                if (newVal !== oldVal){
+                    this.$refs.input.value = newVal;
+                }
+            }
+        },
         methods: {
             format(value, el) {
                 if (this.formatter) {
                     const formattedValue = this.formatter(value, el);
                     if (formattedValue !== value) {
-                        value = formattedValue;
                         this.$refs.input.value = formattedValue;
+                        return formattedValue;
                     }
                 }
                 return value;
             },
             onInput(value, el) {
+                let formattedValue=value;
                 if (!this.lazyFormatter) {
-                    value = this.format(value, el);
+                    formattedValue = this.format(value, el);
                 }
-                this.$emit('input', value);
+                this.$emit('input', formattedValue);
             },
             onChange(value, el) {
-                value = this.format(value, el);
-                this.$emit('input', value);
-                this.$emit('change', value);
+                const formattedValue = this.format(value, el);
+                this.$emit('input', formattedValue);
+                this.$emit('change', formattedValue);
             },
             onKeyUp(e) {
                 this.$emit('keyup', e);
