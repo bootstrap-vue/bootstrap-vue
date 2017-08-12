@@ -360,14 +360,14 @@ export default {
             this.currentPage = pageNum;
         },
         makeLink(pagenum) {
-            if (this.linkGen && this.linkGen instanceof Function) {
+            if (this.linkGen && typeof this.linkGen === 'function') {
                 return this.linkGen(pagenum);
             }
             const link = `${this.baseUrl}${pagenum}`;
             return this.useRouter ? { path: link } : link;
         },
         makePage(pagenum) {
-            if (this.pageGen && this.pageGen instanceof Function) {
+            if (this.pageGen && typeof this.pageGen === 'function') {
                 return this.pageGen(pagenum);
             }
             return pagenum;
