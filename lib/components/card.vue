@@ -45,21 +45,18 @@
             blockClass() {
                 return [
                     'card-body',
-                    this.overlay ? 'card-img-overlay' : null
+                    (this.overlay || this.imgOverlay) ? 'card-img-overlay' : null
                 ];
             },
             cardVariant() {
-                return this.variant ? `card-${this.variant}` : null;
+                if (this.bordered) {
+                    return this.variant ? `border-${this.variant}` : null;
+                } else {
+                    return this.variant ? `bg-${this.variant}` : null;
+                }
             },
             cardInverse() {
-                if (this.overlay || this.inverse) {
-                    return 'card-inverse';
-                }
-                // Auto inverse colored cards
-                if (this.inverse === null && this.variant && this.variant.length > 0 &&
-                    this.variant.indexOf('outline') === -1) {
-                    return 'card-inverse';
-                }
+                return this.inverse ? 'text-white' : ''
             },
             cardAlign() {
                 return this.align ? `text-${this.align}` : null;
@@ -72,12 +69,15 @@
             },
             inverse: {
                 type: Boolean,
-                // It should remain null for auto inverse
-                default: null
+                default: false
             },
             variant: {
                 type: String,
                 default: null
+            },
+            bordered: {
+                type: Boolean,
+                default: false
             },
             tag: {
                 type: String,
@@ -150,6 +150,10 @@
             imgAlt: {
                 type: String,
                 default: null
+            },
+            imgOverlay: {
+                type: Boolean,
+                default: false
             },
             overlay: {
                 type: Boolean,

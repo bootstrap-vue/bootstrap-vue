@@ -205,10 +205,10 @@ a fixed-width card.
 ### Inverted text
 By default, cards use dark text and assume a light background. You can reverse that by
 toggling the color of text within, as well as that of the card’s subcomponents,
-via the prop `inverse`. Then, specify a dark background-color and border-color to go with it.
+via the prop `inverse`. Then, specify a dark background variant.
 
 ```html
-<b-card inverse title="Card Title" style="background-color:#333; border-color:#333;">
+<b-card inverse title="Card Title" variant="dark"">
   <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
   <b-button href="#" variant="primary">Go somewhere</b-button>
 </b-card>
@@ -216,43 +216,36 @@ via the prop `inverse`. Then, specify a dark background-color and border-color t
 <!-- card-inverse-1.vue -->
 ```
 
-### Background and outline variants
+### Background and Bordered variants
 Cards include their own variant style for quickly changing the background-color and
-border-color of a card via the `variant` prop. Darker solid variants my require setting the
+of a card via the `variant` prop. Darker solid variants my require setting the
 boolean prop `inverse` to adjust the text color.
 
-Note for non-`outline-*` variants, the `inverse` state is automatically applied.
-
+#### Solid:
 ```html
 <div>
-  <b-card variant="primary" class="mb-3 text-center">
+  <b-card variant="primary" inverse header="Primary" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="success" class="mb-3 text-center">
+  <b-card variant="secondary" inverse header="Secondary" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="info" class="mb-3 text-center">
+  <b-card variant="success" inverse header="Success" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="warning" class="mb-3 text-center">
+  <b-card variant="info" inverse header="Info" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="danger" class="mb-3 text-center">
+  <b-card variant="warning" inverse header="Warning" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="outline-primary" class="mb-3 text-center">
+  <b-card variant="danger" inverse header="Danger" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="outline-success" class="mb-3 text-center">
+  <b-card variant="light" header="Light" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="outline-info" class="mb-3 text-center">
-    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-  </b-card>
-  <b-card variant="outline-warning" class="mb-3 text-center">
-    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-  </b-card>
-  <b-card variant="outline-danger" class="mb-3 text-center">
+  <b-card variant="dark" header="Dark" inverse class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
 </div>
@@ -260,9 +253,40 @@ Note for non-`outline-*` variants, the `inverse` state is automatically applied.
 <!-- card-variants-1.vue -->
 ```
 
+#### Bordered:
+```html
+<div>
+  <b-card variant="primary" bordered header="Primary" class="mb-3 text-center">
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </b-card>
+  <b-card variant="secondary" bordered header="Secondary" class="mb-3 text-center">
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </b-card>
+  <b-card variant="success" bordered header="Success" class="mb-3 text-center">
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </b-card>
+  <b-card variant="info" bordered header="Info" class="mb-3 text-center">
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </b-card>
+  <b-card variant="warning" bordered header="Warning" class="mb-3 text-center">
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </b-card>
+  <b-card variant="danger" bordered header="Danger" class="mb-3 text-center">
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </b-card>
+  <b-card variant="light" bordered header="Light" class="mb-3 text-center">
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </b-card>
+  <b-card variant="dark" bordered header="Dark" class="mb-3 text-center">
+    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </b-card></div>
+
+<!-- card-variants-2.vue -->
+```
+
 #### Variant to class mapping:
 BootstrapVue `<b-card>` variants are directly mapped to Bootstrap V4 card classes by
-pre-pending `card-` to the above variant names.
+pre-pending `bg-` (for solid) or `border-` (for bordered) to the above variant names.
 
 #### Header and Footer variants:
 You can also apply the solid and outline variants individually to card headers and footers
@@ -421,7 +445,7 @@ isn’t a bulletproof solution yet.
       <small class="text-muted">Last updated 3 mins ago</small>
     </b-card>
 
-    <b-card variant="primary">
+    <b-card variant="primary" inverse>
       <blockquote class="card-blockquote" 
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
         <footer>

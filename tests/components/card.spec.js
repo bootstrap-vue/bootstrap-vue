@@ -23,10 +23,10 @@ describe('card', async() => {
     it('should contain class names', async() => {
         const { app: { $refs, $el } } = window
 
-        expect($refs.simple_card).toHaveAllClasses(['card', 'card-success', 'card-inverse'])
+        expect($refs.simple_card).toHaveAllClasses(['card', 'bg-success', 'text-white'])
         expect($refs.standard_card).toHaveClass('card')
         expect($refs.img_card).toHaveClass('card')
-        expect($refs.img_overlay_card).toHaveAllClasses(['card', 'card-inverse'])
+        expect($refs.img_overlay_card).toHaveAllClasses(['card', 'text-white'])
 
         const bodyEl = [...$refs.img_overlay_card.$el.childNodes]
             .find(el => el.classList && el.classList.contains('card-body'))
@@ -79,5 +79,12 @@ describe('card', async() => {
             expect(imgEl).toBeDefined()
             expect(imgEl.src).toEqual(src)
         })
+    })
+    
+    it('Bordered card should have classes', async() => {
+        // bordered_card
+        const { app: { $refs, $el } } = window
+
+        expect($refs.bordered_card).toHaveAllClasses(['card', 'border-primary'])
     })
 })
