@@ -22,6 +22,7 @@
                         :aria-label="labelFirstPage"
                         role="menuitem"
                         tabindex="-1"
+                        @click="onClick(1)"
                 ><span aria-hidden="true" v-html="firstText"></span></b-link>
             </li>
         </template>
@@ -36,6 +37,7 @@
                     :aria-label="labelPrevPage"
                     role="menuitem"
                     tabindex="-1"
+                    @click="onClick(currentPage - 1)"
             ><span aria-hidden="true" v-html="prevText"></span></b-link>
         </li>
 
@@ -58,6 +60,7 @@
                     :aria-setsize="numberOfPages"
                     role="menuitemradio"
                     tabindex="-1"
+                    @click="onClick(page.number)"
             >{{ makePage(page.number) }}</b-link>
         </li>
 
@@ -76,6 +79,7 @@
                     :aria-label="labelNextPage"
                     role="menuitem"
                     tabindex="-1"
+                    @click="onClick(currentPage + 1)"
             ><span aria-hidden="true" v-html="nextText"></span></b-link>
         </li>
 
@@ -93,6 +97,7 @@
                         v-bind="linkProps(numberOfPages)"
                         :aria-label="labelLastPage"
                         role="menuitem"
+                        @click="onClick(numberOfPages)"
                 ><span aria-hidden="true" v-html="lastText"></span></b-link>
             </li>
         </template>
@@ -351,6 +356,9 @@ export default {
         }
     },
     methods: {
+        onClick(pageNum) {
+            this.currentPage = pageNum;
+        },
         makeLink(pagenum) {
             if (this.linkGen && this.linkGen instanceof Function) {
                 return this.linkGen(pagenum);
