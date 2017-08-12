@@ -3,7 +3,7 @@
 ### Beta Testing
 For beta testing please explicitly require beta version instead of `bootstrap-vue`
 ```bash
-yarn add bootstrap-vue@^1.0.0-beta.1 # or npm i bootstrap-vue@^1.0.0-beta.1
+yarn add bootstrap-vue@^1.0.0-beta.2 # or npm i bootstrap-vue@^1.0.0-beta.2
 ```
 
 ### Nuxt.js
