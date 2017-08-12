@@ -5,7 +5,7 @@
             <img v-if="img" :src="img" :alt="imgAlt" :class="['card-img', 'img-fluid']">
         </slot>
 
-        <!-- Card Header-->
+        <!-- Card Header -->
         <component v-if="header || $slots['header']"
                    :is="headerTag"
                    :class="['card-header', headerVariant?('bg-'+headerVariant):'', headerClass]"
@@ -15,19 +15,29 @@
             </slot>
         </component>
 
-        <!--Show custom block when no-block prop is set-->
-        <template v-if="noBlock">
+        <!--Show custom block when no-body prop is set -->
+        <template v-if="noBody">
             <slot></slot>
         </template>
 
-        <!-- Card Standard Blocks-->
+        <!-- Card Standard Body-->
         <div :class="blockClass" v-else>
             <h4 v-if="title" :is="titleTag" class="card-title" v-html="title"></h4>
             <h6 v-if="subTitle" :is="subTitleTag" class="card-subtitle mb-2 text-muted" v-html="subTitle"></h6>
             <slot></slot>
         </div>
 
-        <!-- Card Footer-->
+        <!--Alternative method to get a no-body section -->
+        <slot name="no-body"></slot>
+
+        <!--Alternative method to get a body section -->
+        <template v-if="$slots['body']">
+            <div class="card-body">
+                <slot name="body"></slot>
+            </div>
+        </template>
+
+        <!-- Card Footer -->
         <component v-if="footer || $slots['footer']"
                    :is="footerTag"
                    :class="['card-footer', footerVariant?('bg-'+footerVariant):'', footerClass]"
@@ -120,7 +130,7 @@
                 default: 'div'
             },
 
-            // Main block
+            // Main body
             title: {
                 type: String,
                 default: null
@@ -137,7 +147,7 @@
                 type: String,
                 default: 'h6'
             },
-            noBlock: {
+            noBody: {
                 type: Boolean,
                 default: false
             },
