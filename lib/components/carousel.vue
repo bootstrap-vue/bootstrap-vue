@@ -337,7 +337,7 @@
                 // eslint-ignore-next-line no-void
                 void(nextSlide.offsetHeight);
 
-                currentSlide.classList.add(direction.dirClasst);
+                currentSlide.classList.add(direction.dirClass);
                 nextSlide.classList.add(direction.dirClass);
 
                 // Transition End handler
