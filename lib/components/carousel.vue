@@ -90,6 +90,9 @@
             overlayClass: 'carousel-item-prev'
         }
     };
+    
+    // Fallback Transition duration
+    const TRANS_DUREATION = 601;
 
     // Transition Event names
     const TransitionEndEvents = {
@@ -107,7 +110,7 @@
             }
         }
         // fallback
-        return 'transitionend';
+        return null;
     }
 
     export default {
@@ -116,7 +119,7 @@
                 index: this.value || 0,
                 isSliding: false,
                 intervalId: null,
-                transitionEndEvent: 'transitionend',
+                transitionEndEvent: null,
                 slides: []
             };
         },
@@ -272,16 +275,6 @@
             }
 
         },
-        mounted() {
-            // Cache current browser transitionend event name
-            this.transitionEndEvent = getTransisionEndEvent(this.$el);
-
-            // Get all slides
-            this.updateSlides();
-
-            // Observe child changes so we can update slide list
-            observeDom(this.$refs.inner, this.updateSlides.bind(this), {subtree: false});
-        },
         watch: {
             value(newVal, oldVal) {
                 if (newVal !== oldVal) {
@@ -342,7 +335,11 @@
 
                 // Transition End handler
                 const onceTransEnd = (evt) => {
-                    currentSlide.removeEventListener(this.transitionEndEvent, onceTransEnd);
+                    if (this.transitionEndEvent) {
+                        currentSlide.removeEventListener(this.transitionEndEvent, onceTransEnd);
+                    } else {
+                        this._animationTimeout = null;
+                    }
 
                     nextSlide.classList.remove(direction.dirClass);
                     nextSlide.classList.remove(direction.overlayClass);
@@ -374,11 +371,32 @@
                 };
 
                 // Clear transition classes after transition ends
-                currentSlide.addEventListener(this.transitionEndEvent, onceTransEnd);
+                if (this.transitionEndEvent) {
+                    currentSlide.addEventListener(this.transitionEndEvent, onceTransEnd);
+                } else {
+                    // Fallback to setTimeout
+                    this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION);
+                }
             }
+        },
+        created() {
+            // Create private non-reactive props
+            this._animationTimeout = null;
+        },
+        mounted() {
+            // Cache current browser transitionend event name
+            this.transitionEndEvent = getTransisionEndEvent(this.$el) || null;
+
+            // Get all slides
+            this.updateSlides();
+
+            // Observe child changes so we can update slide list
+            observeDom(this.$refs.inner, this.updateSlides.bind(this), {subtree: false});
         },
         destroyed() {
             clearInterval(this.intervalId);
+            clearTimeout(this._animationTimeout);
+            this._animationTimeout = null;
         }
     };
 
