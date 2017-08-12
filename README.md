@@ -31,6 +31,8 @@
 
 > [Bootstrap 4](https://getbootstrap.com/docs/4.0) components for [Vue.js](https://vuejs.org)
 
+### ✨ We are heavily working for stable `1.0.0` release and Bootstrap v4-beta support. For earlier access please refer to [1.x](https://github.com/bootstrap-vue/bootstrap-vue/tree/1.x) branch and [Beta Docs](https://bootstrap-vue.now.sh)
+
 # Links
 
 - 📘 [Documentation](https://bootstrap-vue.js.org)
