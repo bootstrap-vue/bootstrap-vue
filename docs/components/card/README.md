@@ -225,28 +225,28 @@ boolean prop `inverse` to adjust the text color.
 #### Solid:
 ```html
 <div>
-  <b-card variant="primary" inverse header="Primary" class="mb-3 text-center">
+  <b-card variant="primary" text-variant="white" header="Primary" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="secondary" inverse header="Secondary" class="mb-3 text-center">
+  <b-card variant="secondary" text-variant="white" header="Secondary" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="success" inverse header="Success" class="mb-3 text-center">
+  <b-card variant="success" text-variant="white" header="Success" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="info" inverse header="Info" class="mb-3 text-center">
+  <b-card variant="info" text-variant="white" header="Info" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="warning" inverse header="Warning" class="mb-3 text-center">
+  <b-card variant="warning" text-variant="white" header="Warning" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="danger" inverse header="Danger" class="mb-3 text-center">
+  <b-card variant="danger" text-variant="white" header="Danger" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
   <b-card variant="light" header="Light" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="dark" header="Dark" inverse class="mb-3 text-center">
+  <b-card variant="dark" header="Dark" text-variant="white" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
 </div>
@@ -260,7 +260,7 @@ boolean prop `inverse` to adjust the text color.
   <b-card variant="primary" bordered header="Primary" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="secondary" bordered header="Secondary" class="mb-3 text-center">
+  <b-card variant="secondary" bordered header="Secondary" header-bordered header-variant="secondary" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
   <b-card variant="success" bordered header="Success" class="mb-3 text-center">
@@ -272,7 +272,7 @@ boolean prop `inverse` to adjust the text color.
   <b-card variant="warning" bordered header="Warning" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
-  <b-card variant="danger" bordered header="Danger" class="mb-3 text-center">
+  <b-card variant="danger" bordered header="Danger" header-bordered header-variant="danger" header-text-variant="danger" class="mb-3 text-center">
     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </b-card>
   <b-card variant="light" bordered header="Light" class="mb-3 text-center">
@@ -296,6 +296,7 @@ via the `header-variant` and `footer-variant` props respectively.
 ```html
 <div>
   <b-card header="Card Header"
+          header-text-variant="white"
           header-tag="header"
           footer="Card Footer"
           footer-tag="footer"
@@ -369,7 +370,7 @@ card footers in decks will automatically line up.
 ```html
 <div>
   <b-card-group deck>
-    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img">
+    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img" img-top>
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to
         additional content. This content is a little bit longer.
@@ -378,7 +379,7 @@ card footers in decks will automatically line up.
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
     </b-card>
-    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img">
+    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img" img-top>
       <p class="card-text">
         This card has supporting text below as a natural lead-in to additional content.
       </p>
@@ -386,7 +387,7 @@ card footers in decks will automatically line up.
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
     </b-card>
-    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img">
+    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img" img-top>
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to additional
         content. This card has even longer content than the first to show that equal height action.
@@ -419,6 +420,7 @@ isn’t a bulletproof solution yet.
             img="https://placekitten.com/g/400/450"
             img-fluid
             img-alt="image"
+            img-top
     >
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to
@@ -439,6 +441,7 @@ isn’t a bulletproof solution yet.
             img="https://placekitten.com/500/350"
             img-fluid
             img-alt="image"
+            img-top
     >
       <p class="card-text">
         This card has supporting text below as a natural lead-in to additional content.
@@ -465,7 +468,7 @@ isn’t a bulletproof solution yet.
     <b-card img="https://lorempixel.com/400/400/" img-fuid img-alt="image" overlay>
     </b-card>
 
-    <b-card img="https://lorempixel.com/400/200/" img-fluid img-alt="image">
+    <b-card img="https://lorempixel.com/400/200/" img-fluid img-alt="image" img-top>
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to additional
         content. This card has even longer content than the first.
