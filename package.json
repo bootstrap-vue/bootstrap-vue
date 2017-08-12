@@ -63,10 +63,11 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
+    "jquery": "jquery@>=3.0.0",
+    "popper.js": "^1.11.0",
     "tether": "latest",
     "vue": "^2.4.2",
-    "jquery": "jquery@>=3.0.0",
-    "popper.js": "^1.11.0"
+    "vue-functional-data-merge": "^1.0.5"
   },
   "devDependencies": {
     "@nuxtjs/pwa": "^0.2.0",
