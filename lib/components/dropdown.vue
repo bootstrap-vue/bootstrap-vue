@@ -1,5 +1,5 @@
 <template>
-    <div :id="id || null" :class="['dropdown', 'btn-group', {dropup, show: visible}]">
+    <div :id="id || null" :class="dropdownClasses">
 
         <b-button :class="{'dropdown-toggle': !split}"
                   ref="button"
@@ -28,10 +28,11 @@
             <span class="sr-only">{{toggleText}}</span>
         </b-button>
 
-        <div :class="['dropdown-menu',{'dropdown-menu-right': right}]"
+        <div :class="menuClasses"
              ref="menu"
              role="menu"
              :aria-labelledby="id ? (id + (split ? '__BV_toggle_' : '__BV_button_')) : null"
+             @mouseover="onMouseOver"
              @keyup.esc="onEsc"
              @keydown.tab="onTab"
              @keydown.up="focusNext($event,true)"
@@ -42,15 +43,6 @@
 
     </div>
 </template>
-
-<style scoped>
-    .dropdown-item:focus,
-    .dropdown-item:hover,
-    .dropdown-header:focus {
-        background-color: #eaeaea;
-        outline: none;
-    }
-</style>
 
 <script>
     import { dropdownMixin } from '../mixins';
@@ -76,6 +68,36 @@
                 type: String,
                 default: null
             }
+        },
+        computed: {
+            dropdownClasses() {
+                return [
+                    'b-dropdown',
+                    'dropdown',
+                    'btn-group',
+                    this.dropup ? 'dropup' : '',
+                    this.visible ? 'show' : ''
+                ];
+            },
+            menuClasses() {
+                return [
+                    'dropdown-menu',
+                    this.right ? 'dropdown-menu-right' : '',
+                    this.visible ? 'show' : ''
+                ];
+            }
         }
     };
 </script>
+
+<style>
+.b-dropdown.dropdown-item:focus:not(.active),
+.b-dropdown.dropdown-item:hover:not(.active) {
+    /* @See https://github.com/twbs/bootstrap/issues/23329 */
+    box-shadow: inset 0px 0px 400px 110px rgba(0, 0, 0, .09);
+}
+
+.b-dropdown.dropdown-item:active {
+    box-shadow: initial;
+}
+</style>
