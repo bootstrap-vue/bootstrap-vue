@@ -32,7 +32,7 @@
              ref="menu"
              role="menu"
              :aria-labelledby="id ? (id + (split ? '__BV_toggle_' : '__BV_button_')) : null"
-             @mouseenter="onMouseEnter"
+             @mouseover="onMouseOver"
              @keyup.esc="onEsc"
              @keydown.tab="onTab"
              @keydown.up="focusNext($event,true)"
