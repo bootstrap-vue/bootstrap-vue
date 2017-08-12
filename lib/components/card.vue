@@ -154,7 +154,7 @@
             imgOverlay: {
                 type: Boolean,
                 default: false
-            }
+            },
             overlay: {
                 type: Boolean,
                 default: false
