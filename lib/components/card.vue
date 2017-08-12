@@ -15,12 +15,12 @@
             </slot>
         </component>
 
-        <!--Show custom block when no-block prop is set-->
-        <template v-if="noBlock">
+        <!--Show custom block when no-body prop is set-->
+        <template v-if="noBody">
             <slot></slot>
         </template>
 
-        <!-- Card Standard Blocks-->
+        <!-- Card Standard Body-->
         <div :class="blockClass" v-else>
             <h4 v-if="title" :is="titleTag" class="card-title" v-html="title"></h4>
             <h6 v-if="subTitle" :is="subTitleTag" class="card-subtitle mb-2 text-muted" v-html="subTitle"></h6>
@@ -120,7 +120,7 @@
                 default: 'div'
             },
 
-            // Main block
+            // Main body
             title: {
                 type: String,
                 default: null
@@ -137,7 +137,7 @@
                 type: String,
                 default: 'h6'
             },
-            noBlock: {
+            noBody: {
                 type: Boolean,
                 default: false
             },
