@@ -14,7 +14,7 @@
             },
             inputClass() {
                 return [
-                    'form-control-static',
+                    'form-control-plaintext',
                     this.size ? `form-control-${this.size}` : null,
                     this.state ? `form-control-${this.state}` : null
                 ];

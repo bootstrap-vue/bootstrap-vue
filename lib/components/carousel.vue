@@ -113,6 +113,25 @@
         return null;
     }
 
+    // Transition Event names
+    const TransitionEndEvents = {
+        WebkitTransition: 'webkitTransitionEnd',
+        MozTransition: 'transitionend',
+        OTransition: 'otransitionend',
+        transition: 'transitionend'
+    };
+
+    // Return the brtowser specific transitionend event name
+    function getTransisionEndEvent(el) {
+        for (const name in TransitionEndEvents) {
+            if (el.style[name] !== undefined) {
+                return TransitionEndEvents[name];
+            }
+        }
+        // fallback
+        return 'transitionend';
+    }
+
     export default {
         data() {
             return {

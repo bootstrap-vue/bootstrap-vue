@@ -2,6 +2,7 @@
     <div class="bd-home">
         <m-nav></m-nav>
 
+        <m-alert/>
         <nuxt/>
 
         <m-footer></m-footer>
@@ -9,10 +10,11 @@
 </template>
 
 <script>
-    import mNav from '~/includes/nav.vue';
-    import mFooter from '~/includes/footer.vue';
+    import mNav from '~/components/nav.vue';
+    import mFooter from '~/components/footer.vue';
+    import mAlert from '~/components/alert.vue';
 
     export default {
-        components: {mNav, mFooter}
+        components: {mNav, mFooter, mAlert}
     };
 </script>
