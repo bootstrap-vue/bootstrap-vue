@@ -92,7 +92,7 @@
     };
     
     // Fallback Transition duration
-    const TRANS_DUREATION = 601;
+    const TRANS_DURATION = 601;
 
     // Transition Event names
     const TransitionEndEvents = {
