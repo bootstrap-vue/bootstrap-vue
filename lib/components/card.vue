@@ -35,7 +35,7 @@
             <div class="card-body">
                 <slot name="body"></slot>
             </div>
-        </tamplate>
+        </template>
 
         <!-- Card Footer -->
         <component v-if="footer || $slots['footer']"
