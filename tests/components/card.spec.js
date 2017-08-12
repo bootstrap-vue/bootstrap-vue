@@ -4,34 +4,34 @@ describe('card', async() => {
     beforeEach(loadFixture('card'))
     testVM()
 
-    // since our class test depends on the card block,
+    // since our class test depends on the card body,
     // run this test first
-    it('all examples should contain card block', async() => {
+    it('all examples should contain card body', async() => {
         const { app: { $refs, $el } } = window
 
         const refs = ['simple_card', 'standard_card', 'img_card', 'img_overlay_card']
 
         refs.forEach((ref) => {
             const childNodes = [...$refs[ref].$el.childNodes]
-            const cardBlock = childNodes
-                .find(el => el.classList && el.classList.contains('card-block'))
+            const cardBody = childNodes
+                .find(el => el.classList && el.classList.contains('card-body'))
 
-            expect(cardBlock).toBeDefined()
+            expect(cardBody).toBeDefined()
         })
     })
 
     it('should contain class names', async() => {
         const { app: { $refs, $el } } = window
 
-        expect($refs.simple_card).toHaveAllClasses(['card', 'card-success', 'card-inverse'])
+        expect($refs.simple_card).toHaveAllClasses(['card', 'bg-success', 'text-white'])
         expect($refs.standard_card).toHaveClass('card')
         expect($refs.img_card).toHaveClass('card')
-        expect($refs.img_overlay_card).toHaveAllClasses(['card', 'card-inverse'])
+        expect($refs.img_overlay_card).toHaveAllClasses(['card', 'text-white'])
 
-        const blockEl = [...$refs.img_overlay_card.$el.childNodes]
-            .find(el => el.classList && el.classList.contains('card-block'))
+        const bodyEl = [...$refs.img_overlay_card.$el.childNodes]
+            .find(el => el.classList && el.classList.contains('card-body'))
 
-        expect(blockEl.classList.contains('card-img-overlay')).toBe(true)
+        expect(bodyEl.classList.contains('card-img-overlay')).toBe(true)
     })
 
     it('should contain text content', async() => {
@@ -79,5 +79,12 @@ describe('card', async() => {
             expect(imgEl).toBeDefined()
             expect(imgEl.src).toEqual(src)
         })
+    })
+    
+    it('Bordered card should have classes', async() => {
+        // bordered_card
+        const { app: { $refs, $el } } = window
+
+        expect($refs.bordered_card).toHaveAllClasses(['card', 'border-primary'])
     })
 })

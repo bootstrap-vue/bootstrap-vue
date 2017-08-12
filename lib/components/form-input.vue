@@ -32,7 +32,6 @@
 <script>
     import { formMixin } from '../mixins';
     import bFormInputStatic from './form-input-static.vue';
-
     export default {
         mixins: [formMixin],
         components: {bFormInputStatic},
@@ -150,5 +149,4 @@
             }
         }
     };
-
 </script>

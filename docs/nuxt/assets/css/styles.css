@@ -9,12 +9,9 @@
     transform: scale(1.01);
 }
 
-body, .nav-link {
-    font-family: 'Open Sans', sans-serif;
-}
-
 .hljs {
     font-family: "Inconsolata", "Monaco", "Andale Mono", "Lucida Console", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+    font-size: 17px;
     overflow-x: auto;
     position: relative;
     background-color: #f9f9f9;
@@ -32,16 +29,6 @@ code {
     color: #795da3;
 }
 
-.bd-masthead {
-    color: white;
-    background-image: none !important;
-    background-color:  #4fc08d;
-}
-
-.bd-masthead .lead {
-    color: white;
-}
-
 blockquote {
     font-size: 1.25rem;
     font-weight: 300;
@@ -54,10 +41,6 @@ blockquote {
 
 #__nuxt > .progress {
     z-index: 100 !important;
-}
-
-.vue-example {
-    margin: 20px;
 }
 
 pre.editable:after {
@@ -82,4 +65,12 @@ pre.editable:hover:after {
 
 pre.editable.live:after {
     content: 'Live';
+}
+
+.bd-footer {
+    padding: 4rem 0;
+    margin-top: 4rem;
+    font-size: 85%;
+    text-align: center;
+    background-color: #f7f7f7;
 }
