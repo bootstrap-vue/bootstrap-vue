@@ -107,7 +107,7 @@
             }
         }
         // fallback
-        rerturn 'transitionend';
+        return 'transitionend';
     }
 
     export default {
