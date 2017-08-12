@@ -14,6 +14,14 @@
     {
       "name": "footer",
       "description": "For custom rendering of footer content"
-    }
+     },
+     {
+       "name": "body",
+       "description": "Optional body section"
+     },
+     {
+       "name": "no-body",
+       "description": "Optional section with-out card-body wrapper"
+     }
   ]
 }
