@@ -371,7 +371,7 @@
                     this.isSliding = false;
                     // Notify ourselves that we're done sliding (slid)
                     this.$nextTick(() => this.$emit('slid', val));
-                });
+                };
 
                 // Clear transition classes after transition ends
                 currentSlide.addEventListener(this.transitionEndEvent, onceTransEnd);
