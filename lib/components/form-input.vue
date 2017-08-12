@@ -3,6 +3,7 @@
            ref="input"
            :is="isTextArea ? 'textarea' : 'input'"
            :type="isTextArea ? null : type"
+           :value="value"
            :name="name"
            :id="id || null"
            :disabled="disabled"
