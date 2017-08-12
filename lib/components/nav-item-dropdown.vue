@@ -1,5 +1,5 @@
 <template>
-    <li :id="id || null" :class="['nav-item','dropdown', {dropup, show: visible}]">
+    <li :id="id || null" :class="dropdownClasses">
 
         <a :class="['nav-link', dropdownToggle, {disabled}]"
            href="#"
@@ -15,7 +15,7 @@
             <slot name="button-content"><slot name="text"><span v-html="text"></span></slot></slot>
         </a>
 
-        <div :class="['dropdown-menu',{'dropdown-menu-right': right, show: visible}]"
+        <div :class="menuClasses"
              role="menu"
              ref="menu"
              :aria-labelledby="id ? (id + '__BV_button_') : null"
@@ -30,13 +30,15 @@
     </li>
 </template>
 
-<style scoped>
-    .dropdown-item:focus,
-    .dropdown-item:hover,
-    .dropdown-header:focus {
-        background-color: #eaeaea;
-        outline: none;
-    }
+<style>
+.b-nav-dropdown.dropdown-item:focus:not(.active),
+.b-nav-dropdown.dropdown-item:hover:not(.active) {
+    /* @See https://github.com/twbs/bootstrap/issues/23329 */
+    box-shadow: inset 0px 0px 400px 110px rgba(0, 0, 0, .09);
+}
+.b-nav-dropdown.dropdown-item:active {
+    box-shadow: initial;
+}
 </style>
 
 <script>
@@ -47,6 +49,22 @@
         computed: {
             dropdownToggle() {
                 return this.noCaret ? '' : 'dropdown-toggle';
+            },
+            dropdownClasses() {
+                return [
+                    'nav-item',
+                    'b-nav-dropdown',
+                    'dropdown',
+                    this.dropup ? 'dropup' : '',
+                    this.visible ? 'show' : ''
+                ];
+            },
+            menuClasses() {
+                return [
+                    'dropdown-menu',
+                    this.right ? 'dropdown-menu-right': '',
+                    this.visible ? 'show' : ''
+                ];
             }
         },
         props: {
