@@ -77,8 +77,9 @@
 
 <script>
     import { from as arrayFrom } from '../utils/array';
-    import {addEventListenerOnce, observeDom} from '../utils';
+    import { observeDom } from '../utils';
 
+    // Slide directional classes
     const DIRECTION = {
         next: {
             dirClass: 'carousel-item-left',
@@ -90,12 +91,32 @@
         }
     };
 
+    // Transition Event names
+    const TransitionEndEvents = {
+        WebkitTransition: 'webkitTransitionEnd',
+        MozTransition: 'transitionend',
+        OTransition: 'otransitionend',
+        transition: 'transitionend'
+    };
+
+    // Return the brtowser specific transitionend event name
+    function getTransisionEndEvent(el) {
+        for (const name in TransitionEndEvents) {
+            if (el.style[name] !== undefined) {
+                return TransitionEndEvents[name];
+            }
+        }
+        // fallback
+        rerturn 'transitionend';
+    }
+
     export default {
         data() {
             return {
                 index: this.value || 0,
                 isSliding: false,
                 intervalId: null,
+                transitionEndEvent: 'transitionend',
                 slides: []
             };
         },
@@ -252,6 +273,9 @@
 
         },
         mounted() {
+            // Cache current browser transitionend event name
+            this.transitionEndEvent = getTransisionEndEvent(this.$el);
+
             // Get all slides
             this.updateSlides();
 
@@ -316,8 +340,10 @@
                 currentSlide.classList.add(direction.dirClasst);
                 nextSlide.classList.add(direction.dirClass);
 
-                // Clear transition classes after transition ends
-                addEventListenerOnce(currentSlide, 'transitionend', (evt) => {
+                // Transition End handler
+                const onceTransEnd = (evt) => {
+                    currentSlide.removeEventListener(this.transitionEndEvent, onceTransEnd);
+
                     nextSlide.classList.remove(direction.dirClass);
                     nextSlide.classList.remove(direction.overlayClass);
                     nextSlide.classList.add('active');
@@ -346,6 +372,9 @@
                     // Notify ourselves that we're done sliding (slid)
                     this.$nextTick(() => this.$emit('slid', val));
                 });
+
+                // Clear transition classes after transition ends
+                currentSlide.addEventListener(this.transitionEndEvent, onceTransEnd);
             }
         },
         destroyed() {
