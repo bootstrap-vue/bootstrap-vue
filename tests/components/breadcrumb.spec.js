@@ -28,19 +28,19 @@ describe("breadcrumb", async () => {
         });
     });
 
-    it("should apply active class", async () => {
-        const { app: { $refs: { breadcrumb2: bCrumb }, items2 } } = window;
+    it("should apply active class to active item", async () => {
+        const { app: { $refs: { breadcrumb2: crumb2 }, items2 } } = window;
 
         items2.forEach((item, i) => {
             if (item.active) {
-                expect(bCrumb.children[i].classList.contains("active")).toBe(true);
+                expect(crumb2.children[i].classList.contains("active")).toBe(true);
             }
         });
     });
 
     it("should apply aria-current to active class element", async () => {
-        const { app: { $refs: { breadcrumb2: crumb }, items2 } } = window;
-        const $listItems = Array.from(crumb.children);
+        const { app: { $refs: { breadcrumb2: crumb2 }, items2 } } = window;
+        const $listItems = Array.from(crumb2.children);
 
         items2.forEach((item, i) => {
             if (item.active) {
