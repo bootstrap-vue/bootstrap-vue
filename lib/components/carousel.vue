@@ -77,20 +77,41 @@
 
 <script>
     import { from as arrayFrom } from '../utils/array';
-    import {observeDom} from '../utils';
+    import { observeDom } from '../utils';
 
+    // Slide directional classes
     const DIRECTION = {
         next: {
-            current: 'carousel-item-left',
-            next: 'carousel-item-left',
-            overlay: 'carousel-item-next'
+            dirClass: 'carousel-item-left',
+            overlayClass: 'carousel-item-next'
         },
         prev: {
-            current: 'carousel-item-right',
-            next: 'carousel-item-right',
-            overlay: 'carousel-item-prev'
+            dirClass: 'carousel-item-right',
+            overlayClass: 'carousel-item-prev'
         }
     };
+    
+    // Fallback Transition duration (with a little buffer) in ms
+    const TRANS_DURATION = 600 + 50;
+
+    // Transition Event names
+    const TransitionEndEvents = {
+        WebkitTransition: 'webkitTransitionEnd',
+        MozTransition: 'transitionend',
+        OTransition: 'otransitionend',
+        transition: 'transitionend'
+    };
+
+    // Return the brtowser specific transitionend event name
+    function getTransisionEndEvent(el) {
+        for (const name in TransitionEndEvents) {
+            if (el.style[name] !== undefined) {
+                return TransitionEndEvents[name];
+            }
+        }
+        // fallback
+        return null;
+    }
 
     export default {
         data() {
@@ -98,6 +119,7 @@
                 index: this.value || 0,
                 isSliding: false,
                 intervalId: null,
+                transitionEndEvent: null,
                 slides: []
             };
         },
@@ -210,7 +232,7 @@
                 });
                 this.intervalId = setInterval(() => {
                     this.next();
-                }, this.interval);
+                }, Math.min(1000, this.interval));
             },
 
             // Re-Start auto rotate slides when focus/hover leaves the carousel
@@ -252,17 +274,6 @@
                 this.start();
             }
 
-        },
-        created() {
-            // Create private properties
-            this._carouselAnimation = null;
-        },
-        mounted() {
-            // Get all slides
-            this.updateSlides();
-
-            // Observe child changes so we can update slide list
-            observeDom(this.$refs.inner, this.updateSlides.bind(this), {subtree: false});
         },
         watch: {
             value(newVal, oldVal) {
@@ -314,28 +325,39 @@
                 // Update v-model
                 this.$emit('input', this.index);
 
-                nextSlide.classList.add(direction.overlay);
+                nextSlide.classList.add(direction.overlayClass);
                 // Trigger a reflow of next slide
                 // eslint-ignore-next-line no-void
                 void(nextSlide.offsetHeight);
 
-                currentSlide.classList.add(direction.current);
-                nextSlide.classList.add(direction.next);
+                currentSlide.classList.add(direction.dirClass);
+                nextSlide.classList.add(direction.dirClass);
 
-                // Clear transition classes after 0.6s transition duration
-                this._carouselAnimation = setTimeout(() => {
-                    nextSlide.classList.remove(direction.next);
-                    nextSlide.classList.remove(direction.overlay);
+                // Transition End handler
+                let called = false;
+                const onceTransEnd = (evt) => {
+                    if (called) {
+                        return;
+                    }
+                    called = true;
+                    if (this.transitionEndEvent) {
+                        currentSlide.removeEventListener(this.transitionEndEvent, onceTransEnd);
+                    }
+                    this._animationTimeout = null;
+
+                    nextSlide.classList.remove(direction.dirClass);
+                    nextSlide.classList.remove(direction.overlayClass);
                     nextSlide.classList.add('active');
 
                     currentSlide.classList.remove('active');
-                    currentSlide.classList.remove(direction.current);
-                    currentSlide.classList.remove(direction.overlay);
+                    currentSlide.classList.remove(direction.dirClass);
+                    currentSlide.classList.remove(direction.overlayClass);
 
                     currentSlide.setAttribute('aria-current', 'false');
                     nextSlide.setAttribute('aria-current', 'true');
                     currentSlide.setAttribute('aria-hidden', 'true');
                     nextSlide.setAttribute('aria-hidden', 'false');
+
                     currentSlide.tabIndex = -1;
                     nextSlide.tabIndex = -1;
 
@@ -346,16 +368,38 @@
                             nextSlide.focus();
                         });
                     }
+
                     this.isSliding = false;
                     // Notify ourselves that we're done sliding (slid)
-                    this.$emit('slid', val);
-                    
-                }, 601);
+                    this.$nextTick(() => this.$emit('slid', val));
+                };
+
+                // Clear transition classes after transition ends
+                if (this.transitionEndEvent) {
+                    currentSlide.addEventListener(this.transitionEndEvent, onceTransEnd);
+                }
+                // Fallback to setTimeout
+                this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION);
             }
         },
+        created() {
+            // Create private non-reactive props
+            this._animationTimeout = null;
+        },
+        mounted() {
+            // Cache current browser transitionend event name
+            this.transitionEndEvent = getTransisionEndEvent(this.$el) || null;
+
+            // Get all slides
+            this.updateSlides();
+
+            // Observe child changes so we can update slide list
+            observeDom(this.$refs.inner, this.updateSlides.bind(this), {subtree: false});
+        },
         destroyed() {
-            clearTimeout(this._carouselAnimation);
             clearInterval(this.intervalId);
+            clearTimeout(this._animationTimeout);
+            this._animationTimeout = null;
         }
     };
 

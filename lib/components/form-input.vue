@@ -78,6 +78,13 @@
                 return this.invalid;
             }
         },
+        watch:{
+            value(newVal, oldVal) {
+                if (newVal !== oldVal){
+                    this.$refs.input.value = newVal;
+                }
+            }
+        },
         methods: {
             format (value, el) {
 
@@ -91,6 +98,7 @@
                 this.$refs.input.value = value;
                 return value;
             },
+
             onInput (value, el) {
                 let formattedValue = value;
                 if (!this.lazyFormatter) {
