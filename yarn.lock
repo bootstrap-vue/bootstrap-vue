@@ -989,9 +989,12 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-bootstrap@^4.0.0-beta:
-  version "4.0.0-beta"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-beta.tgz#dc5928175d2e71310bc668cf9e05a907211b72a6"
+bootstrap@^4.0.0-alpha.6:
+  version "4.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-alpha.6.tgz#4f54dd33ac0deac3b28407bc2df7ec608869c9c8"
+  dependencies:
+    jquery ">=1.9.1"
+    tether "^1.4.0"
 
 brace-expansion@^1.1.7:
   version "1.1.8"
@@ -2307,15 +2310,9 @@ eslint-plugin-html@^2.0.0:
   dependencies:
     htmlparser2 "^3.8.2"
 
-eslint-plugin-html@^3.0.0:
+eslint-plugin-html@^3.0.0, eslint-plugin-html@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-3.1.1.tgz#d6c03796e89ac6b735da6fef9ca9162b423daee3"
-  dependencies:
-    htmlparser2 "^3.8.2"
-
-eslint-plugin-html@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-3.2.0.tgz#fb64c2789e9582b97f580a38814a57966f91a7b2"
   dependencies:
     htmlparser2 "^3.8.2"
 
@@ -3833,7 +3830,7 @@ jpeg-js@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/jpeg-js/-/jpeg-js-0.2.0.tgz#53e448ec9d263e683266467e9442d2c5a2ef5482"
 
-jquery@^3.0.0:
+jquery@>=1.9.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 
@@ -4936,10 +4933,6 @@ pngjs@^3.0.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-3.3.0.tgz#1f5730c189c94933b81beda2ab2f8e2855263a8f"
 
-popper.js@^1.11.0:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.11.1.tgz#f5aca9a73bca1ce1fdbd9be8b1ba68677cbdd8e0"
-
 postcss-calc@^5.2.0:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/postcss-calc/-/postcss-calc-5.3.1.tgz#77bae7ca928ad85716e2fda42f261bf7c1d65b5e"
@@ -5866,9 +5859,11 @@ rollup-watch@^4.3.1:
     require-relative "0.8.7"
     rollup-pluginutils "^2.0.1"
 
-rollup@^0.47.2:
-  version "0.47.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.47.2.tgz#e65ee4c16997400170e84a67404fa95f2240f205"
+rollup@^0.45.2:
+  version "0.45.2"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.45.2.tgz#63a284c2b31234656f24e9e9717fabb6a7f0fa43"
+  dependencies:
+    source-map-support "^0.4.0"
 
 run-async@^2.2.0:
   version "2.3.0"
@@ -6055,7 +6050,7 @@ source-list-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.0.tgz#aaa47403f7b245a92fbc97ea08f250d6087ed085"
 
-source-map-support@^0.4.15, source-map-support@^0.4.2:
+source-map-support@^0.4.0, source-map-support@^0.4.15, source-map-support@^0.4.2:
   version "0.4.15"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.15.tgz#03202df65c06d2bd8c7ec2362a193056fef8d3b1"
   dependencies:
@@ -6359,7 +6354,7 @@ test-exclude@^4.1.1:
     read-pkg-up "^1.0.1"
     require-main-filename "^1.0.1"
 
-tether@latest:
+tether@^1.4.0, tether@latest:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.0.tgz#0f9fa171f75bf58485d8149e94799d7ae74d1c1a"
 
@@ -6651,10 +6646,6 @@ void-elements@^2.0.1:
 vue-class-component@^5.0.0:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-5.0.2.tgz#3dcdc005c58c4e88d8ec2d46e01c74f4d90135c8"
-
-vue-functional-data-merge@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-1.0.5.tgz#228c3bf5a531ec6d60881038e08457cece2691a2"
 
 vue-hot-reload-api@^2.1.0:
   version "2.1.0"

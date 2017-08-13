@@ -5,7 +5,7 @@
             <img v-if="img" :src="img" :alt="imgAlt" :class="['card-img', 'img-fluid']">
         </slot>
 
-        <!-- Card Header -->
+        <!-- Card Header-->
         <component v-if="header || $slots['header']"
                    :is="headerTag"
                    :class="['card-header', headerVariant?('bg-'+headerVariant):'', headerClass]"
@@ -15,29 +15,19 @@
             </slot>
         </component>
 
-        <!--Show custom block when no-body prop is set -->
-        <template v-if="noBody">
+        <!--Show custom block when no-block prop is set-->
+        <template v-if="noBlock">
             <slot></slot>
         </template>
 
-        <!-- Card Standard Body-->
+        <!-- Card Standard Blocks-->
         <div :class="blockClass" v-else>
             <h4 v-if="title" :is="titleTag" class="card-title" v-html="title"></h4>
             <h6 v-if="subTitle" :is="subTitleTag" class="card-subtitle mb-2 text-muted" v-html="subTitle"></h6>
             <slot></slot>
         </div>
 
-        <!--Alternative method to get a no-body section -->
-        <slot name="no-body"></slot>
-
-        <!--Alternative method to get a body section -->
-        <template v-if="$slots['body']">
-            <div class="card-body">
-                <slot name="body"></slot>
-            </div>
-        </template>
-
-        <!-- Card Footer -->
+        <!-- Card Footer-->
         <component v-if="footer || $slots['footer']"
                    :is="footerTag"
                    :class="['card-footer', footerVariant?('bg-'+footerVariant):'', footerClass]"
@@ -54,19 +44,22 @@
         computed: {
             blockClass() {
                 return [
-                    'card-body',
-                    (this.overlay || this.imgOverlay) ? 'card-img-overlay' : null
+                    'card-block',
+                    this.overlay ? 'card-img-overlay' : null
                 ];
             },
             cardVariant() {
-                if (this.bordered) {
-                    return this.variant ? `border-${this.variant}` : null;
-                } else {
-                    return this.variant ? `bg-${this.variant}` : null;
-                }
+                return this.variant ? `card-${this.variant}` : null;
             },
             cardInverse() {
-                return this.inverse ? 'text-white' : ''
+                if (this.overlay || this.inverse) {
+                    return 'card-inverse';
+                }
+                // Auto inverse colored cards
+                if (this.inverse === null && this.variant && this.variant.length > 0 &&
+                    this.variant.indexOf('outline') === -1) {
+                    return 'card-inverse';
+                }
             },
             cardAlign() {
                 return this.align ? `text-${this.align}` : null;
@@ -79,15 +72,12 @@
             },
             inverse: {
                 type: Boolean,
-                default: false
+                // It should remain null for auto inverse
+                default: null
             },
             variant: {
                 type: String,
                 default: null
-            },
-            bordered: {
-                type: Boolean,
-                default: false
             },
             tag: {
                 type: String,
@@ -130,7 +120,7 @@
                 default: 'div'
             },
 
-            // Main body
+            // Main block
             title: {
                 type: String,
                 default: null
@@ -147,7 +137,7 @@
                 type: String,
                 default: 'h6'
             },
-            noBody: {
+            noBlock: {
                 type: Boolean,
                 default: false
             },
@@ -160,10 +150,6 @@
             imgAlt: {
                 type: String,
                 default: null
-            },
-            imgOverlay: {
-                type: Boolean,
-                default: false
             },
             overlay: {
                 type: Boolean,

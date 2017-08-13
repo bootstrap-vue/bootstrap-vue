@@ -11,8 +11,8 @@
             <span class="checked-items" v-html="displayItem"></span>
         </button>
         <ul class="dropdown-menu" :class="{'dropdown-menu-right' : position == 'right'}" aria-labelledby="dLabel">
-            <li v-for="item in list" :key="item.text">
-                <button class="dropdown-item" @click.stop.prevent="select(item)">{{item.text}}</button>
+            <li v-for="item in list">
+                <button class="dropdown-item" :click.stop.prevent="select(item)">{{item.text}}</button>
             </li>
         </ul>
     </div>

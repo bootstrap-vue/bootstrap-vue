@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.21.0"></a>
+# [0.21.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.2...v0.21.0) (2017-08-12)
+
+
+### Bug Fixes
+
+* **carousel:** Ensure slideshow rotates when the end is reached ([#814](https://github.com/bootstrap-vue/bootstrap-vue/issues/814)) ([e6e1021](https://github.com/bootstrap-vue/bootstrap-vue/commit/e6e1021))
+* **docs:** Unclosed em tag in navbar example ([#819](https://github.com/bootstrap-vue/bootstrap-vue/issues/819)) ([be5b54a](https://github.com/bootstrap-vue/bootstrap-vue/commit/be5b54a))
+* **dropdowns:** Focus dropdown item on hover ([#825](https://github.com/bootstrap-vue/bootstrap-vue/issues/825)) ([f174831](https://github.com/bootstrap-vue/bootstrap-vue/commit/f174831))
+
+
+### Features
+
+* **pagination-nav:** New navigation based pagination (issue [#554](https://github.com/bootstrap-vue/bootstrap-vue/issues/554)) ([#746](https://github.com/bootstrap-vue/bootstrap-vue/issues/746)) ([698d26f](https://github.com/bootstrap-vue/bootstrap-vue/commit/698d26f))
+
+
+
 <a name="0.20.2"></a>
 ## [0.20.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.1...v0.20.2) (2017-08-11)
 

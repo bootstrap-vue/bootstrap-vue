@@ -1,6 +1,6 @@
 <template>
     <component :is="tag" :id="id || null" class="tabs">
-        <div v-if="bottom" :class="['tab-content',{'card-body': card}]" ref="tabsContainer">
+        <div v-if="bottom" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
@@ -44,7 +44,7 @@
             </ul>
         </div>
 
-        <div v-if="!bottom" :class="['tab-content',{'card-body': card}]" ref="tabsContainer">
+        <div v-if="!bottom" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>

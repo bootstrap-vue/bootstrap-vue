@@ -25,7 +25,6 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
 
     // Iterate over them and parse
     pres.forEach(pre => {
-        // Add bd-clipboard class
         // Test if it is really vue template
         let l = loadVue(pre.textContent)
         if(!l.template && !l.name) {
@@ -66,7 +65,7 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
 
                 // CreateVM
                 vm = new Vue(Object.assign({}, options, {
-                    template: `<div class='bd-example vue-example vue-example-${name}'>${template}</div>`,
+                    template: `<div class='vue-example vue-example-${name}'>${template}</div>`,
                     el: holder
                 }))
             } catch (e) {
