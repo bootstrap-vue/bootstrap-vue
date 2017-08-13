@@ -1,90 +1,120 @@
-import { loadFixture, testVM } from '../helpers'
+import { loadFixture, testVM } from "../helpers";
 
-describe('card', async() => {
-    beforeEach(loadFixture('card'))
-    testVM()
+describe("card", async () => {
+    beforeEach(loadFixture("card"));
+    testVM();
 
-    // since our class test depends on the card body,
-    // run this test first
-    it('all examples should contain card body', async() => {
-        const { app: { $refs, $el } } = window
+    it("should contain '.card-body' class in the default slot", async () => {
+        const { app: { $refs } } = window;
 
-        const refs = ['simple_card', 'standard_card', 'img_card', 'img_overlay_card']
+        const refs = ["simple_card", "standard_card", "img_card", "img_overlay_card"];
 
-        refs.forEach((ref) => {
-            const childNodes = [...$refs[ref].$el.childNodes]
-            const cardBody = childNodes
-                .find(el => el.classList && el.classList.contains('card-body'))
+        refs.forEach(ref => {
+            const childNodes = [...$refs[ref].childNodes];
+            const cardBody = childNodes.find(el => el.classList && el.classList.contains("card-body"));
 
-            expect(cardBody).toBeDefined()
-        })
-    })
+            expect(cardBody).toBeDefined();
+        });
+    });
 
-    it('should contain class names', async() => {
-        const { app: { $refs, $el } } = window
+    it("should not contain '.card-body' class if no-body specified", async () => {
+        const { app: { $refs } } = window;
 
-        expect($refs.simple_card).toHaveAllClasses(['card', 'bg-success', 'text-white'])
-        expect($refs.standard_card).toHaveClass('card')
-        expect($refs.img_card).toHaveClass('card')
-        expect($refs.img_overlay_card).toHaveAllClasses(['card', 'text-white'])
+        expect($refs.no_body.classList.contains("card-body")).toBe(false);
+        expect($refs.no_body_default_slot).toEqual($refs.no_body.children[0]);
+    });
 
-        const bodyEl = [...$refs.img_overlay_card.$el.childNodes]
-            .find(el => el.classList && el.classList.contains('card-body'))
+    it("should contain class names", async () => {
+        const { app: { $refs } } = window;
 
-        expect(bodyEl.classList.contains('card-img-overlay')).toBe(true)
-    })
+        expect($refs.simple_card).toHaveAllClasses(["card", "card-success"]);
+        expect($refs.standard_card).toHaveClass("card");
+        expect($refs.img_card).toHaveClass("card");
+        expect($refs.img_overlay_card).toHaveAllClasses(["card"]);
 
-    it('should contain text content', async() => {
-        const { app: { $refs, $el } } = window
+        const cardBodyEl = [...$refs.img_overlay_card.childNodes].find(
+            el => el.classList && el.classList.contains("card-body")
+        );
 
-        expect($refs.simple_card.$el.textContent).toContain('Simple Card')
-        expect($refs.standard_card.$el.textContent).toContain('Last updated 3 mins ago')
-        expect($refs.img_card.$el.textContent).toContain('This is my opinion :)')
-        expect($refs.img_overlay_card.$el.textContent).toContain('Overlay cards are cute!')
-    })
+        expect(cardBodyEl.classList.contains("card-img-overlay")).toBe(true);
+    });
 
-    it('standard_card should display card header', async() => {
-        const { app: { $refs, $el } } = window
+    it("should contain text content", async () => {
+        const { app: { $refs } } = window;
 
-        const childNodes = [...$refs.standard_card.$el.childNodes]
-        const headerEl = childNodes.find(el => el.classList && el.classList.contains('card-header'))
-        const headerText = $refs.standard_card.header
+        expect($refs.simple_card.textContent).toContain("Simple Card");
+        expect($refs.standard_card.textContent).toContain("Last updated 3 mins ago");
+        expect($refs.img_card.textContent).toContain("This is my opinion :)");
+        expect($refs.img_overlay_card.textContent).toContain("Overlay cards are cute!");
+    });
 
-        expect(headerEl).toBeDefined()
-        expect(headerEl.textContent).toContain(headerText)
-    })
+    it("standard_card should display card header", async () => {
+        const { app: { $refs } } = window;
 
-    it('standard_card should display card footer', async() => {
-        const { app: { $refs, $el } } = window
+        const childNodes = [...$refs.standard_card.childNodes];
+        const headerEl = childNodes.find(el => el.classList && el.classList.contains("card-header"));
 
-        const childNodes = [...$refs.standard_card.$el.childNodes]
-        const footerEl = childNodes.find(el => el.classList && el.classList.contains('card-footer'))
-        const footerText = 'Last updated 3 mins ago'
+        expect(headerEl).toBeDefined();
+        expect(headerEl.textContent).toContain(app.headerText);
+    });
 
-        expect(footerEl).toBeDefined()
-        expect(footerEl.textContent).toContain(footerText)
-    })
+    it("standard_card should display card footer", async () => {
+        const { app: { $refs } } = window;
 
-    it('should contain <img> with matching src', async() => {
-        const { app: { $refs, $el } } = window
+        const childNodes = [...$refs.standard_card.childNodes];
+        const footerEl = childNodes.find(el => el.classList && el.classList.contains("card-footer"));
+        const footerText = "Last updated 3 mins ago";
 
-        const vmsWithImg = ['img_card', 'img_overlay_card']
+        expect(footerEl).toBeDefined();
+        expect(footerEl.textContent).toContain(footerText);
+    });
 
-        vmsWithImg.forEach((vmRef) => {
-            const vm = $refs[vmRef]
-            const src = vm.img
-            const childNodes = [...vm.$el.childNodes]
-            const imgEl = childNodes.find(el => el.tagName && el.tagName === 'IMG')
+    it("should contain <img> with matching src", async () => {
+        const { app: { $refs } } = window;
 
-            expect(imgEl).toBeDefined()
-            expect(imgEl.src).toEqual(src)
-        })
-    })
-    
-    it('Bordered card should have classes', async() => {
-        // bordered_card
-        const { app: { $refs, $el } } = window
+        const refsWithImg = ["img_card", "img_overlay_card"];
 
-        expect($refs.bordered_card).toHaveAllClasses(['card', 'border-primary'])
-    })
-})
+        refsWithImg.forEach((ref, i) => {
+            const node = $refs[ref];
+            const src = app["img" + i];
+            const childNodes = [...node.childNodes];
+            const imgEl = childNodes.find(el => el.tagName && el.tagName === "IMG");
+
+            expect(imgEl).toBeDefined();
+            expect(imgEl.src).toEqual(src);
+        });
+    });
+
+    it("should use the 'tag' for element tag", async () => {
+        const { app: { $refs } } = window;
+        const $titleCard = $refs.card_group.querySelector("#title-tag-test");
+        // Card ref -> .card-body -> title el
+        expect($titleCard).toBeElement("article");
+    });
+
+    it("should use the 'title-tag' for element tag", async () => {
+        const { app: { $refs } } = window;
+        const $titleCard = $refs.card_group.querySelector("#title-tag-test");
+        // Card ref -> .card-body -> title el
+        expect($titleCard.children[0].children[0]).toBeElement("h1");
+    });
+
+    it("should use the 'sub-title-tag' for element tag", async () => {
+        const { app: { $refs } } = window;
+        const $subtitleCard = $refs.card_group.querySelector("#sub-title-tag-test");
+        // Card ref -> .card-body -> subtitle el
+        expect($subtitleCard.children[0].children[0]).toBeElement("h2");
+    });
+
+    it("CardGroup: should apply '.card-group' class", async () => {
+        const { app: { $refs } } = window;
+
+        expect($refs.card_group.classList.contains("card-group")).toBe(true);
+    });
+
+    it("CardGroup: should use the 'tag' for element tag", async () => {
+        const { app: { $refs } } = window;
+
+        expect($refs.card_group).toBeElement("section");
+    });
+});
