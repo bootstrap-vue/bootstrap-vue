@@ -1,10 +1,35 @@
 <template>
-    <input v-if="!static"
+    <b-form-input-static v-if="static"
+                         :id="id || null"
+                         :value="value"
+                         :size="size"
+                         :state="state"
+    ></b-form-input-static>
+    <textarea v-else-if="isTextArea"
+              ref="input"
+              :name="name"
+              :value="value"
+              :id="id || null"
+              :disabled="disabled"
+              :required="required"
+              :autocomplete="autocomplete || null"
+              :aria-required="required ? 'true' : null"
+              :aria-invalid="ariaInvalid"
+              :readonly="readonly"
+              :class="inputClass"
+              :rows="rows || rowsCount"
+              :placeholder="placeholder"
+              @input="onInput($event.target.value, $event.target)"
+              @change="onChange($event.target.value, $event.target)"
+              @keyup="onKeyUp($event)"
+              @focus="$emit('focus')"
+              @blur="$emit('blur')"
+    ></textarea>
+    <input v-else
            ref="input"
-           :is="isTextArea ? 'textarea' : 'input'"
-           :type="isTextArea ? null : type"
-           :value="value"
            :name="name"
+           :value="value"
+           :type="type"
            :id="id || null"
            :disabled="disabled"
            :required="required"
@@ -13,44 +38,37 @@
            :aria-invalid="ariaInvalid"
            :readonly="readonly"
            :class="inputClass"
-           :rows="isTextArea ? (rows || rowsCount) : null"
            :placeholder="placeholder"
            @input="onInput($event.target.value, $event.target)"
            @change="onChange($event.target.value, $event.target)"
            @keyup="onKeyUp($event)"
            @focus="$emit('focus')"
            @blur="$emit('blur')"
-    />
-    <b-form-input-static v-else
-                         :id="id || null"
-                         :value="value"
-                         :size="size"
-                         :state="state"
-    ></b-form-input-static>
+    >
 </template>
 
 <script>
-    import { formMixin } from '../mixins';
+    import {formMixin} from '../mixins';
     import bFormInputStatic from './form-input-static.vue';
 
     export default {
         mixins: [formMixin],
         components: {bFormInputStatic},
         computed: {
-            isTextArea() {
+            isTextArea () {
                 return this.textarea || this.type === 'textarea';
             },
-            rowsCount() {
+            rowsCount () {
                 return (this.value || '').toString().split('\n').length;
             },
-            inputClass() {
+            inputClass () {
                 return [
                     'form-control',
                     this.size ? `form-control-${this.size}` : null,
                     this.state ? `form-control-${this.state}` : null
                 ];
             },
-            ariaInvalid() {
+            ariaInvalid () {
                 if (this.invalid === false) {
                     return null;
                 }
@@ -68,7 +86,8 @@
             }
         },
         methods: {
-            format(value, el) {
+            format (value, el) {
+
                 if (this.formatter) {
                     const formattedValue = this.formatter(value, el);
                     if (formattedValue !== value) {
@@ -76,30 +95,33 @@
                         return formattedValue;
                     }
                 }
+                this.$refs.input.value = value;
                 return value;
             },
-            onInput(value, el) {
-                let formattedValue=value;
+
+            onInput (value, el) {
+                let formattedValue = value;
                 if (!this.lazyFormatter) {
                     formattedValue = this.format(value, el);
                 }
                 this.$emit('input', formattedValue);
             },
-            onChange(value, el) {
+            onChange (value, el) {
                 const formattedValue = this.format(value, el);
                 this.$emit('input', formattedValue);
                 this.$emit('change', formattedValue);
             },
-            onKeyUp(e) {
+            onKeyUp (e) {
                 this.$emit('keyup', e);
             },
-            focus() {
+            focus () {
                 this.$refs.input.focus();
             }
         },
         props: {
             value: {
-                default: null
+                type: String,
+                default: ''
             },
             type: {
                 type: String,
