@@ -2,11 +2,11 @@
     <button v-bind="conditionalLinkProps"
             :is="componentType"
             :class="classList"
-            :data-toggle="isToggle ? 'button' : null"
+            :data-toggle="dataToggle"
             :aria-pressed="ariaPressed"
             :type="btnType"
             :disabled="disabled"
-            :tabindex="(disabled && componentType !== 'button') ? '-1' : null"
+            :tabindex="tabIndex"
             @focusin.native="handleFocus"
             @focusout.native="handleFocus"
             @click="onClick">
@@ -68,13 +68,23 @@ export default {
         },
         ariaPressed() {
             if (this.isToggle) {
-                // Add aria-pressed state
+                // If a toggle button, Add aria-pressed state (must be string, not Boolean)
                 return this.pressed ? 'true' : 'false';
             }
-            // Remove aria-pressed attribute
+            // Else remove aria-pressed attribute
             return null;
         },
+        dataToggle() {
+            // Toggle button needs the data-toggle="button" attribute for propper styling
+            return this.isToggle ? 'button' : null;
+        },
+        tabIndex() {
+            // Disabled buttons automatically take themselves out of the tab order.
+            // Links do not, so we emulate this behaviour by setting tabindex to -1
+            return (this.disabled && this.componentType !== 'button') ? '-1' : null;
+        },
         conditionalLinkProps() {
+            // Add conditional props only intended for 'b-link'
             return this.componentType === 'button' ? {} : this.linkProps;
         }
     },
@@ -101,30 +111,32 @@ export default {
             default: 'button'
         },
         pressed: {
-            // tri-state prop: true, false or null
+            // tri-state syncable prop: true, false or null
             type: Boolean,
             default: null
         }
     }),
     methods: {
-        onClick(e) {
+        onClick(evt) {
             if (this.disabled) {
-                e.stopPropagation();
-                e.preventDefault();
+                evt.stopPropagation();
+                evt.preventDefault();
             } else {
-                this.$emit('click', e);
+                this.$emit('click', evt);
                 if (this.isToggle) {
-                    // Emit .sync notification about pressed prop state changing
+                    // Emit .sync notification to parent about pressed prop state changing
                     this.$emit('update:pressed', !this.pressed);
                 }
             }
         },
         handleFocus(evt) {
+            // When in toggle mode, we need to handle focus styling manualy via a class
             if (this.isToggle) {
+                const classList = evt.target.classList;
                 if (evt.type === 'focusin') {
-                    evt.target.classList.add('focus');
+                    classList.add('focus');
                 } else if (evt.type === 'focusout') {
-                    evt.target.classList.remove('focus');
+                    classList.remove('focus');
                 }
             }
         }
