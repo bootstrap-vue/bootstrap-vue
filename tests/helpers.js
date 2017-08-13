@@ -3,9 +3,9 @@ import { resolve } from 'path';
 import Vue from 'vue/dist/vue.common';
 import BootstrapVue from '../lib';
 
-const readFile = (path) => String(readFileSync(resolve(__dirname, '../examples', path)));
+const readFile = (path) => String(readFileSync(resolve(__dirname, 'fixtures', path)));
 const throwIfNotVueInstance = vm => {
-    if (!vm instanceof Vue) {
+    if (!(vm instanceof Vue)) {
         // debugging breadcrumbs in case a non-Vue instance gets erroneously passed
         // makes the error easier to fix than example: "Cannot read _prevClass of undefined"
         throw new TypeError(`The matcher function expects Vue instance. Given ${typeof vm}`)
