@@ -33,4 +33,4 @@ jobs:
       # Test
       - run:
           name: Tests
-          command: yarn test -- --max-workers=1 && yarn codecov
+          command: yarn test -- --maxWorkers=1 && yarn codecov

@@ -56,7 +56,7 @@
     "docs-dev": "nuxt dev",
     "docs-gen": "nuxt generate",
     "docs-publish": "./build/gh-pages",
-    "test": "jest --max-workers=2",
+    "test": "jest --maxWorkers=2",
     "test-dev": "jest",
     "prepublish": "npm run build && npm run test",
     "postpublish": "npm run docs-publish",
