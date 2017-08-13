@@ -1,8 +1,11 @@
 <div id="app">
     <div class="row">
         <template v-for="variant in variants">
-            <div class="col-md-4 pb-2" v-for="size in sizes">
-                <b-button :size="size" :variant="variant" :ref="`btn${size ? `_${size}` : ''}_${variant.replace(/-/g, '_')}`">
+            <div class="col-md-4 pb-2"
+                 v-for="size in sizes">
+                <b-button :size="size"
+                          :variant="variant"
+                          :ref="`btn${size ? `_${size}` : ''}_${variant.replace(/-/g, '_')}`">
                     {{variant}} {{size}}
                 </b-button>
             </div>
@@ -34,6 +37,13 @@
                    block
                    disabled>
                 Can't touch this
+            </b-btn>
+        </div>
+        <div class="col-md-4 pb-2">
+            <b-btn variant="primary"
+                   ref="btn_pressed"
+                   :pressed.sync="btnToggle">
+                Toggle Me
             </b-btn>
         </div>
     </div>

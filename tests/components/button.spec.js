@@ -1,4 +1,4 @@
-import { loadFixture, testVM } from "../helpers";
+import { loadFixture, testVM, nextTick, setData } from "../helpers";
 
 /**
  * Button functionality to test:
@@ -87,5 +87,59 @@ describe("button", async () => {
 
         expect(btn.disabled).toBe(true);
         expect(spy).not.toHaveBeenCalled();
+    });
+
+    it("should not have `.active` class and `aria-pressed` when pressed is null", async () => {
+        const { app: { $refs } } = window;
+        const vm = $refs.btn_pressed;
+
+        await setData(app, "btnToggle", null);
+        await nextTick();
+
+        expect(vm).not.toHaveClass("active");
+        expect(vm.getAttribute("aria-pressed")).toBeNull();
+        vm.click();
+        expect(app.btnToggle).toBeNull();
+    });
+
+    it('should not have `.active` class and have `aria-pressed="false"` when pressed is false', async () => {
+        const { app: { $refs } } = window;
+        const vm = $refs.btn_pressed;
+
+        await setData(app, "btnToggle", false);
+        await nextTick();
+
+        expect(vm).not.toHaveClass("active");
+        expect(vm.getAttribute("aria-pressed")).toBe("false");
+    });
+
+    it('should have `.active` class and have `aria-pressed="true"` when pressed is true', async () => {
+        const { app: { $refs } } = window;
+        const vm = $refs.btn_pressed;
+
+        await setData(app, "btnToggle", true);
+        await nextTick();
+
+        vm.click();
+
+        expect(vm).toHaveClass("active");
+        expect(vm.getAttribute("aria-pressed")).toBe("true");
+    });
+
+    it("should update the parent sync value on click and when pressed is not null", async () => {
+        const { app: { $refs } } = window;
+        const vm = $refs.btn_pressed;
+
+        await setData(app, "btnToggle", false);
+        await nextTick();
+
+        expect(app.btnToggle).toBe(false);
+        expect(vm).not.toHaveClass("active");
+        expect(vm.getAttribute("aria-pressed")).toBe("false");
+        vm.click();
+        await nextTick();
+        expect(app.btnToggle).toBe(true);
+        expect(vm).toHaveClass("active");
+        expect(vm.getAttribute("aria-pressed")).toBe("true");
     });
 });

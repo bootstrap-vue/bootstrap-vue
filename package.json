@@ -56,7 +56,7 @@
     "docs-dev": "nuxt dev",
     "docs-gen": "nuxt generate",
     "docs-publish": "./build/gh-pages",
-    "test": "jest --maxWorkers=1",
+    "test": "jest",
     "prepublish": "npm run build && npm run test",
     "postpublish": "npm run docs-publish",
     "release": "standard-version"
@@ -67,7 +67,7 @@
     "popper.js": "^1.11.0",
     "tether": "latest",
     "vue": "^2.4.2",
-    "vue-functional-data-merge": "^1.0.5"
+    "vue-functional-data-merge": "^1.0.6"
   },
   "devDependencies": {
     "@nuxtjs/pwa": "^0.2.0",
@@ -88,7 +88,7 @@
     "markdown-loader": "^2.0.1",
     "marked": "^0.3.6",
     "nuxt": "1.0.0-rc4",
-    "rollup": "^0.47.2",
+    "rollup": "^0.47.4",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^8.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",

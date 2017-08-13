@@ -1,5 +1,5 @@
 window.app = new Vue({
-    el: '#app',
+    el: "#app",
     data: {
         variants: [
             "primary",
@@ -14,11 +14,13 @@ window.app = new Vue({
             "outline-danger",
             "link"
         ],
-        sizes: ['sm','','lg'],
+        sizes: ["sm", "", "lg"],
+        btnToggle: null
     },
     methods: {
         handleClick(event) {
-            alert('You clicked, I listened.')
-        },
+            // eslint-disable-next-line no-alert
+            alert("You clicked, I listened.");
+        }
     }
 });
