@@ -67,7 +67,7 @@
                             <span>{{vertical ? 'Horizontal' : 'Vertical'}}</span>
                         </b-btn>
                     </div>
-                    <div class="card-body">
+                    <div class="card-block">
                         <div id="result-container" ref="result"></div>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                                 <span>Clear</span>
                             </b-btn>
                         </div>
-                        <div class="card-body">
+                        <div class="card-block">
                             <div v-for="message in messages">
                                 <b-badge :variant="message[0]">{{message[0]}}</b-badge>
                                 <span class="text-muted"> {{message[1]}}</span>
@@ -106,14 +106,7 @@
 <script>
     import Vue from 'vue';
     import {debounce} from 'lodash';
-
-    const defaultJS = `{
-    data: {
-        name: 'Zeus'
-    },
-}`
-    const defaultHTML = `<b-alert show> Hello {{ name }}! </b-alert>`
-
+  
     export default {
         data() {
             return {
@@ -239,11 +232,7 @@
                     let options;
                     try {
                         /* eslint-disable no-eval */
-                        let js = this.js.trim()
-                        if (js.indexOf('{') !== 0) {
-                            js = `{${js}}`
-                        }
-                        eval(`options= ${js}`);
+                        eval('options={' + this.js + '}');
                     } catch (err) {
                         throw new Error(`Compiling JS: ${err}`);
                     }
@@ -267,8 +256,8 @@
                 if (typeof window === 'undefined' || !window.localStorage) {
                     return;
                 }
-                this.js = window.localStorage.getItem('playground_js') || defaultJS.trim();
-                this.html = window.localStorage.getItem('playground_html') || defaultHTML.trim()
+                this.js = window.localStorage.getItem('playground_js') || '';
+                this.html = window.localStorage.getItem('playground_html') || '';
             },
             commit() {
                 if (typeof window === 'undefined' || !window.localStorage) {

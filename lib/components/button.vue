@@ -49,7 +49,7 @@ export default {
             return this.block ? 'btn-block' : '';
         },
         btnVariant() {
-            return this.variant ? `btn-${this.variant}` : `btn-light`;
+            return this.variant ? `btn-${this.variant}` : `btn-secondary`;
         },
         btnSize() {
             return this.size ? `btn-${this.size}` : '';

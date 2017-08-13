@@ -30,14 +30,8 @@ export default {
     components: { componentdoc },
     layout: 'docs',
 
-    fetch({ params, redirect }) {
-        if (!docs[params.component]) {
-            redirect('/docs/components/' + Object.keys(docs)[0])
-        }
-    },
-
     data() {
-        return Object.assign({ meta: {}, readme: '' }, docs[this.$route.params.component])
+        return Object.assign({ meta: {}, readme: '' }, docs[this.$route.params.component || 'alert'])
     },
 
     head() {

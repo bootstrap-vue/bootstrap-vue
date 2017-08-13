@@ -6,7 +6,7 @@
 <template>
 <div>
   <!-- Tabs with card integration -->
-  <b-card no-body>
+  <b-card no-block>
     <b-tabs small card ref="tabs" v-model="tabIndex">
       <b-tab title="General">
         I'm the first fading tab
@@ -35,7 +35,7 @@
   <br>
   <br>
 
-  <b-card no-body>
+  <b-card no-block>
     <b-tabs card>
       <!-- Render Tabs -->
       <b-tab :title="`Tab ${i}`" v-for="i in tabs" :key="i">
@@ -103,12 +103,10 @@ export default {
 
 ### Cards Integration
 
-Tabs support integrating with bootstrap cards. Just add `card` property. Note
-that you should add `no-body` prop on `<b-card>` element in order to decorate header
-and remove the extra badding
+Tabs support integrating with bootstrap cards. Just add `card` property. Note that you should add `no-block` prop on `<b-card>` element in order to decorate header.
 
 ```html
-<b-card no-body>
+<b-card no-block>
     <b-tabs ref="tabs" v-model="tabIndex" card>
         <b-tab title="Tab 1" active>
             Tab Contents
@@ -132,7 +130,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
 ```html
     <b-tabs>
     
-        <!-- Add your b-tab components here-->
+        <!-- Add your tabs here-->
     
         <template slot="tabs">
             <b-nav-item to="#" @click="onClick">Another tab</b-nav-item>

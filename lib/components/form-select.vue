@@ -15,7 +15,6 @@
                 :value="option.value"
                 v-html="option.text"
                 :disabled="option.disabled"
-                :key="option.value || option.text"
         ></option>
     </select>
 </template>

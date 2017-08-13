@@ -7,7 +7,7 @@
 ```html
 <div>
 
-  <b-dropdown id="ddown1" text="Dropdown Button sm" variant="primary" class="m-md-2">
+  <b-dropdown id="ddown1" text="Dropdown Button sm" class="m-md-2">
     <b-dropdown-header>This is a heading</b-dropdown-header>
     <b-dropdown-item>Action</b-dropdown-item>
     <b-dropdown-item>Another action</b-dropdown-item>
@@ -26,7 +26,7 @@
 
   <br>
 
-  <b-dropdown id="ddown3" text="Right align" variant="danger" right class="m-md-2">
+  <b-dropdown id="ddown3" text="Right align" variant="warning" right class="m-md-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>

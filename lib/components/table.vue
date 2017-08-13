@@ -412,7 +412,7 @@
                 if (sortBy && !this.providerSorting) {
                     items = items.sort((a, b) => {
                         const r = sortCompare(a, b, sortBy);
-                        return sortDesc ? (r * -1) : r;
+                        return sortDesc ? r : r * -1;
                     });
                 }
 
@@ -605,10 +605,10 @@
         content: "\2193";
     }
 
-    table.b-table > thead > tr > .sorting_desc:after,
-    table.b-table > thead > tr > .sorting_asc:before,
-    table.b-table > tfoot > tr > .sorting_desc:after,
-    table.b-table > tfoot > tr > .sorting_asc:before {
+    table.b-table > thead > tr > .sorting_asc:after,
+    table.b-table > thead > tr > .sorting_desc:before,
+    table.b-table > tfoot > tr > .sorting_asc:after,
+    table.b-table > tfoot > tr > .sorting_desc:before {
         opacity: 1;
     }
 
@@ -619,6 +619,6 @@
     }
 
     table.b-table[aria-busy="true"] {
-        opacity: .65;
+        opacity: .6;
     }
 </style>
