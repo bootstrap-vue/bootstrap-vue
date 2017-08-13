@@ -119,8 +119,7 @@ describe("collapse", async () => {
     });
 
     it("accordion example should change visibility on click", async () => {
-        const { app: { $refs, $el } } = window;
-
+        const { app: { $refs } } = window;
         const btn1 = $refs.accordion_1_btn;
         const col1 = $refs.accordion_1;
         const btn2 = $refs.accordion_2_btn;
@@ -128,31 +127,34 @@ describe("collapse", async () => {
         const btn3 = $refs.accordion_3_btn;
         const col3 = $refs.accordion_3;
 
-        expect(col1.$el.classList.contains("show")).toBe(true);
         expect(btn1.getAttribute("aria-expanded")).toBe("true");
-        expect(col2.$el.classList.contains("show")).toBe(false);
         expect(btn2.getAttribute("aria-expanded")).toBe("false");
-        expect(col3.$el.classList.contains("show")).toBe(false);
         expect(btn3.getAttribute("aria-expanded")).toBe("false");
+
+        expect(col1.show).toBe(true);
+        expect(col2.show).toBe(false);
+        expect(col3.show).toBe(false);
 
         btn2.click();
         await nextTick();
 
-        expect(col1.$el.classList.contains("show")).toBe(false);
         expect(btn1.getAttribute("aria-expanded")).toBe("false");
-        expect(col2.$el.classList.contains("show")).toBe(true);
         expect(btn2.getAttribute("aria-expanded")).toBe("true");
-        expect(col3.$el.classList.contains("show")).toBe(false);
         expect(btn3.getAttribute("aria-expanded")).toBe("false");
+
+        expect(col1.show).toBe(false);
+        expect(col2.show).toBe(true);
+        expect(col3.show).toBe(false);
 
         btn2.click();
         await nextTick();
 
-        expect(col1.$el.classList.contains("show")).toBe(false);
         expect(btn1.getAttribute("aria-expanded")).toBe("false");
-        expect(col2.$el.classList.contains("show")).toBe(false);
         expect(btn2.getAttribute("aria-expanded")).toBe("false");
-        expect(col3.$el.classList.contains("show")).toBe(false);
         expect(btn3.getAttribute("aria-expanded")).toBe("false");
+
+        expect(col1.show).toBe(false);
+        expect(col2.show).toBe(false);
+        expect(col3.show).toBe(false);
     });
 });
