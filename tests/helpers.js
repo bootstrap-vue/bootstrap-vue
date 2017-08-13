@@ -3,7 +3,7 @@ import { resolve } from "path";
 import Vue from "vue/dist/vue.common";
 import BootstrapVue from "../lib";
 
-const readFile = path => String(readFileSync(resolve(__dirname, "../examples", path)));
+const readFile = path => String(readFileSync(resolve(__dirname, "../fixtures", path)));
 
 export function loadFixture(name) {
     const template = readFile(`${name}/demo.html`);
