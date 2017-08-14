@@ -2,6 +2,62 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.22.0"></a>
+# [0.22.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.21.0...v0.22.0) (2017-08-14)
+
+
+### Bug Fixes
+
+* **badge:** badge default variant ([1403ec4](https://github.com/bootstrap-vue/bootstrap-vue/commit/1403ec4))
+* **button:** Code cleanup and additional comments ([45e3353](https://github.com/bootstrap-vue/bootstrap-vue/commit/45e3353))
+* **card:**  change prop no-block to no-body ([#826](https://github.com/bootstrap-vue/bootstrap-vue/issues/826)) ([664bc98](https://github.com/bootstrap-vue/bootstrap-vue/commit/664bc98))
+* **card:** Fix classes, variants, borders [v4-beta] ([#815](https://github.com/bootstrap-vue/bootstrap-vue/issues/815)) ([fc26811](https://github.com/bootstrap-vue/bootstrap-vue/commit/fc26811))
+* **carousel:** boolean typo ([6a95410](https://github.com/bootstrap-vue/bootstrap-vue/commit/6a95410))
+* **carousel:** Detect transitionend event name ([fa07949](https://github.com/bootstrap-vue/bootstrap-vue/commit/fa07949))
+* **carousel:** Ensure slideshow restarts when reaching the end ([e175c36](https://github.com/bootstrap-vue/bootstrap-vue/commit/e175c36))
+* **carousel:** ESLint ([8222222](https://github.com/bootstrap-vue/bootstrap-vue/commit/8222222))
+* **carousel:** minor fixes ([6b4f497](https://github.com/bootstrap-vue/bootstrap-vue/commit/6b4f497))
+* **carousel:** oldVal! ([3ae2e2e](https://github.com/bootstrap-vue/bootstrap-vue/commit/3ae2e2e))
+* **carousel:** Typo ([4c80576](https://github.com/bootstrap-vue/bootstrap-vue/commit/4c80576))
+* **carousel:** Typo in transition ([9693872](https://github.com/bootstrap-vue/bootstrap-vue/commit/9693872))
+* **docs:** Minor update to navbar example ([4a62e1b](https://github.com/bootstrap-vue/bootstrap-vue/commit/4a62e1b))
+* **dropdown:** Custom CSS ([1dda2aa](https://github.com/bootstrap-vue/bootstrap-vue/commit/1dda2aa))
+* **dropdown:** Fix focus/hover custom CSS ([0cbbfb5](https://github.com/bootstrap-vue/bootstrap-vue/commit/0cbbfb5))
+* **dropdown:** focus on first item on show ([40a1347](https://github.com/bootstrap-vue/bootstrap-vue/commit/40a1347))
+* **dropdown:** twbs/bootstrap[#23329](https://github.com/bootstrap-vue/bootstrap-vue/issues/23329) ([fab5d22](https://github.com/bootstrap-vue/bootstrap-vue/commit/fab5d22))
+* **dropdowns:** Focus dropdown item on hover ([#823](https://github.com/bootstrap-vue/bootstrap-vue/issues/823)) ([2e863d9](https://github.com/bootstrap-vue/bootstrap-vue/commit/2e863d9))
+* **form-control-static:** change class to form-control-plaintext ([66eda01](https://github.com/bootstrap-vue/bootstrap-vue/commit/66eda01))
+* **form-input:** Fix reactivity (issue [#817](https://github.com/bootstrap-vue/bootstrap-vue/issues/817)) ([88e2dbb](https://github.com/bootstrap-vue/bootstrap-vue/commit/88e2dbb))
+* **nav-item-dropdown:** add show class ([921dac5](https://github.com/bootstrap-vue/bootstrap-vue/commit/921dac5))
+* **nav-item-dropdown:** Custom CSS ([0bd35c8](https://github.com/bootstrap-vue/bootstrap-vue/commit/0bd35c8))
+* **nav-item-dropdown:** Fix focus/hover custom CSS ([e38576c](https://github.com/bootstrap-vue/bootstrap-vue/commit/e38576c))
+* **pagination-nav:** Fix link-gen and page-gen ([6746cb1](https://github.com/bootstrap-vue/bootstrap-vue/commit/6746cb1))
+* **pagination-nav:** Fix link-gen and page-gen ([e73e755](https://github.com/bootstrap-vue/bootstrap-vue/commit/e73e755))
+* **pagination-nav:** Update v-model on click ([188adea](https://github.com/bootstrap-vue/bootstrap-vue/commit/188adea))
+* **pagination-nav:** Update v-model on click ([4b1c8f3](https://github.com/bootstrap-vue/bootstrap-vue/commit/4b1c8f3))
+* **table:** Sorting directions & arrows ([de1de97](https://github.com/bootstrap-vue/bootstrap-vue/commit/de1de97))
+* **table:** workaround for Vue 2.4 SSR rendering bug ([dc8d238](https://github.com/bootstrap-vue/bootstrap-vue/commit/dc8d238))
+* **tabs:** update to use card-block ([d881c37](https://github.com/bootstrap-vue/bootstrap-vue/commit/d881c37))
+
+
+### Features
+
+* **addEventListenerOnce:** add to utils ([0869ffd](https://github.com/bootstrap-vue/bootstrap-vue/commit/0869ffd))
+* **addEventListenerOnce:** New utility function ([6b4efdf](https://github.com/bootstrap-vue/bootstrap-vue/commit/6b4efdf))
+* **badge:** functional component ([#820](https://github.com/bootstrap-vue/bootstrap-vue/issues/820)) ([8c172c1](https://github.com/bootstrap-vue/bootstrap-vue/commit/8c172c1))
+* **btn-group:** functional component for button-group ([#822](https://github.com/bootstrap-vue/bootstrap-vue/issues/822)) ([6891e9f](https://github.com/bootstrap-vue/bootstrap-vue/commit/6891e9f))
+* **button:** set light as default variant ([2a72576](https://github.com/bootstrap-vue/bootstrap-vue/commit/2a72576))
+* **card:** change card-block to card-body ([30d35a7](https://github.com/bootstrap-vue/bootstrap-vue/commit/30d35a7))
+* **carousel:** Switch to transitionend event ([4695ba1](https://github.com/bootstrap-vue/bootstrap-vue/commit/4695ba1))
+* **carousel:** Use transitionend event instead of setTimeout ([192dfb8](https://github.com/bootstrap-vue/bootstrap-vue/commit/192dfb8))
+* **carousel:** Use transitionend event with setTimeout fallback ([ad4aa3a](https://github.com/bootstrap-vue/bootstrap-vue/commit/ad4aa3a))
+* **docs:** prepare for 1.0.0-beta ([8e46552](https://github.com/bootstrap-vue/bootstrap-vue/commit/8e46552))
+* **form-select:** add key for v-for ([299a2ea](https://github.com/bootstrap-vue/bootstrap-vue/commit/299a2ea))
+* **navbar:** change navbar-toggelable to navbar-expand-* ([1fab033](https://github.com/bootstrap-vue/bootstrap-vue/commit/1fab033))
+* **pagination-nav:** New navigation pagination component ([#816](https://github.com/bootstrap-vue/bootstrap-vue/issues/816)) ([3a4272c](https://github.com/bootstrap-vue/bootstrap-vue/commit/3a4272c))
+
+
+
 <a name="0.21.0"></a>
 # [0.21.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.2...v0.21.0) (2017-08-12)
 
