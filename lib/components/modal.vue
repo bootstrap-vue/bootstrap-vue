@@ -91,7 +91,7 @@
 </style>
 
 <script>
-    import bBtn from './button.vue';
+    import bBtn from './button';
     import { listenOnRootMixin } from '../mixins';
     import { from as arrayFrom } from '../utils/array'
 
