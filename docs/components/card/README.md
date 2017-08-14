@@ -15,7 +15,7 @@ Change the default `div` root tag to any other HTML element by specifying via th
 ```html
 <div>
   <b-card title="Card Title"
-          img="https://lorempixel.com/600/300/food/5/"
+          img-src="https://lorempixel.com/600/300/food/5/"
           img-alt="Image"
           img-top
           tag="article"
@@ -88,14 +88,14 @@ can also be styled with the standard HTML tags.
 
 #### Images
 
-The prop `img` places an image on the top of the card, and use the `img-alt` prop to
+The prop `img-src` places an image on the top of the card, and use the `img-alt` prop to
 specify a string to be placed in the image's `alt` attribute.  The image specified
-by the `img` prop will be responsive and will adjust it's width when the width of the
+by the `img-src` prop will be responsive and will adjust it's width when the width of the
 card is changed.
 
 ```html
 <div>
-  <b-card img="https://placekitten.com/1000/300" img-alt="Card image" img-top>
+  <b-card img-src="https://placekitten.com/1000/300" img-alt="Card image" img-top>
     <p class="card-text">
       Some quick example text to build on the card and make up the bulk of the card's content.
     </p>
@@ -110,7 +110,7 @@ Place the image in the background of the card by setting the boolean prop `overl
 ```html
 <div>
   <b-card overlay
-          img="https://lorempixel.com/900/250/sports/6/"
+          img-src="https://lorempixel.com/900/250/sports/6/"
           img-alt="Card Image"
           img-top
           title="Image Overlay"
@@ -125,13 +125,13 @@ Place the image in the background of the card by setting the boolean prop `overl
 <!-- card-img-2.vue -->
 ```
 
-Take control over the image tag by specifying an `<img>` element targeting the `img` named slot:
-This allows you to override the default classes applied to the image:
+Take control over the image tag by using the `<card-img>` component.
+This allows you to fine-tune the the properties applied to the image:
 
 ```html
 <div>
   <b-card title="Image Slot">
-    <img slot="img" src="https://lorempixel.com/900/250/sports/5/" alt="img" class="card-img-top img-fluid" />
+    <b-card-img src="https://lorempixel.com/900/250/sports/5/" alt="img" top fluid></b-card-img>
     <p class="card-text">
       Some quick example text to build on the card and make up the bulk of the card's content.
     </p>
@@ -141,7 +141,7 @@ This allows you to override the default classes applied to the image:
 <!-- card-img-3.vue -->
 ```
 
-*Tip: When using the `img` slot, it is recommended to apply the class `img-fluid` (as in the above
+*Tip: When using an `img`, it is recommended to apply the `img-fluid` prop (or `fluid` as in the above
 example) to ensure responsiveness.*
 
 #### Header and footer
@@ -183,23 +183,23 @@ a fixed-width card.
 
 ```html
 <div>
-  <b-card no-body style="max-width: 20rem;" img="https://placekitten.com/380/200" img-alt="Image" img-top>
+  <b-card no-body style="max-width: 20rem;" img-src="https://placekitten.com/380/200" img-alt="Image" img-top>
     <h4 slot="header">Hello World</h4>
-    <div class="card-body">
+    <b-card-body>
       <p class="card-text">
         Some quick example text to build on the card
         title and make up the bulk of the card's content.
       </p>
-    </div>
+    </b-card-body>
     <b-list-group flush>
       <b-list-group-item>Cras justo odio</b-list-group-item>
       <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
       <b-list-group-item>Vestibulum at eros</b-list-group-item>
     </b-list-group>
-    <div class="card-body">
+    <b-card-body>
       <a href="#" class="card-link">Card link</a>
       <a href="#" class="card-link">Another link</a>
-    </div>
+    </b-card-body>
     <template slot="footer">
       This is a footer
     </template>
@@ -344,7 +344,7 @@ When using card groups with footers, their content will automatically line up.
 ```html
 <div>
   <b-card-group>
-    <b-card title="Title" img="https://placekitten.com/g/300/450" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Img" img-top>
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to
         additional content. This content is a little bit longer.
@@ -353,7 +353,7 @@ When using card groups with footers, their content will automatically line up.
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
     </b-card>
-    <b-card title="Title" img="https://placekitten.com/g/300/450" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Img" img-top>
       <p class="card-text">
         This card has supporting text below as a natural lead-in to additional content.
       </p>
@@ -361,7 +361,7 @@ When using card groups with footers, their content will automatically line up.
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
     </b-card>
-    <b-card title="Title" img="https://placekitten.com/g/300/450" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Img" img-top>
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to additional
         content. This card has even longer content than the first to show that equal height action.
@@ -384,7 +384,7 @@ card footers in decks will automatically line up.
 ```html
 <div>
   <b-card-group deck>
-    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://lorempixel.com/300/300/" img-alt="Img" img-top>
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to
         additional content. This content is a little bit longer.
@@ -393,7 +393,7 @@ card footers in decks will automatically line up.
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
     </b-card>
-    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://lorempixel.com/300/300/" img-alt="Img" img-top>
       <p class="card-text">
         This card has supporting text below as a natural lead-in to additional content.
       </p>
@@ -401,7 +401,7 @@ card footers in decks will automatically line up.
         <small class="text-muted">Last updated 3 mins ago</small>
       </div>
     </b-card>
-    <b-card title="Title" img="https://lorempixel.com/300/300/" img-alt="Img" img-top>
+    <b-card title="Title" img-src="https://lorempixel.com/300/300/" img-alt="Img" img-top>
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to additional
         content. This card has even longer content than the first to show that equal height action.
@@ -431,7 +431,7 @@ isn’t a bulletproof solution yet.
   <b-card-group columns>
 
     <b-card title="Card title that wraps to a new line"
-            img="https://placekitten.com/g/400/450"
+            img-src="https://placekitten.com/g/400/450"
             img-fluid
             img-alt="image"
             img-top
@@ -452,7 +452,7 @@ isn’t a bulletproof solution yet.
     </b-card>
 
     <b-card title="Title"
-            img="https://placekitten.com/500/350"
+            img-src="https://placekitten.com/500/350"
             img-fluid
             img-alt="image"
             img-top
@@ -479,10 +479,10 @@ isn’t a bulletproof solution yet.
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </b-card>
 
-    <b-card img="https://lorempixel.com/400/400/" img-fuid img-alt="image" overlay>
+    <b-card img-src="https://lorempixel.com/400/400/" img-fuid img-alt="image" overlay>
     </b-card>
 
-    <b-card img="https://lorempixel.com/400/200/" img-fluid img-alt="image" img-top>
+    <b-card img-src="https://lorempixel.com/400/200/" img-fluid img-alt="image" img-top>
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to additional
         content. This card has even longer content than the first.
