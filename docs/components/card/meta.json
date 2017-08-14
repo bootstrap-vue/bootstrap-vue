@@ -21,7 +21,7 @@
     },
     {
       "name": "no-body",
-      "description": "Optional section with-out card-body wrapper"
+      "description": "Optional section without card-body wrapper"
     }
   ]
 }
