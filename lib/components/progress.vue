@@ -80,8 +80,8 @@
                 default: false
             },
             height: {
-                type: string,
-                default: null
+                type: String,
+                default: '1rem'
             }
         }
     };
