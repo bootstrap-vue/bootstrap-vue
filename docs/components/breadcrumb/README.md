@@ -13,10 +13,10 @@ export default {
   data: {
     items: [{
       text: 'Admin',
-      link: '#',
+      href: '#',
     }, {
       text: 'Manage',
-      link: '#',
+      href: '#',
     }, {
       text: 'Library',
       active: true
@@ -28,26 +28,22 @@ export default {
 <!-- breadcrumb.vue -->
 ```
 
-Items are rendered using `:items` prop. 
+Items are rendered using `:items` prop.
 It can be an array of objects to provide link and active state.
+Links can be `href`'s for anchor tags, or `to`'s for router-links.
 Active state of last element is automatically set if it is undefined.
 
-``` 
+```
 items = [
   {
     text: 'Home',
     href: 'http://google.com',
   }, {
     text: 'Posts',
-    to: '/another/path',
+    to: { name: 'home' },
   }, {
     text: 'Another Story',
     active: true
   }
 ]
-```
-
-Or you can simply pass a simple array and use `@click` event handler on breadcrumb to manually handle links.
-``` 
- items: ['Home','Posts','Another story']
 ```
