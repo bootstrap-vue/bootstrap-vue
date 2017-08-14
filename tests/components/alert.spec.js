@@ -10,8 +10,6 @@ describe('alert', async () => {
 
         expect($refs.default_alert).toHaveClass('alert alert-info');
         expect($refs.success_alert).toHaveClass('alert alert-success');
-        expect($refs.dismiss_alert).toHaveClass('alert alert-danger');
-        expect($refs.counter_alert).toHaveClass('alert alert-warning');
     });
 
     it('show prop', async () => {
