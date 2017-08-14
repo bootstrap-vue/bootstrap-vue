@@ -141,8 +141,8 @@ This allows you to override the default classes applied to the image:
 <!-- card-img-3.vue -->
 ```
 
-When using the `img` slot, it is recommended to apply the class `img-fluid` (as in the above
-example) to ensure responsiveness.
+*Tip: When using the `img` slot, it is recommended to apply the class `img-fluid` (as in the above
+example) to ensure responsiveness.*
 
 #### Header and footer
 
