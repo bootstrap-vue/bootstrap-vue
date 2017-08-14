@@ -42,7 +42,7 @@
         </li>
 
         <!-- First Ellipsis Bookend -->
-        <li v-if="showFirstDots" class="page-item disabled hidden-xs-down" role="separator">
+        <li v-if="showFirstDots" class="page-item disabled d-none d-sm-flex" role="separator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
@@ -65,7 +65,7 @@
         </li>
 
         <!-- Last Ellipsis Bookend -->
-        <li v-if="showLastDots" class="page-item disabled hidden-xs-down" role="separator">
+        <li v-if="showLastDots" class="page-item disabled d-none d-sm-flex" role="separator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
@@ -334,21 +334,21 @@ export default {
                 if (idx === 0) {
                     // Keep leftmost 3 buttons visible
                     for (let i = 3; i < pages.length; i++) {
-                        pages[i].className = 'hidden-xs-down';
+                        pages[i].className = 'd-none d-sm-flex';
                     }
                 } else if (idx === pages.length - 1) {
                     // Keep rightmost 3 buttons visible
                     for (let i = 0; i < pages.length - 3; i++) {
-                        pages[i].className = 'hidden-xs-down';
+                        pages[i].className = 'd-none d-sm-flex';
                     }
                 } else {
                     // hide left button(s)
                     for (let i = 0; i < idx - 1; i++) {
-                        pages[i].className = 'hidden-xs-down';
+                        pages[i].className = 'd-none d-sm-flex';
                     }
                     // hide right button(s)
                     for (let i = pages.length - 1; i > idx + 1; i--) {
-                        pages[i].className = 'hidden-xs-down';
+                        pages[i].className = 'd-none d-sm-flex';
                     }
                 }
             }
@@ -396,20 +396,18 @@ export default {
             return pagenum === this.currentPage;
         },
         pageItemClasses(page) {
-            const active = this.isActive(page.number);
             return [
                 'page-item',
                 this.disabled ? 'disabled' : '',
-                active ? 'active' : '',
+                this.isActive(page.number) ? 'active' : '',
                 page.className
             ];
         },
         pageLinkClasses(page) {
-            const active = this.isActive(page.number);
             return [
                 'page-link',
                 this.disabled ? 'disabled' : '',
-                active ? 'active' : ''
+                this.isActive(page.number) ? 'active' : ''
             ];
         },
         getButtons() {
