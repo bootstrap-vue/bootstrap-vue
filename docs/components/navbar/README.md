@@ -37,8 +37,8 @@ It’s easily extensible and thanks to our Collapse plugin, it can easily integr
         <template slot="button-content">
           <em>User</em>
         </template>
-        <b-dropdown-item to="#">Profile</b-dropdown-item>
-        <b-dropdown-item to="#">Signout</b-dropdown-item>
+        <b-dropdown-item href="#">Profile</b-dropdown-item>
+        <b-dropdown-item href="#">Signout</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-nav>
 
@@ -171,13 +171,14 @@ adjusts vertical alignment and horizontal spacing for strings of text.
 
 ```html
 <div>
-  <b-navbar toggleable type="light" variant="faded">
-    <b-nav-toggle target="nav_text_collapse"></b-nav-toggle>
-    <b-navbar-brand>BootstrapVue</b-navbar-brand>
-    <b-collapse is-nav id="nav_text_collapse">
-      <b-nav is-nav-bar>
-        <b-nav-text>Navbar text</b-nav-text>
-      </b-nav>
+    <b-navbar toggleable type="light" variant="faded">
+        <b-nav-toggle target="nav_text_collapse"></b-nav-toggle>
+        <b-navbar-brand>BootstrapVue</b-navbar-brand>
+        <b-collapse is-nav id="nav_text_collapse">
+            <b-nav is-nav-bar>
+                <b-nav-text>Navbar text</b-nav-text>
+            </b-nav>
+        </b-collapse>
     </b-navbar>
 </div>
 
@@ -224,7 +225,7 @@ Use `<b-nav-form>` to place inline form controls into your navbar
 <div>
   <b-navbar type="light" variant="faded">
     <b-nav-form>
-      <b-form-input class="mr-sm-2" type="text" placeholder="Search">
+      <b-form-input class="mr-sm-2" type="text" placeholder="Search"></b-form-input>
       <b-button variant="outline-success" class="my-2 my-sm-0" type="submit">Search</b-button>
     </b-nav-form>
   </b-navbar>
@@ -240,7 +241,7 @@ Input groups work as well:
   <b-navbar type="light" variant="faded">
     <b-nav-form>
       <b-input-group left="@">
-        <b-form-input class="mr-sm-2" type="text" placeholder="Username">
+        <b-form-input class="mr-sm-2" type="text" placeholder="Username"></b-form-input>
       </b-input-group>
     </b-nav-form>
   </b-navbar>
