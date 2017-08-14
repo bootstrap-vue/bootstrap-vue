@@ -2,11 +2,11 @@
     <div class="progress">
         <transition>
             <div role="progressbar"
-                 :class="classObject"
+                 :class="progressClasses"
+                 :style="progressStyles"
                  :aria-valuenow="value"
                  :aria-valuemin="0"
                  :aria-valuemax="max"
-                 :style="styleObject"
             >
                 <slot>
                     <template v-if="showProgress">{{progress}}%</template>
@@ -26,21 +26,20 @@
 <script>
     export default {
         computed: {
-            classObject() {
+            progressClasses() {
                 return [
                     'progress-bar',
-                    this.progressVariant,
+                    this.variant ? `bg-${this.variant}` : '',
                     (this.striped || this.animated) ? 'progress-bar-striped' : '',
                     this.animated ? 'progress-bar-animated' : ''
                 ];
             },
-            styleObject() {
+            progressStyles() {
                 return {
-                    width: this.progress + '%'
+                    width: this.progress + '%',
+                    height: this.height || null,
+                    lineHeight: this.height || null
                 };
-            },
-            progressVariant() {
-                return this.variant ? `bg-${this.variant}` : null;
             },
             progress() {
                 const p = Math.pow(10, this.precision);
@@ -79,6 +78,10 @@
             showValue: {
                 type: Boolean,
                 default: false
+            },
+            height: {
+                type: string,
+                default: null
             }
         }
     };
