@@ -26,10 +26,10 @@ It’s easily extensible and thanks to our Collapse plugin, it can easily integr
       </b-nav-form>
 
       <b-nav-item-dropdown text="Lang" right>
-        <b-dropdown-item to="#">EN</b-dropdown-item>
-        <b-dropdown-item to="#">ES</b-dropdown-item>
-        <b-dropdown-item to="#">RU</b-dropdown-item>
-        <b-dropdown-item to="#">FA</b-dropdown-item>
+        <b-dropdown-item href="#">EN</b-dropdown-item>
+        <b-dropdown-item href="#">ES</b-dropdown-item>
+        <b-dropdown-item href="#">RU</b-dropdown-item>
+        <b-dropdown-item href="#">FA</b-dropdown-item>
       </b-nav-item-dropdown>
 
       <b-nav-item-dropdown right>
