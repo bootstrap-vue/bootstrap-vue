@@ -76,6 +76,9 @@
         mounted() {
             this.showChanged();
         },
+        destroyed() {
+            this.clearCounter();
+        },
         methods: {
             dismiss() {
                 this.dismissed = true;
@@ -85,6 +88,7 @@
             clearCounter() {
                 if (this.countDownTimerId) {
                     clearInterval(this.countDownTimerId);
+                    this.countDownTimerId = null;
                 }
             },
             showChanged() {
@@ -100,17 +104,17 @@
                 // Hide dismiss button for auto-dismissing
                 this.localDismissible = false;
 
-                let dismissCountDown = this.show;
-                this.$emit('dismiss-count-down', dismissCountDown);
-
                 // Start counter
                 this.clearCounter();
+                let dismissCountDown = this.show;
+                this.$emit('dismiss-count-down', dismissCountDown);
                 this.countDownTimerId = setInterval(() => {
-                    if (dismissCountDown < 2) {
-                        return this.dismiss();
-                    }
                     dismissCountDown--;
                     this.$emit('dismiss-count-down', dismissCountDown);
+                    if (dismissCountDown < 1) {
+                        this.dismiss();
+                        this.clearCounter();
+                    }
                 }, 1000);
             }
         }
