@@ -1,23 +1,24 @@
 # Buttons
 
->  Use Bootstrap’s custom `b-button` component for actions in forms, dialogs, and more.
-   Includes support for a handful of contextual variations, sizes, states, and more.
+> Use Bootstrap’s custom `b-button` component for actions in forms, dialogs, and more.
+Includes support for a handful of contextual variations, sizes, states, and more.
 
 ```html
 <div class="row">
-<template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
-  <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']">
-    <b-button :size="size" :variant="variant">
-      {{variant}} {{size}}
-    </b-button>
-  </div>
-</template>
+    <template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
+        <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']" :key="`{variant}_${size}`">
+            <b-button :size="size" :variant="variant">
+                {{variant}} {{size}}
+            </b-button>
+        </div>
+    </template>
 </div>
 
 <!-- button-1.vue -->
 ```
 
-### Element type
+## Element type
+
 The `<b-button>` component generally renders a `<button>` element. However, you can also
 render an `<a>` element by providing an `href` prop value. You man also generate
 `vue-router` `<router-link>` when providing a value for the `to` prop (`vue-router`
@@ -32,33 +33,39 @@ is required).
 <!-- button-2.vue -->
 ```
 
-### Button Sizing
+## Button Sizing
+
 Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
 
 Create block level buttons — those that span the full width of a parent — by
 setting the `block` prop.
 
-### Button contextual variants
+## Button contextual variants
+
 Use the `variant` prop to generate the various bootstrap contextual button variants.
 
 By default `<b-button>` will render with the `secondary` variant.
 
-#### Solid color variants:
+### Solid color variants
+
 `primary`, `secondary`, `success`, `warning`, and `danger`.
 
-#### Outline color variants:
-In need of a button, but not the hefty background colors they bring? Use the 
+### Outline color variants
+
+In need of a button, but not the hefty background colors they bring? Use the
 `outline-*` variants to remove all background images and colors on any `<b-button>`:
 
 `outline-primary`, `outline-secondary`, `outline-success`, `outline-warning`,
 and `outline-danger`.
 
-#### Link variant:
-Variant `link` will render a button with the appearance of a link while maintaning the
+### Link variant
+
+Variant `link` will render a button with the appearance of a link while maintaining the
 default padding and size of a button.
 
 ### Disabled state
-Set the `disabled` prop to disable button default funtionality. `disabled` also 
+
+Set the `disabled` prop to disable button default functionality. `disabled` also
 works with buttons, rendered as `<a>` elements and `<router-link>`.
 
 ```html
@@ -71,15 +78,18 @@ works with buttons, rendered as `<a>` elements and `<router-link>`.
 ```
 
 ### Button type
+
 When neither `href` nor `to` props are provided, `<b-button>` renders an html `<button>`
 element.  You can specify the button's type by setting the prop `type` to `button`,
 `submit` or `reset`.  The default type is `button`.
 
 ### Pressed state and toggling
+
 Buttons will appear pressed (with a darker background, darker border, and inset shadow)
 when the prop `presed` is set to `true`.
 
 The `pressed` prop can be set to one of three values:
+
 - `true`: Sets the `.active` class and adds the attribute `aria-pressed="true"`.
 - `false`: Clears the `.active` class and adds the attribute `aria-pressed="false"`.
 - `null`: (default) Neither the class `.active` nor the attribute `aria-pressed` will be set.
@@ -133,14 +143,16 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 ```
 
 ### Router links
+
 Refer to [`vue-router`](https://router.vuejs.org/) docs for the various `<router-link>` related props.
 
-Note the `tag` attribute for `<router-link>` is refered to as `router-tag` in `bootstrap-vue`.
+Note the `tag` attribute for `<router-link>` is referred to as `router-tag` in `bootstrap-vue`.
 
 ### Alias
+
 `<b-button>` can also be used by its shorter alias `<b-btn>`.
 
 ### See also
+
 - [`<b-button-group>`](./button-group)
 - [`<b-button-toolbar>`](./button-toolbar)
-

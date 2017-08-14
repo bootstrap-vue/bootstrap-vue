@@ -90,7 +90,7 @@
             overlayClass: 'carousel-item-prev'
         }
     };
-    
+
     // Fallback Transition duration (with a little buffer) in ms
     const TRANS_DURATION = 600 + 50;
 
@@ -180,12 +180,12 @@
                 }
 
                 const len = this.slides.length;
-                
+
                 // Don't do anything if nothing to slide to
                 if (len === 0) {
                     return;
                 }
-                
+
                 // Don't change slide while transitioning, wait until transition is done
                 if (this.isSliding) {
                     // Schedule slide after sliding complete
@@ -209,7 +209,7 @@
             next() {
                 this.setSlide(this.index + 1);
             },
-            
+
             // Pause auto rotation
             pause() {
                 if (this.isCycling) {
@@ -327,7 +327,7 @@
 
                 nextSlide.classList.add(direction.overlayClass);
                 // Trigger a reflow of next slide
-                // eslint-ignore-next-line no-void
+                // eslint-disable-next-line no-void
                 void(nextSlide.offsetHeight);
 
                 currentSlide.classList.add(direction.dirClass);

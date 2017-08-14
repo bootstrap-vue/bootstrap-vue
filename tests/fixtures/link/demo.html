@@ -1,0 +1,23 @@
+<div id="app">
+    <b-link ref="plain">Link</b-link>
+
+    <b-link ref="target"
+            target="_blank">Link</b-link>
+
+    <b-link ref="rel"
+            rel="alternate"
+            target="_blank">Link</b-link>
+
+    <b-link ref="disabled"
+            disabled>Link</b-link>
+
+    <b-link ref="click"
+            @click="handleClick">Link</b-link>
+
+    <b-link ref="click_disabled"
+            @click="handleDisabledClick"
+            disabled>Link</b-link>
+
+    <b-btn ref="href"
+           :href="href">Link</b-btn>
+</div>

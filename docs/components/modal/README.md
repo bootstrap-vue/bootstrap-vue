@@ -1,89 +1,95 @@
 # Modals
 
->  Modals are streamlined, but flexible dialog prompts powered by JavaScript.
-  They support a number of use cases from user notification to completely custom content and feature
-  a handful of helpful sub-components, sizes, accessibility, and more.
+> Modals are streamlined, but flexible dialog prompts powered by JavaScript.
+They support a number of use cases from user notification to completely custom content and feature a handful of helpful sub-components, sizes, accessibility, and more.
 
 ```html
 <template>
-<div>
-  <b-btn v-b-modal.modal1>Launch demo modal</b-btn>
-
-  <!-- Main UI -->
-  <div class="mt-3 mb-3">
-    Submitted Names:
-    <ul>
-      <li v-for="n in names">{{n}}</li>
-    </ul>
-  </div>
-
-  <!-- Modal Component -->
-  <b-modal id="modal1" title="Submit your name" @ok="submit" @shown="clearName">
-    
-    <form @submit.stop.prevent="submit">
-      <b-form-input type="text" placeholder="Enter your name" v-model="name"></b-form-input>
-    </form>
-    
-  </b-modal>
-</div>  
+    <div>
+        <b-btn v-b-modal.modal1>Launch demo modal</b-btn>
+        <!-- Main UI -->
+        <div class="mt-3 mb-3">
+            Submitted Names:
+            <ul>
+                <li v-for="n in names">{{n}}</li>
+            </ul>
+        </div>
+        <!-- Modal Component -->
+        <b-modal id="modal1"
+                 ref="modal1"
+                 title="Submit your name"
+                 @ok="handleOk"
+                 @shown="clearName">
+            <form @submit.stop.prevent="handleSubmit">
+                <b-form-input type="text"
+                              placeholder="Enter your name"
+                              v-model="name"></b-form-input>
+            </form>
+        </b-modal>
+    </div>
 </template>
 
 <script>
-export default {
-  data: {
-    name: '',
-    names: []
-  },
-  methods: {
-    clearName() {
-        this.name = '';
-      },
-      submit(e) {
-        if (!this.name) {
-          alert('Please enter your name');
-          return e.cancel();
+    export default {
+        data: {
+            name: '',
+            names: []
+        },
+        methods: {
+            clearName() {
+                this.name = '';
+            },
+            handleOk(e) {
+                e.cancel();
+                if (!this.name) {
+                    alert('Please enter your name');
+                } else {
+                    this.handleSubmit()
+                }
+            },
+            handleSubmit() {
+                this.names.push(this.name);
+                this.clearName();
+                this.$refs.modal1.hide()
+            }
         }
-        
-        this.names.push(this.name);
-        this.name = '';
-      }
-  }
-}
+    }
 </script>
 
 <!-- modal.vue -->
 ```
 
 `<b-modal>`, by default, has an **OK** and a **Close** button in the footer. These buttons can
-be cusomized by setting various props on the component. You can cusomize the size of the buttons,
+be customized by setting various props on the component. You can customize the size of the buttons,
 disable the **OK** button, hide the **Close** button (i.e. OK Only), and provide custom
 button content using the `ok-title` and `close-title` props, or using the named
 slots `modal-ok` and `modal-close`.
 
-`<b-modal>` supports close on ESC (enabled by default), close on backdrop click (enabled by default), and 
+`<b-modal>` supports close on ESC (enabled by default), close on backdrop click (enabled by default), and
 the `X` close button in the header (enabled by default). These features may be disabled by setting the the
 props `no-close-on-esc`, `no-close-on-backdrop`, and `hide-header-close` respectively.
 
 You can override the modal title via the named slot `modal-title`, override the
 header completely via the `modal-header` slot, and override the footer completely
-via the `modal-footer` slot. Note when using the `modal-footer` slot the default
-**OK** and **Close** buttons will not be present. If you use the `modal-header`
-slot the default header `X` close button will not be present, nor can you use
+via the `modal-footer` slot. 
+
+**Note**: when using the `modal-footer` slot, the default **OK** and **Close** buttons will not be present. 
+Also, if you use the `modal-header` slot, the default header `X` close button will not be present, nor can you use
 the `modal-title` slot.
 
+## Toggle Modal Visibility
 
-### Toggle Modal Visibility
-There are several methods that you can employ to toggle he visibility of `<b-modal>`.
+There are several methods that you can employ to toggle the visibility of `<b-modal>`.
 
-#### Using `v-b-modal` directive (recommended)
+### Using `v-b-modal` directive (recommended)
 
 Other elements can easily show modals using `v-b-modal` directive.
 
 ```html
-<!-- Using modifiers --> 
+<!-- Using modifiers -->
 <b-btn v-b-modal.modal1>Show Modal</b-btn>
 
-<!-- Using value --> 
+<!-- Using value -->
 <b-btn v-b-modal="'modal1'">Show Modal</b-btn>
 
 <!-- the modal -->
@@ -95,7 +101,7 @@ Other elements can easily show modals using `v-b-modal` directive.
 Focus will automatically be returned to the trigger element once the modal closes.
 See the  **Accessibility** section below for details.
 
-#### Using `show()` and `hide()` component methods.
+### Using `show()` and `hide()` component methods
 
 You can access modal using `ref` attribute and then call the `show()` or `hide()` methods.
 
@@ -123,7 +129,7 @@ methods: {
 The `hide()` method accepts an optional argument. See section **Prevent Closing**
 below for details.
 
-#### Using `v-model` property.
+### Using `v-model` property.
 
 `v-model` property is always automatically synced with `<b-modal>` visible state
 and you can show/hide using `v-model`.
@@ -146,7 +152,7 @@ data: {
 When using the `v-model` property, do not use the `visible` property at the same time.
 
 
-#### Directly emiting events
+### Directly Emitting Events
 
 You can emit `show::modal` and `hide::modal` event on `$root` with first
 argument which is the modal's id:
@@ -176,7 +182,8 @@ methods: {
 ```
 
 
-### Prevent Closing
+## Prevent Closing
+
 To prevent `<b-modal>` from closing (for example when validation fails)
 you can call the `cancel()` method of the event object passed to your `ok` (**OK** button),
 `cancel` (**Close** button) and `hide` event handlers.
@@ -207,30 +214,32 @@ methods: {
 }
 ```
 
-Note that events `ok` and `cancel` are emitted by modal's built in **OK** and **Close**
-buttons respectively. These events will, by default, not be emitted if you have provided your own 
+**Note**: events `ok` and `cancel` are emitted by modal's built in **OK** and **Close**
+buttons respectively. These events will not be emitted, by default, if you have provided your own
 buttons in the `modal-footer` slot or have hidden the footer. In this case use the `hide` event
 to control cancelling of the modal close.
 
-The close event object contans a single property and a single method:
+The `close` event object contains a single property and a single method:
 
-| Propery or Method | Type | Description
+| Property or Method | Type | Description
 | ------------ | ------ | --------------------------------------------
 | `e.cancel()` | Method | When called prevents the modal from closing
 | `isOK` | Property | Will be one of: `true` (Default **OK** Clicked), `false` (Default **Close** clicked), the argument provided to the `hide()` method, or `undefined` otherwise (i.e. close on Esc, or close on backdrop click)
 
 You can set the value of `isOK` by passing an argument to the component's
-`hide()` method for advanced control. Note: The `ok` and `cancel` events
-will be only emitted when the argument to `hide()` is strictly `true`
+`hide()` method for advanced control. 
+
+**Note:** `ok` and `cancel` events will be only emitted when the argument to `hide()` is strictly `true`
 or `fase` respectively. The argument passed to `hide()` will be placed into the
 `isOK` property of the close event object.
 
 
-### Modal sizing
+## Modal sizing
+
 The width of `<b-modal>` can be set via the `size` prop to `lg`, `sm` or `md` (default).
 
+## Accessibility
 
-### Accessibility
 `<b-modal>` provides several accessibility features, including auto focus, return
 focus, and keyboard (tab) _focus containment_.
 
@@ -238,17 +247,18 @@ For `aria-labelledby` and `aria-described` by attributes to appear on the
 modal, you **must** supply an `id` attribute on `<b-modal>`. `aria-labeledby` will
 not be present if you have the header hidden.
 
+### Auto Focus
 
-#### Auto Focus
-`<b-modal>` will autofocus the first visible, non-disabled, focusble element found 
+`<b-modal>` will autofocus the first visible, non-disabled, focusable element found
 in the modal, searching in the following order:
+
 - Modal body
 - Modal footer
 - Modal header
 
-If a focusble element is not found, then the entire modal will be focused.
+If a focusable element is not found, then the entire modal will be focused.
 
-You can pre-focus an element within the `<b-modal>` by listening to the `<b-modal>` `shown` event, and 
+You can pre-focus an element within the `<b-modal>` by listening to the `<b-modal>` `shown` event, and
 call the element's `focus()` method. `<b-modal>` will not attempt to autofocus if
 an element already has focus within the `<b-modal>`.
 
@@ -275,24 +285,25 @@ methods: {
 ```
 
 To disable the auto-focus feature, add the prop `no-auto-focus` on
-`<b-modal>`. This will disable searching for a focusable element within 
+`<b-modal>`. This will disable searching for a focusable element within
 body, footer, and header. With `no-auto-focus` set, the modal-content
 will be focused instead, unless you have pre-focused an element within.
 
-`no-auto-focus`may be required when you have modal with long body content (without 
+`no-auto-focus`may be required when you have modal with long body content (without
 focusable items in th modal body) that causes the modal to overflow the
 height of the viewport, and in-turn automatically scrolls down to the footer buttons.
 
-#### Returning focus to the triggering element on modal close
+### Returning focus to the triggering element on modal close
 
 For accessibility reasons, it is desireable to return focus to the element
 that triggered the opening of the modal, when the modal closes.  `<b-modal>`
 provides several methods and options for returning focus to the triggering element.
 
-##### Specify Return Focus Element via the `return-focus` Prop:
+#### Specify Return Focus Element via the `return-focus` Prop:
 
 You can also specify an element to return focus to, when modal closes, by setting
-the `return-focus` prop to one of the folowing:
+the `return-focus` prop to one of the following:
+
 - A CSS Query Selector string (or an element ID prepended with `#`)
 - A component reference (which is mounted on a focusable element, such as `<b-button>`)
 - A reference to a DOM element that is focusable
@@ -304,13 +315,13 @@ This method for returning focus is handy when you use the `<b-modal>` methods `s
 and `hide()`, or the `v-model` prop. Note this property takes
 precedence over other methods of specifying the return focus element.
 
-##### Auto Return Focus:
+#### Auto Return Focus
 
 When `<b-modal>` is opened via the `v-b-modal` directive on an element, focus will be
 returned to this element automatically when `<b-modal>` closes, unless an element has
 been specified via the `return-focus` prop.
 
-##### Specify Return Focus via Event:
+#### Specify Return Focus via Event
 
 When using the `show::modal` event (emitted on `$root`), you can specify a second argument
 which is the element to return focus to.  This argument accepts the same types
@@ -320,7 +331,7 @@ as the `return-focus` prop.
 this.$root.$emit('show::modal', 'modal1', '#focusThisOnClose');
 ```
 
-Tip: if using a click event (or similar) to trigger modal to open, pass the
+*Tip:* if using a click event (or similar) to trigger modal to open, pass the
 event's `target` property:
 
 ```html
@@ -329,14 +340,13 @@ event's `target` property:
 </b-btn>
 ```
 
-Note: If the `<b-modal>` has the `return-focus` prop set, then the element specified
+**Note:** If the `<b-modal>` has the `return-focus` prop set, then the element specified
 via the event will be ignored.
 
-#### Keyboard Navigation
+### Keyboard Navigation
+
 When tabbing through elements within a `<b-modal>`, if focus attempts to leave the modal into the document,
-Focus will be brought back into the modal.
+it  will be brought back into the modal.
 
-In some circumstances, you may have a need to disable the enforce focus feature. You can do so
+In some circumstances, you may need to disable the enforce focus feature. You can do this
 by setting the prop `no-enforce-focus`.
-
-
