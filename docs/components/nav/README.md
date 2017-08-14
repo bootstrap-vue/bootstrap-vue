@@ -12,6 +12,7 @@
     <b-nav-item>Another Link</b-nav-item>
     <b-nav-item disabled>Disabled</b-nav-item>
   </b-nav>
+</div>
 
 <!-- nav-1.vue -->
 ```
