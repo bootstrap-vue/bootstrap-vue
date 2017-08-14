@@ -119,7 +119,7 @@ Place the image in the background of the card by setting the boolean prop `overl
 ```
 
 Take control over the image tag by specifying an `<img>` element targetting the `img` named slot:
-This allwos you to override the default classes applied to the image:
+This allows you to override the default classes applied to the image:
 
 
 ```html
@@ -135,8 +135,8 @@ This allwos you to override the default classes applied to the image:
 <!-- card-img-3.vue -->
 ```
 
-When using the `img` slot, it is reccommended to apply the class `img-flud` (as in the above
-example) to ensure responsiveness.
+*Tip: When using the `img` slot, it is recommended to apply the class `img-fluid` (as in the above
+example) to ensure responsiveness.*
 
 #### Header and footer:
 Add an optional header and/or footer within a card via the `header`/`footer`
