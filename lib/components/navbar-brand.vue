@@ -1,37 +1,35 @@
 <template>
-     <component :is="componentTag" 
-             class="navbar-brand"
-             v-bind="conditionalLinkProps"
-             @click="$emit('click', $event)">
+    <component :is="componentTag"
+               class="navbar-brand"
+               v-bind="conditionalLinkProps"
+               @click="$emit('click', $event)">
         <slot></slot>
     </component>
 </template>
 
 <script>
-import bLink from './link.vue';
-import { omitLinkProps, props as originalLinkProps, computed } from '../mixins/link';
+import bLink, { computed, propsFactory } from './link';
 import { assign } from '../utils/object';
 
-// Grab a fresh object of link props (omitLinkProps does this)
-// less the 'href', 'to', and 'tag' props
-// that we will reconstruct without any defaults
-// so our component functions properly
-const linkProps = assign(omitLinkProps('href', 'to', 'tag'), {
-    href: { type: originalLinkProps.href.type },
-    to: { type: originalLinkProps.to.type },
-    tag: { type: String }
-});
+let linkProps = propsFactory()
+delete linkProps.href.default;
+delete linkProps.to.default;
 
 export default {
     components: { bLink },
-    props: linkProps,
+    props: assign(linkProps, {
+        tag: {
+            type: String,
+            default: 'div'
+        },
+    }),
     computed: {
         linkProps: computed.linkProps,
         isLink() {
             return this.to || this.href;
         },
-        componentTag(){
-            return this.isLink ? `b-link` : (this.tag || 'div');
+        componentTag() {
+            return this.isLink ? `b-link` : this.tag;
         },
         conditionalLinkProps() {
             return this.isLink ? this.linkProps : {};

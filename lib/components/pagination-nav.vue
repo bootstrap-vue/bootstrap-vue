@@ -119,7 +119,7 @@
 </style>
 
 <script>
-import bLink from './link.vue';
+import bLink from './link';
 import { pickLinkProps } from '../mixins/link';
 import { from as arrayFrom } from '../utils/array'
 import range from '../utils/range'
