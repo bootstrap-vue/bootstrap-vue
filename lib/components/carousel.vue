@@ -232,7 +232,7 @@
                 });
                 this.intervalId = setInterval(() => {
                     this.next();
-                }, Math.min(1000, this.interval));
+                }, Math.max(1000, this.interval));
             },
 
             // Re-Start auto rotate slides when focus/hover leaves the carousel
