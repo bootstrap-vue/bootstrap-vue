@@ -101,7 +101,7 @@ Other elements can easily show modals using `v-b-modal` directive.
 Focus will automatically be returned to the trigger element once the modal closes.
 See the  **Accessibility** section below for details.
 
-#### Using `show()` and `hide()` component methods
+### Using `show()` and `hide()` component methods
 
 You can access modal using `ref` attribute and then call the `show()` or `hide()` methods.
 
@@ -129,7 +129,7 @@ methods: {
 The `hide()` method accepts an optional argument. See section **Prevent Closing**
 below for details.
 
-#### Using `v-model` property.
+### Using `v-model` property.
 
 `v-model` property is always automatically synced with `<b-modal>` visible state
 and you can show/hide using `v-model`.
@@ -152,7 +152,7 @@ data: {
 When using the `v-model` property, do not use the `visible` property at the same time.
 
 
-#### Directly Emitting Events
+### Directly Emitting Events
 
 You can emit `show::modal` and `hide::modal` event on `$root` with first
 argument which is the modal's id:
@@ -182,7 +182,7 @@ methods: {
 ```
 
 
-### Prevent Closing
+## Prevent Closing
 
 To prevent `<b-modal>` from closing (for example when validation fails)
 you can call the `cancel()` method of the event object passed to your `ok` (**OK** button),
