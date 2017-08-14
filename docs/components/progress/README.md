@@ -99,7 +99,7 @@ export default {
 ```
 
 The height of the prograss bar can be controled with the `height` prop. The height
-value should be a standard CSS dimension (`px`, `rem`, `em`, `%`, etc). the default
+value should be a standard CSS dimension (`px`, `rem`, `em`, etc). the default
 is `1rem`.
 
 ```html
