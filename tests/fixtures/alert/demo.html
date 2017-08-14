@@ -14,6 +14,7 @@
     </b-alert>
 
     <b-alert variant="danger"
+             ref="dismiss_alert"
              dismissible
              :show="showDismissibleAlert"
              @dismissed="showDismissibleAlert=false"
@@ -22,6 +23,7 @@
     </b-alert>
 
     <b-alert :show="dismissCountDown"
+             ref="counter_alert"
              variant="warning"
              @dismiss-count-down="countDownChanged"
     >
