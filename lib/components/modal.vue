@@ -179,7 +179,7 @@
             },
             buttonSize: {
                 type: String,
-                default: 'md'
+                default: ''
             },
             noFade: {
                 type: Boolean,
