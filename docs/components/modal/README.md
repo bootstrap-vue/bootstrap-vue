@@ -71,14 +71,15 @@ props `no-close-on-esc`, `no-close-on-backdrop`, and `hide-header-close` respect
 
 You can override the modal title via the named slot `modal-title`, override the
 header completely via the `modal-header` slot, and override the footer completely
-via the `modal-footer` slot. Note when using the `modal-footer` slot the default
-**OK** and **Close** buttons will not be present. If you use the `modal-header`
-slot the default header `X` close button will not be present, nor can you use
+via the `modal-footer` slot. 
+
+**Note**: when using the `modal-footer` slot, the default **OK** and **Close** buttons will not be present. 
+Also, if you use the `modal-header` slot, the default header `X` close button will not be present, nor can you use
 the `modal-title` slot.
 
 ## Toggle Modal Visibility
 
-There are several methods that you can employ to toggle he visibility of `<b-modal>`.
+There are several methods that you can employ to toggle the visibility of `<b-modal>`.
 
 ### Using `v-b-modal` directive (recommended)
 
@@ -213,12 +214,12 @@ methods: {
 }
 ```
 
-Note that events `ok` and `cancel` are emitted by modal's built in **OK** and **Close**
-buttons respectively. These events will, by default, not be emitted if you have provided your own
+**Note**: events `ok` and `cancel` are emitted by modal's built in **OK** and **Close**
+buttons respectively. These events will not be emitted, by default, if you have provided your own
 buttons in the `modal-footer` slot or have hidden the footer. In this case use the `hide` event
 to control cancelling of the modal close.
 
-The close event object contains a single property and a single method:
+The `close` event object contains a single property and a single method:
 
 | Property or Method | Type | Description
 | ------------ | ------ | --------------------------------------------
@@ -226,17 +227,18 @@ The close event object contains a single property and a single method:
 | `isOK` | Property | Will be one of: `true` (Default **OK** Clicked), `false` (Default **Close** clicked), the argument provided to the `hide()` method, or `undefined` otherwise (i.e. close on Esc, or close on backdrop click)
 
 You can set the value of `isOK` by passing an argument to the component's
-`hide()` method for advanced control. Note: The `ok` and `cancel` events
-will be only emitted when the argument to `hide()` is strictly `true`
+`hide()` method for advanced control. 
+
+**Note:** `ok` and `cancel` events will be only emitted when the argument to `hide()` is strictly `true`
 or `fase` respectively. The argument passed to `hide()` will be placed into the
 `isOK` property of the close event object.
 
 
-### Modal sizing
+## Modal sizing
 
 The width of `<b-modal>` can be set via the `size` prop to `lg`, `sm` or `md` (default).
 
-### Accessibility
+## Accessibility
 
 `<b-modal>` provides several accessibility features, including auto focus, return
 focus, and keyboard (tab) _focus containment_.
@@ -245,8 +247,7 @@ For `aria-labelledby` and `aria-described` by attributes to appear on the
 modal, you **must** supply an `id` attribute on `<b-modal>`. `aria-labeledby` will
 not be present if you have the header hidden.
 
-
-#### Auto Focus
+### Auto Focus
 
 `<b-modal>` will autofocus the first visible, non-disabled, focusable element found
 in the modal, searching in the following order:
@@ -292,13 +293,13 @@ will be focused instead, unless you have pre-focused an element within.
 focusable items in th modal body) that causes the modal to overflow the
 height of the viewport, and in-turn automatically scrolls down to the footer buttons.
 
-#### Returning focus to the triggering element on modal close
+### Returning focus to the triggering element on modal close
 
 For accessibility reasons, it is desireable to return focus to the element
 that triggered the opening of the modal, when the modal closes.  `<b-modal>`
 provides several methods and options for returning focus to the triggering element.
 
-##### Specify Return Focus Element via the `return-focus` Prop:
+#### Specify Return Focus Element via the `return-focus` Prop:
 
 You can also specify an element to return focus to, when modal closes, by setting
 the `return-focus` prop to one of the following:
@@ -314,13 +315,13 @@ This method for returning focus is handy when you use the `<b-modal>` methods `s
 and `hide()`, or the `v-model` prop. Note this property takes
 precedence over other methods of specifying the return focus element.
 
-##### Auto Return Focus
+#### Auto Return Focus
 
 When `<b-modal>` is opened via the `v-b-modal` directive on an element, focus will be
 returned to this element automatically when `<b-modal>` closes, unless an element has
 been specified via the `return-focus` prop.
 
-##### Specify Return Focus via Event
+#### Specify Return Focus via Event
 
 When using the `show::modal` event (emitted on `$root`), you can specify a second argument
 which is the element to return focus to.  This argument accepts the same types
@@ -330,7 +331,7 @@ as the `return-focus` prop.
 this.$root.$emit('show::modal', 'modal1', '#focusThisOnClose');
 ```
 
-Tip: if using a click event (or similar) to trigger modal to open, pass the
+*Tip:* if using a click event (or similar) to trigger modal to open, pass the
 event's `target` property:
 
 ```html
@@ -339,13 +340,13 @@ event's `target` property:
 </b-btn>
 ```
 
-Note: If the `<b-modal>` has the `return-focus` prop set, then the element specified
+**Note:** If the `<b-modal>` has the `return-focus` prop set, then the element specified
 via the event will be ignored.
 
-#### Keyboard Navigation
+### Keyboard Navigation
 
 When tabbing through elements within a `<b-modal>`, if focus attempts to leave the modal into the document,
-Focus will be brought back into the modal.
+it  will be brought back into the modal.
 
-In some circumstances, you may have a need to disable the enforce focus feature. You can do so
+In some circumstances, you may need to disable the enforce focus feature. You can do this
 by setting the prop `no-enforce-focus`.
