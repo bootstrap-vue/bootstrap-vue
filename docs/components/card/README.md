@@ -504,7 +504,7 @@ isn’t a bulletproof solution yet.
       <small class="text-muted">Last updated 3 mins ago</small>
     </b-card>
 
-    <b-card variant="primary" inverse>
+    <b-card variant="primary" text-variant="white">
       <blockquote class="card-blockquote"
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
         <footer>
