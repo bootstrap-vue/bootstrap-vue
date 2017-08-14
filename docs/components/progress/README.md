@@ -34,11 +34,11 @@ Set the maximum value with the `max` prop (default is `100`), and the current va
 
 ## Labels
 Add labels to your progress bars by either enabling `show-progress` (as a percentage) or
-`show-value`for the currnt absolute value. For `show-progress`, you may also set the
+`show-value`for the current absolute value. For `show-progress`, you may also set the
 percentage precision (number of digits after the decimal) via the `precision` prop (default
-is `0`digits after the dcimal).
+is `0`digits after the decimal).
 
-Fancy more control over hte label? Provide your own label by using the default slot.
+Need more control over the label? Provide your own label by using the default slot.
 
 ```html
 <template>
@@ -98,7 +98,7 @@ export default {
 <!-- progress-width.vue -->
 ```
 
-The height of the prograss bar can be controled with the `height` prop. The height
+The height of the progress bar can be controled with the `height` prop. The height
 value should be a standard CSS dimension (`px`, `rem`, `em`, etc). the default
 is `1rem`.
 
@@ -188,4 +188,3 @@ export default {
 
 <!-- progress-animated.vue -->
 ```
-
