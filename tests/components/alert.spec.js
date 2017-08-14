@@ -10,6 +10,8 @@ describe('alert', async () => {
 
         expect($refs.default_alert).toHaveClass('alert alert-info');
         expect($refs.success_alert).toHaveClass('alert alert-success');
+        expect($refs.dismiss_alert).toHaveClass('alert alert-danger');
+        expect($refs.counter_alert).toHaveClass('alert alert-warning');
     });
 
     it('show prop', async () => {
@@ -34,5 +36,25 @@ describe('alert', async () => {
         closeBtn.click();
         await nextTick();
         expect($el.textContent).not.toContain('Success Alert');
+    });
+
+    it('emits dismiss-count-down event', async () => {
+        const {app: {$refs, $el}} = window;
+        const alert = $refs.counter_alert;
+        const spy = jest.fn()
+
+        // Default is hidden
+        expect($el.textContent).not.toContain('This alert will dismiss after');
+
+        // Make visible by changing visible state
+        const dismissTime = 5;
+        alert.$on('dismiss-count-down', spy);
+        await setData(app, 'dismissCountDown', dismissTime);
+        await nextTick();
+
+        // Emits a dismiss-count-down` event
+        expect(spy).toHaveBeenCalledWith(dismissTime);
+        await nextTick();
+        expect($el.textContent).toContain('This alert will dismiss after');
     });
 });
