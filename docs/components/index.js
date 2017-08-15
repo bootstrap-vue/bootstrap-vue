@@ -17,7 +17,7 @@ export default {
     'form-radio': require('./form-radio').default,
     'form-checkbox': require('./form-checkbox').default,
     'form-file': require('./form-file').default,
-//    'form-group': require('./form-group').default,
+    'form-group': require('./form-group').default,
     'input-group': require('./input-group').default,
     'jumbotron': require('./jumbotron').default,
     'list-group': require('./list-group').default,
