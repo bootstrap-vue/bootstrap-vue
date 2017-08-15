@@ -1,8 +1,8 @@
 <template>
-    <b-form-row :class="['form-group', inputState]"
-         :id="id || null"
-         role="group"
-         :aria-describedby="describedBy"
+    <b-form-row :class="groupClasses"
+                :id="id || null"
+                role="group"
+                :aria-describedby="describedBy"
     >
         <label v-if="label || $slots['label']"
                :for="target"
@@ -18,10 +18,12 @@
                              role="alert"
                              aria-live="assertive"
                              aria-atomic="true"
-            ><slot name="feedback"><span v-html="feedback"></span></slot></b-form-feedback>
-            <b-form-text v-if="description || $slots['description']"
-                         :id="descriptionId"
-            ><slot name="description"><span v-html="description"></span></slot></b-form-text>
+            >
+                <slot name="feedback"><span v-html="feedback"></span></slot>
+            </b-form-feedback>
+            <b-form-text v-if="description || $slots['description']" :id="descriptionId">
+                <slot name="description"><span v-html="description"></span></slot>
+            </b-form-text>
         </div>
     </b-form-row>
 </template>
@@ -68,6 +70,10 @@
                 type: String,
                 default: null
             },
+            validated: {
+                type: Boolean,
+                value: false
+            },
             horizontal: {
                 type: Boolean,
                 default: false
@@ -109,6 +115,13 @@
             }
         },
         computed: {
+            groupClasses() {
+                return [
+                    'form-group',
+                    this.validated ? 'has-validation' : null,
+                    this.inputState
+                ];
+            },
             labelId() {
                 return (this.id && this.label) ? (this.id + '__BV_label_') : null;
             },
