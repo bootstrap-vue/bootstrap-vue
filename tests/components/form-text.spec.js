@@ -9,6 +9,11 @@ describe("form-text", async () => {
         expect($refs.default).toBeElement("small");
     });
 
+    it("default should have id", async () => {
+        const { app: { $refs } } = window;
+        expect($refs.default.getAttribute("id")).toBe("default");
+    });
+
     it("default should have base class", async () => {
         const { app: { $refs } } = window;
         expect($refs.default).toHaveClass("form-text");
