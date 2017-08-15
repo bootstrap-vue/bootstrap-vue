@@ -51,12 +51,12 @@ export default {
 <!-- form-input-1.vue -->
 ```
 
-### Input type
+## Input type
 `<b-form-input>` defaults to a `text` input, but you can set it to any other text-like
 type, such as `password`, `number`, `url`, etc, by setting the `type` prop to the
 appropriate value.
 
-#### Textarea mode
+### Textarea mode
 Render a `<textarea>` element by setting the `textarea` prop to `true` or by
 setting the `type` prop to `textarea`.
 
@@ -65,8 +65,14 @@ lines of text (separated by newlines) it contains. You can override this behavio
 by supplying a numeric value to the `rows` prop. The `rows` prop has no effect
 on other input types.
 
+### Static Control (`.form-input-plaintext`)
+Easily convert a `<b-form-input>` control to a Bootstrap static form
+control by setting the prop `static` to true.
 
-### Formatter
+You can also use the `<b-form-input-static>` component to create static form controls.
+
+
+## Formatter
 `<b-form-input>` optionally supports formatting by passing a function reference to
 the `formatter` prop.
 
@@ -79,45 +85,55 @@ a reference to the input element) and should return the formatted value (as a st
 
 No formatting occurs if a `formatter` is not provided.
 
-
-### Static Control
-Easily convert a `<b-form-input>` control to a Bootstrap static form
-control by setting the prop `static` to true.
-
-You can also use the `<b-form-input-static>` component to create static form controls.
-
-
-### Control sizing
+## Control sizing
 Set heights using the `size` prop to `sm` or `lg` for small or large respectively.
 
 To control width, place the input inside standard Bootstrap grid column.
 
-
-### Contextual States
-Bootstrap includes validation styles for danger, warning, and success states
+## Contextual States
+Bootstrap includes validation styles for `valid` and `invalid` states
 on most form controls.
 
-**Note that these states will not appear unless the `<b-form-input>` is
-wrapped in a `<b-form fieldset>` which also has the same `state` value.**
-
-On `<b-form-input>`, these states will add the corresponding **validtion state icon**
-at the right of the input. Validation icons are url()s configured via Bootstrap V4's
-SaSS variables that are applied to background-image declarations for each state.
-
 Generally speaking, you’ll want to use a particular state for specific types of feedback:
-- `danger` is great for when there’s a blocking or required field. A user must fill in
+- `'invalid'` is great for when there’s a blocking or required field. A user must fill in
 this field properly to submit the form.
-- `warning` works well for input values that are in progress, like password strength, or
-soft validation before a user attempts to submit a form.
-- `success` is ideal for situations when you have per-field validation throughout a form
+- `'valid'` is ideal for situations when you have per-field validation throughout a form
 and want to encourage a user through the rest of the fields.
+- `null` Displayes no validation state
 
 To apply one of the contextual state icons on `<b-form-input>`, set the `state` prop
-to `danger`, `warning`, or `success`. Remember that you will not see the validation 
-state icon unless the input is wrapped in a `<b-form-fieldset>` which also
-has the **same** `state` applied!
+to `'invalid'`, `'valid'`, or `null`.
 
-#### Conveying contextual validation state to assistive technologies and colorblind users:
+```html
+<template>
+  <div>
+    <b-form-input v-model.trim="name"
+                  type="text"
+                  state="validateName"
+                  placeholder="Enter your name"
+    ></b-form-input>
+    <b-form-feedback>Enter at least 3 letters
+    <b-form-text>Enter your name.</b-form-text>
+  </div>  
+</template>
+
+<script>
+export default {
+  data: {
+    name: ''
+  },
+  methods: {
+    validateName() {
+      return this.name.length > 2 ? 'valid' : 'invalid';
+    }
+  }
+}
+</script>
+
+<!-- form-input-validate-1.vue -->
+```
+
+### Conveying contextual validation state to assistive technologies and colorblind users:
 Using these contextual states to denote the state of a form control only provides
 a visual, color-based indication, which will not be conveyed to users of assistive
 technologies - such as screen readers - or to colorblind users.
@@ -125,15 +141,19 @@ technologies - such as screen readers - or to colorblind users.
 Ensure that an alternative indication of state is also provided. For instance, you
 could include a hint about state in the form control's `<label>` text itself, or by
 providing an additional help text block. Specifically for assistive technologies, 
-invalid form controls can also be assigned an `aria-invalid="true"` attribute.
+invalid form controls can also be assigned an `aria-invalid="true"` attribute
+by setting the `aria-invalid` prop to `true`. `aria-invalid` will also be
+automatically applied if `state` is set to `'invalid`.
 
 
 ### ARIA `aria-invalid` attribute
-When `<form-input>` has an invalid contextual state (i.e. `danger`) you may also
-want to set the `<b-form-input>` prop `invalid` to `true`, or a string value.
+When `<form-input>` has an invalid contextual state (i.e. `invalid`) you may also
+want to set the `<b-form-input>` prop `invalid` to `true` (done automatically for
+`invalid` state), or to one of the supported string values.
 
-Supported `invalid` values are:
+Supported `aria-invalid` values are:
 - `false` (default) No errors detected
 - `true` The value has failed validation.
 - `grammar` A grammatical error has been detected.
 - `spelling` A spelling error has been detected.
+
