@@ -118,9 +118,8 @@ describe("card", async () => {
         expect($refs.card_group).toBeElement("section");
     });
 
-    it('CardBody should have assigned class', async () => {
-        const {app: {$refs}} = window;
-        const body = $refs.card_body.children[0];
-        expect(body.classList.contains('card-text')).toBe(true);
+    it("CardBody should have assigned class", async () => {
+        const { app: { $refs } } = window;
+        expect($refs.body).toHaveClass("card-text");
     });
 });
