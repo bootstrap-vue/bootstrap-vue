@@ -2,17 +2,18 @@
     <div :id="id || null"
          :class="buttons ? btnGroupClasses : radioGroupClasses"
          role="radiogroup"
+         tabindex="-1"
          :data-toggle="buttons ? 'buttons' : null"
          :aria-required="required ? 'true' : null"
-         :aria-invalid="invalid ? 'true' : null"
+         :aria-invalid="computedAriaInvalid"
     >
         <label v-for="(option, idx) in formOptions"
                :class="buttons ? btnLabelClasses(option, idx) : labelClasses"
-               :key="idx"
+               :key="'radio_'+idx"
                :aria-pressed="buttons ? (option.value === localValue ? 'true' : 'false') : null"
         >
             <input :id="id ? (id + '__BV_radio_' + idx) : null"
-                   :class="(custom && !buttons) ? 'custom-control-input' : null"
+                   :class="radioClasses"
                    ref="inputs"
                    type="radio"
                    autocomplete="off"
@@ -38,7 +39,8 @@
         mixins: [formMixin, formCustomMixin, formCheckBoxMixin, formOptionsMixin],
         data() {
             return {
-                localValue: this.value
+                localValue: this.value,
+                localState: this.state
             };
         },
         props: {
@@ -53,10 +55,15 @@
                 default: null
             },
             state: {
+                // 'valid', 'invalid' or null
                 type: String,
                 default: null
             },
-            invalid: {
+            validated: {
+                type: Boolean,
+                default: false
+            },
+            ariaInvalid: {
                 type: [Boolean, String],
                 default: false
             },
@@ -73,32 +80,41 @@
                 // Only applicable when rendered with button style
                 type: String,
                 default: 'secondary'
-            },
-            returnObject: {
-                type: Boolean,
-                default: false
             }
         },
         computed: {
             radioGroupClasses() {
                 return [
+                    this.validated ? `was-validated` : '',
                     this.size ? `form-control-${this.size}` : null,
-                    this.state ? `has-${this.state}` : '',
                     this.stacked ? 'custom-controls-stacked' : ''
                ];
             },
             btnGroupClasses() {
                 return [
                     'btn-group',
+                    this.validated ? `was-validated` : '',
                     this.size ? `btn-group-${this.size}` : null,
                     this.stacked ? 'btn-group-vertical' : ''
                  ];
+            },
+            radioClasses() {
+                return [
+                    (custom && !buttons) ? 'custom-control-input' : null,
+                    this.state ? `is-$this.state}` : null
+                ];
             },
             labelClasses() {
                 return [
                     this.checkboxClass,
                     this.custom ? 'custom-radio' : null
                 ];
+            },
+            computedAriaInvalid() {
+                if (this.ariaInvalid === true || thisAriaInvalid === 'true') {
+                    return 'true'
+                }
+                return this.state === 'invalid' ? 'true' : null;
             },
             inline() {
                 return !this.stacked;
