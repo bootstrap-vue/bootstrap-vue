@@ -8,10 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **badge:** badge default variant ([1403ec4](https://github.com/bootstrap-vue/bootstrap-vue/commit/1403ec4))
 * **button:** Code cleanup and additional comments ([45e3353](https://github.com/bootstrap-vue/bootstrap-vue/commit/45e3353))
-* **card:**  change prop no-block to no-body ([#826](https://github.com/bootstrap-vue/bootstrap-vue/issues/826)) ([664bc98](https://github.com/bootstrap-vue/bootstrap-vue/commit/664bc98))
-* **card:** Fix classes, variants, borders [v4-beta] ([#815](https://github.com/bootstrap-vue/bootstrap-vue/issues/815)) ([fc26811](https://github.com/bootstrap-vue/bootstrap-vue/commit/fc26811))
 * **carousel:** boolean typo ([6a95410](https://github.com/bootstrap-vue/bootstrap-vue/commit/6a95410))
 * **carousel:** Detect transitionend event name ([fa07949](https://github.com/bootstrap-vue/bootstrap-vue/commit/fa07949))
 * **carousel:** Ensure slideshow restarts when reaching the end ([e175c36](https://github.com/bootstrap-vue/bootstrap-vue/commit/e175c36))
@@ -26,7 +23,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **dropdown:** focus on first item on show ([40a1347](https://github.com/bootstrap-vue/bootstrap-vue/commit/40a1347))
 * **dropdown:** twbs/bootstrap[#23329](https://github.com/bootstrap-vue/bootstrap-vue/issues/23329) ([fab5d22](https://github.com/bootstrap-vue/bootstrap-vue/commit/fab5d22))
 * **dropdowns:** Focus dropdown item on hover ([#823](https://github.com/bootstrap-vue/bootstrap-vue/issues/823)) ([2e863d9](https://github.com/bootstrap-vue/bootstrap-vue/commit/2e863d9))
-* **form-control-static:** change class to form-control-plaintext ([66eda01](https://github.com/bootstrap-vue/bootstrap-vue/commit/66eda01))
 * **form-input:** Fix reactivity (issue [#817](https://github.com/bootstrap-vue/bootstrap-vue/issues/817)) ([88e2dbb](https://github.com/bootstrap-vue/bootstrap-vue/commit/88e2dbb))
 * **nav-item-dropdown:** add show class ([921dac5](https://github.com/bootstrap-vue/bootstrap-vue/commit/921dac5))
 * **nav-item-dropdown:** Custom CSS ([0bd35c8](https://github.com/bootstrap-vue/bootstrap-vue/commit/0bd35c8))
