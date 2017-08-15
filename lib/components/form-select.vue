@@ -8,7 +8,7 @@
             :disabled="disabled"
             :required="required"
             :aria-required="required ? 'true' : null"
-            :aria-invalid="ariaInvalid"
+            :aria-invalid="computedAriaInvalid"
             ref="input"
     >
         <option v-for="option in formOptions"
@@ -17,6 +17,7 @@
                 :disabled="option.disabled"
                 :key="option.value || option.text"
         ></option>
+        <slot></slot>
     </select>
 </template>
 
@@ -31,26 +32,12 @@
                 localValue: this.multiple ? (this.value || []) : this.value
             };
         },
-        computed: {
-            inputClass() {
-                return [
-                    'form-control',
-                    this.size ? `form-control-${this.size}` : null,
-                    (this.plain || this.multiple || this.selectSize > 1) ? null : 'custom-select'
-                ];
-            },
-            ariaInvalid() {
-                if (this.invalid === true || this.invalid === 'true') {
-                    return 'true';
-                }
-                return null;
-            }
-        },
         props: {
             value: {},
-            invalid: {
-                type: [Boolean, String],
-                default: false
+            state: {
+                // 'valid', 'invalid' or null
+                type: String,
+                default: null
             },
             size: {
                 type: String,
@@ -65,19 +52,30 @@
                 default: false
             },
             selectSize: {
-                // Browsers default size to 0, which typically shows 4 rows in most browsers
+                // Browsers default size to 0, which shows 4 rows in most browsers in multiple mode
                 // Size of 1 can bork out firefox
                 type: Number,
                 default: 0
             },
-            returnObject: {
-                type: Boolean,
+            ariaInvalid: {
+                type: [Boolean, String],
                 default: false
             }
         },
-        created() {
-            if (this.returnObject) {
-                warn('form-select: return-object has been deprecated and will be removed in future releases');
+        computed: {
+            inputClass() {
+                return [
+                    'form-control',
+                    this.state ? `is-${this.state}` : null,
+                    this.size ? `form-control-${this.size}` : null,
+                    (this.plain || this.multiple || this.selectSize > 1) ? null : 'custom-select'
+                ];
+            },
+            computedAriaInvalid() {
+                if (this.ariaInvalid === true || this.ariaInvalid === 'true') {
+                    return 'true';
+                }
+                return this.state == 'invalid' ? 'true' : null;
             }
         }
     };
