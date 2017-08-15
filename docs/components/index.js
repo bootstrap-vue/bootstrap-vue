@@ -13,6 +13,7 @@ export default {
     'dropdown': require('./dropdown').default,
     'form': require('./form').default,
     'form-input': require('./form-input').default,
+    'form-textarea': require('./form-textarea').default,
     'form-select': require('./form-select').default,
     'form-radio': require('./form-radio').default,
     'form-checkbox': require('./form-checkbox').default,
