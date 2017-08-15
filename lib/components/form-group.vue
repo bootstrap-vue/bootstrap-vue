@@ -2,18 +2,18 @@
     <b-form-row :class="groupClasses"
                 :id="id || null"
                 role="group"
-                :aria-describedby="describedBy"
+                :aria-describedby="describedByIds"
     >
         <label v-if="label || $slots['label']"
-               :for="target"
+               :for="targetId"
                :id="labelId"
                :class="[labelSrOnly ? 'sr-only' : 'col-form-label',labelLayout,labelAlignClass]"
         >
             <slot name="label"><span v-html="label"></span></slot>
         </label>
-        <div :class="inputLayout" ref="content">
+        <div :class="inputLayoutClasses" ref="content">
             <slot></slot>
-            <b-form-feedback v-if="feedback || $slots['feedback']"
+            <b-form-feedback v-show="feedback || $slots['feedback']"
                              :id="feedbackId"
                              role="alert"
                              aria-live="assertive"
@@ -27,6 +27,18 @@
         </div>
     </b-form-row>
 </template>
+
+<style>
+/*
+   Bootstrap V4.beta uses ~ sibling selector to display the .invalid-feedback
+   so we ue a style override and also place .is-invalid on the input layout section
+   to target our b-form-feedback (.invalid-feedback) to display it in case
+   thd form input(s) are wrapped in another element, no longer making them siblings
+ */
+.b-form-group.form-group.is-invalid .invalid-feedback {
+  display: block !important;
+}
+</style>
 
 <script>
     import {warn} from '../utils';
@@ -54,7 +66,7 @@
         },
         data() {
             return {
-                target: null
+                targetId: null
             };
         },
         props: {
@@ -67,6 +79,7 @@
                 default: null
             },
             state: {
+                // 'valid', 'invalid', null
                 type: String,
                 default: null
             },
@@ -115,34 +128,16 @@
             }
         },
         computed: {
+            inputState() {
+                return this.state ? `is-${this.state}` : '';
+            },
             groupClasses() {
                 return [
+                    'b-form-group',
                     'form-group',
                     this.validated ? 'was-validated' : null,
                     this.inputState
                 ];
-            },
-            labelId() {
-                return (this.id && this.label) ? (this.id + '__BV_label_') : null;
-            },
-            descriptionId() {
-                return (this.id && this.description) ? (this.id + '__BV_description_') : null;
-            },
-            feedbackId() {
-                return (this.id && this.feedback) ? (this.id + '__BV_feedback_') : null;
-            },
-            describedBy() {
-                if (this.id && (this.label || this.feedback || this.description)) {
-                    return [
-                        this.labelId,
-                        this.descriptionId,
-                        this.feedbackId
-                    ].filter(i => i).join(' ');
-                }
-                return null;
-            },
-            inputState() {
-                return this.state ? `is-${this.state}` : '';
             },
             labelLayout() {
                 if (this.labelSrOnly) {
@@ -156,12 +151,39 @@
                 }
                 return this.labelTextAlign ? `text-${this.labelTextAlign}` : null;
             },
-            inputLayout() {
-                return this.horizontal ? `col-${this.breakpoint}-${12 - this.labelCols}` : 'col-12';
+            inputLayoutClasses() {
+                return [
+                  this.horizontal ? `col-${this.breakpoint}-${12 - this.labelCols}` : 'col-12'
+                ]
+            },
+            labelId() {
+                return (this.id && this.label) ? `${this.id}__BV_label_` : null;
+            },
+            descriptionId() {
+                if (this.id && (this.description || this.$slots['description'])) {
+                    return `${this.id}__BV_description_`;
+                }
+                return null;
+            },
+            feedbackId() {
+                if (this.id && (this.feedback || this.$slots['feedback'])) {
+                    return `${this.id}__BV_feedback_`;
+                }
+                return null;
+            },
+            describedByIds() {
+                if (this.id) {
+                    return [
+                        this.labelId,
+                        this.descriptionId,
+                        this.feedbackId
+                    ].filter(i => i).join(' ');
+                }
+                return null;
             }
         },
         methods: {
-            updateTarget() {
+            updateTargetId() {
                 if (this.labelFor) {
                     // User supplied for target
                     return this.labelFor;
@@ -173,14 +195,14 @@
                 }
                 // Find first input element with an ID
                 const input = content.querySelector(INPUT_SELECTOR);
-                this.target = (input && input.id) ? input.id : null;
+                this.targetId = (input && input.id) ? input.id : null;
             }
         },
         mounted() {
-            this.updateTarget();
+            this.updateTargetId();
         },
         updated() {
-            this.updateTarget();
+            this.updateTargetId();
         }
     };
 </script>
