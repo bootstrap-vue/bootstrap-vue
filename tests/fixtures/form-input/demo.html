@@ -1,18 +1,29 @@
 <div id="app">
     <b-form-input v-model="text" type="text" placeholder="Enter your name" :state="text.length?'success':'warning'" :formatter="format"></b-form-input>
     <small class="text-muted">We will convert your name to lowercase instantly</small>
-
-    <br>
-    <br>
+    <br><br>
 
     <b-form-input v-model="text" type="text" placeholder="Enter your name" :state="text.length?'success':'warning'" :formatter="format" lazy-formatter></b-form-input>
     <small class="text-muted">This one is a little lazy!</small>
-
-    <br>
-    <br>
+    <br><br>
 
     <b-form-input textarea v-model="text" placeholder="Text area mode"></b-form-input>
+    <br><br>
 
-    <br>
+    <b-form-input static v-model="text" placeholder="Text area mode"></b-form-input>
+    <br><br>
+
+    <b-form-input state="valid" v-model="text" placeholder="valid"></b-form-input>
+    <br><br>
+
+    <b-form-input state="invalid" v-model="text" placeholder="invalid"></b-form-input>
+    <br><br>
+
+    <b-form-input type="password" v-model="text" placeholder="password"></b-form-input>
+    <br><br>
+
+    <b-form-input type="textarea" v-model="text" placeholder="textarea"></b-form-input>
+    <br><br>
+
     <p>Value: {{text}}</p>
 </div>
