@@ -383,9 +383,6 @@
 
                 // Apply local filter
                 if (filter && !this.providerFiltering) {
-                    // Number of items before filtering
-                    const numOriginalItems = items.length;
-
                     if (filter instanceof Function) {
                         items = items.filter(filter);
                     } else {
@@ -401,11 +398,10 @@
                             return test;
                         });
                     }
-
-                    if (numOriginalItems !== items.length) {
-                        // Emit a filtered notification event, as number of items has changed
-                        this.$emit('filtered', items);
-                    }
+                }
+                if (!this.providerFiltering) {
+                    // Emit a filtered notification event, as number of items may have changed
+                    this.$emit('filtered', items);
                 }
 
                 // Apply local Sort
