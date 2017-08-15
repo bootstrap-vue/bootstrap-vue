@@ -99,7 +99,7 @@ Generally speaking, you’ll want to use a particular state for specific types o
 this field properly to submit the form.
 - `'valid'` is ideal for situations when you have per-field validation throughout a form
 and want to encourage a user through the rest of the fields.
-- `null` Displayes no validation state
+- `null` Displays no validation state
 
 To apply one of the contextual state icons on `<b-form-input>`, set the `state` prop
 to `'invalid'`, `'valid'`, or `null`.
