@@ -12,7 +12,7 @@ export default {
         formClasses() {
             return [
                 this.inline ? 'form-inline' : '',
-                (this.browserValidation && this.validated) ? 'was-validated' : ''
+                this.validated ? 'was-validated' : ''
             ];
         }
     },
@@ -21,7 +21,7 @@ export default {
             type: Boolean,
             default: false
         },
-        broserValidation: {
+        browserValidation: {
             type: Boolean,
             default: false
         },
