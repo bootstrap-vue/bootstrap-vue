@@ -1,6 +1,6 @@
 import { loadFixture, testVM } from "../helpers";
 
-describe("button-group", async () => {
+describe("form-row", async () => {
     beforeEach(loadFixture("form-row"));
     testVM();
 
