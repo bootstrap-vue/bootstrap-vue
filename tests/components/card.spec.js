@@ -27,7 +27,7 @@ describe("card", async () => {
     it("should contain class names", async () => {
         const { app: { $refs } } = window;
 
-        expect($refs.simple_card).toHaveAllClasses(["card", "card-success"]);
+        expect($refs.simple_card).toHaveAllClasses(["card", "bg-success", "border-success"]);
         expect($refs.standard_card).toHaveClass("card");
         expect($refs.img_card).toHaveClass("card");
         expect($refs.img_overlay_card).toHaveAllClasses(["card"]);
@@ -116,5 +116,10 @@ describe("card", async () => {
         const { app: { $refs } } = window;
 
         expect($refs.card_group).toBeElement("section");
+    });
+
+    it("CardBody should have assigned class", async () => {
+        const { app: { $refs } } = window;
+        expect($refs.body).toHaveClass("card-text");
     });
 });
