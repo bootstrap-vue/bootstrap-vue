@@ -37,4 +37,49 @@ describe("dropdown", async () => {
             expect(openDds.length).toBe(1);
         }
     });
+
+    it('dd-item should render as link by default', async () => {
+        const {app: {$refs}} = window;
+        const {dd_6} = $refs;
+
+        expect(Array.from(dd_6.$refs.menu.children).find(node => node.innerHTML === 'link')).toBeElement('a');
+    });
+
+    it('dd-item-button should render as button', async () => {
+        const {app: {$refs}} = window;
+        const {dd_6} = $refs;
+
+        expect(Array.from(dd_6.$refs.menu.children).find(node => node.innerHTML === 'button')).toBeElement('button');
+    });
+
+    it('dd-item-button should emit click event', async () => {
+        const {app: {$refs}} = window;
+        const {dd_6} = $refs;
+
+        const spy = jest.fn();
+
+        dd_6.$parent.$root.$on('clicked::link', spy);
+
+        const buttonItem = Array.from(dd_6.$refs.menu.children).find(node => node.innerHTML === 'button');
+        buttonItem.click();
+
+        expect(spy).toHaveBeenCalled();
+    });
+
+    it('dd-divider should render', async () => {
+        const {app: {$refs}} = window;
+        const {dd_6} = $refs;
+
+        const spy = jest.fn();
+
+        dd_6.$parent.$root.$on('clicked::link', spy);
+
+        const buttonItem = Array.from(dd_6.$refs.menu.children).find(node => node.innerHTML === 'button');
+        buttonItem.click();
+
+        expect(Array.from(dd_6.$refs.menu.children).find(node => node.innerHTML === 'link')).toBeElement('a');
+        expect(Array.from(dd_6.$refs.menu.children).find(node => node.innerHTML === 'button')).toBeElement('button');
+        expect(Array.from(dd_6.$refs.menu.children).filter(node => node.classList.contains('dropdown-divider')).length).toBe(1);
+        expect(spy).toHaveBeenCalled();
+    });
 });
