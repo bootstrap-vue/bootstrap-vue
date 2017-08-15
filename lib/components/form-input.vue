@@ -1,32 +1,50 @@
 <template>
-    <input v-if="!static"
-           ref="input"
-           :is="isTextArea ? 'textarea' : 'input'"
-           :type="isTextArea ? null : type"
-           :value="value"
-           :name="name"
-           :id="id || null"
-           :disabled="disabled"
-           :required="required"
-           :autocomplete="autocomplete || null"
-           :aria-required="required ? 'true' : null"
-           :aria-invalid="ariaInvalid"
-           :readonly="readonly"
-           :class="inputClass"
-           :rows="isTextArea ? (rows || rowsCount) : null"
-           :placeholder="placeholder"
-           @input="onInput($event.target.value, $event.target)"
-           @change="onChange($event.target.value, $event.target)"
-           @keyup="onKeyUp($event)"
-           @focus="$emit('focus')"
-           @blur="$emit('blur')"
-    />
-    <b-form-input-static v-else
+    <b-form-input-static v-if="static"
                          :id="id || null"
                          :value="value"
                          :size="size"
                          :state="state"
     ></b-form-input-static>
+    <textarea v-else-if="isTextArea"
+              ref="textarea"
+              :name="name"
+              :value="value"
+              :id="id || null"
+              :disabled="disabled"
+              :wrap="wrap || null"
+              :required="required"
+              :autocomplete="autocomplete || null"
+              :aria-required="required ? 'true' : null"
+              :aria-invalid="localAriaInvalid"
+              :readonly="readonly"
+              :class="inputClass"
+              :rows="rows || rowsCount"
+              :placeholder="placeholder"
+              @input="onInput($event.target.value, $event.target)"
+              @change="onChange($event.target.value, $event.target)"
+              @keyup="onKeyUp($event)"
+              @focus="$emit('focus')"
+              @blur="$emit('blur')"
+    ></textarea>
+    <input v-else
+           ref="input"
+           :name="name"
+           :value="value"
+           :type="type"
+           :id="id || null"
+           :disabled="disabled"
+           :required="required"
+           :autocomplete="autocomplete || null"
+           :aria-required="required ? 'true' : null"
+           :aria-invalid="localAriaInvalid"
+           :readonly="readonly"
+           :class="inputClass"
+           :placeholder="placeholder"
+           @input="onInput($event.target.value, $event.target)"
+           @change="onChange($event.target.value, $event.target)"
+           @keyup="onKeyUp($event)"
+           @focus="$emit('focus')"
+           @blur="$emit('blur')" />
 </template>
 
 <script>
@@ -34,7 +52,67 @@
     import bFormInputStatic from './form-input-static.vue';
     export default {
         mixins: [formMixin],
-        components: {bFormInputStatic},
+        components: {
+            bFormInputStatic
+        },
+        props: {
+            value: {
+                default: null
+            },
+            type: {
+                type: String,
+                default: 'text'
+            },
+            size: {
+                type: String,
+                default: null
+            },
+            state: {
+                // valid, invalid or null
+                type: String,
+                default: null
+            },
+            ariaInvalid: {
+                type: [Boolean, String],
+                default: false
+            },
+            readonly: {
+                type: Boolean,
+                default: false
+            },
+            autocomplete: {
+                type: String,
+                default: null
+            },
+            static: {
+                type: Boolean,
+                default: false
+            },
+            placeholder: {
+                type: String,
+                default: null
+            },
+            textarea: {
+                type: Boolean,
+                default: false
+            },
+            rows: {
+                type: Number,
+                default: null
+            },
+            wrap: {
+                // 'soft', 'hard' or 'off'. Browser default is 'soft'
+                type: String,
+                default: 'soft'
+            },
+            formatter: {
+                type: Function
+            },
+            lazyFormatter: {
+                type: Boolean,
+                default: false
+            }
+        },
         computed: {
             isTextArea() {
                 return this.textarea || this.type === 'textarea';
@@ -46,17 +124,20 @@
                 return [
                     'form-control',
                     this.size ? `form-control-${this.size}` : null,
-                    this.state ? `form-control-${this.state}` : null
+                    this.state ? `is-${this.state}` : null
                 ];
             },
-            ariaInvalid() {
-                if (this.invalid === false) {
-                    return null;
+            computedAriaInvalid() {
+                if (!Boolean(this.ariaInvalid) || this.ariaInvalid === 'false') {
+                    // this.ariaInvalid is null or false or 'false'
+                    return this.state === 'invalid' ? 'true' : null ;
                 }
-                if (this.invalid === true) {
+                if (this.ariaInvalid === true) {
+                   // User wants explicit aria-invalid=true
                     return 'true';
                 }
-                return this.invalid;
+                // Most likely a string value (which could be 'true')
+                return this.ariaInvalid;
             }
         },
         watch:{
@@ -93,59 +174,14 @@
                 this.$emit('keyup', e);
             },
             focus() {
-                this.$refs.input.focus();
-            }
-        },
-        props: {
-            value: {
-                default: null
-            },
-            type: {
-                type: String,
-                default: 'text'
-            },
-            size: {
-                type: String,
-                default: null
-            },
-            state: {
-                type: String,
-                default: null
-            },
-            invalid: {
-                type: [Boolean, String],
-                default: false
-            },
-            readonly: {
-                type: Boolean,
-                default: false
-            },
-            autocomplete: {
-                type: String,
-                default: null
-            },
-            static: {
-                type: Boolean,
-                default: false
-            },
-            placeholder: {
-                type: String,
-                default: null
-            },
-            rows: {
-                type: Number,
-                default: null
-            },
-            textarea: {
-                type: Boolean,
-                default: false
-            },
-            formatter: {
-                type: Function
-            },
-            lazyFormatter: {
-                type: Boolean,
-                default: false
+                if(this.static || this.disabled) {
+                    return;
+                }
+                if (this.isTextArea) {
+                    this.$refs.textarea.focus();
+                } else {
+                    this.$refs.input.focus();
+                }
             }
         }
     };
