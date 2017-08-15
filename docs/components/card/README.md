@@ -235,7 +235,7 @@ toggling the color of text within, as well as that of the card’s sub-component
 via the prop `text-variant`. Then, specify a dark background variant.
 
 ```html
-<b-card  variant="dark" text-variant="white" title="Card Title">
+<b-card  bg-variant="dark" text-variant="white" title="Card Title">
   <p class="card-text">
     With supporting text below as a natural lead-in to additional content.
   </p>
@@ -248,40 +248,40 @@ via the prop `text-variant`. Then, specify a dark background variant.
 ### Background and Bordered variants
 
 Cards include their own variant style for quickly changing the background-color and
-of a card via the `variant` prop. Darker solid variants my require setting the
-boolean prop `inverse` to adjust the text color.
+of a card via the `bg-variant` and `border-variant` props. Darker solid variants my require setting the
+prop `text-variant` to adjust the text color.
 
 #### Solid
 
 ```html
 <div>
   <b-card-group deck class="mb-3">
-    <b-card variant="primary" text-variant="white" header="Primary" class="text-center">
+    <b-card bg-variant="primary" text-variant="white" header="Primary" class="text-center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
-    <b-card variant="secondary" text-variant="white" header="Secondary" class="text-center">
+    <b-card bg-variant="secondary" text-variant="white" header="Secondary" class="text-center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
-    <b-card variant="success" text-variant="white" header="Success" class="text-center">
+    <b-card bg-variant="success" text-variant="white" header="Success" class="text-center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
   </b-card-group>
   <b-card-group deck class="mb-3">
-    <b-card variant="info" text-variant="white" header="Info" class="text-center">
+    <b-card bg-variant="info" text-variant="white" header="Info" class="text-center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
-    <b-card variant="warning" text-variant="white" header="Warning" class="text-center">
+    <b-card bg-variant="warning" text-variant="white" header="Warning" class="text-center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
-    <b-card variant="danger" text-variant="white" header="Danger" class="text-center">
+    <b-card bg-variant="danger" text-variant="white" header="Danger" class="text-center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
    </b-card-group>
    <b-card-group deck class="mb-3">
-    <b-card variant="light" header="Light" class="text-center">
+    <b-card bg-variant="light" header="Light" class="text-center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
-    <b-card variant="dark" header="Dark" text-variant="white" class="text-center">
+    <b-card bg-variant="dark" header="Dark" text-variant="white" class="text-center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
     <b-card header="Default" class="text-center">
@@ -298,39 +298,54 @@ boolean prop `inverse` to adjust the text color.
 ```html
 <div>
   <b-card-group deck class="mb-3">
-    <b-card variant="primary" bordered header="Primary" class="text-center">
+    <b-card border-variant="primary"
+            header="Primary"
+            header-bg-variant="primary"
+            header-text-variant="white"
+            align="center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
-    <b-card variant="secondary" bordered
-            header="Secondary" header-bordered header-variant="secondary"
-            class="text-center">
+    <b-card border-variant="secondary"
+            header="Secondary"
+            header-border-variant="secondary"
+            align="center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
-    <b-card variant="success" bordered header="Success" class="text-center">
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </b-card>
-  </b-card-group>
-  <b-card-group deck class="mb-3">
-    <b-card variant="info" bordered header="Info" class="text-center">
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </b-card>
-    <b-card variant="warning" bordered header="Warning" class="text-center">
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </b-card>
-    <b-card variant="danger" bordered header="Danger"
-            header-bordered header-variant="danger" header-text-variant="danger"
-            class="text-center">
+    <b-card border-variant="success"
+            header="Success"
+            align="center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
   </b-card-group>
   <b-card-group deck class="mb-3">
-    <b-card variant="light" bordered header="Light" class="text-center">
+    <b-card border-variant="info"
+            header="Info"
+            align="center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
-    <b-card variant="dark" bordered header="Dark" class="text-center">
+    <b-card border-variant="warning"
+            header="Warning"
+            header-bg-variant="transparent"
+            align="center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
-    <b-card bordered header="Default" class="text-center">
+    <b-card border-variant="danger"
+            header="Danger"
+            header-border-variant="danger"
+            header-text-variant="danger"
+            align="center">
+      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </b-card>
+  </b-card-group>
+  <b-card-group deck class="mb-3">
+    <b-card border-variant="light"
+            header="Light"
+            class="text-center">
+      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </b-card>
+    <b-card border-variant="dark"
+            header="Dark"
+            align="center">
       <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </b-card>
   </b-card-group>
@@ -510,7 +525,7 @@ isn’t a bulletproof solution yet.
       <small class="text-muted">Last updated 3 mins ago</small>
     </b-card>
 
-    <b-card variant="primary" text-variant="white">
+    <b-card bg-variant="primary" text-variant="white">
       <blockquote class="card-blockquote"
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
