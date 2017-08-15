@@ -24,7 +24,7 @@ export default {
         broserValidation: {
             type: Boolean,
             default: false
-        }
+        },
         validated: {
             type: Boolean,
             default: false
