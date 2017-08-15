@@ -124,7 +124,9 @@
             return {
                 localSortBy: this.sortBy || '',
                 localSortDesc: this.sortDesc || false,
-                localItems: []
+                localItems: [],
+                // Note: filteredItems only used to determine if # of items changed
+                filteredItems: []
             };
         },
         props: {
@@ -261,6 +263,12 @@
             items(newVal, oldVal) {
                 if (oldVal !== newVal) {
                     this._providerUpdate();
+                }
+            },
+            filteredItems(newVal, oldVal) {
+                if (!this.providerFiltering && newVal.length !== oldVal.length) {
+                    // Emit a filtered notification event, as number of filtered items has changed
+                    this.$emit('filtered', newVal);
                 }
             },
             sortDesc(newVal, oldVal) {
@@ -400,8 +408,8 @@
                     }
                 }
                 if (!this.providerFiltering) {
-                    // Emit a filtered notification event, as number of items may have changed
-                    this.$emit('filtered', items);
+                    // Make a local copy of filtered items to trigger filtered event
+                    this.filteredItems = items.slice();
                 }
 
                 // Apply local Sort
