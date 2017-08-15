@@ -220,7 +220,7 @@ a fixed-width card.
       <a href="#" class="card-link">Card link</a>
       <a href="#" class="card-link">Another link</a>
     </b-card-body>
-    <card-footer>This is a footer</card-footer>
+    <b-card-footer>This is a footer</b-card-footer>
     <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img>
   </b-card>
 </div>
