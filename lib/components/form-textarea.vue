@@ -8,14 +8,14 @@
               :autocomplete="autocomplete || null"
               :readonly="readonly"
               :class="inputClass"
-              :rows="rows || rowsCount"
+              :rows="rowsCount"
               :placeholder="placeholder"
               :aria-required="required ? 'true' : null"
               :aria-invalid="computedAriaInvalid"
               @input="onInput(value, $event)"
               @change="onChange(value, $event)"
-              @keyup="$emit('keyup, $event)"
-              @keyup="$emit('keydown, $event)"
+              @keyup="$emit('keyup', $event)"
+              @keyup="$emit('keydown', $event)"
               @focus="$emit('focus', $event)"
               @blur="$emit('blur', $event)"
     ></textarea>
@@ -71,7 +71,9 @@
         },
         computed: {
             rowsCount() {
-                return (this.value || '').toString().split('\n').length;
+                const rows = this.rows || 1;
+                const lines = (this.value || '').toString().split('\n').length;
+                return this.maxRows ? Math.min(this.maxRows, lines) : Math.max(rows, lines);
             },
             inputClass() {
                 return [
