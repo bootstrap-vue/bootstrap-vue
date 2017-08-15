@@ -1,60 +1,24 @@
 <template>
-    <b-form-input-static v-if="static"
-                         :id="id || null"
-                         :value="value"
-                         :size="size"
-                         :state="state"
-    ></b-form-input-static>
-    <textarea v-else-if="isTextArea"
-              ref="textarea"
-              :name="name"
-              :value="value"
-              :id="id || null"
-              :disabled="disabled"
-              :wrap="wrap || null"
-              :required="required"
-              :autocomplete="autocomplete || null"
-              :aria-required="required ? 'true' : null"
-              :aria-invalid="computedAriaInvalid"
-              :readonly="readonly"
-              :class="inputClass"
-              :rows="rows || rowsCount"
-              :placeholder="placeholder"
-              @input="onInput($event.target.value, $event.target)"
-              @change="onChange($event.target.value, $event.target)"
-              @keyup="onKeyUp($event)"
-              @focus="$emit('focus')"
-              @blur="$emit('blur')"
-    ></textarea>
-    <input v-else
-           ref="input"
+    <input :id="id || null"
+           :class="inputClass"
            :name="name"
            :value="value"
-           :type="type"
-           :id="id || null"
+           :type="localType"
            :disabled="disabled"
            :required="required"
+           :readonly="readonly || plaintext"
+           :placeholder="placeholder"
            :autocomplete="autocomplete || null"
            :aria-required="required ? 'true' : null"
            :aria-invalid="computedAriaInvalid"
-           :readonly="readonly"
-           :class="inputClass"
-           :placeholder="placeholder"
-           @input="onInput($event.target.value, $event.target)"
-           @change="onChange($event.target.value, $event.target)"
-           @keyup="onKeyUp($event)"
-           @focus="$emit('focus')"
-           @blur="$emit('blur')" />
+           @input="onInput($event.target.value, $event)"
+           @change="onChange($event.target.value, $event)"/>
 </template>
 
 <script>
     import { formMixin } from '../mixins';
-    import bFormInputStatic from './form-input-static.vue';
     export default {
         mixins: [formMixin],
-        components: {
-            bFormInputStatic
-        },
         props: {
             value: {
                 default: null
@@ -80,30 +44,17 @@
                 type: Boolean,
                 default: false
             },
+            plaintext: {
+                type: Boolean,
+                default: false
+            },
             autocomplete: {
                 type: String,
                 default: null
             },
-            static: {
-                type: Boolean,
-                default: false
-            },
             placeholder: {
                 type: String,
                 default: null
-            },
-            textarea: {
-                type: Boolean,
-                default: false
-            },
-            rows: {
-                type: Number,
-                default: null
-            },
-            wrap: {
-                // 'soft', 'hard' or 'off'. Browser default is 'soft'
-                type: String,
-                default: 'soft'
             },
             formatter: {
                 type: Function
@@ -114,15 +65,16 @@
             }
         },
         computed: {
-            isTextArea() {
-                return this.textarea || this.type === 'textarea';
-            },
-            rowsCount() {
-                return (this.value || '').toString().split('\n').length;
+            localType() {
+                if (this.type === 'radio' || this.type === 'checkbox') {
+                    // This ccomponent doesn't support radio or checkbox
+                    return 'text';
+                }
+                return type || 'text';
             },
             inputClass() {
                 return [
-                    'form-control',
+                    this.plaintext ? `form-control-plaintext` : 'form-control',
                     this.size ? `form-control-${this.size}` : null,
                     this.state ? `is-${this.state}` : null
                 ];
@@ -143,44 +95,36 @@
         watch:{
             value(newVal, oldVal) {
                 if (newVal !== oldVal){
-                    this.$refs.input.value = newVal;
+                    this.$el.value = newVal;
                 }
             }
         },
         methods: {
-            format(value, el) {
+            format(value, e) {
                 if (this.formatter) {
-                    const formattedValue = this.formatter(value, el);
+                    const formattedValue = this.formatter(value, e);
                     if (formattedValue !== value) {
-                        this.$refs.input.value = formattedValue;
+                        this.$el.value = formattedValue;
                         return formattedValue;
                     }
                 }
                 return value;
             },
-            onInput(value, el) {
-                let formattedValue=value;
+            onInput(value, e) {
+                let formattedValue = value;
                 if (!this.lazyFormatter) {
-                    formattedValue = this.format(value, el);
+                    formattedValue = this.format(value, e);
                 }
-                this.$emit('input', formattedValue);
+                this.$emit('input', formattedValue, e);
             },
-            onChange(value, el) {
-                const formattedValue = this.format(value, el);
-                this.$emit('input', formattedValue);
-                this.$emit('change', formattedValue);
-            },
-            onKeyUp(e) {
-                this.$emit('keyup', e);
+            onChange(value, e) {
+                const formattedValue = this.format(value, e);
+                this.$emit('input', formattedValue, e);
+                this.$emit('change', formattedValue, e);
             },
             focus() {
-                if(this.static || this.disabled) {
-                    return;
-                }
-                if (this.isTextArea) {
-                    this.$refs.textarea.focus();
-                } else {
-                    this.$refs.input.focus();
+                if(!this.disabled) {
+                    this.$el.focus();
                 }
             }
         }
