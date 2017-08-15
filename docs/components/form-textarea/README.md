@@ -39,7 +39,11 @@ and maximum number of rows, and contextual states.
 <!-- form-textarea-2.vue -->
 ```
 
-## Plaintext
+## Readonly plain text
+If you want to have `<b-form-textarea readonly>` elements in your form styled as plain
+text, set the `plaintext` prop (no need to set `readonly`) to remove the default form
+field styling and preserve the correct margin and padding and height.
+
 
 ```html
 <template>
