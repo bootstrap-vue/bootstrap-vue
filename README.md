@@ -38,7 +38,7 @@
 - 📘 [Documentation](https://bootstrap-vue.js.org)
 - 🔥 [Documentation (Beta)](https://bootstrap-vue.now.sh)
 - 🔨 [Release Notes](https://bootstrap-vue.js.org/docs/changelog)
-- 💬 [Slack Community](https://bootstrap-vue.now.sh)
+- 💬 [Slack Community](https://bootstrap-vue.slack.com)
 
 # Quick Start
 Please refer to [Official Documentation](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
