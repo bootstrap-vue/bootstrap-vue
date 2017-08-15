@@ -1,23 +1,19 @@
 <template>
     <textarea v-model="value"
+              :class="inputClass"
               :id="id || null"
               :name="name"
               :disabled="disabled"
-              :wrap="wrap || null"
+              :placeholder="placeholder"
               :required="required"
               :autocomplete="autocomplete || null"
-              :readonly="readonly"
-              :class="inputClass"
+              :readonly="readonly || plaintext"
               :rows="rowsCount"
-              :placeholder="placeholder"
+              :wrap="wrap || null"
               :aria-required="required ? 'true' : null"
               :aria-invalid="computedAriaInvalid"
-              @input="onInput(value, $event)"
-              @change="onChange(value, $event)"
-              @keyup="$emit('keyup', $event)"
-              @keyup="$emit('keydown', $event)"
-              @focus="$emit('focus', $event)"
-              @blur="$emit('blur', $event)"
+              @input="onInput($event.target.value, $event)"
+              @change="onChange($event.target.value, $event)"
     ></textarea>
 </template>
 
@@ -44,6 +40,10 @@
                 default: false
             },
             readonly: {
+                type: Boolean,
+                default: false
+            },
+            plaintext: {
                 type: Boolean,
                 default: false
             },
@@ -77,7 +77,7 @@
             },
             inputClass() {
                 return [
-                    'form-control',
+                    this.plaintext ? 'form-control-plaintext' : 'form-control',
                     this.size ? `form-control-${this.size}` : null,
                     this.state ? `is-${this.state}` : null
                 ];
@@ -102,12 +102,6 @@
             onChange(value, e) {
                 this.$emit('input', value, e);
                 this.$emit('change', value, e);
-            },
-            onKeyUp(e) {
-                this.$emit('keyup', e);
-            },
-            onKeyDown(e) {
-                this.$emit('keydown', e);
             },
             focus() {
                 // For external handler that may want a focus method
