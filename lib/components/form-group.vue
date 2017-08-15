@@ -118,7 +118,7 @@
             groupClasses() {
                 return [
                     'form-group',
-                    this.validated ? 'has-validation' : null,
+                    this.validated ? 'was-validated' : null,
                     this.inputState
                 ];
             },
