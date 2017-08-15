@@ -39,3 +39,22 @@ and maximum number of rows, and contextual states.
 <!-- form-textarea-2.vue -->
 ```
 
+## Plaintext
+
+```html
+<template>
+  <form-textarea id="textarea3" plaintext :value="text">
+  </form-textarea>
+</template>
+
+<script>
+  export default {
+    data: {
+      text: 'This is some text.\nIt is read only and doesnt look like an input.'
+    }
+  };
+</script>
+
+<!-- form-textarea-3.vue -->
+```
+
