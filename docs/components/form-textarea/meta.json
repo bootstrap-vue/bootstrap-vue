@@ -1,0 +1,74 @@
+{
+  "title": "Form Textarea",
+  "component": "bFormTextarea",
+  "events": [
+    {
+      "event": "input",
+      "description": "Emitted when the input receives input from user.",
+      "args": [
+        {
+          "arg": "value",
+          "description": "current value of the input"
+        },
+        {
+          "arg": "event",
+          "description": "native event"
+        }
+      ]
+    },
+    {
+      "event": "change",
+      "description": "Emitted when the input changes.",
+      "args": [
+        {
+          "arg": "value",
+          "description": "current value of the input"
+        },
+        {
+          "arg": "event",
+          "description": "native event"
+        }
+      ]
+    },
+    {
+      "event": "keyup",
+      "description": "Native keyup event.",
+      "args": [
+        {
+          "arg": "event",
+          "description": "native event"
+        }
+      ]
+    },
+    {
+      "event": "keydown",
+      "description": "Native keydown event.",
+      "args": [
+        {
+          "arg": "event",
+          "description": "native event"
+        }
+      ]
+   },
+   {
+      "event": "focus",
+      "description": "When input receives focus.",
+      "args": [
+        {
+          "arg": "event",
+          "description": "native event"
+        }
+      ]
+    },
+    {
+      "event": "blur",
+      "description": "When input loses focus.",
+      "args": [
+        {
+          "arg": "event",
+          "description": "native event"
+        }
+      ]
+    }
+  ]
+}
