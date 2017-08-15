@@ -1,7 +1,6 @@
 {
   "title": "Form Input",
   "component": "bFormInput",
-  "components": ["bFormInputStatic"],
   "events": [
     {
       "event": "input",
@@ -10,6 +9,10 @@
         {
           "arg": "value",
           "description": "current value of the input"
+        },
+        {
+          "arg": "event",
+          "description": "Native event object"
         }
       ]
     },
@@ -20,26 +23,12 @@
         {
           "arg": "value",
           "description": "current value of the input"
-        }
-      ]
-    },
-    {
-      "event": "keyup",
-      "description": "Native keyup event.",
-      "args": [
+        },
         {
           "arg": "event",
-          "description": "native event"
+          "description": "Native event object"
         }
       ]
-    },
-    {
-      "event": "focus",
-      "description": "When input receives focus."
-    },
-    {
-      "event": "blur",
-      "description": "When input loses focus."
     }
   ]
 }
