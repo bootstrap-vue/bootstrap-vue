@@ -119,47 +119,48 @@ export default {
 }
 </script>
 
-<!-- form-radio-2.vue -->
+<!-- form-radio-buttons.vue -->
 ```
 
 ### Contextual States
-Bootstrap includes validation styles for danger, warning, and success states on most form controls.
+Bootstrap includes validation styles for `valid` and `invalid` states
+on most form controls.
 
 Generally speaking, you’ll want to use a particular state for specific types of feedback:
-- `danger` is great for when there’s a blocking or required field. A user must fill in
+- `'invalid'` is great for when there’s a blocking or required field. A user must fill in
 this field properly to submit the form.
-- `warning` works well for input values that are in progress, like password strength, or
-soft validation before a user attempts to submit a form.
-- `success` is ideal for situations when you have per-field validation throughout a form
+- `'valid'` is ideal for situations when you have per-field validation throughout a form
 and want to encourage a user through the rest of the fields.
+- `null` Displays no validation state
 
-To apply one of the contextual states on `b-form-radio`, set the `state` prop
-to `danger`, `warning`, or `success`.  You may also wrap `<b-form-radio>` in a
-`<b-form-fieldset>` and set the contextual `state` prop on `<b-form-fieldset>` instead.
+To apply one of the contextual state icons on `<b-form-radio>`, set the `state` prop
+to `'invalid'`, `'valid'`, or `null`.
 
 **Note:** contextual state is not supported for radios rendered in `buttons` mode.
 
-#### Conveying contextual validation state to assistive technologies and colorblind users:
+### Conveying contextual validation state to assistive technologies and colorblind users:
 Using these contextual states to denote the state of a form control only provides
 a visual, color-based indication, which will not be conveyed to users of assistive
 technologies - such as screen readers - or to colorblind users.
 
 Ensure that an alternative indication of state is also provided. For instance, you
 could include a hint about state in the form control's `<label>` text itself, or by
-providing an additional help text block. Specifically for assistive technologies, 
-invalid form controls can also be assigned an `aria-invalid="true"` attribute (see below).
+providing an additional help text block (i.e. `<b-form-feedbck>`). Specifically
+for assistive technologies, invalid form controls can also be assigned an
+`aria-invalid="true"` attribute (see below).
 
 
 ### ARIA `aria-invalid` attribute
-When `<b-form-radio>` has an invalid contextual state (i.e. `danger`) you may also
-want to set the `<b-form-radio>` prop `invalid` to `true`.
+When `<b-form-radio>` has an invalid contextual state (i.e. `invalid`) you may also
+want to set the `<b-form-radio>` prop `aria-invalid` to `true`.
 
 Supported `invalid` values are:
 - `false` (default) No errors detected
 - `true` The value has failed validation.
 
+`aria-invalid` is automatically set if `state` is `invalid`.
 
-### Non custom radio inputs
+## Non custom radio inputs
 You can have `b-form-radio` render a browser native radio input by setting the `plain` prop.
 
 **Note:** `plain` will have no effect if `buttons` is set.
