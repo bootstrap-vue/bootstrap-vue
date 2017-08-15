@@ -555,12 +555,10 @@ isn’t a bulletproof solution yet.
                 longer.
             </p>
         </b-card>
-        <b-card>
-            <blockquote class="card-blockquote">
-                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
-                <footer>
-                    <small class="text-muted">Someone famous</small>
-                </footer>
+        <b-card header="Quote">
+            <blockquote class="blockquote mb-0">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
             </blockquote>
         </b-card>
         <b-card title="Title"
