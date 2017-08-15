@@ -4,69 +4,29 @@
   "events": [
     {
       "event": "input",
-      "description": "Emitted when the input receives input from user.",
+      "description": "Emitted when the textarea receives input from user.",
       "args": [
         {
           "arg": "value",
-          "description": "current value of the input"
+          "description": "current value of the textarea"
         },
         {
           "arg": "event",
-          "description": "native event"
+          "description": "native event object"
         }
       ]
     },
     {
       "event": "change",
-      "description": "Emitted when the input changes.",
+      "description": "Emitted when the textarea value changes.",
       "args": [
         {
           "arg": "value",
-          "description": "current value of the input"
+          "description": "current value of the textarea"
         },
         {
           "arg": "event",
-          "description": "native event"
-        }
-      ]
-    },
-    {
-      "event": "keyup",
-      "description": "Native keyup event.",
-      "args": [
-        {
-          "arg": "event",
-          "description": "native event"
-        }
-      ]
-    },
-    {
-      "event": "keydown",
-      "description": "Native keydown event.",
-      "args": [
-        {
-          "arg": "event",
-          "description": "native event"
-        }
-      ]
-   },
-   {
-      "event": "focus",
-      "description": "When input receives focus.",
-      "args": [
-        {
-          "arg": "event",
-          "description": "native event"
-        }
-      ]
-    },
-    {
-      "event": "blur",
-      "description": "When input loses focus.",
-      "args": [
-        {
-          "arg": "event",
-          "description": "native event"
+          "description": "native event object"
         }
       ]
     }
