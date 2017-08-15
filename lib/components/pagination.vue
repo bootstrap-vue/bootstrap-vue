@@ -47,7 +47,7 @@
         </li>
 
         <!-- First Ellipsis Bookend -->
-        <li v-if="showFirstDots" class="page-item disabled hidden-xs-down" role="separator">
+        <li v-if="showFirstDots" class="page-item disabled d-none d-sm-flex" role="separator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
@@ -71,7 +71,7 @@
         </li>
 
         <!-- Last Ellipsis Bookend -->
-        <li v-if="showLastDots" class="page-item disabled hidden-xs-down" role="separator">
+        <li v-if="showLastDots" class="page-item disabled d-none d-sm-flex" role="separator">
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
@@ -211,28 +211,28 @@ export default {
             // Generate list of page numbers
             const pages = makePageArray(startNum, numLinks);
 
-            // We limit to a total of 3 page buttons on small screens
-            // Ellipsis will also be hidden on small screens
+            // We limit to a total of 3 page buttons on xs screens
+            // Ellipsis will also be hidden on xs screens
             if (pages.length > 3) {
                 const idx = this.currentPage - startNum;
                 if (idx === 0) {
                     // Keep leftmost 3 buttons visible
                     for (let i = 3; i < pages.length; i++) {
-                        pages[i].className = 'hidden-xs-down';
+                        pages[i].className = 'd-none d-sm-flex';
                     }
                 } else if (idx === pages.length - 1) {
                     // Keep rightmost 3 buttons visible
                     for (let i = 0; i < pages.length - 3; i++) {
-                        pages[i].className = 'hidden-xs-down';
+                        pages[i].className = 'd-none d-sm-flex';
                     }
                 } else {
                     // hide left button(s)
                     for (let i = 0; i < idx - 1; i++) {
-                        pages[i].className = 'hidden-xs-down';
+                        pages[i].className = 'd-none d-sm-flex';
                     }
                     // hide right button(s)
                     for (let i = pages.length - 1; i > idx + 1; i--) {
-                        pages[i].className = 'hidden-xs-down';
+                        pages[i].className = 'd-none d-sm-flex';
                     }
                 }
             }
