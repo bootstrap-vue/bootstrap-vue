@@ -33,23 +33,11 @@ All notable changes to this project will be documented in this file. See [standa
 * **pagination-nav:** Update v-model on click ([4b1c8f3](https://github.com/bootstrap-vue/bootstrap-vue/commit/4b1c8f3))
 * **table:** Sorting directions & arrows ([de1de97](https://github.com/bootstrap-vue/bootstrap-vue/commit/de1de97))
 * **table:** workaround for Vue 2.4 SSR rendering bug ([dc8d238](https://github.com/bootstrap-vue/bootstrap-vue/commit/dc8d238))
-* **tabs:** update to use card-block ([d881c37](https://github.com/bootstrap-vue/bootstrap-vue/commit/d881c37))
 
 
 ### Features
 
-* **addEventListenerOnce:** add to utils ([0869ffd](https://github.com/bootstrap-vue/bootstrap-vue/commit/0869ffd))
-* **addEventListenerOnce:** New utility function ([6b4efdf](https://github.com/bootstrap-vue/bootstrap-vue/commit/6b4efdf))
-* **badge:** functional component ([#820](https://github.com/bootstrap-vue/bootstrap-vue/issues/820)) ([8c172c1](https://github.com/bootstrap-vue/bootstrap-vue/commit/8c172c1))
-* **btn-group:** functional component for button-group ([#822](https://github.com/bootstrap-vue/bootstrap-vue/issues/822)) ([6891e9f](https://github.com/bootstrap-vue/bootstrap-vue/commit/6891e9f))
-* **button:** set light as default variant ([2a72576](https://github.com/bootstrap-vue/bootstrap-vue/commit/2a72576))
-* **card:** change card-block to card-body ([30d35a7](https://github.com/bootstrap-vue/bootstrap-vue/commit/30d35a7))
-* **carousel:** Switch to transitionend event ([4695ba1](https://github.com/bootstrap-vue/bootstrap-vue/commit/4695ba1))
-* **carousel:** Use transitionend event instead of setTimeout ([192dfb8](https://github.com/bootstrap-vue/bootstrap-vue/commit/192dfb8))
-* **carousel:** Use transitionend event with setTimeout fallback ([ad4aa3a](https://github.com/bootstrap-vue/bootstrap-vue/commit/ad4aa3a))
-* **docs:** prepare for 1.0.0-beta ([8e46552](https://github.com/bootstrap-vue/bootstrap-vue/commit/8e46552))
 * **form-select:** add key for v-for ([299a2ea](https://github.com/bootstrap-vue/bootstrap-vue/commit/299a2ea))
-* **navbar:** change navbar-toggelable to navbar-expand-* ([1fab033](https://github.com/bootstrap-vue/bootstrap-vue/commit/1fab033))
 * **pagination-nav:** New navigation pagination component ([#816](https://github.com/bootstrap-vue/bootstrap-vue/issues/816)) ([3a4272c](https://github.com/bootstrap-vue/bootstrap-vue/commit/3a4272c))
 
 
