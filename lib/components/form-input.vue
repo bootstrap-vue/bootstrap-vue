@@ -87,7 +87,6 @@
         },
         methods: {
             format (value, el) {
-
                 if (this.formatter) {
                     const formattedValue = this.formatter(value, el);
                     if (formattedValue !== value) {
@@ -120,7 +119,6 @@
         },
         props: {
             value: {
-                type: String,
                 default: ''
             },
             type: {
