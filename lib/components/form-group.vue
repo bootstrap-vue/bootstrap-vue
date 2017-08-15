@@ -1,5 +1,5 @@
 <template>
-    <div :class="['form-group','row',inputState]"
+    <b-form-row :class="['form-group', inputState]"
          :id="id || null"
          role="group"
          :aria-describedby="describedBy"
@@ -13,44 +13,100 @@
         </label>
         <div :class="inputLayout" ref="content">
             <slot></slot>
-            <div v-if="feedback || $slots['feedback']"
-                 class="form-text form-control-feedback"
-                 :id="feedbackId"
-                 role="alert"
-                 aria-live="assertive"
-                 aria-atomic="true"
-            >
-                <slot name="feedback"><span v-html="feedback"></span></slot>
-            </div>
-            <small v-if="description || $slots['description']"
-                   class="form-text text-muted"
-                   :id="descriptionId"
-            >
-                <slot name="description"><span v-html="description"></span></slot>
-            </small>
+            <b-form-feedback v-if="feedback || $slots['feedback']"
+                             :id="feedbackId"
+                             role="alert"
+                             aria-live="assertive"
+                             aria-atomic="true"
+            ><slot name="feedback"><span v-html="feedback"></span></slot></b-form-feedback>
+            <b-form-text v-if="description || $slots['description']"
+                         :id="descriptionId"
+            ><slot name="description"><span v-html="description"></span></slot></b-form-text>
         </div>
-    </div>
+    </b-form-row>
 </template>
 
 <script>
     import {warn} from '../utils';
+    import bFormRow from './form-row';
+    import bFormText from './form-text';
+    import bFormFeedback from './form-feedback';
 
+    // Selector to find first input with an ID. This Order is important!
     const INPUT_SELECTOR = [
-        '[role="radiogroup"]',
-        'input',
-        'select',
-        'textarea',
-        '.form-control',
-        '.form-control-static',
-        '.dropdown',
-        '.dropup'
+        '[role="radiogroup"][id]',
+        'input[id]',
+        'select[id]',
+        'textarea[id]',
+        '.form-control[id]',
+        '.form-control-plaintext[id]',
+        '.dropdown[id]',
+        '.dropup[id]'
     ].join(',');
 
     export default {
+        components: {
+            bFormRow,
+            bFormText,
+            bFormFeedback
+        },
         data() {
             return {
                 target: null
             };
+        },
+        props: {
+            id: {
+                type: String,
+                default: null
+            },
+            labelFor: {
+                type: String,
+                default: null
+            },
+            state: {
+                type: String,
+                default: null
+            },
+            horizontal: {
+                type: Boolean,
+                default: false
+            },
+            labelCols: {
+                type: Number,
+                default: 3,
+                validator(value) {
+                    if (value >= 1 && value <= 11) {
+                        return true;
+                    }
+                    warn('b-form-group: label-cols must be a value between 1 and 11');
+                    return false;
+                }
+            },
+            breakpoint: {
+                type: String,
+                default: 'sm'
+            },
+            labelTextAlign: {
+                type: String,
+                default: null
+            },
+            label: {
+                type: String,
+                default: null
+            },
+            labelSrOnly: {
+                type: Boolean,
+                default: false
+            },
+            description: {
+                type: String,
+                default: null
+            },
+            feedback: {
+                type: String,
+                default: null
+            }
         },
         computed: {
             labelId() {
@@ -73,20 +129,13 @@
                 return null;
             },
             inputState() {
-                return this.state ? `has-${this.state}` : '';
-            },
-            computedLabelCols() {
-                if (this.labelSize) {
-                    warn('b-form-fieldset: prop label-size has been deprecated. Use label-cols instead');
-                    return this.labelSize;
-                }
-                return this.labelCols;
+                return this.state ? `is-${this.state}` : '';
             },
             labelLayout() {
                 if (this.labelSrOnly) {
                     return null;
                 }
-                return this.horizontal ? ('col-sm-' + this.computedLabelCols) : 'col-12';
+                return this.horizontal ? `col-${this.breakpoint}-${this.computedLabelCols}` : 'col-12';
             },
             labelAlignClass() {
                 if (this.labelSrOnly) {
@@ -95,7 +144,7 @@
                 return this.labelTextAlign ? `text-${this.labelTextAlign}` : null;
             },
             inputLayout() {
-                return this.horizontal ? ('col-sm-' + (12 - this.computedLabelCols)) : 'col-12';
+                return this.horizontal ? `col-${this.breakpoint}-${12 - this.labelCols}` : 'col-12';
             }
         },
         methods: {
@@ -109,7 +158,8 @@
                 if (!content) {
                     return null;
                 }
-                const input = content.querySelector(this.inputSelector);
+                // Find first input element with an ID
+                const input = content.querySelector(INPUT_SELECTOR);
                 this.target = (input && input.id) ? input.id : null;
             }
         },
@@ -118,73 +168,6 @@
         },
         updated() {
             this.updateTarget();
-        },
-        props: {
-            id: {
-                type: String,
-                default: null
-            },
-            labelFor: {
-                type: String,
-                default() {
-                    if (this && this.for) {
-                        // Deprecate prop for
-                        warn("b-form-fieldet: prop 'for' has been deprecated. Use 'label-for' instead");
-                        return this.for;
-                    }
-                    return null;
-                }
-            },
-            for: {
-                type: String,
-                default: null
-            },
-            state: {
-                type: String,
-                default: null
-            },
-            horizontal: {
-                type: Boolean,
-                default: false
-            },
-            labelCols: {
-                type: Number,
-                default: 3,
-                validator(value) {
-                    if (value >= 1 && value <= 11) {
-                        return true;
-                    }
-                    warn('b-form-fieldset: label-cols must be a value between 1 and 11');
-                    return false;
-                }
-            },
-            labelSize: {
-                type: Number
-            },
-            labelTextAlign: {
-                type: String,
-                default: null
-            },
-            label: {
-                type: String,
-                default: null
-            },
-            labelSrOnly: {
-                type: Boolean,
-                default: false
-            },
-            description: {
-                type: String,
-                default: null
-            },
-            feedback: {
-                type: String,
-                default: null
-            },
-            inputSelector: {
-                type: String,
-                default: INPUT_SELECTOR
-            }
         }
     };
 </script>
