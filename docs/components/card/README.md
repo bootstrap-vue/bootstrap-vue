@@ -76,14 +76,16 @@ can also be styled with the standard HTML tags.
 
 ```html
 <div>
-  <b-card title="Card title" sub-title="Card subtitle">
-    <p class="card-text">
-      Some quick example text to build on the <em>card title</em>
-      and make up the bulk of the card's content.
-    </p>
-    <a href="#" class="card-link">Card link</a>
-    <b-link href="#" class="card-link">Another link</b-link>
-  </b-card>
+    <b-card title="Card title"
+            sub-title="Card subtitle">
+        <p class="card-text">
+            Some quick example text to build on the <em>card title</em> and make up the bulk of the card's content.
+        </p>
+        <a href="#"
+           class="card-link">Card link</a>
+        <b-link href="#"
+                class="card-link">Another link</b-link>
+    </b-card>
 </div>
 
 <!-- card-text-1.vue -->
@@ -98,20 +100,22 @@ card is changed.
 
 ```html
 <div>
-  <b-card-group deck>
-    <b-card img-src="https://placekitten.com/1000/300" img-alt="Card image" img-top>
-      <p class="card-text">
-        Some quick example text to build on the card and
-        make up the bulk of the card's content.
-      </p>
-    </b-card>
-    <b-card img-src="https://placekitten.com/1000/300" img-alt="Card image" img-bottom>
-      <p class="card-text">
-        Some quick example text to build on the card and
-        make up the bulk of the card's content.
-      </p>
-    </b-card>
-  </b-card-group>
+    <b-card-group deck>
+        <b-card img-src="https://placekitten.com/1000/300"
+                img-alt="Card image"
+                img-top>
+            <p class="card-text">
+                Some quick example text to build on the card and make up the bulk of the card's content.
+            </p>
+        </b-card>
+        <b-card img-src="https://placekitten.com/1000/300"
+                img-alt="Card image"
+                img-bottom>
+            <p class="card-text">
+                Some quick example text to build on the card and make up the bulk of the card's content.
+            </p>
+        </b-card>
+    </b-card-group>
 </div>
 
 <!-- card-img-1.vue -->
@@ -126,8 +130,7 @@ Place the image in the background of the card by setting the boolean prop `overl
           img-alt="Card Image"
           img-top
           title="Image Overlay"
-          sub-title="Subtitle"
-  >
+          sub-title="Subtitle">
     <p class="card-text">
       Some quick example text to build on the card and make
       up the bulk of the card's content.
@@ -143,17 +146,15 @@ This allows you to fine-tune the the properties applied to the image:
 
 ```html
 <div>
-  <b-card title="Image Slot">
-    <b-card-img src="https://lorempixel.com/900/250/sports/5/"
-                alt="img"
-                top
-                fluid
-    ></b-card-img>
-    <p class="card-text">
-      Some quick example text to build on the card and
-      make up the bulk of the card's content.
-    </p>
-  </b-card>
+    <b-card title="Image Slot">
+        <b-card-img src="https://lorempixel.com/900/250/sports/5/"
+                    alt="img"
+                    top
+                    fluid></b-card-img>
+        <p class="card-text">
+            Some quick example text to build on the card and make up the bulk of the card's content.
+        </p>
+    </b-card>
 </div>
 
 <!-- card-img-3.vue -->
@@ -169,26 +170,29 @@ Add an optional header and/or footer within a card via the `header`/`footer`
 props or named slots.  You can control the wrapper element tags used by setting
 the `header-tag` and `footer-tag` props (both default is  `div`)
 
-
 ```html
 <div>
-  <b-card-group deck>
-    <b-card header="featured"
-            header-tag="header"
-            footer="Card Footer"
-            footer-tag="footer"
-            title="Title"
-    >
-      <p class="card-text">Header and footers using props.</p>
-      <b-button href="#" variant="primary">Go somewhere</b-button>
-    </b-card>
-    <b-card title="Title" header-tag="header" footer-tag="footer">
-      <h6 slot="header" class="mb-0">Header Slot</h6>
-      <em slot="footer">Footer Slot</em>
-      <p class="card-text">Header and footers using slots.</p>
-      <b-button href="#" variant="primary">Go somewhere</b-button>
-    </b-card>
-  </b-card-group>
+    <b-card-group deck>
+        <b-card header="featured"
+                header-tag="header"
+                footer="Card Footer"
+                footer-tag="footer"
+                title="Title">
+            <p class="card-text">Header and footers using props.</p>
+            <b-button href="#"
+                      variant="primary">Go somewhere</b-button>
+        </b-card>
+        <b-card title="Title"
+                header-tag="header"
+                footer-tag="footer">
+            <h6 slot="header"
+                class="mb-0">Header Slot</h6>
+            <em slot="footer">Footer Slot</em>
+            <p class="card-text">Header and footers using slots.</p>
+            <b-button href="#"
+                      variant="primary">Go somewhere</b-button>
+        </b-card>
+    </b-card-group>
 </div>
 
 <!-- card-header-footer-1.vue -->
@@ -202,27 +206,33 @@ a fixed-width card.
 
 ```html
 <div>
-  <b-card no-body style="max-width: 20rem;"
-          img-src="https://placekitten.com/380/200" img-alt="Image" img-top>
-    <h4 slot="header">Hello World</h4>
-    <b-card-body>
-      <p class="card-text">
-        Some quick example text to build on the card
-        title and make up the bulk of the card's content.
-      </p>
-    </b-card-body>
-    <b-list-group flush>
-      <b-list-group-item>Cras justo odio</b-list-group-item>
-      <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
-      <b-list-group-item>Vestibulum at eros</b-list-group-item>
-    </b-list-group>
-    <b-card-body>
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
-    </b-card-body>
-    <b-card-footer>This is a footer</b-card-footer>
-    <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img>
-  </b-card>
+    <b-card no-body
+            style="max-width: 20rem;"
+            img-src="https://placekitten.com/380/200"
+            img-alt="Image"
+            img-top>
+        <h4 slot="header">Hello World</h4>
+        <b-card-body>
+            <p class="card-text">
+                Some quick example text to build on the card title and make up the bulk of the card's content.
+            </p>
+        </b-card-body>
+        <b-list-group flush>
+            <b-list-group-item>Cras justo odio</b-list-group-item>
+            <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+            <b-list-group-item>Vestibulum at eros</b-list-group-item>
+        </b-list-group>
+        <b-card-body>
+            <a href="#"
+               class="card-link">Card link</a>
+            <a href="#"
+               class="card-link">Another link</a>
+        </b-card-body>
+        <b-card-footer>This is a footer</b-card-footer>
+        <b-card-img src="https://placekitten.com/480/210"
+                    alt="Image"
+                    bottom></b-card-img>
+    </b-card>
 </div>
 
 <!-- card-kitchen-1.vue -->
@@ -432,34 +442,43 @@ When using card groups with footers, their content will automatically line up.
 
 ```html
 <div>
-  <b-card-group>
-    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Img" img-top>
-      <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to
-        additional content. This content is a little bit longer.
-      </p>
-      <div slot="footer">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </div>
-    </b-card>
-    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Img" img-top>
-      <p class="card-text">
-        This card has supporting text below as a natural lead-in to additional content.
-      </p>
-      <div slot="footer">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </div>
-    </b-card>
-    <b-card title="Title" img-src="https://placekitten.com/g/300/450" img-alt="Img" img-top>
-      <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to additional
-        content. This card has even longer content than the first to show that equal height action.
-      </p>
-      <div slot="footer">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </div>
-    </b-card>
-  </b-card-group>
+    <b-card-group>
+        <b-card title="Title"
+                img-src="https://placekitten.com/g/300/450"
+                img-alt="Img"
+                img-top>
+            <p class="card-text">
+                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit
+                longer.
+            </p>
+            <div slot="footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </b-card>
+        <b-card title="Title"
+                img-src="https://placekitten.com/g/300/450"
+                img-alt="Img"
+                img-top>
+            <p class="card-text">
+                This card has supporting text below as a natural lead-in to additional content.
+            </p>
+            <div slot="footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </b-card>
+        <b-card title="Title"
+                img-src="https://placekitten.com/g/300/450"
+                img-alt="Img"
+                img-top>
+            <p class="card-text">
+                This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content
+                than the first to show that equal height action.
+            </p>
+            <div slot="footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </b-card>
+    </b-card-group>
 </div>
 
 <!-- card-group-1.vue -->
