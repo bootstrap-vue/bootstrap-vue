@@ -100,7 +100,7 @@
             },
             radioClasses() {
                 return [
-                    (custom && !buttons) ? 'custom-control-input' : null,
+                    (this.custom && !this.buttons) ? 'custom-control-input' : null,
                     this.state ? `is-$this.state}` : null
                 ];
             },
@@ -111,7 +111,7 @@
                 ];
             },
             computedAriaInvalid() {
-                if (this.ariaInvalid === true || thisAriaInvalid === 'true') {
+                if (this.ariaInvalid === true || this.AriaInvalid === 'true') {
                     return 'true'
                 }
                 return this.state === 'invalid' ? 'true' : null;

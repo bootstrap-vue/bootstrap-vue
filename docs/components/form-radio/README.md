@@ -8,37 +8,46 @@ semantic and accessible markup, so it is a solid replacement for the default rad
 <template>
   <div>
     <h5>Inline radios (default)</h5>
-    <b-form-radio id="radios1" v-model="selected" :options="options"></b-form-radio>
+    <b-form-radio id="radios1"
+                  v-model="selected"
+                  :options="options"></b-form-radio>
 
     <br>
-    
+
     <h5>Stacked radios</h5>
-    <b-form-radio id="radios2" v-model="selected" :options="options" stacked></b-form-radio>
+    <b-form-radio id="radios2"
+                  v-model="selected"
+                  :options="options"
+                  stacked></b-form-radio>
 
     <br>
-    
+
     <h5>Small Stacked radios</h5>
-    <b-form-radio id="radios3" v-model="selected" :options="options" stacked size="sm"></b-form-radio>
+    <b-form-radio id="radios3"
+                  v-model="selected"
+                  :options="options"
+                  stacked
+                  size="sm"></b-form-radio>
 
     <hr>
 
     <div>
       Selected: <strong>{{ selected }}</strong>
     </div>
-  </div> 
+  </div>
 </template>
 
 <script>
-export default {
-  data: {
-    selected: 'first',
-    options: [
-      { text: 'Toggle this custom radio', value: 'first' },
-      { text: 'Or toggle this other custom radio', value: 'second' },
-      { text: 'This one is Disabled', value: 'third', disabled: true }
-    ]
+  export default {
+    data: {
+      selected: 'first',
+      options: [
+        { text: 'Toggle this custom radio', value: 'first' },
+        { text: 'Or toggle this other custom radio', value: 'second' },
+        { text: 'This one is Disabled', value: 'third', disabled: true }
+      ]
+    }
   }
-}
 </script>
 
 <!-- form-radio-1.vue -->
@@ -79,7 +88,7 @@ when they are in the checked state.
                   v-model="selected"
                   :options="options" />
     <br>
-    
+
     <h5>Button style radios with <code>primary</code> variant and size <code>lg</code></h5>
     <b-form-radio id="btnradios2"
                   class="mb-4"
@@ -89,7 +98,7 @@ when they are in the checked state.
                   v-model="selected"
                   :options="options" />
     <br>
-    
+
     <h5>Stacked button style radios</h5>
     <b-form-radio id="btnradios3"
                   class="mb-4"
@@ -102,7 +111,7 @@ when they are in the checked state.
     <div>
       Selected: <strong>{{ selected }}</strong>
     </div>
-  </div> 
+  </div>
 </template>
 
 <script>
