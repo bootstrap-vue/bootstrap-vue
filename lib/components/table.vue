@@ -124,7 +124,9 @@
             return {
                 localSortBy: this.sortBy || '',
                 localSortDesc: this.sortDesc || false,
-                localItems: []
+                localItems: [],
+                // Note: filteredItems only used to determine if # of items changed
+                filteredItems: []
             };
         },
         props: {
@@ -263,6 +265,12 @@
                     this._providerUpdate();
                 }
             },
+            filteredItems(newVal, oldVal) {
+                if (!this.providerFiltering && newVal.length !== oldVal.length) {
+                    // Emit a filtered notification event, as number of filtered items has changed
+                    this.$emit('filtered', newVal);
+                }
+            },
             sortDesc(newVal, oldVal) {
                 if (newVal === this.localSortDesc) {
                     return;
@@ -383,9 +391,6 @@
 
                 // Apply local filter
                 if (filter && !this.providerFiltering) {
-                    // Number of items before filtering
-                    const numOriginalItems = items.length;
-
                     if (filter instanceof Function) {
                         items = items.filter(filter);
                     } else {
@@ -401,18 +406,17 @@
                             return test;
                         });
                     }
-
-                    if (numOriginalItems !== items.length) {
-                        // Emit a filtered notification event, as number of items has changed
-                        this.$emit('filtered', items);
-                    }
+                }
+                if (!this.providerFiltering) {
+                    // Make a local copy of filtered items to trigger filtered event
+                    this.filteredItems = items.slice();
                 }
 
                 // Apply local Sort
                 if (sortBy && !this.providerSorting) {
                     items = items.sort((a, b) => {
                         const r = sortCompare(a, b, sortBy);
-                        return sortDesc ? (r * -1) : r;
+                        return sortDesc ? r : r * -1;
                     });
                 }
 
@@ -605,10 +609,10 @@
         content: "\2193";
     }
 
-    table.b-table > thead > tr > .sorting_desc:after,
-    table.b-table > thead > tr > .sorting_asc:before,
-    table.b-table > tfoot > tr > .sorting_desc:after,
-    table.b-table > tfoot > tr > .sorting_asc:before {
+    table.b-table > thead > tr > .sorting_asc:after,
+    table.b-table > thead > tr > .sorting_desc:before,
+    table.b-table > tfoot > tr > .sorting_asc:after,
+    table.b-table > tfoot > tr > .sorting_desc:before {
         opacity: 1;
     }
 
@@ -619,6 +623,6 @@
     }
 
     table.b-table[aria-busy="true"] {
-        opacity: .65;
+        opacity: .6;
     }
 </style>
