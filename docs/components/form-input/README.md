@@ -13,7 +13,7 @@
                   type="text"
                   placeholder="Enter your name"
                   :formatter="format"></b-form-input>
-    <small class="text-muted">We will convert your name to lowercase instantly</small>
+    <b-form-text>We will convert your name to lowercase instantly</b-f>
     <p>Value: {{ text1 }}</p>
 
     <h5>Text input with lazy formatter (on change)</h5>
@@ -22,7 +22,7 @@
                   placeholder="Enter your name"
                   :formatter="format"
                   lazy-formatter></b-form-input>
-    <small class="text-muted">This one is a little lazy!</small>
+    <b-form-text>This one is a little lazy!</b-form-text>
     <p>Value: {{ text2 }}</p>
   </div>
 </template>
