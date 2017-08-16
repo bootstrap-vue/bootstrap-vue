@@ -1,12 +1,16 @@
 # Form textarea
 
-> Create multine text inputs with support for auto height sizing, minimum
+> Create multi-line text inputs with support for auto height sizing, minimum
 and maximum number of rows, and contextual states.
 
 ```html
 <template>
-  <form-textarea id="textarea1" :value="text" placeholder="Enter something" :rows="3" :max-rows="5">
-  </form-textarea>
+  <b-form-textarea id="textarea1"
+                   :value="text"
+                   placeholder="Enter something"
+                   :rows="3"
+                   :max-rows="5">
+  </b-form-textarea>
 </template>
 
 <script>
@@ -24,8 +28,11 @@ and maximum number of rows, and contextual states.
 
 ```html
 <template>
-  <form-textarea id="textarea2" :state="invalid" :value="text" placeholder="Enter something" :rows="3">
-  </form-textarea>
+  <b-form-textarea id="textarea2"
+                   state="invalid"
+                   :value="text"
+                   placeholder="Enter something"
+                   :rows="3"></b-form-textarea>
 </template>
 
 <script>
@@ -40,25 +47,23 @@ and maximum number of rows, and contextual states.
 ```
 
 ## Readonly plain text
+
 If you want to have `<b-form-textarea readonly>` elements in your form styled as plain
 text, set the `plaintext` prop (no need to set `readonly`) to remove the default form
 field styling and preserve the correct margin and padding and height.
 
-
 ```html
 <template>
-  <form-textarea id="textarea3" plaintext :value="text">
-  </form-textarea>
+  <b-form-textarea id="textarea3" plaintext :value="text"></b-form-textarea>
 </template>
 
 <script>
   export default {
     data: {
-      text: 'This is some text.\nIt is read only and doesnt look like an input.'
+      text: 'This is some text.\nIt is read only and doesn\'t look like an input.'
     }
   };
 </script>
 
-<!-- form-textarea-3.vue -->
+<!-- b-form-textarea-3.vue -->
 ```
-
