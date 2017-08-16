@@ -137,11 +137,6 @@
             items: {
                 type: [Array, Function],
                 default() {
-                    if (this && this.itemsProvider) {
-                        // Deprecate itemsProvider
-                        warn('b-table: prop \'items-provider\' has been deprecated. Pass a function to \'items\' instead');
-                        return this.itemsProvider;
-                    }
                     return [];
                 }
             },
@@ -206,11 +201,6 @@
                 default: null
             },
             sortCompare: {
-                type: Function,
-                default: null
-            },
-            itemsProvider: {
-                // Deprecated in favour of items
                 type: Function,
                 default: null
             },
@@ -456,10 +446,8 @@
                 ];
             },
             rowClass(item) {
-                // Prefer item._rowVariant over deprecated item.state
-                const variant = item._rowVariant || item.state || null;
                 return [
-                    variant ? ((this.inverse ? 'bg-' : 'table-') + variant) : ''
+                    item._rowVariant ? ((this.inverse ? 'bg-' : 'table-') + item._rowVariant) : ''
                 ];
             },
             rowClicked(e, item, index) {
