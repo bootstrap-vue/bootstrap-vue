@@ -73,7 +73,7 @@
             rowsCount() {
                 const rows = this.rows || 1;
                 const lines = (this.value || '').toString().split('\n').length;
-                return this.maxRows ? Math.min(this.maxRows, lines) : Math.max(rows, lines);
+                return this.maxRows ? Math.min(this.maxRows, this.rows ? rows : lines) : Math.max(rows, lines);
             },
             inputClass() {
                 return [
