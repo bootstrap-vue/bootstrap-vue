@@ -63,14 +63,18 @@ Show optional feedback text to provide textual state feedback (html supported)
 by setting the prop `feedback` or using the named slot `feedback`.
 
 Note that the feedback **will not be shown** unless the `invalid` state is set on the
-`<b-form-group>` or input (`b-form-input>`, `<b-form-select>`, `<b-form-checkbox>`,
-`<b-form-radio>`, or `<b-form-file>`). Also feedback will be shown if the parent
-`<b-form>` component has the `browser-validation` prop set along with `vadidated`
-prop set (and the input fails browser native validation).
+`<b-form-group>` or input (`b-form-input>`, `b-form-textarea>`, `<b-form-select>`,
+`<b-form-checkbox>`, `<b-form-radio>`, or `<b-form-file>`).
+
+Also feedback will be shown if the parent `<b-form>` component does not have the
+`novalidate` prop set (or set to `false`) along with `vadidated`
+prop set (and the input fails browser native validation constraintes such as `required`).
+
+Refer to Bootstrap V4's `Form` component documentation for details on validation methods.
 
 Feedback is rendered using the `<b-form-feedback>` componment.
 
-### Contextual visual state
+## Contextual visual state
 Bootstrap includes validation styles for `valid` and `invalid` states
 on most form controls.
 
@@ -99,4 +103,4 @@ to the value of the `id` string associated with the input or contaner element.
 It is **highly recommended** that you provide a unique `id` prop on your input element.
 
 ### Alias
-`<b-form-group>` can also be used via the alias of `<b-form-fieldset>`.
+`<b-form-group>` can also be used via the legacy alias of `<b-form-fieldset>`.
