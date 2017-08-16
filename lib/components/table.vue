@@ -406,7 +406,7 @@
                 if (sortBy && !this.providerSorting) {
                     items = items.sort((a, b) => {
                         const r = sortCompare(a, b, sortBy);
-                        return sortDesc ? r : r * -1;
+                        return sortDesc ? (r * -1) : r;
                     });
                 }
 
