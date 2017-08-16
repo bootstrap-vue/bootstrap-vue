@@ -91,7 +91,7 @@ can also be styled with the standard HTML tags.
 <!-- card-text-1.vue -->
 ```
 
-#### Images
+### Images
 
 The prop `img-src` places an image on the top of the card, and use the `img-alt` prop to
 specify a string to be placed in the image's `alt` attribute.  The image specified
@@ -128,7 +128,7 @@ Place the image in the background of the card by setting the boolean prop `overl
   <b-card overlay
           img-src="https://lorempixel.com/900/250/sports/6/"
           img-alt="Card Image"
-          img-top
+          text-variant="white"
           title="Image Overlay"
           sub-title="Subtitle">
     <p class="card-text">
@@ -141,30 +141,7 @@ Place the image in the background of the card by setting the boolean prop `overl
 <!-- card-img-2.vue -->
 ```
 
-Take control over the image tag by using the `<card-img>` component.
-This allows you to fine-tune the the properties applied to the image:
-
-```html
-<div>
-    <b-card title="Image Slot">
-        <b-card-img src="https://lorempixel.com/900/250/sports/5/"
-                    alt="img"
-                    top
-                    fluid></b-card-img>
-        <p class="card-text">
-            Some quick example text to build on the card and make up the bulk of the card's content.
-        </p>
-    </b-card>
-</div>
-
-<!-- card-img-3.vue -->
-```
-
-*Tip: When using an `<img>` tag in the `img` slot, it is recommended to
-apply the `img-fluid` class  (or `fluid` prop as in the above `<card-img>`
-example) to ensure responsiveness. and that the image expands to the full width.*
-
-#### Header and footer
+### Header and footer
 
 Add an optional header and/or footer within a card via the `header`/`footer`
 props or named slots.  You can control the wrapper element tags used by setting
@@ -198,7 +175,7 @@ the `header-tag` and `footer-tag` props (both default is  `div`)
 <!-- card-header-footer-1.vue -->
 ```
 
-#### Kitchen sink
+### Kitchen sink Example
 
 Mix and match multiple content types to create the card you need, or throw everything in
 there. Shown below are image styles, blocks, text styles, and a list group—all wrapped in
@@ -238,7 +215,7 @@ a fixed-width card.
 <!-- card-kitchen-1.vue -->
 ```
 
-### Colored text
+## Colored text
 
 By default, cards use dark text and assume a light background. You can reverse that by
 toggling the color of text within, as well as that of the card’s sub-components,
@@ -255,13 +232,13 @@ via the prop `text-variant`. Then, specify a dark background variant.
 <!-- card-text-1.vue -->
 ```
 
-### Background and Bordered variants
+## Background and Bordered variants
 
 Cards include their own variant style for quickly changing the background-color and
 of a card via the `bg-variant` and `border-variant` props. Darker solid variants my require setting the
 prop `text-variant` to adjust the text color.
 
-#### Solid
+### Solid
 
 ```html
 <div>
@@ -330,7 +307,7 @@ prop `text-variant` to adjust the text color.
 <!-- card-variants-1.vue -->
 ```
 
-#### Bordered
+### Bordered
 
 ```html
 <div>
@@ -396,7 +373,7 @@ prop `text-variant` to adjust the text color.
 BootstrapVue `<b-card>` variants are directly mapped to Bootstrap V4 card classes by
 pre-pending `bg-` (for solid) or `border-` (for bordered) to the above variant names.
 
-#### Header and Footer variants
+### Header and Footer variants
 
 You can also apply the solid and border variants individually to card headers and footers
 via the `header-variant`, `header-bordered`,  `header-text-variant`, `footer-variant`,
@@ -422,19 +399,20 @@ via the `header-variant`, `header-bordered`,  `header-text-variant`, `footer-var
 <!-- card-header-footer-variant.vue -->
 ```
 
-#### Conveying meaning to assistive technologies
+### Conveying meaning to assistive technologies
 
 Using color to add meaning only provides a visual indication, which will not be conveyed
 to users of assistive technologies – such as screen readers. Ensure that information denoted
 by the color is either obvious from the content itself (e.g. the visible text), or is
 included through alternative means, such as additional text hidden with the `.sr-only` class.
 
-### Card Groups
+## Card Groups
 
 In addition to styling the content within cards, BootstrapVue includes a `<b-card-group>`
 component for laying out series of cards. For the time being, these layout options are
 not yet responsive.
 
+### Default card group
 Use card groups to render cards as a single, attached element with equal width and
 height columns. Card groups use display: flex; to achieve their uniform sizing.
 
@@ -484,7 +462,7 @@ When using card groups with footers, their content will automatically line up.
 <!-- card-group-1.vue -->
 ```
 
-#### Card decks:
+### Card deck groups:
 Need a set of equal width and height cards that aren’t attached to one another? Use
 card decks by setting the `deck` prop. And just like with regular card groups,
 card footers in decks will automatically line up.
@@ -497,8 +475,9 @@ card footers in decks will automatically line up.
                 img-alt="Img"
                 img-top>
             <p class="card-text">
-                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit
-                longer.
+                This is a wider card with supporting text below as a
+                natural lead-in to additional content. This content
+                is a little bit longer.
             </p>
             <div slot="footer">
                 <small class="text-muted">Last updated 3 mins ago</small>
@@ -509,7 +488,8 @@ card footers in decks will automatically line up.
                 img-alt="Img"
                 img-top>
             <p class="card-text">
-                This card has supporting text below as a natural lead-in to additional content.
+                This card has supporting text below as a natural lead-in
+                to additional content.
             </p>
             <div slot="footer">
                 <small class="text-muted">Last updated 3 mins ago</small>
@@ -520,7 +500,8 @@ card footers in decks will automatically line up.
                 img-alt="Img"
                 img-top>
             <p class="card-text">
-                This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This card has even longer content
                 than the first to show that equal height action.
             </p>
             <div slot="footer">
@@ -533,7 +514,7 @@ card footers in decks will automatically line up.
 <!-- card-group-2.vue -->
 ```
 
-#### Card columns:
+### Card column groups:
 Cards can be organized into Masonry-like columns with by wrapping them in a `<b-card-group>`
 with the prop `columns` set. Cards are built with CSS column properties instead of flexbox for
 easier alignment. Cards are ordered from top to bottom and left to right.
