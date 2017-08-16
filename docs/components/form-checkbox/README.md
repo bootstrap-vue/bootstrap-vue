@@ -296,6 +296,7 @@ export default {
                        v-model="selected"
                        name="flavs"
                        :value="flavour"
+                       :key="flavour"
       >{{ flavour }}</b-form-checkbox>
     </div>
     <p aria-live="polite">Selected: <strong>{{ selected }}</strong></p>
@@ -340,7 +341,7 @@ export default {
 
 ### Indeterminate state and accessibility
 Not all screen readers will convey the indeterminate state to screen reader users.
-So it is recommended to provide some form of textual feedback to the user (possibly 
+So it is recommended to provide some form of textual feedback to the user (possibly
 by via the `.sr-only` class) if the indeterminate state has special contextual
 meaning in your application.
 

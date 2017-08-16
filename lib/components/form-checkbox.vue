@@ -87,7 +87,7 @@ export default {
         },
         checkClasses() {
             return [
-                (custom && !button ) ? 'custom-control-input' : null,
+                (this.custom && !this.button ) ? 'custom-control-input' : null,
                 this.state ? `is-${this.state}` : null
             ];
         },
