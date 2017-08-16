@@ -95,7 +95,7 @@ to `'invalid'`, `'valid'`, or `null`.
   <div>
     <b-form-input v-model.trim="name"
                   type="text"
-                  :state="nameIsValid"
+                  :state="nameState"
                   placeholder="Enter your name"></b-form-input>
     <b-form-feedback>
       Enter at least 3 letters
@@ -112,7 +112,7 @@ to `'invalid'`, `'valid'`, or `null`.
       name: ''
     },
     computed: {
-      nameIsValid() {
+      nameState() {
         return this.name.length > 2 ? null : 'invalid';
       }
     }
