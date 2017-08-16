@@ -1,9 +1,8 @@
 <template>
     <form :class="formClasses"
           :novalidate="novalidate"
-          @submit="onSubmit>
-        <slot></slot>
-    </form>
+          @submit="onSubmit"
+    ><slot></slot></form>
 </template>
 
 <script>
