@@ -4,6 +4,10 @@
 radio input to replace the browser default radio input. It is built on top of
 semantic and accessible markup, so it is a solid replacement for the default radio input.
 
+**Advanced Breaking Change Warning:**
+Major changes are coming to `<b-form-select>`, `<b-form-radio>`, `<b-form-checkbox>` that
+may alter how you use the components. These documents will be updatd as the changes are made.
+
 ```html
 <template>
   <div>
