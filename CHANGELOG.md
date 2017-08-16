@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.22.1"></a>
+## [0.22.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.22.0...v0.22.1) (2017-08-16)
+
+
+### Bug Fixes
+
+* **858:** remove type validation on form-input ([#862](https://github.com/bootstrap-vue/bootstrap-vue/issues/862)) ([6c2681e](https://github.com/bootstrap-vue/bootstrap-vue/commit/6c2681e))
+* **coursel:** Ensure minimum interval of 1 second ([3dbc968](https://github.com/bootstrap-vue/bootstrap-vue/commit/3dbc968))
+* **package.json:** Set bootstrap dependancy to 4.0.0.alpha.6 ([#856](https://github.com/bootstrap-vue/bootstrap-vue/issues/856)) ([d142ef5](https://github.com/bootstrap-vue/bootstrap-vue/commit/d142ef5))
+* **readme:** correct slack url ([7d05a42](https://github.com/bootstrap-vue/bootstrap-vue/commit/7d05a42))
+* **table:** filtered event not firing when filter cleared (issue [#859](https://github.com/bootstrap-vue/bootstrap-vue/issues/859)) ([#860](https://github.com/bootstrap-vue/bootstrap-vue/issues/860)) ([4e28726](https://github.com/bootstrap-vue/bootstrap-vue/commit/4e28726))
+
+
+
 <a name="0.22.0"></a>
 # [0.22.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.21.0...v0.22.0) (2017-08-14)
 
