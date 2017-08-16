@@ -1,6 +1,6 @@
 # Media
 
->  The media object helps build complex and repetitive components where some media is positioned alongside content that doesn’t wrap around said media. Plus, it does this with only two required classes thanks to flexbox.
+> The media object helps build complex and repetitive components where some media is positioned alongside content that doesn’t wrap around said media. Plus, it does this with only two required classes thanks to flexbox.
 
 ```html
 <b-card>
@@ -28,7 +28,7 @@
 <!-- media-1.vue -->
 ```
 
-### Usage
+## Usage
 
 ```html
 <b-media>
@@ -36,13 +36,86 @@
 
     <h2>Media Body</h2>
     <p>Some text</p>
-    
+
     <!-- [Optional: add media children here for nesting] -->
 </b-media>
 ```
 
-### Nesting
+## No Body (with sub-components)
+
+```html
+<b-card>
+  <b-media no-body>
+    <b-media-aside vertical-align="center">
+        <img src="https://placeholdit.imgix.net/~text?txt=Centered&w=128&h=256">
+    </b-media-aside>
+    <b-media-body class="ml-3">
+        <h5 class="mt-0">Media Title</h5>
+        <p>
+        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+        sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+        Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis
+        in faucibus.
+        </p>
+        <p class="mb-0">
+        Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+        </p>
+        <b-media>
+            <img slot="aside" src="https://placeholdit.imgix.net/~text?txt=64x64&w=64&h=64">
+            <h5 class="mt-0">Nested Media</h5>
+            Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        </b-media>
+    </b-media-body>
+  </b-media>
+</b-card>
+
+<!-- media-2.vue -->
+```
+
+## Order
+
+Change the order of content in media objects by adding `right-align` property.
+
+```html
+<b-media right-align vertical-align="center">
+    <img slot="aside" src="https://placeholdit.imgix.net/~text?txt=64x64&w=64&h=64" alt="Generic placeholder image">
+    <h5 class="mt-0 mb-1">Media object</h5>
+    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+</b-media>
+<!-- media-3.vue -->
+```
+
+## Nesting
+
 You can easily nest media objects by including another media inside parent's body.
 
-### Vertical Align
+## Vertical Align
+
 Aside can be vertical aligned using `vertical-align` should be either `top`, `center` or `end` default is `top`.
+
+## Media list
+
+Because the media object has so few structural requirements, you can also use these classes on list HTML elements. On your `<ul>` or `<ol>`, add the .list-unstyled to remove any browser default list styles, and then use the `<b-media>` component with `<li>` tags. As always, use spacing utilities wherever needed to fine tune.
+
+```html
+<ul class="list-unstyled">
+  <b-media tag="li">
+    <img slot="aside" src="https://placeholdit.imgix.net/~text?txt=64x64&w=64&h=64" alt="Generic placeholder image">
+    <h5 class="mt-0 mb-1">List-based media object</h5>
+    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+  </b-media>
+  <b-media tag="li" class="my-4">
+    <img slot="aside" src="https://placeholdit.imgix.net/~text?txt=64x64&w=64&h=64" alt="Generic placeholder image">
+    <h5 class="mt-0 mb-1">List-based media object</h5>
+    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+  </b-media>
+  <b-media tag="li">
+    <img slot="aside" src="https://placeholdit.imgix.net/~text?txt=64x64&w=64&h=64" alt="Generic placeholder image">
+    <h5 class="mt-0 mb-1">List-based media object</h5>
+    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+  </b-media>
+</ul>
+
+<!-- media-4.vue -->
+```
