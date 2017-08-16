@@ -16,7 +16,7 @@
                 return [
                     'form-control-plaintext',
                     this.size ? `form-control-${this.size}` : null,
-                    this.state ? `form-control-${this.state}` : null
+                    this.state ? `is-${this.state}` : null
                 ];
             }
         },
@@ -33,6 +33,7 @@
                 default: null
             },
             state: {
+                // valid, invalid or null
                 type: String,
                 default: null
             }

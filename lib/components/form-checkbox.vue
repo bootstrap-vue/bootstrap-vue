@@ -4,15 +4,15 @@
     >
         <input type="checkbox"
                :id="id || null"
+               :class="checkClasses"
                :name="name"
                :value="value"
+               :checked="isChecked"
                :disabled="disabled"
                :required="required"
                ref="check"
                autocomplete="off"
                :aria-required="required ? 'true' : null"
-               :class="(custom && !button ) ? 'custom-control-input' : null"
-               :checked="isChecked"
                @focus="handleFocus"
                @blur="handleFocus"
                @change="handleChange">
@@ -42,6 +42,11 @@ export default {
         },
         uncheckedValue: {
             default: false
+        },
+        state: {
+            // 'valid', 'invalid', or null
+            type: String,
+            default: null
         },
         checked: {
             default: true
@@ -78,6 +83,12 @@ export default {
                 this.size ? `btn-${this.size}` : '',
                 this.isChecked ? 'active' : '',
                 this.disabled ? 'disabled' : ''
+            ];
+        },
+        checkClasses() {
+            return [
+                (this.custom && !this.button ) ? 'custom-control-input' : null,
+                this.state ? `is-${this.state}` : null
             ];
         },
         isChecked() {

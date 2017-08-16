@@ -1,9 +1,22 @@
 <div id="app">
     <b-form-radio v-model="value" :options="options"></b-form-radio>
-
-    <b-form-radio v-model="value" :options="options" stacked return-object state="success"></b-form-radio>
-
     <br>
+
+    <b-form-radio v-model="value" :options="options" stacked state="valid"></b-form-radio>
+    <br>
+
+    <b-form-radio v-model="value" :options="options" validated state="valid"></b-form-radio>
+    <br>
+
+    <b-form-radio v-model="value" :options="options" buttons></b-form-radio>
+    <br>
+
+    <b-form-radio v-model="value" :options="options" buttons stacked></b-form-radio>
+    <br>
+
+    <b-form-radio v-model="value" :options="options" buttons size-"sm"></b-form-radio>
+    <br>
+
     <span>Selected: </span>
     <span>{{value}}</span>
 </div>

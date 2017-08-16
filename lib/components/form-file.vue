@@ -1,5 +1,6 @@
 <template>
-    <div :class="custom?'custom-file':null"
+    <!-- Normally this should be a <label> but IE borks out on it. Awaiting fix from MSFT -->
+    <div :class="[custom?'custom-file':null, state?`is-${state}`:null]"
          :id="id ? (id + '__BV_file_outer_') : null"
          @dragover.stop.prevent="dragover"
     >
@@ -16,7 +17,7 @@
         <!-- Real Form input -->
         <input type="file"
                ref="input"
-               :class="custom ? 'custom-file-input' : ''"
+               :class="[custom?'custom-file-input':'form-control-file', state?`is-${state}`:null]"
                :name="name"
                :id="id || null"
                :disabled="disabled"
@@ -41,6 +42,7 @@
 </template>
 
 <style scoped>
+    /* Are these classes needed??? bootstrap.css contains similar ones */
     .custom-file-control {
         overflow: hidden;
     }
@@ -94,6 +96,49 @@
                 selectedFile: null,
                 dragging: false
             };
+        },
+        props: {
+            state: {
+                // 'valid', 'invalid' or null
+                type: String,
+                default: null
+            },
+            accept: {
+                type: String,
+                default: ''
+            },
+            placeholder: {
+                type: String,
+                default: null
+            },
+            chooseLabel: {
+                type: String,
+                default: null
+            },
+            multiple: {
+                type: Boolean,
+                default: false
+            },
+            directory: {
+                type: Boolean,
+                default: false
+            },
+            noTraverse: {
+                type: Boolean,
+                default: false
+            },
+            selectedFormat: {
+                type: String,
+                default: ':count Files'
+            },
+            noDrop: {
+                type: Boolean,
+                default: false
+            },
+            dropLabel: {
+                type: String,
+                default: 'Drop files here'
+            }
         },
         computed: {
             selectedLabel() {
@@ -232,44 +277,6 @@
                         });
                     }
                 });
-            }
-        },
-        props: {
-            accept: {
-                type: String,
-                default: ''
-            },
-            placeholder: {
-                type: String,
-                default: null
-            },
-            chooseLabel: {
-                type: String,
-                default: null
-            },
-            multiple: {
-                type: Boolean,
-                default: false
-            },
-            directory: {
-                type: Boolean,
-                default: false
-            },
-            noTraverse: {
-                type: Boolean,
-                default: false
-            },
-            selectedFormat: {
-                type: String,
-                default: ':count Files'
-            },
-            noDrop: {
-                type: Boolean,
-                default: false
-            },
-            dropLabel: {
-                type: String,
-                default: 'Drop files here'
             }
         }
     };
