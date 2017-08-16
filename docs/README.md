@@ -33,6 +33,7 @@ If you want to support older IE, Android and IOS devices, you may want to use
 
 **IE 11**
 
-You'll need babel-polyfill for BootstrapVue to work properly. In order to support this browser: 
-- npm install babel-polyfill --save
+You'll need babel-polyfill for BootstrapVue to work properly. In order to support this browser, you must include `babel-polyfill` in your project:
+
+- `npm install babel-polyfill --save` or `yarn add babel-polyfill`
 - Import it in your app main entry point with `import 'babel-polyfill'`
