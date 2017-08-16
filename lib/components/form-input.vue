@@ -67,10 +67,10 @@
         computed: {
             localType() {
                 if (this.type === 'radio' || this.type === 'checkbox') {
-                    // This ccomponent doesn't support radio or checkbox
+                    // This component doesn't support radio or checkbox
                     return 'text';
                 }
-                return type || 'text';
+                return this.type || 'text';
             },
             inputClass() {
                 return [
