@@ -3,6 +3,10 @@
 > Bootstrap custom `<select>` using custom styles. Provide options based on an
 array, array of objects, or an object.
 
+**Advanced Breaking Change Warning:**
+Major changes are coming to `<b-form-select>`, `<b-form-radio>`, `<b-form-checkbox>` that
+may alter how you use the components. These documents will be updatd as the changes are made.
+
 ## Options
 
 `options` can be an array or a key-value object. Available fields:
