@@ -1,5 +1,5 @@
 <template>
-    <textarea v-model="value"
+    <textarea v-model="localValue"
               :class="inputClass"
               :id="id || null"
               :name="name"
@@ -12,8 +12,6 @@
               :wrap="wrap || null"
               :aria-required="required ? 'true' : null"
               :aria-invalid="computedAriaInvalid"
-              @input="onInput($event.target.value, $event)"
-              @change="onChange($event.target.value, $event)"
     ></textarea>
 </template>
 
@@ -21,6 +19,11 @@
     import { formMixin } from '../mixins';
     export default {
         mixins: [formMixin],
+        data() {
+            return {
+                localValue: this.value
+            };
+        },
         props: {
             value: {
                 type: String,
@@ -95,14 +98,21 @@
                 return this.ariaInvalid;
             }
         },
+        watch: {
+            value(newVal, oldVal) {
+                // Update our localValue
+                if (newVal !== oldVal) {
+                    this.localvalue = newVal;
+                }
+            },
+            localValue(newVal, oldVal) {
+                // update Parent value
+                if (newVal !== oldVal) {
+                    this.$emit('input', newVal);
+                }
+            }
+        },
         methods: {
-            onInput(value, e) {
-                this.$emit('input', value, e);
-            },
-            onChange(value, e) {
-                this.$emit('input', value, e);
-                this.$emit('change', value, e);
-            },
             focus() {
                 // For external handler that may want a focus method
                 if(!this.disabled) {
