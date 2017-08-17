@@ -4,7 +4,9 @@
          :id="id || null"
          :style="{background,height}"
     >
-        <img class="d-block img-fluid" v-if="img" :src="img" :alt="imgAlt">
+        <slot name="img">
+            <img class="d-block img-fluid" v-if="img" :src="img" :alt="imgAlt">
+        </slot>
         <div :is="contentTag" :class="contentClasses">
             <h3 v-if="caption" :is="captionTag" v-html="caption"></h3>
             <p v-if="text" :is="textTag" v-html="text"></p>
