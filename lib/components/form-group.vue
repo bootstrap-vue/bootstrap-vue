@@ -143,7 +143,7 @@
                 if (this.labelSrOnly) {
                     return null;
                 }
-                return this.horizontal ? `col-${this.breakpoint}-${this.computedLabelCols}` : 'col-12';
+                return this.horizontal ? `col-${this.breakpoint}-${this.labelCols}` : 'col-12';
             },
             labelAlignClass() {
                 if (this.labelSrOnly) {
