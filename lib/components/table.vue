@@ -1,6 +1,6 @@
 <template>
     <table :id="id || null"
-           :aria-busy="busy ? 'true' : 'false'"
+           :aria-busy="computedBusy ? 'true' : 'false'"
            :class="tableClass"
     >
         <thead :class="headClass">
@@ -126,13 +126,14 @@
                 localSortDesc: this.sortDesc || false,
                 localItems: [],
                 // Note: filteredItems only used to determine if # of items changed
-                filteredItems: []
+                filteredItems: [],
+                localBusy: this.busy
             };
         },
         props: {
             id: {
                 type: String,
-                default: ''
+                'default': ''
             },
             items: {
                 type: [Array, Function],
@@ -147,84 +148,84 @@
             },
             sortBy: {
                 type: String,
-                default: null
+                'default': null
             },
             sortDesc: {
                 type: Boolean,
-                default: false
+                'default': false
             },
             apiUrl: {
                 type: String,
-                default: ''
+                'default': ''
             },
             fields: {
                 type: Object,
-                default: {}
+                'default': {}
             },
             striped: {
                 type: Boolean,
-                default: false
+                'default': false
             },
             bordered: {
                 type: Boolean,
-                default: false
+                'default': false
             },
             inverse: {
                 type: Boolean,
-                default: false
+                'default': false
             },
             hover: {
                 type: Boolean,
-                default: false
+                'default': false
             },
             small: {
                 type: Boolean,
-                default: false
+                'default': false
             },
             responsive: {
                 type: Boolean,
-                default: false
+                'default': false
             },
             headVariant: {
                 type: String,
-                default: ''
+                'default': ''
             },
             footVariant: {
                 type: String,
-                default: ''
+                'default': ''
             },
             perPage: {
                 type: Number,
-                default: null
+                'default': null
             },
             currentPage: {
                 type: Number,
-                default: 1
+                'default': 1
             },
             filter: {
                 type: [String, RegExp, Function],
-                default: null
+                'default': null
             },
             sortCompare: {
                 type: Function,
-                default: null
+                'default': null
             },
             itemsProvider: {
                 // Deprecated in favour of items
                 type: Function,
-                default: null
+                'default': null
             },
             noProviderPaging: {
                 type: Boolean,
-                default: false
+                'default': false
             },
             noProviderSorting: {
                 type: Boolean,
-                default: false
+                'default': false
             },
             noProviderFiltering: {
                 type: Boolean,
-                default: false
+                'default': false
             },
             busy: {
                 type: Boolean,
@@ -314,6 +315,12 @@
                 if (oldVal !== newVal && !this.noProviderFiltering) {
                     this._providerUpdate();
                 }
+            },
+            localBusy(newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    this.$emit('update:busy', newVal);
+                }
+
             }
         },
         mounted() {
@@ -378,6 +385,9 @@
                 const sortBy = this.localSortBy;
                 const sortDesc = this.localSortDesc;
                 const sortCompare = this.sortCompare || defaultSortCompare;
+                let busy = this.localBusy;
+
+                busy = true;
 
                 let items = this.hasProvider ? this.localItems : this.items;
 
@@ -428,8 +438,11 @@
 
                 // Update the value model with the filtered/sorted/paginated data set
                 this.$emit('input', items);
-
+                this.localBusy = false;
                 return items;
+            },
+            computedBusy() {
+                return this.busy || this.localBusy;
             }
         },
         methods: {
@@ -532,7 +545,7 @@
             },
             _providerUpdate() {
                 // Refresh the provider items
-                if (this.busy || !this.hasProvider) {
+                if (this.computedBusy || !this.hasProvider) {
                     // Don't refresh remote data if we are 'busy' or if no provider
                     return;
                 }
