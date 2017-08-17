@@ -51,7 +51,7 @@
             :class="rowClass(item)"
             @click="rowClicked($event,item,index)"
             @dblclick="rowDblClicked($event,item,index)"
-            @hover="rowHovered($event,item,index)"
+            @mouseenter="rowHovered($event,item,index)"
         >
             <template v-for="(field,key) in fields">
                 <td v-if="!hasFormatter(field)" :class="tdClass(field, item, key)" :key="key">
