@@ -2,7 +2,7 @@
     <input :id="id || null"
            :class="inputClass"
            :name="name"
-           :value="value"
+           v-model="localValue"
            :type="localType"
            :disabled="disabled"
            :required="required"
@@ -19,6 +19,11 @@
     import { formMixin } from '../mixins';
     export default {
         mixins: [formMixin],
+        data() {
+            return {
+                localValue: this.value
+            }
+        },
         props: {
             value: {
                 default: null
@@ -95,7 +100,12 @@
         watch:{
             value(newVal, oldVal) {
                 if (newVal !== oldVal){
-                    this.$el.value = newVal;
+                    this.localValue = newVal;
+                }
+            },
+            localValue(newVal, oldVal) {
+                if (newVal !== oldVal){
+                    this.$emit('input', newVal);
                 }
             }
         },
@@ -104,23 +114,19 @@
                 if (this.formatter) {
                     const formattedValue = this.formatter(value, e);
                     if (formattedValue !== value) {
-                        this.$el.value = formattedValue;
                         return formattedValue;
                     }
                 }
                 return value;
             },
             onInput(value, e) {
-                let formattedValue = value;
                 if (!this.lazyFormatter) {
-                    formattedValue = this.format(value, e);
+                    this.localValue = this.format(value, e);
                 }
-                this.$emit('input', formattedValue, e);
             },
             onChange(value, e) {
-                const formattedValue = this.format(value, e);
-                this.$emit('input', formattedValue, e);
-                this.$emit('change', formattedValue, e);
+                this.localValue = this.format(value, e);
+                this.$emit('change', this.localValue);
             },
             focus() {
                 if(!this.disabled) {
