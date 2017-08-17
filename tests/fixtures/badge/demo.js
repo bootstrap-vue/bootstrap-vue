@@ -9,6 +9,8 @@ window.app = new Vue({
                 'info',
                 'warning',
                 'danger',
+                'dark',
+                'light'
             ]
         }
     },
