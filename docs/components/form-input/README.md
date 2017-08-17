@@ -8,7 +8,7 @@
 ```html
 <template>
   <div>
-    <h5>Text input with formatter</h5>
+    <h5>Text input with formatter (on input)</h5>
     <b-form-input v-model="text1"
                   type="text"
                   placeholder="Enter your name"
@@ -34,7 +34,7 @@
       text2: ''
     },
     methods: {
-      format(value, el) {
+      format(value, event) {
         return value.toLowerCase();
       }
     }
@@ -47,7 +47,7 @@
 ## Input type
 
 `<b-form-input>` defaults to a `text` input, but you can set it to any other text-like
-type, such as `password`, `number`, `url`, etc, by setting the `type` prop to the
+type, such as `password`, `number`, `url`, `email`, etc, by setting the `type` prop to the
 appropriate value.
 
 ### Readonly plain text
@@ -65,8 +65,10 @@ By default, formatting occurs when the control's native `input` event fires. You
 use the boolean prop `lazy-formatter` to restrict the formatter function to being
 called on the control's native `change` event (which usually occurs on blur).
 
-The `formatter` function receives two arguments (the raw value of the input, and
-teh native event object) and should return the formatted value (as a string).
+The `formatter` function receives two arguments: the raw `value` of the input element,
+and the native `event` object.
+
+The `formatter` function should return the formatted value (as a string).
 
 No formatting occurs if a `formatter` is not provided.
 
@@ -75,6 +77,25 @@ No formatting occurs if a `formatter` is not provided.
 Set heights using the `size` prop to `sm` or `lg` for small or large respectively.
 
 To control width, place the input inside standard Bootstrap grid column.
+
+```html
+<template>
+  <div>
+    <label>Small:</label>
+    <b-form-input size="sm" type="text" placeholder="Enter your name"></b-form-input>
+    <label class="mt-3">Default:</label>
+    <b-form-input type="text" placeholder="Enter your name"></b-form-input>
+    <label class="mt-3">Large:</label>
+    <b-form-input size="lg" type="text" placeholder="Enter your name"></b-form-input>
+  </div>
+</template>
+
+<script>
+  export default { }
+</script>
+
+<!-- form-input-size-1.vue -->
+```
 
 ## Contextual States
 
