@@ -32,6 +32,12 @@ controls and indicators.
       <b-carousel-slide img="https://lorempixel.com/1024/480/technics/8/">
       </b-carousel-slide>
 
+      <!-- Slides with img slot -->
+      <b-carousel-slide">
+        <img slot="img" class="d-block img-fluid"
+             src="https://lorempixel.com/1024/480/technics/5/" alt="image slot" />
+      </b-carousel-slide>
+
       <!-- Slide with blank image to maintain aspect ratio -->
       <b-carousel-slide caption="Blank Image" :img="blankImg(1024,480)">
         <p>
