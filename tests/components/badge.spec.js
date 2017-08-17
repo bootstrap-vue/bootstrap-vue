@@ -1,6 +1,6 @@
 import { loadFixture, testVM } from "../helpers";
 
-const variantList = ["default", "primary", "success", "info", "warning", "danger"].map(variant => {
+const variantList = ["secondary", "primary", "success", "info", "warning", "danger", "dark", "light"].map(variant => {
     return { ref: `badge_${variant}`, variant };
 });
 
@@ -19,11 +19,11 @@ describe("badge", async () => {
         });
     });
 
-    it("should apply default pill class when not passed variant", async () => {
+    it("should apply secondary class when not passed variant", async () => {
         const { app: { $refs } } = window;
 
         const vm = $refs.no_props;
-        expect(vm).toHaveClass("badge-default");
+        expect(vm).toHaveClass("badge-secondary");
     });
 
     it("should not apply pill class when not passed pill boolean prop", async () => {
