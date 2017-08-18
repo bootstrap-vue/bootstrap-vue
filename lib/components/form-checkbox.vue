@@ -3,7 +3,7 @@
            :aria-pressed="button ? (isChecked ? 'true' : 'false') : null"
     >
         <input type="checkbox"
-               :id="safeId"
+               :id="safeId()"
                :class="checkClasses"
                :name="name"
                :value="value"
