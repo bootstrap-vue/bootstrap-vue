@@ -1,7 +1,7 @@
 <template>
     <select :class="inputClass"
             :name="name"
-            :id="safeId"
+            :id="safeId()"
             v-model="localValue"
             :multiple="multiple || null"
             :size="(multiple || selectSize > 1) ? selectSize : null"
