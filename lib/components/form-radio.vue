@@ -12,7 +12,7 @@
                :key="'radio_'+idx"
                :aria-pressed="buttons ? (option.value === localValue ? 'true' : 'false') : null"
         >
-            <input :id="safeId ? `${safeId}__BV_radio_${idx}` : null"
+            <input :id="safeIdPlus(`_BV_radio_${idx}`)"
                    :class="radioClasses"
                    ref="inputs"
                    type="radio"
