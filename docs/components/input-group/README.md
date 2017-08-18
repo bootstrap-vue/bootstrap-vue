@@ -15,15 +15,25 @@
 
   <br>
 
-  <b-input-group left="Username">
+  <b-input-group>
+    <!-- Add-ons -->
+    <b-input-group-addon>
+      <strong class="text-danger">!</strong>
+    </b-input-group-addon>
+    <b-input-group-addon>
+      Username
+    </b-input-group-addon>
+    
+    <!-- Main form input -->
     <b-form-input></b-form-input>
 
-    <!-- Attach Right button -->
+    <!-- Attach Right button Group via slot -->
     <b-input-group-button slot="right">
       <b-dropdown text="Dropdown" variant="success" right>
         <b-dropdown-item>Action</b-dropdown-item>
         <b-dropdown-item>Action</b-dropdown-item>
       </b-dropdown>
+      <b-btn variant="info">Button</b-btn>
     </b-input-group-button>
 
   </b-input-group>
@@ -33,23 +43,27 @@
 ```
 
 ### Usage
-You can attach left or right Addons via props or named slots.
+You can attach left or right Addons via props or named slots
 
 #### Via `left` and `right` props:
 
 ```html
-<b-input-group left="$" right=".00">
+<div>
+  <b-input-group left="$" right=".00">
     <b-form-input></b-form-input>
-</b-input-group>
+  </b-input-group>
+</div>
+  
+<!-- input-group-addons-1.vue -->
 ```
 
 #### Via named slots:
 if you want better control over addons, you can use `right` and `left` slots instead:
 
 ```html
+<div>
   <b-input-group left="Username">
     <b-form-input></b-form-input>
-
     <!-- Attach Right button -->
     <b-input-group-button slot="right">
       <b-dropdown text="Dropdown" variant="success">
@@ -57,9 +71,32 @@ if you want better control over addons, you can use `right` and `left` slots ins
         <b-dropdown-item>Action</b-dropdown-item>
       </b-dropdown>
     </b-input-group-button>
-
   </b-input-group>
+</div>
+  
+<!-- input-group-addons-2.vue -->
 ```
+
+#### Direct placement of sub components:
+Use the `<b-input-group-addon>` to add arbitrary addons wherever you like, and use
+the `<b-input-group-button>` component to group buttons in your input group.  Single
+buttons must always be wrapped in a `<b-input-group-button>` for proper styling
+
+```html
+<div>
+  <b-input-group>
+    <b-input-group-addon>$</b-input-group-addon>
+    <b-form-input type="number" min="0.00"></b-form-input>
+    <b-input-group-addon>.00</b-input-group-addon>
+    <b-input-group-button>
+      <b-btn variant="success">Buy Now</b-btn>
+    </b-input-group-button>
+  </b-input-group>
+</div>
+
+<!-- input-group-addons-3.vue -->
+```
+
 
 ### Control sizing
 Set height using the `size` prop to `sm` or `lg` for small or large respectively. There 
