@@ -84,7 +84,7 @@ See [`<b-button>`](./button) for a list of supported contextual variants.
 
 
 ### Supported sub-components
-The following components can be placed inside of your dropdowns. Using anoy other
+The following components can be placed inside of your dropdowns. Using any other
 component or markup may break keyboard navigation.
 
 | component | Description
