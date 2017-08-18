@@ -1,5 +1,5 @@
 <template>
-    <div :class="classObject" role="group">
+    <component :is="tag" :class="classObject" role="group">
         <slot name="left">
             <div v-if="left" class="input-group-addon" v-html="left"></div>
         </slot>
@@ -9,7 +9,7 @@
         <slot name="right">
             <div v-if="right" class="input-group-addon" v-html="right"></div>
         </slot>
-    </div>
+    </component>
 </template>
 
 <script>
@@ -39,6 +39,10 @@
             right: {
                 type: String,
                 default: null
+            },
+            tag: {
+                type: String,
+                default: 'div'
             }
         }
     };
