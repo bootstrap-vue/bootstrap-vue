@@ -45,7 +45,7 @@
     import bFormRow from './form-row';
     import bFormText from './form-text';
     import bFormFeedback from './form-feedback';
-    import ( idMixin } from '../mixins';
+    import { idMixin } from '../mixins';
 
     // Selector to find first input with an ID. This Order is important!
     const INPUT_SELECTOR = [
