@@ -22,6 +22,7 @@
                :id="id || null"
                :disabled="disabled"
                :required="required"
+               :capture="capture || null"
                :aria-required="required ? 'true' : null"
                :accept="accept || null"
                :multiple="multiple"
@@ -107,6 +108,11 @@
                 type: String,
                 default: ''
             },
+            capture: {
+                // Instruct input to capture from camera
+                type: Boolean,
+                default: false
+            },            
             placeholder: {
                 type: String,
                 default: null
