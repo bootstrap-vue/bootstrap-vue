@@ -178,7 +178,7 @@ adjusts vertical alignment and horizontal spacing for strings of text.
 ```
 
 #### `<b-nav-item-dropdown>`
-For `<b-nav-item-dropdown>` usage, see the [`<b-dropdown>`](./dropdown) docs.
+For `<b-nav-item-dropdown>` usage, see the [`<b-dropdown>`](../dropdown) docs.
 Note split dropdowns are not supported in `<b-navbar>`.
 
 ```html
@@ -251,5 +251,5 @@ Use `<b-nav-toggle>` to control the collapse component and set the `toggle-break
 the breakpoint you would like content to automatically collapse. Possible values are `sm` (default),
 `md`, and `lg`.
 
-See the first example on this page for reference, and also refer to [`<b-collapse>`](./collapse) for
+See the first example on this page for reference, and also refer to [`<b-collapse>`](../collapse) for
 details on the collapse component.
