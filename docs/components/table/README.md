@@ -507,7 +507,7 @@ function myProvider(ctx, callback) {
         let items = data.items;
         // Provide the array of items to the callabck
         callback(items);
-    }).catch(error => {callback(null)})
+    }).catch(error => {callback([])})
 
     // Must return null or undefined
     return null;
@@ -524,15 +524,14 @@ function myProvider(ctx) {
         // Pluck the array of items off our axios response
         let items = data.items;
         // Must return an array of items
-        return(items);
+        return(items || []);
     });
 }
 ```
 
 `<b-table>` automatically tracks/contrrols it's `busy` state, however it provides
 a `busy` prop that can be used either to override inner `busy`state, or to monitor
-b-tabls's current budy state in your application using the 2-way `.sync` modifier
-(i.e. `<b-table :busy.sync="myBusy" ...>`).
+b-tabls's current busy state in your application using the 2-way `.sync` modifier.
 
 *Note: in order to allow `<b-table>` fully track it's `busy` state, custom items
 provider function should handle errors from data sources and return an empty
@@ -568,6 +567,11 @@ methods: {
  }
 ```
 
+*Note: If you manually place the table in the `busy` state, the items provider will
+__not__ be called/refreshed until the `busy` state has been set to `false`. All click
+related events and sort-changed events will __not__ be emiited dwhen in the `busy` state.*
+
+#### Provider Sorting, Paging, Filtering
 By default, the items provider function is responsible for **all paging, filtering, and sorting**
 of the data, before passing it to `b-table` for display.
 
