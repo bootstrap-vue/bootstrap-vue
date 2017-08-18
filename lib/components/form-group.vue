@@ -159,17 +159,17 @@
                 ]
             },
             labelId() {
-                return (this.safeId && this.label) ? `${this.safeId}__BV_label_` : null;
+                return this.label ? this.safeIdPlus('_BV_label_') : null;
             },
             descriptionId() {
-                if (this.safeId && (this.description || this.$slots['description'])) {
-                    return `${this.safeId}__BV_description_`;
+                if (this.description || this.$slots['description']) {
+                    return this.safeIdPlus('_BV_description_');
                 }
                 return null;
             },
             feedbackId() {
-                if (this.safeId && (this.feedback || this.$slots['feedback'])) {
-                    return `${this.safeId}__BV_feedback_`;
+                if (this.feedback || this.$slots['feedback']) {
+                    return this.safeIdPlus('_BV_feedback_');
                 }
                 return null;
             },
