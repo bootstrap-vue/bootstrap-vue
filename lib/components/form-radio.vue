@@ -1,5 +1,5 @@
 <template>
-    <div :id="id || null"
+    <div :id="safeId"
          :class="buttons ? btnGroupClasses : radioGroupClasses"
          role="radiogroup"
          tabindex="-1"
@@ -12,7 +12,7 @@
                :key="'radio_'+idx"
                :aria-pressed="buttons ? (option.value === localValue ? 'true' : 'false') : null"
         >
-            <input :id="id ? (id + '__BV_radio_' + idx) : null"
+            <input :id="safeId ? `${safeId}__BV_radio_${idx}` : null"
                    :class="radioClasses"
                    ref="inputs"
                    type="radio"
@@ -33,10 +33,10 @@
 </template>
 
 <script>
-    import { formOptionsMixin, formMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
+    import { idMixin, formOptionsMixin, formMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
 
     export default {
-        mixins: [formMixin, formCustomMixin, formCheckBoxMixin, formOptionsMixin],
+        mixins: [idMixin, formMixin, formCustomMixin, formCheckBoxMixin, formOptionsMixin],
         data() {
             return {
                 localValue: this.value,
