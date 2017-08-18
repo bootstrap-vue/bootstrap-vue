@@ -529,9 +529,14 @@ function myProvider(ctx) {
 }
 ```
 
-`<b-table>` automatically tracks it's `busy` state, however it provides a `busy` prop that can be used either to override inner `busy`state, or to track computed state at application using `.sync` modifier. 
+`<b-table>` automatically tracks/contrrols it's `busy` state, however it provides
+a `busy` prop that can be used either to override inner `busy`state, or to monitor
+b-tabls's current budy state in your application using the 2-way `.sync` modifier
+(i.e. `<b-table :busy.sync="myBusy" ...>`).
 
-*Note: in order to allow `<b-table>` fully track it's `busy` state, custom items provider function should handle errors from data sources and return an empty array to `<b-table>`*
+*Note: in order to allow `<b-table>` fully track it's `busy` state, custom items
+provider function should handle errors from data sources and return an empty
+array to `<b-table>`*
 
 Example:
 
