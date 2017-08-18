@@ -1,7 +1,7 @@
 <template>
     <textarea v-model="localValue"
               :class="inputClass"
-              :id="safeId"
+              :id="safeId()"
               :name="name"
               :disabled="disabled"
               :placeholder="placeholder"
