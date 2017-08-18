@@ -326,6 +326,7 @@
         mounted() {
             this.localSortBy = this.sortBy;
             this.localSortDesc = this.sortDesc;
+            this.localBusy = this.busy;
             if (this.hasProvider) {
                 this._providerUpdate();
             }
@@ -385,9 +386,6 @@
                 const sortBy = this.localSortBy;
                 const sortDesc = this.localSortDesc;
                 const sortCompare = this.sortCompare || defaultSortCompare;
-                let busy = this.localBusy;
-
-                busy = true;
 
                 let items = this.hasProvider ? this.localItems : this.items;
 
@@ -438,7 +436,6 @@
 
                 // Update the value model with the filtered/sorted/paginated data set
                 this.$emit('input', items);
-                this.localBusy = false;
                 return items;
             },
             computedBusy() {
@@ -540,6 +537,7 @@
             },
             _providerSetLocal(items) {
                 this.localItems = (items && items.length > 0) ? items.slice() : [];
+                this.localBusy = false;
                 this.$emit('refreshed');
                 this.emitOnRoot('table::refreshed', this.id);
             },
@@ -550,6 +548,7 @@
                     return;
                 }
 
+                this.localBusy = true;
                 // Call provider function with context and optional callback
                 const data = this.items(this.context, this._providerSetLocal);
 

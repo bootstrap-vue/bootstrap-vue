@@ -18,7 +18,6 @@ custom rendering, events, and asynchronous data.
       </b-form-fieldset>
     </div>
   </div>
-
   <div class="row my-1">
     <div class="col-sm-8">
       <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
@@ -508,7 +507,7 @@ function myProvider(ctx, callback) {
         let items = data.items;
         // Provide the array of items to the callabck
         callback(items);
-    })
+    }).catch(error => {callback(null)})
 
     // Must return null or undefined
     return null;
@@ -530,12 +529,14 @@ function myProvider(ctx) {
 }
 ```
 
-`<b-table>` provides a `busy` prop that will flag the table as busy, which you can
-set to `true` just before your async fetch, and then set it to `false` once you have
-your data, and just before you send it to the table for display. Example:
+`<b-table>` automatically tracks it's `busy` state, however it provides a `busy` prop that can be used either to override inner `busy`state, or to track computed state at application using `.sync` modifier. 
+
+*Note: in order to allow `<b-table>` fully track it's `busy` state, custom items provider function should handle errors from data sources and return an empty array to `<b-table>`*
+
+Example:
 
 ```html
-<b-table id="my-table" :busy="isBusy" :items="myProvider" :fields="fields" ....>
+<b-table id="my-table" :busy.sync="isBusy" :items="myProvider" :fields="fields" ....>
 </b-table>
 ```
 ```js
@@ -546,13 +547,17 @@ data () {
 }
 methods: {
     myProvider(ctx) {
-        this.isBusy = true
+        // Here we don't set isBusy prop, so state will be handled by table itself
         let promise = axios.get('/some/url');
 
         return promise.then((data) => {
             const items = data.items;
+            // Here we override the state, setting isBusy to false 
             this.isBusy = false
             return(items);
+        }).catch(error => {
+            // Returning an empty array, allows table to correctly handle state in case of error
+            return []
         });
     }
  }
