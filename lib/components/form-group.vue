@@ -1,6 +1,6 @@
 <template>
     <b-form-row :class="groupClasses"
-                :id="safeId"
+                :id="safeId()"
                 role="group"
                 :aria-describedby="describedByIds"
     >
@@ -159,17 +159,17 @@
                 ]
             },
             labelId() {
-                return this.label ? this.safeIdPlus('_BV_label_') : null;
+                return this.label ? this.safeId('_BV_label_') : null;
             },
             descriptionId() {
                 if (this.description || this.$slots['description']) {
-                    return this.safeIdPlus('_BV_description_');
+                    return this.safeId('_BV_description_');
                 }
                 return null;
             },
             feedbackId() {
                 if (this.feedback || this.$slots['feedback']) {
-                    return this.safeIdPlus('_BV_feedback_');
+                    return this.safeId('_BV_feedback_');
                 }
                 return null;
             },
