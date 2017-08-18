@@ -1,6 +1,6 @@
 <template>
     <b-form-row :class="groupClasses"
-                :id="id || null"
+                :id="safeId"
                 role="group"
                 :aria-describedby="describedByIds"
     >
@@ -45,6 +45,7 @@
     import bFormRow from './form-row';
     import bFormText from './form-text';
     import bFormFeedback from './form-feedback';
+    import ( idMixin } from '../mixins';
 
     // Selector to find first input with an ID. This Order is important!
     const INPUT_SELECTOR = [
@@ -59,6 +60,7 @@
     ].join(',');
 
     export default {
+        mixins: [idMixin],
         components: {
             bFormRow,
             bFormText,
@@ -157,17 +159,17 @@
                 ]
             },
             labelId() {
-                return (this.id && this.label) ? `${this.id}__BV_label_` : null;
+                return (this.safeId && this.label) ? `${this.safeId}__BV_label_` : null;
             },
             descriptionId() {
-                if (this.id && (this.description || this.$slots['description'])) {
-                    return `${this.id}__BV_description_`;
+                if (this.safeId && (this.description || this.$slots['description'])) {
+                    return `${this.safeId}__BV_description_`;
                 }
                 return null;
             },
             feedbackId() {
-                if (this.id && (this.feedback || this.$slots['feedback'])) {
-                    return `${this.id}__BV_feedback_`;
+                if (this.safeId && (this.feedback || this.$slots['feedback'])) {
+                    return `${this.safeId}__BV_feedback_`;
                 }
                 return null;
             },
@@ -199,10 +201,10 @@
             }
         },
         mounted() {
-            this.updateTargetId();
+            this.$nextTick(() => this.updateTargetId());
         },
         updated() {
-            this.updateTargetId();
+            this.$nextTick(() => this.updateTargetId());
         }
     };
 </script>
