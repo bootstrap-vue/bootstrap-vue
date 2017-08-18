@@ -149,15 +149,15 @@ Supported field properties:
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
 | `formatter` | String or Function | A formatter callback function, can be used instead of slots for real table fields (i.e. fields, that have corresponding data at items array)
 
-Notes:
- - Field properties, if not present, default to null unless otherwise stated above.
- - `thClass` and `tdClass` will not work with classes that are defined in scoped CSS
- - For information on the syntax supported by `thStyle`, see
+>***Notes:***
+ >- *Field properties, if not present, default to null unless otherwise stated above.*
+ >- *`thClass` and `tdClass` will not work with classes that are defined in scoped CSS*
+ >- *For information on the syntax supported by `thStyle`, see
 [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
-in the Vue.js guide.
- - Any additional properties added to the field objects will be left intact - so you can access
-them via the named scoped slots for custom data, header, and footer rendering.
-- by design, slots and formatter are **mutually exclusive**. Ie. if formatter defined at field props, then slot will not be used even if it defined for this field.
+in the Vue.js guide.*
+ >- *Any additional properties added to the field objects will be left intact - so you can access
+them via the named scoped slots for custom data, header, and footer rendering.*
+>- *by design, slots and formatter are **mutually exclusive**. Ie. if formatter defined at field props, then slot will not be used even if it defined for this field.*
 
 ### Items (record data)
 `items` are real table data record objects in array format. Example format:
@@ -192,8 +192,8 @@ Supported optional item record modifier properties (make sure your field keys do
 | `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`)
 | `state` | String | **deprecated** in favour of `_rowVariant`
 
-**Note** `state` is deprecated. The property `_rowVariant`, if present in
-the record, will be prefered.
+>***Note:** `state` is deprecated. The property `_rowVariant`, if present in
+the record, will be prefered.*
 
 `items` can also be a reference to a *provider* function, which returns an `Array` of items data.
 Provider functions can also be asynchronous:
@@ -228,7 +228,7 @@ See the **"Using Items Provider functions"** section below for more details.
 Custom rendering for each data field in a row is possible using either 
 [scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or formatter callback function.
 
-####Slots
+#### Slots
 If you want to add an extra field which does not exist in the records,
 just add it to the `fields` array.  Example:
 
@@ -298,10 +298,10 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `item` | Object | The entire record (i.e. `items[index]`) for this row
 | `index` | Number | The row number (zero based)
 
-**Note** that `index` will not always be the actual row's index number, as it is
+>***Note:** `index` will not always be the actual row's index number, as it is
 computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
-number will align with the indexes from the optional `v-model` bound variable.
+number will align with the indexes from the optional `v-model` bound variable.*
 
 When placing inputs, buttons, selects or links within a data cell scoped slot,
 be sure to add a `@click.stop` handler (which can be empty) to prevent the
@@ -397,7 +397,7 @@ the original `items` array (except when `items` is set to a provider function).
 Deleteing a record from the v-model will **not** remove the record from the
 original items array.
 
-**Note:** Do not bind any value directly to the `value` prop. Use the `v-model` binding.
+>***Note:** Do not bind any value directly to the `value` prop. Use the `v-model` binding.*
 
 ### Filtering
 Filtering, when used, is aplied to the original items array data, and hence it is not
@@ -463,8 +463,8 @@ if (typeof a[key] === 'number' && typeof b[key] === 'number') {
 As mentioned under the `items` prop section, it is possible to use a function to provide
 the row data (items), by specifying a function reference via the `items` prop.
 
-**Note:** The `items-provider` prop has been deprecated in favour of providing a function
-reference to the `items` prop. A console warning will be issued if `items-provider` is used.
+>***Note:** The `items-provider` prop has been deprecated in favour of providing a function
+reference to the `items` prop. A console warning will be issued if `items-provider` is used.*
 
 The provider function is called with the following signature:
 
@@ -529,11 +529,11 @@ function myProvider(ctx) {
 }
 ```
 
-`<b-table>` automatically tracks/contrrols it's `busy` state, however it provides
+`<b-table>` automatically tracks/controls it's `busy` state, however it provides
 a `busy` prop that can be used either to override inner `busy`state, or to monitor
-b-tabls's current busy state in your application using the 2-way `.sync` modifier.
+b-table's current busy state in your application using the 2-way `.sync` modifier.
 
-*Note: in order to allow `<b-table>` fully track it's `busy` state, custom items
+>***Note:** in order to allow `<b-table>` fully track it's `busy` state, custom items
 provider function should handle errors from data sources and return an empty
 array to `<b-table>`*
 
@@ -567,7 +567,7 @@ methods: {
  }
 ```
 
-*Note: If you manually place the table in the `busy` state, the items provider will
+>***Note:** If you manually place the table in the `busy` state, the items provider will
 __not__ be called/refreshed until the `busy` state has been set to `false`. All click
 related events and sort-changed events will __not__ be emiited dwhen in the `busy` state.*
 
