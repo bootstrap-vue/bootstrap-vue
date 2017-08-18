@@ -1,7 +1,7 @@
 <template>
     <!-- Normally this should be a <label> but IE borks out on it. Awaiting fix from MSFT -->
     <div :class="[custom?'custom-file':null, state?`is-${state}`:null]"
-         :id="safeId ? `${safeId}__BV_file_outer_` : null"
+         :id="safeIdPlus('_BV_file_outer_')"
          @dragover.stop.prevent="dragover"
     >
 
@@ -26,13 +26,13 @@
                :accept="accept || null"
                :multiple="multiple"
                :webkitdirectory="directory"
-               :aria-describedby="(custom && safeId) ? `${safeId}__BV_file_control_` : null"
+               :aria-describedby="custom ? safeIdPlus('_BV_file_control_') : null"
                @change="onFileChange"
         >
 
         <!-- Overlay Labels -->
         <span :class="['custom-file-control',dragging?'dragging':null]"
-              :id="safeId ? `${safeid}__BV_file_control_` : null"
+              :id="safeIdPlus('_BV_file_control_')"
               :data-choose="computedChooseLabel"
               :data-selected="selectedLabel"
               v-if="custom"
