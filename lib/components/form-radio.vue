@@ -1,5 +1,5 @@
 <template>
-    <div :id="safeId"
+    <div :id="safeId()"
          :class="buttons ? btnGroupClasses : radioGroupClasses"
          role="radiogroup"
          tabindex="-1"
@@ -12,7 +12,7 @@
                :key="'radio_'+idx"
                :aria-pressed="buttons ? (option.value === localValue ? 'true' : 'false') : null"
         >
-            <input :id="safeIdPlus(`_BV_radio_${idx}`)"
+            <input :id="safeId(`_BV_radio_${idx}`)"
                    :class="radioClasses"
                    ref="inputs"
                    type="radio"
