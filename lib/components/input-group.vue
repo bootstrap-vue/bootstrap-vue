@@ -1,19 +1,22 @@
 <template>
     <component :is="tag" :class="classObject" role="group">
         <slot name="left">
-            <div v-if="left" class="input-group-addon" v-html="left"></div>
+            <b-input-group-addon v-if="left" v-html="left"></b-input-group-addon>
         </slot>
 
         <slot></slot>
 
         <slot name="right">
-            <div v-if="right" class="input-group-addon" v-html="right"></div>
+            <b-input-group-addon v-if="right" v-html="right"></b-input-group-addon>
         </slot>
     </component>
 </template>
 
 <script>
+    import bInputGroupAddon from './input-group-addon.vue';
+
     export default {
+        components: { bInputGroupAddon },
         computed: {
             classObject() {
                 return [
