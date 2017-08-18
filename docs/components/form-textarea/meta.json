@@ -9,24 +9,6 @@
         {
           "arg": "value",
           "description": "current value of the textarea"
-        },
-        {
-          "arg": "event",
-          "description": "native event object"
-        }
-      ]
-    },
-    {
-      "event": "change",
-      "description": "Emitted when the textarea value changes.",
-      "args": [
-        {
-          "arg": "value",
-          "description": "current value of the textarea"
-        },
-        {
-          "arg": "event",
-          "description": "native event object"
         }
       ]
     }

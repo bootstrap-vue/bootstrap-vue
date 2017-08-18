@@ -5,12 +5,15 @@ and maximum number of rows, and contextual states.
 
 ```html
 <template>
-  <b-form-textarea id="textarea1"
-                   :value="text"
-                   placeholder="Enter something"
-                   :rows="3"
-                   :max-rows="5">
-  </b-form-textarea>
+  <div>
+    <b-form-textarea id="textarea1"
+                     v-model="text"
+                     placeholder="Enter something"
+                     :rows="3"
+                     :max-rows="6">
+    </b-form-textarea>
+    <pre class="mt-3">{{ text }}</pre>
+  </div>
 </template>
 
 <script>
@@ -30,7 +33,7 @@ and maximum number of rows, and contextual states.
 <template>
   <b-form-textarea id="textarea2"
                    state="invalid"
-                   :value="text"
+                   v-model.trim="text"
                    placeholder="Enter something"
                    :rows="3"></b-form-textarea>
 </template>

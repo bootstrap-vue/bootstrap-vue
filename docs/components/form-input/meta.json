@@ -9,10 +9,6 @@
         {
           "arg": "value",
           "description": "current value of the input"
-        },
-        {
-          "arg": "event",
-          "description": "Native event object"
         }
       ]
     },
@@ -23,10 +19,6 @@
         {
           "arg": "value",
           "description": "current value of the input"
-        },
-        {
-          "arg": "event",
-          "description": "Native event object"
         }
       ]
     }
