@@ -473,7 +473,7 @@
                 ];
             },
             rowClicked(e, item, index) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
@@ -482,7 +482,7 @@
                 this.$emit('row-clicked', item, index);
             },
             rowDblClicked(e, item, index) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
@@ -491,7 +491,7 @@
                 this.$emit('row-dblclicked', item, index);
             },
             rowHovered(e, item, index) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
@@ -500,7 +500,7 @@
                 this.$emit('row-hovered', item, index);
             },
             headClicked(e, field, key) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
