@@ -3,7 +3,7 @@
            :aria-pressed="button ? (isChecked ? 'true' : 'false') : null"
     >
         <input type="checkbox"
-               :id="id || null"
+               :id="safeId"
                :class="checkClasses"
                :name="name"
                :value="value"
@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import { formMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
+import { idMixin, formMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
 import { arrayIncludes, isArray } from '../utils/array';
 
 export default {
-    mixins: [formMixin, formCustomMixin, formCheckBoxMixin],
+    mixins: [idMixin, formMixin, formCustomMixin, formCheckBoxMixin],
     model: {
         prop: 'checked',
         event: 'change'
