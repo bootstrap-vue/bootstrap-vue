@@ -1,5 +1,5 @@
 <template>
-    <input :id="safeId"
+    <input :id="safeId()"
            :class="inputClass"
            :name="name"
            v-model="localValue"
