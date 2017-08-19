@@ -7,7 +7,8 @@
          :aria-valuemax="computedMax"
     >
         <slot>
-            <template v-if="showProgress">{{ progress.toFixed(this.computedPrecision) }}%</template>
+            <span v-if"label" v-html="label"></span>
+            <template v-else-if="showProgress">{{ progress.toFixed(this.computedPrecision) }}%</template>
             <template v-else-if="showValue">{{ value.toFixed(this.computedPrecision) }}</template>
         </slot>
     </div>
@@ -92,6 +93,10 @@
             animated: {
                 type: Boolean,
                 default: null
+            },
+            label: {
+                type: String,
+                value: null
             },
             showProgress: {
                 type: Boolean,
