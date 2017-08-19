@@ -1,9 +1,9 @@
 <template>
     <div :id="safeId()" :class="dropdownClasses">
 
-        <b-button :class="{'dropdown-toggle': !split}"
+        <b-button :id="safeId('_BV_button_')"
+                  :class="{'dropdown-toggle': !split}"
                   ref="button"
-                  :id="safeId('_BV_button_')"
                   :aria-haspopup="split ? null : 'true'"
                   :aria-expanded="split ? null : (visible ? 'true' : 'false')"
                   :variant="variant"
@@ -14,10 +14,10 @@
             <slot name="button-content"><slot name="text">{{text}}</slot></slot>
         </b-button>
 
-        <b-button :class="['dropdown-toggle','dropdown-toggle-split']"
+        <b-button :id="safeId('_BV_toggle_')"
+                  :class="['dropdown-toggle','dropdown-toggle-split']"
                   v-if="split"
                   ref="toggle"
-                  :id="safeId('_BV_toggle_') : null"
                   :aria-haspopup="split ? 'true' : null"
                   :aria-expanded="split ? (visible ? 'true' : 'false') : null"
                   :variant="variant"
