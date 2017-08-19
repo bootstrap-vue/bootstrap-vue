@@ -4,7 +4,7 @@
          :style="progressBarStyles"
          :aria-valuenow="value"
          :aria-valuemin="0"
-         :aria-valuemax="max"
+         :aria-valuemax="computedMax"
     >
         <slot>
             <template v-if="showProgress">{{ progress.toFixed(this.computedPrecision) }}%</template>
@@ -27,22 +27,25 @@
             progressBarStyles() {
                 return {
                     width: this.progress + '%',
-                    // We enherit height and line height from parent wrapper
-                    height: this.$parent.height || '1rem',
-                    lineHeight: this.$parent.height || '1rem'
+                    height: this.computedHeight,
+                    lineHeight: this.computedHeight
                 };
             },
             progress() {
                 const p = Math.pow(10, this.computedPrecison);
-                return Math.round((100 * p * this.value) / this.max) / p;
+                return Math.round((100 * p * this.value) / this.computedMax) / p;
             },
-            max() {
-                // We get the maximum value from the parent b-progress
-                return this.$parent.max || 100;
+            computedMax() {
+                // Prefer our max over parent setting
+                return this.max || this.$parent.max || 100;
+            },
+            computedHeight() {
+                // Prefer parent height over our height
+                return this.$parent.height || this.height || '1rem';
             },
             computedVariant() {
                 // Prefer our variant over parent setting
-                return this.variant ? this.variant : this.$parent.variant;
+                return this.variant || this.$parent.variant;
             },
             computedPrecison() {
                 // Prefer our precision over parent setting
@@ -70,6 +73,10 @@
                 type: Number,
                 default: 0
             },
+            max: {
+                type: Number,
+                default: null
+            },
             precision: {
                 type: Number,
                 default: null
@@ -92,6 +99,10 @@
             },
             showValue: {
                 type: Boolean,
+                default: null
+            },
+            height: {
+                type: String,
                 default: null
             }
         }
