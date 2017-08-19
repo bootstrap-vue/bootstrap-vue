@@ -28,8 +28,8 @@
                 return {
                     width: this.progress + '%',
                     // We enherit height and line height from parent wrapper
-                    height: 'inherit',
-                    lineHeight: 'inherit'
+                    height: this.$parent.height || '1rem',
+                    lineHeight: this.$parent.height || '1rem'
                 };
             },
             progress() {
