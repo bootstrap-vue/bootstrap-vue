@@ -6,7 +6,7 @@ We don’t use the HTML5 `<progress>` element, ensuring you can animate them, an
 ```html
 <template>
 <div>
-    <b-progress :value="counter" show-progress animated></b-progress>
+    <b-progress :value="counter" :max="max" show-progress animated></b-progress>
     <b-btn class="mt-4" @click="clicked">Click me</b-btn>
 </div>    
 </template>
@@ -15,10 +15,11 @@ We don’t use the HTML5 `<progress>` element, ensuring you can animate them, an
 export default {
   data: {
     counter: 45,
+    max: 100
   },
   methods: {
     clicked() {
-      this.counter = Math.random() * 100;
+      this.counter = Math.random() * this.max;
       console.log("Change progress to " +
         Math.round(this.counter * 100) / 100);
     }
@@ -38,7 +39,9 @@ Add labels to your progress bars by either enabling `show-progress` (as a percen
 percentage precision (number of digits after the decimal) via the `precision` prop (default
 is `0`digits after the decimal).
 
-Need more control over the label? Provide your own label by using the default slot.
+### Custom label
+Need more control over the label? Provide your own label by using the default slot with
+a `<b-progress-bar>` sub-component:
 
 ```html
 <template>
@@ -52,8 +55,10 @@ Need more control over the label? Provide your own label by using the default sl
     <h5>Progress label with precision</h5>
     <b-progress :value="value" :max="max" :precision="2" show-progress class="mb-3></b-progress>
     <h5>Custom Label</h5>
-    <b-progress :value="value" :max="max">
-      Progress: {{ value.toFixed(3) }}
+    <b-progress :max="max">
+      <b-progress-bar :value="value">
+          Progress: {{ value.toFixed(3) }}
+      </b-progress-bar>
     </b-progress>
   </div>    
 </template>
@@ -100,7 +105,7 @@ export default {
 
 The height of the progress bar can be controled with the `height` prop. The height
 value should be a standard CSS dimension (`px`, `rem`, `em`, etc). the default
-is `1rem`.
+height is `1rem`.
 
 ```html
 <template>
@@ -188,3 +193,45 @@ export default {
 
 <!-- progress-animated.vue -->
 ```
+
+## Multiple bars
+Include multiple `<b-progress-bar>` sub-components in a `<b-progress>` component if you like.
+
+```html
+<template>
+  <div>
+    <b-progress:max="max" class="mb-3">
+      <b-progress-bar :variant="primary" :value="values[0]">
+      <b-progress-bar :variant="success" :value="values[1]">
+      <b-progress-bar :variant="info" :value="values[2]">
+    </b-progress>
+    <b-progress show-progress :max="max" class="mb-3">
+      <b-progress-bar :variant="primary" :value="values[0]">
+      <b-progress-bar :variant="success" :value="values[1]">
+      <b-progress-bar :variant="info" :value="values[2]">
+    </b-progress>
+    <b-progress show-value :max="max" class="mb-3">
+      <b-progress-bar :variant="primary" :value="values[0]">
+      <b-progress-bar :variant="success" :value="values[1]">
+      <b-progress-bar :variant="info" :value="values[2]">
+    </b-progress>
+    <b-progress:max="max" class="mb-3">
+      <b-progress-bar :variant="primary" :value="values[0]">
+      <b-progress-bar :variant="success" animated :value="values[1]">
+      <b-progress-bar :variant="info" striped :value="values[2]">
+    </b-progress>
+  </div>    
+</template>
+
+<script>
+export default {
+  data: {
+    max: 100,
+    values: [ 15, 30, 20 ]
+  }
+}
+</script>
+
+<!-- progress-multiple.vue -->
+```
+
