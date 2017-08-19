@@ -1,52 +1,29 @@
 <template>
-    <div class="progress">
-        <transition>
-            <div role="progressbar"
-                 :class="progressClasses"
-                 :style="progressStyles"
-                 :aria-valuenow="value"
-                 :aria-valuemin="0"
-                 :aria-valuemax="max"
-            >
-                <slot>
-                    <template v-if="showProgress">{{progress}}%</template>
-                    <template v-else-if="showValue">{{value}}</template>
-                </slot>
-            </div>
-        </transition>
+    <div class="progress" :style="progressStyles">
+        <slot>
+            <b-progress-bar :value="value"></b-progress-bar>
+        </slot>
     </div>
 </template>
 
-<style>
-    .progress-bar {
-        transition: all .5s;
-    }
-</style>
-
 <script>
+    import bProgressBar from './progress-bar.vue';
+
     export default {
+        components: { bProgressBar },
         computed: {
-            progressClasses() {
-                return [
-                    'progress-bar',
-                    this.variant ? `bg-${this.variant}` : '',
-                    (this.striped || this.animated) ? 'progress-bar-striped' : '',
-                    this.animated ? 'progress-bar-animated' : ''
-                ];
-            },
             progressStyles() {
                 return {
-                    width: this.progress + '%',
-                    height: this.height || null,
-                    lineHeight: this.height || null
+                    height: this.height || '1rem',
+                    lineHeight: this.height || '1rem'
                 };
-            },
-            progress() {
-                const p = Math.pow(10, this.precision);
-                return Math.round((100 * p * this.value) / this.max) / p;
             }
         },
         props: {
+            variant: {
+                type: String,
+                default: null
+            },
             striped: {
                 type: Boolean,
                 default: false
@@ -55,21 +32,13 @@
                 type: Boolean,
                 default: false
             },
+            height: {
+                type: String,
+                default: '1rem'
+            },
             precision: {
                 type: Number,
                 default: 0
-            },
-            value: {
-                type: Number,
-                default: 0
-            },
-            max: {
-                type: Number,
-                default: 100
-            },
-            variant: {
-                type: String,
-                default: null
             },
             showProgress: {
                 type: Boolean,
@@ -79,9 +48,13 @@
                 type: Boolean,
                 default: false
             },
-            height: {
-                type: String,
-                default: '1rem'
+            max: {
+                type: Number,
+                default: 100
+            },
+            value: {
+                type: Number,
+                default: 0
             }
         }
     };
