@@ -156,6 +156,8 @@ export default {
 Use background variants to change the appearance of individual progress bars.
 The default variant is `primary`.
 
+### Solid backgrounds
+
 ```html
 <template>
   <div>
@@ -241,7 +243,8 @@ export default {
 ```
 
 ## Multiple bars
-Include multiple `<b-progress-bar>` sub-components in a `<b-progress>` component if you like.
+Include multiple `<b-progress-bar>` sub-components in a `<b-progress>` component to build
+a horizontally stacked set of progress bars.
 
 ```html
 <template>
@@ -261,7 +264,7 @@ Include multiple `<b-progress-bar>` sub-components in a `<b-progress>` component
       <b-progress-bar :variant="success" :value="values[1]"></b-progress-bar>
       <b-progress-bar :variant="info" :value="values[2]"></b-progress-bar>
     </b-progress>
-    <b-progress:max="max" class="mb-3">
+    <b-progress :max="max" class="mb-3">
       <b-progress-bar :variant="primary" :value="values[0]" show-progress></b-progress-bar>
       <b-progress-bar :variant="success" :value="values[1]" animated show-progress></b-progress-bar>
       <b-progress-bar :variant="info" :value="values[2]" striped show-progress></b-progress-bar>
@@ -282,8 +285,8 @@ export default {
 ```
 
 `<b-prgress-bar>` will inherit most of the props from the `<b-progress>` parent component,
-but you can override any of hte props by setting htem on hte `<b-progress-bar>`
+but you can override any of the props by setting them on the `<b-progress-bar>`
 
 Notes:
-- `max` and `height` are always set on the `<b-progress>` component.
+- `height`, if speified, should always set on the `<b-progress>` component.
 - `<b-progress-bar>` will not inherit `value` from `<b-progress>`.
