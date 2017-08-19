@@ -208,12 +208,23 @@ background variant.
 ```html
 <template>
   <div>
-    <b-progress :value="25" variant="success" striped class="mb-2"></b-progress>
-    <b-progress :value="50" variant="info" striped class="mb-2"></b-progress>
-    <b-progress :value="75" variant="warning" striped class="mb-2"></b-progress>
-    <b-progress :value="100" variant="danger" striped class="mb-2"></b-progress>
+    <b-progress :value="25" variant="success" :striped="striped" class="mb-2"></b-progress>
+    <b-progress :value="50" variant="info" :striped="striped" class="mb-2"></b-progress>
+    <b-progress :value="75" variant="warning" :striped="striped" class="mb-2"></b-progress>
+    <b-progress :value="100" variant="danger" :striped="striped" class="mb-2"></b-progress>
+    <b-button variant="secondary" @click="striped = !striped">
+      {{ striped ? 'Remove' : 'Add'}} Striped
+    </b-button>
   </div>
 </template>
+
+<script>
+export default {
+  data: {
+    striped: true
+  }
+}
+</script>
 
 <!-- progress-striped.vue -->
 ```
@@ -252,7 +263,7 @@ a horizontally stacked set of progress bars.
 ```html
 <template>
   <div>
-    <b-progress:max="max" class="mb-3">
+    <b-progress :max="max" class="mb-3">
       <b-progress-bar variant="primary" :value="values[0]"></b-progress-bar>
       <b-progress-bar variant="success" :value="values[1]"></b-progress-bar>
       <b-progress-bar variant="info" :value="values[2]"></b-progress-bar>
