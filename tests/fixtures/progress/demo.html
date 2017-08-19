@@ -10,9 +10,9 @@
         <b-progress-bar :value="progress" show-progress></b-progress-bar>
     </b-progress>
 
-    <b-progress :max="150" class="mb-4">
-        <b-progress-bar :value="progress" variant="primary" show-progress></b-progress-bar>
-        <b-progress-bar :value="10" variant="success" show-progress></b-progress-bar>
+    <b-progress :max="150" height="2rem" class="mb-4">
+        <b-progress-bar :value="progress" variant="primary" animated striped show-value></b-progress-bar>
+        <b-progress-bar :value="10" variant="success" show-value></b-progress-bar>
     </b-progress>
 
     <b-btn class="mt-4" @click="clicked">Click me</b-btn>
