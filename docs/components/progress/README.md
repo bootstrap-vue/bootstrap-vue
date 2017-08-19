@@ -164,7 +164,10 @@ The default variant is `primary`.
     <div v-for="bar in bars" class="row mb-1">
       <div class="col-sm-2">{{ bar.variant }}:</div>
       <div class="col-sm-10 pt-1">
-        <b-progress :value="bar.value" :variant="bar.variant"></b-progress>
+        <b-progress :value="bar.value"
+                    :variant="bar.variant"
+                    :key="bar.variant"
+        ></b-progress>
       </div>
     </div>
   </div>
