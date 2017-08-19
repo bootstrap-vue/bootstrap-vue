@@ -1,5 +1,5 @@
 <template>
-    <input :id="id || null"
+    <input :id="safeId()"
            :class="inputClass"
            :name="name"
            v-model="localValue"
@@ -16,9 +16,9 @@
 </template>
 
 <script>
-    import { formMixin } from '../mixins';
+    import { idMixin, formMixin } from '../mixins';
     export default {
-        mixins: [formMixin],
+        mixins: [idMixin, formMixin],
         data() {
             return {
                 localValue: this.value

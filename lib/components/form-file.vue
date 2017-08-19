@@ -1,7 +1,7 @@
 <template>
     <!-- Normally this should be a <label> but IE borks out on it. Awaiting fix from MSFT -->
     <div :class="[custom?'custom-file':null, state?`is-${state}`:null]"
-         :id="id ? (id + '__BV_file_outer_') : null"
+         :id="safeId('_BV_file_outer_')"
          @dragover.stop.prevent="dragover"
     >
 
@@ -19,7 +19,7 @@
                ref="input"
                :class="[custom?'custom-file-input':'form-control-file', state?`is-${state}`:null]"
                :name="name"
-               :id="id || null"
+               :id="safeId()"
                :disabled="disabled"
                :required="required"
                :capture="capture || null"
@@ -27,13 +27,13 @@
                :accept="accept || null"
                :multiple="multiple"
                :webkitdirectory="directory"
-               :aria-describedby="(custom && id) ? (id + '__BV_file_control_') : null"
+               :aria-describedby="custom ? safeId('_BV_file_control_') : null"
                @change="onFileChange"
         >
 
         <!-- Overlay Labels -->
         <span :class="['custom-file-control',dragging?'dragging':null]"
-              :id="id ? (id + '__BV_file_control_') : null"
+              :id="safeId('_BV_file_control_')"
               :data-choose="computedChooseLabel"
               :data-selected="selectedLabel"
               v-if="custom"
@@ -87,11 +87,11 @@
 </style>
 
 <script>
-    import { formCustomMixin, formMixin } from '../mixins';
+    import { idMixin, formCustomMixin, formMixin } from '../mixins';
     import { from as arrayFrom } from '../utils/array';
 
     export default {
-        mixins: [formMixin, formCustomMixin],
+        mixins: [idMixin, formMixin, formCustomMixin],
         data() {
             return {
                 selectedFile: null,

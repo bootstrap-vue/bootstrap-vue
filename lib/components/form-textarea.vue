@@ -1,7 +1,7 @@
 <template>
     <textarea v-model="localValue"
               :class="inputClass"
-              :id="id || null"
+              :id="safeId()"
               :name="name"
               :disabled="disabled"
               :placeholder="placeholder"
@@ -16,9 +16,9 @@
 </template>
 
 <script>
-    import { formMixin } from '../mixins';
+    import { idMixin, formMixin } from '../mixins';
     export default {
-        mixins: [formMixin],
+        mixins: [idMixin, formMixin],
         data() {
             return {
                 localValue: this.value

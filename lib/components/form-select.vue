@@ -1,7 +1,7 @@
 <template>
     <select :class="inputClass"
             :name="name"
-            :id="id || null"
+            :id="safeId()"
             v-model="localValue"
             :multiple="multiple || null"
             :size="(multiple || selectSize > 1) ? selectSize : null"
@@ -22,11 +22,11 @@
 </template>
 
 <script>
-    import { formMixin, formOptionsMixin, formCustomMixin } from '../mixins';
+    import { idMixin, formMixin, formOptionsMixin, formCustomMixin } from '../mixins';
     import { warn } from '../utils';
 
     export default {
-        mixins: [formMixin, formCustomMixin, formOptionsMixin],
+        mixins: [idMixin, formMixin, formCustomMixin, formOptionsMixin],
         data() {
             return {
                 localValue: this.multiple ? (this.value || []) : this.value
