@@ -18,7 +18,7 @@
         <div :class="menuClasses"
              role="menu"
              ref="menu"
-             :aria-labelledby="safeId('__BV_button_')"
+             :aria-labelledby="safeId('_BV_button_')"
              @mouseover="onMouseOver"
              @keyup.esc="onEsc"
              @keydown.tab="onTab"
