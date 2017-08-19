@@ -8,7 +8,7 @@ bars, featuring support for horzontally stacked bars, animated backgrounds, and 
 <div>
     <b-progress :value="counter" :max="max" show-progress animated></b-progress>
     <b-btn class="mt-4" @click="clicked">Click me</b-btn>
-</div>    
+</div>
 </template>
 
 <script>
@@ -31,7 +31,7 @@ export default {
 ```
 ## Value
 Set the maximum value with the `max` prop (default is `100`), and the current value via the
-`value` prop (default `0`). 
+`value` prop (default `0`).
 
 When creating multiple bars in a sinple process, place hte value prop on the individual
 `<b-progress-bar>` sub components (see the **Multiple Bars** section below for more details)
@@ -54,7 +54,7 @@ digits after the decimal) via the `precision` prop (default is `0`digits after t
     <b-progress :value="value" :max="max" :precision="2" show-value class="mb-3"></b-progress>
     <h5>Progress label with precision</h5>
     <b-progress :value="value" :max="max" :precision="2" show-progress class="mb-3"></b-progress>
-  </div>    
+  </div>
 </template>
 
 <script>
@@ -82,7 +82,7 @@ a `<b-progress-bar>` sub-component:
           Progress: {{ value.toFixed(3) }}
       </b-progress-bar>
     </b-progress>
-  </div>    
+  </div>
 </template>
 
 <script>
@@ -111,7 +111,7 @@ one of the standard Bootstrap width classes.
     <b-progress :value="value" class="w-75 mb-2"></b-progress>
     <b-progress :value="value" class="w-50 mb-2"></b-progress>
     <b-progress :value="value" class="w-25"></b-progress>
-  </div>    
+  </div>
 </template>
 
 <script>
@@ -138,7 +138,7 @@ height is `1rem`.
     <b-progress height="2rem" :value="value" show-progress class="mb-2"></b-progress>
     <b-progress height="20px" :value="value" show-progress class="mb-2"></b-progress>
     <b-progress height="2px" :value="value"></b-progress>
-  </div>    
+  </div>
 </template>
 
 <script>
@@ -212,7 +212,7 @@ background variant.
     <b-progress :value="50" variant="info" striped class="mb-2"></b-progress>
     <b-progress :value="75" variant="warning" striped class="mb-2"></b-progress>
     <b-progress :value="100" variant="danger" striped class="mb-2"></b-progress>
-  </div>    
+  </div>
 </template>
 
 <!-- progress-striped.vue -->
@@ -232,7 +232,7 @@ The striped gradient can also be animated by setting the `animated`prop.
       {{ animate ? 'Stop' : 'Start'}} Animation
     </b-button>
   </div>
-</template> 
+</template>
 
 <script>
 export default {
@@ -253,26 +253,26 @@ a horizontally stacked set of progress bars.
 <template>
   <div>
     <b-progress:max="max" class="mb-3">
-      <b-progress-bar :variant="primary" :value="values[0]"></b-progress-bar>
-      <b-progress-bar :variant="success" :value="values[1]"></b-progress-bar>
-      <b-progress-bar :variant="info" :value="values[2]"></b-progress-bar>
+      <b-progress-bar variant="primary" :value="values[0]"></b-progress-bar>
+      <b-progress-bar variant="success" :value="values[1]"></b-progress-bar>
+      <b-progress-bar variant="info" :value="values[2]"></b-progress-bar>
     </b-progress>
     <b-progress show-progress :max="max" class="mb-3"></b-progress-bar>
-      <b-progress-bar :variant="primary" :value="values[0]"></b-progress-bar>
-      <b-progress-bar :variant="success" :value="values[1]"></b-progress-bar>
-      <b-progress-bar :variant="info" :value="values[2]"></b-progress-bar>
+      <b-progress-bar variant="primary" :value="values[0]"></b-progress-bar>
+      <b-progress-bar variant="success" :value="values[1]"></b-progress-bar>
+      <b-progress-bar variant="info" :value="values[2]"></b-progress-bar>
     </b-progress>
     <b-progress show-value striped :max="max" class="mb-3"></b-progress-bar>
-      <b-progress-bar :variant="primary" :value="values[0]"></b-progress-bar>
-      <b-progress-bar :variant="success" :value="values[1]"></b-progress-bar>
-      <b-progress-bar :variant="info" :value="values[2]"></b-progress-bar>
+      <b-progress-bar variant="primary" :value="values[0]"></b-progress-bar>
+      <b-progress-bar variant="success" :value="values[1]"></b-progress-bar>
+      <b-progress-bar variant="info" :value="values[2]"></b-progress-bar>
     </b-progress>
     <b-progress :max="max" class="mb-3">
-      <b-progress-bar :variant="primary" :value="values[0]" show-progress></b-progress-bar>
-      <b-progress-bar :variant="success" :value="values[1]" animated show-progress></b-progress-bar>
-      <b-progress-bar :variant="info" :value="values[2]" striped show-progress></b-progress-bar>
+      <b-progress-bar variant="primary" :value="values[0]" show-progress></b-progress-bar>
+      <b-progress-bar variant="success" :value="values[1]" animated show-progress></b-progress-bar>
+      <b-progress-bar variant="info" :value="values[2]" striped show-progress></b-progress-bar>
     </b-progress>
-  </div>    
+  </div>
 </template>
 
 <script>
