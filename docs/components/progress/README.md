@@ -1,7 +1,7 @@
 # Progress
 
-> Use our custom progress component for displaying simple or complex progress bars.
-We don’t use the HTML5 `<progress>` element, ensuring you can animate them, and place text labels over them.
+> Use our custom progress component for displaying simple or complex progress
+bars, featuring support for horzontally stacked bars, animated backgrounds, and text labels.
 
 ```html
 <template>
@@ -33,15 +33,13 @@ export default {
 Set the maximum value with the `max` prop (default is `100`), and the current value via the
 `value` prop (default `0`). 
 
-## Labels
-Add labels to your progress bars by either enabling `show-progress` (as a percentage) or
-`show-value`for the current absolute value. For `show-progress`, you may also set the
-percentage precision (number of digits after the decimal) via the `precision` prop (default
-is `0`digits after the decimal).
+When creating multiple bars in a sinple process, place hte value prop on the individual
+`<b-progress-bar>` sub components (see the **Multiple Bars** section below for more details)
 
-### Custom label
-Need more control over the label? Provide your own label by using the default slot with
-a `<b-progress-bar>` sub-component:
+## Labels
+Add labels to your progress bars by either enabling `show-progress` (percentage of max) or
+`show-value`for the current absolute value. You may also set the precision (number of
+digits after the decimal) via the `precision` prop (default is `0`digits after the decimal).
 
 ```html
 <template>
@@ -52,8 +50,32 @@ a `<b-progress-bar>` sub-component:
     <b-progress :value="value" :max="max" show-value class="mb-3"></b-progress>
     <h5>Progress label</h5>
     <b-progress :value="value" :max="max" show-progress class="mb-3"></b-progress>
+    <h5>Value label with precision</h5>
+    <b-progress :value="value" :max="max" :precision="2" show-value class="mb-3"></b-progress>
     <h5>Progress label with precision</h5>
-    <b-progress :value="value" :max="max" :precision="2" show-progress class="mb-3></b-progress>
+    <b-progress :value="value" :max="max" :precision="2" show-progress class="mb-3"></b-progress>
+  </div>    
+</template>
+
+<script>
+export default {
+  data: {
+    max: 50,
+    value: 33.333333333
+  }
+}
+</script>
+
+<!-- progress-labels.vue -->
+```
+
+### Custom label
+Need more control over the label? Provide your own label by using the default slot within
+a `<b-progress-bar>` sub-component:
+
+```html
+<template>
+  <div>
     <h5>Custom Label</h5>
     <b-progress :max="max">
       <b-progress-bar :value="value">
@@ -72,12 +94,12 @@ export default {
 }
 </script>
 
-<!-- progress-labels.vue -->
+<!-- progress-custom-labels.vue -->
 ```
 
 ## Width and Height
 `<b-progress>` will always expand to the maximum with of it's parent container. To
-change the width, place the progress bar in a standard Bootstrap column or apply
+change the width, place `<b-progress>` in a standard Bootstrap column or apply
 one of the standard Bootstrap width classes.
 
 ```html
@@ -104,7 +126,7 @@ export default {
 ```
 
 The height of the progress bar can be controled with the `height` prop. The height
-value should be a standard CSS dimension (`px`, `rem`, `em`, etc). the default
+value should be a standard CSS dimension (`px`, `rem`, `em`, etc). The default
 height is `1rem`.
 
 ```html
@@ -137,15 +159,39 @@ The default variant is `primary`.
 ```html
 <template>
   <div>
-    <b-progress :value="25" variant="success" class="mb-2"></b-progress>
-    <b-progress :value="50" variant="info" class="mb-2"></b-progress>
-    <b-progress :value="75" variant="warning" class="mb-2"></b-progress>
-    <b-progress :value="100" variant="danger" class="mb-2"></b-progress>
-    <b-progress :value="66.6" variant="primary" class="mb-2"></b-progress>
-    <b-progress :value="45" variant="secondary" class="mb-2"></b-progress>
-    <b-progress :value="33.3" variant="dark" class="mb-2"></b-progress>
-  </div>    
+    <div v-for="bar in bars" class="row mb-1">
+      <div class="col-sm-2">{{ bar.variant }}:</div>
+      <div class="col-sm-10 pt-1">
+        <b-progress :value="bar.value" :variant="bar.variant"></b-progress>
+      </div>
+    </div>
+  </div>
 </template>
+
+<script>
+export default {
+  data: {
+    bars: [
+      {variant:'success', value:75},
+      {variant:'info', value:75},
+      {variant:'warning', value:75},
+      {variant:'danger', value:75},
+      {variant:'primary', value:75},
+      {variant:'secondary', value:75},
+      {variant:'dark', value:75}
+    ],
+    timer: null
+  },
+  mounted() {
+    this.timer = setInterval(() => {
+      this.bars.forEach(bar => bar.value = 25 + (Math.random() * 75));
+    }, 2000);
+  },
+  destroyed() {
+    clearInterval(this.timer);
+  }
+}
+</script>
 
 <!-- progress-backgrounds.vue -->
 ```
@@ -201,24 +247,24 @@ Include multiple `<b-progress-bar>` sub-components in a `<b-progress>` component
 <template>
   <div>
     <b-progress:max="max" class="mb-3">
-      <b-progress-bar :variant="primary" :value="values[0]">
-      <b-progress-bar :variant="success" :value="values[1]">
-      <b-progress-bar :variant="info" :value="values[2]">
+      <b-progress-bar :variant="primary" :value="values[0]"></b-progress-bar>
+      <b-progress-bar :variant="success" :value="values[1]"></b-progress-bar>
+      <b-progress-bar :variant="info" :value="values[2]"></b-progress-bar>
     </b-progress>
-    <b-progress show-progress :max="max" class="mb-3">
-      <b-progress-bar :variant="primary" :value="values[0]">
-      <b-progress-bar :variant="success" :value="values[1]">
-      <b-progress-bar :variant="info" :value="values[2]">
+    <b-progress show-progress :max="max" class="mb-3"></b-progress-bar>
+      <b-progress-bar :variant="primary" :value="values[0]"></b-progress-bar>
+      <b-progress-bar :variant="success" :value="values[1]"></b-progress-bar>
+      <b-progress-bar :variant="info" :value="values[2]"></b-progress-bar>
     </b-progress>
-    <b-progress show-value :max="max" class="mb-3">
-      <b-progress-bar :variant="primary" :value="values[0]">
-      <b-progress-bar :variant="success" :value="values[1]">
-      <b-progress-bar :variant="info" :value="values[2]">
+    <b-progress show-value striped :max="max" class="mb-3"></b-progress-bar>
+      <b-progress-bar :variant="primary" :value="values[0]"></b-progress-bar>
+      <b-progress-bar :variant="success" :value="values[1]"></b-progress-bar>
+      <b-progress-bar :variant="info" :value="values[2]"></b-progress-bar>
     </b-progress>
     <b-progress:max="max" class="mb-3">
-      <b-progress-bar :variant="primary" :value="values[0]">
-      <b-progress-bar :variant="success" animated :value="values[1]">
-      <b-progress-bar :variant="info" striped :value="values[2]">
+      <b-progress-bar :variant="primary" :value="values[0]" show-progress></b-progress-bar>
+      <b-progress-bar :variant="success" :value="values[1]" animated show-progress></b-progress-bar>
+      <b-progress-bar :variant="info" :value="values[2]" striped show-progress></b-progress-bar>
     </b-progress>
   </div>    
 </template>
@@ -235,3 +281,9 @@ export default {
 <!-- progress-multiple.vue -->
 ```
 
+`<b-prgress-bar>` will inherit most of the props from the `<b-progress>` parent component,
+but you can override any of hte props by setting htem on hte `<b-progress-bar>`
+
+Notes:
+- `max` and `height` are always set on the `<b-progress>` component.
+- `<b-progress-bar>` will not inherit `value` from `<b-progress>`.
