@@ -61,7 +61,8 @@
                     role="menuitemradio"
                     tabindex="-1"
                     @click="onClick(page.number)"
-            >{{ makePage(page.number) }}</b-link>
+                    v-html="makePage(page.number)"
+            ></b-link>
         </li>
 
         <!-- Last Ellipsis Bookend -->
