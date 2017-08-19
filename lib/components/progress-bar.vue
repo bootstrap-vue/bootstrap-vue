@@ -32,7 +32,7 @@
                 };
             },
             progress() {
-                const p = Math.pow(10, this.computedPrecison);
+                const p = Math.pow(10, this.computedPrecision);
                 return Math.round((100 * p * this.value) / this.computedMax) / p;
             },
             computedMax() {
@@ -47,7 +47,7 @@
                 // Prefer our variant over parent setting
                 return this.variant || this.$parent.variant;
             },
-            computedPrecison() {
+            computedPrecision() {
                 // Prefer our precision over parent setting
                 return this.precision === null ? (this.$parent.precision || 0) : this.precision;
             },
@@ -65,7 +65,7 @@
             },
             computedShowValue() {
                 // Prefer our showValue over parent setting
-                return typeof this.showValue === 'boolean' ? this.showVale : this.$parent.showValue;
+                return typeof this.showValue === 'boolean' ? this.showValue : this.$parent.showValue;
             }
         },
         props: {
