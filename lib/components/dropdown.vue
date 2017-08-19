@@ -1,9 +1,9 @@
 <template>
-    <div :id="id || null" :class="dropdownClasses">
+    <div :id="safeId()" :class="dropdownClasses">
 
         <b-button :class="{'dropdown-toggle': !split}"
                   ref="button"
-                  :id="id ? (id + '__BV_button_') : null"
+                  :id="safeId('_BV_button_')"
                   :aria-haspopup="split ? null : 'true'"
                   :aria-expanded="split ? null : (visible ? 'true' : 'false')"
                   :variant="variant"
@@ -17,7 +17,7 @@
         <b-button :class="['dropdown-toggle','dropdown-toggle-split']"
                   v-if="split"
                   ref="toggle"
-                  :id="id ? (id + '__BV_toggle_') : null"
+                  :id="safeId('_BV_toggle_') : null"
                   :aria-haspopup="split ? 'true' : null"
                   :aria-expanded="split ? (visible ? 'true' : 'false') : null"
                   :variant="variant"
@@ -31,7 +31,7 @@
         <div :class="menuClasses"
              ref="menu"
              role="menu"
-             :aria-labelledby="id ? (id + (split ? '__BV_toggle_' : '__BV_button_')) : null"
+             :aria-labelledby="safeId(split ? '_BV_toggle_' : '_BV_button_')"
              @mouseover="onMouseOver"
              @keyup.esc="onEsc"
              @keydown.tab="onTab"
@@ -45,11 +45,11 @@
 </template>
 
 <script>
-    import { dropdownMixin } from '../mixins';
+    import { idMixin, dropdownMixin } from '../mixins';
     import bButton from './button';
 
     export default {
-        mixins: [dropdownMixin],
+        mixins: [idMixin, dropdownMixin],
         components: {bButton},
         props: {
             split: {
