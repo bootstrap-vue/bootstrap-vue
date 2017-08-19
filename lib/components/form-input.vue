@@ -2,7 +2,7 @@
     <input :id="safeId()"
            :class="inputClass"
            :name="name"
-           v-model="localValue"
+           :value="localValue"
            :type="localType"
            :disabled="disabled"
            :required="required"
