@@ -1,7 +1,16 @@
 <template>
-    <div class="progress" :style="progressStyles">
+    <div class="progress">
         <slot>
-            <b-progress-bar :value="value"></b-progress-bar>
+            <b-progress-bar :value="value"
+                            :max="max"
+                            :precision="precision"
+                            :variant="variant"
+                            :animated="animated"
+                            :striped="striped"
+                            :show-progress="showProgress"
+                            :show-value="showValue"
+                            :height="height"
+            ></b-progress-bar>
         </slot>
     </div>
 </template>
@@ -11,15 +20,8 @@
 
     export default {
         components: { bProgressBar },
-        computed: {
-            progressStyles() {
-                return {
-                    height: this.height || '1rem',
-                    lineHeight: this.height || '1rem'
-                };
-            }
-        },
         props: {
+            // These props can be inherited via the child b-progress-bar(s)
             variant: {
                 type: String,
                 default: null
@@ -52,6 +54,7 @@
                 type: Number,
                 default: 100
             },
+            // This prop is not inherited by child b-progress-bar(s)
             value: {
                 type: Number,
                 default: 0
