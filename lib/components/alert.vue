@@ -11,7 +11,7 @@
                 :aria-label="dismissLabel"
                 @click.stop.prevent="dismiss"
         >
-            <span aria-hidden="true">&times;</span>
+            <span class="d-inline-block" aria-hidden="true"><slot name="dismiss">&times;</slot></span>
         </button>
         <slot></slot>
     </div>
