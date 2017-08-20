@@ -226,7 +226,7 @@ See the **"Using Items Provider functions"** section below for more details.
 Custom rendering for each data field in a row is possible using either 
 [scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or formatter callback function.
 
-###Slots
+### Slots
 If you want to add an extra field which does not exist in the records,
 just add it to the `fields` array.  Example:
 
@@ -298,7 +298,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `item` | Object | The entire record (i.e. `items[index]`) for this row
 | `index` | Number | The row number (zero based)
 
-**Note** that `index` will not always be the actual row's index number, as it is
+**Note:** `index` will not always be the actual row's index number, as it is
 computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
 number will align with the indexes from the optional `v-model` bound variable.
@@ -394,7 +394,7 @@ This variable (the `value` prop) should usually be treated as readonly.
 The records within the v-model are a filtered/paginated shallow copy of `items`, and
 hence any changes to a record's properties in the v-model will be reflected in
 the original `items` array (except when `items` is set to a provider function).
-Deleteing a record from the v-model will **not** remove the record from the
+Deleting a record from the v-model will **not** remove the record from the
 original items array.
 
 **Note:** Do not bind any value directly to the `value` prop. Use the `v-model` binding.
@@ -504,9 +504,11 @@ function myProvider(ctx, callback) {
         let items = data.items;
         // Provide the array of items to the callabck
         callback(items);
-    })
+    }).catch(error => {
+        callback([])
+    });
 
-    // Must return null or undefined
+    // Must return null or undefined to signal b-table that callback is being used
     return null;
 }
 ```
@@ -520,18 +522,26 @@ function myProvider(ctx) {
     return promise.then((data) => {
         // Pluck the array of items off our axios response
         let items = data.items;
-        // Must return an array of items
-        return(items);
+        // Must return an array of items or an empty array if an error occurred
+        return(items || []);
     });
 }
 ```
+
+`<b-table>` automatically tracks/controls it's `busy` state, however it provides
+a `busy` prop that can be used either to override inner `busy`state, or to monitor
+`<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
+
+**Note:** in order to allow `<b-table>` fully track it's `busy` state, custom items
+provider function should handle errors from data sources and return an empty
+array to `<b-table>`.
 
 `<b-table>` provides a `busy` prop that will flag the table as busy, which you can
 set to `true` just before your async fetch, and then set it to `false` once you have
 your data, and just before you send it to the table for display. Example:
 
 ```html
-<b-table id="my-table" :busy="isBusy" :items="myProvider" :fields="fields" ....>
+<b-table id="my-table" :busy.sync="isBusy" :items="myProvider" :fields="fields" ....>
 </b-table>
 ```
 ```js
@@ -542,18 +552,28 @@ data () {
 }
 methods: {
     myProvider(ctx) {
-        this.isBusy = true
+        // Here we don't set isBusy prop, so state will be handled by table itself
+        // this.isBusy = true;
         let promise = axios.get('/some/url');
 
         return promise.then((data) => {
             const items = data.items;
-            this.isBusy = false
+            // Here we coul override the state, setting isBusy to false
+            // this.isBusy = false
             return(items);
-        });
+        }).catch(error => {
+            // Returning an empty array, allows table to correctly handle busy state in case of error
+            return []
+         });
     }
  }
 ```
 
+**Note:** If you manually place the table in the `busy` state, the items provider will
+__not__ be called/refreshed until the `busy` state has been set to `false`. All click
+related events and sort-changed events will __not__ be emiited when in the `busy` state.
+
+### Provider Paging, Filtering, and Sorting
 By default, the items provider function is responsible for **all paging, filtering, and sorting**
 of the data, before passing it to `b-table` for display.
 
