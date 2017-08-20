@@ -1,6 +1,6 @@
 <template>
     <table :id="id || null"
-           :aria-busy="busy ? 'true' : 'false'"
+           :aria-busy="computedBusy ? 'true' : 'false'"
            :class="tableClass"
     >
         <thead :class="headClass">
@@ -126,7 +126,8 @@
                 localSortDesc: this.sortDesc || false,
                 localItems: [],
                 // Note: filteredItems only used to determine if # of items changed
-                filteredItems: []
+                filteredItems: [],
+                localBusy: this.busy
             };
         },
         props: {
@@ -304,11 +305,17 @@
                 if (oldVal !== newVal && !this.noProviderFiltering) {
                     this._providerUpdate();
                 }
-            }
+            },
+            localBusy(newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    this.$emit('update:busy', newVal);
+                }
+             }
         },
         mounted() {
             this.localSortBy = this.sortBy;
             this.localSortDesc = this.sortDesc;
+            this.localBusy = this.busy;
             if (this.hasProvider) {
                 this._providerUpdate();
             }
@@ -418,8 +425,10 @@
 
                 // Update the value model with the filtered/sorted/paginated data set
                 this.$emit('input', items);
-
                 return items;
+            },
+            computedBusy() {
+                return this.busy || this.localBusy;
             }
         },
         methods: {
@@ -451,7 +460,7 @@
                 ];
             },
             rowClicked(e, item, index) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
@@ -460,7 +469,7 @@
                 this.$emit('row-clicked', item, index);
             },
             rowDblClicked(e, item, index) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
@@ -469,7 +478,7 @@
                 this.$emit('row-dblclicked', item, index);
             },
             rowHovered(e, item, index) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
@@ -478,7 +487,7 @@
                 this.$emit('row-hovered', item, index);
             },
             headClicked(e, field, key) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
@@ -515,15 +524,19 @@
             },
             _providerSetLocal(items) {
                 this.localItems = (items && items.length > 0) ? items.slice() : [];
+                this.localBusy = false;
                 this.$emit('refreshed');
                 this.emitOnRoot('table::refreshed', this.id);
             },
             _providerUpdate() {
                 // Refresh the provider items
-                if (this.busy || !this.hasProvider) {
+                if (this.computedBusy || !this.hasProvider) {
                     // Don't refresh remote data if we are 'busy' or if no provider
                     return;
                 }
+
+                // Set internal busy state
+                this.localBusy = true;
 
                 // Call provider function with context and optional callback
                 const data = this.items(this.context, this._providerSetLocal);
@@ -531,9 +544,7 @@
                 if (!data) {
                     // Provider is using callback
                     return;
-                }
-
-                if (data.then && typeof data.then === 'function') {
+                } else if (data.then && typeof data.then === 'function') {
                     // Provider returned Promise
                     data.then(items => {
                         this._providerSetLocal(items);
