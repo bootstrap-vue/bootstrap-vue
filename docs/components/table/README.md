@@ -569,7 +569,7 @@ methods: {
 
 >***Note:** If you manually place the table in the `busy` state, the items provider will
 __not__ be called/refreshed until the `busy` state has been set to `false`. All click
-related events and sort-changed events will __not__ be emiited dwhen in the `busy` state.*
+related events and sort-changed events will __not__ be emiited when in the `busy` state.*
 
 #### Provider Sorting, Paging, Filtering
 By default, the items provider function is responsible for **all paging, filtering, and sorting**
