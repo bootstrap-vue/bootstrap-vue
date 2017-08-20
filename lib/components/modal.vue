@@ -18,7 +18,7 @@
                  key="modal"
                  :style="modalStyle"
                  v-show="is_visible"
-                 :aria-hidden="is_visible ? 'fasle' : 'true'
+                 :aria-hidden="is_visible ? 'fasle' : 'true'"
                  @click="onClickOut()"
                  @keyup.esc="onEsc()"
             >
