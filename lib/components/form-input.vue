@@ -16,9 +16,9 @@
 </template>
 
 <script>
-    import { idMixin, formMixin } from '../mixins';
+    import { idMixin, formMixin, formSizeMixin, formStateMixin } from '../mixins';
     export default {
-        mixins: [idMixin, formMixin],
+        mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
         data() {
             return {
                 localValue: this.value
@@ -31,15 +31,6 @@
             type: {
                 type: String,
                 default: 'text'
-            },
-            size: {
-                type: String,
-                default: null
-            },
-            state: {
-                // valid, invalid or null
-                type: String,
-                default: null
             },
             ariaInvalid: {
                 type: [Boolean, String],
@@ -80,14 +71,14 @@
             inputClass() {
                 return [
                     this.plaintext ? `form-control-plaintext` : 'form-control',
-                    this.size ? `form-control-${this.size}` : null,
-                    this.state ? `is-${this.state}` : null
+                    this.sizeFormClass,
+                    this.stateClass
                 ];
             },
             computedAriaInvalid() {
                 if (!Boolean(this.ariaInvalid) || this.ariaInvalid === 'false') {
                     // this.ariaInvalid is null or false or 'false'
-                    return this.state === 'invalid' ? 'true' : null ;
+                    return this.computedState === false ? 'true' : null ;
                 }
                 if (this.ariaInvalid === true) {
                    // User wants explicit aria-invalid=true
