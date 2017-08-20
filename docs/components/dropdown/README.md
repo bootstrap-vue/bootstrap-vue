@@ -3,6 +3,9 @@
 > Dropdowns are toggleable, contextual overlays for displaying lists of links and actions
 in a dropdown menu format.
 
+**Beta Warning: Dropwdown is currently under re-development to align with Boostrap
+V4.beta CSS and code changes. Positioning and placement are not yet working**
+
 
 **Example:** Various usage
 ```html
