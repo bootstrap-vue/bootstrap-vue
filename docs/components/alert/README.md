@@ -5,7 +5,7 @@
 ```html
 <template>
   <div>
-   <b-alert show>
+    <b-alert show>
         Default Alert
     </b-alert>
 
@@ -13,15 +13,24 @@
         Success Alert
     </b-alert>
 
-    <b-alert variant="danger" dismissible :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">
+    <b-alert variant="danger"
+             dismissible
+             :show="showDismissibleAlert"
+             @dismissed="showDismissibleAlert=false">
         Dismissible Alert!
     </b-alert>
 
-    <b-alert :show="dismissCountDown" variant="warning" @dismiss-count-down="countDownChanged">
+    <b-alert :show="dismissCountDown"
+             variant="warning"
+             dismissible
+             @dismissed="dismissCountDown=0"
+             @dismiss-count-down="countDownChanged">
         This alert will dismiss after {{dismissCountDown}} seconds...
     </b-alert>
 
-    <b-btn @click="showAlert" variant="info" class="m-1">Show alert with count-down timer</b-btn>
+    <b-btn @click="showAlert" variant="info" class="m-1">
+        Show alert with count-down timer
+    </b-btn>
     <b-btn @click="showDismissibleAlert=true" variant="info" class="m-1">
         Show dismissible alert ({{showDismissibleAlert?'visible':'hidden'}})
     </b-btn>
