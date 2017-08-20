@@ -4,7 +4,7 @@
   which don’t rely on images, use CSS3 for animations, and data-attributes for local title storage.
 
 **Beta Warning: Tooltip is currently under re-development to align with Boostrap V4.beta
-CSS and code changes. Positioning and placement are not yet working**
+CSS and code changes.**
 
 ```html
 <div id="app" class="text-center">
