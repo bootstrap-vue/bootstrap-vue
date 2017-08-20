@@ -552,26 +552,31 @@ data () {
 }
 methods: {
     myProvider(ctx) {
-        // Here we don't set isBusy prop, so state will be handled by table itself
+        // Here we don't set isBusy prop, so busy state will be handled by table itself
         // this.isBusy = true;
         let promise = axios.get('/some/url');
 
         return promise.then((data) => {
             const items = data.items;
-            // Here we coul override the state, setting isBusy to false
-            // this.isBusy = false
+            // Here we could override the busy state, setting isBusy to false
+            // this.isBusy = false;
             return(items);
         }).catch(error => {
+            // Here we could override the busy state, setting isBusy to false
+            // this.isBusy = false;
             // Returning an empty array, allows table to correctly handle busy state in case of error
-            return []
-         });
+            return [];
+        });
     }
  }
 ```
 
-**Note:** If you manually place the table in the `busy` state, the items provider will
-__not__ be called/refreshed until the `busy` state has been set to `false`. All click
-related events and sort-changed events will __not__ be emiited when in the `busy` state.
+**Notes:**
+ - If you manually place the table in the `busy` state, the items provider will
+__not__ be called/refreshed until the `busy` state has been set to `false`.
+ - All click related and hover events, and sort-changed events will __not__ be
+ emiited when in the `busy` state (either set automatically during provider update,
+ or when manually set).
 
 ### Provider Paging, Filtering, and Sorting
 By default, the items provider function is responsible for **all paging, filtering, and sorting**
