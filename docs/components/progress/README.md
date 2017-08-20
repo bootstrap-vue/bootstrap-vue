@@ -69,17 +69,24 @@ export default {
 <!-- progress-labels.vue -->
 ```
 
-### Custom label
+### Custom progress label
 Need more control over the label? Provide your own label by using the default slot within
-a `<b-progress-bar>` sub-component:
+a `<b-progress-bar>` sub-component, or by using the `label` prop on `<b-progress-bar>`
+(HTML supported):
 
 ```html
 <template>
   <div>
-    <h5>Custom Label</h5>
+    <h5>Custom Label via Default Slot</h5>
     <b-progress :max="max">
       <b-progress-bar :value="value">
-          Progress: {{ value.toFixed(3) }}
+        Progress: <strong>{{ value.toFixed(3) }} / {{ max }}</strong>
+      </b-progress-bar>
+    </b-progress>
+    
+    <h5 class="mt-3">Custom Label via Prop</h5>
+    <b-progress :max="max">
+      <b-progress-bar :value="value" :label="'&lt;'+value.toFixed(0)+'&gt;'">
       </b-progress-bar>
     </b-progress>
   </div>
@@ -96,6 +103,16 @@ export default {
 
 <!-- progress-custom-labels.vue -->
 ```
+
+Precedence order for label methods:
+- default slot of `<b-progress-bar>`
+- `label` prop of `<b-progress-bar>`
+- `show-progress` prop of `<b-progress-bar>`
+- `show-value` prop of `<b-progress-bar>`
+- `show-progress` prop of `<b-progress>`
+- `show-value` prop of `<b-progress>`
+- no label
+
 
 ## Width and Height
 `<b-progress>` will always expand to the maximum with of it's parent container. To
@@ -156,7 +173,7 @@ export default {
 Use background variants to change the appearance of individual progress bars.
 The default variant is `primary`.
 
-### Solid backgrounds
+### Solid background variants
 
 ```html
 <template>
@@ -238,7 +255,7 @@ The striped gradient can also be animated by setting the `animated`prop.
     <b-progress :value="25" variant="success" striped :animated="animate" class="mb-2"></b-progress>
     <b-progress :value="50" variant="info" striped :animated="animate" class="mb-2"></b-progress>
     <b-progress :value="75" variant="warning" striped :animated="animate" class="mb-2"></b-progress>
-    <b-progress :value="100" variant="danger" striped :animated="animate" class="mb-3"></b-progress>
+    <b-progress :value="100" variant="danger" :animated="animate" class="mb-3"></b-progress>
     <b-button variant="secondary" @click="animate = !animate">
       {{ animate ? 'Stop' : 'Start'}} Animation
     </b-button>
@@ -255,6 +272,11 @@ export default {
 
 <!-- progress-animated.vue -->
 ```
+
+Notes:
+ - if `animated` is true, `striped` will automatically be enabled.
+ - Animated progress bars don’t work in Opera 12 — as they don’t support CSS3 animations.
+
 
 ## Multiple bars
 Include multiple `<b-progress-bar>` sub-components in a `<b-progress>` component to build
