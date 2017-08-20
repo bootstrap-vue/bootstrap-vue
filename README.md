@@ -14,6 +14,7 @@
 <a href="https://github.com/bootstrap-vue/bootstrap-vue">
     <img alt="" src="https://david-dm.org/bootstrap-vue/bootstrap-vue.svg?style=flat-square">
 </a>
+<a href="https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue.svg?type=shield"/></a>
 
 <br>
 
@@ -92,3 +93,6 @@ in your bundle or reference them from `static/` via `index.html`.
 
 # License
 MIT
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue?ref=badge_large)
