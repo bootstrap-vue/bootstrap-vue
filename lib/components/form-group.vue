@@ -45,7 +45,7 @@
     import bFormRow from './form-row';
     import bFormText from './form-text';
     import bFormFeedback from './form-feedback';
-    import { idMixin } from '../mixins';
+    import { idMixin, formStateMixin } from '../mixins';
 
     // Selector to find first input with an ID. This Order is important!
     const INPUT_SELECTOR = [
@@ -60,7 +60,7 @@
     ].join(',');
 
     export default {
-        mixins: [idMixin],
+        mixins: [idMixin, formStateMixin],
         components: {
             bFormRow,
             bFormText,
@@ -72,16 +72,7 @@
             };
         },
         props: {
-            id: {
-                type: String,
-                default: null
-            },
             labelFor: {
-                type: String,
-                default: null
-            },
-            state: {
-                // 'valid', 'invalid', null
                 type: String,
                 default: null
             },
@@ -131,7 +122,7 @@
         },
         computed: {
             inputState() {
-                return this.state ? `is-${this.state}` : '';
+                return this.stateClass;
             },
             groupClasses() {
                 return [

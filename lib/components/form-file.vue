@@ -16,10 +16,10 @@
 
         <!-- Real Form input -->
         <input type="file"
-               ref="input"
-               :class="[custom?'custom-file-input':'form-control-file', state?`is-${state}`:null]"
-               :name="name"
                :id="safeId()"
+               ref="input"
+               :class="[custom?'custom-file-input':'form-control-file', stateClass]"
+               :name="name"
                :disabled="disabled"
                :required="required"
                :capture="capture || null"
@@ -87,11 +87,11 @@
 </style>
 
 <script>
-    import { idMixin, formCustomMixin, formMixin } from '../mixins';
+    import { idMixin, formStateMixin, formCustomMixin, formMixin } from '../mixins';
     import { from as arrayFrom } from '../utils/array';
 
     export default {
-        mixins: [idMixin, formMixin, formCustomMixin],
+        mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
         data() {
             return {
                 selectedFile: null,
@@ -99,11 +99,6 @@
             };
         },
         props: {
-            state: {
-                // 'valid', 'invalid' or null
-                type: String,
-                default: null
-            },
             accept: {
                 type: String,
                 default: ''

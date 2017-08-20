@@ -22,11 +22,11 @@
 </template>
 
 <script>
-    import { idMixin, formMixin, formOptionsMixin, formCustomMixin } from '../mixins';
+    import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin } from '../mixins';
     import { warn } from '../utils';
 
     export default {
-        mixins: [idMixin, formMixin, formCustomMixin, formOptionsMixin],
+        mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
         data() {
             return {
                 localValue: this.multiple ? (this.value || []) : this.value
@@ -34,15 +34,6 @@
         },
         props: {
             value: {},
-            state: {
-                // 'valid', 'invalid' or null
-                type: String,
-                default: null
-            },
-            size: {
-                type: String,
-                default: null
-            },
             options: {
                 type: [Array, Object],
                 required: true
@@ -66,8 +57,8 @@
             inputClass() {
                 return [
                     'form-control',
-                    this.state ? `is-${this.state}` : null,
-                    this.size ? `form-control-${this.size}` : null,
+                    this.stateClass,
+                    this.sizeFormClass,
                     (this.plain || this.multiple || this.selectSize > 1) ? null : 'custom-select'
                 ];
             },
@@ -75,7 +66,7 @@
                 if (this.ariaInvalid === true || this.ariaInvalid === 'true') {
                     return 'true';
                 }
-                return this.state == 'invalid' ? 'true' : null;
+                return this.computedState === false ? 'true' : null;
             }
         }
     };

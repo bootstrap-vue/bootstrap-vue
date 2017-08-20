@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import { idMixin, formMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
+import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
 import { arrayIncludes, isArray } from '../utils/array';
 
 export default {
-    mixins: [idMixin, formMixin, formCustomMixin, formCheckBoxMixin],
+    mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin],
     model: {
         prop: 'checked',
         event: 'change'
@@ -43,21 +43,12 @@ export default {
         uncheckedValue: {
             default: false
         },
-        state: {
-            // 'valid', 'invalid', or null
-            type: String,
-            default: null
-        },
         checked: {
             default: true
         },
         indeterminate: {
             type: Boolean,
             default: false,
-        },
-        size: {
-            type: String,
-            default: null
         },
         button: {
             type: Boolean,
@@ -71,7 +62,7 @@ export default {
     computed: {
         labelClasses() {
             return [
-                this.size ? `form-control-${this.size}` : '',
+                this.sizeFormClass,
                 this.custom ? 'custom-checkbox' : '',
                 this.checkboxClass
             ];
@@ -80,7 +71,7 @@ export default {
             return [
                 'btn',
                 `btn-${this.buttonVariant}`,
-                this.size ? `btn-${this.size}` : '',
+                this.sizeBtnClass,
                 this.isChecked ? 'active' : '',
                 this.disabled ? 'disabled' : ''
             ];
@@ -88,7 +79,7 @@ export default {
         checkClasses() {
             return [
                 (this.custom && !this.button ) ? 'custom-control-input' : null,
-                this.state ? `is-${this.state}` : null
+                this.stateClass
             ];
         },
         isChecked() {
