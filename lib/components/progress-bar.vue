@@ -8,8 +8,8 @@
     >
         <slot>
             <span v-if="label" v-html="label"></span>
-            <template v-else-if="showProgress">{{ progress.toFixed(this.computedPrecision) }}%</template>
-            <template v-else-if="showValue">{{ value.toFixed(this.computedPrecision) }}</template>
+            <template v-else-if="computedShowProgress">{{ progress.toFixed(this.computedPrecision) }}%</template>
+            <template v-else-if="computedShowValue">{{ value.toFixed(this.computedPrecision) }}</template>
         </slot>
     </div>
 </template>
@@ -38,7 +38,7 @@
             },
             computedMax() {
                 // Prefer our max over parent setting
-                return this.max || this.$parent.max || 100;
+                return typeof this.max === 'number' ? this.max : (this.$parent.max || 100);
             },
             computedHeight() {
                 // Prefer parent height over our height
@@ -50,23 +50,23 @@
             },
             computedPrecision() {
                 // Prefer our precision over parent setting
-                return this.precision === null ? (this.$parent.precision || 0) : this.precision;
+                return typeof this.precision === 'number' ? this.precision : (this.$parent.precision || 0);
             },
             computedStriped() {
                 // Prefer our striped over parent setting
-                return typeof this.striped === 'boolean' ? this.striped : this.$parent.striped;
+                return typeof this.striped === 'boolean' ? this.striped : (this.$parent.striped || false);
             },
             computedAnimated() {
                 // Prefer our animated over parent setting
-                return typeof this.animated === 'boolean' ? this.animated : this.$parent.animated;
+                return typeof this.animated === 'boolean' ? this.animated : (this.$parent.animated || false);
             },
             computedShowProgress() {
                 // Prefer our showProgress over parent setting
-                return typeof this.showProgress === 'boolean' ? this.showProgress : this.$parent.showProgress;
+                return typeof this.showProgress === 'boolean' ? this.showProgress : (this.$parent.showProgress || false);
             },
             computedShowValue() {
                 // Prefer our showValue over parent setting
-                return typeof this.showValue === 'boolean' ? this.showValue : this.$parent.showValue;
+                return typeof this.showValue === 'boolean' ? this.showValue : (this.$parent.showValue || false);
             }
         },
         props: {
@@ -74,6 +74,12 @@
                 type: Number,
                 default: 0
             },
+            label: {
+                type: String,
+                value: null
+            },
+            // $parent prop values take precedence over the following props
+            // Which is why they are defaulted to null
             max: {
                 type: Number,
                 default: null
@@ -93,10 +99,6 @@
             animated: {
                 type: Boolean,
                 default: null
-            },
-            label: {
-                type: String,
-                value: null
             },
             showProgress: {
                 type: Boolean,
