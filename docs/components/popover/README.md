@@ -1,7 +1,10 @@
 # Popover
 
 > The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
-  element, and is customizable.
+element, and is customizable.
+
+**Beta Warning: popover is currently under re-development to align with Boostrap V4.beta CSS
+and code changes.**
 
 ```html
 <template>
