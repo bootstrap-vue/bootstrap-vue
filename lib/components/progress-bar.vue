@@ -7,7 +7,7 @@
          :aria-valuemax="computedMax"
     >
         <slot>
-            <span v-if"label" v-html="label"></span>
+            <span v-if="label" v-html="label"></span>
             <template v-else-if="showProgress">{{ progress.toFixed(this.computedPrecision) }}%</template>
             <template v-else-if="showValue">{{ value.toFixed(this.computedPrecision) }}</template>
         </slot>
