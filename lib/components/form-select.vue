@@ -22,7 +22,7 @@
 </template>
 
 <script>
-    import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../mixins';
+    import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin } from '../mixins';
     import { warn } from '../utils';
 
     export default {
