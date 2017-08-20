@@ -466,7 +466,7 @@
                     e.stopPropagation();
                     return;
                 }
-                this.$emit('row-clicked', item, index);
+                this.$emit('row-clicked', item, index, e);
             },
             rowDblClicked(e, item, index) {
                 if (this.computedBusy) {
@@ -475,7 +475,7 @@
                     e.stopPropagation();
                     return;
                 }
-                this.$emit('row-dblclicked', item, index);
+                this.$emit('row-dblclicked', item, index, e);
             },
             rowHovered(e, item, index) {
                 if (this.computedBusy) {
@@ -484,7 +484,7 @@
                     e.stopPropagation();
                     return;
                 }
-                this.$emit('row-hovered', item, index);
+                this.$emit('row-hovered', item, index, e);
             },
             headClicked(e, field, key) {
                 if (this.computedBusy) {
@@ -510,7 +510,7 @@
                     sortChanged = true;
                 }
 
-                this.$emit('head-clicked', key, field);
+                this.$emit('head-clicked', key, field, e);
                 if (sortChanged) {
                     // Sorting parameters changed
                     this.$emit('sort-changed', this.context);
