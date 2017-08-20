@@ -4,10 +4,10 @@
                 role="group"
                 :aria-describedby="describedByIds"
     >
-        <label v-if="label || $slots['label']"
+        <label v-if="label || $slots['label'] || horizontal"
                :for="targetId"
                :id="labelId"
-               :class="[labelSrOnly ? 'sr-only' : 'col-form-label',labelLayout,labelAlignClass]"
+               :class="labelClasses"
         >
             <slot name="label"><span v-html="label"></span></slot>
         </label>
@@ -141,6 +141,13 @@
                     this.inputState
                 ];
             },
+            labelClasses() {
+                return [
+                    this.labelSrOnly ? 'sr-only' : 'col-form-label',
+                    this.labelLayout,
+                    this.labelAlignClass
+                ];
+            },
             labelLayout() {
                 if (this.labelSrOnly) {
                     return null;
@@ -159,7 +166,7 @@
                 ]
             },
             labelId() {
-                return this.label ? this.safeId('_BV_label_') : null;
+                return (this.label || $slots['label']) ? this.safeId('_BV_label_') : null;
             },
             descriptionId() {
                 if (this.description || this.$slots['description']) {
@@ -201,9 +208,11 @@
             }
         },
         mounted() {
+            // We run in nextTick to ensure auto IDs are available
             this.$nextTick(() => this.updateTargetId());
         },
         updated() {
+            // We run in nextTick to ensure auto IDs are available
             this.$nextTick(() => this.updateTargetId());
         }
     };
