@@ -13,6 +13,10 @@
         {
           "arg": "index",
           "description": "Index of the row being clicked."
+        },
+        {
+          "arg": "event",
+          "description": "Native event object"
         }
       ]
     },
@@ -27,6 +31,10 @@
         {
           "arg": "index",
           "description": "Index of the row being double clicked."
+        },
+        {
+          "arg": "event",
+          "description": "Native event object"
         }
       ]
     },
@@ -41,6 +49,10 @@
         {
           "arg": "index",
           "description": "Index of the row being hovered."
+        },
+        {
+          "arg": "event",
+          "description": "Native event object"
         }
       ]
     },
@@ -55,6 +67,10 @@
         {
           "arg": "field",
           "description": "Field definition object."
+        },
+        {
+          "arg": "event",
+          "description": "Native event object"
         }
       ]
     },
