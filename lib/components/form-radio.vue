@@ -33,10 +33,10 @@
 </template>
 
 <script>
-    import { idMixin, formOptionsMixin, formMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
+    import { idMixin, formOptionsMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
 
     export default {
-        mixins: [idMixin, formMixin, formCustomMixin, formCheckBoxMixin, formOptionsMixin],
+        mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin, formOptionsMixin],
         data() {
             return {
                 localValue: this.value,
@@ -49,15 +49,6 @@
                 type: [Array, Object],
                 default: null,
                 required: true
-            },
-            size: {
-                type: String,
-                default: null
-            },
-            state: {
-                // 'valid', 'invalid' or null
-                type: String,
-                default: null
             },
             validated: {
                 type: Boolean,
@@ -86,7 +77,7 @@
             radioGroupClasses() {
                 return [
                     this.validated ? `was-validated` : '',
-                    this.size ? `form-control-${this.size}` : null,
+                    this.sizeFormClass,
                     this.stacked ? 'custom-controls-stacked' : ''
                ];
             },
@@ -94,14 +85,14 @@
                 return [
                     'btn-group',
                     this.validated ? `was-validated` : '',
-                    this.size ? `btn-group-${this.size}` : null,
+                    this.sizeBtnClass,
                     this.stacked ? 'btn-group-vertical' : ''
                  ];
             },
             radioClasses() {
                 return [
                     (this.custom && !this.buttons) ? 'custom-control-input' : null,
-                    this.state ? `is-$this.state}` : null
+                    this.stateClass
                 ];
             },
             labelClasses() {
@@ -114,7 +105,7 @@
                 if (this.ariaInvalid === true || this.AriaInvalid === 'true') {
                     return 'true'
                 }
-                return this.state === 'invalid' ? 'true' : null;
+                return this.computedState === false ? 'true' : null;
             },
             inline() {
                 return !this.stacked;
