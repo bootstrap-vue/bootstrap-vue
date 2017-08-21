@@ -246,6 +246,10 @@
                 type: Boolean,
                 default: false
             },
+            noBackdrop: {
+                type: Boolean,
+                default: false
+            },
             okOnly: {
                 type: Boolean,
                 default: false
