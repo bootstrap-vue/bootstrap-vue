@@ -11,7 +11,7 @@
                     @before-leave="onBeforeLeave"
                     @after-leave="onAfterLeave"
         >
-            <div :class="['modal',{fade: !noFade, show: isShowing]"
+            <div :class="['modal',{fade: !noFade, show: isShowing}]"
                  :id="id || null"
                  role="dialog"
                  ref="modal"
