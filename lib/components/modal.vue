@@ -86,7 +86,7 @@
 
 <script>
     import bBtn from './button';
-    import { listenOnRootMixin, clickoutMixin } from '../mixins';
+    import { listenOnRootMixin } from '../mixins';
     import { from as arrayFrom } from '../utils/array'
 
     const ClassName = {
@@ -102,8 +102,11 @@
     const ON = true;
     const OFF = false;
 
+    // Types of elements that we can focus
     const FOCUS_SELECTOR = [
+        `[autofocus]:not([disabled]):not(.disabled)`,
         'button:not([disabled])',
+        '.btn:not([disabled]):not(.disabled)',
         'input:not([disabled])',
         'select:not([disabled])',
         'textarea:not([disabled])',
@@ -154,13 +157,13 @@
             return {
                 is_visible: false,
                 return_focus: this.returnFocus || null,
+                // Body and scrollbar information
                 scrollbarWidth: 0,
-                bodyAltered: false,
                 isBodyOverflowing: false,
-                bodyAltered: false,
                 originalBodyPadding: '',
                 paddingLeft: 0,
                 paddingRight: 0,
+                // Transitioning flags
                 isEntering: false,
                 isLeaving: false,
                 isShown: false
@@ -283,24 +286,20 @@
                 if (this.is_visible || typeof document === 'undefined') {
                     return;
                 }
-                this.is_visible = true;
-                this.isBodyOverflowing = document.body.clientWidth < window.innerWidth;
-                this.setScrollBar();
+                // TODO: Convert `show` to a cancellable event
+                this.$emit('show');
 
-                if (this.noFade) {
-                    // If no fade animation, then triger the start ourselves
-                    this.onBeforeEnter();
-                }
-
-                document.body.classList.add(ClassName.OPEN);
+                this.$root.$emit('shown::modal', this.id || this);
                 this.$emit('change', true);
 
+                this.is_visible = true;
+
                 if (this.noFade) {
-                    // If no fade animation, then triger the end ourselves
+                    // If no fade animation, then triger events ourselves
+                    this.onBeforeEnter();
                     this.onAfterEnter();
                 }
 
-                this.setListeners(ON);
             },
             hide(isOK) {
                 if (!this.is_visible || typeof document === 'undefined') {
@@ -329,22 +328,16 @@
 
                 // Hide if not canceled
                 if (!canceled) {
-                    this.setListeners(OFF);
-                    if (this.noFade) {
-                        this.beforeLeave();
-                    }
                     this.is_visible = false;
-                    this.isBodyOverflowing = false;
-                    this.resetScrollbar();
-                    document.body.classList.remove(ClassName.OPEN);
                     if (this.noFade) {
+                        // Trigger event handler manually
+                        this.beforeLeave();
                         this.afterLeave();
                     }
                 }
             },
             onClickOut() {
                 // If backdrop clicked, hide modal
-                // TODO: Add clickout handler (for when noBackdrop is used)
                 if (this.is_visible && !this.noCloseOnBackdrop) {
                     this.hide();
                 }
@@ -357,24 +350,29 @@
                 }
             },
             onBeforeEnter(el) {
-                this.$emit('show');
-                this.$root.$emit('shown::modal', this.id);
+                this.isBodyOverflowing = document.body.clientWidth < window.innerWidth;
                 this.isEntering = true;
+                this.setScrollBar();
+                document.body.classList.add(ClassName.OPEN);
             },
             onAfterEnter() {
+                this.adjustModal();
                 this.isEntering = false;
                 this.isShown = true;
-                this.adjustModal();
                 this.$emit('shown');
+                this.setListeners(ON);
                 this.focusFirst();
             },
             onBeforeLeave() {
-                // We don't $emit hide here bcause we need to pass out custom event
+                this.setListeners(OFF);
                 this.isLeaving = true;
                 this.isShown = false;
+                document.body.classList.remove(ClassName.OPEN);
             },
             onAfterLeave() {
                 this.isLeaving = false;
+                this.isBodyOverflowing = false;
+                this.resetScrollbar();
                 this.$emit('hidden');
                 this.$root.$emit('hidden::modal', this.id);
                 this.returnFocusTo();
@@ -388,52 +386,44 @@
                 this.paddingRight = (this.isBodyOverflowing && !isModalOverflowing) ? this.scrollbarWidth : 0;
             },
             setScrollbar() {
-                if (this.isBodyOverflowing) {
-                    // Adjust fixed content padding
-                    arrayFrom(document.querySelectorAll(Selector.FIXED_CONTENT)).forEach( (el, index) => {
-                        const actualPadding = el.style.paddingRight || '';
-                        const calculatedPadding = parseFloat(getComputedStyle(el).paddingRight);
-                        el.setAttribute('data-padding-right', actualPadding);
-                        el.style.paddingRight = `${calculatedPadding + this.scrollbarWidth}px`;
-                    });
+                // Adjust fixed content padding
+                arrayFrom(document.querySelectorAll(Selector.FIXED_CONTENT)).forEach( (el, index) => {
+                    const actualPadding = el.style.paddingRight || '';
+                    const calculatedPadding = parseFloat(getComputedStyle(el).paddingRight);
+                    el.setAttribute('data-padding-right', actualPadding);
+                    el.style.paddingRight = `${calculatedPadding + this.scrollbarWidth}px`;
+                });
 
-                    // Adjust navbar-toggler margin
-                    arrayFrom(document.querySelectorAll(Selector.NAVBAR_TOGGLER)).forEach( (el, index) => {
-                        const actualMargin = el.style.marginRight || '';
-                        const calculatedMargin = parseFloat(getComputedStyle(el).marginRight);
-                        el.setAttribut('data-margin-right', actualMargin);
-                        el.style.marginRight = `${calculatedMargin + this.scrollbarWidth}px`;
-                    });
+                // Adjust navbar-toggler margin
+                arrayFrom(document.querySelectorAll(Selector.NAVBAR_TOGGLER)).forEach( (el, index) => {
+                    const actualMargin = el.style.marginRight || '';
+                    const calculatedMargin = parseFloat(getComputedStyle(el).marginRight);
+                    el.setAttribut('data-margin-right', actualMargin);
+                    el.style.marginRight = `${calculatedMargin + this.scrollbarWidth}px`;
+                });
 
-                    // Adjust body padding
-                    this.originalBodyPadding = document.body.style.paddingRight || '';
-                    const calculatedPadding = parseFloat(getComputedStyle(document.body).paddingRight);
-                    document.body.style.paddingRight = `${calculatedPadding + this.scrollbarWidth}px`;
-                    
-                    this.bodyAltered = true;
-                }
+                // Adjust body padding
+                this.originalBodyPadding = document.body.style.paddingRight || '';
+                const calculatedPadding = parseFloat(getComputedStyle(document.body).paddingRight);
+                document.body.style.paddingRight = `${calculatedPadding + this.scrollbarWidth}px`;
             },
             resetScrollbar() {
-                if (this.bodyAltered) {
-                    // Restore fixed content padding
-                    arrayFrom(document.querySelectorAll(Selector.FIXED_CONTENT)).forEach( (el, index) => {
-                        const padding = el.getAttribute('data-padding-right') || '';
-                        el.style.paddingRight = padding;
-                        el.removeAttribute('data-padding-right');
-                    });
+                // Restore fixed content padding
+                arrayFrom(document.querySelectorAll(Selector.FIXED_CONTENT)).forEach( (el, index) => {
+                    const padding = el.getAttribute('data-padding-right') || '';
+                    el.style.paddingRight = padding;
+                    el.removeAttribute('data-padding-right');
+                });
 
-                    // Restore navbar-toggler margin
-                    arrayFrom(document.querySelectorAll(Selector.NAVBAR_TOGGLER)).forEach( (el, index) => {
-                        const margin = el.getAttribute('data-margin-right') || '';
-                        el.style.marginRight = margin;
-                        el.removeAttribute('data-margin-right');
-                    });
+                // Restore navbar-toggler margin
+                arrayFrom(document.querySelectorAll(Selector.NAVBAR_TOGGLER)).forEach( (el, index) => {
+                    const margin = el.getAttribute('data-margin-right') || '';
+                    el.style.marginRight = margin;
+                    el.removeAttribute('data-margin-right');
+                });
 
-                    // Restore body padding
-                    document.body.style.paddingRight = this.originalBodyPadding || '';
-
-                    this.bodyAltered = false;
-                }
+                // Restore body padding
+                document.body.style.paddingRight = this.originalBodyPadding || '';
             },
             focusFirst() {
                 // Don't try and focus if we are SSR
