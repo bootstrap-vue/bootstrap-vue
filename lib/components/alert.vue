@@ -9,7 +9,6 @@
                 class="close"
                 data-dismiss="alert"
                 :aria-label="dismissLabel"
-                v-if="localDismissible"
                 @click.stop.prevent="dismiss"
         >
             <span aria-hidden="true">&times;</span>
@@ -25,8 +24,7 @@
         data() {
             return {
                 countDownTimerId: null,
-                dismissed: false,
-                localDismissible: this.dismissible
+                dismissed: false
             };
         },
         created() {
@@ -36,7 +34,7 @@
         },
         computed: {
             classObject() {
-                return ['alert', this.alertVariant, this.localDismissible ? 'alert-dismissible' : ''];
+                return ['alert', this.alertVariant, this.dismissible ? 'alert-dismissible' : ''];
             },
             alertVariant() {
                 const variant = this.state || this.variant || 'info';
@@ -78,13 +76,17 @@
         },
         methods: {
             dismiss() {
-                this.dismissed = true;
-                this.$emit('dismissed');
                 this.clearCounter();
+                this.dismissed = true;
+                if (typeof this.show === 'number') {
+                    this.$emit('dismiss-count-down', 0);
+                }
+                this.$emit('dismissed');
             },
             clearCounter() {
                 if (this.countDownTimerId) {
                     clearInterval(this.countDownTimerId);
+                    this.countDownTimerId = null;
                 }
             },
             showChanged() {
@@ -93,12 +95,8 @@
 
                 // No timer for boolean values
                 if (this.show === true || this.show === false || this.show === null || this.show === 0) {
-                    this.localDismissible = this.dismissible;
                     return;
                 }
-
-                // Hide dismiss button for auto-dismissing
-                this.localDismissible = false;
 
                 let dismissCountDown = this.show;
                 this.$emit('dismiss-count-down', dismissCountDown);
