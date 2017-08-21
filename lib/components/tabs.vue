@@ -15,10 +15,10 @@
                 @keydown.up="previousTab"
                 @keydown.right="nextTab"
                 @keydown.down="nextTab"
-                @keydown.shift.left="setTab(-1,false,1)"
-                @keydown.shift.up="setTab(-1,false,1)"
-                @keydown.shift.right="setTab(tabs.length,false,-1)"
-                @keydown.shift.down="setTab(tabs.length,false,-1)"
+                @keydown.shift.left="setTab(0,false,1)"
+                @keydown.shift.up="setTab(0,false,1)"
+                @keydown.shift.right="setTab(tabs.length-1,false,-1)"
+                @keydown.shift.down="setTab(tabs.length-1,false,-1)"
             >
                 <li class="nav-item" v-for="(tab, index) in tabs" role="presentation">
                     <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
@@ -162,7 +162,7 @@
                 direction = this.sign(direction || 0);
                 index = index || 0;
 
-                // Prevent setting same tab!
+                // Prevent setting same tab and infinite loops!
                 if (!force && index === this.currentTab) {
                     return;
                 }
@@ -185,7 +185,7 @@
                     return;
                 }
 
-                // Activate current tab, and deactivte any old tabs
+                // Activate requested current tab, and deactivte any old tabs
                 this.tabs.forEach( t => {
                     if (t === tab) {
                         // Set new tab as active
@@ -201,11 +201,11 @@
             },
 
             /**
-             * Dynamically update tabs
+             * Dynamically update tabs list
              */
             updateTabs() {
                 // Probe tabs
-                this.tabs = this.$children.filter(tab => tab._isTab);
+                this.tabs = this.$children.filter(child => child._isTab);
 
                 // Set initial active tab
                 let tabIndex = null;
