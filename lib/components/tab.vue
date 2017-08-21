@@ -1,14 +1,14 @@
 <template>
     <transition @enter="enter" @before-leave="beforeLeave" mode="out-in">
         <component :is="tag"
-                   :id="id || null"
+                   :id="safeId()"
                    role="tabpanel"
-                   :class="['tab-pane', {show, fade, disabled, active: localActive}]"
+                   :class="tabClasses"
                    :aria-hidden="localActive ? 'false' : 'true'"
                    :aria-expanded="localActive ? 'true' : 'false'"
                    :aria-lablelledby="controlledBy || null"
-                   v-if="localActive || !lazy"
-                   v-show="localActive || lazy"
+                   v-if="localActive || !computedLazy"
+                   v-show="localActive || computedLazy"
                    ref="panel"
         >
              <slot></slot>
@@ -17,7 +17,10 @@
 </template>
 
 <script>
+    import { idMixin } from '../mixins';
+
     export default {
+        mixins: [idMixin],
         methods: {
             enter() {
                 this.show = true;
@@ -28,21 +31,34 @@
         },
         data() {
             return {
-                fade: false,
                 localActive: this.active,
-                lazy: true,
                 show: false
             };
         },
         computed: {
+            tabClasses() {
+                return [
+                    'tab-pane',
+                    this.show ? 'show' : '',
+                    this.computedFade ? 'fade' : '',
+                    this.disabled ? 'disabled' : '',
+                    this.localActive ? 'active' : ''
+                ];
+            },
             controlledBy() {
-                return this.buttonId || (this.id ? (this.id + '__BV_tab_button__') : null);
+                return this.buttonId || this.safeId('__BV_tab_button__');
+            },
+            computedFade() {
+                return this.$parent.fade;
+            },
+            computedLazy() {
+                return this.$parent.lazy;
             }
         },
         props: {
-            id: {
-                type: String,
-                default: ''
+            active: {
+                type: Boolean,
+                default: false
             },
             tag: {
                 type: String,
@@ -61,10 +77,6 @@
                 default: null
             },
             disabled: {
-                type: Boolean,
-                default: false
-            },
-            active: {
                 type: Boolean,
                 default: false
             },
