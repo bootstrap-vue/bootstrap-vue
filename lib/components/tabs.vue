@@ -154,9 +154,13 @@
 
             /**
              * Set active tab on the tabs collection and the child 'tab' component
+             * Index is the tab we want to activate. Direction is the direction we are moving
+             * so if the tab we requested is disabled, we can skip over it.
+             * Force is used by updateTabs to ensure we have cleared any previous active tabs.
              */
             setTab(index, force, direction) {
                 direction = this.sign(direction || 0);
+                index = index || 0;
 
                 // Prevent setting same tab!
                 if (!force && index === this.currentTab) {
@@ -167,6 +171,8 @@
 
                 // Don't go beyond indexes!
                 if (!tab) {
+                    // Reset the v-model to the current Tab
+                    this.$emit('input', this.currentTab);
                     return;
                 }
 
