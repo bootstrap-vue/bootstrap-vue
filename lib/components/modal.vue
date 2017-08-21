@@ -76,6 +76,7 @@
                 </div>
             </div>
         </transition>
+
         <div key="modal-backdrop"
              :class="['modal-backdrop',{fade: !noFade, show: is_visible}]"
              v-if="is_visible"
@@ -100,13 +101,13 @@
     import { from as arrayFrom } from '../utils/array'
 
     const ClassName = {
-        SCROLLBAR_MEASURER : 'modal-scrollbar-measure',
-        OPEN               : 'modal-open'
+        SCROLLBAR_MEASURER: 'modal-scrollbar-measure',
+        OPEN: 'modal-open'
     }
 
     const Selector = {
-        FIXED_CONTENT      : '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
-        NAVBAR_TOGGLER     : '.navbar-toggler'
+        FIXED_CONTENT: '.fixed-top,.fixed-bottom,.is-fixed,.sticky-top',
+        NAVBAR_TOGGLER: '.navbar-toggler'
     }
 
     const ON = true;
@@ -120,6 +121,28 @@
         'a:not([disabled]):not(.disabled)',
         '[tabindex]:not([disabled]):not(.disabled)'
     ].join(',');
+
+    // Fallback Transition duration (with a little buffer) in ms
+    const TRANS_DURATION = 600 + 50;
+
+    // Transition Event names
+    const TransitionEndEvents = {
+        WebkitTransition: 'webkitTransitionEnd',
+        MozTransition: 'transitionend',
+        OTransition: 'otransitionend oTransitionEnd',
+        transition: 'transitionend'
+    };
+
+    // Return the brtowser specific transitionend event name
+    function getTransisionEndEvent(el) {
+        for (const name in TransitionEndEvents) {
+            if (el.style[name] !== undefined) {
+                return TransitionEndEvents[name];
+            }
+        }
+        // fallback
+        return null;
+    }
 
     // Measure the scrollbar width
     function getScrollbarWidth() {
@@ -164,6 +187,7 @@
             return {
                 is_visible: false,
                 return_focus: this.returnFocus || null,
+                transitionEndEvent: null,
                 scrollbarWidth: 0,
                 bodyAltered: false,
                 isBodyOverflowing: false,
@@ -181,11 +205,6 @@
             event: 'change'
         },
         computed: {
-            body() {
-                if (typeof document !== 'undefined') {
-                    return document.querySelector('body');
-                }
-            },
             isTransitioning() {
                 return this.isLeaving || this.isEntering;
             },
@@ -205,12 +224,7 @@
                 if (new_val === old_val) {
                     return;
                 }
-
-                if (new_val) {
-                    this.show();
-                } else {
-                    this.hide();
-                }
+                return newVal ? this.show() : this.hide();
             }
         },
         props: {
@@ -299,18 +313,25 @@
                 if (this.is_visible) {
                     return;
                 }
-                this.$emit('show');
                 this.is_visible = true;
-                this.$root.$emit('shown::modal', this.id);
-                if (typeof document !== 'undefined') {
-                    document.body.classList.add('modal-open');
-                    // Guard against infinite focus loop
-                    document.removeEventListener('focusin', this.enforceFocus, false);
-                    // Handle constrained focus
-                    document.addEventListener('focusin', this.enforceFocus, false);
+                this.isBodyOverflowing = document.body.clientWidth < window.innerWidth;
+                this.setScrollBar();
+                if (this.noFade || !this.transitionEndEvent) {
+                    // If no fade animation, then triger the start ourselves
                 }
-                this.$emit('shown');
+
+                document.body.classList.add(ClassName.OPEN);
                 this.$emit('change', true);
+                if (this.noFade || !this.transitionEndEvent) {
+                    // If no fade animation, then triger the end ourselves
+                }
+
+                this.$emit('show');
+                this.$root.$emit('shown::modal', this.id);
+
+                this.setListeners(ON);
+
+                this.$emit('shown');
             },
             hide(isOK) {
                 if (!this.is_visible) {
@@ -338,16 +359,14 @@
 
                 // Hide if not canceled
                 if (!canceled) {
-                    if (typeof document !== 'undefined') {
-                        // Remove focus handler
-                        document.removeEventListener('focusin', this.enforceFocus, false);
-                        // Return focus to original button/trigger element if provided
-                        this.returnFocusTo();
-                    }
+                    this.setListeners(OFF);
+                    // Return focus to original button/trigger element if provided
+                    this.returnFocusTo();
+
                     this.is_visible = false;
                     this.$root.$emit('hidden::modal', this.id);
                     if (typeof document !== 'undefined') {
-                        document.body.classList.remove('modal-open');
+                        document.body.classList.remove(ClassName.OPEN);
                     }
                     this.$emit('hidden', e);
                 }
@@ -385,7 +404,9 @@
                 this.$emit('hidden');
             },
             adjustModal() {
-                // Handler for adjusting modal padding.
+                // Check if body is overflowing
+                this.isBodyOverflowing = document.body.clientWidth < window.innerWidth;
+                // Adjusting modal padding if needed
                 const isModalOverflowing = this.$el.scrollHeight > document.documentElement.clientHeight;
                 this.paddingLeft = (!this.isBodyOverflowing && isModalOverflowing) ? this.scrollbarWidth : 0;
                 this.paddingRight = (this.isBodyOverflowing && !isModalOverflowing) ? this.scrollbarWidth : 0;
@@ -471,6 +492,10 @@
                 });
             },
             returnFocusTo() {
+                if (typeof document === 'undefined') {
+                    return;
+                }
+
                 // Prrefer returnFocus prop over event specified value
                 let el = this.returnFocus || this.return_focus || null;
 
@@ -486,6 +511,26 @@
                         // Plain element
                         el.focus();
                     }
+                }
+            },
+            setListeners(on) {
+                if (typeof document === 'undefined') {
+                    return;
+                }
+                if (on) {
+                    // Guard against infinite focus loop
+                    document.removeEventListener('focusin', this.enforceFocus, false);
+                    // Handle constrained focus
+                    document.addEventListener('focusin', this.enforceFocus, false);
+                    // Add resize listeners
+                    window.addEventListener('resize', this.adjustModal, false);
+                    window.addEventListener('orientationchange', this.adjustModal, false);
+                } else {
+                    // Remove focus handler
+                    document.removeEventListener('focusin', this.enforceFocus, false);
+                    // Remove resize listeners
+                    window.removeEventListener('resize', this.adjustModal, false);
+                    window.removeEventListener('orientationchange', this.adjustModal, false);
                 }
             },
             enforceFocus(e) {
@@ -520,16 +565,17 @@
             // Measure the scrollbar width
             this.scrollbarWidth = getScrollbarWidth();
 
+            // Get tranition end event name(s)
+            this.transitionEndEvent = getTransitionEndEvent(this.$refs.modal);
+
             // Initially show modal?
             if (this.visible === true) {
                 this.show();
             }
         },
         destroyed() {
-            // Make sure event listener is rmoved
-            if (typeof document !== 'undefined') {
-                document.removeEventListener('focusin', this.enforceFocus, false);
-            }
+            // Make sure event listeners are rmoved
+            this.setListeners(OFF);
         }
     };
 
