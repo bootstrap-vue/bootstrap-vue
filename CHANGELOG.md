@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.23.0"></a>
+# [0.23.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.22.1...v0.23.0) (2017-08-21)
+
+
+### Bug Fixes
+
+* **alert:** Fix auto-dismissing alert "bug" ([#898](https://github.com/bootstrap-vue/bootstrap-vue/issues/898)) ([48d3729](https://github.com/bootstrap-vue/bootstrap-vue/commit/48d3729))
+* **dropdown.js:** import clickout as a mixin ([#895](https://github.com/bootstrap-vue/bootstrap-vue/issues/895)) ([8aee11e](https://github.com/bootstrap-vue/bootstrap-vue/commit/8aee11e))
+* **tab:** transitions ([#901](https://github.com/bootstrap-vue/bootstrap-vue/issues/901)) ([a4b2862](https://github.com/bootstrap-vue/bootstrap-vue/commit/a4b2862))
+* **table:**  fix for row-hovered event ([d3e8eac](https://github.com/bootstrap-vue/bootstrap-vue/commit/d3e8eac))
+
+
+### Features
+
+* **table:** Include native event object with row-* and head-* events ([#891](https://github.com/bootstrap-vue/bootstrap-vue/issues/891)) ([0be5215](https://github.com/bootstrap-vue/bootstrap-vue/commit/0be5215))
+
+
+
 <a name="0.22.1"></a>
 ## [0.22.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.22.0...v0.22.1) (2017-08-16)
 
