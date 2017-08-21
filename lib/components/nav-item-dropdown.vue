@@ -1,5 +1,5 @@
 <template>
-    <li :id="safewId()" :class="dropdownClasses">
+    <li :id="safeId()" :class="dropdownClasses">
 
         <a :class="['nav-link', dropdownToggle, {disabled}]"
            href="#"
