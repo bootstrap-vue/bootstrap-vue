@@ -118,7 +118,7 @@
                 }
                 // Moving left or right?
                 const direction = val < old ? -1 : 1;
-                this.setTab(val + (-1 * direction), false, direction);
+                this.setTab(val, false, direction);
             }
         },
         computed: {
@@ -142,28 +142,28 @@
              * Move to next tab
              */
             nextTab() {
-                this.setTab(this.currentTab, false, 1);
+                this.setTab(this.currentTab + 1, false, 1);
             },
 
             /**
              * Move to previous tab
              */
             previousTab() {
-                this.setTab(this.currentTab, false, -1);
+                this.setTab(this.currentTab - 1, false, -1);
             },
 
             /**
              * Set active tab on the tabs collection and the child 'tab' component
              */
-            setTab(index, force, offset) {
-                offset = offset || 0;
+            setTab(index, force, direction) {
+                direction = this.sign(direction || 0);
 
                 // Prevent setting same tab!
-                if (!force && (index + offset) === this.currentTab) {
+                if (!force && index === this.currentTab) {
                     return;
                 }
 
-                const tab = this.tabs[index + offset];
+                const tab = this.tabs[index];
 
                 // Don't go beyond indexes!
                 if (!tab) {
@@ -172,9 +172,9 @@
 
                 // Ignore or Skip disabled
                 if (tab.disabled) {
-                    if (offset) {
-                        // Skip to next non disabled tab in offset direction (recursive)
-                        this.setTab(index, force, offset + this.sign(offset));
+                    if (direction) {
+                        // Skip to next non disabled tab in specified direction (recursive)
+                        this.setTab(index + direction, force, direction);
                     }
                     return;
                 }
@@ -191,7 +191,7 @@
                 });
 
                 // Update currentTab
-                this.currentTab = index + offset;
+                this.currentTab = index;
             },
 
             /**
@@ -199,33 +199,32 @@
              */
             updateTabs() {
                 // Probe tabs
-                if (this.$slots.default) {
-                    this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
-                        .map(tab => tab.componentInstance);
-                } else {
-                    this.tabs = [];
-                }
+                this.tabs = this.$children.filter(tab => tab._isTab);
 
+                // Set initial active tab
+                let tabIndex = null;
 
-                // Get initial active tab
-                let tabIndex = this.currentTab;
+                // Find *last* active non-dsabled tab in current tabs
+                // We trust tab state over currentTab
+                this.tabs.forEach((tab, index) => {
+                    if (tab.localActive && !tab.disabled) {
+                        tabIndex = index;
+                    }
+                });
 
-                if (tabIndex === null || tabIndex === undefined) {
-                    // Make null for easier testing further on
-                    tabIndex = null;
-                }
-
+                // Else try setting to currentTab
                 if (tabIndex === null) {
-                    // Find last active non-dsabled tab in current tabs
-                    this.tabs.forEach((tab, index) => {
-                        if (tab.active && !tab.disabled) {
-                            tabIndex = index;
-                        }
-                    });
+                    if (this.currentTab >= this.tabs.length) {
+                        // Handle last tab being removed
+                        this.setTab(this.tabs.length - 1, true, -1);
+                        return;
+                    } else if (this.tabs[this.currentTab] && !this.tabs[this.currentTab].disabled) {
+                        tabIndex = this.currentTab;
+                    }
                 }
 
+                // Else find *first* non-disabled tab in current tabs
                 if (tabIndex === null) {
-                    // Find first non-disabled tab in current tabs
                     this.tabs.forEach((tab, index) => {
                         if (!tab.disabled && tabIndex === null) {
                             tabIndex = index;
@@ -233,13 +232,7 @@
                     });
                 }
 
-                // Workaround to fix problem when currentTab is removed
-                let offset = 0;
-                if (tabIndex >= this.tabs.length) {
-                    offset = -1;
-                }
-
-                this.setTab(tabIndex || 0, true, offset);
+                this.setTab(tabIndex || 0, true, 0);
             }
         },
         mounted() {
