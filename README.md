@@ -31,64 +31,7 @@
 
 > [Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
 
-### ✨ We are heavily working for stable `1.0.0` release and Bootstrap v4-beta support. For earlier access please refer to [1.x](https://github.com/bootstrap-vue/bootstrap-vue/tree/1.x) branch and [Beta Docs](https://bootstrap-vue.now.sh)
-
-# Links
-
-- 📘 [Documentation](https://bootstrap-vue.js.org)
-- 🔥 [Documentation (Beta)](https://bootstrap-vue.now.sh)
-- 🔨 [Release Notes](https://bootstrap-vue.js.org/docs/changelog)
-- 💬 [Slack Community](https://bootstrap-vue.slack.com)
-
-# Quick Start
-Please refer to [Official Documentation](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
-
-1. Download dependencies:
-```bash
-yarn add bootstrap-vue
-yarn add bootstrap@4.0.0-alpha.6
-yarn add -D style-loader
-```
-
-2. Register BootstrapVue in your app entrypoint:
-```js
-import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
-
-Vue.use(BootstrapVue)
-```
-
-3. Import styles using style-loader:
-```js
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-```
-
-##### For users of Webpack or Webpack-Simple from `vue-cli` follow these instructions:
-1. Download the dependencies:
-```bash
-yarn add bootstrap-vue
-yarn add bootstrap@4.0.0-alpha.6
-yarn add -D style-loader
-```
-
-2. In `src/main.js`, add the following lines, in priority order:
-```js
-import Vue from 'vue'
-/* ( there may be other imports here ) */
-import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'bootstrap/dist/css/bootstrap.css'
-/* ( there may be other imports here ) */
-
-Vue.use(BootstrapVue)
-```
-
-#### Note on style-loader:
-If you are unable or do not want to add style-loader as a developer dependency, you have to
-manually include both [Bootstrap's](https://v4-alpha.getbootstrap.com/getting-started/download/)
-and [BootstrapVue's](https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css) CSS files
-in your bundle or reference them from `static/` via `index.html`.
+This branch is for legacy 4.0.0-alpha.6 release of Bootstrap. [Alpha docs](https://bootstrap-vue-alpha.surge.sh)
 
 # License
 MIT
