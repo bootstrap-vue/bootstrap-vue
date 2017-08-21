@@ -1,5 +1,5 @@
 <template>
-    <transition @after-enter="afterEnter" @before-leave="beforeLeave" mode="out-in">
+    <transition @before-enter="beforeEnter" @after-enter="afterEnter" @after-leave="afterLeave" mode="out-in">
         <component :is="tag"
                    :id="id || null"
                    role="tabpanel"
@@ -7,9 +7,11 @@
                    :aria-hidden="localActive ? 'false' : 'true'"
                    :aria-expanded="localActive ? 'true' : 'false'"
                    :aria-lablelledby="controlledBy || null"
+                   v-if="localActive || !lazy"
                    v-show="localActive"
                    ref="panel"
-        >
+                   :css="false"
+        >{{localActive || !lazy}}
              <slot></slot>
         </component>
     </transition>
@@ -18,10 +20,13 @@
 <script>
     export default {
         methods: {
+            beforeEnter() {
+                this.show = false;
+            },
             afterEnter() {
                 this.show = true;
             },
-            beforeLeave() {
+            afterLeave() {
                 this.show = false;
             }
         },
