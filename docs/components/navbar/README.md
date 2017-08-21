@@ -4,7 +4,7 @@
 It’s easily extensible and thanks to our Collapse plugin, it can easily integrate responsive behaviors.
 
 ```html
-<b-navbar toggleable type="light" variant="info" toggle-breakpoint="md">
+<b-navbar toggleable="md" type="light" variant="info">
 
   <b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
@@ -258,9 +258,10 @@ behavior depends on our `<b-collapse>` component.
 Wrap `<b-nav is-nav-bar>` components in a `<b-collapse is-nav>` (remember to set the `is-nav` prop!)
 to specify content that will collapse based on a particular breakpoint.
 
-Use `<b-nav-toggle>` to control the collapse component and set the `toggle-breakpoint` prop to
-the breakpoint you would like content to automatically collapse. Possible values are `sm` (default),
-`md`, and `lg`.
+Use `<b-nav-toggle>` to control the collapse component and set the `toggleable` prop to
+the breakpoint you would like content to automatically collapse. Possible values are `sm`,
+`md`, and `lg`.  Setting togleable to `true` (or with no explicit value) will set the
+breakpoint to `sm`.  setting to `false` will disable collapsing.
 
 See the first example on this page for reference, and also refer to [`<b-collapse>`](./collapse) for
 details on the collapse component.

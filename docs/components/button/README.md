@@ -110,7 +110,7 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 
     <h5>In a button group</h5>
     <b-button-group size="sm">
-      <b-button v-for="btn in buttons" :pressed.sync="btn.state" :variant="btn.variant">
+      <b-button v-for="btn in buttons" :pressed.sync="btn.state" :variant="btn.variant" :key="btn.variant">
         {{ btn.caption }}
       </b-button>
     </b-button-group>

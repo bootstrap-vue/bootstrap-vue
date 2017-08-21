@@ -3,12 +3,14 @@ window.app = new Vue({
     data() {
         return {
             variants: [
-                'default',
+                'secondary',
                 'primary',
                 'success',
                 'info',
                 'warning',
                 'danger',
+                'dark',
+                'light'
             ]
         }
     },

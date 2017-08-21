@@ -1,10 +1,10 @@
 <template>
-    <li :id="id || null" :class="dropdownClasses">
+    <li :id="safeId()" :class="dropdownClasses">
 
         <a :class="['nav-link', dropdownToggle, {disabled}]"
            href="#"
            ref="button"
-           :id="id ? (id + '__BV_button_') : null"
+           :id="safeId('_BV_button_')"
            aria-haspopup="true"
            :aria-expanded="visible ? 'true' : 'false'"
            :disabled="disabled"
@@ -18,7 +18,7 @@
         <div :class="menuClasses"
              role="menu"
              ref="menu"
-             :aria-labelledby="id ? (id + '__BV_button_') : null"
+             :aria-labelledby="safeId('_BV_button_')"
              @mouseover="onMouseOver"
              @keyup.esc="onEsc"
              @keydown.tab="onTab"
@@ -32,10 +32,10 @@
 </template>
 
 <script>
-    import { dropdownMixin } from '../mixins';
+    import { idMixin, dropdownMixin } from '../mixins';
 
     export default {
-        mixins: [dropdownMixin],
+        mixins: [idMixin, dropdownMixin],
         computed: {
             dropdownToggle() {
                 return this.noCaret ? '' : 'dropdown-toggle';

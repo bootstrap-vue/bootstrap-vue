@@ -1,6 +1,10 @@
 # Dropdowns
 
-> Dropdowns are toggleable, contextual overlays for displaying lists of links and more. They’re made interactive with the included Bootstrap dropdown JavaScript plugin.
+> Dropdowns are toggleable, contextual overlays for displaying lists of links and actions
+in a dropdown menu format.
+
+**Beta Warning: Dropwdown is currently under re-development to align with Boostrap
+V4.beta CSS and code changes. Positioning and placement are not yet working**
 
 
 **Example:** Various usage
@@ -8,9 +12,12 @@
 <div>
 
   <b-dropdown id="ddown1" text="Dropdown Button sm" variant="primary" class="m-md-2">
-    <b-dropdown-header>This is a heading</b-dropdown-header>
-    <b-dropdown-item>Action</b-dropdown-item>
-    <b-dropdown-item>Another action</b-dropdown-item>
+    <b-dropdown-header id="header1">Heading 1</b-dropdown-header>
+    <b-dropdown-item aria-describedby="header1">Action</b-dropdown-item>
+    <b-dropdown-item aria-describedby="header1">Another action</b-dropdown-item>
+    <b-dropdown-header id="header2">Heading 2</b-dropdown-header>
+    <b-dropdown-item aria-describedby="header2">Some Action</b-dropdown-item>
+    <b-dropdown-item aria-describedby="header2">Some other action</b-dropdown-item>
     <b-dropdown-divider></b-dropdown-divider>
     <b-dropdown-item>Something else here...</b-dropdown-item>
     <b-dropdown-item disabled>Disabled action</b-dropdown-item>
@@ -53,22 +60,21 @@
 <!-- dropdown.vue -->
 ```
 
-
-### Menu alignment
+## Menu alignment
 The dropdown menu can either be left aligned (default) or right aligned with respect
 to the button above it. To have the dropdown aligned on the right, set the `right` prop.
 
 
-### Dropup
+## Dropup
 Turn your dropdown menu into a drop-up menu by setting the `dropup` prop.
 
 
-### Split button support
+## Split button support
 Create a split dropdown button, where the left button provides standard
 `click` event support, while the right hand side is the dropdown menu toggle button.
 
 
-### Sizing
+## Sizing
 Button dropdowns work with buttons of all sizes, including default and split
 dropdown buttons.
 
@@ -76,32 +82,57 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 
 Note chaging the size of the button(s) does not affect the size of the menu items.
 
-### Button contextual variants
+## Button contextual variants
 The dropdown buttons can have one of the standard Boostrap contextual variants applied
 by setting the prop `variant` to `success`, `info`, `danger`, `link` etc.
 
 See [`<b-button>`](./button) for a list of supported contextual variants.
 
 
-### Supported sub-components
-The following components can be placed inside of your dropdowns. Using anoy other
+## Supported sub-components
+The following components can be placed inside of your dropdowns. Using any other
 component or markup may break keyboard navigation.
 
-| component | Description
-| --------- | -----------
-| `<b-dropdown-item>` | Action items that provide click, link, and `<router-link>` functionality. renders as an `<a>` element by default.
-| `<b-dropdown-item-button>` | An alternative to `<b-dropdown-item>` that renders a menu item using a `<button>` element. Can also be used via the shorter alias `<b-dropdown-item-btn>`.
-| `<b-dropdown-header>` | A header item, used to help identify a group of dropdown items.
-| `<b-dropdown-divider>` | A divider / spacer which can be used to separate dropdown items.
+| Sub-component | Description | Aliases
+| --------- | ----------- | -------
+| `<b-dropdown-item>` | Action items that provide click, link, and `<router-link>` functionality. renders as an `<a>` element by default. | `<b-dd-item>`
+| `<b-dropdown-item-button>` | An alternative to `<b-dropdown-item>` that renders a menu item using a `<button>` element.  |  `<b-dropdown-item-btn>`, `<b-dd-item-button>`, `<b-dd-item-btn>`
+| `<b-dropdown-header>` | A header item, used to help identify a group of dropdown items. | `<b-dd-header>`
+| `<b-dropdown-divider>` | A divider / spacer which can be used to separate dropdown items. | `<b-dd-divider>`
 
-Nested sub-menus are **not** supported.
+_Note: Nested sub-menus are **not** supported._
 
 
-### Accessibility
+## Accessibility
 Providing a unique `id` prop ensures ARIA compliance by automatically adding
 the appropriate `aria-*` attributes in the rendered markup.
 
-#### Keyboard navigation:
+### Accessibility with Headers
+When using `<b-dropdown-header>` components in the dropdown menu, it is reccomended to add an
+`id` attribute to the header, and then set the `aria-describedby` attribite (set to the `id`
+value of the associated header) on each following dropdown items associated with the header.
+This will provide users of assitive technologies (i.e. sight-impared users) context about
+the dropdown item:
+
+```html
+<template>
+  <div>
+    <b-dropdown id="ddown_hdrs" text="Dropdown Button sm" variant="primary" class="m-md-2">
+      <b-dropdown-header id="header1">Heading 1</b-dropdown-header>
+      <b-dropdown-item aria-describedby="header1">Action</b-dropdown-item>
+      <b-dropdown-item aria-describedby="header1">Another action</b-dropdown-item>
+      <b-dropdown-header id="header2">Heading 2</b-dropdown-header>
+      <b-dropdown-item aria-describedby="header2">Some Action</b-dropdown-item>
+      <b-dropdown-item aria-describedby="header2">Some other action</b-dropdown-item>
+      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-item>Something else here...</b-dropdown-item>
+      <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+    </b-dropdown>
+  </div>
+</template>
+```
+
+### Keyboard navigation:
 Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 
 | Keypress | Action
@@ -113,4 +144,6 @@ Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 | <kbd>TAB</kbd> | Will close the dropdown and jump to the next focusable control on the page.
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Will close the dropdown and jump to the previous focusable control on the page.
 
+## Component Alias
+`<b-dropdown>` can be used via it's shorter alias of `<b-dd>`
 

@@ -1,7 +1,8 @@
 {
   "title": "Form",
+  "slug": "form",
   "component": "bForm",
-  "components": ["bFormRow", "bFormText"],
+  "components": ["bFormRow", "bFormText", "bFormFeedback"],
   "events": [
     {
       "event": "submit",

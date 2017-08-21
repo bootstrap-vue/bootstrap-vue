@@ -1,6 +1,7 @@
 {
   "title": "Media",
   "component": "bMedia",
+  "components": ["bMediaAside", "bMediaBody"],
   "slots": [
     {
       "name": "aside",

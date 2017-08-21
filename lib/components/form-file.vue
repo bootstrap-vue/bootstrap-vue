@@ -1,6 +1,7 @@
 <template>
-    <div :class="custom?'custom-file':null"
-         :id="id ? (id + '__BV_file_outer_') : null"
+    <!-- Normally this should be a <label> but IE borks out on it. Awaiting fix from MSFT -->
+    <div :class="[custom?'custom-file':null, state?`is-${state}`:null]"
+         :id="safeId('_BV_file_outer_')"
          @dragover.stop.prevent="dragover"
     >
 
@@ -15,23 +16,24 @@
 
         <!-- Real Form input -->
         <input type="file"
+               :id="safeId()"
                ref="input"
-               :class="custom ? 'custom-file-input' : ''"
+               :class="[custom?'custom-file-input':'form-control-file', stateClass]"
                :name="name"
-               :id="id || null"
                :disabled="disabled"
                :required="required"
+               :capture="capture || null"
                :aria-required="required ? 'true' : null"
                :accept="accept || null"
                :multiple="multiple"
                :webkitdirectory="directory"
-               :aria-describedby="(custom && id) ? (id + '__BV_file_control_') : null"
+               :aria-describedby="custom ? safeId('_BV_file_control_') : null"
                @change="onFileChange"
         >
 
         <!-- Overlay Labels -->
         <span :class="['custom-file-control',dragging?'dragging':null]"
-              :id="id ? (id + '__BV_file_control_') : null"
+              :id="safeId('_BV_file_control_')"
               :data-choose="computedChooseLabel"
               :data-selected="selectedLabel"
               v-if="custom"
@@ -41,6 +43,7 @@
 </template>
 
 <style scoped>
+    /* Are these classes needed??? bootstrap.css contains similar ones */
     .custom-file-control {
         overflow: hidden;
     }
@@ -84,16 +87,59 @@
 </style>
 
 <script>
-    import { formCustomMixin, formMixin } from '../mixins';
+    import { idMixin, formStateMixin, formCustomMixin, formMixin } from '../mixins';
     import { from as arrayFrom } from '../utils/array';
 
     export default {
-        mixins: [formMixin, formCustomMixin],
+        mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
         data() {
             return {
                 selectedFile: null,
                 dragging: false
             };
+        },
+        props: {
+            accept: {
+                type: String,
+                default: ''
+            },
+            capture: {
+                // Instruct input to capture from camera
+                type: Boolean,
+                default: false
+            },            
+            placeholder: {
+                type: String,
+                default: null
+            },
+            chooseLabel: {
+                type: String,
+                default: null
+            },
+            multiple: {
+                type: Boolean,
+                default: false
+            },
+            directory: {
+                type: Boolean,
+                default: false
+            },
+            noTraverse: {
+                type: Boolean,
+                default: false
+            },
+            selectedFormat: {
+                type: String,
+                default: ':count Files'
+            },
+            noDrop: {
+                type: Boolean,
+                default: false
+            },
+            dropLabel: {
+                type: String,
+                default: 'Drop files here'
+            }
         },
         computed: {
             selectedLabel() {
@@ -232,44 +278,6 @@
                         });
                     }
                 });
-            }
-        },
-        props: {
-            accept: {
-                type: String,
-                default: ''
-            },
-            placeholder: {
-                type: String,
-                default: null
-            },
-            chooseLabel: {
-                type: String,
-                default: null
-            },
-            multiple: {
-                type: Boolean,
-                default: false
-            },
-            directory: {
-                type: Boolean,
-                default: false
-            },
-            noTraverse: {
-                type: Boolean,
-                default: false
-            },
-            selectedFormat: {
-                type: String,
-                default: ':count Files'
-            },
-            noDrop: {
-                type: Boolean,
-                default: false
-            },
-            dropLabel: {
-                type: String,
-                default: 'Drop files here'
             }
         }
     };

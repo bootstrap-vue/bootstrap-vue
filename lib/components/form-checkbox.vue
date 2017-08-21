@@ -3,16 +3,16 @@
            :aria-pressed="button ? (isChecked ? 'true' : 'false') : null"
     >
         <input type="checkbox"
-               :id="id || null"
+               :id="safeId()"
+               :class="checkClasses"
                :name="name"
                :value="value"
+               :checked="isChecked"
                :disabled="disabled"
                :required="required"
                ref="check"
                autocomplete="off"
                :aria-required="required ? 'true' : null"
-               :class="(custom && !button ) ? 'custom-control-input' : null"
-               :checked="isChecked"
                @focus="handleFocus"
                @blur="handleFocus"
                @change="handleChange">
@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import { formMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
+import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
 import { arrayIncludes, isArray } from '../utils/array';
 
 export default {
-    mixins: [formMixin, formCustomMixin, formCheckBoxMixin],
+    mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin],
     model: {
         prop: 'checked',
         event: 'change'
@@ -50,10 +50,6 @@ export default {
             type: Boolean,
             default: false,
         },
-        size: {
-            type: String,
-            default: null
-        },
         button: {
             type: Boolean,
             default: false,
@@ -66,7 +62,7 @@ export default {
     computed: {
         labelClasses() {
             return [
-                this.size ? `form-control-${this.size}` : '',
+                this.sizeFormClass,
                 this.custom ? 'custom-checkbox' : '',
                 this.checkboxClass
             ];
@@ -75,9 +71,15 @@ export default {
             return [
                 'btn',
                 `btn-${this.buttonVariant}`,
-                this.size ? `btn-${this.size}` : '',
+                this.sizeBtnClass,
                 this.isChecked ? 'active' : '',
                 this.disabled ? 'disabled' : ''
+            ];
+        },
+        checkClasses() {
+            return [
+                (this.custom && !this.button ) ? 'custom-control-input' : null,
+                this.stateClass
             ];
         },
         isChecked() {

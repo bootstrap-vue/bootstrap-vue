@@ -1,0 +1,16 @@
+{
+  "title": "Form Textarea",
+  "component": "bFormTextarea",
+  "events": [
+    {
+      "event": "input",
+      "description": "Emitted when the textarea receives input from user.",
+      "args": [
+        {
+          "arg": "value",
+          "description": "current value of the textarea"
+        }
+      ]
+    }
+  ]
+}

@@ -98,7 +98,7 @@
     const TransitionEndEvents = {
         WebkitTransition: 'webkitTransitionEnd',
         MozTransition: 'transitionend',
-        OTransition: 'otransitionend',
+        OTransition: 'otransitionend oTransitionEnd',
         transition: 'transitionend'
     };
 
@@ -341,7 +341,10 @@
                     }
                     called = true;
                     if (this.transitionEndEvent) {
-                        currentSlide.removeEventListener(this.transitionEndEvent, onceTransEnd);
+                        const events = this.transitionEndEvent.split(/\s+/);
+                        events.forEach(event => {
+                            currentSlide.removeEventListener(event, onceTransEnd);
+                        });
                     }
                     this._animationTimeout = null;
 
@@ -376,7 +379,10 @@
 
                 // Clear transition classes after transition ends
                 if (this.transitionEndEvent) {
-                    currentSlide.addEventListener(this.transitionEndEvent, onceTransEnd);
+                    const events = this.transitionEndEvent.split(/\s+/);
+                    events.forEach(event => {
+                        currentSlide.addEventListener(event, onceTransEnd);
+                    });
                 }
                 // Fallback to setTimeout
                 this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION);

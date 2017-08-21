@@ -320,31 +320,30 @@ describe('table', async() => {
         }
     })
 
-    it('each data row should emit a row-clicked event with the item,index when clicked', async() => {
+    it('each data row should emit a row-clicked event when clicked', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_paginated
-        const spy = jest.fn()
 
-        vm.$on('row-clicked', spy)
         const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY');
         expect(tbody).toBeDefined();
         if (tbody) {
             const trs = [...tbody.children]
             expect(trs.length).toBe(vm.perPage)
             trs.forEach((tr, idx) => {
+                const spy = jest.fn()
+                vm.$on('row-clicked', spy)
                 tr.click()
-                expect(spy).toHaveBeenCalledWith(vm.value[idx], idx)
+                vm.$off('row-clicked', spy)
+                expect(spy).toHaveBeenCalled()
             })
         }
     })
 
-    it('each header th should emit a head-clicked event with key,field when clicked', async() => {
+    it('each header th should emit a head-clicked event when clicked', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_paginated
-        const spy = jest.fn()
         const fieldKeys = Object.keys(vm.fields)
 
-        vm.$on('head-clicked', spy)
         const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD');
         expect(thead).toBeDefined()
         if (thead) {
@@ -354,20 +353,21 @@ describe('table', async() => {
                 const ths = [...tr.children]
                 expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
+                    const spy = jest.fn()
+                    vm.$on('head-clicked', spy)
                     th.click()
-                    expect(spy).toHaveBeenCalledWith(fieldKeys[idx], vm.fields[fieldKeys[idx]])
+                    vm.$off('head-clicked', spy)
+                    expect(spy).toHaveBeenCalled()
                 })
             }
         }
     })
 
-    it('each footer th should emit a head-clicked event with key,field when clicked', async() => {
+    it('each footer th should emit a head-clicked event when clicked', async() => {
         const { app: { $refs, $el } } = window
         const vm = $refs.table_paginated
-        const spy = jest.fn()
         const fieldKeys = Object.keys(vm.fields)
 
-        vm.$on('head-clicked', spy)
         const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'TFOOT');
         expect(tfoot).toBeDefined()
         if (tfoot) {
@@ -377,8 +377,11 @@ describe('table', async() => {
                 const ths = [...tr.children]
                 expect(ths.length).toBe(fieldKeys.length)
                 ths.forEach((th, idx) => {
+                    const spy = jest.fn()
+                    vm.$on('head-clicked', spy)
                     th.click()
-                    expect(spy).toHaveBeenCalledWith(fieldKeys[idx], vm.fields[fieldKeys[idx]])
+                    vm.$off('head-clicked', spy)
+                    expect(spy).toHaveBeenCalled()
                 })
             }
         }

@@ -1,7 +1,11 @@
 window.app = new Vue({
     el: '#app',
     data: {
-        text: ''
+        text: '',
+        textformatter: '',
+        textlazy: '',
+        radio: '',
+        check: ''
     },
     methods: {
         format(value) {

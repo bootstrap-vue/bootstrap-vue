@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "Bootstrap 4 Components for Vue.js 2",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
@@ -65,18 +65,18 @@
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
     "jquery": "^3.0.0",
-    "popper.js": "^1.11.0",
+    "popper.js": "^1.12.3",
     "tether": "latest",
     "vue": "^2.4.2",
     "vue-functional-data-merge": "^1.0.6"
   },
   "devDependencies": {
-    "@nuxtjs/pwa": "^0.2.0",
+    "@nuxtjs/pwa": "^0.2.1",
     "clean-css": "^4.1.7",
     "codecov": "^2.3.0",
     "codemirror": "^5.28.0",
     "cross-env": "^5.0.5",
-    "eslint": "^4.1.1",
+    "eslint": "^4.5.0",
     "eslint-plugin-html": "^3.2.0",
     "eslint-plugin-vue": "^2.1.0",
     "eslint-plugin-vue-libs": "^1.2.1",
@@ -88,8 +88,8 @@
     "lodash": "latest",
     "markdown-loader": "^2.0.1",
     "marked": "^0.3.6",
-    "nuxt": "1.0.0-rc4",
-    "rollup": "^0.47.4",
+    "nuxt": "1.0.0-rc5",
+    "rollup": "^0.48.2",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^8.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
@@ -97,7 +97,7 @@
     "rollup-plugin-vue": "^2.4.1",
     "rollup-watch": "^4.3.1",
     "standard-version": "^4.2.0",
-    "uglify-es": "^3.0.23"
+    "uglify-es": "^3.0.28"
   },
   "jest": {
     "testRegex": "spec.js$",

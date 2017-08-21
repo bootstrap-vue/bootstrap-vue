@@ -1,6 +1,6 @@
 <template>
     <table :id="id || null"
-           :aria-busy="busy ? 'true' : 'false'"
+           :aria-busy="computedBusy ? 'true' : 'false'"
            :class="tableClass"
     >
         <thead :class="headClass">
@@ -51,7 +51,7 @@
             :class="rowClass(item)"
             @click="rowClicked($event,item,index)"
             @dblclick="rowDblClicked($event,item,index)"
-            @hover="rowHovered($event,item,index)"
+            @mouseenter="rowHovered($event,item,index)"
         >
             <template v-for="(field,key) in fields">
                 <td v-if="!hasFormatter(field)" :class="tdClass(field, item, key)" :key="key">
@@ -124,7 +124,10 @@
             return {
                 localSortBy: this.sortBy || '',
                 localSortDesc: this.sortDesc || false,
-                localItems: []
+                localItems: [],
+                // Note: filteredItems only used to determine if # of items changed
+                filteredItems: [],
+                localBusy: this.busy
             };
         },
         props: {
@@ -135,11 +138,6 @@
             items: {
                 type: [Array, Function],
                 default() {
-                    if (this && this.itemsProvider) {
-                        // Deprecate itemsProvider
-                        warn('b-table: prop \'items-provider\' has been deprecated. Pass a function to \'items\' instead');
-                        return this.itemsProvider;
-                    }
                     return [];
                 }
             },
@@ -207,11 +205,6 @@
                 type: Function,
                 default: null
             },
-            itemsProvider: {
-                // Deprecated in favour of items
-                type: Function,
-                default: null
-            },
             noProviderPaging: {
                 type: Boolean,
                 default: false
@@ -263,6 +256,12 @@
                     this._providerUpdate();
                 }
             },
+            filteredItems(newVal, oldVal) {
+                if (!this.providerFiltering && newVal.length !== oldVal.length) {
+                    // Emit a filtered notification event, as number of filtered items has changed
+                    this.$emit('filtered', newVal);
+                }
+            },
             sortDesc(newVal, oldVal) {
                 if (newVal === this.localSortDesc) {
                     return;
@@ -306,11 +305,17 @@
                 if (oldVal !== newVal && !this.noProviderFiltering) {
                     this._providerUpdate();
                 }
-            }
+            },
+            localBusy(newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    this.$emit('update:busy', newVal);
+                }
+             }
         },
         mounted() {
             this.localSortBy = this.sortBy;
             this.localSortDesc = this.sortDesc;
+            this.localBusy = this.busy;
             if (this.hasProvider) {
                 this._providerUpdate();
             }
@@ -383,9 +388,6 @@
 
                 // Apply local filter
                 if (filter && !this.providerFiltering) {
-                    // Number of items before filtering
-                    const numOriginalItems = items.length;
-
                     if (filter instanceof Function) {
                         items = items.filter(filter);
                     } else {
@@ -401,11 +403,10 @@
                             return test;
                         });
                     }
-
-                    if (numOriginalItems !== items.length) {
-                        // Emit a filtered notification event, as number of items has changed
-                        this.$emit('filtered', items);
-                    }
+                }
+                if (!this.providerFiltering) {
+                    // Make a local copy of filtered items to trigger filtered event
+                    this.filteredItems = items.slice();
                 }
 
                 // Apply local Sort
@@ -424,8 +425,10 @@
 
                 // Update the value model with the filtered/sorted/paginated data set
                 this.$emit('input', items);
-
                 return items;
+            },
+            computedBusy() {
+                return this.busy || this.localBusy;
             }
         },
         methods: {
@@ -452,41 +455,39 @@
                 ];
             },
             rowClass(item) {
-                // Prefer item._rowVariant over deprecated item.state
-                const variant = item._rowVariant || item.state || null;
                 return [
-                    variant ? ((this.inverse ? 'bg-' : 'table-') + variant) : ''
+                    item._rowVariant ? ((this.inverse ? 'bg-' : 'table-') + item._rowVariant) : ''
                 ];
             },
             rowClicked(e, item, index) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
                     return;
                 }
-                this.$emit('row-clicked', item, index);
+                this.$emit('row-clicked', item, index, e);
             },
             rowDblClicked(e, item, index) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
                     return;
                 }
-                this.$emit('row-dblclicked', item, index);
+                this.$emit('row-dblclicked', item, index, e);
             },
             rowHovered(e, item, index) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
                     return;
                 }
-                this.$emit('row-hovered', item, index);
+                this.$emit('row-hovered', item, index, e);
             },
             headClicked(e, field, key) {
-                if (this.busy) {
+                if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
                     e.stopPropagation();
@@ -509,7 +510,7 @@
                     sortChanged = true;
                 }
 
-                this.$emit('head-clicked', key, field);
+                this.$emit('head-clicked', key, field, e);
                 if (sortChanged) {
                     // Sorting parameters changed
                     this.$emit('sort-changed', this.context);
@@ -523,15 +524,19 @@
             },
             _providerSetLocal(items) {
                 this.localItems = (items && items.length > 0) ? items.slice() : [];
+                this.localBusy = false;
                 this.$emit('refreshed');
                 this.emitOnRoot('table::refreshed', this.id);
             },
             _providerUpdate() {
                 // Refresh the provider items
-                if (this.busy || !this.hasProvider) {
+                if (this.computedBusy || !this.hasProvider) {
                     // Don't refresh remote data if we are 'busy' or if no provider
                     return;
                 }
+
+                // Set internal busy state
+                this.localBusy = true;
 
                 // Call provider function with context and optional callback
                 const data = this.items(this.context, this._providerSetLocal);
@@ -539,9 +544,7 @@
                 if (!data) {
                     // Provider is using callback
                     return;
-                }
-
-                if (data.then && typeof data.then === 'function') {
+                } else if (data.then && typeof data.then === 'function') {
                     // Provider returned Promise
                     data.then(items => {
                         this._providerSetLocal(items);
@@ -605,10 +608,10 @@
         content: "\2193";
     }
 
-    table.b-table > thead > tr > .sorting_desc:after,
-    table.b-table > thead > tr > .sorting_asc:before,
-    table.b-table > tfoot > tr > .sorting_desc:after,
-    table.b-table > tfoot > tr > .sorting_asc:before {
+    table.b-table > thead > tr > .sorting_asc:after,
+    table.b-table > thead > tr > .sorting_desc:before,
+    table.b-table > tfoot > tr > .sorting_asc:after,
+    table.b-table > tfoot > tr > .sorting_desc:before {
         opacity: 1;
     }
 
@@ -619,6 +622,6 @@
     }
 
     table.b-table[aria-busy="true"] {
-        opacity: .65;
+        opacity: .6;
     }
 </style>

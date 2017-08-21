@@ -1,4 +1,5 @@
 {
   "title": "Progress",
-  "component": "bProgress"
+  "component": "bProgress",
+  "components": [ "bProgressBar" ]
 }

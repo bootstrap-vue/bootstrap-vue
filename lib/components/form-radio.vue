@@ -1,18 +1,19 @@
 <template>
-    <div :id="id || null"
+    <div :id="safeId()"
          :class="buttons ? btnGroupClasses : radioGroupClasses"
          role="radiogroup"
+         tabindex="-1"
          :data-toggle="buttons ? 'buttons' : null"
          :aria-required="required ? 'true' : null"
-         :aria-invalid="invalid ? 'true' : null"
+         :aria-invalid="computedAriaInvalid"
     >
         <label v-for="(option, idx) in formOptions"
                :class="buttons ? btnLabelClasses(option, idx) : labelClasses"
-               :key="idx"
+               :key="'radio_'+idx"
                :aria-pressed="buttons ? (option.value === localValue ? 'true' : 'false') : null"
         >
-            <input :id="id ? (id + '__BV_radio_' + idx) : null"
-                   :class="(custom && !buttons) ? 'custom-control-input' : null"
+            <input :id="safeId(`_BV_radio_${idx}`)"
+                   :class="radioClasses"
                    ref="inputs"
                    type="radio"
                    autocomplete="off"
@@ -32,13 +33,14 @@
 </template>
 
 <script>
-    import { formOptionsMixin, formMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
+    import { idMixin, formOptionsMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
 
     export default {
-        mixins: [formMixin, formCustomMixin, formCheckBoxMixin, formOptionsMixin],
+        mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin, formOptionsMixin],
         data() {
             return {
-                localValue: this.value
+                localValue: this.value,
+                localState: this.state
             };
         },
         props: {
@@ -48,15 +50,11 @@
                 default: null,
                 required: true
             },
-            size: {
-                type: String,
-                default: null
+            validated: {
+                type: Boolean,
+                default: false
             },
-            state: {
-                type: String,
-                default: null
-            },
-            invalid: {
+            ariaInvalid: {
                 type: [Boolean, String],
                 default: false
             },
@@ -73,32 +71,41 @@
                 // Only applicable when rendered with button style
                 type: String,
                 default: 'secondary'
-            },
-            returnObject: {
-                type: Boolean,
-                default: false
             }
         },
         computed: {
             radioGroupClasses() {
                 return [
-                    this.size ? `form-control-${this.size}` : null,
-                    this.state ? `has-${this.state}` : '',
+                    this.validated ? `was-validated` : '',
+                    this.sizeFormClass,
                     this.stacked ? 'custom-controls-stacked' : ''
                ];
             },
             btnGroupClasses() {
                 return [
                     'btn-group',
-                    this.size ? `btn-group-${this.size}` : null,
+                    this.validated ? `was-validated` : '',
+                    this.sizeBtnClass,
                     this.stacked ? 'btn-group-vertical' : ''
                  ];
+            },
+            radioClasses() {
+                return [
+                    (this.custom && !this.buttons) ? 'custom-control-input' : null,
+                    this.stateClass
+                ];
             },
             labelClasses() {
                 return [
                     this.checkboxClass,
                     this.custom ? 'custom-radio' : null
                 ];
+            },
+            computedAriaInvalid() {
+                if (this.ariaInvalid === true || this.AriaInvalid === 'true') {
+                    return 'true'
+                }
+                return this.computedState === false ? 'true' : null;
             },
             inline() {
                 return !this.stacked;

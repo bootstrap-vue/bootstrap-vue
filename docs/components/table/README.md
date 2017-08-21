@@ -118,7 +118,7 @@ export default {
 <!-- table-1.vue -->
 ```
 
-### Fields (column definitions)
+## Fields (column definitions)
 The `fields` prop is used to display table columns. Keys (i.e. `age` or `name`
 as shown below) are used to extract real value from each row.
 
@@ -160,7 +160,7 @@ in the Vue.js guide.
 them via the named scoped slots for custom data, header, and footer rendering.
 - by design, slots and formatter are **mutually exclusive**. Ie. if formatter defined at field props, then slot will not be used even if it defined for this field.
 
-### Items (record data)
+## Items (record data)
 `items` are real table data record objects in array format. Example format:
 
 ```js
@@ -191,10 +191,7 @@ Supported optional item record modifier properties (make sure your field keys do
 | ---------| ---- | -----------
 | `_rowVariant` | String | Bootstrap contextual state applied to row (Supported values: `active`, `success`, `info`, `warning`, `danger`)
 | `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`)
-| `state` | String | **deprecated** in favour of `_rowVariant`
 
-**Note** `state` is deprecated. The property `_rowVariant`, if present in
-the record, will be prefered.
 
 `items` can also be a reference to a *provider* function, which returns an `Array` of items data.
 Provider functions can also be asynchronous:
@@ -204,7 +201,7 @@ ready, with the data array as the only argument to the callback,
 
 See the **"Using Items Provider functions"** section below for more details.
 
-### Table Options
+## Table Options
 
 `<b-table>` provides several props to alter the style of the table:
 
@@ -225,11 +222,11 @@ See the **"Using Items Provider functions"** section below for more details.
 | `empty-filtered-text` | Text to display if there are no records in the **filtered** `items` array. You can also use the named slot `emptyfiltered` to set the content for `empty-filtered-text`
 
 
-### Custom Data Rendering
+## Custom Data Rendering
 Custom rendering for each data field in a row is possible using either 
 [scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or formatter callback function.
 
-####Slots
+### Slots
 If you want to add an extra field which does not exist in the records,
 just add it to the `fields` array.  Example:
 
@@ -266,6 +263,8 @@ just add it to the `fields` array.  Example:
  ]
 ```
 
+And then reference the field in the scoped slots:
+
 ```html
 <b-table :fields="fields" :items="items">
   <template slot="index" scope="data">
@@ -299,7 +298,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `item` | Object | The entire record (i.e. `items[index]`) for this row
 | `index` | Number | The row number (zero based)
 
-**Note** that `index` will not always be the actual row's index number, as it is
+**Note:** `index` will not always be the actual row's index number, as it is
 computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
 number will align with the indexes from the optional `v-model` bound variable.
@@ -315,7 +314,7 @@ event:
   <b-btn size="sm" @click.stop="details(cell.item,cell.index,$event.target)">Details</b-btn>
 </template>
 ```
-#### Formatter callback
+### Formatter callback
 
 Other option to make custom field output is to use formatter callback function.
 To enable this field's property `formatter` is used. Value of this property may be 
@@ -339,7 +338,7 @@ Example:
 ```
 
 
-### Header/Footer Custom Rendering
+## Header/Footer custom rendering via scoped slots
 It is also possible to provide custom rendering for the tables `thead` and
 `tfoot` elements. Note by default the table footer is not rendered unless
 `foot-clone` is set to `true`.
@@ -387,7 +386,7 @@ or a `head-clicked` event.
 ```
 
 
-### `v-model` Binding
+## `v-model` Binding
 If you bind a variable to the `v-model` prop, the contents of this variable will
 be the currently disaplyed item records (zero based index, up to `page-size` - 1).
 This variable (the `value` prop) should usually be treated as readonly.
@@ -395,12 +394,12 @@ This variable (the `value` prop) should usually be treated as readonly.
 The records within the v-model are a filtered/paginated shallow copy of `items`, and
 hence any changes to a record's properties in the v-model will be reflected in
 the original `items` array (except when `items` is set to a provider function).
-Deleteing a record from the v-model will **not** remove the record from the
+Deleting a record from the v-model will **not** remove the record from the
 original items array.
 
 **Note:** Do not bind any value directly to the `value` prop. Use the `v-model` binding.
 
-### Filtering
+## Filtering
 Filtering, when used, is aplied to the original items array data, and hence it is not
 possible to filter data based on custom rendering of virtual columns. The items row data
 is stringified and the filter searches that stringified data (excluding any properties
@@ -415,7 +414,7 @@ When local filtering is applied, and the resultant number of items change, `<b-t
 will emit the `filtered` event, passing a single argument which is the complete list of
 items passing the filter routine. Treat this argument as read-only.
 
-### Sorting
+## Sorting
 As mentioned above in the **fields** section, you can make columns sortable. Clciking on
 sortable a column header will sort the column in ascending direction, while clicking
 on it again will switch the direction or sorting.  Clicking on a non-sortable column
@@ -431,7 +430,7 @@ modifier. Your bound variables will then be updated accordingly based on the cur
 See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
 on the `.sync` prop modifier
 
-#### Sort-Compare routine
+### Sort-Compare routine
 The built-in default `sort-compare` function sorts the specified field `key` based
 on the data in the underlying record object. The field value is first stringified
 if it is an object, and then sorted.
@@ -460,12 +459,9 @@ if (typeof a[key] === 'number' && typeof b[key] === 'number') {
 }
 ```
 
-### Using Items Provider Functions
+## Using Items Provider Functions
 As mentioned under the `items` prop section, it is possible to use a function to provide
 the row data (items), by specifying a function reference via the `items` prop.
-
-**Note:** The `items-provider` prop has been deprecated in favour of providing a function
-reference to the `items` prop. A console warning will be issued if `items-provider` is used.
 
 The provider function is called with the following signature:
 
@@ -508,9 +504,11 @@ function myProvider(ctx, callback) {
         let items = data.items;
         // Provide the array of items to the callabck
         callback(items);
-    })
+    }).catch(error => {
+        callback([])
+    });
 
-    // Must return null or undefined
+    // Must return null or undefined to signal b-table that callback is being used
     return null;
 }
 ```
@@ -524,18 +522,26 @@ function myProvider(ctx) {
     return promise.then((data) => {
         // Pluck the array of items off our axios response
         let items = data.items;
-        // Must return an array of items
-        return(items);
+        // Must return an array of items or an empty array if an error occurred
+        return(items || []);
     });
 }
 ```
+
+`<b-table>` automatically tracks/controls it's `busy` state, however it provides
+a `busy` prop that can be used either to override inner `busy`state, or to monitor
+`<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
+
+**Note:** in order to allow `<b-table>` fully track it's `busy` state, custom items
+provider function should handle errors from data sources and return an empty
+array to `<b-table>`.
 
 `<b-table>` provides a `busy` prop that will flag the table as busy, which you can
 set to `true` just before your async fetch, and then set it to `false` once you have
 your data, and just before you send it to the table for display. Example:
 
 ```html
-<b-table id="my-table" :busy="isBusy" :items="myProvider" :fields="fields" ....>
+<b-table id="my-table" :busy.sync="isBusy" :items="myProvider" :fields="fields" ....>
 </b-table>
 ```
 ```js
@@ -546,18 +552,33 @@ data () {
 }
 methods: {
     myProvider(ctx) {
-        this.isBusy = true
+        // Here we don't set isBusy prop, so busy state will be handled by table itself
+        // this.isBusy = true;
         let promise = axios.get('/some/url');
 
         return promise.then((data) => {
             const items = data.items;
-            this.isBusy = false
+            // Here we could override the busy state, setting isBusy to false
+            // this.isBusy = false;
             return(items);
+        }).catch(error => {
+            // Here we could override the busy state, setting isBusy to false
+            // this.isBusy = false;
+            // Returning an empty array, allows table to correctly handle busy state in case of error
+            return [];
         });
     }
  }
 ```
 
+**Notes:**
+ - If you manually place the table in the `busy` state, the items provider will
+__not__ be called/refreshed until the `busy` state has been set to `false`.
+ - All click related and hover events, and sort-changed events will __not__ be
+ emiited when in the `busy` state (either set automatically during provider update,
+ or when manually set).
+
+### Provider Paging, Filtering, and Sorting
 By default, the items provider function is responsible for **all paging, filtering, and sorting**
 of the data, before passing it to `b-table` for display.
 
@@ -578,7 +599,7 @@ trigger the calling of the provider function.  So be sure to bind to the `per-pa
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
 (unless you have the respective `no-provider-*` prop set to `true`).
 
-#### Event based refreshing of data:
+### Event based refreshing of data:
 You may also trigger the refresh of the provider function by emitting the
 event `table::refresh` on `$root` with the single argument being the `id` of your `b-table`.
 You must have a unique ID on your table for this to work.
@@ -598,8 +619,7 @@ Or by calling the refresh method on the table reference
 
 These refresh event/methods are only applicable when `items` is a provider function.
 
-
-#### Detection of sorting change:
+### Detection of sorting change:
 By listening on `<b-table>` `sort-changed` event, you can detect when the sorting key
 and direction have changed.
 
@@ -629,7 +649,7 @@ You can also obtain the current sortBy and sortDesc values by using the `:sort-b
 ```
 
 
-### Server Side Rendering
+## Server Side Rendering
 Special care must be taken when using server side rendering (SSR) and an `items` provider
 function. Make sure you handle any special situations that may be needed server side
 when fetching your data!

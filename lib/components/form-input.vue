@@ -1,99 +1,27 @@
 <template>
-    <input v-if="!static"
-           ref="input"
-           :is="isTextArea ? 'textarea' : 'input'"
-           :type="isTextArea ? null : type"
-           :value="value"
+    <input :id="safeId()"
+           :class="inputClass"
            :name="name"
-           :id="id || null"
+           :value="localValue"
+           :type="localType"
            :disabled="disabled"
            :required="required"
+           :readonly="readonly || plaintext"
+           :placeholder="placeholder"
            :autocomplete="autocomplete || null"
            :aria-required="required ? 'true' : null"
-           :aria-invalid="ariaInvalid"
-           :readonly="readonly"
-           :class="inputClass"
-           :rows="isTextArea ? (rows || rowsCount) : null"
-           :placeholder="placeholder"
-           @input="onInput($event.target.value, $event.target)"
-           @change="onChange($event.target.value, $event.target)"
-           @keyup="onKeyUp($event)"
-           @focus="$emit('focus')"
-           @blur="$emit('blur')"
-    />
-    <b-form-input-static v-else
-                         :id="id || null"
-                         :value="value"
-                         :size="size"
-                         :state="state"
-    ></b-form-input-static>
+           :aria-invalid="computedAriaInvalid"
+           @input="onInput($event.target.value, $event)"
+           @change="onChange($event.target.value, $event)"/>
 </template>
 
 <script>
-    import { formMixin } from '../mixins';
-    import bFormInputStatic from './form-input-static.vue';
+    import { idMixin, formMixin, formSizeMixin, formStateMixin } from '../mixins';
     export default {
-        mixins: [formMixin],
-        components: {bFormInputStatic},
-        computed: {
-            isTextArea() {
-                return this.textarea || this.type === 'textarea';
-            },
-            rowsCount() {
-                return (this.value || '').toString().split('\n').length;
-            },
-            inputClass() {
-                return [
-                    'form-control',
-                    this.size ? `form-control-${this.size}` : null,
-                    this.state ? `form-control-${this.state}` : null
-                ];
-            },
-            ariaInvalid() {
-                if (this.invalid === false) {
-                    return null;
-                }
-                if (this.invalid === true) {
-                    return 'true';
-                }
-                return this.invalid;
-            }
-        },
-        watch:{
-            value(newVal, oldVal) {
-                if (newVal !== oldVal){
-                    this.$refs.input.value = newVal;
-                }
-            }
-        },
-        methods: {
-            format(value, el) {
-                if (this.formatter) {
-                    const formattedValue = this.formatter(value, el);
-                    if (formattedValue !== value) {
-                        this.$refs.input.value = formattedValue;
-                        return formattedValue;
-                    }
-                }
-                return value;
-            },
-            onInput(value, el) {
-                let formattedValue=value;
-                if (!this.lazyFormatter) {
-                    formattedValue = this.format(value, el);
-                }
-                this.$emit('input', formattedValue);
-            },
-            onChange(value, el) {
-                const formattedValue = this.format(value, el);
-                this.$emit('input', formattedValue);
-                this.$emit('change', formattedValue);
-            },
-            onKeyUp(e) {
-                this.$emit('keyup', e);
-            },
-            focus() {
-                this.$refs.input.focus();
+        mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
+        data() {
+            return {
+                localValue: this.value
             }
         },
         props: {
@@ -104,15 +32,7 @@
                 type: String,
                 default: 'text'
             },
-            size: {
-                type: String,
-                default: null
-            },
-            state: {
-                type: String,
-                default: null
-            },
-            invalid: {
+            ariaInvalid: {
                 type: [Boolean, String],
                 default: false
             },
@@ -120,25 +40,17 @@
                 type: Boolean,
                 default: false
             },
+            plaintext: {
+                type: Boolean,
+                default: false
+            },
             autocomplete: {
                 type: String,
                 default: null
             },
-            static: {
-                type: Boolean,
-                default: false
-            },
             placeholder: {
                 type: String,
                 default: null
-            },
-            rows: {
-                type: Number,
-                default: null
-            },
-            textarea: {
-                type: Boolean,
-                default: false
             },
             formatter: {
                 type: Function
@@ -146,6 +58,71 @@
             lazyFormatter: {
                 type: Boolean,
                 default: false
+            }
+        },
+        computed: {
+            localType() {
+                if (this.type === 'radio' || this.type === 'checkbox') {
+                    // This component doesn't support radio or checkbox
+                    return 'text';
+                }
+                return this.type || 'text';
+            },
+            inputClass() {
+                return [
+                    this.plaintext ? `form-control-plaintext` : 'form-control',
+                    this.sizeFormClass,
+                    this.stateClass
+                ];
+            },
+            computedAriaInvalid() {
+                if (!Boolean(this.ariaInvalid) || this.ariaInvalid === 'false') {
+                    // this.ariaInvalid is null or false or 'false'
+                    return this.computedState === false ? 'true' : null ;
+                }
+                if (this.ariaInvalid === true) {
+                   // User wants explicit aria-invalid=true
+                    return 'true';
+                }
+                // Most likely a string value (which could be 'true')
+                return this.ariaInvalid;
+            }
+        },
+        watch:{
+            value(newVal, oldVal) {
+                if (newVal !== oldVal){
+                    this.localValue = newVal;
+                }
+            },
+            localValue(newVal, oldVal) {
+                if (newVal !== oldVal){
+                    this.$emit('input', newVal);
+                }
+            }
+        },
+        methods: {
+            format(value, e) {
+                if (this.formatter) {
+                    const formattedValue = this.formatter(value, e);
+                    if (formattedValue !== value) {
+                        return formattedValue;
+                    }
+                }
+                return value;
+            },
+            onInput(value, e) {
+                if (!this.lazyFormatter) {
+                    this.localValue = this.format(value, e);
+                }
+            },
+            onChange(value, e) {
+                this.localValue = this.format(value, e);
+                this.$emit('change', this.localValue);
+            },
+            focus() {
+                if(!this.disabled) {
+                    this.$el.focus();
+                }
             }
         }
     };
