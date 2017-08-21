@@ -8,19 +8,21 @@
                     leave-class=""
                     leave-active-class=""
                     leave-to-class=""
+                    :duration="noFade ? 0 : 300"
+                    :css="false"
                     @before-leave="onBeforeLeave"
                     @after-leave="onAfterLeave"
         >
             <div :class="['modal',{fade: !noFade, show: isShowing}]"
-                 :id="id || null"
+                 :id="modalId"
                  role="dialog"
                  ref="modal"
                  key="modal"
                  :style="modalStyle"
                  v-show="isShowing"
                  :aria-hidden="isShowing ? 'false' : 'true'"
-                 @click="onClickOut()"
-                 @keyup.esc="onEsc()"
+                 @click="onClickOut"
+                 @keyup.esc="onEsc"
             >
 
                 <div :class="['modal-dialog',`modal-${size}`]">
@@ -28,14 +30,14 @@
                          tabindex="-1"
                          role="document"
                          ref="content"
-                         :aria-labelledby="(hideHeader || !id) ? null : `${id}__BV_header_`"
-                         :aria-describedby="id ? `${id}__BV_body_` : null"
+                         :aria-labelledby="hideHeader ? null : headerId"
+                         :aria-describedby="bodyId"
                          @click.stop
                     >
 
                         <header class="modal-header"
                                 ref="header"
-                                :id="id ? `${id}__BV_header_` : null"
+                                :id="headerId"
                                 v-if="!hideHeader"
                         >
                             <slot name="modal-header">
@@ -53,7 +55,7 @@
                             </slot>
                         </header>
 
-                        <div class="modal-body" ref="body" :id="id ? `${id}__BV_body_` : null">
+                        <div class="modal-body" ref="body" :id="bodyId">
                             <slot></slot>
                         </div>
 
@@ -174,6 +176,15 @@
             event: 'change'
         },
         computed: {
+            modalId() {
+                return this.id ? this.id : null;
+            },
+            bodyId() {
+                return this.id ? `${this.id}__BV_modal_body_`: null;
+            },
+            headerId() {
+                return this.id ? `${this.id}__BV_modal_header_`: null;
+            },
             isTransitioning() {
                 return this.isLeaving || this.isEntering;
             },
@@ -336,13 +347,13 @@
                     }
                 }
             },
-            onClickOut() {
+            onClickOut(e) {
                 // If backdrop clicked, hide modal
                 if (this.is_visible && !this.noCloseOnBackdrop) {
                     this.hide();
                 }
             },
-            onEsc() {
+            onEsce() {
                 // If ESC pressed, hide modal
                 // TODO: Move @ event to root div
                 if (this.is_visible && !this.noCloseOnEsc) {
@@ -355,7 +366,7 @@
                 this.setScrollBar();
                 document.body.classList.add(ClassName.OPEN);
             },
-            onAfterEnter() {
+            onAfterEnter(el) {
                 this.adjustModal();
                 this.isEntering = false;
                 this.isShown = true;
@@ -363,13 +374,13 @@
                 this.setListeners(ON);
                 this.focusFirst();
             },
-            onBeforeLeave() {
+            onBeforeLeave(el) {
                 this.setListeners(OFF);
                 this.isLeaving = true;
                 this.isShown = false;
                 document.body.classList.remove(ClassName.OPEN);
             },
-            onAfterLeave() {
+            onAfterLeave(el) {
                 this.isLeaving = false;
                 this.isBodyOverflowing = false;
                 this.resetScrollbar();
