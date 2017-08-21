@@ -1,5 +1,5 @@
 <template>
-    <transition @enter="enter" @before-leave="beforeLeave" mode="out-in">
+    <transition @after-enter="afterEnter" @before-leave="beforeLeave" mode="out-in">
         <component :is="tag"
                    :id="id || null"
                    role="tabpanel"
@@ -19,7 +19,7 @@
 <script>
     export default {
         methods: {
-            enter() {
+            afterEnter() {
                 this.show = true;
             },
             beforeLeave() {
