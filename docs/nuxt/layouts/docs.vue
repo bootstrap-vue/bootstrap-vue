@@ -32,10 +32,9 @@ import mSidebar from '~/components/sidebar.vue';
 import mNav from '~/components/nav.vue';
 import mFooter from '~/components/footer.vue';
 import mSearch from '~/components/search.vue';
-import mAlert from '~/components/alert.vue';
 
 export default {
-    components: { mSidebar, mNav, mFooter, mSearch, mAlert },
+    components: { mSidebar, mNav, mFooter, mSearch },
     computed: {
         editPageURL() {
             const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master';
