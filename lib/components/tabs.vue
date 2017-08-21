@@ -55,7 +55,7 @@
 
 <script>
     import {observeDom} from '../utils';
-    import {idMixin) from '../mixins';
+    import {idMixin} from '../mixins';
 
     export default {
         mixins: [idMixin],
@@ -66,10 +66,6 @@
             };
         },
         props: {
-            id: {
-                type: String,
-                default: ''
-            },
             tag: {
                 type: String,
                 default: 'div'
