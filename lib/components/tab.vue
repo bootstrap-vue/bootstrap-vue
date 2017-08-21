@@ -53,6 +53,10 @@
             },
             computedLazy() {
                 return this.$parent.lazy;
+            },
+            _isTab() {
+                // For parent sniffing of child
+                return true;
             }
         },
         props: {
