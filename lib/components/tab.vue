@@ -1,5 +1,5 @@
 <template>
-    <transition @enter="enter" @before-leave="beforeLeave" mode="out-in">
+    <transition @after-enter="afterEnter" @before-leave="beforeLeave" mode="out-in">
         <component :is="tag"
                    :id="safeId()"
                    role="tabpanel"
@@ -22,7 +22,7 @@
     export default {
         mixins: [idMixin],
         methods: {
-            enter() {
+            afterEnter() {
                 this.show = true;
             },
             beforeLeave() {
