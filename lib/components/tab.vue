@@ -7,8 +7,7 @@
                    :aria-hidden="localActive ? 'false' : 'true'"
                    :aria-expanded="localActive ? 'true' : 'false'"
                    :aria-lablelledby="controlledBy || null"
-                   v-if="localActive || !lazy"
-                   v-show="localActive || lazy"
+                   v-show="localActive"
                    ref="panel"
         >
              <slot></slot>
