@@ -20,9 +20,9 @@ if (!fs.existsSync(dist)) {
 }
 
 module.exports = {
-    entry: path.resolve(lib, 'index.js'),
+    input: path.resolve(lib, 'index.js'),
     external: Object.keys(dependencies),
-    moduleName: name,
+    name: name,
     plugins: [
         vue({
             cssModules: {
@@ -40,23 +40,23 @@ module.exports = {
     globals: {
         tether: 'Tether'
     },
-    targets: [
+    output: [
         {
             format: 'cjs',
-            moduleName: camelCase(name),
-            dest: path.resolve(dist, name + '.common.js'),
-            sourceMap: true
+            name: camelCase(name),
+            file: path.resolve(dist, name + '.common.js'),
+            sourcemap: true
         },
         {
             format: 'es',
-            dest: path.resolve(dist, name + '.esm.js'),
-            sourceMap: true
+            file: path.resolve(dist, name + '.esm.js'),
+            sourcemap: true
         },
         {
             format: 'umd',
-            moduleName: camelCase(name),
-            dest: path.resolve(dist, name + '.js'),
-            sourceMap: true
+            modulename: camelCase(name),
+            file: path.resolve(dist, name + '.js'),
+            sourcemap: true
         }
     ]
 };
