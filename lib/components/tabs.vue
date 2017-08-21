@@ -70,10 +70,6 @@
                 type: String,
                 default: 'div'
             },
-            noFade: {
-                type: Boolean,
-                default: false
-            },
             card: {
                 type: Boolean,
                 default: false
@@ -90,11 +86,16 @@
                 type: Boolean,
                 default: false
             },
-            lazy: {
+            bottom: {
                 type: Boolean,
                 default: false
             },
-            bottom: {
+            noFade: {
+                type: Boolean,
+                default: false
+            },
+            lazy: {
+                // This prop is sniffed by the tab child
                 type: Boolean,
                 default: false
             }
@@ -104,7 +105,6 @@
                 if (val === old) {
                     return;
                 }
-
                 this.$root.$emit('changed::tab', this, val, this.tabs[val]);
                 this.$emit('input', val);
                 this.tabs[val].$emit('click');
@@ -113,21 +113,17 @@
                 if (val === old) {
                     return;
                 }
-
-                this.setTab(val);
-            },
-            fade(val, old) {
-                if (val === old) {
-                    return;
+                // moving left or right?
+                if (tyepof old !== 'number') {
+                    old = 0;
                 }
-
-                this.tabs.forEach(item => {
-                    this.$set(item, 'fade', val);
-                });
+                const direction = val < old ? -1 : 1;
+                this.setTab(val + (-1 * direction), false, direction);
             }
         },
         computed: {
             fade() {
+                // This computed prop is sniffed by the tab child
                 return !this.noFade;
             },
             navStyle() {
@@ -210,10 +206,6 @@
                     this.tabs = [];
                 }
 
-                this.tabs.forEach(tab => {
-                    this.$set(tab, 'fade', this.fade);
-                    this.$set(tab, 'lazy', this.lazy);
-                });
 
                 // Get initial active tab
                 let tabIndex = this.currentTab;
