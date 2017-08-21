@@ -1,5 +1,5 @@
 <template>
-    <transition @after-enter="afterEnter" @before-leave="beforeLeave" mode="out-in">
+    <transition @before-enter="beforeEnter" @after-enter="afterEnter" @after-leave="afterLeave" mode="out-in">
         <component :is="tag"
                    :id="safeId()"
                    role="tabpanel"
@@ -8,8 +8,9 @@
                    :aria-expanded="localActive ? 'true' : 'false'"
                    :aria-lablelledby="controlledBy || null"
                    v-if="localActive || !computedLazy"
-                   v-show="localActive || computedLazy"
+                   v-show="localActive"
                    ref="panel"
+                   :css="false"
         >
              <slot></slot>
         </component>
@@ -22,10 +23,13 @@
     export default {
         mixins: [idMixin],
         methods: {
+            beforeEnter() {
+                this.show = false;
+            },
             afterEnter() {
                 this.show = true;
             },
-            beforeLeave() {
+            afterLeave() {
                 this.show = false;
             }
         },
