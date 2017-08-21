@@ -79,7 +79,7 @@
             computedAriaInvalid() {
                 if (!Boolean(this.ariaInvalid) || this.ariaInvalid === 'false') {
                     // this.ariaInvalid is null or false or 'false'
-                    return this.computedState === flase ? 'true' : null ;
+                    return this.computedState === false ? 'true' : null ;
                 }
                 if (this.ariaInvalid === true) {
                    // User wants explicit aria-invalid=true

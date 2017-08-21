@@ -157,7 +157,7 @@
                 ]
             },
             labelId() {
-                return (this.label || $slots['label']) ? this.safeId('_BV_label_') : null;
+                return (this.label || this.$slots['label']) ? this.safeId('_BV_label_') : null;
             },
             descriptionId() {
                 if (this.description || this.$slots['description']) {
