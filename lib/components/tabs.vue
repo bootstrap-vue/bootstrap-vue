@@ -113,10 +113,10 @@
                 if (val === old) {
                     return;
                 }
-                // moving left or right?
-                if (tyepof old !== 'number') {
+                if (typeof old !== 'number') {
                     old = 0;
                 }
+                // Moving left or right?
                 const direction = val < old ? -1 : 1;
                 this.setTab(val + (-1 * direction), false, direction);
             }
