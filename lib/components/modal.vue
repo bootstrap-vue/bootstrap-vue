@@ -11,14 +11,14 @@
                     @before-leave="onBeforeLeave"
                     @after-leave="onAfterLeave"
         >
-            <div :class="['modal',{fade: !noFade, show: is_visible}]"
+            <div :class="['modal',{fade: !noFade, show: isShowing]"
                  :id="id || null"
                  role="dialog"
                  ref="modal"
                  key="modal"
                  :style="modalStyle"
-                 v-show="is_visible"
-                 :aria-hidden="is_visible ? 'fasle' : 'true'"
+                 v-show="isShowing"
+                 :aria-hidden="isShowing ? 'false' : 'true'"
                  @click="onClickOut()"
                  @keyup.esc="onEsc()"
             >
@@ -28,14 +28,14 @@
                          tabindex="-1"
                          role="document"
                          ref="content"
-                         :aria-labelledby="(hideHeader || !id) ? null : (id + '__BV_header_')"
-                         :aria-describedby="id ? (id + '__BV_body_') : null"
+                         :aria-labelledby="(hideHeader || !id) ? null : `${id}__BV_header_`"
+                         :aria-describedby="id ? `${id}__BV_body_` : null"
                          @click.stop
                     >
 
                         <header class="modal-header"
                                 ref="header"
-                                :id="id ? (id + '__BV_header_') : null"
+                                :id="id ? `${id}__BV_header_` : null"
                                 v-if="!hideHeader"
                         >
                             <slot name="modal-header">
@@ -53,7 +53,7 @@
                             </slot>
                         </header>
 
-                        <div class="modal-body" ref="body" :id="id ? (id + '__BV_body_') : null">
+                        <div class="modal-body" ref="body" :id="id ? `${id}__BV_body_` : null">
                             <slot></slot>
                         </div>
 
@@ -78,26 +78,15 @@
         </transition>
 
         <div key="modal-backdrop"
-             :class="['modal-backdrop',{fade: !noFade, show: is_visible}]"
-             v-if="is_visible"
+             :class="['modal-backdrop',{fade: !noFade, show: (is_visible || isTransitioning)}]"
+             v-if="isShowing && !noBackdrop"
         ></div>
     </div>
 </template>
 
-<style scoped>
-    .hidden {
-        opacity: 0 !important;
-    }
-
-    /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style */
-    .modal {
-        display: block;
-    }
-</style>
-
 <script>
     import bBtn from './button';
-    import { listenOnRootMixin } from '../mixins';
+    import { listenOnRootMixin, clickoutMixin } from '../mixins';
     import { from as arrayFrom } from '../utils/array'
 
     const ClassName = {
@@ -121,28 +110,6 @@
         'a:not([disabled]):not(.disabled)',
         '[tabindex]:not([disabled]):not(.disabled)'
     ].join(',');
-
-    // Fallback Transition duration (with a little buffer) in ms
-    const TRANS_DURATION = 600 + 50;
-
-    // Transition Event names
-    const TransitionEndEvents = {
-        WebkitTransition: 'webkitTransitionEnd',
-        MozTransition: 'transitionend',
-        OTransition: 'otransitionend oTransitionEnd',
-        transition: 'transitionend'
-    };
-
-    // Return the brtowser specific transitionend event name
-    function getTransisionEndEvent(el) {
-        for (const name in TransitionEndEvents) {
-            if (el.style[name] !== undefined) {
-                return TransitionEndEvents[name];
-            }
-        }
-        // fallback
-        return null;
-    }
 
     // Measure the scrollbar width
     function getScrollbarWidth() {
@@ -187,7 +154,6 @@
             return {
                 is_visible: false,
                 return_focus: this.returnFocus || null,
-                transitionEndEvent: null,
                 scrollbarWidth: 0,
                 bodyAltered: false,
                 isBodyOverflowing: false,
@@ -310,35 +276,35 @@
         },
         methods: {
             show() {
-                if (this.is_visible) {
+                if (this.is_visible || typeof document === 'undefined') {
                     return;
                 }
                 this.is_visible = true;
                 this.isBodyOverflowing = document.body.clientWidth < window.innerWidth;
                 this.setScrollBar();
-                if (this.noFade || !this.transitionEndEvent) {
+
+                if (this.noFade) {
                     // If no fade animation, then triger the start ourselves
+                    this.onBeforeEnter();
                 }
 
                 document.body.classList.add(ClassName.OPEN);
                 this.$emit('change', true);
-                if (this.noFade || !this.transitionEndEvent) {
+
+                if (this.noFade) {
                     // If no fade animation, then triger the end ourselves
+                    this.onAfterEnter();
                 }
 
-                this.$emit('show');
-                this.$root.$emit('shown::modal', this.id);
-
                 this.setListeners(ON);
-
-                this.$emit('shown');
             },
             hide(isOK) {
-                if (!this.is_visible) {
+                if (!this.is_visible || typeof document === 'undefined') {
                     return;
                 }
 
                 // Create event object
+                // TODO: Use new synthetic event util
                 let canceled = false;
                 const e = {
                     isOK,
@@ -360,25 +326,28 @@
                 // Hide if not canceled
                 if (!canceled) {
                     this.setListeners(OFF);
-                    // Return focus to original button/trigger element if provided
-                    this.returnFocusTo();
-
-                    this.is_visible = false;
-                    this.$root.$emit('hidden::modal', this.id);
-                    if (typeof document !== 'undefined') {
-                        document.body.classList.remove(ClassName.OPEN);
+                    if (this.noFade) {
+                        this.beforeLeave();
                     }
-                    this.$emit('hidden', e);
+                    this.is_visible = false;
+                    this.isBodyOverflowing = false;
+                    this.resetScrollbar();
+                    document.body.classList.remove(ClassName.OPEN);
+                    if (this.noFade) {
+                        this.afterLeave();
+                    }
                 }
             },
             onClickOut() {
                 // If backdrop clicked, hide modal
+                // TODO: Add clickout handler (for when noBackdrop is used)
                 if (this.is_visible && !this.noCloseOnBackdrop) {
                     this.hide();
                 }
             },
             onEsc() {
                 // If ESC pressed, hide modal
+                // TODO: Move @ event to root div
                 if (this.is_visible && !this.noCloseOnEsc) {
                     this.hide();
                 }
@@ -396,12 +365,15 @@
                 this.focusFirst();
             },
             onBeforeLeave() {
+                // We don't $emit hide here bcause we need to pass out custom event
                 this.isLeaving = true;
                 this.isShown = false;
             },
             onAfterLeave() {
                 this.isLeaving = false;
                 this.$emit('hidden');
+                this.$root.$emit('hidden::modal', this.id);
+                this.returnFocusTo();
             },
             adjustModal() {
                 // Check if body is overflowing
@@ -564,9 +536,6 @@
         mounted() {
             // Measure the scrollbar width
             this.scrollbarWidth = getScrollbarWidth();
-
-            // Get tranition end event name(s)
-            this.transitionEndEvent = getTransitionEndEvent(this.$refs.modal);
 
             // Initially show modal?
             if (this.visible === true) {
