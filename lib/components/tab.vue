@@ -31,7 +31,7 @@
         },
         data() {
             return {
-                localActive: this.active,
+                localActive: this.active && !this.disabled,
                 show: false
             };
         },
