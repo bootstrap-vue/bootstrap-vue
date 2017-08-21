@@ -36,7 +36,7 @@
                 return ['alert', this.alertVariant, this.dismissible ? 'alert-dismissible' : ''];
             },
             alertVariant() {
-                const variant = this.state || this.variant || 'info';
+                const variant = this.variant;
                 return `alert-${variant}`;
             },
             localShow() {
@@ -47,10 +47,6 @@
             variant: {
                 type: String,
                 default: 'info'
-            },
-            state: {
-                type: String,
-                default: null
             },
             dismissible: {
                 type: Boolean,
