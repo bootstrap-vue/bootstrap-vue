@@ -1,6 +1,6 @@
 <template>
-    <component :is="tag" :id="id || null" class="tabs">
-        <div v-if="bottom" :class="['tab-content',{'card-body': card}]" ref="tabsContainer">
+    <component :is="tag" :id="safeId()" class="tabs">
+        <div v-if="bottom" :id="safeId('_BV_tab_container_')" :class="['tab-content',{'card-body': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
@@ -26,9 +26,9 @@
                        :aria-posinset="currentTab + 1"
                        :aria-selected="tab.localActive ? 'true' : 'false'"
                        :aria-expanded="tab.localActive ? 'true' : 'false'"
-                       :aria-controls="tab.id || null"
+                       :aria-controls="safeId('_BV_tab_container_')"
                        :aria-disabled="tab.disabled"
-                       :id="tab.controlledBy || null"
+                       :id="tab.controlledBy || safeId('_BV_tab_${index+1}_')"
                        @click.prevent.stop="setTab(index)"
                        @keydown.space.prevent.stop="setTab(index)"
                        @keydown.enter.prevent.stop="setTab(index)"
@@ -46,7 +46,7 @@
             </ul>
         </div>
 
-        <div v-if="!bottom" :class="['tab-content',{'card-body': card}]" ref="tabsContainer">
+        <div v-if="!bottom" :id="safeId('_BV_tab_container_')" :class="['tab-content',{'card-body': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
@@ -55,8 +55,10 @@
 
 <script>
     import {observeDom} from '../utils';
+    import {idMixin) from '../mixins';
 
     export default {
+        mixins: [idMixin],
         data() {
             return {
                 currentTab: this.value,
