@@ -10,8 +10,7 @@
                    v-if="localActive || !lazy"
                    v-show="localActive"
                    ref="panel"
-                   :css="false"
-        >{{localActive || !lazy}}
+                   :css="false">
              <slot></slot>
         </component>
     </transition>
