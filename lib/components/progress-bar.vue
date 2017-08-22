@@ -2,7 +2,7 @@
     <div role="progressbar"
          :class="progressBarClasses"
          :style="progressBarStyles"
-         :aria-valuenow="value"
+         :aria-valuenow="value.toFixed(this.computedPrecision)"
          :aria-valuemin="0"
          :aria-valuemax="computedMax"
     >
@@ -27,7 +27,7 @@
             },
             progressBarStyles() {
                 return {
-                    width: this.progress + '%',
+                    width: (this.value / this.computedMax) + '%',
                     height: this.computedHeight,
                     lineHeight: this.computedHeight
                 };
