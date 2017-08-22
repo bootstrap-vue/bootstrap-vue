@@ -1,15 +1,17 @@
 # ScrollSpy
 
-> Directive `v-b-scrollspy` applied to the `<b-nav>` or `<b-navbar>` element(s) that
-you want to have nav-links shown as `active` based on the scrolling of another
+> Directive `v-b-scrollspy` applied to the `<b-nav>`, `<b-navbar>` or
+`<b-list-group>` (which have list-group-items with HREFs) element(s) that
+you want to have links shown as `active` based on the scrolling of another
 element (i.e. `<body>`).
 
-**Note:** `v-b-scrollspy` directive is currently in the experimental stage.
+
+**Example scrolling on card body, with both b-nav and b-list-group components**
 
 ```html
 <template>
-  <b-card>
-    <b-nav pills slot="header" v-b-scrollspy:scrollspy-example>
+  <b-card no-body>
+    <b-nav pills slot="header" v-b-scrollspy:example-scroller>
       <b-nav-item href="#fat" @click="scrollIntoView">@fat</b-nav-item>
       <b-nav-item href="#mdo" @click="scrollIntoView">@mdo</b-nav-item>
       <b-nav-item-dropdown text="Dropdown 1,2,3" right-alignment>
@@ -20,7 +22,18 @@ element (i.e. `<body>`).
       </b-nav-item-dropdown>
       <b-nav-item href="#pi0" @click="scrollIntoView">@pi0</b-nav-item>
     </b-nav>
-    <div id="scrollspy-example"
+    <b-list-group flush v-b-scrollspy:example-scroller>
+      <b-list-group-item href="#one" @click="scrollIntoView">
+        One
+      </b-list-group-item>
+      <b-list-group-item href="#two" @click="scrollIntoView">
+        Two
+      </b-list-group-item>
+      <b-list-group-item href="#three" @click="scrollIntoView">
+        Three
+      </b-list-group-item>
+    </b-list-group>
+    <b-card-body id="example-scroller"
          ref="content"
          style="position:relative; height:300px; overflow-y:scroll;">
       <p>
@@ -72,7 +85,7 @@ element (i.e. `<body>`).
         four loko nisi, ea helvetica nulla carles. Tattooed cosby sweater
         food truck, mcsweeney's quis non freegan vinyl.
       </p>
-    </div>
+    </b-card-body>
   </b-card>
 </template>
 
