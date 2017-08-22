@@ -3,7 +3,7 @@
                 @after-enter="afterEnter"
                 @after-leave="afterLeave"
                 :css="false"
-                :duration"computedFade ? 150 : 0"
+                :duration="computedFade ? 150 : 0"
                 mode="out-in">
         <component :is="tag"
                    :id="safeId()"
