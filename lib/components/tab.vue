@@ -2,7 +2,6 @@
     <transition @before-enter="beforeEnter"
                 @after-enter="afterEnter"
                 @after-leave="afterLeave"
-                :duration="computedFade ? 150 : 0"
                 mode="out-in">
         <component :is="tag"
                    :id="safeId()"
@@ -46,7 +45,7 @@
             tabClasses() {
                 return [
                     'tab-pane',
-                    this.show ? 'show' : '',
+                    (this.show || !this.computedFade) ? 'show' : '',
                     this.computedFade ? 'fade' : '',
                     this.disabled ? 'disabled' : '',
                     this.localActive ? 'active' : ''
