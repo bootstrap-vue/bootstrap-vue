@@ -147,3 +147,11 @@ Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 ## Component Alias
 `<b-dropdown>` can be used via it's shorter alias of `<b-dd>`
 
+## Note
+On touch-enabled devices, opening a `<b-dropdown>` adds empty (noop) `mouseover`
+handlers to the immediate children of the `<body>` element. This admittedly ugly
+hack is necessary to work around a
+[quirk in iOS’ event delegation](https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html),
+which would otherwise prevent a tap anywhere outside of the dropdown from
+triggering the code that closes the dropdown. Once the dropdown is closed, these
+additional empty `mouseover` handlers are removed.
