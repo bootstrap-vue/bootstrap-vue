@@ -36,7 +36,7 @@
         data() {
             return {
                 localActive: this.active && !this.disabled,
-                show: Boolean(this.active && !this.disabled)
+                show: this.active && !this.disabled
             };
         },
         computed: {
