@@ -1,8 +1,8 @@
 # ScrollSpy
 
-> Directive `v-b-scrollspy` applied to the `<b-nav>`, `<b-navbar>` or
-`<b-list-group>` (which have list-group-items with HREFs) element(s) that
-you want to have links shown as `active` based on the scrolling of another
+> Directive `v-b-scrollspy` is applied to the `<b-nav>`, `<b-navbar>`, actionable
+`<b-list-group>` components, or HTML elements which contain that these components,
+that you want to have links shown as `active` based on the scrolling of another
 element (i.e. `<body>`).
 
 
@@ -111,8 +111,10 @@ export default {
 
 **Note:** The directive is applied backwards compared to native Bootstrap V4.
 In **Bootstrap-Vue** the `v-b-scrollspy` directive is applied to the target
-element that has the nav-links, and the option(s) specify the element to
+element that has the nav-links, and the options specify which element to
 monitor scrolling on.
+
+The directive an be applied to any containing element or component.
 
 ### Usage
 Assume `<body>` is the scroll element, and use default offset of 10 pixels
