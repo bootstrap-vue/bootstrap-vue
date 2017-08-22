@@ -353,7 +353,7 @@
                     this.hide();
                 }
             },
-            onEsce() {
+            onEsc(e) {
                 // If ESC pressed, hide modal
                 // TODO: Move @ event to root div
                 if (this.is_visible && !this.noCloseOnEsc) {
