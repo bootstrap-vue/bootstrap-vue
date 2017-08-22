@@ -1,5 +1,8 @@
 <template>
-    <transition @before-enter="beforeEnter" @after-enter="afterEnter" @after-leave="afterLeave" mode="out-in">
+    <transition @before-enter="beforeEnter"
+                @after-enter="afterEnter"
+                @after-leave="afterLeave"
+                mode="out-in">
         <component :is="tag"
                    :id="safeId()"
                    role="tabpanel"
@@ -10,7 +13,6 @@
                    v-if="localActive || !computedLazy"
                    v-show="localActive"
                    ref="panel"
-                   :css="false"
         >
              <slot></slot>
         </component>
@@ -36,7 +38,7 @@
         data() {
             return {
                 localActive: this.active && !this.disabled,
-                show: false
+                show: this.active && !this.disabled
             };
         },
         computed: {
