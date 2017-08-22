@@ -45,7 +45,7 @@
             tabClasses() {
                 return [
                     'tab-pane',
-                    (this.show || (!this.computedFade && this.localActive)) ? 'show' : '',
+                    this.show ? 'show' : '',
                     this.computedFade ? 'fade' : '',
                     this.disabled ? 'disabled' : '',
                     this.localActive ? 'active' : ''
