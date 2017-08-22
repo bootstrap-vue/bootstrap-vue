@@ -384,10 +384,10 @@ via the `header-variant`, `header-bordered`,  `header-text-variant`, `footer-var
   <b-card header="Card Header"
           header-text-variant="white"
           header-tag="header"
-          header-variant="success"
+          header-bg-variant="success"
           footer="Card Footer"
           footer-tag="footer"
-          footer-variant="success"
+          footer-bg-variant="success"
           footer-bordered
           title="Title"
           style="width: 20rem;"
