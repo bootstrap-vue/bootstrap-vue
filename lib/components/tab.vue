@@ -1,5 +1,10 @@
 <template>
-    <transition @before-enter="beforeEnter" @after-enter="afterEnter" @after-leave="afterLeave" mode="out-in">
+    <transition @before-enter="beforeEnter"
+                @after-enter="afterEnter"
+                @after-leave="afterLeave"
+                :css="false"
+                :duration"computedFade ? 150 : 0"
+                mode="out-in">
         <component :is="tag"
                    :id="safeId()"
                    role="tabpanel"
@@ -10,7 +15,6 @@
                    v-if="localActive || !computedLazy"
                    v-show="localActive"
                    ref="panel"
-                   :css="false"
         >
              <slot></slot>
         </component>
