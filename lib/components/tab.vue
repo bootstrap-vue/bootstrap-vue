@@ -38,8 +38,11 @@
         data() {
             return {
                 localActive: this.active && !this.disabled,
-                show: this.active && !this.disabled
+                show: false
             };
+        },
+        mounted() {
+            this.show = this.localActive;
         },
         computed: {
             tabClasses() {
