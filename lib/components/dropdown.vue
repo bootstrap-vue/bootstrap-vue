@@ -30,7 +30,7 @@
 
         <div :class="menuClasses"
              ref="menu"
-             role="menu"
+             :role="role"
              :aria-labelledby="safeId(split ? '_BV_toggle_' : '_BV_button_')"
              @mouseover="onMouseOver"
              @keyup.esc="onEsc"
@@ -67,14 +67,18 @@
             variant: {
                 type: String,
                 default: null
+            },
+            role: {
+                type: String,
+                default: 'menu'
             }
         },
         computed: {
             dropdownClasses() {
                 return [
+                    'btn-group',
                     'b-dropdown',
                     'dropdown',
-                    'btn-group',
                     this.dropup ? 'dropup' : '',
                     this.visible ? 'show' : ''
                 ];
