@@ -91,8 +91,8 @@
 </script>
 
 <style>
-.b-dropdown .dropdown-item:focus:not(.active),
-.b-dropdown .dropdown-item:hover:not(.active) {
+.b-dropdown .dropdown-item:focus,
+.b-dropdown .dropdown-item:hover {
     /* @See https://github.com/twbs/bootstrap/issues/23329 */
     box-shadow: inset 0px 0px 400px 110px rgba(0, 0, 0, .09);
 }
