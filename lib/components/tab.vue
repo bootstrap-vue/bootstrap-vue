@@ -41,7 +41,7 @@
         },
         mounted() {
             this.show = this.localActive;
-        }
+        },
         computed: {
             controlledBy() {
                 return this.buttonId || (this.id ? (this.id + '__BV_tab_button__') : null);
