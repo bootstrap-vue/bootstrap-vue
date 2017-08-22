@@ -1,5 +1,8 @@
 <template>
-    <transition @before-enter="beforeEnter" @after-enter="afterEnter" @after-leave="afterLeave" mode="out-in">
+    <transition @before-enter="beforeEnter"
+                @after-enter="afterEnter"
+                @after-leave="afterLeave"
+                mode="out-in">
         <component :is="tag"
                    :id="id || null"
                    role="tabpanel"
@@ -9,8 +12,7 @@
                    :aria-lablelledby="controlledBy || null"
                    v-if="localActive || !lazy"
                    v-show="localActive"
-                   ref="panel"
-                   :css="false">
+                   ref="panel">
              <slot></slot>
         </component>
     </transition>
@@ -32,11 +34,14 @@
         data() {
             return {
                 fade: false,
-                localActive: this.active,
+                localActive: this.active && !this.disabled,
                 lazy: true,
                 show: false
             };
         },
+        mounted() {
+            this.show = this.localActive;
+        }
         computed: {
             controlledBy() {
                 return this.buttonId || (this.id ? (this.id + '__BV_tab_button__') : null);
