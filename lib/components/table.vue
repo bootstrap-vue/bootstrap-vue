@@ -5,7 +5,7 @@
     >
         <thead :class="headClass">
         <tr>
-            <th v-for="(field,key) in fields"
+            <th v-for="(field,key) in computedFields"
                 @click.stop.prevent="headClicked($event,field,key)"
                 @keydown.enter.stop.prevent="headClicked($event,field,key)"
                 @keydown.space.stop.prevent="headClicked($event,field,key)"
@@ -24,7 +24,7 @@
         </thead>
         <tfoot v-if="footClone" :class="footClass">
         <tr>
-            <th v-for="(field,key) in fields"
+            <th v-for="(field,key) in computedFields"
                 @click.stop.prevent="headClicked($event,field,key)"
                 @keydown.enter.stop.prevent="headClicked($event,field,key)"
                 @keydown.space.stop.prevent="headClicked($event,field,key)"
@@ -46,14 +46,14 @@
         </tr>
         </tfoot>
         <tbody>
-        <tr v-for="(item,index) in _items"
+        <tr v-for="(item,index) in computedItems"
             :key="index"
             :class="rowClass(item)"
             @click="rowClicked($event,item,index)"
             @dblclick="rowDblClicked($event,item,index)"
             @mouseenter="rowHovered($event,item,index)"
         >
-            <template v-for="(field,key) in fields">
+            <template v-for="(field,key) in computedFields">
                 <td v-if="!hasFormatter(field)" :class="tdClass(field, item, key)" :key="key">
                     <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
                 </td>
@@ -62,8 +62,8 @@
                 </td>
             </template>
         </tr>
-        <tr v-if="showEmpty && (!_items  || _items.length === 0)">
-            <td :colspan="keys(fields).length">
+        <tr v-if="showEmpty && (!computedItems  || computedItems.length === 0)">
+            <td :colspan="keys(computedFields).length">
                 <div v-if="filter" role="alert" aria-live="polite">
                     <slot name="emptyfiltered">
                         <div class="text-center my-2" v-html="emptyFilteredText"></div>
@@ -82,8 +82,10 @@
 
 <script>
     import { warn } from '../utils';
-    import { keys } from '../utils/object.js';
+    import { keys } from '../utils/object';
+    import { isArray } from '../utils/array'
     import { listenOnRootMixin } from '../mixins';
+    import startCase from 'lodash.startcase';
 
     const toString = v => {
         if (!v) {
@@ -154,8 +156,8 @@
                 default: ''
             },
             fields: {
-                type: Object,
-                default: {}
+                type: [Object, Array],
+                default: null
             },
             striped: {
                 type: Boolean,
@@ -367,7 +369,56 @@
                     sortDesc: this.localSortDesc
                 };
             },
-            _items() {
+            computedFields() {
+                let fields
+
+                // Normalize array Form
+                if (isArray(this.fields)) {
+                    fields = {}
+                    this.fields.filter(f => f).forEach(f => {
+                        fields[f.key || f] = f
+                    })
+                } else {
+                    fields = this.fields || {}
+                }
+
+                // If no field provided, take a sample from first record (if exits)
+                if (keys(fields).length === 0 && this.computedItems.length > 0) {
+                    const sample = this.computedItems[0]
+                    keys(sample).forEach(k => {
+                        fields[k] = true
+                    })
+                }
+
+                // Normalize fields
+                keys(fields).forEach(k => {
+                    // Hidden
+                    if (fields[k] === false) {
+                        delete fields[k]
+                        return
+                    }
+                    // Humanize field label
+                    if (fields[k] === true) {
+                         fields[k] = { label: startCase(k) }
+                         return
+                    }
+                    // Formatter shortcut
+                    if (typeof fields[k] === 'function') {
+                        fields[k] = {
+                            label: startCase(k),
+                            formatter: fields[k]
+                        }
+                        return
+                    }
+                    // Label shortcut
+                    if (typeof fields[k] === 'string') {
+                        fields[k] =  { label: fields[k] }
+                    }
+                })
+
+                return fields
+            },
+            computedItems() {
                 // Grab some props/data to ensure reactivity
                 const perPage = this.perPage;
                 const currentPage = this.currentPage;
