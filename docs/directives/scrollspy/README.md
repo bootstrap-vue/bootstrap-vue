@@ -6,7 +6,7 @@ you want to have links shown as `active` based on the scrolling of another
 element (i.e. `<body>`).
 
 
-**Example scrolling on card body, with both b-nav and b-list-group components**
+**Example: scrolling on b-card body, with both b-nav and b-list-group components**
 
 ```html
 <template>
