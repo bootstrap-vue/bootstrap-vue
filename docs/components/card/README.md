@@ -376,21 +376,21 @@ pre-pending `bg-` (for solid) or `border-` (for bordered) to the above variant n
 ### Header and Footer variants
 
 You can also apply the solid and border variants individually to card headers and footers
-via the `header-variant`, `header-bordered`,  `header-text-variant`, `footer-variant`,
-`footer-bordered`, and `footer-text-variant` props.
+via the `header-bg-variant`, `header-border-variant`,  `header-text-variant`,
+`footer-bg-variant`, `footer-border-variant`, and `footer-text-variant` props.
 
 ```html
 <div>
   <b-card header="Card Header"
           header-text-variant="white"
           header-tag="header"
-          header-bg-variant="success"
+          header-bg-variant="dark"
           footer="Card Footer"
           footer-tag="footer"
           footer-bg-variant="success"
-          footer-bordered
+          footer-border-variant="dark"
           title="Title"
-          style="width: 20rem;"
+          style="max-width: 20rem;"
   >
     <p class="card-text">Header and footers variants.</p>
   </b-card>
