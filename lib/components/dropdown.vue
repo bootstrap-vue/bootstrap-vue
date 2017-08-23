@@ -2,10 +2,10 @@
     <div :id="safeId()" :class="dropdownClasses">
 
         <b-button :id="safeId('_BV_button_')"
-                  :class="{'dropdown-toggle': !split}"
+                  v-if="split"
                   ref="button"
-                  :aria-haspopup="split ? null : 'true'"
-                  :aria-expanded="split ? null : (visible ? 'true' : 'false')"
+                  :aria-haspopup="split ? 'true' : null"
+                  :aria-expanded="split ? (visible ? 'true' : 'false') : null"
                   :variant="variant"
                   :size="size"
                   :disabled="disabled"
@@ -13,19 +13,19 @@
         >
             <slot name="button-content"><slot name="text">{{text}}</slot></slot>
         </b-button>
-
         <b-button :id="safeId('_BV_toggle_')"
-                  :class="['dropdown-toggle','dropdown-toggle-split']"
-                  v-if="split"
+                  :class="['dropdown-toggle',{dropdownToggleSplit: split}]"
+
                   ref="toggle"
-                  :aria-haspopup="split ? 'true' : null"
-                  :aria-expanded="split ? (visible ? 'true' : 'false') : null"
+                  :aria-haspopup="split ? null : 'true'"
+                  :aria-expanded="split ? null : (visible ? 'true' : 'false')"
                   :variant="variant"
                   :size="size"
                   :disabled="disabled"
                   @click.stop.prevent="toggle"
         >
-            <span class="sr-only">{{toggleText}}</span>
+            <span v-if="split" class="sr-only">{{toggleText}}</span>
+            <slot v-else name="button-content"><slot name="text">{{text}}</slot></slot>
         </b-button>
 
         <div :class="menuClasses"
