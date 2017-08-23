@@ -46,6 +46,9 @@
         </tr>
         </tfoot>
         <tbody>
+        <tr v-if="$scopedSlots['top-row']">
+            <slot name="top-row" :columns="keys(fields).length" :fields="fields"></slot>
+        </tr>
         <tr v-for="(item,index) in _items"
             :key="index"
             :class="rowClass(item)"
@@ -75,6 +78,9 @@
                     </slot>
                 </div>
             </td>
+        </tr>
+        <tr v-if="$scopedSlots['bottom-row']">
+            <slot name="bottom-row" :columns="keys(fields).length" :fields="fields"></slot>
         </tr>
         </tbody>
     </table>
