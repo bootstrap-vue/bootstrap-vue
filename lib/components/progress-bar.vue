@@ -27,7 +27,7 @@
             },
             progressBarStyles() {
                 return {
-                    width: (this.value / this.computedMax) + '%',
+                    width: (100 * (this.value / this.computedMax)) + '%',
                     height: this.computedHeight,
                     lineHeight: this.computedHeight
                 };
