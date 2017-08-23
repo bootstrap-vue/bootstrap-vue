@@ -99,8 +99,7 @@
                 }
 
                 let dismissCountDown = this.show;
-                this.$emit('dismiss-count-down', dismissCountDown);
-
+                
                 // Start counter
                 this.clearCounter();
                 this.countDownTimerId = setInterval(() => {
