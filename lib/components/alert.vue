@@ -105,10 +105,9 @@
 
                 // Start counter
                 let dismissCountDown = this.show;
-                this.$emit('dismiss-count-down', dismissCountDown);
                 this.countDownTimerId = setInterval(() => {
                     if (dismissCountDown < 1) {
-                        this.dismiss;
+                        this.dismiss();
                         return;
                     }
                     dismissCountDown--;
