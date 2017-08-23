@@ -7,6 +7,7 @@
     >
         <button type="button"
                 class="close"
+                v-if="dismissible"
                 data-dismiss="alert"
                 :aria-label="dismissLabel"
                 @click.stop.prevent="dismiss"
