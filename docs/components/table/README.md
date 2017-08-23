@@ -3,141 +3,211 @@
 > For displaying tabular data. `<b-table>` supports pagination, filtering, sorting,
 custom rendering, events, and asynchronous data.
 
+**Basic usage example:**
 ```html
 <template>
-<div>
-  <div class="my-1 row">
-    <div class="col-md-6">
-      <b-form-fieldset horizontal label="Rows per page" :label-cols="6">
-        <b-form-select :options="pageOptions" v-model="perPage" />
-      </b-form-fieldset>
-    </div>
-    <div class="col-md-6">
-      <b-form-fieldset horizontal label="Filter" :label-cols="3">
-        <b-form-input v-model="filter" placeholder="Type to Search" />
-      </b-form-fieldset>
-    </div>
+  <div>
+    <b-table striped hover :items="items"></b-table>
   </div>
-
-  <div class="row my-1">
-    <div class="col-sm-8">
-      <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
-    </div>
-    <div class="col-sm-4 text-md-right">
-      <b-button :disabled="!sortBy" @click="sortBy = null">Clear Sort</b-button>
-    </div>
-  </div>
-
-  <!-- Main table element -->
-  <b-table striped hover show-empty
-           :items="items"
-           :fields="fields"
-           :current-page="currentPage"
-           :per-page="perPage"
-           :filter="filter"
-           :sort-by.sync="sortBy"
-           :sort-desc.sync="sortDesc"
-           @filtered="onFiltered"
-  >
-    <template slot="name" scope="row">{{row.value.first}} {{row.value.last}}</template>
-    <template slot="isActive" scope="row">{{row.value?'Yes :)':'No :('}}</template>
-    <template slot="actions" scope="row">
-      <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-      <b-btn size="sm" @click.stop="details(row.item,row.index,$event.target)">Details</b-btn>
-    </template>
-  </b-table>
-
-  <p>
-    Sort By: {{ sortBy || 'n/a' }}, Direction: {{ sortDesc ? 'descending' : 'ascending' }}
-  </p>
-
-  <!-- Details modal -->
-  <b-modal id="modal1" @hide="resetModal" ok-only>
-    <h4 class="my-1 py-1" slot="modal-header">Index: {{ modalDetails.index }}</h4>
-    <pre>{{ modalDetails.data }}</pre>
-  </b-modal>
-
-</div>
 </template>
 
 <script>
 const items = [
-  { isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-  { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-  { _rowVariant: 'success',
-    isActive: false, age: 9,  name: { first: 'Mini', last: 'Navarro' } },
-  { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-  { isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' } },
-  { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-  { isActive: true,  age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-  { _cellVariants: { age: 'danger', isActive: 'warning' },
-    isActive: true,  age: 87, name: { first: 'Larsen', last: 'Shaw' } },
-  { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-  { isActive: false, age: 22, name: { first: 'Genevive', last: 'Wilson' } },
-  { isActive: true,  age: 38, name: { first: 'John', last: 'Carney' } },
-  { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
+  { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+  { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+  { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+  { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' },
+  { isActive: false, age: 27, first_name: 'Essie', last_name: 'Dunlap' },
+  { isActive: true,  age: 40, first_name: 'Thor', last_name: 'Macdonald' },
+  { isActive: false, age: 26, first_name: 'Mitzi', last_name: 'Navarro' },
+  { isActive: false, age: 22, first_name: 'Genevive', last_name: 'Wilson' },
+  { isActive: true,  age: 38, first_name: 'John', last_name: 'Carney' },
+  { isAactive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
 ];
 
 export default {
   data: {
-    items: items,
-    fields: {
-      name:     { label: 'Person Full name', sortable: true },
-      age:      { label: 'Person age', sortable: true, 'class': 'text-center'  },
-      isActive: { label: 'is Active' },
-      actions:  { label: 'Actions' }
-    },
-    currentPage: 1,
-    perPage: 5,
-    totalRows: items.length,
-    pageOptions: [{text:5,value:5},{text:10,value:10},{text:15,value:15}],
-    sortBy: null,
-    sortDesc: false,
-    filter: null,
-    modalDetails: { index:'', data:'' }
-  },
-  methods: {
-    details(item, index, button) {
-      this.modalDetails.data = JSON.stringify(item, null, 2);
-      this.modalDetails.index = index;
-      this.$root.$emit('show::modal','modal1', button);
-    },
-    resetModal() {
-      this.modalDetails.data = '';
-      this.modalDetails.index = '';
-    },
-    onFiltered(filteredItems) {
-      // Trigger pagination to update the number of buttons/pages due to filtering
-      this.totalRows = filteredItems.length;
-      this.currentPage = 1;
-    }
+    items: items
   }
 }
 </script>
 
-<!-- table-1.vue -->
+<!-- table-basic-1.vue -->
 ```
+
+## Items (record data)
+`items` is the table data in array format, where each record (row) data are
+keyed objects. Example format:
+
+```js
+[
+    { age: 32, first_name: 'Cyndi' },
+    { age: 27, first_name: 'Havij' },
+    { age: 42, first_name: 'Robert' }
+]
+```
+`<b-table>` Automatically samples the first row to extract field names (they keys in the
+record data). Field names are automatically "humanized" by converting `kebab-case`, `snake_case`, 
+and `camelCase` to individual words and capitalizes each word. Example conversions:
+
+ - `first_name` becomes `First Name`
+ - `last-name` becomes `Last Name`
+ - `age` becoms `Age`
+ - `YEAR` becomes `Year`
+ - `isActive` becomes `Is Active`
+
+These titles wil be displayed in the table header, in the order they appear in the
+**first** record of data.  See the **Fields** section below for cusomizing how field
+headings appear.
+
+Record data may also have additional special reserved name keys for colorizing
+rows and individual cells (variants). Supported optional item record modifier properties
+(make sure your field keys do not conflict with these names):
+
+| Property | Type | Description
+| ---------| ---- | -----------
+| `_rowVariant` | String | Bootstrap contextual state applied to row (Supported values: `active`, `success`, `info`, `warning`, `danger`)
+| `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`)
+
+```html
+<template>
+  <div>
+    <b-table striped hover :items="items"></b-table>
+  </div>
+</template>
+
+<script>
+const items = [
+  { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+  { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+  {
+    isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson',
+    _rowVariant: 'danger'
+  },
+  { 
+    isActive: true,  age: 40, first_name: 'Thor', last_name: 'Macdonald',
+    _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
+  },
+  { isAactive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+];
+
+export default {
+  data: {
+    items: items
+  }
+}
+</script>
+
+<!-- table-variants-1.vue -->
+```
+
+`items` can also be a reference to a *provider* function, which returns an `Array` of items data.
+Provider functions can also be asynchronous:
+- By returning `null` (or `undefined`) and calling a callback, when the data is
+ready, with the data array as the only argument to the callback,
+- By returning a `Promise` that resolves to an array.
+
+See the **"Using Items Provider functions"** section below for more details.
+
+## Table options
+`<b-table>` provides several props to alter the style of the table:
+
+| prop | Description
+| ---- | -----------
+| `striped` | Add zebra-striping to the table rows within the `<tbody>`
+| `bordered` | For borders on all sides of the table and cells.
+| `inverse` | Invert the colors — with light text on dark backgrounds
+| `small` | To make tables more compact by cutting cell padding in half.
+| `hover` | To enable a hover highlighting state on table rows within a `<tbody>`
+| `responsive` | Create responsive table to make it scroll horizontally on small devices (under 768px)
+| `foot-clone` | Turns on the table footer, and defaults with the same contents a the table header
+| `head-variant` | Use `default` or `inverse` to make `<thead>` appear light or dark gray, respectively
+| `foot-variant` | Use `default` or `inverse` to make `<tfoot>` appear light or dark gray, respectively. Has no effect if `foot-clone` is not set
+
 
 ## Fields (column definitions)
-The `fields` prop is used to display table columns. Keys (i.e. `age` or `name`
-as shown below) are used to extract real value from each row.
+The `fields` prop is used to customize the table columns headings,
+and in which order the columns of data are displayed. The field object keys
+(i.e. `age` or `first_name` as shown below) are used to extract the value from
+each item (record) row, and to provide additional fetures such as sorting
 
-Example format:
-```js
-{
-    name: {
-        label: 'Person Full name',
-        sortable: true,
-        formatter: 'personFullName'
-    },
-    age: {
-        label: 'Person age',
-        sortable: false
-    }
-}
+### Fields as a simple array
+Fields can be a simple array, for defining the order of the columns, and
+which columns to display:
+
+```html
+<template>
+  <div>
+    <b-table striped hover :items="items" :fields="fields"></b-table>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    // Note 'isActive' is left out and will not appear in the rendered table
+    fileds: [ 'first_name', 'last_name', 'age' ],
+    items: [
+      { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+      { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+      { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' },
+      { isActive: false, age: 27, first_name: 'Essie', last_name: 'Dunlap' }
+    ]
+  }
+};
+</script>
+
+<!-- table-fields-1.vue -->
 ```
 
-Supported field properties:
+### Fields as an object
+Or fields can be a an object providing additional control over the fields (such
+as sorting, formatting, etc). Only columns listed in the fields object will be shown,
+and will be shown in the order defined in the object:
+
+```html
+<template>
+  <div>
+    <b-table striped hover :items="items" :fields="fields"></b-table>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    // Note 'isActive' is left out and will not appear in the rendered table
+    fileds: {
+      last_name: {
+          label: 'Person last name',
+          sortable: true
+      },
+      first_name: {
+          label: 'Person first name',
+          sortable: false
+      },
+      age: {
+          label: 'Person age',
+          sortable: true,
+          // Variant applies to teh whole column, including the header and footer
+          variant: 'danger'
+      }
+    },
+    items: [
+      { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+      { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+      { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' },
+      { isAactive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+    ]
+  }
+};
+</script>
+
+<!-- table-fields-2.vue -->
+```
+
+When fields is provided as an object, the following field properties are available:
 
 | Property | Type | Description
 | ---------| ---- | -----------
@@ -160,135 +230,76 @@ in the Vue.js guide.
 them via the named scoped slots for custom data, header, and footer rendering.
 - by design, slots and formatter are **mutually exclusive**. Ie. if formatter defined at field props, then slot will not be used even if it defined for this field.
 
-## Items (record data)
-`items` are real table data record objects in array format. Example format:
-
-```js
-[
-    {
-        age: 32,
-        name: 'Cyndi'
-    },
-    {
-        _rowVariant: 'success', // Displays record row green
-        age: 27,
-        name: 'Havij'
-    },
-    {
-        _cellVariants: {
-            age: 'danger',  // Displays cell for field 'age' red
-            name: 'success' // Displays cell for field 'name' green
-        },
-        age: 42,
-        name: 'Robert'
-    }
-]
-```
-
-Supported optional item record modifier properties (make sure your field keys do not conflict with these names):
-
-| Property | Type | Description
-| ---------| ---- | -----------
-| `_rowVariant` | String | Bootstrap contextual state applied to row (Supported values: `active`, `success`, `info`, `warning`, `danger`)
-| `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`)
-
-
-`items` can also be a reference to a *provider* function, which returns an `Array` of items data.
-Provider functions can also be asynchronous:
-- By returning `null` (or `undefined`) and calling a callback, when the data is
-ready, with the data array as the only argument to the callback,
-- By returning a `Promise` that resolves to an array.
-
-See the **"Using Items Provider functions"** section below for more details.
-
-## Table Options
-
-`<b-table>` provides several props to alter the style of the table:
-
-| prop | Description
-| ---- | -----------
-| `striped` | Add zebra-striping to the table rows within the `<tbody>`
-| `bordered` | For borders on all sides of the table and cells.
-| `inverse` | Invert the colors — with light text on dark backgrounds
-| `small` | To make tables more compact by cutting cell padding in half.
-| `hover` | To enable a hover state on table rows within a `<tbody>`
-| `responsive` | Create responsive table to make it scroll horizontally on small devices (under 768px)
-| `foot-clone` | Turns on the table footer, and defaults with the same contents a the table header
-| `head-variant` | Use `default` or `inverse` to make `<thead>` appear light or dark gray, respectively
-| `foot-variant` | Use `default` or `inverse` to make `<tfoot>` appear light or dark gray, respectively. Has no effect if `foot-clone` is not set
-| `busy` | If set to `true` will make the table opaque and disable click events. Handy when using items provider functions.
-| `show-empty` | If `true`, Show a message if no records can be displayed (see `empty-text` and `empty-filter-text`)
-| `empty-text` | Text to display if there are no records in the original `items` array. You can also use the named slot `empty` to set the content for `empty-text`
-| `empty-filtered-text` | Text to display if there are no records in the **filtered** `items` array. You can also use the named slot `emptyfiltered` to set the content for `empty-filtered-text`
-
+For information and usage about scoped slots and formatters, refer to
+the **Custom Data Rendering** section below.
 
 ## Custom Data Rendering
 Custom rendering for each data field in a row is possible using either 
 [scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or formatter callback function.
 
-### Slots
+### Scoped Field Slots
+Scoped slots give you greater control over how the record data apepars.
 If you want to add an extra field which does not exist in the records,
-just add it to the `fields` array.  Example:
-
-```js
- fields: {
-    index: {
-        // A virtual column
-        label: 'Index'
-    },
-    name: {
-        // A column that needs custom formatting
-        label: 'Full Name'
-    },
-    sex: {
-        // A regular column
-        label: 'Sex'
-    },
-    nameage: {
-        // A virtual column
-        label: 'First name and age'
-    }
- },
- items: [
-    {
-        name: { first: 'John', last: 'Doe' },
-        sex: 'Male',
-        age: 42
-    },
-    {
-        name: { first: 'Jane', last: 'Doe' },
-        sex: 'Female',
-        age: 36
-    }
- ]
-```
-
-And then reference the field in the scoped slots:
+just add it to the `fields` array, And then reference the field(s) in the scoped
+slot(s).  Example:
 
 ```html
-<b-table :fields="fields" :items="items">
-  <template slot="index" scope="data">
+<template>
+  <div>
+  <b-table :fields="fields" :items="items">
     <!-- A Virtul column -->
-    {{data.index + 1}}
-  </template>
-  <template slot="name" scope="data">
+    <template slot="index" scope="data">
+      {{data.index + 1}}
+    </template>
     <!-- A custom formatted column -->
-    {{data.value.first}} {{data.value.last}}
-  </template>
-  <template slot="nameage" scope="data">
+    <template slot="name" scope="data">
+      {{data.value.first}} {{data.value.last}}
+    </template>
     <!-- A Virtul composite column -->
-    {{data.item.name.first}} is {{data.item.age}} years old
-  </template>
-</b-table>
+    <template slot="nameage" scope="data">
+      {{data.item.name.first}} is {{data.item.age}} years old
+    </template>
+  </b-table>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    fields: {
+      index: {
+        // A virtual column that doesn't exist in items
+        label: 'Index'
+      },
+      name: {
+        // A column that needs custom formatting
+        label: 'Full Name'
+      },
+      age: {
+        // A regular column
+        label: 'Sex'
+      },
+      sex: {
+        // A regular column
+        label: 'Sex'
+      },
+      nameage: {
+        // A virtual column made up from two fields
+        label: 'First name and age'
+      }
+    },
+    items: [
+      { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
+      { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
+      { name: { first: 'Rubin', last: 'Kincade' }, sex: 'Male', age: 73 },
+      { name: { first: 'Shirley', last: 'Partridge' }, sex: 'Female', age: 62 }
+    ]
+  }
+}
+</script>
+
+<!-- table-data-slots-1.vue -->
 ```
-
-will render a table like so:
-
-| Index | Full Name | Sex | First name and age
-| ----- | --------- | --- | ------------------
-| 1 | John Doe | Male | John is 42 years old
-| 2 | Jane Doe | Female | Jane is 36 years old
-
 
 The slot's scope variable (`data` in the above sample) will have the following properties:
 
@@ -296,7 +307,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | -------- | ---- | -----------
 | `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column)
 | `item` | Object | The entire record (i.e. `items[index]`) for this row
-| `index` | Number | The row number (zero based)
+| `index` | Number | The row number (indexed from zero)
 
 **Note:** `index` will not always be the actual row's index number, as it is
 computed after pagination and filtering have been applied to the original
@@ -314,6 +325,7 @@ event:
   <b-btn size="sm" @click.stop="details(cell.item,cell.index,$event.target)">Details</b-btn>
 </template>
 ```
+
 ### Formatter callback
 
 Other option to make custom field output is to use formatter callback function.
@@ -415,7 +427,7 @@ will emit the `filtered` event, passing a single argument which is the complete 
 items passing the filter routine. Treat this argument as read-only.
 
 ## Sorting
-As mentioned above in the **fields** section, you can make columns sortable. Clciking on
+As mentioned above in the **fields** section above, you can make columns sortable. Clciking on
 sortable a column header will sort the column in ascending direction, while clicking
 on it again will switch the direction or sorting.  Clicking on a non-sortable column
 will clear the sorting.
@@ -458,6 +470,18 @@ if (typeof a[key] === 'number' && typeof b[key] === 'number') {
     });
 }
 ```
+
+## Advanced Table Options
+
+`<b-table>` provides several props to alter the features of the table:
+
+| prop | Description
+| ---- | -----------
+| `busy` | If set to `true` will make the table opaque and disable click events. Handy when using items provider functions.
+| `show-empty` | If `true`, Show a message if no records can be displayed (see `empty-text` and `empty-filter-text`)
+| `empty-text` | Text to display if there are no records in the original `items` array. You can also use the named slot `empty` to set the content for `empty-text`
+| `empty-filtered-text` | Text to display if there are no records in the **filtered** `items` array. You can also use the named slot `emptyfiltered` to set the content for `empty-filtered-text`
+
 
 ## Using Items Provider Functions
 As mentioned under the `items` prop section, it is possible to use a function to provide
@@ -654,3 +678,119 @@ Special care must be taken when using server side rendering (SSR) and an `items`
 function. Make sure you handle any special situations that may be needed server side
 when fetching your data!
 
+## Complete Example
+
+```html
+<template>
+<div>
+  <div class="my-1 row">
+    <div class="col-md-6">
+      <b-form-fieldset horizontal label="Rows per page" :label-cols="6">
+        <b-form-select :options="pageOptions" v-model="perPage" />
+      </b-form-fieldset>
+    </div>
+    <div class="col-md-6">
+      <b-form-fieldset horizontal label="Filter" :label-cols="3">
+        <b-form-input v-model="filter" placeholder="Type to Search" />
+      </b-form-fieldset>
+    </div>
+  </div>
+
+  <div class="row my-1">
+    <div class="col-sm-8">
+      <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
+    </div>
+    <div class="col-sm-4 text-md-right">
+      <b-button :disabled="!sortBy" @click="sortBy = null">Clear Sort</b-button>
+    </div>
+  </div>
+
+  <!-- Main table element -->
+  <b-table striped hover show-empty
+           :items="items"
+           :fields="fields"
+           :current-page="currentPage"
+           :per-page="perPage"
+           :filter="filter"
+           :sort-by.sync="sortBy"
+           :sort-desc.sync="sortDesc"
+           @filtered="onFiltered"
+  >
+    <template slot="name" scope="row">{{row.value.first}} {{row.value.last}}</template>
+    <template slot="isActive" scope="row">{{row.value?'Yes :)':'No :('}}</template>
+    <template slot="actions" scope="row">
+      <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
+      <b-btn size="sm" @click.stop="details(row.item,row.index,$event.target)">Details</b-btn>
+    </template>
+  </b-table>
+
+  <p>
+    Sort By: {{ sortBy || 'n/a' }}, Direction: {{ sortDesc ? 'descending' : 'ascending' }}
+  </p>
+
+  <!-- Details modal -->
+  <b-modal id="modal1" @hide="resetModal" ok-only>
+    <h4 class="my-1 py-1" slot="modal-header">Index: {{ modalDetails.index }}</h4>
+    <pre>{{ modalDetails.data }}</pre>
+  </b-modal>
+
+</div>
+</template>
+
+<script>
+const items = [
+  { isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+  { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
+  { _rowVariant: 'success',
+    isActive: false, age: 9,  name: { first: 'Mini', last: 'Navarro' } },
+  { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
+  { isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' } },
+  { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
+  { isActive: true,  age: 40, name: { first: 'Thor', last: 'Macdonald' } },
+  { _cellVariants: { age: 'danger', isActive: 'warning' },
+    isActive: true,  age: 87, name: { first: 'Larsen', last: 'Shaw' } },
+  { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
+  { isActive: false, age: 22, name: { first: 'Genevive', last: 'Wilson' } },
+  { isActive: true,  age: 38, name: { first: 'John', last: 'Carney' } },
+  { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
+];
+
+export default {
+  data: {
+    items: items,
+    fields: {
+      name:     { label: 'Person Full name', sortable: true },
+      age:      { label: 'Person age', sortable: true, 'class': 'text-center'  },
+      isActive: { label: 'is Active' },
+      actions:  { label: 'Actions' }
+    },
+    currentPage: 1,
+    perPage: 5,
+    totalRows: items.length,
+    pageOptions: [{text:5,value:5},{text:10,value:10},{text:15,value:15}],
+    sortBy: null,
+    sortDesc: false,
+    filter: null,
+    modalDetails: { index:'', data:'' }
+  },
+  methods: {
+    details(item, index, button) {
+      this.modalDetails.data = JSON.stringify(item, null, 2);
+      this.modalDetails.index = index;
+      this.$root.$emit('show::modal','modal1', button);
+    },
+    resetModal() {
+      this.modalDetails.data = '';
+      this.modalDetails.index = '';
+    },
+    onFiltered(filteredItems) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
+    }
+  }
+}
+</script>
+
+<!-- table-complete-1.vue -->
+```
