@@ -2,8 +2,8 @@
     <div role="progressbar"
          :class="progressBarClasses"
          :style="progressBarStyles"
-         :aria-valuenow="value.toFixed(this.computedPrecision)"
-         :aria-valuemin="0"
+         :aria-valuenow="value.toFixed(computedPrecision)"
+         aria-valuemin="0"
          :aria-valuemax="computedMax"
     >
         <slot>
