@@ -67,14 +67,6 @@
             variant: {
                 type: String,
                 default: null
-            },
-            offset: {
-                type: Number,
-                default: 0
-            },
-            noFlip: {
-                type: Boolean,
-                default: false
             }
         },
         computed: {
