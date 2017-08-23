@@ -60,7 +60,7 @@
             menuClasses() {
                 return [
                     'dropdown-menu',
-                    this.right ? 'dropdown-menu-right': 'dropdown-menu-right',
+                    this.right ? 'dropdown-menu-right': 'dropdown-menu-left',
                     this.visible ? 'show' : ''
                 ];
             }
