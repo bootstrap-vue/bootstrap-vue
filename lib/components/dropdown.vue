@@ -14,7 +14,7 @@
             <slot name="button-content"><slot name="text">{{text}}</slot></slot>
         </b-button>
         <b-button :id="safeId('_BV_toggle_')"
-                  :class="['dropdown-toggle',{dropdownToggleSplit: split}]"
+                  :class="['dropdown-toggle',{'dropdown-toggle-split': split}]"
 
                   ref="toggle"
                   :aria-haspopup="split ? null : 'true'"
