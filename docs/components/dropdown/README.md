@@ -100,7 +100,7 @@ dropdown buttons.
 
 Set the `size` prop to either `sm` for small button(s), or `lg` for large button(s).
 
->**Note:** _chaging the size of the button(s) does not affect the size of the menu items!_
+>**Note:** _changing the size of the button(s) does not affect the size of the menu items!_
 
 
 ## Button contextual variants
@@ -135,7 +135,7 @@ The default ARIA role is set to `menu`, but you can change this default to anoth
 When using `<b-dropdown-header>` components in the dropdown menu, it is recommended to add an
 `id` attribute to the header, and then set the `aria-describedby` attribute (set to the `id`
 value of the associated header) on each following dropdown items under that header.
-This will provide users of assistive technologies (i.e. sight-impared users) additional
+This will provide users of assistive technologies (i.e. sight-impaired users) additional
 context about the dropdown item:
 
 ```html
@@ -162,7 +162,7 @@ Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 | Keypress | Action
 | -------- | ------
 | <kbd>DOWN</kbd> | Will highlight the next lower non-disabled item in the menu.
-| <kbd>UP</kbd> | Will highlight the next higher non-disbled item in the menu.
+| <kbd>UP</kbd> | Will highlight the next higher non-disabled item in the menu.
 | <kbd>ENTER</kbd> or <kbd>SPACE</kbd> | Will click the highlighted menu item.
 | <kbd>ESC</kbd> | Will close the dropdown and return focus to the trigger button.
 | <kbd>TAB</kbd> | Will close the dropdown and jump to the next focusable control on the page.
