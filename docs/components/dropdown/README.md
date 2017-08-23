@@ -3,13 +3,13 @@
 > Dropdowns are toggleable, contextual overlays for displaying lists of links and actions
 in a dropdown menu format.
 
-`<b-dropdown>` (or kown by its shorter alias of `<b-dd>`) components are toggleable,
+`<b-dropdown>` (or known by its shorter alias of `<b-dd>`) components are toggleable,
 contextual overlays for displaying lists of links and more. They’re toggled by
 clicking (or pressing space or enter when focused), not by hovering; this is an
 [intentional design decision](http://markdotto.com/2012/02/27/bootstrap-explained-dropdowns/).
 
-**Note:** _Dropdowns are built on a third party library, [Popper.js](https://popper.js.org/),
-which provides dynamic positioning and viewport detection. Dropwdown requires
+>**Note:** _Dropdowns are built on a third party library, [Popper.js](https://popper.js.org/),
+which provides dynamic positioning and viewport detection. Dropdown requires
 that the `popper.js` library to be loaded into your propject, or if using CDN
 version of Bootstrap-Vue load popper **before** Bootstrap-Vue!_
 
@@ -100,7 +100,7 @@ dropdown buttons.
 
 Set the `size` prop to either `sm` for small button(s), or `lg` for large button(s).
 
-**Note:** _chaging the size of the button(s) does not affect the size of the menu items!_
+>**Note:** _chaging the size of the button(s) does not affect the size of the menu items!_
 
 
 ## Button contextual variants
@@ -121,7 +121,7 @@ component or markup may break keyboard navigation.
 | `<b-dropdown-header>` | A header item, used to help identify a group of dropdown items. | `<b-dd-header>`
 | `<b-dropdown-divider>` | A divider / spacer which can be used to separate dropdown items. | `<b-dd-divider>`
 
-**Note:* _Nested sub-menus are **not** supported._
+>**Note:* _Nested sub-menus are **not** supported._
 
 
 ## Accessibility
@@ -132,10 +132,10 @@ The default ARIA role is set to `menu`, but you can change this default to anoth
 (such as `navigation`) via the `role` prop, depending on your user case.
 
 ### Accessibility with Headers
-When using `<b-dropdown-header>` components in the dropdown menu, it is reccomended to add an
-`id` attribute to the header, and then set the `aria-describedby` attribite (set to the `id`
+When using `<b-dropdown-header>` components in the dropdown menu, it is recommended to add an
+`id` attribute to the header, and then set the `aria-describedby` attribute (set to the `id`
 value of the associated header) on each following dropdown items under that header.
-This will provide users of assitive technologies (i.e. sight-impared users) additional
+This will provide users of assistive technologies (i.e. sight-impared users) additional
 context about the dropdown item:
 
 ```html
