@@ -121,7 +121,7 @@ component or markup may break keyboard navigation.
 | `<b-dropdown-header>` | A header item, used to help identify a group of dropdown items. | `<b-dd-header>`
 | `<b-dropdown-divider>` | A divider / spacer which can be used to separate dropdown items. | `<b-dd-divider>`
 
->**Note:* _Nested sub-menus are **not** supported._
+>**Note:** _Nested sub-menus are **not** supported._
 
 
 ## Accessibility
