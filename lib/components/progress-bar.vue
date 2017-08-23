@@ -2,14 +2,14 @@
     <div role="progressbar"
          :class="progressBarClasses"
          :style="progressBarStyles"
-         :aria-valuenow="value.toFixed(this.computedPrecision)"
-         :aria-valuemin="0"
+         :aria-valuenow="value.toFixed(computedPrecision)"
+         aria-valuemin="0"
          :aria-valuemax="computedMax"
     >
         <slot>
             <span v-if="label" v-html="label"></span>
-            <template v-else-if="computedShowProgress">{{ progress.toFixed(this.computedPrecision) }}%</template>
-            <template v-else-if="computedShowValue">{{ value.toFixed(this.computedPrecision) }}</template>
+            <template v-else-if="computedShowProgress">{{ progress.toFixed(computedPrecision) }}%</template>
+            <template v-else-if="computedShowValue">{{ value.toFixed(computedPrecision) }}</template>
         </slot>
     </div>
 </template>
@@ -27,7 +27,7 @@
             },
             progressBarStyles() {
                 return {
-                    width: (this.value / this.computedMax) + '%',
+                    width: (100 * (this.value / this.computedMax)) + '%',
                     height: this.computedHeight,
                     lineHeight: this.computedHeight
                 };

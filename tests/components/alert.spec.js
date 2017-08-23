@@ -1,6 +1,6 @@
 import {loadFixture, testVM, nextTick, setData} from '../helpers';
 import Vue from 'vue/dist/vue.common';
-
+jest.useFakeTimers();
 describe('alert', async () => {
     beforeEach(loadFixture('alert'));
     testVM();
@@ -48,11 +48,14 @@ describe('alert', async () => {
         const dismissTime = 5;
         alert.$on('dismiss-count-down', spy);
         await setData(app, 'dismissCountDown', dismissTime);
-        await nextTick();
-
+        // await nextTick();
+        expect(spy).not.toBeCalled();
+        jest.runTimersToTime(1000);
         // Emits a dismiss-count-down` event
-        expect(spy).toHaveBeenCalledWith(dismissTime);
-        await nextTick();
+        expect(spy).toHaveBeenCalledWith(dismissTime-1);
+        // await nextTick();
+        jest.runAllTimers();
         expect($el.textContent).toContain('This alert will dismiss after');
+        expect(spy.mock.calls.length).toBe(dismissTime+1);
     });
 });

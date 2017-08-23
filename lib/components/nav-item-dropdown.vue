@@ -1,22 +1,22 @@
 <template>
     <li :id="safeId()" :class="dropdownClasses">
 
-        <a :class="['nav-link', dropdownToggle, {disabled}]"
+        <a :class="toggleClasses"
            href="#"
            ref="button"
            :id="safeId('_BV_button_')"
            aria-haspopup="true"
            :aria-expanded="visible ? 'true' : 'false'"
            :disabled="disabled"
-           @click.stop.prevent="toggle($event)"
-           @keydown.enter.stop.prevent="toggle($event)"
-           @keydown.space.stop.prevent="toggle($event)"
+           @click.stop.prevent="toggle"
+           @keydown.enter.stop.prevent="toggle"
+           @keydown.space.stop.prevent="toggle"
         >
             <slot name="button-content"><slot name="text"><span v-html="text"></span></slot></slot>
         </a>
 
         <div :class="menuClasses"
-             role="menu"
+             :role="role"
              ref="menu"
              :aria-labelledby="safeId('_BV_button_')"
              @mouseover="onMouseOver"
@@ -37,8 +37,9 @@
     export default {
         mixins: [idMixin, dropdownMixin],
         computed: {
-            dropdownToggle() {
-                return this.noCaret ? '' : 'dropdown-toggle';
+            isNav() {
+                // Signal to dropdown mixin that we are in a navbar
+                return true;
             },
             dropdownClasses() {
                 return [
@@ -49,10 +50,17 @@
                     this.visible ? 'show' : ''
                 ];
             },
+            toggleClasses() {
+                return [
+                    'nav-link',
+                    this.noCaret ? '' : 'dropdown-toggle',
+                    this.disabled ? disabled : ''
+                ];
+            },
             menuClasses() {
                 return [
                     'dropdown-menu',
-                    this.right ? 'dropdown-menu-right': '',
+                    this.right ? 'dropdown-menu-right': 'dropdown-menu-left',
                     this.visible ? 'show' : ''
                 ];
             }
@@ -61,6 +69,10 @@
             noCaret: {
                 type: Boolean,
                 default: false
+            },
+            role: {
+                type: String,
+                default: 'menu'
             }
         }
     };
