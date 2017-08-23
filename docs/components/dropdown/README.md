@@ -3,8 +3,8 @@
 > Dropdowns are toggleable, contextual overlays for displaying lists of links and actions
 in a dropdown menu format.
 
-`<b-dropdown>` (or `<b-dd>` for les tying) components are toggleable, contextual overlays for
-displaying lists of links and more, and they’re fully interactive. They’re toggled by
+`<b-dropdown>` (or kown by its shorter alias of `<b-dd>`) components are toggleable,
+contextual overlays for displaying lists of links and more. They’re toggled by
 clicking (or pressing space or enter when focused), not by hovering; this is an
 [intentional design decision](http://markdotto.com/2012/02/27/bootstrap-explained-dropdowns/).
 
