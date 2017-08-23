@@ -8,8 +8,8 @@
     >
         <slot>
             <span v-if="label" v-html="label"></span>
-            <template v-else-if="computedShowProgress">{{ progress.toFixed(this.computedPrecision) }}%</template>
-            <template v-else-if="computedShowValue">{{ value.toFixed(this.computedPrecision) }}</template>
+            <template v-else-if="computedShowProgress">{{ progress.toFixed(computedPrecision) }}%</template>
+            <template v-else-if="computedShowValue">{{ value.toFixed(computedPrecision) }}</template>
         </slot>
     </div>
 </template>
