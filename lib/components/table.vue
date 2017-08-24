@@ -418,7 +418,7 @@
                     }
                     // Label shortcut
                     if (typeof fields[k] === 'string') {
-                        fields[k] =  { label: fields[k] }
+                        fields[k] =  { label: startCase(k) }
                     }
                 })
 
