@@ -498,7 +498,7 @@
         },
         methods: {
             keys,
-            fieldClass(field, key) {
+            fieldClass (field, key) {
                 return [
                     field.sortable ? 'sorting' : '',
                     (field.sortable && this.localSortBy === key) ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc') : '',
@@ -507,7 +507,7 @@
                     field.thClass ? field.thClass : ''
                 ];
             },
-            tdClass(field, item, key) {
+            tdClass (field, item, key) {
                 let cellVariant = '';
                 if (item._cellVariants && item._cellVariants[key]) {
                     cellVariant = (this.inverse ? 'bg-' : 'table-') + item._cellVariants[key];
@@ -519,12 +519,12 @@
                     field.tdClass ? field.tdClass : ''
                 ];
             },
-            rowClass(item) {
+            rowClass (item) {
                 return [
                     item._rowVariant ? ((this.inverse ? 'bg-' : 'table-') + item._rowVariant) : ''
                 ];
             },
-            rowClicked(e, item, index) {
+            rowClicked (e, item, index) {
                 if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
@@ -533,7 +533,7 @@
                 }
                 this.$emit('row-clicked', item, index, e);
             },
-            rowDblClicked(e, item, index) {
+            rowDblClicked (e, item, index) {
                 if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
@@ -542,7 +542,7 @@
                 }
                 this.$emit('row-dblclicked', item, index, e);
             },
-            rowHovered(e, item, index) {
+            rowHovered (e, item, index) {
                 if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
@@ -551,7 +551,7 @@
                 }
                 this.$emit('row-hovered', item, index, e);
             },
-            headClicked(e, field, key) {
+            headClicked (e, field, key) {
                 if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
@@ -581,19 +581,19 @@
                     this.$emit('sort-changed', this.context);
                 }
             },
-            refresh() {
+            refresh () {
                 // Expose refresh method
                 if (this.hasProvider) {
                     this._providerUpdate();
                 }
             },
-            _providerSetLocal(items) {
+            _providerSetLocal (items) {
                 this.localItems = (items && items.length > 0) ? items.slice() : [];
                 this.localBusy = false;
                 this.$emit('refreshed');
                 this.emitOnRoot('table::refreshed', this.id);
             },
-            _providerUpdate() {
+            _providerUpdate () {
                 // Refresh the provider items
                 if (this.computedBusy || !this.hasProvider) {
                     // Don't refresh remote data if we are 'busy' or if no provider
@@ -606,10 +606,7 @@
                 // Call provider function with context and optional callback
                 const data = this.items(this.context, this._providerSetLocal);
 
-                if (!data) {
-                    // Provider is using callback
-                    return;
-                } else if (data.then && typeof data.then === 'function') {
+                if (data) if (data.then && typeof data.then === 'function') {
                     // Provider returned Promise
                     data.then(items => {
                         this._providerSetLocal(items);
@@ -619,17 +616,14 @@
                     this._providerSetLocal(data);
                 }
             },
-            hasFormatter(field) {
-                return field.formatter && ((typeof (field.formatter) === 'function') || (typeof (field.formatter) === 'string'));
-            },
-            callFormatter(item, key, field) {
+            hasFormatter: (field) => field.formatter && ((typeof (field.formatter) === 'function') || (typeof (field.formatter) === 'string')),
+            callFormatter (item, key, field) {
                 if (field.formatter && (typeof (field.formatter) === 'function'))
                     return field.formatter(item[key], key, item);
 
                 if (field.formatter && (typeof (this.$parent[field.formatter]) === 'function'))
                     return this.$parent[field.formatter](item[key], key, item);
             }
-
         }
     };
 </script>
