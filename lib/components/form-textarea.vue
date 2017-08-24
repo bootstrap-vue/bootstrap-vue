@@ -93,7 +93,7 @@
             value(newVal, oldVal) {
                 // Update our localValue
                 if (newVal !== oldVal) {
-                    this.localvalue = newVal;
+                    this.localValue = newVal;
                 }
             },
             localValue(newVal, oldVal) {
