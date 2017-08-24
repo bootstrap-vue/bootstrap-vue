@@ -228,7 +228,6 @@ When fields is provided as an object, the following field properties are availab
 in the Vue.js guide._
  >- _Any additional properties added to the field objects will be left intact - so you can access
 them via the named scoped slots for custom data, header, and footer rendering._
->- _by design, slots and formatter are **mutually exclusive**. Ie. if formatter defined at field props, then slot will not be used even if it defined for this field._
 
 For information and usage about scoped slots and formatters, refer to
 the [**Custom Data Rendering**](#custom-data-rendering) section below.
@@ -330,18 +329,22 @@ event:
 
 ### Formatter callback
 
-Other option to make custom field output is to use formatter callback function.
+One more option to customize field output is to use formatter callback function.
 To enable this field's property `formatter` is used. Value of this property may be 
 String or function reference. In case of String value, function must be defined at parent component's methods, 
 to provide formatter as `Function`, it must be declared at global scope (window or as global mixin at Vue). 
 
-Callback function accepts one argument - `value`.
+Callback function accepts three arguments - `value`, `key`, `row`.
 
 **Example 6: Custom data rendering with formatter callback function**
 ```html
 <template>
   <div>
   <b-table :fields="fields" :items="items">
+<template slot="name" scope="data">
+      <a :href="data.index+1">{{data.item.name}}</a>
+    </template>
+
   </b-table>
   </div>
 </template>

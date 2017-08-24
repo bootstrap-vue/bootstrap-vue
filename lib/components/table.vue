@@ -57,11 +57,8 @@
             @mouseenter="rowHovered($event,item,index)"
         >
             <template v-for="(field,key) in computedFields">
-                <td v-if="!hasFormatter(field)" :class="tdClass(field, item, key)" :key="key">
+                <td :class="tdClass(field, item, key)" :key="key">
                     <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
-                </td>
-                <td v-else :key="key" :class="tdClass(field, item, key)"
-                    v-html="callFormatter(item, key, field)">
                 </td>
             </template>
         </tr>
@@ -87,7 +84,7 @@
 </template>
 
 <script>
-    import { warn } from '../utils';
+    import { warn, pluckProps } from '../utils';
     import { keys } from '../utils/object';
     import { isArray } from '../utils/array'
     import { listenOnRootMixin } from '../mixins';
@@ -441,7 +438,18 @@
                 }
 
                 // Shallow copy of items, so we don't mutate the original array order/size
-                items = items.slice();
+
+                items = JSON.parse(JSON.stringify(items))
+
+                // Apply formatter only if fields object defined
+                if (this.fields && this.fields.toString() === '[object Object]'){
+                    const keysToFormat = keys(this.fields).filter((k, i, a) => this.hasFormatter(this.fields[k]))
+                    keysToFormat.forEach(k =>{
+                        items.forEach(item =>{
+                            item[k] = this.callFormatter(item, k, this.fields[k])
+                        }, this)
+                    }, this)
+                }
 
                 // Apply local filter
                 if (filter && !this.providerFiltering) {
@@ -616,10 +624,10 @@
             },
             callFormatter(item, key, field) {
                 if (field.formatter && (typeof (field.formatter) === 'function'))
-                    return field.formatter(item[key]);
+                    return field.formatter(item[key], key, item);
 
                 if (field.formatter && (typeof (this.$parent[field.formatter]) === 'function'))
-                    return this.$parent[field.formatter](item[key]);
+                    return this.$parent[field.formatter](item[key], key, item);
             }
 
         }
