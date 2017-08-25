@@ -66,7 +66,6 @@
     "bootstrap": "^4.0.0-beta",
     "jquery": "^3.0.0",
     "popper.js": "^1.12.3",
-    "tether": "latest",
     "vue": "^2.4.2",
     "vue-functional-data-merge": "^1.0.6"
   },
@@ -119,12 +118,14 @@
     "SSR",
     "Web",
     "Components",
+    "Directives",
     "Polymer",
     "Vue",
     "VueJS",
     "Vue2",
     "WebComponents",
     "jquery",
+    "Popper.js",
     "vue-strap",
     "vueify",
     "vuestrap",
@@ -156,7 +157,6 @@
     "Tab",
     "Table",
     "Tag",
-    "Tooltip",
-    "Thether"
+    "Tooltip"
   ]
 }
