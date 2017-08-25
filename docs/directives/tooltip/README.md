@@ -8,9 +8,9 @@ to apear.
 
 ```html
 <template>
-<div class="text-center">
+<div>
   <h5>Triggers</h5>
-  <div class="row">
+  <div class="row text-center mb-3">
     <div class="col-sm-3">
       <b-btn v-b-tooltip="'ToolTip!'" variant="outline-success">Hover and Focus</b-btn>
     </div>
@@ -21,26 +21,26 @@ to apear.
       <b-btn v-b-tooltip.click="'ToolTip!'" variant="outline-success">Click</b-btn>
     </div>
     <div class="col-sm-3">
-      <b-btn v-b-tooltip.focus="'ToolTip!'" variant="outline-success">Fucus</b-btn>
+      <b-btn v-b-tooltip.focus="'ToolTip!'" variant="outline-success">Focus</b-btn>
     </div>
   </div>
   <h5>Positioning</h5>
-  <div class="row">
+  <div class="row text-center mb-3">
     <div class="col-sm-3">
-      <b-btn v-b-tooltip.top="'ToolTip!'" variant="primary">top</b-btn>
+      <b-btn v-b-tooltip.top="'ToolTip!'" variant="primary">Top</b-btn>
     </div>
     <div class="col-sm-3">
       <b-btn v-b-tooltip.right="'ToolTip!'" variant="primary">Right</b-btn>
     </div>
     <div class="col-sm-3">
-      <b-btn v-b-tooltip.left="'ToolTip!'" variant="primary">left</b-btn>
+      <b-btn v-b-tooltip.left="'ToolTip!'" variant="primary">Left</b-btn>
     </div>
     <div class="col-sm-3">
       <b-btn v-b-tooltip.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
     </div>
   </div>
   <h5>Content</h5>
-  <div class="row">
+  <div class="row text-center mb-3">
     <div class="col-sm-3">
       <b-btn v-b-tooltip title="Tip from title attributee" variant="success">Title</b-btn>
     </div>

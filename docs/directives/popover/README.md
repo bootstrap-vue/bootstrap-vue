@@ -1,8 +1,8 @@
 # Popovers
 
-> Documentation and examples for adding Bootstra-Vue popovers to any element on your site,
+> Documentation and examples for adding Bootstrap-Vue popovers to any element on your site,
 using Bootstrap V4 CSS for styling and animations. Popovers can be triggered by hovering,
-focusing, or clicking an element, and can contain both content and a title heding.
+focusing, or clicking an element, and can contain both content and a title heading.
 Popovers are tooltips on steroids.
 
 Use the `v-b-popover` directive on any **element** or **component** where you would
@@ -20,7 +20,7 @@ like a popover to appear.
       <b-btn v-b-popover.hover="'Popover!'" variant="outline-success">Hover</b-btn>
     </div>
     <div class="col-sm-3">
-      <b-btn v-b-popover.hover.focus="'Popover!'" variant="outline-success">HOver + Focus</b-btn>
+      <b-btn v-b-popover.hover.focus="'Popover!'" variant="outline-success">Hover + Focus</b-btn>
     </div>
     <div class="col-sm-3">
       <b-btn v-b-popover.focus="'Popover!'" variant="outline-success">Focus</b-btn>
@@ -29,13 +29,13 @@ like a popover to appear.
   <h5>Positioning</h5>
   <div class="row text-center mb-3">
     <div class="col-sm-3">
-      <b-btn v-b-popover.top="'Popover!'" variant="primary">top</b-btn>
+      <b-btn v-b-popover.top="'Popover!'" variant="primary">Top</b-btn>
     </div>
     <div class="col-sm-3">
       <b-btn v-b-popover.right="'Popover!'" variant="primary">Right</b-btn>
     </div>
     <div class="col-sm-3">
-      <b-btn v-b-popover.left="'Popover!'" variant="primary">left</b-btn>
+      <b-btn v-b-popover.left="'Popover!'" variant="primary">Left</b-btn>
     </div>
     <div class="col-sm-3">
       <b-btn v-b-popover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
@@ -78,7 +78,7 @@ export default {
 }
 </script>
 
-<!-- popovrr-1.vue -->
+<!-- popover-1.vue -->
 ```
 
 ## Directive syntax
