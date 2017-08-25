@@ -48,10 +48,10 @@ to apear.
       <b-btn v-b-tooltip="'String Tip'" variant="success">String</b-btn>
     </div>
     <div class="col-sm-3">
-      <b-btn v-b-tooltip="tipData" variant="success">Data</b-btn>
+      <b-btn v-b-tooltip.html="tipData" variant="success">Data</b-btn>
     </div>
     <div class="col-sm-3">
-      <b-btn v-b-tooltip="tipMethod" variant="success">Method</b-btn>
+      <b-btn v-b-tooltip.html="tipMethod" variant="success">Method</b-btn>
     </div>
   </div>
 </div>
@@ -60,11 +60,11 @@ to apear.
 <script>
 export default {
   data: {
-    tipData: 'Tooltip Message'
+    tipData: 'Tooltip <em>Message</em>'
   },
   methods: {
     tipMethod() {
-      return Date.now();
+      return '<strong>' + Date.now() + '</string>';
     }
   }
 }
