@@ -123,4 +123,4 @@ v-b-tooltip.hover.bottom  => Show on hover and place at bottom
 v-b-tooltip.bottom.hover  => Same as above
 ```
 
-Note: If a titleis not provided, then the tooltip will not display.
+Note: If a title is not provided, then the tooltip will not display.
