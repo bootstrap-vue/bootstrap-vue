@@ -24,6 +24,13 @@
 <!-- tooltip-1.vue -->
 ```
 
+**Note:** _The `<b-tooltip` component inserts a hidden (`display:none`) `<div>` container
+element at the point in the DOM where the `<b-tooltip>` component is placed.  This may 
+affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
+and `<b-input-group>`. To avoid these posible layout issues, place the `<b-tooltip>`
+component **outside** of these types of components._
+
+
 ## `v-b-tooltip` Directive Usage
 
 ```html
@@ -38,5 +45,5 @@
 <!-- tooltip-2.vue -->
 ```
 
-Refer to the [`v-b-tooltip` documentation](/docs/directives/tooltip) for more informtion on
-using teh directive format
+Refer to the [`v-b-tooltip` documentation](/docs/directives/tooltip) for more information on
+using the directive format
