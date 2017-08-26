@@ -10,12 +10,9 @@
 
 <script>
     import PopOver from '../classes/popover';
-    import { keys } from '../utils/object';
     import { isArray } from '../utils/array';
+    import observeDom from '../utils/observe-dom';
     
-    const selfClosingTagsRE = /^(img|br|hr|wbr|source)$/i;
-    const forbiddenTagsRE = /^(object|embed|input|button|textarea|select|iframe|script|link|command|area|base)$/i;
-
     export default {
         data() {
             popOver: null
@@ -23,7 +20,7 @@
         props: {
             targetId: {
                 // ID of element to place popover on
-                // must be in DOM
+                // Must be in DOM
                 type: String,
                 default: null,
                 required: true
@@ -60,6 +57,13 @@
                     // We pass the title & content as part of the config
                     this.popOver = new PopOver(el, this.getConfig(), this.$root);
                     this.$on('close', this.onClose);
+                    // Observe content Child changes so we can notify popover of possible size change
+                    observeDom(this.$refs.content, this.updatePosition.bind(this), {
+                        subtree: true,
+                        childList: true,
+                        attributes: true,
+                        attributeFilter: ['class', 'style']
+                    });
                 }
             }
         },
@@ -98,6 +102,12 @@
                     this.popOver.hide(callback);
                 } else if (typeof callback === 'function') {
                     callback();
+                }
+            },
+            updatePosition() {
+                if (this.popOver) {
+                    // Instruct popper to reposition popover if necessary
+                    this.popOver.update();
                 }
             },
             getConfig() {
