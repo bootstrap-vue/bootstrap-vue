@@ -55,7 +55,7 @@
             }
         },
         mounted() {
-            const el = document.querySeletor(`#${this.targetId}`);
+            const el = document.body.querySelector(`#${this.targetId}`);
             if (el && !this.popOver) {
                 // We pass the title & content as part of the config
                 this.popOver = new PopOver(el, this.getConfig(), this.$root);
