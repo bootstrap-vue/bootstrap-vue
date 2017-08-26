@@ -41,7 +41,7 @@
                 type: [String, Array],
                 default: 'click'
             },
-            position: {
+            placement: {
                 type: String,
                 default: 'right'
             },
@@ -55,10 +55,12 @@
             }
         },
         mounted() {
-            const el = document.body.querySelector(`#${this.targetId}`);
-            if (el && !this.popOver) {
-                // We pass the title & content as part of the config
-                this.popOver = new PopOver(el, this.getConfig(), this.$root);
+            if (this.targetId) {
+                const el = document.body.querySelector(`#${this.targetId}`);
+                if (el && !this.popOver) {
+                    // We pass the title & content as part of the config
+                    this.popOver = new PopOver(el, this.getConfig(), this.$root);
+                }
             }
         },
         updated() {
@@ -78,7 +80,7 @@
                 return {
                     title: this.title.trim() || '',
                     content: this.content.trim() || '',
-                    position: this.position || 'top',
+                    placement: this.placement || 'top',
                     delay: this.delay || 0,
                     offset: this.offset || 0,
                     triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers
