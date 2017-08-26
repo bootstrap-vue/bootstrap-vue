@@ -1,4 +1,22 @@
 {
   "title": "Tooltip",
-  "component": "bTooltip"
+  "component": "bTooltip",
+  "events": [
+    {
+      "event": "show",
+      "description": "When tooltip is about to be shown"
+    },
+    {
+      "event": "shown",
+      "description": "When tooltip is shown"
+    },
+    {
+      "event": "hide",
+      "description": "When tooltip is about to be hidden"
+    },
+    {
+      "event": "hidden",
+      "description": "When tooltip is hidden"
+    }
+  ]
 }
