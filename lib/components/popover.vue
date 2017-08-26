@@ -59,7 +59,7 @@
                 if (!target) {
                     return;
                 }
-                target = document.getElementById((/^#/.test(target) ? target.slice(1) : target);
+                target = document.getElementById(/^#/.test(target) ? target.slice(1) : target);
                 if (target && !this.popOver) {
                     // We pass the title & content as part of the config
                     this.popOver = new PopOver(target, this.getConfig(), this.$root);
