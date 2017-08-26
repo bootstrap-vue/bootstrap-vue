@@ -34,7 +34,7 @@
                 type: [String, Array],
                 default: 'hover focus'
             },
-            position: {
+            placement: {
                 type: String,
                 default: 'top'
             },
@@ -48,10 +48,12 @@
             }
         },
         mounted() {
-            const el = document.body.querySelector(`#${this.targetId}`);
-            if (el && !this.toolTip) {
-                // We pass the title as part of the config
-                this.toolTip = new ToolTip(el, this.getConfig(), this.$root);
+            if (this.targetId) {
+                const el = document.body.querySelector(`#${this.targetId}`);
+                if (el && !this.toolTip) {
+                    // We pass the title as part of the config
+                    this.toolTip = new ToolTip(el, this.getConfig(), this.$root);
+                }
             }
         },
         updated() {
@@ -70,7 +72,7 @@
             baseConfig() {
                 return {
                     title: this.title.trim() || '',
-                    position: this.position || 'top',
+                    placement: this.placement || 'top',
                     delay: this.delay || 0,
                     offset: this.offset || 0,
                     triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers
