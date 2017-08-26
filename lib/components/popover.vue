@@ -1,11 +1,10 @@
 <template>
     <!--
       Container for possible title and content.
-      We v-if ourselves out of the DOM so we don't interfere with layout
      -->
-    <div v-if="false">
-        <slot name="title"></slot>
-        <slot></slot>
+    <div v-show="false" class="d-none">
+        <div ref="title"><slot name="title"></slot></div>
+        <div ref="content"><slot></slot></slot>
     </div>
 </template>
 
@@ -60,6 +59,7 @@
                 if (el && !this.popOver) {
                     // We pass the title & content as part of the config
                     this.popOver = new PopOver(el, this.getConfig(), this.$root);
+                    this.$on('close', this.onClose);
                 }
             }
         },
@@ -71,9 +71,14 @@
         },
         destroyed() {
             if (this.popOver) {
+                // Bring our tuff back if necessary
+                this.$el.appendChild(this.$refs.title);
+                this.$el.appendChild(this.$refs.content);
+                // Destroy the popover
                 this.popOver.destroy();
-                this.popOver = null
+                this.popOver = null;
             }
+            this.$off('close', this.onClose);
         },
         computed: {
             baseConfig() {
@@ -88,70 +93,27 @@
             }
         },
         methods: {
+            onClose(callback) {
+                if (this.popOver) {
+                    this.popOver.hide(callback);
+                } else {
+                    callback();
+                }
+            },
             getConfig() {
                 const cfg = assign({}, this.baseConfig);
-                if (this.$slots['title']) {
-                    // Grab the title from the slot, it any
-                    const title = this.getSlotContent(this.$slots['title']);
-                    // If slot has content, it overrides 'title' prop
-                    if (title.trim()) {
-                        cfg.title = title.trim();
-                        cfg.html = true;
-                    }
+                if (this.$refs.title.innerHTML.trim()) {
+                    // We pass the DOM element to preserve components
+                    cfg.title = this.$refs.title;
+                    cfg.html = true;
                 }
-                if (this.$slots.default) {
-                    // Grab the content from the slot, it any
-                    const content = this.getSlotContent(this.$slots.default);
-                    // If slot has content, it overrides 'content' prop
-                    if (content.trim()) {
-                        cfg.content = content.trim();
-                        cfg.html = true;
-                    }
+                if (this.$refs.content.innerHTML.trim()) {
+                    // We pass the DOM element to preserve components
+                    cfg.content = this.$refs.content;
+                    cfg.html = true;
                 }
                 return cfg;
-            },
-            getSlotContent(nodes) {
-                // Recursively build HTML content for provided slot
-                // We do this because we are v-if'ed out and can't use this.$el.innerHTML
-                // Supports only basic HTML, no components!
-                nodes = nodes || [];
-                let html = '';
-                nodes.forEach(node => {
-                    if (node.functionalOptions || node.componentOptions) {
-                        // Regular components don't render, but functional do, but
-                        // since we are recreating HTML, they will not function
-                        // as expected, so we skip over both tyeps
-                        return;
-                    }
-                    if (node.text) {
-                        // Text Node
-                        html += node.text;
-                    } else {
-                        // HTML element
-                        const tag = node.tag;
-                        if (forbiddenTagsRE.test(tag)) {
-                            // This is a no-no tag, so we skip it
-                            return;
-                        }
-                        const data = node.data || {};
-                        const children = node.children || [];
-                        const cls = data.staticClass ? ` class="${data.staticClass}"` : '';
-                        let attrs = '';
-                        keys(data.attrs || {}).forEach(a => {
-                            attrs += ` ${a}="${data.attrs[a]}"`
-                        });
-                        // Build Opening Tag
-                        const tag1 = `<${tag}${cls}${attrs}>`;
-                        // Build Closing Tag
-                        const tag2 = selfClosingTagsRE.test(tag) ? '' : `</${tag}>`;
-                        // Build content, if any (recursive)
-                        const content = (children.length > 0) ? this.getSlotContent(children) : '';
-                        // Append to HTML string
-                        html += `${tag1}${content}${tag2}`;
-                    }
-                });
-                return html;
-            }
+          }
         }
     };
 </script>
