@@ -63,7 +63,7 @@ element via the `<b-popover>` component or `v-b-popover` directive.
   <b-popover target-id="exPopoverReactive1" trigger="click">
      <template slot="title">Interactive Content</template>
      <b-form-group label="Name" description="Enter your name">
-        <b-form-input size="sm" v-model="input1"></b-form-imput>
+        <b-form-input size="sm" v-model="input1"></b-form-input>
      </b-form-group>
      <b-form-group label="Color" description="Pick a color">
        <b-form-select size="sm" v-model="input2" :options="options"></b-form-select>

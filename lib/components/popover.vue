@@ -4,7 +4,7 @@
      -->
     <div v-show="false" class="d-none" aria-hidden="true">
         <div ref="title"><slot name="title"></slot></div>
-        <div ref="content"><slot></slot></slot>
+        <div ref="content"><slot></slot></div>
     </div>
 </template>
 
@@ -12,10 +12,13 @@
     import PopOver from '../classes/popover';
     import { isArray } from '../utils/array';
     import observeDom from '../utils/observe-dom';
-    
+    import {assign} from '../utils/object';
+
     export default {
         data() {
-            popOver: null
+            return {
+                popOver: null
+            }
         },
         props: {
             targetId: {
@@ -75,7 +78,7 @@
         },
         destroyed() {
             if (this.popOver) {
-                // Bring our tuff back if necessary
+                // Bring our stuff back if necessary
                 this.$el.appendChild(this.$refs.title);
                 this.$el.appendChild(this.$refs.content);
                 // Destroy the popover
