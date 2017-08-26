@@ -52,12 +52,12 @@
         },
         mounted() {
             if (this.targetId) {
-                const el = document.body.querySelector(`#${this.targetId}`);
-                if (el && !this.popOver) {
+                const target = document.body.querySelector(`#${this.targetId}`);
+                if (target && !this.popOver) {
                     // We pass the title & content as part of the config
-                    this.popOver = new PopOver(el, this.getConfig(), this.$root);
+                    this.popOver = new PopOver(target, this.getConfig(), this.$root);
                     this.$on('close', this.onClose);
-                    // Observe content Child changes so we can notify popover of possible size change
+                    // Observe content Child changes so we can notify popper of possible size change
                     observeDom(this.$refs.content, this.updatePosition.bind(this), {
                         subtree: true,
                         childList: true,
@@ -70,7 +70,7 @@
         updated() {
             // If content changes, etc
             if (this.popOver) {
-                this.popOver.updateConfig(getConfig());
+                this.popOver.updateConfig(this.getConfig());
             }
         },
         destroyed() {
@@ -92,7 +92,13 @@
                     placement: this.placement || 'top',
                     delay: this.delay || 0,
                     offset: this.offset || 0,
-                    triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers
+                    triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
+                    callbacks: {
+                        show: () => this.$emit('show'),
+                        shown: () => this.$emit('shown'),
+                        hide: () => this.$emit('hide'),
+                        hidden: () => this.$emit('hidden')
+                    }
                 };
             }
         },
