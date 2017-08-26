@@ -100,7 +100,7 @@ element via the `<b-popover>` component or `v-b-popover` directive.
     }
   };
 </script>
-<!-- popover-1.vue -->
+<!-- popover-2.vue -->
 ```
 
 ## `v-b-popover` Directive Usage
