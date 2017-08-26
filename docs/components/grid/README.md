@@ -1,21 +1,54 @@
-# Grid System
+# Grid Layout System
 
-> Use our powerful mobile-first flexbox grid (via the `<b-row>`, `<b-form-row`> and
-`<b-col>` components) to build layouts of all shapes and sizes thanks to a twelve
-column system, five default responsive tiers, CSS Sass variables and mixins,
-and dozens of predefined classes.
+> Use the powerful mobile-first flexbox grid (via the `<b-container>`, `<b-row>`,
+`<b-form-row>` and `<b-col>` components) to build layouts of all shapes and sizes
+thanks to a twelve column system, five default responsive tiers, CSS Sass variables
+and mixins, and dozens of predefined classes.
 
+## Containers
+Containers (`<b-container>`) are the most basic layout element in Bootstrap and
+is **required when using the grid system**. Choose from a responsive, fixed-width
+container (meaning its max-width changes at each breakpoint) by default, or
+fluid-width (meaning it’s 100% wide all the time) by setting 'fluid' prop.
+
+While containers can be nested, most layouts do not require a nested container.
+
+**Fixed width container, based on viewport breakpoints:**
+```html
+<b-container>
+  <!-- Content here -->
+</b-container>
+```
+
+**Fluid container which is always 100% width, regardless of viewport brekpoint:**
+```html
+<b-container fluid>
+  <!-- Content here -->
+</b-container>
+```
+
+## Rows
+`<b-row>` components must be placed inside a `<b-container>` component, or an
+element (such as a `<div>`) that has the class `container` or `container-fluid`
+applied to it.
+
+
+## Columns
 `<b-col>` Must be placed inside a `<b-row>` component, or an element (such as a `<div>`)
-that has the class `row` applied to it, or - in the case of forms - inside a
-[`<b-form-row>` component](/docs/components/form) to obtain columns with more compact
-margins.
+that has the class `row` applied to it, or - in the case of [forms](/docs/components/form) -
+inside a `<b-form-row>` component to obtain columns with more compact margins.
+
+`<b-col>` provides many optional props for controling width and offest at
+various viewport breakpoints.
 
 **Note:** _The `offest-*` props will work once Bootstrap V4.0.0.beta.2 is released.
 The current V4.0.0.beta.1 CSS does not include the required `.offest-*` classes._
 
 
+## Examples
+
 ```html
-<div class="container bv-example-row">
+<b-container class="bv-example-row">
     <b-row>
         <b-col>1 of 2</b-col>
         <b-col>2 of 2</b-col>
@@ -25,13 +58,13 @@ The current V4.0.0.beta.1 CSS does not include the required `.offest-*` classes.
         <b-col>2 of 3</b-col>
         <b-col>3 of 3</b-col>
     </b-row>
-</div>
+</b-container>
 
 <!-- col-1.vue -->
 ```
 
 ```html
-<div class="container bv-example-row">
+<b-container class="bv-example-row">
     <b-row>
         <b-col>Column</b-col>
         <b-col>Column</b-col>
@@ -39,22 +72,22 @@ The current V4.0.0.beta.1 CSS does not include the required `.offest-*` classes.
         <b-col>Column</b-col>
         <b-col>Column</b-col>
     </b-row>
-</div>
+</b-container>
 
 <!-- col-2.vue -->
 ```
 
 ```html
 <div id="app">
-    <div class="container">
+    <b-container>
         <b-row>
             <b-col>
                 <h2>Grid Columns</h2>
             </b-col>
         </b-row>
-    </div>
+    </b-container>
     <div class="bv-example-row">
-        <div class="container">
+        <b-container>
 
             <b-row>
                 <b-col class="header">
@@ -179,7 +212,7 @@ The current V4.0.0.beta.1 CSS does not include the required `.offest-*` classes.
                 <b-col cols="6">.col-6</b-col>
                 <b-col cols="6">.col-6</b-col>
             </b-row>
-        </div>
+        </b-container>
     </div>
 </div>
 
