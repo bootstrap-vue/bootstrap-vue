@@ -1,19 +1,17 @@
 <template>
     <!--
       Container for possible title content.
-      We v-if ourselves out of the DOM so we don't interfere with layout
      -->
-    <div v-if="false"><slot></slot></div>
+    <div v-show="false" class="d-none" aria-hidden="true">
+        <div ref="title"><slot></slot></div>
+    </div>
 </template>
 
 <script>
     import ToolTip from '../classes/tooltip';
-    import { keys } from '../utils/object';
     import { isArray } from '../utils/array';
+    import observeDom from '../utils/observe-dom';
     
-    const selfClosingTagsRE = /^(img|br|hr|wbr|source)$/i;
-    const forbiddenTagsRE = /^(object|embed|input|button|textarea|select|iframe|script|link|command|area|base)$/i;
-
     export default {
         data() {
             toolTip: null
@@ -49,21 +47,30 @@
         },
         mounted() {
             if (this.targetId) {
-                const el = document.body.querySelector(`#${this.targetId}`);
-                if (el && !this.toolTip) {
+                const target = document.body.querySelector(`#${this.targetId}`);
+                if (target && !this.toolTip) {
                     // We pass the title as part of the config
-                    this.toolTip = new ToolTip(el, this.getConfig(), this.$root);
+                    this.toolTip = new ToolTip(target, this.getConfig(), this.$root);
+                    // Observe content Child changes so we can notify popper of possible size change
+                    observeDom(this.$refs.title, this.updatePosition.bind(this), {
+                        subtree: true,
+                        childList: true,
+                        attributes: true,
+                        attributeFilter: ['class', 'style']
+                    });
                 }
             }
         },
         updated() {
-            // If content changes, etc
+            // If content/props changes, etc
             if (this.toolTip) {
-                this.toolTip.updateConfig(getConfig());
+                this.toolTip.updateConfig(this.getConfig());
             }
         },
         destroyed() {
             if (this.toolTip) {
+                // bring our content back if needed
+                this.$el.appendChild(this.$refs.title);
                 this.toolTip.destroy();
                 this.tooltip = null;
             }
@@ -75,66 +82,26 @@
                     placement: this.placement || 'top',
                     delay: this.delay || 0,
                     offset: this.offset || 0,
-                    triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers
+                    triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
+                    callbacks: {
+                        show: () => this.$emit('show'),
+                        shown: () => this.$emit('shown'),
+                        hide: () => this.$emit('hide'),
+                        hidden: () => this.$emit('hidden')
+                    }
                 };
             }
         },
         methods: {
             getConfig() {
                 const cfg = assign({}, this.baseConfig);
-                if (this.$slots.default) {
-                    // Grab the title content from the slot, it any
-                    const title = this.getSlotContent(this.$slots.default);
+                if (this.$refs.title.innerHTML.trim()) {
                     // If slot has content, it overrides 'title' prop
-                    // And assume HTML format
-                    if (title.trim()) {
-                        cfg.title = title.trim();
-                        cfg.html = true;
-                    }
+                    // We use the DOM node as content to allow components!
+                    cfg.title = this.$refs.title;
+                    cfg.html = true;
                 }
                 return cfg;
-            },
-            getSlotContent(nodes) {
-                // Recursively build HTML content for default slot
-                // We do this because we are v-if'ed out and can't use this.$el.innerHTML
-                // Supports only basic HTML, no components!
-                nodes = nodes || [];
-                let html = '';
-                nodes.forEach(node => {
-                    if (node.functionalOptions || node.componentOptions) {
-                        // Regular components don't render, but functional do, but
-                        // since we are recreating HTML, they will not function
-                        // as expected, so we skip over both tyeps!
-                        return;
-                    }
-                    if (node.text) {
-                        // Text Node
-                        html += node.text;
-                    } else {
-                        // HTML element
-                        const tag = node.tag;
-                        if (forbiddenTagsRE.test(tag)) {
-                            // This is a no-no tag, so we skip it
-                            return;
-                        }
-                        const data = node.data || {};
-                        const children = node.children || [];
-                        const cls = data.staticClass ? ` class="${data.staticClass}"` : '';
-                        let attrs = '';
-                        keys(data.attrs || {}).forEach(a => {
-                            attrs += ` ${a}="${data.attrs[a]}"`
-                        });
-                        // Build Opening Tag
-                        const tag1 = `<${tag}${cls}${attrs}>`;
-                        // Build Closing Tag
-                        const tag2 = selfClosingTagsRE.test(tag) ? '' : `</${tag}>`;
-                        // Build content, if any (recursive)
-                        const content = (children.length > 0) ? this.getSlotContent(children) : '';
-                        // Append to HTML string
-                        html += `${tag1}${content}${tag2}`;
-                    }
-                });
-                return html;
             }
         }
     };
