@@ -11,7 +11,7 @@
     import { keys } from '../utils/object';
     import { isArray } from '../utils/array';
     
-    const selfClosingRE = /^(img|br|hr|wbr|source)$/i;
+    const selfClosingTagsRE = /^(img|br|hr|wbr|source)$/i;
     const forbiddenTagsRE = /^(object|embed|input|button|textarea|select|iframe|script|link|command|area|base)$/i;
 
     export default {
@@ -48,9 +48,9 @@
             }
         },
         mounted() {
-            const el = document.querySeletor(`#${this.targetId}`);
+            const el = document.body.querySelector(`#${this.targetId}`);
             if (el && !this.toolTip) {
-                // We pass teh title as part of the config
+                // We pass the title as part of the config
                 this.toolTip = new ToolTip(el, this.getConfig(), this.$root);
             }
         },
@@ -73,7 +73,7 @@
                     position: this.position || 'top',
                     delay: this.delay || 0,
                     offset: this.offset || 0,
-                    triggers: isArray(triggers) ? triggers.join(' ') : triggers
+                    triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers
                 };
             }
         },
@@ -112,7 +112,7 @@
                         // HTML element
                         const tag = node.tag;
                         if (forbiddenTagsRE.test(tag)) {
-                            // THis is a no-no tag, so we skip it
+                            // This is a no-no tag, so we skip it
                             return;
                         }
                         const data = node.data || {};
@@ -125,7 +125,7 @@
                         // Build Opening Tag
                         const tag1 = `<${tag}${cls}${attrs}>`;
                         // Build Closing Tag
-                        const tag2 = selfClosingRE.test(tag) ? '' : `</${tag}>`;
+                        const tag2 = selfClosingTagsRE.test(tag) ? '' : `</${tag}>`;
                         // Build content, if any (recursive)
                         const content = (children.length > 0) ? this.getSlotContent(children) : '';
                         // Append to HTML string
