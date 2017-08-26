@@ -1,69 +1,43 @@
 # Popover
 
 > The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
-element, and is customizable.
+element via the `<b-popover>` component or `v-b-popover` directive.
 
-**Beta Warning: popover is currently under re-development to align with Boostrap V4.beta CSS
-and code changes.**
-
+## `<b-popover>` Component Usage
 ```html
 <template>
 <div>
   
   <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
   <div class="row">
-    <div class="col-md-3 my-1 text-center" v-for="placement in ['top', 'left', 'right', 'bottom']">
-      <b-popover :placement="placement" content="Heya!">
-        <b-btn variant="primary">{{ placement }}</b-btn>
+    <div class="col-md-3 my-1 text-center"
+         v-for="placement in ['top', 'left', 'right', 'bottom']">
+      <b-btn :id="'exPopover1-'+placement" variant="primary">{{ placement }}</b-btn>
+      <b-popover :target-id="'exPopover1-'+placement"
+                 :placement="placement"
+                 title="Popover!"
+                 :content="placement">
       </b-popover>
     </div>
   </div>
 
-  <h4 class="mt-sm-4 ms-sm-4 text-muted">Triggers</h4>
-  <div class="row">
-    <div class="col-md-4 my-1 text-center" v-for="trigger in triggerExamples">
-      <b-popover :triggers="trigger" content="Trigger warning!">
-        <b-btn variant="primary">{{ triggersToString(trigger) }}</b-btn>
-      </b-popover>
-    </div>
-  </div>
 
   <h4 class="mt-sm-4 ms-sm-4 text-muted">Content via properties or slots</h4>
   <div class="row">
     <div class="col-md-6 my-1 text-center">
-      <b-popover content="Embedding content using properties is easier as well as simpler to make dynamic.">
-        <b-btn variant="primary">Using properties</b-btn>
+      <b-btn id="exPopover2" variant="primary">Using properties</b-btn>
+      <b-popover target-id="exPopover2" 
+          title="Prop Examples"
+          triggers="hover focus"
+          content="Embedding content using properties is easy">
       </b-popover>
     </div>
     <div class="col-md-6 my-1 text-center">
-      <b-popover>
-        <b-btn variant="primary">Using slots</b-btn>
-        <span slot="content">
-                            Embedding content <span
-                                style="color: red">using slots</span> affords you <em>greater <strong>control.</strong></em>
-        </span>
-      </b-popover>
-    </div>
-  </div>
-
-  <h4 class="mt-sm-4 ms-sm-4 text-muted">Delay</h4>
-  <div class="row">
-
-    <div class="col-md-4 my-1 text-center">
-      <b-popover :delay="1000" content="Sorry, I'm a little sleepy." :triggers="['click','hover']">
-        <b-btn variant="primary">1000ms</b-btn>
-      </b-popover>
-    </div>
-
-    <div class="col-md-4 my-1 text-center">
-      <b-popover :delay="{show: 1000, hide: 0}" content="This will disappear right away!" :triggers="['click','hover']">
-        <b-btn variant="primary">1000ms on show</b-btn>
-      </b-popover>
-    </div>
-
-    <div class="col-md-4 my-1 text-center">
-      <b-popover :delay="{show: 0, hide: 1000}" content="This will disappear after a second's delay." :triggers="['click','hover']">
-        <b-btn variant="primary">1000ms on hide</b-btn>
+      <b-btn id="exPopover3" variant="primary">Using slots</b-btn>
+      <b-popover target-id="exPopover3">
+         <template slot="title">Content via Slots</template>
+         Embedding content <span class="text-danger">using slots</span> affords you
+         <em>greater <strong>control.</strong></em> and basic HTML support/
       </b-popover>
     </div>
   </div>
@@ -71,32 +45,36 @@ and code changes.**
 </div>  
 </template>
 
-<script>
-export default {
-  data: {
-    triggerExamples: [
-      'click',
-      'focus',
-      'hover', ['click', 'focus'],
-      ['click', 'hover'],
-      ['focus', 'hover']
-    ],
-  },
-  methods: {
-    clickEventConfirmed() {
-        alert('Form submitted!');
-      },
-      triggersToString(input) {
-        if (Array.isArray(input)) {
-          return input.join(' + ');
-        }
-        return input;
-      }
-  }
-}
-</script>
-
-<!-- popover.vue -->
+<!-- popover-1.vue -->
 ```
 
-For more advanced usage, you can use <a href="https://github.com/SirLamer/click-confirm" target="_blank">Click Confirm</a> component by @SirLamer which is based on popover.
+## `v-b-popover` Directive Usage
+
+```html
+<template>
+<div>
+
+  <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
+  <div class="row">
+    <div class="col-md-3 my-1 text-center">
+      <b-btn v-b-popover.top="'I am Top'" title="Popover!" variant="primary">Top</b-btn>
+    </div>
+    <div class="col-md-3 my-1 text-center">
+      <b-btn v-b-popover.left="'I am Left'" title="Popover!" variant="primary">Left</b-btn>
+    </div>
+    <div class="col-md-3 my-1 text-center">
+      <b-btn v-b-popover.right="'I am Right'" title="Popover!" variant="primary">Right</b-btn>
+    </div>
+    <div class="col-md-3 my-1 text-center">
+      <b-btn v-b-popover.bottom="'I am Bottom'" title="Popover!" variant="primary">Bottom</b-btn>
+    </div>
+  </div>
+
+</div>
+</template>
+
+<!-- popover-2.vue -->
+```
+
+Refer to the [`v-b-popover` directive](/docs/directives/popover) documentation for detailed
+information on the directive usage.
