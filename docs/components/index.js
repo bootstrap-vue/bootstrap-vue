@@ -29,7 +29,7 @@ export default {
     'navbar': require('./navbar').default,
     'pagination': require('./pagination').default,
     'pagination-nav': require('./pagination-nav').default,
-/*    'popover': require('./popover').default, */
+    'popover': require('./popover').default,
     'progress': require('./progress').default,
     'table': require('./table').default,
     'tabs': require('./tabs').default,
