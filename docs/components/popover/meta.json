@@ -1,6 +1,24 @@
 {
   "title": "Popover",
   "component": "bPopover",
+  "events": [
+    {
+      "event": "show",
+      "description": "When popover is about to be shown"
+    },
+    {
+      "event": "shown",
+      "description": "When popover is shown"
+    },
+    {
+      "event": "hide",
+      "description": "When popover is about to be hidden"
+    },
+    {
+      "event": "hidden",
+      "description": "When popover is hidden"
+    }
+  ],
   "slots": [
     {
       "name": "title",
