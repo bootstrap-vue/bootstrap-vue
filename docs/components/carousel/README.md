@@ -8,6 +8,7 @@ controls and indicators.
 <template>
   <div>
     <b-carousel id="carousel1"
+                style="text-shadow: 1px 1px 2px #333;"
                 controls
                 indicators
                 background="#ababab"
