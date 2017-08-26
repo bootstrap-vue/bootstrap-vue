@@ -11,8 +11,8 @@
 <script>
     import PopOver from '../classes/popover';
     import { isArray } from '../utils/array';
+    import { assign } from '../utils/object';
     import observeDom from '../utils/observe-dom';
-    import {assign} from '../utils/object';
 
     export default {
         data() {
@@ -55,7 +55,11 @@
         },
         mounted() {
             if (this.targetId) {
-                const target = document.body.querySelector(`#${this.targetId}`);
+                let target = this.targetId;
+                if (!target) {
+                    return;
+                }
+                target = document.getElementById((/^#/.test(target) ? target.slice(1) : target);
                 if (target && !this.popOver) {
                     // We pass the title & content as part of the config
                     this.popOver = new PopOver(target, this.getConfig(), this.$root);
@@ -123,7 +127,7 @@
                 const cfg = assign({}, this.baseConfig);
                 if (this.$refs.title.innerHTML.trim()) {
                     // We pass the DOM element to preserve components
-                    cfg.title = this.$refs.title.innerHTML;
+                    cfg.title = this.$refs.title;
                     cfg.html = true;
                 }
                 if (this.$refs.content.innerHTML.trim()) {
