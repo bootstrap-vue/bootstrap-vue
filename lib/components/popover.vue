@@ -1,9 +1,12 @@
 <template>
     <!--
-      Container for possible title content.
+      Container for possible title and content.
       We v-if ourselves out of the DOM so we don't interfere with layout
      -->
-    <div v-if="false"><slot name="title"></slot><slot></slot></div>
+    <div v-if="false">
+        <slot name="title"></slot>
+        <slot></slot>
+    </div>
 </template>
 
 <script>
@@ -13,6 +16,7 @@
     
     const selfClosingRE = /^(img|br|hr|wbr|source)$/i;
     const forbiddenTagsRE = /^(object|embed|input|button|textarea|select|iframe|script|link|command|area|base)$/i;
+
     export default {
         data() {
             popOver: null
@@ -23,7 +27,7 @@
                 // must be in DOM
                 type: String,
                 default: null,
-                required: true;
+                required: true
             },
             title: {
                 type: String,
