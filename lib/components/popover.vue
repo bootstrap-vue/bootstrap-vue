@@ -2,7 +2,7 @@
     <!--
       Container for possible title and content.
      -->
-    <div v-show="false" class="d-none">
+    <div v-show="false" class="d-none" aria-hidden="true">
         <div ref="title"><slot name="title"></slot></div>
         <div ref="content"><slot></slot></slot>
     </div>
