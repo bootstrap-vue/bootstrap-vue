@@ -1,4 +1,5 @@
 {
-  "title": "Column",
-  "component": "bCol"
+  "title": "Grid System",
+  "slug": "grid",
+  "components": ["b-row", "b-form-row", "bCol"]
 }
