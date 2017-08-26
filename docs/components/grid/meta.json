@@ -1,5 +1,5 @@
 {
   "title": "Grid System",
   "slug": "grid",
-  "components": ["b-row", "b-form-row", "bCol"]
+  "components": ["bContainer", "bRow", "bFormRow", "bCol"]
 }
