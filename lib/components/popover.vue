@@ -96,7 +96,7 @@
             onClose(callback) {
                 if (this.popOver) {
                     this.popOver.hide(callback);
-                } else {
+                } else if (typeof callback === 'function') {
                     callback();
                 }
             },
