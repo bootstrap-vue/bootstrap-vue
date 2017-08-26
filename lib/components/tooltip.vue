@@ -84,9 +84,9 @@
                     offset: this.offset || 0,
                     triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
                     callbacks: {
-                        show: () => this.$emit('show'),
+                        show: (evt) => this.$emit('show', evt),
                         shown: () => this.$emit('shown'),
-                        hide: () => this.$emit('hide'),
+                        hide: (evt) => this.$emit('hide', evt),
                         hidden: () => this.$emit('hidden')
                     }
                 };
