@@ -14,7 +14,13 @@
     },
     {
       "event": "shown",
-      "description": "When popover is shown"
+      "description": "When popover is shown",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object."
+        }
+      ]
     },
     {
       "event": "hide",
@@ -28,7 +34,13 @@
     },
     {
       "event": "hidden",
-      "description": "When popover is hidden"
+      "description": "When popover is hidden",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object."
+        }
+      ]
     },
     {
       "event": "bv::popover::show",
@@ -42,7 +54,13 @@
     },
     {
       "event": "bv::popover::shown",
-      "description": "Emitted on $root when popover is shown"
+      "description": "Emitted on $root when popover is shown",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object."
+        }
+      ]
     },
     {
       "event": "bv::popover::hide",
@@ -56,7 +74,13 @@
     },
     {
       "event": "bv::popover::hidden",
-      "description": "Emitted on $root when popover is hidden"
+      "description": "Emitted on $root when popover is hidden",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object."
+        }
+      ]
     }
   ],
   "slots": [
