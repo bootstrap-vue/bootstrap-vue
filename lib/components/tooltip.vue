@@ -1,0 +1,139 @@
+<template>
+    <!--
+      Container for possible title content.
+      We v-if ourselves out of the DOM so we don't interfere with layout
+     -->
+    <div v-if="false"><slot></slot></div>
+</template>
+
+<script>
+    import ToolTip from '../classes/tooltip';
+    import { keys } from '../utils/object';
+    import { isArray } from '../utils/array';
+    
+    const selfClosingRE = /^(img|br|hr|wbr|source)$/i;
+    const forbiddenTagsRE = /^(object|embed|input|button|textarea|select|iframe|script|link|command|area|base)$/i;
+
+    export default {
+        data() {
+            toolTip: null
+        },
+        props: {
+            targetId: {
+                // ID of element to place tooltip on
+                // must be in DOM
+                type: String,
+                default: null,
+                required: true;
+            },
+            title: {
+                type: String,
+                default: ''
+            },
+            triggers: {
+                type: [String, Array],
+                default: 'hover focus'
+            },
+            position: {
+                type: String,
+                default: 'top'
+            },
+            delay: {
+                type: Number,
+                default: 0
+            }
+            offset: {
+                type: [Number, String],
+                default: 0
+            }
+        },
+        mounted() {
+            const el = document.querySeletor(`#${this.targetId}`);
+            if (el && !this.toolTip) {
+                // We pass teh title as part of the config
+                this.toolTip = new ToolTip(el, this.getConfig(), this.$root);
+            }
+        },
+        updated() {
+            // If content changes, etc
+            if (this.toolTip) {
+                this.toolTip.updateConfig(getConfig());
+            }
+        },
+        destroyed() {
+            if (this.toolTip) {
+                this.toolTip.destroy();
+                this.tooltip = null
+            }
+        },
+        computed: {
+            baseConfig() {
+                return {
+                    title: this.title.trim() || '',
+                    position: this.position || 'top',
+                    delay: this.delay || 0,
+                    offset: this.offset || 0,
+                    triggers: isArray(triggers) ? triggers.join(' ') : triggers
+                };
+            }
+        },
+        methods: {
+            getConfig() {
+                const cfg = assign({}, this.baseConfig);
+                if (this.$slots.default) {
+                    // Grab the title content from the slot, it any
+                    const title = this.getContent();
+                    // If slot has content, it overrides 'title' prop
+                    // And assume HTML format
+                    if (title.trim()) {
+                        cfg.title = title.trim();
+                        cfg.html = true;
+                    }
+                }
+                return cfg;
+            },
+            getContent(nodes) {
+                // Recursively build HTML content for default slot
+                // We do this because we are v-if'ed out and can't use this.$el.innerHTML
+                // Supports only basic HTML, no components!
+                nodes = nodes || this.$slots.default || [];
+                let html = '';
+                nodes.forEach(node => {
+                    if (node.functionalOptions || node.componentOptions) {
+                        // Regular components don't render, but functional do, but
+                        // since we are recreating HTML, they will not function
+                        // as expected, so we skip over both tyeps
+                        return;
+                    }
+                    if (node.text) {
+                        // Text Node
+                        html += node.text;
+                    } else {
+                        // HTML element
+                        const tag = node.tag;
+                        if (forbiddenTagsRE.test(tag)) {
+                            // THis is a no-no tag, so we skip it
+                            return;
+                        }
+                        const data = node.data || {};
+                        const children = node.children || [];
+                        const cls = data.staticClass ? ` class="${data.staticClass}"` : '';
+                        let attrs = '';
+                        keys(data.attrs || {}).forEach(a => {
+                            attrs += ` ${a}="${data.attrs[a]}"`
+                        });
+                        // Build Opening Tag
+                        const tag1 = `<${tag}${cls}${attrs}>`;
+                        // Build Closing Tag
+                        const tag2 = selfClosingRE.test(tag) ? '' : `</${tag}>`;
+                        // Build content, if any (recursive)
+                        const content = (children.length > 0) ? this.getContent(children) : '';
+                        // Append to HTML string
+                        html += `${tag1}${content}${tag2}`;
+                    }
+                });
+                return html;
+            }
+        }
+    };
+</script>
