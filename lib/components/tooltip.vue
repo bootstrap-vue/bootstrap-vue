@@ -41,7 +41,7 @@
             delay: {
                 type: Number,
                 default: 0
-            }
+            },
             offset: {
                 type: [Number, String],
                 default: 0
@@ -63,7 +63,7 @@
         destroyed() {
             if (this.toolTip) {
                 this.toolTip.destroy();
-                this.tooltip = null
+                this.tooltip = null;
             }
         },
         computed: {
@@ -82,7 +82,7 @@
                 const cfg = assign({}, this.baseConfig);
                 if (this.$slots.default) {
                     // Grab the title content from the slot, it any
-                    const title = this.getContent();
+                    const title = this.getSlotContent(this.$slots.default);
                     // If slot has content, it overrides 'title' prop
                     // And assume HTML format
                     if (title.trim()) {
@@ -92,17 +92,17 @@
                 }
                 return cfg;
             },
-            getContent(nodes) {
+            getSlotContent(nodes) {
                 // Recursively build HTML content for default slot
                 // We do this because we are v-if'ed out and can't use this.$el.innerHTML
                 // Supports only basic HTML, no components!
-                nodes = nodes || this.$slots.default || [];
+                nodes = nodes || [];
                 let html = '';
                 nodes.forEach(node => {
                     if (node.functionalOptions || node.componentOptions) {
                         // Regular components don't render, but functional do, but
                         // since we are recreating HTML, they will not function
-                        // as expected, so we skip over both tyeps
+                        // as expected, so we skip over both tyeps!
                         return;
                     }
                     if (node.text) {
@@ -127,7 +127,7 @@
                         // Build Closing Tag
                         const tag2 = selfClosingRE.test(tag) ? '' : `</${tag}>`;
                         // Build content, if any (recursive)
-                        const content = (children.length > 0) ? this.getContent(children) : '';
+                        const content = (children.length > 0) ? this.getSlotContent(children) : '';
                         // Append to HTML string
                         html += `${tag1}${content}${tag2}`;
                     }
