@@ -48,6 +48,61 @@ element via the `<b-popover>` component or `v-b-popover` directive.
 <!-- popover-1.vue -->
 ```
 
+### Advanced usage with reactive content
+
+```html
+<template>
+<div>
+  <h4 class="mt-sm-4 ms-sm-4 text-muted">Reactive Content</h4>
+  <div class="row">
+    <div class="col-12 my-3 text-center">
+      <b-btn id="exPopoverReactive1" variant="primary">Using slots</b-btn>
+    </div>
+  </div>
+
+  <b-popover target-id="exPopoverReactive1" trigger="click">
+     <template slot="title">Interactive Content</template>
+     <b-form-group label="Name" description="Enter your name">
+        <b-form-input size="sm" v-model="input1"></b-form-imput>
+     </b-form-group>
+     <b-form-group label="Color" description="Pick a color">
+       <b-form-select size="sm" v-model="input2" :options="options"></b-form-select>
+     </b-form-group>
+     <b-card title="data from above">
+       <p class="card-text">Name: <strong>{{ input1 }}</strong></p>
+       <p class="card-text">Color: <strong>{{ input1 }}</strong></p>
+     </b-card>
+     <b-btn @click="onCancel" variant="danger">Cancel</b-btn>
+     <b-btn @click="onOk" variant="primary">Ok</b-btn>
+  </b-popover>
+
+</div>  
+</template>
+<script>
+  export default {
+    data: {
+      input1: '',
+      input2: '',
+      options: [{text:'- Chose 1 -', value:''},'Red','Green','Blue']
+    },
+    methods: {
+      onCancel() {
+        this.$parent.$emit('close');
+      },
+      onOk() {
+        if (!this.input1 || !this.input2) {
+          alert('Please enter something');
+        } else {
+          alert('Thats great!');
+          this.$parent.$emit('close');
+        }
+      }
+    }
+  };
+</script>
+<!-- popover-1.vue -->
+```
+
 ## `v-b-popover` Directive Usage
 
 ```html
@@ -73,7 +128,7 @@ element via the `<b-popover>` component or `v-b-popover` directive.
 </div>
 </template>
 
-<!-- popover-2.vue -->
+<!-- popover-directive-1.vue -->
 ```
 
 Refer to the [`v-b-popover` directive](/docs/directives/popover) documentation for detailed
