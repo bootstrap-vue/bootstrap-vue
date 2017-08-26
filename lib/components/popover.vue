@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import ToolTip from '../classes/tooltip';
+    import PopOver from '../classes/popover';
     import { keys } from '../utils/object';
     import { isArray } from '../utils/array';
     
@@ -15,11 +15,11 @@
     const forbiddenTagsRE = /^(object|embed|input|button|textarea|select|iframe|script|link|command|area|base)$/i;
     export default {
         data() {
-            toolTip: null
+            popOver: null
         },
         props: {
             targetId: {
-                // ID of element to place tooltip on
+                // ID of element to place popover on
                 // must be in DOM
                 type: String,
                 default: null,
@@ -52,21 +52,21 @@
         },
         mounted() {
             const el = document.querySeletor(`#${this.targetId}`);
-            if (el && !this.toolTip) {
+            if (el && !this.popOver) {
                 // We pass the title & content as part of the config
-                this.toolTip = new ToolTip(el, this.getConfig(), this.$root);
+                this.popOver = new PopOver(el, this.getConfig(), this.$root);
             }
         },
         updated() {
             // If content changes, etc
-            if (this.toolTip) {
-                this.toolTip.updateConfig(getConfig());
+            if (this.popOver) {
+                this.popOver.updateConfig(getConfig());
             }
         },
         destroyed() {
-            if (this.toolTip) {
-                this.toolTip.destroy();
-                this.tooltip = null
+            if (this.popOver) {
+                this.popOver.destroy();
+                this.popOver = null
             }
         },
         computed: {
@@ -86,7 +86,7 @@
                 const cfg = assign({}, this.baseConfig);
                 if (this.$slots['title']) {
                     // Grab the title from the slot, it any
-                    const title = this.getContent(this.$slots['title']);
+                    const title = this.getSlotContent(this.$slots['title']);
                     // If slot has content, it overrides 'title' prop
                     if (title.trim()) {
                         cfg.title = title.trim();
@@ -95,7 +95,7 @@
                 }
                 if (this.$slots.default) {
                     // Grab the content from the slot, it any
-                    const content = this.getContent(this.$slots.default);
+                    const content = this.getSlotContent(this.$slots.default);
                     // If slot has content, it overrides 'content' prop
                     if (content.trim()) {
                         cfg.content = content.trim();
@@ -104,7 +104,7 @@
                 }
                 return cfg;
             },
-            getContent(nodes) {
+            getSlotContent(nodes) {
                 // Recursively build HTML content for provided slot
                 // We do this because we are v-if'ed out and can't use this.$el.innerHTML
                 // Supports only basic HTML, no components!
@@ -139,7 +139,7 @@
                         // Build Closing Tag
                         const tag2 = selfClosingRE.test(tag) ? '' : `</${tag}>`;
                         // Build content, if any (recursive)
-                        const content = (children.length > 0) ? this.getContent(children) : '';
+                        const content = (children.length > 0) ? this.getSlotContent(children) : '';
                         // Append to HTML string
                         html += `${tag1}${content}${tag2}`;
                     }
