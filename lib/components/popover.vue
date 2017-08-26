@@ -123,7 +123,7 @@
                 const cfg = assign({}, this.baseConfig);
                 if (this.$refs.title.innerHTML.trim()) {
                     // We pass the DOM element to preserve components
-                    cfg.title = this.$refs.title;
+                    cfg.title = this.$refs.title.innerHTML;
                     cfg.html = true;
                 }
                 if (this.$refs.content.innerHTML.trim()) {

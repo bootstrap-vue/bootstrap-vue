@@ -60,7 +60,7 @@ element via the `<b-popover>` component or `v-b-popover` directive.
     </div>
   </div>
 
-  <b-popover target-id="exPopoverReactive1" trigger="click">
+  <b-popover target-id="exPopoverReactive1" trigger="click" ref="popover">
      <template slot="title">Interactive Content</template>
      <b-form-group label="Name" description="Enter your name">
         <b-form-input size="sm" v-model="input1"></b-form-input>
@@ -70,7 +70,7 @@ element via the `<b-popover>` component or `v-b-popover` directive.
      </b-form-group>
      <b-card title="data from above">
        <p class="card-text">Name: <strong>{{ input1 }}</strong></p>
-       <p class="card-text">Color: <strong>{{ input1 }}</strong></p>
+       <p class="card-text">Color: <strong>{{ input2 }}</strong></p>
      </b-card>
      <b-btn @click="onCancel" variant="danger">Cancel</b-btn>
      <b-btn @click="onOk" variant="primary">Ok</b-btn>
@@ -87,14 +87,14 @@ element via the `<b-popover>` component or `v-b-popover` directive.
     },
     methods: {
       onCancel() {
-        this.$parent.$emit('close');
+        this.$refs.popover.$emit('close');
       },
       onOk() {
         if (!this.input1 || !this.input2) {
           alert('Please enter something');
         } else {
           alert('Thats great!');
-          this.$parent.$emit('close');
+          this.$refs.popover.$emit('close');
         }
       }
     }
