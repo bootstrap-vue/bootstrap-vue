@@ -4,7 +4,13 @@
   "events": [
     {
       "event": "show",
-      "description": "When tooltip is about to be shown"
+      "description": "When tooltip is about to be shown. Cancelable",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object. Call bvEvent.preventDefault() to cancel show."
+        }
+      ]
     },
     {
       "event": "shown",
@@ -12,7 +18,13 @@
     },
     {
       "event": "hide",
-      "description": "When tooltip is about to be hidden"
+      "description": "When tooltip is about to be hidden. Cancelable",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object. Call bvEvent.preventDefault() to cancel hide."
+        }
+      ]
     },
     {
       "event": "hidden",
