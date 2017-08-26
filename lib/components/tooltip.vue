@@ -24,7 +24,7 @@
                 // must be in DOM
                 type: String,
                 default: null,
-                required: true;
+                required: true
             },
             title: {
                 type: String,
