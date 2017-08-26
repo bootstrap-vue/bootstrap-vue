@@ -20,6 +20,9 @@
 <a href="https://circleci.com/gh/bootstrap-vue/bootstrap-vue">
     <img alt="" src="https://img.shields.io/circleci/project/github/bootstrap-vue/bootstrap-vue/master.svg?style=flat-square">
 </a>
+<a href="http://packagequality.com/#?package=bootstrap-vue">
+    <img alt="package quality" src="http://npm.packagequality.com/shield/bootstrap-vue.png">
+</a>
 <a href="https://www.npmjs.com/package/bootstrap-vue">
     <img alt="" src="https://img.shields.io/npm/dt/bootstrap-vue.svg?style=flat-square">
 </a>

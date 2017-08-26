@@ -7,6 +7,7 @@
     >
         <button type="button"
                 class="close"
+                v-if="dismissible"
                 data-dismiss="alert"
                 :aria-label="dismissLabel"
                 @click.stop.prevent="dismiss"
@@ -105,10 +106,9 @@
 
                 // Start counter
                 let dismissCountDown = this.show;
-                this.$emit('dismiss-count-down', dismissCountDown);
                 this.countDownTimerId = setInterval(() => {
                     if (dismissCountDown < 1) {
-                        this.dismiss;
+                        this.dismiss();
                         return;
                     }
                     dismissCountDown--;

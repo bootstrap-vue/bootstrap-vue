@@ -4,7 +4,7 @@
 It’s easily extensible and thanks to our Collapse plugin, it can easily integrate responsive behaviors.
 
 ```html
-<b-navbar toggleable="md" type="light" variant="info">
+<b-navbar toggleable="md" type="dark" variant="info">
 
   <b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
@@ -52,10 +52,10 @@ It’s easily extensible and thanks to our Collapse plugin, it can easily integr
 
 `<b-navbar>` supports the standard Bootstrap V4 available background color variants.
 Set the `variant` prop to one of the following values to change the background color:
-`primary`, `success`, `info`, `warning`, `danger`, `inverse`, or `faded`.
+`primary`, `success`, `info`, `warning`, `danger`, `dark`, or `light`.
 
-Control the text type by setting `type` prop to `light` for use with light background
-color variants, or `inverse` for dark background color variants.
+Control the text color by setting `type` prop to `light` for use with light background
+color variants, or `dark` for dark background color variants.
 
 ### Placement
 
@@ -171,7 +171,7 @@ adjusts vertical alignment and horizontal spacing for strings of text.
 
 ```html
 <div>
-    <b-navbar toggleable type="light" variant="faded">
+    <b-navbar toggleable type="light" variant="light">
         <b-nav-toggle target="nav_text_collapse"></b-nav-toggle>
         <b-navbar-brand>BootstrapVue</b-navbar-brand>
         <b-collapse is-nav id="nav_text_collapse">
@@ -192,7 +192,7 @@ Note split dropdowns are not supported in `<b-navbar>`.
 
 ```html
 <div>
-  <b-navbar type="inverse" variant="primary" toggleable>
+  <b-navbar type="dark" variant="primary" toggleable>
     <b-nav-toggle target="nav_dropdown_collapse"></b-nav-toggle>
     <b-collapse is-nav id="nav_dropdown_collapse">
       <b-nav is-nav-bar>
@@ -223,7 +223,7 @@ Use `<b-nav-form>` to place inline form controls into your navbar
 
 ```html
 <div>
-  <b-navbar type="light" variant="faded">
+  <b-navbar type="light" variant="light">
     <b-nav-form>
       <b-form-input class="mr-sm-2" type="text" placeholder="Search"></b-form-input>
       <b-button variant="outline-success" class="my-2 my-sm-0" type="submit">Search</b-button>
@@ -238,7 +238,7 @@ Input groups work as well:
 
 ```html
 <div>
-  <b-navbar type="light" variant="faded">
+  <b-navbar type="light" variant="light">
     <b-nav-form>
       <b-input-group left="@">
         <b-form-input class="mr-sm-2" type="text" placeholder="Username"></b-form-input>

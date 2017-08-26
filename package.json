@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "description": "Bootstrap 4 Components for Vue.js 2",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
@@ -88,7 +88,7 @@
     "lodash": "latest",
     "markdown-loader": "^2.0.1",
     "marked": "^0.3.6",
-    "nuxt": "1.0.0-rc5",
+    "nuxt": "1.0.0-rc6",
     "rollup": "^0.48.2",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^8.1.0",
