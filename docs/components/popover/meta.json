@@ -29,6 +29,34 @@
     {
       "event": "hidden",
       "description": "When popover is hidden"
+    },
+    {
+      "event": "bv::popover::show",
+      "description": "Emitted on $root when popover is about to be shown. Cancelable",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object. Call bvEvent.preventDefault() to cancel show."
+        }
+      ]
+    },
+    {
+      "event": "bv::popover::shown",
+      "description": "Emitted on $root when popover is shown"
+    },
+    {
+      "event": "bv::popover::hide",
+      "description": "Emitted on $root when popover is about to be hidden. Cancelable",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object. Call bvEvent.preventDefault() to cancel hide."
+        }
+      ]
+    },
+    {
+      "event": "bv::popover::hidden",
+      "description": "Emitted on $root when popover is hidden"
     }
   ],
   "slots": [
