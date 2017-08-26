@@ -61,21 +61,25 @@ element via the `<b-popover>` component or `v-b-popover` directive.
   </div>
 
   <b-popover target-id="exPopoverReactive1" trigger="click" ref="popover">
-     <template slot="title">Interactive Content</template>
-     <b-form-group label="Name" description="Enter your name">
-        <b-form-input size="sm" v-model="input1"></b-form-input>
-     </b-form-group>
-     <b-form-group label="Color" description="Pick a color">
-       <b-form-select size="sm" v-model="input2" :options="options"></b-form-select>
-     </b-form-group>
-     <b-card title="data from above">
-       <p class="card-text">Name: <strong>{{ input1 }}</strong></p>
-       <p class="card-text">Color: <strong>{{ input2 }}</strong></p>
-     </b-card>
-     <b-btn @click="onCancel" variant="danger">Cancel</b-btn>
-     <b-btn @click="onOk" variant="primary">Ok</b-btn>
+    <template slot="title">
+      <b-btn @click="onClose" class="close" aria-label="Close">
+        <span class="d-inline-block" aria-hidden="true">&times;</span>
+      </b-btn>
+      Interactive Content
+    </template>
+    <b-form-group label="Name" description="Enter your name">
+      <b-form-input size="sm" v-model="input1"></b-form-input>
+    </b-form-group>
+    <b-form-group label="Color" description="Pick a color">
+      <b-form-select size="sm" v-model="input2" :options="options"></b-form-select>
+    </b-form-group>
+    <b-card title="data from above">
+      <p class="card-text">Name: <strong>{{ input1 }}</strong></p>
+      <p class="card-text">Color: <strong>{{ input2 }}</strong></p>
+    </b-card>
+    <b-btn @click="onCancel" variant="danger">Cancel</b-btn>
+    <b-btn @click="onOk" variant="primary">Ok</b-btn>
   </b-popover>
-
 </div>  
 </template>
 <script>
@@ -102,6 +106,12 @@ element via the `<b-popover>` component or `v-b-popover` directive.
 </script>
 <!-- popover-2.vue -->
 ```
+
+**Note:** _The `<b-popover>` component inserts a hidden (`display:none`) `<div>` container
+element at the point in the DOM where the `<-popover>` component is placed.  This may 
+affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolsbar>`,
+and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>`
+component **outside** of theese types of components._
 
 ## `v-b-popover` Directive Usage
 
