@@ -1,6 +1,17 @@
 # Grid System
 
-> Use our powerful mobile-first flexbox grid to build layouts of all shapes and sizes thanks to a twelve column system, five default responsive tiers, Sass variables and mixins, and dozens of predefined classes.
+> Use our powerful mobile-first flexbox grid (via `<b-col>` component) to build layouts
+of all shapes and sizes thanks to a twelve column system, five default responsive
+tiers, CSS Sass variables and mixins, and dozens of predefined classes.
+
+`<b-col>` Must be placed inside an element (such as a `<div>`) that has the class
+`row` applied to it. Or, in the case of forms, place `<b-col>` inside a
+[`<b-form-row>` component](/docs/components/form) to obtain columns with more compact
+margins.
+
+**Note:** _The `offest-*` props will work once Bootstrap V4.0.0.beta.2 is released.
+The current V4.0.0.beta.1 CSS does not include the required `.offest-*` classes._
+
 
 ```html
 <div class="container bv-example-row">
