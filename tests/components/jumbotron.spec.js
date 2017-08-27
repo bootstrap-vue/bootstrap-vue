@@ -24,7 +24,7 @@ describe('jumbotron', async() => {
            expect($refs[ref]).not.toHaveClass("jumbotron-fluid");
         });
     });
-/*
+
     it("All examples except tags should have root elemwnt of type div", async () => {
         const { app: { $refs } } = window;
         ['default','level','slots','content','fluid','containerFluid'].forEach(ref => {
@@ -33,11 +33,12 @@ describe('jumbotron', async() => {
            expect($refs.tags).not.toBeElement("div");
     });
 
-    it("default should have first child h1 with content", async () => {
+    it("default should have first child h1 with content and class 'display-3'", async () => {
         const { app: { $refs } } = window;
         const h1 = $refs.default.children[0];
         expect(h1).toBeDefined();
         expect(h1).toBeElement("h1");
+        expect(h1).toHaveClas("display-3");
         expect(h1.textContent).toContain("header prop");
     });
 
@@ -83,6 +84,14 @@ describe('jumbotron', async() => {
         expect(p.textContent).toContain("content");
     });
 
+    it("level should have first child h1 with content and class 'display-4'", async () => {
+        const { app: { $refs } } = window;
+        const h1 = $refs.default.children[0];
+        expect(h1).toBeDefined();
+        expect(h1).toBeElement("h1");
+        expect(h1).toHaveClas("display-4");
+        expect(h1.textContent).toContain("header prop");
+    });
 
     it("tags should have custom root tag of 'article'", async () => {
         const { app: { $refs } } = window;
@@ -140,5 +149,5 @@ describe('jumbotron', async() => {
         expect(container.children[1].textContent.).toContain("lead");
         expect(container.children[2].textContent.).toContain("content");
     });
-*/
+
 });
