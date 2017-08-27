@@ -1,13 +1,13 @@
 /* eslint-disable quote-props */
 
 export default {
+    'layout': require('./layout').default,
     'alert': require('./alert').default,
     'badge': require('./badge').default,
     'breadcrumb': require('./breadcrumb').default,
     'button': require('./button').default,
     'button-group': require('./button-group').default,
     'button-toolbar': require('./button-toolbar').default,
-    'col': require('./col').default,
     'card': require('./card').default,
     'carousel': require('./carousel').default,
     'collapse': require('./collapse').default,
