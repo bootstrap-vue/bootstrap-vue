@@ -100,23 +100,23 @@ describe('jumbotron', async() => {
         expect(tags).toBeDefined();
         expect(tags).toBeElement("article");
     });
-/*
+
     it("tags should have custom header tag of 'h2' with content", async () => {
         const { app: { $refs } } = window;
-        const h1 = $refs.tags.children[0];
-        expect(h1).toBeDefined();
-        expect(h1).toBeElement("h2");
-        expect(h1).toHaveClass("display-3");
-        expect(h1.textContent).toContain("header prop");
+        const header = $refs.tags.children[0];
+        expect(header).toBeDefined();
+        expect(header).toBeElement("h2");
+        expect(header).toHaveClass("display-3");
+        expect(header.textContent).toContain("header prop");
     });
 
     it("tags should have custom lead tag of 'div' with content and class 'lead'", async () => {
         const { app: { $refs } } = window;
-        const p = $refs.tags.children[1];
-        expect(p).toBeDefined();
-        expect(p).toBeElement("div");
-        expect(p).toHaveClass("lead");
-        expect(p.textContent).toContain("lead prop");
+        const lead = $refs.tags.children[1];
+        expect(lead).toBeDefined();
+        expect(lead).toBeElement("div");
+        expect(lead).toHaveClass("lead");
+        expect(lead.textContent).toContain("lead prop");
     });
 
     it("content should have one child with tag p and text 'content'", async () => {
@@ -127,7 +127,7 @@ describe('jumbotron', async() => {
         expect(content.children[0]).toBeElement("p");
         expect(content.children[0].textContent).toContain("content");
     });
-
+/*
     it("fluid should have child with class 'container' and content", async () => {
         const { app: { $refs } } = window;
         const container = $refs.fluid.children[0];
