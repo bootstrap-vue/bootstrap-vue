@@ -63,7 +63,7 @@ Show optional feedback text to provide textual state feedback (html supported)
 by setting the prop `feedback` or using the named slot `feedback`.
 
 Note that the feedback **will not be shown** unless the `invalid` state is set on the
-`<b-form-group>` or input (`b-form-input>`, `b-form-textarea>`, `<b-form-select>`,
+`<b-form-group>` and it's child(ren) input(s) or just on the input (`b-form-input>`, `b-form-textarea>`, `<b-form-select>`,
 `<b-form-checkbox>`, `<b-form-radio>`, or `<b-form-file>`).
 
 Also feedback will be shown if the parent `<b-form>` component does not have the
