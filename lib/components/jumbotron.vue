@@ -1,22 +1,16 @@
 <template>
-    <div :class="jumbotronClasses">
-        <template v-if="fluid">
-            <div :class="containerClasses">
-                <h1 :is="headerTag" v-if="header" :class="headerClasses" v-html="header"></h1>
-                <p v-if="lead" class="lead" v-html="lead"></p>
-                <slot></slot>
-            </div>
-        </template>
-        <template v-else>
-            <h1 :is="headerTag" v-if="header" :class="headerClasses" v-html="header"></h1>
+    <div :class="['jumbotron',fluid?'jumbotron-fluid':null]">
+        <div :class="containerFluid ? 'container-fluid' : 'container'">
+            <h1 :is="headerTag" v-if="header" class="display-3" v-html="header"></h1>
             <p v-if="lead" class="lead" v-html="lead"></p>
             <slot></slot>
-        </template>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
+        computed: {},
         props: {
             fluid: {
                 type: Boolean,
@@ -34,31 +28,9 @@
                 type: String,
                 default: 'h1'
             },
-            headerLevel: {
-                type: Number,
-                default: 3
-            },
             lead: {
                 type: String,
                 default: null
-            }
-        },
-        computed: {
-            jumbotronClasses() {
-                return [
-                    'jumbotron',
-                    this.fluid ? 'jumbotron-fluid' : ''
-                ];
-            },
-            containerClasses() {
-                return [
-                    this.containerFluid ? 'container-fluid' : 'container'
-                ];
-            },
-            headerClasses() {
-                return [
-                    this.headerLevel ? `display-${this.headerLevel}` : ''
-                ]
             }
         }
     };
