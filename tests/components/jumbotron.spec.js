@@ -38,7 +38,7 @@ describe('jumbotron', async() => {
         const h1 = $refs.default.children[0];
         expect(h1).toBeDefined();
         expect(h1).toBeElement("h1");
-        expect(h1).toHaveClas("display-3");
+        expect(h1).toHaveClass("display-3");
         expect(h1.textContent).toContain("header prop");
     });
 
@@ -89,7 +89,7 @@ describe('jumbotron', async() => {
         const h1 = $refs.default.children[0];
         expect(h1).toBeDefined();
         expect(h1).toBeElement("h1");
-        expect(h1).toHaveClas("display-4");
+        expect(h1).toHaveClass("display-4");
         expect(h1.textContent).toContain("header prop");
     });
 
