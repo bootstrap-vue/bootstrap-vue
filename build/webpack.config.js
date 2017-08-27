@@ -27,7 +27,7 @@ module.exports = function (env) {
     config.externals = [
         'vue-style-loader',
         'vue',
-        'tether'
+        'popper.js'
     ];
 
     // Library entry
