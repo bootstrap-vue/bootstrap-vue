@@ -26,8 +26,7 @@ module.exports = function (env) {
     // External dependencies
     config.externals = [
         'vue-style-loader',
-        'vue',
-        'popper.js'
+        'vue'
     ];
 
     // Library entry
