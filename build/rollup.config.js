@@ -38,7 +38,7 @@ module.exports = {
         uglify({}, minify)
     ],
     globals: {
-        tether: 'Tether'
+        'popper.js': 'Popper'
     },
     output: [
         {
