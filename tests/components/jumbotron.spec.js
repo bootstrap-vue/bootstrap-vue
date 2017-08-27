@@ -25,12 +25,12 @@ describe('jumbotron', async() => {
         });
     });
 
-    it("All examples except tags should have root elemwnt of type div", async () => {
+    it("All examples except tags should have root elemwnt of type 'div'", async () => {
         const { app: { $refs } } = window;
         ['default','level','slots','content','fluid','containerFluid'].forEach(ref => {
            expect($refs[ref]).toBeElement("div");
         });
-           expect($refs.tags).not.toBeElement("div");
+        expect($refs.tags).not.toBeElement("div");
     });
 
     it("default should have first child h1 with content and class 'display-3'", async () => {
@@ -123,7 +123,7 @@ describe('jumbotron', async() => {
         expect(content).toBeDefined();
         expect(content.children.length).toBe(1);
         expect(content.children[0]).toBeElement("p");
-        expect(content.children[0].textContent.).toContain("content");
+        expect(content.children[0].textContent).toContain("content");
     });
 
     it("fluid should have child with class 'container' and content", async () => {
@@ -133,9 +133,9 @@ describe('jumbotron', async() => {
         expect(container).toBeElement("div");
         expect(container).toHaveClass("container");
         expect(container.children.length).toBe(3);
-        expect(container.children[0].textContent.).toContain("header");
-        expect(container.children[1].textContent.).toContain("lead");
-        expect(container.children[2].textContent.).toContain("content");
+        expect(container.children[0].textContent).toContain("header");
+        expect(container.children[1].textContent).toContain("lead");
+        expect(container.children[2].textContent).toContain("content");
     });
 
     it("containerFluid should have child with class 'container-fluid' and content", async () => {
@@ -145,9 +145,9 @@ describe('jumbotron', async() => {
         expect(container).toBeElement("div");
         expect(container).toHaveClass("container-fluid");
         expect(container.children.length).toBe(3);
-        expect(container.children[0].textContent.).toContain("header");
-        expect(container.children[1].textContent.).toContain("lead");
-        expect(container.children[2].textContent.).toContain("content");
+        expect(container.children[0].textContent).toContain("header");
+        expect(container.children[1].textContent).toContain("lead");
+        expect(container.children[2].textContent).toContain("content");
     });
 
 });
