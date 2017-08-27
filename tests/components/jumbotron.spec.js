@@ -83,6 +83,7 @@ describe('jumbotron', async() => {
         expect(p).toBeElement("p");
         expect(p.textContent).toContain("content");
     });
+
     it("level should have first child h1 with content and class 'display-4'", async () => {
         const { app: { $refs } } = window;
         const level = $refs.level;
@@ -127,10 +128,13 @@ describe('jumbotron', async() => {
         expect(content.children[0]).toBeElement("p");
         expect(content.children[0].textContent).toContain("content");
     });
-/*
+
     it("fluid should have child with class 'container' and content", async () => {
         const { app: { $refs } } = window;
-        const container = $refs.fluid.children[0];
+        const fluid = $refs.fluid;
+        expect(fluid).toBeDefined();
+        expect(fluid.children.length).toBe(1);
+        const container = fluid.children[0];
         expect(container).toBeDefined();
         expect(container).toBeElement("div");
         expect(container).toHaveClass("container");
@@ -139,7 +143,7 @@ describe('jumbotron', async() => {
         expect(container.children[1].textContent).toContain("lead");
         expect(container.children[2].textContent).toContain("content");
     });
-
+/*
     it("containerFluid should have child with class 'container-fluid' and content", async () => {
         const { app: { $refs } } = window;
         const container = $refs.containerfluid.children[0];
