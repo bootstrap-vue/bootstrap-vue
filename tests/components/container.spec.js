@@ -61,7 +61,7 @@ describe("form-row", async () => {
 
     it("fluid should have tag div", async () => {
         const { app: { $refs } } = window;
-        expect($refs.div).toBeElement("div");
+        expect($refs.fluid).toBeElement("div");
     });
 
 });
