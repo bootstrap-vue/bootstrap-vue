@@ -150,7 +150,7 @@ describe('jumbotron', async() => {
         expect(container).toBeElement("div");
         expect(container).toHaveClass("container-fluid");
     });
-/*
+
     it("fluid should have child 'container' with content", async () => {
         const { app: { $refs } } = window;
         const fluid = $refs.fluid;
@@ -159,7 +159,7 @@ describe('jumbotron', async() => {
         expect(container.textContent).toContain("lead");
         expect(container.textContent).toContain("content");
     });
-
+/*
     it("containerFluid should have child 'container-fluid' with content", async () => {
         const { app: { $refs } } = window;
         const fluid = $refs.containerFluid;
