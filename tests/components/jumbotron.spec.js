@@ -155,18 +155,20 @@ describe('jumbotron', async() => {
         const { app: { $refs } } = window;
         const fluid = $refs.fluid;
         const container = fluid.children[0];
-        expect(container.textContent).toContain("header");
-        expect(container.textContent).toContain("lead");
-        expect(container.textContent).toContain("content");
-    });
-/*
-    it("containerFluid should have child 'container-fluid' with content", async () => {
-        const { app: { $refs } } = window;
-        const fluid = $refs.containerFluid;
-        const container = fluid.children[0];
+        expect(container.children.length).toBe(3);
         expect(container.children[0].textContent).toContain("header");
         expect(container.children[1].textContent).toContain("lead");
         expect(container.children[2].textContent).toContain("content");
     });
-*/
+
+    it("containerFluid should have child 'container-fluid' with content", async () => {
+        const { app: { $refs } } = window;
+        const fluid = $refs.containerFluid;
+        const container = fluid.children[0];
+        expect(container.children.length).toBe(3);
+        expect(container.children[0].textContent).toContain("header");
+        expect(container.children[1].textContent).toContain("lead");
+        expect(container.children[2].textContent).toContain("content");
+    });
+
 });
