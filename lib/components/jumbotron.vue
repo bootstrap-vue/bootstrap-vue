@@ -46,7 +46,7 @@
         computed: {
             jumbotronClasses() {
                 return [
-                    'jumbotron'
+                    'jumbotron',
                     this.fluid ? 'jumbotron-fluid' : ''
                 ];
             },
