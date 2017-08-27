@@ -86,7 +86,7 @@ describe('jumbotron', async() => {
 
     it("level should have first child h1 with content and class 'display-4'", async () => {
         const { app: { $refs } } = window;
-        const h1 = $refs.default.children[0];
+        const h1 = $refs.level.children[0];
         expect(h1).toBeDefined();
         expect(h1).toBeElement("h1");
         expect(h1).toHaveClass("display-4");
@@ -105,6 +105,7 @@ describe('jumbotron', async() => {
         const h1 = $refs.tags.children[0];
         expect(h1).toBeDefined();
         expect(h1).toBeElement("h2");
+        expect(h1).toHaveClass("display-3");
         expect(h1.textContent).toContain("header prop");
     });
 
@@ -114,7 +115,7 @@ describe('jumbotron', async() => {
         expect(p).toBeDefined();
         expect(p).toBeElement("div");
         expect(p).toHaveClass("lead");
-        expect(p).textContent).toContain("lead prop");
+        expect(p.textContent).toContain("lead prop");
     });
 
     it("content should have one child with tag p and text 'content'", async () => {
