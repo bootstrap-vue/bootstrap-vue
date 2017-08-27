@@ -83,10 +83,11 @@ describe('jumbotron', async() => {
         expect(p).toBeElement("p");
         expect(p.textContent).toContain("content");
     });
-/*
     it("level should have first child h1 with content and class 'display-4'", async () => {
         const { app: { $refs } } = window;
-        const h1 = $refs.level.children[0];
+        const level = $refs.level;
+        expect(level).toBeDefined();
+        const h1 = level.children[0];
         expect(h1).toBeDefined();
         expect(h1).toBeElement("h1");
         expect(h1).toHaveClass("display-4");
@@ -95,11 +96,11 @@ describe('jumbotron', async() => {
 
     it("tags should have custom root tag of 'article'", async () => {
         const { app: { $refs } } = window;
-        const root = $refs.tags;
-        expect(root).toBeDefined();
-        expect(root).toBeElement("article");
+        const tags = $refs.tags;
+        expect(tags).toBeDefined();
+        expect(tags).toBeElement("article");
     });
-
+/*
     it("tags should have custom header tag of 'h2' with content", async () => {
         const { app: { $refs } } = window;
         const h1 = $refs.tags.children[0];
