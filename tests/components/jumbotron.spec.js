@@ -129,7 +129,7 @@ describe('jumbotron', async() => {
         expect(content.children[0].textContent).toContain("content");
     });
 
-    it("fluid should have child with class 'container' and content", async () => {
+    it("fluid should have child with class 'container`", async () => {
         const { app: { $refs } } = window;
         const fluid = $refs.fluid;
         expect(fluid).toBeDefined();
@@ -138,12 +138,28 @@ describe('jumbotron', async() => {
         expect(container).toBeDefined();
         expect(container).toBeElement("div");
         expect(container).toHaveClass("container");
-        expect(container.children.length).toBe(3);
-        expect(container.children[0].textContent).toContain("header");
+    });
+
+   it("containerFluid should have child with class 'container-fluid`", async () => {
+        const { app: { $refs } } = window;
+        const fluid = $refs.contsinerFluid;
+        expect(fluid).toBeDefined();
+        expect(fluid.children.length).toBe(1);
+        const container = fluid.children[0];
+        expect(container).toBeDefined();
+        expect(container).toBeElement("div");
+        expect(container).toHaveClass("container-fluid");
+    });
+/*
+    it("fluid should have child 'container' with content", async () => {
+        const { app: { $refs } } = window;
+        const fluid = $refs.fluid;
+        const container = fluid.children[0];
+        expect(container.textContent).toContain("header");
         expect(container.children[1].textContent).toContain("lead");
         expect(container.children[2].textContent).toContain("content");
     });
-/*
+
     it("containerFluid should have child with class 'container-fluid' and content", async () => {
         const { app: { $refs } } = window;
         const container = $refs.containerfluid.children[0];
