@@ -70,7 +70,7 @@ describe('jumbotron', async() => {
     it("slots should have second child with tag p with class lead and have content", async () => {
         const { app: { $refs } } = window;
         const p = $refs.slots.children[1];
-        expectp).toBeDefined();
+        expect(p).toBeDefined();
         expect(p).toBeElement("p");
         expect(p).toHaveClass("lead");
         expect(p.textContent).toContain("lead slot");
@@ -83,7 +83,7 @@ describe('jumbotron', async() => {
         expect(p).toBeElement("p");
         expect(p.textContent).toContain("content");
     });
-/*
+
     it("level should have first child h1 with content and class 'display-4'", async () => {
         const { app: { $refs } } = window;
         const h1 = $refs.default.children[0];
@@ -149,5 +149,5 @@ describe('jumbotron', async() => {
         expect(container.children[1].textContent).toContain("lead");
         expect(container.children[2].textContent).toContain("content");
     });
-*/
+
 });
