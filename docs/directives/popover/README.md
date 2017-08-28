@@ -42,7 +42,7 @@ like a popover to appear.
     </div>
   </div>
   <h5>Content and Title</h5>
-  <div class="row text-center">
+  <div class="row text-center mb-3">
     <div class="col-sm-3">
       <b-btn v-b-popover="'Content!'" title="Title from title attributee" variant="success">Title + Content</b-btn>
     </div>
@@ -53,7 +53,12 @@ like a popover to appear.
       <b-btn v-b-popover="popoverData" variant="success">Data</b-btn>
     </div>
     <div class="col-sm-3">
-      <b-btn v-b-popover.html="popoverMethod" variant="success">Method</b-btn>
+      <b-btn v-b-popover.html="popoverMethod" title="Popover with HTML"variant="success">Method</b-btn>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-sm-12">
+      <b-btn v-b-popover="popoverConfig" variant="success">Config</b-btn>
     </div>
   </div>
 </div>
@@ -65,14 +70,25 @@ export default {
     popoverData: {
       title: 'Popover Title',
       content: 'Popover Content'
-    }
+    },
+    counter: 0
   },
   methods: {
     popoverMethod() {
+      // Returns the content as a string
+      // Will be called each time popover is opened
+      return '<strong>' + Date.now() + '</strong>';
+    }
+  },
+  computed: {
+    popoverConfig() {
+      // Bot title and content as specified as a function
+      // and will be called each time popover is opened
       return {
-        title: 'Popover with HTML',
-        content: '<strong>' + Date.now() + '</strong>'
-      }
+        html: true,
+        title: () => { return 'Hello <b>Popover:</b> ' + (++this.counter); },
+        content: () => { return 'The date is:<br><em>' + Date.now() + '</em>'; }
+      };
     }
   }
 }
@@ -86,8 +102,8 @@ export default {
 v-b-popover:[container].[mod1].[mod2].[...].[modN]="<value>"
 ```
 Where `<value>` can be (optional):
- - A string (content of the popover
- - A function reference (to generate the content of the popover, receives one arg of the element reference)
+ - A string containing the **content** of the popover
+ - A function reference to generate the **content** of the popover
  - An object containing more complex configuration of popover, See Bootstrap docs for possible values/structure)
 
 Where [modX] can be (all optional):
