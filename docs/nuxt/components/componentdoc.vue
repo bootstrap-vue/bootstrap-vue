@@ -1,5 +1,5 @@
 <template>
-    <div class="bd-content">
+    <div class="bd-content" v-if="component">
 
         <h2><code>{{tag}}</code></h2>
         <a :href="githubURL" target="_blank" class="text-muted">(view source)</a>
@@ -31,6 +31,7 @@
                 </template>
             </b-table>
         </template>
+
     </div>
 
 </template>
