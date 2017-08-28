@@ -1,15 +1,12 @@
-import {loadFixture, testVM} from '../helpers';
+import { loadFixture, testVM } from "../helpers";
 
-describe('img', async() => {
-  beforeEach(loadFixture('img'));
+describe("img", async () => {
+  beforeEach(loadFixture("img"));
   testVM();
 
-  it("default should be rendered with an 'img' tag", async () => {
+  it("default should have tag div", async () => {
     const { app: { $refs } } = window;
-    const img = $refs.default;
-    expect(img).toBeDefined();
-    expect(img).toBeElement("img");
-    expect(img.className).toBe("");
+    expect($refs.default).toBeElement("img");
   });
 /*
   it("all should be rendered with an 'img' tag", async() => {
