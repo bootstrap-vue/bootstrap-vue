@@ -48,13 +48,13 @@ of several values:
 
 ```html
 <div>
-  <b-img rounded blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="top" blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="right" blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="bottom" blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="left" blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="circle" blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="0" blank width="75" height="75" blank-color="#777" alt="img" />
+  <b-img rounded blank :width="75" :height="75" blank-color="#777" alt="img" />
+  <b-img rounded="top" blank :width="75" :height="75" blank-color="#777" alt="img" />
+  <b-img rounded="right" blank :width="75" :height="75" blank-color="#777" alt="img" />
+  <b-img rounded="bottom" blank :width="75" :height="75" blank-color="#777" alt="img" />
+  <b-img rounded="left" blank :width="75" :height="75" blank-color="#777" alt="img" />
+  <b-img rounded="circle" blank :width="75" :height="75" blank-color="#777" alt="img" />
+  <b-img rounded="0" blank :width="75" :height="75" blank-color="#777" alt="img" />
 </div>
 
 <!-- b-img-rounded.vue -->
@@ -97,13 +97,13 @@ color, etc). The default color is `transparent`.
 
 ```html
 <div>
-  <b-img blank width="75" height="75" alt="transparent img" />
-  <b-img blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img blank width="75" height="75" blank-color="red" alt="img" />
-  <b-img blank width="75" height="75" blank-color="black" alt="img" />
-  <b-img blank width="75" height="75" blank-color="#338833" alt="img" />
-  <b-img blank width="75" height="75" blank-color="rgba(255,255,255,0.5)" alt="img" />
-  <b-img blank width="75" height="75" blank-color="#88f" alt="img" />
+  <b-img blank :width="75" :height="75" alt="transparent img" />
+  <b-img blank :width="75" :height="75" blank-color="#777" alt="img" />
+  <b-img blank :width="75" :height="75" blank-color="red" alt="img" />
+  <b-img blank :width="75" :height="75" blank-color="black" alt="img" />
+  <b-img blank :width="75" :height="75" blank-color="#338833" alt="img" />
+  <b-img blank :width="75" :height="75" blank-color="rgba(255,255,255,0.5)" alt="img" />
+  <b-img blank :width="75" :height="75" blank-color="#88f" alt="img" />
 </div>
 
 <!-- b-img-rounded.vue -->
@@ -114,4 +114,5 @@ color, etc). The default color is `transparent`.
 - If width and height are not set, both width and height will internally be set to 1.
 - Thee `blank` prop takes precedence over the `src` prop.  If you set both and later set `blank` to `false` the image specified in `src` will then be displayed.
 - Blank images are rendered using SVG image data URLs.
-
+- The `width` and `height` props expect numeric values. Be sure to prepend a `:` before the prop name.
+- The `width` and `height` props will also apply the `width` and `height` attributes to the rendered `<img>` tag, even if `blank` is not set.
