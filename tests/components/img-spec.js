@@ -10,7 +10,7 @@ describe('image', async() => {
       expect(img).toBeDefined();
       expect(img).toBeElement('img');
     });
-
+/*
     it("fluid shpould have class 'img-fluid'", async() => {
       const { app: { $refs, $el } } = window;
       const img = $refs.fluid;
@@ -51,5 +51,5 @@ describe('image', async() => {
       expect(img).toHaveClass('mx-auto');
       expect(img).toHaveClass('d-block');
     });
-
+*/
 });
