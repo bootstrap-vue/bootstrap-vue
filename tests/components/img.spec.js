@@ -4,17 +4,6 @@ describe("img", async () => {
   beforeEach(loadFixture("img"));
   testVM();
 
-  it("true should be true", async () => {
-    const { app: { $refs } } = window;
-    expect(true).toBe(true);
-  });
-
-  it("default should be tag img", async () => {
-    const { app: { $refs } } = window;
-    expect($refs.default).toBeElement("img");
-  });
-
-/*
   it("all should be rendered with an 'img' tag", async() => {
     const { app: { $refs } } = window;
     [
@@ -150,6 +139,5 @@ describe("img", async () => {
     expect(img).toBeDefined();
     expect(img.getAttribute("src")).toContain("data:image/svg+xml;charset=UTF-8,");
   });
-*/
 
 });
