@@ -11,10 +11,13 @@
     import ToolTip from '../classes/tooltip';
     import { isArray } from '../utils/array';
     import observeDom from '../utils/observe-dom';
+    import { assign } from '../utils/object';
     
     export default {
         data() {
-            toolTip: null
+            return {
+                toolTip: null
+            }
         },
         props: {
             targetId: {
@@ -93,6 +96,12 @@
             }
         },
         methods: {
+            updatePosition() {
+                if (this.toolTip) {
+                    // Instruct popper to reposition popover if necessary
+                    this.toolTip.update();
+                }
+            },
             getConfig() {
                 const cfg = assign({}, this.baseConfig);
                 if (this.$refs.title.innerHTML.trim()) {

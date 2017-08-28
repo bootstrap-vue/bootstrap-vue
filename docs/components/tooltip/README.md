@@ -13,7 +13,7 @@
 
   <b-btn id="exButton2" variant="outline-success">Html chat</b-btn>
 
-  <b-tooltip target-id="exButton1" content="Online!"></b-tooltip>
+  <b-tooltip target-id="exButton1" title="Online!"></b-tooltip>
 
   <b-tooltip target-id="exButton2">
     Hello <strong>World!</strong>

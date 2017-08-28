@@ -90,6 +90,9 @@ element via the `<b-popover>` component or `v-b-popover` directive.
       options: [{text:'- Chose 1 -', value:''},'Red','Green','Blue']
     },
     methods: {
+      onClose() {
+        this.$refs.popover.$emit('close');
+      },
       onCancel() {
         this.$refs.popover.$emit('close');
       },
