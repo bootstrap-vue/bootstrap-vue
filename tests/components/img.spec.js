@@ -138,5 +138,5 @@ describe("img", async () => {
     expect(img).toBeDefined();
     expect(img.getAttribute("src")).toContain("data:image/svg+xml;charset=UTF-8,");
   });
-*/
+
 });
