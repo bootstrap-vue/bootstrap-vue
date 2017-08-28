@@ -22,7 +22,6 @@ describe("img", async () => {
       const img = $refs[ref];
       expect(img).toBeDefined();
       expect(img).toBeElement("img");
-      expect(img.className).toBe("");
     });
   });
 /*
