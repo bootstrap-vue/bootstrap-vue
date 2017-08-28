@@ -11,7 +11,7 @@ describe('image', async() => {
       expect(img).toBeElement('img');
     });
 
-    it("fluid shpould have class 'img-fluid`", async() => {
+    it("fluid shpould have class 'img-fluid'", async() => {
       const { app: { $refs, $el } } = window;
       const img = $refs.fluid;
       expect(img).toBeDefined();
@@ -19,7 +19,7 @@ describe('image', async() => {
       expect(img).toHaveClass('img-fluid');
     });
 
-    it("thumbnail should have class 'img-thumbnail`", async() => {
+    it("thumbnail should have class 'img-thumbnail'", async() => {
       const { app: { $refs, $el } } = window;
       const img = $refs.thumbnail;
       expect(img).toBeDefined();
@@ -27,7 +27,7 @@ describe('image', async() => {
       expect(img).toHaveClass('img-thumbnail');
     });
 
-    it("left should have class 'float-left`", async() => {
+    it("left should have class 'float-left'", async() => {
       const { app: { $refs, $el } } = window;
       const img = $refs.left;
       expect(img).toBeDefined();
@@ -35,7 +35,7 @@ describe('image', async() => {
       expect(img).toHaveClass('float-left');
     });
 
-    it("right should have class 'float-right`", async() => {
+    it("right should have class 'float-right'", async() => {
       const { app: { $refs, $el } } = window;
       const img = $refs.right;
       expect(img).toBeDefined();
@@ -43,7 +43,7 @@ describe('image', async() => {
       expect(img).toHaveClass('float-right');
     });
 
-    it("center should have classes 'mx-auto` and 'd-block'", async() => {
+    it("center should have classes 'mx-auto' and 'd-block'", async() => {
       const { app: { $refs, $el } } = window;
       const img = $refs.center;
       expect(img).toBeDefined();
