@@ -4,6 +4,14 @@ describe('img', async() => {
   beforeEach(loadFixture('img'));
   testVM();
 
+  it("default should be rendered with an 'img' tag", async () => {
+    const { app: { $refs } } = window;
+    const img = $refs.default;
+    expect(img).toBeDefined();
+    expect(img).toBeElement("img");
+    expect(img.className).toBe("");
+  });
+/*
   it("all should be rendered with an 'img' tag", async() => {
     const { app: { $refs } } = window;
     [
@@ -25,7 +33,7 @@ describe('img', async() => {
       expect(img.className).toBe("");
     });
   });
-/*
+
   it("all but blanks should  have 'src' starting with 'https://lorempixel.com'", async() => {
     const { app: { $refs } } = window;
     [
