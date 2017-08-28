@@ -25,7 +25,7 @@ describe('img', async() => {
       expect(img.className).toBe("");
     });
   });
-
+/*
   it("all but blanks should  have 'src' starting with 'https://lorempixel.com'", async() => {
     const { app: { $refs } } = window;
     [
@@ -139,5 +139,5 @@ describe('img', async() => {
     expect(img).toBeDefined();
     expect(img.getAttribute("src")).toContain("data:image/svg+xml;charset=UTF-8,");
   });
-
+*/
 });
