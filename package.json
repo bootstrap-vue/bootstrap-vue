@@ -86,6 +86,7 @@
     "jest": "^20.0.4",
     "jest-vue-preprocessor": "^1.1.0",
     "lodash": "latest",
+    "lodash.startcase": "^4.4.0",
     "markdown-loader": "^2.0.1",
     "marked": "^0.3.6",
     "nuxt": "1.0.0-rc6",

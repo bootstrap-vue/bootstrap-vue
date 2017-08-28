@@ -5,7 +5,7 @@
     >
         <thead :class="headClass">
         <tr>
-            <th v-for="(field,key) in fields"
+            <th v-for="(field,key) in computedFields"
                 @click.stop.prevent="headClicked($event,field,key)"
                 @keydown.enter.stop.prevent="headClicked($event,field,key)"
                 @keydown.space.stop.prevent="headClicked($event,field,key)"
@@ -24,7 +24,7 @@
         </thead>
         <tfoot v-if="footClone" :class="footClass">
         <tr>
-            <th v-for="(field,key) in fields"
+            <th v-for="(field,key) in computedFields"
                 @click.stop.prevent="headClicked($event,field,key)"
                 @keydown.enter.stop.prevent="headClicked($event,field,key)"
                 @keydown.space.stop.prevent="headClicked($event,field,key)"
@@ -49,24 +49,21 @@
         <tr v-if="$scopedSlots['top-row']">
             <slot name="top-row" :columns="keys(fields).length" :fields="fields"></slot>
         </tr>
-        <tr v-for="(item,index) in _items"
+        <tr v-for="(item,index) in computedItems"
             :key="index"
             :class="rowClass(item)"
             @click="rowClicked($event,item,index)"
             @dblclick="rowDblClicked($event,item,index)"
             @mouseenter="rowHovered($event,item,index)"
         >
-            <template v-for="(field,key) in fields">
-                <td v-if="!hasFormatter(field)" :class="tdClass(field, item, key)" :key="key">
+            <template v-for="(field,key) in computedFields">
+                <td :class="tdClass(field, item, key)" :key="key">
                     <slot :name="key" :value="item[key]" :item="item" :index="index">{{item[key]}}</slot>
-                </td>
-                <td v-else :key="key" :class="tdClass(field, item, key)"
-                    v-html="callFormatter(item, key, field)">
                 </td>
             </template>
         </tr>
-        <tr v-if="showEmpty && (!_items  || _items.length === 0)">
-            <td :colspan="keys(fields).length">
+        <tr v-if="showEmpty && (!computedItems  || computedItems.length === 0)">
+            <td :colspan="keys(computedFields).length">
                 <div v-if="filter" role="alert" aria-live="polite">
                     <slot name="emptyfiltered">
                         <div class="text-center my-2" v-html="emptyFilteredText"></div>
@@ -87,9 +84,11 @@
 </template>
 
 <script>
-    import { warn } from '../utils';
-    import { keys } from '../utils/object.js';
+    import { warn, pluckProps } from '../utils';
+    import { keys } from '../utils/object';
+    import { isArray } from '../utils/array'
     import { listenOnRootMixin } from '../mixins';
+    import startCase from 'lodash.startcase';
 
     const toString = v => {
         if (!v) {
@@ -160,8 +159,8 @@
                 default: ''
             },
             fields: {
-                type: Object,
-                default: {}
+                type: [Object, Array],
+                default: null
             },
             striped: {
                 type: Boolean,
@@ -373,7 +372,56 @@
                     sortDesc: this.localSortDesc
                 };
             },
-            _items() {
+            computedFields() {
+                let fields
+
+                // Normalize array Form
+                if (isArray(this.fields)) {
+                    fields = {}
+                    this.fields.filter(f => f).forEach(f => {
+                        fields[f.key || f] = f
+                    })
+                } else {
+                    fields = this.fields || {}
+                }
+
+                // If no field provided, take a sample from first record (if exits)
+                if (keys(fields).length === 0 && this.computedItems.length > 0) {
+                    const sample = this.computedItems[0]
+                    keys(sample).forEach(k => {
+                        fields[k] = true
+                    })
+                }
+
+                // Normalize fields
+                keys(fields).forEach(k => {
+                    // Hidden
+                    if (fields[k] === false) {
+                        delete fields[k]
+                        return
+                    }
+                    // Humanize field label
+                    if (fields[k] === true) {
+                         fields[k] = { label: startCase(k) }
+                         return
+                    }
+                    // Formatter shortcut
+                    if (typeof fields[k] === 'function') {
+                        fields[k] = {
+                            label: startCase(k),
+                            formatter: fields[k]
+                        }
+                        return
+                    }
+                    // Label shortcut
+                    if (typeof fields[k] === 'string') {
+                        fields[k] =  { label: startCase(k) }
+                    }
+                })
+
+                return fields
+            },
+            computedItems() {
                 // Grab some props/data to ensure reactivity
                 const perPage = this.perPage;
                 const currentPage = this.currentPage;
@@ -390,7 +438,18 @@
                 }
 
                 // Shallow copy of items, so we don't mutate the original array order/size
-                items = items.slice();
+
+                items = JSON.parse(JSON.stringify(items))
+
+                // Apply formatter only if fields object defined
+                if (this.fields && this.fields.toString() === '[object Object]'){
+                    const keysToFormat = keys(this.fields).filter((k, i, a) => this.hasFormatter(this.fields[k]))
+                    keysToFormat.forEach(k =>{
+                        items.forEach(item =>{
+                            item[k] = this.callFormatter(item, k, this.fields[k])
+                        }, this)
+                    }, this)
+                }
 
                 // Apply local filter
                 if (filter && !this.providerFiltering) {
@@ -439,7 +498,7 @@
         },
         methods: {
             keys,
-            fieldClass(field, key) {
+            fieldClass (field, key) {
                 return [
                     field.sortable ? 'sorting' : '',
                     (field.sortable && this.localSortBy === key) ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc') : '',
@@ -448,7 +507,7 @@
                     field.thClass ? field.thClass : ''
                 ];
             },
-            tdClass(field, item, key) {
+            tdClass (field, item, key) {
                 let cellVariant = '';
                 if (item._cellVariants && item._cellVariants[key]) {
                     cellVariant = (this.inverse ? 'bg-' : 'table-') + item._cellVariants[key];
@@ -460,12 +519,12 @@
                     field.tdClass ? field.tdClass : ''
                 ];
             },
-            rowClass(item) {
+            rowClass (item) {
                 return [
                     item._rowVariant ? ((this.inverse ? 'bg-' : 'table-') + item._rowVariant) : ''
                 ];
             },
-            rowClicked(e, item, index) {
+            rowClicked (e, item, index) {
                 if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
@@ -474,7 +533,7 @@
                 }
                 this.$emit('row-clicked', item, index, e);
             },
-            rowDblClicked(e, item, index) {
+            rowDblClicked (e, item, index) {
                 if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
@@ -483,7 +542,7 @@
                 }
                 this.$emit('row-dblclicked', item, index, e);
             },
-            rowHovered(e, item, index) {
+            rowHovered (e, item, index) {
                 if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
@@ -492,7 +551,7 @@
                 }
                 this.$emit('row-hovered', item, index, e);
             },
-            headClicked(e, field, key) {
+            headClicked (e, field, key) {
                 if (this.computedBusy) {
                     // If table is busy (via provider) then don't propagate
                     e.preventDefault();
@@ -522,19 +581,19 @@
                     this.$emit('sort-changed', this.context);
                 }
             },
-            refresh() {
+            refresh () {
                 // Expose refresh method
                 if (this.hasProvider) {
                     this._providerUpdate();
                 }
             },
-            _providerSetLocal(items) {
+            _providerSetLocal (items) {
                 this.localItems = (items && items.length > 0) ? items.slice() : [];
                 this.localBusy = false;
                 this.$emit('refreshed');
                 this.emitOnRoot('table::refreshed', this.id);
             },
-            _providerUpdate() {
+            _providerUpdate () {
                 // Refresh the provider items
                 if (this.computedBusy || !this.hasProvider) {
                     // Don't refresh remote data if we are 'busy' or if no provider
@@ -547,10 +606,7 @@
                 // Call provider function with context and optional callback
                 const data = this.items(this.context, this._providerSetLocal);
 
-                if (!data) {
-                    // Provider is using callback
-                    return;
-                } else if (data.then && typeof data.then === 'function') {
+                if (data) if (data.then && typeof data.then === 'function') {
                     // Provider returned Promise
                     data.then(items => {
                         this._providerSetLocal(items);
@@ -560,17 +616,14 @@
                     this._providerSetLocal(data);
                 }
             },
-            hasFormatter(field) {
-                return field.formatter && ((typeof (field.formatter) === 'function') || (typeof (field.formatter) === 'string'));
-            },
-            callFormatter(item, key, field) {
+            hasFormatter: (field) => field.formatter && ((typeof (field.formatter) === 'function') || (typeof (field.formatter) === 'string')),
+            callFormatter (item, key, field) {
                 if (field.formatter && (typeof (field.formatter) === 'function'))
-                    return field.formatter(item[key]);
+                    return field.formatter(item[key], key, item);
 
                 if (field.formatter && (typeof (this.$parent[field.formatter]) === 'function'))
-                    return this.$parent[field.formatter](item[key]);
+                    return this.$parent[field.formatter](item[key], key, item);
             }
-
         }
     };
 </script>
