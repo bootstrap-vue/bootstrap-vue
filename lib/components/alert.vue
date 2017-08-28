@@ -7,12 +7,12 @@
     >
         <button type="button"
                 class="close"
+                v-if="dismissible"
                 data-dismiss="alert"
                 :aria-label="dismissLabel"
-                v-if="localDismissible"
                 @click.stop.prevent="dismiss"
         >
-            <span aria-hidden="true">&times;</span>
+            <span class="d-inline-block" aria-hidden="true"><slot name="dismiss">&times;</slot></span>
         </button>
         <slot></slot>
     </div>
@@ -22,24 +22,22 @@
     import {warn} from '../utils';
 
     export default {
+        model: {
+            prop: 'show',
+            event: 'input'
+        },
         data() {
             return {
                 countDownTimerId: null,
-                dismissed: false,
-                localDismissible: this.dismissible
+                dismissed: false
             };
-        },
-        created() {
-            if (this.state) {
-                warn('<b-alert> "state" property is deprecated, please use "variant" property instead.');
-            }
         },
         computed: {
             classObject() {
-                return ['alert', this.alertVariant, this.localDismissible ? 'alert-dismissible' : ''];
+                return ['alert', this.alertVariant, this.dismissible ? 'alert-dismissible' : ''];
             },
             alertVariant() {
-                const variant = this.state || this.variant || 'info';
+                const variant = this.variant;
                 return `alert-${variant}`;
             },
             localShow() {
@@ -50,10 +48,6 @@
             variant: {
                 type: String,
                 default: 'info'
-            },
-            state: {
-                type: String,
-                default: null
             },
             dismissible: {
                 type: Boolean,
@@ -81,9 +75,17 @@
         },
         methods: {
             dismiss() {
+                this.clearCounter();
                 this.dismissed = true;
                 this.$emit('dismissed');
-                this.clearCounter();
+                this.$emit('input', false);
+                if (typeof this.show === 'number') {
+                    this.$emit('dismiss-count-down', 0);
+                    this.$emit('input', 0);
+                } else {
+                    this.$emit('input', false);
+                }
+
             },
             clearCounter() {
                 if (this.countDownTimerId) {
@@ -92,30 +94,27 @@
                 }
             },
             showChanged() {
+                // Reset counter status
+                this.clearCounter();
                 // Reset dismiss status
                 this.dismissed = false;
 
                 // No timer for boolean values
                 if (this.show === true || this.show === false || this.show === null || this.show === 0) {
-                    this.localDismissible = this.dismissible;
                     return;
                 }
 
-                // Hide dismiss button for auto-dismissing
-                this.localDismissible = false;
-
                 // Start counter
-                this.clearCounter();
                 let dismissCountDown = this.show;
-                this.$emit('dismiss-count-down', dismissCountDown);
                 this.countDownTimerId = setInterval(() => {
-                    dismissCountDown--;
-                    this.$emit('dismiss-count-down', dismissCountDown);
                     if (dismissCountDown < 1) {
                         this.dismiss();
-                        this.clearCounter();
+                        return;
                     }
-                }, 1000);
+                    dismissCountDown--;
+                    this.$emit('dismiss-count-down', dismissCountDown);
+                    this.$emit('input', dismissCountDown);
+                 }, 1000);
             }
         }
     };

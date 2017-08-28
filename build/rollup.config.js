@@ -1,18 +1,18 @@
-const fs = require('fs');
-const path = require('path');
-const vue = require('rollup-plugin-vue');
-const buble = require('rollup-plugin-buble');
-const resolve = require('rollup-plugin-node-resolve');
-const commonjs = require('rollup-plugin-commonjs');
-const uglify = require('rollup-plugin-uglify');
-const {minify} = require('uglify-es');
-const CleanCSS = require('clean-css');
-const {camelCase} = require('lodash');
-const {name, dependencies} = require('../package.json');
+const fs = require("fs");
+const path = require("path");
+const vue = require("rollup-plugin-vue");
+const buble = require("rollup-plugin-buble");
+const resolve = require("rollup-plugin-node-resolve");
+const commonjs = require("rollup-plugin-commonjs");
+const uglify = require("rollup-plugin-uglify");
+const { minify } = require("uglify-es");
+const CleanCSS = require("clean-css");
+const { camelCase } = require("lodash");
+const { name, dependencies } = require("../package.json");
 
-const base = path.resolve(__dirname, '..');
-const lib = path.resolve(base, 'lib');
-const dist = path.resolve(base, 'dist');
+const base = path.resolve(__dirname, "..");
+const lib = path.resolve(base, "lib");
+const dist = path.resolve(base, "dist");
 
 // Ensure dist directory exists
 if (!fs.existsSync(dist)) {
@@ -20,43 +20,43 @@ if (!fs.existsSync(dist)) {
 }
 
 module.exports = {
-    entry: path.resolve(lib, 'index.js'),
-    external: Object.keys(dependencies),
-    moduleName: name,
+    input: path.resolve(lib, "index.js"),
+    // Libs in `external` will not be bundled to dist,
+    // since they are expected to be provided later.
+    // We want to include Popper.js in the build, so we exclude it here.
+    external: Object.keys(dependencies).filter(dep => dep !== "popper.js"),
+    name,
     plugins: [
         vue({
             cssModules: {
-                generateScopedName: '[name]__[local]'
+                generateScopedName: "[name]__[local]"
             },
             css(style) {
                 fs.writeFileSync(path.resolve(dist, `${name}.css`), new CleanCSS().minify(style).styles);
             }
         }),
-        resolve({external: ['vue']}),
+        resolve({ external: ["vue"] }),
         commonjs(),
-        buble({objectAssign: 'Object.assign'}),
+        buble({ objectAssign: "Object.assign" }),
         uglify({}, minify)
     ],
-    globals: {
-        tether: 'Tether'
-    },
-    targets: [
+    output: [
         {
-            format: 'cjs',
-            moduleName: camelCase(name),
-            dest: path.resolve(dist, name + '.common.js'),
-            sourceMap: true
+            format: "cjs",
+            name: camelCase(name),
+            file: path.resolve(dist, name + ".common.js"),
+            sourcemap: true
         },
         {
-            format: 'es',
-            dest: path.resolve(dist, name + '.esm.js'),
-            sourceMap: true
+            format: "es",
+            file: path.resolve(dist, name + ".esm.js"),
+            sourcemap: true
         },
         {
-            format: 'umd',
-            moduleName: camelCase(name),
-            dest: path.resolve(dist, name + '.js'),
-            sourceMap: true
+            format: "umd",
+            modulename: camelCase(name),
+            file: path.resolve(dist, name + ".js"),
+            sourcemap: true
         }
     ]
 };

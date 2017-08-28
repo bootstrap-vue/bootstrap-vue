@@ -4,71 +4,74 @@
 
 ```html
 <template>
-<div>
-  <!-- Tabs with card integration -->
-  <b-card no-body>
-    <b-tabs small card ref="tabs" v-model="tabIndex">
-      <b-tab title="General">
-        I'm the first fading tab
-      </b-tab>
-      <b-tab title="Edit profile">
-        I'm the second tab
-        <b-card>I'm the card in tab</b-card>
-      </b-tab>
-      <b-tab title="Premium Plan" disabled>
-        Sibzamini!
-      </b-tab>
-    </b-tabs>
+  <div>
+    <!-- Tabs with card integration -->
+    <b-card no-body>
+      <b-tabs small card ref="tabs" v-model="tabIndex">
+        <b-tab title="General">
+          I'm the first fading tab
+        </b-tab>
+        <b-tab title="Edit profile">
+          I'm the second tab
+          <b-card>I'm the card in tab</b-card>
+        </b-tab>
+        <b-tab title="Premium Plan" disabled>
+          Sibzamini!
+        </b-tab>
+        <b-tab title="Info">
+          I'm the last tab
+        </b-tab>
+      </b-tabs>
 
-  </b-card>
+    </b-card>
 
-  <!-- Control buttons-->
-  <div class="text-center">
-    <b-button-group class="mt-2">
-      <b-btn @click="$refs.tabs.previousTab()">Previous</b-btn>
-      <b-btn @click="$refs.tabs.nextTab()">Next</b-btn>
-    </b-button-group>
-    <br>
-    <span class="text-muted">Current Tab: {{tabIndex}}</span>
+    <!-- Control buttons-->
+    <div class="text-center">
+      <b-button-group class="mt-2">
+        <b-btn @click="tabIndex--">Previous</b-btn>
+        <b-btn @click="tabIndex++">Next</b-btn>
+      </b-button-group>
+      <br>
+      <span class="text-muted">Current Tab: {{tabIndex}}</span>
+    </div>
+
+    <br><br>
+
+    <b-card no-body>
+      <b-tabs card>
+        <!-- Render Tabs -->
+        <b-tab :title="`Tab ${i}`" v-for="i in tabs" :key="i">
+          Tab Contents {{i}}
+          <b-btn size="sm" variant="danger" class="float-right" @click="()=>closeTab(i)">
+            Close tab
+          </b-btn>
+        </b-tab>
+
+        <!-- Newtab Button (Using tabs slot) -->
+        <b-nav-item slot="tabs" @click.prevent="newTab" href="#">
+          +
+        </b-nav-item>
+
+        <!-- Render this if no tabs -->
+        <div slot="empty" class="text-center text-muted">
+          There are no open tabs
+          <br> Open a new tab using + button.
+        </div>
+      </b-tabs>
+    </b-card>
+
   </div>
-
-  <br>
-  <br>
-
-  <b-card no-body>
-    <b-tabs card>
-      <!-- Render Tabs -->
-      <b-tab :title="`Tab ${i}`" v-for="i in tabs" :key="i">
-        Tab Contents {{i}}
-        <b-btn size="sm" variant="danger" class="float-right" @click="()=>closeTab(i)">Close tab
-        </b-btn>
-      </b-tab>
-
-      <!-- Newtab Button (Using tabs slot) -->
-      <b-nav-item slot="tabs" @click.prevent="newTab" href="#">
-        +
-      </b-nav-item>
-
-      <!-- Render this if no tabs -->
-      <div slot="empty" class="text-center text-muted">
-        There are no open tabs
-        <br> Open a new tab using + button.
-      </div>
-    </b-tabs>
-  </b-card>
-
-</div>
 </template>
 
 <script>
-export default {
-  data: {
-    tabIndex: null,
-    tabs: [],
-    tabCounter: 0
-  },
-  methods: {
-    closeTab(x) {
+  export default {
+    data: {
+      tabIndex: 0,
+      tabs: [],
+      tabCounter: 0
+    },
+    methods: {
+      closeTab(x) {
         for (let i = 0; i < this.tabs.length; i++) {
           if (this.tabs[i] === x) {
             this.tabs.splice(i, 1);
@@ -78,11 +81,11 @@ export default {
       newTab() {
         this.tabs.push(this.tabCounter++);
       }
+    }
   }
-}
 </script>
 
-<!-- tabs.vue -->
+<!-- tabs-1.vue -->
 ```
 
 ### Basic usage
@@ -103,13 +106,13 @@ export default {
 
 ### Cards Integration
 
-Tabs support integrating with bootstrap cards. Just add `card` property. Note
+Tabs support integrating with bootstrap cards. Just add the `card` property. Note
 that you should add `no-body` prop on `<b-card>` element in order to decorate header
-and remove the extra badding
+and remove the extra padding.
 
 ```html
 <b-card no-body>
-    <b-tabs ref="tabs" v-model="tabIndex" card>
+    <b-tabs ref="tabs" card>
         <b-tab title="Tab 1" active>
             Tab Contents
         </b-tab>

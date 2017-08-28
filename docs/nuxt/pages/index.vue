@@ -78,13 +78,11 @@
 </style>
 
 <script>
-    import site from '../..';
+    import site from '~/..';
 
     export default {
         computed: {
-            site() {
-                return site;
-            }
+            site: () => site
         }
     };
 </script>
