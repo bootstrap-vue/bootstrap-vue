@@ -24,7 +24,7 @@ the `fluid-grow` prop. Note this may cause bluring on small bitmap images.
 
 ```html
 <div>
-  <b-img src="https://lorempixel.com/400/200/" fluid-grow alt="Responsive image" />
+  <b-img src="https://lorempixel.com/300/150/" fluid-grow alt="Responsive image" />
 </div>
 
 <!-- b-img-responsive-2.vue -->
@@ -117,7 +117,7 @@ color, etc). The default color is `transparent`.
   <b-img blank width="75" height="75" blank-color="#88f" alt="img" />
 </div>
 
-<!-- b-img-rounded.vue -->
+<!-- b-img-blank.vue -->
 ```
 
 **Notes:**
