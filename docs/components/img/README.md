@@ -13,10 +13,21 @@ so that it scales with the parent element.
 
 ```html
 <div>
-  <b-img src="https://lorempixel.com/400/200/" fluid alt="Responsive image" />
+  <b-img src="https://lorempixel.com/1024/400/" fluid alt="Responsive image" />
 </div>
 
-<!-- b-img-responsive.vue -->
+<!-- b-img-responsive-1.vue -->
+```
+
+To make a fluid image that will grow to fill the width of it's container, use
+the `fluid-grow` prop. Note this may cause bluring on small bitmap images.
+
+```html
+<div>
+  <b-img src="https://lorempixel.com/400/200/" fluid-grow alt="Responsive image" />
+</div>
+
+<!-- b-img-responsive-2.vue -->
 ```
 
 **Note:** _In Internet Explorer 10, SVG images with `fluid` are disproportionately sized.
@@ -48,13 +59,13 @@ of several values:
 
 ```html
 <div>
-  <b-img rounded blank :width="75" :height="75" blank-color="#777" alt="img" />
-  <b-img rounded="top" blank :width="75" :height="75" blank-color="#777" alt="img" />
-  <b-img rounded="right" blank :width="75" :height="75" blank-color="#777" alt="img" />
-  <b-img rounded="bottom" blank :width="75" :height="75" blank-color="#777" alt="img" />
-  <b-img rounded="left" blank :width="75" :height="75" blank-color="#777" alt="img" />
-  <b-img rounded="circle" blank :width="75" :height="75" blank-color="#777" alt="img" />
-  <b-img rounded="0" blank :width="75" :height="75" blank-color="#777" alt="img" />
+  <b-img rounded blank width="75" height="75" blank-color="#777" alt="img" />
+  <b-img rounded="top" blank width="75" height="75" blank-color="#777" alt="img" />
+  <b-img rounded="right" blank width="75" height="75" blank-color="#777" alt="img" />
+  <b-img rounded="bottom" blank width="75" height="75" blank-color="#777" alt="img" />
+  <b-img rounded="left" blank width="75" height="75" blank-color="#777" alt="img" />
+  <b-img rounded="circle" blank width="75" height="75" blank-color="#777" alt="img" />
+  <b-img rounded="0" blank width="75" height="75" blank-color="#777" alt="img" />
 </div>
 
 <!-- b-img-rounded.vue -->
@@ -89,30 +100,29 @@ Note: `left` takes precedence over `right` which takes precedence over `center`.
 ## Blank (or solid color) Images
 `<b-img>` provides built-in support for generating blank images (transparent by
 default) of any width and height, by setting the `blank` prop, and specifying a width and
-height value. You can apply anoy of the other props that `<b-img>` to change the
-style of the image.
+height value (in pixels). You can apply any of the other props that `<b-img>` to change the
+style/behavior of the image.
 
 Set the prop `blank-color` to any valid CSS color (hex foramt, RGB, RGBA, named
 color, etc). The default color is `transparent`.
 
 ```html
 <div>
-  <b-img blank :width="75" :height="75" alt="transparent img" />
-  <b-img blank :width="75" :height="75" blank-color="#777" alt="img" />
-  <b-img blank :width="75" :height="75" blank-color="red" alt="img" />
-  <b-img blank :width="75" :height="75" blank-color="black" alt="img" />
-  <b-img blank :width="75" :height="75" blank-color="#338833" alt="img" />
-  <b-img blank :width="75" :height="75" blank-color="rgba(255,255,255,0.5)" alt="img" />
-  <b-img blank :width="75" :height="75" blank-color="#88f" alt="img" />
+  <b-img blank width="75" height="75" alt="transparent img" />
+  <b-img blank width="75" height="75" blank-color="#777" alt="img" />
+  <b-img blank width="75" height="75" blank-color="red" alt="img" />
+  <b-img blank width="75" height="75" blank-color="black" alt="img" />
+  <b-img blank width="75" height="75" blank-color="#338833" alt="img" />
+  <b-img blank width="75" height="75" blank-color="rgba(255,255,255,0.5)" alt="img" />
+  <b-img blank width="75" height="75" blank-color="#88f" alt="img" />
 </div>
 
 <!-- b-img-rounded.vue -->
 ```
 
 **Notes:**
-- If only one of width or height is set, the image will be have both width and height set to the same value.
-- If width and height are not set, both width and height will internally be set to 1.
-- Thee `blank` prop takes precedence over the `src` prop.  If you set both and later set `blank` to `false` the image specified in `src` will then be displayed.
+- In blank image mode, if only one of width or height is set, the image will be have both width and height set to the same value.
+- In blank image mode, if width and height are not set, both width and height will internally be set to 1.
+- The `blank` prop takes precedence over the `src` prop.  If you set both and later set `blank` to `false` the image specified in `src` will then be displayed.
 - Blank images are rendered using SVG image data URLs.
-- The `width` and `height` props expect numeric values. Be sure to prepend a `:` before the prop name.
 - The `width` and `height` props will also apply the `width` and `height` attributes to the rendered `<img>` tag, even if `blank` is not set.
