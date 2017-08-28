@@ -21,6 +21,7 @@ export default {
     'form-file': require('./form-file').default,
     'form-group': require('./form-group').default,
     'input-group': require('./input-group').default,
+    'img': require('./img').default,
     'jumbotron': require('./jumbotron').default,
     'list-group': require('./list-group').default,
     'modal': require('./modal').default,
