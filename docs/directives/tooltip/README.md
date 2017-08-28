@@ -79,8 +79,8 @@ v-b-tooltip:[container].[mod1].[mod2].[...].[modN]="<value>"
 ```
 
 Where `<value>` can be (optional):
- - A string (content of the tooltip, basic HTML supported)
- - A function reference (to generate the content of the tooltip, received one arg of the element reference)
+ - A string containing the title of the tooltip
+ - A function reference to generate the title of the tooltip (receives one arg which is a referenc to the DOM element triggering the tooltip)
  - An object containing more complex configuration of tooltip, See Bootstrap docs for possible values/structure)
 
 Where [modX] can be (all optional):
