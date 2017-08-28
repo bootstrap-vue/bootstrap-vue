@@ -84,7 +84,7 @@ export default {
        } else if (this.selected.length === 2) {
          return 'valid';
        } else if (this.selected.length === 1) {
-         return 'injvalid';
+         return 'invalid';
        }
        return '';
     }
