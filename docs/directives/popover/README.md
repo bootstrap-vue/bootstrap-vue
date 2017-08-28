@@ -102,9 +102,9 @@ export default {
 v-b-popover:[container].[mod1].[mod2].[...].[modN]="<value>"
 ```
 Where `<value>` can be (optional):
- - A string containing the **content** of the popover
- - A function reference to generate the **content** of the popover
- - An object containing more complex configuration of popover, See Bootstrap docs for possible values/structure)
+- A string containing the **content** of the popover
+- A function reference to generate the **content** of the popover (receives one argument which is a refernc to the DOM element triggering the popover)
+- An object containing more complex configuration of popover, See Bootstrap docs for possible values/structure)
 
 Where [modX] can be (all optional):
  - Positioning: `top`, `bottom`, `left`, `right`, or `auto` (last one found wins, defaults to `right`)
