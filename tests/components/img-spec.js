@@ -1,16 +1,16 @@
 import {loadFixture, testVM} from '../helpers';
 
-describe('image', async() => {
+describe('img', async() => {
     beforeEach(loadFixture('img'));
     testVM();
-    
+/*    
     it("Should be rednered with an 'img' tag", async() => {
       const { app: { $refs, $el } } = window;
       const img = $refs.default;
       expect(img).toBeDefined();
       expect(img).toBeElement('img');
     });
-/*
+
     it("fluid shpould have class 'img-fluid'", async() => {
       const { app: { $refs, $el } } = window;
       const img = $refs.fluid;
