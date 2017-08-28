@@ -77,7 +77,7 @@ module.exports = {
         'eqeqeq': 'off',
         'func-call-spacing': 'error',
         'func-name-matching': 'error',
-        'func-style': 'error',
+        'func-style': 'warn',
         'generator-star-spacing': 'error',
         'global-require': 'off',
         'guard-for-in': 'error',
