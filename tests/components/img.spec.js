@@ -24,7 +24,7 @@ describe("img", async () => {
       expect(img).toBeElement("img");
     });
   });
-/*
+
   it("all but blanks should  have 'src' starting with 'https://lorempixel.com'", async () => {
     const { app: { $refs } } = window;
     [
@@ -102,7 +102,7 @@ describe("img", async () => {
     expect(img.getAttribute("src")).toContain("data:image/svg+xml;charset=UTF-8,");
   });
 
-  it("blank should have width and height set to 1", async () => {
+  it("blank should have width and height set to '1'", async () => {
     const { app: { $refs } } = window;
     const img = $refs.blank;
     expect(img).toBeDefined();
