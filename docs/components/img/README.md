@@ -35,7 +35,7 @@ You can use prop `thumbnail` to give an image a rounded light border appearance.
 ```
 
 ## Rounded corners
-You can control which corners are rounded by setting hte rounded prop to one
+You can control which corners are rounded by setting the rounded prop to one
 of several values:
 - `true` (or prop present with no value): round all corners
 - `false` (or prop not present): no explit rounding or corners (default)
@@ -61,9 +61,9 @@ of several values:
 ```
 
 ## Aligning images
-Align images with the `left` (floats left) `right`(floats right), and `center` (auto,
-left+right margins) boolean props. You can also center images by placing them in a
-container that has the class `text-center`.
+Align images with the  boolean props `left` (floats left) `right`(floats right),
+and `center` (auto left+right margins). You can also center images by placing them
+in a container that has the class `text-center`.
 
 **Left an Right aligned (float):**
 ```html
@@ -112,5 +112,6 @@ color, etc). The default color is `transparent`.
 **Notes:**
 - If only one of width or height is set, the image will be have both width and height set to the same value.
 - If width and height are not set, both width and height will internally be set to 1.
+- Thee `blank` prop takes precedence over the `src` prop.  If you set both and later set `blank` to `false` the image specified in `src` will then be displayed.
 - Blank images are rendered using SVG image data URLs.
 
