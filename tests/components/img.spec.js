@@ -9,6 +9,11 @@ describe("img", async () => {
     expect(true).toBe(true);
   });
 
+  it("default should be tag img", async () => {
+    const { app: { $refs } } = window;
+    expect($refs.default).toBeElement("img");
+  });
+
 /*
   it("all should be rendered with an 'img' tag", async() => {
     const { app: { $refs } } = window;
