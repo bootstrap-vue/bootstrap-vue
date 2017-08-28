@@ -276,3 +276,72 @@ Don’t want your columns to simply stack in some grid tiers? Use a combination 
 
 <!-- b-col-7.vue -->
 ```
+
+## Alignment
+
+Use flexbox alignment utilities to vertically and horizontally align columns.
+
+### Vertical Alignment
+
+```html
+<b-container class="bv-example-row bv-example-row-flex-cols">
+    <b-row align-v="start">
+        <b-col>One of three columns</b-col>
+        <b-col>One of three columns</b-col>
+        <b-col>One of three columns</b-col>
+    </b-row>
+    <b-row align-v="center">
+        <b-col>One of three columns</b-col>
+        <b-col>One of three columns</b-col>
+        <b-col>One of three columns</b-col>
+    </b-row>
+    <b-row align-v="end">
+        <b-col>One of three columns</b-col>
+        <b-col>One of three columns</b-col>
+        <b-col>One of three columns</b-col>
+    </b-row>
+</b-container>
+
+<!-- b-col-8.vue -->
+```
+
+```html
+<b-container class="bv-example-row bv-example-row-flex-cols">
+    <b-row>
+        <b-col align-self="start">One of three columns</b-col>
+        <b-col align-self="center">One of three columns</b-col>
+        <b-col align-self="end">One of three columns</b-col>
+    </b-row>
+</b-container>
+
+<!-- b-col-9.vue -->
+```
+
+### Horizontal Alignment
+
+```html
+<b-container class="bv-example-row">
+    <b-row align-h="start">
+        <b-col cols="4">One of two columns</b-col>
+        <b-col cols="4">One of two columns</b-col>
+    </b-row>
+    <b-row align-h="center">
+        <b-col cols="4">One of two columns</b-col>
+        <b-col cols="4">One of two columns</b-col>
+    </b-row>
+    <b-row align-h="end">
+        <b-col cols="4">One of two columns</b-col>
+        <b-col cols="4">One of two columns</b-col>
+    </b-row>
+    <b-row align-h="around">
+        <b-col cols="4">One of two columns</b-col>
+        <b-col cols="4">One of two columns</b-col>
+    </b-row>
+    <b-row align-h="between">
+        <b-col cols="4">One of two columns</b-col>
+        <b-col cols="4">One of two columns</b-col>
+    </b-row>
+</b-container>
+
+<!-- b-col-10.vue -->
+```
