@@ -8,8 +8,8 @@ blank images with  an optional solid background color.
 
 ## Responsive images
 Images in Bootstrap-Vue can be made responsive with the `fluid` prop (which
-sets `max-width: 100%; height: auto;` via CSS classes) are applied to the image
-so that it scales with the parent element.
+sets `max-width: 100%; height: auto;` via CSS classes) so that it scales
+with the parent element - up to the maximum native width of the image.
 
 ```html
 <div>
@@ -47,38 +47,38 @@ You can use prop `thumbnail` to give an image a rounded light border appearance.
 
 ## Rounded corners
 You can control which corners are rounded by setting the rounded prop to one
-of several values:
+of the following values:
 - `true` (or prop present with no value): round all corners
 - `false` (or prop not present): no explit rounding or corners (default)
 - `'top'`: round the top corners
 - `'right'`: round the right corners
 - `'bottom'`: round the bottom corners
 - `'left'`: round the left corners
-- `'circle'`: make a circle (if square image) or oval (of not square) border
-- `'0'`: explicity turn off rounding or corenrs
+- `'circle'`: make a circle (if square image) or oval (if not square) border
+- `'0'`: explicity turn off rounding of corners
 
 ```html
 <div>
-  <b-img rounded blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="top" blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="right" blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="bottom" blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="left" blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="circle" blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img rounded="0" blank width="75" height="75" blank-color="#777" alt="img" />
+  <b-img rounded blank width="75" height="75" blank-color="#777" alt="img" class="m-2"/>
+  <b-img rounded="top" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
+  <b-img rounded="right" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
+  <b-img rounded="bottom" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
+  <b-img rounded="left" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
+  <b-img rounded="circle" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
+  <b-img rounded="0" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
 </div>
 
 <!-- b-img-rounded.vue -->
 ```
 
 ## Aligning images
-Align images with the  boolean props `left` (floats left) `right`(floats right),
+Align images with the boolean props `left` (floats left) `right`(floats right),
 and `center` (auto left+right margins). You can also center images by placing them
 in a container that has the class `text-center`.
 
 **Left an Right aligned (float):**
 ```html
-<div>
+<div class="clearfix">
   <b-img src="https://lorempixel.com/125/125/technics/8/" left alt="left image" />
   <b-img src="https://lorempixel.com/125/125/technics/8/" right alt="right image" />
 </div>
@@ -99,22 +99,22 @@ Note: `left` takes precedence over `right` which takes precedence over `center`.
 
 ## Blank (or solid color) Images
 `<b-img>` provides built-in support for generating blank images (transparent by
-default) of any width and height, by setting the `blank` prop, and specifying a width and
-height value (in pixels). You can apply any of the other props that `<b-img>` to change the
-style/behavior of the image.
+default) of any width and height, by setting the `blank` prop, and specifying 
+`width` and `height` values (in pixels). You can apply any of the other
+`<b-img>` props to change the style/behavior of the generted image.
 
 Set the prop `blank-color` to any valid CSS color (hex foramt, RGB, RGBA, named
 color, etc). The default color is `transparent`.
 
 ```html
 <div>
-  <b-img blank width="75" height="75" alt="transparent img" />
-  <b-img blank width="75" height="75" blank-color="#777" alt="img" />
-  <b-img blank width="75" height="75" blank-color="red" alt="img" />
-  <b-img blank width="75" height="75" blank-color="black" alt="img" />
-  <b-img blank width="75" height="75" blank-color="#338833" alt="img" />
-  <b-img blank width="75" height="75" blank-color="rgba(255,255,255,0.5)" alt="img" />
-  <b-img blank width="75" height="75" blank-color="#88f" alt="img" />
+  <b-img blank width="75" height="75" alt="transparent img" class="m-2" />
+  <b-img blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
+  <b-img blank width="75" height="75" blank-color="red" alt="img" class="m-2" />
+  <b-img blank width="75" height="75" blank-color="blue" alt="img" class="m-2" />
+  <b-img blank width="75" height="75" blank-color="#338833" alt="img" class="m-2" />
+  <b-img blank width="75" height="75" blank-color="rgba(255,255,255,0.5)" alt="img" class="m-2" />
+  <b-img blank width="75" height="75" blank-color="#88f" alt="img" class="m-2" />
 </div>
 
 <!-- b-img-blank.vue -->
@@ -126,3 +126,26 @@ color, etc). The default color is `transparent`.
 - The `blank` prop takes precedence over the `src` prop.  If you set both and later set `blank` to `false` the image specified in `src` will then be displayed.
 - Blank images are rendered using SVG image data URLs.
 - The `width` and `height` props will also apply the `width` and `height` attributes to the rendered `<img>` tag, even if `blank` is not set.
+
+## Lazy Loaded images
+> Use our complementary `<b-img-lazy>` image component (based on `<b-img>`) to lazy
+load images as they are scrolled into view (or within `offset` pixels of the viewport).
+
+### Usage
+Set the `src` prop to the URL of the image you want loadied lazily, and either specify a
+placeholder image URL via the prop `blank-src`, or have a blank placeholder image generated
+for you by leaving `blank-src` as `null`.
+
+Specify the width and height of the placeholder via the `blank-width` and `blank-height`
+props.  If these props are not set, then they will fall back to the `width` and `height`
+props (which are applied to the image specified via `src`).
+
+Control the generated blank image color by setting the prop `blank-color`.
+
+Placeholder images (either explicity provided, or dynamicaly generated) should have the same
+width and height values, or at least the same aspect ratio, as the `src` image.
+
+Feel free to use the `fluid`, `fluid-grow`, `thumbnail`, and `rounded` props of `<b-img>`.
+
+The `offset` prop specifies the number of pixels that an image needs to be near to
+the viewport to trigger it to be shown. The default value is `360`.
