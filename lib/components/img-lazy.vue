@@ -65,7 +65,7 @@
             fluidGrow: {
                 type: Boolean,
                 default: false
-            }
+            },
             thumbnail: {
                 type: Boolean,
                 default: false
