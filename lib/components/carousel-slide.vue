@@ -62,7 +62,7 @@
                 default: false
             },
             imgBlankColor: {
-                type: String
+                type: String,
                 default: 'transparent'
             },
             contentVisibleUp: {
