@@ -299,7 +299,7 @@
                         // this.start();
                    }
                 }
-            }
+            },
 
             // Update slide list
             updateSlides() {
