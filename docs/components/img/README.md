@@ -167,3 +167,20 @@ view (or within `offset` of view).  The default is `100` (ms).
 
 Once an image has come into view and is shown, the scroll event listeners are
 removed.
+
+**Example usage:**
+```html
+<div>
+  <b-img-lazy src="https://lorempixel.com/600/400/cats/1/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://lorempixel.com/600/400/cats/3/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://lorempixel.com/600/400/cats/4/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://lorempixel.com/600/400/cats/5/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://lorempixel.com/600/400/cats/6/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://lorempixel.com/600/400/cats/7/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://lorempixel.com/600/400/cats/8/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://lorempixel.com/600/400/cats/9/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://lorempixel.com/600/400/cats/10/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+</div>
+
+<!-- b-img-lazy.vue -->
+```
