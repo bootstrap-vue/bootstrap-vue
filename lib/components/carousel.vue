@@ -1,7 +1,7 @@
 <template>
     <div class="carousel slide"
          role="region"
-         :id="id || null"
+         :id="safeId()"
          :style="{background}"
          :aria-busy="isSliding ? 'true' : 'false'"
          @mouseenter="pause"
@@ -16,7 +16,7 @@
         <div class="carousel-inner"
              role="list"
              ref="inner"
-             :id="id ? (id + '__BV_inner_') : null"
+             :id="safeId('__BV_inner_')"
         >
             <slot></slot>
         </div>
@@ -26,7 +26,7 @@
             <a class="carousel-control-prev"
                href="#"
                role="button"
-               :aria-controls="id ? (id + '__BV_inner_') : null"
+               :aria-controls="safeId('__BV_inner_')"
                @click.stop.prevent="prev"
                @keydown.enter.stop.prevent="prev"
                @keydown.space.stop.prevent="prev"
@@ -37,7 +37,7 @@
             <a class="carousel-control-next"
                href="#"
                role="button"
-               :aria-controls="id ? (id + '__BV_inner_') : null"
+               :aria-controls="safeId('__BV_inner_')"
                @click.stop.prevent="next"
                @keydown.enter.stop.prevent="next"
                @keydown.space.stop.prevent="next"
@@ -51,21 +51,21 @@
         <ol class="carousel-indicators"
             role="group"
             v-show="indicators"
-            :id="id ? (id + '__BV_indicators_') : null"
+            :id="indicators ? safeId('__BV_indicators_') : null"
             :aria-hidden="indicators ? 'false' : 'true'"
             :aria-label="(indicators && labelIndicators) ? labelIndicators : null"
-            :aria-owns="(indicators && id) ? (id + '__BV_inner_') : null"
+            :aria-owns="indicators ? safeId('__BV_inner_') : null"
         >
             <li v-for="n in slides.length"
                 :key="'slide_' + n"
                 role="button"
-                :id="id ? (id + '__BV_indicator_' + n + '_') : null"
+                :id="safeId(`__BV_indicator_${n}_`)"
                 :tabindex="indicators ? '0' : '-1'"
                 :class="{active:n-1 === index}"
                 :aria-current="n-1 === index ? 'true' : 'false'"
                 :aria-label="labelGotoSlide + ' ' + n"
                 :aria-describedby="slides[n-1].id || null"
-                :aria-controls="id ? (id + '__BV_inner_') : null"
+                :aria-controls="safeId('__BV_inner_')"
                 @click="setSlide(n-1)"
                 @keydown.enter.stop.prevent="setSlide(n-1)"
                 @keydown.space.stop.prevent="setSlide(n-1)"
@@ -78,6 +78,7 @@
 <script>
     import { from as arrayFrom } from '../utils/array';
     import { observeDom } from '../utils';
+    import { idMixin } from '../mixins';
 
     // Slide directional classes
     const DIRECTION = {
@@ -114,6 +115,7 @@
     }
 
     export default {
+        mixins: [ idMixin ],
         data() {
             return {
                 index: this.value || 0,
@@ -124,9 +126,6 @@
             };
         },
         props: {
-            id: {
-                type: String
-            },
             labelPrev: {
                 type: String,
                 default: 'Previous Slide'
@@ -251,10 +250,9 @@
             updateSlides() {
                 this.pause();
 
-                // Get all slides
+                // Get all slides as DOM elements
                 this.slides = arrayFrom(this.$refs.inner.querySelectorAll('.carousel-item'));
 
-                const id = this.id;
                 const numSlides = this.slides.length;
 
                 // Keep slide number in range
@@ -262,6 +260,7 @@
 
                 this.slides.forEach((slide, idx) => {
                     const n = idx + 1;
+                    const id = this.safeId(`__BV_indicator_${n}_`);
 
                     slide.classList[idx === index ? 'add' : 'remove']('active');
                     slide.setAttribute('aria-current', idx === index ? 'true' : 'false');
@@ -269,7 +268,7 @@
                     slide.setAttribute('aria-setsize', String(numSlides));
                     slide.tabIndex = -1;
                     if (id) {
-                        slide.setAttribute('aria-controlledby', id + '__BV_indicator_' + n + '_');
+                        slide.setAttribute('aria-controlledby',id);
                     }
                 });
 
@@ -405,7 +404,12 @@
             this.updateSlides();
 
             // Observe child changes so we can update slide list
-            observeDom(this.$refs.inner, this.updateSlides.bind(this), {subtree: false});
+            observeDom(this.$refs.inner, this.updateSlides.bind(this), {
+                subtree: false,
+                childList: true,
+                attributes: true,
+                attributeFilter: [ 'id' ]
+            });
         },
         destroyed() {
             clearInterval(this.intervalId);
