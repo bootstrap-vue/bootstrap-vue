@@ -193,7 +193,7 @@
                 // Don't change slide while transitioning, wait until transition is done
                 if (this.isSliding) {
                     // Schedule slide after sliding complete
-                    this.$once('slid', () => this.setSlide(slide));
+                    this.$once('sliding-end', () => this.setSlide(slide));
                     return;
                 }
 
@@ -324,7 +324,7 @@
 
                 // Start animating
                 this.isSliding = true;
-                this.$emit('slide', val);
+                this.$emit('sliding-start', val);
 
                 // Update v-model
                 this.$emit('input', this.index);
@@ -378,7 +378,7 @@
 
                     this.isSliding = false;
                     // Notify ourselves that we're done sliding (slid)
-                    this.$nextTick(() => this.$emit('slid', val));
+                    this.$nextTick(() => this.$emit('sliding-end', val));
                 };
 
                 // Clear transition classes after transition ends
