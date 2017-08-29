@@ -1,4 +1,5 @@
 {
   "title": "Images",
-  "component": "bImg"
+  "component": "bImg",
+  "components": [ "bImgLazy" ]
 }
