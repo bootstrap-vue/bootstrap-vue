@@ -1,7 +1,7 @@
 <template>
     <div class="carousel-item"
          role="listitem"
-         :id="id || null"
+         :id="safeId()"
          :style="{background,height}"
     >
         <slot name="img">
@@ -26,13 +26,12 @@
 <script>
     import bImg from './img';
     import { warn } from '../utils';
+    import { id } from '../mixins';
 
     export default {
         components: { bImg },
+        mixins: [ id ],
         props: {
-            id: {
-                type: String
-            },
             imgSrc: {
                 type: String,
                 default() {
