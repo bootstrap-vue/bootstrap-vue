@@ -8,6 +8,9 @@
          @mouseleave="start"
          @focusin="pause"
          @focusout="restart"
+         @touchstart="onSwipe"
+         @touchmove="onSwipe"
+         @touchend="onSwipe"
          @keydown.left.stop.prevent="prev"
          @keydown.right.stop.prevent="next"
     >
@@ -122,7 +125,9 @@
                 isSliding: false,
                 intervalId: null,
                 transitionEndEvent: null,
-                slides: []
+                slides: [],
+                touchData: null,
+                touchSlid: false
             };
         },
         props: {
@@ -245,6 +250,54 @@
                     this.start();
                 }
             },
+
+            // handle swiping on mobile
+            onSwipe(evt) {
+                let touch = {};
+                let type = evt.type;
+                if (evt.touches && evt.touches[0])
+                    // We only use the first "finger"
+                    touch = {
+                        x: evt.touches[0].pageX,
+                        y: evt.touches[0].pageY ,
+                        fingers = evt.touches.length
+                    };
+                }
+                if (type === 'touchstart' && touch.fingers === 1) {
+                    // Start of possible swipe.
+                    this.touchData = touch;
+                    this.touchSlid = false;
+                    this.pause();
+                } else if (type === 'touchmove' && touch.fingers === 1) {
+                    if (this.touchSlid || !this.touchData) {
+                        return;
+                    }
+                    // User is moving finger. Has it moved horizontally enoough?
+                    const dX = touch.x - this.touchData.x;
+                    const dY = touch.y - this.touchData.y;
+                    // Is a scroll or a left/right?
+                    if (Math.abs(dX) > Math.abs(dY)) {
+                        // Direction is more horizontal
+                        evt.preventDefault(); // prevent scrolling
+                        slideWidth = parseInt(window.getComputedStyle(this.$el).width,10);
+                        if (dX > slideWidth/2 || dX > 25) {
+                            // We have moved enough to trigger a slide, so go next or prev
+                            this.[dX > 0 ? 'next' : 'prev']();
+                            // Stop reactiving to touchmove
+                            this.touchSlid = true;
+                        }
+                    }
+                } else if (type === 'touchend')
+                    // end of possible swipe
+                    this.touchData = null;
+                    if (this.touchSlid) {
+                        // User has finished swiping
+                        this.touchSlid = false;
+                        // TODO: Should we start, or wait until focus leaves carousel?
+                        // this.start();
+                   }
+                }
+            }
 
             // Update slide list
             updateSlides() {
