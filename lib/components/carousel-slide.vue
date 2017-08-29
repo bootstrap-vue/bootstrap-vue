@@ -34,7 +34,7 @@
                 type: String
             },
             imgSrc: {
-                type: String
+                type: String,
                 default() {
                     if (this && this.src) {
                         // Deprecate src
