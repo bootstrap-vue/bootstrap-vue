@@ -5,7 +5,7 @@
          :style="{background,height}"
     >
         <slot name="img">
-            <img class="d-block img-fluid" v-if="img" :src="img" :alt="imgAlt">
+            <b-img v-if="img" fluid-grow :src="img" :alt="imgAlt"></b-img>
         </slot>
         <div :is="contentTag" :class="contentClasses">
             <h3 v-if="caption" :is="captionTag" v-html="caption"></h3>
@@ -16,7 +16,10 @@
 </template>
 
 <script>
+    import bImg from './img';
+
     export default {
+        components: { bImg },
         props: {
             id: {
                 type: String
