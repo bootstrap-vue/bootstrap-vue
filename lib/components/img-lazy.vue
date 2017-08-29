@@ -155,6 +155,6 @@
                 clearTimeout(this.scrollTimeout);
                 this.scrollTimeout = setTimeout(this.checkView, THROTTLE);
             }
-        |
+        }
     };
 </script>
