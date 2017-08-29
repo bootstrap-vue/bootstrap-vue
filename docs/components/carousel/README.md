@@ -90,7 +90,7 @@ When using `img-src` or `img-blank` on `<b-carousel-slide>`, you can set the ima
 width and height via the `img-width` and `img-height` props on `<b-carousel>` and
 have these values automatically applied to each `carousel-slide` image.
 
-Note that images will stil be respnsive and automatically grow or shrink to fit
+Note that images will still be responsive and automatically grow or shrink to fit
 within the width of its parent container.
 
 Internally, `<b-carousel-slide>` uses the [`<b-img>`](/docs/components/img)
@@ -99,7 +99,7 @@ available to `<b-img>`.
 
 
 ### Interval
-Carousel defults to an interval of `5000`ms (5 seconds). To pause the caurousel from
+Carousel defaults to an interval of `5000`ms (5 seconds). To pause the carousel from
 auto sliding, set the `interval` prop to `0`. To restart a paused carousel, set the
 `interval` back to the number of ms.
 
@@ -117,8 +117,8 @@ Both indicators and controls can be set at the same time or independently.
 
 
 ### V-model support
-Programaticaly xontrol which slide is showing via `v-model` (which binds to the
-`value` prop). Note slides are indexed starting at `0`.
+Programmaticaly control which slide is showing via `v-model` (which binds to the
+`value` prop). Note, that slides are indexed starting at `0`.
 
 
 ### Accessibility
@@ -128,5 +128,5 @@ we try to make them as accessible as possible.
 By providing a document unique value via the `id` prop, `<b-carousel>` will enable
 accessibility features.  It is highly recommended to always add an ID to all components.
 
-All carousel controls and indicateors have aria labels.  These can be customized by
+All carousel controls and indicators have aria labels.  These can be customized by
 setting the various `label-*` props.
