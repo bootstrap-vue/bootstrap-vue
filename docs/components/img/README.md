@@ -160,3 +160,10 @@ Feel free to use the `fluid`, `fluid-grow`, `thumbnail`, and `rounded` props of 
 
 The `offset` prop specifies the number of pixels that an image needs to be near to
 the viewport to trigger it to be shown. The default value is `360`.
+
+The `throttle` prop controls how long (in ms) after a scroll (or resize or
+orientationchange) event happens before checking if the image is has come within
+view (or within `offset` of view).  The default is `100` (ms).
+
+Once an image has come into view and is shown, the scroll event listeners are
+removed.
