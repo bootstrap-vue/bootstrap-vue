@@ -340,7 +340,7 @@
                 });
 
                 // Emit events
-                if (isOK === true) (
+                if (isOK === true) {
                     this.$emit('ok', hideEvent);
                 } else if (isOK === false) {
                     this.$emit('cancel', hideEvent);
