@@ -16,8 +16,8 @@ controls and indicators. Please be aware that nested carousels are **not** suppo
                 img-width="1024"
                 img-height="480"
                 v-model="slide"
-                @slide="onSlide"
-                @slid="onSlid"
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
     >
 
       <!-- Text slides with image -->
@@ -68,10 +68,10 @@ export default {
     sliding: null
   },
   methods: {
-    onSlide(slide) {
+    onSlideStart(slide) {
         this.sliding = true;
     },
-    onSlid(slide) {
+    onSlideEnd(slide) {
         this.sliding = false;
     }
   }
