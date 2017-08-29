@@ -10,7 +10,6 @@
          @focusout="restart"
          @touchstart="onSwipe"
          @touchmove="onSwipe"
-         @touchend="onSwipe"
          @keydown.left.stop.prevent="prev"
          @keydown.right.stop.prevent="next"
     >
@@ -126,8 +125,7 @@
                 intervalId: null,
                 transitionEndEvent: null,
                 slides: [],
-                touchData: null,
-                touchSlid: false
+                touchData: null
             };
         },
         props: {
@@ -268,10 +266,9 @@
                 if (type === 'touchstart' && touch.fingers === 1) {
                     // Start of possible swipe.
                     this.touchData = touch;
-                    this.touchSlid = false;
                     this.pause();
                 } else if (type === 'touchmove' && touch.fingers === 1) {
-                    if (this.touchSlid || !this.touchData) {
+                    if (!this.touchData) {
                         return;
                     }
                     // User is moving finger. Has it moved horizontally enoough?
@@ -286,18 +283,9 @@
                             // We have moved enough to trigger a slide, so go next or prev
                             this[dX > 0 ? 'next' : 'prev']();
                             // Stop reactiving to touchmove
-                            this.touchSlid = true;
+                            this.touchData = null;
                         }
                     }
-                } else if (type === 'touchend')
-                    // end of possible swipe
-                    this.touchData = null;
-                    if (this.touchSlid) {
-                        // User has finished swiping
-                        this.touchSlid = false;
-                        // TODO: Should we start, or wait until focus leaves carousel?
-                        // this.start();
-                   }
                 }
             },
 
