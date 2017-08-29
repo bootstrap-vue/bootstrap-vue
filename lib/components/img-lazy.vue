@@ -106,15 +106,15 @@
             }
         },
         mounted() {
-            this.setListneres(true);
+            this.setListeners(true);
             this.checkView();
         },
         destroyed() {
-            this.setListneres(flase);
+            this.setListeners(flase);
         },
-        methods {
-            setListners(on) {
-            const root = window;
+        methods: {
+            setListeners(on) {
+                const root = window;
                 if (on) {
                     root.addEventListener('scroll'), this.onScroll);
                     root.addEventListener('resize'), this.onScroll);
@@ -144,12 +144,12 @@
                 if (box.right >= view.left && box.bottom >= view.top && box.left <= view.right && box.top <= view.bottom) {
                      // image is in view (or about to be in view)
                      this.isShown = true;
-                     this.setListners(false);
+                     this.setListeners(false);
                 }
             },
             onScroll() {
                 if (this.isShown) {
-                    this.setListners(false);
+                    this.setListeners(false);
                     return;
                 }
                 clearTimeout(this.scrollTimeout);
