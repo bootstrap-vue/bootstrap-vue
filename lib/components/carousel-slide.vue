@@ -5,7 +5,7 @@
          :style="{background}"
     >
         <slot name="img">
-            <b-img v-if="imgSrc"
+            <b-img v-if="imgSrc || imgBlank"
                    fluid-grow
                    block
                    :blank="imgBlank"
