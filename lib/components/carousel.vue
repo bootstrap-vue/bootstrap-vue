@@ -260,8 +260,10 @@
                     touch = {
                         x: evt.touches[0].pageX,
                         y: evt.touches[0].pageY ,
-                        fingers = evt.touches.length
+                        fingers: evt.touches.length
                     };
+                } else {
+                    return;
                 }
                 if (type === 'touchstart' && touch.fingers === 1) {
                     // Start of possible swipe.
