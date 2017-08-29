@@ -59,13 +59,13 @@ of the following values:
 
 ```html
 <div>
-  <b-img rounded blank width="75" height="75" blank-color="#777" alt="img" class="m-2"/>
-  <b-img rounded="top" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
-  <b-img rounded="right" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
-  <b-img rounded="bottom" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
-  <b-img rounded="left" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
-  <b-img rounded="circle" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
-  <b-img rounded="0" blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
+  <b-img rounded blank width="75" height="75" blank-color="#777" alt="img" class="m-1"/>
+  <b-img rounded="top" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
+  <b-img rounded="right" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
+  <b-img rounded="bottom" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
+  <b-img rounded="left" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
+  <b-img rounded="circle" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
+  <b-img rounded="0" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
 </div>
 
 <!-- b-img-rounded.vue -->
@@ -108,13 +108,13 @@ color, etc). The default color is `transparent`.
 
 ```html
 <div>
-  <b-img blank width="75" height="75" alt="transparent img" class="m-2" />
-  <b-img blank width="75" height="75" blank-color="#777" alt="img" class="m-2" />
-  <b-img blank width="75" height="75" blank-color="red" alt="img" class="m-2" />
-  <b-img blank width="75" height="75" blank-color="blue" alt="img" class="m-2" />
-  <b-img blank width="75" height="75" blank-color="#338833" alt="img" class="m-2" />
-  <b-img blank width="75" height="75" blank-color="rgba(255,255,255,0.5)" alt="img" class="m-2" />
-  <b-img blank width="75" height="75" blank-color="#88f" alt="img" class="m-2" />
+  <b-img blank width="75" height="75" alt="transparent img" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="red" alt="img" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="blue" alt="img" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="#338833" alt="img" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="rgba(255,255,255,0.5)" alt="img" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="#88f" alt="img" class="m-1" />
 </div>
 
 <!-- b-img-blank.vue -->
