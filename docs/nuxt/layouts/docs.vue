@@ -5,6 +5,7 @@
         <div class="container-fluid">
             <div class="row flex-xl-nowrap2">
                 <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+                    <div class="d-block d-md-none py-4 mt-3"></div>
                     <m-search/>
                     <m-sidebar></m-sidebar>
                 </div>

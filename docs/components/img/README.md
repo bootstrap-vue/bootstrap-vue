@@ -30,6 +30,9 @@ the `fluid-grow` prop. Note this may cause bluring on small bitmap images.
 <!-- b-img-responsive-2.vue -->
 ```
 
+Use the `block` prop to force the image to display as a block element rather than the
+browser default of inline-block element.
+
 **Note:** _In Internet Explorer 10, SVG images with `fluid` are disproportionately sized.
 To fix this, add the style `width: 100% \9;` where necessary. This fix improperly sizes
 other image formats, so Bootstrap V4 doesn’t apply it automatically._
@@ -59,7 +62,7 @@ of the following values:
 
 ```html
 <div>
-  <b-img rounded blank width="75" height="75" blank-color="#777" alt="img" class="m-1"/>
+  <b-img rounded blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
   <b-img rounded="top" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
   <b-img rounded="right" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
   <b-img rounded="bottom" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
@@ -97,14 +100,21 @@ in a container that has the class `text-center`.
 
 Note: `left` takes precedence over `right` which takes precedence over `center`.
 
+
 ## Blank (or solid color) Images
 `<b-img>` provides built-in support for generating blank images (transparent by
 default) of any width and height, by setting the `blank` prop, and specifying 
 `width` and `height` values (in pixels). You can apply any of the other
 `<b-img>` props to change the style/behavior of the generted image.
 
-Set the prop `blank-color` to any valid CSS color (hex foramt, RGB, RGBA, named
-color, etc). The default color is `transparent`.
+Use the `blank-color` prop to set the blank image color. The `blank-color`prop
+can accept any CSS color value:
+- Named colors — i.e. `orange` or `blue`
+- Hex colors — i.e. `#FF9E2C`
+- RGB and RGBa colors — i.e. `rgb(255, 158, 44)` and `rgba(255, 158, 44, .5)`
+- HSL and HSLa colors — i.e. `hsl(32, 100%, 59%)` and `hsla(32, 100%, 59%, .5)`
+
+The default `blank-color` is `transparent`.
 
 ```html
 <div>
@@ -126,6 +136,7 @@ color, etc). The default color is `transparent`.
 - The `blank` prop takes precedence over the `src` prop.  If you set both and later set `blank` to `false` the image specified in `src` will then be displayed.
 - Blank images are rendered using SVG image data URLs.
 - The `width` and `height` props will also apply the `width` and `height` attributes to the rendered `<img>` tag, even if `blank` is not set.
+
 
 ## Lazy Loaded images
 > Use our complementary `<b-img-lazy>` image component (based on `<b-img>`) to lazy
