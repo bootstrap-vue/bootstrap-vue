@@ -88,7 +88,7 @@
 
 <script>
     import bBtn from './button';
-    Import { BvEvent } from '../classes';
+    import { BvEvent } from '../classes';
     import { listenOnRootMixin } from '../mixins';
     import { from as arrayFrom } from '../utils/array'
 
