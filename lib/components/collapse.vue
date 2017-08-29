@@ -11,11 +11,12 @@
             @leave="onLeave"
             @after-leave="onAfterLeave"
     >
-        <div v-show="show"
-             :id="id || null"
-             :class="classObject"
-             @click="clickHandler"
-        ><slot></slot></div>
+        <component v-show="show"
+                   :id="id || null"
+                   :is="tag"
+                   :class="classObject"
+                   @click="clickHandler"
+        ><slot></slot></component>
     </transition>
 </template>
 
@@ -50,6 +51,10 @@
             visible: {
                 type: Boolean,
                 default: false
+            },
+            tag: {
+                type: String,
+                default: 'div'
             }
         },
         watch: {

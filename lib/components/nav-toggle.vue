@@ -6,7 +6,7 @@
             :aria-expanded="toggleState ? 'true' : 'false'"
             @click="onclick"
     >
-        <span class="navbar-toggler-icon"></span>
+        <slot><span class="navbar-toggler-icon"></span></slot>
     </button>
 </template>
 
