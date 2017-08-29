@@ -2,7 +2,7 @@
 
 >  The carousel is a slideshow for cycling through a series of content, built with CSS 3D transforms.
 It works with a series of images, text, or custom markup. It also includes support for previous/next
-controls and indicators.
+controls and indicators. Please be aware that nested carousels are **not** supported.
 
 ```html
 <template>
@@ -13,6 +13,8 @@ controls and indicators.
                 indicators
                 background="#ababab"
                 :interval="4000"
+                img-width="1024"
+                img-height="480"
                 v-model="slide"
                 @slide="onSlide"
                 @slid="onSlid"
@@ -21,27 +23,27 @@ controls and indicators.
       <!-- Text slides with image -->
       <b-carousel-slide caption="First slide"
                         text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-                        img="https://lorempixel.com/1024/480/technics/2/"
+                        img-src="https://lorempixel.com/1024/480/technics/2/"
       ></b-carousel-slide>
 
       <!-- Slides with custom text -->
-      <b-carousel-slide img="https://lorempixel.com/1024/480/technics/4/">
+      <b-carousel-slide img-src="https://lorempixel.com/1024/480/technics/4/">
         <h1>Hello world!</h1>
       </b-carousel-slide>
 
       <!-- Slides with image only -->
-      <b-carousel-slide img="https://lorempixel.com/1024/480/technics/8/">
+      <b-carousel-slide img-src="https://lorempixel.com/1024/480/technics/8/">
       </b-carousel-slide>
 
       <!-- Slides with img slot -->
+      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
       <b-carousel-slide>
-        <img slot="img" class="d-block img-fluid"
+        <img slot="img" class="d-block img-fluid w-100" width="1024" height="480"
              src="https://lorempixel.com/1024/480/technics/5/" alt="image slot">
       </b-carousel-slide>
 
-      <!-- Slide with blank fluid image to maintain aspect ratio -->
-      <b-carousel-slide caption="Blank Image">
-        <b-img slot="img" width="1024" height="480" fluid blank alt="blank img"></b-img>
+      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
           eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
@@ -78,16 +80,32 @@ export default {
 <!-- carousel-1.vue -->
 ```
 
+
 ### Sizing
 Carousels don’t automatically normalize slide dimensions. As such, you may need to use
 additional utilities or custom styles to appropriately size content. When using images
 in each slide, ensure they all have the same dimensions (or aspect ratio).
+
+When using `img-src` or `img-blank` on `<b-carousel-slide>`, you can set the image
+width and height via the `img-width` and `img-height` props on `<b-carousel>` and
+have these values automatically applied to each `carousel-slide` image.
+
+Note that images will stil be respnsive and automatically grow or shrink to fit
+within the width of its parent container.
+
+Internally, `<b-carousel-slide>` uses the [`<b-img>`](/docs/components/img)
+component to render the images. The `img-*` props map to the corresponsing props
+available to `<b-img>`.
 
 
 ### Interval
 Carousel defults to an interval of `5000`ms (5 seconds). To pause the caurousel from
 auto sliding, set the `interval` prop to `0`. To restart a paused carousel, set the
 `interval` back to the number of ms.
+
+In browsers where the [Page Visibility API](https://www.w3.org/TR/page-visibility/)
+is supported, the carousel will avoid sliding when the webpage is not visible to
+the user (such as when the browser tab is inactive, the browser window is minimized, etc.).
 
 
 ### Controls and Indicators
@@ -104,6 +122,9 @@ Programaticaly xontrol which slide is showing via `v-model` (which binds to the
 
 
 ### Accessibility
+Carousels are generally not fully compliant with accessibility standards, although
+we try to make them as accessible as possible.
+
 By providing a document unique value via the `id` prop, `<b-carousel>` will enable
 accessibility features.  It is highly recommended to always add an ID to all components.
 
