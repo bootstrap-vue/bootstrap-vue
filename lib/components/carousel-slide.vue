@@ -2,7 +2,7 @@
     <div class="carousel-item"
          role="listitem"
          :id="safeId()"
-         :style="{background,height}"
+         :style="{background}"
     >
         <slot name="img">
             <b-img v-if="imgSrc"
@@ -26,11 +26,11 @@
 <script>
     import bImg from './img';
     import { warn } from '../utils';
-    import { id } from '../mixins';
+    import { idMixin } from '../mixins';
 
     export default {
         components: { bImg },
-        mixins: [ id ],
+        mixins: [ idMixin ],
         props: {
             imgSrc: {
                 type: String,
@@ -86,9 +86,6 @@
                 default: "p"
             },
             background: {
-                type: String
-            },
-            height: {
                 type: String
             }
         },
