@@ -2,7 +2,7 @@
     <div class="carousel slide"
          role="region"
          :id="id || null"
-         :style="{background,height}"
+         :style="{background}"
          :aria-busy="isSliding ? 'true' : 'false'"
          @mouseenter="pause"
          @mouseleave="start"
@@ -155,8 +155,13 @@
                 type: Boolean,
                 default: false
             },
-            height: {
-                type: String
+            imgWidth: {
+                // Sniffed by carousel-slide
+                type: [Number, String]
+            },
+            imgHeight: {
+                // Sniffed by carousel-slide
+                type: [Number, String]
             },
             background: {
                 type: String
