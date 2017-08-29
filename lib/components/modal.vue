@@ -64,12 +64,14 @@
                                 <b-btn v-if="!okOnly"
                                        variant="secondary"
                                        :size="buttonSize"
-                                       @click="hide(false)"
+                                       data-button="cancel"
+                                       @click="hide($event, 'cancel')"
                                 ><slot name="modal-cancel">{{ closeTitle }}</slot></b-btn>
                                 <b-btn variant="primary"
                                        :size="buttonSize"
                                        :disabled="okDisabled"
-                                       @click="hide(true)"
+                                       data-button="ok"
+                                       @click="hide($event, 'ok')"
                                 ><slot name="modal-ok">{{ okTitle }}</slot></b-btn>
                             </slot>
                         </footer>
@@ -205,7 +207,7 @@
                 if (new_val === old_val) {
                     return;
                 }
-                return newVal ? this.show() : this.hide();
+                return newVal ? this.show() : this.hide(null, 'visible');
             }
         },
         props: {
@@ -320,14 +322,17 @@
                 }
 
             },
-            hide(isOK) {
+            hide(e, button) {
                 // TODO: use a delegated event listener on the footer
                 // and use data attribute to signal which button was pressed 
-                // which we include in the isOK (or renamed to button)
-                // variable in the BvEvent (and pass button as relatedTarget)
+                // which we include in the button prop in the BvEvent.
                 // This way, users can create their own buttons
                 if (!this.is_visible || typeof document === 'undefined') {
                     return;
+                }
+
+                if (!button && e & e.target) {
+                    button = e.target.getAttribute('data-button') || null;
                 }
 
                 // Create event object
@@ -335,16 +340,18 @@
                     cancelable: true,
                     target: this.$refs.modal,
                     vueTarget: this,
-                    relatedTarget: null, // to-do, ref of button
-                    isOK: isOK
+                    relatedTarget: (e && e.target) ? e.target : null,
+                    nativeEvent: e || null,
+                    button: button || null
                 });
 
                 // Emit events
-                if (isOK === true) {
+                if (button === 'ok') {
                     this.$emit('ok', hideEvent);
-                } else if (isOK === false) {
+                } else if (button === 'cancel') {
                     this.$emit('cancel', hideEvent);
                 }
+                // Generic hide event, emitted for any button that triggers a close
                 this.$emit('hide', hideEvent);
 
                 // Hide if not canceled
@@ -359,20 +366,20 @@
                     this.$emit('hidden');
                     this.$root.$emit('bv::modal::hidden', this.id || this);
                 } else {
-                    this.$emit('change', true):
+                    this.$emit('change', true);
                 }
             },
             onClickOut(e) {
                 // If backdrop clicked, hide modal
                 if (this.is_visible && !this.noCloseOnBackdrop) {
-                    this.hide();
+                    this.hide(e, 'backdrop');
                 }
             },
             onEsc(e) {
                 // If ESC pressed, hide modal
                 // TODO: Move @ event to root div
                 if (this.is_visible && !this.noCloseOnEsc) {
-                    this.hide();
+                    this.hide(e, 'esc');
                 }
             },
             onBeforeEnter(el) {
@@ -547,7 +554,7 @@
             hideHandler(id) {
                 // TODO: Make this event use BvEvent
                 if (id === this.id || id === this) {
-                    this.hide();
+                    this.hide(e, 'root');
                 }
             }
         },
