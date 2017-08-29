@@ -88,6 +88,7 @@
 
 <script>
     import bBtn from './button';
+    Import { BvEvent } from '../classes';
     import { listenOnRootMixin } from '../mixins';
     import { from as arrayFrom } from '../utils/array'
 
@@ -297,10 +298,17 @@
                 if (this.is_visible || typeof document === 'undefined') {
                     return;
                 }
-                // TODO: Convert `show` to a cancellable event
-                this.$emit('show');
 
-                this.$root.$emit('shown::modal', this.id || this);
+                const hideEvent = new BvEvent('show', {
+                    cancelable: true,
+                    target: this.$refs.modal,
+                    relatedTarget: null,
+                    vueTarget: this
+                });
+                // TODO: Handle cancelation
+                this.$emit('show', showEvent);
+
+                this.$root.$emit('bv::modal::shown', this.id || this);
                 this.$emit('change', true);
 
                 this.is_visible = true;
@@ -313,38 +321,45 @@
 
             },
             hide(isOK) {
+                // TODO: use a delegated event listener on the footer
+                // and use data attribute to signal which button was pressed 
+                // which we include in the isOK (or renamed to button)
+                // variable in the BvEvent (and pass button as relatedTarget)
+                // This way, users can create their own buttons
                 if (!this.is_visible || typeof document === 'undefined') {
                     return;
                 }
 
                 // Create event object
-                // TODO: Use new synthetic event util
-                let canceled = false;
-                const e = {
-                    isOK,
-                    cancel() {
-                        canceled = true;
-                    }
-                };
+                const hideEvent = new BvEvent('hide', {
+                    cancelable: true,
+                    target: this.$refs.modal,
+                    vueTarget: this,
+                    relatedTarget: null, // to-do, ref of button
+                    isOK: isOK
+                });
 
                 // Emit events
-                this.$emit('change', false);
-                this.$emit('hide', e);
-
-                if (isOK === true) {
-                    this.$emit('ok', e);
+                if (isOK === true) (
+                    this.$emit('ok', hideEvent);
                 } else if (isOK === false) {
-                    this.$emit('cancel', e);
+                    this.$emit('cancel', hideEvent);
                 }
+                this.$emit('hide', hideEvent);
 
                 // Hide if not canceled
-                if (!canceled) {
+                if (!hideEvent.defaultPrevented) {
                     this.is_visible = false;
                     if (this.noFade) {
                         // Trigger event handler manually
                         this.beforeLeave();
                         this.afterLeave();
                     }
+                    this.$emit('change', false);
+                    this.$emit('hidden');
+                    this.$root.$emit('bv::modal::hidden', this.id || this);
+                } else {
+                    this.$emit('change', true):
                 }
             },
             onClickOut(e) {
@@ -523,20 +538,23 @@
                 }
             },
             showHandler(id, triggerEl) {
-                if (id === this.id) {
+                // TODO: make ththis event use BvEvent
+                if (id === this.id || id === this) {
                     this.return_focus = triggerEl || null;
                     this.show();
                 }
             },
             hideHandler(id) {
-                if (id === this.id) {
+                // TODO: Make this event use BvEvent
+                if (id === this.id || id === this) {
                     this.hide();
                 }
             }
         },
         created() {
-            this.listenOnRoot('show::modal', this.showHandler);
-            this.listenOnRoot('hide::modal', this.hideHandler);
+            // TODO: make these events use BvEvent
+            this.listenOnRoot('bv::modal::show', this.showHandler);
+            this.listenOnRoot('bv::modal::hide', this.hithis.hideHandler);
         },
         mounted() {
             // Measure the scrollbar width
