@@ -94,6 +94,10 @@
             offset: {
                 type: [Number, String],
                 default: 360
+            },
+            throttle: {
+                type: [Number, String],
+                default: THROTTLE
             }
         },
         computed: {
@@ -158,7 +162,7 @@
                     return;
                 }
                 clearTimeout(this.scrollTimeout);
-                this.scrollTimeout = setTimeout(this.checkView, THROTTLE);
+                this.scrollTimeout = setTimeout(this.checkView, parseInt(this.throttle, 10) || THROTTLE);
             }
         }
     };
