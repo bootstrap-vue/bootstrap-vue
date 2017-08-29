@@ -6,6 +6,7 @@
            :height="computedHeight"
            :fluid="fluid"
            :fluid-grow="fluidGrow"
+           :block="block"
            :thumbnail="thumbnail"
            :rounded="rounded"
            :left="left"
@@ -63,6 +64,10 @@
                 default: false
             },
             fluidGrow: {
+                type: Boolean,
+                default: false
+            },
+            block: {
                 type: Boolean,
                 default: false
             },
