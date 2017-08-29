@@ -255,7 +255,7 @@
             onSwipe(evt) {
                 let touch = {};
                 let type = evt.type;
-                if (evt.touches && evt.touches[0])
+                if (evt.touches && evt.touches[0]) {
                     // We only use the first "finger"
                     touch = {
                         x: evt.touches[0].pageX,
