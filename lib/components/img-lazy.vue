@@ -116,13 +116,13 @@
             setListeners(on) {
                 const root = window;
                 if (on) {
-                    root.addEventListener('scroll'), this.onScroll);
-                    root.addEventListener('resize'), this.onScroll);
-                    root.addEventListener('orientationchange'), this.onScroll);
+                    root.addEventListener('scroll', this.onScroll);
+                    root.addEventListener('resize', this.onScroll);
+                    root.addEventListener('orientationchange', this.onScroll);
                 } else {
-                    root.removeEventListener('scroll'), this.onScroll);
-                    root.removeEventListener('resize'), this.onScroll);
-                    root.removeEventListener('orientationchange'), this.onScroll);
+                    root.removeEventListener('scroll', this.onScroll);
+                    root.removeEventListener('resize', this.onScroll);
+                    root.removeEventListener('orientationchange', this.onScroll);
                     clearTimeout(this.scrollTimer);
                     this.scrollTimout = null;
                 }
