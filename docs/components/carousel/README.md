@@ -39,13 +39,13 @@ controls and indicators.
              src="https://lorempixel.com/1024/480/technics/5/" alt="image slot">
       </b-carousel-slide>
 
-      <!-- Slide with blank image to maintain aspect ratio -->
-      <b-carousel-slide caption="Blank Image" :img="blankImg(1024,480)">
+      <!-- Slide with blank fluid image to maintain aspect ratio -->
+      <b-carousel-slide caption="Blank Image">
+        <b-img slot="img" width="1024" height="480" fluid blank alt="blank img"></b-img>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
           eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
-          ut lacus vel interdum. Nulla bibendum tincidunt erat, sed tincidunt
-          magna finibus ac.
+          ut lacus vel interdum.
         </p>
       </b-carousel-slide>
 
@@ -66,13 +66,6 @@ export default {
     sliding: null
   },
   methods: {
-    blankImg(x, y) {
-      // Return a blank SVG image with specified width and height
-      // Handy for maintaining aspect ratio for text only slides
-      return "data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D" +
-             "'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' " +
-             "viewBox%3D'0 0 " + x + " " + y + "'%2F%3E";
-    },
     onSlide(slide) {
         this.sliding = true;
     },
