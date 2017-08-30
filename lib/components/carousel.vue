@@ -287,7 +287,7 @@
                             this.touchData = null;
                         }
                     }
-                } else if (type === 'touchend && touch.fingers === 1) {
+                } else if (type === 'touchend' && touch.fingers === 1) {
                     this.touchData = null;
                 }
             },
