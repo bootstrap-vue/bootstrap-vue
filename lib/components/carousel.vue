@@ -10,6 +10,7 @@
          @focusout="restart"
          @touchstart="onSwipe"
          @touchmove="onSwipe"
+         @touchend="onSwipe"
          @keydown.left.stop.prevent="prev"
          @keydown.right.stop.prevent="next"
     >
@@ -279,13 +280,15 @@
                         // Direction is more horizontal
                         evt.preventDefault(); // prevent scrolling
                         const slideWidth = parseInt(window.getComputedStyle(this.$el).width,10);
-                        if (dX > slideWidth/2 || dX > 25) {
+                        if (Math.abs(dX) > slideWidth/2 || Math.abs(dX) > 25) {
                             // We have moved enough to trigger a slide, so go next or prev
                             this[dX > 0 ? 'prev' : 'next']();
                             // Stop reactiving to touchmove
                             this.touchData = null;
                         }
                     }
+                } else if (type === 'touchend && touch.fingers === 1) {
+                    this.touchData = null;
                 }
             },
 
