@@ -56,9 +56,6 @@
         mounted() {
             if (this.targetId) {
                 let target = this.targetId;
-                if (!target) {
-                    return;
-                }
                 this.$nextTick(() => {
                     target = document.getElementById(/^#/.test(target) ? target.slice(1) : target);
                     if (target && !this.popOver) {
