@@ -3,6 +3,7 @@ import readme from './README.md';
 export default {
     readme,
     meta: {
-        title: 'Tooltip'
+        title: 'Tooltip',
+        new: true
     }
 };
