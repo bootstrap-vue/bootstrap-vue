@@ -4,6 +4,9 @@
 </a>
 
 <br>
+<a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Components for <a href="https://vuejs.org">Vue.js</a>
+<br>
+<br>
 
 <a href="https://getbootstrap.com/docs/4.0">
     <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--beta-800080.svg?style=flat-square">
@@ -30,21 +33,19 @@
     <img alt="" src="https://img.shields.io/npm/v/bootstrap-vue.svg?style=flat-square">
 </a>
 
-<br>
-<a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Components for <a href="https://vuejs.org">Vue.js</a>
-
 </p>
 
-> This branch is for [Bootstrap4 Beta](https://getbootstrap.com/docs/4.0). If you are looking for old alpha 6 please head to [alpha](https://github.com/bootstrap-vue/bootstrap-vue/tree/alpha) branch. alpha docs are available [here](https://bootstrap-vue-alpha.surge.sh).
 
-If you have discovered a 🐜 or have a feature suggestion, feel free to create an issue on Github.
-
-<h1 align="center">Links</h1>
+# Links
 
 - 📘 [Documentation](https://bootstrap-vue.js.org)
 - 🔨 [Release Notes](https://bootstrap-vue.js.org/docs/changelog)
 - 💬 [Slack Community](https://bootstrap-vue.now.sh)
 
+
+> This branch is for [Bootstrap4 Beta](https://getbootstrap.com/docs/4.0). If you are looking for old alpha 6 please head to [alpha](https://github.com/bootstrap-vue/bootstrap-vue/tree/alpha) branch. alpha docs are available [here](https://bootstrap-vue-alpha.surge.sh).
+
+If you have discovered a 🐜 or have a feature suggestion, feel free to create an issue on Github.
 
 <h2 align="center">Core Team</h2>
 
@@ -86,4 +87,4 @@ If you have discovered a 🐜 or have a feature suggestion, feel free to create 
 # License
 [MIT](./LICENSE)
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fwebpack%2Fwebpack.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fwebpack%2Fwebpack?ref=badge_large)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue.svg?type=small)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue?ref=badge_small)
