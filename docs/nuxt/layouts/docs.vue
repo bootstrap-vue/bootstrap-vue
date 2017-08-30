@@ -1,7 +1,6 @@
 <template>
     <div>
         <m-nav></m-nav>
-
         <div class="container-fluid">
             <div class="row flex-xl-nowrap2">
                 <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
@@ -14,9 +13,10 @@
                 </div>
 
                 <div class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+                    <br>
                     <b-button-group class="mb-2 float-right">
-                        <b-btn size="sm" :href="issueURL" target="_blank">Report an issue</b-btn>
-                        <b-btn size="sm" :href="editPageURL" target="_blank">Edit this page</b-btn>
+                        <b-btn size="sm" variant="light" :href="issueURL" target="_blank">Report an issue</b-btn>
+                        <b-btn size="sm" variant="light" :href="editPageURL" target="_blank">Edit this page</b-btn>
                     </b-button-group>
                     <br>
                     <nuxt/>
