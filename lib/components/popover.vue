@@ -128,12 +128,12 @@
                     cfg.content = this.$refs.content;
                     cfg.html = true;
                 }
-                cfg.callbacks: {
+                cfg.callbacks = {
                     show: this.onShow.bind(this),
                     shown: this.onShown.bind(this),
                     hide: this.onHide.bind(this),
                     hidden: this.onHidden.bind(this)
-                }
+                };
                 return cfg;
             },
             onShow(evt) {
