@@ -5,11 +5,16 @@
   transition: opacity .25s, transform .25s;
 }
 
-.page-enter,
 .page-leave-to {
   opacity: 0;
-  transform: scale(0.9);
+  transform: translateX(10vw);
 }
+
+.page-enter{
+  opacity: 0;
+  transform: translateX(-10vw);
+}
+
 
 .hljs {
   font-family: "Inconsolata", "Monaco", "Andale Mono", "Lucida Console", "Bitstream Vera Sans Mono", "Courier New",
