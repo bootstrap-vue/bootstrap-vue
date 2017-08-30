@@ -7,12 +7,12 @@
 
 .page-leave-to {
   opacity: 0;
-  transform: translateX(10vw);
+  /* transform: translateX(10vw); */
 }
 
 .page-enter{
   opacity: 0;
-  transform: translateX(-10vw);
+  /* transform: translateX(-10vw); */
 }
 
 
