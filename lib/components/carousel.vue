@@ -281,7 +281,7 @@
                         const slideWidth = parseInt(window.getComputedStyle(this.$el).width,10);
                         if (dX > slideWidth/2 || dX > 25) {
                             // We have moved enough to trigger a slide, so go next or prev
-                            this[dX > 0 ? 'next' : 'prev']();
+                            this[dX > 0 ? 'prev' : 'next']();
                             // Stop reactiving to touchmove
                             this.touchData = null;
                         }
