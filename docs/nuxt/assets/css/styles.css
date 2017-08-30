@@ -2,19 +2,13 @@
 
 .page-enter-active,
 .page-leave-active {
-  transition: opacity .25s, transform .25s;
+  transition: all ease-in-out .2s;
 }
 
-.page-leave-to {
+.page-enter, .page-leave-to {
   opacity: 0;
-  /* transform: translateX(10vw); */
+  transform: scale(0.95);
 }
-
-.page-enter{
-  opacity: 0;
-  /* transform: translateX(-10vw); */
-}
-
 
 .hljs {
   font-family: "Inconsolata", "Monaco", "Andale Mono", "Lucida Console", "Bitstream Vera Sans Mono", "Courier New",
