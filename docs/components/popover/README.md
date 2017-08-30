@@ -1,7 +1,7 @@
 # Popover
 
 > The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
-element via the `<b-popover>` component or `v-b-popover` directive.
+element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popover) directive.
 
 ## `<b-popover>` Component Usage
 ```html
@@ -53,11 +53,8 @@ element via the `<b-popover>` component or `v-b-popover` directive.
 ```html
 <template>
 <div>
-  <h4 class="mt-sm-4 ms-sm-4 text-muted">Reactive Content</h4>
-  <div class="row">
-    <div class="col-12 my-3 text-center">
-      <b-btn id="exPopoverReactive1" variant="primary">Using slots</b-btn>
-    </div>
+  <div class="my-4">
+    <b-btn id="exPopoverReactive1" variant="primary">Reactive Content Using Slots</b-btn>
   </div>
 
   <b-popover target-id="exPopoverReactive1" trigger="click" ref="popover">
@@ -67,21 +64,23 @@ element via the `<b-popover>` component or `v-b-popover` directive.
       </b-btn>
       Interactive Content
     </template>
-    <b-form-group label="Name" description="Enter your name">
+    <b-form-group label="Name" class="mb-1" description="Enter your name">
       <b-form-input size="sm" v-model="input1"></b-form-input>
     </b-form-group>
-    <b-form-group label="Color" description="Pick a color">
+    <b-form-group label="Color" class="mb-1" description="Pick a color">
       <b-form-select size="sm" v-model="input2" :options="options"></b-form-select>
     </b-form-group>
-    <b-card title="data from above">
-      <p class="card-text">Name: <strong>{{ input1 }}</strong></p>
-      <p class="card-text">Color: <strong>{{ input2 }}</strong></p>
-    </b-card>
-    <b-btn @click="onCancel" variant="danger">Cancel</b-btn>
-    <b-btn @click="onOk" variant="primary">Ok</b-btn>
+    <b-alert show>
+      <h6>Values:</h6>
+      Name: <strong>{{ input1 }}</strong><br>
+      Color: <strong>{{ input2 }}</strong>
+    </b-alert>
+    <b-btn @click="onCancel" size="sm" variant="danger">Cancel</b-btn>
+    <b-btn @click="onOk" size="sm" variant="primary">Ok</b-btn>
   </b-popover>
 </div>  
 </template>
+
 <script>
   export default {
     data: {
@@ -92,9 +91,11 @@ element via the `<b-popover>` component or `v-b-popover` directive.
     methods: {
       onClose() {
         this.$refs.popover.$emit('close');
+        this.clearValues();
       },
       onCancel() {
         this.$refs.popover.$emit('close');
+        this.clearValues();
       },
       onOk() {
         if (!this.input1 || !this.input2) {
@@ -102,11 +103,17 @@ element via the `<b-popover>` component or `v-b-popover` directive.
         } else {
           alert('Thats great!');
           this.$refs.popover.$emit('close');
+          this.clearValues();
         }
+      },
+      clearValues() {
+        this.input1 = '';
+        this.input2 = '';
       }
     }
   };
 </script>
+
 <!-- popover-2.vue -->
 ```
 
@@ -117,6 +124,8 @@ and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popov
 component **outside** of theese types of components._
 
 ## `v-b-popover` Directive Usage
+
+Just need quick popovers without too much markup? Use the `v-b-popover` directive:
 
 ```html
 <template>
