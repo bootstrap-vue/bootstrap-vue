@@ -89,13 +89,7 @@
                     placement: this.placement || 'top',
                     delay: this.delay || 0,
                     offset: this.offset || 0,
-                    triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
-                    callbacks: {
-                        show: this.onShow.bind(this),
-                        shown: this.onShown.bind(this),
-                        hide: this.onHide.bind(this),
-                        hidden: this.onHidden.bind(this)
-                    }
+                    triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers
                 };
             }
         },
@@ -114,6 +108,12 @@
                     cfg.title = this.$refs.title;
                     cfg.html = true;
                 }
+                cfg.callbacks: {
+                    show: this.onShow.bind(this),
+                    shown: this.onShown.bind(this),
+                    hide: this.onHide.bind(this),
+                    hidden: this.onHidden.bind(this)
+                };
                 return cfg;
             },
             onShow(evt) {
