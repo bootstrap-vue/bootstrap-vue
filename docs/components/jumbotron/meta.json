@@ -1,4 +1,13 @@
 {
   "title": "Jumbotron",
-  "component": "bJumbotron"
-}
+  "component": "bJumbotron",
+  "slots": [
+    {
+      "name": "header",
+      "description": "Slot for custom header content. Placed inside 'header-tag'"
+    },
+    {
+      "name": "lead",
+      "description": "For custom rendering of lead text content. Placed inside 'lead-tag'"
+    }
+]}
