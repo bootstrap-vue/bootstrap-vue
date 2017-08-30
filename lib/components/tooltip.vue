@@ -108,7 +108,7 @@
                     cfg.title = this.$refs.title;
                     cfg.html = true;
                 }
-                cfg.callbacks: {
+                cfg.callbacks = {
                     show: this.onShow.bind(this),
                     shown: this.onShown.bind(this),
                     hide: this.onHide.bind(this),
