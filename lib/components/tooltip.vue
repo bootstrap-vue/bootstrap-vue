@@ -50,9 +50,10 @@
         },
         mounted() {
             if (this.targetId) {
+                let target = this.targetId;
                 this.$nextTick(() => {
                     // Ensure we, and target element, are in document
-                    const target = document.body.querySelector(`#${this.targetId}`);
+                    target = document.getElementById(/^#/.test(target) ? target.slice(1) : target);
                     if (target && !this.toolTip) {
                         // We pass the title as part of the config
                         this.toolTip = new ToolTip(target, this.getConfig(), this.$root);
