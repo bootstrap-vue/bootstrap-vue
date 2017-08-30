@@ -1,8 +1,11 @@
 <template>
     <b-collapse tag="nav" is-nav class="bd-links" id="bd-docs-nav">
-        <div class="bd-toc-item active" v-for="group in site.nav" :key="group.slug">
-            <router-link class="bd-toc-link" :to="'/docs/'+group.slug">
+        <router-link tag="div" class="bd-toc-item" v-for="group in site.nav"
+         :key="group.slug" :to="'/docs/'+group.slug" active-class="active" :exact="group.exact">
+            <router-link class="bd-toc-link" :to="'/docs/'+group.slug" :exact="group.exact">
                 {{ group.title }}
+                <small class="badge badge-success" v-if="group.new">NEW</small>
+                <small class="badge badge-danger" v-if="group.experimental">BETA</small>
             </router-link>
     
             <b-nav class="bd-sidenav">
@@ -12,12 +15,12 @@
                             :key="page.title
                 ">
                     {{ page.title }}
-                    <span class="badge badge-success" v-if="page.new">NEW</span>
-                    <span class="badge badge-danger" v-if="page.experimental">BETA</span>
+                    <small class="badge badge-success" v-if="page.new">NEW</small>
+                    <small class="badge badge-danger" v-if="page.experimental">BETA</small>
                 </b-nav-item>
             </b-nav>
     
-        </div>
+        </router-link>
     </b-collapse>
 </template>
 
