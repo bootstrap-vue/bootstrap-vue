@@ -2,6 +2,71 @@
 
 > Tabs is an extension of navs, to create tabbable panes of local content, even via dropdown menus.
 
+
+### Basic usage
+
+```html
+<b-tabs pills>
+  <b-tab title="first" active>
+    <br>I'm the first fading tab
+  </b-tab>
+  <b-tab title="second" >
+    <br>I'm the second tab content
+  </b-tab>
+  <b-tab title="disabled" disabled>
+    <br>Disabled tab!
+  </b-tab>
+</b-tabs>
+
+<!-- basic.vue -->
+```
+
+### Cards Integration
+
+Tabs support integrating with bootstrap cards. Just add the `card` property. Note
+that you should add `no-body` prop on `<b-card>` element in order to decorate header
+and remove the extra padding.
+
+```html
+<b-card no-body>
+    <b-tabs ref="tabs" card>
+        <b-tab title="Tab 1" active>
+            Tab Contents
+        </b-tab>
+        <b-tab title="Tab 2">
+            Tab Contents 2
+        </b-tab>
+    </b-tabs>
+</b-card>
+
+<!-- with-card.vue -->
+```
+
+### Pills variant
+
+Just add `pills` property to tabs component.
+
+### Fade
+
+Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
+
+### Add Tabs without content
+
+If you want to add extra tabs that do not have any content, you can put them in `tabs` slot:
+
+```html
+<b-tabs>
+  <!-- Add your b-tab components here-->
+  <template slot="tabs">
+      <b-nav-item to="#" @click="onClick">Another tab</b-nav-item>
+  </template>
+</b-tabs>
+```
+
+### Advanced Examples
+
+#### Navigation
+
 ```html
 <template>
   <div>
@@ -22,7 +87,6 @@
           I'm the last tab
         </b-tab>
       </b-tabs>
-
     </b-card>
 
     <!-- Control buttons-->
@@ -34,9 +98,25 @@
       <br>
       <span class="text-muted">Current Tab: {{tabIndex}}</span>
     </div>
+  </div>
+</template>
 
-    <br><br>
+<script>
+  export default {
+    data: {
+      tabIndex: 0
+    },
+  }
+</script>
 
+<!-- tabs-navigation.vue -->
+```
+
+#### Dynamic Tabs
+
+```html
+<template>
+  <div>
     <b-card no-body>
       <b-tabs card>
         <!-- Render Tabs -->
@@ -47,7 +127,7 @@
           </b-btn>
         </b-tab>
 
-        <!-- Newtab Button (Using tabs slot) -->
+        <!-- New Tab Button (Using tabs slot) -->
         <b-nav-item slot="tabs" @click.prevent="newTab" href="#">
           +
         </b-nav-item>
@@ -66,7 +146,6 @@
 <script>
   export default {
     data: {
-      tabIndex: 0,
       tabs: [],
       tabCounter: 0
     },
@@ -85,60 +164,5 @@
   }
 </script>
 
-<!-- tabs-1.vue -->
-```
-
-### Basic usage
-
-```html
-<b-tabs>
-  <b-tab title="first" active>
-    I'm the first fading tab
-  </b-tab>
-  <b-tab title="second" >
-    I'm the second tab content
-  </b-tab>
-  <b-tab title="disabled" disabled>
-    <b-card>I'm the card in tab</b-card>
-  </b-tab>
-</b-tabs>
-```
-
-### Cards Integration
-
-Tabs support integrating with bootstrap cards. Just add the `card` property. Note
-that you should add `no-body` prop on `<b-card>` element in order to decorate header
-and remove the extra padding.
-
-```html
-<b-card no-body>
-    <b-tabs ref="tabs" card>
-        <b-tab title="Tab 1" active>
-            Tab Contents
-        </b-tab>
-    </b-tabs>
-</b-card>
-```
-
-### Pills variant
-
-Just add `pills` property to tabs component.
-
-### Fade
-
-Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
-
-### Add Tabs without content
-
-If you want to add extra tabs that do not have any content, you can put them in `tabs` slot:
-
-```html
-    <b-tabs>
-    
-        <!-- Add your b-tab components here-->
-    
-        <template slot="tabs">
-            <b-nav-item to="#" @click="onClick">Another tab</b-nav-item>
-        </template>
-    </b-tabs>
+<!-- dynamic-tabs.vue -->
 ```
