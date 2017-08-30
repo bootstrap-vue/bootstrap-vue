@@ -35,6 +35,9 @@ Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Co
 
 </p>
 
+If you have discovered a 🐜 or have a feature suggestion, feel free to create an issue on Github.
+
+This branch is for [Bootstrap4 Beta](https://getbootstrap.com/docs/4.0). If you are looking for old alpha 6 please head to [alpha](https://github.com/bootstrap-vue/bootstrap-vue/tree/alpha) branch. alpha docs are available [here](https://bootstrap-vue-alpha.surge.sh).
 
 # Links
 
@@ -42,17 +45,10 @@ Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Co
 - 🔨 [Release Notes](https://bootstrap-vue.js.org/docs/changelog)
 - 💬 [Slack Community](https://bootstrap-vue.now.sh)
 
-
-> This branch is for [Bootstrap4 Beta](https://getbootstrap.com/docs/4.0). If you are looking for old alpha 6 please head to [alpha](https://github.com/bootstrap-vue/bootstrap-vue/tree/alpha) branch. alpha docs are available [here](https://bootstrap-vue-alpha.surge.sh).
-
-If you have discovered a 🐜 or have a feature suggestion, feel free to create an issue on Github.
-
 # License
+Released under The MIT [License](./LICENSE). Copyright (c) BootstrapVue.
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue.svg?type=small)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue?ref=badge_small)
-
-
-Released under [MIT License](./LICENSE).BootstrapVue Team.
 
 <h2 align="center">Core Team</h2>
 
