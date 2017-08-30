@@ -36,8 +36,8 @@ module.exports = {
 
     manifest: {
         name: 'Bootstrap Vue',
-        description: 'Bootstrap 4 Components for Vue.js 2',
-        theme_color: '#464646'
+        description: 'Quickly integrate Bootstrap 4 components with Vue.js',
+        theme_color: '#563d7c'
     },
 
     generate: {

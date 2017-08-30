@@ -4,7 +4,7 @@
 </a>
 
 <br>
-<a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Components for <a href="https://vuejs.org">Vue.js</a>
+Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Components with <a href="https://vuejs.org">Vue.js</a>
 <br>
 <br>
 
@@ -47,6 +47,13 @@
 
 If you have discovered a 🐜 or have a feature suggestion, feel free to create an issue on Github.
 
+# License
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue.svg?type=small)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue?ref=badge_small)
+
+
+Released under [MIT License](./LICENSE).BootstrapVue Team.
+
 <h2 align="center">Core Team</h2>
 
 <div align="center">
@@ -82,9 +89,3 @@ If you have discovered a 🐜 or have a feature suggestion, feel free to create 
   </tbody>
 </table>
 </div>
-
-
-# License
-[MIT](./LICENSE)
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue.svg?type=small)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue?ref=badge_small)
