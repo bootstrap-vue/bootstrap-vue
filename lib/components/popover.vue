@@ -61,6 +61,7 @@
                     if (target && !this.popOver) {
                         // We pass the title & content as part of the config
                         this.popOver = new PopOver(target, this.getConfig(), this.$root);
+                        // Listen to close signals from others
                         this.$on('close', this.onClose);
                         // Observe content Child changes so we can notify popper of possible size change
                         observeDom(this.$refs.content, this.updatePosition.bind(this), {
@@ -81,12 +82,11 @@
         },
         destroyed() {
             if (this.popOver) {
-                // Bring our stuff back if necessary
-                this.$el.appendChild(this.$refs.title);
-                this.$el.appendChild(this.$refs.content);
                 // Destroy the popover
                 this.popOver.destroy();
                 this.popOver = null;
+                // Bring our stuff back if necessary
+                this.bringItBack();
             }
             this.$off('close', this.onClose);
         },
@@ -100,10 +100,10 @@
                     offset: this.offset || 0,
                     triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
                     callbacks: {
-                        show: (evt) => this.onShow(evt),
-                        shown: (evt) => this.onShown(evt),
-                        hide: (evt) => this.onHide(evt),
-                        hidden: (evt) => this.onHidden(evt)
+                        show: this.onShow.bind(this),
+                        shown: this.onShown.bind(this),
+                        hide: this.onHide.bind(this),
+                        hidden: this.onHidden.bind(this)
                     }
                 };
             }
@@ -143,14 +143,23 @@
                 this.$emit('shown');
             },
             onHide(evt) {
-                this.$emit('hide', evt)
+                this.$emit('hide', evt);
             },
             onHidden(evt) {
                 // bring our content back if needed to keep Vue happy
                 // Tooltip class will move it back to $tip when shown again
-                this.$el.appendChild(this.$refs.title);
-                this.$el.appendChild(this.$refs.content);
+                this.bringItBack();
                 this.$emit('hidden');
+            },
+            bringItBack() {
+                if (this.$el) {
+                    if (this.$refs.title) {
+                        this.$el.appendChild(this.$refs.title);
+                    }
+                    if (this.$refs.content) {
+                        this.$el.appendChild(this.$refs.content);
+                    }
+                }
             }
         }
     };
