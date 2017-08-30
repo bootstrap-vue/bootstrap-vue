@@ -62,7 +62,7 @@ module.exports = {
     ],
 
     modules: [
-        ['@nuxtjs/pwa', { workbox: false }]
+        '@nuxtjs/pwa'
     ],
 
     css: [
