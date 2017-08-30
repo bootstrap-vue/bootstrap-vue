@@ -59,19 +59,21 @@
                 if (!target) {
                     return;
                 }
-                target = document.getElementById(/^#/.test(target) ? target.slice(1) : target);
-                if (target && !this.popOver) {
-                    // We pass the title & content as part of the config
-                    this.popOver = new PopOver(target, this.getConfig(), this.$root);
-                    this.$on('close', this.onClose);
-                    // Observe content Child changes so we can notify popper of possible size change
-                    observeDom(this.$refs.content, this.updatePosition.bind(this), {
-                        subtree: true,
-                        childList: true,
-                        attributes: true,
-                        attributeFilter: ['class', 'style']
-                    });
-                }
+                this.$nextTick(() => {
+                    target = document.getElementById(/^#/.test(target) ? target.slice(1) : target);
+                    if (target && !this.popOver) {
+                        // We pass the title & content as part of the config
+                        this.popOver = new PopOver(target, this.getConfig(), this.$root);
+                        this.$on('close', this.onClose);
+                        // Observe content Child changes so we can notify popper of possible size change
+                        observeDom(this.$refs.content, this.updatePosition.bind(this), {
+                            subtree: true,
+                            childList: true,
+                            attributes: true,
+                            attributeFilter: ['class', 'style']
+                        });
+                    }
+                });
             }
         },
         updated() {
@@ -101,10 +103,10 @@
                     offset: this.offset || 0,
                     triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
                     callbacks: {
-                        show: (evt) => this.$emit('show', evt),
-                        shown: () => this.$emit('shown'),
-                        hide: (evt) => this.$emit('hide', evt),
-                        hidden: () => this.$emit('hidden')
+                        show: (evt) => this.onShow(evt),
+                        shown: (evt) => this.onShown(evt),
+                        hide: (evt) => this.onHide(evt),
+                        hidden: (evt) => this.onHidden(evt)
                     }
                 };
             }
@@ -136,7 +138,23 @@
                     cfg.html = true;
                 }
                 return cfg;
-          }
+            },
+            onShow(evt) {
+                this.$emit('show', evt);
+            },
+            onShown(evt) {
+                this.$emit('shown');
+            },
+            onHide(evt) {
+                this.$emit('hide', evt)
+            },
+            onHidden(evt) {
+                // bring our content back if needed to keep Vue happy
+                // Tooltip class will move it back to $tip when shown again
+                this.$el.appendChild(this.$refs.title);
+                this.$el.appendChild(this.$refs.content);
+                this.$emit('hidden');
+            }
         }
     };
 </script>
