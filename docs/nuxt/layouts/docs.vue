@@ -40,7 +40,7 @@ export default {
     components: { mSidebar, mNav, mFooter },
     computed: {
         editPageURL() {
-            const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master';
+            const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev';
             let path = this.$route.path;
             if (path === '/') {
                 path = '';

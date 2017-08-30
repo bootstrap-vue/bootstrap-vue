@@ -33,11 +33,11 @@
     
     </b-navbar>
     <b-alert show class="mb-4" variant="warning">
-        🔥 <a target="_blank" href="http://blog.getbootstrap.com/2017/08/10/bootstrap-4-beta">Bootstrap 4.Beta is out !</a>
+        <a target="_blank" href="http://blog.getbootstrap.com/2017/08/10/bootstrap-4-beta">Bootstrap4 Beta is releaed.</a>
         This docs are based on v4-alpha.6 release of Bootstrap.
         <br>
         We are heavily working on a stable version, If interested to preview see 
-        <a target="_blank" href="https://bootstrap-vue.now.sh"> Beta Docs </a>
+        <a target="_blank" href="https://bootstrap-vue.js.org"> Beta Docs </a>
     </b-alert>
 </div>
 </template>
