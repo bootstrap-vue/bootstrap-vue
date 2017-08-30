@@ -2,6 +2,49 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-beta.6"></a>
+# [1.0.0-beta.6](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2017-08-30)
+
+
+### Bug Fixes
+
+* **alert:** show dismiss button when dismissible is true ([590cead](https://github.com/bootstrap-vue/bootstrap-vue/commit/590cead))
+* **docs:** feedback doc in form group ([#934](https://github.com/bootstrap-vue/bootstrap-vue/issues/934)) ([45881bb](https://github.com/bootstrap-vue/bootstrap-vue/commit/45881bb))
+* **docs:** Side bar navigation not accessible on small screens ([#946](https://github.com/bootstrap-vue/bootstrap-vue/issues/946)) ([4666b37](https://github.com/bootstrap-vue/bootstrap-vue/commit/4666b37))
+* **dropdown:** hover/focus shading for active items ([b2b6ad9](https://github.com/bootstrap-vue/bootstrap-vue/commit/b2b6ad9))
+* **dropdowns:** Allow gracefull fallback if Popper.js not defined ([#920](https://github.com/bootstrap-vue/bootstrap-vue/issues/920)) ([41b5947](https://github.com/bootstrap-vue/bootstrap-vue/commit/41b5947))
+* **dropdowns:** Migration to popper.js positioning ([#913](https://github.com/bootstrap-vue/bootstrap-vue/issues/913)) ([116cb3e](https://github.com/bootstrap-vue/bootstrap-vue/commit/116cb3e))
+* **form-textarea:** Fix value reactivity ([aeb11be](https://github.com/bootstrap-vue/bootstrap-vue/commit/aeb11be))
+* **nav-item-dropdown:** hover/focus shading for active items ([5bd2b23](https://github.com/bootstrap-vue/bootstrap-vue/commit/5bd2b23))
+* **popove:** tooltip import ([8a75d10](https://github.com/bootstrap-vue/bootstrap-vue/commit/8a75d10))
+* **popover:** Remove old tether popover mixin ([#947](https://github.com/bootstrap-vue/bootstrap-vue/issues/947)) ([e500836](https://github.com/bootstrap-vue/bootstrap-vue/commit/e500836))
+* **progress-bar:** aria-valuenow fix ([f0b486e](https://github.com/bootstrap-vue/bootstrap-vue/commit/f0b486e))
+* **progress-bar:** Minor adjutment to style calculation ([14819ef](https://github.com/bootstrap-vue/bootstrap-vue/commit/14819ef))
+* **progress-bar:** remove unessesary this in template ([c04df8c](https://github.com/bootstrap-vue/bootstrap-vue/commit/c04df8c))
+* **scrollspy:** Make work with new nav-link functional component ([#909](https://github.com/bootstrap-vue/bootstrap-vue/issues/909)) ([2ebba5d](https://github.com/bootstrap-vue/bootstrap-vue/commit/2ebba5d))
+* **tabs:** minor logic update ([add0fb6](https://github.com/bootstrap-vue/bootstrap-vue/commit/add0fb6))
+* **tabs:** Show first tab when set to active ([#912](https://github.com/bootstrap-vue/bootstrap-vue/issues/912)) ([d920b1c](https://github.com/bootstrap-vue/bootstrap-vue/commit/d920b1c))
+
+
+### Features
+
+* **b-col:** restore `.offset-*` col classes + new b-container and b-row components 🍾🍻🎉 ([#929](https://github.com/bootstrap-vue/bootstrap-vue/issues/929)) ([023f078](https://github.com/bootstrap-vue/bootstrap-vue/commit/023f078))
+* **b-img:** New component ([#933](https://github.com/bootstrap-vue/bootstrap-vue/issues/933)) ([c4358e0](https://github.com/bootstrap-vue/bootstrap-vue/commit/c4358e0))
+* **carousel:** Use b-img component and id Mixin ([#945](https://github.com/bootstrap-vue/bootstrap-vue/issues/945)) ([d95321b](https://github.com/bootstrap-vue/bootstrap-vue/commit/d95321b))
+* **col:** BS4 column component  ([#906](https://github.com/bootstrap-vue/bootstrap-vue/issues/906)) ([9de80f8](https://github.com/bootstrap-vue/bootstrap-vue/commit/9de80f8))
+* **docs:** Improved collapse examples and documentation ([541fada](https://github.com/bootstrap-vue/bootstrap-vue/commit/541fada))
+* **img:** Add 'block' prop to set display mode to block ([6be7390](https://github.com/bootstrap-vue/bootstrap-vue/commit/6be7390))
+* **jumbotron:** Convert to functional component ([#932](https://github.com/bootstrap-vue/bootstrap-vue/issues/932)) ([5f2df53](https://github.com/bootstrap-vue/bootstrap-vue/commit/5f2df53))
+* **layout:** alignment utilities 🛠  ([#941](https://github.com/bootstrap-vue/bootstrap-vue/issues/941)) ([3435ac5](https://github.com/bootstrap-vue/bootstrap-vue/commit/3435ac5))
+* **popover:** import fix ([b24764f](https://github.com/bootstrap-vue/bootstrap-vue/commit/b24764f))
+* **readme:** add package quality badge ([#907](https://github.com/bootstrap-vue/bootstrap-vue/issues/907)) ([6bd9f52](https://github.com/bootstrap-vue/bootstrap-vue/commit/6bd9f52))
+* New popper.js based tooltip/popover directives and components ([#923](https://github.com/bootstrap-vue/bootstrap-vue/issues/923)) ([33c4cab](https://github.com/bootstrap-vue/bootstrap-vue/commit/33c4cab))
+* **table:** easier usage ([019f8fa](https://github.com/bootstrap-vue/bootstrap-vue/commit/019f8fa))
+* **table:** Scoped slots for fixed top/bottom rows ([#908](https://github.com/bootstrap-vue/bootstrap-vue/issues/908)) ([3c761e2](https://github.com/bootstrap-vue/bootstrap-vue/commit/3c761e2))
+* **table:** use computedFields for easier usage ([b9980f0](https://github.com/bootstrap-vue/bootstrap-vue/commit/b9980f0))
+
+
+
 <a name="1.0.0-beta.5"></a>
 # [1.0.0-beta.5](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.2...v1.0.0-beta.5) (2017-08-21)
 
