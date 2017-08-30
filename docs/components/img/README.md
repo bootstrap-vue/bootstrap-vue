@@ -24,6 +24,9 @@ the `fluid-grow` prop. Note this may cause bluring on small bitmap images.
 
 ```html
 <div>
+  <h5>Small image with <code>fluid/code>:</h5>
+  <b-img src="https://lorempixel.com/300/150/" fluid-grow alt="Responsive image" />
+  <h5 class="my-3">Small image with <code>fluid-grow</code>:</h5>
   <b-img src="https://lorempixel.com/300/150/" fluid-grow alt="Responsive image" />
 </div>
 
@@ -86,7 +89,7 @@ in a container that has the class `text-center`.
   <b-img src="https://lorempixel.com/125/125/technics/8/" right alt="right image" />
 </div>
 
-<!-- b-img-left-right.vue >
+<!-- b-img-left-right.vue -->
 ```
 
 **Center aligned (block):**
@@ -95,7 +98,7 @@ in a container that has the class `text-center`.
   <b-img src="https://lorempixel.com/125/125/technics/8/" center alt="center image" />
 </div>
 
-<!-- b-img-center.vue >
+<!-- b-img-center.vue -->
 ```
 
 Note: `left` takes precedence over `right` which takes precedence over `center`.
@@ -118,13 +121,13 @@ The default `blank-color` is `transparent`.
 
 ```html
 <div>
-  <b-img blank width="75" height="75" alt="transparent img" class="m-1" />
-  <b-img blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
-  <b-img blank width="75" height="75" blank-color="red" alt="img" class="m-1" />
-  <b-img blank width="75" height="75" blank-color="black" alt="img" class="m-1" />
-  <b-img blank width="75" height="75" blank-color="#338833" alt="img" class="m-1" />
-  <b-img blank width="75" height="75" blank-color="rgba(255,255,255,0.5)" alt="img" class="m-1" />
-  <b-img blank width="75" height="75" blank-color="#88f" alt="img" class="m-1" />
+  <b-img blank width="75" height="75" alt="transparent" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="#777" alt="hex shorthand color" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="red" alt="named color" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="black" alt="named color" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="#338833" alt="hex color" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="rgba(128,255,255,0.5)" alt="RGBa color" class="m-1" />
+  <b-img blank width="75" height="75" blank-color="#88f" alt="hex shorthand color" class="m-1" />
 </div>
 
 <!-- b-img-blank.vue -->
