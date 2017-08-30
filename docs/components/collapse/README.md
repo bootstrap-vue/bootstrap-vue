@@ -105,7 +105,7 @@ providing multiple target IDs using modifers:
   <b-btn v-b-toggle.collapseA.collapseB>Toggle Both Collapse A and B</b-btn>
 
   <!-- elements to collapse -->
-  <b-collapse id="collapsA" class="mt-2">
+  <b-collapse id="collapseA" class="mt-2">
     <b-card>
       I am collapsable content A!
     </b-card>
