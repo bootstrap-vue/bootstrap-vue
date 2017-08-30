@@ -77,17 +77,17 @@ export default {
     popoverMethod() {
       // Returns the content as a string
       // Will be called each time popover is opened
-      return '<strong>' + Date.now() + '</strong>';
+      return '<strong>' + new Date() + '</strong>';
     }
   },
   computed: {
     popoverConfig() {
-      // Bot title and content as specified as a function
+      // Both title and content specified as a function in this example
       // and will be called each time popover is opened
       return {
         html: true,
         title: () => { return 'Hello <b>Popover:</b> ' + (++this.counter); },
-        content: () => { return 'The date is:<br><em>' + Date.now() + '</em>'; }
+        content: () => { return 'The date is:<br><em>' + new Date() + '</em>'; }
       };
     }
   }
