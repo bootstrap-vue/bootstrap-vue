@@ -10,4 +10,5 @@
       "name": "lead",
       "description": "For custom rendering of lead text content. Placed inside 'lead-tag'"
     }
-]}
+  ]
+}
