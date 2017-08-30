@@ -76,10 +76,10 @@
         },
         destroyed() {
             if (this.toolTip) {
-                // bring our content back if needed
-                this.$el.appendChild(this.$refs.title);
                 this.toolTip.destroy();
                 this.tooltip = null;
+                // bring our content back if needed
+                this.bringItBack();
             }
         },
         computed: {
@@ -91,10 +91,10 @@
                     offset: this.offset || 0,
                     triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
                     callbacks: {
-                        show: (evt) => this.onShow(evt),
-                        shown: (evt) => this.onShown(evt),
-                        hide: (evt) => this.onHide(evt),
-                        hidden: (evt) => this.onHidden(evt)
+                        show: this.onShow.bind(this),
+                        shown: this.onShown.bind(this),
+                        hide: this.onHide.bind(this),
+                        hidden: this.onHidden.bind(this)
                     }
                 };
             }
@@ -128,8 +128,13 @@
             onHidden(evt) {
                 // bring our content back if needed to keep Vue happy
                 // Tooltip class will move it back to tip when shown again
-                this.$el.appendChild(this.$refs.title);
+                this.bringItBack();
                 this.$emit('hidden');
+            },
+            bringItBack() {
+                if (this.$el && this.$refs.title) {
+                    this.$el.appendChild(this.$refs.title);
+                }
             }
         }
     };
