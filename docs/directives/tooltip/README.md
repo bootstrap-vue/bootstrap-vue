@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     tipMethod() {
-      return '<strong>' + Date.now() + '</string>';
+      return '<strong>' + new Date() + '</string>';
     }
   }
 }
