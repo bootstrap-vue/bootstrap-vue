@@ -10,58 +10,58 @@ like a popover to appear.
 
 ```html
 <template>
-<div>
-  <h5>Triggers</h5>
-  <div class="row text-center mb-3">
-    <div class="col-sm-3">
-      <b-btn v-b-popover="'Popover!'" variant="outline-success">Click (default)</b-btn>
-    </div>
-    <div class="col-sm-3">
-      <b-btn v-b-popover.hover="'Popover!'" variant="outline-success">Hover</b-btn>
-    </div>
-    <div class="col-sm-3">
-      <b-btn v-b-popover.hover.focus="'Popover!'" variant="outline-success">Hover + Focus</b-btn>
-    </div>
-    <div class="col-sm-3">
-      <b-btn v-b-popover.focus="'Popover!'" variant="outline-success">Focus</b-btn>
-    </div>
-  </div>
-  <h5>Positioning</h5>
-  <div class="row text-center mb-3">
-    <div class="col-sm-3">
-      <b-btn v-b-popover.top="'Popover!'" variant="primary">Top</b-btn>
-    </div>
-    <div class="col-sm-3">
-      <b-btn v-b-popover.right="'Popover!'" variant="primary">Right</b-btn>
-    </div>
-    <div class="col-sm-3">
-      <b-btn v-b-popover.left="'Popover!'" variant="primary">Left</b-btn>
-    </div>
-    <div class="col-sm-3">
-      <b-btn v-b-popover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
-    </div>
-  </div>
-  <h5>Content and Title</h5>
-  <div class="row text-center mb-3">
-    <div class="col-sm-3">
-      <b-btn v-b-popover="'Content!'" title="Title from title attributee" variant="success">Title + Content</b-btn>
-    </div>
-    <div class="col-sm-3">
-      <b-btn v-b-popover="{title:'Popover', content:'This is the content of popover'}" variant="success">Object</b-btn>
-    </div>
-    <div class="col-sm-3">
-      <b-btn v-b-popover="popoverData" variant="success">Data</b-btn>
-    </div>
-    <div class="col-sm-3">
-      <b-btn v-b-popover.html="popoverMethod" title="Popover with HTML"variant="success">Method</b-btn>
-    </div>
-  </div>
-  <div class="row text-center">
-    <div class="col-sm-12">
-      <b-btn v-b-popover="popoverConfig" variant="success">Config</b-btn>
-    </div>
-  </div>
-</div>
+  <b-container fluid>
+    <h5>Triggers</h5>
+    <b-row class="text-center">
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover="'Popover!'" variant="outline-success">Click (default)</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.hover="'Popover!'" variant="outline-success">Hover</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.hover.focus="'Popover!'" variant="outline-success">Hover + Focus</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.focus="'Popover!'" variant="outline-success">Focus</b-btn>
+      </b-col>
+    </b-row>
+    <h5 class="mt-4">Positioning</h5>
+    <b-row class="text-center3">
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.top="'Popover!'" variant="primary">Top</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.right="'Popover!'" variant="primary">Right</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.left="'Popover!'" variant="primary">Left</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
+      </b-col>
+    </b-row>
+    <h5 class="mt-4">Content and Title</h5>
+    <b-row class="text-center">
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover="'Content!'" title="Title from title attributee" variant="success">Title + Content</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover="{title:'Popover', content:'This is the content of popover'}" variant="success">Object</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover="popoverData" variant="success">Data</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.html="popoverMethod" title="Popover with HTML"variant="success">Method</b-btn>
+      </b-col>
+    </b-row>
+    <b-row class="text-center">
+      <b-col cols="12" class="py-3">
+        <b-btn v-b-popover="popoverConfig" variant="success">Config</b-btn>
+      </b-col>
+    </b-row>
+  </b-ccontainer>
 </template>
 
 <script>
@@ -103,16 +103,16 @@ v-b-popover:[container].[mod1].[mod2].[...].[modN]="<value>"
 ```
 Where `<value>` can be (optional):
 - A string containing the **content** of the popover
-- A function reference to generate the **content** of the popover (receives one argument which is a refernc to the DOM element triggering the popover)
+- A function reference to generate the **content** of the popover (receives one argument which is a refernce to the DOM element triggering the popover)
 - An object containing more complex configuration of popover, See Bootstrap docs for possible values/structure)
 
 Where [modX] can be (all optional):
  - Positioning: `top`, `bottom`, `left`, `right`, or `auto` (last one found wins, defaults to `right`)
  - Event trigger: `click`, `hover`, `focus` (if none specified, defaults to `click`)
- - A delay value in the format of `d###` (where `###` is in ms, defaults to 0);
- - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults to 0)
  - `nofade` to turn off animation
  - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text
+ - A delay value in the format of `d###` (where `###` is in ms, defaults to 0);
+ - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults to 0)
 
 Where [container] can be (optional):
  - An element ID (minus the #) to place the popover markup in when visible
@@ -156,3 +156,4 @@ v-b-popover.bottom.hover  => Same as above
 v-b-popover.bottom.click.html  => Show on click and place at bottom with HTML content
 ```
 
+Note: If a title and content are not provided, then the popover will not display.

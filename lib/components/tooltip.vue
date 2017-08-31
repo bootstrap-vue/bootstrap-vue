@@ -76,10 +76,10 @@
         },
         destroyed() {
             if (this.toolTip) {
-                // bring our content back if needed
-                this.$el.appendChild(this.$refs.title);
                 this.toolTip.destroy();
                 this.tooltip = null;
+                // bring our content back if needed
+                this.bringItBack();
             }
         },
         computed: {
@@ -89,13 +89,7 @@
                     placement: this.placement || 'top',
                     delay: this.delay || 0,
                     offset: this.offset || 0,
-                    triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
-                    callbacks: {
-                        show: (evt) => this.onShow(evt),
-                        shown: (evt) => this.onShown(evt),
-                        hide: (evt) => this.onHide(evt),
-                        hidden: (evt) => this.onHidden(evt)
-                    }
+                    triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers
                 };
             }
         },
@@ -114,13 +108,19 @@
                     cfg.title = this.$refs.title;
                     cfg.html = true;
                 }
+                cfg.callbacks = {
+                    show: this.onShow,
+                    shown: this.onShown,
+                    hide: this.onHide,
+                    hidden: this.onHidden
+                };
                 return cfg;
             },
             onShow(evt) {
                 this.$emit('show', evt);
             },
             onShown(evt) {
-                this.$emit('shown');
+                this.$emit('shown', evt);
             },
             onHide(evt) {
                 this.$emit('hide', evt)
@@ -128,8 +128,13 @@
             onHidden(evt) {
                 // bring our content back if needed to keep Vue happy
                 // Tooltip class will move it back to tip when shown again
-                this.$el.appendChild(this.$refs.title);
-                this.$emit('hidden');
+                this.bringItBack();
+                this.$emit('hidden', evt);
+            },
+            bringItBack() {
+                if (this.$el && this.$refs.title) {
+                    this.$el.appendChild(this.$refs.title);
+                }
             }
         }
     };
