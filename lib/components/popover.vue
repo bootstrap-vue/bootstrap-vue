@@ -84,7 +84,7 @@
                 this.popOver.updateConfig(this.getConfig());
             }
         },
-        destroyed() {
+        beforeDestroyed() {
             if (this.popOver) {
                 // Destroy the popover
                 this.popOver.destroy();
