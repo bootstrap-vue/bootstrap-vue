@@ -13,7 +13,7 @@ jumbotron.
 ```html
 <b-jumbotron header="Bootstrap Vue" lead="Bootstrap 4 Components for Vue.js 2" >
   <p>For more information visit website</p>
-  <b-btn variant="primary" href="#">Docs</b-btn>
+  <b-btn variant="primary" href="#">More Info</b-btn>
 </b-jumbotron>
 
 <!-- jumbotron-1.vue -->
@@ -21,7 +21,7 @@ jumbotron.
 
 **Usage with slots:**
 ```html
-<b-jumbotronlead="Bootstrap 4 Components for Vue.js 2" >
+<b-jumbotron>
   <template slot="header">
     Bootstrap Vue
   </template>
@@ -77,3 +77,22 @@ Control the overall background variant with the `bg-variant` prop ( set to `info
 `border-variant` prop, and the text variant with `text-variant` prop. All
 three props default to `null`, which will instruct the jumbotron to use the
 default styling.
+
+```html
+<b-jumbotron bg-variant="info" text-variant"white" border-variant="dark">
+  <template slot="header">
+    Bootstrap Vue
+  </template>
+  <template slot="lead">
+    This is a simple hero unit, a simple jumbotron-style component for
+    calling extra attention to featured content or information.
+  </template>
+  <hr class="my-4">
+  <p>
+    It uses utility classes for typography and spacing to space content
+    out within the larger container.
+  </p>
+</b-jumbotron>
+
+<!-- jumbotron-3.vue -->
+```
