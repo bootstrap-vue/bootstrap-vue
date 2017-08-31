@@ -1,7 +1,6 @@
 /* eslint-disable quote-props */
 
 export default {
-    'layout': require('./layout').default,
     'alert': require('./alert').default,
     'badge': require('./badge').default,
     'breadcrumb': require('./breadcrumb').default,

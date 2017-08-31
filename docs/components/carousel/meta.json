@@ -4,7 +4,7 @@
   "components": ["bCarouselSlide"],
   "events": [
     {
-      "event": "slide",
+      "event": "sliding-start",
       "description": "Emitted when transitioning to a new slide has started.",
       "args": [
         {
@@ -14,8 +14,8 @@
       ]
     },
     {
-      "event": "slid",
-      "description": "Emitted when transitioning to a new slide has finished.",
+      "event": "sliding-end",
+      "description": "Emitted when transitioning to a new slide has ended.",
       "args": [
         {
           "arg": "slide",

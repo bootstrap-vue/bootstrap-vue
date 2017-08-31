@@ -1,30 +1,4 @@
-# Quick start
-
-### Beta Testing
-For beta testing please explicitly require beta version instead of `bootstrap-vue`
-```bash
-yarn add bootstrap-vue@^1.0.0-beta.5
-
-# or
-npm i bootstrap-vue@^1.0.0-beta.5
-```
-
-### Nuxt.js
-You can use official [Nuxt.js](https://nuxtjs.org) module to add BootstrapVue support. ([module docs](https://github.com/nuxt-community/modules/tree/master/modules/bootstrap-vue))
-
-- Add `@nuxtjs/bootstrap-vue` dependency using yarn or npm to your project:
-- Add `@nuxtjs/bootstrap-vue` to modules section of **nuxt.config.js**
-
-```js
-{
-  modules: [
-    '@nuxtjs/bootstrap-vue',
-
-    // Or if you have custom bootstrap CSS...
-    ['@nuxtjs/bootstrap-vue', { css: false }],
-  ]
-}
-```
+# Getting Started
 
 ### Webpack
 If you are using module bundlers such as Webpack, Rollup, Laravel elixir/mix, etc you may prefer directly include package
@@ -54,6 +28,23 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 manually include both [Bootstrap](https://v4-alpha.getbootstrap.com/getting-started/download/)
 and [BootstrapVue](https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css) CSS files
 in your bundle or reference them from `static/` via `index.html`.
+
+### Nuxt.js
+You can use official [Nuxt.js](https://nuxtjs.org) module to add BootstrapVue support. ([module docs](https://github.com/nuxt-community/modules/tree/master/modules/bootstrap-vue))
+
+- Add `@nuxtjs/bootstrap-vue` dependency using yarn or npm to your project:
+- Add `@nuxtjs/bootstrap-vue` to modules section of **nuxt.config.js**
+
+```js
+{
+  modules: [
+    '@nuxtjs/bootstrap-vue',
+
+    // Or if you have custom bootstrap CSS...
+    ['@nuxtjs/bootstrap-vue', { css: false }],
+  ]
+}
+```
 
 ### vue-cli
 

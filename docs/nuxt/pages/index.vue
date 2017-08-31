@@ -9,14 +9,13 @@
       <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
         <h1 class="mb-3 bd-text-purple-bright">Bootstrap + Vue</h1>
         <p class="lead">
-          Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a>
-          components with <a href="https://vuejs.org"> Vue.js </a>
+          Quickly integrate Bootstrap 4 components with Vue.js
         </p>
         <p class="lead mb-4 text-muted">
-          Bootstrap is an open source toolkit for developing with HTML, CSS, and JS. Quickly prototype your ideas or build your entire app with our Sass variables and mixins, responsive grid system, extensive prebuilt components.
+          <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> is the world's most popular framework for building responsive, mobile-first sites.
         </p>
         <p class="lead mb-4 text-muted">
-          Vue.js is a library that focuses heavily on the ViewModel—the two-way data bindings that tie what we see and interact with on the screen with the application's data mode.
+          <a href="https://vuejs.org"> Vue.js</a> (pronounced /vjuː/, like view) is a progressive framework for building user interfaces. 
         </p>
         <div class="d-flex flex-column flex-md-row lead mb-3">
           <b-link to="/docs" class="btn btn-lg btn-bd-purple mb-3 mb-md-0 mr-md-3">Get started</b-link>

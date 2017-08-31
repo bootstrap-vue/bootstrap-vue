@@ -3,10 +3,7 @@
 
         <b-nav-toggle target="bd-main-nav"></b-nav-toggle>
 
-        <b-link class="navbar-brand nuxt-link-active" to="/" exact>
-            <img src="~/static/icon.png" alt="BV">
-            <span>BootstrapVue</span>
-        </b-link>
+        <b-navbar-brand to="/" exact>BootstrapVue</b-navbar-brand>
 
         <b-collapse isNav class="justify-content-between" id="bd-main-nav">
 
