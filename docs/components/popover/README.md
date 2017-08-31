@@ -3,6 +3,27 @@
 > The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
 element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popover) directive.
 
+## Overview
+
+Things to know when using popover component:
+ - Popovers rely on the 3rd party library Popper.js for positioning. The library is bundled wit Bootstrap-Vue!
+ - Popovers with zero-length title and contnt are never displayed.
+ - Triggering popovers on hidden elements will not work.
+ - Popovers for `disabled` elements must be triggered on a wrapper element.
+ - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
+ - Popovers must be hidden before their corresponding elements have been removed from the DOM.
+
+The `<b-popover>` component inserts a hidden (`display:none`) `<div>` container
+element at the point in the DOM where the `<b-popover>` component is placed.  This may 
+affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
+and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>`
+component **outside** of theese types of components.
+
+The target element **must** exist in the document before `<b-popover>` is mounted.
+If the target element is not found during mount, the popover will never open. Always
+place your `<b-popover>` component lower in the DOM than your target element.
+
+
 ## `<b-popover>` Component Usage
 ```html
 <template>
@@ -50,6 +71,19 @@ element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popo
 <!-- popover-1.vue -->
 ```
 
+### Component Options
+
+| Prop | Default | Description | Supported values
+| ---- | ------- | ----------- | ----------------
+| `target-id` | `null` | ID of element that you want to trigger the popover. **Required** | Any valid, in-document unique element ID
+| `title` | `null` | Title of popover (text only, no HTML). if HTML is required, place it in the `title` named slot | Plain text
+| `content` | `null` | Content of popover (text only, no HTML). if HTML is required, place it in the default slot | Plain text
+| `placement` | `top` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`
+| `triggers` | `hover focus` |  Space separated list of which event(s) will trigger open/close of popover | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
+| `delay` | `0` | Number of milliseconds to delay showing and hidding of popover | `0` and up, integers only.
+| `offset` | `0` | Number of pixels to shift the center of the popover | Any negative or positive integer
+
+
 ### Advanced usage with reactive content
 
 You can even make your popover content interactive:
@@ -67,7 +101,11 @@ You can even make your popover content interactive:
       </p>
     </b-card>
 
-    <b-popover target-id="exPopoverReactive1" @show="clearValues" trigger="click" ref="popover">
+    <b-popover target-id="exPopoverReactive1"
+               trigger="click",
+               placement="auto"
+               ref="popover"
+               @show="clearValues">
       <template slot="title">
         <b-btn @click="onClose" class="close" aria-label="Close">
           <span class="d-inline-block" aria-hidden="true">&times;</span>
@@ -130,16 +168,7 @@ You can even make your popover content interactive:
 
 <!-- popover-2.vue -->
 ```
-### Component usage notes:
-The `<b-popover>` component inserts a hidden (`display:none`) `<div>` container
-element at the point in the DOM where the `<b-popover>` component is placed.  This may 
-affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
-and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>`
-component **outside** of theese types of components.
 
-The target element **must** exist in the document before `<b-popover>` is mounted.
-If the target element is not found during mount, the popover will never open. Always
-place your `<b-popover>` component lower in the DOM than your target element.
 
 ## `v-b-popover` Directive Usage
 
