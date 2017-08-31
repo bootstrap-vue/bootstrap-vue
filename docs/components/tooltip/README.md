@@ -6,7 +6,7 @@
 ## Overview
 
 Things to know when using tooltip component:
- - Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled wit Bootstrap-Vue!
+ - Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled with Bootstrap-Vue in the dist files!
  - Tooltips with zero-length titles are never displayed.
  - Triggering tooltips on hidden elements will not work.
  - Tooltips for `disabled` elements must be triggered on a wrapper element.
@@ -22,6 +22,13 @@ component **outside** of these types of components.
 The target element **must** exist in the document before `<b-tooltip>` is mounted. If the
 target element is not found during mount, the tooltip will never open. Always place
 your `<b-tooltip>` component lower in the DOM than your target element.
+
+**Note:** _When using the default slot for the title, `<b-tooltip>` transfers the
+rendered DOM from that slot into the tooltip's markup when shown, and returns
+the content back to the `<b-tooltip>` component when hidden. This may cause some issues
+in rare circumstances, so please test your implmentation accordingly! The `title`
+prop does not have this behavior. For simple tooltips, we recommend using the
+`v-b-tooltip` directive and enable the `html` modifer if needed._
 
 ## `<b-tooltip>` Component Usage
 
@@ -45,7 +52,7 @@ your `<b-tooltip>` component lower in the DOM than your target element.
   </b-tooltip>
 </b-container>
 
-<!-- tooltip-1.vue -->
+<!-- tooltip-component-1.vue -->
 ```
 
 ### Component Options
@@ -85,7 +92,7 @@ The `v-b-tooltip` directive makes adding tooltips even easier:
   </b-row>
 </b-container>
 
-<!-- tooltip-2.vue -->
+<!-- tooltip-directive-1.vue -->
 ```
 
 Refer to the [`v-b-tooltip` documentation](/docs/directives/tooltip) for more information
