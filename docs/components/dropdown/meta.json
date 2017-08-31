@@ -10,15 +10,15 @@
   "events": [
     {
       "event": "shown",
-      "description": "When dropdown is shown"
+      "description": "Emitted When dropdown is shown"
     },
     {
       "event": "hidden",
-      "description": "When dropdown is hidden"
+      "description": "Emitted When dropdown is hidden"
     },
     {
       "event": "click",
-      "description": "When button clicked in split mode"
+      "description": "Emitted when split button clicked in split mode."
     }
   ],
   "slots": [
