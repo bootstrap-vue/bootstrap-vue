@@ -56,6 +56,7 @@ your `<b-tooltip>` component lower in the DOM than your target element.
 | `title` | `null` | Content of tooltip (text only, no HTML). if HTML is required, place it in the default slot | Plain text
 | `placement` | `top` | Positioning of the tooltip, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`
 | `triggers` | `hover focus` |  Space separated list of which event(s) will trigger open/close of tooltip | `hover`, `focus`, `click`. Note `blur` is a special use case to close tooltip on next click.
+| `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of tooltip | `0` and up, integers only.
 | `offset` | `0` | Number of pixels to shift the center of the tooltip | Any negative or positive integer
 
