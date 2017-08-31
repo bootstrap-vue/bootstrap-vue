@@ -109,10 +109,10 @@
                     cfg.html = true;
                 }
                 cfg.callbacks = {
-                    show: this.onShow.bind(this),
-                    shown: this.onShown.bind(this),
-                    hide: this.onHide.bind(this),
-                    hidden: this.onHidden.bind(this)
+                    show: this.onShow,
+                    shown: this.onShown,
+                    hide: this.onHide,
+                    hidden: this.onHidden
                 };
                 return cfg;
             },
@@ -120,7 +120,7 @@
                 this.$emit('show', evt);
             },
             onShown(evt) {
-                this.$emit('shown');
+                this.$emit('shown', evt);
             },
             onHide(evt) {
                 this.$emit('hide', evt)
@@ -129,7 +129,7 @@
                 // bring our content back if needed to keep Vue happy
                 // Tooltip class will move it back to tip when shown again
                 this.bringItBack();
-                this.$emit('hidden');
+                this.$emit('hidden', evt);
             },
             bringItBack() {
                 if (this.$el && this.$refs.title) {
