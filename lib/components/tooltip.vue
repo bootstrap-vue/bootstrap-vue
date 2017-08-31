@@ -78,7 +78,7 @@
                 this.toolTip.updateConfig(this.getConfig());
             }
         },
-        destroyed() {
+        beforeDestroy() {
             if (this.toolTip) {
                 this.toolTip.destroy();
                 this.tooltip = null;
