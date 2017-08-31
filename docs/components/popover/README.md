@@ -6,14 +6,14 @@ element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popo
 ## Overview
 
 Things to know when using popover component:
- - Popovers rely on the 3rd party library Popper.js for positioning. The library is bundled wit Bootstrap-Vue!
- - Popovers with zero-length title and contnt are never displayed.
+ - Popovers rely on the 3rd party library Popper.js for positioning. The library is bundled with Bootstrap-Vue dist files!
+ - Popovers with zero-length title _and_ content are never displayed.
  - Triggering popovers on hidden elements will not work.
  - Popovers for `disabled` elements must be triggered on a wrapper element.
- - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
- - Popovers must be hidden before their corresponding elements have been removed from the DOM.
+ - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use `white-space: nowrap;` on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
+ - Popovers must be hidden before their corresponding markup elements have been removed from the DOM.
 
-The `<b-popover>` component inserts a hidden (`display:none`) `<div>` container
+The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` container
 element at the point in the DOM where the `<b-popover>` component is placed.  This may 
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
 and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>`
@@ -23,8 +23,14 @@ The target element **must** exist in the document before `<b-popover>` is mounte
 If the target element is not found during mount, the popover will never open. Always
 place your `<b-popover>` component lower in the DOM than your target element.
 
+**Note:** _When using slots for content and/or title, `<b-popover>` transfers the
+rendered DOM from those slots into the popover's markup when shown, and returns
+them back to the `<b-popover>` component when hidden. This may cause some issues
+in rare circumstances, so please test your implmentation accordingly! The `title`
+and `content` props do not have this behavior. For simple popovers, we recommend
+using the `v-b-popover` directive and enable the `html` modifer if needed._
 
-## `<b-popover>` Component Usage
+## `<b-popover>` Component basic usage
 ```html
 <template>
   <b-container fluid>
@@ -59,8 +65,9 @@ place your `<b-popover>` component lower in the DOM than your target element.
         <b-btn id="exPopover3" variant="primary">Using slots</b-btn>
         <b-popover target-id="exPopover3">
            <template slot="title">Content via Slots</template>
-           Embedding content <span class="text-danger">using slots</span> affords you
-           <em>greater <strong>control.</strong></em> and basic HTML support/
+           Embedding content <span class="text-danger">using slots</span>
+           affords you <em>greater <strong>control.</strong></em> and
+           basic HTML support.
         </b-popover>
       </b-col>
     </b-row>
@@ -71,7 +78,7 @@ place your `<b-popover>` component lower in the DOM than your target element.
 <!-- popover-1.vue -->
 ```
 
-### Component Options
+### Component options via props
 
 | Prop | Default | Description | Supported values
 | ---- | ------- | ----------- | ----------------
@@ -82,19 +89,79 @@ place your `<b-popover>` component lower in the DOM than your target element.
 | `triggers` | `hover focus` |  Space separated list of which event(s) will trigger open/close of popover | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of popover | `0` and up, integers only.
-| `offset` | `0` | Number of pixels to shift the center of the popover | Any negative or positive integer
+| `offset` | `0` | Number of pixels to shift the center of the popover. Also affects the position of the popover arrow. | Any negative or positive integer
 
 
-### Advanced usage with reactive content
+## `v-b-popover` Directive usage
 
-You can even make your popover content interactive:
+Just need quick popovers without too much markup? Use the 
+[`v-b-popover` directive](/docs/directives/popover):
+
+```html
+<template>
+    <b-container fluid>
+
+      <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
+      <b-row>
+        <b-col md="3" class="py-3 text-center">
+          <b-btn v-b-popover.hover.top="'I am Top'"
+                 title="Popover!"
+                 variant="primary">Top</b-btn>
+        </b-col>
+        <b-col md="3" class="py-3 text-center">
+          <b-btn v-b-popover.hover.left="'I am Left'"
+                 title="Popover!"
+                 variant="primary">Left</b-btn>
+        </b-col>
+        <b-col md="3" class="py-3 text-center">
+          <b-btn v-b-popover.hover.right="'I am Right'"
+                 title="Popover!"
+                 variant="primary">Right</b-btn>
+        </b-col>
+        <b-col md="3" class="py-3 text-center">
+          <b-btn v-b-popover.hover.bottom="'I am Bottom'"
+                 title="Popover!"
+                 variant="primary">Bottom</b-btn>
+        </b-col>
+      </b-row>
+
+    </b-container>
+</template>
+
+<!-- popover-directive-1.vue -->
+```
+
+Refer to the [`v-b-popover` directive](/docs/directives/popover) documentation for detailed
+information on the directive usage.
+
+## Advanced `<b-popover>` usage with reactive content
+
+You can even make your `<b-popover>` content interactive. Just remember not to use the
+`focus`, `hover` or `blur` triggers (use only `click`), otherwsie your popover will
+close automatically as soon as someone trys to interact with the content.
+
+If you absolutely must use a trigger other than `click` (or want to disable closing of the
+popover when the trigger element is clicked a second time), then you can either:
+ - Listen for the `hide` event on the `<b-popover>` element, and call the `preventDefault()` method (when apropriate) on the `BvEvent` passed to your `hide` handler, or
+ - Disable your trigger element (if possible) as soon as the popover opens (via the `show` event), and re-enable it when apropriate.
+
+For practical purposes, interactive content popovers should be minimal. The maximum
+width of the popover is hard coded by Bootstrap V4 CSS to `276px`. Tall popovers on
+small screens can be harder to deal with on mobile devices (such as smart-phones).
 
 ```html
 <template>
   <div>
     <div class="my-3">
-      <b-btn id="exPopoverReactive1" variant="primary">Reactive Content Using Slots</b-btn>
+      <!-- our triggering (target) element -->
+      <b-btn id="exPopoverReactive1"
+             :disabled="disabled"
+             variant="primary">
+        Reactive Content Using Slots
+      </b-btn>
     </div>
+
+    <!-- output from teh popover interaction -->
     <b-card title="Returned values:" v-if="input1Return && input2Return">
       <p class="card-text" style="max-width:20rem;">
         Name: <strong>{{ input1Return }}</strong><br>
@@ -102,11 +169,14 @@ You can even make your popover content interactive:
       </p>
     </b-card>
 
+    <!-- Our popover title and content render container -->
+    <!-- We use placement 'auto' so popover fits in the best spot on viewport -->
     <b-popover target-id="exPopoverReactive1"
                trigger="click",
                placement="auto"
                ref="popover"
-               @show="clearValues">
+               @show="onShow"
+               @hidden="onHidden">
       <template slot="title">
         <b-btn @click="onClose" class="close" aria-label="Close">
           <span class="d-inline-block" aria-hidden="true">&times;</span>
@@ -120,14 +190,14 @@ You can even make your popover content interactive:
         <b-form-select size="sm" v-model="input2" :options="options"></b-form-select>
       </b-form-group>
       <b-alert show>
-        <h6>Values:</h6>
+        <h6>Current Values:</h6>
         Name: <strong>{{ input1 }}</strong><br>
         Color: <strong>{{ input2 }}</strong>
       </b-alert>
       <b-btn @click="onCancel" size="sm" variant="danger">Cancel</b-btn>
       <b-btn @click="onOk" size="sm" variant="primary">Ok</b-btn>
     </b-popover>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -135,15 +205,18 @@ You can even make your popover content interactive:
     data: {
       input1: '',
       input2: '',
-      options: [{text:'- Chose 1 -', value:''},'Red','Green','Blue'],
+      options: [{text:'- Choose 1 -', value:''},'Red','Green','Blue'],
       input1Return: '',
       input2Return: '',
+      disabled: false
     },
     methods: {
       onClose() {
+        // Emitting 'close' on the popover will trigger it to hide for us
         this.$refs.popover.$emit('close');
       },
       onCancel() {
+        // Emitting 'close' on the popover will trigger it to hide for us
         this.$refs.popover.$emit('close');
       },
       onOk() {
@@ -151,55 +224,31 @@ You can even make your popover content interactive:
           alert('Please enter something');
         } else {
           alert('Thats great!');
+          // Emitting 'close' on the popover will trigger it to hide for us
           this.$refs.popover.$emit('close');
+          // "Return" our popover "form" results
           this.input1Return = this.input1;
           this.input2Return = this.input2;
         }
       },
-      clearValues() {
+      onShow() {
         // This is called just before the popover is shown
+        // Reset our popover "form" variables
         this.input1 = '';
         this.input2 = '';
         this.input1Return = '';
         this.input2Return = '';
+        // Disable our trigger button to prevent popover closing on second click
+        this.disabled = true;
+      },
+      onHidden() {
+        // Called just after the popover has finished hiding
+        // We re-enable our button
+        this.disabled = false;
       }
     }
   };
 </script>
 
-<!-- popover-2.vue -->
+<!-- popover-advanced-1.vue -->
 ```
-
-
-## `v-b-popover` Directive Usage
-
-Just need quick popovers without too much markup? Use the `v-b-popover` directive:
-
-```html
-<template>
-    <b-container fluid>
-
-      <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
-      <b-row>
-        <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.hover.top="'I am Top'" title="Popover!" variant="primary">Top</b-btn>
-        </b-col>
-        <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.hover.left="'I am Left'" title="Popover!" variant="primary">Left</b-btn>
-        </b-col>
-        <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.hover.right="'I am Right'" title="Popover!" variant="primary">Right</b-btn>
-        </b-col>
-        <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.hover.bottom="'I am Bottom'" title="Popover!" variant="primary">Bottom</b-btn>
-        </b-col>
-      </b-row>
-
-    </b-container>
-</template>
-
-<!-- popover-directive-1.vue -->
-```
-
-Refer to the [`v-b-popover` directive](/docs/directives/popover) documentation for detailed
-information on the directive usage.
