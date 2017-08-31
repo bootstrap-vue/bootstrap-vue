@@ -19,7 +19,7 @@
 
   <b-tooltip target-id="exButton1" title="Online!"></b-tooltip>
 
-  <b-tooltip target-id="exButton2 placement="bottom"">
+  <b-tooltip target-id="exButton2" placement="bottom">
     Hello <strong>World!</strong>
   </b-tooltip>
 </b-container>

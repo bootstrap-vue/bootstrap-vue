@@ -38,31 +38,31 @@ Things to know when using tooltips:
     <h5 class="mt-4">Positioning</h5>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.top="'ToolTip!'" variant="primary">Top</b-btn>
+        <b-btn v-b-tooltip.hover.top="'ToolTip!'" variant="primary">Top</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.right="'ToolTip!'" variant="primary">Right</b-btn>
+        <b-btn v-b-tooltip.hover.right="'ToolTip!'" variant="primary">Right</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.left="'ToolTip!'" variant="primary">Left</b-btn>
+        <b-btn v-b-tooltip.hover.left="'ToolTip!'" variant="primary">Left</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
+        <b-btn v-b-tooltip.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
       </b-col>
     </b-row>
     <h5 class="mt-4">Content</h5>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip title="Tip from title attributee" variant="success">Title</b-btn>
+        <b-btn v-b-tooltip.hover title="Tip from title attributee" variant="success">Title</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip="'String Tip'" variant="success">String</b-btn>
+        <b-btn v-b-tooltip.hover="'String Tip'" variant="success">String</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.html="tipData" variant="success">Data</b-btn>
+        <b-btn v-b-tooltip.hover.html="tipData" variant="success">Data</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.html="tipMethod" variant="success">Method</b-btn>
+        <b-btn v-b-tooltip.hover.html="tipMethod" variant="success">Method</b-btn>
       </b-col>
     </b-row>
   </b-container>

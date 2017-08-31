@@ -11,13 +11,14 @@ element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popo
     <h5 class="my-3">Placement</h5>
     <b-row>
       <b-col md="3" class="py-4 text-center"
-           v-for="placement in ['top', 'left', 'right', 'bottom']">
+           v-for="placement in ['top', 'left', 'right', 'bottom']" :key="placement">
         <b-btn :id="'exPopover1-'+placement" variant="primary">
           {{ placement }}
         </b-btn>
         <b-popover :target-id="'exPopover1-'+placement"
                    :placement="placement"
                    title="Popover!"
+                   triggers="hover focus"
                    :content="placement">
         </b-popover>
       </b-col>
@@ -95,7 +96,7 @@ You can even make your popover content interactive:
     data: {
       input1: '',
       input2: '',
-      options: [{text:'- Chose 1 -', value:''},'Red','Green','Blue']
+      options: [{text:'- Chose 1 -', value:''},'Red','Green','Blue'],
       input1Return: '',
       input2Return: '',
     },
@@ -112,7 +113,7 @@ You can even make your popover content interactive:
         } else {
           alert('Thats great!');
           this.$refs.popover.$emit('close');
-          this.input1Retrun = this.input1;
+          this.input1Return = this.input1;
           this.input2Return = this.input2;
         }
       },
@@ -120,7 +121,7 @@ You can even make your popover content interactive:
         // This is called just before the popover is shown
         this.input1 = '';
         this.input2 = '';
-        this.input1Retrun = '';
+        this.input1Return = '';
         this.input2Return = '';
       }
     }
@@ -146,21 +147,21 @@ Just need quick popovers without too much markup? Use the `v-b-popover` directiv
 
 ```html
 <template>
-    <b-coltainer fluid>
+    <b-container fluid>
 
       <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
       <b-row>
         <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.top="'I am Top'" title="Popover!" variant="primary">Top</b-btn>
+          <b-btn v-b-popover.hover.top="'I am Top'" title="Popover!" variant="primary">Top</b-btn>
         </b-col>
         <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.left="'I am Left'" title="Popover!" variant="primary">Left</b-btn>
+          <b-btn v-b-popover.hover.left="'I am Left'" title="Popover!" variant="primary">Left</b-btn>
         </b-col>
         <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.right="'I am Right'" title="Popover!" variant="primary">Right</b-btn>
+          <b-btn v-b-popover.hover.right="'I am Right'" title="Popover!" variant="primary">Right</b-btn>
         </b-col>
         <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.bottom="'I am Bottom'" title="Popover!" variant="primary">Bottom</b-btn>
+          <b-btn v-b-popover.hover.bottom="'I am Bottom'" title="Popover!" variant="primary">Bottom</b-btn>
         </b-col>
       </b-row>
 

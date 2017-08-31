@@ -43,39 +43,39 @@ Things to know when using popovers:
     <h5 class="mt-4">Positioning</h5>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.top="'Popover!'" variant="primary">Top</b-btn>
+        <b-btn v-b-popover.hover.top="'Popover!'" variant="primary">Top</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.right="'Popover!'" variant="primary">Right</b-btn>
+        <b-btn v-b-popover.hover.right="'Popover!'" variant="primary">Right</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.left="'Popover!'" variant="primary">Left</b-btn>
+        <b-btn v-b-popover.hover.left="'Popover!'" variant="primary">Left</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
+        <b-btn v-b-popover.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
       </b-col>
     </b-row>
     <h5 class="mt-4">Content and Title</h5>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover="'Content!'" title="Title from title attributee" variant="success">Title + Content</b-btn>
+        <b-btn v-b-popover.hover="'Content!'" title="Title from title attributee" variant="success">Title + Content</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover="{title:'Popover', content:'This is the content of popover'}" variant="success">Object</b-btn>
+        <b-btn v-b-popover.hover="{title:'Popover', content:'This is the content of popover'}" variant="success">Object</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover="popoverData" variant="success">Data</b-btn>
+        <b-btn v-b-popover.hover="popoverData" variant="success">Data</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.html="popoverMethod" title="Popover with HTML"variant="success">Method</b-btn>
+        <b-btn v-b-popover.hover.html="popoverMethod" title="Popover with HTML"variant="success">Method</b-btn>
       </b-col>
     </b-row>
     <b-row class="text-center">
       <b-col cols="12" class="py-3">
-        <b-btn v-b-popover="popoverConfig" variant="success">Config</b-btn>
+        <b-btn v-b-popover.hover="popoverConfig" variant="success">Config</b-btn>
       </b-col>
     </b-row>
-  </b-ccontainer>
+  </b-container>
 </template>
 
 <script>
@@ -201,7 +201,7 @@ a focus change via pressing the <kbd>TAB</kbd> key). Some call this behavior _se
         <b-btn v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-btn>
       </b-col>
     </b-row>
-  </b-ccontainer>
+  </b-container>
 </template>
 
 <!-- popover-2.vue -->
