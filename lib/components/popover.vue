@@ -104,7 +104,7 @@
                     // offset can be a css distance string. if no units provided then pixels are assumed
                     offset: this.offset || 0,
                     animation: Boolean(this.noFade),
-                    triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers
+                    trigger: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers
                 };
             }
         },
