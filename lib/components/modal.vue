@@ -104,6 +104,22 @@
         '[tabindex]:not([disabled]):not(.disabled)'
     ].join(',');
 
+    // to handle multiple modal
+    var modalGlobalCounter = {
+      info: {
+        count: 0
+      },
+      incCount () {
+        this.info.count++;
+      },
+      decCount () {
+        this.info.count--;
+      },
+      getCount () {
+        return this.info.count;
+      }
+    }
+
     // Determine if an HTML element is visible - Faster than CSS check
     function isVisible(el) {
         return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
@@ -246,6 +262,7 @@
                 if (this.is_visible) {
                     return;
                 }
+                modalGlobalCounter.incCount();
                 this.$emit('show');
                 this.is_visible = true;
                 this.$root.$emit('shown::modal', this.id);
@@ -263,6 +280,8 @@
                 if (!this.is_visible) {
                     return;
                 }
+
+                modalGlobalCounter.decCount();
 
                 // Create event object
                 let canceled = false;
@@ -294,7 +313,9 @@
                     this.is_visible = false;
                     this.$root.$emit('hidden::modal', this.id);
                     this.$emit('hidden', e);
-                    this.body.classList.remove('modal-open');
+                    if(modalGlobalCounter.getCount() === 0){
+                        this.body.classList.remove('modal-open');
+                    }
                 }
             },
             onClickOut() {
