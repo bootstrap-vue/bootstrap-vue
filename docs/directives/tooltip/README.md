@@ -11,7 +11,7 @@ to apear.
   <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip="'ToolTip!'" variant="outline-success">Hover and Focus</b-btn>
+        <b-btn v-b-tooltip="'ToolTip!'" variant="outline-success">Hover + Focus</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
         <b-btn v-b-tooltip.hover="'ToolTip!'" variant="outline-success">Hover</b-btn>
@@ -68,6 +68,7 @@ export default {
   }
 }
 </script>
+
 <!-- tooltip-1.vue -->
 ```
 
