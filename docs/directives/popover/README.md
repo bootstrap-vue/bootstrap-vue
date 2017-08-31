@@ -8,6 +8,20 @@ Popovers are tooltips on steroids.
 Use the `v-b-popover` directive on any **element** or **component** where you would
 like a popover to appear.
 
+## Overview
+Things to know when using popovers:
+
+ - Popovers rely on the 3rd party library Popper.js for positioning. It is bundled with Bootstrap-Vue!
+ - Zero-length title and content values will never show a popover.
+ - Specify container: 'body' (default) to avoid rendering problems in more complex components (like input groups, button groups, etc).
+ - Triggering popovers on hidden elements will not work.
+ - Popovers for `disabled` elements must be triggered on a wrapper element.
+ - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use white-space: nowrap; on your `<a>`s, `<b-link>`s or `<router-link>`s b to avoid this behavior.
+ - Popovers must be hidden before their corresponding elements have been removed from the DOM.
+ - When using a client side router, popovers will listen to changes in `$route` and automatically hide.
+ - Elements that trigger popovers should be in the document tab sequence. Add `tabinded="0"` if rquired.
+
+
 ```html
 <template>
   <b-container fluid>
@@ -27,7 +41,7 @@ like a popover to appear.
       </b-col>
     </b-row>
     <h5 class="mt-4">Positioning</h5>
-    <b-row class="text-center3">
+    <b-row class="text-center">
       <b-col md="3" class="py-3">
         <b-btn v-b-popover.top="'Popover!'" variant="primary">Top</b-btn>
       </b-col>
@@ -108,7 +122,7 @@ Where `<value>` can be (optional):
 
 Where [modX] can be (all optional):
  - Positioning: `top`, `bottom`, `left`, `right`, or `auto` (last one found wins, defaults to `right`)
- - Event trigger: `click`, `hover`, `focus` (if none specified, defaults to `click`)
+ - Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `click`. The `blur` trigger is a close handler only, and if specified by itself, will be converted to `focus`)
  - `nofade` to turn off animation
  - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text
  - A delay value in the format of `d###` (where `###` is in ms, defaults to 0);
@@ -155,5 +169,40 @@ v-b-popover.hover.bottom  => Show on hover and place at bottom
 v-b-popover.bottom.hover  => Same as above
 v-b-popover.bottom.click.html  => Show on click and place at bottom with HTML content
 ```
+### Dismiss on next click (self dimissing)
+Use the `focus` trigger to dismiss popovers on the next click that the user makes.
+`focus` also makes the popover activate on both `focus` and `click` (as a click makes
+the element receive focus, assuming it is in the tab sequence of the page).
 
-Note: If a title and content are not provided, then the popover will not display.
+You can, however, specify your trigger as `click` and `blur`,  which will make only
+click activate the popover, and either a click on the element - _or losing foucus
+to another element or part of the document_ - will close the popover.
+
+This `blur` trigger must be used in combination with the `click` trigger.
+
+Th following example shows the `click blur` use case. Popovers will only open on click
+of the button, and will close either on click of the button, or a click anywhere else (or
+a focus change via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismising_.
+
+```html
+<template>
+  <b-container fluid>
+    <b-row class="text-center">
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-btn>
+      </b-col>
+    </b-row>
+  </b-ccontainer>
+</template>
+
+<!-- popover-2.vue -->
+```
