@@ -4,7 +4,19 @@
 styling and animations. Tooltips can be triggered by hovering, focusing, or clicking an element
 
 Use the `v-b-tooltip` directive on any element or component where you would like a tooltip
-to apear.
+to appear.
+
+## Overview
+
+Things to know when using tooltips:
+ - Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled wit Bootstrap-Vue!
+ - Tooltips with zero-length titles are never displayed.
+ - Specify container: 'body' (default) to avoid rendering problems in more complex components (like input groups, button groups, etc).
+ - Triggering tooltips on hidden elements will not work.
+ - Tooltips for `disabled` elements must be triggered on a wrapper element.
+ - When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
+ - Tooltips must be hidden before their corresponding elements have been removed from the DOM.
+
 
 ```html
 <template>
@@ -85,7 +97,7 @@ Where `<value>` can be (optional):
 
 Where [modX] can be (all optional):
  - Positioning: `top`, `bottom`, `left`, `right`, or `auto` (last one found wins, defaults to `top`)
- - Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `focus` and `hover`. `blur` is a close handler only, and if specified only, will be converted to `focus`)
+ - Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `focus` and `hover`. `blur` is a close handler only, and if specified by itself, will be converted to `focus`)
  - `nofade` to turn off animation
  - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text
  - A delay value in the format of `d###` (where `###` is in ms, defaults to 0);
@@ -123,4 +135,11 @@ v-b-tooltip.hover.bottom  => Show on hover and place at bottom
 v-b-tooltip.bottom.hover  => Same as above
 ```
 
-Note: If a title is not provided, then the tooltip will not display.
+### Dismiss on next click
+Use both `click` and `blur` if you would like a tooltip that opens only on click of
+the element, but will close when anything else in the document is clicked or
+receives focus.
+
+Note that your elment **must** be in the document tab sequence for this to work. If
+your element is not tabable, add the `tabindex="0"` attribute to the element.
+
