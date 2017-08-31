@@ -63,7 +63,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
       </b-col>
       <b-col md="6" class="py-4 text-center">
         <b-btn id="exPopover3" variant="primary">Using slots</b-btn>
-        <b-popover target-id="exPopover3">
+        <b-popover target-id="exPopover3" triggers="hover focus">
            <template slot="title">Content via Slots</template>
            Embedding content <span class="text-danger">using slots</span>
            affords you <em>greater <strong>control.</strong></em> and
@@ -86,7 +86,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
 | `title` | `null` | Title of popover (text only, no HTML). if HTML is required, place it in the `title` named slot | Plain text
 | `content` | `null` | Content of popover (text only, no HTML). if HTML is required, place it in the default slot | Plain text
 | `placement` | `top` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`
-| `triggers` | `hover focus` |  Space separated list of which event(s) will trigger open/close of popover | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
+| `triggers` | `click` |  Space separated list of which event(s) will trigger open/close of popover | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of popover | `0` and up, integers only.
 | `offset` | `0` | Number of pixels to shift the center of the popover. Also affects the position of the popover arrow. | Any negative or positive integer
@@ -172,7 +172,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
     <!-- Our popover title and content render container -->
     <!-- We use placement 'auto' so popover fits in the best spot on viewport -->
     <b-popover target-id="exPopoverReactive1"
-               trigger="click",
+               triggers="click",
                placement="auto"
                ref="popover"
                @show="onShow"
