@@ -3,7 +3,7 @@
 
         <a :class="toggleClasses"
            href="#"
-           ref="button"
+           ref="toggle"
            :id="safeId('_BV_button_')"
            aria-haspopup="true"
            :aria-expanded="visible ? 'true' : 'false'"
