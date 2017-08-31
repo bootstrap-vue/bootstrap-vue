@@ -555,6 +555,12 @@
                 return field.formatter && ((typeof (field.formatter) === 'function') || (typeof (field.formatter) === 'string'));
             },
             callFormatter(item, key, field) {
+                if(field.useCustomFunction){
+                    if (field.formatter && (typeof (field.formatter) === 'function'))
+                        return field.formatter(item);
+                    if (field.formatter && (typeof (this.$parent[field.formatter]) === 'function'))
+                        return this.$parent[field.formatter](item);    
+                }
                 if (field.formatter && (typeof (field.formatter) === 'function'))
                     return field.formatter(item[key]);
 
