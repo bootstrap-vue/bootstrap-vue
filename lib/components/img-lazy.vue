@@ -118,7 +118,7 @@
             this.setListeners(true);
             this.checkView();
         },
-        destroyed() {
+        beforeDdestroy() {
             this.setListeners(flase);
         },
         methods: {
