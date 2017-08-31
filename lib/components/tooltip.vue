@@ -46,6 +46,10 @@
             offset: {
                 type: [Number, String],
                 default: 0
+            },
+            noFade: {
+                type: Boolean,
+                default: false
             }
         },
         mounted() {
@@ -87,8 +91,10 @@
                 return {
                     title: this.title.trim() || '',
                     placement: this.placement || 'top',
-                    delay: this.delay || 0,
+                    delay: parseInt(this.delay, 10) || 0,
+                    // Offset can be css distance. if no units, pixels are assumed
                     offset: this.offset || 0,
+                    animation: Boolean(this.noFade),
                     triggers: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers
                 };
             }
