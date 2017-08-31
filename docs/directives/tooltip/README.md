@@ -101,7 +101,7 @@ Where [modX] can be (all optional):
  - `nofade` to turn off animation
  - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text
  - A delay value in the format of `d###` (where `###` is in ms, defaults to 0);
- - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults to 0)
+ - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults to 0. Negative values allowed)
 
 Where [container] can be (optional)
  - An element ID (minus the #) to place the tooltip markup in
