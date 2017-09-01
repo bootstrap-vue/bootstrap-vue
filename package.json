@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "description": "Quickly integrate Bootstrap 4 components with Vue.js",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",

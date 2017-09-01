@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-beta.7"></a>
+# [1.0.0-beta.7](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2017-09-01)
+
+
+### Bug Fixes
+
+* **docs:** Fix examples in b-img ([7607a00](https://github.com/bootstrap-vue/bootstrap-vue/commit/7607a00))
+* **docs:** Fix multipe collapse example ([65ba276](https://github.com/bootstrap-vue/bootstrap-vue/commit/65ba276))
+* **dropdowns:** Minor code update & comments ([54a2546](https://github.com/bootstrap-vue/bootstrap-vue/commit/54a2546))
+* **form-textarea:** Max rows not respected if rows specified ([4762471](https://github.com/bootstrap-vue/bootstrap-vue/commit/4762471))
+* **nav-dropdown:** Fix right alignment in <b-nav> ([#962](https://github.com/bootstrap-vue/bootstrap-vue/issues/962)) ([9598763](https://github.com/bootstrap-vue/bootstrap-vue/commit/9598763))
+* **scrollspy:** Undefined value during bind() ([#967](https://github.com/bootstrap-vue/bootstrap-vue/issues/967)) ([5c35e07](https://github.com/bootstrap-vue/bootstrap-vue/commit/5c35e07))
+* **tolltip+popover:** Hide original element title attribute ([#970](https://github.com/bootstrap-vue/bootstrap-vue/issues/970)) ([82e46e6](https://github.com/bootstrap-vue/bootstrap-vue/commit/82e46e6))
+* **tooltip:** ToolTip.fixTransition undefined value ([#960](https://github.com/bootstrap-vue/bootstrap-vue/issues/960)) ([3c457e7](https://github.com/bootstrap-vue/bootstrap-vue/commit/3c457e7)), closes [#956](https://github.com/bootstrap-vue/bootstrap-vue/issues/956)
+* **tooltip:** visibility check ([df4a015](https://github.com/bootstrap-vue/bootstrap-vue/commit/df4a015))
+* **tooltip+popover:** Hide tooltip/popover when $route changes ([#965](https://github.com/bootstrap-vue/bootstrap-vue/issues/965)) ([e403225](https://github.com/bootstrap-vue/bootstrap-vue/commit/e403225))
+* this is not defined in props ([fe4ff06](https://github.com/bootstrap-vue/bootstrap-vue/commit/fe4ff06))
+* **tooltip+popover components:** Delay instantiation on mounted() ([#969](https://github.com/bootstrap-vue/bootstrap-vue/issues/969)) ([4fc18ec](https://github.com/bootstrap-vue/bootstrap-vue/commit/4fc18ec))
+* **tooltip+popover components:** Emit events and minor adjustments ([#972](https://github.com/bootstrap-vue/bootstrap-vue/issues/972)) ([cf7c538](https://github.com/bootstrap-vue/bootstrap-vue/commit/cf7c538))
+
+
+### Features
+
+* **b-img-lazy:** Lazy loaded image component ([#943](https://github.com/bootstrap-vue/bootstrap-vue/issues/943)) ([68138cb](https://github.com/bootstrap-vue/bootstrap-vue/commit/68138cb))
+* **docs:** Add accessibility information for popovers ([099b1b6](https://github.com/bootstrap-vue/bootstrap-vue/commit/099b1b6))
+* **docs:** Additional tooltip component usage docs ([d8bf486](https://github.com/bootstrap-vue/bootstrap-vue/commit/d8bf486))
+* **docs:** expanded popover component docs ([9f5dd75](https://github.com/bootstrap-vue/bootstrap-vue/commit/9f5dd75))
+* **docs:** Expanded popover component docs ([ccd1c7c](https://github.com/bootstrap-vue/bootstrap-vue/commit/ccd1c7c))
+* **docs:** Tooltip component documentation update ([c6b04a6](https://github.com/bootstrap-vue/bootstrap-vue/commit/c6b04a6))
+* **docs:** Update tooltip directive example ([72a37b3](https://github.com/bootstrap-vue/bootstrap-vue/commit/72a37b3))
+* **docs:** Updated popover directive examples ([3adbcb5](https://github.com/bootstrap-vue/bootstrap-vue/commit/3adbcb5))
+* **jumbotron:** Add support for variants ([#973](https://github.com/bootstrap-vue/bootstrap-vue/issues/973)) ([bd9bb7c](https://github.com/bootstrap-vue/bootstrap-vue/commit/bd9bb7c))
+* **popover:** Add ability to disable fade animation in component version ([7161b5f](https://github.com/bootstrap-vue/bootstrap-vue/commit/7161b5f))
+* **tooltip:** Add ability to disable fade animation in component version ([36c428a](https://github.com/bootstrap-vue/bootstrap-vue/commit/36c428a))
+* **tooltip+popover:** Allow element and component reference for target ([#980](https://github.com/bootstrap-vue/bootstrap-vue/issues/980)) ([8785066](https://github.com/bootstrap-vue/bootstrap-vue/commit/8785066))
+* **tooltips+popovers:** Add special blur "exit" trigger ([#974](https://github.com/bootstrap-vue/bootstrap-vue/issues/974)) ([785b7a6](https://github.com/bootstrap-vue/bootstrap-vue/commit/785b7a6))
+* **tooltips+popovers:** Automatically hide when trigger element is no longer visible ([#978](https://github.com/bootstrap-vue/bootstrap-vue/issues/978)) ([09eaaa2](https://github.com/bootstrap-vue/bootstrap-vue/commit/09eaaa2))
+
+
+
 <a name="1.0.0-beta.6"></a>
 # [1.0.0-beta.6](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2017-08-30)
 
