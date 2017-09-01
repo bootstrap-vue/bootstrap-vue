@@ -67,6 +67,8 @@
                 if (target) {
                     // Instantiate ToolTip on target
                     this.toolTip = new ToolTip(target, this.getConfig(), this.$root);
+                    // Listen to close signals from others
+                    this.$on('close', this.onClose);
                     // Observe content Child changes so we can notify popper of possible size change
                     observeDom(this.$refs.title, this.updatePosition.bind(this), {
                         subtree: true,
@@ -107,6 +109,13 @@
             }
         },
         methods: {
+            onClose(callback) {
+                if (this.toolTip) {
+                    this.toolTip.hide(callback);
+                } else if (typeof callback === 'function') {
+                    callback();
+                }
+            },
             updatePosition() {
                 if (this.toolTip) {
                     // Instruct popper to reposition popover if necessary
