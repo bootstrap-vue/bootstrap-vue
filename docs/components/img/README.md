@@ -44,9 +44,19 @@ other image formats, so Bootstrap V4 doesn’t apply it automatically._
 You can use prop `thumbnail` to give an image a rounded light border appearance.
 
 ```html
-<div class="p-5 bg-info text-center">
-  <b-img src="https://lorempixel.com/200/200/technics/8/" thumbnail alt="Thumbnail image" />
-</div>
+<b-container fluid class="p-4 bg-dark">
+  <b-row>
+    <b-col>
+      <b-img thumbnail fluid src="https://lorempixel.com/250/250/technics/4/" alt="Thumbnail" />
+    </b-col>
+    <b-col>
+      <b-img thumbnail fluid src="https://lorempixel.com/250/250/technics/8/" alt="Thumbnail" />
+    </b-col>
+    <b-col>
+      <b-img thumbnail fluid src="https://lorempixel.com/250/250/technics/4/" alt="Thumbnail" />
+    </b-col>
+  </b-row>
+</b-container>
 
 <!-- b-img-thumbnail.vue -->
 ```
@@ -85,8 +95,8 @@ in a container that has the class `text-center`.
 **Left an Right aligned (float):**
 ```html
 <div class="clearfix">
-  <b-img src="https://lorempixel.com/125/125/technics/8/" left alt="left image" />
-  <b-img src="https://lorempixel.com/125/125/technics/8/" right alt="right image" />
+  <b-img left rc="https://lorempixel.com/125/125/technics/8/" alt="left image" />
+  <b-img right src="https://lorempixel.com/125/125/technics/8/" alt="right image" />
 </div>
 
 <!-- b-img-left-right.vue -->
@@ -95,7 +105,7 @@ in a container that has the class `text-center`.
 **Center aligned (block):**
 ```html
 <div>
-  <b-img src="https://lorempixel.com/125/125/technics/8/" center alt="center image" />
+  <b-img center src="https://lorempixel.com/125/125/technics/8/" alt="center image" />
 </div>
 
 <!-- b-img-center.vue -->
