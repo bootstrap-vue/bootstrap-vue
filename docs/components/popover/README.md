@@ -260,7 +260,10 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
       focusRef(ref) {
         // Some references may be a component, functional component, or plain element
         // This handles that check before focusing, assuming a focus() method exists
-        (ref.$el || ref).focus();
+        // We do this in nextTick to ensure components have updated first
+        this.$nextTick(() => {
+            (ref.$el || ref).focus();
+        });
       }
     }
   };
