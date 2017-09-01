@@ -17,11 +17,11 @@ const loadVue = text => {
     return { name, template, script, options }
 }
 
-const removeNode = node => node.parentNode.removeChild(node)
+const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
 Vue.directive('play', (el, binding, vnode, oldVnode) => {
     // Get all code-snippets
-    let pres = Array.prototype.slice.apply(el.querySelectorAll('pre.hljs'))
+    const pres = Array.prototype.slice.apply(el.querySelectorAll('pre.hljs'))
 
     // Iterate over them and parse
     pres.forEach(pre => {
@@ -37,6 +37,25 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
 
         // createVM function
         let vm = null
+
+        const destroyVM = () => {
+            // console.log('Destroy VM')
+            if (vm) {
+                vm.$destroy()
+                removeNode(vm.$el)
+                vm.$el.innerHTML = ""
+            }
+            if (name) {
+                Array.prototype.slice.apply(document.querySelectorAll(`.vue-example-${name}`)).forEach(removeNode)
+            }
+        }
+
+        if (!Array.isArray(vnode.context.$options['beforeDestroy'])) {
+            vnode.context.$options['beforeDestroy'] = []
+        }
+
+        vnode.context.$options['beforeDestroy'].push(destroyVM)
+
         const createVM = () => {
             try {
                 // Try to load vue template
@@ -50,15 +69,8 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
                     }
                 }
 
-                // Distroy old instance
-                if (vm) {
-                    vm.$destroy()
-                    removeNode(vm.$el)
-                    vm.$el.innerHTML = ""
-                }
-                if (name) {
-                        Array.prototype.slice.apply(document.querySelectorAll(`.vue-example-${name}`)).forEach(removeNode)
-                }
+                // Destroy old instance
+                destroyVM()
 
                 // Create a placeholder after pre
                 let holder = document.createElement('div')
