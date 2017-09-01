@@ -50,6 +50,11 @@
             noFade: {
                 type: Boolean,
                 default: false
+            },
+            container: {
+                // String ID of container, if null body is used (default)
+                type: String,
+                default: null
             }
         },
         mounted() {
@@ -98,10 +103,13 @@
         },
         computed: {
             baseConfig() {
+                cont cont = this.container;
                 return {
                     title: this.title.trim() || '',
                     content: this.content.trim() || '',
                     placement: this.placement || 'top',
+                    // container currently needs to be an ID with '#' prepended, or false for body
+                    container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,
                     delay: parseInt(this.delay, 10) || 0,
                     // offset can be a css distance string. if no units provided then pixels are assumed
                     offset: this.offset || 0,
