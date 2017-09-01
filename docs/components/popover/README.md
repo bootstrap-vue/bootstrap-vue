@@ -42,7 +42,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
         <b-btn :id="'exPopover1-'+placement" variant="primary">
           {{ placement }}
         </b-btn>
-        <b-popover :target-id="'exPopover1-'+placement"
+        <b-popover :target="'exPopover1-'+placement"
                    :placement="placement"
                    title="Popover!"
                    triggers="hover focus"
@@ -55,7 +55,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
     <b-row>
       <b-col md="6" class="py-4 text-center">
         <b-btn id="exPopover2" variant="primary">Using properties</b-btn>
-        <b-popover target-id="exPopover2" 
+        <b-popover target="exPopover2" 
             title="Prop Examples"
             triggers="hover focus"
             content="Embedding content using properties is easy">
@@ -63,7 +63,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
       </b-col>
       <b-col md="6" class="py-4 text-center">
         <b-btn id="exPopover3" variant="primary">Using slots</b-btn>
-        <b-popover target-id="exPopover3" triggers="hover focus">
+        <b-popover target="exPopover3" triggers="hover focus">
            <template slot="title">Content via Slots</template>
            Embedding content <span class="text-danger">using slots</span>
            affords you <em>greater <strong>control.</strong></em> and
@@ -82,7 +82,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
 
 | Prop | Default | Description | Supported values
 | ---- | ------- | ----------- | ----------------
-| `target-id` | `null` | ID of element that you want to trigger the popover. **Required** | Any valid, in-document unique element ID
+| `target` | `null` | String ID of element, or a reference to an element or component, that you want to trigger the popover. **Required** | Any valid, in-document unique element ID, or in-document element/component reference
 | `title` | `null` | Title of popover (text only, no HTML). if HTML is required, place it in the `title` named slot | Plain text
 | `content` | `null` | Content of popover (text only, no HTML). if HTML is required, place it in the default slot | Plain text
 | `placement` | `top` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`
@@ -172,7 +172,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 
     <!-- Our popover title and content render container -->
     <!-- We use placement 'auto' so popover fits in the best spot on viewport -->
-    <b-popover target-id="exPopoverReactive1"
+    <b-popover target="exPopoverReactive1"
                triggers="click",
                placement="auto"
                ref="popover"

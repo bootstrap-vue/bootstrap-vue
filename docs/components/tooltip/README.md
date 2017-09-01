@@ -44,10 +44,10 @@ prop does not have this behavior. For simple tooltips, we recommend using the
   </b-row>
 
   <!-- Tooltip title specified via prop title -->
-  <b-tooltip target-id="exButton1" title="Online!"></b-tooltip>
+  <b-tooltip target="exButton1" title="Online!"></b-tooltip>
 
   <!-- HTML title specified via default slot -->
-  <b-tooltip target-id="exButton2" placement="bottom">
+  <b-tooltip target="exButton2" placement="bottom">
     Hello <strong>World!</strong>
   </b-tooltip>
 </b-container>
@@ -59,10 +59,10 @@ prop does not have this behavior. For simple tooltips, we recommend using the
 
 | Prop | Default | Description | Supported values
 | ---- | ------- | ----------- | ----------------
-| `target-id` | `null` | ID of element that you want to trigger the tooltip. **Required** | Any valid, in-document unique element ID
+| `target` | `null` | String ID of element, or a reference to an element or component, that you want to trigger the tooltip. **Required** | Any valid, in-document unique element ID, element reference or component reference
 | `title` | `null` | Content of tooltip (text only, no HTML). if HTML is required, place it in the default slot | Plain text
 | `placement` | `top` | Positioning of the tooltip, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`
-| `triggers` | `hover focus` |  Space separated list of which event(s) will trigger open/close of tooltip | `hover`, `focus`, `click`. Note `blur` is a special use case to close tooltip on next click.
+| `triggers` | `hover focus` |  Space separated list of which event(s) will trigger open/close of tooltip | `hover`, `focus`, `click`. Note `blur` is a special use case to close tooltip on next click, usually used in conjunction with `click`.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of tooltip | `0` and up, integers only.
 | `offset` | `0` | Number of pixels to shift the center of the tooltip | Any negative or positive integer
@@ -70,7 +70,7 @@ prop does not have this behavior. For simple tooltips, we recommend using the
 
 ## `v-b-tooltip` Directive Usage
 
-The `v-b-tooltip` directive makes adding tooltips even easier:
+The `v-b-tooltip` directive makes adding tooltips even easier, without additional placeholder markup:
 
 ```html
 <b-container fluid>
