@@ -67,10 +67,11 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
                 // CreateVM
                 vm = new Vue(Object.assign({}, options, {
                     template: `<div class='bd-example vue-example vue-example-${name}'>${template}</div>`,
+                    router: vnode.context.$router,
                     el: holder
                 }))
             } catch (e) {
-                console.error(e)
+                console.error('[v-play]', e)
             }
         }
 

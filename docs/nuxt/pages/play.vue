@@ -247,6 +247,7 @@
                     } catch (err) {
                         throw new Error(`Compiling JS: ${err}`);
                     }
+                    options.router = this.$router
                     options.el = '#result';
                     options.template = `<div>${this.html}</div>`;
                     this.vm = new Vue(options);
