@@ -88,12 +88,13 @@
             }
         },
         beforeDestroy() {
+            this.$off('close', this.onClose);
             if (this.toolTip) {
                 this.toolTip.destroy();
                 this.tooltip = null;
-                // bring our content back if needed
-                this.bringItBack();
             }
+            // bring our content back if needed
+            this.bringItBack();
         },
         computed: {
             baseConfig() {
