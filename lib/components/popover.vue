@@ -100,9 +100,9 @@
                 // Destroy the popover
                 this.popOver.destroy();
                 this.popOver = null;
-                // Bring our stuff back if necessary
-                this.bringItBack();
             }
+            // Bring our stuff back if necessary
+            this.bringItBack();
         },
         computed: {
             baseConfig() {
