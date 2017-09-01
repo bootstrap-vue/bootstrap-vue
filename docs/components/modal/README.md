@@ -63,7 +63,7 @@ They support a number of use cases from user notification to completely custom c
 be customized by setting various props on the component. You can customize the size of the buttons,
 disable the **OK** button, hide the **Close** button (i.e. OK Only), and provide custom
 button content using the `ok-title` and `close-title` props, or using the named
-slots `modal-ok` and `modal-close`.
+slots `modal-ok` and `modal-cancel`.
 
 `<b-modal>` supports close on ESC (enabled by default), close on backdrop click (enabled by default), and
 the `X` close button in the header (enabled by default). These features may be disabled by setting the the
