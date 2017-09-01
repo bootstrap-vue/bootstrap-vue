@@ -156,7 +156,8 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
       <!-- our triggering (target) element -->
       <b-btn id="exPopoverReactive1"
              :disabled="disabled"
-             variant="primary">
+             variant="primary"
+             ref="button">
         Reactive Content Using Slots
       </b-btn>
     </div>
@@ -176,6 +177,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
                placement="auto"
                ref="popover"
                @show="onShow"
+               @shown="onShown"
                @hidden="onHidden">
       <template slot="title">
         <b-btn @click="onClose" class="close" aria-label="Close">
@@ -183,19 +185,21 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
         </b-btn>
         Interactive Content
       </template>
-      <b-form-group label="Name" class="mb-1" description="Enter your name">
-        <b-form-input size="sm" v-model="input1"></b-form-input>
-      </b-form-group>
-      <b-form-group label="Color" class="mb-1" description="Pick a color">
-        <b-form-select size="sm" v-model="input2" :options="options"></b-form-select>
-      </b-form-group>
-      <b-alert show>
-        <h6>Current Values:</h6>
-        Name: <strong>{{ input1 }}</strong><br>
-        Color: <strong>{{ input2 }}</strong>
-      </b-alert>
-      <b-btn @click="onCancel" size="sm" variant="danger">Cancel</b-btn>
-      <b-btn @click="onOk" size="sm" variant="primary">Ok</b-btn>
+      <div>
+        <b-form-group label="Name" class="mb-1" description="Enter your name">
+          <b-form-input ref="input1" size="sm" v-model="input1"></b-form-input>
+        </b-form-group>
+        <b-form-group label="Color" class="mb-1" description="Pick a color">
+          <b-form-select size="sm" v-model="input2" :options="options"></b-form-select>
+        </b-form-group>
+        <b-alert show>
+          <h6>Current Values:</h6>
+          Name: <strong>{{ input1 }}</strong><br>
+          Color: <strong>{{ input2 }}</strong>
+        </b-alert>
+        <b-btn @click="onCancel" size="sm" variant="danger">Cancel</b-btn>
+        <b-btn @click="onOk" size="sm" variant="primary">Ok</b-btn>
+      </div>
     </b-popover>
   </div>
 </template>
@@ -241,10 +245,22 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
         // Disable our trigger button to prevent popover closing on second click
         this.disabled = true;
       },
+      onShown() {
+        // Called just after the popover has been shown
+        // Transfer focus to the first input
+        this.focusRef(this.$refs.input1);
+      },
       onHidden() {
         // Called just after the popover has finished hiding
         // We re-enable our button
         this.disabled = false;
+        // And bring focus back to it
+        this.focusRef(this.$refs.button);
+      },
+      focusRef(ref) {
+        // Some references may be a component, functional component, or plain element
+        // This handles that check before focusing, assuming a focus() method exists
+        (ref.$el || ref).focus();
       }
     }
   };
@@ -252,3 +268,18 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 
 <!-- popover-advanced-1.vue -->
 ```
+
+## Accessibility
+Popovers, in their current state, are not overly accessible when used as interactive
+components. Content may not be activly read to screen reader users, and the popover
+markup not be located close to the trigger element in the DOM (as popovers usually
+get appended to the end of `<body>`).
+
+When using popovers as interactive component, you should transfer focus into the
+popover if possible. When the popover is closed, you should return focus back to
+your triggering element (assuming `focus` is not used as a trigger method), as we
+have done in the above example.
+
+You may also want to implement focus containment in the popover content while the
+user is interactiving with it (keeping focus inside the popover until it is closed
+by the user).
