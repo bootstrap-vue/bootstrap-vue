@@ -1,7 +1,5 @@
 <template>
-    <!--
-      Container for possible title and content.
-     -->
+    <!-- Container for possible title and content -->
     <div v-show="false" class="d-none" aria-hidden="true">
         <div ref="title"><slot name="title"></slot></div>
         <div ref="content"><slot></slot></div>
@@ -24,11 +22,6 @@
             target: {
                 // ID of element, or a reference to an element or component
                 type: [String, Object]
-            },
-            targetId: {
-                // Deprecated: ID of element to place popver on
-                type: String,
-                default: null
             },
             title: {
                 type: String,
