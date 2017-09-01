@@ -97,7 +97,6 @@ new Vue({
 
 <!-- Add this after vue.js -->
 <script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-<script src="//unpkg.com/tether@latest/dist/js/tether.min.js"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 ```
 
