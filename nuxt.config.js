@@ -16,8 +16,11 @@ module.exports = {
 
     build: {
         extractCSS: true,
+        cssSourceMap: true,
         extend(config) {
             config.resolve.alias['vue'] = 'vue/dist/vue.common'
+
+            config.devtool = 'source-map'
 
             config.module.rules.push({
                 test: /\.md$/,
@@ -29,6 +32,7 @@ module.exports = {
             });
         }
     },
+    
 
     loading: {
         color: '#59cc93'
