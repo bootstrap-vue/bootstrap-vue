@@ -81,6 +81,12 @@
                 }
             });
         },
+        deactivated() {
+            // Called when component is inside a <keep-alive> and component taken offline
+            if (this.popOver) {
+                this.popOver.hide();
+            }
+        },
         updated() {
             // If content changes, etc
             if (this.popOver) {
