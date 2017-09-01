@@ -17,17 +17,20 @@ Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Co
 <a href="https://github.com/bootstrap-vue/bootstrap-vue">
     <img alt="" src="https://david-dm.org/bootstrap-vue/bootstrap-vue.svg?style=flat-square">
 </a>
+<a href="http://packagequality.com/#?package=bootstrap-vue">
+    <img alt="package quality" src="http://npm.packagequality.com/shield/bootstrap-vue.png?style=flat-square">
+</a>
 
 <br>
 
 <a href="https://circleci.com/gh/bootstrap-vue/bootstrap-vue">
     <img alt="" src="https://img.shields.io/circleci/project/github/bootstrap-vue/bootstrap-vue/master.svg?style=flat-square">
 </a>
-<a href="http://packagequality.com/#?package=bootstrap-vue">
-    <img alt="package quality" src="http://npm.packagequality.com/shield/bootstrap-vue.png?style=flat-square">
-</a>
 <a href="https://www.npmjs.com/package/bootstrap-vue">
     <img alt="" src="https://img.shields.io/npm/dt/bootstrap-vue.svg?style=flat-square">
+</a>
+<a href="https://www.npmjs.com/package/bootstrap-vue">
+    <img alt="" src="https://img.shields.io/npm/dm/bootstrap-vue.svg?style=flat-square">
 </a>
 <a href="https://www.npmjs.com/package/bootstrap-vue">
     <img alt="" src="https://img.shields.io/npm/v/bootstrap-vue.svg?style=flat-square">
