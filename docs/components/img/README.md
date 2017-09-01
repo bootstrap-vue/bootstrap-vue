@@ -25,9 +25,9 @@ the `fluid-grow` prop. Note this may cause bluring on small bitmap images.
 ```html
 <div>
   <h5>Small image with <code>fluid</code>:</h5>
-  <b-img src="https://lorempixel.com/300/150/" fluid-grow alt="Responsive image" />
+  <b-img src="https://lorempixel.com/300/150/" fluid alt="Fluid image" />
   <h5 class="my-3">Small image with <code>fluid-grow</code>:</h5>
-  <b-img src="https://lorempixel.com/300/150/" fluid-grow alt="Responsive image" />
+  <b-img src="https://lorempixel.com/300/150/" fluid-grow alt="Fluid-Grow image" />
 </div>
 
 <!-- b-img-responsive-2.vue -->
