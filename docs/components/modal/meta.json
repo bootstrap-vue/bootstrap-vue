@@ -45,7 +45,7 @@
     },
     {
       "event": "cancel",
-      "description": "when default CANCEL button pressed, just before modal has hidden",
+      "description": "when default CANCEL (close) button pressed, just before modal has hidden",
       "args": [
         {
           "e": "Close event object. Cancelable: See docs"
@@ -71,8 +71,8 @@
       "description": "Modal OK button content."
     },
     {
-      "name": "modal-close",
-      "description": "Modal Close button content."
+      "name": "modal-cancel",
+      "description": "Modal Close (cancel) button content."
     }
   ]
 }
