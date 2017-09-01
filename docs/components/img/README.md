@@ -95,7 +95,7 @@ in a container that has the class `text-center`.
 **Left an Right aligned (float):**
 ```html
 <div class="clearfix">
-  <b-img left rc="https://lorempixel.com/125/125/technics/8/" alt="left image" />
+  <b-img left src="https://lorempixel.com/125/125/technics/8/" alt="left image" />
   <b-img right src="https://lorempixel.com/125/125/technics/8/" alt="right image" />
 </div>
 
