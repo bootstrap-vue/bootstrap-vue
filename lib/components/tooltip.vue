@@ -74,6 +74,12 @@
                 }
             });
         },
+        deactivated() {
+            // Called when component is inside a <keep-alive> and component taken offline
+            if (this.toolTip) {
+                this.toolTip.hide();
+            }
+        },
         updated() {
             // If content/props changes, etc
             if (this.toolTip) {
