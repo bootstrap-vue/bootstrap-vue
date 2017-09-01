@@ -23,14 +23,7 @@
         props: {
             target: {
                 // ID of element, or a reference to an element or component
-                type: [String, Object],
-                default() {
-                    if (this.targetId) {
-                        warn("b-popover: Prop 'target-id' is deprecated. Please use 'target' instead");
-                        return this.targetId;
-                    }
-                    return null;
-                }
+                type: [String, Object]
             },
             targetId: {
                 // Deprecated: ID of element to place popver on
