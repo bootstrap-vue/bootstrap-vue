@@ -1,7 +1,5 @@
 <template>
-    <!--
-      Container for possible title content.
-     -->
+    <!-- Container for possible title content. -->
     <div v-show="false" class="d-none" aria-hidden="true">
         <div ref="title"><slot></slot></div>
     </div>
@@ -10,8 +8,8 @@
 <script>
     import ToolTip from '../classes/tooltip';
     import { isArray } from '../utils/array';
-    import observeDom from '../utils/observe-dom';
     import { assign } from '../utils/object';
+    import { observeDom, warn } from '../utils';
     
     export default {
         data() {
@@ -20,12 +18,21 @@
             }
         },
         props: {
+            target: {
+                // String ID of element, or element/component reference
+                type: [String, Object],
+                default() {
+                    if (this.targetId) {
+                        warn("b-tooltip: Prop 'target-id' is deprecated. Please use 'target' instead");
+                        return this.targetId;
+                    }
+                    return null;
+                }
+            },
             targetId: {
-                // ID of element to place tooltip on
-                // must be in DOM
+                // Deprecated: ID of element to place tooltip on
                 type: String,
                 default: null,
-                required: true
             },
             title: {
                 type: String,
@@ -53,24 +60,24 @@
             }
         },
         mounted() {
-            if (this.targetId) {
-                let target = this.targetId;
-                this.$nextTick(() => {
-                    // Ensure we, and target element, are in document
-                    target = document.getElementById(/^#/.test(target) ? target.slice(1) : target);
-                    if (target && !this.toolTip) {
-                        // We pass the title as part of the config
-                        this.toolTip = new ToolTip(target, this.getConfig(), this.$root);
-                        // Observe content Child changes so we can notify popper of possible size change
-                        observeDom(this.$refs.title, this.updatePosition.bind(this), {
-                            subtree: true,
-                            childList: true,
-                            attributes: true,
-                            attributeFilter: ['class', 'style']
-                        });
-                    }
-                });
-            }
+            // We do this in a $nextTick in hopes that the target element is in the DOM
+            // And that our children have rendered
+            this.$nextTick(() => {
+                const target = this.getTarget();
+                if (target) {
+                    // Instantiate ToolTip on target
+                    this.toolTip = new ToolTip(target, this.getConfig(), this.$root);
+                    // Observe content Child changes so we can notify popper of possible size change
+                    observeDom(this.$refs.title, this.updatePosition.bind(this), {
+                        subtree: true,
+                        childList: true,
+                        attributes: true,
+                        attributeFilter: ['class', 'style']
+                    });
+                } else {
+                    warn("b-tooltip: 'target' element not found!");
+                }
+            });
         },
         updated() {
             // If content/props changes, etc
@@ -114,6 +121,7 @@
                     cfg.title = this.$refs.title;
                     cfg.html = true;
                 }
+                // Callbacks so we can trigger events on component
                 cfg.callbacks = {
                     show: this.onShow,
                     shown: this.onShown,
@@ -121,6 +129,20 @@
                     hidden: this.onHidden
                 };
                 return cfg;
+            },
+            getTarget() {
+                const target = this.target;
+                if (typeof target === 'string') {
+                    // Assume ID of element
+                    return document.getElementById(/^#/.test(target) ? target.slice(1) : target) || null;
+                } else if (typeof target === 'object' && target.$el) {
+                    // Component reference
+                    return target.$el;
+                } else if (typeof target === 'object' && target.tagName) {
+                    // Element reference
+                    return target;
+                }
+                return null;
             },
             onShow(evt) {
                 this.$emit('show', evt);
