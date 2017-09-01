@@ -12,8 +12,7 @@
     import PopOver from '../classes/popover';
     import { isArray } from '../utils/array';
     import { assign } from '../utils/object';
-    import { warn } from '../utils';
-    import observeDom from '../utils/observe-dom';
+    import { observeDom, warn } from '../utils';
 
     export default {
         data() {
@@ -23,20 +22,18 @@
         },
         props: {
             target: {
-                // ID of element to place popover on
-                // Or a reference to an emlement or component
+                // ID of element, or a reference to an element or component
                 type: [String, Object],
                 default() {
                     if (this.targetId) {
                         warn("b-popover: Prop 'target-id' is deprecated. Please use 'target' instead");
                         return this.targetId;
                     }
-                    return null
+                    return null;
                 }
             },
             targetId: {
-                // ID of element to place popover on
-                // Must be in DOM
+                // Deprecated: ID of element to place popver on
                 type: String,
                 default: null
             },
@@ -70,37 +67,26 @@
             }
         },
         mounted() {
-            if (this.targetId) {
-                let target = this.target;
-                let el = null;
-                this.$nextTick(() => {
-                    if (typeof target === 'string') {
-                        // Assume ID of element
-                        el = document.getElementById(/^#/.test(target) ? target.slice(1) : target);
-                    } else if (typeof target === 'object' && target.$el) {
-                        // Component referece
-                        el = target.$el;
-                    } else if (typeof target === 'object' && target.tagName) {
-                        // Element reference
-                        el = target;
-                    }
-                    if (el && !this.popOver) {
-                        // We pass the title & content as part of the config
-                        this.popOver = new PopOver(el, this.getConfig(), this.$root);
-                        // Listen to close signals from others
-                        this.$on('close', this.onClose);
-                        // Observe content Child changes so we can notify popper of possible size change
-                        observeDom(this.$refs.content, this.updatePosition.bind(this), {
-                            subtree: true,
-                            childList: true,
-                            attributes: true,
-                            attributeFilter: ['class', 'style']
-                        });
-                    } else {
-                        warn("b-popover: 'target' element not found!");
-                    }
-                });
-            }
+            // We do this in a $nextTick in hopes that the target element is in the DOM
+            // And that our children have rendered
+            this.$nextTick(() => {
+                const target = this.getTarget();
+                if (target) {
+                    // Instaniate popover on target
+                    this.popOver = new PopOver(target, this.getConfig(), this.$root);
+                    // Listen to close signals from others
+                    this.$on('close', this.onClose);
+                    // Observe content Child changes so we can notify popper of possible size change
+                    observeDom(this.$refs.content, this.updatePosition.bind(this), {
+                        subtree: true,
+                        childList: true,
+                        attributes: true,
+                        attributeFilter: ['class', 'style']
+                    });
+                } else {
+                    warn("b-popover: 'target' element not found!");
+                }
+            });
         },
         updated() {
             // If content changes, etc
@@ -109,6 +95,7 @@
             }
         },
         beforeDestroyed() {
+            this.$off('close', this.onClose);
             if (this.popOver) {
                 // Destroy the popover
                 this.popOver.destroy();
@@ -116,7 +103,6 @@
                 // Bring our stuff back if necessary
                 this.bringItBack();
             }
-            this.$off('close', this.onClose);
         },
         computed: {
             baseConfig() {
@@ -166,6 +152,20 @@
                 };
                 return cfg;
             },
+            getTarget() {
+                const target = this.target;
+                if (typeof target === 'string') {
+                    // Assume ID of element
+                    return document.getElementById(/^#/.test(target) ? target.slice(1) : target) || null;
+                } else if (typeof target === 'object' && target.$el) {
+                    // Component reference
+                    return target.$el;
+                } else if (typeof target === 'object' && target.tagName) {
+                    // Element reference
+                    return target;
+                }
+                return null;
+            },
             onShow(evt) {
                 this.$emit('show', evt);
             },
@@ -176,8 +176,8 @@
                 this.$emit('hide', evt);
             },
             onHidden(evt) {
-                // bring our content back if needed to keep Vue happy
-                // Tooltip class will move it back to $tip when shown again
+                // Bring our content back if needed to keep Vue happy
+                // PopOver class will move it back to $tip when shown again
                 this.bringItBack();
                 this.$emit('hidden', evt);
             },
