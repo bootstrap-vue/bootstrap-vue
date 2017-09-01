@@ -22,11 +22,6 @@
                 // String ID of element, or element/component reference
                 type: [String, Object]
             },
-            targetId: {
-                // Deprecated: ID of element to place tooltip on
-                type: String,
-                default: null,
-            },
             title: {
                 type: String,
                 default: ''
