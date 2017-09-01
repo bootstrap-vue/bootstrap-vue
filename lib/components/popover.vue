@@ -12,6 +12,7 @@
     import PopOver from '../classes/popover';
     import { isArray } from '../utils/array';
     import { assign } from '../utils/object';
+    import { warn } from '../utils';
     import observeDom from '../utils/observe-dom';
 
     export default {
@@ -21,12 +22,23 @@
             }
         },
         props: {
+            target: {
+                // ID of element to place popover on
+                // Or a reference to an emlement or component
+                type: [String, Object],
+                default() {
+                    if (this.targetId) {
+                        warn("b-popover: Prop 'target-id' is deprecated. Please use 'target' instead");
+                        return this.targetId;
+                    }
+                    return null
+                }
+            },
             targetId: {
                 // ID of element to place popover on
                 // Must be in DOM
                 type: String,
-                default: null,
-                required: true
+                default: null
             },
             title: {
                 type: String,
@@ -59,12 +71,22 @@
         },
         mounted() {
             if (this.targetId) {
-                let target = this.targetId;
+                let target = this.target;
+                let el = null;
                 this.$nextTick(() => {
-                    target = document.getElementById(/^#/.test(target) ? target.slice(1) : target);
-                    if (target && !this.popOver) {
+                    if (typeof target === 'string') {
+                        // Assume ID of element
+                        el = document.getElementById(/^#/.test(target) ? target.slice(1) : target);
+                    } else if (typeof target === 'object' && target.$el) {
+                        // Component referece
+                        el = target.$el;
+                    } else if (typeof target === 'object' && target.tagName) {
+                        // Element reference
+                        el = target;
+                    }
+                    if (el && !this.popOver) {
                         // We pass the title & content as part of the config
-                        this.popOver = new PopOver(target, this.getConfig(), this.$root);
+                        this.popOver = new PopOver(el, this.getConfig(), this.$root);
                         // Listen to close signals from others
                         this.$on('close', this.onClose);
                         // Observe content Child changes so we can notify popper of possible size change
@@ -74,6 +96,8 @@
                             attributes: true,
                             attributeFilter: ['class', 'style']
                         });
+                    } else {
+                        warn("b-popover: 'target' element not found!");
                     }
                 });
             }
