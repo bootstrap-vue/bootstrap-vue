@@ -173,7 +173,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
     <!-- Our popover title and content render container -->
     <!-- We use placement 'auto' so popover fits in the best spot on viewport -->
     <b-popover target="exPopoverReactive1"
-               triggers="click",
+               triggers="click"
                placement="auto"
                ref="popover"
                @show="onShow"
