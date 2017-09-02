@@ -16,13 +16,9 @@ describe("embed", async () => {
 
   it("default should be rendered with inner tag 'iframe'", async () => {
     const { app: { $refs } } = window;
-    const embed = $refs.default;
-    expect(embed).toBeDefined();
-    const inner = embed.children[0];
-    expect(inner).toBeDefined();
-    expect(inner).toBeElement("iframe");
+    expect($refs.default.children[0]).toBeElement("iframe");
   });
-
+/*
   it("type should be rendered with inner tag 'video'", async () => {
     const { app: { $refs } } = window;
     const embed = $refs.type;
