@@ -66,6 +66,8 @@ prop does not have this behavior. For simple tooltips, we recommend using the
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of tooltip | `0` and up, integers only.
 | `offset` | `0` | Number of pixels to shift the center of the tooltip | Any negative or positive integer
+| `container` | `null` | String ID of element to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default) | Any valid in-document unique  element ID.
+
 
 
 ## `v-b-tooltip` Directive Usage
