@@ -45,7 +45,7 @@ inside the inner embded element. Note that type `iframe` does not support any ch
 
 **Example: Responsive embdeding of an HTML5 `<video>`**
 ```html
-<b-embed type="video" aspect="4by3" controls>
+<b-embed type="video" aspect="4by3" controls poster="poster.png">
   <source src="devstories.webm" 
           type='video/webm;codecs="vp8, vorbis"' />
   <source src="devstories.mp4"
