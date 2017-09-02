@@ -8,10 +8,10 @@ describe("embed", async () => {
     const { app: { $refs } } = window;
     expect($refs.default).toBeElement("div");
   });
-/*
-  it("tag should be rendered with outer tag 'article'", async () => {
+
+  it("tag should be rendered with outer tag 'aside'", async () => {
     const { app: { $refs } } = window;
-    expect($refs.tag).toBeElement("article");
+    expect($refs.tag).toBeElement("aside");
   });
 
   it("default should be rendered with inner tag 'iframe'", async () => {
@@ -34,7 +34,7 @@ describe("embed", async () => {
 
   it("all should be rendered with default outer class 'embed-responsive'", async () => {
     const { app: { $refs } } = window;
-    ["default","tag","type","aspect","attributes"].forEach(ref => {
+    ["default","tag","type","aspect","attributes","cildren"].forEach(ref => {
       const embed = $refs[ref];
       expect(embed).toBeDefined();
       expect(embed).toHaveClass("embed-responsive");
@@ -43,7 +43,7 @@ describe("embed", async () => {
 
   it("all should be rendered with default inner class 'embed-responsive-item'", async () => {
     const { app: { $refs } } = window;
-    ["default","tag","type","aspect","attributes"].forEach(ref => {
+    ["default","tag","type","aspect","attributes","children"].forEach(ref => {
       const embed = $refs[ref];
       expect(embed).toBeDefined();
       const inner = embed.children[0];
@@ -51,7 +51,7 @@ describe("embed", async () => {
       expect(inner).toHaveClass("embed-responsive-item");
     });
   });
-
+/*
   it("default should be rendered with outer class 'embed-responsive-16by9'", async () => {
     const { app: { $refs } } = window;
     const embed = $refs.default;
