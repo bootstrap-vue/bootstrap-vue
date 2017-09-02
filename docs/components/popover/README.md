@@ -3,12 +3,20 @@
 > The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
 element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popover) directive.
 
+```html
+<div class="text-center my-3">
+  <b-btn v-b-popover.hover.auto="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
+</div>
+
+<!-- popover-example-1.vue -->
+```
+
 ## Overview
 
 Things to know when using popover component:
  - Popovers rely on the 3rd party library Popper.js for positioning. The library is bundled with Bootstrap-Vue dist files!
  - Popovers with zero-length title _and_ content are never displayed.
- - Specify `container` as `null` (default) to avoid rendering problems in more complex components (like input groups, button groups, etc). You can use `container` to optionall specify another element to append the popover to.
+ - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more complex components (like input groups, button groups, etc). You can use `container` to optionally specify a different element to append the popover to.
  - Triggering popovers on hidden elements will not work.
  - Popovers for `disabled` elements must be triggered on a wrapper element.
  - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use `white-space: nowrap;` on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
