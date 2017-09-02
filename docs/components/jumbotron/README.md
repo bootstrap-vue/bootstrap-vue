@@ -79,7 +79,7 @@ three props default to `null`, which will instruct the jumbotron to use the
 default styling.
 
 ```html
-<b-jumbotron bg-variant="info" text-variant"white" border-variant="dark">
+<b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
   <template slot="header">
     Bootstrap Vue
   </template>
