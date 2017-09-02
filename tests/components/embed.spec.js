@@ -6,38 +6,34 @@ describe("embed", async () => {
 
   it("default should be rendered with outer tag 'div'", async () => {
     const { app: { $refs } } = window;
-      const embed = $refs.default;
-      expect(embed).toBeDefined();
-      expect(embed).toBeElement("div");
-    });
+    const embed = $refs.default;
+    expect(embed).toBeDefined();
+    expect(embed).toBeElement("div");
   });
 
   it("tag should be rendered with outer tag 'article'", async () => {
     const { app: { $refs } } = window;
-      const embed = $refs.tag;
-      expect(embed).toBeDefined();
-      expect(embed).toBeElement("article");
-    });
+    const embed = $refs.tag;
+    expect(embed).toBeDefined();
+    expect(embed).toBeElement("article");
   });
 
   it("default should be rendered with inner tag 'iframe'", async () => {
     const { app: { $refs } } = window;
-      const embed = $refs.default;
-      expect(embed).toBeDefined();
-      const inner = embed.firstElementChild;
-      expect(inner).toBeDefined();
-      expect(inner).toBeElement("iframe");
-    });
+    const embed = $refs.default;
+    expect(embed).toBeDefined();
+    const inner = embed.children[0];
+    expect(inner).toBeDefined();
+    expect(inner).toBeElement("iframe");
   });
 
   it("type should be rendered with inner tag 'video'", async () => {
     const { app: { $refs } } = window;
-      const embed = $refs.type;
-      expect(embed).toBeDefined();
-      const inner = embed.firstElementChild;
-      expect(inner).toBeDefined();
-      expect(inner).toBeElement("video");
-    });
+    const embed = $refs.type;
+    expect(embed).toBeDefined();
+    const inner = embed.children[0];
+    expect(inner).toBeDefined();
+    expect(inner).toBeElement("video");
   });
 
   it("all should be rendered with default outer class 'embed-responsive'", async () => {
@@ -74,40 +70,36 @@ describe("embed", async () => {
 
   it("default should be rendered with outer class 'embed-responsive-16by9'", async () => {
     const { app: { $refs } } = window;
-      const embed = $refs.aspect;
-      expect(embed).toBeDefined();
-      expect(embed).toHaveClass("embed-responsive-16by9");
-    });
+    const embed = $refs.default;
+    expect(embed).toBeDefined();
+    expect(embed).toHaveClass("embed-responsive-16by9");
   });
 
   it("aspect should be rendered with outer class 'embed-responsive-4by3'", async () => {
     const { app: { $refs } } = window;
-      const embed = $refs.aspect;
-      expect(embed).toBeDefined();
-      expect(embed).toHaveClass("embed-responsive-4by3");
-    });
+    const embed = $refs.aspect;
+    expect(embed).toBeDefined();
+    expect(embed).toHaveClass("embed-responsive-4by3");
   });
 
   it("attributes should have attribute 'foo=bar' on inner tag", async () => {
     const { app: { $refs } } = window;
-      const embed = $refs.attributes;
-      expect(embed).toBeDefined();
-      const inner = embed.firstElementChild;
-      expect(inner).toBeDefined();
-      expect(inner.hasAttribute("foo")).toBe(true);
-      expect(inner.getAttribute("foo")).toBe("bar");
-    });
+    const embed = $refs.attributes;
+    expect(embed).toBeDefined();
+    const inner = embed.children[0];
+    expect(inner).toBeDefined();
+    expect(inner.hasAttribute("foo")).toBe(true);
+    expect(inner.getAttribute("foo")).toBe("bar");
   });
 
   it("attributes should have attribute 'baz' on inner tag", async () => {
     const { app: { $refs } } = window;
-      const embed = $refs.attributes;
-      expect(embed).toBeDefined();
-      const inner = embed.firstElementChild;
-      expect(inner).toBeDefined();
-      expect(inner.hasAttribute("baz")).toBe(true);
-      expect(inner.getAttribute("baz")).toBe("");
-    });
+    const embed = $refs.attributes;
+    expect(embed).toBeDefined();
+    const inner = embed.firstElementChild;
+    const inner = embed.children[0];
+    expect(inner.hasAttribute("baz")).toBe(true);
+    expect(inner.getAttribute("baz")).toBe("");
   });
 
 });
