@@ -90,7 +90,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of popover | `0` and up, integers only.
 | `offset` | `0` | Number of pixels to shift the center of the popover. Also affects the position of the popover arrow. | Any negative or positive integer
-| `container` | `null` | String ID of element to append rendered popover into. If `null`, popover is appended to <body> (default) | any valid in-document unique  element ID
+| `container` | `null` | String ID of element to append rendered popover into. If `null` or element not found, popover is appended to `<body>` (default) | Any valid in-document unique  element ID.
 
 
 ## `v-b-popover` Directive usage
