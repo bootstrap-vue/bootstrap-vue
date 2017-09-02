@@ -102,7 +102,7 @@
                     title: this.title.trim() || '',
                     placement: this.placement || 'top',
                     // Container curently needs to be an ID with '#' prepended, if null then body is used
-                    container: cont ? (/^#/.test.(cont) ? cont : `#${cont}`) : false,
+                    container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,
                     delay: parseInt(this.delay, 10) || 0,
                     // Offset can be css distance. if no units, pixels are assumed
                     offset: this.offset || 0,
