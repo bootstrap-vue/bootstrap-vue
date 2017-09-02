@@ -6,18 +6,14 @@ describe("embed", async () => {
 
   it("default should be rendered with outer tag 'div'", async () => {
     const { app: { $refs } } = window;
-    const embed = $refs.default;
-    expect(embed).toBeDefined();
-    expect(embed).toBeElement("div");
-  });
-
-  it("tag should be rendered with outer tag 'article'", async () => {
-    const { app: { $refs } } = window;
-    const embed = $refs.tag;
-    expect(embed).toBeDefined();
-    expect(embed).toBeElement("article");
+    expect($refs.default).toBeElement("div");
   });
 /*
+  it("tag should be rendered with outer tag 'article'", async () => {
+    const { app: { $refs } } = window;
+    expect($refs.tag).toBeElement("article");
+  });
+
   it("default should be rendered with inner tag 'iframe'", async () => {
     const { app: { $refs } } = window;
     const embed = $refs.default;
