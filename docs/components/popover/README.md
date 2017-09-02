@@ -8,12 +8,13 @@ element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popo
 Things to know when using popover component:
  - Popovers rely on the 3rd party library Popper.js for positioning. The library is bundled with Bootstrap-Vue dist files!
  - Popovers with zero-length title _and_ content are never displayed.
+ - Specify `container` as `null` (default) to avoid rendering problems in more complex components (like input groups, button groups, etc). You can use `container` to optionall specify another element to append the popover to.
  - Triggering popovers on hidden elements will not work.
  - Popovers for `disabled` elements must be triggered on a wrapper element.
  - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use `white-space: nowrap;` on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
  - Popovers must be hidden before their corresponding markup elements have been removed from the DOM.
 
-The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` container
+The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermediate container
 element at the point in the DOM where the `<b-popover>` component is placed.  This may 
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
 and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>`
@@ -152,7 +153,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 
 ```html
 <template>
-  <div>
+  <div id="myContainer">
     <div class="my-3">
       <!-- our triggering (target) element -->
       <b-btn id="exPopoverReactive1"
@@ -173,9 +174,11 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 
     <!-- Our popover title and content render container -->
     <!-- We use placement 'auto' so popover fits in the best spot on viewport -->
+    <!-- We specify the same container as teh trigger button, so that popover is close to button in tab sequence -->
     <b-popover target="exPopoverReactive1"
                triggers="click"
                placement="auto"
+               container="myContainer"
                ref="popover"
                @show="onShow"
                @shown="onShown"
