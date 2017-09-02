@@ -35,7 +35,7 @@ const items = [
   { isActive: false, age: 26, first_name: 'Mitzi', last_name: 'Navarro' },
   { isActive: false, age: 22, first_name: 'Genevive', last_name: 'Wilson' },
   { isActive: true,  age: 38, first_name: 'John', last_name: 'Carney' },
-  { isAactive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+  { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
 ];
 
 export default {
