@@ -4,13 +4,18 @@ describe("embed", async () => {
   beforeEach(loadFixture("embed"));
   testVM();
 
+  it("default should have tag div", async () => {
+    const { app: { $refs } } = window;
+    expect($refs.default).toBeElement("div");
+  });
+/*
   it("default should be rendered with outer tag 'div'", async () => {
     const { app: { $refs } } = window;
     const embed = $refs.default;
     expect(embed).toBeDefined();
     expect(embed).toBeElement("div");
   });
-/*
+
   it("tag should be rendered with outer tag 'article'", async () => {
     const { app: { $refs } } = window;
     const embed = $refs.tag;
