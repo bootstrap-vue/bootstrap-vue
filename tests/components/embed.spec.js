@@ -3,7 +3,7 @@ import { loadFixture, testVM } from "../helpers";
 describe("embed", async () => {
   beforeEach(loadFixture("embed"));
   testVM();
-
+/*
   it("default should be rendered with outer tag 'div'", async () => {
     const { app: { $refs } } = window;
     const embed = $refs.default;
@@ -17,7 +17,7 @@ describe("embed", async () => {
     expect(embed).toBeDefined();
     expect(embed).toBeElement("article");
   });
-/*
+
   it("default should be rendered with inner tag 'iframe'", async () => {
     const { app: { $refs } } = window;
     const embed = $refs.default;
