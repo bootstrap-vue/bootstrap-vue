@@ -1,6 +1,7 @@
 <template>
     <textarea v-model="localValue"
               :class="inputClass"
+              :style="inputStyle"
               :id="safeId()"
               :name="name"
               :disabled="disabled"
@@ -61,6 +62,10 @@
                 // 'soft', 'hard' or 'off'. Browser default is 'soft'
                 type: String,
                 default: 'soft'
+            },
+            noResize: {
+                type: Boolean,
+                default: false
             }
         },
         computed: {
@@ -76,6 +81,14 @@
                     this.stateClass
                 ];
             },
+            inputStyle() {
+                // We set width 100% in plaintext mode to get around a shortcoming in bootstrap CSS
+                // setting noResize to true will disable the ability for the user to resize the textarea
+                return {
+                    width: this.plaintext ? '100%' : null,
+                    resize: this.noResize ? 'false' : null
+                };
+            },
             computedAriaInvalid() {
                 if (!Boolean(this.ariaInvalid) || this.ariaInvalid === 'false') {
                     // this.ariaInvalid is null or false or 'false'
@@ -85,7 +98,7 @@
                    // User wants explicit aria-invalid=true
                     return 'true';
                 }
-                // Most likely a string value (which could be 'true')
+                // Most likely a string value (which could be the string 'true')
                 return this.ariaInvalid;
             }
         },
