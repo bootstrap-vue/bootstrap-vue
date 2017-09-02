@@ -38,13 +38,7 @@ describe("embed", async () => {
 
   it("all should be rendered with default outer class 'embed-responsive'", async () => {
     const { app: { $refs } } = window;
-    [
-      'default',
-      'tag',
-      'type',
-      'aspect',
-      'attributes'
-    ].forEach(ref => {
+    ["default","tag","type","aspect","attributes"].forEach(ref => {
       const embed = $refs[ref];
       expect(embed).toBeDefined();
       expect(embed).toHaveClass("embed-responsive");
@@ -53,16 +47,10 @@ describe("embed", async () => {
 
   it("all should be rendered with default inner class 'embed-responsive-item'", async () => {
     const { app: { $refs } } = window;
-    [
-      'default',
-      'tag',
-      'type',
-      'aspect',
-      'attributes'
-    ].forEach(ref => {
+    ["default","tag","type","aspect","attributes"].forEach(ref => {
       const embed = $refs[ref];
       expect(embed).toBeDefined();
-      const inner = embed.firstElementChild;
+      const inner = embed.children[0];
       expect(inner).toBeDefined();
       expect(inner).toHaveClass("embed-responsive-item");
     });
@@ -96,8 +84,8 @@ describe("embed", async () => {
     const { app: { $refs } } = window;
     const embed = $refs.attributes;
     expect(embed).toBeDefined();
-    const inner = embed.firstElementChild;
     const inner = embed.children[0];
+    expect(inner).toBeDefined();
     expect(inner.hasAttribute("baz")).toBe(true);
     expect(inner.getAttribute("baz")).toBe("");
   });
