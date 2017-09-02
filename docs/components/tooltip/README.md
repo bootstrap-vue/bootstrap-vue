@@ -3,17 +3,26 @@
 > Easily add tooltips to elements or components via the `<b-tooltip>` component or
 [`v-b-tooltip`](/docs/directives/tooltip) directive (preferred method).
 
+```html
+<div class="text-center my-3">
+  <b-btn v-b-tooltip.hover.auto title="I'm a tooltip!">Hover Me</b-btn>
+</div>
+
+<!-- tooltip-example-1.vue -->
+```
+
 ## Overview
 
 Things to know when using tooltip component:
  - Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled with Bootstrap-Vue in the dist files!
  - Tooltips with zero-length titles are never displayed.
  - Triggering tooltips on hidden elements will not work.
+ - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more complex components (like input groups, button groups, etc). You can use container to optionally specify a different element to append the rendered tooltip to.
  - Tooltips for `disabled` elements must be triggered on a wrapper element.
  - When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
  - Tooltips must be hidden before their corresponding elements have been removed from the DOM.
 
-The `<b-tooltip` component inserts a hidden (`display:none`) `<div>` container
+The `<b-tooltip` component inserts a hidden (`display:none`) `<div>` intermediate container
 element at the point in the DOM where the `<b-tooltip>` component is placed.  This may 
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
 and `<b-input-group>`. To avoid these posible layout issues, place the `<b-tooltip>`
@@ -66,6 +75,8 @@ prop does not have this behavior. For simple tooltips, we recommend using the
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of tooltip | `0` and up, integers only.
 | `offset` | `0` | Number of pixels to shift the center of the tooltip | Any negative or positive integer
+| `container` | `null` | String ID of element to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default) | Any valid in-document unique  element ID.
+
 
 
 ## `v-b-tooltip` Directive Usage

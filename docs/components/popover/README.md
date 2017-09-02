@@ -3,17 +3,26 @@
 > The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
 element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popover) directive.
 
+```html
+<div class="text-center my-3">
+  <b-btn v-b-popover.hover.auto="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
+</div>
+
+<!-- popover-example-1.vue -->
+```
+
 ## Overview
 
 Things to know when using popover component:
  - Popovers rely on the 3rd party library Popper.js for positioning. The library is bundled with Bootstrap-Vue dist files!
  - Popovers with zero-length title _and_ content are never displayed.
+ - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more complex components (like input groups, button groups, etc). You can use `container` to optionally specify a different element to append the popover to.
  - Triggering popovers on hidden elements will not work.
  - Popovers for `disabled` elements must be triggered on a wrapper element.
  - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use `white-space: nowrap;` on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
  - Popovers must be hidden before their corresponding markup elements have been removed from the DOM.
 
-The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` container
+The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermediate container
 element at the point in the DOM where the `<b-popover>` component is placed.  This may 
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
 and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>`
@@ -85,11 +94,12 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
 | `target` | `null` | String ID of element, or a reference to an element or component, that you want to trigger the popover. **Required** | Any valid, in-document unique element ID, or in-document element/component reference
 | `title` | `null` | Title of popover (text only, no HTML). if HTML is required, place it in the `title` named slot | Plain text
 | `content` | `null` | Content of popover (text only, no HTML). if HTML is required, place it in the default slot | Plain text
-| `placement` | `top` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`
-| `triggers` | `click` |  Space separated list of which event(s) will trigger open/close of popover | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
+| `placement` | `'top'` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`
+| `triggers` | `'click'` |  Space separated list of which event(s) will trigger open/close of popover | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of popover | `0` and up, integers only.
 | `offset` | `0` | Number of pixels to shift the center of the popover. Also affects the position of the popover arrow. | Any negative or positive integer
+| `container` | `null` | String ID of element to append rendered popover into. If `null` or element not found, popover is appended to `<body>` (default) | Any valid in-document unique  element ID.
 
 
 ## `v-b-popover` Directive usage
@@ -151,7 +161,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 
 ```html
 <template>
-  <div>
+  <div id="myContainer">
     <div class="my-3">
       <!-- our triggering (target) element -->
       <b-btn id="exPopoverReactive1"
@@ -172,9 +182,11 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 
     <!-- Our popover title and content render container -->
     <!-- We use placement 'auto' so popover fits in the best spot on viewport -->
+    <!-- We specify the same container as teh trigger button, so that popover is close to button in tab sequence -->
     <b-popover target="exPopoverReactive1"
                triggers="click"
                placement="auto"
+               container="myContainer"
                ref="popover"
                @show="onShow"
                @shown="onShown"
