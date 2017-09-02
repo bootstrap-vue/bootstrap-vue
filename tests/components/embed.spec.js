@@ -4,11 +4,6 @@ describe("embed", async () => {
   beforeEach(loadFixture("embed"));
   testVM();
 
-  it("default should have tag div", async () => {
-    const { app: { $refs } } = window;
-    expect($refs.default).toBeElement("div");
-  });
-/*
   it("default should be rendered with outer tag 'div'", async () => {
     const { app: { $refs } } = window;
     const embed = $refs.default;
@@ -94,5 +89,5 @@ describe("embed", async () => {
     expect(inner.hasAttribute("baz")).toBe(true);
     expect(inner.getAttribute("baz")).toBe("");
   });
-*/
+
 });
