@@ -103,7 +103,7 @@
         },
         computed: {
             baseConfig() {
-                cont cont = this.container;
+                const cont = this.container;
                 return {
                     title: this.title.trim() || '',
                     content: this.content.trim() || '',
