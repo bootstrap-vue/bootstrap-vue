@@ -24,6 +24,11 @@ describe("embed", async () => {
     expect($refs.type.children[0]).toBeElement("video");
   });
 
+  it("children should be rendered with content with tag 'source'", async () => {
+    const { app: { $refs } } = window;
+    expect($refs.type.children[0].children[0]).toBeElement("source");
+  });
+
   it("all should be rendered with default outer class 'embed-responsive'", async () => {
     const { app: { $refs } } = window;
     ["default","tag","type","aspect","attributes","children"].forEach(ref => {
@@ -47,25 +52,16 @@ describe("embed", async () => {
     const { app: { $refs } } = window;
     expect($refs.aspect).toHaveClass("embed-responsive-4by3");
   });
-/*
+
   it("attributes should have attribute 'foo=bar' on inner tag", async () => {
     const { app: { $refs } } = window;
-    const embed = $refs.attributes;
-    expect(embed).toBeDefined();
-    const inner = embed.children[0];
-    expect(inner).toBeDefined();
-    expect(inner.hasAttribute("foo")).toBe(true);
-    expect(inner.getAttribute("foo")).toBe("bar");
+    expect($refs.attributes.children[0].hasAttribute("foo")).toBe(true);
+    expect($refs.attributes.children[0].getAttribute("foo")).toBe("bar");
   });
 
   it("attributes should have attribute 'baz' on inner tag", async () => {
     const { app: { $refs } } = window;
-    const embed = $refs.attributes;
-    expect(embed).toBeDefined();
-    const inner = embed.children[0];
-    expect(inner).toBeDefined();
-    expect(inner.hasAttribute("baz")).toBe(true);
-    expect(inner.getAttribute("baz")).toBe("");
+    expect($refs.attributes.children[0].hasAttribute("bar")).toBe(true);
   });
-*/
+
 });
