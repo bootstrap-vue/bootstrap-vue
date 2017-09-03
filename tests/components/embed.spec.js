@@ -53,6 +53,7 @@ describe("embed", async () => {
     expect($refs.aspect).toHaveClass("embed-responsive-4by3");
   });
 
+/*
   it("attributes should have attribute 'foo=bar' on inner tag", async () => {
     const { app: { $refs } } = window;
     expect($refs.attributes.children[0].hasAttribute("foo")).toBe(true);
@@ -63,5 +64,5 @@ describe("embed", async () => {
     const { app: { $refs } } = window;
     expect($refs.attributes.children[0].hasAttribute("bar")).toBe(true);
   });
-
+*/
 });
