@@ -454,7 +454,7 @@ export default {
             const filter = this.filter;
             const sortBy = this.localSortBy;
             const sortDesc = this.localSortDesc;
-            const sortCompare = this.sortCompare || defaultSortCompare;
+            const sortCompare = this.sortCompare;
 
             let items = this.hasProvider ? this.localItems : this.items;
 
@@ -464,7 +464,8 @@ export default {
             }
 
             // Array copy for sorting, filtering, etc.
-            items = items.slice()
+            items = items.slice();
+
             // Apply local filter
             if (filter && !this.providerFiltering) {
                 if (filter instanceof Function) {
@@ -491,7 +492,17 @@ export default {
             // Apply local Sort
             if (sortBy && !this.providerSorting) {
                 items = items.sort(function sortItemsFn(a, b) {
-                    return sortCompare(a, b, sortBy) * (sortDesc ? -1 : 1);
+                    let ret = null;
+                    if (typeof sortCompare === 'function') {
+                        // Call user provided sortCompare routine
+                        ret = sortCompare(a, b, sortBy);
+                    }
+                    if (ret === null or ret === undefined) {
+                        // Fallback to defaultSortCompare if sortCompare not defined or returns null
+                        ret = defaultSortCompare(a, b, sortBy));
+                    }
+                    // Handle sorting direction
+                    return (ret || 0) * (sortDesc ? -1 : 1);
                 });
             }
 
