@@ -24,11 +24,6 @@ describe("embed", async () => {
     expect($refs.type.children[0]).toBeElement("video");
   });
 
-  it("children should be rendered with content with tag 'source'", async () => {
-    const { app: { $refs } } = window;
-    expect($refs.type.children[0].children[0]).toBeElement("source");
-  });
-
   it("all should be rendered with default outer class 'embed-responsive'", async () => {
     const { app: { $refs } } = window;
     ["default","tag","type","aspect","attributes","children"].forEach(ref => {
@@ -53,7 +48,6 @@ describe("embed", async () => {
     expect($refs.aspect).toHaveClass("embed-responsive-4by3");
   });
 
-/*
   it("attributes should have attribute 'foo=bar' on inner tag", async () => {
     const { app: { $refs } } = window;
     expect($refs.attributes.children[0].hasAttribute("foo")).toBe(true);
@@ -62,7 +56,13 @@ describe("embed", async () => {
 
   it("attributes should have attribute 'baz' on inner tag", async () => {
     const { app: { $refs } } = window;
-    expect($refs.attributes.children[0].hasAttribute("bar")).toBe(true);
+    expect($refs.attributes.children[0].hasAttribute("baz")).toBe(true);
+  });
+/*
+  it("children should be rendered with content with tag 'source'", async () => {
+    const { app: { $refs } } = window;
+    expect($refs.type.children[0].children[0]).toBeElement("source");
   });
 */
+
 });
