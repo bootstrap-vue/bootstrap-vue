@@ -1909,9 +1909,9 @@ css-color-names@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/css-color-names/-/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
 
-"css-loader@git+https://github.com/nuxt/css-loader.git":
+"css-loader@https://github.com/nuxt/css-loader.git":
   version "0.28.5"
-  resolved "git+https://github.com/nuxt/css-loader.git#43674428e42dd208f6192cfc0b1679935a0bae4b"
+  resolved "https://github.com/nuxt/css-loader.git#43674428e42dd208f6192cfc0b1679935a0bae4b"
   dependencies:
     babel-code-frame "^6.11.0"
     css-selector-tokenizer "^0.7.0"
