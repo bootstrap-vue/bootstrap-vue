@@ -306,17 +306,17 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | Property | Type | Description
 | -------- | ---- | -----------
 | `index` | Number | The row number (indexed from zero)
-| `item` | Object | The entire record (i.e. `items[index]`) for this row (deep clone)
-| `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of thr field's `formatter` function
-| `unformatted` | Any | The value for this key in the record (`null` or `undefined` if a virtual column), before bing pased to the field's `formtter` function
+| `item` | Object | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)
+| `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of thr field's `formatter` function (see below for for information on field `formatter` callback functions)
+| `unformatted` | Any | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formtter` function
 
 
-**Note:** *`index` will not always be the actual row's index number, as it is
+**Notes:**
+- *`index` will not always be the actual row's index number, as it is
 computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
 number will align with the indexes from the optional `v-model` bound variable.*
-
-When placing inputs, buttons, selects or links within a data cell scoped slot,
+- When placing inputs, buttons, selects or links within a data cell scoped slot,
 be sure to add a `@click.stop` handler (which can be empty) to prevent the
 click on the input, button, select, or link, from triggering the `row-clicked`
 event:
@@ -336,17 +336,19 @@ String or function reference. In case of a String value, function must be define
 parent component's methods. Providing formatter as `Function`, it must be declared at
 global scope (window or as global mixin at Vue). 
 
-Callback function accepts three arguments - `value`, `key`, and `item`.
+Callback function accepts three arguments - `value`, `key`, and `item`, and should
+return the formatted value as a string (note that HTML is not supported)
 
 **Example 6: Custom data rendering with formatter callback function**
 ```html
 <template>
   <div>
   <b-table :fields="fields" :items="items">
-<template slot="name" scope="data">
-      <a :href="data.index+1">{{data.item.name}}</a>
+    <template slot="name" scope="data">
+      <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">
+        {{data.value}}
+      </a>
     </template>
-
   </b-table>
   </div>
 </template>
@@ -356,29 +358,37 @@ export default {
   data: {
     fields: {
       name: {
-        // A column that needs custom formatting
+        // A column that needs custom formatting, calling formatter 'fullName' in this app
         label: 'Full Name',
-        formatter:'fullName'
+        formatter: 'fullName'
       },
       age: {
         // A regular column
         label: 'Sex'
       },
       sex: {
-        // A regular column
+        // A regular column with custom formatter
         label: 'Sex'
+        formatter: (value) => { return value.charAt(0).toUpperCase(); }
       },
+      birthYear: {
+        // A virtual column with custom formatter
+        label: 'Birth Year',
+        formatter: (value, key, item) => {
+            return (new Date()).getFullYear() - item.age;
+        }
+      }
     },
     items: [
       { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
       { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
-      { name: { first: 'Rubin', last: 'Kincade' }, sex: 'Male', age: 73 },
-      { name: { first: 'Shirley', last: 'Partridge' }, sex: 'Female', age: 62 }
+      { name: { first: 'Rubin', last: 'Kincade' }, sex: 'male', age: 73 },
+      { name: { first: 'Shirley', last: 'Partridge' }, sex: 'female', age: 62 }
     ]
   }, 
   methods: {
       fullName(value){
-          return `${value.first} ${value.last}`
+          return `${value.first} ${value.last}`;
       }
   }
 }
@@ -484,8 +494,8 @@ on the data in the underlying record object (not by the foratted value). The fie
 value is first stringified if it is an object, and then sorted.
 
 The default `sort-compare` routine **cannot** sort virtual columns, nor sort based
-on the custom rendering (formatter function or scoped slots) of the field data
-(which is used only for presentation). For this reason, you can provide your own
+on the custom rendering of the field data (formatter functions and/or scoped slots
+are used only for presentation). For this reason, you can provide your own
 custom sort compare routine by passing a function reference to the prop `sort-compare`.
 
 The `sort-compare` routine is passed three arguments. The first two arguments
