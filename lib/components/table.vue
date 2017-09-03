@@ -69,8 +69,8 @@
                     <td :class="tdClass(field, item, key)"
                         :key="key">
                         <slot :name="key"
-                              :value="item[key]"
-                              :formatted-value="getFormattedValue(item, key, field)"
+                              :value="getFormattedValue(item, key, field)"
+                              :unformatted="item[key]"
                               :item="item"
                               :index="index">{{ getFormattedValue(item, key, field) }}</slot>
                     </td>
