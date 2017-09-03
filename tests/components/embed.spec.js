@@ -58,11 +58,10 @@ describe("embed", async () => {
     const { app: { $refs } } = window;
     expect($refs.attributes.children[0].hasAttribute("baz")).toBe(true);
   });
-/*
+
   it("children should be rendered inside inner element", async () => {
     const { app: { $refs } } = window;
     expect($refs.children.children[0].children[0]).toBeElement("source");
   });
-*/
 
 });
