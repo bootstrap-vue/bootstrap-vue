@@ -59,9 +59,9 @@ describe("embed", async () => {
     expect($refs.attributes.children[0].hasAttribute("baz")).toBe(true);
   });
 /*
-  it("children should be rendered with content with tag 'source'", async () => {
+  it("children should be rendered inside inner element", async () => {
     const { app: { $refs } } = window;
-    expect($refs.type.children[0].children[0]).toBeElement("source");
+    expect($refs.children.children[0].children[0]).toBeElement("source");
   });
 */
 
