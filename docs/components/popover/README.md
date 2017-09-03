@@ -198,14 +198,14 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
         Interactive Content
       </template>
       <div>
-        <b-form-group label="Name" class="mb-1" description="Enter your name">
+        <b-form-group label="Name" horizontal class="mb-1" description="Enter your name">
           <b-form-input ref="input1" size="sm" v-model="input1"></b-form-input>
         </b-form-group>
-        <b-form-group label="Color" class="mb-1" description="Pick a color">
+        <b-form-group label="Color" horizontal class="mb-1" description="Pick a color">
           <b-form-select size="sm" v-model="input2" :options="options"></b-form-select>
         </b-form-group>
-        <b-alert show>
-          <h6>Current Values:</h6>
+        <b-alert show class="small">
+          <strong>Current Values:</strong><br>
           Name: <strong>{{ input1 }}</strong><br>
           Color: <strong>{{ input2 }}</strong>
         </b-alert>
