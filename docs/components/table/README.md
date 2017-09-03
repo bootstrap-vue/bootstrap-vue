@@ -306,7 +306,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | Property | Type | Description
 | -------- | ---- | -----------
 | `index` | Number | The row number (indexed from zero)
-| `item` | Object | The entire record (i.e. `items[index]`) for this row
+| `item` | Object | The entire record (i.e. `items[index]`) for this row (deep clone)
 | `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column)
 
 
@@ -314,6 +314,10 @@ The slot's scope variable (`data` in the above sample) will have the following p
 computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
 number will align with the indexes from the optional `v-model` bound variable.*
+
+`<b-table>` always deep clones the items array data before pagination, sorting,
+filtering and display. Hence any changes made to the item data passed to
+the custom rendered slot will **not** affect the original provided items array.
 
 When placing inputs, buttons, selects or links within a data cell scoped slot,
 be sure to add a `@click.stop` handler (which can be empty) to prevent the
