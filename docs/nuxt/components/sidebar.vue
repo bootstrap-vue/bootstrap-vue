@@ -5,7 +5,8 @@
             <router-link class="bd-toc-link" :to="'/docs/'+group.slug" :exact="group.exact">
                 {{ group.title }}
                 <small class="badge badge-success" v-if="group.new">NEW</small>
-                <small class="badge badge-danger" v-if="group.experimental">BETA</small>
+                <small class="badge badge-warning" v-if="group.experimental">BETA</small>
+                <small class="badge badge-danger" v-if="group.breaking">BREAKING CHANGE</small>
             </router-link>
     
             <b-nav class="bd-sidenav">
@@ -16,7 +17,8 @@
                 ">
                     {{ page.title }}
                     <small class="badge badge-success" v-if="page.new">NEW</small>
-                    <small class="badge badge-danger" v-if="page.experimental">BETA</small>
+                    <small class="badge badge-warning" v-if="page.experimental">BETA</small>
+                    <small class="badge badge-danger" v-if="page.breaking">BREAKING CHANGE</small>
                 </b-nav-item>
             </b-nav>
     
