@@ -102,7 +102,7 @@ const items = [
     isActive: true,  age: 40, first_name: 'Thor', last_name: 'Macdonald',
     _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
   },
-  { isAactive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+  { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
 ];
 
 export default {
@@ -198,7 +198,7 @@ export default {
       { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
       { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
       { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' },
-      { isAactive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+      { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
     ]
   }
 };
@@ -212,21 +212,21 @@ When fields is provided as an object, the following field properties are availab
 | Property | Type | Description
 | ---------| ---- | -----------
 | `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column
-| `formatter` | String or Function | A formatter callback function, can be used instead of slots for real table fields (i.e. fields, that have corresponding data at items array).
+| `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array).
 | `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key
 | `sortable` | Boolean | Enable sorting on this column
 | `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
 | `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
-| `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column (`active`, `success`, `info`, `warning`, `danger`)
+| `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly)
 
->**Notes:**
- >- _Field properties, if not present, default to `null` unless otherwise stated above._
- >- _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
- >- _For information on the syntax supported by `thStyle`, see
+**Notes:**
+ - _Field properties, if not present, default to `null` unless otherwise stated above._
+ - _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
+ - _For information on the syntax supported by `thStyle`, see
 [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
 in the Vue.js guide._
- >- _Any additional properties added to the field objects will be left intact - so you can access
+ - _Any additional properties added to the field objects will be left intact - so you can access
 them via the named scoped slots for custom data, header, and footer rendering._
 
 For information and usage about scoped slots and formatters, refer to
@@ -307,17 +307,14 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | -------- | ---- | -----------
 | `index` | Number | The row number (indexed from zero)
 | `item` | Object | The entire record (i.e. `items[index]`) for this row (deep clone)
-| `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column)
+| `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of thr field's `formatter` function
+| `unformatted` | Any | The value for this key in the record (`null` or `undefined` if a virtual column), before bing pased to the field's `formtter` function
 
 
->**Note:** *`index` will not always be the actual row's index number, as it is
+**Note:** *`index` will not always be the actual row's index number, as it is
 computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
 number will align with the indexes from the optional `v-model` bound variable.*
-
-`<b-table>` always deep clones the items array data before pagination, sorting,
-filtering and display. Hence any changes made to the item data passed to
-the custom rendered slot will **not** affect the original provided items array.
 
 When placing inputs, buttons, selects or links within a data cell scoped slot,
 be sure to add a `@click.stop` handler (which can be empty) to prevent the
@@ -335,10 +332,11 @@ event:
 
 One more option to customize field output is to use formatter callback function.
 To enable this field's property `formatter` is used. Value of this property may be 
-String or function reference. In case of String value, function must be defined at parent component's methods, 
-to provide formatter as `Function`, it must be declared at global scope (window or as global mixin at Vue). 
+String or function reference. In case of a String value, function must be defined at
+parent component's methods. Providing formatter as `Function`, it must be declared at
+global scope (window or as global mixin at Vue). 
 
-Callback function accepts three arguments - `value`, `key`, `row`.
+Callback function accepts three arguments - `value`, `key`, and `item`.
 
 **Example 6: Custom data rendering with formatter callback function**
 ```html
@@ -447,7 +445,7 @@ the original `items` array (except when `items` is set to a provider function).
 Deleting a record from the v-model will **not** remove the record from the
 original items array.
 
->**Note:** *Do not bind any value directly to the `value` prop. Use the `v-model` binding.*
+**Note:** *Do not bind any value directly to the `value` prop. Use the `v-model` binding.*
 
 ## Filtering
 Filtering, when used, is aplied to the original items array data, and hence it is not
@@ -465,10 +463,10 @@ will emit the `filtered` event, passing a single argument which is the complete 
 items passing the filter routine. Treat this argument as read-only.
 
 ## Sorting
-As mentioned above in the [**Fields**](#fields-column-definitions-) section above, you can make columns sortable. Clciking on
-sortable a column header will sort the column in ascending direction, while clicking
-on it again will switch the direction or sorting.  Clicking on a non-sortable column
-will clear the sorting.
+As mentioned above in the [**Fields**](#fields-column-definitions-) section above,
+you can make columns sortable. Clicking on a sortable column header will sort the
+column in ascending direction, while clicking on it again will switch the direction
+of sorting.  Clicking on a non-sortable column will clear the sorting.
 
 You can control which column is pre-sorted and the order of sorting (ascending or
 descending). To pre-specify the column to be sorted, set the `sort-by` prop to 
@@ -482,18 +480,21 @@ on the `.sync` prop modifier
 
 ### Sort-Compare routine
 The built-in default `sort-compare` function sorts the specified field `key` based
-on the data in the underlying record object. The field value is first stringified
-if it is an object, and then sorted.
+on the data in the underlying record object (not by the foratted value). The field
+value is first stringified if it is an object, and then sorted.
 
 The default `sort-compare` routine **cannot** sort virtual columns, nor sort based
-on the custom rendering of the field data (which is used only for presentation).
-For this reason, you can provide your own custom sort compare routine by passing a
-function reference to the prop `sort-compare`.
+on the custom rendering (formatter function or scoped slots) of the field data
+(which is used only for presentation). For this reason, you can provide your own
+custom sort compare routine by passing a function reference to the prop `sort-compare`.
 
 The `sort-compare` routine is passed three arguments. The first two arguments
 (`a` and `b`) are the record objects for the rows being compared, and the third
-argument is the field `key` being sorted on. The routine should return
+argument is the field `key` being sorted on (`sortBy`). The routine should return
 either `-1`, `0`, or `1` based on the result of the comparing of the two records.
+If the routine returns `null`, then the default sort-compare rouine will be used.
+You can use this feature (returning `null`) to have your custom sort-compare routine
+handle only certain fields (keys).
 
 The default sort-compare routine works as follows:
 
@@ -581,7 +582,7 @@ function myProvider(ctx) {
 a `busy` prop that can be used either to override inner `busy`state, or to monitor
 `<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
 
->**Note:** _in order to allow `<b-table>` fully track it's `busy` state, custom items
+**Note:** _in order to allow `<b-table>` fully track it's `busy` state, custom items
 provider function should handle errors from data sources and return an empty
 array to `<b-table>`._
 
@@ -620,10 +621,10 @@ methods: {
  }
 ```
 
->**Notes:**
->- _If you manually place the table in the `busy` state, the items provider will
+**Notes:**
+- _If you manually place the table in the `busy` state, the items provider will
 __not__ be called/refreshed until the `busy` state has been set to `false`._
->- _All click related and hover events, and sort-changed events will __not__ be
+- _All click related and hover events, and sort-changed events will __not__ be
  emiited when in the `busy` state (either set automatically during provider update,
  or when manually set)._
 
@@ -643,7 +644,7 @@ following `b-table` prop(s) to `true`:
 When `no-provider-paging` is `false` (default), you should only return at
 maximum, `perPage` number of records.
 
->**Note** _`<b-table>` needs reference to your pagination and filtering values in order to
+**Note** _`<b-table>` needs reference to your pagination and filtering values in order to
 trigger the calling of the provider function.  So be sure to bind to the `per-page`,
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
 (unless you have the respective `no-provider-*` prop set to `true`)._
@@ -832,5 +833,4 @@ export default {
 | `foot-clone` | Turns on the table footer, and defaults with the same contents a the table header
 | `head-variant` | Use `default` or `inverse` to make `<thead>` appear light or dark gray, respectively
 | `foot-variant` | Use `default` or `inverse` to make `<tfoot>` appear light or dark gray, respectively. Has no effect if `foot-clone` is not set
-
 
