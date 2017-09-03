@@ -497,9 +497,9 @@ export default {
                         // Call user provided sortCompare routine
                         ret = sortCompare(a, b, sortBy);
                     }
-                    if (ret === null or ret === undefined) {
+                    if (ret === null || ret === undefined) {
                         // Fallback to defaultSortCompare if sortCompare not defined or returns null
-                        ret = defaultSortCompare(a, b, sortBy));
+                        ret = defaultSortCompare(a, b, sortBy);
                     }
                     // Handle sorting direction
                     return (ret || 0) * (sortDesc ? -1 : 1);
