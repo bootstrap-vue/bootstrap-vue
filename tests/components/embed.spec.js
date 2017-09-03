@@ -18,50 +18,36 @@ describe("embed", async () => {
     const { app: { $refs } } = window;
     expect($refs.default.children[0]).toBeElement("iframe");
   });
-/*
+
   it("type should be rendered with inner tag 'video'", async () => {
     const { app: { $refs } } = window;
-    const embed = $refs.type;
-    expect(embed).toBeDefined();
-    const inner = embed.children[0];
-    expect(inner).toBeDefined();
-    expect(inner).toBeElement("video");
+    expect($refs.type.children[0]).toBeElement("video");
   });
 
   it("all should be rendered with default outer class 'embed-responsive'", async () => {
     const { app: { $refs } } = window;
-    ["default","tag","type","aspect","attributes","cildren"].forEach(ref => {
-      const embed = $refs[ref];
-      expect(embed).toBeDefined();
-      expect(embed).toHaveClass("embed-responsive");
+    ["default","tag","type","aspect","attributes","children"].forEach(ref => {
+      expect($refs[ref]).toHaveClass("embed-responsive");
     });
   });
 
   it("all should be rendered with default inner class 'embed-responsive-item'", async () => {
     const { app: { $refs } } = window;
     ["default","tag","type","aspect","attributes","children"].forEach(ref => {
-      const embed = $refs[ref];
-      expect(embed).toBeDefined();
-      const inner = embed.children[0];
-      expect(inner).toBeDefined();
-      expect(inner).toHaveClass("embed-responsive-item");
+      expect($refs[ref].children[0]).toHaveClass("embed-responsive-item");
     });
   });
-/*
+
   it("default should be rendered with outer class 'embed-responsive-16by9'", async () => {
     const { app: { $refs } } = window;
-    const embed = $refs.default;
-    expect(embed).toBeDefined();
-    expect(embed).toHaveClass("embed-responsive-16by9");
+    expect($refs.default).toHaveClass("embed-responsive-16by9");
   });
 
   it("aspect should be rendered with outer class 'embed-responsive-4by3'", async () => {
     const { app: { $refs } } = window;
-    const embed = $refs.aspect;
-    expect(embed).toBeDefined();
-    expect(embed).toHaveClass("embed-responsive-4by3");
+    expect($refs.aspect).toHaveClass("embed-responsive-4by3");
   });
-
+/*
   it("attributes should have attribute 'foo=bar' on inner tag", async () => {
     const { app: { $refs } } = window;
     const embed = $refs.attributes;
