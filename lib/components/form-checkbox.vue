@@ -141,7 +141,7 @@
                     Boolean(this.get_Size) ? `form-control-${this.get_Size}` : '',
                     this.is_Custom ? 'custom-control' : 'form-check-label',
                     this.is_Custom ? 'custom-checkbox' : '',
-                    (this.is_Inline && this.is_Plain) ? 'form-check-inline' : ''
+                    (this.is_Inline && this.is_Plain) ? 'form-check-inline' : '',
                     this.get_StateClass
                 ];
             },
