@@ -36,7 +36,7 @@
             value(newVal, oldVal) {
                 this.localValue = newVal;
             },
-            localValue(newVal, oldVal)
+            localValue(newVal, oldVal) {
                 this.$emit('input', this.localValue);
             }
         },
