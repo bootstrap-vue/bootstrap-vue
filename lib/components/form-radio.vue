@@ -159,7 +159,7 @@
             }
         },
         methods: {
-            handleChange(target: { checked }) {
+            handleChange({ target: { checked } }) {
                 // Change is only emitted on user interaction
                 this.$emit('change', checked ? this.value : null);
             },
