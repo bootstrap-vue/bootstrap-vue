@@ -1,68 +1,50 @@
 <template>
-    <div :id="safeId()"
-         :class="buttons ? btnGroupClasses : radioGroupClasses"
-         role="radiogroup"
-         tabindex="-1"
-         :data-toggle="buttons ? 'buttons' : null"
-         :aria-required="required ? 'true' : null"
-         :aria-invalid="computedAriaInvalid"
-    >
-        <label v-for="(option, idx) in formOptions"
-               :class="buttons ? btnLabelClasses(option, idx) : labelClasses"
-               :key="'radio_'+idx"
-               :aria-pressed="buttons ? (option.value === localValue ? 'true' : 'false') : null"
+    <label :class="labelClasses">
+        <input v-model="computedLocalChecked"
+               :id="safeId()"
+               :class="inputClasses"
+               :value="value"
+               :name="get_Name"
+               :required="get_Name && is_Required"
+               :disabled="is_Disabled"
+               ref="radio"
+               type="radio"
+               autocomplete="off"
+               @focus="handleFocus"
+               @blur="handleFocus"
+               @change="handleChange"
         >
-            <input :id="safeId(`_BV_radio_${idx}`)"
-                   :class="radioClasses"
-                   ref="inputs"
-                   type="radio"
-                   autocomplete="off"
-                   v-model="localValue"
-                   :value="option.value"
-                   :name="name"
-                   :required="name && required"
-                   :disabled="option.disabled || disabled"
-                   @focus="handleFocus"
-                   @blur="handleFocus"
-                   @change="$emit('change', returnObject ? option : option.value)"
-            >
-            <span v-if="custom && !buttons" class="custom-control-indicator" aria-hidden="true"></span>
-            <span :class="(custom && !buttons) ? 'custom-control-description' : null" v-html="option.text"></span>
-        </label>
-    </div>
+        <span v-if="is_Custom && !is_ButtonMode" class="custom-control-indicator" aria-hidden="true"></span>
+        <span :class="(is_Custom && !is_ButtonMode) ? 'custom-control-description' : null">
+            <slot></slot>
+        </span>
+    </label>
 </template>
 
 <script>
-    import { idMixin, formOptionsMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
+    import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../mixins';
+    import ( looseEqual } from '../utils';
 
     export default {
-        mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin, formOptionsMixin],
+        mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin],
         data() {
             return {
-                localValue: this.value,
-                localState: this.state
+                localChceked: this.checked,
+                hasFocus: false
             };
         },
+        model: {
+            prop: 'checked',
+            event: 'input'
+        },
         props: {
-            value: {},
-            options: {
-                type: [Array, Object],
-                default: null,
+            value: {
                 required: true
             },
-            validated: {
-                type: Boolean,
-                default: false
+            checked: {
+                // This is the model, except when in group mode
             },
-            ariaInvalid: {
-                type: [Boolean, String],
-                default: false
-            },
-            stacked: {
-                type: Boolean,
-                default: false
-            },
-            buttons: {
+            button: {
                 // Render as button style
                 type: Boolean,
                 default: false
@@ -70,66 +52,119 @@
             buttonVariant: {
                 // Only applicable when rendered with button style
                 type: String,
-                default: 'secondary'
+                default: null
+            }
+        },
+        watch: {
+            // Radio Groups can only have a single value, so our watchers are simple
+            checked(newVal, oldVal) {
+                this.computedLocalChceked = newVal;
+            },
+            computedLocalChceked(newVal, oldVal) {
+                this.$emit('input', this.computedLocalChceked);
             }
         },
         computed: {
-            radioGroupClasses() {
-                return [
-                    this.validated ? `was-validated` : '',
-                    this.sizeFormClass,
-                    this.stacked ? 'custom-controls-stacked' : ''
-               ];
+            computedLocalChecked() {
+                // This would mainly be for checkboxes, but we use it here anyways
+                get() {
+                    return this.$parent.is_RadioGroup ? this.$parent.localChecked : this.localChecked;
+                },
+                set(val) {
+                    if (this.$parent.is_RadioGroup) {
+                        this.$parent.localChecked = val;
+                    } else {
+                        this.localChecked = val;
+                    }
+                }
             },
-            btnGroupClasses() {
-                return [
-                    'btn-group',
-                    this.validated ? `was-validated` : '',
-                    this.sizeBtnClass,
-                    this.stacked ? 'btn-group-vertical' : ''
-                 ];
+            is_Disabled() {
+                // Child can be disabled while parent isn't
+                return Boolean(this.$parent.disabled || this.disabled);
             },
-            radioClasses() {
+            is_Required() {
+                return Boolean(this.$parent.required || this.required);
+            },
+            // Form-custom mixin
+            is_Plain() {
+                return Booloean(this.$parent.plain || this.plain);
+            },
+            is_Custom() {
+                return !this.is_Plain;
+            },
+            get_Size() {
+                return this.$parent.size || this.size;
+            },
+            get_State() {
+                // This is a tri-state prop (true, false, null)
+                return (typeof this.state === 'boolean' ? this.state : this.$parent.state) || null;
+            },
+            get_StateClass() {
+                // This is a tri-state prop (true, false, null)
+                return typeof this.get_State === 'boolean' ? (this.get_State ? 'is-valid' : 'is-invalid') : '';
+            },
+            is_Stacked() {
+                return Boolean(this.$parent.stacked);
+            },
+            is_Inline() {
+                return !this.is_Stacked;
+            },
+            is_ButtonMode() {
+                return Boolean(this.$parent.buttons || this.button);
+            },
+            get_ButtonVariant() {
+                // this.buttonVariant only applies to radios & checkboxes
+                return this.buttonVariant || this.$parent.buttonVariant || 'secondary';
+            },
+            get_Name() {
+                return (this.$parent.is_RadioCheckGroup ? this.$parent.name : this.name) || null;
+            },
+            isChecked() {
+                return looseEqual(this.value, this.computedLocalChecked);
+            },
+            inputClasses() {
                 return [
-                    (this.custom && !this.buttons) ? 'custom-control-input' : null,
-                    this.stateClass
+                    (this.is_Custom && !this.is_ButtonMode) ? 'custom-control-input' : null
                 ];
             },
             labelClasses() {
-                return [
-                    this.checkboxClass,
-                    this.custom ? 'custom-radio' : null
-                ];
-            },
-            computedAriaInvalid() {
-                if (this.ariaInvalid === true || this.AriaInvalid === 'true') {
-                    return 'true'
+                if (this.is_ButtonMode) {
+                    return [
+                        'btn',
+                        `btn-${this.getButtonVariant}`,
+                        Boolean(this.get_Size) ? `btn-${this.get_Size}` : '',
+                        // Fix stacking issue (remove space between buttons, specifically the last one)
+                        // This might be fixed in BS V4.beta.2
+                        this.is_Stacked ? 'mb-0' : '',
+                        // 'disabled' class makes "button" look disabled
+                        this.is_Disabled ? 'disabled' : '',
+                        // 'active' class makes "button" look pressed
+                        this.isChecked ? 'active' : '',
+                        // Focus class makes button look focused
+                        this.hasFocus ? 'focus' : ''
+                    ];
                 }
-                return this.computedState === false ? 'true' : null;
-            },
-            inline() {
-                return !this.stacked;
+                // Not button mode
+                return [
+                    Boolean(this.get_Size) ? `form-control-${this.get_Size}` : '',
+                    this.is_Custom ? 'custom-control' : '',
+                    this.is_Custom ? 'custom-radio' : '',
+                    this.is_Inline ? 'form-check-inline' : ''
+                ];
             }
         },
         methods: {
-            btnLabelClasses(option, idx) {
-                return [
-                    'btn',
-                    `btn-${this.buttonVariant}`,
-                    (option.disabled || this.disabled) ? 'disabled' : '',
-                    option.value === this.localValue ? 'active' : null,
-                    // Fix staking issue (remove space between buttons)
-                    (this.stacked && idx === this.formOptions.length - 1) ? '' : 'mb-0'
-                ];
+            handleChange(target: { checked }) {
+                // Change is only emitted on user interaction
+                this.$emit('change', checked ? this.value : null);
             },
             handleFocus(evt) {
                 // When in buttons mode, we need to add 'focus' class to label when radio focused
-                if (this.buttons && evt.target && evt.target.parentElement) {
-                    const label = evt.target.parentElement;
+                if (this.is_ButtonMode && evt.target) {
                     if (evt.type ==='focus') {
-                        label.classList.add('focus');
+                        this.hasFocus = true;
                     } else if (evt.type ==='blur') {
-                        label.classList.remove('focus');
+                        this.hasFocus = false;
                     }
                 }
             }
