@@ -1,6 +1,7 @@
 {
-  "title": "Form Radio",
-  "component": "bFormRadio",
+  "title": "Form Radios",
+  "component": "bFormRadios",
+  "components": ["bFormRadio"],
   "breaking": true,
   "events": [
     {
