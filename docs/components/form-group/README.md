@@ -4,6 +4,16 @@
 purpose is to provide a label and control pairing, help text and feedback text, as well
 as contextual state visual feedback.
 
+<div class="alert alert-warning">
+ <p class="my-0">
+  <strong>Please Note:</strong>
+  There are currently issues with Bootstrap V4.beta.1 CSS with regards to <code>valid</code>
+  and <code>invalid</code> states and the <code>feedback</code> invalid text.
+  Feedback text should only be shown when in the invalid state, but it still shows
+  when the field in in the valid state. Bootstrap V4.beta.2 should address this issue.
+ </p>
+</div>
+
 ```html
 <template>
   <b-form-group
