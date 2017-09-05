@@ -5,7 +5,7 @@
         <input type="checkbox"
                :id="safeId()"
                v-model="computedLocalChecked"
-               :class="checkClasses"
+               :class="inputClasses"
                :name="get_Name"
                :value="value"
                :checked="isChecked"
@@ -26,7 +26,7 @@
 
 <script>
     import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../mixins';
-    import { arrayIncludes, isArray } from '../utils/array';
+    import { isArray } from '../utils/array';
     import { looseEqual } from '../utils';
 
     export default {
@@ -94,13 +94,6 @@
             is_Custom() {
                 return !this.is_Plain;
             },
-            labelClasses() {
-                return [
-                    this.sizeFormClass,
-                    this.custom ? 'custom-checkbox' : '',
-                    this.checkboxClass
-                ];
-            },
             get_Size() {
                 return this.$parent.size || this.size;
             },
@@ -145,9 +138,21 @@
                 }
                 // Not button mode
                 return [
-                    (this.is_Custom && !this.is_ButtonMode) ? 'custom-control-input' : '',
+                    Boolean(this.get_Size) ? `form-control-${this.get_Size}` : '',
+                    this.is_Custom ? 'custom-control' : 'form-check-label',
+                    this.is_Custom ? 'custom-checkbox' : '',
+                    (this.is_Inline && this.is_Plain) ? 'form-check-inline' : ''
                     this.get_StateClass
                 ];
+            },
+            inputClasses() {
+                if (this.is_ButtonMode) {
+                    return [];
+                } else {
+                    return [
+                        this.is_Custom ? 'custom-control-input' : 'form-check-input'
+                    ];
+                }
             },
             isChecked() {
                 cont checked = this.computedLocalChecked;
