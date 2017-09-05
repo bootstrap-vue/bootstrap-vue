@@ -23,7 +23,7 @@
 
 <script>
     import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../mixins';
-    import ( looseEqual } from '../utils';
+    import { looseEqual } from '../utils';
 
     export default {
         mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin],
