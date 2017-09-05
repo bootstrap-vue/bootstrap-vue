@@ -65,7 +65,7 @@
             }
         },
         computed: {
-            computedLocalChecked() {
+            computedLocalChecked: {
                 // This would mainly be for checkboxes, but we use it here anyways
                 get() {
                     return this.$parent.is_RadioGroup ? this.$parent.localChecked : this.localChecked;
