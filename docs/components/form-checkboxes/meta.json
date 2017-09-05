@@ -1,6 +1,7 @@
 {
-  "title": "Form Checkbox",
-  "component": "bFormCheckbox",
+  "title": "Form Checkboxes",
+  "component": "bFormCheckboxes",
+  "components": ["bFormCheckbox"],
   "events": [
     {
       "event": "change",
