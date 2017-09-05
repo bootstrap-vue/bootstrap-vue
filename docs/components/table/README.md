@@ -337,7 +337,7 @@ parent component's methods. Providing formatter as `Function`, it must be declar
 global scope (window or as global mixin at Vue). 
 
 Callback function accepts three arguments - `value`, `key`, and `item`, and should
-return the formatted value as a string (note that HTML is not supported)
+return the formatted value as a string (basic HTML is supported)
 
 **Example 6: Custom data rendering with formatter callback function**
 ```html
