@@ -28,7 +28,7 @@
 
     export default {
         mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
-        components: [bFormRadio],
+        components: [bFormCheckbox],
         data() {
             return {
                 localChecked: this.checked,
@@ -101,3 +101,4 @@
         }
     };
 </script>
+kbox
