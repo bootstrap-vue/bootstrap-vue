@@ -1,5 +1,5 @@
 <template>
-    <div :id="safeId"
+    <div :id="safeId()"
          :class="groupClasses"
          role="radiogroup"
          tabindex="-1"
@@ -81,13 +81,13 @@
                 if (this.is_ButtonMode) {
                     return [
                         'btn-group',
-                        this.sizeClass,
+                        this.sizeBtnClass,
                         this.stacked ? 'btn-group-vertical' : '',
                         this.validated ? `was-validated` : ''
                     ];
                 }
                 return [
-                    this.sizeClass,
+                    this.sizeFormClass,
                     this.stacked ? 'custom-controls-stacked' : '',
                     this.validated ? `was-validated` : ''
                ];
