@@ -67,7 +67,7 @@
             }
         },
         computed: {
-            computedLocalChecked() {
+            computedLocalChecked: {
                 // bind to the parent check group value
                 get() {
                     return this.$parent.is_RadioCheckGroup ? this.$parent.localChecked : this.localChecked;
