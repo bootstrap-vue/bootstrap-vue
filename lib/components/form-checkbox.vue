@@ -155,7 +155,7 @@
                 }
             },
             isChecked() {
-                cont checked = this.computedLocalChecked;
+                const checked = this.computedLocalChecked;
                 if (isArray(checked)) {
                     for (let i = 0; i < checked.length; i++) {
                         if (looseEqual(checked[i], this.value)) {
