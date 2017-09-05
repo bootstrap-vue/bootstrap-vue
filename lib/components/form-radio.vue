@@ -122,11 +122,6 @@
             isChecked() {
                 return looseEqual(this.value, this.computedLocalChecked);
             },
-            inputClasses() {
-                return [
-                    (this.is_Custom && !this.is_ButtonMode) ? 'custom-control-input' : null
-                ];
-            },
             labelClasses() {
                 if (this.is_ButtonMode) {
                     return [
@@ -147,10 +142,20 @@
                 // Not button mode
                 return [
                     Boolean(this.get_Size) ? `form-control-${this.get_Size}` : '',
-                    this.is_Custom ? 'custom-control' : '',
+                    this.is_Custom ? 'custom-control' : 'form-check-label',
                     this.is_Custom ? 'custom-radio' : '',
-                    this.is_Inline ? 'form-check-inline' : ''
+                    (this.is_Inline && this.is_Plain) ? 'form-check-inline' : '',
+                    this.get_StateClass
                 ];
+            },
+            inputClasses() {
+                if (this.is_ButtonMode) {
+                    return [];
+                } else {
+                    return [
+                        this.is_Custom ? 'custom-control-input' : 'form-check-input'
+                    ];
+                }
             }
         },
         methods: {
