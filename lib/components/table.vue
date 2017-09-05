@@ -72,7 +72,7 @@
                               :value="getFormattedValue(item, key, field)"
                               :unformatted="item[key]"
                               :item="item"
-                              :index="index">{{ getFormattedValue(item, key, field) }}</slot>
+                              :index="index"><div v-html="getFormattedValue(item, key, field)"></div></slot>
                     </td>
                 </template>
             </tr>
