@@ -108,3 +108,11 @@ The `v-b-tooltip` directive makes adding tooltips even easier, without additiona
 
 Refer to the [`v-b-tooltip` documentation](/docs/directives/tooltip) for more information
 and features of the directive format.
+
+## Closing tooltips
+You can close all open tooltips by emitting the `bv::hide::tooltip` event on $root:
+
+```js
+this.$root.$emit('bv::hide::tooltip');
+```
+

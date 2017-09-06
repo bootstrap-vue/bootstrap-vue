@@ -143,3 +143,10 @@ receives focus.
 Note that your elment **must** be in the document tab sequence for this to work. If
 your element is not tabable, add the `tabindex="0"` attribute to the element.
 
+
+## Closing tooltips
+You can close all open tooltips by emitting the `bv::hide::tooltip` event on $root:
+
+```js
+this.$root.$emit('bv::hide::tooltip');
+```

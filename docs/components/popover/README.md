@@ -284,6 +284,13 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 <!-- popover-advanced-1.vue -->
 ```
 
+## Closing popovers
+You can close all open popovers by emitting the `bv::hide::popover` event on $root:
+
+```js
+this.$root.$emit('bv::hide::popover');
+```
+
 ## Accessibility
 Popovers, in their current state, are not overly accessible when used as interactive
 components. Content may not be activly read to screen reader users, and the popover
