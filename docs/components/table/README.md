@@ -429,7 +429,7 @@ The slot's scope variable (`data` in the above example) will have the following 
 | -------- | ---- | -----------
 | `column` | String | The fields's `key` value
 | `field` | Object | the field's object (from the `fields` prop)
-| `label` | String | The fileds label value (also available as `data.field.label`)
+| `label` | String | The fields label value (also available as `data.field.label`)
 
 When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot,
 be sure to add a `@click.stop` handler (which can be empty) to prevent the
@@ -439,7 +439,7 @@ or a `head-clicked` event.
 ```html
 <template slot="HEAD_actions" scope="foo">
   <!-- We use click.stop here to prevent 'sort-changed' or 'head-clicked' events -->
-  <input tyep="checkbox" :value="foo.column" v-model="selected" @click.stop>
+  <input type="checkbox" :value="foo.column" v-model="selected" @click.stop>
 </template>
 ```
 
@@ -458,7 +458,7 @@ original items array.
 **Note:** *Do not bind any value directly to the `value` prop. Use the `v-model` binding.*
 
 ## Filtering
-Filtering, when used, is aplied to the original items array data, and hence it is not
+Filtering, when used, is applied to the original items array data, and hence it is not
 possible to filter data based on custom rendering of virtual columns. The items row data
 is stringified and the filter searches that stringified data (excluding any properties
 that begin with an underscore (`_`) and the deprecated property `state`.
@@ -490,7 +490,7 @@ on the `.sync` prop modifier
 
 ### Sort-Compare routine
 The built-in default `sort-compare` function sorts the specified field `key` based
-on the data in the underlying record object (not by the foratted value). The field
+on the data in the underlying record object (not by the formatted value). The field
 value is first stringified if it is an object, and then sorted.
 
 The default `sort-compare` routine **cannot** sort virtual columns, nor sort based
@@ -601,13 +601,13 @@ set to `true` just before your async fetch, and then set it to `false` once you 
 your data, and just before you send it to the table for display. Example:
 
 ```html
-<b-table id="my-table" :busy.sync="isBusy" :items="myProvider" :fields="fields" ....>
-</b-table>
+<b-table id="my-table" :busy.sync="isBusy" :items="myProvider" :fields="fields" ...></b-table>
 ```
+
 ```js
 data () {
     return {
-        isBusy = false
+        isBusy: false
     };
 }
 methods: {
@@ -670,9 +670,9 @@ You must have a unique ID on your table for this to work.
 
 Or by calling the refresh method on the table reference
 ```html
-<b-table ref="table" ... >
-</b-table>
+<b-table ref="table" ... ></b-table>
 ```
+
 ```js
     this.$refs.table.refresh();
 ```
@@ -684,8 +684,7 @@ By listening on `<b-table>` `sort-changed` event, you can detect when the sortin
 and direction have changed.
 
 ```html
-<b-table @sort-changed="sortingChanged" ...>
-</b-table>
+<b-table @sort-changed="sortingChanged" ...></b-table>
 ```
 
 The `sort-changed` event provides a single argument of the table's current state context object.
@@ -785,7 +784,7 @@ const items = [
   { _cellVariants: { age: 'danger', isActive: 'warning' },
     isActive: true,  age: 87, name: { first: 'Larsen', last: 'Shaw' } },
   { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-  { isActive: false, age: 22, name: { first: 'Genevive', last: 'Wilson' } },
+  { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
   { isActive: true,  age: 38, name: { first: 'John', last: 'Carney' } },
   { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
 ];
@@ -829,6 +828,7 @@ export default {
 
 <!-- table-complete-1.vue -->
 ```
+
 ## Table options
 `<b-table>` provides several props to alter the style of the table:
 
