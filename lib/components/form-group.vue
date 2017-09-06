@@ -186,7 +186,7 @@
             updateTargetId() {
                 if (this.labelFor) {
                     // User supplied for target
-                    return this.labelFor;
+                    this.targetId = this.labelFor;
                 }
                 // Else find first input with ID
                 const content = this.$refs.content;
@@ -199,6 +199,7 @@
             }
         },
         mounted() {
+            this.targetId = this.labelFor || null;
             // We run in nextTick to ensure auto IDs are available
             this.$nextTick(() => this.updateTargetId());
         },
