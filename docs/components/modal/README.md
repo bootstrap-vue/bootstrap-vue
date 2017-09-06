@@ -61,7 +61,8 @@ They support a number of use cases from user notification to completely custom c
 
 `<b-modal>`, by default, has an **OK** and a **Close** button in the footer. These buttons can
 be customized by setting various props on the component. You can customize the size of the buttons,
-disable the **OK** button, hide the **Close** button (i.e. OK Only), and provide custom
+disable the **OK** button, hide the **Close** button (i.e. OK Only), choose a variant (e.g. `danger`
+for a red OK button) using the `ok-variant` and `close-variant` props, and provide custom
 button content using the `ok-title` and `close-title` props, or using the named
 slots `modal-ok` and `modal-cancel`.
 
