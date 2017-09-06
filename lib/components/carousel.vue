@@ -114,6 +114,12 @@
         return null;
     }
 
+    // Function to trigger a reflow of an element layout
+    // To help prevent this line from being optimized out
+    function reflow(el) {
+      return el.offsetHeight;
+    }
+
     export default {
         mixins: [ idMixin ],
         data() {
@@ -331,8 +337,7 @@
 
                 nextSlide.classList.add(direction.overlayClass);
                 // Trigger a reflow of next slide
-                // eslint-disable-next-line no-unused-expressions
-                nextSlide.offsetHeight;
+                reflow(nextSlide);
 
                 currentSlide.classList.add(direction.dirClass);
                 nextSlide.classList.add(direction.dirClass);
