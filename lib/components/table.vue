@@ -66,14 +66,21 @@
                 @dblclick="rowDblClicked($event,item,index)"
                 @mouseenter="rowHovered($event,item,index)">
                 <template v-for="(field,key) in computedFields">
-                    <td :class="tdClass(field, item, key)"
+                    <td v-if="$scopedSlots[key]"
+                        :class="tdClass(field, item, key)"
                         :key="key">
                         <slot :name="key"
                               :value="getFormattedValue(item, key, field)"
                               :unformatted="item[key]"
                               :item="item"
-                              :index="index"><div v-html="getFormattedValue(item, key, field)"></div></slot>
+                              :index="index"
+                        ></slot>
                     </td>
+                    <td v-else
+                        :class="tdClass(field, item, key)"
+                        :key="key"
+                        v-html="getFormattedValue(item, key, field)"
+                    ></td>
                 </template>
             </tr>
             <tr v-if="showEmpty && (!computedItems || computedItems.length === 0)">
