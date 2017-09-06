@@ -55,11 +55,11 @@
                         <footer class="modal-footer" ref="footer" v-if="!hideFooter">
                             <slot name="modal-footer">
                                 <b-btn v-if="!okOnly"
-                                       variant="secondary"
+                                       :variant="closeVariant"
                                        :size="buttonSize"
                                        @click="hide(false)"
                                 ><slot name="modal-cancel">{{ closeTitle }}</slot></b-btn>
-                                <b-btn variant="primary"
+                                <b-btn :variant="okVariant"
                                        :size="buttonSize"
                                        :disabled="okDisabled"
                                        @click="hide(true)"
@@ -239,6 +239,14 @@
             okTitle: {
                 type: String,
                 default: 'OK'
+            },
+            closeVariant: {
+                type: String,
+                default: 'secondary'
+            },
+            okVariant: {
+                type: String,
+                default: 'primary'
             }
         },
         methods: {
