@@ -31,7 +31,7 @@
         components: [bFormCheckbox],
         data() {
             return {
-                localChecked: this.checked,
+                localChecked: this.checked || [],
                 // Flag for children
                 is_RadioCheckGroup: true
               };
