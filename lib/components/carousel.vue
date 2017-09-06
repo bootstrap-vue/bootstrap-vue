@@ -331,8 +331,8 @@
 
                 nextSlide.classList.add(direction.overlayClass);
                 // Trigger a reflow of next slide
-                // eslint-disable-next-line no-void
-                void(nextSlide.offsetHeight);
+                // eslint-disable-next-line no-unused-expressions
+                nextSlide.offsetHeight;
 
                 currentSlide.classList.add(direction.dirClass);
                 nextSlide.classList.add(direction.dirClass);
