@@ -62,9 +62,8 @@ in the named slot `first`.
 
 
 ## Options
-
-Please see options in [`<b-form-select>`](./form-select) docs for details on passing
-options (value array) to `<b-form-radio>`
+Please see options in [`<b-form-select>`](/docs/components/form-select) docs for details on passing
+options (value array) to `<b-form-radios>`.
 
 ## Size
 Control the size of the radio text by setting the prop `size` to either `sm` for small or
@@ -253,3 +252,5 @@ You can have `b-form-radio` render a browser native radio input by setting the `
 
 **Note:** `plain` will have no effect if `buttons` is set.
 
+## Aliases
+`<b-form-radio>` can be used by it's shorter alias of `<b-radio>`.
