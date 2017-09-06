@@ -1,6 +1,6 @@
 # Form Select
 
-> Bootstrap custom `<select>` using custom styles. Oprionally specify options based on an
+> Bootstrap custom `<select>` using custom styles. Optionally specify options based on an
 array, array of objects, or an object.
 
 Generate your select options by pasing an aray or object to the `options` props:
@@ -287,3 +287,7 @@ Set the prop `plain` to have a native browser `<select>` rendered (although the 
 
 Multiple select will always render as a `plain` select, as will any `<b-form-select>`
 that has the `select-size` prop set to a value greater than 1.
+
+## Aliases
+- `<b-form-option>` can use used by the shorter alias `<b-option>`.
+- `<b-form-optgroup>` can be used by the shorter alias `<b-optgroup>`.
