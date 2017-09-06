@@ -1,6 +1,6 @@
 {
   "title": "Form Checkboxes",
-  "component": "bFormCheckboxes",
+  "component": "bFormCheckboxGroup",
   "components": ["bFormCheckbox"],
   "events": [
     {
