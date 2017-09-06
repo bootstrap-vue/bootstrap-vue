@@ -4,7 +4,7 @@
 It’s easily extensible and thanks to our Collapse plugin, it can easily integrate responsive behaviors.
 
 ```html
-<b-navbar toggleable="md" type="dark" variant="info">
+<b-navbar toggleable type="dark" variant="info">
 
   <b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
