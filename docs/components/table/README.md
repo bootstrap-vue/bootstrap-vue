@@ -368,7 +368,7 @@ export default {
       },
       sex: {
         // A regular column with custom formatter
-        label: 'Sex'
+        label: 'Sex',
         formatter: (value) => { return value.charAt(0).toUpperCase(); }
       },
       birthYear: {
