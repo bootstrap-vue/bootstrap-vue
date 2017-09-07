@@ -289,5 +289,6 @@ Multiple select will always render as a `plain` select, as will any `<b-form-sel
 that has the `select-size` prop set to a value greater than 1.
 
 ## Aliases
+- `<b-form-select>` can be used by the shorter alias `<b-select>`.
 - `<b-form-option>` can use used by the shorter alias `<b-option>`.
 - `<b-form-optgroup>` can be used by the shorter alias `<b-optgroup>`.
