@@ -1,7 +1,6 @@
 {
   "title": "Form Select",
   "component": "bFormSelect",
-  "components": ["bFormOption", "bFormOptgroup"],
   "events": [
     {
       "event": "input",
