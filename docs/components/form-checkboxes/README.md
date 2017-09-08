@@ -76,7 +76,7 @@ options (value array) to `<b-form-checboxes>`.
 
 ## Inline and Stacked checkboxes
 `<b-form-checbox>` components render as inline elements by default. Set the prop `stacked` on
-`<b-form-checkbox-group>` to ensure each form control is on a separate line.
+`<b-form-checkbox-group>` to place each form control is on a separate line.
 
 ```html
 <template>
@@ -128,9 +128,9 @@ value for all `<b-formcheckbox>`s in the group individually or via the `name` pr
 of `<b-form-checkbox-group>`. This will inform users of assitive technologies that the
 checkboxes are related.
 
-Whenever using grouped checkboxes, it is recommended that they be placed in a `<b-form-group>`
-component to associate a `<label>` with the entire group of checkboxes.
-
+Whenever using multple checkboxes, it is recommended that the `<b-form-check-group>`
+be placed in a `<b-form-group>` component to associate a `<label>` with the entire
+group of checkboxes.
 
 ## Button style checkboxes
 Render checkboxes with the look of a button by setting the prop `buttons` on `<b-form-checkbox-group>`.
@@ -196,14 +196,14 @@ to `'invalid'`, `'valid'`, or `null`.
 
 
 ## Indeterminate (tri-state) support
-Normally a checkbox input can only have two states: `checked` or `unchecked`. They can
-have any value, but they either submit that value (checked) or don't (unchecked) with
-a form submission (although Bootstrap-Vue allows a value for the `unchecked` state)
+Normally a checkbox input can only have two states: _checked_ or _unchecked_. They can
+have any value, but they either submit that value (_checked_) or don't (_unchecked_) with
+a form submission (although Bootstrap-Vue allows a value for the _unchecked_ state)
 
-_Visually_, there are actually three states a checkbox can be in: `checked`,
-`unchecked`, or `indeterminate`.
+_Visually_, there are actually three states a checkbox can be in: _checked_,
+_unchecked_, or **_indeterminate_**.
 
-The `indeterminate` state is **visual only**. The checkbox is still either checked or
+The _indeterminate_ state is **visual only**. The checkbox is still either checked or
 unchecked as a value. That means the visual indeterminate state masks the real value
 of the checkbox, so that better make sense in your UI!
 
@@ -316,7 +316,8 @@ meaning in your application.
 
 
 ## Non custom check inputs
-You can have `b-form-checkbox` render a browser native chechbox input by setting the `plain` prop.
+You can have `<b-form-checkbox-group>` or `<b-form-checkbox>` render a browser native
+chechbox input by setting the `plain` prop.
 
 **Note:** The `plain` prop has no effect with `button` is set.
 
