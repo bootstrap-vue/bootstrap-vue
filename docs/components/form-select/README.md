@@ -38,13 +38,13 @@ Or manualy provide your options and optgroups:
 <template>
   <div>
     <b-form-select v-model="selected" class="mb-3">
-      <b-form-option :value="null">Please select an option</b-form-select>
-      <b-form-option value="a">Option A</b-form-select>
-      <b-form-option value="b" disabled>Option B (disabled)</b-form-select>
-      <b-form-optgroup label="Grouped Options">
-        <b-form-option :value="{'C':'3PO'}">Option with object value</b-form-select>
-        <b-form-option :value="{'R':'2D2'}">Another option with object value</b-form-select>
-      </b-form-optgroup>
+      <option :value="null">Please select an option</option>
+      <option value="a">Option A</option>
+      <option value="b" disabled>Option B (disabled)</option>
+      <optgroup label="Grouped Options">
+        <option :value="{'C':'3PO'}">Option with object value</option>
+        <option :value="{'R':'2D2'}">Another option with object value</option>
+      </optgroup>
     </b-form-select>
     <div>Selected: <strong>{{ selected }}</strong></div>
   </div>
@@ -61,7 +61,7 @@ Or manualy provide your options and optgroups:
 <!-- form-select-2.vue -->
 ```
 
-Feel free to mix the `options` prop with `<b-form-option>` and `<b-form-optgroup>`.
+Feel free to mix the `options` prop with `<option>` and `<optgroup>`.
 Manully placed options and optgroups will appear _below_ the options generated via the
 `options` prop. To place manual options and optgroups _above_ the options specified
 by the `options` prop, use the named slot `first`.
@@ -290,5 +290,4 @@ that has the `select-size` prop set to a value greater than 1.
 
 ## Aliases
 - `<b-form-select>` can be used by the shorter alias `<b-select>`.
-- `<b-form-option>` can use used by the shorter alias `<b-option>`.
-- `<b-form-optgroup>` can be used by the shorter alias `<b-optgroup>`.
+
