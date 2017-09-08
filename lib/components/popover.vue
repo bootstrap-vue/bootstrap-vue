@@ -8,6 +8,7 @@
 
 <script>
     import PopOver from '../classes/popover';
+    import { warn } from '../utils';
     import { toolpopMixin } from '../mixins';
 
     export default {
@@ -41,6 +42,7 @@
                     this._toolpop = new PopOver(target, this.getConfig(), this.$root);
                 } else {
                     this._toolpop = null;
+                    warn("b-popover: 'target' element not found!");
                 }
                 return this._toolpop;
             }
