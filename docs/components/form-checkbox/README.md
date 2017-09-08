@@ -150,9 +150,9 @@ which has the aria attribute `role="group"`. This will inform users of assistive
 that the checkboxes are related.
 
 When placing the group of checkboxes inside a `<b-form-group>`, set a unique `id` on the
-element with `role="group"` and set the `label-for` prop of the `<b-form-fieldset>` to
+element with `role="group"` and set the `label-for` prop of the `<b-form-group>` to
 this `id` value (see **Example 2** above).  Whenever using grouped checkboxes, it is
-recommended that they be placed in a `<b-form-fieldset>` component to associate a `<label>`
+recommended that they be placed in a `<b-form-group>` component to associate a `<label>`
 with the entire group of checkboxes.
 
 
