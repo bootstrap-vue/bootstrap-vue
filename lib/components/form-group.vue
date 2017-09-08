@@ -188,6 +188,7 @@
                 if (this.labelFor) {
                     // User supplied for target
                     this.targetId = this.labelFor;
+                    return;
                 }
                 // Else find first input with ID
                 const content = this.$refs.content;
