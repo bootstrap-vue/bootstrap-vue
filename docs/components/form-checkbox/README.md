@@ -6,8 +6,7 @@ semantic and accessible markup, so it is a solid replacement for the default che
 
 **Advanced Breaking Change Warning:**
 Major changes are coming to `<b-form-select>`, `<b-form-radio>`, `<b-form-checkbox>` that
-may alter how you use the components. These documents will be updatd as the changes are made.
-
+may alter how you use the components. These documents will be updated as the changes are made.
 
 **Example 1:** Single checkbox
 ```html
@@ -96,7 +95,7 @@ export default {
 ```
 
 ## Inline and Stacked checkboxes
-`<b-form-checbox>` components render as inline elements by default. Add a parent
+`<b-form-checkbox>` components render as inline elements by default. Add a parent
 with class `.custom-controls-stacked` to ensure each form control is on a separate line.
 
 ```html
@@ -144,15 +143,14 @@ Note that when `v-model` is bound to multiple checkboxes (i.e an array ref), the
 be returned in the `v-model` bound array. You should provide unique values for each
 checkbox's `value` prop.
 
-
 ### Multiple checkboxes and accessibility
 When binding multiple checkboxes together, you should set the `name` prop to the same value for
 all checkboxes in the group, as well as wrap the group in a `<div>` (or other block element)
-which has the aria attribute `role="group"`. This will inform users of assitive technologies
+which has the aria attribute `role="group"`. This will inform users of assistive technologies
 that the checkboxes are related.
 
-When placing the group of checkboxes inside a `<b-form-groupt>`, set a unique `id` on the
-element with `role="group"` and set the `label-for` prop of the `<b-form-fieldet>` to
+When placing the group of checkboxes inside a `<b-form-group>`, set a unique `id` on the
+element with `role="group"` and set the `label-for` prop of the `<b-form-fieldset>` to
 this `id` value (see **Example 2** above).  Whenever using grouped checkboxes, it is
 recommended that they be placed in a `<b-form-fieldset>` component to associate a `<label>`
 with the entire group of checkboxes.
@@ -163,7 +161,7 @@ Render a checkbox with the look of a button by setting the prop `button`. Change
 setting the `button-variant` prop to one of the standard Bootstrap button variants (see
 [`<b-button>`](./button) for supported variants). The default `button-variant` is `secondary`.
 
-Youy **must** wrap your button style checkbox(es) in a `<b-button-group>` component
+You **must** wrap your button style checkbox(es) in a `<b-button-group>` component
 and add the attribute `data-toggle="buttons"` to get the proper Bootstrap CSS styling.
 
 Button style checkboxes will have the class `.active` automatically applied to the label
@@ -352,7 +350,7 @@ meaning in your application.
 
 
 ## Non custom check inputs
-You can have `b-form-checkbox` render a browser native chechbox input by setting the `plain` prop.
+You can have `b-form-checkbox` render a browser native checkbox input by setting the `plain` prop.
 
 **Note:** The `plain` prop has no effect with `button` is set.
 
