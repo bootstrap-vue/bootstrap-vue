@@ -41,11 +41,12 @@
 </style>
 
 <script>
-    import {warn} from '../utils';
+    import { warn } from '../utils';
+    import { select } from '../utils/dom';
+    import { idMixin, formStateMixin } from '../mixins';
     import bFormRow from './form-row';
     import bFormText from './form-text';
     import bFormFeedback from './form-feedback';
-    import { idMixin, formStateMixin } from '../mixins';
 
     // Selector to find first input with an ID. This Order is important!
     const INPUT_SELECTOR = [
@@ -191,11 +192,12 @@
                 // Else find first input with ID
                 const content = this.$refs.content;
                 if (!content) {
-                    return null;
+                    this.targetId = null;
+                } else {
+                    // Find first input element with an ID
+                    const input = select(INPUT_SELECTOR, content);
+                    this.targetId = (input && input.id) ? input.id : null;
                 }
-                // Find first input element with an ID
-                const input = content.querySelector(INPUT_SELECTOR);
-                this.targetId = (input && input.id) ? input.id : null;
             }
         },
         mounted() {
