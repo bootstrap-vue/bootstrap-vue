@@ -93,7 +93,8 @@
 <script>
     import bBtn from './button';
     import { listenOnRootMixin } from '../mixins';
-    import { from as arrayFrom } from '../utils/array'
+    import { from as arrayFrom, arrayFind } from '../utils/array';
+    import { isElement, isVisible, selectAll, select } from '../utils/dom';
 
     const FOCUS_SELECTOR = [
         'button:not([disabled])',
@@ -104,27 +105,12 @@
         '[tabindex]:not([disabled]):not(.disabled)'
     ].join(',');
 
-    // Determine if an HTML element is visible - Faster than CSS check
-    function isVisible(el) {
-        return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
-    }
-
     // Find the first visible element contained in a given root element
     function findFirstVisible(root, selector) {
-        if (!root || !root.querySelectorAll || !selector) {
+        if (!isElement(root) || !selector) {
             return null;
         }
-        let els = arrayFrom(root.querySelectorAll(selector));
-
-        // IE 10 & 11 do not support native array.find()
-        // So we try native find first, then fall back to a loop
-        let el = els.find ? els.find(el => isVisible(el)) : null;
-        for (let i = 0; !el && i < els.length; i++) {
-            if (isVisible(els[i])) {
-                el = els[i];
-            }
-        }
-        return el;
+        return arrayFind(selectAll(selector, root), isVisible) || null;
     }
 
     export default {
@@ -143,7 +129,7 @@
         computed: {
             body() {
                 if (typeof document !== 'undefined') {
-                    return document.querySelector('body');
+                    return document.body;
                 }
             }
         },
@@ -357,7 +343,7 @@
                 if (el) {
                     if (typeof el === 'string') {
                         // CSS Selector
-                        el = document.querySelector(el);
+                        el = select(el);
                     }
                     if (el && el.$el && typeof el.$el.focus === 'function') {
                         // Component vm reference
