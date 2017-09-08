@@ -78,6 +78,7 @@
 <script>
     import { from as arrayFrom } from '../utils/array';
     import { observeDom } from '../utils';
+    import { selectAll } from '../utils/dom';
     import { idMixin } from '../mixins';
 
     // Slide directional classes
@@ -257,7 +258,7 @@
                 this.pause();
 
                 // Get all slides as DOM elements
-                this.slides = arrayFrom(this.$refs.inner.querySelectorAll('.carousel-item'));
+                this.slides = selectAll('.carousel-item', this.$refs.inner);
 
                 const numSlides = this.slides.length;
 
