@@ -10,6 +10,7 @@
     import PopOver from '../classes/popover';
     import { isArray } from '../utils/array';
     import { assign } from '../utils/object';
+    import { isElement } from '../utils/dom';
     import { observeDom, warn } from '../utils';
 
     export default {
@@ -160,7 +161,7 @@
                 } else if (typeof target === 'object' && target.$el) {
                     // Component reference
                     return target.$el;
-                } else if (typeof target === 'object' && target.tagName) {
+                } else if (typeof target === 'object' && isElement(target)) {
                     // Element reference
                     return target;
                 }
