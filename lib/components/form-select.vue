@@ -12,11 +12,12 @@
             ref="input"
     >
         <slot name="first"><slot>
-        <b-form-option v-for="(option, idx) in formOptions"
+        <option v-for="(option, idx) in formOptions"
                        :value="option.value"
                        :disabled="option.disabled"
                        :key="`option_${idx}_opt`"
-        >{{ option.text }}</b-form-option>
+                       v-html="option.text"
+        ></option>
         <slot></slot>
     </select>
 </template>
