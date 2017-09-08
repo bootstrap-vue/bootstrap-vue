@@ -120,8 +120,7 @@
 </style>
 
 <script>
-import bLink from './link';
-import { pickLinkProps } from '../mixins/link';
+import bLink, { pickLinkProps } from './link';
 import { from as arrayFrom } from '../utils/array'
 import range from '../utils/range'
 import { assign } from '../utils/object';
