@@ -16,9 +16,7 @@
             <slot></slot>
         </label>
     </div>
-    <label v-else
-           :class="is_BUttonMode ? buttonClasses : labelClasses"
-           :aria-pressed="is_ButtonMode ? (is_Checked ? 'true' : 'false') : null">
+    <label v-else :class="is_BUttonMode ? buttonClasses : labelClasses">
         <input type="checkbox"
                :id="safeId()"
                v-model="computedLocalChecked"
