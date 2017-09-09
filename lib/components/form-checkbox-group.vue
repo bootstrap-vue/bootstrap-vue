@@ -97,6 +97,17 @@
                     return 'true';
                 }
                 return this.stateClass === 'is-invalid' ? 'true' : null;
+            },
+            get_State() {
+                // This is a tri-state prop (true/valid, false/invalid, null)
+                if (typeof this.state === 'boolean') {
+                    return this.state;
+                } else if (this.state === 'valid') {
+                    return true;
+                } else if (this.state === 'invalid') {
+                    return false;
+                }
+                return null;
             }
         }
     };
