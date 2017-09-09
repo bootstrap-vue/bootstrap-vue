@@ -93,10 +93,10 @@
                ];
             },
             computedAriaInvalid() {
-                if (this.ariaInvalid === true || this.ariaInvalid === 'true') {
+                if (this.ariaInvalid === true || this.ariaInvalid === 'true' || this.ariaInvalid === '') {
                     return 'true';
                 }
-                return this.get_State === true ? 'true' : null;
+                return this.get_State === false ? 'true' : null;
             },
             get_State() {
                 // This is a tri-state prop (true/valid, false/invalid, null)
