@@ -1,14 +1,30 @@
 <template>
-    <label :class="labelClasses"
-           :aria-pressed="button ? (isChecked ? 'true' : 'false') : null"
-    >
+    <div v-if="is_Plain" :class="['form-check', is_Stacked ? '' : 'form-check-inline']">
+        <label v-else class="form-check-label">
+            <input type="checkbox"
+                   :id="safeId()"
+                   v-model="computedLocalChecked"
+                   class="form-check-input"
+                   :name="get_Name"
+                   :value="value"
+                   :disabled="is_Disabled"
+                   :required="is_Required"
+                   ref="check"
+                   autocomplete="off"
+                   :aria-required="is_Required ? 'true' : null"
+                   @change="handleChange">
+            <slot></slot>
+        </label>
+    </div>
+    <label v-else
+           :class="is_BUttonMode ? buttonClasses : labelClasses"
+           :aria-pressed="is_ButtonMode ? (is_Checked ? 'true' : 'false') : null">
         <input type="checkbox"
                :id="safeId()"
                v-model="computedLocalChecked"
-               :class="inputClasses"
+               :class="is_ButtonMode ? '' : 'custom-control-input'"
                :name="get_Name"
                :value="value"
-               :checked="isChecked"
                :disabled="is_Disabled"
                :required="is_Required"
                ref="check"
@@ -17,144 +33,41 @@
                @focus="handleFocus"
                @blur="handleFocus"
                @change="handleChange">
-        <span v-if="is_Custom && !is_button" class="custom-control-indicator" aria-hidden="true"></span>
-        <span :class="(is_Custom && !is_Button) ? 'custom-control-description' : null">
+        <span v-if="!is_buttonMode" class="custom-control-indicator" aria-hidden="true"></span>
+        <span :class="is_ButtonMode ? '' : 'custom-control-description'">
             <slot></slot>
         </span>
     </label>
 </template>
 
 <script>
-    import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../mixins';
+    import { idMixin, formRadioCheckMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../mixins';
     import { isArray } from '../utils/array';
     import { looseEqual } from '../utils';
 
     export default {
-        mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin],
-        data() {
-            return {
-                localChecked: this.checked,
-                hasFocus: false
-            }
-        },
-        model: {
-            prop: 'checked',
-            event: 'change'
-        },
+        mixins: [idMixin, formRadioCheckMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin],
         props: {
-            value: {
-                default: true
-            },
             uncheckedValue: {
-                // Not applicable in b-form-checkboxes group
+                // Not applicable in multi-check mode
                 default: false
             },
-            checked: {
-                default: true
-            },
             indeterminate: {
-                // Only applicable when not in b-form-checkboxes group
+                // Not applicable in multi-check mode
                 type: Boolean,
                 default: false,
-            },
-            button: {
-                type: Boolean,
-                default: false,
-            },
-            buttonVariant: {
-                type: String,
-                default: null,
             }
         },
         computed: {
-            computedLocalChecked: {
-                // bind to the parent check group value
-                get() {
-                    return this.$parent.is_RadioCheckGroup ? this.$parent.localChecked : this.localChecked;
-                },
-                set(val) {
-                    if (this.$parent.is_RadioCheckGroup) {
-                        this.$parent.localChecked = val;
-                    } else {
-                        this.localChecked = val;
-                    }
-                }
-            },
-            is_Disabled() {
-                // Child can be disabled while parent isn't
-                return Boolean(this.$parent.disabled || this.disabled);
-            },
-            is_Required() {
-                return Boolean(this.$parent.required || this.required);
-            },
-            // Form-custom mixin
-            is_Plain() {
-                return Booloean(this.$parent.plain || this.plain);
-            },
-            is_Custom() {
-                return !this.is_Plain;
-            },
-            get_Size() {
-                return this.$parent.size || this.size;
-            },
-            get_State() {
-                // This is a tri-state prop (true, false, null)
-                if (typeof this.computedState === 'boolean') {
-                    return this.computedState;
-                } else if (this.$parent.is_RadioCheckGroup) {
-                    return this.$parent.computedState;
-                }
-            },
-            get_StateClass() {
-                typeof this.get_State === 'boolean' ? (this.get_State ? 'is-valid' : 'is-invalid') : ''
-            },
-            is_Stacked() {
-                return Boolean(this.$parent.stacked);
-            },
-            is_Inline() {
-                return !this.is_Stacked;
-            },
-            is_ButtonMode() {
-                // Checboxes could be a single checkbox in button mode
-                return Boolean((this.$parent.is_RadioCehckGroup && this.$parent.buttons) || this.button);
-            },
-            get_ButtonVariant() {
-                // this.buttonVariant only applies to radios & checkboxes
-                return this.buttonVariant || this.$parent.buttonVariant || 'secondary';
-            },
-            get_Name() {
-                return (this.$parent.is_RadioCehckGroup ? this.$parent.name : this.name) || null;
-            },
             labelClasses() {
-                if (this.is_ButtonMode) {
-                    return [
-                        'btn',
-                        `btn-${this.get_ButtonVariant}`,
-                        Boolean(this.get_Size) ? `btn-${this.get_Size}` : '',
-                        this.is_Disabled ? 'disabled' : '',
-                        this.isChecked ? 'active' : '',
-                        this.hasFocus ? 'focus' : ''
-                    ];
-                }
-                // Not button mode
                 return [
+                    'custom-control',
+                    'custom-checkbox',
                     Boolean(this.get_Size) ? `form-control-${this.get_Size}` : '',
-                    this.is_Custom ? 'custom-control' : 'form-check-label',
-                    this.is_Custom ? 'custom-checkbox' : '',
-                    (this.is_Inline && this.is_Plain) ? 'form-check-inline' : '',
                     this.get_StateClass
                 ];
             },
-            inputClasses() {
-                if (this.is_ButtonMode) {
-                    return [];
-                } else {
-                    return [
-                        this.is_Custom ? 'custom-control-input' : 'form-check-input'
-                    ];
-                }
-            },
-            isChecked() {
+            is_Checked() {
                 const checked = this.computedLocalChecked;
                 if (isArray(checked)) {
                     for (let i = 0; i < checked.length; i++) {
@@ -169,11 +82,8 @@
             }
         },
         watch: {
-            checked(newVal, oldVal) {
-                this.computedLocalChceked = newVal;
-            },
             computedLocalChceked(newVal, oldVal) {
-                if (this.$parent.is_RadioCheckGroup || isArray(this.computedLocalChceked)) {
+                if (this.isChild || isArray(this.computedLocalChceked)) {
                     this.$emit('input', this.computedLocalChceked);
                 } else {
                     // Single radio mode supports unchecked value
@@ -187,7 +97,7 @@
         methods: {
             handleChange({ target: { checked } }) {
                 // Change event is only fired via user interaction
-                if (this.$parent.is_RadioCheckGroup || isArray(this.computedLocalChceked)) {
+                if (this.isChild || isArray(this.computedLocalChceked)) {
                     this.$emit('change', checked ? this.value : null);
                 } else {
                     // Single radio mode supports unchecked value
@@ -197,22 +107,12 @@
             },
             setIndeterminate(state) {
                 // Indeterminate only supported in single checkbox mode
-                if (this.$parent.is_RadioCheckGroup || isArray(this.computedLocalChceked)) {
+                if (this.is_Child || isArray(this.computedLocalChceked)) {
                     return;
                 }
                 this.$refs.check.indeterminate = state;
                 // Emit update event to prop
                 this.$emit('update:indeterminate', this.$refs.check.indeterminate);
-            },
-            handleFocus(evt) {
-                // Add or remove 'focus' class on label in button mode
-                if (this.is_ButtonMode && evt.target) {
-                    if (evt.type === 'focus') {
-                        this.hasFocus = true;
-                    } else if (evt.type === 'blur') {
-                        this.hasFocus = false;
-                    }
-                }
             }
         },
         mounted() {
