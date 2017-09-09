@@ -81,11 +81,11 @@
         },
         watch: {
             computedLocalChceked(newVal, oldVal) {
-                if (this.isChild || isArray(this.computedLocalChceked)) {
+                if (this.is_Child || isArray(this.computedLocalChceked)) {
                     this.$emit('input', this.computedLocalChceked);
                 } else {
                     // Single radio mode supports unchecked value
-                    this.$emit('input', this.isChecked ? this.value : this.uncheckedValue)
+                    this.$emit('input', this.is_Checked ? this.value : this.uncheckedValue)
                 }
             },
             indeterminate(newVal, oldVal) {
@@ -95,7 +95,7 @@
         methods: {
             handleChange({ target: { checked } }) {
                 // Change event is only fired via user interaction
-                if (this.isChild || isArray(this.computedLocalChceked)) {
+                if (this.is_Child || isArray(this.computedLocalChceked)) {
                     this.$emit('change', checked ? this.value : null);
                 } else {
                     // Single radio mode supports unchecked value
