@@ -1,8 +1,28 @@
 <template>
-    <label :class="labelClasses">
+    <div v-if="is_Plain" class="form-check">
+        <!-- Plain Radio -->
+        <label :class="['form-check-label', stacked ? '' : 'form-check-inline']">
+            <input v-model="computedLocalChecked"
+                   :id="safeId()"
+                   class="form-check-label"
+                   :value="value"
+                   :name="get_Name"
+                   :required="get_Name && is_Required"
+                   :disabled="is_Disabled"
+                   ref="radio"
+                   type="radio"
+                   autocomplete="off"
+                   @focus="handleFocus"
+                   @blur="handleFocus"
+                   @change="handleChange">
+            <slot></slot>
+        </label>
+    </div>
+    <label v-else :class="is_ButtonMode ? buttonClasses : labelClasses">
+        <!-- Custom or Button Radio -->
         <input v-model="computedLocalChecked"
                :id="safeId()"
-               :class="inputClasses"
+               :class="is_ButtonMode ? '' : 'custom-control-input'"
                :value="value"
                :name="get_Name"
                :required="get_Name && is_Required"
@@ -14,19 +34,19 @@
                @blur="handleFocus"
                @change="handleChange"
         >
-        <span v-if="is_Custom && !is_ButtonMode" class="custom-control-indicator" aria-hidden="true"></span>
-        <span :class="(is_Custom && !is_ButtonMode) ? 'custom-control-description' : null">
+        <span v-if="!is_ButtonMode" class="custom-control-indicator" aria-hidden="true"></span>
+        <span :class="!is_ButtonMode ? 'custom-control-description' : null">
             <slot></slot>
         </span>
     </label>
 </template>
 
 <script>
-    import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../mixins';
+    import { idMixin, formMixin, formStateMixin } from '../mixins';
     import { looseEqual } from '../utils';
 
     export default {
-        mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin],
+        mixins: [idMixin, formMixin, formStateMixin],
         data() {
             return {
                 localChceked: this.checked,
@@ -43,11 +63,6 @@
             },
             checked: {
                 // This is the model, except when in group mode
-            },
-            button: {
-                // Render as button style
-                type: Boolean,
-                default: false
             },
             buttonVariant: {
                 // Only applicable when rendered with button style
@@ -66,96 +81,99 @@
         },
         computed: {
             computedLocalChecked: {
-                // This would mainly be for checkboxes, but we use it here anyways
                 get() {
-                    return this.$parent.is_RadioGroup ? this.$parent.localChecked : this.localChecked;
+                    if (this.is_Child) {
+                        return this.$parent.localChecked;
+                    } else {
+                        return this.localChecked;
+                    }
                 },
                 set(val) {
-                    if (this.$parent.is_RadioGroup) {
+                    if (this.is_Child) {
                         this.$parent.localChecked = val;
                     } else {
                         this.localChecked = val;
                     }
                 }
             },
+            is_Child() {
+                return Boolean(this.$parent && this.$parent.is_RadioCheckGroup);
+            },
             is_Disabled() {
                 // Child can be disabled while parent isn't
-                return Boolean(this.$parent.disabled || this.disabled);
+                return Boolean(this.is_Child ? this.$parent.disabled : this.disabled);
             },
             is_Required() {
-                return Boolean(this.$parent.required || this.required);
+                return Boolean(this.is_Child ? this.$parent.required : this.required);
             },
-            // Form-custom mixin
             is_Plain() {
-                return Booloean(this.$parent.plain || this.plain);
+                return Booloean(this.is_Child ? this.$parent.plain : this.plain);
             },
             is_Custom() {
                 return !this.is_Plain;
             },
             get_Size() {
-                return this.$parent.size || this.size;
+                return this.is_Child ? this.$parent.size : this.size;
             },
             get_State() {
                 // This is a tri-state prop (true, false, null)
-                return (typeof this.state === 'boolean' ? this.state : this.$parent.state) || null;
+                if (typeof this.state === 'boolean') {
+                    return this.state;
+                } else if (this.state === 'valid') {
+                    return true;
+                } else if (this.state === 'invalid') {
+                    return false;
+                } else if (this.is_Childp && typeof this.$parent.get_State === 'boolean') {
+                    return this.$parent.get_State;
+                }
+                return null;
             },
             get_StateClass() {
                 // This is a tri-state prop (true, false, null)
                 return typeof this.get_State === 'boolean' ? (this.get_State ? 'is-valid' : 'is-invalid') : '';
             },
             is_Stacked() {
-                return Boolean(this.$parent.stacked);
+                return Boolean(this.is_Child && this.$parent.stacked);
             },
             is_Inline() {
                 return !this.is_Stacked;
             },
             is_ButtonMode() {
-                return Boolean(this.$parent.buttons || this.button);
+                return Boolean(this.is_Child && this.$parent.buttons);
             },
             get_ButtonVariant() {
-                // this.buttonVariant only applies to radios & checkboxes
-                return this.buttonVariant || this.$parent.buttonVariant || 'secondary';
+                // Local variant trumps parent variant
+                return this.buttonVariant || (this.is_Child ? this.$parent.buttonVariant : null) || 'secondary';
             },
             get_Name() {
-                return (this.$parent.is_RadioCheckGroup ? this.$parent.name : this.name) || null;
+                return (this.is_Child ? this.$parent.name : this.name) || null;
             },
-            isChecked() {
+            is_Checked() {
+                // Specific to Radio
                 return looseEqual(this.value, this.computedLocalChecked);
             },
-            labelClasses() {
-                if (this.is_ButtonMode) {
-                    return [
-                        'btn',
-                        `btn-${this.getButtonVariant}`,
-                        Boolean(this.get_Size) ? `btn-${this.get_Size}` : '',
-                        // Fix stacking issue (remove space between buttons, specifically the last one)
-                        // This might be fixed in BS V4.beta.2
-                        this.is_Stacked ? 'mb-0' : '',
-                        // 'disabled' class makes "button" look disabled
-                        this.is_Disabled ? 'disabled' : '',
-                        // 'active' class makes "button" look pressed
-                        this.isChecked ? 'active' : '',
-                        // Focus class makes button look focused
-                        this.hasFocus ? 'focus' : ''
-                    ];
-                }
-                // Not button mode
+            buttonClasses() {
+                // Same for radio & check
                 return [
-                    Boolean(this.get_Size) ? `form-control-${this.get_Size}` : '',
-                    this.is_Custom ? 'custom-control' : 'form-check-label',
-                    this.is_Custom ? 'custom-radio' : '',
-                    (this.is_Inline && this.is_Plain) ? 'form-check-inline' : '',
-                    this.get_StateClass
+                    'btn',
+                    `btn-${this.getButtonVariant}`,
+                    Boolean(this.get_Size) ? `btn-${this.get_Size}` : '',
+                    // 'disabled' class makes "button" look disabled
+                    this.is_Disabled ? 'disabled' : '',
+                    // 'active' class makes "button" look pressed
+                    this.is_Checked ? 'active' : '',
+                    // Focus class makes button look focused
+                    this.hasFocus ? 'focus' : ''
                 ];
             },
-            inputClasses() {
-                if (this.is_ButtonMode) {
-                    return [];
-                } else {
-                    return [
-                        this.is_Custom ? 'custom-control-input' : 'form-check-input'
-                    ];
-                }
+            labelClasses() {
+                // Specific to radio
+                return [
+                    Boolean(this.get_Size) ? `form-control-${this.get_Size}` : '',
+                    'custom-control',
+                    'custom-radio',
+                    this.get_StateClass
+                ];
             }
         },
         methods: {
