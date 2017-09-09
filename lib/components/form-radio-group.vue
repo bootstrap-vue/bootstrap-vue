@@ -106,6 +106,7 @@
                     return true;
                 } else if (this.state === 'invalid') {
                     return false;
+                }
                 return null;
             }
         }
