@@ -78,7 +78,7 @@
         },
         computed: {
             groupClasses() {
-                if (this.is_ButtonMode) {
+                if (this.buttons) {
                     return [
                         'btn-group',
                         this.sizeBtnClass,
@@ -88,15 +88,15 @@
                 }
                 return [
                     this.sizeFormClass,
-                    this.stacked ? 'custom-controls-stacked' : '',
+                    (this.stacked && this.custom) ? 'custom-controls-stacked' : '',
                     this.validated ? `was-validated` : ''
                ];
             },
             computedAriaInvalid() {
-                if (this.ariaInvalid === true || this.AriaInvalid === 'true') {
+                if (this.ariaInvalid === true || this.ariaInvalid === 'true' || this.ariaInvalid === '') {
                     return 'true';
                 }
-                return this.stateClass === 'is-invalid' ? 'true' : null;
+                return this.get_State === false ? 'true' : null;
             },
             get_State() {
                 // This is a tri-state prop (true/valid, false/invalid, null)
