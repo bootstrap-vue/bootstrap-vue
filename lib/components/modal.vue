@@ -85,7 +85,7 @@
     import bBtnClose from './button-close';
     import { idMixin, listenOnRootMixin } from '../mixins';
     import { from as arrayFrom, arrayFind } from '../utils/array';
-    import { isElement, isVisible, selectAll, select } from '../utils/dom';
+    import { isElement, isVisible, selectAll, select, addClass, removeClass, setAttr, removeAttr, getAttr } from '../utils/dom';
     import { observeDom, warn } from '../utils';
     import { BvEvent } from '../classes';
 
@@ -358,7 +358,7 @@
                 this.is_transitioning = true;
                 this.checkScrollbar();
                 this.setScrollbar();
-                document.body.classList.add('modal-open');
+                addClass(document.body, 'modal-open');
                 this.setResizeEvent(true);
             },
             onEnter() {
@@ -387,7 +387,7 @@
                 this.is_show = false;
             },
             onAfterLeave() {
-                document.body.classList.remove('modal-open');
+                removeClass(document.body, 'modal-open');
                 this.is_block = false;
                 this.resetAdjustments();
                 this.resetScrollbar();
@@ -526,7 +526,7 @@
                     selectAll('.fixed-top, .fixed-bottom, .is-fixed, .sticky-top').forEach(el => {
                       const actualPadding = el.style.paddingRight;
                       const calculatedPadding = computedStyle(el).paddingRight;
-                      el.setAttribute('data-padding-right', actualPadding);
+                      setAttr(el,'data-padding-right', actualPadding);
                       el.style.paddingRight = `${parseFloat(calculatedPadding) + this.scrollbarWidth}px`;
                     });
 
@@ -534,7 +534,7 @@
                     selectAll('.sticky-top').forEach(el => {
                       const actualMargin = el.style.marginRight;
                       const calculatedMargin = computedStyle(el).marginRight;
-                      el.setAttribute('data-margin-right', actualMargin);
+                      setAttr(el, 'data-margin-right', actualMargin);
                       el.style.marginRight = `${parseFloat(calculatedMargin) - this.scrollbarWidth}px`;
                     });
 
@@ -542,37 +542,37 @@
                     selectAll('.navbar-toggler').forEach(element => {
                       const actualMargin = el.style.marginRight;
                       const calculatedMargin = computedStyle(el).marginRight;
-                      el.setAttribute('data-margin-right', actualMargin);
+                      setAttr(el, 'data-margin-right', actualMargin);
                       el.style.marginRight = `${parseFloat(calculatedMargin) + this.scrollbarWidth}px`;
                     });
 
                     // Adjust body padding
                     const actualPadding = body.style.paddingRight;
                     const calculatedPadding = computedStyle(body).paddingRight;
-                    body.setAttribute('data-padding-right', actualPadding);
+                    setAtttr(body, 'data-padding-right', actualPadding);
                     body.style.paddingRight = `${parseFloat(calculatedPadding) + this.scrollbarWidth}px`;
                 }
             },
             resetScrollbar() {
                 // Restore fixed content padding
                 selectAll('.fixed-top, .fixed-bottom, .is-fixed, .sticky-top').forEach(el => {
-                    const padding = el.getAttribute('data-padding-right') || '';
+                    const padding = getAttr(el, 'data-padding-right') || '';
                     el.style.paddingRight = padding;
-                    el.removeAttribute('data-padding-right');
+                    removeAttr(el,'data-padding-right');
                 });
 
                 // Restore sticky content and navbar-toggler margin
                 selectAll('.sticky-top, .navbar-toggler').forEach(el => {
-                    const margin = el.getAttribute('data-margin-right') || '';
+                    const margin = getAttr(el, 'data-margin-right') || '';
                     el.style.margingRight = margin;
-                    el.removeAttribute('data-margin-right');
+                    removeAttr(el, 'data-margin-right');
                 });
 
                 // Restore body padding
                 const body = document.body;
-                const padding = body.getAttribute('data-padding-right') || '';
+                const padding = getAttr(body, 'data-padding-right') || '';
                 body.style.paddingRight = padding;
-                body.removeAttribute('data-padding-right');
+                removeAttr(body, 'data-padding-right');
             }
 
         },
