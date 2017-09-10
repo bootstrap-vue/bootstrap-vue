@@ -34,7 +34,7 @@
                          @click.stop
                     >
 
-                        <header class="modal-header"
+                        <header :class="headerClases"
                                 ref="header"
                                 :id="safeId('__BV_modal_header_')"
                                 v-if="!hideHeader"
@@ -50,16 +50,18 @@
                                         :aria-label="headerCloseLabel"
                                         @click="hide('headerclose')"
                                 >
-                                    <span aria-hidden="true" v-html="headerCloseTitle"></span>
+                                    <span aria-hidden="true"
+                                          :class="Boolean(headerTextVariant) ? `text-${headerTextVariant}` : ''"
+                                          v-html="headerCloseTitle"></span>
                                 </button>
                             </slot>
                         </header>
 
-                        <div class="modal-body" ref="body" :id="safeId('__BV_modal_body_')">
+                        <div :class="bodyClasses" ref="body" :id="safeId('__BV_modal_body_')">
                             <slot></slot>
                         </div>
 
-                        <footer class="modal-footer" ref="footer" v-if="!hideFooter" :id="safeId('__BV_modal_footer_')">
+                        <footer :class="footerClasses" ref="footer" v-if="!hideFooter" :id="safeId('__BV_modal_footer_')">
                             <slot name="modal-footer">
                                 <b-btn v-if="!okOnly"
                                        :variant="cacelVariant"
@@ -163,6 +165,38 @@
                 type: Boolean,
                 default: false
             },
+            headerBgVariant: {
+                type: String,
+                default: null
+            },
+            headerBorderVariant: {
+                type: String,
+                default: null
+            },
+            headerTextVariant: {
+                type: String,
+                default: null
+            },
+            bodyBgVariant: {
+                type: String,
+                default: null
+            },
+            bodyTextVariant: {
+                type: String,
+                default: null
+            },
+            footerBgVariant: {
+                type: String,
+                default: null
+            },
+            footerBorderVariant: {
+                type: String,
+                default: null
+            },
+            footerTextVariant: {
+                type: String,
+                default: null
+            },
             hideHeader: {
                 type: Boolean,
                 default: false
@@ -171,11 +205,11 @@
                 type: Boolean,
                 default: false
             },
-            hideBackdrop: {
+            hideHeaderClose: {
                 type: Boolean,
                 default: false
             },
-            hideHeaderClose: {
+            hideBackdrop: {
                 type: Boolean,
                 default: false
             },
@@ -239,6 +273,33 @@
                     'modal-backdrop',
                     this.noFade ? '' : 'fade',
                     this.is_show ? 'show' : ''
+                ];
+            },
+            headerClasses() {
+                return [
+                    'modal-header',
+                    // Rounding is needed to fix a bug in bootstrap V4.beata.1 CSS
+                    Boolean(this.headerBgVariant) ? 'rounded-top' : '',
+                    Boolean(this.headerBgVariant) ? `bg-${this.headerBgVariant}` : '',
+                    Boolean(this.headerTextVariant) ? `text-${this.headerTextVariant}` : '',
+                    Boolean(this.headerBorderVariant) ? `border-${this.headerBorderVariant}` : ''
+                ];
+            },
+            bodyClasses() {
+                return [
+                    'modal-body',
+                    Boolean(this.bodyBgVariant) ? `bg-${this.bodyBgVariant}` : '',
+                    Boolean(this.bodyTextVariant) ? `text-${this.bodyTextVariant}` : ''
+                ];
+            },
+            footerClasses() {
+                return [
+                    'modal-footer',
+                    // Rounding is needed to fix a bug in bootstrap V4.beata.1 CSS
+                    Boolean(this.footerBgVariant) ? 'rounded-bottom' : '',
+                    Boolean(this.footerBgVariant) ? `bg-${this.footerBgVariant}` : '',
+                    Boolean(this.footerTextVariant) ? `text-${this.footerTextVariant}` : '',
+                    Boolean(this.footerBorderVariant) ? `border-${this.footerBorderVariant}` : ''
                 ];
             }
         },
