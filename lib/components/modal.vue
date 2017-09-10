@@ -15,6 +15,7 @@
         >
             <div :class="modalClasses"
                  :id="safeId()"
+                 :aria-hidden="is_visible ? '' : 'true'"
                  role="dialog"
                  ref="modal"
                  v-show="is_visible"
@@ -106,6 +107,10 @@
         }
         return arrayFind(selectAll(selector, root), isVisible) || null;
     }
+    
+    function reflow(el) {
+        return el.offsetHeight;
+    }
 
     export default {
         mixins: [idMixin, listenOnRootMixin],
@@ -117,6 +122,7 @@
                 is_show: false,
                 is_block: false,
                 scrollbarWidth: 0,
+                isBodyOverflowing: false,
                 return_focus: this.returnFocus || null
             };
         },
@@ -258,10 +264,11 @@
                 });
                 this.emitEvent(showEvt);
                 // Show if not canceled
-                if (!showEvt.defaultPrevented) {
-                    this.is_visible = true;
-                    this.$emit('change', this.is_visible);
+                if (showEvt.defaultPrevented || this.is_visible) {
+                    return;
                 }
+                this.is_visible = true;
+                this.$emit('change', this.is_visible);
             },
             hide(trigger) {
                 if (!this.is_visible) {
@@ -287,18 +294,23 @@
                 }
                 this.emitEvent(hideEvt);
                 // Hide if not canceled
-                if (!hideEvt.defaultPrevented) {
-                    this.is_visible = false;
-                    this.$emit('change', this.is_visible);
+                if (hideEvt.defaultPrevented || !this._is_visible) {
+                    return;
                 }
+                this.is_visible = false;
+                this.$emit('change', this.is_visible);
             },
             // Transition Handlers
             onBeforeEnter() {
                 this.is_transitioning = true;
+                this.checkScrollbar();
+                this.setScrollbar();
                 document.body.classList.add('modal-open');
+                this.setResizeEvent(true);
             },
             onEnter() {
                 this.is_block = true;
+                this.$refs.modal.scrollTop = 0;
             },
             onAfterEnter() {
                 this.is_show = true;
@@ -316,6 +328,7 @@
             },
             onBeforeLeave() {
                 this.is_transitioning = true;
+                this.setResizeEvent(false);
             },
             onLeave() {
                 this.is_show = false;
@@ -323,6 +336,8 @@
             onAfterLeave() {
                 document.body.classList.remove('modal-open');
                 this.is_block = false;
+                this.resetAdjustments();
+                this.resetScrollbar();
                 this.is_transitioning = false;
                 this.$nextTick(() => {
                     this.returnFocusTo();
@@ -364,6 +379,12 @@
                     this.$refs.content.focus();
                 }
             },
+            // Resize Listener
+            setResizeEvent(on) {
+                ['resize', 'orientationchange'].forEach(evtName => {
+                    window[on ? 'addEventListener' : 'removeEventListener'](evtName, this.adjustDialog);
+                }
+            },
             // Root Listener handlers
             showHandler(id, triggerEl) {
                 if (id === this.id) {
@@ -373,6 +394,12 @@
             },
             hideHandler(id) {
                 if (id === this.id) {
+                    this.hide();
+                }
+            },
+            modalListener(bvEvt) {
+                // IF another modal opens, close this one
+                if (bvEvt.vueTarget !== this) {
                     this.hide();
                 }
             },
@@ -402,18 +429,122 @@
                         el.focus();
                     }
                 }
+            },
+            //Utility methods
+            getScrollbarWidth() { // thx d.walsh
+                const scrollDiv = document.createElement('div');
+                scrollDiv.className = 'modal-scrollbar-measure';
+                document.body.appendChild(scrollDiv);
+                this.scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
+                document.body.removeChild(scrollDiv);
+            },
+            adjustDialog() {
+                if (!this.is_visible) {
+                    return;
+                }
+                const modal = this.$refs.modal;
+                const isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight;
+
+                if (!this.isBodyOverflowing && isModalOverflowing) {
+                    modal.style.paddingLeft = `${this.scrollbarWidth}px`;
+                }
+
+                if (this.isBodyOverflowing && !isModalOverflowing) {
+                    modal.style.paddingRight = `${this.scrollbarWidth}px`;
+                }
+            },
+            resetAdjustments() {
+                const modal = this.$refs.modal;
+                modal.style.paddingLeft = '';
+                modal.style.paddingRight = '';
+            },
+            checkScrollbar() {
+              this.isBodyOverflowing = document.body.clientWidth < window.innerWidth;
+            },
+            setScrollbar() {
+                if (this.isBodyOverflowing) {
+                    // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
+                    //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
+                    
+                    const ComputedStyle = document.getComputedStyle;
+                    const body = document.body;
+
+                    // Adjust fixed content padding
+                    selectAll('.fixed-top, .fixed-bottom, .is-fixed, .sticky-top').forEach(el => {
+                      const actualPadding = el.style.paddingRight;
+                      const calculatedPadding = computedStyle(el).paddingRight;
+                      el.setAttribute('data-padding-right', actualPadding);
+                      el.style.paddingRight = `${parseFloat(calculatedPadding) + this.scrollbarWidth}px`;
+                    });
+
+                    // Adjust sticky content margin
+                    selectAll('.sticky-top').forEach(el => {
+                      const actualMargin = el.style.marginRight;
+                      const calculatedMargin = computedStyle(el).marginRight;
+                      el.setAttribute('data-margin-right', actualMargin);
+                      el.style.marginRight = `${parseFloat(calculatedMargin) - this.scrollbarWidth}px`;
+                    });
+
+                    // Adjust navbar-toggler margin
+                    selectAll('.navbar-toggler').forEach(element => {
+                      const actualMargin = el.style.marginRight;
+                      const calculatedMargin = computedStyle(el).marginRight;
+                      el.setAttribute('data-margin-right', actualMargin);
+                      el.style.marginRight = `${parseFloat(calculatedMargin) + this.scrollbarWidth}px`;
+                    });
+
+                    // Adjust body padding
+                    const actualPadding = body.style.paddingRight;
+                    const calculatedPadding = computedStyle(body).paddingRight;
+                    body.setAttribute('data-padding-right', actualPadding);
+                    body.style.paddingRight = `${parseFloat(calculatedPadding) + this.scrollbarWidth}px`;
+                }
+            },
+            resetScrollbar() {
+                // Restore fixed content padding
+                selectAll('.fixed-top, .fixed-bottom, .is-fixed, .sticky-top').forEach(el => {
+                    const padding = el.getAttribute('data-padding-right') || '';
+                    el.style.paddingRight = padding;
+                    el.removeAttribute('data-padding-right');
+                });
+
+                // Restore sticky content and navbar-toggler margin
+                selectAll('.sticky-top, .navbar-toggler').forEach(el => {
+                    const margin = el.getAttribute('data-margin-right') || '';
+                    el.style.margingRight = margin;
+                    el.removeAttribute('data-margin-right');
+                })
+
+                // Restore body padding
+                const body = document.body;
+                const padding = body.getAttribute('data-padding-right') || '';
+                body.style.paddingRight = padding;
+                body.removeAttribute('data-padding-right');
             }
+
         },
         mounted() {
-            // TODO: Measure scrollbar
-
+            // Measure scrollbar
+            this.getScrollbarWidth();
             // Listen for events from others to either open or close ourselves
             this.listenOnRoot('bv::show::modal', this.showHandler);
             this.listenOnRoot('bv::hide::modal', this.hideHandler);
-            // @TODO: Listen for bv:modal::show events, and close ourselves if the event is not ourselves
+            // Listen for bv:modal::show events, and close ourselves if the opening modal not us
+            this.listenOnRoot('bv::modal::show', this.modalListener);
+            // Observe chagnes in modal content and adjust if necessary
+            observeDom(this.$refs.modal, this.adjustDialog.bind(this), {
+                subtree: true,
+                childList: true,
+                attributes: true,
+                attributeFilter: ['class', 'style']
+            });
+            // Initially show modal?
             if (this.visible === true) {
                 this.show();
             }
+        },
+        beforeDestroy() {
+            this.setResizeEvent(false);
         }
     };
 </script>
