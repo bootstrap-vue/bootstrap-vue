@@ -383,7 +383,7 @@
             setResizeEvent(on) {
                 ['resize', 'orientationchange'].forEach(evtName => {
                     window[on ? 'addEventListener' : 'removeEventListener'](evtName, this.adjustDialog);
-                }
+                });
             },
             // Root Listener handlers
             showHandler(id, triggerEl) {
@@ -513,7 +513,7 @@
                     const margin = el.getAttribute('data-margin-right') || '';
                     el.style.margingRight = margin;
                     el.removeAttribute('data-margin-right');
-                })
+                });
 
                 // Restore body padding
                 const body = document.body;
