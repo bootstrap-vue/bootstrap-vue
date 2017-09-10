@@ -43,19 +43,12 @@
                                 <h5 :is="titleTag" class="modal-title">
                                     <slot name="modal-title">{{title}}</slot>
                                 </h5>
-                                <button type="button"
-                                        v-if="!hideHeaderClose"
-                                        class="close"
-                                        :disabled="is_transitioning"
-                                        :aria-label="headerCloseLabel"
-                                        @click="hide('headerclose')"
-                                >
-                                    <slot name="modal-header-close">
-                                        <span aria-hidden="true"
-                                              :class="Boolean(headerTextVariant) ? `text-${headerTextVariant}` : ''"
-                                              v-html="headerCloseTitle"></span>
-                                    </slot>
-                                </button>
+                                <b-btn-close v-if="!hideHeaderClose"
+                                                :disabled="is_transitioning"
+                                                :aria-label="headerCloseLabel"
+                                                :text-variant="headerTextVariant"
+                                                @click="hide('headerclose')"
+                                ><slot name="modal-header-close"></slot></b-btn-close>
                             </slot>
                         </header>
 
@@ -89,6 +82,7 @@
 
 <script>
     import bBtn from './button';
+    import bBtnClose from './button-close';
     import { idMixin, listenOnRootMixin } from '../mixins';
     import { from as arrayFrom, arrayFind } from '../utils/array';
     import { isElement, isVisible, selectAll, select } from '../utils/dom';
@@ -118,7 +112,7 @@
 
     export default {
         mixins: [idMixin, listenOnRootMixin],
-        components: {bBtn},
+        components: {bBtn, bBtnClose},
         data() {
             return {
                 is_visible: false,
@@ -229,10 +223,6 @@
             },
             returnFocus: {
                 default: null
-            },
-            headerCloseTitle: {
-                type: String,
-                default: '&times;'
             },
             headerCloseLabel: {
                 type: String,
