@@ -1,30 +1,35 @@
 <template>
     <div>
-        <transition-group enter-class="hidden"
-                          enter-to-class=""
-                          enter-active-class=""
-                          @after-enter="focusFirst"
-                          leave-class="show"
-                          leave-active-class=""
-                          leave-to-class="hidden"
+        <transition enter-class=""
+                    enter-to-class=""
+                    enter-active-class=""
+                    leave-class=""
+                    leave-active-class=""
+                    leave-to-class=""
+                    @before-enter="onBeforeEnter"
+                    @enter="onEnter"
+                    @after-enter="focusFirst"
+                    @before-leave="onBeforeLeave"
+                    @leave="onLeave"
+                    @after-leave="onAfterLeave"
         >
-            <div :class="['modal',{fade: !noFade, show: is_visible}]"
-                 :id="id || null"
+            <div :class="modalClasses"
+                 :id="safeId()"
                  role="dialog"
                  ref="modal"
-                 key="modal"
                  v-show="is_visible"
-                 @click="onClickOut()"
-                 @keyup.esc="onEsc()"
+                 @click="onClickOut"
+                 @keyup.esc="onEsc"
             >
 
-                <div :class="['modal-dialog','modal-'+size]">
+                <div :class="dialogClasses">
                     <div class="modal-content"
                          tabindex="-1"
                          role="document"
                          ref="content"
-                         :aria-labelledby="(hideHeader || !id) ? null : (id + '__BV_header_')"
-                         :aria-describedby="id ? (id + '__BV_body_') : null"
+                         :aria-labelledby="hideHeader ? null : safeId('__BV_header_')"
+                         :aria-describedby="safeid('__BV_body_')"
+                         @focusout="enforceFocus"
                          @click.stop
                     >
 
@@ -70,31 +75,21 @@
                     </div>
                 </div>
             </div>
-
-            <div key="modal-backdrop"
-                 :class="['modal-backdrop',{fade: !noFade, show: is_visible}]"
-                 v-if="is_visible"
-            ></div>
-        </transition-group>
+        </transition>
+        <div key="modal-backdrop"
+             :class="['modal-backdrop', noFade ? '' : 'fade', is_show ? 'show' : '']"
+             v-if="is_visible"
+        ></div>
     </div>
 </template>
 
-<style scoped>
-    .hidden {
-        opacity: 0 !important;
-    }
-
-    /* Make modal display as block instead of inline style, and because Vue's v-show deletes inline "display" style */
-    .modal {
-        display: block;
-    }
-</style>
-
 <script>
     import bBtn from './button';
-    import { listenOnRootMixin } from '../mixins';
+    import { idMixin, listenOnRootMixin } from '../mixins';
     import { from as arrayFrom, arrayFind } from '../utils/array';
     import { isElement, isVisible, selectAll, select } from '../utils/dom';
+    import ( observeDom } from '../utils';
+    import { BvEvent } from '../classes';
 
     const FOCUS_SELECTOR = [
         'button:not([disabled])',
@@ -114,11 +109,15 @@
     }
 
     export default {
-        mixins: [listenOnRootMixin],
+        mixins: [idMixin, listenOnRootMixin],
         components: {bBtn},
         data() {
             return {
                 is_visible: false,
+                is_transitioning: false,
+                is_show: false,
+                is_block: false,
+                scrollbarWidth: 0,
                 return_focus: this.returnFocus || null
             };
         },
@@ -126,31 +125,7 @@
             prop: 'visible',
             event: 'change'
         },
-        computed: {
-            body() {
-                if (typeof document !== 'undefined') {
-                    return document.body;
-                }
-            }
-        },
-        watch: {
-            visible(new_val, old_val) {
-                if (new_val === old_val) {
-                    return;
-                }
-
-                if (new_val) {
-                    this.show();
-                } else {
-                    this.hide();
-                }
-            }
-        },
         props: {
-            id: {
-                type: String,
-                default: null
-            },
             title: {
                 type: String,
                 default: ''
@@ -179,10 +154,6 @@
                 type: Boolean,
                 default: false
             },
-            noAutoFocus: {
-                type: Boolean,
-                default: false
-            },
             noEnforceFocus: {
                 type: Boolean,
                 default: false
@@ -192,6 +163,10 @@
                 default: false
             },
             hideFooter: {
+                type: Boolean,
+                default: false
+            },
+            hideBackdrop: {
                 type: Boolean,
                 default: false
             },
@@ -235,29 +210,84 @@
                 default: 'primary'
             }
         },
+        computed: {
+            modalClasses() {
+                return [
+                    'modal',
+                    this.noFade ? '' : 'fade',
+                    this.is_show ? 'show' : '',
+                    this.is_block ? 'd-block' : ''
+                ];
+            },
+            dialogClasses() {
+                return [
+                    'modal-dialog',
+                    Boolean(this.size) ? `modal-${this.size}` : ''
+                ];
+            }
+
+        },
+        watch: {
+            visible(new_val, old_val) {
+                if (new_val === old_val) {
+                    return;
+                }
+                this[newVal ? 'show', 'hide']();
+            }
+        },
         methods: {
+            // Transition Handlers
+            onBeforeEnter() {
+                this.is_transitioning = true;
+                document.body.classList.add('modal-open');
+            },
+            onEnter() {
+                this.is_block = true;
+            },
+            onAfterEnter() {
+                this.is_show = true;
+                this.is_transitioning = false;
+                this.$nextTick(() => {
+                    this.focusFirst();
+                    // @TODO: Add BvEvent
+                    this.$emit('shown');
+                    this.$root.$emit('bv:modal:shown');
+                });
+            },
+            onBeforeLeave() {
+                this.is_transitioning = true;
+            },
+            onLeave() {
+                this.is_show = false;
+            },
+            onAfterLeave() {
+                document.body.classList.remove('modal-open');
+                this.is_block = false;
+                this.is_transitioning = false;
+                this.$nextTick(() => {
+                    this.returnFocusTo();
+                    // @TODO: Add BvEvent
+                    this.$emit('hidden');
+                    this.$root.$emit('bv:modal:hidden');
+                });
+            },
+            // Public Methods
             show() {
                 if (this.is_visible) {
                     return;
                 }
+                // @TODO: Add cancellable BvEvent
                 this.$emit('show');
+                this.$root.$emit('bv:modal:show');
                 this.is_visible = true;
-                this.$root.$emit('shown::modal', this.id);
-                this.body.classList.add('modal-open');
-                this.$emit('shown');
-                this.$emit('change', true);
-                if (typeof document !== 'undefined') {
-                    // Guard against infinite focus loop
-                    document.removeEventListener('focusin', this.enforceFocus, false);
-                    // Handle constrained focus
-                    document.addEventListener('focusin', this.enforceFocus, false);
-                }
+                this.$emit('change', this.is_visible);
             },
             hide(isOK) {
                 if (!this.is_visible) {
                     return;
                 }
 
+                // @TODO: Add cancellable BvEvent
                 // Create event object
                 let canceled = false;
                 const e = {
@@ -268,7 +298,6 @@
                 };
 
                 // Emit events
-                this.$emit('change', false);
                 this.$emit('hide', e);
 
                 if (isOK === true) {
@@ -279,16 +308,8 @@
 
                 // Hide if not canceled
                 if (!canceled) {
-                    if (typeof document !== 'undefined') {
-                        // Remove focus handler
-                        document.removeEventListener('focusin', this.enforceFocus, false);
-                        // Return focus to original button/trigger element if provided
-                        this.returnFocusTo();
-                    }
                     this.is_visible = false;
-                    this.$root.$emit('hidden::modal', this.id);
-                    this.$emit('hidden', e);
-                    this.body.classList.remove('modal-open');
+                    this.$emit('change', this.is_visible);
                 }
             },
             onClickOut() {
@@ -314,30 +335,12 @@
                         return;
                     }
 
-                    let el;
-                    if (!this.noAutoFocus) {
-                        // Focus the modal's first focusable item, searching body, footer, then header
-                        if (this.$refs.body) {
-                            el = findFirstVisible(this.$refs.body, FOCUS_SELECTOR);
-                        }
-                        if (!el && this.$refs.footer) {
-                            el = findFirstVisible(this.$refs.footer, FOCUS_SELECTOR);
-                        }
-                        if (!el && this.$refs.header) {
-                            el = findFirstVisible(this.$refs.header, FOCUS_SELECTOR);
-                        }
-                    }
-                    if (!el) {
-                        // Focus the modal content wrapper
-                        el = this.$refs.content;
-                    }
-                    if (el && el.focus) {
-                        el.focus();
-                    }
+                    // Focus the modal content wrapper
+                    this.$refs.content.focus();
                 });
             },
             returnFocusTo() {
-                // Prrefer returnFocus prop over event specified value
+                // Preffer returnFocus prop over event specified return_focus value
                 let el = this.returnFocus || this.return_focus || null;
 
                 if (el) {
@@ -345,24 +348,21 @@
                         // CSS Selector
                         el = select(el);
                     }
-                    if (el && el.$el && typeof el.$el.focus === 'function') {
-                        // Component vm reference
-                        el.$el.focus();
-                    } else if (el && typeof el.focus === 'function') {
-                        // Plain element
-                        el.focus();
+                    if (el) {
+                        el = el.$el || el;
+                        if (isVisible(el)) {
+                            el.focus();
+                        }
                     }
                 }
             },
-            enforceFocus(e) {
+            enforceFocus(evt) {
                 // If focus leaves modal, bring it back
-                // Event Listener bound on document
+                // 'focusout' Event Listener bound on content
                 if (!this.noEnforceFocus &&
                     this.is_visible &&
-                    document !== e.target &&
                     this.$refs.content &&
-                    this.$refs.content !== e.target &&
-                    !this.$refs.content.contains(e.target)) {
+                    !this.$refs.content.contains(evt.relatedTarget)) {
                     this.$refs.content.focus();
                 }
             },
@@ -379,18 +379,21 @@
             }
         },
         created() {
-            this.listenOnRoot('show::modal', this.showHandler);
-            this.listenOnRoot('hide::modal', this.hideHandler);
+            // Listen for events from others to either open or close ourselves
+            // @TODO: Should this be in mounted()?
+            this.listenOnRoot('bv::show::modal', this.showHandler);
+            this.listenOnRoot('bv::hide::modal', this.hideHandler);
+            // @TODO: Listen for bv:modal::show events, and close ourselves if the event is not ourselves
+        },
+        activated() {
+        },
+        deactivated() {
+            // TODO: IF taken out of document, we should hide ourselves.
         },
         mounted() {
+            // TODO: Measure scrollbar
             if (this.visible === true) {
                 this.show();
-            }
-        },
-        destroyed() {
-            // Make sure event listener is rmoved
-            if (typeof document !== 'undefined') {
-                document.removeEventListener('focusin', this.enforceFocus, false);
             }
         }
     };
