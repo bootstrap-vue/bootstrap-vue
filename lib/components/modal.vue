@@ -232,7 +232,7 @@
                 if (new_val === old_val) {
                     return;
                 }
-                this[newVal ? 'show', 'hide']();
+                this[newVal ? 'show' : 'hide']();
             }
         },
         methods: {
@@ -343,16 +343,14 @@
                 // Preffer returnFocus prop over event specified return_focus value
                 let el = this.returnFocus || this.return_focus || null;
 
+                if (typeof el === 'string') {
+                    // CSS Selector
+                    el = select(el);
+                }
                 if (el) {
-                    if (typeof el === 'string') {
-                        // CSS Selector
-                        el = select(el);
-                    }
-                    if (el) {
-                        el = el.$el || el;
-                        if (isVisible(el)) {
-                            el.focus();
-                        }
+                    el = el.$el || el;
+                    if (isVisible(el)) {
+                        el.focus();
                     }
                 }
             },
