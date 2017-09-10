@@ -5,23 +5,19 @@
          aria-live="polite"
          aria-atomic="true"
     >
-        <button type="button"
-                class="close"
-                v-if="dismissible"
-                data-dismiss="alert"
-                :aria-label="dismissLabel"
-                @click.stop.prevent="dismiss"
-        >
-            <span class="d-inline-block" aria-hidden="true"><slot name="dismiss">&times;</slot></span>
-        </button>
+        <b-btn-close v-if="dismissible" :aria-label="dismissLabel" @click="dismiss">
+          <slot name="dismiss"></slot>
+        </b-btn-close>
         <slot></slot>
     </div>
 </template>
 
 <script>
     import {warn} from '../utils';
+    import bBtnClose from "./button-close";
 
     export default {
+        components: {bBtnClose},
         model: {
             prop: 'show',
             event: 'input'
