@@ -50,9 +50,11 @@
                                         :aria-label="headerCloseLabel"
                                         @click="hide('headerclose')"
                                 >
-                                    <span aria-hidden="true"
-                                          :class="Boolean(headerTextVariant) ? `text-${headerTextVariant}` : ''"
-                                          v-html="headerCloseTitle"></span>
+                                    <slot name="modal-header-close">
+                                        <span aria-hidden="true"
+                                              :class="Boolean(headerTextVariant) ? `text-${headerTextVariant}` : ''"
+                                              v-html="headerCloseTitle"></span>
+                                    </slot>
                                 </button>
                             </slot>
                         </header>
