@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :id="safeId('__BV_modal_outer_')">
         <transition enter-class=""
                     enter-to-class=""
                     enter-active-class=""
@@ -27,15 +27,15 @@
                          tabindex="-1"
                          role="document"
                          ref="content"
-                         :aria-labelledby="hideHeader ? null : safeId('__BV_header_')"
-                         :aria-describedby="safeid('__BV_body_')"
-                         @focusout="enforceFocus"
+                         :aria-labelledby="hideHeader ? null : safeId('__BV_modal_header_')"
+                         :aria-describedby="safeid('__BV_modal_body_')"
+                         @focusout="onFocusout"
                          @click.stop
                     >
 
                         <header class="modal-header"
                                 ref="header"
-                                :id="id ? (id + '__BV_header_') : null"
+                                :id="safeId('__BV_modal_header_')"
                                 v-if="!hideHeader"
                         >
                             <slot name="modal-header">
@@ -45,29 +45,31 @@
                                 <button type="button"
                                         v-if="!hideHeaderClose"
                                         class="close"
+                                        :disabled="is_transitioning"
                                         :aria-label="headerCloseLabel"
-                                        @click="hide"
+                                        @click="hide('headerclose')"
                                 >
-                                    <span aria-hidden="true">&times;</span>
+                                    <span aria-hidden="true" v-html="headerCloseTitle"></span>
                                 </button>
                             </slot>
                         </header>
 
-                        <div class="modal-body" ref="body" :id="id ? (id + '__BV_body_') : null">
+                        <div class="modal-body" ref="body" :id="safeId('__BV_modal_body_')">
                             <slot></slot>
                         </div>
 
-                        <footer class="modal-footer" ref="footer" v-if="!hideFooter">
+                        <footer class="modal-footer" ref="footer" v-if="!hideFooter" :id="safeId('__BV_modal_footer_')">
                             <slot name="modal-footer">
                                 <b-btn v-if="!okOnly"
-                                       :variant="closeVariant"
+                                       :variant="cacelVariant"
                                        :size="buttonSize"
-                                       @click="hide(false)"
-                                ><slot name="modal-cancel">{{ closeTitle }}</slot></b-btn>
+                                        :disabled="is_transitioning"
+                                       @click="hide('cancel')"
+                                ><slot name="modal-cancel">{{ cancelTitle }}</slot></b-btn>
                                 <b-btn :variant="okVariant"
                                        :size="buttonSize"
-                                       :disabled="okDisabled"
-                                       @click="hide(true)"
+                                       :disabled="okDisabled || is_transitioning"
+                                       @click="hide('ok')"
                                 ><slot name="modal-ok">{{ okTitle }}</slot></b-btn>
                             </slot>
                         </footer>
@@ -76,10 +78,7 @@
                 </div>
             </div>
         </transition>
-        <div key="modal-backdrop"
-             :class="['modal-backdrop', noFade ? '' : 'fade', is_show ? 'show' : '']"
-             v-if="is_visible"
-        ></div>
+        <div v-if="is_visible && !hideBackdrop" :id="safeId('__BV_modal_backdrop_')" :class="backdropClasses"></div>
     </div>
 </template>
 
@@ -88,7 +87,7 @@
     import { idMixin, listenOnRootMixin } from '../mixins';
     import { from as arrayFrom, arrayFind } from '../utils/array';
     import { isElement, isVisible, selectAll, select } from '../utils/dom';
-    import { observeDom } from '../utils';
+    import { observeDom, warn } from '../utils';
     import { BvEvent } from '../classes';
 
     const FOCUS_SELECTOR = [
@@ -189,19 +188,23 @@
             returnFocus: {
                 default: null
             },
+            headerCloseTitle: {
+                type: String,
+                default: '&times;'
+            },
             headerCloseLabel: {
                 type: String,
                 default: 'Close'
             },
-            closeTitle: {
+            cancelTitle: {
                 type: String,
-                default: 'Close'
+                default: 'Cancel'
             },
             okTitle: {
                 type: String,
                 default: 'OK'
             },
-            closeVariant: {
+            cancelVariant: {
                 type: String,
                 default: 'secondary'
             },
@@ -224,8 +227,14 @@
                     'modal-dialog',
                     Boolean(this.size) ? `modal-${this.size}` : ''
                 ];
+            },
+            backdropClasses() {
+                return [
+                    'modal-backdrop',
+                    this.noFade ? '' : 'fade',
+                    this.is_show ? 'show' : ''
+                ];
             }
-
         },
         watch: {
             visible(new_val, old_val) {
@@ -236,6 +245,53 @@
             }
         },
         methods: {
+            // Public Methods
+            show() {
+                if (this.is_visible) {
+                    return;
+                }
+                showEvt = new BvEvent('show', {
+                    cancelable: true,
+                    vueTarget: this,
+                    target: this.$refs.modal,
+                    relatedTarget: null
+                });
+                this.emitEvent(showEvt);
+                // Show if not canceled
+                if (!showEvt.defaultPrevented) {
+                    this.is_visible = true;
+                    this.$emit('change', this.is_visible);
+                }
+            },
+            hide(trigger) {
+                if (!this.is_visible) {
+                    return;
+                }
+                hideEvt = new BvEvent('hide', {
+                    cancelable: true,
+                    vueTarget: this,
+                    target: this.$refs.modal,
+                    relatedTarget: null, // this could be the trigger element/component reference
+                    isOK: trigger || null,
+                    trigger: trigger || null,
+                    cancel() {
+                        // Bacwards compatability
+                        warn('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().');
+                        this.preventDefault();
+                    }
+                });
+                if (trigger === 'ok') {
+                    this.$emit('ok', hideEvt);
+                } else if (trigger === 'cancel') {
+                    this.$emit('cancel', hideEvt);
+                }
+                this.emitEvent(hideEvt);
+                // Hide if not canceled
+                if (!hideEvt.defaultPrevented) {
+                    this.is_visible = false;
+                    this.$emit('change', this.is_visible);
+                }
+            },
             // Transition Handlers
             onBeforeEnter() {
                 this.is_transitioning = true;
@@ -249,9 +305,13 @@
                 this.is_transitioning = false;
                 this.$nextTick(() => {
                     this.focusFirst();
-                    // @TODO: Add BvEvent
-                    this.$emit('shown');
-                    this.$root.$emit('bv:modal:shown');
+                    shownEvt = new BvEvent('shown', {
+                        cancelable: false,
+                        vueTarget: this,
+                        target: this.$refs.modal,
+                        relatedTarget: null
+                    });
+                    this.emitEvent(shownEvt);
                 });
             },
             onBeforeLeave() {
@@ -266,95 +326,35 @@
                 this.is_transitioning = false;
                 this.$nextTick(() => {
                     this.returnFocusTo();
-                    // @TODO: Add BvEvent
-                    this.$emit('hidden');
-                    this.$root.$emit('bv:modal:hidden');
+                    hiddenEvt = new BvEvent('hidden', {
+                        cancelable: false,
+                        vueTarget: this,
+                        target: this.$refs.modal,
+                        relatedTarget: null
+                    });
+                    this.emitEvent(hiddenEvt);
                 });
             },
-            // Public Methods
-            show() {
-                if (this.is_visible) {
-                    return;
-                }
-                // @TODO: Add cancellable BvEvent
-                this.$emit('show');
-                this.$root.$emit('bv:modal:show');
-                this.is_visible = true;
-                this.$emit('change', this.is_visible);
+            // Event emitter
+            emitEvent(bvEvt) {
+                const type = bvEvt.type;
+                this.$emit(type, bvevt);
+                this.$root.$emit(`bv::modal::${type}`, bvevt);
             },
-            hide(isOK) {
-                if (!this.is_visible) {
-                    return;
-                }
-
-                // @TODO: Add cancellable BvEvent
-                // Create event object
-                let canceled = false;
-                const e = {
-                    isOK,
-                    cancel() {
-                        canceled = true;
-                    }
-                };
-
-                // Emit events
-                this.$emit('hide', e);
-
-                if (isOK === true) {
-                    this.$emit('ok', e);
-                } else if (isOK === false) {
-                    this.$emit('cancel', e);
-                }
-
-                // Hide if not canceled
-                if (!canceled) {
-                    this.is_visible = false;
-                    this.$emit('change', this.is_visible);
-                }
-            },
+            // UI Event Handlers
             onClickOut() {
                 // If backdrop clicked, hide modal
                 if (this.is_visible && !this.noCloseOnBackdrop) {
-                    this.hide();
+                    this.hide('backdrop');
                 }
             },
             onEsc() {
                 // If ESC pressed, hide modal
                 if (this.is_visible && !this.noCloseOnEsc) {
-                    this.hide();
+                    this.hide('esc');
                 }
             },
-            focusFirst() {
-                // Don't try and focus if we are SSR
-                if (typeof document === 'undefined') {
-                    return;
-                }
-                this.$nextTick(() => {
-                    // If activeElement is child of content, no need to change focus
-                    if (document.activeElement && this.$refs.content.contains(document.activeElement)) {
-                        return;
-                    }
-
-                    // Focus the modal content wrapper
-                    this.$refs.content.focus();
-                });
-            },
-            returnFocusTo() {
-                // Preffer returnFocus prop over event specified return_focus value
-                let el = this.returnFocus || this.return_focus || null;
-
-                if (typeof el === 'string') {
-                    // CSS Selector
-                    el = select(el);
-                }
-                if (el) {
-                    el = el.$el || el;
-                    if (isVisible(el)) {
-                        el.focus();
-                    }
-                }
-            },
-            enforceFocus(evt) {
+            onFocusout(evt) {
                 // If focus leaves modal, bring it back
                 // 'focusout' Event Listener bound on content
                 if (!this.noEnforceFocus &&
@@ -364,6 +364,7 @@
                     this.$refs.content.focus();
                 }
             },
+            // Root Listener handlers
             showHandler(id, triggerEl) {
                 if (id === this.id) {
                     this.return_focus = triggerEl || null;
@@ -375,25 +376,44 @@
                     this.hide();
                 }
             }
-        },
-        created() {
-            // Listen for events from others to either open or close ourselves
-            // @TODO: Should this be in mounted()?
-            this.listenOnRoot('bv::show::modal', this.showHandler);
-            this.listenOnRoot('bv::hide::modal', this.hideHandler);
-            // @TODO: Listen for bv:modal::show events, and close ourselves if the event is not ourselves
-        },
-        activated() {
-        },
-        deactivated() {
-            // TODO: IF taken out of document, we should hide ourselves.
+            // Focus control handlers
+            focusFirst() {
+                // Don't try and focus if we are SSR
+                if (typeof document === 'undefined') {
+                    return;
+                }
+                // If activeElement is child of content, no need to change focus
+                if (document.activeElement && this.$refs.content.contains(document.activeElement)) {
+                    return;
+                }
+                // Focus the modal content wrapper
+                this.$refs.content.focus();
+            },
+            returnFocusTo() {
+                // Prefer returnFocus prop over event specified return_focus value
+                let el = this.returnFocus || this.return_focus || null;
+                if (typeof el === 'string') {
+                    // CSS Selector
+                    el = select(el);
+                }
+                if (el) {
+                    el = el.$el || el;
+                    if (isVisible(el)) {
+                        el.focus();
+                    }
+                }
+            },
         },
         mounted() {
             // TODO: Measure scrollbar
+
+            // Listen for events from others to either open or close ourselves
+            this.listenOnRoot('bv::show::modal', this.showHandler);
+            this.listenOnRoot('bv::hide::modal', this.hideHandler);
+            // @TODO: Listen for bv:modal::show events, and close ourselves if the event is not ourselves
             if (this.visible === true) {
                 this.show();
             }
         }
     };
-
 </script>
