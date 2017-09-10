@@ -83,6 +83,10 @@
       "description": "Modal title. If modal-header slot is used, this slot will not be shown."
     },
     {
+      "name": "modal-header-close",
+      "description": "Content of Modal heaqder close button. If modal-header slot is used, this slot will not be shown."
+    },
+    {
       "name": "modal-footer",
       "description": "Modal footer content. Also removes default OK and CANCEL buttons."
     },
