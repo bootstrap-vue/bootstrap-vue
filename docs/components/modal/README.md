@@ -223,7 +223,8 @@ methods: {
 **Note**: events `ok` and `cancel` are emitted by modal's built in **OK** and **Cancel**
 buttons respectively. These events will not be emitted, by default, if you have provided your own
 buttons in the `modal-footer` slot or have hidden the footer. In this case use the `hide` event
-to control cancelling of the modal close.
+to control cancelling of the modal close. Event `hide` is always emitted, even if `ok` and `cancel`
+are emitted.
 
 The `ok`, `cancel`, and `hide` event object containsseveral properties and methods:
 
@@ -269,21 +270,25 @@ anywhere else.
 
 ## Tooltips and popovers
 Tooltips and popovers can be placed within modals as needed. When modals are closed, any tooltips
-and popovers within are also automatically dismissed.  Just remember to specify the modal's ID as the
-tooltip or popover's `container` to ensure they are not hidden behind the modal.
+and popovers within are also automatically dismissed. Tooltips and popovers are automatically
+appended to the modal element (to ensure correct z-indexing), although you can override where
+they are appended by specifying a container ID (refer to tooltip and popover docs for details).
 
 ```html
 <div>
   <b-btn v-b-modal.modalPopover>Show Modal</b-btn>
   <b-modal id="modalPopover" title="Modal with Popover" ok-only>
-    This 
-    <b-btn v-b-popover:modalPopover="'Popover inside a modal!'" title="Popover">
-      Button
-    </b-btn>
-    triggers a popover on click.
-    <br><br>
-    This <a href="#" v-b-tooltip:modalPopover title="Tooltip in a modal!">Link</a>
-    will show a tooltip on hover.
+    <p>
+      This 
+      <b-btn v-b-popover="'Popover inside a modal!'" title="Popover">
+        Button
+      </b-btn>
+      triggers a popover on click.
+    </p>
+    <p>
+      This <a href="#" v-b-tooltip: title="Tooltip in a modal!">Link</a>
+      will show a tooltip on hover.
+    </p>
   </b-modal>
 </div>
 
@@ -291,10 +296,13 @@ tooltip or popover's `container` to ensure they are not hidden behind the modal.
 ```
 
 ## Variants
-Control the header, foorter, and body background and text variants by setting the `header-bg-variant`,
-`header-text-variant`, `body-bg-variant`, `body-text-variant`, `footer-bg-variant`, and `footer-text-variant`
-props. Use any of the standard Bootstrap variants shuch as `danger`, `warning`, `info`, `success`, `dark`,
-`light`, etc.
+Control the header, foorter, and body background and text variants by setting the
+`header-bg-variant`, `header-text-variant`, `body-bg-variant`, `body-text-variant`,
+`footer-bg-variant`, and `footer-text-variant` props. Use any of the standard Bootstrap
+variants shuch as `danger`, `warning`, `info`, `success`, `dark`, `light`, etc.
+
+The variants for the bottom border of the header and top border of the footer can be
+controlled by the `header-border-variant` and `footer-border-variant` props respectively.
 
 ## Accessibility
 
@@ -307,14 +315,7 @@ not be present if you have the header hidden.
 
 ### Auto Focus
 
-`<b-modal>` will autofocus the first visible, non-disabled, focusable element found
-in the modal, searching in the following order:
-
-- Modal body
-- Modal footer
-- Modal header
-
-If a focusable element is not found, then the entire modal will be focused.
+`<b-modal>` will autofocus the modal container when opened.
 
 You can pre-focus an element within the `<b-modal>` by listening to the `<b-modal>` `shown` event, and
 call the element's `focus()` method. `<b-modal>` will not attempt to autofocus if
@@ -341,15 +342,6 @@ methods: {
     }
 }
 ```
-
-To disable the auto-focus feature, add the prop `no-auto-focus` on
-`<b-modal>`. This will disable searching for a focusable element within
-body, footer, and header. With `no-auto-focus` set, the modal-content
-will be focused instead, unless you have pre-focused an element within.
-
-`no-auto-focus`may be required when you have modal with long body content (without
-focusable items in th modal body) that causes the modal to overflow the
-height of the viewport, and in-turn automatically scrolls down to the footer buttons.
 
 ### Returning focus to the triggering element on modal close
 
