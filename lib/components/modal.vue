@@ -88,7 +88,7 @@
     import { idMixin, listenOnRootMixin } from '../mixins';
     import { from as arrayFrom, arrayFind } from '../utils/array';
     import { isElement, isVisible, selectAll, select } from '../utils/dom';
-    import ( observeDom } from '../utils';
+    import { observeDom } from '../utils';
     import { BvEvent } from '../classes';
 
     const FOCUS_SELECTOR = [
