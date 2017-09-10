@@ -1,7 +1,8 @@
 # Modals
 
-> Modals are streamlined, but flexible dialog prompts powered by JavaScript.
-They support a number of use cases from user notification to completely custom content and feature a handful of helpful sub-components, sizes, accessibility, and more.
+> Modals are streamlined, but flexible dialog prompts powered by JavaScript and CSS. They
+support a number of use cases from user notification to completely custom content and
+feature a handful of helpful sub-components, sizes, variants, accessibility, and more.
 
 ```html
 <template>
@@ -40,7 +41,7 @@ They support a number of use cases from user notification to completely custom c
                 this.name = '';
             },
             handleOk(e) {
-                e.cancel();
+                e.preventDefault();
                 if (!this.name) {
                     alert('Please enter your name');
                 } else {
@@ -50,7 +51,7 @@ They support a number of use cases from user notification to completely custom c
             handleSubmit() {
                 this.names.push(this.name);
                 this.clearName();
-                this.$refs.modal1.hide()
+                this.$refs.modal1.hide();
             }
         }
     }
@@ -59,7 +60,7 @@ They support a number of use cases from user notification to completely custom c
 <!-- modal.vue -->
 ```
 
-`<b-modal>`, by default, has an **OK** and a **Close** button in the footer. These buttons can
+`<b-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. These buttons can
 be customized by setting various props on the component. You can customize the size of the buttons,
 disable the **OK** button, hide the **Close** button (i.e. OK Only), choose a variant (e.g. `danger`
 for a red OK button) using the `ok-variant` and `close-variant` props, and provide custom
@@ -74,9 +75,9 @@ You can override the modal title via the named slot `modal-title`, override the
 header completely via the `modal-header` slot, and override the footer completely
 via the `modal-footer` slot. 
 
-**Note**: when using the `modal-footer` slot, the default **OK** and **Close** buttons will not be present. 
-Also, if you use the `modal-header` slot, the default header `X` close button will not be present, nor can you use
-the `modal-title` slot.
+**Note**: when using the `modal-footer` slot, the default **OK** and **Close** buttons will not
+be present. Also, if you use the `modal-header` slot, the default header `X` close button will
+not be present, nor can you use the `modal-title` slot.
 
 ## Toggle Modal Visibility
 
@@ -84,7 +85,7 @@ There are several methods that you can employ to toggle the visibility of `<b-mo
 
 ### Using `v-b-modal` directive (recommended)
 
-Other elements can easily show modals using `v-b-modal` directive.
+Other elements can easily show modals using the `v-b-modal` directive.
 
 ```html
 <!-- Using modifiers -->
@@ -153,16 +154,18 @@ data: {
 When using the `v-model` property, do not use the `visible` property at the same time.
 
 
-### Directly Emitting Events
+### Emitting Events on $root
 
-You can emit `show::modal` and `hide::modal` event on `$root` with first
-argument which is the modal's id:
+You can emit `bv::show::modal` and `bv::hide::modal` event on `$root` with the first
+argument set to the modal's id. An optional second argument can specify the element
+to return focus to once the modal is closed. The second argument can be a CSS selector,
+and element reference, or a component reference.
 
 ```html
 <b-button @click="showModal" ref="btnShow">
     Open Modal
 </b-button>
-<b-modal id="modal1">
+<b-modal id="modal1" @hidden="onHidden">
     Hello From My Modal!
     <b-btn @click="hideModal">Close Me</b-btn>
 </b-modal>
@@ -171,10 +174,12 @@ argument which is the modal's id:
 ```js
 methods: {
     showModal() {
-        this.$root.$emit('show::modal','modal1');
+        this.$root.$emit('bv::show::modal','modal1');
     },
     hideModal() {
-        this.$root.$emit('hide::modal','modal1');
+        this.$root.$emit('bv::hide::modal','modal1');
+    },
+    onHidden(evt) {
         // Return focus to our Open Modal button
         // See accessibility below for additional return-focus methods
         this.$refs.btnShow.$el.focus();
@@ -185,12 +190,12 @@ methods: {
 
 ## Prevent Closing
 
-To prevent `<b-modal>` from closing (for example when validation fails)
-you can call the `cancel()` method of the event object passed to your `ok` (**OK** button),
-`cancel` (**Close** button) and `hide` event handlers.
+To prevent `<b-modal>` from closing (for example when validation fails). you can call
+the `preventDefault()` method of the event object passed to your `ok` (**OK** button),
+`cancel` (**Cancel** button) and `hide` event handlers.
 
 ```html
-<b-modal @hide="save">
+<b-modal id="modalPrevent" @hide="save">
     Hello From Modal!
     <b-alert variant="danger" :show="message ? true : false">
         {{ message }}
@@ -207,7 +212,7 @@ methods: {
     save(e) {
         if(!this.saved) {
             this.message = 'Please save your work';
-            return e.cancel();
+            e.preventDefault();
         } else {
             this.message = null;
         }
@@ -215,29 +220,81 @@ methods: {
 }
 ```
 
-**Note**: events `ok` and `cancel` are emitted by modal's built in **OK** and **Close**
+**Note**: events `ok` and `cancel` are emitted by modal's built in **OK** and **Cancel**
 buttons respectively. These events will not be emitted, by default, if you have provided your own
 buttons in the `modal-footer` slot or have hidden the footer. In this case use the `hide` event
 to control cancelling of the modal close.
 
-The `close` event object contains a single property and a single method:
+The `ok`, `cancel`, and `hide` event object containsseveral properties and methods:
 
 | Property or Method | Type | Description
 | ------------ | ------ | --------------------------------------------
-| `e.cancel()` | Method | When called prevents the modal from closing
-| `isOK` | Property | Will be one of: `true` (Default **OK** Clicked), `false` (Default **Close** clicked), the argument provided to the `hide()` method, or `undefined` otherwise (i.e. close on Esc, or close on backdrop click)
+| `e.preventDefault()` | Method | When called prevents the modal from closing
+| `trigger` | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the argument provided to the `hide()` method, or `undefined` otherwise.
+| `target` | Property | A refernece to the modal element
+| `vueTarget` | property | A refernce to the modal's Vue VM instance
 
-You can set the value of `isOK` by passing an argument to the component's
+You can set the value of `trigger` by passing an argument to the component's
 `hide()` method for advanced control. 
 
-**Note:** `ok` and `cancel` events will be only emitted when the argument to `hide()` is strictly `true`
-or `fase` respectively. The argument passed to `hide()` will be placed into the
-`isOK` property of the close event object.
+**Note:** `ok` and `cancel` events will be only emitted when the argument to `hide()` is strictly `ok`
+or `cancel` respectively. The argument passed to `hide()` will be placed into the
+`trigger` property of the event object.
 
 
 ## Modal sizing
+Modals have two optional sizes, available via the prop `size`. These sizes kick in at certain
+breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizez are
+`lg`, or `sm`.
 
-The width of `<b-modal>` can be set via the `size` prop to `lg`, `sm` or `md` (default).
+```html
+<div>
+  <b-btn v-b-modal.modallg variant="primary">Large modal</b-btn>
+  <b-btn v-b-modal.modalsm variant="primary">Small modal</b-btn>
+
+  <b-modal id="modallg" size="lg" title="Large Modal">
+    Hello Modal!
+  </b-modal>
+  <b-modal id="modalsm" size="sm" title="Small Modal">
+    Hello Modal!
+  </b-modal>
+</div>
+
+<!-- modal-sizes.vue -->
+```
+## Using the grid
+Utilize the Bootstrap grid system within a modal by nesting `<b-container fluid>` within
+the modal-body. Then, use the normal grid system `<b-row>` and `<b-col>` as you would
+anywhere else.
+
+## Tooltips and popovers
+Tooltips and popovers can be placed within modals as needed. When modals are closed, any tooltips
+and popovers within are also automatically dismissed.  Just remember to specify the modal's ID as the
+tooltip or popover's `container` to ensure they are not hidden behind the modal.
+
+```html
+<div>
+  <b-btn v-b-modal.modalPopover>Show Modal</b-btn>
+  <b-modal id="modalPopover" title="Modal with Popover" ok-only>
+    This 
+    <b-btn v-b-popover:modalPopover="'Popover inside a modal!'" title="Popover">
+      Button
+    </b-btn>
+    triggers a popover on click.
+    <br><br>
+    This <a href="#" v-b-tooltip:modalPopover title="Tooltip in a modal!">Link</a>
+    will show a tooltip on hover.
+  </b-modal>
+</div>
+
+<!-- modal-popover.vue -->
+```
+
+## Variants
+Control the header, foorter, and body background and text variants by setting the `header-bg-variant`,
+`header-text-variant`, `body-bg-variant`, `body-text-variant`, `footer-bg-variant`, and `footer-text-variant`
+props. Use any of the standard Bootstrap variants shuch as `danger`, `warning`, `info`, `success`, `dark`,
+`light`, etc.
 
 ## Accessibility
 
