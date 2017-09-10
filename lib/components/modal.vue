@@ -44,10 +44,10 @@
                                     <slot name="modal-title">{{title}}</slot>
                                 </h5>
                                 <b-btn-close v-if="!hideHeaderClose"
-                                                :disabled="is_transitioning"
-                                                :aria-label="headerCloseLabel"
-                                                :text-variant="headerTextVariant"
-                                                @click="hide('headerclose')"
+                                             :disabled="is_transitioning"
+                                             :aria-label="headerCloseLabel"
+                                             :text-variant="headerTextVariant"
+                                             @click="hide('headerclose')"
                                 ><slot name="modal-header-close"></slot></b-btn-close>
                             </slot>
                         </header>
