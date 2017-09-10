@@ -375,7 +375,7 @@
                 if (id === this.id) {
                     this.hide();
                 }
-            }
+            },
             // Focus control handlers
             focusFirst() {
                 // Don't try and focus if we are SSR
@@ -402,7 +402,7 @@
                         el.focus();
                     }
                 }
-            },
+            }
         },
         mounted() {
             // TODO: Measure scrollbar
