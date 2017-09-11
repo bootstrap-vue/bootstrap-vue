@@ -286,7 +286,7 @@ they are appended by specifying a container ID (refer to tooltip and popover doc
       triggers a popover on click.
     </p>
     <p>
-      This <a href="#" v-b-tooltip: title="Tooltip in a modal!">Link</a>
+      This <a href="#" v-b-tooltip title="Tooltip in a modal!">Link</a>
       will show a tooltip on hover.
     </p>
   </b-modal>
