@@ -8,7 +8,7 @@
                     leave-to-class=""
                     @before-enter="onBeforeEnter"
                     @enter="onEnter"
-                    @after-enter="focusFirst"
+                    @after-enter="onAfterEnter"
                     @before-leave="onBeforeLeave"
                     @leave="onLeave"
                     @after-leave="onAfterLeave"
