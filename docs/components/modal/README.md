@@ -57,7 +57,7 @@ feature a handful of helpful sub-components, sizes, variants, accessibility, and
     }
 </script>
 
-<!-- modal.vue -->
+<!-- modal-1.vue -->
 ```
 
 `<b-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. These buttons can
@@ -101,54 +101,68 @@ Other elements can easily show modals using the `v-b-modal` directive.
 ```
 
 Focus will automatically be returned to the trigger element once the modal closes.
-See the  **Accessibility** section below for details.
+See the **Accessibility** section below for details.
 
 ### Using `show()` and `hide()` component methods
 
 You can access modal using `ref` attribute and then call the `show()` or `hide()` methods.
 
 ```html
-<b-button @click="showModal">
-    Open Modal
-</b-button>
-<b-modal ref="my_modal">
-    Hello From My Modal!
-    <b-btn @click="hideModal">Close Me</b-btn>
-</b-modal>
-```
+<template>
+    <b-button @click="showModal">
+        Open Modal
+    </b-button>
+    <b-modal ref="myModalRef" title="Using Component Methods">
+        <div class="d-block text-center">
+            <h3>Hello From My Modal!</h3>
+        </div>
+        <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
+    </b-modal>
+</template>
 
-```js
-methods: {
-    showModal() {
-        this.$refs.my_modal.show();
-    },
-    hideModal() {
-        this.$refs.my_modal.hide();
+<script>
+export default {
+    methods: {
+        showModal() {
+            this.$refs.myModalRef.show();
+        },
+        hideModal() {
+            this.$refs.myModalRef.hide();
+        }
     }
 }
+</script>
+
+<!-- modal-2.vue -->
 ```
 
 The `hide()` method accepts an optional argument. See section **Prevent Closing**
 below for details.
 
-### Using `v-model` property.
+### Using `v-model` property
 
 `v-model` property is always automatically synced with `<b-modal>` visible state
 and you can show/hide using `v-model`.
 
 ```html
-<b-button @click="modalShow = !modalShow">
-    Open Modal
-</b-button>
-<b-modal v-model="modalshow">
-    Hello From Modal!
-</b-modal>
-```
+<template>
+    <b-button @click="modalShow = !modalShow">
+        Open Modal
+    </b-button>
+    <b-modal v-model="modalShow">
+        Hello From Modal!
+    </b-modal>
+</template>
 
-```js
-data: {
-    modalShow: false
+<script>
+export default {
+    data: {
+        modalShow: false
+    }
 }
+</script>
+
+<!-- modal-3.vue -->
 ```
 
 When using the `v-model` property, do not use the `visible` property at the same time.
@@ -166,7 +180,7 @@ and element reference, or a component reference.
     Open Modal
 </b-button>
 <b-modal id="modal1" @hidden="onHidden">
-    Hello From My Modal!
+    <div class="d-block">Hello From My Modal!</div>
     <b-btn @click="hideModal">Close Me</b-btn>
 </b-modal>
 ```
