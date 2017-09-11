@@ -25,7 +25,7 @@
     import { hasClass } from '../utils/dom';
 
     // Events we emit on $root
-    const EVENT_STATE = 'bv:collapse::state';
+    const EVENT_STATE = 'bv::collapse::state';
     const EVENT_ACCORDION = 'bv::collapse::accordion';
 
     // Events we listen to on $root
