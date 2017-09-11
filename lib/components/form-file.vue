@@ -6,19 +6,20 @@
     >
 
         <!-- Drop Here Target -->
-        <span class="drop-here"
-              v-if="dragging && custom"
-              @dragover.stop.prevent="dragover"
-              @drop.stop.prevent="drop"
-              @dragleave.stop.prevent="dragging=false"
-              :data-drop="dropLabel"
-        ></span>
+        <label v-if="dragging && custom"
+               :for="safeId()"
+               :data-drop="dropLabel"
+               class="drop-here"
+               @dragover.stop.prevent="dragover"
+               @drop.stop.prevent="drop"
+               @dragleave.stop.prevent="dragging=false"
+        ></label>
 
         <!-- Real Form input -->
         <input type="file"
                :id="safeId()"
                ref="input"
-               :class="[custom?'custom-file-input':'form-control-file', stateClass]"
+               :class="[custom?'custom-file-input':'form-control-file', stateClass, hasFocus?'focus':'']"
                :name="name"
                :disabled="disabled"
                :required="required"
@@ -28,22 +29,56 @@
                :multiple="multiple"
                :webkitdirectory="directory"
                :aria-describedby="custom ? safeId('_BV_file_control_') : null"
+               @focusin="focusHandler"
+               @focusout="focusHandler"
                @change="onFileChange"
         >
 
         <!-- Overlay Labels -->
-        <span :class="['custom-file-control',dragging?'dragging':null]"
-              :id="safeId('_BV_file_control_')"
-              :data-choose="computedChooseLabel"
-              :data-selected="selectedLabel"
-              v-if="custom"
-        ></span>
+        <!-- this is normally a <span> but we use <label> here so we can associate it with the input -->
+        <label v-if="custom"
+               :id="safeId('_BV_file_control_')"
+               :for="safeId()"
+               :class="['custom-file-control',dragging?'dragging':null]"
+               :data-choose="computedChooseLabel"
+               :data-selected="selectedLabel"
+        ></label
 
     </div>
 </template>
 
 <style scoped>
-    /* Are these classes needed??? bootstrap.css contains similar ones */
+    /* Custom-file focus styling */
+    /* regular focus styling */
+    .custom-file-input.focus ~ .custom-file-control,
+    .custom-file-input:focus ~ .custom-file-control {
+        color: #495057;
+        background-color: #fff;
+        border-color: #80bdff;
+        outline: none;
+    }
+
+    /* Invalid focus styling */
+    .custom-file-input.is-invalid.focus ~ .custom-file-control,
+    .custom-file-input.is-invalid:focus ~ .custom-file-control,
+    .was-validated .custom-file-input:invalid.focus ~ .custom-file-control,
+    .was-validated .custom-file-input:invalid:focus ~ .custom-file-control {
+        -webkit-box-shadow: 0 0 0 .2rem rgba(220,53,69,.25);
+        box-shadow: 0 0 0 .2rem rgba(220,53,69,.25);
+        border-color: #dc3545;
+    }
+
+    /* valid focus styling */
+    .custom-file-input.is-valid.focus ~ .custom-file-control,
+    .custom-file-input.is-valid:focus ~ .custom-file-control,
+    .was-validated .custom-file-input:valid.focus ~ .custom-file-control,
+    .was-validated .custom-file-input:valid:focus ~ .custom-file-control {
+        -webkit-box-shadow: 0 0 0 .2rem rgba(40,167,69,.25);
+        box-shadow: 0 0 0 .2rem rgba(40,167,69,.25);
+        border-color: #28a745;
+    }
+
+    /* Drag/Drop handling */
     .custom-file-control {
         overflow: hidden;
     }
@@ -95,7 +130,8 @@
         data() {
             return {
                 selectedFile: null,
-                dragging: false
+                dragging: false,
+                hasFocus: false
             };
         },
         props: {
@@ -177,6 +213,17 @@
             }
         },
         methods: {
+            handleFocus(evt) {
+                // Boostrap v4.beta doesn't have focus styling for custom file input
+                // Firefox has a borked '[type=file]:focus ~ sibling' selector, so we add
+                // A 'focus' class to get around this bug
+                if (this.plain || evt.type === 'focusout') {
+                    this.hasFocus = false;
+                } else {
+                    // Add focus styling for custom file input
+                    this.hasFocus = true;
+                }
+            },
             reset() {
                 try {
                     // Wrapped in try in case IE < 11 craps out
