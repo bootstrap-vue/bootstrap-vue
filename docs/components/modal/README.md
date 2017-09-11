@@ -73,7 +73,7 @@ props `no-close-on-esc`, `no-close-on-backdrop`, and `hide-header-close` respect
 
 You can override the modal title via the named slot `modal-title`, override the
 header completely via the `modal-header` slot, and override the footer completely
-via the `modal-footer` slot. 
+via the `modal-footer` slot.
 
 **Note**: when using the `modal-footer` slot, the default **OK** and **Close** buttons will not
 be present. Also, if you use the `modal-header` slot, the default header `X` close button will
@@ -226,17 +226,17 @@ buttons in the `modal-footer` slot or have hidden the footer. In this case use t
 to control cancelling of the modal close. Event `hide` is always emitted, even if `ok` and `cancel`
 are emitted.
 
-The `ok`, `cancel`, and `hide` event object containsseveral properties and methods:
+The `ok`, `cancel`, and `hide` event object contains several properties and methods:
 
 | Property or Method | Type | Description
 | ------------ | ------ | --------------------------------------------
 | `e.preventDefault()` | Method | When called prevents the modal from closing
 | `trigger` | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the argument provided to the `hide()` method, or `undefined` otherwise.
-| `target` | Property | A refernece to the modal element
-| `vueTarget` | property | A refernce to the modal's Vue VM instance
+| `target` | Property | A reference to the modal element
+| `vueTarget` | property | A reference to the modal's Vue VM instance
 
 You can set the value of `trigger` by passing an argument to the component's
-`hide()` method for advanced control. 
+`hide()` method for advanced control.
 
 **Note:** `ok` and `cancel` events will be only emitted when the argument to `hide()` is strictly `ok`
 or `cancel` respectively. The argument passed to `hide()` will be placed into the
@@ -245,7 +245,7 @@ or `cancel` respectively. The argument passed to `hide()` will be placed into th
 
 ## Modal sizing
 Modals have two optional sizes, available via the prop `size`. These sizes kick in at certain
-breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizez are
+breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are
 `lg`, or `sm`.
 
 ```html
@@ -279,7 +279,7 @@ they are appended by specifying a container ID (refer to tooltip and popover doc
   <b-btn v-b-modal.modalPopover>Show Modal</b-btn>
   <b-modal id="modalPopover" title="Modal with Popover" ok-only>
     <p>
-      This 
+      This
       <b-btn v-b-popover="'Popover inside a modal!'" title="Popover">
         Button
       </b-btn>
@@ -296,10 +296,10 @@ they are appended by specifying a container ID (refer to tooltip and popover doc
 ```
 
 ## Variants
-Control the header, foorter, and body background and text variants by setting the
+Control the header, footer, and body background and text variants by setting the
 `header-bg-variant`, `header-text-variant`, `body-bg-variant`, `body-text-variant`,
 `footer-bg-variant`, and `footer-text-variant` props. Use any of the standard Bootstrap
-variants shuch as `danger`, `warning`, `info`, `success`, `dark`, `light`, etc.
+variants such as `danger`, `warning`, `info`, `success`, `dark`, `light`, etc.
 
 The variants for the bottom border of the header and top border of the footer can be
 controlled by the `header-border-variant` and `footer-border-variant` props respectively.
@@ -310,7 +310,7 @@ controlled by the `header-border-variant` and `footer-border-variant` props resp
 focus, and keyboard (tab) _focus containment_.
 
 For `aria-labelledby` and `aria-described` by attributes to appear on the
-modal, you **must** supply an `id` attribute on `<b-modal>`. `aria-labeledby` will
+modal, you **must** supply an `id` attribute on `<b-modal>`. `aria-labelledby` will
 not be present if you have the header hidden.
 
 ### Auto Focus

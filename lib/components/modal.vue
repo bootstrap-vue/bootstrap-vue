@@ -29,12 +29,12 @@
                          role="document"
                          ref="content"
                          :aria-labelledby="hideHeader ? null : safeId('__BV_modal_header_')"
-                         :aria-describedby="safeid('__BV_modal_body_')"
+                         :aria-describedby="safeId('__BV_modal_body_')"
                          @focusout="onFocusout"
                          @click.stop
                     >
 
-                        <header :class="headerClases"
+                        <header :class="headerClasses"
                                 ref="header"
                                 :id="safeId('__BV_modal_header_')"
                                 v-if="!hideHeader"
@@ -59,7 +59,7 @@
                         <footer :class="footerClasses" ref="footer" v-if="!hideFooter" :id="safeId('__BV_modal_footer_')">
                             <slot name="modal-footer">
                                 <b-btn v-if="!okOnly"
-                                       :variant="cacelVariant"
+                                       :variant="cancelVariant"
                                        :size="buttonSize"
                                         :disabled="is_transitioning"
                                        @click="hide('cancel')"
@@ -105,7 +105,7 @@
         }
         return arrayFind(selectAll(selector, root), isVisible) || null;
     }
-    
+
     function reflow(el) {
         return el.offsetHeight;
     }
@@ -270,7 +270,7 @@
             headerClasses() {
                 return [
                     'modal-header',
-                    // Rounding is needed to fix a bug in bootstrap V4.beata.1 CSS
+                    // Rounding is needed to fix a bug in bootstrap V4.beta.1 CSS
                     Boolean(this.headerBgVariant) ? 'rounded-top' : '',
                     Boolean(this.headerBgVariant) ? `bg-${this.headerBgVariant}` : '',
                     Boolean(this.headerTextVariant) ? `text-${this.headerTextVariant}` : '',
@@ -287,7 +287,7 @@
             footerClasses() {
                 return [
                     'modal-footer',
-                    // Rounding is needed to fix a bug in bootstrap V4.beata.1 CSS
+                    // Rounding is needed to fix a bug in bootstrap V4.beta.1 CSS
                     Boolean(this.footerBgVariant) ? 'rounded-bottom' : '',
                     Boolean(this.footerBgVariant) ? `bg-${this.footerBgVariant}` : '',
                     Boolean(this.footerTextVariant) ? `text-${this.footerTextVariant}` : '',
@@ -335,7 +335,7 @@
                     isOK: trigger || null,
                     trigger: trigger || null,
                     cancel() {
-                        // Bacwards compatability
+                        // Backwards compatibility
                         warn('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().');
                         this.preventDefault();
                     }
@@ -518,7 +518,7 @@
                 if (this.isBodyOverflowing) {
                     // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
                     //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
-                    
+
                     const ComputedStyle = document.getComputedStyle;
                     const body = document.body;
 
@@ -564,7 +564,7 @@
                 // Restore sticky content and navbar-toggler margin
                 selectAll('.sticky-top, .navbar-toggler').forEach(el => {
                     const margin = getAttr(el, 'data-margin-right') || '';
-                    el.style.margingRight = margin;
+                    el.style.marginRight = margin;
                     removeAttr(el, 'data-margin-right');
                 });
 
@@ -584,7 +584,7 @@
             this.listenOnRoot('bv::hide::modal', this.hideHandler);
             // Listen for bv:modal::show events, and close ourselves if the opening modal not us
             this.listenOnRoot('bv::modal::show', this.modalListener);
-            // Observe chagnes in modal content and adjust if necessary
+            // Observe changes in modal content and adjust if necessary
             observeDom(this.$refs.modal, this.adjustDialog.bind(this), {
                 subtree: true,
                 childList: true,
