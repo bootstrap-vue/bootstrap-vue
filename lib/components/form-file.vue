@@ -3,7 +3,7 @@
            type="file"
            :id="safeId()"
            ref="input"
-           :class="['form-control-file', stateClass]"
+           :class="['form-control-file', sizeFormClass, stateClass]"
            :name="name"
            :disabled="disabled"
            :required="required"
