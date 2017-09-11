@@ -260,7 +260,7 @@
                 return [
                     'modal-dialog',
                     {
-                        [`modal-${this.size}`]: this.size
+                        [`modal-${this.size}`]: Boolean(this.size)
                     }
                 ];
             },
@@ -278,10 +278,10 @@
                     'modal-header',
                     // Rounding is needed to fix a bug in bootstrap V4.beta.1 CSS
                     {
-                        'rounded-top': this.headerBgVariant,
-                        [`bg-${this.headerBgVariant}`]: this.headerBgVariant,
-                        [`text-${this.headerTextVariant}`]: this.headerTextVariant,
-                        [`border-${this.headerBorderVariant}`]: this.headerBorderVariant,
+                        'rounded-top': Boolean(this.headerBgVariant),
+                        [`bg-${this.headerBgVariant}`]: Boolean(this.headerBgVariant),
+                        [`text-${this.headerTextVariant}`]: Boolean(this.headerTextVariant),
+                        [`border-${this.headerBorderVariant}`]: Boolean(this.headerBorderVariant)
                     }
                 ];
             },
@@ -289,8 +289,8 @@
                 return [
                     'modal-body',
                     {
-                        [`bg-${this.bodyBgVariant}`]: this.bodyBgVariant,
-                        [`text-${this.bodyTextVariant}`]: this.bodyTextVariant,
+                        [`bg-${this.bodyBgVariant}`]: Boolean(this.bodyBgVariant),
+                        [`text-${this.bodyTextVariant}`]: Boolean(this.bodyTextVariant)
                     }
                 ];
             },
@@ -299,10 +299,10 @@
                     'modal-footer',
                     // Rounding is needed to fix a bug in bootstrap V4.beta.1 CSS
                     {
-                        'rounded-bottom': this.footerBgVariant,
-                        [`bg-${this.footerBgVariant}`]: this.footerBgVariant,
-                        [`text-${this.footerTextVariant}`]: this.footerTextVariant,
-                        [`border-${this.footerBorderVariant}`]: this.footerBorderVariant,
+                        'rounded-bottom': Boolean(this.footerBgVariant),
+                        [`bg-${this.footerBgVariant}`]: Boolean(this.footerBgVariant),
+                        [`text-${this.footerTextVariant}`]: Boolean(this.footerTextVariant),
+                        [`border-${this.footerBorderVariant}`]: Boolean(this.footerBorderVariant)
                     }
                 ];
             }
