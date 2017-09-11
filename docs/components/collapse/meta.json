@@ -19,26 +19,12 @@
       "description": "emitted when collaspe has finished closing"
     },
     {
-      "event": "collapse::toggle",
-      "description": "toggles visible state of collaspe when this event emits on $root",
+      "event": "bv::toggle::collapse",
+      "description": "toggles visible state of collaspe when this event is emitted on $root",
       "args": [
         {
           "arg": "id",
           "description": "collapse id to toggle"
-        }
-      ]
-    },
-    {
-      "event": "accordion::toggle",
-      "description": "toggles visible state of accordion when this event emits on $root",
-      "args": [
-        {
-          "arg": "id",
-          "description": "collapse id that should be open"
-        },
-        {
-          "arg": "accordion",
-          "description": "accordion group identifier"
         }
       ]
     }
