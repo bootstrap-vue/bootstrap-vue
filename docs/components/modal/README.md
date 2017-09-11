@@ -62,9 +62,9 @@ feature a handful of helpful sub-components, sizes, variants, accessibility, and
 
 `<b-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. These buttons can
 be customized by setting various props on the component. You can customize the size of the buttons,
-disable the **OK** button, hide the **Close** button (i.e. OK Only), choose a variant (e.g. `danger`
-for a red OK button) using the `ok-variant` and `close-variant` props, and provide custom
-button content using the `ok-title` and `close-title` props, or using the named
+disable the **OK** button, hide the **Cancel** button (i.e. OK Only), choose a variant (e.g. `danger`
+for a red OK button) using the `ok-variant` and `cancel-variant` props, and provide custom
+button content using the `ok-title` and `cancel-title` props, or using the named
 slots `modal-ok` and `modal-cancel`.
 
 `<b-modal>` supports close on ESC (enabled by default), close on backdrop click (enabled by default), and
@@ -75,7 +75,7 @@ You can override the modal title via the named slot `modal-title`, override the
 header completely via the `modal-header` slot, and override the footer completely
 via the `modal-footer` slot.
 
-**Note**: when using the `modal-footer` slot, the default **OK** and **Close** buttons will not
+**Note**: when using the `modal-footer` slot, the default **OK** and **Cancel** buttons will not
 be present. Also, if you use the `modal-header` slot, the default header `X` close button will
 not be present, nor can you use the `modal-title` slot.
 
@@ -89,14 +89,14 @@ Other elements can easily show modals using the `v-b-modal` directive.
 
 ```html
 <!-- Using modifiers -->
-<b-btn v-b-modal.modal1>Show Modal</b-btn>
+<b-btn v-b-modal.myModal>Show Modal</b-btn>
 
 <!-- Using value -->
-<b-btn v-b-modal="'modal1'">Show Modal</b-btn>
+<b-btn v-b-modal="'myMmodal'">Show Modal</b-btn>
 
 <!-- the modal -->
-<b-modal id="modal1">
-    Hello From Modal 1!
+<b-modal id="myMmodal">
+    Hello From My Modal!
 </b-modal>
 ```
 
@@ -179,7 +179,7 @@ and element reference, or a component reference.
 <b-button @click="showModal" ref="btnShow">
     Open Modal
 </b-button>
-<b-modal id="modal1" @hidden="onHidden">
+<b-modal @hidden="onHidden">
     <div class="d-block">Hello From My Modal!</div>
     <b-btn @click="hideModal">Close Me</b-btn>
 </b-modal>
