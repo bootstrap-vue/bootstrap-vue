@@ -249,49 +249,61 @@
             modalClasses() {
                 return [
                     'modal',
-                    this.noFade ? '' : 'fade',
-                    this.is_show ? 'show' : '',
-                    this.is_block ? 'd-block' : ''
+                    {
+                        fade: !this.noFade,
+                        show: this.is_show,
+                        'd-block': this.is_block
+                    }
                 ];
             },
             dialogClasses() {
                 return [
                     'modal-dialog',
-                    Boolean(this.size) ? `modal-${this.size}` : ''
+                    {
+                        [`modal-${this.size}`]: this.size
+                    }
                 ];
             },
             backdropClasses() {
                 return [
                     'modal-backdrop',
-                    this.noFade ? '' : 'fade',
-                    this.is_show ? 'show' : ''
+                    {
+                        fade: !this.noFade,
+                        show: this.is_show,
+                    }
                 ];
             },
             headerClasses() {
                 return [
                     'modal-header',
                     // Rounding is needed to fix a bug in bootstrap V4.beta.1 CSS
-                    Boolean(this.headerBgVariant) ? 'rounded-top' : '',
-                    Boolean(this.headerBgVariant) ? `bg-${this.headerBgVariant}` : '',
-                    Boolean(this.headerTextVariant) ? `text-${this.headerTextVariant}` : '',
-                    Boolean(this.headerBorderVariant) ? `border-${this.headerBorderVariant}` : ''
+                    {
+                        'rounded-top': this.headerBgVariant,
+                        [`bg-${this.headerBgVariant}`]: this.headerBgVariant,
+                        [`text-${this.headerTextVariant}`]: this.headerTextVariant,
+                        [`border-${this.headerBorderVariant}`]: this.headerBorderVariant,
+                    }
                 ];
             },
             bodyClasses() {
                 return [
                     'modal-body',
-                    Boolean(this.bodyBgVariant) ? `bg-${this.bodyBgVariant}` : '',
-                    Boolean(this.bodyTextVariant) ? `text-${this.bodyTextVariant}` : ''
+                    {
+                        [`bg-${this.bodyBgVariant}`]: this.bodyBgVariant,
+                        [`text-${this.bodyTextVariant}`]: this.bodyTextVariant,
+                    }
                 ];
             },
             footerClasses() {
                 return [
                     'modal-footer',
                     // Rounding is needed to fix a bug in bootstrap V4.beta.1 CSS
-                    Boolean(this.footerBgVariant) ? 'rounded-bottom' : '',
-                    Boolean(this.footerBgVariant) ? `bg-${this.footerBgVariant}` : '',
-                    Boolean(this.footerTextVariant) ? `text-${this.footerTextVariant}` : '',
-                    Boolean(this.footerBorderVariant) ? `border-${this.footerBorderVariant}` : ''
+                    {
+                        'rounded-bottom': this.footerBgVariant,
+                        [`bg-${this.footerBgVariant}`]: this.footerBgVariant,
+                        [`text-${this.footerTextVariant}`]: this.footerTextVariant,
+                        [`border-${this.footerBorderVariant}`]: this.footerBorderVariant,
+                    }
                 ];
             }
         },
