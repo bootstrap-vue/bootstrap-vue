@@ -43,7 +43,7 @@ Other elements can easily toggle `<b-collapse>` components using the `v-b-toggle
 <!-- collapse-2.vue -->
 ```
 
-### Initial visibility (start expanded)
+## Initial visibility (start expanded)
 To make the `<b-collapse>` show initially, set the `visible` prop:
 
 ```html
@@ -59,7 +59,7 @@ To make the `<b-collapse>` show initially, set the `visible` prop:
 <!-- collapse-3.vue -->
 ```
 
-### `v-model` support
+## `v-model` support
 The component's collapsed (visible) state can also be set with `v-model` which
 binds internally to the `visible` prop.
 
@@ -95,7 +95,7 @@ export default {
 <-- collapse-4.vue -->
 ```
 
-### Trigger multiple collapse elements
+## Trigger multiple collapse elements
 You can even collapse multiple `<b-collapse>` components via a single `v-b-toggle` by 
 providing multiple target IDs using modifers:
 
