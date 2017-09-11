@@ -309,7 +309,7 @@
                 if (this.is_visible) {
                     return;
                 }
-                showEvt = new BvEvent('show', {
+                const showEvt = new BvEvent('show', {
                     cancelable: true,
                     vueTarget: this,
                     target: this.$refs.modal,
@@ -327,7 +327,7 @@
                 if (!this.is_visible) {
                     return;
                 }
-                hideEvt = new BvEvent('hide', {
+                const hideEvt = new BvEvent('hide', {
                     cancelable: true,
                     vueTarget: this,
                     target: this.$refs.modal,
@@ -370,7 +370,7 @@
                 this.is_transitioning = false;
                 this.$nextTick(() => {
                     this.focusFirst();
-                    shownEvt = new BvEvent('shown', {
+                    const shownEvt = new BvEvent('shown', {
                         cancelable: false,
                         vueTarget: this,
                         target: this.$refs.modal,
@@ -394,7 +394,7 @@
                 this.is_transitioning = false;
                 this.$nextTick(() => {
                     this.returnFocusTo();
-                    hiddenEvt = new BvEvent('hidden', {
+                    const hiddenEvt = new BvEvent('hidden', {
                         cancelable: false,
                         vueTarget: this,
                         target: this.$refs.modal,
@@ -406,8 +406,8 @@
             // Event emitter
             emitEvent(bvEvt) {
                 const type = bvEvt.type;
-                this.$emit(type, bvevt);
-                this.$root.$emit(`bv::modal::${type}`, bvevt);
+                this.$emit(type, bvEvt);
+                this.$root.$emit(`bv::modal::${type}`, bvEvt);
             },
             // UI Event Handlers
             onClickOut() {
