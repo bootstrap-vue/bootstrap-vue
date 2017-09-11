@@ -300,7 +300,7 @@
                 if (new_val === old_val) {
                     return;
                 }
-                this[newVal ? 'show' : 'hide']();
+                this[new_val ? 'show' : 'hide']();
             }
         },
         methods: {
