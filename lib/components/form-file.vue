@@ -31,8 +31,7 @@
                :aria-describedby="custom ? safeId('_BV_file_control_') : null"
                @focusin="focusHandler"
                @focusout="focusHandler"
-               @change="onFileChange"
-        >
+               @change="onFileChange">
 
         <!-- Overlay Labels -->
         <!-- this is normally a <span> but we use <label> here so we can associate it with the input -->
@@ -42,7 +41,7 @@
                :class="['custom-file-control',dragging?'dragging':null]"
                :data-choose="computedChooseLabel"
                :data-selected="selectedLabel"
-        ></label
+        ></label>
 
     </div>
 </template>
