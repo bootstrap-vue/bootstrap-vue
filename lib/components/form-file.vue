@@ -14,7 +14,7 @@
            :webkitdirectory="directory"
            @change="onFileChange">
     <div v-else
-         :class="['custom-file', stateClass]"
+         :class="['custom-file', 'w-100', stateClass]"
          :id="safeId('_BV_file_outer_')"
          @dragover.stop.prevent="dragover">
          <!-- Normally this div should be label, but IE borks out if label has a file input inside. Awaiting fix from MSFT -->
@@ -33,7 +33,7 @@
         <input type="file"
                :id="safeId()"
                ref="input"
-               :class="['custom-file-input', stateClass, hasFocus?'focus':'']"
+               :class="['custom-file-input', 'w-100', stateClass, hasFocus?'focus':'']"
                :name="name"
                :disabled="disabled"
                :required="required"
