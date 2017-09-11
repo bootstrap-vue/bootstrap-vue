@@ -1,12 +1,26 @@
 <template>
-    <!-- Normally this should be a <label> but IE borks out on it. Awaiting fix from MSFT -->
-    <div :class="[custom?'custom-file':null, state?`is-${state}`:null]"
+    <input v-if="plain"
+           type="file"
+           :id="safeId()"
+           ref="input"
+           :class="['form-control-file', stateClass]"
+           :name="name"
+           :disabled="disabled"
+           :required="required"
+           :capture="capture || null"
+           :aria-required="required ? 'true' : null"
+           :accept="accept || null"
+           :multiple="multiple"
+           :webkitdirectory="directory"
+           @change="onFileChange">
+    <div v-else
+         :class="['custom-file', stateClass]"
          :id="safeId('_BV_file_outer_')"
-         @dragover.stop.prevent="dragover"
-    >
+         @dragover.stop.prevent="dragover">
+         <!-- Normally this div should be label, but IE borks out if label has a file input inside. Awaiting fix from MSFT -->
 
-        <!-- Drop Here Target -->
-        <label v-if="dragging && custom"
+        <!-- Drop Here Target, set as label so it can be associated with input -->
+        <label v-if="dragging"
                :for="safeId()"
                :data-drop="dropLabel"
                class="drop-here"
@@ -19,7 +33,7 @@
         <input type="file"
                :id="safeId()"
                ref="input"
-               :class="[custom?'custom-file-input':'form-control-file', stateClass, hasFocus?'focus':'']"
+               :class="['custom-file-input', stateClass, hasFocus?'focus':'']"
                :name="name"
                :disabled="disabled"
                :required="required"
@@ -28,17 +42,16 @@
                :accept="accept || null"
                :multiple="multiple"
                :webkitdirectory="directory"
-               :aria-describedby="custom ? safeId('_BV_file_control_') : null"
+               :aria-describedby="safeId('_BV_file_control_')"
                @focusin="focusHandler"
                @focusout="focusHandler"
                @change="onFileChange">
 
         <!-- Overlay Labels -->
         <!-- this is normally a <span> but we use <label> here so we can associate it with the input -->
-        <label v-if="custom"
-               :id="safeId('_BV_file_control_')"
+        <label :id="safeId('_BV_file_control_')"
                :for="safeId()"
-               :class="['custom-file-control',dragging?'dragging':null]"
+               :class="['custom-file-control', dragging?'dragging':null]"
                :data-choose="computedChooseLabel"
                :data-selected="selectedLabel"
         ></label>
