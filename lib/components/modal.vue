@@ -347,7 +347,7 @@
                 }
                 this.emitEvent(hideEvt);
                 // Hide if not canceled
-                if (hideEvt.defaultPrevented || !this._is_visible) {
+                if (hideEvt.defaultPrevented || !this.is_visible) {
                     return;
                 }
                 this.is_visible = false;
