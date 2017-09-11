@@ -22,6 +22,14 @@
 
 <script>
     import { listenOnRootMixin } from '../mixins';
+    import { hasClass } from '../utils/dom';
+
+    // Events we emit on $root
+    const EVENT_STATE = 'bv:collapse::state';
+    const EVENT_ACCORDION = 'bv::collapse::accordion';
+
+    // Events we listen to on $root
+    const EVENT_TOGGLE = 'bv::toggle::collapse';
 
     export default {
         mixins: [listenOnRootMixin],
@@ -87,6 +95,7 @@
                 this.reflow(el);
                 el.style.height = el.scrollHeight + 'px';
                 this.transitioning = true;
+                // This should be moved out so we can add cancellable events
                 this.$emit('show');
             },
             onAfterEnter(el) {
@@ -101,6 +110,7 @@
                 this.reflow(el);
                 this.transitioning = true;
                 el.style.height = 0;
+                // This should be moved out so we can add cancellable events
                 this.$emit('hide');
             },
             onAfterLeave(el) {
@@ -114,10 +124,11 @@
             },
             emitState() {
                 this.$emit('input', this.show);
-                this.$root.$emit('collapse::toggle::state', this.id, this.show);
+                // Let v-b-toggle know the state of this collapse
+                this.$root.$emit(EVENT_STATE, this.id, this.show);
                 if (this.accordion && this.show) {
                     // Tell the other collapses in this accordion to close
-                    this.$root.$emit('accordion::toggle', this.id, this.accordion);
+                    this.$root.$emit(EVENT_ACCORDION, this.id, this.accordion);
                 }
             },
             clickHandler(evt) {
@@ -126,7 +137,7 @@
                 if (!this.isNav || !el || getComputedStyle(this.$el).display !== 'block') {
                     return;
                 }
-                if (el.classList.contains('nav-link') || el.classList.contains('dropdown-item')) {
+                if (hasClass(el, 'nav-link') || hasClass(el, 'dropdown-item')) {
                     this.show = false;
                 }
             },
@@ -158,8 +169,10 @@
             },
         },
         created() {
-            this.listenOnRoot('collapse::toggle', this.handleToggleEvt);
-            this.listenOnRoot('accordion::toggle', this.handleAccordionEvt);
+            // Listen for toggle events to open/close us
+            this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt);
+            // Listen to otehr collapses for accordion events
+            this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt);
         },
         mounted() {
             if (this.isNav && typeof document !== 'undefined') {
@@ -170,7 +183,7 @@
             }
             this.emitState();
         },
-        destroyed() {
+        beforeDestroy() {
             if (this.isNav && typeof document !== 'undefined') {
                 window.removeEventListener('resize', this.handleResize, false);
                 window.removeEventListener('orientationchange', this.handleResize, false);
