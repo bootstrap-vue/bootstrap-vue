@@ -11,7 +11,7 @@
             :aria-invalid="computedAriaInvalid"
             ref="input"
     >
-        <slot name="first"><slot>
+        <slot name="first"></slot>
         <option v-for="(option, idx) in formOptions"
                        :value="option.value"
                        :disabled="option.disabled"
