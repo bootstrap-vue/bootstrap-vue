@@ -531,7 +531,7 @@
                     // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
                     //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
 
-                    const ComputedStyle = document.getComputedStyle;
+                    const computedStyle = window.getComputedStyle;
                     const body = document.body;
 
                     // Adjust fixed content padding
@@ -551,7 +551,7 @@
                     });
 
                     // Adjust navbar-toggler margin
-                    selectAll('.navbar-toggler').forEach(element => {
+                    selectAll('.navbar-toggler').forEach(el => {
                       const actualMargin = el.style.marginRight;
                       const calculatedMargin = computedStyle(el).marginRight;
                       setAttr(el, 'data-margin-right', actualMargin);
@@ -561,7 +561,7 @@
                     // Adjust body padding
                     const actualPadding = body.style.paddingRight;
                     const calculatedPadding = computedStyle(body).paddingRight;
-                    setAtttr(body, 'data-padding-right', actualPadding);
+                    setAttr(body, 'data-padding-right', actualPadding);
                     body.style.paddingRight = `${parseFloat(calculatedPadding) + this.scrollbarWidth}px`;
                 }
             },
