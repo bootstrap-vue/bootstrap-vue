@@ -1,10 +1,10 @@
 <template>
     <div v-if="is_Plain" class="form-check">
         <!-- Plain Radio -->
-        <label :class="['form-check-label', stacked ? '' : 'form-check-inline']">
+        <label :class="['form-check-label', is_Stacked ? '' : 'form-check-inline']">
             <input v-model="computedLocalChecked"
                    :id="safeId()"
-                   class="form-check-label"
+                   class="form-check-input"
                    :value="value"
                    :name="get_Name"
                    :required="get_Name && is_Required"
