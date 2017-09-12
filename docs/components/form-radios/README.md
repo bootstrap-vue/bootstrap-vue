@@ -91,7 +91,7 @@ Control the size of the radio text by setting the prop `size` to either `sm` for
     <b-form-radio-group v-model="selected"
                         :options="options"
                         size="lg"
-                        name="radiosLg>
+                        name="radiosLg">
     </b-form-radio-group>
 
     <div class="mt-4">
