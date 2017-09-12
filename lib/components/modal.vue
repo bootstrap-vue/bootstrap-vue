@@ -15,7 +15,7 @@
         >
             <div :class="modalClasses"
                  :id="safeId()"
-                 :aria-hidden="is_visible ? '' : 'true'"
+                 :aria-hidden="is_visible ? null : 'true'"
                  role="dialog"
                  ref="modal"
                  v-show="is_visible"
@@ -597,7 +597,7 @@
             // Listen for bv:modal::show events, and close ourselves if the opening modal not us
             this.listenOnRoot('bv::modal::show', this.modalListener);
             // Observe changes in modal content and adjust if necessary
-            observeDom(this.$refs.modal, this.adjustDialog.bind(this), {
+            observeDom(this.$refs.content, this.adjustDialog.bind(this), {
                 subtree: true,
                 childList: true,
                 attributes: true,
