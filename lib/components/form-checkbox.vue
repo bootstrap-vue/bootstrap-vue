@@ -88,7 +88,7 @@
         },
         watch: {
             computedLocalChecked(newVal, oldVal) {
-                if (looseEqual(newVal, oldVal) {
+                if (looseEqual(newVal, oldVal)) {
                     return;
                 }
                 this.$emit('input', newVal);
