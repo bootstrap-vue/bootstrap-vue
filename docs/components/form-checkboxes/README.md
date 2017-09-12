@@ -145,18 +145,19 @@ when they are in the _checked_ state.
 <template>
   <div>
     <h5>button style checkboxes</h5>
-    <b-form-checkbox-group v-model="selected" name="butons1" :options="options">
+    <b-form-checkbox-group buttons -model="selected" name="butons1" :options="options">
     </b-form-checkbox-group>
-    <br>
-    <h5>button style checkboxes with variant <code>primary</code> and large buttons</h5>
+
+    <h5 class="mt-2">button style checkboxes with variant <code>primary</code> and large buttons</h5>
     <b-form-checkbox-group v-model="selected"
+                           buttons
                            button-variant="primary"
                            size="lg" name="buttons2"
                            :options="options">
     </b-form-checkbox-group>
-    <br>
-    <h5>Stacked (vertical) button style checkboxes</h5>
-    <b-form-checkbox-group v-model="selected" stacked :options="options">
+
+    <h5 class="mt-2">Stacked (vertical) button style checkboxes</h5>
+    <b-form-checkbox-group buttons v-model="selected" stacked :options="options">
     </b-form-checkbox-group>
   </div>
 </template>
