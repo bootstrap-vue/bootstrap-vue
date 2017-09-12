@@ -21,12 +21,12 @@ prop, or via manual placement of the `<b-radio>` sub component.
 <template>
   <div>
     <h5>Radios using options</h5>
-    <b-form-radio-group id="radios1" v-model="selected" :options="options">
+    <b-form-radio-group id="radios1" v-model="selected" :options="options" name="radioOpenions">
     </b-form-radio-group>
     <br>
 
     <h5>Radios using sub-component</h5>
-    <b-form-radio-group id="radios2" v-model="selected">
+    <b-form-radio-group id="radios2" v-model="selected" name="radioSubComponent">
       <b-form-radio value="first">Toggle this custom radio</b-form-radio>
       <b-form-radio value="second">Or toggle this other custom radio</b-form-radio>
       <b-form-radio value="third" disabled>This one is Disabled</b-form-radio>
@@ -75,19 +75,23 @@ Control the size of the radio text by setting the prop `size` to either `sm` for
     <h5>Small size radios</h5>
     <b-form-radio-group v-model="selected"
                         :options="options"
-                        size="sm">
+                        size="sm"
+                        name="radiosSm">
     </b-form-radio-group>
-    
-    <h5>Default size  radios</h5>
+
+    <br>
+    <h5>Default size radios</h5>
     <b-form-radio-group v-model="selected"
-                        :options="options">
+                        :options="options"
+                        name="radiosMd">
     </b-form-radio-group>
     
     <br>
     <h5>Large size radios</h5>
     <b-form-radio-group v-model="selected"
                         :options="options"
-                        size="lg">
+                        size="lg"
+                        name="radiosLg>
     </b-form-radio-group>
 
     <div class="mt-4">
@@ -119,19 +123,29 @@ the radios appear one over the other.
 ```html
 <template>
   <div>
-    <h5>Small Stacked radios</h5>
+    <h5>Small size stacked radios</h5>
     <b-form-radio-group v-model="selected"
                         :options="options"
                         stacked
-                        size="sm">
+                        size="sm"
+                        name="radioStackedSm">
     </b-form-radio-group>
 
     <br>
-    <h5>Large Stacked radios</h5>
+    <h5>Default size stacked radios</h5>
     <b-form-radio-group v-model="selected"
                         :options="options"
                         stacked
-                        size="lg">
+                        name="radiosStackedMd">
+    </b-form-radio-group>
+
+    <br>
+    <h5>Large size stacked radios</h5>
+    <b-form-radio-group v-model="selected"
+                        :options="options"
+                        stacked
+                        size="lg"
+                        name="radiosStackedLg">
     </b-form-radio-group>
 
     <div class="mt-4">
@@ -175,7 +189,8 @@ when they are in the checked state.
                         class="mb-4"
                         buttons
                         v-model="selected"
-                        :options="options" />
+                        :options="options"
+                        name="radeiosBtnDefault" />
     <br>
 
     <h5>Button style radios with <code>outline-primary</code> variant and size <code>lg</code></h5>
@@ -185,7 +200,8 @@ when they are in the checked state.
                         button-variant="outline-primary"
                         size="lg"
                         v-model="selected"
-                        :options="options" />
+                        :options="options"
+                        name="radioBtnOutline" />
     <br>
 
     <h5>Stacked button style radios</h5>
@@ -194,7 +210,8 @@ when they are in the checked state.
                         buttons
                         stacked
                         v-model="selected"
-                        :options="options" />
+                        :options="options"
+                        name="radioBtnStacked" />
     <br>
 
     <div>
