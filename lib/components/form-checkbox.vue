@@ -7,6 +7,8 @@
                    class="form-check-input"
                    :name="get_Name"
                    :value="value"
+                   :true-value="value"
+                   :false-value="uncheckedValue"
                    :disabled="is_Disabled"
                    :required="is_Required"
                    ref="check"
@@ -23,6 +25,8 @@
                :class="is_ButtonMode ? '' : 'custom-control-input'"
                :name="get_Name"
                :value="value"
+               :true-value="value"
+               :false-value="uncheckedValue"
                :disabled="is_Disabled"
                :required="is_Required"
                ref="check"
@@ -84,13 +88,17 @@
         },
         watch: {
             computedLocalChecked(newVal, oldVal) {
-                if (this.is_Child || isArray(this.computedLocalChecked)) {
-                    this.$emit('input', this.computedLocalChecked);
-                } else {
-                    // Single radio mode supports unchecked value
-                    this.$emit('input', this.is_Checked ? this.value : this.uncheckedValue);
+                if (looseEqual(newVal, oldVal) {
+                    return;
                 }
+                this.$emit('input', newVal);
                 this.$emit('update:indeterminate', this.$refs.check.indeterminate);
+            },
+            checked(newVal, oldVal) {
+                if (this.is_Child || looseEqual(newVal, oldVal)) {
+                    return;
+                }
+                this.computedLocalChecked = newVal;
             },
             indeterminate(newVal, oldVal) {
                 this.setIndeterminate(newVal);
@@ -99,6 +107,7 @@
         methods: {
             handleChange({ target: { checked } }) {
                 // Change event is only fired via user interaction
+                // And we only emit the value of this checkbox
                 if (this.is_Child || isArray(this.computedLocalChecked)) {
                     this.$emit('change', checked ? this.value : null);
                 } else {
