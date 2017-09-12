@@ -1,5 +1,5 @@
 <template>
-    <div v-if="is_Plain && !is_ButtonMode" :class="['form-check', is_Stacked ? '' : 'form-check-inline']">
+    <div v-if="is_Plain && !is_ButtonMode" :class="['form-check', is_Stacked ?'':'form-check-inline']">
         <label class="form-check-label">
             <input type="checkbox"
                    :id="safeId()"
@@ -88,7 +88,7 @@
                     this.$emit('input', this.computedLocalChceked);
                 } else {
                     // Single radio mode supports unchecked value
-                    this.$emit('input', this.is_Checked ? this.value : this.uncheckedValue)
+                    this.$emit('input', this.is_Checked ? this.value : this.uncheckedValue);
                 }
             },
             indeterminate(newVal, oldVal) {
