@@ -83,7 +83,7 @@
             }
         },
         watch: {
-            computedLocalChceked(newVal, oldVal) {
+            computedLocalChecked(newVal, oldVal) {
                 if (this.is_Child || isArray(this.computedLocalChceked)) {
                     this.$emit('input', this.computedLocalChceked);
                 } else {
