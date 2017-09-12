@@ -6,7 +6,7 @@ is built on top of semantic and accessible markup, so it is a solid replacement
 for the default radio input.
 
 <div class="alert alert-danger">
-  <p>
+  <p class="m-0">
     <strong>Breaking Change Warning:</strong>
     <code>&lt;b-form-radio&gt;</code> now generates a single radio input. Please
     use <code>&lt;b-form-radio-group&gt;</code> to gerate a series of radio inputs
