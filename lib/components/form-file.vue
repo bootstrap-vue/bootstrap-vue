@@ -225,7 +225,7 @@
             }
         },
         methods: {
-            handleFocus(evt) {
+            focusHandler(evt) {
                 // Boostrap v4.beta doesn't have focus styling for custom file input
                 // Firefox has a borked '[type=file]:focus ~ sibling' selector, so we add
                 // A 'focus' class to get around this bug
