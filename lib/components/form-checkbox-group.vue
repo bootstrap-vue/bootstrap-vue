@@ -42,7 +42,7 @@
         },
         props: {
             checked: {
-                type: [String, Object],
+                type: [String, Object, Array],
                 default: null
             },
             validated: {
