@@ -1,7 +1,7 @@
 <template>
-    <div v-if="is_Plain" class="form-check">
+    <div v-if="is_Plain && !is_ButtonMode" :class="['form-check', is_Stacked?'':'form-check-inline']">
         <!-- Plain Radio -->
-        <label :class="['form-check-label', is_Stacked ? '' : 'form-check-inline']">
+        <label class="form-check-label">
             <input v-model="computedLocalChecked"
                    :id="safeId()"
                    class="form-check-input"
