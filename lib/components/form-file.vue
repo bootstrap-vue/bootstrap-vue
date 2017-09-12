@@ -19,15 +19,14 @@
          @dragover.stop.prevent="dragover">
          <!-- Normally this div should be label, but IE borks out if label has a file input inside. Awaiting fix from MSFT -->
 
-        <!-- Drop Here Target, set as label so it can be associated with input -->
-        <label v-if="dragging"
-               :for="safeId()"
-               :data-drop="dropLabel"
-               class="drop-here"
-               @dragover.stop.prevent="dragover"
-               @drop.stop.prevent="drop"
-               @dragleave.stop.prevent="dragging=false"
-        ></label>
+        <!-- Drop Here Target -->
+        <span v-if="dragging"
+              :data-drop="dropLabel"
+              class="drop-here"
+              @dragover.stop.prevent="dragover"
+              @drop.stop.prevent="drop"
+              @dragleave.stop.prevent="dragging=false"
+        ></span>
 
         <!-- Real Form input -->
         <input type="file"
@@ -48,13 +47,11 @@
                @change="onFileChange">
 
         <!-- Overlay Labels -->
-        <!-- this is normally a <span> but we use <label> here so we can associate it with the input -->
-        <label :id="safeId('_BV_file_control_')"
-               :for="safeId()"
-               :class="['custom-file-control', dragging?'dragging':null]"
-               :data-choose="computedChooseLabel"
-               :data-selected="selectedLabel"
-        ></label>
+        <span :id="safeId('_BV_file_control_')"
+              :class="['custom-file-control', dragging?'dragging':null]"
+              :data-choose="computedChooseLabel"
+              :data-selected="selectedLabel"
+        ></span>
 
     </div>
 </template>
@@ -225,7 +222,7 @@
             }
         },
         methods: {
-            handleFocus(evt) {
+            focusHandler(evt) {
                 // Boostrap v4.beta doesn't have focus styling for custom file input
                 // Firefox has a borked '[type=file]:focus ~ sibling' selector, so we add
                 // A 'focus' class to get around this bug
