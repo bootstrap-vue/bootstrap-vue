@@ -1,4 +1,5 @@
 import { loadFixture, testVM } from "../helpers";
+import { computeBkPtClass } from "../../lib/components/col";
 
 describe("col", async () => {
     beforeEach(loadFixture("col"));
@@ -47,6 +48,38 @@ describe("col", async () => {
                 expect(vnode).not.toHaveClass("col");
             });
         }
+    });
+
+    it("computeBkPtClass helper should compute boolean classes", async () => {
+        expect(computeBkPtClass("col", "sm", true)).toBe("col-sm");
+        expect(computeBkPtClass("col", "md", true)).toBe("col-md");
+        expect(computeBkPtClass("col", "lg", true)).toBe("col-lg");
+        expect(computeBkPtClass("col", "xl", true)).toBe("col-xl");
+    });
+
+    it("computeBkPtClass helper should compute boolean classes when given empty string", async () => {
+        expect(computeBkPtClass("col", "sm", "")).toBe("col-sm");
+        expect(computeBkPtClass("col", "md", "")).toBe("col-md");
+        expect(computeBkPtClass("col", "lg", "")).toBe("col-lg");
+        expect(computeBkPtClass("col", "xl", "")).toBe("col-xl");
+    });
+
+    it("computeBkPtClass helper should NOT compute boolean classes when value 'false' (return 'undefined')", async () => {
+        expect(computeBkPtClass("col", "sm", false)).toBe(undefined);
+        expect(computeBkPtClass("col", "md", false)).toBe(undefined);
+        expect(computeBkPtClass("col", "lg", false)).toBe(undefined);
+        expect(computeBkPtClass("col", "xl", false)).toBe(undefined);
+    });
+
+    it("should apply boolean breakpoint classes for 'sm', 'md', 'lg', 'xl' prop", async () => {
+        const { $refs } = window.app;
+        ["sm", "md", "lg", "xl"].forEach((bkpt, idx) => {
+            // Shorthand binding <b-col sm />
+            expect($refs[bkpt]).toHaveClass(`col-${bkpt}`);
+            // Dynamically bound using object literals { sm: true }
+            expect($refs[`boolean-breakpoints`][idx]).toHaveClass(`col-${bkpt}`);
+            expect($refs[`boolean-breakpoints`][idx]).not.toHaveClass("col");
+        });
     });
 
     it("should apply 'tag'", async () => {
