@@ -72,14 +72,19 @@ Control the size of the radio text by setting the prop `size` to either `sm` for
 ```html
 <template>
   <div>
-    <h5>Small radios</h5>
+    <h5>Small size radios</h5>
     <b-form-radio-group v-model="selected"
                         :options="options"
                         size="sm">
     </b-form-radio-group>
     
+    <h5>Default size  radios</h5>
+    <b-form-radio-group v-model="selected"
+                        :options="options">
+    </b-form-radio-group>
+    
     <br>
-    <h5>Large radios</h5>
+    <h5>Large size radios</h5>
     <b-form-radio-group v-model="selected"
                         :options="options"
                         size="lg">
@@ -173,7 +178,7 @@ when they are in the checked state.
                         :options="options" />
     <br>
 
-    <h5>Button style radios with <code>-outlineprimary</code> variant and size <code>lg</code></h5>
+    <h5>Button style radios with <code>outline-primary</code> variant and size <code>lg</code></h5>
     <b-form-radio-group id="btnradios2"
                         class="mb-4"
                         buttons
