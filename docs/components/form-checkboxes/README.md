@@ -9,17 +9,20 @@ the default checkbox input.
 ```html
 <template>
   <div>
-    <b-form-checkbox id="checkbox1" v-model="state" value="accepted" unchecked-value="not_accepted">
-      I accept terms and use
+    <b-form-checkbox id="checkbox1"
+                     v-model="status"
+                     value="accepted"
+                     unchecked-value="not_accepted">
+      I accept the terms and use
     </b-form-checkbox>
-    <div>State: <strong>{{state}}</strong></div>
+    <div>State: <strong>{{status}}</strong></div>
   </div>
 </template>
 
 <script>
 export default {
     data: {
-        state: 'please_accept'
+        status: 'not_accepted'
     }
 }
 </script>
@@ -31,11 +34,11 @@ export default {
 ```html
 <template>
   <div>
-    <h5>Using options:</h5>
-    <b-form-checkbox-group id="checkboxes2" name="flavour1" v-model="selected" :options="options">
+    <h5>Using options array:</h5>
+    <b-form-checkbox-group id="checkboxes1" name="flavour1" v-model="selected" :options="options">
     </b-form-checkbox-group>
-    <br>
-    <h5>Using Sub components:</h5>
+
+    <h5 class="mt-3">Using sub-components:</h5>
     <b-form-checkbox-group id="checkboxes2" name="flavour2" v-model="selected">
       <b-form-checkbox value="orange">Orange</b-form-checkbox>
       <b-form-checkbox value="apple">Apple</b-form-checkbox>
@@ -81,12 +84,12 @@ options (value array) to `<b-form-checboxes>`.
 ```html
 <template>
   <div>
-    <h5>Inline Checkboxes (default)</h5>
+    <h5>Inline checkboxes (default)</h5>
     <b-form-checkbox-group v-model="selected" name="flavour1" :options="options">
     </b-form-checkbox-group>
-    <br>
-    <h5>Stacked Checkboxes</h5>
-    <b-form-checkbox-group stacked v-model="selected" name="flavour1" :options="options">
+
+    <h5 class="mt-3">Stacked checkboxes</h5>
+    <b-form-checkbox-group stacked v-model="selected" name="flavour2" :options="options">
     </b-form-checkbox-group>
   </div>
 </template>
@@ -129,8 +132,8 @@ of `<b-form-checkbox-group>`. This will inform users of assitive technologies th
 checkboxes are related.
 
 Whenever using multple checkboxes, it is recommended that the `<b-form-check-group>`
-be placed in a `<b-form-group>` component to associate a `<label>` with the entire
-group of checkboxes.
+be placed in a [`<b-form-group>`](/docs/components/form-group) component to
+associate a `<label>` with the entire group of checkboxes.
 
 ## Button style checkboxes
 Render checkboxes with the look of a button by setting the prop `buttons` on `<b-form-checkbox-group>`.
@@ -148,15 +151,18 @@ when they are in the _checked_ state.
     <b-form-checkbox-group buttons v-model="selected" name="butons1" :options="options">
     </b-form-checkbox-group>
 
-    <h5 class="mt-2">button style checkboxes with variant <code>primary</code> and large buttons</h5>
+    <h5 class="mt-3">
+      button style checkboxes with variant <code>primary</code> and large buttons
+    </h5>
     <b-form-checkbox-group v-model="selected"
                            buttons
                            button-variant="primary"
-                           size="lg" name="buttons2"
+                           size="lg"
+                           name="buttons2"
                            :options="options">
     </b-form-checkbox-group>
 
-    <h5 class="mt-2">Stacked (vertical) button style checkboxes</h5>
+    <h5 class="mt-3">Stacked (vertical) button style checkboxes</h5>
     <b-form-checkbox-group buttons v-model="selected" stacked :options="options">
     </b-form-checkbox-group>
   </div>
@@ -223,8 +229,8 @@ The `indeterminate` prop can be synced to the checkboxe's state by v-binding the
     <b-form-checkbox v-model="checked" :indeterminate.sync="indeterminate">
       Click me to see what happens
     </b-form-checkbox>
-    <br>
-    <div aria-live="polite">
+ 
+    <div class="mt-3">
       Checked: <strong>{{ checked }}</strong><br>
       Indeterminate: <strong>{{ indeterminate }}</strong>
     </div>
@@ -256,6 +262,7 @@ export default {
     <b-form-checkbox v-model="allSelected"
                      :indeterminate="indeterminate"
                      aria-describedby="flavours"
+                     aria-controls="flavours"
                      @change="toggleAll"
      >
       {{ allSelected ? 'Un-select' : 'Select' }}
@@ -269,7 +276,11 @@ export default {
                            class="ml-3"
                            aria-label="Individual flavours"
     ></b-form-checkbox-group>
-    <p aria-live="polite">Selected: <strong>{{ selected }}</strong></p>
+    <p aria-live="polite">
+      Selected: <strong>{{ selected }}</strong><br>
+      All Selected: <strong>{{ allSelected }}</strong><br>
+      Indeterminate: <strong>{{ indeterminate }}</strong><br>
+    </p>
   </b-card>
 </template>
 
@@ -316,11 +327,40 @@ by via the `.sr-only` class) if the indeterminate state has special contextual
 meaning in your application.
 
 
-## Non custom check inputs
+## Non custom check inputs (plain)
 You can have `<b-form-checkbox-group>` or `<b-form-checkbox>` render a browser native
 chechbox input by setting the `plain` prop.
 
-**Note:** The `plain` prop has no effect with `button` is set.
+```html
+<template>
+  <div>
+    <h5>Plain inline checkboxes</h5>
+    <b-form-checkbox-group plain v-model="selected" :options="options" />
+
+    <h5 class="mt-3">Plain stacked checkboxes</h5>
+    <b-form-checkbox-group plain stacked v-model="selected" :options="options" />
+  </div>
+</template>
+
+<script>
+  export default {
+    data: {
+      selected: [], // Must be an array reference!
+      options: [
+        {text: 'Orange', value: 'orange'},
+        {text: 'Apple', value: 'apple'},
+        {text: 'Pineapple', value: 'pineapple'},
+        {text: 'Grape', value: 'grape'}
+      ]
+    }
+  };
+</script>
+
+<!-- form-checkbox-plain-1.vue -->
+```
+
+
+**Note:** The `plain` prop has no effect when `button` is set.
 
 ## Aliases
 - `<b-form-checbox-group>` can be used by the shorter aliases `<b-checkbox-group>` and `<b-check-group>`.
