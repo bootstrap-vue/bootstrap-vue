@@ -46,6 +46,9 @@
     export default {
         mixins: [idMixin, formRadioCheckMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin],
         props: {
+            value: {
+                default: true
+            },
             uncheckedValue: {
                 // Not applicable in multi-check mode
                 default: false
