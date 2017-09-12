@@ -1,6 +1,6 @@
 <template>
     <div v-if="is_Plain" :class="['form-check', is_Stacked ? '' : 'form-check-inline']">
-        <label v-else class="form-check-label">
+        <label class="form-check-label">
             <input type="checkbox"
                    :id="safeId()"
                    v-model="computedLocalChecked"
