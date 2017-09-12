@@ -25,7 +25,6 @@
                        :aria-setsize="tabs.length"
                        :aria-posinset="currentTab + 1"
                        :aria-selected="tab.localActive ? 'true' : 'false'"
-                       :aria-expanded="tab.localActive ? 'true' : 'false'"
                        :aria-controls="safeId('_BV_tab_container_')"
                        :aria-disabled="tab.disabled"
                        :id="tab.controlledBy || safeId('_BV_tab_${index+1}_')"

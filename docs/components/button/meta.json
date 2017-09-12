@@ -1,9 +1,7 @@
 {
   "title": "Button",
   "component": "bButton",
-  "components": [
-    "bLink"
-  ],
+  "components": ["bLink", "bButtonClose"],
   "events": [
     {
       "event": "click",

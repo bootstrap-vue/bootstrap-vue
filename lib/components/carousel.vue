@@ -78,6 +78,7 @@
 <script>
     import { from as arrayFrom } from '../utils/array';
     import { observeDom } from '../utils';
+    import { selectAll } from '../utils/dom';
     import { idMixin } from '../mixins';
 
     // Slide directional classes
@@ -112,6 +113,12 @@
         }
         // fallback
         return null;
+    }
+
+    // Function to trigger a reflow of an element layout
+    // To help prevent this line from being optimized out
+    function reflow(el) {
+      return el.offsetHeight;
     }
 
     export default {
@@ -251,7 +258,7 @@
                 this.pause();
 
                 // Get all slides as DOM elements
-                this.slides = arrayFrom(this.$refs.inner.querySelectorAll('.carousel-item'));
+                this.slides = selectAll('.carousel-item', this.$refs.inner);
 
                 const numSlides = this.slides.length;
 
@@ -331,8 +338,7 @@
 
                 nextSlide.classList.add(direction.overlayClass);
                 // Trigger a reflow of next slide
-                // eslint-disable-next-line no-void
-                void(nextSlide.offsetHeight);
+                reflow(nextSlide);
 
                 currentSlide.classList.add(direction.dirClass);
                 nextSlide.classList.add(direction.dirClass);

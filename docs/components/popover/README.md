@@ -272,9 +272,9 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
       focusRef(ref) {
         // Some references may be a component, functional component, or plain element
         // This handles that check before focusing, assuming a focus() method exists
-        // We do this in nextTick to ensure components have updated first
+        // We do this in a double nextTick to ensure components have updated & popover positioned first
         this.$nextTick(() => {
-            (ref.$el || ref).focus();
+            this.$nextTick(() => { (ref.$el || ref).focus(); });
         });
       }
     }
@@ -282,6 +282,13 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 </script>
 
 <!-- popover-advanced-1.vue -->
+```
+
+## Closing popovers
+You can close all open popovers by emitting the `bv::hide::popover` event on $root:
+
+```js
+this.$root.$emit('bv::hide::popover');
 ```
 
 ## Accessibility

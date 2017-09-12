@@ -206,3 +206,10 @@ a focus change via pressing the <kbd>TAB</kbd> key). Some call this behavior _se
 
 <!-- popover-2.vue -->
 ```
+
+## Closing popovers
+You can close all open popovers by emitting the `bv::hide::popover` event on $root:
+
+```js
+this.$root.$emit('bv::hide::popover');
+```

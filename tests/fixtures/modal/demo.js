@@ -10,7 +10,7 @@ window.app = new Vue({
         },
         submit(e) {
             if (!this.name) {
-                return e.cancel();
+                return e.preventDefault();
             }
 
             this.names.push(this.name);
