@@ -84,12 +84,13 @@
         },
         watch: {
             computedLocalChecked(newVal, oldVal) {
-                if (this.is_Child || isArray(this.computedLocalChceked)) {
-                    this.$emit('input', this.computedLocalChceked);
+                if (this.is_Child || isArray(this.computedLocalChecked)) {
+                    this.$emit('input', this.computedLocalChecked);
                 } else {
                     // Single radio mode supports unchecked value
                     this.$emit('input', this.is_Checked ? this.value : this.uncheckedValue);
                 }
+                this.$emit('update:indeterminate', this.$refs.check.indeterminate);
             },
             indeterminate(newVal, oldVal) {
                 this.setIndeterminate(newVal);
@@ -98,7 +99,7 @@
         methods: {
             handleChange({ target: { checked } }) {
                 // Change event is only fired via user interaction
-                if (this.is_Child || isArray(this.computedLocalChceked)) {
+                if (this.is_Child || isArray(this.computedLocalChecked)) {
                     this.$emit('change', checked ? this.value : null);
                 } else {
                     // Single radio mode supports unchecked value
@@ -108,7 +109,7 @@
             },
             setIndeterminate(state) {
                 // Indeterminate only supported in single checkbox mode
-                if (this.is_Child || isArray(this.computedLocalChceked)) {
+                if (this.is_Child || isArray(this.computedLocalChecked)) {
                     return;
                 }
                 this.$refs.check.indeterminate = state;
