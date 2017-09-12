@@ -17,7 +17,7 @@
                          :required="name && required"
                          :disabled="option.disabled"
                          :key="`radio_${idx}_opt`"
-        ><span v-html="option.text"></span></b-form-checbox>
+        ><span v-html="option.text"></span></b-form-checkbox>
         <slot></slot>
     </div>
 </template>
