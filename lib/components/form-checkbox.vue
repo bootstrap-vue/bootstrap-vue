@@ -16,7 +16,7 @@
             <slot></slot>
         </label>
     </div>
-    <label v-else :class="is_BUttonMode ? buttonClasses : labelClasses">
+    <label v-else :class="is_ButtonMode ? buttonClasses : labelClasses">
         <input type="checkbox"
                :id="safeId()"
                v-model="computedLocalChecked"
@@ -31,7 +31,7 @@
                @focus="handleFocus"
                @blur="handleFocus"
                @change="handleChange">
-        <span v-if="!is_buttonMode" class="custom-control-indicator" aria-hidden="true"></span>
+        <span v-if="!is_ButtonMode" class="custom-control-indicator" aria-hidden="true"></span>
         <span :class="is_ButtonMode ? '' : 'custom-control-description'">
             <slot></slot>
         </span>
