@@ -81,7 +81,7 @@
                 if (this.buttons) {
                     return [
                         'btn-group',
-                        this.sizeBtnClass,
+                        this.size ? `btn-group-${this.size}` : '',
                         this.stacked ? 'btn-group-vertical' : '',
                         this.validated ? `was-validated` : ''
                     ];
