@@ -76,7 +76,7 @@
                 </div>
             </div>
         </transition>
-        <div v-if="is_visible && !hideBackdrop" :id="safeId('__BV_modal_backdrop_')" :class="backdropClasses"></div>
+        <div v-if="!hideBackdrop && (is_visible || is_transitioning)" :id="safeId('__BV_modal_backdrop_')" :class="backdropClasses"></div>
     </div>
 </template>
 
