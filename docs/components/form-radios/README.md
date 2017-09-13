@@ -132,7 +132,7 @@ the radios appear one over the other.
                         name="radioInline">
     </b-form-radio-group>
 
-    <h class="mt-3"5>Stacked radios</h5>
+    <h5 class="mt-3">Stacked radios</h5>
     <b-form-radio-group v-model="selected"
                         :options="options"
                         stacked
@@ -177,17 +177,15 @@ when they are in the checked state.
   <div>
     <h5>Button style radios</h5>
     <b-form-radio-group id="btnradios1"
-                        class="mb-4"
                         buttons
                         v-model="selected"
                         :options="options"
                         name="radeiosBtnDefault" />
 
-    <h5 clas="mt-3">
+    <h5 class="mt-3">
       Button style radios with <code>outline-primary</code> variant and size <code>lg</code>
     </h5>
     <b-form-radio-group id="btnradios2"
-                        class="mb-4"
                         buttons
                         button-variant="outline-primary"
                         size="lg"
@@ -197,7 +195,6 @@ when they are in the checked state.
 
     <h5 class="mt-3">Stacked button style radios</h5>
     <b-form-radio-group id="btnradios3"
-                        class="mb-4"
                         buttons
                         stacked
                         v-model="selected"
@@ -261,7 +258,7 @@ Supported `invalid` values are:
 
 `aria-invalid` is automatically set if `state` is `invalid`.
 
-## Non custom radio inputs
+## Non custom radio inputs (plain)
 You can have `b-form-radio` render a browser native radio input by setting the `plain` prop.
 
 
@@ -274,7 +271,7 @@ You can have `b-form-radio` render a browser native radio input by setting the `
                         plain
                         name="plainInline" />
 
-    <h class="mt-3"5>Plain stacked radios</h5>
+    <h5 class="mt-3">Plain stacked radios</h5>
     <b-form-radio-group v-model="selected"
                         :options="options"
                         plain
