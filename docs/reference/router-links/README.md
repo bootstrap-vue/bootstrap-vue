@@ -1,10 +1,11 @@
 # Router link support
-> Several Bootstrap-Vue componets support rendering `<router-link>` components. Form
-more information on Vue-Router, see the official [Vue-Router Docs](https://router.vuejs.org/)
+> Several Bootstrap-Vue componets support rendering `<router-link>` components compatible with
+_Vue-Router_ and _Nuxt_. For more information, see the [official Vue-Router docs](https://router.vuejs.org/)
+and [official Nuxt docs](https://nuxtjs.org/).
 
 ## Common router link props
 
-In the following sections, we are using hte `<b-link>` component to render router links.
+In the following sections, we are using the `<b-link>` component to render router links.
 You could use any other component that support link generation such as `<b-button>`,
 `<b-breadcrumb>`, `<b-list-item>`, `<b-nav-item>`, `<b-dropdown-item>`, etc.  Note that
 not all props are available on all components. Refer to ther respective component
