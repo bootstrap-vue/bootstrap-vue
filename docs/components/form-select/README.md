@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<!-- form-select-1.vue -->
+<!-- form-select-options.vue -->
 ```
 
 Or manualy provide your options and optgroups:
@@ -58,7 +58,7 @@ Or manualy provide your options and optgroups:
   };
 </script>
 
-<!-- form-select-2.vue -->
+<!-- form-select-manual.vue -->
 ```
 
 Feel free to mix the `options` prop with `<option>` and `<optgroup>`.
@@ -66,8 +66,38 @@ Manully placed options and optgroups will appear _below_ the options generated v
 `options` prop. To place manual options and optgroups _above_ the options specified
 by the `options` prop, use the named slot `first`.
 
+```html
+<template>
+  <div>
+    <b-form-select v-model="selected" :options="options" class="mb-3">
+      <template slot="first">
+        <!-- this slot appears above the options from 'options' prop -->
+        <option :value="null" disabled>-- Please select an option --</option>
+      </template>
+      <!-- these options will appear after the ones from 'options' prop -->
+      <option value="C">Option C</option>
+      <option value="D">Option D</option>
+    </b-form-select>
+    <div>Selected: <strong>{{ selected }}</strong></div>
+  </div>
+</template>
 
-## Options
+<script>
+  export default {
+    data: {
+      selected: null,
+      options: [
+        { value: 'A', text: 'Option A (from options prop)' },
+        { value: 'B', text: 'Option B (from options prop)' },
+      ]
+    }
+  };
+</script>
+
+<!-- form-select-both.vue -->
+```
+
+## Options property
 
 `options` can be an array or a key-value object. Available fields:
 
