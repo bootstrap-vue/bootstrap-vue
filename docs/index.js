@@ -44,7 +44,7 @@ export default {
             title: 'Reference',
             slug: 'reference/',
             new: true,
-            pages: Object.keys(refernce).map(key => {
+            pages: Object.keys(reference).map(key => {
                 return {
                     title: reference[key].meta.title,
                     new: reference[key].meta.new,
