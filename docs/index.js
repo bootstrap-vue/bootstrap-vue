@@ -1,6 +1,7 @@
 import package_info from '../package.json'
 import components from './components'
 import directives from './directives'
+import reference from './reference'
 import layout from './layout'
 
 export default {
@@ -35,6 +36,19 @@ export default {
                     title: directives[key].meta.title,
                     new: directives[key].meta.new,
                     beta: directives[key].meta.beta,
+                    slug: key
+                }
+            })
+        },
+        {
+            title: 'Reference',
+            slug: 'reference/',
+            new: true,
+            pages: Object.keys(refernce).map(key => {
+                return {
+                    title: reference[key].meta.title,
+                    new: reference[key].meta.new,
+                    beta: reference[key].meta.beta,
                     slug: key
                 }
             })
