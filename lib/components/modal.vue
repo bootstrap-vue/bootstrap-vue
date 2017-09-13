@@ -1,5 +1,5 @@
 <template>
-    <div :id="safeId('__BV_modal_outer_')">
+    <div :id="safeId('__BV_modal_outer_')" v-if="!is_hidden">
         <transition enter-class=""
                     enter-to-class=""
                     enter-active-class=""
@@ -84,30 +84,14 @@
     import bBtn from './button';
     import bBtnClose from './button-close';
     import { idMixin, listenOnRootMixin } from '../mixins';
-    import { from as arrayFrom, arrayFind } from '../utils/array';
-    import { isElement, isVisible, selectAll, select, addClass, removeClass, setAttr, removeAttr, getAttr } from '../utils/dom';
+    import { from as arrayFrom } from '../utils/array';
+    import { isVisible, selectAll, select, addClass, removeClass, setAttr, removeAttr, getAttr } from '../utils/dom';
     import { observeDom, warn } from '../utils';
     import { BvEvent } from '../classes';
 
-    const FOCUS_SELECTOR = [
-        'button:not([disabled])',
-        'input:not([disabled])',
-        'select:not([disabled])',
-        'textarea:not([disabled])',
-        'a:not([disabled]):not(.disabled)',
-        '[tabindex]:not([disabled]):not(.disabled)'
-    ].join(',');
-
-    // Find the first visible element contained in a given root element
-    function findFirstVisible(root, selector) {
-        if (!isElement(root) || !selector) {
-            return null;
-        }
-        return arrayFind(selectAll(selector, root), isVisible) || null;
-    }
-
+    // This should be moved to dom utils
     function reflow(el) {
-        return el.offsetHeight;
+        return el && el.offsetHeight;
     }
 
     export default {
@@ -115,6 +99,7 @@
         components: {bBtn, bBtnClose},
         data() {
             return {
+                is_hidden: this.lazy || false,
                 is_visible: false,
                 is_transitioning: false,
                 is_show: false,
@@ -243,6 +228,10 @@
             okVariant: {
                 type: String,
                 default: 'primary'
+            },
+            lazy: {
+                type: Boolean,
+                default: false
             }
         },
         computed: {
@@ -332,8 +321,12 @@
                 if (showEvt.defaultPrevented || this.is_visible) {
                     return;
                 }
-                this.is_visible = true;
-                this.$emit('change', this.is_visible);
+                this.is_bidden = false;
+                this.$nextTick(() +> {
+                    // We do this in nextTick to ensure hte modal is in DOM first before we show it
+                    this.is_visible = true;
+                    this.$emit('change', true);
+                });
             },
             hide(trigger) {
                 if (!this.is_visible) {
@@ -363,7 +356,7 @@
                     return;
                 }
                 this.is_visible = false;
-                this.$emit('change', this.is_visible);
+                this.$emit('change', false);
             },
             // Transition Handlers
             onBeforeEnter() {
@@ -396,6 +389,7 @@
                 this.setResizeEvent(false);
             },
             onLeave() {
+                // Remove the 'show' class
                 this.is_show = false;
             },
             onAfterLeave() {
@@ -405,11 +399,12 @@
                 this.resetScrollbar();
                 this.is_transitioning = false;
                 this.$nextTick(() => {
+                    this.is_hidden = this.lazy || false;
                     this.returnFocusTo();
                     const hiddenEvt = new BvEvent('hidden', {
                         cancelable: false,
                         vueTarget: this,
-                        target: this.$refs.modal,
+                        target: this.lazy ? null : this.$refs.modal,
                         relatedTarget: null
                     });
                     this.emitEvent(hiddenEvt);
@@ -437,11 +432,12 @@
             onFocusout(evt) {
                 // If focus leaves modal, bring it back
                 // 'focusout' Event Listener bound on content
+                const content = this.$refs.content;
                 if (!this.noEnforceFocus &&
                     this.is_visible &&
-                    this.$refs.content &&
-                    !this.$refs.content.contains(evt.relatedTarget)) {
-                    this.$refs.content.focus();
+                    content &&
+                    !content.contains(evt.relatedTarget)) {
+                    content.focus();
                 }
             },
             // Resize Listener
@@ -463,7 +459,7 @@
                 }
             },
             modalListener(bvEvt) {
-                // IF another modal opens, close this one
+                // If another modal opens, close this one
                 if (bvEvt.vueTarget !== this) {
                     this.hide();
                 }
@@ -474,12 +470,15 @@
                 if (typeof document === 'undefined') {
                     return;
                 }
-                // If activeElement is child of content, no need to change focus
-                if (document.activeElement && this.$refs.content.contains(document.activeElement)) {
+                const content = this.$refs.content;
+                const activeElement = document.activeElement;
+                if (activeElement && content && content.contains(activeElement)) {
+                    // If activeElement is child of content, no need to change focus
                     return;
+                } else if (content) {
+                    // Focus the modal content wrapper
+                    content.focus();
                 }
-                // Focus the modal content wrapper
-                this.$refs.content.focus();
             },
             returnFocusTo() {
                 // Prefer returnFocus prop over event specified return_focus value
@@ -495,8 +494,8 @@
                     }
                 }
             },
-            //Utility methods
-            getScrollbarWidth() { // thx d.walsh
+            // Utility methods
+            getScrollbarWidth() {
                 const scrollDiv = document.createElement('div');
                 scrollDiv.className = 'modal-scrollbar-measure';
                 document.body.appendChild(scrollDiv);
