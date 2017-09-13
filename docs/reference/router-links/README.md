@@ -18,7 +18,8 @@ documentation for details.
 
   - required
 
-  Denotes the target route of the link. When clicked, the value of the `to` prop will be passed to `router.push()` internally, so the value can be either a string or a location descriptor object.
+  Denotes the target route of the link. When clicked, the value of the `to` prop will be passed to
+  `router.push()` internally, so the value can be either a string or a location descriptor object.
 
   ``` html
   <!-- literal string -->
@@ -129,18 +130,3 @@ documentation for details.
 
   Configure the active CSS class applied when the link is active with exact match. Note the
   default value can also be configured globally via the `linkExactActiveClass` router constructor option.
-
-### Applying Active Class to Outer Element
-
-Sometimes we may want the active class to be applied to an outer element rather than the `<a>` tag
-itself, in that case, you can render that outer element using `<router-link>` and wrap the raw `<a>` tag inside:
-
-``` html
-<router-link tag="li" to="/foo">
-  <a>/foo</a>
-</router-link>
-```
-
-In this case the `<a>` will be the actual link (and will get the correct `href`), but the active class will
-be applied to the outer `<li>`.
-
