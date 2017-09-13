@@ -87,7 +87,7 @@
         border-color: #28a745;
     }
 
-    /* Drag/Drop handling */
+    /* Drag/Drop and filenames/prompts handling */
     .custom-file-control {
         overflow: hidden;
     }
@@ -101,11 +101,11 @@
         filter: blur(3px);
     }
 
-    .custom-file-control::after {
+    .custom-file-control[data-selected]::after {
         content: attr(data-selected);
     }
 
-    .custom-file-control::before {
+    .custom-file-control[data-choose]::before {
         content: attr(data-choose);
     }
 
