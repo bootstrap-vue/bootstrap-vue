@@ -5,57 +5,14 @@ support a number of use cases from user notification to completely custom conten
 feature a handful of helpful sub-components, sizes, variants, accessibility, and more.
 
 ```html
-<template>
-    <div>
-        <b-btn v-b-modal.modal1>Launch demo modal</b-btn>
-        <!-- Main UI -->
-        <div class="mt-3 mb-3">
-            Submitted Names:
-            <ul>
-                <li v-for="n in names">{{n}}</li>
-            </ul>
-        </div>
-        <!-- Modal Component -->
-        <b-modal id="modal1"
-                 ref="modal1"
-                 title="Submit your name"
-                 @ok="handleOk"
-                 @shown="clearName">
-            <form @submit.stop.prevent="handleSubmit">
-                <b-form-input type="text"
-                              placeholder="Enter your name"
-                              v-model="name"></b-form-input>
-            </form>
-        </b-modal>
-    </div>
-</template>
+<div>
+  <b-btn v-b-modal.modal1>Launch demo modal</b-btn>
 
-<script>
-    export default {
-        data: {
-            name: '',
-            names: []
-        },
-        methods: {
-            clearName() {
-                this.name = '';
-            },
-            handleOk(e) {
-                e.preventDefault();
-                if (!this.name) {
-                    alert('Please enter your name');
-                } else {
-                    this.handleSubmit()
-                }
-            },
-            handleSubmit() {
-                this.names.push(this.name);
-                this.clearName();
-                this.$refs.modal1.hide();
-            }
-        }
-    }
-</script>
+  <!-- Modal Component -->
+  <b-modal id="modal1" title="Bootstrap-Vue">
+    <p clas="my-4">Hello from modal!</p>
+  </b-modal>
+</div>
 
 <!-- modal-1.vue -->
 ```
@@ -88,16 +45,20 @@ There are several methods that you can employ to toggle the visibility of `<b-mo
 Other elements can easily show modals using the `v-b-modal` directive.
 
 ```html
-<!-- Using modifiers -->
-<b-btn v-b-modal.myModal>Show Modal</b-btn>
+<div>
+  <!-- Using modifiers -->
+  <b-btn v-b-modal.myModal>Show Modal</b-btn>
 
-<!-- Using value -->
-<b-btn v-b-modal="'myMmodal'">Show Modal</b-btn>
+  <!-- Using value -->
+  <b-btn v-b-modal="'myMmodal'">Show Modal</b-btn>
 
-<!-- the modal -->
-<b-modal id="myMmodal">
+  <!-- the modal -->
+  <b-modal id="myMmodal">
     Hello From My Modal!
-</b-modal>
+  </b-modal>
+  </div>
+  
+  <!-- modal-directive-1.vue -->
 ```
 
 Focus will automatically be returned to the trigger element once the modal closes.
@@ -133,7 +94,7 @@ export default {
 }
 </script>
 
-<!-- modal-2.vue -->
+<!-- modal-methods-1.vue -->
 ```
 
 The `hide()` method accepts an optional argument. See section **Prevent Closing**
@@ -162,7 +123,7 @@ export default {
 }
 </script>
 
-<!-- modal-3.vue -->
+<!-- modal-v-model-1.vue -->
 ```
 
 When using the `v-model` property, do not use the `visible` property at the same time.
@@ -173,7 +134,7 @@ When using the `v-model` property, do not use the `visible` property at the same
 You can emit `bv::show::modal` and `bv::hide::modal` event on `$root` with the first
 argument set to the modal's id. An optional second argument can specify the element
 to return focus to once the modal is closed. The second argument can be a CSS selector,
-and element reference, or a component reference.
+an element reference, or a component reference.
 
 ```html
 <b-button @click="showModal" ref="btnShow">
@@ -209,29 +170,60 @@ the `preventDefault()` method of the event object passed to your `ok` (**OK** bu
 `cancel` (**Cancel** button) and `hide` event handlers.
 
 ```html
-<b-modal id="modalPrevent" @hide="save">
-    Hello From Modal!
-    <b-alert variant="danger" :show="message ? true : false">
-        {{ message }}
-    </b-alert>
-</b-modal>
-```
+<template>
+  <div>
+    <b-btn v-b-modal.modalPrevent>Launch demo modal</b-btn>
+    <!-- Main UI -->
+    <div class="mt-3 mb-3">
+      Submitted Names:
+      <ul>
+        <li v-for="n in names">{{n}}</li>
+      </ul>
+    </div>
+    <!-- Modal Component -->
+    <b-modal id="modalPrevent"
+             ref="modal"
+             title="Submit your name"
+             @ok="handleOk"
+             @shown="clearName">
+      <form @submit.stop.prevent="handleSubmit">
+        <b-form-input type="text"
+                      placeholder="Enter your name"
+                      v-model="name"></b-form-input>
+        </form>
+      </b-modal>
+  </div>
+</template>
 
-```js
-data: {
-    saved: false,
-    message: null
-},
-methods: {
-    save(e) {
-        if(!this.saved) {
-            this.message = 'Please save your work';
-            e.preventDefault();
-        } else {
-            this.message = null;
-        }
+<script>
+export default {
+  data: {
+    name: '',
+    names: []
+  },
+  methods: {
+    clearName() {
+       this.name = '';
+    },
+    handleOk(evt) {
+      // Prevent modal from closing
+      evt.preventDefault();
+      if (!this.name) {
+        alert('Please enter your name');
+      } else {
+        this.handleSubmit()
+      }
+    },
+    handleSubmit() {
+      this.names.push(this.name);
+      this.clearName();
+      this.$refs.modal.hide();
     }
+  }
 }
+</script>
+
+<!-- modal-prevent-1.vue -->
 ```
 
 **Note**: events `ok` and `cancel` are emitted by modal's built in **OK** and **Cancel**
@@ -252,8 +244,8 @@ The `ok`, `cancel`, and `hide` event object contains several properties and meth
 You can set the value of `trigger` by passing an argument to the component's
 `hide()` method for advanced control.
 
-**Note:** `ok` and `cancel` events will be only emitted when the argument to `hide()` is strictly `ok`
-or `cancel` respectively. The argument passed to `hide()` will be placed into the
+**Note:** `ok` and `cancel` events will be only emitted when the argument to `hide()` is strictly `'ok'`
+or `'cancel'` respectively. The argument passed to `hide()` will be placed into the
 `trigger` property of the event object.
 
 
@@ -318,6 +310,69 @@ variants such as `danger`, `warning`, `info`, `success`, `dark`, `light`, etc.
 The variants for the bottom border of the header and top border of the footer can be
 controlled by the `header-border-variant` and `footer-border-variant` props respectively.
 
+<template>
+  <b-btn @click="show=true" variant="primary">Show Modal</b-btn>
+  <b-modal v-model="show"
+           title="Modal Variants"
+           :header-bg-variant="headerBgVariant"
+           :header-text-variant="headerTextVariant"
+           :body-bg-variant="bodyBgVariant"
+           :body-text-variant="bodyTextVariant"
+           :footer-bg-variant="footerBgVariant"
+           :footer-text-variant="footerTextVariant">
+     <b-container fluid>
+       <b-row class="mb-1 text-center">
+         <b-col cols="3"> </b-col>
+         <b-col>Background</b-col>
+         <b-col>Text</b-col>
+       </b-row>
+       <b-row class="mb-1">
+         <b-col cols="3">Header</b-col>
+         <b-col><b-form-select :options="variants" v-model="headerBgVariant" /></b-col>
+         <b-col><b-form-select :options="variants" v-model="headerTextVariant" /></b-col>
+       </b-row>
+       <b-row class="mb-1">
+         <b-col cols="3">Body</b-col>
+         <b-col><b-form-select :options="variants" v-model="bodyBgVariant" /></b-col>
+         <b-col><b-form-select :options="variants" v-model="bodyTextVariant" /></b-col>
+       </b-row>
+       <b-row>
+         <b-col cols="3">Footer</b-col>
+         <b-col><b-form-select :options="variants" v-model="footerBgVariant" /></b-col>
+         <b-col><b-form-select :options="variants" v-model="footerTextVariant" /></b-col>
+       </b-row>                                                                               
+     </b-container>                                                                                     
+     <div slot="modal-footer" class="w-100">
+       <p class="float-left">Modal Footer Content</p>
+       <b-btn size="sm" class="float-right" variant="primary" @click="show=false">
+         Close
+       </b-btn>
+     </div>
+  </b-modal>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+       show: false,
+       variants: [
+        'primary','secondary','success','warning','danger','info','light','dark'
+       ],
+       headerBgVariant: 'dark',
+       headerTextVariant: 'light',
+       bodyBgVariant: 'light',
+       bodyTextVariant: 'dark',
+       footerBgVariant: 'warning',
+       footerTextVariant: 'dark'
+    };
+  }
+};
+</script>
+
+<!-- modal-variant-1.vue -->
+
+
 ## Accessibility
 
 `<b-modal>` provides several accessibility features, including auto focus, return
@@ -337,23 +392,22 @@ an element already has focus within the `<b-modal>`.
 
 ```html
 <b-modal @shown="focusMyElement">
-    <b-button>I Don't Have Focus</b-button>
-    <br>
-    <b-form-input type="text"></b-form-input>
-    <br>
-    <!-- element to gain focus when modal is opened -->
-    <b-form-input ref="focusThis" type="text"></b-form-input>
-    <br>
-    <b-form-input type="text"></b-form-input>
-    <br>
+  <b-button>I Don't Have Focus</b-button>
+  <br>
+  <b-form-input type="text"></b-form-input>
+  <br>
+  <!-- element to gain focus when modal is opened -->
+  <b-form-input ref="focusThis" type="text"></b-form-input>
+  <br>
+  <b-form-input type="text"></b-form-input>
 </b-modal>
 ```
 
 ```js
 methods: {
-    focusMyElement(e) {
-        this.$refs.focusThis.focus();
-    }
+  focusMyElement(e) {
+    this.$refs.focusThis.focus();
+  }
 }
 ```
 
@@ -387,19 +441,19 @@ been specified via the `return-focus` prop.
 
 #### Specify Return Focus via Event
 
-When using the `show::modal` event (emitted on `$root`), you can specify a second argument
+When using the `bv::show::modal` event (emitted on `$root`), you can specify a second argument
 which is the element to return focus to.  This argument accepts the same types
 as the `return-focus` prop.
 
 ```js
-this.$root.$emit('show::modal', 'modal1', '#focusThisOnClose');
+this.$root.$emit('bv::show::modal', 'modal1', '#focusThisOnClose');
 ```
 
 *Tip:* if using a click event (or similar) to trigger modal to open, pass the
 event's `target` property:
 
 ```html
-<b-btn @click="$root.$emit.('show::modal', 'modal1', $event.target)">
+<b-btn @click="$root.$emit.('bv::show::modal', 'modal1', $event.target)">
   Open Modal
 </b-btn>
 ```
