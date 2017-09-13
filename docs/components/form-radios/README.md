@@ -15,7 +15,7 @@ for the default radio input.
 </div>
 
 The individual radio inputs in radio input group can be specified via the `options`
-prop, or via manual placement of the `<b-radio>` sub component.
+prop of `<b-form-radio-group>`, or via manual placement of the `<b-radio>` sub component.
   
 ```html
 <template>
@@ -23,9 +23,8 @@ prop, or via manual placement of the `<b-radio>` sub component.
     <h5>Radios using options</h5>
     <b-form-radio-group id="radios1" v-model="selected" :options="options" name="radioOpenions">
     </b-form-radio-group>
-    <br>
 
-    <h5>Radios using sub-component</h5>
+    <h5 class="mt-3">Radios using sub-component</h5>
     <b-form-radio-group id="radios2" v-model="selected" name="radioSubComponent">
       <b-form-radio value="first">Toggle this custom radio</b-form-radio>
       <b-form-radio value="second">Or toggle this other custom radio</b-form-radio>
@@ -116,6 +115,10 @@ Control the size of the radio text by setting the prop `size` to either `sm` for
 <!-- form-radio-size-1.vue -->
 ```
 
+**Note:** _the current Bootstrap V4.beta CSS does not correctly style the size of
+the radio indicator._
+
+
 ## Inline or stacked
 By default `<b-form-radio>` generates inline radio inputs. Set the prop `stacked` to make
 the radios appear one over the other.
@@ -123,32 +126,20 @@ the radios appear one over the other.
 ```html
 <template>
   <div>
-    <h5>Small size stacked radios</h5>
+    <h5>Inline radios (default)</h5>
+    <b-form-radio-group v-model="selected"
+                        :options="options"
+                        name="radioInline">
+    </b-form-radio-group>
+
+    <h class="mt-3"5>Stacked radios</h5>
     <b-form-radio-group v-model="selected"
                         :options="options"
                         stacked
-                        size="sm"
-                        name="radioStackedSm">
+                        name="radiosStacked">
     </b-form-radio-group>
 
-    <br>
-    <h5>Default size stacked radios</h5>
-    <b-form-radio-group v-model="selected"
-                        :options="options"
-                        stacked
-                        name="radiosStackedMd">
-    </b-form-radio-group>
-
-    <br>
-    <h5>Large size stacked radios</h5>
-    <b-form-radio-group v-model="selected"
-                        :options="options"
-                        stacked
-                        size="lg"
-                        name="radiosStackedLg">
-    </b-form-radio-group>
-
-    <div class="mt-4">
+    <div class="mt-3">
       Selected: <strong>{{ selected }}</strong>
     </div>
   </div>
@@ -191,9 +182,10 @@ when they are in the checked state.
                         v-model="selected"
                         :options="options"
                         name="radeiosBtnDefault" />
-    <br>
 
-    <h5>Button style radios with <code>outline-primary</code> variant and size <code>lg</code></h5>
+    <h5 clas="mt-3">
+      Button style radios with <code>outline-primary</code> variant and size <code>lg</code>
+    </h5>
     <b-form-radio-group id="btnradios2"
                         class="mb-4"
                         buttons
@@ -202,9 +194,8 @@ when they are in the checked state.
                         v-model="selected"
                         :options="options"
                         name="radioBtnOutline" />
-    <br>
 
-    <h5>Stacked button style radios</h5>
+    <h5 class="mt-3">Stacked button style radios</h5>
     <b-form-radio-group id="btnradios3"
                         class="mb-4"
                         buttons
@@ -212,11 +203,6 @@ when they are in the checked state.
                         v-model="selected"
                         :options="options"
                         name="radioBtnStacked" />
-    <br>
-
-    <div>
-      Selected: <strong>{{ selected }}</strong>
-    </div>
   </div>
 </template>
 
@@ -277,6 +263,42 @@ Supported `invalid` values are:
 
 ## Non custom radio inputs
 You can have `b-form-radio` render a browser native radio input by setting the `plain` prop.
+
+
+```html
+<template>
+  <div>
+    <h5>Plain inline radios</h5>
+    <b-form-radio-group v-model="selected"
+                        :options="options"
+                        plain
+                        name="plainInline" />
+
+    <h class="mt-3"5>Plain stacked radios</h5>
+    <b-form-radio-group v-model="selected"
+                        :options="options"
+                        plain
+                        stacked
+                        name="plainStacked" />
+
+  </div>
+</template>
+
+<script>
+  export default {
+    data: {
+      selected: 'first',
+      options: [
+        { text: 'First radio', value: 'first' },
+        { text: 'Second radio', value: 'second' },
+        { text: 'Third radio', value: 'third' }
+      ]
+    }
+  }
+</script>
+
+<!-- form-radio-plain-1.vue -->
+```
 
 **Note:** `plain` will have no effect if `buttons` is set.
 
