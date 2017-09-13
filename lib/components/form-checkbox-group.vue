@@ -6,6 +6,7 @@
          :data-toggle="buttons ? 'buttons' : null"
          :aria-required="required ? 'true' : null"
          :aria-invalid="computedAriaInvalid"
+         @change="$emit('change', localChecked)"
     >
         <slot name="first"></slot>
         <!-- b-form-checkbox will grab v-model (checked) from b-form-checkboxes -->
