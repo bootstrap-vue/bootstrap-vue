@@ -23,6 +23,7 @@ export default {
                     title: components[key].meta.title,
                     new: components[key].meta.new,
                     beta: components[key].meta.beta,
+                    breaking: components[key].meta.breaking,
                     slug: key
                 }
             })
@@ -35,6 +36,7 @@ export default {
                     title: directives[key].meta.title,
                     new: directives[key].meta.new,
                     beta: directives[key].meta.beta,
+                    breaking: directives[key].meta.breaking,
                     slug: key
                 }
             })
