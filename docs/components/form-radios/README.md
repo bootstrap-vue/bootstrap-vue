@@ -6,11 +6,11 @@ is built on top of semantic and accessible markup, so it is a solid replacement
 for the default radio input.
 
 <div class="alert alert-danger">
+  <h5>Breaking Change notice:</h5>
   <p class="m-0">
-    <strong>Breaking Change Warning:</strong>
-    <code>&lt;b-form-radio&gt;</code> now generates a single radio input. Please
-    use <code>&lt;b-form-radio-group&gt;</code> to gerate a series of radio inputs
-    base on the <code>options</code> prop.
+    <code class="bg-transparent text-danger">&lt;b-form-radio&gt;</code> now generates a single
+    radio input. Please use <code class="bg-transparent text-danger">&lt;b-form-radio-group&gt;</code>
+    to gerate a series of radio inputs base on the <code class="bg-transparent text-danger">options</code> prop.
   </p>
 </div>
 
