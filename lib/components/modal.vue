@@ -258,7 +258,7 @@
                     'modal-backdrop',
                     {
                         fade: !this.noFade,
-                        show: this.is_show,
+                        show: this.is_show || this.noFade,
                     }
                 ];
             },
