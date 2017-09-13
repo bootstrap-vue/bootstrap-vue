@@ -326,6 +326,13 @@
                     // We do this in nextTick to ensure hte modal is in DOM first before we show it
                     this.is_visible = true;
                     this.$emit('change', true);
+                    // Observe changes in modal content and adjust if necessary
+                    this._observer = observeDom(this.$refs.content, this.adjustDialog.bind(this), {
+                        subtree: true,
+                        childList: true,
+                        attributes: true,
+                        attributeFilter: ['class', 'style']
+                    });
                 });
             },
             hide(trigger) {
@@ -354,6 +361,11 @@
                 // Hide if not canceled
                 if (hideEvt.defaultPrevented || !this.is_visible) {
                     return;
+                }
+                // stop observing for content changes
+                if (this_observer) {
+                    this._observer.disconnect();
+                    this._observer = null;
                 }
                 this.is_visible = false;
                 this.$emit('change', false);
@@ -587,6 +599,10 @@
             }
 
         },
+        created() {
+           // create non-reactive property
+           this._observer = null;
+        },
         mounted() {
             // Measure scrollbar
             this.getScrollbarWidth();
@@ -595,19 +611,16 @@
             this.listenOnRoot('bv::hide::modal', this.hideHandler);
             // Listen for bv:modal::show events, and close ourselves if the opening modal not us
             this.listenOnRoot('bv::modal::show', this.modalListener);
-            // Observe changes in modal content and adjust if necessary
-            observeDom(this.$refs.content, this.adjustDialog.bind(this), {
-                subtree: true,
-                childList: true,
-                attributes: true,
-                attributeFilter: ['class', 'style']
-            });
             // Initially show modal?
             if (this.visible === true) {
                 this.show();
             }
         },
         beforeDestroy() {
+            if (this_observr) {
+                this._observer.disconnect();
+                this._observer = null;
+            }
             this.setResizeEvent(false);
         }
     };
