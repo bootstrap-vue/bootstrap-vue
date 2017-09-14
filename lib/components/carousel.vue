@@ -269,7 +269,7 @@
                     }
                     setAttr(slide, 'aria-current', idx === index ? 'true' : 'false');
                     setAttr(slide, 'aria-posinset', String(n));
-                    setattr(slide, 'aria-setsize', String(numSlides));
+                    setAttr(slide, 'aria-setsize', String(numSlides));
                     slide.tabIndex = -1;
                     if (id) {
                         setAttr(slide, 'aria-controlledby', id);
