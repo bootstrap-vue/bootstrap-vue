@@ -17,7 +17,7 @@ The classes are named using the format `{property}{sides}-{size}` for `xs` and
 `{property}{sides}-{breakpoint}-{size}` for `sm`, `md`, `lg`, and `xl`.
 
 Where _property_ is one of:
-` `m` - for classes that set margin
+- `m` - for classes that set margin
 - `p` - for classes that set padding
 
 Where _sides_ is one of:
