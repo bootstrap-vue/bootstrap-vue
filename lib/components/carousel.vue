@@ -78,7 +78,7 @@
 <script>
     import { from as arrayFrom } from '../utils/array';
     import { observeDom } from '../utils';
-    import { selectAll } from '../utils/dom';
+    import { selectAll, reflow } from '../utils/dom';
     import { idMixin } from '../mixins';
 
     // Slide directional classes
@@ -113,12 +113,6 @@
         }
         // fallback
         return null;
-    }
-
-    // Function to trigger a reflow of an element layout
-    // To help prevent this line from being optimized out
-    function reflow(el) {
-      return el.offsetHeight;
     }
 
     export default {
