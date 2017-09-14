@@ -53,3 +53,5 @@ Modify those values as you need to generate different utilities here.
 
 You can also use `mw-100` (`max-width: 100%;`) and `mh-100` (`max-height: 100%;`) utilities as needed.
 
+## Assitional Resources
+Refer to [Bootstrap V4](http://getbootstrap.com/) official documentation site for more information.

@@ -17,6 +17,7 @@
 
 <script>
     import bImg from './img';
+    import { isVisible, getBCR, eventOn, eventOff } from '../utils/dom';
 
     const THROTTLE = 100;
 
@@ -118,39 +119,47 @@
             this.setListeners(true);
             this.checkView();
         },
+        activated() {
+            this.setListeners(true);
+            this.checkView();
+        },
+        deactivated() {
+            this.setListeners(false);
+        },
         beforeDdestroy() {
-            this.setListeners(flase);
+            this.setListeners(false);
         },
         methods: {
             setListeners(on) {
+                clearTimeout(this.scrollTimer);
+                this.scrollTimout = null;
                 const root = window;
                 if (on) {
-                    root.addEventListener('scroll', this.onScroll);
-                    root.addEventListener('resize', this.onScroll);
-                    root.addEventListener('orientationchange', this.onScroll);
+                    eventOn(root, 'scroll', this.onScroll);
+                    eventOn(root, 'resize', this.onScroll);
+                    eventOn(root, 'orientationchange', this.onScroll);
                 } else {
-                    root.removeEventListener('scroll', this.onScroll);
-                    root.removeEventListener('resize', this.onScroll);
-                    root.removeEventListener('orientationchange', this.onScroll);
-                    clearTimeout(this.scrollTimer);
-                    this.scrollTimout = null;
+                    eventOff(root, 'scroll', this.onScroll);
+                    eventOff(root, 'resize', this.onScroll);
+                    eventOff(root, 'orientationchange', this.onScroll);
                 }
             },
             checkView() {
                 // check bounding box + offset to see if we should show 
-                if (this.$el.offsetParent === null || !(this.$el.offsetWidth > 0 || this.$el.offsetHeight > 0)) {
+                if (!isVisible(this.$el)) {
                     // Element is hidden, so skip for now
                     return;
                 }
                 const offset = parseInt(this.offset,10) || 0;
+                const docElement = document.documentElement;
                 const view = {
-                    left: 0 - offset,
-                    top: 0 - offset,
-                    bottom: document.documentElement.clientHeight + offset,
-                    right: document.documentElement.clientWidth + offset
+                    l: 0 - offset,
+                    t: 0 - offset,
+                    b: docElement.clientHeight + offset,
+                    r: docElement.clientWidth + offset
                 };
-                const box = this.$el.getBoundingClientRect();
-                if (box.right >= view.left && box.bottom >= view.top && box.left <= view.right && box.top <= view.bottom) {
+                const box = getBCR(this.$el);
+                if (box.right >= view.l && box.bottom >= view.t && box.left <= view.r && box.top <= view.b) {
                      // image is in view (or about to be in view)
                      this.isShown = true;
                      this.setListeners(false);
@@ -159,10 +168,10 @@
             onScroll() {
                 if (this.isShown) {
                     this.setListeners(false);
-                    return;
+                } else {
+                    clearTimeout(this.scrollTimeout);
+                    this.scrollTimeout = setTimeout(this.checkView, parseInt(this.throttle, 10) || THROTTLE);
                 }
-                clearTimeout(this.scrollTimeout);
-                this.scrollTimeout = setTimeout(this.checkView, parseInt(this.throttle, 10) || THROTTLE);
             }
         }
     };

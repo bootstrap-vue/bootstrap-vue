@@ -84,15 +84,9 @@
     import bBtn from './button';
     import bBtnClose from './button-close';
     import { idMixin, listenOnRootMixin } from '../mixins';
-    import { from as arrayFrom } from '../utils/array';
     import { isVisible, selectAll, select, addClass, removeClass, setAttr, removeAttr, getAttr } from '../utils/dom';
     import { observeDom, warn } from '../utils';
     import { BvEvent } from '../classes';
-
-    // This should be moved to dom utils
-    function reflow(el) {
-        return el && el.offsetHeight;
-    }
 
     export default {
         mixins: [idMixin, listenOnRootMixin],
@@ -363,7 +357,7 @@
                     return;
                 }
                 // stop observing for content changes
-                if (this_observer) {
+                if (this._observer) {
                     this._observer.disconnect();
                     this._observer = null;
                 }
@@ -617,7 +611,7 @@
             }
         },
         beforeDestroy() {
-            if (this_observr) {
+            if (this._observer) {
                 this._observer.disconnect();
                 this._observer = null;
             }

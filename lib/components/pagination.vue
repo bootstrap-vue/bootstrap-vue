@@ -118,12 +118,9 @@
 </template>
 
 <script>
-import { from as arrayFrom } from '../utils/array'
-import range from '../utils/range'
-// Determine if an HTML element is visible - Faster than CSS check
-function isVisible(el) {
-    return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
-}
+import { from as arrayFrom } from '../utils/array';
+import range from '../utils/range';
+import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom';
 
 // Make an array of N to N+X
 function makePageArray(startNum, numPages) {
@@ -285,9 +282,8 @@ export default {
             this.$emit('change', this.currentPage);
         },
         getButtons() {
-            const buttons = arrayFrom(this.$el.querySelectorAll('a.page-link'));
             // Return only buttons that are visible
-            return buttons.filter(btn => isVisible(btn));
+            return selectAll('a.page-link', this.$el).filter(btn => isVisible(btn));
         },
         setBtnFocus(btn) {
             this.$nextTick(() => {
@@ -295,19 +291,19 @@ export default {
             });
         },
         focusFirst() {
-            const btn = this.getButtons().find(el => !el.disabled);
+            const btn = this.getButtons().find(el => !isDisabled(el));
             if (btn && btn.focus && btn !== document.activeElement) {
                 this.setBtnFocus(btn);
             }
         },
         focusLast() {
-            const btn = this.getButtons().reverse().find(el => !el.disabled);
+            const btn = this.getButtons().reverse().find(el => !isDisabled(el));
             if (btn && btn.focus && btn !== document.activeElement) {
                 this.setBtnFocus(btn);
             }
         },
         focusCurrent() {
-            const btn = this.getButtons().find(el => parseInt(el.getAttribute('aria-posinset'), 10) === this.currentPage);
+            const btn = this.getButtons().find(el => parseInt(getAttr(el, 'aria-posinset'), 10) === this.currentPage);
             if (btn && btn.focus) {
                 this.setBtnFocus(btn);
             } else {
@@ -318,7 +314,7 @@ export default {
         focusPrev() {
             const buttons = this.getButtons();
             const idx = buttons.indexOf(document.activeElement);
-            if (idx > 0 && !buttons[idx - 1].disabled && buttons[idx - 1].focus) {
+            if (idx > 0 && !isDisabled(buttons[idx - 1]) && buttons[idx - 1].focus) {
                 this.setBtnFocus(buttons[idx - 1]);
             }
         },
@@ -326,7 +322,7 @@ export default {
             const buttons = this.getButtons();
             const idx = buttons.indexOf(document.activeElement);
             const cnt = buttons.length - 1;
-            if (idx < cnt && !buttons[idx + 1].disabled && buttons[idx + 1].focus) {
+            if (idx < cnt && !isDisabled(buttons[idx + 1]) && buttons[idx + 1].focus) {
                 this.setBtnFocus(buttons[idx + 1]);
             }
         }

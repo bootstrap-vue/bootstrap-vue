@@ -10,7 +10,7 @@ for the default radio input.
   <p class="m-0">
     <code class="bg-transparent text-danger">&lt;b-form-radio&gt;</code> now generates a single
     radio input. Please use <code class="bg-transparent text-danger">&lt;b-form-radio-group&gt;</code>
-    to gerate a series of radio inputs base on the <code class="bg-transparent text-danger">options</code> prop.
+    to generate a series of radio inputs based on the <code class="bg-transparent text-danger">options</code> prop.
   </p>
 </div>
 
