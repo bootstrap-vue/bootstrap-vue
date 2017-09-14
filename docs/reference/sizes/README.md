@@ -1,4 +1,4 @@
-# Sizes
+# Sizing props and classes
 
 > Bootstrap V4 CSS provdes severl classes that control the sizing of elements,
 of which some of these have been translatd into component props.
