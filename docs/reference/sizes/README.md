@@ -21,7 +21,7 @@ depending on the component used on, such as `btn-<size>` for buttons, `modal-<si
 for modal, `form-control-<size>` for form elements, `pagination-<size>` for
 pagination, etc.
 
-## Sizing Classes
+## Sizing utility classes
 Easily make an element as wide or as tall (relative to its parent) with our width
 and height utilities classes.
 
