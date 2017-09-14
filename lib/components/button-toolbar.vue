@@ -97,7 +97,7 @@
                 }
             },
             getItems() {
-                let items = select(ITEM_SELECTOR, this.$el);
+                let items = selectAll(ITEM_SELECTOR, this.$el);
                 items.forEach(item => {
                     // Ensure tabfocus is -1 on any new elements
                     item.tabIndex = -1;
