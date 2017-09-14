@@ -11,33 +11,38 @@
             :aria-invalid="computedAriaInvalid"
             ref="input"
     >
-        <option v-for="option in formOptions"
-                :value="option.value"
-                v-html="option.text"
-                :disabled="option.disabled"
-                :key="option.value || option.text"
+        <slot name="first"></slot>
+        <option v-for="(option, idx) in formOptions"
+                       :value="option.value"
+                       :disabled="option.disabled"
+                       :key="`option_${idx}_opt`"
+                       v-html="option.text"
         ></option>
         <slot></slot>
     </select>
 </template>
 
 <script>
-    import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin } from '../mixins';
+    import { idMixin, formMixin, formSizeMixin, formStateMixin, formOptionsMixin, formCustomMixin } from '../mixins';
     import { warn } from '../utils';
 
     export default {
         mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
         data() {
             return {
-                localValue: this.multiple ? (this.value || []) : this.value
-            };
+                localValue: this.value
+            }
+        },
+        watch: {
+            value(newVal, oldVal) {
+                this.localValue = newVal;
+            },
+            localValue(newVal, oldVal) {
+                this.$emit('input', this.localValue);
+            }
         },
         props: {
             value: {},
-            options: {
-                type: [Array, Object],
-                required: true
-            },
             multiple: {
                 type: Boolean,
                 default: false
@@ -66,9 +71,8 @@
                 if (this.ariaInvalid === true || this.ariaInvalid === 'true') {
                     return 'true';
                 }
-                return this.computedState === false ? 'true' : null;
+                return this.stateClass == 'is-invalid' ? 'true' : null;
             }
         }
     };
-
 </script>

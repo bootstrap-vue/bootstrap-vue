@@ -18,7 +18,7 @@
                     {{ page.title }}
                     <small class="badge badge-success" v-if="page.new">NEW</small>
                     <small class="badge badge-warning" v-if="page.experimental">BETA</small>
-                    <small class="badge badge-danger" v-if="page.breaking">BREAKING CHANGE</small>
+                    <small class="badge badge-danger" v-if="page.breaking">CHANGE</small>
                 </b-nav-item>
             </b-nav>
     

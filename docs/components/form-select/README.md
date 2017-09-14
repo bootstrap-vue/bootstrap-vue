@@ -1,13 +1,103 @@
 # Form Select
 
-> Bootstrap custom `<select>` using custom styles. Provide options based on an
+> Bootstrap custom `<select>` using custom styles. Optionally specify options based on an
 array, array of objects, or an object.
 
-**Advanced Breaking Change Warning:**
-Major changes are coming to `<b-form-select>`, `<b-form-radio>`, `<b-form-checkbox>` that
-may alter how you use the components. These documents will be updatd as the changes are made.
+Generate your select options by pasing an aray or object to the `options` props:
 
-## Options
+```html
+<template>
+  <div>
+    <b-form-select v-model="selected" :options="options" class="mb-3">
+    </b-form-select>
+    <div>Selected: <strong>{{ selected }}</strong></div>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    selected: null,
+    options: [
+      { value: null, text: 'Please select an option' },
+      { value: 'a', text: 'This is First option' },
+      { value: 'b', text: 'Selected Option' },
+      { value: {'C':'3PO'}, text: 'This is an option with object value' },
+      { value: 'd', text: 'This one is disabled', disabled: true }
+    ]
+  }
+}
+</script>
+
+<!-- form-select-options.vue -->
+```
+
+Or manualy provide your options and optgroups:
+
+```html
+<template>
+  <div>
+    <b-form-select v-model="selected" class="mb-3">
+      <option :value="null">Please select an option</option>
+      <option value="a">Option A</option>
+      <option value="b" disabled>Option B (disabled)</option>
+      <optgroup label="Grouped Options">
+        <option :value="{'C':'3PO'}">Option with object value</option>
+        <option :value="{'R':'2D2'}">Another option with object value</option>
+      </optgroup>
+    </b-form-select>
+    <div>Selected: <strong>{{ selected }}</strong></div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data: {
+      selected: null
+    }
+  };
+</script>
+
+<!-- form-select-manual.vue -->
+```
+
+Feel free to mix the `options` prop with `<option>` and `<optgroup>`.
+Manully placed options and optgroups will appear _below_ the options generated via the
+`options` prop. To place manual options and optgroups _above_ the options specified
+by the `options` prop, use the named slot `first`.
+
+```html
+<template>
+  <div>
+    <b-form-select v-model="selected" :options="options" class="mb-3">
+      <template slot="first">
+        <!-- this slot appears above the options from 'options' prop -->
+        <option :value="null" disabled>-- Please select an option --</option>
+      </template>
+      <!-- these options will appear after the ones from 'options' prop -->
+      <option value="C">Option C</option>
+      <option value="D">Option D</option>
+    </b-form-select>
+    <div>Selected: <strong>{{ selected }}</strong></div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data: {
+      selected: null,
+      options: [
+        { value: 'A', text: 'Option A (from options prop)' },
+        { value: 'B', text: 'Option B (from options prop)' },
+      ]
+    }
+  };
+</script>
+
+<!-- form-select-both.vue -->
+```
+
+## Options property
 
 `options` can be an array or a key-value object. Available fields:
 
@@ -31,6 +121,7 @@ you can easily change them using `text-field` and `value-field` props.
   {text: 'Item 1', value: 'first'},
   {text: 'Item 2', value: 'second'},
   {text: 'Item 3', value: 'third', disabled: true}
+  {text: 'Item 3', value: { foo:'bar', baz:true}}
 ]
 ```
 
@@ -42,9 +133,9 @@ Keys are mapped to value and values are mapped to option object.
 {
   a: 'Item A',
   b: 'Item B',
-  c: 'Item C',
-  d: {text: 'Item D', disabled: true},
-  e: {text: 'Item E', value: 'overridden_value'}
+  c: {text: 'Item C', disabled: true},
+  d: {text: 'Item D', value: 'overridden_value'},
+  e: {text: 'Item E', value: { foo:'bar', baz:true}}
 }
 ```
 
@@ -81,7 +172,7 @@ export default {
 }
 </script>
 
-<!-- form-select-1.vue -->
+<!-- form-select-3.vue -->
 ```
 
 ### Select sizing (displayed rows)
@@ -121,7 +212,7 @@ export default {
 }
 </script>
 
-<!-- form-select-2.vue -->
+<!-- form-select-4.vue -->
 ```
 
 ## Multiple select support
@@ -138,7 +229,7 @@ class applied.
 ### Value
 
 In `multiple` mode, `<b-form-select>` always returns an array of option values.
-You must provide an array reference as your `v-model` when in `multiple` mode.
+You **must** provide an array reference as your `v-model` when in `multiple` mode.
 
 ```html
 <template>
@@ -166,7 +257,7 @@ export default {
 }
 </script>
 
-<!-- form-select-3.vue -->
+<!-- form-select-5.vue -->
 ```
 
 ## Control sizing
@@ -195,7 +286,7 @@ To apply one of the contextual states on `<b-form-select>`, set the `state` prop
 to `danger`, `warning`, or `success` on the `<b-form-fieldset>` that wraps
 the `<b-form-select>`.
 
-#### Conveying contextual validation state to assistive technologies and colorblind users:
+### Conveying contextual validation state to assistive technologies and colorblind users:
 
 Using these contextual states to denote the state of a form control only provides
 a visual, color-based indication, which will not be conveyed to users of assistive
@@ -207,7 +298,7 @@ providing an additional help text block (via `<b-form-group>` or `<b-form-feedba
 Specifically for assistive technologies, invalid form controls can also be assigned
 an `aria-invalid="true"` attribute (see below).
 
-#### ARIA `aria-invalid` attribute:
+### ARIA `aria-invalid` attribute:
 
 When `<b-form-select>` has an invalid contextual state (i.e. `invalid`) you may also
 want to set the `<b-form-select>` prop `aria-invalid` to `true`.
@@ -219,10 +310,14 @@ Supported `invalid` values are:
 
 When `state` is set to `invalid`, aria-invalid will also be set to true.
 
-### Non custom select
+## Non custom select
 
 Set the prop `plain` to have a native browser `<select>` rendered (although the class
 `.form-control` will always be placed on the select).
 
 Multiple select will always render as a `plain` select, as will any `<b-form-select>`
 that has the `select-size` prop set to a value greater than 1.
+
+## Aliases
+- `<b-form-select>` can be used by the shorter alias `<b-select>`.
+

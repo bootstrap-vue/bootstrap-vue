@@ -1,134 +1,134 @@
 <template>
-    <label :class="button ? btnLabelClasses : labelClasses"
-           :aria-pressed="button ? (isChecked ? 'true' : 'false') : null"
-    >
+    <div v-if="is_Plain && !is_ButtonMode" :class="['form-check', is_Stacked ?'':'form-check-inline']">
+        <label class="form-check-label">
+            <input type="checkbox"
+                   :id="safeId()"
+                   v-model="computedLocalChecked"
+                   class="form-check-input"
+                   :name="get_Name"
+                   :value="value"
+                   :true-value="value"
+                   :false-value="uncheckedValue"
+                   :disabled="is_Disabled"
+                   :required="is_Required"
+                   ref="check"
+                   autocomplete="off"
+                   :aria-required="is_Required ? 'true' : null"
+                   @change="handleChange">
+            <slot></slot>
+        </label>
+    </div>
+    <label v-else :class="is_ButtonMode ? buttonClasses : labelClasses">
         <input type="checkbox"
                :id="safeId()"
-               :class="checkClasses"
-               :name="name"
+               v-model="computedLocalChecked"
+               :class="is_ButtonMode ? '' : 'custom-control-input'"
+               :name="get_Name"
                :value="value"
-               :checked="isChecked"
-               :disabled="disabled"
-               :required="required"
+               :true-value="value"
+               :false-value="uncheckedValue"
+               :disabled="is_Disabled"
+               :required="is_Required"
                ref="check"
                autocomplete="off"
-               :aria-required="required ? 'true' : null"
+               :aria-required="is_Required ? 'true' : null"
                @focus="handleFocus"
                @blur="handleFocus"
                @change="handleChange">
-        <span v-if="custom && !button"
-              class="custom-control-indicator"
-              aria-hidden="true"
-        ></span>
-        <span :class="(custom && !button) ? 'custom-control-description' : null">
+        <span v-if="!is_ButtonMode" class="custom-control-indicator" aria-hidden="true"></span>
+        <span :class="is_ButtonMode ? '' : 'custom-control-description'">
             <slot></slot>
         </span>
     </label>
 </template>
 
 <script>
-import { idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin } from '../mixins';
-import { arrayIncludes, isArray } from '../utils/array';
+    import { idMixin, formRadioCheckMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../mixins';
+    import { isArray } from '../utils/array';
+    import { looseEqual } from '../utils';
 
-export default {
-    mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formCheckBoxMixin],
-    model: {
-        prop: 'checked',
-        event: 'change'
-    },
-    props: {
-        value: {
-            default: true
-        },
-        uncheckedValue: {
-            default: false
-        },
-        checked: {
-            default: true
-        },
-        indeterminate: {
-            type: Boolean,
-            default: false,
-        },
-        button: {
-            type: Boolean,
-            default: false,
-        },
-        buttonVariant: {
-            type: String,
-            default: 'secondary',
-        }
-    },
-    computed: {
-        labelClasses() {
-            return [
-                this.sizeFormClass,
-                this.custom ? 'custom-checkbox' : '',
-                this.checkboxClass
-            ];
-        },
-        btnLabelClasses() {
-            return [
-                'btn',
-                `btn-${this.buttonVariant}`,
-                this.sizeBtnClass,
-                this.isChecked ? 'active' : '',
-                this.disabled ? 'disabled' : ''
-            ];
-        },
-        checkClasses() {
-            return [
-                (this.custom && !this.button ) ? 'custom-control-input' : null,
-                this.stateClass
-            ];
-        },
-        isChecked() {
-            if (isArray(this.checked)) {
-                return arrayIncludes(this.checked, this.value);
-            } else {
-                return this.checked === this.value;
+    export default {
+        mixins: [idMixin, formRadioCheckMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin],
+        props: {
+            value: {
+                default: true
+            },
+            uncheckedValue: {
+                // Not applicable in multi-check mode
+                default: false
+            },
+            indeterminate: {
+                // Not applicable in multi-check mode
+                type: Boolean,
+                default: false,
             }
-        }
-    },
-    watch: {
-        indeterminate(newVal, oldVal) {
-            this.setIndeterminate(newVal);
-        }
-    },
-    methods: {
-        handleChange({ target: { checked } }) {
-            if (isArray(this.checked)) {
-                if (this.isChecked) {
-                    this.$emit('change', this.checked.filter(x => x !== this.value));
+        },
+        computed: {
+            labelClasses() {
+                return [
+                    'custom-control',
+                    'custom-checkbox',
+                    Boolean(this.get_Size) ? `form-control-${this.get_Size}` : '',
+                    this.get_StateClass
+                ];
+            },
+            is_Checked() {
+                const checked = this.computedLocalChecked;
+                if (isArray(checked)) {
+                    for (let i = 0; i < checked.length; i++) {
+                        if (looseEqual(checked[i], this.value)) {
+                            return true;
+                        }
+                    }
+                    return false;
                 } else {
-                    this.$emit('change', [...this.checked, this.value]);
-                }
-            } else {
-                this.$emit('change', checked ? this.value : this.uncheckedValue)
-            }
-            this.$emit('update:indeterminate', this.$refs.check.indeterminate);
-        },
-        setIndeterminate(state) {
-            this.$refs.check.indeterminate = state;
-            // Emit update event to prop
-            this.$emit('update:indeterminate', this.$refs.check.indeterminate);
-        },
-        handleFocus(evt) {
-            // Add or remove 'focus' class on label in button mode
-            if (this.button && evt.target && evt.target.parentElement) {
-                const label = evt.target.parentElement;
-                if (evt.type === 'focus') {
-                    label.classList.add('focus');
-                } else if (evt.type === 'blur') {
-                    label.classList.remove('focus');
+                    return looseEqual(checked, this.value);
                 }
             }
+        },
+        watch: {
+            computedLocalChecked(newVal, oldVal) {
+                if (looseEqual(newVal, oldVal)) {
+                    return;
+                }
+                this.$emit('input', newVal);
+                this.$emit('update:indeterminate', this.$refs.check.indeterminate);
+            },
+            checked(newVal, oldVal) {
+                if (this.is_Child || looseEqual(newVal, oldVal)) {
+                    return;
+                }
+                this.computedLocalChecked = newVal;
+            },
+            indeterminate(newVal, oldVal) {
+                this.setIndeterminate(newVal);
+            }
+        },
+        methods: {
+            handleChange({ target: { checked } }) {
+                // Change event is only fired via user interaction
+                // And we only emit the value of this checkbox
+                if (this.is_Child || isArray(this.computedLocalChecked)) {
+                    this.$emit('change', checked ? this.value : null);
+                } else {
+                    // Single radio mode supports unchecked value
+                    this.$emit('change', checked ? this.value : this.uncheckedValue)
+                }
+                this.$emit('update:indeterminate', this.$refs.check.indeterminate);
+            },
+            setIndeterminate(state) {
+                // Indeterminate only supported in single checkbox mode
+                if (this.is_Child || isArray(this.computedLocalChecked)) {
+                    return;
+                }
+                this.$refs.check.indeterminate = state;
+                // Emit update event to prop
+                this.$emit('update:indeterminate', this.$refs.check.indeterminate);
+            }
+        },
+        mounted() {
+            // Set initial indeterminate state
+            this.setIndeterminate(this.indeterminate);
         }
-    },
-    mounted() {
-        // Set initial indeterminate state
-        this.setIndeterminate(this.indeterminate);
-    }
-};
-
+    };
 </script>

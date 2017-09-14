@@ -51,6 +51,7 @@
     // Selector to find first input with an ID. This Order is important!
     const INPUT_SELECTOR = [
         '[role="radiogroup"][id]',
+        '[role="group"][id]',
         'input[id]',
         'select[id]',
         'textarea[id]',
