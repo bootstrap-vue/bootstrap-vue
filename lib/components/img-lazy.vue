@@ -144,7 +144,7 @@
                     return;
                 }
                 const offset = parseInt(this.offset,10) || 0;
-                const doElement = document.documentElement;
+                const docElement = document.documentElement;
                 const view = {
                     l: 0 - offset,
                     t: 0 - offset,
