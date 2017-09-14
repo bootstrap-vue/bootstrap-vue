@@ -1,6 +1,11 @@
 # Sizes
 
-> Various components allow for an optional size (via hte `size` prop). Below are the
+> Bootstrap V4 CSS provdes severl classes that control the sizing of elements,
+of which some of these have been translatd into component props.
+
+
+## Component `size` prop
+Various components allow for an optional size (via hte `size` prop). Below are the
 sizez supported via the default Bootsrap V4 CSS.
 
 Available Sizes:
@@ -48,3 +53,5 @@ Modify those values as you need to generate different utilities here.
 
 You can also use `mw-100` (`max-width: 100%;`) and `mh-100` (`max-height: 100%;`) utilities as needed.
 
+## Assitional Resources
+Refer to [Bootstrap V4](http://getbootstrap.com/) official documentation site for more information.
