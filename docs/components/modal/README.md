@@ -310,6 +310,7 @@ variants such as `danger`, `warning`, `info`, `success`, `dark`, `light`, etc.
 The variants for the bottom border of the header and top border of the footer can be
 controlled by the `header-border-variant` and `footer-border-variant` props respectively.
 
+```html
 <template>
   <b-btn @click="show=true" variant="primary">Show Modal</b-btn>
   <b-modal v-model="show"
@@ -371,7 +372,7 @@ export default {
 </script>
 
 <!-- modal-variant-1.vue -->
-
+```
 
 ## Lady loading
 Modal will always render its HTML markup in the document at the location that
