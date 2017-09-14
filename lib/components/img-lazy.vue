@@ -119,11 +119,20 @@
             this.setListeners(true);
             this.checkView();
         },
+        activated() {
+            this.setListeners(true);
+            this.checkView();
+        },
+        deactivated() {
+            this.setListeners(false);
+        },
         beforeDdestroy() {
             this.setListeners(false);
         },
         methods: {
             setListeners(on) {
+                clearTimeout(this.scrollTimer);
+                this.scrollTimout = null;
                 const root = window;
                 if (on) {
                     eventOn(root, 'scroll', this.onScroll);
@@ -133,8 +142,6 @@
                     eventOff(root, 'scroll', this.onScroll);
                     eventOff(root, 'resize', this.onScroll);
                     eventOff(root, 'orientationchange', this.onScroll);
-                    clearTimeout(this.scrollTimer);
-                    this.scrollTimout = null;
                 }
             },
             checkView() {
@@ -161,10 +168,10 @@
             onScroll() {
                 if (this.isShown) {
                     this.setListeners(false);
-                    return;
+                } else {
+                    clearTimeout(this.scrollTimeout);
+                    this.scrollTimeout = setTimeout(this.checkView, parseInt(this.throttle, 10) || THROTTLE);
                 }
-                clearTimeout(this.scrollTimeout);
-                this.scrollTimeout = setTimeout(this.checkView, parseInt(this.throttle, 10) || THROTTLE);
             }
         }
     };
