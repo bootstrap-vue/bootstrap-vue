@@ -373,6 +373,17 @@ export default {
 <!-- modal-variant-1.vue -->
 
 
+## Lady loading
+Modal will always render its HTML markup in the document at the location that
+the `<b-modal>` component is placed. You can hide the modal from being in the DOM
+markup (while modal is in the hidden state) by setting the `lazy` prop.
+
+
+## Disable open and close animation
+To disable the fadimg transition/animation when modall open and closes, just set the prop
+`no-fade` on the `<b-modal>` component.
+
+
 ## Accessibility
 
 `<b-modal>` provides several accessibility features, including auto focus, return
