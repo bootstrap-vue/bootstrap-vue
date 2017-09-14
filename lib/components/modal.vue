@@ -84,9 +84,23 @@
     import bBtn from './button';
     import bBtnClose from './button-close';
     import { idMixin, listenOnRootMixin } from '../mixins';
-    import { isVisible, selectAll, select, addClass, removeClass, setAttr, removeAttr, getAttr } from '../utils/dom';
+    import { isVisible, selectAll, select, getBCR, addClass, removeClass, setAttr, removeAttr, getAttr, eventOn, eventOff } from '../utils/dom';
     import { observeDom, warn } from '../utils';
     import { BvEvent } from '../classes';
+
+    const Selector = {
+        FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
+        STICKY_CONTENT: '.sticky-top',
+        NAVBAR_TOGGLER: '.navbar-toggler'
+    };
+
+    const OBSERVER_CONFIG = {
+        subtree: true,
+        childList: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: ['style', 'class']
+    };
 
     export default {
         mixins: [idMixin, listenOnRootMixin],
@@ -321,12 +335,7 @@
                     this.is_visible = true;
                     this.$emit('change', true);
                     // Observe changes in modal content and adjust if necessary
-                    this._observer = observeDom(this.$refs.content, this.adjustDialog.bind(this), {
-                        subtree: true,
-                        childList: true,
-                        attributes: true,
-                        attributeFilter: ['class', 'style']
-                    });
+                    this._observer = observeDom(this.$refs.content, this.adjustDialog.bind(this), OBSERVER_CONFIG);
                 });
             },
             hide(trigger) {
@@ -449,7 +458,11 @@
             // Resize Listener
             setResizeEvent(on) {
                 ['resize', 'orientationchange'].forEach(evtName => {
-                    window[on ? 'addEventListener' : 'removeEventListener'](evtName, this.adjustDialog);
+                    if (on) {
+                        eventOn(window, evtName, this.adjustDialog);
+                    } else {
+                        eventOff(window, evtName, this.adjustDialog);
+                    }
                 });
             },
             // Root Listener handlers
@@ -529,7 +542,8 @@
                 modal.style.paddingRight = '';
             },
             checkScrollbar() {
-              this.isBodyOverflowing = document.body.clientWidth < window.innerWidth;
+              const rect = getBCR(document.body);
+              this.isBodyOverflowing = rect.left + rect.right < window.innerWidth;
             },
             setScrollbar() {
                 if (this.isBodyOverflowing) {
@@ -538,27 +552,28 @@
 
                     const computedStyle = window.getComputedStyle;
                     const body = document.body;
+                    const scrollbarWidth = this.scrollbarWidth;
 
                     // Adjust fixed content padding
-                    selectAll('.fixed-top, .fixed-bottom, .is-fixed, .sticky-top').forEach(el => {
+                    selectAll(Selector.FIXED_CONTENT).forEach(el => {
                       const actualPadding = el.style.paddingRight;
-                      const calculatedPadding = computedStyle(el).paddingRight;
+                      const calculatedPadding = computedStyle(el).paddingRight || 0;
                       setAttr(el,'data-padding-right', actualPadding);
                       el.style.paddingRight = `${parseFloat(calculatedPadding) + this.scrollbarWidth}px`;
                     });
 
                     // Adjust sticky content margin
-                    selectAll('.sticky-top').forEach(el => {
+                    selectAll(Selector.STICKY_CONTENT).forEach(el => {
                       const actualMargin = el.style.marginRight;
-                      const calculatedMargin = computedStyle(el).marginRight;
+                      const calculatedMargin = computedStyle(el).marginRight || 0;
                       setAttr(el, 'data-margin-right', actualMargin);
                       el.style.marginRight = `${parseFloat(calculatedMargin) - this.scrollbarWidth}px`;
                     });
 
                     // Adjust navbar-toggler margin
-                    selectAll('.navbar-toggler').forEach(el => {
+                    selectAll(Selector.NAVBAR_TOGGLER).forEach(el => {
                       const actualMargin = el.style.marginRight;
-                      const calculatedMargin = computedStyle(el).marginRight;
+                      const calculatedMargin = computedStyle(el).marginRight || 0;
                       setAttr(el, 'data-margin-right', actualMargin);
                       el.style.marginRight = `${parseFloat(calculatedMargin) + this.scrollbarWidth}px`;
                     });
@@ -572,23 +587,20 @@
             },
             resetScrollbar() {
                 // Restore fixed content padding
-                selectAll('.fixed-top, .fixed-bottom, .is-fixed, .sticky-top').forEach(el => {
-                    const padding = getAttr(el, 'data-padding-right') || '';
-                    el.style.paddingRight = padding;
+                selectAll(Selector.FIXED_CONTENT).forEach(el => {
+                    el.style.paddingRight = getAttr(el, 'data-padding-right') || '';
                     removeAttr(el,'data-padding-right');
                 });
 
                 // Restore sticky content and navbar-toggler margin
-                selectAll('.sticky-top, .navbar-toggler').forEach(el => {
-                    const margin = getAttr(el, 'data-margin-right') || '';
-                    el.style.marginRight = margin;
+                selectAll(`${Selector.STICKY_CONTENT}, ${Selector.NAVBAR_TOGGLER}`).forEach(el => {
+                    el.style.marginRight = getAttr(el, 'data-margin-right') || '';
                     removeAttr(el, 'data-margin-right');
                 });
 
                 // Restore body padding
                 const body = document.body;
-                const padding = getAttr(body, 'data-padding-right') || '';
-                body.style.paddingRight = padding;
+                body.style.paddingRight = getAttr(body, 'data-padding-right') || '';
                 removeAttr(body, 'data-padding-right');
             }
 
