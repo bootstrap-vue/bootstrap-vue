@@ -18,7 +18,7 @@
 
 <script>
     import { from as arrayFrom } from '../utils/array';
-    import ( isVisible, selectAll } from '../utils/dom';
+    import { isVisible, selectAll } from '../utils/dom';
 
     const ITEM_SELECTOR = [
         '.btn:not(.disabled):not([disabled])',
