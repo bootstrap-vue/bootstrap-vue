@@ -22,7 +22,7 @@
 
 <script>
     import { listenOnRootMixin } from '../mixins';
-    import { hasClass } from '../utils/dom';
+    import { hasClass, reflow } from '../utils/dom';
 
     // Events we emit on $root
     const EVENT_STATE = 'bv::collapse::state';
@@ -92,7 +92,7 @@
             },
             onEnter(el) {
                 el.style.height = 0;
-                this.reflow(el);
+                reflow(el);
                 el.style.height = el.scrollHeight + 'px';
                 this.transitioning = true;
                 // This should be moved out so we can add cancellable events
@@ -107,7 +107,7 @@
                 el.style.height = 'auto';
                 el.style.display = 'block';
                 el.style.height = el.getBoundingClientRect().height + 'px';
-                this.reflow(el);
+                reflow(el);
                 this.transitioning = true;
                 el.style.height = 0;
                 // This should be moved out so we can add cancellable events
@@ -117,10 +117,6 @@
                 el.style.height = null;
                 this.transitioning = false;
                 this.$emit('hidden');
-            },
-            reflow(el) {
-                /* eslint-disable no-unused-expressions */
-                el.offsetHeight; // Force repaint
             },
             emitState() {
                 this.$emit('input', this.show);
