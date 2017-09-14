@@ -120,7 +120,7 @@
 <script>
 import { from as arrayFrom } from '../utils/array';
 import range from '../utils/range';
-import { isVisible, selectAll, getAttr } from '../utils/dom';
+import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom';
 
 // Make an array of N to N+X
 function makePageArray(startNum, numPages) {
@@ -291,13 +291,13 @@ export default {
             });
         },
         focusFirst() {
-            const btn = this.getButtons().find(el => !el.disabled);
+            const btn = this.getButtons().find(el => !isDisabled(el));
             if (btn && btn.focus && btn !== document.activeElement) {
                 this.setBtnFocus(btn);
             }
         },
         focusLast() {
-            const btn = this.getButtons().reverse().find(el => !el.disabled);
+            const btn = this.getButtons().reverse().find(el => !isDisabled(el));
             if (btn && btn.focus && btn !== document.activeElement) {
                 this.setBtnFocus(btn);
             }
@@ -314,7 +314,7 @@ export default {
         focusPrev() {
             const buttons = this.getButtons();
             const idx = buttons.indexOf(document.activeElement);
-            if (idx > 0 && !buttons[idx - 1].disabled && buttons[idx - 1].focus) {
+            if (idx > 0 && !isDisabled(buttons[idx - 1]) && buttons[idx - 1].focus) {
                 this.setBtnFocus(buttons[idx - 1]);
             }
         },
@@ -322,7 +322,7 @@ export default {
             const buttons = this.getButtons();
             const idx = buttons.indexOf(document.activeElement);
             const cnt = buttons.length - 1;
-            if (idx < cnt && !buttons[idx + 1].disabled && buttons[idx + 1].focus) {
+            if (idx < cnt && !isDisabled(buttons[idx + 1]) && buttons[idx + 1].focus) {
                 this.setBtnFocus(buttons[idx + 1]);
             }
         }
