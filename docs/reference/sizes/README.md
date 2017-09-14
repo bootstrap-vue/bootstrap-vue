@@ -1,6 +1,11 @@
 # Sizes
 
-> Various components allow for an optional size (via hte `size` prop). Below are the
+> Bootstrap V4 CSS provdes severl classes that control the sizing of elements,
+of which some of these have been translatd into component props.
+
+
+## Component `size` prop
+Various components allow for an optional size (via hte `size` prop). Below are the
 sizez supported via the default Bootsrap V4 CSS.
 
 Available Sizes:
@@ -25,7 +30,7 @@ Width and height utilities are generated from the `$sizes` Sass map in Bootstrap
 Modify those values as you need to generate different utilities here.
 
 ```html
-<div>
+<div class="text-ceter">
   <div class="w-25 p-3 mb-1 bg-secondary">Width 25%</div>
   <div class="w-50 p-3 mb-1 bg-secondary">Width 50%</div>
   <div class="w-75 p-3 mb-1 bg-secondary">Width 75%</div>
