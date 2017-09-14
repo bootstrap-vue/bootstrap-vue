@@ -50,10 +50,10 @@ Other elements can easily show modals using the `v-b-modal` directive.
   <b-btn v-b-modal.myModal>Show Modal</b-btn>
 
   <!-- Using value -->
-  <b-btn v-b-modal="'myMmodal'">Show Modal</b-btn>
+  <b-btn v-b-modal="'myModal'">Show Modal</b-btn>
 
   <!-- the modal -->
-  <b-modal id="myMmodal">
+  <b-modal id="myModal">
     Hello From My Modal!
   </b-modal>
   </div>
@@ -73,7 +73,7 @@ You can access modal using `ref` attribute and then call the `show()` or `hide()
     <b-button @click="showModal">
         Open Modal
     </b-button>
-    <b-modal ref="myModalRef" title="Using Component Methods">
+    <b-modal ref="myModalRef" hide-footer title="Using Component Methods">
         <div class="d-block text-center">
             <h3>Hello From My Modal!</h3>
         </div>
