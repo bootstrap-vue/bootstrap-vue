@@ -118,12 +118,9 @@
 </template>
 
 <script>
-import { from as arrayFrom } from '../utils/array'
-import range from '../utils/range'
-// Determine if an HTML element is visible - Faster than CSS check
-function isVisible(el) {
-    return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
-}
+import { from as arrayFrom } from '../utils/array';
+import range from '../utils/range';
+import { isVisible, selectAll, getAttr } from '../utils/dom';
 
 // Make an array of N to N+X
 function makePageArray(startNum, numPages) {
@@ -285,9 +282,8 @@ export default {
             this.$emit('change', this.currentPage);
         },
         getButtons() {
-            const buttons = arrayFrom(this.$el.querySelectorAll('a.page-link'));
             // Return only buttons that are visible
-            return buttons.filter(btn => isVisible(btn));
+            return selectAll('a.page-link', this.$el).filter(btn => isVisible(btn));
         },
         setBtnFocus(btn) {
             this.$nextTick(() => {
@@ -307,7 +303,7 @@ export default {
             }
         },
         focusCurrent() {
-            const btn = this.getButtons().find(el => parseInt(el.getAttribute('aria-posinset'), 10) === this.currentPage);
+            const btn = this.getButtons().find(el => parseInt(getAttr(el, 'aria-posinset'), 10) === this.currentPage);
             if (btn && btn.focus) {
                 this.setBtnFocus(btn);
             } else {
