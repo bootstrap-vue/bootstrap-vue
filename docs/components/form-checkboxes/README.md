@@ -293,8 +293,8 @@ export default {
         indeterminate: false
     },
     methods: {
-       toggleAll() {
-          this.selected = this.allSelected ? this.flavours.slice() : [];
+       toggleAll(checked) {
+          this.selected = checked ? this.flavours.slice() : [];
        }
     },
     watch: {
