@@ -2,7 +2,7 @@
 <form class="bd-search d-flex align-items-center">
   <span class="algolia-autocomplete">
 
-      <input type="search" disabled class="form-control ds-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-labelledby="search-input" aria-owns="algolia-autocomplete-listbox-0" dir="auto">
+      <input type="search" disabled class="d-none form-control ds-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-labelledby="search-input" aria-owns="algolia-autocomplete-listbox-0" dir="auto">
       
       <pre aria-hidden="true"></pre>
       
@@ -11,9 +11,9 @@
       </span>
   </span>
 
-  <b-nav-toggle target="bd-docs-nav" class="btn-link bd-search-docs-toggle d-md-none p-0 ml-3" aria-label="Toggle docs avigation">
+  <button type="button" v-b-togle.bd-docs-nav class="bd-search-docs-toggle d-md-none p-0 ml-3" aria-label="Toggle docs navigation">
     <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path></svg>
-  </b-nav-toggle>
+  </button>
   
 </form>
 </template>
