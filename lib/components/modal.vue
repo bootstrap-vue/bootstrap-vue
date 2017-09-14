@@ -85,7 +85,7 @@
     import bBtnClose from './button-close';
     import { idMixin, listenOnRootMixin } from '../mixins';
     import { from as arrayFrom, arrayFind } from '../utils/array';
-    import { isElement, isVisible, selectAll, select, addClass, removeClass, setAttr, removeAttr, getAttr } from '../utils/dom';
+    import { isElement, isVisible, reflow, selectAll, select, addClass, removeClass, setAttr, removeAttr, getAttr } from '../utils/dom';
     import { observeDom, warn } from '../utils';
     import { BvEvent } from '../classes';
 
@@ -104,10 +104,6 @@
             return null;
         }
         return arrayFind(selectAll(selector, root), isVisible) || null;
-    }
-
-    function reflow(el) {
-        return el.offsetHeight;
     }
 
     export default {
