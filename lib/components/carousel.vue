@@ -78,7 +78,7 @@
 <script>
     import { from as arrayFrom } from '../utils/array';
     import { observeDom } from '../utils';
-    import { selectAll, reflow } from '../utils/dom';
+    import { selectAll, reflow, addClass, removeClass, setAttr, eventOn, eventOff } from '../utils/dom';
     import { idMixin } from '../mixins';
 
     // Slide directional classes
@@ -262,14 +262,17 @@
                 this.slides.forEach((slide, idx) => {
                     const n = idx + 1;
                     const id = this.safeId(`__BV_indicator_${n}_`);
-
-                    slide.classList[idx === index ? 'add' : 'remove']('active');
-                    slide.setAttribute('aria-current', idx === index ? 'true' : 'false');
-                    slide.setAttribute('aria-posinset', String(n));
-                    slide.setAttribute('aria-setsize', String(numSlides));
+                    if(idx === index) {
+                        addClass(slide, 'active');
+                    } else {
+                        removeClass(slide, 'active');
+                    }
+                    setAttr(slide, 'aria-current', idx === index ? 'true' : 'false');
+                    setAttr(slide, 'aria-posinset', String(n));
+                    setattr(slide, 'aria-setsize', String(numSlides));
                     slide.tabIndex = -1;
                     if (id) {
-                        slide.setAttribute('aria-controlledby',id);
+                        setAttr(slide, 'aria-controlledby', id);
                     }
                 });
 
@@ -334,8 +337,8 @@
                 // Trigger a reflow of next slide
                 reflow(nextSlide);
 
-                currentSlide.classList.add(direction.dirClass);
-                nextSlide.classList.add(direction.dirClass);
+                addClass(urrentSlide, direction.dirClass);
+                addClass(nextSlide, direction.dirClass);
 
                 // Transition End handler
                 let called = false;
@@ -347,23 +350,23 @@
                     if (this.transitionEndEvent) {
                         const events = this.transitionEndEvent.split(/\s+/);
                         events.forEach(event => {
-                            currentSlide.removeEventListener(event, onceTransEnd);
+                            eventOff(currentSlide, event, onceTransEnd);
                         });
                     }
                     this._animationTimeout = null;
 
-                    nextSlide.classList.remove(direction.dirClass);
-                    nextSlide.classList.remove(direction.overlayClass);
-                    nextSlide.classList.add('active');
+                    removeClass(nextSlide, direction.dirClass);
+                    removeClass(nextSlide, direction.overlayClass);
+                    addClass(nextSlide, 'active');
 
-                    currentSlide.classList.remove('active');
-                    currentSlide.classList.remove(direction.dirClass);
-                    currentSlide.classList.remove(direction.overlayClass);
+                    removeClass(currentSlide, 'active');
+                    removeClass(currentSlide, direction.dirClass);
+                    removeClass(currentSlide, direction.overlayClass);
 
-                    currentSlide.setAttribute('aria-current', 'false');
-                    nextSlide.setAttribute('aria-current', 'true');
-                    currentSlide.setAttribute('aria-hidden', 'true');
-                    nextSlide.setAttribute('aria-hidden', 'false');
+                    setAttr(currentSlide, 'aria-current', 'false');
+                    setAttr(nextSlide, 'aria-current', 'true');
+                    setAttr(currentSlide, 'aria-hidden', 'true');
+                    setAttr(nextSlide, 'aria-hidden', 'false');
 
                     currentSlide.tabIndex = -1;
                     nextSlide.tabIndex = -1;
@@ -385,7 +388,7 @@
                 if (this.transitionEndEvent) {
                     const events = this.transitionEndEvent.split(/\s+/);
                     events.forEach(event => {
-                        currentSlide.addEventListener(event, onceTransEnd);
+                        eventOn(currentSlide, event, onceTransEnd);
                     });
                 }
                 // Fallback to setTimeout
