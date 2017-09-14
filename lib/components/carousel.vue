@@ -337,7 +337,7 @@
                 // Trigger a reflow of next slide
                 reflow(nextSlide);
 
-                addClass(urrentSlide, direction.dirClass);
+                addClass(currentSlide, direction.dirClass);
                 addClass(nextSlide, direction.dirClass);
 
                 // Transition End handler
