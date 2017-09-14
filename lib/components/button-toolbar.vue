@@ -17,7 +17,9 @@
 </template>
 
 <script>
-    import { from as arrayFrom } from '../utils/array'
+    import { from as arrayFrom } from '../utils/array';
+    import ( isVisible, selectAll } from '../utils/dom';
+
     const ITEM_SELECTOR = [
         '.btn:not(.disabled):not([disabled])',
         '.form-control:not(.disabled):not([disabled])',
@@ -25,11 +27,6 @@
         'input[type="checkbox"]:not(.disabled)',
         'input[type="radio"]:not(.disabled)'
     ].join(',');
-
-    // Determine if an HTML element is visible - Faster than CSS check
-    function isVisible(el) {
-        return el && (el.offsetWidth > 0 || el.offsetHeight > 0);
-    }
 
     export default {
         computed: {
@@ -100,7 +97,7 @@
                 }
             },
             getItems() {
-                let items = arrayFrom(this.$el.querySelectorAll(ITEM_SELECTOR));
+                let items = select(ITEM_SELECTOR, this.$el);
                 items.forEach(item => {
                     // Ensure tabfocus is -1 on any new elements
                     item.tabIndex = -1;
