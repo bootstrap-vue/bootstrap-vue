@@ -315,7 +315,7 @@
                 if (showEvt.defaultPrevented || this.is_visible) {
                     return;
                 }
-                this.is_bidden = false;
+                this.is_hidden = false;
                 this.$nextTick(() => {
                     // We do this in nextTick to ensure hte modal is in DOM first before we show it
                     this.is_visible = true;
