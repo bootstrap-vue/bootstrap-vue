@@ -6,9 +6,9 @@ and [official Nuxt docs](https://nuxtjs.org/).
 ## Common router link props
 
 In the following sections, we are using the `<b-link>` component to render router links.
-You could use any other component that support link generation such as `<b-button>`,
+You could use any other component that support link generation such as [`<b-button>`](/docs/components/button),
 `<b-breadcrumb>`, `<b-list-item>`, `<b-nav-item>`, `<b-dropdown-item>`, etc.  Note that
-not all props are available on all components. Refer to ther respective component
+not all props are available on all components. Refer to the respective component
 documentation for details.
 
 ### Props
@@ -82,6 +82,7 @@ documentation for details.
 
   Sometimes we want `<router-link>` to render as another tag, e.g `<li>`. Then we can use `router-tag`
   prop to specify which tag to render to, and it will still listen to click events for navigation.
+  `routr-tag` translates to the `tag` prop on the final rendered `<router-link>`.
 
   ``` html
   <b-link to="/foo" tag="li">foo</b-link>
