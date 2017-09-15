@@ -5,15 +5,6 @@
 that you want to have links shown as `active` based on the scrolling of another
 element (i.e. `<body>`).
 
-<div class="alert alert-warning">
-  <h5>Experimental Status:</h5>
-  <p class="m-0">
-    Directive <samp class="bg-transparent text-dark">v-b-scrollspy</samp> has a few known
-    issues that may cause it to not highlight nav-links as expected after a screen resize.
-    We are actively working on a fix.
-  </p>
-</div>
-
 ## Example
 Both `<b-nav>` and `<b-list-group>` components using the `v-b-scrollspy` directive to
 monitor the scrolling on `<b-card-body>`.
