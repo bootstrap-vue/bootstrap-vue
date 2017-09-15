@@ -8,9 +8,10 @@ for the default radio input.
 <div class="alert alert-danger">
   <h5>Breaking Change notice:</h5>
   <p class="m-0">
-    <code class="bg-transparent text-danger">&lt;b-form-radio&gt;</code> now generates a single
-    radio input. Please use <code class="bg-transparent text-danger">&lt;b-form-radio-group&gt;</code>
-    to generate a series of radio inputs based on the <code class="bg-transparent text-danger">options</code> prop.
+    <samp class="bg-transparent text-danger">&lt;b-form-radio&gt;</samp> now generates a single
+    radio input. Please use <samp class="bg-transparent text-danger">&lt;b-form-radio-group&gt;</samp>
+    to generate a series of radio inputs based on the
+    <samp class="bg-transparent text-danger">options</samp> prop.
   </p>
 </div>
 
