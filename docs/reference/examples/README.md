@@ -1,5 +1,5 @@
 # Starter examples
-There are several ways you can create your app, from bsaic client side HTML
+> There are several ways you can create your app, from bsaic client side HTML
 all the way up to using a build system and compilers.
 
 In all cases, you should have familiarity with using [Vue](https://vuejs.org). A good
@@ -8,7 +8,7 @@ resource for Vue tutorials is [Laracasts](https://laracasts.com/search?q=vue).
 ## Basic example
 
 Get started quickly without the need for a build system, by using standard `<script>` and `<link>`
-tags to load the required javascript nd CSS intou you page.
+tags to load the required javascript and CSS in your page.
 
 ```html
 <!DOCTYPE html>
@@ -32,7 +32,7 @@ tags to load the required javascript nd CSS intou you page.
   </head>
 
   <body>
-    <!-- OUr application root element -->
+    <!-- Our application root element -->
     <div id="app">
       <b-container>
         <b-jumbotron header="Bootstrap Vue"
@@ -62,7 +62,12 @@ tags to load the required javascript nd CSS intou you page.
       window.app = new Vue({
         el: "#app",
         data: {
-           name: ''
+          name: ''
+        },
+        computed: {
+          showAlert() {
+            return this.name.length > 4 ? true : false;
+          }
         }
       })
     </script>
