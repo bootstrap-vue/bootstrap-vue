@@ -74,6 +74,10 @@
             handleChange({ target: { checked } }) {
                 // Change is only emitted on user interaction
                 this.$emit('change', checked ? this.value : null);
+                // If this is a child of form-radio-group, we emit a change event on it as well
+                if (this._is_Child) {
+                    this.$parent.$emit('change', this.computedLocalChecked);
+                }
             }
         }
     };
