@@ -18,18 +18,10 @@ must have an `href` that points to an element with that id in teh container you 
 When successfully implemented, your nav or list group will update accordingly, moving
 the `active` state from one item to the next based on their associated targets.
 
-**Note:** The directive is applied backwards compared to native Bootstrap V4.
-In **Bootstrap-Vue** the `v-b-scrollspy` directive is applied to the target
-element that has the links to be activated, and the options specify which element to
-monitor scrolling on.
-
-The directive an be applied to any containing element or component that has `<nav-item>`,
-`<b-dropdown-item>`, `<b-list-group-item>` (or `<a>` tags with the apropriate classes),
-a long as tehy haev `href` attributes that point to elements with the respective `id`s
-in the scrolling element.
-
-## Example using `<b-nav>`
+### Example using `<b-nav>`
 Using `v-b-scrollspy` on a `<b-nav>` component to monitor the scrolling on `<b-card-body>`.
+Scroll the area below the navbar and watch the active class change. The dropdown items
+will be highlighted as well.
 
 ```html
 <template> 
@@ -96,7 +88,10 @@ export default {
 
 <!-- scrollspy-nav-1.vue -->
 ```
-## Example using nested `<b-navbar>` and `<b-nav>`
+### Example using nested `<b-navbar>` and `<b-nav>`
+Scrollspy also works with nested `<b-nav>`. If a nested `<b-nav-item>` is 
+active, its parents will also be active. Scroll the area next to the navbar and
+watch the active class change.
 
 ```html
 <template>
@@ -161,7 +156,10 @@ export default {
 <!-- scrollspy-nested-1.vue -->
 ```
 
-## Example with `<b-list-group>`
+### Example with `<b-list-group>`
+Scrollspy also works with `<b-list-group>` when it contains `<b-list-grouop-item>`s
+that have a _local_ `href` . Scroll the area next to the list group and watch the
+active state change.
 
 ```html
 <template>
@@ -213,18 +211,29 @@ export default {
 <!-- scrollspy-listgroup-1.vue -->
 ```
 
-## Directive syntax
+## Directive syntax and usage
 
 ```
 v-b-scrollspy:arg.mod1.mod2="option"
 ```
 Where:
 - `arg` is the ID (minus the `#`) of the element to monitor scrolling on. Optional
-(defaults to `body`. Can be overridden by `option`
-- `mod1` & `mod2` can be an `offset` number or string `method` (see below). Order of
-the modifiers is not important. Both are optional
+(defaults to `body`. Can be overridden by `option`)
+- `mod1` & `mod2` can be an `offset` number or string `method` (see config object
+below). Order of the modifiers is not important. Both are optional
 - `option` can be a string identifying the `element` to monitor scrolling on,
 a numeric `offset`, or a configuration object (see below). Optional
+
+**Note:** The directive is applied backwards compared to native Bootstrap V4.
+In **Bootstrap-Vue** the `v-b-scrollspy` directive is applied to the target
+element that has the links to be activated, and the arg or option specifies
+which element to monitor (spy) scrolling on.
+
+The directive an be applied to any containing element or component that has `<nav-item>`,
+`<b-dropdown-item>`, `<b-list-group-item>` (or `<a>` tags with the apropriate classes),
+a long as they haev `href` attributes that point to elements with the respective `id`s
+in the scrolling element.
+
 
 ### Config object properties
 ```
@@ -318,7 +327,7 @@ selector (i.e. `body`), or a node reference
 </b-nav>
 ```
 
-### Events
+## Events
 Whenever a target is activated, the event `bv:scrollspy::activate` is emitted on
 `$root` with the targets HREF (ID) as the argument (i.e. `#bar`)
 
