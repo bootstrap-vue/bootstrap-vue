@@ -81,21 +81,84 @@ export default {
   },
   data: {
     text: `
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-      sollicitudin scelerisque augue, sit amet finibus risus tempus quis.
-      Suspendisse id est faucibus, dignissim arcu non, consequat tortor.
-      Pellentesque mollis dolor vitae tellus consectetur auctor. Nam tincidunt
-      ullamcorper tortor, a pretium tellus efficitur nec. Integer velit enim,
-      mattis et sapien in, blandit pharetra nisi. Suspendisse euismod tortor
-      ac tellus varius, a suscipit sapien viverra. Curabitur non nunc euismod,
-      facilisis nulla a, auctor elit. Duis in est id augue scelerisque
-      aliquam. Proin mollis dolor augue, nec pellentesque felis maximus nec.
+      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+      tempor. Laborum consequat non elit enim exercitation cillum aliqua
+      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+      laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+      Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+      nisi sit est tempor laborum mollit labore officia laborum excepteur
+      commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+      ipsum commodo tempor sunt in proident.
     `
   }
 }
 </script>
 
 <!-- scrollspy-nav-1.vue -->
+```
+## Example using nested `<b-navbar>` and `<b-nav>`
+
+```html
+<template>
+  <b-container fluid>
+    <b-row>
+      <b-col cols="4">
+        <b-navbar v-b-scrollspy:scrollspy-nested class="flex-column">
+          <b-navbar-brand href="#">Navbar</b-navbar-brand>
+          <b-nav pills class="flex-column">
+            <b-nav-item href="#item-1">Item 1</b-nav-item>
+            <b-nav pills class="flex-column">
+              <b-nav-item class="ml-3 my-1" href="#item-1-1">Item 1-1</b-nav-item>
+              <b-nav-item class="ml-3 my-1" href="#item-1-2">Item 1-2</b-nav-item>
+            </b-nav>
+            <b-nav-item href="#item-2">Item 2</b-nav-item>
+            <b-nav-item href="#item-3">Item 3</b-nav-item>
+            <b-nav pills class="flex-column">
+              <b-nav-item class="ml-3 my-1" href="#item-3-1">Item 3-1</b-nav-item>
+              <b-nav-item class="ml-3 my-1" href="#item-3-2">Item 3-2</b-nav-item>
+            </b-nav>
+          </b-nav>
+        </b-navbar>
+      </b-col>
+      <b-col cols="8">
+        <div id="scrollspy-nested" style="position:relative;height:350px;overflow-y:auto">
+          <h4 id="item-1" style="">Item 1</h4>
+          <p>{{ text }}</p>
+          <h5 id="item-1-1" style="">Item 1-1</h5>
+          <p>{{ text }}</p>
+          <h5 id="item-1-2" style="">Item 2-2</h5>
+          <p>{{ text }}</p>
+          <h4 id="item-2" style="">Item 2</h4>
+          <p>{{ text }}</p>
+          <h4 id="item-3" style="">Item 3</h4>
+          <p>{{ text }}</p>
+          <h5 id="item-3-1" style="">Item 3-1</h5>
+          <p>{{ text }}</p>
+          <h5 id="item-3-2" style="">Item 3-2</h5>
+          <p>{{ text }}</p>
+        </div>
+      </b-col>
+    </b-row>
+  </b-container>
+</template>
+
+<script>
+export default {
+  data: {
+    text: `
+      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+      tempor. Laborum consequat non elit enim exercitation cillum aliqua
+      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+      laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+      Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+      nisi sit est tempor laborum mollit labore officia laborum excepteur
+      commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+      ipsum commodo tempor sunt in proident.
+    `
+  }
+}
+</script>
+<!-- scrollspy-nested-1.vue -->
 ```
 
 ## Example with `<b-list-group>`
@@ -135,14 +198,14 @@ export default {
 export default {
   data: {
     text: `
-        Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
-        tempor. Laborum consequat non elit enim exercitation cillum aliqua
-        consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
-        laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
-        Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
-        nisi sit est tempor laborum mollit labore officia laborum excepteur
-        commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
-        ipsum commodo tempor sunt in proident.
+      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+      tempor. Laborum consequat non elit enim exercitation cillum aliqua
+      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+      laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+      Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+      nisi sit est tempor laborum mollit labore officia laborum excepteur
+      commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+      ipsum commodo tempor sunt in proident.
     `
   }
 }
