@@ -110,6 +110,10 @@
                 // And we only emit the value of this checkbox
                 if (this.is_Child || isArray(this.computedLocalChecked)) {
                     this.$emit('change', checked ? this.value : null);
+                    if (this.is_Child) {
+                        // If we are a child of form-checkbbox-group, emit change on parent
+                        this.$parent.$emit('change', this.computedLocalChecked);
+                    }
                 } else {
                     // Single radio mode supports unchecked value
                     this.$emit('change', checked ? this.value : this.uncheckedValue)
