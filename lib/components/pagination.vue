@@ -132,6 +132,7 @@
 
 <script>
 import { paginationMixin } from '../mixins';
+import { isVisible } from '../utils/dom';
 
 const props = {
     perPage: {
