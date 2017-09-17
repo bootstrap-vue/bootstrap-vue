@@ -38,23 +38,23 @@ pagination. The current page should be set via the `value` prop (or `v-model`),
 and the total number of pages set with `number-of-pages`. Page numbers are indexed
 from 1 through `number-of-pages`.
 
-### Current page
+## Current page
 
 You should **always** set the current page number by setting the prop `value` (or
 using `v-model`) to ensure that correct active page number is highlighted.
 
-### Link generation
+## Link generation
 
 By default, `<b-pagination-nav>` generates plain link tags, setting the HREF attribute
 to `base-url` concatenated with the page number.  The `base-url` prop defaults to '/'.
 
-#### Router links
+### Router links
 
 To generate page links as [`<router link>`](https://router.vuejs.org/en/api/router-link.html)
 components, set the `use-router` prop.  The HREF will then become the `to` prop of
 the router link.
 
-#### Link Generator function
+### Link Generator function
 
 If you need finer grained control over the generated link URLs or `<router-link>` `to` props,
 you may set the `link-gen` prop to a function reference that accepts one argument which
@@ -77,12 +77,24 @@ linkGen(pageNum) {
 }
 ```
 
-Using an array of links to generate pagination:
+### Page number generation
+
+By default, `<b-pagination-nav>` renders page numbers (1-N) in the page link
+buttons. You can override this behaviour by supplying a function reference to
+the `page-gen` property. The function reference should accept a single argument
+which is a page number (1-N). The `page-gen` function should return a string.
+
+Note HTML strings are currently not supported.
+
+### Example: Using an array of links to generate pagination:
 
 ```html
 <template>
   <div>
-    <b-pagination-nav :link-gen="linkGen" :number-of-pages="links.length" v-model="currentPage" />
+    <b-pagination-nav :link-gen="linkGen"
+                      :page-gen="pageGen"
+                      :number-of-pages="links.length"
+                      v-model="currentPage" />
     <br>
     <p>
       Page #: {{ currentPage }}<br>
@@ -105,22 +117,46 @@ export default {
   methods: {
     linkGen(pageNum) {
       return this.links[pageNum - 1];
+    },
+    pageGen(pageNum) {
+      return this.links[pageNum - 1].slice(1);
     }
   }
 }
 </script>
+
+<!-- pagination-nav-links.vue -->
+```
+## Button Size
+Optionally change from the default button size by setting the `size`
+prop to eiter `'am` for smaller buttons or `'lg'` for larger buttons.
+
+```html
+<template>
+<div>
+    <h6>Small</h6>
+    <b-pagination-nav size="sm" base-url="#" :number-of-pages="5" v-model="currentPage" />
+    
+    <h6>Default</h6>
+    <b-pagination-nav base-url="#" :number-of-pages="5" v-model="currentPage" />
+
+    <h6>Large</h6>
+    <b-pagination-nav size="lg" base-url="#" :number-of-pages="5" v-model="currentPage" />
+</div>
+</template>
+
+<script>
+export default {
+    data: {
+        currentPage: 1
+    }
+}
+</script>
+
+<!-- pagination-size.vue -->
 ```
 
-### Page number generation
-
-By default, `<b-pagination-nav>` renders page numbers (1-N) in the page link
-buttons. You can override this behaviour by supplying a function reference to
-the `page-gen` property. The function reference should accept a single argument
-which is a page number (1-N). The `page-gen` function should return a string.
-
-Note HTML strings are currently not supported.
-
-### Customizing
+## Customizing
 
 `<b-pagination-nav>` supports several props that allow you to customize the appearance.
 
@@ -140,7 +176,7 @@ Ellipsis indicator(s) will only be ever shown at the front and/or end of
 the page number buttons. For `limit` values less than or equal to `3`, the ellipsis
 indicator(s) will never be shown for practical display reasons.
 
-### Alignment
+## Alignment
 
 By default the pagination component is left aligned. Change the alignment to
 `center` or `right` (`right` is an alias for `end`) by setting the prop
@@ -173,10 +209,10 @@ export default {
 }
 </script>
 
-<!-- pagination-2.vue -->
+<!-- pagination-align.vue -->
 ```
 
-### Small screen support (`xs`)
+## Small screen support (`xs`)
 
 On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to
 minimize the potential of the pagination interface wrapping onto multiple lines:
@@ -188,12 +224,12 @@ This ensures that no more than 3 page number buttons are visible,
 along with the goto _first_, _prev_, _next_, and _last_ buttons.
 
 
-### Accessibility
+## Accessibility
 
 The `<b-pagination>` component provides many features to support assistive technology users,
 such as `aria-` attributes and keyboard navigation.
 
-#### ARIA labels:
+### ARIA labels:
 
 `<b-pagination>` provides various `*-label-*` props which are used to set the `aria-label`
 attributes on the various elements within the component, which will help users of
@@ -208,14 +244,14 @@ assistive technology.
 | `label-page` | "Go to page", appended with the page number
 | `aria-label` | "Pagination", applied to the outer pagination container
 
-#### Keyboard navigtion support:
+### Keyboard navigtion support:
 
 `<b-pagination>` supports keyboard navigation out of the box.
 - Tabbing into the pagination component will auto-focus the current page button
 - <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the page
 list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the focused page button
 
-### See also
+## See also
 
 For pagination control of a component (such as `<b-table>`), use the
 [`<b-pagination>`](./pagination) component instead.
