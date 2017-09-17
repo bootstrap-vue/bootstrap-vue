@@ -6,6 +6,14 @@ styling and animations. Tooltips can be triggered by hovering, focusing, or clic
 Use the `v-b-tooltip` directive on any element or component where you would like a tooltip
 to appear.
 
+```html
+<div class="text-center my-3">
+  <b-btn v-b-tooltip.hover title="Tooltip content">Hover Me</b-btn>
+</div>
+
+<!-- tooltip-example-sample.vue -->
+```
+
 ## Overview
 
 Things to know when using tooltips:
