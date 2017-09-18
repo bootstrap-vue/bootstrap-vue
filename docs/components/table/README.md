@@ -893,7 +893,7 @@ export default {
     details(item, index, button) {
       this.modalDetails.data = JSON.stringify(item, null, 2);
       this.modalDetails.index = index;
-      this.$root.$emit('show::modal','modal1', button);
+      this.$root.$emit('bv::show::modal','modal1', button);
     },
     resetModal() {
       this.modalDetails.data = '';
