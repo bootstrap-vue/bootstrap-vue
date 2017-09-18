@@ -101,15 +101,15 @@
   ],
   "slots": [
     {
-      "name": "<field>",
+      "name": "[field]",
       "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
     },
     {
-      "name": "HEAD_<field>",
+      "name": "HEAD_[field]",
       "description": "Scoped slot for custom rendering of field header. See docs for scoped data"
     },
     {
-      "name": "FOOT_<field>",
+      "name": "FOOT_[field]",
       "description": "Scoped slot for custom rendering of field footer. See docs for scoped data"
     },
     {

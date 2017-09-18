@@ -1,8 +1,12 @@
 <template>
     <div class="bd-content" v-if="component">
 
-        <h2><code>{{tag}}</code></h2>
-        <a :href="githubURL" target="_blank" class="text-muted">(view source)</a>
+        <b-row align-v="center">
+            <b-col sm="9"><h2><code>{{tag}}</code></h2></b-col>
+            <b-col sm="3" class="text-sm-right">
+                <b-btn variant="outline-secondary" size="sm" :href="githubURL" target="_blank">view source</b-btn>
+            </b-col>
+        </b-row>
 
         <template v-if="props_items && props_items.length > 0">
             <h4>Properties</h4>
@@ -150,7 +154,7 @@
                 return '<' + this.componentName + '>';
             },
             githubURL() {
-                const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/lib/components';
+                const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/lib/components';
                 return base + '/' + _.kebabCase(this.component).replace('b-', '') + '.vue';
             }
         }
