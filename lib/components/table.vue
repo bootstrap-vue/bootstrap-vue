@@ -4,49 +4,48 @@
            :class="tableClass">
         <thead :class="headClass">
             <tr>
-                <th v-for="(field,key) in computedFields"
-                    @click.stop.prevent="headClicked($event,field,key)"
-                    @keydown.enter.stop.prevent="headClicked($event,field,key)"
-                    @keydown.space.stop.prevent="headClicked($event,field,key)"
-                    :key="key"
-                    :class="fieldClass(field,key)"
+                <th v-for="field in computedFields"
+                    @click.stop.prevent="headClicked($event,field)"
+                    @keydown.enter.stop.prevent="headClicked($event,field)"
+                    @keydown.space.stop.prevent="headClicked($event,field)"
+                    :key="field.key"
+                    :class="fieldClass(field)"
                     :style="field.thStyle || {}"
-                    :aria-label="field.sortable ? ((localSortDesc && localSortBy === key) ? labelSortAsc : labelSortDesc) : null"
-                    :aria-sort="(field.sortable && localSortBy === key) ? (localSortDesc ? 'descending' : 'ascending') : null"
+                    :aria-label="field.sortable ? ((localSortDesc && localSortBy === field.key) ? labelSortAsc : labelSortDesc) : null"
+                    :aria-sort="(field.sortable && localSortBy === field.key) ? (localSortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null">
-                    <slot :name="'HEAD_'+key"
+                    <slot :name="'HEAD_'+field.key"
                           :label="field.label"
-                          :column="key"
+                          :column="field.key"
                           :field="field">
                         <div v-html="field.label"></div>
                     </slot>
                 </th>
             </tr>
         </thead>
-        <tfoot v-if="footClone"
-               :class="footClass">
+        <tfoot v-if="footClone" :class="footClass">
             <tr>
-                <th v-for="(field,key) in computedFields"
-                    @click.stop.prevent="headClicked($event,field,key)"
-                    @keydown.enter.stop.prevent="headClicked($event,field,key)"
-                    @keydown.space.stop.prevent="headClicked($event,field,key)"
-                    :key="key"
-                    :class="fieldClass(field,key)"
+                <th v-for="field in computedFields"
+                    @click.stop.prevent="headClicked($event,field)"
+                    @keydown.enter.stop.prevent="headClicked($event,field)"
+                    @keydown.space.stop.prevent="headClicked($event,field)"
+                    :key="field.key"
+                    :class="fieldClass(field)"
                     :style="field.thStyle || {}"
-                    :aria-label="field.sortable ? ((localSortDesc && localSortBy === key) ? labelSortAsc : labelSortDesc) : null"
-                    :aria-sort="(field.sortable && localSortBy === key) ? (localSortDesc ? 'descending' : 'ascending') : null"
+                    :aria-label="field.sortable ? ((localSortDesc && localSortBy === field.key) ? labelSortAsc : labelSortDesc) : null"
+                    :aria-sort="(field.sortable && localSortBy === field.key) ? (localSortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null">
-                    <slot v-if="$scopedSlots['FOOT_'+key]"
-                          :name="'FOOT_'+key"
+                    <slot v-if="$scopedSlots['FOOT_'+field.key]"
+                          :name="'FOOT_'+field.key"
                           :label="field.label"
-                          :column="key"
+                          :column="field.key"
                           :field="field">
                         <div v-html="field.label"></div>
                     </slot>
                     <slot v-else
-                          :name="'HEAD_'+key"
+                          :name="'HEAD_'+field.key"
                           :label="field.label"
-                          :column="key"
+                          :column="field.key"
                           :field="field">
                         <div v-html="field.label"></div>
                     </slot>
@@ -56,8 +55,8 @@
         <tbody>
             <tr v-if="$scopedSlots['top-row']">
                 <slot name="top-row"
-                      :columns="keys(fields).length"
-                      :fields="fields"></slot>
+                      :columns="computedFields.length"
+                      :fields="computedFields"></slot>
             </tr>
             <tr v-for="(item,index) in computedItems"
                 :key="index"
@@ -65,48 +64,46 @@
                 @click="rowClicked($event,item,index)"
                 @dblclick="rowDblClicked($event,item,index)"
                 @mouseenter="rowHovered($event,item,index)">
-                <template v-for="(field,key) in computedFields">
-                    <td v-if="$scopedSlots[key]"
-                        :class="tdClass(field, item, key)"
-                        :key="key">
-                        <slot :name="key"
-                              :value="getFormattedValue(item, key, field)"
-                              :unformatted="item[key]"
+                <template v-for="field in computedFields">
+                    <td v-if="$scopedSlots[field.key]"
+                        :class="tdClass(field, item)"
+                        :key="field.key">
+                        <slot :name="field.key"
+                              :value="getFormattedValue(item, field)"
+                              :unformatted="item[field.key]"
                               :item="item"
                               :index="index"
                         ></slot>
                     </td>
                     <td v-else
-                        :class="tdClass(field, item, key)"
-                        :key="key"
-                        v-html="getFormattedValue(item, key, field)"
+                        :class="tdClass(field, item)"
+                        :key="field.key"
+                        v-html="getFormattedValue(item, field)"
                     ></td>
                 </template>
             </tr>
             <tr v-if="showEmpty && (!computedItems || computedItems.length === 0)">
-                <td :colspan="keys(computedFields).length">
+                <td :colspan="computedFields.length">
                     <div v-if="filter"
                          role="alert"
                          aria-live="polite">
                         <slot name="emptyfiltered">
-                            <div class="text-center my-2"
-                                 v-html="emptyFilteredText"></div>
+                            <div class="text-center my-2" v-html="emptyFilteredText"></div>
                         </slot>
                     </div>
                     <div v-else
                          role="alert"
                          aria-live="polite">
                         <slot name="empty">
-                            <div class="text-center my-2"
-                                 v-html="emptyText"></div>
+                            <div class="text-center my-2" v-html="emptyText"></div>
                         </slot>
                     </div>
                 </td>
             </tr>
             <tr v-if="$scopedSlots['bottom-row']">
                 <slot name="bottom-row"
-                      :columns="keys(fields).length"
-                      :fields="fields"></slot>
+                      :columns="computedfields.length"
+                      :fields="computedFields"></slot>
             </tr>
         </tbody>
     </table>
@@ -150,10 +147,6 @@ function defaultSortCompare(a, b, sortBy) {
     return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
         numeric: true
     });
-}
-
-function hasFormatter(field) {
-    return field.formatter && (typeof field.formatter === "function" || typeof field.formatter === "string")
 }
 
 export default {
@@ -357,8 +350,8 @@ export default {
         if (this.hasProvider) {
             this._providerUpdate();
         }
-        this.listenOnRoot('table::refresh', id => {
-            if (id === this.id) {
+        this.listenOnRoot('bv::refresh::table', id => {
+            if (id === this.id || id === this) {
                 this._providerUpdate();
             }
         });
@@ -406,53 +399,59 @@ export default {
             };
         },
         computedFields() {
-            let fields
+            // We normalize fields into an array of objects
+            // [ { key: ..., label:..., ...}, {...}, ..., {..}]
+            let fields = [];
 
             // Normalize array Form
             if (isArray(this.fields)) {
-                fields = {}
                 this.fields.filter(f => f).forEach(f => {
-                    fields[f.key || f] = f
+                    if (typeof f === 'string') {
+                        fields.push({ key: f, label: startCase(f) });
+                    } else if (typeof f === 'object' && f.key && typeof f.key === 'string') {
+                        fields.push(f);
+                    }
                 })
-            } else {
-                fields = this.fields || {}
+            } else if (this.fields && typeof this.fields === 'object' && keys(this.fields).length > 0) {
+                keys(this.fields).forEach(key => {
+                    let v = this.fields[key]
+                    if (typeof v === 'string') {
+                        // Label shortcut
+                        fields.push({ key: key, label: startCase(v) });
+                    } else if (typeof v === 'function') {
+                        // Formatter shortcut
+                        fields.push({ key: key, label: startCase(key), formatter: v });
+                    } else if (v !== false && typeof v === 'object') {
+                        // Fields with a value of false will be ignored
+                        v.key = v.key || key;
+                        v.label = v.label || startCase(key);
+                        fields.push(v);
+                    }
+                });
             }
 
             // If no field provided, take a sample from first record (if exits)
-            if (keys(fields).length === 0 && this.computedItems.length > 0) {
+            if (fields.length === 0 && this.computedItems.length > 0) {
                 const sample = this.computedItems[0]
                 keys(sample).forEach(k => {
-                    fields[k] = true
-                })
+                    fields.push({ key: k , label: startCase(k)});
+                });
             }
 
-            // Normalize fields
-            keys(fields).forEach(k => {
-                // Hidden
-                if (fields[k] === false) {
-                    delete fields[k]
-                    return
+            // Ensure we have a unique array of fields
+            const memo = {};
+            fields = fields.filter(f => {
+                if (!memo[f.key]) {
+                    memo[f.key] = true;
+                    return true;
+                } else {
+                    return false;
                 }
-                // Humanize field label
-                if (fields[k] === true) {
-                    fields[k] = { label: startCase(k) }
-                    return
-                }
-                // Formatter shortcut
-                if (typeof fields[k] === 'function') {
-                    fields[k] = {
-                        label: startCase(k),
-                        formatter: fields[k]
-                    }
-                    return
-                }
-                // Label shortcut
-                if (typeof fields[k] === 'string') {
-                    fields[k] = { label: startCase(k) }
-                }
-            })
+            });
 
-            return fields
+console.log('Fields: ', fields);
+
+            return fields;
         },
         computedItems() {
             // Grab some props/data to ensure reactivity
@@ -529,19 +528,19 @@ export default {
     },
     methods: {
         keys,
-        fieldClass(field, key) {
+        fieldClass(field) {
             return [
                 field.sortable ? 'sorting' : '',
-                (field.sortable && this.localSortBy === key) ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc') : '',
+                (field.sortable && this.localSortBy === field.key) ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc') : '',
                 field.variant ? ('table-' + field.variant) : '',
                 field.class ? field.class : '',
                 field.thClass ? field.thClass : ''
             ];
         },
-        tdClass(field, item, key) {
+        tdClass(field, item) {
             let cellVariant = '';
-            if (item._cellVariants && item._cellVariants[key]) {
-                cellVariant = (this.inverse ? 'bg-' : 'table-') + item._cellVariants[key];
+            if (item._cellVariants && item._cellVariants[field.key]) {
+                cellVariant = (this.inverse ? 'bg-' : 'table-') + item._cellVariants[field.key];
             }
             return [
                 (field.variant && !cellVariant) ? ((this.inverse ? 'bg-' : 'table-') + field.variant) : '',
@@ -582,7 +581,7 @@ export default {
             }
             this.$emit('row-hovered', item, index, e);
         },
-        headClicked(e, field, key) {
+        headClicked(e, field) {
             if (this.computedBusy) {
                 // If table is busy (via provider) then don't propagate
                 e.preventDefault();
@@ -591,12 +590,12 @@ export default {
             }
             let sortChanged = false;
             if (field.sortable) {
-                if (key === this.localSortBy) {
+                if (field.key === this.localSortBy) {
                     // Change sorting direction on current column
                     this.localSortDesc = !this.localSortDesc;
                 } else {
                     // Start sorting this column ascending
-                    this.localSortBy = key;
+                    this.localSortBy = field.key;
                     this.localSortDesc = false;
                 }
                 sortChanged = true;
@@ -606,7 +605,7 @@ export default {
                 sortChanged = true;
             }
 
-            this.$emit('head-clicked', key, field, e);
+            this.$emit('head-clicked', field.key, field, e);
             if (sortChanged) {
                 // Sorting parameters changed
                 this.$emit('sort-changed', this.context);
@@ -647,21 +646,19 @@ export default {
                 this._providerSetLocal(data);
             }
         },
-        getFormattedValue(item, key, field) {
-            return hasFormatter(field) ? this.callFormatter(item, key, field) : item[key]
-        },
-        callFormatter(item, key, field) {
-            if (field.formatter) {
-                if (typeof field.formatter === 'function') {
-                    return field.formatter(item[key], key, item);
+        getFormattedValue(item, field) {
+            const key = field.key;
+            const formatter = field.formatter;
+            const parent = this.$parent;
+            let value = item[key];
+            if (formatter) {
+                if (typeof formatter === 'function') {
+                    value = formatter(value, key, item);
+                } else if (typeof formatter === 'string' && typeof parent[formatter] === 'function') {
+                    value = parent[formatter](value, key, item);
                 }
-
-                if (typeof this.$parent[field.formatter] === 'function') {
-                    return this.$parent[field.formatter](item[key], key, item);
-                }
-            } else {
-                return item[key]
             }
+            return value;
         }
     }
 }
