@@ -730,7 +730,7 @@ export default {
 
     table.b-table>thead>tr>th.sorting:before,
     table.b-table>tfoot>tr>th.sorting:before {
-        right: 0.7em;
+        right: 0.75em;
         content: "\2191";
     }
 
