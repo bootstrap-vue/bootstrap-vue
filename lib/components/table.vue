@@ -1,15 +1,15 @@
 <template>
     <table :id="id || null"
            :aria-busy="computedBusy ? 'true' : 'false'"
-           :class="tableClass">
-        <thead :class="headClass">
+           :class="tableClasses">
+        <thead :class="headClasses">
             <tr>
                 <th v-for="field in computedFields"
                     @click.stop.prevent="headClicked($event,field)"
                     @keydown.enter.stop.prevent="headClicked($event,field)"
                     @keydown.space.stop.prevent="headClicked($event,field)"
                     :key="field.key"
-                    :class="fieldClass(field)"
+                    :class="fieldClasses(field)"
                     :style="field.thStyle || {}"
                     :aria-label="field.sortable ? ((localSortDesc && localSortBy === field.key) ? labelSortAsc : labelSortDesc) : null"
                     :aria-sort="(field.sortable && localSortBy === field.key) ? (localSortDesc ? 'descending' : 'ascending') : null"
@@ -23,14 +23,14 @@
                 </th>
             </tr>
         </thead>
-        <tfoot v-if="footClone" :class="footClass">
+        <tfoot v-if="footClone" :class="footClasses">
             <tr>
                 <th v-for="field in computedFields"
                     @click.stop.prevent="headClicked($event,field)"
                     @keydown.enter.stop.prevent="headClicked($event,field)"
                     @keydown.space.stop.prevent="headClicked($event,field)"
                     :key="field.key"
-                    :class="fieldClass(field)"
+                    :class="fieldClasses(field)"
                     :style="field.thStyle || {}"
                     :aria-label="field.sortable ? ((localSortDesc && localSortBy === field.key) ? labelSortAsc : labelSortDesc) : null"
                     :aria-sort="(field.sortable && localSortBy === field.key) ? (localSortDesc ? 'descending' : 'ascending') : null"
@@ -60,13 +60,13 @@
             </tr>
             <tr v-for="(item,index) in computedItems"
                 :key="index"
-                :class="rowClass(item)"
+                :class="rowClasses(item)"
                 @click="rowClicked($event,item,index)"
                 @dblclick="rowDblClicked($event,item,index)"
                 @mouseenter="rowHovered($event,item,index)">
                 <template v-for="field in computedFields">
                     <td v-if="$scopedSlots[field.key]"
-                        :class="tdClass(field, item)"
+                        :class="tdClasses(field, item)"
                         :key="field.key">
                         <slot :name="field.key"
                               :value="getFormattedValue(item, field)"
@@ -76,7 +76,7 @@
                         ></slot>
                     </td>
                     <td v-else
-                        :class="tdClass(field, item)"
+                        :class="tdClasses(field, item)"
                         :key="field.key"
                         v-html="getFormattedValue(item, field)"
                     ></td>
@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { warn, pluckProps } from '../utils';
+import { warn, pluckProps, looseEqual } from '../utils';
 import { keys, assign } from '../utils/object';
 import { isArray } from '../utils/array'
 import { listenOnRootMixin } from '../mixins';
@@ -230,6 +230,10 @@ export default {
             type: Boolean,
             default: false
         },
+        fixed: {
+            type: Boolean,
+            default: false
+        },
         headVariant: {
             type: String,
             default: ''
@@ -253,6 +257,10 @@ export default {
         sortCompare: {
             type: Function,
             default: null
+        },
+        noLocalSorting: {
+            type: Boolean,
+            default: false
         },
         noProviderPaging: {
             type: Boolean,
@@ -305,8 +313,13 @@ export default {
                 this._providerUpdate();
             }
         },
+        context(newVal, oldVal) {
+            if(!looseEqual(newVal, oldVal) {
+                this.$emit('context-changed', newVal);
+            }
+        },
         filteredItems(newVal, oldVal) {
-            if (!this.providerFiltering && newVal.length !== oldVal.length) {
+            if (this.localFiltering && newVal.length !== oldVal.length) {
                 // Emit a filtered notification event, as number of filtered items has changed
                 this.$emit('filtered', newVal);
             }
@@ -375,7 +388,7 @@ export default {
         });
     },
     computed: {
-        tableClass() {
+        tableClasses() {
             return [
                 'table',
                 'b-table',
@@ -384,27 +397,28 @@ export default {
                 this.inverse ? 'table-inverse' : '',
                 this.bordered ? 'table-bordered' : '',
                 this.responsive ? 'table-responsive' : '',
+                this.fixed ? 'table-fixed' : '',
                 this.small ? 'table-sm' : ''
             ];
         },
-        headClass() {
+        headClasses() {
             return this.headVariant ? 'thead-' + this.headVariant : '';
         },
-        footClass() {
+        footClasses() {
             const variant = this.footVariant || this.headVariant || null;
             return variant ? 'thead-' + variant : '';
         },
         hasProvider() {
             return this.items instanceof Function;
         },
-        providerFiltering() {
-            return Boolean(this.hasProvider && !this.noProviderFiltering);
+        localFiltering() {
+            return this.hasProvider ? this.noProviderFiltering : true;
         },
-        providerSorting() {
-            return Boolean(this.hasProvider && !this.noProviderSorting);
+        localSorting() {
+            return this.hasProvider ? this.noProviderSorting : !this.noLocalSorting;
         },
-        providerPaging() {
-            return Boolean(this.hasProvider && !this.noProviderPaging);
+        localPaging() {
+            return this.hasProvider ? this.noProviderPaging : true;
         },
         context() {
             return {
@@ -476,6 +490,9 @@ export default {
             const sortBy = this.localSortBy;
             const sortDesc = this.localSortDesc;
             const sortCompare = this.sortCompare;
+            const localFiltering = this.localFiltering;
+            const localSorting = this.localSorting;
+            const localPaging = this.localPaging;
 
             let items = this.hasProvider ? this.localItems : this.items;
 
@@ -488,7 +505,7 @@ export default {
             items = items.slice();
 
             // Apply local filter
-            if (filter && !this.providerFiltering) {
+            if (filter && localFiltering) {
                 if (filter instanceof Function) {
                     items = items.filter(filter);
                 } else {
@@ -505,13 +522,13 @@ export default {
                     });
                 }
             }
-            if (!this.providerFiltering) {
+            if (localFiltering) {
                 // Make a local copy of filtered items to trigger filtered event
                 this.filteredItems = items.slice();
             }
 
             // Apply local Sort
-            if (sortBy && !this.providerSorting) {
+            if (sortBy && localSorting) {
                 items = items.sort(function sortItemsFn(a, b) {
                     let ret = null;
                     if (typeof sortCompare === 'function') {
@@ -528,7 +545,7 @@ export default {
             }
 
             // Apply local pagination
-            if (perPage && !this.providerPaging) {
+            if (Boolean(perPage) && localPaging) {
                 // Grab the current page of data (which may be past filtered items)
                 items = items.slice((currentPage - 1) * perPage, currentPage * perPage);
             }
@@ -543,7 +560,7 @@ export default {
     },
     methods: {
         keys,
-        fieldClass(field) {
+        fieldClasses(field) {
             return [
                 field.sortable ? 'sorting' : '',
                 (field.sortable && this.localSortBy === field.key) ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc') : '',
@@ -552,7 +569,7 @@ export default {
                 field.thClass ? field.thClass : ''
             ];
         },
-        tdClass(field, item) {
+        tdClasses(field, item) {
             let cellVariant = '';
             if (item._cellVariants && item._cellVariants[field.key]) {
                 cellVariant = (this.inverse ? 'bg-' : 'table-') + item._cellVariants[field.key];
@@ -564,43 +581,35 @@ export default {
                 field.tdClass ? field.tdClass : ''
             ];
         },
-        rowClass(item) {
+        rowClasses(item) {
             return [
                 item._rowVariant ? ((this.inverse ? 'bg-' : 'table-') + item._rowVariant) : ''
             ];
         },
         rowClicked(e, item, index) {
-            if (this.computedBusy) {
+            if (this.stopIfBusy(e)) {
                 // If table is busy (via provider) then don't propagate
-                e.preventDefault();
-                e.stopPropagation();
                 return;
             }
             this.$emit('row-clicked', item, index, e);
         },
         rowDblClicked(e, item, index) {
-            if (this.computedBusy) {
+            if (this.stopIfBusy(e)) {
                 // If table is busy (via provider) then don't propagate
-                e.preventDefault();
-                e.stopPropagation();
                 return;
             }
             this.$emit('row-dblclicked', item, index, e);
         },
         rowHovered(e, item, index) {
-            if (this.computedBusy) {
+            if (this.stopIfBusy(e)) {
                 // If table is busy (via provider) then don't propagate
-                e.preventDefault();
-                e.stopPropagation();
                 return;
             }
             this.$emit('row-hovered', item, index, e);
         },
         headClicked(e, field) {
-            if (this.computedBusy) {
+            if (this.stopIfBusy(e)) {
                 // If table is busy (via provider) then don't propagate
-                e.preventDefault();
-                e.stopPropagation();
                 return;
             }
             let sortChanged = false;
@@ -625,6 +634,15 @@ export default {
                 // Sorting parameters changed
                 this.$emit('sort-changed', this.context);
             }
+        },
+        stopIfBusy(evt) {
+            if (this.computedBusy) {
+                // If table is busy (via provider) then don't propagate
+                evt.preventDefault();
+                evt.stopPropagation();
+                return true;
+            }
+            return false;
         },
         refresh() {
             // Expose refresh method
@@ -680,53 +698,56 @@ export default {
 </script>
 
 <style>
-    /* Based on https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.css */
+    /* Add support for fixed layout table */
+    table.b-table.table-fixed {
+        table-layout: fixed;
+    }
 
-    table.b-table>thead>tr>.sorting,
-    table.b-table>tfoot>tr>.sorting {
-        padding-right: 30px;
-        cursor: pointer;
+    /* Sort styling */
+    table.b-table>thead>tr>th,
+    table.b-table>tfoot>tr>th {
         position: relative;
     }
 
-    table.b-table thead>tr>.sorting:before,
-    table.b-table thead>tr>.sorting:after,
-    table.b-table tfoot>tr>.sorting:before,
-    table.b-table tfoot>tr>.sorting:after {
+    table.b-table>thead>tr>th.sorting,
+    table.b-table>tfoot>tr>th.sorting {
+        padding-right: 1.5em;
+        cursor: pointer;
+    }
+
+    table.b-table thead>tr>th.sorting:before,
+    table.b-table thead>tr>th.sorting:after,
+    table.b-table tfoot>tr>th.sorting:before,
+    table.b-table tfoot>tr>th.sorting:after {
         position: absolute;
-        bottom: 0.9em;
+        bottom: 0;
         display: block;
-        opacity: 0.3;
+        opacity: 0.4;
+        padding-bottom: inherit;
+        font-size: inherit;
+        line-height: 180%
     }
 
-    table.b-table.table-sm>thead>tr>.sorting:before,
-    table.b-table.table-sm>thead>tr>.sorting:after,
-    table.b-table.table-sm>tfoot>tr>.sorting:before,
-    table.b-table.table-sm>tfoot>tr>.sorting:after {
-        bottom: 0.45em;
-    }
-
-    table.b-table>thead>tr>.sorting:before,
-    table.b-table>tfoot>tr>.sorting:before {
-        right: 1em;
+    table.b-table>thead>tr>th.sorting:before,
+    table.b-table>tfoot>tr>th.sorting:before {
+        right: 0.7em;
         content: "\2191";
     }
 
-    table.b-table>thead>tr>.sorting:after,
-    table.b-table>tfoot>tr>.sorting:after {
-        right: 0.5em;
+    table.b-table>thead>tr>th.sorting:after,
+    table.b-table>tfoot>tr>th.sorting:after {
+        right: 0.25em;
         content: "\2193";
     }
 
-    table.b-table>thead>tr>.sorting_asc:after,
-    table.b-table>thead>tr>.sorting_desc:before,
-    table.b-table>tfoot>tr>.sorting_asc:after,
-    table.b-table>tfoot>tr>.sorting_desc:before {
+    table.b-table>thead>tr>th.sorting_asc:after,
+    table.b-table>thead>tr>th.sorting_desc:before,
+    table.b-table>tfoot>tr>th.sorting_asc:after,
+    table.b-table>tfoot>tr>th.sorting_desc:before {
         opacity: 1;
     }
 
     /* Busy table styling */
-
     table.b-table[aria-busy="false"] {
         opacity: 1;
     }
