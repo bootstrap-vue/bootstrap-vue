@@ -8,15 +8,16 @@ custom rendering, events, and asynchronous data.
 - [**Fields (column definitions)**](#fields-column-definitions-)
 - [**Custom Data Rendering**](#custom-data-rendering)
 - [**Header/Footer custom rendering via scoped slots**](#header-footer-custom-rendering-via-scoped-slots)
-- [**v-model binding**](#-v-model-binding)
 - [**Filtering**](#filtering)
 - [**Sorting**](#sorting)
+- [**Pagination**](#pagination)
+- [**v-model binding**](#-v-model-binding)
 - [**Using Items Provider Functions**](#using-items-provider-functions)
 - [**Server Side Rendering**](#server-side-rendering)
 - [**Complete Example**](#complete-example)
 - [**Table options**](#table-options)
 
-**Example 1: Basic usage**
+**Example: Basic usage**
 ```html
 <template>
   <div>
@@ -66,12 +67,17 @@ and `camelCase` to individual words and capitalizes each word. Example conversio
  - `first_name` becomes `First Name`
  - `last-name` becomes `Last Name`
  - `age` becoms `Age`
- - `YEAR` becomes `Year`
+ - `YEAR` remains `YEAR`
  - `isActive` becomes `Is Active`
 
 These titles wil be displayed in the table header, in the order they appear in the
-**first** record of data.  See the [**Fields**](#fields-column-definitions-) section below for cusomizing how field
-headings appear.
+**first** record of data.  See the [**Fields**](#fields-column-definitions-) section
+below for cusomizing how field headings appear.
+
+**Note:** Field order is not guaranteed. Fields will typically appear in the order they
+were defined in the first row, but this may not always be the case dpending on the version
+of borswer in use. See section [**Fields (column definitions)**](#fields-column-definitions-)
+below to see how to guarantee the order of fields.
 
 Record data may also have additional special reserved name keys for colorizing
 rows and individual cells (variants). Supported optional item record modifier properties
@@ -80,9 +86,9 @@ rows and individual cells (variants). Supported optional item record modifier pr
 | Property | Type | Description
 | ---------| ---- | -----------
 | `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`)
-| `_rowVariant` | String | Bootstrap contextual state applied to row (Supported values: `active`, `success`, `info`, `warning`, `danger`)
+| `_rowVariant` | String | Bootstrap contextual state applied to the entire row (Supported values: `active`, `success`, `info`, `warning`, `danger`)
 
-**Example 2: Using variants for table cells**
+**Example: Using variants for table cells**
 ```html
 <template>
   <div>
@@ -127,13 +133,14 @@ See the [**"Using Items Provider functions"**](#using-items-provider-functions) 
 The `fields` prop is used to customize the table columns headings,
 and in which order the columns of data are displayed. The field object keys
 (i.e. `age` or `first_name` as shown below) are used to extract the value from
-each item (record) row, and to provide additional fetures such as sorting
+each item (record) row, and to provide additional fetures such as enabling sorting
+on the column, etc.
 
 ### Fields as a simple array
 Fields can be a simple array, for defining the order of the columns, and
-which columns to display:
+which columns to display (order is guaranteed):
 
-**Example 3: Using `array` fields definition**
+**Example: Using `array` fields definition**
 ```html
 <template>
   <div>
@@ -157,15 +164,91 @@ export default {
 };
 </script>
 
-<!-- table-fields-1.vue -->
+<!-- table-fields-array.vue -->
 ```
 
-### Fields as an object
-Also fields can be a an object providing additional control over the fields (such
-as sorting, formatting, etc). Only columns listed in the fields object will be shown,
-and will be shown in the order defined in the object:
+### Fields as an array of objects
+Fields can be a an array of objects, providing additional control over the fields (such
+as sorting, formatting, etc). Only columns (keys) that appear in the fields array will be shown,
+and will be shown in the order tehy appear in the array:
 
-**Example 4: Using `object` fields definition**
+**Example: Using array of objects fields definition**
+```html
+<template>
+  <div>
+    <b-table striped hover :items="items" :fields="fields"></b-table>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    // Note 'isActive' is left out and will not appear in the rendered table
+    fields: [
+      {
+        key: 'last_name',
+        sortable: true
+      },
+      {
+        key: 'first_name',
+        sortable: false
+      },
+      {
+        key: 'age',
+        label: 'Person age',
+        sortable: true,
+        // Variant applies to teh whole column, including the header and footer
+        variant: 'danger'
+      }
+    },
+    items: [
+      { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+      { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+      { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' },
+      { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+    ]
+  }
+};
+</script>
+
+<!-- table-fields-array-of-objects.vue -->
+```
+
+The following field properties are recognized:
+
+| Property | Type | Description
+| ---------| ---- | -----------
+| `key` | String | The key for selecting data from the record in the items array. Required when passing the props `fields` an array of objects.
+| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format)
+| `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column
+| `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array).
+| `sortable` | Boolean | Enable sorting on this column
+| `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
+| `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
+| `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
+| `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly)
+
+**Notes:**
+ - _Field properties, if not present, default to `null` unless otherwise stated above._
+ - _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
+ - _For information on the syntax supported by `thStyle`, see
+[Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
+in the Vue.js guide._
+ - _Any additional properties added to the field objects will be left intact - so you can access
+them via the named scoped slots for custom data, header, and footer rendering._
+
+For information and usage about scoped slots and formatters, refer to
+the [**Custom Data Rendering**](#custom-data-rendering) section below.
+
+
+### Fields as an object
+Also fields can be a an object providing similar control over the fields as the
+_array or objects_ above does. Only columns listed in the fields object will be shown.
+The order of the fields will typically be in the order they were defined in the object,
+although order is _not guaranteed_:
+
+**Example: Using object fields definition**
 ```html
 <template>
   <div>
@@ -186,7 +269,8 @@ export default {
           label: 'Person first name',
           sortable: false
       },
-      age: {
+      foo: {
+          key: 'age',
           label: 'Person age',
           sortable: true,
           // Variant applies to teh whole column, including the header and footer
@@ -204,33 +288,12 @@ export default {
 };
 </script>
 
-<!-- table-fields-2.vue -->
+<!-- table-fields-object.vue -->
 ```
 
-When fields is provided as an object, the following field properties are available:
+**Note:** if a `key` property is defined in the field definition, it will tke precidence over
+the key used to define the field.
 
-| Property | Type | Description
-| ---------| ---- | -----------
-| `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column
-| `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array).
-| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key
-| `sortable` | Boolean | Enable sorting on this column
-| `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
-| `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
-| `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
-| `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly)
-
-**Notes:**
- - _Field properties, if not present, default to `null` unless otherwise stated above._
- - _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
- - _For information on the syntax supported by `thStyle`, see
-[Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
-in the Vue.js guide._
- - _Any additional properties added to the field objects will be left intact - so you can access
-them via the named scoped slots for custom data, header, and footer rendering._
-
-For information and usage about scoped slots and formatters, refer to
-the [**Custom Data Rendering**](#custom-data-rendering) section below.
 
 ## Custom Data Rendering
 Custom rendering for each data field in a row is possible using either 
@@ -242,7 +305,7 @@ If you want to add an extra field which does not exist in the records,
 just add it to the `fields` array, And then reference the field(s) in the scoped
 slot(s).  
 
-**Example 5: Custom data rendering with `slots`**
+**Example: Custom data rendering with `slots`**
 ```html
 <template>
   <div>
@@ -277,7 +340,7 @@ export default {
       },
       age: {
         // A regular column
-        label: 'Sex'
+        label: 'Age'
       },
       sex: {
         // A regular column
@@ -339,7 +402,7 @@ global scope (window or as global mixin at Vue).
 Callback function accepts three arguments - `value`, `key`, and `item`, and should
 return the formatted value as a string (basic HTML is supported)
 
-**Example 6: Custom data rendering with formatter callback function**
+**Example: Custom data rendering with formatter callback function**
 ```html
 <template>
   <div>
@@ -364,7 +427,7 @@ export default {
       },
       age: {
         // A regular column
-        label: 'Sex'
+        label: 'Age'
       },
       sex: {
         // A regular column with custom formatter
@@ -444,19 +507,6 @@ or a `head-clicked` event.
 ```
 
 
-## `v-model` binding
-If you bind a variable to the `v-model` prop, the contents of this variable will
-be the currently disaplyed item records (zero based index, up to `page-size` - 1).
-This variable (the `value` prop) should usually be treated as readonly.
-
-The records within the v-model are a filtered/paginated shallow copy of `items`, and
-hence any changes to a record's properties in the v-model will be reflected in
-the original `items` array (except when `items` is set to a provider function).
-Deleting a record from the v-model will **not** remove the record from the
-original items array.
-
-**Note:** *Do not bind any value directly to the `value` prop. Use the `v-model` binding.*
-
 ## Filtering
 Filtering, when used, is applied to the original items array data, and hence it is not
 possible to filter data based on custom rendering of virtual columns. The items row data
@@ -471,6 +521,7 @@ the record is to be filtered out.
 When local filtering is applied, and the resultant number of items change, `<b-table>`
 will emit the `filtered` event, passing a single argument which is the complete list of
 items passing the filter routine. Treat this argument as read-only.
+
 
 ## Sorting
 As mentioned above in the [**Fields**](#fields-column-definitions-) section above,
@@ -519,6 +570,32 @@ if (typeof a[key] === 'number' && typeof b[key] === 'number') {
     });
 }
 ```
+
+## Pagination
+`<b-table>` supports built in pagination of item data.  You can control how many
+reords are displayed at a time by setting the `per-page` prop to the maximum
+number of rows you would like displayed, and use the `current-page` prop
+to specify which page to display (starting from page `1`).  If you set `current-page`
+to a value larger than the computed number of pages, then no rows will be shown.
+
+You can use the [`<b-pagination>`](/docs/components/pagination) component in
+conjuction with `<b-table>` for providing control over pagination.
+
+
+## `v-model` binding
+If you bind a variable to the `v-model` prop, the contents of this variable will
+be the currently disaplyed item records (zero based index, up to `page-size` - 1).
+This variable (the `value` prop) should usually be treated as readonly.
+
+The records within the v-model are a filtered/paginated shallow copy of `items`, and
+hence any changes to a record's properties in the v-model will be reflected in
+the original `items` array (except when `items` is set to a provider function).
+Deleting a record from the v-model will **not** remove the record from the
+original items array.
+
+**Note:** *Do not bind any value directly to the `value` prop. Use the `v-model` binding.*
+
+
 ## Using Items Provider Functions
 As mentioned under the [**Items**](#items-record-data-) prop section, it is possible to use a function to provide
 the row data (items), by specifying a function reference via the `items` prop.
@@ -542,7 +619,7 @@ following five properties:
 
 The second argument `callback` is an optional parameter for when using the callback asynchronous method.
 
-**Example 7: returning an array of data (synchronous):**
+**Example: returning an array of data (synchronous):**
 ```js
 function myProvider(ctx) {
     let items = [];
@@ -554,7 +631,7 @@ function myProvider(ctx) {
 }
 ```
 
-**Example 8: Using callback to return data (asynchronous):**
+**Example: Using callback to return data (asynchronous):**
 ```js
 function myProvider(ctx, callback) {
     let params = '?page=' + ctx.currentPage + '&size=' + ctx.perPage;
@@ -573,7 +650,7 @@ function myProvider(ctx, callback) {
 }
 ```
 
-**Example 9: Using a Promise to return data (asynchronous):**
+**Example: Using a Promise to return data (asynchronous):**
 ```js
 function myProvider(ctx) {
     let promise = axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage);
