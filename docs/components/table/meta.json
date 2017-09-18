@@ -85,12 +85,22 @@
       ]
     },
     {
+      "event": "context-changed",
+      "description": "Emitted whenever the table state context has changed",
+      "args": [
+        {
+          "arg": "ctx",
+          "description": "Table state context object. See docs."
+        }
+      ]
+    },
+    {
       "event": "filtered",
       "description": "Emitted when local filtering causes a change in the number of items.",
       "args": [
         {
           "arg": "filteredItems",
-          "description": "Array of items after filtering (before pagination occurs)."
+          "description": "Array of items after filtering (before local pagination occurs)."
         }
       ]
     },
@@ -106,11 +116,11 @@
     },
     {
       "name": "HEAD_[field]",
-      "description": "Scoped slot for custom rendering of field header. See docs for scoped data"
+      "description": "Scoped slot for custom rendering of field header. See docs for scoped header"
     },
     {
       "name": "FOOT_[field]",
-      "description": "Scoped slot for custom rendering of field footer. See docs for scoped data"
+      "description": "Scoped slot for custom rendering of field footer. See docs for scoped footer"
     },
     {
       "name": "empty",

@@ -6,23 +6,21 @@ custom rendering, events, and asynchronous data.
 #### **Contents** 
 - [**Items (record data)**](#items-record-data-)
 - [**Fields (column definitions)**](#fields-column-definitions-)
+- [**Table style options**](#table-style-options)
 - [**Custom Data Rendering**](#custom-data-rendering)
 - [**Header/Footer custom rendering via scoped slots**](#header-footer-custom-rendering-via-scoped-slots)
-- [**Filtering**](#filtering)
 - [**Sorting**](#sorting)
+- [**Filtering**](#filtering)
 - [**Pagination**](#pagination)
 - [**v-model binding**](#-v-model-binding)
 - [**Using Items Provider Functions**](#using-items-provider-functions)
 - [**Server Side Rendering**](#server-side-rendering)
 - [**Complete Example**](#complete-example)
-- [**Table options**](#table-options)
 
 **Example: Basic usage**
 ```html
 <template>
-  <div>
-    <b-table striped hover :items="items"></b-table>
-  </div>
+  <b-table striped hover :items="items"></b-table>
 </template>
 
 <script>
@@ -91,9 +89,7 @@ rows and individual cells (variants). Supported optional item record modifier pr
 **Example: Using variants for table cells**
 ```html
 <template>
-  <div>
-    <b-table striped hover :items="items"></b-table>
-  </div>
+  <b-table striped hover :items="items"></b-table>
 </template>
 
 <script>
@@ -137,6 +133,12 @@ and in which order the columns of data are displayed. The field object keys
 each item (record) row, and to provide additional fetures such as enabling sorting
 on the column, etc.
 
+Fields can be provided as a _simple array_, an _array of objects_, or an
+_object_. Internally the fields data will be normalized into the _array of
+objects_ format.  Events or slots that include the column `field` data will be
+in the normalized field object format (array of objects for `fields`, or an
+object for an individual `field`).
+
 ### Fields as a simple array
 Fields can be a simple array, for defining the order of the columns, and
 which columns to display (order is guaranteed):
@@ -144,9 +146,7 @@ which columns to display (order is guaranteed):
 **Example: Using `array` fields definition**
 ```html
 <template>
-  <div>
-    <b-table striped hover :items="items" :fields="fields"></b-table>
-  </div>
+  <b-table striped hover :items="items" :fields="fields"></b-table>
 </template>
 
 <script>
@@ -176,9 +176,7 @@ be shown (order is guaranteed):
 **Example: Using array of objects fields definition**
 ```html
 <template>
-  <div>
-    <b-table striped hover :items="items" :fields="fields"></b-table>
-  </div>
+  <b-table striped hover :items="items" :fields="fields"></b-table>
 </template>
 
 <script>
@@ -252,9 +250,7 @@ although **order is not guaranteed**:
 **Example: Using object fields definition**
 ```html
 <template>
-  <div>
-    <b-table striped hover :items="items" :fields="fields"></b-table>
-  </div>
+  <b-table striped hover :items="items" :fields="fields"></b-table>
 </template>
 
 <script>
@@ -295,6 +291,111 @@ export default {
 precidence over the key used to define the field.
 
 
+## Table style options
+`<b-table>` provides several props to alter the style of the table:
+
+| prop | Description
+| ---- | -----------
+| `striped` | Add zebra-striping to the table rows within the `<tbody>`
+| `bordered` | For borders on all sides of the table and cells.
+| `small` | To make tables more compact by cutting cell padding in half.
+| `hover` | To enable a hover highlighting state on table rows within a `<tbody>`
+| `inverse` | Invert the colors — with light text on dark backgrounds
+| `responsive` | Generate a responsive table to make it scroll horizontally on small devices (under 768px)
+| `fixed` | Gnerate a table with equal fixed-width columns (`table-layout: fixed`)
+| `foot-clone` | Turns on the table footer, and defaults with the same contents a the table header
+| `head-variant` | Use `default` or `inverse` to make table header appear light or dark gray, respectively
+| `foot-variant` | Use `default` or `inverse` to make table footer appear light or dark gray, respectively. IF not set, used `head-variant`. Has no effect if `foot-clone` is not set
+
+**Example: Bordered table**
+```html
+<template>
+  <b-table bordered :items="items" :fields="fields"></b-table>
+</template>
+
+<script>
+export default {
+  data: {
+    fields: [ 'first_name', 'last_name', 'age' ],
+    items: [
+      { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+      { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+      { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+    ]
+  }
+};
+</script>
+
+<!-- table-bordered.vue -->
+```
+
+**Example: Small table**
+```html
+<template>
+  <b-table small :items="items" :fields="fields"></b-table>
+</template>
+
+<script>
+export default {
+  data: {
+    fields: [ 'first_name', 'last_name', 'age' ],
+    items: [
+      { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+      { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+      { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+    ]
+  }
+};
+</script>
+
+<!-- table-small.vue -->
+```
+
+**Example: Inverse table**
+```html
+<template>
+  <b-table inverse :items="items" :fields="fields"></b-table>
+</template>
+
+<script>
+export default {
+  data: {
+    fields: [ 'first_name', 'last_name', 'age' ],
+    items: [
+      { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+      { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+      { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+    ]
+  }
+};
+</script>
+
+<!-- table-inverse.vue -->
+```
+
+**Example: table with footer**
+```html
+<template>
+  <b-table foot-clone :items="items" :fields="fields"></b-table>
+</template>
+
+<script>
+export default {
+  data: {
+    fields: [ 'first_name', 'last_name', 'age' ],
+    items: [
+      { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+      { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+      { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+    ]
+  }
+};
+</script>
+
+<!-- table-footer.vue -->
+```
+
+
 ## Custom Data Rendering
 Custom rendering for each data field in a row is possible using either 
 [scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots)
@@ -309,7 +410,6 @@ slot(s).
 **Example: Custom data rendering with `slots`**
 ```html
 <template>
-  <div>
   <b-table :fields="fields" :items="items">
     <!-- A virtual column -->
     <template slot="index" scope="data">
@@ -324,7 +424,6 @@ slot(s).
       {{data.item.name.first}} is {{data.item.age}} years old
     </template>
   </b-table>
-  </div>
 </template>
 
 <script>
@@ -369,7 +468,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 
 | Property | Type | Description
 | -------- | ---- | -----------
-| `index` | Number | The row number (indexed from zero)
+| `index` | Number | The row number (indexed from zero) relative to the displayed rows
 | `item` | Object | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)
 | `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of thr field's `formatter` function (see below for for information on field `formatter` callback functions)
 | `unformatted` | Any | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formtter` function
@@ -406,7 +505,6 @@ return the formatted value as a string (basic HTML is supported)
 **Example: Custom data rendering with formatter callback function**
 ```html
 <template>
-  <div>
   <b-table :fields="fields" :items="items">
     <template slot="name" scope="data">
       <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">
@@ -414,7 +512,6 @@ return the formatted value as a string (basic HTML is supported)
       </a>
     </template>
   </b-table>
-  </div>
 </template>
 
 <script>
@@ -511,22 +608,6 @@ or a `head-clicked` event.
 ```
 
 
-## Filtering
-Filtering, when used, is applied to the original items array data, and hence it is not
-possible to filter data based on custom rendering of virtual columns. The items row data
-is stringified and the filter searches that stringified data (excluding any properties
-that begin with an underscore (`_`) and the deprecated property `state`.
-
-The `filter` can be a string, a `RegExp` or a `function` reference.  If a function
-is provided, the first argument is the original item record data object. The
-function should return `true` if the record matches your criteria or `false` if
-the record is to be filtered out.
-
-When local filtering is applied, and the resultant number of items change, `<b-table>`
-will emit the `filtered` event, passing a single argument which is the complete list of
-items passing the filter routine. Treat this argument as read-only.
-
-
 ## Sorting
 As mentioned above in the [**Fields**](#fields-column-definitions-) section above,
 you can make columns sortable. Clicking on a sortable column header will sort the
@@ -538,9 +619,10 @@ descending). To pre-specify the column to be sorted, set the `sort-by` prop to
 the field's key.  Set the sort direction by setting `sort-desc` to either `true`
 (for descending) or `false` (for ascending, the default).
 
-The props `sort-by` and `sort-desc` can be turned into _two-way_ props by adding the `.sync`
-modifier. Your bound variables will then be updated accordingly based on the current sort critera.
-See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
+The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by
+adding the `.sync` modifier. Your bound variables will then be updated accordingly
+based on the current sort critera. See the 
+[Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
 on the `.sync` prop modifier
 
 ### Sort-Compare routine
@@ -575,6 +657,36 @@ if (typeof a[key] === 'number' && typeof b[key] === 'number') {
 }
 ```
 
+### Disable local sorting
+IF you want to handle sorting entirely in your app, you can disable the local
+sorting in `<b-table>` bu setting the prop `no-local-sorting` to true, while
+still maintaining the sortable header functionality.
+
+You can use the syncable props `sort-by.sync` and `sort-desc.sync` to detect
+changes in sorting column and direction.
+
+Also, When a sortable column header (or footer) is clicked, the event `sort-changed`
+will be emitted with a single argument containing the context object of `<b-table>`.
+See the [Detection of sorting change](#detection-of-sorting-change) section below
+for details about the sort-changed event.
+
+
+## Filtering
+Filtering, when used, is applied to the original items array data, and hence it is not
+possible to filter data based on custom rendering of virtual columns. The items row data
+is stringified and the filter searches that stringified data (excluding any properties
+that begin with an underscore (`_`) and the deprecated property `state`.
+
+The `filter` prop value can be a string, a `RegExp` or a `function` reference.  If
+a function is provided, the first argument is the original item record data object. The
+function should return `true` if the record matches your criteria or `false` if
+the record is to be filtered out.
+
+When local filtering is applied, and the resultant number of items change, `<b-table>`
+will emit the `filtered` event, passing a single argument which is the complete list of
+items passing the filter routine. Treat this argument as read-only.
+
+Setting the prop `filter` to null or an empty string will disable local items filtering.
 
 ## Pagination
 `<b-table>` supports built in pagination of item data.  You can control how many
@@ -586,6 +698,7 @@ to a value larger than the computed number of pages, then no rows will be shown.
 You can use the [`<b-pagination>`](/docs/components/pagination) component in
 conjuction with `<b-table>` for providing control over pagination.
 
+Setting `per-page` to `0` (default) will disable the local items pagination feature.
 
 ## `v-model` binding
 If you bind a variable to the `v-model` prop, the contents of this variable will
@@ -736,32 +849,33 @@ following `b-table` prop(s) to `true`:
 When `no-provider-paging` is `false` (default), you should only return at
 maximum, `perPage` number of records.
 
-**Note** _`<b-table>` needs reference to your pagination and filtering values in order to
+**Notes:**
+- _`<b-table>` needs reference to your pagination and filtering values in order to
 trigger the calling of the provider function.  So be sure to bind to the `per-page`,
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
 (unless you have the respective `no-provider-*` prop set to `true`)._
+- _The `no-local-sorting` prop has no effect when `items` is a provider funtion._
 
-### Event based refreshing of data:
+### Event based refreshing of data
 You may also trigger the refresh of the provider function by emitting the
 event `table::refresh` on `$root` with the single argument being the `id` of your `b-table`.
 You must have a unique ID on your table for this to work.
 
 ```js
-    this.$root.$emit('table::refresh', 'my-table');
+    this.$root.$emit('bv::table::refresh', 'my-table');
 ```
 
 Or by calling the refresh method on the table reference
 ```html
 <b-table ref="table" ... ></b-table>
 ```
-
 ```js
     this.$refs.table.refresh();
 ```
 
 These refresh event/methods are only applicable when `items` is a provider function.
 
-### Detection of sorting change:
+### Detection of sorting change
 By listening on `<b-table>` `sort-changed` event, you can detect when the sorting key
 and direction have changed.
 
@@ -910,19 +1024,4 @@ export default {
 
 <!-- table-complete-1.vue -->
 ```
-
-## Table options
-`<b-table>` provides several props to alter the style of the table:
-
-| prop | Description
-| ---- | -----------
-| `striped` | Add zebra-striping to the table rows within the `<tbody>`
-| `bordered` | For borders on all sides of the table and cells.
-| `inverse` | Invert the colors — with light text on dark backgrounds
-| `small` | To make tables more compact by cutting cell padding in half.
-| `hover` | To enable a hover highlighting state on table rows within a `<tbody>`
-| `responsive` | Create responsive table to make it scroll horizontally on small devices (under 768px)
-| `foot-clone` | Turns on the table footer, and defaults with the same contents a the table header
-| `head-variant` | Use `default` or `inverse` to make `<thead>` appear light or dark gray, respectively
-| `foot-variant` | Use `default` or `inverse` to make `<tfoot>` appear light or dark gray, respectively. Has no effect if `foot-clone` is not set
 
