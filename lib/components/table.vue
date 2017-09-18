@@ -111,7 +111,7 @@
 
 <script>
 import { warn, pluckProps } from '../utils';
-import { keys } from '../utils/object';
+import { keys, assign } from '../utils/object';
 import { isArray } from '../utils/array'
 import { listenOnRootMixin } from '../mixins';
 import startCase from 'lodash.startcase';
@@ -132,8 +132,8 @@ function recToString(obj) {
     }
 
     return toString(keys(obj).reduce((o, k) => {
-        // Ignore fields 'state' and ones that start with _
-        if (!(/^_/.test(k) || k === 'state')) {
+        // Ignore fields that start with _
+        if (!/^_/.test(k)) {
             o[k] = obj[k];
         }
         return o;
@@ -147,6 +147,24 @@ function defaultSortCompare(a, b, sortBy) {
     return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
         numeric: true
     });
+}
+
+function processField(key, value) {
+    let field = null;
+    if (typeof value === 'string') {
+        // Label shortcut
+        field = { key: key, label: startCase(value) };
+    } else if (typeof value === 'function') {
+        // Formatter shortcut
+        field = { key: key, formatter: value };
+    } else if (typeof value === 'object') {
+        field = asign({}, value);
+        field.key = field.key || key;
+    } else if (value !== false) {
+        // Fallback to just key
+        field = { key: key };
+    }
+    return field;
 }
 
 export default {
@@ -400,32 +418,32 @@ export default {
         },
         computedFields() {
             // We normalize fields into an array of objects
-            // [ { key: ..., label:..., ...}, {...}, ..., {..}]
+            // [ { key:..., label:..., ...}, {...}, ..., {..}]
             let fields = [];
 
-            // Normalize array Form
             if (isArray(this.fields)) {
+                // Normalize array Form
                 this.fields.filter(f => f).forEach(f => {
                     if (typeof f === 'string') {
                         fields.push({ key: f, label: startCase(f) });
                     } else if (typeof f === 'object' && f.key && typeof f.key === 'string') {
-                        fields.push(f);
+                        // Full object definition. We use assign so that we don't mutate the original
+                        fields.push(assign({}, f));
+                    } else if (typeof f === 'object' && keys(f).length === 1) {
+                        // Shortcut object (i.e. { 'foo_bar': 'This is Foo Bar' }
+                        const key = keys(f)[0];
+                        const field = processField(key, f[key]);
+                        if (field) {
+                            fields.push(field);
+                        }
                     }
                 })
             } else if (this.fields && typeof this.fields === 'object' && keys(this.fields).length > 0) {
+                // Normalize object Form
                 keys(this.fields).forEach(key => {
-                    let v = this.fields[key]
-                    if (typeof v === 'string') {
-                        // Label shortcut
-                        fields.push({ key: key, label: startCase(v) });
-                    } else if (typeof v === 'function') {
-                        // Formatter shortcut
-                        fields.push({ key: key, label: startCase(key), formatter: v });
-                    } else if (v !== false && typeof v === 'object') {
-                        // Fields with a value of false will be ignored
-                        v.key = v.key || key;
-                        v.label = v.label || startCase(key);
-                        fields.push(v);
+                    let field = processField(key, this.fields[key])
+                    if (field) {
+                        fields.push(field);
                     }
                 });
             }
@@ -438,18 +456,17 @@ export default {
                 });
             }
 
-            // Ensure we have a unique array of fields
+            // Ensure we have a unique array of fields and that htey have labels
             const memo = {};
-            fields = fields.filter(f => {
+            return fields.filter(f => {
                 if (!memo[f.key]) {
                     memo[f.key] = true;
+                    f.label = f.label || startCase(f.key);
                     return true;
                 } else {
                     return false;
                 }
             });
-
-            return fields;
         },
         computedItems() {
             // Grab some props/data to ensure reactivity
