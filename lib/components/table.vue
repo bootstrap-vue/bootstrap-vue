@@ -449,8 +449,6 @@ export default {
                 }
             });
 
-console.log('Fields: ', fields);
-
             return fields;
         },
         computedItems() {
