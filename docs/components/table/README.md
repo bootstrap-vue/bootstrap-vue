@@ -121,13 +121,14 @@ export default {
 <!-- table-variants-1.vue -->
 ```
 
-`items` can also be a reference to a *provider* function, which returns an `Array` of items data.
-Provider functions can also be asynchronous:
+`items` can also be a reference to a *provider* function, which returns an
+`Array` of items data. Provider functions can also be asynchronous:
 - By returning `null` (or `undefined`) and calling a callback, when the data is
 ready, with the data array as the only argument to the callback,
 - By returning a `Promise` that resolves to an array.
 
-See the [**"Using Items Provider functions"**](#using-items-provider-functions) section below for more details.
+See the [**"Using Items Provider functions"**](#using-items-provider-functions)
+section below for more details.
 
 ## Fields (column definitions)
 The `fields` prop is used to customize the table columns headings,
@@ -169,8 +170,8 @@ export default {
 
 ### Fields as an array of objects
 Fields can be a an array of objects, providing additional control over the fields (such
-as sorting, formatting, etc). Only columns (keys) that appear in the fields array will be shown,
-and will be shown in the order tehy appear in the array:
+as sorting, formatting, etc). Only columns (keys) that appear in the fields array will
+be shown (order is guaranteed):
 
 **Example: Using array of objects fields definition**
 ```html
@@ -197,7 +198,7 @@ export default {
         key: 'age',
         label: 'Person age',
         sortable: true,
-        // Variant applies to teh whole column, including the header and footer
+        // Variant applies to the whole column, including the header and footer
         variant: 'danger'
       }
     },
@@ -243,10 +244,10 @@ the [**Custom Data Rendering**](#custom-data-rendering) section below.
 
 
 ### Fields as an object
-Also fields can be a an object providing similar control over the fields as the
-_array or objects_ above does. Only columns listed in the fields object will be shown.
+Also, fields can be a an object providing similar control over the fields as the
+_array of objects_ above does. Only columns listed in the fields object will be shown.
 The order of the fields will typically be in the order they were defined in the object,
-although order is _not guaranteed_:
+although **order is not guaranteed**:
 
 **Example: Using object fields definition**
 ```html
@@ -270,11 +271,10 @@ export default {
           sortable: false
       },
       foo: {
+          // This key overrides `foo`!
           key: 'age',
           label: 'Person age',
           sortable: true,
-          // Variant applies to teh whole column, including the header and footer
-          variant: 'danger'
       }
     },
     items: [
@@ -291,13 +291,14 @@ export default {
 <!-- table-fields-object.vue -->
 ```
 
-**Note:** if a `key` property is defined in the field definition, it will tke precidence over
-the key used to define the field.
+**Note:** if a `key` property is defined in the field definition, it will take
+precidence over the key used to define the field.
 
 
 ## Custom Data Rendering
 Custom rendering for each data field in a row is possible using either 
-[scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or formatter callback function.
+[scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots)
+or formatter callback function.
 
 ### Scoped Field Slots
 Scoped slots give you greater control over how the record data apepars.
@@ -391,8 +392,8 @@ event:
 </template>
 ```
 
-### Formatter callback
 
+### Formatter callback
 One more option to customize field output is to use formatter callback function.
 To enable this field's property `formatter` is used. Value of this property may be 
 String or function reference. In case of a String value, function must be defined at
@@ -421,7 +422,8 @@ export default {
   data: {
     fields: {
       name: {
-        // A column that needs custom formatting, calling formatter 'fullName' in this app
+        // A column that needs custom formatting,
+        // calling formatter 'fullName' in this app
         label: 'Full Name',
         formatter: 'fullName'
       },
@@ -459,6 +461,8 @@ export default {
 
 <!-- table-data-formatter.vue -->
 ```
+
+
 ## Header/Footer custom rendering via scoped slots
 It is also possible to provide custom rendering for the tables `thead` and
 `tfoot` elements. Note by default the table footer is not rendered unless
@@ -570,6 +574,7 @@ if (typeof a[key] === 'number' && typeof b[key] === 'number') {
     });
 }
 ```
+
 
 ## Pagination
 `<b-table>` supports built in pagination of item data.  You can control how many
