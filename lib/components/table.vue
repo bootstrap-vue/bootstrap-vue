@@ -158,7 +158,7 @@ function processField(key, value) {
         // Formatter shortcut
         field = { key: key, formatter: value };
     } else if (typeof value === 'object') {
-        field = asign({}, value);
+        field = assign({}, value);
         field.key = field.key || key;
     } else if (value !== false) {
         // Fallback to just key
