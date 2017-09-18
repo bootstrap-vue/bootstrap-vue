@@ -133,6 +133,12 @@ and in which order the columns of data are displayed. The field object keys
 each item (record) row, and to provide additional fetures such as enabling sorting
 on the column, etc.
 
+Fields can be provided as a _simple array_, an _array of objects_, or an
+_object_. Internally the fields data will be normalized into the _array of
+objects_ format.  Events or slots that include the column `field` data will be
+in the normalized field object format (array of objects for `fields`, or an
+object for an individual `field`).
+
 ### Fields as a simple array
 Fields can be a simple array, for defining the order of the columns, and
 which columns to display (order is guaranteed):
