@@ -314,7 +314,7 @@ export default {
             }
         },
         context(newVal, oldVal) {
-            if(!looseEqual(newVal, oldVal) {
+            if(!looseEqual(newVal, oldVal)) {
                 this.$emit('context-changed', newVal);
             }
         },
