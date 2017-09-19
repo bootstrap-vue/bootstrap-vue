@@ -48,7 +48,7 @@ It’s easily extensible and thanks to our Collapse plugin, it can easily integr
 <!-- navbar-1.vue -->
 ```
 
-### Color schemes
+## Color schemes
 
 `<b-navbar>` supports the standard Bootstrap V4 available background color variants.
 Set the `variant` prop to one of the following values to change the background color:
@@ -57,7 +57,7 @@ Set the `variant` prop to one of the following values to change the background c
 Control the text color by setting `type` prop to `light` for use with light background
 color variants, or `dark` for dark background color variants.
 
-### Placement
+## Placement
 
 Control the placement of the navbar by setting one of two props:
 
@@ -67,7 +67,7 @@ Control the placement of the navbar by setting one of two props:
 | `sticky` | Boolean | `false` | Set to `true` to make the navbar stickied to the top when scrolled. _Note that `position: sticky`, used for `sticky`, isn’t fully supported in every browser._
 
 
-### Supported Content
+## Supported Content
 
 Navbars come with built-in support for a handful of sub-components. Choose from the following as needed:
 
@@ -80,7 +80,7 @@ Navbars come with built-in support for a handful of sub-components. Choose from 
 - `<b-navbar-toggler>` for use with the `<b-collapse>` component.
 - `<b-collapse is-nav>` for grouping and hiding navbar contents by a parent breakpoint.
 
-#### `<b-navbar-brand>`
+### `<b-navbar-brand>`
 
 The `<b-navbar-brand>` generates a link if `href` is provided, or a `<router-link>` if `to`
 is provided.  If neither is given it renders as a `<div>` tag.  You can override the
@@ -138,7 +138,7 @@ to properly size.  Here are some examples to demonstrate:
 <!-- navbar-brand-4.vue -->
 ```
 
-#### `<b-nav is-nav-bar>`
+### `<b-nav is-nav-bar>`
 
 Navbar navigation links build on our `<b-nav>` parent component with their own modifier
 class and require the use of `<b-collapse>` toggler for proper responsive styling.
@@ -153,7 +153,7 @@ Be sure to set the prop `is-nav-bar` on `<b-nav>` for proper alignment!
 - `<b-nav-text>` for adding vertically centered strings of text.
 - `<b-nav-item-dropdown>` for navbar dropdown menus
 
-#### `<b-nav-item>`
+### `<b-nav-item>`
 
 `<b-nav-item>` is the primary link (and `<router-link>`) component. Providing
 a `to` prop value will generate a `<router-link>` while providing an `href` prop
@@ -164,7 +164,7 @@ Disable a `<b-nav-item>` by setting the prop `disabled` to true.
 
 Handle click events by specifying a handler for the `@click` event on `<b-nav-item>`.
 
-#### `<b-nav-text>`
+### `<b-nav-text>`
 
 Navbars may contain bits of text with the help of `<b-nav-text>`. This component
 adjusts vertical alignment and horizontal spacing for strings of text.
@@ -185,7 +185,7 @@ adjusts vertical alignment and horizontal spacing for strings of text.
 <!-- navbar-text-1.vue -->
 ```
 
-#### `<b-nav-item-dropdown>`
+### `<b-nav-item-dropdown>`
 
 For `<b-nav-item-dropdown>` usage, see the [`<b-dropdown>`](./dropdown) docs.
 Note split dropdowns are not supported in `<b-navbar>`.
@@ -217,7 +217,7 @@ Note split dropdowns are not supported in `<b-navbar>`.
 <!-- navbar-dropdown-1.vue -->
 ```
 
-#### `<b-nav-form>`
+### `<b-nav-form>`
 
 Use `<b-nav-form>` to place inline form controls into your navbar
 
@@ -250,7 +250,7 @@ Input groups work as well:
 <!-- navbar-form-2.vue -->
 ```
 
-### Responsive collapsing content
+## Responsive collapsing content
 
 Navbars are responsive by default, but you can easily modify them to change that. Responsive
 behavior depends on our `<b-collapse>` component.
@@ -265,3 +265,5 @@ breakpoint to `sm`.  setting to `false` will disable collapsing.
 
 See the first example on this page for reference, and also refer to [`<b-collapse>`](./collapse) for
 details on the collapse component.
+
+## Component Reference
