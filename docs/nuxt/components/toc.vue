@@ -4,18 +4,18 @@
            v-b-scrollspy.70
            class="m-toc section-nav text-small">
       <template v-for="h2 in toc">
-        <b-nav v-if="isArray(h2)" class="mb-1">
+        <b-nav v-if="isArray(h2)" vertical class="mb-1">
             <b-nav-item vertical pills v-for="h3 in h2"
                         :key="h3.href"
                         :href="h3.href"
                         class="toc-entry toc-h3"
-            ><span v-html="h3.label"></span></b-nav-item>
+            >{{ h3.label }}</b-nav-item>
         </b-nav>
         <b-nav-item v-else 
                     :key="h2.href"
                     :href="h2.href"
                     class="toc-entry toc-h2"
-        ><span v-html="h2.label"></span></b-nav-item>
+        >{{ h2.label }}</b-nav-item>
       </template>
     </b-nav>
 </template>
@@ -58,13 +58,15 @@ export default {
             }
             const toc = [];
             // Grab all the H2 and H3 tags with ID's from readme
-            const headings = readme.match(/<h[23].*? id="[^"]+"[^<]+<\/h\d>/g) || [];
+            const headings = readme.match(/<h[23].*? id="[^"]+".+?<\/h\d>/g) || [];
             let h2Idx = 0;
             headings.forEach(heading => {
-                const matches = heading.match(/<(h[23]).*? id="([^"]+)".*?>([^<]+)<\/h\d>/);
+                // Pase teh link, label and heading level
+                const matches = heading.match(/^<(h[23]).*? id="([^"]+)"[^>]*>(.+?)<\/h\d>/$);
                 const tag = matches[1];
                 const href = `#${matches[2]}`;
-                const label = matches[3];
+                // Remove any HTML markup in the label
+                const label = matches[3].replace(/<[^>]+>/g, '');
                 if (tag === 'h2') {
                     toc.push({ href, label });
                     h2Idx = toc.length;
