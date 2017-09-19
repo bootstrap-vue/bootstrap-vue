@@ -305,3 +305,5 @@ have done in the above example.
 You may also want to implement focus containment in the popover content while the
 user is interactiving with it (keeping focus inside the popover until it is closed
 by the user).
+
+## Component Reference
