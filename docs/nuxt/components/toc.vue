@@ -138,7 +138,7 @@ export default {
             path = /\/$/.test(path) ? path : `${path}/`;
             return TOC[path] || [];
         }
-    }
+    },
     methods: {
         isArray(arg) {
             return Object.prototype.toString.call(arg) === "[object Array]";
