@@ -11,6 +11,10 @@
             readme() {
                 return readme;
             }
+        },
+
+        created() {
+            this.$root.$emit('bv-docs::update::toc', this.readme || '');
         }
     };
 </script>
