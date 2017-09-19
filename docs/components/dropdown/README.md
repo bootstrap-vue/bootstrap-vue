@@ -171,7 +171,7 @@ Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 ## Component Alias
 `<b-dropdown>` can be used via it's shorter alias of `<b-dd>`
 
-## Note
+## Implementation Note
 On touch-enabled devices, opening a `<b-dropdown>` adds empty (noop) `mouseover`
 handlers to the immediate children of the `<body>` element. This admittedly ugly
 hack is necessary to work around a
@@ -179,3 +179,7 @@ hack is necessary to work around a
 which would otherwise prevent a tap anywhere outside of the dropdown from
 triggering the code that closes the dropdown. Once the dropdown is closed, these
 additional empty `mouseover` handlers are removed.
+
+Dropdown menus use `Popper.js` for positioning. The `popper.js` library is included in the dist files.
+
+## Component Reference
