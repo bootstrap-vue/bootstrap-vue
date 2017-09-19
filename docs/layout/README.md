@@ -345,3 +345,5 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
 
 <!-- b-col-10.vue -->
 ```
+
+## Component Reference
