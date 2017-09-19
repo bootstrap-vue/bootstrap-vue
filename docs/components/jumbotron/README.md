@@ -96,3 +96,5 @@ default styling.
 
 <!-- jumbotron-3.vue -->
 ```
+
+## Component Reference
