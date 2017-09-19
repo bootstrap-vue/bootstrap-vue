@@ -9,12 +9,14 @@
                             :key="h3.href"
                             :href="h3.href"
                             class="toc-entry toc-h3 mb-1"
+                            @click="scrollIntoView($event, h3.href)"
                 ><span v-html="h3.label"></span></b-nav-item>
             </b-nav>
             <b-nav-item v-else 
                         :key="h2.href"
                         :href="h2.href"
                         class="toc-entry toc-h2 mb-1"
+                        @click="scrollIntoView($event, h2.href)"
             ><span v-html="h2.label"></span></b-nav-item>
           </template>
         </b-nav>
@@ -77,6 +79,18 @@ export default {
                 }
             });
             this.toc = toc;
+        },
+        scrollIntoView(e, href) {
+            e.preventDefault();
+            e.stopPropagation();
+            const el = href ? document.querySelector(href) : null;
+            if (el) {
+                // scroll heding into view (minus offset to account for nav top height
+                (document.documentElement || document.body).scrollTop = el.offsetTop - 75;
+                // Set a tab index and then focus header for a11y support
+                el.tabIndex = -1;
+                el.focus();
+            }
         }
     },
     created() {
