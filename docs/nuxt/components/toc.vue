@@ -24,19 +24,29 @@
 </template>
 
 <style scoped>
-.m-toc.section-nav .nav-link {
-     line-height: 1.2;
-}
+    .m-toc.section-nav .nav-link {
+         line-height: 1.2;
+    }
 
-.m-toc.section-nav .toc-entry a {
-    padding-left: 12px;
-    padding-left: 0.75rem;
-}
+    .m-toc.section-nav .toc-entry a {
+        padding-left: 12px;
+        padding-left: 0.75rem;
+    }
 
-.m-toc.section-nav .nav-link.active {
-     color: #563d7c;
-     background: transparent;
-}
+    .m-toc.section-nav .nav-link.active {
+         color: #563d7c;
+         background: transparent;
+    }
+
+    .m-toc.section-nav > .nav-item + .nav,
+    .m-toc.section-nav > .nav-link + .nav {
+         display: none;
+    }
+
+    .m-toc.section-nav > .nav-item.active + .nav,                                                                                          
+    .m-toc.section-nav > .nav-link.active + .nav {                                                                                         
+         display: flex !important;                                                                                                         
+    }                                                                                                                                      
 </style>
 
 <script>
