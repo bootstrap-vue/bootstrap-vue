@@ -1,3 +1,5 @@
+<template></template>
+
 <script>
     export default {
         fetch({ redirect }) {
