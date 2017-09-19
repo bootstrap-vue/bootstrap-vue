@@ -591,3 +591,5 @@ isn’t a bulletproof solution yet.
 
 <!-- card-group-3.vue -->
 ```
+
+## Component Reference

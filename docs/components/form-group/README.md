@@ -101,7 +101,7 @@ to `'invalid'`, `'valid'`, or `null`.
 You should always provide content via the `feedback` prop (or slot) to aid users
 using assistive technologies when setting a contextual `invalid` state.
 
-### Accessibility
+## Accessibility
 To enable auto-generation of `aria-*` attributes, **you must** supply a unique `id`
 prop to `<b-form-fieldset>`.
 
@@ -112,5 +112,7 @@ to the value of the `id` string associated with the input or contaner element.
 
 It is **highly recommended** that you provide a unique `id` prop on your input element.
 
-### Alias
+## Alias
 `<b-form-group>` can also be used via the legacy alias of `<b-form-fieldset>`.
+
+## Component Reference

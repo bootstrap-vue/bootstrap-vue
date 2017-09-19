@@ -168,3 +168,6 @@ Supported `aria-invalid` values are:
 - `true` The value has failed validation.
 - `grammar` A grammatical error has been detected.
 - `spelling` A spelling error has been detected.
+
+
+## Component Reference

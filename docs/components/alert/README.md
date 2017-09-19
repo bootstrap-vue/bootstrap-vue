@@ -205,3 +205,5 @@ export default {
 
 <!-- alert-auto-dismiss-1.vue -->
 ```
+
+## Component Reference

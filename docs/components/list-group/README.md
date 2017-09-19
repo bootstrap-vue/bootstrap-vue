@@ -19,3 +19,9 @@ They can also be used as navigation with the right modifier class.
 
 <!-- list-group.vue -->
 ```
+
+## Actionalable list group items
+Turn a `<b-list-group-item>` into an actionalble link by specifying either an
+`href` prop or router link `to` prop.
+
+## Component Reference

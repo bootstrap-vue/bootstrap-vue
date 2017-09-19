@@ -57,7 +57,7 @@ export default {
         },
         {
             title: 'Misc',
-            slug: '',
+            slug: 'misc/',
             pages: [
                 {title: 'Release Notes', slug: 'changelog'},
                 {title: 'Contributing', slug: 'contributing'},

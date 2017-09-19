@@ -241,3 +241,5 @@ trigger elements may be inaccessible to keyboard or screen reader users. If you 
 something other than a button or link (or similar component), you should add the attributes
 `tabindex="0"` and `role="button"` to allow users of assistive technology to reach your
 trigger element.
+
+## Component Reference

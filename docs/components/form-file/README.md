@@ -154,3 +154,4 @@ window.app = new Vue({
 });
 ```
 
+## Component Reference

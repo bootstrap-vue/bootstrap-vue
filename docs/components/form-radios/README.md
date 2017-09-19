@@ -305,3 +305,5 @@ You can have `b-form-radio` render a browser native radio input by setting the `
 ## Aliases
 - `<b-form-radio-group>` can be used by the shorter aliant `<b-radio-group>`.
 - `<b-form-radio>` can be used by the shorter alias of `<b-radio>`.
+
+## Component Reference
