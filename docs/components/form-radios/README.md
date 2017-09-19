@@ -8,8 +8,10 @@ for the default radio input.
 <div class="alert alert-danger">
   <h5>Breaking Change notice:</h5>
   <p class="m-0">
-    <samp class="bg-transparent text-danger">&lt;b-form-radio&gt;</samp> now generates a single
-    radio input. Please use <samp class="bg-transparent text-danger">&lt;b-form-radio-group&gt;</samp>
+    Starting with release <samp>v1.0.0-beta.8</samp> of Bootstrap-Vue,
+    <samp class="bg-transparent text-danger">&lt;b-form-radio&gt;</samp> now
+    generates a <strong>single</strong> radio input. Please use
+    <samp class="bg-transparent text-danger">&lt;b-form-radio-group&gt;</samp>
     to generate a series of radio inputs based on the
     <samp class="bg-transparent text-danger">options</samp> prop.
   </p>
@@ -303,3 +305,5 @@ You can have `b-form-radio` render a browser native radio input by setting the `
 ## Aliases
 - `<b-form-radio-group>` can be used by the shorter aliant `<b-radio-group>`.
 - `<b-form-radio>` can be used by the shorter alias of `<b-radio>`.
+
+## Component Reference

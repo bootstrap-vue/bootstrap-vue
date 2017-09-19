@@ -6,7 +6,6 @@
          :data-toggle="buttons ? 'buttons' : null"
          :aria-required="required ? 'true' : null"
          :aria-invalid="computedAriaInvalid"
-         @change="$emit('change', localChecked)"
     >
         <slot name="first"></slot>
         <!-- b-form-radio will grab v-model (checked) from b-form-radio-group -->

@@ -8,6 +8,14 @@ Popovers are tooltips on steroids.
 Use the `v-b-popover` directive on any **element** or **component** where you would
 like a popover to appear.
 
+```html
+<div class="text-center my-3">
+  <b-btn v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
+</div>
+
+<!-- popover-example-sample.vue -->
+```
+
 ## Overview
 Things to know when using popovers:
 

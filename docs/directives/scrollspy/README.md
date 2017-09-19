@@ -18,18 +18,10 @@ must have an `href` that points to an element with that id in teh container you 
 When successfully implemented, your nav or list group will update accordingly, moving
 the `active` state from one item to the next based on their associated targets.
 
-**Note:** The directive is applied backwards compared to native Bootstrap V4.
-In **Bootstrap-Vue** the `v-b-scrollspy` directive is applied to the target
-element that has the links to be activated, and the options specify which element to
-monitor scrolling on.
-
-The directive an be applied to any containing element or component that has `<nav-item>`,
-`<b-dropdown-item>`, `<b-list-group-item>` (or `<a>` tags with the apropriate classes),
-a long as tehy haev `href` attributes that point to elements with the respective `id`s
-in the scrolling element.
-
-## Example using `<b-nav>`
+### Example using `<b-nav>`
 Using `v-b-scrollspy` on a `<b-nav>` component to monitor the scrolling on `<b-card-body>`.
+Scroll the area below the navbar and watch the active class change. The dropdown items
+will be highlighted as well.
 
 ```html
 <template> 
@@ -81,15 +73,14 @@ export default {
   },
   data: {
     text: `
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-      sollicitudin scelerisque augue, sit amet finibus risus tempus quis.
-      Suspendisse id est faucibus, dignissim arcu non, consequat tortor.
-      Pellentesque mollis dolor vitae tellus consectetur auctor. Nam tincidunt
-      ullamcorper tortor, a pretium tellus efficitur nec. Integer velit enim,
-      mattis et sapien in, blandit pharetra nisi. Suspendisse euismod tortor
-      ac tellus varius, a suscipit sapien viverra. Curabitur non nunc euismod,
-      facilisis nulla a, auctor elit. Duis in est id augue scelerisque
-      aliquam. Proin mollis dolor augue, nec pellentesque felis maximus nec.
+      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+      tempor. Laborum consequat non elit enim exercitation cillum aliqua
+      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+      laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+      Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+      nisi sit est tempor laborum mollit labore officia laborum excepteur
+      commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+      ipsum commodo tempor sunt in proident.
     `
   }
 }
@@ -97,8 +88,78 @@ export default {
 
 <!-- scrollspy-nav-1.vue -->
 ```
+### Example using nested `<b-navbar>` and `<b-nav>`
+Scrollspy also works with nested `<b-nav>`. If a nested `<b-nav-item>` is 
+active, its parents will also be active. Scroll the area next to the navbar and
+watch the active class change.
 
-## Example with `<b-list-group>`
+```html
+<template>
+  <b-container fluid>
+    <b-row>
+      <b-col cols="4">
+        <b-navbar v-b-scrollspy:scrollspy-nested class="flex-column">
+          <b-navbar-brand href="#">Navbar</b-navbar-brand>
+          <b-nav pills class="flex-column">
+            <b-nav-item href="#item-1">Item 1</b-nav-item>
+            <b-nav pills class="flex-column">
+              <b-nav-item class="ml-3 my-1" href="#item-1-1">Item 1-1</b-nav-item>
+              <b-nav-item class="ml-3 my-1" href="#item-1-2">Item 1-2</b-nav-item>
+            </b-nav>
+            <b-nav-item href="#item-2">Item 2</b-nav-item>
+            <b-nav-item href="#item-3">Item 3</b-nav-item>
+            <b-nav pills class="flex-column">
+              <b-nav-item class="ml-3 my-1" href="#item-3-1">Item 3-1</b-nav-item>
+              <b-nav-item class="ml-3 my-1" href="#item-3-2">Item 3-2</b-nav-item>
+            </b-nav>
+          </b-nav>
+        </b-navbar>
+      </b-col>
+      <b-col cols="8">
+        <div id="scrollspy-nested" style="position:relative;height:350px;overflow-y:auto">
+          <h4 id="item-1" style="">Item 1</h4>
+          <p>{{ text }}</p>
+          <h5 id="item-1-1" style="">Item 1-1</h5>
+          <p>{{ text }}</p>
+          <h5 id="item-1-2" style="">Item 2-2</h5>
+          <p>{{ text }}</p>
+          <h4 id="item-2" style="">Item 2</h4>
+          <p>{{ text }}</p>
+          <h4 id="item-3" style="">Item 3</h4>
+          <p>{{ text }}</p>
+          <h5 id="item-3-1" style="">Item 3-1</h5>
+          <p>{{ text }}</p>
+          <h5 id="item-3-2" style="">Item 3-2</h5>
+          <p>{{ text }}</p>
+        </div>
+      </b-col>
+    </b-row>
+  </b-container>
+</template>
+
+<script>
+export default {
+  data: {
+    text: `
+      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+      tempor. Laborum consequat non elit enim exercitation cillum aliqua
+      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+      laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+      Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+      nisi sit est tempor laborum mollit labore officia laborum excepteur
+      commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+      ipsum commodo tempor sunt in proident.
+    `
+  }
+}
+</script>
+<!-- scrollspy-nested-1.vue -->
+```
+
+### Example with `<b-list-group>`
+Scrollspy also works with `<b-list-group>` when it contains `<b-list-grouop-item>`s
+that have a _local_ `href` . Scroll the area next to the list group and watch the
+active state change.
 
 ```html
 <template>
@@ -135,14 +196,14 @@ export default {
 export default {
   data: {
     text: `
-        Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
-        tempor. Laborum consequat non elit enim exercitation cillum aliqua
-        consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
-        laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
-        Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
-        nisi sit est tempor laborum mollit labore officia laborum excepteur
-        commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
-        ipsum commodo tempor sunt in proident.
+      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+      tempor. Laborum consequat non elit enim exercitation cillum aliqua
+      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+      laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+      Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+      nisi sit est tempor laborum mollit labore officia laborum excepteur
+      commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+      ipsum commodo tempor sunt in proident.
     `
   }
 }
@@ -150,18 +211,29 @@ export default {
 <!-- scrollspy-listgroup-1.vue -->
 ```
 
-## Directive syntax
+## Directive syntax and usage
 
 ```
 v-b-scrollspy:arg.mod1.mod2="option"
 ```
 Where:
 - `arg` is the ID (minus the `#`) of the element to monitor scrolling on. Optional
-(defaults to `body`. Can be overridden by `option`
-- `mod1` & `mod2` can be an `offset` number or string `method` (see below). Order of
-the modifiers is not important. Both are optional
+(defaults to `body`. Can be overridden by `option`)
+- `mod1` & `mod2` can be an `offset` number or string `method` (see config object
+below). Order of the modifiers is not important. Both are optional
 - `option` can be a string identifying the `element` to monitor scrolling on,
 a numeric `offset`, or a configuration object (see below). Optional
+
+**Note:** The directive is applied backwards compared to native Bootstrap V4.
+In **Bootstrap-Vue** the `v-b-scrollspy` directive is applied to the target
+element that has the links to be activated, and the arg or option specifies
+which element to monitor (spy) scrolling on.
+
+The directive an be applied to any containing element or component that has `<nav-item>`,
+`<b-dropdown-item>`, `<b-list-group-item>` (or `<a>` tags with the apropriate classes),
+a long as they haev `href` attributes that point to elements with the respective `id`s
+in the scrolling element.
+
 
 ### Config object properties
 ```
@@ -255,7 +327,7 @@ selector (i.e. `body`), or a node reference
 </b-nav>
 ```
 
-### Events
+## Events
 Whenever a target is activated, the event `bv:scrollspy::activate` is emitted on
 `$root` with the targets HREF (ID) as the argument (i.e. `#bar`)
 

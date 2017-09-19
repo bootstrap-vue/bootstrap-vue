@@ -52,3 +52,5 @@ inside the inner embded element. Note that type `iframe` does not support any ch
           type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
 </b-embed>
 ```
+
+## Component Reference

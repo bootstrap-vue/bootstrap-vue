@@ -47,7 +47,7 @@ export default {
             if (target.toggle) {
                 target.toggle();
             }
-            this.$root.$emit('collapse::toggle', this.target);
+            this.$root.$emit('bv::toggle::collapse', this.target);
         },
         handleStateEvt(target, state) {
             if (target === this.target || target === this.target.id) {
@@ -56,7 +56,7 @@ export default {
         }
     },
     created() {
-        this.listenOnRoot('collapse::toggle::state', this.handleStateEvt);
+        this.listenOnRoot('bv::collapse::state', this.handleStateEvt);
     }
 };
 </script>

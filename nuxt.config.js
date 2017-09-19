@@ -54,6 +54,8 @@ module.exports = {
             return []
                 .concat(scan('components'))
                 .concat(scan('directives'))
+                .concat(scan('reference'))
+                .concat(scan('misc'))
         }
     },
 

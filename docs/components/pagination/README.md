@@ -36,13 +36,14 @@ export default {
 <!-- pagination-1.vue -->
 ```
 
+## Overview
 `<b-pagination>` is a custom input component that provides a current page number
 input control. The value should be bound via `v-model` in your app. Page numbers
 are indexed from 1. The number of pages is computed from the provided prop
 values for `total-rows` and `per-page`.
 
 
-### Customizing
+## Customizing
 `<b-pagination>` supports several props that allow you to customize the appearance.
 
 | Prop | Description
@@ -62,7 +63,7 @@ Ellipsis inidcator(s) will only be ever shown at the front and/or end of
 the page number buttons. For `limit` values less than or equal to `3`, the ellipsis
 indicator(s) will never be shown for practical display reasons.
 
-### Alignment
+## Alignment
 By default the pagination component is left aligned. Change the alignment to
 `center` or `right` (`right` is an alias for `end`) by setting the prop
 `align` to the appropriate value.
@@ -101,7 +102,7 @@ export default {
 ```
 
 
-### Small screen support (`xs`)
+## Small screen support
 On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to
 minimize the potential of the pagination interface wrapping onto multiple lines:
 
@@ -112,17 +113,17 @@ This ensures that no more than 3 page number buttons are visible,
 along with the goto _first_, _prev_, _next_, and _last_ buttons.
 
 
-### Accessibility
+## Accessibility
 The `<b-pagination>` component provides many features to support assistive technology users,
 such as `aria-` attributes and keyboard navigation.
 
-#### `aria-controls`:
+### `aria-controls`
 When pagination is controling another component on the page (such as `<b-table>`), set
 the `aria-controls` prop to the `id` of the element it is controling. This will help
 non-sighted users know what component is being updated/controlled.
 
 
-#### ARIA labels:
+### ARIA labels
 `<b-pagination>` provides various `*-label-*` props which are used to set the `aria-label`
 attributes on the various elements within the component, which will help users of
 assistive technology.
@@ -136,20 +137,22 @@ assistive technology.
 | `label-page` | "Goto page", appended with the page number
 | `aria-label` | "Pagination", applied to the outer pagination container
 
-#### Keyboard navigation support:
+### Keyboard navigation support
 `<b-pagination>` supports keyboard navigation out of the box.
 - Tabbing into the pagination component will autofocus the current page button
 - <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the page
 list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the focused page button
 
 
-### Events
+## Events
 `<b-pagination>` provides two events that are emitted on the component:
 - `input` is emitted anytime the current page changes (either programmatically or via user interaction)
 - `change` is emitted only when the current page changes based on user interaction
 
 Both events provide the single argument of the current page number (starting from 1)
 
-### See Also
+## See Also
 For navigation based pagination, please see the [`<b-pagination-nav>`](./pagination-nav)
 component.
+
+## Component Reference

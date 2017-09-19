@@ -143,3 +143,5 @@ utilities wherever needed to fine tune.
 
 <!-- media-4.vue -->
 ```
+
+## Component Reference
