@@ -212,7 +212,7 @@ export default {
 <!-- pagination-align.vue -->
 ```
 
-## Small screen support (`xs`)
+## Small screen support
 
 On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to
 minimize the potential of the pagination interface wrapping onto multiple lines:
