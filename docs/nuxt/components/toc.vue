@@ -1,32 +1,33 @@
 <template>
-    <b-nav v-if="toc && toc.length"
-           vertical
-           v-b-scrollspy.70
-           class="m-toc section-nav text-small">
-      <template v-for="h2 in toc">
-        <b-nav v-if="isArray(h2)" vertical class="mb-1">
-            <b-nav-item vertical pills v-for="h3 in h2"
-                        :key="h3.href"
-                        :href="h3.href"
-                        class="toc-entry toc-h3"
-            ><span v-html="h3.label"></span></b-nav-item>
+    <nav v-if="toc && toc.length > 0" aria-label="Page table of contents">
+        <b-nav vertical
+               v-b-scrollspy.75
+               class="m-toc section-nav">
+          <template v-for="h2 in toc">
+            <b-nav v-if="isArray(h2) && h2.length > 0" vertical class="mb-1">
+                <b-nav-item vertical pills v-for="h3 in h2"
+                            :key="h3.href"
+                            :href="h3.href"
+                            class="toc-entry toc-h3 mb-1"
+                ><span v-html="h3.label"></span></b-nav-item>
+            </b-nav>
+            <b-nav-item v-else 
+                        :key="h2.href"
+                        :href="h2.href"
+                        class="toc-entry toc-h2 mb-1"
+            ><span v-html="h2.label"></span></b-nav-item>
+          </template>
         </b-nav>
-        <b-nav-item v-else 
-                    :key="h2.href"
-                    :href="h2.href"
-                    class="toc-entry toc-h2"
-        ><span v-html="h2.label"></span></b-nav-item>
-      </template>
-    </b-nav>
+    </nav>
 </template>
 
 <style scoped>
-.m-toc.section-nav .nav-item {
+.m-toc.section-nav .nav-link {
      line-height: 1.2;
 }
 
 .m-toc.section-nav .toc-entry a {
-    padding-left: 24px;
+    padding-left: 12px;
     padding-left: 0.75rem;
 }
 
