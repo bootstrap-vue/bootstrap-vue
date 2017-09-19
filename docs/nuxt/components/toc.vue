@@ -9,13 +9,13 @@
                         :key="h3.href"
                         :href="h3.href"
                         class="toc-entry toc-h3"
-            >{{ h3.label }}</b-nav-item>
+            ><span v-html="h3.label"></span></b-nav-item>
         </b-nav>
         <b-nav-item v-else 
                     :key="h2.href"
                     :href="h2.href"
                     class="toc-entry toc-h2"
-        >{{ h2.label }}</b-nav-item>
+        ><span v-html="h2.label"></span></b-nav-item>
       </template>
     </b-nav>
 </template>
