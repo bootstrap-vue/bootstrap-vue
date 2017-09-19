@@ -14,13 +14,7 @@ const items = [
   { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
   { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
   { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-  { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' },
-  { isActive: false, age: 27, first_name: 'Essie', last_name: 'Dunlap' },
-  { isActive: true,  age: 40, first_name: 'Thor', last_name: 'Macdonald' },
-  { isActive: false, age: 26, first_name: 'Mitzi', last_name: 'Navarro' },
-  { isActive: false, age: 22, first_name: 'Genevive', last_name: 'Wilson' },
-  { isActive: true,  age: 38, first_name: 'John', last_name: 'Carney' },
-  { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+  { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' }
 ];
 
 export default {
@@ -75,7 +69,7 @@ rows and individual cells (variants). Supported optional item record modifier pr
 **Example: Using variants for table cells**
 ```html
 <template>
-  <b-table striped hover :items="items"></b-table>
+  <b-table hover :items="items"></b-table>
 </template>
 
 <script>
@@ -144,8 +138,7 @@ export default {
       { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
       { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
       { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' },
-      { isActive: false, age: 27, first_name: 'Essie', last_name: 'Dunlap' }
+      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' }
     ]
   }
 };
@@ -190,8 +183,7 @@ export default {
       { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
       { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
       { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' },
-      { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' }
     ]
   }
 };
@@ -263,8 +255,7 @@ export default {
       { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
       { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
       { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' },
-      { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' }
     ]
   }
 };
@@ -393,7 +384,7 @@ If you want to add an extra field which does not exist in the records,
 just add it to the `fields` array, And then reference the field(s) in the scoped
 slot(s).  
 
-**Example: Custom data rendering with `slots`**
+**Example: Custom data rendering with scoped slots**
 ```html
 <template>
   <b-table :fields="fields" :items="items">
@@ -644,7 +635,7 @@ if (typeof a[key] === 'number' && typeof b[key] === 'number') {
 ```
 
 ### Disable local sorting
-IF you want to handle sorting entirely in your app, you can disable the local
+If you want to handle sorting entirely in your app, you can disable the local
 sorting in `<b-table>` bu setting the prop `no-local-sorting` to true, while
 still maintaining the sortable header functionality.
 
