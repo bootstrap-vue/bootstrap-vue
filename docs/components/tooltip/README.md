@@ -116,3 +116,4 @@ You can close all open tooltips by emitting the `bv::hide::tooltip` event on $ro
 this.$root.$emit('bv::hide::tooltip');
 ```
 
+## Component Reference
