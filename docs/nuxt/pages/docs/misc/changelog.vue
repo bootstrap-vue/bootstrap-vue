@@ -17,6 +17,10 @@
         created() {
             // We remove the h3 tags because the all have the same generated ID
             this.$root.$emit('bv-docs::update::toc', this.readme.replace(/<h3.*?<\/h3>/g, '') || '');
+        },
+
+        beforeDestroy() {
+            this.$root.$emit('bv-docs::update::toc', '');
         }
     };
 </script>
