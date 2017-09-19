@@ -3,20 +3,6 @@
 > For displaying tabular data. `<b-table>` supports pagination, filtering, sorting,
 custom rendering, events, and asynchronous data.
 
-#### **Contents** 
-- [**Items (record data)**](#items-record-data-)
-- [**Fields (column definitions)**](#fields-column-definitions-)
-- [**Table style options**](#table-style-options)
-- [**Custom Data Rendering**](#custom-data-rendering)
-- [**Header/Footer custom rendering via scoped slots**](#header-footer-custom-rendering-via-scoped-slots)
-- [**Sorting**](#sorting)
-- [**Filtering**](#filtering)
-- [**Pagination**](#pagination)
-- [**v-model binding**](#-v-model-binding)
-- [**Using Items Provider Functions**](#using-items-provider-functions)
-- [**Server Side Rendering**](#server-side-rendering)
-- [**Complete Example**](#complete-example)
-
 **Example: Basic usage**
 ```html
 <template>
@@ -1025,3 +1011,4 @@ export default {
 <!-- table-complete-1.vue -->
 ```
 
+## Component Reference
