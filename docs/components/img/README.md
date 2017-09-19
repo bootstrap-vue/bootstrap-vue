@@ -197,3 +197,5 @@ removed.
 
 <!-- b-img-lazy.vue -->
 ```
+
+## Component Reference
