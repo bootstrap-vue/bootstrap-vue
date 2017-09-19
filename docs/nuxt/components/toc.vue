@@ -136,7 +136,7 @@ export default {
         toc() {
             let path = this.$route.path || '';
             path = /\/$/.test(path) ? path : `${path}/`;
-            return = TOC[path] || [];
+            return TOC[path] || [];
         }
     }
     methods: {
