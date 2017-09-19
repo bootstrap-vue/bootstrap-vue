@@ -70,3 +70,6 @@ field styling and preserve the correct margin and padding and height.
 
 <!-- b-form-textarea-3.vue -->
 ```
+
+## Component Reference
+
