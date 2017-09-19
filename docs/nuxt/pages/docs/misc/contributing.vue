@@ -16,6 +16,9 @@
         },
         created() {
             this.$root.$emit('bv-docs::update::toc', this.readme || '');
+        },
+        beforeDestroy() {
+            this.$root.$emit('bv-docs::update::toc', '');
         }
     };
 </script>
