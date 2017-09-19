@@ -27,3 +27,5 @@ additional text hidden with the `.sr-only` class.
 ### Pill badges
 Use the `pill` prop to make badges more rounded (with a larger border-radius
 and additional horizontal padding). Useful if you miss the badges from Bootstrap v3.
+
+## Component Reference
