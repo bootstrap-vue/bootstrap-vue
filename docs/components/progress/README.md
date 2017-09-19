@@ -331,3 +331,6 @@ but you can override any of the props by setting them on the `<b-progress-bar>`
 Notes:
 - `height`, if speified, should always set on the `<b-progress>` component.
 - `<b-progress-bar>` will not inherit `value` from `<b-progress>`.
+
+
+## Component Reference
