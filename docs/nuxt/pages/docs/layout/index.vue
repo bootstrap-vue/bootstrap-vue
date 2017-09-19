@@ -38,10 +38,6 @@ export default {
         return {
             title: `${this.meta.title} - BootstrapVue`
         };
-    },
-
-    created() {
-        this.$root.$emit('bv-docs::update::toc', this.readme || '');
     }
 };
 </script>
