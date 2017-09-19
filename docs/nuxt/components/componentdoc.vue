@@ -63,6 +63,10 @@
             }
         },
         computed: {
+            componentOptions() {
+                const component = Vue.options.components[this.component];
+                return (component && component.options) ? component.options : {};
+            },
             props_fields() {
                 const component = Vue.options.components[this.component];
                 let props = [];
@@ -158,9 +162,10 @@
             },
             githubURL() {
                 const tree = this.inBrowser && window.location.host === 'bootstrap-vue-alpha.surge.sh' ? 'alpha' : 'dev'
-                const base = `https://github.com/bootstrap-vue/bootstrap-vue/blob/${tree}/lib/components`;
-                return `${base}/${_.kebabCase(this.component).replace('b-', '')}.vue`;
-
+                const base = `https://github.com/bootstrap-vue/bootstrap-vue/tree/${tree}/lib/components`;
+                const isFunctional =  this.componentOptions.functional;
+                const ext = isFunctional ? 'js' : 'vue';
+                return `${base}/${_.kebabCase(this.component).replace('b-', '')}.${ext}`;
             }
         }
     };
