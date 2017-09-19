@@ -3,8 +3,8 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 <a name="1.0.0-beta.7"></a>
-# [1.0.0-beta.7](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2017-09-01)
-
+## 1.0.0-beta.7 (2017-09-01)
+[1.0.0-beta.7](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.6...v1.0.0-beta.7)
 
 ### Bug Fixes
 
@@ -43,8 +43,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="1.0.0-beta.6"></a>
-# [1.0.0-beta.6](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2017-08-30)
-
+## 1.0.0-beta.6 (2017-08-30)
+[1.0.0-beta.6](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.5...v1.0.0-beta.6)
 
 ### Bug Fixes
 
@@ -86,8 +86,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="1.0.0-beta.5"></a>
-# [1.0.0-beta.5](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.2...v1.0.0-beta.5) (2017-08-21)
-
+## 1.0.0-beta.5 (2017-08-21)
+[1.0.0-beta.5](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.2...v1.0.0-beta.5)
 
 ### Bug Fixes
 
@@ -177,8 +177,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="0.20.2"></a>
-## [0.20.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.1...v0.20.2) (2017-08-11)
-
+## 0.20.2 (2017-08-11)
+[0.20.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.1...v0.20.2) 
 
 ### Bug Fixes
 
@@ -194,13 +194,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="0.20.1"></a>
-## [0.20.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.0...v0.20.1) (2017-08-10)
-
+## 0.20.1 (2017-08-10)
+[0.20.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.20.0...v0.20.1)
 
 
 <a name="0.20.0"></a>
-# [0.20.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.19.0...v0.20.0) (2017-08-10)
-
+## 0.20.0 (2017-08-10)
+[0.20.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.19.0...v0.20.0)
 
 ### Bug Fixes
 
@@ -294,8 +294,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="0.18.0"></a>
-# [0.18.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.17.1...v0.18.0) (2017-07-04)
-
+## 0.18.0 (2017-07-04)
+[0.18.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.17.1...v0.18.0)
 
 ### Bug Fixes
 
@@ -337,8 +337,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="0.17.1"></a>
-## [0.17.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/0.17.0...0.17.1) (2017-06-30)
-
+## 0.17.1 (2017-06-30)
+[0.17.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/0.17.0...0.17.1)
 
 ### Bug Fixes
 
