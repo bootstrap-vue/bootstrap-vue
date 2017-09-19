@@ -218,6 +218,16 @@ them via the named scoped slots for custom data, header, and footer rendering._
 For information and usage about scoped slots and formatters, refer to
 the [**Custom Data Rendering**](#custom-data-rendering) section below.
 
+Feel free to mix and match simple array and object array together:
+
+```js
+fields: [
+  { key: 'first_name', label: 'First' },
+  { key: 'last_name', label: 'Last' },
+  'age',
+  'sex'
+]
+```
 
 ### Fields as an object
 Also, fields can be a an object providing similar control over the fields as the
@@ -406,28 +416,18 @@ slot(s).
 <script>
 export default {
   data: {
-    fields: {
-      index: {
-        // A virtual column that doesn't exist in items
-        label: 'Index'
-      },
-      name: {
-        // A column that needs custom formatting
-        label: 'Full Name'
-      },
-      age: {
-        // A regular column
-        label: 'Age'
-      },
-      sex: {
-        // A regular column
-        label: 'Sex'
-      },
-      nameage: {
-        // A virtual column made up from two fields
-        label: 'First name and age'
-      }
-    },
+    fields: [
+      // A virtual column that doesn't exist in items
+      'index',
+      // A column that needs custom formatting
+      { key: 'name', label: 'Full Name' },
+      // A regular column
+      'age',
+      // A regular column
+      'sex',
+      // A virtual column made up from two fields
+      { key: 'nameage', label: 'First name and age' }
+    ],
     items: [
       { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
       { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
@@ -494,30 +494,30 @@ return the formatted value as a string (basic HTML is supported)
 <script>
 export default {
   data: {
-    fields: {
-      name: {
+    fields: [ 
+      {
         // A column that needs custom formatting,
         // calling formatter 'fullName' in this app
+        key:'name',
         label: 'Full Name',
         formatter: 'fullName'
       },
-      age: {
-        // A regular column
-        label: 'Age'
-      },
-      sex: {
+      // A regular column
+      'age',
+      {  
         // A regular column with custom formatter
-        label: 'Sex',
+        key: 'sex',
         formatter: (value) => { return value.charAt(0).toUpperCase(); }
       },
-      birthYear: {
+      {
         // A virtual column with custom formatter
-        label: 'Birth Year',
+        key: 'birthYear',
+        label: 'Calculated Birth Year',
         formatter: (value, key, item) => {
-            return (new Date()).getFullYear() - item.age;
+          return (new Date()).getFullYear() - item.age;
         }
       }
-    },
+    ],
     items: [
       { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
       { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
