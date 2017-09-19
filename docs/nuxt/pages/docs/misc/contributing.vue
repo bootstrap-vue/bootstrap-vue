@@ -3,8 +3,8 @@
 </template>
 
 <script>
-    import layout from '../../layouts/docs.vue';
-    import readme from '../../../../CONTRIBUTING.md';
+    import layout from '../../../layouts/docs.vue';
+    import readme from '../../../../../CONTRIBUTING.md';
 
     export default {
         components: {layout},
