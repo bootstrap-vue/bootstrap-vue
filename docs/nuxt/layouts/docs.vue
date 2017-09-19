@@ -10,6 +10,7 @@
                 </div>
                 
                 <div class="d-none d-xl-block col-xl-2 bd-toc">
+                    <m-toc />
                 </div>
 
                 <div class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
@@ -31,9 +32,10 @@ import mSidebar from '~/components/sidebar.vue';
 import mNav from '~/components/nav.vue';
 import mFooter from '~/components/footer.vue';
 import mSearch from '~/components/search.vue';
+import mToc from '~/components/toc.vue';
 
 export default {
-    components: { mSidebar, mNav, mFooter, mSearch },
+    components: { mSidebar, mNav, mFooter, mSearch, mToc },
     computed: {
         editPageURL() {
             const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev';
