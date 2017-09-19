@@ -40,6 +40,31 @@
 </style>
 
 <script>
+function easeInOutQuad(t, b, c, d) {
+    t /= d/2;
+    if (t < 1) return c/2*t*t + b;
+    t--;
+    return -c/2 * (t*(t-2) - 1) + b;
+}
+
+function scrollTo(element, to, duration, cb) {
+    const start = element.scrollTop
+    const change = to - start
+    const increment = 20;
+    let currentTime = 0;
+    const animateScroll = function(){        
+        currentTime += increment;
+        const val = easeInOutQuad(currentTime, start, change, duration);
+        element.scrollTop = val;
+        if(currentTime < duration) {
+            setTimeout(animateScroll, increment);
+        } else {
+            cb();
+        }
+    };
+    animateScroll();
+}
+
 export default {
     data() {
         return {
@@ -85,11 +110,15 @@ export default {
             e.stopPropagation();
             const el = href ? document.querySelector(href) : null;
             if (el) {
-                // scroll heding into view (minus offset to account for nav top height
-                (document.documentElement || document.body).scrollTop = el.offsetTop - 75;
-                // Set a tab index and then focus header for a11y support
+                // Set a tab index so we can focus header for a11y support
                 el.tabIndex = -1;
-                el.focus();
+                // scroll heding into view (minus offset to account for nav top height
+                scrollTo((document.documentElement || document.body), el.offsetTop -70, 100, () => {
+                    el.focus();
+                });
+//                // Jump scroll with offset. 
+//                (document.documentElement || document.body).scrollTop = el.offsetTop - 70;
+//                el.focus();
             }
         }
     },
