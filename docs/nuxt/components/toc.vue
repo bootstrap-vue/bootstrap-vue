@@ -8,14 +8,14 @@
                 <b-nav-item vertical pills v-for="h3 in h2"
                             :key="h3.href"
                             :href="h3.href"
-                            class="toc-entry toc-h3 mb-1"
+                            class="toc-entry toc-h3 mb-2"
                             @click="scrollIntoView($event, h3.href)"
                 ><span v-html="h3.label"></span></b-nav-item>
             </b-nav>
             <b-nav-item v-else 
                         :key="h2.href"
                         :href="h2.href"
-                        class="toc-entry toc-h2 mb-1"
+                        class="toc-entry toc-h2 mb-2"
                         @click="scrollIntoView($event, h2.href)"
             ><span v-html="h2.label"></span></b-nav-item>
           </template>
