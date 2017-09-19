@@ -86,7 +86,7 @@ which is a page number (1-N). The `page-gen` function should return a string.
 
 Note HTML strings are currently not supported.
 
-### Example: Using an array of links to generate pagination:
+**Example: Using an array of links to generate pagination:**
 
 ```html
 <template>
@@ -255,3 +255,5 @@ list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (c
 
 For pagination control of a component (such as `<b-table>`), use the
 [`<b-pagination>`](./pagination) component instead.
+
+## Component Reference
