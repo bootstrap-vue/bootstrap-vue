@@ -62,7 +62,7 @@ export default {
             let h2Idx = 0;
             headings.forEach(heading => {
                 // Pase teh link, label and heading level
-                const matches = heading.match(/^<(h[23]).*? id="([^"]+)"[^>]*>(.+?)<\/h\d>/$);
+                const matches = heading.match(/^<(h[23]).*? id="([^"]+)"[^>]*>(.+?)<\/h\d>$/);
                 const tag = matches[1];
                 const href = `#${matches[2]}`;
                 // Remove any HTML markup in the label
