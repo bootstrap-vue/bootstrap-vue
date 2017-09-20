@@ -226,17 +226,17 @@ a focus change via pressing the <kbd>TAB</kbd> key). Some call this behavior _se
 ## Heading and content
 There are seveal options for provising the title and content of a popover.
 
-By dfault, popover will ue hte `title` attribute of the element as teh popover heading,
+By dfault, popover will ue the `title` attribute of the element as the popover heading,
 and the content is passed as a string to the `v-b-popover` directive.
 The title and content can also be passed as an object to `v-b-popoveer` in the form of
 ```js
 {
-   title: 'This is hte title',
+   title: 'This is the title',
    content: 'This is the content'
 }
 ```
 If your content has basic HTML markup, then you will also need to set the `html`
-property to true, or use hte diretive modifier `html`
+property to true, or use the diretive modifier `html`
 ```js
 // Object format with HTML:
 {
