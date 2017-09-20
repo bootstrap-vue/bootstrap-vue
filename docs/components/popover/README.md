@@ -46,8 +46,8 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
 
     <h5 class="my-3">Placement</h5>
     <b-row>
-      <b-col md="3" class="py-4 text-center"
-           v-for="placement in ['top', 'left', 'right', 'bottom']" :key="placement">
+      <b-col md="4" class="py-4 text-center"
+           v-for="placement in placements" :key="placement">
         <b-btn :id="'exPopover1-'+placement" variant="primary">
           {{ placement }}
         </b-btn>
@@ -55,7 +55,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
                    :placement="placement"
                    title="Popover!"
                    triggers="hover focus"
-                   :content="placement">
+                   :content="`Placement ${placement}`">
         </b-popover>
       </b-col>
     </b-row>
@@ -84,6 +84,19 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
   </b-container>  
 </template>
 
+<script>
+export default {
+    data: {
+        placements: [
+            'topright', 'top', 'topleft',
+            'bottomright', 'bottom', 'bottomleft',
+            'righttop', 'right', 'lefttop',
+            'rightbottom', 'left', 'leftbottom'
+        ]
+    }
+}
+</script>
+
 <!-- popover-1.vue -->
 ```
 
@@ -94,7 +107,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
 | `target` | `null` | String ID of element, or a reference to an element or component, that you want to trigger the popover. **Required** | Any valid, in-document unique element ID, or in-document element/component reference
 | `title` | `null` | Title of popover (text only, no HTML). if HTML is required, place it in the `title` named slot | Plain text
 | `content` | `null` | Content of popover (text only, no HTML). if HTML is required, place it in the default slot | Plain text
-| `placement` | `'top'` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`
+| `placement` | `'top'` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
 | `triggers` | `'click'` |  Space separated list of which event(s) will trigger open/close of popover | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of popover | `0` and up, integers only.
