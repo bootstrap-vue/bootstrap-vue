@@ -51,11 +51,11 @@
                 default: null
             },
             rows: {
-                type: Number,
+                type: [Number, String],
                 default: null
             },
             maxRows: {
-                type: Number,
+                type: [Number, String],
                 default: null
             },
             wrap: {
@@ -70,9 +70,10 @@
         },
         computed: {
             rowsCount() {
-                const rows = this.rows || 1;
+                const rows = parseInt(this.rows, 10) || 1;
+                const maxRows = parseInt(this.maxRows, 10) || 0;
                 const lines = (this.value || '').toString().split('\n').length;
-                return this.maxRows ? Math.min(this.maxRows, Math.max(rows, lines)) : Math.max(rows, lines);
+                return maxRows ? Math.min(maxRows, Math.max(rows, lines)) : Math.max(rows, lines);
             },
             inputClass() {
                 return [
@@ -86,7 +87,7 @@
                 // setting noResize to true will disable the ability for the user to resize the textarea
                 return {
                     width: this.plaintext ? '100%' : null,
-                    resize: this.noResize ? 'false' : null
+                    resize: this.noResize ? 'none' : null
                 };
             },
             computedAriaInvalid() {
