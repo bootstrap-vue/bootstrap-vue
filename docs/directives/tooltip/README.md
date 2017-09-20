@@ -104,7 +104,7 @@ Where `<value>` can be (optional):
  - An object containing more complex configuration of tooltip, See Bootstrap docs for possible values/structure)
 
 Where [modX] can be (all optional):
- - Positioning: `top`, `bottom`, `left`, `right`, or `auto` (last one found wins, defaults to `top`)
+ - Positioning: `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom` (last one found wins, defaults to `top`)
  - Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `focus` and `hover`. `blur` is a close handler only, and if specified by itself, will be converted to `focus`)
  - `nofade` to turn off animation
  - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text
