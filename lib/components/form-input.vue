@@ -49,7 +49,8 @@
     
     // Valid input types
     const TYPES = [
-        'text', 'password', 'email', 'number', 'url', 'tel', 'date', 'search', 'range', 'color'
+        'text', 'password', 'email', 'number', 'url', 'tel', 'search', 'range', 'color',
+        `date`, `time`, `datetime`, `datetime-local`, `month`, `week`
     ];
     
     export default {
