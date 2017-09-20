@@ -89,9 +89,9 @@ export default {
     data: {
         placements: [
             'topright', 'top', 'topleft',
-            'bottomright', 'bottom', 'bottomright',
-            'righttop', 'right', 'rightbottom',
-            'lefttop', 'left', 'leftbottom'
+            'bottomright', 'bottom', 'bottomleft',
+            'righttop', 'right', 'lefttop',
+            'rightbottom', 'left', 'leftbottom'
         ]
     }
 }
