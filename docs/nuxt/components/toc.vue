@@ -50,39 +50,7 @@
 </style>
 
 <script>
-import components from '~/../components';
-import directives from '~/../directives';
-import reference from '~/../reference';
-import layout from '~/../layout';
-import setup from '~/../README.md';
-import changelog from '~/../../CHANGELOG.md';
-import contributing from '~/../../CONTRIBUTING.md';
-
-function processHeadings(readme) {
-    if (!readme) {
-        return [];
-    }
-    const toc = [];
-    // Grab all the H2 and H3 tags with ID's from readme
-    const headings = readme.match(/<h[23].*? id="[^"]+".+?<\/h\d>/g) || [];
-    let h2Idx = 0;
-    headings.forEach(heading => {
-        // Pass the link, label and heading level
-        const matches = heading.match(/^<(h[23]).*? id="([^"]+)"[^>]*>(.+?)<\/h\d>$/);
-        const tag = matches[1];
-        const href = `#${matches[2]}`;
-        // Remove any HTML markup in the label
-        const label = matches[3].replace(/<[^>]+>/g, '');
-        if (tag === 'h2') {
-            toc.push({ href, label });
-            h2Idx = toc.length;
-        } else if (tag === 'h3') {
-            toc[h2Idx] = toc[h2Idx] || [];
-            toc[h2Idx].push({ href, label });
-        }
-    });
-    return toc;
-}
+import site from '~/..';
 
 // Smooth Scroll handler methods
 function easeInOutQuad(t, b, c, d) {
@@ -109,23 +77,6 @@ function scrollTo(element, to, duration, cb) {
     animateScroll();
 }
 
-// Buildthe complete TOC library
-const TOC = {};
-TOC['/docs/'] =  processHeadings(setup);
-TOC['/docs/layout/'] = processHeadings(layout.readme);
-Object.keys(components).forEach(page => {
-    TOC[`/docs/components/${page}/`] = processHeadings(components[page].readme);
-});
-Object.keys(directives).forEach(page => {
-    TOC[`/docs/directives/${page}/`] = processHeadings(directives[page].readme);
-});
-Object.keys(reference).forEach(page => {
-    TOC[`/docs/reference/${page}/`] = processHeadings(reference[page].readme);
-});
-TOC[`/docs/misc/contributing/`] = processHeadings(contributing);
-// We removethe h3 headings, since hey have teh same repeated IDs and don't work
-TOC[`/docs/misc/changelog/`] = processHeadings(changelog.replace(/<h3.+?<\/h3>/g, ''));
-
 
 // Component logic
 export default {
@@ -133,10 +84,11 @@ export default {
         return { };
     },
     computed: {
+        site: () => site,
         toc() {
             let path = this.$route.path || '';
             path = /\/$/.test(path) ? path : `${path}/`;
-            return TOC[path] || [];
+            return this.site.toc[path] || [];
         }
     },
     methods: {
@@ -154,7 +106,7 @@ export default {
                 scrollTo(scroller, el.offsetTop -70, 100, () => {
                     // Set a tab index so we can focus header for a11y support
                     el.tabIndex = -1;
-                    // Focus the element
+                    // Focus the heading
                     el.focus();
                 });
             }
