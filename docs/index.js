@@ -3,6 +3,7 @@ import components from './components'
 import directives from './directives'
 import reference from './reference'
 import layout from './layout'
+import misc from './misc'
 
 export default {
     package_info,
@@ -58,10 +59,14 @@ export default {
         {
             title: 'Misc',
             slug: 'misc/',
-            pages: [
-                {title: 'Release Notes', slug: 'changelog'},
-                {title: 'Contributing', slug: 'contributing'},
-            ]
-        },
+            pages: Object.keys(misc).map(key => {
+                return {
+                    title: misc[key].meta.title,
+                    new: misc[key].meta.new,
+                    beta: misc[key].meta.beta,
+                    slug: key
+                }
+            })
+        }
     ]
 }
