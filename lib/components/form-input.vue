@@ -15,8 +15,43 @@
            @change="onChange($event.target.value, $event)"/>
 </template>
 
+<style>
+    /* Special styling for type=range and color input */
+    input.form-control[type="range"],
+    input.form-control[type="color"] {
+        height: 36px;
+        height: 2.25rem;
+    }
+    input.form-control.form-control-sm[type="range"],
+    input.form-control.form-control-sm[type="color"] {
+        height: 31px;
+        height: 1.9375rem;
+    }
+    input.form-control.form-control-lg[type="range"],
+    input.form-control.form-control-lg[type="color"] {
+        height: 48px;
+        height: 3rem;
+    }
+    /* Less padding on type=color */
+    input.form-control[type="color"] {
+        padding: 8px 8px;
+        padding: 0.25rem 0.25rem;
+    }
+    input.form-control.form-control-sm[type="color"] {
+        padding: 4px 5px;
+        padding: 0.125rem 0.125rem;
+    }
+</style>
+
 <script>
     import { idMixin, formMixin, formSizeMixin, formStateMixin } from '../mixins';
+    import { arrayIncludes } from '../utils/array';
+    
+    // Valid input types
+    const TYPES = [
+        'text', 'password', 'email', 'number', 'url', 'tel', 'date', 'search', 'range', 'color'
+    ];
+    
     export default {
         mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
         data() {
@@ -31,6 +66,7 @@
             type: {
                 type: String,
                 default: 'text'
+                validator: (type) => arrayIncludes(TYPES, type)
             },
             ariaInvalid: {
                 type: [Boolean, String],
@@ -62,11 +98,8 @@
         },
         computed: {
             localType() {
-                if (this.type === 'radio' || this.type === 'checkbox') {
-                    // This component doesn't support radio or checkbox
-                    return 'text';
-                }
-                return this.type || 'text';
+                // We only allow certain types
+                return arrayIncludes(TYPES, this.type) ? this.type : 'text';
             },
             inputClass() {
                 return [
@@ -111,7 +144,10 @@
                 return value;
             },
             onInput(value, e) {
-                if (!this.lazyFormatter) {
+                if (this.lazyFormatter) {
+                    // Update the model with the current unformated value
+                    this.localValue = value;
+                } else {
                     this.localValue = this.format(value, e);
                 }
             },
