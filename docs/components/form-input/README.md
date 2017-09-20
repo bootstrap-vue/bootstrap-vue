@@ -1,4 +1,4 @@
-# Textual inputs
+# Textual and Value inputs
 
 > Create various text style inputs such as: `text`, `password`, `number`, `url`,
 `email`, `search`, and more.
@@ -26,36 +26,46 @@
 
 ## Input type
 
-`<b-form-input>` defaults to a `text` input, but you can set it to any other text-like
-type, such as `password`, `number`, `url`, `email`, etc, by setting the `type` prop to the
-appropriate value.
+`<b-form-input>` defaults to a `text` input, but you can set teh `type` prop to one
+of the supported types: `text`, `password`, `email`, `number`, `url`, `tel`, `search`,
+`date`, `datetime`, `datetime-local`, `month`, `week`, `time`,`range`, or `color`.
 
 ```html
-<b-container fluid>
-  <b-row class="my-1">
-    <b-col sm="3"><label for="input-text">Type Text:</label></b-col>
-    <b-col sm="9"><b-form-input id="input-text" type="text"></b-form-input></b-col>
-  </b-row>
-  <b-row class="my-1">
-    <b-col sm="3"><label for="input-passwd">Type Password:</label></b-col>
-    <b-col sm="9"><b-form-input id="input-passwd" type="password"></b-form-input></b-col>
-  </b-row>
-  <b-row class="my-1">
-    <b-col sm="3"><label for="input-email">Type Number:</label></b-col>
-    <b-col sm="9"><b-form-input id="input-email" type="email"></b-form-input></b-col>
-  </b-row>
-  <b-row class="my-1">
-    <b-col sm="3"><label for="input-number">Type Number:</label></b-col>
-    <b-col sm="9"><b-form-input id="input-number" type="number"></b-form-input></b-col>
-  </b-row>
-  <b-row class="my-1">
-    <b-col sm="3"><label for="input-url">Type URL:</label></b-col>
-    <b-col sm="9"><b-form-input id="input-url" type="url"></b-form-input></b-col>
-  </b-row>
-</b-container>
+<template>
+  <b-container fluid>
+    <b-row class="my-1" v-for="type in types" :key="type">
+      <b-col sm="3"><label :for="`type-${type}`">Type {{ type }}:</label></b-col>
+      <b-col sm="9"><b-form-input :id="`type-${type}`" :type="type"></b-form-input></b-col>
+    </b-row>
+  </b-container>
+</template>
+
+<script>
+export default {
+    data: {
+        types: [
+            'text', 'password', 'email', 'number', 'url',
+            'tel', 'date', `time`, 'range', 'color'
+        ]
+    }
+}
+</script>
 
 <!-- form-input-types.vue -->
 ```
+
+If prop `type` is set to an unsupported value, a `text` input will be rendered.
+
+Not all browsers support all types, nor do some types render in the same format across
+browser types/version.  Browsers that do not support a particular type will fall back to
+a `text` input type.
+
+Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
+Instead of using `datetime`, since support should be deprecated, use `date` and `time`
+as two separate input types.
+
+For date an time style input, when supported, the displayed value in the GUI may be different
+than what is return by it's value.
 
 
 ## Control sizing
@@ -252,6 +262,10 @@ No formatting occurs if a `formatter` is not provided.
 
 <!-- form-input-formatter.vue -->
 ```
+
+**Note:** When using a non-text-like input (i.e. `color`, `range`, `date`, etc),
+ensure that your formatter function returns the value in the expected format
+for the input type. The formatter **must** return the value as a string.
 
 
 ## Readonly plain text

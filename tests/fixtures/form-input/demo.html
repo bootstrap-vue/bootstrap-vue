@@ -1,31 +1,13 @@
 <div id="app">
     <b-form-input v-model="text" placeholder="Enter your name"></b-form-input>
-    <br><br>
 
     <b-form-input v-model="textformatter" placeholder="Enter your name" :formatter="format"></b-form-input>
-    <small class="text-muted">We will convert your name to lowercase instantly</small>
-    <br><br>
 
     <b-form-input v-model="textlazy" type="text" placeholder="Enter your name" :formatter="format" lazy-formatter></b-form-input>
-    <small class="text-muted">We will convert your name to lowercase on change</small>
-    <br><br>
 
-    <b-form-input state="valid" v-model="text" placeholder="valid"></b-form-input>
-    <br><br>
+    <b-form-input v-model="text" state="valid" placeholder="valid"></b-form-input>
 
-    <b-form-input state="invalid" v-model="text" placeholder="invalid"></b-form-input>
-    <br><br>
+    <b-form-input v-model="text" state="invalid" placeholder="invalid"></b-form-input>
 
-    <b-form-input type="password" v-model="text" placeholder="password"></b-form-input>
-    <br><br>
-
-    <!-- This one should render as a text input -->
-    <b-form-input type="radio" v-model="radio"></b-form-input>
-    <br><br>
-
-    <!-- This one should render as a text input -->
-    <b-form-input type="checkbox" v-model="check"></b-form-input>
-    <br><br>
-
-    <p>Value: {{text}}</p>
+    <b-form-input v-model="text" type="password" placeholder="password"></b-form-input>
 </div>
