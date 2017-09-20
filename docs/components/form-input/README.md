@@ -60,6 +60,13 @@ Not all browsers support all types, nor do some types render in the same format 
 browser types/version.  Browsers that do not support a particular type will fall back to
 a `text` input type.
 
+Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
+Instead of using `datetime`, since support should be deprecated, use `date` and `time`
+as two separate input types.
+
+For date an time style input, when supported, the displayed value in the GUI may be different
+than what is return by it's value.
+
 
 ## Control sizing
 
@@ -255,6 +262,10 @@ No formatting occurs if a `formatter` is not provided.
 
 <!-- form-input-formatter.vue -->
 ```
+
+**Note:** When using a non-text-like input (i.e. `color`, `range`, `date`, etc),
+ensure that your formatter function returns the value in the expected format
+for the input type. The formatter **must** return the value as a string.
 
 
 ## Readonly plain text
