@@ -150,8 +150,10 @@ export default {
             if (el) {
                 // Set a tab index so we can focus header for a11y support
                 el.tabIndex = -1;
-                // scroll heding into view (minus offset to account for nav top height
-                scrollTo((document.documentElement || document.body), el.offsetTop -70, 100, () => {
+                // Get the document scrolling element
+                const scroller = document.scrollingElement || document.documentElement || document.body;
+                // scroll heading into view (minus offset to account for nav top height
+                scrollTo(scroller, el.offsetTop -70, 100, () => {
                     el.focus();
                 });
             }
