@@ -33,6 +33,7 @@ Things to know when using popovers:
 ## Positioning
 Twelve options are available for positioning: `top`, `topleft`, `topright`, `right`, `righttop`,
 `rightbottom`, `bottom`, `bottomleft`, `bottomright`, `left`, `lefttop`, and `leftbottom` aligned.
+Positioning is relative to the trigger element.
 
 <div class="bd-example bd-example-popover-static">
   <div class="popover bs-popover-top bs-popover-top-docs">
