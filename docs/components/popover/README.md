@@ -46,7 +46,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
 
     <h5 class="my-3">Placement</h5>
     <b-row>
-      <b-col md="3" class="py-4 text-center"
+      <b-col md="4" class="py-4 text-center"
            v-for="placement in placements" :key="placement">
         <b-btn :id="'exPopover1-'+placement" variant="primary">
           {{ placement }}
@@ -90,7 +90,7 @@ export default {
         placements: [
             'topright', 'top', 'topleft',
             'bottomright', 'bottom', 'bottomright',
-            `righttop', 'right', 'rightbottom',
+            'righttop', 'right', 'rightbottom',
             'lefttop', 'left', 'leftbottom'
         ]
     }
