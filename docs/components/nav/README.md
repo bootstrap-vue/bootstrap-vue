@@ -14,7 +14,7 @@ Swap modifier props to switch between each style.
   </b-nav>
 </div>
 
-<!-- nav-1.vue -->
+<!-- nav-default.vue -->
 ```
 
 ## Overview
@@ -41,7 +41,7 @@ Make the nav look like tabs by setting the prop `tabs`.
   <b-nav-item disabled>Disabled</b-nav-item>
 </b-nav>
 
-<!-- nav-2.vue -->
+<!-- nav-tabs.vue -->
 ```
 
 ### Pill style
@@ -56,7 +56,7 @@ Use the pill style by setting the prop `pills`.
   <b-nav-item disabled>Disabled</b-nav-item>
 </b-nav>
 
-<!-- nav-3.vue -->
+<!-- nav-pills.vue -->
 ```
 
 ## Fill and justify
@@ -77,7 +77,7 @@ every nav item has the same width.
   <b-nav-item disabled>Disabled</b-nav-item>
 </b-nav>
 
-<!-- nav-4.vue -->
+<!-- nav-fill.vue -->
 ```
 
 ### Justified
@@ -94,7 +94,7 @@ will be the same width.
   <b-nav-item disabled>Disabled</b-nav-item>
 </b-nav>
 
-<!-- nav-5.vue -->
+<!-- nav-justified.vue -->
 ```
 
 ## Vertical variation
@@ -110,7 +110,7 @@ the `vertical` prop.
   <b-nav-item disabled>Disabled</b-nav-item>
 </b-nav>
 
-<!-- nav-6.vue -->
+<!-- nav-vetical.vue -->
 ```
 
 ## Dropdown support
@@ -129,16 +129,20 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
   </b-nav-item-dropdown>
 </b-nav>
 
-<!-- nav-7.vue -->
+<!-- nav-dropdown.vue -->
 ```
 
 Refer to [`<b-dropdown>`](../dropdown) for a list of supported sub-components.
 
+### `<b-nav-item-dropdown>` Component Alias
+
+`<b-nav-item-dropdown>` can be used via it's shorter aliases of `<b-nav-item-dd>` and `<b-nav-dd>`.
+
 
 ## Using in Navbar
 
-When using `<b-nav>` within a `<b-navbar>`, set the `navbar-nav` prop to ensure taht the proper
-classes and handlers can be applied
+When using `<b-nav>` within a `<b-navbar>`, set the `is-nav-bar` prop to ensure that the proper
+classes and handlers can be applied.
 
 ## Tabbed content support
 
