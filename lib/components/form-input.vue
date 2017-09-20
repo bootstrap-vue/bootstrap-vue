@@ -65,7 +65,7 @@
             },
             type: {
                 type: String,
-                default: 'text'
+                default: 'text',
                 validator: (type) => arrayIncludes(TYPES, type)
             },
             ariaInvalid: {
