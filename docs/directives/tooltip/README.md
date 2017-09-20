@@ -25,6 +25,118 @@ Things to know when using tooltips:
  - When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
  - Tooltips must be hidden before their corresponding elements have been removed from the DOM.
 
+## Positioning
+Twelve options are available for positioning: `top`, `topleft`, `topright`, `right`, `righttop`,
+`rightbottom`, `bottom`, `bottomleft`, `bottomright`, `left`, `lefttop`, and `leftbottom` aligned.
+The default position is `top`. Positioning is relative to the trigger element.
+
+<div class="bd-example bd-example-tooltip-static">
+  <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the top
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
+    <div class="arrow" style="left:93%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the topleft
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
+    <div class="arrow" style="left:5%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the topright
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the right
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
+    <div class="arrow" style="top:60%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the righttop
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
+    <div class="arrow" style="top:26%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the rightbottom
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the bottom
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
+    <div class="arrow" style="left:93%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the bottomleft
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
+    <div class="arrow" style="left:5%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the bottomright
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the left
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
+    <div class="arrow" style="top:60%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the lefttop
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
+    <div class="arrow" style="top:26%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the leftbottom
+    </div>
+  </div>
+</div>
+
+**Live example**
+```html
+<template>
+    <b-row class="text-center">
+      <b-col md="3" class="py-3">
+        <b-btn v-b-tooltip.hover.top="'ToolTip!'" variant="primary">Top</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-tooltip.hover.right="'ToolTip!'" variant="primary">Right</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-tooltip.hover.left="'ToolTip!'" variant="primary">Left</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3">
+        <b-btn v-b-tooltip.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
+      </b-col>
+    </b-row>
+  </b-container>
+</template>
+
+<!-- tooltip-positioning.vue -->
+```
+
+
+## Triggers
+Tooltips can be triggered (opened/closed) via any combination of `click`, `hover` and
+`focus`. The default trigger is `hover focus`.
+
+If a tooltip has more than one trigger, then all triggers must be cleared before the
+tooltip will close. I.e. if a tooltip has the trigger `focus click`, and it was opened by
+`focus`, and the user then clicks the trigger element, they must click it again **and**
+move focus to close the tooltip.
 
 ```html
 <template>
@@ -43,22 +155,46 @@ Things to know when using tooltips:
         <b-btn v-b-tooltip.focus="'ToolTip!'" variant="outline-success">Focus</b-btn>
       </b-col>
     </b-row>
-    <h5 class="mt-4">Positioning</h5>
-    <b-row class="text-center">
-      <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.top="'ToolTip!'" variant="primary">Top</b-btn>
-      </b-col>
-      <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.right="'ToolTip!'" variant="primary">Right</b-btn>
-      </b-col>
-      <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.left="'ToolTip!'" variant="primary">Left</b-btn>
-      </b-col>
-      <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
-      </b-col>
-    </b-row>
-    <h5 class="mt-4">Content</h5>
+  </b-container>
+</template>
+
+<!-- tooltip-triggers.vue -->
+```
+
+### Dismiss on next click
+Use both `click` and `blur` if you would like a tooltip that opens only on click of
+the element, but will close when anything else in the document is clicked or
+receives focus.
+
+Note that your elment **must** be in the document tab sequence for this to work. If
+your element is not tabable, add the `tabindex="0"` attribute to the element.
+
+## Title content
+There are seveal options for providing the title of a tooltip.
+
+By default, tooltip will ue the `title` attribute of the element as the
+tooltip content. The title can also be passed as an object to `v-b-tooltip
+` in the form of
+```js
+{
+   title: 'This is the title',
+}
+```
+If your title content has basic HTML markup, then you will also need to set the `html`
+property to true, or use the diretive modifier `html`
+```js
+// Object format with HTML:
+{
+   title: 'This is the <string>title</strong>',
+   html: true
+}
+```
+
+Title can also be a function reference, which is called each time the tooltip is opened.
+
+```html
+<template>
+  <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
         <b-btn v-b-tooltip.hover title="Tip from title attributee" variant="success">Title</b-btn>
@@ -89,10 +225,10 @@ export default {
 }
 </script>
 
-<!-- tooltip-1.vue -->
+<!-- tooltip-content.vue -->
 ```
 
-## Directive syntax
+## Directive syntax and usage
 
 ```
 v-b-tooltip:[container].[mod1].[mod2].[...].[modN]="<value>"
@@ -115,7 +251,7 @@ Where [container] can be (optional)
  - An element ID (minus the #) to place the tooltip markup in
  - If not provided, tooltips are appended to the body
 
-## Usage
+### Usage
 
 **Simplest usage:**
 ```
@@ -143,18 +279,14 @@ v-b-tooltip.hover.bottom  => Show on hover and place at bottom
 v-b-tooltip.bottom.hover  => Same as above
 ```
 
-### Dismiss on next click
-Use both `click` and `blur` if you would like a tooltip that opens only on click of
-the element, but will close when anything else in the document is clicked or
-receives focus.
-
-Note that your elment **must** be in the document tab sequence for this to work. If
-your element is not tabable, add the `tabindex="0"` attribute to the element.
-
-
-## Closing tooltips
+## Closing all tooltips
 You can close all open tooltips by emitting the `bv::hide::tooltip` event on $root:
 
 ```js
 this.$root.$emit('bv::hide::tooltip');
 ```
+
+## See also
+- [`v-b-popover` directive](/docs/diretives/popove)
+- [`<b-tooltip>` component](/docs/components/tooltip)
+- [`<b-popover>` component](/docs/components/popover)
