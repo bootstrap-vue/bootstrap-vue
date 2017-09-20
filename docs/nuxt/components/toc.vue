@@ -99,7 +99,7 @@ function scrollTo(element, to, duration, cb) {
     const animateScroll = function(){        
         currentTime += increment;
         const val = easeInOutQuad(currentTime, start, change, duration);
-        element.scrollTop = val;
+        element.scrollTop = Math.round(val);
         if(currentTime < duration) {
             setTimeout(animateScroll, increment);
         } else {
@@ -148,12 +148,13 @@ export default {
             e.stopPropagation();
             const el = href ? document.querySelector(href) : null;
             if (el) {
-                // Set a tab index so we can focus header for a11y support
-                el.tabIndex = -1;
                 // Get the document scrolling element
                 const scroller = document.scrollingElement || document.documentElement || document.body;
                 // scroll heading into view (minus offset to account for nav top height
                 scrollTo(scroller, el.offsetTop -70, 100, () => {
+                    // Set a tab index so we can focus header for a11y support
+                    el.tabIndex = -1;
+                    // Focus the element
                     el.focus();
                 });
             }
