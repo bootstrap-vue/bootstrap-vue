@@ -81,7 +81,7 @@ export default {
 ```
 
 
-### Sizing
+## Sizing
 Carousels don’t automatically normalize slide dimensions. As such, you may need to use
 additional utilities or custom styles to appropriately size content. When using images
 in each slide, ensure they all have the same dimensions (or aspect ratio).
@@ -98,7 +98,7 @@ component to render the images. The `img-*` props map to the corresponsing props
 available to `<b-img>`.
 
 
-### Interval
+## Interval
 Carousel defaults to an interval of `5000`ms (5 seconds). To pause the carousel from
 auto sliding, set the `interval` prop to `0`. To restart a paused carousel, set the
 `interval` back to the number of ms.
@@ -108,7 +108,7 @@ is supported, the carousel will avoid sliding when the webpage is not visible to
 the user (such as when the browser tab is inactive, the browser window is minimized, etc.).
 
 
-### Controls and Indicators
+## Controls and Indicators
 Set the prop `controls` to enable the previous and next control buttons.
 
 Set the prop `indicators` to show the slide indicator buttons.
@@ -116,12 +116,12 @@ Set the prop `indicators` to show the slide indicator buttons.
 Both indicators and controls can be set at the same time or independently.
 
 
-### V-model support
+## V-model support
 Programmaticaly control which slide is showing via `v-model` (which binds to the
 `value` prop). Note, that slides are indexed starting at `0`.
 
 
-### Accessibility
+## Accessibility
 Carousels are generally not fully compliant with accessibility standards, although
 we try to make them as accessible as possible.
 
@@ -130,3 +130,5 @@ accessibility features.  It is highly recommended to always add an ID to all com
 
 All carousel controls and indicators have aria labels.  These can be customized by
 setting the various `label-*` props.
+
+## Component Reference

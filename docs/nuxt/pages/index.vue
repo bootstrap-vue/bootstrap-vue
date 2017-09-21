@@ -9,7 +9,7 @@
       <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
         <h1 class="mb-3 bd-text-purple-bright">Bootstrap + Vue</h1>
         <p class="lead">
-          Build responsive, mobile-first projects on the web Vue.js and the world's most popular front-end CSS library &mdash; Bootstrap V4.
+          Build responsive, mobile-first projects on the web using Vue.js and the world's most popular front-end CSS library &mdash; Bootstrap V4.
         </p>
         <p class="lead mb-3">
            <span class="bd-text-purple-bright">Bootstrap-Vue</span> provides one of the most comprehensive implementations

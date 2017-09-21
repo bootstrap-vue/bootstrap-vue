@@ -63,7 +63,7 @@ and `outline-danger`.
 Variant `link` will render a button with the appearance of a link while maintaining the
 default padding and size of a button.
 
-### Disabled state
+## Disabled state
 
 Set the `disabled` prop to disable button default functionality. `disabled` also
 works with buttons, rendered as `<a>` elements and `<router-link>`.
@@ -77,13 +77,13 @@ works with buttons, rendered as `<a>` elements and `<router-link>`.
 <!-- button-3.vue -->
 ```
 
-### Button type
+## Button type
 
 When neither `href` nor `to` props are provided, `<b-button>` renders an html `<button>`
 element.  You can specify the button's type by setting the prop `type` to `button`,
 `submit` or `reset`.  The default type is `button`.
 
-### Pressed state and toggling
+## Pressed state and toggling
 
 Buttons will appear pressed (with a darker background, darker border, and inset shadow)
 when the prop `presed` is set to `true`.
@@ -142,17 +142,23 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 <!-- button-4.vue -->
 ```
 
-### Router links
+If using toggle button style for a radio or checkbox style interface, it is best to use hhe
+built-in `button` style support of [`<b-form-radio-group>`](/docs/components/form-radios) and
+[`b-checkbox-group>`](/docs/components/form-checkboxes).
+
+## Router link support
 
 Refer to [`vue-router`](https://router.vuejs.org/) docs for the various `<router-link>` related props.
 
 Note the `tag` attribute for `<router-link>` is referred to as `router-tag` in `bootstrap-vue`.
 
-### Alias
+## Alias
 
 `<b-button>` can also be used by its shorter alias `<b-btn>`.
 
-### See also
+## See also
 
 - [`<b-button-group>`](./button-group)
 - [`<b-button-toolbar>`](./button-toolbar)
+
+## Component Reference

@@ -17,6 +17,7 @@ feature a handful of helpful sub-components, sizes, variants, accessibility, and
 <!-- modal-1.vue -->
 ```
 
+## Overview
 `<b-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. These buttons can
 be customized by setting various props on the component. You can customize the size of the buttons,
 disable the **OK** button, hide the **Cancel** button (i.e. OK Only), choose a variant (e.g. `danger`
@@ -394,7 +395,7 @@ For `aria-labelledby` and `aria-described` by attributes to appear on the
 modal, you **must** supply an `id` attribute on `<b-modal>`. `aria-labelledby` will
 not be present if you have the header hidden.
 
-### Auto Focus
+## Auto Focus on open
 
 `<b-modal>` will autofocus the modal container when opened.
 
@@ -423,13 +424,13 @@ methods: {
 }
 ```
 
-### Returning focus to the triggering element on modal close
+## Returning focus to the triggering element
 
 For accessibility reasons, it is desireable to return focus to the element
 that triggered the opening of the modal, when the modal closes.  `<b-modal>`
 provides several methods and options for returning focus to the triggering element.
 
-#### Specify Return Focus Element via the `return-focus` Prop:
+### Specify Return Focus Element via the `return-focus` Prop
 
 You can also specify an element to return focus to, when modal closes, by setting
 the `return-focus` prop to one of the following:
@@ -445,13 +446,13 @@ This method for returning focus is handy when you use the `<b-modal>` methods `s
 and `hide()`, or the `v-model` prop. Note this property takes
 precedence over other methods of specifying the return focus element.
 
-#### Auto Return Focus
+### Auto Return Focus
 
 When `<b-modal>` is opened via the `v-b-modal` directive on an element, focus will be
 returned to this element automatically when `<b-modal>` closes, unless an element has
 been specified via the `return-focus` prop.
 
-#### Specify Return Focus via Event
+### Specify Return Focus via Event
 
 When using the `bv::show::modal` event (emitted on `$root`), you can specify a second argument
 which is the element to return focus to.  This argument accepts the same types
@@ -473,10 +474,12 @@ event's `target` property:
 **Note:** If the `<b-modal>` has the `return-focus` prop set, then the element specified
 via the event will be ignored.
 
-### Keyboard Navigation
+## Keyboard Navigation
 
 When tabbing through elements within a `<b-modal>`, if focus attempts to leave the modal into the document,
 it  will be brought back into the modal.
 
 In some circumstances, you may need to disable the enforce focus feature. You can do this
 by setting the prop `no-enforce-focus`.
+
+## Component Reference

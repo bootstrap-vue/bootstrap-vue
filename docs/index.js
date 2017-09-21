@@ -3,9 +3,70 @@ import components from './components'
 import directives from './directives'
 import reference from './reference'
 import layout from './layout'
+import misc from './misc'
+import setup from '~/../README.md';
 
+// Process an hTML readme and create a page TOC array
+function processHeadings(readme) {
+    if (!readme) {
+        return [];
+    }
+    const toc = [];
+
+    // Grab the first H1 tag with ID from readme
+    const h1 = readme.match(/<h1.*? id="([^"]+)".*?>(.+?)<\/h1>/) || [];
+
+    // Grab all the H2 and H3 tags with ID's from readme
+    const headings = readme.match(/<h[23].*? id="[^"]+".+?<\/h\d>/g) || [];
+
+    // Process teh h2 and h3 headings
+    let h2Idx = 0;
+    headings.forEach(heading => {
+        // Pass the link, label and heading level
+        const matches = heading.match(/^<(h[23]).*? id="([^"]+)"[^>]*>(.+?)<\/h\d>$/);
+        const tag = matches[1];
+        const href = `#${matches[2]}`;
+        // Remove any HTML markup in the label
+        const label = matches[3].replace(/<[^>]+>/g, '');
+        if (tag === 'h2') {
+            toc.push({ href, label });
+            h2Idx = toc.length;
+        } else if (tag === 'h3') {
+            toc[h2Idx] = toc[h2Idx] || [];
+            toc[h2Idx].push({ href, label });
+        }
+    });
+    return { toc, title: h1[2] || '', top: h1[1] ? `#${h1[1]}` : '' };
+}
+
+// Our documentation sections
+const SECTIONS = {
+    components,
+    directives,
+    reference,
+    misc
+};
+
+// TOC object
+const TOC = {};
+
+// Special case for /docs
+TOC['/docs/'] = processHeadings(setup);
+
+// Special case for /layout
+TOC['/docs/layout/'] = processHeadings(layout.readme);
+
+// Process the rest of the sections
+Object.keys(SECTIONS).forEach(section => {
+    Object.keys(SECTIONS[section]).forEach(page => {
+      TOC[`/docs/${section}/${page}/`] = processHeadings(SECTIONS[section][page].readme);
+    });
+});
+
+// Out site object
 export default {
     package_info,
+    toc: TOC,
     nav: [
         {
             title: 'Getting started',
@@ -57,11 +118,15 @@ export default {
         },
         {
             title: 'Misc',
-            slug: '',
-            pages: [
-                {title: 'Release Notes', slug: 'changelog'},
-                {title: 'Contributing', slug: 'contributing'},
-            ]
-        },
+            slug: 'misc/',
+            pages: Object.keys(misc).map(key => {
+                return {
+                    title: misc[key].meta.title,
+                    new: misc[key].meta.new,
+                    beta: misc[key].meta.beta,
+                    slug: key
+                }
+            })
+        }
     ]
 }

@@ -1,6 +1,6 @@
 # Getting Started
 
-### Webpack
+## Webpack
 If you are using module bundlers such as Webpack, Rollup, Laravel elixir/mix, etc you may prefer directly include package
 into your project. To get started use yarn or npm to get latest version first:
 
@@ -29,7 +29,7 @@ manually include both [Bootstrap](https://v4-alpha.getbootstrap.com/getting-star
 and [BootstrapVue](https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css) CSS files
 in your bundle or reference them from `static/` via `index.html`.
 
-### Nuxt.js
+## Nuxt.js
 You can use official [Nuxt.js](https://nuxtjs.org) module to add BootstrapVue support. ([module docs](https://github.com/nuxt-community/modules/tree/master/modules/bootstrap-vue))
 
 - Add `@nuxtjs/bootstrap-vue` dependency using yarn or npm to your project:
@@ -46,7 +46,7 @@ You can use official [Nuxt.js](https://nuxtjs.org) module to add BootstrapVue su
 }
 ```
 
-### vue-cli
+## vue-cli
 
 Download the dependencies:
 
@@ -66,7 +66,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 Vue.use(BootstrapVue)
 ```
 
-### Individual components and directives
+## Individual components and directives
 If for any reason just want to use a specific component, you can do this by directly importing that component.
 This is not recommended as entire package gzipped size is ~40Kb (including Popper.js)!
 
@@ -88,7 +88,7 @@ new Vue({
   // ...
 })
 ```
-### Browser
+## Browser
 
 ```html
 <!-- Add this to <head> -->
@@ -119,19 +119,19 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 
 ## Browsers Support
 
-**CSS**
+### CSS
 
 BootstrapVue is to be used with Bootstrap 4 CSS.
 Please see [Browsers and devices](https://v4-alpha.getbootstrap.com/getting-started/browsers-devices)
 for more information about browsers currently supported by Bootstrap 4. 
 
-**JS**
+### JS
 
 BootstrapVue is written in Vue! So this is up to your project and bundler that which browsers are supported.
 If you want to support older IE, Android and IOS devices, you may want to use
 [Babel Polyfill](https://babeljs.io/docs/usage/polyfill)
 
-**IE 11**
+### IE 11
 
 You'll need babel-polyfill for BootstrapVue to work properly. In order to support this browser: 
 - `npm install babel-polyfill`

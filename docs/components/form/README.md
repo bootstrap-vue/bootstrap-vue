@@ -100,3 +100,5 @@ to the form.
 ### Validation methods
 
 Coming soon.
+
+## Component Reference

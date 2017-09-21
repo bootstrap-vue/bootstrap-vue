@@ -321,3 +321,5 @@ that has the `select-size` prop set to a value greater than 1.
 ## Aliases
 - `<b-form-select>` can be used by the shorter alias `<b-select>`.
 
+## Component Reference
+

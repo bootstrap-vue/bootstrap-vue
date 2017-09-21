@@ -366,3 +366,5 @@ chechbox input by setting the `plain` prop.
 - `<b-form-checbox-group>` can be used by the shorter aliases `<b-checkbox-group>` and `<b-check-group>`.
 - `<b-form-checkbox>` can be used by thes shorter aliases `<b-checkbox>` and `<b-check>`.
 
+
+## Component Reference

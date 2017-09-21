@@ -26,7 +26,7 @@
 <!-- button-group-1.vue -->
 ```
 
-### Sizing
+## Sizing
 Set the size prop to `lg` or `sm` to render larger or smaller, respectively, buttons.
 There is no need to specify the size on the individual buttons.
 
@@ -55,7 +55,7 @@ There is no need to specify the size on the individual buttons.
 <!-- button-group-2.vue -->
 ```
 
-### Vertical variation
+## Vertical variation
 Make a set of buttons appear vertically stacked rather than horizontally by setting
 the `vertical` prop. Split button dropdowns are not supported here.
 
@@ -72,7 +72,7 @@ the `vertical` prop. Split button dropdowns are not supported here.
 <!-- button-group-3.vue -->
 ```
 
-### Dropdown menu support
+## Dropdown menu support
 Add [`<b-dropdown>`](./dropdown) menus directly inside your `<b-button-group>`. Note
 that split dropdown menus are not supported when prop `vertical` is set.
 
@@ -101,13 +101,12 @@ that split dropdown menus are not supported when prop `vertical` is set.
 <!-- button-group-4.vue -->
 ```
 
-### Alias
+## Alias
 `<b-button-group>` can also be used by its shorter alias `<b-btn-group>`.
 
-### See also
+## See also
 Also check out the [`<b-button-toolabr>`](./button-toolbar) component for generating
 toolbars containing button groups and input groups.
 
-### Tooltips and popovers
-Due to the specific implementation (and some other components), tooltips and popovers
-on elements within a button-group will have adverse effect on styling.
+
+## Component Reference

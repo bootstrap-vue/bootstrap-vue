@@ -28,6 +28,7 @@ export default {
 <!-- breadcrumb.vue -->
 ```
 
+## Breadcrumb items
 Items are rendered using `:items` prop.
 It can be an array of objects to provide link and active state.
 Links can be `href`'s for anchor tags, or `to`'s for router-links.
@@ -47,3 +48,5 @@ items = [
   }
 ]
 ```
+
+## Component Reference

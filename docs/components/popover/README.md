@@ -39,6 +39,125 @@ in rare circumstances, so please test your implmentation accordingly! The `title
 and `content` props do not have this behavior. For simple popovers, we recommend
 using the `v-b-popover` directive and enable the `html` modifer if needed._
 
+## Positioning
+Twelve options are available for positioning: `top`, `topleft`, `topright`, `right`, `righttop`,
+`rightbottom`, `bottom`, `bottomleft`, `bottomright`, `left`, `lefttop`, and `leftbottom` aligned.
+Positioning is relative to the trigger element.
+
+<div class="bd-example bd-example-popover-static">
+  <div class="popover bs-popover-top bs-popover-top-docs">
+    <div class="arrow"></div>
+    <h3 class="popover-header">Popover top</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+  <div class="popover bs-popover-top bs-popover-top-docs">
+    <div class="arrow" style="left:93%"></div>
+    <h3 class="popover-header">Popover topleft</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+  <div class="popover bs-popover-top bs-popover-top-docs">
+    <div class="arrow" style="left:4%"></div>
+    <h3 class="popover-header">Popover topright</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+   
+  <div class="popover bs-popover-right bs-popover-right-docs">
+    <div class="arrow"></div>
+    <h3 class="popover-header">Popover right</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+  <div class="popover bs-popover-right bs-popover-right-docs">
+    <div class="arrow" style="top:89%"></div>
+    <h3 class="popover-header">Popover righttop</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+  <div class="popover bs-popover-right bs-popover-right-docs">
+    <div class="arrow" style="top:7%"></div>
+    <h3 class="popover-header">Popover rightbottom</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+
+  <div class="popover bs-popover-bottom bs-popover-bottom-docs">
+    <div class="arrow"></div>
+    <h3 class="popover-header">Popover bottom</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+  <div class="popover bs-popover-bottom bs-popover-bottom-docs">
+    <div class="arrow" style="left:93%"></div>
+    <h3 class="popover-header">Popover bottomleft</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+  <div class="popover bs-popover-bottom bs-popover-bottom-docs">
+    <div class="arrow" style="left:4%"></div>
+    <h3 class="popover-header">Popover bottomright</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+
+  <div class="popover bs-popover-left bs-popover-left-docs">
+    <div class="arrow"></div>
+    <h3 class="popover-header">Popover left</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+  <div class="popover bs-popover-left bs-popover-left-docs">
+    <div class="arrow" style="top:89%"></div>
+    <h3 class="popover-header">Popover lefttop</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+  <div class="popover bs-popover-left bs-popover-left-docs">
+    <div class="arrow" style="top:7%"></div>
+    <h3 class="popover-header">Popover leftbottom</h3>
+    <div class="popover-body">
+      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+</div>
+
+
+## Triggers
+Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and
+`focus`. The default trigger is `click`.
+
+If a popover has more than one trigger, then all triggers must be cleared before the
+popover will close. I.e. if a popover has the trigger `focus click`, and it was opened by
+`focus`, and the user then clicks the trigger element, they must click it again **and**
+move focus to close the popover.
+
+### Dismiss on next click (self dimissing)
+Use the `focus` trigger by itself to dismiss popovers on the next click that the user makes.
+`focus` also makes the popover activate on both `focus` and `click` (as a click makes
+the element receive focus, assuming it is in the tab sequence of the page).
+
+You can, however, specify your trigger as `click blur`,  which will make only a
+click activate the popover, and either a click on the element - _or losing foucus
+to another element or part of the document_ - will close the popover.
+
+This `blur` trigger must be used in combination with the `click` trigger.
+
+
 ## `<b-popover>` Component basic usage
 ```html
 <template>
@@ -46,8 +165,8 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
 
     <h5 class="my-3">Placement</h5>
     <b-row>
-      <b-col md="3" class="py-4 text-center"
-           v-for="placement in ['top', 'left', 'right', 'bottom']" :key="placement">
+      <b-col md="4" class="py-4 text-center"
+           v-for="placement in placements" :key="placement">
         <b-btn :id="'exPopover1-'+placement" variant="primary">
           {{ placement }}
         </b-btn>
@@ -55,7 +174,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
                    :placement="placement"
                    title="Popover!"
                    triggers="hover focus"
-                   :content="placement">
+                   :content="`Placement ${placement}`">
         </b-popover>
       </b-col>
     </b-row>
@@ -84,6 +203,19 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
   </b-container>  
 </template>
 
+<script>
+export default {
+    data: {
+        placements: [
+            'topright', 'top', 'topleft',
+            'bottomright', 'bottom', 'bottomleft',
+            'righttop', 'right', 'lefttop',
+            'rightbottom', 'left', 'leftbottom'
+        ]
+    }
+}
+</script>
+
 <!-- popover-1.vue -->
 ```
 
@@ -94,7 +226,7 @@ using the `v-b-popover` directive and enable the `html` modifer if needed._
 | `target` | `null` | String ID of element, or a reference to an element or component, that you want to trigger the popover. **Required** | Any valid, in-document unique element ID, or in-document element/component reference
 | `title` | `null` | Title of popover (text only, no HTML). if HTML is required, place it in the `title` named slot | Plain text
 | `content` | `null` | Content of popover (text only, no HTML). if HTML is required, place it in the default slot | Plain text
-| `placement` | `'top'` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`
+| `placement` | `'top'` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
 | `triggers` | `'click'` |  Space separated list of which event(s) will trigger open/close of popover | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of popover | `0` and up, integers only.
@@ -305,3 +437,5 @@ have done in the above example.
 You may also want to implement focus containment in the popover content while the
 user is interactiving with it (keeping focus inside the popover until it is closed
 by the user).
+
+## Component Reference

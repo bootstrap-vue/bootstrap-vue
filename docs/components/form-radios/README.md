@@ -164,7 +164,7 @@ the radios appear one over the other.
 <!-- form-radio-stacked-1.vue -->
 ```
 
-### Button style radios
+## Button style radios
 Render radios with the look of buttons by setting the prop `buttons`. Set the button variant by
 setting the `button-variant` prop to one of the standard Bootstrap button variants (see
 [`<b-button>`](./button) for supported variants). The default `button-variant` is `secondary`.
@@ -223,7 +223,7 @@ export default {
 <!-- form-radio-buttons.vue -->
 ```
 
-### Contextual States
+## Contextual States
 Bootstrap includes validation styles for `valid` and `invalid` states
 on most form controls.
 
@@ -305,3 +305,5 @@ You can have `b-form-radio` render a browser native radio input by setting the `
 ## Aliases
 - `<b-form-radio-group>` can be used by the shorter aliant `<b-radio-group>`.
 - `<b-form-radio>` can be used by the shorter alias of `<b-radio>`.
+
+## Component Reference

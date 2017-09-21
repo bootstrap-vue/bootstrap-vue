@@ -1,52 +1,51 @@
 <template>
     <table :id="id || null"
            :aria-busy="computedBusy ? 'true' : 'false'"
-           :class="tableClass">
-        <thead :class="headClass">
+           :class="tableClasses">
+        <thead :class="headClasses">
             <tr>
-                <th v-for="(field,key) in computedFields"
-                    @click.stop.prevent="headClicked($event,field,key)"
-                    @keydown.enter.stop.prevent="headClicked($event,field,key)"
-                    @keydown.space.stop.prevent="headClicked($event,field,key)"
-                    :key="key"
-                    :class="fieldClass(field,key)"
+                <th v-for="field in computedFields"
+                    @click.stop.prevent="headClicked($event,field)"
+                    @keydown.enter.stop.prevent="headClicked($event,field)"
+                    @keydown.space.stop.prevent="headClicked($event,field)"
+                    :key="field.key"
+                    :class="fieldClasses(field)"
                     :style="field.thStyle || {}"
-                    :aria-label="field.sortable ? ((localSortDesc && localSortBy === key) ? labelSortAsc : labelSortDesc) : null"
-                    :aria-sort="(field.sortable && localSortBy === key) ? (localSortDesc ? 'descending' : 'ascending') : null"
+                    :aria-label="field.sortable ? ((localSortDesc && localSortBy === field.key) ? labelSortAsc : labelSortDesc) : null"
+                    :aria-sort="(field.sortable && localSortBy === field.key) ? (localSortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null">
-                    <slot :name="'HEAD_'+key"
+                    <slot :name="'HEAD_'+field.key"
                           :label="field.label"
-                          :column="key"
+                          :column="field.key"
                           :field="field">
                         <div v-html="field.label"></div>
                     </slot>
                 </th>
             </tr>
         </thead>
-        <tfoot v-if="footClone"
-               :class="footClass">
+        <tfoot v-if="footClone" :class="footClasses">
             <tr>
-                <th v-for="(field,key) in computedFields"
-                    @click.stop.prevent="headClicked($event,field,key)"
-                    @keydown.enter.stop.prevent="headClicked($event,field,key)"
-                    @keydown.space.stop.prevent="headClicked($event,field,key)"
-                    :key="key"
-                    :class="fieldClass(field,key)"
+                <th v-for="field in computedFields"
+                    @click.stop.prevent="headClicked($event,field)"
+                    @keydown.enter.stop.prevent="headClicked($event,field)"
+                    @keydown.space.stop.prevent="headClicked($event,field)"
+                    :key="field.key"
+                    :class="fieldClasses(field)"
                     :style="field.thStyle || {}"
-                    :aria-label="field.sortable ? ((localSortDesc && localSortBy === key) ? labelSortAsc : labelSortDesc) : null"
-                    :aria-sort="(field.sortable && localSortBy === key) ? (localSortDesc ? 'descending' : 'ascending') : null"
+                    :aria-label="field.sortable ? ((localSortDesc && localSortBy === field.key) ? labelSortAsc : labelSortDesc) : null"
+                    :aria-sort="(field.sortable && localSortBy === field.key) ? (localSortDesc ? 'descending' : 'ascending') : null"
                     :tabindex="field.sortable?'0':null">
-                    <slot v-if="$scopedSlots['FOOT_'+key]"
-                          :name="'FOOT_'+key"
+                    <slot v-if="$scopedSlots['FOOT_'+field.key]"
+                          :name="'FOOT_'+field.key"
                           :label="field.label"
-                          :column="key"
+                          :column="field.key"
                           :field="field">
                         <div v-html="field.label"></div>
                     </slot>
                     <slot v-else
-                          :name="'HEAD_'+key"
+                          :name="'HEAD_'+field.key"
                           :label="field.label"
-                          :column="key"
+                          :column="field.key"
                           :field="field">
                         <div v-html="field.label"></div>
                     </slot>
@@ -56,65 +55,63 @@
         <tbody>
             <tr v-if="$scopedSlots['top-row']">
                 <slot name="top-row"
-                      :columns="keys(fields).length"
-                      :fields="fields"></slot>
+                      :columns="computedFields.length"
+                      :fields="computedFields"></slot>
             </tr>
             <tr v-for="(item,index) in computedItems"
                 :key="index"
-                :class="rowClass(item)"
+                :class="rowClasses(item)"
                 @click="rowClicked($event,item,index)"
                 @dblclick="rowDblClicked($event,item,index)"
                 @mouseenter="rowHovered($event,item,index)">
-                <template v-for="(field,key) in computedFields">
-                    <td v-if="$scopedSlots[key]"
-                        :class="tdClass(field, item, key)"
-                        :key="key">
-                        <slot :name="key"
-                              :value="getFormattedValue(item, key, field)"
-                              :unformatted="item[key]"
+                <template v-for="field in computedFields">
+                    <td v-if="$scopedSlots[field.key]"
+                        :class="tdClasses(field, item)"
+                        :key="field.key">
+                        <slot :name="field.key"
+                              :value="getFormattedValue(item, field)"
+                              :unformatted="item[field.key]"
                               :item="item"
                               :index="index"
                         ></slot>
                     </td>
                     <td v-else
-                        :class="tdClass(field, item, key)"
-                        :key="key"
-                        v-html="getFormattedValue(item, key, field)"
+                        :class="tdClasses(field, item)"
+                        :key="field.key"
+                        v-html="getFormattedValue(item, field)"
                     ></td>
                 </template>
             </tr>
             <tr v-if="showEmpty && (!computedItems || computedItems.length === 0)">
-                <td :colspan="keys(computedFields).length">
+                <td :colspan="computedFields.length">
                     <div v-if="filter"
                          role="alert"
                          aria-live="polite">
                         <slot name="emptyfiltered">
-                            <div class="text-center my-2"
-                                 v-html="emptyFilteredText"></div>
+                            <div class="text-center my-2" v-html="emptyFilteredText"></div>
                         </slot>
                     </div>
                     <div v-else
                          role="alert"
                          aria-live="polite">
                         <slot name="empty">
-                            <div class="text-center my-2"
-                                 v-html="emptyText"></div>
+                            <div class="text-center my-2" v-html="emptyText"></div>
                         </slot>
                     </div>
                 </td>
             </tr>
             <tr v-if="$scopedSlots['bottom-row']">
                 <slot name="bottom-row"
-                      :columns="keys(fields).length"
-                      :fields="fields"></slot>
+                      :columns="computedfields.length"
+                      :fields="computedFields"></slot>
             </tr>
         </tbody>
     </table>
 </template>
 
 <script>
-import { warn, pluckProps } from '../utils';
-import { keys } from '../utils/object';
+import { warn, pluckProps, looseEqual } from '../utils';
+import { keys, assign } from '../utils/object';
 import { isArray } from '../utils/array'
 import { listenOnRootMixin } from '../mixins';
 import startCase from 'lodash.startcase';
@@ -135,8 +132,8 @@ function recToString(obj) {
     }
 
     return toString(keys(obj).reduce((o, k) => {
-        // Ignore fields 'state' and ones that start with _
-        if (!(/^_/.test(k) || k === 'state')) {
+        // Ignore fields that start with _
+        if (!/^_/.test(k)) {
             o[k] = obj[k];
         }
         return o;
@@ -152,8 +149,22 @@ function defaultSortCompare(a, b, sortBy) {
     });
 }
 
-function hasFormatter(field) {
-    return field.formatter && (typeof field.formatter === "function" || typeof field.formatter === "string")
+function processField(key, value) {
+    let field = null;
+    if (typeof value === 'string') {
+        // Label shortcut
+        field = { key: key, label: startCase(value) };
+    } else if (typeof value === 'function') {
+        // Formatter shortcut
+        field = { key: key, formatter: value };
+    } else if (typeof value === 'object') {
+        field = assign({}, value);
+        field.key = field.key || key;
+    } else if (value !== false) {
+        // Fallback to just key
+        field = { key: key };
+    }
+    return field;
 }
 
 export default {
@@ -219,6 +230,10 @@ export default {
             type: Boolean,
             default: false
         },
+        fixed: {
+            type: Boolean,
+            default: false
+        },
         headVariant: {
             type: String,
             default: ''
@@ -242,6 +257,10 @@ export default {
         sortCompare: {
             type: Function,
             default: null
+        },
+        noLocalSorting: {
+            type: Boolean,
+            default: false
         },
         noProviderPaging: {
             type: Boolean,
@@ -294,8 +313,13 @@ export default {
                 this._providerUpdate();
             }
         },
+        context(newVal, oldVal) {
+            if(!looseEqual(newVal, oldVal)) {
+                this.$emit('context-changed', newVal);
+            }
+        },
         filteredItems(newVal, oldVal) {
-            if (!this.providerFiltering && newVal.length !== oldVal.length) {
+            if (this.localFiltering && newVal.length !== oldVal.length) {
                 // Emit a filtered notification event, as number of filtered items has changed
                 this.$emit('filtered', newVal);
             }
@@ -357,14 +381,14 @@ export default {
         if (this.hasProvider) {
             this._providerUpdate();
         }
-        this.listenOnRoot('table::refresh', id => {
-            if (id === this.id) {
+        this.listenOnRoot('bv::refresh::table', id => {
+            if (id === this.id || id === this) {
                 this._providerUpdate();
             }
         });
     },
     computed: {
-        tableClass() {
+        tableClasses() {
             return [
                 'table',
                 'b-table',
@@ -373,27 +397,28 @@ export default {
                 this.inverse ? 'table-inverse' : '',
                 this.bordered ? 'table-bordered' : '',
                 this.responsive ? 'table-responsive' : '',
+                this.fixed ? 'table-fixed' : '',
                 this.small ? 'table-sm' : ''
             ];
         },
-        headClass() {
+        headClasses() {
             return this.headVariant ? 'thead-' + this.headVariant : '';
         },
-        footClass() {
+        footClasses() {
             const variant = this.footVariant || this.headVariant || null;
             return variant ? 'thead-' + variant : '';
         },
         hasProvider() {
             return this.items instanceof Function;
         },
-        providerFiltering() {
-            return Boolean(this.hasProvider && !this.noProviderFiltering);
+        localFiltering() {
+            return this.hasProvider ? this.noProviderFiltering : true;
         },
-        providerSorting() {
-            return Boolean(this.hasProvider && !this.noProviderSorting);
+        localSorting() {
+            return this.hasProvider ? this.noProviderSorting : !this.noLocalSorting;
         },
-        providerPaging() {
-            return Boolean(this.hasProvider && !this.noProviderPaging);
+        localPaging() {
+            return this.hasProvider ? this.noProviderPaging : true;
         },
         context() {
             return {
@@ -406,53 +431,56 @@ export default {
             };
         },
         computedFields() {
-            let fields
+            // We normalize fields into an array of objects
+            // [ { key:..., label:..., ...}, {...}, ..., {..}]
+            let fields = [];
 
-            // Normalize array Form
             if (isArray(this.fields)) {
-                fields = {}
+                // Normalize array Form
                 this.fields.filter(f => f).forEach(f => {
-                    fields[f.key || f] = f
+                    if (typeof f === 'string') {
+                        fields.push({ key: f, label: startCase(f) });
+                    } else if (typeof f === 'object' && f.key && typeof f.key === 'string') {
+                        // Full object definition. We use assign so that we don't mutate the original
+                        fields.push(assign({}, f));
+                    } else if (typeof f === 'object' && keys(f).length === 1) {
+                        // Shortcut object (i.e. { 'foo_bar': 'This is Foo Bar' }
+                        const key = keys(f)[0];
+                        const field = processField(key, f[key]);
+                        if (field) {
+                            fields.push(field);
+                        }
+                    }
                 })
-            } else {
-                fields = this.fields || {}
+            } else if (this.fields && typeof this.fields === 'object' && keys(this.fields).length > 0) {
+                // Normalize object Form
+                keys(this.fields).forEach(key => {
+                    let field = processField(key, this.fields[key])
+                    if (field) {
+                        fields.push(field);
+                    }
+                });
             }
 
             // If no field provided, take a sample from first record (if exits)
-            if (keys(fields).length === 0 && this.computedItems.length > 0) {
+            if (fields.length === 0 && this.computedItems.length > 0) {
                 const sample = this.computedItems[0]
                 keys(sample).forEach(k => {
-                    fields[k] = true
-                })
+                    fields.push({ key: k , label: startCase(k)});
+                });
             }
 
-            // Normalize fields
-            keys(fields).forEach(k => {
-                // Hidden
-                if (fields[k] === false) {
-                    delete fields[k]
-                    return
+            // Ensure we have a unique array of fields and that htey have labels
+            const memo = {};
+            return fields.filter(f => {
+                if (!memo[f.key]) {
+                    memo[f.key] = true;
+                    f.label = f.label || startCase(f.key);
+                    return true;
+                } else {
+                    return false;
                 }
-                // Humanize field label
-                if (fields[k] === true) {
-                    fields[k] = { label: startCase(k) }
-                    return
-                }
-                // Formatter shortcut
-                if (typeof fields[k] === 'function') {
-                    fields[k] = {
-                        label: startCase(k),
-                        formatter: fields[k]
-                    }
-                    return
-                }
-                // Label shortcut
-                if (typeof fields[k] === 'string') {
-                    fields[k] = { label: startCase(k) }
-                }
-            })
-
-            return fields
+            });
         },
         computedItems() {
             // Grab some props/data to ensure reactivity
@@ -462,6 +490,9 @@ export default {
             const sortBy = this.localSortBy;
             const sortDesc = this.localSortDesc;
             const sortCompare = this.sortCompare;
+            const localFiltering = this.localFiltering;
+            const localSorting = this.localSorting;
+            const localPaging = this.localPaging;
 
             let items = this.hasProvider ? this.localItems : this.items;
 
@@ -474,7 +505,7 @@ export default {
             items = items.slice();
 
             // Apply local filter
-            if (filter && !this.providerFiltering) {
+            if (filter && localFiltering) {
                 if (filter instanceof Function) {
                     items = items.filter(filter);
                 } else {
@@ -491,13 +522,13 @@ export default {
                     });
                 }
             }
-            if (!this.providerFiltering) {
+            if (localFiltering) {
                 // Make a local copy of filtered items to trigger filtered event
                 this.filteredItems = items.slice();
             }
 
             // Apply local Sort
-            if (sortBy && !this.providerSorting) {
+            if (sortBy && localSorting) {
                 items = items.sort(function sortItemsFn(a, b) {
                     let ret = null;
                     if (typeof sortCompare === 'function') {
@@ -514,7 +545,7 @@ export default {
             }
 
             // Apply local pagination
-            if (perPage && !this.providerPaging) {
+            if (Boolean(perPage) && localPaging) {
                 // Grab the current page of data (which may be past filtered items)
                 items = items.slice((currentPage - 1) * perPage, currentPage * perPage);
             }
@@ -529,19 +560,19 @@ export default {
     },
     methods: {
         keys,
-        fieldClass(field, key) {
+        fieldClasses(field) {
             return [
                 field.sortable ? 'sorting' : '',
-                (field.sortable && this.localSortBy === key) ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc') : '',
+                (field.sortable && this.localSortBy === field.key) ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc') : '',
                 field.variant ? ('table-' + field.variant) : '',
                 field.class ? field.class : '',
                 field.thClass ? field.thClass : ''
             ];
         },
-        tdClass(field, item, key) {
+        tdClasses(field, item) {
             let cellVariant = '';
-            if (item._cellVariants && item._cellVariants[key]) {
-                cellVariant = (this.inverse ? 'bg-' : 'table-') + item._cellVariants[key];
+            if (item._cellVariants && item._cellVariants[field.key]) {
+                cellVariant = (this.inverse ? 'bg-' : 'table-') + item._cellVariants[field.key];
             }
             return [
                 (field.variant && !cellVariant) ? ((this.inverse ? 'bg-' : 'table-') + field.variant) : '',
@@ -550,53 +581,45 @@ export default {
                 field.tdClass ? field.tdClass : ''
             ];
         },
-        rowClass(item) {
+        rowClasses(item) {
             return [
                 item._rowVariant ? ((this.inverse ? 'bg-' : 'table-') + item._rowVariant) : ''
             ];
         },
         rowClicked(e, item, index) {
-            if (this.computedBusy) {
+            if (this.stopIfBusy(e)) {
                 // If table is busy (via provider) then don't propagate
-                e.preventDefault();
-                e.stopPropagation();
                 return;
             }
             this.$emit('row-clicked', item, index, e);
         },
         rowDblClicked(e, item, index) {
-            if (this.computedBusy) {
+            if (this.stopIfBusy(e)) {
                 // If table is busy (via provider) then don't propagate
-                e.preventDefault();
-                e.stopPropagation();
                 return;
             }
             this.$emit('row-dblclicked', item, index, e);
         },
         rowHovered(e, item, index) {
-            if (this.computedBusy) {
+            if (this.stopIfBusy(e)) {
                 // If table is busy (via provider) then don't propagate
-                e.preventDefault();
-                e.stopPropagation();
                 return;
             }
             this.$emit('row-hovered', item, index, e);
         },
-        headClicked(e, field, key) {
-            if (this.computedBusy) {
+        headClicked(e, field) {
+            if (this.stopIfBusy(e)) {
                 // If table is busy (via provider) then don't propagate
-                e.preventDefault();
-                e.stopPropagation();
                 return;
             }
             let sortChanged = false;
             if (field.sortable) {
-                if (key === this.localSortBy) {
+                if (field.key === this.localSortBy) {
                     // Change sorting direction on current column
                     this.localSortDesc = !this.localSortDesc;
                 } else {
                     // Start sorting this column ascending
-                    this.localSortBy = key;
+                    this.localSortBy = field.key;
                     this.localSortDesc = false;
                 }
                 sortChanged = true;
@@ -606,11 +629,20 @@ export default {
                 sortChanged = true;
             }
 
-            this.$emit('head-clicked', key, field, e);
+            this.$emit('head-clicked', field.key, field, e);
             if (sortChanged) {
                 // Sorting parameters changed
                 this.$emit('sort-changed', this.context);
             }
+        },
+        stopIfBusy(evt) {
+            if (this.computedBusy) {
+                // If table is busy (via provider) then don't propagate
+                evt.preventDefault();
+                evt.stopPropagation();
+                return true;
+            }
+            return false;
         },
         refresh() {
             // Expose refresh method
@@ -647,74 +679,75 @@ export default {
                 this._providerSetLocal(data);
             }
         },
-        getFormattedValue(item, key, field) {
-            return hasFormatter(field) ? this.callFormatter(item, key, field) : item[key]
-        },
-        callFormatter(item, key, field) {
-            if (field.formatter) {
-                if (typeof field.formatter === 'function') {
-                    return field.formatter(item[key], key, item);
+        getFormattedValue(item, field) {
+            const key = field.key;
+            const formatter = field.formatter;
+            const parent = this.$parent;
+            let value = item[key];
+            if (formatter) {
+                if (typeof formatter === 'function') {
+                    value = formatter(value, key, item);
+                } else if (typeof formatter === 'string' && typeof parent[formatter] === 'function') {
+                    value = parent[formatter](value, key, item);
                 }
-
-                if (typeof this.$parent[field.formatter] === 'function') {
-                    return this.$parent[field.formatter](item[key], key, item);
-                }
-            } else {
-                return item[key]
             }
+            return value;
         }
     }
 }
 </script>
 
 <style>
-    /* Based on https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap4.css */
+    /* Add support for fixed layout table */
+    table.b-table.table-fixed {
+        table-layout: fixed;
+    }
 
-    table.b-table>thead>tr>.sorting,
-    table.b-table>tfoot>tr>.sorting {
-        padding-right: 30px;
-        cursor: pointer;
+    /* Sort styling */
+    table.b-table>thead>tr>th,
+    table.b-table>tfoot>tr>th {
         position: relative;
     }
 
-    table.b-table thead>tr>.sorting:before,
-    table.b-table thead>tr>.sorting:after,
-    table.b-table tfoot>tr>.sorting:before,
-    table.b-table tfoot>tr>.sorting:after {
+    table.b-table>thead>tr>th.sorting,
+    table.b-table>tfoot>tr>th.sorting {
+        padding-right: 1.5em;
+        cursor: pointer;
+    }
+
+    table.b-table thead>tr>th.sorting:before,
+    table.b-table thead>tr>th.sorting:after,
+    table.b-table tfoot>tr>th.sorting:before,
+    table.b-table tfoot>tr>th.sorting:after {
         position: absolute;
-        bottom: 0.9em;
+        bottom: 0;
         display: block;
-        opacity: 0.3;
+        opacity: 0.4;
+        padding-bottom: inherit;
+        font-size: inherit;
+        line-height: 180%
     }
 
-    table.b-table.table-sm>thead>tr>.sorting:before,
-    table.b-table.table-sm>thead>tr>.sorting:after,
-    table.b-table.table-sm>tfoot>tr>.sorting:before,
-    table.b-table.table-sm>tfoot>tr>.sorting:after {
-        bottom: 0.45em;
-    }
-
-    table.b-table>thead>tr>.sorting:before,
-    table.b-table>tfoot>tr>.sorting:before {
-        right: 1em;
+    table.b-table>thead>tr>th.sorting:before,
+    table.b-table>tfoot>tr>th.sorting:before {
+        right: 0.75em;
         content: "\2191";
     }
 
-    table.b-table>thead>tr>.sorting:after,
-    table.b-table>tfoot>tr>.sorting:after {
-        right: 0.5em;
+    table.b-table>thead>tr>th.sorting:after,
+    table.b-table>tfoot>tr>th.sorting:after {
+        right: 0.25em;
         content: "\2193";
     }
 
-    table.b-table>thead>tr>.sorting_asc:after,
-    table.b-table>thead>tr>.sorting_desc:before,
-    table.b-table>tfoot>tr>.sorting_asc:after,
-    table.b-table>tfoot>tr>.sorting_desc:before {
+    table.b-table>thead>tr>th.sorting_asc:after,
+    table.b-table>thead>tr>th.sorting_desc:before,
+    table.b-table>tfoot>tr>th.sorting_asc:after,
+    table.b-table>tfoot>tr>th.sorting_desc:before {
         opacity: 1;
     }
 
     /* Busy table styling */
-
     table.b-table[aria-busy="false"] {
         opacity: 1;
     }

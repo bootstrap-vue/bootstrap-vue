@@ -39,6 +39,87 @@ in rare circumstances, so please test your implmentation accordingly! The `title
 prop does not have this behavior. For simple tooltips, we recommend using the
 `v-b-tooltip` directive and enable the `html` modifer if needed._
 
+## Positioning
+Twelve options are available for positioning: `top`, `topleft`, `topright`, `right`, `righttop`,
+`rightbottom`, `bottom`, `bottomleft`, `bottomright`, `left`, `lefttop`, and `leftbottom` aligned.
+The default position is `top`. Positioning is relative to the trigger element.
+
+<div class="bd-example bd-example-tooltip-static">
+  <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the top
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
+    <div class="arrow" style="left:93%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the topleft
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
+    <div class="arrow" style="left:5%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the topright
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the right
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
+    <div class="arrow" style="top:60%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the righttop
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
+    <div class="arrow" style="top:26%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the rightbottom
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the bottom
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
+    <div class="arrow" style="left:93%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the bottomleft
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
+    <div class="arrow" style="left:5%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the bottomright
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the left
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
+    <div class="arrow" style="top:60%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the lefttop
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
+    <div class="arrow" style="top:26%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the leftbottom
+    </div>
+  </div>
+</div>
+
+
 ## `<b-tooltip>` Component Usage
 
 ```html
@@ -70,7 +151,7 @@ prop does not have this behavior. For simple tooltips, we recommend using the
 | ---- | ------- | ----------- | ----------------
 | `target` | `null` | String ID of element, or a reference to an element or component, that you want to trigger the tooltip. **Required** | Any valid, in-document unique element ID, element reference or component reference
 | `title` | `null` | Content of tooltip (text only, no HTML). if HTML is required, place it in the default slot | Plain text
-| `placement` | `top` | Positioning of the tooltip, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`
+| `placement` | `top` | Positioning of the tooltip, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
 | `triggers` | `hover focus` |  Space separated list of which event(s) will trigger open/close of tooltip | `hover`, `focus`, `click`. Note `blur` is a special use case to close tooltip on next click, usually used in conjunction with `click`.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of tooltip | `0` and up, integers only.
@@ -116,3 +197,4 @@ You can close all open tooltips by emitting the `bv::hide::tooltip` event on $ro
 this.$root.$emit('bv::hide::tooltip');
 ```
 
+## Component Reference

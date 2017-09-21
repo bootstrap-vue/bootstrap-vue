@@ -76,20 +76,20 @@
 <!-- button-toolbar-3.vue -->
 ```
 
-### Usage
+## Usage
 Feel free to mix input groups and dropdowns with button groups in your toolbars.
 Similar to the example above, you’ll likely need some utility classes
 though to space things properly.
 
-### Sizing
+## Sizing
 Note, if you want smaller or larger buttons or controls, set the `size`
 prop directly on the `<b-button-group>`, `<b-input-group>`, and `<b-dropdown>` components.
 
-### Justify
+## Justify
 Make the toolbar span the maximum available width, by increasing spacing between the
 button groups, input groups and dropdowns, by setting the prop `justify`.
 
-### Keyboard Navigation
+## Keyboard Navigation
 Enable optional keyboard navigation by setting the prop `key-nav`.
 
 | Keypress | Action
@@ -104,9 +104,11 @@ Enable optional keyboard navigation by setting the prop `key-nav`.
 **Caution:** If you have text or text-like inputs in your toolbar, leave keyboard navigation off,
 as it is not possble to use key presses to jump out of a text (or test-like) inputs.
 
-### Alias
+## Alias
 `<b-button-toolbar>` can also be used via the shorthand alias `<b-btn-toolbar>`
 
-### See Also
+## See Also
 - [`<b-button-group>`](./button-group)
 - [`<b-dropdown>`](./dropdown)
+
+## Component Reference
