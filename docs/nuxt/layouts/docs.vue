@@ -1,29 +1,28 @@
 <template>
     <div>
         <m-nav></m-nav>
-        <div class="container-fluid">
-            <div class="row flex-xl-nowrap2">
-                <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+        <b-container fluid>
+            <b-row class="flex-xl-nowrap2">
+                <b-col cols="12" md="3" xl="3" class="bd-sidebar">
                     <div class="d-block d-md-none py-4 mt-3"></div>
                     <m-search/>
                     <m-sidebar></m-sidebar>
-                </div>
+                </b-col>
                 
-                <div class="d-none d-xl-block col-xl-2 bd-toc">
+                <b-col xl="2" class="d-none d-xl-block bd-toc">
                     <m-toc />
-                </div>
+                </b-col>
 
-                <div class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
-                    <br>
+                <b-col cols="12" md="9" xl="8" class="mt-md-4 pt-md-5 pb-md-3 pl-md-5 bd-content">
                     <b-button-group class="mb-2 float-right">
                         <b-btn size="sm" variant="light" :href="issueURL" target="_blank">Report an issue</b-btn>
                         <b-btn size="sm" variant="light" :href="editPageURL" target="_blank">Edit this page</b-btn>
                     </b-button-group>
-                    <br>
+
                     <nuxt/>
-                </div>
-            </div>
-        </div>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 
