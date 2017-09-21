@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -e
+
+rm -f dist/*
+
+rollup -c build/rollup.config.js
+
+uglify=`pwd`/node_modules/.bin/uglifyjs
+
+cd dist
+for f in *.js; do
+    o=`echo $f | sed s/\.js/.min.js/`
+    echo "$f ~> $o"
+    $uglify $f --source-map -o $o
+done

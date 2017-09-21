@@ -1,5 +1,4 @@
 import { loadFixture, testVM, nextTick } from "../helpers";
-import { keys } from "../../lib/utils/object";
 
 describe("dropdown", async () => {
     beforeEach(loadFixture("dropdown"));
@@ -7,7 +6,7 @@ describe("dropdown", async () => {
 
     it("should work", async () => {
         const { app: { $refs } } = window;
-        const dds = keys($refs).map(ref => $refs[ref]);
+        const dds = Object.keys($refs).map(ref => $refs[ref]);
 
         dds.forEach(dd => {
             expect(dd._isVue).toBe(true);
@@ -24,7 +23,7 @@ describe("dropdown", async () => {
 
     it("should open only one dropdown at a time", async () => {
         const { app: { $refs } } = window;
-        const dds = keys($refs).map(ref => $refs[ref].$el);
+        const dds = Object.keys($refs).map(ref => $refs[ref].$el);
 
         // Without async iterators, just use a for loop.
         for (let i = 0; i < dds.length; i++) {

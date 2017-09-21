@@ -1,11 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 const vue = require("rollup-plugin-vue");
-const buble = require("rollup-plugin-buble");
+const babel = require("rollup-plugin-babel");
 const resolve = require("rollup-plugin-node-resolve");
 const commonjs = require("rollup-plugin-commonjs");
-const uglify = require("rollup-plugin-uglify");
-const { minify } = require("uglify-es");
 const CleanCSS = require("clean-css");
 const { camelCase } = require("lodash");
 const { name, dependencies } = require("../package.json");
@@ -37,8 +35,7 @@ module.exports = {
         }),
         resolve({ external: ["vue"] }),
         commonjs(),
-        buble({ objectAssign: "Object.assign" }),
-        uglify({}, minify)
+        babel()
     ],
     output: [
         {

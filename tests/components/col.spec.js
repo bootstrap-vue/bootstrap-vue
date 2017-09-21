@@ -1,5 +1,22 @@
 import { loadFixture, testVM } from "../helpers";
-import { computeBkPtClass } from "../../lib/components/col";
+
+// TODO: Export function from col.js
+function computeBkPtClass(type, breakpoint, val) {
+    let className = type;
+    if (val === false || val === null || val === undefined) {
+        return undefined;
+    }
+    if (breakpoint) {
+        className += `-${breakpoint}`;
+    }
+    if (type === "col" && (val === "" || val === true)) {
+        // .col-md
+        return className.toLowerCase();
+    }
+    // .order-md-6
+    className += `-${val}`;
+    return className.toLowerCase();
+}
 
 describe("col", async () => {
     beforeEach(loadFixture("col"));
