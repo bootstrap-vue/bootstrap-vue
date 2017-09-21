@@ -26,7 +26,7 @@
           <b-btn to="/docs" variant="bd-purple" size="lg" class="mb-3 mb-md-0 mr-md-3">Get started</b-btn>
           <b-btn href="https://github.com/bootstrap-vue/bootstrap-vue" variant="outline-secondary" size="lg" target="_blank">Github</b-btn>
         </div>
-        <b-link class="text-muted mb-0" to="/docs/changelog">
+        <b-link class="text-muted mb-0" to="/docs/misc/changelog">
           Current Release {{site.package_info.version}}
         </b-link>
       </div>
