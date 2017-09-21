@@ -28,7 +28,7 @@
 
     export default {
         mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
-        components: [bFormCheckbox],
+        components: { bFormCheckbox },
         data() {
             return {
                 localChecked: this.checked || [],
