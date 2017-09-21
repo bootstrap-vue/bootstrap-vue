@@ -7,7 +7,7 @@ by their varaint name, rather than by the underlying CSS classname
 ## Base variants
 * `primary` - <span class="text-primary">Primary</span>
 * `secondary` - <span class="text-secondary">Secondary</span>
-* `success` - <span class="text-success">Succes</span>
+* `success` - <span class="text-success">Success</span>
 * `warning` - <span class="text-warning">Warning</span>
 * `danger` - <span class="text-danger">danger</span>
 * `info` - <span class="text-info">Info</span>
@@ -79,7 +79,7 @@ You may also use the underlying class names directly on elements (and some
 components) via the standard HTML `class="..."` attribute.
 
 ## Creating custom variants
-When creting custom variants, follow the Bootstrap V4 varian CSS class naming
+When creating custom variants, follow the Bootstrap V4 varian CSS class naming
 scheme and they will become available to the various components that use that 
 scheme (i.e. create a custom CSS class `btn-purple` and `purple` becomes a
 vailid variant to use on `<b-button>`).
