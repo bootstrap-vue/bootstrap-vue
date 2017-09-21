@@ -14,7 +14,9 @@
 }
 
 .bd-toc-link .badge, .bd-sidenav .badge {
-  font-size: 20%;
+  font-size: 70%;
+  position: relative;
+  bottom: 0.1rem;
 }
 
 .hljs {
