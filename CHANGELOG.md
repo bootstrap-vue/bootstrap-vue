@@ -33,7 +33,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **object mixin:** Add polyfill Object.is for IE ([beed2c3](https://github.com/bootstrap-vue/bootstrap-vue/commit/beed2c3))
 * **observedom:** Adjustments to mutation type detection ([75e92d3](https://github.com/bootstrap-vue/bootstrap-vue/commit/75e92d3))
 * **observedom:** Callback not being called for changes other than childList changes ([#1025](https://github.com/bootstrap-vue/bootstrap-vue/issues/1025)) ([88cfaef](https://github.com/bootstrap-vue/bootstrap-vue/commit/88cfaef))
-* **observedom:** Callback not being called for changes other than node inert/remove ([92ef7eb](https://github.com/bootstrap-vue/bootstrap-vue/commit/92ef7eb))
+* **observedom:** Callback not being called for changes other than node insert/remove ([92ef7eb](https://github.com/bootstrap-vue/bootstrap-vue/commit/92ef7eb))
 * **popover:** getting title from title attribute ([685de6a](https://github.com/bootstrap-vue/bootstrap-vue/commit/685de6a))
 * **popover:** remove deprecated target-id prop ([472fa79](https://github.com/bootstrap-vue/bootstrap-vue/commit/472fa79))
 * **popover+tooltip:** Allow indiviual component imports ([#999](https://github.com/bootstrap-vue/bootstrap-vue/issues/999)) ([dcc7504](https://github.com/bootstrap-vue/bootstrap-vue/commit/dcc7504))
