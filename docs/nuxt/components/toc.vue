@@ -1,7 +1,7 @@
 <template>
     <nav v-if="toc && toc.length > 0" aria-label="Page table of contents">
         <b-nav vertical
-               v-b-scrollspy.75
+               v-b-scrollspy.70
                class="m-toc section-nav">
 
             <b-nav-item v-if="title && top" 
@@ -88,6 +88,17 @@ function scrollTo(element, to, duration, cb) {
     animateScroll();
 }
 
+// Return an element's offset wrt document element
+// https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
+function offsetTop(el) {
+    if (!el.getClientRects().length) {
+        return 0;
+    }
+    const bcr = el.getBoundingClientRect();
+    const win = el.ownerDocument.defaultView;
+    return bcr.top + win.pageYOffset;
+};
+
 
 // Component logic
 export default {
@@ -123,7 +134,7 @@ export default {
                 // Get the document scrolling element
                 const scroller = document.scrollingElement || document.documentElement || document.body;
                 // scroll heading into view (minus offset to account for nav top height
-                scrollTo(scroller, el.offsetTop -70, 100, () => {
+                scrollTo(scroller, offsetTop(el) - 70, 100, () => {
                     // Set a tab index so we can focus header for a11y support
                     el.tabIndex = -1;
                     // Focus the heading
