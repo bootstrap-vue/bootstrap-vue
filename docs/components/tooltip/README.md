@@ -39,6 +39,87 @@ in rare circumstances, so please test your implmentation accordingly! The `title
 prop does not have this behavior. For simple tooltips, we recommend using the
 `v-b-tooltip` directive and enable the `html` modifer if needed._
 
+## Positioning
+Twelve options are available for positioning: `top`, `topleft`, `topright`, `right`, `righttop`,
+`rightbottom`, `bottom`, `bottomleft`, `bottomright`, `left`, `lefttop`, and `leftbottom` aligned.
+The default position is `top`. Positioning is relative to the trigger element.
+
+<div class="bd-example bd-example-tooltip-static">
+  <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the top
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
+    <div class="arrow" style="left:93%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the topleft
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
+    <div class="arrow" style="left:5%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the topright
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the right
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
+    <div class="arrow" style="top:60%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the righttop
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
+    <div class="arrow" style="top:26%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the rightbottom
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the bottom
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
+    <div class="arrow" style="left:93%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the bottomleft
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
+    <div class="arrow" style="left:5%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the bottomright
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
+    <div class="arrow"></div>
+    <div class="tooltip-inner">
+      Tooltip on the left
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
+    <div class="arrow" style="top:60%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the lefttop
+    </div>
+  </div>
+  <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
+    <div class="arrow" style="top:26%"></div>
+    <div class="tooltip-inner">
+      Tooltip on the leftbottom
+    </div>
+  </div>
+</div>
+
+
 ## `<b-tooltip>` Component Usage
 
 ```html
