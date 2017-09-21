@@ -12,8 +12,14 @@ function processHeadings(readme) {
         return [];
     }
     const toc = [];
+
+    // Grab the first H1 tag with ID from readme
+    const h1 = readme.match(/<h1.*? id="([^"]+)".*?>(.+?)<\/h1>/) || [];
+
     // Grab all the H2 and H3 tags with ID's from readme
     const headings = readme.match(/<h[23].*? id="[^"]+".+?<\/h\d>/g) || [];
+
+    // Process teh h2 and h3 headings
     let h2Idx = 0;
     headings.forEach(heading => {
         // Pass the link, label and heading level
@@ -30,7 +36,7 @@ function processHeadings(readme) {
             toc[h2Idx].push({ href, label });
         }
     });
-    return toc;
+    return { toc, title: h1[2] || '', top: h1[1] ? `#${h1[1]}` : '' };
 }
 
 // Our documentation sections
