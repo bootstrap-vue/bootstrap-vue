@@ -28,7 +28,7 @@
 
     export default {
         mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
-        components: [bFormRadio],
+        components: { bFormRadio },
         data() {
             return {
                 localChecked: this.checked,
