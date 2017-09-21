@@ -19,7 +19,6 @@
                     </b-button-group>
 
                     <nuxt/>
-                    <m-footer />
                 </b-col>
             </b-row>
         </b-container>
