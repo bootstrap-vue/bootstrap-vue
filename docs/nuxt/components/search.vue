@@ -1,58 +1,49 @@
 <template>
-<form class="bd-search d-flex align-items-center">
-  <span class="algolia-autocomplete">
+  <div class="bd-search d-flex align-items-center">
+    <b-form-input id="bd-search-input" v-model="search" placeholder="Search..." />
+    <b-popover target="bd-search-input" placement="bottomleft" triggers="focus">
+      <span v-if="search.length"></span>
+      <span v-else>Type something to start search</span>
 
-      <input type="search" disabled class="invisible form-control ds-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-labelledby="search-input" aria-owns="algolia-autocomplete-listbox-0" dir="auto">
-      
-      <pre aria-hidden="true"></pre>
-      
-      <span class="ds-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-0">
-        <div class="ds-dataset-1"></div>
-      </span>
-  </span>
-
-  <button type="button" v-b-toggle.bd-docs-nav class="bd-search-docs-toggle d-md-none p-0 ml-3" aria-label="Toggle docs navigation">
-    <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path></svg>
-  </button>
-  
-</form>
+      <div v-for="(toc, section) in toc" :key="section">
+        <p class="text-muted" v-html="section"></p>
+        <p v-for="t in toc" :key="t.href">
+          <a :href="t.href" v-html="t.title"></a>
+        </p>
+      </div>
+    </b-popover>
+  </div>
 </template>
 
-<style scoped>
-  .algolia-autocomplete {
-    position: relative;
-    display: inline-block;
-    direction: ltr;
-  }
+<script>
+import site from '~/..';
+import { groupBy } from 'lodash';
 
-  .ds-input {
-    position: relative;
-    vertical-align: top;
+export default {
+  data () {
+    return {
+      search: ''
+    }
+  },
+  computed: {
+    toc () {
+      if (!this.search.length) {
+        return {}
+      }
+      const regex = new RegExp(this.search, 'i')
+      const allResults = Array.concat.apply([], Object.keys(site.toc).map(sectionKey => {
+        const section = site.toc[sectionKey]
+        return section.toc.map(t => {
+          return Object.assign({
+            title: t.label,
+            section: section.title,
+            href: (sectionKey + t.href).replace('/#', '#')
+          })
+        }).filter(r => regex.test(r.title) || regex.test(r.section) || regex.test(r.href))
+      }))
+      console.log(this.search, regex, allResults)
+      return groupBy(allResults.slice(0, 5), 'section')
+    }
   }
-
-  .ds-dropdown-menu {
-    position: absolute;
-    top: 100%;
-    z-index: 100;
-    left: 0px;
-    right: auto;
-    display: none;
-  }
-
-  pre {
-    position: absolute;
-    visibility: hidden;
-    white-space: pre;
-    font-family: -apple-system, system-ui, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-    font-size: 16px; 
-    font-style: normal;
-    font-variant-ligatures: normal;
-    font-variant-caps: normal;
-    font-weight: normal;
-    word-spacing: 0px;
-    letter-spacing: normal;
-    text-indent: 0px;
-    text-rendering: auto;
-    text-transform: none;
-  }
-</style>
+}
+</script>
