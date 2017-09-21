@@ -39,34 +39,22 @@ function processHeadings(readme) {
     return { toc, title: h1[2] || '', top: h1[1] ? `#${h1[1]}` : '' };
 }
 
-// Our documentation sections
-const SECTIONS = {
-    components,
-    directives,
-    reference,
-    misc
-};
-
-// TOC object
-const TOC = {};
-
-// Special case for /docs
-TOC['/docs/'] = processHeadings(setup);
-
-// Special case for /layout
-TOC['/docs/layout/'] = processHeadings(layout.readme);
-
-// Process the rest of the sections
-Object.keys(SECTIONS).forEach(section => {
-    Object.keys(SECTIONS[section]).forEach(page => {
-      TOC[`/docs/${section}/${page}/`] = processHeadings(SECTIONS[section][page].readme);
+function makeTOC(setup, layout, sections) {
+    const toc = {};
+    toc['/docs/'] = processHeadings(setup);
+    toc['/docs/layout/'] = processHeadings(layout.readme);
+    Object.keys(sections).forEach(section => {
+        Object.keys(sections[section]).forEach(page => {
+            toc[`/docs/${section}/${page}/`] = processHeadings(sections[section][page].readme);
+        });
     });
-});
+    return toc;
+}
 
-// Out site object
+// Our site object
 export default {
     package_info,
-    toc: TOC,
+    toc: makeTOC(setup, layout, { components, directives, reference, misc }),
     nav: [
         {
             title: 'Getting started',
