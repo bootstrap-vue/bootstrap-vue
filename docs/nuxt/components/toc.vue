@@ -112,14 +112,17 @@ export default {
             path = /\/$/.test(path) ? path : `${path}/`;
             return path;
         },
+        siteToc() {
+            return (this.site && this.site.toc && this.site.toc[this.path]) || {}
+        },
         title() {
-            return this.site.toc[this.path].title || '';
+            return this.siteToc.title || '';
         },
         top() {
-            return this.site.toc[this.path].top || '';
+            return this.siteToc.top || '';
         },
         toc() {
-            return this.site.toc[this.path].toc || [];
+            return this.siteToc.toc || [];
         }
     },
     methods: {

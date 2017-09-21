@@ -2,12 +2,19 @@
 
 .page-enter-active,
 .page-leave-active {
-  transition: all ease-in-out .2s;
+  transition: all .15s;
 }
 
 .page-enter, .page-leave-to {
   opacity: 0;
-  transform: scale(0.95);
+}
+
+.bd-toc-link, .bd-navbar .navbar-nav .nav-link.active {
+  font-weight: normal;
+}
+
+.bd-toc-link .badge, .bd-sidenav .badge {
+  font-size: 20%;
 }
 
 .hljs {
