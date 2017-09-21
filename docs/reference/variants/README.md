@@ -4,7 +4,7 @@
 When using Boostrap-Vue components, the variants are refered to
 by their varaint name, rather than by the underlying CSS classname
 
-## Base variants:
+## Base variants
 * `primary` - <span class="text-primary">Primary</span>
 * `secondary` - <span class="text-secondary">Secondary</span>
 * `success` - <span class="text-success">Succes</span>
