@@ -3,22 +3,33 @@
         <b-nav vertical
                v-b-scrollspy.75
                class="m-toc section-nav">
-          <template v-for="h2 in toc">
-            <b-nav v-if="isArray(h2) && h2.length > 0" vertical class="mb-1">
-                <b-nav-item vertical pills v-for="h3 in h2"
-                            :key="h3.href"
-                            :href="h3.href"
-                            class="toc-entry toc-h3 mb-2"
-                            @click="scrollIntoView($event, h3.href)"
-                ><span v-html="h3.label"></span></b-nav-item>
-            </b-nav>
-            <b-nav-item v-else 
-                        :key="h2.href"
-                        :href="h2.href"
-                        class="toc-entry toc-h2 mb-2"
-                        @click="scrollIntoView($event, h2.href)"
+
+            <b-nav-item v-if="title && top" 
+                        :href="top"
+                        class="toc-entry font-weight-bold mb-2"
+                        @click="scrollIntoView($event, top)"
+            ><span v-html="title"></span></b-nav-item>
+
+            <template v-for="h2 in toc">
+
+                <b-nav v-if="isArray(h2) && h2.length > 0" vertical class="mb-1">
+                    <b-nav-item vertical pills v-for="h3 in h2"
+                                :key="h3.href"
+                                :href="h3.href"
+                                class="toc-entry toc-h3 mb-2"
+                                @click="scrollIntoView($event, h3.href)"
+                    ><span v-html="h3.label"></span></b-nav-item>
+                </b-nav>
+
+                <b-nav-item v-else 
+                            :key="h2.href"
+                            :href="h2.href"
+                            class="toc-entry toc-h2 mb-2"
+                            @click="scrollIntoView($event, h2.href)"
             ><span v-html="h2.label"></span></b-nav-item>
+
           </template>
+
         </b-nav>
     </nav>
 </template>
@@ -85,10 +96,19 @@ export default {
     },
     computed: {
         site: () => site,
-        toc() {
+        path() {
             let path = this.$route.path || '';
             path = /\/$/.test(path) ? path : `${path}/`;
-            return this.site.toc[path] || [];
+            return path;
+        },
+        title() {
+            return this.site.toc[this.path].title || '';
+        },
+        top() {
+            return this.site.toc[this.path].top || '';
+        },
+        toc() {
+            return this.site.toc[this.path].toc || [];
         }
     },
     methods: {
