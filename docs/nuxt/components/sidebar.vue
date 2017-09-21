@@ -1,6 +1,6 @@
 <template>
     <b-collapse tag="nav" is-nav class="bd-links" id="bd-docs-nav">
-        <router-link tag="div" class="bd-toc-item active" v-for="group in site.nav"
+        <router-link tag="div" class="bd-toc-item" v-for="group in site.nav"
          :key="group.slug" :to="'/docs/'+group.slug" active-class="active" :exact="group.exact">
             <router-link class="bd-toc-link" :to="'/docs/'+group.slug" :exact="group.exact">
                 {{ group.title }}
