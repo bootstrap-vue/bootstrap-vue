@@ -71,7 +71,13 @@ function makeTOC(setup, layout, sections) {
     // Parse all the standard sections
     Object.keys(sections).forEach(section => {
         Object.keys(sections[section]).forEach(page => {
-            toc[`/docs/${section}/${page}/`] = processHeadings(sections[section][page].readme);
+            let readme = sections[section][page].readme;
+            if (section === 'misc' && page === 'changelog') {
+                // Special case: remove all h3 tags due to duplicate IDs
+                // Which screws up the TOC handling and scrollspy.
+                readme = readme.replace(/<h3 .*?<\/h3>/g, '');
+            }
+            toc[`/docs/${section}/${page}/`] = processHeadings(readme);
         });
     });
     return toc;
