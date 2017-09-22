@@ -53,7 +53,8 @@ function processHeadings(readme) {
                 idx = toc.length;
             } else if (tag === 'h3') {
                 // We nest h3 tags as a sub array
-                toc[idx] = (toc[idx] || []).push({ href, label });
+                toc[idx] = toc[idx] || [];
+                toc[idx].push({ href, label });
             }
         }
     });
