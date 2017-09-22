@@ -8,7 +8,7 @@ import setup from '~/../README.md';
 
 // Remove any HTML tags, but leaev entities alone
 function stripHTML(str) {
-    return str.replace(/<[^]+>/g,'');
+    return str.replace(/<[^>]+>/g,'');
 }
 
 // Remove any double quotes from a string
