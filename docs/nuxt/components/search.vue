@@ -43,7 +43,7 @@ export default {
         }).filter(r => regex.test(r.title) || regex.test(r.section) || regex.test(r.href))
       }))
       console.log(this.search, regex, allResults)
-      return groupBy(allResults.slice(0, 5), 'section')
+      return groupBy(allResults.slice(0, 6), 'section')
     }
   }
 }
