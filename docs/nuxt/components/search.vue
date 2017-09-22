@@ -1,13 +1,14 @@
 <template>
   <div class="bd-search d-flex align-items-center">
     <b-form-input id="bd-search-input" v-model="search" placeholder="Search..." />
-    <b-popover target="bd-search-input" placement="bottomleft" triggers="focus">
-      <span v-if="search.length"></span>
+    <b-popover target="bd-search-input" placement="bottom" triggers="focus">
+      <span v-if="search.length && Object.keys(toc).length === 0">No results found</span>
+      <span v-else-if="search.length"></span>
       <span v-else>Type something to start search</span>
 
-      <div v-for="(toc, section) in toc" :key="section">
-        <p class="text-muted" v-html="section"></p>
-        <p v-for="t in toc" :key="t.href">
+      <div v-for="(toc, section, idx) in toc" :key="section" :class="idx > 0 ? 'mb-2' : ''">
+        <p class="bd-text-purple" v-html="section" class="my-1"></p>
+        <p v-for="t in toc" :key="t.href" class="my-1">
           <a :href="t.href" v-html="t.title"></a>
         </p>
       </div>
