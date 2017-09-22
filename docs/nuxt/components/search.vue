@@ -1,6 +1,9 @@
 <template>
   <div class="bd-search d-flex align-items-center">
     <b-form-input id="bd-search-input" v-model="search" placeholder="Search..." />
+    <button type="button" v-b-toggle.bd-docs-nav class="bd-search-docs-toggle d-md-none p-0 ml-3" aria-label="Toggle docs navigation">
+      <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+    </button>
     <b-popover target="bd-search-input" placement="bottom" triggers="focus">
       <span v-if="search.length && Object.keys(toc).length === 0">No results found</span>
       <span v-else-if="search.length"></span>
