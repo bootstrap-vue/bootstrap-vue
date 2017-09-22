@@ -4,7 +4,7 @@
 on `<img>` tags, but doesn't automatically for Bootrap-Vue custom
 components that accept image src url tags.
 
-## `transformToRequire` option
+## Vue-loader `transformToRequire` to resolve img paths
 To have your project convert these custom component image URLs for you, you will need to
 customize the [`transformToRequire`](https://vue-loader.vuejs.org/en/options.html#transformtorequire)
 `option` for `vue-loader` in your webpack config.
@@ -42,7 +42,7 @@ This will allow you to use the following format in your `.vue` files:
 <b-card-img img-src="~/static/picture.jpg" />
 ```
 
-## Using `require`
+## Using `require` to resolve image paths
 If you cannot set the `transforToRequire` in your view-loader config, you
 can alternatively use the `require` method:
 
