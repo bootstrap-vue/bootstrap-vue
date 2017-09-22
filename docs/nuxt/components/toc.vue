@@ -134,7 +134,7 @@ export default {
             e.stopPropagation();
             // We use an attribute querySelector rather than getElementByID, as some auto 
             // generated ID's are invalid, and some may appear more than once
-            const el = href ? document.querySelector(`[id="${href.replace('#','')}"]`) : null;
+            const el = href ? document.querySelector(`[id="${href.replace(/#/g,'')}"]`) : null;
             if (el) {
                 // Get the document scrolling element
                 const scroller = document.scrollingElement || document.documentElement || document.body;
