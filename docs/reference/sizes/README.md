@@ -38,7 +38,7 @@ Modify those values as you need to generate different utilities here.
 
 **Widths:**
 ```html
-<div class="text-ceter">
+<div class="text-center">
   <div class="w-25 p-3 mb-1 bg-secondary">Width 25%</div>
   <div class="w-50 p-3 mb-1 bg-secondary">Width 50%</div>
   <div class="w-75 p-3 mb-1 bg-secondary">Width 75%</div>
