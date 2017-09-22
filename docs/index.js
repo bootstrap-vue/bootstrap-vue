@@ -6,43 +6,68 @@ import layout from './layout'
 import misc from './misc'
 import setup from '~/../README.md';
 
-// Process an hTML readme and create a page TOC array
+// Remove any HTML tags, but leaev entities alone
+function stripHTML(str) {
+    return str.replace(/<[^]+>/g,'');
+}
+
+// Remove any double quotes from a string
+function stripQuotes(str) {
+    return str.replace('"','');
+}
+
+// Process an HTML readme and create a page TOC array
+// IDs are the only attribute on auto generated heading tags, so we take 
+// advantage of that when using our RegExpr matches
+// Note IDs may not have quotes when the readme's are parsed in production mode !?!?
+// Expected format: <h(1|2|3) id="?id-string"?>heading content</h(1|2|3)>
 function processHeadings(readme) {
     if (!readme) {
-        return [];
+        return {};
     }
     const toc = [];
+    let top = '';
+    let title = '';
 
     // Grab the first H1 tag with ID from readme
-    const h1 = readme.match(/<h1.*? id="([^"]+)".*?>(.+?)<\/h1>/) || [];
+    const h1 = readme.match(/<h1 id=([^> ]+)>(.+?)<\/h1>/) || [];
+    if (h1) {
+        top = `#${stripQuotes(h1[1])}`;
+        title = stripHTML(h1[2]);
+    }
 
-    // Grab all the H2 and H3 tags with ID's from readme
-    const headings = readme.match(/<h[23].*? id="[^"]+".+?<\/h\d>/g) || [];
+    // Grab all the H2 and H3 deadings with ID's from readme
+    const headings = readme.match(/<h([23]) id=[^> ]+>.+?<\/h\1>/g) || [];
 
-    // Process teh h2 and h3 headings
-    let h2Idx = 0;
+    let idx = 0;
+    // Process the h2 and h3 headings into a TOC structure
     headings.forEach(heading => {
         // Pass the link, label and heading level
-        const matches = heading.match(/^<(h[23]).*? id="([^"]+)"[^>]*>(.+?)<\/h\d>$/);
-        const tag = matches[1];
-        const href = `#${matches[2]}`;
-        // Remove any HTML markup in the label
-        const label = matches[3].replace(/<[^>]+>/g, '');
-        if (tag === 'h2') {
-            toc.push({ href, label });
-            h2Idx = toc.length;
-        } else if (tag === 'h3') {
-            toc[h2Idx] = toc[h2Idx] || [];
-            toc[h2Idx].push({ href, label });
+        const h2h3 = heading.match(/^<(h[23]) id=([^> ]+)>(.+?)<\/\1>$/);
+        if (h2h3) {
+            const tag = h2h3[1];
+            const href = `#${stripQuotes(h2h3[2])}`;
+            const label = stripHTML(h2h3[3]);
+            if (tag === 'h2') {
+                toc.push({ href, label });
+                idx = toc.length;
+            } else if (tag === 'h3') {
+                // We nest h3 tags as a sub array
+                toc[idx] = (toc[idx] || {]).push({ href, label });
+            }
         }
     });
-    return { toc, title: h1[2] || '', top: h1[1] ? `#${h1[1]}` : '' };
+       
+    return { toc, title, top };
 }
 
 function makeTOC(setup, layout, sections) {
     const toc = {};
+    // Special case
     toc['/docs/'] = processHeadings(setup);
+    // Special case
     toc['/docs/layout/'] = processHeadings(layout.readme);
+    // Parse all the standard sections
     Object.keys(sections).forEach(section => {
         Object.keys(sections[section]).forEach(page => {
             toc[`/docs/${section}/${page}/`] = processHeadings(sections[section][page].readme);
