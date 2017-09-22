@@ -58,7 +58,7 @@ Other elements can easily show modals using the `v-b-modal` directive.
     Hello From My Modal!
   </b-modal>
   </div>
-  
+
   <!-- modal-directive-1.vue -->
 ```
 
@@ -342,8 +342,8 @@ controlled by the `header-border-variant` and `footer-border-variant` props resp
          <b-col cols="3">Footer</b-col>
          <b-col><b-form-select :options="variants" v-model="footerBgVariant" /></b-col>
          <b-col><b-form-select :options="variants" v-model="footerTextVariant" /></b-col>
-       </b-row>                                                                               
-     </b-container>                                                                                     
+       </b-row>
+     </b-container>
      <div slot="modal-footer" class="w-100">
        <p class="float-left">Modal Footer Content</p>
        <b-btn size="sm" class="float-right" variant="primary" @click="show=false">
@@ -375,7 +375,7 @@ export default {
 <!-- modal-variant-1.vue -->
 ```
 
-## Lady loading
+## Lazy loading
 Modal will always render its HTML markup in the document at the location that
 the `<b-modal>` component is placed. You can hide the modal from being in the DOM
 markup (while modal is in the hidden state) by setting the `lazy` prop.
