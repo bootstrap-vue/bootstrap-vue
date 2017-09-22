@@ -7,10 +7,10 @@
       <span v-else>Type something to start search</span>
 
       <div v-for="(toc, section, idx) in toc" :key="section" :class="idx > 0 ? 'mt-2' : ''">
-        <p class="bd-text-purple" v-html="section" class="my-1"></p>
-        <p v-for="t in toc" :key="t.href" class="my-1">
+        <h6 v-html="section" class="bd-text-purple my-1"></h6>
+        <div v-for="t in toc" :key="t.href" class="my-1">
           <a :href="t.href" v-html="t.title"></a>
-        </p>
+        </div>
       </div>
     </b-popover>
   </div>
