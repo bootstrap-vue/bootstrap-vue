@@ -13,7 +13,7 @@ function stripHTML(str) {
 
 // Remove any double quotes from a string
 function stripQuotes(str) {
-    return str.replace('"','');
+    return str.replace(/"/g,'');
 }
 
 // Process an HTML readme and create a page TOC array
