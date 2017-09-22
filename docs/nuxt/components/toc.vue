@@ -132,9 +132,9 @@ export default {
         scrollIntoView(e, href) {
             e.preventDefault();
             e.stopPropagation();
-            // We use a querySelector rather than getElementByID, as some auto generated ID's are invalid
-            // And some may appear more than once
-            const el = href ? document.querySelector(`id="${href.replace('#','')}"]`) : null;
+            // We use an attribute querySelector rather than getElementByID, as some auto 
+            // generated ID's are invalid, and some may appear more than once
+            const el = href ? document.querySelector(`[id="${href.replace('#','')}"]`) : null;
             if (el) {
                 // Get the document scrolling element
                 const scroller = document.scrollingElement || document.documentElement || document.body;
