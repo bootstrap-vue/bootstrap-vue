@@ -588,7 +588,7 @@ or a `head-clicked` event.
 ## Sorting
 As mentioned above in the [**Fields**](#fields-column-definitions-) section above,
 you can make columns sortable. Clicking on a sortable column header will sort the
-column in ascending direction, while clicking on it again will switch the direction
+column in ascending direction (smallest first), while clicking on it again will switch the direction
 of sorting.  Clicking on a non-sortable column will clear the sorting.
 
 You can control which column is pre-sorted and the order of sorting (ascending or
@@ -601,6 +601,46 @@ adding the `.sync` modifier. Your bound variables will then be updated according
 based on the current sort critera. See the 
 [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
 on the `.sync` prop modifier
+
+```html
+<template>
+  <div>
+    <b-table :sort-by.sync="sortBy"
+             :sort-desc.sync="sortDesc"
+             :items="items"
+             :fields="fields">
+    </b-table>
+  </div>
+    <p>
+      Sorting By: <b>{{ sortBy }}</b>,
+      Sort Direction: <b>{{ sortDesc ? 'Descending' : 'Ascending' }}</b>
+    </p>
+</template>
+
+<script>
+export default {
+  data: {
+    sortBy: 'age',
+    sortDesc: false,
+    fields: [
+      { key: 'last_name', sortable: true },
+      { key: 'first_name', sortable: true },
+      { key: 'age', sortable: true },
+      { key: 'isActive', sortable: false }
+    ],
+    items: [
+      { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+      { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+      { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' }
+    ]
+  }
+};
+</script>
+
+<!-- table-sorting.vue -->
+```
+
 
 ### Sort-Compare routine
 The built-in default `sort-compare` function sorts the specified field `key` based
@@ -617,8 +657,8 @@ The `sort-compare` routine is passed three arguments. The first two arguments
 argument is the field `key` being sorted on (`sortBy`). The routine should return
 either `-1`, `0`, or `1` based on the result of the comparing of the two records.
 If the routine returns `null`, then the default sort-compare rouine will be used.
-You can use this feature (returning `null`) to have your custom sort-compare routine
-handle only certain fields (keys).
+You can use this feature (i.e. returning `null`) to have your custom sort-compare
+routine handle only certain fields (keys).
 
 The default sort-compare routine works as follows:
 
@@ -645,7 +685,7 @@ changes in sorting column and direction.
 Also, When a sortable column header (or footer) is clicked, the event `sort-changed`
 will be emitted with a single argument containing the context object of `<b-table>`.
 See the [Detection of sorting change](#detection-of-sorting-change) section below
-for details about the sort-changed event.
+for details about the sort-changed event and the context object.
 
 
 ## Filtering
@@ -664,6 +704,10 @@ will emit the `filtered` event, passing a single argument which is the complete 
 items passing the filter routine. Treat this argument as read-only.
 
 Setting the prop `filter` to null or an empty string will disable local items filtering.
+
+See teh [Complete Example](#complete-example) below for an example of using the
+`filter` feature.
+
 
 ## Pagination
 `<b-table>` supports built in pagination of item data.  You can control how many
