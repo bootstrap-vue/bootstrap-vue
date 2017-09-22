@@ -1,7 +1,7 @@
 <template>
     <nav v-if="toc && toc.length > 0" aria-label="Page table of contents">
         <b-nav vertical
-               v-b-scrollspy.70
+               v-b-scrollspy.72
                class="m-toc section-nav">
 
             <b-nav-item v-if="title && top" 
@@ -132,7 +132,9 @@ export default {
         scrollIntoView(e, href) {
             e.preventDefault();
             e.stopPropagation();
-            const el = href ? document.querySelector(href) : null;
+            // We use an attribute querySelector rather than getElementByID, as some auto 
+            // generated ID's are invalid, and some may appear more than once
+            const el = href ? document.querySelector(`[id="${href.replace(/#/g,'')}"]`) : null;
             if (el) {
                 // Get the document scrolling element
                 const scroller = document.scrollingElement || document.documentElement || document.body;

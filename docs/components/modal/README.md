@@ -377,8 +377,9 @@ export default {
 
 ## Lazy loading
 Modal will always render its HTML markup in the document at the location that
-the `<b-modal>` component is placed. You can hide the modal from being in the DOM
-markup (while modal is in the hidden state) by setting the `lazy` prop.
+the `<b-modal>` component is placed (even if it is not shown). You can hide
+the modal markup from being in the DOM while modal is in the hidden state by
+setting the `lazy` prop.
 
 
 ## Disable open and close animation

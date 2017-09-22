@@ -1,15 +1,16 @@
 <template>
   <div class="bd-search d-flex align-items-center">
     <b-form-input id="bd-search-input" v-model="search" placeholder="Search..." />
-    <b-popover target="bd-search-input" placement="bottomleft" triggers="focus">
-      <span v-if="search.length"></span>
+    <b-popover target="bd-search-input" placement="bottom" triggers="focus">
+      <span v-if="search.length && Object.keys(toc).length === 0">No results found</span>
+      <span v-else-if="search.length"></span>
       <span v-else>Type something to start search</span>
 
-      <div v-for="(toc, section) in toc" :key="section">
-        <p class="text-muted" v-html="section"></p>
-        <p v-for="t in toc" :key="t.href">
+      <div v-for="(toc, section, idx) in toc" :key="section" :class="idx > 0 ? 'mt-2' : ''">
+        <h6 v-html="section" class="bd-text-purple my-1"></h6>
+        <div v-for="t in toc" :key="t.href" class="my-1">
           <a :href="t.href" v-html="t.title"></a>
-        </p>
+        </div>
       </div>
     </b-popover>
   </div>
@@ -42,7 +43,7 @@ export default {
         }).filter(r => regex.test(r.title) || regex.test(r.section) || regex.test(r.href))
       }))
       console.log(this.search, regex, allResults)
-      return groupBy(allResults.slice(0, 5), 'section')
+      return groupBy(allResults.slice(0, 6), 'section')
     }
   }
 }
