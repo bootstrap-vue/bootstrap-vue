@@ -100,17 +100,17 @@ dropdown buttons.
 
 Set the `size` prop to either `sm` for small button(s), or `lg` for large button(s).
 
->**Note:** _changing the size of the button(s) does not affect the size of the menu items!_
+**Note:** _changing the size of the button(s) does not affect the size of the menu items!_
 
 
 ## Button contextual variants
 The dropdown buttons can have one of the standard Boostrap contextual variants applied
 by setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link` etc.
 
-See [`<b-button>`](./button) for a list of supported contextual variants.
+See the [Variant Reference](/docs/reference/varianta) for a list of supported contextual variants.
 
 
-## Supported sub-components
+## Dropdown supported sub-components
 The following components can be placed inside of your dropdowns. Using any other
 component or markup may break keyboard navigation.
 
@@ -131,7 +131,7 @@ the appropriate `aria-*` attributes in the rendered markup.
 The default ARIA role is set to `menu`, but you can change this default to another role
 (such as `navigation`) via the `role` prop, depending on your user case.
 
-### Accessibility with Headers
+### Dropdown headers and accessibility
 When using `<b-dropdown-header>` components in the dropdown menu, it is recommended to add an
 `id` attribute to the header, and then set the `aria-describedby` attribute (set to the `id`
 value of the associated header) on each following dropdown items under that header.
@@ -156,7 +156,7 @@ context about the dropdown item:
 </template>
 ```
 
-### Keyboard navigation:
+### Dropdown keyboard navigation
 Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 
 | Keypress | Action
@@ -168,8 +168,12 @@ Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 | <kbd>TAB</kbd> | Will close the dropdown and jump to the next focusable control on the page.
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Will close the dropdown and jump to the previous focusable control on the page.
 
-## Component Alias
-`<b-dropdown>` can be used via it's shorter alias of `<b-dd>`
+## Dropdown component aliases
+- `<b-dropdown>` can be used via it's shorter alias of `<b-dd>`
+- `<b-dropdown-item>` can be used via it's shorter alias of `<b-dd-item>`
+- `<b-dropdown-item-button>` can be used by the shorter aliases `<b-dropdown-item-btn>`, `<b-dd-item-button>` and `<b-dd-item-btn>`
+- `<b-dropdown-header>` can be used via it's shorter alias of `<b-dd-header>`
+- `<b-dropdown-divider>` can be used via it's shorter alias of `<b-dd-divider>`
 
 ## Implementation Note
 On touch-enabled devices, opening a `<b-dropdown>` adds empty (noop) `mouseover`
