@@ -185,6 +185,42 @@ when they are in the _checked_ state.
 <!-- form-checkboxs-buttons.vue -->
 ```
 
+
+## Non custom check inputs (plain)
+You can have `<b-form-checkbox-group>` or `<b-form-checkbox>` render a browser native
+chechbox input by setting the `plain` prop.
+
+```html
+<template>
+  <div>
+    <h5>Plain inline checkboxes</h5>
+    <b-form-checkbox-group plain v-model="selected" :options="options" />
+
+    <h5 class="mt-3">Plain stacked checkboxes</h5>
+    <b-form-checkbox-group plain stacked v-model="selected" :options="options" />
+  </div>
+</template>
+
+<script>
+  export default {
+    data: {
+      selected: [], // Must be an array reference!
+      options: [
+        {text: 'Orange', value: 'orange'},
+        {text: 'Apple', value: 'apple'},
+        {text: 'Pineapple', value: 'pineapple'},
+        {text: 'Grape', value: 'grape'}
+      ]
+    }
+  };
+</script>
+
+<!-- form-checkbox-plain-1.vue -->
+```
+
+**Note:** The `plain` prop has no effect when `button` is set.
+
+
 ## Contextual states
 Bootstrap includes validation styles for `valid` and `invalid` states
 on most form controls.
@@ -327,42 +363,7 @@ by via the `.sr-only` class) if the indeterminate state has special contextual
 meaning in your application.
 
 
-## Non custom check inputs (plain)
-You can have `<b-form-checkbox-group>` or `<b-form-checkbox>` render a browser native
-chechbox input by setting the `plain` prop.
-
-```html
-<template>
-  <div>
-    <h5>Plain inline checkboxes</h5>
-    <b-form-checkbox-group plain v-model="selected" :options="options" />
-
-    <h5 class="mt-3">Plain stacked checkboxes</h5>
-    <b-form-checkbox-group plain stacked v-model="selected" :options="options" />
-  </div>
-</template>
-
-<script>
-  export default {
-    data: {
-      selected: [], // Must be an array reference!
-      options: [
-        {text: 'Orange', value: 'orange'},
-        {text: 'Apple', value: 'apple'},
-        {text: 'Pineapple', value: 'pineapple'},
-        {text: 'Grape', value: 'grape'}
-      ]
-    }
-  };
-</script>
-
-<!-- form-checkbox-plain-1.vue -->
-```
-
-
-**Note:** The `plain` prop has no effect when `button` is set.
-
-## Aliases
+## Checkbox component aliases
 - `<b-form-checbox-group>` can be used by the shorter aliases `<b-checkbox-group>` and `<b-check-group>`.
 - `<b-form-checkbox>` can be used by thes shorter aliases `<b-checkbox>` and `<b-check>`.
 
