@@ -16,9 +16,10 @@
                             :key="page.title
                 ">
                     {{ page.title }}
-                    <small class="badge badge-success" v-if="page.new">NEW</small>
-                    <small class="badge badge-warning" v-if="page.experimental">BETA</small>
-                    <small class="badge badge-danger" v-if="page.breaking">CHANGE</small>
+                    <b-badge tag="small" variant="success" v-if="page.new">NEW</b-badge>
+                    <b-badge tag="small" variant="warning" v-if="page.experimental">BETA</b-badge>
+                    <b-badge tag="small" variant="danger" v-if="page.breaking">CHANGE</b-badge>
+                    <b-badge tag="small" variant="info" v-if="page.features">ENHANCED</b-badge>
                 </b-nav-item>
             </b-nav>
     
