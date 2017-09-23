@@ -7,8 +7,10 @@
 
 <script>
 import directives from '../../../../directives';
+import docsMixin from '../docs-mixin';
 
 export default {
+    mixins: [ docsMixin ],
     layout: 'docs',
 
     fetch({ params, redirect }) {
