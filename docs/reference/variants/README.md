@@ -61,6 +61,7 @@ These translate to class names `badge-<variant>`.
 ### Button variants
 All the **base variants** plus:
 * `outline-<base variant>`
+* `link` which renders teh button with the look of a link but retains button padding and margins.
 
 These translate to class names `btn-<variant>` and `btn-outline-<variant>`.
 
