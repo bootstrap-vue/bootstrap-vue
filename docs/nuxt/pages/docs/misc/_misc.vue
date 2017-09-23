@@ -6,7 +6,7 @@
 
 <script>
 import docs from '~/../misc';
-import docsMixin from '../docsMixin';
+import docsMixin from '../docs-mixin';
 
 export default {
     mixins: [ docsMixin ],
