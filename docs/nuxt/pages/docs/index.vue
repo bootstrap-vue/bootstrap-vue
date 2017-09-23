@@ -4,8 +4,10 @@
 
 <script>
     import readme from '~/../README.md';
+    import docsMixin from './docs-mixin';
 
     export default {
+        mixins: [ docsMixin ],
         layout: 'docs',
         computed: {
             readme() {
