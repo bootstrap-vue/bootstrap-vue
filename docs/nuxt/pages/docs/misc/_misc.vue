@@ -6,8 +6,10 @@
 
 <script>
 import docs from '~/../misc';
+import docsMixin from '../docsMixin';
 
 export default {
+    mixins: [ docsMixin ],
     layout: 'docs',
 
     fetch({ params, redirect }) {
