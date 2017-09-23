@@ -12,7 +12,7 @@
       <div v-for="(toc, section, idx) in toc" :key="section" :class="idx > 0 ? 'mt-2' : ''">
         <h6 v-html="section" class="bd-text-purple my-1"></h6>
         <div v-for="t in toc" :key="t.href" class="my-1">
-          <b-link :to"t.href" v-html="t.title"></b-link>
+          <b-link :to="t.href" v-html="t.title"></b-link>
         </div>
       </div>
     </b-popover>
