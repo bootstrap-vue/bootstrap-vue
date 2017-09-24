@@ -25,9 +25,11 @@
 <script>
 import componentdoc from '~/components/componentdoc.vue';
 import docs from '~/../layout';
+import docsMixin from '../docs-mixin';
 
 export default {
     components: { componentdoc },
+    mixins: [ docsMixin ],
     layout: 'docs',
 
     data() {

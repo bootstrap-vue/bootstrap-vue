@@ -7,8 +7,10 @@
 
 <script>
 import reference from '../../../../reference';
+import docsMixin from '../docs-mixin';
 
 export default {
+    mixins: [ docsMixin ],
     layout: 'docs',
 
     fetch({ params, redirect }) {

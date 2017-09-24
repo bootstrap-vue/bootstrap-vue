@@ -25,9 +25,11 @@
 <script>
 import componentdoc from '~/components/componentdoc.vue';
 import docs from '~/../components';
+import docsMixin from '../docs-mixin';
 
 export default {
     components: { componentdoc },
+    mixins: [ docsMixin ],
     layout: 'docs',
 
     fetch({ params, redirect }) {
