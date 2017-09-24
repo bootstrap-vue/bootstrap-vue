@@ -7,7 +7,18 @@
       "description": "Emitted with the select value changes",
       "args": [
         {
-          "arg": "value"
+          "arg": "value",
+          "desccription": "current selected value of the select."
+        }
+      ]
+    },
+    {
+      "event": "change",
+      "description": "Emitted with the select value changes via user interaction",
+      "args": [
+        {
+          "arg": "value",
+          "desccription": "current selected value of the select."
         }
       ]
     }
