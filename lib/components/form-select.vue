@@ -9,6 +9,7 @@
             :required="required"
             :aria-required="required ? 'true' : null"
             :aria-invalid="computedAriaInvalid"
+            @change="$emit('change', localValue)"
             ref="input"
     >
         <slot name="first"></slot>
