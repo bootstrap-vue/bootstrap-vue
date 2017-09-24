@@ -215,7 +215,7 @@ a fixed-width card.
 <!-- card-kitchen-1.vue -->
 ```
 
-## Colored text
+## Text variants
 
 By default, cards use dark text and assume a light background. You can reverse that by
 toggling the color of text within, as well as that of the card’s sub-components,
@@ -232,7 +232,7 @@ via the prop `text-variant`. Then, specify a dark background variant.
 <!-- card-text-1.vue -->
 ```
 
-## Background and Bordered variants
+## Background and Border variants
 
 Cards include their own variant style for quickly changing the background-color and
 of a card via the `bg-variant` and `border-variant` props. Darker solid variants my require setting the
@@ -462,7 +462,7 @@ When using card groups with footers, their content will automatically line up.
 <!-- card-group-1.vue -->
 ```
 
-### Card deck groups:
+### Card deck groups
 Need a set of equal width and height cards that aren’t attached to one another? Use
 card decks by setting the `deck` prop. And just like with regular card groups,
 card footers in decks will automatically line up.
@@ -514,7 +514,7 @@ card footers in decks will automatically line up.
 <!-- card-group-2.vue -->
 ```
 
-### Card column groups:
+### Card column groups
 Cards can be organized into Masonry-like columns with by wrapping them in a `<b-card-group>`
 with the prop `columns` set. Cards are built with CSS column properties instead of flexbox for
 easier alignment. Cards are ordered from top to bottom and left to right.
