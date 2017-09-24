@@ -40,10 +40,19 @@ function offsetTop(el) {
 
 
 export default {
+    data() {
+        return {
+            scrollTimout: null
+        };
+    },
     mounted() {
+        clearTimeout(this.scrollTimeout);
+        this.scrollTimeout = null;
         this.focusScroll();
     },
     updated() {
+        clearTimeout(this.scrollTimeout);
+        this.scrollTimeout = null;
         this.focusScroll();
     },
     methods: {
@@ -70,8 +79,12 @@ export default {
             if (el) {
                 // Get the document scrolling element
                 const scroller = document.scrollingElement || document.documentElement || document.body;
-                // scroll heading into view (minus offset to account for nav top height
-                scrollTo(scroller, offsetTop(el) - 70, 100);
+                // Allow time for v-play to finish rendering
+                this.scrollTimeout = setTimeout(() => {
+                    // scroll heading into view (minus offset to account for nav top height
+                    scrollTo(scroller, offsetTop(el) - 70, 100);
+                    this.scrollTimeout = null;
+                }, 100);
             }
         }
     }
