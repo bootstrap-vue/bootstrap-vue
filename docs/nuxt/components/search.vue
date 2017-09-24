@@ -35,7 +35,7 @@ export default {
         return {};
       }
       const terms = this.search.replace(/\s+/g, ' ').split(/\s+/).filter(t => t);
-      if (terms.length === 0)
+      if (terms.length === 0) {
         return {};
       }
       let results = [];
