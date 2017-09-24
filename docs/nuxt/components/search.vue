@@ -1,6 +1,6 @@
 <template>
   <div class="bd-search d-flex align-items-center">
-    <b-form-input id="bd-search-input" v-model="search" placeholder="Search..." />
+    <b-form-input id="bd-search-input" v-model="search" placeholder="Search keywords..." />
     <button type="button" v-b-toggle.bd-docs-nav class="bd-search-docs-toggle d-md-none p-0 ml-3" aria-label="Toggle docs navigation">
       <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path></svg>
     </button>
@@ -21,7 +21,7 @@
 
 <script>
 import site from '~/..';
-import { groupBy } from 'lodash';
+import { groupBy, intersectionBy } from 'lodash';
 
 export default {
   data () {
@@ -32,21 +32,41 @@ export default {
   computed: {
     toc () {
       if (!this.search.length) {
-        return {}
+        return {};
       }
-      const regex = new RegExp(this.search, 'i')
-      const allResults = Array.concat.apply([], Object.keys(site.toc).map(sectionKey => {
-        const section = site.toc[sectionKey]
-        return section.toc.map(t => {
-          return Object.assign({
+      const terms = this.search.replace(/\s+/g, ' ').split(/\s+/).filter(t => t);
+      if (terms.length === 0)
+        return {};
+      }
+      let results = [];
+      // find results for each term
+      terms.forEach(term => {
+        results.push(this.resultsFor(term));
+      });
+      if (results.length === 0) {
+        return {};
+      }
+      // add our 'iteratee' key
+      results.push('href');
+      // Find the intersection (common) of all individual results
+      results = intersectionBy.apply(null, results);
+      return groupBy(results.slice(0, 6), 'section');
+    }
+  },
+  methods: {
+    resultsFor(term) {
+      const regex = new RegExp('\\b' + term, 'i')
+      const results = Array.concat.apply([], Object.keys(site.toc).map(sectionKey => {
+        const section = site.toc[sectionKey];
+        return Array.concat.apply([], section.toc).map(t => {
+          return {
             title: t.label,
             section: section.title,
             href: (sectionKey + t.href).replace('/#', '#')
-          })
-        }).filter(r => regex.test(r.title) || regex.test(r.section) || regex.test(r.href))
-      }))
-      console.log(this.search, regex, allResults)
-      return groupBy(allResults.slice(0, 6), 'section')
+          };
+        }).filter(r => regex.test(r.title) || regex.test(r.section) || regex.test(r.href));
+      }));
+      return results;
     }
   }
 }
