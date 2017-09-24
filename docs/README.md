@@ -68,7 +68,7 @@ Vue.use(BootstrapVue)
 
 ## Individual components and directives
 If for any reason just want to use a specific component, you can do this by directly importing that component.
-This is not recommended as entire package gzipped size is ~40Kb (including Popper.js)!
+This is not recommended as entire package gzipped size is < 60Kb (including Popper.js)!
 
 ```js
 import { bAlert, bBtn, bCollapse } from 'bootstrap-vue/lib/components'
