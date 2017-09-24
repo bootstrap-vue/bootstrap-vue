@@ -176,7 +176,6 @@ export default {
                 '//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css',
                 '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css',
                 '//unpkg.com/vue@latest/dist/vue.min.js',
-                '//unpkg.com/tether@latest/dist/js/tether.min.js',
                 '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
             ];
         },
