@@ -97,8 +97,11 @@ Disable browser native HTML5 validation by setting the `novalidate` prop to true
 Set the `validated` prop to true to add the Bootstrap V4 `.was-validated` class
 to the form.
 
-### Validation methods
+### Validation mechanisms
 
-Coming soon.
+Documentation coming soon.
+
+For now, please see the [Bootstrap V4.beta official form validation documentation](https://getbootstrap.com/docs/4.0/components/forms/#validation)
+
 
 ## Component Reference
