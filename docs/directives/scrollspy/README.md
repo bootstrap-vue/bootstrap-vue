@@ -13,12 +13,12 @@ component(s) where you want to indicate which link is currently active.
 - When spying on elements other than the `<body>`, be sure to have a `height` set and
 `overflow-y: scroll;` applied.
 - Anchors (`<a>`, `<b-nav-item>`, `<b-dropdown-item>`, `<b-list-group-item>`) are required and
-must have an `href` that points to an element with that id in teh container you are spying on.
+must have an `href` that points to an element with that id in the container you are spying on.
 
 When successfully implemented, your nav or list group will update accordingly, moving
 the `active` state from one item to the next based on their associated targets.
 
-### Example using `<b-nav>`
+### Example using navs
 Using `v-b-scrollspy` on a `<b-nav>` component to monitor the scrolling on `<b-card-body>`.
 Scroll the area below the navbar and watch the active class change. The dropdown items
 will be highlighted as well.
@@ -88,7 +88,7 @@ export default {
 
 <!-- scrollspy-nav-1.vue -->
 ```
-### Example using nested `<b-navbar>` and `<b-nav>`
+### Example using nested navs
 Scrollspy also works with nested `<b-nav>`. If a nested `<b-nav-item>` is 
 active, its parents will also be active. Scroll the area next to the navbar and
 watch the active class change.
@@ -156,7 +156,7 @@ export default {
 <!-- scrollspy-nested-1.vue -->
 ```
 
-### Example with `<b-list-group>`
+### Example using list group
 Scrollspy also works with `<b-list-group>` when it contains `<b-list-grouop-item>`s
 that have a _local_ `href` . Scroll the area next to the list group and watch the
 active state change.
