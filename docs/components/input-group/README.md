@@ -104,10 +104,11 @@ is no ned to set size on the individual inputs or buttons..
 
 To control width, place the input inside standard Bootstrap grid column.
 
-## Related components
+## Related sub-components
 - `<b-input-group-addon>`
 - `<b-input-group-button>`
 
-`b-input-group-button` can also be used by the shorthand alias `b-input-group-btn`
+## Component aliases
+- `<b-input-group-button>` can also be used by the shorthand alias `<b-input-group-btn>`
 
 ## Component Reference
