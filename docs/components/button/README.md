@@ -17,7 +17,7 @@ Includes support for a handful of contextual variations, sizes, states, and more
 <!-- button-1.vue -->
 ```
 
-## Element type
+## Button element type
 
 The `<b-button>` component generally renders a `<button>` element. However, you can also
 render an `<a>` element by providing an `href` prop value. You man also generate
@@ -32,6 +32,13 @@ is required).
 
 <!-- button-2.vue -->
 ```
+
+## Button type
+
+When neither `href` nor `to` props are provided, `<b-button>` renders an html `<button>`
+element.  You can specify the button's type by setting the prop `type` to `button`,
+`submit` or `reset`.  The default type is `button`.
+
 
 ## Button Sizing
 
@@ -76,12 +83,6 @@ works with buttons, rendered as `<a>` elements and `<router-link>`.
 
 <!-- button-3.vue -->
 ```
-
-## Button type
-
-When neither `href` nor `to` props are provided, `<b-button>` renders an html `<button>`
-element.  You can specify the button's type by setting the prop `type` to `button`,
-`submit` or `reset`.  The default type is `button`.
 
 ## Pressed state and toggling
 
@@ -152,7 +153,7 @@ Refer to [`vue-router`](https://router.vuejs.org/) docs for the various `<router
 
 Note the `tag` attribute for `<router-link>` is referred to as `router-tag` in `bootstrap-vue`.
 
-## Alias
+## Button component alias
 
 `<b-button>` can also be used by its shorter alias `<b-btn>`.
 
