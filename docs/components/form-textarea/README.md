@@ -128,8 +128,8 @@ field styling and preserve the correct margin and padding and height.
 <!-- form-textarea-plaintext.vue -->
 ```
 
-## Aliases
+## Component alias
 You can use `<b-form-textarea>` by it's shorter alias `<b-textarea>`.
 
-## Component Reference
+## Component reference
 
