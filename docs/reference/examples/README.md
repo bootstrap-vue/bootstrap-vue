@@ -78,5 +78,14 @@ tags to load the required javascript and CSS in your page.
 
 ## Vue-CLI
 
+### `webpack-simple` example
 Coming soon!
+
+### `webpack` example
+Coming soon!
+
+
+## Individual component import example
+Coming soon!
+
 
