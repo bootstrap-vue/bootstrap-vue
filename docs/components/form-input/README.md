@@ -274,7 +274,7 @@ If you want to have `<b-form-input readonly>` elements in your form styled as pl
 text, set the `plaintext` prop (no need to set `readonly`) to remove the default form
 field styling and preserve the correct margin and padding.
 
-## Alias
+## Component alias
 You can also use `<b-form-input>` by it's shorter alias of `<b-input>`.
 
 ## Component Reference
