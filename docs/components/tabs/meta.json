@@ -7,7 +7,7 @@
   "events": [
     {
       "event": "input",
-      "description": "Emits when a tab is shown",
+      "description": "Emits when a tab is shown. USed to update teh v-model",
       "args": [
         {
           "arg": "tab_index"
