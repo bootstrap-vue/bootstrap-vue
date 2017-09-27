@@ -176,3 +176,11 @@ You'll need babel-polyfill for BootstrapVue to work properly. In order to suppor
 
 - `npm install babel-polyfill`
 - Import it in your app main entry point with `import 'babel-polyfill'`
+
+## Tooling Support
+
+### vscode + vetur
+
+If you are using [vscode](https://code.visualstudio.com/) as your text editor, bootstrap-vue has intellisense autocompletion for component attributes available when using the [vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur).
+
+[Twitter: vetur + bootstrap-vue](https://twitter.com/AlexSashaRegan/status/912769997776158723)
