@@ -1,5 +1,26 @@
 {
   "title": "Form Select",
   "component": "bFormSelect",
-  "jsfiddle": "b4bg7d24"
+  "events": [
+    {
+      "event": "input",
+      "description": "Emitted with the select value changes",
+      "args": [
+        {
+          "arg": "value",
+          "desccription": "current selected value of the select."
+        }
+      ]
+    },
+    {
+      "event": "change",
+      "description": "Emitted with the select value changes via user interaction",
+      "args": [
+        {
+          "arg": "value",
+          "desccription": "current selected value of the select."
+        }
+      ]
+    }
+  ]
 }

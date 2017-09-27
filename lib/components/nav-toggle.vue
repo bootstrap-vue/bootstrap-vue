@@ -6,13 +6,15 @@
             :aria-expanded="toggleState ? 'true' : 'false'"
             @click="onclick"
     >
-        <span class="navbar-toggler-icon"></span>
+        <slot><span class="navbar-toggler-icon"></span></slot>
     </button>
 </template>
 
 <script>
+import { listenOnRootMixin } from '../mixins';
 
 export default {
+    mixins: [listenOnRootMixin],
     computed: {
         classObject() {
             return [
@@ -45,15 +47,16 @@ export default {
             if (target.toggle) {
                 target.toggle();
             }
-            this.$root.$emit('collapse::toggle', this.target);
-        }
-    },
-    created() {
-        this.$root.$on('collapse::toggle::state', (target, state) => {
+            this.$root.$emit('bv::toggle::collapse', this.target);
+        },
+        handleStateEvt(target, state) {
             if (target === this.target || target === this.target.id) {
                 this.toggleState = state;
             }
-        });
+        }
+    },
+    created() {
+        this.listenOnRoot('bv::collapse::state', this.handleStateEvt);
     }
 };
 </script>

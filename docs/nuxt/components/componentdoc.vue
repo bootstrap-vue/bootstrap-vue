@@ -1,15 +1,19 @@
 <template>
-    <div>
+    <div class="bd-content" v-if="component">
 
-        <h2><code>{{tag}}</code></h2>
-        <a :href="githubURL" target="_blank" class="text-muted">(view source)</a>
+        <b-row align-v="center">
+            <b-col sm="9"><h2><code>{{tag}}</code></h2></b-col>
+            <b-col sm="3" class="text-sm-right">
+                <b-btn variant="outline-secondary" size="sm" :href="githubURL" target="_blank">view source</b-btn>
+            </b-col>
+        </b-row>
 
         <template v-if="props_items && props_items.length > 0">
             <h4>Properties</h4>
             <section>
-                <b-table :items="props_items" :fields="props_fields" striped>
+                <b-table :items="props_items" :fields="props_fields" small head-variant="default" striped>
                     <template slot="default" scope="field">
-                        <code>{{field.value}}</code>
+                        <code v-if="field.value">{{field.value}}</code>
                     </template>
                 </b-table>
             </section>
@@ -17,21 +21,23 @@
 
         <template v-if="slots && slots.length > 0">
             <h4>Slots</h4>
-            <b-table :items="slots" :fields="slots_fields" striped></b-table>
+            <b-table :items="slots" :fields="slots_fields" small head-variant="default" striped></b-table>
         </template>
 
         <template v-if="events && events.length > 0">
             <h4>Events</h4>
-            <b-table :items="events" :fields="events_fields" striped>
+            <b-table :items="events" :fields="events_fields" small head-variant="default" striped>
                 <template slot="args" scope="field">
-                    <div v-for="arg in field.value">
-                        <code>{{arg.arg}}</code>
-                        <span v-html="arg.description"/>
+                    <div v-for="arg in field.value" :key="'' + arg">
+                        <code v-if="arg.arg">{{arg.arg}}</code>
+                        <span v-html="arg.description"></span>
                     </div>
                 </template>
             </b-table>
         </template>
+
     </div>
+
 </template>
 
 <style scoped>
@@ -57,6 +63,10 @@
             }
         },
         computed: {
+            componentOptions() {
+                const component = Vue.options.components[this.component];
+                return (component && component.options) ? component.options : {};
+            },
             props_fields() {
                 const component = Vue.options.components[this.component];
                 let props = [];
@@ -73,7 +83,7 @@
 
                 // Add the required column if there are required field(s)
                 if (hasRequired) {
-                    fileds.required = {label: 'Required'};
+                    fields.required = {label: 'Required'};
                 }
 
                 return fields;
@@ -148,8 +158,9 @@
                 return '<' + this.componentName + '>';
             },
             githubURL() {
-                const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/master/lib/components';
-                return base + '/' + _.kebabCase(this.component).replace('b-', '') + '.vue';
+                const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/lib/components';
+                const isFunctional =  this.componentOptions.functional;
+                return base + '/' + _.kebabCase(this.component).replace(/^b-/, '') + (isFunctional ? '.js' : '.vue');
             }
         }
     };

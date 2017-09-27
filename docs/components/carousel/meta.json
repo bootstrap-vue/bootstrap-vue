@@ -2,5 +2,26 @@
   "title": "Carousel",
   "component": "bCarousel",
   "components": ["bCarouselSlide"],
-  "jsfiddle": "dd71ezon"
+  "events": [
+    {
+      "event": "sliding-start",
+      "description": "Emitted when transitioning to a new slide has started.",
+      "args": [
+        {
+          "arg": "slide",
+          "description": "Slide number that is being slid to."
+        }
+      ]
+    },
+    {
+      "event": "sliding-end",
+      "description": "Emitted when transitioning to a new slide has ended.",
+      "args": [
+        {
+          "arg": "slide",
+          "description": "Slide number that was slid to."
+        }
+      ]
+    }
+  ]
 }

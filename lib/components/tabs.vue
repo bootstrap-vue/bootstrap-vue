@@ -1,6 +1,6 @@
 <template>
-    <component :is="tag" :id="id || null" :class="['tabs',{'row': computedPosition === 'left' || computedPosition === 'right'}]">
-        <div v-if="computedPosition === 'bottom'" :class="['tab-content',{'card-block': card}]" ref="tabsContainer">
+    <component :is="tag" :id="safeId()" class="tabs">
+        <div v-if="bottom" :id="safeId('_BV_tab_container_')" :class="['tab-content',{'card-body': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
@@ -9,24 +9,25 @@
             <ul :class="['nav','nav-' + navStyle,card ? 'card-header-'+navStyle : null,{'flex-column': computedPosition === 'left' || computedPosition === 'right'}]"
                 role="tablist"
                 tabindex="0"
-                :aria-setsize="tabs.length"
-                :aria-posinset="currentTab + 1"
                 @keydown.left="previousTab"
                 @keydown.up="previousTab"
                 @keydown.right="nextTab"
                 @keydown.down="nextTab"
-                @keydown.shift.left="setTab(-1,false,1)"
-                @keydown.shift.up="setTab(-1,false,1)"
-                @keydown.shift.right="setTab(tabs.length,false,-1)"
-                @keydown.shift.down="setTab(tabs.length,false,-1)"
+                @keydown.shift.left="setTab(0,false,1)"
+                @keydown.shift.up="setTab(0,false,1)"
+                @keydown.shift.right="setTab(tabs.length-1,false,-1)"
+                @keydown.shift.down="setTab(tabs.length-1,false,-1)"
             >
                 <li class="nav-item" v-for="(tab, index) in tabs" role="presentation">
                     <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
                        :href="tab.href"
                        role="tab"
+                       :aria-setsize="tabs.length"
+                       :aria-posinset="currentTab + 1"
                        :aria-selected="tab.localActive ? 'true' : 'false'"
-                       :aria-controls="tab.id || null"
-                       :id="tab.controlledBy || null"
+                       :aria-controls="safeId('_BV_tab_container_')"
+                       :aria-disabled="tab.disabled"
+                       :id="tab.controlledBy || safeId('_BV_tab_${index+1}_')"
                        @click.prevent.stop="setTab(index)"
                        @keydown.space.prevent.stop="setTab(index)"
                        @keydown.enter.prevent.stop="setTab(index)"
@@ -44,7 +45,7 @@
             </ul>
         </div>
 
-        <div v-if="computedPosition !== 'bottom'" :class="['tab-content',{'card-block': card,'col': computedPosition === 'left' || computedPosition === 'right'}]" ref="tabsContainer">
+        <div v-if="!bottom" :id="safeId('_BV_tab_container_')" :class="['tab-content',{'card-body': card}]" ref="tabsContainer">
             <slot></slot>
             <slot name="empty" v-if="!tabs || !tabs.length"></slot>
         </div>
@@ -52,9 +53,11 @@
 </template>
 
 <script>
-    import observeDom from '../utils/observe-dom';
+    import {observeDom} from '../utils';
+    import {idMixin} from '../mixins';
 
     export default {
+        mixins: [idMixin],
         data() {
             return {
                 currentTab: this.value,
@@ -62,17 +65,9 @@
             };
         },
         props: {
-            id: {
-                type: String,
-                default: ''
-            },
             tag: {
                 type: String,
                 default: 'div'
-            },
-            noFade: {
-                type: Boolean,
-                default: false
             },
             card: {
                 type: Boolean,
@@ -84,17 +79,22 @@
             },
             value: {
                 type: Number,
-                default: 0
+                default: null
             },
             pills: {
                 type: Boolean,
                 default: false
             },
-            lazy: {
+            bottom: {
                 type: Boolean,
                 default: false
             },
-            bottom: {
+            noFade: {
+                type: Boolean,
+                default: false
+            },
+            lazy: {
+                // This prop is sniffed by the tab child
                 type: Boolean,
                 default: false
             },
@@ -108,7 +108,6 @@
                 if (val === old) {
                     return;
                 }
-
                 this.$root.$emit('changed::tab', this, val, this.tabs[val]);
                 this.$emit('input', val);
                 this.tabs[val].$emit('click');
@@ -117,21 +116,17 @@
                 if (val === old) {
                     return;
                 }
-
-                this.setTab(val);
-            },
-            fade(val, old) {
-                if (val === old) {
-                    return;
+                if (typeof old !== 'number') {
+                    old = 0;
                 }
-
-                this.tabs.forEach(item => {
-                    this.$set(item, 'fade', val);
-                });
+                // Moving left or right?
+                const direction = val < old ? -1 : 1;
+                this.setTab(val, false, direction);
             }
         },
         computed: {
             fade() {
+                // This computed prop is sniffed by the tab child
                 return !this.noFade;
             },
             navStyle() {
@@ -158,93 +153,103 @@
              * Move to next tab
              */
             nextTab() {
-                this.setTab(this.currentTab, false, 1);
+                this.setTab(this.currentTab + 1, false, 1);
             },
 
             /**
              * Move to previous tab
              */
             previousTab() {
-                this.setTab(this.currentTab, false, -1);
+                this.setTab(this.currentTab - 1, false, -1);
             },
 
             /**
              * Set active tab on the tabs collection and the child 'tab' component
+             * Index is the tab we want to activate. Direction is the direction we are moving
+             * so if the tab we requested is disabled, we can skip over it.
+             * Force is used by updateTabs to ensure we have cleared any previous active tabs.
              */
-            setTab(index, force, offset) {
-                offset = offset || 0;
+            setTab(index, force, direction) {
+                direction = this.sign(direction || 0);
+                index = index || 0;
 
-                // Prevent setting same tab!
-                if (!force && (index + offset) === this.currentTab) {
+                // Prevent setting same tab and infinite loops!
+                if (!force && index === this.currentTab) {
                     return;
                 }
 
-                const tab = this.tabs[index + offset];
+                const tab = this.tabs[index];
 
                 // Don't go beyond indexes!
                 if (!tab) {
+                    // Reset the v-model to the current Tab
+                    this.$emit('input', this.currentTab);
                     return;
                 }
 
                 // Ignore or Skip disabled
                 if (tab.disabled) {
-                    if (offset) {
-                        // Skip to next non disabled tab in offset direction (recursive)
-                        this.setTab(index, force, offset + this.sign(offset));
+                    if (direction) {
+                        // Skip to next non disabled tab in specified direction (recursive)
+                        this.setTab(index + direction, force, direction);
                     }
                     return;
                 }
 
-                // Deactivate any previous active tab(s)
+                // Activate requested current tab, and deactivte any old tabs
                 this.tabs.forEach( t => {
-                    if (t !== tab && t.localActive) {
+                    if (t === tab) {
+                        // Set new tab as active
+                        this.$set(t, 'localActive', true);
+                    } else {
+                        // Ensure non current tabs are not active
                         this.$set(t, 'localActive', false);
                     }
                 });
 
-                // Set new tab as active
-                this.$set(tab, 'localActive', true);
-
                 // Update currentTab
-                this.currentTab = index + offset;
+                this.currentTab = index;
             },
 
             /**
-             * Dynamically update tabs
+             * Dynamically update tabs list
              */
             updateTabs() {
                 // Probe tabs
-                if (this.$slots.default) {
-                    this.tabs = this.$slots.default.filter(tab => tab.componentInstance || false)
-                        .map(tab => tab.componentInstance);
-                } else {
-                    this.tabs = [];
-                }
+                this.tabs = this.$children.filter(child => child._isTab);
 
-                this.tabs.forEach(tab => {
-                    this.$set(tab, 'fade', this.fade);
-                    this.$set(tab, 'lazy', this.lazy);
+                // Set initial active tab
+                let tabIndex = null;
+
+                // Find *last* active non-dsabled tab in current tabs
+                // We trust tab state over currentTab
+                this.tabs.forEach((tab, index) => {
+                    if (tab.localActive && !tab.disabled) {
+                        tabIndex = index;
+                    }
                 });
 
-                // Get initial active tab
-                let tabIndex = this.currentTab;
+                // Else try setting to currentTab
+                if (tabIndex === null) {
+                    if (this.currentTab >= this.tabs.length) {
+                        // Handle last tab being removed
+                        this.setTab(this.tabs.length - 1, true, -1);
+                        return;
+                    } else if (this.tabs[this.currentTab] && !this.tabs[this.currentTab].disabled) {
+                        tabIndex = this.currentTab;
+                    }
+                }
 
-                if (tabIndex === null || tabIndex === undefined) {
-                    // Find last active tab in current tabs
+                // Else find *first* non-disabled tab in current tabs
+                if (tabIndex === null) {
                     this.tabs.forEach((tab, index) => {
-                        if (tab.active) {
+                        if (!tab.disabled && tabIndex === null) {
                             tabIndex = index;
                         }
                     });
                 }
 
-                // Workaround to fix problem when currentTab is removed
-                let offset = 0;
-                if (tabIndex > this.tabs.length - 1) {
-                    offset = -1;
-                }
-
-                this.setTab(tabIndex || 0, true, offset);
+                this.setTab(tabIndex || 0, true, 0);
             }
         },
         mounted() {

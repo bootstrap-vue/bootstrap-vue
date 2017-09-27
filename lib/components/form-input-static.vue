@@ -1,28 +1,41 @@
 <template>
     <p :id="id || null"
-       :class="['form-control-static',inputClass]"
+       :class="inputClass"
        v-html="staticValue"
-    >
-        <slot></slot>
-    </p>
+    ></p>
 </template>
 
 <script>
-    import formMixin from '../mixins/form';
-
     export default {
-        mixins: [formMixin],
         computed: {
             staticValue() {
-                return this.formatter ? this.formatter(this.value) : this.value;
+                const val = this.value;
+                return (val === '' || val === null) ? '&nbsp;' : val;
+            },
+            inputClass() {
+                return [
+                    'form-control-plaintext',
+                    this.size ? `form-control-${this.size}` : null,
+                    this.state ? `is-${this.state}` : null
+                ];
             }
         },
         props: {
+            id: {
+                type: String,
+                default: null
+            },
             value: {
                 default: null
             },
-            formatter: {
-                type: Function
+            size: {
+                type: String,
+                default: null
+            },
+            state: {
+                // valid, invalid or null
+                type: String,
+                default: null
             }
         }
     };

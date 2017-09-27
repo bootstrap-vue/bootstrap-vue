@@ -1,4 +1,18 @@
 {
   "title": "Form",
-  "component": "bForm"
+  "slug": "form",
+  "component": "bForm",
+  "components": ["bFormRow", "bFormText", "bFormFeedback"],
+  "events": [
+    {
+      "event": "submit",
+      "description": "Emitted when the form is being submitted",
+      "args": [
+        {
+          "arg": "event",
+          "description": "Native submit event."
+        }
+      ]
+    }
+  ]
 }

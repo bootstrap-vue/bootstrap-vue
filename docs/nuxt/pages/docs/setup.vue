@@ -1,18 +1,9 @@
-<template>
-    <div class="container" v-html="readme"></div>
-</template>
+<template> </template>
 
 <script>
-    import layout from '../../layouts/docs.vue';
-    import readme from '../../../SETUP.md';
-
     export default {
-        components: {layout},
-        layout: 'docs',
-        computed: {
-            readme() {
-                return readme;
-            }
+        fetch({ redirect }) {
+            redirect('/docs')
         }
     };
 </script>

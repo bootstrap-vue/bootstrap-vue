@@ -1,19 +1,28 @@
 <template>
-    <div :class="classObject" role="group">
+    <component :is="tag" :id="id || null" :class="classObject" role="group">
         <slot name="left">
-            <div v-if="left" class="input-group-addon" v-html="left"></div>
+            <b-input-group-addon v-if="left"
+                                 :id="id ? `${id}_BV_addon_left_` : null"
+                                 v-html="left"
+            ></b-input-group-addon>
         </slot>
 
         <slot></slot>
 
         <slot name="right">
-            <div v-if="right" class="input-group-addon" v-html="right"></div>
+            <b-input-group-addon v-if="right"
+                                 :id="id ? `${id}_BV_addon_right_` : null"
+                                 v-html="right"
+            ></b-input-group-addon>
         </slot>
-    </div>
+    </component>
 </template>
 
 <script>
+    import bInputGroupAddon from './input-group-addon';
+
     export default {
+        components: { bInputGroupAddon },
         computed: {
             classObject() {
                 return [
@@ -24,6 +33,10 @@
             }
         },
         props: {
+            id: {
+                type: String,
+                defualt: null
+            },
             size: {
                 type: String,
                 default: null
@@ -39,6 +52,10 @@
             right: {
                 type: String,
                 default: null
+            },
+            tag: {
+                type: String,
+                default: 'div'
             }
         }
     };

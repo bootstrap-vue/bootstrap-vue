@@ -1,0 +1,118 @@
+<div id="app">
+    <!-- Directive Modifiers -->
+    <h2>Basic example - Directive Modifiers</h2>
+    <p>
+        <b-btn ref="collapse_mod_btn"
+               variant="primary"
+               v-b-toggle.collapse1>
+            Toggle Collapse 1
+        </b-btn>
+    </p>
+    <b-collapse ref="collapse_mod"
+                id="collapse1">
+        <b-card>Collapse 1 contents Here</b-card>
+    </b-collapse>
+    <!-- Directive Argument -->
+    <h2>Basic example - Directive Argument</h2>
+    <p>
+        <b-btn ref="collapse_arg_btn"
+               variant="primary"
+               v-b-toggle="'collapse2'">
+            Toggle Collapse 2
+        </b-btn>
+    </p>
+    <b-collapse ref="collapse_arg"
+                id="collapse2">
+        <b-card>Collapse 2 contents Here</b-card>
+    </b-collapse>
+    <!-- Initially Open -->
+    <h2>Initially Open Example</h2>
+    <p>
+        <b-btn ref="collapse_open_btn"
+               variant="primary"
+               v-b-toggle.collapse3>
+            Toggle Collapse 3
+        </b-btn>
+    </p>
+    <b-collapse ref="collapse_open"
+                visible
+                id="collapse3">
+        <b-card>
+            Initially visible Collapse 3 contents Here
+        </b-card>
+    </b-collapse>
+    <!-- v-model -->
+    <h2><code>v-model</code> Example</h2>
+    <p>
+        <b-btn ref="collapse_vmod_btn"
+               variant="primary"
+               aria-controls="collapse4"
+               :aria-expanded="showCollapse ? 'true' : 'false'"
+               @click="showCollapse = !showCollapse">
+            Toggle Collapse 4
+        </b-btn>
+    </p>
+    <b-collapse ref="collapse_vmod"
+                v-model="showCollapse"
+                id="collapse4">
+        <b-card>
+            Initially visible Collapse 4 contents Here
+        </b-card>
+    </b-collapse>
+    <!-- Multiple Targets -->
+    <h2>Multiple Targets Example</h2>
+    <p>
+        <b-btn ref="collapse_multi_btn"
+               variant="primary"
+               v-b-toggle.multi1.multi2>
+            Toggle Multi Collapse 1 &amp; 2
+        </b-btn>
+    </p>
+    <b-collapse ref="collapse_multi_1"
+                id="multi1">
+        <b-card>Multi-Collapse 1 contents Here</b-card>
+    </b-collapse>
+    <p>This paragraph doesn't collapse</p>
+    <b-collapse ref="collapse_multi_2"
+                id="multi2">
+        <b-card>Multi-Collapse 2 contents Here</b-card>
+    </b-collapse>
+    <!-- Accordion -->
+    <h2>Accordion example</h2>
+    <b-btn block
+           ref="accordion_1_btn"
+           variant="primary"
+           v-b-toggle.accordion1>Toggle Accordion 1</b-btn>
+    <b-collapse ref="accordion_1"
+                id="accordion1"
+                visible
+                accordion="my-accordion">
+        <b-card>
+            Accordion 1 contents Here
+        </b-card>
+    </b-collapse>
+    <b-btn block
+           ref="accordion_2_btn"
+           variant="primary"
+           v-b-toggle.accordion2
+           class="mt-2">Toggle Accordion 2</b-btn>
+    <b-collapse ref="accordion_2"
+                id="accordion2"
+                accordion="my-accordion">
+        <b-card>
+            Accordion 2 contents Here
+        </b-card>
+    </b-collapse>
+    <b-btn block
+           ref="accordion_3_btn"
+           variant="primary"
+           v-b-toggle.accordion3
+           class="mt-2">Toggle Accordion 3</b-btn>
+    <b-collapse ref="accordion_3"
+                id="accordion3"
+                accordion="my-accordion">
+        <b-card>
+            Accordion 3 contents Here
+        </b-card>
+    </b-collapse>
+</div>

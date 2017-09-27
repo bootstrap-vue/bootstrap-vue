@@ -1,41 +1,32 @@
 <template>
     <div class="container">
-        <div v-html="readme"></div>
-
-        <h3>Examples</h3>
-
-        <jsfiddle v-for="fid in meta.jsfiddle"
-                  :slug="fid" tabs="result,html,js"
-                  :key="fid"
-        >
-        </jsfiddle>
-
+        <div class="bd-content" v-html="readme" v-play></div>
     </div>
 </template>
 
 
 <script>
-    /* eslint-disable import/no-unresolved */
-    import jsfiddle from '~components/jsfiddle.vue';
-    import directives from '../../../../directives';
+import directives from '../../../../directives';
+import docsMixin from '../docs-mixin';
 
-    export default {
-        components: {jsfiddle},
-        layout: 'docs',
+export default {
+    mixins: [ docsMixin ],
+    layout: 'docs',
 
-        asyncData({params: {directive}, redirect}) {
-            const doc = directives[directive];
-            if (!doc) {
-                redirect('/docs');
-                return {};
-            }
-            return {...doc};
-        },
-
-        head() {
-            return {
-                title: `${this.meta.title} - BootstrapVue`
-            };
+    fetch({ params, redirect }) {
+        if (!directives[params.directive]) {
+            redirect('/docs/directives/' + Object.keys(directives)[0])
         }
-    };
+    },
+
+    data() {
+        return Object.assign({ meta: {}, readme: '' }, directives[this.$route.params.directive])
+    },
+
+    head() {
+        return {
+            title: `${this.meta.title} - BootstrapVue`
+        };
+    }
+};
 </script>

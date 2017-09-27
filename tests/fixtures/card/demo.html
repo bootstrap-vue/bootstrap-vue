@@ -1,0 +1,57 @@
+<div id="app">
+    <!-- Simple -->
+    <b-card class="mb-2"
+            bg-variant="success"
+            border-variant="success"
+            ref="simple_card">Simple Card</b-card>
+    <!-- Standard -->
+    <b-card :header="headerText"
+            class="mb-2"
+            title="Card title"
+            sub-title="Card subtitle"
+            ref="standard_card">
+        <small slot="footer"
+               class="text-muted">
+            Last updated 3 mins ago
+        </small>
+    </b-card>
+    <!-- Leave this example with a single child for testing -->
+    <b-card no-body
+            ref="no_body">
+        <div id="no_body_default_slot"
+             ref="no_body_default_slot">No body</div>
+    </b-card>
+    <!-- With image -->
+    <b-card :img-src="img0"
+            title="Skulls are nice"
+            class="mb-2"
+            ref="img_card">
+        This is my opinion :)
+    </b-card>
+    <!-- Overlay image -->
+    <b-card overlay
+            :img-src="img1"
+            class="mb-2"
+            ref="img_overlay_card">
+        Overlay cards are cute!
+    </b-card>
+
+    <b-card-group tag="section"
+                  ref="card_group">
+        <b-card tag="article"
+                title="Groupie"
+                title-tag="h1"
+                id="title-tag-test"></b-card>
+        <b-card tag="article"
+                sub-title="Groupie"
+                sub-title-tag="h2"
+                id="sub-title-tag-test"></b-card>
+    </b-card-group>
+
+    <b-card no-body
+            ref="card_body">
+        <b-card-body ref="body" class="card-text">
+            <p>Custom body</p>
+        </b-card-body>
+    </b-card>
+</div>

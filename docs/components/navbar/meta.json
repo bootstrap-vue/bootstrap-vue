@@ -6,7 +6,7 @@
     "bNavToggle",
     "bNavItem",
     "bNavText",
-    "bNavForm"
-  ],
-  "jsfiddle": "gfqucs0z"
+    "bNavForm",
+    "bNavbarBrand"
+  ]
 }

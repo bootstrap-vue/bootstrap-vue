@@ -17,12 +17,15 @@
 </template>
 
 <script>
+    import { from as arrayFrom } from '../utils/array';
+    import { isVisible, selectAll } from '../utils/dom';
+
     const ITEM_SELECTOR = [
-        '.btn:not(.disabled):not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
-        '.form-control:not(.disabled):not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
-        'select:not(.disabled):not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
-        'input[type="checkbox"]:not(.disabled):not([disabled]):not([style*="display: none"]):not([style*="display:none"])',
-        'input[type="radio"]:not(.disabled):not([disabled]):not([style*="display: none"]):not([style*="display:none"])'
+        '.btn:not(.disabled):not([disabled])',
+        '.form-control:not(.disabled):not([disabled])',
+        'select:not(.disabled):not([disabled])',
+        'input[type="checkbox"]:not(.disabled)',
+        'input[type="radio"]:not(.disabled)'
     ].join(',');
 
     export default {
@@ -39,7 +42,7 @@
                 type: Boolean,
                 default: false
             },
-            KeyNav: {
+            keyNav: {
                 type: Boolean,
                 default: false
             }
@@ -94,12 +97,12 @@
                 }
             },
             getItems() {
-                const items = Array.prototype.slice.call(this.$el.querySelectorAll(ITEM_SELECTOR));
+                let items = selectAll(ITEM_SELECTOR, this.$el);
                 items.forEach(item => {
                     // Ensure tabfocus is -1 on any new elements
                     item.tabIndex = -1;
                 });
-                return items;
+                return items.filter(el => isVisible(el));
             }
         },
         mounted() {

@@ -5,40 +5,35 @@
          aria-live="polite"
          aria-atomic="true"
     >
-        <button type="button"
-                class="close"
-                data-dismiss="alert"
-                aria-label="dismissLabel"
-                v-if="dismissible"
-                @click.stop.prevent="dismiss"
-        >
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <b-btn-close v-if="dismissible" :aria-label="dismissLabel" @click="dismiss">
+          <slot name="dismiss"></slot>
+        </b-btn-close>
         <slot></slot>
     </div>
 </template>
 
 <script>
-    import warn from '../utils/warn';
+    import {warn} from '../utils';
+    import bBtnClose from "./button-close";
 
     export default {
+        components: {bBtnClose},
+        model: {
+            prop: 'show',
+            event: 'input'
+        },
         data() {
             return {
                 countDownTimerId: null,
                 dismissed: false
             };
         },
-        created() {
-            if (this.state) {
-                warn('<b-alert> "state" property is deprecated, please use "variant" property instead.');
-            }
-        },
         computed: {
             classObject() {
                 return ['alert', this.alertVariant, this.dismissible ? 'alert-dismissible' : ''];
             },
             alertVariant() {
-                const variant = this.state || this.variant || 'info';
+                const variant = this.variant;
                 return `alert-${variant}`;
             },
             localShow() {
@@ -49,10 +44,6 @@
             variant: {
                 type: String,
                 default: 'info'
-            },
-            state: {
-                type: String,
-                default: null
             },
             dismissible: {
                 type: Boolean,
@@ -75,18 +66,32 @@
         mounted() {
             this.showChanged();
         },
+        destroyed() {
+            this.clearCounter();
+        },
         methods: {
             dismiss() {
+                this.clearCounter();
                 this.dismissed = true;
                 this.$emit('dismissed');
-                this.clearCounter();
+                this.$emit('input', false);
+                if (typeof this.show === 'number') {
+                    this.$emit('dismiss-count-down', 0);
+                    this.$emit('input', 0);
+                } else {
+                    this.$emit('input', false);
+                }
+
             },
             clearCounter() {
                 if (this.countDownTimerId) {
                     clearInterval(this.countDownTimerId);
+                    this.countDownTimerId = null;
                 }
             },
             showChanged() {
+                // Reset counter status
+                this.clearCounter();
                 // Reset dismiss status
                 this.dismissed = false;
 
@@ -95,18 +100,17 @@
                     return;
                 }
 
-                let dismissCountDown = this.show;
-                this.$emit('dismiss-count-down', dismissCountDown);
-
                 // Start counter
-                this.clearCounter();
+                let dismissCountDown = this.show;
                 this.countDownTimerId = setInterval(() => {
-                    if (dismissCountDown < 2) {
-                        return this.dismiss();
+                    if (dismissCountDown < 1) {
+                        this.dismiss();
+                        return;
                     }
                     dismissCountDown--;
                     this.$emit('dismiss-count-down', dismissCountDown);
-                }, 1000);
+                    this.$emit('input', dismissCountDown);
+                 }, 1000);
             }
         }
     };

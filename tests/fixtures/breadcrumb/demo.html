@@ -1,0 +1,9 @@
+<div id="app">
+    <!-- Don't use self-closing tags because jest html engine will break -->
+    <b-breadcrumb ref="breadcrumb1" :items="items"></b-breadcrumb>
+    <b-breadcrumb ref="breadcrumb2">
+        <b-breadcrumb-item v-for="(item,index) in items2"
+                           v-bind="item"
+                           :key="index" />
+    </b-breadcrumb>
+</div>

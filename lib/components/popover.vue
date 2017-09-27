@@ -1,29 +1,21 @@
 <template>
-    <div>
-        <span ref="trigger"><slot></slot></span>
-        <div :class="['popover', 'fade', classState ? 'show' : '', popoverAlignment]"
-             :style="popoverStyle"
-             tabindex="-1"
-             ref="popover"
-             @focus="$emit('focus')"
-             @blur="$emit('blur')"
-        >
-            <div class="popover-arrow"></div>
-            <h3 class="popover-title" v-if="title" v-html="title"></h3>
-            <div class="popover-content">
-                <div class="popover-content-wrapper">
-                    <slot name="content"><span v-html="content"></span></slot>
-                </div>
-            </div>
-        </div>
+    <!-- Container for possible title and content -->
+    <div v-show="false" class="d-none" aria-hidden="true">
+        <div ref="title"><slot name="title"></slot></div>
+        <div ref="content"><slot></slot></div>
     </div>
 </template>
 
 <script>
-    import popover from '../mixins/popover';
+    import PopOver from '../classes/popover';
+    import { warn } from '../utils';
+    import { toolpopMixin } from '../mixins';
 
     export default {
-        mixins: [popover],
+        mixins: [ toolpopMixin ],
+        data() {
+            return {};
+        },
         props: {
             title: {
                 type: String,
@@ -33,11 +25,27 @@
                 type: String,
                 default: ''
             },
-            popoverStyle: {
-                type: Object,
-                default: null
+            triggers: {
+                type: [String, Array],
+                default: 'click'
+            },
+            placement: {
+                type: String,
+                default: 'right'
+            }
+        },
+        methods: {
+            createToolpop() {
+                // getTarget is in toolpop mixin
+                const target = this.getTarget();
+                if (target) {
+                    this._toolpop = new PopOver(target, this.getConfig(), this.$root);
+                } else {
+                    this._toolpop = null;
+                    warn("b-popover: 'target' element not found!");
+                }
+                return this._toolpop;
             }
         }
     };
-
 </script>

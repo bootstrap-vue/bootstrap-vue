@@ -5,7 +5,7 @@ const buble = require('rollup-plugin-buble');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const uglify = require('rollup-plugin-uglify');
-const {minify} = require('uglify-js-harmony');
+const {minify} = require('uglify-es');
 const CleanCSS = require('clean-css');
 const {camelCase} = require('lodash');
 const {name, dependencies} = require('../package.json');
@@ -19,43 +19,45 @@ if (!fs.existsSync(dist)) {
     fs.mkdirSync(dist);
 }
 
+
 module.exports = {
-    entry: path.resolve(lib, 'extra.js'),
+    input: path.resolve(lib, 'extra.js'),
     external: Object.keys(dependencies),
-    moduleName: name + '.extra',
+    name: name,
     plugins: [
         vue({
             cssModules: {
                 generateScopedName: '[name]__[local]'
             },
             css(style) {
-                fs.writeFileSync(path.resolve(dist, `${name}.extra.css`), new CleanCSS().minify(style).styles);
+                fs.writeFileSync(path.resolve(dist, `extra.css`), new CleanCSS().minify(style).styles);
             }
         }),
-        buble(),
         resolve({external: ['vue']}),
         commonjs(),
+        buble({objectAssign: 'Object.assign'}),
         uglify({}, minify)
     ],
     globals: {
+        tether: 'Tether'
     },
-    targets: [
+    output: [
         {
             format: 'cjs',
-            moduleName: camelCase(name),
-            dest: path.resolve(dist, name + '.extra.common.js'),
-            sourceMap: true
+            name: camelCase(name),
+            file: path.resolve(dist, name + '.extra.common.js'),
+            sourcemap: true
         },
         {
             format: 'es',
-            dest: path.resolve(dist, name + '.extra.esm.js'),
-            sourceMap: true
+            file: path.resolve(dist, name + '.extra.esm.js'),
+            sourcemap: true
         },
         {
             format: 'umd',
-            moduleName: camelCase(name),
-            dest: path.resolve(dist, name + '.extra.js'),
-            sourceMap: true
+            modulename: camelCase(name),
+            file: path.resolve(dist, name + '.extra.js'),
+            sourcemap: true
         }
     ]
 };

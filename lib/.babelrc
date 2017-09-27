@@ -1,0 +1,26 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 4 versions",
+            "safari >= 7"
+          ]
+        },
+        "modules": false
+      }
+    ]
+  ],
+  "plugins": [
+    "external-helpers"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  }
+}

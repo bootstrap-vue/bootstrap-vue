@@ -1,25 +1,92 @@
 {
   "title": "Popover",
   "component": "bPopover",
-  "jsfiddle": "rx6n8d1L",
   "events": [
     {
-      "event": "showChange",
-      "description": "Emitted each time the Popover display status changes.",
+      "event": "show",
+      "description": "When popover is about to be shown. Cancelable",
       "args": [
         {
-          "arg": "newShowState",
-          "description": "Boolean representation of the new Popover show/hide status."
+          "arg": "bvEvent",
+          "description": "bvEvent object. Call bvEvent.preventDefault() to cancel show."
         }
       ]
     },
     {
-      "event": "focus",
-      "description": "When the popover receives focus, usually artificially because the user clicked/tapped on it. Intended to simulate focus being maintained on the target when desired."
+      "event": "shown",
+      "description": "When popover is shown",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object."
+        }
+      ]
     },
     {
-      "event": "blur",
-      "description": "When the popover loses focus."
+      "event": "hide",
+      "description": "When popover is about to be hidden. Cancelable",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object. Call bvEvent.preventDefault() to cancel hide."
+        }
+      ]
+    },
+    {
+      "event": "hidden",
+      "description": "When popover is hidden",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object."
+        }
+      ]
+    },
+    {
+      "event": "bv::popover::show",
+      "description": "Emitted on $root when popover is about to be shown. Cancelable",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object. Call bvEvent.preventDefault() to cancel show."
+        }
+      ]
+    },
+    {
+      "event": "bv::popover::shown",
+      "description": "Emitted on $root when popover is shown",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object."
+        }
+      ]
+    },
+    {
+      "event": "bv::popover::hide",
+      "description": "Emitted on $root when popover is about to be hidden. Cancelable",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object. Call bvEvent.preventDefault() to cancel hide."
+        }
+      ]
+    },
+    {
+      "event": "bv::popover::hidden",
+      "description": "Emitted on $root when popover is hidden",
+      "args": [
+        {
+          "arg": "bvEvent",
+          "description": "bvEvent object."
+        }
+      ]
+    }
+  ],
+  "slots": [
+    {
+      "name": "title",
+      "description": "Optional slot for title (html supported)"
     }
   ]
 }

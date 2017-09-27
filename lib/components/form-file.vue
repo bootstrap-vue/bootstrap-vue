@@ -1,44 +1,93 @@
 <template>
-    <div :class="['form-control', custom?'custom-file':null, inputClass]"
-         :id="id ? (id + '__BV_file_outer_') : null"
-         @dragover.stop.prevent="dragover"
-    >
+    <input v-if="plain"
+           type="file"
+           :id="safeId()"
+           ref="input"
+           :class="['form-control-file', sizeFormClass, stateClass]"
+           :name="name"
+           :disabled="disabled"
+           :required="required"
+           :capture="capture || null"
+           :aria-required="required ? 'true' : null"
+           :accept="accept || null"
+           :multiple="multiple"
+           :webkitdirectory="directory"
+           @change="onFileChange">
+    <div v-else
+         :class="['custom-file', 'w-100', stateClass]"
+         :id="safeId('_BV_file_outer_')"
+         @dragover.stop.prevent="dragover">
+         <!-- Normally this div should be label, but IE borks out if label has a file input inside. Awaiting fix from MSFT -->
 
         <!-- Drop Here Target -->
-        <span class="drop-here"
-              v-if="dragging && custom"
+        <span v-if="dragging"
+              :data-drop="dropLabel"
+              class="drop-here"
               @dragover.stop.prevent="dragover"
               @drop.stop.prevent="drop"
               @dragleave.stop.prevent="dragging=false"
-              :data-drop="dropLabel"
         ></span>
 
         <!-- Real Form input -->
         <input type="file"
+               :id="safeId()"
                ref="input"
-               :class="custom ? 'custom-file-input' : ''"
+               :class="['custom-file-input', 'w-100', stateClass, hasFocus?'focus':'']"
                :name="name"
-               :id="id || null"
                :disabled="disabled"
+               :required="required"
+               :capture="capture || null"
+               :aria-required="required ? 'true' : null"
                :accept="accept || null"
                :multiple="multiple"
                :webkitdirectory="directory"
-               :aria-describedby="(custom && id) ? (id + '__BV_file_control_') : null"
-               @change="onFileChange"
-        >
+               :aria-describedby="safeId('_BV_file_control_')"
+               @focusin="focusHandler"
+               @focusout="focusHandler"
+               @change="onFileChange">
 
         <!-- Overlay Labels -->
-        <span :class="['custom-file-control',dragging?'dragging':null,inputClass]"
-              :id="id ? (id + '__BV_file_control_') : null"
+        <span :id="safeId('_BV_file_control_')"
+              :class="['custom-file-control', dragging?'dragging':null]"
               :data-choose="computedChooseLabel"
               :data-selected="selectedLabel"
-              v-if="custom"
         ></span>
 
     </div>
 </template>
 
 <style scoped>
+    /* Custom-file focus styling */
+    /* regular focus styling */
+    .custom-file-input.focus ~ .custom-file-control,
+    .custom-file-input:focus ~ .custom-file-control {
+        color: #495057;
+        background-color: #fff;
+        border-color: #80bdff;
+        outline: none;
+    }
+
+    /* Invalid focus styling */
+    .custom-file-input.is-invalid.focus ~ .custom-file-control,
+    .custom-file-input.is-invalid:focus ~ .custom-file-control,
+    .was-validated .custom-file-input:invalid.focus ~ .custom-file-control,
+    .was-validated .custom-file-input:invalid:focus ~ .custom-file-control {
+        -webkit-box-shadow: 0 0 0 .2rem rgba(220,53,69,.25);
+        box-shadow: 0 0 0 .2rem rgba(220,53,69,.25);
+        border-color: #dc3545;
+    }
+
+    /* valid focus styling */
+    .custom-file-input.is-valid.focus ~ .custom-file-control,
+    .custom-file-input.is-valid:focus ~ .custom-file-control,
+    .was-validated .custom-file-input:valid.focus ~ .custom-file-control,
+    .was-validated .custom-file-input:valid:focus ~ .custom-file-control {
+        -webkit-box-shadow: 0 0 0 .2rem rgba(40,167,69,.25);
+        box-shadow: 0 0 0 .2rem rgba(40,167,69,.25);
+        border-color: #28a745;
+    }
+
+    /* Drag/Drop and filenames/prompts handling */
     .custom-file-control {
         overflow: hidden;
     }
@@ -52,11 +101,11 @@
         filter: blur(3px);
     }
 
-    .custom-file-control::after {
+    .custom-file-control[data-selected]::after {
         content: attr(data-selected);
     }
 
-    .custom-file-control::before {
+    .custom-file-control[data-choose]::before {
         content: attr(data-choose);
     }
 
@@ -82,15 +131,60 @@
 </style>
 
 <script>
-    import formMixin from '../mixins/form';
+    import { idMixin, formStateMixin, formCustomMixin, formMixin } from '../mixins';
+    import { from as arrayFrom } from '../utils/array';
 
     export default {
-        mixins: [formMixin],
+        mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
         data() {
             return {
                 selectedFile: null,
-                dragging: false
+                dragging: false,
+                hasFocus: false
             };
+        },
+        props: {
+            accept: {
+                type: String,
+                default: ''
+            },
+            capture: {
+                // Instruct input to capture from camera
+                type: Boolean,
+                default: false
+            },            
+            placeholder: {
+                type: String,
+                default: null
+            },
+            chooseLabel: {
+                type: String,
+                default: null
+            },
+            multiple: {
+                type: Boolean,
+                default: false
+            },
+            directory: {
+                type: Boolean,
+                default: false
+            },
+            noTraverse: {
+                type: Boolean,
+                default: false
+            },
+            selectedFormat: {
+                type: String,
+                default: ':count Files'
+            },
+            noDrop: {
+                type: Boolean,
+                default: false
+            },
+            dropLabel: {
+                type: String,
+                default: 'Drop files here'
+            }
         },
         computed: {
             selectedLabel() {
@@ -128,6 +222,17 @@
             }
         },
         methods: {
+            focusHandler(evt) {
+                // Boostrap v4.beta doesn't have focus styling for custom file input
+                // Firefox has a borked '[type=file]:focus ~ sibling' selector, so we add
+                // A 'focus' class to get around this bug
+                if (this.plain || evt.type === 'focusout') {
+                    this.hasFocus = false;
+                } else {
+                    // Add focus styling for custom file input
+                    this.hasFocus = true;
+                }
+            },
             reset() {
                 try {
                     // Wrapped in try in case IE < 11 craps out
@@ -159,7 +264,7 @@
                         }
                     }
                     Promise.all(queue).then(filesArr => {
-                        this.setFiles(Array.prototype.concat.apply([], filesArr));
+                        this.setFiles(arrayFrom(filesArr));
                     });
                     return;
                 }
@@ -224,49 +329,11 @@
                                 queue.push(this.traverseFileTree(entries[i], path + item.name + '/'));
                             }
                             Promise.all(queue).then(filesArr => {
-                                resolve(Array.prototype.concat.apply([], filesArr));
+                                resolve(arrayFrom(filesArr));
                             });
                         });
                     }
                 });
-            }
-        },
-        props: {
-            accept: {
-                type: String,
-                default: ''
-            },
-            placeholder: {
-                type: String,
-                default: null
-            },
-            chooseLabel: {
-                type: String,
-                default: null
-            },
-            multiple: {
-                type: Boolean,
-                default: false
-            },
-            directory: {
-                type: Boolean,
-                default: false
-            },
-            noTraverse: {
-                type: Boolean,
-                default: false
-            },
-            selectedFormat: {
-                type: String,
-                default: ':count Files'
-            },
-            noDrop: {
-                type: Boolean,
-                default: false
-            },
-            dropLabel: {
-                type: String,
-                default: 'Drop files here'
             }
         }
     };
