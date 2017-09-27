@@ -1,11 +1,14 @@
 # Getting Started
 
 ## Webpack
-If you are using module bundlers such as Webpack, Rollup, Laravel elixir/mix, etc you may prefer directly include package
-into your project. To get started use yarn or npm to get latest version first:
+If you are using module bundlers such as Webpack, Rollup, Laravel elixir/mix, etc you may prefer to directly include the package
+into your project. To get started, use yarn or npm to get latest version of bootstrap-vue and bootstrap 4:
 
 ```bash
-yarn add bootstrap-vue # or npm i bootstrap-vue
+# With NPM:
+npm i bootstrap-vue bootstrap@4.0.0-beta
+# With Yarn:
+yarn add bootstrap-vue bootstrap@4.0.0-beta
 ```
 
 Then, register BootstrapVue plugin in your app entry point:
@@ -17,7 +20,7 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 ```
 
-And import styles: (needs `style-loader`)
+And import the css from both Bootstrap 4 & Bootstrap-Vue: _(requires webpack `style-loader`)_
 
 ```js
 import 'bootstrap/dist/css/bootstrap.css'
@@ -48,46 +51,82 @@ You can use official [Nuxt.js](https://nuxtjs.org) module to add BootstrapVue su
 
 ## vue-cli
 
-Download the dependencies:
+Bootstrap-Vue has two vue-cli templates available:
+
+- [webpack-simple](https://github.com/bootstrap-vue/webpack-simple): Quick scaffold for a proof of concept or small app
+- [webpack](https://github.com/bootstrap-vue/webpack): Larger, production ready template with more options
 
 ```bash
-yarn add --dev bootstrap-vue style-loader
+# Ensure vue-cli is installed and up to date
+npm i -g vue-cli
+# Initialize a bootstrap project in the directory 'my-project'
+vue init bootstrap-vue/webpack-simple my-project
+# Change into the directory
+cd my-project
+# Install dependencies
+npm i
+# Fire up the dev server with HMR
+npm run dev
 ```
 
-In `src/main.js`, add the following lines, in priority order:
-
-```js
-import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
-/* ...there may be other imports here */
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'bootstrap/dist/css/bootstrap.css'
-
-Vue.use(BootstrapVue)
-```
+You can repeat the commands above replacing `bootstrap-vue/webpack-simple` with `bootstrap-vue/webpack` for the webpack template.
 
 ## Individual components and directives
-If for any reason just want to use a specific component, you can do this by directly importing that component.
-This is not recommended as entire package gzipped size is < 60Kb (including Popper.js)!
+
+If you would like to only pull in a specific component or set of components, you can do this by directly importing those components.
+
+To cherry pick a component/directive, start by importing it in the file where it is being used:
 
 ```js
-import { bAlert, bBtn, bCollapse } from 'bootstrap-vue/lib/components'
-import { bToggle, bScrollspy } from 'bootstrap-vue/lib/directives'
+import { bModal } from 'bootstrap-vue/lib/components'
+import { bModal as bModalDirective } from 'bootstrap-vue/lib/directives'
+```
 
-new Vue({
-  // ...
-  components: {
-    bAlert,
-    bBtn,
-    bCollapse
-  },
-  directives: {
-    bToggle,
-    bScrollspy
-  },
-  // ...
+Then add it to your component definition:
+
+```js
+Vue.component("my-component", {
+    components: {
+        'b-modal': bModal
+    },
+    directives: {
+        'b-modal': bModalDirective
+    }
+    // ...
 })
 ```
+
+Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-casing (shown), camel-casing, pascal-casing, and/or object property shorthand.
+
+### Webpack + Babel
+
+When importing components/directives individually, you must configure your app to properly build the bootstrap-vue library source code. This commonly involves white-listing the node module for your babel loader rule in webpack.
+
+```js
+// webpack.config.js
+const webpack = require('webpack')
+const path = require('path')
+
+module.exports = {
+    entry: './app.js',
+    output: {
+        filename: 'bundle.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                include: [ // use `include` vs `exclude` to white-list vs black-list
+                    path.resolve(__dirname, "src"), // white-list your app source files
+                    require.resolve("bootstrap-vue"), // white-list bootstrap-vue
+                ],
+                loader: "babel-loader"
+            }
+        ]
+    }
+}
+```
+
 ## Browser
 
 ```html
@@ -112,7 +151,7 @@ If your bundler supports es modules, it will automatically prefer it over common
 
 ## Migrating a project already using Bootstrap
 If you've already been using Bootstrap 4, there are a couple adjustments you may need to make to your project:
- 
+
 - Remove the bootstrap.js file from your page scripts or build pipeline
 - If Bootstrap is the only thing relying on jQuery, you can safely remove it — BootstrapVue **does not** depend on jQuery
 - Don't forget to include the `bootstrap-vue.css` file!
@@ -123,7 +162,7 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 
 BootstrapVue is to be used with Bootstrap 4 CSS.
 Please see [Browsers and devices](https://v4-alpha.getbootstrap.com/getting-started/browsers-devices)
-for more information about browsers currently supported by Bootstrap 4. 
+for more information about browsers currently supported by Bootstrap 4.
 
 ### JS
 
@@ -133,6 +172,7 @@ If you want to support older IE, Android and IOS devices, you may want to use
 
 ### IE 11
 
-You'll need babel-polyfill for BootstrapVue to work properly. In order to support this browser: 
+You'll need babel-polyfill for BootstrapVue to work properly. In order to support this browser:
+
 - `npm install babel-polyfill`
 - Import it in your app main entry point with `import 'babel-polyfill'`
