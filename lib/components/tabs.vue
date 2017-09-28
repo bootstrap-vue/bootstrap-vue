@@ -338,17 +338,22 @@
              * Set the correct b-col properties for the current position
              */
             checkColumns() {
-                if (this.verticalBreakpoint && (this.position === 'left' || this.position === 'right')) {
-                    // Check if the passed breakpoint is valid
-                    if (!this.breakpoints.hasOwnProperty(this.verticalBreakpoint)) {
-                        warn('b-tabs: "' + this.verticalBreakpoint + '" is not a valid breakpoint')
-                    } else {
-                        this.breakpoints[this.verticalBreakpoint].header = this.verticalTabCols;
-                        this.breakpoints[this.verticalBreakpoint].tabs = '';
+                if (this.position === 'left' || this.position === 'right') {
+                    if (this.verticalBreakpoint) {
+                        // Check if the passed breakpoint is valid
+                        if (!this.breakpoints.hasOwnProperty(this.verticalBreakpoint)) {
+                            warn('b-tabs: "' + this.verticalBreakpoint + '" is not a valid breakpoint')
+                        } else {
+                            this.breakpoints[this.verticalBreakpoint].header = this.verticalTabCols;
+                            this.breakpoints[this.verticalBreakpoint].tabs = '';
 
-                        this.headerCols = 12
-                        this.tabsCols = 12;
+                            this.headerCols = 12;
+                            this.tabsCols = 12;
+                        }
                     }
+                } else {
+                    this.headerCols = 12;
+                    this.tabsCols = 12;
                 }
             }
         },
