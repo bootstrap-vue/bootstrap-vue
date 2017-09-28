@@ -29,9 +29,9 @@ describe("link", async () => {
         expect($refs.rel.getAttribute("rel")).toBe("alternate");
     });
 
-    it("should add aria-disabled==='false' when not disabled", async () => {
+    it("should not add aria-disabled when not disabled", async () => {
         const { app: { $refs } } = window;
-        expect($refs.plain.getAttribute("aria-disabled")).toBe("false");
+        expect($refs.plain.hasAttribute("aria-disabled")).toBe(false);
     });
 
     it("should add aria-disabled==='true' when disabled", async () => {
