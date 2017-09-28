@@ -1,34 +1,34 @@
 <template>
-    <b-form-row :class="groupClasses"
-                :id="safeId()"
-                role="group"
-                :aria-describedby="describedByIds"
-    >
-        <label v-if="label || $slots['label'] || horizontal"
-               :for="targetId"
-               :id="labelId"
-               :class="labelClasses"
-        >
-            <slot name="label"><span v-html="label"></span></slot>
-        </label>
-        <div :class="inputLayoutClasses" ref="content">
-            <slot></slot>
-            <b-form-feedback v-show="feedback || $slots['feedback']"
-                             :id="feedbackId"
-                             role="alert"
-                             aria-live="assertive"
-                             aria-atomic="true"
-            >
-                <slot name="feedback"><span v-html="feedback"></span></slot>
-            </b-form-feedback>
-            <b-form-text v-if="description || $slots['description']" :id="descriptionId">
-                <slot name="description"><span v-html="description"></span></slot>
-            </b-form-text>
-        </div>
-    </b-form-row>
+    <filedset :class="groupClasses"
+              :id="safeId()"
+              role="group"
+              :aria-describedby="describedByIds" >
+        <b-form-row>
+            <legend v-if="label || $slots['label'] || horizontal"
+                    :id="labelId"
+                    :class="labelClasses"
+            ><slot name="label"><span v-html="label"></span></slot></legend>
+            <div :class="inputLayoutClasses" ref="content">
+                <slot></slot>
+                <b-form-feedback v-show="feedback || $slots['feedback']"
+                                 :id="feedbackId"
+                                 role="alert"
+                                 aria-live="assertive"
+                                 aria-atomic="true"
+                ><slot name="feedback"><span v-html="feedback"></span></slot></b-form-feedback>
+                <b-form-text v-if="description || $slots['description']" :id="descriptionId">
+                    <slot name="description"><span v-html="description"></span></slot>
+                </b-form-text>
+            </div>
+        </b-form-row>
+    </fieldset>
 </template>
 
 <style>
+/* a fix for a BS4 beta.1 missing CSS rule */
+.b-form-group.form-group :valid ~ .invalid-feedback {
+  display: none !important;
+}
 /*
    Bootstrap V4.beta uses ~ sibling selector to display the .invalid-feedback
    so we ue a style override and also place .is-invalid on the input layout section
@@ -37,6 +37,9 @@
  */
 .b-form-group.form-group.is-invalid .invalid-feedback {
   display: block !important;
+}
+.b-form-group.form-group.is-valid .invalid-feedback {
+  display: none !important;
 }
 </style>
 
@@ -48,19 +51,6 @@
     import bFormText from './form-text';
     import bFormFeedback from './form-feedback';
 
-    // Selector to find first input with an ID. This Order is important!
-    const INPUT_SELECTOR = [
-        '[role="radiogroup"][id]',
-        '[role="group"][id]',
-        'input[id]',
-        'select[id]',
-        'textarea[id]',
-        '.form-control[id]',
-        '.form-control-plaintext[id]',
-        '.dropdown[id]',
-        '.dropup[id]'
-    ].join(',');
-
     export default {
         mixins: [idMixin, formStateMixin],
         components: {
@@ -70,18 +60,9 @@
         },
         data() {
             return {
-                targetId: null
             };
         },
         props: {
-            labelFor: {
-                type: String,
-                default: null
-            },
-            validated: {
-                type: Boolean,
-                value: false
-            },
             horizontal: {
                 type: Boolean,
                 default: false
@@ -120,6 +101,10 @@
             feedback: {
                 type: String,
                 default: null
+            },
+            validated: {
+                type: Boolean,
+                value: false
             }
         },
         computed: {
@@ -184,32 +169,5 @@
                 return null;
             }
         },
-        methods: {
-            updateTargetId() {
-                if (this.labelFor) {
-                    // User supplied for target
-                    this.targetId = this.labelFor;
-                    return;
-                }
-                // Else find first input with ID
-                const content = this.$refs.content;
-                if (!content) {
-                    this.targetId = null;
-                } else {
-                    // Find first input element with an ID
-                    const input = select(INPUT_SELECTOR, content);
-                    this.targetId = (input && input.id) ? input.id : null;
-                }
-            }
-        },
-        mounted() {
-            this.targetId = this.labelFor || null;
-            // We run in nextTick to ensure auto IDs are available
-            this.$nextTick(() => this.updateTargetId());
-        },
-        updated() {
-            // We run in nextTick to ensure auto IDs are available
-            this.$nextTick(() => this.updateTargetId());
-        }
-    };
+    }
 </script>
