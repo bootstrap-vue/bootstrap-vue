@@ -54,7 +54,7 @@
                 return [
                     'nav-link',
                     this.noCaret ? '' : 'dropdown-toggle',
-                    this.disabled ? disabled : ''
+                    this.disabled ? 'disabled' : ''
                 ];
             },
             menuClasses() {
