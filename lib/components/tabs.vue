@@ -339,17 +339,21 @@
              */
             checkColumns() {
                 if (this.position === 'left' || this.position === 'right') {
-                    if (this.verticalBreakpoint) {
-                        // Check if the passed breakpoint is valid
-                        if (!this.breakpoints.hasOwnProperty(this.verticalBreakpoint)) {
-                            warn('b-tabs: "' + this.verticalBreakpoint + '" is not a valid breakpoint')
-                        } else {
-                            this.breakpoints[this.verticalBreakpoint].header = this.verticalTabCols;
-                            this.breakpoints[this.verticalBreakpoint].tabs = '';
+                    if (!this.verticalBreakpoint) {
+                        this.headerCols = this.verticalTabCols;
+                        this.tabsCols = '';
+                    // Check if the passed breakpoint is valid
+                    } else if (!this.breakpoints.hasOwnProperty(this.verticalBreakpoint)) {
+                        warn('b-tabs: "' + this.verticalBreakpoint + '" is not a valid breakpoint')
 
-                            this.headerCols = 12;
-                            this.tabsCols = 12;
-                        }
+                        this.headerCols = this.verticalTabCols;
+                        this.tabsCols = '';
+                    } else {
+                        this.breakpoints[this.verticalBreakpoint].header = this.verticalTabCols;
+                        this.breakpoints[this.verticalBreakpoint].tabs = '';
+
+                        this.headerCols = 12;
+                        this.tabsCols = 12;
                     }
                 } else {
                     this.headerCols = 12;
