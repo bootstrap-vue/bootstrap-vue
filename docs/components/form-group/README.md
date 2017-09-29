@@ -1,8 +1,8 @@
 # Form group
 
 > The `<b-form-group>` component is the easiest way to add some structure to forms. Its
-purpose is to provide a label and control pairing, help text and feedback text, as well
-as contextual state visual feedback.
+purpose is to provide a pairing between controls and a label, help text and feedback text,
+as well as contextual state visual feedback.
 
 <div class="alert alert-warning">
  <p class="my-0">
@@ -49,11 +49,11 @@ export default {
 ```
 
 ## Label
-Use the prop `label` to set the content of the generated `<label>` element (html supported),
-or by using the named slot `label`, You may optionally visually hide the label by setting
-the prop `label-sr-only`.
+Use the prop `label` to set the content of the `<fieldset>` generated `<legend>`
+element (html supported), or by using the named slot `label`, You may optionally
+visually hide the label text by setting the prop `label-sr-only`.
 
-By default, the label appears above the input element, but you may optionally set
+By default, the label appears above the input element(s), but you may optionally set
 the prop `horizontal` to place the label on the same line, and control the width
 of the label by setting `label-cols` to the number of columns (default of `3`,
 valid range of 1 through 11). `label-cols` has no effect if the layout is
@@ -70,13 +70,13 @@ Optional descriptive text which is always shown with the `.text-muted` class
 (html supported) by setting the `description` prop or using the named slot `description`.
 The description text is rendered using the <`b-form-text>` component.
 
-## Feedback
+## Invalid feedback
 Show optional feedback text to provide textual state feedback (html supported)
 by setting the prop `feedback` or using the named slot `feedback`.
 
-Note that the feedback **will not be shown** unless the `invalid` state is set on the
-`<b-form-group>` and it's child(ren) input(s) or just on the input (`b-form-input>`, `b-form-textarea>`, `<b-form-select>`,
-`<b-form-checkbox>`, `<b-form-radio>`, or `<b-form-file>`).
+Note that the feedback **will not be shown** unless the invalid `state` is set on the
+`<b-form-group>` and it's child(ren) input(s) or just on the input (`b-form-input>`,
+`b-form-textarea>`, `<b-form-select>`, `<b-form-checkbox>`, `<b-form-radio>`, or `<b-form-file>`).
 
 Also feedback will be shown if the parent `<b-form>` component does not have the
 `novalidate` prop set (or set to `false`) along with `vadidated`
@@ -104,15 +104,20 @@ You should always provide content via the `feedback` prop (or slot) to aid users
 using assistive technologies when setting a contextual `invalid` state.
 
 ## Accessibility
-To enable auto-generation of `aria-*` attributes, **you must** supply a unique `id`
-prop to `<b-form-fieldset>`.
+To enable auto-generation of `aria-*` attributes, you should supply a unique `id` prop
+to `<b-form-group>`. This will associate the help text and feeback text to
+the `<b-form-group>` and its input control(s).
 
-To automatically associate the label to the first input component, you **must** provide
-a unique `id` prop on the input component. You may manually specify which containing
-input component the label is for by setting the `<b-form-group>` prop `label-for`
-to the value of the `id` string associated with the input or contaner element.
+`<b-form-group>` renders the input control(s) inside a an HTML `<fieldset>` element with
+the label content placed inside the fieldset's `<legend>` element. By nature of this markup,
+the legend content is automatically associated the the input control(s).
 
-It is **highly recommended** that you provide a unique `id` prop on your input element.
+When placing multiple form controls inside a fieldset, it is recommended to give each
+control an associated `<label>` (which may be visually hidden using the `.sr-only` class)
+and set the label's `for` attribute to the `id` of the associated input control. Alternatively,
+you can set the `aria-label` attribute on each input control instead of using a `<label>`.
+
+It is **highly recommended** that you provide a unique `id` prop on your input element(s).
 
 ## Component alias
 `<b-form-group>` can also be used via the legacy alias of `<b-form-fieldset>`.
