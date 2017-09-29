@@ -121,7 +121,7 @@
             },
             labelClasses() {
                 return [
-                    this.labelSrOnly ? 'sr-only' : 'col-form-label',
+                    this.labelSrOnly ? 'sr-only' : 'col-form-legend',
                     this.labelLayout,
                     this.labelAlignClass
                 ];
