@@ -1,7 +1,6 @@
 <template>
     <filedset :class="groupClasses"
               :id="safeId()"
-              role="group"
               :aria-describedby="describedByIds" >
         <b-form-row>
             <legend v-if="label || $slots['label'] || horizontal"
