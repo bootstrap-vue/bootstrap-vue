@@ -1,5 +1,5 @@
 # Starter examples
-> There are several ways you can create your app, from bsaic client side HTML
+> There are several ways you can create your app, from basic client side HTML
 all the way up to using a build system and compilers.
 
 In all cases, you should have familiarity with using [Vue](https://vuejs.org). A good
