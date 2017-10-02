@@ -83,7 +83,7 @@ Navbars come with built-in support for a handful of sub-components. Choose from 
 ### `<b-navbar-brand>`
 
 The `<b-navbar-brand>` generates a link if `href` is provided, or a `<router-link>` if `to`
-is provided.  If neither is given it renders as a `<div>` tag.  You can override the
+is provided. If neither is given it renders as a `<div>` tag. You can override the
 tag type by setting the `tag` prop to the element you would like rendered:
 
 ```html
@@ -109,7 +109,7 @@ tag type by setting the `tag` prop to the element you would like rendered:
 ```
 
 Adding images to the `<b-navbar-brand>` will likely always require custom styles or utilities
-to properly size.  Here are some examples to demonstrate:
+to properly size. Here are some examples to demonstrate:
 
 ```html
 <div>
@@ -260,8 +260,8 @@ to specify content that will collapse based on a particular breakpoint.
 
 Use `<b-nav-toggle>` to control the collapse component and set the `toggleable` prop to
 the breakpoint you would like content to automatically collapse. Possible values are `sm`,
-`md`, and `lg`.  Setting togleable to `true` (or with no explicit value) will set the
-breakpoint to `sm`.  setting to `false` will disable collapsing.
+`md`, and `lg`. Setting togleable to `true` (or with no explicit value) will set the
+breakpoint to `sm`. setting to `false` will disable collapsing.
 
 See the first example on this page for reference, and also refer to [`<b-collapse>`](./collapse) for
 details on the collapse component.

@@ -94,7 +94,7 @@ can also be styled with the standard HTML tags.
 ### Images
 
 The prop `img-src` places an image on the top of the card, and use the `img-alt` prop to
-specify a string to be placed in the image's `alt` attribute.  The image specified
+specify a string to be placed in the image's `alt` attribute. The image specified
 by the `img-src` prop will be responsive and will adjust it's width when the width of the
 card is changed.
 
@@ -144,8 +144,8 @@ Place the image in the background of the card by setting the boolean prop `overl
 ### Header and footer
 
 Add an optional header and/or footer within a card via the `header`/`footer`
-props or named slots.  You can control the wrapper element tags used by setting
-the `header-tag` and `footer-tag` props (both default is  `div`)
+props or named slots. You can control the wrapper element tags used by setting
+the `header-tag` and `footer-tag` props (both default is `div`)
 
 ```html
 <div>

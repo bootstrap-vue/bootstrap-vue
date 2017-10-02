@@ -57,7 +57,7 @@ export default {
 If prop `type` is set to an unsupported value, a `text` input will be rendered.
 
 Not all browsers support all types, nor do some types render in the same format across
-browser types/version.  Browsers that do not support a particular type will fall back to
+browser types/version. Browsers that do not support a particular type will fall back to
 a `text` input type.
 
 Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.

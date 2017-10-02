@@ -23,7 +23,7 @@ Things to know when using tooltip component:
  - Tooltips must be hidden before their corresponding elements have been removed from the DOM.
 
 The `<b-tooltip` component inserts a hidden (`display:none`) `<div>` intermediate container
-element at the point in the DOM where the `<b-tooltip>` component is placed.  This may
+element at the point in the DOM where the `<b-tooltip>` component is placed. This may
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
 and `<b-input-group>`. To avoid these posible layout issues, place the `<b-tooltip>`
 component **outside** of these types of components.

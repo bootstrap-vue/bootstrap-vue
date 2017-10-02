@@ -23,7 +23,7 @@ Things to know when using popover component:
  - Popovers must be hidden before their corresponding markup elements have been removed from the DOM.
 
 The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermediate container
-element at the point in the DOM where the `<b-popover>` component is placed.  This may
+element at the point in the DOM where the `<b-popover>` component is placed. This may
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
 and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>`
 component **outside** of theese types of components.

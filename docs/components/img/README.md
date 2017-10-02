@@ -116,7 +116,7 @@ Note: `left` takes precedence over `right` which takes precedence over `center`.
 
 ## Blank (or solid color) Images
 `<b-img>` provides built-in support for generating blank images (transparent by
-default) of any width and height, by setting the `blank` prop, and specifying 
+default) of any width and height, by setting the `blank` prop, and specifying
 `width` and `height` values (in pixels). You can apply any of the other
 `<b-img>` props to change the style/behavior of the generted image.
 
@@ -146,7 +146,7 @@ The default `blank-color` is `transparent`.
 **Notes:**
 - In blank image mode, if only one of width or height is set, the image will be have both width and height set to the same value.
 - In blank image mode, if width and height are not set, both width and height will internally be set to 1.
-- The `blank` prop takes precedence over the `src` prop.  If you set both and later set `blank` to `false` the image specified in `src` will then be displayed.
+- The `blank` prop takes precedence over the `src` prop. If you set both and later set `blank` to `false` the image specified in `src` will then be displayed.
 - Blank images are rendered using SVG image data URLs.
 - The `width` and `height` props will also apply the `width` and `height` attributes to the rendered `<img>` tag, even if `blank` is not set.
 
@@ -161,7 +161,7 @@ placeholder image URL via the prop `blank-src`, or have a blank placeholder imag
 for you by leaving `blank-src` as `null`.
 
 Specify the width and height of the placeholder via the `blank-width` and `blank-height`
-props.  If these props are not set, then they will fall back to the `width` and `height`
+props. If these props are not set, then they will fall back to the `width` and `height`
 props (which are applied to the image specified via `src`).
 
 Control the generated blank image color by setting the prop `blank-color`.
@@ -176,7 +176,7 @@ the viewport to trigger it to be shown. The default value is `360`.
 
 The `throttle` prop controls how long (in ms) after a scroll (or resize or
 orientationchange) event happens before checking if the image is has come within
-view (or within `offset` of view).  The default is `100` (ms).
+view (or within `offset` of view). The default is `100` (ms).
 
 Once an image has come into view and is shown, the scroll event listeners are
 removed.

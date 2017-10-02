@@ -65,7 +65,7 @@ export default {
 
 ## Visible state
 Use the `show` prop to control the visibility state of the alert. By
-default alerts are **not** shown.  Set the prop `show` to explicity display them.
+default alerts are **not** shown. Set the prop `show` to explicity display them.
 
 
 ## Alert contextual variants
@@ -152,8 +152,8 @@ within any alert. Use on `<a>` or `<b-link>`.
 ```
 
 ## Dismissing
-Using the `dismissible` prop it’s possible to dismiss any `<b-alert>` inline. This will add 
-a close `X` button.  use the `dismiss-label` prop to change the hidden label text associated
+Using the `dismissible` prop it’s possible to dismiss any `<b-alert>` inline. This will add
+a close `X` button. Use the `dismiss-label` prop to change the hidden label text associated
 with the dismiss button.
 
 ```html
@@ -167,7 +167,7 @@ with the dismiss button.
 ```
 
 ### Auto dismissing alerts:
-To create a `<b-alert>` that dismisses automatically after a period of time, set 
+To create a `<b-alert>` that dismisses automatically after a period of time, set
 the `show` prop to the number of seconds you would like the `<b-alert>` to remain visible for.
 
 ```html
