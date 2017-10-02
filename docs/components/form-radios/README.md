@@ -183,7 +183,7 @@ when they are in the checked state.
                         buttons
                         v-model="selected"
                         :options="options"
-                        name="radeiosBtnDefault" />
+                        name="radiosBtnDefault" />
 
     <h5 class="mt-3">
       Button style radios with <code>outline-primary</code> variant and size <code>lg</code>
