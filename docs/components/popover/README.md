@@ -229,7 +229,7 @@ export default {
 | `placement` | `'top'` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
 | `triggers` | `'click'` |  Space separated list of which event(s) will trigger open/close of popover | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
-| `delay` | `0` | Number of milliseconds to delay showing and hidding of popover. Can also be specified as an object in the form of `{ show: 123, hide: 456 }` allowing different show and hide delays | `0` and up, integers only.
+| `delay` | `0` | Number of milliseconds to delay showing and hidding of popover. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays | `0` and up, integers only.
 | `offset` | `0` | Number of pixels to shift the center of the popover. Also affects the position of the popover arrow. | Any negative or positive integer
 | `container` | `null` | String ID of element to append rendered popover into. If `null` or element not found, popover is appended to `<body>` (default) | Any valid in-document unique  element ID.
 

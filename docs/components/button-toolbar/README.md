@@ -36,7 +36,7 @@
       <b-btn>Edit</b-btn>
     </b-button-group>
     <b-input-group size="sm" class="w-25 mx-1" left="$" right=".00">
-      <b-form-input value="123" class="text-right"></b-form-input>
+      <b-form-input value="100" class="text-right"></b-form-input>
     </b-input-group>
     <b-input-group  size="sm" class="w-25 mx-1" left="Size">
       <b-form-select value="Medium" :options="['Large','Medium','Small']"></b-form-select>
@@ -47,7 +47,7 @@
     </b-button-group>
   </b-button-toolbar>
 </div>
-  
+
 <!-- button-toolbar-2.vue -->
 ```
 
@@ -72,7 +72,7 @@
     </b-button-group>
   </b-button-toolbar>
 </div>
-  
+
 <!-- button-toolbar-3.vue -->
 ```
 

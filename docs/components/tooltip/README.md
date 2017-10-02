@@ -23,7 +23,7 @@ Things to know when using tooltip component:
  - Tooltips must be hidden before their corresponding elements have been removed from the DOM.
 
 The `<b-tooltip` component inserts a hidden (`display:none`) `<div>` intermediate container
-element at the point in the DOM where the `<b-tooltip>` component is placed.  This may 
+element at the point in the DOM where the `<b-tooltip>` component is placed.  This may
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
 and `<b-input-group>`. To avoid these posible layout issues, place the `<b-tooltip>`
 component **outside** of these types of components.
@@ -154,7 +154,7 @@ The default position is `top`. Positioning is relative to the trigger element.
 | `placement` | `top` | Positioning of the tooltip, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
 | `triggers` | `hover focus` |  Space separated list of which event(s) will trigger open/close of tooltip | `hover`, `focus`, `click`. Note `blur` is a special use case to close tooltip on next click, usually used in conjunction with `click`.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
-| `delay` | `0` | Number of milliseconds to delay showing and hidding of popover. Can also be specified as an object in the form of `{ show: 123, hide: 456 }` allowing different show and hide delays | `0` and up, integers only.
+| `delay` | `0` | Number of milliseconds to delay showing and hidding of popover. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays | `0` and up, integers only.
 | `offset` | `0` | Number of pixels to shift the center of the tooltip | Any negative or positive integer
 | `container` | `null` | String ID of element to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default) | Any valid in-document unique  element ID.
 
