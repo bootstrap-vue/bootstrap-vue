@@ -39,7 +39,7 @@ keyed objects. Example format:
 ]
 ```
 `<b-table>` automatically samples the first row to extract field names (they keys in the
-record data). Field names are automatically "humanized" by converting `kebab-case`, `snake_case`, 
+record data). Field names are automatically "humanized" by converting `kebab-case`, `snake_case`,
 and `camelCase` to individual words and capitalizes each word. Example conversions:
 
  - `first_name` becomes `First Name`
@@ -80,7 +80,7 @@ const items = [
     isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson',
     _rowVariant: 'danger'
   },
-  { 
+  {
     isActive: true,  age: 40, first_name: 'Thor', last_name: 'Macdonald',
     _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
   },
@@ -384,7 +384,7 @@ export default {
 
 
 ## Custom Data Rendering
-Custom rendering for each data field in a row is possible using either 
+Custom rendering for each data field in a row is possible using either
 [scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots)
 or formatter callback function.
 
@@ -392,7 +392,7 @@ or formatter callback function.
 Scoped slots give you greater control over how the record data apepars.
 If you want to add an extra field which does not exist in the records,
 just add it to the `fields` array, And then reference the field(s) in the scoped
-slot(s).  
+slot(s).
 
 **Example: Custom data rendering with scoped slots**
 ```html
@@ -471,10 +471,10 @@ event:
 
 ### Formatter callback
 One more option to customize field output is to use formatter callback function.
-To enable this field's property `formatter` is used. Value of this property may be 
+To enable this field's property `formatter` is used. Value of this property may be
 String or function reference. In case of a String value, function must be defined at
 parent component's methods. Providing formatter as `Function`, it must be declared at
-global scope (window or as global mixin at Vue). 
+global scope (window or as global mixin at Vue).
 
 Callback function accepts three arguments - `value`, `key`, and `item`, and should
 return the formatted value as a string (basic HTML is supported)
@@ -494,7 +494,7 @@ return the formatted value as a string (basic HTML is supported)
 <script>
 export default {
   data: {
-    fields: [ 
+    fields: [
       {
         // A column that needs custom formatting,
         // calling formatter 'fullName' in this app
@@ -504,7 +504,7 @@ export default {
       },
       // A regular column
       'age',
-      {  
+      {
         // A regular column with custom formatter
         key: 'sex',
         formatter: (value) => { return value.charAt(0).toUpperCase(); }
@@ -524,7 +524,7 @@ export default {
       { name: { first: 'Rubin', last: 'Kincade' }, sex: 'male', age: 73 },
       { name: { first: 'Shirley', last: 'Partridge' }, sex: 'female', age: 62 }
     ]
-  }, 
+  },
   methods: {
       fullName(value){
           return `${value.first} ${value.last}`;
@@ -592,13 +592,13 @@ column in ascending direction (smallest first), while clicking on it again will 
 of sorting.  Clicking on a non-sortable column will clear the sorting.
 
 You can control which column is pre-sorted and the order of sorting (ascending or
-descending). To pre-specify the column to be sorted, set the `sort-by` prop to 
+descending). To pre-specify the column to be sorted, set the `sort-by` prop to
 the field's key.  Set the sort direction by setting `sort-desc` to either `true`
 (for descending) or `false` (for ascending, the default).
 
 The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by
 adding the `.sync` modifier. Your bound variables will then be updated accordingly
-based on the current sort critera. See the 
+based on the current sort critera. See the
 [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
 on the `.sync` prop modifier
 
@@ -705,7 +705,7 @@ items passing the filter routine. Treat this argument as read-only.
 
 Setting the prop `filter` to null or an empty string will disable local items filtering.
 
-See teh [Complete Example](#complete-example) below for an example of using the
+See the [Complete Example](#complete-example) below for an example of using the
 `filter` feature.
 
 

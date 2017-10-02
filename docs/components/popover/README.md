@@ -23,7 +23,7 @@ Things to know when using popover component:
  - Popovers must be hidden before their corresponding markup elements have been removed from the DOM.
 
 The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermediate container
-element at the point in the DOM where the `<b-popover>` component is placed.  This may 
+element at the point in the DOM where the `<b-popover>` component is placed.  This may
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
 and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>`
 component **outside** of theese types of components.
@@ -66,7 +66,7 @@ Positioning is relative to the trigger element.
       <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
     </div>
   </div>
-   
+
   <div class="popover bs-popover-right bs-popover-right-docs">
     <div class="arrow"></div>
     <h3 class="popover-header">Popover right</h3>
@@ -183,7 +183,7 @@ This `blur` trigger must be used in combination with the `click` trigger.
     <b-row>
       <b-col md="6" class="py-4 text-center">
         <b-btn id="exPopover2" variant="primary">Using properties</b-btn>
-        <b-popover target="exPopover2" 
+        <b-popover target="exPopover2"
             title="Prop Examples"
             triggers="hover focus"
             content="Embedding content using properties is easy">
@@ -200,7 +200,7 @@ This `blur` trigger must be used in combination with the `click` trigger.
       </b-col>
     </b-row>
 
-  </b-container>  
+  </b-container>
 </template>
 
 <script>
@@ -236,7 +236,7 @@ export default {
 
 ## `v-b-popover` Directive usage
 
-Just need quick popovers without too much markup? Use the 
+Just need quick popovers without too much markup? Use the
 [`v-b-popover` directive](/docs/directives/popover):
 
 ```html
@@ -304,7 +304,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
       </b-btn>
     </div>
 
-    <!-- output from teh popover interaction -->
+    <!-- output from the popover interaction -->
     <b-card title="Returned values:" v-if="input1Return && input2Return">
       <p class="card-text" style="max-width:20rem;">
         Name: <strong>{{ input1Return }}</strong><br>
@@ -314,7 +314,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 
     <!-- Our popover title and content render container -->
     <!-- We use placement 'auto' so popover fits in the best spot on viewport -->
-    <!-- We specify the same container as teh trigger button, so that popover is close to button in tab sequence -->
+    <!-- We specify the same container as the trigger button, so that popover is close to button in tab sequence -->
     <b-popover target="exPopoverReactive1"
                triggers="click"
                placement="auto"
