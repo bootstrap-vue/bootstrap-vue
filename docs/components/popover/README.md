@@ -23,7 +23,7 @@ Things to know when using popover component:
  - Popovers must be hidden before their corresponding markup elements have been removed from the DOM.
 
 The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermediate container
-element at the point in the DOM where the `<b-popover>` component is placed.  This may 
+element at the point in the DOM where the `<b-popover>` component is placed.  This may
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
 and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>`
 component **outside** of theese types of components.
@@ -66,7 +66,7 @@ Positioning is relative to the trigger element.
       <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
     </div>
   </div>
-   
+
   <div class="popover bs-popover-right bs-popover-right-docs">
     <div class="arrow"></div>
     <h3 class="popover-header">Popover right</h3>
@@ -183,7 +183,7 @@ This `blur` trigger must be used in combination with the `click` trigger.
     <b-row>
       <b-col md="6" class="py-4 text-center">
         <b-btn id="exPopover2" variant="primary">Using properties</b-btn>
-        <b-popover target="exPopover2" 
+        <b-popover target="exPopover2"
             title="Prop Examples"
             triggers="hover focus"
             content="Embedding content using properties is easy">
@@ -200,7 +200,7 @@ This `blur` trigger must be used in combination with the `click` trigger.
       </b-col>
     </b-row>
 
-  </b-container>  
+  </b-container>
 </template>
 
 <script>
@@ -229,14 +229,14 @@ export default {
 | `placement` | `'top'` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
 | `triggers` | `'click'` |  Space separated list of which event(s) will trigger open/close of popover | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
-| `delay` | `0` | Number of milliseconds to delay showing and hidding of popover. Can also be specified as an object in the form of `{ show: 123, hide: 456 }` allowing different show and hide delays | `0` and up, integers only.
+| `delay` | `0` | Number of milliseconds to delay showing and hidding of popover. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays | `0` and up, integers only.
 | `offset` | `0` | Number of pixels to shift the center of the popover. Also affects the position of the popover arrow. | Any negative or positive integer
 | `container` | `null` | String ID of element to append rendered popover into. If `null` or element not found, popover is appended to `<body>` (default) | Any valid in-document unique  element ID.
 
 
 ## `v-b-popover` Directive usage
 
-Just need quick popovers without too much markup? Use the 
+Just need quick popovers without too much markup? Use the
 [`v-b-popover` directive](/docs/directives/popover):
 
 ```html
