@@ -11,7 +11,7 @@ by their varaint name, rather than by the underlying CSS classname
 * `warning` - <span class="text-warning">Warning</span>
 * `danger` - <span class="text-danger">danger</span>
 * `info` - <span class="text-info">Info</span>
-* `light` - <span class="text-light">Light</span> 
+* `light` - <span class="text-light">Light</span>
 * `dark` - <span class="text-dark">Dark</span>
 
 The base variants will translate to various Bootstrap V4 contextual class
@@ -61,7 +61,7 @@ These translate to class names `badge-<variant>`.
 ### Button variants
 All the **base variants** plus:
 * `outline-<base variant>`
-* `link` which renders teh button with the look of a link but retains button padding and margins.
+* `link` which renders the button with the look of a link but retains button padding and margins.
 
 These translate to class names `btn-<variant>` and `btn-outline-<variant>`.
 
@@ -81,6 +81,6 @@ components) via the standard HTML `class="..."` attribute.
 
 ## Creating custom variants
 When creating custom variants, follow the Bootstrap V4 varian CSS class naming
-scheme and they will become available to the various components that use that 
+scheme and they will become available to the various components that use that
 scheme (i.e. create a custom CSS class `btn-purple` and `purple` becomes a
 vailid variant to use on `<b-button>`).
