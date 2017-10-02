@@ -304,7 +304,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
       </b-btn>
     </div>
 
-    <!-- output from teh popover interaction -->
+    <!-- output from the popover interaction -->
     <b-card title="Returned values:" v-if="input1Return && input2Return">
       <p class="card-text" style="max-width:20rem;">
         Name: <strong>{{ input1Return }}</strong><br>
@@ -314,7 +314,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 
     <!-- Our popover title and content render container -->
     <!-- We use placement 'auto' so popover fits in the best spot on viewport -->
-    <!-- We specify the same container as teh trigger button, so that popover is close to button in tab sequence -->
+    <!-- We specify the same container as the trigger button, so that popover is close to button in tab sequence -->
     <b-popover target="exPopoverReactive1"
                triggers="click"
                placement="auto"

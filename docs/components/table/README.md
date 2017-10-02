@@ -705,7 +705,7 @@ items passing the filter routine. Treat this argument as read-only.
 
 Setting the prop `filter` to null or an empty string will disable local items filtering.
 
-See teh [Complete Example](#complete-example) below for an example of using the
+See the [Complete Example](#complete-example) below for an example of using the
 `filter` feature.
 
 
