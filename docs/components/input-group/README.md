@@ -23,7 +23,7 @@
     <b-input-group-addon>
       Username
     </b-input-group-addon>
-    
+
     <!-- Main form input -->
     <b-form-input></b-form-input>
 
@@ -53,7 +53,7 @@ You can attach left or right Addons via props or named slots
     <b-form-input></b-form-input>
   </b-input-group>
 </div>
-  
+
 <!-- input-group-addons-props.vue -->
 ```
 
@@ -72,14 +72,14 @@ if you want better control over addons, you can use `right` and `left` slots ins
     <b-form-input></b-form-input>
   </b-input-group>
 </div>
-  
+
 <!-- input-group-addons-slots.vue -->
 ```
 
 
 ### Direct placement of sub components:
 Use the `<b-input-group-addon>` to add arbitrary addons wherever you like, and use
-the `<b-input-group-button>` component to group buttons in your input group.  Single
+the `<b-input-group-button>` component to group buttons in your input group. Single
 buttons must always be wrapped in a `<b-input-group-button>` for proper styling
 
 ```html
@@ -227,12 +227,12 @@ Dropdowns, like buttons, must be placed inside a `<b-input-group-button>`
     </b-input-group-button>
   </b-input-group>
 </div>
-  
+
 <!-- input-group-dropdowns.vue -->
 ```
 
 ## Control sizing
-Set height using the `size` prop to `sm` or `lg` for small or large respectively. There 
+Set height using the `size` prop to `sm` or `lg` for small or large respectively. There
 is no need to set size on the individual inputs or buttons. Note however, you will be
 required to also set the size on dropdowns.
 

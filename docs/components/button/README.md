@@ -36,8 +36,8 @@ is required).
 ## Button type
 
 When neither `href` nor `to` props are provided, `<b-button>` renders an html `<button>`
-element.  You can specify the button's type by setting the prop `type` to `button`,
-`submit` or `reset`.  The default type is `button`.
+element. You can specify the button's type by setting the prop `type` to `button`,
+`submit` or `reset`. The default type is `button`.
 
 
 ## Button Sizing

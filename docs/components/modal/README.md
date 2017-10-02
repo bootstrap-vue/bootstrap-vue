@@ -428,7 +428,7 @@ methods: {
 ## Returning focus to the triggering element
 
 For accessibility reasons, it is desireable to return focus to the element
-that triggered the opening of the modal, when the modal closes.  `<b-modal>`
+that triggered the opening of the modal, when the modal closes. `<b-modal>`
 provides several methods and options for returning focus to the triggering element.
 
 ### Specify Return Focus Element via the `return-focus` Prop
@@ -456,7 +456,7 @@ been specified via the `return-focus` prop.
 ### Specify Return Focus via Event
 
 When using the `bv::show::modal` event (emitted on `$root`), you can specify a second argument
-which is the element to return focus to.  This argument accepts the same types
+which is the element to return focus to. This argument accepts the same types
 as the `return-focus` prop.
 
 ```js

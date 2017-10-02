@@ -52,7 +52,7 @@ controls and indicators. Please be aware that nested carousels are **not** suppo
       </b-carousel-slide>
 
     </b-carousel>
-    
+
     <p class="mt-4">
       Slide #: {{ slide }}<br>
       Sliding: {{ sliding }}
@@ -126,9 +126,9 @@ Carousels are generally not fully compliant with accessibility standards, althou
 we try to make them as accessible as possible.
 
 By providing a document unique value via the `id` prop, `<b-carousel>` will enable
-accessibility features.  It is highly recommended to always add an ID to all components.
+accessibility features. It is highly recommended to always add an ID to all components.
 
-All carousel controls and indicators have aria labels.  These can be customized by
+All carousel controls and indicators have aria labels. These can be customized by
 setting the various `label-*` props.
 
 ## Component Reference

@@ -57,7 +57,7 @@ Positioning is relative to the trigger element.
       <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
     </div>
   </div>
-   
+
   <div class="popover bs-popover-right bs-popover-right-docs">
     <div class="arrow"></div>
     <h3 class="popover-header">Popover right</h3>
@@ -147,7 +147,7 @@ Positioning is relative to the trigger element.
     </b-row>
   </b-container>
 </template>
-    
+
 <!-- popover-positioning-live.vue -->
 ```
 
@@ -331,7 +331,7 @@ Where `[mod]` can be (all optional):
  - `nofade` to turn off animation.
  - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text.
  - A delay value in the format of `d###` (where `###` is in ms, defaults to 0).
- - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults to 0. Negative values are allowed).  Note if an offset is supplied, then the alignment positions will fallback to one of `top`, `bottom`, `left`, or `right`.
+ - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults to 0. Negative values are allowed). Note if an offset is supplied, then the alignment positions will fallback to one of `top`, `bottom`, `left`, or `right`.
 
 Where `[container]` can be (optional):
  - An element ID (minus the #) to place the popover markup in when visible

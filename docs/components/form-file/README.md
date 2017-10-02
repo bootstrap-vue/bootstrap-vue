@@ -41,16 +41,16 @@ indicating no file selected. When a file is selected the return value will be a 
 
 ## Multiple files
 Multiple file uploading is supported by adding `multiple` prop to component.
-In this case `v-model` is *always* an `Array`.  When no files are selected, an empty array
+In this case `v-model` is *always* an `Array`. When no files are selected, an empty array
 will be returned. When a file or files are selected the return value will be an array of
 javascript [`File`](https://developer.mozilla.org/en/docs/Web/API/File) object instances.
 
 ## Directory mode
 By adding `directory` prop, the user can select directories instead of files.
 When a directory is selected, the directory and its entire hierarchy of contents are included in the set of selected items.
-The selected file system entries can be obtained using the `webkitEntries` property. 
+The selected file system entries can be obtained using the `webkitEntries` property.
 
-**CAUTION** This is a non standard feature while being supported by latest Firefox and Chrome versions, and should not 
+**CAUTION** This is a non standard feature while being supported by latest Firefox and Chrome versions, and should not
 be relied for production.
 [Read more on MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory)
 
@@ -79,7 +79,7 @@ Refer to [IANA Media Types](http://www.iana.org/assignments/media-types/) for a 
 list of standard media types.
 
 ## Customizations
-Language strings and chosen file name is injected using `data-` props to css `content`. 
+Language strings and chosen file name is injected using `data-` props to css `content`.
 Local customization can be easily done with provided props such as `placeholder`,
 `choose-label`, `selected-format` and `drop-label`. If you want to globally change
 labels, you can add something like this to your global stylesheets. Also it is advised

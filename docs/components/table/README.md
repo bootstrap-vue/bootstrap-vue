@@ -39,7 +39,7 @@ keyed objects. Example format:
 ]
 ```
 `<b-table>` automatically samples the first row to extract field names (they keys in the
-record data). Field names are automatically "humanized" by converting `kebab-case`, `snake_case`, 
+record data). Field names are automatically "humanized" by converting `kebab-case`, `snake_case`,
 and `camelCase` to individual words and capitalizes each word. Example conversions:
 
  - `first_name` becomes `First Name`
@@ -49,7 +49,7 @@ and `camelCase` to individual words and capitalizes each word. Example conversio
  - `isActive` becomes `Is Active`
 
 These titles wil be displayed in the table header, in the order they appear in the
-**first** record of data.  See the [**Fields**](#fields-column-definitions-) section
+**first** record of data. See the [**Fields**](#fields-column-definitions-) section
 below for cusomizing how field headings appear.
 
 **Note:** Field order is not guaranteed. Fields will typically appear in the order they
@@ -80,7 +80,7 @@ const items = [
     isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson',
     _rowVariant: 'danger'
   },
-  { 
+  {
     isActive: true,  age: 40, first_name: 'Thor', last_name: 'Macdonald',
     _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
   },
@@ -115,7 +115,7 @@ on the column, etc.
 
 Fields can be provided as a _simple array_, an _array of objects_, or an
 _object_. Internally the fields data will be normalized into the _array of
-objects_ format.  Events or slots that include the column `field` data will be
+objects_ format. Events or slots that include the column `field` data will be
 in the normalized field object format (array of objects for `fields`, or an
 object for an individual `field`).
 
@@ -384,7 +384,7 @@ export default {
 
 
 ## Custom Data Rendering
-Custom rendering for each data field in a row is possible using either 
+Custom rendering for each data field in a row is possible using either
 [scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots)
 or formatter callback function.
 
@@ -392,7 +392,7 @@ or formatter callback function.
 Scoped slots give you greater control over how the record data apepars.
 If you want to add an extra field which does not exist in the records,
 just add it to the `fields` array, And then reference the field(s) in the scoped
-slot(s).  
+slot(s).
 
 **Example: Custom data rendering with scoped slots**
 ```html
@@ -471,10 +471,10 @@ event:
 
 ### Formatter callback
 One more option to customize field output is to use formatter callback function.
-To enable this field's property `formatter` is used. Value of this property may be 
+To enable this field's property `formatter` is used. Value of this property may be
 String or function reference. In case of a String value, function must be defined at
 parent component's methods. Providing formatter as `Function`, it must be declared at
-global scope (window or as global mixin at Vue). 
+global scope (window or as global mixin at Vue).
 
 Callback function accepts three arguments - `value`, `key`, and `item`, and should
 return the formatted value as a string (basic HTML is supported)
@@ -494,7 +494,7 @@ return the formatted value as a string (basic HTML is supported)
 <script>
 export default {
   data: {
-    fields: [ 
+    fields: [
       {
         // A column that needs custom formatting,
         // calling formatter 'fullName' in this app
@@ -504,7 +504,7 @@ export default {
       },
       // A regular column
       'age',
-      {  
+      {
         // A regular column with custom formatter
         key: 'sex',
         formatter: (value) => { return value.charAt(0).toUpperCase(); }
@@ -524,7 +524,7 @@ export default {
       { name: { first: 'Rubin', last: 'Kincade' }, sex: 'male', age: 73 },
       { name: { first: 'Shirley', last: 'Partridge' }, sex: 'female', age: 62 }
     ]
-  }, 
+  },
   methods: {
       fullName(value){
           return `${value.first} ${value.last}`;
@@ -589,16 +589,16 @@ or a `head-clicked` event.
 As mentioned above in the [**Fields**](#fields-column-definitions-) section above,
 you can make columns sortable. Clicking on a sortable column header will sort the
 column in ascending direction (smallest first), while clicking on it again will switch the direction
-of sorting.  Clicking on a non-sortable column will clear the sorting.
+of sorting. Clicking on a non-sortable column will clear the sorting.
 
 You can control which column is pre-sorted and the order of sorting (ascending or
-descending). To pre-specify the column to be sorted, set the `sort-by` prop to 
-the field's key.  Set the sort direction by setting `sort-desc` to either `true`
+descending). To pre-specify the column to be sorted, set the `sort-by` prop to
+the field's key. Set the sort direction by setting `sort-desc` to either `true`
 (for descending) or `false` (for ascending, the default).
 
 The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by
 adding the `.sync` modifier. Your bound variables will then be updated accordingly
-based on the current sort critera. See the 
+based on the current sort critera. See the
 [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
 on the `.sync` prop modifier
 
@@ -694,7 +694,7 @@ possible to filter data based on custom rendering of virtual columns. The items 
 is stringified and the filter searches that stringified data (excluding any properties
 that begin with an underscore (`_`) and the deprecated property `state`.
 
-The `filter` prop value can be a string, a `RegExp` or a `function` reference.  If
+The `filter` prop value can be a string, a `RegExp` or a `function` reference. If
 a function is provided, the first argument is the original item record data object. The
 function should return `true` if the record matches your criteria or `false` if
 the record is to be filtered out.
@@ -710,10 +710,10 @@ See teh [Complete Example](#complete-example) below for an example of using the
 
 
 ## Pagination
-`<b-table>` supports built in pagination of item data.  You can control how many
+`<b-table>` supports built in pagination of item data. You can control how many
 reords are displayed at a time by setting the `per-page` prop to the maximum
 number of rows you would like displayed, and use the `current-page` prop
-to specify which page to display (starting from page `1`).  If you set `current-page`
+to specify which page to display (starting from page `1`). If you set `current-page`
 to a value larger than the computed number of pages, then no rows will be shown.
 
 You can use the [`<b-pagination>`](/docs/components/pagination) component in
@@ -872,7 +872,7 @@ maximum, `perPage` number of records.
 
 **Notes:**
 - _`<b-table>` needs reference to your pagination and filtering values in order to
-trigger the calling of the provider function.  So be sure to bind to the `per-page`,
+trigger the calling of the provider function. So be sure to bind to the `per-page`,
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
 (unless you have the respective `no-provider-*` prop set to `true`)._
 - _The `no-local-sorting` prop has no effect when `items` is a provider funtion._

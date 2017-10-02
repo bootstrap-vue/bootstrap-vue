@@ -1,6 +1,6 @@
 # Form Checkbox Inputs
 
-> For cross browser consistency, `<b-form-checkbox-group>` and `<b-form-checkbox>` use 
+> For cross browser consistency, `<b-form-checkbox-group>` and `<b-form-checkbox>` use
 Bootstrap's custom checkbox input to replace the browser default checkbox input. It
 is built on top of semantic and accessible markup, so it is a solid replacement for
 the default checkbox input.
@@ -116,7 +116,7 @@ By default, `<b-form-checkbox>` value will be `true` when checked and `false` wh
 You can customize the checked and unchecked values by specifying the `value` and `unchecked-value`
 properties.
 
-`v-model` binds to the `checked` property.  When you have multiple checkboxes that bind to a
+`v-model` binds to the `checked` property. When you have multiple checkboxes that bind to a
 single data state variable, you **must** provide an array reference `[]` to your `v-model`!
 
 Note that when `v-model` is bound to multiple checkboxes (i.e an array ref), the
@@ -265,7 +265,7 @@ The `indeterminate` prop can be synced to the checkboxe's state by v-binding the
     <b-form-checkbox v-model="checked" :indeterminate.sync="indeterminate">
       Click me to see what happens
     </b-form-checkbox>
- 
+
     <div class="mt-3">
       Checked: <strong>{{ checked }}</strong><br>
       Indeterminate: <strong>{{ indeterminate }}</strong>

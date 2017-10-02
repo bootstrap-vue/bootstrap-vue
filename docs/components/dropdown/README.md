@@ -19,7 +19,7 @@ clicking (or pressing space or enter when focused), not by hovering; this is an
     <b-dropdown-item disabled>Disabled action</b-dropdown-item>
   </b-dropdown>
 </div>
-  
+
 <!-- dropdown.vue -->
 ```
 
@@ -31,7 +31,7 @@ component or markup may break lauout and/or keyboard navigation.
 | Sub-component | Description | Aliases
 | --------- | ----------- | -------
 | `<b-dropdown-item>` | Action items that provide click, link, and `<router-link>` functionality. renders as an `<a>` element by default. | `<b-dd-item>`
-| `<b-dropdown-item-button>` | An alternative to `<b-dropdown-item>` that renders a menu item using a `<button>` element.  |  `<b-dropdown-item-btn>`, `<b-dd-item-button>`, `<b-dd-item-btn>`
+| `<b-dropdown-item-button>` | An alternative to `<b-dropdown-item>` that renders a menu item using a `<button>` element. | `<b-dropdown-item-btn>`, `<b-dd-item-button>`, `<b-dd-item-btn>`
 | `<b-dropdown-header>` | A header item, used to help identify a group of dropdown items. | `<b-dd-header>`
 | `<b-dropdown-divider>` | A divider / spacer which can be used to separate dropdown items. | `<b-dd-divider>`
 
@@ -63,7 +63,7 @@ Disabled the dropdown item button by setting the `disabled` prop.
     <b-dropdown-item-button>I don't look like a button, but I am!</b-dropdown-item-button>
   </b-dropdown>
 </div>
-  
+
 <!-- dropdown-item-buttons.vue -->
 ```
 
@@ -82,7 +82,7 @@ Separate groups of related menu items with `<b-dropdown-divider>`.
     <b-dropdown-item-button>Separated Item</b-dropdown-item-button>
   </b-dropdown>
 </div>
-  
+
 <!-- dropdown-item-divider.vue -->
 ```
 
@@ -97,7 +97,7 @@ Add a header to label sections of actions in any dropdown menu.
     <b-dropdown-item-button>Second Item</b-dropdown-item-button>
   </b-dropdown>
 </div>
-  
+
 <!-- dropdown-item-header.vue -->
 ```
 
@@ -142,7 +142,7 @@ Turn your dropdown menu into a drop-up menu by setting the `dropup` prop.
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
   </b-dropdown>
 </div>
-  
+
 <!-- dropdown-dropup.vue -->
 ```
 
@@ -167,7 +167,7 @@ the toggle button:
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
   </b-dropdown>
 </div>
-  
+
 <!-- dropdown-offset.vue -->
 ```
 
@@ -184,7 +184,7 @@ Create a split dropdown button, where the left button provides standard
     <b-dropdown-item href="#">Something else here...</b-dropdown-item>
   </b-dropdown>
 </div>
-  
+
 <!-- dropdown-split.vue -->
 ```
 
@@ -219,7 +219,7 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
     <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
   </b-dropdown>
 </div>
-  
+
 <!-- dropdown-sizes.vue -->
 ```
 

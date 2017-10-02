@@ -16,7 +16,7 @@
     </b-card>
   </b-collapse>
 </div>
-  
+
 <!-- collapse-1.vue -->
 ```
 
@@ -55,7 +55,7 @@ To make the `<b-collapse>` show initially, set the `visible` prop:
     </b-card>
   </b-collapse>
 </div>
-  
+
 <!-- collapse-3.vue -->
 ```
 
@@ -96,7 +96,7 @@ export default {
 ```
 
 ## Trigger multiple collapse elements
-You can even collapse multiple `<b-collapse>` components via a single `v-b-toggle` by 
+You can even collapse multiple `<b-collapse>` components via a single `v-b-toggle` by
 providing multiple target IDs using modifers:
 
 ```html
@@ -182,7 +182,7 @@ export default {
           assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
           wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
           vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
-          synth nesciunt you probably haven't heard of them accusamus labore VHS. 
+          synth nesciunt you probably haven't heard of them accusamus labore VHS.
         `
     }
 }
@@ -194,17 +194,17 @@ export default {
 **Notes:**
 - When using accordion mode, make sure you place the trigger elements and `<b-collapse>`
 components inside an element with `role="tablist"` and set `role="tab"` on each trigger
-element's container (each trigger element should be wrapped)  in order to help screen
+element's container (each trigger element should be wrapped) in order to help screen
 reader users navigate the accordion group.
 - If using the `v-model` feature of `<b-collaspe>` in accordion mode, do not bind the
 `v-model` or `visible` prop of all the collapses in the accordion group to the same variable!
-- Ensure, at most, only one `<b-collapse>` in the accordion group has the `visible` 
+- Ensure, at most, only one `<b-collapse>` in the accordion group has the `visible`
 prop and/or `v-model` set to `true`.
 
 
 ## Hiding and showing content in the toggle button based on collapse state
 When using the `v-b-toggle` directive, the class `collapsed` will automatically be placed
-on the trigger element when the collapse is closed, and removed when open.  You can
+on the trigger element when the collapse is closed, and removed when open. You can
 use this class to display or hide content within the togger via custom CSS:
 
 **Example HTML markup:**
@@ -239,7 +239,7 @@ required to, on the toggle element, add the `aria-controls` and other appropriat
 classes yourself.
 
 While the `v-b-toggle` directive can be placed on almost any HTML element or Vue component, it is
-reccomended to use a button or link (or similar component) to act as your toggler. Otherwise your 
+reccomended to use a button or link (or similar component) to act as your toggler. Otherwise your
 trigger elements may be inaccessible to keyboard or screen reader users. If you do place them on
 something other than a button or link (or similar component), you should add the attributes
 `tabindex="0"` and `role="button"` to allow users of assistive technology to reach your
