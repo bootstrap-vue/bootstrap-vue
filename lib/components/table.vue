@@ -5,7 +5,7 @@
         <caption v-if="caption || $slots['table-caption']">
             <slot name="table-caption"><div v-html="caption"></div></slot>
         </caption>
-        <colgroup v-if="$slots['table-colgroup']></colgroup>
+        <colgroup v-if="$slots['table-colgroup']"></colgroup>
         <thead :class="headClasses">
             <tr>
                 <th v-for="field in computedFields"
