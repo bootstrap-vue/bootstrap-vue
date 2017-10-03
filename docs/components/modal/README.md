@@ -20,7 +20,7 @@ feature a handful of helpful sub-components, sizes, variants, accessibility, and
 ## Overview
 `<b-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. These buttons can
 be customized by setting various props on the component. You can customize the size of the buttons,
-disable the **OK** button, hide the **Cancel** button (i.e. OK Only), choose a variant (e.g. `danger`
+disable buttons, hide the **Cancel** button (i.e. OK Only), choose a variant (e.g. `danger`
 for a red OK button) using the `ok-variant` and `cancel-variant` props, and provide custom
 button content using the `ok-title` and `cancel-title` props, or using the named
 slots `modal-ok` and `modal-cancel`.
@@ -383,7 +383,7 @@ setting the `lazy` prop.
 
 
 ## Disable open and close animation
-To disable the fadimg transition/animation when modall open and closes, just set the prop
+To disable the fading transition/animation when modal opens and closes, just set the prop
 `no-fade` on the `<b-modal>` component.
 
 
@@ -427,7 +427,7 @@ methods: {
 
 ## Returning focus to the triggering element
 
-For accessibility reasons, it is desireable to return focus to the element
+For accessibility reasons, it is desirable to return focus to the element
 that triggered the opening of the modal, when the modal closes. `<b-modal>`
 provides several methods and options for returning focus to the triggering element.
 

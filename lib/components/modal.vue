@@ -61,12 +61,12 @@
                                 <b-btn v-if="!okOnly"
                                        :variant="cancelVariant"
                                        :size="buttonSize"
-                                        :disabled="is_transitioning"
+                                       :disabled="cancelDisabled || busy || is_transitioning"
                                        @click="hide('cancel')"
                                 ><slot name="modal-cancel">{{ cancelTitle }}</slot></b-btn>
                                 <b-btn :variant="okVariant"
                                        :size="buttonSize"
-                                       :disabled="okDisabled || is_transitioning"
+                                       :disabled="okDisabled || busy || is_transitioning"
                                        @click="hide('ok')"
                                 ><slot name="modal-ok">{{ okTitle }}</slot></b-btn>
                             </slot>
@@ -210,6 +210,10 @@
                 type: Boolean,
                 default: false
             },
+            cancelDisabled: {
+                type: Boolean,
+                default: false
+            },
             visible: {
                 type: Boolean,
                 default: false
@@ -238,6 +242,10 @@
                 default: 'primary'
             },
             lazy: {
+                type: Boolean,
+                default: false
+            },
+            busy: {
                 type: Boolean,
                 default: false
             }
@@ -305,11 +313,11 @@
             }
         },
         watch: {
-            visible(new_val, old_val) {
-                if (new_val === old_val) {
+            visible(newVal, oldVal) {
+                if (newVal === oldVal) {
                     return;
                 }
-                this[new_val ? 'show' : 'hide']();
+                this[newVal ? 'show' : 'hide']();
             }
         },
         methods: {
@@ -346,7 +354,8 @@
                     cancelable: true,
                     vueTarget: this,
                     target: this.$refs.modal,
-                    relatedTarget: null, // this could be the trigger element/component reference
+                    // this could be the trigger element/component reference
+                    relatedTarget: null,
                     isOK: trigger || null,
                     trigger: trigger || null,
                     cancel() {
@@ -493,7 +502,6 @@
                 const activeElement = document.activeElement;
                 if (activeElement && content && content.contains(activeElement)) {
                     // If activeElement is child of content, no need to change focus
-                    return;
                 } else if (content) {
                     // Focus the modal content wrapper
                     content.focus();
@@ -542,8 +550,8 @@
                 modal.style.paddingRight = '';
             },
             checkScrollbar() {
-              const rect = getBCR(document.body);
-              this.isBodyOverflowing = rect.left + rect.right < window.innerWidth;
+                const rect = getBCR(document.body);
+                this.isBodyOverflowing = rect.left + rect.right < window.innerWidth;
             },
             setScrollbar() {
                 if (this.isBodyOverflowing) {
@@ -556,33 +564,33 @@
 
                     // Adjust fixed content padding
                     selectAll(Selector.FIXED_CONTENT).forEach(el => {
-                      const actualPadding = el.style.paddingRight;
-                      const calculatedPadding = computedStyle(el).paddingRight || 0;
-                      setAttr(el,'data-padding-right', actualPadding);
-                      el.style.paddingRight = `${parseFloat(calculatedPadding) + this.scrollbarWidth}px`;
+                        const actualPadding = el.style.paddingRight;
+                        const calculatedPadding = computedStyle(el).paddingRight || 0;
+                        setAttr(el,'data-padding-right', actualPadding);
+                        el.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`;
                     });
 
                     // Adjust sticky content margin
                     selectAll(Selector.STICKY_CONTENT).forEach(el => {
-                      const actualMargin = el.style.marginRight;
-                      const calculatedMargin = computedStyle(el).marginRight || 0;
-                      setAttr(el, 'data-margin-right', actualMargin);
-                      el.style.marginRight = `${parseFloat(calculatedMargin) - this.scrollbarWidth}px`;
+                        const actualMargin = el.style.marginRight;
+                        const calculatedMargin = computedStyle(el).marginRight || 0;
+                        setAttr(el, 'data-margin-right', actualMargin);
+                        el.style.marginRight = `${parseFloat(calculatedMargin) - scrollbarWidth}px`;
                     });
 
                     // Adjust navbar-toggler margin
                     selectAll(Selector.NAVBAR_TOGGLER).forEach(el => {
-                      const actualMargin = el.style.marginRight;
-                      const calculatedMargin = computedStyle(el).marginRight || 0;
-                      setAttr(el, 'data-margin-right', actualMargin);
-                      el.style.marginRight = `${parseFloat(calculatedMargin) + this.scrollbarWidth}px`;
+                        const actualMargin = el.style.marginRight;
+                        const calculatedMargin = computedStyle(el).marginRight || 0;
+                        setAttr(el, 'data-margin-right', actualMargin);
+                        el.style.marginRight = `${parseFloat(calculatedMargin) + scrollbarWidth}px`;
                     });
 
                     // Adjust body padding
                     const actualPadding = body.style.paddingRight;
                     const calculatedPadding = computedStyle(body).paddingRight;
                     setAttr(body, 'data-padding-right', actualPadding);
-                    body.style.paddingRight = `${parseFloat(calculatedPadding) + this.scrollbarWidth}px`;
+                    body.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`;
                 }
             },
             resetScrollbar() {
@@ -606,8 +614,8 @@
 
         },
         created() {
-           // create non-reactive property
-           this._observer = null;
+            // create non-reactive property
+            this._observer = null;
         },
         mounted() {
             // Measure scrollbar
