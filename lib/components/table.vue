@@ -2,6 +2,9 @@
     <table :id="id || null"
            :aria-busy="computedBusy ? 'true' : 'false'"
            :class="tableClasses">
+        <caption v-if="caption || $slots['caption']">
+            <slot name="caption"><div v-html="caption"></div></slot>
+        </caption>
         <thead :class="headClasses">
             <tr>
                 <th v-for="field in computedFields"
@@ -183,6 +186,10 @@ export default {
         id: {
             type: String,
             default: ''
+        },
+        caption: {
+            type: String,
+            default: null
         },
         items: {
             type: [Array, Function],
