@@ -111,6 +111,10 @@
   ],
   "slots": [
     {
+      "name": "table-caption",
+      "description": "Content to display in the table's caption element"
+    },
+    {
       "name": "[field]",
       "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
     },
