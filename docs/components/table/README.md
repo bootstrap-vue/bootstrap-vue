@@ -382,7 +382,7 @@ export default {
 <!-- table-footer.vue -->
 ```
 
-## Table caption
+## Table `<caption>`
 Add an optional caption to your table via the prop `caption` or the named
 slot `table-caption` (the slot takes precedence over the prop). The default
 Bootstrap V4 styling places the caption at the bottom of the table. You can
@@ -412,6 +412,12 @@ export default {
 
 <!-- table-caption.vue -->
 ```
+
+## Table `<colgroup>`
+Use the named slot `table-colgroup` to specify `<colgroup>` and `<col>` elements
+for optional grouping and styling of table columns. Note the styles available via `<col>`
+elements are limited. Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup)
+for details and usage.
 
 
 ## Custom Data Rendering
