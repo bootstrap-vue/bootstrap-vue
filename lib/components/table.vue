@@ -2,8 +2,8 @@
     <table :id="id || null"
            :aria-busy="computedBusy ? 'true' : 'false'"
            :class="tableClasses">
-        <caption v-if="caption || $slots['caption']">
-            <slot name="caption"><div v-html="caption"></div></slot>
+        <caption v-if="caption || $slots['table-caption']">
+            <slot name="table-caption"><div v-html="caption"></div></slot>
         </caption>
         <thead :class="headClasses">
             <tr>
