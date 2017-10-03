@@ -27,8 +27,7 @@
             classObject() {
                 return [
                     'input-group',
-                    this.size ? ('input-group-' + this.size) : '',
-                    this.state ? ('has-' + this.state) : ''
+                    this.size ? ('input-group-' + this.size) : ''
                 ];
             }
         },
@@ -38,10 +37,6 @@
                 defualt: null
             },
             size: {
-                type: String,
-                default: null
-            },
-            state: {
                 type: String,
                 default: null
             },
