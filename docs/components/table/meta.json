@@ -115,6 +115,10 @@
       "description": "Content to display in the table's caption element"
     },
     {
+      "name": "table-colgroup",
+      "description": "Slot to place custom colgroup and col elements"
+    },
+    {
       "name": "[field]",
       "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
     },
