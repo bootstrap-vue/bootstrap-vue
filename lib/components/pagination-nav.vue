@@ -5,7 +5,6 @@
         :aria-label="ariaLabel ? ariaLabel : null"
         role="menubar"
         tabindex="0"
-        @focusin.self="focusCurrent"
         @keydown.left.prevent="focusPrev"
         @keydown.right.prevent="focusNext"
         @keydown.shift.left.prevent="focusFirst"
@@ -60,7 +59,7 @@
                     :aria-posinset="page.number"
                     :aria-setsize="numberOfPages"
                     role="menuitemradio"
-                    tabindex="-1"
+                    :tabindex="isActive(page.number) ? '0' : '-1'"
                     @click="onClick(page.number)"
                     v-html="makePage(page.number)"
             ></b-link>
