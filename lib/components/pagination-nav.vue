@@ -118,8 +118,7 @@
         cursor: not-allowed;
         opacity: .65;
     }
-    .page-item .page-link:hover,
-    .page-item .page-link:focus {
+    .page-item .page-link.active:focus {
         box-shadow: 0 0 0 3px rgba(0,123,255,.5);
         z-index: 1;
     }
