@@ -3,7 +3,6 @@
         :aria-disabled="disabled ? 'true' : 'false'"
         :aria-label="ariaLabel ? ariaLabel : null"
         role="menubar"
-        @focusin.self="focusCurrent"
         @keydown.left.prevent="focusPrev"
         @keydown.right.prevent="focusNext"
         @keydown.shift.left.prevent="focusFirst"
@@ -63,7 +62,7 @@
                :aria-setsize="numberOfPages"
                role="menuitemradio"
                href="#"
-               tabindex="-1"
+               :tabindex="isActive(page.number) ? '0' : '-1'"
                @click.prevent="setPage($event, page.number)"
                @keydown.enter.prevent="setPage($event, page.number)"
                @keydown.space.prevent="setPage($event, page.number)"
@@ -127,6 +126,11 @@
     .page-item.disabled {
         cursor: not-allowed;
         opacity: .65;
+    }
+    .page-item .page-link:hover,
+    .page-item .page-link:focus {
+        box-shadow: 0 0 0 3px rgba(0,123,255,.5);
+        z-index: 1;
     }
 </style>
 
