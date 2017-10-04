@@ -23,6 +23,8 @@
                   :size="size"
                   :disabled="disabled"
                   @click.stop.prevent="toggle"
+                  @keydown.prevent.space="toggle"
+                  @keydown.prevent.down="toggle"
         >
             <span v-if="split" class="sr-only">{{toggleText}}</span>
             <slot v-else name="button-content"><slot name="text">{{text}}</slot></slot>
