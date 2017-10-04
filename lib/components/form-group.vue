@@ -1,5 +1,5 @@
 <template>
-    <filedset :class="groupClasses"
+    <fieldset :class="groupClasses"
               :id="safeId()"
               :aria-describedby="describedByIds" >
         <b-form-row>
