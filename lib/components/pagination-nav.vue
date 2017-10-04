@@ -4,6 +4,7 @@
         :aria-disabled="disabled ? 'true' : 'false'"
         :aria-label="ariaLabel ? ariaLabel : null"
         role="menubar"
+        tabindex="0"
         @focusin.self="focusCurrent"
         @keydown.left.prevent="focusPrev"
         @keydown.right.prevent="focusNext"
@@ -98,6 +99,7 @@
                         v-bind="linkProps(numberOfPages)"
                         :aria-label="labelLastPage"
                         role="menuitem"
+                        tabindex="-1"
                         @click="onClick(numberOfPages)"
                 ><span aria-hidden="true" v-html="lastText"></span></b-link>
             </li>
@@ -116,6 +118,11 @@
     .page-item.disabled {
         cursor: not-allowed;
         opacity: .65;
+    }
+    .page-item .page-link:hover,
+    .page-item .page-link:focus {
+        box-shadow: 0 0 0 3px rgba(0,123,255,.5);
+        z-index: 1;
     }
 </style>
 
