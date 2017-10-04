@@ -11,6 +11,7 @@
            @click.stop.prevent="toggle"
            @keydown.enter.stop.prevent="toggle"
            @keydown.space.stop.prevent="toggle"
+           @keydown.down.prevent="toggle"
         >
             <slot name="button-content"><slot name="text"><span v-html="text"></span></slot></slot>
         </a>
