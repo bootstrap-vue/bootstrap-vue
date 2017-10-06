@@ -50,7 +50,7 @@ and `camelCase` to individual words and capitalizes each word. Example conversio
 
 These titles wil be displayed in the table header, in the order they appear in the
 **first** record of data. See the [**Fields**](#fields-column-definitions-) section
-below for cusomizing how field headings appear.
+below for customizing how field headings appear.
 
 **Note:** Field order is not guaranteed. Fields will typically appear in the order they
 were defined in the first row, but this may not always be the case depending on the version
@@ -624,7 +624,7 @@ or a `head-clicked` event.
 ```
 
 ## Row details support
-If you would optionally like to display aditional record information (such as
+If you would optionally like to display additional record information (such as
 columns not specified in the fields definition array), you can use the scoped slot
 `row-details`, in combination with the special item record Boolean property
 `_rowDetails`.
