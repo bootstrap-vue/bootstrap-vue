@@ -546,8 +546,10 @@
             },
             resetAdjustments() {
                 const modal = this.$refs.modal;
-                modal.style.paddingLeft = '';
-                modal.style.paddingRight = '';
+                if (modal) {
+                    modal.style.paddingLeft = '';
+                    modal.style.paddingRight = '';
+                }
             },
             checkScrollbar() {
                 const rect = getBCR(document.body);
@@ -645,6 +647,7 @@
             this.setResizeEvent(false);
             // Re-adjust body/navbar/fixed padding/margins (if needed)
             removeClass(document.body, 'modal-open');
+            this.resetAdjustments();
             this.resetScrollbar();
         }
     };
