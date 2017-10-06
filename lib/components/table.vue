@@ -64,30 +64,37 @@
                       :columns="computedFields.length"
                       :fields="computedFields"></slot>
             </tr>
-            <tr v-for="(item,index) in computedItems"
-                :key="index"
-                :class="rowClasses(item)"
-                @click="rowClicked($event,item,index)"
-                @dblclick="rowDblClicked($event,item,index)"
-                @mouseenter="rowHovered($event,item,index)">
-                <template v-for="field in computedFields">
-                    <td v-if="$scopedSlots[field.key]"
-                        :class="tdClasses(field, item)"
-                        :key="field.key">
-                        <slot :name="field.key"
-                              :value="getFormattedValue(item, field)"
-                              :unformatted="item[field.key]"
-                              :item="item"
-                              :index="index"
-                        ></slot>
+            <template v-for="(item,index) in computedItems">
+                <tr :key="index"
+                    :class="rowClasses(item)"
+                    @click="rowClicked($event,item,index)"
+                    @dblclick="rowDblClicked($event,item,index)"
+                    @mouseenter="rowHovered($event,item,index)">
+                    <template v-for="field in computedFields">
+                        <td v-if="$scopedSlots[field.key]"
+                            :class="tdClasses(field, item)"
+                            :key="field.key">
+                            <slot :name="field.key"
+                                  :value="getFormattedValue(item, field)"
+                                  :unformatted="item[field.key]"
+                                  :item="item"
+                                  :index="index"
+                            ></slot>
+                        </td>
+                        <td v-else
+                            :class="tdClasses(field, item)"
+                            :key="field.key"
+                            v-html="getFormattedValue(item, field)"
+                        ></td>
+                    </template>
+                </tr>
+                <tr v-if="item._showDetails && $scopedSlots['row-details']"
+                    :key="`${index}-details`">
+                    <td :colspan="computedFields.length">
+                        <slot name="row-details" :item="item" :index="index"></slot>
                     </td>
-                    <td v-else
-                        :class="tdClasses(field, item)"
-                        :key="field.key"
-                        v-html="getFormattedValue(item, field)"
-                    ></td>
-                </template>
-            </tr>
+                </tr>
+            </template>
             <tr v-if="showEmpty && (!computedItems || computedItems.length === 0)">
                 <td :colspan="computedFields.length">
                     <div v-if="filter"

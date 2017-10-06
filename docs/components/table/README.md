@@ -50,21 +50,23 @@ and `camelCase` to individual words and capitalizes each word. Example conversio
 
 These titles wil be displayed in the table header, in the order they appear in the
 **first** record of data. See the [**Fields**](#fields-column-definitions-) section
-below for cusomizing how field headings appear.
+below for customizing how field headings appear.
 
 **Note:** Field order is not guaranteed. Fields will typically appear in the order they
-were defined in the first row, but this may not always be the case dpending on the version
-of borswer in use. See section [**Fields (column definitions)**](#fields-column-definitions-)
+were defined in the first row, but this may not always be the case depending on the version
+of browser in use. See section [**Fields (column definitions)**](#fields-column-definitions-)
 below to see how to guarantee the order of fields.
 
 Record data may also have additional special reserved name keys for colorizing
-rows and individual cells (variants). Supported optional item record modifier properties
-(make sure your field keys do not conflict with these names):
+rows and individual cells (variants), and for triggering additional row detail. The supported
+optional item record modifier properties (make sure your field keys do not conflict with
+these names):
 
 | Property | Type | Description
 | ---------| ---- | -----------
 | `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`)
 | `_rowVariant` | String | Bootstrap contextual state applied to the entire row (Supported values: `active`, `success`, `info`, `warning`, `danger`)
+| `_showDetails` | Boolean | Used to trigger the display of the `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information
 
 **Example: Using variants for table cells**
 ```html
@@ -619,6 +621,64 @@ or a `head-clicked` event.
   <!-- We use click.stop here to prevent 'sort-changed' or 'head-clicked' events -->
   <input type="checkbox" :value="foo.column" v-model="selected" @click.stop>
 </template>
+```
+
+## Row details support
+If you would optionally like to display additional record information (such as
+columns not specified in the fields definition array), you can use the scoped slot
+`row-details`, in combination with the special item record Boolean property
+`_rowDetails`.
+
+If the record has it's `_showDetails` property set to `true`, and a `row-details`
+scoped slot exists, a new row will be shown just below the item, with the contents
+of the scoped slot.
+
+**Note:** the `_showDetails` property **must** exist in the items data for proper
+reactive detection of changes in `_showDetails`.
+
+Available scoped variables:
+
+| Property | Description
+| -------- | -----------
+| `item` | The entire row record data object
+| `index` | The current visible row number
+
+```html
+<template>
+  <b-table :items="items" :fields="fields">
+    <template slot="show_details" scope="row">
+      <b-form-checkbox v-model="row.item._showDetails"></b-form-checkbox>
+    </template>
+    <template slot="row-details" scope="row">
+      <b-card>
+        <b-row class="mb-2">
+          <b-col sm="3" class="text-sm-right"><b>Age:</b></b-col>
+          <b-col>{{ row.item.age }}</b-col>
+        </b-row>
+        <b-row>
+          <b-col sm="3" class="text-sm-right"><b>Is Active:</b></b-col>
+          <b-col>{{ row.item.isActive }}</b-col>
+        </b-row>
+      </b-card>
+    </template>
+  </b-table>
+</template>
+
+<script>
+export default {
+  data: {
+    fields: [ 'first_name', 'last_name', 'show_details' ],
+    items: [
+      { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald', _showDetails: false },
+      { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw', _showDetails: false },
+      { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson', _showDetails: false },
+      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney', _showDetails: false }
+    ]
+  }
+};
+</script>
+
+<!-- table-details.vue -->
 ```
 
 
