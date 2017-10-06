@@ -131,6 +131,10 @@
       "description": "Scoped slot for custom rendering of field footer. See docs for scoped footer"
     },
     {
+      "name": "row-details",
+      "description": "Scoped slot for optional rendering aditional record details. See docs for Row details support"
+    },
+    {
       "name": "empty",
       "description": "Content to display when no items are present in the `items` array"
     },
