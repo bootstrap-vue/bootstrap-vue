@@ -159,7 +159,7 @@ function processField(key, value) {
     let field = null;
     if (typeof value === 'string') {
         // Label shortcut
-        field = { key: key, label: startCase(value) };
+        field = { key: key, label: value };
     } else if (typeof value === 'function') {
         // Formatter shortcut
         field = { key: key, formatter: value };
@@ -480,7 +480,7 @@ export default {
                 });
             }
 
-            // Ensure we have a unique array of fields and that htey have labels
+            // Ensure we have a unique array of fields and that they have labels
             const memo = {};
             return fields.filter(f => {
                 if (!memo[f.key]) {
