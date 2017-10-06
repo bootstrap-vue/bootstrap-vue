@@ -54,7 +54,7 @@ below for customizing how field headings appear.
 
 **Note:** Field order is not guaranteed. Fields will typically appear in the order they
 were defined in the first row, but this may not always be the case depending on the version
-of broswer in use. See section [**Fields (column definitions)**](#fields-column-definitions-)
+of browser in use. See section [**Fields (column definitions)**](#fields-column-definitions-)
 below to see how to guarantee the order of fields.
 
 Record data may also have additional special reserved name keys for colorizing
