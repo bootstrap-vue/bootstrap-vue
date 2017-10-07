@@ -112,8 +112,8 @@ section below for more details.
 The `fields` prop is used to customize the table columns headings,
 and in which order the columns of data are displayed. The field object keys
 (i.e. `age` or `first_name` as shown below) are used to extract the value from
-each item (record) row, and to provide additional fetures such as enabling sorting
-on the column, etc.
+each item (record) row, and to provide additional fetures such as enabling
+[**sorting**](#sorting) on the column, etc.
 
 Fields can be provided as a _simple array_, an _array of objects_, or an
 _object_. Internally the fields data will be normalized into the _array of
@@ -194,43 +194,6 @@ export default {
 <!-- table-fields-array-of-objects.vue -->
 ```
 
-The following field properties are recognized:
-
-| Property | Type | Description
-| ---------| ---- | -----------
-| `key` | String | The key for selecting data from the record in the items array. Required when passing the props `fields` an array of objects.
-| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format)
-| `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column
-| `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array).
-| `sortable` | Boolean | Enable sorting on this column
-| `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
-| `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
-| `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
-| `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly)
-
-**Notes:**
- - _Field properties, if not present, default to `null` unless otherwise stated above._
- - _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
- - _For information on the syntax supported by `thStyle`, see
-[Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
-in the Vue.js guide._
- - _Any additional properties added to the field objects will be left intact - so you can access
-them via the named scoped slots for custom data, header, and footer rendering._
-
-For information and usage about scoped slots and formatters, refer to
-the [**Custom Data Rendering**](#custom-data-rendering) section below.
-
-Feel free to mix and match simple array and object array together:
-
-```js
-fields: [
-  { key: 'first_name', label: 'First' },
-  { key: 'last_name', label: 'Last' },
-  'age',
-  'sex'
-]
-```
-
 ### Fields as an object
 Also, fields can be a an object providing similar control over the fields as the
 _array of objects_ above does. Only columns listed in the fields object will be shown.
@@ -279,6 +242,43 @@ export default {
 **Note:** if a `key` property is defined in the field definition, it will take
 precidence over the key used to define the field.
 
+### Field definition reference
+The following field properties are recognized:
+
+| Property | Type | Description
+| ---------| ---- | -----------
+| `key` | String | The key for selecting data from the record in the items array. Required when passing the props `fields` an array of objects.
+| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format)
+| `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column
+| `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array).
+| `sortable` | Boolean | Enable sorting on this column. Refer to the [**Sorting**](#sorting] Section for more details.
+| `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
+| `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
+| `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
+| `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly)
+
+**Notes:**
+ - _Field properties, if not present, default to `null` unless otherwise stated above._
+ - _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
+ - _For information on the syntax supported by `thStyle`, see
+[Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
+in the Vue.js guide._
+ - _Any additional properties added to the field objects will be left intact - so you can access
+them via the named scoped slots for custom data, header, and footer rendering._
+
+For information and usage about scoped slots and formatters, refer to
+the [**Custom Data Rendering**](#custom-data-rendering) section below.
+
+Feel free to mix and match simple array and object array together:
+
+```js
+fields: [
+  { key: 'first_name', label: 'First' },
+  { key: 'last_name', label: 'Last' },
+  'age',
+  'sex'
+]
+```
 
 ## Table style options
 `<b-table>` provides several props to alter the style of the table:
@@ -683,7 +683,7 @@ export default {
 
 
 ## Sorting
-As mentioned above in the [**Fields**](#fields-column-definitions-) section above,
+As mentioned in the [**Fields**](#fields-column-definitions-) section above,
 you can make columns sortable. Clicking on a sortable column header will sort the
 column in ascending direction (smallest first), while clicking on it again will switch the direction
 of sorting. Clicking on a non-sortable column will clear the sorting.
@@ -698,6 +698,12 @@ adding the `.sync` modifier. Your bound variables will then be updated according
 based on the current sort critera. See the
 [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
 on the `.sync` prop modifier
+
+**Note:** _The built-in `sort-compare` routine **cannot** sort virtual columns, nor
+sort based on the custom rendering of the field data (formatter functions and/or
+scoped slots are used only for presentation only, and do not affect the underlying data).
+Refer to the [**Sort-compare routine**](#sort-compare-routine) section below for details on
+sorting by presentational data._
 
 ```html
 <template>
