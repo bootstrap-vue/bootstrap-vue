@@ -84,9 +84,9 @@
     import bBtn from './button';
     import bBtnClose from './button-close';
     import { idMixin, listenOnRootMixin } from '../mixins';
-    import { isVisible, selectAll, select, getBCR, addClass, removeClass, setAttr, removeAttr, getAttr, eventOn, eventOff } from '../utils/dom';
     import { observeDom, warn } from '../utils';
     import { BvEvent } from '../classes';
+    import { isVisible, selectAll, select, getBCR, addClass, removeClass, setAttr, removeAttr, getAttr, hasAttr, eventOn, eventOff } from '../utils/dom';
 
     const Selector = {
         FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
@@ -546,8 +546,10 @@
             },
             resetAdjustments() {
                 const modal = this.$refs.modal;
-                modal.style.paddingLeft = '';
-                modal.style.paddingRight = '';
+                if (modal) {
+                    modal.style.paddingLeft = '';
+                    modal.style.paddingRight = '';
+                }
             },
             checkScrollbar() {
                 const rect = getBCR(document.body);
@@ -596,20 +598,26 @@
             resetScrollbar() {
                 // Restore fixed content padding
                 selectAll(Selector.FIXED_CONTENT).forEach(el => {
-                    el.style.paddingRight = getAttr(el, 'data-padding-right') || '';
-                    removeAttr(el,'data-padding-right');
+                    if (hasAttr(el, 'data-padding-right')) {
+                        el.style.paddingRight = getAttr(el, 'data-padding-right') || '';
+                        removeAttr(el,'data-padding-right');
+                    }
                 });
 
                 // Restore sticky content and navbar-toggler margin
                 selectAll(`${Selector.STICKY_CONTENT}, ${Selector.NAVBAR_TOGGLER}`).forEach(el => {
-                    el.style.marginRight = getAttr(el, 'data-margin-right') || '';
-                    removeAttr(el, 'data-margin-right');
+                    if (hasAttr(el, 'data-margin-right')) {
+                        el.style.marginRight = getAttr(el, 'data-margin-right') || '';
+                        removeAttr(el, 'data-margin-right');
+                    }
                 });
 
                 // Restore body padding
                 const body = document.body;
-                body.style.paddingRight = getAttr(body, 'data-padding-right') || '';
-                removeAttr(body, 'data-padding-right');
+                if (hasAttr(body, 'data-padding-right')) {
+                    body.style.paddingRight = getAttr(body, 'data-padding-right') || '';
+                    removeAttr(body, 'data-padding-right');
+                }
             }
 
         },
@@ -631,11 +639,16 @@
             }
         },
         beforeDestroy() {
+            // Ensure everything is back to normal
             if (this._observer) {
                 this._observer.disconnect();
                 this._observer = null;
             }
             this.setResizeEvent(false);
+            // Re-adjust body/navbar/fixed padding/margins (if needed)
+            removeClass(document.body, 'modal-open');
+            this.resetAdjustments();
+            this.resetScrollbar();
         }
     };
 </script>
