@@ -3,10 +3,10 @@
 >  A lightweight, flexible component that can optionally extend the entire viewport to
    showcase key marketing messages on your site.
 
-You can set the heading and lead text via hte `header` and `lead` props, or use the
+You can set the heading and lead text via the `header` and `lead` props, or use the
 named slots `header` and `lead` if you need HTML support.
 
-Anything else betwen the opening and closing tags will be renderd at the bottom of the
+Anything else between the opening and closing tags will be rendered at the bottom of the
 jumbotron.
 
 **Usage with props:**
@@ -61,7 +61,7 @@ slot will be shown.
 
 ## Fluid width
 To make `<b-jumbotron>` full width, and without rounded corners, set the `fluid`
-prop. The innter content will automatically be placed into a `<b-container>`
+prop. The inner content will automatically be placed into a `<b-container>`
 (fixed width at the various breakpoints). To change this to a fluid container,
 set the `container-fluid` prop. The `container-fluid` prop has no effect if
 the `fluid` prop is not set
