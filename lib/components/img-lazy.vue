@@ -1,5 +1,6 @@
 <template>
     <b-img :src="computedSrc"
+           :alt="alt"
            :blank="computedBlank"
            :blank-color="blankColor"
            :width="computedWidth"
@@ -34,6 +35,10 @@
                 type: String,
                 default: null,
                 rqeuired: true
+            },
+            alt: {
+                type: String,
+                default: null
             },
             width: {
                 type: [Number, String],
