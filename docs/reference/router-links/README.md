@@ -20,7 +20,7 @@ documentation for details.
 ### `to`
 
 - type: `string | Location`
-- required cwto generte a `<router-link>`
+- required to generate a `<router-link>`
 
 Denotes the target route of the link. When clicked, the value of the `to` prop will be passed to
 `router.push()` internally, so the value can be either a string or a location descriptor object.
