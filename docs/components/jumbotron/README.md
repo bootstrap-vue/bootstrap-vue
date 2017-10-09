@@ -3,7 +3,7 @@
 >  A lightweight, flexible component that can optionally extend the entire viewport to
    showcase key marketing messages on your site.
 
-You can set the heading and lead text via hte `header` and `lead` props, or use the
+You can set the heading and lead text via the `header` and `lead` props, or use the
 named slots `header` and `lead` if you need HTML support.
 
 Anything else betwen the opening and closing tags will be renderd at the bottom of the
