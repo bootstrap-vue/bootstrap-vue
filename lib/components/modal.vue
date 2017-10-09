@@ -387,6 +387,7 @@
                 this.is_transitioning = true;
                 this.checkScrollbar();
                 this.setScrollbar();
+                this.adjustDialog();
                 addClass(document.body, 'modal-open');
                 this.setResizeEvent(true);
             },
