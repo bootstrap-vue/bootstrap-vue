@@ -43,7 +43,7 @@ tags to load the required javascript and CSS in your page.
         </b-jumbotron>
 
         <b-form-group horizontal 
-                      label-cols="4"
+                      :label-cols="4"
                       description="Let us know your name."
                       label="Enter your name"
         >
