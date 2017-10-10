@@ -2,7 +2,7 @@
 
 > Below are the variants available when using the default Bootstrap V4 CSS.
 When using Boostrap-Vue components, the variants are refered to
-by their varaint name, rather than by the underlying CSS classname
+by their variant name, rather than by the underlying CSS classname
 
 ## Base variants
 * `primary` - <span class="text-primary">Primary</span>
