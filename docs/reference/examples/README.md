@@ -58,7 +58,6 @@ tags to load the required javascript and CSS in your page.
 
     <!-- Start running your app -->
     <script>
-      Vue.use(BootstrapVue)
       window.app = new Vue({
         el: "#app",
         data: {
