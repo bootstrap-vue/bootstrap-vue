@@ -1,82 +1,84 @@
 <template>
-    <div :id="safeId('__BV_modal_outer_')" v-if="!is_hidden">
-        <transition enter-class=""
-                    enter-to-class=""
-                    enter-active-class=""
-                    leave-class=""
-                    leave-active-class=""
-                    leave-to-class=""
-                    @before-enter="onBeforeEnter"
-                    @enter="onEnter"
-                    @after-enter="onAfterEnter"
-                    @before-leave="onBeforeLeave"
-                    @leave="onLeave"
-                    @after-leave="onAfterLeave"
-        >
-            <div :class="modalClasses"
-                 :id="safeId()"
-                 :aria-hidden="is_visible ? null : 'true'"
-                 role="dialog"
-                 ref="modal"
-                 v-show="is_visible"
-                 @click="onClickOut"
-                 @keyup.esc="onEsc"
+    <div>
+        <div :id="safeId('__BV_modal_outer_')" v-if="!is_hidden">
+            <transition enter-class=""
+                        enter-to-class=""
+                        enter-active-class=""
+                        leave-class=""
+                        leave-active-class=""
+                        leave-to-class=""
+                        @before-enter="onBeforeEnter"
+                        @enter="onEnter"
+                        @after-enter="onAfterEnter"
+                        @before-leave="onBeforeLeave"
+                        @leave="onLeave"
+                        @after-leave="onAfterLeave"
             >
+                <div :class="modalClasses"
+                     :id="safeId()"
+                     :aria-hidden="is_visible ? null : 'true'"
+                     role="dialog"
+                     ref="modal"
+                     v-show="is_visible"
+                     @click="onClickOut"
+                     @keyup.esc="onEsc"
+                >
 
-                <div :class="dialogClasses">
-                    <div class="modal-content"
-                         tabindex="-1"
-                         role="document"
-                         ref="content"
-                         :aria-labelledby="hideHeader ? null : safeId('__BV_modal_header_')"
-                         :aria-describedby="safeId('__BV_modal_body_')"
-                         @focusout="onFocusout"
-                         @click.stop
-                    >
-
-                        <header :class="headerClasses"
-                                ref="header"
-                                :id="safeId('__BV_modal_header_')"
-                                v-if="!hideHeader"
+                    <div :class="dialogClasses">
+                        <div class="modal-content"
+                             tabindex="-1"
+                             role="document"
+                             ref="content"
+                             :aria-labelledby="hideHeader ? null : safeId('__BV_modal_header_')"
+                             :aria-describedby="safeId('__BV_modal_body_')"
+                             @focusout="onFocusout"
+                             @click.stop
                         >
-                            <slot name="modal-header">
-                                <h5 :is="titleTag" class="modal-title">
-                                    <slot name="modal-title">{{title}}</slot>
-                                </h5>
-                                <b-btn-close v-if="!hideHeaderClose"
-                                             :disabled="is_transitioning"
-                                             :aria-label="headerCloseLabel"
-                                             :text-variant="headerTextVariant"
-                                             @click="hide('headerclose')"
-                                ><slot name="modal-header-close"></slot></b-btn-close>
-                            </slot>
-                        </header>
 
-                        <div :class="bodyClasses" ref="body" :id="safeId('__BV_modal_body_')">
-                            <slot></slot>
+                            <header :class="headerClasses"
+                                    ref="header"
+                                    :id="safeId('__BV_modal_header_')"
+                                    v-if="!hideHeader"
+                            >
+                                <slot name="modal-header">
+                                    <h5 :is="titleTag" class="modal-title">
+                                        <slot name="modal-title">{{title}}</slot>
+                                    </h5>
+                                    <b-btn-close v-if="!hideHeaderClose"
+                                                 :disabled="is_transitioning"
+                                                 :aria-label="headerCloseLabel"
+                                                 :text-variant="headerTextVariant"
+                                                 @click="hide('headerclose')"
+                                    ><slot name="modal-header-close"></slot></b-btn-close>
+                                </slot>
+                            </header>
+
+                            <div :class="bodyClasses" ref="body" :id="safeId('__BV_modal_body_')">
+                                <slot></slot>
+                            </div>
+
+                            <footer :class="footerClasses" ref="footer" v-if="!hideFooter" :id="safeId('__BV_modal_footer_')">
+                                <slot name="modal-footer">
+                                    <b-btn v-if="!okOnly"
+                                           :variant="cancelVariant"
+                                           :size="buttonSize"
+                                           :disabled="cancelDisabled || busy || is_transitioning"
+                                           @click="hide('cancel')"
+                                    ><slot name="modal-cancel">{{ cancelTitle }}</slot></b-btn>
+                                    <b-btn :variant="okVariant"
+                                           :size="buttonSize"
+                                           :disabled="okDisabled || busy || is_transitioning"
+                                           @click="hide('ok')"
+                                    ><slot name="modal-ok">{{ okTitle }}</slot></b-btn>
+                                </slot>
+                            </footer>
+
                         </div>
-
-                        <footer :class="footerClasses" ref="footer" v-if="!hideFooter" :id="safeId('__BV_modal_footer_')">
-                            <slot name="modal-footer">
-                                <b-btn v-if="!okOnly"
-                                       :variant="cancelVariant"
-                                       :size="buttonSize"
-                                       :disabled="cancelDisabled || busy || is_transitioning"
-                                       @click="hide('cancel')"
-                                ><slot name="modal-cancel">{{ cancelTitle }}</slot></b-btn>
-                                <b-btn :variant="okVariant"
-                                       :size="buttonSize"
-                                       :disabled="okDisabled || busy || is_transitioning"
-                                       @click="hide('ok')"
-                                ><slot name="modal-ok">{{ okTitle }}</slot></b-btn>
-                            </slot>
-                        </footer>
-
                     </div>
                 </div>
-            </div>
-        </transition>
-        <div v-if="!hideBackdrop && (is_visible || is_transitioning)" :id="safeId('__BV_modal_backdrop_')" :class="backdropClasses"></div>
+            </transition>
+            <div v-if="!hideBackdrop && (is_visible || is_transitioning)" :id="safeId('__BV_modal_backdrop_')" :class="backdropClasses"></div>
+        </div>
     </div>
 </template>
 
