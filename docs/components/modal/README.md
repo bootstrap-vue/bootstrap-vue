@@ -10,7 +10,7 @@ feature a handful of helpful sub-components, sizes, variants, accessibility, and
 
   <!-- Modal Component -->
   <b-modal id="modal1" title="Bootstrap-Vue">
-    <p clas="my-4">Hello from modal!</p>
+    <p class="my-4">Hello from modal!</p>
   </b-modal>
 </div>
 
