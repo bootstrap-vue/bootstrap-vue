@@ -256,6 +256,7 @@ The following field properties are recognized:
 | `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
 | `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly)
+| `tdAttr` | Object | JavaScript object representing additional attributes to apply to the `td` cell
 
 **Notes:**
  - _Field properties, if not present, default to `null` unless otherwise stated above._
