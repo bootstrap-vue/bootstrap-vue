@@ -73,7 +73,8 @@
                     <template v-for="field in computedFields">
                         <td v-if="$scopedSlots[field.key]"
                             :class="tdClasses(field, item)"
-                            :key="field.key">
+                            :key="field.key"
+                            v-bind="field.tdAttr">
                             <slot :name="field.key"
                                   :value="getFormattedValue(item, field)"
                                   :unformatted="item[field.key]"
@@ -85,6 +86,7 @@
                             :class="tdClasses(field, item)"
                             :key="field.key"
                             v-html="getFormattedValue(item, field)"
+                            v-bind="field.tdAttr"
                         ></td>
                     </template>
                 </tr>
