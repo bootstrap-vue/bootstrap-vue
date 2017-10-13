@@ -14,8 +14,7 @@
             <slot name="button-content"><slot name="text">{{text}}</slot></slot>
         </b-button>
         <b-button :id="safeId('_BV_toggle_')"
-                  :class="['dropdown-toggle',{'dropdown-toggle-split': split}]"
-
+                  :class="[{'dropdown-toggle': !hideToggle || split},{'dropdown-toggle-split': split}]"
                   ref="toggle"
                   :aria-haspopup="split ? null : 'true'"
                   :aria-expanded="split ? null : (visible ? 'true' : 'false')"
@@ -69,6 +68,10 @@
             variant: {
                 type: String,
                 default: null
+            },
+            hideToggle: {
+                type: Boolean,
+                default: false,
             },
             role: {
                 type: String,

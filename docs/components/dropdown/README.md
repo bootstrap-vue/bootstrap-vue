@@ -188,6 +188,26 @@ Create a split dropdown button, where the left button provides standard
 <!-- dropdown-split.vue -->
 ```
 
+## Hidden Toggle
+The dropdown can be created with the toggle hidden by setting the `hide-toggle` prop to `true`. This is useful when the dropdown is to be displayed as an icon.
+
+**Note:** The toggle will always be shown when using `split`
+
+```html
+<div>
+  <b-dropdown variant="link" size="sm" hide-toggle>
+    <template slot="button-content">
+      <icon icon="avatar"></icon>
+    </template>
+
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-hidden-toggle.vue -->
+```
 
 ## Sizing
 Dropdowns work with trigger buttons of all sizes, including default and split

@@ -28,13 +28,31 @@ describe("dropdown", async () => {
         // Without async iterators, just use a for loop.
         for (let i = 0; i < dds.length; i++) {
             Array.from(dds[i].children)
-                .find(node => node.tagName === "BUTTON" && node.classList.contains("dropdown-toggle"))
+                .find(node => node.tagName === "BUTTON" && node.id.includes("_BV_toggle_"))
                 .click();
             // Await the next render after click triggers dropdown.
             await nextTick();
             const openDds = dds.filter(dd => dd.classList.contains("show"));
             expect(openDds.length).toBe(1);
         }
+    });
+
+    it("should not have a toggle when hidde-toggle is true", async () => {
+        const { app: { $refs } } = window;
+        const { dd_7 } = $refs;
+
+        const toggle = Array.from(dd_7.$el.children)
+            .find(node => node.tagName === "BUTTON" && node.id.includes("BV_toggle_"));
+        expect(toggle).not.toHaveClass("dropdown-toggle");
+    });
+
+    it("should have a toggle when hide-toggle and split are true", async () => {
+        const { app: { $refs } } = window;
+        const { dd_8 } = $refs;
+
+        const toggle = Array.from(dd_8.$el.children)
+            .find(node => node.tagName === "BUTTON" && node.id.includes("BV_toggle_"));
+        expect(toggle).toHaveClass("dropdown-toggle");
     });
 
     it('dd-item should render as link by default', async () => {
