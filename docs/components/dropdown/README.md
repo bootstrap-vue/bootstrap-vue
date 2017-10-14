@@ -195,9 +195,9 @@ The dropdown can be created with the caret hidden by setting the `no-caret` prop
 
 ```html
 <div>
-  <b-dropdown variant="link" size="sm" no-caret>
+  <b-dropdown variant="link" size="lg" no-caret>
     <template slot="button-content">
-      <icon icon="avatar"></icon>
+      &#x1f50d;
     </template>
 
     <b-dropdown-item href="#">Action</b-dropdown-item>
