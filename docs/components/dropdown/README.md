@@ -188,14 +188,14 @@ Create a split dropdown button, where the left button provides standard
 <!-- dropdown-split.vue -->
 ```
 
-## Hidden Toggle
-The dropdown can be created with the toggle hidden by setting the `hide-toggle` prop to `true`. This is useful when the dropdown is to be displayed as an icon.
+## Hidden Caret
+The dropdown can be created with the caret hidden by setting the `no-caret` prop to `true`. This is useful when the dropdown is to be displayed as an icon.
 
-**Note:** The toggle will always be shown when using `split`
+**Note:** The caret will always be shown when using `split`
 
 ```html
 <div>
-  <b-dropdown variant="link" size="sm" hide-toggle>
+  <b-dropdown variant="link" size="sm" no-caret>
     <template slot="button-content">
       <icon icon="avatar"></icon>
     </template>

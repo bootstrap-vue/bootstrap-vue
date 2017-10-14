@@ -23,35 +23,33 @@ describe("dropdown", async () => {
 
     it("should open only one dropdown at a time", async () => {
         const { app: { $refs } } = window;
-        const dds = Object.keys($refs).map(ref => $refs[ref].$el);
+        const dds = Object.keys($refs).map(ref => $refs[ref]);
 
         // Without async iterators, just use a for loop.
         for (let i = 0; i < dds.length; i++) {
-            Array.from(dds[i].children)
-                .find(node => node.tagName === "BUTTON" && node.id.includes("_BV_toggle_"))
+            Array.from(dds[i].$el.children)
+                .find(node => node.tagName === "BUTTON" && node.id === `${dds[i].safeId()}__BV_toggle_`)
                 .click();
             // Await the next render after click triggers dropdown.
             await nextTick();
-            const openDds = dds.filter(dd => dd.classList.contains("show"));
+            const openDds = dds.filter(dd => dd.$el.classList.contains("show"));
             expect(openDds.length).toBe(1);
         }
     });
 
-    it("should not have a toggle when hidde-toggle is true", async () => {
+    it("should not have a toggle caret when no-caret is true", async () => {
         const { app: { $refs } } = window;
         const { dd_7 } = $refs;
 
-        const toggle = Array.from(dd_7.$el.children)
-            .find(node => node.tagName === "BUTTON" && node.id.includes("BV_toggle_"));
+        const toggle = Array.from(dd_7.$el.children).find(node => node.tagName === "BUTTON" && node.id === `${dd_7.safeId()}__BV_toggle_`);
         expect(toggle).not.toHaveClass("dropdown-toggle");
     });
 
-    it("should have a toggle when hide-toggle and split are true", async () => {
+    it("should have a toggle caret when no-caret and split are true", async () => {
         const { app: { $refs } } = window;
         const { dd_8 } = $refs;
 
-        const toggle = Array.from(dd_8.$el.children)
-            .find(node => node.tagName === "BUTTON" && node.id.includes("BV_toggle_"));
+        const toggle = Array.from(dd_8.$el.children).find(node => node.tagName === "BUTTON" && node.id === `${dd_8.safeId()}__BV_toggle_`);
         expect(toggle).toHaveClass("dropdown-toggle");
     });
 
