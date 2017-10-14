@@ -188,6 +188,27 @@ Create a split dropdown button, where the left button provides standard
 <!-- dropdown-split.vue -->
 ```
 
+## Hidden Caret
+The dropdown can be created with the caret hidden by setting the `no-caret` prop to `true`.
+This is useful when the dropdown is to be displayed as an icon.
+
+**Note:** The caret will always be shown when using `split`
+
+```html
+<div>
+  <b-dropdown variant="link" size="lg" no-caret>
+    <template slot="button-content">
+      &#x1f50d;<span class="sr-only">Search</span>
+    </template>
+
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-hidden-toggle.vue -->
+```
 
 ## Sizing
 Dropdowns work with trigger buttons of all sizes, including default and split
