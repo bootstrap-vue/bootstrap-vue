@@ -6,9 +6,9 @@
 
 <script>
     import bForm from './form.vue';
-    
+
     export default {
-        components: [bForm],
+        components: {bForm},
         props: {
             id: {
                 type: String,
