@@ -62,7 +62,10 @@
     "vue": "^2.4.2"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-beta"
+    "bootstrap": "^4.0.0-beta",
+    "lodash.startcase": "^4.4.0",
+    "popper.js": "^1.12.5",
+    "vue-functional-data-merge": "^1.0.6"
   },
   "devDependencies": {
     "@nuxtjs/pwa": "^0.2.1",
@@ -82,11 +85,9 @@
     "jest": "^21.1.0",
     "jest-vue-preprocessor": "^1.1.0",
     "lodash": "latest",
-    "lodash.startcase": "^4.4.0",
     "markdown-loader": "^2.0.1",
     "marked": "^0.3.6",
     "nuxt": "1.0.0-rc11",
-    "popper.js": "^1.12.5",
     "rollup": "^0.50.0",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.2.1",
@@ -94,8 +95,7 @@
     "rollup-plugin-vue": "^2.4.2",
     "rollup-watch": "^4.3.1",
     "standard-version": "^4.2.0",
-    "uglify-es": "^3.1.1",
-    "vue-functional-data-merge": "^1.0.6"
+    "uglify-es": "^3.1.1"
   },
   "jest": {
     "testRegex": "spec.js$",
