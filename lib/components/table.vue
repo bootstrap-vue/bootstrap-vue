@@ -117,7 +117,7 @@
             </tr>
             <tr v-if="$scopedSlots['bottom-row']">
                 <slot name="bottom-row"
-                      :columns="computedfields.length"
+                      :columns="computedFields.length"
                       :fields="computedFields"></slot>
             </tr>
         </tbody>
