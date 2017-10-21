@@ -20,14 +20,16 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 ```
 
-And import the css from both Bootstrap 4 & Bootstrap-Vue: _(requires webpack `style-loader`)_
+And import css files from both Bootstrap 4 & Bootstrap-Vue: 
+
+**Note**: _requires webpack configuration to load css files ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_
 
 ```js
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 
-**Note:** If you are unable or do not want to add style-loader as a dev dependency, you have to
+**Note:** If you are unable or do not want to add additional packages to dev dependency, you have to
 manually include both [Bootstrap](https://v4-alpha.getbootstrap.com/getting-started/download/)
 and [BootstrapVue](https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css) CSS files
 in your bundle or reference them from `static/` via `index.html`.
