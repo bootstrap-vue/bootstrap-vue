@@ -27,9 +27,7 @@
             },
             progressBarStyles() {
                 return {
-                    width: (100 * (this.value / this.computedMax)) + '%',
-                    height: this.computedHeight,
-                    lineHeight: this.computedHeight
+                    width: (100 * (this.value / this.computedMax)) + '%'
                 };
             },
             progress() {
@@ -39,11 +37,7 @@
             computedMax() {
                 // Prefer our max over parent setting
                 return typeof this.max === 'number' ? this.max : (this.$parent.max || 100);
-            },
-            computedHeight() {
-                // Prefer parent height over our height
-                return this.$parent.height || this.height || '1rem';
-            },
+            },            
             computedVariant() {
                 // Prefer our variant over parent setting
                 return this.variant || this.$parent.variant;
@@ -107,11 +101,7 @@
             showValue: {
                 type: Boolean,
                 default: null
-            },
-            height: {
-                type: String,
-                default: null
-            }
+            }           
         }
     };
 </script>
