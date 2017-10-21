@@ -1,5 +1,5 @@
 <template>
-    <div class="progress">
+    <div class="progress" :height="height">
         <slot>
             <b-progress-bar :value="value"
                             :max="max"
@@ -9,7 +9,6 @@
                             :striped="striped"
                             :show-progress="showProgress"
                             :show-value="showValue"
-                            :height="height"
             ></b-progress-bar>
         </slot>
     </div>
