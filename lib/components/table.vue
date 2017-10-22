@@ -246,7 +246,7 @@ export default {
             default: false
         },
         responsive: {
-            type: Boolean,
+            type: [Boolean, String],
             default: false
         },
         fixed: {
@@ -408,14 +408,15 @@ export default {
     },
     computed: {
         tableClasses() {
+            const responsive = this.responsive === '' ? true : this.responsive;
             return [
                 'table',
                 'b-table',
                 this.striped ? 'table-striped' : '',
                 this.hover ? 'table-hover' : '',
-                this.inverse ? 'table-inverse' : '',
+                this.inverse ? 'table-dark' : '',
                 this.bordered ? 'table-bordered' : '',
-                this.responsive ? 'table-responsive' : '',
+                responsive === true ? 'table-responsive' : (Boolean(responsive) ? `table-responsive-${responsive}` : ''),
                 this.fixed ? 'table-fixed' : '',
                 this.small ? 'table-sm' : ''
             ];
