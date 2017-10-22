@@ -65,7 +65,7 @@
                     'form-control',
                     this.stateClass,
                     this.sizeFormClass,
-                    (this.plain || this.multiple || this.selectSize > 1) ? null : 'custom-select'
+                    (this.plain || (!this.multiple && this.selectSize > 1)) ? null : 'custom-select'
                 ];
             },
             computedAriaInvalid() {
