@@ -24,7 +24,7 @@ describe("table", async () => {
             "b-table",
             "table-sm",
             "table-bordered",
-            "table-inverse"
+            "table-dark"
         ]);
     });
 
