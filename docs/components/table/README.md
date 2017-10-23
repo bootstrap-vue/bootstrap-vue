@@ -290,12 +290,15 @@ fields: [
 | `bordered` | For borders on all sides of the table and cells.
 | `small` | To make tables more compact by cutting cell padding in half.
 | `hover` | To enable a hover highlighting state on table rows within a `<tbody>`
-| `inverse` | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)
+| `dark` | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)
 | `responsive` | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `sm`, `md`, `lg`, or `xl` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint.
 | `fixed` | Gnerate a table with equal fixed-width columns (`table-layout: fixed`)
 | `foot-clone` | Turns on the table footer, and defaults with the same contents a the table header
 | `head-variant` | Use `light` or `dark` to make table header appear light or dark gray, respectively
 | `foot-variant` | Use `light` or `dark` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set
+
+**Deprecation note:** As of Bootstrap-Vue v1.0.0-beta.10, the prop `inverse` has been deprecated in
+favour of prop `dark` to better align with Bootstrap V4.beta.2 CSS class names.
 
 **Example: Bordered table**
 ```html
@@ -341,10 +344,10 @@ export default {
 <!-- table-small.vue -->
 ```
 
-**Example: Inverse table**
+**Example: Dark table**
 ```html
 <template>
-  <b-table inverse :items="items" :fields="fields"></b-table>
+  <b-table dark :items="items" :fields="fields"></b-table>
 </template>
 
 <script>
