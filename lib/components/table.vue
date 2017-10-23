@@ -125,9 +125,9 @@
 </template>
 
 <script>
-import { warn, pluckProps, looseEqual } from '../utils';
+import { warn, looseEqual } from '../utils';
 import { keys, assign } from '../utils/object';
-import { isArray } from '../utils/array'
+import { isArray } from '../utils/array';
 import { listenOnRootMixin } from '../mixins';
 import startCase from 'lodash.startcase';
 
@@ -148,7 +148,7 @@ function recToString(obj) {
 
     return toString(keys(obj).reduce((o, k) => {
         // Ignore fields that start with _
-        if (!/^_/.test(k)) {
+        if (!'/^_/'.test(k)) {
             o[k] = obj[k];
         }
         return o;
@@ -168,16 +168,16 @@ function processField(key, value) {
     let field = null;
     if (typeof value === 'string') {
         // Label shortcut
-        field = { key: key, label: value };
+        field = { key, label: value };
     } else if (typeof value === 'function') {
         // Formatter shortcut
-        field = { key: key, formatter: value };
+        field = { key, formatter: value };
     } else if (typeof value === 'object') {
         field = assign({}, value);
         field.key = field.key || key;
     } else if (value !== false) {
         // Fallback to just key
-        field = { key: key };
+        field = { key };
     }
     return field;
 }
@@ -345,7 +345,7 @@ export default {
             }
         },
         context(newVal, oldVal) {
-            if(!looseEqual(newVal, oldVal)) {
+            if (!looseEqual(newVal, oldVal)) {
                 this.$emit('context-changed', newVal);
             }
         },
@@ -483,11 +483,11 @@ export default {
                             fields.push(field);
                         }
                     }
-                })
+                });
             } else if (this.fields && typeof this.fields === 'object' && keys(this.fields).length > 0) {
                 // Normalize object Form
                 keys(this.fields).forEach(key => {
-                    let field = processField(key, this.fields[key])
+                    let field = processField(key, this.fields[key]);
                     if (field) {
                         fields.push(field);
                     }
@@ -496,7 +496,7 @@ export default {
 
             // If no field provided, take a sample from first record (if exits)
             if (fields.length === 0 && this.computedItems.length > 0) {
-                const sample = this.computedItems[0]
+                const sample = this.computedItems[0];
                 keys(sample).forEach(k => {
                     fields.push({ key: k , label: startCase(k)});
                 });
@@ -509,9 +509,8 @@ export default {
                     memo[f.key] = true;
                     f.label = f.label || startCase(f.key);
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             });
         },
         computedItems() {
@@ -726,7 +725,7 @@ export default {
             return value;
         }
     }
-}
+};
 </script>
 
 <style>
