@@ -414,12 +414,11 @@ export default {
     },
     computed: {
         computedDark() {
-            if (this.inverse === 'true') {
-                warn("b-table: prop 'inverse' is deprecated. please use prop 'dark'.");
-                return true;
-            } else {
-                return this.dark;
+            if (typeof this.inverse === 'boolean') {
+                warn("b-table: prop 'inverse' is deprecated. Please use prop 'dark'.");
+                return this.inverse;
             }
+            return this.dark;
         },
         tableClasses() {
             const responsive = this.responsive === '' ? true : this.responsive;
@@ -609,7 +608,7 @@ export default {
                 cellVariant = (this.computedDark ? 'bg-' : 'table-') + item._cellVariants[field.key];
             }
             return [
-                (field.variant && !cellVariant) ? ((this.computedDark ? 'bg-' : 'table-') + field.variant) : '',
+                (field.variant && !cellVariant) ? `${this.computedDark ? 'bg' : 'table'}-${field.variant}` : '',
                 cellVariant,
                 field.class ? field.class : '',
                 field.tdClass ? field.tdClass : ''
@@ -617,7 +616,7 @@ export default {
         },
         rowClasses(item) {
             return [
-                item._rowVariant ? ((this.computedDark ? 'bg-' : 'table-') + item._rowVariant) : ''
+                item._rowVariant ? `${this.computedDark ? 'bg' : 'table'}-${item._rowVariant}` : ''
             ];
         },
         rowClicked(e, item, index) {
