@@ -148,7 +148,7 @@ function recToString(obj) {
 
     return toString(keys(obj).reduce((o, k) => {
         // Ignore fields that start with _
-        if (!'/^_/'.test(k)) {
+        if (!/^_/.test(k)) {
             o[k] = obj[k];
         }
         return o;
