@@ -141,8 +141,10 @@ Refer to [`<b-dropdown>`](../dropdown) for a list of supported sub-components.
 
 ## Using in Navbar
 
-When using `<b-nav>` within a `<b-navbar>`, set the `is-nav-bar` prop to ensure that the proper
-classes and handlers can be applied.
+Using `<b-nav>` within a `<b-navbar>` has been deprecated as of Bootstrap-Vue v1.0.0-beta.10.
+Please use the [`<b-navbar-nav>`](/docs/components/navbar) component instead.
+
+Prop `is-nav-bar` has been deprecated and will be removed in a future release.
 
 ## Tabbed content support
 
@@ -160,8 +162,8 @@ be automatically generated.
 
 ## See Also
 
-- [`<b-tabs>`](./tabs) to create tabbable panes of local content, even via dropdown menus.
-- [`<b-navbar>`](./navbar) a wrapper that positions branding, navigation, and other elements in a concise header.
-- [`<b-dropdown>`](./dropdown) for sub-components that you can place inside `<b-nav-item-dropdown>`
+- [`<b-tabs>`](/docs/components/tabs) to create tabbable panes of local content, even via dropdown menus.
+- [`<b-navbar>`](/docs/components/navbar) a wrapper that positions branding, navigation, and other elements in a concise header.
+- [`<b-dropdown>`](/docs/components/dropdown) for sub-components that you can place inside `<b-nav-item-dropdown>`
 
 ## Component Reference
