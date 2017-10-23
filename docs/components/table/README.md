@@ -400,7 +400,7 @@ Responsive tables make use of `overflow-y: hidden`, which clips off any content 
 goes beyond the bottom or top edges of the table. In particular, this can clip off
 dropdown menus and other third-party widgets.
 
-**Example: Always rsponsive table**
+**Example: Always responsive table**
 ```html
 <template>
   <b-table responsive :items="items"></b-table>
