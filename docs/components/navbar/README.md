@@ -12,13 +12,13 @@ It’s easily extensible and thanks to our Collapse plugin, it can easily integr
 
   <b-collapse is-nav id="nav_collapse">
 
-    <b-nav is-nav-bar>
+    <b-navbar-nav>
       <b-nav-item href="#">Link</b-nav-item>
       <b-nav-item href="#" disabled>Disabled</b-nav-item>
-    </b-nav>
+    </b-navbar-nav>
 
     <!-- Right aligned nav items -->
-    <b-nav is-nav-bar class="ml-auto">
+    <b-navbar-nav class="ml-auto">
 
       <b-nav-form>
         <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
@@ -40,7 +40,7 @@ It’s easily extensible and thanks to our Collapse plugin, it can easily integr
         <b-dropdown-item href="#">Profile</b-dropdown-item>
         <b-dropdown-item href="#">Signout</b-dropdown-item>
       </b-nav-item-dropdown>
-    </b-nav>
+    </b-navbar-nav>
 
   </b-collapse>
 </b-navbar>
@@ -72,12 +72,12 @@ Control the placement of the navbar by setting one of two props:
 Navbars come with built-in support for a handful of sub-components. Choose from the following as needed:
 
 - `<b-navbar-brand>` for your company, product, or project name.
-- `<b-nav is-nav-bar>` for a full-height and lightweight navigation (including support for dropdowns).
+- `<b-navbar-nav>` for a full-height and lightweight navigation (including support for dropdowns).
 - `<b-nav-item>` for link (and router-link) action items
 - `<b-nav-item-dropdown>` for navbar dropdown menus
 - `<b-nav-text>` for adding vertically centered strings of text.
-- `<b-navbar-form>` for any form controls and actions.
-- `<b-navbar-toggler>` for use with the `<b-collapse>` component.
+- `<b-nav-form>` for any form controls and actions.
+- `<b-nav-toggle>` for use with the `<b-collapse is-nav>` component.
 - `<b-collapse is-nav>` for grouping and hiding navbar contents by a parent breakpoint.
 
 ### `<b-navbar-brand>`
@@ -138,20 +138,19 @@ to properly size. Here are some examples to demonstrate:
 <!-- navbar-brand-4.vue -->
 ```
 
-### `<b-nav is-nav-bar>`
+### `<b-navbar-nav>`
 
-Navbar navigation links build on our `<b-nav>` parent component with their own modifier
-class and require the use of `<b-collapse>` toggler for proper responsive styling.
+Navbar navigation links build on the `<b-navbar-nav>` parent component and requires the
+use of `<b-collapse is-nav>` and `<b-nav-toggle>` toggler for proper responsive styling.
 Navigation in navbars will also grow to occupy as much horizontal space as possible to
 keep your navbar contents securely aligned.
 
-Be sure to set the prop `is-nav-bar` on `<b-nav>` for proper alignment!
-
-`<b-nav>` in navbar context supports the following components:
+`<b-navbar-nav>` supports the following components:
 
 - `<b-nav-item>` for link (and router-link) action items
 - `<b-nav-text>` for adding vertically centered strings of text.
 - `<b-nav-item-dropdown>` for navbar dropdown menus
+- `<b-nav-form>` for adding simple forms to the navbar.
 
 ### `<b-nav-item>`
 
@@ -175,9 +174,9 @@ adjusts vertical alignment and horizontal spacing for strings of text.
         <b-nav-toggle target="nav_text_collapse"></b-nav-toggle>
         <b-navbar-brand>BootstrapVue</b-navbar-brand>
         <b-collapse is-nav id="nav_text_collapse">
-            <b-nav is-nav-bar>
+            <b-navbar-nav>
                 <b-nav-text>Navbar text</b-nav-text>
-            </b-nav>
+            </b-navbar-nav>
         </b-collapse>
     </b-navbar>
 </div>
@@ -187,15 +186,15 @@ adjusts vertical alignment and horizontal spacing for strings of text.
 
 ### `<b-nav-item-dropdown>`
 
-For `<b-nav-item-dropdown>` usage, see the [`<b-dropdown>`](./dropdown) docs.
-Note split dropdowns are not supported in `<b-navbar>`.
+For `<b-nav-item-dropdown>` usage, see the [`<b-dropdown>`](/docs/components/dropdown) docs.
+Note split dropdowns are not supported in `<b-navbar>` and `<b-navbar-nav>`.
 
 ```html
 <div>
   <b-navbar type="dark" variant="primary" toggleable>
     <b-nav-toggle target="nav_dropdown_collapse"></b-nav-toggle>
     <b-collapse is-nav id="nav_dropdown_collapse">
-      <b-nav is-nav-bar>
+      <b-navbar-nav>
         <b-nav-item href="#">Home</b-nav-item>
         <b-nav-item href="#">Link</b-nav-item>
         <!-- Navbar dropdowns -->
@@ -209,7 +208,7 @@ Note split dropdowns are not supported in `<b-navbar>`.
           <b-dropdown-item href="#">Account</b-dropdown-item>
           <b-dropdown-item href="#">Settings</b-dropdown-item>
         </b-nav-item-dropdown>
-      </b-nav>
+      </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 </div>
@@ -255,7 +254,7 @@ Input groups work as well:
 Navbars are responsive by default, but you can easily modify them to change that. Responsive
 behavior depends on our `<b-collapse>` component.
 
-Wrap `<b-nav is-nav-bar>` components in a `<b-collapse is-nav>` (remember to set the `is-nav` prop!)
+Wrap `<b-navbar-nav>` components in a `<b-collapse is-nav>` (**remember to set the `is-nav` prop!**)
 to specify content that will collapse based on a particular breakpoint.
 
 Use `<b-nav-toggle>` to control the collapse component and set the `toggleable` prop to
@@ -263,7 +262,7 @@ the breakpoint you would like content to automatically collapse. Possible values
 `md`, and `lg`. Setting togleable to `true` (or with no explicit value) will set the
 breakpoint to `sm`. setting to `false` will disable collapsing.
 
-See the first example on this page for reference, and also refer to [`<b-collapse>`](./collapse) for
+See the first example on this page for reference, and also refer to [`<b-collapse>`](/docs/components/collapse) for
 details on the collapse component.
 
 ## Component Reference
