@@ -182,7 +182,7 @@ list-box, rather than a dropdown. Set the `select-size` prop to a numerical
 value greater than 1 to control how many rows of options are visible.
 
 Note when `select-size` is set to a value greater than 1, the Bootstrap V4 custom
-styling will **not** be applied.
+styling will **not** be applied, unless the `multiple` prop is also set.
 
 Note: not all mobile browsers will show a the select as a list-box.
 
@@ -221,10 +221,6 @@ Enable multiple select mode by setting the prop `multiple`, and control how many
 rows are displayed in the multiple select list-box by setting `select-size` to
 the number of rows to display. The default is to let the browser use it's default
 (typically 4).
-
-Multiple select does not support Bootstrap's custom select styling, so it will
-be rendered using a native browser multi-select, but with the `.form-control`
-class applied.
 
 ### Value
 
@@ -280,11 +276,7 @@ Generally speaking, you’ll want to use a particular state for specific types o
 - `null` Displays no validation state
 
 To apply one of the contextual states on `<b-form-select>`, set the `state` prop
-to `'invalid'`, `'valid'`, or `null`.
-
-To apply one of the contextual states on `<b-form-select>`, set the `state` prop
-to `danger`, `warning`, or `success` on the `<b-form-fieldset>` that wraps
-the `<b-form-select>`.
+to `'invalid'` (or `false`), `'valid'` (or `true`), or `null`.
 
 ### Conveying contextual validation state to assistive technologies and colorblind users:
 
@@ -315,8 +307,8 @@ When `state` is set to `invalid`, aria-invalid will also be set to true.
 Set the prop `plain` to have a native browser `<select>` rendered (although the class
 `.form-control` will always be placed on the select).
 
-Multiple select will always render as a `plain` select, as will any `<b-form-select>`
-that has the `select-size` prop set to a value greater than 1.
+A `plain` select will always be rendered for non `multiple` selects which have the
+`select-size` prop set to a value greater than 1.
 
 ## Aliases
 - `<b-form-select>` can be used by the shorter alias `<b-select>`.
