@@ -233,9 +233,15 @@ export default {
             type: Boolean,
             default: false
         },
-        inverse: {
+        dark: {
+            // Replaces prop `inverse`
             type: Boolean,
             default: false
+        },
+        inverse: {
+            // Deprecated in v1.0.0.beta.10 in favor of `dark`
+            type: Boolean,
+            default: null
         },
         hover: {
             type: Boolean,
@@ -407,6 +413,14 @@ export default {
         });
     },
     computed: {
+        computedDark() {
+            if (this.inverse === 'true') {
+                warn("b-table: prop 'inverse' is deprecated. please use prop 'dark'.");
+                return true;
+            } else {
+                return this.dark;
+            }
+        },
         tableClasses() {
             const responsive = this.responsive === '' ? true : this.responsive;
             return [
@@ -414,7 +428,7 @@ export default {
                 'b-table',
                 this.striped ? 'table-striped' : '',
                 this.hover ? 'table-hover' : '',
-                this.inverse ? 'table-dark' : '',
+                this.computedDark ? 'table-dark' : '',
                 this.bordered ? 'table-bordered' : '',
                 responsive === true ? 'table-responsive' : (Boolean(responsive) ? `table-responsive-${responsive}` : ''),
                 this.fixed ? 'table-fixed' : '',
@@ -592,10 +606,10 @@ export default {
         tdClasses(field, item) {
             let cellVariant = '';
             if (item._cellVariants && item._cellVariants[field.key]) {
-                cellVariant = (this.inverse ? 'bg-' : 'table-') + item._cellVariants[field.key];
+                cellVariant = (this.computedDark ? 'bg-' : 'table-') + item._cellVariants[field.key];
             }
             return [
-                (field.variant && !cellVariant) ? ((this.inverse ? 'bg-' : 'table-') + field.variant) : '',
+                (field.variant && !cellVariant) ? ((this.computedDark ? 'bg-' : 'table-') + field.variant) : '',
                 cellVariant,
                 field.class ? field.class : '',
                 field.tdClass ? field.tdClass : ''
@@ -603,7 +617,7 @@ export default {
         },
         rowClasses(item) {
             return [
-                item._rowVariant ? ((this.inverse ? 'bg-' : 'table-') + item._rowVariant) : ''
+                item._rowVariant ? ((this.computedDark ? 'bg-' : 'table-') + item._rowVariant) : ''
             ];
         },
         rowClicked(e, item, index) {
