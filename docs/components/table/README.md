@@ -290,12 +290,15 @@ fields: [
 | `bordered` | For borders on all sides of the table and cells.
 | `small` | To make tables more compact by cutting cell padding in half.
 | `hover` | To enable a hover highlighting state on table rows within a `<tbody>`
-| `inverse` | Invert the colors — with light text on dark backgrounds
-| `responsive` | Generate a responsive table to make it scroll horizontally on small devices (under 768px)
+| `dark` | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)
+| `responsive` | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `sm`, `md`, `lg`, or `xl` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint.
 | `fixed` | Gnerate a table with equal fixed-width columns (`table-layout: fixed`)
 | `foot-clone` | Turns on the table footer, and defaults with the same contents a the table header
-| `head-variant` | Use `default` or `inverse` to make table header appear light or dark gray, respectively
-| `foot-variant` | Use `default` or `inverse` to make table footer appear light or dark gray, respectively. IF not set, used `head-variant`. Has no effect if `foot-clone` is not set
+| `head-variant` | Use `light` or `dark` to make table header appear light or dark gray, respectively
+| `foot-variant` | Use `light` or `dark` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set
+
+**Deprecation note:** As of Bootstrap-Vue v1.0.0-beta.10, the prop `inverse` has been deprecated in
+favour of prop `dark` to better align with Bootstrap V4.beta.2 CSS class names.
 
 **Example: Bordered table**
 ```html
@@ -341,10 +344,10 @@ export default {
 <!-- table-small.vue -->
 ```
 
-**Example: Inverse table**
+**Example: Dark table**
 ```html
 <template>
-  <b-table inverse :items="items" :fields="fields"></b-table>
+  <b-table dark :items="items" :fields="fields"></b-table>
 </template>
 
 <script>
@@ -385,7 +388,59 @@ export default {
 <!-- table-footer.vue -->
 ```
 
-## Table `<caption>`
+## Responsive tables
+Responsive tables allow tables to be scrolled horizontally with ease. Make any table
+responsive across all viewports by setting the prop `responsive` to `true`. Or, pick a
+maximum breakpoint with which to have a responsive table up to by setting the prop
+`responsive` to one of the breakpoint values: `sm`, `md`, `lg`, or `xl`.
+
+**Note: Possible vertical clipping/truncation**
+
+Responsive tables make use of `overflow-y: hidden`, which clips off any content that
+goes beyond the bottom or top edges of the table. In particular, this can clip off
+dropdown menus and other third-party widgets.
+
+**Example: Always responsive table**
+```html
+<template>
+  <b-table responsive :items="items"></b-table>
+</template>
+
+<script>
+export default {
+  data: {
+    items: [
+      {
+        'heading 1': 'table cell', 'heading 2': 'table cell',
+        'heading 3': 'table cell', 'heading 4': 'table cell',
+        'heading 5': 'table cell', 'heading 6': 'table cell',
+        'heading 7': 'table cell', 'heading 8': 'table cell',
+        'heading 9': 'table cell', 'heading 10': 'table cell'
+      },
+      {
+        'heading 1': 'table cell', 'heading 2': 'table cell',
+        'heading 3': 'table cell', 'heading 4': 'table cell',
+        'heading 5': 'table cell', 'heading 6': 'table cell',
+        'heading 7': 'table cell', 'heading 8': 'table cell',
+        'heading 9': 'table cell', 'heading 10': 'table cell'
+      },
+      {
+        'heading 1': 'table cell', 'heading 2': 'table cell',
+        'heading 3': 'table cell', 'heading 4': 'table cell',
+        'heading 5': 'table cell', 'heading 6': 'table cell',
+        'heading 7': 'table cell', 'heading 8': 'table cell',
+        'heading 9': 'table cell', 'heading 10': 'table cell'
+      }
+    ]
+  }
+};
+</script>
+
+<!-- table-responsive.vue -->
+```
+
+
+## Table caption
 Add an optional caption to your table via the prop `caption` or the named
 slot `table-caption` (the slot takes precedence over the prop). The default
 Bootstrap V4 styling places the caption at the bottom of the table. You can
@@ -416,11 +471,11 @@ export default {
 <!-- table-caption.vue -->
 ```
 
-## Table `<colgroup>`
+## Table colgroup
 Use the named slot `table-colgroup` to specify `<colgroup>` and `<col>` elements
 for optional grouping and styling of table columns. Note the styles available via `<col>`
 elements are limited. Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup)
-for details and usage.
+for details and usage of `<colgroup>`
 
 
 ## Custom Data Rendering

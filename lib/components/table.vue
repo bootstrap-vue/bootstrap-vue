@@ -125,9 +125,9 @@
 </template>
 
 <script>
-import { warn, pluckProps, looseEqual } from '../utils';
+import { warn, looseEqual } from '../utils';
 import { keys, assign } from '../utils/object';
-import { isArray } from '../utils/array'
+import { isArray } from '../utils/array';
 import { listenOnRootMixin } from '../mixins';
 import startCase from 'lodash.startcase';
 
@@ -148,7 +148,7 @@ function recToString(obj) {
 
     return toString(keys(obj).reduce((o, k) => {
         // Ignore fields that start with _
-        if (!/^_/.test(k)) {
+        if (!(/^_/).test(k)) {
             o[k] = obj[k];
         }
         return o;
@@ -168,16 +168,16 @@ function processField(key, value) {
     let field = null;
     if (typeof value === 'string') {
         // Label shortcut
-        field = { key: key, label: value };
+        field = { key, label: value };
     } else if (typeof value === 'function') {
         // Formatter shortcut
-        field = { key: key, formatter: value };
+        field = { key, formatter: value };
     } else if (typeof value === 'object') {
         field = assign({}, value);
         field.key = field.key || key;
     } else if (value !== false) {
         // Fallback to just key
-        field = { key: key };
+        field = { key };
     }
     return field;
 }
@@ -233,9 +233,21 @@ export default {
             type: Boolean,
             default: false
         },
-        inverse: {
+        dark: {
             type: Boolean,
-            default: false
+            default() {
+                if (this && typeof this.inverse === 'boolean') {
+                    // Deprecate inverse
+                    warn("b-table: prop 'inverse' has been deprecated. Use 'dark' instead");
+                    return this.bark;
+                }
+                return false;
+            }
+        },
+        inverse: {
+            // Deprecated in v1.0.0.beta.10 in favor of `dark`
+            type: Boolean,
+            default: null
         },
         hover: {
             type: Boolean,
@@ -246,7 +258,7 @@ export default {
             default: false
         },
         responsive: {
-            type: Boolean,
+            type: [Boolean, String],
             default: false
         },
         fixed: {
@@ -333,7 +345,7 @@ export default {
             }
         },
         context(newVal, oldVal) {
-            if(!looseEqual(newVal, oldVal)) {
+            if (!looseEqual(newVal, oldVal)) {
                 this.$emit('context-changed', newVal);
             }
         },
@@ -408,14 +420,15 @@ export default {
     },
     computed: {
         tableClasses() {
+            const responsive = this.responsive === '' ? true : this.responsive;
             return [
                 'table',
                 'b-table',
                 this.striped ? 'table-striped' : '',
                 this.hover ? 'table-hover' : '',
-                this.inverse ? 'table-inverse' : '',
+                this.dark ? 'table-dark' : '',
                 this.bordered ? 'table-bordered' : '',
-                this.responsive ? 'table-responsive' : '',
+                responsive === true ? 'table-responsive' : (Boolean(responsive) ? `table-responsive-${responsive}` : ''),
                 this.fixed ? 'table-fixed' : '',
                 this.small ? 'table-sm' : ''
             ];
@@ -470,11 +483,11 @@ export default {
                             fields.push(field);
                         }
                     }
-                })
+                });
             } else if (this.fields && typeof this.fields === 'object' && keys(this.fields).length > 0) {
                 // Normalize object Form
                 keys(this.fields).forEach(key => {
-                    let field = processField(key, this.fields[key])
+                    let field = processField(key, this.fields[key]);
                     if (field) {
                         fields.push(field);
                     }
@@ -483,7 +496,7 @@ export default {
 
             // If no field provided, take a sample from first record (if exits)
             if (fields.length === 0 && this.computedItems.length > 0) {
-                const sample = this.computedItems[0]
+                const sample = this.computedItems[0];
                 keys(sample).forEach(k => {
                     fields.push({ key: k , label: startCase(k)});
                 });
@@ -496,9 +509,8 @@ export default {
                     memo[f.key] = true;
                     f.label = f.label || startCase(f.key);
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             });
         },
         computedItems() {
@@ -591,10 +603,10 @@ export default {
         tdClasses(field, item) {
             let cellVariant = '';
             if (item._cellVariants && item._cellVariants[field.key]) {
-                cellVariant = (this.inverse ? 'bg-' : 'table-') + item._cellVariants[field.key];
+                cellVariant = `${this.dark ? 'bg' : 'table'}-${item._cellVariants[field.key]}`;
             }
             return [
-                (field.variant && !cellVariant) ? ((this.inverse ? 'bg-' : 'table-') + field.variant) : '',
+                (field.variant && !cellVariant) ? `${this.dark ? 'bg' : 'table'}-${field.variant}` : '',
                 cellVariant,
                 field.class ? field.class : '',
                 field.tdClass ? field.tdClass : ''
@@ -602,7 +614,7 @@ export default {
         },
         rowClasses(item) {
             return [
-                item._rowVariant ? ((this.inverse ? 'bg-' : 'table-') + item._rowVariant) : ''
+                item._rowVariant ? `${this.dark ? 'bg' : 'table'}-${item._rowVariant}` : ''
             ];
         },
         rowClicked(e, item, index) {
@@ -713,7 +725,7 @@ export default {
             return value;
         }
     }
-}
+};
 </script>
 
 <style>

@@ -38,8 +38,8 @@
              responsive
              foot-clone
              show-empty
-             head-variant="inverse"
-             foot-variant="default"
+             head-variant="dark"
+             foot-variant="light"
              :busy="isBusy"
              :items="items"
              :fields="fields"
@@ -68,15 +68,15 @@
         </template>
     </b-table>
 
-    <h2>Inverse Table</h2>
+    <h2>Dark Table</h2>
     <div class="my-1 row">
         <div class="justify-content-center col-12 my-2">
             <b-pagination size="md" :total-rows="items.length" :per-page="perPage" v-model="currentPage" />
         </div>
     </div>
-    <b-table ref="table_inverse"
+    <b-table ref="table_dark"
              small
-             inverse
+             dark
              bordered
              head-variant="default"
              show-empty
