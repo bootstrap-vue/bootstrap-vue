@@ -73,21 +73,21 @@ describe("table", async () => {
         expect(tfoot).not.toBeDefined();
     });
 
-    it("table_paginated thead should contain class thead-inverse", async () => {
+    it("table_paginated thead should contain class thead-dark", async () => {
         const { app: { $refs, $el } } = window;
         const thead = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === "THEAD");
         expect(thead).toBeDefined();
         if (thead) {
-            expect(thead.classList.contains("thead-inverse")).toBe(true);
+            expect(thead.classList.contains("thead-dark")).toBe(true);
         }
     });
 
-    it("table_paginated tfoot should contain class thead-default", async () => {
+    it("table_paginated tfoot should contain class thead-light", async () => {
         const { app: { $refs, $el } } = window;
         const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === "TFOOT");
         expect(tfoot).toBeDefined();
         if (tfoot) {
-            expect(tfoot.classList.contains("thead-default")).toBe(true);
+            expect(tfoot.classList.contains("thead-light")).toBe(true);
         }
     });
 
@@ -252,7 +252,7 @@ describe("table", async () => {
             expect(tbody).toBeDefined();
             if (tbody) {
                 const tr = tbody.children[0];
-                const variant = vm.inverse ? "bg-success" : "table-success";
+                const variant = vm.dark ? "bg-success" : "table-success";
                 expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(variant)).toBe(true);
             }
         });
