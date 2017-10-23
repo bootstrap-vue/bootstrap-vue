@@ -19,7 +19,7 @@ describe("table", async () => {
             "table-responsive"
         ]);
 
-        expect($refs.table_inverse).toHaveAllClasses([
+        expect($refs.table_dark).toHaveAllClasses([
             "table",
             "b-table",
             "table-sm",
@@ -58,10 +58,10 @@ describe("table", async () => {
         expect(tfoot).toBeDefined();
     });
 
-    it("table_inverse should have thead and tbody", async () => {
+    it("table_dark should have thead and tbody", async () => {
         const { app: { $refs, $el } } = window;
 
-        const parts = [...$refs.table_inverse.$el.children];
+        const parts = [...$refs.table_dark.$el.children];
 
         const thead = parts.find(el => el.tagName && el.tagName === "THEAD");
         expect(thead).toBeDefined();
@@ -94,7 +94,7 @@ describe("table", async () => {
     it("all examples have correct number of columns", async () => {
         const { app: { $refs, $el } } = window;
 
-        const tables = ["table_basic", "table_paginated", "table_inverse"];
+        const tables = ["table_basic", "table_paginated", "table_dark"];
 
         tables.forEach((table, idx) => {
             const vm = $refs[table];
@@ -114,7 +114,7 @@ describe("table", async () => {
         const { app: { $refs, $el } } = window;
         const app = window.app;
 
-        const tables = ["table_basic", "table_paginated", "table_inverse"];
+        const tables = ["table_basic", "table_paginated", "table_dark"];
 
         tables.forEach((table, idx) => {
             const vm = $refs[table];
@@ -129,7 +129,7 @@ describe("table", async () => {
     it("all examples have sortable & unsortable headers", async () => {
         const { app: { $refs, $el } } = window;
 
-        const tables = ["table_basic", "table_paginated", "table_inverse"];
+        const tables = ["table_basic", "table_paginated", "table_dark"];
         const sortables = [true, true, false, false];
 
         tables.forEach(table => {
@@ -174,7 +174,7 @@ describe("table", async () => {
     it('all example tables should have attribute aria-busy="false" when busy is false', async () => {
         const { app: { $refs, $el } } = window;
 
-        const tables = ["table_basic", "table_paginated", "table_inverse"];
+        const tables = ["table_basic", "table_paginated", "table_dark"];
 
         await setData(app, "isBusy", false);
         await nextTick();
@@ -239,7 +239,7 @@ describe("table", async () => {
         const { app: { $refs, $el } } = window;
         const app = window.app;
 
-        const tables = ["table_basic", "table_paginated", "table_inverse"];
+        const tables = ["table_basic", "table_paginated", "table_dark"];
 
         const items = app.items.slice();
         items[0]._rowVariant = "success";
