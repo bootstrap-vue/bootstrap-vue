@@ -34,7 +34,7 @@ Here’s how it works:
 - Column widths, internally, are set in percentages, so they’re always fluid and sized relative to their parent element.
 - Columns have horizontal padding to create the gutters between individual columns, however, you can remove the margin from `<b-row>` and padding from `<b-col>` by setting the `no-gutters` prop on `<b-row>`.
 - There are five grid tiers, one for each responsive breakpoint: all breakpoints (extra small), small, medium, large, and extra large.
-- Grid tiers are based on minimum widths, meaning they apply to that one tier and all those above it (e.g., `<b-col-sm="4">` applies to small, medium, large, and extra large devices).
+- Grid tiers are based on minimum widths, meaning they apply to that one tier and all those above it (e.g., `<b-col sm="4">` applies to small, medium, large, and extra large devices).
 - You can use predefined grid classes or Sass mixins for more semantic markup.
 
 Be aware of the limitations and [bugs around flexbox](https://github.com/philipwalton/flexbugs),
