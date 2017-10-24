@@ -3,11 +3,11 @@
   "component": "bNavbar",
   "components": [
     "bNavbarNav",
-    "bNavbarBrand"
+    "bNavbarBrand",
     "bNavToggle",
     "bNavItem",
     "bNavText",
     "bNavItemDropdown",
-    "bNavForm",
+    "bNavForm"
   ]
 }
