@@ -63,7 +63,7 @@ Use the pill style by setting the prop `pills`.
 
 Force your `b-nav` content to extend the full available width.
 
-### fill
+### Fill
 
 To proportionately fill all available space with your `<b-nav-item>` components,
 set the `fill` prop. Notice that all horizontal space is occupied, but not
@@ -99,7 +99,7 @@ will be the same width.
 
 ## Vertical variation
 
-By default navs appear on a horizontal line. Stack your navigation by setting
+By default `<b-nav>` appear on a horizontal line. Stack your navigation by setting
 the `vertical` prop.
 
 ```html
@@ -110,7 +110,7 @@ the `vertical` prop.
   <b-nav-item disabled>Disabled</b-nav-item>
 </b-nav>
 
-<!-- nav-vetical.vue -->
+<!-- nav-vertical.vue -->
 ```
 
 ## Dropdown support
@@ -157,7 +157,7 @@ a `<nav>` element around `<b-nav>`. Do **not** add the role to the `<b-nav>` its
 as this would prevent it from being announced as an actual list by assistive technologies.
 
 When using a `<b-nav-item-dropdown>` in your `<b-nav>`, be sure to assign a unique `id`
-prop value to the `<b-nav-dropdown>` so that the apropriate `aria-*` attributes can
+prop value to the `<b-nav-dropdown>` so that the appropriate `aria-*` attributes can
 be automatically generated.
 
 ## See Also
