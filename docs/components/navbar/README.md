@@ -249,20 +249,23 @@ Input groups work as well:
 <!-- navbar-form-2.vue -->
 ```
 
-## Responsive collapsing content
-
+### `<b-nav-toggle>` and `<b-collapse is-nav>`
 Navbars are responsive by default, but you can easily modify them to change that. Responsive
 behavior depends on our `<b-collapse>` component.
 
-Wrap `<b-navbar-nav>` components in a `<b-collapse is-nav>` (**remember to set the `is-nav` prop!**)
-to specify content that will collapse based on a particular breakpoint.
+Wrap `<b-navbar-nav>` components in a `<b-collapse is-nav>` (**remember to set the `is-nav`
+prop!**) to specify content that will collapse based on a particular breakpoint. Assign a
+document unique `id` value on `<b-collapse>`.
 
-Use `<b-nav-toggle>` to control the collapse component and set the `toggleable` prop to
-the breakpoint you would like content to automatically collapse. Possible values are `sm`,
-`md`, and `lg`. Setting togleable to `true` (or with no explicit value) will set the
-breakpoint to `sm`. setting to `false` will disable collapsing.
+Use `<b-nav-toggle>`, with its `target` prop set to the `id` of `<b-collapse>`, to
+control the collapse component. Set the `toggleable` prop on `<b-navbar>` to the
+desired breakpoint you would like content to automatically collapse at. Possible
+`toggleable`values are `sm`, `md`, and `lg`. Setting togleable to `true` (or with no
+explicit value) will set the breakpoint to `sm`, while setting it to `false` will
+disable collapsing.
 
-See the first example on this page for reference, and also refer to [`<b-collapse>`](/docs/components/collapse) for
-details on the collapse component.
+See the first example on this page for reference, and also refer to
+[`<b-collapse>`](/docs/components/collapse) for details on the collapse component.
+
 
 ## Component Reference
