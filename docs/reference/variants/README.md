@@ -15,7 +15,7 @@ by their variant name, rather than by the underlying CSS classname
 * `dark` - <span class="text-dark">Dark</span>
 
 The base variants will translate to various Bootstrap V4 contextual class
-names based on the compoennt (and variant purpose) where they are used.
+names based on the component (and variant purpose) where they are used.
 
 ## Background and border variants
 All the **base variants** plus:
@@ -41,7 +41,7 @@ and `<b-modal>`) that provide `text-variant` and `*-text-variant` props
 
 
 ## Component specific variants
-Some Bootstrap V4 components requiire aditional CSS styling, or aditional
+Some Bootstrap V4 components require additional CSS styling, or additional
 pseudo selector styling (i.e buttons), and hence have their own underlying
 variant CSS classes.
 
@@ -83,4 +83,4 @@ components) via the standard HTML `class="..."` attribute.
 When creating custom variants, follow the Bootstrap V4 varian CSS class naming
 scheme and they will become available to the various components that use that
 scheme (i.e. create a custom CSS class `btn-purple` and `purple` becomes a
-vailid variant to use on `<b-button>`).
+valid variant to use on `<b-button>`).
