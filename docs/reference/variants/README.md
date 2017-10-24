@@ -80,7 +80,7 @@ You may also use the underlying class names directly on elements (and some
 components) via the standard HTML `class="..."` attribute.
 
 ## Creating custom variants
-When creating custom variants, follow the Bootstrap V4 varian CSS class naming
+When creating custom variants, follow the Bootstrap V4 variant CSS class naming
 scheme and they will become available to the various components that use that
 scheme (i.e. create a custom CSS class `btn-purple` and `purple` becomes a
 valid variant to use on `<b-button>`).
