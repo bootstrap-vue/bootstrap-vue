@@ -5,7 +5,7 @@
          :style="{background}"
          :aria-busy="isSliding ? 'true' : 'false'"
          @mouseenter="pause"
-         @mouseleave="start"
+         @mouseleave="restart"
          @focusin="pause"
          @focusout="restart"
          @keydown.left.stop.prevent="prev"
@@ -242,7 +242,7 @@
 
             // Re-Start auto rotate slides when focus/hover leaves the carousel
             restart(evt) {
-                if (!evt.relatedTarget || !this.$el.contains(evt.relatedTarget)) {
+                if (!this.$el.contains(document.activeElement)) {
                     this.start();
                 }
             },
