@@ -155,6 +155,9 @@ The default `blank-color` is `transparent`.
 > Use our complementary `<b-img-lazy>` image component (based on `<b-img>`) to lazy
 load images as they are scrolled into view (or within `offset` pixels of the viewport).
 
+Lazy loading images relies on the document scrolling to trigger the loading of the final image.
+Scrolling of other elements is not monitored, and will not trigger image loading.
+
 ### Usage
 Set the `src` prop to the URL of the image you want loadied lazily, and either specify a
 placeholder image URL via the prop `blank-src`, or have a blank placeholder image generated
