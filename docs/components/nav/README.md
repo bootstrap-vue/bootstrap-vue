@@ -63,7 +63,7 @@ Use the pill style by setting the prop `pills`.
 
 Force your `b-nav` content to extend the full available width.
 
-### fill
+### Fill
 
 To proportionately fill all available space with your `<b-nav-item>` components,
 set the `fill` prop. Notice that all horizontal space is occupied, but not
@@ -99,7 +99,7 @@ will be the same width.
 
 ## Vertical variation
 
-By default navs appear on a horizontal line. Stack your navigation by setting
+By default `<b-nav>` appear on a horizontal line. Stack your navigation by setting
 the `vertical` prop.
 
 ```html
@@ -110,7 +110,7 @@ the `vertical` prop.
   <b-nav-item disabled>Disabled</b-nav-item>
 </b-nav>
 
-<!-- nav-vetical.vue -->
+<!-- nav-vertical.vue -->
 ```
 
 ## Dropdown support
@@ -141,8 +141,10 @@ Refer to [`<b-dropdown>`](../dropdown) for a list of supported sub-components.
 
 ## Using in Navbar
 
-When using `<b-nav>` within a `<b-navbar>`, set the `is-nav-bar` prop to ensure that the proper
-classes and handlers can be applied.
+Using `<b-nav>` within a `<b-navbar>` has been deprecated as of Bootstrap-Vue v1.0.0-beta.10.
+Please use the [`<b-navbar-nav>`](/docs/components/navbar) component instead.
+
+Prop `is-nav-bar` has been deprecated and will be removed in a future release.
 
 ## Tabbed content support
 
@@ -155,13 +157,13 @@ a `<nav>` element around `<b-nav>`. Do **not** add the role to the `<b-nav>` its
 as this would prevent it from being announced as an actual list by assistive technologies.
 
 When using a `<b-nav-item-dropdown>` in your `<b-nav>`, be sure to assign a unique `id`
-prop value to the `<b-nav-dropdown>` so that the apropriate `aria-*` attributes can
+prop value to the `<b-nav-dropdown>` so that the appropriate `aria-*` attributes can
 be automatically generated.
 
 ## See Also
 
-- [`<b-tabs>`](./tabs) to create tabbable panes of local content, even via dropdown menus.
-- [`<b-navbar>`](./navbar) a wrapper that positions branding, navigation, and other elements in a concise header.
-- [`<b-dropdown>`](./dropdown) for sub-components that you can place inside `<b-nav-item-dropdown>`
+- [`<b-tabs>`](/docs/components/tabs) to create tabbable panes of local content, even via dropdown menus.
+- [`<b-navbar>`](/docs/components/navbar) a wrapper that positions branding, navigation, and other elements in a concise header.
+- [`<b-dropdown>`](/docs/components/dropdown) for sub-components that you can place inside `<b-nav-item-dropdown>`
 
 ## Component Reference

@@ -2,11 +2,12 @@
   "title": "Navbar",
   "component": "bNavbar",
   "components": [
-    "bNavItemDropdown",
+    "bNavbarNav",
+    "bNavbarBrand",
     "bNavToggle",
     "bNavItem",
     "bNavText",
-    "bNavForm",
-    "bNavbarBrand"
+    "bNavItemDropdown",
+    "bNavForm"
   ]
 }
