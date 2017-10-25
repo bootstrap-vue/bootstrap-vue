@@ -75,13 +75,13 @@ applied to it.
 You can remove the margin from `<b-row>` and padding from `<b-col>` by setting the
 `no-gutters` prop on `<b-row>`.
 
+
 ## Columns
 
 `<b-col>` Must be placed inside a `<b-row>` component, or an element (such as a `<div>`)
 that has the class `row` applied to it, or - in the case of [forms](/docs/components/form) -
 inside a `<b-form-row>` component to obtain columns with more compact margins.
 
-**Note:** _The `offset-*` props will work once Bootstrap <mark>V4.0.0.beta.2</mark> is released. The current <mark>V4.0.0.beta.1</mark> CSS does not include the required `.offset-*` classes._
 
 ## Grid options
 
@@ -96,10 +96,9 @@ See how aspects of the Bootstrap grid system work across multiple devices with a
 | **# of columns** <td colspan="5">12</td> |
 | **Gutter width** <td colspan="5">30px (15px on each side of a column)</td> |
 | **Nestable** <td colspan="5">Yes</td> |
-| **Offset*** | `offset="*"` | `offset-sm="*"` | `offset-md="*"` | `offset-lg="*"` | `offset-xl="*"` |
+| **Offset** | `offset="*"` | `offset-sm="*"` | `offset-md="*"` | `offset-lg="*"` | `offset-xl="*"` |
 | **Order** | `order="*"` | `order-sm="*"` | `order-md="*"` | `order-lg="*"` | `order-xl="*"` |
 
-<small class="text-muted"><em>* Not available until Bootstrap <mark>v4.0.0.beta.2</mark></em></small>
 
 ## Auto-layout columns
 
@@ -345,5 +344,132 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
 
 <!-- b-col-10.vue -->
 ```
+
+## Reordering
+
+### Order props
+Use `order-*` props for controlling the visual order of your content. These props are
+responsive, so you can set the order by breakpoint (e.g., `order="1" order-md="2"`).
+Includes support for 1 through 12 across all five grid tiers.
+
+```html
+<b-container fluid class="bv-example-row">
+  <b-row>
+    <b-col>
+      First, but unordered
+    </b-col>
+    <b-col order="12">
+      Second, but last
+    </b-col>
+    <b-col order="1">
+      Third, but first
+    </b-col>
+  </b-row>
+</b-container>
+
+<!-- grid-order.vue -->
+```
+
+### Offsetting columns
+You can offset grid columns in two ways: our responsive `offset-*` props orthe
+[margin](/docs/reference/spacing) utility classes. Grid `offset-*` props are sized to
+match columns while margins utility classes are more useful for quick layouts where
+the width of the offset is variable.
+
+```
+<b-container fluid class="bv-example-row">
+  <b-row>
+    <b-col md="4">md="4"</b-col>
+    <b-col md="4" offset-md="4">md="4" offset-md="4"</b-col>
+  </b-row>
+  <b-row>
+    <b-col md="3" offset-md="3">md="3" offset-md="3"</b-col>
+    <b-col md="3" offset-md="3">md="3" offset-md="3"</b-col>
+  </b-row>
+  <b-row>
+    <b-col md="6" offset-md="3">md="6" offset-md="3"</b-col>
+  </b-row>
+</b-container>
+
+<!-- grid-offset.vue -->
+```
+
+In addition to column clearing at responsive breakpoints, you may need to
+reset offsets by setting the offset to `0` at  a larger breakpoint:
+
+```
+<b-container fluid class="bv-example-row">
+  <b-row>
+    <b-col sm="5" md="6">
+      sm="5" md="6"
+    </b-col>
+    <b-col sm="5" offset-sm="2" md="6" offset-md="0">
+      sm="5" offset-sm="2" md="6" offset-md="0"
+    </b-col>
+  </b-row>
+  <b-row>
+    <b-col sm="6" md="5" lg="6">
+      sm="6" md="5" lg="6"
+    </b-col>
+    <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="0">
+      sm="6" md="5" offset-md="2" col-lg="6" offset-lg=0"
+    </b-col>
+  </b-row>
+</b-container>
+
+<!-- grid-offset-reset.vue -->
+```
+
+### Margin utilities
+With the move to flexbox in Bootstrap v4, you can use [margin](/docs/reference/spacing)
+utility classes like `.mr-auto` to force sibling columns away from one another.
+
+```
+<b-container fluid class="text-light text-center">
+  <b-row class="mb-3">
+    <b-col md="4" class="p-3 bg-info">md="4"</b-col>
+    <b-col md="4" class="ml-auto p-3 bg-info">md="4" .ml-auto</b-col>
+  </b-row>
+  <b-row class="mb-3">
+    <b-col md="3" class="ml-md-auto p-3 bg-info">md="3" .ml-md-auto</b-col>
+    <b-col md="3" class="ml-md-auto p-3 bg-info">md="3" .ml-md-auto</b-col>
+  </b-row>
+  <b-row>
+    <b-col cols="auto" class="mr-auto p-3 bg-info">cols="auto" .mr-auto</b-col>
+    <b-col cols="auto" class="p-3 bg-info">cols="auto"</b-col>
+  </b-row>
+</b-container>
+
+<!-- grid-margins.vue -->
+```
+
+
+## Nesting grids
+To nest your content with the default grid, add a new `<b-row>` and set of
+`<b-col>` components within an existing `<b-col>` component. Nested rows should
+include a set of columns that add up to 12 or fewer (it is not required that you use
+all 12 available columns).
+
+
+```
+<b-container fluid class="bv-example-row">
+  <b-row>
+    <b-col sm="9">
+      Level 1: sm="9"
+      <b-row>
+        <b-col cols="8" sm="6">
+          Level 2: cols="8" sm="6"
+        </b-col>
+        <b-col cols="4" sm="6">
+          Level 2: cols="4" sm="6"
+        </b-col>
+      </b-row>
+    </b-col>
+  </b-row>
+</b-container>
+
+<!-- grid-nesting.vue -->
+```
+
 
 ## Component Reference
