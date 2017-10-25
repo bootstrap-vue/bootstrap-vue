@@ -2,6 +2,7 @@
   "title": "Navbar",
   "component": "bNavbar",
   "breaking": true,
+  "features": true,
   "components": [
     "bNavbarNav",
     "bNavbarBrand",
