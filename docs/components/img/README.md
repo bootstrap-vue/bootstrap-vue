@@ -6,6 +6,13 @@ optionally adding lightweight styles to them — all via props. Support for
 rounded images, thumbnail styling, alignment, and even the ability to create
 blank images with  an optional solid background color.
 
+## Image src resolving
+The `src` prop (and `blank-src` prop of `<b-img-lazy>`), out of the box, works
+only with absolute/fully-qualified-domain-name URLs. If you are using project
+assets as image sources, please refer to
+[Component img src resolving](/docs/reference/imgages) for configuring `vue-loader`
+to understand custom component props that specify image sources.
+
 ## Responsive images
 Images in Bootstrap-Vue can be made responsive with the `fluid` prop (which
 sets `max-width: 100%; height: auto;` via CSS classes) so that it scales
