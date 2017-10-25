@@ -6,9 +6,10 @@ into your project. To get started, use yarn or npm to get latest version of boot
 
 ```bash
 # With NPM:
-npm i bootstrap-vue bootstrap@4.0.0-beta
+npm i bootstrap-vue bootstrap@4.0.0-beta.2
+
 # With Yarn:
-yarn add bootstrap-vue bootstrap@4.0.0-beta
+yarn add bootstrap-vue bootstrap@4.0.0-beta.2
 ```
 
 Then, register BootstrapVue plugin in your app entry point:
@@ -71,11 +72,13 @@ npm i
 npm run dev
 ```
 
-You can repeat the commands above replacing `bootstrap-vue/webpack-simple` with `bootstrap-vue/webpack` for the webpack template.
+You can repeat the commands above replacing `bootstrap-vue/webpack-simple` with
+`bootstrap-vue/webpack` for the webpack template.
 
 ## Individual components and directives
 
-If you would like to only pull in a specific component or set of components, you can do this by directly importing those components.
+If you would like to only pull in a specific component or set of components, you can do
+this by directly importing those components.
 
 To cherry pick a component/directive, start by importing it in the file where it is being used:
 
@@ -98,11 +101,14 @@ Vue.component("my-component", {
 })
 ```
 
-Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-casing (shown), camel-casing, pascal-casing, and/or object property shorthand.
+Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-casing (shown),
+camel-casing, pascal-casing, and/or object property shorthand.
 
 ### Webpack + Babel
 
-When importing components/directives individually, you must configure your app to properly build the bootstrap-vue library source code. This commonly involves white-listing the node module for your babel loader rule in webpack.
+When importing components/directives individually, you must configure your app to properly
+build the bootstrap-vue library source code. This commonly involves white-listing the node
+module for your babel loader rule in webpack.
 
 ```js
 // webpack.config.js
@@ -142,6 +148,7 @@ module.exports = {
 ```
 
 ## Build variants
+
 Choosing the best variant for your build environment / packager helps less bundle sizes.
 If your bundler supports es modules, it will automatically prefer it over commonjs.
 
@@ -152,6 +159,7 @@ If your bundler supports es modules, it will automatically prefer it over common
 | UMD            | Browser              | `dist/bootstrap-vue.js`
 
 ## Migrating a project already using Bootstrap
+
 If you've already been using Bootstrap 4, there are a couple adjustments you may need to make to your project:
 
 - Remove the bootstrap.js file from your page scripts or build pipeline
@@ -168,7 +176,7 @@ for more information about browsers currently supported by Bootstrap 4.
 
 ### JS
 
-BootstrapVue is written in Vue! So this is up to your project and bundler that which browsers are supported.
+BootstrapVue is written in Vue! So this is up to your project and bundler which browsers are supported.
 If you want to support older IE, Android and IOS devices, you may want to use
 [Babel Polyfill](https://babeljs.io/docs/usage/polyfill)
 
@@ -183,6 +191,8 @@ You'll need babel-polyfill for BootstrapVue to work properly. In order to suppor
 
 ### vscode + vetur
 
-If you are using [vscode](https://code.visualstudio.com/) as your text editor, bootstrap-vue has intellisense autocompletion for component attributes available when using the [vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur).
+If you are using [vscode](https://code.visualstudio.com/) as your text editor, bootstrap-vue
+has intellisense autocompletion for component attributes available when using the
+[vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur).
 
 [Twitter: vetur + bootstrap-vue](https://twitter.com/AlexSashaRegan/status/912769997776158723)
