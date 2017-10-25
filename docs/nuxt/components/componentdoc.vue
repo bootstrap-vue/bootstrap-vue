@@ -157,10 +157,15 @@
             tag() {
                 return '<' + this.componentName + '>';
             },
+            inBrowser() {
+                return typeof window !== 'undefined' && typeof document !== 'undefined';
+            },
             githubURL() {
-                const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/lib/components';
+                const tree = this.inBrowser && window.location.host === 'bootstrap-vue-alpha.surge.sh' ? 'alpha' : 'dev'
+                const base = `https://github.com/bootstrap-vue/bootstrap-vue/tree/${tree}/lib/components`;
                 const isFunctional =  this.componentOptions.functional;
-                return base + '/' + _.kebabCase(this.component).replace(/^b-/, '') + (isFunctional ? '.js' : '.vue');
+                const ext = isFunctional ? 'js' : 'vue';
+                return `${base}/${_.kebabCase(this.component).replace('b-', '')}.${ext}`;
             }
         }
     };
