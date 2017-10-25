@@ -1,12 +1,12 @@
 # Tabs
 
-> Tabs is an extension of navs, to create tabbable panes of local content, even via dropdown menus.
+> Create tabbable panes of local content.
 
 
 ## Basic usage
 
 ```html
-<b-tabs pills>
+<b-tabs>
   <b-tab title="first" active>
     <br>I'm the first fading tab
   </b-tab>
@@ -23,13 +23,14 @@
 
 ## Cards Integration
 
-Tabs support integrating with bootstrap cards. Just add the `card` property. Note
-that you should add `no-body` prop on `<b-card>` element in order to decorate header
-and remove the extra padding.
+Tabs support integrating with bootstrap cards. Just add the `card` property to
+`<b-tabs>`. Note that you should add `no-body` prop on `<b-card>` element in order
+to propertly decorate the card header and remove the extra padding introduced
+by `card-body`.
 
 ```html
 <b-card no-body>
-    <b-tabs ref="tabs" card>
+    <b-tabs card>
         <b-tab title="Tab 1" active>
             Tab Contents
         </b-tab>
@@ -44,7 +45,23 @@ and remove the extra padding.
 
 ## Pills variant
 
-Just add `pills` property to tabs component.
+Just add `pills` property to `<b-tabs>`.
+
+```html
+<b-card no-body>
+    <b-tabs pills card>
+        <b-tab title="Tab 1" active>
+            Tab Contents
+        </b-tab>
+        <b-tab title="Tab 2">
+            Tab Contents 2
+        </b-tab>
+    </b-tabs>
+</b-card>
+
+<!-- tabs-pills.vue -->
+```
+
 
 ## Fade animation
 
@@ -65,14 +82,14 @@ If you want to add extra tabs that do not have any content, you can put them in 
 
 ## Advanced Examples
 
-### Navigation
+### External controls
 
 ```html
 <template>
   <div>
     <!-- Tabs with card integration -->
     <b-card no-body>
-      <b-tabs small card ref="tabs" v-model="tabIndex">
+      <b-tabs small card v-model="tabIndex">
         <b-tab title="General">
           I'm the first fading tab
         </b-tab>
@@ -109,7 +126,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
   }
 </script>
 
-<!-- tabs-navigation.vue -->
+<!-- tabs-controls.vue -->
 ```
 
 ### Dynamic Tabs
