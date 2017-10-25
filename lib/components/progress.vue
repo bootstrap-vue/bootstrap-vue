@@ -1,5 +1,5 @@
 <template>
-    <div class="progress" :height="height">
+    <div class="progress" :style="progressHeight">
         <slot>
             <b-progress-bar :value="value"
                             :max="max"
@@ -57,6 +57,11 @@
             value: {
                 type: Number,
                 default: 0
+            }
+        },
+        computed: {
+            progressHeight() {
+              return this.height ? { height: this.height } : {};
             }
         }
     };
