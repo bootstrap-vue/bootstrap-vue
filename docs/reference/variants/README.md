@@ -1,4 +1,4 @@
-# Color Variants and CSS class mapping
+# Color variants and CSS class mapping
 
 > Below are the variants available when using the default Bootstrap V4 CSS.
 When using Boostrap-Vue components, the variants are refered to
@@ -65,12 +65,15 @@ All the **base variants** plus:
 
 These translate to class names `btn-<variant>` and `btn-outline-<variant>`.
 
+Note the `link` variant does not have an outline version.
+
 
 ### Table variants
 All the **base variants**:
 
-These translate to class names `table-<variant>`.
-When the table is in `inverse` mode, the variants translate to
+These variants translate to class names `table-<variant>`.
+
+When the table has the `dark` prop set, the variants translate to
 the `bg-<variant>` classes.
 
 
