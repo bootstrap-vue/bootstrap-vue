@@ -95,7 +95,8 @@
     "rollup-plugin-vue": "^2.4.2",
     "rollup-watch": "^4.3.1",
     "standard-version": "^4.2.0",
-    "uglify-es": "^3.1.1"
+    "uglify-es": "^3.1.1",
+    "vuedraggable": "^2.14.1"
   },
   "jest": {
     "testRegex": "spec.js$",
