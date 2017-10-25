@@ -124,6 +124,8 @@ Custom form controls and selects are also supported.
 <!-- b-form-inline-2.vue -->
 ```
 
+**Note:** _`<b-form-group>` is not supported in `inline` forms due to layout conflicts._
+
 ### Alternatives to hidden labels
 Assistive technologies such as screen readers will have trouble with your forms if you
 don’t include a label for every input. For these inline forms, you can hide the labels
