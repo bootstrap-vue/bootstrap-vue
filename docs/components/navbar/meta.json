@@ -1,6 +1,7 @@
 {
   "title": "Navbar",
   "component": "bNavbar",
+  "breaking": true,
   "components": [
     "bNavbarNav",
     "bNavbarBrand",
