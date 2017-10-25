@@ -68,33 +68,98 @@
 
 ## Inline form
 
-Set the `inline` property to generate a Bootstrap inline form.
+Use the `inline` prop on `<b-form>` to display a series of labels, form controls, and
+buttons on a single horizontal row. Form controls within inline forms vary slightly
+from their default states.
+
+- Controls are `display: flex`, collapsing any HTML white space and allowing you to provide alignment control with spacing and flexbox utilities.
+- Controls and input groups receive `width: auto` to override the Bootstrap default width: 100%.
+- Controls **only appear inline in viewports that are at least 576px wide** to account for narrow viewports on mobile devices.
+
+You may need to manually address the width and alignment of individual form controls with
+[spacing utilities](/docs/reference/spacing) (as shown below). Lastly, be sure to always 
+include a `<label>` with each form control, even if you need to hide it from non-screenreader
+visitors with class `.sr-only`.
+
+```html
+<template>
+  <div>
+    <b-form inline>
+      <label class="sr-only" for="inlineFormInputName2">Name</label>
+      <b-input class="mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName2" placeholder="Jane Doe" />
+      <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+      <b-input-group left="@" class="mb-2 mr-sm-2 mb-sm-0">
+        <b-input id="inlineFormInputGroupUsername2" placeholder="Username" />
+      </b-input-group>
+      <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox>
+      <b-button variant="primary">Save</b-button>
+    </b-form>
+  </div>
+</template>
+
+<!-- b-form-inline-1.vue -->
+```
+
+Custom form controls and selects are also supported.
+
+```html
+<template>
+  <div>
+    <b-form inline>
+      <label class="mr-sm-2" for="inlineFormCustomSelectPref">Preference</label>
+      <b-form-select class="mb-2 mr-sm-2 mb-sm-0"
+                     :value="null"
+                     :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
+                     id="inlineFormCustomSelectPref">
+        <option slot="first" :value="null">Choose...</option>
+      </b-form-select>
+      <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">
+        Remember my preference
+      </b-form-checkbox>
+      <b-button variant="primary">Save</b-button>
+    </b-form>
+  </div>
+</template>
+
+<!-- b-form-inline-2.vue -->
+```
+
+### Alternatives to hidden labels
+Assistive technologies such as screen readers will have trouble with your forms if you
+don’t include a label for every input. For these inline forms, you can hide the labels
+using the `.sr-only` class. There are further alternative methods of providing a label
+for assistive technologies, such as the `aria-label`, `aria-labelledby` or `title`
+attributes. If none of these are present, assistive technologies may resort to using
+the `placeholder` attribute, if present, but note that use of `placeholder` as a
+replacement for other labelling methods is not advised.
+
 
 ## Related Form Control Components
 
 See also:
 
-- [`<b-form-input>`](./form-input) Textual and text-like inputs
-- [`<b-form-textarea>`](./form-textarea) Text area inputs
-- [`<b-form-select>`](./form-select) Select input
-- [`<b-form-radio>`](./form-radio) Radio Input groups
-- [`<b-form-checkbox>`](./form-checkbox) Checkbox Input
-- [`<b-form-file>`](./form-file) File Input
-- [`<b-form-group>`](./form-group) Form input wrapper to generate form-groups that support labels, help text and feedback
-- [`<b-button>`](./button) Buttons
-- [`<b-input-group>`](./input-group) Form inputs with add-ons
+- [`<b-form-input>`](/docs/components/form-input) Textual and text-like inputs
+- [`<b-form-textarea>`](/docs/components/form-textarea) Text area inputs
+- [`<b-form-select>`](/docs/components/form-select) Select input
+- [`<b-form-radio>`](/docs/components/form-radios) Radio Input groups
+- [`<b-form-checkbox>`](/docs/components/form-checkboxs) Checkbox Input
+- [`<b-form-file>`](/docs/components/form-file) File Input
+- [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups that support labels, help text and feedback
+- [`<b-button>`](/docs/components/button) Buttons
+- [`<b-input-group>`](/docs/components/input-group) Form inputs with add-ons
 
 ## Helper components
 
 - `<b-form-row>` create form rows with tighter margins
 - `<b-form-text>` Help text blocks for inputs
-- `<b-form-feedback>` Feedback text blocks for input `invalid` states
+- `<b-form-feedback>` Invalid feedback text blocks for input `invalid` states
 
 ## Validation
 
-Disable browser native HTML5 validation by setting the `novalidate` prop to true.
+Disable browser native HTML5 validation by setting the `novalidate` prop to true
+on `<b-form>`.
 
-Set the `validated` prop to true to add the Bootstrap V4 `.was-validated` class
+Set the `validated` prop, on `<b-form>`, to `true` to add the Bootstrap V4 `.was-validated` class
 to the form.
 
 ### Validation mechanisms
