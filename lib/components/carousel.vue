@@ -8,6 +8,9 @@
          @mouseleave="restart"
          @focusin="pause"
          @focusout="restart"
+         @touchstart="onSwipe"
+         @touchmove="onSwipe"
+         @touchend="onSwipe"
          @keydown.left.stop.prevent="prev"
          @keydown.right.stop.prevent="next"
     >
@@ -123,7 +126,8 @@
                 isSliding: false,
                 intervalId: null,
                 transitionEndEvent: null,
-                slides: []
+                slides: [],
+                touchData: null
             };
         },
         props: {
@@ -244,6 +248,48 @@
             restart(evt) {
                 if (!this.$el.contains(document.activeElement)) {
                     this.start();
+                }
+            },
+
+            // handle swiping on mobile
+            onSwipe(evt) {
+                let touch = {};
+                let type = evt.type;
+                if (evt.touches && evt.touches[0]) {
+                    // We only use the first "finger"
+                    touch = {
+                        x: evt.touches[0].pageX,
+                        y: evt.touches[0].pageY ,
+                        fingers: evt.touches.length
+                    };
+                } else {
+                    return;
+                }
+                if (type === 'touchstart' && touch.fingers === 1) {
+                    // Start of possible swipe.
+                    this.touchData = touch;
+                    this.pause();
+                } else if (type === 'touchmove' && touch.fingers === 1) {
+                    if (!this.touchData) {
+                        return;
+                    }
+                    // User is moving finger. Has it moved horizontally enoough?
+                    const dX = touch.x - this.touchData.x;
+                    const dY = touch.y - this.touchData.y;
+                    // Is a scroll or a left/right?
+                    if (Math.abs(dX) > Math.abs(dY)) {
+                        // Direction is more horizontal
+                        evt.preventDefault(); // prevent scrolling
+                        const slideWidth = parseInt(window.getComputedStyle(this.$el).width,10);
+                        if (Math.abs(dX) > slideWidth/2 || Math.abs(dX) > 25) {
+                            // We have moved enough to trigger a slide, so go next or prev
+                            this[dX > 0 ? 'prev' : 'next']();
+                            // Stop reactiving to touchmove
+                            this.touchData = null;
+                        }
+                    }
+                } else if (type === 'touchend' && touch.fingers === 1) {
+                    this.touchData = null;
                 }
             },
 
