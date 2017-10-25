@@ -1,65 +1,100 @@
 <template>
-    <component :is="tag" :id="safeId()" class="tabs">
-        <div v-if="bottom" :id="safeId('_BV_tab_container_')" :class="['tab-content',{'card-body': card}]" ref="tabsContainer">
-            <slot></slot>
-            <slot name="empty" v-if="!tabs || !tabs.length"></slot>
-        </div>
-
-        <div :class="{'card-header': card}">
-            <ul :class="['nav','nav-' + navStyle, card ? 'card-header-'+navStyle : null]"
-                role="tablist"
-                tabindex="0"
-                @keydown.left="previousTab"
-                @keydown.up="previousTab"
-                @keydown.right="nextTab"
-                @keydown.down="nextTab"
-                @keydown.shift.left="setTab(0,false,1)"
-                @keydown.shift.up="setTab(0,false,1)"
-                @keydown.shift.right="setTab(tabs.length-1,false,-1)"
-                @keydown.shift.down="setTab(tabs.length-1,false,-1)"
+    <component :is="tag" :id="safeId()" :class="['tabs', 'tabs-'+position]">
+        <b-row :no-gutters="noGutters">
+            <b-col :class="[{'card-header': card && position !== 'bottom','card-footer': card && position === 'bottom'}]"
+                :cols="headerCols"
+                :order="headerOrder"
+                :sm="breakpoints.sm.header"
+                :md="breakpoints.md.header"
+                :lg="breakpoints.lg.header"
+                :xl="breakpoints.xl.header"
             >
-                <li class="nav-item" v-for="(tab, index) in tabs" role="presentation">
-                    <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
-                       :href="tab.href"
-                       role="tab"
-                       :aria-setsize="tabs.length"
-                       :aria-posinset="currentTab + 1"
-                       :aria-selected="tab.localActive ? 'true' : 'false'"
-                       :aria-controls="safeId('_BV_tab_container_')"
-                       :aria-disabled="tab.disabled"
-                       :id="tab.controlledBy || safeId('_BV_tab_${index+1}_')"
-                       @click.prevent.stop="setTab(index)"
-                       @keydown.space.prevent.stop="setTab(index)"
-                       @keydown.enter.prevent.stop="setTab(index)"
-                       tabindex="-1"
-                       v-if="!tab.headHtml"
-                       v-html="tab.title"
-                    ></a>
-                    <div :class="['tab-head',{small: small, active: tab.localActive, disabled: tab.disabled}]"
-                         role="heading"
-                         tabindex="-1"
-                         v-else
-                         v-html="tab.headHtml"></div>
-                </li>
-                <slot name="tabs"></slot>
-            </ul>
-        </div>
+                <ul :class="['nav','nav-' + navStyle,card && position !== 'bottom' ? 'card-header-'+navStyle : null,card && position === 'bottom' ? 'card-footer-'+navStyle : null,{'flex-column': hasVerticalTabs}]"
+                    role="tablist"
+                    tabindex="0"
+                    @keydown.left="previousTab"
+                    @keydown.up="previousTab"
+                    @keydown.right="nextTab"
+                    @keydown.down="nextTab"
+                    @keydown.shift.left="setTab(0,false,1)"
+                    @keydown.shift.up="setTab(0,false,1)"
+                    @keydown.shift.right="setTab(tabs.length-1,false,-1)"
+                    @keydown.shift.down="setTab(tabs.length-1,false,-1)"
+                >
+                    <li class="nav-item" v-for="(tab, index) in tabs" role="presentation">
+                        <a :class="['nav-link',{small: small, active: tab.localActive, disabled: tab.disabled}]"
+                           :href="tab.href"
+                           role="tab"
+                           :aria-setsize="tabs.length"
+                           :aria-posinset="currentTab + 1"
+                           :aria-selected="tab.localActive ? 'true' : 'false'"
+                           :aria-controls="safeId('_BV_tab_container_')"
+                           :aria-disabled="tab.disabled"
+                           :id="tab.controlledBy || safeId('_BV_tab_${index+1}_')"
+                           @click.prevent.stop="setTab(index)"
+                           @keydown.space.prevent.stop="setTab(index)"
+                           @keydown.enter.prevent.stop="setTab(index)"
+                           tabindex="-1"
+                           v-if="!tab.headHtml"
+                           v-html="tab.title"
+                        ></a>
+                        <div :class="['tab-head',{small: small, active: tab.localActive, disabled: tab.disabled}]"
+                             role="heading"
+                             tabindex="-1"
+                             v-else
+                             v-html="tab.headHtml"></div>
+                    </li>
+                    <slot name="tabs"></slot>
+                </ul>
+            </b-col>
 
-        <div v-if="!bottom" :id="safeId('_BV_tab_container_')" :class="['tab-content',{'card-body': card}]" ref="tabsContainer">
-            <slot></slot>
-            <slot name="empty" v-if="!tabs || !tabs.length"></slot>
-        </div>
+            <b-col :id="safeId('_BV_tab_container_')" :class="['tab-content',{'card-block': card && !hasVerticalTabs,'card-content': card && hasVerticalTabs}]" 
+                ref="tabsContainer"
+                :cols="tabsCols" 
+                :sm="breakpoints.sm.tabs"
+                :md="breakpoints.md.tabs"
+                :lg="breakpoints.lg.tabs"
+                :xl="breakpoints.xl.tabs"
+                >
+                <slot></slot>
+                <slot name="empty" v-if="!tabs || !tabs.length"></slot>
+            </b-col>
+        </b-row>
     </component>
 </template>
 
 <script>
-    import {observeDom} from '../utils';
-    import {idMixin} from '../mixins';
+    import { observeDom, warn } from '../utils';
+    import { idMixin } from '../mixins';
+    import bContainer from './container';
+    import bRow from './row';
+    import bCol from './col';
 
     export default {
         mixins: [idMixin],
+        components: {bContainer, bRow, bCol},
         data() {
             return {
+                headerCols: 12,
+                tabsCols: 12,
+                breakpoints: {
+                    sm: {
+                        header: null,
+                        tabs: null,
+                    },
+                    md: {
+                        header: null,
+                        tabs: null,
+                    },
+                    lg: {
+                        header: null,
+                        tabs: null,
+                    },
+                    xl: {
+                        header: null,
+                        tabs: null,
+                    }
+                },
                 currentTab: this.value,
                 tabs: []
             };
@@ -67,7 +102,7 @@
         props: {
             tag: {
                 type: String,
-                default: 'div'
+                default: 'b-container'
             },
             card: {
                 type: Boolean,
@@ -97,6 +132,22 @@
                 // This prop is sniffed by the tab child
                 type: Boolean,
                 default: false
+            },
+            position: {
+                type: String,
+                default: 'top'
+            },
+            verticalBreakpoint: {
+                type: String,
+                default: null
+            },
+            verticalTabCols: {
+                type: [Number, String],
+                default: 'auto'
+            },
+            noGutters: {
+                type: Boolean,
+                default: false
             }
         },
         watch: {
@@ -118,6 +169,31 @@
                 // Moving left or right?
                 const direction = val < old ? -1 : 1;
                 this.setTab(val, false, direction);
+            },
+            position(val, old) {
+                if (val === old) {
+                    return;
+                }
+
+                this.checkColumns();
+            },
+            verticalBreakpoint(val, old) {
+                if (val === old) {
+                    return;
+                }
+
+                // reset the old breakpoint
+                this.breakpoints[old].header = null;
+                this.breakpoints[old].tabs = null;
+                
+                this.checkColumns();
+            },
+            verticalTabCols(val, old) {
+                if (val === old) {
+                    return;
+                }
+
+                this.checkColumns();
             }
         },
         computed: {
@@ -127,6 +203,24 @@
             },
             navStyle() {
                 return this.pills ? 'pills' : 'tabs';
+            },
+            hasVerticalTabs() {
+                return this.position === 'left' || this.position === 'right'
+            },
+            computedPosition() {
+                if (this.bottom) {
+                    warn('b-tabs: prop bottom has been deprecated. Use position="bottom" instead')
+                    return 'bottom';
+                }
+
+                return this.position;
+            },
+            headerOrder() {
+                if (this.computedPosition === 'right' || this.computedPosition === 'bottom') {
+                    return 12;
+                }
+
+                return null;
             }
         },
         methods: {
@@ -238,10 +332,38 @@
                 }
 
                 this.setTab(tabIndex || 0, true, 0);
+            },
+
+            /**
+             * Set the correct b-col properties for the current position
+             */
+            checkColumns() {
+                if (this.position === 'left' || this.position === 'right') {
+                    if (!this.verticalBreakpoint) {
+                        this.headerCols = this.verticalTabCols;
+                        this.tabsCols = '';
+                    // Check if the passed breakpoint is valid
+                    } else if (!this.breakpoints.hasOwnProperty(this.verticalBreakpoint)) {
+                        warn('b-tabs: "' + this.verticalBreakpoint + '" is not a valid breakpoint')
+
+                        this.headerCols = this.verticalTabCols;
+                        this.tabsCols = '';
+                    } else {
+                        this.breakpoints[this.verticalBreakpoint].header = this.verticalTabCols;
+                        this.breakpoints[this.verticalBreakpoint].tabs = '';
+
+                        this.headerCols = 12;
+                        this.tabsCols = 12;
+                    }
+                } else {
+                    this.headerCols = 12;
+                    this.tabsCols = 12;
+                }
             }
         },
         mounted() {
             this.updateTabs();
+            this.checkColumns();
 
             // Observe Child changes so we can notify tabs change
             observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {subtree: false});
@@ -249,3 +371,186 @@
     };
 
 </script>
+
+<style lang="scss">
+@import "../../node_modules/bootstrap/scss/_functions.scss";
+@import "../../node_modules/bootstrap/scss/_variables.scss";
+@import "../../node_modules/bootstrap/scss/mixins/_hover.scss";
+@import "../../node_modules/bootstrap/scss/mixins/_border-radius.scss";
+
+.tabs-bottom {
+  .nav-tabs {
+    border-bottom: 0;
+    border-top: $nav-tabs-border-width solid $nav-tabs-border-color;
+
+    .nav-item {
+      margin-bottom: 0;
+      margin-top: -$nav-tabs-border-width;
+    }
+
+    .nav-link {
+      @include border-top-radius(0);
+      @include border-bottom-radius($nav-tabs-border-radius);
+
+      @include hover-focus {
+        border-color: $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color $nav-tabs-border-color;
+      }
+
+      &.disabled {
+        color: $nav-link-disabled-color;
+        background-color: transparent;
+        border-color: transparent;
+      }
+    }
+
+    .nav-link.active,
+    .nav-item.show .nav-link {
+        border-color: $nav-tabs-link-active-bg $nav-tabs-link-active-border-color $nav-tabs-link-active-border-color;
+    }
+
+    .dropdown-menu {
+      // Make dropdown border overlap tab border
+      margin-top: 0;
+      margin-bottom: -$nav-tabs-border-width;
+      // Remove the top rounded corners here since there is a hard edge above the menu
+      @include border-bottom-radius(0);
+      @include border-top-radius($nav-tabs-border-radius);
+    }
+  }
+
+  .card-footer {
+    padding: $card-spacer-y $card-spacer-x;
+    background-color: $card-cap-bg;
+    border-top: $card-border-width solid $card-border-color;
+
+    &:last-child {
+      @include border-radius(0 0 $card-inner-border-radius $card-inner-border-radius);
+    }
+  }
+
+  .card-footer-tabs {
+    margin-right: -($card-spacer-x / 2);
+    margin-top: -$card-spacer-y;
+    margin-left: -($card-spacer-x / 2);
+    border-top: 0;
+  }
+}
+
+.tabs-left {
+  .nav-tabs {
+    border-bottom: 0;
+    border-right: $nav-tabs-border-width solid $nav-tabs-border-color;
+
+    .nav-item {
+      margin-bottom: 0;
+      margin-right: -$nav-tabs-border-width;
+    }
+
+    .nav-link {
+      @include border-top-radius(0);
+      @include border-left-radius($nav-tabs-border-radius);
+    }
+
+    .nav-link.active,
+    .nav-item.show .nav-link {
+        border-color: $nav-tabs-link-active-border-color $nav-tabs-link-active-bg $nav-tabs-link-active-border-color $nav-tabs-link-active-border-color;
+    }
+
+    .dropdown-menu {
+      // Make dropdown border overlap tab border
+      margin-top: 0;
+      margin-bottom: -$nav-tabs-border-width;
+      // Remove the top rounded corners here since there is a hard edge above the menu
+      @include border-top-radius($nav-tabs-border-radius);
+      @include border-bottom-radius(0);
+    }
+  }
+
+  .card-header {
+    padding: $card-spacer-x ($grid-gutter-width / 2) $card-spacer-x ($grid-gutter-width - 1);
+    border-bottom: 0;
+    border-right: $card-border-width solid $card-border-color;
+
+    &:first-child {
+      @include border-radius($card-inner-border-radius 0 0 $card-inner-border-radius);
+    }
+  }
+
+  .card-header-tabs {
+    margin-top: -($card-spacer-x / 2);
+    margin-right: -($grid-gutter-width / 2);
+    margin-bottom: -($card-spacer-x / 2);
+    border-right: 0;
+  }
+
+  .tab-content {
+    margin-right: ($grid-gutter-width / 2);
+    padding-left: ($grid-gutter-width / 2);
+    padding-right: ($grid-gutter-width / 2);
+  }
+
+  .card-content {
+    padding-top: $card-spacer-x;
+    padding-bottom: $card-spacer-x;
+  }
+}
+
+.tabs-right {
+  .nav-tabs {
+    border-bottom: 0;
+    border-left: $nav-tabs-border-width solid $nav-tabs-border-color;
+
+    .nav-item {
+      margin-bottom: 0;
+      margin-left: -$nav-tabs-border-width;
+    }
+
+    .nav-link {
+      @include border-top-radius(0);
+      @include border-right-radius($nav-tabs-border-radius);
+    }
+
+    .nav-link.active,
+    .nav-item.show .nav-link {
+        border-color: $nav-tabs-link-active-border-color $nav-tabs-link-active-border-color $nav-tabs-link-active-border-color $nav-tabs-link-active-bg;
+    }
+
+    .dropdown-menu {
+      // Make dropdown border overlap tab border
+      margin-top: 0;
+      margin-bottom: -$nav-tabs-border-width;
+      // Remove the top rounded corners here since there is a hard edge above the menu
+      @include border-top-radius($nav-tabs-border-radius);
+      @include border-bottom-radius(0);
+    }
+  }
+
+  .card-header {
+    padding: $card-spacer-x ($grid-gutter-width - 1) $card-spacer-x ($grid-gutter-width / 2);
+    border-bottom: 0;
+    border-left: $card-border-width solid $card-border-color;
+
+    &:first-child {
+      @include border-radius(0 $card-inner-border-radius $card-inner-border-radius 0);
+    }
+  }
+
+  .card-header-tabs {
+    margin-top: -($card-spacer-x / 2);
+    margin-left: -($grid-gutter-width / 2);
+    margin-bottom: -($card-spacer-x / 2);
+    border-left: 0;
+  }
+
+  .tab-content {
+    margin-left: ($grid-gutter-width / 2);
+    padding-left: ($grid-gutter-width / 2);
+    padding-right: ($grid-gutter-width / 2);
+  }
+
+  .card-content {
+    padding-top: $card-spacer-x;
+    padding-bottom: $card-spacer-x;
+  }
+}
+</style>

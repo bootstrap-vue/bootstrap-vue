@@ -31,10 +31,10 @@ and remove the extra padding.
 <b-card no-body>
     <b-tabs ref="tabs" card>
         <b-tab title="Tab 1" active>
-            Tab Contents
+            <p>Tab Contents</p>
         </b-tab>
         <b-tab title="Tab 2">
-            Tab Contents 2
+            <p>Tab Contents 2</p>
         </b-tab>
     </b-tabs>
 </b-card>
@@ -49,6 +49,76 @@ Just add `pills` property to tabs component.
 ## Fade animation
 
 Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
+
+## Position
+
+With the `position` property you can determine on which side of the content the tabs will be placed.
+
+### Top
+
+This is the default position for the tabs, see previous examples
+
+### Bottom
+
+```html
+<b-tabs position="bottom">
+  <b-tab title="first" active>
+    <p>I'm the first fading tab</p>
+  </b-tab>
+  <b-tab title="second" >
+    <p>I'm the second tab content</p>
+  </b-tab>
+  <b-tab title="disabled" disabled>
+    <p>Disabled tab!</p>
+  </b-tab>
+</b-tabs>
+
+<!-- tabs-bottom.vue -->
+```
+
+### Left
+
+For `left` and `right` positions you can set the `vertical-breakpoint` property to determine for which screensize the tabs and
+content should be placed above each other.
+
+Set the `vertical-tab-cols` property to control the width of the tabs column.
+
+
+```html
+<b-tabs pills position="left" vertical-breakpoint="md" vertical-tab-cols="auto">
+  <b-tab title="first" active>
+    <p>I'm the first fading tab</p>
+  </b-tab>
+  <b-tab title="second" >
+    <p>I'm the second tab content</p>
+  </b-tab>
+  <b-tab title="disabled" disabled>
+    <p>Disabled tab!</p>
+  </b-tab>
+</b-tabs>
+
+<!-- tabs-left.vue -->
+```
+
+### Right
+
+```html
+<b-card no-body>
+    <b-tabs card position="right" vertical-breakpoint="sm" vertical-tab-cols="6">
+      <b-tab title="first" active>
+        <p>I'm the first fading tab</p>
+      </b-tab>
+      <b-tab title="second" >
+        <p>I'm the second tab content</p>
+      </b-tab>
+      <b-tab title="disabled" disabled>
+        <p>Disabled tab!</p>
+      </b-tab>
+    </b-tabs>
+</b-card>
+
+<!-- tabs-right.vue -->
+```
 
 ## Add Tabs without content
 
