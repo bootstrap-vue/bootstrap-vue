@@ -1,8 +1,10 @@
 # Navbar
 
-> The navbar is a wrapper that positions branding, navigation, and other elements into a concise header.
-It’s easily extensible and thanks to our Collapse plugin, it can easily integrate responsive behaviors.
+> The component `<b-navbar>` is a wrapper that positions branding, navigation, and
+other elements into a concise header. It’s easily extensible and thanks to the
+`<b-collapse>` component, it can easily integrate responsive behaviors.
 
+**Example:**
 ```html
 <b-navbar toggleable="md" type="dark" variant="info">
 
@@ -63,8 +65,13 @@ Control the placement of the navbar by setting one of two props:
 
 | prop | type | default | description
 | ---- | ---- | ------- | -----------
-| `fixed` | String | `null` | Set to `top` for fixed to the top of the viewport, or `bottom` for fixed to the `bottom` of the viewport
-| `sticky` | Boolean | `false` | Set to `true` to make the navbar stickied to the top when scrolled. _Note that `position: sticky`, used for `sticky`, isn’t fully supported in every browser._
+| `fixed` | String | `null` | Set to `top` for fixed to the top of the viewport, or `bottom` for fixed to the `bottom` of the viewport. 
+| `sticky` | Boolean | `false` | Set to `true` to make the navbar stick to the top of the viewport (or parent container that has `position: relative` set) when scrolled.
+
+**Notes:**
+
+- Fixed positioning uses CSS `position: fixed`. You may need to adjust your document top/bottom padding or margin.
+- CSS `position: sticky` (used for `sticky`) is not fully supported in every browser. For browsers that do not support `position: sticky`, it will fallback natively to `position: relative`.
 
 
 ## Supported Content
@@ -151,6 +158,9 @@ keep your navbar contents securely aligned.
 - `<b-nav-text>` for adding vertically centered strings of text.
 - `<b-nav-item-dropdown>` for navbar dropdown menus
 - `<b-nav-form>` for adding simple forms to the navbar.
+
+**Note:** _The use of `<b-nav is-nav-bar>` inside a `<b-navbar>` has been deprecated.
+Use component `<b-navbar-nav>` instead._
 
 ### `<b-nav-item>`
 
@@ -255,14 +265,18 @@ behavior depends on our `<b-collapse>` component.
 
 Wrap `<b-navbar-nav>` components in a `<b-collapse is-nav>` (**remember to set the `is-nav`
 prop!**) to specify content that will collapse based on a particular breakpoint. Assign a
-document unique `id` value on `<b-collapse>`.
+document unique `id` value on the `<b-collapse>`.
 
-Use `<b-nav-toggle>`, with its `target` prop set to the `id` of `<b-collapse>`, to
-control the collapse component. Set the `toggleable` prop on `<b-navbar>` to the
-desired breakpoint you would like content to automatically collapse at. Possible
-`toggleable`values are `sm`, `md`, and `lg`. Setting togleable to `true` (or with no
-explicit value) will set the breakpoint to `sm`, while setting it to `false` will
-disable collapsing.
+Use the `<b-nav-toggle>` component to control the collapse component, and set the
+`target` prop of `<b-nav-toggle>` to the `id` of `<b-collapse>`.
+
+Set the `toggleable` prop on `<b-navbar>` to the desired breakpoint you would like content
+to automatically collapse at. Possible `toggleable`values are `sm`, `md`, and `lg`. Setting
+`togleable` to `true` (or with no explicit value) will set the breakpoint to `sm`, while
+setting it to `false` will disable collapsing.
+
+`<b-nav-toggle>` should be placed _after_ `<b-navbar-brand>` (if present) and before
+any collapsable `<b-navbar-nav>` component.
 
 See the first example on this page for reference, and also refer to
 [`<b-collapse>`](/docs/components/collapse) for details on the collapse component.
