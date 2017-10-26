@@ -156,7 +156,7 @@ Like to move your menu away from the toggle buttons a bit? Then use the `offset`
 prop to specify the number of pixels to push right (or left when negative) from
 the toggle button:
 
-- Specified as a number of pixes: positive for right shift, negative for left shift.
+- Specified as a number of pixels: positive for right shift, negative for left shift.
 - Specify the distance in CSS units (i.e. `0.3rem`, `4px`, `1.2em`, etc) passed as a string.
 
 ```html
@@ -192,7 +192,7 @@ Create a split dropdown button, where the left button provides standard
 The dropdown can be created with the caret hidden by setting the `no-caret` prop to `true`.
 This is useful when the dropdown is to be displayed as an icon.
 
-**Note:** The caret will always be shown when using `split`
+**Note:** The caret will always be shown when using `split` mode.
 
 ```html
 <div>
