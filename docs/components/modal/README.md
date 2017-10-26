@@ -270,10 +270,36 @@ breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional
 
 <!-- modal-sizes.vue -->
 ```
+
+
+## Vertically centering
+Vertically center your modal in the viewport by setting the `center` prop.
+
+```html
+<div>
+  <b-btn v-b-modal.modal-center>Launch centered modal</b-btn>
+
+  <!-- Modal Component -->
+  <b-modal id="modal-center" center title="Bootstrap-Vue">
+    <p class="my-4">Vertically centered modal!</p>
+  </b-modal>
+</div>
+
+<!-- modal-center-v.vue -->
+```
+
+**Warning:** Vertically centered modals are not suited for when the content is tall.
+They are best suited when the content is only one or two lines, such as Yes/No or
+OK/Cancel confiramtion dialogs. When the resultant modal is taller than the viewport,
+the modal header (and parts of the top of the modal content) will become inaccessible.
+This issue becomes more prevalant on smaller screens.
+
+
 ## Using the grid
 Utilize the Bootstrap grid system within a modal by nesting `<b-container fluid>` within
-the modal-body. Then, use the normal grid system `<b-row>` and `<b-col>` as you would
-anywhere else.
+the modal-body. Then, use the normal grid system `<b-row>` (or `<b-form-row>`) and `<b-col>`
+as you would anywhere else.
+
 
 ## Tooltips and popovers
 Tooltips and popovers can be placed within modals as needed. When modals are closed, any tooltips
@@ -301,6 +327,7 @@ they are appended by specifying a container ID (refer to tooltip and popover doc
 
 <!-- modal-popover.vue -->
 ```
+
 
 ## Variants
 Control the header, footer, and body background and text variants by setting the
@@ -374,6 +401,7 @@ export default {
 
 <!-- modal-variant-1.vue -->
 ```
+
 
 ## Lazy loading
 Modal will always render its HTML markup in the document at the location that
@@ -475,6 +503,7 @@ event's `target` property:
 **Note:** If the `<b-modal>` has the `return-focus` prop set, then the element specified
 via the event will be ignored.
 
+
 ## Keyboard Navigation
 
 When tabbing through elements within a `<b-modal>`, if focus attempts to leave the modal into the document,
@@ -482,5 +511,6 @@ it  will be brought back into the modal.
 
 In some circumstances, you may need to disable the enforce focus feature. You can do this
 by setting the prop `no-enforce-focus`.
+
 
 ## Component Reference
