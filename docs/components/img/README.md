@@ -10,7 +10,7 @@ blank images with  an optional solid background color.
 The `src` prop (and `blank-src` prop of `<b-img-lazy>`), out of the box, works
 only with absolute/fully-qualified-domain-name URLs. If you are using project
 assets as image sources, please refer to
-[Component img src resolving](/docs/reference/imgages) for configuring `vue-loader`
+[Component img src resolving](/docs/reference/images) for configuring `vue-loader`
 to understand custom component props that specify image sources.
 
 ## Responsive images
