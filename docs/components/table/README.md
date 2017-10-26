@@ -1205,4 +1205,13 @@ export default {
 <!-- table-complete-1.vue -->
 ```
 
+## Drag and Drop Reordering with Vue.Draggable
+To incorporate reordering rows within a table, pass the `draggable` property in as `true`. The variable passed into `:items` will be updated with the newly mutated array as you reorder the array of items.
+
+Note: This does not currently work with `top-row` or `row-details`!
+
+```html
+<b-table :draggable='true' :items='items'></b-table>
+```
+
 ## Component Reference

@@ -58,12 +58,65 @@
                 </th>
             </tr>
         </tfoot>
-        <tbody>
+        <draggable :list='items' v-if='draggable' element='tbody'>
+            <template v-for="(item,index) in computedItems">
+                <tr :key="index"
+                    :class="rowClasses(item)"
+                    @click="rowClicked($event,item,index)"
+                    @dblclick="rowDblClicked($event,item,index)"
+                    @mouseenter="rowHovered($event,item,index)">
+                    <template v-for="field in computedFields">
+                        <td v-if="$scopedSlots[field.key]"
+                            :class="tdClasses(field, item)"
+                            :key="field.key"
+                            v-bind="field.tdAttr">
+                            <slot :name="field.key"
+                                  :value="getFormattedValue(item, field)"
+                                  :unformatted="item[field.key]"
+                                  :item="item"
+                                  :index="index"
+                            ></slot>
+                        </td>
+                        <td v-else
+                            :class="tdClasses(field, item)"
+                            :key="field.key"
+                            v-html="getFormattedValue(item, field)"
+                            v-bind="field.tdAttr"
+                        ></td>
+                    </template>
+                </tr>
+            </template>
+            <tr v-if="showEmpty && (!computedItems || computedItems.length === 0)">
+                <td :colspan="computedFields.length">
+                    <div v-if="filter"
+                         role="alert"
+                         aria-live="polite">
+                        <slot name="emptyfiltered">
+                            <div class="text-center my-2" v-html="emptyFilteredText"></div>
+                        </slot>
+                    </div>
+                    <div v-else
+                         role="alert"
+                         aria-live="polite">
+                        <slot name="empty">
+                            <div class="text-center my-2" v-html="emptyText"></div>
+                        </slot>
+                    </div>
+                </td>
+            </tr>
+            <tr v-if="$scopedSlots['bottom-row']">
+                <slot name="bottom-row"
+                      :columns="computedFields.length"
+                      :fields="computedFields"></slot>
+            </tr>
+        </draggable>
+        <tbody v-else>
             <tr v-if="$scopedSlots['top-row']">
                 <slot name="top-row"
                       :columns="computedFields.length"
                       :fields="computedFields"></slot>
             </tr>
+
             <template v-for="(item,index) in computedItems">
                 <tr :key="index"
                     :class="rowClasses(item)"
@@ -129,6 +182,7 @@ import { warn, looseEqual } from '../utils';
 import { keys, assign } from '../utils/object';
 import { isArray } from '../utils/array';
 import { listenOnRootMixin } from '../mixins';
+import draggable from 'vuedraggable';
 import startCase from 'lodash.startcase';
 
 function toString(v) {
@@ -183,6 +237,7 @@ function processField(key, value) {
 }
 
 export default {
+    components: {draggable},
     mixins: [listenOnRootMixin],
     data() {
         return {
@@ -336,6 +391,10 @@ export default {
         emptyFilteredText: {
             type: String,
             default: 'There are no records matching your request'
+        },
+        draggable: {
+            type: Boolean,
+            default: false
         }
     },
     watch: {
