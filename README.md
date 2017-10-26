@@ -9,7 +9,7 @@ Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Co
 <br>
 
 <a href="https://getbootstrap.com/docs/4.0">
-    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--beta-800080.svg?style=flat-square">
+    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--beta--2-800080.svg?style=flat-square">
 </a>
 <a href="https://vuejs.org">
     <img alt="" src="https://img.shields.io/badge/vue.js-2.4.x-green.svg?style=flat-square">
