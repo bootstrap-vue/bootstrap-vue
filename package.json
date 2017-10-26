@@ -44,7 +44,8 @@
   },
   "files": [
     "lib",
-    "dist"
+    "dist",
+    "nuxt"
   ],
   "scripts": {
     "build": "build/build",
