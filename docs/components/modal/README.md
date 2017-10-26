@@ -273,14 +273,14 @@ breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional
 
 
 ## Vertically centering
-Vertically center your modal in the viewport by setting the `center` prop.
+Vertically center your modal in the viewport by setting the `centered` prop.
 
 ```html
 <div>
   <b-btn v-b-modal.modal-center>Launch centered modal</b-btn>
 
   <!-- Modal Component -->
-  <b-modal id="modal-center" center title="Bootstrap-Vue">
+  <b-modal id="modal-center" centered title="Bootstrap-Vue">
     <p class="my-4">Vertically centered modal!</p>
   </b-modal>
 </div>
