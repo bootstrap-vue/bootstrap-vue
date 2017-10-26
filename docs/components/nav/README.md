@@ -146,9 +146,10 @@ Please use the [`<b-navbar-nav>`](/docs/components/navbar) component instead.
 
 Prop `is-nav-bar` has been deprecated and will be removed in a future release.
 
-## Tabbed content support
+## Tabbed local content support
 
-See the [`<b-tabs>`](./tabs) component.
+See the [`<b-tabs>`](./tabs) component for creating tabbable panes of local
+content (not suited for navigation).
 
 ## Accessibility
 If you’re using `<b-nav>` to provide a navigation bar, be sure to add a
