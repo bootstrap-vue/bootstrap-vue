@@ -290,9 +290,9 @@ Vertically center your modal in the viewport by setting the `center` prop.
 
 **Warning:** Vertically centered modals are not suited for when the content is tall.
 They are best suited when the content is only one or two lines, such as Yes/No or
-OK/Cancel confiramtion dialogs. When the resultant modal is taller than the viewport,
+OK/Cancel confirmation dialogs. When the resultant modal is taller than the viewport,
 the modal header (and parts of the top of the modal content) will become inaccessible.
-This issue becomes more prevalant on smaller screens.
+This issue becomes more prevalent on smaller screens.
 
 
 ## Using the grid
