@@ -82,6 +82,24 @@
     </div>
 </template>
 
+<style>
+    /*
+      This can be removed once Bootstrap V4.beta.3 is released
+      https://github.com/twbs/bootstrap/pull/24510
+      Vertically centered modals are not suited to tall content (the header gets cut off)
+    */
+    .modal-dialog-centered {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    .modal-dialog-centered .modal-content {
+        width: 100%;
+    }
+</style>
+
 <script>
     import bBtn from './button';
     import bBtnClose from './button-close';
@@ -135,6 +153,10 @@
             size: {
                 type: String,
                 default: 'md'
+            },
+            centered: {
+                type: Boolean,
+                default: false
             },
             buttonSize: {
                 type: String,
@@ -267,7 +289,8 @@
                 return [
                     'modal-dialog',
                     {
-                        [`modal-${this.size}`]: Boolean(this.size)
+                        [`modal-${this.size}`]: Boolean(this.size),
+                        'modal-dialog-centered': this.centered
                     }
                 ];
             },
