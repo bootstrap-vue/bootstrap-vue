@@ -64,6 +64,7 @@
         color: #495057;
         background-color: #fff;
         border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         outline: none;
     }
 
@@ -72,8 +73,7 @@
     .custom-file-input.is-invalid:focus ~ .custom-file-control,
     .was-validated .custom-file-input:invalid.focus ~ .custom-file-control,
     .was-validated .custom-file-input:invalid:focus ~ .custom-file-control {
-        -webkit-box-shadow: 0 0 0 .2rem rgba(220,53,69,.25);
-        box-shadow: 0 0 0 .2rem rgba(220,53,69,.25);
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
         border-color: #dc3545;
     }
 
@@ -82,8 +82,7 @@
     .custom-file-input.is-valid:focus ~ .custom-file-control,
     .was-validated .custom-file-input:valid.focus ~ .custom-file-control,
     .was-validated .custom-file-input:valid:focus ~ .custom-file-control {
-        -webkit-box-shadow: 0 0 0 .2rem rgba(40,167,69,.25);
-        box-shadow: 0 0 0 .2rem rgba(40,167,69,.25);
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
         border-color: #28a745;
     }
 
