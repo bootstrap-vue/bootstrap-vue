@@ -78,9 +78,19 @@ tags to load the required javascript and CSS in your page.
 ## Vue-CLI
 
 ### `webpack-simple` example
+
+Starter template: https://github.com/bootstrap-vue/webpack-simple
+
+Note: you may need to adjust the template package.json file to use the latest Bootstrap-Vue version
+
 Coming soon!
 
 ### `webpack` example
+
+Starter template: https://github.com/bootstrap-vue/webpack
+
+Note: you may need to adjust the template package.json file to use the latest Bootstrap-Vue version
+
 Coming soon!
 
 
