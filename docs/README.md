@@ -21,7 +21,7 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 ```
 
-And import css files from both Bootstrap 4 & Bootstrap-Vue: 
+And import css files from both Bootstrap 4 & Bootstrap-Vue:
 
 **Note**: _requires webpack configuration to load css files ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_
 
@@ -38,16 +38,15 @@ in your bundle or reference them from `static/` via `index.html`.
 ## Nuxt.js
 You can use official [Nuxt.js](https://nuxtjs.org) module to add BootstrapVue support. ([module docs](https://github.com/nuxt-community/modules/tree/master/packages/bootstrap-vue))
 
-- Add `@nuxtjs/bootstrap-vue` dependency using yarn or npm to your project:
-- Add `@nuxtjs/bootstrap-vue` to modules section of **nuxt.config.js**
+- Add `bootstrap-vue/nuxt` to modules section of **nuxt.config.js**
 
 ```js
 {
   modules: [
-    '@nuxtjs/bootstrap-vue',
+    'bootstrap-vue/nuxt',
 
     // Or if you have custom bootstrap CSS...
-    ['@nuxtjs/bootstrap-vue', { css: false }],
+    ['bootstrap-vue/nuxt', { css: false }],
   ]
 }
 ```
