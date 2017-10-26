@@ -4,18 +4,6 @@
 purpose is to provide a pairing between controls and a label, help text and feedback text,
 as well as contextual state visual feedback.
 
-<div class="alert alert-warning">
- <p class="my-0">
-  <strong>Please Note:</strong>
-  There are currently issues with Bootstrap V4.beta.1 CSS with regards to
-  <samp class="text-dark">valid</samp> and <samp class="text-dark">invalid</samp>
-  states and the <samp class="text-dark">feedback</samp> invalid text.
-  Feedback text should only be shown when in the invalid state, but it still shows
-  when the field in in the valid state. Bootstrap V4.beta.2 &mdash; when available &mdash;
-  should hopefully address this issue.
- </p>
-</div>
-
 ```html
 <template>
   <b-form-group
@@ -33,10 +21,10 @@ as well as contextual state visual feedback.
 export default {
   computed: {
     feedback() {
-      return this.name.length > 0 ? '' : 'Please enter something';
+      return this.name.length > 0 ? 'Enter at least 4 characters' : 'Please enter something';
     },
     state() {
-      return this.name.length > 0 ? 'valid' : 'invalid';
+      return this.name.length > 4 ? 'valid' : 'invalid';
     }
   },
   data: {
@@ -65,6 +53,22 @@ The label text may also optionally be aligned `left`, `center` or `right` by set
 the respective value via the prop `label-text-align`. Alignment has no effect if
 `label-sr-only` is set.
 
+**Example: Horizontal laout**
+```html
+<div>
+  <b-form-group id="fieldsetHorizontal"
+                horizontal
+                :label-cols="4"
+                breakpoint="md"
+                description="Let us know your name."
+                label="Enter your name">
+    <b-form-input id="inputHorizontal"></b-form-input>
+  </b-form-group>
+</div>
+
+<!-- form-group-horizontal.vue -->
+```
+
 ## Description
 Optional descriptive text which is always shown with the `.text-muted` class
 (html supported) by setting the `description` prop or using the named slot `description`.
@@ -84,7 +88,7 @@ prop set (and the input fails browser native validation constraintes such as `re
 
 Refer to Bootstrap V4's `Form` component documentation for details on validation methods.
 
-Feedback is rendered using the `<b-form-feedback>` componment.
+Invalid feedback is rendered using the `<b-form-feedback>` componment.
 
 ## Contextual visual state
 Bootstrap includes validation styles for `valid` and `invalid` states
