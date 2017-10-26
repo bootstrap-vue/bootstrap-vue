@@ -412,7 +412,7 @@ reset offsets by setting the offset to `0` at  a larger breakpoint:
       sm="6" md="5" lg="6"
     </b-col>
     <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="0">
-      sm="6" md="5" offset-md="2" col-lg="6" offset-lg=0"
+      sm="6" md="5" offset-md="2" col-lg="6" offset-lg="0"
     </b-col>
   </b-row>
 </b-container>
