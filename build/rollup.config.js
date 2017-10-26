@@ -17,12 +17,17 @@ if (!fs.existsSync(dist)) {
     fs.mkdirSync(dist);
 }
 
+// Libs in `external` will not be bundled to dist,
+// since they are expected to be provided later.
+// We want to include some of them in the build, so we exclude it here.
+const externalExcludes = [
+    'popper.js',
+    'lodash.startcase'
+]
+
 module.exports = {
     input: path.resolve(lib, "index.js"),
-    // Libs in `external` will not be bundled to dist,
-    // since they are expected to be provided later.
-    // We want to include Popper.js in the build, so we exclude it here.
-    external: Object.keys(dependencies).filter(dep => dep !== "popper.js"),
+    external: Object.keys(dependencies).filter(dep => externalExcludes.indexOf(dep) === -1),
     name,
     plugins: [
         vue({
@@ -35,7 +40,25 @@ module.exports = {
         }),
         resolve({ external: ["vue"] }),
         commonjs(),
-        babel()
+        babel({
+            presets: [
+                [
+                    'env',
+                    {
+                        targets: {
+                            browsers: [
+                                'last 4 versions',
+                                'safari >= 7'
+                            ]
+                        },
+                        'modules': false
+                    }
+                ]
+            ],
+            plugins: [
+                'external-helpers'
+            ]
+        })
     ],
     output: [
         {
