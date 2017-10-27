@@ -7,9 +7,10 @@ import BootstrapVue from "../../dist/bootstrap-vue.esm";
 
 const readFile = path => String(readFileSync(resolve(__dirname, "../", path)));
 
-export function loadFixture(name) {
-    const template = readFile(`components/${name}/fixtures/${name}.html`);
-    const js = readFile(`components/${name}/fixtures/${name}.js`);
+export function loadFixture(name, groupName) {
+    groupName = groupName || name;
+    const template = readFile(`components/${groupName}/fixtures/${name}.html`);
+    const js = readFile(`components/${groupName}/fixtures/${name}.js`);
 
     return async () => {
         // Mount template
