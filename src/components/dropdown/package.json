@@ -1,0 +1,38 @@
+{
+    "name": "@bootstrap-vue/dropdown",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Dropdown",
+        "component": "bDropdown",
+        "components": [
+            "bDropdownItem",
+            "bDropdownItemButton",
+            "bDropdownHeader",
+            "bDropdownDivider"
+        ],
+        "events": [
+            {
+                "event": "shown",
+                "description": "Emitted When dropdown is shown"
+            },
+            {
+                "event": "hidden",
+                "description": "Emitted When dropdown is hidden"
+            },
+            {
+                "event": "click",
+                "description": "Emitted when split button clicked in split mode."
+            }
+        ],
+        "slots": [
+            {
+                "name": "button-content",
+                "description": "Can be used to implement custom text with icons and more styling"
+            },
+            {
+                "name": "text",
+                "description": "Deprecated. please use 'button-content' slot instead."
+            }
+        ]
+    }
+}

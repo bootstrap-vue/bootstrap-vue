@@ -1,0 +1,13 @@
+{
+    "name": "@bootstrap-vue/breadcrumb",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Breadcrumb",
+        "component": "bBreadcrumb",
+        "components": [
+            "bBreadcrumbItem",
+            "bBreadcrumbLink"
+        ],
+        "events": []
+    }
+}

@@ -1,6 +1,0 @@
-{
-  "title": "Images",
-  "component": "bImg",
-  "components": [ "bImgLazy" ],
-  "new": true
-}

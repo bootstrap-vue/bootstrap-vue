@@ -1,0 +1,33 @@
+{
+    "name": "@bootstrap-vue/form-radio",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Form Radio",
+        "component": "bFormRadioGroup",
+        "components": [
+            "bFormRadio"
+        ],
+        "events": [
+            {
+                "event": "input",
+                "description": "Emitted when the selected value is changed",
+                "args": [
+                    {
+                        "arg": "checked",
+                        "description": "current selected Value of radio group."
+                    }
+                ]
+            },
+            {
+                "event": "change",
+                "description": "Emitted when selected value is changed due to user interaction",
+                "args": [
+                    {
+                        "arg": "checked",
+                        "description": "current selected Value of radio group."
+                    }
+                ]
+            }
+        ]
+    }
+}

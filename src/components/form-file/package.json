@@ -1,0 +1,23 @@
+{
+    "name": "@bootstrap-vue/form-file",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Form File",
+        "component": "bFormFile",
+        "events": [
+            {
+                "event": "change",
+                "description": "original native change event on input",
+                "args": [
+                    {
+                        "arg": "event"
+                    }
+                ]
+            },
+            {
+                "event": "input",
+                "description": "[see above docs]"
+            }
+        ]
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "name": "@bootstrap-vue/card",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Card",
+        "component": "bCard",
+        "components": [
+            "bCardHeader",
+            "bCardFooter",
+            "bCardImg",
+            "bCardGroup"
+        ],
+        "slots": [
+            {
+                "name": "img",
+                "description": "Slot for custom img tag, for finer grained control of image"
+            },
+            {
+                "name": "header",
+                "description": "For custom rendering of header content"
+            },
+            {
+                "name": "footer",
+                "description": "For custom rendering of footer content"
+            }
+        ]
+    }
+}

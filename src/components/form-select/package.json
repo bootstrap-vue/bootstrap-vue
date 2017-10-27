@@ -1,0 +1,30 @@
+{
+    "name": "@bootstrap-vue/form-select",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Form Select",
+        "component": "bFormSelect",
+        "events": [
+            {
+                "event": "input",
+                "description": "Emitted with the select value changes",
+                "args": [
+                    {
+                        "arg": "value",
+                        "desccription": "current selected value of the select."
+                    }
+                ]
+            },
+            {
+                "event": "change",
+                "description": "Emitted with the select value changes via user interaction",
+                "args": [
+                    {
+                        "arg": "value",
+                        "desccription": "current selected value of the select."
+                    }
+                ]
+            }
+        ]
+    }
+}

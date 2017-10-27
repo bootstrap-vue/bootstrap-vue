@@ -1,0 +1,22 @@
+{
+    "name": "@bootstrap-vue/form-group",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Form Group",
+        "component": "bFormGroup",
+        "slots": [
+            {
+                "name": "label",
+                "description": "Content to place inside the <label> element."
+            },
+            {
+                "name": "description",
+                "description": "Content to place in the description area."
+            },
+            {
+                "name": "feedback",
+                "description": "Content to place in the invalid feedback area"
+            }
+        ]
+    }
+}

@@ -1,7 +1,0 @@
-{
-  "title": "List group",
-  "component": "bListGroup",
-  "components": [
-    "bListGroupItem"
-  ]
-}

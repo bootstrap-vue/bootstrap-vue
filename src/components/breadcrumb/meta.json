@@ -1,6 +1,0 @@
-{
-  "title": "Breadcrumb",
-  "component": "bBreadcrumb",
-  "components": ["bBreadcrumbItem", "bBreadcrumbLink"],
-  "events": []
-}

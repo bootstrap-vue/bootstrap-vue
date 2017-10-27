@@ -1,0 +1,30 @@
+{
+    "name": "@bootstrap-vue/pagination",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Pagination",
+        "component": "bPagination",
+        "events": [
+            {
+                "event": "input",
+                "description": "when page changes via user interaction or programmatically",
+                "args": [
+                    {
+                        "arg": "page",
+                        "description": "Selected page number (starting with 1)"
+                    }
+                ]
+            },
+            {
+                "event": "change",
+                "description": "when page changes via user interaction",
+                "args": [
+                    {
+                        "arg": "page",
+                        "description": "Selected page number (starting with 1)"
+                    }
+                ]
+            }
+        ]
+    }
+}

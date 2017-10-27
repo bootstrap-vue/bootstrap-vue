@@ -1,0 +1,8 @@
+{
+    "name": "@bootstrap-vue/badge",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Badge",
+        "component": "bBadge"
+    }
+}
