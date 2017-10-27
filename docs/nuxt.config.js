@@ -12,7 +12,7 @@ renderer.table = function renderTable(header, body) {
 }
 
 module.exports = {
-    srcDir: path.resolve(__dirname, 'docs/nuxt'),
+    srcDir: __dirname,
 
     build: {
         extractCSS: true,
@@ -32,7 +32,7 @@ module.exports = {
             });
         }
     },
-    
+
 
     loading: {
         color: '#59cc93'
