@@ -2,7 +2,7 @@ import { loadFixture, testVM } from "../../utils/helpers";
 import regeneratorRuntime from "regenerator-runtime";
 
 describe("form-feedback", async () => {
-    beforeEach(loadFixture("form-feedback"));
+    beforeEach(loadFixture("form-feedback", "form"));
     testVM();
 
     it("default should have tag div", async () => {
