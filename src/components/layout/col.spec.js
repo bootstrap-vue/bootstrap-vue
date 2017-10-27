@@ -1,4 +1,5 @@
 import { loadFixture, testVM } from "../../utils/helpers";
+import regeneratorRuntime from "regenerator-runtime";
 
 // TODO: Export function from col.js
 function computeBkPtClass(type, breakpoint, val) {
