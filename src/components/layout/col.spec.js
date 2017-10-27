@@ -20,7 +20,7 @@ function computeBkPtClass(type, breakpoint, val) {
 }
 
 describe("col", async () => {
-    beforeEach(loadFixture("col"));
+    beforeEach(loadFixture("col", "layout"));
     testVM();
 
     it("should apply '.col' when no props passed", async () => {
