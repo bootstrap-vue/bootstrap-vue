@@ -34,7 +34,7 @@
         props: {
             id: {
                 type: String,
-                defualt: null
+                default: null
             },
             size: {
                 type: String,
