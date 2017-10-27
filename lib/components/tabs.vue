@@ -6,7 +6,7 @@
         </div>
 
         <div :class="{'card-header': card}">
-            <ul :class="['nav','nav-' + navStyle, card ? 'card-header-'+navStyle : null]"
+            <ul :class="['nav','nav-' + navStyle, card ? 'card-header-'+navStyle : null, small ? 'small' : '']"
                 role="tablist"
                 tabindex="0"
                 @keydown.left="previousTab"
@@ -18,7 +18,7 @@
                 @keydown.shift.right="setTab(tabs.length-1,false,-1)"
                 @keydown.shift.down="setTab(tabs.length-1,false,-1)"
             >
-                <li :class="['nav-item', small ? 'small' : '']" v-for="(tab, index) in tabs" role="presentation">
+                <li class="'nav-item" v-for="(tab, index) in tabs" role="presentation">
                     <a :class="['nav-link',{active: tab.localActive, disabled: tab.disabled}]"
                        :href="tab.href"
                        role="tab"
