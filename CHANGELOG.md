@@ -17,6 +17,7 @@ Notable changes:
 * More stable tooltips and popovers
 * Form invalid-feedback fixes
 * Various fixes/improvements to form controls
+* ARIA improvements
 * Expanded documentation and examples
 
 ### Bug Fixes v1.0.0
@@ -59,6 +60,7 @@ vue/bootstrap-vue/issues/1228)) ([87cfab4](https://github.com/bootstrap-vue/boot
 * **badge:** Support actionable (link) badges ([#1226](https://github.com/bootstrap-vue/bootstrap-vue/issues/1226)) ([ba2b5b4](https://github.com/bootstrap-vue/bootstrap-vue/commit/ba2b5b4))
 * **card:** add prop body-class ([#1250](https://github.com/bootstrap-vue/bootstrap-vue/issues/1250)) ([23fc3be](https://github.com/bootstrap-vue/bootstrap-vue/commit/23fc3be))
 * **col:** Column offsets are now back with the release Bootstrap V4.0-.0-beta.2
+* **docs:** Various expanded examples and additions
 * **dropdown:** Optionally hide the dropdown toggle caret ([#1197](https://github.com/bootstrap-vue/bootstrap-vue/issues/1197)) ([960877c](https://github.com/bootstrap-vue/bootstrap-vue/commit/960877c))
 * **dropdown:** Allow space and cursor down to trigger opening of menus ([#1159](https://github.com/bootstrap-vue/bootstrap-vue/issues/1159)) ([1249f51](https://github.com/bootstrap-vue/bootstrap-vue/commit/1249f51))
 * **form-group:** Switch to fieldset + legend for better semantic/ARIA support ([#1129](https://github.com/bootstrap-vue/bootstrap-vue/issues/1129)) ([7a62b75](https://github.com/bootstrap-vue/bootstrap-vue/commit/7a62b75))
@@ -74,10 +76,12 @@ vue/bootstrap-vue/issues/1228)) ([87cfab4](https://github.com/bootstrap-vue/boot
 * **tooltip+popover:** Allow delay to be specified as object in component versions ([#1131](https://github.com/bootstrap-vue/bootstrap-vue/issues/1131)) ([1a47c87](https://github.com/bootstrap-vue/bootstrap-vue/commit/1a47c87))
 
 
-## [v1.0.0-beta.9](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2017-09-21)
+## [v1.0.0-beta.9](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.8...v1.0.0-beta.9)
+Released: 2017-09-21
 
-## [v1.0.0-beta.8](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2017-09-21)
 
+## [v1.0.0-beta.8](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.7...v1.0.0-beta.8)
+Released: 2017-09-21
 
 ### Bug Fixes v1.0.0-beta.8
 
