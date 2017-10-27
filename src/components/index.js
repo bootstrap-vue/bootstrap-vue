@@ -20,7 +20,7 @@ import bCarousel from './carousel/carousel.vue';
 import bCarouselSlide from './carousel/carousel-slide.vue';
 import bCol from './layout/col';
 import bCollapse from './collapse/collapse.vue';
-import bContainer from './container/container';
+import bContainer from './layout/container';
 import bDropdown from './dropdown/dropdown.vue';
 import bDropdownItem from './dropdown/dropdown-item';
 import bDropdownItemButton from './dropdown/dropdown-item-button';
