@@ -1,5 +1,5 @@
 import setup from '~/../README.md';
-import { makeTOC, importAll } from './utils'
+import { importAll } from '~/utils'
 import { version } from '~/../package.json'
 
 const componentsContext = require.context('~/../src/components/', true, /package.json/)
@@ -13,8 +13,6 @@ export const reference = importAll(referenceContext)
 
 const miscContext = require.context('~/markdown/misc', true, /meta.json/)
 export const misc = importAll(miscContext)
-
-export const toc = makeTOC(setup, { components, directives, reference, misc })
 
 export const nav = [
     {

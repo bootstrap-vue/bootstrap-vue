@@ -13,7 +13,7 @@ function stripQuotes(str) {
 // advantage of that when using our RegExpr matches
 // Note IDs may not have quotes when the readme's are parsed in production mode !?!?
 // Expected format: <h(1|2|3) id="?id-string"?>heading content</h(1|2|3)>
-function processHeadings(readme) {
+export function makeTOC(readme) {
     if (!readme) {
         return {};
     }
@@ -54,27 +54,6 @@ function processHeadings(readme) {
     return { toc, title, top };
 }
 
-export function makeTOC(setup, sections) {
-    const toc = {};
-    // Special case
-    toc['/docs/'] = processHeadings(setup);
-
-    // Parse all the standard sections
-    Object.keys(sections).forEach(section => {
-        Object.keys(sections[section]).forEach(page => {
-            let readme = sections[section][page].readme;
-            if (section === 'misc' && page === 'changelog' && readme) {
-                // Special case: remove all h3 tags due to duplicate IDs
-                // Which screws up the TOC handling and scrollspy.
-                readme = readme.replace(/<h3 .*?<\/h3>/g, '');
-            }
-            toc[`/docs/${section}/${page}/`] = processHeadings(readme);
-        });
-    });
-
-    return toc;
-}
-
 export function importAll(r) {
     const obj = {}
 
@@ -90,3 +69,40 @@ export function importAll(r) {
 
     return obj
 }
+
+// Smooth Scroll handler methods
+function easeInOutQuad(t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t + b;
+    t--;
+    return -c / 2 * (t * (t - 2) - 1) + b;
+}
+
+export function scrollTo(scroller, to, duration, cb) {
+    const start = scroller.scrollTop
+    const change = to - start
+    const increment = 20;
+    let currentTime = 0;
+    const animateScroll = function () {
+        currentTime += increment;
+        const val = easeInOutQuad(currentTime, start, change, duration);
+        scroller.scrollTop = Math.round(val);
+        if (currentTime < duration) {
+            setTimeout(animateScroll, increment);
+        } else if (cb && typeof cb === 'function') {
+            cb();
+        }
+    };
+    animateScroll();
+}
+
+// Return an element's offset wrt document element
+// https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
+export function offsetTop(el) {
+    if (!el.getClientRects().length) {
+        return 0;
+    }
+    const bcr = el.getBoundingClientRect();
+    const win = el.ownerDocument.defaultView;
+    return bcr.top + win.pageYOffset;
+};
