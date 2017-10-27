@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import { idMixin, formMixin, formSizeMixin, formStateMixin } from '../mixins';
+    import { idMixin, formMixin, formSizeMixin, formStateMixin } from '../../mixins';
     export default {
         mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
         data() {

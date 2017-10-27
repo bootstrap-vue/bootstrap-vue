@@ -23,7 +23,7 @@
 </template>
 
 <script>
-    import { idMixin, formMixin, formOptionsMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../mixins';
+    import { idMixin, formMixin, formOptionsMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../../mixins';
     import bFormRadio from './form-radio.vue';
 
     export default {

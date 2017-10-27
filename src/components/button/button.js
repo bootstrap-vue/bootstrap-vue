@@ -1,8 +1,8 @@
-import { mergeData, pluckProps } from "../utils";
-import { arrayIncludes, concat } from "../utils/array";
-import { assign, keys } from "../utils/object";
-import { addClass, removeClass } from "../utils/dom";
-import Link, { propsFactory as linkPropsFactory } from "./link";
+import { mergeData, pluckProps } from "../../utils";
+import { arrayIncludes, concat } from "../../utils/array";
+import { assign, keys } from "../../utils/object";
+import { addClass, removeClass } from "../../utils/dom";
+import Link, { propsFactory as linkPropsFactory } from "../link/link";
 
 const btnProps = {
     block: {

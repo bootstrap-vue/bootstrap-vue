@@ -2,9 +2,9 @@
  * ScrollSpy class definition
  */
 
-import { isArray } from '../utils/array';
-import { assign, keys } from '../utils/object';
-import { observeDom, warn } from '../utils';
+import { isArray } from '../../utils/array';
+import { assign, keys } from '../../utils/object';
+import { observeDom, warn } from '../../utils';
 import {
     isElement,
     isVisible,
@@ -21,7 +21,7 @@ import {
     getAttr,
     eventOn,
     eventOff
-} from '../utils/dom';
+} from '../../utils/dom';
 
 /*
  * Constants / Defaults
@@ -75,7 +75,7 @@ const TransitionEndEvents = [
     'otransitionend',
     'oTransitionEnd'
 ];
-    
+
 /*
  * Utility Methods
  */

@@ -1,4 +1,4 @@
-import { mergeData } from "../utils";
+import { mergeData } from "../../utils";
 import MediaBody from "./media-body";
 import MediaAside from "./media-aside";
 

@@ -21,8 +21,8 @@
 </template>
 
 <script>
-    import { listenOnRootMixin } from '../mixins';
-    import { hasClass, reflow } from '../utils/dom';
+    import { listenOnRootMixin } from '../../mixins';
+    import { hasClass, reflow } from '../../utils/dom';
 
     // Events we emit on $root
     const EVENT_STATE = 'bv::collapse::state';

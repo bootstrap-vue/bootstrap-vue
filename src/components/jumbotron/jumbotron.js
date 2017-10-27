@@ -1,6 +1,6 @@
-import { mergeData } from "../utils";
-import { assign } from "../utils/object";
-import Container from './container';
+import { mergeData } from "../../utils";
+import { assign } from "../../utils/object";
+import Container from '../container/container';
 
 export const props = {
     fluid: {
@@ -98,7 +98,7 @@ export default {
             props.tag,
             mergeData(data, {
                 staticClass: "jumbotron",
-                class: { 
+                class: {
                     'jumbotron-fluid': props.fluid,
                     [`text-${props.textVariant}`]: Boolean(props.textVariant),
                     [`bg-${props.bgVariant}`]: Boolean(props.bgVariant),

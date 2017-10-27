@@ -2,8 +2,8 @@
  * ScrollSpy directive v-b-scrollspy
  */
 
-import { ScrollSpy } from '../classes';
-import { keys } from '../utils/object';
+import ScrollSpy from './scrollspy.class';
+import { keys } from '../../utils/object';
 
 const inBrowser = typeof window !== 'undefined';
 const isServer = !inBrowser;

@@ -1,6 +1,6 @@
-import ToolTip from './tooltip';
-import { assign } from '../utils/object';
-import { select, addClass, removeClass, getAttr } from '../utils/dom';
+import ToolTip from './tooltip.class';
+import { assign } from './object';
+import { select, addClass, removeClass, getAttr } from './dom';
 
 const NAME = 'popover';
 const CLASS_PREFIX = 'bs-popover';

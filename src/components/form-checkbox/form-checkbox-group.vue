@@ -23,7 +23,7 @@
 </template>
 
 <script>
-    import { idMixin, formMixin, formOptionsMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../mixins';
+    import { idMixin, formMixin, formOptionsMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../../mixins';
     import bFormCheckbox from './form-checkbox.vue';
 
     export default {

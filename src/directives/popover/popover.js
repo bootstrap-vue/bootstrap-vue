@@ -1,7 +1,7 @@
 import Popper from 'popper.js';
-import PopOver from '../classes/popover';
-import { assign, keys } from '../utils/object';
-import warn from '../utils/warn';
+import PopOver from '../../utils/popover.class';
+import { assign, keys } from '../../utils/object';
+import warn from '../../utils/warn';
 
 const inBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
 

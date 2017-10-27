@@ -1,8 +1,8 @@
 import Popper from 'popper.js';
-import { assign } from '../utils/object';
-import { from as arrayFrom } from '../utils/array';
-import { closest, select, isVisible, isDisabled, getCS, addClass, removeClass, hasClass, setAttr, removeAttr, getAttr, eventOn, eventOff } from '../utils/dom';
-import BvEvent from './BvEvent';
+import { assign } from './object';
+import { from as arrayFrom } from './array';
+import { closest, select, isVisible, isDisabled, getCS, addClass, removeClass, hasClass, setAttr, removeAttr, getAttr, eventOn, eventOff } from './dom';
+import BvEvent from './bv-event.class';
 
 const NAME = 'tooltip';
 const CLASS_PREFIX = 'bs-tooltip';

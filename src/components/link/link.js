@@ -1,6 +1,6 @@
-import { assign, keys } from "../utils/object";
-import { arrayIncludes, concat } from "../utils/array";
-import { mergeData } from "../utils";
+import { assign, keys } from "../../utils/object";
+import { arrayIncludes, concat } from "../../utils/array";
+import { mergeData } from "../../utils";
 
 /**
  * The Link component is used in many other BV components.

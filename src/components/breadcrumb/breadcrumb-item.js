@@ -1,5 +1,5 @@
-import { mergeData } from "../utils";
-import { assign } from "../utils/object";
+import { mergeData } from "../../utils";
+import { assign } from "../../utils/object";
 import BreadcrumbLink, { props as crumbLinks } from "./breadcrumb-link";
 
 export const props = assign({}, crumbLinks, {

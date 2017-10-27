@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import { idMixin, dropdownMixin } from '../mixins';
+    import { idMixin, dropdownMixin } from '../../mixins';
 
     export default {
         mixins: [idMixin, dropdownMixin],

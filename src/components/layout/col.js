@@ -1,6 +1,6 @@
-import { mergeData, memoize, suffixPropName } from "../utils";
-import { keys, assign, create } from "../utils/object";
-import { arrayIncludes } from "../utils/array";
+import { mergeData, memoize, suffixPropName } from "../../utils";
+import { keys, assign, create } from "../../utils/object";
+import { arrayIncludes } from "../../utils/array";
 
 /**
  * Generates a prop object with a type of

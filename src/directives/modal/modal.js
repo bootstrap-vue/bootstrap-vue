@@ -1,4 +1,4 @@
-import target from './_target';
+import target from '../../utils/target';
 
 const listen_types = {click: true};
 

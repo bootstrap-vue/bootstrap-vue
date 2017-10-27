@@ -125,10 +125,10 @@
 </template>
 
 <script>
-import { warn, looseEqual } from '../utils';
-import { keys, assign } from '../utils/object';
-import { isArray } from '../utils/array';
-import { listenOnRootMixin } from '../mixins';
+import { warn, looseEqual } from '../../utils';
+import { keys, assign } from '../../utils/object';
+import { isArray } from '../../utils/array';
+import { listenOnRootMixin } from '../../mixins';
 import startCase from 'lodash.startcase';
 
 function toString(v) {

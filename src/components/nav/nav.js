@@ -1,4 +1,4 @@
-import { mergeData, warn } from "../utils";
+import { mergeData, warn } from "../../utils";
 
 export const props = {
     tag: {

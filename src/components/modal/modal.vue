@@ -101,12 +101,12 @@
 </style>
 
 <script>
-    import bBtn from './button';
-    import bBtnClose from './button-close';
-    import { idMixin, listenOnRootMixin } from '../mixins';
-    import { observeDom, warn } from '../utils';
-    import { BvEvent } from '../classes';
-    import { isVisible, selectAll, select, getBCR, addClass, removeClass, setAttr, removeAttr, getAttr, hasAttr, eventOn, eventOff } from '../utils/dom';
+    import bBtn from '../button/button';
+    import bBtnClose from '../button/button-close';
+    import { idMixin, listenOnRootMixin } from '../../mixins';
+    import { observeDom, warn } from '../../utils';
+    import BvEvent from '../../utils/bv-event.class';
+    import { isVisible, selectAll, select, getBCR, addClass, removeClass, setAttr, removeAttr, getAttr, hasAttr, eventOn, eventOff } from '../../utils/dom';
 
     const Selector = {
         FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',

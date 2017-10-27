@@ -18,7 +18,7 @@
 
 <script>
     import bImg from './img';
-    import { isVisible, getBCR, eventOn, eventOff } from '../utils/dom';
+    import { isVisible, getBCR, eventOn, eventOff } from '../../utils/dom';
 
     const THROTTLE = 100;
 

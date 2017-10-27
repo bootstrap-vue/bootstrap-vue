@@ -24,8 +24,8 @@
 </template>
 
 <script>
-    import { idMixin, formMixin, formSizeMixin, formStateMixin, formOptionsMixin, formCustomMixin } from '../mixins';
-    import { warn } from '../utils';
+    import { idMixin, formMixin, formSizeMixin, formStateMixin, formOptionsMixin, formCustomMixin } from '../../mixins';
+    import { warn } from '../../utils';
 
     export default {
         mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],

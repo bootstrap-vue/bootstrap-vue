@@ -1,7 +1,7 @@
 import Popper from 'popper.js';
-import ToolTip from '../classes/tooltip';
-import { assign, keys } from '../utils/object';
-import warn from '../utils/warn';
+import ToolTip from '../../utils/tooltip.class';
+import { assign, keys } from '../../utils/object';
+import warn from '../../utils/warn';
 
 const inBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
 

@@ -1,7 +1,7 @@
-import { mergeData, pluckProps } from "../utils";
-import { assign } from "../utils/object";
-import { arrayIncludes } from "../utils/array";
-import Link, { propsFactory as linkPropsFactory } from "./link";
+import { mergeData, pluckProps } from "../../utils";
+import { assign } from "../../utils/object";
+import { arrayIncludes } from "../../utils/array";
+import Link, { propsFactory as linkPropsFactory } from "../link/link";
 
 const actionTags = ["a", "router-link", "button", "b-link"];
 let linkProps = linkPropsFactory();
