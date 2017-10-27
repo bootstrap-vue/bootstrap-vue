@@ -64,6 +64,7 @@ vue/bootstrap-vue/issues/1228)) ([87cfab4](https://github.com/bootstrap-vue/boot
 * **dropdown:** Optionally hide the dropdown toggle caret ([#1197](https://github.com/bootstrap-vue/bootstrap-vue/issues/1197)) ([960877c](https://github.com/bootstrap-vue/bootstrap-vue/commit/960877c))
 * **dropdown:** Allow space and cursor down to trigger opening of menus ([#1159](https://github.com/bootstrap-vue/bootstrap-vue/issues/1159)) ([1249f51](https://github.com/bootstrap-vue/bootstrap-vue/commit/1249f51))
 * **form-group:** Switch to fieldset + legend for better semantic/ARIA support ([#1129](https://github.com/bootstrap-vue/bootstrap-vue/issues/1129)) ([7a62b75](https://github.com/bootstrap-vue/bootstrap-vue/commit/7a62b75))
+* **form-radio + form-checkbox:** Prep for BSV4.beta.3 plain checkbox/radio validation styling ([81989ab](https://github.com/bootstrap-vue/bootstrap-vue/commit/81989ab))
 * **form-select:** Emit `change` event on user interaction ([3cc0f05](https://github.com/bootstrap-vue/bootstrap-vue/commit/3cc0f05))
 * **modal:** Add Bootstrap V4 anticipated verticaly centered modal ([#1246](https://github.com/bootstrap-vue/bootstrap-vue/issues/1246)) ([4a8ce2c](https://github.com/bootstrap-vue/bootstrap-vue/commit/4a8ce2c))
 * **navbar-nav:** New `b-navbar-nav` component ([#1231](https://github.com/bootstrap-vue/bootstrap-vue/issues/1231)) ([4bdba0e](https://github.com/bootstrap-vue/bootstrap-vue/commit/4bdba0e))
