@@ -1,5 +1,5 @@
 import { loadFixture, testVM, setData, nextTick } from "../../utils/helpers";
-
+import regeneratorRuntime from "regenerator-runtime";
 describe("collapse", async () => {
     beforeEach(loadFixture("collapse"));
     testVM();

@@ -1,5 +1,5 @@
 import { loadFixture, testVM } from "../../utils/helpers";
-
+import regeneratorRuntime from "regenerator-runtime";
 const variantList = ["secondary", "primary", "success", "info", "warning", "danger", "dark", "light"].map(variant => {
     return { ref: `badge_${variant}`, variant };
 });

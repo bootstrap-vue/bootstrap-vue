@@ -1,5 +1,6 @@
 import {loadFixture, testVM, nextTick, setData} from '../../utils/helpers';
 import Vue from 'vue/dist/vue.common';
+import regeneratorRuntime from "regenerator-runtime";
 jest.useFakeTimers();
 describe('alert', async () => {
     beforeEach(loadFixture('alert'));

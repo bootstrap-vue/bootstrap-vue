@@ -1,5 +1,5 @@
 import { loadFixture, testVM } from "../../utils/helpers";
-
+import regeneratorRuntime from "regenerator-runtime";
 describe("card", async () => {
     beforeEach(loadFixture("card"));
     testVM();

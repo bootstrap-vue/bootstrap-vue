@@ -1,5 +1,5 @@
 import { loadFixture, testVM, nextTick, setData } from "../../utils/helpers";
-
+import regeneratorRuntime from "regenerator-runtime";
 /**
  * Button functionality to test:
  * - Style variants: [ 'primary','secondary','success','outline-success','warning','danger','link' ]

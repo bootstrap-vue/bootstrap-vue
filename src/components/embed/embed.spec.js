@@ -1,5 +1,5 @@
 import { loadFixture, testVM } from "../../utils/helpers";
-
+import regeneratorRuntime from "regenerator-runtime";
 describe("embed", async () => {
   beforeEach(loadFixture("embed"));
   testVM();
