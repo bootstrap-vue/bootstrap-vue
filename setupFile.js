@@ -1,4 +1,4 @@
-
+/*
 global.Range = function Range() {};
 
 const createContextualFragment = (html) => {
@@ -21,3 +21,4 @@ global.window.document.createRange = function createRange() {
         createContextualFragment,
     };
 };
+*/
