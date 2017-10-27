@@ -151,14 +151,14 @@ export default {
         hideMenu() {
             // TODO: move emit hide to visible watcher, to allow cancelling of hide
             this.$emit("hide");
-             if (this._popper) {
+            if (this._popper) {
                 // Ensure popper event listeners are removed cleanly
                 this._popper.destroy();
             }
             this._popper = null;
             this.setTouchStart(false);
             this.emitOnRoot("bv::dropdown::hidden", this);
-           this.$emit("hidden");
+            this.$emit("hidden");
         },
         getPopperConfig() {
             let placement = AttachmentMap.BOTTOM;
