@@ -1,4 +1,4 @@
-import { loadFixture, testVM } from "../helpers";
+import { loadFixture, testVM } from "../../utils/helpers";
 
 // TODO: Export function from col.js
 function computeBkPtClass(type, breakpoint, val) {

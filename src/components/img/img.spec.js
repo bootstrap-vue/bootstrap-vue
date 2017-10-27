@@ -1,4 +1,4 @@
-import { loadFixture, testVM } from "../helpers";
+import { loadFixture, testVM } from "../../utils/helpers";
 
 describe("img", async () => {
   beforeEach(loadFixture("img"));

@@ -1,4 +1,4 @@
-import { loadFixture, testVM, setData, nextTick } from "../helpers";
+import { loadFixture, testVM, setData, nextTick } from "../../utils/helpers";
 
 describe("collapse", async () => {
     beforeEach(loadFixture("collapse"));
