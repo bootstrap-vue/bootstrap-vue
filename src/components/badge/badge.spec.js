@@ -1,4 +1,4 @@
-import { loadFixture, testVM } from "../helpers";
+import { loadFixture, testVM } from "../../utils/helpers";
 
 const variantList = ["secondary", "primary", "success", "info", "warning", "danger", "dark", "light"].map(variant => {
     return { ref: `badge_${variant}`, variant };

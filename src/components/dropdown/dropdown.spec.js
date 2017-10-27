@@ -1,4 +1,4 @@
-import { loadFixture, testVM, nextTick } from "../helpers";
+import { loadFixture, testVM, nextTick } from "../../utils/helpers";
 
 describe("dropdown", async () => {
     beforeEach(loadFixture("dropdown"));

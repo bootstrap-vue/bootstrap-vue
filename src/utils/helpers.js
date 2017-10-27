@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import { resolve } from "path";
 import Vue from "vue/dist/vue.common";
-import BootstrapVue from "..";
+import BootstrapVue from "../../dist/bootstrap-vue.esm";
 
 const readFile = path => String(readFileSync(resolve(__dirname, "fixtures", path)));
 

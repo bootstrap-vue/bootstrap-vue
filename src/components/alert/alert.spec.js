@@ -1,4 +1,4 @@
-import {loadFixture, testVM, nextTick, setData} from '../helpers';
+import {loadFixture, testVM, nextTick, setData} from '../../utils/helpers';
 import Vue from 'vue/dist/vue.common';
 jest.useFakeTimers();
 describe('alert', async () => {
