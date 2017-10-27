@@ -1,13 +1,15 @@
 import { readFileSync } from "fs";
 import { resolve } from "path";
 import Vue from "vue/dist/vue.common";
+import regeneratorRuntime from "regenerator-runtime";
+
 import BootstrapVue from "../../dist/bootstrap-vue.esm";
 
-const readFile = path => String(readFileSync(resolve(__dirname, "fixtures", path)));
+const readFile = path => String(readFileSync(resolve(__dirname, "../", path)));
 
 export function loadFixture(name) {
-    const template = readFile(`${name}/demo.html`);
-    const js = readFile(`${name}/demo.js`);
+    const template = readFile(`components/${name}/fixtures/${name}.html`);
+    const js = readFile(`components/${name}/fixtures/${name}.js`);
 
     return async () => {
         // Mount template

@@ -1,4 +1,4 @@
-import {loadFixture, testVM} from '../helpers';
+import {loadFixture, testVM} from '../../utils/helpers';
 
 describe('nav', async() => {
     beforeEach(loadFixture('nav'));

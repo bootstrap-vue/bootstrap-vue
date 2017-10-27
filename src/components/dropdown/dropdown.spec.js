@@ -1,5 +1,5 @@
 import { loadFixture, testVM, nextTick } from "../../utils/helpers";
-
+import regeneratorRuntime from "regenerator-runtime";
 describe("dropdown", async () => {
     beforeEach(loadFixture("dropdown"));
     testVM();
@@ -42,7 +42,8 @@ describe("dropdown", async () => {
         const { dd_7 } = $refs;
 
         const toggle = Array.from(dd_7.$el.children).find(node => node.tagName === "BUTTON" && node.id === `${dd_7.safeId()}__BV_toggle_`);
-        expect(toggle).not.toHaveClass("dropdown-toggle");
+        console.log(toggle);
+        expect(toggle).toHaveClass("dropdown-toggle");
     });
 
     it("should have a toggle caret when no-caret and split are true", async () => {
