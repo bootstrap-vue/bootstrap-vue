@@ -24,9 +24,9 @@
 </template>
 
 <script>
-    import bImg from './img';
-    import { warn } from '../utils';
-    import { idMixin } from '../mixins';
+    import bImg from '../img/img';
+    import { warn } from '../../utils';
+    import { idMixin } from '../../mixins';
 
     export default {
         components: { bImg },

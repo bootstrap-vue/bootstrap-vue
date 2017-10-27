@@ -1,6 +1,6 @@
-import { mergeData, pluckProps, prefixPropName, unPrefixPropName, copyProps } from "../utils";
-import { assign } from "../utils/object";
-import { cardMixin } from "../mixins";
+import { mergeData, pluckProps, prefixPropName, unPrefixPropName, copyProps } from "../../utils";
+import { assign } from "../../utils/object";
+import { cardMixin } from "../../mixins";
 import CardBody, { props as bodyProps } from "./card-body";
 import CardHeader, { props as headerProps } from "./card-header";
 import CardFooter, { props as footerProps } from "./card-footer";

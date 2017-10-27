@@ -53,8 +53,8 @@
 </template>
 
 <script>
-    import {observeDom} from '../utils';
-    import {idMixin} from '../mixins';
+    import {observeDom} from '../../utils';
+    import {idMixin} from '../../mixins';
 
     export default {
         mixins: [idMixin],

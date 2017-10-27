@@ -1,5 +1,5 @@
-import Form from "./form";
-import { mergeData } from "../utils";
+import Form from "../form/form";
+import { mergeData } from "../../utils";
 
 export default {
     functional: true,

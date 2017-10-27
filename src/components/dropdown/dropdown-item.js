@@ -1,5 +1,5 @@
-import { mergeData } from "../utils";
-import Link, { propsFactory as linkPropsFactory } from "./link";
+import { mergeData } from "../../utils";
+import Link, { propsFactory as linkPropsFactory } from "../link/link";
 
 export const props = linkPropsFactory();
 

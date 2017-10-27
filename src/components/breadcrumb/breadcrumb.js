@@ -1,6 +1,6 @@
-import { mergeData } from "../utils";
-import { isArray } from "../utils/array";
-import { assign } from "../utils/object";
+import { mergeData } from "../../utils";
+import { isArray } from "../../utils/array";
+import { assign } from "../../utils/object";
 import BreadcrumbItem from "./breadcrumb-item";
 
 export const props = {

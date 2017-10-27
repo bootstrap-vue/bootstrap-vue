@@ -6,10 +6,10 @@
 </template>
 
 <script>
-    import ToolTip from '../classes/tooltip';
-    import { warn } from '../utils';
-    import { toolpopMixin } from '../mixins';
-    
+    import ToolTip from '../../utils/tooltip.class';
+    import { warn } from '../../utils';
+    import { toolpopMixin } from '../../mixins';
+
     export default {
         mixins: [ toolpopMixin ],
         data() {

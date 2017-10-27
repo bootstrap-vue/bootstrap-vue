@@ -13,8 +13,8 @@
 </template>
 
 <script>
-    import {warn} from '../utils';
-    import bBtnClose from "./button-close";
+    import {warn} from '../../utils';
+    import bBtnClose from "../button/button-close";
 
     export default {
         components: {bBtnClose},

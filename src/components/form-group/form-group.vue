@@ -43,12 +43,12 @@
 </style>
 
 <script>
-    import { warn } from '../utils';
-    import { select } from '../utils/dom';
-    import { idMixin, formStateMixin } from '../mixins';
-    import bFormRow from './form-row';
-    import bFormText from './form-text';
-    import bFormFeedback from './form-feedback';
+    import { warn } from '../../utils';
+    import { select } from '../../utils/dom';
+    import { idMixin, formStateMixin } from '../../mixins';
+    import bFormRow from '../form/form-row';
+    import bFormText from '../form/form-text';
+    import bFormFeedback from '../form/form-feedback';
 
     export default {
         mixins: [idMixin, formStateMixin],

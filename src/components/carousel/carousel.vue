@@ -76,10 +76,10 @@
 </template>
 
 <script>
-    import { from as arrayFrom } from '../utils/array';
-    import { observeDom } from '../utils';
-    import { selectAll, reflow, addClass, removeClass, setAttr, eventOn, eventOff } from '../utils/dom';
-    import { idMixin } from '../mixins';
+    import { from as arrayFrom } from '../../utils/array';
+    import { observeDom } from '../../utils';
+    import { selectAll, reflow, addClass, removeClass, setAttr, eventOn, eventOff } from '../../utils/dom';
+    import { idMixin } from '../../mixins';
 
     // Slide directional classes
     const DIRECTION = {

@@ -44,8 +44,8 @@
 </style>
 
 <script>
-    import { idMixin, formMixin, formSizeMixin, formStateMixin } from '../mixins';
-    import { arrayIncludes } from '../utils/array';
+    import { idMixin, formMixin, formSizeMixin, formStateMixin } from '../../mixins';
+    import { arrayIncludes } from '../../utils/array';
     
     // Valid input types
     const TYPES = [

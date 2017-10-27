@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import { idMixin } from '../mixins';
+    import { idMixin } from '../../mixins';
 
     export default {
         mixins: [idMixin],

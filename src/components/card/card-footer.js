@@ -1,6 +1,6 @@
-import { mergeData, prefixPropName, copyProps } from "../utils";
-import { assign } from "../utils/object";
-import { cardMixin } from "../mixins";
+import { mergeData, prefixPropName, copyProps } from "../../utils";
+import { assign } from "../../utils/object";
+import { cardMixin } from "../../mixins";
 
 export const props = assign({}, copyProps(cardMixin.props, prefixPropName.bind(null, "footer")), {
     footer: {

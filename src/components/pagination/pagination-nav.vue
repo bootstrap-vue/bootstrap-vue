@@ -125,9 +125,9 @@
 </style>
 
 <script>
-import bLink, { pickLinkProps } from './link';
-import { assign } from '../utils/object';
-import { paginationMixin } from '../mixins';
+import bLink, { pickLinkProps } from '../link/link';
+import { assign } from '../../utils/object';
+import { paginationMixin } from '../../mixins';
 
 // Props needed for router links
 const routerProps = pickLinkProps('activeClass','exactActiveClass','append','exact','replace','target','rel');

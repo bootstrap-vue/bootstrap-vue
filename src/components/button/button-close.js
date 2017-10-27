@@ -1,4 +1,4 @@
-import { mergeData } from "../utils";
+import { mergeData } from "../../utils";
 
 const props = {
     disabled: {

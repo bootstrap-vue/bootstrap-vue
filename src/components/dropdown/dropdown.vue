@@ -46,8 +46,8 @@
 </template>
 
 <script>
-    import { idMixin, dropdownMixin } from '../mixins';
-    import bButton from './button';
+    import { idMixin, dropdownMixin } from '../../mixins';
+    import bButton from '../button/button';
 
     export default {
         mixins: [idMixin, dropdownMixin],

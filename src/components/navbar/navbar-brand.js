@@ -1,6 +1,6 @@
-import Link, { propsFactory } from "./link";
-import { mergeData, pluckProps } from "../utils";
-import { assign } from "../utils/object";
+import Link, { propsFactory } from "../link/link";
+import { mergeData, pluckProps } from "../../utils";
+import { assign } from "../../utils/object";
 
 const linkProps = propsFactory();
 linkProps.href.default = undefined;

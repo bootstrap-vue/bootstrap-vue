@@ -7,9 +7,9 @@
 </template>
 
 <script>
-    import PopOver from '../classes/popover';
-    import { warn } from '../utils';
-    import { toolpopMixin } from '../mixins';
+    import PopOver from '../../utils/popover.class';
+    import { warn } from '../../utils';
+    import { toolpopMixin } from '../../mixins';
 
     export default {
         mixins: [ toolpopMixin ],

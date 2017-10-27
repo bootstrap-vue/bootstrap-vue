@@ -1,5 +1,5 @@
-import target from './_target';
-import { setAttr, addClass, removeClass } from '../utils/dom';
+import target from '../../utils/target';
+import { setAttr, addClass, removeClass } from '../../utils/dom';
 
 // Are we client side?
 const inBrowser = typeof window !== 'undefined';

@@ -1,5 +1,5 @@
-import { mergeData } from "../utils";
-import { arrayIncludes } from "../utils/array";
+import { mergeData } from "../../utils";
+import { arrayIncludes } from "../../utils/array";
 
 export const props = {
     type: {

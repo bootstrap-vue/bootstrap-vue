@@ -9,7 +9,7 @@ const { camelCase } = require("lodash");
 const { name, dependencies } = require("../package.json");
 
 const base = path.resolve(__dirname, "..");
-const lib = path.resolve(base, "lib");
+const src = path.resolve(base, "src");
 const dist = path.resolve(base, "dist");
 
 // Ensure dist directory exists
@@ -26,7 +26,7 @@ const externalExcludes = [
 ]
 
 module.exports = {
-    input: path.resolve(lib, "index.js"),
+    input: path.resolve(src, "index.js"),
     external: Object.keys(dependencies).filter(dep => externalExcludes.indexOf(dep) === -1),
     name,
     plugins: [

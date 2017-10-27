@@ -42,8 +42,8 @@
 </template>
 
 <script>
-    import { idMixin, formRadioCheckMixin, formMixin, formStateMixin } from '../mixins';
-    import { looseEqual } from '../utils';
+    import { idMixin, formRadioCheckMixin, formMixin, formStateMixin } from '../../mixins';
+    import { looseEqual } from '../../utils';
 
     export default {
         mixins: [idMixin, formRadioCheckMixin, formMixin, formStateMixin],
