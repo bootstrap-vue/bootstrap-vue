@@ -1,6 +1,6 @@
 import { mergeData } from "../../utils";
 import { assign } from "../../utils/object";
-import Container from '../container/container';
+import Container from '../layout/container';
 
 export const props = {
     fluid: {
