@@ -1,43 +1,7 @@
 /*
  * docs-mixin: used by any page under /docs path
  */
-
-// Smooth Scroll handler methods
-function easeInOutQuad(t, b, c, d) {
-    t /= d / 2;
-    if (t < 1) return c / 2 * t * t + b;
-    t--;
-    return -c / 2 * (t * (t - 2) - 1) + b;
-}
-function scrollTo(scroller, to, duration, cb) {
-    const start = scroller.scrollTop
-    const change = to - start
-    const increment = 20;
-    let currentTime = 0;
-    const animateScroll = function () {
-        currentTime += increment;
-        const val = easeInOutQuad(currentTime, start, change, duration);
-        scroller.scrollTop = Math.round(val);
-        if (currentTime < duration) {
-            setTimeout(animateScroll, increment);
-        } else if (cb && typeof cb === 'function') {
-            cb();
-        }
-    };
-    animateScroll();
-}
-
-// Return an element's offset wrt document element
-// https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
-function offsetTop(el) {
-    if (!el.getClientRects().length) {
-        return 0;
-    }
-    const bcr = el.getBoundingClientRect();
-    const win = el.ownerDocument.defaultView;
-    return bcr.top + win.pageYOffset;
-};
-
+import { scrollTo } from '~/utils'
 
 export default {
     data() {
@@ -61,13 +25,18 @@ export default {
     mounted() {
         clearTimeout(this.scrollTimeout);
         this.scrollTimeout = null;
-        this.focusScroll();
+        this.focusScroll()
+        this.$root.$emit('setTOC', this.readme)
     },
 
     updated() {
         clearTimeout(this.scrollTimeout);
         this.scrollTimeout = null;
         this.focusScroll();
+    },
+
+    beforeDestroy() {
+        this.$root.$emit('setTOC', '')
     },
 
     methods: {

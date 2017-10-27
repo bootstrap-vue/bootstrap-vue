@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import bImg from '../img/img';
+    import bImg from '../image/img';
     import { warn } from '../../utils';
     import { idMixin } from '../../mixins';
 
