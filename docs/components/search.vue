@@ -48,14 +48,14 @@ Object.keys(SECTIONS).forEach(section => {
 
     // Build the base path to the page (need to remove leading '.' and trailing '/README.md')
     let baseURL = `/docs${section}${page.replace(/^\.|\/README\.md$/g, '')}`;
-    baseURL = baseURL.trim().replace(/\/\//, '/').replace(/\/$), '');
+    baseURL = baseURL.trim().replace(/\/\//, '/').replace(/\/$/, '');
 
     // Process the TOCs toc headings (we need to flatten the toc array, so we spread it first)
     [].concat(...tocData.toc).forEach(heading => {
       SEARCH.push({
         section: tocData.title,
         title: heading.label,
-        href: (baseURL + heading.href).replace'/#','#')
+        href: (baseURL + heading.href).replace('/#','#')
       });
     });
   });
