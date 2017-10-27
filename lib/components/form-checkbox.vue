@@ -15,7 +15,7 @@
                    autocomplete="off"
                    :aria-required="is_Required ? 'true' : null"
                    @change="handleChange">
-            <slot></slot>
+            <span class="form-check-description"><slot></slot></span>
         </label>
     </div>
     <label v-else :class="is_ButtonMode ? buttonClasses : labelClasses">
