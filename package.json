@@ -99,19 +99,20 @@
     "uglify-es": "^3.1.5"
   },
   "jest": {
+      "setupFiles": ["./setupFile.js"],
     "testRegex": "spec.js$",
     "moduleFileExtensions": [
       "js",
       "vue"
     ],
     "transform": {
-      "^.+\\.js$": "babel-jest",
+      "^.+\\.js$": "./jest.transform.js",
       ".*\\.(vue)$": "jest-vue-preprocessor"
     },
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "lib"
+      "src"
     ]
   },
   "keywords": [
