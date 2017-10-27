@@ -50,8 +50,8 @@
   "scripts": {
     "build": "build/build",
     "watch": "rollup -c build/rollup.config.js --watch",
-    "docs-dev": "nuxt dev",
-    "docs-gen": "nuxt generate",
+    "docs-dev": "nuxt dev -c docs/nuxt.config.js",
+    "docs-gen": "nuxt generate -c docs/nuxt.config.js",
     "docs-publish": "./build/gh-pages",
     "test": "NODE_ENV=test npm run build && jest --maxWorkers=2",
     "test-dev": "NODE_ENV=test npm run build && jest",
