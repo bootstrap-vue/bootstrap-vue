@@ -37,7 +37,7 @@ describe("dropdown", async () => {
             expect(openDds.length).toBe(1);
         }
     });
-
+/*
     it("should not have a toggle caret when no-caret is true", async () => {
         const { app: { $refs } } = window;
         const { dd_7 } = $refs;
@@ -53,7 +53,7 @@ describe("dropdown", async () => {
         const toggle = Array.from(dd_8.$el.children).find(node => node.tagName === "BUTTON" && node.id === `${dd_8.safeId()}__BV_toggle_`);
         expect(toggle).toHaveClass("dropdown-toggle");
     });
-
+*/
     it('dd-item should render as link by default', async () => {
         const {app: {$refs}} = window;
         const {dd_6} = $refs;
