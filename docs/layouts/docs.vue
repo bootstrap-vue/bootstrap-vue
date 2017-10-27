@@ -32,7 +32,7 @@ import mFooter from '~/components/footer.vue';
 import mToc from '~/components/toc.vue';
 
 // Import search.vue async in a separate chunk
-const mSearch = () => import('~/components/search.vue' /* webpackChunkName: "mSearch" */).then(m => m.default());
+const mSearch = () => import('~/components/search.vue' /* webpackChunkName: "mSearch" */).then(m => m.default || m);
 
 export default {
     components: { mSidebar, mNav, mFooter, mSearch, mToc },
