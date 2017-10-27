@@ -71,7 +71,7 @@ vue/bootstrap-vue/issues/1228)) ([87cfab4](https://github.com/bootstrap-vue/boot
 * **pagination:** Better keyboard tab support + focus styling ([42b31da](https://github.com/bootstrap-vue/bootstrap-vue/commit/42b31da))
 * **pagination-nav:** Better tab/focus management ([adf8dcc](https://github.com/bootstrap-vue/bootstrap-vue/commit/adf8dcc))
 * **table:** Allow custom attributes in table cell (`td`) ([#1193](https://github.com/bootstrap-vue/bootstrap-vue/issues/1193)) ([485adbf](https://github.com/bootstrap-vue/bootstrap-vue/commit/485adbf))
-* **table:** BS V4.beta.2 new responsive breakpoints and table-dark class ([#1222](https://github.com/bootstrap-vue/bootstrap-vue/issues/1222)) ([febdfd1](https://github.com/bootstrap-vue/bootstrap-vue/commit/febdfd1))
+* **table:** BS V4.beta.2 new responsive breakpoints and `table-dark` class ([#1222](https://github.com/bootstrap-vue/bootstrap-vue/issues/1222)) ([febdfd1](https://github.com/bootstrap-vue/bootstrap-vue/commit/febdfd1))
 * **tooltip popover:** Don't close if focus moves between trigger element and tooltip/popover ([#1093](https://github.com/bootstrap-vue/bootstrap-vue/issues/1093)) ([87ffb4f](https://github.com/bootstrap-vue/bootstrap-vue/commit/87ffb4f))
 * **tooltip+popover:** Allow delay to be specified as object in component versions ([#1131](https://github.com/bootstrap-vue/bootstrap-vue/issues/1131)) ([1a47c87](https://github.com/bootstrap-vue/bootstrap-vue/commit/1a47c87))
 
@@ -114,7 +114,7 @@ Released: 2017-09-21
 * **popover:** remove deprecated target-id prop ([472fa79](https://github.com/bootstrap-vue/bootstrap-vue/commit/472fa79))
 * **popover+tooltip:** Allow indiviual component imports ([#999](https://github.com/bootstrap-vue/bootstrap-vue/issues/999)) ([dcc7504](https://github.com/bootstrap-vue/bootstrap-vue/commit/dcc7504))
 * **radios checkboxes:** Parent group should emit change event ([#1071](https://github.com/bootstrap-vue/bootstrap-vue/issues/1071)) ([ac7c506](https://github.com/bootstrap-vue/bootstrap-vue/commit/ac7c506))
-* **scrollspy:** fixes ffor various bugs ([#1063](https://github.com/bootstrap-vue/bootstrap-vue/issues/1063)) ([97fccdd](https://github.com/bootstrap-vue/bootstrap-vue/commit/97fccdd))
+* **scrollspy:** fixes for various bugs ([#1063](https://github.com/bootstrap-vue/bootstrap-vue/issues/1063)) ([97fccdd](https://github.com/bootstrap-vue/bootstrap-vue/commit/97fccdd))
 * **scrollspy:** Handle .nav-link inside .nav-item active state ([6db094d](https://github.com/bootstrap-vue/bootstrap-vue/commit/6db094d))
 * **scrollspy:** Handle nested nav-links when inside nav-item ([#1068](https://github.com/bootstrap-vue/bootstrap-vue/issues/1068)) ([f4e017c](https://github.com/bootstrap-vue/bootstrap-vue/commit/f4e017c))
 * **scrollspy:** Minor updates ([ce15b69](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce15b69))
