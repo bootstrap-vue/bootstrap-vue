@@ -1,7 +1,7 @@
 import { loadFixture, testVM } from "../../utils/helpers";
 import regeneratorRuntime from "regenerator-runtime";
 describe("form-row", async () => {
-    beforeEach(loadFixture("container"));
+    beforeEach(loadFixture("container", "layout"));
     testVM();
 
     it("default should contain default class", async () => {
