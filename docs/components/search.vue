@@ -21,14 +21,45 @@
 
 <script>
 import { groupBy, intersectionBy } from "lodash";
-import { components, directives, reference, misc } from "~/content";
+import { makeTOC } from '~/utils';
 
-const sections = {
-  components,
-  directives,
-  reference,
-  misc
+// Searchable sections of the docs
+const SECTIONS = {
+    '/': require.context('~/../', false, /README.md$/),
+    '/components': require.context('~/../src/components/', true, /README.md$/),
+    '/directives': require.context('~/../src/directives/', true, /README.md$/),
+    '/reference': require.context('~/markdown/reference', true, /README.md$/),
+    '/misc': require.context('~/markdown/misc', true, /README.md$/)
 };
+
+// Our search array in the format of:
+// [
+//     { section: <page.title>, title: <heading.label>, href: <heading.href> },
+//     { section: <page.title>, title: <heading.label>, href: <heading.href> },
+//     etc
+// ]
+const SEARCH = [];
+
+// Build the search data
+Object.keys(SECTIONS).forEach(section => {
+  SECTIONS[section].keys().forEach(page => {
+    // Generate the TOC data for the README.md file (which is in HTML format)
+    const tocData = makeTOC(SECTIONS[section].resolve(page));
+
+    // Build the base path to the page (need to remove leading '.' and trailing '/README.md')
+    let baseURL = `/docs${section}${page.replace(/^\.|\/README\.md$/g, '')}`;
+    baseURL = baseURL.trim().replace(/\/\//, '/').replace(/\/$), '');
+
+    // Process the TOCs toc headings (we need to flatten the toc array, so we spread it first)
+    [].concat(...tocData.toc).forEach(heading => {
+      SEARCH.push({
+        section: tocData.title,
+        title: heading.label,
+        href: (baseURL + heading.href).replace'/#','#')
+      });
+    });
+  });
+});
 
 export default {
   data() {
@@ -41,6 +72,8 @@ export default {
       if (!this.search.length) {
         return {};
       }
+
+      // Break the searh into individual terms
       const terms = this.search
         .replace(/\s+/g, " ")
         .split(/\s+/)
@@ -48,43 +81,37 @@ export default {
       if (terms.length === 0) {
         return {};
       }
-      let results = [];
+
       // find results for each term
+      let results = [];
       terms.forEach(term => {
         results.push(this.resultsFor(term));
       });
+
       if (results.length === 0) {
+        // If no results return emptiness
         return {};
       }
-      // add our 'iteratee' key
+
+      // add our intersectionBy 'iteratee' key as the last array entry
       results.push("href");
-      // Find the intersection (common) of all individual results
-      results = intersectionBy.apply(null, results);
+      // Find the intersection (common) of all individual term results (all retults ANDed)
+      results = intersectionBy(...results);
+
+      // Return the first 6 results or an empty array
       return groupBy(results.slice(0, 6), "section");
     }
   },
   methods: {
     resultsFor(term) {
+      // Return the search entries for a particular search term
       const regex = new RegExp("\\b" + term, "i");
       const results = [];
 
-      Object.keys(sections).forEach(sectionKey => {
-        const section = sections[sectionKey];
-        Object.keys(section).forEach(itemKey => {
-          const item = section[itemKey];
-
-          if (!regex.test(item.title) && !regex.test(itemKey)) {
-            return;
-          }
-
-          const result = {
-            title: item.title,
-            section: sectionKey,
-            href: ("/docs/" + sectionKey + "/" + itemKey).replace("/#", "#")
-          };
-
-          results.push(result);
-        });
+      SEARCH.forEach(item => {
+        if (regex.test(item.title) || regex.test(item.section)) {
+          results.push(item);
+        }
       });
 
       return results;
