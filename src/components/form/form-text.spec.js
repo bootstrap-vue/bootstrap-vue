@@ -2,7 +2,7 @@ import { loadFixture, testVM } from "../../utils/helpers";
 import regeneratorRuntime from "regenerator-runtime";
 
 describe("form-text", async () => {
-    beforeEach(loadFixture("form-text"));
+    beforeEach(loadFixture("form-text", "form"));
     testVM();
 
     it("default should be tag small", async () => {
