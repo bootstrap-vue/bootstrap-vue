@@ -1,0 +1,30 @@
+{
+    "name": "@bootstrap-vue/form-input",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Form Input",
+        "component": "bFormInput",
+        "events": [
+            {
+                "event": "input",
+                "description": "Emitted when the input receives input from user.",
+                "args": [
+                    {
+                        "arg": "value",
+                        "description": "current value of the input"
+                    }
+                ]
+            },
+            {
+                "event": "change",
+                "description": "Emitted when the input changes.",
+                "args": [
+                    {
+                        "arg": "value",
+                        "description": "current value of the input"
+                    }
+                ]
+            }
+        ]
+    }
+}

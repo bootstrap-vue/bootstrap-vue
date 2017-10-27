@@ -1,0 +1,11 @@
+{
+    "name": "@bootstrap-vue/progress",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Progress",
+        "component": "bProgress",
+        "components": [
+            "bProgressBar"
+        ]
+    }
+}

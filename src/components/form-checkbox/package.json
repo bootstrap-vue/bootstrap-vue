@@ -1,0 +1,33 @@
+{
+    "name": "@bootstrap-vue/form-checkbox",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Form Checkbox",
+        "component": "bFormCheckboxGroup",
+        "components": [
+            "bFormCheckbox"
+        ],
+        "events": [
+            {
+                "event": "input",
+                "description": "Emitted when the selected value(s) is changed",
+                "args": [
+                    {
+                        "arg": "checked",
+                        "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array."
+                    }
+                ]
+            },
+            {
+                "event": "change",
+                "description": "Emitted when selected value(s) is changed due to user interaction",
+                "args": [
+                    {
+                        "arg": "checked",
+                        "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array."
+                    }
+                ]
+            }
+        ]
+    }
+}

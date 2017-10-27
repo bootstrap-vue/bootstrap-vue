@@ -1,0 +1,22 @@
+{
+    "name": "@bootstrap-vue/input-group",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Input Group",
+        "component": "bInputGroup",
+        "components": [
+            "bInputGroupAddon",
+            "bInputGroupButton"
+        ],
+        "slots": [
+            {
+                "name": "left",
+                "description": "Left attachment"
+            },
+            {
+                "name": "right",
+                "description": "Right attachment"
+            }
+        ]
+    }
+}

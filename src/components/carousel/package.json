@@ -1,0 +1,33 @@
+{
+    "name": "@bootstrap-vue/carousel",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Carousel",
+        "component": "bCarousel",
+        "components": [
+            "bCarouselSlide"
+        ],
+        "events": [
+            {
+                "event": "sliding-start",
+                "description": "Emitted when transitioning to a new slide has started.",
+                "args": [
+                    {
+                        "arg": "slide",
+                        "description": "Slide number that is being slid to."
+                    }
+                ]
+            },
+            {
+                "event": "sliding-end",
+                "description": "Emitted when transitioning to a new slide has ended.",
+                "args": [
+                    {
+                        "arg": "slide",
+                        "description": "Slide number that was slid to."
+                    }
+                ]
+            }
+        ]
+    }
+}

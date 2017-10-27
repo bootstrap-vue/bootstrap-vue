@@ -1,0 +1,8 @@
+{
+    "name": "@bootstrapvue/pagination",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Pagination Nav",
+        "component": "bPaginationNav"
+    }
+}

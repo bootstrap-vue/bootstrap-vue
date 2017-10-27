@@ -14,8 +14,8 @@
 
             <b-navbar-nav>
 
-                <b-nav-item-dropdown :text="site.package_info.version" right>
-                    <b-dropdown-item active>{{site.package_info.version}}</b-dropdown-item>
+                <b-nav-item-dropdown :text="version" right>
+                    <b-dropdown-item active>{{ version }}</b-dropdown-item>
                     <b-dropdown-divider></b-dropdown-divider>
                     <b-dropdown-item href="https://bootstrap-vue-alpha.surge.sh">Alpha 6 (0.23.0)</b-dropdown-item>
                 </b-nav-item-dropdown>
@@ -72,11 +72,11 @@
 </style>
 
 <script>
-import site from '~/..';
+import { version } from '~/content';
 
 export default {
     computed: {
-        site: () => site
+        version: () => version
     }
 };
 </script>
