@@ -2,7 +2,7 @@ import { loadFixture, testVM } from "../../utils/helpers";
 import regeneratorRuntime from "regenerator-runtime";
 
 describe("img", async () => {
-  beforeEach(loadFixture("img"));
+  beforeEach(loadFixture("image"));
   testVM();
 
   it("all should be rendered with an 'img' tag", async () => {
