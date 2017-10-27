@@ -44,7 +44,7 @@ const SEARCH = [];
 Object.keys(SECTIONS).forEach(section => {
   SECTIONS[section].keys().forEach(page => {
     // Generate the TOC data for the README.md file (which is in HTML format)
-    const tocData = makeTOC(SECTIONS[section].resolve(page));
+    const tocData = makeTOC(SECTIONS[section](page));
 
     // Build the base path to the page (need to remove leading '.' and trailing '/README.md')
     let baseURL = `/docs${section}${page.replace(/^\.|\/README\.md$/g, '')}`;
