@@ -51,6 +51,7 @@ vue/bootstrap-vue/issues/1228)) ([87cfab4](https://github.com/bootstrap-vue/boot
 * **Progress:** Bootstrap V4.beta.2 CSS height prop change ([#1217](https://github.com/bootstrap-vue/bootstrap-vue/issues/1217)) ([a963ea3](https://github.com/bootstrap-vue/bootstrap-vue/commit/a963ea3)), closes [#1216](https://github.com/bootstrap-vue/bootstrap-vue/issues/1216)
 * Remove spacing between stacked buttons ([554e54a](https://github.com/bootstrap-vue/bootstrap-vue/commit/554e54a))
 * **table:** Don't startcase field label when label explicitly given ([76a511f](https://github.com/bootstrap-vue/bootstrap-vue/commit/76a511f))
+* **fix(tabs):** Apply `small` class to parent `ul.nav` ([42f8a78](https://github.com/bootstrap-vue/bootstrap-vue/commit/42f8a78))
 * **tooltip:** Emit correct `$root` event name ([#1094](https://github.com/bootstrap-vue/bootstrap-vue/issues/1094)) ([87e5eb2](https://github.com/bootstrap-vue/bootstrap-vue/commit/87e5eb2))
 * **tooltip+popover:** Prevent orphaned tooltip/popover divs ([f8cdf26](https://github.com/bootstrap-vue/bootstrap-vue/commit/f8cdf26))
 * **package.json:** Move Bootstrap back to devDep and update popper.js version ([#1228](https://github.com/bootstrap-
