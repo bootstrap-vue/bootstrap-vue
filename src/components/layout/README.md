@@ -347,7 +347,7 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
 
 ## Reordering
 
-### Order props
+### ORdering Columns
 Use `order-*` props for controlling the visual order of your content. These props are
 responsive, so you can set the order by breakpoint (e.g., `order="1" order-md="2"`).
 Includes support for 1 through 12 across all five grid tiers.
@@ -420,7 +420,7 @@ reset offsets by setting the offset to `0` at  a larger breakpoint:
 <!-- grid-offset-reset.vue -->
 ```
 
-### Margin utilities
+### Margin utilities on columns
 With the move to flexbox in Bootstrap v4, you can use [margin](/docs/reference/spacing)
 utility classes like `.mr-auto` to force sibling columns away from one another.
 
