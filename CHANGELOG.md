@@ -21,6 +21,12 @@ Notable changes:
 * ARIA improvements
 * Expanded documentation and examples
 
+### Breaking Change notice for individual component imports
+
+v1.0.0 introduces a new source code structure. For those users that are importing individual
+components, the path to the individual components has changed. Please reference the 
+[GitHub repo](https://github.com/bootstrap-vue/bootstrap-vue/) for the new structure.
+
 ### Bug Fixes v1.0.0
 
 * **button:** Don't overwrite user supplied tabindex if not disabled ([#1120](https://github.com/bootstrap-vue/bootstrap-vue/issues/1120)) ([18f5129](https://github.com/bootstrap-vue/bootstrap-vue/commit/18f5129))
