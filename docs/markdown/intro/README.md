@@ -82,8 +82,8 @@ this by directly importing those components.
 To cherry pick a component/directive, start by importing it in the file where it is being used:
 
 ```js
-import { bModal } from 'bootstrap-vue/lib/components'
-import { bModal as bModalDirective } from 'bootstrap-vue/lib/directives'
+import { bModal } from 'bootstrap-vue/src/components/modal/modal.vue'
+import { bModal as bModalDirective } from 'bootstrap-vue/src/directives/modal/modal.js'
 ```
 
 Then add it to your component definition:
