@@ -90,6 +90,13 @@ Refer to Bootstrap V4's `Form` component documentation for details on validation
 
 Invalid feedback is rendered using the `<b-form-feedback>` componment.
 
+**Note:** When using `<b-input-group>`, `<b-form-radio-group>` or `<b-form-checkbox-group>`
+inside a `<b-form-group>`, setting an invalid `state` on the `input` alone will **not** trigger
+the invalid feeback to show (due to limitations with the new Bootsrap V4 validation CSS).
+To get around this, you must also set the invalid `state` on `<b-form-group>`.  Native browser
+validation will **not** trigger the invalid feedback to show when using one of the three
+mentiond form controls.
+
 ## Contextual visual state
 Bootstrap includes validation styles for `valid` and `invalid` states
 on most form controls.
@@ -102,7 +109,7 @@ and want to encourage a user through the rest of the fields.
 - `null` Displays no validation state
 
 To apply one of the contextual state icons on `<b-form-group>`, set the `state` prop
-to `'invalid'`, `'valid'`, or `null`.
+to `'invalid'` (or `false`), `'valid'` (or `true`), or `null`.
 
 You should always provide content via the `feedback` prop (or slot) to aid users
 using assistive technologies when setting a contextual `invalid` state.
