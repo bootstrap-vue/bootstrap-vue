@@ -32,3 +32,5 @@ If you want to see your changes in your project instead of the playground:
 
 ## Pull requests
 Please ensure all pull requests related to `v1.x` are made aganst the `dev` branch on GitHub.
+See [standard-version](https://github.com/conventional-changelog/standard-version) for commit
+guidelines and PR naming conventions.
