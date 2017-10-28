@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "meta": {
         "title": "Navbar",
+        "breaking": truw,
         "component": "bNavbar",
         "components": [
             "bNavbarNav",
