@@ -24,15 +24,11 @@
 </template>
 
 <style>
-/* a fix for a BS4 beta.1 missing CSS rule */
-.b-form-group.form-group :valid ~ .invalid-feedback {
-  display: none !important;
-}
 /*
    Bootstrap V4.beta uses ~ sibling selector to display the .invalid-feedback
    so we ue a style override and also place .is-invalid on the input layout section
    to target our b-form-feedback (.invalid-feedback) to display it in case
-   thd form input(s) are wrapped in another element, no longer making them siblings
+   the form input(s) are wrapped in another element, no longer making them siblings
  */
 .b-form-group.form-group.is-invalid .invalid-feedback {
   display: block !important;
