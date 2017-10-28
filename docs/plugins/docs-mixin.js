@@ -1,7 +1,7 @@
 /*
  * docs-mixin: used by any page under /docs path
  */
-import { scrollTo } from '~/utils'
+import { scrollTo, offsetTop } from '~/utils'
 
 export default {
     data() {
