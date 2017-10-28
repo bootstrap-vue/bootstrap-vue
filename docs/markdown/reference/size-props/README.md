@@ -5,7 +5,7 @@ of which some of these have been translated into props on components.
 
 
 ## Component `size` prop
-Various components allow for an optional size (via hte `size` prop). Below are the
+Various components allow for an optional size (via the `size` prop). Below are the
 sizes supported via the default Bootsrap V4 CSS.
 
 Available Sizes:
