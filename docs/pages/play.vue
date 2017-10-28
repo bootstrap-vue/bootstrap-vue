@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-5 pt-4">
+    <div class="container">
 
         <div class="mb-3 row">
             <div class="col-md-10">
