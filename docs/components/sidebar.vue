@@ -13,7 +13,6 @@
             <b-nav class="bd-sidenav">
                 <b-nav-item v-for="page in group.pages"
                             :to="('/docs/' + group.base + page.slug).replace(/\/\//g,'/')"
-                            exact
                             :key="page.title
                 ">
                     {{ page.title }}
