@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 set -e
 
-rm -f dist/*
+# Cleanup
+rm -rf dist lib
 
+# ES build (es/)
+BABEL_ENV=es babel -d es  -D --ignore '*.spec.js,*.json,fixtures' src/
+
+# Rollup (dist/)
 rollup -c build/rollup.config.js
 
+# Uglify rollup build
 uglify=`pwd`/node_modules/.bin/uglifyjs
-
 cd dist
+
 for f in *.js; do
     o=`echo $f | sed s/\.js/.min.js/`
     echo "$f ~> $o"

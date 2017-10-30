@@ -23,7 +23,7 @@ if (!fs.existsSync(dist)) {
 const externalExcludes = [
     'popper.js',
     'lodash.startcase'
-]
+];
 
 module.exports = {
     input: path.resolve(src, "index.js"),
@@ -41,20 +41,6 @@ module.exports = {
         resolve({ external: ["vue"] }),
         commonjs(),
         babel({
-            presets: [
-                [
-                    'env',
-                    {
-                        targets: {
-                            browsers: [
-                                'last 4 versions',
-                                'safari >= 7'
-                            ]
-                        },
-                        'modules': false
-                    }
-                ]
-            ],
             plugins: [
                 'external-helpers'
             ]
