@@ -90,12 +90,13 @@ Refer to Bootstrap V4's `Form` component documentation for details on validation
 
 Invalid feedback is rendered using the `<b-form-feedback>` componment.
 
-**Note:** When using `<b-input-group>`, `<b-form-radio-group>` or `<b-form-checkbox-group>`
-inside a `<b-form-group>`, setting an invalid `state` on the `input` alone will **not** trigger
+**Note:** When using `<b-input-group>`, `<b-form-file>`, `<b-form-radio-group>`,
+`<b-form-radio>`, `<b-form-checkbox-group>` or `<b-form-checkbox>` inside a
+`<b-form-group>`, setting an invalid `state` on the `input` alone will **not** trigger
 the invalid feeback to show (due to limitations with the new Bootsrap V4 validation CSS).
-To get around this, you must also set the invalid `state` on `<b-form-group>`.  Native browser
-validation will **not** trigger the invalid feedback to show when using one of the three
-mentiond form controls.
+To get around this, **you must also** set the invalid `state` on `<b-form-group>`.  Native
+browser validation will **not** trigger the invalid feedback to show when using one of
+the above mentiond form controls.
 
 ## Contextual visual state
 Bootstrap includes validation styles for `valid` and `invalid` states
