@@ -22,44 +22,49 @@
 <script>
 import { groupBy, intersectionBy } from "lodash";
 import { makeTOC } from '~/utils';
+import { components as _components, directives as _directives, reference as _reference, misc as _misc } from '~/content';
 
-// Searchable sections of the docs
-const SECTIONS = {
-    '/': require.context('~/../', false, /README.md$/),
-    '/components': require.context('~/../src/components/', true, /README.md$/),
-    '/directives': require.context('~/../src/directives/', true, /README.md$/),
-    '/reference': require.context('~/markdown/reference', true, /README.md$/),
-    '/misc': require.context('~/markdown/misc', true, /README.md$/)
-};
-
-// Our search array in the format of:
-// [
-//     { section: <page.title>, title: <heading.label>, href: <heading.href> },
-//     { section: <page.title>, title: <heading.label>, href: <heading.href> },
-//     etc
-// ]
 const SEARCH = [];
 
-// Build the search data
-Object.keys(SECTIONS).forEach(section => {
-  SECTIONS[section].keys().forEach(page => {
-    // Generate the TOC data for the README.md file (which is in HTML format)
-    const tocData = makeTOC(SECTIONS[section](page));
-
-    // Build the base path to the page (need to remove leading '.' and trailing '/README.md')
-    let baseURL = `/docs${section}${page.replace(/^\.|\/README\.md$/g, '')}`;
-    baseURL = baseURL.trim().replace(/\/\//, '/').replace(/\/$/, '');
-
-    // Process the TOCs toc headings (we need to flatten the toc array, so we spread it first)
-    [].concat(...tocData.toc).forEach(heading => {
-      SEARCH.push({
-        section: tocData.title,
-        title: heading.label,
-        href: (baseURL + heading.href).replace('/#','#')
-      });
+function process(readme, section, page) {
+  const tocData = makeTOC(readme);
+  // Build the base path to the page
+  let baseURL = `/docs/${section}/${page}`;
+  baseURL = baseURL.replace(/\/\//g,'/').replace(/\/$/, '');
+  [].concat(...tocData.toc).forEach(heading => {
+    SEARCH.push({
+      section: tocData.title,
+      title: heading.label,
+      href: (baseURL + heading.href).replace('/#','#')
     });
   });
+}
+
+// Async build the search database
+import('~/markdown/intro/README.md').then(readme => {
+  process(readme, '', '');
 });
+Object.keys(_components).forEach(page => {
+  import('~/../src/components/' + page + '/README.md').then(readme => {
+    process(readme, 'components', page);
+  });
+});
+Object.keys(_directives).forEach(page => {
+  import('~/../src/directives/' + page + '/README.md').then(readme => {
+    process(readme, 'directives', page);
+  });
+});
+Object.keys(_reference).forEach(page => {
+  import('~/markdown/reference/' + page + '/README.md').then(readme => {
+    process(readme, 'reference', page);
+  });
+});
+Object.keys(_misc).forEach(page => {
+  import('~/markdown/misc/' + page + '/README.md').then(readme => {
+    process(readme, 'misc', page);
+  });
+});
+
 
 export default {
   data() {
