@@ -34,7 +34,7 @@
                 localChecked: this.checked || [],
                 // Flag for children
                 is_RadioCheckGroup: true
-              };
+            };
         },
         model: {
             prop: 'checked',
@@ -89,7 +89,7 @@
                     this.sizeFormClass,
                     (this.stacked && this.custom) ? 'custom-controls-stacked' : '',
                     this.validated ? `was-validated` : ''
-               ];
+                ];
             },
             computedAriaInvalid() {
                 if (this.ariaInvalid === true || this.ariaInvalid === 'true' || this.ariaInvalid === '') {
@@ -111,4 +111,3 @@
         }
     };
 </script>
-kbox
