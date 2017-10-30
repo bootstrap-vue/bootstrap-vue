@@ -27,13 +27,6 @@
 </template>
 
 <script>
-    import site from '../..';
-
-    export default{
-        data() {
-            return {
-                site
-            };
-        }
+    export default {
     };
 </script>
