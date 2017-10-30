@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 ## [v1.0.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.9...v1.0.0)
-Released: 2017-10-28
+Released: 2017-10-30
 
 **Version v1.0.0 marks Bootstrap-Vue's departure from the beta development phase.**
 
