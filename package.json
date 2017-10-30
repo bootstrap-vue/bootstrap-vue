@@ -67,6 +67,7 @@
   },
   "devDependencies": {
     "@nuxtjs/pwa": "^1.0.0",
+    "babel-cli": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-istanbul": "^4.1.5",
     "bootstrap": "^4.0.0-beta.2",
@@ -100,9 +101,9 @@
   "jest": {
     "testRegex": "spec.js$",
     "moduleFileExtensions": [
-        "js",
-        "vue"
-      ],
+      "js",
+      "vue"
+    ],
     "transform": {
       "^.+\\.js$": "babel-jest",
       ".*\\.(vue)$": "vue-jest"
