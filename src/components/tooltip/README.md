@@ -5,7 +5,7 @@
 
 ```html
 <div class="text-center my-3">
-  <b-btn v-b-tooltip.hover.auto title="I'm a tooltip!">Hover Me</b-btn>
+  <b-btn v-b-tooltip.hover title="I'm a tooltip!">Hover Me</b-btn>
 </div>
 
 <!-- tooltip-example-1.vue -->
