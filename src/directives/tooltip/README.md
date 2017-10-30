@@ -197,7 +197,7 @@ Title can also be a function reference, which is called each time the tooltip is
   <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover title="Tip from title attributee" variant="success">Title</b-btn>
+        <b-btn v-b-tooltip.hover title="Tip from title attribute" variant="success">Title</b-btn>
       </b-col>
       <b-col md="3" class="py-3">
         <b-btn v-b-tooltip.hover="'String Tip'" variant="success">String</b-btn>
@@ -234,10 +234,9 @@ export default {
 v-b-tooltip:[container].[mod1].[mod2].[...].[modN]="<value>"
 ```
 
-Where `<value>` can be (optional):
- - A string containing the title of the tooltip
- - A function reference to generate the title of the tooltip (receives one arg which is a reference to the DOM element triggering the tooltip)
- - An object containing more complex configuration of tooltip, See Bootstrap docs for possible values/structure)
+Where [container] can be (optional)
+ - An element ID (minus the #) to place the tooltip markup in
+ - If not provided, tooltips are appended to the `body`. If the trigger element is inside a modal, the tooltip will be appended to the modal's container
 
 Where [modX] can be (all optional):
  - Positioning: `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom` (last one found wins, defaults to `top`)
@@ -247,9 +246,27 @@ Where [modX] can be (all optional):
  - A delay value in the format of `d###` (where `###` is in ms, defaults to 0);
  - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults to 0. Negative values allowed)
 
-Where [container] can be (optional)
- - An element ID (minus the #) to place the tooltip markup in
- - If not provided, tooltips are appended to the body
+Where `<value>` can be (optional):
+ - A string containing the title of the tooltip
+ - A function reference to generate the title of the tooltip (receives one arg which is a reference to the DOM element triggering the tooltip)
+ - An object containing more complex configuration of tooltip, See below for accepted object properties:
+
+
+**Options configuration object properties:**
+
+| Property | Type |	Default | Description
+| ---- | ---- | ------- | -----------
+| `animation` | boolean | `true` | Apply a CSS fade transition to the tooltip
+| `container` | string or Element or `false` | `false` | Appends the tooltip to a specific element. Example: `container: 'body'`. This option is particularly useful in that it allows you to position the tooltip in the flow of the document near the triggering element - which will prevent the tooltip from floating away from the triggering element during a window resize. When set to `false` the tooltip will be appended to `body`, or if the trigger element is inside a modal it will append to the modal's container.
+| `delay` | Number or Object | `0` | Delay showing and hiding the tooltip (ms). If a number is supplied, delay is applied to both hide/show. Object structure is: `delay: { "show": 500, "hide": 100 }`
+| `html` | Boolean | `false` | Allow HTML in the tooltip. If true, HTML tags in the tooltip's title will be rendered in the tooltip. If false, the titkle will be inserted as plain text. Use text if you're worried about XSS attacks.
+| `placement` | String or Function | `'top'` | How to position the tooltip - `auto`, `top`, `bottom`, `left`, `right`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom`. When `auto` is specified, it will dynamically reorient the tooltip.
+| `template` | String |	`'<div class="tooltip" role="tooltip"> <div class="arrow"></div> <div class="tooltip-inner"></div> </div>'` | Base HTML to use when creating the tooltip. The tooltip's title will be injected into the `.tooltip-inner`, while `.arrow` will become the tooltip's arrow. The outermost wrapper element should have the `.tooltip` class.
+| `title` | String or Element or function |	`''` | Default title value if title attribute isn't present. If a function is given, it must return a string.
+| `trigger` | String | `'hover focus'` | How tooltip is triggered: `click`, `hover`, `focus`. You may pass multiple triggers; separate them with a space.
+| `offset` | Number or String | `0` | Offset of the tooltip relative to its target. For more information refer to Popper.js's offset docs.
+| `fallbackPlacement` | String or Array | `'flip'` | Allow to specify which position Popper will use on fallback. For more information refer to Popper.js's behavior docs
+
 
 ### Usage
 
@@ -278,6 +295,12 @@ v-b-tooltip.hover.focus => Both hover and focus
 v-b-tooltip.hover.bottom  => Show on hover and place at bottom
 v-b-tooltip.bottom.hover  => Same as above
 ```
+
+**Object:**
+```
+v-b-tooltip="{title: 'Title', placement: 'bottom'}"
+```
+
 
 ## Closing all tooltips
 You can close all open tooltips by emitting the `bv::hide::tooltip` event on $root:
