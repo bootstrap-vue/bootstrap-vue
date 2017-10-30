@@ -1,8 +1,7 @@
-import { loadFixture, testVM, nextTick } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
 
 describe("dropdown", async () => {
-    beforeEach(loadFixture("dropdown"));
+    beforeEach(loadFixture(__dirname, "dropdown"));
     testVM();
 
     it("should work", async () => {

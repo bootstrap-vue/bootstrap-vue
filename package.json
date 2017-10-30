@@ -53,8 +53,7 @@
     "docs-dev": "nuxt dev -c docs/nuxt.config.js",
     "docs-gen": "nuxt generate -c docs/nuxt.config.js",
     "docs-publish": "./build/gh-pages",
-    "test": "NODE_ENV=test npm run build && jest --maxWorkers=2",
-    "test-dev": "NODE_ENV=test npm run build && jest",
+    "test": "jest",
     "prepublish": "npm run test && npm run build",
     "postpublish": "npm run docs-publish",
     "release": "standard-version"
@@ -84,7 +83,6 @@
     "highlightjs": "^9.8.0",
     "html-loader": "^0.5.1",
     "jest": "^21.2.1",
-    "jest-vue-preprocessor": "^1.3.1",
     "lodash": "^4.17.4",
     "markdown-loader": "^2.0.1",
     "marked": "^0.3.6",
@@ -96,24 +94,23 @@
     "rollup-plugin-vue": "^2.5.2",
     "rollup-watch": "^4.3.1",
     "standard-version": "^4.2.0",
-    "uglify-es": "^3.1.5"
+    "uglify-es": "^3.1.5",
+    "vue-jest": "^1.0.0",
+    "vue-test-utils": "^1.0.0-beta.4"
   },
   "jest": {
-    "setupFiles": ["./setupFile.js"],
     "testRegex": "spec.js$",
     "moduleFileExtensions": [
-      "js",
-      "vue"
-    ],
+        "js",
+        "vue"
+      ],
     "transform": {
-      "^.+\\.js$": "./jest.transform.js",
-      ".*\\.(vue)$": "jest-vue-preprocessor"
+      "^.+\\.js$": "babel-jest",
+      ".*\\.(vue)$": "vue-jest"
     },
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src"
-    ]
+    "mapCoverage": true
   },
   "keywords": [
     "Bootstrap",

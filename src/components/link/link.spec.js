@@ -1,8 +1,8 @@
-import { loadFixture, testVM } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM } from '../../../tests/utils';
+
 
 describe("link", async () => {
-    beforeEach(loadFixture("link"));
+    beforeEach(loadFixture(__dirname, "link"));
     testVM();
 
     it("should render <a>", async () => {

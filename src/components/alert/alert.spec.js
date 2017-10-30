@@ -1,20 +1,20 @@
-import {loadFixture, testVM, nextTick, setData} from '../../utils/helpers';
-import Vue from 'vue/dist/vue.common';
-import regeneratorRuntime from "regenerator-runtime";
-jest.useFakeTimers();
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
+
 describe('alert', async () => {
-    beforeEach(loadFixture('alert'));
+    jest.useFakeTimers();
+
+    beforeEach(loadFixture(__dirname, 'alert'));
     testVM();
 
     it('check class names', async () => {
-        const {app: {$refs, $el}} = window;
+        const { app: { $refs, $el } } = window;
 
         expect($refs.default_alert).toHaveClass('alert alert-info');
         expect($refs.success_alert).toHaveClass('alert alert-success');
     });
 
     it('show prop', async () => {
-        const {app: {$refs, $el}} = window;
+        const { app: { $refs, $el } } = window;
 
         // Default is hidden
         expect($el.textContent).not.toContain('Dismissible Alert!');
@@ -25,7 +25,7 @@ describe('alert', async () => {
     });
 
     it('dismiss button', async () => {
-        const {app: {$refs, $el}} = window;
+        const { app: { $refs, $el } } = window;
         const alert = $refs.success_alert;
 
         expect(alert).toHaveClass('alert-dismissible');
@@ -38,7 +38,7 @@ describe('alert', async () => {
     });
 
     it('emits dismiss-count-down event', async () => {
-        const {app: {$refs, $el}} = window;
+        const { app: { $refs, $el } } = window;
         const alert = $refs.counter_alert;
         const spy = jest.fn()
 
@@ -53,10 +53,10 @@ describe('alert', async () => {
         expect(spy).not.toBeCalled();
         jest.runTimersToTime(1000);
         // Emits a dismiss-count-down` event
-        expect(spy).toHaveBeenCalledWith(dismissTime-1);
+        expect(spy).toHaveBeenCalledWith(dismissTime - 1);
         // await nextTick();
         jest.runAllTimers();
         expect($el.textContent).toContain('This alert will dismiss after');
-        expect(spy.mock.calls.length).toBe(dismissTime+1);
+        expect(spy.mock.calls.length).toBe(dismissTime + 1);
     });
 });

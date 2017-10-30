@@ -1,7 +1,7 @@
-import { loadFixture, testVM } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
+
 describe("button-group", async () => {
-    beforeEach(loadFixture("button-group"))
+    beforeEach(loadFixture(__dirname, "button-group"))
     testVM()
 
     it("basic should contain base class", async () => {

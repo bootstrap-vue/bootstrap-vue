@@ -1,7 +1,7 @@
-import { loadFixture, testVM } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
+
 describe("card", async () => {
-    beforeEach(loadFixture("card"));
+    beforeEach(loadFixture(__dirname, "card"));
     testVM();
 
     it("should contain '.card-body' class in the default slot", async () => {

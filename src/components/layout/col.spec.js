@@ -1,5 +1,5 @@
-import { loadFixture, testVM } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM } from '../../../tests/utils';
+
 
 // TODO: Export function from col.js
 function computeBkPtClass(type, breakpoint, val) {
@@ -20,7 +20,7 @@ function computeBkPtClass(type, breakpoint, val) {
 }
 
 describe("col", async () => {
-    beforeEach(loadFixture("col", "layout"));
+    beforeEach(loadFixture(__dirname, "col"));
     testVM();
 
     it("should apply '.col' when no props passed", async () => {

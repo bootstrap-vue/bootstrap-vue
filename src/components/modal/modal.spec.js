@@ -1,7 +1,7 @@
-import {loadFixture, testVM} from '../../utils/helpers';
-import regeneratorRuntime from "regenerator-runtime";
+import {loadFixture, testVM} from '../../../tests/utils';
+
 
 describe('modal', async() => {
-    beforeEach(loadFixture('modal'));
+    beforeEach(loadFixture(__dirname, 'modal'));
     testVM();
 });

@@ -1,7 +1,7 @@
-import {loadFixture, testVM} from '../../utils/helpers';
-import regeneratorRuntime from "regenerator-runtime";
+import {loadFixture, testVM} from '../../../tests/utils';
+
 
 describe('pagination-nav', async() => {
-    beforeEach(loadFixture('pagination-nav'));
+    beforeEach(loadFixture(__dirname, 'pagination-nav'));
     testVM();
 });

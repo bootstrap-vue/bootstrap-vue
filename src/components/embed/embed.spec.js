@@ -1,7 +1,7 @@
-import { loadFixture, testVM } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
+
 describe("embed", async () => {
-  beforeEach(loadFixture("embed"));
+  beforeEach(loadFixture(__dirname, "embed"));
   testVM();
 
   it("default should be rendered with outer tag 'div'", async () => {

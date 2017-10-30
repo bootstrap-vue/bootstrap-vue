@@ -1,7 +1,7 @@
-import { loadFixture, testVM, setData, nextTick } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
+
 describe("collapse", async () => {
-    beforeEach(loadFixture("collapse"));
+    beforeEach(loadFixture(__dirname, "collapse"));
     testVM();
 
     it("v-b-toggle examples should have aria-controls ID", async () => {

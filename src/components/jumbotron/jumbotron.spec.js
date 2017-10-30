@@ -1,8 +1,8 @@
-import {loadFixture, testVM} from '../../utils/helpers';
-import regeneratorRuntime from "regenerator-runtime";
+import {loadFixture, testVM} from '../../../tests/utils';
+
 
 describe('jumbotron', async() => {
-    beforeEach(loadFixture('jumbotron'));
+    beforeEach(loadFixture(__dirname, 'jumbotron'));
     testVM();
 
     it("All examples should contain base class", async () => {

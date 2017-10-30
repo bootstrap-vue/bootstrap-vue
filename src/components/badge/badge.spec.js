@@ -1,11 +1,11 @@
-import { loadFixture, testVM } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
+
 const variantList = ["secondary", "primary", "success", "info", "warning", "danger", "dark", "light"].map(variant => {
     return { ref: `badge_${variant}`, variant };
 });
 
 describe("badge", async () => {
-    beforeEach(loadFixture("badge"));
+    beforeEach(loadFixture(__dirname, "badge"));
     testVM();
 
     it("should apply variant classes", async () => {

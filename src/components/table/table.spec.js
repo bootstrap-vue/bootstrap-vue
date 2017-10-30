@@ -1,8 +1,8 @@
-import { loadFixture, testVM, setData, nextTick, sleep } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM, setData, nextTick, sleep } from '../../../tests/utils';
+
 
 describe("table", async () => {
-    beforeEach(loadFixture("table"));
+    beforeEach(loadFixture(__dirname, "table"));
     testVM();
 
     it("all example tables should contain class names", async () => {

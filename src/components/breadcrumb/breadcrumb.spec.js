@@ -1,7 +1,7 @@
-import { loadFixture, testVM } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
+
 describe("breadcrumb", async () => {
-    beforeEach(loadFixture("breadcrumb"));
+    beforeEach(loadFixture(__dirname, "breadcrumb"));
     testVM();
 
     it("should apply bootstrap breadcrumb classes", async () => {

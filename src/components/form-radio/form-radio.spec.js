@@ -1,7 +1,7 @@
-import {loadFixture, testVM} from '../../utils/helpers';
-import regeneratorRuntime from "regenerator-runtime";
+import {loadFixture, testVM} from '../../../tests/utils';
+
 
 describe('form-radio', async() => {
-    beforeEach(loadFixture('form-radio'));
+    beforeEach(loadFixture(__dirname, 'form-radio'));
     testVM();
 });

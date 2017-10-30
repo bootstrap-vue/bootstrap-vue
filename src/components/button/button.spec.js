@@ -1,5 +1,5 @@
-import { loadFixture, testVM, nextTick, setData } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
+
 /**
  * Button functionality to test:
  * - Style variants: [ 'primary','secondary','success','outline-success','warning','danger','link' ]
@@ -27,7 +27,7 @@ const btnRefs = variants.reduce(
 );
 
 describe("button", async () => {
-    beforeEach(loadFixture("button"));
+    beforeEach(loadFixture(__dirname, "button"));
     testVM();
 
     it("should contain class names", async () => {

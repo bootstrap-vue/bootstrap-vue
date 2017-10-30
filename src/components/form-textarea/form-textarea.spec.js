@@ -1,7 +1,7 @@
-import {loadFixture, testVM} from '../../utils/helpers';
-import regeneratorRuntime from "regenerator-runtime";
+import {loadFixture, testVM} from '../../../tests/utils';
+
 
 describe('form-textarea', async() => {
-    beforeEach(loadFixture('form-textarea'));
+    beforeEach(loadFixture(__dirname, 'form-textarea'));
     testVM();
 });

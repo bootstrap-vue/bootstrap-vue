@@ -1,8 +1,7 @@
-import { loadFixture, testVM } from "../../utils/helpers";
-import regeneratorRuntime from "regenerator-runtime";
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
 
 describe("form-feedback", async () => {
-    beforeEach(loadFixture("form-feedback", "form"));
+    beforeEach(loadFixture(__dirname, "form-feedback"));
     testVM();
 
     it("default should have tag div", async () => {

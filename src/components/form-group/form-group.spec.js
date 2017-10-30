@@ -1,6 +1,6 @@
-import {loadFixture, testVM} from '../../utils/helpers';
-import regeneratorRuntime from "regenerator-runtime";
+import {loadFixture, testVM} from '../../../tests/utils';
+
 describe('form-group', async() => {
-    beforeEach(loadFixture('form-group'));
+    beforeEach(loadFixture(__dirname, 'form-group'));
     testVM();
 });
