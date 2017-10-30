@@ -47,15 +47,16 @@ module.exports = {
     generate: {
         dir: 'docs-dist',
         routes: () => {
-            let scan = dir => fs.readdirSync(`docs/${dir}`)
+            let scan = (root, dir, excludeDirs = []) => fs.readdirSync(`${root}/${dir}`)
                 .filter(c => c !== 'index.js' && c[0] !== '_')
-                .map(component => `/docs/${dir}/${component}`);
+                .filter(c => excludeDirs.indexOf(c) === -1)
+                .map(page => `/docs/${dir}/${page}`);
 
             return []
-                .concat(scan('components'))
-                .concat(scan('directives'))
-                .concat(scan('reference'))
-                .concat(scan('misc'))
+                .concat(scan('src', 'components', ['link']))
+                .concat(scan('src', 'directives', ['modal', 'toggle']))
+                .concat(scan('docs/markdown', 'reference'))
+                .concat(scan('docs/markdown', 'misc'))
         }
     },
 
