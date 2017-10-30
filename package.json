@@ -55,7 +55,7 @@
     "docs-publish": "./build/gh-pages",
     "test": "NODE_ENV=test jest",
     "postpublish": "npm run docs-publish",
-    "release": "standard-version"
+    "release": "npm run build && standard-version"
   },
   "peerDependencies": {
     "vue": "^2.4.2"
@@ -71,10 +71,10 @@
     "babel-plugin-istanbul": "^4.1.5",
     "bootstrap": "^4.0.0-beta.2",
     "clean-css": "^4.1.9",
-    "codecov": "^2.3.0",
+    "codecov": "^3.0.0",
     "codemirror": "^5.31.0",
     "cross-env": "^5.1.0",
-    "eslint": "^4.9.0",
+    "eslint": "^4.10.0",
     "eslint-plugin-html": "^3.2.2",
     "eslint-plugin-vue": "^2.1.0",
     "eslint-plugin-vue-libs": "^1.2.1",
@@ -88,12 +88,12 @@
     "nuxt": "1.0.0-rc11",
     "rollup": "^0.50.0",
     "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-commonjs": "^8.2.5",
+    "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-vue": "^2.5.2",
     "rollup-watch": "^4.3.1",
     "standard-version": "^4.2.0",
-    "uglify-es": "^3.1.5",
+    "uglify-es": "^3.1.6",
     "vue-jest": "^1.0.0",
     "vue-test-utils": "^1.0.0-beta.4"
   },
