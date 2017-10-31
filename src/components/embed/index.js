@@ -1,4 +1,4 @@
-import bEmbed `./embed`;
+import bEmbed from './embed';
 
 const VuePlugin = {
   install(Vue) {
