@@ -1,12 +1,17 @@
 import bFormInput from './form-input.vue';
-import bFormInputStatic from './form-input-static.vue';
+
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bFormInput,
+  bFormInput as bInput
+};
 
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bFormInput);
-    Vue.component(bFormInput as bInput);
-    Vue.component(bFormInputStatic);
-    Vue.component(bFormInputStatic as bInputStatic);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
