@@ -2,7 +2,7 @@ import bToggle from './toggle';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
-const directive = {
+const directives = {
   bToggle
 };
 
