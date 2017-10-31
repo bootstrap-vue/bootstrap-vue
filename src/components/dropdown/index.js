@@ -8,17 +8,17 @@ import bDropdownDivider from './dropdown-divider';
 
 const components = {
   bDropdown,
-  bDropdown as bDd,
+  bDd: bDropdown,
   bDropdownItem,
-  bDropdownItem as bDdItem,
+  bDdItem: bDropdownItem,
   bDropdownItemButton,
-  bDropdownItemButton as bDropdownItemBtn,
-  bDropdownItemButton as bDdItemButton,
-  bDropdownItemButton as bDdItemBtn,
+  bDropdownItemBtn: bDropdownItemButton,
+  bDdItemButton: bDropdownItemButton,
+  bDdItemBtn: bDropdownItemButton,
   bDropdownHeader,
-  bDropdownHeader as bDdHeader,
+  bDdHeader: bDropdownHeader,
   bDropdownDivider,
-  bDropdownDivider as bDdDivider
+  bDdDivider: bDropdownDivider
 };
 
 const VuePlugin = {
