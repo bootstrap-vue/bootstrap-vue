@@ -2,11 +2,19 @@ import bMedia from './media';
 import bMediaAside from './media-aside';
 import bMediaBody from './media-body';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bMedia,
+  bMediaAside,
+  bMediaBody
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bMedia);
-    Vue.component(bMediaAside);
-    Vue.component(bMediaBody);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
