@@ -4,20 +4,28 @@ import bDropdownItemButton from './dropdown-item-button';
 import bDropdownHeader from './dropdown-header';
 import bDropdownDivider from './dropdown-divider';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bDropdown,
+  bDropdown as bDd,
+  bDropdownItem,
+  bDropdownItem as bDdItem,
+  bDropdownItemButton,
+  bDropdownItemButton as bDropdownItemBtn,
+  bDropdownItemButton as bDdItemButton,
+  bDropdownItemButton as bDdItemBtn,
+  bDropdownHeader,
+  bDropdownHeader as bDdHeader,
+  bDropdownDivider,
+  bDropdownDivider as bDdDivider
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bDropdown);
-    Vue.component(bDropdown as bDd);
-    Vue.component(bDropdownItem);
-    Vue.component(bDropdownItem as bDdItem);
-    Vue.component(bDropdownItemButton);
-    Vue.component(bDropdownItemButton as bDropdownItemBtn);
-    Vue.component(bDropdownItemButton as bDdItemButton);
-    Vue.component(bDropdownItemButton as bDdItemBtn);
-    Vue.component(bDropdownHeader);
-    Vue.component(bDropdownHeader as bDdHeader);
-    Vue.component(bDropdownDivider);
-    Vue.component(bDropdownDivider as bDdDivider);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
