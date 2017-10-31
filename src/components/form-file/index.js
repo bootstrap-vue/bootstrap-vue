@@ -1,9 +1,17 @@
 import bFormFile from './form-file.vue';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bFormFile,
+  bFormFile as bFile
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bFormFile);
-    Vue.component(bFormFile as bFile);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
