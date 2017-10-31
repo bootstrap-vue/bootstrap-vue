@@ -4,7 +4,7 @@ import bButtonToolbar from './button-toolbar.vue';
 
 const components = {
   bButtonToolbar,
-  bButtonToolbar: bBtnToolbar
+  bBtnToolbar: bButtonToolbar
 };
 
 const VuePlugin = {
