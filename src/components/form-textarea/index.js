@@ -4,7 +4,7 @@ import bFormTextarea from './form-textarea.vue';
 
 const components = {
   bFormTextarea,
-  bFormTextarea as bTextarea
+  bTextarea: bFormTextarea
 };
 
 const VuePlugin = {
