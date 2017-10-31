@@ -1,4 +1,4 @@
-import bFormSelect `./form-select.vue`;
+import bFormSelect from './form-select.vue';
 
 const VuePlugin = {
   install(Vue) {
