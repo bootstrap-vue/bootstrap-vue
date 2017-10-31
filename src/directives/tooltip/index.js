@@ -9,8 +9,8 @@ const directives = {
 
 const VuePlugin = {
   install(Vue) {
-    if (!registerDirective(Vue, 'tooltip')) {
-      for (var directive in directives) {
+    for (var directive in directives) {
+      if (!registerDirective(Vue, directive)) {
         Vue.directive(directive, directives[directive]);
       }
     }
