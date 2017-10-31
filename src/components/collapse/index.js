@@ -10,12 +10,12 @@ const components = {
 
 const VuePlugin = {
   install(Vue) {
-    Vue.use(togglePlugin);
-    if (!registerComponent(Vue, 'collapse')) {
-      for (var component in components) {
+    for (var component in components) {
+      if (!registerComponent(Vue, component)) {
         Vue.component(component, components[component]);
       }
     }
+    Vue.use(togglePlugin);
   }
 };
 
