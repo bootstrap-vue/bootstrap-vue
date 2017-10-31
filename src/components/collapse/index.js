@@ -1,4 +1,4 @@
-import bCollapse `./collapse.vue`;
+import bCollapse from './collapse.vue';
 import togglePlugin from '../../directives/toggle';
 
 const VuePlugin = {
