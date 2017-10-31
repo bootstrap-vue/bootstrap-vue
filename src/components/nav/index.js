@@ -14,6 +14,8 @@ const VuePlugin = {
     Vue.component(bNavForm);
     Vue.component(bNavToggle);
     Vue.component(bNavItemDropdown);
+    Vue.component(bNavItemDropdown as bNavDropdown);
+    Vue.component(bNavItemDropdown as bNavDd);
     Vue.component(bNavItemDropdown as bNavItemDd);
     Vue.use(dropdownPlugin);
   }
