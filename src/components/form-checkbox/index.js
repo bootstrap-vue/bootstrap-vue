@@ -1,14 +1,22 @@
 import bFormCheckbox from './form-checkbox.vue';
 import bFormCheckboxGroup from './form-checkbox-group.vue';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bFormCheckbox,
+  bFormCheckbox as bCheckbox,
+  bFormCheckbox as bCheck,
+  bFormCheckboxGroup,
+  bFormCheckboxGroup as bCheckboxGroup,
+  bFormCheckboxGroup as bCheckGroup
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bFormCheckbox);
-    Vue.component(bFormCheckbox as bCheckbox);
-    Vue.component(bFormCheckbox as bCheck);
-    Vue.component(bFormCheckboxGroup);
-    Vue.component(bFormCheckboxGroup as bCheckboxGroup);
-    Vue.component(bFormCheckboxGroup as bCheckGroup);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
