@@ -1,7 +1,7 @@
 import bNavbar from './navbar';
 import bNavbarNav from './navbar-nav';
 import bNavbarBrand from './navbar-brand';
-import bNavbarToggle from './navbar-toggle';
+import bNavbarToggle from './navbar-toggle.vue';
 import navPlugin from  '../nav';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
