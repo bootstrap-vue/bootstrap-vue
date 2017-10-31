@@ -1,6 +1,6 @@
-import bBreadcrumb `./breadcrumb`;
-import bBreadcrumbItem `./breadcrumb-item`;
-import bBreadcrumbLink `./breadcrumb-link`;
+import bBreadcrumb from './breadcrumb';
+import bBreadcrumbItem from './breadcrumb-item';
+import bBreadcrumbLink from './breadcrumb-link';
 
 const VuePlugin = {
   install(Vue) {
