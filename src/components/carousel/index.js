@@ -1,5 +1,5 @@
-import bCarousel `./carousel.vue`;
-import bCarouselSlide `./carousel-slide.vue`;
+import bCarousel from './carousel.vue';
+import bCarouselSlide from './carousel-slide.vue';
 
 const VuePlugin = {
   install(Vue) {
