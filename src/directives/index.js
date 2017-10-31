@@ -1,13 +1,13 @@
-import bToggle from './toggle/toggle';
-import bModal from './modal/modal';
-import bScrollspy from './scrollspy/scrollspy';
-import bTooltip from './tooltip/tooltip';
-import bPopover from './popover/popover';
+import Toggle from './toggle';
+import Modal from './modal';
+import Scrollspy from './scrollspy';
+import Tooltip from './tooltip';
+import Popover from './popover';
 
 export {
-    bToggle,
-    bModal,
-    bScrollspy,
-    bTooltip,
-    bPopover
+    Toggle,
+    Modal,
+    Scrollspy,
+    Tooltip,
+    Popover
 };
