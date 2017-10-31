@@ -6,17 +6,25 @@ import bNavToggle from './nav-toggle.vue';
 import bNavItemDropdown from './nav-item-dropdown.vue';
 import dropdownPlugin from '.../dropdown';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bNav,
+  bNavItem,
+  bNavTtext,
+  bNavForm,
+  bNavToggle,
+  bNavItemDropdown,
+  bNavItemDd: bNavItemDropdown,
+  bNavDropdown: bNavItemDropdown,
+  bNavDd: bNavItemDropdown
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bNav);
-    Vue.component(bNavItem);
-    Vue.component(bNavText);
-    Vue.component(bNavForm);
-    Vue.component(bNavToggle);
-    Vue.component(bNavItemDropdown);
-    Vue.component(bNavItemDropdown as bNavDropdown);
-    Vue.component(bNavItemDropdown as bNavDd);
-    Vue.component(bNavItemDropdown as bNavItemDd);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
     Vue.use(dropdownPlugin);
   }
 };
