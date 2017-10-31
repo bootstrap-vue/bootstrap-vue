@@ -3,11 +3,19 @@ import bNavbarNav from `./navbar-nav`;
 import bNavbarBrand from `./navbar-brand`;
 import navPlugin from  '../nav';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bNavbar,
+  bNavbarNav,
+  bNavbarBrand,
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bNavbar);
-    Vue.component(bNavbarNav);
-    Vue.component(bNavbarBrand);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
     Vue.use(navPlugin);
   }
 };
