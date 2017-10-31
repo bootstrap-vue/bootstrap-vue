@@ -4,7 +4,7 @@ import bButtonGroup from './button-group';
 
 const components = {
   bButtonGroup,
-  bButtonGroup as bBtnGroup
+  bButtonGroup: bBtnGroup
 };
 
 const VuePlugin = {
