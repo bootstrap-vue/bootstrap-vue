@@ -1,14 +1,20 @@
 import bButtonToolbar from './button-toolbar.vue';
 
+const components = {
+  bButtonToolbar,
+  bButtonToolbar as bBtnToolbar
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bButtonToolbar);
-    Vue.component(bButtonToolbar as bBtnToolbar);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
 if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(VuePlugin);
+  window.Vue.use(VuePlugin);
 };
 
 export default VuePlugin;
