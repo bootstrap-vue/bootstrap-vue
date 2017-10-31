@@ -1,4 +1,4 @@
-import bPopover from `./popover.vue`;
+import bPopover from './popover.vue';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
