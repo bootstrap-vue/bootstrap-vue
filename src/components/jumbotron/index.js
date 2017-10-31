@@ -1,8 +1,16 @@
 import bJumbotron from './jumbotron';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bJumbotron
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bJumbotron);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
