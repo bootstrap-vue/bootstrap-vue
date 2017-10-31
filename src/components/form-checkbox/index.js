@@ -5,11 +5,11 @@ import bFormCheckboxGroup from './form-checkbox-group.vue';
 
 const components = {
   bFormCheckbox,
-  bFormCheckbox as bCheckbox,
-  bFormCheckbox as bCheck,
+  bCheckbox: bFormCheckbox,
+  bCheck: bFormCheckbox,
   bFormCheckboxGroup,
-  bFormCheckboxGroup as bCheckboxGroup,
-  bFormCheckboxGroup as bCheckGroup
+  bCheckboxGroup: bFormCheckboxGroup,
+  bCheckGroup: bFormCheckboxGroup
 };
 
 const VuePlugin = {
