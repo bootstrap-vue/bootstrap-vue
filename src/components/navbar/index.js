@@ -1,6 +1,7 @@
 import bNavbar from './navbar';
 import bNavbarNav from './navbar-nav';
 import bNavbarBrand from './navbar-brand';
+import bNavbarToggle from './navbar-toggle';
 import navPlugin from  '../nav';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
@@ -8,7 +9,9 @@ import navPlugin from  '../nav';
 const components = {
   bNavbar,
   bNavbarNav,
-  bNavbarBrand
+  bNavbarBrand,
+  bNavbarToggle,
+  bNavToggle: bNavbarToggle
 };
 
 const VuePlugin = {
