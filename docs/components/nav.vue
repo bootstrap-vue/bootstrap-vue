@@ -1,7 +1,7 @@
 <template>
     <b-navbar toggleable="md" class="navbar-dark bd-navbar" sticky>
 
-        <b-nav-toggle target="bd-main-nav"></b-nav-toggle>
+        <b-navbar-toggle target="bd-main-nav"></b-navbar-toggle>
 
         <b-navbar-brand to="/" exact>BootstrapVue</b-navbar-brand>
 
