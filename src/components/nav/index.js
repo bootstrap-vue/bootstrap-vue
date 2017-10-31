@@ -2,7 +2,6 @@ import bNav from './nav';
 import bNavItem from './nav-item';
 import bNavText from './nav-text';
 import bNavForm from './nav-form';
-import bNavToggle from './nav-toggle.vue';
 import bNavItemDropdown from './nav-item-dropdown.vue';
 import dropdownPlugin from '../dropdown';
 
@@ -13,7 +12,6 @@ const components = {
   bNavItem,
   bNavText,
   bNavForm,
-  bNavToggle,
   bNavItemDropdown,
   bNavItemDd: bNavItemDropdown,
   bNavDropdown: bNavItemDropdown,
