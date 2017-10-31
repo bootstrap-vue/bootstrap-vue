@@ -1,4 +1,4 @@
-import bBadge `./badge`;
+import bBadge from './badge';
 
 const VuePlugin = {
   install(Vue) {
