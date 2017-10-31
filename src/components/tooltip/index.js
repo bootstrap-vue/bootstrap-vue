@@ -1,8 +1,16 @@
 import bTooltip from `./tooltip.vue`;
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bTooltip
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bTooltip);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
