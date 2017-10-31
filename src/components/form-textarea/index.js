@@ -1,4 +1,4 @@
-import bFormTextarea `./form-textarea.vue`;
+import bFormTextarea from './form-textarea.vue';
 
 const VuePlugin = {
   install(Vue) {
