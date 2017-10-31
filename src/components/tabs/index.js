@@ -1,5 +1,5 @@
-import bTabs from `./tabs.vue`;
-import bTab from `./tab.vue`;
+import bTabs from './tabs.vue';
+import bTab from './tab.vue';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
