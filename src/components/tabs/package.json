@@ -1,8 +1,8 @@
 {
-    "name": "@bootstrap-vue/tab",
+    "name": "@bootstrap-vue/tabs",
     "version": "1.0.0",
     "meta": {
-        "title": "Tab",
+        "title": "Tabs",
         "component": "bTabs",
         "components": [
             "bTab"
