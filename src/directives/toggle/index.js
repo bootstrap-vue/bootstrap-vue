@@ -1,4 +1,4 @@
-import bToggle `./toggle`;
+import bToggle from './toggle';
 
 const VuePlugin = {
   install(Vue) {
