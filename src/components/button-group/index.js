@@ -3,7 +3,7 @@ import bButtonGroup from './button-group';
 const VuePlugin = {
   install(Vue) {
     Vue.component(bButtonGroup);
-    Vue.component(bButtonGroup as bBtnGroup);
+    Vue.component({bBtnGroup: bButtonGroup});
   }
 };
 
