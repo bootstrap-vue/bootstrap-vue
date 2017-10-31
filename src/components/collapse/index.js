@@ -11,7 +11,7 @@ const components = {
 const VuePlugin = {
   install(Vue) {
     Vue.use(togglePlugin);
-    if (!registerComponent(Vue, 'alert')) {
+    if (!registerComponent(Vue, 'collapse')) {
       for (var component in components) {
         Vue.component(component, components[component]);
       }
