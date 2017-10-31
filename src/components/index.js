@@ -42,7 +42,6 @@ export {
     Button,
     ButtonToolbar,
     ButtonGroup,
-    InputGroup,
     Card,
     Carousel,
     Collapse,
@@ -57,6 +56,7 @@ export {
     FormRadio,
     FormSelect,
     Image,
+    InputGroup,
     Jumbotron,
     Layout,
     Link,
@@ -70,6 +70,6 @@ export {
     Popover,
     Progress,
     Table,
-    Tooltip,
-    Tabs
+    Tabs,
+    Tooltip
 };
