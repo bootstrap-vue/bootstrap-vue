@@ -1,8 +1,16 @@
 import bEmbed from './embed';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bEmbed
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bEmbed);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
