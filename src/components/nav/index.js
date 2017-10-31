@@ -4,6 +4,7 @@ import bNavText from './nav-text';
 import bNavForm from './nav-form';
 import bNavItemDropdown from './nav-item-dropdown.vue';
 import dropdownPlugin from '../dropdown';
+import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -21,7 +22,9 @@ const components = {
 const VuePlugin = {
   install(Vue) {
     for (var component in components) {
-      Vue.component(component, components[component]);
+      if (!registerComponent(Vue, component)) {
+        Vue.component(component, components[component]);
+      }
     }
     Vue.use(dropdownPlugin);
   }
