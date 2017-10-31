@@ -4,7 +4,7 @@ import bFormSelect from './form-select.vue';
 
 const components = {
   bFormSelect,
-  bFormSelect as bSelect
+  bSelect: bFormSelect
 };
 
 const VuePlugin = {
