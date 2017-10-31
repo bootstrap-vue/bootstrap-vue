@@ -1,8 +1,14 @@
 import bBadge from './badge';
 
+const components = {
+  bBadge
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bBadge);
+    for (var copmponent in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
