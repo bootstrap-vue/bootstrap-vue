@@ -1,5 +1,5 @@
-import bFormRadio `./form-radio.vue`;
-import bFormRadioGroup `./form-radio-group.vue`;
+import bFormRadio from './form-radio.vue';
+import bFormRadioGroup from './form-radio-group.vue';
 
 const VuePlugin = {
   install(Vue) {
