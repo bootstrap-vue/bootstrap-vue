@@ -5,14 +5,22 @@ import bCardFooter from './card-footer';
 import bCardImg from './card-img';
 import bCardGroup from './card-group';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bCard,
+  bCardHeader,
+  bCardBody,
+  bCardFooter,
+  bCardImg,
+  bCardGroup
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bCard);
-    Vue.component(bCardHeader);
-    Vue.component(bCardBody);
-    Vue.component(bCardFooter);
-    Vue.component(bCardImg);
-    Vue.component(bCardGroup);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
