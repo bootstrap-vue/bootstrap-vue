@@ -1,4 +1,5 @@
 import bModal from './modal';
+import { registerDirective } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -8,8 +9,10 @@ const directives = {
 
 const VuePlugin = {
   install(Vue) {
-    for (var directive in directives) {
-      Vue.directive(directive, directives[directive]);
+    if (!registerDirective(Vue, 'modal')) {
+      for (var directive in directives) {
+        Vue.directive(directive, directives[directive]);
+      }
     }
   }
 };
