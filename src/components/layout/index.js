@@ -2,6 +2,7 @@ import bContainer from './container';
 import bRow from './row';
 import bCol from './col';
 import bFormRow from '../form/form-row';
+import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -14,8 +15,8 @@ const components = {
 
 const VuePlugin = {
   install(Vue) {
-    if (!registerComponent(Vue, 'layout')) {
-      for (var component in components) {
+    for (var component in components) {
+      if (!registerComponent(Vue, component)) {
         Vue.component(component, components[component]);
       }
     }
