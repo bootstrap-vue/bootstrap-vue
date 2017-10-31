@@ -2,6 +2,11 @@
     <b-form-checkbox v-model="state" value="accepted" unchecked-value="not_accepted">
         I accept terms and use
     </b-form-checkbox>
-
     <div>State: <strong>{{state}}</strong></div>
+
+    <br><br>
+
+    <b-form-checkbox-group v-model="checked" :options="['One', 'Two', 'Three']">
+    </b-form-checkbox-group>
+    <div>Checked: <strong>{{checked}}</strong></div>
 </div>
