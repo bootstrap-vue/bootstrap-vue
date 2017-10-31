@@ -13,12 +13,12 @@ const VuePlugin = {
 
         // Register components
         for (var component in components) {
-            Vue.component(component, components[component]);
+            Vue.use(components[component]);
         }
 
         // Register directives
         for (var directive in directives) {
-            Vue.directive(directive, directives[directive]);
+            Vue.use(directives[directive]);
         }
     }
 };
