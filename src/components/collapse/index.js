@@ -1,5 +1,6 @@
 import bCollapse from './collapse.vue';
 import togglePlugin from '../../directives/toggle';
+import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -9,10 +10,12 @@ const components = {
 
 const VuePlugin = {
   install(Vue) {
-    for (var component in components) {
-      Vue.component(component, components[component]);
-    }
     Vue.use(togglePlugin);
+    if (!registerComponent(Vue, 'alert')) {
+      for (var component in components) {
+        Vue.component(component, components[component]);
+      }
+    }
   }
 };
 
