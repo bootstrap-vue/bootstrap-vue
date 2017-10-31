@@ -1,7 +1,7 @@
-import bForm `./form.vue`;
-import bFormRow `./form-row`;
-import bFormText `./form-text`;
-import bFormFeedback `./form-feedback`;
+import bForm from './form.vue';
+import bFormRow from './form-row';
+import bFormText from './form-text';
+import bFormFeedback from './form-feedback';
 
 const VuePlugin = {
   install(Vue) {
