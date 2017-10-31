@@ -1,10 +1,18 @@
 import bCarousel from './carousel.vue';
 import bCarouselSlide from './carousel-slide.vue';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bCarousel,
+  bCarouselSlide
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bCarousel);
-    Vue.component(bCarouselSlide);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
