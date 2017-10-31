@@ -11,7 +11,7 @@ import dropdownPlugin from '../dropdown';
 const components = {
   bNav,
   bNavItem,
-  bNavTtext,
+  bNavText,
   bNavForm,
   bNavToggle,
   bNavItemDropdown,
