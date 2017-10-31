@@ -1,5 +1,5 @@
-import bListGroup `./list-group`;
-import bListGroupItem `./list-group-item`;
+import bListGroup from './list-group';
+import bListGroupItem from './list-group-item';
 
 const VuePlugin = {
   install(Vue) {
