@@ -1,9 +1,9 @@
-import bCard `./card`;
-import bCardHeader `./card-header`;
-import bCardBody `./card-body`;
-import bCardFooter `./card-footer`;
-import bCardImg `./card-img`;
-import bCardGroup `./card-group`;
+import bCard from './card';
+import bCardHeader from './card-header';
+import bCardBody from './card-body';
+import bCardFooter from './card-footer';
+import bCardImg from './card-img';
+import bCardGroup from './card-group';
 
 const VuePlugin = {
   install(Vue) {
