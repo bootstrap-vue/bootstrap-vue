@@ -3,6 +3,7 @@ import bNavbarNav from './navbar-nav';
 import bNavbarBrand from './navbar-brand';
 import bNavbarToggle from './navbar-toggle.vue';
 import navPlugin from  '../nav';
+import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -17,7 +18,9 @@ const components = {
 const VuePlugin = {
   install(Vue) {
     for (var component in components) {
-      Vue.component(component, components[component]);
+      if (!registerComponent(Vue, component)) {
+        Vue.component(component, components[component]);
+      }
     }
     Vue.use(navPlugin);
   }
