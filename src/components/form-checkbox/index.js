@@ -1,5 +1,5 @@
-import bFormCheckbox `./form-checkbox.vue`;
-import bFormCheckboxGroup `./form-checkbox-group.vue`;
+import bFormCheckbox from './form-checkbox.vue';
+import bFormCheckboxGroup from './form-checkbox-group.vue';
 
 const VuePlugin = {
   install(Vue) {
