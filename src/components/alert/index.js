@@ -1,8 +1,14 @@
 import bAlert from './alert.vue';
 
+const components = {
+  bAlert
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bAlert);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
