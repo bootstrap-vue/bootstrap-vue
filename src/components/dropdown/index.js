@@ -1,8 +1,8 @@
-import bDropdown `./dropdown.vue`;
-import bDropdownItem `./dropdown-item`;
-import bDropdownItemButton `./dropdown-item-button`;
-import bDropdownHeader `./dropdown-header`;
-import bDropdownDivider `./dropdown-divider`;
+import bDropdown from './dropdown.vue';
+import bDropdownItem from './dropdown-item';
+import bDropdownItemButton from './dropdown-item-button';
+import bDropdownHeader from './dropdown-header';
+import bDropdownDivider from './dropdown-divider';
 
 const VuePlugin = {
   install(Vue) {
