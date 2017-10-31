@@ -13,8 +13,8 @@ const components = {
 
 const VuePlugin = {
   install(Vue) {
-    if (!registerComponent(Vue, 'form-radio')) {
-      for (var component in components) {
+    for (var component in components) {
+      if (!registerComponent(Vue, component)) {
         Vue.component(component, components[component]);
       }
     }
