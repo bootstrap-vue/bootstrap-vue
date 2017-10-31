@@ -1,8 +1,16 @@
 import bPopover from './popover';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const directive = {
+  bPopover
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.directive(bPopover);
+    for (var directive in directives) {
+      Vue.directive(directive, directives[directive]);
+    }
   }
 };
 
