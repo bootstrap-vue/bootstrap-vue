@@ -1,5 +1,5 @@
-import bButton `./button`;
-import bButtonClose `./button-close`;
+import bButton from './button';
+import bButtonClose from './button-close';
 
 const VuePlugin = {
   install(Vue) {
