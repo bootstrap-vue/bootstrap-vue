@@ -1,10 +1,18 @@
 import bProgress from `./progress.vue`;
 import bProgressBar from `./progress-bar.vue`;
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bProgress,
+  bProgressBar
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bProgress);
-    Vue.component(bProgressBar);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
