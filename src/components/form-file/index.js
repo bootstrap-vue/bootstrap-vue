@@ -4,7 +4,7 @@ import bFormFile from './form-file.vue';
 
 const components = {
   bFormFile,
-  bFormFile as bFile
+  bFile: bFormFile
 };
 
 const VuePlugin = {
