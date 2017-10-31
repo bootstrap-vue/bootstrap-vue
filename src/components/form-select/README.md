@@ -143,7 +143,7 @@ Keys are mapped to value and values are mapped to option object.
 
 By default, Bootstrap V4's custom select styling is applied.
 
-### Value
+### Value in single mode
 
 In non `multiple` mode, `<b-form-select>` returns the a single `value` of the currently
 selected option.
@@ -222,7 +222,7 @@ rows are displayed in the multiple select list-box by setting `select-size` to
 the number of rows to display. The default is to let the browser use it's default
 (typically 4).
 
-### Value
+### Value in multiple mode
 
 In `multiple` mode, `<b-form-select>` always returns an array of option values.
 You **must** provide an array reference as your `v-model` when in `multiple` mode.
