@@ -1,5 +1,5 @@
-import bProgress from `./progress.vue`;
-import bProgressBar from `./progress-bar.vue`;
+import bProgress from './progress.vue';
+import bProgressBar from './progress-bar.vue';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
