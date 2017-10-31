@@ -1,4 +1,4 @@
-import bButtonToolbar `./button-toolbar.vue`;
+import bButtonToolbar from './button-toolbar.vue';
 
 const VuePlugin = {
   install(Vue) {
