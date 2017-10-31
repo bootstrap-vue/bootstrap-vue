@@ -1,5 +1,5 @@
 import bAlert from './alert.vue';
-import registerComponent from '../../utils';
+import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
