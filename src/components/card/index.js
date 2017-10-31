@@ -3,6 +3,7 @@ import bCardHeader `./card-header.vue`;
 import bCardBody `./card-body.vue`;
 import bCardFooter `./card-footer.vue`;
 import bCardImg `./card-img.vue`;
+import bCardGroup `./card-group.vue`;
 
 const VuePlugin = {
   install(Vue) {
@@ -11,6 +12,7 @@ const VuePlugin = {
     Vue.component(bCardBody);
     Vue.component(bCardFooter);
     Vue.component(bCardImg);
+    Vue.component(bCardGroup);
   }
 };
 
