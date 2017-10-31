@@ -1,4 +1,4 @@
-import bPagination from `./pagination.vue`;
+import bPagination from './pagination.vue';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
