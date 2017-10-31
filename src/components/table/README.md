@@ -116,8 +116,8 @@ each item (record) row, and to provide additional fetures such as enabling
 [**sorting**](#sorting) on the column, etc.
 
 Fields can be provided as a _simple array_, an _array of objects_, or an
-_object_. Internally the fields data will be normalized into the _array of
-objects_ format. Events or slots that include the column `field` data will be
+_object_. **Internally the fields data will be normalized into the _array of
+objects_ format**. Events or slots that include the column `field` data will be
 in the normalized field object format (array of objects for `fields`, or an
 object for an individual `field`).
 
@@ -690,7 +690,8 @@ scoped slot exists, a new row will be shown just below the item, with the conten
 of the scoped slot.
 
 **Note:** the `_showDetails` property **must** exist in the items data for proper
-reactive detection of changes in `_showDetails`.
+reactive detection of changes in `_showDetails`. Read more about
+[Vue ractivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats).
 
 Available scoped variables:
 
@@ -698,6 +699,7 @@ Available scoped variables:
 | -------- | -----------
 | `item` | The entire row record data object
 | `index` | The current visible row number
+| `fields` | The normailized fields definition array
 
 ```html
 <template>

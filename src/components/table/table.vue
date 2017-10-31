@@ -91,9 +91,10 @@
                     </template>
                 </tr>
                 <tr v-if="item._showDetails && $scopedSlots['row-details']"
+                    class="b-table-details"
                     :key="`${index}-details`">
                     <td :colspan="computedFields.length">
-                        <slot name="row-details" :item="item" :index="index"></slot>
+                        <slot name="row-details" :item="item" :index="index" :fields="computedFields"></slot>
                     </td>
                 </tr>
             </template>
