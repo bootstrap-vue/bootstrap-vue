@@ -1,4 +1,4 @@
-import bModal `./modal.vue`;
+import bModal from './modal.vue';
 import modalPlugin from '../../directives/modal';
 
 const VuePlugin = {
