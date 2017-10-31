@@ -1,5 +1,7 @@
 import bButtonToolbar from './button-toolbar.vue';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
 const components = {
   bButtonToolbar,
   bButtonToolbar as bBtnToolbar
