@@ -7,7 +7,7 @@ import bBreadcrumbLink from './breadcrumb-link';
 const components = {
   bBreadcrumb,
   bBreadcrumbItem,
-  bBreadcrumLink
+  bBreadcrumbLink
 };
 
 const VuePlugin = {
