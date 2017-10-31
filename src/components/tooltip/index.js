@@ -1,4 +1,4 @@
-import bTooltip from `./tooltip.vue`;
+import bTooltip from './tooltip.vue';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
