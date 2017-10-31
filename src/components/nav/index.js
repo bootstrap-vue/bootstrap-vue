@@ -1,10 +1,10 @@
-import bNav `./nav`;
-import bNavItem `./nav-item`;
-import bNavText `./nav-text`;
-import bNavForm `./nav-form`;
-import bNavToggle `./nav-toggle.vue`;
-import bNavItemDropdown `./nav-item-dropdown.vue`;
-import dropdownPlugin `.../dropdown`;
+import bNav from './nav';
+import bNavItem from './nav-item';
+import bNavText from './nav-text';
+import bNavForm from './nav-form';
+import bNavToggle from './nav-toggle.vue';
+import bNavItemDropdown from './nav-item-dropdown.vue';
+import dropdownPlugin from '.../dropdown';
 
 const VuePlugin = {
   install(Vue) {
