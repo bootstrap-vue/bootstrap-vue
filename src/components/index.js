@@ -61,7 +61,7 @@ import bNavText from './nav/nav-text';
 import bNavForm from './nav/nav-form';
 import bRow from './layout/row';
 import bPagination from './pagination/pagination.vue';
-import bPaginationNav from './pagination/pagination-nav.vue';
+import bPaginationNav from './pagination-nav/pagination-nav.vue';
 import bPopover from './popover/popover.vue';
 import bProgressBar from './progress/progress-bar.vue';
 import bProgress from './progress/progress.vue';
