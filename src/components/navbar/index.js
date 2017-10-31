@@ -8,7 +8,7 @@ import navPlugin from  '../nav';
 const components = {
   bNavbar,
   bNavbarNav,
-  bNavbarBrand,
+  bNavbarBrand
 };
 
 const VuePlugin = {
