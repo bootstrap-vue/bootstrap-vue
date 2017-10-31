@@ -1,10 +1,18 @@
 import bListGroup from './list-group';
 import bListGroupItem from './list-group-item';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bListGroup,
+  bListGroupItem
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bListGroup);
-    Vue.component(bListGroupItem);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
