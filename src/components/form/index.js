@@ -1,4 +1,4 @@
-import bForm from './form.vue';
+import bForm from './form';
 import bFormRow from './form-row';
 import bFormText from './form-text';
 import bFormFeedback from './form-feedback';
