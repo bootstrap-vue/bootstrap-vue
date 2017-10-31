@@ -13,10 +13,9 @@ const components = {
 
 const VuePlugin = {
   install(Vue) {
-      for (var component in components) {
-        if (!registerComponent(Vue, component)) {
-          Vue.component(component, components[component]);
-        }
+    for (var component in components) {
+      if (!registerComponent(Vue, component)) {
+        Vue.component(component, components[component]);
       }
     }
   }
