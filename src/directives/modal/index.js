@@ -1,4 +1,4 @@
-import bModal `./modal`;
+import bModal from './modal';
 
 const VuePlugin = {
   install(Vue) {
@@ -10,4 +10,4 @@ if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(VuePlugin);
 };
 
-export default VuePlugin
+export default VuePlugin;
