@@ -1,4 +1,4 @@
-import bFormFile `./form-file.vue`;
+import bFormFile from './form-file.vue';
 
 const VuePlugin = {
   install(Vue) {
