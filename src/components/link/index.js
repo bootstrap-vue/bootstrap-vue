@@ -1,4 +1,4 @@
-import bLink `./link`;
+import bLink from './link';
 
 const VuePlugin = {
   install(Vue) {
