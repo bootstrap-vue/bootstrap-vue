@@ -4,7 +4,7 @@ import bNavText from './nav-text';
 import bNavForm from './nav-form';
 import bNavToggle from './nav-toggle.vue';
 import bNavItemDropdown from './nav-item-dropdown.vue';
-import dropdownPlugin from '.../dropdown';
+import dropdownPlugin from '../dropdown';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
