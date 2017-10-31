@@ -1,5 +1,5 @@
-import bFormInput `./form-input.vue`;
-import bFormInputStatic `./form-input-static.vue`;
+import bFormInput from './form-input.vue';
+import bFormInputStatic from './form-input-static.vue';
 
 const VuePlugin = {
   install(Vue) {
