@@ -1,4 +1,4 @@
-import bTable from `./table.vue`;
+import bTable from './table.vue';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
