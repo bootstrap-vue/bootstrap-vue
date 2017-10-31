@@ -1,5 +1,6 @@
 import bFormRadio from './form-radio.vue';
 import bFormRadioGroup from './form-radio-group.vue';
+import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -12,8 +13,10 @@ const components = {
 
 const VuePlugin = {
   install(Vue) {
-    for (var component in components) {
-      Vue.component(component, components[component]);
+    if (!registerComponent(Vue, 'form-radio')) {
+      for (var component in components) {
+        Vue.component(component, components[component]);
+      }
     }
   }
 };
