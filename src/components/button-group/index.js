@@ -1,4 +1,4 @@
-import bButtonGroup `./button-group`;
+import bButtonGroup from './button-group';
 
 const VuePlugin = {
   install(Vue) {
