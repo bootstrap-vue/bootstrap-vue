@@ -7,17 +7,17 @@ import bDropdownDivider `./dropdown-divider`;
 const VuePlugin = {
   install(Vue) {
     Vue.component(bDropdown);
-    Vue.component(bDd);
+    Vue.component(bDropdown as bDd);
     Vue.component(bDropdownItem);
-    Vue.component(bDdItem);
+    Vue.component(bDropdownItem as bDdItem);
     Vue.component(bDropdownItemButton);
-    Vue.component(bDropdownItemBtn);
-    Vue.component(bDdItemButton);
-    Vue.component(bDdItemBtn);
+    Vue.component(bDropdownItemButton as bDropdownItemBtn);
+    Vue.component(bDropdownItemButton as bDdItemButton);
+    Vue.component(bDropdownItemButton as bDdItemBtn);
     Vue.component(bDropdownHeader);
-    Vue.component(bDdHeader);
+    Vue.component(bDropdownHeader as bDdHeader);
     Vue.component(bDropdownDivider);
-    Vue.component(bDdDivider);
+    Vue.component(bDropdownDivider as bDdDivider);
   }
 };
 
