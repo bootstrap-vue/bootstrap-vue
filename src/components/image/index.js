@@ -1,5 +1,5 @@
-import bImg `./img`;
-import bImgLazy `./img-lazy.vue`;
+import bImg from './img';
+import bImgLazy from './img-lazy.vue';
 
 const VuePlugin = {
   install(Vue) {
