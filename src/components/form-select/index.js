@@ -1,9 +1,17 @@
 import bFormSelect from './form-select.vue';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bFormSelect,
+  bFormSelect as bSelect
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bFormSelect);
-    Vue.component(bFormSelect as bSelect);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
