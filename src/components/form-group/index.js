@@ -4,7 +4,7 @@ import bFormGroup from './form-group.vue';
 
 const components = {
   bFormGroup,
-  bFormFieldSet: bFormGroup
+  bFormFieldset: bFormGroup
 };
 
 const VuePlugin = {
