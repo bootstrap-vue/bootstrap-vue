@@ -4,9 +4,9 @@ import bButtonClose from './button-close';
 const VuePlugin = {
   install(Vue) {
     Vue.component(bButton);
-    Vue.component(bButton as bBtn);
+    Vue.component({bBtn: bButton});
     Vue.component(bButtonClose);
-    Vue.component(bButtonClose as bBtnClose);
+    Vue.component({bBtnClose: bButtonClose});
   }
 };
 
