@@ -4,7 +4,7 @@ import bFormInput from './form-input.vue';
 
 const components = {
   bFormInput,
-  bFormInput as bInput
+  bInput: bFormInput
 };
 
 const VuePlugin = {
