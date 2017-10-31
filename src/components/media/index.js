@@ -1,6 +1,6 @@
-import bMedia `./media`;
-import bMediaAside `./media-aside`;
-import bMediaBody `./media-body`;
+import bMedia from './media';
+import bMediaAside from './media-aside';
+import bMediaBody from './media-body';
 
 const VuePlugin = {
   install(Vue) {
