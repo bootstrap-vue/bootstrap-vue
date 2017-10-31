@@ -1,9 +1,17 @@
 import bFormTextarea from './form-textarea.vue';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bFormTextarea,
+  bFormTextarea as bTextarea
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bFormTextarea);
-    Vue.component(bFormTextarea as bTextarea);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
