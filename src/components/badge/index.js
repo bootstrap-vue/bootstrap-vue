@@ -8,7 +8,7 @@ const components = {
 
 const VuePlugin = {
   install(Vue) {
-    for (var copmponent in components) {
+    for (var component in components) {
       Vue.component(component, components[component]);
     }
   }
