@@ -1,5 +1,7 @@
 import bBadge from './badge';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
 const components = {
   bBadge
 };
