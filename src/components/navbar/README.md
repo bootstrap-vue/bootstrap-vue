@@ -8,7 +8,7 @@ other elements into a concise header. It’s easily extensible and thanks to the
 ```html
 <b-navbar toggleable="md" type="dark" variant="info">
 
-  <b-nav-toggle target="nav_collapse"></b-nav-toggle>
+  <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
   <b-navbar-brand href="#">NavBar</b-navbar-brand>
 
@@ -84,7 +84,7 @@ Navbars come with built-in support for a handful of sub-components. Choose from 
 - `<b-nav-item-dropdown>` for navbar dropdown menus
 - `<b-nav-text>` for adding vertically centered strings of text.
 - `<b-nav-form>` for any form controls and actions.
-- `<b-nav-toggle>` for use with the `<b-collapse is-nav>` component.
+- `<b-navbar-toggle>` for use with the `<b-collapse is-nav>` component.
 - `<b-collapse is-nav>` for grouping and hiding navbar contents by a parent breakpoint.
 
 ### `<b-navbar-brand>`
@@ -181,7 +181,7 @@ adjusts vertical alignment and horizontal spacing for strings of text.
 ```html
 <div>
     <b-navbar toggleable type="light" variant="light">
-        <b-nav-toggle target="nav_text_collapse"></b-nav-toggle>
+        <b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
         <b-navbar-brand>BootstrapVue</b-navbar-brand>
         <b-collapse is-nav id="nav_text_collapse">
             <b-navbar-nav>
@@ -202,7 +202,7 @@ Note split dropdowns are not supported in `<b-navbar>` and `<b-navbar-nav>`.
 ```html
 <div>
   <b-navbar type="dark" variant="primary" toggleable>
-    <b-nav-toggle target="nav_dropdown_collapse"></b-nav-toggle>
+    <b-navbar-toggle target="nav_dropdown_collapse"></b-navbar-toggle>
     <b-collapse is-nav id="nav_dropdown_collapse">
       <b-navbar-nav>
         <b-nav-item href="#">Home</b-nav-item>
@@ -259,7 +259,7 @@ Input groups work as well:
 <!-- navbar-form-2.vue -->
 ```
 
-### `<b-nav-toggle>` and `<b-collapse is-nav>`
+### `<b-navbar-toggle>` and `<b-collapse is-nav>`
 Navbars are responsive by default, but you can easily modify them to change that. Responsive
 behavior depends on our `<b-collapse>` component.
 
@@ -267,19 +267,27 @@ Wrap `<b-navbar-nav>` components in a `<b-collapse is-nav>` (**remember to set t
 prop!**) to specify content that will collapse based on a particular breakpoint. Assign a
 document unique `id` value on the `<b-collapse>`.
 
-Use the `<b-nav-toggle>` component to control the collapse component, and set the
-`target` prop of `<b-nav-toggle>` to the `id` of `<b-collapse>`.
+Use the `<b-navbar-toggle>` component to control the collapse component, and set the
+`target` prop of `<b-navbar-toggle>` to the `id` of `<b-collapse>`.
 
 Set the `toggleable` prop on `<b-navbar>` to the desired breakpoint you would like content
 to automatically collapse at. Possible `toggleable`values are `sm`, `md`, and `lg`. Setting
 `togleable` to `true` (or with no explicit value) will set the breakpoint to `sm`, while
 setting it to `false` will disable collapsing.
 
-`<b-nav-toggle>` should be placed _after_ `<b-navbar-brand>` (if present) and before
-any collapsable `<b-navbar-nav>` component.
+`<b-navbar-toggle>` should be placed _before_ any `<b-collapse is-nav>` component.
 
 See the first example on this page for reference, and also refer to
 [`<b-collapse>`](/docs/components/collapse) for details on the collapse component.
+
+
+## Component aliases
+
+| Component | Alias(es)
+| --------- | ---------
+| `<b-navbar-toggle>` | `<b-nav-toggle>`
+
+Also see [`<b-nav>`](/docs/components/nav) for additional sub-component aliases.
 
 
 ## Component Reference

@@ -11,6 +11,7 @@ import memoize from "./memoize"
 import observeDom from "./observe-dom";
 import pluckProps from "./pluckProps";
 import prefixPropName from "./prefixPropName";
+import { registerComponent, registerDirective } from "./plugins";
 import suffixPropName from "./suffixPropName";
 import unPrefixPropName from "./unPrefixPropName";
 import upperFirst from "./upperFirst";
@@ -30,6 +31,8 @@ export {
     observeDom,
     pluckProps,
     prefixPropName,
+    registerComponent,
+    registerDirective,
     suffixPropName,
     upperFirst,
     unPrefixPropName,

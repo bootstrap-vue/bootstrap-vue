@@ -8,7 +8,7 @@
         "components": [
             "bNavbarNav",
             "bNavbarBrand",
-            "bNavToggle",
+            "bNavbarToggle",
             "bNavItem",
             "bNavText",
             "bNavItemDropdown",
