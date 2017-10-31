@@ -1,4 +1,4 @@
-import bJumbotron `./jumbotron`;
+import bJumbotron from './jumbotron';
 
 const VuePlugin = {
   install(Vue) {
