@@ -1,9 +1,16 @@
 import bFormGroup from './form-group.vue';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bFormGroup
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bFormGroup);
-    Vue.component(bFormGroup as bFormFieldset);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
