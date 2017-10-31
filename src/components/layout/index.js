@@ -3,12 +3,20 @@ import bRow from './row';
 import bCol from './col';
 import bFormRow from '../form/form-row';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bContainer,
+  bRow,
+  bCol,
+  bFormRow
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bContainer);
-    Vue.component(bRow);
-    Vue.component(bCol);
-    Vue.component(bFormRow);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
