@@ -1,8 +1,16 @@
 import bTooltip from './tooltip';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const directive = {
+  bTooltip
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.directive(bTooltip);
+    for (var directive in directives) {
+      Vue.directive(directive, directives[directive]);
+    }
   }
 };
 
