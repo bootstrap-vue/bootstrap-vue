@@ -1,8 +1,16 @@
 import bLink from './link';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bLink
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bLink);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
