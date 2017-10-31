@@ -1095,14 +1095,14 @@ when fetching your data!
 <div>
   <div class="my-1 row">
     <div class="col-md-6">
-      <b-form-fieldset horizontal label="Rows per page" :label-cols="6">
+      <b-form-group horizontal label="Rows per page" :label-cols="6">
         <b-form-select :options="pageOptions" v-model="perPage" />
-      </b-form-fieldset>
+      </b-form-group>
     </div>
     <div class="col-md-6">
-      <b-form-fieldset horizontal label="Filter" :label-cols="3">
+      <b-form-group horizontal label="Filter" :label-cols="3">
         <b-form-input v-model="filter" placeholder="Type to Search" />
-      </b-form-fieldset>
+      </b-form-group>
     </div>
   </div>
 
