@@ -5,9 +5,9 @@ import bFormRadioGroup from './form-radio-group.vue';
 
 const components = {
   bFormRadio,
-  bFormRadio as bRadio,
+  bRadio: bFormRadio,
   bFormRadioGroup,
-  bFormRadioGroup as bRadioGroup
+  bRadioGroup: bFormRadioGroup
 };
 
 const VuePlugin = {
