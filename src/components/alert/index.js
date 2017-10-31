@@ -1,4 +1,4 @@
-import bAlert `./alert.vue`;
+import bAlert from `./alert.vue`;
 
 const VuePlugin = {
   install(Vue) {
