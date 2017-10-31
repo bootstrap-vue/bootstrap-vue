@@ -1,11 +1,18 @@
 import bTabs from `./tabs.vue`;
 import bTab from `./tab.vue`;
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bTabs,
+  bTab
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bTabs);
-    Vue.component(bTab);
-    Vue.component(bTab as bTabPane);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
