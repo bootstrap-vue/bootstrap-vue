@@ -1,4 +1,4 @@
-import bFormGroup `./form-group.vue`;
+import bFormGroup from './form-group.vue';
 
 const VuePlugin = {
   install(Vue) {
