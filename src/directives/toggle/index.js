@@ -1,8 +1,16 @@
 import bToggle from './toggle';
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const directive = {
+  bToggle
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.directive(bToggle);
+    for (var directive in directives) {
+      Vue.directive(directive, directives[directive]);
+    }
   }
 };
 
