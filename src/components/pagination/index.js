@@ -1,8 +1,16 @@
 import bPagination from `./pagination.vue`;
 
+/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+
+const components = {
+  bPagination
+};
+
 const VuePlugin = {
   install(Vue) {
-    Vue.component(bPagination);
+    for (var component in components) {
+      Vue.component(component, components[component]);
+    }
   }
 };
 
