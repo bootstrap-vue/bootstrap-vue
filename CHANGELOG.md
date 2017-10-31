@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 ## [v1.0.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.9...v1.0.0)
-Released: 2017-10-30
+Released: 2017-10-31
 
 **Version v1.0.0 marks Bootstrap-Vue's departure from the beta development phase.**
 
@@ -13,9 +13,10 @@ should work without major changes when Bootstrap V4.0.0-beta.3 is released.
 Notable changes:
 * Support for Bootstrap v4.0.0-beta.2
 * New modularized build structure
+* Dist code now available in es format for simpler importing of individual components
 * `<b-table>` enhancements
 * `<b-modal>` improvements and features
-* Tooltip and popover fixes
+* Tooltip and popover fixes and new positioning options
 * Form invalid-feedback fixes (via new BSV4.beta.2 CSS)
 * Various fixes/improvements to form controls
 * ARIA improvements
@@ -26,6 +27,7 @@ Notable changes:
 v1.0.0 introduces a new source code structure. For those users that are importing individual
 components, the path to the individual components has changed. Please reference the 
 [GitHub repo](https://github.com/bootstrap-vue/bootstrap-vue/src) for the new structure.
+Components and directives are now automatically built into importable `es` modules.
 
 ### Bug Fixes v1.0.0
 
@@ -65,6 +67,7 @@ vue/bootstrap-vue/issues/1228)) ([87cfab4](https://github.com/bootstrap-vue/boot
 
 ### Features v1.0.0
 
+* New file structure and es build ([6cfcd54](https://github.com/bootstrap-vue/bootstrap-vue/commit/6cfcd545ccd362e8cc3a042be5e9f953d5f6a807))
 * **badge:** Support actionable (link) badges ([#1226](https://github.com/bootstrap-vue/bootstrap-vue/issues/1226)) ([ba2b5b4](https://github.com/bootstrap-vue/bootstrap-vue/commit/ba2b5b4))
 * **card:** add prop `body-class` ([#1250](https://github.com/bootstrap-vue/bootstrap-vue/issues/1250)) ([23fc3be](https://github.com/bootstrap-vue/bootstrap-vue/commit/23fc3be))
 * **col:** Column offsets are now back with the release Bootstrap V4.0-.0-beta.2
