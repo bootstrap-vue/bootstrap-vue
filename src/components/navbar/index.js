@@ -1,6 +1,6 @@
-import bNavbar from `./navbar`;
-import bNavbarNav from `./navbar-nav`;
-import bNavbarBrand from `./navbar-brand`;
+import bNavbar from './navbar';
+import bNavbarNav from './navbar-nav';
+import bNavbarBrand from './navbar-brand';
 import navPlugin from  '../nav';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
