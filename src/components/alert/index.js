@@ -9,7 +9,7 @@ const components = {
 
 const VuePlugin = {
   install(Vue) {
-    if (!registerComponent(Vue, 'alert') {
+    if (!registerComponent(Vue, 'alert')) {
       for (var component in components) {
         Vue.component(component, components[component]);
       }
