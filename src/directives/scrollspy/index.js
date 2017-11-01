@@ -10,9 +10,7 @@ const directives = {
 const VuePlugin = {
   install(Vue) {
     for (var directive in directives) {
-      if (!registerDirective(Vue, directive)) {
-        Vue.directive(directive, directives[directive]);
-      }
+      registerDirective(Vue, directive, directives[directive]);
     }
   }
 };
