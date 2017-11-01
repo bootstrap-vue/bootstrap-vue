@@ -94,7 +94,79 @@ Note: you may need to adjust the template package.json file to use the latest Bo
 Coming soon!
 
 
-## Individual component import example
-Coming soon!
+## Individual component import
 
+There are a few methods that you can use to import individual components and directvies.
 
+You will need `vue-loader` configured to handle the compiling any single file
+`.vue` Bootstrap-Vue components.
+
+### Importing individual components and directives as ES modules
+
+The Bootstyrap-Vue distribution now includes `ES` modules for all components and directives.
+
+These are located in the `bootstrap-vue/es/components/` and `bootstrap-vue/es/directives/`
+directories when using the NPM bundle, or will be created when you run `yarn build` when
+building from the Bootstrap-Vue repo source.
+
+Some components are _functional components_ and end with the `.js` extension, while other
+components have `.vue` extensions (full components as single file templates).
+
+Components and directives appear in sub directories, grouped by functionality. As an example,
+you can import `<b-card>` (plus it's sub components) and `<b-table>` as follows:
+
+```js
+// Import the individual components
+// Note that these are functional components with the `.js` extension:
+import bCard from 'bootstrap-vue/es/components/card/card';
+import bCardHeader from 'bootstrap-vue/es/components/card/card-header';
+import bCardBody from 'bootstrap-vue/es/components/card/card-body';
+import bCardFooter from 'bootstrap-vue/es/components/card/card-footer';
+import bCardImage from 'bootstrap-vue/es/components/card/card-footer';
+// <b-table> is a full statefull component and needs the `.vue` extension when importing
+import bTable from 'bootstrap-vue/es/components/table/table.vue';
+
+// Add components globally:
+Vue.component('b-card', bCard);
+Vue.component('b-card-header', bCardHeader);
+Vue.component('b-card-body', bCardBody);
+Vue.component('b-card-footer', bCardFooter);
+Vue.component('b-card-img', bCardImg);
+Vue.component('b-table', bTable);
+
+// Or make available to your compoent or app:
+export default {
+  components: {
+    bCard,
+    bCardHeader,
+    bCardBody,
+    bCardFooter,
+    bCardImg,
+    bTable
+  },
+  // ...
+}
+```
+
+### Importing component groups and directives as Vue plugins
+
+A compoent group, and/or directive, can be imported as a Vue plugin, by importing
+the component group or directive directory. Impoting `<b-card>` (and its related
+sub-components) and `<b-table>` can simply be done as:
+
+```js
+// Import the components as Vue plugins
+import Card from 'bootstrap-vue/es/components/card';
+import Table from 'bootstrap-vue/es/components/table';
+
+// Add the components to Vue
+Vue.use(Card);
+Vue.use(Table);
+```
+
+Now you can use `<b-card>` (and all the `<b-card-*>` sub-components) and `<b-table>`
+in your project templates.
+
+Note some component plugins automatically import other directives and components
+(i.e. the `modal` plugin also imports the `v-b-modal` directive, and `nav` plugin
+automatically imports all `nav-*` sub compoents and the dropdown sub components).
