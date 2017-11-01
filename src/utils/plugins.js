@@ -3,10 +3,13 @@
  * @param {object} Vue
  * @param {string} component group name
  */
-export function registerComponent(Vue, name) {
+export function registerComponent(Vue, name, def) {
     Vue._bootstrap_vue_components_ = Vue._bootstrap_vue_components_ || {};
     const loaded = Vue._bootstrap_vue_components_[name];
-    Vue._bootstrap_vue_components_[name] = true;
+    if (!loaded && def) {
+        Vue._bootstrap_vue_components_[name] = true;
+        Vue.component(name, def);
+    }
     return loaded;
 }
 
@@ -15,10 +18,13 @@ export function registerComponent(Vue, name) {
  * @param {object} Vue
  * @param {string} directive group name
  */
-export function registerDirective(Vue, name) {
+export function registerDirective(Vue, name, def) {
     Vue._bootstrap_vue_directives_ = Vue._bootstrap_vue_directives_ || {};
     const loaded = Vue._bootstrap_vue_directives_[name];
-    Vue._bootstrap_vue_directives_[name] = true;
+    if (!loaded && def) {
+        Vue._bootstrap_vue_directives_[name] = true;
+        Vue.directive(name, def);
+    }
     return loaded;
 }
 
