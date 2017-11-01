@@ -151,7 +151,7 @@ within any alert. Use on `<a>` or `<b-link>`.
 <!-- alert-links-1.vue -->
 ```
 
-## Dismissing
+## Dismissible alerts
 Using the `dismissible` prop it’s possible to dismiss any `<b-alert>` inline. This will add
 a close `X` button. Use the `dismiss-label` prop to change the hidden label text associated
 with the dismiss button.
