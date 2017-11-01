@@ -75,10 +75,10 @@ in the named slot `first`.
 
 ## Options
 Please see options in [`<b-form-select>`](/docs/components/form-select) docs for details on passing
-options (value array) to `<b-form-checboxes>`.
+options (value array) to `<b-form-checkboxes>`.
 
 ## Inline and Stacked checkboxes
-`<b-form-checbox>` components render as inline elements by default. Set the prop `stacked` on
+`<b-form-checkbox>` components render as inline elements by default. Set the prop `stacked` on
 `<b-form-checkbox-group>` to place each form control is on a separate line.
 
 ```html
@@ -364,7 +364,7 @@ meaning in your application.
 
 
 ## Checkbox component aliases
-- `<b-form-checbox-group>` can be used by the shorter aliases `<b-checkbox-group>` and `<b-check-group>`.
+- `<b-form-checkbox-group>` can be used by the shorter aliases `<b-checkbox-group>` and `<b-check-group>`.
 - `<b-form-checkbox>` can be used by thes shorter aliases `<b-checkbox>` and `<b-check>`.
 
 
