@@ -39,17 +39,25 @@ export default {
     computed: {
         editPageURL() {
             const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev';
-            let path = this.$route.path;
-            if (path === '/') {
-                path = '';
-            } else if (path === '/docs/setup') {
-                return base + '/docs/SETUP.md';
-            } else if (path === '/docs/contributing') {
-                return base + '/CONTRIBUTING.md';
-            } else if (/\/$/.test(path)) {
-                return base + path;
+            let path = '/';
+            const name = this.$route.name;
+            const slug = this.$route.params.slug;
+            if (name === 'docs') {
+                path = `/docs/markdown/intro/README.md`;
+            } else if (name === 'docs-components-slug') {
+                path = `/src/components/${slug}/README.md`;
+            } else if (name === 'docs-directives-slug') {
+                path = `/src/directives/${slug}/README.md`;
+            } else if (name === 'docs-reference-slug') {
+                path = `/docs/markdown/reference/${slug}/README.md`;
+            } else if (name === 'docs-misc-slug') {
+                if (slug === 'changelog') {
+                    path = `/CHANGELOG.md`;
+                } else if (slug === 'contributing') {
+                    path = `/CONTRIBUTING.md`;
+                }
             }
-            return base + path + '/README.md';
+            return base + path;
         },
         issueURL() {
             // Add appreciate query params for proper issue title
