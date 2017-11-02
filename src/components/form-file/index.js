@@ -1,4 +1,4 @@
-import bFormFile from './form-file.vue';
+import bFormFile from './form-file';
 import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
