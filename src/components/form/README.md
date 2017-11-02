@@ -143,8 +143,8 @@ See also:
 - [`<b-form-input>`](/docs/components/form-input) Textual and text-like inputs
 - [`<b-form-textarea>`](/docs/components/form-textarea) Text area inputs
 - [`<b-form-select>`](/docs/components/form-select) Select input
-- [`<b-form-radio>`](/docs/components/form-radios) Radio Input groups
-- [`<b-form-checkbox>`](/docs/components/form-checkboxs) Checkbox Input
+- [`<b-form-radio>`](/docs/components/form-radio) Radio Inputs
+- [`<b-form-checkbox>`](/docs/components/form-checkbox) Checkbox Inputs
 - [`<b-form-file>`](/docs/components/form-file) File Input
 - [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups that support labels, help text and feedback
 - [`<b-button>`](/docs/components/button) Buttons
