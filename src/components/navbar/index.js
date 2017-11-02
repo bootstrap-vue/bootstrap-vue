@@ -1,7 +1,7 @@
 import bNavbar from './navbar';
 import bNavbarNav from './navbar-nav';
 import bNavbarBrand from './navbar-brand';
-import bNavbarToggle from './navbar-toggle.vue';
+import bNavbarToggle from './navbar-toggle';
 import navPlugin from  '../nav';
 import { registerComponent } from '../../utils';
 

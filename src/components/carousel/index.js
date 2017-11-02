@@ -1,5 +1,5 @@
-import bCarousel from './carousel.vue';
-import bCarouselSlide from './carousel-slide.vue';
+import bCarousel from './carousel';
+import bCarouselSlide from './carousel-slide';
 import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */

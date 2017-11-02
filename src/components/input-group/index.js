@@ -1,4 +1,4 @@
-import bInputGroup from './input-group.vue';
+import bInputGroup from './input-group';
 import bInputGroupAddon from './input-group-addon';
 import bInputGroupButton from './input-group-button';
 import { registerComponent } from '../../utils';

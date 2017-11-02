@@ -1,4 +1,4 @@
-import bCollapse from './collapse.vue';
+import bCollapse from './collapse';
 import togglePlugin from '../../directives/toggle';
 import { registerComponent } from '../../utils';
 

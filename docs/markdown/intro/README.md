@@ -82,14 +82,14 @@ this by directly importing those components.
 To cherry pick a component/directive, start by importing it in the file where it is being used:
 
 ```js
-import { bModal } from 'bootstrap-vue/es/components/modal/modal.vue'
-import { bModal as bModalDirective } from 'bootstrap-vue/es/directives/modal/modal.js'
+import bModal from 'bootstrap-vue/es/components/modal/modal'
+import bModalDirective from 'bootstrap-vue/es/directives/modal/modal'
 ```
 
 Then add it to your component definition:
 
 ```js
-Vue.component("my-component", {
+Vue.component('my-component', {
     components: {
         'b-modal': bModal
     },
@@ -100,29 +100,37 @@ Vue.component("my-component", {
 })
 ```
 
+Or register them globally:
+
+```js
+Vue.component('b-modal', bModal);
+Vue.directive('b-modal', bModalDirective);
+```
+
 Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-casing (shown),
 camel-casing, pascal-casing, and/or object property shorthand.
 
 ### Components and Directives as Vue plugins
 
-You can also import component groups and directives as Vue plugins:
+You can also import component groups and directives as Vue plugins by importing
+the component group or directive directory:
 
 ```js
-// This imports <b-modal> as well as the v-b-modal directive:
+// This imports <b-modal> as well as the v-b-modal directive as a plugin:
 import Modal from 'bootstrap-vue/es/components/modal';
 Vue.use(Modal);
 
-// This imports <b-card> along with all the <b-card-*> sub-components:
+// This imports <b-card> along with all the <b-card-*> sub-components as a plugin:
 import Card from 'bootstrap-vue/es/components/card';
 Vue.use(Card);
 
-// This imports directive v-b-scrollspy:
+// This imports directive v-b-scrollspy as a plugin:
 import Scrollspy from 'bootstrap-vue/es/directives/scrollspy';
 Vue.use(Scrollspy);
 ```
 
 When importing as plugins, all subcomponents and related directives are imported in most cases.
-i.e. When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well a
+i.e. When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well all
 dropdown sub components.
 
 

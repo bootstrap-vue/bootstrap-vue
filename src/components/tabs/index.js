@@ -1,5 +1,5 @@
-import bTabs from './tabs.vue';
-import bTab from './tab.vue';
+import bTabs from './tabs';
+import bTab from './tab';
 import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
