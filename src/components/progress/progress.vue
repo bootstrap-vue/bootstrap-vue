@@ -43,7 +43,7 @@
                 default: '1rem'
             },
             rounded: {
-                type Boolean,
+                type: Boolean,
                 default: false
             },
             precision: {
