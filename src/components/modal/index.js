@@ -1,4 +1,4 @@
-import bModal from './modal.vue';
+import bModal from './modal';
 import modalPlugin from '../../directives/modal';
 import { registerComponent } from '../../utils';
 
