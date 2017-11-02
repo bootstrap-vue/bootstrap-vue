@@ -1,4 +1,4 @@
-import bButtonToolbar from './button-toolbar.vue';
+import bButtonToolbar from './button-toolbar';
 import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
