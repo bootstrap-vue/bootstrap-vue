@@ -6,6 +6,7 @@
                             :precision="precision"
                             :variant="variant"
                             :animated="animated"
+                            :transition-time="transitionTime"
                             :striped="striped"
                             :show-progress="showProgress"
                             :show-value="showValue"
@@ -32,6 +33,10 @@
             animated: {
                 type: Boolean,
                 default: false
+            },
+            transitionTime: {
+                type: [Number, String],
+                default: null
             },
             height: {
                 type: String,
