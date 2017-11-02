@@ -1,5 +1,5 @@
-import bFormCheckbox from './form-checkbox.vue';
-import bFormCheckboxGroup from './form-checkbox-group.vue';
+import bFormCheckbox from './form-checkbox';
+import bFormCheckboxGroup from './form-checkbox-group';
 import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
