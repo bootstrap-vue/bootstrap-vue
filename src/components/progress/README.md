@@ -289,9 +289,25 @@ Notes:
  - Animated progress bars don’t work in Opera 12 — as they don’t support CSS3 animations.
 
 
+## Rounded ends
+The default progress bar has slightly rounded corners.  You can make the ends fully rounded by
+setting the prop `rounded` on `<b-progress>`.
+
+```html
+<div>
+  <b-progress :value="75" rounded class="my-2"></b-progress>
+  <b-progress :value="75" rounded height="3rem" class="my-2"></b-progress>
+</div>
+
+<!-- progress-rounded.vue -->
+```
+
+
 ## Transition support
-You can enable transitioning from one value to another by setting a transition duration
-time via the `transition-time` prop.  The value is specified in seconds.
+Bootstrap V4.beta.2 removed the default transition from progress-bar, although Bootstrap-Vue
+allows you to enable transitioning from one value to another by setting a transition
+duration time via the `transition-time` prop.  The value is specified in seconds and can
+be fractional.
 
 ```html
 <template>
@@ -370,7 +386,8 @@ export default {
 but you can override any of the props by setting them on the `<b-progress-bar>`
 
 **Notes:**
-- `height`, if speified, should always set on the `<b-progress>` component.
+- `height`, if speified, must be set on the `<b-progress>` component.
+- `rounded`, if speified, must set on the `<b-progress>` component.
 - `<b-progress-bar>` will not inherit `value` from `<b-progress>`.
 
 
