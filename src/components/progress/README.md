@@ -193,6 +193,7 @@ The default variant is `primary`.
       <div class="col-sm-10 pt-1">
         <b-progress :value="bar.value"
                     :variant="bar.variant"
+                    :transition-time="0.6"
                     :key="bar.variant"
         ></b-progress>
       </div>
