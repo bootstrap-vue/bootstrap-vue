@@ -1,3 +1,3 @@
-import bFormRadioGroup from 'form-radio-group.vue';
+import bFormRadioGroup from './form-radio-group.vue';
 
 export default bFormRadioGroup;
