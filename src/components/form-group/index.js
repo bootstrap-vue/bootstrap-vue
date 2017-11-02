@@ -1,4 +1,4 @@
-import bFormGroup from './form-group.vue';
+import bFormGroup from './form-group';
 import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
