@@ -1,4 +1,4 @@
-import bDropdown from './dropdown.vue';
+import bDropdown from './dropdown';
 import bDropdownItem from './dropdown-item';
 import bDropdownItemButton from './dropdown-item-button';
 import bDropdownHeader from './dropdown-header';
