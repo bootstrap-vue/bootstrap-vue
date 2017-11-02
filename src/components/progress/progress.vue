@@ -72,7 +72,7 @@
             progressStyle() {
               return [
                   this.height ? { height: this.height } : {},
-                  (this.rounded && this.height) ? { border-radius: `calc(${this.height} / 2)` } : {}
+                  (this.rounded && this.height) ? { borderRadius: `calc(${this.height} / 2)` } : {}
               ]
             }
         }
