@@ -1,4 +1,4 @@
-import bPaginationNav from './pagination-nav.vue';
+import bPaginationNav from './pagination-nav';
 import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
