@@ -1,3 +1,3 @@
-import bFormTextArea from './form-textarea.vue';
+import bFormTextarea from './form-textarea.vue';
 
 export default bFormTextarea;
