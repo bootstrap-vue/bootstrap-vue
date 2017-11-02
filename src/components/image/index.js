@@ -1,5 +1,5 @@
 import bImg from './img';
-import bImgLazy from './img-lazy.vue';
+import bImgLazy from './img-lazy';
 import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
