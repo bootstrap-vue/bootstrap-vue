@@ -1,5 +1,5 @@
 <template>
-    <div class="progress" :style="progressHeight">
+    <div class="progress" :style="progressStyle">
         <slot>
             <b-progress-bar :value="value"
                             :max="max"
@@ -42,6 +42,10 @@
                 type: String,
                 default: '1rem'
             },
+            rounded: {
+                type Boolean,
+                default: false
+            },
             precision: {
                 type: Number,
                 default: 0
@@ -65,8 +69,11 @@
             }
         },
         computed: {
-            progressHeight() {
-              return this.height ? { height: this.height } : {};
+            progressStyle() {
+              return [
+                  this.height ? { height: this.height } : {},
+                  (this.rounded && this.height) ? { border-radius: `calc(${this.height}/2)` } : {}
+              ]
             }
         }
     };
