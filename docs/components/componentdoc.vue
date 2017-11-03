@@ -1,30 +1,28 @@
 <template>
-    <div class="bd-content" v-if="component">
+    <section class="bd-content" v-if="component">
 
-        <b-row align-v="center">
+        <b-row tag="header" align-v="center">
             <b-col sm="9"><h2><code>{{tag}}</code></h2></b-col>
             <b-col sm="3" class="text-sm-right">
                 <b-btn variant="outline-secondary" size="sm" :href="githubURL" target="_blank">view source</b-btn>
             </b-col>
         </b-row>
 
-        <template v-if="props_items && props_items.length > 0">
+        <article v-if="props_items && props_items.length > 0">
             <h4>Properties</h4>
-            <section>
-                <b-table :items="props_items" :fields="props_fields" small head-variant="default" striped>
-                    <template slot="default" scope="field">
-                        <code v-if="field.value">{{field.value}}</code>
-                    </template>
-                </b-table>
-            </section>
-        </template>
+            <b-table :items="props_items" :fields="props_fields" small head-variant="default" striped>
+                <template slot="default" scope="field">
+                    <code v-if="field.value">{{field.value}}</code>
+                </template>
+            </b-table>
+        </article>
 
-        <template v-if="slots && slots.length > 0">
+        <article v-if="slots && slots.length > 0">
             <h4>Slots</h4>
             <b-table :items="slots" :fields="slots_fields" small head-variant="default" striped></b-table>
-        </template>
+        </article>
 
-        <template v-if="events && events.length > 0">
+        <article v-if="events && events.length > 0">
             <h4>Events</h4>
             <b-table :items="events" :fields="events_fields" small head-variant="default" striped>
                 <template slot="args" scope="field">
@@ -34,10 +32,9 @@
                     </div>
                 </template>
             </b-table>
-        </template>
+        </article>
 
-    </div>
-
+    </section>
 </template>
 
 <style scoped>
