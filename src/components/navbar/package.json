@@ -13,6 +13,10 @@
             "bNavText",
             "bNavItemDropdown",
             "bNavForm"
+        ],
+        "plugins": [
+            "Nav",
+            "Dropdown"
         ]
     }
 }
