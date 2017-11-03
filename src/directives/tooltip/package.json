@@ -2,6 +2,7 @@
     "name": "@bootstrap-vue/tooltip",
     "version": "0.0.0",
     "meta": {
-        "title": "Tooltip"
+        "title": "Tooltip",
+        "directive": "vBTooltip"
     }
 }
