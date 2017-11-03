@@ -1,7 +1,7 @@
 import bContainer from './container';
 import bRow from './row';
 import bCol from './col';
-import bFormRow from '../form/form-row';
+import bFormRow from './form-row';
 import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */

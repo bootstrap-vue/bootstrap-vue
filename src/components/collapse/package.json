@@ -4,6 +4,9 @@
     "meta": {
         "title": "Collapse",
         "component": "bCollapse",
+        "directives": [
+            "vBToggle"
+        ],
         "events": [
             {
                 "event": "show",

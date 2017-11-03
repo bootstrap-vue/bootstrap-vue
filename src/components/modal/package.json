@@ -4,6 +4,9 @@
     "meta": {
         "title": "Modal",
         "component": "bModal",
+        "directives": [
+            "vBModal"
+        ],
         "events": [
             {
                 "event": "change",

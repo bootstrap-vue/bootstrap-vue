@@ -6,9 +6,9 @@
         "slug": "form",
         "component": "bForm",
         "components": [
-            "bFormRow",
             "bFormText",
-            "bFormFeedback"
+            "bFormFeedback",
+            "bFormRow"
         ],
         "events": [
             {

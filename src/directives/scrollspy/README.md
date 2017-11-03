@@ -344,3 +344,6 @@ new Vue({
   }
 })
 ```
+
+
+## Directive reference

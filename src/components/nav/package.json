@@ -6,7 +6,12 @@
         "component": "bNav",
         "components": [
             "bNavItem",
+            "bNavText",
+            "bNavForm",
             "bNavItemDropdown"
+        ],
+        "plugins": [
+            "Dropdown"
         ]
     }
 }
