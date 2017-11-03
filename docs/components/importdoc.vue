@@ -25,7 +25,7 @@
             </b-table>
         </article>
 
-        <article v-if="meta.plugins && meta.plugins.length > 0">
+        <article>
             <h3>Importing {{meta.title}} as a plugin:</h3>
             <p v-if="$route.name === 'docs-components-slug'">
                 This plugin includes all of the above listed individual
