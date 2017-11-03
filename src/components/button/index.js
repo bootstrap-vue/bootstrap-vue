@@ -1,5 +1,6 @@
 import bButton from './button';
 import bButtonClose from './button-close';
+import bLink from './link';
 import { registerComponent } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
@@ -8,7 +9,8 @@ const components = {
   bButton,
   bBtn: bButton,
   bButtonClose,
-  bBtnClose: bButtonClose
+  bBtnClose: bButtonClose,
+  bLink
 };
 
 const VuePlugin = {
