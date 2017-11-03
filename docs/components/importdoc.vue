@@ -25,8 +25,8 @@
             </b-table>
         </article>
 
-        <article>
-            <h3>Importing {{meta.title}} as a Vue plugin</h3>
+        <article class="pb-5">
+            <h3>Importing {{pluginTitle}} as a Vue plugin</h3>
             <p v-if="$route.name === 'docs-components-slug'">
                 This plugin includes all of the above listed individual
                 components<span v-if="directives.length"> and directives</span>.
@@ -88,6 +88,9 @@
         computed: {
             pluginName() {
                 return startCase(this.$route.params.slug).replace(/\s+/g, '');
+            },
+            pluginTitle() {
+                return startCase(this.meta.title);
             },
             componentImports() {
                return this.components.map(c => {
