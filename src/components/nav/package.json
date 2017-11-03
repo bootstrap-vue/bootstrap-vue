@@ -7,7 +7,7 @@
         "components": [
             "bNavItem",
             "bNavText",
-            "bNavForm"
+            "bNavForm",
             "bNavItemDropdown"
         ],
         "plugins": [
