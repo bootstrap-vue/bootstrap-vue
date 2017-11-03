@@ -1,7 +1,7 @@
 <template>
-    <div class="bd-content" v-if="components.length > 0 || directives.length > 0">
+    <section class="bd-content" v-if="components.length > 0 || directives.length > 0">
 
-        <section v-if="components.length > 0">
+        <article v-if="components.length > 0">
             <h3>Importing Individual Components</h3>
             <b-table :items="componentImports" small head-variant="default" striped>
                 <template slot="component" scope="field">
@@ -11,9 +11,9 @@
                     <code>{{field.value}}</code>
                 </template>
             </b-table>
-        </section>
+        </article>
 
-        <section v-if="directives.length > 0">
+        <article v-if="directives.length > 0">
             <h3>Importing Individual Directives</h3>
             <b-table :items="directiveImports" small head-variant="default" striped>
                 <template slot="directive" scope="field">
@@ -23,8 +23,9 @@
                     <code>{{field.value}}</code>
                 </template>
             </b-table>
-        </section>
-    </div>
+        </article>
+
+    </section>
 </template>
 
 <style scoped>
