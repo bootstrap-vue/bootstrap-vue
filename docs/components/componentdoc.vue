@@ -45,7 +45,7 @@
 
 <script>
     import Vue from 'vue';
-    import _ from 'lodash';
+    import kebabCase from 'lodash/kebabCase';
 
     export default {
         props: {
@@ -140,7 +140,7 @@
                     const required = p.required ? 'Yes' : '';
 
                     return {
-                        prop: _.kebabCase(prop),
+                        prop: kebabCase(prop),
                         type,
                         required,
                         typeClass,
@@ -149,7 +149,7 @@
                 });
             },
             componentName() {
-                return _.kebabCase(this.component);
+                return kebabCase(this.component);
             },
             tag() {
                 return '<' + this.componentName + '>';
@@ -158,7 +158,7 @@
                 const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/src/components';
                 const isFunctional =  this.componentOptions.functional;
                 const slug = this.$route.params.slug;
-                return base + '/' + slug + '/' + _.kebabCase(this.component).replace(/^b-/, '') + (isFunctional ? '.js' : '.vue');
+                return base + '/' + slug + '/' + kebabCase(this.component).replace(/^b-/, '') + (isFunctional ? '.js' : '.vue');
             }
         }
     };
