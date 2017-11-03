@@ -346,4 +346,4 @@ new Vue({
 ```
 
 
-## Directive refernce
+## Directive reference
