@@ -25,6 +25,25 @@
             </b-table>
         </article>
 
+        <article v-if="meta.plugins && meta.plugins.length > 0">
+            <h3>Importing {{meta.title}} as a Vue plugin</h3>
+            <p class="mb-0">
+                <code v-if="$route.name === 'docs-components-slug'">
+                     import {{pluginName}} from 'bootstrap-vue/es/components/{{$route.params.slug}};
+                </code>
+                <code v-else>
+                     import {{pluginName}} from 'bootstrap-vue/es/directives/{{$route.params.slug}};
+                </code>
+            </p>
+            <p><code>Vue.use({{pluginName}});</code></p>
+            <template v-if="meta.plugins && meta.plugins.length > 0">
+                <p>This plugin automatically includes the following plugins:</p>
+                <ul>
+                    <li v-for="plugin in meta.plugins" :key="plugin"><code>{{plugin}}</code></li>
+                </ul>
+            </template>
+        </article>
+
     </section>
 </template>
 
@@ -36,6 +55,7 @@
 
 <script>
     import kebabCase from 'lodash/kebabCase';
+    import startCase from 'lodash/startCase';
     export default {
         props: {
             meta: {}
@@ -56,20 +76,23 @@
             },
         },
         computed: {
+            pluginName() {
+                return startCase(this.$route.params.slug).replace(/\s+/g, '');
+            },
             componentImports() {
                return this.components.map(c => {
-                 return {
-                   component: this.componentTag(c),
-                   import_path: this.componentPath(c)
-                 };
+                   return {
+                       component: this.componentTag(c),
+                       import_path: this.componentPath(c)
+                   };
                });
             },
             directiveImports() {
                return this.directives.map(d => {
-                 return {
-                   directive: this.directiveAttr(d),
-                   import_path: this.directivePath(d)
-                 }
+                   return {
+                       directive: this.directiveAttr(d),
+                       import_path: this.directivePath(d)
+                   };
                });
             },
             components() {
