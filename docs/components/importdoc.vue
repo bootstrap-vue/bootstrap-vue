@@ -26,7 +26,11 @@
         </article>
 
         <article v-if="meta.plugins && meta.plugins.length > 0">
-            <h3>Importing {{meta.title}} as a Vue plugin</h3>
+            <h3>Importing {{meta.title}} as a plugin:</h3>
+            <p v-if="$route.name === 'docs-components-slug'">
+              The plugin includes all of the above listed individual components<span v-if="directives.length"> and directives</span>.
+            </p>
+            <p v-else>The plugin includes all of the above listed individual directives.</p>
             <p class="mb-0">
                 <code v-if="$route.name === 'docs-components-slug'">
                      import {{pluginName}} from 'bootstrap-vue/es/components/{{$route.params.slug}};
@@ -37,7 +41,7 @@
             </p>
             <p><code>Vue.use({{pluginName}});</code></p>
             <template v-if="meta.plugins && meta.plugins.length > 0">
-                <p>This plugin automatically includes the following plugins:</p>
+                <p>This plugin also automatically includes the following plugins:</p>
                 <ul>
                     <li v-for="plugin in meta.plugins" :key="plugin"><code>{{plugin}}</code></li>
                 </ul>
