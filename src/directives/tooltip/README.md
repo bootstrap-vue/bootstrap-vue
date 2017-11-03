@@ -313,3 +313,6 @@ this.$root.$emit('bv::hide::tooltip');
 - [`v-b-popover` directive](/docs/directives/popover)
 - [`<b-tooltip>` component](/docs/components/tooltip)
 - [`<b-popover>` component](/docs/components/popover)
+
+
+## Directive reference
