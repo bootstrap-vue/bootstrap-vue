@@ -7,6 +7,9 @@
         "components": [
             "bNavItem",
             "bNavItemDropdown"
+        ],
+        "plugins": [
+            "Dropdown"
         ]
     }
 }
