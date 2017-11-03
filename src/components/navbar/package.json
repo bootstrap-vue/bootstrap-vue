@@ -8,11 +8,7 @@
         "components": [
             "bNavbarNav",
             "bNavbarBrand",
-            "bNavbarToggle",
-            "bNavItem",
-            "bNavText",
-            "bNavItemDropdown",
-            "bNavForm"
+            "bNavbarToggle"
         ],
         "plugins": [
             "Nav",
