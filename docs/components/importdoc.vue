@@ -26,7 +26,7 @@
         </article>
 
         <article>
-            <h3>Importing {{meta.title}} as a plugin</h3>
+            <h3>Importing {{meta.title}} as a Vue plugin</h3>
             <p v-if="$route.name === 'docs-components-slug'">
                 This plugin includes all of the above listed individual
                 components<span v-if="directives.length"> and directives</span>.
