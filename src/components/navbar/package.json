@@ -16,7 +16,8 @@
         ],
         "plugins": [
             "Nav",
-            "Dropdown"
+            "Dropdown",
+            "Collapse"
         ]
     }
 }
