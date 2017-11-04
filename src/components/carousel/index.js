@@ -12,7 +12,6 @@ const components = {
 const VuePlugin = {
   install(Vue) {
     registerComponents(Vue, components);
-    }
   }
 };
 
