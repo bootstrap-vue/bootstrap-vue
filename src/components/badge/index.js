@@ -9,7 +9,7 @@ const components = {
 
 const VuePlugin = {
   install(Vue) {
-    registerComponent(Vue, components);
+    registerComponents(Vue, components);
   }
 };
 
