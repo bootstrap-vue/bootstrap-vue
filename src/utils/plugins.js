@@ -28,3 +28,8 @@ export function registerDirective(Vue, name, def) {
     return loaded;
 }
 
+export function vueUse(VuePlugin) {
+    if (typeof window !== 'undefined' && window.Vue) {
+        window.Vue.use(VuePlugin);
+    }
+}
