@@ -11,7 +11,7 @@ import memoize from "./memoize"
 import observeDom from "./observe-dom";
 import pluckProps from "./pluckProps";
 import prefixPropName from "./prefixPropName";
-import { registerComponent, registerDirective, vueUse } from "./plugins";
+import { registerComponent, registerComponents, registerDirective, registerDirectives, vueUse } from "./plugins";
 import suffixPropName from "./suffixPropName";
 import unPrefixPropName from "./unPrefixPropName";
 import upperFirst from "./upperFirst";
@@ -32,7 +32,9 @@ export {
     pluckProps,
     prefixPropName,
     registerComponent,
+    registerComponents,
     registerDirective,
+    registerDirectives,
     suffixPropName,
     upperFirst,
     unPrefixPropName,
