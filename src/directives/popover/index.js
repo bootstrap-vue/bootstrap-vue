@@ -1,5 +1,5 @@
 import bPopover from './popover';
-import { registerDirective, vueUse } from '../../utils';
+import { registerDirectives, vueUse } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -9,9 +9,7 @@ const directives = {
 
 const VuePlugin = {
   install(Vue) {
-    for (var directive in directives) {
-      registerDirective(Vue, directive, directives[directive]);
-    }
+    registerDirectives(Vue, directives);
   }
 };
 
