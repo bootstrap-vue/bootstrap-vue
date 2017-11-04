@@ -1,5 +1,5 @@
 import bToggle from './toggle';
-import { registerDirectives } from '../../utils';
+import { registerDirectives, vueUse } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
