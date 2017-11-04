@@ -1,50 +1,5 @@
 import { from as arrayFrom } from './array';
 
-/*
- * Element closest polyfill, if needed
- * https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
- * Returns null of not found
- */
-if (typeof document !== "undefined" && window.Element && !Element.prototype.closest) {
-    Element.prototype.closest = function(s) {
-        const matches = (this.document || this.ownerDocument).querySelectorAll(s);
-        let el = this;
-        let i;
-        do {
-            i = matches.length;
-            // eslint-disable-next-line no-empty
-            while (--i >= 0 && matches.item(i) !== el) {}
-        } while (i < 0 && (el = el.parentElement));
-        return el;
-    };
-}
-
-/*
- * Element.matches polyfill, if needed
- * https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
- * Returns true or false
- */
-if (typeof document !== "undefined" && window.Element && !Element.prototype.matches) {
-    const proto = Element.prototype;
-    proto.matches =
-        proto.matchesSelector ||
-        proto.mozMatchesSelector ||
-        proto.msMatchesSelector ||
-        proto.oMatchesSelector ||
-        proto.webkitMatchesSelector ||
-        function(s) {
-            const matches = (this.document || this.ownerDocument).querySelectorAll(s);
-            let i = matches.length;
-            // eslint-disable-next-line no-empty
-            while (--i >= 0 &&matches.item(i) !== this) {}
-            return i > -1;
-        };
-}
-
-/*
- * Our exported DOM utilities
- */
-
 // Determine if an element is an HTML Element
 export const isElement = el => {
     return el && el.nodeType === Node.ELEMENT_NODE;
@@ -93,7 +48,22 @@ export  const closest = (selector, root) => {
     if (!isElement(root)) {
         return null;
     }
-    const el = root.closest(selector);
+
+    const Closest = root.closest || function(s) {
+        // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+        const m = (root.document || root.ownerDocument).querySelectorAll(s);
+        let e = root;
+        let i;
+        do {
+            i = m.length;
+            // eslint-disable-next-line no-empty
+            while (--i >= 0 && m.item(i) !== e) {}
+        } while (i < 0 && (e = e.parentElement));
+        return e;
+    }
+
+    const el = Closest(selector);
+    // Emulate jQuery closest and return null if match is self
     return el === root ? null : el;
 };
 
@@ -125,11 +95,27 @@ export const hasClass = (el, className) => {
 };
 
 // Determine if an element matches a selector
-export matches = (el, selector) => {
+export const matches = (el, selector) => {
     if (!isElement(el)) {
         return false;
     }
-    return el.matches(selector);
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
+    const Matches = el.matches ||
+        el.matchesSelector ||
+        el.mozMatchesSelector ||
+        el.msMatchesSelector ||
+        el.oMatchesSelector ||
+        el.webkitMatchesSelector ||
+        function(s) {
+            const m = (el.document || el.ownerDocument).querySelectorAll(s);
+            let i = m.length;
+            // eslint-disable-next-line no-empty
+            while (--i >= 0 && m.item(i) !== el) {}
+            return i > -1;
+        };
+
+    return Matches(selector);
 };
 
 // Set an attribute on an element
