@@ -37,10 +37,10 @@
             </p>
             <p class="mb-0">
                 <code v-if="$route.name === 'docs-components-slug'">
-                     import {{pluginName}} from 'bootstrap-vue/es/components/{{$route.params.slug}};
+                     import { {{pluginName}} } from 'bootstrap-vue/es/components;
                 </code>
                 <code v-else>
-                     import {{pluginName}} from 'bootstrap-vue/es/directives/{{$route.params.slug}};
+                     import { {{pluginName}} } from 'bootstrap-vue/es/directives;
                 </code>
             </p>
             <p>
