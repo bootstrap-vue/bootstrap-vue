@@ -156,7 +156,7 @@ export const hasAttr = (el, attr) => {
 
 // Return the Bounding Client Rec of an element. Retruns null if not an element
 export const getBCR = el => {
-    return dom.isElement(el) ? el.getBoundingClientRect() : null;
+    return isElement(el) ? el.getBoundingClientRect() : null;
 };
 
 // Get computed style object for an element
@@ -202,8 +202,8 @@ export const position = el => {
         }
         if (offsetParent && offsetParent !== el && offsetParent.nodeType === Node.ELEMENT_NODE) {
             parentOffset = offset(offsetParent);
-            parentOffset.top += parseFloat(dom.getCS(offsetParent).borderTopWidth);
-            parentOffset.left += parseFloat(dom.getCS(offsetParent).borderLeftWidth);
+            parentOffset.top += parseFloat(getCS(offsetParent).borderTopWidth);
+            parentOffset.left += parseFloat(getCS(offsetParent).borderLeftWidth);
         }
     }
     return {
