@@ -58,18 +58,18 @@ export const matches = (el, selector) => {
         el.oMatchesSelector ||
         el.webkitMatchesSelector ||
         function(s) {
-            const m = (el.document || el.ownerDocument).querySelectorAll(s);
+            const m = selectAll(s, this.document || this.ownerDocument);
             let i = m.length;
             // eslint-disable-next-line no-empty
-            while (--i >= 0 && m.item(i) !== el) {}
+            while (--i >= 0 && m.item(i) !== this) {}
             return i > -1;
         };
 
-    return Matches(selector);
+    return Matches.call(el, selector);
 };
 
 // Finds closest element matching selector. Returns null if not found
-export  const closest = (selector, root) => {
+export const closest = (selector, root) => {
     if (!isElement(root)) {
         return null;
     }
@@ -78,7 +78,7 @@ export  const closest = (selector, root) => {
     // Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
     // Prefer native implementation over polyfill function
     const Closest = root.closest || function(s) {
-        let e = root;
+        let e = this;
         if (!document.documentElement.contains(e)) {
             return null;
         }
@@ -88,11 +88,11 @@ export  const closest = (selector, root) => {
                 return e;
             }
             e = e.parentElement;
-        } while (e !== null); 
+        } while (e); 
         return null;
     };
 
-    const el = Closest(selector);
+    const el = Closest.call(root, selector);
     // Emulate jQuery closest and return null if match is the passed in element (root)
     return el === root ? null : el;
 };
