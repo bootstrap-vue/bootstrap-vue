@@ -43,27 +43,57 @@ export const select = (selector, root) => {
     return root.querySelector(selector) || null;
 };
 
+// Determine if an element matches a selector
+export const matches = (el, selector) => {
+    if (!isElement(el)) {
+        return false;
+    }
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
+    // Prefer native implementations over polyfill function
+    const Matches = el.matches ||
+        el.matchesSelector ||
+        el.mozMatchesSelector ||
+        el.msMatchesSelector ||
+        el.oMatchesSelector ||
+        el.webkitMatchesSelector ||
+        function(s) {
+            const m = (el.document || el.ownerDocument).querySelectorAll(s);
+            let i = m.length;
+            // eslint-disable-next-line no-empty
+            while (--i >= 0 && m.item(i) !== el) {}
+            return i > -1;
+        };
+
+    return Matches(selector);
+};
+
 // Finds closest element matching selector. Returns null if not found
 export  const closest = (selector, root) => {
     if (!isElement(root)) {
         return null;
     }
 
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+    // Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
+    // Prefer native implementation over polyfill function
     const Closest = root.closest || function(s) {
-        // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-        const m = (root.document || root.ownerDocument).querySelectorAll(s);
         let e = root;
-        let i;
+        if (!document.documentElement.contains(e)) {
+            return null;
+        }
         do {
-            i = m.length;
-            // eslint-disable-next-line no-empty
-            while (--i >= 0 && m.item(i) !== e) {}
-        } while (i < 0 && (e = e.parentElement));
-        return e;
-    }
+            // Use our "patched" matches function
+            if (matches(e, s)) {
+                return e;
+            }
+            e = e.parentElement;
+        } while (e !== null); 
+        return null;
+    };
 
     const el = Closest(selector);
-    // Emulate jQuery closest and return null if match is self
+    // Emulate jQuery closest and return null if match is the passed in element (root)
     return el === root ? null : el;
 };
 
@@ -92,30 +122,6 @@ export const hasClass = (el, className) => {
         return el.classList.contains(className);
     }
     return false;
-};
-
-// Determine if an element matches a selector
-export const matches = (el, selector) => {
-    if (!isElement(el)) {
-        return false;
-    }
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
-    const Matches = el.matches ||
-        el.matchesSelector ||
-        el.mozMatchesSelector ||
-        el.msMatchesSelector ||
-        el.oMatchesSelector ||
-        el.webkitMatchesSelector ||
-        function(s) {
-            const m = (el.document || el.ownerDocument).querySelectorAll(s);
-            let i = m.length;
-            // eslint-disable-next-line no-empty
-            while (--i >= 0 && m.item(i) !== el) {}
-            return i > -1;
-        };
-
-    return Matches(selector);
 };
 
 // Set an attribute on an element
