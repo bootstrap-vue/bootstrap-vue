@@ -55,7 +55,7 @@ const Selector = {
     NAV_LINKS: '.nav-link',
     NAV_ITEMS: '.nav-item',
     LIST_ITEMS: '.list-group-item',
-    DROPDOWN: '.dropdown, dropup',
+    DROPDOWN: '.dropdown, .dropup',
     DROPDOWN_ITEMS: '.dropdown-item',
     DROPDOWN_TOGGLE: '.dropdown-toggle'
 };
