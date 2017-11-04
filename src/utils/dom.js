@@ -51,17 +51,19 @@ export const matches = (el, selector) => {
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
     // Prefer native implementations over polyfill function
-    const Matches = el.matches ||
-        el.matchesSelector ||
-        el.mozMatchesSelector ||
-        el.msMatchesSelector ||
-        el.oMatchesSelector ||
-        el.webkitMatchesSelector ||
-        function(s) {
-            const m = selectAll(s, this.document || this.ownerDocument);
+    const proto = Element.prototype;
+    const Matches = proto.matches ||
+        proto.matchesSelector ||
+        proto.mozMatchesSelector ||
+        proto.msMatchesSelector ||
+        proto.oMatchesSelector ||
+        proto.webkitMatchesSelector ||
+        function(sel) {
+            const element = this;
+            const m = selectAll(sel, element.document || element.ownerDocument);
             let i = m.length;
             // eslint-disable-next-line no-empty
-            while (--i >= 0 && m.item(i) !== this) {}
+            while (--i >= 0 && m.item(i) !== element) {}
             return i > -1;
         };
 
@@ -77,18 +79,18 @@ export const closest = (selector, root) => {
     // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
     // Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
     // Prefer native implementation over polyfill function
-    const Closest = root.closest || function(s) {
-        let e = this;
-        if (!document.documentElement.contains(e)) {
+    const Closest = Element.prototype.closest || function(sel) {
+        let element = this;
+        if (!document.documentElement.contains(element)) {
             return null;
         }
         do {
             // Use our "patched" matches function
-            if (matches(e, s)) {
-                return e;
+            if (matches(element, sel)) {
+                return element;
             }
-            e = e.parentElement;
-        } while (e); 
+            element = element.parentElement;
+        } while (element !== null); 
         return null;
     };
 
