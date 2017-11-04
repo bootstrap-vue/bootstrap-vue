@@ -1,5 +1,5 @@
 import bModal from './modal';
-import { registerDirective } from '../../utils';
+import { registerDirective, vueUse } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -15,8 +15,6 @@ const VuePlugin = {
   }
 };
 
-if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(VuePlugin);
-};
+vueUse(VuePlugin);
 
 export default VuePlugin;
