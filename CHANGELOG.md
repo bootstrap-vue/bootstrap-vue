@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 ## [v1.0.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.9...v1.0.0)
-Released: 2017-11-01
+Released: 2017-11-05
 
 **Version v1.0.0 marks Bootstrap-Vue's departure from the beta development phase.**
 
@@ -90,6 +90,10 @@ vue/bootstrap-vue/issues/1228)) ([87cfab4](https://github.com/bootstrap-vue/boot
 * **tooltip popover:** Don't close if focus moves between trigger element and tooltip/popover ([#1093](https://github.com/bootstrap-vue/bootstrap-vue/issues/1093)) ([87ffb4f](https://github.com/bootstrap-vue/bootstrap-vue/commit/87ffb4f))
 * **tooltip+popover:** Allow delay to be specified as object in component versions ([#1131](https://github.com/bootstrap-vue/bootstrap-vue/issues/1131)) ([1a47c87](https://github.com/bootstrap-vue/bootstrap-vue/commit/1a47c87))
 
+### Performance v1.0.0
+
+* move repetitive plugin code to plugin.js utility ([6ba8c46](https://github.com/bootstrap-vue/bootstrap-vue/commit/6ba8c46da4b8abca145970bc506718c8a73b14b8))
+* **dom-utils:** Improve DOM utils code for speed, minification & tree-shaking ([e1e701b](https://github.com/bootstrap-vue/bootstrap-vue/commit/e1e701ba4ec8850117ccd5d983dc47898f961abb))
 
 ## [v1.0.0-beta.9](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.8...v1.0.0-beta.9)
 Released: 2017-09-21
