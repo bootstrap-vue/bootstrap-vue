@@ -415,6 +415,17 @@ To disable the fading transition/animation when modal opens and closes, just set
 `no-fade` on the `<b-modal>` component.
 
 
+## Disabling built-in buttons
+You can disable the built-in footer buttons programatically.
+
+You can disable the **Cancel** and **OK** buttons individually by setting the `cancel-disabled`
+and `ok-disabled` props, respectively,  to `true`. Set the prop to `false` to re-enable
+the button.
+
+To disable both **Cancel** and **OK** buttons at teh same time, simply set the `busy`
+prop to `true`. Set it to `false` to re-enable both buttons.
+
+
 ## Accessibility
 
 `<b-modal>` provides several accessibility features, including auto focus, return
