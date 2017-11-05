@@ -37,7 +37,7 @@ describe("input-group", async () => {
 
         const left = $refs.basic.$el.children[0]
         expect(left).toBeDefined()
-        expect(left.innerTEXT).toBe("$")
+        expect(left.textContent).toContain("$")
     })
 
     it("basic should have right `.input-group-addon` as last child", async () => {
@@ -53,7 +53,7 @@ describe("input-group", async () => {
 
         const right = $refs.basic.$el.children[2]
         expect(right).toBeDefined()
-        expect(right.innerTEXT).toBe(".00")
+        expect(right.textContent).toContain(".00")
     })
 
     it("basic should have input as second child", async () => {
@@ -77,7 +77,7 @@ describe("input-group", async () => {
 
         const left = $refs.components.$el.children[0]
         expect(left).toBeDefined()
-        expect(left.innerTEXT).toBe("$")
+        expect(left.textContent).toContain("$")
     })
     it("components should have right `.input-group-button` as last child", async () => {
         const { app: { $refs } } = window
