@@ -14,6 +14,16 @@
     </div>
 </template>
 
+<style>
+    /*
+     * Temporary fix, as BS V4.beta.2 mistakenly removed progress-bar transition.
+     * This should be able to be removed once V4.beta.3 is released.
+     */
+    .progress-bar {
+        transition: width .6s ease;
+    }
+</style>
+
 <script>
     import bProgressBar from './progress-bar.vue';
 
