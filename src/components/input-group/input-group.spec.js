@@ -20,7 +20,7 @@ describe("input-group", async () => {
         const refs = ["basic", "components"]
 
         refs.forEach(ref => {
-            expect($refs[ref].getAttribute("role").toBe("group")
+            expect($refs[ref].getAttribute("role")).toBe("group")
         })
     })
 
