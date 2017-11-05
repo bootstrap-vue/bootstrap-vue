@@ -38,19 +38,16 @@ export default {
             default: 'right'
         },
         target: {
+            type: String,
             required: true
         }
     },
     methods: {
         onclick() {
-            const target = this.target;
-            if (target.toggle) {
-                target.toggle();
-            }
             this.$root.$emit('bv::toggle::collapse', this.target);
         },
-        handleStateEvt(target, state) {
-            if (target === this.target || target === this.target.id) {
+        handleStateEvt(id, state) {
+            if (id === this.target) {
                 this.toggleState = state;
             }
         }
