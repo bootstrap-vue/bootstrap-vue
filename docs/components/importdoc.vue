@@ -11,6 +11,12 @@
                     <code>{{field.value}}</code>
                 </template>
             </b-table>
+            <p><strong>Example:</strong></p>
+            <b-card no-body tag="p">
+              <code>import {{components[0]}} from '{{componentImports[0].import_path}}';</code>
+              <br>
+              <code>Vue.component('{{componentName(components[0])}}', {{components[0]}});</code>
+            </b-card>
         </article>
 
         <article v-if="directives.length > 0">
@@ -23,6 +29,14 @@
                     <code>{{field.value}}</code>
                 </template>
             </b-table>
+            <p><strong>Example:</strong></p>
+            <b-card no-body tag="p">
+              <code>import {{directives[0]}} from '{{directiveImports[0].import_path}}';</code>
+              <br>
+              <code>Vue.directive('{{directiveName(directives[0])}}', {{directives[0]}});</code>
+              <br>
+              <code>// Note Vue automatically prefixes the directive name with 'v-'</code>
+            </b-card>
         </article>
 
         <article class="pb-5">
@@ -35,17 +49,16 @@
             <p v-else>
                 This plugin includes all of the above listed individual directives.
             </p>
-            <p class="mb-0">
+            <b-card no-body tag="p">
                 <code v-if="$route.name === 'docs-components-slug'">
                      import { {{pluginName}} } from 'bootstrap-vue/es/components;
                 </code>
                 <code v-else>
                      import { {{pluginName}} } from 'bootstrap-vue/es/directives;
                 </code>
-            </p>
-            <p>
+                <br>
                 <code>Vue.use({{pluginName}});</code>
-            </p>
+            </b-card>
             <template v-if="meta.plugins && meta.plugins.length > 0">
                 <p>This plugin also automatically includes the following plugins:</p>
                 <ul>
@@ -71,19 +84,25 @@
             meta: {}
         },
         methods: {
+            componentName(component) {
+                return kebabCase(component);
+            },
             componentTag(component) {
-                return '<' + kebabCase(component) + '>';
+                return `<${kebabCase(component)}>`;
             },
             componentPath(component) {
-                return '/bootstrap-vue/es/components/' + this.$route.params.slug + '/' + kebabCase(component).replace(/^b-/, '');
+                return `/bootstrap-vue/es/components/${this.$route.params.slug}/${kebabCase(component).replace(/^b-/, '')}`;
+            },
+            directiveName(directive) {
+                return kebabCase(directive).replace(/^v-/, '');
             },
             directiveAttr(directive) {
                 return kebabCase(directive);
             },
             directivePath(directive) {
                 const slug = kebabCase(directive).replace(/^v-b-/, '')
-                return '/bootstrap-vue/es/directives/' + slug + '/' + slug;
-            },
+                return `/bootstrap-vue/es/directives/${slug}/${slug}`;
+            }
         },
         computed: {
             pluginName() {
