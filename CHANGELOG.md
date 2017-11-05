@@ -94,6 +94,7 @@ vue/bootstrap-vue/issues/1228)) ([87cfab4](https://github.com/bootstrap-vue/boot
 
 * move repetitive plugin code to plugin.js utility ([6ba8c46](https://github.com/bootstrap-vue/bootstrap-vue/commit/6ba8c46da4b8abca145970bc506718c8a73b14b8))
 * **dom-utils:** Improve DOM utils code for speed, minification & tree-shaking ([e1e701b](https://github.com/bootstrap-vue/bootstrap-vue/commit/e1e701ba4ec8850117ccd5d983dc47898f961abb))
+* **navbar-toggle:** Remove unused code ([1e95383](https://github.com/bootstrap-vue/bootstrap-vue/commit/1e95383959e48b6f926738b4d600967879c5c354))
 
 ## [v1.0.0-beta.9](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.8...v1.0.0-beta.9)
 Released: 2017-09-21
