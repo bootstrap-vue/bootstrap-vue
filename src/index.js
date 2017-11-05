@@ -1,5 +1,6 @@
 import * as components from './components';
 import * as directives from './directives';
+import { vueUse } from './utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -11,20 +12,18 @@ const VuePlugin = {
 
         Vue._bootstrap_vue_installed = true;
 
-        // Register components
-        for (var component in components) {
-            Vue.use(components[component]);
+        // Register component plugins
+        for (var plugin in components) {
+            Vue.use(components[plugin]);
         }
 
-        // Register directives
-        for (var directive in directives) {
-            Vue.use(directives[directive]);
+        // Register directive plugins
+        for (var plugin in directives) {
+            Vue.use(directives[plugin]);
         }
     }
 };
 
-if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(VuePlugin);
-}
+vueUse(VuePlugin);
 
 export default VuePlugin;

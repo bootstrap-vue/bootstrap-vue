@@ -1,6 +1,6 @@
 import bFormCheckbox from './form-checkbox';
 import bFormCheckboxGroup from './form-checkbox-group';
-import { registerComponent } from '../../utils';
+import { registerComponents, vueUse } from '../../utils';
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -15,14 +15,10 @@ const components = {
 
 const VuePlugin = {
   install(Vue) {
-    for (var component in components) {
-      registerComponent(Vue, component, components[component]);
-    }
+    registerComponents(Vue, components);
   }
 };
 
-if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(VuePlugin);
-};
+vueUse(VuePlugin);
 
 export default VuePlugin;

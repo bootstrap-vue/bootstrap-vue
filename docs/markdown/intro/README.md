@@ -110,22 +110,22 @@ Vue.directive('b-modal', bModalDirective);
 Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-casing (shown),
 camel-casing, pascal-casing, and/or object property shorthand.
 
-### Components and Directives as Vue plugins
+### Component groups and Directives as Vue plugins
 
 You can also import component groups and directives as Vue plugins by importing
 the component group or directive directory:
 
 ```js
 // This imports <b-modal> as well as the v-b-modal directive as a plugin:
-import Modal from 'bootstrap-vue/es/components/modal';
+import { Modal } from 'bootstrap-vue/es/components';
 Vue.use(Modal);
 
 // This imports <b-card> along with all the <b-card-*> sub-components as a plugin:
-import Card from 'bootstrap-vue/es/components/card';
+import { Card } from 'bootstrap-vue/es/components';
 Vue.use(Card);
 
 // This imports directive v-b-scrollspy as a plugin:
-import Scrollspy from 'bootstrap-vue/es/directives/scrollspy';
+import { Scrollspy } from 'bootstrap-vue/es/directives';
 Vue.use(Scrollspy);
 ```
 
@@ -133,6 +133,7 @@ When importing as plugins, all subcomponents and related directives are imported
 i.e. When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well all
 dropdown sub components.
 
+Reffer to the component and directive documentation for details.
 
 ### Webpack + Babel
 
