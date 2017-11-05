@@ -101,13 +101,12 @@ There are a few methods that you can use to import individual components and dir
 You will need `vue-loader` configured to handle the compiling any components that are
 internally single file `.vue` components.
 
-### Importing individual components and directives as ES modules
-
-The Bootstyrap-Vue distribution now includes `ES` modules for all components and directives.
-
+The Bootstrap-Vue distribution now includes `ES` modules for all components and directives.
 These are located in the `bootstrap-vue/es/components/` and `bootstrap-vue/es/directives/`
-directories when using the NPM bundle, or will be created when you run `yarn build` when
-building from the Bootstrap-Vue repo source.
+directories, when using the NPM bundle. When building from the Bootstrap-Vue repo source
+the directories will be created when you run `yarn build`.
+
+### Importing individual components and directives as ES modules
 
 Components and directives appear in sub directories, grouped by functionality. As an example,
 you can import `<b-card>` (plus it's sub components) and `<b-table>` as follows:
@@ -151,17 +150,19 @@ sub-components) and `<b-table>` can simply be done as:
 
 ```js
 // Import the components as Vue plugins
-import Card from 'bootstrap-vue/es/components/card';
-import Table from 'bootstrap-vue/es/components/table';
+import { Card, Table } from 'bootstrap-vue/es/components';
 
-// Add the components to Vue
+// Add the plugins to Vue
 Vue.use(Card);
 Vue.use(Table);
 ```
 
-Now you can use `<b-card>` (and all the `<b-card-*>` sub-components) and `<b-table>`
-in your project templates.
+Now you can use the `<b-card>` (including the `<b-card-*>` sub-components) and `<b-table>`
+components in your project templates.
 
 Note some component plugins automatically import other directives and components
 (i.e. the `modal` plugin also imports the `v-b-modal` directive, and `nav` plugin
 automatically imports all `nav-*` sub compoents and the dropdown sub components).
+Refer to the component reference or directive reference at the bottom of each
+documenttion page for details.
+
