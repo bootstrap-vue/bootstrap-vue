@@ -37,7 +37,7 @@ describe("input-group", async () => {
 
         const left = $refs.basic.$el.children[0]
         expect(left).toBeDefined()
-        expect(left.innerText).toBe("$")
+        expect(left.innerTEXT).toBe("$")
     })
 
     it("basic should have right `.input-group-addon` as last child", async () => {
@@ -53,7 +53,7 @@ describe("input-group", async () => {
 
         const right = $refs.basic.$el.children[2]
         expect(right).toBeDefined()
-        expect(right.innerText).toBe(".00")
+        expect(right.innerTEXT).toBe(".00")
     })
 
     it("basic should have input as second child", async () => {
@@ -77,7 +77,7 @@ describe("input-group", async () => {
 
         const left = $refs.components.$el.children[0]
         expect(left).toBeDefined()
-        expect(left.innerText).toBe("$")
+        expect(left.innerTEXT).toBe("$")
     })
     it("components should have right `.input-group-button` as last child", async () => {
         const { app: { $refs } } = window
@@ -87,12 +87,12 @@ describe("input-group", async () => {
         expect(right).toHaveClass("input-group-button")
     })
 
-    it("components should have button in right `.input-group-button`", async () => {
+    it("components should have button in right `.input-group-btn`", async () => {
         const { app: { $refs } } = window
 
         const right = $refs.components.$el.children[2]
         expect(right).toBeDefined()
-        const button = right.children[0]
+        const button = right.children[2]
         expect(button).toBeDefined()
         expect(button.tagName).toBe("BUTTON")
     })
@@ -122,7 +122,7 @@ describe("input-group", async () => {
 
         const tags = $refs.tags.$el
         expect(tags).toBeDefined()
-        expect(tags.tagName).toToBe("fieldset")
+        expect(tags.tagName).toBe("fieldset")
     })
 
     it("tags should have addon Element type of `span'", async () => {
@@ -132,7 +132,7 @@ describe("input-group", async () => {
         expect(tags).toBeDefined()
         const left = tags.children[0]
         expect(left).toBeDefined()
-        expect(left.tagName).toToBe("span")
+        expect(left.tagName).toBe("span")
     })
 
 });
