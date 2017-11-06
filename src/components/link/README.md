@@ -1,7 +1,7 @@
 # Links
 
-> Use Bootstrap-Vue’s custom `b-link` component for generating a standard link or `<router-link>`.
-`<b-link>` supports the `disabled` state and `click` event propagation.
+> Use Bootstrap-Vue’s custom `b-link` component for generating a standard `<a>` link or
+`<router-link>`. `<b-link>` supports the `disabled` state and `click` event propagation.
 
 `<b-link>` is the building block for most Bootstrap-Vue components that offer link functionality.
 
