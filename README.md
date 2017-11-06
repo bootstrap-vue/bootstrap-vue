@@ -55,6 +55,7 @@ This branch is for [Bootstrap4 Beta](https://getbootstrap.com/docs/4.0). If you 
 - 📘 [Documentation](https://bootstrap-vue.js.org)
 - 🔨 [Release Notes](https://bootstrap-vue.js.org/docs/misc/changelog)
 - 💬 [Slack Community](https://bootstrap-vue.now.sh)
+- 🐦 [Twitter](https://twitter.com/BootstrapVue)
 
 ## Contributors
 
