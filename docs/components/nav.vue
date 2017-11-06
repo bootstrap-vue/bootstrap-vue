@@ -17,7 +17,6 @@
         <b-collapse isNav class="justify-content-between" id="bd-main-nav">
 
             <b-navbar-nav>
-                <b-nav-item to="/" exact>Home</b-nav-item>
                 <b-nav-item to="/docs" exact>Documentation</b-nav-item>
                 <b-nav-item to="/docs/components">Components</b-nav-item>
                 <b-nav-item to="/docs/directives">Directives</b-nav-item>
