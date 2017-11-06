@@ -95,6 +95,43 @@ the `title-item-class` prop (for the `<li>` element) or `title-link-class` prop 
 Note: THe `ative` class is automatically applied to the `<a>` element. You may need to accomodate
 your custom classes for this.
 
+```html
+<template>
+  <b-card no-body>
+    <b-tabs card v-model="tabIndex">
+      <b-tab title="Tab 1" :title-link-class="linkClass(0)">
+        Tab Contents 1
+      </b-tab>
+      <b-tab title="Tab 2" :title-link-class="linkClass(1)">
+        Tab Contents 2
+      </b-tab>
+      <b-tab title="Tab 3" :title-link-class="linkClass(2)">
+        Tab Contents 3
+      </b-tab>
+    </b-tabs>
+  </b-card>
+</template>
+
+<script>
+  export default {
+    data: {
+      tabIndex: 0
+    },
+    methods: {
+      linkClass(idx) {
+        if (this.tabIndex === idx) {
+          return ['bg-success', 'text-light', 'font-weight-bold'];
+        } else {
+          return ['bg-info', 'text-light'];
+        }
+      }
+    }
+  }
+</script>
+
+<!-- with-classes.vue -->
+```
+
 
 ## Advanced Examples
 
@@ -138,7 +175,7 @@ your custom classes for this.
   export default {
     data: {
       tabIndex: 0
-    },
+    }
   }
 </script>
 
