@@ -147,19 +147,25 @@ If using toggle button style for a radio or checkbox style interface, it is best
 built-in `button` style support of [`<b-form-radio-group>`](/docs/components/form-radios) and
 [`b-checkbox-group>`](/docs/components/form-checkboxes).
 
+
 ## Router link support
 
-Refer to [`vue-router`](https://router.vuejs.org/) docs for the various `<router-link>` related props.
+Refer to the [`Router support`](/docs/reference/router/links) reference docs for the
+various supported `<router-link>` related props.
 
-Note the `tag` attribute for `<router-link>` is referred to as `router-tag` in `bootstrap-vue`.
+Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap-vue`.
+
 
 ## Button component alias
 
 `<b-button>` can also be used by its shorter alias `<b-btn>`.
 
+
 ## See also
 
-- [`<b-button-group>`](./button-group)
-- [`<b-button-toolbar>`](./button-toolbar)
+- [`<b-button-group>`](/docs/components/button-group)
+- [`<b-button-toolbar>`](/docs/components/button-toolbar)
+- [`<b-link>`](/docs/compoents/link)
+
 
 ## Component Reference
