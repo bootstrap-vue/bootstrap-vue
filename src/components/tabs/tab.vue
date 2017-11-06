@@ -85,6 +85,11 @@
                 type: String,
                 default: ''
             },
+            titleClass: {
+                // Sniffed by tabs.vue and added to nav 'li.nav-item'
+                type: [String, Array],
+                default: null
+            },
             headHtml: {
                 type: String,
                 default: null
