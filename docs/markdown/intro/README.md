@@ -196,6 +196,7 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 - Remove the bootstrap.js file from your page scripts or build pipeline
 - If Bootstrap is the only thing relying on jQuery, you can safely remove it — BootstrapVue **does not** depend on jQuery
 - Don't forget to include the `bootstrap-vue.css` file!
+- Convert your native bootstrap HTML markup into the simplified Bootstrap-Vue custom component markup
 
 ## Browsers Support
 
