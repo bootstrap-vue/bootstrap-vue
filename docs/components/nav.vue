@@ -11,6 +11,7 @@
                     <tspan x="307.5" y="446">V</tspan>
                 </text>
             </svg>
+            <span class="sr-only">Home</span>
         </b-navbar-brand>
 
         <b-collapse isNav class="justify-content-between" id="bd-main-nav">
