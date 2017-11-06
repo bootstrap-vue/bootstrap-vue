@@ -14,7 +14,7 @@ Notable changes:
 * Support for Bootstrap v4.0.0-beta.2
 * New modularized build structure
 * Dist code now available in `es` format for simpler importing of individual components
-* Component groups and directives are now available as Vue plugins
+* Component groups and directives are now importable as Vue plugins
 * `<b-table>` enhancements
 * `<b-modal>` improvements and features
 * Tooltip and popover fixes and new positioning options
@@ -25,10 +25,11 @@ Notable changes:
 
 ### Breaking Changes v1.0.0
 
-v1.0.0 introduces a new source code structure. For those users that are importing individual
-components, the path to the individual components has changed. Please reference the 
-[GitHub repo](https://github.com/bootstrap-vue/bootstrap-vue/src) for the new structure.
-Components and directives are now automatically built into importable `es` modules.
+v1.0.0 introduces a new source code structure. For those users that are importing
+individual components, the path to the individual components has changed. Please
+reference the [GitHub repo](https://github.com/bootstrap-vue/bootstrap-vue/src) and
+[docsumentation](https://bootstrap-vue.js.org/docs) for the new structure and information
+on importing.
 
 ### Bug Fixes v1.0.0
 
@@ -88,6 +89,7 @@ vue/bootstrap-vue/issues/1228)) ([87cfab4](https://github.com/bootstrap-vue/boot
 * **table:** allow custom attributes in table cell (`td`) ([#1193](https://github.com/bootstrap-vue/bootstrap-vue/issues/1193)) ([485adbf](https://github.com/bootstrap-vue/bootstrap-vue/commit/485adbf))
 * **table:** BS V4.beta.2 new responsive breakpoints and `table-dark` class ([#1222](https://github.com/bootstrap-vue/bootstrap-vue/issues/1222)) ([febdfd1](https://github.com/bootstrap-vue/bootstrap-vue/commit/febdfd1))
 * **table:** pass computed fields array to details scoped slot ([0745ae8](https://github.com/bootstrap-vue/bootstrap-vue/commit/0745ae8a567c5a218c26c57fc89d8804d6da476c))
+* **tabs:** new props for adding classes to nav tab ([c6d3642](https://github.com/bootstrap-vue/bootstrap-vue/commit/c6d3642fe590c50df1e8200a436f6dfe0bd3b3d8)) Closes [#1265](https://github.com/bootstrap-vue/bootstrap-vue/issues/1265)
 * **tooltip popover:** don't close if focus moves between trigger element and tooltip/popover ([#1093](https://github.com/bootstrap-vue/bootstrap-vue/issues/1093)) ([87ffb4f](https://github.com/bootstrap-vue/bootstrap-vue/commit/87ffb4f))
 * **tooltip+popover:** allow delay to be specified as object in component versions ([#1131](https://github.com/bootstrap-vue/bootstrap-vue/issues/1131)) ([1a47c87](https://github.com/bootstrap-vue/bootstrap-vue/commit/1a47c87)) Closes [#1130](https://github.com/bootstrap-vue/bootstrap-vue/issues/1130)
 
