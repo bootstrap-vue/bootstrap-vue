@@ -8,12 +8,16 @@ When asking general "how to" questions:
 
 - Please avoid opening an issue here
 - Instead, ask for help on StackOverflow, IRC, or [Slack](https://bootstrap-vue.now.sh/)
+- Also check out the [online documentation](https://bootstrap-vue.js.org)
 
 When reporting a bug, include:
 
 - Operating system and version (Windows, Mac OS X, Android, iOS, Win10 Mobile)
 - Browser and version (Chrome, Firefox, Safari, IE, MS Edge, Opera 15+, Android Browser)
-- Reduced test cases and potential fixes using [CodePen](https://codepen.io/) or [JS Bin](https://jsbin.com/)
+- Version of Bootstra-Vue that you are using
+- Reduced test cases and potential fixes using [CodePen](https://codepen.io/),
+[JS Bin](https://jsbin.com/), or [JsFidle](https://jsfiddle.net/) (You can export markup
+from the [online playground](https://bootstrap-vue.js.org/play) to JS Fiddle)
 
 When suggesting a feature, include:
 
