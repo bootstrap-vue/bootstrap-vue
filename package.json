@@ -55,8 +55,7 @@
     "docs-gen": "nuxt generate -c docs/nuxt.config.js",
     "docs-publish": "gh-pages -t -d docs-dist -b master -r git@github.com:bootstrap-vue/bootstrap-vue.github.io.git",
     "test": "NODE_ENV=test jest",
-    "postpublish": "npm run docs-publish",
-    "release": "npm run build && standard-version",
+    "release": "npm run build && npm run test && standard-version",
     "postinstall": "opencollective postinstall || exit 0"
   },
   "peerDependencies": {

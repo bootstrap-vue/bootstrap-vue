@@ -35,3 +35,10 @@ jobs:
           name: Tests
           command: yarn test -- --maxWorkers=2 && yarn codecov
 
+      # Publish Docs
+      - deploy:
+          name: Publish Docs
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              yarn docs-gen && yarn docs-publish
+            fi
