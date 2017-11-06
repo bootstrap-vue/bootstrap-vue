@@ -4,12 +4,12 @@ const marked = require('marked');
 
 // Markdown renderer with BS4 tables support
 const renderer = new marked.Renderer();
-const originalTable = renderer.table
+const originalTable = renderer.table;
 renderer.table = function renderTable(header, body) {
-    let r = originalTable.apply(this, arguments)
+    let r = originalTable.apply(this, arguments);
     return r.replace('<table>', '<table class="table b-table table-sm table-striped">')
-        .replace('<thead>', '<thead class="thead-default">')
-}
+        .replace('<thead>', '<thead class="thead-default">');
+};
 
 module.exports = {
     srcDir: __dirname,
@@ -18,9 +18,9 @@ module.exports = {
         extractCSS: true,
         cssSourceMap: true,
         extend(config) {
-            config.resolve.alias['vue'] = 'vue/dist/vue.common'
+            config.resolve.alias.vue = 'vue/dist/vue.common';
 
-            config.devtool = 'source-map'
+            config.devtool = 'source-map';
 
             config.module.rules.push({
                 test: /\.md$/,
@@ -32,7 +32,6 @@ module.exports = {
             });
         }
     },
-
 
     loading: {
         color: '#59cc93'
@@ -56,7 +55,7 @@ module.exports = {
                 .concat(scan('src', 'components', ['link']))
                 .concat(scan('src', 'directives', ['modal', 'toggle']))
                 .concat(scan('docs/markdown', 'reference'))
-                .concat(scan('docs/markdown', 'misc'))
+                .concat(scan('docs/markdown', 'misc'));
         }
     },
 
@@ -69,8 +68,16 @@ module.exports = {
     ],
 
     modules: [
-        '@nuxtjs/pwa'
+        '@nuxtjs/pwa',
+        '@nuxtjs/google-analytics'
     ],
+
+    'google-analytics': {
+        id: 'UA-89526435-1',
+        autoTracking: {
+            exception: true
+        }
+    },
 
     css: [
         'bootstrap/dist/css/bootstrap.css',

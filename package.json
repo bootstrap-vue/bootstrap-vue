@@ -68,6 +68,7 @@
     "vue-functional-data-merge": "^1.0.6"
   },
   "devDependencies": {
+    "@nuxtjs/google-analytics": "^2.0.1",
     "@nuxtjs/pwa": "^1.0.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
