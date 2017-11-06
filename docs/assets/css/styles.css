@@ -1,14 +1,5 @@
 @import './fonts.css';
 
-.page-enter-active,
-.page-leave-active {
-  transition: all .15s;
-}
-
-.page-enter, .page-leave-to {
-  opacity: 0;
-}
-
 .bd-toc-link, .bd-navbar .navbar-nav .nav-link.active {
   font-weight: normal;
 }

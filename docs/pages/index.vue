@@ -27,7 +27,7 @@
           <b-btn href="https://github.com/bootstrap-vue/bootstrap-vue" variant="outline-secondary" size="lg" target="_blank">Github</b-btn>
         </div>
         <b-link class="text-muted mb-0" to="/docs/misc/changelog">
-          Current Release {{ version }}
+          Currently v{{ version }}
         </b-link>
       </div>
     </div>
@@ -46,8 +46,8 @@
 import { version } from '~/content';
 
 export default {
-  computed: {
-    version: () => version
-  }
+    computed: {
+        version: () => version
+    }
 };
 </script>
