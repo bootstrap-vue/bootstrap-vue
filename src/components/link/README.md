@@ -1,7 +1,7 @@
 # Links
 
 > Use Bootstrap-Vue’s custom `b-link` component for generating a standard link or `<router-link>`.
-`<b-link>` supports the `disabled` state and `click` event propegation.
+`<b-link>` supports the `disabled` state and `click` event propagation.
 
 `<b-link>` is the building block for most Bootstrap-Vue components that offer link functionality.
 
@@ -28,7 +28,7 @@ Disable link functionality by setting the `disabled` prop to true.
 
 ```html
 <div>
-   <b-link href="#foo" disabled=>Disabled Link</b-link>
+   <b-link href="#foo" disabled>Disabled Link</b-link>
 </div>
 
 <!-- link-disabled.vue -->
