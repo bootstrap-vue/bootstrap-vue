@@ -90,6 +90,10 @@ const props = {
     ellipsisText: {
         type: String,
         default: '&hellip;'
+    },
+    showLastPage: {
+      type: Boolean,
+      default: false
     }
 };
 
