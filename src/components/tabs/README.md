@@ -43,9 +43,11 @@ by `card-body`.
 <!-- with-card.vue -->
 ```
 
+
 ## Pills variant
 
-Just add `pills` property to `<b-tabs>`.
+Tabs use the `tabs` styling by default. Just add `pills` property to `<b-tabs>` for
+the pill style variant.
 
 ```html
 <b-card no-body>
@@ -67,6 +69,7 @@ Just add `pills` property to `<b-tabs>`.
 
 Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
 
+
 ## Add Tabs without content
 
 If you want to add extra tabs that do not have any content, you can put them in `tabs` slot:
@@ -79,6 +82,56 @@ If you want to add extra tabs that do not have any content, you can put them in 
   </template>
 </b-tabs>
 ```
+
+
+## Apply custom classes to the generated nav-tabs or pills
+
+The tab selectors are based on Boostrap V4's `nav` markup ( i.e. `ul.nav > li.nav-item > a.nav-link`).
+In some situations, you may want to add classes to the `<li>` (nav-item) and/or the
+`<a>` (nav-link) on a per tab basis.   To do so, simply supply the classname to
+the `title-item-class` prop (for the `<li>` element) or `title-link-class` prop (for the
+`<a>` element).  Value's can be passed as a string or array of strings.
+
+Note: THe `ative` class is automatically applied to the `<a>` element. You may need to accomodate
+your custom classes for this.
+
+```html
+<template>
+  <b-card no-body>
+    <b-tabs card v-model="tabIndex">
+      <b-tab title="Tab 1" :title-link-class="linkClass(0)">
+        Tab Contents 1
+      </b-tab>
+      <b-tab title="Tab 2" :title-link-class="linkClass(1)">
+        Tab Contents 2
+      </b-tab>
+      <b-tab title="Tab 3" :title-link-class="linkClass(2)">
+        Tab Contents 3
+      </b-tab>
+    </b-tabs>
+  </b-card>
+</template>
+
+<script>
+  export default {
+    data: {
+      tabIndex: 0
+    },
+    methods: {
+      linkClass(idx) {
+        if (this.tabIndex === idx) {
+          return ['bg-primary', 'text-light'];
+        } else {
+          return ['bg-light', 'text-info'];
+        }
+      }
+    }
+  }
+</script>
+
+<!-- with-classes.vue -->
+```
+
 
 ## Advanced Examples
 
@@ -122,7 +175,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
   export default {
     data: {
       tabIndex: 0
-    },
+    }
   }
 </script>
 

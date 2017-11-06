@@ -85,6 +85,16 @@
                 type: String,
                 default: ''
             },
+            titleItemClass: {
+                // Sniffed by tabs.vue and added to nav 'li.nav-item'
+                type: [String, Array, Object],
+                default: null
+            },
+            titleLinkClass: {
+                // Sniffed by tabs.vue and added to nav 'a.nav-link'
+                type: [String, Array, Object],
+                default: null
+            },
             headHtml: {
                 type: String,
                 default: null

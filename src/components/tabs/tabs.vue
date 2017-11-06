@@ -18,8 +18,8 @@
                 @keydown.shift.right="setTab(tabs.length-1,false,-1)"
                 @keydown.shift.down="setTab(tabs.length-1,false,-1)"
             >
-                <li class="'nav-item" v-for="(tab, index) in tabs" role="presentation">
-                    <a :class="['nav-link',{active: tab.localActive, disabled: tab.disabled}]"
+                <li :class="['nav-item', tab.titleItemClass]" v-for="(tab, index) in tabs" role="presentation">
+                    <a :class="['nav-link',{active: tab.localActive, disabled: tab.disabled}, tab.titleLinkClass]"
                        :href="tab.href"
                        role="tab"
                        :aria-setsize="tabs.length"
