@@ -53,7 +53,7 @@
     "watch": "rollup -c build/rollup.config.js --watch",
     "docs-dev": "nuxt dev -c docs/nuxt.config.js",
     "docs-gen": "nuxt generate -c docs/nuxt.config.js",
-    "docs-publish": "./build/gh-pages",
+    "docs-publish": "gh-pages -t -d docs-dist -b master -r git@github.com:bootstrap-vue/bootstrap-vue.github.io.git",
     "test": "NODE_ENV=test jest",
     "postpublish": "npm run docs-publish",
     "release": "npm run build && standard-version"
@@ -80,6 +80,7 @@
     "eslint-plugin-html": "^3.2.2",
     "eslint-plugin-vue": "^2.1.0",
     "eslint-plugin-vue-libs": "^1.2.1",
+    "gh-pages": "^1.0.0",
     "highlight-loader": "^0.7.2",
     "highlightjs": "^9.8.0",
     "html-loader": "^0.5.1",
