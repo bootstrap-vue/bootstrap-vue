@@ -51,10 +51,10 @@
             </p>
             <b-card no-body tag="p">
                 <code v-if="$route.name === 'docs-components-slug'">
-                     import { {{pluginName}} } from 'bootstrap-vue/es/components;
+                     import { {{pluginName}} } from 'bootstrap-vue/es/components';
                 </code>
                 <code v-else>
-                     import { {{pluginName}} } from 'bootstrap-vue/es/directives;
+                     import { {{pluginName}} } from 'bootstrap-vue/es/directives';
                 </code>
                 <br>
                 <code>Vue.use({{pluginName}});</code>
