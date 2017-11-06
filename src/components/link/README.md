@@ -34,8 +34,9 @@ Disable link functionality by setting the `disabled` prop to true.
 <!-- link-disabled.vue -->
 ```
 
-Disabling a link will set teh `.disabled` class on the link as well as stoping event
-propegation and prevents the default action from occuring.
+Disabling a link will set the Bootstrap V4 `.disabled` class on the link
+(for proper styling) as well as handles stoping event propegation and preventing
+the default action from occuring.
 
 
 ## Component Reference
