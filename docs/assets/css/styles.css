@@ -1,5 +1,9 @@
 @import './fonts.css';
 
+* {
+    -webkit-font-smoothing: antialiased;
+}
+
 .bd-toc-link, .bd-navbar .navbar-nav .nav-link.active {
   font-weight: normal;
 }
