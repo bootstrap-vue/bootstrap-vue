@@ -9,7 +9,7 @@ Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Co
 <br>
 
 <a href="https://getbootstrap.com/docs/4.0">
-    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--beta--2-800080.svg?style=flat-square">
+    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--beta-800080.svg?style=flat-square">
 </a>
 <a href="https://vuejs.org">
     <img alt="" src="https://img.shields.io/badge/vue.js-2.4.x-green.svg?style=flat-square">
@@ -38,10 +38,10 @@ Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Co
 
 <br>
 <a href="#backers">
-    <img alt="" src="https://opencollective.com/bootstrap-vue/backers/badge.svg">
+    <img alt="" src="https://opencollective.com/bootstrap-vue/backers/badge.svg?style=flat-square">
 </a>
 <a href="#sponsors">
-    <img alt="" src="https://opencollective.com/bootstrap-vue/sponsors/badge.svg">
+    <img alt="" src="https://opencollective.com/bootstrap-vue/sponsors/badge.svg?style=flat-square">
 </a>
 
 </p>
@@ -85,44 +85,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/bootstrap-vue/sponsor/9/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/9/avatar.svg"></a>
 
 
-
 # License
 Released under The MIT [License](./LICENSE). Copyright (c) BootstrapVue.
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue.svg?type=small)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue?ref=badge_small)
-
-<h2 align="center">Core Team</h2>
-
-<div align="center">
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top">
-        <img width="150" height="150" src="https://github.com/pi0.png?s=150">
-        <br>
-        <a href="https://github.com/pi0">Pooya Parsa</a>
-      </td>
-      <td align="center" valign="top">
-        <img width="150" height="150" src="https://github.com/tmorehouse.png?s=150">
-        <br>
-        <a href="https://github.com/tmorehouse">Troy Morehouse</a>
-      </td>
-      <td align="center" valign="top">
-        <img width="150" height="150" src="https://github.com/mosinve.png?s=150">
-        <br>
-        <a href="https://github.com/mosinve">Vitaly Mosin</a>
-      </td>
-      <td align="center" valign="top">
-        <img width="150" height="150" src="https://github.com/alexsasharegan.png?s=150">
-        <br>
-        <a href="https://github.com/alexsasharegan">Alex Regan</a>
-      </td>
-      <td align="center" valign="top">
-        <img width="150" height="150" src="https://github.com/SirLamer.png?s=150">
-        <br>
-        <a href="https://github.com/SirLamer">SirLamer</a>
-      </td>
-     </tr>
-  </tbody>
-</table>
-</div>
