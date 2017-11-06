@@ -93,6 +93,11 @@ vue/bootstrap-vue/issues/1228)) ([87cfab4](https://github.com/bootstrap-vue/boot
 * **tooltip popover:** don't close if focus moves between trigger element and tooltip/popover ([#1093](https://github.com/bootstrap-vue/bootstrap-vue/issues/1093)) ([87ffb4f](https://github.com/bootstrap-vue/bootstrap-vue/commit/87ffb4f))
 * **tooltip+popover:** allow delay to be specified as object in component versions ([#1131](https://github.com/bootstrap-vue/bootstrap-vue/issues/1131)) ([1a47c87](https://github.com/bootstrap-vue/bootstrap-vue/commit/1a47c87)) Closes [#1130](https://github.com/bootstrap-vue/bootstrap-vue/issues/1130)
 
+### Documentation v1.0.0
+
+* various typo fixes in docs
+* **link:** Document the `<b-link>` component ([7e4dd97](https://github.com/bootstrap-vue/bootstrap-vue/commit/7e4dd9734d0751c004c8a6a3721fb8be06581ea9))
+
 ### Performance v1.0.0
 
 * move repetitive plugin code to plugin.js utility ([6ba8c46](https://github.com/bootstrap-vue/bootstrap-vue/commit/6ba8c46da4b8abca145970bc506718c8a73b14b8))
