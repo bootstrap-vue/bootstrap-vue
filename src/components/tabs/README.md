@@ -120,9 +120,9 @@ your custom classes for this.
     methods: {
       linkClass(idx) {
         if (this.tabIndex === idx) {
-          return ['bg-success', 'text-light', 'font-weight-bold'];
+          return ['bg-primary', 'text-light'];
         } else {
-          return ['bg-info', 'text-light'];
+          return ['bg-light', 'text-info'];
         }
       }
     }
