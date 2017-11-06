@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-6 mx-auto col-md-6 order-md-2">
-        <img src="~/static/icon.png" alt="Logo" class="img-fluid mx-auto d-block mb-3 mb-md-0">
+        <img src="~/static/icon.png" alt="Logo" class="img-fluid mx-auto d-block mb-3 mb-md-0" id="logo">
       </div>
       <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
         <h1 class="mb-3 bd-text-purple-bright">Bootstrap + Vue</h1>
@@ -40,10 +40,26 @@
 .version a {
   color: white;
 }
+
+#logo {
+  animation: flip 1s;
+  transform-style: preserve-3d;
+}
+
+@keyframes flip {
+  0% {
+    opacity: .5;
+    transform: rotateY(180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(0deg);
+  }
+}
 </style>
 
 <script>
-import { version } from '~/content';
+import { version } from "~/content";
 
 export default {
     computed: {
