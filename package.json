@@ -57,7 +57,7 @@
     "test": "NODE_ENV=test jest",
     "postpublish": "npm run docs-publish",
     "release": "npm run build && standard-version",
-    "postinstall": "opencollective postinstall"
+    "postinstall": "opencollective postinstall || exit 0"
   },
   "peerDependencies": {
     "vue": "^2.4.2"
