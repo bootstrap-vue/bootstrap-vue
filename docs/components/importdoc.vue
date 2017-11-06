@@ -91,7 +91,7 @@
                 return `<${kebabCase(component)}>`;
             },
             componentPath(component) {
-                return `/bootstrap-vue/es/components/${this.$route.params.slug}/${kebabCase(component).replace(/^b-/, '')}`;
+                return `bootstrap-vue/es/components/${this.$route.params.slug}/${kebabCase(component).replace(/^b-/, '')}`;
             },
             directiveName(directive) {
                 return kebabCase(directive).replace(/^v-/, '');
@@ -100,8 +100,8 @@
                 return kebabCase(directive);
             },
             directivePath(directive) {
-                const slug = kebabCase(directive).replace(/^v-b-/, '')
-                return `/bootstrap-vue/es/directives/${slug}/${slug}`;
+                const slug = kebabCase(directive).replace(/^v-b-/, '');
+                return `bootstrap-vue/es/directives/${slug}/${slug}`;
             }
         },
         computed: {
@@ -112,26 +112,26 @@
                 return startCase(this.meta.title);
             },
             componentImports() {
-               return this.components.map(c => {
-                   return {
-                       component: this.componentTag(c),
-                       import_path: this.componentPath(c)
-                   };
-               });
+                return this.components.map(c => {
+                    return {
+                        component: this.componentTag(c),
+                        import_path: this.componentPath(c)
+                    };
+                });
             },
             directiveImports() {
-               return this.directives.map(d => {
-                   return {
-                       directive: this.directiveAttr(d),
-                       import_path: this.directivePath(d)
-                   };
-               });
+                return this.directives.map(d => {
+                    return {
+                        directive: this.directiveAttr(d),
+                        import_path: this.directivePath(d)
+                    };
+                });
             },
             components() {
-               return [].concat(this.meta.component, this.meta.components).filter(c => c);
+                return [].concat(this.meta.component, this.meta.components).filter(c => c);
             },
             directives() {
-               return [].concat(this.meta.directive, this.meta.directives).filter(d => d);
+                return [].concat(this.meta.directive, this.meta.directives).filter(d => d);
             }
         }
     };
