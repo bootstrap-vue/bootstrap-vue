@@ -56,13 +56,15 @@
     "docs-publish": "./build/gh-pages",
     "test": "NODE_ENV=test jest",
     "postpublish": "npm run docs-publish",
-    "release": "npm run build && standard-version"
+    "release": "npm run build && standard-version",
+    "postinstall": "opencollective postinstall"
   },
   "peerDependencies": {
     "vue": "^2.4.2"
   },
   "dependencies": {
     "lodash.startcase": "^4.4.0",
+    "opencollective": "^1.0.3",
     "popper.js": "^1.12.6",
     "vue-functional-data-merge": "^1.0.6"
   },
@@ -160,5 +162,10 @@
     "Table",
     "Tag",
     "Tooltip"
-  ]
+  ],
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/bootstrap-vue",
+    "logo": "https://opencollective.com/opencollective/logo.txt"
+  }
 }
