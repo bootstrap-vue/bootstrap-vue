@@ -9,7 +9,7 @@ and [official Nuxt docs](https://nuxtjs.org/).
 
 In the following sections, we are using the `<b-link>` component to render router links.
 `<b-link>` is the building block of most of Bootstrap-Vue's  _actionable_ components.
-You could use any other component that supports link generation such as
+You could use any other component that supports link generation such as [`<b-link>`](/docs/components/link),
 [`<b-button>`](/docs/components/button), [`<b-breadcrumb-item>`](/docs/components/breadcrumb),
 [`<b-list-group-item>`](/docs/components/list-group), [`<b-nav-item>`](/docs/components/nav),
 [`<b-dropdown-item>`](/docs/components/dropdown), and [`<b-pagination-nav>`](/docs/components/pagination-nav).
