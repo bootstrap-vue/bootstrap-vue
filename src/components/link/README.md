@@ -35,8 +35,17 @@ Disable link functionality by setting the `disabled` prop to true.
 ```
 
 Disabling a link will set the Bootstrap V4 `.disabled` class on the link
-(for proper styling) as well as handles stoping event propegation and preventing
-the default action from occuring.
+as well as handles stoping event propegation and preventing the default action
+from occuring.
+
+**Note:** Boostrap V4 CSS currently does not style disbled links differently than
+non-disabled links. You can use hte following custom CSS to style disabled links:
+
+```css
+a.disabled {
+  pointer-events: none;
+}
+```
 
 
 ## Component Reference
