@@ -75,6 +75,9 @@ applied to it.
 You can remove the margin from `<b-row>` and padding from `<b-col>` by setting the
 `no-gutters` prop on `<b-row>`.
 
+Or, for compact margins (smaller gutters between columns), use the `<b-form-row>`
+component, which is typiclly used in [forms](/docs/components/form).
+
 
 ## Columns
 
@@ -421,7 +424,7 @@ reset offsets by setting the offset to `0` at  a larger breakpoint:
 ```
 
 ### Margin utilities on columns
-With the move to flexbox in Bootstrap v4, you can use [margin](/docs/reference/spacing)
+With the move to flexbox in Bootstrap v4, you can use [margin and spacing](/docs/reference/spacing-classes)
 utility classes like `.mr-auto` to force sibling columns away from one another.
 
 ```
