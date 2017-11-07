@@ -3,7 +3,7 @@
            type="file"
            :id="safeId()"
            ref="input"
-           :class="['form-control-file', sizeFormClass, stateClass]"
+           :class="['form-control-file', stateClass]"
            :name="name"
            :disabled="disabled"
            :required="required"
@@ -130,11 +130,11 @@
 </style>
 
 <script>
-    import { idMixin, formStateMixin, formCustomMixin, formMixin, formSizeMixin } from '../../mixins';
+    import { idMixin, formStateMixin, formCustomMixin, formMixin } from '../../mixins';
     import { from as arrayFrom } from '../../utils/array';
 
     export default {
-        mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, formSizeMixin],
+        mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
         data() {
             return {
                 selectedFile: null,
