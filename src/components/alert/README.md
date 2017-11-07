@@ -23,7 +23,7 @@ Alerts are available for any length of text, as well as an optional dismiss butt
     <b-alert :show="dismissCountDown"
              dismissible
              variant="warning"
-             @dismissed="dismissCountdown=0"
+             @dismissed="dismissCountDown=0"
              @dismiss-count-down="countDownChanged">
       <p>This alert will dismiss after {{dismissCountDown}} seconds...</p>
       <b-progress variant="warning"
