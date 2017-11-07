@@ -130,11 +130,11 @@
 </style>
 
 <script>
-    import { idMixin, formStateMixin, formCustomMixin, formMixin } from '../../mixins';
+    import { idMixin, formStateMixin, formCustomMixin, formMixin, formSizeMixin } from '../../mixins';
     import { from as arrayFrom } from '../../utils/array';
 
     export default {
-        mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
+        mixins: [idMixin, formMixin, formStateMixin, formCustomMixin, formSizeMixin],
         data() {
             return {
                 selectedFile: null,
