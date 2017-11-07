@@ -30,4 +30,4 @@ module.exports = function nuxtBootstrapVue (moduleOptions) {
   this.options.css.push('bootstrap-vue/dist/bootstrap-vue.css')
 }
 
-module.exports.meta = require('./package.json')
+module.exports.meta = require('../package.json')
