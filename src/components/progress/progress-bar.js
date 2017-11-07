@@ -5,7 +5,7 @@ export default {
         if (t.$slots.default) {
             childNodes = t.$slots.default;
         } else if (t.label) {
-            childNodes = h('span', { domProps: { innerHTML: t.label } })
+            childNodes = h('span', { domProps: { innerHTML: t.label } });
         } else if (t.computedShowProgress) {
             childNodes = t.progress.toFixed(t.computedPrecision);
         } else if (t.computedShowValue) {
