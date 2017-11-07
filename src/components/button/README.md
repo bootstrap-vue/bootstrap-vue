@@ -165,7 +165,7 @@ Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap
 
 - [`<b-button-group>`](/docs/components/button-group)
 - [`<b-button-toolbar>`](/docs/components/button-toolbar)
-- [`<b-link>`](/docs/compoents/link)
+- [`<b-link>`](/docs/components/link)
 
 
 ## Component Reference
