@@ -36,9 +36,17 @@ and [BootstrapVue](https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css
 in your bundle or reference them from `static/` via `index.html`.
 
 ## Nuxt.js
-You can use official [Nuxt.js](https://nuxtjs.org) module to add BootstrapVue support. ([module docs](https://github.com/nuxt-community/modules/tree/master/packages/bootstrap-vue))
+Install dependencies:
 
-- Add `bootstrap-vue/nuxt` to modules section of **nuxt.config.js**
+```bash
+# With NPM:
+npm i bootstrap-vue bootstrap@4.0.0-beta.2
+
+# With Yarn:
+yarn add bootstrap-vue bootstrap@4.0.0-beta.2
+```
+
+Add `bootstrap-vue/nuxt` to modules section of **nuxt.config.js**
 
 ```js
 {
