@@ -9,6 +9,7 @@ BABEL_ENV=es babel -d es  -D --ignore '*.spec.js,*.json,fixtures' src/
 
 # Rollup (dist/)
 rollup -c build/rollup.config.js
+rollup -c build/rollup.config.esm.js
 
 # Uglify rollup build
 uglify=`pwd`/node_modules/.bin/uglifyjs

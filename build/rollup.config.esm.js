@@ -17,17 +17,9 @@ if (!fs.existsSync(dist)) {
     fs.mkdirSync(dist);
 }
 
-// Libs in `external` will not be bundled to dist,
-// since they are expected to be provided later.
-// We want to include some of them in the build, so we exclude it here.
-const externalExcludes = [
-    'popper.js',
-    'lodash.startcase'
-];
-
 module.exports = {
     input: path.resolve(src, "index.js"),
-    external: Object.keys(dependencies).filter(dep => externalExcludes.indexOf(dep) === -1),
+    external: Object.keys(dependencies),
     name,
     plugins: [
         vue({
@@ -48,15 +40,8 @@ module.exports = {
     ],
     output: [
         {
-            format: "cjs",
-            name: camelCase(name),
-            file: path.resolve(dist, name + ".common.js"),
-            sourcemap: true
-        },
-        {
-            format: "umd",
-            modulename: camelCase(name),
-            file: path.resolve(dist, name + ".js"),
+            format: "es",
+            file: path.resolve(dist, name + ".esm.js"),
             sourcemap: true
         }
     ]
