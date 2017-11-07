@@ -2,20 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-<a name="1.0.2"></a>
-## [1.0.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.1...v1.0.2) (2017-11-07)
+
+## [v1.0.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.1...v1.0.2)
+Released: 2017-11-07
 
 
-### Bug Fixes
+### Bug Fixes v1.0.2
 
 * **form-file:** control size not supported in BS V4 ([#1305](https://github.com/bootstrap-vue/bootstrap-vue/issues/1305)) ([e9a26cf](https://github.com/bootstrap-vue/bootstrap-vue/commit/e9a26cf))
 
 
+## [v1.0.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0...v1.0.1)
+Relesed: 2017-11-07
 
-<a name="1.0.1"></a>
-## [1.0.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0...v1.0.1) (2017-11-07)
-
-### Bug Fixes
+### Bug Fixes v1.0.1
 
 * **build:** use esm bundle. resolves [#1296](https://github.com/bootstrap-vue/bootstrap-vue/issues/1296). ([06d40a5](https://github.com/bootstrap-vue/bootstrap-vue/commit/06d40a5))
 * **nuxt module:** wrong relative path to package.json ([#1298](https://github.com/bootstrap-vue/bootstrap-vue/issues/1298)) ([e766e75](https://github.com/bootstrap-vue/bootstrap-vue/commit/e766e75))
