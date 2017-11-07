@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0...v1.0.1) (2017-11-07)
+
+
+### Bug Fixes
+
+* **build:** use esm bundle. resolves [#1296](https://github.com/bootstrap-vue/bootstrap-vue/issues/1296). ([06d40a5](https://github.com/bootstrap-vue/bootstrap-vue/commit/06d40a5))
+* **nuxt module:** wrong relative path to package.json ([#1298](https://github.com/bootstrap-vue/bootstrap-vue/issues/1298)) ([e766e75](https://github.com/bootstrap-vue/bootstrap-vue/commit/e766e75))
+
+
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
 ## [v1.0.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0-beta.9...v1.0.0)
 Released: 2017-11-05
 
