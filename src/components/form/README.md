@@ -153,7 +153,7 @@ See also:
 
 ## Helper components
 
-- `<b-form-row>` create form rows with tighter margins
+- [`<b-form-row>`](/docs/components/layout) create grid rows and columns with tighter margins
 - `<b-form-text>` Help text blocks for inputs
 - `<b-form-feedback>` Invalid feedback text blocks for input `invalid` states
 
