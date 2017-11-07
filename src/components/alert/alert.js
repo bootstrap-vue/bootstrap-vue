@@ -1,4 +1,3 @@
-import {warn} from '../../utils';
 import bBtnClose from '../button/button-close';
 
 export default {
