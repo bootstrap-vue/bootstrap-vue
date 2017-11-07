@@ -9,7 +9,7 @@ Released: 2017-11-07
 
 ### Bug Fixes v1.0.2
 
-* **form-file:** control size not supported in BS V4 ([#1305](https://github.com/bootstrap-vue/bootstrap-vue/issues/1305)) ([e9a26cf](https://github.com/bootstrap-vue/bootstrap-vue/commit/e9a26cf))
+* **form-file:** control size not supported in BS V4 ([#1305](https://github.com/bootstrap-vue/bootstrap-vue/issues/1305)) ([e9a26cf](https://github.com/bootstrap-vue/bootstrap-vue/commit/e9a26cf)) Reverts [#1304](https://github.com/bootstrap-vue/bootstrap-vue/pull/1304)
 
 
 ## [v1.0.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.0...v1.0.1)
