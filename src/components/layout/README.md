@@ -41,7 +41,7 @@ Be aware of the limitations and [bugs around flexbox](https://github.com/philipw
 like the [inability to use some HTML elements as flex
 containers](https://github.com/philipwalton/flexbugs#9-some-html-elements-cant-be-flex-containers).
 
-## Containers
+## Containers `<b-container>`
 
 Containers (`<b-container>`) are the most basic layout element in Bootstrap and
 is **required when using the grid system**. Choose from a responsive, fixed-width
@@ -66,7 +66,7 @@ While containers can be nested, most layouts do not require a nested container.
 </b-container>
 ```
 
-## Rows
+## Rows `<b-row>`a and `<b-form-row>`
 
 `<b-row>` components must be placed inside a `<b-container>` component, or an
 element (such as a `<div>`) that has the class `container` or `container-fluid`
@@ -79,7 +79,7 @@ Or, for compact margins (smaller gutters between columns), use the `<b-form-row>
 component, which is typiclly used in [forms](/docs/components/form).
 
 
-## Columns
+## Columns `<b-col>`
 
 `<b-col>` Must be placed inside a `<b-row>` component, or an element (such as a `<div>`)
 that has the class `row` applied to it, or - in the case of [forms](/docs/components/form) -
