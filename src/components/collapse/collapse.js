@@ -18,7 +18,7 @@ export default {
                 directives: [ { name: 'show', value: t.show } ],
                 attrs: { id: t.id || null },
                 on: { click: t.clickHandler }
-            }
+            },
             [ t.$slots.default ]
         );
         return h(
