@@ -2,7 +2,7 @@ import bNav from './nav';
 import bNavItem from './nav-item';
 import bNavText from './nav-text';
 import bNavForm from './nav-form';
-import bNavItemDropdown from './nav-item-dropdown.vue';
+import bNavItemDropdown from './nav-item-dropdown';
 import dropdownPlugin from '../dropdown';
 import { registerComponents, vueUse } from '../../utils';
 
