@@ -34,12 +34,15 @@ export default {
 
 <!-- progress-1.vue -->
 ```
+
+
 ## Value
 Set the maximum value with the `max` prop (default is `100`), and the current value via the
 `value` prop (default `0`).
 
 When creating multiple bars in a sinple process, place hte value prop on the individual
 `<b-progress-bar>` sub components (see the **Multiple Bars** section below for more details)
+
 
 ## Labels
 Add labels to your progress bars by either enabling `show-progress` (percentage of max) or
@@ -119,6 +122,7 @@ Precedence order for label methods:
 - no label
 
 
+
 ## Width and Height
 `<b-progress>` will always expand to the maximum with of it's parent container. To
 change the width, place `<b-progress>` in a standard Bootstrap column or apply
@@ -174,6 +178,7 @@ export default {
 <!-- progress-height.vue -->
 ```
 
+
 ## Backgrounds
 Use background variants to change the appearance of individual progress bars.
 The default variant is `primary`.
@@ -188,6 +193,7 @@ The default variant is `primary`.
       <div class="col-sm-10 pt-1">
         <b-progress :value="bar.value"
                     :variant="bar.variant"
+                    :transition-time="0.6"
                     :key="bar.variant"
         ></b-progress>
       </div>
@@ -283,6 +289,57 @@ Notes:
  - Animated progress bars don’t work in Opera 12 — as they don’t support CSS3 animations.
 
 
+## Rounded ends
+The default progress bar has slightly rounded corners.  You can make the ends fully rounded by
+setting the prop `rounded` on `<b-progress>`.
+
+```html
+<div>
+  <b-progress :value="75" rounded class="my-2"></b-progress>
+  <b-progress :value="75" rounded height="3rem" class="my-2"></b-progress>
+</div>
+
+<!-- progress-rounded.vue -->
+```
+
+
+## Transition support
+Bootstrap V4.beta.2 removed the default transition from progress-bar, although Bootstrap-Vue
+allows you to enable transitioning from one value to another by setting a transition
+duration time via the `transition-time` prop.  The value is specified in seconds and can
+be fractional.
+
+```html
+<template>
+<div>
+    <b-progress transition-time="0.5" :value="value" :max="max"</b-progress>
+    <b-progress transition-time="0.25" class="mt-1" :max="max">
+      <b-progress-bar :value="value*(6/10)" variant="success"></b-progress-bar>
+      <b-progress-bar :value="value*(2.5/10)" variant="warning"></b-progress-bar>
+      <b-progress-bar :value="value*(1.5/10)" variant="danger"></b-progress-bar>
+    </b-progress>
+    <b-btn class="mt-4" @click="clicked">Click me</b-btn>
+</div>
+</template>
+
+<script>
+export default {
+  data: {
+    value: 75,
+    max: 100
+  },
+  methods: {
+    clicked() {
+      this.value = Math.random() * this.max;
+    }
+  }
+}
+</script>
+
+<!-- progress-transition.vue -->
+```
+
+
 ## Multiple bars
 Include multiple `<b-progress-bar>` sub-components in a `<b-progress>` component to build
 a horizontally stacked set of progress bars.
@@ -328,8 +385,9 @@ export default {
 `<b-prgress-bar>` will inherit most of the props from the `<b-progress>` parent component,
 but you can override any of the props by setting them on the `<b-progress-bar>`
 
-Notes:
-- `height`, if speified, should always set on the `<b-progress>` component.
+**Notes:**
+- `height`, if speified, must be set on the `<b-progress>` component.
+- `rounded`, if speified, must set on the `<b-progress>` component.
 - `<b-progress-bar>` will not inherit `value` from `<b-progress>`.
 
 

@@ -27,7 +27,8 @@
             },
             progressBarStyles() {
                 return {
-                    width: (100 * (this.value / this.computedMax)) + '%'
+                    width: (100 * (this.value / this.computedMax)) + '%',
+                    transition: this.computedTransition
                 };
             },
             progress() {
@@ -53,6 +54,11 @@
             computedAnimated() {
                 // Prefer our animated over parent setting
                 return typeof this.animated === 'boolean' ? this.animated : (this.$parent.animated || false);
+            },
+            computedTransition() {
+                // Prefer our transitionTime over parent setting
+                let txTime = this.transitionTime || this.$parent.transitionTime
+                return txTime ? `width ${txTime}s` : null;
             },
             computedShowProgress() {
                 // Prefer our showProgress over parent setting
@@ -92,6 +98,10 @@
             },
             animated: {
                 type: Boolean,
+                default: null
+            },
+            transitionTime: {
+                type: [Number, String],
                 default: null
             },
             showProgress: {
