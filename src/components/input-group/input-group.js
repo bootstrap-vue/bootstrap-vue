@@ -43,7 +43,7 @@ export default {
         // Right slot / prop
         if (slots().right) {
             childNodes.push(slots().right);
-        } else if (props.left) {
+        } else if (props.right) {
             childNodes.push(h(InputGroupAddon, { domProps: { innerHTML: props.right } }))
         }
       
