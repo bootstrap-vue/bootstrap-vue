@@ -30,7 +30,7 @@ Here’s how it works:
 - Content should be placed within `<b-col>` columns, and only columns may be immediate children of `<b-row>`.
 - Thanks to flexbox, grid columns without a set width will automatically layout with equal widths. For example, four instances of `<b-col sm="auto">` will each automatically be 25% wide for small breakpoints.
 - Column prop `cols` indicates the number of columns you’d like to use out of the possible 12 per row regardless of breakpoint (starting at breakpoint `xs`). So, if you want three equal-width columns at any breakpoint, you can use `<b-col cols="4">`.
-- Column props `sm`, `md`, `lg`, `xl` indicate the number of columns you’d like to use out of the possible 12 per row. at the various breakpoints. So, if you want three equal-width columns at breakpoint `sm`, you can use `<b-col sm="4">`. the special value `auto` can be used to ake up the remaining available column space in a row.
+- Column props `sm`, `md`, `lg`, `xl` indicate the number of columns you’d like to use out of the possible 12 per row. at the various breakpoints. So, if you want three equal-width columns at breakpoint `sm`, you can use `<b-col sm="4">`. the special value `auto` can be used to take up the remaining available column space in a row.
 - Column widths, internally, are set in percentages, so they’re always fluid and sized relative to their parent element.
 - Columns have horizontal padding to create the gutters between individual columns, however, you can remove the margin from `<b-row>` and padding from `<b-col>` by setting the `no-gutters` prop on `<b-row>`.
 - There are five grid tiers, one for each responsive breakpoint: all breakpoints (extra small), small, medium, large, and extra large.
