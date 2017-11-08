@@ -268,16 +268,16 @@ export default {
             const key = evt.keyCode;
             if (key === KEY.ESC) {
                 // Close on ESC
-                this.onEsc(evt)
-            if (key === KEY.TAB) {
+                this.onEsc(evt);
+            } else if (key === KEY.TAB) {
                 // Close on tab out
-                this.onTab(evt)
+                this.onTab(evt);
             } else if (key === KEY.DOWN) {
                 // Down Arrow
-                this.focusNext(evt, false)
+                this.focusNext(evt, false);
             } else if (key === KEY.UP) {
                 // Up Arrow
-                this.focusNext(evt, true)
+                this.focusNext(evt, true);
             }
         },
         onEsc(evt) {
