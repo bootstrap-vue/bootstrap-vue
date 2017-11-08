@@ -275,7 +275,9 @@ to automatically collapse at. Possible `toggleable`values are `sm`, `md`, and `l
 `togleable` to `true` (or with no explicit value) will set the breakpoint to `sm`, while
 setting it to `false` will disable collapsing.
 
-`<b-navbar-toggle>` should be placed _before_ any `<b-collapse is-nav>` component.
+`<b-navbar-toggle>` components are left-aligned by default, but should they follow a sibling
+element like `<b-navbar-brand>`, they’ll automatically be aligned to the far right. Reversing
+your markup will reverse the placement of the toggler.
 
 See the first example on this page for reference, and also refer to
 [`<b-collapse>`](/docs/components/collapse) for details on the collapse component.
