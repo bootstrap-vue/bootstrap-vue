@@ -123,6 +123,9 @@ class ToolTip {
         this.$id = generateId(this.constructor.NAME);
         this.$root = $root || null;
         this.$routeWatcher = null;
+        // We keep a bound copy of the foreHide method for root/modal listeners
+        this.$forceHide = this.forceHide.bind(this);
+        // Set the configuration
         this.updateConfig(config);
     }
 
@@ -196,6 +199,7 @@ class ToolTip {
         this.$config = null;
         this.$hoverState = null;
         this.$activeTrigger = null;
+        this.$forceHide = null;
     }
 
     // Click toggler
@@ -338,11 +342,11 @@ class ToolTip {
 
     // force hide of tip (internal method)
     forceHide() {
-        // Disable while open listeners/watchers
-        this.setWhileOpenListeners(false);
-        if (!this.$tip) {
+        if (!this.$tip || !hasClass(this.$tip, ClassName.SHOW)) {
             return;
         }
+        // Disable while open listeners/watchers
+        this.setWhileOpenListeners(false);
         // Clear any hover enter/leave event
         clearTimeout(this.$hoverTimeout);
         this.$hoverTimeout = null;
@@ -686,14 +690,14 @@ class ToolTip {
         }
         // We can listen for modal hidden events on $root
         if (this.$root) {
-            this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.forceHide.bind(this));
+            this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.$forceHide);
         }
     }
 
     setRootListener(on) {
         // We can listen for global 'bv::hide::popover/tooltip' hide request event
         if (this.$root) {
-            this.$root[on ? '$on' : '$off'](`bv::hide::${this.constructor.NAME}`, this.forceHide.bind(this));
+            this.$root[on ? '$on' : '$off'](`bv::hide::${this.constructor.NAME}`, this.$forceHide);
         }
     }
 
