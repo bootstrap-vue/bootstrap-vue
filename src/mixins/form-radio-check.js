@@ -70,7 +70,7 @@ export default {
                 return true;
             } else if (this.state === 'invalid') {
                 return false;
-            } else if (this.is_Childp && typeof this.$parent.get_State === 'boolean') {
+            } else if (this.is_Child && typeof this.$parent.get_State === 'boolean') {
                 return this.$parent.get_State;
             }
             return null;
