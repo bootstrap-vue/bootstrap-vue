@@ -358,18 +358,17 @@
                     relatedTarget: null
                 });
                 this.emitEvent(showEvt);
-                // Show if not canceled
                 if (showEvt.defaultPrevented || this.is_visible) {
+                    // Don't show if canceled
                     return;
                 }
-                this.is_hidden = false;
-                this.$nextTick(() => {
-                    // We do this in nextTick to ensure hte modal is in DOM first before we show it
-                    this.is_visible = true;
-                    this.$emit('change', true);
-                    // Observe changes in modal content and adjust if necessary
-                    this._observer = observeDom(this.$refs.content, this.adjustDialog.bind(this), OBSERVER_CONFIG);
-                });
+                if (hasClass(document.body, 'modal-open')) {
+                    // If another modal is already open, wait for it to close
+                    this.$root.$once('bv::modal::hidden', this.doShow)
+                } else {
+                    // Show the modal
+                    this.doShow();
+                }
             },
             hide(trigger) {
                 if (!this.is_visible) {
@@ -407,6 +406,18 @@
                 this.is_visible = false;
                 this.$emit('change', false);
             },
+            // Private method to finish showing modal
+            doShow() {
+                // Plce modal in DOM if lazy
+                this.is_hidden = false;
+                this.$nextTick(() => {
+                    // We do this in nextTick to ensure the modal is in DOM first before we show it
+                    this.is_visible = true;
+                    this.$emit('change', true);
+                    // Observe changes in modal content and adjust if necessary
+                    this._observer = observeDom(this.$refs.content, this.adjustDialog.bind(this), OBSERVER_CONFIG);
+                });
+            },
             // Transition Handlers
             onBeforeEnter() {
                 this.is_transitioning = true;
@@ -414,7 +425,6 @@
                 this.setScrollbar();
                 this.adjustDialog();
                 addClass(document.body, 'modal-open');
-                removeClass(document.body, 'b-modal-closing');
                 this.setResizeEvent(true);
             },
             onEnter() {
@@ -438,21 +448,17 @@
             onBeforeLeave() {
                 this.is_transitioning = true;
                 this.setResizeEvent(false);
-                addClass(document.body, 'b-modal-closing');
-            },
+             },
             onLeave() {
                 // Remove the 'show' class
                 this.is_show = false;
             },
             onAfterLeave() {
-                if (hasClass(document.body, 'b-modal-closing')) {
-                    removeClass(document.body, 'modal-open');
-                    removeClass(document.body, 'b-modal-closing');
-                }
                 this.is_block = false;
                 this.resetAdjustments();
                 this.resetScrollbar();
                 this.is_transitioning = false;
+                removeClass(document.body, 'modal-open');
                 this.$nextTick(() => {
                     this.is_hidden = this.lazy || false;
                     this.returnFocusTo();
