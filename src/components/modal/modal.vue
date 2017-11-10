@@ -106,7 +106,7 @@
     import { idMixin, listenOnRootMixin } from '../../mixins';
     import { observeDom, warn } from '../../utils';
     import BvEvent from '../../utils/bv-event.class';
-    import { isVisible, selectAll, select, getBCR, addClass, removeClass, setAttr, removeAttr, getAttr, hasAttr, eventOn, eventOff } from '../../utils/dom';
+    import { isVisible, selectAll, select, getBCR, addClass, removeClass, hasClass, setAttr, removeAttr, getAttr, hasAttr, eventOn, eventOff } from '../../utils/dom';
 
     const Selector = {
         FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
@@ -358,18 +358,17 @@
                     relatedTarget: null
                 });
                 this.emitEvent(showEvt);
-                // Show if not canceled
                 if (showEvt.defaultPrevented || this.is_visible) {
+                    // Don't show if canceled
                     return;
                 }
-                this.is_hidden = false;
-                this.$nextTick(() => {
-                    // We do this in nextTick to ensure hte modal is in DOM first before we show it
-                    this.is_visible = true;
-                    this.$emit('change', true);
-                    // Observe changes in modal content and adjust if necessary
-                    this._observer = observeDom(this.$refs.content, this.adjustDialog.bind(this), OBSERVER_CONFIG);
-                });
+                if (hasClass(document.body, 'modal-open')) {
+                    // If another modal is already open, wait for it to close
+                    this.$root.$once('bv::modal::hidden', this.doShow)
+                } else {
+                    // Show the modal
+                    this.doShow();
+                }
             },
             hide(trigger) {
                 if (!this.is_visible) {
@@ -407,6 +406,18 @@
                 this.is_visible = false;
                 this.$emit('change', false);
             },
+            // Private method to finish showing modal
+            doShow() {
+                // Plce modal in DOM if lazy
+                this.is_hidden = false;
+                this.$nextTick(() => {
+                    // We do this in nextTick to ensure the modal is in DOM first before we show it
+                    this.is_visible = true;
+                    this.$emit('change', true);
+                    // Observe changes in modal content and adjust if necessary
+                    this._observer = observeDom(this.$refs.content, this.adjustDialog.bind(this), OBSERVER_CONFIG);
+                });
+            },
             // Transition Handlers
             onBeforeEnter() {
                 this.is_transitioning = true;
@@ -437,17 +448,17 @@
             onBeforeLeave() {
                 this.is_transitioning = true;
                 this.setResizeEvent(false);
-            },
+             },
             onLeave() {
                 // Remove the 'show' class
                 this.is_show = false;
             },
             onAfterLeave() {
-                removeClass(document.body, 'modal-open');
                 this.is_block = false;
                 this.resetAdjustments();
                 this.resetScrollbar();
                 this.is_transitioning = false;
+                removeClass(document.body, 'modal-open');
                 this.$nextTick(() => {
                     this.is_hidden = this.lazy || false;
                     this.returnFocusTo();
