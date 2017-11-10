@@ -414,7 +414,7 @@
                 this.setScrollbar();
                 this.adjustDialog();
                 addClass(document.body, 'modal-open');
-                removeClass(document.body, 'modal-closing');
+                removeClass(document.body, 'b-modal-closing');
                 this.setResizeEvent(true);
             },
             onEnter() {
@@ -438,16 +438,16 @@
             onBeforeLeave() {
                 this.is_transitioning = true;
                 this.setResizeEvent(false);
-                addClass(document.body, 'modal-closing');
+                addClass(document.body, 'b-modal-closing');
             },
             onLeave() {
                 // Remove the 'show' class
                 this.is_show = false;
             },
             onAfterLeave() {
-                if (hasClass(document.body, 'modal-closing')) {
+                if (hasClass(document.body, 'b-modal-closing')) {
                     removeClass(document.body, 'modal-open');
-                    removeClass(document.body, 'modal-closing');
+                    removeClass(document.body, 'b-modal-closing');
                 }
                 this.is_block = false;
                 this.resetAdjustments();
