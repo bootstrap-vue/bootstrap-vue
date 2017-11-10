@@ -156,10 +156,10 @@
             },
             githubURL() {
                 const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/src/components';
-                const isFunctional =  this.componentOptions.functional;
                 const slug = this.$route.params.slug;
+                const name = kebabCase(this.component).replace(/^b-/, '');
                 // Always point to the .js file (which may import a .vue file)
-                return `${base}/${slug}/${kebabCase(this.component).replace(/^b-/, '')}.js`;
+                return `${base}/${slug}/${name}.js`;
             }
         }
     };
