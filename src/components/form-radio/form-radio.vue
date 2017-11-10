@@ -4,7 +4,7 @@
         <label class="form-check-label">
             <input v-model="computedLocalChecked"
                    :id="safeId()"
-                   class="form-check-input"
+                   :class="['form-check-input', get_StateClass]"
                    :value="value"
                    :name="get_Name"
                    :required="get_Name && is_Required"
@@ -22,7 +22,7 @@
         <!-- Custom or Button Radio -->
         <input v-model="computedLocalChecked"
                :id="safeId()"
-               :class="is_ButtonMode ? '' : 'custom-control-input'"
+               :class="[is_ButtonMode ? '' : 'custom-control-input', get_StateClass]"
                :value="value"
                :name="get_Name"
                :required="get_Name && is_Required"
