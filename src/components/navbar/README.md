@@ -272,10 +272,12 @@ Use the `<b-navbar-toggle>` component to control the collapse component, and set
 
 Set the `toggleable` prop on `<b-navbar>` to the desired breakpoint you would like content
 to automatically collapse at. Possible `toggleable`values are `sm`, `md`, and `lg`. Setting
-`togleable` to `true` (or with no explicit value) will set the breakpoint to `sm`, while
+`toggleable` to `true` (or with no explicit value) will set the breakpoint to `sm`, while
 setting it to `false` will disable collapsing.
 
-`<b-navbar-toggle>` should be placed _before_ any `<b-collapse is-nav>` component.
+`<b-navbar-toggle>` components are left-aligned by default, but should they follow a sibling
+element like `<b-navbar-brand>`, they’ll automatically be aligned to the far right. Reversing
+your markup will reverse the placement of the toggler.
 
 See the first example on this page for reference, and also refer to
 [`<b-collapse>`](/docs/components/collapse) for details on the collapse component.
