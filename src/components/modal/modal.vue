@@ -106,7 +106,7 @@
     import { idMixin, listenOnRootMixin } from '../../mixins';
     import { observeDom, warn } from '../../utils';
     import BvEvent from '../../utils/bv-event.class';
-    import { isVisible, selectAll, select, getBCR, addClass, removeClass, setAttr, removeAttr, getAttr, hasAttr, eventOn, eventOff } from '../../utils/dom';
+    import { isVisible, selectAll, select, getBCR, addClass, removeClass, hasClass, setAttr, removeAttr, getAttr, hasAttr, eventOn, eventOff } from '../../utils/dom';
 
     const Selector = {
         FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
@@ -414,6 +414,7 @@
                 this.setScrollbar();
                 this.adjustDialog();
                 addClass(document.body, 'modal-open');
+                removeClass(document.body, 'modal-closing');
                 this.setResizeEvent(true);
             },
             onEnter() {
@@ -437,13 +438,17 @@
             onBeforeLeave() {
                 this.is_transitioning = true;
                 this.setResizeEvent(false);
+                addClass(document.body, 'modal-closing');
             },
             onLeave() {
                 // Remove the 'show' class
                 this.is_show = false;
             },
             onAfterLeave() {
-                removeClass(document.body, 'modal-open');
+                if (hasClass(document.body, 'modal-closing')) {
+                    removeClass(document.body, 'modal-open');
+                    removeClass(document.body, 'modal-closing');
+                }
                 this.is_block = false;
                 this.resetAdjustments();
                 this.resetScrollbar();
