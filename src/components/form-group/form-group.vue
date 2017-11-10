@@ -1,28 +1,3 @@
-<template>
-    <fieldset :class="groupClasses"
-              :id="safeId()"
-              :aria-describedby="describedByIds" >
-        <b-form-row>
-            <legend v-if="label || $slots['label'] || horizontal"
-                    :id="labelId"
-                    :class="labelClasses"
-            ><slot name="label"><span v-html="label"></span></slot></legend>
-            <div :class="inputLayoutClasses" ref="content">
-                <slot></slot>
-                <b-form-feedback v-show="feedback || $slots['feedback']"
-                                 :id="feedbackId"
-                                 role="alert"
-                                 aria-live="assertive"
-                                 aria-atomic="true"
-                ><slot name="feedback"><span v-html="feedback"></span></slot></b-form-feedback>
-                <b-form-text v-if="description || $slots['description']" :id="descriptionId">
-                    <slot name="description"><span v-html="description"></span></slot>
-                </b-form-text>
-            </div>
-        </b-form-row>
-    </fieldset>
-</template>
-
 <style>
 /*
    Bootstrap V4.beta uses ~ sibling selector to display the .invalid-feedback
@@ -48,14 +23,58 @@
 
     export default {
         mixins: [idMixin, formStateMixin],
-        components: {
-            bFormRow,
-            bFormText,
-            bFormFeedback
-        },
-        data() {
-            return {
-            };
+        components: { bFormRow, bFormText, bFormFeedback },
+        render(h) {
+            const t = this;
+
+            let legend = h(false);
+            if (t.label || t.$slots.label || t.horizontal) {
+                legend = h(
+                    'legend',
+                    { class: t.labelClasses, attrs: { id: t.labelId } },
+                    [ t.$slots.label || h('span', { domProps: { innerHTML: t.label || '' } }) ]
+                );
+            }
+
+            const feedback = h(
+                'b-form-feedback',
+                {
+                    directives: [
+                        { name: 'show', value: t.feedback || t.$slots.feedback }
+                    ],
+                    attrs: {
+                        id: t.feedbackId,
+                        role: 'alert',
+                        'aria-live': 'assertive',
+                        'aria-atomic': 'true'
+                    }
+                },
+                [ t.$slots.feedback || h('span', { domProps: { innerHTML: t.feedback || '' } }) ]
+            );
+
+            let description = h(false);
+            if (t.description || t.$slots.description) {
+                description = h(
+                    'b-form-text',
+                    { attrs: { id: t.descriptionId } },
+                    [ t.$slots.description || h('span', { domProps: { innerHTML: t.description || '' } }) ]
+                );
+            }
+
+            const content = h(
+                'div',
+                { ref: 'content', class: t.inputLayoutClasses },
+                [ t.$slots.default, feedback, description ]
+            );
+
+            return h(
+                'fieldset',
+                {
+                    class: t.groupClasses,
+                    attrs: { id: t.safeId(), 'aria-describedby': t.describedByIds }
+                },
+                [ h('b-form-row', {}, [ legend, content ]) ]
+            );
         },
         props: {
             horizontal: {
