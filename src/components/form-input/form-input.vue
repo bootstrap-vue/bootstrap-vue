@@ -1,44 +1,22 @@
-<template>
-    <input :id="safeId()"
-           :class="inputClass"
-           :name="name"
-           :value="localValue"
-           :type="localType"
-           :disabled="disabled"
-           :required="required"
-           :readonly="readonly || plaintext"
-           :placeholder="placeholder"
-           :autocomplete="autocomplete || null"
-           :aria-required="required ? 'true' : null"
-           :aria-invalid="computedAriaInvalid"
-           @input="onInput($event.target.value, $event)"
-           @change="onChange($event.target.value, $event)"/>
-</template>
-
 <style>
-    /* Special styling for type=range and color input */
+    /* Special styling for type=range and type=color input */
     input.form-control[type="range"],
     input.form-control[type="color"] {
-        height: 36px;
         height: 2.25rem;
     }
     input.form-control.form-control-sm[type="range"],
     input.form-control.form-control-sm[type="color"] {
-        height: 31px;
         height: 1.9375rem;
     }
     input.form-control.form-control-lg[type="range"],
     input.form-control.form-control-lg[type="color"] {
-        height: 48px;
         height: 3rem;
     }
     /* Less padding on type=color */
     input.form-control[type="color"] {
-        padding: 8px 8px;
         padding: 0.25rem 0.25rem;
     }
     input.form-control.form-control-sm[type="color"] {
-        padding: 4px 5px;
         padding: 0.125rem 0.125rem;
     }
 </style>
@@ -47,7 +25,7 @@
     import { idMixin, formMixin, formSizeMixin, formStateMixin } from '../../mixins';
     import { arrayIncludes } from '../../utils/array';
     
-    // Valid input types
+    // Valid supported input types
     const TYPES = [
         'text', 'password', 'email', 'number', 'url', 'tel', 'search', 'range', 'color',
         `date`, `time`, `datetime`, `datetime-local`, `month`, `week`
@@ -55,6 +33,33 @@
     
     export default {
         mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
+        render(h) {
+            const t = this;
+            return h(
+                'input',
+                {
+                    ref: 'input',
+                    class: t.inputClass,
+                    domProps: { value: t.localValue },
+                    attrs: {
+                        id: t.safeId(),
+                        name: t.name,
+                        type: t.localType,
+                        disabled: t.disabled,
+                        required: t.required,
+                        readonly: t.readonly || t.plaintext,
+                        placeholder: t.placeholder,
+                        autocomplete: t.autocomplete || null,
+                        'aria-required': t.required ? 'true' : null,
+                        'aria-invalid': t.computedAriaInvalid
+                    },
+                    on: {
+                        input: t.onInput,
+                        change: t.onChange
+                    }
+                }
+            );
+        },
         data() {
             return {
                 localValue: this.value
@@ -146,16 +151,17 @@
                 }
                 return value;
             },
-            onInput(value, e) {
+            onInput(evt) {
+                const value = evt.target.value;
                 if (this.lazyFormatter) {
                     // Update the model with the current unformated value
                     this.localValue = value;
                 } else {
-                    this.localValue = this.format(value, e);
+                    this.localValue = this.format(value, evt);
                 }
             },
-            onChange(value, e) {
-                this.localValue = this.format(value, e);
+            onChange(evt) {
+                this.localValue = this.format(evt.target.value, evt);
                 this.$emit('change', this.localValue);
             },
             focus() {
