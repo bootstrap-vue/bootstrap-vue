@@ -1,23 +1,8 @@
-<template>
-    <div class="progress" :style="progressHeight">
-        <slot>
-            <b-progress-bar :value="value"
-                            :max="max"
-                            :precision="precision"
-                            :variant="variant"
-                            :animated="animated"
-                            :striped="striped"
-                            :show-progress="showProgress"
-                            :show-value="showValue"
-            ></b-progress-bar>
-        </slot>
-    </div>
-</template>
-
 <style>
     /*
      * Temporary fix, as BS V4.beta.2 mistakenly removed progress-bar transition.
      * This should be able to be removed once V4.beta.3 is released.
+     * And this full component can be moved into the progress.js file
      */
     .progress-bar {
         transition: width .6s ease;
@@ -25,10 +10,32 @@
 </style>
 
 <script>
-    import bProgressBar from './progress-bar.vue';
+    import bProgressBar from './progress-bar';
 
     export default {
         components: { bProgressBar },
+        render(h) {
+            const t = this;
+            let childNodes = t.$slots.default;
+            if (!childNodes) {
+                childNodes = h(
+                    'b-progress-bar',
+                    {
+                        props: {
+                            value: t.value,
+                            max: t.max,
+                            precision: t.precision,
+                            variant: t.variant,
+                            animated: t.animated,
+                            striped: t.striped,
+                            showProgress: t.showProgress,
+                            showValue: t.showValue
+                        }
+                    }
+                );
+            }
+            return h('div', { class: [ 'progress' ], style: t.progressHeight }, [ childNodes ]);
+        },
         props: {
             // These props can be inherited via the child b-progress-bar(s)
             variant: {
@@ -45,7 +52,7 @@
             },
             height: {
                 type: String,
-                default: '1rem'
+                default: null
             },
             precision: {
                 type: Number,
@@ -71,7 +78,7 @@
         },
         computed: {
             progressHeight() {
-              return this.height ? { height: this.height } : {};
+              return { height: this.height || null };
             }
         }
     };
