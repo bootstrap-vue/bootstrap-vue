@@ -26,6 +26,16 @@ const AttachmentMap = {
     BOTTOMEND: "bottom-end"
 };
 
+// Keyboard keys
+const KEY = {
+    ENTER: 13,
+    SPACE: 32,
+    TAB: 9,
+    DOWN: 40,
+    UP: 38,
+    ESC: 27
+};
+
 export default {
     mixins: [clickoutMixin, listenOnRootMixin],
     props: {
@@ -71,8 +81,8 @@ export default {
         };
     },
     created() {
-        const listener = el => {
-            if (el !== this) {
+        const listener = vm => {
+            if (vm !== this) {
                 this.visible = false;
             }
         };
@@ -213,23 +223,6 @@ export default {
         clickOutListener() {
             this.visible = false;
         },
-        click(e) {
-            // Calle only in split button mode, for the split button
-            if (this.disabled) {
-                this.visible = false;
-                return;
-            }
-
-            this.$emit("click", e);
-        },
-        toggle() {
-            // Called only by a button that toggles the menu
-            if (this.disabled) {
-                this.visible = false;
-                return;
-            }
-            this.visible = !this.visible;
-        },
         show() {
             // Public method to show dropdown
             if (this.disabled) {
@@ -244,21 +237,64 @@ export default {
             }
             this.visible = false;
         },
-        onTab() {
+        toggle(evt) {
+            // Called only by a button that toggles the menu
+            evt = evt || {};
+            const type = evt.type;
+            const key = evt.keyCode;
+            if (type !== "click" && !(type === "keydown" && (key === KEY.ENTER || key === KEY.SPACE || key === KEY.DOWN))) {
+                // We only toggle on Click, Enter, Space, and Arrow Down
+                return;
+            }
+            evt.preventDefault();
+            evt.stopPropagation();
+            if (this.disabled) {
+                this.visible = false;
+                return;
+            }
+            // Toggle visibility
+            this.visible = !this.visible;
+        },
+        click(evt) {
+            // Calle only in split button mode, for the split button
+            if (this.disabled) {
+                this.visible = false;
+                return;
+            }
+            this.$emit("click", evt);
+        },
+        onKeydown(evt) {
+            // Called from dropdown menu context
+            const key = evt.keyCode;
+            if (key === KEY.ESC) {
+                // Close on ESC
+                this.onEsc(evt);
+            } else if (key === KEY.TAB) {
+                // Close on tab out
+                this.onTab(evt);
+            } else if (key === KEY.DOWN) {
+                // Down Arrow
+                this.focusNext(evt, false);
+            } else if (key === KEY.UP) {
+                // Up Arrow
+                this.focusNext(evt, true);
+            }
+        },
+        onEsc(evt) {
+            if (this.visible) {
+                this.visible = false;
+                evt.preventDefault();
+                evt.stopPropagation();
+                // Return focus to original trigger button
+                this.$nextTick(this.focusToggler);
+            }
+        },
+        onTab(evt) {
             if (this.visible) {
                 // TODO: Need special handler for dealing with form inputs
                 // Tab, if in a text-like input, we should just focus next item in the dropdown
                 // Note: Inputs are in a special .dropdown-form container
                 this.visible = false;
-            }
-        },
-        onEsc(e) {
-            if (this.visible) {
-                this.visible = false;
-                e.preventDefault();
-                e.stopPropagation();
-                // Return focus to original trigger button
-                this.$nextTick(this.focusToggler);
             }
         },
         onFocusOut(evt) {
@@ -280,18 +316,18 @@ export default {
                 item.focus();
             }
         },
-        focusNext(e, up) {
+        focusNext(evt, up) {
             if (!this.visible) {
                 return;
             }
-            e.preventDefault();
-            e.stopPropagation();
+            evt.preventDefault();
+            evt.stopPropagation();
             this.$nextTick(() => {
                 const items = this.getItems();
                 if (items.length < 1) {
                     return;
                 }
-                let index = items.indexOf(e.target);
+                let index = items.indexOf(evt.target);
                 if (up && index > 0) {
                     index--;
                 } else if (!up && index < items.length - 1) {
