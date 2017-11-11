@@ -46,7 +46,7 @@ export default {
         
         const label = h(
             'label',
-            { class: [ t.is_ButtonMode ? t.buttonClasses : t.isPlain ? 'form-check-label' : t.labelClasses ] },
+            { class: [ t.is_ButtonMode ? t.buttonClasses : t.is_Plain ? 'form-check-label' : t.labelClasses ] },
             [ input, indicator, description ]
         );
         
