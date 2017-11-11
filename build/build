@@ -15,8 +15,10 @@ rollup -c build/rollup.config.esm.js
 uglify=`pwd`/node_modules/.bin/uglifyjs
 cd dist
 
+# We use --mangle but not --compress to reduce file size
+# --compress unfortunately removes the 'imports' from the top of hte ESM build
 for f in *.js; do
     o=`echo $f | sed s/\.js/.min.js/`
     echo "$f ~> $o"
-    $uglify $f --source-map -o $o
+    $uglify $f --mangle --source-map -o $o
 done
