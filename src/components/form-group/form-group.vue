@@ -26,13 +26,13 @@
         components: { bFormRow, bFormText, bFormFeedback },
         render(h) {
             const t = this;
-
+            const $slots = t.$slots;
             let legend = h(false);
-            if (t.label || t.$slots.label || t.horizontal) {
+            if (t.label || $slots.label || t.horizontal) {
                 legend = h(
                     'legend',
                     { class: t.labelClasses, attrs: { id: t.labelId } },
-                    [ t.$slots.label || h('span', { domProps: { innerHTML: t.label || '' } }) ]
+                    [ $slots.label || h('span', { domProps: { innerHTML: t.label || '' } }) ]
                 );
             }
 
@@ -40,7 +40,7 @@
                 'b-form-feedback',
                 {
                     directives: [
-                        { name: 'show', value: t.feedback || t.$slots.feedback }
+                        { name: 'show', value: t.feedback || $slots.feedback }
                     ],
                     attrs: {
                         id: t.feedbackId,
@@ -49,22 +49,22 @@
                         'aria-atomic': 'true'
                     }
                 },
-                [ t.$slots.feedback || h('span', { domProps: { innerHTML: t.feedback || '' } }) ]
+                [ $slots.feedback || h('span', { domProps: { innerHTML: t.feedback || '' } }) ]
             );
 
             let description = h(false);
-            if (t.description || t.$slots.description) {
+            if (t.description || $slots.description) {
                 description = h(
                     'b-form-text',
                     { attrs: { id: t.descriptionId } },
-                    [ t.$slots.description || h('span', { domProps: { innerHTML: t.description || '' } }) ]
+                    [ $slots.description || h('span', { domProps: { innerHTML: t.description || '' } }) ]
                 );
             }
 
             const content = h(
                 'div',
                 { ref: 'content', class: t.inputLayoutClasses },
-                [ t.$slots.default, feedback, description ]
+                [ $slots.default, feedback, description ]
             );
 
             return h(
