@@ -51,7 +51,7 @@ export default {
         );
         
         if (t.is_Plain && !t.is_ButtonMode) {
-            return h('div', { class: ['form-check', { 'form-check-inline': !is_Stacked } ] }, [ label ]);
+            return h('div', { class: ['form-check', { 'form-check-inline': !t.is_Stacked } ] }, [ label ]);
         } else {
             return label;
         }
