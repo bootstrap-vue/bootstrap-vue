@@ -1,5 +1,5 @@
 import { idMixin, formMixin, formOptionsMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../../mixins';
-import bFormRadio from './form-radio.vue';
+import bFormRadio from './form-radio';
 
 export default {
     mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
