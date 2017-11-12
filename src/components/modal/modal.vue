@@ -448,7 +448,7 @@
             onBeforeLeave() {
                 this.is_transitioning = true;
                 this.setResizeEvent(false);
-             },
+            },
             onLeave() {
                 // Remove the 'show' class
                 this.is_show = false;
