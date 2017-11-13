@@ -34,7 +34,6 @@ export default {
                     __c: (evt) => {
                         const $$a = t.computedLocalChecked;
                         const $$el = evt.target;
-                        const $$c = $$el.checked ? t.value : t.uncheckedValue;
                         if (isArray($$a)) {
                             // Multiple checkbox
                             const $$v = t.value;
@@ -48,7 +47,7 @@ export default {
                             }
                         } else {
                             // Single checkbox
-                            t.computedLocalChecked = $$c;
+                            t.computedLocalChecked = $$el.checked ? t.value : t.uncheckedValue;
                         }
                     }
                 }
