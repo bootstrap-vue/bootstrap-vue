@@ -1,92 +1,9 @@
-<template>
-    <div>
-        <div :id="safeId('__BV_modal_outer_')" v-if="!is_hidden">
-            <transition enter-class=""
-                        enter-to-class=""
-                        enter-active-class=""
-                        leave-class=""
-                        leave-active-class=""
-                        leave-to-class=""
-                        @before-enter="onBeforeEnter"
-                        @enter="onEnter"
-                        @after-enter="onAfterEnter"
-                        @before-leave="onBeforeLeave"
-                        @leave="onLeave"
-                        @after-leave="onAfterLeave"
-            >
-                <div :class="modalClasses"
-                     :id="safeId()"
-                     :aria-hidden="is_visible ? null : 'true'"
-                     role="dialog"
-                     ref="modal"
-                     v-show="is_visible"
-                     @click="onClickOut"
-                     @keyup.esc="onEsc"
-                >
-
-                    <div :class="dialogClasses">
-                        <div class="modal-content"
-                             tabindex="-1"
-                             role="document"
-                             ref="content"
-                             :aria-labelledby="hideHeader ? null : safeId('__BV_modal_header_')"
-                             :aria-describedby="safeId('__BV_modal_body_')"
-                             @focusout="onFocusout"
-                             @click.stop
-                        >
-
-                            <header :class="headerClasses"
-                                    ref="header"
-                                    :id="safeId('__BV_modal_header_')"
-                                    v-if="!hideHeader"
-                            >
-                                <slot name="modal-header">
-                                    <h5 :is="titleTag" class="modal-title">
-                                        <slot name="modal-title">{{title}}</slot>
-                                    </h5>
-                                    <b-btn-close v-if="!hideHeaderClose"
-                                                 :disabled="is_transitioning"
-                                                 :aria-label="headerCloseLabel"
-                                                 :text-variant="headerTextVariant"
-                                                 @click="hide('headerclose')"
-                                    ><slot name="modal-header-close"></slot></b-btn-close>
-                                </slot>
-                            </header>
-
-                            <div :class="bodyClasses" ref="body" :id="safeId('__BV_modal_body_')">
-                                <slot></slot>
-                            </div>
-
-                            <footer :class="footerClasses" ref="footer" v-if="!hideFooter" :id="safeId('__BV_modal_footer_')">
-                                <slot name="modal-footer">
-                                    <b-btn v-if="!okOnly"
-                                           :variant="cancelVariant"
-                                           :size="buttonSize"
-                                           :disabled="cancelDisabled || busy || is_transitioning"
-                                           @click="hide('cancel')"
-                                    ><slot name="modal-cancel">{{ cancelTitle }}</slot></b-btn>
-                                    <b-btn :variant="okVariant"
-                                           :size="buttonSize"
-                                           :disabled="okDisabled || busy || is_transitioning"
-                                           @click="hide('ok')"
-                                    ><slot name="modal-ok">{{ okTitle }}</slot></b-btn>
-                                </slot>
-                            </footer>
-
-                        </div>
-                    </div>
-                </div>
-            </transition>
-            <div v-if="!hideBackdrop && (is_visible || is_transitioning)" :id="safeId('__BV_modal_backdrop_')" :class="backdropClasses"></div>
-        </div>
-    </div>
-</template>
-
 <style>
     /*
-      This can be removed once Bootstrap V4.beta.3 is released
+      This CSS can be removed once Bootstrap V4.beta.3 is released
       https://github.com/twbs/bootstrap/pull/24510
       Vertically centered modals are not suited to tall content (the header gets cut off)
+      Once BSV4.beta.3 is released, the script section can be moved into the modal.js file
     */
     .modal-dialog-centered {
         display: flex;
@@ -106,14 +23,19 @@
     import { idMixin, listenOnRootMixin } from '../../mixins';
     import { observeDom, warn } from '../../utils';
     import BvEvent from '../../utils/bv-event.class';
-    import { isVisible, selectAll, select, getBCR, addClass, removeClass, hasClass, setAttr, removeAttr, getAttr, hasAttr, eventOn, eventOff } from '../../utils/dom';
+    import {
+        isVisible, selectAll, select, getBCR, addClass, removeClass, hasClass,
+        setAttr, removeAttr, getAttr, hasAttr, eventOn, eventOff
+    } from '../../utils/dom';
 
+    // Selectors for padding/margin adjustments
     const Selector = {
         FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
         STICKY_CONTENT: '.sticky-top',
         NAVBAR_TOGGLER: '.navbar-toggler'
     };
 
+    // ObserveDom config
     const OBSERVER_CONFIG = {
         subtree: true,
         childList: true,
@@ -122,9 +44,198 @@
         attributeFilter: ['style', 'class']
     };
 
+    // Keyboard keys
+    const KEY = {
+        ESC: 27
+    };
+
     export default {
         mixins: [idMixin, listenOnRootMixin],
         components: {bBtn, bBtnClose},
+        render(h) {
+            const t = this;
+            const $slots = t.$slots;
+
+            // Modal Header
+            let header = h(false);
+            if (!t.hideHeader) {
+                let modalHeader = $slots['modal-header'];
+                if (!modalHeader) {
+                    let closeButton = h(false);
+                    if (!t.hideHeaderClose) {
+                        closeButton = h(
+                            'b-btn-close',
+                            {
+                                props: {
+                                    disabled: t.is_transitioning,
+                                    ariaLabel: t.headerCloseLabel,
+                                    textVariant: t.headerTextVariant
+                                },
+                                on: { click: (evt) => { t.hide('header-close'); } }
+                            },
+                            [ $slots['modal-header-close'] ]
+                        );
+                    }
+                    modalHeader = [
+                        h(t.titleTag, { class: ['modal-title'] }, [ $slots['modal-title'] || t.title ]),
+                        closeButton
+                    ];
+                }
+                header = h(
+                    'header',
+                    {
+                        ref: 'header',
+                        class: t.headerClasses,
+                        attrs: { id: t.safeId('__BV_modal_header_') }
+                    },
+                    [ modalHeader ]
+                );
+            }
+
+            // Modal Body
+            const body = h(
+                'div',
+                {
+                    ref: 'body',
+                    class: t.bodyClasses,
+                    attrs: { id: t.safeId('__BV_modal_body_') }
+                },
+                [ $slots.default ]
+            );
+
+            // Modal Footer
+            let footer = h(false);
+            if (!t.hideFooter) {
+                let modalFooter = $slots['modal-footer'];
+                if (!modalFooter) {
+                    let okButton = h(false);
+                    if (!t.okOnly) {
+                        okButton = h(
+                            'b-btn',
+                            {
+                                props: {
+                                    variant: t.cancelVariant,
+                                    size: t.buttonSize,
+                                    disabled: t.cancelDisabled || t.busy || t.is_transitioning
+                                },
+                                on: { click: (evt) => { t.hide('cancel') } }
+
+                            },
+                            [ $slots['modal-cancel'] || t.cancelTitle ]
+                        );
+                    }
+                    const cancelButton = h(
+                        'b-btn',
+                        {
+                            props: {
+                                variant: t.okVariant,
+                                size: t.buttonSize,
+                                disabled: t.okDisabled || t.busy || t.is_transitioning
+                            },
+                            on:  { click: (evt) => { t.hide('ok') } }
+                        },
+                        [ $slots['modal-ok'] || t.okTitle ]
+                    );
+                    modalFooter = [ cancelButton, okButton ];
+                }
+                footer = h(
+                    'footer',
+                    {
+                        ref: 'footer',
+                        class: t.footerClasses,
+                        attrs: { id: t.safeId('__BV_modal_footer_') }
+                    },
+                    [ modalFooter ]
+                );
+            }
+
+            // Assemble Modal Content
+            const modalContent = h(
+                'div',
+                {
+                    ref: 'content',
+                    class: [ 'modal-content' ],
+                    attrs: {
+                        tabindex: '-1',
+                        role: 'document',
+                        'aria-labelledby': t.hideHeader ? null : t.safeId('__BV_modal_header_'),
+                        'aria-describedby': t.safeId('__BV_modal_body_')
+                    },
+                    on: {
+                        focusout: t.onFocusout,
+                        click: (evt) => { evt.stopPropagation() }
+                    }
+                },
+                [ header, body, footer ]
+            );
+
+            // Modal Dialog wrapper
+            const modalDialog = h('div', { class: t.dialogClasses }, [ modalContent ])
+
+            // Modal
+            let modal = h(
+                'div',
+                {
+                    ref: 'modal',
+                    class: t.modalClasses,
+                    directives: [
+                        { name: 'show', rawName: 'v-show', value: t.is_visible, expression: 'is_visible' }
+                    ],
+                    attrs: {
+                        id: t.safeId(),
+                        role: 'dialog',
+                        'aria-hidden': t.is_visible ? null : 'true'
+                    },
+                    on: {
+                        click: t.onClickOut,
+                        keydown: t.onEsc
+                    }
+                },
+                [ modalDialog ]
+            );
+            // Wrap modal in transition
+            modal = h(
+                'transition',
+                {
+                    props: {
+                        enterClass: '',
+                        enterToClass: '',
+                        enterActiveClass: '',
+                        leaveClass: '',
+                        leaveActiveClass: '',
+                        leaveToClass: ''
+                    },
+                    on: {
+                        'before-enter': t.onBeforeEnter,
+                        'enter': t.onEnter,
+                        'after-enter': t.onAfterEnter,
+                        'before-leave': t.onBeforeLeave,
+                        'leave': t.onLeave,
+                        'after-leave': t.onAfterLeave
+                    }
+                },
+                [ modal ]
+            );
+
+            // Modal Backdrop
+            let backdrop = h(false);
+            if (!t.hideBackdrop && (t.is_visible || t.is_transitioning)) {
+                backdrop = h('div', { class: t.backdropClasses, attrs: { id: t.safeId('__BV_modal_backdrop_') } });
+            }
+
+            // Assemble modal and backdrop
+            let outer = h(false);
+            if (!t.is_hidden) {
+                outer = h(
+                    'div',
+                    { attrs: { id: t.safeId('__BV_modal_outer_') } },
+                    [ modal, backdrop ]
+                );
+            }
+
+            // Wrap in DIV to maintain thi.$el reference for hide/show method aceess
+            return h('div', {}, [ outer ]);
+        },
         data() {
             return {
                 is_hidden: this.lazy || false,
@@ -478,15 +589,15 @@
                 this.$root.$emit(`bv::modal::${type}`, bvEvt);
             },
             // UI Event Handlers
-            onClickOut() {
+            onClickOut(evt) {
                 // If backdrop clicked, hide modal
                 if (this.is_visible && !this.noCloseOnBackdrop) {
                     this.hide('backdrop');
                 }
             },
-            onEsc() {
+            onEsc(evt) {
                 // If ESC pressed, hide modal
-                if (this.is_visible && !this.noCloseOnEsc) {
+                if (evt.keyCode === KEY.ESC && this.is_visible && !this.noCloseOnEsc) {
                     this.hide('esc');
                 }
             },
@@ -536,10 +647,14 @@
                     return;
                 }
                 const content = this.$refs.content;
+                const modal = this.$refs.modal;
                 const activeElement = document.activeElement;
                 if (activeElement && content && content.contains(activeElement)) {
                     // If activeElement is child of content, no need to change focus
                 } else if (content) {
+                    if (modal) {
+                        modal.scrollTop = 0;
+                    }
                     // Focus the modal content wrapper
                     content.focus();
                 }
@@ -572,11 +687,9 @@
                 }
                 const modal = this.$refs.modal;
                 const isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight;
-
                 if (!this.isBodyOverflowing && isModalOverflowing) {
                     modal.style.paddingLeft = `${this.scrollbarWidth}px`;
                 }
-
                 if (this.isBodyOverflowing && !isModalOverflowing) {
                     modal.style.paddingRight = `${this.scrollbarWidth}px`;
                 }
@@ -596,11 +709,9 @@
                 if (this.isBodyOverflowing) {
                     // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
                     //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
-
                     const computedStyle = window.getComputedStyle;
                     const body = document.body;
                     const scrollbarWidth = this.scrollbarWidth;
-
                     // Adjust fixed content padding
                     selectAll(Selector.FIXED_CONTENT).forEach(el => {
                         const actualPadding = el.style.paddingRight;
@@ -608,7 +719,6 @@
                         setAttr(el,'data-padding-right', actualPadding);
                         el.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`;
                     });
-
                     // Adjust sticky content margin
                     selectAll(Selector.STICKY_CONTENT).forEach(el => {
                         const actualMargin = el.style.marginRight;
@@ -616,7 +726,6 @@
                         setAttr(el, 'data-margin-right', actualMargin);
                         el.style.marginRight = `${parseFloat(calculatedMargin) - scrollbarWidth}px`;
                     });
-
                     // Adjust navbar-toggler margin
                     selectAll(Selector.NAVBAR_TOGGLER).forEach(el => {
                         const actualMargin = el.style.marginRight;
@@ -624,7 +733,6 @@
                         setAttr(el, 'data-margin-right', actualMargin);
                         el.style.marginRight = `${parseFloat(calculatedMargin) + scrollbarWidth}px`;
                     });
-
                     // Adjust body padding
                     const actualPadding = body.style.paddingRight;
                     const calculatedPadding = computedStyle(body).paddingRight;
@@ -640,7 +748,6 @@
                         removeAttr(el,'data-padding-right');
                     }
                 });
-
                 // Restore sticky content and navbar-toggler margin
                 selectAll(`${Selector.STICKY_CONTENT}, ${Selector.NAVBAR_TOGGLER}`).forEach(el => {
                     if (hasAttr(el, 'data-margin-right')) {
@@ -648,7 +755,6 @@
                         removeAttr(el, 'data-margin-right');
                     }
                 });
-
                 // Restore body padding
                 const body = document.body;
                 if (hasAttr(body, 'data-padding-right')) {
@@ -656,7 +762,6 @@
                     removeAttr(body, 'data-padding-right');
                 }
             }
-
         },
         created() {
             // create non-reactive property
