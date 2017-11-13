@@ -27,6 +27,8 @@
         render(h) {
             const t = this;
             const $slots = t.$slots;
+
+            // Label
             let legend = h(false);
             if (t.label || $slots.label || t.horizontal) {
                 legend = h(
@@ -36,6 +38,7 @@
                 );
             }
 
+            // Invalid feeback text
             const feedback = h(
                 'b-form-feedback',
                 {
@@ -52,6 +55,7 @@
                 [ $slots.feedback || h('span', { domProps: { innerHTML: t.feedback || '' } }) ]
             );
 
+            // Form help text (description)
             let description = h(false);
             if (t.description || $slots.description) {
                 description = h(
@@ -61,12 +65,14 @@
                 );
             }
 
+            // Build layout
             const content = h(
                 'div',
                 { ref: 'content', class: t.inputLayoutClasses },
                 [ $slots.default, feedback, description ]
             );
 
+            // Generate fieldset wrapper
             return h(
                 'fieldset',
                 {
