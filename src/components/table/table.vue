@@ -445,7 +445,7 @@ export default {
             const variant = this.footVariant || this.headVariant || null;
             return variant ? 'thead-' + variant : '';
         },
-        captionClasses() {
+        captionStyles() {
             // Move caption to top
             return this.captionTop ? { captionSide: 'top' } : {};
         },
