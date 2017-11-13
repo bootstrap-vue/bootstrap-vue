@@ -60,7 +60,7 @@ This branch is for [Bootstrap4 Beta](https://getbootstrap.com/docs/4.0). If you 
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
-<a href="graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" /></a>
+<a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" /></a>
 
 
 ## Backers
