@@ -1,64 +1,6 @@
-<template>
-    <input v-if="plain"
-           type="file"
-           :id="safeId()"
-           ref="input"
-           :class="['form-control-file', stateClass]"
-           :name="name"
-           :disabled="disabled"
-           :required="required"
-           :capture="capture || null"
-           :aria-required="required ? 'true' : null"
-           :accept="accept || null"
-           :multiple="multiple"
-           :webkitdirectory="directory"
-           @change="onFileChange">
-    <div v-else
-         :class="['custom-file', 'w-100', stateClass]"
-         :id="safeId('_BV_file_outer_')"
-         @dragover.stop.prevent="dragover">
-         <!-- Normally this div should be label, but IE borks out if label has a file input inside. Awaiting fix from MSFT -->
-
-        <!-- Drop Here Target -->
-        <span v-if="dragging"
-              :data-drop="dropLabel"
-              class="drop-here"
-              @dragover.stop.prevent="dragover"
-              @drop.stop.prevent="drop"
-              @dragleave.stop.prevent="dragging=false"
-        ></span>
-
-        <!-- Real Form input -->
-        <input type="file"
-               :id="safeId()"
-               ref="input"
-               :class="['custom-file-input', 'w-100', stateClass, hasFocus?'focus':'']"
-               :name="name"
-               :disabled="disabled"
-               :required="required"
-               :capture="capture || null"
-               :aria-required="required ? 'true' : null"
-               :accept="accept || null"
-               :multiple="multiple"
-               :webkitdirectory="directory"
-               :aria-describedby="safeId('_BV_file_control_')"
-               @focusin="focusHandler"
-               @focusout="focusHandler"
-               @change="onFileChange">
-
-        <!-- Overlay Labels -->
-        <span :id="safeId('_BV_file_control_')"
-              :class="['custom-file-control', dragging?'dragging':null]"
-              :data-choose="computedChooseLabel"
-              :data-selected="selectedLabel"
-        ></span>
-
-    </div>
-</template>
-
 <style scoped>
-    /* Custom-file focus styling */
-    /* regular focus styling */
+    /* Custom-file focus styling: These can be removed once BSV4.beta.3 is released */
+    /* Regular focus styling */
     .custom-file-input.focus ~ .custom-file-control,
     .custom-file-input:focus ~ .custom-file-control {
         color: #495057;
@@ -67,7 +9,6 @@
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         outline: none;
     }
-
     /* Invalid focus styling */
     .custom-file-input.is-invalid.focus ~ .custom-file-control,
     .custom-file-input.is-invalid:focus ~ .custom-file-control,
@@ -76,7 +17,6 @@
         box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
         border-color: #dc3545;
     }
-
     /* valid focus styling */
     .custom-file-input.is-valid.focus ~ .custom-file-control,
     .custom-file-input.is-valid:focus ~ .custom-file-control,
@@ -90,24 +30,19 @@
     .custom-file-control {
         overflow: hidden;
     }
-
     .custom-file-control {
         overflow: hidden;
     }
-
     .custom-file-control.dragging {
         overflow: hidden;
         filter: blur(3px);
     }
-
     .custom-file-control[data-selected]::after {
         content: attr(data-selected);
     }
-
     .custom-file-control[data-choose]::before {
         content: attr(data-choose);
     }
-
     .custom-file .drop-here {
         position: absolute;
         left: 0;
@@ -121,12 +56,10 @@
         justify-content: center;
         align-items: center;
     }
-
     .custom-file .drop-here::before {
         color: white;
         content: attr(data-drop);
     }
-
 </style>
 
 <script>
@@ -135,6 +68,81 @@
 
     export default {
         mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
+        render(h) {
+            const t = this;
+
+            // Form Input
+            const input = h(
+                'input',
+                {
+                    ref: 'input',
+                    class: t.inputClasses,
+                    attrs: {
+                        type: 'file',
+                        id: t.safeId(),
+                        name: t.name,
+                        disabled: t.disabled,
+                        required: t.required,
+                        capture: t.capture || null,
+                        'aria-required': t.required ? 'true' : null,
+                        accept: t.accept || null,
+                        multiple: t.multiple,
+                        webkitdirectory: t.directory,
+                        'aria-describedby': t.plain ? null : t.safeId('_BV_file_control_')
+                    },
+                    on: {
+                        change: t.onFileChange,
+                        focusin: t.focusHandler,
+                        focusout: t.focusHandler
+                    }
+                }
+            );
+
+            if (t.plain) {
+                return input;
+            }
+            
+            // 'Drop Here' target
+            let droptarget = h(false);
+            if (t.dragging) {
+                droptarget = h(
+                    'span',
+                    {
+                        class: [ 'drop-here' ],
+                        attrs: { 'data-drop': t.dropLabel },
+                        on: {
+                            dragover: t.dragover,
+                            drop: t.drop,
+                            dragleave: t.dragleave
+                        }
+                    }
+                );
+            }
+
+            // Overlay Labels
+            const labels = h(
+                'span',
+                {
+                    class: [ 'custom-file-control', t.dragging ? 'dragging' : null ],
+                    attrs: {
+                        id: t.safeId('_BV_file_control_'),
+                        'data-choose': t.computedChooseLabel,
+                        'data-selected': t.selectedLabel
+                    }
+                }
+            );
+            
+            // Return rendered custom file input
+            return h(
+                'div',
+                {
+                    class: [ 'custom-file', 'w-100', t.stateClass ],
+                    attrs: { id: t.safeId('_BV_file_outer_') },
+                    on: { dragover: t.dragover }
+                },
+                [ droptarget, input, labels ]
+            );
+        },
         data() {
             return {
                 selectedFile: null,
@@ -186,21 +194,29 @@
             }
         },
         computed: {
+            inputClasses() {
+                return [
+                    {
+                        'form-control-file': this.plain,
+                        'custom-file-input': this.custom,
+                        'w-100': true, // BS4 beta missing this
+                        'focus': this.custom && this.hasFocus,
+                    },
+                    this.stateClass
+                ]
+            },
             selectedLabel() {
                 if (!this.selectedFile || this.selectedFile.length === 0) {
                     return this.placeholder || 'No file chosen';
                 }
-
                 if (this.multiple) {
                     if (this.selectedFile.length === 1) {
                         return this.selectedFile[0].name;
                     }
-
                     return this.selectedFormat
                         .replace(':names', this.selectedFile.map(file => file.name).join(','))
                         .replace(':count', this.selectedFile.length);
                 }
-
                 return this.selectedFile.name;
             },
             computedChooseLabel() {
@@ -212,7 +228,6 @@
                 if (newVal === oldVal) {
                     return;
                 }
-
                 if (!newVal && this.multiple) {
                     this.$emit('input', []);
                 } else {
@@ -223,8 +238,8 @@
         methods: {
             focusHandler(evt) {
                 // Boostrap v4.beta doesn't have focus styling for custom file input
-                // Firefox has a borked '[type=file]:focus ~ sibling' selector, so we add
-                // A 'focus' class to get around this bug
+                // Firefox has a borked '[type=file]:focus ~ sibling' selector issue,
+                // So we add a 'focus' class to get around these "bugs"
                 if (this.plain || evt.type === 'focusout') {
                     this.hasFocus = false;
                 } else {
@@ -238,22 +253,19 @@
                     this.$refs.input.value = '';
                 } catch (e) {
                 }
-
                 // IE < 11 doesn't support setting input.value to '' or null
                 // So we use this little extra hack to reset the value, just in case
                 // This also appears to work on modern browsers as well.
                 this.$refs.input.type = '';
                 this.$refs.input.type = 'file';
-
                 this.selectedFile = this.multiple ? [] : null;
             },
-            onFileChange(e) {
+            onFileChange(evt) {
                 // Always emit original event
-                this.$emit('change', e);
-
+                this.$emit('change', evt);
                 // Check if special `items` prop is available on event (drop mode)
                 // Can be disabled by setting no-traverse
-                const items = e.dataTransfer && e.dataTransfer.items;
+                const items = evt.dataTransfer && evt.dataTransfer.items;
                 if (items && !this.noTraverse) {
                     const queue = [];
                     for (let i = 0; i < items.length; i++) {
@@ -267,21 +279,18 @@
                     });
                     return;
                 }
-
                 // Normal handling
-                this.setFiles(e.target.files || e.dataTransfer.files);
+                this.setFiles(evt.target.files || evt.dataTransfer.files);
             },
             setFiles(files) {
                 if (!files) {
                     this.selectedFile = null;
                     return;
                 }
-
                 if (!this.multiple) {
                     this.selectedFile = files[0];
                     return;
                 }
-
                 // Convert files to array
                 const filesArray = [];
                 for (let i = 0; i < files.length; i++) {
@@ -289,25 +298,31 @@
                         filesArray.push(files[i]);
                     }
                 }
-
                 this.selectedFile = filesArray;
             },
-            dragover(e) {
+            dragover(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
                 if (this.noDrop || !this.custom) {
                     return;
                 }
-
                 this.dragging = true;
-                e.dataTransfer.dropEffect = 'copy';
+                evt.dataTransfer.dropEffect = 'copy';
             },
-            drop(e) {
+            dragleave(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                this.dragging = false;
+            },
+            drop(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
                 if (this.noDrop) {
                     return;
                 }
-
                 this.dragging = false;
-                if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-                    this.onFileChange(e);
+                if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
+                    this.onFileChange(evt);
                 }
             },
             traverseFileTree(item, path) {
