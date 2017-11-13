@@ -70,29 +70,36 @@
         mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
         render(h) {
             const t = this;
-            if (t.plain) {
-                return h(
-                    'input',
-                    {
-                        ref: 'input',
-                        class: [ 'form-control-file', t.stateClass ],
-                        attrs: {
-                            type: 'file',
-                            id: t.safeId(),
-                            name: t.name,
-                            disabled: t.disabled,
-                            required: t.required,
-                            capture: t.capture || null,
-                            'aria-required': t.required ? 'true' : null,
-                            accept: t.accept || null,
-                            multiple: t.multiple,
-                            webkitdirectory: t.directory
-                        },
-                        on: {
-                            change: t.onFileChange
-                        }
+
+            // Form Input
+            const input = h(
+                'input',
+                {
+                    ref: 'input',
+                    class: t.inputClasses,
+                    attrs: {
+                        type: 'file',
+                        id: t.safeId(),
+                        name: t.name,
+                        disabled: t.disabled,
+                        required: t.required,
+                        capture: t.capture || null,
+                        'aria-required': t.required ? 'true' : null,
+                        accept: t.accept || null,
+                        multiple: t.multiple,
+                        webkitdirectory: t.directory,
+                        'aria-describedby': t.plain ? null : t.safeId('_BV_file_control_')
+                    },
+                    on: {
+                        change: t.onFileChange,
+                        focusin: t.focusHandler,
+                        focusout: t.focusHandler
                     }
-                );
+                }
+            );
+
+            if (t.plain) {
+                return input;
             }
             
             // 'Drop Here' target
@@ -111,33 +118,6 @@
                     }
                 );
             }
-
-            // Form Input
-            const input = h(
-                'input',
-                {
-                    ref: 'input',
-                    class: [ 'custom-file-input', 'w-100', t.stateClass, t.hasFocus ? 'focus' : '' ],
-                    attrs: {
-                        type: 'file',
-                        id: t.safeId(),
-                        name: t.name,
-                        disabled: t.disabled,
-                        required: t.required,
-                        capture: t.capture || null,
-                        'aria-required': t.required ? 'true' : null,
-                        accept: t.accept || null,
-                        multiple: t.multiple,
-                        webkitdirectory: t.directory,
-                        'aria-describedby': t.safeId('_BV_file_control_')
-                    },
-                    on: {
-                        change: t.onFileChange,
-                        focusin: t.focusHandler,
-                        focusout: t.focusHandler
-                    }
-                }
-            );
 
             // Overlay Labels
             const labels = h(
@@ -214,6 +194,17 @@
             }
         },
         computed: {
+            inputClasses() {
+                return [
+                    {
+                        'form-control-file': this.plain,
+                        'custom-file-input': this.custom,
+                        'w-100': true, // BS4 beta missing this
+                        'focus': this.custom && this.hasFocus,
+                    },
+                    this.stateClass
+                ]
+            },
             selectedLabel() {
                 if (!this.selectedFile || this.selectedFile.length === 0) {
                     return this.placeholder || 'No file chosen';
@@ -247,8 +238,8 @@
         methods: {
             focusHandler(evt) {
                 // Boostrap v4.beta doesn't have focus styling for custom file input
-                // Firefox has a borked '[type=file]:focus ~ sibling' selector, so we add
-                // A 'focus' class to get around this bug
+                // Firefox has a borked '[type=file]:focus ~ sibling' selector issue,
+                // So we add a 'focus' class to get around these "bugs"
                 if (this.plain || evt.type === 'focusout') {
                     this.hasFocus = false;
                 } else {
