@@ -45,7 +45,8 @@ This will allow you to use the following format in your `.vue` files:
 ### Configuring `transformToRequire` in Nuxt
 
 In your `nuxt.config.js` file, add the following to your build section:
-```
+
+```js
 build: {   
   extend (config, ctx) {
     const vueLoader = config.module.rules.find((rule) => rule.loader === 'vue-loader')
