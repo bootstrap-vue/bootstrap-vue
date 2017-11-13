@@ -1,28 +1,3 @@
-<template>
-    <fieldset :class="groupClasses"
-              :id="safeId()"
-              :aria-describedby="describedByIds" >
-        <b-form-row>
-            <legend v-if="label || $slots['label'] || horizontal"
-                    :id="labelId"
-                    :class="labelClasses"
-            ><slot name="label"><span v-html="label"></span></slot></legend>
-            <div :class="inputLayoutClasses" ref="content">
-                <slot></slot>
-                <b-form-feedback v-show="feedback || $slots['feedback']"
-                                 :id="feedbackId"
-                                 role="alert"
-                                 aria-live="assertive"
-                                 aria-atomic="true"
-                ><slot name="feedback"><span v-html="feedback"></span></slot></b-form-feedback>
-                <b-form-text v-if="description || $slots['description']" :id="descriptionId">
-                    <slot name="description"><span v-html="description"></span></slot>
-                </b-form-text>
-            </div>
-        </b-form-row>
-    </fieldset>
-</template>
-
 <style>
 /*
    Bootstrap V4.beta uses ~ sibling selector to display the .invalid-feedback
@@ -48,14 +23,64 @@
 
     export default {
         mixins: [idMixin, formStateMixin],
-        components: {
-            bFormRow,
-            bFormText,
-            bFormFeedback
-        },
-        data() {
-            return {
-            };
+        components: { bFormRow, bFormText, bFormFeedback },
+        render(h) {
+            const t = this;
+            const $slots = t.$slots;
+
+            // Label
+            let legend = h(false);
+            if (t.label || $slots.label || t.horizontal) {
+                legend = h(
+                    'legend',
+                    { class: t.labelClasses, attrs: { id: t.labelId } },
+                    [ $slots.label || h('span', { domProps: { innerHTML: t.label || '' } }) ]
+                );
+            }
+
+            // Invalid feeback text
+            const feedback = h(
+                'b-form-feedback',
+                {
+                    directives: [
+                        { name: 'show', value: t.feedback || $slots.feedback }
+                    ],
+                    attrs: {
+                        id: t.feedbackId,
+                        role: 'alert',
+                        'aria-live': 'assertive',
+                        'aria-atomic': 'true'
+                    }
+                },
+                [ $slots.feedback || h('span', { domProps: { innerHTML: t.feedback || '' } }) ]
+            );
+
+            // Form help text (description)
+            let description = h(false);
+            if (t.description || $slots.description) {
+                description = h(
+                    'b-form-text',
+                    { attrs: { id: t.descriptionId } },
+                    [ $slots.description || h('span', { domProps: { innerHTML: t.description || '' } }) ]
+                );
+            }
+
+            // Build layout
+            const content = h(
+                'div',
+                { ref: 'content', class: t.inputLayoutClasses },
+                [ $slots.default, feedback, description ]
+            );
+
+            // Generate fieldset wrapper
+            return h(
+                'fieldset',
+                {
+                    class: t.groupClasses,
+                    attrs: { id: t.safeId(), 'aria-describedby': t.describedByIds }
+                },
+                [ h('b-form-row', {}, [ legend, content ]) ]
+            );
         },
         props: {
             horizontal: {
