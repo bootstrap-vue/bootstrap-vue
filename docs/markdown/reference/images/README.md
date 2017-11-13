@@ -13,8 +13,8 @@ The default value for `transformToRequire` is:
 
 ```js
 transformToRequire: {
-  img: 'src',
-  image: 'xlink:href'
+  'img': 'src',
+  'image': 'xlink:href'
 }
 ```
 
@@ -23,8 +23,8 @@ use the following configuration:
 
 ```js
 transformToRequire: {
-  img: 'src',
-  image: 'xlink:href',
+  'img': 'src',
+  'image': 'xlink:href',
   'b-img': 'src',
   'b-img-lazy': ['src', 'blank-src'],
   'b-card': 'img-src',
@@ -40,6 +40,27 @@ This will allow you to use the following format in your `.vue` files:
 <b-img src="~/static/picture.jpg" />
 
 <b-card-img img-src="~/static/picture.jpg" />
+```
+
+### Configuring `transformToRequire` in Nuxt
+
+In your `nuxt.config.js` file, add the following to your build section:
+```
+build: {   
+  extend (config, ctx) {
+    const vueLoader = config.module.rules.find((rule) => rule.loader === 'vue-loader')
+    vueLoader.query.transformToRequire = {
+      'img': 'src',
+      'image': 'xlink:href',
+      'b-img': 'src',
+      'b-img-lazy': ['src', 'blank-src'],
+      'b-card': 'img-src',
+      'b-card-img': 'img-src',
+      'b-carousel-slide': 'img-src',
+      'b-embed': 'src'
+    }
+  }
+}
 ```
 
 ## Using `require` to resolve image paths
