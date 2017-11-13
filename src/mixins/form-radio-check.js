@@ -64,16 +64,10 @@ export default {
         },
         get_State() {
             // This is a tri-state prop (true, false, null)
-            if (typeof this.state === 'boolean') {
-                return this.state;
-            } else if (this.state === 'valid') {
-                return true;
-            } else if (this.state === 'invalid') {
-                return false;
-            } else if (this.is_Child && typeof this.$parent.get_State === 'boolean') {
+            if (this.is_Child && typeof this.$parent.get_State === 'boolean') {
                 return this.$parent.get_State;
             }
-            return null;
+            return this.computedState;
         },
         get_StateClass() {
             // This is a tri-state prop (true, false, null)

@@ -226,14 +226,14 @@ Bootstrap includes validation styles for `valid` and `invalid` states
 on most form controls.
 
 Generally speaking, you’ll want to use a particular state for specific types of feedback:
-- `'invalid'` is great for when there’s a blocking or required field. A user must fill in
+- `'invalid'` (or `false`) is great for when there’s a blocking or required field. A user must fill in
 this field properly to submit the form.
-- `'valid'` is ideal for situations when you have per-field validation throughout a form
+- `'valid'` (or `true`) is ideal for situations when you have per-field validation throughout a form
 and want to encourage a user through the rest of the fields.
 - `null` Displays no validation state
 
 To apply one of the contextual state icons on `<b-form-checkbox>`, set the `state` prop
-to `'invalid'`, `'valid'`, or `null`.
+to `'invalid'` (or `false`), `'valid'` (or `true`), or `null`.
 
 **Note:** Contextual states are **not** supported when in button mode.
 
