@@ -3,7 +3,7 @@ import * as array from "./array";
 import * as object from "./object";
 import * as dom from "./dom";
 import copyProps from "./copyProps";
-import keyCodes from "./key-codes";
+import KeyCodes from "./key-codes";
 import lowerFirst from "./lowerFirst";
 import identity from "./identity";
 import looseEqual from "./loose-equal";
@@ -23,7 +23,7 @@ export {
     array,
     copyProps,
     dom,
-    keyCodes,
+    KeyCodes,
     lowerFirst,
     identity,
     looseEqual,
