@@ -2,7 +2,7 @@
     <table :id="id || null"
            :aria-busy="computedBusy ? 'true' : 'false'"
            :class="tableClasses">
-        <caption v-if="caption || $slots['table-caption']">
+        <caption v-if="caption || $slots['table-caption']" :style="captionStyles">
             <slot name="table-caption"><div v-html="caption"></div></slot>
         </caption>
         <colgroup v-if="$slots['table-colgroup']">
@@ -203,6 +203,10 @@ export default {
         caption: {
             type: String,
             default: null
+        },
+        captionTop: {
+            type: Boolean,
+            default: false
         },
         items: {
             type: [Array, Function],
@@ -440,6 +444,10 @@ export default {
         footClasses() {
             const variant = this.footVariant || this.headVariant || null;
             return variant ? 'thead-' + variant : '';
+        },
+        captionStyles() {
+            // Move caption to top
+            return this.captionTop ? { captionSide: 'top' } : {};
         },
         hasProvider() {
             return this.items instanceof Function;
