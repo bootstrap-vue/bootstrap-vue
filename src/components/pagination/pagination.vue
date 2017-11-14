@@ -74,6 +74,25 @@
             <span class="page-link" v-html="ellipsisText"></span>
         </li>
 
+        <!-- Last Page Link -->
+        <li v-if="showLastPage && showLastDots" role="none presentation">
+          <a :class="pageLinkClasses(numberOfPages)"
+             :disabled="disabled"
+             :aria-disabled="disabled ? 'true' : null"
+             :aria-label="labelPage + ' ' + numberOfPages"
+             :aria-checked="isActive(numberOfPages) ? 'true' : 'false'"
+             :aria-controls="ariaControls || null"
+             :aria-posinset="numberOfPages"
+             :aria-setsize="numberOfPages"
+             role="menuitemradio"
+             href="#"
+             :tabindex="isActive(numberOfPages) ? '0' : '-1'"
+             @click.prevent="setPage($event, numberOfPages)"
+             @keydown.enter.prevent="setPage($event, numberOfPages)"
+             @keydown.space.prevent="setPage($event, numberOfPages)"
+          >{{ numberOfPages }}</a>
+        </li>
+
         <!-- Goto Next page -->
         <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" role="none presentation" aria-hidden="true">
             <span class="page-link" v-html="nextText"></span>
