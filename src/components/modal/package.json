@@ -90,7 +90,7 @@
             },
             {
                 "name": "modal-header-close",
-                "description": "Content of Modal heaqder close button. If modal-header slot is used, this slot will not be shown."
+                "description": "Content of Modal header close button. If modal-header slot is used, this slot will not be shown."
             },
             {
                 "name": "modal-footer",
