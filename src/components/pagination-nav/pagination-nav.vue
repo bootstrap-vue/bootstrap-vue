@@ -1,124 +1,12 @@
-<template>
-<nav>
-    <ul :class="['pagination',btnSize,alignment]"
-        :aria-disabled="disabled ? 'true' : 'false'"
-        :aria-label="ariaLabel ? ariaLabel : null"
-        role="menubar"
-        tabindex="0"
-        @keydown.left.prevent="focusPrev"
-        @keydown.right.prevent="focusNext"
-        @keydown.shift.left.prevent="focusFirst"
-        @keydown.shift.right.prevent="focusLast"
-    >
-
-        <!-- Goto First Page button -->
-        <template v-if="!hideGotoEndButtons">
-            <li v-if="isActive(1) || disabled" class="page-item disabled" role="none presentation" aria-hidden="true">
-                <span class="page-link" v-html="firstText"></span>
-            </li>
-            <li v-else class="page-item" role="none presentation">
-                <b-link class="page-link"
-                        v-bind="linkProps(1)"
-                        :aria-label="labelFirstPage"
-                        role="menuitem"
-                        tabindex="-1"
-                        @click="onClick(1)"
-                ><span aria-hidden="true" v-html="firstText"></span></b-link>
-            </li>
-        </template>
-
-        <!-- Goto Previous page button -->
-        <li v-if="isActive(1) || disabled" class="page-item disabled" role="none presentation" aria-hidden="true">
-            <span class="page-link" v-html="prevText"></span>
-        </li>
-        <li v-else class="page-item" role="none presentation">
-            <b-link class="page-link"
-                    v-bind="linkProps(currentPage - 1)"
-                    :aria-label="labelPrevPage"
-                    role="menuitem"
-                    tabindex="-1"
-                    @click="onClick(currentPage - 1)"
-            ><span aria-hidden="true" v-html="prevText"></span></b-link>
-        </li>
-
-        <!-- First Ellipsis Bookend -->
-        <li v-if="showFirstDots" class="page-item disabled d-none d-sm-flex" role="separator">
-            <span class="page-link" v-html="ellipsisText"></span>
-        </li>
-
-        <!-- Pages links -->
-        <li v-for="page in pageList" role="none presentation" :class="pageItemClasses(page)" :key="page.number">
-            <span v-if="disabled" class="page-link">{{ page.number }}</span>
-            <b-link v-else
-                    v-bind="linkProps(page.number)"
-                    :class="pageLinkClasses(page)"
-                    :disabled="disabled"
-                    :aria-disabled="disabled ? 'true' : null"
-                    :aria-label="labelPage + ' ' + page.number"
-                    :aria-checked="isActive(page.number) ? 'true' : 'false'"
-                    :aria-posinset="page.number"
-                    :aria-setsize="numberOfPages"
-                    role="menuitemradio"
-                    :tabindex="isActive(page.number) ? '0' : '-1'"
-                    @click="onClick(page.number)"
-                    v-html="makePage(page.number)"
-            ></b-link>
-        </li>
-
-        <!-- Last Ellipsis Bookend -->
-        <li v-if="showLastDots" class="page-item disabled d-none d-sm-flex" role="separator">
-            <span class="page-link" v-html="ellipsisText"></span>
-        </li>
-
-        <!-- Goto Next page -->
-        <li v-if="isActive(numberOfPages) || disabled" class="page-item disabled" role="none presentation" aria-hidden="true">
-            <span class="page-link" v-html="nextText"></span>
-        </li>
-        <li v-else class="page-item" role="none presentation">
-            <b-link class="page-link"
-                    v-bind="linkProps(currentPage + 1)"
-                    :aria-label="labelNextPage"
-                    role="menuitem"
-                    tabindex="-1"
-                    @click="onClick(currentPage + 1)"
-            ><span aria-hidden="true" v-html="nextText"></span></b-link>
-        </li>
-
-        <!-- Goto Last page -->
-        <template v-if="!hideGotoEndButtons">
-            <li v-if="isActive(numberOfPages) || disabled"
-                class="page-item disabled"
-                role="none presentation"
-                aria-hidden="true"
-            >
-                <span class="page-link" v-html="lastText"></span>
-            </li>
-            <li v-else class="page-item" role="none presentation">
-                <b-link class="page-link"
-                        v-bind="linkProps(numberOfPages)"
-                        :aria-label="labelLastPage"
-                        role="menuitem"
-                        tabindex="-1"
-                        @click="onClick(numberOfPages)"
-                ><span aria-hidden="true" v-html="lastText"></span></b-link>
-            </li>
-        </template>
-    </ul>
-</nav>
-</template>
-
-<style scoped>
-    .page-item {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
+<style>
+    .b-pagination .page-item {
         user-select: none;
     }
-    .page-item.disabled {
+    .b-pagination .page-item.disabled {
         cursor: not-allowed;
         opacity: .65;
     }
-    .page-item .page-link.active:focus {
+    .b-pagination .page-item .page-link.active:focus {
         box-shadow: 0 0 0 3px rgba(0,123,255,.5);
         z-index: 1;
     }
@@ -127,6 +15,7 @@
 <script>
 import bLink, { pickLinkProps } from '../link/link';
 import { assign } from '../../utils/object';
+import { KeyCodes } from '../../utils';
 import { paginationMixin } from '../../mixins';
 
 // Props needed for router links
@@ -164,6 +53,142 @@ const props = assign(
 export default {
     components: { bLink },
     mixins: [ paginationMixin ],
+    render(h) {
+        const t = this;
+        const buttons = [];
+
+        // Factory function for prev/next/first/last buttons
+        const makeEndBtns = (linkTo, ariaLabel, btnText, pageTest) => {
+            let button;
+            pageTest = pageTest || linkTo; // Page # to test against to disable
+            if (t.disabled || t.isActive(pageTest)) {
+                button = h(
+                    'li',
+                    {
+                        class: [ 'page-item', 'disabled' ],
+                        attrs: { role: 'none presentation', 'aria-hidden': 'true' }
+                    },
+                    [ h('span', { class: ['page-link'], domProps: { innerHTML: btnText } }) ]
+                );
+            } else {
+                button = h(
+                    'li',
+                    {
+                        class: [ 'page-item' ],
+                        attrs: { role: "none presentation" }
+                    },
+                    [ h(
+                        'b-link',
+                        {
+                            class: ['page-link'],
+                            props: t.linkProps(linkTo),
+                            attrs: { role: 'menuitem', tabindex: '-1', 'aria-label': ariaLabel },
+                            on: { click: (evt) => { t.onClick(linkTo) } }
+                        },
+                        [ h('span', { attrs: { 'aria-hidden': 'true' }, domProps: { innerHTML: btnText } }) ]
+                    ) ]
+                );
+            }
+            return button;
+        };
+
+        // Ellipsis factory
+        const makeEllipsis = () => {
+            return h(
+                'li',
+                {
+                    class: [ 'page-item', 'disabled', 'd-none', 'd-sm-flex' ],
+                    attrs: { role: 'separator' }
+                },
+                [ h('span', { class: ['page-link'], domProps: { innerHTML: t.ellipsisText } }) ]
+            );
+        }
+
+        // Goto First Page button
+        buttons.push(t.hideGotoEndButtons ? h(false) : makeEndBtns(1, t.labelFirstPage, t.firstText));
+
+        // Goto Previous page button
+        buttons.push(makeEndBtns(t.currentPage - 1, t.labelPrevPage, t.prevText, 1));
+        
+        // First Ellipsis Bookend
+        buttons.push(t.showFirstDots ? makeEllipsis() : h(false));
+
+        // Individual Page links
+        t.pageList.forEach((page) => {
+            let inner;
+            let pageNum = t.makePage(page.number);
+            if (t.disabled) {
+                 inner = h('span', { class: [ 'page-link' ], domProps: { innerHTML: pageNum } } );
+            } else {
+                inner = h(
+                    'b-link',
+                    {
+                        class: t.pageLinkClasses(page),
+                        props: t.linkProps(page.number),
+                        attrs: {
+                            role: 'menuitemradio',
+                            tabindex: t.isActive(page.number) ? '0' : '-1',
+                            'aria-label': `${t.labelPage} ${page.number}`,
+                            'aria-checked': t.isActive(page.number) ? 'true' : 'false',
+                            'aria-posinset': page.number,
+                            'aria-setsize': t.numberOfPages
+                        },
+                        domProps: { innerHTML: pageNum },
+                        on: { click: (evt) => { t.onClick(page.number) } }
+                    }
+                );
+            }
+            buttons.push(h(
+                'li',
+                {
+                    key: page.number,
+                    class: t.pageItemClasses(page),
+                    attrs: { role: 'none presentation' }
+                },
+                [ inner ]
+            ));
+        });
+
+        // Last Ellipsis Bookend
+        buttons.push(t.showLastDots ? makeEllipsis() : h(false));
+
+        // Goto Next page button
+        buttons.push(makeEndBtns(t.currentPage + 1, t.labelNextPage, t.nextText, t.numberOfPages));
+
+        // Goto Last Page button
+        buttons.push(t.hideGotoEndButtons ? h(false) : makeEndBtns(t.numberOfPages, t.labelLastPage, t.lastText));
+
+        // Assemble the above list of paginatiom buttons
+        const pagination = h(
+            'ul',
+            {
+                ref: 'ul',
+                class: [ 'pagination', 'b-pagination', t.btnSize, t.alignment ],
+                attrs: {
+                    role: 'menubar',
+                    'aria-disabled': t.disabled ? 'true' : 'false',
+                    'aria-label': t.ariaLabel || null
+                },
+                on: {
+                    keydown: (evt) => {
+                        const keyCode = evt.keyCode;
+                        const shift = evt.shiftKey;
+                        if (keyCode === KeyCodes.LEFT) {
+                            evt.preventDefault();
+                            shift ? t.focusFirst() : t.focusPrev();
+                        } else if (keyCode === KeyCodes.RIGHT) {
+                            evt.preventDefault();
+                            shift ? t.focusLast() : t.focusNext();
+                        }
+                    }
+                }
+            },
+            buttons
+        );
+
+        // Wrap it in a `nav` element
+        return h('nav', {}, [ pagination ]);
+    },
     props,
     methods: {
         onClick(pageNum) {
