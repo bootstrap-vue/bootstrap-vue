@@ -1,14 +1,5 @@
-import { observeDom } from '../../utils';
+import { observeDom, KeyCodes } from '../../utils';
 import { idMixin } from '../../mixins';
-
-const KEY = {
-    ENTER: 13,
-    SPACE: 32,
-    LEFT: 37,
-    UP: 38,
-    RIGHT: 39,
-    DOWN: 40
-};
 
 // Helper component
 const bTabButtonHelper = {
@@ -60,7 +51,7 @@ const bTabButtonHelper = {
                 stop();
                 return;
             }
-            if (evt.type === 'click' || evt.keyCode === KEY.ENTER || evt.keyCode === KEY.SPACE) {
+            if (evt.type === 'click' || evt.keyCode === KeyCodes.ENTER || evt.keyCode === KeyCodes.SPACE) {
                 stop();
                 this.$emit('click', evt);
             }
@@ -221,14 +212,14 @@ export default {
                 evt.preventDefault();
                 evt.stopPropagation();
             }
-            if (key === KEY.UP || key === KEY.LEFT) {
+            if (key === KeyCodes.UP || key === KeyCodes.LEFT) {
                 stop();
                 if (shift) {
                     this.setTab(0, false, 1);
                 } else {
                     this.previousTab();
                 }
-            } else if (key === KEY.DWON || key === KEY.RIGHT) {
+            } else if (key === KeyCodes.DWON || key === KeyCodes.RIGHT) {
                 stop();
                 if (shift) {
                     this.setTab(this.tabs.length - 1, false, -1);
