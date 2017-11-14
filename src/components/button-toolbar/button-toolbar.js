@@ -1,6 +1,6 @@
 import { from as arrayFrom } from '../../utils/array';
 import { isVisible, selectAll } from '../../utils/dom';
-import { KeyCodes } from './../utils';
+import { KeyCodes } from '../../utils';
 
 const ITEM_SELECTOR = [
     '.btn:not(.disabled):not([disabled]):not(.dropdown-item)',
