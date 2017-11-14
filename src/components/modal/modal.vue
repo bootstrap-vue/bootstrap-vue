@@ -21,7 +21,7 @@
     import bBtn from '../button/button';
     import bBtnClose from '../button/button-close';
     import { idMixin, listenOnRootMixin } from '../../mixins';
-    import { observeDom, warn } from '../../utils';
+    import { observeDom, warn, KeyCodes } from '../../utils';
     import BvEvent from '../../utils/bv-event.class';
     import {
         isVisible, selectAll, select, getBCR, addClass, removeClass, hasClass,
@@ -42,11 +42,6 @@
         characterData: true,
         attributes: true,
         attributeFilter: ['style', 'class']
-    };
-
-    // Keyboard keys
-    const KEY = {
-        ESC: 27
     };
 
     export default {
@@ -597,7 +592,7 @@
             },
             onEsc(evt) {
                 // If ESC pressed, hide modal
-                if (evt.keyCode === KEY.ESC && this.is_visible && !this.noCloseOnEsc) {
+                if (evt.keyCode === KeyCodes.ESC && this.is_visible && !this.noCloseOnEsc) {
                     this.hide('esc');
                 }
             },

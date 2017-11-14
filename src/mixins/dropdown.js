@@ -3,6 +3,7 @@ import clickoutMixin from "./clickout";
 import listenOnRootMixin from "./listen-on-root";
 import { from as arrayFrom } from "../utils/array";
 import { assign } from "../utils/object";
+import { KeyCodes } from "../utils";
 import { isVisible, closest, selectAll, getAttr, setAttr, eventOn, eventOff } from "../utils/dom";
 
 // Return an Array of visible items
@@ -24,16 +25,6 @@ const AttachmentMap = {
     BOTTOM: "bottom-start",
     // Dropdown Right Align
     BOTTOMEND: "bottom-end"
-};
-
-// Keyboard keys
-const KEY = {
-    ENTER: 13,
-    SPACE: 32,
-    TAB: 9,
-    DOWN: 40,
-    UP: 38,
-    ESC: 27
 };
 
 export default {
@@ -242,7 +233,7 @@ export default {
             evt = evt || {};
             const type = evt.type;
             const key = evt.keyCode;
-            if (type !== "click" && !(type === "keydown" && (key === KEY.ENTER || key === KEY.SPACE || key === KEY.DOWN))) {
+            if (type !== "click" && !(type === "keydown" && (key === KeyCodes.ENTER || key === KeyCodes.SPACE || key === KeyCodes.DOWN))) {
                 // We only toggle on Click, Enter, Space, and Arrow Down
                 return;
             }
@@ -266,16 +257,16 @@ export default {
         onKeydown(evt) {
             // Called from dropdown menu context
             const key = evt.keyCode;
-            if (key === KEY.ESC) {
+            if (key === KeyCodes.ESC) {
                 // Close on ESC
                 this.onEsc(evt);
-            } else if (key === KEY.TAB) {
+            } else if (key === KeyCodes.TAB) {
                 // Close on tab out
                 this.onTab(evt);
-            } else if (key === KEY.DOWN) {
+            } else if (key === KeyCodes.DOWN) {
                 // Down Arrow
                 this.focusNext(evt, false);
-            } else if (key === KEY.UP) {
+            } else if (key === KeyCodes.UP) {
                 // Up Arrow
                 this.focusNext(evt, true);
             }

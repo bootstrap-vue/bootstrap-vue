@@ -1,5 +1,5 @@
 import { from as arrayFrom } from '../../utils/array';
-import { observeDom } from '../../utils';
+import { observeDom, KeyCodes } from '../../utils';
 import { selectAll, reflow, addClass, removeClass, setAttr, eventOn, eventOff } from '../../utils/dom';
 import { idMixin } from '../../mixins';
 
@@ -37,14 +37,6 @@ function getTransisionEndEvent(el) {
     return null;
 }
 
-// Key Codes
-const KEY = {
-    ENTER: 13,
-    SPACE: 32,
-    LEFT: 37,
-    RIGHT: 39
-};
-
 export default {
     mixins: [ idMixin ],
     render(h) {
@@ -81,7 +73,7 @@ export default {
                             },
                             keydown: (evt) => {
                                 const keyCode = evt.keyCode;
-                                if (keyCode === KEY.SPACE || keyCode === KEY.ENTER) {
+                                if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                                     evt.preventDefault();
                                     evt.stopPropagation();
                                     t.prev();
@@ -107,7 +99,7 @@ export default {
                             },
                             keydown: (evt) => {
                                 const keyCode = evt.keyCode;
-                                if (keyCode === KEY.SPACE || keyCode === KEY.ENTER) {
+                                if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                                     evt.preventDefault();
                                     evt.stopPropagation();
                                     t.next();
@@ -159,7 +151,7 @@ export default {
                             },
                             keydown: (evt) => {
                                 const keyCode = evt.keyCode;
-                                if (keyCode === KEY.SPACE || keyCode === KEY.ENTER) {
+                                if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                                     evt.preventDefault();
                                     evt.stopPropagation();
                                     t.setSlide(n);
@@ -188,11 +180,11 @@ export default {
                     focusin: t.pause,
                     focusout: t.restart,
                     keydown: (evt) => {
-                        keyCode = evt.keyCode;
-                        if (keyCode === KEY.LEFT || keyCode === KEY.RIGHT) {
+                        const keyCode = evt.keyCode;
+                        if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
                             evt.preventDefault();
                             evt.stopPropagation();
-                            t[keyCode === KEY.LEFT ? 'prev' : 'next']();
+                            t[keyCode === KeyCodes.LEFT ? 'prev' : 'next']();
                         }
                     }
                 }

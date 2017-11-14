@@ -1,5 +1,6 @@
 import { from as arrayFrom } from '../../utils/array';
 import { isVisible, selectAll } from '../../utils/dom';
+import { KeyCodes } from '../../utils';
 
 const ITEM_SELECTOR = [
     '.btn:not(.disabled):not([disabled]):not(.dropdown-item)',
@@ -8,13 +9,6 @@ const ITEM_SELECTOR = [
     'input[type="checkbox"]:not(.disabled)',
     'input[type="radio"]:not(.disabled)'
 ].join(',');
-
-const KEY = {
-    LEFT: 37,
-    UP: 38,
-    RIGHT: 39,
-    DOWN: 40
-};
 
 export default {
     render(h) {
@@ -67,7 +61,7 @@ export default {
             }
             const key = evt.keyCode;
             const shift = evt.shiftKey;
-            if (key === KEY.UP || key === KEY.LEFT) {
+            if (key === KeyCodes.UP || key === KeyCodes.LEFT) {
                 evt.preventDefault();
                 evt.stopPropagation();
                 if (shift) {
@@ -75,7 +69,7 @@ export default {
                 } else {
                     this.focusNext(evt, true);
                 }
-            } else if (key === KEY.DOWN || key === KEY.RIGHT) {
+            } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT) {
                 evt.preventDefault();
                 evt.stopPropagation();
                 if (shift) {
