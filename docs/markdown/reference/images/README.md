@@ -50,7 +50,7 @@ In your `nuxt.config.js` file, add the following to your build section:
 build: {   
   extend (config, ctx) {
     const vueLoader = config.module.rules.find((rule) => rule.loader === 'vue-loader')
-    vueLoader.query.transformToRequire = {
+    vueLoader.options.transformToRequire = {
       'img': 'src',
       'image': 'xlink:href',
       'b-img': 'src',
