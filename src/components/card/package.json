@@ -12,10 +12,6 @@
         ],
         "slots": [
             {
-                "name": "img",
-                "description": "Slot for custom img tag, for finer grained control of image"
-            },
-            {
                 "name": "header",
                 "description": "For custom rendering of header content"
             },
