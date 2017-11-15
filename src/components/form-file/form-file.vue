@@ -1,8 +1,10 @@
-<style scoped>
-    /* Custom-file focus styling: These can be removed once BSV4.beta.3 is released */
+<style>
+    /* Custom-file focus styling: These can possibly be removed once BSV4.beta.3 is released */
+    /* Although the focus handling/style will still be needed for Firefox keyboard-only users */
+
     /* Regular focus styling */
-    .custom-file-input.focus ~ .custom-file-control,
-    .custom-file-input:focus ~ .custom-file-control {
+    .b-form-file.custom-file .custom-file-input.focus ~ .custom-file-control,
+    .b-form-file.custom-file .custom-file-input:focus ~ .custom-file-control {
         color: #495057;
         background-color: #fff;
         border-color: #80bdff;
@@ -10,40 +12,40 @@
         outline: none;
     }
     /* Invalid focus styling */
-    .custom-file-input.is-invalid.focus ~ .custom-file-control,
-    .custom-file-input.is-invalid:focus ~ .custom-file-control,
-    .was-validated .custom-file-input:invalid.focus ~ .custom-file-control,
-    .was-validated .custom-file-input:invalid:focus ~ .custom-file-control {
+    .b-form-file.custom-file .custom-file-input.is-invalid.focus ~ .custom-file-control,
+    .b-form-file.custom-file .custom-file-input.is-invalid:focus ~ .custom-file-control,
+    .was-validated .b-form-file.custom-file .custom-file-input:invalid.focus ~ .custom-file-control,
+    .was-validated .b-form-file.custom-file .custom-file-input:invalid:focus ~ .custom-file-control {
         box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
         border-color: #dc3545;
     }
     /* valid focus styling */
-    .custom-file-input.is-valid.focus ~ .custom-file-control,
-    .custom-file-input.is-valid:focus ~ .custom-file-control,
-    .was-validated .custom-file-input:valid.focus ~ .custom-file-control,
-    .was-validated .custom-file-input:valid:focus ~ .custom-file-control {
+    .b-form-file.custom-file .custom-file-input.is-valid.focus ~ .custom-file-control,
+    .b-form-file.custom-file .custom-file-input.is-valid:focus ~ .custom-file-control,
+    .was-validated .b-form-file.custom-file .custom-file-input:valid.focus ~ .custom-file-control,
+    .was-validated .b-form-file.custom-file .custom-file-input:valid:focus ~ .custom-file-control {
         box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
         border-color: #28a745;
     }
 
     /* Drag/Drop and filenames/prompts handling */
-    .custom-file-control {
+    .b-form-file.custom-file .custom-file-control {
         overflow: hidden;
     }
-    .custom-file-control {
+    .b-form-file.custom-file .custom-file-control {
         overflow: hidden;
     }
-    .custom-file-control.dragging {
+    .b-form-file.custom-file .custom-file-control.dragging {
         overflow: hidden;
         filter: blur(3px);
     }
-    .custom-file-control[data-selected]::after {
+    .b-form-file.custom-file .custom-file-control[data-selected]::after {
         content: attr(data-selected);
     }
-    .custom-file-control[data-choose]::before {
+    .b-form-file.custom-file .custom-file-control[data-choose]::before {
         content: attr(data-choose);
     }
-    .custom-file .drop-here {
+    .b-form-file.custom-file .drop-here {
         position: absolute;
         left: 0;
         right: 0;
@@ -56,7 +58,7 @@
         justify-content: center;
         align-items: center;
     }
-    .custom-file .drop-here::before {
+    .b-form-file.custom-file .drop-here::before {
         color: white;
         content: attr(data-drop);
     }
@@ -134,9 +136,9 @@
             
             // Return rendered custom file input
             return h(
-                'div',
+                'label',
                 {
-                    class: [ 'custom-file', 'w-100', t.stateClass ],
+                    class: [ 'custom-file', 'b-form-file', 'w-100', t.stateClass ],
                     attrs: { id: t.safeId('_BV_file_outer_') },
                     on: { dragover: t.dragover }
                 },
