@@ -31,10 +31,10 @@
         padding-right: 1.5em;
         cursor: pointer;
     }
-    table.b-table thead>tr>th.sorting:before,
-    table.b-table thead>tr>th.sorting:after,
-    table.b-table tfoot>tr>th.sorting:before,
-    table.b-table tfoot>tr>th.sorting:after {
+    table.b-table thead>tr>th.sorting::before,
+    table.b-table thead>tr>th.sorting::after,
+    table.b-table tfoot>tr>th.sorting::before,
+    table.b-table tfoot>tr>th.sorting::after {
         position: absolute;
         bottom: 0;
         display: block;
@@ -43,20 +43,20 @@
         font-size: inherit;
         line-height: 180%
     }
-    table.b-table>thead>tr>th.sorting:before,
-    table.b-table>tfoot>tr>th.sorting:before {
+    table.b-table>thead>tr>th.sorting::before,
+    table.b-table>tfoot>tr>th.sorting::before {
         right: 0.75em;
         content: "\2191";
     }
-    table.b-table>thead>tr>th.sorting:after,
-    table.b-table>tfoot>tr>th.sorting:after {
+    table.b-table>thead>tr>th.sorting::after,
+    table.b-table>tfoot>tr>th.sorting::after {
         right: 0.25em;
         content: "\2193";
     }
-    table.b-table>thead>tr>th.sorting_asc:after,
-    table.b-table>thead>tr>th.sorting_desc:before,
-    table.b-table>tfoot>tr>th.sorting_asc:after,
-    table.b-table>tfoot>tr>th.sorting_desc:before {
+    table.b-table>thead>tr>th.sorting_asc::after,
+    table.b-table>thead>tr>th.sorting_desc::before,
+    table.b-table>tfoot>tr>th.sorting_asc::after,
+    table.b-table>tfoot>tr>th.sorting_desc::before {
         opacity: 1;
     }
 </style>
