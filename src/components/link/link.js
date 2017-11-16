@@ -192,7 +192,7 @@ export default {
                 rel,
                 href,
                 target: props.target,
-                tabindex: props.disabled ? '-1' : null,
+                tabindex: props.disabled ? '-1' : (data.attrs ? data.attrs.tabindex : null),
                 "aria-disabled": (tag === "a" && props.disabled) ? "true" : null
             },
             props: assign(props, { tag: props.routerTag })
