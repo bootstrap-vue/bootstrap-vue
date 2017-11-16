@@ -41,10 +41,12 @@ set the `max-rows` prop to the maximum number of lines of text.
 
 To keep the text-area at a set height, set both `rows` and `max-rows` to the same value.
 
+**Note:** auto rows will only work when the user explicitly enters newlines in the textarea.
+
 ### Disable resize
 
 Note that some web browsers will allow the user to re-size the hight of the textarea.
-To disable this, set the `no-resize` prop to true.
+To disable this, set the `no-resize` prop to `true`.
 
 
 ## Contextual states
