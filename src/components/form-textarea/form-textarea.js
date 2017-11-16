@@ -10,7 +10,9 @@ export default {
                 ref: 'input',
                 class: t.inputClass,
                 style: t.inputStyle,
-                domProps: { value: t.localValue },
+                directives: [
+                    { name: 'model', rawName: 'v-model', value: t.localValue, expression: 'localValue' }
+                ],
                 attrs: {
                     id: t.safeId(),
                     name: t.name,
@@ -80,9 +82,11 @@ export default {
     },
     computed: {
         rowsCount() {
+            // A better option could be based on https://codepen.io/vsync/pen/frudD
+            // As linebreaks aren't added until the input is submitted
             const rows = parseInt(this.rows, 10) || 1;
             const maxRows = parseInt(this.maxRows, 10) || 0;
-            const lines = (this.value || '').toString().split('\n').length;
+            const lines = (this.localValue || '').toString().split('\n').length;
             return maxRows ? Math.min(maxRows, Math.max(rows, lines)) : Math.max(rows, lines);
         },
         inputClass() {
