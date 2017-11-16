@@ -385,6 +385,10 @@
                 type: Boolean,
                 default: false
             },
+            outlined: {
+                type: Boolean,
+                default: false
+            },
             dark: {
                 type: Boolean,
                 default() {
@@ -580,6 +584,7 @@
                     this.hover ? 'table-hover' : '',
                     this.dark ? 'table-dark' : '',
                     this.bordered ? 'table-bordered' : '',
+                    this.outlined ? 'bordered' : '',
                     responsive === true ? 'table-responsive' : (Boolean(responsive) ? `table-responsive-${responsive}` : ''),
                     this.fixed ? 'table-fixed' : '',
                     this.small ? 'table-sm' : ''
