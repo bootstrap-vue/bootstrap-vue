@@ -1,3 +1,3 @@
-import bModal from './modal.vue';
+import bModal from './modal.vue'
 
-export default bModal;
+export default bModal

@@ -1,3 +1,3 @@
-import bFormFile from './form-file.vue';
+import bFormFile from './form-file.vue'
 
-export default bFormFile;
+export default bFormFile

@@ -1,9 +1,9 @@
-import bDropdown from './dropdown';
-import bDropdownItem from './dropdown-item';
-import bDropdownItemButton from './dropdown-item-button';
-import bDropdownHeader from './dropdown-header';
-import bDropdownDivider from './dropdown-divider';
-import { registerComponents, vueUse } from '../../utils';
+import bDropdown from './dropdown'
+import bDropdownItem from './dropdown-item'
+import bDropdownItemButton from './dropdown-item-button'
+import bDropdownHeader from './dropdown-header'
+import bDropdownDivider from './dropdown-divider'
+import { registerComponents, vueUse } from '../../utils'
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -20,14 +20,14 @@ const components = {
   bDdHeader: bDropdownHeader,
   bDropdownDivider,
   bDdDivider: bDropdownDivider
-};
+}
 
 const VuePlugin = {
-  install(Vue) {
-    registerComponents(Vue, components);
+  install (Vue) {
+    registerComponents(Vue, components)
   }
-};
+}
 
-vueUse(VuePlugin);
+vueUse(VuePlugin)
 
-export default VuePlugin;
+export default VuePlugin

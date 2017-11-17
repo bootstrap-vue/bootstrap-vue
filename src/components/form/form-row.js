@@ -1,3 +1,3 @@
-import bFormRow from "../layout/form-row";
+import bFormRow from '../layout/form-row'
 
-export default bFormRow;
+export default bFormRow

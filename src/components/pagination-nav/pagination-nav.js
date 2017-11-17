@@ -1,3 +1,3 @@
-import bPaginationNav from './pagination-nav.vue';
+import bPaginationNav from './pagination-nav.vue'
 
-export default bPaginationNav;
+export default bPaginationNav

@@ -1,6 +1,6 @@
 window.app = new Vue({
-    el: '#app',
-    data: {
-        currentPage: 3
-    }
-});
+  el: '#app',
+  data: {
+    currentPage: 3
+  }
+})

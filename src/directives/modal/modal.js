@@ -1,14 +1,14 @@
-import target from '../../utils/target';
+import target from '../../utils/target'
 
-const listen_types = {click: true};
+const listenTypes = {click: true}
 
 export default {
 // eslint-disable-next-line no-shadow-restricted-names
-    bind(undefined, binding, vnode) {
-        target(vnode, binding, listen_types, ({targets, vnode}) => {
-            targets.forEach(target => {
-                vnode.context.$root.$emit('bv::show::modal', target, vnode.elm);
-            });
-        });
-    }
-};
+  bind (undefined, binding, vnode) {
+    target(vnode, binding, listenTypes, ({targets, vnode}) => {
+      targets.forEach(target => {
+        vnode.context.$root.$emit('bv::show::modal', target, vnode.elm)
+      })
+    })
+  }
+}

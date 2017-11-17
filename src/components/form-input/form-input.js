@@ -1,3 +1,3 @@
-import bFormInput from './form-input.vue';
+import bFormInput from './form-input.vue'
 
-export default bFormInput;
+export default bFormInput

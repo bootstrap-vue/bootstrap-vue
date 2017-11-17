@@ -1,24 +1,24 @@
-import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
+import { loadFixture, testVM } from '../../../tests/utils'
 
-describe("button-group", async () => {
-    beforeEach(loadFixture(__dirname, "button-group"))
-    testVM()
+describe('button-group', async () => {
+  beforeEach(loadFixture(__dirname, 'button-group'))
+  testVM()
 
-    it("basic should contain base class", async () => {
-        const { app: { $refs } } = window
+  it('basic should contain base class', async () => {
+    const { app: { $refs } } = window
 
-        expect($refs.basic).toHaveClass("btn-group")
-    });
+    expect($refs.basic).toHaveClass('btn-group')
+  })
 
-    it("should apply vertical class", async () => {
-        const { app: { $refs } } = window
+  it('should apply vertical class', async () => {
+    const { app: { $refs } } = window
 
-        expect($refs.vertical).toHaveClass("btn-group-vertical")
-    });
+    expect($refs.vertical).toHaveClass('btn-group-vertical')
+  })
 
-    it("should apply size class", async () => {
-        const { app: { $refs } } = window
+  it('should apply size class', async () => {
+    const { app: { $refs } } = window
 
-        expect($refs.size).toHaveClass("btn-group-sm")
-    });
-});
+    expect($refs.size).toHaveClass('btn-group-sm')
+  })
+})

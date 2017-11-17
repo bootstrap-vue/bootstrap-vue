@@ -1,6 +1,6 @@
 window.app = new Vue({
-    el: '#app',
-    data: {
-        text: ''
-    }
-});
+  el: '#app',
+  data: {
+    text: ''
+  }
+})

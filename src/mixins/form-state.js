@@ -8,31 +8,31 @@
  */
 
 export default {
-    props: {
-        state: {
-            // true/'valid', false/'invalid', '',null
-            type: [Boolean, String],
-            default: null
-        }
-    },
-    computed: {
-        computedState() {
-            const state = this.state;
-            if (state === true || state === 'valid') {
-                return true;
-            } else if (state === false || state === 'invalid') {
-                return false;
-            }
-            return null;
-        },
-        stateClass() {
-            const state = this.computedState;
-            if (state === true) {
-                return 'is-valid';
-            } else if (state === false) {
-                return 'is-invalid';
-            }
-            return null;
-        }
+  props: {
+    state: {
+      // true/'valid', false/'invalid', '',null
+      type: [Boolean, String],
+      default: null
     }
-};
+  },
+  computed: {
+    computedState () {
+      const state = this.state
+      if (state === true || state === 'valid') {
+        return true
+      } else if (state === false || state === 'invalid') {
+        return false
+      }
+      return null
+    },
+    stateClass () {
+      const state = this.computedState
+      if (state === true) {
+        return 'is-valid'
+      } else if (state === false) {
+        return 'is-invalid'
+      }
+      return null
+    }
+  }
+}

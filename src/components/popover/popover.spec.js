@@ -1,7 +1,6 @@
-import {loadFixture, testVM} from '../../../tests/utils';
+import {loadFixture, testVM} from '../../../tests/utils'
 
-
-describe('popover', async() => {
-    beforeEach(loadFixture(__dirname, 'popover'));
-    testVM();
-});
+describe('popover', async () => {
+  beforeEach(loadFixture(__dirname, 'popover'))
+  testVM()
+})

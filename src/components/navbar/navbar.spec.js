@@ -1,7 +1,6 @@
-import {loadFixture, testVM} from '../../../tests/utils';
+import {loadFixture, testVM} from '../../../tests/utils'
 
-
-describe('navbar', async() => {
-    beforeEach(loadFixture(__dirname, 'navbar'));
-    testVM();
-});
+describe('navbar', async () => {
+  beforeEach(loadFixture(__dirname, 'navbar'))
+  testVM()
+})

@@ -1,25 +1,25 @@
-import { keys } from '../utils/object';
-const all_listen_types = {hover: true, click: true, focus: true};
+import { keys } from '../utils/object'
 
-export default function targets (vnode, binding, listen_types, fn) {
+const allListenTypes = {hover: true, click: true, focus: true}
 
-    const targets = keys(binding.modifiers || {})
-        .filter(t => !all_listen_types[t]);
+export default function targets (vnode, binding, listenTypes, fn) {
+  const targets = keys(binding.modifiers || {})
+    .filter(t => !allListenTypes[t])
 
-    if (binding.value) {
-        targets.push(binding.value);
+  if (binding.value) {
+    targets.push(binding.value)
+  }
+
+  const listener = () => {
+    fn({targets, vnode})
+  }
+
+  keys(allListenTypes).forEach(type => {
+    if (listenTypes[type] || binding.modifiers[type]) {
+      vnode.elm.addEventListener(type, listener)
     }
+  })
 
-    const listener = () => {
-        fn({targets, vnode});
-    };
-
-    keys(all_listen_types).forEach(type => {
-        if (listen_types[type] || binding.modifiers[type]) {
-            vnode.elm.addEventListener(type, listener);
-        }
-    });
-
-    // Return the list of targets
-    return targets;
+  // Return the list of targets
+  return targets
 }

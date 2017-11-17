@@ -1,3 +1,3 @@
-import bFormGroup from './form-group.vue';
+import bFormGroup from './form-group.vue'
 
-export default bFormGroup;
+export default bFormGroup

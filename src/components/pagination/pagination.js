@@ -1,3 +1,3 @@
-import bPagination from './pagination.vue';
+import bPagination from './pagination.vue'
 
-export default bPagination;
+export default bPagination

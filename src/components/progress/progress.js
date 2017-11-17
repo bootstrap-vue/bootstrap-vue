@@ -1,3 +1,3 @@
-import bProgress from './progress.vue';
+import bProgress from './progress.vue'
 
-export default bProgress;
+export default bProgress

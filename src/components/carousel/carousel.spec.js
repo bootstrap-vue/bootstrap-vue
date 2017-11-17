@@ -1,6 +1,6 @@
-import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils';
+import { loadFixture, testVM } from '../../../tests/utils'
 
-describe('carousel', async() => {
-    beforeEach(loadFixture(__dirname, 'carousel'));
-    testVM();
-});
+describe('carousel', async () => {
+  beforeEach(loadFixture(__dirname, 'carousel'))
+  testVM()
+})

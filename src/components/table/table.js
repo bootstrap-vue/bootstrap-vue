@@ -1,3 +1,3 @@
-import bTable from './table.vue';
+import bTable from './table.vue'
 
-export default bTable;
+export default bTable

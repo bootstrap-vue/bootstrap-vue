@@ -1,6 +1,6 @@
-import {loadFixture, testVM} from '../../../tests/utils';
+import {loadFixture, testVM} from '../../../tests/utils'
 
-describe('form-input', async() => {
-    beforeEach(loadFixture(__dirname, 'form-input'));
-    testVM();
-});
+describe('form-input', async () => {
+  beforeEach(loadFixture(__dirname, 'form-input'))
+  testVM()
+})

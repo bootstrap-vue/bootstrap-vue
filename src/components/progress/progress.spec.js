@@ -1,7 +1,6 @@
-import {loadFixture, testVM} from '../../../tests/utils';
+import {loadFixture, testVM} from '../../../tests/utils'
 
-
-describe('progress', async() => {
-    beforeEach(loadFixture(__dirname, 'progress'));
-    testVM();
-});
+describe('progress', async () => {
+  beforeEach(loadFixture(__dirname, 'progress'))
+  testVM()
+})

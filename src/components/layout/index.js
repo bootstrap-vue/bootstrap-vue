@@ -1,8 +1,8 @@
-import bContainer from './container';
-import bRow from './row';
-import bCol from './col';
-import bFormRow from './form-row';
-import { registerComponents, vueUse } from '../../utils';
+import bContainer from './container'
+import bRow from './row'
+import bCol from './col'
+import bFormRow from './form-row'
+import { registerComponents, vueUse } from '../../utils'
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
 
@@ -11,14 +11,14 @@ const components = {
   bRow,
   bCol,
   bFormRow
-};
+}
 
 const VuePlugin = {
-  install(Vue) {
-    registerComponents(Vue, components);
+  install (Vue) {
+    registerComponents(Vue, components)
   }
-};
+}
 
-vueUse(VuePlugin);
+vueUse(VuePlugin)
 
-export default VuePlugin;
+export default VuePlugin

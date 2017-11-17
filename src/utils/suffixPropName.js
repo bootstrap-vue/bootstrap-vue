@@ -1,4 +1,4 @@
-import upperFirst from "./upperFirst";
+import upperFirst from './upperFirst'
 
 /**
  * Suffix can be a falsey value so nothing is appended to string.
@@ -7,6 +7,6 @@ import upperFirst from "./upperFirst";
  * @param {string} suffix
  * @param {string} str
  */
-export default function suffixPropName(suffix, str) {
-    return str + (suffix ? upperFirst(suffix) : "");
+export default function suffixPropName (suffix, str) {
+  return str + (suffix ? upperFirst(suffix) : '')
 }
