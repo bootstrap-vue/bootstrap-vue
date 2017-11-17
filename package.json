@@ -4,7 +4,7 @@
   "description": "Quickly integrate Bootstrap 4 components with Vue.js",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
-  "module": "dist/bootstrap-vue.esm.js",
+  "module": "es/index.js",
   "jsnext:main": "dist/bootstrap-vue.esm.js",
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
