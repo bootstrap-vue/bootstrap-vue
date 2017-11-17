@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.23.1"></a>
+## [0.23.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.23.0...v0.23.1) (2017-11-17)
+
+
+### Bug Fixes
+
+* **b-alert:** add dismissible check for dismiss btn ([#1008](https://github.com/bootstrap-vue/bootstrap-vue/issues/1008)) ([c55d4ca](https://github.com/bootstrap-vue/bootstrap-vue/commit/c55d4ca)), closes [#1007](https://github.com/bootstrap-vue/bootstrap-vue/issues/1007)
+* **nav-form:** correct component declaration ([#1206](https://github.com/bootstrap-vue/bootstrap-vue/issues/1206)) ([2b8f19e](https://github.com/bootstrap-vue/bootstrap-vue/commit/2b8f19e))
+* **tab:** minor code change ([e2a47cb](https://github.com/bootstrap-vue/bootstrap-vue/commit/e2a47cb))
+* **tabs:** Make first active tab show ([04088af](https://github.com/bootstrap-vue/bootstrap-vue/commit/04088af))
+
+
+
 <a name="0.23.0"></a>
 # [0.23.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v0.22.1...v0.23.0) (2017-08-21)
 
