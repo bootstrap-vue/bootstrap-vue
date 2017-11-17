@@ -330,11 +330,13 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
         Interactive Content
       </template>
       <div>
-        <b-form-group label="Name" horizontal class="mb-1" description="Enter your name">
-          <b-form-input ref="input1" size="sm" v-model="input1"></b-form-input>
+        <b-form-group label="Name" :state="input1state" horizontal class="mb-1"
+           description="Enter your name" feedback="This field is required">
+          <b-form-input ref="input1" :state="input1state" size="sm" v-model="input1"></b-form-input>
         </b-form-group>
-        <b-form-group label="Color" horizontal class="mb-1" description="Pick a color">
-          <b-form-select size="sm" v-model="input2" :options="options"></b-form-select>
+        <b-form-group label="Color" :state="input2state" horizontal class="mb-1"
+           description="Pick a color" feedback="This field is required">
+          <b-form-select size="sm" :state="input2state" v-model="input2" :options="options"></b-form-select>
         </b-form-group>
         <b-alert show class="small">
           <strong>Current Values:</strong><br>
@@ -352,11 +354,25 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
   export default {
     data: {
       input1: '',
+      input1state: null,
       input2: '',
+      input2state: null,
       options: [{text:'- Choose 1 -', value:''},'Red','Green','Blue'],
       input1Return: '',
       input2Return: '',
       disabled: false
+    },
+    watch: {
+      input1(val) {
+        if (val) {
+          this.input1state = true
+        }
+      },
+      input2(val) {
+        if (val) {
+          this.input2state = true
+        }
+      },
     },
     methods: {
       onClose() {
@@ -368,10 +384,9 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
         this.$refs.popover.$emit('close');
       },
       onOk() {
-        if (!this.input1 || !this.input2) {
-          alert('Please enter something');
-        } else {
-          alert('Thats great!');
+       if (!this.input1) { this.input1state=false }
+       if (!this.input2) { this.input2state=false }
+       if (this.input1 && this.input2) {
           // Emitting 'close' on the popover will trigger it to hide for us
           this.$refs.popover.$emit('close');
           // "Return" our popover "form" results
@@ -384,6 +399,8 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
         // Reset our popover "form" variables
         this.input1 = '';
         this.input2 = '';
+        this.input1state = null;
+        this.input2state = null;
         this.input1Return = '';
         this.input2Return = '';
         // Disable our trigger button to prevent popover closing on second click
@@ -406,7 +423,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
         // This handles that check before focusing, assuming a focus() method exists
         // We do this in a double nextTick to ensure components have updated & popover positioned first
         this.$nextTick(() => {
-            this.$nextTick(() => { (ref.$el || ref).focus(); });
+          this.$nextTick(() => { (ref.$el || ref).focus(); });
         });
       }
     }
