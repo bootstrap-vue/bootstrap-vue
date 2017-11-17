@@ -644,17 +644,24 @@ class ToolTip {
             this.enter(e);
         } else if (type === 'focusout') {
             // target is the element which is loosing focus
-            // And relatdTarget is the element gaining focus
-            if (target === $element && $tip && $tip.contains(relatedTarget)) {
+            // And relatedTarget is the element gaining focus
+            if ($tip && $element && $element.contains(target) && $tip.contains(relatedTarget)) {
                 // If focus moves from $element to $tip, don't trigger a leave
                 return;
             }
-            if ($tip && target === $tip && $element.contains(relatedTarget)) {
+            if ($tip && $element && $tip.contains(target) && $element.contains(relatedTarget)) {
                 // If focus moves from $tip to $element, don't trigger a leave
-                // This will only happen during the whileOpen listeners
                 return;
             }
-            // OPtherwise trigger a leave
+            if ($tip && $tip.contains(target) && $tip.contains(relatedTarget)) {
+                // If focus moves within $tip, don't trigger a leave
+                return;
+            }
+            if ($element && $element.contains(target) && $element.contains(relatedTarget)) {
+                // If focus moves within $element, don't trigger a leave
+                return;
+            }
+            // Otherwise trigger a leave
             this.leave(e);
         } else if (type === 'mouseleave') {
             this.leave(e);
