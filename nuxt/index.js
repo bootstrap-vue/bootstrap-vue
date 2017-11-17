@@ -19,15 +19,17 @@ module.exports = function nuxtBootstrapVue (moduleOptions) {
     this.options.css.unshift('bootstrap/dist/css/bootstrap.css')
   }
 
+  // Add library styles
+  if (moduleOptions.bvCSS !== false) {
+    this.options.css.push('bootstrap-vue/dist/bootstrap-vue.css')
+  }
+
   // Register plugin
   this.addPlugin({
     src: resolve(__dirname, 'plugin.js'),
     fileName: 'bootstrap-vue.js',
     moduleOptions
   })
-
-  // Add library styles
-  this.options.css.push('bootstrap-vue/dist/bootstrap-vue.css')
 }
 
 module.exports.meta = require('../package.json')
