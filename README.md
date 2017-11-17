@@ -1,18 +1,24 @@
 <p align="center">
-<a href="https://bootstrap-vue.github.io">
+<a href="https://bootstrap-vue.js.org">
     <img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/banner.png" width="300px">
 </a>
 
 <br>
+Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Components with <a href="https://vuejs.org">Vue.js</a>
+<br>
+<br>
 
-<a href="https://v4-alpha.getbootstrap.com">
-    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--alpha.6-800080.svg?style=flat-square">
+<a href="https://getbootstrap.com/docs/4.0">
+    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--beta-800080.svg?style=flat-square">
 </a>
 <a href="https://vuejs.org">
     <img alt="" src="https://img.shields.io/badge/vue.js-2.4.x-green.svg?style=flat-square">
 </a>
 <a href="https://github.com/bootstrap-vue/bootstrap-vue">
     <img alt="" src="https://david-dm.org/bootstrap-vue/bootstrap-vue.svg?style=flat-square">
+</a>
+<a href="http://packagequality.com/#?package=bootstrap-vue">
+    <img alt="package quality" src="http://npm.packagequality.com/shield/bootstrap-vue.png?style=flat-square">
 </a>
 
 <br>
@@ -24,69 +30,63 @@
     <img alt="" src="https://img.shields.io/npm/dt/bootstrap-vue.svg?style=flat-square">
 </a>
 <a href="https://www.npmjs.com/package/bootstrap-vue">
+    <img alt="" src="https://img.shields.io/npm/dm/bootstrap-vue.svg?style=flat-square">
+</a>
+<a href="https://www.npmjs.com/package/bootstrap-vue">
     <img alt="" src="https://img.shields.io/npm/v/bootstrap-vue.svg?style=flat-square">
+</a>
+
+<br>
+<a href="#backers">
+    <img alt="" src="https://opencollective.com/bootstrap-vue/backers/badge.svg?style=flat-square">
+</a>
+<a href="#sponsors">
+    <img alt="" src="https://opencollective.com/bootstrap-vue/sponsors/badge.svg?style=flat-square">
 </a>
 
 </p>
 
-> [Bootstrap 4](https://v4-alpha.getbootstrap.com/) components for [Vue.js 2](https://vuejs.org/)
+If you have discovered a 🐜 or have a feature suggestion, feel free to create an issue on Github.
+
+This branch is for [Bootstrap4 Beta](https://getbootstrap.com/docs/4.0). If you are looking for old alpha 6 please head to [alpha](https://github.com/bootstrap-vue/bootstrap-vue/tree/alpha) branch. alpha docs are available [here](https://bootstrap-vue-alpha.surge.sh).
 
 # Links
 
 - 📘 [Documentation](https://bootstrap-vue.js.org)
-- 🔥 [Release Notes](https://github.com/bootstrap-vue/bootstrap-vue/releases)
-- 🔨 [Change Log](https://bootstrap-vue.js.org/docs/changelog)
+- 🔨 [Release Notes](https://bootstrap-vue.js.org/docs/misc/changelog)
 - 💬 [Slack Community](https://bootstrap-vue.now.sh)
+- 🐦 [Twitter](https://twitter.com/BootstrapVue)
 
-# Quick Start
-Please refer to [Official Documentation](https://bootstrap-vue.github.io) for setup guide, examples and documentation.
+## Contributors
 
-1. Download dependencies:
-```bash
-yarn add bootstrap-vue
-yarn add bootstrap@4.0.0-alpha.6
-yarn add -D style-loader
-```
+This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
+<a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" /></a>
 
-2. Register BootstrapVue in your app entrypoint:
-```js
-import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
 
-Vue.use(BootstrapVue)
-```
+## Backers
 
-3. Import styles using style-loader:
-```js
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-```
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/bootstrap-vue#backer)]
 
-##### For users of Webpack or Webpack-Simple from `vue-cli` follow these instructions:
-1. Download the dependencies:
-```bash
-yarn add bootstrap-vue
-yarn add bootstrap@4.0.0-alpha.6
-yarn add -D style-loader
-```
+<a href="https://opencollective.com/bootstrap-vue#backers" target="_blank"><img src="https://opencollective.com/bootstrap-vue/backers.svg?width=890"></a>
 
-2. In `src/main.js`, add the following lines, in priority order:
-```js
-import Vue from 'vue'
-/* ( there may be other imports here ) */
-import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'bootstrap/dist/css/bootstrap.css'
-/* ( there may be other imports here ) */
 
-Vue.use(BootstrapVue)
-```
+## Sponsors
 
-#### Note on style-loader:
-If you are unable or do not want to add style-loader as a developer dependency, you have to
-manually include both [Bootstrap's](https://v4-alpha.getbootstrap.com/getting-started/download/)
-and [BootstrapVue's](https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css) CSS files
-in your bundle or reference them from `static/` via `index.html`.
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/bootstrap-vue#sponsor)]
+
+<a href="https://opencollective.com/bootstrap-vue/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-vue/sponsor/1/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-vue/sponsor/2/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-vue/sponsor/3/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-vue/sponsor/4/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-vue/sponsor/5/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-vue/sponsor/6/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-vue/sponsor/7/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-vue/sponsor/8/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/bootstrap-vue/sponsor/9/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/9/avatar.svg"></a>
+
 
 # License
-MIT
+Released under The MIT [License](./LICENSE). Copyright (c) BootstrapVue.
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue.svg?type=small)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue?ref=badge_small)

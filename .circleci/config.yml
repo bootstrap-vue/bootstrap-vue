@@ -33,4 +33,14 @@ jobs:
       # Test
       - run:
           name: Tests
-          command: yarn test -- --maxWorkers=1 && yarn codecov
+          command: yarn test -- --maxWorkers=2 && yarn codecov
+
+      # Publish Docs
+      - deploy:
+          name: Publish Docs
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+              git config --global user.email vuebootstrap@gmail.com
+              git config --global user.name BootstrapVue
+              yarn docs-gen && yarn docs-publish
+            fi

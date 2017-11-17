@@ -1,0 +1,19 @@
+{
+    "name": "@bootstrap-vue/navbar",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Navbar",
+        "breaking": true,
+        "component": "bNavbar",
+        "components": [
+            "bNavbarNav",
+            "bNavbarBrand",
+            "bNavbarToggle"
+        ],
+        "plugins": [
+            "Nav",
+            "Dropdown",
+            "Collapse"
+        ]
+    }
+}

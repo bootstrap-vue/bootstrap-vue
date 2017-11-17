@@ -1,0 +1,11 @@
+{
+    "name": "@bootstrap-vue/image",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Image",
+        "component": "bImg",
+        "components": [
+            "bImgLazy"
+        ]
+    }
+}

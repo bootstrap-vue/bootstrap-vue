@@ -1,0 +1,41 @@
+<div id="app">
+    <b-navbar toggleable type="inverse" variant="inverse">
+
+        <b-navbar-toggle target="nav_collapse_1"></b-navbar-toggle>
+
+        <a class="navbar-brand" href="/">
+            <span>Bootstrap</span>
+        </a>
+
+        <b-collapse is-nav id="nav_collapse_1">
+            <b-navbar-nav>
+                <b-nav-item>Support</b-nav-item>
+                <b-nav-item>Docs</b-nav-item>
+                <b-nav-item>Contact Us</b-nav-item>
+            </b-navbar-nav>
+            <b-navbar-nav class="ml-auto">
+                <b-nav-item-dropdown text="Lang" right>
+                    <a href class="dropdown-item active">
+                        EN
+                    </a>
+                    <a href class="dropdown-item">
+                        ES
+                    </a>
+                </b-nav-item-dropdown>
+                <b-nav-item-dropdown right>
+                    <template slot="text">
+                        <span style="font-weight: bold;">User</span>
+                    </template>
+                    <a href class="dropdown-item">
+                        Profile
+                    </a>
+                    <a href class="dropdown-item">
+                        Sign out
+                    </a>
+                </b-nav-item-dropdown>
+            </b-navbar-nav>
+        </b-collapse>
+
+    </b-navbar>
+
+</div>

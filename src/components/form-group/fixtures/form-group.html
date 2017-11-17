@@ -1,0 +1,11 @@
+<div id="app">
+    <b-form-group id="mygroup"
+                  label="Example Label"
+                  description="Enter your fullname."
+                  :feedback="text.length?'':'Please enter something'"
+                  :state="text.length?'valid':'invalid'">
+
+        <b-form-input v-model="text"></b-form-input>
+
+    </b-form-group>
+</div>

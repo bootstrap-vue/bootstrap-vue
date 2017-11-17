@@ -1,0 +1,17 @@
+{
+    "name": "@bootstrap-vue/nav",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Nav",
+        "component": "bNav",
+        "components": [
+            "bNavItem",
+            "bNavText",
+            "bNavForm",
+            "bNavItemDropdown"
+        ],
+        "plugins": [
+            "Dropdown"
+        ]
+    }
+}

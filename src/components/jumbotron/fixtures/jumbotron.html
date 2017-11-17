@@ -1,0 +1,38 @@
+<div id="app">
+    <!-- default -->
+    <b-jumbotron ref="default" header="header prop" lead="lead prop">
+        <p>content</p>
+    </b-jumbotron>
+    <br>
+
+    <!-- tags -->
+    <b-jumbotron ref="tags" tag="article" header-tag="h2" header="header prop" lead-tag="div" lead="lead prop">
+        <p>content</p>
+    </b-jumbotron>
+    <br>
+
+    <!-- header level -->
+    <b-jumbotron ref="level" :header-level="4" header="header prop" lead="lead prop">
+        <p>content</p>
+    </b-jumbotron>
+    <br>
+
+    <!-- slots -->
+    <b-jumbotron ref="slots" header="header prop" lead="lead prop">
+        <template slot="header">header slot</template>
+        <template slot="lead">lead slot</template>
+        <p>content</p>
+    </b-jumbotron>
+    <br>
+
+    <!-- content only -->
+    <b-jumbotron ref="content"><p>content</p></b-jumbotron>
+    <br>
+
+    <!-- fluid only -->
+    <b-jumbotron ref="fluid" fluid header="header" lead="lead"><p>content</p></b-jumbotron>
+    <br>
+
+    <!-- containerfluid -->
+    <b-jumbotron ref="containerFluid" fluid container-fluid header="header" lead="lead"><p>content</p></b-jumbotron>
+</div>
