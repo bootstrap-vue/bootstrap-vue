@@ -11,6 +11,12 @@
 .b-form-group.form-group.is-valid .invalid-feedback {
   display: none !important;
 }
+.b-form-group.form-group.is-valid .valid-feedback {
+  display: block !important;
+}
+.b-form-group.form-group.is-invalid .valid-feedback {
+  display: none !important;
+}
 </style>
 
 <script>
@@ -19,11 +25,12 @@
     import { idMixin, formStateMixin } from '../../mixins';
     import bFormRow from '../form/form-row';
     import bFormText from '../form/form-text';
-    import bFormFeedback from '../form/form-feedback';
+    import bFormInvalidFeedback from '../form/form-invalid-feedback';
+    import bFormValidFeedback from '../form/form-valid-feedback';
 
     export default {
         mixins: [idMixin, formStateMixin],
-        components: { bFormRow, bFormText, bFormFeedback },
+        components: { bFormRow, bFormText, bFormInvalidFeedback, bFormValidFeedback },
         render(h) {
             const t = this;
             const $slots = t.$slots;
@@ -40,13 +47,30 @@
 
             // Invalid feeback text
             const feedback = h(
-                'b-form-feedback',
+                'b-form-invalid-feedback',
                 {
                     directives: [
                         { name: 'show', value: t.feedback || $slots.feedback }
                     ],
                     attrs: {
                         id: t.feedbackId,
+                        role: 'alert',
+                        'aria-live': 'assertive',
+                        'aria-atomic': 'true'
+                    }
+                },
+                [ $slots.feedback || h('span', { domProps: { innerHTML: t.feedback || '' } }) ]
+            );
+
+            // Invalid feeback text
+            const validFeedback = h(
+                'b-form-valid-feedback',
+                {
+                    directives: [
+                        { name: 'show', value: t.validFeedback || $slots['valid-feedback'] }
+                    ],
+                    attrs: {
+                        id: t.validFeedbackId,
                         role: 'alert',
                         'aria-live': 'assertive',
                         'aria-atomic': 'true'
@@ -122,6 +146,10 @@
                 type: String,
                 default: null
             },
+            validFeedback: {
+                type: String,
+                default: null
+            },
             validated: {
                 type: Boolean,
                 value: false
@@ -178,15 +206,19 @@
                 }
                 return null;
             },
-            describedByIds() {
-                if (this.id) {
-                    return [
-                        this.labelId,
-                        this.descriptionId,
-                        this.feedbackId
-                    ].filter(i => i).join(' ');
+            validFeedbackId() {
+                if (this.validFeedback || this.$slots['valid-feedback']) {
+                    return this.safeId('_BV_feedback_valid_');
                 }
                 return null;
+            },
+            describedByIds() {
+                return [
+                    this.labelId,
+                    this.descriptionId,
+                    this.feedbackId,
+                    this.validFeedbackId
+                ].filter(i => i).join(' ') || null;
             }
         },
     }
