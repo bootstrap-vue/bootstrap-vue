@@ -46,56 +46,70 @@
             }
 
             // Invalid feeback text
-            const invalidFeedback = h(
-                'b-form-invalid-feedback',
-                {
-                    directives: [
-                        {
-                            name: 'show',
-                            rawName: 'v-show',
-                            value: Boolean(t.feedback || $slots['invalid-feedback'] || $slots['feedback']),
-                            expression: "Boolean(t.feedback || $slots['invalid-feedback'] || $slots['feedback'])",
+            let invalidFeedback = h(false);
+            if (t.feedback || $slots['invalid-feedback'] || $slots['feedback']) {
+                invalidFeedback = h(
+                    'b-form-invalid-feedback',
+                    {
+                        directives: [
+                            {
+                                name: 'show',
+                                rawName: 'v-show',
+                                value: Boolean(t.feedback || $slots['invalid-feedback'] || $slots['feedback']),
+                                expression: "Boolean(t.feedback || $slots['invalid-feedback'] || $slots['feedback'])",
+                            }
+                        ],
+                        attrs: {
+                            id: t.feedbackId,
+                            role: 'alert',
+                            'aria-live': 'assertive',
+                            'aria-atomic': 'true'
                         }
-                    ],
-                    attrs: {
-                        id: t.feedbackId,
-                        role: 'alert',
-                        'aria-live': 'assertive',
-                        'aria-atomic': 'true'
-                    }
-                },
-                [ $slots['invalid-feedback'] || $slots['feedback'] || h('span', { domProps: { innerHTML: t.feedback || '' } }) ]
-            );
+                    },
+                    [
+                        t.computedState === false
+                            ? ($slots['invalid-feedback'] || $slots['feedback'] || h('span', { domProps: { innerHTML: t.feedback || '' } }))
+                            : h(false)
+                    ]
+                );
+            }
 
             // Valid feeback text
-            const validFeedback = h(
-                'b-form-valid-feedback',
-                {
-                    directives: [
-                        {
-                            name: 'show',
-                            rawName: 'v-show',
-                            value: Boolean(t.validFeedback || $slots['valid-feedback']),
-                            expression: "Boolean(t.validFeedback || $slots['valid-feedback'])"
+            let validFeedback = h(false);
+            if (t.validFeedback || $slots['valid-feedback']) {
+                validFeedback = h(
+                    'b-form-valid-feedback',
+                    {
+                        directives: [
+                            {
+                                name: 'show',
+                                rawName: 'v-show',
+                                value: Boolean(t.validFeedback || $slots['valid-feedback']),
+                                expression: "Boolean(t.validFeedback || $slots['valid-feedback'])"
+                            }
+                        ],
+                        attrs: {
+                            id: t.validFeedbackId,
+                            role: 'alert',
+                            'aria-live': 'assertive',
+                            'aria-atomic': 'true'
                         }
-                    ],
-                    attrs: {
-                        id: t.validFeedbackId,
-                        role: 'alert',
-                        'aria-live': 'assertive',
-                        'aria-atomic': 'true'
-                    }
-                },
-                [ $slots['valid-feedback'] || h('span', { domProps: { innerHTML: t.validFeedback || '' } }) ]
-            );
+                    },
+                    [
+                        t.computedState === true
+                            ? ($slots['valid-feedback'] || h('span', { domProps: { innerHTML: t.validFeedback || '' } }))
+                            : h(false)
+                    ]
+                );
+            }
 
             // Form help text (description)
             let description = h(false);
-            if (t.description || $slots.description) {
+            if (t.description || $slots['description']) {
                 description = h(
                     'b-form-text',
                     { attrs: { id: t.descriptionId } },
-                    [ $slots.description || h('span', { domProps: { innerHTML: t.description || '' } }) ]
+                    [ $slots['description'] || h('span', { domProps: { innerHTML: t.description || '' } }) ]
                 );
             }
 
@@ -211,8 +225,8 @@
                 return null;
             },
             feedbackId() {
-                if (this.feedback || this.$slots['feedback']) {
-                    return this.safeId('_BV_feedback_');
+                if (this.feedback || this.$slots['invalid-feedback'] || this.$slots['feedback']) {
+                    return this.safeId('_BV_feedback_invalid_');
                 }
                 return null;
             },
