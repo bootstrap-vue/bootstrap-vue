@@ -46,11 +46,16 @@
             }
 
             // Invalid feeback text
-            const feedback = h(
+            const invalidFeedback = h(
                 'b-form-invalid-feedback',
                 {
                     directives: [
-                        { name: 'show', value: t.feedback || $slots.feedback }
+                        {
+                            name: 'show',
+                            rawName: 'v-show',
+                            value: Boolean(t.feedback || $slots['invalid-feedback'] || $slots['feedback']),
+                            expression: "Boolean(t.feedback || $slots['invalid-feedback'] || $slots['feedback'])",
+                        }
                     ],
                     attrs: {
                         id: t.feedbackId,
@@ -59,15 +64,20 @@
                         'aria-atomic': 'true'
                     }
                 },
-                [ $slots.feedback || h('span', { domProps: { innerHTML: t.feedback || '' } }) ]
+                [ $slots['invalid-feedback'] || $slots['feedback'] || h('span', { domProps: { innerHTML: t.feedback || '' } }) ]
             );
 
-            // Invalid feeback text
+            // Valid feeback text
             const validFeedback = h(
                 'b-form-valid-feedback',
                 {
                     directives: [
-                        { name: 'show', value: t.validFeedback || $slots['valid-feedback'] }
+                        {
+                            name: 'show',
+                            rawName: 'v-show',
+                            value: Boolean(t.validFeedback || $slots['valid-feedback']),
+                            expression: "Boolean(t.validFeedback || $slots['valid-feedback'])"
+                        }
                     ],
                     attrs: {
                         id: t.validFeedbackId,
@@ -76,7 +86,7 @@
                         'aria-atomic': 'true'
                     }
                 },
-                [ $slots.feedback || h('span', { domProps: { innerHTML: t.feedback || '' } }) ]
+                [ $slots['valid-feedback'] || h('span', { domProps: { innerHTML: t.validFeedback || '' } }) ]
             );
 
             // Form help text (description)
@@ -93,7 +103,7 @@
             const content = h(
                 'div',
                 { ref: 'content', class: t.inputLayoutClasses },
-                [ $slots.default, feedback, description ]
+                [ $slots.default, invalidFeedback, validFeedback, description ]
             );
 
             // Generate fieldset wrapper
