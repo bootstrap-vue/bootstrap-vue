@@ -1,7 +1,7 @@
 import { loadFixture, testVM } from '../../../tests/utils'
 
-describe('form-feedback', async () => {
-  beforeEach(loadFixture(__dirname, 'form-feedback'))
+describe('form-invalid-feedback', async () => {
+  beforeEach(loadFixture(__dirname, 'form-invalid-feedback'))
   testVM()
 
   it('default should have tag div', async () => {

@@ -1,7 +1,8 @@
 import bForm from './form'
 import bFormRow from './form-row'
 import bFormText from './form-text'
-import bFormFeedback from './form-feedback'
+import bFormInvalidFeedback from './form-invalid-feedback'
+import bFormValidFeedback from './form-valid-feedback'
 import { registerComponents, vueUse } from '../../utils'
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
@@ -10,7 +11,9 @@ const components = {
   bForm,
   bFormRow,
   bFormText,
-  bFormFeedback
+  bFormInvalidFeedback,
+  bFormFeedback: bFormInvalidFeedback,
+  bFormValidFeedback
 }
 
 const VuePlugin = {

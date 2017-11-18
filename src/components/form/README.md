@@ -155,7 +155,8 @@ See also:
 
 - [`<b-form-row>`](/docs/components/layout) create grid rows and columns with tighter margins
 - `<b-form-text>` Help text blocks for inputs
-- `<b-form-feedback>` Invalid feedback text blocks for input `invalid` states
+- `<b-form-invalid-feedback>` Invalid feedback text blocks for input `invalid` states (alias `<b-form-feedback>`)
+- `<b-form-valid-feedback>` Valid feedback text blocks for input `valid` states
 
 
 ## Validation

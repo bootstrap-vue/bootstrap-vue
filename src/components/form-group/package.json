@@ -14,8 +14,16 @@
                 "description": "Content to place in the description area."
             },
             {
-                "name": "feedback",
+                "name": "invalid-feedback",
                 "description": "Content to place in the invalid feedback area"
+            },
+            {
+                "name": "valid-feedback",
+                "description": "Content to place in the valid feedback area"
+            },
+            {
+                "name": "feedback",
+                "description": "Content to place in the invalid feedback area. Deprecated: use 'invalid-feedback' slot instead"
             }
         ]
     }

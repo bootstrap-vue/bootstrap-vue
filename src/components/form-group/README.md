@@ -10,7 +10,8 @@ as well as contextual state visual feedback.
       id="fieldset1"
       description="Let us know your name."
       label="Enter your name"
-      :feedback="feedback" 
+      :feedback="feedback"
+      valid-feedback="Thank you"
       :state="state"
   >
     <b-form-input id="input1" :state="state" v-model.trim="name"></b-form-input>
@@ -74,31 +75,9 @@ Optional descriptive text which is always shown with the `.text-muted` class
 (html supported) by setting the `description` prop or using the named slot `description`.
 The description text is rendered using the <`b-form-text>` component.
 
-## Invalid feedback
-Show optional feedback text to provide textual state feedback (html supported)
-by setting the prop `feedback` or using the named slot `feedback`.
+## Validation feedback
 
-Note that the feedback **will not be shown** unless the invalid `state` is set on the
-`<b-form-group>` and it's child(ren) input(s) or just on the input (`<b-form-input>`,
-`<b-form-textarea>`, `<b-form-select>`, `<b-form-checkbox>`, `<b-form-radio>`, or `<b-form-file>`).
-
-Also feedback will be shown if the parent `<b-form>` component does not have the
-`novalidate` prop set (or set to `false`) along with `vadidated`
-prop set (and the input fails browser native validation constraintes such as `required`).
-
-Refer to Bootstrap V4's `Form` component documentation for details on validation methods.
-
-Invalid feedback is rendered using the `<b-form-feedback>` componment.
-
-**Note:** When using `<b-input-group>`, `<b-form-file>`, `<b-form-radio-group>`,
-`<b-form-radio>`, `<b-form-checkbox-group>` or `<b-form-checkbox>` inside a
-`<b-form-group>`, setting an invalid `state` on the `input` alone will **not** trigger
-the invalid feeback to show (due to limitations with the new Bootsrap V4 validation CSS).
-To get around this, **you must also** set the invalid `state` on `<b-form-group>`.  Native
-browser validation will **not** trigger the invalid feedback to show when using one of
-the above mentiond form controls.
-
-## Contextual visual state
+### Contextual validation visual state
 Bootstrap includes validation styles for `valid` and `invalid` states
 on most form controls.
 
@@ -114,6 +93,47 @@ to `'invalid'` (or `false`), `'valid'` (or `true`), or `null`.
 
 You should always provide content via the `feedback` prop (or slot) to aid users
 using assistive technologies when setting a contextual `invalid` state.
+
+### Invalid feedback
+Show optional invalid state feedback text to provide textual state feedback (html supported)
+by setting the prop `feedback` or using the named slot `invalid-feedback`.
+
+Note that the invalid feedback **will not be shown** unless the invalid `state` is set on the
+`<b-form-group>` and it's child(ren) input(s) or just on the input (`<b-form-input>`,
+`<b-form-textarea>`, `<b-form-select>`, `<b-form-checkbox>`, `<b-form-radio>`, or `<b-form-file>`).
+
+Also feedback will be shown if the parent `<b-form>` component does not have the
+`novalidate` prop set (or set to `false`) along with `vadidated`
+prop set (and the input fails browser native validation constraintes such as `required`).
+
+Refer to Bootstrap V4's `Form` component documentation for details on validation methods.
+
+Invalid feedback is rendered using the `<b-form-invalid-feedback>` componment.
+
+### Valid feedback
+Show optional valid state feedback text to provide textual state feedback (html supported)
+by setting the prop `valid-feedback` or using the named slot `valid-feedback`.
+
+Note that the valid feedback **will not be shown** unless the valid `state` is set on the
+`<b-form-group>` and it's child(ren) input(s) or just on the input (`<b-form-input>`,
+`<b-form-textarea>`, `<b-form-select>`, `<b-form-checkbox>`, `<b-form-radio>`, or `<b-form-file>`).
+
+Also feedback will be shown if the parent `<b-form>` component does not have the
+`novalidate` prop set (or set to `false`) along with `vadidated`
+prop set (and the input pases browser native validation constraintes such as `required`).
+
+Refer to Bootstrap V4's `Form` component documentation for details on validation methods.
+
+Valid feedback is rendered using the `<b-form-valid-feedback>` componment.
+
+### Feeback limitations
+**Note:** When using `<b-input-group>`, `<b-form-file>`, `<b-form-radio-group>`,
+`<b-form-radio>`, `<b-form-checkbox-group>` or `<b-form-checkbox>` inside a
+`<b-form-group>`, setting an invalid (or valid) `state` on the `input` alone will **not** trigger
+the invalid (or valid) feeback to show (due to limitations with the new Bootsrap V4 validation CSS).
+To get around this, **you must also** set the invalid/valid `state` on `<b-form-group>`.  Native
+browser validation will **not** trigger the invalid feedback to show when using one of
+the above mentiond form controls.
 
 ## Accessibility
 To enable auto-generation of `aria-*` attributes, you should supply a unique `id` prop
