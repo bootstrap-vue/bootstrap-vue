@@ -10,7 +10,8 @@ as well as contextual state visual feedback.
       id="fieldset1"
       description="Let us know your name."
       label="Enter your name"
-      :feedback="feedback" 
+      :feedback="feedback"
+      valid-feedback="Thank you"
       :state="state"
   >
     <b-form-input id="input1" :state="state" v-model.trim="name"></b-form-input>
@@ -95,7 +96,7 @@ using assistive technologies when setting a contextual `invalid` state.
 
 ### Invalid feedback
 Show optional invalid state feedback text to provide textual state feedback (html supported)
-by setting the prop `feedback` or using the named slot `feedback`.
+by setting the prop `feedback` or using the named slot `invalid-feedback`.
 
 Note that the invalid feedback **will not be shown** unless the invalid `state` is set on the
 `<b-form-group>` and it's child(ren) input(s) or just on the input (`<b-form-input>`,
@@ -111,7 +112,7 @@ Invalid feedback is rendered using the `<b-form-invalid-feedback>` componment.
 
 ### Valid feedback
 Show optional valid state feedback text to provide textual state feedback (html supported)
-by setting the prop `feedback` or using the named slot `feedback`.
+by setting the prop `valid-feedback` or using the named slot `valid-feedback`.
 
 Note that the valid feedback **will not be shown** unless the valid `state` is set on the
 `<b-form-group>` and it's child(ren) input(s) or just on the input (`<b-form-input>`,
