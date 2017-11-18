@@ -5,7 +5,7 @@
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
   "module": "es/index.js",
-  "jsnext:main": "dist/bootstrap-vue.esm.js",
+  "jsnext:main": "es/index.js",
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
   "homepage": "https://bootstrap-vue.github.io",
