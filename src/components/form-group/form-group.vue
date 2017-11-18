@@ -240,8 +240,8 @@
                 return [
                     this.labelId,
                     this.descriptionId,
-                    this.feedbackId,
-                    this.validFeedbackId
+                    this.computedState === false ? this.feedbackId : null,
+                    this.computedState === true ? this.validFeedbackId : null
                 ].filter(i => i).join(' ') || null;
             }
         },
