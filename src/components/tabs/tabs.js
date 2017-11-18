@@ -119,7 +119,7 @@ export default {
       },
       [
         t.bottom ? content : h(false),
-        h('div', { class: [ { 'card-header': t.card }, t.navWrapperClass] }, [ navs ]),
+        h('div', { class: [ { 'card-header': t.card }, t.navWrapperClass ] }, [ navs ]),
         t.bottom ? h(false) : content
       ]
     )
@@ -175,7 +175,7 @@ export default {
     navWrapperClass: {
       type: [String, Array, Object],
       default: null
-    },
+    }
   },
   watch: {
     currentTab (val, old) {
