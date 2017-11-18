@@ -2,6 +2,69 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.2...v1.1.0) (2017-11-18)
+
+
+### Bug Fixes
+
+* **button-close:** switch to slots() from children ([#1345](https://github.com/bootstrap-vue/bootstrap-vue/issues/1345)) ([9c997b7](https://github.com/bootstrap-vue/bootstrap-vue/commit/9c997b7))
+* **form-check+radio mixin:** pull state from parent group ([6845014](https://github.com/bootstrap-vue/bootstrap-vue/commit/6845014))
+* **form-checkbox:** apply form state class to hidden inputs ([710369c](https://github.com/bootstrap-vue/bootstrap-vue/commit/710369c))
+* **form-radio:** apply form state to hidden input element ([3074ecc](https://github.com/bootstrap-vue/bootstrap-vue/commit/3074ecc))
+* **form-textarea:** monitor localValue instead of value when calculating lines ([9f3439f](https://github.com/bootstrap-vue/bootstrap-vue/commit/9f3439f))
+* **input-group:** correct input-group right addon via prop ([#1317](https://github.com/bootstrap-vue/bootstrap-vue/issues/1317)) ([061abc5](https://github.com/bootstrap-vue/bootstrap-vue/commit/061abc5))
+* **link:** restore original tabindex when not disabled ([cfdf0b9](https://github.com/bootstrap-vue/bootstrap-vue/commit/cfdf0b9))
+* **link:** take link out of tab sequence if disabled ([#1347](https://github.com/bootstrap-vue/bootstrap-vue/issues/1347)) ([360588a](https://github.com/bootstrap-vue/bootstrap-vue/commit/360588a))
+* **modal:** modal-open body class lost when switching between modals ([#1327](https://github.com/bootstrap-vue/bootstrap-vue/issues/1327)) ([99e146f](https://github.com/bootstrap-vue/bootstrap-vue/commit/99e146f)), closes [#1325](https://github.com/bootstrap-vue/bootstrap-vue/issues/1325)
+* **popover+tooltip:** content not restored after hiding all popovers with 'bv::hide::popover' ([#1323](https://github.com/bootstrap-vue/bootstrap-vue/issues/1323)) ([94488c6](https://github.com/bootstrap-vue/bootstrap-vue/commit/94488c6)), closes [#1322](https://github.com/bootstrap-vue/bootstrap-vue/issues/1322)
+* **tooltip+popover:** improve blur trigger handling ([c08b815](https://github.com/bootstrap-vue/bootstrap-vue/commit/c08b815))
+
+
+### Features
+
+* **eslint:** update settings to remove editor errors ([#792](https://github.com/bootstrap-vue/bootstrap-vue/issues/792)) ([c33d1d4](https://github.com/bootstrap-vue/bootstrap-vue/commit/c33d1d4))
+* **form-file:** Use `label` as wrapper element + name-spaced custom CSS ([#1353](https://github.com/bootstrap-vue/bootstrap-vue/issues/1353)) ([e2bc891](https://github.com/bootstrap-vue/bootstrap-vue/commit/e2bc891))
+* **form-group:** add valid feedback support ([#1360](https://github.com/bootstrap-vue/bootstrap-vue/issues/1360)) ([7f3535b](https://github.com/bootstrap-vue/bootstrap-vue/commit/7f3535b))
+* **nuxt:** add bvCSS option. resolves [#1351](https://github.com/bootstrap-vue/bootstrap-vue/issues/1351). ([3a7517f](https://github.com/bootstrap-vue/bootstrap-vue/commit/3a7517f))
+* **package:** add lint by default for tests ([f1ca71e](https://github.com/bootstrap-vue/bootstrap-vue/commit/f1ca71e))
+* **package:** use es build by default ([142d517](https://github.com/bootstrap-vue/bootstrap-vue/commit/142d517))
+* **table:** add outlined option ([#1355](https://github.com/bootstrap-vue/bootstrap-vue/issues/1355)) ([7ba183e](https://github.com/bootstrap-vue/bootstrap-vue/commit/7ba183e))
+* **table:** caption positioning prop ([#1341](https://github.com/bootstrap-vue/bootstrap-vue/issues/1341)) ([7c86e66](https://github.com/bootstrap-vue/bootstrap-vue/commit/7c86e66))
+
+
+### Performance Improvements
+
+* **alert:** convert template to render function ([#1308](https://github.com/bootstrap-vue/bootstrap-vue/issues/1308)) ([8b0c7cd](https://github.com/bootstrap-vue/bootstrap-vue/commit/8b0c7cd))
+* **build:** reduce minified code size ([#1337](https://github.com/bootstrap-vue/bootstrap-vue/issues/1337)) ([9d0ae3e](https://github.com/bootstrap-vue/bootstrap-vue/commit/9d0ae3e))
+* **button-toolbar:** convert template to render function ([#1315](https://github.com/bootstrap-vue/bootstrap-vue/issues/1315)) ([765bfe3](https://github.com/bootstrap-vue/bootstrap-vue/commit/765bfe3))
+* **carousel:** convert templates to render functions ([#1339](https://github.com/bootstrap-vue/bootstrap-vue/issues/1339)) ([13f429f](https://github.com/bootstrap-vue/bootstrap-vue/commit/13f429f))
+* **collapse:** convert template to render function ([#1316](https://github.com/bootstrap-vue/bootstrap-vue/issues/1316)) ([722ea12](https://github.com/bootstrap-vue/bootstrap-vue/commit/722ea12))
+* **dropdowns:** convert templates to render functions ([#1314](https://github.com/bootstrap-vue/bootstrap-vue/issues/1314)) ([3168e93](https://github.com/bootstrap-vue/bootstrap-vue/commit/3168e93))
+* **form-checkboxes:** convert templates to render functions ([#1338](https://github.com/bootstrap-vue/bootstrap-vue/issues/1338)) ([49bc50b](https://github.com/bootstrap-vue/bootstrap-vue/commit/49bc50b))
+* **form-file:** convert template to render function ([#1329](https://github.com/bootstrap-vue/bootstrap-vue/issues/1329)) ([ec96f82](https://github.com/bootstrap-vue/bootstrap-vue/commit/ec96f82))
+* **form-group:** convert template to render function ([#1332](https://github.com/bootstrap-vue/bootstrap-vue/issues/1332)) ([f409392](https://github.com/bootstrap-vue/bootstrap-vue/commit/f409392))
+* **form-input:** convert template to render function ([#1330](https://github.com/bootstrap-vue/bootstrap-vue/issues/1330)) ([12f0423](https://github.com/bootstrap-vue/bootstrap-vue/commit/12f0423))
+* **form-radios:** convert templates to render functions ([#1336](https://github.com/bootstrap-vue/bootstrap-vue/issues/1336)) ([3a2aa0a](https://github.com/bootstrap-vue/bootstrap-vue/commit/3a2aa0a))
+* **form-select:** convert template to render function ([#1333](https://github.com/bootstrap-vue/bootstrap-vue/issues/1333)) ([9adfc12](https://github.com/bootstrap-vue/bootstrap-vue/commit/9adfc12))
+* add event KeyCode constants in utils ([#1346](https://github.com/bootstrap-vue/bootstrap-vue/issues/1346)) ([714d748](https://github.com/bootstrap-vue/bootstrap-vue/commit/714d748))
+* **form-textarea:** convert template to render function ([#1331](https://github.com/bootstrap-vue/bootstrap-vue/issues/1331)) ([5293e71](https://github.com/bootstrap-vue/bootstrap-vue/commit/5293e71))
+* **img-lazy:** convert template to render function ([#1309](https://github.com/bootstrap-vue/bootstrap-vue/issues/1309)) ([1736eb9](https://github.com/bootstrap-vue/bootstrap-vue/commit/1736eb9))
+* **modal:** convert template to render function ([#1340](https://github.com/bootstrap-vue/bootstrap-vue/issues/1340)) ([bb7ec04](https://github.com/bootstrap-vue/bootstrap-vue/commit/bb7ec04))
+* **navbar-toggle:** convert template to render function ([#1313](https://github.com/bootstrap-vue/bootstrap-vue/issues/1313)) ([88657fb](https://github.com/bootstrap-vue/bootstrap-vue/commit/88657fb))
+* **pagination+pagination-nav:** convert templates to render function ([#1348](https://github.com/bootstrap-vue/bootstrap-vue/issues/1348)) ([e04291f](https://github.com/bootstrap-vue/bootstrap-vue/commit/e04291f))
+* **popover:** convert template to render function ([#1311](https://github.com/bootstrap-vue/bootstrap-vue/issues/1311)) ([de24eec](https://github.com/bootstrap-vue/bootstrap-vue/commit/de24eec))
+* **progress:** convert template to render function ([#1312](https://github.com/bootstrap-vue/bootstrap-vue/issues/1312)) ([20d7d0b](https://github.com/bootstrap-vue/bootstrap-vue/commit/20d7d0b))
+* **table:** convert template to render function ([#1350](https://github.com/bootstrap-vue/bootstrap-vue/issues/1350)) ([6a1ef4f](https://github.com/bootstrap-vue/bootstrap-vue/commit/6a1ef4f))
+* **tabs:** convert templates to render functions ([#1319](https://github.com/bootstrap-vue/bootstrap-vue/issues/1319)) ([b45f550](https://github.com/bootstrap-vue/bootstrap-vue/commit/b45f550))
+* **tooltip:** convert template to render function ([#1310](https://github.com/bootstrap-vue/bootstrap-vue/issues/1310)) ([c812cb0](https://github.com/bootstrap-vue/bootstrap-vue/commit/c812cb0))
+
+
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
 ## [v1.1.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.2...v1.1.0)
 Released: 2017-11-18
 
