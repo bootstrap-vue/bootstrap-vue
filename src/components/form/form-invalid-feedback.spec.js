@@ -1,6 +1,6 @@
 import { loadFixture, testVM } from '../../../tests/utils'
 
-describe('form-feedback', async () => {
+describe('form-invalid-feedback', async () => {
   beforeEach(loadFixture(__dirname, 'form-invalid-feedback'))
   testVM()
 
