@@ -92,7 +92,7 @@ export default {
     const navs = h(
       'ul',
       {
-        class: [ 'nav', `nav-${t.navStyle}`, { [`card-header-${t.navStyle}`]: this.card, small: t.small } ],
+        class: [ 'nav', `nav-${t.navStyle}`, { [`card-header-${t.navStyle}`]: this.card, small: t.small }, t.navClass ],
         attrs: { role: 'tablist', tabindex: '0' },
         on: { keydown: t.onKeynav }
       },
@@ -104,7 +104,7 @@ export default {
       'div',
       {
         ref: 'tabsContainer',
-        class: [ 'tab-content', { 'card-body': t.card } ],
+        class: [ 'tab-content', { 'card-body': t.card }, t.contentClass ],
         attrs: { id: t.safeId('_BV_tab_container_') }
       },
       [ t.$slots.default, (tabs && tabs.length) ? h(false) : t.$slots.empty ]
@@ -119,7 +119,7 @@ export default {
       },
       [
         t.bottom ? content : h(false),
-        h('div', { class: { 'card-header': t.card } }, [ navs ]),
+        h('div', { class: [ { 'card-header': t.card }, t.navWrapperClass] }, [ navs ]),
         t.bottom ? h(false) : content
       ]
     )
@@ -163,7 +163,19 @@ export default {
       // This prop is sniffed by the tab child
       type: Boolean,
       default: false
-    }
+    },
+    contentClass: {
+      type: [String, Array, Object],
+      default: null
+    },
+    navClass: {
+      type: [String, Array, Object],
+      default: null
+    },
+    navWrapperClass: {
+      type: [String, Array, Object],
+      default: null
+    },
   },
   watch: {
     currentTab (val, old) {
