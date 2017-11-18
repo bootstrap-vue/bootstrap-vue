@@ -10,7 +10,8 @@ const components = {
   bForm,
   bFormRow,
   bFormText,
-  bFormFeedback
+  bFormFeedback,
+  bFormInvalidFeedback: bFormFeedback
 }
 
 const VuePlugin = {
