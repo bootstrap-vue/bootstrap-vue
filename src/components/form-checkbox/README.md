@@ -185,6 +185,12 @@ when they are in the _checked_ state.
 <!-- form-checkboxs-buttons.vue -->
 ```
 
+**Note:** `<bform-radio-group>` uses the HTML attribute `data-toggle="buttons"` to
+apply the button styling to the checkboxes. This can cause a potential conflict if you
+are including Bootstrap V4's jQuery code in your project for other purposes.
+To get around this, you will need to exclude the Bootstrap V4 jQuery buttons plugin, and
+include only the other Bootstrap V4 jQuery plugins you reqwuire.
+
 
 ## Non custom check inputs (plain)
 You can have `<b-form-checkbox-group>` or `<b-form-checkbox>` render a browser native
