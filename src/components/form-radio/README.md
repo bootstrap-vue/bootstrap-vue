@@ -224,7 +224,7 @@ export default {
 ```
 
 
-**Note:** `<bform-radio-group>` uses the HTML attribute `data-toggle="buttons"` to
+**Note:** `<b-form-radio-group>` uses the HTML attribute `data-toggle="buttons"` to
 apply the button styling to the radios. This can cause a potential conflict if you
 are including Bootstrap V4's jQuery code in your project for other purposes.
 To get around this, you will need to exclude the Bootstrap V4 jQuery buttons plugin, and
