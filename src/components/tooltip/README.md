@@ -201,6 +201,9 @@ on `<b-tooltip>`:
 <!-- tooltip-show-open.vue -->
 ```
 
+You can also use `$root` events to trigger the showing and hiding of tooltip(s).
+See the **Hiding and showing tooltips via $root events** section below for details.
+
 
 ## `v-b-tooltip` Directive Usage
 
@@ -239,14 +242,14 @@ You can close (hide) all open tooltips by emitting the `bv::hide::tooltip` event
 this.$root.$emit('bv::hide::tooltip');
 ```
 
-To close a specific tooltip, pass teh trigger element's `id` as the first argument:
+To close a specific tooltip, pass the trigger element's `id` as the first argument:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id');
 ```
 
 To open a specific tooltip, pass the trigger element's `id` as the first argument when
-emitting the `bv::show::tooltip` event:
+emitting the `bv::show::tooltip` $root event:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id');
@@ -254,7 +257,7 @@ this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id');
 
 These events work for both the component and directive versions of tooltip.
 
-Note the trigger element mist exist in the DOM and be in a visible state in order for the
+Note the trigger element must exist in the DOM and be in a visible state in order for the
 tooltip to show.
 
 
