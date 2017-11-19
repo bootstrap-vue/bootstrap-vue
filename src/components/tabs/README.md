@@ -183,8 +183,8 @@ In some situations, you may want to add classes to the `<li>` (nav-item) and/or 
 the `title-item-class` prop (for the `<li>` element) or `title-link-class` prop (for the
 `<a>` element).  Value's can be passed as a string or array of strings.
 
-Note: THe `ative` class is automatically applied to the active tabs `<a>` element. You may need to accomodate
-your custom classes for this.
+Note: The `active` class is automatically applied to the active tabs `<a>` element. You may need
+to accomodate your custom classes for this.
 
 ```html
 <template>
