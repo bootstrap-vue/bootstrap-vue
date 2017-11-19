@@ -115,7 +115,7 @@ export default {
       {
         class: [
           {
-            'card-header': (t.card && !t.vertical),
+            'card-header': (t.card && !t.vertical && !(t.end || t.bottom)),
             'card-footer': (t.card && !t.vertical && (t.end || t.bottom)),
             'col-auto': t.vertical,
             'order-2': (t.end || t.bottom),
