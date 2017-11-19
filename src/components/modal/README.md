@@ -288,13 +288,6 @@ Vertically center your modal in the viewport by setting the `centered` prop.
 <!-- modal-center-v.vue -->
 ```
 
-**Warning:** Vertically centered modals are not suited for when the content is tall.
-They are best suited when the content is only one or two lines, such as Yes/No or
-OK/Cancel confirmation dialogs. When the resultant modal is taller than the viewport,
-the modal header (and parts of the top of the modal content) will become inaccessible.
-This issue becomes more prevalent on smaller screens.
-
-
 ## Using the grid
 Utilize the Bootstrap grid system within a modal by nesting `<b-container fluid>` within
 the modal-body. Then, use the normal grid system `<b-row>` (or `<b-form-row>`) and `<b-col>`
