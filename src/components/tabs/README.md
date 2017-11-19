@@ -66,7 +66,7 @@ the pill style variant.
 
 ## Bottom placement of tab controls
 
-Move the tab controls to the bottom by setting the prop `end`
+Visually move the tab controls to the bottom by setting the prop `end`
 
 ```html
 <b-card no-body>
@@ -107,7 +107,7 @@ Have the tab controls placed on the lefthand side by setting the `vertical` prop
 <!-- tabs-vertical.vue -->
 ```
 
-Move the tab controls to the right hand side by setting the `end` prop:
+Visually move the tab controls to the right hand side by setting the `end` prop:
 
 ```html
 <b-card no-body>
