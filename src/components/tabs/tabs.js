@@ -106,7 +106,7 @@ export default {
           },
           t.navClass
         ],
-        attrs: { role: 'tablist', tabindex: '0' },
+        attrs: { role: 'tablist', tabindex: '0', id: t.safeId('_BV_tab_controls_') },
         on: { keydown: t.onKeynav }
       },
       [ buttons, t.$slots.tabs ]
@@ -118,10 +118,7 @@ export default {
           {
             'card-header': (t.card && !t.vertical && !(t.end || t.bottom)),
             'card-footer': (t.card && !t.vertical && (t.end || t.bottom)),
-            'col-auto': t.vertical,
-            'col-12': !t.vertical,
-            'order-2': (t.end || t.bottom),
-            'order-1': !(t.end || t.bottom)
+            'col-auto': t.vertical
           },
           t.navWrapperClass
         ]
@@ -145,16 +142,7 @@ export default {
       'div',
       {
         ref: 'tabsContainer',
-        class: [
-          'tab-content',
-          {
-            'col': t.vertical,
-            'col-12': !t.vertical,
-            'order-1': (t.end || t.bottom),
-            'order-2': !(t.end || t.bottom)
-          },
-          t.contentClass
-        ],
+        class: [ 'tab-content', { 'col': t.vertical }, t.contentClass ],
         attrs: { id: t.safeId('_BV_tab_container_') }
       },
       [ t.$slots.default, empty ]
@@ -164,10 +152,14 @@ export default {
     return h(
       t.tag,
       {
-        class: [ 'tabs', 'row', { 'no-gutters': (t.vertical && t.card) } ],
+        class: [ 'tabs', { 'row': t.vertical,  'no-gutters': (t.vertical && t.card) } ],
         attrs: { id: t.safeId() }
       },
-      [ [ navs ], content ]
+      [
+        (t.end || t.bottom) ? content : h(false),
+        [ navs ],
+        (t.end || t.bottom) ? h(false) : content
+      ]
     )
   },
   data () {
