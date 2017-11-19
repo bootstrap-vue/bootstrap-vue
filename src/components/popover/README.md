@@ -277,6 +277,9 @@ on `<b-popover>`:
 <!-- popover-show-open.vue -->
 ```
 
+You can also use `$root` events to trigger the showing and hiding of popover(s).
+See the **Hiding and showing popovers via $root events** section below for details.
+
 
 ## `v-b-popover` Directive usage
 
@@ -477,11 +480,31 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 <!-- popover-advanced-1.vue -->
 ```
 
-## Closing popovers
-You can close all open popovers by emitting the `bv::hide::popover` event on $root:
+## Hiding and showing popovers via $root events
+You can close (hide) all open popovers by emitting the `bv::hide::popover` event on $root:
 
 ```js
 this.$root.$emit('bv::hide::popover');
+```
+
+To close a specific popover, pass the trigger element's `id` as the first argument:
+
+```js
+this.$root.$emit('bv::show::popover', 'my-trigger-button-id');
+```
+
+To open (show) a specific popover, pass the trigger element's `id` as the first argument when
+emitting the `bv::show::popover` event:
+
+```js
+this.$root.$emit('bv::show::popover', 'my-trigger-button-id');
+```
+
+These events work for both the component and directive versions of popover.
+
+Note the trigger element mist exist in the DOM and be in a visible state in order for the
+popover to show.
+
 ```
 
 ## Accessibility
