@@ -91,7 +91,7 @@ Have the tab controls placed on the lefthand side by setting the `vertical` prop
 
 ```html
 <b-card no-body>
-    <b-tabs pills card virtical>
+    <b-tabs pills card vertical>
         <b-tab title="Tab 1" active>
             Tab Contents
         </b-tab>
@@ -111,7 +111,7 @@ Move the tab controls to the right hand side by setting the `end` prop:
 
 ```html
 <b-card no-body>
-    <b-tabs pills card virtical end>
+    <b-tabs pills card vertical end>
         <b-tab title="Tab 1" active>
             Tab Contents
         </b-tab>
@@ -129,12 +129,12 @@ Move the tab controls to the right hand side by setting the `end` prop:
 
 The width of the vertical tab controls will expand to fit the width of the tab title.
 To control the width, set a [width utility class](/docs/reference/size-props#sizing-utility-classes)
-via the prop `nav-wrapper-class`. You can use values such as `w-25` (25% width), `w-50` (50% width),
-or max-width vlaues such as `mw-25` or `mw-50`.
+via the prop `nav-wrapper-class`. You can use values such as `w-25` (25% width), `w-50` (50% width), etc.,
+or column classes such as `col-2`, `col-3`, etc.
 
 ```html
 <b-card no-body>
-    <b-tabs pills card virtical nav-wrapper-class="w-50">
+    <b-tabs pills card vertical nav-wrapper-class="w-50">
         <b-tab title="Tab 1" active>
             Tab Contents
         </b-tab>
@@ -150,10 +150,15 @@ or max-width vlaues such as `mw-25` or `mw-50`.
 <!-- tabs-vertical-width.vue -->
 ```
 
+**Note:** overflowing text may occur if your width is narrower than the tab title. You
+may need additional custom styling.
+
 
 ## Fade animation
 
 Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
+Note you should use the `<b-nav-item>` component when adding contentless-tabs to maintain
+correct sizing and alignment. See the advanced usage examples below for an example.
 
 
 ## Add Tabs without content
@@ -178,7 +183,7 @@ In some situations, you may want to add classes to the `<li>` (nav-item) and/or 
 the `title-item-class` prop (for the `<li>` element) or `title-link-class` prop (for the
 `<a>` element).  Value's can be passed as a string or array of strings.
 
-Note: THe `ative` class is automatically applied to the `<a>` element. You may need to accomodate
+Note: THe `ative` class is automatically applied to the active tabs `<a>` element. You may need to accomodate
 your custom classes for this.
 
 ```html
