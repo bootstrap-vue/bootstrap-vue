@@ -89,38 +89,75 @@ export default {
     })
 
     // Nav 'button' wrapper
-    const navs = h(
+    let navs = h(
       'ul',
       {
-        class: [ 'nav', `nav-${t.navStyle}`, { [`card-header-${t.navStyle}`]: this.card, small: t.small }, t.navClass ],
+        class: [
+          'nav',
+          `nav-${t.navStyle}`,
+          {
+            [`card-header-${t.navStyle}`]: (t.card && !t.vertical),
+            'card-header': (t.card && t.vertical),
+            'h-100': (t.card && t.vertical),
+            'flex-column': t.vertical,
+            'border-bottom-0': t.vertical,
+            small: t.small
+          },
+          t.navClass
+        ],
         attrs: { role: 'tablist', tabindex: '0' },
         on: { keydown: t.onKeynav }
       },
       [ buttons, t.$slots.tabs ]
     )
+    navs = h(
+      'div',
+      {
+        class: [
+          {
+            'card-header': (t.card && !t.vertical),
+            'border-bottom-0': (t.end || t.bottom),
+            'col-auto': t.vertical
+          },
+          t.navWrapperClass
+        ]
+      },
+      [ navs ]
+    )
+
+    let empty
+    if (tabs && tabs.length) {
+      empty = h(false)
+    } else {
+      empty = h(
+        'div',
+        { class: [ 'tab-pane', 'active', { 'card-body': t.card } ] },
+        t.$slots.empty
+      )
+    }
 
     // Main content section
     const content = h(
       'div',
       {
         ref: 'tabsContainer',
-        class: [ 'tab-content', { 'card-body': t.card }, t.contentClass ],
+        class: [ 'tab-content', { col: t.vertical }, t.contentClass ],
         attrs: { id: t.safeId('_BV_tab_container_') }
       },
-      [ t.$slots.default, (tabs && tabs.length) ? h(false) : t.$slots.empty ]
+      [ t.$slots.default, empty ]
     )
 
     // Render final output
     return h(
       t.tag,
       {
-        class: [ 'tabs' ],
+        class: [ 'tabs', { 'row': t.vertical, 'no-gutters': (t.vertical && t.card) } ],
         attrs: { id: t.safeId() }
       },
       [
-        t.bottom ? content : h(false),
-        h('div', { class: [ { 'card-header': t.card }, t.navWrapperClass ] }, [ navs ]),
-        t.bottom ? h(false) : content
+        (t.end || t.bottom) ? content : h(false),
+        [ navs ],
+        (t.end || t.bottom) ? h(false) : content
       ]
     )
   },
@@ -151,7 +188,16 @@ export default {
       type: Boolean,
       default: false
     },
+    vertical: {
+      type: Boolean,
+      default: false
+    },
     bottom: {
+      type: Boolean,
+      default: false
+    },
+    end: {
+      // Synonym for 'bottom'
       type: Boolean,
       default: false
     },
