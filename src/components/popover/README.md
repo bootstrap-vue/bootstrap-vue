@@ -502,13 +502,12 @@ this.$root.$emit('bv::show::popover', 'my-trigger-button-id');
 
 These events work for both the component and directive versions of popover.
 
-Note the trigger element mist exist in the DOM and be in a visible state in order for the
+Note the trigger element must exist in the DOM and be in a visible state in order for the
 popover to show.
 
-```
 
 ## Accessibility
-Popovers, in their current state, are not overly accessible when used as interactive
+Popovers, in their current implementation, are not overly accessible when used as interactive
 components. Content may not be activly read to screen reader users, and the popover
 markup not be located close to the trigger element in the DOM (as popovers usually
 get appended to the end of `<body>`).
