@@ -44,17 +44,19 @@ Alerts are available for any length of text, as well as an optional dismiss butt
 
 <script>
 export default {
-  data: {
-    dismissSecs: 10,
-    dismissCountDown: 0,
-    showDismissibleAlert: false
+  data () {
+    return {
+      dismissSecs: 10,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
+    }
   },
   methods: {
-    countDownChanged(dismissCountDown) {
-      this.dismissCountDown = dismissCountDown;
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
     },
-    showAlert() {
-      this.dismissCountDown = this.dismissSecs;
+    showAlert () {
+      this.dismissCountDown = this.dismissSecs
     }
   }
 }
@@ -188,16 +190,18 @@ the `show` prop to the number of seconds you would like the `<b-alert>` to remai
 
 <script>
 export default {
-  data: {
-    dismissSecs: 5,
-    dismissCountDown: 0
+  data () {
+    return {
+      dismissSecs: 5,
+      dismissCountDown: 0
+    }
   },
   methods: {
-    countDownChanged(dismissCountDown) {
-      this.dismissCountDown = dismissCountDown;
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
     },
-    showAlert() {
-      this.dismissCountDown = this.dismissSecs;
+    showAlert () {
+      this.dismissCountDown = this.dismissSecs
     }
   }
 }
