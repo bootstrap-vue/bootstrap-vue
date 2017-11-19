@@ -57,6 +57,7 @@ export default {
     tabClasses () {
       return [
         'tab-pane',
+        (this.$parent && this.$parent.card) ? 'card-body' : '',
         this.show ? 'show' : '',
         this.computedFade ? 'fade' : '',
         this.disabled ? 'disabled' : '',
