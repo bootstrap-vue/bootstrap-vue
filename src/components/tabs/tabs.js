@@ -119,6 +119,7 @@ export default {
             'card-header': (t.card && !t.vertical && !(t.end || t.bottom)),
             'card-footer': (t.card && !t.vertical && (t.end || t.bottom)),
             'col-auto': t.vertical,
+            'col-12': !t.vertical,
             'order-2': (t.end || t.bottom),
             'order-1': !(t.end || t.bottom)
           },
@@ -147,7 +148,8 @@ export default {
         class: [
           'tab-content',
           {
-            col: t.vertical,
+            'col': t.vertical,
+            'col-12': !t.vertical,
             'order-1': (t.end || t.bottom),
             'order-2': !(t.end || t.bottom)
           },
@@ -162,7 +164,7 @@ export default {
     return h(
       t.tag,
       {
-        class: [ 'tabs', { 'row': t.vertical, 'no-gutters': (t.vertical && t.card) } ],
+        class: [ 'tabs', 'row', { 'no-gutters': (t.vertical && t.card) } ],
         attrs: { id: t.safeId() }
       },
       [ [ navs ], content ]
