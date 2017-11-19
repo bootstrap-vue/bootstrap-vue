@@ -152,7 +152,7 @@ export default {
     return h(
       t.tag,
       {
-        class: [ 'tabs', { 'row': t.vertical,  'no-gutters': (t.vertical && t.card) } ],
+        class: [ 'tabs', { 'row': t.vertical, 'no-gutters': (t.vertical && t.card) } ],
         attrs: { id: t.safeId() }
       },
       [
