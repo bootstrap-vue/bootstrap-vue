@@ -101,6 +101,7 @@ export default {
             'h-100': (t.card && t.vertical),
             'flex-column': t.vertical,
             'border-bottom-0': t.vertical,
+            'rounded-0': t.vertical,
             small: t.small
           },
           t.navClass
@@ -164,7 +165,7 @@ export default {
         class: [ 'tabs', { 'row': t.vertical, 'no-gutters': (t.vertical && t.card) } ],
         attrs: { id: t.safeId() }
       },
-      [ content, [ navs ] ]
+      [ [ navs ], content ]
     )
   },
   data () {
