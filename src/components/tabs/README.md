@@ -83,7 +83,12 @@ Visually move the tab controls to the bottom by setting the prop `end`
 <!-- tabs-bottom.vue -->
 ```
 
+Bottom placement visually works best with the `pills` variant. When using the default 
+`tabs` vairiant, you may want to provided your own custom styling classes, as Bootstrap
+V4 CSS assumes the tabs will always be placed on the top of the tabs content.
+
 **Note:** the `bottom` prop has been deprecated in favor of the `end` prop.
+
 
 ## Vertical tabs
 
@@ -149,6 +154,10 @@ or column classes such as `col-2`, `col-3`, etc.
 
 <!-- tabs-vertical-width.vue -->
 ```
+
+Vertical placement visually works best with the `pills` variant. When using the default 
+`tabs` vairiant, you may want to provided your own custom styling classes, as Bootstrap
+V4 CSS assumes the tabs will always be placed on the top of the tabs content.
 
 **Note:** overflowing text may occur if your width is narrower than the tab title. You
 may need additional custom styling.
