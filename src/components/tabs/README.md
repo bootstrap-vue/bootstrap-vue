@@ -83,9 +83,13 @@ Visually move the tab controls to the bottom by setting the prop `end`
 <!-- tabs-bottom.vue -->
 ```
 
-Bottom placement visually works best with the `pills` variant. When using the default 
+**Caveats:**
+- Bottom placement visually works best with the `pills` variant. When using the default 
 `tabs` vairiant, you may want to provided your own custom styling classes, as Bootstrap
 V4 CSS assumes the tabs will always be placed on the top of the tabs content.
+- To provide a better user experience with bottom palced controls, ensure that the
+content of each tab pane is the same height and fits completely within the visible
+viewport, otherwise the user will need to scroll up to read the start of the tabed content.
 
 **Note:** the `bottom` prop has been deprecated in favor of the `end` prop.
 
