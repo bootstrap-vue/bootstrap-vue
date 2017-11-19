@@ -234,6 +234,50 @@ export default {
 | `container` | `null` | String ID of element to append rendered popover into. If `null` or element not found, popover is appended to `<body>` (default) | Any valid in-document unique  element ID.
 
 
+### Programmatically show and hide popover
+
+You can manually control the visibility of a popover via the syncable Boolean `show` prop.
+Setting it to `true` will show the popover, while setting it to `false` will hide the popover.
+
+```html
+<template>
+  <div class="text-center">
+    <b-btn id="popoverButton-1" variant="primary">I have a popover</b-btn>
+    <br><br>
+    <b-btn @click="show = !show">Toggle Popover</b-btn>
+
+    <b-popover :show.sync="show" target="popoverButton-1" title="Popover">
+      Hello <strong>World!</strong>
+    </b-popover>
+  </div>
+</template>
+<script>
+  export default {
+    data: {
+      show: false
+    }
+  }
+</script>
+
+<!-- popover-show-sync.vue -->
+```
+
+To make the popover shown on initial render, simply add the `show` prop
+on `<b-popover>`:
+
+```html
+<div class="text-center">
+  <b-btn id="popoverButton-2" variant="primary">Button</b-btn>
+
+  <b-popover show target="popoverButton-2" title="Popover">
+    I start <strong>open</strong>
+  </b-popover>
+</div>
+
+<!-- popover-show-open.vue -->
+```
+
+
 ## `v-b-popover` Directive usage
 
 Just need quick popovers without too much markup? Use the
