@@ -64,6 +64,92 @@ the pill style variant.
 <!-- tabs-pills.vue -->
 ```
 
+## Bottom placement of tab controls
+
+Move the tab controls to the bottom by setting the prop `end`
+
+```html
+<b-card no-body>
+    <b-tabs pills card end>
+        <b-tab title="Tab 1" active>
+            Tab Contents
+        </b-tab>
+        <b-tab title="Tab 2">
+            Tab Contents 2
+        </b-tab>
+    </b-tabs>
+</b-card>
+
+<!-- tabs-bottom.vue -->
+```
+
+**Note:** the `bottom` prop has been deprecated in favor of the `end` prop.
+
+## Vertical tabs
+
+Have the tab controls placed on the lefthand side by setting the `vertical` prop to `true`.
+
+```html
+<b-card no-body>
+    <b-tabs pills card virtical>
+        <b-tab title="Tab 1" active>
+            Tab Contents
+        </b-tab>
+        <b-tab title="Tab 2">
+            Tab Contents 2
+        </b-tab>
+        <b-tab title="Tab 3">
+            Tab Contents 3
+        </b-tab>
+    </b-tabs>
+</b-card>
+
+<!-- tabs-vertical.vue -->
+```
+
+Move the tab controls to the right hand side by setting the `end` prop:
+
+```html
+<b-card no-body>
+    <b-tabs pills card virtical end>
+        <b-tab title="Tab 1" active>
+            Tab Contents
+        </b-tab>
+        <b-tab title="Tab 2">
+            Tab Contents 2
+        </b-tab>
+        <b-tab title="Tab 3">
+            Tab Contents 3
+        </b-tab>
+    </b-tabs>
+</b-card>
+
+<!-- tabs-vertical-end.vue -->
+```
+
+The width of the vertical tab controls will expand to fit the width of the tab title.
+To control the width, set a [width utility class](/docs/reference/size-props#sizing-utility-classes)
+via the prop `nav-wrapper-class`. You can use values such as `w-25` (25% width), `w-50` (50% width),
+or max-width vlaues such as `mw-25` or `mw-50`.
+
+```html
+<b-card no-body>
+    <b-tabs pills card virtical nav-wrapper-class="w-50">
+        <b-tab title="Tab 1" active>
+            Tab Contents
+        </b-tab>
+        <b-tab title="Tab 2">
+            Tab Contents 2
+        </b-tab>
+        <b-tab title="Tab 3">
+            Tab Contents 3
+        </b-tab>
+    </b-tabs>
+</b-card>
+
+<!-- tabs-vertical-width.vue -->
+```
+
 
 ## Fade animation
 
