@@ -159,6 +159,48 @@ The default position is `top`. Positioning is relative to the trigger element.
 | `container` | `null` | String ID of element to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default) | Any valid in-document unique  element ID.
 
 
+### Programmatically show and hide tooltip
+
+You can manually control the visibility of a tooltip via the syncable Boolean `show` prop.
+Setting it to `true` will show the tooltip, while setting it to `false` will hide the tooltip.
+
+```html
+<template>
+  <div class="text-center">
+    <b-btn id="tooltipButton-1" variant="primary">I have a tooltip</b-btn>
+    <br><br>
+    <b-btn @click="show = !show">Toggle Tooltip</b-btn>
+
+    <b-tooltip :show.sync="show" target="tooltipButton-1" placement="top">
+      Hello <strong>World!</strong>
+    </b-tooltip>
+  </div>
+</template>
+<script>
+  export default {
+    data: {
+      show: true
+    }
+  }
+</script>
+
+<!-- tooltip-show-sync.vue -->
+```
+
+To make the tooltip shown on initial render, simply add the `show` prop
+on `<b-tooltip>`:
+
+```html
+<div class="text-center">
+  <b-btn id="tooltipButton-2" variant="primary">Button</b-btn>
+  <b-tooltip show target="tooltipButton-2">
+    I start open
+  </b-tooltip>
+</div>
+
+<!-- tooltip-show-open.vue -->
+```
+
 
 ## `v-b-tooltip` Directive Usage
 
