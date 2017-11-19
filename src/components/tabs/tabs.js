@@ -116,8 +116,10 @@ export default {
         class: [
           {
             'card-header': (t.card && !t.vertical),
-            'border-bottom-0': (t.end || t.bottom),
-            'col-auto': t.vertical
+            'card-footer': (t.card && !t.vertical && (t.end || t.bottom)),
+            'col-auto': t.vertical,
+            'order-2': (t.end || t.bottom),
+            'order-1': !(t.end || t.bottom)
           },
           t.navWrapperClass
         ]
@@ -141,7 +143,15 @@ export default {
       'div',
       {
         ref: 'tabsContainer',
-        class: [ 'tab-content', { col: t.vertical }, t.contentClass ],
+        class: [
+          'tab-content',
+          {
+            col: t.vertical,
+            'order-1': (t.end || t.bottom),
+            'order-2': !(t.end || t.bottom)
+          },
+          t.contentClass
+        ],
         attrs: { id: t.safeId('_BV_tab_container_') }
       },
       [ t.$slots.default, empty ]
@@ -154,11 +164,7 @@ export default {
         class: [ 'tabs', { 'row': t.vertical, 'no-gutters': (t.vertical && t.card) } ],
         attrs: { id: t.safeId() }
       },
-      [
-        (t.end || t.bottom) ? content : h(false),
-        [ navs ],
-        (t.end || t.bottom) ? h(false) : content
-      ]
+      [ content, [ navs ] ]
     )
   },
   data () {
