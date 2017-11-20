@@ -23,11 +23,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **tooltip+popover:** ability to programmatically show and hide tooltip and popover ([#1366](https://github.com/bootstrap-vue/bootstrap-vue/issues/1366)) ([360b337](https://github.com/bootstrap-vue/bootstrap-vue/commit/360b337))
 
 
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
-
 ## [v1.1.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.2...v1.1.0)
 Released: 2017-11-18
 
