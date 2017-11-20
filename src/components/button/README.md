@@ -152,7 +152,7 @@ built-in `button` style support of [`<b-form-radio-group>`](/docs/components/for
 
 ## Router link support
 
-Refer to the [`Router support`](/docs/reference/router/links) reference docs for the
+Refer to the [`Router support`](/docs/reference/router-links) reference docs for the
 various supported `<router-link>` related props.
 
 Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap-vue`.
@@ -168,6 +168,7 @@ Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap
 - [`<b-button-group>`](/docs/components/button-group)
 - [`<b-button-toolbar>`](/docs/components/button-toolbar)
 - [`<b-link>`](/docs/components/link)
+- [`Router Link Support`](/docs/reference/router-links)
 
 
 ## Component Reference
