@@ -166,5 +166,6 @@ be automatically generated.
 - [`<b-tabs>`](/docs/components/tabs) to create tabbable panes of local content, even via dropdown menus.
 - [`<b-navbar>`](/docs/components/navbar) a wrapper that positions branding, navigation, and other elements in a concise header.
 - [`<b-dropdown>`](/docs/components/dropdown) for sub-components that you can place inside `<b-nav-item-dropdown>`
+- [Router Link Support reference](/docs/reference/router-links) for information about router-link specific props available on `<b-nav-item>`
 
 ## Component Reference
