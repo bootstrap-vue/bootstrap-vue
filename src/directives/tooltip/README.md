@@ -304,12 +304,31 @@ v-b-tooltip="{title: 'Title', placement: 'bottom'}"
 ```
 
 
-## Closing all tooltips
-You can close all open tooltips by emitting the `bv::hide::tooltip` event on $root:
+## Hiding and showing tooltips via $root events
+You can close (hide) all open tooltips by emitting the `bv::hide::tooltip` event on $root:
 
 ```js
 this.$root.$emit('bv::hide::tooltip');
 ```
+
+To close a specific tooltip, pass the trigger element's `id` as the first argument:
+
+```js
+this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id');
+```
+
+To open a specific tooltip, pass the trigger element's `id` as the first argument when
+emitting the `bv::show::tooltip` $root event:
+
+```js
+this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id');
+```
+
+These events work for both the component and directive versions of tooltip.
+
+Note the trigger element must exist in the DOM and be in a visible state in order for the
+tooltip to show.
+
 
 ## See also
 - [`v-b-popover` directive](/docs/directives/popover)

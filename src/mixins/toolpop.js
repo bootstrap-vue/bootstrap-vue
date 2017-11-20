@@ -53,6 +53,19 @@ export default {
       // String ID of container, if null body is used (default)
       type: String,
       default: null
+    },
+    show: {
+      type: Boolean,
+      default: false
+    }
+  },
+  watch: {
+    show (show, old) {
+      if (show === old) {
+        return
+      }
+
+      show ? this.onOpen() : this.onClose()
     }
   },
   created () {
@@ -68,10 +81,16 @@ export default {
       // Instantiate ToolTip/PopOver on target
       // createToolpop method must exist in main component
       if (this.createToolpop()) {
+        // Listen to open signals from others
+        this.$on('open', this.onOpen)
         // Listen to close signals from others
         this.$on('close', this.onClose)
         // Observe content Child changes so we can notify popper of possible size change
         this.setObservers(true)
+        // Set intially open state
+        if (this.show) {
+          this.onOpen()
+        }
       }
     })
   },
@@ -150,6 +169,11 @@ export default {
       }
       return cfg
     },
+    onOpen () {
+      if (this._toolpop) {
+        this._toolpop.show()
+      }
+    },
     onClose (callback) {
       if (this._toolpop) {
         this._toolpop.hide(callback)
@@ -182,6 +206,7 @@ export default {
     },
     onShown (evt) {
       this.setObservers(true)
+      this.$emit('update:show', true)
       this.$emit('shown', evt)
     },
     onHide (evt) {
@@ -192,6 +217,7 @@ export default {
       // bring our content back if needed to keep Vue happy
       // Tooltip class will move it back to tip when shown again
       this.bringItBack()
+      this.$emit('update:show', false)
       this.$emit('hidden', evt)
     },
     bringItBack () {

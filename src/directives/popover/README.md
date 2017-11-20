@@ -377,15 +377,34 @@ v-b-popover.bottom.hover  => Same as above
 v-b-popover.bottom.click.html  => Show on click and place at bottom with HTML content
 ```
 
-## Closing all opened popovers
-You can close all open popovers by emitting the `bv::hide::popover` event on $root:
+## Hiding and showing popovers via $root events
+You can close (hide) all open popovers by emitting the `bv::hide::popover` event on $root:
 
 ```js
 this.$root.$emit('bv::hide::popover');
 ```
 
+To close a specific popover, pass the trigger element's `id` as the first argument:
+
+```js
+this.$root.$emit('bv::show::popover', 'my-trigger-button-id');
+```
+
+To open (show) a specific popover, pass the trigger element's `id` as the first argument when
+emitting the `bv::show::popover` event:
+
+```js
+this.$root.$emit('bv::show::popover', 'my-trigger-button-id');
+```
+
+These events work for both the component and directive versions of popover.
+
+Note the trigger element must exist in the DOM and be in a visible state in order for the
+popover to show.
+
+
 ## See also
-- [`v-b-tooltip` directive](/docs/diretives/tooltip)
+- [`v-b-tooltip` directive](/docs/directives/tooltip)
 - [`<b-popover>` component](/docs/components/popover)
 - [`<b-tooltip>` component](/docs/components/tooltip)
 

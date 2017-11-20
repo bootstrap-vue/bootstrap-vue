@@ -1,8 +1,8 @@
 import Popper from 'popper.js'
+import BvEvent from './bv-event.class'
 import { assign } from './object'
 import { from as arrayFrom } from './array'
 import { closest, select, isVisible, isDisabled, getCS, addClass, removeClass, hasClass, setAttr, removeAttr, getAttr, eventOn, eventOff } from './dom'
-import BvEvent from './bv-event.class'
 
 const NAME = 'tooltip'
 const CLASS_PREFIX = 'bs-tooltip'
@@ -123,8 +123,10 @@ class ToolTip {
     this.$id = generateId(this.constructor.NAME)
     this.$root = $root || null
     this.$routeWatcher = null
-    // We keep a bound copy of the foreHide method for root/modal listeners
+    // We keep a bound copy of the forceHide, doHide and doShow methods for root/modal listeners
     this.$forceHide = this.forceHide.bind(this)
+    this.$doHide = this.doHide.bind(this)
+    this.$doShow = this.doShow.bind(this)
     // Set the configuration
     this.updateConfig(config)
   }
@@ -200,6 +202,8 @@ class ToolTip {
     this.$hoverState = null
     this.$activeTrigger = null
     this.$forceHide = null
+    this.$doHide = null
+    this.$doShow = null
   }
 
   // Click toggler
@@ -223,8 +227,8 @@ class ToolTip {
 
   // Show tooltip
   show () {
-    if (!document.body.contains(this.$element)) {
-      // If trigger element isn't in the DOM
+    if (!document.body.contains(this.$element) || !isVisible(this.$element)) {
+      // If trigger element isn't in the DOM or is not visible
       return
     }
 
@@ -233,7 +237,7 @@ class ToolTip {
     this.fixTitle()
     this.setContent(tip)
     if (!this.isWithContent(tip)) {
-      // if No content, dont bother showing
+      // if No content, don't bother showing
       this.$tip = null
       return
     }
@@ -328,8 +332,6 @@ class ToolTip {
     this.visibleCheck(on)
     // Route change events
     this.setRouteWatcher(on)
-    // Global hide events
-    this.setRootListener(on)
     // Ontouch start listeners
     this.setOnTouchStartListener(on)
     if (on && /(focus|blur)/.test(this.$config.trigger)) {
@@ -600,6 +602,9 @@ class ToolTip {
     const triggers = this.$config.trigger.trim().split(/\s+/)
     const el = this.$element
 
+    // Listen for global show/hide events
+    this.setRootListener(true)
+
     // Using 'this' as the handler will get automagically directed to this.handleEvent
     // And maintain our binding to 'this'
     triggers.forEach(trigger => {
@@ -624,6 +629,9 @@ class ToolTip {
     events.forEach(evt => {
       eventOff(this.$element, evt, this)
     }, this)
+
+    // Stop listening for global show/hide events
+    this.setRootListener(true)
   }
 
   handleEvent (e) {
@@ -702,9 +710,28 @@ class ToolTip {
   }
 
   setRootListener (on) {
-    // We can listen for global 'bv::hide::popover/tooltip' hide request event
+    // Listen for global 'bv::{hide|show}::{tooltip|popover}' hide request event
     if (this.$root) {
-      this.$root[on ? '$on' : '$off'](`bv::hide::${this.constructor.NAME}`, this.$forceHide)
+      this.$root[on ? '$on' : '$off'](`bv::hide::${this.constructor.NAME}`, this.$doHide)
+      this.$root[on ? '$on' : '$off'](`bv::show::${this.constructor.NAME}`, this.$doShow)
+    }
+  }
+
+  doHide (id) {
+    // Programmatically hide this tooltip or popover
+    if (!id) {
+      // Close all tooltip or popovers
+      this.forceHide()
+    } else if (this.$element && this.$element.id && this.$element.id === id) {
+      // Close this specific tooltip or popover
+      this.hide()
+    }
+  }
+
+  doShow (id) {
+    // Programmatically show this tooltip or popover
+    if (id && this.$element && this.$element.id && this.$element.id === id) {
+      this.show()
     }
   }
 
