@@ -367,12 +367,10 @@ A popover which is opened via the 'show' property or by an event call can only b
       },
       methods: {
         popOpen() {
-          this.pop1 = true;
-          this.pop2 = true;
+          this.pop1 = this.pop2 = true;
         },
         popClose() {
-          this.pop1 = false;
-          this.pop2 = false;
+          this.pop1 = this.pop2 = false;
         },
         popToggle() {
           this.pop1 = !this.pop1;
