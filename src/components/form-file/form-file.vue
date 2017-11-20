@@ -27,6 +27,15 @@
         box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
         border-color: #28a745;
     }
+    
+    /* Interim fix (until BS V4.beta.3) for is-{state} feedback for plain form-file input */
+    /* See issue https://github.com/twbs/bootstrap/issues/24831 */
+    .form-control-file.is-invalid ~ .invalid-feedback,
+    .form-control-file.is-valid ~ .valid-feedback,
+    .was-validated .form-control-file:invalid ~ .invalid-feedback,
+    .was-validated .form-control-file:valid ~ .valid-feedback {
+        display: block;
+    }
 
     /* Drag/Drop and filenames/prompts handling */
     .b-form-file.custom-file .custom-file-control {
@@ -138,7 +147,7 @@
             return h(
                 'label',
                 {
-                    class: [ 'custom-file', 'b-form-file', 'w-100', t.stateClass ],
+                    class: [ 'custom-file', 'b-form-file', t.stateClass, 'w-100', 'd-block' ],
                     attrs: { id: t.safeId('_BV_file_outer_') },
                     on: { dragover: t.dragover }
                 },
