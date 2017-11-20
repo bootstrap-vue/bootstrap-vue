@@ -186,6 +186,7 @@ export default {
       if (t.disabled) {
         inner = h('span', { class: [ 'page-link' ], domProps: { innerHTML: pageNum } })
       } else {
+        const active = t.isActive(page.number)
         inner = h(
           'b-link',
           {
@@ -193,10 +194,10 @@ export default {
             props: t.linkProps(page.number),
             attrs: {
               role: 'menuitemradio',
-              tabindex: t.isActive(page.number) ? '0' : '-1',
+              tabindex: active ? '0' : '-1',
               'aria-controls': t.ariaControls || null,
               'aria-label': `${t.labelPage} ${page.number}`,
-              'aria-checked': t.isActive(page.number) ? 'true' : 'false',
+              'aria-checked': active ? 'true' : 'false',
               'aria-posinset': page.number,
               'aria-setsize': t.numberOfPages
             },
@@ -380,7 +381,9 @@ export default {
       return [
         'page-link',
         this.disabled ? 'disabled' : '',
-        this.isActive(page.number) ? 'active' : ''
+        // Interim workaround to get better focus styling of active button
+        // See https://github.com/twbs/bootstrap/issues/24838
+        this.isActive(page.number) ? 'btn-primary' : ''
       ]
     },
     getButtons () {
