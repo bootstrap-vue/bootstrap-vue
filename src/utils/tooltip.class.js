@@ -201,6 +201,7 @@ class ToolTip {
     this.$config = null
     this.$hoverState = null
     this.$activeTrigger = null
+    this.$forceHide = null
     this.$doHide = null
     this.$doShow = null
   }
