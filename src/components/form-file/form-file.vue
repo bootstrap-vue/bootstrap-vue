@@ -1,6 +1,7 @@
 <style>
     /* Custom-file focus styling: These can possibly be removed once BSV4.beta.3 is released */
     /* Although the focus handling/style will still be needed for Firefox keyboard-only users */
+    /* Which will be addressed if PR https://github.com/twbs/bootstrap/pull/24138 is merged */
 
     /* Regular focus styling */
     .b-form-file.custom-file .custom-file-input.focus ~ .custom-file-control,
@@ -30,6 +31,7 @@
     
     /* Interim fix (until BS V4.beta.3) for is-{state} feedback for plain form-file input */
     /* See issue https://github.com/twbs/bootstrap/issues/24831 */
+
     .form-control-file.is-invalid ~ .invalid-feedback,
     .form-control-file.is-valid ~ .valid-feedback,
     .was-validated .form-control-file:invalid ~ .invalid-feedback,
@@ -37,7 +39,8 @@
         display: block;
     }
 
-    /* Drag/Drop and filenames/prompts handling */
+    /* Drag/Drop and filenames/prompts custom styling */
+
     .b-form-file.custom-file .custom-file-control {
         overflow: hidden;
     }
