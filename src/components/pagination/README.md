@@ -5,7 +5,7 @@ of another component (such as `<b-table>`).
 
 ```html
 <template>
-<div>
+  <div>
     <h6>Default</h6>
     <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10">
     </b-pagination>
@@ -22,14 +22,16 @@ of another component (such as `<b-table>`).
     <br>
 
     <div>currentPage: {{currentPage}}</div>
-</div>    
+  </div>    
 </template>
 
 <script>
 export default {
-    data: {
-        currentPage: 3
+  data () {
+    return {
+      currentPage: 3
     }
+  }
 }
 </script>
 
@@ -70,7 +72,7 @@ By default the pagination component is left aligned. Change the alignment to
 
 ```html
 <template>
-<div>
+  <div>
     <h6>Left alignment (default)</h6>
     <b-pagination :total-rows="100" v-model="currentPage" :per-page="10">
     </b-pagination>
@@ -87,14 +89,16 @@ By default the pagination component is left aligned. Change the alignment to
     <br>
 
     <div>currentPage: {{currentPage}}</div>
-</div>    
+  </div>
 </template>
 
 <script>
 export default {
-    data: {
-        currentPage: 3
+  data () {
+    return {
+      currentPage: 3
     }
+  }
 }
 </script>
 

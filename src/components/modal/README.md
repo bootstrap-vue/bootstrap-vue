@@ -71,27 +71,29 @@ You can access modal using `ref` attribute and then call the `show()` or `hide()
 
 ```html
 <template>
+  <div>
     <b-button @click="showModal">
-        Open Modal
+      Open Modal
     </b-button>
     <b-modal ref="myModalRef" hide-footer title="Using Component Methods">
-        <div class="d-block text-center">
-            <h3>Hello From My Modal!</h3>
-        </div>
-        <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
+      <div class="d-block text-center">
+        <h3>Hello From My Modal!</h3>
+      </div>
+      <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
     </b-modal>
+  </div>
 </template>
 
 <script>
 export default {
-    methods: {
-        showModal() {
-            this.$refs.myModalRef.show();
-        },
-        hideModal() {
-            this.$refs.myModalRef.hide();
-        }
+  methods: {
+    showModal () {
+      this.$refs.myModalRef.show()
+    },
+    hideModal () {
+      this.$refs.myModalRef.hide()
     }
+  }
 }
 </script>
 
@@ -108,19 +110,23 @@ and you can show/hide using `v-model`.
 
 ```html
 <template>
+  <div>
     <b-button @click="modalShow = !modalShow">
-        Open Modal
+      Open Modal
     </b-button>
     <b-modal v-model="modalShow">
-        Hello From Modal!
+      Hello From Modal!
     </b-modal>
+  </div>
 </template>
 
 <script>
 export default {
-    data: {
-        modalShow: false
+  data () {
+    return {
+      modalShow: false
     }
+  }
 }
 </script>
 
@@ -138,28 +144,30 @@ to return focus to once the modal is closed. The second argument can be a CSS se
 an element reference, or a component reference.
 
 ```html
-<b-button @click="showModal" ref="btnShow">
+<div>
+  <b-button @click="showModal" ref="btnShow">
     Open Modal
-</b-button>
-<b-modal @hidden="onHidden">
+  </b-button>
+  <b-modal @hidden="onHidden">
     <div class="d-block">Hello From My Modal!</div>
     <b-btn @click="hideModal">Close Me</b-btn>
-</b-modal>
+  </b-modal>
+</div>
 ```
 
 ```js
 methods: {
-    showModal() {
-        this.$root.$emit('bv::show::modal','modal1');
-    },
-    hideModal() {
-        this.$root.$emit('bv::hide::modal','modal1');
-    },
-    onHidden(evt) {
-        // Return focus to our Open Modal button
-        // See accessibility below for additional return-focus methods
-        this.$refs.btnShow.$el.focus();
-    }
+  showModal () {
+    this.$root.$emit('bv::show::modal','modal1')
+  },
+  hideModal () {
+    this.$root.$emit('bv::hide::modal','modal1')
+  },
+  onHidden (evt) {
+    // Return focus to our Open Modal button
+    // See accessibility below for additional return-focus methods
+    this.$refs.btnShow.$el.focus()
+  }
 }
 ```
 
@@ -191,34 +199,36 @@ the `preventDefault()` method of the event object passed to your `ok` (**OK** bu
         <b-form-input type="text"
                       placeholder="Enter your name"
                       v-model="name"></b-form-input>
-        </form>
-      </b-modal>
+      </form>
+    </b-modal>
   </div>
 </template>
 
 <script>
 export default {
-  data: {
-    name: '',
-    names: []
+  data () {
+    return {
+      name: '',
+      names: []
+    }
   },
   methods: {
-    clearName() {
-       this.name = '';
+    clearName () {
+      this.name = ''
     },
-    handleOk(evt) {
+    handleOk (evt) {
       // Prevent modal from closing
-      evt.preventDefault();
+      evt.preventDefault()
       if (!this.name) {
-        alert('Please enter your name');
+        alert('Please enter your name')
       } else {
         this.handleSubmit()
       }
     },
-    handleSubmit() {
-      this.names.push(this.name);
-      this.clearName();
-      this.$refs.modal.hide();
+    handleSubmit () {
+      this.names.push(this.name)
+      this.clearName()
+      this.$refs.modal.hide()
     }
   }
 }
@@ -288,13 +298,6 @@ Vertically center your modal in the viewport by setting the `centered` prop.
 <!-- modal-center-v.vue -->
 ```
 
-**Warning:** Vertically centered modals are not suited for when the content is tall.
-They are best suited when the content is only one or two lines, such as Yes/No or
-OK/Cancel confirmation dialogs. When the resultant modal is taller than the viewport,
-the modal header (and parts of the top of the modal content) will become inaccessible.
-This issue becomes more prevalent on smaller screens.
-
-
 ## Using the grid
 Utilize the Bootstrap grid system within a modal by nesting `<b-container fluid>` within
 the modal-body. Then, use the normal grid system `<b-row>` (or `<b-form-row>`) and `<b-col>`
@@ -340,63 +343,65 @@ controlled by the `header-border-variant` and `footer-border-variant` props resp
 
 ```html
 <template>
-  <b-btn @click="show=true" variant="primary">Show Modal</b-btn>
-  <b-modal v-model="show"
-           title="Modal Variants"
-           :header-bg-variant="headerBgVariant"
-           :header-text-variant="headerTextVariant"
-           :body-bg-variant="bodyBgVariant"
-           :body-text-variant="bodyTextVariant"
-           :footer-bg-variant="footerBgVariant"
-           :footer-text-variant="footerTextVariant">
-     <b-container fluid>
-       <b-row class="mb-1 text-center">
-         <b-col cols="3"> </b-col>
-         <b-col>Background</b-col>
-         <b-col>Text</b-col>
-       </b-row>
-       <b-row class="mb-1">
-         <b-col cols="3">Header</b-col>
-         <b-col><b-form-select :options="variants" v-model="headerBgVariant" /></b-col>
-         <b-col><b-form-select :options="variants" v-model="headerTextVariant" /></b-col>
-       </b-row>
-       <b-row class="mb-1">
-         <b-col cols="3">Body</b-col>
-         <b-col><b-form-select :options="variants" v-model="bodyBgVariant" /></b-col>
-         <b-col><b-form-select :options="variants" v-model="bodyTextVariant" /></b-col>
-       </b-row>
-       <b-row>
-         <b-col cols="3">Footer</b-col>
-         <b-col><b-form-select :options="variants" v-model="footerBgVariant" /></b-col>
-         <b-col><b-form-select :options="variants" v-model="footerTextVariant" /></b-col>
-       </b-row>
-     </b-container>
-     <div slot="modal-footer" class="w-100">
-       <p class="float-left">Modal Footer Content</p>
-       <b-btn size="sm" class="float-right" variant="primary" @click="show=false">
-         Close
-       </b-btn>
-     </div>
-  </b-modal>
+  <div>
+    <b-btn @click="show=true" variant="primary">Show Modal</b-btn>
+    <b-modal v-model="show"
+             title="Modal Variants"
+             :header-bg-variant="headerBgVariant"
+             :header-text-variant="headerTextVariant"
+             :body-bg-variant="bodyBgVariant"
+             :body-text-variant="bodyTextVariant"
+             :footer-bg-variant="footerBgVariant"
+             :footer-text-variant="footerTextVariant">
+       <b-container fluid>
+         <b-row class="mb-1 text-center">
+           <b-col cols="3"> </b-col>
+           <b-col>Background</b-col>
+           <b-col>Text</b-col>
+         </b-row>
+         <b-row class="mb-1">
+           <b-col cols="3">Header</b-col>
+           <b-col><b-form-select :options="variants" v-model="headerBgVariant" /></b-col>
+           <b-col><b-form-select :options="variants" v-model="headerTextVariant" /></b-col>
+         </b-row>
+         <b-row class="mb-1">
+           <b-col cols="3">Body</b-col>
+           <b-col><b-form-select :options="variants" v-model="bodyBgVariant" /></b-col>
+           <b-col><b-form-select :options="variants" v-model="bodyTextVariant" /></b-col>
+         </b-row>
+         <b-row>
+           <b-col cols="3">Footer</b-col>
+           <b-col><b-form-select :options="variants" v-model="footerBgVariant" /></b-col>
+           <b-col><b-form-select :options="variants" v-model="footerTextVariant" /></b-col>
+         </b-row>
+       </b-container>
+       <div slot="modal-footer" class="w-100">
+         <p class="float-left">Modal Footer Content</p>
+         <b-btn size="sm" class="float-right" variant="primary" @click="show=false">
+           Close
+         </b-btn>
+       </div>
+    </b-modal>
+  </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-       show: false,
-       variants: [
-        'primary','secondary','success','warning','danger','info','light','dark'
-       ],
-       headerBgVariant: 'dark',
-       headerTextVariant: 'light',
-       bodyBgVariant: 'light',
-       bodyTextVariant: 'dark',
-       footerBgVariant: 'warning',
-       footerTextVariant: 'dark'
-    };
+      show: false,
+      variants: [
+        'primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark'
+      ],
+      headerBgVariant: 'dark',
+      headerTextVariant: 'light',
+      bodyBgVariant: 'light',
+      bodyTextVariant: 'dark',
+      footerBgVariant: 'warning',
+      footerTextVariant: 'dark'
+    }
   }
-};
+}
 </script>
 
 <!-- modal-variant-1.vue -->
@@ -458,8 +463,8 @@ an element already has focus within the `<b-modal>`.
 
 ```js
 methods: {
-  focusMyElement(e) {
-    this.$refs.focusThis.focus();
+  focusMyElement (e) {
+    this.$refs.focusThis.focus()
   }
 }
 ```

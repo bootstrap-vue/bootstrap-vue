@@ -8,9 +8,7 @@
     .modal-dialog-centered {
         display: flex;
         align-items: center;
-        height: 100%;
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
+        min-height: calc(100% - 30px);
     }
     .modal-dialog-centered .modal-content {
         width: 100%;

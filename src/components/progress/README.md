@@ -5,7 +5,7 @@ bars, featuring support for horzontally stacked bars, animated backgrounds, and 
 
 ```html
 <template>
-<div>
+  <div>
     <b-progress :value="counter" :max="max" show-progress animated></b-progress>
     <b-progress class="mt-1" :max="max" show-value>
       <b-progress-bar :value="counter*(6/10)" variant="success"></b-progress-bar>
@@ -13,20 +13,22 @@ bars, featuring support for horzontally stacked bars, animated backgrounds, and 
       <b-progress-bar :value="counter*(1.5/10)" variant="danger"></b-progress-bar>
     </b-progress>
     <b-btn class="mt-4" @click="clicked">Click me</b-btn>
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-  data: {
-    counter: 45,
-    max: 100
+  data () {
+    return {
+      counter: 45,
+      max: 100
+    }
   },
   methods: {
-    clicked() {
-      this.counter = Math.random() * this.max;
-      console.log("Change progress to " +
-        Math.round(this.counter * 100) / 100);
+    clicked () {
+      this.counter = Math.random() * this.max
+      console.log('Change progress to ' +
+        Math.round(this.counter * 100) / 100)
     }
   }
 }
@@ -64,9 +66,11 @@ digits after the decimal) via the `precision` prop (default is `0`digits after t
 
 <script>
 export default {
-  data: {
-    max: 50,
-    value: 33.333333333
+  data () {
+    return {
+      max: 50,
+      value: 33.333333333
+    }
   }
 }
 </script>
@@ -88,7 +92,7 @@ a `<b-progress-bar>` sub-component, or by using the `label` prop on `<b-progress
         Progress: <strong>{{ value.toFixed(3) }} / {{ max }}</strong>
       </b-progress-bar>
     </b-progress>
-    
+
     <h5 class="mt-3">Custom Label via Prop</h5>
     <b-progress :max="max">
       <b-progress-bar :value="value" :label="'&lt;'+value.toFixed(0)+'&gt;'">
@@ -99,9 +103,11 @@ a `<b-progress-bar>` sub-component, or by using the `label` prop on `<b-progress
 
 <script>
 export default {
-  data: {
-    max: 50,
-    value: 33.333333333
+  data () {
+    return {
+      max: 50,
+      value: 33.333333333
+    }
   }
 }
 </script>
@@ -138,8 +144,10 @@ one of the standard Bootstrap width classes.
 
 <script>
 export default {
-  data: {
-    value: 75
+  data () {
+    return {
+      value: 75
+    }
   }
 }
 </script>
@@ -165,8 +173,10 @@ height is `1rem`.
 
 <script>
 export default {
-  data: {
-    value: 75
+  data () {
+    return {
+      value: 75
+    }
   }
 }
 </script>
@@ -197,25 +207,27 @@ The default variant is `primary`.
 
 <script>
 export default {
-  data: {
-    bars: [
-      {variant:'success', value:75},
-      {variant:'info', value:75},
-      {variant:'warning', value:75},
-      {variant:'danger', value:75},
-      {variant:'primary', value:75},
-      {variant:'secondary', value:75},
-      {variant:'dark', value:75}
-    ],
-    timer: null
+  data () {
+    return {
+      bars: [
+        {variant: 'success', value: 75},
+        {variant: 'info', value: 75},
+        {variant: 'warning', value: 75},
+        {variant: 'danger', value: 75},
+        {variant: 'primary', value: 75},
+        {variant: 'secondary', value: 75},
+        {variant: 'dark', value: 75}
+      ],
+      timer: null
+    }
   },
-  mounted() {
+  mounted () {
     this.timer = setInterval(() => {
-      this.bars.forEach(bar => bar.value = 25 + (Math.random() * 75));
-    }, 2000);
+      this.bars.forEach(bar => bar.value = 25 + (Math.random() * 75))
+    }, 2000)
   },
-  destroyed() {
-    clearInterval(this.timer);
+  destroyed () {
+    clearInterval(this.timer)
   }
 }
 </script>
@@ -242,8 +254,10 @@ background variant.
 
 <script>
 export default {
-  data: {
-    striped: true
+  data () {
+    return {
+      striped: true
+    }
   }
 }
 </script>
@@ -269,8 +283,10 @@ The striped gradient can also be animated by setting the `animated`prop.
 
 <script>
 export default {
-  data: {
-    animate: true
+  data () {
+    return {
+      animate: true
+    }
   }
 }
 </script>
@@ -315,9 +331,11 @@ a horizontally stacked set of progress bars.
 
 <script>
 export default {
-  data: {
-    max: 100,
-    values: [ 15, 30, 20 ]
+  data () {
+    return {
+      max: 100,
+      values: [ 15, 30, 20 ]
+    }
   }
 }
 </script>
@@ -329,7 +347,7 @@ export default {
 but you can override any of the props by setting them on the `<b-progress-bar>`
 
 Notes:
-- `height`, if speified, should always set on the `<b-progress>` component.
+- `height`, if specified, should always set on the `<b-progress>` component.
 - `<b-progress-bar>` will not inherit `value` from `<b-progress>`.
 
 

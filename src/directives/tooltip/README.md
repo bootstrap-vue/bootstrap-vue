@@ -214,12 +214,14 @@ Title can also be a function reference, which is called each time the tooltip is
 
 <script>
 export default {
-  data: {
-    tipData: 'Tooltip <em>Message</em>'
+  data () {
+    return {
+      tipData: 'Tooltip <em>Message</em>'
+    }
   },
   methods: {
-    tipMethod() {
-      return '<strong>' + new Date() + '</string>';
+    tipMethod () {
+      return '<strong>' + new Date() + '</string>'
     }
   }
 }

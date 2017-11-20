@@ -20,9 +20,11 @@ multiple files, and directory upload (for browsers that support directory mode)
 
 <script>
 export default {
- data: {
-    file: null,
-    file2: null
+  data () {
+    return {
+      file: null,
+      file2: null
+    }
   }
 }
 </script>
@@ -152,16 +154,18 @@ to the `<b-form-file>` component:
 
 ```js
 window.app = new Vue({
-    el: '#app',
-    data: {
-        file: null
-    },
-    methods: {
-        clearFiles() {
-            this.$refs.fileinput.reset();
-        }
+  el: '#app',
+  data () {
+    return {
+      file: null
     }
-});
+  },
+  methods: {
+    clearFiles () {
+      this.$refs.fileinput.reset();
+    }
+  }
+})
 ```
 
 

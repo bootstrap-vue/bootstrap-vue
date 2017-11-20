@@ -17,11 +17,13 @@ and maximum number of rows, and contextual states.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       text: ''
     }
-  };
+  }
+}
 </script>
 
 <!-- form-textarea-1.vue -->
@@ -73,11 +75,13 @@ To apply one of the contextual state icons on `<b-form-textarea>`, set the `stat
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       text: ''
     }
-  };
+  }
+}
 </script>
 
 <!-- form-textarea-state.vue -->
@@ -120,11 +124,13 @@ field styling and preserve the correct margin and padding and height.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       text: 'This is some text.\nIt is read only and doesn\'t look like an input.'
     }
-  };
+  }
+}
 </script>
 
 <!-- form-textarea-plaintext.vue -->
@@ -134,4 +140,3 @@ field styling and preserve the correct margin and padding and height.
 You can use `<b-form-textarea>` by it's shorter alias `<b-textarea>`.
 
 ## Component reference
-

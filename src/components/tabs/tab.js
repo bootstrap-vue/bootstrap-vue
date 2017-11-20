@@ -4,22 +4,25 @@ export default {
   mixins: [idMixin],
   render (h) {
     const t = this
-    const content = h(
-      t.tag,
-      {
-        ref: 'panel',
-        class: t.tabClasses,
-        directives: [ { name: 'show', value: t.localActive } ],
-        attrs: {
-          role: 'tabpanel',
-          id: t.safeId(),
-          'aria-hidden': t.localActive ? 'false' : 'true',
-          'aria-expanded': t.localActive ? 'true' : 'false',
-          'aria-lablelledby': t.controlledBy || null
-        }
-      },
-      [ t.$slots.default ]
-    )
+    let content = h(false)
+    if (t.localActive || !this.computedLazy) {
+      content = h(
+        t.tag,
+        {
+          ref: 'panel',
+          class: t.tabClasses,
+          directives: [ { name: 'show', value: t.localActive } ],
+          attrs: {
+            role: 'tabpanel',
+            id: t.safeId(),
+            'aria-hidden': t.localActive ? 'false' : 'true',
+            'aria-expanded': t.localActive ? 'true' : 'false',
+            'aria-lablelledby': t.controlledBy || null
+          }
+        },
+        [ t.$slots.default ]
+      )
+    }
     return h(
       'transition',
       {

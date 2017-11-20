@@ -14,11 +14,13 @@
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       text1: ''
     }
   }
+}
 </script>
 
 <!-- form-input-1.vue -->
@@ -42,12 +44,14 @@ of the supported types: `text`, `password`, `email`, `number`, `url`, `tel`, `se
 
 <script>
 export default {
-    data: {
-        types: [
-            'text', 'password', 'email', 'number', 'url',
-            'tel', 'date', `time`, 'range', 'color'
-        ]
+  data () {
+    return {
+      types: [
+        'text', 'password', 'email', 'number', 'url',
+        'tel', 'date', `time`, 'range', 'color'
+      ]
     }
+  }
 }
 </script>
 
@@ -56,16 +60,18 @@ export default {
 
 If prop `type` is set to an unsupported value, a `text` input will be rendered.
 
-Not all browsers support all types, nor do some types render in the same format across
-browser types/version. Browsers that do not support a particular type will fall back to
-a `text` input type.
-
-Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
+**Caveats with input types:**
+- Not all browsers support all input types, nor do some types render in the same format across
+browser types/version.
+- Browsers that do not support a particular type will fall back to
+a `text` input type. As an example, Firefox desktop doesn't support `date`, `datetime`,
+or `time`, while Firefox mobile does.
+- Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
 Instead of using `datetime`, since support should be deprecated, use `date` and `time`
 as two separate input types.
-
-For date an time style input, when supported, the displayed value in the GUI may be different
-than what is return by it's value.
+- For date and time style input, where supported, the displayed value in the GUI may be different
+than what is returned by it's value.
+- Regardless of input type, the value is **always** returned as a string representation.
 
 
 ## Control sizing
@@ -162,16 +168,18 @@ to:
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  computed: {
+    nameState () {
+      return this.name.length > 2 ? null : false
+    }
+  },
+  data () {
+    return {
       name: ''
-    },
-    computed: {
-      nameState() {
-        return this.name.length > 2 ? null : false;
-      }
     }
   }
+}
 </script>
 
 <!-- form-input-states-2.vue -->
@@ -247,17 +255,19 @@ No formatting occurs if a `formatter` is not provided.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       text1: '',
       text2: ''
-    },
-    methods: {
-      format(value, event) {
-        return value.toLowerCase();
-      }
+    }
+  },
+  methods: {
+    format (value, event) {
+      return value.toLowerCase()
     }
   }
+}
 </script>
 
 <!-- form-input-formatter.vue -->
