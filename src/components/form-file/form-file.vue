@@ -32,7 +32,7 @@
     /* See issue https://github.com/twbs/bootstrap/issues/24831 */
     .form-control-file.is-invalid ~ .invalid-feedback,
     .form-control-file.is-valid ~ .valid-feedback,
-    .was-validated .form-control-file.:invalid ~ .invalid-feedback,
+    .was-validated .form-control-file:invalid ~ .invalid-feedback,
     .was-validated .form-control-file:valid ~ .valid-feedback {
         display: block;
     }
