@@ -2,11 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-<a name="1.2.0"></a>
-# [1.2.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.1.0...v1.2.0) (2017-11-20)
+## [v1.2.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.1.0...v1.2.0)
+Released: 2017-11-20
 
 
-### Bug Fixes
+### Bug Fixes v1.2.0
 
 * **ci:** auto deploy docs from master branch ([22e432d](https://github.com/bootstrap-vue/bootstrap-vue/commit/22e432d))
 * **form-file:** invalid/valid feedback display for plain file input missing in Bootstrap V4 ([#1373](https://github.com/bootstrap-vue/bootstrap-vue/issues/1373)) ([85ab0d0](https://github.com/bootstrap-vue/bootstrap-vue/commit/85ab0d0))
@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **tabs:** lazy prop regression ([#1372](https://github.com/bootstrap-vue/bootstrap-vue/issues/1372)) ([844cd81](https://github.com/bootstrap-vue/bootstrap-vue/commit/844cd81)), closes [#1371](https://github.com/bootstrap-vue/bootstrap-vue/issues/1371)
 
 
-### Features
+### Features v1.2.0
 
 * **modal:** fix for overflowing centered modal to scroll ([#1363](https://github.com/bootstrap-vue/bootstrap-vue/issues/1363)) ([3b3ba32](https://github.com/bootstrap-vue/bootstrap-vue/commit/3b3ba32))
 * **pagination+pagination-nav:** disabled styling now works in BS V4.beta.2 ([#1381](https://github.com/bootstrap-vue/bootstrap-vue/issues/1381)) ([d51349f](https://github.com/bootstrap-vue/bootstrap-vue/commit/d51349f))
