@@ -32,7 +32,7 @@ export default {
     },
     placement: {
       type: String,
-      default: 'auto'
+      default: 'right'
     }
   },
   methods: {

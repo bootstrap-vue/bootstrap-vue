@@ -228,7 +228,7 @@ export default {
 | `target` | `null` | String ID of element, or a reference to an element or component, that you want to trigger the popover. **Required** | Any valid, in-document unique element ID, or in-document element/component reference
 | `title` | `null` | Title of popover (text only, no HTML). if HTML is required, place it in the `title` named slot | Plain text
 | `content` | `null` | Content of popover (text only, no HTML). if HTML is required, place it in the default slot | Plain text
-| `placement` | `'auto'` | Positioning of the popover, relative to the trigger element. | `auto`, `top`, `bottom`, `left`, `right`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
+| `placement` | `'right'` | Positioning of the popover, relative to the trigger element. | `auto`, `top`, `bottom`, `left`, `right`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
 | `sync` | `false` | Programmatic control of the Popover display state. Recommended to use with [sync modifier](https://vuejs.org/v2/guide/components.html#sync-Modifier). | `true`, `false`
 | `triggers` | `'click'` | Space separated list of which event(s) will trigger open/close of popover using built-in handling | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
@@ -251,7 +251,7 @@ Setting it to `true` will show the popover, while setting it to `false` will hid
     <div class="p-2">
       <b-btn class="px-1" @click="show = !show">Toggle Popover</b-btn>
 
-      <b-popover :show.sync="show" target="popoverButton-sync" placement="right" title="Popover">
+      <b-popover :show.sync="show" target="popoverButton-sync" title="Popover">
         Hello <strong>World!</strong>
       </b-popover>
     </div>
@@ -283,7 +283,7 @@ Programmatic control can also be affected by submitting `'open'` and `'close'` e
       <b-btn class="px-1" @click="onClose">Close</b-btn>
     </div>
 
-    <b-popover ref="popover" target="popoverButton-event" placement="right" title="Popover">
+    <b-popover ref="popover" target="popoverButton-event" title="Popover">
       Hello <strong>World!</strong>
     </b-popover>
   </div>
@@ -339,7 +339,6 @@ control yourself as demonstrated by the rightmost Popover.
       <b-popover target="exPopoverManual1"
                  :show.sync="pop1"
                  triggers="click"
-                 placement="right"
                  ref="popover1">
         I can be stubborn sometimes.
       </b-popover>
@@ -351,7 +350,6 @@ control yourself as demonstrated by the rightmost Popover.
       <b-popover target="exPopoverManual2"
                  :show.sync="pop2"
                  triggers=""
-                 placement="right"
                  ref="popover2">
         I do believe it's working, good.
       </b-popover>
