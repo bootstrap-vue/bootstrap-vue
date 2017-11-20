@@ -56,16 +56,18 @@ export default {
 
 If prop `type` is set to an unsupported value, a `text` input will be rendered.
 
-Not all browsers support all types, nor do some types render in the same format across
-browser types/version. Browsers that do not support a particular type will fall back to
-a `text` input type.
-
-Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
+**Caveats with input types:**
+- Not all browsers support all input types, nor do some types render in the same format across
+browser types/version.
+- Browsers that do not support a particular type will fall back to
+a `text` input type. As an example, Firefox desktop doesn't support `date`, `datetime`,
+or `time`, while Firefox mobile does.
+- Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
 Instead of using `datetime`, since support should be deprecated, use `date` and `time`
 as two separate input types.
-
-For date an time style input, when supported, the displayed value in the GUI may be different
-than what is return by it's value.
+- For date and time style input, where supported, the displayed value in the GUI may be different
+than what is returned by it's value.
+- Regardless of input type, the value is **always** returned as a string representation.
 
 
 ## Control sizing
