@@ -460,7 +460,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
     <div class="my-3">
       <!-- our triggering (target) element -->
       <b-btn id="exPopoverReactive1"
-             :disabled="disabled"
+             :disabled="popoverShow"
              variant="primary"
              ref="button">
         Reactive Content Using Slots
@@ -480,6 +480,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
     <!-- We specify the same container as the trigger button, so that popover is close to button in tab sequence -->
     <b-popover target="exPopoverReactive1"
                triggers="click"
+               :show.sync="popoverShow"
                placement="auto"
                container="myContainer"
                ref="popover"
@@ -506,7 +507,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
           Name: <strong>{{ input1 }}</strong><br>
           Color: <strong>{{ input2 }}</strong>
         </b-alert>
-        <b-btn @click="onCancel" size="sm" variant="danger">Cancel</b-btn>
+        <b-btn @click="onClose" size="sm" variant="danger">Cancel</b-btn>
         <b-btn @click="onOk" size="sm" variant="primary">Ok</b-btn>
       </div>
     </b-popover>
@@ -524,7 +525,7 @@ export default {
       options: [{text: '- Choose 1 -', value: ''}, 'Red', 'Green', 'Blue'],
       input1Return: '',
       input2Return: '',
-      disabled: false
+      popoverShow: false
     }
   },
   watch: {
@@ -541,19 +542,13 @@ export default {
   },
   methods: {
     onClose () {
-      // Emitting 'close' on the popover will trigger it to hide for us
-      this.$refs.popover.$emit('close')
-    },
-    onCancel () {
-      // Emitting 'close' on the popover will trigger it to hide for us
-      this.$refs.popover.$emit('close')
+      this.popoverShow = false
     },
     onOk () {
       if (!this.input1) { this.input1state = false }
       if (!this.input2) { this.input2state = false }
       if (this.input1 && this.input2) {
-        // Emitting 'close' on the popover will trigger it to hide for us
-        this.$refs.popover.$emit('close')
+        this.onClose()
         // "Return" our popover "form" results
         this.input1Return = this.input1
         this.input2Return = this.input2
@@ -568,8 +563,6 @@ export default {
       this.input2state = null
       this.input1Return = ''
       this.input2Return = ''
-      // Disable our trigger button to prevent popover closing on second click
-      this.disabled = true
     },
     onShown () {
       // Called just after the popover has been shown
@@ -578,9 +571,7 @@ export default {
     },
     onHidden () {
       // Called just after the popover has finished hiding
-      // We re-enable our button
-      this.disabled = false
-      // And bring focus back to it
+      // Bring focus back to the button
       this.focusRef(this.$refs.button)
     },
     focusRef (ref) {
