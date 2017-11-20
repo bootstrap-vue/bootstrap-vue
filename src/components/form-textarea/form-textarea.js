@@ -13,6 +13,7 @@ export default {
         directives: [
           { name: 'model', rawName: 'v-model', value: t.localValue, expression: 'localValue' }
         ],
+        domProps: { value: t.value },
         attrs: {
           id: t.safeId(),
           name: t.name,
