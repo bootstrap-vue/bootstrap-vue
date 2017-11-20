@@ -91,7 +91,7 @@ V4 CSS assumes the tabs will always be placed on the top of the tabs content.
 content of each tab pane is the same height and fits completely within the visible
 viewport, otherwise the user will need to scroll up to read the start of the tabed content.
 
-**Note:** the `bottom` prop has been deprecated in favor of the `end` prop.
+**Note:** _the `bottom` prop has been deprecated in favor of the `end` prop._
 
 
 ## Vertical tabs
@@ -163,8 +163,7 @@ Vertical placement visually works best with the `pills` variant. When using the 
 `tabs` vairiant, you may want to provided your own custom styling classes, as Bootstrap
 V4 CSS assumes the tabs will always be placed on the top of the tabs content.
 
-**Note:** overflowing text may occur if your width is narrower than the tab title. You
-may need additional custom styling.
+**Note:** _overflowing text may occur if your width is narrower than the tab title. You may need additional custom styling._
 
 
 ## Fade animation
@@ -196,8 +195,7 @@ In some situations, you may want to add classes to the `<li>` (nav-item) and/or 
 the `title-item-class` prop (for the `<li>` element) or `title-link-class` prop (for the
 `<a>` element).  Value's can be passed as a string or array of strings.
 
-Note: The `active` class is automatically applied to the active tabs `<a>` element. You may need
-to accomodate your custom classes for this.
+**Note:** _The `active` class is automatically applied to the active tabs `<a>` element. You may need to accomodate your custom classes for this._
 
 ```html
 <template>
