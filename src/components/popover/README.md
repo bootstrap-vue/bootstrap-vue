@@ -244,7 +244,7 @@ Setting it to `true` will show the popover, while setting it to `false` will hid
 
 ```html
 <template>
-  <div class="d-flex flex-column">
+  <div class="d-flex flex-column text-md-center">
     <div class="p-2">
       <b-btn id="popoverButton-sync" variant="primary">I have a popover</b-btn>
     </div>
@@ -274,7 +274,7 @@ Programmatic control can also be affected by submitting `'open'` and `'close'` e
 
 ```html
 <template>
-  <div class="d-flex flex-column">
+  <div class="d-flex flex-column text-md-center">
     <div class="p-2">
       <b-btn id="popoverButton-event" variant="primary">I have a popover</b-btn>
     </div>
@@ -331,7 +331,7 @@ control yourself as demonstrated by the rightmost Popover.
 
 ```html
 <template>
-  <div class="d-flex flex-column">
+  <div class="d-flex flex-column text-md-center">
     <div class="p-2">
       <b-btn id="exPopoverManual1" variant="primary" ref="button">
         Unreliable
