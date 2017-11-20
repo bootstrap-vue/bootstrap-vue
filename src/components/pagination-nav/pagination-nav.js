@@ -1,10 +1,9 @@
 import { assign } from '../../utils/object'
-import { KeyCodes } from '../../utils'
 import { paginationMixin } from '../../mixins'
 import { pickLinkProps } from '../link/link'
 
 // Props needed for router links
-const routerProps = pickLinkProps('activeClass','exactActiveClass','append','exact','replace','target','rel')
+const routerProps = pickLinkProps('activeClass', 'exactActiveClass', 'append', 'exact', 'replace', 'target', 'rel')
 
 // Props object
 const props = assign(
@@ -40,28 +39,28 @@ export default {
   props,
   computed: {
     // Used by render function to trigger wraping in '<nav>' element
-    isNav() {
+    isNav () {
       return true
     }
   },
   methods: {
-    onClick(pageNum, evt) {
+    onClick (pageNum, evt) {
       this.currentPage = pageNum
     },
-    makePage(pagenum) {
+    makePage (pagenum) {
       if (this.pageGen && typeof this.pageGen === 'function') {
         return this.pageGen(pagenum)
       }
       return pagenum
     },
-    makeLink(pagenum) {
+    makeLink (pagenum) {
       if (this.linkGen && typeof this.linkGen === 'function') {
         return this.linkGen(pagenum)
       }
       const link = `${this.baseUrl}${pagenum}`
       return this.useRouter ? { path: link } : link
     },
-    linkProps(pagenum) {
+    linkProps (pagenum) {
       const link = this.makeLink(pagenum)
       let props = {
         href: typeof link === 'string' ? link : void 0,
