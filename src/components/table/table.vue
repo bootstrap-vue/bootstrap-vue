@@ -584,7 +584,7 @@
           this.hover ? 'table-hover' : '',
           this.dark ? 'table-dark' : '',
           this.bordered ? 'table-bordered' : '',
-          this.outlined ? 'bordered' : '',
+          this.outlined ? 'border' : '',
           responsive === true ? 'table-responsive' : (Boolean(responsive) ? `table-responsive-${responsive}` : ''),
           this.fixed ? 'table-fixed' : '',
           this.small ? 'table-sm' : ''
