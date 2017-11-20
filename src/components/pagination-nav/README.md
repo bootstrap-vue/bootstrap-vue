@@ -6,27 +6,29 @@ regular links or router links.
 ```html
 <template>
 <div>
-    <h6>Default</h6>
-    <b-pagination-nav base-url="#" :number-of-pages="10" v-model="currentPage" />
+  <h6>Default</h6>
+  <b-pagination-nav base-url="#" :number-of-pages="10" v-model="currentPage" />
 
-    <h6 class="mt-4">With link generator function</h6>
-    <b-pagination-nav :link-gen="linkGen" :number-of-pages="10" v-model="currentPage" />
-    <br>
+  <h6 class="mt-4">With link generator function</h6>
+  <b-pagination-nav :link-gen="linkGen" :number-of-pages="10" v-model="currentPage" />
+  <br>
 
-    <div class="mt-4">currentPage: {{currentPage}}</div>
+  <div class="mt-4">currentPage: {{currentPage}}</div>
 </div>
 </template>
 
 <script>
 export default {
-    data: {
-        currentPage: 1
-    },
-    methods: {
-        linkGen(pageNum) {
-            return '#page/' + pageNum + '/foobar';
-        }
+  data () {
+    return {
+      currentPage: 1
     }
+  },
+  methods: {
+    linkGen (pageNum) {
+      return '#page/' + pageNum + '/foobar'
+    }
+  }
 }
 </script>
 
@@ -66,14 +68,14 @@ the `use-router` prop is set.
 ```js
 // For regular HREF (or string `to` prop if `use-router` is set)
 linkGen(pageNum) {
-    return '/foo/page/' + pageNum
+  return '/foo/page/' + pageNum
 }
 
 // Returning a router-link `to` object
 linkGen(pageNum) {
-    return {
-        path: '/foo/page/' + pageNum
-    };
+  return {
+    path: '/foo/page/' + pageNum
+  }
 }
 ```
 
@@ -105,21 +107,23 @@ Note HTML strings are currently not supported.
 
 <script>
 export default {
-  data: {
-    currentPage: 1,
-    links: ['#foo','#bar', '#baz', '#faz']
-  },
   computed: {
-    pageLink() {
-      return this.linkGen(this.currentPage);
+    pageLink () {
+      return this.linkGen(this.currentPage)
+    }
+  },
+  data () {
+    return {
+      currentPage: 1,
+      links: ['#foo', '#bar', '#baz', '#faz']
     }
   },
   methods: {
-    linkGen(pageNum) {
-      return this.links[pageNum - 1];
+    linkGen (pageNum) {
+      return this.links[pageNum - 1]
     },
-    pageGen(pageNum) {
-      return this.links[pageNum - 1].slice(1);
+    pageGen (pageNum) {
+      return this.links[pageNum - 1].slice(1)
     }
   }
 }
@@ -134,22 +138,24 @@ prop to eiter `'am` for smaller buttons or `'lg'` for larger buttons.
 ```html
 <template>
 <div>
-    <h6>Small</h6>
-    <b-pagination-nav size="sm" base-url="#" :number-of-pages="5" v-model="currentPage" />
+  <h6>Small</h6>
+  <b-pagination-nav size="sm" base-url="#" :number-of-pages="5" v-model="currentPage" />
 
-    <h6>Default</h6>
-    <b-pagination-nav base-url="#" :number-of-pages="5" v-model="currentPage" />
+  <h6>Default</h6>
+  <b-pagination-nav base-url="#" :number-of-pages="5" v-model="currentPage" />
 
-    <h6>Large</h6>
-    <b-pagination-nav size="lg" base-url="#" :number-of-pages="5" v-model="currentPage" />
+  <h6>Large</h6>
+  <b-pagination-nav size="lg" base-url="#" :number-of-pages="5" v-model="currentPage" />
 </div>
 </template>
 
 <script>
 export default {
-    data: {
-        currentPage: 1
+  data () {
+    return {
+      currentPage: 1
     }
+  }
 }
 </script>
 
@@ -185,27 +191,29 @@ By default the pagination component is left aligned. Change the alignment to
 ```html
 <template>
 <div>
-    <h6>Left alignment (default)</h6>
-    <b-pagination-nav :number-of-pages="10" base-url="#" v-model="currentPage" />
-    <br>
+  <h6>Left alignment (default)</h6>
+  <b-pagination-nav :number-of-pages="10" base-url="#" v-model="currentPage" />
+  <br>
 
-    <h6>Center alignment</h6>
-    <b-pagination-nav align="center" :number-of-pages="10" base-url="#" v-model="currentPage" />
-    <br>
+  <h6>Center alignment</h6>
+  <b-pagination-nav align="center" :number-of-pages="10" base-url="#" v-model="currentPage" />
+  <br>
 
-    <h6>Right (end) alignment</h6>
-    <b-pagination-nav align="right" :number-of-pages="10" base-url="#" v-model="currentPage" />
-    <br>
+  <h6>Right (end) alignment</h6>
+  <b-pagination-nav align="right" :number-of-pages="10" base-url="#" v-model="currentPage" />
+  <br>
 
-    <div>currentPage: {{currentPage}}</div>
+  <div>currentPage: {{currentPage}}</div>
 </div>
 </template>
 
 <script>
 export default {
-    data: {
-        currentPage: 1
+  data () {
+    return {
+      currentPage: 1
     }
+  }
 }
 </script>
 

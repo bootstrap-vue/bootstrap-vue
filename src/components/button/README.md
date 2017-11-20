@@ -120,8 +120,9 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       myToggle: false,
       buttons: [
         { variant: 'primary', caption: 'Toggle 1', state: true },
@@ -131,13 +132,14 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
         { variant: 'outline-success', caption: 'Toggle 5', state: false },
         { variant: 'outline-primary', caption: 'Toggle 6', state: false }
       ]
-    },
-    computed: {
-      btnStates() {
-        return this.buttons.map(btn => btn.state);
-      }
+    }
+  },
+  computed: {
+    btnStates () {
+      return this.buttons.map(btn => btn.state)
     }
   }
+}
 </script>
 
 <!-- button-4.vue -->

@@ -21,15 +21,17 @@ as well as contextual state visual feedback.
 <script>
 export default {
   computed: {
-    feedback() {
-      return this.name.length > 0 ? 'Enter at least 4 characters' : 'Please enter something';
+    feedback () {
+      return this.name.length > 0 ? 'Enter at least 4 characters' : 'Please enter something'
     },
-    state() {
-      return this.name.length > 4 ? 'valid' : 'invalid';
+    state () {
+      return this.name.length > 4 ? 'valid' : 'invalid'
     }
   },
-  data: {
-    name: '',
+  data () {
+    return {
+      name: ''
+    }
   }
 }
 </script>

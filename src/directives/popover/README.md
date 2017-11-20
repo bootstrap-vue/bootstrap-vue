@@ -285,29 +285,31 @@ Content can also be a function reference, which is called each time the popover 
 
 <script>
 export default {
-  data: {
-    popoverData: {
-      title: 'Popover Title',
-      content: 'Popover Content'
-    },
-    counter: 0
+  data () {
+    return {
+      popoverData: {
+        title: 'Popover Title',
+        content: 'Popover Content'
+      },
+      counter: 0
+    }
   },
   methods: {
-    popoverMethod() {
+    popoverMethod () {
       // Returns the content as a string
       // Will be called each time popover is opened
-      return '<strong>' + new Date() + '</strong>';
+      return '<strong>' + new Date() + '</strong>'
     }
   },
   computed: {
-    popoverConfig() {
+    popoverConfig () {
       // Both title and content specified as a function in this example
       // and will be called each time popover is opened
       return {
         html: true,
-        title: () => { return 'Hello <b>Popover:</b> ' + (++this.counter); },
-        content: () => { return 'The date is:<br><em>' + new Date() + '</em>'; }
-      };
+        title: () => { return 'Hello <b>Popover:</b> ' + (++this.counter) },
+        content: () => { return 'The date is:<br><em>' + new Date() + '</em>' }
+      }
     }
   }
 }

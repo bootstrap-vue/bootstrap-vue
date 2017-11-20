@@ -24,7 +24,7 @@ Scroll the area below the navbar and watch the active class change. The dropdown
 will be highlighted as well.
 
 ```html
-<template> 
+<template>
   <b-card no-body>
     <b-nav pills slot="header" v-b-scrollspy:nav-scroller>
       <b-nav-item href="#fat" @click="scrollIntoView">@fat</b-nav-item>
@@ -62,26 +62,28 @@ export default {
   methods: {
     // Convenience method to scroll a heading into view.
     // Not required for scrollspy to work
-    scrollIntoView(evt) {
-      evt.preventDefault();
-      const href = evt.target.getAttribute('href');
-      const el = href ? document.querySelector(href) : null;
+    scrollIntoView (evt) {
+      evt.preventDefault()
+      const href = evt.target.getAttribute('href')
+      const el = href ? document.querySelector(href) : null
       if (el) {
-        this.$refs.content.scrollTop = el.offsetTop;
+        this.$refs.content.scrollTop = el.offsetTop
       }
     }
   },
-  data: {
-    text: `
-      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
-      tempor. Laborum consequat non elit enim exercitation cillum aliqua
-      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
-      laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
-      Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
-      nisi sit est tempor laborum mollit labore officia laborum excepteur
-      commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
-      ipsum commodo tempor sunt in proident.
-    `
+  data () {
+    return {
+      text: `
+        Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+        tempor. Laborum consequat non elit enim exercitation cillum aliqua
+        consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+        laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+        Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+        nisi sit est tempor laborum mollit labore officia laborum excepteur
+        commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+        ipsum commodo tempor sunt in proident.
+      `
+    }
   }
 }
 </script>
@@ -89,7 +91,7 @@ export default {
 <!-- scrollspy-nav-1.vue -->
 ```
 ### Example using nested navs
-Scrollspy also works with nested `<b-nav>`. If a nested `<b-nav-item>` is 
+Scrollspy also works with nested `<b-nav>`. If a nested `<b-nav-item>` is
 active, its parents will also be active. Scroll the area next to the navbar and
 watch the active class change.
 
@@ -139,17 +141,19 @@ watch the active class change.
 
 <script>
 export default {
-  data: {
-    text: `
-      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
-      tempor. Laborum consequat non elit enim exercitation cillum aliqua
-      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
-      laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
-      Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
-      nisi sit est tempor laborum mollit labore officia laborum excepteur
-      commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
-      ipsum commodo tempor sunt in proident.
-    `
+  data () {
+    return {
+      text: `
+        Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+        tempor. Laborum consequat non elit enim exercitation cillum aliqua
+        consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+        laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+        Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+        nisi sit est tempor laborum mollit labore officia laborum excepteur
+        commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+        ipsum commodo tempor sunt in proident.
+      `
+    }
   }
 }
 </script>
@@ -194,17 +198,19 @@ active state change.
 
 <script>
 export default {
-  data: {
-    text: `
-      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
-      tempor. Laborum consequat non elit enim exercitation cillum aliqua
-      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
-      laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
-      Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
-      nisi sit est tempor laborum mollit labore officia laborum excepteur
-      commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
-      ipsum commodo tempor sunt in proident.
-    `
+  data () {
+    return {
+      text: `
+        Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+        tempor. Laborum consequat non elit enim exercitation cillum aliqua
+        consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+        laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+        Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+        nisi sit est tempor laborum mollit labore officia laborum excepteur
+        commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+        ipsum commodo tempor sunt in proident.
+      `
+    }
   }
 }
 </script>
@@ -264,7 +270,7 @@ If any of the options are invalid types, then an error is written to the console
 **Important! Requires relative positioning**
 No matter the implementation method, scrollspy requires the use of
 `position: relative;` on the element you’re scrolling on. In most cases this
-is the `<body>`. When scrollspying on elements other than the <body>, be 
+is the `<body>`. When scrollspying on elements other than the <body>, be
 sure to have a CSS `height` set and `overflow-y: scroll;` applied.
 
 
@@ -335,12 +341,12 @@ Whenever a target is activated, the event `bv:scrollspy::activate` is emitted on
 new Vue({
   el: '#app',
   methods: {
-  	onActivate(target) {
-    	console.log('Receved Event: scrollspy::activate for target ', target);
+    onActivate (target) {
+      console.log('Receved Event: scrollspy::activate for target ', target)
     }
   },
-  created() {
-  	this.$root.$on('bv::scrollspy::activate', this.onActivate);
+  created () {
+    this.$root.$on('bv::scrollspy::activate', this.onActivate)
   }
 })
 ```

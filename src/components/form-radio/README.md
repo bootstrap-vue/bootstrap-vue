@@ -19,7 +19,7 @@ for the default radio input.
 
 The individual radio inputs in radio input group can be specified via the `options`
 prop of `<b-form-radio-group>`, or via manual placement of the `<b-form-radio>` sub component.
-  
+
 ```html
 <template>
   <div>
@@ -42,8 +42,9 @@ prop of `<b-form-radio-group>`, or via manual placement of the `<b-form-radio>` 
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       selected: 'first',
       options: [
         { text: 'Toggle this custom radio', value: 'first' },
@@ -52,7 +53,8 @@ prop of `<b-form-radio-group>`, or via manual placement of the `<b-form-radio>` 
         { text: 'This is the 4th radio', value: {fourth: 4} }
       ]
     }
-  };
+  }
+}
 </script>
 
 <!-- form-radio-1.vue -->
@@ -87,7 +89,7 @@ Control the size of the radio text by setting the prop `size` to either `sm` for
                         :options="options"
                         name="radiosMd">
     </b-form-radio-group>
-    
+
     <br>
     <h5>Large size radios</h5>
     <b-form-radio-group v-model="selected"
@@ -103,8 +105,9 @@ Control the size of the radio text by setting the prop `size` to either `sm` for
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       selected: 'first',
       options: [
         { text: 'First radio', value: 'first' },
@@ -113,6 +116,7 @@ Control the size of the radio text by setting the prop `size` to either `sm` for
       ]
     }
   }
+}
 </script>
 
 <!-- form-radio-size-1.vue -->
@@ -149,8 +153,9 @@ the radios appear one over the other.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       selected: 'first',
       options: [
         { text: 'First radio', value: 'first' },
@@ -159,6 +164,7 @@ the radios appear one over the other.
       ]
     }
   }
+}
 </script>
 
 <!-- form-radio-stacked-1.vue -->
@@ -208,14 +214,16 @@ when they are in the checked state.
 
 <script>
 export default {
-  data: {
-    selected: 'radio1',
-    options: [
-      { text: 'Radio 1', value: 'radio1' },
-      { text: 'Radio 3', value: 'radio2' },
-      { text: 'Radio 3 (disabled)', value: 'radio3', disabled: true },
-      { text: 'Radio 4', value: 'radio4' }
-    ]
+  data () {
+    return {
+      selected: 'radio1',
+      options: [
+        { text: 'Radio 1', value: 'radio1' },
+        { text: 'Radio 3', value: 'radio2' },
+        { text: 'Radio 3 (disabled)', value: 'radio3', disabled: true },
+        { text: 'Radio 4', value: 'radio4' }
+      ]
+    }
   }
 }
 </script>
@@ -255,8 +263,9 @@ You can have `b-form-radio` render a browser native radio input by setting the `
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       selected: 'first',
       options: [
         { text: 'First radio', value: 'first' },
@@ -265,6 +274,7 @@ You can have `b-form-radio` render a browser native radio input by setting the `
       ]
     }
   }
+}
 </script>
 
 <!-- form-radio-plain-1.vue -->

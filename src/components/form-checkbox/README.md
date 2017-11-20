@@ -21,9 +21,11 @@ the default checkbox input.
 
 <script>
 export default {
-    data: {
-        status: 'not_accepted'
+  data () {
+    return {
+      status: 'not_accepted'
     }
+  }
 }
 </script>
 
@@ -51,8 +53,9 @@ export default {
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       selected: [], // Must be an array reference!
       options: [
         {text: 'Orange', value: 'orange'},
@@ -61,7 +64,8 @@ export default {
         {text: 'Grape', value: 'grape'}
       ]
     }
-  };
+  }
+}
 </script>
 
 <!-- form-checkbox-2.vue -->
@@ -95,8 +99,9 @@ options (value array) to `<b-form-checkboxes>`.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       selected: [], // Must be an array reference!
       options: [
         {text: 'Orange', value: 'orange'},
@@ -105,7 +110,8 @@ options (value array) to `<b-form-checkboxes>`.
         {text: 'Grape', value: 'grape'}
       ]
     }
-  };
+  }
+}
 </script>
 
 <!-- form-checkbox-stacked-1.vue -->
@@ -169,8 +175,9 @@ when they are in the _checked_ state.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       selected: [], // Must be an array reference!
       options: [
         {text: 'Orange', value: 'orange'},
@@ -179,7 +186,8 @@ when they are in the _checked_ state.
         {text: 'Grape', value: 'grape'}
       ]
     }
-  };
+  }
+}
 </script>
 
 <!-- form-checkboxs-buttons.vue -->
@@ -208,8 +216,9 @@ chechbox input by setting the `plain` prop.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       selected: [], // Must be an array reference!
       options: [
         {text: 'Orange', value: 'orange'},
@@ -218,7 +227,8 @@ chechbox input by setting the `plain` prop.
         {text: 'Grape', value: 'grape'}
       ]
     }
-  };
+  }
+}
 </script>
 
 <!-- form-checkbox-plain-1.vue -->
@@ -282,15 +292,17 @@ The `indeterminate` prop can be synced to the checkboxe's state by v-binding the
 
 <script>
 export default {
-    data: {
-        checked: true,
-        indeterminate: true
-    },
-    methods: {
-        toggleIndeterminate() {
-            this.indeterminate = !this.indeterminate;
-        }
+  data () {
+    return {
+      checked: true,
+      indeterminate: true
     }
+  },
+  methods: {
+    toggleIndeterminate () {
+      this.indeterminate = !this.indeterminate
+    }
+  }
 }
 </script>
 
@@ -328,32 +340,34 @@ export default {
 
 <script>
 export default {
-    data: {
-        flavours: ['Orange', 'Grape', 'Apple', 'Lime', 'Very Berry'],
-        selected: [],
-        allSelected: false,
-        indeterminate: false
-    },
-    methods: {
-       toggleAll(checked) {
-          this.selected = checked ? this.flavours.slice() : [];
-       }
-    },
-    watch: {
-        selected(newVal, oldVal) {
-            // Handle changes in individual flavour checkboxes
-            if (newVal.length === 0) {
-                this.indeterminate = false;
-                this.allSelected = false;
-            } else if (newVal.length === this.flavours.length) {
-                this.indeterminate = false;
-                this.allSelected = true;
-            } else {
-                this.indeterminate = true;
-                this.allSelected = false;
-            }
-        }
+  data () {
+    return {
+      flavours: ['Orange', 'Grape', 'Apple', 'Lime', 'Very Berry'],
+      selected: [],
+      allSelected: false,
+      indeterminate: false
     }
+  },
+  methods: {
+    toggleAll (checked) {
+      this.selected = checked ? this.flavours.slice() : []
+    }
+  },
+  watch: {
+    selected (newVal, oldVal) {
+      // Handle changes in individual flavour checkboxes
+      if (newVal.length === 0) {
+        this.indeterminate = false
+        this.allSelected = false
+      } else if (newVal.length === this.flavours.length) {
+        this.indeterminate = false
+        this.allSelected = true
+      } else {
+        this.indeterminate = true
+        this.allSelected = false
+      }
+    }
+  }
 }
 </script>
 

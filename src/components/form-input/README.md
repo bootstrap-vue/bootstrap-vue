@@ -14,11 +14,13 @@
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       text1: ''
     }
   }
+}
 </script>
 
 <!-- form-input-1.vue -->
@@ -42,12 +44,14 @@ of the supported types: `text`, `password`, `email`, `number`, `url`, `tel`, `se
 
 <script>
 export default {
-    data: {
-        types: [
-            'text', 'password', 'email', 'number', 'url',
-            'tel', 'date', `time`, 'range', 'color'
-        ]
+  data () {
+    return {
+      types: [
+        'text', 'password', 'email', 'number', 'url',
+        'tel', 'date', `time`, 'range', 'color'
+      ]
     }
+  }
 }
 </script>
 
@@ -164,16 +168,18 @@ to:
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  computed: {
+    nameState () {
+      return this.name.length > 2 ? null : false
+    }
+  },
+  data () {
+    return {
       name: ''
-    },
-    computed: {
-      nameState() {
-        return this.name.length > 2 ? null : false;
-      }
     }
   }
+}
 </script>
 
 <!-- form-input-states-2.vue -->
@@ -249,17 +255,19 @@ No formatting occurs if a `formatter` is not provided.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       text1: '',
       text2: ''
-    },
-    methods: {
-      format(value, event) {
-        return value.toLowerCase();
-      }
+    }
+  },
+  methods: {
+    format (value, event) {
+      return value.toLowerCase()
     }
   }
+}
 </script>
 
 <!-- form-input-formatter.vue -->
