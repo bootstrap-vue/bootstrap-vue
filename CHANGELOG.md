@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.1.0...v1.2.0) (2017-11-20)
+
+
+### Bug Fixes
+
+* **ci:** auto deploy docs from master branch ([22e432d](https://github.com/bootstrap-vue/bootstrap-vue/commit/22e432d))
+* **form-file:** invalid/valid feedback display for plain file input missing in Bootstrap V4 ([#1373](https://github.com/bootstrap-vue/bootstrap-vue/issues/1373)) ([85ab0d0](https://github.com/bootstrap-vue/bootstrap-vue/commit/85ab0d0))
+* **form-textarea:** initial value population ([#1370](https://github.com/bootstrap-vue/bootstrap-vue/issues/1370)) ([a08a46e](https://github.com/bootstrap-vue/bootstrap-vue/commit/a08a46e)), closes [#1368](https://github.com/bootstrap-vue/bootstrap-vue/issues/1368)
+* **table:** fix outlined table ([e81b107](https://github.com/bootstrap-vue/bootstrap-vue/commit/e81b107))
+* **tabs:** lazy prop regression ([#1372](https://github.com/bootstrap-vue/bootstrap-vue/issues/1372)) ([844cd81](https://github.com/bootstrap-vue/bootstrap-vue/commit/844cd81)), closes [#1371](https://github.com/bootstrap-vue/bootstrap-vue/issues/1371)
+
+
+### Features
+
+* **modal:** fix for overflowing centered modal to scroll ([#1363](https://github.com/bootstrap-vue/bootstrap-vue/issues/1363)) ([3b3ba32](https://github.com/bootstrap-vue/bootstrap-vue/commit/3b3ba32))
+* **pagination+pagination-nav:** disabled styling now works in BS V4.beta.2 ([#1381](https://github.com/bootstrap-vue/bootstrap-vue/issues/1381)) ([d51349f](https://github.com/bootstrap-vue/bootstrap-vue/commit/d51349f))
+* **tabs:** vertical tabs + new props for adding classes to inner elements ([#1362](https://github.com/bootstrap-vue/bootstrap-vue/issues/1362)) ([51d0e03](https://github.com/bootstrap-vue/bootstrap-vue/commit/51d0e03))
+* **tooltip+popover:** ability to programmatically show and hide tooltip and popover ([#1366](https://github.com/bootstrap-vue/bootstrap-vue/issues/1366)) ([360b337](https://github.com/bootstrap-vue/bootstrap-vue/commit/360b337))
+
+
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
 ## [v1.1.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.0.2...v1.1.0)
 Released: 2017-11-18
 
