@@ -210,7 +210,8 @@ export default {
             'topright', 'top', 'topleft',
             'bottomright', 'bottom', 'bottomleft',
             'righttop', 'right', 'lefttop',
-            'rightbottom', 'left', 'leftbottom'
+            'rightbottom', 'left', 'leftbottom',
+            'auto'
         ]
     }
 }
@@ -226,8 +227,9 @@ export default {
 | `target` | `null` | String ID of element, or a reference to an element or component, that you want to trigger the popover. **Required** | Any valid, in-document unique element ID, or in-document element/component reference
 | `title` | `null` | Title of popover (text only, no HTML). if HTML is required, place it in the `title` named slot | Plain text
 | `content` | `null` | Content of popover (text only, no HTML). if HTML is required, place it in the default slot | Plain text
-| `placement` | `'top'` | Positioning of the popover, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
-| `triggers` | `'click'` |  Space separated list of which event(s) will trigger open/close of popover | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
+| `placement` | `'auto'` | Positioning of the popover, relative to the trigger element. | `auto`, `top`, `bottom`, `left`, `right`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
+| `sync` | `false` | Programmatic control of the Popover display state. Recommended to use with [sync modifier](https://vuejs.org/v2/guide/components.html#sync-Modifier). | `true`, `false`
+| `triggers` | `'click'` | Space separated list of which event(s) will trigger open/close of popover using built-in handling | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
 | `delay` | `0` | Number of milliseconds to delay showing and hidding of popover. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays | `0` and up, integers only.
 | `offset` | `0` | Number of pixels to shift the center of the popover. Also affects the position of the popover arrow. | Any negative or positive integer
@@ -241,14 +243,17 @@ Setting it to `true` will show the popover, while setting it to `false` will hid
 
 ```html
 <template>
-  <div class="text-center">
-    <b-btn id="popoverButton-1" variant="primary">I have a popover</b-btn>
-    <br><br>
-    <b-btn @click="show = !show">Toggle Popover</b-btn>
+  <div class="d-flex flex-column">
+    <div class="p-2">
+      <b-btn id="popoverButton-sync" variant="primary">I have a popover</b-btn>
+    </div>
+    <div class="p-2">
+      <b-btn class="px-1" @click="show = !show">Toggle Popover</b-btn>
 
-    <b-popover :show.sync="show" target="popoverButton-1" title="Popover">
-      Hello <strong>World!</strong>
-    </b-popover>
+      <b-popover :show.sync="show" target="popoverButton-sync" placement="right" title="Popover">
+        Hello <strong>World!</strong>
+      </b-popover>
+    </div>
   </div>
 </template>
 <script>
@@ -262,19 +267,121 @@ Setting it to `true` will show the popover, while setting it to `false` will hid
 <!-- popover-show-sync.vue -->
 ```
 
+Programmatic control can also be affected by submitting `'open'` and `'close'` events to the popover by reference.
+
+```html
+<template>
+  <div class="d-flex flex-column">
+    <div class="p-2">
+      <b-btn id="popoverButton-event" variant="primary">I have a popover</b-btn>
+    </div>
+    <div class="p-2">
+      <b-btn class="px-1" @click="onOpen">Open</b-btn>
+      <b-btn class="px-1" @click="onClose">Close</b-btn>
+    </div>
+
+    <b-popover ref="popover" target="popoverButton-event" placement="right" title="Popover">
+      Hello <strong>World!</strong>
+    </b-popover>
+  </div>
+</template>
+<script>
+  export default {
+    methods: {
+      onOpen() {
+        this.$refs.popover.$emit('open')
+      },
+      onClose() {
+        this.$refs.popover.$emit('close')
+      }
+    }
+  }
+</script>
+
+<!-- popover-show-event.vue -->
+```
+
 To make the popover shown on initial render, simply add the `show` prop
 on `<b-popover>`:
 
 ```html
 <div class="text-center">
-  <b-btn id="popoverButton-2" variant="primary">Button</b-btn>
+  <b-btn id="popoverButton-open" variant="primary">Button</b-btn>
 
-  <b-popover show target="popoverButton-2" title="Popover">
+  <b-popover show target="popoverButton-open" title="Popover">
     I start <strong>open</strong>
   </b-popover>
 </div>
 
 <!-- popover-show-open.vue -->
+```
+
+A popover which is opened via the 'show' property or by an event call can only be closed by an event call. Built-in triggers will not work... until a trigger event tries to open the popover even though it is already open. In the below example, when the leftmost Popover is opened with the 'open' event, it will take two on-button clicks to close it. Play with the below demo to understand this. When you desire graceful handling of both programmatic control external to the Popover component as well as user interaction triggers, you should disable built-in triggers and handle control yourself as demonstrated by the rightmost Popover.
+
+```html
+<template>
+  <div class="d-flex flex-column">
+    <div class="p-2">
+      <b-btn id="exPopoverManual1" variant="primary" ref="button">
+        Unreliable
+      </b-btn>
+      <b-popover target="exPopoverManual1"
+                 :show.sync="pop1"
+                 triggers="click"
+                 placement="right"
+                 ref="popover1">
+        I can be stubborn sometimes.
+      </b-popover>
+    </div>
+    <div class="p-2">
+      <b-btn id="exPopoverManual2" variant="primary" ref="button" @click="pop2 = !pop2">
+        Comfortably Numb
+      </b-btn>
+      <b-popover target="exPopoverManual2"
+                 :show.sync="pop2"
+                 triggers=""
+                 placement="right"
+                 ref="popover2">
+        I do believe it's working, good.
+      </b-popover>
+    </div>
+    <div class="p-2">
+      <b-btn class="px-1" @click="popOpen">
+        Open
+      </b-btn>
+      <b-btn class="px-1" @click="popClose">
+        Close
+      </b-btn>
+      <b-btn class="px-1" @click="popToggle">
+        Toggle
+      </b-btn>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+      data: {
+        pop1: false,
+        pop2: false
+      },
+      methods: {
+        popOpen() {
+          this.pop1 = true;
+          this.pop2 = true;
+        },
+        popClose() {
+          this.pop1 = false;
+          this.pop2 = false;
+        },
+        popToggle() {
+          this.pop1 = !this.pop1;
+          this.pop2 = !this.pop2;
+        }
+      }
+  }
+</script>
+<!-- popover-advanced-caution.vue -->
 ```
 
 You can also use `$root` events to trigger the showing and hiding of popover(s).

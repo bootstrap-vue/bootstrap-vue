@@ -61,14 +61,11 @@ export default {
   },
   watch: {
     show (show, old) {
-      if (show === old || !this._toolpop) {
+      if (show === old) {
         return
       }
-      if (show) {
-        this._toolpop.show()
-      } else {
-        this._toolpop.hide()
-      }
+
+      show ? this.onOpen() : this.onClose()
     }
   },
   created () {
@@ -84,13 +81,15 @@ export default {
       // Instantiate ToolTip/PopOver on target
       // createToolpop method must exist in main component
       if (this.createToolpop()) {
+        // Listen to open signals from others
+        this.$on('open', this.onOpen)
         // Listen to close signals from others
         this.$on('close', this.onClose)
         // Observe content Child changes so we can notify popper of possible size change
         this.setObservers(true)
         // Set intially open state
         if (this.show) {
-          this._toolpop.show()
+          this.onOpen()
         }
       }
     })
@@ -169,6 +168,11 @@ export default {
         cfg.html = true
       }
       return cfg
+    },
+    onOpen () {
+      if (this._toolpop) {
+        this._toolpop.show()
+      }
     },
     onClose (callback) {
       if (this._toolpop) {
