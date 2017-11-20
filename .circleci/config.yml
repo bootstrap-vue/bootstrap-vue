@@ -39,7 +39,7 @@ jobs:
       - deploy:
           name: Publish Docs
           command: |
-            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               git config --global user.email vuebootstrap@gmail.com
               git config --global user.name BootstrapVue
               yarn docs-gen && yarn docs-publish
