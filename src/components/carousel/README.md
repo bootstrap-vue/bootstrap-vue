@@ -63,16 +63,18 @@ controls and indicators. Please be aware that nested carousels are **not** suppo
 
 <script>
 export default {
-  data: {
-    slide: 0,
-    sliding: null
+  data () {
+    return {
+      slide: 0,
+      sliding: null
+    }
   },
   methods: {
-    onSlideStart(slide) {
-        this.sliding = true;
+    onSlideStart (slide) {
+      this.sliding = true
     },
-    onSlideEnd(slide) {
-        this.sliding = false;
+    onSlideEnd (slide) {
+      this.sliding = false
     }
   }
 }

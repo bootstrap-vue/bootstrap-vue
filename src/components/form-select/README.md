@@ -16,15 +16,17 @@ Generate your select options by pasing an aray or object to the `options` props:
 
 <script>
 export default {
-  data: {
-    selected: null,
-    options: [
-      { value: null, text: 'Please select an option' },
-      { value: 'a', text: 'This is First option' },
-      { value: 'b', text: 'Selected Option' },
-      { value: {'C':'3PO'}, text: 'This is an option with object value' },
-      { value: 'd', text: 'This one is disabled', disabled: true }
-    ]
+  data () {
+    return {
+      selected: null,
+      options: [
+        { value: null, text: 'Please select an option' },
+        { value: 'a', text: 'This is First option' },
+        { value: 'b', text: 'Selected Option' },
+        { value: {'C': '3PO'}, text: 'This is an option with object value' },
+        { value: 'd', text: 'This one is disabled', disabled: true }
+      ]
+    }
   }
 }
 </script>
@@ -51,11 +53,13 @@ Or manualy provide your options and optgroups:
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       selected: null
     }
-  };
+  }
+}
 </script>
 
 <!-- form-select-manual.vue -->
@@ -83,15 +87,17 @@ by the `options` prop, use the named slot `first`.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       selected: null,
       options: [
         { value: 'A', text: 'Option A (from options prop)' },
-        { value: 'B', text: 'Option B (from options prop)' },
+        { value: 'B', text: 'Option B (from options prop)' }
       ]
     }
-  };
+  }
+}
 </script>
 
 <!-- form-select-both.vue -->
@@ -159,15 +165,17 @@ selected option.
 
 <script>
 export default {
-  data: {
-    selected: null,
-    options: [
-      { value: null, text: 'Please select some item' },
-      { value: 'a', text: 'This is First option' },
-      { value: 'b', text: 'Default Selected Option' },
-      { value: 'c', text: 'This is another option' },
-      { value: 'd', text: 'This one is disabled', disabled: true }
-    ]
+  data () {
+    return {
+      selected: null,
+      options: [
+        { value: null, text: 'Please select some item' },
+        { value: 'a', text: 'This is First option' },
+        { value: 'b', text: 'Default Selected Option' },
+        { value: 'c', text: 'This is another option' },
+        { value: 'd', text: 'This one is disabled', disabled: true }
+      ]
+    }
   }
 }
 </script>
@@ -197,17 +205,19 @@ Note: not all mobile browsers will show a the select as a list-box.
 
 <script>
 export default {
-  data: {
-    selected: null,
-    options: [
-      { value: null, text: 'Please select some item' },
-      { value: 'a', text: 'This is option a' },
-      { value: 'b', text: 'Default Selected Option b' },
-      { value: 'c', text: 'This is option c' },
-      { value: 'd', text: 'This one is disabled', disabled: true },
-      { value: 'e', text: 'This is option e' },
-      { value: 'e', text: 'This is option f' }
-    ]
+  data () {
+    return {
+      selected: null,
+      options: [
+        { value: null, text: 'Please select some item' },
+        { value: 'a', text: 'This is option a' },
+        { value: 'b', text: 'Default Selected Option b' },
+        { value: 'c', text: 'This is option c' },
+        { value: 'd', text: 'This one is disabled', disabled: true },
+        { value: 'e', text: 'This is option e' },
+        { value: 'e', text: 'This is option f' }
+      ]
+    }
   }
 }
 </script>
@@ -238,17 +248,19 @@ You **must** provide an array reference as your `v-model` when in `multiple` mod
 
 <script>
 export default {
-  data: {
-    selected: ['b'], // Array reference
-    options: [
-      { value: 'a', text: 'This is First option' },
-      { value: 'b', text: 'Default Selected Option' },
-      { value: 'c', text: 'This is another option' },
-      { value: 'd', text: 'This one is disabled', disabled: true },
-      { value: 'e', text: 'This is option e' },
-      { value: 'f', text: 'This is option f' },
-      { value: 'g', text: 'This is option g' }
-    ]
+  data () {
+    return {
+      selected: ['b'], // Array reference
+      options: [
+        { value: 'a', text: 'This is First option' },
+        { value: 'b', text: 'Default Selected Option' },
+        { value: 'c', text: 'This is another option' },
+        { value: 'd', text: 'This one is disabled', disabled: true },
+        { value: 'e', text: 'This is option e' },
+        { value: 'f', text: 'This is option f' },
+        { value: 'g', text: 'This is option g' }
+      ]
+    }
   }
 }
 </script>
@@ -314,4 +326,3 @@ A `plain` select will always be rendered for non `multiple` selects which have t
 - `<b-form-select>` can be used by the shorter alias `<b-select>`.
 
 ## Component Reference
-

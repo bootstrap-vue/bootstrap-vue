@@ -10,17 +10,19 @@
 
 <script>
 export default {
-  data: {
-    items: [{
-      text: 'Admin',
-      href: '#',
-    }, {
-      text: 'Manage',
-      href: '#',
-    }, {
-      text: 'Library',
-      active: true
-    }]
+  data () {
+    return {
+      items: [{
+        text: 'Admin',
+        href: '#'
+      }, {
+        text: 'Manage',
+        href: '#'
+      }, {
+        text: 'Library',
+        active: true
+      }]
+    }
   }
 }
 </script>

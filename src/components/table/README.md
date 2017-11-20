@@ -11,15 +11,17 @@ custom rendering, events, and asynchronous data.
 
 <script>
 const items = [
-  { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+  { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
   { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
   { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-  { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' }
-];
+  { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+]
 
 export default {
-  data: {
-    items: items
+  data () {
+    return {
+      items: items
+    }
   }
 }
 </script>
@@ -76,22 +78,30 @@ these names):
 
 <script>
 const items = [
-  { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+  { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
   { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
   {
-    isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson',
+    isActive: false,
+    age: 89,
+    first_name: 'Geneva',
+    last_name: 'Wilson',
     _rowVariant: 'danger'
   },
   {
-    isActive: true,  age: 40, first_name: 'Thor', last_name: 'Macdonald',
+    isActive: true,
+    age: 40,
+    first_name: 'Thor',
+    last_name: 'Macdonald',
     _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
   },
   { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
-];
+]
 
 export default {
-  data: {
-    items: items
+  data () {
+    return {
+      items: items
+    }
   }
 }
 </script>
@@ -133,17 +143,19 @@ which columns to display (order is guaranteed):
 
 <script>
 export default {
-  data: {
-    // Note 'isActive' is left out and will not appear in the rendered table
-    fields: [ 'first_name', 'last_name', 'age' ],
-    items: [
-      { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-      { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-      { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' }
-    ]
+  data () {
+    return {
+      // Note 'isActive' is left out and will not appear in the rendered table
+      fields: [ 'first_name', 'last_name', 'age' ],
+      items: [
+        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-fields-array.vue -->
@@ -162,33 +174,35 @@ be shown (order is guaranteed):
 
 <script>
 export default {
-  data: {
-    // Note 'isActive' is left out and will not appear in the rendered table
-    fields: [
-      {
-        key: 'last_name',
-        sortable: true
-      },
-      {
-        key: 'first_name',
-        sortable: false
-      },
-      {
-        key: 'age',
-        label: 'Person age',
-        sortable: true,
-        // Variant applies to the whole column, including the header and footer
-        variant: 'danger'
-      }
-    ],
-    items: [
-      { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-      { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-      { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' }
-    ]
+  data () {
+    return {
+      // Note 'isActive' is left out and will not appear in the rendered table
+      fields: [
+        {
+          key: 'last_name',
+          sortable: true
+        },
+        {
+          key: 'first_name',
+          sortable: false
+        },
+        {
+          key: 'age',
+          label: 'Person age',
+          sortable: true,
+          // Variant applies to the whole column, including the header and footer
+          variant: 'danger'
+        }
+      ],
+      items: [
+        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-fields-array-of-objects.vue -->
@@ -208,32 +222,34 @@ although **order is not guaranteed**:
 
 <script>
 export default {
-  data: {
-    // Note 'isActive' is left out and will not appear in the rendered table
-    fields: {
-      last_name: {
+  data () {
+    return {
+      // Note 'isActive' is left out and will not appear in the rendered table
+      fields: {
+        last_name: {
           label: 'Person last name',
           sortable: true
-      },
-      first_name: {
+        },
+        first_name: {
           label: 'Person first name',
           sortable: false
-      },
-      foo: {
+        },
+        foo: {
           // This key overrides `foo`!
           key: 'age',
           label: 'Person age',
-          sortable: true,
-      }
-    },
-    items: [
-      { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-      { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-      { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' }
-    ]
+          sortable: true
+        }
+      },
+      items: [
+        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-fields-object.vue -->
@@ -309,15 +325,17 @@ favour of prop `dark` to better align with Bootstrap V4.beta.2 CSS class names.
 
 <script>
 export default {
-  data: {
-    fields: [ 'first_name', 'last_name', 'age' ],
-    items: [
-      { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-      { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-      { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-    ]
+  data () {
+    return {
+      fields: [ 'first_name', 'last_name', 'age' ],
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-bordered.vue -->
@@ -331,15 +349,17 @@ export default {
 
 <script>
 export default {
-  data: {
-    fields: [ 'first_name', 'last_name', 'age' ],
-    items: [
-      { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-      { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-      { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-    ]
+  data () {
+    return {
+      fields: [ 'first_name', 'last_name', 'age' ],
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-small.vue -->
@@ -353,15 +373,17 @@ export default {
 
 <script>
 export default {
-  data: {
-    fields: [ 'first_name', 'last_name', 'age' ],
-    items: [
-      { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-      { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-      { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-    ]
+  data () {
+    return {
+      fields: [ 'first_name', 'last_name', 'age' ],
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-inverse.vue -->
@@ -375,15 +397,17 @@ export default {
 
 <script>
 export default {
-  data: {
-    fields: [ 'first_name', 'last_name', 'age' ],
-    items: [
-      { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-      { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-      { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-    ]
+  data () {
+    return {
+      fields: [ 'first_name', 'last_name', 'age' ],
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-footer.vue -->
@@ -409,32 +433,49 @@ dropdown menus and other third-party widgets.
 
 <script>
 export default {
-  data: {
-    items: [
-      {
-        'heading 1': 'table cell', 'heading 2': 'table cell',
-        'heading 3': 'table cell', 'heading 4': 'table cell',
-        'heading 5': 'table cell', 'heading 6': 'table cell',
-        'heading 7': 'table cell', 'heading 8': 'table cell',
-        'heading 9': 'table cell', 'heading 10': 'table cell'
-      },
-      {
-        'heading 1': 'table cell', 'heading 2': 'table cell',
-        'heading 3': 'table cell', 'heading 4': 'table cell',
-        'heading 5': 'table cell', 'heading 6': 'table cell',
-        'heading 7': 'table cell', 'heading 8': 'table cell',
-        'heading 9': 'table cell', 'heading 10': 'table cell'
-      },
-      {
-        'heading 1': 'table cell', 'heading 2': 'table cell',
-        'heading 3': 'table cell', 'heading 4': 'table cell',
-        'heading 5': 'table cell', 'heading 6': 'table cell',
-        'heading 7': 'table cell', 'heading 8': 'table cell',
-        'heading 9': 'table cell', 'heading 10': 'table cell'
-      }
-    ]
+  data () {
+    return {
+      items: [
+        {
+          'heading 1': 'table cell',
+          'heading 2': 'table cell',
+          'heading 3': 'table cell',
+          'heading 4': 'table cell',
+          'heading 5': 'table cell',
+          'heading 6': 'table cell',
+          'heading 7': 'table cell',
+          'heading 8': 'table cell',
+          'heading 9': 'table cell',
+          'heading 10': 'table cell'
+        },
+        {
+          'heading 1': 'table cell',
+          'heading 2': 'table cell',
+          'heading 3': 'table cell',
+          'heading 4': 'table cell',
+          'heading 5': 'table cell',
+          'heading 6': 'table cell',
+          'heading 7': 'table cell',
+          'heading 8': 'table cell',
+          'heading 9': 'table cell',
+          'heading 10': 'table cell'
+        },
+        {
+          'heading 1': 'table cell',
+          'heading 2': 'table cell',
+          'heading 3': 'table cell',
+          'heading 4': 'table cell',
+          'heading 5': 'table cell',
+          'heading 6': 'table cell',
+          'heading 7': 'table cell',
+          'heading 8': 'table cell',
+          'heading 9': 'table cell',
+          'heading 10': 'table cell'
+        }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-responsive.vue -->
@@ -457,15 +498,17 @@ Bootstrap V4 styling places the caption at the bottom of the table:
 
 <script>
 export default {
-  data: {
-    fields: [ 'first_name', 'last_name', 'age' ],
-    items: [
-      { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-      { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-      { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-    ]
+  data () {
+    return {
+      fields: [ 'first_name', 'last_name', 'age' ],
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-caption.vue -->
@@ -485,15 +528,17 @@ You can have the caption placed at the top of the table by setting the
 
 <script>
 export default {
-  data: {
-    fields: [ 'first_name', 'last_name', 'age' ],
-    items: [
-      { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-      { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-      { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-    ]
+  data () {
+    return {
+      fields: [ 'first_name', 'last_name', 'age' ],
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-caption-top.vue -->
@@ -542,25 +587,27 @@ slot(s).
 
 <script>
 export default {
-  data: {
-    fields: [
-      // A virtual column that doesn't exist in items
-      'index',
-      // A column that needs custom formatting
-      { key: 'name', label: 'Full Name' },
-      // A regular column
-      'age',
-      // A regular column
-      'sex',
-      // A virtual column made up from two fields
-      { key: 'nameage', label: 'First name and age' }
-    ],
-    items: [
-      { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
-      { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
-      { name: { first: 'Rubin', last: 'Kincade' }, sex: 'Male', age: 73 },
-      { name: { first: 'Shirley', last: 'Partridge' }, sex: 'Female', age: 62 }
-    ]
+  data () {
+    return {
+      fields: [
+        // A virtual column that doesn't exist in items
+        'index',
+        // A column that needs custom formatting
+        { key: 'name', label: 'Full Name' },
+        // A regular column
+        'age',
+        // A regular column
+        'sex',
+        // A virtual column made up from two fields
+        { key: 'nameage', label: 'First name and age' }
+      ],
+      items: [
+        { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
+        { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
+        { name: { first: 'Rubin', last: 'Kincade' }, sex: 'Male', age: 73 },
+        { name: { first: 'Shirley', last: 'Partridge' }, sex: 'Female', age: 62 }
+      ]
+    }
   }
 }
 </script>
@@ -620,42 +667,44 @@ return the formatted value as a string (basic HTML is supported)
 
 <script>
 export default {
-  data: {
-    fields: [
-      {
-        // A column that needs custom formatting,
-        // calling formatter 'fullName' in this app
-        key:'name',
-        label: 'Full Name',
-        formatter: 'fullName'
-      },
-      // A regular column
-      'age',
-      {
-        // A regular column with custom formatter
-        key: 'sex',
-        formatter: (value) => { return value.charAt(0).toUpperCase(); }
-      },
-      {
-        // A virtual column with custom formatter
-        key: 'birthYear',
-        label: 'Calculated Birth Year',
-        formatter: (value, key, item) => {
-          return (new Date()).getFullYear() - item.age;
+  data () {
+    return {
+      fields: [
+        {
+          // A column that needs custom formatting,
+          // calling formatter 'fullName' in this app
+          key: 'name',
+          label: 'Full Name',
+          formatter: 'fullName'
+        },
+        // A regular column
+        'age',
+        {
+          // A regular column with custom formatter
+          key: 'sex',
+          formatter: (value) => { return value.charAt(0).toUpperCase() }
+        },
+        {
+          // A virtual column with custom formatter
+          key: 'birthYear',
+          label: 'Calculated Birth Year',
+          formatter: (value, key, item) => {
+            return (new Date()).getFullYear() - item.age
+          }
         }
-      }
-    ],
-    items: [
-      { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
-      { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
-      { name: { first: 'Rubin', last: 'Kincade' }, sex: 'male', age: 73 },
-      { name: { first: 'Shirley', last: 'Partridge' }, sex: 'female', age: 62 }
-    ]
+      ],
+      items: [
+        { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
+        { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
+        { name: { first: 'Rubin', last: 'Kincade' }, sex: 'male', age: 73 },
+        { name: { first: 'Shirley', last: 'Partridge' }, sex: 'female', age: 62 }
+      ]
+    }
   },
   methods: {
-      fullName(value){
-          return `${value.first} ${value.last}`;
-      }
+    fullName (value) {
+      return `${value.first} ${value.last}`
+    }
   }
 }
 </script>
@@ -756,16 +805,18 @@ Available scoped variables:
 
 <script>
 export default {
-  data: {
-    fields: [ 'first_name', 'last_name', 'show_details' ],
-    items: [
-      { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald', _showDetails: false },
-      { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw', _showDetails: false },
-      { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson', _showDetails: false },
-      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney', _showDetails: false }
-    ]
+  data () {
+    return {
+      fields: [ 'first_name', 'last_name', 'show_details' ],
+      items: [
+        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald', _showDetails: false },
+        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw', _showDetails: false },
+        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson', _showDetails: false },
+        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney', _showDetails: false }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-details.vue -->
@@ -803,32 +854,34 @@ sorting by presentational data._
              :items="items"
              :fields="fields">
     </b-table>
-  </div>
     <p>
       Sorting By: <b>{{ sortBy }}</b>,
       Sort Direction: <b>{{ sortDesc ? 'Descending' : 'Ascending' }}</b>
     </p>
+  </div>
 </template>
 
 <script>
 export default {
-  data: {
-    sortBy: 'age',
-    sortDesc: false,
-    fields: [
-      { key: 'last_name', sortable: true },
-      { key: 'first_name', sortable: true },
-      { key: 'age', sortable: true },
-      { key: 'isActive', sortable: false }
-    ],
-    items: [
-      { isActive: true,  age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-      { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-      { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-      { isActive: true,  age: 38, first_name: 'Jami', last_name: 'Carney' }
-    ]
+  data () {
+    return {
+      sortBy: 'age',
+      sortDesc: false,
+      fields: [
+        { key: 'last_name', sortable: true },
+        { key: 'first_name', sortable: true },
+        { key: 'age', sortable: true },
+        { key: 'isActive', sortable: false }
+      ],
+      items: [
+        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+      ]
+    }
   }
-};
+}
 </script>
 
 <!-- table-sorting.vue -->
@@ -857,13 +910,13 @@ The default sort-compare routine works as follows:
 
 ```js
 if (typeof a[key] === 'number' && typeof b[key] === 'number') {
-    // If both compared fields are native numbers
-    return a[key] < b[key] ? -1 : (a[key] > b[key] ? 1 : 0);
+  // If both compared fields are native numbers
+  return a[key] < b[key] ? -1 : (a[key] > b[key] ? 1 : 0)
 } else {
-    // Stringify the field data and use String.localeCompare
-    return toString(a[key]).localeCompare(toString(b[key]), undefined, {
-        numeric: true
-    });
+  // Stringify the field data and use String.localeCompare
+  return toString(a[key]).localeCompare(toString(b[key]), undefined, {
+    numeric: true
+  })
 }
 ```
 
@@ -953,47 +1006,47 @@ The second argument `callback` is an optional parameter for when using the callb
 
 **Example: returning an array of data (synchronous):**
 ```js
-function myProvider(ctx) {
-    let items = [];
+function myProvider (ctx) {
+  let items = []
 
-    // perform any items processing needed
+  // perform any items processing needed
 
-    // Must return an array
-    return items || [];
+  // Must return an array
+  return items || []
 }
 ```
 
 **Example: Using callback to return data (asynchronous):**
 ```js
-function myProvider(ctx, callback) {
-    let params = '?page=' + ctx.currentPage + '&size=' + ctx.perPage;
+function myProvider (ctx, callback) {
+  let params = '?page=' + ctx.currentPage + '&size=' + ctx.perPage
 
-    this.fetchData('/some/url' + params).then((data) => {
-        // Pluck the array of items off our axios response
-        let items = data.items;
-        // Provide the array of items to the callabck
-        callback(items);
-    }).catch(error => {
-        callback([])
-    });
+  this.fetchData('/some/url' + params).then((data) => {
+    // Pluck the array of items off our axios response
+    let items = data.items
+    // Provide the array of items to the callabck
+    callback(items)
+  }).catch(error => {
+    callback([])
+  })
 
-    // Must return null or undefined to signal b-table that callback is being used
-    return null;
+  // Must return null or undefined to signal b-table that callback is being used
+  return null
 }
 ```
 
 **Example: Using a Promise to return data (asynchronous):**
 ```js
-function myProvider(ctx) {
-    let promise = axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage);
+function myProvider (ctx) {
+  let promise = axios.get('/some/url?page=' + ctx.currentPage + '&size=' + ctx.perPage)
 
-    // Must return a promise that resolves to an array of items
-    return promise.then((data) => {
-        // Pluck the array of items off our axios response
-        let items = data.items;
-        // Must return an array of items or an empty array if an error occurred
-        return(items || []);
-    });
+  // Must return a promise that resolves to an array of items
+  return promise.then((data) => {
+    // Pluck the array of items off our axios response
+    let items = data.items
+    // Must return an array of items or an empty array if an error occurred
+    return(items || [])
+  })
 }
 ```
 
@@ -1015,29 +1068,29 @@ your data, and just before you send it to the table for display. Example:
 
 ```js
 data () {
-    return {
-        isBusy: false
-    };
+  return {
+    isBusy: false
+  }
 }
 methods: {
-    myProvider(ctx) {
-        // Here we don't set isBusy prop, so busy state will be handled by table itself
-        // this.isBusy = true;
-        let promise = axios.get('/some/url');
+  myProvider (ctx) {
+      // Here we don't set isBusy prop, so busy state will be handled by table itself
+      // this.isBusy = true
+    let promise = axios.get('/some/url')
 
-        return promise.then((data) => {
-            const items = data.items;
-            // Here we could override the busy state, setting isBusy to false
-            // this.isBusy = false;
-            return(items);
-        }).catch(error => {
-            // Here we could override the busy state, setting isBusy to false
-            // this.isBusy = false;
-            // Returning an empty array, allows table to correctly handle busy state in case of error
-            return [];
-        });
-    }
- }
+    return promise.then((data) => {
+      const items = data.items
+      // Here we could override the busy state, setting isBusy to false
+      // this.isBusy = false
+      return(items)
+    }).catch(error => {
+      // Here we could override the busy state, setting isBusy to false
+      // this.isBusy = false
+      // Returning an empty array, allows table to correctly handle busy state in case of error
+      return []
+    })
+  }
+}
 ```
 
 **Notes:**
@@ -1102,10 +1155,10 @@ This context object has the same format as used by items provider functions.
 
 ```js
 methods: {
-    sortingChanged(ctx) {
-        // ctx.sortBy   ==> Field key for sorting by (or null for no sorting)
-        // ctx.sortDesc ==> true if sorting descending, false otherwise
-    }
+  sortingChanged (ctx) {
+    // ctx.sortBy   ==> Field key for sorting by (or null for no sorting)
+    // ctx.sortDesc ==> true if sorting descending, false otherwise
+  }
 }
 ```
 
@@ -1126,116 +1179,124 @@ when fetching your data!
 
 ```html
 <template>
-<div>
-  <div class="my-1 row">
-    <div class="col-md-6">
-      <b-form-group horizontal label="Rows per page" :label-cols="6">
-        <b-form-select :options="pageOptions" v-model="perPage" />
-      </b-form-group>
+  <div>
+    <div class="my-1 row">
+      <div class="col-md-6">
+        <b-form-group horizontal label="Rows per page" :label-cols="6">
+          <b-form-select :options="pageOptions" v-model="perPage" />
+        </b-form-group>
+      </div>
+      <div class="col-md-6">
+        <b-form-group horizontal label="Filter" :label-cols="3">
+          <b-input-group>
+            <b-form-input v-model="filter" placeholder="Type to Search" />
+            <b-input-group-button>
+              <b-btn @click="filter = ''">Clear</b-btn>
+            </b-input-group-button>
+          </b-input-group>
+        </b-form-group>
+      </div>
     </div>
-    <div class="col-md-6">
-      <b-form-group horizontal label="Filter" :label-cols="3">
-        <b-input-group>
-          <b-form-input v-model="filter" placeholder="Type to Search" />
-          <b-input-group-button>
-            <b-btn @click="filter = ''">Clear</b-btn>
-          </b-input-group-button>
-        </b-input-group>
-      </b-form-group>
+
+    <div class="row my-1">
+      <div class="col-sm-8">
+        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
+      </div>
+      <div class="col-sm-4 text-md-right">
+        <b-button :disabled="!sortBy" @click="sortBy = null">Clear Sort</b-button>
+      </div>
     </div>
+
+    <!-- Main table element -->
+    <b-table striped hover show-empty
+             :items="items"
+             :fields="fields"
+             :current-page="currentPage"
+             :per-page="perPage"
+             :filter="filter"
+             :sort-by.sync="sortBy"
+             :sort-desc.sync="sortDesc"
+             @filtered="onFiltered"
+    >
+      <template slot="name" scope="row">{{row.value.first}} {{row.value.last}}</template>
+      <template slot="isActive" scope="row">{{row.value?'Yes :)':'No :('}}</template>
+      <template slot="actions" scope="row">
+        <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
+        <b-btn size="sm" @click.stop="details(row.item,row.index,$event.target)">Details</b-btn>
+      </template>
+    </b-table>
+
+    <p>
+      Sort By: {{ sortBy || 'n/a' }}, Direction: {{ sortDesc ? 'descending' : 'ascending' }}
+    </p>
+
+    <!-- Details modal -->
+    <b-modal id="modal1" @hide="resetModal" ok-only>
+      <h4 class="my-1 py-1" slot="modal-header">Index: {{ modalDetails.index }}</h4>
+      <pre>{{ modalDetails.data }}</pre>
+    </b-modal>
+
   </div>
-
-  <div class="row my-1">
-    <div class="col-sm-8">
-      <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
-    </div>
-    <div class="col-sm-4 text-md-right">
-      <b-button :disabled="!sortBy" @click="sortBy = null">Clear Sort</b-button>
-    </div>
-  </div>
-
-  <!-- Main table element -->
-  <b-table striped hover show-empty
-           :items="items"
-           :fields="fields"
-           :current-page="currentPage"
-           :per-page="perPage"
-           :filter="filter"
-           :sort-by.sync="sortBy"
-           :sort-desc.sync="sortDesc"
-           @filtered="onFiltered"
-  >
-    <template slot="name" scope="row">{{row.value.first}} {{row.value.last}}</template>
-    <template slot="isActive" scope="row">{{row.value?'Yes :)':'No :('}}</template>
-    <template slot="actions" scope="row">
-      <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-      <b-btn size="sm" @click.stop="details(row.item,row.index,$event.target)">Details</b-btn>
-    </template>
-  </b-table>
-
-  <p>
-    Sort By: {{ sortBy || 'n/a' }}, Direction: {{ sortDesc ? 'descending' : 'ascending' }}
-  </p>
-
-  <!-- Details modal -->
-  <b-modal id="modal1" @hide="resetModal" ok-only>
-    <h4 class="my-1 py-1" slot="modal-header">Index: {{ modalDetails.index }}</h4>
-    <pre>{{ modalDetails.data }}</pre>
-  </b-modal>
-
-</div>
 </template>
 
 <script>
 const items = [
-  { isActive: true,  age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+  { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
   { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
   { _rowVariant: 'success',
-    isActive: false, age: 9,  name: { first: 'Mini', last: 'Navarro' } },
+    isActive: false,
+    age: 9,
+    name: { first: 'Mini', last: 'Navarro' }
+  },
   { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-  { isActive: true,  age: 38, name: { first: 'Jami', last: 'Carney' } },
+  { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
   { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-  { isActive: true,  age: 40, name: { first: 'Thor', last: 'Macdonald' } },
+  { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
   { _cellVariants: { age: 'danger', isActive: 'warning' },
-    isActive: true,  age: 87, name: { first: 'Larsen', last: 'Shaw' } },
+    isActive: true,
+    age: 87,
+    name: { first: 'Larsen', last: 'Shaw' }
+  },
   { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
   { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-  { isActive: true,  age: 38, name: { first: 'John', last: 'Carney' } },
+  { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
   { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-];
+]
 
 export default {
-  data: {
-    items: items,
-    fields: {
-      name:     { label: 'Person Full name', sortable: true },
-      age:      { label: 'Person age', sortable: true, 'class': 'text-center'  },
-      isActive: { label: 'is Active' },
-      actions:  { label: 'Actions' }
-    },
-    currentPage: 1,
-    perPage: 5,
-    totalRows: items.length,
-    pageOptions: [{text:5,value:5},{text:10,value:10},{text:15,value:15}],
-    sortBy: null,
-    sortDesc: false,
-    filter: null,
-    modalDetails: { index:'', data:'' }
+  data () {
+    return {
+      items: items,
+      fields: {
+        name: { label: 'Person Full name', sortable: true },
+        age: { label: 'Person age', sortable: true, 'class': 'text-center' },
+        isActive: { label: 'is Active' },
+        actions: { label: 'Actions' }
+      },
+      currentPage: 1,
+      perPage: 5,
+      totalRows: items.length,
+      pageOptions: [{text: 5, value: 5}, {text: 10, value: 10}, {text: 15, value: 15}],
+      sortBy: null,
+      sortDesc: false,
+      filter: null,
+      modalDetails: { index: '', data: '' }
+    }
   },
   methods: {
-    details(item, index, button) {
-      this.modalDetails.data = JSON.stringify(item, null, 2);
-      this.modalDetails.index = index;
-      this.$root.$emit('bv::show::modal','modal1', button);
+    details (item, index, button) {
+      this.modalDetails.data = JSON.stringify(item, null, 2)
+      this.modalDetails.index = index
+      this.$root.$emit('bv::show::modal', 'modal1', button)
     },
-    resetModal() {
-      this.modalDetails.data = '';
-      this.modalDetails.index = '';
+    resetModal () {
+      this.modalDetails.data = ''
+      this.modalDetails.index = ''
     },
-    onFiltered(filteredItems) {
+    onFiltered (filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
-      this.totalRows = filteredItems.length;
-      this.currentPage = 1;
+      this.totalRows = filteredItems.length
+      this.currentPage = 1
     }
   }
 }

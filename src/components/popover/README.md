@@ -205,14 +205,16 @@ This `blur` trigger must be used in combination with the `click` trigger.
 
 <script>
 export default {
-    data: {
-        placements: [
-            'topright', 'top', 'topleft',
-            'bottomright', 'bottom', 'bottomleft',
-            'righttop', 'right', 'lefttop',
-            'rightbottom', 'left', 'leftbottom'
-        ]
+  data () {
+    return {
+      placements: [
+        'topright', 'top', 'topleft',
+        'bottomright', 'bottom', 'bottomleft',
+        'righttop', 'right', 'lefttop',
+        'rightbottom', 'left', 'leftbottom'
+      ]
     }
+  }
 }
 </script>
 
@@ -241,33 +243,33 @@ Just need quick popovers without too much markup? Use the
 
 ```html
 <template>
-    <b-container fluid>
+  <b-container fluid>
 
-      <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
-      <b-row>
-        <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.hover.top="'I am Top'"
-                 title="Popover!"
-                 variant="primary">Top</b-btn>
-        </b-col>
-        <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.hover.left="'I am Left'"
-                 title="Popover!"
-                 variant="primary">Left</b-btn>
-        </b-col>
-        <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.hover.right="'I am Right'"
-                 title="Popover!"
-                 variant="primary">Right</b-btn>
-        </b-col>
-        <b-col md="3" class="py-3 text-center">
-          <b-btn v-b-popover.hover.bottom="'I am Bottom'"
-                 title="Popover!"
-                 variant="primary">Bottom</b-btn>
-        </b-col>
-      </b-row>
+    <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
+    <b-row>
+      <b-col md="3" class="py-3 text-center">
+        <b-btn v-b-popover.hover.top="'I am Top'"
+               title="Popover!"
+               variant="primary">Top</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3 text-center">
+        <b-btn v-b-popover.hover.left="'I am Left'"
+               title="Popover!"
+               variant="primary">Left</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3 text-center">
+        <b-btn v-b-popover.hover.right="'I am Right'"
+               title="Popover!"
+               variant="primary">Right</b-btn>
+      </b-col>
+      <b-col md="3" class="py-3 text-center">
+        <b-btn v-b-popover.hover.bottom="'I am Bottom'"
+               title="Popover!"
+               variant="primary">Bottom</b-btn>
+      </b-col>
+    </b-row>
 
-    </b-container>
+  </b-container>
 </template>
 
 <!-- popover-directive-1.vue -->
@@ -351,83 +353,85 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       input1: '',
       input1state: null,
       input2: '',
       input2state: null,
-      options: [{text:'- Choose 1 -', value:''},'Red','Green','Blue'],
+      options: [{text: '- Choose 1 -', value: ''}, 'Red', 'Green', 'Blue'],
       input1Return: '',
       input2Return: '',
       disabled: false
+    }
+  },
+  watch: {
+    input1 (val) {
+      if (val) {
+        this.input1state = true
+      }
     },
-    watch: {
-      input1(val) {
-        if (val) {
-          this.input1state = true
-        }
-      },
-      input2(val) {
-        if (val) {
-          this.input2state = true
-        }
-      },
-    },
-    methods: {
-      onClose() {
-        // Emitting 'close' on the popover will trigger it to hide for us
-        this.$refs.popover.$emit('close');
-      },
-      onCancel() {
-        // Emitting 'close' on the popover will trigger it to hide for us
-        this.$refs.popover.$emit('close');
-      },
-      onOk() {
-       if (!this.input1) { this.input1state=false }
-       if (!this.input2) { this.input2state=false }
-       if (this.input1 && this.input2) {
-          // Emitting 'close' on the popover will trigger it to hide for us
-          this.$refs.popover.$emit('close');
-          // "Return" our popover "form" results
-          this.input1Return = this.input1;
-          this.input2Return = this.input2;
-        }
-      },
-      onShow() {
-        // This is called just before the popover is shown
-        // Reset our popover "form" variables
-        this.input1 = '';
-        this.input2 = '';
-        this.input1state = null;
-        this.input2state = null;
-        this.input1Return = '';
-        this.input2Return = '';
-        // Disable our trigger button to prevent popover closing on second click
-        this.disabled = true;
-      },
-      onShown() {
-        // Called just after the popover has been shown
-        // Transfer focus to the first input
-        this.focusRef(this.$refs.input1);
-      },
-      onHidden() {
-        // Called just after the popover has finished hiding
-        // We re-enable our button
-        this.disabled = false;
-        // And bring focus back to it
-        this.focusRef(this.$refs.button);
-      },
-      focusRef(ref) {
-        // Some references may be a component, functional component, or plain element
-        // This handles that check before focusing, assuming a focus() method exists
-        // We do this in a double nextTick to ensure components have updated & popover positioned first
-        this.$nextTick(() => {
-          this.$nextTick(() => { (ref.$el || ref).focus(); });
-        });
+    input2 (val) {
+      if (val) {
+        this.input2state = true
       }
     }
-  };
+  },
+  methods: {
+    onClose () {
+      // Emitting 'close' on the popover will trigger it to hide for us
+      this.$refs.popover.$emit('close')
+    },
+    onCancel () {
+      // Emitting 'close' on the popover will trigger it to hide for us
+      this.$refs.popover.$emit('close')
+    },
+    onOk () {
+      if (!this.input1) { this.input1state = false }
+      if (!this.input2) { this.input2state = false }
+      if (this.input1 && this.input2) {
+        // Emitting 'close' on the popover will trigger it to hide for us
+        this.$refs.popover.$emit('close')
+        // "Return" our popover "form" results
+        this.input1Return = this.input1
+        this.input2Return = this.input2
+      }
+    },
+    onShow () {
+      // This is called just before the popover is shown
+      // Reset our popover "form" variables
+      this.input1 = ''
+      this.input2 = ''
+      this.input1state = null
+      this.input2state = null
+      this.input1Return = ''
+      this.input2Return = ''
+      // Disable our trigger button to prevent popover closing on second click
+      this.disabled = true
+    },
+    onShown () {
+      // Called just after the popover has been shown
+      // Transfer focus to the first input
+      this.focusRef(this.$refs.input1)
+    },
+    onHidden () {
+      // Called just after the popover has finished hiding
+      // We re-enable our button
+      this.disabled = false
+      // And bring focus back to it
+      this.focusRef(this.$refs.button)
+    },
+    focusRef (ref) {
+      // Some references may be a component, functional component, or plain element
+      // This handles that check before focusing, assuming a focus() method exists
+      // We do this in a double nextTick to ensure components have updated & popover positioned first
+      this.$nextTick(() => {
+        this.$nextTick(() => { (ref.$el || ref).focus() })
+      })
+    }
+  }
+}
 </script>
 
 <!-- popover-advanced-1.vue -->

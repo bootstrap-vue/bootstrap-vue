@@ -113,20 +113,22 @@ your custom classes for this.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       tabIndex: 0
-    },
-    methods: {
-      linkClass(idx) {
-        if (this.tabIndex === idx) {
-          return ['bg-primary', 'text-light'];
-        } else {
-          return ['bg-light', 'text-info'];
-        }
+    }
+  },
+  methods: {
+    linkClass (idx) {
+      if (this.tabIndex === idx) {
+        return ['bg-primary', 'text-light']
+      } else {
+        return ['bg-light', 'text-info']
       }
     }
   }
+}
 </script>
 
 <!-- with-classes.vue -->
@@ -172,11 +174,13 @@ your custom classes for this.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       tabIndex: 0
     }
   }
+}
 </script>
 
 <!-- tabs-controls.vue -->
@@ -214,24 +218,26 @@ your custom classes for this.
 </template>
 
 <script>
-  export default {
-    data: {
+export default {
+  data () {
+    return {
       tabs: [],
       tabCounter: 0
-    },
-    methods: {
-      closeTab(x) {
-        for (let i = 0; i < this.tabs.length; i++) {
-          if (this.tabs[i] === x) {
-            this.tabs.splice(i, 1);
-          }
+    }
+  },
+  methods: {
+    closeTab (x) {
+      for (let i = 0; i < this.tabs.length; i++) {
+        if (this.tabs[i] === x) {
+          this.tabs.splice(i, 1)
         }
-      },
-      newTab() {
-        this.tabs.push(this.tabCounter++);
       }
+    },
+    newTab () {
+      this.tabs.push(this.tabCounter++)
     }
   }
+}
 </script>
 
 <!-- dynamic-tabs.vue -->
