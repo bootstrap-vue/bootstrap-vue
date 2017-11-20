@@ -64,10 +64,113 @@ the pill style variant.
 <!-- tabs-pills.vue -->
 ```
 
+## Bottom placement of tab controls
+
+Visually move the tab controls to the bottom by setting the prop `end`
+
+```html
+<b-card no-body>
+    <b-tabs pills card end>
+        <b-tab title="Tab 1" active>
+            Tab Contents
+        </b-tab>
+        <b-tab title="Tab 2">
+            Tab Contents 2
+        </b-tab>
+    </b-tabs>
+</b-card>
+
+<!-- tabs-bottom.vue -->
+```
+
+**Caveats:**
+- Bottom placement visually works best with the `pills` variant. When using the default 
+`tabs` vairiant, you may want to provided your own custom styling classes, as Bootstrap
+V4 CSS assumes the tabs will always be placed on the top of the tabs content.
+- To provide a better user experience with bottom palced controls, ensure that the
+content of each tab pane is the same height and fits completely within the visible
+viewport, otherwise the user will need to scroll up to read the start of the tabed content.
+
+**Note:** _the `bottom` prop has been deprecated in favor of the `end` prop._
+
+
+## Vertical tabs
+
+Have the tab controls placed on the lefthand side by setting the `vertical` prop to `true`.
+
+```html
+<b-card no-body>
+    <b-tabs pills card vertical>
+        <b-tab title="Tab 1" active>
+            Tab Contents
+        </b-tab>
+        <b-tab title="Tab 2">
+            Tab Contents 2
+        </b-tab>
+        <b-tab title="Tab 3">
+            Tab Contents 3
+        </b-tab>
+    </b-tabs>
+</b-card>
+
+<!-- tabs-vertical.vue -->
+```
+
+Visually move the tab controls to the right hand side by setting the `end` prop:
+
+```html
+<b-card no-body>
+    <b-tabs pills card vertical end>
+        <b-tab title="Tab 1" active>
+            Tab Contents
+        </b-tab>
+        <b-tab title="Tab 2">
+            Tab Contents 2
+        </b-tab>
+        <b-tab title="Tab 3">
+            Tab Contents 3
+        </b-tab>
+    </b-tabs>
+</b-card>
+
+<!-- tabs-vertical-end.vue -->
+```
+
+The width of the vertical tab controls will expand to fit the width of the tab title.
+To control the width, set a [width utility class](/docs/reference/size-props#sizing-utility-classes)
+via the prop `nav-wrapper-class`. You can use values such as `w-25` (25% width), `w-50` (50% width), etc.,
+or column classes such as `col-2`, `col-3`, etc.
+
+```html
+<b-card no-body>
+    <b-tabs pills card vertical nav-wrapper-class="w-50">
+        <b-tab title="Tab 1" active>
+            Tab Contents
+        </b-tab>
+        <b-tab title="Tab 2">
+            Tab Contents 2
+        </b-tab>
+        <b-tab title="Tab 3">
+            Tab Contents 3
+        </b-tab>
+    </b-tabs>
+</b-card>
+
+<!-- tabs-vertical-width.vue -->
+```
+
+Vertical placement visually works best with the `pills` variant. When using the default 
+`tabs` vairiant, you may want to provided your own custom styling classes, as Bootstrap
+V4 CSS assumes the tabs will always be placed on the top of the tabs content.
+
+**Note:** _overflowing text may occur if your width is narrower than the tab title. You may need additional custom styling._
+
 
 ## Fade animation
 
 Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
+Note you should use the `<b-nav-item>` component when adding contentless-tabs to maintain
+correct sizing and alignment. See the advanced usage examples below for an example.
 
 
 ## Add Tabs without content
@@ -92,8 +195,7 @@ In some situations, you may want to add classes to the `<li>` (nav-item) and/or 
 the `title-item-class` prop (for the `<li>` element) or `title-link-class` prop (for the
 `<a>` element).  Value's can be passed as a string or array of strings.
 
-Note: THe `ative` class is automatically applied to the `<a>` element. You may need to accomodate
-your custom classes for this.
+**Note:** _The `active` class is automatically applied to the active tabs `<a>` element. You may need to accomodate your custom classes for this._
 
 ```html
 <template>
