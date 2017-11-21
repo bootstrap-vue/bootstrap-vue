@@ -23,7 +23,7 @@
     import { warn } from '../../utils';
     import { select } from '../../utils/dom';
     import { idMixin, formStateMixin } from '../../mixins';
-    import bFormRow from '../form/form-row';
+    import bFormRow from '../layout/form-row';
     import bFormText from '../form/form-text';
     import bFormInvalidFeedback from '../form/form-invalid-feedback';
     import bFormValidFeedback from '../form/form-valid-feedback';
