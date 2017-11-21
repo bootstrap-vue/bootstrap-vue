@@ -15,8 +15,7 @@ const btnProps = {
   },
   size: {
     type: String,
-    default: null,
-    validator: size => arrayIncludes(['sm', '', 'lg'], size)
+    default: null
   },
   variant: {
     type: String,
