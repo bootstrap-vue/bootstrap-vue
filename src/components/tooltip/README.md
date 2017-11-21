@@ -221,7 +221,7 @@ when disabled is set to `false`, the tooltip will close.
         {{ disabled ? 'Enable' : 'Disable' }} Tooltip
       </b-btn>
 
-      <b-tooltip :disabled"disabled" target="tooltipButton-disable">
+      <b-tooltip :disabled="disabled" target="tooltipButton-disable">
         Hello <strong>World!</strong>
       </b-tooltip>
     </div>
