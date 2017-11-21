@@ -11,3 +11,4 @@ workbox*.js*
 .vscode
 coverage
 es
+docs/static/sw.js
