@@ -183,10 +183,10 @@ export default {
     t.pageList.forEach((page) => {
       let inner
       let pageNum = t.makePage(page.number)
+      const active = t.isActive(page.number)
       if (t.disabled) {
-        inner = h('span', { class: [ 'page-link' ], domProps: { innerHTML: pageNum } })
+        inner = h('span', { class: [ 'page-link', { active } ], domProps: { innerHTML: pageNum } })
       } else {
-        const active = t.isActive(page.number)
         inner = h(
           'b-link',
           {
