@@ -45,7 +45,7 @@ header and remove the extra padding introduced by `card-body`.
 
 When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatically
 have the `card-body` class applied (this class provides the padding around the tab content).
-To disable the `card-body` class, set the `no-body` prop on `<b-tab>` sub component:
+To disable the `card-body` class, set the `no-body` prop on `<b-tab>` sub component.
 
 ```html
 <b-card no-body>
@@ -75,6 +75,9 @@ To disable the `card-body` class, set the `no-body` prop on `<b-tab>` sub compon
 
 <!-- with-card-nobody.vue -->
 ```
+
+Setting the `no-body` prop on `<b-tab>` will have no affect when `<b-tabs>` is
+not in `card` mode (as the `card-body` class is only set when in `card` mode).
 
 
 ## Pills variant
