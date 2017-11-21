@@ -169,7 +169,7 @@ export default {
         callback()
       }
     },
-    disable() {
+    disable () {
       this.$off('close', this.onClose)
       this.setObservers(false)
       // bring our content back if needed
@@ -179,7 +179,7 @@ export default {
         this._toolpop = null
       }
     },
-    enable() {
+    enable () {
       if (this._toolpop) {
         return
       }
