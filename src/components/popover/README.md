@@ -400,7 +400,7 @@ See the **Hiding and showing popovers via $root events** section below for detai
 
 ### Programmatically disabling popover
 
-You can disable popover via the Boolean prop `disabled` (default is `false`)
+You can disable popover via the syncable Boolean prop `disabled` (default is `false`)
 Setting it to `true` will disable the popover. If the popover is currently visible
 when disabled is set to `false`, it will remain visible until it is enabled or
 programmatically closed..
@@ -416,7 +416,7 @@ programmatically closed..
         {{ disabled ? 'Enable' : 'Disable' }} Popover
       </b-btn>
 
-      <b-popover :disabled="disabled" target="popoverButton-disable" title="Popover">
+      <b-popover :disabled.sync="disabled" target="popoverButton-disable" title="Popover">
         Hello <strong>World!</strong>
       </b-popover>
     </div>
