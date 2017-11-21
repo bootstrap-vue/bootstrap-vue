@@ -320,12 +320,15 @@ on `<b-popover>`:
 <!-- popover-show-open.vue -->
 ```
 
-A popover which is opened programmatically via the 'show' property or by an event call can only be closed
-programmatically. Built-in triggers will not work... until a trigger event tries to open the popover even though it is
-already open. In the below example, when the leftmost Popover is opened with the 'open' event, it will take two
-on-button clicks to close it. Play with the below demo to understand this. When you desire graceful handling of both
-programmatic control external to the Popover component as well as user interaction triggers, you should disable built-in
-triggers and handle control yourself as demonstrated by the rightmost Popover.
+A popover which is opened programmatically via the 'show' property or by an event call
+can only be closed programmatically. Built-in triggers will not work... until a trigger
+event tries to open the popover even though it is already open.
+
+In the below example, when the first Popover is opened with the 'open' event, it will
+take two on-button clicks to close it. Play with the below demo to understand this. When
+you desire graceful handling of both programmatic control external to the Popover
+component as well as user interaction triggers, you should disable built-in
+triggers and handle control yourself as demonstrated by the second Popover.
 
 ```html
 <template>
