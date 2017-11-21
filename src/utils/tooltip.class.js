@@ -782,7 +782,7 @@ class ToolTip {
       this.disable()
     } else if (this.$element && this.$element.id && this.$element.id === id) {
       // Disable this specific tooltip or popover
-      this.disble()
+      this.disable()
     }
   }
 
