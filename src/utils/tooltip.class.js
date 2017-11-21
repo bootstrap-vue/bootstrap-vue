@@ -213,11 +213,25 @@ class ToolTip {
   }
 
   enable () {
+    // Create a non-cancelable BvEvent
+    const enabledEvt = new BvEvent('enabled', {
+      cancelable: false,
+      target: this.$element,
+      relatedTarget: null
+    })
     this.$isEnabled = true
+    this.emitEvent(enabledEvt)
   }
 
   disable () {
+    // Create a non-cancelable BvEvent
+    const disabledEvt = new BvEvent('disabled', {
+      cancelable: false,
+      target: this.$element,
+      relatedTarget: null
+    })
     this.$isEnabled = false
+    this.emitEvent(disabledEvt)
   }
 
   // Click toggler
