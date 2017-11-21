@@ -3,6 +3,7 @@ import { idMixin } from '../../mixins'
 
 // Helper component
 const bTabButtonHelper = {
+  name: 'bTabButtonHelper',
   props: {
     content: { type: String, default: '' },
     href: { type: String, default: '#' },
