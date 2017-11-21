@@ -414,7 +414,7 @@ when disabled is set to `false`, the popover will close.
         {{ disabled ? 'Enable' : 'Disable' }} Popover
       </b-btn>
 
-      <b-popover :disabled"disabled" target="popoverButton-disable" title="Popover">
+      <b-popover :disabled="disabled" target="popoverButton-disable" title="Popover">
         Hello <strong>World!</strong>
       </b-popover>
     </div>
