@@ -1,4 +1,3 @@
-import setup from '~/../README.md';
 import { importAll } from '~/utils'
 import { version } from '~/../package.json'
 
@@ -15,32 +14,32 @@ const miscContext = require.context('~/markdown/misc', true, /meta.json/)
 export const misc = importAll(miscContext)
 
 export const nav = [
-    {
-        title: 'Getting started',
-        base: '',
-    },
-    {
-        title: 'Components',
-        base: 'components/',
-        pages: components
-    },
-    {
-        title: 'Directives',
-        base: 'directives/',
-        pages: directives
-    },
-    {
-        title: 'Reference',
-        base: 'reference/',
-        pages: reference
-    },
-    {
-        title: 'Misc',
-        base: 'misc/',
-        pages: misc
-    }
+  {
+    title: 'Getting started',
+    base: ''
+  },
+  {
+    title: 'Components',
+    base: 'components/',
+    pages: components
+  },
+  {
+    title: 'Directives',
+    base: 'directives/',
+    pages: directives
+  },
+  {
+    title: 'Reference',
+    base: 'reference/',
+    pages: reference
+  },
+  {
+    title: 'Misc',
+    base: 'misc/',
+    pages: misc
+  }
 ]
 
 export {
-    version
+  version
 }
