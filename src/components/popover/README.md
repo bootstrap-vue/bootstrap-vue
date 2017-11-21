@@ -400,7 +400,7 @@ See the **Hiding and showing popovers via $root events** section below for detai
 ### Disabling popover
 
 You can disable popover via the Boolean prop `disabled` (default is `false`)
-Setting it to `true` will disnable the popover. If the popover is currently visible
+Setting it to `true` will disable the popover. If the popover is currently visible
 when disabled is set to `false`, the popover will close.
 
 ```html
