@@ -136,7 +136,7 @@ export default {
       // Disable totally Popper.js for Dropdown in Navbar
       if (!this.inNavbar) {
         if (typeof Popper === 'undefined') {
-          warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.');
+          warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.')
         } else {
           // for dropup with alignment we use the parent element as popper container
           let element = ((this.dropup && this.right) || this.split) ? this.$el : this.$refs.toggle
