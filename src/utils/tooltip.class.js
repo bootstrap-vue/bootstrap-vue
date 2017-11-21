@@ -208,11 +208,11 @@ class ToolTip {
     this.$doShow = null
   }
 
-  enable() {
+  enable () {
     this.$isEnabled = true
   }
 
-  disable() {
+  disable () {
     this.$isEnabled = false
   }
 
