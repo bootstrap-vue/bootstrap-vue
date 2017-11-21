@@ -397,6 +397,46 @@ triggers and handle control yourself as demonstrated by the second Popover.
 You can also use `$root` events to trigger the showing and hiding of popover(s).
 See the **Hiding and showing popovers via $root events** section below for details.
 
+### Disabling popover
+
+You can disable popover via the Boolean prop `disabled` (default is `false`)
+Setting it to `true` will disnable the popover. If the popover is currently visible
+when disabled is set to `false`, the popover will close.
+
+```html
+<template>
+  <div class="d-flex flex-column text-md-center">
+    <div class="p-2">
+      <b-btn id="popoverButton-disable" variant="primary">I have a popover</b-btn>
+    </div>
+    <div class="p-2">
+      <b-btn class="px-1" @click="disabled = !disabled">
+        {{ disabled ? 'Enable' : 'Disable' }} Popover
+      </b-btn>
+
+      <b-popover :disabled"disabled" target="popoverButton-disable" title="Popover">
+        Hello <strong>World!</strong>
+      </b-popover>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        disabled: false
+      }
+    }
+  }
+</script>
+
+<!-- popover-disable.vue -->
+```
+
+When disabled, the popover cannot be opened programmatically (either via the `show` prop,
+methods or events).
+
 
 ## `v-b-popover` Directive usage
 
