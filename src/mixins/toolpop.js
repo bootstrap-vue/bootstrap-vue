@@ -167,7 +167,9 @@ export default {
           show: this.onShow,
           shown: this.onShown,
           hide: this.onHide,
-          hidden: this.onHidden
+          hidden: this.onHidden,
+          enabled: this.onEnabled,
+          disabled: this.onDisabled
         }
       }
     }
@@ -249,6 +251,14 @@ export default {
       this.bringItBack()
       this.$emit('update:show', false)
       this.$emit('hidden', evt)
+    },
+    onEnabled () {
+      this.$emit('update:disabled', false)
+      this.$emit('disabled')
+    },
+    onDisabled () {
+      this.$emit('update:disabled', true)
+      this.$emit('enabled')
     },
     bringItBack () {
       // bring our content back if needed to keep Vue happy
