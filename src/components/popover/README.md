@@ -154,10 +154,10 @@ Use the `focus` trigger by itself to dismiss popovers on the next click that the
 the element receive focus, assuming it is in the tab sequence of the page).
 
 You can, however, specify your trigger as `click blur`,  which will make only a
-click activate the popover, and either a click on the element - _or losing foucus
-to another element or part of the document_ - will close the popover.
+click activate the popover, and either a click on the element, _or_ losing foucus
+to another element or part of the document, will close the popover.
 
-This `blur` trigger must be used in combination with the `click` trigger.
+The special `blur` trigger must be used in combination with the `click` trigger.
 
 
 ## `<b-popover>` Component basic usage
