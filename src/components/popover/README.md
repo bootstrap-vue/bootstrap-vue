@@ -5,7 +5,9 @@ element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popo
 
 ```html
 <div class="my-3">
-  <b-btn v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
+  <b-btn v-b-popover.hover="'I am popover content!'" title="Popover Title">
+    Hover Me
+  </b-btn>
 </div>
 
 <!-- popover-example-1.vue -->
