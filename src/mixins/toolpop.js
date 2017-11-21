@@ -252,11 +252,19 @@ export default {
       this.$emit('update:show', false)
       this.$emit('hidden', evt)
     },
-    onEnabled () {
+    onEnabled (evt) {
+      if (!evt || evt.type !== 'enabled') {
+        // Prevent possible endless loop if user mistakienly fires enabled instead of enable
+        return
+      }
       this.$emit('update:disabled', false)
       this.$emit('disabled')
     },
-    onDisabled () {
+    onDisabled (evt) {
+      if (!evt || evt.type !== 'disabled') {
+        // Prevent possible endless loop if user mistakienly fires disabled instead of disable
+        return
+      }
       this.$emit('update:disabled', true)
       this.$emit('enabled')
     },
