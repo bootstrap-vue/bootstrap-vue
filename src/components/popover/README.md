@@ -270,7 +270,8 @@ Setting it to `true` will show the popover, while setting it to `false` will hid
 <!-- popover-show-sync.vue -->
 ```
 
-Programmatic control can also be affected by submitting `'open'` and `'close'` events to the popover by reference.
+Programmatic control can also be affected by submitting `'open'` and `'close'`
+events to the popover by reference.
 
 ```html
 <template>
@@ -397,11 +398,12 @@ triggers and handle control yourself as demonstrated by the second Popover.
 You can also use `$root` events to trigger the showing and hiding of popover(s).
 See the **Hiding and showing popovers via $root events** section below for details.
 
-### Disabling popover
+### Programmatically disabling popover
 
 You can disable popover via the Boolean prop `disabled` (default is `false`)
 Setting it to `true` will disable the popover. If the popover is currently visible
-when disabled is set to `false`, the popover will close.
+when disabled is set to `false`, it will remain visible until it is enabled or
+programmatically closed..
 
 ```html
 <template>
@@ -434,8 +436,47 @@ when disabled is set to `false`, the popover will close.
 <!-- popover-disable.vue -->
 ```
 
-When disabled, the popover cannot be opened programmatically (either via the `show` prop,
+Programmatic control can also be affected by submitting `'enable'` and `'disable'`
+events to the popover by reference.
+
+```html
+<template>
+  <div class="d-flex flex-column text-md-center">
+    <div class="p-2">
+      <b-btn id="popoverButton-disableevent" variant="primary">I have a popover</b-btn>
+    </div>
+    <div class="p-2">
+      <b-btn class="px-1" @click="onEnable">Enable</b-btn>
+      <b-btn class="px-1" @click="onDisable">Disable</b-btn>
+    </div>
+
+    <b-popover ref="popover" target="popoverButton-disableevent" title="Popover">
+      Hello <strong>World!</strong>
+    </b-popover>
+  </div>
+</template>
+
+<script>
+  export default {
+    methods: {
+      onEnable() {
+        this.$refs.popover.$emit('enable')
+      },
+      onDisable() {
+        this.$refs.popover.$emit('disable')
+      }
+    }
+  }
+</script>
+
+<!-- popover-disabled-event.vue -->
+```
+
+When disabled, the popover can be opened programmatically (either via the `show` prop,
 methods or events).
+
+You can also use `$root` events to trigger disabling and enabling of popover(s).
+See the **Disabling and enabling popovers via $root events** section below for details.
 
 
 ## `v-b-popover` Directive usage
@@ -631,29 +672,61 @@ export default {
 ```
 
 ## Hiding and showing popovers via $root events
-You can close (hide) all open popovers by emitting the `bv::hide::popover` event on $root:
+You can close (hide) **all open popovers** by emitting the `bv::hide::popover` event on $root:
 
 ```js
 this.$root.$emit('bv::hide::popover');
 ```
 
-To close a specific popover, pass the trigger element's `id` as the first argument:
+To close a **specific popover**, pass the trigger element's `id` as the first argument:
 
 ```js
 this.$root.$emit('bv::show::popover', 'my-trigger-button-id');
 ```
 
-To open (show) a specific popover, pass the trigger element's `id` as the first argument when
+To open (show) a **specific popover**, pass the trigger element's `id` as the first argument when
 emitting the `bv::show::popover` event:
 
 ```js
 this.$root.$emit('bv::show::popover', 'my-trigger-button-id');
 ```
 
+To open all popovers simultaneously, omit the `id` argument when emitting the
+`bv::show::popover` event.
+
+These events work for both the component **and** directive versions of popover.
+
+Note the **trigger element** must exist in the DOM and be in a visible state in order for the
+popover to instantiate and show.
+
+
+## Disabling and enabling popovers via $root events
+You can disable **all** popovers by emitting the `bv::disable::popover` event on $root:
+
+```js
+this.$root.$emit('bv::disable::popover');
+```
+
+To disable a **specific popover**, pass the trigger element's `id` as the first argument:
+
+```js
+this.$root.$emit('bv::disable::popover', 'my-trigger-button-id');
+```
+
+To enable a **specific popover**, pass the trigger element's `id` as the first argument when
+emitting the `bv::enable::popover` event:
+
+```js
+this.$root.$emit('bv::enable::popover', 'my-trigger-button-id');
+```
+
+To enable all popovers simultaneously, omit the `id` argument when emitting the
+`bv::enable::popover` event.
+
 These events work for both the component and directive versions of popover.
 
-Note the trigger element must exist in the DOM and be in a visible state in order for the
-popover to show.
+Note the **trigger element** must exist in the DOM and be in a visible state in order for the
+popover to be enabled or disabled.
 
 
 ## Accessibility
