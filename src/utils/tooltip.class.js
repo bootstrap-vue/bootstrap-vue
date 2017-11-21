@@ -112,6 +112,7 @@ class ToolTip {
   // Main constructor
   constructor (element, config, $root) {
     // New tooltip object
+    this.$isEnabled = true
     this.$fadeTimeout = null
     this.$hoverTimeout = null
     this.$visibleInterval = null
@@ -196,6 +197,7 @@ class ToolTip {
     this.$tip = null
     // Null out other properties
     this.$id = null
+    this.$isEnabled = null
     this.$root = null
     this.$element = null
     this.$config = null
@@ -206,8 +208,19 @@ class ToolTip {
     this.$doShow = null
   }
 
+  enable() {
+    this.$isEnabled = true
+  }
+
+  disable() {
+    this.$isEnabled = false
+  }
+
   // Click toggler
   toggle (event) {
+    if (!this.$isEnabled) {
+      return
+    }
     if (event) {
       this.$activeTrigger.click = !this.$activeTrigger.click
 
@@ -231,7 +244,9 @@ class ToolTip {
       // If trigger element isn't in the DOM or is not visible
       return
     }
-
+    if (!this.$isEnabled) {
+      return
+    }
     // Build tooltip element (also sets this.$tip)
     const tip = this.getTipElement()
     this.fixTitle()
