@@ -410,7 +410,7 @@ when disabled is set to `false`, the popover will close.
       <b-btn id="popoverButton-disable" variant="primary">I have a popover</b-btn>
     </div>
     <div class="p-2">
-      <b-btn class="px-1" @click="disabled = !disabled">
+      <b-btn @click="disabled = !disabled">
         {{ disabled ? 'Enable' : 'Disable' }} Popover
       </b-btn>
 
