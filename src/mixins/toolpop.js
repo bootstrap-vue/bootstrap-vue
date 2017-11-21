@@ -57,6 +57,10 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   watch: {
@@ -64,8 +68,13 @@ export default {
       if (show === old) {
         return
       }
-
       show ? this.onOpen() : this.onClose()
+    },
+    disabled (disabled, old) {
+      if (disabled === old) {
+        return
+      }
+      disabled ? this.disable() : this.enable()
     }
   },
   created () {
@@ -75,24 +84,10 @@ export default {
     this._obs_content = null
   },
   mounted () {
-    // We do this in a $nextTick in hopes that the target element is in the DOM
-    // And that our children have rendered
-    this.$nextTick(() => {
-      // Instantiate ToolTip/PopOver on target
-      // createToolpop method must exist in main component
-      if (this.createToolpop()) {
-        // Listen to open signals from others
-        this.$on('open', this.onOpen)
-        // Listen to close signals from others
-        this.$on('close', this.onClose)
-        // Observe content Child changes so we can notify popper of possible size change
-        this.setObservers(true)
-        // Set intially open state
-        if (this.show) {
-          this.onOpen()
-        }
-      }
-    })
+    if (this.disabled) {
+      return
+    }
+    this.enable()
   },
   updated () {
     // If content/props changes, etc
@@ -112,14 +107,7 @@ export default {
     }
   },
   beforeDestroy () {
-    this.$off('close', this.onClose)
-    this.setObservers(false)
-    if (this._toolpop) {
-      this._toolpop.destroy()
-      this._toolpop = null
-    }
-    // bring our content back if needed
-    this.bringItBack()
+    this.disable()
   },
   computed: {
     baseConfig () {
@@ -180,6 +168,37 @@ export default {
       } else if (typeof callback === 'function') {
         callback()
       }
+    },
+    disable() {
+      this.$off('close', this.onClose)
+      this.setObservers(false)
+      // bring our content back if needed
+      this.bringItBack()
+      if (this._toolpop) {
+        this._toolpop.destroy()
+        this._toolpop = null
+      }
+    },
+    enable() {
+      if (this._toolpop) {
+        return
+      }
+      this.$nextTick(() => {
+        // Instantiate ToolTip/PopOver on target
+        // createToolpop method must exist in main component
+        if (this.createToolpop()) {
+          // Listen to open signals from others
+          this.$on('open', this.onOpen)
+          // Listen to close signals from others
+          this.$on('close', this.onClose)
+          // Observe content Child changes so we can notify popper of possible size change
+          this.setObservers(true)
+          // Set intially open state
+          if (this.show) {
+            this.onOpen()
+          }
+        }
+      })
     },
     updatePosition () {
       if (this._toolpop) {
