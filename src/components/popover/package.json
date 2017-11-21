@@ -47,11 +47,11 @@
             },
             {
                 "event": "enabled",
-                "description": "Emitted when popover is enabled"
+                "description": "Emitted when popover becomes enabled"
             },
             {
                 "event": "disabled",
-                "description": "Emitted when popover is disabled"
+                "description": "Emitted when popover becomes disabled"
             },
             {
                 "event": "bv::popover::show",
@@ -95,7 +95,7 @@
             },
             {
                 "event": "bv::popover::enabled",
-                "description": "Emitted on $root when popover is enabled",
+                "description": "Emitted on $root when popover becomes enabled",
                 "args": [
                     {
                         "arg": "bvEvent",
@@ -105,7 +105,7 @@
             },
             {
                 "event": "bv::popover::disabled",
-                "description": "Emitted on $root when popover is disabled",
+                "description": "Emitted on $root when popover becomes disabled",
                 "args": [
                     {
                         "arg": "bvEvent",
