@@ -124,7 +124,7 @@ class ToolTip {
     this.$id = generateId(this.constructor.NAME)
     this.$root = $root || null
     this.$routeWatcher = null
-    // We keep a bound version of handlers for root/modal listeners
+    // We use a bound version of the following handlers for root/modal listeners to maintain the 'this' context
     this.$forceHide = this.forceHide.bind(this)
     this.$doHide = this.doHide.bind(this)
     this.$doShow = this.doShow.bind(this)
