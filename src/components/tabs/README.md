@@ -24,7 +24,7 @@
 ## Cards Integration
 
 Tabs support integrating with bootstrap cards. Just add the `card` property to
-`<b-tabs>`. and plce it inside a `<b-card>` component. Note that you should add
+`<b-tabs>`. and place it inside a `<b-card>` component. Note that you should add
 `no-body` prop on `<b-card>` component in order to propertly decorate the card
 header and remove the extra padding introduced by `card-body`.
 
