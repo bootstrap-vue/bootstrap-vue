@@ -392,6 +392,7 @@ triggers and handle control yourself as demonstrated by the second Popover.
     }
   }
 </script>
+
 <!-- popover-advanced-caution.vue -->
 ```
 
@@ -400,10 +401,11 @@ See the **Hiding and showing popovers via $root events** section below for detai
 
 ### Programmatically disabling popover
 
-You can disable popover via the syncable Boolean prop `disabled` (default is `false`)
+You can disable popover via the syncable Boolean prop `disabled` (default vlaue is `false`)
 Setting it to `true` will disable the popover. If the popover is currently visible
 when disabled is set to `false`, it will remain visible until it is enabled or
-programmatically closed..
+programmatically closed. If the popover is disabled/enabled via $root events (see below),
+your `disabled` value will be updated as long as you have provided the `.sync` prop modifier.
 
 ```html
 <template>
@@ -725,14 +727,14 @@ To enable all popovers simultaneously, omit the `id` argument when emitting the
 
 These events work for both the component and directive versions of popover.
 
-Note the **trigger element** must exist in the DOM and be in a visible state in order for the
-popover to be enabled or disabled.
+Note the **trigger element** must exist in the DOM in order for the popover to be
+enabled or disabled.
 
 
 ## Accessibility
 Popovers, in their current implementation, are not overly accessible when used as interactive
-components. Content may not be activly read to screen reader users, and the popover
-markup not be located close to the trigger element in the DOM (as popovers usually
+components. Content may not be actively read to screen reader users, and the popover
+markup might not be located close to the trigger element in the DOM (as popovers usually
 get appended to the end of `<body>`).
 
 When using popovers as interactive component, you should transfer focus into the
@@ -743,5 +745,6 @@ have done in the above example.
 You may also want to implement focus containment in the popover content while the
 user is interactiving with it (keeping focus inside the popover until it is closed
 by the user).
+
 
 ## Component Reference
