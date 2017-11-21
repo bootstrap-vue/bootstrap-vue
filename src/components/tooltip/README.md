@@ -204,6 +204,46 @@ on `<b-tooltip>`:
 You can also use `$root` events to trigger the showing and hiding of tooltip(s).
 See the **Hiding and showing tooltips via $root events** section below for details.
 
+### Disabling tooltip
+
+You can disable tooltip via the Boolean prop `disabled` (default is `false`)
+Setting it to `true` will disable the tooltip. If the tooltip is currently visible
+when disabled is set to `false`, the tooltip will close.
+
+```html
+<template>
+  <div class="d-flex flex-column text-md-center">
+    <div class="p-2">
+      <b-btn id="tooltipButton-disable" variant="primary">I have a tooltip</b-btn>
+    </div>
+    <div class="p-2">
+      <b-btn class="px-1" @click="disabled = !disabled">
+        {{ disabled ? 'Enable' : 'Disable' }} Tooltip
+      </b-btn>
+
+      <b-tooltip :disabled"disabled" target="tooltipButton-disable">
+        Hello <strong>World!</strong>
+      </b-tooltip>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        disabled: false
+      }
+    }
+  }
+</script>
+
+<!-- tooltip-disable.vue -->
+```
+
+When disabled, the tooltip cannot be opened programmatically (either via the `show` prop,
+methods or events).
+
 
 ## `v-b-tooltip` Directive Usage
 
