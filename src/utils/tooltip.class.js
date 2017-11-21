@@ -124,10 +124,12 @@ class ToolTip {
     this.$id = generateId(this.constructor.NAME)
     this.$root = $root || null
     this.$routeWatcher = null
-    // We keep a bound copy of the forceHide, doHide and doShow methods for root/modal listeners
+    // We keep a bound version of handlers for root/modal listeners
     this.$forceHide = this.forceHide.bind(this)
     this.$doHide = this.doHide.bind(this)
     this.$doShow = this.doShow.bind(this)
+    this.$doDisable = this.doDisable.bind(this)
+    this.$doEnable = this.doEnable.bind(this)
     // Set the configuration
     this.updateConfig(config)
   }
@@ -206,6 +208,8 @@ class ToolTip {
     this.$forceHide = null
     this.$doHide = null
     this.$doShow = null
+    this.$doDisable = null
+    this.$doEnable = null
   }
 
   enable () {
@@ -242,9 +246,6 @@ class ToolTip {
   show () {
     if (!document.body.contains(this.$element) || !isVisible(this.$element)) {
       // If trigger element isn't in the DOM or is not visible
-      return
-    }
-    if (!this.$isEnabled) {
       return
     }
     // Build tooltip element (also sets this.$tip)
@@ -645,8 +646,8 @@ class ToolTip {
       eventOff(this.$element, evt, this)
     }, this)
 
-    // Stop listening for global show/hide events
-    this.setRootListener(true)
+    // Stop listening for global show/hide/enable/disable events
+    this.setRootListener(false)
   }
 
   handleEvent (e) {
@@ -654,6 +655,10 @@ class ToolTip {
     if (isDisabled(this.$element)) {
       // If disabled, don't do anything. Note: if tip is shown before element gets
       // disabled, then tip not close until no longer disabled or forcefully closed.
+      return
+    }
+    if (!this.$isEnabled) {
+      // If not enable
       return
     }
     const type = e.type
@@ -729,13 +734,15 @@ class ToolTip {
     if (this.$root) {
       this.$root[on ? '$on' : '$off'](`bv::hide::${this.constructor.NAME}`, this.$doHide)
       this.$root[on ? '$on' : '$off'](`bv::show::${this.constructor.NAME}`, this.$doShow)
+      this.$root[on ? '$on' : '$off'](`bv::disable::${this.constructor.NAME}`, this.$doDisable)
+      this.$root[on ? '$on' : '$off'](`bv::enable::${this.constructor.NAME}`, this.$doEnable)
     }
   }
 
   doHide (id) {
-    // Programmatically hide this tooltip or popover
+    // Programmatically hide tooltip or popover
     if (!id) {
-      // Close all tooltip or popovers
+      // Close all tooltips or popovers
       this.forceHide()
     } else if (this.$element && this.$element.id && this.$element.id === id) {
       // Close this specific tooltip or popover
@@ -744,9 +751,35 @@ class ToolTip {
   }
 
   doShow (id) {
-    // Programmatically show this tooltip or popover
-    if (id && this.$element && this.$element.id && this.$element.id === id) {
+    // Programmatically show tooltip or popover
+    if (!id) {
+      // Open all tooltips or popovers
       this.show()
+    } else if (id && this.$element && this.$element.id && this.$element.id === id) {
+      // Show this specific tooltip or popover
+      this.show()
+    }
+  }
+
+  doDisable (id) {
+    // Programmatically disable tooltip or popover
+    if (!id) {
+      // Disable all tooltips or popovers
+      this.disable()
+    } else if (this.$element && this.$element.id && this.$element.id === id) {
+      // Disable this specific tooltip or popover
+      this.disble()
+    }
+  }
+
+  doEnable (id) {
+    // Programmatically enable tooltip or popover
+    if (!id) {
+      // Enable all tooltips or popovers
+      this.enable()
+    } else if (this.$element && this.$element.id && this.$element.id === id) {
+      // Enable this specific tooltip or popover
+      this.enable()
     }
   }
 
