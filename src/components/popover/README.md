@@ -4,8 +4,8 @@
 element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popover) directive.
 
 ```html
-<div class="text-center my-3">
-  <b-btn v-b-popover.hover.auto="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
+<div class="my-3">
+  <b-btn v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
 </div>
 
 <!-- popover-example-1.vue -->
