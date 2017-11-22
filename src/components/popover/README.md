@@ -148,7 +148,7 @@ popover will close. I.e. if a popover has the trigger `focus click`, and it was 
 `focus`, and the user then clicks the trigger element, they must click it again **and**
 move focus to close the popover.
 
-### Dismiss on next click (self-dimissing)
+### Dismiss on next click (self-dismissing)
 Use the `focus` trigger by itself to dismiss popovers on the next click that the user makes.
 `focus` also makes the popover activate on both `focus` and `click` (as a click makes
 the element receive focus, assuming it is in the tab sequence of the page).
