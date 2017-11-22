@@ -270,7 +270,7 @@ prop modifier.
         {{ disabled ? 'Enable' : 'Disable' }} Tooltip by prop
       </b-btn>
             
-      <b-btn @click="disableByRoot">
+      <b-btn @click="disableByRef">
         {{ disabled ? 'Enable' : 'Disable' }} Tooltip by $ref event
       </b-btn>
 
@@ -289,7 +289,7 @@ prop modifier.
       }
     },
     methods: {
-      disableByRoot () {
+      disableByRef () {
         if (this.disabled) {
           this.$refs.tooltip.$emit('enable')
         } else {
