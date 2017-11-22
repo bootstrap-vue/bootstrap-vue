@@ -24,24 +24,60 @@
 ## Cards Integration
 
 Tabs support integrating with bootstrap cards. Just add the `card` property to
-`<b-tabs>`. Note that you should add `no-body` prop on `<b-card>` element in order
-to propertly decorate the card header and remove the extra padding introduced
-by `card-body`.
+`<b-tabs>`. and place it inside a `<b-card>` component. Note that you should add
+`no-body` prop on `<b-card>` component in order to propertly decorate the card
+header and remove the extra padding introduced by `card-body`.
 
 ```html
 <b-card no-body>
-    <b-tabs card>
-        <b-tab title="Tab 1" active>
-            Tab Contents
-        </b-tab>
-        <b-tab title="Tab 2">
-            Tab Contents 2
-        </b-tab>
-    </b-tabs>
+  <b-tabs card>
+    <b-tab title="Tab 1" active>
+      Tab Contents 1
+    </b-tab>
+    <b-tab title="Tab 2">
+      Tab Contents 2
+    </b-tab>
+  </b-tabs>
 </b-card>
 
 <!-- with-card.vue -->
 ```
+
+When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatically
+have the `card-body` class applied (this class provides the padding around the tab content).
+To disable the `card-body` class, set the `no-body` prop on `<b-tab>` sub component.
+
+```html
+<b-card no-body>
+  <b-tabs card>
+    <b-tab no-body title="Picture 1" active>
+      <b-card-img bottom src="https://lorempixel.com/600/200/food/1/" />
+      <b-card-footer>Picture 1 footer</b-card-footer>
+    </b-tab>
+    <b-tab no-body title="Picture 2">
+      <b-card-img bottom src="https://lorempixel.com/600/200/food/5/" />
+      <b-card-footer>Picture 2 footer</b-card-footer>
+    </b-tab>
+    <b-tab no-body title="Picture 3">
+      <b-card-img bottom src="https://lorempixel.com/600/200/food/6/" />
+      <b-card-footer>Picture 3 footer</b-card-footer>
+    </b-tab>
+    <b-tab title="Text">
+      <h5>This tab does not have the <code>no-body</code> prop set</h5>
+      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+      tempor. Laborum consequat non elit enim exercitation cillum aliqua consequat
+      id aliqua. Esse ex consectetur mollit voluptate est in duis laboris ad sit
+      ipsum anim Lorem. Incididunt veniam velit elit elit veniam Lorem aliqua quis
+      ullamco deserunt sit enim elit aliqua esse irure.
+    </b-tab>
+  </b-tabs>
+</b-card>
+
+<!-- with-card-nobody.vue -->
+```
+
+Setting the `no-body` prop on `<b-tab>` will have no affect when `<b-tabs>` is
+not in `card` mode (as the `card-body` class is only set when in `card` mode).
 
 
 ## Pills variant
@@ -51,14 +87,14 @@ the pill style variant.
 
 ```html
 <b-card no-body>
-    <b-tabs pills card>
-        <b-tab title="Tab 1" active>
-            Tab Contents
-        </b-tab>
-        <b-tab title="Tab 2">
-            Tab Contents 2
-        </b-tab>
-    </b-tabs>
+  <b-tabs pills card>
+    <b-tab title="Tab 1" active>
+      Tab Contents 1
+    </b-tab>
+    <b-tab title="Tab 2">
+      Tab Contents 2
+    </b-tab>
+  </b-tabs>
 </b-card>
 
 <!-- tabs-pills.vue -->
@@ -70,14 +106,14 @@ Visually move the tab controls to the bottom by setting the prop `end`
 
 ```html
 <b-card no-body>
-    <b-tabs pills card end>
-        <b-tab title="Tab 1" active>
-            Tab Contents
-        </b-tab>
-        <b-tab title="Tab 2">
-            Tab Contents 2
-        </b-tab>
-    </b-tabs>
+  <b-tabs pills card end>
+    <b-tab title="Tab 1" active>
+      Tab Contents 1
+    </b-tab>
+    <b-tab title="Tab 2">
+      Tab Contents 2
+    </b-tab>
+  </b-tabs>
 </b-card>
 
 <!-- tabs-bottom.vue -->
@@ -97,20 +133,21 @@ viewport, otherwise the user will need to scroll up to read the start of the tab
 ## Vertical tabs
 
 Have the tab controls placed on the lefthand side by setting the `vertical` prop to `true`.
+Vertical tabs work with or without `card` mode enabled.
 
 ```html
 <b-card no-body>
-    <b-tabs pills card vertical>
-        <b-tab title="Tab 1" active>
-            Tab Contents
-        </b-tab>
-        <b-tab title="Tab 2">
-            Tab Contents 2
-        </b-tab>
-        <b-tab title="Tab 3">
-            Tab Contents 3
-        </b-tab>
-    </b-tabs>
+  <b-tabs pills card vertical>
+    <b-tab title="Tab 1" active>
+      Tab Contents 1
+    </b-tab>
+    <b-tab title="Tab 2">
+      Tab Contents 2
+    </b-tab>
+    <b-tab title="Tab 3">
+      Tab Contents 3
+    </b-tab>
+  </b-tabs>
 </b-card>
 
 <!-- tabs-vertical.vue -->
@@ -120,17 +157,17 @@ Visually move the tab controls to the right hand side by setting the `end` prop:
 
 ```html
 <b-card no-body>
-    <b-tabs pills card vertical end>
-        <b-tab title="Tab 1" active>
-            Tab Contents
-        </b-tab>
-        <b-tab title="Tab 2">
-            Tab Contents 2
-        </b-tab>
-        <b-tab title="Tab 3">
-            Tab Contents 3
-        </b-tab>
-    </b-tabs>
+  <b-tabs pills card vertical end>
+    <b-tab title="Tab 1" active>
+      Tab Contents 1
+    </b-tab>
+    <b-tab title="Tab 2">
+      Tab Contents 2
+    </b-tab>
+    <b-tab title="Tab 3">
+      Tab Contents 3
+    </b-tab>
+  </b-tabs>
 </b-card>
 
 <!-- tabs-vertical-end.vue -->
@@ -143,17 +180,17 @@ or column classes such as `col-2`, `col-3`, etc.
 
 ```html
 <b-card no-body>
-    <b-tabs pills card vertical nav-wrapper-class="w-50">
-        <b-tab title="Tab 1" active>
-            Tab Contents
-        </b-tab>
-        <b-tab title="Tab 2">
-            Tab Contents 2
-        </b-tab>
-        <b-tab title="Tab 3">
-            Tab Contents 3
-        </b-tab>
-    </b-tabs>
+  <b-tabs pills card vertical nav-wrapper-class="w-50">
+    <b-tab title="Tab 1" active>
+      Tab Contents 1
+    </b-tab>
+    <b-tab title="Tab 2">
+      Tab Contents 2
+    </b-tab>
+    <b-tab title="Tab 3">
+      Tab Contents 3
+    </b-tab>
+  </b-tabs>
 </b-card>
 
 <!-- tabs-vertical-width.vue -->
@@ -161,9 +198,10 @@ or column classes such as `col-2`, `col-3`, etc.
 
 Vertical placement visually works best with the `pills` variant. When using the default 
 `tabs` vairiant, you may want to provided your own custom styling classes, as Bootstrap
-V4 CSS assumes the tabs will always be placed on the top of the tabs content.
+V4 CSS assumes the tab controls will always be placed on the top of the tabs content.
 
-**Note:** _overflowing text may occur if your width is narrower than the tab title. You may need additional custom styling._
+**Note:** _overflowing text may occur if your width is narrower than the tab title.
+You may need additional custom styling._
 
 
 ## Fade animation
@@ -181,7 +219,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
 <b-tabs>
   <!-- Add your b-tab components here-->
   <template slot="tabs">
-      <b-nav-item to="#" @click="onClick">Another tab</b-nav-item>
+    <b-nav-item to="#" @click="onClick">Another tab</b-nav-item>
   </template>
 </b-tabs>
 ```
@@ -195,7 +233,8 @@ In some situations, you may want to add classes to the `<li>` (nav-item) and/or 
 the `title-item-class` prop (for the `<li>` element) or `title-link-class` prop (for the
 `<a>` element).  Value's can be passed as a string or array of strings.
 
-**Note:** _The `active` class is automatically applied to the active tabs `<a>` element. You may need to accomodate your custom classes for this._
+**Note:** _The `active` class is automatically applied to the active tabs `<a>` element.
+You may need to accomodate your custom classes for this._
 
 ```html
 <template>
