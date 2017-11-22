@@ -420,8 +420,8 @@ your `disabled` value will be updated as long as you have provided the `.sync` p
         {{ disabled ? 'Enable' : 'Disable' }} Popover by prop
       </b-btn>
       
-      <b-btn @click="disableByRoot">
-        {{ disabled ? 'Enable' : 'Disable' }} Popover by Root event
+      <b-btn @click="disableByRef">
+        {{ disabled ? 'Enable' : 'Disable' }} Popover by $ref event
       </b-btn>
 
       <b-popover :disabled.sync="disabled" target="popoverButton-disable" title="Popover">
@@ -439,11 +439,11 @@ your `disabled` value will be updated as long as you have provided the `.sync` p
       }
     },
     methods: {
-       disableByRoot() {
+       disableByRef() {
            if (this.disabled){
-               this.$root.$emit('bv::enable::popover')
+               this.$refs.popover.$emit('enable')
            }else{
-               this.$root.$emit('bv::disable::popover')
+               this.$refs.popover.$emit('disable')
            }
        } 
     }
