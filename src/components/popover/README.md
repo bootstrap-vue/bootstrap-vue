@@ -154,8 +154,8 @@ Use the `focus` trigger by itself to dismiss popovers on the next click that the
 the element receive focus, assuming it is in the tab sequence of the page).
 
 You can, however, specify your trigger as `click blur`,  which will make only a
-click activate the popover, and either a click on the element, _or_ losing foucus
-to another element or part of the document, will close the popover.
+click activate the popover, and either a click on the element, _or_ losing focus
+to another element or part of the document will close the popover.
 
 The special `blur` trigger must be used in combination with the `click` trigger.
 
@@ -227,9 +227,9 @@ export default {
 
 | Prop | Default | Description | Supported values
 | ---- | ------- | ----------- | ----------------
-| `target` | `null` | String ID of element, or a reference to an element or component, that you want to trigger the popover. **Required** | Any valid, in-document unique element ID, or in-document element/component reference
-| `title` | `null` | Title of popover (text only, no HTML). if HTML is required, place it in the `title` named slot | Plain text
-| `content` | `null` | Content of popover (text only, no HTML). if HTML is required, place it in the default slot | Plain text
+| `target` | `null` | Element string ID, or a reference to an element or component, that you want to trigger the popover. **Required** | Any valid in-document unique element ID, or in-document element/component reference
+| `title` | `null` | Popover title (text only, no HTML). If HTML is required, place it in the `title` named slot | Plain text
+| `content` | `null` | Popover content (text only, no HTML). If HTML is required, place it in the default slot | Plain text
 | `placement` | `'right'` | Positioning of the popover, relative to the trigger element. | `auto`, `top`, `bottom`, `left`, `right`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
 | `sync` | `false` | Programmatic control of the Popover display state. Recommended to use with [sync modifier](https://vuejs.org/v2/guide/components.html#sync-Modifier). | `true`, `false`
 | `triggers` | `'click'` | Space separated list of which event(s) will trigger open/close of popover using built-in handling | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
@@ -324,12 +324,12 @@ on `<b-popover>`:
 ```
 
 A popover which is opened programmatically via the 'show' property or by an event call
-can only be closed programmatically. Built-in triggers will not work... until a trigger
-event tries to open the popover even though it is already open.
+can only be closed programmatically. Built-in triggers will work inadequatly, because trigger
+event will try to open the popover even though it is already opened.
 
 In the below example, when the first Popover is opened with the 'open' event, it will
-take two on-button clicks to close it. Play with the below demo to understand this. When
-you desire graceful handling of both programmatic control external to the Popover
+take two button clicks to close it. Play with the below demo to understand this. When
+you desire graceful handling of both programmatic control of the Popover
 component as well as user interaction triggers, you should disable built-in
 triggers and handle control yourself as demonstrated by the second Popover.
 
@@ -529,11 +529,11 @@ information on the directive usage.
 
 You can even make your `<b-popover>` content interactive. Just remember not to use the
 `focus`, `hover` or `blur` triggers (use only `click`), otherwsie your popover will
-close automatically as soon as someone trys to interact with the content.
+close automatically as soon as someone will try to interact with the content.
 
 If you absolutely must use a trigger other than `click` (or want to disable closing of the
 popover when the trigger element is clicked a second time), then you can either:
- - Listen for the `hide` event on the `<b-popover>` element, and call the `preventDefault()` method (when apropriate) on the `BvEvent` passed to your `hide` handler, or
+ - Listen for the `hide` event on the `<b-popover>` element, and call the `preventDefault()` method (when apropriate) on the `BvEvent` passed to your `hide` handler;
  - Disable your trigger element (if possible) as soon as the popover opens (via the `show` event), and re-enable it when apropriate.
 
 For practical purposes, interactive content popovers should be minimal. The maximum
