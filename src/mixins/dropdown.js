@@ -3,7 +3,7 @@ import clickoutMixin from './clickout'
 import listenOnRootMixin from './listen-on-root'
 import { from as arrayFrom } from '../utils/array'
 import { assign } from '../utils/object'
-import { KeyCodes } from '../utils'
+import { KeyCodes, warn } from '../utils'
 import { isVisible, closest, selectAll, getAttr, eventOn, eventOff } from '../utils/dom'
 
 // Return an Array of visible items
@@ -71,7 +71,7 @@ export default {
       inNavbar: null
     }
   },
-  created () {
+  mounted () {
     const listener = vm => {
       if (vm !== this) {
         this.visible = false
@@ -85,6 +85,14 @@ export default {
     this.listenOnRoot('clicked::link', listener)
     // Use new namespaced events
     this.listenOnRoot('bv::link::clicked', listener)
+  },
+  beforeDestroy () {
+    if (this._popper) {
+      // Ensure popper event listeners are removed cleanly
+      this._popper.destroy()
+    }
+    this._popper = null
+    this.setTouchStart(false)
   },
   watch: {
     visible (state, old) {
@@ -110,14 +118,6 @@ export default {
       return this.$refs.toggle.$el || this.$refs.toggle
     }
   },
-  destroyed () {
-    if (this._popper) {
-      // Ensure popper event listeners are removed cleanly
-      this._popper.destroy()
-    }
-    this._popper = null
-    this.setTouchStart(false)
-  },
   methods: {
     showMenu () {
       if (this.disabled) {
@@ -128,19 +128,23 @@ export default {
       // Ensure other menus are closed
       this.emitOnRoot('bv::dropdown::shown', this)
 
-      // If popper not installed, then fallback gracefully to dropdown only with left alignment
-      if (typeof Popper === 'function') {
-        // Are we in a navbar ?
-        if (this.inNavbar === null && this.isNav) {
-          this.inNavbar = Boolean(closest('.navbar', this.$el))
-        }
-        // for dropup with alignment we use the parent element as popper container
-        let element = ((this.dropup && this.right) || this.split || this.inNavbar) ? this.$el : this.$refs.toggle
-        // Make sure we have a reference to an element, not a component!
-        element = element.$el || element
+      // Are we in a navbar ?
+      if (this.inNavbar === null && this.isNav) {
+        this.inNavbar = Boolean(closest('.navbar', this.$el))
+      }
 
-        // Instantiate popper.js
-        this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+      // Disable totally Popper.js for Dropdown in Navbar
+      if (!this.inNavbar) {
+        if (typeof Popper === 'undefined') {
+          warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.')
+        } else {
+          // for dropup with alignment we use the parent element as popper container
+          let element = ((this.dropup && this.right) || this.split) ? this.$el : this.$refs.toggle
+          // Make sure we have a reference to an element, not a component!
+          element = element.$el || element
+          // Instantiate popper.js
+          this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+        }
       }
 
       this.setTouchStart(true)
@@ -181,10 +185,6 @@ export default {
           },
           flip: {
             enabled: !this.noFlip
-          },
-          applyStyle: {
-            // Disable Popper.js for Dropdown in Navbar
-            enabled: !this.inNavbar
           }
         }
       }
@@ -192,11 +192,11 @@ export default {
     },
     setTouchStart (on) {
       /*
-             If this is a touch-enabled device we add extra
-             empty mouseover listeners to the body's immediate children;
-             only needed because of broken event delegation on iOS
-             https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
-             */
+       * If this is a touch-enabled device we add extra
+       * empty mouseover listeners to the body's immediate children;
+       * only needed because of broken event delegation on iOS
+       * https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+       */
       if ('ontouchstart' in document.documentElement) {
         const children = arrayFrom(document.body.children)
         children.forEach(el => {
