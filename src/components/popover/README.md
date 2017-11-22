@@ -421,8 +421,8 @@ your `disabled` value will be updated as long as you have provided the `.sync` p
       </b-btn>
       
       <b-btn @click="disableByRoot">
-              {{ disabled ? 'Enable' : 'Disable' }} Popover by Root event
-            </b-btn>
+        {{ disabled ? 'Enable' : 'Disable' }} Popover by Root event
+      </b-btn>
 
       <b-popover :disabled.sync="disabled" target="popoverButton-disable" title="Popover">
         Hello <strong>World!</strong>
