@@ -25,7 +25,7 @@ Things to know when using tooltip component:
 The `<b-tooltip` component inserts a hidden (`display:none`) `<div>` intermediate container
 element at the point in the DOM where the `<b-tooltip>` component is placed. This may
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
-and `<b-input-group>`. To avoid these posible layout issues, place the `<b-tooltip>`
+and `<b-input-group>`. To avoid these possible layout issues, place the `<b-tooltip>`
 component **outside** of these types of components.
 
 The target element **must** exist in the document before `<b-tooltip>` is mounted. If the
@@ -35,9 +35,9 @@ your `<b-tooltip>` component lower in the DOM than your target element.
 **Note:** _When using the default slot for the title, `<b-tooltip>` transfers the
 rendered DOM from that slot into the tooltip's markup when shown, and returns
 the content back to the `<b-tooltip>` component when hidden. This may cause some issues
-in rare circumstances, so please test your implmentation accordingly! The `title`
+in rare circumstances, so please test your implementation accordingly! The `title`
 prop does not have this behavior. For simple tooltips, we recommend using the
-`v-b-tooltip` directive and enable the `html` modifer if needed._
+`v-b-tooltip` directive and enable the `html` modifier if needed._
 
 ## Positioning
 Twelve options are available for positioning: `top`, `topleft`, `topright`, `right`, `righttop`,
@@ -120,6 +120,16 @@ The default position is `top`. Positioning is relative to the trigger element.
 </div>
 
 
+## Triggers
+Tooltips can be triggered (opened/closed) via any combination of `click`, `hover`
+and `focus`. The default trigger is `hover focus`.
+
+If a tooltip has more than one trigger, then all triggers must be cleared before the
+tooltip will close. I.e. if a tooltip has the trigger `focus click`, and it was opened
+by `focus`, and the user then clicks the trigger element, they must click it again
+**and** move focus to close the tooltip.
+
+
 ## `<b-tooltip>` Component Usage
 
 ```html
@@ -149,14 +159,14 @@ The default position is `top`. Positioning is relative to the trigger element.
 
 | Prop | Default | Description | Supported values
 | ---- | ------- | ----------- | ----------------
-| `target` | `null` | String ID of element, or a reference to an element or component, that you want to trigger the tooltip. **Required** | Any valid, in-document unique element ID, element reference or component reference
-| `title` | `null` | Content of tooltip (text only, no HTML). if HTML is required, place it in the default slot | Plain text
-| `placement` | `top` | Positioning of the tooltip, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
-| `triggers` | `hover focus` |  Space separated list of which event(s) will trigger open/close of tooltip | `hover`, `focus`, `click`. Note `blur` is a special use case to close tooltip on next click, usually used in conjunction with `click`.
+| `target` | `null` | Element String ID, or a reference to an element or component, that you want to trigger the tooltip. **Required** | Any valid, in-document unique element ID, element reference or component reference
+| `title` | `null` |  Tooltip content (text only, no HTML). if HTML is required, place it in the default slot | Plain text
+| `placement` | `top` | Tooltip position, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
+| `triggers` | `hover focus` |  Space separated list of event(s), which will trigger open/close of tooltip | `hover`, `focus`, `click`. Note `blur` is a special use case to close tooltip on next click, usually used in conjunction with `click`.
 | `no-fade` | `false` | Disable fade animation when set to `true` | `true` or `false`
-| `delay` | `0` | Number of milliseconds to delay showing and hidding of popover. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays | `0` and up, integers only.
-| `offset` | `0` | Number of pixels to shift the center of the tooltip | Any negative or positive integer
-| `container` | `null` | String ID of element to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default) | Any valid in-document unique  element ID.
+| `delay` | `0` | Delay showing and hiding of tooltip by specified number of milliseconds. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays | `0` and up, integers only.
+| `offset` | `0` | Shift the center of the tooltip by specified number of pixels | Any negative or positive integer
+| `container` | `null` | Element string ID to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default) | Any valid in-document unique element ID.
 
 
 ### Programmatically show and hide tooltip
@@ -201,8 +211,106 @@ on `<b-tooltip>`:
 <!-- tooltip-show-open.vue -->
 ```
 
+Programmatic control can also be affected by submitting `'open'` and `'close'`
+events to the tooltip by reference.
+ 
+ ```html
+ <template>
+   <div class="d-flex flex-column text-md-center">
+     <div class="p-2">
+       <b-btn id="tooltipButton-showEvent" variant="primary">I have a popover</b-btn>
+     </div>
+     <div class="p-2">
+       <b-btn class="px-1" @click="onOpen">Open</b-btn>
+       <b-btn class="px-1" @click="onClose">Close</b-btn>
+     </div>
+ 
+     <b-tooltip ref="tooltip" target="tooltipButton-showEvent">
+       Hello <strong>World!</strong>
+     </b-tooltip>
+   </div>
+ </template>
+ 
+ <script>
+   export default {
+     methods: {
+       onOpen() {
+         this.$refs.tooltip.$emit('open')
+       },
+       onClose() {
+         this.$refs.tooltip.$emit('close')
+       }
+     }
+   }
+ </script>
+ 
+ <!-- tooltip-show-ref-event.vue -->
+```
+
 You can also use `$root` events to trigger the showing and hiding of tooltip(s).
 See the **Hiding and showing tooltips via $root events** section below for details.
+
+### Programmatically disabling tooltip
+
+You can disable tooltip via the syncable Boolean prop `disabled` (default is `false`)
+Setting it to `true` will disable the tooltip. If the tooltip is currently visible
+when disabled is set to `false`, the tooltip will remain visible until it is enabled
+or programmatically closed. If the tooltip is disabled/enabled via $root events (see
+below), your `disabled` value will be updated as long as you have provided the `.sync`
+prop modifier.
+
+```html
+<template>
+  <div class="d-flex flex-column text-md-center">
+    <div class="p-2">
+      <b-btn id="tooltipButton-disable" variant="primary">I have a tooltip</b-btn>
+    </div>
+    <div class="p-2">
+      <b-btn @click="disabled = !disabled">
+        {{ disabled ? 'Enable' : 'Disable' }} Tooltip by prop
+      </b-btn>
+            
+      <b-btn @click="disableByRef">
+        {{ disabled ? 'Enable' : 'Disable' }} Tooltip by $ref event
+      </b-btn>
+
+      <b-tooltip :disabled.sync="disabled" ref="tooltip" target="tooltipButton-disable">
+        Hello <strong>World!</strong>
+      </b-tooltip>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data () {
+      return {
+        disabled: false
+      }
+    },
+    methods: {
+      disableByRef () {
+        if (this.disabled) {
+          this.$refs.tooltip.$emit('enable')
+        } else {
+          this.$refs.tooltip.$emit('disable')
+        }
+      } 
+    }
+  }
+</script>
+
+<!-- tooltip-disable.vue -->
+```
+>**Note:** _In the above example, since we are using the default tooltip triggers of
+`focus hover`, the tooltip will close before it is disabled due to loosing focus (and hover)
+to the toggle button._
+
+When disabled, the tooltip can be opened programmatically (either via the `show` prop,
+methods or events).
+
+You can also emit `$root` events to trigger disabling and enabling of popover(s). See
+the **Disabling and enabling tooltips via $root events** section below for details.
 
 
 ## `v-b-tooltip` Directive Usage
@@ -235,30 +343,62 @@ The `v-b-tooltip` directive makes adding tooltips even easier, without additiona
 Refer to the [`v-b-tooltip` documentation](/docs/directives/tooltip) for more information
 and features of the directive format.
 
+
 ## Hiding and showing tooltips via $root events
-You can close (hide) all open tooltips by emitting the `bv::hide::tooltip` event on $root:
+You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` event on $root:
 
 ```js
 this.$root.$emit('bv::hide::tooltip');
 ```
 
-To close a specific tooltip, pass the trigger element's `id` as the first argument:
+To close a **specific tooltip**, pass the trigger element's `id` as the argument:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id');
 ```
 
-To open a specific tooltip, pass the trigger element's `id` as the first argument when
+To open a **specific tooltip**, pass the trigger element's `id` as the argument when
 emitting the `bv::show::tooltip` $root event:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id');
 ```
 
-These events work for both the component and directive versions of tooltip.
+To open all popovers simultaneously, omit the `id` argument when emitting the
+`bv::show::tooltip` event.
 
-Note the trigger element must exist in the DOM and be in a visible state in order for the
-tooltip to show.
+These events work for both the component **and** directive versions of tooltip.
+
+>**Note:** _the **trigger element** must exist in the DOM and be in a visible state in order for the tooltip to show._
+
+
+## Disabling and enabling tooltips via $root events
+You can disable **all open tooltips** by emitting the `bv::disable::tooltip` event on $root:
+
+```js
+this.$root.$emit('bv::disable::tooltip');
+```
+
+To disable a **specific tooltip**, pass the trigger element's `id` as the argument:
+
+```js
+this.$root.$emit('bv::disable::tooltip', 'my-trigger-button-id');
+```
+
+To enable a **specific tooltip**, pass the trigger element's `id` as the argument when
+emitting the `bv::enable::tooltip` $root event:
+
+```js
+this.$root.$emit('bv::enable::tooltip', 'my-trigger-button-id');
+```
+
+To enable all popovers simultaneously, omit the `id` argument when emitting the
+`bv::enable::tooltip` event.
+
+These events work for both the component **and** directive versions of tooltip.
+
+>**Note:** _The **trigger element** must exist in the DOM in order for the
+tooltip to be enabled or disabled._
 
 
 ## Component Reference

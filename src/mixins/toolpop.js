@@ -57,6 +57,10 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   watch: {
@@ -64,8 +68,13 @@ export default {
       if (show === old) {
         return
       }
-
       show ? this.onOpen() : this.onClose()
+    },
+    disabled (disabled, old) {
+      if (disabled === old) {
+        return
+      }
+      disabled ? this.onDisable() : this.onEnable()
     }
   },
   created () {
@@ -75,16 +84,23 @@ export default {
     this._obs_content = null
   },
   mounted () {
-    // We do this in a $nextTick in hopes that the target element is in the DOM
-    // And that our children have rendered
+    // We do this in a next tick to ensure DOM has rendered first
     this.$nextTick(() => {
       // Instantiate ToolTip/PopOver on target
-      // createToolpop method must exist in main component
+      // The createToolpop method must exist in main component
       if (this.createToolpop()) {
+        if (this.disabled) {
+          // Initially disabled
+          this.onDisable()
+        }
         // Listen to open signals from others
         this.$on('open', this.onOpen)
         // Listen to close signals from others
         this.$on('close', this.onClose)
+        // Listen to disable signals from others
+        this.$on('disable', this.onDisable)
+        // Listen to disable signals from others
+        this.$on('enable', this.onEnable)
         // Observe content Child changes so we can notify popper of possible size change
         this.setObservers(true)
         // Set intially open state
@@ -112,14 +128,18 @@ export default {
     }
   },
   beforeDestroy () {
+    // Shutdown our local event listeners
+    this.$off('open', this.onOpen)
     this.$off('close', this.onClose)
+    this.$off('disable', this.onDisable)
+    this.$off('enable', this.onEnable)
     this.setObservers(false)
+    // bring our content back if needed
+    this.bringItBack()
     if (this._toolpop) {
       this._toolpop.destroy()
       this._toolpop = null
     }
-    // bring our content back if needed
-    this.bringItBack()
   },
   computed: {
     baseConfig () {
@@ -147,7 +167,9 @@ export default {
           show: this.onShow,
           shown: this.onShown,
           hide: this.onHide,
-          hidden: this.onHidden
+          hidden: this.onHidden,
+          enabled: this.onEnabled,
+          disabled: this.onDisabled
         }
       }
     }
@@ -179,6 +201,16 @@ export default {
         this._toolpop.hide(callback)
       } else if (typeof callback === 'function') {
         callback()
+      }
+    },
+    onDisable () {
+      if (this._toolpop) {
+        this._toolpop.disable()
+      }
+    },
+    onEnable () {
+      if (this._toolpop) {
+        this._toolpop.enable()
       }
     },
     updatePosition () {
@@ -219,6 +251,22 @@ export default {
       this.bringItBack()
       this.$emit('update:show', false)
       this.$emit('hidden', evt)
+    },
+    onEnabled (evt) {
+      if (!evt || evt.type !== 'enabled') {
+        // Prevent possible endless loop if user mistakienly fires enabled instead of enable
+        return
+      }
+      this.$emit('update:disabled', false)
+      this.$emit('disabled')
+    },
+    onDisabled (evt) {
+      if (!evt || evt.type !== 'disabled') {
+        // Prevent possible endless loop if user mistakienly fires disabled instead of disable
+        return
+      }
+      this.$emit('update:disabled', true)
+      this.$emit('enabled')
     },
     bringItBack () {
       // bring our content back if needed to keep Vue happy

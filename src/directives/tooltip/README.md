@@ -305,29 +305,61 @@ v-b-tooltip="{title: 'Title', placement: 'bottom'}"
 
 
 ## Hiding and showing tooltips via $root events
-You can close (hide) all open tooltips by emitting the `bv::hide::tooltip` event on $root:
+You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` event on $root:
 
 ```js
 this.$root.$emit('bv::hide::tooltip');
 ```
 
-To close a specific tooltip, pass the trigger element's `id` as the first argument:
+To close a **specific tooltip**, pass the trigger element's `id` as the first argument:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id');
 ```
 
-To open a specific tooltip, pass the trigger element's `id` as the first argument when
+To open a **specific tooltip**, pass the trigger element's `id` as the first argument when
 emitting the `bv::show::tooltip` $root event:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id');
 ```
 
-These events work for both the component and directive versions of tooltip.
+To open all popovers simultaneously, omit the `id` argument when emitting the
+`bv::show::tooltip` event.
 
-Note the trigger element must exist in the DOM and be in a visible state in order for the
-tooltip to show.
+These events work for both the component **and** directive versions of tooltip.
+
+Note the **trigger element** must exist in the DOM and be in a visible state in order
+for the tooltip to show.
+
+
+## Disabling and enabling tooltips via $root events
+You can disable **all open tooltips** by emitting the `bv::disable::tooltip` event on $root:
+
+```js
+this.$root.$emit('bv::disable::tooltip');
+```
+
+To disable a **specific tooltip**, pass the trigger element's `id` as the first argument:
+
+```js
+this.$root.$emit('bv::disable::tooltip', 'my-trigger-button-id');
+```
+
+To enable a **specific tooltip**, pass the trigger element's `id` as the first argument when
+emitting the `bv::enable::tooltip` $root event:
+
+```js
+this.$root.$emit('bv::enable::tooltip', 'my-trigger-button-id');
+```
+
+To enable all popovers simultaneously, omit the `id` argument when emitting the
+`bv::enable::tooltip` event.
+
+These events work for both the component **and** directive versions of tooltip.
+
+Note the **trigger element** must exist in the DOM in order for the
+tooltip to be enabled or disabled.
 
 
 ## See also
