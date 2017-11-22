@@ -31,10 +31,10 @@
         padding-right: 1.5em;
         cursor: pointer;
     }
-    table.b-table thead>tr>th.sorting::before,
-    table.b-table thead>tr>th.sorting::after,
-    table.b-table tfoot>tr>th.sorting::before,
-    table.b-table tfoot>tr>th.sorting::after {
+    table.b-table>thead>tr>th.sorting::before,
+    table.b-table>thead>tr>th.sorting::after,
+    table.b-table>tfoot>tr>th.sorting::before,
+    table.b-table>tfoot>tr>th.sorting::after {
         position: absolute;
         bottom: 0;
         display: block;
