@@ -17,12 +17,12 @@
         <b-collapse isNav class="justify-content-between" id="bd-main-nav">
 
             <b-navbar-nav>
-                <b-nav-item to="/docs" exact>Documentation</b-nav-item>
+                <b-nav-item to="/docs" exact>Docs</b-nav-item>
                 <b-nav-item to="/docs/components">Components</b-nav-item>
                 <b-nav-item to="/docs/directives">Directives</b-nav-item>
                 <b-nav-item to="/docs/reference">Reference</b-nav-item>
                 <b-nav-item to="/docs/misc">Misc</b-nav-item>
-                <b-nav-item to="/play"><span>Playground</span></b-nav-item>
+                <b-nav-item to="/play">Play</b-nav-item>
             </b-navbar-nav>
 
             <b-navbar-nav>
