@@ -264,7 +264,7 @@ The following field properties are recognized:
 | Property | Type | Description
 | ---------| ---- | -----------
 | `key` | String | The key for selecting data from the record in the items array. Required when passing the props `fields` an array of objects.
-| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format)
+| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided
 | `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column
 | `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array).
 | `sortable` | Boolean | Enable sorting on this column. Refer to the [**Sorting**](#sorting] Section for more details.
@@ -764,9 +764,9 @@ or a `head-clicked` event.
 If you would optionally like to display additional record information (such as
 columns not specified in the fields definition array), you can use the scoped slot
 `row-details`, in combination with the special item record Boolean property
-`_rowDetails`.
+`_showDetails`.
 
-If the record has it's `_showDetails` property set to `true`, and a `row-details`
+If the record has it's `_showDetails` property set to `true`, **and** a `row-details`
 scoped slot exists, a new row will be shown just below the item, with the contents
 of the scoped slot.
 
@@ -786,7 +786,11 @@ Available scoped variables:
 <template>
   <b-table :items="items" :fields="fields">
     <template slot="show_details" scope="row">
-      <b-form-checkbox v-model="row.item._showDetails"></b-form-checkbox>
+      <!-- we use @click.native.stop here to prevent emitting of a 'row-clicked' event  -->
+      <!-- In some circumstances you may need to use @click.stop instead -->
+      <b-form-checkbox @click.native.stop v-model="row.item._showDetails">
+        <span class="sr-only">Show record details</span>
+      </b-form-checkbox>
     </template>
     <template slot="row-details" scope="row">
       <b-card>
@@ -1221,8 +1225,9 @@ when fetching your data!
       <template slot="name" scope="row">{{row.value.first}} {{row.value.last}}</template>
       <template slot="isActive" scope="row">{{row.value?'Yes :)':'No :('}}</template>
       <template slot="actions" scope="row">
-        <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-btn size="sm" @click.stop="details(row.item,row.index,$event.target)">Details</b-btn>
+        <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
+        <!-- In some circumstances you may need to use @click.native.stop -->
+        <b-btn size="sm" @click.stop="details(row.item, row.index, $event.target)">Details</b-btn>
       </template>
     </b-table>
 
@@ -1267,12 +1272,12 @@ export default {
   data () {
     return {
       items: items,
-      fields: {
-        name: { label: 'Person Full name', sortable: true },
-        age: { label: 'Person age', sortable: true, 'class': 'text-center' },
-        isActive: { label: 'is Active' },
-        actions: { label: 'Actions' }
-      },
+      fields: [
+        { key: 'name', label: 'Person Full name', sortable: true },
+        { key: 'age', label: 'Person age', sortable: true, 'class': 'text-center' },
+        { key: 'isActive', label: 'is Active' },
+        { key: 'actions', label: 'Actions' }
+      ],
       currentPage: 1,
       perPage: 5,
       totalRows: items.length,
