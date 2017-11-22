@@ -211,6 +211,42 @@ on `<b-tooltip>`:
 <!-- tooltip-show-open.vue -->
 ```
 
+Programmatic control can also be affected by submitting `'open'` and `'close'`
+events to the tooltip by reference.
+ 
+ ```html
+ <template>
+   <div class="d-flex flex-column text-md-center">
+     <div class="p-2">
+       <b-btn id="tooltipButton-showEvent" variant="primary">I have a popover</b-btn>
+     </div>
+     <div class="p-2">
+       <b-btn class="px-1" @click="onOpen">Open</b-btn>
+       <b-btn class="px-1" @click="onClose">Close</b-btn>
+     </div>
+ 
+     <b-tooltip ref="tooltip" target="tooltipButton-showEvent">
+       Hello <strong>World!</strong>
+     </b-tooltip>
+   </div>
+ </template>
+ 
+ <script>
+   export default {
+     methods: {
+       onOpen() {
+         this.$refs.tooltip.$emit('open')
+       },
+       onClose() {
+         this.$refs.tooltip.$emit('close')
+       }
+     }
+   }
+ </script>
+ 
+ <!-- tooltip-show-ref-event.vue -->
+```
+
 You can also use `$root` events to trigger the showing and hiding of tooltip(s).
 See the **Hiding and showing tooltips via $root events** section below for details.
 
@@ -235,10 +271,10 @@ prop modifier.
       </b-btn>
             
       <b-btn @click="disableByRoot">
-        {{ disabled ? 'Enable' : 'Disable' }} Tooltip by $root event
+        {{ disabled ? 'Enable' : 'Disable' }} Tooltip by $ref event
       </b-btn>
 
-      <b-tooltip :disabled.sync="disabled" target="tooltipButton-disable">
+      <b-tooltip :disabled.sync="disabled" ref="tooltip" target="tooltipButton-disable">
         Hello <strong>World!</strong>
       </b-tooltip>
     </div>
@@ -255,9 +291,9 @@ prop modifier.
     methods: {
       disableByRoot () {
         if (this.disabled) {
-          this.$root.$emit('bv::enable::tooltip', 'tooltipButton-disable')
+          this.$refs.tooltip.$emit('enable')
         } else {
-          this.$root.$emit('bv::disable::tooltip', 'tooltipButton-disable')
+          this.$refs.tooltip.$emit('disable')
         }
       } 
     }
@@ -273,7 +309,7 @@ to the toggle button._
 When disabled, the tooltip can be opened programmatically (either via the `show` prop,
 methods or events).
 
-You can also use `$root` events to trigger disabling and enabling of popover(s). See
+You can also emit `$root` events to trigger disabling and enabling of popover(s). See
 the **Disabling and enabling tooltips via $root events** section below for details.
 
 
@@ -315,13 +351,13 @@ You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` e
 this.$root.$emit('bv::hide::tooltip');
 ```
 
-To close a **specific tooltip**, pass the trigger element's `id` as the first argument:
+To close a **specific tooltip**, pass the trigger element's `id` as the argument:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id');
 ```
 
-To open a **specific tooltip**, pass the trigger element's `id` as the first argument when
+To open a **specific tooltip**, pass the trigger element's `id` as the argument when
 emitting the `bv::show::tooltip` $root event:
 
 ```js
@@ -343,13 +379,13 @@ You can disable **all open tooltips** by emitting the `bv::disable::tooltip` eve
 this.$root.$emit('bv::disable::tooltip');
 ```
 
-To disable a **specific tooltip**, pass the trigger element's `id` as the first argument:
+To disable a **specific tooltip**, pass the trigger element's `id` as the argument:
 
 ```js
 this.$root.$emit('bv::disable::tooltip', 'my-trigger-button-id');
 ```
 
-To enable a **specific tooltip**, pass the trigger element's `id` as the first argument when
+To enable a **specific tooltip**, pass the trigger element's `id` as the argument when
 emitting the `bv::enable::tooltip` $root event:
 
 ```js
