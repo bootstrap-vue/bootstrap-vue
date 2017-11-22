@@ -229,11 +229,11 @@ prop modifier.
     </div>
     <div class="p-2">
       <b-btn @click="disabled = !disabled">
-              {{ disabled ? 'Enable' : 'Disable' }} Tooltip by prop
+        {{ disabled ? 'Enable' : 'Disable' }} Tooltip by prop
       </b-btn>
             
       <b-btn @click="disableByRoot">
-              {{ disabled ? 'Enable' : 'Disable' }} Tooltip by Root event
+        {{ disabled ? 'Enable' : 'Disable' }} Tooltip by Root event
       </b-btn>
 
       <b-tooltip :disabled.sync="disabled" target="tooltipButton-disable">
