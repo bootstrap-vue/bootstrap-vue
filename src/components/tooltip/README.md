@@ -25,7 +25,7 @@ Things to know when using tooltip component:
 The `<b-tooltip` component inserts a hidden (`display:none`) `<div>` intermediate container
 element at the point in the DOM where the `<b-tooltip>` component is placed. This may
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
-and `<b-input-group>`. To avoid these posible layout issues, place the `<b-tooltip>`
+and `<b-input-group>`. To avoid these possible layout issues, place the `<b-tooltip>`
 component **outside** of these types of components.
 
 The target element **must** exist in the document before `<b-tooltip>` is mounted. If the
@@ -37,7 +37,7 @@ rendered DOM from that slot into the tooltip's markup when shown, and returns
 the content back to the `<b-tooltip>` component when hidden. This may cause some issues
 in rare circumstances, so please test your implementation accordingly! The `title`
 prop does not have this behavior. For simple tooltips, we recommend using the
-`v-b-tooltip` directive and enable the `html` modifer if needed._
+`v-b-tooltip` directive and enable the `html` modifier if needed._
 
 ## Positioning
 Twelve options are available for positioning: `top`, `topleft`, `topright`, `right`, `righttop`,
@@ -229,10 +229,14 @@ prop modifier.
     </div>
     <div class="p-2">
       <b-btn @click="disabled = !disabled">
-        {{ disabled ? 'Enable' : 'Disable' }} Tooltip
+              {{ disabled ? 'Enable' : 'Disable' }} Tooltip by prop
+      </b-btn>
+            
+      <b-btn @click="disableByRoot">
+              {{ disabled ? 'Enable' : 'Disable' }} Tooltip by Root event
       </b-btn>
 
-      <b-tooltip :disabled="disabled" target="tooltipButton-disable">
+      <b-tooltip :disabled.sync="disabled" target="tooltipButton-disable">
         Hello <strong>World!</strong>
       </b-tooltip>
     </div>
@@ -245,13 +249,22 @@ prop modifier.
       return {
         disabled: false
       }
+    },
+    methods: {
+      disableByRoot() {
+        if (this.disabled){
+          this.$root.$emit('bv::enable::popover')
+        }else{
+          this.$root.$emit('bv::disable::popover')
+        }
+      } 
     }
   }
 </script>
 
 <!-- tooltip-disable.vue -->
 ```
-**Note:** _In the above example, since we are using the default tooltip triggers of
+>**Note:** _In the above example, since we are using the default tooltip triggers of
 `focus hover`, the tooltip will close before it is disabled due to loosing focus (and hover)
 to the toggle button._
 
@@ -318,8 +331,7 @@ To open all popovers simultaneously, omit the `id` argument when emitting the
 
 These events work for both the component **and** directive versions of tooltip.
 
-Note the **trigger element** must exist in the DOM and be in a visible state in order
-for the tooltip to show.
+>**Note:** _the **trigger element** must exist in the DOM and be in a visible state in order for the tooltip to show._
 
 
 ## Disabling and enabling tooltips via $root events
@@ -347,8 +359,8 @@ To enable all popovers simultaneously, omit the `id` argument when emitting the
 
 These events work for both the component **and** directive versions of tooltip.
 
-Note the **trigger element** must exist in the DOM in order for the
-tooltip to be enabled or disabled.
+>**Note:** _The **trigger element** must exist in the DOM in order for the
+tooltip to be enabled or disabled._
 
 
 ## Component Reference

@@ -34,7 +34,7 @@ The target element **must** exist in the document before `<b-popover>` is mounte
 If the target element is not found during mount, the popover will never open. Always
 place your `<b-popover>` component lower in the DOM than your target element.
 
-**Note:** _When using slots for content and/or title, `<b-popover>` transfers the
+>**Note:** _When using slots for content and/or title, `<b-popover>` transfers the
 rendered DOM from those slots into the popover's markup when shown, and returns
 them back to the `<b-popover>` component when hidden. This may cause some issues
 in rare circumstances, so please test your implmentation accordingly! The `title`
@@ -148,7 +148,7 @@ popover will close. I.e. if a popover has the trigger `focus click`, and it was 
 `focus`, and the user then clicks the trigger element, they must click it again **and**
 move focus to close the popover.
 
-### Dismiss on next click (self dimissing)
+### Dismiss on next click (self-dimissing)
 Use the `focus` trigger by itself to dismiss popovers on the next click that the user makes.
 `focus` also makes the popover activate on both `focus` and `click` (as a click makes
 the element receive focus, assuming it is in the tab sequence of the page).
@@ -417,8 +417,12 @@ your `disabled` value will be updated as long as you have provided the `.sync` p
     </div>
     <div class="p-2">
       <b-btn @click="disabled = !disabled">
-        {{ disabled ? 'Enable' : 'Disable' }} Popover
+        {{ disabled ? 'Enable' : 'Disable' }} Popover by prop
       </b-btn>
+      
+      <b-btn @click="disableByRoot">
+              {{ disabled ? 'Enable' : 'Disable' }} Popover by Root event
+            </b-btn>
 
       <b-popover :disabled.sync="disabled" target="popoverButton-disable" title="Popover">
         Hello <strong>World!</strong>
@@ -433,6 +437,15 @@ your `disabled` value will be updated as long as you have provided the `.sync` p
       return {
         disabled: false
       }
+    },
+    methods: {
+       disableByRoot() {
+           if (this.disabled){
+               this.$root.$emit('bv::enable::popover')
+           }else{
+               this.$root.$emit('bv::disable::popover')
+           }
+       } 
     }
   }
 </script>
@@ -528,13 +541,13 @@ information on the directive usage.
 ## Advanced `<b-popover>` usage with reactive content
 
 You can even make your `<b-popover>` content interactive. Just remember not to use the
-`focus`, `hover` or `blur` triggers (use only `click`), otherwsie your popover will
+`focus`, `hover` or `blur` triggers (use only `click`), otherwise your popover will
 close automatically as soon as someone will try to interact with the content.
 
 If you absolutely must use a trigger other than `click` (or want to disable closing of the
 popover when the trigger element is clicked a second time), then you can either:
- - Listen for the `hide` event on the `<b-popover>` element, and call the `preventDefault()` method (when apropriate) on the `BvEvent` objewct passed to your `hide` handler;
- - Disable your trigger element (if possible) as soon as the popover begins to open (via the `show` event), and re-enable it when apropriate (i.e. via the `hide` or `hidden` event).
+ - Listen for the `hide` event on the `<b-popover>` element, and call the `preventDefault()` method (when appropriate) on the `BvEvent` object passed to your `hide` handler;
+ - Disable your trigger element (if possible) as soon as the popover begins to open (via the `show` event), and re-enable it when appropriate (i.e. via the `hide` or `hidden` event).
 
 For practical purposes, interactive content popovers should be minimal. The maximum
 width of the popover is hard coded by Bootstrap V4 CSS to `276px`. Tall popovers on
@@ -700,8 +713,7 @@ To open all popovers simultaneously, omit the `id` argument when emitting the
 
 These events work for both the component **and** directive versions of popover.
 
-Note the **trigger element** must exist in the DOM and be in a visible state in order for the
-popover to instantiate and show.
+>**Note:** _The **trigger element** must exist in the DOM and be in a visible state in order for the popover to instantiate and show._
 
 
 ## Disabling and enabling popovers via $root events
@@ -729,8 +741,7 @@ To enable all popovers simultaneously, omit the `id` argument when emitting the
 
 These events work for both the component and directive versions of popover.
 
-Note the **trigger element** must exist in the DOM in order for the popover to be
-enabled or disabled.
+>**Note:** _The **trigger element** must exist in the DOM in order for the popover to be enabled or disabled._
 
 
 ## Accessibility
@@ -745,7 +756,7 @@ your triggering element (assuming `focus` is not used as a trigger method), as w
 have done in the above example.
 
 You may also want to implement focus containment in the popover content while the
-user is interactiving with it (keeping focus inside the popover until it is closed
+user is interacting with it (keeping focus inside the popover until it is closed
 by the user).
 
 
