@@ -378,29 +378,61 @@ v-b-popover.bottom.click.html  => Show on click and place at bottom with HTML co
 ```
 
 ## Hiding and showing popovers via $root events
-You can close (hide) all open popovers by emitting the `bv::hide::popover` event on $root:
+You can close (hide) **all open popovers** by emitting the `bv::hide::popover` event on $root:
 
 ```js
 this.$root.$emit('bv::hide::popover');
 ```
 
-To close a specific popover, pass the trigger element's `id` as the first argument:
+To close a **specific popover**, pass the trigger element's `id` as the first argument:
 
 ```js
 this.$root.$emit('bv::show::popover', 'my-trigger-button-id');
 ```
 
-To open (show) a specific popover, pass the trigger element's `id` as the first argument when
+To open (show) a **specific popover**, pass the trigger element's `id` as the first argument when
 emitting the `bv::show::popover` event:
 
 ```js
 this.$root.$emit('bv::show::popover', 'my-trigger-button-id');
 ```
 
+To open all popovers simultaneously, omit the `id` argument when emitting the
+`bv::show::popover` event.
+
+These events work for both the component **and** directive versions of popover.
+
+Note the **trigger element** must exist in the DOM and be in a visible state in order for the
+popover to instantiate and show.
+
+
+## Disabling and enabling popovers via $root events
+You can disable **all** popovers by emitting the `bv::disable::popover` event on $root:
+
+```js
+this.$root.$emit('bv::disable::popover');
+```
+
+To disable a **specific popover**, pass the trigger element's `id` as the first argument:
+
+```js
+this.$root.$emit('bv::disable::popover', 'my-trigger-button-id');
+```
+
+To enable a **specific popover**, pass the trigger element's `id` as the first argument when
+emitting the `bv::enable::popover` event:
+
+```js
+this.$root.$emit('bv::enable::popover', 'my-trigger-button-id');
+```
+
+To enable all popovers simultaneously, omit the `id` argument when emitting the
+`bv::enable::popover` event.
+
 These events work for both the component and directive versions of popover.
 
-Note the trigger element must exist in the DOM and be in a visible state in order for the
-popover to show.
+Note the **trigger element** must exist in the DOM in order for the popover to be
+enabled or disabled.
 
 
 ## See also
