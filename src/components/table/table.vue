@@ -224,7 +224,7 @@
         rows.push(h(
           'tr',
           {},
-          [ $scoped['top-row']({ coloumns: fields.length, fields: fields }) ]
+          [ $scoped['top-row']({ columns: fields.length, fields: fields }) ]
         ))
       } else {
         rows.push(h(false))
