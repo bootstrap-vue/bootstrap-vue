@@ -1174,45 +1174,56 @@ You can also obtain the current sortBy and sortDesc values by using the `:sort-b
 </b-table>
 ```
 
-## Server Side Rendering
+### Server Side Rendering
 Special care must be taken when using server side rendering (SSR) and an `items` provider
 function. Make sure you handle any special situations that may be needed server side
 when fetching your data!
+
 
 ## Complete Example
 
 ```html
 <template>
-  <div>
-    <div class="my-1 row">
-      <div class="col-md-6">
-        <b-form-group horizontal label="Rows per page" :label-cols="6">
-          <b-form-select :options="pageOptions" v-model="perPage" />
-        </b-form-group>
-      </div>
-      <div class="col-md-6">
-        <b-form-group horizontal label="Filter" :label-cols="3">
+  <b-container fluid>
+    <!-- User Interface controls -->
+    <b-row>
+      <b-col md="6" class="my-1">
+        <b-form-group horizontal label="Filter" class="mb-0">
           <b-input-group>
             <b-form-input v-model="filter" placeholder="Type to Search" />
             <b-input-group-button>
-              <b-btn @click="filter = ''">Clear</b-btn>
+              <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
             </b-input-group-button>
           </b-input-group>
         </b-form-group>
-      </div>
-    </div>
-
-    <div class="row my-1">
-      <div class="col-sm-8">
+      </b-col>
+      <b-col md="6" class="my-1">
+        <b-form-group horizontal label="Sort" class="mb-0">
+          <b-input-group>
+            <b-form-select v-model="sortBy" :options="sortOptions">
+              <option slot="first" :value="null">-- none --</option>
+            </b-form-select>
+            <b-input-group-button>
+              <b-form-select :disabled="!sortBy" v-model="sortDesc">
+                <option :value="false">Asc</option>
+                <option :value="true">Desc</option>
+              </b-form-select>
+            </b-input-group-button>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+      <b-col md="6" class="my-1">
         <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
-      </div>
-      <div class="col-sm-4 text-md-right">
-        <b-button :disabled="!sortBy" @click="sortBy = null">Clear Sort</b-button>
-      </div>
-    </div>
+      </b-col>
+      <b-col md="6" class="my-1">
+        <b-form-group horizontal label="Per page" class="mb-0">
+          <b-form-select :options="pageOptions" v-model="perPage" />
+        </b-form-group>
+      </b-col>
+    </b-row>
 
     <!-- Main table element -->
-    <b-table striped hover show-empty
+    <b-table show-empty
              :items="items"
              :fields="fields"
              :current-page="currentPage"
@@ -1226,46 +1237,57 @@ when fetching your data!
       <template slot="isActive" scope="row">{{row.value?'Yes :)':'No :('}}</template>
       <template slot="actions" scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
+        <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
+          Info
+        </b-button>
         <!-- In some circumstances you may need to use @click.native.stop -->
-        <b-btn size="sm" @click.stop="details(row.item, row.index, $event.target)">Details</b-btn>
+        <b-form-checkbox @click.native.stop v-model="row.item._showDetails">
+          Details
+        </b-form-checkbox>
+      </template>
+      <template slot="row-details" scope="row">
+        <b-card>
+          <ul>
+            <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value}}</li>
+          </ul>
+        </b-card>
       </template>
     </b-table>
 
-    <p>
-      Sort By: {{ sortBy || 'n/a' }}, Direction: {{ sortDesc ? 'descending' : 'ascending' }}
-    </p>
-
-    <!-- Details modal -->
-    <b-modal id="modal1" @hide="resetModal" ok-only>
-      <h4 class="my-1 py-1" slot="modal-header">Index: {{ modalDetails.index }}</h4>
-      <pre>{{ modalDetails.data }}</pre>
+    <!-- Info modal -->
+    <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
+      <pre>{{ modalInfo.content }}</pre>
     </b-modal>
 
-  </div>
+  </b-container>
 </template>
 
 <script>
 const items = [
-  { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-  { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-  { _rowVariant: 'success',
+  { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' }, _showDetails: false },
+  { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }, _showDetails: false },
+  {
     isActive: false,
     age: 9,
-    name: { first: 'Mini', last: 'Navarro' }
+    name: { first: 'Mini', last: 'Navarro' },
+    _rowVariant: 'success',
+    _showDetails: false
   },
-  { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-  { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-  { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-  { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-  { _cellVariants: { age: 'danger', isActive: 'warning' },
+  { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' }, _showDetails: false },
+  { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' }, _showDetails: false },
+  { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }, _showDetails: false },
+  { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' }, _showDetails: false },
+  {
     isActive: true,
     age: 87,
-    name: { first: 'Larsen', last: 'Shaw' }
+    name: { first: 'Larsen', last: 'Shaw' },
+    _cellVariants: { age: 'danger', isActive: 'warning' },
+    _showDetails: false
   },
-  { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-  { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-  { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-  { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
+  { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' }, _showDetails: false },
+  { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' }, _showDetails: false },
+  { isActive: true, age: 38, name: { first: 'John', last: 'Carney' }, _showDetails: false },
+  { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' }, _showDetails: false }
 ]
 
 export default {
@@ -1281,22 +1303,30 @@ export default {
       currentPage: 1,
       perPage: 5,
       totalRows: items.length,
-      pageOptions: [{text: 5, value: 5}, {text: 10, value: 10}, {text: 15, value: 15}],
+      pageOptions: [ 5, 10, 15 ],
       sortBy: null,
       sortDesc: false,
       filter: null,
-      modalDetails: { index: '', data: '' }
+      modalInfo: { title: '', content: '' }
+    }
+  },
+  computed: {
+    sortOptions () {
+      // Create an options list from our fields
+      return this.fields
+        .filter(f => f.sortable)
+        .map(f => { return { text: f.label, value: f.key } })
     }
   },
   methods: {
-    details (item, index, button) {
-      this.modalDetails.data = JSON.stringify(item, null, 2)
-      this.modalDetails.index = index
-      this.$root.$emit('bv::show::modal', 'modal1', button)
+    info (item, index, button) {
+      this.modalInfo.title = `Row index: ${index}`
+      this.modalInfo.content = JSON.stringify(item, null, 2)
+      this.$root.$emit('bv::show::modal', 'modalInfo', button)
     },
     resetModal () {
-      this.modalDetails.data = ''
-      this.modalDetails.index = ''
+      this.modalInfo.title = ''
+      this.modalInfo.content = ''
     },
     onFiltered (filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
@@ -1309,5 +1339,6 @@ export default {
 
 <!-- table-complete-1.vue -->
 ```
+
 
 ## Component Reference
