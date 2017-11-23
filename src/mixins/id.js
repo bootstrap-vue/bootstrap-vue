@@ -6,7 +6,7 @@
 export default {
   props: {
     id: {
-      typ: String,
+      type: String,
       default: null
     }
   },
