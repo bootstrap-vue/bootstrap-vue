@@ -286,8 +286,10 @@ export default {
       if (this.isCycling) {
         clearInterval(this.intervalId)
         this.intervalId = null
-        // Make current slide focusable for screen readers
-        this.slides[this.index].tabIndex = 0
+        if (this.slides[this.index]) {
+          // Make current slide focusable for screen readers
+          this.slides[this.index].tabIndex = 0
+        }
       }
     },
     // Start auto rotate slides
