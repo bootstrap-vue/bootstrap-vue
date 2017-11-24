@@ -18,7 +18,6 @@
     }
     table.b-table>tbody>tr.b-table-details>td {
         border-top: none;
-        padding-top: 0;
     }
 
     /* Sort styling */
@@ -233,6 +232,11 @@
       // Add the body rows
       items.forEach((item, index) => {
         const detailsSlot = $scoped['row-details']
+        const toggleDetailsFn = () => {
+          if (detailsSlot) {
+            t.$set(item, '_showDetails', !Boolean(item._showDetails))
+          }
+        }
         // For Each Row
         const tds = fields.map((field) => {
           // Foe Each field in the row
@@ -248,7 +252,9 @@
                 item: item,
                 index: index,
                 unformatted: item[field.key],
-                value: t.getFormattedValue(item, field)
+                value: t.getFormattedValue(item, field),
+                toggleDetails: toggleDetailsFn,
+                detailsShowing: item._showDetails
               })
             ]
           } else {
