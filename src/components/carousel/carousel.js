@@ -286,6 +286,11 @@ export default {
       if (this.isCycling) {
         clearInterval(this.intervalId)
         this.intervalId = null
+        const len = this.slides.length
+        // Don't do anything if nothing to slide to
+        if (len === 0) {
+          return;
+        }
         // Make current slide focusable for screen readers
         this.slides[this.index].tabIndex = 0
       }
