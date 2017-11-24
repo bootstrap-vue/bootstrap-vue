@@ -289,7 +289,7 @@ export default {
         const len = this.slides.length
         // Don't do anything if nothing to slide to
         if (len === 0) {
-          return;
+          return
         }
         // Make current slide focusable for screen readers
         this.slides[this.index].tabIndex = 0
