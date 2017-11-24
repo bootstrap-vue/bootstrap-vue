@@ -767,8 +767,8 @@ columns not specified in the fields definition array), you can use the scoped sl
 `_showDetails`.
 
 If the record has it's `_showDetails` property set to `true`, **and** a `row-details`
-scoped slot exists, a new row will be shown just below the item, with the contents
-of the scoped slot.
+scoped slot exists, a new row will be shown just below the item, with the rendered
+contents of the scoped slot.
 
 **Note:** the `_showDetails` property **must** exist in the items data for proper
 reactive detection of changes in `_showDetails`. Read more about
@@ -780,7 +780,7 @@ Available scoped variables:
 | -------- | -----------
 | `item` | The entire row record data object
 | `index` | The current visible row number
-| `fields` | The normailized fields definition array
+| `fields` | The normailized fields definition array (in the _array of objects_ format)
 
 ```html
 <template>
