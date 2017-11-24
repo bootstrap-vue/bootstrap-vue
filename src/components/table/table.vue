@@ -339,7 +339,7 @@
         localItems: [],
         // Note: filteredItems only used to determine if # of items changed
         filteredItems: [],
-        localBusy: this.busy
+        localBusy: false
       }
     },
     props: {
@@ -564,7 +564,6 @@
     mounted () {
       this.localSortBy = this.sortBy
       this.localSortDesc = this.sortDesc
-      this.localBusy = this.busy
       if (this.hasProvider) {
           this._providerUpdate()
       }
@@ -835,7 +834,12 @@
         this.localItems = items && items.length > 0 ? items.slice() : []
         this.localBusy = false
         this.$emit('refreshed')
+        // Deprecated root emit
         this.emitOnRoot('table::refreshed', this.id)
+        // New root emit
+        if (this.id) {
+          this.emitOnRoot('bv::table::refreshed', this.id)
+        }
       },
       _providerUpdate () {
         // Refresh the provider items
