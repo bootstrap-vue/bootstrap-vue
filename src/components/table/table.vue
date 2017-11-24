@@ -62,7 +62,7 @@
 </style>
 
 <script>
-  import { warn, looseEqual, KeyCodes } from '../../utils'
+  import { warn, looseEqual, stableSort, KeyCodes } from '../../utils'
   import { keys, assign } from '../../utils/object'
   import { isArray, concat } from '../../utils/array'
   import { listenOnRootMixin } from '../../mixins'
@@ -712,7 +712,7 @@
         }
         // Apply local Sort
         if (sortBy && localSorting) {
-          items = items.sort(function sortItemsFn(a, b) {
+          items = stableSort(items, function sortItemsFn(a, b) {
             let ret = null
             if (typeof sortCompare === 'function') {
               // Call user provided sortCompare routine

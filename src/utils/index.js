@@ -13,6 +13,7 @@ import observeDom from './observe-dom'
 import pluckProps from './pluckProps'
 import prefixPropName from './prefixPropName'
 import { registerComponent, registerComponents, registerDirective, registerDirectives, vueUse } from './plugins'
+import stableSort from './stable-sort'
 import suffixPropName from './suffixPropName'
 import unPrefixPropName from './unPrefixPropName'
 import upperFirst from './upperFirst'
@@ -37,6 +38,7 @@ export {
   registerComponents,
   registerDirective,
   registerDirectives,
+  stableSort,
   suffixPropName,
   upperFirst,
   unPrefixPropName,
