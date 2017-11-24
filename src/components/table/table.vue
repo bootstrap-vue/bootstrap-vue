@@ -254,7 +254,7 @@
                 unformatted: item[field.key],
                 value: t.getFormattedValue(item, field),
                 toggleDetails: toggleDetailsFn,
-                detailsShowing: item._showDetails
+                detailsShowing: Boolean(item._showDetails)
               })
             ]
           } else {
@@ -281,7 +281,7 @@
           const details = h(
             'td',
             { attrs: { colspan: String(fields.length) } },
-            [ detailsSlot({ item: item, index: index, fields: fields }) ]
+            [ detailsSlot({ item: item, index: index, fields: fields, toggleDetails: toggleDetailsFn }) ]
           )
           rows.push(h(
             'tr',
