@@ -621,8 +621,10 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | -------- | ---- | -----------
 | `index` | Number | The row number (indexed from zero) relative to the displayed rows
 | `item` | Object | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)
-| `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of thr field's `formatter` function (see below for for information on field `formatter` callback functions)
+| `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's `formatter` function (see below for for information on field `formatter` callback functions)
 | `unformatted` | Any | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formtter` function
+| detailsShowing | Boolean | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information
+| toggleDetails | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information
 
 
 **Notes:**
@@ -631,9 +633,9 @@ computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
 number will align with the indexes from the optional `v-model` bound variable.*
 - When placing inputs, buttons, selects or links within a data cell scoped slot,
-be sure to add a `@click.stop` handler (which can be empty) to prevent the
-click on the input, button, select, or link, from triggering the `row-clicked`
-event:
+be sure to add a `@click.stop` (or `@click.native.stop` if needed) handler (which can
+be empty) to prevent the click on the input, button, select, or link, from triggering
+the `row-clicked` event:
 
 ```html
 <template slot="actions" scope="cell">
@@ -749,14 +751,16 @@ The slot's scope variable (`data` in the above example) will have the following 
 | `label` | String | The fields label value (also available as `data.field.label`)
 
 When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot,
-be sure to add a `@click.stop` handler (which can be empty) to prevent the
+be sure to add a `@click.stop` (or `@click.native.stop`) handler (which can be empty) to prevent the
 click on the input, button, select, or link, from triggering a change in sorting,
 or a `head-clicked` event.
 
 ```html
 <template slot="HEAD_actions" scope="foo">
   <!-- We use click.stop here to prevent 'sort-changed' or 'head-clicked' events -->
-  <input type="checkbox" :value="foo.column" v-model="selected" @click.stop>
+  <input @click.stop type="checkbox" :value="foo.column" v-model="selected">
+  <!-- We use click.native.stop here to prevent 'sort-changed' or 'head-clicked' events -->
+  <b-form-checkbox @click.native.stop :value="foo.column" v-model="selected">
 </template>
 ```
 
@@ -768,28 +772,43 @@ columns not specified in the fields definition array), you can use the scoped sl
 
 If the record has it's `_showDetails` property set to `true`, **and** a `row-details`
 scoped slot exists, a new row will be shown just below the item, with the rendered
-contents of the scoped slot.
+contents of the `row-details` scoped slot.
 
-**Note:** the `_showDetails` property **must** exist in the items data for proper
-reactive detection of changes in `_showDetails`. Read more about
-[Vue ractivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats).
+In the scoped field slot, you can toggle the visibility of the row's `row-details`
+scoped slot by calling the `toggleDetails` function passed to the field's scoped slot
+variable. You can use the scoped fields slot variable `detailsShowing` to determine
+the visibility of the `row-details` slot.
 
-Available scoped variables:
+**Note:** If manipulating the `_showDetails` property directly on the item data (i.e.
+ not via the `toggleDetails` function reference), the `_showDetails` propertly **must**
+ exist in the items data for proper reactive detection of changes to it's value. Read more about
+[Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats).
 
-| Property | Description
-| -------- | -----------
-| `item` | The entire row record data object
-| `index` | The current visible row number
-| `fields` | The normailized fields definition array (in the _array of objects_ format)
+Available `row-details` scoped viariable properties:
+
+| Property | Type | Description
+| -------- | ---- | -----------
+| `item` | Object | The entire row record data object
+| `index` | Number | The current visible row number
+| `fields` | Array | The normailized fields definition array (in the _array of objects_ format)
+| `toggleDetails` | Function | Function to toggle visibility of the row's details slot
+
+In the following example, we show two methods of toggling the visibility of the details:
+one via a button, and one via a checkbox. We also have the third row row details defaulting
+to have details initially showing.
 
 ```html
 <template>
   <b-table :items="items" :fields="fields">
     <template slot="show_details" scope="row">
-      <!-- we use @click.native.stop here to prevent emitting of a 'row-clicked' event  -->
-      <!-- In some circumstances you may need to use @click.stop instead -->
-      <b-form-checkbox @click.native.stop v-model="row.item._showDetails">
-        <span class="sr-only">Show record details</span>
+      <!-- we use @click.stop here to prevent emitting of a 'row-clicked' event  -->
+      <b-button size="sm" @click.stop="row.toggleDetails" class="mr-2">
+       {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
+      </b-button>
+      <!-- In some circumstances you may need to use @click.native.stop instead -->
+      <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
+      <b-form-checkbox @click.native.stop @change="row.toggleDetails" checked="row.detailsShowing">
+        Details via check
       </b-form-checkbox>
     </template>
     <template slot="row-details" scope="row">
@@ -798,10 +817,11 @@ Available scoped variables:
           <b-col sm="3" class="text-sm-right"><b>Age:</b></b-col>
           <b-col>{{ row.item.age }}</b-col>
         </b-row>
-        <b-row>
+        <b-row class="mb-2">
           <b-col sm="3" class="text-sm-right"><b>Is Active:</b></b-col>
           <b-col>{{ row.item.isActive }}</b-col>
         </b-row>
+        <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
       </b-card>
     </template>
   </b-table>
@@ -813,10 +833,10 @@ export default {
     return {
       fields: [ 'first_name', 'last_name', 'show_details' ],
       items: [
-        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald', _showDetails: false },
-        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw', _showDetails: false },
-        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson', _showDetails: false },
-        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney', _showDetails: false }
+        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson', _showDetails: true },
+        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
       ]
     }
   }
@@ -1238,12 +1258,11 @@ when fetching your data!
       <template slot="actions" scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
         <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
-          Info
+          Info modal
         </b-button>
-        <!-- In some circumstances you may need to use @click.native.stop -->
-        <b-form-checkbox @click.native.stop v-model="row.item._showDetails">
-          Details
-        </b-form-checkbox>
+        <b-button size="sm" @click.stop="row.toggleDetails">
+          {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+        </b-button>
       </template>
       <template slot="row-details" scope="row">
         <b-card>
@@ -1264,30 +1283,28 @@ when fetching your data!
 
 <script>
 const items = [
-  { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' }, _showDetails: false },
-  { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' }, _showDetails: false },
+  { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
+  { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
   {
     isActive: false,
     age: 9,
     name: { first: 'Mini', last: 'Navarro' },
-    _rowVariant: 'success',
-    _showDetails: false
+    _rowVariant: 'success'
   },
-  { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' }, _showDetails: false },
-  { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' }, _showDetails: false },
-  { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' }, _showDetails: false },
-  { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' }, _showDetails: false },
+  { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
+  { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
+  { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
+  { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
   {
     isActive: true,
     age: 87,
     name: { first: 'Larsen', last: 'Shaw' },
-    _cellVariants: { age: 'danger', isActive: 'warning' },
-    _showDetails: false
+    _cellVariants: { age: 'danger', isActive: 'warning' }
   },
-  { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' }, _showDetails: false },
-  { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' }, _showDetails: false },
-  { isActive: true, age: 38, name: { first: 'John', last: 'Carney' }, _showDetails: false },
-  { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' }, _showDetails: false }
+  { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
+  { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
+  { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
+  { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
 ]
 
 export default {
