@@ -54,10 +54,10 @@ These titles wil be displayed in the table header, in the order they appear in t
 **first** record of data. See the [**Fields**](#fields-column-definitions-) section
 below for customizing how field headings appear.
 
-**Note:** Field order is not guaranteed. Fields will typically appear in the order they
+>**Note:** _Field order is not guaranteed. Fields will typically appear in the order they
 were defined in the first row, but this may not always be the case depending on the version
 of browser in use. See section [**Fields (column definitions)**](#fields-column-definitions-)
-below to see how to guarantee the order of fields.
+below to see how to guarantee the order of fields._
 
 Record data may also have additional special reserved name keys for colorizing
 rows and individual cells (variants), and for triggering additional row detail. The supported
@@ -255,8 +255,8 @@ export default {
 <!-- table-fields-object.vue -->
 ```
 
-**Note:** if a `key` property is defined in the field definition, it will take
-precidence over the key used to define the field.
+>**Note:** _if a `key` property is defined in the field definition, it will take
+precidence over the key used to define the field._
 
 ### Field definition reference
 The following field properties are recognized:
@@ -274,13 +274,13 @@ The following field properties are recognized:
 | `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly)
 | `tdAttr` | Object | JavaScript object representing additional attributes to apply to the `td` cell
 
-**Notes:**
- - _Field properties, if not present, default to `null` unless otherwise stated above._
- - _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
- - _For information on the syntax supported by `thStyle`, see
+>**Notes:**
+> - _Field properties, if not present, default to `null` unless otherwise stated above._
+> - _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
+> - _For information on the syntax supported by `thStyle`, see
 [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
 in the Vue.js guide._
- - _Any additional properties added to the field objects will be left intact - so you can access
+> - _Any additional properties added to the field objects will be left intact - so you can access
 them via the named scoped slots for custom data, header, and footer rendering._
 
 For information and usage about scoped slots and formatters, refer to
@@ -314,8 +314,8 @@ fields: [
 | `head-variant` | Use `light` or `dark` to make table header appear light or dark gray, respectively
 | `foot-variant` | Use `light` or `dark` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set
 
-**Deprecation note:** As of Bootstrap-Vue v1.0.0-beta.10, the prop `inverse` has been deprecated in
-favour of prop `dark` to better align with Bootstrap V4.beta.2 CSS class names.
+>**Deprecation note:** _As of Bootstrap-Vue v1.0.0-beta.10, the prop `inverse` has been deprecated in
+favour of prop `dark` to better align with Bootstrap V4.beta.2 CSS class names._
 
 **Example: Bordered table**
 ```html
@@ -419,7 +419,7 @@ responsive across all viewports by setting the prop `responsive` to `true`. Or, 
 maximum breakpoint with which to have a responsive table up to by setting the prop
 `responsive` to one of the breakpoint values: `sm`, `md`, `lg`, or `xl`.
 
-**Note: Possible vertical clipping/truncation**
+>**Note: _Possible vertical clipping/truncation_**
 
 Responsive tables make use of `overflow-y: hidden`, which clips off any content that
 goes beyond the bottom or top edges of the table. In particular, this can clip off
@@ -627,15 +627,15 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | toggleDetails | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information
 
 
-**Notes:**
-- *`index` will not always be the actual row's index number, as it is
+>**Notes:**
+>- _`index` will not always be the actual row's index number, as it is
 computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
-number will align with the indexes from the optional `v-model` bound variable.*
-- When placing inputs, buttons, selects or links within a data cell scoped slot,
+number will align with the indexes from the optional `v-model` bound variable._
+>- _When placing inputs, buttons, selects or links within a data cell scoped slot,
 be sure to add a `@click.stop` (or `@click.native.stop` if needed) handler (which can
 be empty) to prevent the click on the input, button, select, or link, from triggering
-the `row-clicked` event:
+the `row-clicked` event:_
 
 ```html
 <template slot="actions" scope="cell">
@@ -779,10 +779,10 @@ scoped slot by calling the `toggleDetails` function passed to the field's scoped
 variable. You can use the scoped fields slot variable `detailsShowing` to determine
 the visibility of the `row-details` slot.
 
-**Note:** If manipulating the `_showDetails` property directly on the item data (i.e.
+>**Note:** _If manipulating the `_showDetails` property directly on the item data (i.e.
  not via the `toggleDetails` function reference), the `_showDetails` propertly **must**
  exist in the items data for proper reactive detection of changes to it's value. Read more about
-[Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats).
+[Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats)._
 
 Available `row-details` scoped viariable properties:
 
@@ -864,7 +864,7 @@ based on the current sort critera. See the
 [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
 on the `.sync` prop modifier
 
-**Note:** _The built-in `sort-compare` routine **cannot** sort virtual columns, nor
+>**Note:** _The built-in `sort-compare` routine **cannot** sort virtual columns, nor
 sort based on the custom rendering of the field data (formatter functions and/or
 scoped slots are used only for presentation only, and do not affect the underlying data).
 Refer to the [**Sort-compare routine**](#sort-compare-routine) section below for details on
@@ -1002,7 +1002,7 @@ the original `items` array (except when `items` is set to a provider function).
 Deleting a record from the v-model will **not** remove the record from the
 original items array.
 
-**Note:** *Do not bind any value directly to the `value` prop. Use the `v-model` binding.*
+>**Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
 
 
 ## Using Items Provider Functions
@@ -1078,7 +1078,7 @@ function myProvider (ctx) {
 a `busy` prop that can be used either to override inner `busy`state, or to monitor
 `<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
 
-**Note:** _in order to allow `<b-table>` fully track it's `busy` state, custom items
+>**Note:** _in order to allow `<b-table>` fully track it's `busy` state, custom items
 provider function should handle errors from data sources and return an empty
 array to `<b-table>`._
 
@@ -1117,10 +1117,10 @@ methods: {
 }
 ```
 
-**Notes:**
-- _If you manually place the table in the `busy` state, the items provider will
+>**Notes:**
+>- _If you manually place the table in the `busy` state, the items provider will
 __not__ be called/refreshed until the `busy` state has been set to `false`._
-- _All click related and hover events, and sort-changed events will __not__ be
+>- _All click related and hover events, and sort-changed events will __not__ be
  emiited when in the `busy` state (either set automatically during provider update,
  or when manually set)._
 
@@ -1140,12 +1140,12 @@ following `b-table` prop(s) to `true`:
 When `no-provider-paging` is `false` (default), you should only return at
 maximum, `perPage` number of records.
 
-**Notes:**
-- _`<b-table>` needs reference to your pagination and filtering values in order to
+>**Notes:**
+>- _`<b-table>` needs reference to your pagination and filtering values in order to
 trigger the calling of the provider function. So be sure to bind to the `per-page`,
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
 (unless you have the respective `no-provider-*` prop set to `true`)._
-- _The `no-local-sorting` prop has no effect when `items` is a provider funtion._
+>- _The `no-local-sorting` prop has no effect when `items` is a provider funtion._
 
 ### Event based refreshing of data
 You may also trigger the refresh of the provider function by emitting the
