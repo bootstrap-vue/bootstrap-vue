@@ -286,7 +286,7 @@ export default {
       if (this.isCycling) {
         clearInterval(this.intervalId)
         this.intervalId = null
-        if (this.index < this.slides.length) {
+        if (this.slides[this.index]) {
           // Make current slide focusable for screen readers
           this.slides[this.index].tabIndex = 0
         }
