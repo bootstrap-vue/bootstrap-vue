@@ -122,7 +122,7 @@
         }
         /* inter-row top border */
         table.b-table.b-table-stacked-sm>tbody>tr {
-            border-top-width: 0.4rem;
+            border-top-width: .4rem;
         }
         table.b-table.b-table-stacked-sm>tbody>tr.b-table-details {
             border-top: none;
