@@ -330,7 +330,7 @@
       }
 
       // Assemble the rows into the tbody
-      const tbody = h('tbody', {} }, rows)
+      const tbody = h('tbody', {}, rows)
 
       // Return the assembled table
       return h(
