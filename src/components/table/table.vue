@@ -361,7 +361,7 @@
               'tabindex': field.sortable ? '0' : null,
               'abbr': field.headerAbbr || null,
               'title': field.headerTitle || null,
-              'aria-colindex': String(colIndex),
+              'aria-colindex': String(colIndex + 1),
               'aria-label': field.sortable ? ((t.localSortDesc && t.localSortBy === field.key) ? t.labelSortAsc : t.labelSortDesc) : null,
               'aria-sort': (field.sortable && t.localSortBy === field.key) ? (t.localSortDesc ? 'descending' : 'ascending') : null,
             },
@@ -383,7 +383,7 @@
           }
           let slot = (isFoot && $scoped[`FOOT_${field.key}`]) ? $scoped[`FOOT_${field.key}`] : $scoped[`HEAD_${field.key}`]
           if (slot) {
-            slot = slot({ label: field.label, column: field.key, field: field })
+            slot = [ slot({ label: field.label, column: field.key, field: field }) ]
           } else {
             data.domProps = { innerHTML: field.label }
           }
@@ -438,7 +438,7 @@
             attrs: field.tdAttr || {},
             domProps: {}
           }
-          data.attrs['aria-colindex'] = String(colIndex)
+          data.attrs['aria-colindex'] = String(colIndex + 1)
           let childNodes
           if ($scoped[field.key]) {
             childNodes = [
@@ -477,6 +477,11 @@
           // Render either a td or th cell
           return h(field.isRowHeader ? 'th' : 'td', data, childNodes)
         })
+        // Calculate the row number in the dataset (indexed from 1)
+        let ariaRowIndex = null
+        if (t.currentPage && t.perPage && t.perPage > 0) {
+          ariaRowIndex = ((t.currentPage - 1) * t.perPage) + rowIndex + 1
+        }
         // Assemble and add the row
         rows.push(h(
           'tr',
@@ -485,7 +490,7 @@
             class: [ t.rowClasses(item), { 'b-table-has-details': rowShowDetails } ],
             attrs: {
               'aria-describedby': detailsId,
-              'aria-rowindex': (t.currentPage && t.perPage && t.perPage > 0) ? String((t.currentPage - 1) * t.perPage) : null,
+              'aria-rowindex': ariaRowIndex,
               role: t.isStacked ? 'row' : null
             },
             on: {
@@ -672,7 +677,7 @@
       },
       perPage: {
         type: Number,
-        default: null
+        default: 0
       },
       currentPage: {
         type: Number,
