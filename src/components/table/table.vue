@@ -12,14 +12,6 @@
         opacity: .6;
     }
 
-    /* Details row styling */
-    table.b-table>tbody>tr.b-table-has-details>td {
-        border-bottom: none;
-    }
-    table.b-table>tbody>tr.b-table-details>td {
-        border-top: none;
-    }
-
     /* Sort styling */
     table.b-table>thead>tr>th,
     table.b-table>tfoot>tr>th {
@@ -69,6 +61,7 @@
     table.b-table.b-table-stacked>tbody,
     table.b-table.b-table-stacked>tbody>tr,
     table.b-table.b-table-stacked>tbody>tr>td,
+    table.b-table.b-table-stacked>tbody>tr>th,
     table.b-table.b-table-stacked>caption {
         display: block;
     }
@@ -80,20 +73,17 @@
         display: none;
     }
     /* inter-row top border */
-    table.b-table.b-table-stacked>tbody>tr>td:first-child {
+    table.b-table.b-table-stacked>tbody>tr>:first-child {
         border-top-width: .4rem;
     }
-    table.b-table.b-table-stacked>tbody>tr.b-table-details>td:first-child {
-        border-top: none;
-    }
-    /* convert TD contents to "cells". Caveat: child elements become cells! */
-    table.b-table.b-table-stacked>tbody>tr>td[data-label] {
+    /* convert TD/TH contents to "cells". Caveat: child elements become cells! */
+    table.b-table.b-table-stacked>tbody>tr>[data-label] {
         display: grid;
         grid-template-columns: 40% auto;
         grid-gap: .25rem 1rem;
     }
     /* generate row cell "heading" */
-    table.b-table.b-table-stacked>tbody>tr>td[data-label]::before {
+    table.b-table.b-table-stacked>tbody>tr>[data-label]::before {
         content: attr(data-label);
         display: inline;
         text-align: right;
@@ -110,6 +100,7 @@
         table.b-table.b-table-stacked-sm>tbody,
         table.b-table.b-table-stacked-sm>tbody>tr,
         table.b-table.b-table-stacked-sm>tbody>tr>td,
+        table.b-table.b-table-stacked-sm>tbody>tr>th,
         table.b-table.b-table-stacked-sm>caption {
             display: block;
         }
@@ -121,20 +112,17 @@
             display: none;
         }
         /* inter-row top border */
-        table.b-table.b-table-stacked-sm>tbody>tr {
+        table.b-table.b-table-stacked-sm>tbody>tr>:first-child {
             border-top-width: .4rem;
         }
-        table.b-table.b-table-stacked-sm>tbody>tr.b-table-details {
-            border-top: none;
-        }
-        /* convert TD contents to "cells". Caveat: child elements become cells! */
-        table.b-table.b-table-stacked-sm>tbody>tr>td[data-label] {
+        /* convert TD/TH contents to "cells". Caveat: child elements become cells! */
+        table.b-table.b-table-stacked-sm>tbody>tr>[data-label] {
             display: grid;
             grid-template-columns: 40% auto;
             grid-gap: .25rem 1rem;
         }
         /* generate row cell "heading" */
-        table.b-table.b-table-stacked-sm>tbody>tr>td[data-label]::before {
+        table.b-table.b-table-stacked-sm>tbody>tr>[data-label]::before {
             content: attr(data-label);
             display: inline;
             text-align: right;
@@ -152,6 +140,7 @@
         table.b-table.b-table-stacked-md>tbody,
         table.b-table.b-table-stacked-md>tbody>tr,
         table.b-table.b-table-stacked-md>tbody>tr>td,
+        table.b-table.b-table-stacked-md>tbody>tr>th,
         table.b-table.b-table-stacked-md>caption {
             display: block;
         }
@@ -163,20 +152,17 @@
             display: none;
         }
         /* inter-row top border */
-        table.b-table.b-table-stacked-md>tbody>tr {
+        table.b-table.b-table-stacked-md>tbody>tr>:first-child {
             border-top-width: .4rem;
         }
-        table.b-table.b-table-stacked-md>tbody>tr.b-table-details {
-            border-top: none;
-        }
-        /* convert TD contents to "cells". Caveat: child elements become cells! */
-        table.b-table.b-table-stacked-md>tbody>tr>td[data-label] {
+        /* convert TD/TH contents to "cells". Caveat: child elements become cells! */
+        table.b-table.b-table-stacked-md>tbody>tr>[data-label] {
             display: grid;
             grid-template-columns: 40% auto;
             grid-gap: .25rem 1rem;
         }
         /* generate row cell "heading" */
-        table.b-table.b-table-stacked-md>tbody>tr>td[data-label]::before {
+        table.b-table.b-table-stacked-md>tbody>tr>[data-label]::before {
             content: attr(data-label);
             display: inline;
             text-align: right;
@@ -194,6 +180,7 @@
         table.b-table.b-table-stacked-lg>tbody,
         table.b-table.b-table-stacked-lg>tbody>tr,
         table.b-table.b-table-stacked-lg>tbody>tr>td,
+        table.b-table.b-table-stacked-lg>tbody>tr>th,
         table.b-table.b-table-stacked-lg>caption {
             display: block;
         }
@@ -205,20 +192,17 @@
             display: none;
         }
         /* inter-row top border */
-        table.b-table.b-table-stacked-lg>tbody>tr {
+        table.b-table.b-table-stacked-lg>tbody>tr>:first-child {
             border-top-width: .4rem;
         }
-        table.b-table.b-table-stacked-lg>tbody>tr.b-table-details {
-            border-top: none;
-        }
-        /* convert TD contents to "cells". Caveat: child elements become cells! */
-        table.b-table.b-table-stacked-lg>tbody>tr>td[data-label] {
+        /* convert TD/TH contents to "cells". Caveat: child elements become cells! */
+        table.b-table.b-table-stacked-lg>tbody>tr>[data-label] {
             display: grid;
             grid-template-columns: 40% auto;
             grid-gap: .25rem 1rem;
         }
         /* generate row cell "heading" */
-        table.b-table.b-table-stacked-lg>tbody>tr>td[data-label]::before {
+        table.b-table.b-table-stacked-lg>tbody>tr>[data-label]::before {
             content: attr(data-label);
             display: inline;
             text-align: right;
@@ -236,6 +220,7 @@
         table.b-table.b-table-stacked-xl>tbody,
         table.b-table.b-table-stacked-xl>tbody>tr,
         table.b-table.b-table-stacked-xl>tbody>tr>td,
+        table.b-table.b-table-stacked-xl>tbody>tr>th,
         table.b-table.b-table-stacked-xl>caption {
             display: block;
         }
@@ -247,20 +232,17 @@
             display: none;
         }
         /* inter-row top border */
-        table.b-table.b-table-stacked-xl>tbody>tr {
+        table.b-table.b-table-stacked-xl>tbody>tr>:first-child {
             border-top-width: .4rem;
         }
-        table.b-table.b-table-stacked-xl>tbody>tr.b-table-details {
-            border-top: none;
-        }
-        /* convert TD contents to "cells". Caveat: child elements become cells! */
-        table.b-table.b-table-stacked-xl>tbody>tr>td[data-label] {
+        /* convert TD/TH contents to "cells". Caveat: child elements become cells! */
+        table.b-table.b-table-stacked-xl>tbody>tr>[data-label] {
             display: grid;
             grid-template-columns: 40% auto;
             grid-gap: .25rem 1rem;
         }
         /* generate row cell "heading" */
-        table.b-table.b-table-stacked-xl>tbody>tr>td[data-label]::before {
+        table.b-table.b-table-stacked-xl>tbody>tr>[data-label]::before {
             content: attr(data-label);
             display: inline;
             text-align: right;
@@ -268,6 +250,15 @@
             font-weight: bold;
             font-style: normal;
         }
+    }
+
+    /* Details row styling */
+    table.b-table>tbody>tr.b-table-has-details>td,
+    table.b-table>tbody>tr.b-table-has-details>th {
+        border-bottom: none;
+    }
+    table.b-table>tbody>tr.b-table-details>td {
+        border-top: none;
     }
 </style>
 
