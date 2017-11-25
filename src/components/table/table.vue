@@ -405,7 +405,6 @@
         tfoot = h('tfoot', { class: t.footClasses }, [ h('tr', {}, makeHeadCells(true)) ])
       }
 
-      // Prepare the tbody rows
       const rows = []
 
       // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
@@ -424,7 +423,7 @@
       items.forEach((item, rowIndex) => {
         const detailsSlot = $scoped['row-details']
         const rowShowDetails = Boolean(item._showDetails && detailsSlot)
-        const detailsId = rowShowDetails ? t.safeId(`_details_${index}_`) : null
+        const detailsId = rowShowDetails ? t.safeId(`_details_${rowIndex}_`) : null
         const toggleDetailsFn = () => {
           if (detailsSlot) {
             t.$set(item, '_showDetails', !Boolean(item._showDetails))
@@ -435,7 +434,8 @@
           const data = {
             key: `row-${rowIndex}-cell-${colIndex}`,
             class: t.tdClasses(field, item),
-            attrs: field.tdAttr || {}
+            attrs: field.tdAttr || {},
+            domPeops: {}
           }
           data.attrs['aria-colindex'] = String(colIndex)
           let childNodes
@@ -488,9 +488,9 @@
               role: t.isStacked ? 'row' : null
             },
             on: {
-              click: (evt) => { t.rowClicked(evt, item, index) },
-              dblclick: (evt) => { t.rowDblClicked(evt, item, index) },
-              mouseenter: (evt) => { t.rowHovered(evt, item, index) }
+              click: (evt) => { t.rowClicked(evt, item, rowIndex) },
+              dblclick: (evt) => { t.rowDblClicked(evt, item, rowIndex) },
+              mouseenter: (evt) => { t.rowHovered(evt, item, rowIndex) }
             }
           },
           tds
@@ -506,7 +506,7 @@
           const details = h(
             'td',
             { attrs: tdAttrs },
-            [ detailsSlot({ item: item, index: index, fields: fields, toggleDetails: toggleDetailsFn }) ]
+            [ detailsSlot({ item: item, index: rowIndex, fields: fields, toggleDetails: toggleDetailsFn }) ]
           )
           rows.push(h(
             'tr',
@@ -534,7 +534,7 @@
         empty = h(
           'td',
           { attrs: { colspan: String(fields.length), role: t.isStacked ? 'cell' : null } },
-          [ h('div', { attrs: {role: 'alert', 'aria-live': 'polite' } }, [ empty ]) ]
+          [ h('div', { attrs: { role: 'alert', 'aria-live': 'polite' } }, [ empty ]) ]
         )
         rows.push(h(
           'tr',
