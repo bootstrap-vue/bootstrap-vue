@@ -1,6 +1,6 @@
 <style>
     /* Add support for fixed layout table */
-    table.b-table.table-fixed {
+    table.b-table.b-table-fixed {
         table-layout: fixed;
     }
 
@@ -57,6 +57,217 @@
     table.b-table>tfoot>tr>th.sorting_asc::after,
     table.b-table>tfoot>tr>th.sorting_desc::before {
         opacity: 1;
+    }
+
+    /* stacked table layout */
+    /* Derived from http://blog.adrianroselli.com/2017/11/a-responsive-accessible-table.html */
+    /* Always stacked */
+    table.b-table.b-table-stacked {
+        width: 100%;
+    }
+    table.b-table.b-table-stacked,
+    table.b-table.b-table-stacked>tbody,
+    table.b-table.b-table-stacked>tbody>tr,
+    table.b-table.b-table-stacked>tbody>tr>td,
+    table.b-table.b-table-stacked>caption {
+        display: block;
+    }
+    /* hide stuff we can't deal with, or shouldn't show */
+    table.b-table.b-table-stacked>thead,
+    table.b-table.b-table-stacked>tfoot,
+    table.b-table.b-table-stacked>tbody>tr.b-table-top-row,
+    table.b-table.b-table-stacked>tbody>tr.b-table-bottom-row {
+        display: none;
+    }
+    /* inter-row top border */
+    table.b-table.b-table-stacked>tbody>tr>td:first-child {
+        border-top-width: .4rem;
+    }
+    table.b-table.b-table-stacked>tbody>tr.b-table-details>td:first-child {
+        border-top: none;
+    }
+    /* convert TD contents to "cells". Caveat: child elements become cells! */
+    table.b-table.b-table-stacked>tbody>tr>td[data-label] {
+        display: grid;
+        grid-template-columns: 40% auto;
+        grid-gap: .25rem 1rem;
+    }
+    /* generate row cell "heading" */
+    table.b-table.b-table-stacked>tbody>tr>td[data-label]::before {
+        content: attr(data-label);
+        display: inline;
+        text-align: right;
+        overflow-wrap: break-word;
+        font-weight: bold;
+        font-style: normal;
+    }
+    @media all and (max-width: 575.99px) {
+        /* Under SM */
+        table.b-table.b-table-stacked-sm {
+            width: 100%;
+        }
+        table.b-table.b-table-stacked-sm,
+        table.b-table.b-table-stacked-sm>tbody,
+        table.b-table.b-table-stacked-sm>tbody>tr,
+        table.b-table.b-table-stacked-sm>tbody>tr>td,
+        table.b-table.b-table-stacked-sm>caption {
+            display: block;
+        }
+        /* hide stuff we can't deal with, or shouldn't show */
+        table.b-table.b-table-stacked-sm>thead,
+        table.b-table.b-table-stacked-sm>tfoot,
+        table.b-table.b-table-stacked-sm>tbody>tr.b-table-top-row,
+        table.b-table.b-table-stacked-sm>tbody>tr.b-table-bottom-row {
+            display: none;
+        }
+        /* inter-row top border */
+        table.b-table.b-table-stacked-sm>tbody>tr {
+            border-top-width: 0.4rem;
+        }
+        table.b-table.b-table-stacked-sm>tbody>tr.b-table-details {
+            border-top: none;
+        }
+        /* convert TD contents to "cells". Caveat: child elements become cells! */
+        table.b-table.b-table-stacked-sm>tbody>tr>td[data-label] {
+            display: grid;
+            grid-template-columns: 40% auto;
+            grid-gap: .25rem 1rem;
+        }
+        /* generate row cell "heading" */
+        table.b-table.b-table-stacked-sm>tbody>tr>td[data-label]::before {
+            content: attr(data-label);
+            display: inline;
+            text-align: right;
+            overflow-wrap: break-word;
+            font-weight: bold;
+            font-style: normal;
+        }
+    }
+    @media all and (max-width: 767.99px) {
+        /* under MD  */
+        table.b-table.b-table-stacked-md {
+            width: 100%;
+        }
+        table.b-table.b-table-stacked-md,
+        table.b-table.b-table-stacked-md>tbody,
+        table.b-table.b-table-stacked-md>tbody>tr,
+        table.b-table.b-table-stacked-md>tbody>tr>td,
+        table.b-table.b-table-stacked-md>caption {
+            display: block;
+        }
+        /* hide stuff we can't deal with, or shouldn't show */
+        table.b-table.b-table-stacked-md>thead,
+        table.b-table.b-table-stacked-md>tfoot,
+        table.b-table.b-table-stacked-md>tbody>tr.b-table-top-row,
+        table.b-table.b-table-stacked-md>tbody>tr.b-table-bottom-row {
+            display: none;
+        }
+        /* inter-row top border */
+        table.b-table.b-table-stacked-md>tbody>tr {
+            border-top-width: .4rem;
+        }
+        table.b-table.b-table-stacked-md>tbody>tr.b-table-details {
+            border-top: none;
+        }
+        /* convert TD contents to "cells". Caveat: child elements become cells! */
+        table.b-table.b-table-stacked-md>tbody>tr>td[data-label] {
+            display: grid;
+            grid-template-columns: 40% auto;
+            grid-gap: .25rem 1rem;
+        }
+        /* generate row cell "heading" */
+        table.b-table.b-table-stacked-md>tbody>tr>td[data-label]::before {
+            content: attr(data-label);
+            display: inline;
+            text-align: right;
+            overflow-wrap: break-word;
+            font-weight: bold;
+            font-style: normal;
+        }
+    }
+    @media all and (max-width: 991.99px) {
+        /* under LG  */
+        table.b-table.b-table-stacked-lg {
+            width: 100%;
+        }
+        table.b-table.b-table-stacked-lg,
+        table.b-table.b-table-stacked-lg>tbody,
+        table.b-table.b-table-stacked-lg>tbody>tr,
+        table.b-table.b-table-stacked-lg>tbody>tr>td,
+        table.b-table.b-table-stacked-lg>caption {
+            display: block;
+        }
+        /* hide stuff we can't deal with, or shouldn't show */
+        table.b-table.b-table-stacked-lg>thead,
+        table.b-table.b-table-stacked-lg>tfoot,
+        table.b-table.b-table-stacked-lg>tbody>tr.b-table-top-row,
+        table.b-table.b-table-stacked-lg>tbody>tr.b-table-bottom-row {
+            display: none;
+        }
+        /* inter-row top border */
+        table.b-table.b-table-stacked-lg>tbody>tr {
+            border-top-width: .4rem;
+        }
+        table.b-table.b-table-stacked-lg>tbody>tr.b-table-details {
+            border-top: none;
+        }
+        /* convert TD contents to "cells". Caveat: child elements become cells! */
+        table.b-table.b-table-stacked-lg>tbody>tr>td[data-label] {
+            display: grid;
+            grid-template-columns: 40% auto;
+            grid-gap: .25rem 1rem;
+        }
+        /* generate row cell "heading" */
+        table.b-table.b-table-stacked-lg>tbody>tr>td[data-label]::before {
+            content: attr(data-label);
+            display: inline;
+            text-align: right;
+            overflow-wrap: break-word;
+            font-weight: bold;
+            font-style: normal;
+        }
+    }
+    @media all and (max-width: 1199.99px) {
+        /* under XL  */
+        table.b-table.b-table-stacked-xl {
+            width: 100%;
+        }
+        table.b-table.b-table-stacked-xl,
+        table.b-table.b-table-stacked-xl>tbody,
+        table.b-table.b-table-stacked-xl>tbody>tr,
+        table.b-table.b-table-stacked-xl>tbody>tr>td,
+        table.b-table.b-table-stacked-xl>caption {
+            display: block;
+        }
+        /* hide stuff we can't deal with, or shouldn't show */
+        table.b-table.b-table-stacked-xl>thead,
+        table.b-table.b-table-stacked-xl>tfoot,
+        table.b-table.b-table-stacked-xl>tbody>tr.b-table-top-row,
+        table.b-table.b-table-stacked-xl>tbody>tr.b-table-bottom-row {
+            display: none;
+        }
+        /* inter-row top border */
+        table.b-table.b-table-stacked-xl>tbody>tr {
+            border-top-width: .4rem;
+        }
+        table.b-table.b-table-stacked-xl>tbody>tr.b-table-details {
+            border-top: none;
+        }
+        /* convert TD contents to "cells". Caveat: child elements become cells! */
+        table.b-table.b-table-stacked-xl>tbody>tr>td[data-label] {
+            display: grid;
+            grid-template-columns: 40% auto;
+            grid-gap: .25rem 1rem;
+        }
+        /* generate row cell "heading" */
+        table.b-table.b-table-stacked-xl>tbody>tr>td[data-label]::before {
+            content: attr(data-label);
+            display: inline;
+            text-align: right;
+            overflow-wrap: break-word;
+            font-weight: bold;
+            font-style: normal;
+        }
     }
 </style>
 
@@ -139,53 +350,18 @@
       // Build the colgroup
       const colgroup = $slots['table-colgroup'] ? h('colgroup', {}, $slots['table-colgroup']) : h(false)
 
-      // Build the thead
-      const ths = fields.map((field) => {
-        const data = {
-          key: field.key,
-          class: t.fieldClasses(field),
-          style: field.thStyle || {},
-          attrs: {
-            'tabindex': field.sortable ? '0' : null,
-            'aria-label': field.sortable ? ((t.localSortDesc && t.localSortBy === field.key) ? t.labelSortAsc : t.labelSortDesc) : null,
-            'aria-sort': (field.sortable && t.localSortBy === field.key) ? (t.localSortDesc ? 'descending' : 'ascending') : null,
-          },
-          on: {
-            click: (evt) => {
-              evt.stopPropagation()
-              evt.preventDefault()
-              t.headClicked(evt, field)
-            },
-            keydown: (evt) => {
-              const keyCode = evt.keyCode
-              if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
-                evt.stopPropagation()
-                evt.preventDefault()
-                t.headClicked(evt, field)
-              }
-            }
-          }
-        }
-        let slot = $scoped[`HEAD_${field.key}`]
-        if (slot) {
-          slot = slot({label: field.label, column: field.key, field: field })
-        } else {
-          data.domProps = { innerHTML: field.label }
-        }
-        return h('th', data, slot)
-      })
-      const thead = h('thead', { class: t.headClasses }, [ h('tr', {}, ths) ])
-
-      // Build the tfoot
-      let tfoot = h(false)
-      if (t.footClone) {
-        const ths = fields.map((field) => {
+      // factory function for thead and tfoot cells (th's)
+      const makeHeadCells = (isFoot = false) => {
+        return fields.map((field, colIndex) => {
           const data = {
             key: field.key,
             class: t.fieldClasses(field),
             style: field.thStyle || {},
             attrs: {
               'tabindex': field.sortable ? '0' : null,
+              'abbr': field.headerAbbr || null,
+              'title': field.headerTitle || null,
+              'aria-colindex': String(colIndex),
               'aria-label': field.sortable ? ((t.localSortDesc && t.localSortBy === field.key) ? t.labelSortAsc : t.labelSortDesc) : null,
               'aria-sort': (field.sortable && t.localSortBy === field.key) ? (t.localSortDesc ? 'descending' : 'ascending') : null,
             },
@@ -205,32 +381,47 @@
               }
             }
           }
-          let slot = $scoped[`FOOT_${field.key}`] ? $scoped[`FOOT_${field.key}`] : $scoped[`HEAD_${field.key}`]
+          let slot = (isFoot && $scoped[`FOOT_${field.key}`]) ? $scoped[`FOOT_${field.key}`] : $scoped[`HEAD_${field.key}`]
           if (slot) {
-            slot = [ slot({label: field.label, column: field.key, field: field }) ]
+            slot = slot({label: field.label, column: field.key, field: field })
           } else {
             data.domProps = { innerHTML: field.label }
           }
           return h('th', data, slot)
         })
-        tfoot = h('tfoot', { class: t.footClasses }, [ h('tr', {}, ths) ])
       }
 
+      // Build the thead
+      let thead = h(false)
+      if (t.isStacked !== true)
+        // If in always stacked mode (t.isStacked === true), then we don't bother rendering the thead
+        thead = h('thead', { class: t.headClasses }, [ h('tr', {}, makeHeadCells(false)) ])
+      }
+
+      // Build the tfoot
+      let tfoot = h(false)
+      if (t.footClone && t.isStacked !== true) {
+        // If in always stacked mode (t.isStacked === true), then we don't bother rendering the tfoot
+        tfoot = h('tfoot', { class: t.footClasses }, [ h('tr', {}, makeHeadCells(true)) ])
+      }
+
+      // Prepare the tbody rows
       const rows = []
 
-      // Add static Top Row slot
-      if ($scoped['top-row']) {
+      // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
+      // If in always stacked mode, we don't bother rendering the row
+      if ($scoped['top-row'] && t.isStacked !== true) {
         rows.push(h(
           'tr',
-          {},
+          { key: 'top-row', class: [ 'b-table-top-row' ] },
           [ $scoped['top-row']({ columns: fields.length, fields: fields }) ]
         ))
       } else {
         rows.push(h(false))
       }
 
-      // Add the body rows
-      items.forEach((item, index) => {
+      // Add the item data rows
+      items.forEach((item, rowIndex) => {
         const detailsSlot = $scoped['row-details']
         const rowShowDetails = Boolean(item._showDetails && detailsSlot)
         const detailsId = rowShowDetails ? t.safeId(`_details_${index}_`) : null
@@ -239,38 +430,63 @@
             t.$set(item, '_showDetails', !Boolean(item._showDetails))
           }
         }
-        // For Each Row
-        const tds = fields.map((field) => {
-          // Foe Each field in the row
+        // For each item data field in row
+        const tds = fields.map((field, colIndex) => {
           const data = {
-            key: field.key,
+            key: `row-${rowIndex}-cell-${colIndex}`,
             class: t.tdClasses(field, item),
             attrs: field.tdAttr || {}
           }
-          let childNodes = void 0
+          data.attrs['aria-colindex'] = String(colIndex)
+          let childNodes
           if ($scoped[field.key]) {
             childNodes = [
               $scoped[field.key]({
                 item: item,
-                index: index,
+                index: rowIndex,
                 unformatted: item[field.key],
                 value: t.getFormattedValue(item, field),
                 toggleDetails: toggleDetailsFn,
                 detailsShowing: Boolean(item._showDetails)
               })
             ]
+            if (t.isStacked) {
+              // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
+              childNodes = h('div', {}, [ childNodes ])
+            }
           } else {
-            data.domProps = { innerHTML: t.getFormattedValue(item, field) }
+            const formatted = t.getFormattedValue(item, field)
+            if (t.isStacked) {
+              // We innerHTML a DIV to ensure rendered as a single cell when visually stacked!
+              childNodes = h('div', { domProps: { innerHTML: formatted } })
+            } else {
+              // Non stcaked, so we just innerHTML the td
+              data.domProps.innerHTML = formatted
+            }
           }
-          return h('td', data, childNodes)
+          if (t.isStacked) {
+            // Generate the "header cell" label content in stacked mode
+            data.attrs['data-label'] = field.label
+             if (field.isRowHeader) {
+              data.attrs['role'] = 'rowheader'
+            } else {
+              data.attrs['role'] = 'cell'
+            }
+          }
+          // Render either a td or th cell
+          return h(field.isRowHeader ? 'th' : 'td', data, childNodes)
         })
         // Assemble and add the row
         rows.push(h(
           'tr',
           {
-            key: index,
+            key: `row-${rowIndex}`,
             class: [ t.rowClasses(item), { 'b-table-has-details': rowShowDetails } ],
-            attrs: { 'aria-describedby':  detailsId },
+            attrs: {
+              'aria-describedby': detailsId,
+              'aria-rowindex': (t.perPage && t.perPage > 0) ? String((t.currentPage - 1) * t.perPage) : null,
+              role: t.isStacked ? 'row' : null
+            },
             on: {
               click: (evt) => { t.rowClicked(evt, item, index) },
               dblclick: (evt) => { t.rowDblClicked(evt, item, index) },
@@ -281,14 +497,20 @@
         ))
         // Row Details slot
         if (rowShowDetails) {
+          const tdAttrs = { colspan: String(fields.length) }
+          const trAttrs = { id: detailsId }
+          if (t.isStacked) {
+            tdAttrs['role'] = 'cell'
+            trAttrs['role'] = 'row'
+          }
           const details = h(
             'td',
-            { attrs: { colspan: String(fields.length) } },
+            { attrs: tdAttrs },
             [ detailsSlot({ item: item, index: index, fields: fields, toggleDetails: toggleDetailsFn }) ]
           )
           rows.push(h(
             'tr',
-            { key: `details-${index}`, class: [ 'b-table-details' ], attrs: { id: detailsId } },
+            { key: `details-${rowIndex}`, class: [ 'b-table-details' ], attrs: trAttrs },
             [ details ]
           ))
         } else if (detailsSlot) {
@@ -299,9 +521,9 @@
 
       // Empty Items / Empty Filtered Row slot
       if (t.showEmpty && (!items || items.length === 0)) {
-        let inner = t.filter ? $slots['emptyfiltered'] : $slots['empty']
-        if (!inner) {
-          inner =  h(
+        let empty = t.filter ? $slots['emptyfiltered'] : $slots['empty']
+        if (!empty) {
+          empty =  h(
             'div',
             {
               class: [ 'text-center', 'my-2' ],
@@ -309,20 +531,26 @@
             }
           )
         }
-        const content = h('div', { attrs: {role: 'alert', 'aria-live': 'polite' } }, [ inner ])
+        empty = h(
+          'td',
+          { attrs: { colspan: String(fields.length), role: t.isStacked ? 'cell' : null } },
+          [ h('div', { attrs: {role: 'alert', 'aria-live': 'polite' } }, [ empty ]) ]
+        )
         rows.push(h(
           'tr',
-          [ h('td', { attrs: { colspan: String(fields.length) } }, [ content ]) ]
+          { key: 'empty-row', class: [ 'b-table-empty-row' ], attrs: t.isStacked ? { role: 'row' } : {} },
+          [ empty ]
         ))
       } else {
         rows.push(h(false))
       }
 
-      // Static bottom row slot
-      if ($scoped['bottom-row']) {
+      // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
+      // If in always stacked mode, we don't bother rendering the row
+      if ($scoped['bottom-row'] && t.isStacked !== true) {
         rows.push(h(
           'tr',
-          {},
+          { key: 'bottom-row', class: [ 'b-table-bottom-row' ] },
           [ $scoped['bottom-row']({ columns: fields.length, fields: fields }) ]
         ))
       } else {
@@ -330,14 +558,20 @@
       }
 
       // Assemble the rows into the tbody
-      const tbody = h('tbody', {}, rows)
+      const tbody = h('tbody', { attrs: t.isStacked ? { role: 'rowgroup' } : {} }, rows)
 
       // Return the assembled table
       return h(
         'table',
         {
           class: t. tableClasses,
-          attrs: { id: t.safeId(), 'aria-busy': t.computedBusy ? 'true' : 'false'}
+          attrs: {
+            id: t.safeId(),
+            role: t.isStacked ? 'table' : null,
+            'aria-busy': t.computedBusy ? 'true' : 'false',
+            'aria-colcount': String(fields.length),
+            'aria-rowcount': t.$attrs['aria-rowcount'] || (t.perPage && t.perPage > 0) ? '-1' : null
+          }
         },
         [ caption, colgroup, thead, tfoot, tbody ]
       )
@@ -415,12 +649,16 @@
         type: Boolean,
         default: false
       },
+      fixed: {
+        type: Boolean,
+        default: false
+      },
       responsive: {
         type: [Boolean, String],
         default: false
       },
-      fixed: {
-        type: Boolean,
+      stacked: {
+        type: [Boolean, String],
         default: false
       },
       headVariant: {
@@ -581,8 +819,14 @@
       })
     },
     computed: {
-      tableClasses () {
+      isStacked () {
+        return this.stacked === '' ? true : this.stacked
+      },
+      isResponsive () {
         const responsive = this.responsive === '' ? true : this.responsive
+        return this.isStacked ? false : responsive
+      },
+      tableClasses () {
         return [
           'table',
           'b-table',
@@ -590,10 +834,11 @@
           this.hover ? 'table-hover' : '',
           this.dark ? 'table-dark' : '',
           this.bordered ? 'table-bordered' : '',
+          this.small ? 'table-sm' : '',
           this.outlined ? 'border' : '',
-          responsive === true ? 'table-responsive' : (Boolean(responsive) ? `table-responsive-${responsive}` : ''),
-          this.fixed ? 'table-fixed' : '',
-          this.small ? 'table-sm' : ''
+          this.fixed ? 'b-table-fixed' : '',
+          this.isResponsive === true ? 'table-responsive' : (this.isResponsive ? `table-responsive-${this.responsive}` : ''),
+          this.isStacked === true ? 'b-table-stacked' : (this.isStacked ? `b-table-stacked-${this.stacked}` : '')
         ]
       },
       headClasses () {
@@ -624,9 +869,9 @@
           perPage: this.perPage,
           currentPage: this.currentPage,
           filter: this.filter,
-          apiUrl: this.apiUrl,
           sortBy: this.localSortBy,
-          sortDesc: this.localSortDesc
+          sortDesc: this.localSortDesc,
+          apiUrl: this.apiUrl
         }
       },
       computedFields () {
