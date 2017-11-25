@@ -807,7 +807,7 @@ to have details initially showing.
       </b-button>
       <!-- In some circumstances you may need to use @click.native.stop instead -->
       <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
-      <b-form-checkbox @click.native.stop @change="row.toggleDetails" checked="row.detailsShowing">
+      <b-form-checkbox @click.native.stop @change="row.toggleDetails" v-model="row.detailsShowing">
         Details via check
       </b-form-checkbox>
     </template>
