@@ -1233,7 +1233,7 @@ when fetching your data!
         </b-form-group>
       </b-col>
       <b-col md="6" class="my-1">
-        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
+        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
       </b-col>
       <b-col md="6" class="my-1">
         <b-form-group horizontal label="Per page" class="mb-0">
