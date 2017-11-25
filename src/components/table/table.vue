@@ -383,7 +383,7 @@
           }
           let slot = (isFoot && $scoped[`FOOT_${field.key}`]) ? $scoped[`FOOT_${field.key}`] : $scoped[`HEAD_${field.key}`]
           if (slot) {
-            slot = slot({label: field.label, column: field.key, field: field })
+            slot = slot({ label: field.label, column: field.key, field: field })
           } else {
             data.domProps = { innerHTML: field.label }
           }
@@ -405,6 +405,7 @@
         tfoot = h('tfoot', { class: t.footClasses }, [ h('tr', {}, makeHeadCells(true)) ])
       }
 
+      // Prepare the tbody rows
       const rows = []
 
       // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
@@ -435,7 +436,7 @@
             key: `row-${rowIndex}-cell-${colIndex}`,
             class: t.tdClasses(field, item),
             attrs: field.tdAttr || {},
-            domPeops: {}
+            domProps: {}
           }
           data.attrs['aria-colindex'] = String(colIndex)
           let childNodes
@@ -452,22 +453,22 @@
             ]
             if (t.isStacked) {
               // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
-              childNodes = h('div', {}, [ childNodes ])
+              childNodes = [ h('div', {}, [ childNodes ]) ]
             }
           } else {
             const formatted = t.getFormattedValue(item, field)
             if (t.isStacked) {
               // We innerHTML a DIV to ensure rendered as a single cell when visually stacked!
-              childNodes = h('div', { domProps: { innerHTML: formatted } })
+              childNodes = [ h('div', { domProps: { innerHTML: formatted } }) ]
             } else {
               // Non stcaked, so we just innerHTML the td
-              data.domProps.innerHTML = formatted
+              data.domProps['innerHTML'] = formatted
             }
           }
           if (t.isStacked) {
             // Generate the "header cell" label content in stacked mode
             data.attrs['data-label'] = field.label
-             if (field.isRowHeader) {
+            if (field.isRowHeader) {
               data.attrs['role'] = 'rowheader'
             } else {
               data.attrs['role'] = 'cell'
@@ -484,7 +485,7 @@
             class: [ t.rowClasses(item), { 'b-table-has-details': rowShowDetails } ],
             attrs: {
               'aria-describedby': detailsId,
-              'aria-rowindex': (t.perPage && t.perPage > 0) ? String((t.currentPage - 1) * t.perPage) : null,
+              'aria-rowindex': (t.currentPage && t.perPage && t.perPage > 0) ? String((t.currentPage - 1) * t.perPage) : null,
               role: t.isStacked ? 'row' : null
             },
             on: {
