@@ -393,7 +393,7 @@
 
       // Build the thead
       let thead = h(false)
-      if (t.isStacked !== true)
+      if (t.isStacked !== true) {
         // If in always stacked mode (t.isStacked === true), then we don't bother rendering the thead
         thead = h('thead', { class: t.headClasses }, [ h('tr', {}, makeHeadCells(false)) ])
       }
