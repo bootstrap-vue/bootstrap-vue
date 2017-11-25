@@ -64,7 +64,7 @@
   import { warn, looseEqual, KeyCodes } from '../../utils'
   import { keys, assign } from '../../utils/object'
   import { isArray, concat } from '../../utils/array'
-  import { listenOnRootMixin } from '../../mixins'
+  import { idMixin, listenOnRootMixin } from '../../mixins'
   import startCase from 'lodash.startcase'
 
   function toString (v) {
@@ -118,7 +118,7 @@
   }
 
   export default {
-    mixins: [listenOnRootMixin],
+    mixins: [ idMixin, listenOnRootMixin ],
     render (h) {
       const t = this
       const $slots = t.$slots
@@ -232,6 +232,8 @@
       // Add the body rows
       items.forEach((item, index) => {
         const detailsSlot = $scoped['row-details']
+        const rowShowDetails = Boolean(item._showDetails && detailsSlot)
+        const detailsId = rowShowDetails ? t.safeId(`_details_${index}_`) : null
         const toggleDetailsFn = () => {
           if (detailsSlot) {
             t.$set(item, '_showDetails', !Boolean(item._showDetails))
@@ -267,7 +269,8 @@
           'tr',
           {
             key: index,
-            class: [ t.rowClasses(item), (item._showDetails && detailsSlot) ? 'b-table-has-details' : '' ],
+            class: [ t.rowClasses(item), { 'b-table-has-details': rowShowDetails } ],
+            attrs: { 'aria-describedby':  detailsId },
             on: {
               click: (evt) => { t.rowClicked(evt, item, index) },
               dblclick: (evt) => { t.rowDblClicked(evt, item, index) },
@@ -277,7 +280,7 @@
           tds
         ))
         // Row Details slot
-        if (item._showDetails && detailsSlot) {
+        if (rowShowDetails) {
           const details = h(
             'td',
             { attrs: { colspan: String(fields.length) } },
@@ -285,10 +288,11 @@
           )
           rows.push(h(
             'tr',
-            { key: `${index}-details`, class: [ 'b-table-details' ] },
+            { key: `details-${index}`, class: [ 'b-table-details' ], attrs: { id: detailsId } },
             [ details ]
           ))
-        } else {
+        } else if (detailsSlot) {
+          // Only add the placeholder if a the table has a row-details slot defined (but not shown)
           rows.push(h(false))
         }
       })
@@ -326,14 +330,14 @@
       }
 
       // Assemble the rows into the tbody
-      const tbody = h('tbody', {}, rows)
+      const tbody = h('tbody', {} }, rows)
 
       // Return the assembled table
       return h(
         'table',
         {
           class: t. tableClasses,
-          attrs: { id: t.id || null, 'aria-busy': t.computedBusy ? 'true' : 'false'}
+          attrs: { id: t.safeId(), 'aria-busy': t.computedBusy ? 'true' : 'false'}
         },
         [ caption, colgroup, thead, tfoot, tbody ]
       )
@@ -349,23 +353,15 @@
       }
     },
     props: {
-      id: {
-        type: String,
-        default: ''
-      },
-      caption: {
-        type: String,
-        default: null
-      },
-      captionTop: {
-        type: Boolean,
-        default: false
-      },
       items: {
         type: [Array, Function],
         default() {
           return []
         }
+      },
+      fields: {
+        type: [Object, Array],
+        default: null
       },
       sortBy: {
         type: String,
@@ -375,13 +371,13 @@
         type: Boolean,
         default: false
       },
-      apiUrl: {
+      caption: {
         type: String,
-        default: ''
-      },
-      fields: {
-        type: [Object, Array],
         default: null
+      },
+      captionTop: {
+        type: Boolean,
+        default: false
       },
       striped: {
         type: Boolean,
@@ -407,7 +403,7 @@
         }
       },
       inverse: {
-        // Deprecated in v1.0.0.beta.10 in favor of `dark`
+        // Deprecated in v1.0.0 in favor of `dark`
         type: Boolean,
         default: null
       },
@@ -498,6 +494,11 @@
       emptyFilteredText: {
         type: String,
         default: 'There are no records matching your request'
+      },
+      apiUrl: {
+        // Passthrough prop. Passed to the context object. Not used by b-table directly
+        type: String,
+        default: ''
       }
     },
     watch: {
