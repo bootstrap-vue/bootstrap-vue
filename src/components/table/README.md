@@ -273,7 +273,7 @@ The following field properties are recognized:
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
 | `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly)
 | `tdAttr` | Object | JavaScript object representing additional attributes to apply to the `td` cell
-| `isRowHeader` | Boolean | When set to `true`, the rows item's data cell will be rendered with `<th>` rather than the default of `<td>`.
+| `isRowHeader` | Boolean | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.
 
 >**Notes:**
 > - _Field properties, if not present, default to `null` unless otherwise stated above._
@@ -310,13 +310,14 @@ fields: [
 | `hover` | To enable a hover highlighting state on table rows within a `<tbody>`
 | `dark` | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)
 | `responsive` | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `sm`, `md`, `lg`, or `xl` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint.
+| `stacked` | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `sm`, `md`, `lg`, or `xl` to make the table visually stacked only on screens smaller than the breakpoint.
 | `fixed` | Generate a table with equal fixed-width columns (`table-layout: fixed`)
 | `foot-clone` | Turns on the table footer, and defaults with the same contents a the table header
 | `head-variant` | Use `light` or `dark` to make table header appear light or dark gray, respectively
 | `foot-variant` | Use `light` or `dark` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set
 
->**Deprecation note:** _As of Bootstrap-Vue v1.0.0-beta.10, the prop `inverse` has been deprecated in
-favour of prop `dark` to better align with Bootstrap V4.beta.2 CSS class names._
+>**Deprecation note:** _As of Bootstrap-Vue v1.0.0, the prop `inverse` has been deprecated in
+favour of prop `dark` to better align with the new Bootstrap V4.beta.2 CSS class names._
 
 **Example: Bordered table**
 ```html
@@ -420,7 +421,7 @@ responsive across all viewports by setting the prop `responsive` to `true`. Or, 
 maximum breakpoint with which to have a responsive table up to by setting the prop
 `responsive` to one of the breakpoint values: `sm`, `md`, `lg`, or `xl`.
 
->**Note: _Possible vertical clipping/truncation_**
+**Note: _Possible vertical clipping/truncation warning_**
 
 Responsive tables make use of `overflow-y: hidden`, which clips off any content that
 goes beyond the bottom or top edges of the table. In particular, this can clip off
@@ -491,6 +492,8 @@ to normal format by setting the prop `stacked` to one of the breakpoint values
 
 Column header labels will be rendered to the left of each field value using a CSS
 `::before` pseudo element.
+
+The prop `stacked` takes precedence over the `responsive` prop.
 
 **Example: Always stacked table**
 ```html
@@ -1284,7 +1287,7 @@ when fetching your data!
 
     <!-- Main table element -->
     <b-table show-empty
-             stacked="sm"
+             stacked="md"
              :items="items"
              :fields="fields"
              :current-page="currentPage"
