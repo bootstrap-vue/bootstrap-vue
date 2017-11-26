@@ -273,6 +273,7 @@ The following field properties are recognized:
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
 | `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly)
 | `tdAttr` | Object | JavaScript object representing additional attributes to apply to the `td` cell
+| `isRowHeader` | Boolean | When set to `true`, the rows item's data cell will be rendered with `<th>` rather than the default of `<td>`.
 
 >**Notes:**
 > - _Field properties, if not present, default to `null` unless otherwise stated above._
@@ -480,6 +481,45 @@ export default {
 
 <!-- table-responsive.vue -->
 ```
+
+## Stacked tables
+An alterntive to esponsive tables, the stacked option allow tables to be rendered in a
+visually stacked format. Make any table stacked across _all viewports_ by setting
+the prop `stacked` to `true`. Or set a breakpoint at which the table will return
+to normal format by setting the prop `stacked` to one of the breakpoint values
+`sm`, `md`, `lg`, or `xl`.
+
+Column header labels will be rendered to the left of each field value using a CSS
+`::before` pseudo element.
+
+**Example: Always stacked table**
+```html
+<template>
+  <b-table stacked :items="items"></b-table>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+      ]
+    }
+  }
+}
+</script>
+
+<!-- table-stacked.vue -->
+```
+
+**Note: When the table is visually stacked:**
+- The table header (and table footer) will be hidden.
+- Custom rendred header slots will not be shown, rather, the fields' `label` will be used.
+- The table **cannot** be sorted by clicking the rendered field label. You will need to provde an extral control to select the field to sort by and the sort direction. See the **Sorting** section below as well as the **complete example** at the bottom of this page for details.
+- Slots `top-row` and `bottom-row` will not be shown.
 
 
 ## Table caption
@@ -1244,6 +1284,7 @@ when fetching your data!
 
     <!-- Main table element -->
     <b-table show-empty
+             stacked="sm"
              :items="items"
              :fields="fields"
              :current-page="currentPage"
