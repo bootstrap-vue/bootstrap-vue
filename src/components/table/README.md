@@ -264,15 +264,15 @@ The following field properties are recognized:
 | Property | Type | Description
 | ---------| ---- | -----------
 | `key` | String | The key for selecting data from the record in the items array. Required when passing the props `fields` an array of objects.
-| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided
-| `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column
-| `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array).
-| `sortable` | Boolean | Enable sorting on this column. Refer to the [**Sorting**](#sorting] Section for more details.
-| `tdClass` | String or Array | Class name (or array of class names) to add to data `<td>` cells in the column
-| `thClass` | String or Array | Class name (or array of class names) to add to header/footer `<th>` cell
-| `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table field `<th>`
-| `variant` | String | Apply contextual class to the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly)
-| `tdAttr` | Object | JavaScript object representing additional attributes to apply to the `td` cell
+| `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided.
+| `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.
+| `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [**Custom Data Rendering**](#custom-data-rendering) for more details.
+| `sortable` | Boolean | Enable sorting on this column. Refer to the [**Sorting**](#sorting) Section for more details.
+| `tdClass` | String or Array | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column.
+| `thClass` | String or Array | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.
+| `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.
+| `variant` | String | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly).
+| `tdAttr` | Object | JavaScript object representing additional attributes to apply to the `<tbody>` field `td` cell.
 
 >**Notes:**
 > - _Field properties, if not present, default to `null` unless otherwise stated above._
@@ -419,9 +419,8 @@ responsive across all viewports by setting the prop `responsive` to `true`. Or, 
 maximum breakpoint with which to have a responsive table up to by setting the prop
 `responsive` to one of the breakpoint values: `sm`, `md`, `lg`, or `xl`.
 
->**Note: _Possible vertical clipping/truncation_**
-
-Responsive tables make use of `overflow-y: hidden`, which clips off any content that
+>**Note: _Possible vertical clipping/truncation_.**
+> Responsive tables make use of `overflow-y: hidden`, which clips off any content that
 goes beyond the bottom or top edges of the table. In particular, this can clip off
 dropdown menus and other third-party widgets.
 
@@ -623,8 +622,8 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `item` | Object | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)
 | `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's `formatter` function (see below for for information on field `formatter` callback functions)
 | `unformatted` | Any | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formtter` function
-| detailsShowing | Boolean | Will be `true` if the row's `row-details` scoped slot is visible. See section [Row details support](#row-details-support) below for additional information
-| toggleDetails | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information
+| `detailsShowing` | Boolean | Will be `true` if the row's `row-details` scoped slot is visible. See section [**Row details support**](#row-details-support) below for additional information
+| `toggleDetails` | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [**Row details support**](#row-details-support) below for additional information
 
 
 >**Notes:**
