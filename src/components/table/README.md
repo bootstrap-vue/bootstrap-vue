@@ -276,7 +276,7 @@ The following field properties are recognized:
 | `isRowHeader` | Boolean | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.
 
 >**Notes:**
-> - _Field properties, if not present, default to `null` unless otherwise stated above._
+> - _Field properties, if not present, default to `null` (falsey) unless otherwise stated above._
 > - _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
 > - _For information on the syntax supported by `thStyle`, see
 [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
