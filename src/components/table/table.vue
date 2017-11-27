@@ -675,27 +675,27 @@
         default: ''
       },
       theadClass: {
-        type: [String, Array]
+        type: [String, Array],
         default: null
       },
       theadTrClass: {
-        type: [String, Array]
+        type: [String, Array],
         default: null
       },
       tbodyClass: {
-        type: [String, Array]
+        type: [String, Array],
         default: null
       },
       tbodyTrClass: {
-        type: [String, Array]
+        type: [String, Array],
         default: null
       },
       tfootClass: {
-        type: [String, Array]
+        type: [String, Array],
         default: null
       },
       tfootTrClass: {
-        type: [String, Array]
+        type: [String, Array],
         default: null
       },
       perPage: {
