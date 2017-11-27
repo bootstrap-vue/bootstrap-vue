@@ -93,12 +93,12 @@ export default {
       ]
     },
     computedAriaInvalid () {
-      if (!Boolean(this.ariaInvalid) || this.ariaInvalid === 'false') {
+      if (!this.ariaInvalid || this.ariaInvalid === 'false') {
         // this.ariaInvalid is null or false or 'false'
-        return this.computedState === false ? 'true' : null 
+        return this.computedState === false ? 'true' : null
       }
       if (this.ariaInvalid === true) {
-         // User wants explicit aria-invalid=true
+        // User wants explicit aria-invalid=true
         return 'true'
       }
       // Most likely a string value (which could be 'true')
@@ -107,12 +107,12 @@ export default {
   },
   watch: {
     value (newVal, oldVal) {
-      if (newVal !== oldVal){
+      if (newVal !== oldVal) {
         this.localValue = newVal
       }
     },
     localValue (newVal, oldVal) {
-      if (newVal !== oldVal){
+      if (newVal !== oldVal) {
         this.$emit('input', newVal)
       }
     }
@@ -141,7 +141,7 @@ export default {
       this.$emit('change', this.localValue)
     },
     focus () {
-      if(!this.disabled) {
+      if (!this.disabled) {
         this.$el.focus()
       }
     }
