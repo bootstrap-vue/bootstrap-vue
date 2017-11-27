@@ -253,10 +253,6 @@
     }
 
     /* Details row styling */
-    table.b-table>tbody>tr.b-table-has-details>td,
-    table.b-table>tbody>tr.b-table-has-details>th {
-        border-bottom: none;
-    }
     table.b-table>tbody>tr.b-table-details>td {
         border-top: none;
     }
@@ -386,14 +382,14 @@
       let thead = h(false)
       if (t.isStacked !== true) {
         // If in always stacked mode (t.isStacked === true), then we don't bother rendering the thead
-        thead = h('thead', { class: t.headClasses }, [ h('tr', {}, makeHeadCells(false)) ])
+        thead = h('thead', { class: t.headClasses }, [ h('tr', { class: t.theadTrClass }, makeHeadCells(false)) ])
       }
 
       // Build the tfoot
       let tfoot = h(false)
       if (t.footClone && t.isStacked !== true) {
         // If in always stacked mode (t.isStacked === true), then we don't bother rendering the tfoot
-        tfoot = h('tfoot', { class: t.footClasses }, [ h('tr', {}, makeHeadCells(true)) ])
+        tfoot = h('tfoot', { class: t.footClasses }, [ h('tr', { class: t.tfootTrClass }, makeHeadCells(true)) ])
       }
 
       // Prepare the tbody rows
@@ -404,7 +400,7 @@
       if ($scoped['top-row'] && t.isStacked !== true) {
         rows.push(h(
           'tr',
-          { key: 'top-row', class: [ 'b-table-top-row' ] },
+          { key: 'top-row', class: [ 'b-table-top-row', t.tbodyTrClass ] },
           [ $scoped['top-row']({ columns: fields.length, fields: fields }) ]
         ))
       } else {
@@ -507,7 +503,7 @@
           )
           rows.push(h(
             'tr',
-            { key: `details-${rowIndex}`, class: [ 'b-table-details' ], attrs: trAttrs },
+            { key: `details-${rowIndex}`, class: [ 'b-table-details', t.tbodyTrClass ], attrs: trAttrs },
             [ details ]
           ))
         } else if (detailsSlot) {
@@ -535,7 +531,11 @@
         )
         rows.push(h(
           'tr',
-          { key: 'empty-row', class: [ 'b-table-empty-row' ], attrs: t.isStacked ? { role: 'row' } : {} },
+          {
+            key: 'empty-row',
+            class: [ 'b-table-empty-row', t.tbodyTrClass ],
+            attrs: t.isStacked ? { role: 'row' } : {}
+          },
           [ empty ]
         ))
       } else {
@@ -547,7 +547,7 @@
       if ($scoped['bottom-row'] && t.isStacked !== true) {
         rows.push(h(
           'tr',
-          { key: 'bottom-row', class: [ 'b-table-bottom-row' ] },
+          { key: 'bottom-row', class: [ 'b-table-bottom-row', t.tbodyTrClass ] },
           [ $scoped['bottom-row']({ columns: fields.length, fields: fields }) ]
         ))
       } else {
@@ -555,13 +555,17 @@
       }
 
       // Assemble the rows into the tbody
-      const tbody = h('tbody', { attrs: t.isStacked ? { role: 'rowgroup' } : {} }, rows)
+      const tbody = h(
+        'tbody',
+        { class: t.bodyClasses, attrs: t.isStacked ? { role: 'rowgroup' } : {} },
+        rows
+      )
 
       // Return the assembled table
       return h(
         'table',
         {
-          class: t. tableClasses,
+          class: t.tableClasses,
           attrs: {
             id: t.safeId(),
             role: t.isStacked ? 'table' : null,
@@ -650,6 +654,10 @@
         type: Boolean,
         default: false
       },
+      footClone: {
+        type: Boolean,
+        default: false
+      },
       responsive: {
         type: [Boolean, String],
         default: false
@@ -665,6 +673,30 @@
       footVariant: {
         type: String,
         default: ''
+      },
+      theadClass: {
+        type: [String, Array]
+        default: null
+      },
+      theadTrClass: {
+        type: [String, Array]
+        default: null
+      },
+      tbodyClass: {
+        type: [String, Array]
+        default: null
+      },
+      tbodyTrClass: {
+        type: [String, Array]
+        default: null
+      },
+      tfootClass: {
+        type: [String, Array]
+        default: null
+      },
+      tfootTrClass: {
+        type: [String, Array]
+        default: null
       },
       perPage: {
         type: Number,
@@ -705,10 +737,6 @@
       value: {
         type: Array,
         default: () => []
-      },
-      footClone: {
-        type: Boolean,
-        default: false
       },
       labelSortAsc: {
         type: String,
@@ -839,11 +867,22 @@
         ]
       },
       headClasses () {
-        return this.headVariant ? 'thead-' + this.headVariant : ''
+        return [
+          this.headVariant ? 'thead-' + this.headVariant : '',
+          this.theadClass
+        ]
+      },
+      bodyClasses () {
+        return [
+          this.tbodyClass
+        ]
       },
       footClasses () {
         const variant = this.footVariant || this.headVariant || null
-        return variant ? 'thead-' + variant : ''
+        return [
+          variant ? 'thead-' + variant : '',
+          this.tfootClass
+        ]
       },
       captionStyles () {
         // Move caption to top
@@ -1013,7 +1052,8 @@
       },
       rowClasses (item) {
         return [
-          item._rowVariant ? `${this.dark ? 'bg' : 'table'}-${item._rowVariant}` : ''
+          item._rowVariant ? `${this.dark ? 'bg' : 'table'}-${item._rowVariant}` : '',
+          this.tbodyTrClass
         ]
       },
       rowClicked (e, item, index) {
