@@ -23,5 +23,5 @@
 
 <script>
   import bFormInput from './_form-input'
-  export bFormInput
+  export default bFormInput
 </script>
