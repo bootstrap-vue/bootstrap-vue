@@ -104,7 +104,7 @@ export default {
               size: t.buttonSize,
               disabled: t.okDisabled || t.busy || t.is_transitioning
             },
-            on:  { click: (evt) => { t.hide('ok') } }
+            on: { click: (evt) => { t.hide('ok') } }
           },
           [ $slots['modal-ok'] || t.okTitle ]
         )
@@ -376,7 +376,7 @@ export default {
         'modal-backdrop',
         {
           fade: !this.noFade,
-          show: this.is_show || this.noFade,
+          show: this.is_show || this.noFade
         }
       ]
     },
@@ -459,7 +459,7 @@ export default {
         relatedTarget: null,
         isOK: trigger || null,
         trigger: trigger || null,
-        cancel() {
+        cancel () {
           // Backwards compatibility
           warn('b-modal: evt.cancel() is deprecated. Please use evt.preventDefault().')
           this.preventDefault()
@@ -549,7 +549,7 @@ export default {
       })
     },
     // Event emitter
-    emitEvent(bvEvt) {
+    emitEvent (bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
       this.$root.$emit(`bv::modal::${type}`, bvEvt)
@@ -682,7 +682,7 @@ export default {
         selectAll(Selector.FIXED_CONTENT).forEach(el => {
           const actualPadding = el.style.paddingRight
           const calculatedPadding = computedStyle(el).paddingRight || 0
-          setAttr(el,'data-padding-right', actualPadding)
+          setAttr(el, 'data-padding-right', actualPadding)
           el.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
         })
         // Adjust sticky content margin
@@ -711,7 +711,7 @@ export default {
       selectAll(Selector.FIXED_CONTENT).forEach(el => {
         if (hasAttr(el, 'data-padding-right')) {
           el.style.paddingRight = getAttr(el, 'data-padding-right') || ''
-          removeAttr(el,'data-padding-right')
+          removeAttr(el, 'data-padding-right')
         }
       })
       // Restore sticky content and navbar-toggler margin
