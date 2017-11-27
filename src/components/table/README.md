@@ -517,7 +517,7 @@ export default {
 ```
 
 You can have the caption placed at the top of the table by setting the
-`caption-top` prop to `true` _(available v1.0.3)_:
+`caption-top` prop to `true`:
 
 ```html
 <template>
