@@ -322,26 +322,28 @@ favour of prop `dark` to better align with the new Bootstrap V4.beta.2 CSS class
 **Example: Basic table styles**
 ```html
 <template>
-  <b-form-checkbox v-model="striped">Striped</b-form-checkbox>
-  <b-form-checkbox v-model="bordered">Bordered</b-form-checkbox>
-  <b-form-checkbox v-model="outlined">Outlined</b-form-checkbox>
-  <b-form-checkbox v-model="small">Small</b-form-checkbox>
-  <b-form-checkbox v-model="hover">Hover</b-form-checkbox>
-  <b-form-checkbox v-model="dark">Dark</b-form-checkbox>
-  <b-form-checkbox v-model="fixed">Fixed</b-form-checkbox>
-  <b-form-checkbox v-model="footClone">Foot Clone</b-form-checkbox>
+  <div>
+    <b-form-checkbox v-model="striped">Striped</b-form-checkbox>
+    <b-form-checkbox v-model="bordered">Bordered</b-form-checkbox>
+    <b-form-checkbox v-model="outlined">Outlined</b-form-checkbox>
+    <b-form-checkbox v-model="small">Small</b-form-checkbox>
+    <b-form-checkbox v-model="hover">Hover</b-form-checkbox>
+    <b-form-checkbox v-model="dark">Dark</b-form-checkbox>
+    <b-form-checkbox v-model="fixed">Fixed</b-form-checkbox>
+    <b-form-checkbox v-model="footClone">Foot Clone</b-form-checkbox>
 
-  <b-table :striped="striped"
-           :bordered="bordered"
-           :outlined="outlined"
-           :small="small"
-           :hover="hover"
-           :dark="dark"
-           :fixed="fixed"
-           :foot-clone="footClone"
-           :items="items"
-           :fields="fields">
-  </b-table>
+    <b-table :striped="striped"
+             :bordered="bordered"
+             :outlined="outlined"
+             :small="small"
+             :hover="hover"
+             :dark="dark"
+             :fixed="fixed"
+             :foot-clone="footClone"
+             :items="items"
+             :fields="fields">
+    </b-table>
+  </div>
 </template>
 
 <script>
