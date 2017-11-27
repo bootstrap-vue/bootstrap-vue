@@ -1,10 +1,10 @@
-import { idMixin, formStateMixin, formCustomMixin, formMixin } from '../../mixins';
-import { from as arrayFrom } from '../../utils/array';
+import { idMixin, formStateMixin, formCustomMixin, formMixin } from '../../mixins'
+import { from as arrayFrom } from '../../utils/array'
 
 export default {
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
-  render(h) {
-    const t = this;
+  render (h) {
+    const t = this
     // Form Input
     const input = h(
       'input',
@@ -30,13 +30,13 @@ export default {
           focusout: t.focusHandler
         }
       }
-    );
+    )
     if (t.plain) {
-      return input;
+      return input
     }
 
     // 'Drop Here' target
-    let droptarget = h(false);
+    let droptarget = h(false)
     if (t.dragging) {
       droptarget = h(
         'span',
@@ -49,7 +49,7 @@ export default {
             dragleave: t.dragleave
           }
         }
-      );
+      )
     }
     // Overlay Labels
     const labels = h(
@@ -62,7 +62,7 @@ export default {
           'data-selected': t.selectedLabel
         }
       }
-    );
+    )
 
     // Return rendered custom file input
     return h(
@@ -73,14 +73,14 @@ export default {
         on: { dragover: t.dragover }
       },
       [ droptarget, input, labels ]
-    );
+    )
   },
   data() {
     return {
       selectedFile: null,
       dragging: false,
       hasFocus: false
-    };
+    }
   },
   props: {
     accept: {
@@ -126,7 +126,7 @@ export default {
     }
   },
   computed: {
-    inputClasses() {
+    inputClasses () {
       return [
         {
           'form-control-file': this.plain,
@@ -137,149 +137,149 @@ export default {
         this.stateClass
       ]
     },
-    selectedLabel() {
+    selectedLabel () {
       if (!this.selectedFile || this.selectedFile.length === 0) {
-        return this.placeholder || 'No file chosen';
+        return this.placeholder || 'No file chosen'
       }
       if (this.multiple) {
         if (this.selectedFile.length === 1) {
-          return this.selectedFile[0].name;
+          return this.selectedFile[0].name
         }
         return this.selectedFormat
           .replace(':names', this.selectedFile.map(file => file.name).join(','))
-          .replace(':count', this.selectedFile.length);
+          .replace(':count', this.selectedFile.length)
       }
-      return this.selectedFile.name;
+      return this.selectedFile.name
     },
-    computedChooseLabel() {
-      return this.chooseLabel || (this.multiple ? 'Choose Files' : 'Choose File');
+    computedChooseLabel () {
+      return this.chooseLabel || (this.multiple ? 'Choose Files' : 'Choose File')
     }
   },
   watch: {
-    selectedFile(newVal, oldVal) {
+    selectedFile (newVal, oldVal) {
       if (newVal === oldVal) {
-        return;
+        return
       }
       if (!newVal && this.multiple) {
-        this.$emit('input', []);
+        this.$emit('input', [])
       } else {
-        this.$emit('input', newVal);
+        this.$emit('input', newVal)
       }
     }
   },
   methods: {
-    focusHandler(evt) {
+    focusHandler (evt) {
       // Boostrap v4.beta doesn't have focus styling for custom file input
       // Firefox has a borked '[type=file]:focus ~ sibling' selector issue,
       // So we add a 'focus' class to get around these "bugs"
       if (this.plain || evt.type === 'focusout') {
-        this.hasFocus = false;
+        this.hasFocus = false
       } else {
         // Add focus styling for custom file input
-        this.hasFocus = true;
+        this.hasFocus = true
       }
     },
-    reset() {
+    reset () {
       try {
         // Wrapped in try in case IE < 11 craps out
-        this.$refs.input.value = '';
+        this.$refs.input.value = ''
       } catch (e) {
       }
       // IE < 11 doesn't support setting input.value to '' or null
       // So we use this little extra hack to reset the value, just in case
       // This also appears to work on modern browsers as well.
-      this.$refs.input.type = '';
-      this.$refs.input.type = 'file';
-      this.selectedFile = this.multiple ? [] : null;
+      this.$refs.input.type = ''
+      this.$refs.input.type = 'file'
+      this.selectedFile = this.multiple ? [] : null
     },
     onFileChange(evt) {
       // Always emit original event
-      this.$emit('change', evt);
+      this.$emit('change', evt)
       // Check if special `items` prop is available on event (drop mode)
       // Can be disabled by setting no-traverse
-      const items = evt.dataTransfer && evt.dataTransfer.items;
+      const items = evt.dataTransfer && evt.dataTransfer.items
       if (items && !this.noTraverse) {
         const queue = [];
         for (let i = 0; i < items.length; i++) {
-          const item = items[i].webkitGetAsEntry();
+          const item = items[i].webkitGetAsEntry()
           if (item) {
-            queue.push(this.traverseFileTree(item));
+            queue.push(this.traverseFileTree(item))
           }
         }
         Promise.all(queue).then(filesArr => {
-          this.setFiles(arrayFrom(filesArr));
+          this.setFiles(arrayFrom(filesArr))
         });
-        return;
+        return
       }
       // Normal handling
-      this.setFiles(evt.target.files || evt.dataTransfer.files);
+      this.setFiles(evt.target.files || evt.dataTransfer.files)
     },
-    setFiles(files) {
+    setFiles (files) {
       if (!files) {
-        this.selectedFile = null;
-        return;
+        this.selectedFile = null
+        return
       }
       if (!this.multiple) {
-        this.selectedFile = files[0];
-        return;
+        this.selectedFile = files[0]
+        return
       }
       // Convert files to array
-      const filesArray = [];
+      const filesArray = []
       for (let i = 0; i < files.length; i++) {
         if (files[i].type.match(this.accept)) {
-          filesArray.push(files[i]);
+          filesArray.push(files[i])
         }
       }
-      this.selectedFile = filesArray;
+      this.selectedFile = filesArray
     },
-    dragover(evt) {
-      evt.preventDefault();
-      evt.stopPropagation();
+    dragover (evt) {
+      evt.preventDefault()
+      evt.stopPropagation()
       if (this.noDrop || !this.custom) {
         return;
       }
-      this.dragging = true;
-      evt.dataTransfer.dropEffect = 'copy';
+      this.dragging = true
+      evt.dataTransfer.dropEffect = 'copy'
     },
-    dragleave(evt) {
-      evt.preventDefault();
-      evt.stopPropagation();
-      this.dragging = false;
+    dragleave (evt) {
+      evt.preventDefault()
+      evt.stopPropagation()
+      this.dragging = false
     },
-    drop(evt) {
-      evt.preventDefault();
-      evt.stopPropagation();
+    drop (evt) {
+      evt.preventDefault()
+      evt.stopPropagation()
       if (this.noDrop) {
         return;
       }
       this.dragging = false;
       if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
-        this.onFileChange(evt);
+        this.onFileChange(evt)
       }
     },
-    traverseFileTree(item, path) {
+    traverseFileTree (item, path) {
       // Based on http://stackoverflow.com/questions/3590058
       return new Promise(resolve => {
-        path = path || '';
+        path = path || ''
         if (item.isFile) {
           // Get file
           item.file(file => {
-            file.$path = path; // Inject $path to file obj
-            resolve(file);
-          });
+            file.$path = path // Inject $path to file obj
+            resolve(file)
+          })
         } else if (item.isDirectory) {
           // Get folder contents
           item.createReader().readEntries(entries => {
-            const queue = [];
+            const queue = []
             for (let i = 0; i < entries.length; i++) {
-              queue.push(this.traverseFileTree(entries[i], path + item.name + '/'));
+              queue.push(this.traverseFileTree(entries[i], path + item.name + '/'))
             }
             Promise.all(queue).then(filesArr => {
-              resolve(arrayFrom(filesArr));
-            });
-          });
+              resolve(arrayFrom(filesArr))
+            })
+          })
         }
-      });
+      })
     }
   }
-};
+}
