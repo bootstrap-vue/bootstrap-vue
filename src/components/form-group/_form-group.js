@@ -1,5 +1,4 @@
 import { warn } from '../../utils'
-import { select } from '../../utils/dom'
 import { idMixin, formStateMixin } from '../../mixins'
 import bFormRow from '../layout/form-row'
 import bFormText from '../form/form-text'
@@ -32,7 +31,7 @@ export default {
               name: 'show',
               rawName: 'v-show',
               value: Boolean(t.feedback || $slots['invalid-feedback'] || $slots['feedback']),
-              expression: "Boolean(t.feedback || $slots['invalid-feedback'] || $slots['feedback'])",
+              expression: "Boolean(t.feedback || $slots['invalid-feedback'] || $slots['feedback'])"
             }
           ],
           attrs: {
@@ -110,7 +109,7 @@ export default {
     labelCols: {
       type: Number,
       default: 3,
-      validator(value) {
+      validator (value) {
         if (value >= 1 && value <= 11) {
           return true
         }
@@ -216,5 +215,5 @@ export default {
         this.computedState === true ? this.validFeedbackId : null
       ].filter(i => i).join(' ') || null
     }
-  },
+  }
 }
