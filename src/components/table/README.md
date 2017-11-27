@@ -273,9 +273,10 @@ The following field properties are recognized:
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.
 | `variant` | String | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly).
 | `tdAttr` | Object | JavaScript object representing additional attributes to apply to the `<tbody>` field `td` cell.
+| `isRowHeader` | Boolean | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.
 
 >**Notes:**
-> - _Field properties, if not present, default to `null` unless otherwise stated above._
+> - _Field properties, if not present, default to `null` (falsey) unless otherwise stated above._
 > - _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
 > - _For information on the syntax supported by `thStyle`, see
 [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
@@ -300,27 +301,49 @@ fields: [
 ## Table style options
 `<b-table>` provides several props to alter the style of the table:
 
-| prop | Description
-| ---- | -----------
-| `striped` | Add zebra-striping to the table rows within the `<tbody>`
-| `bordered` | For borders on all sides of the table and cells.
-| `outlined` | For a border on all sides of the table.
-| `small` | To make tables more compact by cutting cell padding in half.
-| `hover` | To enable a hover highlighting state on table rows within a `<tbody>`
-| `dark` | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)
-| `responsive` | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `sm`, `md`, `lg`, or `xl` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint.
-| `fixed` | Generate a table with equal fixed-width columns (`table-layout: fixed`)
-| `foot-clone` | Turns on the table footer, and defaults with the same contents a the table header
-| `head-variant` | Use `light` or `dark` to make table header appear light or dark gray, respectively
-| `foot-variant` | Use `light` or `dark` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set
+| prop | Type | Description
+| ---- | ---- | -----------
+| `striped` | Boolean | Add zebra-striping to the table rows within the `<tbody>`
+| `bordered` | Boolean | For borders on all sides of the table and cells.
+| `outlined` | Boolean | For a thin border on all sides of the table. Has no effect is `bordered` is set.
+| `small` | Boolean | To make tables more compact by cutting cell padding in half.
+| `hover` | Boolean | To enable a hover highlighting state on table rows within a `<tbody>`
+| `dark` | Boolean | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)
+| `fixed` | Boolean | Generate a table with equal fixed-width columns (`table-layout: fixed`)
+| `foot-clone` | Boolean | Turns on the table footer, and defaults with the same contents a the table header
+| `responsive` | Boolean or String | Generate a responsive table to make it scroll horizontally. Set to `true` for an always responsive table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table responsive (horizontally scroll) only on screens smaller than the breakpoint. See [**Responsive tables**](#responsive-tables) below for details.
+| `stacked` | Boolean or String | Generate a responsive stacked table. Set to `true` for an always stacked table, or set it to one of the breakpoints `'sm'`, `'md'`, `'lg'`, or `'xl'` to make the table visually stacked only on screens smaller than the breakpoint.  See [**Stacked tables**](#stacked-tables) below for details.
+| `head-variant` | String | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively
+| `foot-variant` | String | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set
 
->**Deprecation note:** _As of Bootstrap-Vue v1.0.0-beta.10, the prop `inverse` has been deprecated in
-favour of prop `dark` to better align with Bootstrap V4.beta.2 CSS class names._
+>**Deprecation note:** _As of Bootstrap-Vue v1.0.0, the prop `inverse` has been deprecated in
+favour of prop `dark` to better align with the new Bootstrap V4.beta.2 CSS class names._
 
-**Example: Bordered table**
+**Example: Basic table styles**
 ```html
 <template>
-  <b-table bordered :items="items" :fields="fields"></b-table>
+  <div>
+    <b-form-checkbox v-model="striped">Striped</b-form-checkbox>
+    <b-form-checkbox v-model="bordered">Bordered</b-form-checkbox>
+    <b-form-checkbox v-model="outlined">Outlined</b-form-checkbox>
+    <b-form-checkbox v-model="small">Small</b-form-checkbox>
+    <b-form-checkbox v-model="hover">Hover</b-form-checkbox>
+    <b-form-checkbox v-model="dark">Dark</b-form-checkbox>
+    <b-form-checkbox v-model="fixed">Fixed</b-form-checkbox>
+    <b-form-checkbox v-model="footClone">Foot Clone</b-form-checkbox>
+
+    <b-table :striped="striped"
+             :bordered="bordered"
+             :outlined="outlined"
+             :small="small"
+             :hover="hover"
+             :dark="dark"
+             :fixed="fixed"
+             :foot-clone="footClone"
+             :items="items"
+             :fields="fields">
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -332,7 +355,15 @@ export default {
         { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
         { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
         { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-      ]
+      ],
+      striped: false,
+      bordered: false,
+      outlined: false,
+      small: false,
+      hover: false,
+      dark: false,
+      fixed: false,
+      footClone: false
     }
   }
 }
@@ -341,88 +372,12 @@ export default {
 <!-- table-bordered.vue -->
 ```
 
-**Example: Small table**
-```html
-<template>
-  <b-table small :items="items" :fields="fields"></b-table>
-</template>
-
-<script>
-export default {
-  data () {
-    return {
-      fields: [ 'first_name', 'last_name', 'age' ],
-      items: [
-        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-      ]
-    }
-  }
-}
-</script>
-
-<!-- table-small.vue -->
-```
-
-**Example: Dark table**
-```html
-<template>
-  <b-table dark :items="items" :fields="fields"></b-table>
-</template>
-
-<script>
-export default {
-  data () {
-    return {
-      fields: [ 'first_name', 'last_name', 'age' ],
-      items: [
-        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-      ]
-    }
-  }
-}
-</script>
-
-<!-- table-inverse.vue -->
-```
-
-**Example: table with footer**
-```html
-<template>
-  <b-table foot-clone :items="items" :fields="fields"></b-table>
-</template>
-
-<script>
-export default {
-  data () {
-    return {
-      fields: [ 'first_name', 'last_name', 'age' ],
-      items: [
-        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
-      ]
-    }
-  }
-}
-</script>
-
-<!-- table-footer.vue -->
-```
 
 ## Responsive tables
 Responsive tables allow tables to be scrolled horizontally with ease. Make any table
 responsive across all viewports by setting the prop `responsive` to `true`. Or, pick a
 maximum breakpoint with which to have a responsive table up to by setting the prop
 `responsive` to one of the breakpoint values: `sm`, `md`, `lg`, or `xl`.
-
->**Note: _Possible vertical clipping/truncation_.**
-> Responsive tables make use of `overflow-y: hidden`, which clips off any content that
-goes beyond the bottom or top edges of the table. In particular, this can clip off
-dropdown menus and other third-party widgets.
 
 **Example: Always responsive table**
 ```html
@@ -479,6 +434,54 @@ export default {
 
 <!-- table-responsive.vue -->
 ```
+
+>**Responsive table notes:**
+> - _Possible vertical clipping/truncation_. Responsive tables make use of `overflow-y: hidden`, which clips off any content that goes beyond the bottom or top edges of the table. In particular, this can clip off dropdown menus and other third-party widgets.
+> - When in responsive mode the table will lose it's width of 100%. This is a known issue with bootstrap V4 css and placing the `table-responsive` class on the `<table>` element as reccommended by Bootstrap.
+
+
+## Stacked tables
+An alterntive to esponsive tables, Bootstrap-Vue includes the stacked table option, which
+allow tables to be rendered in a visually stacked format. Make any table stacked across
+_all viewports_ by setting the prop `stacked` to `true`. Or, alternatively, set a breakpoint
+at which the table will return to normal table format by setting the prop `stacked` to one
+of the breakpoint values `'sm'`, `'md'`, `'lg'`, or `'xl'`.
+
+Column header labels will be rendered to the left of each field value using a CSS
+`::before` pseudo element, with a width of 40%.
+
+The prop `stacked` takes precedence over the `responsive` prop.
+
+**Example: Always stacked table**
+```html
+<template>
+  <b-table stacked :items="items"></b-table>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+      ]
+    }
+  }
+}
+</script>
+
+<!-- table-stacked.vue -->
+```
+
+**Note: When the table is visually stacked:**
+- The table header (and table footer) will be hidden.
+- Custom rendred header slots will not be shown, rather, the fields' `label` will be used.
+- The table **cannot** be sorted by clicking the rendered field labels. You will need to provde an external control to select the field to sort by and the sort direction. See the [**Sorting**](#sorting) section below for sorting control information, as well as the [**complete example**](#complete-example) at the bottom of this page for an example of controlling sorting via the use of form controls.
+- The slots `top-row` and `bottom-row` will be hidden when visually stacked.
+- The table caption, if provided, will always appear at the top of the table when visually stacked.
+- In an always stacked table, the table header and footer, and the fixed top and bottom row slots will not be rendered.
 
 
 ## Table caption
@@ -958,10 +961,10 @@ for details about the sort-changed event and the context object.
 
 
 ## Filtering
-Filtering, when used, is applied to the original items array data, and hence it is not
+Filtering, when used, is applied to the **original items** array data, and hence it is not
 possible to filter data based on custom rendering of virtual columns. The items row data
 is stringified and the filter searches that stringified data (excluding any properties
-that begin with an underscore (`_`) and the deprecated property `state`.
+that begin with an underscore `_`).
 
 The `filter` prop value can be a string, a `RegExp` or a `function` reference. If
 a function is provided, the first argument is the original item record data object. The
@@ -970,7 +973,7 @@ the record is to be filtered out.
 
 When local filtering is applied, and the resultant number of items change, `<b-table>`
 will emit the `filtered` event, passing a single argument which is the complete list of
-items passing the filter routine. Treat this argument as read-only.
+items passing the filter routine. **Treat this argument as read-only.**
 
 Setting the prop `filter` to null or an empty string will disable local items filtering.
 
@@ -1243,6 +1246,7 @@ when fetching your data!
 
     <!-- Main table element -->
     <b-table show-empty
+             stacked="md"
              :items="items"
              :fields="fields"
              :current-page="currentPage"
