@@ -75,7 +75,7 @@ export default {
       [ droptarget, input, labels ]
     )
   },
-  data() {
+  data () {
     return {
       selectedFile: null,
       dragging: false,
@@ -91,7 +91,7 @@ export default {
       // Instruct input to capture from camera
       type: Boolean,
       default: false
-    },            
+    },
     placeholder: {
       type: String,
       default: null
@@ -132,7 +132,7 @@ export default {
           'form-control-file': this.plain,
           'custom-file-input': this.custom,
           'w-100': true, // BS4 beta missing this
-          'focus': this.custom && this.hasFocus,
+          'focus': this.custom && this.hasFocus
         },
         this.stateClass
       ]
@@ -192,14 +192,14 @@ export default {
       this.$refs.input.type = 'file'
       this.selectedFile = this.multiple ? [] : null
     },
-    onFileChange(evt) {
+    onFileChange (evt) {
       // Always emit original event
       this.$emit('change', evt)
       // Check if special `items` prop is available on event (drop mode)
       // Can be disabled by setting no-traverse
       const items = evt.dataTransfer && evt.dataTransfer.items
       if (items && !this.noTraverse) {
-        const queue = [];
+        const queue = []
         for (let i = 0; i < items.length; i++) {
           const item = items[i].webkitGetAsEntry()
           if (item) {
@@ -208,7 +208,7 @@ export default {
         }
         Promise.all(queue).then(filesArr => {
           this.setFiles(arrayFrom(filesArr))
-        });
+        })
         return
       }
       // Normal handling
@@ -236,7 +236,7 @@ export default {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop || !this.custom) {
-        return;
+        return
       }
       this.dragging = true
       evt.dataTransfer.dropEffect = 'copy'
@@ -250,9 +250,9 @@ export default {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop) {
-        return;
+        return
       }
-      this.dragging = false;
+      this.dragging = false
       if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
         this.onFileChange(evt)
       }
