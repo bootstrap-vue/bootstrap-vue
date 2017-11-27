@@ -1,6 +1,6 @@
 import { warn, looseEqual, stableSort, KeyCodes } from '../../utils'
 import { keys, assign } from '../../utils/object'
-import { isArray, concat } from '../../utils/array'
+import { isArray } from '../../utils/array'
 import { idMixin, listenOnRootMixin } from '../../mixins'
 import startCase from 'lodash.startcase'
 
@@ -89,7 +89,7 @@ export default {
             'title': field.headerTitle || null,
             'aria-colindex': String(colIndex + 1),
             'aria-label': field.sortable ? ((t.localSortDesc && t.localSortBy === field.key) ? t.labelSortAsc : t.labelSortDesc) : null,
-            'aria-sort': (field.sortable && t.localSortBy === field.key) ? (t.localSortDesc ? 'descending' : 'ascending') : null,
+            'aria-sort': (field.sortable && t.localSortBy === field.key) ? (t.localSortDesc ? 'descending' : 'ascending') : null
           },
           on: {
             click: (evt) => {
@@ -153,7 +153,7 @@ export default {
       const detailsId = rowShowDetails ? t.safeId(`_details_${rowIndex}_`) : null
       const toggleDetailsFn = () => {
         if (detailsSlot) {
-          t.$set(item, '_showDetails', !Boolean(item._showDetails))
+          t.$set(item, '_showDetails', !item._showDetails)
         }
       }
       // For each item data field in row
@@ -255,11 +255,11 @@ export default {
     if (t.showEmpty && (!items || items.length === 0)) {
       let empty = t.filter ? $slots['emptyfiltered'] : $slots['empty']
       if (!empty) {
-        empty =  h(
+        empty = h(
           'div',
           {
             class: [ 'text-center', 'my-2' ],
-            domProps: { innerHTML:  t.filter ? t.emptyFilteredText : t.emptyText }
+            domProps: { innerHTML: t.filter ? t.emptyFilteredText : t.emptyText }
           }
         )
       }
@@ -329,7 +329,7 @@ export default {
   props: {
     items: {
       type: [Array, Function],
-      default() {
+      default () {
         return []
       }
     },
@@ -367,7 +367,7 @@ export default {
     },
     dark: {
       type: Boolean,
-      default() {
+      default () {
         if (this && typeof this.inverse === 'boolean') {
           // Deprecate inverse
           warn("b-table: prop 'inverse' has been deprecated. Use 'dark' instead")
@@ -574,7 +574,7 @@ export default {
     this.localSortBy = this.sortBy
     this.localSortDesc = this.sortDesc
     if (this.hasProvider) {
-        this._providerUpdate()
+      this._providerUpdate()
     }
     this.listenOnRoot('bv::refresh::table', id => {
       if (id === this.id || id === this) {
@@ -637,7 +637,7 @@ export default {
       return this.hasProvider ? this.noProviderSorting : !this.noLocalSorting
     },
     localPaging () {
-        return this.hasProvider ? this.noProviderPaging : true
+      return this.hasProvider ? this.noProviderPaging : true
     },
     context () {
       return {
@@ -683,7 +683,7 @@ export default {
       if (fields.length === 0 && this.computedItems.length > 0) {
         const sample = this.computedItems[0]
         keys(sample).forEach(k => {
-          fields.push({ key: k , label: startCase(k)})
+          fields.push({ key: k, label: startCase(k) })
         })
       }
       // Ensure we have a unique array of fields and that they have labels
@@ -739,7 +739,7 @@ export default {
       }
       // Apply local Sort
       if (sortBy && localSorting) {
-        items = stableSort(items, function sortItemsFn(a, b) {
+        items = stableSort(items, function sortItemsFn (a, b) {
           let ret = null
           if (typeof sortCompare === 'function') {
             // Call user provided sortCompare routine
@@ -879,7 +879,7 @@ export default {
       this.localBusy = true
       // Call provider function with context and optional callback
       const data = this.items(this.context, this._providerSetLocal)
-      if (data) if (data.then && typeof data.then === 'function') {
+      if (data && data.then && typeof data.then === 'function') {
         // Provider returned Promise
         data.then(items => {
           this._providerSetLocal(items)
