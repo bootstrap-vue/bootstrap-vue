@@ -1,6 +1,6 @@
 # Form
 
-> Bootstrap form component that optionally supports inline form styles and validation methods
+> Bootstrap form component that optionally supports inline form styles and validation states
 
 ```html
 <template>
