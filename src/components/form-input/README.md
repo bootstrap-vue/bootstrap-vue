@@ -156,10 +156,10 @@ to:
                   :state="nameState"
                   aria-describedby="input-help input-feeback"
                   placeholder="Enter your name"></b-form-input>
-    <b-form-feedback id="input-feedback">
+    <b-form-invalid-feedback id="input-feedback">
       <!-- This will only be shown if the preceeding input has an invalid state -->
       Enter at least 3 letters
-    </b-form-feedback>
+    </b-form-invalid-feedback>
     <b-form-text id="input-help">
       <!-- this is a form text block (formerly known as help block) -->
       Enter your name.
@@ -185,7 +185,7 @@ export default {
 <!-- form-input-states-2.vue -->
 ```
 
-**Tip:** Use the [`<b-form-group>`](/docs/components/form-group) component to
+> **Tip:** Use the [`<b-form-group>`](/docs/components/form-group) component to
 automatically generate markup similar to above.
 
 ### Conveying contextual state to assistive technologies and colorblind users
