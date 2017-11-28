@@ -68,7 +68,7 @@ export default {
       // Reset our form values
       this.form.email = '';
       this.form.name = '';
-      this.form.foot = null;
+      this.form.food = null;
       this.form.checked = false;
       // Trick to reset/clear native browser form validation state
       this.show = false;
