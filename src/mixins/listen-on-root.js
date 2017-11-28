@@ -44,7 +44,7 @@ export default {
     }
   },
 
-  destroyed () {
+  beforeDestroy () {
     if (this[BVRL] && isArray(this[BVRL])) {
       while (this[BVRL].length > 0) {
         // shift to process in order
