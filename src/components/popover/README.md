@@ -594,11 +594,11 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
       </template>
       <div>
         <b-form-group label="Name" :state="input1state" horizontal class="mb-1"
-           description="Enter your name" feedback="This field is required">
+           description="Enter your name" invalid-feedback="This field is required">
           <b-form-input ref="input1" :state="input1state" size="sm" v-model="input1"></b-form-input>
         </b-form-group>
         <b-form-group label="Color" :state="input2state" horizontal class="mb-1"
-           description="Pick a color" feedback="This field is required">
+           description="Pick a color" invalid-feedback="This field is required">
           <b-form-select size="sm" :state="input2state" v-model="input2" :options="options"></b-form-select>
         </b-form-group>
         <b-alert show class="small">

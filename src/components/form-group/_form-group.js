@@ -22,7 +22,7 @@ export default {
     }
     // Invalid feeback text
     let invalidFeedback = h(false)
-    if (t.feedback || $slots['invalid-feedback'] || $slots['feedback']) {
+    if (t.invalidFeedback || t.feedback || $slots['invalid-feedback'] || $slots['feedback']) {
       invalidFeedback = h(
         'b-form-invalid-feedback',
         {
@@ -30,12 +30,12 @@ export default {
             {
               name: 'show',
               rawName: 'v-show',
-              value: Boolean(t.feedback || $slots['invalid-feedback'] || $slots['feedback']),
-              expression: "Boolean(t.feedback || $slots['invalid-feedback'] || $slots['feedback'])"
+              value: Boolean(t.invalidFeedback || t.feedback || $slots['invalid-feedback'] || $slots['feedback']),
+              expression: "Boolean(t.invalidFeedback || t.feedback || $slots['invalid-feedback'] || $slots['feedback'])"
             }
           ],
           attrs: {
-            id: t.feedbackId,
+            id: t.invalidFeedbackId,
             role: 'alert',
             'aria-live': 'assertive',
             'aria-atomic': 'true'
@@ -43,7 +43,7 @@ export default {
         },
         [
           t.computedState === false
-            ? ($slots['invalid-feedback'] || $slots['feedback'] || h('span', { domProps: { innerHTML: t.feedback || '' } }))
+            ? ($slots['invalid-feedback'] || $slots['feedback'] || h('span', { domProps: { innerHTML: t.invalidFeedback || t.feedback || '' } }))
             : h(false)
         ]
       )
@@ -133,11 +133,20 @@ export default {
       type: Boolean,
       default: false
     },
+    labelClass: {
+      type: [String, Array],
+      default: null
+    },
     description: {
       type: String,
       default: null
     },
+    invalidFeedback: {
+      type: String,
+      default: null
+    },
     feedback: {
+      // Deprecated in favor of invalid-feedback
       type: String,
       default: null
     },
@@ -166,7 +175,8 @@ export default {
       return [
         this.labelSrOnly ? 'sr-only' : 'col-form-legend',
         this.labelLayout,
-        this.labelAlignClass
+        this.labelAlignClass,
+        this.labelClass
       ]
     },
     labelLayout () {
@@ -195,8 +205,8 @@ export default {
       }
       return null
     },
-    feedbackId () {
-      if (this.feedback || this.$slots['invalid-feedback'] || this.$slots['feedback']) {
+    invalidFeedbackId () {
+      if (this.invalidFeedback || this.feedback || this.$slots['invalid-feedback'] || this.$slots['feedback']) {
         return this.safeId('_BV_feedback_invalid_')
       }
       return null
@@ -211,7 +221,7 @@ export default {
       return [
         this.labelId,
         this.descriptionId,
-        this.computedState === false ? this.feedbackId : null,
+        this.computedState === false ? this.invalidFeedbackId : null,
         this.computedState === true ? this.validFeedbackId : null
       ].filter(i => i).join(' ') || null
     }

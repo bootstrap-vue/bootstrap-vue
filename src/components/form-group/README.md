@@ -10,7 +10,7 @@ as well as contextual state visual feedback.
       id="fieldset1"
       description="Let us know your name."
       label="Enter your name"
-      :feedback="feedback"
+      :invalid-feedback="feedback"
       valid-feedback="Thank you"
       :state="state"
   >
@@ -56,6 +56,10 @@ The label text may also optionally be aligned `left`, `center` or `right` by set
 the respective value via the prop `label-text-align`. Alignment has no effect if
 `label-sr-only` is set.
 
+You can also apply additional classes to the label via the `label-class` prop, such as
+responsive padding or alignment utility classes. The `label-class` prop accepts either
+a string or array of strings.
+
 **Example: Horizontal laout**
 ```html
 <div>
@@ -93,12 +97,12 @@ and want to encourage a user through the rest of the fields.
 To apply one of the contextual state icons on `<b-form-group>`, set the `state` prop
 to `'invalid'` (or `false`), `'valid'` (or `true`), or `null`.
 
-You should always provide content via the `feedback` prop (or slot) to aid users
+You should always provide content via the `invalid-feedback` prop (or slot) to aid users
 using assistive technologies when setting a contextual `invalid` state.
 
 ### Invalid feedback
 Show optional invalid state feedback text to provide textual state feedback (html supported)
-by setting the prop `feedback` or using the named slot `invalid-feedback`.
+by setting the prop `invalid-feedback` or using the named slot `invalid-feedback`.
 
 Note that the invalid feedback **will not be shown** unless the invalid `state` is set on the
 `<b-form-group>` and it's child(ren) input(s) or just on the input (`<b-form-input>`,
@@ -110,7 +114,9 @@ prop set (and the input fails browser native validation constraintes such as `re
 
 Refer to Bootstrap V4's `Form` component documentation for details on validation methods.
 
-Invalid feedback is rendered using the `<b-form-invalid-feedback>` componment.
+**Notes:**
+- The prop `feedback` has been deprecated in favor of the `invalid-feedback` prop.
+- Invalid feedback is rendered using the `<b-form-invalid-feedback>` componment.
 
 ### Valid feedback
 Show optional valid state feedback text to provide textual state feedback (html supported)
