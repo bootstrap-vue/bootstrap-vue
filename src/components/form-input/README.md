@@ -171,7 +171,7 @@ to:
 export default {
   computed: {
     nameState () {
-      return this.name.length > 2 ? null : false
+      return this.name.length > 2 ? true : false
     }
   },
   data () {
