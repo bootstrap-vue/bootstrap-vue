@@ -453,9 +453,10 @@ export default {
       attributeFilter: [ 'id' ]
     })
   },
-  destroyed () {
+  beforeDestroy () {
     clearInterval(this.intervalId)
     clearTimeout(this._animationTimeout)
+    this.intervalId = null
     this._animationTimeout = null
   }
 }
