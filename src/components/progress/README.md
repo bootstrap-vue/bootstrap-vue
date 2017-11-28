@@ -226,8 +226,9 @@ export default {
       this.bars.forEach(bar => bar.value = 25 + (Math.random() * 75))
     }, 2000)
   },
-  destroyed () {
+  beforeDestroy () {
     clearInterval(this.timer)
+    this.timer = null
   }
 }
 </script>
