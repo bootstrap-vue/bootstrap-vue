@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.2.0...v1.3.0) (2017-11-29)
+
+
+### Bug Fixes
+
+* **button:** allow custom size classes to be passed to the size prop ([#1389](https://github.com/bootstrap-vue/bootstrap-vue/issues/1389)) ([96fb934](https://github.com/bootstrap-vue/bootstrap-vue/commit/96fb934))
+* **carousel:** clear timers on beforeDestroy ([53ea1b4](https://github.com/bootstrap-vue/bootstrap-vue/commit/53ea1b4))
+* **carousel:** uncaught typeerror on empty slides. ([#1401](https://github.com/bootstrap-vue/bootstrap-vue/issues/1401)) ([a2ee9b6](https://github.com/bootstrap-vue/bootstrap-vue/commit/a2ee9b6))
+* **dropdowns:** prevent memory leak on destroy ([#1392](https://github.com/bootstrap-vue/bootstrap-vue/issues/1392)) ([05a5c50](https://github.com/bootstrap-vue/bootstrap-vue/commit/05a5c50)), closes [#1391](https://github.com/bootstrap-vue/bootstrap-vue/issues/1391)
+* **form-group:** import b-form-row directly from layout ([b43d7c8](https://github.com/bootstrap-vue/bootstrap-vue/commit/b43d7c8))
+* **id mixin:** set prop type to String ([37ab5cb](https://github.com/bootstrap-vue/bootstrap-vue/commit/37ab5cb))
+* **table:** better custom css specificity for when nesting tables ([4a2d121](https://github.com/bootstrap-vue/bootstrap-vue/commit/4a2d121))
+* **table:** correct fixd-top row scoped slot properties ([7e042f1](https://github.com/bootstrap-vue/bootstrap-vue/commit/7e042f1))
+* **table:** initial busy of true always makes table busy ([#1400](https://github.com/bootstrap-vue/bootstrap-vue/issues/1400)) ([5daa0df](https://github.com/bootstrap-vue/bootstrap-vue/commit/5daa0df)), closes [#1398](https://github.com/bootstrap-vue/bootstrap-vue/issues/1398)
+* **table:** use stable sort algorithm to prevent SSR issues ([#1399](https://github.com/bootstrap-vue/bootstrap-vue/issues/1399)) ([552c438](https://github.com/bootstrap-vue/bootstrap-vue/commit/552c438))
+* detach clickout listener in beforeDestroy ([89618de](https://github.com/bootstrap-vue/bootstrap-vue/commit/89618de))
+* remove listenOnRoot handlers in beforeDestroy ([7f7eba1](https://github.com/bootstrap-vue/bootstrap-vue/commit/7f7eba1))
+* SFC transpilation in es buld ([#1410](https://github.com/bootstrap-vue/bootstrap-vue/issues/1410)) ([ce80809](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce80809))
+
+
+### Features
+
+* **form-group:** new prop for label-class, deprecate prop feedback in favor of invalid-feedback ([#1412](https://github.com/bootstrap-vue/bootstrap-vue/issues/1412)) ([7d61cb4](https://github.com/bootstrap-vue/bootstrap-vue/commit/7d61cb4))
+* **pagination+pagination-nav:** remove need for custom active focus style ([#1384](https://github.com/bootstrap-vue/bootstrap-vue/issues/1384)) ([1e1b099](https://github.com/bootstrap-vue/bootstrap-vue/commit/1e1b099))
+* **table:** add responsive stacked table option ([#1407](https://github.com/bootstrap-vue/bootstrap-vue/issues/1407)) ([df23115](https://github.com/bootstrap-vue/bootstrap-vue/commit/df23115))
+* **table:** add toggleDetails method to scoped item slots ([#1404](https://github.com/bootstrap-vue/bootstrap-vue/issues/1404)) ([a9c4b7d](https://github.com/bootstrap-vue/bootstrap-vue/commit/a9c4b7d))
+* **tabs:** add name to helper component for better debugging ([51ef9e3](https://github.com/bootstrap-vue/bootstrap-vue/commit/51ef9e3))
+* **tabs:** add no-body prop to b-tab ([#1385](https://github.com/bootstrap-vue/bootstrap-vue/issues/1385)) ([ef3ff06](https://github.com/bootstrap-vue/bootstrap-vue/commit/ef3ff06))
+* **tooltip+popover:** programmatically disable/enable tooltip or popover ([#1387](https://github.com/bootstrap-vue/bootstrap-vue/issues/1387)) ([8104cb4](https://github.com/bootstrap-vue/bootstrap-vue/commit/8104cb4))
+
+
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
 ## [v1.2.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.1.0...v1.2.0)
 Released: 2017-11-20
 
