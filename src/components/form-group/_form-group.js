@@ -17,7 +17,7 @@ export default {
       const domProps = $slots.label ? {} : { innerHTML: t.label || '' }
       legend = h(
         'legend',
-        { class: t.labelClasses, attrs: { id: t.labelId }, domProps: domProps  },
+        { class: t.labelClasses, attrs: { id: t.labelId }, domProps: domProps },
         $slots.label
       )
     }
