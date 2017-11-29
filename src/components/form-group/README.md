@@ -44,14 +44,6 @@ Use the prop `label` to set the content of the `<fieldset>` generated `<legend>`
 element (html supported), or by using the named slot `label`, You may optionally
 visually hide the label text by setting the prop `label-sr-only`.
 
-By default, the label appears above the input element(s), but you may optionally set
-the prop `horizontal` to place the label on the same line, and control the width
-of the label by setting `label-cols` to the number of columns (default of `3`,
-valid range of 1 through 11). `label-cols` has no effect if the layout is
-not `horizontal`. For viewports below size `sm`, the label will revert to
-being displayed above the input control. You can control the breakpoint for this
-by setting the `breakpoint` prop (default is `sm`).
-
 The label text may also optionally be aligned `left`, `center` or `right` by setting
 the respective value via the prop `label-text-align`. Alignment has no effect if
 `label-sr-only` is set.
@@ -60,7 +52,15 @@ You can also apply additional classes to the label via the `label-class` prop, s
 responsive padding or alignment utility classes. The `label-class` prop accepts either
 a string or array of strings.
 
-**Example: Horizontal laout**
+### Horizontal layout
+By default, the label appears above the input element(s), but you may optionally set
+the prop `horizontal` to place the label on the same line, and control the width
+of the label by setting `label-cols` to the number of columns (default of `3`,
+valid range of 1 through 11). `label-cols` has no effect if the layout is
+not `horizontal`. For viewports below size `sm`, the label will revert to
+being displayed above the input control. You can control the breakpoint for this
+by setting the `breakpoint` prop (default is `sm`).
+
 ```html
 <div>
   <b-form-group id="fieldsetHorizontal"
@@ -76,10 +76,39 @@ a string or array of strings.
 <!-- form-group-horizontal.vue -->
 ```
 
+### Label size
+You can control the label text size match the size of your form input(s) via the
+optional `label-size` prop. Values can be `'sm'` or `'lg'` for small or large
+label, respectively. Sizes work for both `horizontal` and non-horizontal form groups.
+
+```html
+<div>
+  <b-form-group horizontal
+                :label-cols="2"
+                label-size="sm"
+                label="Small">
+    <b-form-input size="sm"></b-form-input>
+  </b-form-group>
+  <b-form-group horizontal
+                :label-cols="2"
+                label="Default">
+    <b-form-input></b-form-input>
+  </b-form-group>
+  <b-form-group horizontal
+                :label-cols="2"
+                label-size="lg"
+                label="Large">
+    <b-form-input size="lg"></b-form-input>
+  </b-form-group>
+</div>
+
+<!-- form-group-label-size.vue -->
+```
+
 ## Description
 Optional descriptive text which is always shown with the `.text-muted` class
 (html supported) by setting the `description` prop or using the named slot `description`.
-The description text is rendered using the <`b-form-text>` component.
+The description text is rendered using the `<b-form-text>` component.
 
 ## Validation feedback
 
