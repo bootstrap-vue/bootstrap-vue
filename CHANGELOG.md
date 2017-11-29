@@ -19,7 +19,7 @@ Relased: 2017-11-29
 * **table:** initial busy of true always makes table busy ([#1400](https://github.com/bootstrap-vue/bootstrap-vue/issues/1400)) ([5daa0df](https://github.com/bootstrap-vue/bootstrap-vue/commit/5daa0df)), closes [#1398](https://github.com/bootstrap-vue/bootstrap-vue/issues/1398)
 * **table:** use stable sort algorithm to prevent SSR issues ([#1399](https://github.com/bootstrap-vue/bootstrap-vue/issues/1399)) ([552c438](https://github.com/bootstrap-vue/bootstrap-vue/commit/552c438))
 * detach clickout listener in beforeDestroy ([89618de](https://github.com/bootstrap-vue/bootstrap-vue/commit/89618de))
-* remove listenOnRoot handlers in beforeDestroy ([7f7eba1](https://github.com/bootstrap-vue/bootstrap-vue/commit/7f7eba1))
+* detach listenOnRoot handlers in beforeDestroy ([7f7eba1](https://github.com/bootstrap-vue/bootstrap-vue/commit/7f7eba1))
 * SFC transpilation in es buld ([#1410](https://github.com/bootstrap-vue/bootstrap-vue/issues/1410)) ([ce80809](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce80809))
 
 
