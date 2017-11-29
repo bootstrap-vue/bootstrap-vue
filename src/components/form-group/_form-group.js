@@ -201,7 +201,7 @@ export default {
       if (this.labelSrOnly) {
         return null
       }
-      return this.labelSize ? `col-form-label-${this.labelSize}` : null
+      return this.labelSize ? `col-form-label-${this.labelSize}` : 'col-form-legend'
     },
     inputLayoutClasses () {
       return [
