@@ -141,7 +141,7 @@ When importing as plugins, all subcomponents and related directives are imported
 i.e. When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well all
 dropdown sub components.
 
-Reffer to the component and directive documentation for details.
+Refer to the component and directive documentation for details.
 
 ### Webpack + Babel
 
