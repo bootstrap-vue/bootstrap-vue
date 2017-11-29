@@ -2,7 +2,7 @@
 set -e
 
 # Cleanup
-rm -rf dist lib
+rm -rf dist lib es
 
 # ES build (es/)
 BABEL_ENV=es babel -d es  -D --ignore '*.spec.js,*.json,fixtures' src/
