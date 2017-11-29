@@ -67,9 +67,12 @@ export default {
   data () {
     return {
       visible: false,
-      _popper: null,
       inNavbar: null
     }
+  },
+  created () {
+    // Create non-reactive property
+    this._popper = null
   },
   mounted () {
     const listener = vm => {
@@ -77,21 +80,15 @@ export default {
         this.visible = false
       }
     }
-
     // To keep one dropdown opened on page
     this.listenOnRoot('bv::dropdown::shown', listener)
-
     // Hide when clicked on links
     this.listenOnRoot('clicked::link', listener)
     // Use new namespaced events
     this.listenOnRoot('bv::link::clicked', listener)
   },
   beforeDestroy () {
-    if (this._popper) {
-      // Ensure popper event listeners are removed cleanly
-      this._popper.destroy()
-    }
-    this._popper = null
+    this.removePopper()
     this.setTouchStart(false)
   },
   watch: {
@@ -143,7 +140,7 @@ export default {
           // Make sure we have a reference to an element, not a component!
           element = element.$el || element
           // Instantiate popper.js
-          this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+          this.createPopper(element)
         }
       }
 
@@ -156,14 +153,21 @@ export default {
     hideMenu () {
       // TODO: move emit hide to visible watcher, to allow cancelling of hide
       this.$emit('hide')
+      this.setTouchStart(false)
+      this.emitOnRoot('bv::dropdown::hidden', this)
+      this.$emit('hidden')
+      this.removePopper()
+    },
+    createPopper (element) {
+      this.removePopper()
+      this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+    },
+    removePopper () {
       if (this._popper) {
         // Ensure popper event listeners are removed cleanly
         this._popper.destroy()
       }
       this._popper = null
-      this.setTouchStart(false)
-      this.emitOnRoot('bv::dropdown::hidden', this)
-      this.$emit('hidden')
     },
     getPopperConfig () {
       let placement = AttachmentMap.BOTTOM
