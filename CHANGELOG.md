@@ -3,10 +3,10 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 <a name="1.3.0"></a>
-# [1.3.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.2.0...v1.3.0) (2017-11-29)
+## [v1.3.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.2.0...v1.3.0)
+Relased: 2017-11-29
 
-
-### Bug Fixes
+### Bug Fixes v1.3.0
 
 * **button:** allow custom size classes to be passed to the size prop ([#1389](https://github.com/bootstrap-vue/bootstrap-vue/issues/1389)) ([96fb934](https://github.com/bootstrap-vue/bootstrap-vue/commit/96fb934))
 * **carousel:** clear timers on beforeDestroy ([53ea1b4](https://github.com/bootstrap-vue/bootstrap-vue/commit/53ea1b4))
@@ -23,7 +23,7 @@ All notable changes to this project will be documented in this file. See [standa
 * SFC transpilation in es buld ([#1410](https://github.com/bootstrap-vue/bootstrap-vue/issues/1410)) ([ce80809](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce80809))
 
 
-### Features
+### Features v1.3.0
 
 * **form-group:** new prop for label-class, deprecate prop feedback in favor of invalid-feedback ([#1412](https://github.com/bootstrap-vue/bootstrap-vue/issues/1412)) ([7d61cb4](https://github.com/bootstrap-vue/bootstrap-vue/commit/7d61cb4))
 * **pagination+pagination-nav:** remove need for custom active focus style ([#1384](https://github.com/bootstrap-vue/bootstrap-vue/issues/1384)) ([1e1b099](https://github.com/bootstrap-vue/bootstrap-vue/commit/1e1b099))
@@ -34,10 +34,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **tooltip+popover:** programmatically disable/enable tooltip or popover ([#1387](https://github.com/bootstrap-vue/bootstrap-vue/issues/1387)) ([8104cb4](https://github.com/bootstrap-vue/bootstrap-vue/commit/8104cb4))
 
 
-
-# Change Log
-
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 ## [v1.2.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.1.0...v1.2.0)
 Released: 2017-11-20
