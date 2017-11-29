@@ -178,7 +178,7 @@ export default {
     },
     labelClasses () {
       return [
-        this.labelSrOnly ? 'sr-only' : 'col-form-label',
+        this.labelSrOnly ? 'sr-only' : (this.labelSize ? 'col-form-label' : 'col-form-legend'),
         this.labelLayout,
         this.labelAlignClass,
         this.labelSizeClass,
@@ -201,7 +201,7 @@ export default {
       if (this.labelSrOnly) {
         return null
       }
-      return this.labelSize ? `col-form-label-${this.labelSize}` : 'col-form-legend'
+      return this.labelSize ? `col-form-label-${this.labelSize}` : null
     },
     inputLayoutClasses () {
       return [
