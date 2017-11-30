@@ -10,8 +10,8 @@ as well as contextual state visual feedback.
       id="fieldset1"
       description="Let us know your name."
       label="Enter your name"
-      :invalid-feedback="invalidFeedback"
-      :valid-feedback="validFeedback"
+      :invalid-feedback="feedback"
+      valid-feedback="Thank you"
       :state="state"
   >
     <b-form-input id="input1" :state="state" v-model.trim="name"></b-form-input>
@@ -21,20 +21,11 @@ as well as contextual state visual feedback.
 <script>
 export default {
   computed: {
+    feedback () {
+      return this.name.length > 0 ? 'Enter at least 4 characters' : 'Please enter something'
+    },
     state () {
-      return this.name.length >= 4 ? true : false
-    },
-    invalidFeedback () {
-      if (this.name.length > 4) {
-        return ''
-      } else if (this.name.length > 0) {
-        return 'Enter at least 4 characters'
-      } else {
-        return 'Please enter something'
-      }
-    },
-    validFeedback () {
-      return this.state === true ? 'Thank you' : ''
+      return this.name.length > 4 ? 'valid' : 'invalid'
     }
   },
   data () {
@@ -53,15 +44,6 @@ Use the prop `label` to set the content of the `<fieldset>` generated `<legend>`
 element (html supported), or by using the named slot `label`, You may optionally
 visually hide the label text by setting the prop `label-sr-only`.
 
-The label text may also optionally be aligned `left`, `center` or `right` by setting
-the respective value via the prop `label-text-align`. Alignment has no effect if
-`label-sr-only` is set.
-
-You can also apply additional classes to the label via the `label-class` prop, such as
-responsive padding or alignment utility classes. The `label-class` prop accepts either
-a string or array of strings.
-
-### Horizontal layout
 By default, the label appears above the input element(s), but you may optionally set
 the prop `horizontal` to place the label on the same line, and control the width
 of the label by setting `label-cols` to the number of columns (default of `3`,
@@ -70,6 +52,15 @@ not `horizontal`. For viewports below size `sm`, the label will revert to
 being displayed above the input control. You can control the breakpoint for this
 by setting the `breakpoint` prop (default is `sm`).
 
+The label text may also optionally be aligned `left`, `center` or `right` by setting
+the respective value via the prop `label-text-align`. Alignment has no effect if
+`label-sr-only` is set.
+
+You can also apply additional classes to the label via the `label-class` prop, such as
+responsive padding or alignment utility classes. The `label-class` prop accepts either
+a string or array of strings.
+
+**Example: Horizontal laout**
 ```html
 <div>
   <b-form-group id="fieldsetHorizontal"
@@ -85,39 +76,10 @@ by setting the `breakpoint` prop (default is `sm`).
 <!-- form-group-horizontal.vue -->
 ```
 
-### Label size
-You can control the label text size match the size of your form input(s) via the
-optional `label-size` prop. Values can be `'sm'` or `'lg'` for small or large
-label, respectively. Sizes work for both `horizontal` and non-horizontal form groups.
-
-```html
-<div>
-  <b-form-group horizontal
-                :label-cols="2"
-                label-size="sm"
-                label="Small">
-    <b-form-input size="sm"></b-form-input>
-  </b-form-group>
-  <b-form-group horizontal
-                :label-cols="2"
-                label="Default">
-    <b-form-input></b-form-input>
-  </b-form-group>
-  <b-form-group horizontal
-                :label-cols="2"
-                label-size="lg"
-                label="Large">
-    <b-form-input size="lg"></b-form-input>
-  </b-form-group>
-</div>
-
-<!-- form-group-label-size.vue -->
-```
-
 ## Description
 Optional descriptive text which is always shown with the `.text-muted` class
 (html supported) by setting the `description` prop or using the named slot `description`.
-The description text is rendered using the `<b-form-text>` component.
+The description text is rendered using the <`b-form-text>` component.
 
 ## Validation feedback
 
