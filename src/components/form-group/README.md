@@ -10,8 +10,8 @@ as well as contextual state visual feedback.
       id="fieldset1"
       description="Let us know your name."
       label="Enter your name"
-      :invalid-feedback="feedback"
-      valid-feedback="Thank you"
+      :invalid-feedback="invalidFeedback"
+      :valid-feedback="validFeedback"
       :state="state"
   >
     <b-form-input id="input1" :state="state" v-model.trim="name"></b-form-input>
@@ -21,11 +21,20 @@ as well as contextual state visual feedback.
 <script>
 export default {
   computed: {
-    feedback () {
-      return this.name.length > 0 ? 'Enter at least 4 characters' : 'Please enter something'
-    },
     state () {
-      return this.name.length > 4 ? 'valid' : 'invalid'
+      return this.name.length >= 4 ? true : false
+    },
+    invalidFeedback () {
+      if (this.name.length > 4) {
+        return ''
+      } else if (this.name.length > 0) {
+        return 'Enter at least 4 characters'
+      } else {
+        return 'Please enter something'
+      }
+    },
+    validFeedback () {
+      return this.state === true ? 'Thank you' : ''
     }
   },
   data () {
