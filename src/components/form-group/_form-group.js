@@ -87,7 +87,11 @@ export default {
       'fieldset',
       {
         class: t.groupClasses,
-        attrs: { id: t.safeId(), 'aria-describedby': t.describedByIds }
+        attrs: { 
+          id: t.safeId(),
+          'aria-labelledby': t.labelId,
+          'aria-describedby': t.describedByIds
+        }
       },
       [ h('b-form-row', {}, [ legend, content ]) ]
     )
@@ -233,7 +237,6 @@ export default {
     },
     describedByIds () {
       return [
-        this.labelId,
         this.descriptionId,
         this.invalidFeedbackId,
         this.validFeedbackId
