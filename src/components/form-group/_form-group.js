@@ -15,11 +15,15 @@ export default {
     let legend = h(false)
     if (t.hasLabel || t.horizontal) {
       // In horizontal mode, if there is no label, we still need to offset the input
-      const tag = t.hasLabel ? 'legend' : 'div'
+      const tag = t.hasLabel ? (t.labelFor ? 'label' : 'legend') : 'div'
       const domProps = $slots.label ? {} : { innerHTML: t.label || '' }
       legend = h(
         tag,
-        { class: t.labelClasses, attrs: { id: t.labelId }, domProps: domProps },
+        {
+          class: t.labelClasses,
+          attrs: { id: t.labelId, for: t.labelFor || null },
+          domProps: domProps
+        },
         $slots.label
       )
     }
@@ -116,6 +120,10 @@ export default {
       type: String,
       default: null
     },
+    labelFor: {
+      type: String,
+      default: null
+    },
     labelSize: {
       type: String,
       default: null
@@ -161,7 +169,7 @@ export default {
     },
     labelClasses () {
       return [
-        this.labelSrOnly ? 'sr-only' : (this.labelSize ? 'col-form-label' : 'col-form-legend'),
+        this.labelSrOnly ? 'sr-only' : ((this.labelSize || this.labelFor) ? 'col-form-label' : 'col-form-legend'),
         this.labelLayout,
         this.labelAlignClass,
         this.labelSizeClass,
