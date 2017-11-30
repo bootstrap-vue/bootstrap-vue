@@ -25,7 +25,7 @@ export default {
     }
     // Invalid feeback text (explicitly hidden if state is valid)
     let invalidFeedback = h(false)
-    if (t.hasInvalidFeeback) {
+    if (t.hasInvalidFeedback) {
       let domProps = {}
       if (!$slots['invalid-feedback'] && !$slots['feedback']) {
         domProps = { innerHTML: t.invalidFeedback || t.feedback || '' }
@@ -197,14 +197,14 @@ export default {
     hasDescription () {
       return this.description || this.$slots['description']
     },
-    hasInvalidFeeback () {
+    hasInvalidFeedback () {
       if (this.computedState === true) {
         // If the form-group state is explicityly valid, we return false
         return false
       }
       return this.invalidFeedback || this.feedback || this.$slots['invalid-feedback'] || this.$slots['feedback']
     },
-    hasValidFeeback () {
+    hasValidFeedback () {
       if (this.computedState === false) {
         // If the form-group state is explicityly invalid, we return false
         return false
