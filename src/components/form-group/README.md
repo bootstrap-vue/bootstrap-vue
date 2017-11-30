@@ -56,7 +56,11 @@ visually hide the label text by setting the prop `label-sr-only`.
 If you provide an input `id` value to the `label-for` prop (the `id` must exist on the
 input contained within the `<b-form-group>`), a `<label>` element will be rendered instead
 of a `<legend>` element, and will have the `for` attribute set to the `id` specified.
-When specifying the id, **do not** prepend it with `#`.
+When specifying the id, **do not** prepend it with `#`. The `label-for` prop should only
+be used when you have a single form input inside the `<b-form-group>` component. Do not
+set the `label-for` prop when using `<b-form-radio-group>`, `<b-form-checkbox-group>`,
+`<b-form-radio>`, `<b-form-checkbox>` or `<b-form-file>` components, as these inputs
+include integrated label element(s) and the `<legend>` element is more suitable.
 
 The label text may also optionally be aligned `left`, `center` or `right` by setting
 the respective value via the prop `label-text-align`. Alignment has no effect if
