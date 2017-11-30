@@ -1,9 +1,12 @@
 import { warn } from '../../utils'
+import { selectAll, isVisible } from '../../utils/dom'
 import { idMixin, formStateMixin } from '../../mixins'
 import bFormRow from '../layout/form-row'
 import bFormText from '../form/form-text'
 import bFormInvalidFeedback from '../form/form-invalid-feedback'
 import bFormValidFeedback from '../form/form-valid-feedback'
+
+const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'
 
 export default {
   mixins: [idMixin, formStateMixin],
@@ -22,7 +25,8 @@ export default {
         {
           class: t.labelClasses,
           attrs: { id: t.labelId, for: t.labelFor || null },
-          domProps: domProps
+          domProps: domProps,
+          on: t.labelFor ? {} : { click: t.legendClick }
         },
         $slots.label
       )
@@ -241,6 +245,15 @@ export default {
         this.invalidFeedbackId,
         this.validFeedbackId
       ].filter(i => i).join(' ') || null
+    }
+  },
+  methods: {
+    legendClick (evt) {
+      // Focus the first non-disabled visible input when the legend element is clicked
+      const inputs = selectAll(SELECTOR, this.$refs.content).filter(isVisible)
+      if (inputs[0] && inputs[0].focus) {
+        inputs[0].focus()
+      }
     }
   }
 }
