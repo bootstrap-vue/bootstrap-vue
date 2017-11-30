@@ -13,76 +13,63 @@ export default {
     const $slots = t.$slots
     // Label
     let legend = h(false)
-    if (t.label || $slots.label || t.horizontal) {
+    if (t.hasLabel || t.horizontal) {
+      // In horizontal mode, if there is no label, we still need to offset the input
+      const tag = t.hasLabel ? 'legend' : 'div'
+      const domProps = $slots.label ? {} : { innerHTML: t.label || '' }
       legend = h(
-        'legend',
-        { class: t.labelClasses, attrs: { id: t.labelId } },
-        [ $slots.label || h('span', { domProps: { innerHTML: t.label || '' } }) ]
+        tag,
+        { class: t.labelClasses, attrs: { id: t.labelId }, domProps: domProps },
+        $slots.label
       )
     }
-    // Invalid feeback text
+    // Invalid feeback text (explicitly hidden if state is valid)
     let invalidFeedback = h(false)
-    if (t.invalidFeedback || t.feedback || $slots['invalid-feedback'] || $slots['feedback']) {
+    if (t.hasInvalidFeedback) {
+      let domProps = {}
+      if (!$slots['invalid-feedback'] && !$slots['feedback']) {
+        domProps = { innerHTML: t.invalidFeedback || t.feedback || '' }
+      }
       invalidFeedback = h(
         'b-form-invalid-feedback',
         {
-          directives: [
-            {
-              name: 'show',
-              rawName: 'v-show',
-              value: Boolean(t.invalidFeedback || t.feedback || $slots['invalid-feedback'] || $slots['feedback']),
-              expression: "Boolean(t.invalidFeedback || t.feedback || $slots['invalid-feedback'] || $slots['feedback'])"
-            }
-          ],
           attrs: {
             id: t.invalidFeedbackId,
             role: 'alert',
             'aria-live': 'assertive',
             'aria-atomic': 'true'
-          }
+          },
+          domProps: domProps
         },
-        [
-          t.computedState === false
-            ? ($slots['invalid-feedback'] || $slots['feedback'] || h('span', { domProps: { innerHTML: t.invalidFeedback || t.feedback || '' } }))
-            : h(false)
-        ]
+        $slots['invalid-feedback'] || $slots['feedback']
       )
     }
-    // Valid feeback text
+    // Valid feeback text (explicitly hidden if state is invalid)
     let validFeedback = h(false)
-    if (t.validFeedback || $slots['valid-feedback']) {
+    if (t.hasValidFeedback) {
+      const domProps = $slots['valid-feedback'] ? {} : { innerHTML: t.validFeedback || '' }
       validFeedback = h(
         'b-form-valid-feedback',
         {
-          directives: [
-            {
-              name: 'show',
-              rawName: 'v-show',
-              value: Boolean(t.validFeedback || $slots['valid-feedback']),
-              expression: "Boolean(t.validFeedback || $slots['valid-feedback'])"
-            }
-          ],
           attrs: {
             id: t.validFeedbackId,
             role: 'alert',
             'aria-live': 'assertive',
             'aria-atomic': 'true'
-          }
+          },
+          domProps: domProps
         },
-        [
-          t.computedState === true
-            ? ($slots['valid-feedback'] || h('span', { domProps: { innerHTML: t.validFeedback || '' } }))
-            : h(false)
-        ]
+        $slots['valid-feedback']
       )
     }
     // Form help text (description)
     let description = h(false)
-    if (t.description || $slots['description']) {
+    if (t.hasDescription) {
+      const domProps = $slots['description'] ? {} : { innerHTML: t.description || '' }
       description = h(
         'b-form-text',
-        { attrs: { id: t.descriptionId } },
-        [ $slots['description'] || h('span', { domProps: { innerHTML: t.description || '' } }) ]
+        { attrs: { id: t.descriptionId }, domProps: domProps },
+        $slots['description']
       )
     }
     // Build layout
@@ -129,6 +116,10 @@ export default {
       type: String,
       default: null
     },
+    labelSize: {
+      type: String,
+      default: null
+    },
     labelSrOnly: {
       type: Boolean,
       default: false
@@ -160,22 +151,20 @@ export default {
     }
   },
   computed: {
-    inputState () {
-      return this.stateClass
-    },
     groupClasses () {
       return [
         'b-form-group',
         'form-group',
         this.validated ? 'was-validated' : null,
-        this.inputState
+        this.stateClass
       ]
     },
     labelClasses () {
       return [
-        this.labelSrOnly ? 'sr-only' : 'col-form-legend',
+        this.labelSrOnly ? 'sr-only' : (this.labelSize ? 'col-form-label' : 'col-form-legend'),
         this.labelLayout,
         this.labelAlignClass,
+        this.labelSizeClass,
         this.labelClass
       ]
     },
@@ -191,38 +180,55 @@ export default {
       }
       return this.labelTextAlign ? `text-${this.labelTextAlign}` : null
     },
+    labelSizeClass () {
+      if (this.labelSrOnly) {
+        return null
+      }
+      return this.labelSize ? `col-form-label-${this.labelSize}` : null
+    },
     inputLayoutClasses () {
       return [
         this.horizontal ? `col-${this.breakpoint}-${12 - this.labelCols}` : 'col-12'
       ]
     },
+    hasLabel () {
+      return this.label || this.$slots['label']
+    },
+    hasDescription () {
+      return this.description || this.$slots['description']
+    },
+    hasInvalidFeedback () {
+      if (this.computedState === true) {
+        // If the form-group state is explicityly valid, we return false
+        return false
+      }
+      return this.invalidFeedback || this.feedback || this.$slots['invalid-feedback'] || this.$slots['feedback']
+    },
+    hasValidFeedback () {
+      if (this.computedState === false) {
+        // If the form-group state is explicityly invalid, we return false
+        return false
+      }
+      return this.validFeedback || this.$slots['valid-feedback']
+    },
     labelId () {
-      return (this.label || this.$slots['label']) ? this.safeId('_BV_label_') : null
+      return this.hasLabel ? this.safeId('_BV_label_') : null
     },
     descriptionId () {
-      if (this.description || this.$slots['description']) {
-        return this.safeId('_BV_description_')
-      }
-      return null
+      return this.hasDescription ? this.safeId('_BV_description_') : null
     },
     invalidFeedbackId () {
-      if (this.invalidFeedback || this.feedback || this.$slots['invalid-feedback'] || this.$slots['feedback']) {
-        return this.safeId('_BV_feedback_invalid_')
-      }
-      return null
+      return this.hasInvalidFeedback ? this.safeId('_BV_feedback_invalid_') : null
     },
     validFeedbackId () {
-      if (this.validFeedback || this.$slots['valid-feedback']) {
-        return this.safeId('_BV_feedback_valid_')
-      }
-      return null
+      return this.hasValidFeedback ? this.safeId('_BV_feedback_valid_') : null
     },
     describedByIds () {
       return [
         this.labelId,
         this.descriptionId,
-        this.computedState === false ? this.invalidFeedbackId : null,
-        this.computedState === true ? this.validFeedbackId : null
+        this.invalidFeedbackId,
+        this.validFeedbackId
       ].filter(i => i).join(' ') || null
     }
   }
