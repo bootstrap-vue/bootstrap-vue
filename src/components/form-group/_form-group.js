@@ -31,21 +31,13 @@ export default {
       invalidFeedback = h(
         'b-form-invalid-feedback',
         {
-          directives: [
-            {
-              name: 'show',
-              rawName: 'v-show',
-              value: Boolean(t.invalidFeedback || t.feedback || $slots['invalid-feedback'] || $slots['feedback']),
-              expression: "Boolean(t.invalidFeedback || t.feedback || $slots['invalid-feedback'] || $slots['feedback'])"
-            }
-          ],
           attrs: {
             id: t.invalidFeedbackId,
             role: 'alert',
             'aria-live': 'assertive',
             'aria-atomic': 'true'
           },
-          domPRops: domProps
+          domProps: domProps
         },
         $slots['invalid-feedback'] || $slots['feedback']
       )
@@ -57,14 +49,6 @@ export default {
       validFeedback = h(
         'b-form-valid-feedback',
         {
-          directives: [
-            {
-              name: 'show',
-              rawName: 'v-show',
-              value: Boolean(t.validFeedback || $slots['valid-feedback']),
-              expression: "Boolean(t.validFeedback || $slots['valid-feedback'])"
-            }
-          ],
           attrs: {
             id: t.validFeedbackId,
             role: 'alert',
