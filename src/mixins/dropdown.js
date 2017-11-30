@@ -87,6 +87,12 @@ export default {
     // Use new namespaced events
     this.listenOnRoot('bv::link::clicked', listener)
   },
+  deactivated() {
+    // In case we are inside a `<keep-alive>`
+    this.visible = false
+    this.setTouchStart(false)
+    this.removePopper()
+  },
   beforeDestroy () {
     this.visible = false
     this.setTouchStart(false)
