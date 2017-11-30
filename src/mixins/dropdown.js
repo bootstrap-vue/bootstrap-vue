@@ -75,17 +75,12 @@ export default {
     this._popper = null
   },
   mounted () {
-    const listener = vm => {
-      if (vm !== this) {
-        this.visible = false
-      }
-    }
     // To keep one dropdown opened on page
-    this.listenOnRoot('bv::dropdown::shown', listener)
+    this.listenOnRoot('bv::dropdown::shown', this.rootCloseListener)
     // Hide when clicked on links
-    this.listenOnRoot('clicked::link', listener)
+    this.listenOnRoot('clicked::link', this.rootCloseListener)
     // Use new namespaced events
-    this.listenOnRoot('bv::link::clicked', listener)
+    this.listenOnRoot('bv::link::clicked', this.rootCloseListener)
   },
   deactivated () {
     // In case we are inside a `<keep-alive>`
@@ -221,6 +216,11 @@ export default {
     },
     _noop () {
       // Do nothing event handler (used in touchstart event handler)
+    },
+    rootCloseListener (vm) {
+      if (vm !== this) {
+        this.visible = false
+      }
     },
     clickOutListener () {
       this.visible = false
