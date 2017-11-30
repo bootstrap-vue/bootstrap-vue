@@ -129,10 +129,6 @@ export default {
       type: String,
       default: null
     },
-    labelSize: {
-      type: String,
-      default: null
-    },
     labelSrOnly: {
       type: Boolean,
       default: false
@@ -177,10 +173,9 @@ export default {
     },
     labelClasses () {
       return [
-        this.labelSrOnly ? 'sr-only' : 'col-form-label',
+        this.labelSrOnly ? 'sr-only' : 'col-form-legend',
         this.labelLayout,
         this.labelAlignClass,
-        this.labelSizeClass,
         this.labelClass
       ]
     },
@@ -195,12 +190,6 @@ export default {
         return null
       }
       return this.labelTextAlign ? `text-${this.labelTextAlign}` : null
-    },
-    labelSizeClass () {
-      if (this.labelSrOnly) {
-        return null
-      }
-      return this.labelSize ? `col-form-label-${this.labelSize}` : null
     },
     inputLayoutClasses () {
       return [
