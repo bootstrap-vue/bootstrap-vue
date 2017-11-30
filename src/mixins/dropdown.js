@@ -88,8 +88,9 @@ export default {
     this.listenOnRoot('bv::link::clicked', listener)
   },
   beforeDestroy () {
-    this.removePopper()
+    this.visible = false
     this.setTouchStart(false)
+    this.removePopper()
   },
   watch: {
     visible (state, old) {
