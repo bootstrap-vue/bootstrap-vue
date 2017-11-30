@@ -49,16 +49,21 @@ export default {
 ```
 
 ## Label
-Use the prop `label` to set the content of the `<fieldset>` generated `<legend>`
-element (html supported), or by using the named slot `label`, You may optionally
+Use the prop `label` to set the content of the generated `<legend>` element (html
+supported) inside the `<fieldset>`, or by using the named slot `label`, You may optionally
 visually hide the label text by setting the prop `label-sr-only`.
+
+If you provide an input `id` value to the `label-for` prop (the `id` must exist on the
+input contained within the `<b-form-group>`), a `<label>` element will be rendered instead
+of a `<legend>` element, and will have the `for` attribute set to the `id` specified.
+When specifying the id, **do not** prepend it with `#`.
 
 The label text may also optionally be aligned `left`, `center` or `right` by setting
 the respective value via the prop `label-text-align`. Alignment has no effect if
 `label-sr-only` is set.
 
 You can also apply additional classes to the label via the `label-class` prop, such as
-responsive padding or alignment utility classes. The `label-class` prop accepts either
+responsive padding or text alignment utility classes. The `label-class` prop accepts either
 a string or array of strings.
 
 ### Horizontal layout
