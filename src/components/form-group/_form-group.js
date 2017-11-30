@@ -13,17 +13,19 @@ export default {
     const $slots = t.$slots
     // Label
     let legend = h(false)
-    if (t.label || $slots.label || t.horizontal) {
+    if (t.hasLabel || t.horizontal) {
+      // In horizontal mode, if there is no label, we still need to offset the input
+      const tag = t.hasLabel ? 'legend' : 'div'
       const domProps = $slots.label ? {} : { innerHTML: t.label || '' }
       legend = h(
-        'legend',
+        tag,
         { class: t.labelClasses, attrs: { id: t.labelId }, domProps: domProps },
         $slots.label
       )
     }
-    // Invalid feeback text
+    // Invalid feeback text (explicitly hidden if state is valid)
     let invalidFeedback = h(false)
-    if (t.invalidFeedback || t.feedback || $slots['invalid-feedback'] || $slots['feedback']) {
+    if (t.hasInvalidFeeback) {
       let domProps = {}
       if (!$slots['invalid-feedback'] && !$slots['feedback']) {
         domProps = { innerHTML: t.invalidFeedback || t.feedback || '' }
@@ -42,9 +44,9 @@ export default {
         $slots['invalid-feedback'] || $slots['feedback']
       )
     }
-    // Valid feeback text
+    // Valid feeback text (explicitly hidden if state is invalid)
     let validFeedback = h(false)
-    if (t.validFeedback || $slots['valid-feedback']) {
+    if (t.hasValidFeedback) {
       const domProps = $slots['valid-feedback'] ? {} : { innerHTML: t.validFeedback || '' }
       validFeedback = h(
         'b-form-valid-feedback',
@@ -62,7 +64,7 @@ export default {
     }
     // Form help text (description)
     let description = h(false)
-    if (t.description || $slots['description']) {
+    if (t.hasDescription) {
       const domProps = $slots['description'] ? {} : { innerHTML: t.description || '' }
       description = h(
         'b-form-text',
@@ -149,15 +151,12 @@ export default {
     }
   },
   computed: {
-    inputState () {
-      return this.stateClass
-    },
     groupClasses () {
       return [
         'b-form-group',
         'form-group',
         this.validated ? 'was-validated' : null,
-        this.inputState
+        this.stateClass
       ]
     },
     labelClasses () {
@@ -192,33 +191,44 @@ export default {
         this.horizontal ? `col-${this.breakpoint}-${12 - this.labelCols}` : 'col-12'
       ]
     },
+    hasLabel () {
+      return this.label || this.$slots['label']
+    },
+    hasDescription () {
+      return this.description || this.$slots['description']
+    },
+    hasInvalidFeeback () {
+      if (this.computedState === true) {
+        // If the form-group state is explicityly valid, we return false
+        return false
+      }
+      return this.invalidFeedback || this.feedback || this.$slots['invalid-feedback'] || this.$slots['feedback']
+    },
+    hasValidFeeback () {
+      if (this.computedState === false) {
+        // If the form-group state is explicityly invalid, we return false
+        return false
+      }
+      return this.validFeedback || this.$slots['valid-feedback']
+    },
     labelId () {
-      return (this.label || this.$slots['label']) ? this.safeId('_BV_label_') : null
+      return this.hasLabel ? this.safeId('_BV_label_') : null
     },
     descriptionId () {
-      if (this.description || this.$slots['description']) {
-        return this.safeId('_BV_description_')
-      }
-      return null
+      return this.hasDescription ? this.safeId('_BV_description_') : null
     },
     invalidFeedbackId () {
-      if (this.invalidFeedback || this.feedback || this.$slots['invalid-feedback'] || this.$slots['feedback']) {
-        return this.safeId('_BV_feedback_invalid_')
-      }
-      return null
+      return this.hasInvalidFeedback ? this.safeId('_BV_feedback_invalid_') : null
     },
     validFeedbackId () {
-      if (this.validFeedback || this.$slots['valid-feedback']) {
-        return this.safeId('_BV_feedback_valid_')
-      }
-      return null
+      return this.hasValidFeedback ? this.safeId('_BV_feedback_valid_') : null
     },
     describedByIds () {
       return [
         this.labelId,
         this.descriptionId,
-        this.computedState === false ? this.invalidFeedbackId : null,
-        this.computedState === true ? this.validFeedbackId : null
+        this.invalidFeedbackId,
+        this.validFeedbackId
       ].filter(i => i).join(' ') || null
     }
   }
