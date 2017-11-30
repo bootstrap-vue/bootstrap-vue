@@ -14,20 +14,15 @@ export default {
     // Label
     let legend = h(false)
     if (t.label || $slots.label || t.horizontal) {
-      const domProps = $slots.label ? {} : { innerHTML: t.label || '' }
       legend = h(
         'legend',
-        { class: t.labelClasses, attrs: { id: t.labelId }, domProps: domProps  },
-        $slots.label
+        { class: t.labelClasses, attrs: { id: t.labelId } },
+        [ $slots.label || h('span', { domProps: { innerHTML: t.label || '' } }) ]
       )
     }
     // Invalid feeback text
     let invalidFeedback = h(false)
     if (t.invalidFeedback || t.feedback || $slots['invalid-feedback'] || $slots['feedback']) {
-      let domProps = {}
-      if (!$slots['invalid-feedback'] && !$slots['feedback']) {
-        domProps = { innerHTML: t.invalidFeedback || t.feedback || '' }
-      }
       invalidFeedback = h(
         'b-form-invalid-feedback',
         {
@@ -44,16 +39,18 @@ export default {
             role: 'alert',
             'aria-live': 'assertive',
             'aria-atomic': 'true'
-          },
-          domPRops: domProps
+          }
         },
-        $slots['invalid-feedback'] || $slots['feedback']
+        [
+          t.computedState === false
+            ? ($slots['invalid-feedback'] || $slots['feedback'] || h('span', { domProps: { innerHTML: t.invalidFeedback || t.feedback || '' } }))
+            : h(false)
+        ]
       )
     }
     // Valid feeback text
     let validFeedback = h(false)
     if (t.validFeedback || $slots['valid-feedback']) {
-      const domProps = $slots['valid-feedback'] ? {} : { innerHTML: t.validFeedback || '' }
       validFeedback = h(
         'b-form-valid-feedback',
         {
@@ -70,20 +67,22 @@ export default {
             role: 'alert',
             'aria-live': 'assertive',
             'aria-atomic': 'true'
-          },
-          domProps: domProps
+          }
         },
-        $slots['valid-feedback']
+        [
+          t.computedState === true
+            ? ($slots['valid-feedback'] || h('span', { domProps: { innerHTML: t.validFeedback || '' } }))
+            : h(false)
+        ]
       )
     }
     // Form help text (description)
     let description = h(false)
     if (t.description || $slots['description']) {
-      const domProps = $slots['description'] ? {} : { innerHTML: t.description || '' }
       description = h(
         'b-form-text',
-        { attrs: { id: t.descriptionId }, domProps: domProps },
-        $slots['description']
+        { attrs: { id: t.descriptionId } },
+        [ $slots['description'] || h('span', { domProps: { innerHTML: t.description || '' } }) ]
       )
     }
     // Build layout
