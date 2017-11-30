@@ -249,7 +249,6 @@ export default {
         return
       }
       evt.preventDefault()
-      evt.stopPropagation()
       if (this.disabled) {
         this.visible = false
         return
