@@ -87,7 +87,7 @@ export default {
       'fieldset',
       {
         class: t.groupClasses,
-        attrs: { 
+        attrs: {
           id: t.safeId(),
           'aria-labelledby': t.labelId,
           'aria-describedby': t.describedByIds
