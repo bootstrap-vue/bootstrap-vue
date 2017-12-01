@@ -10,6 +10,7 @@ as well as contextual state visual feedback.
       id="fieldset1"
       description="Let us know your name."
       label="Enter your name"
+      label-for="input1"
       :invalid-feedback="invalidFeedback"
       :valid-feedback="validFeedback"
       :state="state"
@@ -86,7 +87,8 @@ by setting the `breakpoint` prop (default is `sm`).
                 :label-cols="4"
                 breakpoint="md"
                 description="Let us know your name."
-                label="Enter your name">
+                label="Enter your name"
+                label-for="inputHorizontal">
     <b-form-input id="inputHorizontal"></b-form-input>
   </b-form-group>
 </div>
@@ -104,19 +106,22 @@ label, respectively. Sizes work for both `horizontal` and non-horizontal form gr
   <b-form-group horizontal
                 :label-cols="2"
                 label-size="sm"
-                label="Small">
-    <b-form-input size="sm"></b-form-input>
+                label="Small"
+                label-for="input_sm">
+    <b-form-input id="input_sm" size="sm"></b-form-input>
   </b-form-group>
   <b-form-group horizontal
                 :label-cols="2"
-                label="Default">
-    <b-form-input></b-form-input>
+                label="Default"
+                label-for="input_default">
+    <b-form-input id="input_default"></b-form-input>
   </b-form-group>
   <b-form-group horizontal
                 :label-cols="2"
                 label-size="lg"
-                label="Large">
-    <b-form-input size="lg"></b-form-input>
+                label="Large"
+                label-for="input_sm">
+    <b-form-input id="input_sm" size="lg"></b-form-input>
   </b-form-group>
 </div>
 
@@ -193,20 +198,30 @@ the above mentiond form controls.
 ## Accessibility
 To enable auto-generation of `aria-*` attributes, you should supply a unique `id` prop
 to `<b-form-group>`. This will associate the help text and feeback text to
-the `<b-form-group>` and its input control(s).
+the `<b-form-group>` and, indirectly to its input control(s).
 
-`<b-form-group>` renders the input control(s) inside a an HTML `<fieldset>` element with
-the label content placed inside the fieldset's `<legend>` element. By nature of this markup,
-the legend content is automatically associated the the input control(s).
+By default, when no `label-for` value is provided, `<b-form-group>` renders the input control(s)
+inside a an HTML `<fieldset>` element with the label content placed inside the fieldset's
+`<legend>` element. By nature of this markup, the legend content is automatically associated to
+the containing input control(s).
 
-When placing multiple form controls inside a fieldset, it is recommended to give each
-control an associated `<label>` (which may be visually hidden using the `.sr-only` class)
+It is **highly recommended** that you provide a unique `id` prop on your input element and set
+thhe `label-for` prop to this id.
+
+When multiple form controls are placed inside `<b-form-group>` (i.e. a series or radio or
+checkbox inputs), **do not set** the `label-for` prop, as a label can only be associated with
+a single input. It is best to use the default rendered markup that produces a `<legend>` which
+will describe the group of inputs.
+
+When placing multiple form controls inside a form-group, it is recommended to give each
+control its own associated `<label>` (which may be visually hidden using the `.sr-only` class)
 and set the label's `for` attribute to the `id` of the associated input control. Alternatively,
 you can set the `aria-label` attribute on each input control instead of using a `<label>`.
+For `<b-form-radio>` and `<b-form-checkbox>` (or the group version), you do not need to set
+individual labels, as the rendered markup for these types of inputs already includes a label.
 
-It is **highly recommended** that you provide a unique `id` prop on your input element(s).
 
 ## Component alias
-`<b-form-group>` can also be used via the legacy alias of `<b-form-fieldset>`.
+`<b-form-group>` can also be used via the alias of `<b-form-fieldset>`.
 
 ## Component Reference
