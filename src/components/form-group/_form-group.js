@@ -93,6 +93,7 @@ export default {
         class: t.groupClasses,
         attrs: {
           id: t.safeId(),
+          'aria-invalid': t.computedState === false ? 'true' : null,
           'aria-labelledby': t.labelId,
           'aria-describedby': t.describedByIds
         }
