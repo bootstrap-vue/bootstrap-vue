@@ -1,8 +1,8 @@
 # Form group
 
 > The `<b-form-group>` component is the easiest way to add some structure to forms. Its
-purpose is to provide a pairing between controls and a label, help text and feedback text,
-as well as contextual state visual feedback.
+purpose is to provide a pairing between controls and a legend or label, help text and
+feedback text, as well as contextual state visual feedback.
 
 ```html
 <template>
@@ -128,12 +128,81 @@ label, respectively. Sizes work for both `horizontal` and non-horizontal form gr
 <!-- form-group-label-size.vue -->
 ```
 
+
 ## Description
 Optional descriptive text which is always shown with the `.text-muted` class
 (html supported) by setting the `description` prop or using the named slot `description`.
 The description text is rendered using the `<b-form-text>` component.
 
-## Validation feedback
+
+## Disabled form groups
+Since the baselement of `<b-form-group>` is `<fieldset>`, you can optionally disable all
+form controls contained within the `<b-form-group>` by setting the `disabled` prop.
+
+Note: Not all form control descendants of a disabled fieldset are properly disabled in
+<abbr title="Internet Explorer 11">IE11</abbr>:
+
+- see [IE bug 817488: `input[type="file"]` not disabled inside disabled fieldset](https://connect.microsoft.com/IE/feedbackdetail/view/817488)
+- see [IE bug 962368: Can still edit `input[type="text"]` within `fieldset[disabled]`](https://connect.microsoft.com/IE/feedbackdetail/view/962368/can-still-edit-input-type-text-within-fieldset-disabled).
+
+As a workaround for IE 11, you should also disable any `<b-form-file>` and `<b-form-input type="text">`
+when your `<b-form-group>` is disabled.
+
+
+## Nested form groups
+Feel free to nest `<b-form-group>` components to produce advanced form layouts and
+semantic grouping of form controls:
+
+```html
+<b-card bg-variant="light">
+  <b-form-group horizontal
+                breakpoint="lg"
+                label="Shipping Address"
+                label-size="lg"
+                class="mb-0">
+    <b-form-group horizontal
+                  label="Street"
+                  label-class="text-sm-right"
+                  label-for="nestedStreet">
+      <b-form-input id="nestedStreet"></b-form-input>
+    </b-form-group>
+    <b-form-group horizontal
+                  label="City"
+                  label-class="text-sm-right"
+                  label-for="nestedCity">
+      <b-form-input id="nestedCity"></b-form-input>
+    </b-form-group>
+    <b-form-group horizontal
+                  label="State"
+                  label-class="text-sm-right"
+                  label-for="nestedState">
+      <b-form-input id="nestedState"></b-form-input>
+    </b-form-group>
+    <b-form-group horizontal
+                  label="Country"
+                  label-class="text-sm-right"
+                  label-for="nestedCountry">
+      <b-form-input id="nestedState"></b-form-input>
+    </b-form-group>
+    <b-form-group horizontal
+                  label="Ship via"
+                  label-class="text-sm-right"
+                  class="mb-0">
+      <b-form-radio-group class="pt-2">
+        <b-form-radio value="air">Air</b-form-radio>
+        <b-form-radio value="courier">Courier</b-form-radio>
+        <b-form-radio value="mail">Mail</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
+  </b-form-group>
+</b-card>
+
+
+<!-- form-group-nested.vue -->
+```
+
+
+## Validation state feedback
 
 ### Contextual validation visual state
 Bootstrap includes validation styles for `valid` and `invalid` states
@@ -194,6 +263,7 @@ the invalid (or valid) feeback to show (due to limitations with the new Bootsrap
 To get around this, **you must also** set the invalid/valid `state` on `<b-form-group>`.  Native
 browser validation will **not** trigger the invalid feedback to show when using one of
 the above mentiond form controls.
+
 
 ## Accessibility
 To enable auto-generation of `aria-*` attributes, you should supply a unique `id` prop
