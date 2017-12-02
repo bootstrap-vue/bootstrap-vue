@@ -93,6 +93,8 @@ export default {
         class: t.groupClasses,
         attrs: {
           id: t.safeId(),
+          disabled: t.disabled,
+          'aria-disabled': t.disabled ? 'true' : null,
           'aria-invalid': t.computedState === false ? 'true' : null,
           'aria-labelledby': t.labelId,
           'aria-describedby': t.describedByIds
@@ -161,6 +163,10 @@ export default {
     validFeedback: {
       type: String,
       default: null
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     },
     validated: {
       type: Boolean,
