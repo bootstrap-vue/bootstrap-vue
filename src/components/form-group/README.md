@@ -132,15 +132,16 @@ label, respectively. Sizes work for both `horizontal` and non-horizontal form gr
 ## Description
 Optional descriptive text which is always shown with the `.text-muted` class
 (html supported) by setting the `description` prop or using the named slot `description`.
-The description text is rendered using the `<b-form-text>` component.
+The description text is rendered using the [`<b-form-text>`](/docs/components/form#helper-components)
+form sub-component.
 
 
 ## Disabled form groups
-Since the baselement of `<b-form-group>` is `<fieldset>`, you can optionally disable all
+Since the base element of `<b-form-group>` is `<fieldset>`, you can optionally disable all
 form controls contained within the `<b-form-group>` by setting the `disabled` prop.
 
-Note: Not all form control descendants of a disabled fieldset are properly disabled in
-<abbr title="Internet Explorer 11">IE11</abbr>:
+Note that not all form control descendants of a disabled fieldset are properly disabled in
+<abbr title="Internet Explorer 11" class="initialism">IE11</abbr>:
 
 - see [IE bug 817488: `input[type="file"]` not disabled inside disabled fieldset](https://connect.microsoft.com/IE/feedbackdetail/view/817488)
 - see [IE bug 962368: Can still edit `input[type="text"]` within `fieldset[disabled]`](https://connect.microsoft.com/IE/feedbackdetail/view/962368/can-still-edit-input-type-text-within-fieldset-disabled).
@@ -159,33 +160,34 @@ semantic grouping of form controls:
                 breakpoint="lg"
                 label="Shipping Address"
                 label-size="lg"
+                label-class="font-weight-bold"
                 class="mb-0">
     <b-form-group horizontal
-                  label="Street"
+                  label="Street:"
                   label-class="text-sm-right"
                   label-for="nestedStreet">
       <b-form-input id="nestedStreet"></b-form-input>
     </b-form-group>
     <b-form-group horizontal
-                  label="City"
+                  label="City:"
                   label-class="text-sm-right"
                   label-for="nestedCity">
       <b-form-input id="nestedCity"></b-form-input>
     </b-form-group>
     <b-form-group horizontal
-                  label="State"
+                  label="State:"
                   label-class="text-sm-right"
                   label-for="nestedState">
       <b-form-input id="nestedState"></b-form-input>
     </b-form-group>
     <b-form-group horizontal
-                  label="Country"
+                  label="Country:"
                   label-class="text-sm-right"
                   label-for="nestedCountry">
       <b-form-input id="nestedState"></b-form-input>
     </b-form-group>
     <b-form-group horizontal
-                  label="Ship via"
+                  label="Ship via:"
                   label-class="text-sm-right"
                   class="mb-0">
       <b-form-radio-group class="pt-2">
@@ -229,15 +231,17 @@ Note that the invalid feedback **will not be shown** unless the invalid `state` 
 `<b-form-group>` and it's child(ren) input(s) or just on the input (`<b-form-input>`,
 `<b-form-textarea>`, `<b-form-select>`, `<b-form-checkbox>`, `<b-form-radio>`, or `<b-form-file>`).
 
-Also feedback will be shown if the parent `<b-form>` component does not have the
-`novalidate` prop set (or set to `false`) along with `vadidated`
-prop set (and the input fails browser native validation constraintes such as `required`).
+Invalid feedback will also be shown if the parent `<b-form>` component does _not_ have the
+`novalidate` prop set (or set to `false`) along with `vadidated` prop set (and the input
+fails native browser validation constraints such as `required`). Refer to Bootstrap V4's
+[Form component](http://getbootstrap.com/docs/4.0/components/forms/#validation) documentation
+for details on validation methods.
 
-Refer to Bootstrap V4's `Form` component documentation for details on validation methods.
+Invalid feedback is rendered using the [`<b-form-invalid-feedback>`](/docs/components/form#helper-components)
+form sub-componment.
 
-**Notes:**
-- The prop `feedback` has been deprecated in favor of the `invalid-feedback` prop.
-- Invalid feedback is rendered using the `<b-form-invalid-feedback>` componment.
+**Note:** The prop `feedback` has been deprecated in favor of the `invalid-feedback` prop.
+
 
 ### Valid feedback
 Show optional valid state feedback text to provide textual state feedback (html supported)
@@ -247,13 +251,14 @@ Note that the valid feedback **will not be shown** unless the valid `state` is s
 `<b-form-group>` and it's child(ren) input(s) or just on the input (`<b-form-input>`,
 `<b-form-textarea>`, `<b-form-select>`, `<b-form-checkbox>`, `<b-form-radio>`, or `<b-form-file>`).
 
-Also feedback will be shown if the parent `<b-form>` component does not have the
-`novalidate` prop set (or set to `false`) along with `vadidated`
-prop set (and the input pases browser native validation constraintes such as `required`).
+Valid feedback will also be shown if the parent `<b-form>` component does _not_ have the
+`novalidate` prop set (or set to `false`) along with `vadidated` prop set (and the input
+pases native browser validation constraints such as `required`). Refer to Bootstrap V4's
+[Form component](http://getbootstrap.com/docs/4.0/components/forms/#validation) documentation
+for details on validation methods.
 
-Refer to Bootstrap V4's `Form` component documentation for details on validation methods.
-
-Valid feedback is rendered using the `<b-form-valid-feedback>` componment.
+Valid feedback is rendered using the [`<b-form-valid-feedback>`](/docs/components/form#helper-components)
+form sub-componment.
 
 ### Feeback limitations
 **Note:** When using `<b-input-group>`, `<b-form-file>`, `<b-form-radio-group>`,
