@@ -67,32 +67,31 @@ export default {
   data () {
     return {
       visible: false,
-      _popper: null,
       inNavbar: null
     }
   },
+  created () {
+    // Create non-reactive property
+    this._popper = null
+  },
   mounted () {
-    const listener = vm => {
-      if (vm !== this) {
-        this.visible = false
-      }
-    }
-
     // To keep one dropdown opened on page
-    this.listenOnRoot('bv::dropdown::shown', listener)
-
+    this.listenOnRoot('bv::dropdown::shown', this.rootCloseListener)
     // Hide when clicked on links
-    this.listenOnRoot('clicked::link', listener)
+    this.listenOnRoot('clicked::link', this.rootCloseListener)
     // Use new namespaced events
-    this.listenOnRoot('bv::link::clicked', listener)
+    this.listenOnRoot('bv::link::clicked', this.rootCloseListener)
+  },
+  deactivated () {
+    // In case we are inside a `<keep-alive>`
+    this.visible = false
+    this.setTouchStart(false)
+    this.removePopper()
   },
   beforeDestroy () {
-    if (this._popper) {
-      // Ensure popper event listeners are removed cleanly
-      this._popper.destroy()
-    }
-    this._popper = null
+    this.visible = false
     this.setTouchStart(false)
+    this.removePopper()
   },
   watch: {
     visible (state, old) {
@@ -143,7 +142,7 @@ export default {
           // Make sure we have a reference to an element, not a component!
           element = element.$el || element
           // Instantiate popper.js
-          this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+          this.createPopper(element)
         }
       }
 
@@ -156,14 +155,21 @@ export default {
     hideMenu () {
       // TODO: move emit hide to visible watcher, to allow cancelling of hide
       this.$emit('hide')
+      this.setTouchStart(false)
+      this.emitOnRoot('bv::dropdown::hidden', this)
+      this.$emit('hidden')
+      this.removePopper()
+    },
+    createPopper (element) {
+      this.removePopper()
+      this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+    },
+    removePopper () {
       if (this._popper) {
         // Ensure popper event listeners are removed cleanly
         this._popper.destroy()
       }
       this._popper = null
-      this.setTouchStart(false)
-      this.emitOnRoot('bv::dropdown::hidden', this)
-      this.$emit('hidden')
     },
     getPopperConfig () {
       let placement = AttachmentMap.BOTTOM
@@ -211,6 +217,11 @@ export default {
     _noop () {
       // Do nothing event handler (used in touchstart event handler)
     },
+    rootCloseListener (vm) {
+      if (vm !== this) {
+        this.visible = false
+      }
+    },
     clickOutListener () {
       this.visible = false
     },
@@ -238,7 +249,6 @@ export default {
         return
       }
       evt.preventDefault()
-      evt.stopPropagation()
       if (this.disabled) {
         this.visible = false
         return
