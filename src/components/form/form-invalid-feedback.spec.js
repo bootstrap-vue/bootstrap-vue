@@ -48,5 +48,4 @@ describe('form-invalid-feedback', async () => {
     const { app: { $refs } } = window
     expect($refs.show).toHaveClass('d-block')
   })
-
 })
