@@ -20,15 +20,19 @@ export default {
       // In horizontal mode, if there is no label, we still need to offset the input
       const tag = t.hasLabel ? (t.labelFor ? 'label' : 'legend') : 'div'
       const domProps = $slots.label ? {} : { innerHTML: t.label || '' }
+      let children = $slots.label
+      if (t.horizontal && t.labelSrOnly) {
+        children = [ h('span', { class: 'sr-only', domProps: domProps }, children) ]
+      }
       legend = h(
         tag,
         {
           class: t.labelClasses,
           attrs: { id: t.labelId, for: t.labelFor || null },
-          domProps: domProps,
+          domProps: t.labelSrOnly ? {} : domProps,
           on: t.labelFor ? {} : { click: t.legendClick }
         },
-        $slots.label
+        children
       )
     }
     // Invalid feeback text (explicitly hidden if state is valid)
@@ -41,8 +45,11 @@ export default {
       invalidFeedback = h(
         'b-form-invalid-feedback',
         {
-          attrs: {
+          props: {
             id: t.invalidFeedbackId,
+            forceShow: t.computedState === false
+          },
+          attrs: {
             role: 'alert',
             'aria-live': 'assertive',
             'aria-atomic': 'true'
@@ -59,8 +66,11 @@ export default {
       validFeedback = h(
         'b-form-valid-feedback',
         {
-          attrs: {
+          props: {
             id: t.validFeedbackId,
+            forceShow: t.computedState === true
+          },
+          attrs: {
             role: 'alert',
             'aria-live': 'assertive',
             'aria-atomic': 'true'
@@ -185,11 +195,12 @@ export default {
     labelClasses () {
       return [
         // BS V4.beta.3 will replace .col-form-legend with .col-form-label
-        // so this line will change to: this.labelSrOnly ? 'sr-only' : 'col-form-label',
-        this.labelSrOnly ? 'sr-only' : ((this.labelSize || this.labelFor) ? 'col-form-label' : 'col-form-legend'),
+        // so this line will change to just: 'col-form-label',
+        (this.labelSize || this.labelFor) ? 'col-form-label' : 'col-form-legend',
+        this.labelSizeClass,
+        (this.labelSrOnly && !this.horizontal) ? 'sr-only' : '',
         this.labelLayout,
         this.labelAlignClass,
-        this.labelSizeClass,
         this.labelClass
       ]
     },
