@@ -184,6 +184,8 @@ export default {
     },
     labelClasses () {
       return [
+        // BS V4.beta.3 will replace .col-form-legend with .col-form-label
+        // so this line will change to: this.labelSrOnly ? 'sr-only' : 'col-form-label',
         this.labelSrOnly ? 'sr-only' : ((this.labelSize || this.labelFor) ? 'col-form-label' : 'col-form-legend'),
         this.labelLayout,
         this.labelAlignClass,
