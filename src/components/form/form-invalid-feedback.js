@@ -11,7 +11,7 @@ export const props = {
   },
   forceShow: {
     type: Boolean,
-    default: null
+    default: false
   }
 }
 
