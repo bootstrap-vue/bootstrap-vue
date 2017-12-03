@@ -120,8 +120,8 @@ label, respectively. Sizes work for both `horizontal` and non-horizontal form gr
                 :label-cols="2"
                 label-size="lg"
                 label="Large"
-                label-for="input_sm">
-    <b-form-input id="input_sm" size="lg"></b-form-input>
+                label-for="input_lg">
+    <b-form-input id="input_lg" size="lg"></b-form-input>
   </b-form-group>
 </div>
 
@@ -152,7 +152,7 @@ when your `<b-form-group>` is disabled.
 
 ## Nested form groups
 Feel free to nest `<b-form-group>` components to produce advanced form layouts and
-semantic grouping of form controls:
+semantic grouping of related form controls:
 
 ```html
 <b-card bg-variant="light">
@@ -160,7 +160,7 @@ semantic grouping of form controls:
                 breakpoint="lg"
                 label="Shipping Address"
                 label-size="lg"
-                label-class="font-weight-bold"
+                label-class="font-weight-bold pt-0"
                 class="mb-0">
     <b-form-group horizontal
                   label="Street:"
@@ -184,29 +184,22 @@ semantic grouping of form controls:
                   label="Country:"
                   label-class="text-sm-right"
                   label-for="nestedCountry">
-      <b-form-input id="nestedState"></b-form-input>
+      <b-form-input id="nestedCountry"></b-form-input>
     </b-form-group>
     <b-form-group horizontal
                   label="Ship via:"
                   label-class="text-sm-right"
                   class="mb-0">
-      <b-form-radio-group class="pt-2">
-        <b-form-radio value="air">Air</b-form-radio>
-        <b-form-radio value="courier">Courier</b-form-radio>
-        <b-form-radio value="mail">Mail</b-form-radio>
-      </b-form-radio-group>
+      <b-form-radio-group class="pt-2" :options="['Air', 'Courier', 'Mail']" />
     </b-form-group>
   </b-form-group>
 </b-card>
-
 
 <!-- form-group-nested.vue -->
 ```
 
 
 ## Validation state feedback
-
-### Contextual validation visual state
 Bootstrap includes validation styles for `valid` and `invalid` states
 on most form controls.
 
@@ -217,8 +210,21 @@ this field properly to submit the form.
 and want to encourage a user through the rest of the fields.
 - `null` Displays no validation state
 
-To apply one of the contextual state icons on `<b-form-group>`, set the `state` prop
-to `'invalid'` (or `false`), `'valid'` (or `true`), or `null`.
+To apply one of the contextual states on `<b-form-group>`, set the `state` prop
+to `'invalid'` (or `false`), `'valid'` (or `true`), or `null`. This will programmattically show
+the apropriate feedback text.
+
+Boostrap V4 uses sibling CSS slectors of `:invalid` or `:valid` inputs to show the feedback text. Some
+form controls (such as checkboxes, radios, and file inputs, or inputs inside input-groups) are
+wrapped in additional markup that will no longer make the feedback text a sibling of the input, and
+hence the feedback will not show.  In these situations you will ned to set the validity `state` on
+the `<b-form-group>` as well as the input.
+
+Feedback will be shown if the parent `<b-form>` component does _not_ have the
+`novalidate` prop set (or set to `false`) along with the `vadidated` prop set (and the input
+fails or passes native browser validation constraints such as `required`). Refer to Bootstrap V4's
+[Form component](http://getbootstrap.com/docs/4.0/components/forms/#validation) documentation
+for details on validation methods.
 
 You should always provide content via the `invalid-feedback` prop (or slot) to aid users
 using assistive technologies when setting a contextual `invalid` state.
@@ -227,35 +233,14 @@ using assistive technologies when setting a contextual `invalid` state.
 Show optional invalid state feedback text to provide textual state feedback (html supported)
 by setting the prop `invalid-feedback` or using the named slot `invalid-feedback`.
 
-Note that the invalid feedback **will not be shown** unless the invalid `state` is set on the
-`<b-form-group>` and it's child(ren) input(s) or just on the input (`<b-form-input>`,
-`<b-form-textarea>`, `<b-form-select>`, `<b-form-checkbox>`, `<b-form-radio>`, or `<b-form-file>`).
-
-Invalid feedback will also be shown if the parent `<b-form>` component does _not_ have the
-`novalidate` prop set (or set to `false`) along with `vadidated` prop set (and the input
-fails native browser validation constraints such as `required`). Refer to Bootstrap V4's
-[Form component](http://getbootstrap.com/docs/4.0/components/forms/#validation) documentation
-for details on validation methods.
-
 Invalid feedback is rendered using the [`<b-form-invalid-feedback>`](/docs/components/form#helper-components)
 form sub-componment.
 
 **Note:** The prop `feedback` has been deprecated in favor of the `invalid-feedback` prop.
 
-
 ### Valid feedback
 Show optional valid state feedback text to provide textual state feedback (html supported)
 by setting the prop `valid-feedback` or using the named slot `valid-feedback`.
-
-Note that the valid feedback **will not be shown** unless the valid `state` is set on the
-`<b-form-group>` and it's child(ren) input(s) or just on the input (`<b-form-input>`,
-`<b-form-textarea>`, `<b-form-select>`, `<b-form-checkbox>`, `<b-form-radio>`, or `<b-form-file>`).
-
-Valid feedback will also be shown if the parent `<b-form>` component does _not_ have the
-`novalidate` prop set (or set to `false`) along with `vadidated` prop set (and the input
-pases native browser validation constraints such as `required`). Refer to Bootstrap V4's
-[Form component](http://getbootstrap.com/docs/4.0/components/forms/#validation) documentation
-for details on validation methods.
 
 Valid feedback is rendered using the [`<b-form-valid-feedback>`](/docs/components/form#helper-components)
 form sub-componment.
