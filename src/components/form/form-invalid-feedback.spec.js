@@ -21,7 +21,7 @@ describe('form-invalid-feedback', async () => {
 
   it('default should have id', async () => {
     const { app: { $refs } } = window
-    expect($refs.default.getAttribute('id').toBe('default')
+    expect($refs.default.getAttribute('id')).toBe('default')
   })
 
   it('tag should have tag small', async () => {
