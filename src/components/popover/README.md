@@ -228,8 +228,8 @@ export default {
 | Prop | Default | Description | Supported values
 | ---- | ------- | ----------- | ----------------
 | `target` | `null` | Element string ID, or a reference to an element or component, that you want to trigger the popover. **Required** | Any valid in-document unique element ID, or in-document element/component reference
-| `title` | `null` | Popover title (text only, no HTML). If HTML is required, place it in the `title` named slot | Plain text
-| `content` | `null` | Popover content (text only, no HTML). If HTML is required, place it in the default slot | Plain text
+| `title` | `null` | Popover title (text only, no HTML). If HTML or reactivity is required, use the `title` named slot | Plain text
+| `content` | `null` | Popover content (text only, no HTML). If HTML or reactivity is required, use the default slot | Plain text
 | `placement` | `'right'` | Positioning of the popover, relative to the trigger element. | `auto`, `top`, `bottom`, `left`, `right`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
 | `disabled` | `false` | Programmatic control of the Popover display state. Recommended to use with [sync modifier](https://vuejs.org/v2/guide/components.html#sync-Modifier). | `true`, `false`
 | `triggers` | `'click'` | Space separated list of event(s), which will trigger open/close of popover using built-in handling | `hover`, `focus`, `click`. Note `blur` is a special use case to close popover on next click.
@@ -576,7 +576,7 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
 
     <!-- Our popover title and content render container -->
     <!-- We use placement 'auto' so popover fits in the best spot on viewport -->
-    <!-- We specify the same container as the trigger button, so that popover is close to button in tab sequence -->
+    <!-- We specify the same container as the trigger button, so that popover is close to button -->
     <b-popover target="exPopoverReactive1"
                triggers="click"
                :show.sync="popoverShow"
@@ -593,13 +593,17 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
         Interactive Content
       </template>
       <div>
-        <b-form-group label="Name" :state="input1state" horizontal class="mb-1"
-           description="Enter your name" invalid-feedback="This field is required">
-          <b-form-input ref="input1" :state="input1state" size="sm" v-model="input1"></b-form-input>
+        <b-form-group label="Name" label-for="pop1"
+                      :state="input1state" horizontal class="mb-1"
+                      description="Enter your name"
+                      invalid-feedback="This field is required">
+          <b-form-input ref="input1" id="pop1" :state="input1state" size="sm" v-model="input1" />
         </b-form-group>
-        <b-form-group label="Color" :state="input2state" horizontal class="mb-1"
-           description="Pick a color" invalid-feedback="This field is required">
-          <b-form-select size="sm" :state="input2state" v-model="input2" :options="options"></b-form-select>
+        <b-form-group label="Color" label-for="pop2"
+                      :state="input2state" horizontal class="mb-1"
+                      description="Pick a color"
+                      invalid-feedback="This field is required">
+          <b-form-select size="sm" id="pop2" :state="input2state" v-model="input2" :options="options" />
         </b-form-group>
         <b-alert show class="small">
           <strong>Current Values:</strong><br>
@@ -630,56 +634,56 @@ export default {
   watch: {
     input1 (val) {
       if (val) {
-        this.input1state = true
+        this.input1state = true;
       }
     },
     input2 (val) {
       if (val) {
-        this.input2state = true
+        this.input2state = true;
       }
     }
   },
   methods: {
     onClose () {
-      this.popoverShow = false
+      this.popoverShow = false;
     },
     onOk () {
-      if (!this.input1) { this.input1state = false }
-      if (!this.input2) { this.input2state = false }
+      if (!this.input1) { this.input1state = false; }
+      if (!this.input2) { this.input2state = false; }
       if (this.input1 && this.input2) {
-        this.onClose()
-        // "Return" our popover "form" results
-        this.input1Return = this.input1
-        this.input2Return = this.input2
+        this.onClose();
+        /* "Return" our popover "form" results */
+        this.input1Return = this.input1;
+        this.input2Return = this.input2;
       }
     },
     onShow () {
-      // This is called just before the popover is shown
-      // Reset our popover "form" variables
-      this.input1 = ''
-      this.input2 = ''
-      this.input1state = null
-      this.input2state = null
-      this.input1Return = ''
-      this.input2Return = ''
+      /* This is called just before the popover is shown */
+      /* Reset our popover "form" variables */
+      this.input1 = '';
+      this.input2 = '';
+      this.input1state = null;
+      this.input2state = null;
+      this.input1Return = '';
+      this.input2Return = '';
     },
     onShown () {
-      // Called just after the popover has been shown
-      // Transfer focus to the first input
-      this.focusRef(this.$refs.input1)
+      /* Called just after the popover has been shown */
+      /* Transfer focus to the first input */
+      this.focusRef(this.$refs.input1);
     },
     onHidden () {
-      // Called just after the popover has finished hiding
-      // Bring focus back to the button
-      this.focusRef(this.$refs.button)
+      /* Called just after the popover has finished hiding */
+      /* Bring focus back to the button */
+      this.focusRef(this.$refs.button);
     },
     focusRef (ref) {
-      // Some references may be a component, functional component, or plain element
-      // This handles that check before focusing, assuming a focus() method exists
-      // We do this in a double nextTick to ensure components have updated & popover positioned first
+      /* Some references may be a component, functional component, or plain element */
+      /* This handles that check before focusing, assuming a focus() method exists */
+      /* We do this in a double nextTick to ensure components have updated & popover positioned first */
       this.$nextTick(() => {
-        this.$nextTick(() => { (ref.$el || ref).focus() })
-      })
+        this.$nextTick(() => { (ref.$el || ref).focus() });
+      });
     }
   }
 }

@@ -8,6 +8,10 @@ export const props = {
   tag: {
     type: String,
     default: 'div'
+  },
+  forceShow: {
+    type: Boolean,
+    default: false
   }
 }
 
@@ -19,9 +23,8 @@ export default {
       props.tag,
       mergeData(data, {
         staticClass: 'invalid-feedback',
-        attrs: {
-          id: props.id
-        }
+        class: { 'd-block': props.forceShow },
+        attrs: { id: props.id }
       }),
       children
     )
