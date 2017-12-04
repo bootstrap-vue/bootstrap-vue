@@ -43,6 +43,7 @@
         </b-form-checkbox-group>
       </b-form-group>
       <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
   </div>
 </template>
