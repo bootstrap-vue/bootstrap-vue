@@ -1,8 +1,8 @@
 # Form group
 
 > The `<b-form-group>` component is the easiest way to add some structure to forms. Its
-purpose is to provide a pairing between controls and a legend or label, help text and
-feedback text, as well as contextual state visual feedback.
+purpose is to pair form controls with a legend or label, and to provide help text and
+invalid/valid feedback text, as well as visual (color) contextual state feedback.
 
 ```html
 <template>
@@ -51,13 +51,13 @@ export default {
 
 
 ## Label
+Use the prop `label` to set the content of the generated `<legend>` or `<label>` element (html
+supported), or by using the named slot `label`, You may optionally visually hide the label text
+while still making it available to screen readers by setting the prop `label-sr-only`.
+
 `<b-form-group>` will render a `<fieldset>` with `<legend>` if the `label-for` prop is not
 set. If an input ID is provided to the `label-for` prop, then a `<div>` with `<label>` will
 be rendered.
-
-Use the prop `label` to set the content of the generated `<legend>` or `<label>` element (html
-supported), or by using the named slot `label`, You may optionally visually hide the label text
-while s till making it available to screen readers by setting the prop `label-sr-only`.
 
 If you provide an input `id` value to the `label-for` prop (the `id` must exist on the
 input contained within the `<b-form-group>`), a `<label>` element will be rendered instead
