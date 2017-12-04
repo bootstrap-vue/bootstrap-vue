@@ -49,10 +49,15 @@ export default {
 <!-- form-group-1.vue -->
 ```
 
+
 ## Label
-Use the prop `label` to set the content of the generated `<legend>` element (html
-supported) inside the `<fieldset>`, or by using the named slot `label`, You may optionally
-visually hide the label text by setting the prop `label-sr-only`.
+`<b-form-group>` will render a `<fieldset>` with `<legend>` if the `label-for` prop is not
+set. If an input ID is provided to the `label-for` prop, then a `<div>` with `<label>` will
+be rendered.
+
+Use the prop `label` to set the content of the generated `<legend>` or `<label>` element (html
+supported), or by using the named slot `label`, You may optionally visually hide the label text
+while s till making it available to screen readers by setting the prop `label-sr-only`.
 
 If you provide an input `id` value to the `label-for` prop (the `id` must exist on the
 input contained within the `<b-form-group>`), a `<label>` element will be rendered instead
@@ -68,7 +73,7 @@ the respective value via the prop `label-text-align`. Alignment has no effect if
 `label-sr-only` is set.
 
 You can also apply additional classes to the label via the `label-class` prop, such as
-responsive padding or text alignment utility classes. The `label-class` prop accepts either
+responsive padding and text alignment utility classes. The `label-class` prop accepts either
 a string or array of strings.
 
 ### Horizontal layout
@@ -78,7 +83,7 @@ of the label by setting `label-cols` to the number of columns (default of `3`,
 valid range of 1 through 11). `label-cols` has no effect if the layout is
 not `horizontal`. For viewports below size `sm`, the label will revert to
 being displayed above the input control. You can control the breakpoint for this
-by setting the `breakpoint` prop (default is `sm`).
+by setting the `breakpoint` prop (`'sm'`, `'md'`, `'lg'`, or `'xl'`. The default is `'sm'`).
 
 ```html
 <div>
@@ -134,20 +139,6 @@ Optional descriptive text which is always shown with the `.text-muted` class
 (html supported) by setting the `description` prop or using the named slot `description`.
 The description text is rendered using the [`<b-form-text>`](/docs/components/form#helper-components)
 form sub-component.
-
-
-## Disabled form groups
-Since the base element of `<b-form-group>` is `<fieldset>`, you can optionally disable all
-form controls contained within the `<b-form-group>` by setting the `disabled` prop.
-
-Note that not all form control descendants of a disabled fieldset are properly disabled in
-<abbr title="Internet Explorer 11" class="initialism">IE11</abbr>:
-
-- see [IE bug 817488: `input[type="file"]` not disabled inside disabled fieldset](https://connect.microsoft.com/IE/feedbackdetail/view/817488)
-- see [IE bug 962368: Can still edit `input[type="text"]` within `fieldset[disabled]`](https://connect.microsoft.com/IE/feedbackdetail/view/962368/can-still-edit-input-type-text-within-fieldset-disabled).
-
-As a workaround for IE 11, you should also disable any `<b-form-file>` and `<b-form-input type="text">`
-when your `<b-form-group>` is disabled.
 
 
 ## Nested form groups
