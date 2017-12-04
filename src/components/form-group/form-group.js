@@ -147,7 +147,7 @@ export default {
           'aria-describedby': t.describedByIds
         }
       },
-      t.horizontal ? [ h('b-form-row', {}, [ legend, content ]) ]: [ legend, content ]
+      t.horizontal ? [ h('b-form-row', {}, [ legend, content ]) ] : [ legend, content ]
     )
   },
   props: {
