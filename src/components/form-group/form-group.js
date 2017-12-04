@@ -6,35 +6,64 @@ import bFormText from '../form/form-text'
 import bFormInvalidFeedback from '../form/form-invalid-feedback'
 import bFormValidFeedback from '../form/form-valid-feedback'
 
+// Selector for finding firt input in the form-group
 const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'
 
 export default {
-  mixins: [idMixin, formStateMixin],
+  mixins: [ idMixin, formStateMixin ],
   components: { bFormRow, bFormText, bFormInvalidFeedback, bFormValidFeedback },
   render (h) {
     const t = this
     const $slots = t.$slots
-    // Label
+
+    // Label / Legend
     let legend = h(false)
-    if (t.hasLabel || t.horizontal) {
-      // In horizontal mode, if there is no label, we still need to offset the input
-      const tag = t.hasLabel ? (t.labelFor ? 'label' : 'legend') : 'div'
-      const domProps = $slots.label ? {} : { innerHTML: t.label || '' }
-      let children = $slots.label
-      if (t.horizontal && t.labelSrOnly) {
-        children = [ h('span', { class: 'sr-only', domProps: domProps }, children) ]
+    if (t.hasLabel) {
+      let children = $slots['label']
+      const legendTag = t.labelFor ? 'label' : 'legend'
+      const legendDomProps = children ? {} : { innerHTML: t.label }
+      const legendAttrs = { id: t.labelId, for: t.labelFor || null }
+      const legendClick = (t.labelFor || t.labelSrOnly) ? {} : { click: t.legendClick }
+      if (t.horizontal) {
+        // Horizontal layout with label
+        if (t.labelSrOnly) {
+          // SR Only we wrap label/legend in a div to preserve layout
+          children = h(
+            legendTag,
+            { class: [ 'sr-only' ], attrs: legendAttrs, domProps: legendDomProps },
+            children
+          )
+          legend = h('div', { class: t.labelLayoutClasses }, [ children ])
+        } else {
+          legend = h(
+            legendTag,
+            {
+              class: [ t.labelLayoutClasses, t.labelClasses ],
+              attrs: legendAttrs,
+              domProps: legendDomProps,
+              on: legendClick
+            },
+            children
+          )
+        }
+      } else {
+        // Vertical layout with label
+        legend = h(
+          legendTag,
+          {
+            class: t.labelSrOnly ? [ 'sr-only' ] : t.labelClasses,
+            attrs: legendAttrs,
+            domProps: legendDomProps,
+            on: legendClick
+          },
+          children
+        )
       }
-      legend = h(
-        tag,
-        {
-          class: t.labelClasses,
-          attrs: { id: t.labelId, for: t.labelFor || null },
-          domProps: t.labelSrOnly ? {} : domProps,
-          on: t.labelFor ? {} : { click: t.legendClick }
-        },
-        children
-      )
+    } else if (t.horizontal) {
+      // No label but has horizontal layout, so we need a spacer element for layout
+      legend = h('div', { class: t.labelLayoutClasses })
     }
+
     // Invalid feeback text (explicitly hidden if state is valid)
     let invalidFeedback = h(false)
     if (t.hasInvalidFeedback) {
@@ -59,6 +88,7 @@ export default {
         $slots['invalid-feedback'] || $slots['feedback']
       )
     }
+
     // Valid feeback text (explicitly hidden if state is invalid)
     let validFeedback = h(false)
     if (t.hasValidFeedback) {
@@ -80,6 +110,7 @@ export default {
         $slots['valid-feedback']
       )
     }
+
     // Form help text (description)
     let description = h(false)
     if (t.hasDescription) {
@@ -90,27 +121,33 @@ export default {
         $slots['description']
       )
     }
-    // Build layout
+
+    // Build content layout
     const content = h(
       'div',
-      { ref: 'content', class: t.inputLayoutClasses },
-      [ $slots.default, invalidFeedback, validFeedback, description ]
+      {
+        ref: 'content',
+        class: t.inputLayoutClasses,
+        attrs: t.labelFor ? {} : { role: 'group', 'aria-labelledby': t.labelId }
+      },
+      [ $slots['default'], invalidFeedback, validFeedback, description ]
     )
-    // Generate fieldset wrapper
+
+    // Generate main form-group wrapper
     return h(
-      'fieldset',
+      t.labelFor ? 'div' : 'fieldset',
       {
         class: t.groupClasses,
         attrs: {
           id: t.safeId(),
           disabled: t.disabled,
-          'aria-disabled': t.disabled ? 'true' : null,
+          role: 'group',
           'aria-invalid': t.computedState === false ? 'true' : null,
           'aria-labelledby': t.labelId,
           'aria-describedby': t.describedByIds
         }
       },
-      [ h('b-form-row', {}, [ legend, content ]) ]
+      t.horizontal ? [ h('b-form-row', {}, [ legend, content ]) ]: [ legend, content ]
     )
   },
   props: {
@@ -119,10 +156,10 @@ export default {
       default: false
     },
     labelCols: {
-      type: Number,
+      type: [Number, String],
       default: 3,
       validator (value) {
-        if (value >= 1 && value <= 11) {
+        if (Number(value) >= 1 && Number(value) <= 11) {
           return true
         }
         warn('b-form-group: label-cols must be a value between 1 and 11')
@@ -174,10 +211,6 @@ export default {
       type: String,
       default: null
     },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
     validated: {
       type: Boolean,
       value: false
@@ -195,36 +228,22 @@ export default {
     labelClasses () {
       return [
         // BS V4.beta.3 will replace .col-form-legend with .col-form-label
-        // so this line will change to just: 'col-form-label',
+        // so this next line will change to just: 'col-form-label',
         (this.labelSize || this.labelFor) ? 'col-form-label' : 'col-form-legend',
-        this.labelSizeClass,
-        (this.labelSrOnly && !this.horizontal) ? 'sr-only' : '',
-        this.labelLayout,
-        this.labelAlignClass,
+        this.labelSize ? `col-form-label-${this.labelSize}` : null,
+        this.labelTextAlign ? `text-${this.labelTextAlign}` : null,
+        this.horizontal ? null : 'pt-0',
         this.labelClass
       ]
     },
-    labelLayout () {
-      if (this.labelSrOnly) {
-        return null
-      }
-      return this.horizontal ? `col-${this.breakpoint}-${this.labelCols}` : 'col-12'
-    },
-    labelAlignClass () {
-      if (this.labelSrOnly) {
-        return null
-      }
-      return this.labelTextAlign ? `text-${this.labelTextAlign}` : null
-    },
-    labelSizeClass () {
-      if (this.labelSrOnly) {
-        return null
-      }
-      return this.labelSize ? `col-form-label-${this.labelSize}` : null
+    labelLayoutClasses () {
+      return [
+        this.horizontal ? `col-${this.breakpoint}-${this.labelCols}` : null
+      ]
     },
     inputLayoutClasses () {
       return [
-        this.horizontal ? `col-${this.breakpoint}-${12 - this.labelCols}` : 'col-12'
+        this.horizontal ? `col-${this.breakpoint}-${12 - Number(this.labelCols)}` : null
       ]
     },
     hasLabel () {
@@ -269,6 +288,11 @@ export default {
   },
   methods: {
     legendClick (evt) {
+      const tagName = evt.target ? evt.target.tagName : ''
+      if (/^(input|select|textarea|label)$/i.test(tagName)) {
+        // If clicked an input inside legend, we just let the default happen
+        return
+      }
       // Focus the first non-disabled visible input when the legend element is clicked
       const inputs = selectAll(SELECTOR, this.$refs.content).filter(isVisible)
       if (inputs[0] && inputs[0].focus) {
