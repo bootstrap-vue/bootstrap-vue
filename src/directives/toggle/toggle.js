@@ -29,6 +29,10 @@ export default {
       // Add aria attributes to element
       setAttr(el, 'aria-controls', targets.join(' '))
       setAttr(el, 'aria-expanded', 'false')
+      if (el.tagName !== 'BUTTON') {
+        // If element is not a button, we add `role="button"` for accessibility
+        setAttr(el, 'role', 'button')
+      }
 
       // Toggle state hadnler, stored on element
       el[BVT] = function toggleDirectiveHandler (id, state) {
