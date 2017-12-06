@@ -5,35 +5,25 @@ Bootstrap's custom radio input to replace the browser default radio input. It
 is built on top of semantic and accessible markup, so it is a solid replacement
 for the default radio input.
 
-<div class="alert alert-danger">
-  <h5>Breaking Change notice:</h5>
-  <p class="m-0">
-    Starting with release <samp>v1.0.0-beta.8</samp> of Bootstrap-Vue,
-    <samp class="bg-transparent text-danger">&lt;b-form-radio&gt;</samp> now
-    generates a <strong>single</strong> radio input. Please use
-    <samp class="bg-transparent text-danger">&lt;b-form-radio-group&gt;</samp>
-    to generate a series of radio inputs based on the
-    <samp class="bg-transparent text-danger">options</samp> prop.
-  </p>
-</div>
-
 The individual radio inputs in radio input group can be specified via the `options`
 prop of `<b-form-radio-group>`, or via manual placement of the `<b-form-radio>` sub component.
 
 ```html
 <template>
   <div>
-    <h5>Radios using options</h5>
-    <b-form-radio-group id="radios1" v-model="selected" :options="options" name="radioOpenions">
-    </b-form-radio-group>
+    <b-form-group label="Radios using <code>options</code>">
+      <b-form-radio-group id="radios1" v-model="selected" :options="options" name="radioOpenions">
+      </b-form-radio-group>
+    </b-form-group>
 
-    <h5 class="mt-3">Radios using sub-component</h5>
-    <b-form-radio-group id="radios2" v-model="selected" name="radioSubComponent">
-      <b-form-radio value="first">Toggle this custom radio</b-form-radio>
-      <b-form-radio value="second">Or toggle this other custom radio</b-form-radio>
-      <b-form-radio value="third" disabled>This one is Disabled</b-form-radio>
-      <b-form-radio :value="{fourth: 4}">This is the 4th radio</b-form-radio>
-    </b-form-radio-group>
+    <b-form-group label="Radios using sub-components">
+      <b-form-radio-group id="radios2" v-model="selected" name="radioSubComponent">
+        <b-form-radio value="first">Toggle this custom radio</b-form-radio>
+        <b-form-radio value="second">Or toggle this other custom radio</b-form-radio>
+        <b-form-radio value="third" disabled>This one is Disabled</b-form-radio>
+        <b-form-radio :value="{fourth: 4}">This is the 4th radio</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
 
     <div class="mt-3">
       Selected: <strong>{{ selected }}</strong>
@@ -76,27 +66,28 @@ Control the size of the radio text by setting the prop `size` to either `sm` for
 ```html
 <template>
   <div>
-    <h5>Small size radios</h5>
-    <b-form-radio-group v-model="selected"
-                        :options="options"
-                        size="sm"
-                        name="radiosSm">
-    </b-form-radio-group>
+    <b-form-group label="Small size radios">
+      <b-form-radio-group v-model="selected"
+                          :options="options"
+                          size="sm"
+                          name="radiosSm">
+      </b-form-radio-group>
+    </b-form-group>
 
-    <br>
-    <h5>Default size radios</h5>
-    <b-form-radio-group v-model="selected"
-                        :options="options"
-                        name="radiosMd">
-    </b-form-radio-group>
+    <b-form-group label="Default size radios">
+      <b-form-radio-group v-model="selected"
+                          :options="options"
+                          name="radiosMd">
+      </b-form-radio-group>
+    </b-form-group>
 
-    <br>
-    <h5>Large size radios</h5>
-    <b-form-radio-group v-model="selected"
-                        :options="options"
-                        size="lg"
-                        name="radiosLg">
-    </b-form-radio-group>
+    <b-form-group label="Large size radios">
+      <b-form-radio-group v-model="selected"
+                          :options="options"
+                          size="lg"
+                          name="radiosLg">
+      </b-form-radio-group>
+    </b-form-group>
 
     <div class="mt-4">
       Selected: <strong>{{ selected }}</strong>
@@ -133,18 +124,20 @@ the radios appear one over the other.
 ```html
 <template>
   <div>
-    <h5>Inline radios (default)</h5>
-    <b-form-radio-group v-model="selected"
-                        :options="options"
-                        name="radioInline">
-    </b-form-radio-group>
+    <b-form-group label="Inline radios (default)">
+      <b-form-radio-group v-model="selected"
+                          :options="options"
+                          name="radioInline">
+      </b-form-radio-group>
+    </b-form-group>
 
-    <h5 class="mt-3">Stacked radios</h5>
-    <b-form-radio-group v-model="selected"
-                        :options="options"
-                        stacked
-                        name="radiosStacked">
-    </b-form-radio-group>
+    <b-form-group label="Stacked radios">
+      <b-form-radio-group v-model="selected"
+                          :options="options"
+                          stacked
+                          name="radiosStacked">
+      </b-form-radio-group>
+    </b-form-group>
 
     <div class="mt-3">
       Selected: <strong>{{ selected }}</strong>
@@ -184,31 +177,32 @@ when they are in the checked state.
 ```html
 <template>
   <div>
-    <h5>Button style radios</h5>
-    <b-form-radio-group id="btnradios1"
-                        buttons
-                        v-model="selected"
-                        :options="options"
-                        name="radiosBtnDefault" />
+    <b-form-group label="Button style radios">
+      <b-form-radio-group id="btnradios1"
+                          buttons
+                          v-model="selected"
+                          :options="options"
+                          name="radiosBtnDefault" />
+    </b-form-group>
 
-    <h5 class="mt-3">
-      Button style radios with <code>outline-primary</code> variant and size <code>lg</code>
-    </h5>
-    <b-form-radio-group id="btnradios2"
-                        buttons
-                        button-variant="outline-primary"
-                        size="lg"
-                        v-model="selected"
-                        :options="options"
-                        name="radioBtnOutline" />
+    <b-form-group label="Button style radios with <code>outline-primary</code> variant and size <code>lg</code>">
+      <b-form-radio-group id="btnradios2"
+                          buttons
+                          button-variant="outline-primary"
+                          size="lg"
+                          v-model="selected"
+                          :options="options"
+                          name="radioBtnOutline" />
+    </b-form-group>
 
-    <h5 class="mt-3">Stacked button style radios</h5>
-    <b-form-radio-group id="btnradios3"
-                        buttons
-                        stacked
-                        v-model="selected"
-                        :options="options"
-                        name="radioBtnStacked" />
+    <b-form-group label="Stacked button style radios">
+      <b-form-radio-group id="btnradios3"
+                          buttons
+                          stacked
+                          v-model="selected"
+                          :options="options"
+                          name="radioBtnStacked" />
+    </b-form-group>
   </div>
 </template>
 
@@ -246,19 +240,20 @@ You can have `b-form-radio` render a browser native radio input by setting the `
 ```html
 <template>
   <div>
-    <h5>Plain inline radios</h5>
-    <b-form-radio-group v-model="selected"
-                        :options="options"
-                        plain
-                        name="plainInline" />
+    <b-form-group label="Plain inline radios">
+      <b-form-radio-group v-model="selected"
+                          :options="options"
+                          plain
+                          name="plainInline" />
+    </b-form-group>
 
-    <h5 class="mt-3">Plain stacked radios</h5>
-    <b-form-radio-group v-model="selected"
-                        :options="options"
-                        plain
-                        stacked
-                        name="plainStacked" />
-
+    <b-form-group label="Plain stacked radios">
+      <b-form-radio-group v-model="selected"
+                          :options="options"
+                          plain
+                          stacked
+                          name="plainStacked" />
+    </b-form-group>
   </div>
 </template>
 
@@ -323,7 +318,7 @@ Supported `invalid` values are:
 
 
 ## Radio component aliases
-- `<b-form-radio-group>` can be used by the shorter aliant `<b-radio-group>`.
+- `<b-form-radio-group>` can be used by the shorter alias `<b-radio-group>`.
 - `<b-form-radio>` can be used by the shorter alias of `<b-radio>`.
 
 ## Component Reference
