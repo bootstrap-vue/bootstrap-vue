@@ -315,7 +315,7 @@ export default {
           let ids = (getAttr(input, 'aria-describedby') || '').split(/\s+/)
           remove = remove.split(/\s+/)
           // Update ID list, preserving any original IDs
-          ids = ids.filter(id => remove.indexOf(id) === -1).concat(add)
+          ids = ids.filter(id => remove.indexOf(id) === -1).concat(add || '')
           setAttr(input, 'aria-describedby', ids.join(' ').trim())
         }
       }
