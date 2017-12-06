@@ -1,5 +1,5 @@
 import { warn } from '../../utils'
-import { selectAll, isVisible } from '../../utils/dom'
+import { select, selectAll, isVisible, setAttr, getAttr } from '../../utils/dom'
 import { idMixin, formStateMixin } from '../../mixins'
 import bFormRow from '../layout/form-row'
 import bFormText from '../form/form-text'
@@ -286,6 +286,13 @@ export default {
       ].filter(i => i).join(' ') || null
     }
   },
+  watch: {
+    describedByIds (add, remove) {
+      if (add !== remove) {
+        this.setInputDescribedBy(add, remove)
+      }
+    }
+  },
   methods: {
     legendClick (evt) {
       const tagName = evt.target ? evt.target.tagName : ''
@@ -298,6 +305,25 @@ export default {
       if (inputs[0] && inputs[0].focus) {
         inputs[0].focus()
       }
+    },
+    setInputDescribedBy (add, remove = '') {
+      // Sets the `aria-describedby` attribute on the input
+      // Optionally accepts a string of IDs to remove
+      if (this.labelFor && typeof document !== 'undefined') {
+        const input = select(`#${this.labelFor}`, this.$refs.content)
+        if (input) {
+          let ids = (getAttr(input, 'aria-describedby') || '').split(/\s+/)
+          remove = remove.split(/\s+/)
+          // Update ID list, preserving any original IDs
+          ids = ids.filter(id => remove.indexOf(id) === -1).concat(add)
+          setAttr(input, 'aria-describedby', ids.join(' ').trim())
+        }
+      }
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.setInputDescribedBy(this.describedByIds)
+    })
   }
 }
