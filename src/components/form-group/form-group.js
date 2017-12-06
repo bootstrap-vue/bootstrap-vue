@@ -144,7 +144,7 @@ export default {
           role: 'group',
           'aria-invalid': t.computedState === false ? 'true' : null,
           'aria-labelledby': t.labelId,
-          'aria-describedby': t.describedByIds
+          'aria-describedby': t.labelFor ? null : t.describedByIds
         }
       },
       t.horizontal ? [ h('b-form-row', {}, [ legend, content ]) ] : [ legend, content ]
