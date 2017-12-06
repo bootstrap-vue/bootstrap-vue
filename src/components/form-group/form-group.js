@@ -307,8 +307,8 @@ export default {
       }
     },
     setInputDescribedBy (add, remove = '') {
-      // Sets the `aria-describedby` attribute on the input
-      // Optionally accepts a string of IDs to remove
+      // Sets the `aria-describedby` attribute on the input if label-for is set.
+      // Optionally accepts a string of IDs to remove as the second parameter
       if (this.labelFor && typeof document !== 'undefined') {
         const input = select(`#${this.labelFor}`, this.$refs.content)
         if (input) {
@@ -328,6 +328,8 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
+      // Set the adia-describedby IDs on the input specified by label-for
+      // We do this in a nextTick to ensure the children have finished rendering
       this.setInputDescribedBy(this.describedByIds)
     })
   }
