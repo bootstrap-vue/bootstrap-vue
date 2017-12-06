@@ -1,5 +1,5 @@
 import { warn } from '../../utils'
-import { selectAll, isVisible } from '../../utils/dom'
+import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import { idMixin, formStateMixin } from '../../mixins'
 import bFormRow from '../layout/form-row'
 import bFormText from '../form/form-text'
@@ -144,7 +144,7 @@ export default {
           role: 'group',
           'aria-invalid': t.computedState === false ? 'true' : null,
           'aria-labelledby': t.labelId,
-          'aria-describedby': t.describedByIds
+          'aria-describedby': t.labelFor ? null : t.describedByIds
         }
       },
       t.horizontal ? [ h('b-form-row', {}, [ legend, content ]) ] : [ legend, content ]
@@ -286,6 +286,13 @@ export default {
       ].filter(i => i).join(' ') || null
     }
   },
+  watch: {
+    describedByIds (add, remove) {
+      if (add !== remove) {
+        this.setInputDescribedBy(add, remove)
+      }
+    }
+  },
   methods: {
     legendClick (evt) {
       const tagName = evt.target ? evt.target.tagName : ''
@@ -298,6 +305,32 @@ export default {
       if (inputs[0] && inputs[0].focus) {
         inputs[0].focus()
       }
+    },
+    setInputDescribedBy (add, remove = '') {
+      // Sets the `aria-describedby` attribute on the input if label-for is set.
+      // Optionally accepts a string of IDs to remove as the second parameter
+      if (this.labelFor && typeof document !== 'undefined') {
+        const input = select(`#${this.labelFor}`, this.$refs.content)
+        if (input) {
+          const adb = 'aria-describedby'
+          let ids = (getAttr(input, adb) || '').split(/\s+/)
+          remove = remove.split(/\s+/)
+          // Update ID list, preserving any original IDs
+          ids = ids.filter(id => remove.indexOf(id) === -1).concat(add || '').join(' ').trim()
+          if (ids) {
+            setAttr(input, adb, ids)
+          } else {
+            removeAttr(input, adb)
+          }
+        }
+      }
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      // Set the adia-describedby IDs on the input specified by label-for
+      // We do this in a nextTick to ensure the children have finished rendering
+      this.setInputDescribedBy(this.describedByIds)
+    })
   }
 }

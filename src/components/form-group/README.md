@@ -209,7 +209,7 @@ Boostrap V4 uses sibling CSS slectors of `:invalid` or `:valid` inputs to show t
 form controls (such as checkboxes, radios, and file inputs, or inputs inside input-groups) are
 wrapped in additional markup that will no longer make the feedback text a sibling of the input, and
 hence the feedback will not show.  In these situations you will ned to set the validity `state` on
-the `<b-form-group>` as well as the input.
+the `<b-form-group>` _as well as_ the input.
 
 Feedback will be shown if the parent `<b-form>` component does _not_ have the
 `novalidate` prop set (or set to `false`) along with the `vadidated` prop set (and the input
@@ -257,19 +257,20 @@ inside a an HTML `<fieldset>` element with the label content placed inside the f
 the containing input control(s).
 
 It is **highly recommended** that you provide a unique `id` prop on your input element and set
-thhe `label-for` prop to this id.
+thhe `label-for` prop to this id, when you have only a single input in the `<b-form-group>`.
 
 When multiple form controls are placed inside `<b-form-group>` (i.e. a series or radio or
-checkbox inputs), **do not set** the `label-for` prop, as a label can only be associated with
-a single input. It is best to use the default rendered markup that produces a `<legend>` which
-will describe the group of inputs.
+checkbox inputs, or a series of related inputs), **do not set** the `label-for` prop, as a
+label can only be associated with a single input. It is best to use the default rendered
+markup that produces a `<fieldset>` + `<legend>` which will describe the group of inputs.
 
-When placing multiple form controls inside a form-group, it is recommended to give each
-control its own associated `<label>` (which may be visually hidden using the `.sr-only` class)
-and set the label's `for` attribute to the `id` of the associated input control. Alternatively,
-you can set the `aria-label` attribute on each input control instead of using a `<label>`.
-For `<b-form-radio>` and `<b-form-checkbox>` (or the group version), you do not need to set
-individual labels, as the rendered markup for these types of inputs already includes a label.
+When placing multiple form controls inside a `<b-form-group>` (and you are not nesting
+`<b-form-group>`components), it is recommended to give each control its own associated
+`<label>` (which may be visually hidden using the `.sr-only` class) and set the label's
+`for` attribute to the `id` of the associated input control. Alternatively, you can set the
+`aria-label` attribute on each input control instead of using a `<label>`. For `<b-form-radio>`
+and `<b-form-checkbox>` (or the group versions), you do not need to set individual labels, as
+the rendered markup for these types of inputs already includes a `<label>` element.
 
 
 ## Component alias
