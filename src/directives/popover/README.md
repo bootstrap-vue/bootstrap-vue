@@ -176,7 +176,7 @@ move focus to close the popover.
         <b-btn v-b-popover.focus="'Popover!'" variant="outline-success">Focus</b-btn>
       </b-col>
       <b-col md="6" class="py-3">
-        <b-btn v-b-popover.click.focus="'Popover!'" variant="outline-success">Hover + Focus</b-btn>
+        <b-btn v-b-popover.hover.focus="'Popover!'" variant="outline-success">Hover + Focus</b-btn>
       </b-col>
     </b-row>
   </b-container>
