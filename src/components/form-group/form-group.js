@@ -1,5 +1,5 @@
 import { warn } from '../../utils'
-import { select, selectAll, isVisible, setAttr, getAttr } from '../../utils/dom'
+import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import { idMixin, formStateMixin } from '../../mixins'
 import bFormRow from '../layout/form-row'
 import bFormText from '../form/form-text'
@@ -312,11 +312,16 @@ export default {
       if (this.labelFor && typeof document !== 'undefined') {
         const input = select(`#${this.labelFor}`, this.$refs.content)
         if (input) {
-          let ids = (getAttr(input, 'aria-describedby') || '').split(/\s+/)
+          const adb = 'aria-describedby'
+          let ids = (getAttr(input, adb) || '').split(/\s+/)
           remove = remove.split(/\s+/)
           // Update ID list, preserving any original IDs
-          ids = ids.filter(id => remove.indexOf(id) === -1).concat(add || '')
-          setAttr(input, 'aria-describedby', ids.join(' ').trim())
+          ids = ids.filter(id => remove.indexOf(id) === -1).concat(add || '').join(' ').trim()
+          if (ids) {
+            setAttr(input, adb, ids)
+          } else {
+            removeAttr(input, adb)
+          }
         }
       }
     }
