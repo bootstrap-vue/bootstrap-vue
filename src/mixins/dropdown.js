@@ -59,10 +59,6 @@ export default {
       type: Boolean,
       default: false
     },
-    boundary: {
-      type: [String, Object],
-      default: 'scrollParent'
-    },
     popperOpts: {
       type: Object,
       default: () => {}
@@ -195,10 +191,12 @@ export default {
           },
           flip: {
             enabled: !this.noFlip
-          },
-          preventOverflow: {
-            boundariesElement: this.boundary
           }
+        }
+      }
+      if (this.boundary) {
+        popperConfig.preventOverflow = {
+          boundariesElement: this.boundary
         }
       }
       return assign(popperConfig, this.popperOpts || {})
