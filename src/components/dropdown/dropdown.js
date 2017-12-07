@@ -97,6 +97,12 @@ export default {
     role: {
       type: String,
       default: 'menu'
+    },
+    boundary: {
+      // String: `scrollParent`, `window` or `viewport`
+      // Object: HTML Element reference
+      type: [String, Object],
+      default: 'scrollParent'
     }
   },
   computed: {
