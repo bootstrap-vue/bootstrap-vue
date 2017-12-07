@@ -167,6 +167,7 @@ by `focus`, and the user then clicks the trigger element, they must click it aga
 | `delay` | `0` | Delay showing and hiding of tooltip by specified number of milliseconds. Can also be specified as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays | `0` and up, integers only.
 | `offset` | `0` | Shift the center of the tooltip by specified number of pixels | Any negative or positive integer
 | `container` | `null` | Element string ID to append rendered tooltip into. If `null` or element not found, tooltip is appended to `<body>` (default) | Any valid in-document unique element ID.
+| `boundary` | `'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to chagne this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.
 
 
 ### Programmatically show and hide tooltip
