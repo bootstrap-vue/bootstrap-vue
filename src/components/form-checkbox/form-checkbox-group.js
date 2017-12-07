@@ -12,9 +12,9 @@ export default {
       return h(
         'b-form-checkbox',
         {
-          key: `radio_${idx}_opt`,
+          key: `check_${idx}_opt`,
           props: {
-            id: t.safeId(`_BV_radio_${idx}_opt_`),
+            id: t.safeId(`_BV_check_${idx}_opt_`),
             name: t.name,
             value: option.value,
             required: t.name && t.required,
@@ -32,6 +32,7 @@ export default {
           id: t.safeId(),
           role: 'group',
           tabindex: '-1',
+          // `data-toggle="buttons" will not be needed in BS V4.beta.3
           'data-toggle': t.buttons ? 'buttons' : null, // Needed for styling only!
           'aria-required': t.required ? 'true' : null,
           'aria-invalid': t.computedAriaInvalid
@@ -92,6 +93,7 @@ export default {
       const t = this
       if (t.buttons) {
         return [
+          'btn-group-toggle',
           t.stacked ? 'btn-group-vertical' : 'btn-group',
           t.size ? `btn-group-${this.size}` : '',
           t.validated ? `was-validated` : ''
