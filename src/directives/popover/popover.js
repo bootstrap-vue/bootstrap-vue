@@ -53,7 +53,7 @@ function parseBindings (bindings) {
       config.placement = mod
     } else if (/^(window|viewport)$/.test(mod)) {
       // bounday of popover
-      config.boundariesElement = mod
+      config.boundary = mod
     } else if (/^d\d+$/.test(mod)) {
       // delay value
       const delay = parseInt(mod.slice(1), 10) || 0
