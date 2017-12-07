@@ -54,6 +54,12 @@ export default {
       type: String,
       default: null
     },
+    boundary: {
+      // String: scrollParent, window, or viewport
+      // Element: element reference
+      type: [String, Object],
+      default: 'scrollParent'
+    },
     show: {
       type: Boolean,
       default: false
@@ -154,6 +160,8 @@ export default {
         placement: PLACEMENTS[this.placement] || 'auto',
         // Container curently needs to be an ID with '#' prepended, if null then body is used
         container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,
+        // boundariesElement passed to popper
+        boundariesElement: this.boundary,
         // Show/Hide delay
         delay: delay || 0,
         // Offset can be css distance. if no units, pixels are assumed
