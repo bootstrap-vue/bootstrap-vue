@@ -171,6 +171,13 @@ the toggle button:
 <!-- dropdown-offset.vue -->
 ```
 
+### Boundary constraint
+By default, dropdowns are visually constrained to its scroll parent, which will suffice
+in most situations.  However, if you place a dropdown inside an element that has `overflow: scroll`
+(or similar) set, the drodpwon menu may - in some situations - get cut off.  To get around this,
+you can sepcify a boundary element via the `boundary` prop.  Supported values are `'scrollParent'`
+(the default), `'viewport'`, `'window'` or a reference to an HTML element. The boundary value
+is passed directly to Popper.js's `boundariesElement` configurtion option.
 
 ## Split button support
 Create a split dropdown button, where the left button provides standard
