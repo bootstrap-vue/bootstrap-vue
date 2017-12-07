@@ -26,19 +26,20 @@ export default {
   props,
   render (h, { props, data, slots, children }) {
     let childNodes = props.noBody ? children : []
+    const $slots = slots()
 
     if (!props.noBody) {
-      if (slots().aside && !props.rightAlign) {
+      if ($slots.aside && !props.rightAlign) {
         childNodes.push(
-          h(MediaAside, { staticClass: 'mr-3', props: { verticalAlign: props.verticalAlign } }, slots().aside)
+          h(MediaAside, { staticClass: 'mr-3', props: { verticalAlign: props.verticalAlign } }, $slots.aside)
         )
       }
 
-      childNodes.push(h(MediaBody, slots().default))
+      childNodes.push(h(MediaBody, $slots.default))
 
-      if (slots().aside && props.rightAlign) {
+      if ($slots.aside && props.rightAlign) {
         childNodes.push(
-          h(MediaAside, { staticClass: 'ml-3', props: { verticalAlign: props.verticalAlign } }, slots().aside)
+          h(MediaAside, { staticClass: 'ml-3', props: { verticalAlign: props.verticalAlign } }, $slots.aside)
         )
       }
     }
