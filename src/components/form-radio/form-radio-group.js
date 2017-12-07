@@ -32,6 +32,7 @@ export default {
           id: t.safeId(),
           role: 'radiogroup',
           tabindex: '-1',
+          // `data-toggle="buttons"` can be removed when BSV4.beta.3 is released
           'data-toggle': t.buttons ? 'buttons' : null, // Needed for styling only!
           'aria-required': t.required ? 'true' : null,
           'aria-invalid': t.computedAriaInvalid
@@ -92,6 +93,7 @@ export default {
     groupClasses () {
       if (this.buttons) {
         return [
+          'btn-group-toggle',
           this.stacked ? 'btn-group-vertical' : 'btn-group',
           this.size ? `btn-group-${this.size}` : '',
           this.validated ? `was-validated` : ''
