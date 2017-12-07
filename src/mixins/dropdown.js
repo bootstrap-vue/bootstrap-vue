@@ -195,7 +195,7 @@ export default {
         }
       }
       if (this.boundary) {
-        popperConfig.preventOverflow = {
+        popperConfig.modifiers.preventOverflow = {
           boundariesElement: this.boundary
         }
       }
