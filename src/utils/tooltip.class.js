@@ -86,7 +86,8 @@ const Defaults = {
   arrowPadding: 6,
   container: false,
   fallbackPlacement: 'flip',
-  callbacks: {}
+  callbacks: {},
+  boundariesElement: 'scrollParent'
 }
 
 // Transition Event names
@@ -880,7 +881,8 @@ class ToolTip {
       modifiers: {
         offset: { offset: this.getOffset(placement, tip) },
         flip: { behavior: this.$config.fallbackPlacement },
-        arrow: { element: '.arrow' }
+        arrow: { element: '.arrow' },
+        preventOverflow: { boundariesElement: this.$config.boundariesElement }
       },
       onCreate: data => {
         // Handle flipping arrow classes
