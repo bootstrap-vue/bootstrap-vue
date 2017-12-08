@@ -179,6 +179,12 @@ you can sepcify a boundary element via the `boundary` prop.  Supported values ar
 (the default), `'viewport'`, `'window'` or a reference to an HTML element. The boundary value
 is passed directly to Popper.js's `boundariesElement` configurtion option.
 
+**Note:** when `boundary` is any value other than the default of `'scrollParent'`, the style
+`position: fixed` is applied to to the dropdown's root element in order to allow the
+menu to "break-out" of its scroll container. This may affect layout if you are _floating_
+your dropdown to the left or right. In these cases you will need to place the dropdown _inside_
+a floated element instead of floating the dropdown directly.
+
 ## Split button support
 Create a split dropdown button, where the left button provides standard
 `click` event support, while the right hand side is the dropdown menu toggle button.
