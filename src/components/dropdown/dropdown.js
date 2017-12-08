@@ -71,7 +71,16 @@ export default {
       },
       [ this.$slots.default ]
     )
-    return h('div', { attrs: { id: t.safeId() }, class: t.dropdownClasses }, [split, toggle, menu])
+    return h(
+      'div',
+      {
+        attrs: { id: t.safeId() },
+        class: t.dropdownClasses,
+        // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
+        style: (t.boundary === 'scrollParent' || !t.boundary) ? {} : { position: 'static' }
+      },
+      [split, toggle, menu]
+    )
   },
   props: {
     split: {
