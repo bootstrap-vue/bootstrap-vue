@@ -180,10 +180,10 @@ you can sepcify a boundary element via the `boundary` prop.  Supported values ar
 is passed directly to Popper.js's `boundariesElement` configurtion option.
 
 **Note:** when `boundary` is any value other than the default of `'scrollParent'`, the style
-`position: static` is applied to to the dropdown's root element in order to allow the
-menu to "break-out" of its scroll container. This may affect layout if you are _floating_
-your dropdown to the left or right. In these cases you will need to place the dropdown _inside_
-a floated element instead of floating the dropdown directly.
+`position: static` is applied to to the dropdown component's root element in order to allow the
+menu to "break-out" of its scroll container. In some situations this may affect your layout or
+positioning of the dropdown trigger button. In these cases you may need to wrap your
+dropdown inside another element.
 
 ## Split button support
 Create a split dropdown button, where the left button provides standard
