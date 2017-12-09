@@ -65,20 +65,24 @@ Turn a `<b-list-group-item>` into an actionable link by specifying either an
 <!-- list-group-link.vue -->
 ```
 
-Or if you prefer `<buttons>` over links, set the `tag` prop to `'button'`.
+Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
 
 ```html
 <b-list-group>
-  <b-list-group-item tag="button">Button item</b-list-group-item>
-  <b-list-group-item tag="button">I am a button</b-list-group-item>
-  <b-list-group-item tag="button" disabled>Disabled button</b-list-group-item>
-  <b-list-group-item tag="button">This is a button too</b-list-group-item>
+  <b-list-group-item button>Button item</b-list-group-item>
+  <b-list-group-item button>I am a button</b-list-group-item>
+  <b-list-group-item button disabled>Disabled button</b-list-group-item>
+  <b-list-group-item button>This is a button too</b-list-group-item>
 </b-list-group>
 
 <!-- list-group-button.vue -->
 ```
 
-Note that if the `href` or `to` props are set, a `<button>` will **not** be rendered.
+**Notes:**
+- When the prop `button` is `true`, all [link replated props](/docs/components/link)
+(other than `ative`) and the `tag` prop will have no effect.
+- When rendered as a `<button>`, and the `active` prop is set to `true`, the button will lack
+any hover or focus styling due to an issue with Bootstrap V4.beta.2 CSS)
 
 ## Contextual variants
 Use contextual variants to style list items with a stateful background and color, via
