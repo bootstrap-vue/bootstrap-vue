@@ -63,6 +63,7 @@ function addBVSS (el, binding, vnode) {
   return el[BVSS]
 }
 
+/* istanbul ignore next */
 function removeBVSS (el) {
   if (el[BVSS]) {
     el[BVSS].dispose()
@@ -87,6 +88,7 @@ export default {
   componentUpdated (el, binding, vnode) {
     addBVSS(el, binding, vnode)
   },
+  /* istanbul ignore next */
   unbind (el) {
     if (isServer) {
       return
