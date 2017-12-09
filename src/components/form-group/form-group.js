@@ -306,7 +306,7 @@ export default {
         inputs[0].focus()
       }
     },
-    setInputDescribedBy (add, remove = '') {
+    setInputDescribedBy (add, remove) {
       // Sets the `aria-describedby` attribute on the input if label-for is set.
       // Optionally accepts a string of IDs to remove as the second parameter
       if (this.labelFor && typeof document !== 'undefined') {
@@ -314,7 +314,7 @@ export default {
         if (input) {
           const adb = 'aria-describedby'
           let ids = (getAttr(input, adb) || '').split(/\s+/)
-          remove = remove.split(/\s+/)
+          remove = (remove || '').split(/\s+/)
           // Update ID list, preserving any original IDs
           ids = ids.filter(id => remove.indexOf(id) === -1).concat(add || '').join(' ').trim()
           if (ids) {
