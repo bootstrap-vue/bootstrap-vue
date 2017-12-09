@@ -122,10 +122,12 @@ export default {
       this._toolpop.updateConfig(this.getConfig())
     }
   },
+  /* istanbul ignore next: not easy to test */
   activated () {
     // Called when component is inside a <keep-alive> and component brought offline
     this.setObservers(true)
   },
+  /* istanbul ignore next: not easy to test */
   deactivated () {
     // Called when component is inside a <keep-alive> and component taken offline
     if (this._toolpop) {
@@ -133,6 +135,7 @@ export default {
       this._toolpop.hide()
     }
   },
+  /* istanbul ignore next: not easy to test */
   beforeDestroy () {
     // Shutdown our local event listeners
     this.$off('open', this.onOpen)
@@ -285,6 +288,7 @@ export default {
         this.$el.appendChild(this.$refs.content)
       }
     },
+    /* istanbul ignore next: not easy to test */
     setObservers (on) {
       if (on) {
         if (this.$refs.title) {
