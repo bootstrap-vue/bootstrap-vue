@@ -82,12 +82,14 @@ export default {
     // Use new namespaced events
     this.listenOnRoot('bv::link::clicked', this.rootCloseListener)
   },
+  /* istanbul ignore next: not easy to test */
   deactivated () {
     // In case we are inside a `<keep-alive>`
     this.visible = false
     this.setTouchStart(false)
     this.removePopper()
   },
+  /* istanbul ignore next: not easy to test */
   beforeDestroy () {
     this.visible = false
     this.setTouchStart(false)
@@ -194,6 +196,11 @@ export default {
           }
         }
       }
+      if (this.boundary) {
+        popperConfig.modifiers.preventOverflow = {
+          boundariesElement: this.boundary
+        }
+      }
       return assign(popperConfig, this.popperOpts || {})
     },
     setTouchStart (on) {
@@ -214,6 +221,7 @@ export default {
         })
       }
     },
+    /* istanbul ignore next: not easy to test */
     _noop () {
       // Do nothing event handler (used in touchstart event handler)
     },
@@ -264,6 +272,7 @@ export default {
       }
       this.$emit('click', evt)
     },
+    /* istanbul ignore next: not easy to test */
     onKeydown (evt) {
       // Called from dropdown menu context
       const key = evt.keyCode
@@ -281,6 +290,7 @@ export default {
         this.focusNext(evt, true)
       }
     },
+    /* istanbul ignore next: not easy to test */
     onEsc (evt) {
       if (this.visible) {
         this.visible = false
@@ -290,6 +300,7 @@ export default {
         this.$nextTick(this.focusToggler)
       }
     },
+    /* istanbul ignore next: not easy to test */
     onTab (evt) {
       if (this.visible) {
         // TODO: Need special handler for dealing with form inputs
@@ -304,6 +315,7 @@ export default {
       }
       this.visible = false
     },
+    /* istanbul ignore next: not easy to test */
     onMouseOver (evt) {
       // Focus the item on hover
       // TODO: Special handling for inputs? Inputs are in a special .dropdown-form container

@@ -71,7 +71,11 @@ export default {
       },
       [ this.$slots.default ]
     )
-    return h('div', { attrs: { id: t.safeId() }, class: t.dropdownClasses }, [split, toggle, menu])
+    return h(
+      'div',
+      { attrs: { id: t.safeId() }, class: t.dropdownClasses, style: t.dropdownStyles },
+      [ split, toggle, menu ]
+    )
   },
   props: {
     split: {
@@ -97,6 +101,12 @@ export default {
     role: {
       type: String,
       default: 'menu'
+    },
+    boundary: {
+      // String: `scrollParent`, `window` or `viewport`
+      // Object: HTML Element reference
+      type: [String, Object],
+      default: 'scrollParent'
     }
   },
   computed: {
@@ -108,6 +118,16 @@ export default {
         this.dropup ? 'dropup' : '',
         this.visible ? 'show' : ''
       ]
+    },
+    dropdownStyles () {
+      // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
+      // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
+      if (this.boundary === 'scrollParent' || !this.boundary) {
+        return {}
+      }
+      // We enable this feature only when the user supplies a boundary other than `scrollParent`
+      // to preserve default functionality
+      return { position: 'static' }
     },
     menuClasses () {
       return [
