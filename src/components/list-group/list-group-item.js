@@ -31,6 +31,7 @@ export default {
 
     const componentData = {
       staticClass: 'list-group-item',
+      attrs: (tag === 'button' && props.disabled) ? { disabled: true } : {},
       class: {
         'list-group-flush': props.flush,
         [`list-group-item-${props.variant}`]: Boolean(props.variant),
