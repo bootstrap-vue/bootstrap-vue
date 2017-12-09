@@ -18,6 +18,7 @@ const validTriggers = {
 
 // Build a PopOver config based on bindings (if any)
 // Arguments and modifiers take precedence over pased value config object
+/* istanbul ignore next: not easy to test */
 function parseBindings (bindings) {
   // We start out with a blank config
   let config = {}
@@ -104,6 +105,7 @@ function parseBindings (bindings) {
 //
 // Add or Update popover on our element
 //
+/* istanbul ignore next: not easy to test */
 function applyBVPO (el, bindings, vnode) {
   if (!inBrowser) {
     return
@@ -138,6 +140,7 @@ function removeBVPO (el) {
 /*
  * Export our directive
  */
+/* istanbul ignore next: not easy to test */
 export default {
   bind (el, bindings, vnode) {
     applyBVPO(el, bindings, vnode)
@@ -155,7 +158,6 @@ export default {
       applyBVPO(el, bindings, vnode)
     }
   },
-  /* istanbul ignore next */
   unbind (el) {
     removeBVPO(el)
   }
