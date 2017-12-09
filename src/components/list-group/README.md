@@ -80,10 +80,10 @@ Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
 
 **Notes:**
 - When the prop `button` is `true`, all [link replated props](/docs/components/link)
-(other than `ative`) and the `tag` prop will have no effect.
+(other than `active`) and the `tag` prop will have no effect.
 - When rendered as a `<button>`, and the `active` prop is set to `true`, the button will lack
 any hover or focus styling due to an issue with Bootstrap V4.beta.2 CSS)
-- When `href` or `to` are set, the `tag` property has no effect.
+- When `href` or `to` are set, the `tag` prop has no effect.
 
 ## Contextual variants
 Use contextual variants to style list items with a stateful background and color, via
@@ -134,7 +134,7 @@ means, such as additional text hidden using the `.sr-only` class.
 
 ## With badges
 Add [badges](/docs/components/badge) to any list group item to show unread counts, activity, and
-more with the help of some [utilitie classes](http://getbootstrap.com/docs/4.0/utilities/flex/).
+more with the help of some [utility classes](http://getbootstrap.com/docs/4.0/utilities/flex/).
 
 ```html
 <b-list-group>
@@ -153,6 +153,46 @@ more with the help of some [utilitie classes](http://getbootstrap.com/docs/4.0/u
 </b-list-group>
 
 <!-- list-group-badges.vue -->
+```
+
+
+## List groups inside cards
+Incorporate list groups into [cards](/docs/components/cards). Use the `<b-list-group>`
+prop `flush` prop when using cards with `no-body` to make the sides of the list group
+flush with the card.
+
+```html
+<b-card-group deck>
+  <b-card header="<b>Card with list group</b>">
+    <b-list-group>
+      <b-list-group-item href="#">Cras justo odio</b-list-group-item>
+      <b-list-group-item href="#">Dapibus ac facilisis in</b-list-group-item>
+      <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
+    </b-list-group>
+    <p class="card-text mt-2">
+      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex
+      nulla tempor. Laborum consequat non elit enim exercitation cillum aliqua
+      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis laboris
+      ad sit ipsum anim Lorem.
+    </p>
+  </b-card>
+  <b-card no-body header="<b>Card with flush list group</b>">
+    <b-list-group flush>
+      <b-list-group-item href="#">Cras justo odio</b-list-group-item>
+      <b-list-group-item href="#">Dapibus ac facilisis in</b-list-group-item>
+      <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
+    </b-list-group>
+    <b-card-body>
+      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex
+      nulla tempor. Laborum consequat non elit enim exercitation cillum aliqua
+      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis laboris
+      ad sit ipsum anim Lorem.
+    </b-card-body>
+  </b-card>
+</b-card group>
+
+
+<!-- list-group-card.vue -->
 ```
 
 
