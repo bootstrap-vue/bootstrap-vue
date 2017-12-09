@@ -8,7 +8,7 @@ const inBrowser = typeof window !== 'undefined' && typeof document !== 'undefine
 // Key which we use to store tooltip object on element
 const BVPO = '__BV_PopOver__'
 
-// Vlid event triggers
+// Valid event triggers
 const validTriggers = {
   'focus': true,
   'hover': true,
@@ -123,6 +123,7 @@ function applyBVPO (el, bindings, vnode) {
 //
 // Remove popover on our element
 //
+/* istanbul ignore next */
 function removeBVPO (el) {
   if (!inBrowser) {
     return
@@ -154,6 +155,7 @@ export default {
       applyBVPO(el, bindings, vnode)
     }
   },
+  /* istanbul ignore next */
   unbind (el) {
     removeBVPO(el)
   }
