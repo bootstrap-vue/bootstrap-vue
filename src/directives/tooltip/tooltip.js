@@ -123,6 +123,7 @@ function applyBVTT (el, bindings, vnode) {
 //
 // Remove tooltip on our element
 //
+/* istanbul ignore next */
 function removeBVTT (el) {
   if (!inBrowser) {
     return
@@ -154,6 +155,7 @@ export default {
       applyBVTT(el, bindings, vnode)
     }
   },
+  /* istanbul ignore next */
   unbind (el) {
     removeBVTT(el)
   }
