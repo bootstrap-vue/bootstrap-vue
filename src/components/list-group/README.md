@@ -83,10 +83,11 @@ Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
 (other than `ative`) and the `tag` prop will have no effect.
 - When rendered as a `<button>`, and the `active` prop is set to `true`, the button will lack
 any hover or focus styling due to an issue with Bootstrap V4.beta.2 CSS)
+- When `href` or `to` are set, the `tag` property has no effect.
 
 ## Contextual variants
 Use contextual variants to style list items with a stateful background and color, via
-teh `variant` prop.
+the `variant` prop.
 
 ```html
 <b-list-group>
