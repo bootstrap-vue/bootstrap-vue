@@ -78,6 +78,7 @@ Or if you prefer `<buttons>` over links, set the `tag` prop to `'button'`.
 <!-- list-group-button.vue -->
 ```
 
+Note that if the `href` or `to` props are set, a `<button>` will **not** be rendered.
 
 ## Contextual variants
 Use contextual variants to style list items with a stateful background and color, via
