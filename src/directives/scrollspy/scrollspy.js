@@ -12,6 +12,7 @@ const isServer = !inBrowser
 const BVSS = '__BV_ScrollSpy__'
 
 // Generate config from bindings
+/* istanbul ignore next: not easy to test */
 function makeConfig (binding) {
   const config = {}
 
@@ -50,6 +51,7 @@ function makeConfig (binding) {
   return config
 }
 
+/* istanbul ignore next: not easy to test */
 function addBVSS (el, binding, vnode) {
   if (isServer) {
     return
@@ -63,6 +65,7 @@ function addBVSS (el, binding, vnode) {
   return el[BVSS]
 }
 
+/* istanbul ignore next: not easy to test */
 function removeBVSS (el) {
   if (el[BVSS]) {
     el[BVSS].dispose()
@@ -74,6 +77,7 @@ function removeBVSS (el) {
  * Export our directive
  */
 
+/* istanbul ignore next: not easy to test */
 export default {
   bind (el, binding, vnode) {
     addBVSS(el, binding, vnode)
