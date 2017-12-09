@@ -409,6 +409,7 @@ class ToolTip {
     }
 
     // Transitionend Callback
+    /* istanbul ignore next */
     const complete = () => {
       if (this.$hoverState !== HoverState.SHOW && tip.parentNode) {
         // Remove tip from dom, and force recompile on next show
@@ -494,6 +495,7 @@ class ToolTip {
     this.$popper = null
   }
 
+  /* istanbul ignore next */
   transitionOnce (tip, complete) {
     const transEvents = this.getTransitionEndEvents()
     let called = false
@@ -711,6 +713,7 @@ class ToolTip {
     }
   }
 
+  /* istanbul ignore next */
   setRouteWatcher (on) {
     if (on) {
       this.setRouteWatcher(false)
@@ -732,6 +735,7 @@ class ToolTip {
     }
   }
 
+  /* istanbul ignore next */
   setModalListener (on) {
     const modal = closest(MODAL_CLASS, this.$element)
     if (!modal) {
@@ -744,6 +748,7 @@ class ToolTip {
     }
   }
 
+  /* istanbul ignore next */
   setRootListener (on) {
     // Listen for global 'bv::{hide|show}::{tooltip|popover}' hide request event
     if (this.$root) {
@@ -798,6 +803,7 @@ class ToolTip {
     }
   }
 
+  /* istanbul ignore next */
   setOnTouchStartListener (on) {
     // if this is a touch-enabled device we add extra
     // empty mouseover listeners to the body's immediate children;
@@ -814,6 +820,7 @@ class ToolTip {
     }
   }
 
+  /* istanbul ignore next */
   _noop () {
     // Empty noop handler for ontouchstart devices
   }
@@ -828,6 +835,7 @@ class ToolTip {
   }
 
   // Enter handler
+  /* istanbul ignore next */
   enter (e) {
     if (e) {
       this.$activeTrigger[e.type === 'focusin' ? 'focus' : 'hover'] = true
@@ -850,6 +858,7 @@ class ToolTip {
   }
 
   // Leave handler
+  /* istanbul ignore next */
   leave (e) {
     if (e) {
       this.$activeTrigger[e.type === 'focusout' ? 'focus' : 'hover'] = false
