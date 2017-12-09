@@ -54,6 +54,12 @@ export default {
       type: String,
       default: null
     },
+    boundary: {
+      // String: scrollParent, window, or viewport
+      // Element: element reference
+      type: [String, Object],
+      default: 'scrollParent'
+    },
     show: {
       type: Boolean,
       default: false
@@ -116,10 +122,12 @@ export default {
       this._toolpop.updateConfig(this.getConfig())
     }
   },
+  /* istanbul ignore next: not easy to test */
   activated () {
     // Called when component is inside a <keep-alive> and component brought offline
     this.setObservers(true)
   },
+  /* istanbul ignore next: not easy to test */
   deactivated () {
     // Called when component is inside a <keep-alive> and component taken offline
     if (this._toolpop) {
@@ -127,6 +135,7 @@ export default {
       this._toolpop.hide()
     }
   },
+  /* istanbul ignore next: not easy to test */
   beforeDestroy () {
     // Shutdown our local event listeners
     this.$off('open', this.onOpen)
@@ -154,6 +163,8 @@ export default {
         placement: PLACEMENTS[this.placement] || 'auto',
         // Container curently needs to be an ID with '#' prepended, if null then body is used
         container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,
+        // boundariesElement passed to popper
+        boundary: this.boundary,
         // Show/Hide delay
         delay: delay || 0,
         // Offset can be css distance. if no units, pixels are assumed
@@ -277,6 +288,7 @@ export default {
         this.$el.appendChild(this.$refs.content)
       }
     },
+    /* istanbul ignore next: not easy to test */
     setObservers (on) {
       if (on) {
         if (this.$refs.title) {

@@ -237,6 +237,7 @@ export default {
 | `delay` | `0` | Delay showing and hiding of popover by specified number of milliseconds. Can also be defined as an object in the form of `{ show: 100, hide: 400 }` allowing different show and hide delays | `0` and up, integers only.
 | `offset` | `0` | Shift the center of the popover by specified number of pixels. Also affects the position of the popover arrow. | Any negative or positive integer
 | `container` | `null` | Element string ID to append rendered popover into. If `null` or element not found, popover is appended to `<body>` (default) | Any valid in-document unique  element ID.
+| `boundary` | `'scrollParent'` | The container that the popover will be constrained visually. The default should suffice in most cases, but you may need to chagne this if your target element is in a small container with overflow scroll | `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.
 
 
 ### Programmatically show and hide popover

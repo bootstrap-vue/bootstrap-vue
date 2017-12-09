@@ -247,6 +247,7 @@ Where [modX] can be (all optional):
  - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text
  - A delay value in the format of `d###` (where `###` is in ms, defaults to 0);
  - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults to 0. Negative values allowed)
+ - A boundary setting of `window` or `viewport`.  The element to constrain the visual placement of the tooltip. If not specified, the boundary defaults to the trigger element's scroll parent (in most cases this will suffice).
 
 Where `<value>` can be (optional):
  - A string containing the title of the tooltip
@@ -268,6 +269,7 @@ Where `<value>` can be (optional):
 | `trigger` | String | `'hover focus'` | How tooltip is triggered: `click`, `hover`, `focus`. You may pass multiple triggers; separate them with a space.
 | `offset` | Number or String | `0` | Offset of the tooltip relative to its target. For more information refer to Popper.js's offset docs.
 | `fallbackPlacement` | String or Array | `'flip'` | Allow to specify which position Popper will use on fallback. For more information refer to Popper.js's behavior docs
+| `boundary` | String or HTMLElement reference |`'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to chagne this if your target element is in a small container with overflow scroll. Supported values: `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.
 
 
 ### Usage
