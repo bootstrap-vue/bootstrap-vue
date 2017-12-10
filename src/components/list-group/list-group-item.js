@@ -8,7 +8,7 @@ let linkProps = linkPropsFactory()
 delete linkProps.href.default
 delete linkProps.to.default
 
-export const props = assign(linkProps, {
+export const props = assign({
   tag: {
     type: String,
     default: 'div'
@@ -17,30 +17,34 @@ export const props = assign(linkProps, {
     type: Boolean,
     default: null
   },
+  button: {
+    type: Boolean,
+    default: null
+  },
   variant: {
     type: String,
     default: null
   }
-})
+}, linkProps)
 
 export default {
   functional: true,
   props,
   render (h, { props, data, children }) {
-    const tag = !props.href && !props.to ? props.tag : Link
-
+    const tag = props.button ? 'button' : ((!props.href && !props.to) ? props.tag : Link)
+    const isAction = Boolean(
+      props.href || props.to || props.action || props.button || arrayIncludes(actionTags, props.tag)
+    )
     const componentData = {
       staticClass: 'list-group-item',
       class: {
-        'list-group-flush': props.flush,
         [`list-group-item-${props.variant}`]: Boolean(props.variant),
+        'list-group-item-action': isAction,
         active: props.active,
-        disabled: props.disabled,
-        'list-group-item-action': Boolean(
-          props.href || props.to || props.action || arrayIncludes(actionTags, props.tag)
-        )
+        disabled: props.disabled
       },
-      props: pluckProps(linkProps, props)
+      attrs: (tag === 'button' && props.disabled) ? { disabled: true } : {},
+      props: props.button ? {} : pluckProps(linkProps, props)
     }
 
     return h(tag, mergeData(data, componentData), children)
