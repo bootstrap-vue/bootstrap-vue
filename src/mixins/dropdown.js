@@ -266,7 +266,7 @@ export default {
       this.visible = !this.visible
     },
     click (evt) {
-      // Calle only in split button mode, for the split button
+      // Called only in split button mode, for the split button
       if (this.disabled) {
         this.visible = false
         return
