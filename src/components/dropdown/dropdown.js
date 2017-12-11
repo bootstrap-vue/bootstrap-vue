@@ -118,6 +118,7 @@ export default {
         this.dropup ? 'dropup' : '',
         this.visible ? 'show' : '',
         // Position static is needed to allow menu to "escape" from scroll boundaries
+        // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
         (this.boundary === 'scrollParent' || !this.boundary) ? '' : 'position-static'
       ]
     },
