@@ -28,7 +28,7 @@ const TransitionEndEvents = {
 // Return the browser specific transitionend event name
 function getTransisionEndEvent (el) {
   for (const name in TransitionEndEvents) {
-    /* istanbul ignore if: dificult to test */
+    /* istanbul ignore next: dificult to test */
     if (el.style[name] !== undefined) {
       return TransitionEndEvents[name]
     }
@@ -73,7 +73,7 @@ export default {
               },
               keydown: (evt) => {
                 const keyCode = evt.keyCode
-                /* istanbul ignore if: dificult to test */
+                /* istanbul ignore next: dificult to test */
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
@@ -100,7 +100,7 @@ export default {
               },
               keydown: (evt) => {
                 const keyCode = evt.keyCode
-                /* istanbul ignore if: dificult to test */
+                /* istanbul ignore next: dificult to test */
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
@@ -153,7 +153,7 @@ export default {
               },
               keydown: (evt) => {
                 const keyCode = evt.keyCode
-                /* istanbul ignore if: dificult to test */
+                /* istanbul ignore next: dificult to test */
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
@@ -184,7 +184,7 @@ export default {
           focusout: t.restart,
           keydown: (evt) => {
             const keyCode = evt.keyCode
-            /* istanbul ignore if: dificult to test */
+            /* istanbul ignore next: dificult to test */
             if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
               evt.preventDefault()
               evt.stopPropagation()
