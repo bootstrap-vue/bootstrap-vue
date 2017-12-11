@@ -162,10 +162,12 @@ export default {
       this.$emit('hidden')
       this.removePopper()
     },
+    /* istanbul ignore next: can't test due to JSDOM issues */
     createPopper (element) {
       this.removePopper()
       this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
+    /* istanbul ignore next: can't test due to JSDOM issues */
     removePopper () {
       if (this._popper) {
         // Ensure popper event listeners are removed cleanly
@@ -173,6 +175,7 @@ export default {
       }
       this._popper = null
     },
+    /* istanbul ignore next: can't test due to JSDOM issues */
     getPopperConfig () {
       let placement = AttachmentMap.BOTTOM
       if (this.dropup && this.right) {
