@@ -59,14 +59,14 @@ describe('dropdown', async () => {
     expect(toggle).toHaveClass('dropdown-toggle')
   })
 
-  it('dd_9 should have class position-static', async () => {
+  it('boundary set to viewport should have class position-static', async () => {
     const {app: {$refs}} = window
     const {dd_9} = $refs
 
     expect(dd_9).toHaveClass('position-static')
   })
 
-  it('dd_1 should not have class position-static', async () => {
+  it('boundary not set should not have class position-static', async () => {
     const {app: {$refs}} = window
     const {dd_1} = $refs
 
