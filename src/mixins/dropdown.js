@@ -7,15 +7,18 @@ import { KeyCodes, warn } from '../utils'
 import { isVisible, closest, selectAll, getAttr, eventOn, eventOff } from '../utils/dom'
 
 // Return an Array of visible items
+/* istanbul ignore next: can't test due to JSDOM issue with Popper */
 function filterVisible (els) {
   return (els || []).filter(isVisible)
 }
 
 // Dropdown item CSS selectors
 // TODO: .dropdown-form handling
+/* istanbul ignore next: can't test due to JSDOM issue with Popper */
 const ITEM_SELECTOR = '.dropdown-item:not(.disabled):not([disabled])'
 
 // Popper attachment positions
+/* istanbul ignore next: can't test due to JSDOM issue with Popper */
 const AttachmentMap = {
   // DropUp Left Align
   TOP: 'top-start',
@@ -27,6 +30,7 @@ const AttachmentMap = {
   BOTTOMEND: 'bottom-end'
 }
 
+/* istanbul ignore next: can't test due to JSDOM issue with Popper */
 export default {
   mixins: [clickoutMixin, listenOnRootMixin],
   props: {
@@ -82,14 +86,14 @@ export default {
     // Use new namespaced events
     this.listenOnRoot('bv::link::clicked', this.rootCloseListener)
   },
-  /* istanbul ignore next: not easy to test */
+  /* istanbul ignore next: difficult to test */
   deactivated () {
     // In case we are inside a `<keep-alive>`
     this.visible = false
     this.setTouchStart(false)
     this.removePopper()
   },
-  /* istanbul ignore next: not easy to test */
+  /* istanbul ignore next: difficult to test */
   beforeDestroy () {
     this.visible = false
     this.setTouchStart(false)
@@ -221,7 +225,6 @@ export default {
         })
       }
     },
-    /* istanbul ignore next: not easy to test */
     _noop () {
       // Do nothing event handler (used in touchstart event handler)
     },
@@ -235,17 +238,15 @@ export default {
     },
     show () {
       // Public method to show dropdown
-      if (this.disabled) {
-        return
+      if (!this.disabled) {
+        this.visible = true
       }
-      this.visible = true
     },
     hide () {
       // Public method to hide dropdown
-      if (this.disabled) {
-        return
+      if (!this.disabled) {
+        this.visible = false
       }
-      this.visible = false
     },
     toggle (evt) {
       // Called only by a button that toggles the menu
@@ -265,14 +266,13 @@ export default {
       this.visible = !this.visible
     },
     click (evt) {
-      // Calle only in split button mode, for the split button
+      // Called only in split button mode, for the split button
       if (this.disabled) {
         this.visible = false
         return
       }
       this.$emit('click', evt)
     },
-    /* istanbul ignore next: not easy to test */
     onKeydown (evt) {
       // Called from dropdown menu context
       const key = evt.keyCode
@@ -290,7 +290,6 @@ export default {
         this.focusNext(evt, true)
       }
     },
-    /* istanbul ignore next: not easy to test */
     onEsc (evt) {
       if (this.visible) {
         this.visible = false
@@ -300,7 +299,6 @@ export default {
         this.$nextTick(this.focusToggler)
       }
     },
-    /* istanbul ignore next: not easy to test */
     onTab (evt) {
       if (this.visible) {
         // TODO: Need special handler for dealing with form inputs
@@ -310,12 +308,10 @@ export default {
       }
     },
     onFocusOut (evt) {
-      if (this.$refs.menu.contains(evt.relatedTarget)) {
-        return
+      if (!this.$refs.menu.contains(evt.relatedTarget)) {
+        this.visible = false
       }
-      this.visible = false
     },
-    /* istanbul ignore next: not easy to test */
     onMouseOver (evt) {
       // Focus the item on hover
       // TODO: Special handling for inputs? Inputs are in a special .dropdown-form container
