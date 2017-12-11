@@ -203,6 +203,7 @@ export default {
       }
       return assign(popperConfig, this.popperOpts || {})
     },
+    /* istanbul ignore next: not easy to test */
     setTouchStart (on) {
       /*
        * If this is a touch-enabled device we add extra
@@ -309,6 +310,7 @@ export default {
         this.visible = false
       }
     },
+    /* istanbul ignore next: not easy to test */
     onFocusOut (evt) {
       if (this.$refs.menu.contains(evt.relatedTarget)) {
         return
@@ -329,6 +331,7 @@ export default {
         item.focus()
       }
     },
+    /* istanbul ignore next: not easy to test */
     focusNext (evt, up) {
       if (!this.visible) {
         return
@@ -352,6 +355,7 @@ export default {
         this.focusItem(index, items)
       })
     },
+    /* istanbul ignore next: not easy to test */
     focusItem (idx, items) {
       let el = items.find((el, i) => i === idx)
       if (el && getAttr(el, 'tabindex') !== '-1') {
@@ -367,12 +371,14 @@ export default {
       let item = this.getItems()[0]
       return item || null
     },
+    /* istanbul ignore next: not easy to test */
     focusFirstItem () {
       const item = this.getFirstItem()
       if (item) {
         this.focusItem(0, [item])
       }
     },
+    /* istanbul ignore next: not easy to test */
     focusToggler () {
       let toggler = this.toggler
       if (toggler && toggler.focus) {
