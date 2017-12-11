@@ -449,6 +449,7 @@ export default {
     // Get all slides
     this.updateSlides()
     // Observe child changes so we can update slide list
+    /* instanbul ignore next: dificult to test */
     observeDom(this.$refs.inner, this.updateSlides.bind(this), {
       subtree: false,
       childList: true,
