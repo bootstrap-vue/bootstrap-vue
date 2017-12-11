@@ -28,6 +28,7 @@ const TransitionEndEvents = {
 // Return the browser specific transitionend event name
 function getTransisionEndEvent (el) {
   for (const name in TransitionEndEvents) {
+    /* istanbul ignore if: dificult to test */
     if (el.style[name] !== undefined) {
       return TransitionEndEvents[name]
     }
@@ -72,6 +73,7 @@ export default {
               },
               keydown: (evt) => {
                 const keyCode = evt.keyCode
+                /* istanbul ignore if: dificult to test */
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
@@ -98,6 +100,7 @@ export default {
               },
               keydown: (evt) => {
                 const keyCode = evt.keyCode
+                /* istanbul ignore if: dificult to test */
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
@@ -150,6 +153,7 @@ export default {
               },
               keydown: (evt) => {
                 const keyCode = evt.keyCode
+                /* istanbul ignore if: dificult to test */
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
@@ -180,6 +184,7 @@ export default {
           focusout: t.restart,
           keydown: (evt) => {
             const keyCode = evt.keyCode
+            /* istanbul ignore if: dificult to test */
             if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
               evt.preventDefault()
               evt.stopPropagation()
@@ -342,6 +347,7 @@ export default {
         this.setSlide(newVal)
       }
     },
+    /* istanbul ignore next: dificult to test */
     interval (newVal, oldVal) {
       if (newVal === oldVal) {
         return
@@ -355,6 +361,7 @@ export default {
         this.start()
       }
     },
+    /* istanbul ignore next: dificult to test */
     index (val, oldVal) {
       if (val === oldVal || this.isSliding) {
         return
@@ -386,7 +393,6 @@ export default {
       addClass(nextSlide, direction.dirClass)
       // Transition End handler
       let called = false
-      /* istanbul ignore next: dificult to test */
       const onceTransEnd = (evt) => {
         if (called) {
           return
