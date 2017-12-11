@@ -28,6 +28,7 @@ const TransitionEndEvents = {
 // Return the browser specific transitionend event name
 function getTransisionEndEvent (el) {
   for (const name in TransitionEndEvents) {
+    /* istanbul ignore next: dificult to test */
     if (el.style[name] !== undefined) {
       return TransitionEndEvents[name]
     }
@@ -65,12 +66,12 @@ export default {
             class: [ 'carousel-control-prev' ],
             attrs: { href: '#', role: 'button', 'aria-controls': t.safeId('__BV_inner_') },
             on: {
-              click: (evt) => {
+              click (evt) {
                 evt.preventDefault()
                 evt.stopPropagation()
                 t.prev()
               },
-              keydown: (evt) => {
+              keydown /* istanbul ignore next: dificult to test */ (evt) {
                 const keyCode = evt.keyCode
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
@@ -91,12 +92,12 @@ export default {
             class: [ 'carousel-control-next' ],
             attrs: { href: '#', role: 'button', 'aria-controls': t.safeId('__BV_inner_') },
             on: {
-              click: (evt) => {
+              click (evt) {
                 evt.preventDefault()
                 evt.stopPropagation()
                 t.next()
               },
-              keydown: (evt) => {
+              keydown /* istanbul ignore next: dificult to test */ (evt) {
                 const keyCode = evt.keyCode
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
@@ -145,10 +146,10 @@ export default {
               'aria-controls': t.safeId('__BV_inner_')
             },
             on: {
-              click: (evt) => {
+              click (evt) {
                 t.setSlide(n)
               },
-              keydown: (evt) => {
+              keydown /* istanbul ignore next: dificult to test */ (evt) {
                 const keyCode = evt.keyCode
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
@@ -178,7 +179,7 @@ export default {
           mouseleave: t.restart,
           focusin: t.pause,
           focusout: t.restart,
-          keydown: (evt) => {
+          keydown /* istanbul ignore next: dificult to test */ (evt) {
             const keyCode = evt.keyCode
             if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
               evt.preventDefault()
@@ -342,7 +343,7 @@ export default {
         this.setSlide(newVal)
       }
     },
-    interval (newVal, oldVal) {
+    interval /* istanbul ignore next: dificult to test */ (newVal, oldVal) {
       if (newVal === oldVal) {
         return
       }
@@ -355,7 +356,7 @@ export default {
         this.start()
       }
     },
-    index (val, oldVal) {
+    index /* istanbul ignore next: dificult to test transitions */ (val, oldVal) {
       if (val === oldVal || this.isSliding) {
         return
       }
@@ -386,7 +387,6 @@ export default {
       addClass(nextSlide, direction.dirClass)
       // Transition End handler
       let called = false
-      /* istanbul ignore next: dificult to test */
       const onceTransEnd = (evt) => {
         if (called) {
           return
@@ -443,6 +443,7 @@ export default {
     // Get all slides
     this.updateSlides()
     // Observe child changes so we can update slide list
+    /* instanbul ignore next: dificult to test */
     observeDom(this.$refs.inner, this.updateSlides.bind(this), {
       subtree: false,
       childList: true,
@@ -450,8 +451,7 @@ export default {
       attributeFilter: [ 'id' ]
     })
   },
-  /* istanbul ignore next: dificult to test */
-  beforeDestroy () {
+  beforeDestroy /* istanbul ignore next: dificult to test */ () {
     clearInterval(this.intervalId)
     clearTimeout(this._animationTimeout)
     this.intervalId = null
