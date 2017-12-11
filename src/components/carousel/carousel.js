@@ -321,7 +321,6 @@ export default {
       const index = Math.max(0, Math.min(Math.floor(this.index), numSlides - 1))
       this.slides.forEach((slide, idx) => {
         const n = idx + 1
-        const id = this.safeId(`__BV_indicator_${n}_`)
         if (idx === index) {
           addClass(slide, 'active')
         } else {
@@ -331,9 +330,6 @@ export default {
         setAttr(slide, 'aria-posinset', String(n))
         setAttr(slide, 'aria-setsize', String(numSlides))
         slide.tabIndex = -1
-        if (id) {
-          setAttr(slide, 'aria-controlledby', id)
-        }
       })
       // Set slide as active
       this.setSlide(index)
