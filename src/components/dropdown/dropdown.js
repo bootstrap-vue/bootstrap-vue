@@ -73,7 +73,7 @@ export default {
     )
     return h(
       'div',
-      { attrs: { id: t.safeId() }, class: t.dropdownClasses, style: t.dropdownStyles },
+      { attrs: { id: t.safeId() }, class: t.dropdownClasses },
       [ split, toggle, menu ]
     )
   },
@@ -116,18 +116,10 @@ export default {
         'b-dropdown',
         'dropdown',
         this.dropup ? 'dropup' : '',
-        this.visible ? 'show' : ''
+        this.visible ? 'show' : '',
+        // Position static is needed to allow menu to "escape" from scroll boundaries
+        (this.boundary === 'scrollParent' || !this.boundary) ? '' : 'position-static'
       ]
-    },
-    dropdownStyles () {
-      // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
-      // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
-      if (this.boundary === 'scrollParent' || !this.boundary) {
-        return {}
-      }
-      // We enable this feature only when the user supplies a boundary other than `scrollParent`
-      // to preserve default functionality
-      return { position: 'static' }
     },
     menuClasses () {
       return [
