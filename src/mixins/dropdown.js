@@ -14,9 +14,11 @@ function filterVisible (els) {
 
 // Dropdown item CSS selectors
 // TODO: .dropdown-form handling
+/* istanbul ignore next: can't test due to JSDOM issue with Popper */
 const ITEM_SELECTOR = '.dropdown-item:not(.disabled):not([disabled])'
 
 // Popper attachment positions
+/* istanbul ignore next: can't test due to JSDOM issue with Popper */
 const AttachmentMap = {
   // DropUp Left Align
   TOP: 'top-start',
