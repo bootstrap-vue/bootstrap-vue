@@ -386,6 +386,7 @@ export default {
       addClass(nextSlide, direction.dirClass)
       // Transition End handler
       let called = false
+      /* istanbul ignore next: dificult to test */
       const onceTransEnd = (evt) => {
         if (called) {
           return
@@ -449,6 +450,7 @@ export default {
       attributeFilter: [ 'id' ]
     })
   },
+  /* istanbul ignore next: dificult to test */
   beforeDestroy () {
     clearInterval(this.intervalId)
     clearTimeout(this._animationTimeout)
