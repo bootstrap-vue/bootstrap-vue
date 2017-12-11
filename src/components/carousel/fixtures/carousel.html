@@ -4,6 +4,8 @@
                 controls
                 indicators
                 :interval="3500"
+                img-width="1024"
+                img-height="480"
                 v-model="slide"
                 @slide="onSlide"
                 @slid="onSlid"
@@ -16,7 +18,7 @@
         </b-carousel-slide>
 
         <!-- Slides with custom text -->
-        <b-carousel-slide :img="blankImg(1024,480)">
+        <b-carousel-slide img-blank img-blank-color="#8888ff" img-alt="Blank image">
             <h1>Hello world!</h1>
         </b-carousel-slide>
 
