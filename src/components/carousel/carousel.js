@@ -71,9 +71,8 @@ export default {
                 evt.stopPropagation()
                 t.prev()
               },
-              keydown: (evt) => {
+              keydown: /* istanbul ignore next: dificult to test */ (evt) => {
                 const keyCode = evt.keyCode
-                /* istanbul ignore next: dificult to test */
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
@@ -98,9 +97,8 @@ export default {
                 evt.stopPropagation()
                 t.next()
               },
-              keydown: (evt) => {
+              keydown: /* istanbul ignore next: dificult to test */ (evt) => {
                 const keyCode = evt.keyCode
-                /* istanbul ignore next: dificult to test */
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
@@ -151,9 +149,8 @@ export default {
               click: (evt) => {
                 t.setSlide(n)
               },
-              keydown: (evt) => {
+              keydown: /* istanbul ignore next: dificult to test */ (evt) => {
                 const keyCode = evt.keyCode
-                /* istanbul ignore next: dificult to test */
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
@@ -182,9 +179,8 @@ export default {
           mouseleave: t.restart,
           focusin: t.pause,
           focusout: t.restart,
-          keydown: (evt) => {
+          keydown: /* istanbul ignore next: dificult to test */ (evt) => {
             const keyCode = evt.keyCode
-            /* istanbul ignore next: dificult to test */
             if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
               evt.preventDefault()
               evt.stopPropagation()
@@ -347,8 +343,7 @@ export default {
         this.setSlide(newVal)
       }
     },
-    /* istanbul ignore next: dificult to test */
-    interval (newVal, oldVal) {
+    interval /* istanbul ignore next: dificult to test */ (newVal, oldVal) {
       if (newVal === oldVal) {
         return
       }
@@ -361,8 +356,7 @@ export default {
         this.start()
       }
     },
-    /* istanbul ignore next: dificult to test */
-    index (val, oldVal) {
+    index /* istanbul ignore next: dificult to test transitions */ (val, oldVal) {
       if (val === oldVal || this.isSliding) {
         return
       }
@@ -457,8 +451,7 @@ export default {
       attributeFilter: [ 'id' ]
     })
   },
-  /* istanbul ignore next: dificult to test */
-  beforeDestroy () {
+  beforeDestroy /* istanbul ignore next: dificult to test */ () {
     clearInterval(this.intervalId)
     clearTimeout(this._animationTimeout)
     this.intervalId = null
