@@ -52,6 +52,7 @@ export default {
     imgSrc: {
       type: String,
       default () {
+        /* istanbul ignore if */
         if (this && this.src) {
           // Deprecate src
           warn("b-carousel-slide: prop 'src' has been deprecated. Use 'img-src' instead")
