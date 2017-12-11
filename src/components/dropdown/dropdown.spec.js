@@ -60,18 +60,16 @@ describe('dropdown', async () => {
   })
 
   it('dd_9 should have class position-static', async () => {
-    const { app: { $refs } } = window
-    const { dd_9 } = $refs
+    const {app: {$refs}} = window
+    const {dd_9} = $refs
 
-    expect(dd_9._isVue).toBe(true)
     expect(dd_9).toHaveClass('position-static')
   })
 
   it('dd_1 should not have class position-static', async () => {
-    const { app: { $refs } } = window
-    const { dd_1 } = $refs
+    const {app: {$refs}} = window
+    const {dd_1} = $refs
 
-    expect(dd_1._isVue).toBe(true)
     expect(dd_1).not.toHaveClass('position-static')
   })
 
