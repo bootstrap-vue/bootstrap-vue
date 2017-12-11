@@ -4,6 +4,11 @@ window.app = new Vue({
     slide: 0,
     sliding: null
   },
+  mounted () {
+    this.$nextTick(() => {
+      this.slide = 2
+    })
+  },
   methods: {
     blankImg (x, y) {
       // Return a blank SVG image with specified width and height
