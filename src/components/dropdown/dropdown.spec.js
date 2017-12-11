@@ -63,6 +63,7 @@ describe('dropdown', async () => {
     const { app: { $refs } } = window
     const { dd_9 } = $refs
 
+    expect(dd_9._isVue).toBe(true)
     expect(dd_9).toHaveClass('position-static')
   })
 
@@ -70,6 +71,7 @@ describe('dropdown', async () => {
     const { app: { $refs } } = window
     const { dd_1 } = $refs
 
+    expect(dd_1._isVue).toBe(true)
     expect(dd_1).not.toHaveClass('position-static')
   })
 
