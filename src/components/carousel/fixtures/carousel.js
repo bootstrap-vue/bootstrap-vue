@@ -7,7 +7,7 @@ window.app = new Vue({
   mounted () {
     this.$nextTick(() => {
       this.slide = 2
-    }
+    })
   },
   methods: {
     blankImg (x, y) {
