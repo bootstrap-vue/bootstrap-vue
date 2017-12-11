@@ -66,12 +66,12 @@ export default {
             class: [ 'carousel-control-prev' ],
             attrs: { href: '#', role: 'button', 'aria-controls': t.safeId('__BV_inner_') },
             on: {
-              click: (evt) => {
+              click (evt) {
                 evt.preventDefault()
                 evt.stopPropagation()
                 t.prev()
               },
-              keydown: /* istanbul ignore next: dificult to test */ (evt) => {
+              keydown /* istanbul ignore next: dificult to test */ (evt) {
                 const keyCode = evt.keyCode
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
@@ -92,12 +92,12 @@ export default {
             class: [ 'carousel-control-next' ],
             attrs: { href: '#', role: 'button', 'aria-controls': t.safeId('__BV_inner_') },
             on: {
-              click: (evt) => {
+              click (evt) {
                 evt.preventDefault()
                 evt.stopPropagation()
                 t.next()
               },
-              keydown: /* istanbul ignore next: dificult to test */ (evt) => {
+              keydown /* istanbul ignore next: dificult to test */ (evt) {
                 const keyCode = evt.keyCode
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
@@ -146,10 +146,10 @@ export default {
               'aria-controls': t.safeId('__BV_inner_')
             },
             on: {
-              click: (evt) => {
+              click (evt) {
                 t.setSlide(n)
               },
-              keydown: /* istanbul ignore next: dificult to test */ (evt) => {
+              keydown /* istanbul ignore next: dificult to test */ (evt) {
                 const keyCode = evt.keyCode
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
@@ -179,7 +179,7 @@ export default {
           mouseleave: t.restart,
           focusin: t.pause,
           focusout: t.restart,
-          keydown: /* istanbul ignore next: dificult to test */ (evt) => {
+          keydown /* istanbul ignore next: dificult to test */ (evt) {
             const keyCode = evt.keyCode
             if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
               evt.preventDefault()
