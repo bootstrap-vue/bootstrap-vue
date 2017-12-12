@@ -131,11 +131,9 @@ describe('button', async () => {
     const vm = app.$refs.btn_pressed
 
     vm.focus()
-    await nextTick()
     expect(vm).toHaveClass('focus')
 
     vm.blur()
-    await nextTick()
     expect(vm).not.toHaveClass('focus')
   })
 
