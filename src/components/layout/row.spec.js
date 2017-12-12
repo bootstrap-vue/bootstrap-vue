@@ -20,6 +20,24 @@ describe('form-row', async () => {
     expect($refs.noGutters).toHaveClass('no-gutters')
   })
 
+  it('alignV should contain classes', async () => {
+    const { app: { $refs } } = window
+    expect($refs.alignV).toHaveClass('row')
+    expect($refs.alignV).toHaveClass('align-items-center')
+  })
+
+  it('alignH should contain classes', async () => {
+    const { app: { $refs } } = window
+    expect($refs.alignH).toHaveClass('row')
+    expect($refs.alignH).toHaveClass('justify-content-center')
+  })
+
+  it('alignContent should contain classes', async () => {
+    const { app: { $refs } } = window
+    expect($refs.alignContent).toHaveClass('row')
+    expect($refs.alignContent).toHaveClass('align-content-center')
+  })
+
   it('default should have content', async () => {
     const { app: { $refs } } = window
     expect($refs.default.textContent).toContain('default')
