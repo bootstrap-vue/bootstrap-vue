@@ -4,10 +4,10 @@
         <article v-if="components.length > 0">
             <h3>Importing Individual Components</h3>
             <b-table :items="componentImports" small head-variant="default" striped>
-                <template slot="component" scope="field">
+                <template slot="component" slot-scope="field">
                     <code>{{field.value}}</code>
                 </template>
-                <template slot="import_path" scope="field">
+                <template slot="import_path" slot-scope="field">
                     <code>{{field.value}}</code>
                 </template>
             </b-table>
@@ -22,10 +22,10 @@
         <article v-if="directives.length > 0">
             <h3>Importing Individual Directives</h3>
             <b-table :items="directiveImports" small head-variant="default" striped>
-                <template slot="directive" scope="field">
+                <template slot="directive" slot-scope="field">
                     <code>{{field.value}}</code>
                 </template>
-                <template slot="import_path" scope="field">
+                <template slot="import_path" slot-scope="field">
                     <code>{{field.value}}</code>
                 </template>
             </b-table>
