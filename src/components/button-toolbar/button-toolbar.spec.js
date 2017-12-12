@@ -13,6 +13,6 @@ describe('button-toolbar', async () => {
   it('toolbar should have role', async () => {
     const { app: { $refs } } = window
 
-    expect($refs.toolbar.getAttribute('role')).toBe('toolbar')
+    expect($refs.toolbar.$el.getAttribute('role')).toBe('toolbar')
   })
 })
