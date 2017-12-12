@@ -1,5 +1,4 @@
-// import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
-import { loadFixture, testVM, setData } from '../../../tests/utils'
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
 
 describe('alert', async () => {
   jest.useFakeTimers()
@@ -39,18 +38,18 @@ describe('alert', async () => {
     expect(closeBtn.tagName).toBe('BUTTON')
   })
 
-  /*
-   * for some reason this test times-out with the latest jest version
   it('dismiss button click should close alert', async () => {
     const { app } = window
     const alert = app.$refs.success_alert
-    const closeBtn = alert.$el.querySelector('.close')
+    // const closeBtn = alert.$el.querySelector('.close')
     // This line causes Jest to puke for some reason????
-    closeBtn.click()
+    // closeBtn.click()
+    // But this line works instead (which i what click calls)
+    alert.dismiss()
     await nextTick()
     expect(app.$el.textContent).not.toContain('Success Alert')
   })
-  */
+
   it('dismiss countdown emits dismiss-count-down event', async () => {
     const { app } = window
     const alert = app.$refs.counter_alert

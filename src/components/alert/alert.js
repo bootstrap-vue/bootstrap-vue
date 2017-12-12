@@ -12,7 +12,7 @@ export default {
       // Add dismiss button
       dismissBtn = h(
         'b-button-close',
-        { attrs: { 'aria-label': this.dismissLabel }, on: { 'click': this.dismiss } },
+        { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
         [ this.$slots.dismiss ]
       )
     }
@@ -70,7 +70,7 @@ export default {
   mounted () {
     this.showChanged()
   },
-  destroyed () {
+  destroyed /* istanbul ignore next */ () {
     this.clearCounter()
   },
   methods: {
