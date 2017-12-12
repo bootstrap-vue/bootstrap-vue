@@ -16,9 +16,9 @@
     hash-sum "^1.0.2"
     jimp "^0.2.28"
 
-"@nuxtjs/manifest@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/manifest/-/manifest-2.0.1.tgz#ae6f3cc33fb01012023d5a5406dca9ef70a874d4"
+"@nuxtjs/manifest@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/manifest/-/manifest-2.1.0.tgz#cd7ef157525c04f22286ce1de0b32aa7ad032fb7"
   dependencies:
     hash-sum "^1.0.2"
 
@@ -26,12 +26,12 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@nuxtjs/meta/-/meta-2.0.1.tgz#9262fe5a32c7d143b3595abe4f22733db7dd278e"
 
-"@nuxtjs/pwa@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-2.0.3.tgz#84a1397c81ea14410951d11198e73b5201ce2e1f"
+"@nuxtjs/pwa@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-2.0.4.tgz#df1ab5f38d55cd2e6a9d391a5c16103dcb9fbf1b"
   dependencies:
     "@nuxtjs/icon" "^2.0.1"
-    "@nuxtjs/manifest" "^2.0.1"
+    "@nuxtjs/manifest" "^2.1.0"
     "@nuxtjs/meta" "^2.0.1"
     "@nuxtjs/workbox" "^2.1.1"
 
@@ -52,6 +52,10 @@
 "@std/esm@^0.16.0":
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/@std/esm/-/esm-0.16.0.tgz#2a7a33ecb7f1701cebd4c87df6d0d945ed51f730"
+
+"@types/node@*":
+  version "8.0.58"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.58.tgz#5b3881c0be3a646874803fee3197ea7f1ed6df90"
 
 "@types/strip-bom@^3.0.0":
   version "3.0.0"
@@ -2060,7 +2064,7 @@ debug@*, debug@^3.0.1, debug@^3.1.0:
   dependencies:
     ms "2.0.0"
 
-debug@2.6.9, debug@^2.2.0, debug@^2.6.0, debug@^2.6.8:
+debug@2.6.9, debug@^2.2.0, debug@^2.6.8:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   dependencies:
@@ -2440,9 +2444,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-standard@^10.2.1:
-  version "10.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-standard/-/eslint-config-standard-10.2.1.tgz#c061e4d066f379dc17cd562c64e819b4dd454591"
+eslint-config-standard@^11.0.0-beta.0:
+  version "11.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-standard/-/eslint-config-standard-11.0.0-beta.0.tgz#f8afe69803d95c685a4b8392b8793188eb03cbb3"
 
 eslint-import-resolver-node@^0.3.1:
   version "0.3.1"
@@ -2473,9 +2477,9 @@ eslint-plugin-import@^2.8.0:
     minimatch "^3.0.3"
     read-pkg-up "^2.0.0"
 
-eslint-plugin-jest@^21.3.2:
-  version "21.3.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-21.3.2.tgz#b1cefc05f0fed700eb40185a94d16f6d575d1ef9"
+eslint-plugin-jest@^21.4.2:
+  version "21.4.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-21.4.2.tgz#0e8ec03687259169cef46656827a0a0715e8a8d4"
 
 eslint-plugin-node@^5.2.1:
   version "5.2.1"
@@ -2508,9 +2512,9 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^4.12.0:
-  version "4.12.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.12.0.tgz#a7ce78eba8cc8f2443acfbbc870cc31a65135884"
+eslint@^4.13.1:
+  version "4.13.1"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.13.1.tgz#0055e0014464c7eb7878caf549ef2941992b444f"
   dependencies:
     ajv "^5.3.0"
     babel-code-frame "^6.22.0"
@@ -3744,7 +3748,7 @@ is-path-inside@^1.0.0:
   dependencies:
     path-is-inside "^1.0.1"
 
-is-plain-obj@^1.0.0, is-plain-obj@^1.1.0:
+is-plain-obj@^1.0.0, is-plain-obj@^1.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-1.1.0.tgz#71a50c8429dfca773c92a390a4a03b39fcd51d3e"
 
@@ -4492,12 +4496,6 @@ macaddress@^0.2.8:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
 
-magic-string@^0.19.0:
-  version "0.19.1"
-  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.19.1.tgz#14d768013caf2ec8fdea16a49af82fc377e75201"
-  dependencies:
-    vlq "^0.2.1"
-
 magic-string@^0.22.4:
   version "0.22.4"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.22.4.tgz#31039b4e40366395618c1d6cf8193c53917475ff"
@@ -4530,6 +4528,10 @@ markdown-loader@^2.0.1:
 marked@^0.3.6:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
+
+marked@^0.3.7:
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.7.tgz#80ef3bbf1bd00d1c9cfebe42ba1b8c85da258d0d"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
@@ -4578,11 +4580,11 @@ merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
 
-merge-options@0.0.64:
-  version "0.0.64"
-  resolved "https://registry.yarnpkg.com/merge-options/-/merge-options-0.0.64.tgz#cbe04f594a6985eaf27f7f8f0b2a3acf6f9d562d"
+merge-options@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/merge-options/-/merge-options-1.0.0.tgz#5b4f339a957192b5b98994a3ac5c95d2ca651b94"
   dependencies:
-    is-plain-obj "^1.1.0"
+    is-plain-obj "^1.1"
 
 merge@^1.1.3:
   version "1.2.0"
@@ -5195,9 +5197,11 @@ parse5@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-1.5.1.tgz#9b7f3b0de32be78dc2401b17573ccaf0f6f59d94"
 
-parse5@^2.1.0:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/parse5/-/parse5-2.2.3.tgz#0c4fc41c1000c5e6b93d48b03f8083837834e9f6"
+parse5@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/parse5/-/parse5-3.0.3.tgz#042f792ffdd36851551cf4e9e066b3874ab45b5c"
+  dependencies:
+    "@types/node" "*"
 
 parseurl@~1.3.2:
   version "1.3.2"
@@ -5876,9 +5880,9 @@ posthtml-attrs-parser@^0.1.1:
   dependencies:
     object-assign "^4.0.1"
 
-posthtml-parser@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/posthtml-parser/-/posthtml-parser-0.2.1.tgz#35d530de386740c2ba24ff2eb2faf39ccdf271dd"
+posthtml-parser@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/posthtml-parser/-/posthtml-parser-0.3.0.tgz#af16ea406769f0f33d0011c48fac1f55502fca29"
   dependencies:
     htmlparser2 "^3.8.3"
     isobject "^2.1.0"
@@ -5887,11 +5891,11 @@ posthtml-render@^1.0.5:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/posthtml-render/-/posthtml-render-1.0.6.tgz#1b88b8e7860a8ebdfe2f2a1310a4642a55cf5bda"
 
-posthtml@^0.9.2:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/posthtml/-/posthtml-0.9.2.tgz#f4c06db9f67b61fd17c4e256e7e3d9515bf726fd"
+posthtml@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/posthtml/-/posthtml-0.10.1.tgz#029caa80591d2788ac1903dcf92352f46cec3cb5"
   dependencies:
-    posthtml-parser "^0.2.0"
+    posthtml-parser "^0.3.0"
     posthtml-render "^1.0.5"
 
 prelude-ls@~1.1.2:
@@ -6544,28 +6548,28 @@ rollup-plugin-node-resolve@^3.0.0:
     is-module "^1.0.0"
     resolve "^1.1.6"
 
-rollup-plugin-vue@^2.5.2:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-vue/-/rollup-plugin-vue-2.5.2.tgz#8b8d2a90cd166b265a649b8533f02b5b23ace8a9"
+rollup-plugin-vue@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-vue/-/rollup-plugin-vue-3.0.0.tgz#4fd08d2cfbb87321d070f016559cb11645e9f544"
   dependencies:
     babel-runtime "^6.22.0"
     camelcase "^4.0.0"
     de-indent "^1.0.2"
-    debug "^2.6.0"
+    debug "^3.1.0"
     hash-sum "^1.0.2"
     html-minifier "^3.2.3"
-    magic-string "^0.19.0"
-    merge-options "0.0.64"
-    parse5 "^2.1.0"
+    magic-string "^0.22.4"
+    merge-options "^1.0.0"
+    parse5 "^3.0.3"
     postcss "^5.2.11"
     postcss-load-config "^1.2.0"
     postcss-modules "^0.6.4"
     postcss-selector-parser "^2.2.3"
-    posthtml "^0.9.2"
+    posthtml "^0.10.1"
     posthtml-attrs-parser "^0.1.1"
     rollup-pluginutils "^2.0.1"
     typescript "^2.4.1"
-    vue-template-es2015-compiler "^1.5.0"
+    vue-template-es2015-compiler "^1.6.0"
     vue-template-validator "^1.1.5"
   optionalDependencies:
     coffee-script "^1.12.4"
@@ -6597,9 +6601,9 @@ rollup-watch@^4.3.1:
     require-relative "0.8.7"
     rollup-pluginutils "^2.0.1"
 
-rollup@^0.52.0:
-  version "0.52.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.52.0.tgz#cdb6927f53bf7b7fb09af3a936b9c8ee49b161e2"
+rollup@^0.52.1:
+  version "0.52.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.52.1.tgz#610e8e1be432f18fcfbfa865408a1cd7618cd707"
 
 run-async@^2.2.0:
   version "2.3.0"
@@ -7267,9 +7271,9 @@ typescript@^2.4.1:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
 
-uglify-es@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.2.0.tgz#fbbfb9dc465ec7e5065701b9720d0de977d0bc24"
+uglify-es@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.2.2.tgz#15c62b7775002c81b7987a1c49ecd3f126cace73"
   dependencies:
     commander "~2.12.1"
     source-map "~0.6.1"
@@ -7458,22 +7462,21 @@ vue-eslint-parser@^2.0.1-beta.1:
     esquery "^1.0.0"
     lodash "^4.17.4"
 
-vue-functional-data-merge@^1.0.6:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-1.0.7.tgz#0c8876c91bc5968882dff3f7ef91f62619e1fdfe"
+vue-functional-data-merge@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-2.0.3.tgz#fe79c9f6fab13e047f1e6dcaa4a0fde63fe15587"
 
 vue-hot-reload-api@^2.2.0:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.2.4.tgz#683bd1d026c0d3b3c937d5875679e9a87ec6cd8f"
 
-vue-jest@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/vue-jest/-/vue-jest-1.2.0.tgz#4f7dafbe5288e98db36f5d86964b42231a435131"
+vue-jest@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/vue-jest/-/vue-jest-1.3.0.tgz#4fcfbf56eefe57f3f5e7e3674d8eca65f9f543de"
   dependencies:
     babel-core "^6.25.0"
     babel-preset-vue-app "^1.3.1"
     chalk "^2.1.0"
-    convert-source-map "^1.5.0"
     find-babel-config "^1.1.0"
     js-beautify "^1.6.14"
     node-cache "^4.1.1"
@@ -7539,7 +7542,7 @@ vue-template-compiler@~2.4.2:
     de-indent "^1.0.2"
     he "^1.1.0"
 
-vue-template-es2015-compiler@^1.5.0, vue-template-es2015-compiler@^1.5.3, vue-template-es2015-compiler@^1.6.0:
+vue-template-es2015-compiler@^1.5.3, vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
@@ -7549,9 +7552,9 @@ vue-template-validator@^1.1.5:
   dependencies:
     chalk "^1.1.1"
 
-vue-test-utils@^1.0.0-beta.6:
-  version "1.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/vue-test-utils/-/vue-test-utils-1.0.0-beta.6.tgz#65c13dd79ac45a7c4a1709e162bf86fb6a986db0"
+vue-test-utils@^1.0.0-beta.7:
+  version "1.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/vue-test-utils/-/vue-test-utils-1.0.0-beta.7.tgz#d53a07b3a9aaa93b58ddec496e0796f19ee5cfd8"
   dependencies:
     lodash "^4.17.4"
 
