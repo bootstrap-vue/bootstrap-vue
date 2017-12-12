@@ -58,6 +58,7 @@ export const matches = (el, selector) => {
         proto.msMatchesSelector ||
         proto.oMatchesSelector ||
         proto.webkitMatchesSelector ||
+        /* istanbul ignore next */
         function (sel) {
           const element = this
           const m = selectAll(sel, element.document || element.ownerDocument)
@@ -79,20 +80,22 @@ export const closest = (selector, root) => {
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
   // Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
   // Prefer native implementation over polyfill function
-  const Closest = Element.prototype.closest || function (sel) {
-    let element = this
-    if (!document.documentElement.contains(element)) {
-      return null
-    }
-    do {
-      // Use our "patched" matches function
-      if (matches(element, sel)) {
-        return element
-      }
-      element = element.parentElement
-    } while (element !== null)
-    return null
-  }
+  const Closest = Element.prototype.closest ||
+                  /* istanbul ignore next */
+                  function (sel) {
+                    let element = this
+                    if (!document.documentElement.contains(element)) {
+                      return null
+                    }
+                    do {
+                      // Use our "patched" matches function
+                      if (matches(element, sel)) {
+                        return element
+                      }
+                      element = element.parentElement
+                    } while (element !== null)
+                    return null
+                  }
 
   const el = Closest.call(root, selector)
   // Emulate jQuery closest and return null if match is the passed in element (root)
