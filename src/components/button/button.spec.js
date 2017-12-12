@@ -126,6 +126,19 @@ describe('button', async () => {
     expect(vm.getAttribute('aria-pressed')).toBe('true')
   })
 
+  it('pressed should have `.focus` class when focused', async () => {
+    const { app } = window
+    const vm = app.$refs.btn_pressed
+
+    vm.focus()
+    await nextTick()
+    expect(vm).toHaveClass('focus')
+
+    vm.blur()
+    await nextTick()
+    expect(vm).not.toHaveClass('focus')
+  })
+
   it('should update the parent sync value on click and when pressed is not null', async () => {
     const { app } = window
     const vm = app.$refs.btn_pressed
