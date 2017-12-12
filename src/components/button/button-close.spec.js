@@ -62,4 +62,28 @@ describe('button-close', async () => {
     expect(btn.disabled).toBe(true)
     expect(spy).not.toHaveBeenCalled()
   })
+
+  it('calls click handlers bound by its parent', async () => {
+    const { app } = window
+    const $btn = app.$refs.handlers
+    const spy1 = jest.fn()
+    const spy2 = jest.fn()
+    app.spies.push(spy1, spy2)
+
+    $btn.click()
+    expect(spy1).toHaveBeenCalled()
+    expect(spy2).toHaveBeenCalled()
+  })
+
+  it('does not call click handlers bound by its parent when disabled', async () => {
+    const { app } = window
+    const $btn = app.$refs.handlersDisabled
+    const spy1 = jest.fn()
+    const spy2 = jest.fn()
+    app.spies.push(spy1, spy2)
+
+    $btn.click()
+    expect(spy1).not.toHaveBeenCalled()
+    expect(spy2).not.toHaveBeenCalled()
+  })
 })
