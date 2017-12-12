@@ -5016,9 +5016,9 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-nuxt@next:
-  version "1.0.0-gh-b5ff5a1"
-  resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-1.0.0-gh-b5ff5a1.tgz#c6a4cfb018a0a52e10972aaa675dfb349f51727b"
+nuxt@1.0.0-gh-a4e2a7c:
+  version "1.0.0-gh-a4e2a7c"
+  resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-1.0.0-gh-a4e2a7c.tgz#fbd4b664f4f0ca4a15f9cd114199b75ec44d8f92"
   dependencies:
     "@nuxtjs/youch" "^3.1.0"
     ansi-html "^0.0.7"
