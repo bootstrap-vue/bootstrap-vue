@@ -106,6 +106,6 @@ describe('col', async () => {
 
   it("should apply '.align-self-*' class with 'align-self' prop", async () => {
     const { $refs } = window.app
-    expect($refs.aliangSelf).toHaveClass('align-self-center')
+    expect($refs.alignSelf).toHaveClass('align-self-center')
   })
 })
