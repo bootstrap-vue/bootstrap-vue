@@ -17,7 +17,7 @@
         </b-card>
 
         <componentdoc :component="component" :key="component" v-for="component in meta.components"></componentdoc>
-        
+
         <importdoc :meta="meta"></importdoc>
     </div>
 </template>
@@ -29,6 +29,8 @@ import importdoc from "~/components/importdoc.vue";
 import { components as _meta } from "~/content";
 import docsMixin from "~/plugins/docs-mixin";
 
+const getReadMe = name => import('~/../src/components/' + name + '/README.md' /* webpackChunkName: "docs/components" */)
+
 export default {
   components: { componentdoc, importdoc },
   mixins: [docsMixin],
@@ -39,7 +41,7 @@ export default {
   },
 
   async asyncData({ params }) {
-      const readme = await import('~/../src/components/' + params.slug + '/README.md')
+      const readme = await getReadMe(params.slug)
       const meta = _meta[params.slug]
 
       return {

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="bd-content" v-html="readme" v-play></div>
-        
+
         <importdoc :meta="meta"></importdoc>
     </div>
 </template>
@@ -10,6 +10,8 @@
 import importdoc from '~/components/importdoc.vue';
 import { directives as _meta } from "~/content";
 import docsMixin from "~/plugins/docs-mixin";
+
+const getReadMe = name => import('~/../src/directives/' + name + '/README.md' /* webpackChunkName: "docs/directives" */)
 
 export default {
   mixins: [docsMixin],
@@ -21,7 +23,7 @@ export default {
   },
 
   async asyncData({ params }) {
-      const readme = await import('~/../src/directives/' + params.slug + '/README.md')
+      const readme = await getReadMe(params.slug)
       const meta = _meta[params.slug]
 
       return {
