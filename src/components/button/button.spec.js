@@ -128,13 +128,18 @@ describe('button', async () => {
 
   it('pressed should have `.focus` class when focused', async () => {
     const { app } = window
-    const vm = app.$refs.btn_pressed
+    const btn = app.$refs.btn_pressed
 
-    vm.focus()
-    expect(vm).toHaveClass('focus')
+    await setData(app, 'btnToggle', true)
+    await nextTick()
 
-    vm.blur()
-    expect(vm).not.toHaveClass('focus')
+    btn.focus()
+    await nextTick()
+    expect(btn).toHaveClass('focus')
+
+    btn.blur()
+    await nextTick()
+    expect(btn).not.toHaveClass('focus')
   })
 
   it('should update the parent sync value on click and when pressed is not null', async () => {
