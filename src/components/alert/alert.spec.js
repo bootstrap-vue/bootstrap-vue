@@ -26,7 +26,7 @@ describe('alert', async () => {
   })
 
   /*
-   * for some reason these test timeout with the latest jest version
+   * for some reason this test timeout with the latest jest version
   it('dismiss button', async () => {
     const { app } = window
     const alert = app.$refs.success_alert
@@ -39,7 +39,7 @@ describe('alert', async () => {
     await nextTick()
     expect(app.$el.textContent).not.toContain('Success Alert')
   })
-
+  */
   it('emits dismiss-count-down event', async () => {
     const { app } = window
     const alert = app.$refs.counter_alert
@@ -62,5 +62,4 @@ describe('alert', async () => {
     expect(app.$el.textContent).toContain('This alert will dismiss after')
     expect(spy.mock.calls.length).toBe(dismissTime + 1)
   })
-  */
 })
