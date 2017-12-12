@@ -23,6 +23,7 @@ export default function observeDOM (el, callback, opts) {
 
   if (MutationObserver) {
     // Define a new observer
+    /* istanbul ignore next: dificult to test */
     obs = new MutationObserver(mutations => {
       let changed = false
       // A Mutation can contain several change records, so we loop through them to see what has changed.
