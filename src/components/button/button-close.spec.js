@@ -21,7 +21,7 @@ describe('button-close', async () => {
 
   it('variant should have classes close and text-primary', async () => {
     const { app: { $refs } } = window
-    expect($refs.disabled).toHaveAllClasses(['close', 'text-primary'])
+    expect($refs.variant).toHaveAllClasses(['close', 'text-primary'])
   })
 
   it('slot should have custom content', async () => {
