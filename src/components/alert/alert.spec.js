@@ -1,5 +1,4 @@
-// import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
-import { loadFixture, testVM, setData } from '../../../tests/utils'
+import { loadFixture, testVM, nextTick, setData } from '../../../tests/utils'
 
 describe('alert', async () => {
   jest.useFakeTimers()
