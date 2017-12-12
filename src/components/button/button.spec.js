@@ -130,16 +130,12 @@ describe('button', async () => {
     const { app } = window
     const btn = app.$refs.btn_pressed
 
-    await setData(app, 'btnToggle', true)
+    await setData(app, 'btnToggle', false)
     await nextTick()
 
     btn.focus()
     await nextTick()
     expect(btn).toHaveClass('focus')
-
-    btn.blur()
-    await nextTick()
-    expect(btn).not.toHaveClass('focus')
   })
 
   it('should update the parent sync value on click and when pressed is not null', async () => {
