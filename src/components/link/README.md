@@ -43,7 +43,7 @@ Disabling a link will set the Bootstrap V4 `.disabled` class on the link
 as well as handles stoping event propegation, preventing the default action
 from occuring, and removing the link from the document tab sequence.
 
-**Note:** Boostrap V4 CSS currently does not style disbled links differently than
+**Note:** Boostrap V4 CSS currently does not style disabled links differently than
 non-disabled links. You can use the following custom CSS to style disabled links
 (by preventing hover style changes):
 
