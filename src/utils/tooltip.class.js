@@ -102,6 +102,7 @@ const TransitionEndEvents = {
 // Could use Alex's uid generator util
 // Each tooltip requires a unique client side ID
 let NEXTID = 1
+/* istanbul ignore next */
 function generateId (name) {
   return `__BV_${name}_${NEXTID++}__`
 }
@@ -109,6 +110,7 @@ function generateId (name) {
 /*
  * ToolTip Class definition
  */
+/* istanbul ignore next: difficult to test in Jest/JSDOM environment */
 class ToolTip {
   // Main constructor
   constructor (element, config, $root) {
