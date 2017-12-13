@@ -14,6 +14,7 @@ export default function observeDOM (el, callback, opts) {
 
   // Handle case where we might be passed a vue instance
   el = el ? (el.$el || el) : null
+  /* istanbul ignore next: dificult to test in JSDOM */
   if (!isElement(el)) {
     // We can't observe somthing that isn't an element
     return null
@@ -21,9 +22,9 @@ export default function observeDOM (el, callback, opts) {
 
   let obs = null
 
+  /* istanbul ignore next: dificult to test in JSDOM */
   if (MutationObserver) {
     // Define a new observer
-    /* istanbul ignore next: dificult to test */
     obs = new MutationObserver(mutations => {
       let changed = false
       // A Mutation can contain several change records, so we loop through them to see what has changed.
