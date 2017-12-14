@@ -10,9 +10,10 @@ const BSCLS_PREFIX_REGEX = new RegExp(`\\b${CLASS_PREFIX}\\S+`, 'g')
 
 const TRANSITION_DURATION = 150
 
-// Modal $root event (prepare for future evnt name change)
+// Modal $root hidden event
 const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
-const MODAL_CLASS = '.modal'
+// Modal container for appending tip/popover
+const MODAL_CLASS = '.modal-content'
 
 const AttachmentMap = {
   AUTO: 'auto',
