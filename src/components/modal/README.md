@@ -172,7 +172,7 @@ methods: {
 ```
 
 
-## Prevent Closing
+### Prevent Closing
 
 To prevent `<b-modal>` from closing (for example when validation fails). you can call
 the `preventDefault()` method of the event object passed to your `ok` (**OK** button),
@@ -407,6 +407,9 @@ export default {
 <!-- modal-variant-1.vue -->
 ```
 
+You can also apply abritrary classes to the modal header, body and footer via the
+`header-class`, `body-class` and `footer-class` props, respectively. The props
+accept either a string or array of strings.
 
 ## Lazy loading
 Modal will always render its HTML markup in the document at the location that
