@@ -189,7 +189,7 @@ flush with the card.
       ad sit ipsum anim Lorem.
     </b-card-body>
   </b-card>
-</b-card group>
+</b-card-group>
 
 
 <!-- list-group-card.vue -->
