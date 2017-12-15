@@ -441,7 +441,7 @@ export default {
 
 
 ## Stacked tables
-An alterntive to esponsive tables, Bootstrap-Vue includes the stacked table option, which
+An alternative to responsive tables, Bootstrap-Vue includes the stacked table option, which
 allow tables to be rendered in a visually stacked format. Make any table stacked across
 _all viewports_ by setting the prop `stacked` to `true`. Or, alternatively, set a breakpoint
 at which the table will return to normal table format by setting the prop `stacked` to one

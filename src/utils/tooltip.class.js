@@ -10,9 +10,10 @@ const BSCLS_PREFIX_REGEX = new RegExp(`\\b${CLASS_PREFIX}\\S+`, 'g')
 
 const TRANSITION_DURATION = 150
 
-// Modal $root event (prepare for future evnt name change)
+// Modal $root hidden event
 const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
-const MODAL_CLASS = '.modal'
+// Modal container for appending tip/popover
+const MODAL_CLASS = '.modal-content'
 
 const AttachmentMap = {
   AUTO: 'auto',
@@ -86,7 +87,8 @@ const Defaults = {
   arrowPadding: 6,
   container: false,
   fallbackPlacement: 'flip',
-  callbacks: {}
+  callbacks: {},
+  boundary: 'scrollParent'
 }
 
 // Transition Event names
@@ -101,6 +103,7 @@ const TransitionEndEvents = {
 // Could use Alex's uid generator util
 // Each tooltip requires a unique client side ID
 let NEXTID = 1
+/* istanbul ignore next */
 function generateId (name) {
   return `__BV_${name}_${NEXTID++}__`
 }
@@ -108,6 +111,7 @@ function generateId (name) {
 /*
  * ToolTip Class definition
  */
+/* istanbul ignore next: difficult to test in Jest/JSDOM environment */
 class ToolTip {
   // Main constructor
   constructor (element, config, $root) {
@@ -408,6 +412,7 @@ class ToolTip {
     }
 
     // Transitionend Callback
+    /* istanbul ignore next */
     const complete = () => {
       if (this.$hoverState !== HoverState.SHOW && tip.parentNode) {
         // Remove tip from dom, and force recompile on next show
@@ -493,6 +498,7 @@ class ToolTip {
     this.$popper = null
   }
 
+  /* istanbul ignore next */
   transitionOnce (tip, complete) {
     const transEvents = this.getTransitionEndEvents()
     let called = false
@@ -710,6 +716,7 @@ class ToolTip {
     }
   }
 
+  /* istanbul ignore next */
   setRouteWatcher (on) {
     if (on) {
       this.setRouteWatcher(false)
@@ -731,6 +738,7 @@ class ToolTip {
     }
   }
 
+  /* istanbul ignore next */
   setModalListener (on) {
     const modal = closest(MODAL_CLASS, this.$element)
     if (!modal) {
@@ -743,6 +751,7 @@ class ToolTip {
     }
   }
 
+  /* istanbul ignore next */
   setRootListener (on) {
     // Listen for global 'bv::{hide|show}::{tooltip|popover}' hide request event
     if (this.$root) {
@@ -797,6 +806,7 @@ class ToolTip {
     }
   }
 
+  /* istanbul ignore next */
   setOnTouchStartListener (on) {
     // if this is a touch-enabled device we add extra
     // empty mouseover listeners to the body's immediate children;
@@ -813,6 +823,7 @@ class ToolTip {
     }
   }
 
+  /* istanbul ignore next */
   _noop () {
     // Empty noop handler for ontouchstart devices
   }
@@ -827,6 +838,7 @@ class ToolTip {
   }
 
   // Enter handler
+  /* istanbul ignore next */
   enter (e) {
     if (e) {
       this.$activeTrigger[e.type === 'focusin' ? 'focus' : 'hover'] = true
@@ -849,6 +861,7 @@ class ToolTip {
   }
 
   // Leave handler
+  /* istanbul ignore next */
   leave (e) {
     if (e) {
       this.$activeTrigger[e.type === 'focusout' ? 'focus' : 'hover'] = false
@@ -880,7 +893,8 @@ class ToolTip {
       modifiers: {
         offset: { offset: this.getOffset(placement, tip) },
         flip: { behavior: this.$config.fallbackPlacement },
-        arrow: { element: '.arrow' }
+        arrow: { element: '.arrow' },
+        preventOverflow: { boundariesElement: this.$config.boundary }
       },
       onCreate: data => {
         // Handle flipping arrow classes

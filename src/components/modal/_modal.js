@@ -267,12 +267,20 @@ export default {
       type: String,
       default: null
     },
+    headerClass: {
+      type: [String, Array],
+      default: null
+    },
     bodyBgVariant: {
       type: String,
       default: null
     },
     bodyTextVariant: {
       type: String,
+      default: null
+    },
+    bodyClass: {
+      type: [String, Array],
       default: null
     },
     footerBgVariant: {
@@ -285,6 +293,10 @@ export default {
     },
     footerTextVariant: {
       type: String,
+      default: null
+    },
+    footerClass: {
+      type: [String, Array],
       default: null
     },
     hideHeader: {
@@ -383,13 +395,12 @@ export default {
     headerClasses () {
       return [
         'modal-header',
-        // Rounding is needed to fix a bug in bootstrap V4.beta.1 CSS
         {
-          'rounded-top': Boolean(this.headerBgVariant),
           [`bg-${this.headerBgVariant}`]: Boolean(this.headerBgVariant),
           [`text-${this.headerTextVariant}`]: Boolean(this.headerTextVariant),
           [`border-${this.headerBorderVariant}`]: Boolean(this.headerBorderVariant)
-        }
+        },
+        this.headerClass
       ]
     },
     bodyClasses () {
@@ -398,19 +409,19 @@ export default {
         {
           [`bg-${this.bodyBgVariant}`]: Boolean(this.bodyBgVariant),
           [`text-${this.bodyTextVariant}`]: Boolean(this.bodyTextVariant)
-        }
+        },
+        this.bodyClass
       ]
     },
     footerClasses () {
       return [
         'modal-footer',
-        // Rounding is needed to fix a bug in bootstrap V4.beta.1 CSS
         {
-          'rounded-bottom': Boolean(this.footerBgVariant),
           [`bg-${this.footerBgVariant}`]: Boolean(this.footerBgVariant),
           [`text-${this.footerTextVariant}`]: Boolean(this.footerTextVariant),
           [`border-${this.footerBorderVariant}`]: Boolean(this.footerBorderVariant)
-        }
+        },
+        this.footerClass
       ]
     }
   },

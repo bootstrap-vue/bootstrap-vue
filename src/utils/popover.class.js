@@ -26,6 +26,7 @@ const Selector = {
   CONTENT: '.popover-body'
 }
 
+/* istanbul ignore next: dificult to test in Jest/JSDOM environment */
 class PopOver extends ToolTip {
   // Getter overrides
 

@@ -29,20 +29,21 @@ export default {
   props: props,
   render (h, { props, data, slots }) {
     let childNodes = []
+    const $slots = slots()
 
     // Left Slot / Prop
-    if (slots().left) {
+    if ($slots.left) {
       childNodes.push(slots().left)
     } else if (props.left) {
       childNodes.push(h(InputGroupAddon, { domProps: { innerHTML: props.left } }))
     }
 
     // Default slot
-    childNodes.push(slots().default)
+    childNodes.push($slots.default)
 
     // Right slot / prop
-    if (slots().right) {
-      childNodes.push(slots().right)
+    if ($slots.right) {
+      childNodes.push($slots.right)
     } else if (props.right) {
       childNodes.push(h(InputGroupAddon, { domProps: { innerHTML: props.right } }))
     }

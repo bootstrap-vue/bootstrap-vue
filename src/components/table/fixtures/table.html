@@ -2,13 +2,13 @@
 
     <h2>Basic table</h2>
     <b-table ref="table_basic" class="my-2" striped hover :items="items" :fields="fields">
-        <template slot="name" scope="data">
+        <template slot="name" slot-scope="data">
             {{ data.value.first }} {{ data.value.last }}
         </template>
-        <template slot="isActive" scope="data">
+        <template slot="isActive" slot-scope="data">
             {{ data.value ? 'Yes' : 'No' }}
         </template>
-        <template slot="actions" scope="data">
+        <template slot="actions" slot-scope="data">
             <b-btn size="sm" @click.stop="details(data.item)">Details</b-btn>
         </template>
     </b-table>
@@ -48,22 +48,22 @@
              :filter="filter"
              v-model="visibleRecords"
     >
-        <template slot="name" scope="data">
+        <template slot="name" slot-scope="data">
             {{ data.value.first }} {{ data.value.last }}
         </template>
-        <template slot="FOOT_name" scope="item">
+        <template slot="FOOT_name" slot-scope="item">
             Showing {{ visibleRecords.length }} People
         </template>
-        <template slot="isActive" scope="data">
+        <template slot="isActive" slot-scope="data">
             {{ data.value ? 'Active' : 'Inactive' }}
         </template>
-        <template slot="HEAD_actions" scope="data">
+        <template slot="HEAD_actions" slot-scope="data">
             Select
         </template>
-        <template slot="actions" scope="data">
+        <template slot="actions" slot-scope="data">
             <input type="checkbox" @click.stop v-model="selectedRecords" value="data.item">
         </template>
-        <template slot="FOOT_actions" scope="data">
+        <template slot="FOOT_actions" slot-scope="data">
             Selected: {{ selectedRecords.length }}
         </template>
     </b-table>
@@ -86,13 +86,13 @@
              :current-page="currentPage"
              :busy="isBusy"
     >
-        <template slot="name" scope="data">
+        <template slot="name" slot-scope="data">
             {{ data.value.first }} {{ data.value.last }}
         </template>
-        <template slot="isActive" scope="data">
+        <template slot="isActive" slot-scope="data">
             {{ data.value ? 'Active' : 'Inactive' }}
         </template>
-        <template slot="actions" scope="data">
+        <template slot="actions" slot-scope="data">
             <b-btn size="sm" @click.stop="details(data.item)">Details</b-btn>
         </template>
     </b-table>
@@ -114,13 +114,13 @@
              :items="provider"
              :fields="fields"
     >
-        <template slot="name" scope="data">
+        <template slot="name" slot-scope="data">
             {{ data.value.first }} {{ data.value.last }}
         </template>
-        <template slot="isActive" scope="data">
+        <template slot="isActive" slot-scope="data">
             {{ data.value ? 'Active' : 'Inactive' }}
         </template>
-        <template slot="actions" scope="data">
+        <template slot="actions" slot-scope="data">
             <b-btn size="sm" @click.stop="details(data.item)">Details</b-btn>
         </template>
     </b-table>

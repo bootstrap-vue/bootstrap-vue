@@ -176,7 +176,7 @@ move focus to close the popover.
         <b-btn v-b-popover.focus="'Popover!'" variant="outline-success">Focus</b-btn>
       </b-col>
       <b-col md="6" class="py-3">
-        <b-btn v-b-popover.click.focus="'Popover!'" variant="outline-success">Hover + Focus</b-btn>
+        <b-btn v-b-popover.hover.focus="'Popover!'" variant="outline-success">Hover + Focus</b-btn>
       </b-col>
     </b-row>
   </b-container>
@@ -334,6 +334,7 @@ Where `[mod]` can be (all optional):
  - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text.
  - A delay value in the format of `d###` (where `###` is in ms, defaults to 0).
  - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults to 0. Negative values are allowed). Note if an offset is supplied, then the alignment positions will fallback to one of `top`, `bottom`, `left`, or `right`.
+ - A boundary setting of `window` or `viewport`.  The element to constrain the visual placement of the popover. If not specified, the boundary defaults to the trigger element's scroll parent (in most cases this will suffice).
 
 Where `[container]` can be (optional):
  - An element ID (minus the #) to place the popover markup in when visible

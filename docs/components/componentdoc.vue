@@ -11,7 +11,7 @@
         <article v-if="props_items && props_items.length > 0">
             <h4>Properties</h4>
             <b-table :items="props_items" :fields="props_fields" small head-variant="default" striped>
-                <template slot="default" scope="field">
+                <template slot="default" slot-scope="field">
                     <code v-if="field.value">{{field.value}}</code>
                 </template>
             </b-table>
@@ -25,7 +25,7 @@
         <article v-if="events && events.length > 0">
             <h4>Events</h4>
             <b-table :items="events" :fields="events_fields" small head-variant="default" striped>
-                <template slot="args" scope="field">
+                <template slot="args" slot-scope="field">
                     <div v-for="arg in field.value" :key="'' + arg">
                         <code v-if="arg.arg">{{arg.arg}}</code>
                         <span v-html="arg.description"></span>

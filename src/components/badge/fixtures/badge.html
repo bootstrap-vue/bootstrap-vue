@@ -10,7 +10,7 @@
                  ref="badge_pill"
                  variant="success">New</b-badge>
     </h5>
-    <p v-for="variant in variants">
+    <p v-for="variant in variants" :key="variant">
         <b-badge :variant="variant"
                  :ref="`badge_${variant}`">{{ variant }}</b-badge>
     </p>

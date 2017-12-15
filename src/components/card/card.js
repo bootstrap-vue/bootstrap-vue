@@ -27,6 +27,7 @@ export default {
     // The order of the conditionals matter.
     // We are building the component markup in order.
     let childNodes = []
+    const $slots = slots()
     let img = props.imgSrc
       ? h(CardImg, { props: pluckProps(cardImgProps, props, unPrefixPropName.bind(null, 'img')) })
       : null
@@ -37,16 +38,16 @@ export default {
         childNodes.push(img)
       }
     }
-    if (props.header || slots().header) {
-      childNodes.push(h(CardHeader, { props: pluckProps(headerProps, props) }, slots().header))
+    if (props.header || $slots.header) {
+      childNodes.push(h(CardHeader, { props: pluckProps(headerProps, props) }, $slots.header))
     }
     if (props.noBody) {
-      childNodes.push(slots().default)
+      childNodes.push($slots.default)
     } else {
-      childNodes.push(h(CardBody, { props: pluckProps(bodyProps, props) }, slots().default))
+      childNodes.push(h(CardBody, { props: pluckProps(bodyProps, props) }, $slots.default))
     }
-    if (props.footer || slots().footer) {
-      childNodes.push(h(CardFooter, { props: pluckProps(footerProps, props) }, slots().footer))
+    if (props.footer || $slots.footer) {
+      childNodes.push(h(CardFooter, { props: pluckProps(footerProps, props) }, $slots.footer))
     }
     if (img && props.imgBottom) {
       // Below the footer placement.

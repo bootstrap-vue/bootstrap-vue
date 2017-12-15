@@ -1,12 +1,14 @@
 <template>
     <div class="container">
-        <div class="bd-content" v-html="readme"></div>
+        <div class="bd-content" v-html="readme" v-play></div>
     </div>
 </template>
 
 <script>
 import { reference as _meta } from "~/content";
 import docsMixin from "~/plugins/docs-mixin";
+
+const getReadMe = name => import('~/markdown/reference/' + name + '/README.md' /* webpackChunkName: "docs/reference" */)
 
 export default {
   mixins: [docsMixin],
@@ -17,7 +19,7 @@ export default {
   },
 
   async asyncData({ params }) {
-      const readme = await import('~/markdown/reference/' + params.slug + '/README.md')
+      const readme = await getReadMe(params.slug)
       const meta = _meta[params.slug]
 
       return {

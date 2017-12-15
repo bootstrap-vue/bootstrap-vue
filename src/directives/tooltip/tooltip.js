@@ -18,6 +18,7 @@ const validTriggers = {
 
 // Build a ToolTip config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
+/* istanbul ignore next: not easy to test */
 function parseBindings (bindings) {
   // We start out with a blank config
   let config = {}
@@ -51,6 +52,9 @@ function parseBindings (bindings) {
     } else if (/^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)) {
       // placement of tooltip
       config.placement = mod
+    } else if (/^(window|viewport)$/.test(mod)) {
+      // bounday of tooltip
+      config.boundary = mod
     } else if (/^d\d+$/.test(mod)) {
       // delay value
       const delay = parseInt(mod.slice(1), 10) || 0
@@ -101,6 +105,7 @@ function parseBindings (bindings) {
 //
 // Add or Update tooltip on our element
 //
+/* istanbul ignore next: not easy to test */
 function applyBVTT (el, bindings, vnode) {
   if (!inBrowser) {
     return
@@ -120,6 +125,7 @@ function applyBVTT (el, bindings, vnode) {
 //
 // Remove tooltip on our element
 //
+/* istanbul ignore next: not easy to test */
 function removeBVTT (el) {
   if (!inBrowser) {
     return
@@ -134,6 +140,7 @@ function removeBVTT (el) {
 /*
  * Export our directive
  */
+/* istanbul ignore next: not easy to test */
 export default {
   bind (el, bindings, vnode) {
     applyBVTT(el, bindings, vnode)

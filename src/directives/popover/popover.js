@@ -8,7 +8,7 @@ const inBrowser = typeof window !== 'undefined' && typeof document !== 'undefine
 // Key which we use to store tooltip object on element
 const BVPO = '__BV_PopOver__'
 
-// Vlid event triggers
+// Valid event triggers
 const validTriggers = {
   'focus': true,
   'hover': true,
@@ -18,6 +18,7 @@ const validTriggers = {
 
 // Build a PopOver config based on bindings (if any)
 // Arguments and modifiers take precedence over pased value config object
+/* istanbul ignore next: not easy to test */
 function parseBindings (bindings) {
   // We start out with a blank config
   let config = {}
@@ -51,6 +52,9 @@ function parseBindings (bindings) {
     } else if (/^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)) {
       // placement of popover
       config.placement = mod
+    } else if (/^(window|viewport)$/.test(mod)) {
+      // bounday of popover
+      config.boundary = mod
     } else if (/^d\d+$/.test(mod)) {
       // delay value
       const delay = parseInt(mod.slice(1), 10) || 0
@@ -101,6 +105,7 @@ function parseBindings (bindings) {
 //
 // Add or Update popover on our element
 //
+/* istanbul ignore next: not easy to test */
 function applyBVPO (el, bindings, vnode) {
   if (!inBrowser) {
     return
@@ -120,6 +125,7 @@ function applyBVPO (el, bindings, vnode) {
 //
 // Remove popover on our element
 //
+/* istanbul ignore next */
 function removeBVPO (el) {
   if (!inBrowser) {
     return
@@ -134,6 +140,7 @@ function removeBVPO (el) {
 /*
  * Export our directive
  */
+/* istanbul ignore next: not easy to test */
 export default {
   bind (el, bindings, vnode) {
     applyBVPO(el, bindings, vnode)

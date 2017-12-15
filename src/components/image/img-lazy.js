@@ -38,7 +38,7 @@ export default {
     src: {
       type: String,
       default: null,
-      rqeuired: true
+      required: true
     },
     alt: {
       type: String,

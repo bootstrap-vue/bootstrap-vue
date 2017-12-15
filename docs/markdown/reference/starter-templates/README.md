@@ -93,6 +93,13 @@ Note: you may need to adjust the template package.json file to use the latest Bo
 
 Coming soon!
 
+## Building with customized Bootstrap V4 CSS
+If you are using a build system, and would like to customize the Bootstrap V4 CSS,
+the following references will be handy starting points:
+
+- Article on [Integrating and Customising Bootstrap 4 in vue-js](https://medium.com/@_Dreamstream/integrating-and-customising-bootstrap-4-in-vue-js-cbc29ba7688e) hosted on medium.com
+- Official Bootstrap [Theming Bootstrap](http://getbootstrap.com/docs/4.0/getting-started/theming/) guide
+
 
 ## Individual component import
 

@@ -55,9 +55,10 @@ export default {
     // The order of the conditionals matter.
     // We are building the component markup in order.
     let childNodes = []
+    const $slots = slots()
 
     // Header
-    if (props.header || slots().header) {
+    if (props.header || $slots.header) {
       childNodes.push(h(
         props.headerTag,
         {
@@ -65,22 +66,22 @@ export default {
             [`display-${props.headerLevel}`]: Boolean(props.headerLevel)
           }
         },
-        slots().header || props.header
+        $slots.header || props.header
       ))
     }
 
     // Lead
-    if (props.lead || slots().lead) {
+    if (props.lead || $slots.lead) {
       childNodes.push(h(
         props.leadTag,
         { staticClass: 'lead' },
-        slots().lead || props.lead
+        $slots.lead || props.lead
       ))
     }
 
     // Default slot
-    if (slots().default) {
-      childNodes.push(slots().default)
+    if ($slots.default) {
+      childNodes.push($slots.default)
     }
 
     // If fluid, wrap content in a container/container-fluid

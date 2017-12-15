@@ -26,8 +26,8 @@ export default {
 <!-- form-input-1.vue -->
 ```
 
-## Input type
 
+## Input type
 `<b-form-input>` defaults to a `text` input, but you can set the `type` prop to one
 of the supported types: `text`, `password`, `email`, `number`, `url`, `tel`, `search`,
 `date`, `datetime`, `datetime-local`, `month`, `week`, `time`,`range`, or `color`.
@@ -75,7 +75,6 @@ than what is returned by it's value.
 
 
 ## Control sizing
-
 Set heights using the `size` prop to `sm` or `lg` for small or large respectively.
 
 To control width, place the input inside standard Bootstrap grid column.
@@ -106,7 +105,6 @@ To control width, place the input inside standard Bootstrap grid column.
 ```
 
 ## Contextual States
-
 Bootstrap includes validation styles for `valid` and `invalid` states
 on most form controls.
 
@@ -151,18 +149,20 @@ to:
 ```html
 <template>
   <div role="group">
-    <b-form-input v-model.trim="name"
+    <label for="inputLive">Name:</label>
+    <b-form-input id="inputLive"
+                  v-model.trim="name"
                   type="text"
                   :state="nameState"
-                  aria-describedby="input-help input-feeback"
+                  aria-describedby="inputLiveHelp inputLiveFeeback"
                   placeholder="Enter your name"></b-form-input>
-    <b-form-invalid-feedback id="input-feedback">
+    <b-form-invalid-feedback id="inputLiveFeedback">
       <!-- This will only be shown if the preceeding input has an invalid state -->
       Enter at least 3 letters
     </b-form-invalid-feedback>
-    <b-form-text id="input-help">
+    <b-form-text id="inputLiveHelp">
       <!-- this is a form text block (formerly known as help block) -->
-      Enter your name.
+      Your full name.
     </b-form-text>
   </div>
 </template>
@@ -189,7 +189,6 @@ export default {
 automatically generate markup similar to above.
 
 ### Conveying contextual state to assistive technologies and colorblind users
-
 Using these contextual states to denote the state of a form control only provides
 a visual, color-based indication, which will not be conveyed to users of assistive
 technologies - such as screen readers - or to colorblind users.
@@ -199,7 +198,6 @@ could include a hint about state in the form control's `<label>` text itself, or
 providing an additional help text block.
 
 ### ARIA `aria-invalid` attribute
-
 Specifically for assistive technologies, invalid form controls can also be assigned
 an `aria-invalid="true"` attribute.
 
@@ -217,7 +215,6 @@ then the `aria-invalid` attribute on the input will automatically be set to `'tr
 
 
 ## Formatter support
-
 `<b-form-input>` optionally supports formatting by passing a function reference to
 the `formatter` prop.
 
@@ -235,21 +232,29 @@ No formatting occurs if a `formatter` is not provided.
 ```html
 <template>
   <div>
-    <h5>Text input with formatter (on input)</h5>
-    <b-form-input v-model="text1"
+    <label for="inputFormatter">Text input with formatter (on input)</label>
+    <b-form-input id="inputFormatter"
+                  v-model="text1"
                   type="text"
                   placeholder="Enter your name"
+                  aria-describedby="inputFormatterHelp"
                   :formatter="format"></b-form-input>
-    <b-form-text>We will convert your name to lowercase instantly</b-form-text>
+    <b-form-text id="inputFormatterHelp">
+     We will convert your name to lowercase instantly
+    </b-form-text>
     <p>Value: {{ text1 }}</p>
 
-    <h5>Text input with lazy formatter (on change)</h5>
-    <b-form-input v-model="text2"
+    <label for="inputLazy">Text input with lazy formatter (on change)</label>
+    <b-form-input id="inputLazy"
+                  v-model="text2"
                   type="text"
                   placeholder="Enter your name"
+                  aria-describedby="inputLazyHelp"
                   :formatter="format"
                   lazy-formatter></b-form-input>
-    <b-form-text>This one is a little lazy!</b-form-text>
+    <b-form-text id="inputLazyHelp">
+      This one is a little lazy!
+    </b-form-text>
     <p>Value: {{ text2 }}</p>
   </div>
 </template>
@@ -273,18 +278,20 @@ export default {
 <!-- form-input-formatter.vue -->
 ```
 
-**Note:** When using a non-text-like input (i.e. `color`, `range`, `date`, etc),
-ensure that your formatter function returns the value in the expected format
-for the input type. The formatter **must** return the value as a string.
+**Note:** When using a non-text-like input (i.e. `color`, `range`, `date`,
+`number` etc), ensure that your formatter function returns the value in the
+expected format for the input type. The formatter **must** return the value
+as a string.
 
 
 ## Readonly plain text
-
 If you want to have `<b-form-input readonly>` elements in your form styled as plain
 text, set the `plaintext` prop (no need to set `readonly`) to remove the default form
 field styling and preserve the correct margin and padding.
 
+
 ## Component alias
 You can also use `<b-form-input>` by it's shorter alias of `<b-input>`.
+
 
 ## Component Reference

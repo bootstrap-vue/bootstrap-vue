@@ -67,32 +67,33 @@ export default {
   data () {
     return {
       visible: false,
-      _popper: null,
       inNavbar: null
     }
   },
-  mounted () {
-    const listener = vm => {
-      if (vm !== this) {
-        this.visible = false
-      }
-    }
-
-    // To keep one dropdown opened on page
-    this.listenOnRoot('bv::dropdown::shown', listener)
-
-    // Hide when clicked on links
-    this.listenOnRoot('clicked::link', listener)
-    // Use new namespaced events
-    this.listenOnRoot('bv::link::clicked', listener)
-  },
-  beforeDestroy () {
-    if (this._popper) {
-      // Ensure popper event listeners are removed cleanly
-      this._popper.destroy()
-    }
+  created () {
+    // Create non-reactive property
     this._popper = null
+  },
+  mounted () {
+    // To keep one dropdown opened on page
+    this.listenOnRoot('bv::dropdown::shown', this.rootCloseListener)
+    // Hide when clicked on links
+    this.listenOnRoot('clicked::link', this.rootCloseListener)
+    // Use new namespaced events
+    this.listenOnRoot('bv::link::clicked', this.rootCloseListener)
+  },
+  /* istanbul ignore next: not easy to test */
+  deactivated () {
+    // In case we are inside a `<keep-alive>`
+    this.visible = false
     this.setTouchStart(false)
+    this.removePopper()
+  },
+  /* istanbul ignore next: not easy to test */
+  beforeDestroy () {
+    this.visible = false
+    this.setTouchStart(false)
+    this.removePopper()
   },
   watch: {
     visible (state, old) {
@@ -143,7 +144,7 @@ export default {
           // Make sure we have a reference to an element, not a component!
           element = element.$el || element
           // Instantiate popper.js
-          this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+          this.createPopper(element)
         }
       }
 
@@ -156,14 +157,21 @@ export default {
     hideMenu () {
       // TODO: move emit hide to visible watcher, to allow cancelling of hide
       this.$emit('hide')
+      this.setTouchStart(false)
+      this.emitOnRoot('bv::dropdown::hidden', this)
+      this.$emit('hidden')
+      this.removePopper()
+    },
+    createPopper (element) {
+      this.removePopper()
+      this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
+    },
+    removePopper () {
       if (this._popper) {
         // Ensure popper event listeners are removed cleanly
         this._popper.destroy()
       }
       this._popper = null
-      this.setTouchStart(false)
-      this.emitOnRoot('bv::dropdown::hidden', this)
-      this.$emit('hidden')
     },
     getPopperConfig () {
       let placement = AttachmentMap.BOTTOM
@@ -188,6 +196,11 @@ export default {
           }
         }
       }
+      if (this.boundary) {
+        popperConfig.modifiers.preventOverflow = {
+          boundariesElement: this.boundary
+        }
+      }
       return assign(popperConfig, this.popperOpts || {})
     },
     setTouchStart (on) {
@@ -208,8 +221,14 @@ export default {
         })
       }
     },
+    /* istanbul ignore next: not easy to test */
     _noop () {
       // Do nothing event handler (used in touchstart event handler)
+    },
+    rootCloseListener (vm) {
+      if (vm !== this) {
+        this.visible = false
+      }
     },
     clickOutListener () {
       this.visible = false
@@ -238,7 +257,6 @@ export default {
         return
       }
       evt.preventDefault()
-      evt.stopPropagation()
       if (this.disabled) {
         this.visible = false
         return
@@ -254,6 +272,7 @@ export default {
       }
       this.$emit('click', evt)
     },
+    /* istanbul ignore next: not easy to test */
     onKeydown (evt) {
       // Called from dropdown menu context
       const key = evt.keyCode
@@ -271,6 +290,7 @@ export default {
         this.focusNext(evt, true)
       }
     },
+    /* istanbul ignore next: not easy to test */
     onEsc (evt) {
       if (this.visible) {
         this.visible = false
@@ -280,6 +300,7 @@ export default {
         this.$nextTick(this.focusToggler)
       }
     },
+    /* istanbul ignore next: not easy to test */
     onTab (evt) {
       if (this.visible) {
         // TODO: Need special handler for dealing with form inputs
@@ -294,6 +315,7 @@ export default {
       }
       this.visible = false
     },
+    /* istanbul ignore next: not easy to test */
     onMouseOver (evt) {
       // Focus the item on hover
       // TODO: Special handling for inputs? Inputs are in a special .dropdown-form container

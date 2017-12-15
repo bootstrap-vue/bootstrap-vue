@@ -1,7 +1,7 @@
 # Progress
 
 > Use our custom progress component for displaying simple or complex progress
-bars, featuring support for horzontally stacked bars, animated backgrounds, and text labels.
+bars, featuring support for horizontally stacked bars, animated backgrounds, and text labels.
 
 ```html
 <template>

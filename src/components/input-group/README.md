@@ -127,7 +127,7 @@ Place any native checkbox or radio within an input group’s addon instead of te
 ```
 
 **Note:** you must use native radio and checkbox inputs, as `<b-form-radio>` and
-`<b-form-checkbox>` include additional markup not rqeuired in input groups.
+`<b-form-checkbox>` include additional markup not required in input groups.
 
 
 ## Multiple addons
