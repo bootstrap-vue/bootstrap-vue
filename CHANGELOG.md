@@ -2,6 +2,62 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.3.0...v1.4.0) (2017-12-15)
+
+
+### Bug Fixes
+
+* **button:** allow custom size classes to be passed to the size prop ([#1389](https://github.com/bootstrap-vue/bootstrap-vue/issues/1389)) ([41a46b2](https://github.com/bootstrap-vue/bootstrap-vue/commit/41a46b2))
+* **carousel:** clear timers on beforeDestroy ([fa1c083](https://github.com/bootstrap-vue/bootstrap-vue/commit/fa1c083))
+* **carousel:** remove un-needed `aria-` atribute on slides ([#1448](https://github.com/bootstrap-vue/bootstrap-vue/issues/1448)) ([260919f](https://github.com/bootstrap-vue/bootstrap-vue/commit/260919f))
+* **carousel:** uncaught typeerror on empty slides. ([#1401](https://github.com/bootstrap-vue/bootstrap-vue/issues/1401)) ([cadae79](https://github.com/bootstrap-vue/bootstrap-vue/commit/cadae79))
+* **dropdown:** use class `position-static` instead of inline style ([#1451](https://github.com/bootstrap-vue/bootstrap-vue/issues/1451)) ([fc49325](https://github.com/bootstrap-vue/bootstrap-vue/commit/fc49325))
+* **dropdowns:** prevent memory leak on destroy ([#1392](https://github.com/bootstrap-vue/bootstrap-vue/issues/1392)) ([839418e](https://github.com/bootstrap-vue/bootstrap-vue/commit/839418e)), closes [#1391](https://github.com/bootstrap-vue/bootstrap-vue/issues/1391)
+* **form-group:** import b-form-row directly from layout ([8dcce39](https://github.com/bootstrap-vue/bootstrap-vue/commit/8dcce39))
+* **form-radio-group:** prepare for bootstrap V4.beta.3 ([39eb237](https://github.com/bootstrap-vue/bootstrap-vue/commit/39eb237))
+* **form-radio-group:** prepare for bootstrap V4.beta.3 ([5b659d1](https://github.com/bootstrap-vue/bootstrap-vue/commit/5b659d1))
+* **id mixin:** set prop type to String ([9a6eaa5](https://github.com/bootstrap-vue/bootstrap-vue/commit/9a6eaa5))
+* **list-group:** disabled button items ([#1444](https://github.com/bootstrap-vue/bootstrap-vue/issues/1444)) ([c037b38](https://github.com/bootstrap-vue/bootstrap-vue/commit/c037b38))
+* **modal:** rounded-top class no longer needed when header variant applied ([#1433](https://github.com/bootstrap-vue/bootstrap-vue/issues/1433)) ([ecf1bf5](https://github.com/bootstrap-vue/bootstrap-vue/commit/ecf1bf5))
+* **modal:** update centered modal margins to align with BSV4.beta.3 update ([f7e80a8](https://github.com/bootstrap-vue/bootstrap-vue/commit/f7e80a8))
+* **table:** better custom css specificity for when nesting tables ([7acccb9](https://github.com/bootstrap-vue/bootstrap-vue/commit/7acccb9))
+* **table:** correct fixd-top row scoped slot properties ([debf8e2](https://github.com/bootstrap-vue/bootstrap-vue/commit/debf8e2))
+* **table:** initial busy of true always makes table busy ([#1400](https://github.com/bootstrap-vue/bootstrap-vue/issues/1400)) ([029e4d0](https://github.com/bootstrap-vue/bootstrap-vue/commit/029e4d0)), closes [#1398](https://github.com/bootstrap-vue/bootstrap-vue/issues/1398)
+* detach clickout listener in beforeDestroy ([b290cad](https://github.com/bootstrap-vue/bootstrap-vue/commit/b290cad))
+* **table:** use stable sort algorithm to prevent SSR issues ([#1399](https://github.com/bootstrap-vue/bootstrap-vue/issues/1399)) ([21b33f2](https://github.com/bootstrap-vue/bootstrap-vue/commit/21b33f2))
+* **tooltip+popover:** auto-append to `.modal-content` instead of `.modal` ([#1465](https://github.com/bootstrap-vue/bootstrap-vue/issues/1465)) ([b53715c](https://github.com/bootstrap-vue/bootstrap-vue/commit/b53715c)), closes [#1464](https://github.com/bootstrap-vue/bootstrap-vue/issues/1464)
+* remove listenOnRoot handlers in beforeDestroy ([e594490](https://github.com/bootstrap-vue/bootstrap-vue/commit/e594490))
+* SFC transpilation in es buld ([#1410](https://github.com/bootstrap-vue/bootstrap-vue/issues/1410)) ([3ef9572](https://github.com/bootstrap-vue/bootstrap-vue/commit/3ef9572))
+
+
+### Features
+
+* **dropdowns:** add boundary prop for controlling placement constraint ([#1440](https://github.com/bootstrap-vue/bootstrap-vue/issues/1440)) ([01498cb](https://github.com/bootstrap-vue/bootstrap-vue/commit/01498cb))
+* **form-group:** new label-size prop ([b8311e5](https://github.com/bootstrap-vue/bootstrap-vue/commit/b8311e5))
+* **form-group:** new label-size prop ([#1422](https://github.com/bootstrap-vue/bootstrap-vue/issues/1422)) ([dcffb5c](https://github.com/bootstrap-vue/bootstrap-vue/commit/dcffb5c))
+* **form-group:** new prop for label-class, deprecate prop feedback in favor of invalid-feedback ([#1412](https://github.com/bootstrap-vue/bootstrap-vue/issues/1412)) ([44f13a5](https://github.com/bootstrap-vue/bootstrap-vue/commit/44f13a5))
+* **form-group:** render label element if prop label-for set + horizontal layout optimizations ([#1423](https://github.com/bootstrap-vue/bootstrap-vue/issues/1423)) ([ce164bf](https://github.com/bootstrap-vue/bootstrap-vue/commit/ce164bf))
+* **form-group:** set aria-describedby attribute on input if label-for provided ([#1431](https://github.com/bootstrap-vue/bootstrap-vue/issues/1431)) ([6bd12bb](https://github.com/bootstrap-vue/bootstrap-vue/commit/6bd12bb))
+* **modal:** new props for adding classes to header, body and footer ([#1462](https://github.com/bootstrap-vue/bootstrap-vue/issues/1462)) ([bc67a2d](https://github.com/bootstrap-vue/bootstrap-vue/commit/bc67a2d))
+* **pagination+pagination-nav:** remove need for custom active focus style ([#1384](https://github.com/bootstrap-vue/bootstrap-vue/issues/1384)) ([ecd9b6a](https://github.com/bootstrap-vue/bootstrap-vue/commit/ecd9b6a))
+* **table:** add responsive stacked table option ([#1407](https://github.com/bootstrap-vue/bootstrap-vue/issues/1407)) ([26c35ba](https://github.com/bootstrap-vue/bootstrap-vue/commit/26c35ba))
+* **table:** add toggleDetails method to scoped item slots ([#1404](https://github.com/bootstrap-vue/bootstrap-vue/issues/1404)) ([e02fa49](https://github.com/bootstrap-vue/bootstrap-vue/commit/e02fa49))
+* **tabs:** add name to helper component for better debugging ([e436a1d](https://github.com/bootstrap-vue/bootstrap-vue/commit/e436a1d))
+* **tabs:** add no-body prop to b-tab ([#1385](https://github.com/bootstrap-vue/bootstrap-vue/issues/1385)) ([af36c0e](https://github.com/bootstrap-vue/bootstrap-vue/commit/af36c0e))
+* **tooltip+popover:** add boundary element config option (positioning constraint) ([#1439](https://github.com/bootstrap-vue/bootstrap-vue/issues/1439)) ([08fd7ce](https://github.com/bootstrap-vue/bootstrap-vue/commit/08fd7ce))
+* **tooltip+popover:** programmatically disable/enable tooltip or popover ([#1387](https://github.com/bootstrap-vue/bootstrap-vue/issues/1387)) ([c83e0d5](https://github.com/bootstrap-vue/bootstrap-vue/commit/c83e0d5))
+* **v-b-modal:** set role="button" if trigger element is not a button ([aa45d3e](https://github.com/bootstrap-vue/bootstrap-vue/commit/aa45d3e))
+* **v-b-toggle:** add role 'button' when trigger is not a button ([c2dd2d0](https://github.com/bootstrap-vue/bootstrap-vue/commit/c2dd2d0))
+
+
+### Performance Improvements
+
+* **dropdowns:** use non reactive property to store popper.js instance ([#1416](https://github.com/bootstrap-vue/bootstrap-vue/issues/1416)) ([379d9a8](https://github.com/bootstrap-vue/bootstrap-vue/commit/379d9a8))
+* evalute slots() once in functional component render functions ([#1438](https://github.com/bootstrap-vue/bootstrap-vue/issues/1438)) ([3c42477](https://github.com/bootstrap-vue/bootstrap-vue/commit/3c42477))
+
+
+
 <a name="1.3.0"></a>
 ## [v1.3.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.2.0...v1.3.0)
 Relased: 2017-11-29
