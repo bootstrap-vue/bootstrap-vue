@@ -80,7 +80,7 @@ export default {
     },
     label: {
       type: String,
-      value: null
+      default: null
     },
     // $parent prop values take precedence over the following props
     // Which is why they are defaulted to null
