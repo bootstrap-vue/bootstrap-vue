@@ -213,7 +213,7 @@ export default {
     },
     validated: {
       type: Boolean,
-      value: false
+      default: false
     }
   },
   computed: {
