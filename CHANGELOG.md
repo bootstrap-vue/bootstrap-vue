@@ -3,10 +3,11 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 <a name="1.4.0"></a>
-# [1.4.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.3.0...v1.4.0) (2017-12-15)
+## [v1.4.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.3.0...v1.4.0)
+Released: 2017-12-15
 
 
-### Bug Fixes
+### Bug Fixes v1.4.0
 
 * **button:** allow custom size classes to be passed to the size prop ([#1389](https://github.com/bootstrap-vue/bootstrap-vue/issues/1389)) ([41a46b2](https://github.com/bootstrap-vue/bootstrap-vue/commit/41a46b2))
 * **carousel:** clear timers on beforeDestroy ([fa1c083](https://github.com/bootstrap-vue/bootstrap-vue/commit/fa1c083))
@@ -31,7 +32,7 @@ All notable changes to this project will be documented in this file. See [standa
 * SFC transpilation in es buld ([#1410](https://github.com/bootstrap-vue/bootstrap-vue/issues/1410)) ([3ef9572](https://github.com/bootstrap-vue/bootstrap-vue/commit/3ef9572))
 
 
-### Features
+### Features v1.4.0
 
 * **dropdowns:** add boundary prop for controlling placement constraint ([#1440](https://github.com/bootstrap-vue/bootstrap-vue/issues/1440)) ([01498cb](https://github.com/bootstrap-vue/bootstrap-vue/commit/01498cb))
 * **form-group:** new label-size prop ([b8311e5](https://github.com/bootstrap-vue/bootstrap-vue/commit/b8311e5))
@@ -51,7 +52,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **v-b-toggle:** add role 'button' when trigger is not a button ([c2dd2d0](https://github.com/bootstrap-vue/bootstrap-vue/commit/c2dd2d0))
 
 
-### Performance Improvements
+### Performance Improvements v1.4.0
 
 * **dropdowns:** use non reactive property to store popper.js instance ([#1416](https://github.com/bootstrap-vue/bootstrap-vue/issues/1416)) ([379d9a8](https://github.com/bootstrap-vue/bootstrap-vue/commit/379d9a8))
 * evalute slots() once in functional component render functions ([#1438](https://github.com/bootstrap-vue/bootstrap-vue/issues/1438)) ([3c42477](https://github.com/bootstrap-vue/bootstrap-vue/commit/3c42477))
