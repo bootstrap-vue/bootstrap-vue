@@ -12,10 +12,13 @@ Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Co
     <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--beta-800080.svg?style=flat-square">
 </a>
 <a href="https://vuejs.org">
-    <img alt="" src="https://img.shields.io/badge/vue.js-2.4.x-green.svg?style=flat-square">
+    <img alt="" src="https://img.shields.io/badge/vue.js-2.x-green.svg?style=flat-square">
 </a>
 <a href="https://github.com/bootstrap-vue/bootstrap-vue">
     <img alt="" src="https://david-dm.org/bootstrap-vue/bootstrap-vue.svg?style=flat-square">
+</a>
+<a href="https://codecov.io/gh/bootstrap-vue/bootstrap-vue">
+    <img alt="" src="https://img.shields.io/codecov/c/github/bootstrap-vue/bootstrap-vue.svg?style=flat-square">
 </a>
 <a href="http://packagequality.com/#?package=bootstrap-vue">
     <img alt="package quality" src="http://npm.packagequality.com/shield/bootstrap-vue.png?style=flat-square">
