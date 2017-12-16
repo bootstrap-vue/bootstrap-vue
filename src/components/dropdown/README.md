@@ -201,28 +201,6 @@ Create a split dropdown button, where the left button provides standard
 <!-- dropdown-split.vue -->
 ```
 
-## Hidden Caret
-The dropdown can be created with the caret hidden by setting the `no-caret` prop to `true`.
-This is useful when the dropdown is to be displayed as an icon.
-
-**Note:** The caret will always be shown when using `split` mode.
-
-```html
-<div>
-  <b-dropdown variant="link" size="lg" no-caret>
-    <template slot="button-content">
-      &#x1f50d;<span class="sr-only">Search</span>
-    </template>
-
-    <b-dropdown-item href="#">Action</b-dropdown-item>
-    <b-dropdown-item href="#">Another action</b-dropdown-item>
-    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
-  </b-dropdown>
-</div>
-
-<!-- dropdown-hidden-toggle.vue -->
-```
-
 ## Sizing
 Dropdowns work with trigger buttons of all sizes, including default and split
 dropdown buttons.
@@ -265,6 +243,30 @@ The dropdown trigger buttons can have one of the standard Boostrap contextual va
 by setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link` etc.
 
 See the [Variant Reference](/docs/reference/variants) for a list of supported contextual variants.
+
+
+## Hidden Caret
+The dropdown can be created with the caret hidden by setting the `no-caret` prop to `true`.
+This is useful when the dropdown is to be displayed as an icon.
+
+```html
+<div>
+  <b-dropdown variant="link" size="lg" no-caret>
+    <template slot="button-content">
+      &#x1f50d;<span class="sr-only">Search</span>
+    </template>
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-hidden-caret.vue -->
+```
+
+**Notes:**
+- The caret will always be shown when using `split` mode.
+- Hidden caret works by removing the `.dropdown-toggle` class from the dropdown trigger button. This may cause styling and/or functionality issues in certain situations where the `.dropdown-toggle` class is required. Your mileage may vary.
 
 
 ## Accessibility
