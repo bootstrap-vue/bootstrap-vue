@@ -80,7 +80,7 @@
                             </b-btn>
                         </div>
                         <div class="card-body">
-                            <div v-for="message in messages" :key="JSON.stringify(message)">
+                            <div v-for="(message, idx) in messages" :key="`console-${idx}`">
                                 <b-badge :variant="message[0]">{{message[0]}}</b-badge>
                                 <span class="text-muted"> {{message[1]}}</span>
                                 <br>
