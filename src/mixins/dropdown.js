@@ -135,6 +135,7 @@ export default {
       }
 
       // Disable totally Popper.js for Dropdown in Navbar
+      /* istnbul ignore next: can't test popper in JSDOM */
       if (!this.inNavbar) {
         if (typeof Popper === 'undefined') {
           warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.')
@@ -173,7 +174,7 @@ export default {
       }
       this._popper = null
     },
-    getPopperConfig () {
+    getPopperConfig /* istanbul ignore next: can't test popper in JSDOM */ () {
       let placement = AttachmentMap.BOTTOM
       if (this.dropup && this.right) {
         // dropup + right
