@@ -113,8 +113,9 @@ export default {
     dropdownClasses () {
       let position = ''
       // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
+      // when boundary is anything other than `scrollParent`
       // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
-      if (this.boundary === 'scrollParent' || !this.boundary) {
+      if (this.boundary !== 'scrollParent' || !this.boundary) {
         position = 'position-static'
       }
       return [
