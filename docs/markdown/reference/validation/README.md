@@ -81,4 +81,6 @@ This is a verbose example designed to show how Bootstrap-Vue and Vuelidate inter
     }
   }
 </script>
+
+<!-- form-validation-1.vue -->
 ```
