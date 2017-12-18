@@ -154,7 +154,7 @@ to:
                   v-model.trim="name"
                   type="text"
                   :state="nameState"
-                  aria-describedby="inputLiveHelp inputLiveFeeback"
+                  aria-describedby="inputLiveHelp inputLiveFeedback"
                   placeholder="Enter your name"></b-form-input>
     <b-form-invalid-feedback id="inputLiveFeedback">
       <!-- This will only be shown if the preceeding input has an invalid state -->
