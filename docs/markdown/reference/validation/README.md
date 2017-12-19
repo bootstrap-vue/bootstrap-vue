@@ -66,12 +66,14 @@ This is a verbose example designed to show how Bootstrap-Vue and Vuelidate inter
       validationMixin
     ],
     validations: {
-      food: {
-        required
-      },
-      name: {
-        required,
-        minLength: minLength(3)   
+      form: {
+        food: {
+          required
+        },
+        name: {
+          required,
+          minLength: minLength(3)   
+        }
       }
     },
     methods: {
