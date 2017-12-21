@@ -33,7 +33,8 @@ export default {
         ref: 'toggle',
         class: {
           'dropdown-toggle': !t.noCaret || t.split,
-          'dropdown-toggle-split': t.split
+          'dropdown-toggle-split': t.split,
+          ...t.toggleClass
         },
         props: {
           variant: t.variant,
@@ -92,6 +93,10 @@ export default {
     },
     variant: {
       type: String,
+      default: null
+    },
+    toggleClass: {
+      type: Object,
       default: null
     },
     noCaret: {
