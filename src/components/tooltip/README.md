@@ -30,7 +30,8 @@ component **outside** of these types of components.
 
 The target element **must** exist in the document before `<b-tooltip>` is mounted. If the
 target element is not found during mount, the tooltip will never open. Always place
-your `<b-tooltip>` component lower in the DOM than your target element.
+your `<b-tooltip>` component lower in the DOM than your target element. This rule also applies
+if a callback is used as target element, since that callback is called only once on mount.
 
 **Note:** _When using the default slot for the title, `<b-tooltip>` transfers the
 rendered DOM from that slot into the tooltip's markup when shown, and returns
@@ -135,11 +136,14 @@ by `focus`, and the user then clicks the trigger element, they must click it aga
 ```html
 <b-container fluid>
   <b-row>
-    <b-col md="6" class="py-4">
+    <b-col md="4" class="py-4">
       <b-btn id="exButton1" variant="outline-success">Live chat</b-btn>
     </b-col>
-    <b-col md="6" class="py-4">
+    <b-col md="4" class="py-4">
       <b-btn id="exButton2" variant="outline-success">Html chat</b-btn>
+    </b-col>
+    <b-col md="4" class="py-4">
+      <b-btn ref="exButton3" variant="outline-success">Alternative chat</b-btn>
     </b-col>
   </b-row>
 
@@ -150,6 +154,10 @@ by `focus`, and the user then clicks the trigger element, they must click it aga
   <b-tooltip target="exButton2" placement="bottom">
     Hello <strong>World!</strong>
   </b-tooltip>
+
+  <!-- Tooltip for an element identified by ref -->
+  <b-tooltip :target="() => $refs.exButton3" title="Alternative!"></b-tooltip>
+
 </b-container>
 
 <!-- tooltip-component-1.vue -->
@@ -159,7 +167,7 @@ by `focus`, and the user then clicks the trigger element, they must click it aga
 
 | Prop | Default | Description | Supported values
 | ---- | ------- | ----------- | ----------------
-| `target` | `null` | Element String ID, or a reference to an element or component, that you want to trigger the tooltip. **Required** | Any valid, in-document unique element ID, element reference or component reference
+| `target` | `null` | Element String ID, or a reference to an element or component, or a function returning either of them, that you want to trigger the tooltip. **Required** | Any valid, in-document unique element ID, element reference or component reference or a function returning any such ID / reference
 | `title` | `null` |  Tooltip content (text only, no HTML). if HTML is required, place it in the default slot | Plain text
 | `placement` | `top` | Tooltip position, relative to the trigger element. | `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, `rightbottom`
 | `triggers` | `hover focus` |  Space separated list of event(s), which will trigger open/close of tooltip | `hover`, `focus`, `click`. Note `blur` is a special use case to close tooltip on next click, usually used in conjunction with `click`.
