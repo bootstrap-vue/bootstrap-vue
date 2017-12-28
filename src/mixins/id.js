@@ -16,7 +16,7 @@ export default {
     }
   },
   mounted () {
-    if (!this.$isServer && !this.id && this._uid) {
+    if (!this.$isServer && !this.id && typeof this._uid !== 'undefined') {
       this.localId_ = `__BVID__${this._uid}_`
     }
   },
