@@ -624,7 +624,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | `index` | Number | The row number (indexed from zero) relative to the displayed rows
 | `item` | Object | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)
 | `value` | Any | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's `formatter` function (see below for for information on field `formatter` callback functions)
-| `unformatted` | Any | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formtter` function
+| `unformatted` | Any | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formatter` function
 | `detailsShowing` | Boolean | Will be `true` if the row's `row-details` scoped slot is visible. See section [**Row details support**](#row-details-support) below for additional information
 | `toggleDetails` | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [**Row details support**](#row-details-support) below for additional information
 
