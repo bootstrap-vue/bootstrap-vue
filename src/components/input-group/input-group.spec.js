@@ -24,15 +24,15 @@ describe('input-group', async () => {
     })
   })
 
-  it('basic should have left `.input-group-addon` as first child', async () => {
+  it('basic should have `.input-group-append` as first child', async () => {
     const { app: { $refs } } = window
 
     const left = $refs.basic.children[0]
     expect(left).toBeDefined()
-    expect(left).toHaveClass('input-group-addon')
+    expect(left).toHaveClass('input-group-append')
   })
 
-  it('basic should have content in left `.input-group-addon`', async () => {
+  it('basic should have content in left `.input-group-prepend`', async () => {
     const { app: { $refs } } = window
 
     const left = $refs.basic.children[0]
@@ -40,15 +40,15 @@ describe('input-group', async () => {
     expect(left.textContent).toContain('$')
   })
 
-  it('basic should have right `.input-group-addon` as last child', async () => {
+  it('basic should have right `.input-group-append` as last child', async () => {
     const { app: { $refs } } = window
 
     const right = $refs.basic.children[2]
     expect(right).toBeDefined()
-    expect(right).toHaveClass('input-group-addon')
+    expect(right).toHaveClass('input-group-append')
   })
 
-  it('basic should have content in right `.input-group-addon`', async () => {
+  it('basic should have content in right `.input-group-append`', async () => {
     const { app: { $refs } } = window
 
     const right = $refs.basic.children[2]
@@ -64,15 +64,15 @@ describe('input-group', async () => {
     expect(input.tagName).toBe('INPUT')
   })
 
-  it('components should have left `.input-group-addon` as first child', async () => {
+  it('components should have left `.input-group-prepend` as first child', async () => {
     const { app: { $refs } } = window
 
     const left = $refs.components.children[0]
     expect(left).toBeDefined()
-    expect(left).toHaveClass('input-group-addon')
+    expect(left).toHaveClass('input-group-prepend')
   })
 
-  it('components should have content in left `.input-group-addon`', async () => {
+  it('components should have content in left `.input-group-prepend`', async () => {
     const { app: { $refs } } = window
 
     const left = $refs.components.children[0]
@@ -80,15 +80,15 @@ describe('input-group', async () => {
     expect(left.textContent).toContain('$')
   })
 
-  it('components should have right `.input-group-btn` as last child', async () => {
+  it('components should have right `.input-group-append` as last child', async () => {
     const { app: { $refs } } = window
 
     const right = $refs.components.children[2]
     expect(right).toBeDefined()
-    expect(right).toHaveClass('input-group-btn')
+    expect(right).toHaveClass('input-group-append')
   })
 
-  it('components should have button in right `.input-group-btn`', async () => {
+  it('components should have button in right `.input-group-append`', async () => {
     const { app: { $refs } } = window
 
     const right = $refs.components.children[2]

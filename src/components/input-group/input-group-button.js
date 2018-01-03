@@ -1,3 +1,9 @@
+/**
+* This is deprecated as of Bootstrap 4 beta 3
+* Previously class was input-group-btn but is now dropped for append/prepend
+* depending on slot='left' or slot='right' property.
+* See https://github.com/twbs/bootstrap/pull/25020
+ */
 import { mergeData } from '../../utils'
 
 export const props = {
@@ -18,7 +24,7 @@ export default {
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: 'input-group-btn',
+        staticClass: `input-group-${data.slot === 'left' ? 'prepend' : 'append'}`,
         attrs: {
           id: props.id
         }
