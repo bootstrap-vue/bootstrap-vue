@@ -56,12 +56,12 @@ export default {
 
     let indicator = h(false)
     if (!t.is_ButtonMode && !t.is_Plain) {
-      indicator = h('span', { class: 'custom-control-indicator', attrs: { 'aria-hidden': 'true' } })
+      indicator = h('span', { attrs: { 'aria-hidden': 'true' } })
     }
 
     const description = h(
       'span',
-      { class: t.is_ButtonMode ? null : (t.is_Plain ? 'form-check-description' : 'custom-control-description') },
+      { class: t.is_ButtonMode ? null : (t.is_Plain ? 'form-check-label' : 'custom-control-label') },
       [t.$slots.default]
     )
 
