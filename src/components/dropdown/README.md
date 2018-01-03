@@ -239,11 +239,12 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 
 
 ## Dropdown color variants
-The dropdown trigger buttons can have one of the standard Boostrap contextual variants applied
+The dropdown trigger buttons can have one of the standard Bootstrap contextual variants applied
 by setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link` etc.
 
 See the [Variant Reference](/docs/reference/variants) for a list of supported contextual variants.
 
+You can also apply abritrary classes to the toggle button via the `toggle-class` prop. This prop accepts either a string or array of strings.
 
 ## Hidden Caret
 The dropdown can be created with the caret hidden by setting the `no-caret` prop to `true`.
