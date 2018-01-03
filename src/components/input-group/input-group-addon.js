@@ -18,7 +18,7 @@ export default {
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: 'input-group-addon',
+        staticClass: `input-group-${data.slot === 'left' ? 'prepend' : 'append'}`,
         attrs: { id: props.id }
       }),
       children
