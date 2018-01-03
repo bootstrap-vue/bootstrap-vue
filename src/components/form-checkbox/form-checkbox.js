@@ -54,27 +54,28 @@ export default {
       }
     )
 
-    let indicator = h(false)
-    if (!t.is_ButtonMode && !t.is_Plain) {
-      indicator = h('span', { attrs: { 'aria-hidden': 'true' } })
-    }
-
     const description = h(
-      'span',
+      t.is_ButtonMode ? 'span' : 'label',
       { class: t.is_ButtonMode ? null : (t.is_Plain ? 'form-check-label' : 'custom-control-label') },
       [t.$slots.default]
     )
 
-    const label = h(
-      'label',
-      { class: [t.is_ButtonMode ? t.buttonClasses : t.is_Plain ? 'form-check-label' : t.labelClasses] },
-      [input, indicator, description]
-    )
-
-    if (t.is_Plain && !t.is_ButtonMode) {
-      return h('div', { class: ['form-check', { 'form-check-inline': !t.is_Stacked }] }, [label])
+    if (!t.is_ButtonMode) {
+      return h(
+        'div',
+        { class: [
+          t.is_Plain ? 'form-check' : t.labelClasses,
+          { 'form-check-inline': t.is_Plain && !t.is_Stacked },
+          { 'custom-control-inline': !t.is_Plain && !t.is_Stacked }
+        ] },
+        [input, description]
+      )
     } else {
-      return label
+      return h(
+        'label',
+        { class: [t.buttonClasses] },
+        [input, description]
+      )
     }
   },
   props: {
