@@ -1,5 +1,8 @@
 import bInputGroup from './input-group'
 import bInputGroupAddon from './input-group-addon'
+import bInputGroupPrepend from './input-group-prepend'
+import bInputGroupAppend from './input-group-append'
+import bInputGroupText from './input-group-text'
 import bInputGroupButton from './input-group-button'
 import { registerComponents, vueUse } from '../../utils'
 
@@ -8,7 +11,10 @@ import { registerComponents, vueUse } from '../../utils'
 const components = {
   bInputGroup,
   bInputGroupAddon,
+  bInputGroupPrepend,
+  bInputGroupAppend,
   bInputGroupButton,
+  bInputGroupText,
   bInputGroupBtn: bInputGroupButton
 }
 
