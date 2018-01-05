@@ -3,8 +3,10 @@
 
 ```html
 <div>
-  <b-input-group left="$" right=".00">
+  <b-input-group>
+    <b-input-group-prepend>$</b-input-group-prepend>
     <b-form-input></b-form-input>
+    <b-input-group-append>.00</b-input-group-append>
   </b-input-group>
 
   <br>

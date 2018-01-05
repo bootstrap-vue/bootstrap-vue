@@ -24,12 +24,12 @@ describe('input-group', async () => {
     })
   })
 
-  it('basic should have `.input-group-append` as first child', async () => {
+  it('basic should have `div.input-group-prepend` as first child', async () => {
     const { app: { $refs } } = window
 
     const left = $refs.basic.children[0]
     expect(left).toBeDefined()
-    expect(left).toHaveClass('input-group-append')
+    expect(left).toHaveClass('input-group-prepend')
   })
 
   it('basic should have content in left `.input-group-prepend`', async () => {
