@@ -1,7 +1,7 @@
-import bBtnClose from '../button/button-close'
+import bButtonClose from '../button/button-close'
 
 export default {
-  components: {bBtnClose},
+  components: {bButtonClose},
   render (h) {
     if (!this.localShow) {
       // If not showing, render placeholder
