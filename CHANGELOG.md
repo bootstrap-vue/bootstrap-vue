@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v1.4.1) (2018-01-14)
+
+
+### Bug Fixes
+
+* **alert:** import button-close in alert with a name matching tag. ([#1523](https://github.com/bootstrap-vue/bootstrap-vue/issues/1523)) fixes [#1522](https://github.com/bootstrap-vue/bootstrap-vue/issues/1522). ([51b527f](https://github.com/bootstrap-vue/bootstrap-vue/commit/51b527f))
+* **docs play:** prevent duplicate key errors in console output ([#1476](https://github.com/bootstrap-vue/bootstrap-vue/issues/1476)) ([68deee1](https://github.com/bootstrap-vue/bootstrap-vue/commit/68deee1))
+* **dropdown:** fix condition for when position-static is applied ([#1477](https://github.com/bootstrap-vue/bootstrap-vue/issues/1477)) ([1717edb](https://github.com/bootstrap-vue/bootstrap-vue/commit/1717edb))
+* **dropdown:** fixed aria-labbeledby for non-split dropdowns ([d597dbc](https://github.com/bootstrap-vue/bootstrap-vue/commit/d597dbc))
+* **dropdown:** prevent toggle click from closing in collapsed navbar ([#1475](https://github.com/bootstrap-vue/bootstrap-vue/issues/1475)) ([24ef1e6](https://github.com/bootstrap-vue/bootstrap-vue/commit/24ef1e6)), closes [#1474](https://github.com/bootstrap-vue/bootstrap-vue/issues/1474)
+* **id:** fixed check for _uid in client side id generator ([#1499](https://github.com/bootstrap-vue/bootstrap-vue/issues/1499)) ([f3fe0f4](https://github.com/bootstrap-vue/bootstrap-vue/commit/f3fe0f4))
+
+
+### Performance Improvements
+
+* **dropdown:** changed 'this' to 't' ([#1500](https://github.com/bootstrap-vue/bootstrap-vue/issues/1500)) ([ace3e94](https://github.com/bootstrap-vue/bootstrap-vue/commit/ace3e94))
+
+
+
 <a name="1.4.0"></a>
 ## [v1.4.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.3.0...v1.4.0)
 Released: 2017-12-15
