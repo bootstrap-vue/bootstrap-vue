@@ -573,15 +573,15 @@ slot(s).
 <template>
   <b-table :fields="fields" :items="items">
     <!-- A virtual column -->
-    <template slot="index" scope="data">
+    <template slot="index" slot-scope="data">
       {{data.index + 1}}
     </template>
     <!-- A custom formatted column -->
-    <template slot="name" scope="data">
+    <template slot="name" slot-scope="data">
       {{data.value.first}} {{data.value.last}}
     </template>
     <!-- A virtual composite column -->
-    <template slot="nameage" scope="data">
+    <template slot="nameage" slot-scope="data">
       {{data.item.name.first}} is {{data.item.age}} years old
     </template>
   </b-table>
@@ -640,7 +640,7 @@ be empty) to prevent the click on the input, button, select, or link, from trigg
 the `row-clicked` event:_
 
 ```html
-<template slot="actions" scope="cell">
+<template slot="actions" slot-scope="cell">
   <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
   <b-btn size="sm" @click.stop="details(cell.item,cell.index,$event.target)">Details</b-btn>
 </template>
@@ -661,7 +661,7 @@ return the formatted value as a string (basic HTML is supported)
 ```html
 <template>
   <b-table :fields="fields" :items="items">
-    <template slot="name" scope="data">
+    <template slot="name" slot-scope="data">
       <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">
         {{data.value}}
       </a>
@@ -729,15 +729,15 @@ the footer will use the `HEAD_` slot content.
 
 ```html
 <b-table :fields="fields" :items="items"  foot-clone>
-  <template slot="name" scope="data">
+  <template slot="name" slot-scope="data">
     <!-- A custom formatted data column cell -->
     {{data.value.first}} {{data.value.last}}
   </template>
-  <template slot="HEAD_name" scope="data">
+  <template slot="HEAD_name" slot-scope="data">
     <!-- A custom formatted header cell for field 'name' -->
     <em>{{data.label}}</em>
   </template>
-  <template slot="FOOT_name" scope="data">
+  <template slot="FOOT_name" slot-scope="data">
     <!-- A custom formatted footer cell  for field 'name' -->
     <strong>{{data.label}}</strong>
   </template>
@@ -758,7 +758,7 @@ click on the input, button, select, or link, from triggering a change in sorting
 or a `head-clicked` event.
 
 ```html
-<template slot="HEAD_actions" scope="foo">
+<template slot="HEAD_actions" slot-scope="foo">
   <!-- We use click.stop here to prevent 'sort-changed' or 'head-clicked' events -->
   <input @click.stop type="checkbox" :value="foo.column" v-model="selected">
   <!-- We use click.native.stop here to prevent 'sort-changed' or 'head-clicked' events -->
@@ -802,7 +802,7 @@ to have details initially showing.
 ```html
 <template>
   <b-table :items="items" :fields="fields">
-    <template slot="show_details" scope="row">
+    <template slot="show_details" slot-scope="row">
       <!-- we use @click.stop here to prevent emitting of a 'row-clicked' event  -->
       <b-button size="sm" @click.stop="row.toggleDetails" class="mr-2">
        {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
@@ -813,7 +813,7 @@ to have details initially showing.
         Details via check
       </b-form-checkbox>
     </template>
-    <template slot="row-details" scope="row">
+    <template slot="row-details" slot-scope="row">
       <b-card>
         <b-row class="mb-2">
           <b-col sm="3" class="text-sm-right"><b>Age:</b></b-col>
@@ -1256,9 +1256,9 @@ when fetching your data!
              :sort-desc.sync="sortDesc"
              @filtered="onFiltered"
     >
-      <template slot="name" scope="row">{{row.value.first}} {{row.value.last}}</template>
-      <template slot="isActive" scope="row">{{row.value?'Yes :)':'No :('}}</template>
-      <template slot="actions" scope="row">
+      <template slot="name" slot-scope="row">{{row.value.first}} {{row.value.last}}</template>
+      <template slot="isActive" slot-scope="row">{{row.value?'Yes :)':'No :('}}</template>
+      <template slot="actions" slot-scope="row">
         <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
         <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
@@ -1267,7 +1267,7 @@ when fetching your data!
           {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
         </b-button>
       </template>
-      <template slot="row-details" scope="row">
+      <template slot="row-details" slot-scope="row">
         <b-card>
           <ul>
             <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value}}</li>
