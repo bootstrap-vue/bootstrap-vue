@@ -19,22 +19,22 @@ if (!fs.existsSync(dist)) {
 module.exports = {
   input: path.resolve(src, 'index.js'),
   external: Object.keys(dependencies),
-  name,
   plugins: [
     vue({
       cssModules: {
         generateScopedName: '[name]__[local]'
       },
       css (style) {
-        fs.writeFileSync(path.resolve(dist, `${name}.css`), new CleanCSS().minify(style).styles)
+        fs.writeFileSync(
+          path.resolve(dist, `${name}.css`),
+          new CleanCSS().minify(style).styles
+        )
       }
     }),
     resolve({ external: ['vue'] }),
     commonjs(),
     babel({
-      plugins: [
-        'external-helpers'
-      ]
+      plugins: ['external-helpers']
     })
   ],
   output: [

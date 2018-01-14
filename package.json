@@ -44,15 +44,15 @@
   },
   "files": ["src", "dist", "nuxt", "es"],
   "scripts": {
-    "build": "build/build",
-    "watch": "rollup -c build/rollup.config.js --watch",
+    "build": "scripts/build",
+    "watch": "rollup -c scripts/rollup.config.js --watch",
     "docs-dev": "nuxt dev -c docs/nuxt.config.js",
     "docs-gen": "nuxt generate -c docs/nuxt.config.js",
     "docs-publish":
       "gh-pages -t -d docs-dist -b master -r git@github.com:bootstrap-vue/bootstrap-vue.github.io.git",
     "test": "yarn lint && NODE_ENV=test jest",
-    "lint": "eslint src build docs tests nuxt",
-    "release": "npm run build && npm run test && standard-version",
+    "lint": "eslint src scripts docs tests nuxt",
+    "release": "npm run scripts && npm run test && standard-version",
     "postinstall": "opencollective postinstall || exit 0"
   },
   "peerDependencies": {
