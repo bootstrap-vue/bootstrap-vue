@@ -514,7 +514,7 @@ this.$root.$emit('bv::show::modal', 'modal1', '#focusThisOnClose');
 event's `target` property:
 
 ```html
-<b-btn @click="$root.$emit.('bv::show::modal', 'modal1', $event.target)">
+<b-btn @click="$root.$emit('bv::show::modal', 'modal1', $event.target)">
   Open Modal
 </b-btn>
 ```
