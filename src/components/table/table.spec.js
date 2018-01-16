@@ -200,7 +200,7 @@ describe('table', async () => {
   it('sortable columns should have ARIA labels in thead', async () => {
     const { app: { $refs } } = window
     const vm = $refs.table_paginated
-    const ariaLabel = vm.labelSortDesc
+    const ariaLabel = vm.labelSortAsc
 
     const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
     expect(thead).toBeDefined()
@@ -219,7 +219,7 @@ describe('table', async () => {
   it('sortable columns should have ARIA labels in tfoot', async () => {
     const { app: { $refs } } = window
     const vm = $refs.table_paginated
-    const ariaLabel = vm.labelSortDesc
+    const ariaLabel = vm.labelSortAsc
 
     const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
     expect(tfoot).toBeDefined()
@@ -398,6 +398,7 @@ describe('table', async () => {
     const vm = $refs.table_paginated
     const spy = jest.fn()
     const fieldKeys = Object.keys(vm.fields)
+    const fieldValues = Object.values(vm.fields)
 
     vm.$on('sort-changed', spy)
     const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
@@ -406,23 +407,31 @@ describe('table', async () => {
       const tr = [...thead.children].find(el => el && el.tagName === 'TR')
       expect(tr).toBeDefined()
       if (tr) {
-        let sortBy = null
+        let sortBy = []
         const ths = [...tr.children]
         expect(ths.length).toBe(fieldKeys.length)
         ths.forEach((th, idx) => {
           th.click()
-          if (vm.fields[fieldKeys[idx]].sortable) {
+
+          const key = fieldKeys[idx]
+          const compare = fieldValues[idx].sortCompare ? fieldValues[idx].sortCompare : null
+
+          if (fieldValues[idx].sortable) {
             expect(spy).toHaveBeenCalledWith(vm.context)
-            expect(vm.context.sortBy).toBe(fieldKeys[idx])
+            expect(vm.context.sortBy).toContainEqual({
+              key,
+              compare,
+              desc: false,
+            })
             sortBy = vm.context.sortBy
           } else {
             if (sortBy) {
               expect(spy).toHaveBeenCalledWith(vm.context)
-              expect(vm.context.sortBy).toBe(null)
-              sortBy = null
+              expect(vm.context.sortBy).toEqual([])
+              sortBy = []
             } else {
               expect(spy).not.toHaveBeenCalled()
-              expect(vm.context.sortBy).toBe(null)
+              expect(vm.context.sortBy).toEqual([])
             }
           }
           spy.mockClear()
@@ -436,6 +445,7 @@ describe('table', async () => {
     const vm = $refs.table_paginated
     const spy = jest.fn()
     const fieldKeys = Object.keys(vm.fields)
+    const fieldValues = Object.values(vm.fields)
 
     vm.$on('sort-changed', spy)
     const tfoot = [...vm.$el.children].find(el => el && el.tagName === 'TFOOT')
@@ -444,23 +454,31 @@ describe('table', async () => {
       const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
       expect(tr).toBeDefined()
       if (tr) {
-        let sortBy = null
+        let sortBy = []
         const ths = [...tr.children]
         expect(ths.length).toBe(fieldKeys.length)
         ths.forEach((th, idx) => {
           th.click()
-          if (vm.fields[fieldKeys[idx]].sortable) {
+
+          const key = fieldKeys[idx]
+          const compare = fieldValues[idx].sortCompare ? fieldValues[idx].sortCompare : null
+
+          if (fieldValues[idx].sortable) {
             expect(spy).toHaveBeenCalledWith(vm.context)
-            expect(vm.context.sortBy).toBe(fieldKeys[idx])
+            expect(vm.context.sortBy).toContainEqual({
+              key,
+              compare,
+              desc: false,
+            })
             sortBy = vm.context.sortBy
           } else {
             if (sortBy) {
               expect(spy).toHaveBeenCalledWith(vm.context)
-              expect(vm.context.sortBy).toBe(null)
-              sortBy = null
+              expect(vm.context.sortBy).toEqual([])
+              sortBy = []
             } else {
               expect(spy).not.toHaveBeenCalled()
-              expect(vm.context.sortBy).toBe(null)
+              expect(vm.context.sortBy).toEqual([])
             }
           }
           spy.mockClear()
