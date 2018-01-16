@@ -421,7 +421,7 @@ describe('table', async () => {
             expect(vm.context.sortBy).toContainEqual({
               key,
               compare,
-              desc: false,
+              desc: false
             })
             sortBy = vm.context.sortBy
           } else {
@@ -468,7 +468,7 @@ describe('table', async () => {
             expect(vm.context.sortBy).toContainEqual({
               key,
               compare,
-              desc: false,
+              desc: false
             })
             sortBy = vm.context.sortBy
           } else {
