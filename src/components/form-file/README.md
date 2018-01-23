@@ -6,15 +6,13 @@ multiple files, and directory upload (for browsers that support directory mode)
 ```html
 <template>
 <div>
-  <!-- Simple File -->
-  <b-form-file id="file_input1" v-model="file"></b-form-file>
-  <br> Selected file: {{file && file.name}}
+  <!-- Styled -->
+  <b-form-file v-model="file" placeholder="Choose a file..."></b-form-file>
+  <div class="mt-3">Selected file: {{file && file.name}}</div>
 
-  <div class="mt-3">
-    <!-- Customized labels -->
-    <b-form-file id="file_input2" v-model="file2" choose-label="Attachment2"></b-form-file>
-    <br> Selected file : {{file2 && file2.name}}
-  </div>
+  <!-- Plain mode -->
+  <b-form-file v-model="file2" class="mt-3" plain></b-form-file>
+  <div class="mt-3">Selected file: {{file2 && file2.name}}</div>
 </div>
 </template>
 
@@ -36,19 +34,16 @@ For cross browser consistency, Form file defaults to the Bootstrap custom file
 input to replace the browser defaults. They’re built on top of semantic and accessible
 markup, so it is a solid replacement for the default file input.
 
-
 ## Single file (default)
 On single file mode, when no file is selected or user cancels Browse dialog, `v-model` is `null`
 indicating no file selected. When a file is selected the return value will be a javascript
 [`File`](https://developer.mozilla.org/en/docs/Web/API/File) object instance.
-
 
 ## Multiple files
 Multiple file uploading is supported by adding `multiple` prop to component.
 In this case `v-model` is *always* an `Array`. When no files are selected, an empty array
 will be returned. When a file or files are selected the return value will be an array of
 javascript [`File`](https://developer.mozilla.org/en/docs/Web/API/File) object instances.
-
 
 ## Directory mode
 By adding `directory` prop, the user can select directories instead of files.
@@ -59,10 +54,8 @@ The selected file system entries can be obtained using the `webkitEntries` prope
 be relied for production.
 [Read more on MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory)
 
-
 ## Drag and Drop
 Drop mode is enabled by default. it can disabled by setting the `no-drop` prop.
-
 
 ## Limiting to certain file types
 You can limit the file types by setting the `accept` prop to a string containing the
@@ -87,33 +80,18 @@ list of standard media types.
 
 **Note:** Not all browsers support or respect the `accept` attribute on file inputs.
 
-
-## Customizations
-Language strings and chosen file name is injected using `data-` props to css `content`.
-Local customization can be easily done with provided props such as `placeholder`,
-`choose-label`, `selected-format` and `drop-label`. If you want to globally change
-labels, you can add something like this to your global stylesheets. Also it is advised
-to use [:lang()](https://developer.mozilla.org/en-US/docs/Web/CSS/:lang) for multi-language sites.
+## Customize browse label
+If you want to globally change `Browse` label, you can add something like this to your global stylesheets.
+Also it is advised to use [:lang()](https://developer.mozilla.org/en-US/docs/Web/CSS/:lang) for multi-language sites.
 
 ```css
-/* Globally localize BootstrapVue file upload labels */
-
-.custom-file-control::after {
-    content: 'No files selected' !important;
-}
-
-.custom-file-control::before {
-    content: 'Choose file' !important;
-}
-
-.custom-file .drop-here::before {
-    content: 'Drop files here' !important;
+.custom-file-input:lang(en)~.custom-file-label::after {
+    content: "Browse";
 }
 ```
 
 ## Non custom file input
 You can have `<b-form-file>` render a browser native file input by setting the `plain` prop.
-
 
 ## Contextual state feedback
 Bootstrap includes validation styles for `valid` and `invalid` states
@@ -128,7 +106,6 @@ and want to encourage a user through the rest of the fields.
 
 To apply one of the contextual state icons on `<b-form-file`, set the `state` prop
 to `'invalid'` (or `false`), `'valid'` ( or `true`), or `null`.
-
 
 ## Accessibility
 When using the custom version of  `<b-form-file>` input which hides the original input, it is
@@ -168,10 +145,8 @@ window.app = new Vue({
 })
 ```
 
-
 ## Component alias
 
 `<b-form-file>` can be used via the shorter component alians `<b-file>`.
-
 
 ## Component Reference
