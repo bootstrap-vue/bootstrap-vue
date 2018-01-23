@@ -3,6 +3,7 @@ import { keys, assign } from '../../utils/object'
 import { isArray } from '../../utils/array'
 import { idMixin, listenOnRootMixin } from '../../mixins'
 import startCase from 'lodash.startcase'
+import firstBy from 'thenby'
 
 function toString (v) {
   if (!v) {
@@ -27,13 +28,15 @@ function recToString (obj) {
   }, {}))
 }
 
-function defaultSortCompare (a, b, sortBy) {
-  if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-    return ((a[sortBy] < b[sortBy]) && -1) || ((a[sortBy] > b[sortBy]) && 1) || 0
+function defaultSortCompare (sortBy) {
+  return function (a, b) {
+    if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
+      return ((a[sortBy] < b[sortBy]) && -1) || ((a[sortBy] > b[sortBy]) && 1) || 0
+    }
+    return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
+      numeric: true
+    })
   }
-  return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
-    numeric: true
-  })
 }
 
 function processField (key, value) {
@@ -79,6 +82,7 @@ export default {
     // factory function for thead and tfoot cells (th's)
     const makeHeadCells = (isFoot = false) => {
       return fields.map((field, colIndex) => {
+        const sortBy = field.sortable ? t.localSortBy.find(sort => sort.key === field.key) : false
         const data = {
           key: field.key,
           class: t.fieldClasses(field),
@@ -88,8 +92,8 @@ export default {
             'abbr': field.headerAbbr || null,
             'title': field.headerTitle || null,
             'aria-colindex': String(colIndex + 1),
-            'aria-label': field.sortable ? ((t.localSortDesc && t.localSortBy === field.key) ? t.labelSortAsc : t.labelSortDesc) : null,
-            'aria-sort': (field.sortable && t.localSortBy === field.key) ? (t.localSortDesc ? 'descending' : 'ascending') : null
+            'aria-label': field.sortable ? (sortBy ? (sortBy.desc ? t.labelSortNone : t.labelSortDesc) : t.labelSortAsc) : null,
+            'aria-sort': (field.sortable && sortBy) ? (sortBy.desc ? 'descending' : 'ascending') : null
           },
           on: {
             click: (evt) => {
@@ -318,8 +322,7 @@ export default {
   },
   data () {
     return {
-      localSortBy: this.sortBy || '',
-      localSortDesc: this.sortDesc || false,
+      localSortBy: this.sortBy || [],
       localItems: [],
       // Note: filteredItems only used to determine if # of items changed
       filteredItems: [],
@@ -338,12 +341,13 @@ export default {
       default: null
     },
     sortBy: {
-      type: String,
-      default: null
-    },
-    sortDesc: {
-      type: Boolean,
-      default: false
+      type: Array, // of Objects
+      default: () => []
+      // {
+      //   key: '',
+      //   desc: false,
+      //   compare: null, // function
+      // }
     },
     caption: {
       type: String,
@@ -449,10 +453,6 @@ export default {
       type: [String, RegExp, Function],
       default: null
     },
-    sortCompare: {
-      type: Function,
-      default: null
-    },
     noLocalSorting: {
       type: Boolean,
       default: false
@@ -484,6 +484,10 @@ export default {
     labelSortDesc: {
       type: String,
       default: 'Click to sort Descending'
+    },
+    labelSortNone: {
+      type: String,
+      default: 'Click to remove sort'
     },
     showEmpty: {
       type: Boolean,
@@ -539,7 +543,7 @@ export default {
       if (newVal === this.localSortBy) {
         return
       }
-      this.localSortBy = newVal || null
+      this.localSortBy = newVal || []
     },
     localSortBy (newVal, oldVal) {
       if (newVal !== oldVal) {
@@ -572,7 +576,6 @@ export default {
   },
   mounted () {
     this.localSortBy = this.sortBy
-    this.localSortDesc = this.sortDesc
     if (this.hasProvider) {
       this._providerUpdate()
     }
@@ -645,7 +648,6 @@ export default {
         currentPage: this.currentPage,
         filter: this.filter,
         sortBy: this.localSortBy,
-        sortDesc: this.localSortDesc,
         apiUrl: this.apiUrl
       }
     },
@@ -702,9 +704,7 @@ export default {
       const perPage = this.perPage
       const currentPage = this.currentPage
       const filter = this.filter
-      const sortBy = this.localSortBy
-      const sortDesc = this.localSortDesc
-      const sortCompare = this.sortCompare
+      const localSortBy = this.localSortBy
       const localFiltering = this.localFiltering
       const localSorting = this.localSorting
       const localPaging = this.localPaging
@@ -738,20 +738,23 @@ export default {
         this.filteredItems = items.slice()
       }
       // Apply local Sort
-      if (sortBy && localSorting) {
-        items = stableSort(items, function sortItemsFn (a, b) {
-          let ret = null
-          if (typeof sortCompare === 'function') {
-            // Call user provided sortCompare routine
-            ret = sortCompare(a, b, sortBy)
+      if (localSortBy && localSorting) {
+        let sortComposite
+        localSortBy.forEach(sort => {
+          const comparator = typeof sort.compare === 'function' ? sort.compare(sort.key) : defaultSortCompare(sort.key)
+          const options = {
+            ignoreCase: true,
+            direction: sort.desc ? -1 : null
           }
-          if (ret === null || ret === undefined) {
-            // Fallback to defaultSortCompare if sortCompare not defined or returns null
-            ret = defaultSortCompare(a, b, sortBy)
+
+          if (typeof sortComposite === 'function') {
+            sortComposite = sortComposite.thenBy(comparator, options)
+          } else {
+            sortComposite = firstBy(comparator, options)
           }
-          // Handle sorting direction
-          return (ret || 0) * (sortDesc ? -1 : 1)
         })
+
+        items = typeof sortComposite === 'function' ? stableSort(items, sortComposite) : items
       }
       // Apply local pagination
       if (Boolean(perPage) && localPaging) {
@@ -769,9 +772,10 @@ export default {
   methods: {
     keys,
     fieldClasses (field) {
+      const sortBy = this.localSortBy.find(sort => sort.key === field.key)
       return [
         field.sortable ? 'sorting' : '',
-        (field.sortable && this.localSortBy === field.key) ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc') : '',
+        (field.sortable && sortBy) ? 'sorting_' + (sortBy.desc ? 'desc' : 'asc') : '',
         field.variant ? ('table-' + field.variant) : '',
         field.class ? field.class : '',
         field.thClass ? field.thClass : ''
@@ -823,18 +827,25 @@ export default {
       }
       let sortChanged = false
       if (field.sortable) {
-        if (field.key === this.localSortBy) {
-          // Change sorting direction on current column
-          this.localSortDesc = !this.localSortDesc
+        const sortBy = this.localSortBy.find(sort => sort.key === field.key)
+
+        if (sortBy) {
+          if (sortBy.desc) {
+            const index = this.localSortBy.indexOf(sortBy)
+            this.localSortBy.splice(index, 1)
+          } else {
+            sortBy.desc = true
+          }
         } else {
-          // Start sorting this column ascending
-          this.localSortBy = field.key
-          this.localSortDesc = false
+          this.localSortBy.push({
+            key: field.key,
+            desc: false,
+            compare: typeof field.sortCompare === 'function' ? field.sortCompare : null
+          })
         }
         sortChanged = true
       } else if (this.localSortBy) {
-        this.localSortBy = null
-        this.localSortDesc = false
+        this.localSortBy = []
         sortChanged = true
       }
       this.$emit('head-clicked', field.key, field, e)

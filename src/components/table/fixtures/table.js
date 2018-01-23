@@ -9,7 +9,8 @@ window.app = new Vue({
       age: {
         label: 'Person age',
         sortable: true,
-        formatter: 'formatAge'
+        formatter: 'formatAge',
+        sortCompare: sortBy => (a, b) => b[sortBy] - a[sortBy] // Inverted
       },
       isActive: {
         label: 'is Active'

@@ -66,6 +66,7 @@
     "lodash.startcase": "^4.4.0",
     "opencollective": "^1.0.3",
     "popper.js": "^1.12.9",
+    "thenby": "^1.2.3",
     "vue-functional-data-merge": "^2.0.3"
   },
   "devDependencies": {

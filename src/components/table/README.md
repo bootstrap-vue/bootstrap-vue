@@ -853,16 +853,38 @@ export default {
 As mentioned in the [**Fields**](#fields-column-definitions-) section above,
 you can make columns sortable. Clicking on a sortable column header will sort the
 column in ascending direction (smallest first), while clicking on it again will switch the direction
-of sorting. Clicking on a non-sortable column will clear the sorting.
+of sorting. Clicking a third time will reset the sorting for that column. Clicking on a
+non-sortable column will clear the sorting.
 
 You can control which column is pre-sorted and the order of sorting (ascending or
 descending). To pre-specify the column to be sorted, set the `sort-by` prop to
-the field's key. Set the sort direction by setting `sort-desc` to either `true`
+the sort-array (shown below), with one or more sort-objects inside. The order is important as the
+first sort-object will be the primary sorting column with the other sorting on equalities.
+
+```js
+[
+  {
+    key: "age",
+    desc: false,
+    compare: function (key) {
+      return function (a, b) {
+        return b[key] - a[key]
+      }
+    }
+  },
+  {
+    key: "name",
+    desc: true
+  }
+]
+```
+
+Set the sort direction by setting `desc` of a sort-object to either `true`
 (for descending) or `false` (for ascending, the default).
 
-The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by
-adding the `.sync` modifier. Your bound variables will then be updated accordingly
-based on the current sort critera. See the
+The `sort-by` prop can be turned into a _two-way_ (syncable) prop by adding the `.sync` modifier.
+Your bound variables will then be updated accordingly based on the current sort critera.
+See the
 [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
 on the `.sync` prop modifier
 
@@ -876,13 +898,13 @@ sorting by presentational data._
 <template>
   <div>
     <b-table :sort-by.sync="sortBy"
-             :sort-desc.sync="sortDesc"
              :items="items"
              :fields="fields">
     </b-table>
     <p>
-      Sorting By: <b>{{ sortBy }}</b>,
-      Sort Direction: <b>{{ sortDesc ? 'Descending' : 'Ascending' }}</b>
+      Sorting By: <b>{{ sortBy.map(function(sort) {
+        return `${sort.key}: ${sort.desc ? 'Descending' : 'Ascending'}`
+      }).join(', ') }}</b>
     </p>
   </div>
 </template>
@@ -891,12 +913,24 @@ sorting by presentational data._
 export default {
   data () {
     return {
-      sortBy: 'age',
-      sortDesc: false,
+      sortBy: [{
+        key: "age",
+        desc: true
+      }, {
+        key: "last_name"
+      }],
       fields: [
         { key: 'last_name', sortable: true },
         { key: 'first_name', sortable: true },
-        { key: 'age', sortable: true },
+        {
+          key: 'age',
+          sortable: true, 
+          sortCompare: function (key) {
+            return function (a, b) {
+              return a[key] - b[key]
+            }
+          }
+        },
         { key: 'isActive', sortable: false }
       ],
       items: [
@@ -921,16 +955,13 @@ value is first stringified if it is an object, and then sorted.
 
 The default `sort-compare` routine **cannot** sort virtual columns, nor sort based
 on the custom rendering of the field data (formatter functions and/or scoped slots
-are used only for presentation). For this reason, you can provide your own
-custom sort compare routine by passing a function reference to the prop `sort-compare`.
+are used only for presentation). You can provide your own field specific sort compare routines
+by passing a function reference to the `sortCompare` property of your fields objects.
 
-The `sort-compare` routine is passed three arguments. The first two arguments
-(`a` and `b`) are the record objects for the rows being compared, and the third
-argument is the field `key` being sorted on (`sortBy`). The routine should return
+The `sort-compare` routine is passed one argument, curried, then two arguments. 
+The first argument is the field `key` being sorted on, while the other two arguments
+(`a` and `b`) are the record objects for the rows being compared. The routine should return
 either `-1`, `0`, or `1` based on the result of the comparing of the two records.
-If the routine returns `null`, then the default sort-compare rouine will be used.
-You can use this feature (i.e. returning `null`) to have your custom sort-compare
-routine handle only certain fields (keys).
 
 The default sort-compare routine works as follows:
 
@@ -951,8 +982,7 @@ If you want to handle sorting entirely in your app, you can disable the local
 sorting in `<b-table>` bu setting the prop `no-local-sorting` to true, while
 still maintaining the sortable header functionality.
 
-You can use the syncable props `sort-by.sync` and `sort-desc.sync` to detect
-changes in sorting column and direction.
+You can use the syncable prop `sort-by.sync` to detect changes in sorting column and direction.
 
 Also, When a sortable column header (or footer) is clicked, the event `sort-changed`
 will be emitted with a single argument containing the context object of `<b-table>`.
@@ -1188,11 +1218,11 @@ methods: {
 }
 ```
 
-You can also obtain the current sortBy and sortDesc values by using the `:sort-by.sync` and
-`:sort-desc.sync` two-way props respectively (see section [**Sorting**](#sorting) above for details).
+You can also obtain the current sortBy value by using the `:sort-by.sync`
+two-way prop (see section [**Sorting**](#sorting) above for details).
 
 ```html
-<b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ...>
+<b-table :sort-by.sync="mySortBy" ...>
 </b-table>
 ```
 
@@ -1253,7 +1283,6 @@ when fetching your data!
              :per-page="perPage"
              :filter="filter"
              :sort-by.sync="sortBy"
-             :sort-desc.sync="sortDesc"
              @filtered="onFiltered"
     >
       <template slot="name" slot-scope="row">{{row.value.first}} {{row.value.last}}</template>
