@@ -89,8 +89,6 @@ export default {
     inputClass () {
       return [
         this.plaintext ? 'form-control-plaintext' : 'form-control',
-        // Fix missing width:100% in Bootstrap V4.beta.2
-        this.plaintext ? 'w-100' : '',
         this.sizeFormClass,
         this.stateClass
       ]
