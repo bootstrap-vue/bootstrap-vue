@@ -59,10 +59,9 @@
     "release": "npm run build && npm run test && standard-version",
     "postinstall": "opencollective postinstall || exit 0"
   },
-  "peerDependencies": {
-    "vue": "^2.4.2"
-  },
   "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "1.9.1",
     "lodash.startcase": "^4.4.0",
     "opencollective": "^1.0.3",
     "popper.js": "^1.12.9",
@@ -74,7 +73,6 @@
     "babel-cli": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-istanbul": "^4.1.5",
-    "bootstrap": "^4.0.0",
     "clean-css": "^4.1.9",
     "codecov": "^3.0.0",
     "codemirror": "^5.33.0",
