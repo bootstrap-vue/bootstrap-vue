@@ -121,7 +121,7 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
 <b-nav pills>
   <b-nav-item active>Active</b-nav-item>
   <b-nav-item>Link</b-nav-item>
-  <b-nav-item-dropdown id="nav7_ddown" text="Dropdown" right>
+  <b-nav-item-dropdown id="nav7_ddown" text="Dropdown" extra-toggle-classes="nav-link-custom" right>
     <b-dropdown-item>one</b-dropdown-item>
     <b-dropdown-item>two</b-dropdown-item>
     <b-dropdown-divider></b-dropdown-divider>
@@ -130,6 +130,18 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
 </b-nav>
 
 <!-- nav-dropdown.vue -->
+```
+
+Sometimes you want to add your own class names to the generated dropdown toggle button, that by default has
+the classes `nav-link` and `dropdown-toggle`. Use the `extra-toggle-classes` prop to add them (like above) which
+will produce something like:
+
+```html
+<li id="nav7_ddown" class="nav-item b-nav-dropdown dropdown">
+   <a href="#" id="nav7_ddown__BV_button_" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle nav-link-custom">
+  </a>    
+  ...
+</li>
 ```
 
 Refer to [`<b-dropdown>`](../dropdown) for a list of supported sub-components.
