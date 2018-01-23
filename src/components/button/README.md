@@ -40,7 +40,7 @@ element. You can specify the button's type by setting the prop `type` to `button
 `submit` or `reset`. The default type is `button`.
 
 
-## Button Sizing
+## Button sizing
 
 Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
 
@@ -87,7 +87,7 @@ works with buttons, rendered as `<a>` elements and `<router-link>`.
 ## Pressed state and toggling
 
 Buttons will appear pressed (with a darker background, darker border, and inset shadow)
-when the prop `presed` is set to `true`.
+when the prop `pressed` is set to `true`.
 
 The `pressed` prop can be set to one of three values:
 
@@ -145,9 +145,9 @@ export default {
 <!-- button-4.vue -->
 ```
 
-If using toggle button style for a radio or checkbox style interface, it is best to use hhe
+If using toggle button style for a radio or checkbox style interface, it is best to use the
 built-in `button` style support of [`<b-form-radio-group>`](/docs/components/form-radios) and
-[`b-checkbox-group>`](/docs/components/form-checkboxes).
+[`<b-checkbox-group>`](/docs/components/form-checkboxes).
 
 
 ## Router link support
