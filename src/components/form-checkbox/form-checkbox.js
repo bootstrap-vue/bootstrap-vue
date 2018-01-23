@@ -56,7 +56,10 @@ export default {
 
     const description = h(
       t.is_ButtonMode ? 'span' : 'label',
-      { class: t.is_ButtonMode ? null : (t.is_Plain ? 'form-check-label' : 'custom-control-label') },
+      {
+        class: t.is_ButtonMode ? null : (t.is_Plain ? 'form-check-label' : 'custom-control-label'),
+        attrs: { for: t.is_ButtonMode ? null : t.safeId() }
+      },
       [t.$slots.default]
     )
 
