@@ -56,7 +56,8 @@ export default {
       return [
         'nav-link',
         this.noCaret ? '' : 'dropdown-toggle',
-        this.disabled ? 'disabled' : ''
+        this.disabled ? 'disabled' : '',
+        this.extraToggleClasses ? this.extraToggleClasses : ''
       ]
     },
     menuClasses () {
@@ -71,6 +72,11 @@ export default {
     noCaret: {
       type: Boolean,
       default: false
+    },
+    extraToggleClasses: {
+      // Extra Toggle classes
+      type: String,
+      default: ''
     },
     role: {
       type: String,
