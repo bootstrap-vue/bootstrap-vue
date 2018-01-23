@@ -24,7 +24,7 @@ export default {
           id: props.id
         }
       }),
-      [h(InputGroupText, { }, children )]
+      [h(InputGroupText, { }, children)]
     )
   }
 }
