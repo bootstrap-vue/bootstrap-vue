@@ -7,7 +7,7 @@ multiple files, and directory upload (for browsers that support directory mode)
 <template>
 <div>
   <!-- Styled -->
-  <b-form-file v-model="file" placeholder="Choose a file..."></b-form-file>
+  <b-form-file v-model="file" :state="Boolean(file)" placeholder="Choose a file..."></b-form-file>
   <div class="mt-3">Selected file: {{file && file.name}}</div>
 
   <!-- Plain mode -->
