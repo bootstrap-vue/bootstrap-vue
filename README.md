@@ -4,12 +4,12 @@
 </a>
 
 <br>
-Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Components with <a href="https://vuejs.org">Vue.js</a>
+BootstrapVue provides one of the most comprehensive implementations of Bootstrap 4 components and grid system for Vue.js and with extensive and automated WAI-ARIA accessibility markup.
 <br>
 <br>
 
 <a href="https://getbootstrap.com/docs/4.0">
-    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0--beta-800080.svg?style=flat-square">
+    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0-800080.svg?style=flat-square">
 </a>
 <a href="https://vuejs.org">
     <img alt="" src="https://img.shields.io/badge/vue.js-2.x-green.svg?style=flat-square">
@@ -49,33 +49,19 @@ Quickly integrate <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> Co
 
 </p>
 
-If you have discovered a 🐜 or have a feature suggestion, feel free to create an issue on Github.
-
-This branch is for [Bootstrap4 Beta](https://getbootstrap.com/docs/4.0). If you are looking for old alpha 6 please head to [alpha](https://github.com/bootstrap-vue/bootstrap-vue/tree/alpha) branch. alpha docs are available [here](https://bootstrap-vue-alpha.surge.sh).
-
-# Links
+<h2 align="center">Links</h2>
 
 - 📘 [Documentation](https://bootstrap-vue.js.org)
 - 🔨 [Release Notes](https://bootstrap-vue.js.org/docs/misc/changelog)
 - 💬 [Slack Community](https://bootstrap-vue.now.sh)
 - 🐦 [Twitter](https://twitter.com/BootstrapVue)
 
-## Contributors
 
-This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
-<a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" /></a>
+<h2 align="center">Sponsors</h2>
 
+Support this project by becoming a sponsor.
 
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/bootstrap-vue#backer)]
-
-<a href="https://opencollective.com/bootstrap-vue#backers" target="_blank"><img src="https://opencollective.com/bootstrap-vue/backers.svg?width=890"></a>
-
-
-## Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/bootstrap-vue#sponsor)]
+Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/bootstrap-vue#sponsor)]
 
 <a href="https://opencollective.com/bootstrap-vue/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/bootstrap-vue/sponsor/1/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/1/avatar.svg"></a>
@@ -88,8 +74,20 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/bootstrap-vue/sponsor/8/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/bootstrap-vue/sponsor/9/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/9/avatar.svg"></a>
 
+<h2 align="center">Backers</h2>
 
-# License
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/bootstrap-vue#backer)]
+
+<a href="https://opencollective.com/bootstrap-vue#backers" target="_blank"><img src="https://opencollective.com/bootstrap-vue/backers.svg?width=890"></a>
+
+<h2 align="center">Contributors</h2>
+
+This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
+<a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" /></a>
+
+
+<h2 align="center">License</h2>
+
 Released under The MIT [License](./LICENSE). Copyright (c) BootstrapVue.
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue.svg?type=small)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbootstrap-vue%2Fbootstrap-vue?ref=badge_small)
