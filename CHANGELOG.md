@@ -3,35 +3,16 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 <a name="2.0.0-rc.0"></a>
-# [2.0.0-rc.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.5.0...v2.0.0-rc.0) (2018-01-23)
 
+Released: 2018-01-23
 
-### Bug Fixes
+[**Full change list**](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.5.0...v2.0.0-rc.0)
 
-* **checkbox,radio:** update HTML markup for BS4 ([#1539](https://github.com/bootstrap-vue/bootstrap-vue/issues/1539)) ([ccfb5b1](https://github.com/bootstrap-vue/bootstrap-vue/commit/ccfb5b1))
+With `v2.0.0` release, BootstrapVue is compatible with final stable release of Bootstrap `v4.0.0` and beyond.
 
-
-* feat, docs: update input-group to BS 4.0.0. ([790c0de](https://github.com/bootstrap-vue/bootstrap-vue/commit/790c0de))
-
-
-### Features
-
-* **package:** align dependencies to prevent warnings. ([#975](https://github.com/bootstrap-vue/bootstrap-vue/issues/975)) ([b70a9f7](https://github.com/bootstrap-vue/bootstrap-vue/commit/b70a9f7))
-* **pkg:** update dependendencies (bootstrap 4.0.0-beta.3) ([afb82a8](https://github.com/bootstrap-vue/bootstrap-vue/commit/afb82a8))
-* upgrade to bootstrap 4.0.0 ([#1507](https://github.com/bootstrap-vue/bootstrap-vue/issues/1507)) ([1d5b230](https://github.com/bootstrap-vue/bootstrap-vue/commit/1d5b230))
-
-
-### misc
-
-* better packaging of css files ([87edbb9](https://github.com/bootstrap-vue/bootstrap-vue/commit/87edbb9))
-
-
-### BREAKING CHANGES
-
-* Requires changing build scripts to include css-loader when using indivitual components
-* left and right changed into prepend and append. See docs.
-
-
+* If you are using any custom theme which was based on BS beta, there may be minor problems to be fixed. Please ensure to review [migrate guide](https://getbootstrap.com/docs/4.0/migration).
+* With this release, we have removed majority of CSS fixes. If you are using ES builds, you may have to add a `css-loader` to make it working probably.
+* `input-group-addon` API has been changed and `left/right` changed into `prepend/append`. Please refer to the docs for more information.
 
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.1...v1.5.0) (2018-01-23)
