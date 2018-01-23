@@ -56,14 +56,18 @@ const throwIfNotVueInstance = vm => {
     // debugging breadcrumbs in case a non-Vue instance gets erroneously passed
     // makes the error easier to fix than example: "Cannot read _prevClass of undefined"
     console.error(vm)
-    throw new TypeError(`The matcher function expects Vue instance. Given ${typeof vm}`)
+    throw new TypeError(
+      `The matcher function expects Vue instance. Given ${typeof vm}`
+    )
   }
 }
 
 const throwIfNotHTMLElement = el => {
   if (!isHTMLElement(el)) {
     console.error(el)
-    throw new TypeError(`The matcher function expects an HTML Element. Given ${typeof el}`)
+    throw new TypeError(
+      `The matcher function expects an HTML Element. Given ${typeof el}`
+    )
   }
 }
 
@@ -93,17 +97,21 @@ const elHasClass = (el, className) => {
  * @param {string} className
  * @return {boolean}
  */
-const hasClass = (node, className) => (isVueInstance(node) ? vmHasClass(node, className) : elHasClass(node, className))
+const hasClass = (node, className) =>
+  isVueInstance(node)
+    ? vmHasClass(node, className)
+    : elHasClass(node, className)
 
 const getVmTag = vm => vm.$options._componentTag
 const getHTMLTag = el => String(el.tagName).toLowerCase()
-const getTagName = node => (isVueInstance(node) ? getVmTag(node) : getHTMLTag(node))
+const getTagName = node =>
+  isVueInstance(node) ? getVmTag(node) : getHTMLTag(node)
 
 // Extend Jest marchers
 expect.extend({
   toHaveClass (node, className) {
     return {
-      message: `expected <${getTagName(node)}> to have class '${className}'`,
+      message: () => `expected <${getTagName(node)}> to have class '${className}'`,
       pass: hasClass(node, className)
     }
   },
@@ -127,9 +135,9 @@ expect.extend({
 
     return {
       // more debugging breadcrumbs
-      message: `Expected <${tagName}> to have all classes in [${classStr}], but was missing [${missingClassStr}] class${plural
-        ? 'es'
-        : ''}.`,
+      message: () => `Expected <${tagName}> to have all classes in [${classStr}], but was missing [${missingClassStr}] class${
+        plural ? 'es' : ''
+      }.`,
       pass
     }
   },
@@ -137,7 +145,8 @@ expect.extend({
     throwIfNotVueInstance(vm)
 
     return {
-      message: `Expected to be <${componentTag}>. Received: ${getVmTag(vm)}`,
+      message: () =>
+        `Expected to be <${componentTag}>. Received: ${getVmTag(vm)}`,
       pass: getVmTag(vm) === componentTag
     }
   },
@@ -145,7 +154,10 @@ expect.extend({
     throwIfNotHTMLElement(el)
 
     return {
-      message: `Expected to be <${String(tagName).toLowerCase()}>. Received: ${el.tagName.toLowerCase()}`,
+      message: () =>
+        `Expected to be <${String(
+          tagName
+        ).toLowerCase()}>. Received: ${el.tagName.toLowerCase()}`,
       pass: el.tagName === String(tagName).toUpperCase()
     }
   }

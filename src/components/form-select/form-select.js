@@ -1,20 +1,31 @@
-import { idMixin, formMixin, formSizeMixin, formStateMixin, formOptionsMixin, formCustomMixin } from '../../mixins'
+import {
+  idMixin,
+  formMixin,
+  formSizeMixin,
+  formStateMixin,
+  formOptionsMixin,
+  formCustomMixin
+} from '../../mixins'
 import { from as arrayFrom } from '../../utils/array'
 
 export default {
-  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
+  mixins: [
+    idMixin,
+    formMixin,
+    formSizeMixin,
+    formStateMixin,
+    formCustomMixin,
+    formOptionsMixin
+  ],
   render (h) {
     const t = this
     const $slots = t.$slots
     const options = t.formOptions.map((option, index) => {
-      return h(
-        'option',
-        {
-          key: `option_${index}_opt`,
-          attrs: { disabled: Boolean(option.disabled) },
-          domProps: { innerHTML: option.text, value: option.value }
-        }
-      )
+      return h('option', {
+        key: `option_${index}_opt`,
+        attrs: { disabled: Boolean(option.disabled) },
+        domProps: { innerHTML: option.text, value: option.value }
+      })
     })
     return h(
       'select',
@@ -22,30 +33,35 @@ export default {
         ref: 'input',
         class: t.inputClass,
         directives: [
-          { name: 'model', rawName: 'v-model', value: t.localValue, expression: 'localValue' }
+          {
+            name: 'model',
+            rawName: 'v-model',
+            value: t.localValue,
+            expression: 'localValue'
+          }
         ],
         attrs: {
           id: t.safeId(),
           name: t.name,
           multiple: t.multiple || null,
-          size: (t.multiple || t.selectSize > 1) ? t.selectSize : null,
+          size: t.isMultiple ? t.selectSize : null,
           disabled: t.disabled,
           required: t.required,
           'aria-required': t.required ? 'true' : null,
           'aria-invalid': t.computedAriaInvalid
         },
         on: {
-          change: (evt) => {
+          change: evt => {
             const target = evt.target
             const selectedVal = arrayFrom(target.options)
               .filter(o => o.selected)
-              .map(o => '_value' in o ? o._value : o.value)
+              .map(o => ('_value' in o ? o._value : o.value))
             t.localValue = target.multiple ? selectedVal : selectedVal[0]
             t.$emit('change', t.localValue)
           }
         }
       },
-      [ $slots.first, options, $slots.default ]
+      [$slots.first, options, $slots.default]
     )
   },
   data () {
@@ -84,8 +100,16 @@ export default {
         'form-control',
         this.stateClass,
         this.sizeFormClass,
-        (this.plain || (!this.multiple && this.selectSize > 1)) ? null : 'custom-select'
+        // Awaiting for https://github.com/twbs/bootstrap/issues/23058
+        this.isPlain ? null : 'custom-select',
+        (this.isPlain || !this.size) ? null : 'custom-select-' + this.size
       ]
+    },
+    isPlain () {
+      return this.plain || this.isMultiple
+    },
+    isMultiple () {
+      return Boolean(this.multiple && this.selectSize > 1)
     },
     computedAriaInvalid () {
       if (this.ariaInvalid === true || this.ariaInvalid === 'true') {

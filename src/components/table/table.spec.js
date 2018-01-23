@@ -1,4 +1,10 @@
-import { loadFixture, testVM, setData, nextTick, sleep } from '../../../tests/utils'
+import {
+  loadFixture,
+  testVM,
+  setData,
+  nextTick,
+  sleep
+} from '../../../tests/utils'
 
 describe('table', async () => {
   beforeEach(loadFixture(__dirname, 'table'))
@@ -7,7 +13,12 @@ describe('table', async () => {
   it('all example tables should contain class names', async () => {
     const { app: { $refs } } = window
 
-    expect($refs.table_basic).toHaveAllClasses(['table', 'b-table', 'table-striped', 'table-hover'])
+    expect($refs.table_basic).toHaveAllClasses([
+      'table',
+      'b-table',
+      'table-striped',
+      'table-hover'
+    ])
 
     expect($refs.table_paginated).toHaveAllClasses([
       'table',
@@ -15,8 +26,7 @@ describe('table', async () => {
       'table-sm',
       'table-striped',
       'table-bordered',
-      'table-hover',
-      'table-responsive'
+      'table-hover'
     ])
 
     expect($refs.table_dark).toHaveAllClasses([
@@ -26,6 +36,16 @@ describe('table', async () => {
       'table-bordered',
       'table-dark'
     ])
+  })
+
+  it('table_responsive should be wrapped in a div', async () => {
+    const { app: { $refs } } = window
+    const table = $refs.table_responsive
+
+    expect(table.$el.tagName).toBe('DIV')
+    expect(table).toHaveAllClasses(['table-responsive'])
+    expect(table.$el.children.length).toBe(1)
+    expect(table.$el.children[0].tagName).toBe('TABLE')
   })
 
   it('table_basic should have thead and tbody', async () => {
@@ -75,7 +95,9 @@ describe('table', async () => {
 
   it('table_paginated thead should contain class thead-dark', async () => {
     const { app: { $refs } } = window
-    const thead = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'THEAD')
+    const thead = [...$refs.table_paginated.$el.children].find(
+      el => el && el.tagName === 'THEAD'
+    )
     expect(thead).toBeDefined()
     if (thead) {
       expect(thead.classList.contains('thead-dark')).toBe(true)
@@ -84,7 +106,9 @@ describe('table', async () => {
 
   it('table_paginated tfoot should contain class thead-light', async () => {
     const { app: { $refs } } = window
-    const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
+    const tfoot = [...$refs.table_paginated.$el.children].find(
+      el => el && el.tagName === 'TFOOT'
+    )
     expect(tfoot).toBeDefined()
     if (tfoot) {
       expect(tfoot.classList.contains('thead-light')).toBe(true)
@@ -98,7 +122,9 @@ describe('table', async () => {
 
     tables.forEach((table, idx) => {
       const vm = $refs[table]
-      const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
+      const thead = [...vm.$el.children].find(
+        el => el && el.tagName === 'THEAD'
+      )
       expect(thead).toBeDefined()
       if (thead) {
         const tr = [...thead.children].find(el => el && el.tagName === 'TR')
@@ -118,7 +144,9 @@ describe('table', async () => {
 
     tables.forEach((table, idx) => {
       const vm = $refs[table]
-      const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+      const tbody = [...vm.$el.children].find(
+        el => el && el.tagName === 'TBODY'
+      )
       expect(tbody).toBeDefined()
       if (tbody) {
         expect(tbody.children.length).toBe(vm.perPage || app.items.length)
@@ -134,7 +162,9 @@ describe('table', async () => {
 
     tables.forEach(table => {
       const vm = $refs[table]
-      const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
+      const thead = [...vm.$el.children].find(
+        el => el && el.tagName === 'THEAD'
+      )
       expect(thead).toBeDefined()
       if (thead) {
         const tr = [...thead.children].find(el => el && el.tagName === 'TR')
@@ -144,7 +174,9 @@ describe('table', async () => {
           const ths = [...tr.children]
           expect(ths.length).toBe(fieldKeys.length)
           ths.forEach((th, idx) => {
-            expect(th.classList.contains('sorting')).toBe(vm.fields[fieldKeys[idx]].sortable || false)
+            expect(th.classList.contains('sorting')).toBe(
+              vm.fields[fieldKeys[idx]].sortable || false
+            )
           })
         }
       }
@@ -165,7 +197,9 @@ describe('table', async () => {
         const ths = [...tr.children]
         expect(ths.length).toBe(fieldKeys.length)
         ths.forEach((th, idx) => {
-          expect(th.classList.contains('sorting')).toBe(vm.fields[fieldKeys[idx]].sortable || false)
+          expect(th.classList.contains('sorting')).toBe(
+            vm.fields[fieldKeys[idx]].sortable || false
+          )
         })
       }
     }
@@ -248,12 +282,16 @@ describe('table', async () => {
 
     tables.forEach((table, idx) => {
       const vm = $refs[table]
-      const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+      const tbody = [...vm.$el.children].find(
+        el => el && el.tagName === 'TBODY'
+      )
       expect(tbody).toBeDefined()
       if (tbody) {
         const tr = tbody.children[0]
         const variant = vm.dark ? 'bg-success' : 'table-success'
-        expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(variant)).toBe(true)
+        expect(
+          Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(variant)
+        ).toBe(true)
       }
     })
   })
@@ -268,7 +306,9 @@ describe('table', async () => {
       const tr = [...tbody.children].find(el => el && el.tagName === 'TR')
       expect(tr).toBeDefined()
       if (tr) {
-        expect(tr.children[0].textContent).toContain(vm.items[0].name.first + ' ' + vm.items[0].name.last)
+        expect(tr.children[0].textContent).toContain(
+          vm.items[0].name.first + ' ' + vm.items[0].name.last
+        )
         expect(tr.children[1].textContent).toContain(String(vm.items[0].age))
         expect(tr.children[3].children[0].tagName).toBe('BUTTON')
       }
@@ -279,13 +319,17 @@ describe('table', async () => {
     const { app } = window
     const vm = app.$refs.table_basic
 
-    const tbody = [...app.$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TBODY')
+    const tbody = [...app.$refs.table_paginated.$el.children].find(
+      el => el && el.tagName === 'TBODY'
+    )
     expect(tbody).toBeDefined()
     if (tbody) {
       const tr = [...tbody.children].find(el => el && el.tagName === 'TR')
       expect(tr).toBeDefined()
       if (tr) {
-        expect(tr.children[0].textContent).toContain(vm.items[0].name.first + ' ' + vm.items[0].name.last)
+        expect(tr.children[0].textContent).toContain(
+          vm.items[0].name.first + ' ' + vm.items[0].name.last
+        )
         expect(tr.children[1].textContent).toContain(String(vm.items[0].age))
         expect(tr.children[3].children[0].tagName).toBe('INPUT')
       }
@@ -295,7 +339,9 @@ describe('table', async () => {
   it('table_paginated should contain custom formatted headers', async () => {
     const { app: { $refs } } = window
 
-    const thead = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'THEAD')
+    const thead = [...$refs.table_paginated.$el.children].find(
+      el => el && el.tagName === 'THEAD'
+    )
     expect(thead).toBeDefined()
     if (thead) {
       const tr = [...thead.children].find(el => el && el.tagName === 'TR')
@@ -312,7 +358,9 @@ describe('table', async () => {
   it('table_paginated should contain custom formatted footers', async () => {
     const { app: { $refs } } = window
 
-    const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
+    const tfoot = [...$refs.table_paginated.$el.children].find(
+      el => el && el.tagName === 'TFOOT'
+    )
     expect(tfoot).toBeDefined()
     if (tfoot) {
       const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
@@ -537,7 +585,9 @@ describe('table', async () => {
       await nextTick()
       expect(vm.value.length).toBe(0)
       expect(tbody.children.length).toBe(1)
-      expect(tbody.children[0].children[0].textContent).toContain(vm.emptyFilteredText)
+      expect(tbody.children[0].children[0].textContent).toContain(
+        vm.emptyFilteredText
+      )
 
       expect(spy).toHaveBeenCalled()
     }
