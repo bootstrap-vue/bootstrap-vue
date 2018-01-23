@@ -1,10 +1,9 @@
 const fs = require('fs')
 const path = require('path')
-const vue = require('rollup-plugin-vue')
 const babel = require('rollup-plugin-babel')
 const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
-const CleanCSS = require('clean-css')
+const css = require('rollup-plugin-css-porter')
 const { camelCase } = require('lodash')
 const { name, dependencies } = require('../package.json')
 
@@ -32,17 +31,7 @@ module.exports = {
     dep => externalExcludes.indexOf(dep) === -1
   ),
   plugins: [
-    vue({
-      cssModules: {
-        generateScopedName: '[name]__[local]'
-      },
-      css (style) {
-        fs.writeFileSync(
-          path.resolve(dist, `${name}.css`),
-          new CleanCSS().minify(style).styles
-        )
-      }
-    }),
+    css(),
     resolve({ external: ['vue'] }),
     commonjs(),
     babel({

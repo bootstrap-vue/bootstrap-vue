@@ -1,8 +1,7 @@
 {
   "name": "bootstrap-vue",
   "version": "1.4.1",
-  "description":
-    "BootstrapVue provides one of the most comprehensive implementations of Bootstrap 4 components and grid system for Vue.js and with extensive and automated WAI-ARIA accessibility markup.",
+  "description": "BootstrapVue provides one of the most comprehensive implementations of Bootstrap 4 components and grid system for Vue.js and with extensive and automated WAI-ARIA accessibility markup.",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
   "module": "es/index.js",
@@ -43,14 +42,18 @@
     "type": "git",
     "url": "git+https://github.com/bootstrap-vue/bootstrap-vue.git"
   },
-  "files": ["src", "dist", "nuxt", "es"],
+  "files": [
+    "src",
+    "dist",
+    "nuxt",
+    "es"
+  ],
   "scripts": {
     "build": "scripts/build",
     "watch": "rollup -c scripts/rollup.config.js --watch",
     "docs-dev": "nuxt dev -c docs/nuxt.config.js",
     "docs-gen": "nuxt generate -c docs/nuxt.config.js",
-    "docs-publish":
-      "gh-pages -t -d docs-dist -b master -r git@github.com:bootstrap-vue/bootstrap-vue.github.io.git",
+    "docs-publish": "gh-pages -t -d docs-dist -b master -r git@github.com:bootstrap-vue/bootstrap-vue.github.io.git",
     "test": "yarn lint && NODE_ENV=test jest",
     "lint": "eslint src scripts docs tests nuxt",
     "release": "npm run build && npm run test && standard-version",
@@ -94,6 +97,7 @@
     "rollup": "^0.54.0",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-css-porter": "^0.1.2",
     "rollup-plugin-node-resolve": "^3.0.2",
     "rollup-plugin-vue": "^3.0.0",
     "rollup-watch": "^4.3.1",
@@ -104,7 +108,10 @@
   },
   "jest": {
     "testRegex": "spec.js$",
-    "moduleFileExtensions": ["js", "vue"],
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
     "transform": {
       "^.+\\.js$": "babel-jest",
       ".*\\.(vue)$": "vue-jest"
