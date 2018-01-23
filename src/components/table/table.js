@@ -303,8 +303,8 @@ export default {
       rows
     )
 
-    // Return the assembled table
-    return h(
+    // Assemble table
+    const table = h(
       'table',
       {
         class: t.tableClasses,
@@ -318,6 +318,9 @@ export default {
       },
       [ caption, colgroup, thead, tfoot, tbody ]
     )
+
+    // Add responsive wrapper if needed and return table
+    return t.isResponsive ? h('div', { class: t.responsiveClass }, [ table ]) : table
   },
   data () {
     return {
@@ -593,6 +596,9 @@ export default {
       const responsive = this.responsive === '' ? true : this.responsive
       return this.isStacked ? false : responsive
     },
+    responsiveClass () {
+      return this.isResponsive === true ? 'table-responsive' : (this.isResponsive ? `table-responsive-${this.responsive}` : '')
+    },
     tableClasses () {
       return [
         'table',
@@ -604,7 +610,6 @@ export default {
         this.small ? 'table-sm' : '',
         this.outlined ? 'border' : '',
         this.fixed ? 'b-table-fixed' : '',
-        this.isResponsive === true ? 'table-responsive' : (this.isResponsive ? `table-responsive-${this.responsive}` : ''),
         this.isStacked === true ? 'b-table-stacked' : (this.isStacked ? `b-table-stacked-${this.stacked}` : '')
       ]
     },
