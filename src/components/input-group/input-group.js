@@ -1,5 +1,7 @@
 import { mergeData } from '../../utils'
-import InputGroupAddon from './input-group-addon'
+import InputGroupPrepend from './input-group-prepend'
+import InputGroupAppend from './input-group-append'
+import InputGroupText from './input-group-text'
 
 export const props = {
   id: {
@@ -10,11 +12,11 @@ export const props = {
     type: String,
     default: null
   },
-  left: {
+  prepend: {
     type: String,
     default: null
   },
-  right: {
+  append: {
     type: String,
     default: null
   },
@@ -28,24 +30,39 @@ export default {
   functional: true,
   props: props,
   render (h, { props, data, slots }) {
-    let childNodes = []
     const $slots = slots()
 
-    // Left Slot / Prop
-    if ($slots.left) {
-      childNodes.push(slots().left)
-    } else if (props.left) {
-      childNodes.push(h(InputGroupAddon, { domProps: { innerHTML: props.left } }))
+    const childNodes = []
+
+    // Prepend prop
+    if (props.prepend) {
+      childNodes.push(
+        h(InputGroupPrepend, [
+          h(InputGroupText, { domProps: { innerHTML: props.prepend } })
+        ])
+      )
+    }
+
+    // Prepend slot
+    if ($slots.prepend) {
+      childNodes.push(h(InputGroupPrepend, $slots.prepend))
     }
 
     // Default slot
     childNodes.push($slots.default)
 
-    // Right slot / prop
-    if ($slots.right) {
-      childNodes.push($slots.right)
-    } else if (props.right) {
-      childNodes.push(h(InputGroupAddon, { domProps: { innerHTML: props.right } }))
+    // Append prop
+    if (props.append) {
+      childNodes.push(
+        h(InputGroupAppend, [
+          h(InputGroupText, { domProps: { innerHTML: props.append } })
+        ])
+      )
+    }
+
+    // Append slot
+    if ($slots.append) {
+      childNodes.push(h(InputGroupAppend, $slots.append))
     }
 
     return h(

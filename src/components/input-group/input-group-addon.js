@@ -1,6 +1,7 @@
 import { mergeData } from '../../utils'
 import InputGroupText from './input-group-text'
-export const props = {
+
+export const propsFactory = append => ({
   id: {
     type: String,
     default: null
@@ -8,20 +9,32 @@ export const props = {
   tag: {
     type: String,
     default: 'div'
+  },
+  append: {
+    type: Boolean,
+    default: append
+  },
+  isText: {
+    type: Boolean,
+    default: false
   }
-}
+})
 
 export default {
   functional: true,
-  props,
+  props: propsFactory(false),
   render (h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: `input-group-${data.slot === 'left' ? 'prepend' : 'append'}`,
-        attrs: { id: props.id }
+        staticClass: `input-group-${props.append ? 'append' : 'prepend'}`,
+        attrs: {
+          id: props.id
+        }
       }),
-      [h(InputGroupText, { }, children)]
+      props.isText ? [
+        h(InputGroupText, children)
+      ] : children
     )
   }
 }
