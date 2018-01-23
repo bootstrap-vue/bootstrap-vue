@@ -13,6 +13,8 @@
         </template>
     </b-table>
 
+    <b-table ref="table_responsive" responsive :items="items" :fields="fields"></b-table>
+
     <h2>Paginated Table</h2>
     <div class="my-1 row">
         <div class="col-6">
@@ -35,7 +37,6 @@
              striped
              bordered
              hover
-             responsive
              foot-clone
              show-empty
              head-variant="dark"
