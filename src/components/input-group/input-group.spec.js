@@ -48,7 +48,7 @@ describe('input-group', async () => {
     expect(right).toHaveClass('input-group-append')
   })
 
-  it('basic should have content in right `.input-group-append`', async () => {
+  it('basic should have content in `.input-group-append`', async () => {
     const { app: { $refs } } = window
 
     const right = $refs.basic.children[2]
@@ -64,7 +64,7 @@ describe('input-group', async () => {
     expect(input.tagName).toBe('INPUT')
   })
 
-  it('components should have left `.input-group-prepend` as first child', async () => {
+  it('components should have `.input-group-prepend` as first child', async () => {
     const { app: { $refs } } = window
 
     const left = $refs.components.children[0]
