@@ -31,10 +31,7 @@ export default {
       'b-button',
       {
         ref: 'toggle',
-        class: {
-          'dropdown-toggle': !t.noCaret || t.split,
-          'dropdown-toggle-split': t.split
-        },
+        class: t.toggleClasses,
         props: {
           variant: t.variant,
           size: t.size,
@@ -94,6 +91,10 @@ export default {
       type: String,
       default: null
     },
+    toggleClass: {
+      type: [String, Array],
+      default: null
+    },
     noCaret: {
       type: Boolean,
       default: false
@@ -132,6 +133,15 @@ export default {
         'dropdown-menu',
         this.right ? 'dropdown-menu-right' : '',
         this.visible ? 'show' : ''
+      ]
+    },
+    toggleClasses () {
+      return [
+        {
+          'dropdown-toggle': !this.noCaret || this.split,
+          'dropdown-toggle-split': this.split
+        },
+        this.toggleClass
       ]
     }
   }
