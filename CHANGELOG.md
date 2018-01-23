@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.0"></a>
+# [2.0.0-rc.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.5.0...v2.0.0-rc.0) (2018-01-23)
+
+
+### Bug Fixes
+
+* **checkbox,radio:** update HTML markup for BS4 ([#1539](https://github.com/bootstrap-vue/bootstrap-vue/issues/1539)) ([ccfb5b1](https://github.com/bootstrap-vue/bootstrap-vue/commit/ccfb5b1))
+
+
+* feat, docs: update input-group to BS 4.0.0. ([790c0de](https://github.com/bootstrap-vue/bootstrap-vue/commit/790c0de))
+
+
+### Features
+
+* **package:** align dependencies to prevent warnings. ([#975](https://github.com/bootstrap-vue/bootstrap-vue/issues/975)) ([b70a9f7](https://github.com/bootstrap-vue/bootstrap-vue/commit/b70a9f7))
+* **pkg:** update dependendencies (bootstrap 4.0.0-beta.3) ([afb82a8](https://github.com/bootstrap-vue/bootstrap-vue/commit/afb82a8))
+* upgrade to bootstrap 4.0.0 ([#1507](https://github.com/bootstrap-vue/bootstrap-vue/issues/1507)) ([1d5b230](https://github.com/bootstrap-vue/bootstrap-vue/commit/1d5b230))
+
+
+### misc
+
+* better packaging of css files ([87edbb9](https://github.com/bootstrap-vue/bootstrap-vue/commit/87edbb9))
+
+
+### BREAKING CHANGES
+
+* Requires changing build scripts to include css-loader when using indivitual components
+* left and right changed into prepend and append. See docs.
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.1...v1.5.0) (2018-01-23)
 
