@@ -1,10 +1,6 @@
 import { mergeData } from '../../utils'
 
 export const props = {
-  id: {
-    type: String,
-    default: null
-  },
   tag: {
     type: String,
     default: 'div'
@@ -12,16 +8,13 @@ export const props = {
 }
 
 export default {
-  functional: true,
   props,
+  functional: true,
   render (h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: 'input-group-btn',
-        attrs: {
-          id: props.id
-        }
+        staticClass: 'input-group-text'
       }),
       children
     )

@@ -32,8 +32,6 @@ export default {
           id: t.safeId(),
           role: 'radiogroup',
           tabindex: '-1',
-          // `data-toggle="buttons"` can be removed when BSV4.beta.3 is released
-          'data-toggle': t.buttons ? 'buttons' : null, // Needed for styling only!
           'aria-required': t.required ? 'true' : null,
           'aria-invalid': t.computedAriaInvalid
         }

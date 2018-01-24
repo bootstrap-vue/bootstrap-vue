@@ -93,8 +93,6 @@ export default {
     inputClass () {
       return [
         this.plaintext ? 'form-control-plaintext' : 'form-control',
-        // Interim fix until BS V4.beta.3 is released
-        this.plaintext ? 'w-100' : '',
         this.sizeFormClass,
         this.stateClass
       ]

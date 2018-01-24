@@ -32,8 +32,6 @@ export default {
           id: t.safeId(),
           role: 'group',
           tabindex: '-1',
-          // `data-toggle="buttons" will not be needed in BS V4.beta.3
-          'data-toggle': t.buttons ? 'buttons' : null, // Needed for styling only!
           'aria-required': t.required ? 'true' : null,
           'aria-invalid': t.computedAriaInvalid
         }

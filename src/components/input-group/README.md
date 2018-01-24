@@ -3,39 +3,28 @@
 
 ```html
 <div>
-  <b-input-group left="$" right=".00">
+  <!-- Using props -->
+  <b-input-group size="lg" prepend="$" append=".00">
     <b-form-input></b-form-input>
   </b-input-group>
-
   <br>
 
-  <b-input-group size="lg" left="$" right=".00">
-    <b-form-input></b-form-input>
-  </b-input-group>
-
-  <br>
-
+  <!-- Using slots -->
   <b-input-group>
-    <!-- Add-ons -->
-    <b-input-group-addon>
-      <strong class="text-danger">!</strong>
-    </b-input-group-addon>
-    <b-input-group-addon>
-      Username
-    </b-input-group-addon>
-
-    <!-- Main form input -->
+    <b-input-group-text slot="append">
+        <strong class="text-danger">!</strong>
+    </b-input-group-text>
     <b-form-input></b-form-input>
+  </b-input-group>
+  <br>
 
-    <!-- Attach Right button Group via slot -->
-    <b-input-group-button slot="right">
-      <b-dropdown text="Dropdown" variant="success" right>
-        <b-dropdown-item>Action</b-dropdown-item>
-        <b-dropdown-item>Action</b-dropdown-item>
-      </b-dropdown>
+  <!-- Using components -->
+  <b-input-group prepend="Username">
+    <b-form-input></b-form-input>
+    <b-input-group-append>
+      <b-btn variant="outline-success">Button</b-btn>
       <b-btn variant="info">Button</b-btn>
-    </b-input-group-button>
-
+    </b-input-group-append>
   </b-input-group>
 </div>
 
@@ -43,54 +32,61 @@
 ```
 
 ## Usage
-You can attach left or right Addons via props or named slots
+You can attach addons using either props, named slots or components.
 
-### Via `left` and `right` props:
+### Using `prepend` and `append` props
+Values will be internally wrapped by a `<b-input-group-text>` to display correctly.
 
 ```html
 <div>
-  <b-input-group left="$" right=".00">
+  <b-input-group prepend="$" append=".00">
     <b-form-input></b-form-input>
   </b-input-group>
 </div>
 
-<!-- input-group-addons-props.vue -->
+<!-- input-group-using-props.vue -->
 ```
 
-### Via named slots:
-if you want better control over addons, you can use `right` and `left` slots instead:
+### Using named slots
+if you want better control over addons, you can use `prepend` and `append` slots instead.
+
+This slots will be wrapped by `<b-input-group-prepend|append>` to display correctly.
 
 ```html
 <div>
-  <b-input-group left="Username">
-    <b-input-group-button slot="right">
+  <b-input-group prepend="Username">
+    <b-form-input></b-form-input>
+    <template slot="append">
       <b-dropdown text="Dropdown" variant="success">
         <b-dropdown-item>Action A</b-dropdown-item>
         <b-dropdown-item>Action B</b-dropdown-item>
       </b-dropdown>
-    </b-input-group-button>
-    <b-form-input></b-form-input>
+    </template>
   </b-input-group>
 </div>
 
-<!-- input-group-addons-slots.vue -->
+<!-- input-group-using-slots.vue -->
 ```
 
 
-### Direct placement of sub components:
-Use the `<b-input-group-addon>` to add arbitrary addons wherever you like, and use
-the `<b-input-group-button>` component to group buttons in your input group. Single
-buttons must always be wrapped in a `<b-input-group-button>` for proper styling
+### Using components
+Use the `<b-input-group-prepend>` or `<b-input-group-append>` to add arbitrary addons wherever you like,
+and use these components to group buttons in your input group.
+Single buttons must always be wrapped in components for proper styling.
 
 ```html
 <div>
   <b-input-group>
-    <b-input-group-addon>$</b-input-group-addon>
+    <b-input-group-prepend>
+      <b-btn variant="outline-info">Button</b-btn>
+    </b-input-group-prepend>
+
     <b-form-input type="number" min="0.00"></b-form-input>
-    <b-input-group-addon>.00</b-input-group-addon>
-    <b-input-group-button>
-      <b-btn variant="success">Buy Now</b-btn>
-    </b-input-group-button>
+
+    <b-input-group-append>
+      <b-btn variant="outline-secondary">Button</b-btn>
+      <b-btn variant="outline-secondary">Button</b-btn>
+    </b-input-group-append>
   </b-input-group>
 </div>
 
@@ -101,22 +97,26 @@ buttons must always be wrapped in a `<b-input-group-button>` for proper styling
 ## Checkbox and radio addons
 Place any native checkbox or radio within an input group’s addon instead of text.
 
+**Note:** you must use native radio and checkbox inputs, as `<b-form-radio>` and
+`<b-form-checkbox>` include additional markup not required in input groups.
+
 ```html
 <b-container>
   <b-row>
     <b-col lg="6">
       <b-input-group>
-        <b-input-group-addon>
-          <input type="checkbox" aria-label="Checkbox for following text input">
-        </b-input-group-addon>
+        <b-input-group-prepend is-text>
+            <input type="checkbox" aria-label="Checkbox for following text input">
+        </b-input-group-prepend>
         <b-form-input type="text" aria-label="Text input with checkbox" />
       </b-input-group>
     </b-col>
+
     <b-col lg="6">
       <b-input-group>
-        <b-input-group-addon>
-          <input type="radio" aria-label="Radio button for following text input">
-        </b-input-group-addon>
+        <b-input-group-prepend is-text>
+            <input type="radio" aria-label="Radio for following text input">
+        </b-input-group-prepend>
         <b-form-input type="text" aria-label="Text input with radio button" />
       </b-input-group>
     </b-col>
@@ -126,109 +126,25 @@ Place any native checkbox or radio within an input group’s addon instead of te
 <!-- input-group-checks-radios.vue -->
 ```
 
-**Note:** you must use native radio and checkbox inputs, as `<b-form-radio>` and
-`<b-form-checkbox>` include additional markup not required in input groups.
-
-
 ## Multiple addons
 Multiple add-ons are supported and can be mixed with checkbox and radio input versions.
-
 
 ```html
 <b-container>
   <b-row>
     <b-col lg="6">
-      <b-input-group>
-        <b-input-group-addon>
-          <input type="checkbox" aria-label="Checkbox for following text input">
-        </b-input-group-addon>
-        <b-input-group-addon>$</b-input-group-addon>
+      <b-input-group prepend="$">
+        <b-input-group-prepend is-text>
+            <input type="checkbox" aria-label="Checkbox for following text input">
+        </b-input-group-prepend>
+
         <b-form-input type="text" aria-label="Text input with checkbox" />
-      </b-input-group>
-    </b-col>
-    <b-col lg="6">
-      <b-input-group>
-        <b-input-group-addon>$</b-input-group-addon>
-        <b-input-group-addon>0.00</b-input-group-addon>
-        <b-form-input type="text" aria-label="Text input multiple addons" />
       </b-input-group>
     </b-col>
   </b-row>
 </b-container>
 
 <!-- input-group-multiple.vue -->
-```
-
-
-## Button addons
-Buttons in input groups must wrapped in a `<b-input-group-button>` for proper alignment
-and sizing. This is required due to default browser styles that cannot be overridden.
-Multiple buttons can be placed inside a single `<b-input-group-button>`.
-
-```html
-<b-container>
-  <b-row>
-    <b-col lg="6" class="mb-3">
-      <b-input-group>
-        <b-input-group-button>
-          <b-button>Go!</b-button>
-        </b-input-group-button>
-        <b-form-input type="text" placeholder="Search for..." />
-      </b-input-group>
-    </b-col>
-    <b-col lg="6" class="mb-3">
-      <b-input-group>
-        <b-form-input type="text" placeholder="Search for..." />
-        <b-input-group-button>
-          <b-button>Go!</b-button>
-        </b-input-group-button>
-      </b-input-group>
-    </b-col>
-  </b-row>
-  <b-row>
-    <b-col lg="6" class="mb-3">
-      <b-input-group>
-        <b-input-group-button>
-          <b-button variant="success">Love It</b-button>
-        </b-input-group-button>
-        <b-form-input type="text" placeholder="Product" />
-        <b-input-group-button>
-          <b-button variant="danger">Hate It</b-button>
-        </b-input-group-button>
-      </b-input-group>
-    </b-col>
-    <b-col lg="6" class="mb-3">
-      <b-input-group>
-        <b-form-input type="text" placeholder="Product" />
-        <b-input-group-button>
-          <b-button variant="success">Add</b-button>
-          <b-button variant="danger">Remove</b-button>
-        </b-input-group-button>
-      </b-input-group>
-    </b-col>
-  </b-row>
-</b-container>
-
-<!-- input-group-buttons.vue -->
-```
-
-## Addons with dropdowns
-Dropdowns, like buttons, must be placed inside a `<b-input-group-button>`
-
-```html
-<div>
-  <b-input-group>
-    <b-form-input placeholder="Produt" />
-    <b-input-group-button>
-      <b-dropdown text="Dropdown" variant="success">
-        <b-dropdown-item>Action A</b-dropdown-item>
-        <b-dropdown-item>Action B</b-dropdown-item>
-      </b-dropdown>
-    </b-input-group-button>
-  </b-input-group>
-</div>
-
-<!-- input-group-dropdowns.vue -->
 ```
 
 ## Control sizing
@@ -240,40 +156,21 @@ To control width, place the input inside standard Bootstrap grid column.
 
 ```html
 <div>
-  <b-input-group size="sm" class="mb-3">
-    <b-input-group-addon>Small</b-input-group-addon>
-    <b-form-input type="text" />
-    <b-input-group-button>
-      <b-dropdown size="sm" text="Dropdown" variant="success">
-        <b-dropdown-item>Action A</b-dropdown-item>
-        <b-dropdown-item>Action B</b-dropdown-item>
-      </b-dropdown>
-    </b-input-group-button>
-  </b-input-group>
-  <b-input-group size="lg">
-    <b-input-group-addon>Large</b-input-group-addon>
-    <b-input-group-addon>$</b-input-group-addon>
-    <b-form-input type="text" />
-    <b-input-group-button>
-      <b-button>Button</b-button>
-    </b-input-group-button>
+  <b-input-group v-for="size in ['sm','','lg']" :key="size" :size="size" class="mb-3" prepend="Label">
+    <b-form-input />
+    <b-input-group-append>
+      <b-btn size="sm" text="Button" variant="success">Button</b-btn>
+    </b-input-group-append>
   </b-input-group>
 </div>
+
 
 <!-- input-group-size.vue -->
 ```
 
 
 ## Contextual states
-Bootstrap V4.beta currently **does not** support contextual state (i.e. valid or invalid) on
+Bootstrap currently **does not** support contextual state (i.e. valid or invalid) on
 input groups.
-
-
-## Related sub-components
-- `<b-input-group-addon>`
-- `<b-input-group-button>`
-
-## Component aliases
-- `<b-input-group-button>` can also be used by the shorthand alias `<b-input-group-btn>`
 
 ## Component Reference

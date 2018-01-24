@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.0"></a>
+
+Released: 2018-01-23
+
+[**Full change list**](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.5.0...v2.0.0-rc.0)
+
+With `v2.0.0` release, BootstrapVue is compatible with final stable release of Bootstrap `v4.0.0` and beyond.
+
+* If you are using any custom theme which was based on BS beta, there may be minor problems to be fixed. Please ensure to review [migrate guide](https://getbootstrap.com/docs/4.0/migration).
+* With this release, we have removed majority of CSS fixes. If you are using ES builds, you may have to add a `css-loader` to make it working probably.
+* `input-group-addon` API has been changed and `left/right` changed into `prepend/append`. Please refer to the docs for more information.
+
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.1...v1.5.0) (2018-01-23)
+
+
+### Features
+
+* **dropdown:** add toggleClass prop ([#1485](https://github.com/bootstrap-vue/bootstrap-vue/issues/1485)) ([da16cc0](https://github.com/bootstrap-vue/bootstrap-vue/commit/da16cc0))
+* **nav-item-dropdown:** add extra-toggle-classes prop with tests and docs. closes [#1550](https://github.com/bootstrap-vue/bootstrap-vue/issues/1550). ([#1555](https://github.com/bootstrap-vue/bootstrap-vue/issues/1555)) ([7967018](https://github.com/bootstrap-vue/bootstrap-vue/commit/7967018))
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v1.4.1) (2018-01-14)
 

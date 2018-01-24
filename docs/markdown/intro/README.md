@@ -6,10 +6,10 @@ into your project. To get started, use yarn or npm to get latest version of boot
 
 ```bash
 # With NPM:
-npm i bootstrap-vue bootstrap@4.0.0-beta.2
+npm i bootstrap-vue
 
 # With Yarn:
-yarn add bootstrap-vue bootstrap@4.0.0-beta.2
+yarn add bootstrap-vue
 ```
 
 Then, register BootstrapVue plugin in your app entry point:
@@ -31,7 +31,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 
 **Note:** If you are unable or do not want to add additional packages to dev dependency, you have to
-manually include both [Bootstrap](https://v4-alpha.getbootstrap.com/getting-started/download/)
+manually include both [Bootstrap](https://unpkg.com/bootstrap@4.0.0/dist/css/bootstrap.css)
 and [BootstrapVue](https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css) CSS files
 in your bundle or reference them from `static/` via `index.html`.
 
@@ -40,10 +40,10 @@ Install dependencies:
 
 ```bash
 # With NPM:
-npm i bootstrap-vue bootstrap@4.0.0-beta.2
+npm i bootstrap-vue
 
 # With Yarn:
-yarn add bootstrap-vue bootstrap@4.0.0-beta.2
+yarn add bootstrap-vue
 ```
 
 Add `bootstrap-vue/nuxt` to modules section of **nuxt.config.js**
@@ -211,7 +211,7 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 ### CSS
 
 BootstrapVue is to be used with Bootstrap 4 CSS.
-Please see [Browsers and devices](https://v4-alpha.getbootstrap.com/getting-started/browsers-devices)
+Please see [Browsers and devices](https://getbootstrap.com/docs/4.0/getting-started/browsers-devices)
 for more information about browsers currently supported by Bootstrap 4.
 
 ### JS
