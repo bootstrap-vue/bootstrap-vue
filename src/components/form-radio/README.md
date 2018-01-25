@@ -59,64 +59,6 @@ in the named slot `first`.
 Please see options in [`<b-form-select>`](/docs/components/form-select) docs for details on passing
 options (value array) to `<b-form-radio-group>`.
 
-## Size
-Control the size of the radio text by setting the prop `size` to either `sm` for small or
-`lg` for large.
-
-```html
-<template>
-  <div>
-    <b-form-group label="Small size radios">
-      <b-form-radio-group v-model="selected"
-                          :options="options"
-                          size="sm"
-                          name="radiosSm">
-      </b-form-radio-group>
-    </b-form-group>
-
-    <b-form-group label="Default size radios">
-      <b-form-radio-group v-model="selected"
-                          :options="options"
-                          name="radiosMd">
-      </b-form-radio-group>
-    </b-form-group>
-
-    <b-form-group label="Large size radios">
-      <b-form-radio-group v-model="selected"
-                          :options="options"
-                          size="lg"
-                          name="radiosLg">
-      </b-form-radio-group>
-    </b-form-group>
-
-    <div class="mt-4">
-      Selected: <strong>{{ selected }}</strong>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  data () {
-    return {
-      selected: 'first',
-      options: [
-        { text: 'First radio', value: 'first' },
-        { text: 'Second radio', value: 'second' },
-        { text: 'Third radio', value: 'third' }
-      ]
-    }
-  }
-}
-</script>
-
-<!-- form-radio-size-1.vue -->
-```
-
-**Note:** _the current Bootstrap V4.beta CSS does not correctly style the size of
-the radio indicator._
-
-
 ## Inline or stacked
 By default `<b-form-radio>` generates inline radio inputs. Set the prop `stacked` to make
 the radios appear one over the other.
