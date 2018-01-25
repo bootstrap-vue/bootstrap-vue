@@ -21,19 +21,7 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 ```
 
-And import css files from both Bootstrap 4 & Bootstrap-Vue:
-
 **Note**: _requires webpack configuration to load css files ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_
-
-```js
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-```
-
-**Note:** If you are unable or do not want to add additional packages to dev dependency, you have to
-manually include both [Bootstrap](https://unpkg.com/bootstrap@4.0.0/dist/css/bootstrap.css)
-and [BootstrapVue](https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css) CSS files
-in your bundle or reference them from `static/` via `index.html`.
 
 ## Nuxt.js
 Install dependencies:
@@ -203,7 +191,6 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 
 - Remove the bootstrap.js file from your page scripts or build pipeline
 - If Bootstrap is the only thing relying on jQuery, you can safely remove it — BootstrapVue **does not** depend on jQuery
-- Don't forget to include the `bootstrap-vue.css` file!
 - Convert your native bootstrap HTML markup into the simplified Bootstrap-Vue custom component markup
 
 ## Browsers Support
