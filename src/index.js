@@ -1,6 +1,6 @@
 import * as components from './components'
 import * as directives from './directives'
-import { vueUse } from './utils'
+import { vueUse } from './utils/plugins'
 
 const VuePlugin = {
   install: function (Vue) {
