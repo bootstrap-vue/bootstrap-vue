@@ -1,4 +1,4 @@
-import { mergeData } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
 import MediaBody from './media-body'
 import MediaAside from './media-aside'
 

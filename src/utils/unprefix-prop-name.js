@@ -1,4 +1,4 @@
-import lowerFirst from './lowerFirst'
+import lowerFirst from './lower-first'
 
 /**
  * @param {string} prefix

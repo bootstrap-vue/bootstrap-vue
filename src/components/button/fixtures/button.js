@@ -19,8 +19,7 @@ window.app = new Vue({
   },
   methods: {
     handleClick (event) {
-      // eslint-disable-next-line no-alert
-      alert('You clicked, I listened.')
+      // STUB!
     }
   }
 })

@@ -3,6 +3,9 @@ import { resolve } from 'path'
 import Vue from 'vue/dist/vue.common'
 import BootstrapVue from '../src'
 
+// Hide development mode warning
+Vue.config.productionTip = false
+
 // Install Vue and BootstrapVue
 window.Vue = Vue
 Vue.use(BootstrapVue)
@@ -111,7 +114,8 @@ const getTagName = node =>
 expect.extend({
   toHaveClass (node, className) {
     return {
-      message: () => `expected <${getTagName(node)}> to have class '${className}'`,
+      message: () =>
+        `expected <${getTagName(node)}> to have class '${className}'`,
       pass: hasClass(node, className)
     }
   },
@@ -135,9 +139,10 @@ expect.extend({
 
     return {
       // more debugging breadcrumbs
-      message: () => `Expected <${tagName}> to have all classes in [${classStr}], but was missing [${missingClassStr}] class${
-        plural ? 'es' : ''
-      }.`,
+      message: () =>
+        `Expected <${tagName}> to have all classes in [${classStr}], but was missing [${missingClassStr}] class${
+          plural ? 'es' : ''
+        }.`,
       pass
     }
   },

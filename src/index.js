@@ -1,8 +1,6 @@
 import * as components from './components'
 import * as directives from './directives'
-import { vueUse } from './utils'
-
-/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+import { vueUse } from './utils/plugins'
 
 const VuePlugin = {
   install: function (Vue) {

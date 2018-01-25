@@ -1,37 +1,44 @@
-import { idMixin, formMixin, formSizeMixin, formStateMixin } from '../../mixins'
+import idMixin from '../../mixins/id'
+import formMixin from '../../mixins/form'
+import formSizeMixin from '../../mixins/form-size'
+import formStateMixin from '../../mixins/form-state'
 
 export default {
   mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
   render (h) {
     const t = this
-    return h(
-      'textarea',
-      {
-        ref: 'input',
-        class: t.inputClass,
-        style: t.inputStyle,
-        directives: [
-          { name: 'model', rawName: 'v-model', value: t.localValue, expression: 'localValue' }
-        ],
-        domProps: { value: t.value },
-        attrs: {
-          id: t.safeId(),
-          name: t.name,
-          disabled: t.disabled,
-          placeholder: t.placeholder,
-          required: t.required,
-          autocomplete: t.autocomplete || null,
-          readonly: t.readonly || t.plaintext,
-          rows: t.rowsCount,
-          wrap: t.wrap || null,
-          'aria-required': t.required ? 'true' : null,
-          'aria-invalid': t.computedAriaInvalid
-        },
-        on: {
-          input: function (evt) { t.localValue = evt.target.value }
+    return h('textarea', {
+      ref: 'input',
+      class: t.inputClass,
+      style: t.inputStyle,
+      directives: [
+        {
+          name: 'model',
+          rawName: 'v-model',
+          value: t.localValue,
+          expression: 'localValue'
+        }
+      ],
+      domProps: { value: t.value },
+      attrs: {
+        id: t.safeId(),
+        name: t.name,
+        disabled: t.disabled,
+        placeholder: t.placeholder,
+        required: t.required,
+        autocomplete: t.autocomplete || null,
+        readonly: t.readonly || t.plaintext,
+        rows: t.rowsCount,
+        wrap: t.wrap || null,
+        'aria-required': t.required ? 'true' : null,
+        'aria-invalid': t.computedAriaInvalid
+      },
+      on: {
+        input: function (evt) {
+          t.localValue = evt.target.value
         }
       }
-    )
+    })
   },
   data () {
     return {
@@ -88,7 +95,9 @@ export default {
       const rows = parseInt(this.rows, 10) || 1
       const maxRows = parseInt(this.maxRows, 10) || 0
       const lines = (this.localValue || '').toString().split('\n').length
-      return maxRows ? Math.min(maxRows, Math.max(rows, lines)) : Math.max(rows, lines)
+      return maxRows
+        ? Math.min(maxRows, Math.max(rows, lines))
+        : Math.max(rows, lines)
     },
     inputClass () {
       return [

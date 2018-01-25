@@ -1,9 +1,7 @@
-import {
-  idMixin,
-  formStateMixin,
-  formCustomMixin,
-  formMixin
-} from '../../mixins'
+import idMixin from '../../mixins/id'
+import formMixin from '../../mixins/form'
+import formStateMixin from '../../mixins/form-state'
+import formCustomMixin from '../../mixins/form-custom'
 import { from as arrayFrom } from '../../utils/array'
 
 export default {

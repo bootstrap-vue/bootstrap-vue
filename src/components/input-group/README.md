@@ -126,6 +126,30 @@ Place any native checkbox or radio within an input group’s addon instead of te
 <!-- input-group-checks-radios.vue -->
 ```
 
+## Dropdowns
+
+```html
+<b-input-group>
+  <template slot="prepend" v-for="i in 2" :key="i">
+    <b-dropdown text="Dropdown" variant="info">
+      <b-dropdown-item>Action A</b-dropdown-item>
+      <b-dropdown-item>Action B</b-dropdown-item>
+    </b-dropdown>
+  </template>
+
+  <b-form-input></b-form-input>
+
+  <template slot="append" v-for="i in 2" :key="i">
+    <b-dropdown text="Dropdown" variant="outline-secondary">
+      <b-dropdown-item>Action C</b-dropdown-item>
+      <b-dropdown-item>Action D</b-dropdown-item>
+    </b-dropdown>
+  </template>
+</b-input-group>
+
+<!-- input-group-dropdown.vue -->
+```
+
 ## Multiple addons
 Multiple add-ons are supported and can be mixed with checkbox and radio input versions.
 

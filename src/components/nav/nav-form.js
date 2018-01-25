@@ -1,5 +1,5 @@
 import Form from '../form/form'
-import { mergeData } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
 
 export default {
   functional: true,

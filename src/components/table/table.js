@@ -1,8 +1,13 @@
-import { warn, looseEqual, stableSort, KeyCodes } from '../../utils'
+import startCase from 'lodash.startcase'
+
+import looseEqual from '../../utils/loose-equal'
+import stableSort from '../../utils/stable-sort'
+import KeyCodes from '../../utils/key-codes'
+import warn from '../../utils/warn'
 import { keys, assign } from '../../utils/object'
 import { isArray } from '../../utils/array'
-import { idMixin, listenOnRootMixin } from '../../mixins'
-import startCase from 'lodash.startcase'
+import idMixin from '../../mixins/id'
+import listenOnRootMixin from '../../mixins/listen-on-root'
 
 // Import styles
 import './table.css'
@@ -12,7 +17,9 @@ function toString (v) {
     return ''
   }
   if (v instanceof Object) {
-    return keys(v).map(k => toString(v[k])).join(' ')
+    return keys(v)
+      .map(k => toString(v[k]))
+      .join(' ')
   }
   return String(v)
 }
@@ -21,18 +28,20 @@ function recToString (obj) {
   if (!(obj instanceof Object)) {
     return ''
   }
-  return toString(keys(obj).reduce((o, k) => {
-    // Ignore fields that start with _
-    if (!(/^_/).test(k)) {
-      o[k] = obj[k]
-    }
-    return o
-  }, {}))
+  return toString(
+    keys(obj).reduce((o, k) => {
+      // Ignore fields that start with _
+      if (!/^_/.test(k)) {
+        o[k] = obj[k]
+      }
+      return o
+    }, {})
+  )
 }
 
 function defaultSortCompare (a, b, sortBy) {
   if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-    return ((a[sortBy] < b[sortBy]) && -1) || ((a[sortBy] > b[sortBy]) && 1) || 0
+    return (a[sortBy] < b[sortBy] && -1) || (a[sortBy] > b[sortBy] && 1) || 0
   }
   return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
     numeric: true
@@ -58,7 +67,7 @@ function processField (key, value) {
 }
 
 export default {
-  mixins: [ idMixin, listenOnRootMixin ],
+  mixins: [idMixin, listenOnRootMixin],
   render (h) {
     const t = this
     const $slots = t.$slots
@@ -77,7 +86,9 @@ export default {
     }
 
     // Build the colgroup
-    const colgroup = $slots['table-colgroup'] ? h('colgroup', {}, $slots['table-colgroup']) : h(false)
+    const colgroup = $slots['table-colgroup']
+      ? h('colgroup', {}, $slots['table-colgroup'])
+      : h(false)
 
     // factory function for thead and tfoot cells (th's)
     const makeHeadCells = (isFoot = false) => {
@@ -87,20 +98,27 @@ export default {
           class: t.fieldClasses(field),
           style: field.thStyle || {},
           attrs: {
-            'tabindex': field.sortable ? '0' : null,
-            'abbr': field.headerAbbr || null,
-            'title': field.headerTitle || null,
+            tabindex: field.sortable ? '0' : null,
+            abbr: field.headerAbbr || null,
+            title: field.headerTitle || null,
             'aria-colindex': String(colIndex + 1),
-            'aria-label': field.sortable ? ((t.localSortDesc && t.localSortBy === field.key) ? t.labelSortAsc : t.labelSortDesc) : null,
-            'aria-sort': (field.sortable && t.localSortBy === field.key) ? (t.localSortDesc ? 'descending' : 'ascending') : null
+            'aria-label': field.sortable
+              ? t.localSortDesc && t.localSortBy === field.key
+                ? t.labelSortAsc
+                : t.labelSortDesc
+              : null,
+            'aria-sort':
+              field.sortable && t.localSortBy === field.key
+                ? t.localSortDesc ? 'descending' : 'ascending'
+                : null
           },
           on: {
-            click: (evt) => {
+            click: evt => {
               evt.stopPropagation()
               evt.preventDefault()
               t.headClicked(evt, field)
             },
-            keydown: (evt) => {
+            keydown: evt => {
               const keyCode = evt.keyCode
               if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
                 evt.stopPropagation()
@@ -110,9 +128,12 @@ export default {
             }
           }
         }
-        let slot = (isFoot && $scoped[`FOOT_${field.key}`]) ? $scoped[`FOOT_${field.key}`] : $scoped[`HEAD_${field.key}`]
+        let slot =
+          isFoot && $scoped[`FOOT_${field.key}`]
+            ? $scoped[`FOOT_${field.key}`]
+            : $scoped[`HEAD_${field.key}`]
         if (slot) {
-          slot = [ slot({ label: field.label, column: field.key, field: field }) ]
+          slot = [slot({ label: field.label, column: field.key, field: field })]
         } else {
           data.domProps = { innerHTML: field.label }
         }
@@ -124,14 +145,18 @@ export default {
     let thead = h(false)
     if (t.isStacked !== true) {
       // If in always stacked mode (t.isStacked === true), then we don't bother rendering the thead
-      thead = h('thead', { class: t.headClasses }, [ h('tr', { class: t.theadTrClass }, makeHeadCells(false)) ])
+      thead = h('thead', { class: t.headClasses }, [
+        h('tr', { class: t.theadTrClass }, makeHeadCells(false))
+      ])
     }
 
     // Build the tfoot
     let tfoot = h(false)
     if (t.footClone && t.isStacked !== true) {
       // If in always stacked mode (t.isStacked === true), then we don't bother rendering the tfoot
-      tfoot = h('tfoot', { class: t.footClasses }, [ h('tr', { class: t.tfootTrClass }, makeHeadCells(true)) ])
+      tfoot = h('tfoot', { class: t.footClasses }, [
+        h('tr', { class: t.tfootTrClass }, makeHeadCells(true))
+      ])
     }
 
     // Prepare the tbody rows
@@ -140,11 +165,13 @@ export default {
     // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
     // If in always stacked mode, we don't bother rendering the row
     if ($scoped['top-row'] && t.isStacked !== true) {
-      rows.push(h(
-        'tr',
-        { key: 'top-row', class: [ 'b-table-top-row', t.tbodyTrClass ] },
-        [ $scoped['top-row']({ columns: fields.length, fields: fields }) ]
-      ))
+      rows.push(
+        h(
+          'tr',
+          { key: 'top-row', class: ['b-table-top-row', t.tbodyTrClass] },
+          [$scoped['top-row']({ columns: fields.length, fields: fields })]
+        )
+      )
     } else {
       rows.push(h(false))
     }
@@ -153,7 +180,9 @@ export default {
     items.forEach((item, rowIndex) => {
       const detailsSlot = $scoped['row-details']
       const rowShowDetails = Boolean(item._showDetails && detailsSlot)
-      const detailsId = rowShowDetails ? t.safeId(`_details_${rowIndex}_`) : null
+      const detailsId = rowShowDetails
+        ? t.safeId(`_details_${rowIndex}_`)
+        : null
       const toggleDetailsFn = () => {
         if (detailsSlot) {
           t.$set(item, '_showDetails', !item._showDetails)
@@ -182,13 +211,13 @@ export default {
           ]
           if (t.isStacked) {
             // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
-            childNodes = [ h('div', {}, [ childNodes ]) ]
+            childNodes = [h('div', {}, [childNodes])]
           }
         } else {
           const formatted = t.getFormattedValue(item, field)
           if (t.isStacked) {
             // We innerHTML a DIV to ensure rendered as a single cell when visually stacked!
-            childNodes = [ h('div', { domProps: { innerHTML: formatted } }) ]
+            childNodes = [h('div', { domProps: { innerHTML: formatted } })]
           } else {
             // Non stcaked, so we just innerHTML the td
             data.domProps['innerHTML'] = formatted
@@ -209,27 +238,38 @@ export default {
       // Calculate the row number in the dataset (indexed from 1)
       let ariaRowIndex = null
       if (t.currentPage && t.perPage && t.perPage > 0) {
-        ariaRowIndex = ((t.currentPage - 1) * t.perPage) + rowIndex + 1
+        ariaRowIndex = (t.currentPage - 1) * t.perPage + rowIndex + 1
       }
       // Assemble and add the row
-      rows.push(h(
-        'tr',
-        {
-          key: `row-${rowIndex}`,
-          class: [ t.rowClasses(item), { 'b-table-has-details': rowShowDetails } ],
-          attrs: {
-            'aria-describedby': detailsId,
-            'aria-rowindex': ariaRowIndex,
-            role: t.isStacked ? 'row' : null
+      rows.push(
+        h(
+          'tr',
+          {
+            key: `row-${rowIndex}`,
+            class: [
+              t.rowClasses(item),
+              { 'b-table-has-details': rowShowDetails }
+            ],
+            attrs: {
+              'aria-describedby': detailsId,
+              'aria-rowindex': ariaRowIndex,
+              role: t.isStacked ? 'row' : null
+            },
+            on: {
+              click: evt => {
+                t.rowClicked(evt, item, rowIndex)
+              },
+              dblclick: evt => {
+                t.rowDblClicked(evt, item, rowIndex)
+              },
+              mouseenter: evt => {
+                t.rowHovered(evt, item, rowIndex)
+              }
+            }
           },
-          on: {
-            click: (evt) => { t.rowClicked(evt, item, rowIndex) },
-            dblclick: (evt) => { t.rowDblClicked(evt, item, rowIndex) },
-            mouseenter: (evt) => { t.rowHovered(evt, item, rowIndex) }
-          }
-        },
-        tds
-      ))
+          tds
+        )
+      )
       // Row Details slot
       if (rowShowDetails) {
         const tdAttrs = { colspan: String(fields.length) }
@@ -238,16 +278,25 @@ export default {
           tdAttrs['role'] = 'cell'
           trAttrs['role'] = 'row'
         }
-        const details = h(
-          'td',
-          { attrs: tdAttrs },
-          [ detailsSlot({ item: item, index: rowIndex, fields: fields, toggleDetails: toggleDetailsFn }) ]
+        const details = h('td', { attrs: tdAttrs }, [
+          detailsSlot({
+            item: item,
+            index: rowIndex,
+            fields: fields,
+            toggleDetails: toggleDetailsFn
+          })
+        ])
+        rows.push(
+          h(
+            'tr',
+            {
+              key: `details-${rowIndex}`,
+              class: ['b-table-details', t.tbodyTrClass],
+              attrs: trAttrs
+            },
+            [details]
+          )
         )
-        rows.push(h(
-          'tr',
-          { key: `details-${rowIndex}`, class: [ 'b-table-details', t.tbodyTrClass ], attrs: trAttrs },
-          [ details ]
-        ))
       } else if (detailsSlot) {
         // Only add the placeholder if a the table has a row-details slot defined (but not shown)
         rows.push(h(false))
@@ -258,28 +307,32 @@ export default {
     if (t.showEmpty && (!items || items.length === 0)) {
       let empty = t.filter ? $slots['emptyfiltered'] : $slots['empty']
       if (!empty) {
-        empty = h(
-          'div',
-          {
-            class: [ 'text-center', 'my-2' ],
-            domProps: { innerHTML: t.filter ? t.emptyFilteredText : t.emptyText }
-          }
-        )
+        empty = h('div', {
+          class: ['text-center', 'my-2'],
+          domProps: { innerHTML: t.filter ? t.emptyFilteredText : t.emptyText }
+        })
       }
       empty = h(
         'td',
-        { attrs: { colspan: String(fields.length), role: t.isStacked ? 'cell' : null } },
-        [ h('div', { attrs: { role: 'alert', 'aria-live': 'polite' } }, [ empty ]) ]
-      )
-      rows.push(h(
-        'tr',
         {
-          key: 'empty-row',
-          class: [ 'b-table-empty-row', t.tbodyTrClass ],
-          attrs: t.isStacked ? { role: 'row' } : {}
+          attrs: {
+            colspan: String(fields.length),
+            role: t.isStacked ? 'cell' : null
+          }
         },
-        [ empty ]
-      ))
+        [h('div', { attrs: { role: 'alert', 'aria-live': 'polite' } }, [empty])]
+      )
+      rows.push(
+        h(
+          'tr',
+          {
+            key: 'empty-row',
+            class: ['b-table-empty-row', t.tbodyTrClass],
+            attrs: t.isStacked ? { role: 'row' } : {}
+          },
+          [empty]
+        )
+      )
     } else {
       rows.push(h(false))
     }
@@ -287,11 +340,13 @@ export default {
     // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
     // If in always stacked mode, we don't bother rendering the row
     if ($scoped['bottom-row'] && t.isStacked !== true) {
-      rows.push(h(
-        'tr',
-        { key: 'bottom-row', class: [ 'b-table-bottom-row', t.tbodyTrClass ] },
-        [ $scoped['bottom-row']({ columns: fields.length, fields: fields }) ]
-      ))
+      rows.push(
+        h(
+          'tr',
+          { key: 'bottom-row', class: ['b-table-bottom-row', t.tbodyTrClass] },
+          [$scoped['bottom-row']({ columns: fields.length, fields: fields })]
+        )
+      )
     } else {
       rows.push(h(false))
     }
@@ -313,14 +368,19 @@ export default {
           role: t.isStacked ? 'table' : null,
           'aria-busy': t.computedBusy ? 'true' : 'false',
           'aria-colcount': String(fields.length),
-          'aria-rowcount': t.$attrs['aria-rowcount'] || (t.perPage && t.perPage > 0) ? '-1' : null
+          'aria-rowcount':
+            t.$attrs['aria-rowcount'] || (t.perPage && t.perPage > 0)
+              ? '-1'
+              : null
         }
       },
-      [ caption, colgroup, thead, tfoot, tbody ]
+      [caption, colgroup, thead, tfoot, tbody]
     )
 
     // Add responsive wrapper if needed and return table
-    return t.isResponsive ? h('div', { class: t.responsiveClass }, [ table ]) : table
+    return t.isResponsive
+      ? h('div', { class: t.responsiveClass }, [table])
+      : table
   },
   data () {
     return {
@@ -376,7 +436,9 @@ export default {
       default () {
         if (this && typeof this.inverse === 'boolean') {
           // Deprecate inverse
-          warn("b-table: prop 'inverse' has been deprecated. Use 'dark' instead")
+          warn(
+            "b-table: prop 'inverse' has been deprecated. Use 'dark' instead"
+          )
           return this.dark
         }
         return false
@@ -597,7 +659,9 @@ export default {
       return this.isStacked ? false : responsive
     },
     responsiveClass () {
-      return this.isResponsive === true ? 'table-responsive' : (this.isResponsive ? `table-responsive-${this.responsive}` : '')
+      return this.isResponsive === true
+        ? 'table-responsive'
+        : this.isResponsive ? `table-responsive-${this.responsive}` : ''
     },
     tableClasses () {
       return [
@@ -610,7 +674,9 @@ export default {
         this.small ? 'table-sm' : '',
         this.outlined ? 'border' : '',
         this.fixed ? 'b-table-fixed' : '',
-        this.isStacked === true ? 'b-table-stacked' : (this.isStacked ? `b-table-stacked-${this.stacked}` : '')
+        this.isStacked === true
+          ? 'b-table-stacked'
+          : this.isStacked ? `b-table-stacked-${this.stacked}` : ''
       ]
     },
     headClasses () {
@@ -620,16 +686,11 @@ export default {
       ]
     },
     bodyClasses () {
-      return [
-        this.tbodyClass
-      ]
+      return [this.tbodyClass]
     },
     footClasses () {
       const variant = this.footVariant || this.headVariant || null
-      return [
-        variant ? 'thead-' + variant : '',
-        this.tfootClass
-      ]
+      return [variant ? 'thead-' + variant : '', this.tfootClass]
     },
     captionStyles () {
       // Move caption to top
@@ -666,7 +727,11 @@ export default {
         this.fields.filter(f => f).forEach(f => {
           if (typeof f === 'string') {
             fields.push({ key: f, label: startCase(f) })
-          } else if (typeof f === 'object' && f.key && typeof f.key === 'string') {
+          } else if (
+            typeof f === 'object' &&
+            f.key &&
+            typeof f.key === 'string'
+          ) {
             // Full object definition. We use assign so that we don't mutate the original
             fields.push(assign({}, f))
           } else if (typeof f === 'object' && keys(f).length === 1) {
@@ -678,7 +743,11 @@ export default {
             }
           }
         })
-      } else if (this.fields && typeof this.fields === 'object' && keys(this.fields).length > 0) {
+      } else if (
+        this.fields &&
+        typeof this.fields === 'object' &&
+        keys(this.fields).length > 0
+      ) {
         // Normalize object Form
         keys(this.fields).forEach(key => {
           let field = processField(key, this.fields[key])
@@ -779,8 +848,10 @@ export default {
     fieldClasses (field) {
       return [
         field.sortable ? 'sorting' : '',
-        (field.sortable && this.localSortBy === field.key) ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc') : '',
-        field.variant ? ('table-' + field.variant) : '',
+        field.sortable && this.localSortBy === field.key
+          ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc')
+          : '',
+        field.variant ? 'table-' + field.variant : '',
         field.class ? field.class : '',
         field.thClass ? field.thClass : ''
       ]
@@ -788,10 +859,14 @@ export default {
     tdClasses (field, item) {
       let cellVariant = ''
       if (item._cellVariants && item._cellVariants[field.key]) {
-        cellVariant = `${this.dark ? 'bg' : 'table'}-${item._cellVariants[field.key]}`
+        cellVariant = `${this.dark ? 'bg' : 'table'}-${
+          item._cellVariants[field.key]
+        }`
       }
       return [
-        (field.variant && !cellVariant) ? `${this.dark ? 'bg' : 'table'}-${field.variant}` : '',
+        field.variant && !cellVariant
+          ? `${this.dark ? 'bg' : 'table'}-${field.variant}`
+          : '',
         cellVariant,
         field.class ? field.class : '',
         field.tdClass ? field.tdClass : ''
@@ -799,7 +874,9 @@ export default {
     },
     rowClasses (item) {
       return [
-        item._rowVariant ? `${this.dark ? 'bg' : 'table'}-${item._rowVariant}` : '',
+        item._rowVariant
+          ? `${this.dark ? 'bg' : 'table'}-${item._rowVariant}`
+          : '',
         this.tbodyTrClass
       ]
     },
@@ -905,7 +982,10 @@ export default {
       if (formatter) {
         if (typeof formatter === 'function') {
           value = formatter(value, key, item)
-        } else if (typeof formatter === 'string' && typeof parent[formatter] === 'function') {
+        } else if (
+          typeof formatter === 'string' &&
+          typeof parent[formatter] === 'function'
+        ) {
           value = parent[formatter](value, key, item)
         }
       }

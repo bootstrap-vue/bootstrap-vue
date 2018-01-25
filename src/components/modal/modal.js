@@ -1,7 +1,10 @@
 import bBtn from '../button/button'
 import bBtnClose from '../button/button-close'
-import { idMixin, listenOnRootMixin } from '../../mixins'
-import { observeDom, warn, KeyCodes } from '../../utils'
+import idMixin from '../../mixins/id'
+import listenOnRootMixin from '../../mixins/listen-on-root'
+import observeDom from '../../utils/observe-dom'
+import warn from '../../utils/warn'
+import KeyCodes from '../../utils/key-codes'
 import BvEvent from '../../utils/bv-event.class'
 
 import {
@@ -163,6 +166,8 @@ export default {
           focusout: t.onFocusout,
           click: evt => {
             evt.stopPropagation()
+            // https://github.com/bootstrap-vue/bootstrap-vue/issues/1528
+            this.$root.$emit('bv::dropdown::shown')
           }
         }
       },

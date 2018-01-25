@@ -1,4 +1,5 @@
-import { mergeData, pluckProps } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
+import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
 import { assign, keys } from '../../utils/object'
 import { addClass, removeClass } from '../../utils/dom'
@@ -98,7 +99,10 @@ export default {
         // Tab index is used when the component becomes a link.
         // Links are tabable, but don't allow disabled,
         // so we mimic that functionality by disabling tabbing.
-        tabindex: props.disabled && isLink ? '-1' : (data.attrs ? data.attrs['tabindex'] : null)
+        tabindex:
+          props.disabled && isLink
+            ? '-1'
+            : data.attrs ? data.attrs['tabindex'] : null
       },
       on
     }

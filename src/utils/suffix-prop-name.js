@@ -1,4 +1,4 @@
-import upperFirst from './upperFirst'
+import upperFirst from './upper-first'
 
 /**
  * Suffix can be a falsey value so nothing is appended to string.

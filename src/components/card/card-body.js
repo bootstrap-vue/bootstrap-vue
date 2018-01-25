@@ -1,33 +1,39 @@
-import { mergeData, prefixPropName, copyProps } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
+import prefixPropName from '../../utils/prefix-prop-name'
+import copyProps from '../../utils/copyProps'
 import { assign } from '../../utils/object'
-import { cardMixin } from '../../mixins'
+import cardMixin from '../../mixins/card-mixin'
 
-export const props = assign({}, copyProps(cardMixin.props, prefixPropName.bind(null, 'body')), {
-  bodyClass: {
-    type: [String, Object, Array],
-    default: null
-  },
-  title: {
-    type: String,
-    default: null
-  },
-  titleTag: {
-    type: String,
-    default: 'h4'
-  },
-  subTitle: {
-    type: String,
-    default: null
-  },
-  subTitleTag: {
-    type: String,
-    default: 'h6'
-  },
-  overlay: {
-    type: Boolean,
-    default: false
+export const props = assign(
+  {},
+  copyProps(cardMixin.props, prefixPropName.bind(null, 'body')),
+  {
+    bodyClass: {
+      type: [String, Object, Array],
+      default: null
+    },
+    title: {
+      type: String,
+      default: null
+    },
+    titleTag: {
+      type: String,
+      default: 'h4'
+    },
+    subTitle: {
+      type: String,
+      default: null
+    },
+    subTitleTag: {
+      type: String,
+      default: 'h6'
+    },
+    overlay: {
+      type: Boolean,
+      default: false
+    }
   }
-})
+)
 
 export default {
   functional: true,
@@ -60,7 +66,9 @@ export default {
           {
             'card-img-overlay': props.overlay,
             [`bg-${props.bodyBgVariant}`]: Boolean(props.bodyBgVariant),
-            [`border-${props.bodyBorderVariant}`]: Boolean(props.bodyBorderVariant),
+            [`border-${props.bodyBorderVariant}`]: Boolean(
+              props.bodyBorderVariant
+            ),
             [`text-${props.bodyTextVariant}`]: Boolean(props.bodyTextVariant)
           },
           props.bodyClass || {}

@@ -5,7 +5,7 @@
 import { isArray } from '../utils/array'
 import { assign } from '../utils/object'
 import { isElement, getById } from '../utils/dom'
-import { observeDom } from '../utils'
+import observeDom from '../utils/observe-dom'
 
 const PLACEMENTS = {
   top: 'top',

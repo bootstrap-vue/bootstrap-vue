@@ -1,4 +1,5 @@
-import { mergeData, pluckProps } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
+import pluckProps from '../../utils/pluck-props'
 import { assign } from '../../utils/object'
 import Link, { propsFactory as linkPropsFactory } from '../link/link'
 

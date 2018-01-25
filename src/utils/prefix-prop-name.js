@@ -1,4 +1,4 @@
-import upperFirst from './upperFirst'
+import upperFirst from './upper-first'
 
 /**
  * @param {string} prefix
