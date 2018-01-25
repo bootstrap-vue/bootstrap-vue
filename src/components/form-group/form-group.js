@@ -228,9 +228,7 @@ export default {
     },
     labelClasses () {
       return [
-        // BS V4.beta.3 will replace .col-form-legend with .col-form-label
-        // so this next line will change to just: 'col-form-label',
-        (this.labelSize || this.labelFor) ? 'col-form-label' : 'col-form-legend',
+        'col-form-label',
         this.labelSize ? `col-form-label-${this.labelSize}` : null,
         this.labelTextAlign ? `text-${this.labelTextAlign}` : null,
         this.horizontal ? null : 'pt-0',
