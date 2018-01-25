@@ -2,6 +2,8 @@ import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import bButton from '../button/button'
 
+import './dropdown.css'
+
 export default {
   mixins: [idMixin, dropdownMixin],
   components: { bButton },
