@@ -1,11 +1,9 @@
-import {
-  idMixin,
-  formMixin,
-  formSizeMixin,
-  formStateMixin,
-  formOptionsMixin,
-  formCustomMixin
-} from '../../mixins'
+import idMixin from '../../mixins/id'
+import formOptionsMixin from '../../mixins/form-options'
+import formMixin from '../../mixins/form'
+import formSizeMixin from '../../mixins/form-size'
+import formStateMixin from '../../mixins/form-state'
+import formCustomMixin from '../../mixins/form-custom'
 import { from as arrayFrom } from '../../utils/array'
 
 export default {
@@ -102,7 +100,7 @@ export default {
         this.sizeFormClass,
         // Awaiting for https://github.com/twbs/bootstrap/issues/23058
         this.isPlain ? null : 'custom-select',
-        (this.isPlain || !this.size) ? null : 'custom-select-' + this.size
+        this.isPlain || !this.size ? null : 'custom-select-' + this.size
       ]
     },
     isPlain () {

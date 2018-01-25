@@ -1,13 +1,17 @@
 import PopOver from '../../utils/popover.class'
-import { warn } from '../../utils'
-import { toolpopMixin } from '../../mixins'
+import warn from '../../utils/warn'
+import toolpopMixin from '../../mixins/toolpop'
 
 export default {
-  mixins: [ toolpopMixin ],
+  mixins: [toolpopMixin],
   render (h) {
     return h(
       'div',
-      { class: [ 'd-none' ], style: { display: 'none' }, attrs: { 'aria-hidden': true } },
+      {
+        class: ['d-none'],
+        style: { display: 'none' },
+        attrs: { 'aria-hidden': true }
+      },
       [
         h('div', { ref: 'title' }, this.$slots.title),
         h('div', { ref: 'content' }, this.$slots.default)

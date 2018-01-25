@@ -1,4 +1,5 @@
-import { mergeData, pluckProps } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
+import pluckProps from '../../utils/pluck-props'
 import { assign } from '../../utils/object'
 import { arrayIncludes } from '../../utils/array'
 import Link, { propsFactory as linkPropsFactory } from '../link/link'
@@ -8,32 +9,41 @@ let linkProps = linkPropsFactory()
 delete linkProps.href.default
 delete linkProps.to.default
 
-export const props = assign({
-  tag: {
-    type: String,
-    default: 'div'
+export const props = assign(
+  {
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    action: {
+      type: Boolean,
+      default: null
+    },
+    button: {
+      type: Boolean,
+      default: null
+    },
+    variant: {
+      type: String,
+      default: null
+    }
   },
-  action: {
-    type: Boolean,
-    default: null
-  },
-  button: {
-    type: Boolean,
-    default: null
-  },
-  variant: {
-    type: String,
-    default: null
-  }
-}, linkProps)
+  linkProps
+)
 
 export default {
   functional: true,
   props,
   render (h, { props, data, children }) {
-    const tag = props.button ? 'button' : ((!props.href && !props.to) ? props.tag : Link)
+    const tag = props.button
+      ? 'button'
+      : !props.href && !props.to ? props.tag : Link
     const isAction = Boolean(
-      props.href || props.to || props.action || props.button || arrayIncludes(actionTags, props.tag)
+      props.href ||
+        props.to ||
+        props.action ||
+        props.button ||
+        arrayIncludes(actionTags, props.tag)
     )
     const componentData = {
       staticClass: 'list-group-item',
@@ -43,7 +53,7 @@ export default {
         active: props.active,
         disabled: props.disabled
       },
-      attrs: (tag === 'button' && props.disabled) ? { disabled: true } : {},
+      attrs: tag === 'button' && props.disabled ? { disabled: true } : {},
       props: props.button ? {} : pluckProps(linkProps, props)
     }
 

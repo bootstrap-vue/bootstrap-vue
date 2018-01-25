@@ -1,4 +1,4 @@
-import { mergeData } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
 import { arrayIncludes } from '../../utils/array'
 
 export const props = {

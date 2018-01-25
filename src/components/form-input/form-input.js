@@ -1,4 +1,7 @@
-import { idMixin, formMixin, formSizeMixin, formStateMixin } from '../../mixins'
+import idMixin from '../../mixins/id'
+import formMixin from '../../mixins/form'
+import formSizeMixin from '../../mixins/form-size'
+import formStateMixin from '../../mixins/form-state'
 import { arrayIncludes } from '../../utils/array'
 
 // Import styles
@@ -6,38 +9,48 @@ import './form-input.css'
 
 // Valid supported input types
 const TYPES = [
-  'text', 'password', 'email', 'number', 'url', 'tel', 'search', 'range', 'color',
-  `date`, `time`, `datetime`, `datetime-local`, `month`, `week`
+  'text',
+  'password',
+  'email',
+  'number',
+  'url',
+  'tel',
+  'search',
+  'range',
+  'color',
+  `date`,
+  `time`,
+  `datetime`,
+  `datetime-local`,
+  `month`,
+  `week`
 ]
 
 export default {
   mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
   render (h) {
     const t = this
-    return h(
-      'input',
-      {
-        ref: 'input',
-        class: t.inputClass,
-        domProps: { value: t.localValue },
-        attrs: {
-          id: t.safeId(),
-          name: t.name,
-          type: t.localType,
-          disabled: t.disabled,
-          required: t.required,
-          readonly: t.readonly || t.plaintext,
-          placeholder: t.placeholder,
-          autocomplete: t.autocomplete || null,
-          'aria-required': t.required ? 'true' : null,
-          'aria-invalid': t.computedAriaInvalid
-        },
-        on: {
-          input: t.onInput,
-          change: t.onChange
-        }
+    return h('input', {
+      ref: 'input',
+      class: t.inputClass,
+      domProps: { value: t.localValue },
+      attrs: {
+        id: t.safeId(),
+        name: t.name,
+        type: t.localType,
+        disabled: t.disabled,
+        required: t.required,
+        readonly: t.readonly || t.plaintext,
+        placeholder: t.placeholder,
+        autocomplete: t.autocomplete || null,
+        'aria-required': t.required ? 'true' : null,
+        'aria-invalid': t.computedAriaInvalid
+      },
+      on: {
+        input: t.onInput,
+        change: t.onChange
       }
-    )
+    })
   },
   data () {
     return {
@@ -51,7 +64,7 @@ export default {
     type: {
       type: String,
       default: 'text',
-      validator: (type) => arrayIncludes(TYPES, type)
+      validator: type => arrayIncludes(TYPES, type)
     },
     ariaInvalid: {
       type: [Boolean, String],

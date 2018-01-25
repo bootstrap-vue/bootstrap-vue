@@ -1,4 +1,4 @@
-import { registerComponents, vueUse } from '../../utils'
+import { registerComponents, vueUse } from '../../utils/plugins'
 
 import bInputGroup from './input-group'
 import bInputGroupAddon from './input-group-addon'

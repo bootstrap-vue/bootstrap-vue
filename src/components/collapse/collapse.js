@@ -1,4 +1,4 @@
-import { listenOnRootMixin } from '../../mixins'
+import listenOnRootMixin from '../../mixins/listen-on-root'
 import { hasClass, reflow } from '../../utils/dom'
 
 // Events we emit on $root

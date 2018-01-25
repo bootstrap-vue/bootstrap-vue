@@ -1,6 +1,6 @@
 import ToolTip from '../../utils/tooltip.class'
-import { warn } from '../../utils'
-import { toolpopMixin } from '../../mixins'
+import warn from '../../utils/warn'
+import toolpopMixin from '../../mixins/toolpop'
 
 export default {
   mixins: [ toolpopMixin ],

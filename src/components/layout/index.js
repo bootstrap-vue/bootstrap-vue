@@ -2,9 +2,7 @@ import bContainer from './container'
 import bRow from './row'
 import bCol from './col'
 import bFormRow from './form-row'
-import { registerComponents, vueUse } from '../../utils'
-
-/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
   bContainer,

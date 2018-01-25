@@ -1,4 +1,4 @@
-import { idMixin } from '../../mixins'
+import idMixin from '../../mixins/id'
 
 export default {
   mixins: [idMixin],
@@ -11,7 +11,7 @@ export default {
         {
           ref: 'panel',
           class: t.tabClasses,
-          directives: [ { name: 'show', value: t.localActive } ],
+          directives: [{ name: 'show', value: t.localActive }],
           attrs: {
             role: 'tabpanel',
             id: t.safeId(),
@@ -20,7 +20,7 @@ export default {
             'aria-lablelledby': t.controlledBy || null
           }
         },
-        [ t.$slots.default ]
+        [t.$slots.default]
       )
     }
     return h(
@@ -33,7 +33,7 @@ export default {
           afterLeave: t.afterLeave
         }
       },
-      [ content ]
+      [content]
     )
   },
   methods: {
@@ -60,7 +60,7 @@ export default {
     tabClasses () {
       return [
         'tab-pane',
-        (this.$parent && this.$parent.card && !this.noBody) ? 'card-body' : '',
+        this.$parent && this.$parent.card && !this.noBody ? 'card-body' : '',
         this.show ? 'show' : '',
         this.computedFade ? 'fade' : '',
         this.disabled ? 'disabled' : '',

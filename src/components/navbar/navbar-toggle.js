@@ -1,4 +1,4 @@
-import { listenOnRootMixin } from '../../mixins'
+import listenOnRootMixin from '../../mixins/listen-on-root'
 
 export default {
   mixins: [listenOnRootMixin],
@@ -7,7 +7,7 @@ export default {
     return h(
       'button',
       {
-        class: [ 'navbar-toggler' ],
+        class: ['navbar-toggler'],
         attrs: {
           type: 'button',
           'aria-label': t.label,
@@ -16,7 +16,7 @@ export default {
         },
         on: { click: t.onClick }
       },
-      [ t.$slots.default || h('span', { class: [ 'navbar-toggler-icon' ] }) ]
+      [t.$slots.default || h('span', { class: ['navbar-toggler-icon'] })]
     )
   },
   data () {

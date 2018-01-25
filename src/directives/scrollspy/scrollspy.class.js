@@ -3,7 +3,8 @@
  */
 
 import { assign } from '../../utils/object'
-import { observeDom, warn } from '../../utils'
+import observeDom from '../../utils/observe-dom'
+import warn from '../../utils/warn'
 import {
   isElement,
   isVisible,
