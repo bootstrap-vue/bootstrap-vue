@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.5.0...v1.5.1) (2018-01-25)
+
+
+### Bug Fixes
+
+* call `removeEventListener` on the right element ([#1557](https://github.com/bootstrap-vue/bootstrap-vue/issues/1557)) ([990b676](https://github.com/bootstrap-vue/bootstrap-vue/commit/990b676)), closes [#1391](https://github.com/bootstrap-vue/bootstrap-vue/issues/1391)
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.1...v1.5.0) (2018-01-23)
 
