@@ -139,7 +139,7 @@ will produce something like:
 ```html
 <li id="nav7_ddown" class="nav-item b-nav-dropdown dropdown">
    <a href="#" id="nav7_ddown__BV_button_" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle nav-link-custom">
-  </a>    
+  </a>
   ...
 </li>
 ```
@@ -152,9 +152,6 @@ Refer to [`<b-dropdown>`](../dropdown) for a list of supported sub-components.
 
 
 ## Using in Navbar
-
-Using `<b-nav>` within a `<b-navbar>` has been deprecated as of Bootstrap-Vue v1.0.0-beta.10.
-Please use the [`<b-navbar-nav>`](/docs/components/navbar) component instead.
 
 Prop `is-nav-bar` has been deprecated and will be removed in a future release.
 

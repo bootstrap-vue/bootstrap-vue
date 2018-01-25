@@ -316,9 +316,6 @@ fields: [
 | `head-variant` | String | Use `'light'` or `'dark'` to make table header appear light or dark gray, respectively
 | `foot-variant` | String | Use `'light'` or `'dark'` to make table footer appear light or dark gray, respectively. If not set, `head-variant` will be used. Has no effect if `foot-clone` is not set
 
->**Deprecation note:** _As of Bootstrap-Vue v1.0.0, the prop `inverse` has been deprecated in
-favour of prop `dark` to better align with the new Bootstrap V4.beta.2 CSS class names._
-
 **Example: Basic table styles**
 ```html
 <template>

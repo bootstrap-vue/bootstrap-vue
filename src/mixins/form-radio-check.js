@@ -100,9 +100,7 @@ export default {
         // 'active' class makes "button" look pressed
         this.is_Checked ? 'active' : '',
         // Focus class makes button look focused
-        this.hasFocus ? 'focus' : '',
-        // Fix for issue in BS V4.beta.2 CSS (remove spacing between stacked buttons)
-        this.is_Stacked ? 'mb-0' : ''
+        this.hasFocus ? 'focus' : ''
       ]
     }
   },
