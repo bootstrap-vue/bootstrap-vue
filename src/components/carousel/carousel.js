@@ -1,6 +1,7 @@
-import { observeDom, KeyCodes } from '../../utils'
+import observeDom from '../../utils/observe-dom'
+import KeyCodes from '../../utils/key-codes'
 import { selectAll, reflow, addClass, removeClass, setAttr, eventOn, eventOff } from '../../utils/dom'
-import { idMixin } from '../../mixins'
+import idMixin from '../../mixins/id'
 
 // Slide directional classes
 const DIRECTION = {

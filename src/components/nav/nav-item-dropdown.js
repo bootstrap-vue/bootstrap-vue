@@ -1,4 +1,5 @@
-import { idMixin, dropdownMixin } from '../../mixins'
+import idMixin from '../../mixins/id'
+import dropdownMixin from '../../mixins/dropdown'
 
 export default {
   mixins: [idMixin, dropdownMixin],
@@ -21,7 +22,11 @@ export default {
           keydown: t.toggle // space, enter, down
         }
       },
-      [ t.$slots['button-content'] || t.$slots.text || h('span', { domProps: { innerHTML: t.text } }) ]
+      [
+        t.$slots['button-content'] ||
+          t.$slots.text ||
+          h('span', { domProps: { innerHTML: t.text } })
+      ]
     )
     const menu = h(
       'div',
@@ -34,9 +39,12 @@ export default {
           keydown: t.onKeydown // tab, up, down, esc
         }
       },
-      [ this.$slots.default ]
+      [this.$slots.default]
     )
-    return h('li', { attrs: { id: t.safeId() }, class: t.dropdownClasses }, [ button, menu ])
+    return h('li', { attrs: { id: t.safeId() }, class: t.dropdownClasses }, [
+      button,
+      menu
+    ])
   },
   computed: {
     isNav () {

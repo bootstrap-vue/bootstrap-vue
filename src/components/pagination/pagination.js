@@ -1,4 +1,4 @@
-import { paginationMixin } from '../../mixins'
+import paginationMixin from '../../mixins/pagination'
 import { isVisible } from '../../utils/dom'
 
 const props = {

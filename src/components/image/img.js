@@ -1,4 +1,4 @@
-import { mergeData } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
 
 // Blank image with fill template
 const BLANK_TEMPLATE = '<svg width="%{w}" height="%{h}" ' +

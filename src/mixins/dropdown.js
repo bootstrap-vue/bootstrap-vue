@@ -3,7 +3,8 @@ import clickoutMixin from './clickout'
 import listenOnRootMixin from './listen-on-root'
 import { from as arrayFrom } from '../utils/array'
 import { assign } from '../utils/object'
-import { KeyCodes, warn } from '../utils'
+import KeyCodes from '../utils/key-codes'
+import warn from '../utils/warn'
 import { isVisible, closest, selectAll, getAttr, eventOn, eventOff } from '../utils/dom'
 
 // Return an Array of visible items

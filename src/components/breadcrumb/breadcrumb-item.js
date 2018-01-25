@@ -1,4 +1,4 @@
-import { mergeData } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
 import { assign } from '../../utils/object'
 import BreadcrumbLink, { props as crumbLinks } from './breadcrumb-link'
 

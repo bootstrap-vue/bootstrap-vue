@@ -1,8 +1,21 @@
-import { idMixin, formMixin, formOptionsMixin, formSizeMixin, formStateMixin, formCustomMixin } from '../../mixins'
+import idMixin from '../../mixins/id'
+import formMixin from '../../mixins/form'
+import formOptionsMixin from '../../mixins/form-options'
+import formSizeMixin from '../../mixins/form-size'
+import formStateMixin from '../../mixins/form-state'
+import formCustomMixin from '../../mixins/form-custom'
+
 import bFormCheckbox from './form-checkbox'
 
 export default {
-  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
+  mixins: [
+    idMixin,
+    formMixin,
+    formSizeMixin,
+    formStateMixin,
+    formCustomMixin,
+    formOptionsMixin
+  ],
   components: { bFormCheckbox },
   render (h) {
     const t = this
@@ -21,7 +34,7 @@ export default {
             disabled: option.disabled
           }
         },
-        [ h('span', { domProps: { innerHTML: option.text } }) ]
+        [h('span', { domProps: { innerHTML: option.text } })]
       )
     })
     return h(
@@ -36,7 +49,7 @@ export default {
           'aria-invalid': t.computedAriaInvalid
         }
       },
-      [ $slots.first, checks, $slots.default ]
+      [$slots.first, checks, $slots.default]
     )
   },
   data () {
@@ -99,13 +112,17 @@ export default {
       }
       return [
         t.sizeFormClass,
-        (t.stacked && t.custom) ? 'custom-controls-stacked' : '',
+        t.stacked && t.custom ? 'custom-controls-stacked' : '',
         t.validated ? `was-validated` : ''
       ]
     },
     computedAriaInvalid () {
       const t = this
-      if (t.ariaInvalid === true || t.ariaInvalid === 'true' || t.ariaInvalid === '') {
+      if (
+        t.ariaInvalid === true ||
+        t.ariaInvalid === 'true' ||
+        t.ariaInvalid === ''
+      ) {
         return 'true'
       }
       return t.get_State === false ? 'true' : null

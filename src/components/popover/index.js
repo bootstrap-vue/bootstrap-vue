@@ -1,7 +1,5 @@
 import bPopover from './popover'
-import { registerComponents, vueUse } from '../../utils'
-
-/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
   bPopover

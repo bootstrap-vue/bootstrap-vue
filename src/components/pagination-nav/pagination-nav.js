@@ -1,5 +1,5 @@
 import { assign } from '../../utils/object'
-import { paginationMixin } from '../../mixins'
+import paginationMixin from '../../mixins/pagination'
 import { pickLinkProps } from '../link/link'
 
 // Props needed for router links

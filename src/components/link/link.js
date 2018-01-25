@@ -1,6 +1,6 @@
 import { assign, keys } from '../../utils/object'
 import { arrayIncludes, concat } from '../../utils/array'
-import { mergeData } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
 
 /**
  * The Link component is used in many other BV components.

@@ -1,4 +1,4 @@
-import { mergeData } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
 import InputGroupText from './input-group-text'
 
 export const propsFactory = append => ({

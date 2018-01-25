@@ -1,8 +1,6 @@
 import bButton from './button'
 import bButtonClose from './button-close'
-import { registerComponents, vueUse } from '../../utils'
-
-/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
   bButton,
