@@ -1,6 +1,6 @@
 import Link, { propsFactory } from '../link/link'
 import mergeData from 'vue-functional-data-merge'
-import { pluckProps } from '../utils/pluckProps'
+import { pluckProps } from '../utils/pluck-props'
 import { assign } from '../../utils/object'
 
 const linkProps = propsFactory()

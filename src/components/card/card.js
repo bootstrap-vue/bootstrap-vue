@@ -1,9 +1,9 @@
 import mergeData from 'vue-functional-data-merge'
 
-import prefixPropName from '../../utils/prefixPropName'
-import unPrefixPropName from '../../utils/unPrefixPropName'
+import prefixPropName from '../../utils/prefix-prop-name'
+import unPrefixPropName from '../../utils/unprefix-prop-name'
 import copyProps from '../../utils/copyProps'
-import pluckProps from '../../utils/pluckProps'
+import pluckProps from '../../utils/pluck-props'
 import { assign } from '../../utils/object'
 import cardMixin from '../../mixins/card-mixin'
 import CardBody, { props as bodyProps } from './card-body'

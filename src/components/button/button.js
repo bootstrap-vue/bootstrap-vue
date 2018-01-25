@@ -1,5 +1,5 @@
 import mergeData from 'vue-functional-data-merge'
-import { pluckProps } from '../utils/pluckProps'
+import { pluckProps } from '../utils/pluck-props'
 import { concat } from '../../utils/array'
 import { assign, keys } from '../../utils/object'
 import { addClass, removeClass } from '../../utils/dom'

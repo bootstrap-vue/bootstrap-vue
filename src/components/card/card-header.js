@@ -1,6 +1,6 @@
 import mergeData from 'vue-functional-data-merge'
 
-import prefixPropName from '../../utils/prefixPropName'
+import prefixPropName from '../../utils/prefix-prop-name'
 import copyProps from '../../utils/copyProps'
 import { assign } from '../../utils/object'
 import cardMixin from '../../mixins/card-mixin'

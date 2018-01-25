@@ -1,6 +1,6 @@
 import { mergeData } from 'vue-functional-data-merge'
 import memoize from '../../utils/memoize'
-import suffixPropName from '../../utils/suffixPropName'
+import suffixPropName from '../../utils/suffix-prop-name'
 import { keys, assign, create } from '../../utils/object'
 import { arrayIncludes } from '../../utils/array'
 
