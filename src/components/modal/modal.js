@@ -166,6 +166,8 @@ export default {
           focusout: t.onFocusout,
           click: evt => {
             evt.stopPropagation()
+            // https://github.com/bootstrap-vue/bootstrap-vue/issues/1528
+            this.$root.$emit('bv::dropdown::shown')
           }
         }
       },
