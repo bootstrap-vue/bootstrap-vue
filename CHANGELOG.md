@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.1"></a>
+# [2.0.0-rc.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2018-01-25)
+
+
+### Bug Fixes
+
+* call `removeEventListener` on the right element ([#1557](https://github.com/bootstrap-vue/bootstrap-vue/issues/1557)) ([cf2bfca](https://github.com/bootstrap-vue/bootstrap-vue/commit/cf2bfca)), closes [#1391](https://github.com/bootstrap-vue/bootstrap-vue/issues/1391)
+* **form-group:** replace .col-form-legend with .col-form-label ([ac2d4dd](https://github.com/bootstrap-vue/bootstrap-vue/commit/ac2d4dd))
+* **input-group:** fix dropdown rounded corners. closes [#1560](https://github.com/bootstrap-vue/bootstrap-vue/issues/1560). ([7df01ff](https://github.com/bootstrap-vue/bootstrap-vue/commit/7df01ff))
+* **modal:** hide dropdown on click. ([#1528](https://github.com/bootstrap-vue/bootstrap-vue/issues/1528)) ([3ad8a9a](https://github.com/bootstrap-vue/bootstrap-vue/commit/3ad8a9a))
+
+
+### Performance Improvements
+
+* **id mixin:** make localId_ a computed field ([873b0e7](https://github.com/bootstrap-vue/bootstrap-vue/commit/873b0e7))
+
+
+
 <a name="2.0.0-rc.0"></a>
 ## [2.0.0-rc.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v2.0.0-rc.0)
 
