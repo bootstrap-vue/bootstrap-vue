@@ -132,7 +132,7 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
 <!-- nav-dropdown.vue -->
 ```
 
-Sometimes you want to add your own class names to the generated dropdown toggle button, that by default has
+Sometimes you want to add your own class names to the generated dropdown toggle button, that by default have
 the classes `nav-link` and `dropdown-toggle`. Use the `extra-toggle-classes` prop to add them (like above) which
 will produce something like:
 
