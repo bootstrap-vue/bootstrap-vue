@@ -16,7 +16,7 @@ uglify=`pwd`/node_modules/.bin/uglifyjs
 cd dist
 
 # We use --mangle but not --compress to reduce file size
-# --compress unfortunately removes the 'imports' from the top of hte ESM build
+# --compress unfortunately removes the 'imports' from the top of the ESM build
 for f in *.js; do
     o=`echo $f | sed s/\.js/.min.js/`
     echo "$f ~> $o"
