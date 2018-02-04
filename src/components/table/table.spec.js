@@ -679,4 +679,13 @@ describe('table', async () => {
 
     expect(spy).toHaveBeenCalled()
   })
+
+  it('should render stacked table', async () => {
+    const { app } = window
+    const vm = app.$refs.table_stacked
+
+    expect(vm).toHaveAllClasses([
+      'b-table-stacked'
+    ])
+  })
 })

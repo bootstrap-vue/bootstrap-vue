@@ -13,6 +13,12 @@
         </template>
     </b-table>
 
+  <b-table ref="table_stacked" striped hover stacked :items="items" :fields="fields">
+    <template slot="name" slot-scope="data">
+      {{ data.value.first }} {{ data.value.last }}
+    </template>
+  </b-table>
+
     <b-table ref="table_responsive" responsive :items="items" :fields="fields"></b-table>
 
     <h2>Paginated Table</h2>
