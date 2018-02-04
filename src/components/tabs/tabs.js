@@ -6,7 +6,7 @@ import idMixin from '../../mixins/id'
 const bTabButtonHelper = {
   name: 'bTabButtonHelper',
   props: {
-    content: { type: String, default: '' },
+    content: { type: [String, Array], default: '' },
     href: { type: String, default: '#' },
     posInSet: { type: Number, default: null },
     setSize: { type: Number, default: null },
@@ -36,12 +36,11 @@ const bTabButtonHelper = {
         'aria-posinset': t.posInSet,
         'aria-controls': t.controls
       },
-      domProps: { innerHTML: t.content },
       on: {
         click: t.handleClick,
         keydown: t.handleClick
       }
-    })
+    }, t.content)
     return h(
       'li',
       { class: ['nav-item', t.itemClass], attrs: { role: 'presentation' } },
@@ -75,13 +74,12 @@ export default {
   render (h) {
     const t = this
     const tabs = this.tabs
-
     // Navigation 'buttons'
     const buttons = tabs.map((tab, index) => {
       return h(bTabButtonHelper, {
         key: index,
         props: {
-          content: tab.headHtml || tab.title,
+          content: tab.$slots.title || tab.title,
           href: tab.href,
           id: tab.controlledBy || t.safeId(`_BV_tab_${index + 1}_`),
           active: tab.localActive,
