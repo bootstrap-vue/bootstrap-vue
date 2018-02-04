@@ -224,6 +224,24 @@ If you want to add extra tabs that do not have any content, you can put them in 
 </b-tabs>
 ```
 
+## Add custom content to tab title
+
+If you want to add custom content to tab title, like HTML code, icons, or another Vue component, this possible by using 
+`title` slot
+
+```html
+<b-tabs>
+ <b-tab active>
+ <!-- Add your custom title here-->
+   <template slot="title">
+     i'm <i>Custom</i> <strong>Title</strong>
+   </template>
+      Tab Contents 1
+    </b-tab>
+</b-tabs>
+
+<!-- tabs-title-slot.vue -->
+``` 
 
 ## Apply custom classes to the generated nav-tabs or pills
 
