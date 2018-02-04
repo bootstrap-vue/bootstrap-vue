@@ -40,7 +40,7 @@ const bTabButtonHelper = {
         click: t.handleClick,
         keydown: t.handleClick
       }
-    }, [t.content])
+    }, t.content)
     return h(
       'li',
       { class: ['nav-item', t.itemClass], attrs: { role: 'presentation' } },
