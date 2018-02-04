@@ -219,9 +219,11 @@ If you want to add extra tabs that do not have any content, you can put them in 
 <b-tabs>
   <!-- Add your b-tab components here-->
   <template slot="tabs">
-    <b-nav-item to="#" @click="onClick">Another tab</b-nav-item>
+    <b-nav-item href="#" @click="()=>{}">Another tab</b-nav-item>
   </template>
 </b-tabs>
+
+<!-- tabs-item-slot.vue -->
 ```
 
 ## Add custom content to tab title
