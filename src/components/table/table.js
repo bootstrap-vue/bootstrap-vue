@@ -1,5 +1,4 @@
 import startCase from 'lodash.startcase'
-
 import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
@@ -763,12 +762,12 @@ export default {
           fields.push({ key: k, label: startCase(k) })
         })
       }
-      // Ensure we have a unique array of fields and that they have labels
+      // Ensure we have a unique array of fields and that they have String labels
       const memo = {}
       return fields.filter(f => {
         if (!memo[f.key]) {
           memo[f.key] = true
-          f.label = f.label || startCase(f.key)
+          f.label = typeof f.label === 'string' ? f.label : startCase(f.key)
           return true
         }
         return false
