@@ -256,7 +256,7 @@ export default {
 ```
 
 >**Note:** _if a `key` property is defined in the field definition, it will take
-precidence over the key used to define the field._
+precedence over the key used to define the field._
 
 ### Field definition reference
 The following field properties are recognized:
@@ -475,7 +475,7 @@ export default {
 **Note: When the table is visually stacked:**
 - The table header (and table footer) will be hidden.
 - Custom rendred header slots will not be shown, rather, the fields' `label` will be used.
-- The table **cannot** be sorted by clicking the rendered field labels. You will need to provde an external control to select the field to sort by and the sort direction. See the [**Sorting**](#sorting) section below for sorting control information, as well as the [**complete example**](#complete-example) at the bottom of this page for an example of controlling sorting via the use of form controls.
+- The table **cannot** be sorted by clicking the rendered field labels. You will need to provide an external control to select the field to sort by and the sort direction. See the [**Sorting**](#sorting) section below for sorting control information, as well as the [**complete example**](#complete-example) at the bottom of this page for an example of controlling sorting via the use of form controls.
 - The slots `top-row` and `bottom-row` will be hidden when visually stacked.
 - The table caption, if provided, will always appear at the top of the table when visually stacked.
 - In an always stacked table, the table header and footer, and the fixed top and bottom row slots will not be rendered.
@@ -749,7 +749,7 @@ It is also possible to provide custom rendering for the tables `thead` and
 `foot-clone` is set to `true`.
 
 Scoped slots for the header and footer cells uses a special naming
-convetion of `HEAD_<fieldkey>` and `FOOT_<fieldkey>` respectivly. if a `FOOT_`
+convention of `HEAD_<fieldkey>` and `FOOT_<fieldkey>` respectively. if a `FOOT_`
 slot for a field is not provided, but a `HEAD_` slot is provided, then
 the footer will use the `HEAD_` slot content.
 
@@ -812,13 +812,13 @@ the visibility of the `row-details` slot.
  exist in the items data for proper reactive detection of changes to it's value. Read more about
 [Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats)._
 
-Available `row-details` scoped viariable properties:
+Available `row-details` scoped variable properties:
 
 | Property | Type | Description
 | -------- | ---- | -----------
 | `item` | Object | The entire row record data object
 | `index` | Number | The current visible row number
-| `fields` | Array | The normailized fields definition array (in the _array of objects_ format)
+| `fields` | Array | The normalized fields definition array (in the _array of objects_ format)
 | `toggleDetails` | Function | Function to toggle visibility of the row's details slot
 
 In the following example, we show two methods of toggling the visibility of the details:
@@ -954,7 +954,7 @@ The `sort-compare` routine is passed three arguments. The first two arguments
 (`a` and `b`) are the record objects for the rows being compared, and the third
 argument is the field `key` being sorted on (`sortBy`). The routine should return
 either `-1`, `0`, or `1` based on the result of the comparing of the two records.
-If the routine returns `null`, then the default sort-compare rouine will be used.
+If the routine returns `null`, then the default sort-compare routine will be used.
 You can use this feature (i.e. returning `null`) to have your custom sort-compare
 routine handle only certain fields (keys).
 
@@ -1009,19 +1009,19 @@ See the [Complete Example](#complete-example) below for an example of using the
 
 ## Pagination
 `<b-table>` supports built in pagination of item data. You can control how many
-reords are displayed at a time by setting the `per-page` prop to the maximum
+rows are displayed at a time by setting the `per-page` prop to the maximum
 number of rows you would like displayed, and use the `current-page` prop
 to specify which page to display (starting from page `1`). If you set `current-page`
 to a value larger than the computed number of pages, then no rows will be shown.
 
 You can use the [`<b-pagination>`](/docs/components/pagination) component in
-conjuction with `<b-table>` for providing control over pagination.
+conjunction with `<b-table>` for providing control over pagination.
 
 Setting `per-page` to `0` (default) will disable the local items pagination feature.
 
 ## `v-model` binding
 If you bind a variable to the `v-model` prop, the contents of this variable will
-be the currently disaplyed item records (zero based index, up to `page-size` - 1).
+be the currently displayed item records (zero based index, up to `page-size` - 1).
 This variable (the `value` prop) should usually be treated as readonly.
 
 The records within the v-model are a filtered/paginated shallow copy of `items`, and
@@ -1149,7 +1149,7 @@ methods: {
 >- _If you manually place the table in the `busy` state, the items provider will
 __not__ be called/refreshed until the `busy` state has been set to `false`._
 >- _All click related and hover events, and sort-changed events will __not__ be
- emiited when in the `busy` state (either set automatically during provider update,
+ emitted when in the `busy` state (either set automatically during provider update,
  or when manually set)._
 
 ### Provider Paging, Filtering, and Sorting
@@ -1173,7 +1173,7 @@ maximum, `perPage` number of records.
 trigger the calling of the provider function. So be sure to bind to the `per-page`,
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
 (unless you have the respective `no-provider-*` prop set to `true`)._
->- _The `no-local-sorting` prop has no effect when `items` is a provider funtion._
+>- _The `no-local-sorting` prop has no effect when `items` is a provider function._
 
 ### Event based refreshing of data
 You may also trigger the refresh of the provider function by emitting the
