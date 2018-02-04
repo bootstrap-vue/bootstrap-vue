@@ -217,10 +217,10 @@ export default {
           const formatted = t.getFormattedValue(item, field)
           if (t.isStacked) {
             // We innerHTML a DIV to ensure rendered as a single cell when visually stacked!
-            childNodes = [h('div', { domProps: { innerHTML: formatted } })]
+            childNodes = [h('div', formatted)]
           } else {
-            // Non stcaked, so we just innerHTML the td
-            data.domProps['innerHTML'] = formatted
+            // Non stacked
+            childNodes = formatted
           }
         }
         if (t.isStacked) {
