@@ -560,7 +560,7 @@ Custom rendering for each data field in a row is possible using either
 or formatter callback function.
 
 ### Scoped Field Slots
-Scoped slots give you greater control over how the record data apepars.
+Scoped slots give you greater control over how the record data appears.
 If you want to add an extra field which does not exist in the records,
 just add it to the `fields` array, And then reference the field(s) in the scoped
 slot(s).
@@ -634,7 +634,7 @@ number will align with the indexes from the optional `v-model` bound variable._
 >- _When placing inputs, buttons, selects or links within a data cell scoped slot,
 be sure to add a `@click.stop` (or `@click.native.stop` if needed) handler (which can
 be empty) to prevent the click on the input, button, select, or link, from triggering
-the `row-clicked` event:_
+the `row-clicked` event:_ 
 
 ```html
 <template slot="actions" slot-scope="cell">
@@ -643,6 +643,35 @@ the `row-clicked` event:_
 </template>
 ```
 
+#### Displaying raw HTML
+By default `b-table` escapes HTML tags in items, if you need to display raw HTML code in `b-table`, you should use 
+`v-html` prop in scoped field slot
+
+```html
+<template>
+  <b-table :items="items">
+       <span slot="html" slot-scope="data" v-html="data.value">     
+      </span>
+    </b-table>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      items: [
+        {
+          text: 'This is <i>escaped</i> content',
+          html: 'This is <i>raw <strong>HTML</strong></i> <span style="color:red">content</span>'
+        }
+      ]    
+    }
+  }
+}
+</script>
+
+<!-- table-html-data-slots.vue -->
+```
 
 ### Formatter callback
 One more option to customize field output is to use formatter callback function.
