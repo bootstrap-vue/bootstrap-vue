@@ -26,7 +26,7 @@ const TransitionEndEvents = {
   transition: 'transitionend'
 }
 
-// Return the browser specific transitionend event name
+// Return the browser specific transitionEnd event name
 function getTransisionEndEvent (el) {
   for (const name in TransitionEndEvents) {
     if (el.style[name] !== undefined) {
@@ -198,7 +198,8 @@ export default {
       isSliding: false,
       intervalId: null,
       transitionEndEvent: null,
-      slides: []
+      slides: [],
+      direction: null
     }
   },
   props: {
@@ -277,10 +278,12 @@ export default {
     // Previous slide
     prev () {
       this.setSlide(this.index - 1)
+      this.direction = DIRECTION.prev
     },
     // Next slide
     next () {
       this.setSlide(this.index + 1)
+      this.direction = DIRECTION.next
     },
     // Pause auto rotation
     pause () {
@@ -360,14 +363,7 @@ export default {
       if (val === oldVal || this.isSliding) {
         return
       }
-      // Determine sliding direction
-      let direction = (val > oldVal) ? DIRECTION.next : DIRECTION.prev
-      // Rotates
-      if (oldVal === 0 && val === this.slides.length - 1) {
-        direction = DIRECTION.prev
-      } else if (oldVal === this.slides.length - 1 && val === 0) {
-        direction = DIRECTION.next
-      }
+
       // Determine current and next slides
       const currentSlide = this.slides[oldVal]
       const nextSlide = this.slides[val]
@@ -380,11 +376,11 @@ export default {
       this.$emit('sliding-start', val)
       // Update v-model
       this.$emit('input', this.index)
-      nextSlide.classList.add(direction.overlayClass)
+      nextSlide.classList.add(this.direction.overlayClass)
       // Trigger a reflow of next slide
       reflow(nextSlide)
-      addClass(currentSlide, direction.dirClass)
-      addClass(nextSlide, direction.dirClass)
+      addClass(currentSlide, this.direction.dirClass)
+      addClass(nextSlide, this.direction.dirClass)
       // Transition End handler
       let called = false
       /* istanbul ignore next: dificult to test */
@@ -400,12 +396,12 @@ export default {
           })
         }
         this._animationTimeout = null
-        removeClass(nextSlide, direction.dirClass)
-        removeClass(nextSlide, direction.overlayClass)
+        removeClass(nextSlide, this.direction.dirClass)
+        removeClass(nextSlide, this.direction.overlayClass)
         addClass(nextSlide, 'active')
         removeClass(currentSlide, 'active')
-        removeClass(currentSlide, direction.dirClass)
-        removeClass(currentSlide, direction.overlayClass)
+        removeClass(currentSlide, this.direction.dirClass)
+        removeClass(currentSlide, this.direction.overlayClass)
         setAttr(currentSlide, 'aria-current', 'false')
         setAttr(nextSlide, 'aria-current', 'true')
         setAttr(currentSlide, 'aria-hidden', 'true')
