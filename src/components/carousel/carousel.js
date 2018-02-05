@@ -277,13 +277,13 @@ export default {
     },
     // Previous slide
     prev () {
+      this.direction = 'prev'
       this.setSlide(this.index - 1)
-      this.direction = DIRECTION.prev
     },
     // Next slide
     next () {
+      this.direction = 'next'
       this.setSlide(this.index + 1)
-      this.direction = DIRECTION.next
     },
     // Pause auto rotation
     pause () {
@@ -298,7 +298,7 @@ export default {
     },
     // Start auto rotate slides
     start () {
-      // Don't start if no intetrval, or if we are already running
+      // Don't start if no interval, or if we are already running
       if (!this.interval || this.isCycling) {
         return
       }
@@ -338,6 +338,12 @@ export default {
       // Set slide as active
       this.setSlide(index)
       this.start()
+    },
+    calcDirection (direction = null, curIndex = 0, nextIndex = 0) {
+      if (!direction) {
+        return (nextIndex > curIndex) ? DIRECTION.next : DIRECTION.prev
+      }
+      return DIRECTION[direction]
     }
   },
   watch: {
@@ -363,7 +369,8 @@ export default {
       if (val === oldVal || this.isSliding) {
         return
       }
-
+      // Determine sliding direction
+      let direction = this.calcDirection(this.direction, oldVal, val)
       // Determine current and next slides
       const currentSlide = this.slides[oldVal]
       const nextSlide = this.slides[val]
@@ -376,11 +383,11 @@ export default {
       this.$emit('sliding-start', val)
       // Update v-model
       this.$emit('input', this.index)
-      nextSlide.classList.add(this.direction.overlayClass)
+      nextSlide.classList.add(direction.overlayClass)
       // Trigger a reflow of next slide
       reflow(nextSlide)
-      addClass(currentSlide, this.direction.dirClass)
-      addClass(nextSlide, this.direction.dirClass)
+      addClass(currentSlide, direction.dirClass)
+      addClass(nextSlide, direction.dirClass)
       // Transition End handler
       let called = false
       /* istanbul ignore next: dificult to test */
@@ -396,12 +403,12 @@ export default {
           })
         }
         this._animationTimeout = null
-        removeClass(nextSlide, this.direction.dirClass)
-        removeClass(nextSlide, this.direction.overlayClass)
+        removeClass(nextSlide, direction.dirClass)
+        removeClass(nextSlide, direction.overlayClass)
         addClass(nextSlide, 'active')
         removeClass(currentSlide, 'active')
-        removeClass(currentSlide, this.direction.dirClass)
-        removeClass(currentSlide, this.direction.overlayClass)
+        removeClass(currentSlide, direction.dirClass)
+        removeClass(currentSlide, direction.overlayClass)
         setAttr(currentSlide, 'aria-current', 'false')
         setAttr(nextSlide, 'aria-current', 'true')
         setAttr(currentSlide, 'aria-hidden', 'true')
@@ -416,6 +423,7 @@ export default {
           })
         }
         this.isSliding = false
+        this.direction = null
         // Notify ourselves that we're done sliding (slid)
         this.$nextTick(() => this.$emit('sliding-end', val))
       }
