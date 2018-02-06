@@ -135,7 +135,7 @@ Vue.component('b-card-footer', bCardFooter);
 Vue.component('b-card-img', bCardImg);
 Vue.component('b-table', bTable);
 
-// Or make available to your compoent or app:
+// Or make available to your component or app:
 export default {
   components: {
     bCard,
@@ -151,9 +151,9 @@ export default {
 
 ### Importing component groups and directives as Vue plugins
 
-A compoent group, and/or directive, can be imported as a Vue plugin, by importing
-the component group or directive directory. Impoting `<b-card>` (and its related
-sub-components) and `<b-table>` can simply be done as:
+A component group and/or directive can be imported as a Vue plugin by importing
+the component group or directive directory. Importing `<b-card>` (and related
+sub-components) and `<b-table>` can be done with:
 
 ```js
 // Import the components as Vue plugins
@@ -167,9 +167,9 @@ Vue.use(Table);
 Now you can use the `<b-card>` (including the `<b-card-*>` sub-components) and `<b-table>`
 components in your project templates.
 
-Note some component plugins automatically import other directives and components
+Note that some component plugins automatically import other directives and components
 (i.e. the `modal` plugin also imports the `v-b-modal` directive, and `nav` plugin
-automatically imports all `nav-*` sub compoents and the dropdown sub components).
+automatically imports all `nav-*` sub-components and the dropdown sub-components).
 Refer to the component reference or directive reference at the bottom of each
-documenttion page for details.
+documentation page for details.
 
