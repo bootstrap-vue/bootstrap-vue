@@ -35,10 +35,10 @@
       <b-btn>New</b-btn>
       <b-btn>Edit</b-btn>
     </b-button-group>
-    <b-input-group size="sm" class="w-25 mx-1" left="$" right=".00">
+    <b-input-group size="sm" class="w-25 mx-1" prepend="$" append=".00">
       <b-form-input value="100" class="text-right"></b-form-input>
     </b-input-group>
-    <b-input-group  size="sm" class="w-25 mx-1" left="Size">
+    <b-input-group  size="sm" class="w-25 mx-1" prepend="Size">
       <b-form-select value="Medium" :options="['Large','Medium','Small']"></b-form-select>
     </b-input-group>
       <b-button-group  size="sm" class="mx-1">
