@@ -24,7 +24,7 @@
             </p>
             <div class="d-flex flex-column flex-md-row lead mb-3">
               <b-btn to="/docs" variant="bd-primary" size="lg" class="mb-3 mb-md-0 mr-md-3">Get started</b-btn>
-              <b-btn href="https://github.com/bootstrap-vue/bootstrap-vue" variant="outline-secondary" size="lg" target="_blank">Github</b-btn>
+              <b-btn href="https://github.com/bootstrap-vue/bootstrap-vue" variant="outline-secondary" size="lg" target="_blank">GitHub</b-btn>
             </div>
             <b-link class="text-muted mb-0" to="/docs/misc/changelog">
               Currently v{{ version }}
