@@ -257,7 +257,7 @@ inside a an HTML `<fieldset>` element with the label content placed inside the f
 the containing input control(s).
 
 It is **highly recommended** that you provide a unique `id` prop on your input element and set
-thhe `label-for` prop to this id, when you have only a single input in the `<b-form-group>`.
+the `label-for` prop to this id, when you have only a single input in the `<b-form-group>`.
 
 When multiple form controls are placed inside `<b-form-group>` (i.e. a series or radio or
 checkbox inputs, or a series of related inputs), **do not set** the `label-for` prop, as a
