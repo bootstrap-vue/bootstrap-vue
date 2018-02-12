@@ -1239,9 +1239,9 @@ when fetching your data!
         <b-form-group horizontal label="Filter" class="mb-0">
           <b-input-group>
             <b-form-input v-model="filter" placeholder="Type to Search" />
-            <b-input-group-button>
+            <b-input-group-append>
               <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
-            </b-input-group-button>
+            </b-input-group-append>
           </b-input-group>
         </b-form-group>
       </b-col>
@@ -1251,12 +1251,10 @@ when fetching your data!
             <b-form-select v-model="sortBy" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
             </b-form-select>
-            <b-input-group-button>
-              <b-form-select :disabled="!sortBy" v-model="sortDesc">
-                <option :value="false">Asc</option>
-                <option :value="true">Desc</option>
-              </b-form-select>
-            </b-input-group-button>
+            <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+              <option :value="false">Asc</option>
+              <option :value="true">Desc</option>
+            </b-form-select>
           </b-input-group>
         </b-form-group>
       </b-col>
