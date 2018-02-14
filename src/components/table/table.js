@@ -1,4 +1,5 @@
 import startCase from 'lodash.startcase'
+import get from 'lodash/get'
 import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
@@ -202,7 +203,7 @@ export default {
             $scoped[field.key]({
               item: item,
               index: rowIndex,
-              unformatted: item[field.key],
+              unformatted: get(item, field.key),
               value: t.getFormattedValue(item, field),
               toggleDetails: toggleDetailsFn,
               detailsShowing: Boolean(item._showDetails)
@@ -977,7 +978,7 @@ export default {
       const key = field.key
       const formatter = field.formatter
       const parent = this.$parent
-      let value = item[key]
+      let value = get(item, key)
       if (formatter) {
         if (typeof formatter === 'function') {
           value = formatter(value, key, item)

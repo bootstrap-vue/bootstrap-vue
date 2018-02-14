@@ -212,7 +212,7 @@ export default {
 Also, fields can be a an object providing similar control over the fields as the
 _array of objects_ above does. Only columns listed in the fields object will be shown.
 The order of the fields will typically be in the order they were defined in the object,
-although **order is not guaranteed**:
+although **order is not guaranteed**.  
 
 **Example: Using object fields definition**
 ```html
@@ -239,13 +239,19 @@ export default {
           key: 'age',
           label: 'Person age',
           sortable: true
+        },
+        city: {
+          key: 'address.city'
+        },
+        'address.country': {
+          label: 'Country'
         }
       },
       items: [
-        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald', address: { country: 'USA', city: 'New York' } },
+        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw', address: { country: 'Canada', city: 'Toronto' }},
+        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson', address: { country: 'Australia', city: 'Sydney' } },
+        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney', address: { country: 'England', city: 'London' } }
       ]
     }
   }
@@ -255,8 +261,9 @@ export default {
 <!-- table-fields-object.vue -->
 ```
 
->**Note:** _if a `key` property is defined in the field definition, it will take
-precedence over the key used to define the field._
+>**Notes:** 
+>- _if a `key` property is defined in the field definition, it will take precedence over the key used to define the field._
+>- _It is possible to define `key` as column's object property, but currently, sorting of these columns **not supported**_
 
 ### Field definition reference
 The following field properties are recognized:
