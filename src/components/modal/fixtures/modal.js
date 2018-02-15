@@ -2,7 +2,8 @@ window.app = new Vue({
   el: '#app',
   data: {
     name: '',
-    names: []
+    names: [],
+    enableModal: true
   },
   methods: {
     clearName () {
