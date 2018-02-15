@@ -52,7 +52,7 @@ const unbindTargets = (vnode, binding, listenTypes) => {
 
 export {
   bindTargets,
-  unbindTargets,
+  unbindTargets
 }
 
-export default bindTargets;
+export default bindTargets
