@@ -19,10 +19,10 @@ const bindTargets = (vnode, binding, listenTypes, fn) => {
   keys(allListenTypes).forEach(type => {
     if (listenTypes[type] || binding.modifiers[type]) {
       vnode.elm.addEventListener(type, listener)
-      const boundListeners = vnode.elm['BV_boundEventListeners'] || {}
+      const boundListeners = vnode.elm[BVBoundListeners] || {}
       boundListeners[type] = boundListeners[type] || []
       boundListeners[type].push(listener)
-      vnode.elm['BV_boundEventListeners'] = boundListeners
+      vnode.elm[BVBoundListeners] = boundListeners
     }
   })
 
