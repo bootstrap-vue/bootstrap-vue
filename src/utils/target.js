@@ -2,6 +2,8 @@ import { keys } from '../utils/object'
 
 const allListenTypes = {hover: true, click: true, focus: true}
 
+const BVBoundListeners = '__BV_boundEventListeners__'
+
 const bindTargets = (vnode, binding, listenTypes, fn) => {
   const targets = keys(binding.modifiers || {})
     .filter(t => !allListenTypes[t])
@@ -17,10 +19,8 @@ const bindTargets = (vnode, binding, listenTypes, fn) => {
   keys(allListenTypes).forEach(type => {
     if (listenTypes[type] || binding.modifiers[type]) {
       vnode.elm.addEventListener(type, listener)
-      const boundListeners = vnode.elm['BV_boundEventListeners'] || {}
-      boundListeners[type] = boundListeners[type] || []
-      boundListeners[type].push(listener)
-      vnode.elm['BV_boundEventListeners'] = boundListeners
+      const boundListeners = { ...vnode.elm[BVBoundListeners] }
+      vnode.elm[BVBoundListeners] = { ...boundListeners, [type]: [...(boundListeners[type] || []), listener] }
     }
   })
 
@@ -29,25 +29,15 @@ const bindTargets = (vnode, binding, listenTypes, fn) => {
 }
 
 const unbindTargets = (vnode, binding, listenTypes) => {
-  const targets = keys(binding.modifiers || {})
-    .filter(t => !allListenTypes[t])
-
-  if (binding.value) {
-    targets.push(binding.value)
-  }
-
   keys(allListenTypes).forEach(type => {
     if (listenTypes[type] || binding.modifiers[type]) {
-      const boundListeners = vnode.elm['BV_boundEventListeners'] && vnode.elm['BV_boundEventListeners'][type]
+      const boundListeners = vnode.elm[BVBoundListeners] && vnode.elm[BVBoundListeners][type]
       if (boundListeners) {
-        boundListeners.forEach(boundListener => vnode.elm.removeEventListener(type, boundListener))
-        delete vnode.elm['BV_boundEventListeners'][type]
+        boundListeners.forEach(listener => vnode.elm.removeEventListener(type, listener))
+        delete vnode.elm[BVBoundListeners][type]
       }
     }
   })
-
-  // Return the list of targets
-  return targets
 }
 
 export {
