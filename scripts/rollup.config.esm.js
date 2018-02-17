@@ -1,10 +1,9 @@
 const fs = require('fs')
 const path = require('path')
-const vue = require('rollup-plugin-vue')
 const babel = require('rollup-plugin-babel')
 const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
-const CleanCSS = require('clean-css')
+const css = require('rollup-plugin-css-porter')
 const { name, dependencies } = require('../package.json')
 
 const base = path.resolve(__dirname, '..')
@@ -19,22 +18,12 @@ if (!fs.existsSync(dist)) {
 module.exports = {
   input: path.resolve(src, 'index.js'),
   external: Object.keys(dependencies),
-  name,
   plugins: [
-    vue({
-      cssModules: {
-        generateScopedName: '[name]__[local]'
-      },
-      css (style) {
-        fs.writeFileSync(path.resolve(dist, `${name}.css`), new CleanCSS().minify(style).styles)
-      }
-    }),
+    css({ dest: path.resolve(dist, name + '.css') }),
     resolve({ external: ['vue'] }),
     commonjs(),
     babel({
-      plugins: [
-        'external-helpers'
-      ]
+      plugins: ['external-helpers']
     })
   ],
   output: [

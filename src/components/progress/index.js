@@ -1,8 +1,6 @@
 import bProgress from './progress'
 import bProgressBar from './progress-bar'
-import { registerComponents, vueUse } from '../../utils'
-
-/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
   bProgress,

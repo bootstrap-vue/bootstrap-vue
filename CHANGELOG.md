@@ -2,6 +2,68 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.1"></a>
+# [2.0.0-rc.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2018-01-25)
+
+
+### Bug Fixes
+
+* call `removeEventListener` on the right element ([#1557](https://github.com/bootstrap-vue/bootstrap-vue/issues/1557)) ([cf2bfca](https://github.com/bootstrap-vue/bootstrap-vue/commit/cf2bfca)), closes [#1391](https://github.com/bootstrap-vue/bootstrap-vue/issues/1391)
+* **form-group:** replace .col-form-legend with .col-form-label ([ac2d4dd](https://github.com/bootstrap-vue/bootstrap-vue/commit/ac2d4dd))
+* **input-group:** fix dropdown rounded corners. closes [#1560](https://github.com/bootstrap-vue/bootstrap-vue/issues/1560). ([7df01ff](https://github.com/bootstrap-vue/bootstrap-vue/commit/7df01ff))
+* **modal:** hide dropdown on click. ([#1528](https://github.com/bootstrap-vue/bootstrap-vue/issues/1528)) ([3ad8a9a](https://github.com/bootstrap-vue/bootstrap-vue/commit/3ad8a9a))
+
+
+### Performance Improvements
+
+* **id mixin:** make localId_ a computed field ([873b0e7](https://github.com/bootstrap-vue/bootstrap-vue/commit/873b0e7))
+
+
+
+<a name="2.0.0-rc.0"></a>
+## [2.0.0-rc.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v2.0.0-rc.0)
+
+Released: 2018-01-23
+
+[**Full change list**](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.5.0...v2.0.0-rc.0)
+
+With `v2.0.0` release, BootstrapVue is compatible with final stable release of Bootstrap `v4.0.0` and beyond.
+
+* If you are using any custom theme which was based on BS beta, there may be minor problems to be fixed. Please ensure to review [migrate guide](https://getbootstrap.com/docs/4.0/migration).
+* With this release, we have removed majority of CSS fixes. If you are using ES builds, you may have to add a `css-loader` to make it working probably.
+* `input-group-addon` API has been changed and `left/right` changed into `prepend/append`. Please refer to the docs for more information.
+
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.1...v1.5.0) (2018-01-23)
+
+
+### Features
+
+* **dropdown:** add toggleClass prop ([#1485](https://github.com/bootstrap-vue/bootstrap-vue/issues/1485)) ([da16cc0](https://github.com/bootstrap-vue/bootstrap-vue/commit/da16cc0))
+* **nav-item-dropdown:** add extra-toggle-classes prop with tests and docs. closes [#1550](https://github.com/bootstrap-vue/bootstrap-vue/issues/1550). ([#1555](https://github.com/bootstrap-vue/bootstrap-vue/issues/1555)) ([7967018](https://github.com/bootstrap-vue/bootstrap-vue/commit/7967018))
+
+
+
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v1.4.1) (2018-01-14)
+
+
+### Bug Fixes
+
+* **alert:** import button-close in alert with a name matching tag. ([#1523](https://github.com/bootstrap-vue/bootstrap-vue/issues/1523)) fixes [#1522](https://github.com/bootstrap-vue/bootstrap-vue/issues/1522). ([51b527f](https://github.com/bootstrap-vue/bootstrap-vue/commit/51b527f))
+* **docs play:** prevent duplicate key errors in console output ([#1476](https://github.com/bootstrap-vue/bootstrap-vue/issues/1476)) ([68deee1](https://github.com/bootstrap-vue/bootstrap-vue/commit/68deee1))
+* **dropdown:** fix condition for when position-static is applied ([#1477](https://github.com/bootstrap-vue/bootstrap-vue/issues/1477)) ([1717edb](https://github.com/bootstrap-vue/bootstrap-vue/commit/1717edb))
+* **dropdown:** fixed aria-labbeledby for non-split dropdowns ([d597dbc](https://github.com/bootstrap-vue/bootstrap-vue/commit/d597dbc))
+* **dropdown:** prevent toggle click from closing in collapsed navbar ([#1475](https://github.com/bootstrap-vue/bootstrap-vue/issues/1475)) ([24ef1e6](https://github.com/bootstrap-vue/bootstrap-vue/commit/24ef1e6)), closes [#1474](https://github.com/bootstrap-vue/bootstrap-vue/issues/1474)
+* **id:** fixed check for _uid in client side id generator ([#1499](https://github.com/bootstrap-vue/bootstrap-vue/issues/1499)) ([f3fe0f4](https://github.com/bootstrap-vue/bootstrap-vue/commit/f3fe0f4))
+
+
+### Performance Improvements
+
+* **dropdown:** changed 'this' to 't' ([#1500](https://github.com/bootstrap-vue/bootstrap-vue/issues/1500)) ([ace3e94](https://github.com/bootstrap-vue/bootstrap-vue/commit/ace3e94))
+
+
+
 <a name="1.4.0"></a>
 ## [v1.4.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.3.0...v1.4.0)
 Released: 2017-12-15

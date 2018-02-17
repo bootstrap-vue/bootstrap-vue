@@ -3,9 +3,7 @@ import bDropdownItem from './dropdown-item'
 import bDropdownItemButton from './dropdown-item-button'
 import bDropdownHeader from './dropdown-header'
 import bDropdownDivider from './dropdown-divider'
-import { registerComponents, vueUse } from '../../utils'
-
-/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
   bDropdown,

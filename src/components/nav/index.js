@@ -4,9 +4,7 @@ import bNavText from './nav-text'
 import bNavForm from './nav-form'
 import bNavItemDropdown from './nav-item-dropdown'
 import dropdownPlugin from '../dropdown'
-import { registerComponents, vueUse } from '../../utils'
-
-/* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
+import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
   bNav,

@@ -1,6 +1,7 @@
-import { warn } from '../../utils'
+import warn from '../../utils/warn'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
-import { idMixin, formStateMixin } from '../../mixins'
+import idMixin from '../../mixins/id'
+import formStateMixin from '../../mixins/form-state'
 import bFormRow from '../layout/form-row'
 import bFormText from '../form/form-text'
 import bFormInvalidFeedback from '../form/form-invalid-feedback'
@@ -227,9 +228,7 @@ export default {
     },
     labelClasses () {
       return [
-        // BS V4.beta.3 will replace .col-form-legend with .col-form-label
-        // so this next line will change to just: 'col-form-label',
-        (this.labelSize || this.labelFor) ? 'col-form-label' : 'col-form-legend',
+        'col-form-label',
         this.labelSize ? `col-form-label-${this.labelSize}` : null,
         this.labelTextAlign ? `text-${this.labelTextAlign}` : null,
         this.horizontal ? null : 'pt-0',

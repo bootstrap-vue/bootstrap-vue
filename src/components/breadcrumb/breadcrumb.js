@@ -1,4 +1,4 @@
-import { mergeData } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
 import { isArray } from '../../utils/array'
 import { assign } from '../../utils/object'
 import BreadcrumbItem from './breadcrumb-item'

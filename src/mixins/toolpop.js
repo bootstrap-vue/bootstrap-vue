@@ -5,7 +5,7 @@
 import { isArray } from '../utils/array'
 import { assign } from '../utils/object'
 import { isElement, getById } from '../utils/dom'
-import { observeDom } from '../utils'
+import observeDom from '../utils/observe-dom'
 
 const PLACEMENTS = {
   top: 'top',
@@ -35,7 +35,7 @@ export default {
   props: {
     target: {
       // String ID of element, or element/component reference
-      type: [String, Object, Function]
+      type: [String, Object, HTMLElement, Function]
     },
     delay: {
       type: [Number, Object, String],

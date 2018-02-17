@@ -1,9 +1,12 @@
-import { idMixin, dropdownMixin } from '../../mixins'
+import idMixin from '../../mixins/id'
+import dropdownMixin from '../../mixins/dropdown'
 import bButton from '../button/button'
+
+import './dropdown.css'
 
 export default {
   mixins: [idMixin, dropdownMixin],
-  components: {bButton},
+  components: { bButton },
   render (h) {
     const t = this
     let split = h(false)
@@ -24,17 +27,14 @@ export default {
             click: t.click
           }
         },
-        [ t.$slots['button-content'] || t.$slots.text || t.text ]
+        [t.$slots['button-content'] || t.$slots.text || t.text]
       )
     }
     const toggle = h(
       'b-button',
       {
         ref: 'toggle',
-        class: {
-          'dropdown-toggle': !t.noCaret || t.split,
-          'dropdown-toggle-split': t.split
-        },
+        class: t.toggleClasses,
         props: {
           variant: t.variant,
           size: t.size,
@@ -50,9 +50,10 @@ export default {
           keydown: t.toggle // enter, space, down
         }
       },
-      [ t.split
-        ? h('span', { class: [ 'sr-only' ] }, [t.toggleText])
-        : (t.$slots['button-content'] || t.$slots.text || t.text)
+      [
+        t.split
+          ? h('span', { class: ['sr-only'] }, [t.toggleText])
+          : t.$slots['button-content'] || t.$slots.text || t.text
       ]
     )
     const menu = h(
@@ -62,20 +63,20 @@ export default {
         class: t.menuClasses,
         attrs: {
           role: t.role,
-          'aria-labelledby': t.safeId(split ? '_BV_toggle_' : '_BV_button_')
+          'aria-labelledby': t.safeId(t.split ? '_BV_toggle_' : '_BV_button_')
         },
         on: {
           mouseover: t.onMouseOver,
           keydown: t.onKeydown // tab, up, down, esc
         }
       },
-      [ this.$slots.default ]
+      [this.$slots.default]
     )
-    return h(
-      'div',
-      { attrs: { id: t.safeId() }, class: t.dropdownClasses },
-      [ split, toggle, menu ]
-    )
+    return h('div', { attrs: { id: t.safeId() }, class: t.dropdownClasses }, [
+      split,
+      toggle,
+      menu
+    ])
   },
   props: {
     split: {
@@ -92,6 +93,10 @@ export default {
     },
     variant: {
       type: String,
+      default: null
+    },
+    toggleClass: {
+      type: [String, Array],
       default: null
     },
     noCaret: {
@@ -132,6 +137,15 @@ export default {
         'dropdown-menu',
         this.right ? 'dropdown-menu-right' : '',
         this.visible ? 'show' : ''
+      ]
+    },
+    toggleClasses () {
+      return [
+        {
+          'dropdown-toggle': !this.noCaret || this.split,
+          'dropdown-toggle-split': this.split
+        },
+        this.toggleClass
       ]
     }
   }

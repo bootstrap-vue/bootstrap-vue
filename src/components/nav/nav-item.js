@@ -1,4 +1,4 @@
-import { mergeData } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
 import Link, { propsFactory as linkPropsFactory } from '../link/link'
 
 export const props = linkPropsFactory()

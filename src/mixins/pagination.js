@@ -3,7 +3,7 @@
  */
 
 import range from '../utils/range'
-import { KeyCodes } from '../utils'
+import KeyCodes from '../utils/key-codes'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import bLink from '../components/link/link'
 
@@ -115,44 +115,56 @@ export default {
         button = h(
           'li',
           {
-            class: [ 'page-item', 'disabled' ],
+            class: ['page-item', 'disabled'],
             attrs: { role: 'none presentation', 'aria-hidden': 'true' }
           },
-          [ h('span', { class: ['page-link'], domProps: { innerHTML: btnText } }) ]
+          [
+            h('span', {
+              class: ['page-link'],
+              domProps: { innerHTML: btnText }
+            })
+          ]
         )
       } else {
         button = h(
           'li',
           {
-            class: [ 'page-item' ],
+            class: ['page-item'],
             attrs: { role: 'none presentation' }
           },
-          [ h(
-            'b-link',
-            {
-              class: ['page-link'],
-              props: t.linkProps(linkTo),
-              attrs: {
-                role: 'menuitem',
-                tabindex: '-1',
-                'aria-label': ariaLabel,
-                'aria-controls': t.ariaControls || null
-              },
-              on: {
-                click: (evt) => {
-                  t.onClick(linkTo, evt)
+          [
+            h(
+              'b-link',
+              {
+                class: ['page-link'],
+                props: t.linkProps(linkTo),
+                attrs: {
+                  role: 'menuitem',
+                  tabindex: '-1',
+                  'aria-label': ariaLabel,
+                  'aria-controls': t.ariaControls || null
                 },
-                keydown: (evt) => {
-                  // Links don't normally respond to SPACE, so we add that functionality
-                  if (evt.keyCode === KeyCodes.SPACE) {
-                    evt.preventDefault()
+                on: {
+                  click: evt => {
                     t.onClick(linkTo, evt)
+                  },
+                  keydown: evt => {
+                    // Links don't normally respond to SPACE, so we add that functionality
+                    if (evt.keyCode === KeyCodes.SPACE) {
+                      evt.preventDefault()
+                      t.onClick(linkTo, evt)
+                    }
                   }
                 }
-              }
-            },
-            [ h('span', { attrs: { 'aria-hidden': 'true' }, domProps: { innerHTML: btnText } }) ]
-          ) ]
+              },
+              [
+                h('span', {
+                  attrs: { 'aria-hidden': 'true' },
+                  domProps: { innerHTML: btnText }
+                })
+              ]
+            )
+          ]
         )
       }
       return button
@@ -163,15 +175,24 @@ export default {
       return h(
         'li',
         {
-          class: [ 'page-item', 'disabled', 'd-none', 'd-sm-flex' ],
+          class: ['page-item', 'disabled', 'd-none', 'd-sm-flex'],
           attrs: { role: 'separator' }
         },
-        [ h('span', { class: ['page-link'], domProps: { innerHTML: t.ellipsisText } }) ]
+        [
+          h('span', {
+            class: ['page-link'],
+            domProps: { innerHTML: t.ellipsisText }
+          })
+        ]
       )
     }
 
     // Goto First Page button
-    buttons.push(t.hideGotoEndButtons ? h(false) : makeEndBtns(1, t.labelFirstPage, t.firstText))
+    buttons.push(
+      t.hideGotoEndButtons
+        ? h(false)
+        : makeEndBtns(1, t.labelFirstPage, t.firstText)
+    )
 
     // Goto Previous page button
     buttons.push(makeEndBtns(t.currentPage - 1, t.labelPrevPage, t.prevText, 1))
@@ -180,75 +201,88 @@ export default {
     buttons.push(t.showFirstDots ? makeEllipsis() : h(false))
 
     // Individual Page links
-    t.pageList.forEach((page) => {
+    t.pageList.forEach(page => {
       let inner
       let pageNum = t.makePage(page.number)
       if (t.disabled) {
-        inner = h('span', { class: [ 'page-link' ], domProps: { innerHTML: pageNum } })
+        inner = h('span', {
+          class: ['page-link'],
+          domProps: { innerHTML: pageNum }
+        })
       } else {
         const active = t.isActive(page.number)
-        inner = h(
-          'b-link',
-          {
-            class: t.pageLinkClasses(page),
-            props: t.linkProps(page.number),
-            attrs: {
-              role: 'menuitemradio',
-              tabindex: active ? '0' : '-1',
-              'aria-controls': t.ariaControls || null,
-              'aria-label': `${t.labelPage} ${page.number}`,
-              'aria-checked': active ? 'true' : 'false',
-              'aria-posinset': page.number,
-              'aria-setsize': t.numberOfPages
+        inner = h('b-link', {
+          class: t.pageLinkClasses(page),
+          props: t.linkProps(page.number),
+          attrs: {
+            role: 'menuitemradio',
+            tabindex: active ? '0' : '-1',
+            'aria-controls': t.ariaControls || null,
+            'aria-label': `${t.labelPage} ${page.number}`,
+            'aria-checked': active ? 'true' : 'false',
+            'aria-posinset': page.number,
+            'aria-setsize': t.numberOfPages
+          },
+          domProps: { innerHTML: pageNum },
+          on: {
+            click: evt => {
+              t.onClick(page.number, evt)
             },
-            domProps: { innerHTML: pageNum },
-            on: {
-              click: (evt) => {
+            keydown: evt => {
+              if (evt.keyCode === KeyCodes.SPACE) {
+                evt.preventDefault()
                 t.onClick(page.number, evt)
-              },
-              keydown: (evt) => {
-                if (evt.keyCode === KeyCodes.SPACE) {
-                  evt.preventDefault()
-                  t.onClick(page.number, evt)
-                }
               }
             }
           }
-        )
+        })
       }
-      buttons.push(h(
-        'li',
-        {
-          key: page.number,
-          class: t.pageItemClasses(page),
-          attrs: { role: 'none presentation' }
-        },
-        [ inner ]
-      ))
+      buttons.push(
+        h(
+          'li',
+          {
+            key: page.number,
+            class: t.pageItemClasses(page),
+            attrs: { role: 'none presentation' }
+          },
+          [inner]
+        )
+      )
     })
 
     // Last Ellipsis Bookend
     buttons.push(t.showLastDots ? makeEllipsis() : h(false))
 
     // Goto Next page button
-    buttons.push(makeEndBtns(t.currentPage + 1, t.labelNextPage, t.nextText, t.numberOfPages))
+    buttons.push(
+      makeEndBtns(
+        t.currentPage + 1,
+        t.labelNextPage,
+        t.nextText,
+        t.numberOfPages
+      )
+    )
 
     // Goto Last Page button
-    buttons.push(t.hideGotoEndButtons ? h(false) : makeEndBtns(t.numberOfPages, t.labelLastPage, t.lastText))
+    buttons.push(
+      t.hideGotoEndButtons
+        ? h(false)
+        : makeEndBtns(t.numberOfPages, t.labelLastPage, t.lastText)
+    )
 
     // Assemble the paginatiom buttons
     const pagination = h(
       'ul',
       {
         ref: 'ul',
-        class: [ 'pagination', 'b-pagination', t.btnSize, t.alignment ],
+        class: ['pagination', 'b-pagination', t.btnSize, t.alignment],
         attrs: {
           role: 'menubar',
           'aria-disabled': t.disabled ? 'true' : 'false',
           'aria-label': t.ariaLabel || null
         },
         on: {
-          keydown: (evt) => {
+          keydown: evt => {
             const keyCode = evt.keyCode
             const shift = evt.shiftKey
             if (keyCode === KeyCodes.LEFT) {
@@ -265,7 +299,7 @@ export default {
     )
 
     // if we are pagination-nav, wrap in '<nav>' wrapper
-    return t.isNav ? h('nav', {}, [ pagination ]) : pagination
+    return t.isNav ? h('nav', {}, [pagination]) : pagination
   },
   watch: {
     currentPage (newPage, oldPage) {
@@ -307,13 +341,19 @@ export default {
       if (this.numberOfPages <= this.limit) {
         // Special Case: Less pages available than the limit of displayed pages
         numLinks = this.numberOfPages
-      } else if (this.currentPage < (this.limit - 1) && this.limit > ELLIPSIS_THRESHOLD) {
+      } else if (
+        this.currentPage < this.limit - 1 &&
+        this.limit > ELLIPSIS_THRESHOLD
+      ) {
         // We are near the beginning of the page list
         if (!this.hideEllipsis) {
           numLinks = this.limit - 1
           this.showLastDots = true
         }
-      } else if ((this.numberOfPages - this.currentPage + 2) < this.limit && this.limit > ELLIPSIS_THRESHOLD) {
+      } else if (
+        this.numberOfPages - this.currentPage + 2 < this.limit &&
+        this.limit > ELLIPSIS_THRESHOLD
+      ) {
         // We are near the end of the list
         if (!this.hideEllipsis) {
           this.showFirstDots = true
@@ -332,7 +372,7 @@ export default {
       // Sanity checks
       if (startNum < 1) {
         startNum = 1
-      } else if (startNum > (this.numberOfPages - numLinks)) {
+      } else if (startNum > this.numberOfPages - numLinks) {
         startNum = this.numberOfPages - numLinks + 1
       }
       // Generate list of page numbers
@@ -396,7 +436,9 @@ export default {
       })
     },
     focusCurrent () {
-      const btn = this.getButtons().find(el => parseInt(getAttr(el, 'aria-posinset'), 10) === this.currentPage)
+      const btn = this.getButtons().find(
+        el => parseInt(getAttr(el, 'aria-posinset'), 10) === this.currentPage
+      )
       if (btn && btn.focus) {
         this.setBtnFocus(btn)
       } else {
@@ -411,7 +453,9 @@ export default {
       }
     },
     focusLast () {
-      const btn = this.getButtons().reverse().find(el => !isDisabled(el))
+      const btn = this.getButtons()
+        .reverse()
+        .find(el => !isDisabled(el))
       if (btn && btn.focus && btn !== document.activeElement) {
         this.setBtnFocus(btn)
       }
@@ -427,7 +471,11 @@ export default {
       const buttons = this.getButtons()
       const idx = buttons.indexOf(document.activeElement)
       const cnt = buttons.length - 1
-      if (idx < cnt && !isDisabled(buttons[idx + 1]) && buttons[idx + 1].focus) {
+      if (
+        idx < cnt &&
+        !isDisabled(buttons[idx + 1]) &&
+        buttons[idx + 1].focus
+      ) {
         this.setBtnFocus(buttons[idx + 1])
       }
     }

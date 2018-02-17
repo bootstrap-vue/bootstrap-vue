@@ -1,4 +1,5 @@
-import { mergeData, warn } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
+import warn from '../../utils/warn'
 
 export const props = {
   tag: {

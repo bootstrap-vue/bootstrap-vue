@@ -81,8 +81,6 @@ Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
 **Notes:**
 - When the prop `button` is `true`, all [link replated props](/docs/components/link)
 (other than `active`) and the `tag` prop will have no effect.
-- When rendered as a `<button>`, and the `active` prop is set to `true`, the button will lack
-any hover or focus styling due to an issue with Bootstrap V4.beta.2 CSS)
 - When `href` or `to` are set, the `tag` prop has no effect.
 
 ## Contextual variants

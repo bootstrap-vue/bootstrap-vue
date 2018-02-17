@@ -105,7 +105,7 @@ that split dropdown menus are not supported when prop `vertical` is set.
 `<b-button-group>` can also be used by its shorter alias `<b-btn-group>`.
 
 ## See also
-Also check out the [`<b-button-toolabr>`](./button-toolbar) component for generating
+Also check out the [`<b-button-toolbar>`](./button-toolbar) component for generating
 toolbars containing button groups and input groups.
 
 

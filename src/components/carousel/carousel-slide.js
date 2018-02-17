@@ -1,6 +1,6 @@
 import bImg from '../image/img'
-import { warn } from '../../utils'
-import { idMixin } from '../../mixins'
+import warn from '../../utils/warn'
+import idMixin from '../../mixins/id'
 
 export default {
   components: { bImg },

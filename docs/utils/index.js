@@ -1,10 +1,10 @@
-// Remove any HTML tags, but leaev entities alone
-function stripHTML (str) {
+// Remove any HTML tags, but leave entities alone
+function stripHTML (str = '') {
   return str.replace(/<[^>]+>/g, '')
 }
 
 // Remove any double quotes from a string
-function stripQuotes (str) {
+function stripQuotes (str = '') {
   return str.replace(/"/g, '')
 }
 

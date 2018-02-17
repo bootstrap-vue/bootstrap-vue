@@ -6,10 +6,10 @@ into your project. To get started, use yarn or npm to get latest version of boot
 
 ```bash
 # With NPM:
-npm i bootstrap-vue bootstrap@4.0.0-beta.2
+npm i bootstrap-vue
 
 # With Yarn:
-yarn add bootstrap-vue bootstrap@4.0.0-beta.2
+yarn add bootstrap-vue
 ```
 
 Then, register BootstrapVue plugin in your app entry point:
@@ -21,29 +21,24 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 ```
 
-And import css files from both Bootstrap 4 & Bootstrap-Vue:
-
-**Note**: _requires webpack configuration to load css files ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_
+And import Bootstrap and Bootstrap-Vue css files:
 
 ```js
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 
-**Note:** If you are unable or do not want to add additional packages to dev dependency, you have to
-manually include both [Bootstrap](https://v4-alpha.getbootstrap.com/getting-started/download/)
-and [BootstrapVue](https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css) CSS files
-in your bundle or reference them from `static/` via `index.html`.
+**Note**: _requires webpack configuration to load css files ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_
 
 ## Nuxt.js
 Install dependencies:
 
 ```bash
 # With NPM:
-npm i bootstrap-vue bootstrap@4.0.0-beta.2
+npm i bootstrap-vue
 
 # With Yarn:
-yarn add bootstrap-vue bootstrap@4.0.0-beta.2
+yarn add bootstrap-vue
 ```
 
 Add `bootstrap-vue/nuxt` to modules section of **nuxt.config.js**
@@ -178,7 +173,7 @@ module.exports = {
 
 ```html
 <!-- Add this to <head> -->
-<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css"/>
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
 
 <!-- Add this after vue.js -->
@@ -203,7 +198,6 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 
 - Remove the bootstrap.js file from your page scripts or build pipeline
 - If Bootstrap is the only thing relying on jQuery, you can safely remove it — BootstrapVue **does not** depend on jQuery
-- Don't forget to include the `bootstrap-vue.css` file!
 - Convert your native bootstrap HTML markup into the simplified Bootstrap-Vue custom component markup
 
 ## Browsers Support
@@ -211,7 +205,7 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 ### CSS
 
 BootstrapVue is to be used with Bootstrap 4 CSS.
-Please see [Browsers and devices](https://v4-alpha.getbootstrap.com/getting-started/browsers-devices)
+Please see [Browsers and devices](https://getbootstrap.com/docs/4.0/getting-started/browsers-devices)
 for more information about browsers currently supported by Bootstrap 4.
 
 ### JS

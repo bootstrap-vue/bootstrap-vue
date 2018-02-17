@@ -16,7 +16,7 @@ The following are convenience links to Bootstrap V4's documentation:
 - <a href="https://getbootstrap.com/docs/4.0/utilities/position/" target="_blank">Position utilities</a>
 - <a href="https://getbootstrap.com/docs/4.0/utilities/screenreaders/" target="_blank">Screen reader utilities</a>
 - <a href="https://getbootstrap.com/docs/4.0/utilities/sizing/" target="_blank">Sizing utilities</a>
-- <a href="https://getbootstrap.com/docs/4.0/utilities/text/" target="_blank">Spacing utilities</a>
+- <a href="https://getbootstrap.com/docs/4.0/utilities/spacing/" target="_blank">Spacing utilities</a>
 - <a href="https://getbootstrap.com/docs/4.0/utilities/text/" target="_blank">Text utilities</a>
 - <a href="https://getbootstrap.com/docs/4.0/utilities/vertical-align/" target="_blank">Vertical align utilities</a>
 - <a href="https://getbootstrap.com/docs/4.0/utilities/visibility/" target="_blank">Visibility utilities</a>

@@ -1,4 +1,4 @@
-import { mergeData } from '../../utils'
+import { mergeData } from 'vue-functional-data-merge'
 
 const props = {
   disabled: {
