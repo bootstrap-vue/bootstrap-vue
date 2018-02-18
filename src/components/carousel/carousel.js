@@ -26,7 +26,7 @@ const TransitionEndEvents = {
   transition: 'transitionend'
 }
 
-// Return the browser specific transitionend event name
+// Return the browser specific transitionEnd event name
 function getTransisionEndEvent (el) {
   for (const name in TransitionEndEvents) {
     if (el.style[name] !== undefined) {
@@ -198,7 +198,8 @@ export default {
       isSliding: false,
       intervalId: null,
       transitionEndEvent: null,
-      slides: []
+      slides: [],
+      direction: null
     }
   },
   props: {
@@ -276,10 +277,12 @@ export default {
     },
     // Previous slide
     prev () {
+      this.direction = 'prev'
       this.setSlide(this.index - 1)
     },
     // Next slide
     next () {
+      this.direction = 'next'
       this.setSlide(this.index + 1)
     },
     // Pause auto rotation
@@ -295,7 +298,7 @@ export default {
     },
     // Start auto rotate slides
     start () {
-      // Don't start if no intetrval, or if we are already running
+      // Don't start if no interval, or if we are already running
       if (!this.interval || this.isCycling) {
         return
       }
@@ -335,6 +338,12 @@ export default {
       // Set slide as active
       this.setSlide(index)
       this.start()
+    },
+    calcDirection (direction = null, curIndex = 0, nextIndex = 0) {
+      if (!direction) {
+        return (nextIndex > curIndex) ? DIRECTION.next : DIRECTION.prev
+      }
+      return DIRECTION[direction]
     }
   },
   watch: {
@@ -361,13 +370,7 @@ export default {
         return
       }
       // Determine sliding direction
-      let direction = (val > oldVal) ? DIRECTION.next : DIRECTION.prev
-      // Rotates
-      if (oldVal === 0 && val === this.slides.length - 1) {
-        direction = DIRECTION.prev
-      } else if (oldVal === this.slides.length - 1 && val === 0) {
-        direction = DIRECTION.next
-      }
+      let direction = this.calcDirection(this.direction, oldVal, val)
       // Determine current and next slides
       const currentSlide = this.slides[oldVal]
       const nextSlide = this.slides[val]
@@ -420,6 +423,7 @@ export default {
           })
         }
         this.isSliding = false
+        this.direction = null
         // Notify ourselves that we're done sliding (slid)
         this.$nextTick(() => this.$emit('sliding-end', val))
       }

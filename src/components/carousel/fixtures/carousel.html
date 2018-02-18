@@ -1,12 +1,12 @@
 <div id="app">
     <b-carousel id="carousel1"
-                ref="carousel1"
+                ref="carousel"
                 controls
                 indicators
-                :interval="3500"
+                :interval="interval"
                 v-model="slide"
-                @slide="onSlide"
-                @slid="onSlid"
+                @sliding-start="onSlide"
+                @sliding-end="onSlid"
                 background="grey">
 
         <!-- Text slides -->
