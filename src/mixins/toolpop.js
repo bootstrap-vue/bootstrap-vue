@@ -35,7 +35,7 @@ export default {
   props: {
     target: {
       // String ID of element, or element/component reference
-      type: [String, Object, HTMLElement]
+      type: [String, Object, HTMLElement, Function]
     },
     delay: {
       type: [Number, Object, String],
@@ -231,7 +231,10 @@ export default {
       }
     },
     getTarget () {
-      const target = this.target
+      let target = this.target
+      if (typeof target === 'function') {
+        target = target()
+      }
       if (typeof target === 'string') {
         // Assume ID of element
         return getById(target)
