@@ -3,7 +3,7 @@
 > Bootstrap custom `<select>` using custom styles. Optionally specify options based on an
 array, array of objects, or an object.
 
-Generate your select options by pasing an aray or object to the `options` props:
+Generate your select options by passing an array or object to the `options` props:
 
 ```html
 <template>
