@@ -237,7 +237,7 @@ which element to monitor (spy) scrolling on.
 
 The directive an be applied to any containing element or component that has `<nav-item>`,
 `<b-dropdown-item>`, `<b-list-group-item>` (or `<a>` tags with the apropriate classes),
-a long as they haev `href` attributes that point to elements with the respective `id`s
+a long as they have `href` attributes that point to elements with the respective `id`s
 in the scrolling element.
 
 
@@ -270,7 +270,7 @@ If any of the options are invalid types, then an error is written to the console
 **Important! Requires relative positioning**
 No matter the implementation method, scrollspy requires the use of
 `position: relative;` on the element you’re scrolling on. In most cases this
-is the `<body>`. When scrollspying on elements other than the <body>, be
+is the `<body>`. When scrollspying on elements other than the `<body>`, be
 sure to have a CSS `height` set and `overflow-y: scroll;` applied.
 
 
