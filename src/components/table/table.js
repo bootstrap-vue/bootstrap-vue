@@ -760,9 +760,9 @@ export default {
       if (fields.length === 0 && this.computedItems.length > 0) {
         const sample = this.computedItems[0]
         const ignoredKeys = [
-          "_rowVariant",
-          "_cellVariants",
-          "_showDetails"
+          '_rowVariant',
+          '_cellVariants',
+          '_showDetails'
         ]
         keys(sample).forEach(k => {
           if (!ignoredKeys.includes(k)) {
