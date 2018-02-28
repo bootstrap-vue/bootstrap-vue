@@ -42,7 +42,7 @@ export default {
           id: t.safeId(),
           name: t.name,
           multiple: t.multiple || null,
-          size: t.isMultiple ? t.selectSize : null,
+          size: t.selectSize,
           disabled: t.disabled,
           required: t.required,
           'aria-required': t.required ? 'true' : null,
