@@ -12,3 +12,4 @@ workbox*.js*
 coverage
 es
 docs/static/sw.js
+*.swp
