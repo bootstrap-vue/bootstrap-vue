@@ -25,6 +25,14 @@ window.app = new Vue({
     visibleRecords: [],
     isBusy: false,
     providerType: 'array',
+    secondaryItems: [
+      {
+        isActive: false,
+        age: 26,
+        _rowVariant: 'success',
+        name: 'Mitzi'
+      }
+    ],
     items: [
       {
         isActive: true,

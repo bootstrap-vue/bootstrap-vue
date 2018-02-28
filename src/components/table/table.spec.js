@@ -48,6 +48,17 @@ describe('table', async () => {
     expect(table.$el.children[0].tagName).toBe('TABLE')
   })
 
+  it('should generate fields automatically from the first item', async () => {
+    const { app: { $refs } } = window
+    const table = $refs.table_without_fields
+    const thead = $refs.table_without_fields.$el.children[0]
+    const tr = thead.children[0]
+
+    // The row should be equal to the items without any of Bootstrap Vue's
+    // utility fields, like _rowVariant, or _cellVariants
+    expect(tr.children.length).toBe(Object.keys(table.items[0]).length - 1)
+  })
+
   it('table_basic should have thead and tbody', async () => {
     const { app: { $refs } } = window
 

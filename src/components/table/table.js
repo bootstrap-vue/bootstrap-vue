@@ -759,8 +759,15 @@ export default {
       // If no field provided, take a sample from first record (if exits)
       if (fields.length === 0 && this.computedItems.length > 0) {
         const sample = this.computedItems[0]
+        const ignoredKeys = [
+          '_rowVariant',
+          '_cellVariants',
+          '_showDetails'
+        ]
         keys(sample).forEach(k => {
-          fields.push({ key: k, label: startCase(k) })
+          if (!ignoredKeys.includes(k)) {
+            fields.push({ key: k, label: startCase(k) })
+          }
         })
       }
       // Ensure we have a unique array of fields and that they have String labels
