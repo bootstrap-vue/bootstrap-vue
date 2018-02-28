@@ -441,7 +441,7 @@ export default {
 
 >**Responsive table notes:**
 > - _Possible vertical clipping/truncation_. Responsive tables make use of `overflow-y: hidden`, which clips off any content that goes beyond the bottom or top edges of the table. In particular, this can clip off dropdown menus and other third-party widgets.
-> - When in responsive mode the table will lose it's width of 100%. This is a known issue with bootstrap V4 css and placing the `table-responsive` class on the `<table>` element as reccommended by Bootstrap.
+> - When in responsive mode the table will lose it's width of 100%. This is a known issue with bootstrap V4 css and placing the `table-responsive` class on the `<table>` element as recommended by Bootstrap.
 
 
 ## Stacked tables
