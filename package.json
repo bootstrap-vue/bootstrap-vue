@@ -120,8 +120,7 @@
       ".*\\.(css)$": "jest-css-modules"
     },
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true,
-    "mapCoverage": true
+    "collectCoverage": true
   },
   "keywords": [
     "Bootstrap",
