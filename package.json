@@ -98,7 +98,7 @@
     "nuxt": "^1.4.0",
     "rollup": "^0.54.0",
     "rollup-plugin-babel": "^3.0.3",
-    "rollup-plugin-commonjs": "^9.0.0",
+    "rollup-plugin-commonjs": "^8.3.0",
     "rollup-plugin-css-porter": "^0.1.2",
     "rollup-plugin-node-resolve": "^3.0.2",
     "rollup-plugin-vue": "^3.0.0",
