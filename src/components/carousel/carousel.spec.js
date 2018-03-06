@@ -33,7 +33,7 @@ describe('carousel', async () => {
     nextButton.click()
 
     app.$nextTick(() => {
-      expect(spyBegin).toHaveBeenCalledWith()
+      expect(spyBegin).toHaveBeenCalledWith(1)
       expect(carousel.isSliding).toBe(true)
     })
 
