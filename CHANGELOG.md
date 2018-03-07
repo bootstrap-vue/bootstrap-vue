@@ -5,9 +5,23 @@ All notable changes to this project will be documented in this file. See [standa
 <a name="2.0.0-rc.2"></a>
 # [2.0.0-rc.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.1...v2.0.0-rc.2) (2018-03-06)
 
+### Features
+
+**popovers / tooltips:** Accept an HTMLElement as a valid target ([a375452](https://github.com/bootstrap-vue/bootstrap-vue/commit/a375452))
+**tab:** add title slot ([#1586](https://github.com/bootstrap-vue/bootstrap-vue/pull/1586)) ([724b453](https://github.com/bootstrap-vue/bootstrap-vue/commit/724b453))
+**table:** Use object's property as a key ([#1614](https://github.com/bootstrap-vue/bootstrap-vue/pull/1614)) ([4464f0a](https://github.com/bootstrap-vue/bootstrap-vue/commit/4464f0a))
+**tooltip:** Allow a function as a tooltip target attribute ([#1493](https://github.com/bootstrap-vue/bootstrap-vue/pull/1493)) ([048c3d4](https://github.com/bootstrap-vue/bootstrap-vue/commit/048c3d4))
 
 ### Bug Fixes
 
+* **modal:** fix v-b-modal directive unbinding ([#1617](https://github.com/bootstrap-vue/bootstrap-vue/pull/1617)) ([3f6a86a](https://github.com/bootstrap-vue/bootstrap-vue/commit/3f6a86a))
+* **table:** avoid HTML injection in table data ([63d8097](https://github.com/bootstrap-vue/bootstrap-vue/commit/63d8097))
+* **table:** allow empty labels ([5ee0923](https://github.com/bootstrap-vue/bootstrap-vue/commit/5ee0923))
+* **table:** Ignore BV keys when auto-discovering table fields ([#1641](https://github.com/bootstrap-vue/bootstrap-vue/pull/1641)) ([f56f3e8](https://github.com/bootstrap-vue/bootstrap-vue/commit/f56f3e8))
+* **select:** Always pass selectSize to selects ([#1640](https://github.com/bootstrap-vue/bootstrap-vue/pull/1640)) ([2c725f6](https://github.com/bootstrap-vue/bootstrap-vue/commit/2c725f6))
+* **docs:** use "prepend" and "append" for input-group ([#1593](https://github.com/bootstrap-vue/bootstrap-vue/pull/1593)) ([5b7ee09](https://github.com/bootstrap-vue/bootstrap-vue/commit/5b7ee09cb494b4c243929d8fbc28976e8330b420))
+* **docs:** fix splash button styling ([11484b3](https://github.com/bootstrap-vue/bootstrap-vue/commit/11484b3))
+* **docs:** fix typo in docs ([#1555](https://github.com/bootstrap-vue/bootstrap-vue/pull/1555)) ([c927377](https://github.com/bootstrap-vue/bootstrap-vue/commit/c927377))
 * **docs:** spelling correction in comment ([#1568](https://github.com/bootstrap-vue/bootstrap-vue/issues/1568)) ([e0e4006](https://github.com/bootstrap-vue/bootstrap-vue/commit/e0e4006))
 * polyfill HTMLElement for SSR ([d4dd9b3](https://github.com/bootstrap-vue/bootstrap-vue/commit/d4dd9b3))
 
