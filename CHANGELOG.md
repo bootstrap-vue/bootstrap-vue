@@ -7,10 +7,10 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-**popovers / tooltips:** Accept an HTMLElement as a valid target ([a375452](https://github.com/bootstrap-vue/bootstrap-vue/commit/a375452))
-**tab:** add title slot ([#1586](https://github.com/bootstrap-vue/bootstrap-vue/pull/1586)) ([724b453](https://github.com/bootstrap-vue/bootstrap-vue/commit/724b453))
-**table:** Use object's property as a key ([#1614](https://github.com/bootstrap-vue/bootstrap-vue/pull/1614)) ([4464f0a](https://github.com/bootstrap-vue/bootstrap-vue/commit/4464f0a))
-**tooltip:** Allow a function as a tooltip target attribute ([#1493](https://github.com/bootstrap-vue/bootstrap-vue/pull/1493)) ([048c3d4](https://github.com/bootstrap-vue/bootstrap-vue/commit/048c3d4))
+* **popovers / tooltips:** Accept an HTMLElement as a valid target ([a375452](https://github.com/bootstrap-vue/bootstrap-vue/commit/a375452))
+* **tab:** add title slot ([#1586](https://github.com/bootstrap-vue/bootstrap-vue/pull/1586)) ([724b453](https://github.com/bootstrap-vue/bootstrap-vue/commit/724b453))
+* **table:** Use object's property as a key ([#1614](https://github.com/bootstrap-vue/bootstrap-vue/pull/1614)) ([4464f0a](https://github.com/bootstrap-vue/bootstrap-vue/commit/4464f0a))
+* **tooltip:** Allow a function as a tooltip target attribute ([#1493](https://github.com/bootstrap-vue/bootstrap-vue/pull/1493)) ([048c3d4](https://github.com/bootstrap-vue/bootstrap-vue/commit/048c3d4))
 
 ### Bug Fixes
 
