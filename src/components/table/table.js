@@ -864,6 +864,7 @@ export default {
       ]
     },
     tdClasses (field, item) {
+      const t = this
       let cellVariant = ''
       if (item._cellVariants && item._cellVariants[field.key]) {
         cellVariant = `${this.dark ? 'bg' : 'table'}-${
@@ -876,7 +877,7 @@ export default {
           : '',
         cellVariant,
         field.class ? field.class : '',
-        field.tdClass ? field.tdClass : ''
+        t.getTdClasses(item, field)
       ]
     },
     rowClasses (item) {
@@ -980,6 +981,22 @@ export default {
         // Provider returned Array data
         this._providerSetLocal(data)
       }
+    },
+    getTdClasses (item, field) {
+      const key = field.key
+      const tdClass = field.tdClass
+      const parent = this.$parent
+      if (tdClass) {
+        if (typeof tdClass === 'function') {
+          let value = get(item, key)
+          return tdClass(value, key, item)
+        } else if (typeof tdClass === 'string' && typeof parent[tdClass] === 'function') {
+          let value = get(item, key)
+          return parent[tdClass](value, key, item)
+        }
+        return tdClass
+      }
+      return ''
     },
     getFormattedValue (item, field) {
       const key = field.key

@@ -4,18 +4,22 @@ window.app = new Vue({
     fields: {
       name: {
         label: 'Person Full name',
-        sortable: true
+        sortable: true,
+        tdClass: 'bg-primary'
       },
       age: {
         label: 'Person age',
         sortable: true,
-        formatter: 'formatAge'
+        formatter: 'formatAge',
+        tdClass: ['bg-primary', 'text-dark']
       },
       isActive: {
-        label: 'is Active'
+        label: 'is Active',
+        tdClass: (value, key, item) => { return 'bg-danger' }
       },
       actions: {
-        label: 'Actions'
+        label: 'Actions',
+        tdClass: 'formatCell'
       }
     },
     currentPage: 1,
@@ -131,6 +135,9 @@ window.app = new Vue({
     },
     formatAge (value) {
       return `${value} years old`
+    },
+    formatCell (value, key, item) {
+      return ['bg-primary', 'text-light']
     }
   }
 })
