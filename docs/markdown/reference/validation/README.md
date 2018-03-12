@@ -21,7 +21,8 @@ This is a verbose example designed to show how Bootstrap-Vue and Vuelidate inter
       <b-form-input id="exampleInput1"
                     type="text"
                     v-model="form.name"
-                    :state="!$v.form.name.$invalid"
+                    :state="!$v.form.name.$dirty?null:!$v.form.name.$invalid" 
+                    @input="$v.form.name.$touch()" 
                     aria-describedby="input1LiveFeedback"
                     placeholder="Enter name" />
       <b-form-invalid-feedback id="input1LiveFeedback">
@@ -33,7 +34,8 @@ This is a verbose example designed to show how Bootstrap-Vue and Vuelidate inter
                   label-for="exampleInput2">
       <b-form-select id="exampleInput2"
                      :options="foods"
-                     :state="!$v.form.food.$invalid"
+                     :state="!$v.form.food.$dirty?null:!$v.form.food.$invalid"
+                     @change="$v.form.food.$touch()"
                      v-model="form.food" />
       <b-form-invalid-feedback id="input2LiveFeedback">
         This is a required field
