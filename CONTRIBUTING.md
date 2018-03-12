@@ -31,10 +31,15 @@ If you want to see your changes in your project instead of the playground:
 - Now every time you change a component, a new production version will be built and ready on your project. 
 
 ## Pull requests
-Please ensure all pull requests related to `v1.x` are made aganst the `dev` branch on GitHub.
-See [standard-version](https://github.com/conventional-changelog/standard-version) for commit
-guidelines and PR naming conventions.
+Please ensure all pull requests are made aganst the `dev` branch on GitHub. See
+the [Conventional Commits](https://conventionalcommits.org/) spec for commit
+and PR naming guidelines. This is very important, as the `CHANGELOG` is
+generated from these messages.
 
+Examples:
+
+* `fix(modal): fixes some broken modal stuff`
+* `feat(table): add a feature to the table compoment!`
 
 ## Financial contributions
 
