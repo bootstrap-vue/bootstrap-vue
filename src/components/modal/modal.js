@@ -101,9 +101,9 @@ export default {
     if (!t.hideFooter) {
       let modalFooter = $slots['modal-footer']
       if (!modalFooter) {
-        let okButton = h(false)
+        let cancelButton = h(false)
         if (!t.okOnly) {
-          okButton = h(
+          cancelButton = h(
             'b-btn',
             {
               props: {
@@ -120,7 +120,7 @@ export default {
             [$slots['modal-cancel'] || t.cancelTitle]
           )
         }
-        const cancelButton = h(
+        const okButton = h(
           'b-btn',
           {
             props: {
