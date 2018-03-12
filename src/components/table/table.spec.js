@@ -699,4 +699,41 @@ describe('table', async () => {
       'b-table-stacked'
     ])
   })
+
+  it('all example tables should have custom formatted cells', async () => {
+    const { app: { $refs } } = window
+
+    const tables = ['table_basic', 'table_paginated', 'table_dark']
+    await nextTick()
+
+    tables.forEach((table, idx) => {
+      const vm = $refs[table]
+      const tbody = [...vm.$el.children].find(
+        el => el && el.tagName === 'TBODY'
+      )
+      expect(tbody).toBeDefined()
+      if (tbody) {
+        const tr = tbody.children[0]
+        expect(tr).toBeDefined()
+        expect(Boolean(tr.children[0]) &&
+          Boolean(tr.children[0].classList) &&
+          tr.children[0].classList.contains('bg-primary'))
+          .toBe(true)
+        expect(Boolean(tr.children[1]) &&
+          Boolean(tr.children[1].classList) &&
+          tr.children[1].classList.contains('bg-primary') &&
+          tr.children[1].classList.contains('text-dark'))
+          .toBe(true)
+        expect(Boolean(tr.children[2]) &&
+          Boolean(tr.children[2].classList) &&
+          tr.children[2].classList.contains('bg-danger'))
+          .toBe(true)
+        expect(Boolean(tr.children[3]) &&
+          Boolean(tr.children[3].classList) &&
+          tr.children[3].classList.contains('bg-primary') &&
+          tr.children[3].classList.contains('text-light'))
+          .toBe(true)
+      }
+    })
+  })
 })
