@@ -200,7 +200,7 @@ export default {
 components inside an element with `role="tablist"` and set `role="tab"` on each trigger
 element's container (each trigger element should be wrapped) in order to help screen
 reader users navigate the accordion group.
-- If using the `v-model` feature of `<b-collaspe>` in accordion mode, do not bind the
+- If using the `v-model` feature of `<b-collapse>` in accordion mode, do not bind the
 `v-model` or `visible` prop of all the collapses in the accordion group to the same variable!
 - Ensure, at most, only one `<b-collapse>` in the accordion group has the `visible`
 prop and/or `v-model` set to `true`.
@@ -252,7 +252,7 @@ trigger element.
 When using accordion mode, make sure you place the trigger elements and `<b-collapse>`
 components inside an element with `role="tablist"` and set `role="tab"` on each trigger
 element's container in order to help screen reader users navigate the accordion group.
-Unfortunately, Boostrap-Vue cannont apply those roles for you automaticaly, as it depends on
+Unfortunately, Boostrap-Vue cannot apply those roles for you automaticaly, as it depends on
 your final document markup.
 
 ## Component Reference
