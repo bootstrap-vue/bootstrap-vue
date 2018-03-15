@@ -52,7 +52,7 @@ with actionalable items. see below).
 
 ## Actionable list group items
 Turn a `<b-list-group-item>` into an actionable link by specifying either an
-`href` prop or [router-link](/dics/reference/router-links) `to` prop.
+`href` prop or [router-link](/docs/reference/router-links) `to` prop.
 
 ```html
 <b-list-group>
