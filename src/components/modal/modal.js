@@ -320,6 +320,10 @@ export default {
       type: String,
       default: null
     },
+    modalClass: {
+      type: [String, Array],
+      default: null
+    },
     bodyClass: {
       type: [String, Array],
       default: null
@@ -412,7 +416,8 @@ export default {
           fade: !this.noFade,
           show: this.is_show,
           'd-block': this.is_block
-        }
+        },
+        this.modalClass
       ]
     },
     dialogClasses () {
