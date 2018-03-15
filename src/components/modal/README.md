@@ -407,8 +407,8 @@ export default {
 <!-- modal-variant-1.vue -->
 ```
 
-You can also apply abritrary classes to the modal header, body and footer via the
-`header-class`, `body-class` and `footer-class` props, respectively. The props
+You can also apply abritrary classes to the modal container, header, body and footer via the
+`modal-class`, `header-class`, `body-class` and `footer-class` props, respectively. The props
 accept either a string or array of strings.
 
 ## Lazy loading
