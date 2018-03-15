@@ -52,7 +52,7 @@ with actionalable items. see below).
 
 ## Actionable list group items
 Turn a `<b-list-group-item>` into an actionable link by specifying either an
-`href` prop or [router-link](/dics/reference/router-links) `to` prop.
+`href` prop or [router-link](/docs/reference/router-links) `to` prop.
 
 ```html
 <b-list-group>
@@ -155,7 +155,7 @@ more with the help of some [utility classes](http://getbootstrap.com/docs/4.0/ut
 
 
 ## List groups inside cards
-Incorporate list groups into [cards](/docs/components/cards). Use the `<b-list-group>`
+Incorporate list groups into [cards](/docs/components/card). Use the `<b-list-group>`
 prop `flush` prop when using cards with `no-body` to make the sides of the list group
 flush with the card.
 
