@@ -72,7 +72,8 @@ export default {
       return [
         'dropdown-menu',
         this.right ? 'dropdown-menu-right' : 'dropdown-menu-left',
-        this.visible ? 'show' : ''
+        this.visible ? 'show' : '',
+        this.extraMenuClasses ? this.extraMenuClasses : ''
       ]
     }
   },
@@ -83,6 +84,11 @@ export default {
     },
     extraToggleClasses: {
       // Extra Toggle classes
+      type: String,
+      default: ''
+    },
+    extraMenuClasses: {
+      // Extra Menu classes
       type: String,
       default: ''
     },
