@@ -1,5 +1,5 @@
 import startCase from 'lodash.startcase'
-import get from 'lodash/get'
+import get from 'lodash.get'
 import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
