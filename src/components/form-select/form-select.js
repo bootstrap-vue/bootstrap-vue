@@ -42,7 +42,7 @@ export default {
           id: t.safeId(),
           name: t.name,
           multiple: t.multiple || null,
-          size: t.selectSize,
+          size: t.computedSelectSize,
           disabled: t.disabled,
           required: t.required,
           'aria-required': t.required ? 'true' : null,
@@ -93,21 +93,20 @@ export default {
     }
   },
   computed: {
+    computedSelectSize () {
+      // Custom selects with a size of zero causes the arrows to be hidden,
+      // so dont render the size attribute in this case
+      return !this.plain && this.selectSize === 0 ? null : this.selectSize
+    },
     inputClass () {
       return [
         'form-control',
         this.stateClass,
         this.sizeFormClass,
         // Awaiting for https://github.com/twbs/bootstrap/issues/23058
-        this.isPlain ? null : 'custom-select',
-        this.isPlain || !this.size ? null : 'custom-select-' + this.size
+        this.plain ? null : 'custom-select',
+        this.plain || !this.size ? null : 'custom-select-' + this.size
       ]
-    },
-    isPlain () {
-      return this.plain || this.isMultiple
-    },
-    isMultiple () {
-      return Boolean(this.multiple && this.selectSize > 1)
     },
     computedAriaInvalid () {
       if (this.ariaInvalid === true || this.ariaInvalid === 'true') {
