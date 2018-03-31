@@ -10,7 +10,7 @@
         "events": [
             {
                 "event": "input",
-                "description": "Emits when a tab is shown. USed to update the v-model",
+                "description": "Emits when a tab is shown. Used to update the v-model",
                 "args": [
                     {
                         "arg": "tab_index"
