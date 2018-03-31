@@ -45,7 +45,7 @@ export default {
       const meta = _meta[params.slug]
 
       return {
-          readme,
+          readme: readme.default,
           meta
       }
   }

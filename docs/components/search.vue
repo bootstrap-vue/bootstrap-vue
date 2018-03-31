@@ -43,26 +43,26 @@ function process(readme, section, page) {
 
 // Async build the search database
 import('~/markdown/intro/README.md').then(readme => {
-  process(readme, '', '');
+  process(readme.default, '', '');
 });
 Object.keys(_components).forEach(page => {
   import('~/../src/components/' + page + '/README.md').then(readme => {
-    process(readme, 'components', page);
+    process(readme.default, 'components', page);
   });
 });
 Object.keys(_directives).forEach(page => {
   import('~/../src/directives/' + page + '/README.md').then(readme => {
-    process(readme, 'directives', page);
+    process(readme.default, 'directives', page);
   });
 });
 Object.keys(_reference).forEach(page => {
   import('~/markdown/reference/' + page + '/README.md').then(readme => {
-    process(readme, 'reference', page);
+    process(readme.default, 'reference', page);
   });
 });
 Object.keys(_misc).forEach(page => {
   import('~/markdown/misc/' + page + '/README.md').then(readme => {
-    process(readme, 'misc', page);
+    process(readme.default, 'misc', page);
   });
 });
 

@@ -96,7 +96,7 @@
     "lodash": "^4.17.4",
     "markdown-loader": "^2.0.2",
     "marked": "^0.3.12",
-    "nuxt": "^1.4.0",
+    "nuxt-edge": "^2.0.0-25375479.ba18127",
     "rollup": "^0.54.0",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-commonjs": "^8.3.0",
