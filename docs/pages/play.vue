@@ -14,59 +14,110 @@
         <span>for more info about available tags and usage.</span>
       </div>
       <div class="col-md-1">
-        <form method="post" action="https://jsfiddle.net/api/post/library/pure/" target="_blank" v-if="vm">
-          <input type="hidden" :value="html_fiddle" name="html">
-          <input type="hidden" :value="js_fiddle" name="js">
-          <input type="hidden" value="l" name="js_wrap">
-          <input name="resources" type="hidden" :value="fiddle_dependencies.join(',')">
-          <b-btn size="sm" type="submit">
+        <form
+          method="post"
+          action="https://jsfiddle.net/api/post/library/pure/"
+          target="_blank"
+          v-if="vm">
+          <input
+            type="hidden"
+            :value="html_fiddle"
+            name="html">
+          <input
+            type="hidden"
+            :value="js_fiddle"
+            name="js">
+          <input
+            type="hidden"
+            value="l"
+            name="js_wrap">
+          <input
+            name="resources"
+            type="hidden"
+            :value="fiddle_dependencies.join(',')">
+          <b-btn
+            size="sm"
+            type="submit">
             <span>Export to JSFiddle</span>
           </b-btn>
         </form>
       </div>
     </div>
 
-    <transition-group class="row" tag="div" name="flip">
-      <div key="A" :class="full?'col-12':'col'">
-        <transition-group class="row" tag="div" name="flip">
-          <div :class="`col-md-${(vertical&&!full)?6:12} col-sm-12`" key="A1">
+    <transition-group
+      class="row"
+      tag="div"
+      name="flip">
+      <div
+        key="A"
+        :class="full?'col-12':'col'">
+        <transition-group
+          class="row"
+          tag="div"
+          name="flip">
+          <div
+            :class="`col-md-${(vertical&&!full)?6:12} col-sm-12`"
+            key="A1">
             <!--Template-->
             <div class="card mt-2">
               <div class="card-header card-outline-info">
                 <span>Template</span>
-                <b-btn size="sm" @click="toggleFull" variant="outline-info" class="float-right">
+                <b-btn
+                  size="sm"
+                  @click="toggleFull"
+                  variant="outline-info"
+                  class="float-right">
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
-              <codemirror v-model="html" mode="htmlmixed"/>
+              <codemirror
+                v-model="html"
+                mode="htmlmixed"/>
             </div>
           </div>
-          <div :class="`col-md-${(vertical&&!full)?6:12} col-sm-12`" key="A2">
+          <div
+            :class="`col-md-${(vertical&&!full)?6:12} col-sm-12`"
+            key="A2">
             <!--JS-->
             <div class="card mt-2">
               <div class="card-header card-outline-warning">
                 <span>JS</span>
-                <b-btn size="sm" @click="toggleFull" variant="outline-info" class="float-right">
+                <b-btn
+                  size="sm"
+                  @click="toggleFull"
+                  variant="outline-info"
+                  class="float-right">
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
-              <codemirror v-model="js" mode="javascript"/>
+              <codemirror
+                v-model="js"
+                mode="javascript"/>
             </div>
           </div>
         </transition-group>
       </div>
 
-      <div key="B" :class="`col-md-${(vertical || full)?12:6} col-sm-12`">
+      <div
+        key="B"
+        :class="`col-md-${(vertical || full)?12:6} col-sm-12`">
         <!--Result-->
         <div class="card mt-2">
           <div class="card-header card-outline-success">
             <span>Result</span>
-            <b-btn size="sm" @click="toggleVertical" variant="outline-info" class="float-right" v-if="!full">
+            <b-btn
+              size="sm"
+              @click="toggleVertical"
+              variant="outline-info"
+              class="float-right"
+              v-if="!full">
               <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
             </b-btn>
           </div>
           <div class="card-body">
-            <div id="result-container" ref="result"/>
+            <div
+              id="result-container"
+              ref="result"/>
           </div>
         </div>
 
@@ -75,12 +126,19 @@
           <div class="card mt-2">
             <div class="card-header card-outline-secondary">
               <span>Console</span>
-              <b-btn size="sm" @click="clear" variant="outline-danger" class="float-right" v-if="messages.length">
+              <b-btn
+                size="sm"
+                @click="clear"
+                variant="outline-danger"
+                class="float-right"
+                v-if="messages.length">
                 <span>Clear</span>
               </b-btn>
             </div>
             <div class="card-body">
-              <div v-for="(message, idx) in messages" :key="`console-${idx}`">
+              <div
+                v-for="(message, idx) in messages"
+                :key="`console-${idx}`">
                 <b-badge :variant="message[0]">{{ message[0] }}</b-badge>
                 <span class="text-muted"> {{ message[1] }}</span>
                 <br>
@@ -131,6 +189,29 @@ export default {
       title: 'Playground - BootstrapVue'
     }
   },
+  computed: {
+    fiddle_dependencies () {
+      return [
+        '//unpkg.com/bootstrap/dist/css/bootstrap.min.css',
+        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css',
+        '//unpkg.com/vue@latest/dist/vue.min.js',
+        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
+      ]
+    },
+    js_fiddle () {
+      const js = `new Vue({el:'#app',\r\n${this.js.trim()}})`.trim()
+      return `window.onload = function() {${js}}`
+    },
+    html_fiddle () {
+      return `<div id='app'>\r\n${this.html}\r\n</div>`.trim()
+    },
+    lazy_run () {
+      if (!this.lazy_run_) {
+        this.lazy_run_ = debounce(this.run.bind(this), 500)
+      }
+      return this.lazy_run_
+    }
+  },
   watch: {
     html () {
       this.lazy_run()
@@ -169,29 +250,6 @@ export default {
       console.error = this.originalError
     }
     this.destroyVM()
-  },
-  computed: {
-    fiddle_dependencies () {
-      return [
-        '//unpkg.com/bootstrap/dist/css/bootstrap.min.css',
-        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css',
-        '//unpkg.com/vue@latest/dist/vue.min.js',
-        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
-      ]
-    },
-    js_fiddle () {
-      const js = `new Vue({el:'#app',\r\n${this.js.trim()}})`.trim()
-      return `window.onload = function() {${js}}`
-    },
-    html_fiddle () {
-      return `<div id='app'>\r\n${this.html}\r\n</div>`.trim()
-    },
-    lazy_run () {
-      if (!this.lazy_run_) {
-        this.lazy_run_ = debounce(this.run.bind(this), 500)
-      }
-      return this.lazy_run_
-    }
   },
   methods: {
     log (tag, args) {

@@ -1,10 +1,9 @@
-<template>
-</template>
+<template/>
 
 <script>
 export default {
-  fetch({ redirect }) {
-    redirect("/docs/reference/color-variants");
+  fetch ({ redirect }) {
+    redirect('/docs/reference/color-variants')
   }
-};
+}
 </script>

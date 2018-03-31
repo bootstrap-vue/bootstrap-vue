@@ -1,7 +1,7 @@
 <template>
-  <nav 
-v-if="toc.toc && toc.toc.length > 0"
-       aria-label="Page table of contents">
+  <nav
+    v-if="toc.toc && toc.toc.length > 0"
+    aria-label="Page table of contents">
     <b-nav
       vertical
       v-b-scrollspy.72
@@ -15,14 +15,14 @@ v-if="toc.toc && toc.toc.length > 0"
       ><span v-html="toc.title"/></b-nav-item>
 
       <template v-for="h2 in toc.toc">
-        <b-nav 
-v-if="isArray(h2) && h2.length > 0"
-               vertical 
-class="mb-1">
+        <b-nav
+          v-if="isArray(h2) && h2.length > 0"
+          vertical
+          class="mb-1">
           <b-nav-item
             vertical
-            pills 
-v-for="h3 in h2"
+            pills
+            v-for="h3 in h2"
             :key="h3.href"
             :href="h3.href"
             class="toc-entry toc-h3 mb-2"

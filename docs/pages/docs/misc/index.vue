@@ -1,10 +1,9 @@
-<template>
-</template>
+<template/>
 
 <script>
 export default {
-  fetch({ redirect }) {
-    redirect("/docs/misc/changelog");
+  fetch ({ redirect }) {
+    redirect('/docs/misc/changelog')
   }
-};
+}
 </script>

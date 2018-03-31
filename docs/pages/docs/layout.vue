@@ -1,5 +1,4 @@
-<template>
-</template>
+<template/>
 
 <script>
 // Add redirect from old URL to new one

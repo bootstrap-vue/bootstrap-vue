@@ -20,5 +20,8 @@ module.exports = {
         Tether: true,
         Promise: true,
         Vue: true
-    }
+  },
+  rules: {
+    "vue/attributes-order": 0
+  }
 }
