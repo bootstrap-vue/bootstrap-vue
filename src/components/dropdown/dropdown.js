@@ -95,6 +95,10 @@ export default {
       type: String,
       default: null
     },
+    menuClass: {
+      type: [String, Array],
+      default: null
+    },
     toggleClass: {
       type: [String, Array],
       default: null
@@ -135,8 +139,11 @@ export default {
     menuClasses () {
       return [
         'dropdown-menu',
-        this.right ? 'dropdown-menu-right' : '',
-        this.visible ? 'show' : ''
+        {
+          'dropdown-menu-right': this.right,
+          'show': this.visible
+        },
+        this.menuClass
       ]
     },
     toggleClasses () {
