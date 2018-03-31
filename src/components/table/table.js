@@ -203,6 +203,7 @@ export default {
             $scoped[field.key]({
               item: item,
               index: rowIndex,
+              field: field,
               unformatted: get(item, field.key),
               value: t.getFormattedValue(item, field),
               toggleDetails: toggleDetailsFn,
