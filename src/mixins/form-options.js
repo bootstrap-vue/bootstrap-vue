@@ -6,6 +6,7 @@ function isObject (obj) {
 }
 
 export default {
+
   props: {
     options: {
       type: [Array, Object],
@@ -28,11 +29,11 @@ export default {
   },
   computed: {
     formOptions () {
-      let options = this.options || []
+      let options = this.options
 
-      const valueField = this.valueField || 'value'
-      const textField = this.textField || 'text'
-      const disabledField = this.disabledField || 'disabled'
+      const valueField = this.valueField
+      const textField = this.textField
+      const disabledField = this.disabledField
 
       if (isArray(options)) {
         // Normalize flat-ish arrays to Array of Objects
@@ -45,12 +46,13 @@ export default {
             }
           }
           return {
-            text: String(option),
             value: option,
+            text: String(option),
             disabled: false
           }
         })
-      } else if (isObject(options)) {
+      } else {
+        // options is Object
         // Normalize Objects to Array of Objects
         return keys(options).map(key => {
           let option = options[key] || {}
@@ -58,20 +60,18 @@ export default {
             const value = option[valueField]
             const text = option[textField]
             return {
-              text: typeof text === 'undefined' ? key : String(text),
               value: typeof value === 'undefined' ? key : value,
+              text: typeof text === 'undefined' ? key : String(text),
               disabled: option[disabledField] || false
             }
           }
           return {
-            text: String(option),
             value: key,
+            text: String(option),
             disabled: false
           }
         })
       }
-      // Option unsupported type
-      return []
     }
   }
 }
