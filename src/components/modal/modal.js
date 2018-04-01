@@ -43,26 +43,25 @@ export default {
   mixins: [idMixin, listenOnRootMixin],
   components: { bBtn, bBtnClose },
   render (h) {
-    const t = this
-    const $slots = t.$slots
+    const $slots = this.$slots
     // Modal Header
     let header = h(false)
-    if (!t.hideHeader) {
+    if (!this.hideHeader) {
       let modalHeader = $slots['modal-header']
       if (!modalHeader) {
         let closeButton = h(false)
-        if (!t.hideHeaderClose) {
+        if (!this.hideHeaderClose) {
           closeButton = h(
             'b-btn-close',
             {
               props: {
-                disabled: t.is_transitioning,
-                ariaLabel: t.headerCloseLabel,
-                textVariant: t.headerTextVariant
+                disabled: this.is_transitioning,
+                ariaLabel: this.headerCloseLabel,
+                textVariant: this.headerTextVariant
               },
               on: {
                 click: evt => {
-                  t.hide('header-close')
+                  this.hide('header-close')
                 }
               }
             },
@@ -70,8 +69,8 @@ export default {
           )
         }
         modalHeader = [
-          h(t.titleTag, { class: ['modal-title'] }, [
-            $slots['modal-title'] || t.title
+          h(this.titleTag, { class: ['modal-title'] }, [
+            $slots['modal-title'] || this.title
           ]),
           closeButton
         ]
@@ -80,8 +79,8 @@ export default {
         'header',
         {
           ref: 'header',
-          class: t.headerClasses,
-          attrs: { id: t.safeId('__BV_modal_header_') }
+          class: this.headerClasses,
+          attrs: { id: this.safeId('__BV_modal_header_') }
         },
         [modalHeader]
       )
@@ -91,50 +90,50 @@ export default {
       'div',
       {
         ref: 'body',
-        class: t.bodyClasses,
-        attrs: { id: t.safeId('__BV_modal_body_') }
+        class: this.bodyClasses,
+        attrs: { id: this.safeId('__BV_modal_body_') }
       },
       [$slots.default]
     )
     // Modal Footer
     let footer = h(false)
-    if (!t.hideFooter) {
+    if (!this.hideFooter) {
       let modalFooter = $slots['modal-footer']
       if (!modalFooter) {
         let cancelButton = h(false)
-        if (!t.okOnly) {
+        if (!this.okOnly) {
           cancelButton = h(
             'b-btn',
             {
               props: {
-                variant: t.cancelVariant,
-                size: t.buttonSize,
-                disabled: t.cancelDisabled || t.busy || t.is_transitioning
+                variant: this.cancelVariant,
+                size: this.buttonSize,
+                disabled: this.cancelDisabled || this.busy || this.is_transitioning
               },
               on: {
                 click: evt => {
-                  t.hide('cancel')
+                  this.hide('cancel')
                 }
               }
             },
-            [$slots['modal-cancel'] || t.cancelTitle]
+            [$slots['modal-cancel'] || this.cancelTitle]
           )
         }
         const okButton = h(
           'b-btn',
           {
             props: {
-              variant: t.okVariant,
-              size: t.buttonSize,
-              disabled: t.okDisabled || t.busy || t.is_transitioning
+              variant: this.okVariant,
+              size: this.buttonSize,
+              disabled: this.okDisabled || this.busy || this.is_transitioning
             },
             on: {
               click: evt => {
-                t.hide('ok')
+                this.hide('ok')
               }
             }
           },
-          [$slots['modal-ok'] || t.okTitle]
+          [$slots['modal-ok'] || this.okTitle]
         )
         modalFooter = [cancelButton, okButton]
       }
@@ -142,8 +141,8 @@ export default {
         'footer',
         {
           ref: 'footer',
-          class: t.footerClasses,
-          attrs: { id: t.safeId('__BV_modal_footer_') }
+          class: this.footerClasses,
+          attrs: { id: this.safeId('__BV_modal_footer_') }
         },
         [modalFooter]
       )
@@ -157,13 +156,13 @@ export default {
         attrs: {
           tabindex: '-1',
           role: 'document',
-          'aria-labelledby': t.hideHeader
+          'aria-labelledby': this.hideHeader
             ? null
-            : t.safeId('__BV_modal_header_'),
-          'aria-describedby': t.safeId('__BV_modal_body_')
+            : this.safeId('__BV_modal_header_'),
+          'aria-describedby': this.safeId('__BV_modal_body_')
         },
         on: {
-          focusout: t.onFocusout,
+          focusout: this.onFocusout,
           click: evt => {
             evt.stopPropagation()
             // https://github.com/bootstrap-vue/bootstrap-vue/issues/1528
@@ -174,29 +173,29 @@ export default {
       [header, body, footer]
     )
     // Modal Dialog wrapper
-    const modalDialog = h('div', { class: t.dialogClasses }, [modalContent])
+    const modalDialog = h('div', { class: this.dialogClasses }, [modalContent])
     // Modal
     let modal = h(
       'div',
       {
         ref: 'modal',
-        class: t.modalClasses,
+        class: this.modalClasses,
         directives: [
           {
             name: 'show',
             rawName: 'v-show',
-            value: t.is_visible,
+            value: this.is_visible,
             expression: 'is_visible'
           }
         ],
         attrs: {
-          id: t.safeId(),
+          id: this.safeId(),
           role: 'dialog',
-          'aria-hidden': t.is_visible ? null : 'true'
+          'aria-hidden': this.is_visible ? null : 'true'
         },
         on: {
-          click: t.onClickOut,
-          keydown: t.onEsc
+          click: this.onClickOut,
+          keydown: this.onEsc
         }
       },
       [modalDialog]
@@ -214,28 +213,28 @@ export default {
           leaveToClass: ''
         },
         on: {
-          'before-enter': t.onBeforeEnter,
-          enter: t.onEnter,
-          'after-enter': t.onAfterEnter,
-          'before-leave': t.onBeforeLeave,
-          leave: t.onLeave,
-          'after-leave': t.onAfterLeave
+          'before-enter': this.onBeforeEnter,
+          enter: this.onEnter,
+          'after-enter': this.onAfterEnter,
+          'before-leave': this.onBeforeLeave,
+          leave: this.onLeave,
+          'after-leave': this.onAfterLeave
         }
       },
       [modal]
     )
     // Modal Backdrop
     let backdrop = h(false)
-    if (!t.hideBackdrop && (t.is_visible || t.is_transitioning)) {
+    if (!this.hideBackdrop && (this.is_visible || this.is_transitioning)) {
       backdrop = h('div', {
-        class: t.backdropClasses,
-        attrs: { id: t.safeId('__BV_modal_backdrop_') }
+        class: this.backdropClasses,
+        attrs: { id: this.safeId('__BV_modal_backdrop_') }
       })
     }
     // Assemble modal and backdrop
     let outer = h(false)
-    if (!t.is_hidden) {
-      outer = h('div', { attrs: { id: t.safeId('__BV_modal_outer_') } }, [
+    if (!this.is_hidden) {
+      outer = h('div', { attrs: { id: this.safeId('__BV_modal_outer_') } }, [
         modal,
         backdrop
       ])

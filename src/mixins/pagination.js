@@ -104,14 +104,13 @@ export default {
   },
   props,
   render (h) {
-    const t = this
     const buttons = []
 
     // Factory function for prev/next/first/last buttons
     const makeEndBtns = (linkTo, ariaLabel, btnText, pageTest) => {
       let button
       pageTest = pageTest || linkTo // Page # to test against to disable
-      if (t.disabled || t.isActive(pageTest)) {
+      if (this.disabled || this.isActive(pageTest)) {
         button = h(
           'li',
           {
@@ -137,22 +136,22 @@ export default {
               'b-link',
               {
                 class: ['page-link'],
-                props: t.linkProps(linkTo),
+                props: this.linkProps(linkTo),
                 attrs: {
                   role: 'menuitem',
                   tabindex: '-1',
                   'aria-label': ariaLabel,
-                  'aria-controls': t.ariaControls || null
+                  'aria-controls': this.ariaControls || null
                 },
                 on: {
                   click: evt => {
-                    t.onClick(linkTo, evt)
+                    this.onClick(linkTo, evt)
                   },
                   keydown: evt => {
                     // Links don't normally respond to SPACE, so we add that functionality
                     if (evt.keyCode === KeyCodes.SPACE) {
                       evt.preventDefault()
-                      t.onClick(linkTo, evt)
+                      this.onClick(linkTo, evt)
                     }
                   }
                 }
@@ -181,7 +180,7 @@ export default {
         [
           h('span', {
             class: ['page-link'],
-            domProps: { innerHTML: t.ellipsisText }
+            domProps: { innerHTML: this.ellipsisText }
           })
         ]
       )
@@ -189,49 +188,49 @@ export default {
 
     // Goto First Page button
     buttons.push(
-      t.hideGotoEndButtons
+      this.hideGotoEndButtons
         ? h(false)
-        : makeEndBtns(1, t.labelFirstPage, t.firstText)
+        : makeEndBtns(1, this.labelFirstPage, this.firstText)
     )
 
     // Goto Previous page button
-    buttons.push(makeEndBtns(t.currentPage - 1, t.labelPrevPage, t.prevText, 1))
+    buttons.push(makeEndBtns(this.currentPage - 1, this.labelPrevPage, this.prevText, 1))
 
     // First Ellipsis Bookend
-    buttons.push(t.showFirstDots ? makeEllipsis() : h(false))
+    buttons.push(this.showFirstDots ? makeEllipsis() : h(false))
 
     // Individual Page links
-    t.pageList.forEach(page => {
+    this.pageList.forEach(page => {
       let inner
-      let pageNum = t.makePage(page.number)
-      if (t.disabled) {
+      let pageNum = this.makePage(page.number)
+      if (this.disabled) {
         inner = h('span', {
           class: ['page-link'],
           domProps: { innerHTML: pageNum }
         })
       } else {
-        const active = t.isActive(page.number)
+        const active = this.isActive(page.number)
         inner = h('b-link', {
-          class: t.pageLinkClasses(page),
-          props: t.linkProps(page.number),
+          class: this.pageLinkClasses(page),
+          props: this.linkProps(page.number),
           attrs: {
             role: 'menuitemradio',
             tabindex: active ? '0' : '-1',
-            'aria-controls': t.ariaControls || null,
-            'aria-label': `${t.labelPage} ${page.number}`,
+            'aria-controls': this.ariaControls || null,
+            'aria-label': `${this.labelPage} ${page.number}`,
             'aria-checked': active ? 'true' : 'false',
             'aria-posinset': page.number,
-            'aria-setsize': t.numberOfPages
+            'aria-setsize': this.numberOfPages
           },
           domProps: { innerHTML: pageNum },
           on: {
             click: evt => {
-              t.onClick(page.number, evt)
+              this.onClick(page.number, evt)
             },
             keydown: evt => {
               if (evt.keyCode === KeyCodes.SPACE) {
                 evt.preventDefault()
-                t.onClick(page.number, evt)
+                this.onClick(page.number, evt)
               }
             }
           }
@@ -242,7 +241,7 @@ export default {
           'li',
           {
             key: page.number,
-            class: t.pageItemClasses(page),
+            class: this.pageItemClasses(page),
             attrs: { role: 'none presentation' }
           },
           [inner]
@@ -251,23 +250,23 @@ export default {
     })
 
     // Last Ellipsis Bookend
-    buttons.push(t.showLastDots ? makeEllipsis() : h(false))
+    buttons.push(this.showLastDots ? makeEllipsis() : h(false))
 
     // Goto Next page button
     buttons.push(
       makeEndBtns(
-        t.currentPage + 1,
-        t.labelNextPage,
-        t.nextText,
-        t.numberOfPages
+        this.currentPage + 1,
+        this.labelNextPage,
+        this.nextText,
+        this.numberOfPages
       )
     )
 
     // Goto Last Page button
     buttons.push(
-      t.hideGotoEndButtons
+      this.hideGotoEndButtons
         ? h(false)
-        : makeEndBtns(t.numberOfPages, t.labelLastPage, t.lastText)
+        : makeEndBtns(this.numberOfPages, this.labelLastPage, this.lastText)
     )
 
     // Assemble the paginatiom buttons
@@ -275,11 +274,11 @@ export default {
       'ul',
       {
         ref: 'ul',
-        class: ['pagination', 'b-pagination', t.btnSize, t.alignment],
+        class: ['pagination', 'b-pagination', this.btnSize, this.alignment],
         attrs: {
           role: 'menubar',
-          'aria-disabled': t.disabled ? 'true' : 'false',
-          'aria-label': t.ariaLabel || null
+          'aria-disabled': this.disabled ? 'true' : 'false',
+          'aria-label': this.ariaLabel || null
         },
         on: {
           keydown: evt => {
@@ -287,10 +286,10 @@ export default {
             const shift = evt.shiftKey
             if (keyCode === KeyCodes.LEFT) {
               evt.preventDefault()
-              shift ? t.focusFirst() : t.focusPrev()
+              shift ? this.focusFirst() : this.focusPrev()
             } else if (keyCode === KeyCodes.RIGHT) {
               evt.preventDefault()
-              shift ? t.focusLast() : t.focusNext()
+              shift ? this.focusLast() : this.focusNext()
             }
           }
         }
@@ -299,7 +298,7 @@ export default {
     )
 
     // if we are pagination-nav, wrap in '<nav>' wrapper
-    return t.isNav ? h('nav', {}, [pagination]) : pagination
+    return this.isNav ? h('nav', {}, [pagination]) : pagination
   },
   watch: {
     currentPage (newPage, oldPage) {

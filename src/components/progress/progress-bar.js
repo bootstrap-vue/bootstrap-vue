@@ -1,26 +1,25 @@
 export default {
   render (h) {
-    const t = this
     let childNodes = h(false)
-    if (t.$slots.default) {
-      childNodes = t.$slots.default
-    } else if (t.label) {
-      childNodes = h('span', { domProps: { innerHTML: t.label } })
-    } else if (t.computedShowProgress) {
-      childNodes = t.progress.toFixed(t.computedPrecision)
-    } else if (t.computedShowValue) {
-      childNodes = t.value.toFixed(t.computedPrecision)
+    if (this.$slots.default) {
+      childNodes = this.$slots.default
+    } else if (this.label) {
+      childNodes = h('span', { domProps: { innerHTML: this.label } })
+    } else if (this.computedShowProgress) {
+      childNodes = this.progress.toFixed(this.computedPrecision)
+    } else if (this.computedShowValue) {
+      childNodes = this.value.toFixed(this.computedPrecision)
     }
     return h(
       'div',
       {
-        class: t.progressBarClasses,
-        style: t.progressBarStyles,
+        class: this.progressBarClasses,
+        style: this.progressBarStyles,
         attrs: {
           role: 'progressbar',
           'aria-valuemin': '0',
-          'aria-valuemax': t.computedMax.toString(),
-          'aria-valuenow': t.value.toFixed(t.computedPrecision)
+          'aria-valuemax': this.computedMax.toString(),
+          'aria-valuenow': this.value.toFixed(this.computedPrecision)
         }
       },
       [ childNodes ]

@@ -29,26 +29,25 @@ const TYPES = [
 export default {
   mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
   render (h) {
-    const t = this
     return h('input', {
       ref: 'input',
-      class: t.inputClass,
-      domProps: { value: t.localValue },
+      class: this.inputClass,
+      domProps: { value: this.localValue },
       attrs: {
-        id: t.safeId(),
-        name: t.name,
-        type: t.localType,
-        disabled: t.disabled,
-        required: t.required,
-        readonly: t.readonly || t.plaintext,
-        placeholder: t.placeholder,
-        autocomplete: t.autocomplete || null,
-        'aria-required': t.required ? 'true' : null,
-        'aria-invalid': t.computedAriaInvalid
+        id: this.safeId(),
+        name: this.name,
+        type: this.localType,
+        disabled: this.disabled,
+        required: this.required,
+        readonly: this.readonly || this.plaintext,
+        placeholder: this.placeholder,
+        autocomplete: this.autocomplete || null,
+        'aria-required': this.required ? 'true' : null,
+        'aria-invalid': this.computedAriaInvalid
       },
       on: {
-        input: t.onInput,
-        change: t.onChange
+        input: this.onInput,
+        change: this.onChange
       }
     })
   },

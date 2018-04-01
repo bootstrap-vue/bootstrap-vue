@@ -18,32 +18,31 @@ const bTabButtonHelper = {
     itemClass: { default: null }
   },
   render (h) {
-    const t = this
     const link = h('a', {
       class: [
         'nav-link',
-        { active: t.active, disabled: t.disabled },
-        t.linkClass
+        { active: this.active, disabled: this.disabled },
+        this.linkClass
       ],
       attrs: {
         role: 'tab',
         tabindex: '-1',
-        href: t.href,
-        id: t.id,
-        disabled: t.disabled,
-        'aria-selected': t.active ? 'true' : 'false',
-        'aria-setsize': t.setSize,
-        'aria-posinset': t.posInSet,
-        'aria-controls': t.controls
+        href: this.href,
+        id: this.id,
+        disabled: this.disabled,
+        'aria-selected': this.active ? 'true' : 'false',
+        'aria-setsize': this.setSize,
+        'aria-posinset': this.posInSet,
+        'aria-controls': this.controls
       },
       on: {
-        click: t.handleClick,
-        keydown: t.handleClick
+        click: this.handleClick,
+        keydown: this.handleClick
       }
-    }, t.content)
+    }, this.content)
     return h(
       'li',
-      { class: ['nav-item', t.itemClass], attrs: { role: 'presentation' } },
+      { class: ['nav-item', this.itemClass], attrs: { role: 'presentation' } },
       [link]
     )
   },
@@ -72,7 +71,6 @@ const bTabButtonHelper = {
 export default {
   mixins: [idMixin],
   render (h) {
-    const t = this
     const tabs = this.tabs
     // Navigation 'buttons'
     const buttons = tabs.map((tab, index) => {
@@ -81,18 +79,18 @@ export default {
         props: {
           content: tab.$slots.title || tab.title,
           href: tab.href,
-          id: tab.controlledBy || t.safeId(`_BV_tab_${index + 1}_`),
+          id: tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`),
           active: tab.localActive,
           disabled: tab.disabled,
           setSize: tabs.length,
           posInSet: index + 1,
-          controls: t.safeId('_BV_tab_container_'),
+          controls: this.safeId('_BV_tab_container_'),
           linkClass: tab.titleLinkClass,
           itemClass: tab.titleItemClass
         },
         on: {
           click: evt => {
-            t.setTab(index)
+            this.setTab(index)
           }
         }
       })
@@ -104,37 +102,37 @@ export default {
       {
         class: [
           'nav',
-          `nav-${t.navStyle}`,
+          `nav-${this.navStyle}`,
           {
-            [`card-header-${t.navStyle}`]: t.card && !t.vertical,
-            'card-header': t.card && t.vertical,
-            'h-100': t.card && t.vertical,
-            'flex-column': t.vertical,
-            'border-bottom-0': t.vertical,
-            'rounded-0': t.vertical,
-            small: t.small
+            [`card-header-${this.navStyle}`]: this.card && !this.vertical,
+            'card-header': this.card && this.vertical,
+            'h-100': this.card && this.vertical,
+            'flex-column': this.vertical,
+            'border-bottom-0': this.vertical,
+            'rounded-0': this.vertical,
+            small: this.small
           },
-          t.navClass
+          this.navClass
         ],
         attrs: {
           role: 'tablist',
           tabindex: '0',
-          id: t.safeId('_BV_tab_controls_')
+          id: this.safeId('_BV_tab_controls_')
         },
-        on: { keydown: t.onKeynav }
+        on: { keydown: this.onKeynav }
       },
-      [buttons, t.$slots.tabs]
+      [buttons, this.$slots.tabs]
     )
     navs = h(
       'div',
       {
         class: [
           {
-            'card-header': t.card && !t.vertical && !(t.end || t.bottom),
-            'card-footer': t.card && !t.vertical && (t.end || t.bottom),
-            'col-auto': t.vertical
+            'card-header': this.card && !this.vertical && !(this.end || this.bottom),
+            'card-footer': this.card && !this.vertical && (this.end || this.bottom),
+            'col-auto': this.vertical
           },
-          t.navWrapperClass
+          this.navWrapperClass
         ]
       },
       [navs]
@@ -146,8 +144,8 @@ export default {
     } else {
       empty = h(
         'div',
-        { class: ['tab-pane', 'active', { 'card-body': t.card }] },
-        t.$slots.empty
+        { class: ['tab-pane', 'active', { 'card-body': this.card }] },
+        this.$slots.empty
       )
     }
 
@@ -156,26 +154,26 @@ export default {
       'div',
       {
         ref: 'tabsContainer',
-        class: ['tab-content', { col: t.vertical }, t.contentClass],
-        attrs: { id: t.safeId('_BV_tab_container_') }
+        class: ['tab-content', { col: this.vertical }, this.contentClass],
+        attrs: { id: this.safeId('_BV_tab_container_') }
       },
-      [t.$slots.default, empty]
+      [this.$slots.default, empty]
     )
 
     // Render final output
     return h(
-      t.tag,
+      this.tag,
       {
         class: [
           'tabs',
-          { row: t.vertical, 'no-gutters': t.vertical && t.card }
+          { row: this.vertical, 'no-gutters': this.vertical && this.card }
         ],
-        attrs: { id: t.safeId() }
+        attrs: { id: this.safeId() }
       },
       [
-        t.end || t.bottom ? content : h(false),
+        this.end || this.bottom ? content : h(false),
         [navs],
-        t.end || t.bottom ? h(false) : content
+        this.end || this.bottom ? h(false) : content
       ]
     )
   },

@@ -7,40 +7,38 @@ import { from as arrayFrom } from '../../utils/array'
 export default {
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
   render (h) {
-    const t = this
-
     // Form Input
     const input = h('input', {
       ref: 'input',
       class: [
         {
-          'form-control-file': t.plain,
-          'custom-file-input': t.custom,
-          focus: t.custom && t.hasFocus
+          'form-control-file': this.plain,
+          'custom-file-input': this.custom,
+          focus: this.custom && this.hasFocus
         },
-        t.stateClass
+        this.stateClass
       ],
       attrs: {
         type: 'file',
-        id: t.safeId(),
-        name: t.name,
-        disabled: t.disabled,
-        required: t.required,
-        capture: t.capture || null,
-        accept: t.accept || null,
-        multiple: t.multiple,
-        webkitdirectory: t.directory,
-        'aria-required': t.required ? 'true' : null,
-        'aria-describedby': t.plain ? null : t.safeId('_BV_file_control_')
+        id: this.safeId(),
+        name: this.name,
+        disabled: this.disabled,
+        required: this.required,
+        capture: this.capture || null,
+        accept: this.accept || null,
+        multiple: this.multiple,
+        webkitdirectory: this.directory,
+        'aria-required': this.required ? 'true' : null,
+        'aria-describedby': this.plain ? null : this.safeId('_BV_file_control_')
       },
       on: {
-        change: t.onFileChange,
-        focusin: t.focusHandler,
-        focusout: t.focusHandler
+        change: this.onFileChange,
+        focusin: this.focusHandler,
+        focusout: this.focusHandler
       }
     })
 
-    if (t.plain) {
+    if (this.plain) {
       return input
     }
 
@@ -48,21 +46,21 @@ export default {
     const label = h(
       'label',
       {
-        class: ['custom-file-label', t.dragging ? 'dragging' : null],
+        class: ['custom-file-label', this.dragging ? 'dragging' : null],
         attrs: {
-          id: t.safeId('_BV_file_control_')
+          id: this.safeId('_BV_file_control_')
         }
       },
-      t.selectLabel
+      this.selectLabel
     )
 
     // Return rendered custom file input
     return h(
       'div',
       {
-        class: ['custom-file', 'b-form-file', t.stateClass],
-        attrs: { id: t.safeId('_BV_file_outer_') },
-        on: { dragover: t.dragover }
+        class: ['custom-file', 'b-form-file', this.stateClass],
+        attrs: { id: this.safeId('_BV_file_outer_') },
+        on: { dragover: this.dragover }
       },
       [input, label]
     )

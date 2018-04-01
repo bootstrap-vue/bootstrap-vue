@@ -69,18 +69,17 @@ function processField (key, value) {
 export default {
   mixins: [idMixin, listenOnRootMixin],
   render (h) {
-    const t = this
-    const $slots = t.$slots
-    const $scoped = t.$scopedSlots
-    const fields = t.computedFields
-    const items = t.computedItems
+    const $slots = this.$slots
+    const $scoped = this.$scopedSlots
+    const fields = this.computedFields
+    const items = this.computedItems
 
     // Build the caption
     let caption = h(false)
-    if (t.caption || $slots['table-caption']) {
-      const data = { style: t.captionStyles }
+    if (this.caption || $slots['table-caption']) {
+      const data = { style: this.captionStyles }
       if (!$slots['table-caption']) {
-        data.domProps = { innerHTML: t.caption }
+        data.domProps = { innerHTML: this.caption }
       }
       caption = h('caption', data, $slots['table-caption'])
     }
@@ -95,7 +94,7 @@ export default {
       return fields.map((field, colIndex) => {
         const data = {
           key: field.key,
-          class: t.fieldClasses(field),
+          class: this.fieldClasses(field),
           style: field.thStyle || {},
           attrs: {
             tabindex: field.sortable ? '0' : null,
@@ -103,27 +102,27 @@ export default {
             title: field.headerTitle || null,
             'aria-colindex': String(colIndex + 1),
             'aria-label': field.sortable
-              ? t.localSortDesc && t.localSortBy === field.key
-                ? t.labelSortAsc
-                : t.labelSortDesc
+              ? this.localSortDesc && this.localSortBy === field.key
+                ? this.labelSortAsc
+                : this.labelSortDesc
               : null,
             'aria-sort':
-              field.sortable && t.localSortBy === field.key
-                ? t.localSortDesc ? 'descending' : 'ascending'
+              field.sortable && this.localSortBy === field.key
+                ? this.localSortDesc ? 'descending' : 'ascending'
                 : null
           },
           on: {
             click: evt => {
               evt.stopPropagation()
               evt.preventDefault()
-              t.headClicked(evt, field)
+              this.headClicked(evt, field)
             },
             keydown: evt => {
               const keyCode = evt.keyCode
               if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
                 evt.stopPropagation()
                 evt.preventDefault()
-                t.headClicked(evt, field)
+                this.headClicked(evt, field)
               }
             }
           }
@@ -143,19 +142,19 @@ export default {
 
     // Build the thead
     let thead = h(false)
-    if (t.isStacked !== true) {
-      // If in always stacked mode (t.isStacked === true), then we don't bother rendering the thead
-      thead = h('thead', { class: t.headClasses }, [
-        h('tr', { class: t.theadTrClass }, makeHeadCells(false))
+    if (this.isStacked !== true) {
+      // If in always stacked mode (this.isStacked === true), then we don't bother rendering the thead
+      thead = h('thead', { class: this.headClasses }, [
+        h('tr', { class: this.theadTrClass }, makeHeadCells(false))
       ])
     }
 
     // Build the tfoot
     let tfoot = h(false)
-    if (t.footClone && t.isStacked !== true) {
-      // If in always stacked mode (t.isStacked === true), then we don't bother rendering the tfoot
-      tfoot = h('tfoot', { class: t.footClasses }, [
-        h('tr', { class: t.tfootTrClass }, makeHeadCells(true))
+    if (this.footClone && this.isStacked !== true) {
+      // If in always stacked mode (this.isStacked === true), then we don't bother rendering the tfoot
+      tfoot = h('tfoot', { class: this.footClasses }, [
+        h('tr', { class: this.tfootTrClass }, makeHeadCells(true))
       ])
     }
 
@@ -164,11 +163,11 @@ export default {
 
     // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
     // If in always stacked mode, we don't bother rendering the row
-    if ($scoped['top-row'] && t.isStacked !== true) {
+    if ($scoped['top-row'] && this.isStacked !== true) {
       rows.push(
         h(
           'tr',
-          { key: 'top-row', class: ['b-table-top-row', t.tbodyTrClass] },
+          { key: 'top-row', class: ['b-table-top-row', this.tbodyTrClass] },
           [$scoped['top-row']({ columns: fields.length, fields: fields })]
         )
       )
@@ -181,18 +180,18 @@ export default {
       const detailsSlot = $scoped['row-details']
       const rowShowDetails = Boolean(item._showDetails && detailsSlot)
       const detailsId = rowShowDetails
-        ? t.safeId(`_details_${rowIndex}_`)
+        ? this.safeId(`_details_${rowIndex}_`)
         : null
       const toggleDetailsFn = () => {
         if (detailsSlot) {
-          t.$set(item, '_showDetails', !item._showDetails)
+          this.$set(item, '_showDetails', !item._showDetails)
         }
       }
       // For each item data field in row
       const tds = fields.map((field, colIndex) => {
         const data = {
           key: `row-${rowIndex}-cell-${colIndex}`,
-          class: t.tdClasses(field, item),
+          class: this.tdClasses(field, item),
           attrs: field.tdAttr || {},
           domProps: {}
         }
@@ -205,18 +204,18 @@ export default {
               index: rowIndex,
               field: field,
               unformatted: get(item, field.key),
-              value: t.getFormattedValue(item, field),
+              value: this.getFormattedValue(item, field),
               toggleDetails: toggleDetailsFn,
               detailsShowing: Boolean(item._showDetails)
             })
           ]
-          if (t.isStacked) {
+          if (this.isStacked) {
             // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
             childNodes = [h('div', {}, [childNodes])]
           }
         } else {
-          const formatted = t.getFormattedValue(item, field)
-          if (t.isStacked) {
+          const formatted = this.getFormattedValue(item, field)
+          if (this.isStacked) {
             // We innerHTML a DIV to ensure rendered as a single cell when visually stacked!
             childNodes = [h('div', formatted)]
           } else {
@@ -224,7 +223,7 @@ export default {
             childNodes = formatted
           }
         }
-        if (t.isStacked) {
+        if (this.isStacked) {
           // Generate the "header cell" label content in stacked mode
           data.attrs['data-label'] = field.label
           if (field.isRowHeader) {
@@ -238,8 +237,8 @@ export default {
       })
       // Calculate the row number in the dataset (indexed from 1)
       let ariaRowIndex = null
-      if (t.currentPage && t.perPage && t.perPage > 0) {
-        ariaRowIndex = (t.currentPage - 1) * t.perPage + rowIndex + 1
+      if (this.currentPage && this.perPage && this.perPage > 0) {
+        ariaRowIndex = (this.currentPage - 1) * this.perPage + rowIndex + 1
       }
       // Assemble and add the row
       rows.push(
@@ -248,23 +247,23 @@ export default {
           {
             key: `row-${rowIndex}`,
             class: [
-              t.rowClasses(item),
+              this.rowClasses(item),
               { 'b-table-has-details': rowShowDetails }
             ],
             attrs: {
               'aria-describedby': detailsId,
               'aria-rowindex': ariaRowIndex,
-              role: t.isStacked ? 'row' : null
+              role: this.isStacked ? 'row' : null
             },
             on: {
               click: evt => {
-                t.rowClicked(evt, item, rowIndex)
+                this.rowClicked(evt, item, rowIndex)
               },
               dblclick: evt => {
-                t.rowDblClicked(evt, item, rowIndex)
+                this.rowDblClicked(evt, item, rowIndex)
               },
               mouseenter: evt => {
-                t.rowHovered(evt, item, rowIndex)
+                this.rowHovered(evt, item, rowIndex)
               }
             }
           },
@@ -275,7 +274,7 @@ export default {
       if (rowShowDetails) {
         const tdAttrs = { colspan: String(fields.length) }
         const trAttrs = { id: detailsId }
-        if (t.isStacked) {
+        if (this.isStacked) {
           tdAttrs['role'] = 'cell'
           trAttrs['role'] = 'row'
         }
@@ -292,7 +291,7 @@ export default {
             'tr',
             {
               key: `details-${rowIndex}`,
-              class: ['b-table-details', t.tbodyTrClass],
+              class: ['b-table-details', this.tbodyTrClass],
               attrs: trAttrs
             },
             [details]
@@ -305,12 +304,12 @@ export default {
     })
 
     // Empty Items / Empty Filtered Row slot
-    if (t.showEmpty && (!items || items.length === 0)) {
-      let empty = t.filter ? $slots['emptyfiltered'] : $slots['empty']
+    if (this.showEmpty && (!items || items.length === 0)) {
+      let empty = this.filter ? $slots['emptyfiltered'] : $slots['empty']
       if (!empty) {
         empty = h('div', {
           class: ['text-center', 'my-2'],
-          domProps: { innerHTML: t.filter ? t.emptyFilteredText : t.emptyText }
+          domProps: { innerHTML: this.filter ? this.emptyFilteredText : this.emptyText }
         })
       }
       empty = h(
@@ -318,7 +317,7 @@ export default {
         {
           attrs: {
             colspan: String(fields.length),
-            role: t.isStacked ? 'cell' : null
+            role: this.isStacked ? 'cell' : null
           }
         },
         [h('div', { attrs: { role: 'alert', 'aria-live': 'polite' } }, [empty])]
@@ -328,8 +327,8 @@ export default {
           'tr',
           {
             key: 'empty-row',
-            class: ['b-table-empty-row', t.tbodyTrClass],
-            attrs: t.isStacked ? { role: 'row' } : {}
+            class: ['b-table-empty-row', this.tbodyTrClass],
+            attrs: this.isStacked ? { role: 'row' } : {}
           },
           [empty]
         )
@@ -340,11 +339,11 @@ export default {
 
     // Static bottom row slot (hidden in visibly stacked mode as we can't control the data-label)
     // If in always stacked mode, we don't bother rendering the row
-    if ($scoped['bottom-row'] && t.isStacked !== true) {
+    if ($scoped['bottom-row'] && this.isStacked !== true) {
       rows.push(
         h(
           'tr',
-          { key: 'bottom-row', class: ['b-table-bottom-row', t.tbodyTrClass] },
+          { key: 'bottom-row', class: ['b-table-bottom-row', this.tbodyTrClass] },
           [$scoped['bottom-row']({ columns: fields.length, fields: fields })]
         )
       )
@@ -355,7 +354,7 @@ export default {
     // Assemble the rows into the tbody
     const tbody = h(
       'tbody',
-      { class: t.bodyClasses, attrs: t.isStacked ? { role: 'rowgroup' } : {} },
+      { class: this.bodyClasses, attrs: this.isStacked ? { role: 'rowgroup' } : {} },
       rows
     )
 
@@ -363,14 +362,14 @@ export default {
     const table = h(
       'table',
       {
-        class: t.tableClasses,
+        class: this.tableClasses,
         attrs: {
-          id: t.safeId(),
-          role: t.isStacked ? 'table' : null,
-          'aria-busy': t.computedBusy ? 'true' : 'false',
+          id: this.safeId(),
+          role: this.isStacked ? 'table' : null,
+          'aria-busy': this.computedBusy ? 'true' : 'false',
           'aria-colcount': String(fields.length),
           'aria-rowcount':
-            t.$attrs['aria-rowcount'] || (t.perPage && t.perPage > 0)
+            this.$attrs['aria-rowcount'] || (this.perPage && this.perPage > 0)
               ? '-1'
               : null
         }
@@ -379,8 +378,8 @@ export default {
     )
 
     // Add responsive wrapper if needed and return table
-    return t.isResponsive
-      ? h('div', { class: t.responsiveClass }, [table])
+    return this.isResponsive
+      ? h('div', { class: this.responsiveClass }, [table])
       : table
   },
   data () {

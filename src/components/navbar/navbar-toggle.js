@@ -3,20 +3,19 @@ import listenOnRootMixin from '../../mixins/listen-on-root'
 export default {
   mixins: [listenOnRootMixin],
   render (h) {
-    const t = this
     return h(
       'button',
       {
         class: ['navbar-toggler'],
         attrs: {
           type: 'button',
-          'aria-label': t.label,
-          'aria-controls': t.target,
-          'aria-expanded': t.toggleState ? 'true' : 'false'
+          'aria-label': this.label,
+          'aria-controls': this.target,
+          'aria-expanded': this.toggleState ? 'true' : 'false'
         },
-        on: { click: t.onClick }
+        on: { click: this.onClick }
       },
-      [t.$slots.default || h('span', { class: ['navbar-toggler-icon'] })]
+      [this.$slots.default || h('span', { class: ['navbar-toggler-icon'] })]
     )
   },
   data () {

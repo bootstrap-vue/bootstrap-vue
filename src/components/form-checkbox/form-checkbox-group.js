@@ -18,19 +18,18 @@ export default {
   ],
   components: { bFormCheckbox },
   render (h) {
-    const t = this
-    const $slots = t.$slots
+    const $slots = this.$slots
 
-    const checks = t.formOptions.map((option, idx) => {
+    const checks = this.formOptions.map((option, idx) => {
       return h(
         'b-form-checkbox',
         {
           key: `check_${idx}_opt`,
           props: {
-            id: t.safeId(`_BV_check_${idx}_opt_`),
-            name: t.name,
+            id: this.safeId(`_BV_check_${idx}_opt_`),
+            name: this.name,
             value: option.value,
-            required: t.name && t.required,
+            required: this.name && this.required,
             disabled: option.disabled
           }
         },
@@ -40,13 +39,13 @@ export default {
     return h(
       'div',
       {
-        class: t.groupClasses,
+        class: this.groupClasses,
         attrs: {
-          id: t.safeId(),
+          id: this.safeId(),
           role: 'group',
           tabindex: '-1',
-          'aria-required': t.required ? 'true' : null,
-          'aria-invalid': t.computedAriaInvalid
+          'aria-required': this.required ? 'true' : null,
+          'aria-invalid': this.computedAriaInvalid
         }
       },
       [$slots.first, checks, $slots.default]
@@ -101,31 +100,29 @@ export default {
   },
   computed: {
     groupClasses () {
-      const t = this
-      if (t.buttons) {
+      if (this.buttons) {
         return [
           'btn-group-toggle',
-          t.stacked ? 'btn-group-vertical' : 'btn-group',
-          t.size ? `btn-group-${this.size}` : '',
-          t.validated ? `was-validated` : ''
+          this.stacked ? 'btn-group-vertical' : 'btn-group',
+          this.size ? `btn-group-${this.size}` : '',
+          this.validated ? `was-validated` : ''
         ]
       }
       return [
-        t.sizeFormClass,
-        t.stacked && t.custom ? 'custom-controls-stacked' : '',
-        t.validated ? `was-validated` : ''
+        this.sizeFormClass,
+        this.stacked && this.custom ? 'custom-controls-stacked' : '',
+        this.validated ? `was-validated` : ''
       ]
     },
     computedAriaInvalid () {
-      const t = this
       if (
-        t.ariaInvalid === true ||
-        t.ariaInvalid === 'true' ||
-        t.ariaInvalid === ''
+        this.ariaInvalid === true ||
+        this.ariaInvalid === 'true' ||
+        this.ariaInvalid === ''
       ) {
         return 'true'
       }
-      return t.get_State === false ? 'true' : null
+      return this.get_State === false ? 'true' : null
     },
     get_State () {
       // Child radios sniff this value

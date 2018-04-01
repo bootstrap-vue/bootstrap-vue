@@ -6,36 +6,35 @@ import formStateMixin from '../../mixins/form-state'
 export default {
   mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
   render (h) {
-    const t = this
     return h('textarea', {
       ref: 'input',
-      class: t.inputClass,
-      style: t.inputStyle,
+      class: this.inputClass,
+      style: this.inputStyle,
       directives: [
         {
           name: 'model',
           rawName: 'v-model',
-          value: t.localValue,
+          value: this.localValue,
           expression: 'localValue'
         }
       ],
-      domProps: { value: t.value },
+      domProps: { value: this.value },
       attrs: {
-        id: t.safeId(),
-        name: t.name,
-        disabled: t.disabled,
-        placeholder: t.placeholder,
-        required: t.required,
-        autocomplete: t.autocomplete || null,
-        readonly: t.readonly || t.plaintext,
-        rows: t.rowsCount,
-        wrap: t.wrap || null,
-        'aria-required': t.required ? 'true' : null,
-        'aria-invalid': t.computedAriaInvalid
+        id: this.safeId(),
+        name: this.name,
+        disabled: this.disabled,
+        placeholder: this.placeholder,
+        required: this.required,
+        autocomplete: this.autocomplete || null,
+        readonly: this.readonly || this.plaintext,
+        rows: this.rowsCount,
+        wrap: this.wrap || null,
+        'aria-required': this.required ? 'true' : null,
+        'aria-invalid': this.computedAriaInvalid
       },
       on: {
         input: function (evt) {
-          t.localValue = evt.target.value
+          this.localValue = evt.target.value
         }
       }
     })

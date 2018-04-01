@@ -3,24 +3,23 @@ import idMixin from '../../mixins/id'
 export default {
   mixins: [idMixin],
   render (h) {
-    const t = this
     let content = h(false)
-    if (t.localActive || !this.computedLazy) {
+    if (this.localActive || !this.computedLazy) {
       content = h(
-        t.tag,
+        this.tag,
         {
           ref: 'panel',
-          class: t.tabClasses,
-          directives: [{ name: 'show', value: t.localActive }],
+          class: this.tabClasses,
+          directives: [{ name: 'show', value: this.localActive }],
           attrs: {
             role: 'tabpanel',
-            id: t.safeId(),
-            'aria-hidden': t.localActive ? 'false' : 'true',
-            'aria-expanded': t.localActive ? 'true' : 'false',
-            'aria-lablelledby': t.controlledBy || null
+            id: this.safeId(),
+            'aria-hidden': this.localActive ? 'false' : 'true',
+            'aria-expanded': this.localActive ? 'true' : 'false',
+            'aria-lablelledby': this.controlledBy || null
           }
         },
-        [t.$slots.default]
+        [this.$slots.default]
       )
     }
     return h(
@@ -28,9 +27,9 @@ export default {
       {
         props: { mode: 'out-in' },
         on: {
-          beforeEnter: t.beforeEnter,
-          afterEnter: t.afterEnter,
-          afterLeave: t.afterLeave
+          beforeEnter: this.beforeEnter,
+          afterEnter: this.afterEnter,
+          afterLeave: this.afterLeave
         }
       },
       [content]

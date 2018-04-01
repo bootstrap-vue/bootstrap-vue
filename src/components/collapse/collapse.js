@@ -10,16 +10,15 @@ const EVENT_TOGGLE = 'bv::toggle::collapse'
 export default {
   mixins: [listenOnRootMixin],
   render (h) {
-    const t = this
     const content = h(
-      t.tag,
+      this.tag,
       {
-        class: t.classObject,
-        directives: [ { name: 'show', value: t.show } ],
-        attrs: { id: t.id || null },
-        on: { click: t.clickHandler }
+        class: this.classObject,
+        directives: [ { name: 'show', value: this.show } ],
+        attrs: { id: this.id || null },
+        on: { click: this.clickHandler }
       },
-      [ t.$slots.default ]
+      [ this.$slots.default ]
     )
     return h(
       'transition',
@@ -33,10 +32,10 @@ export default {
           leaveToClass: ''
         },
         on: {
-          enter: t.onEnter,
-          afterEnter: t.onAfterEnter,
-          leave: t.onLeave,
-          afterLeave: t.onAfterLeave
+          enter: this.onEnter,
+          afterEnter: this.onAfterEnter,
+          leave: this.onLeave,
+          afterLeave: this.onAfterLeave
         }
       },
       [ content ]

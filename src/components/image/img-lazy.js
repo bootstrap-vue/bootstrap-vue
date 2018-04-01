@@ -5,25 +5,24 @@ const THROTTLE = 100
 export default {
   components: { bImg },
   render (h) {
-    const t = this
     return h(
       'b-img',
       {
         props: {
-          src: t.computedSrc,
-          alt: t.alt,
-          blank: t.computedBlank,
-          blankColor: t.blankColor,
-          width: t.computedWidth,
-          height: t.computedHeight,
-          fluid: t.fluid,
-          fluidGrow: t.fluidGrow,
-          block: t.block,
-          thumbnail: t.thumbnail,
-          rounded: t.rounded,
-          left: t.left,
-          right: t.right,
-          center: t.center
+          src: this.computedSrc,
+          alt: this.alt,
+          blank: this.computedBlank,
+          blankColor: this.blankColor,
+          width: this.computedWidth,
+          height: this.computedHeight,
+          fluid: this.fluid,
+          fluidGrow: this.fluidGrow,
+          block: this.block,
+          thumbnail: this.thumbnail,
+          rounded: this.rounded,
+          left: this.left,
+          right: this.right,
+          center: this.center
         }
       }
     )

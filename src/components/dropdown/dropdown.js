@@ -8,71 +8,70 @@ export default {
   mixins: [idMixin, dropdownMixin],
   components: { bButton },
   render (h) {
-    const t = this
     let split = h(false)
-    if (t.split) {
+    if (this.split) {
       split = h(
         'b-button',
         {
           ref: 'button',
           props: {
-            disabled: t.disabled,
-            variant: t.variant,
-            size: t.size
+            disabled: this.disabled,
+            variant: this.variant,
+            size: this.size
           },
           attrs: {
-            id: t.safeId('_BV_button_')
+            id: this.safeId('_BV_button_')
           },
           on: {
-            click: t.click
+            click: this.click
           }
         },
-        [t.$slots['button-content'] || t.$slots.text || t.text]
+        [this.$slots['button-content'] || this.$slots.text || this.text]
       )
     }
     const toggle = h(
       'b-button',
       {
         ref: 'toggle',
-        class: t.toggleClasses,
+        class: this.toggleClasses,
         props: {
-          variant: t.variant,
-          size: t.size,
-          disabled: t.disabled
+          variant: this.variant,
+          size: this.size,
+          disabled: this.disabled
         },
         attrs: {
-          id: t.safeId('_BV_toggle_'),
+          id: this.safeId('_BV_toggle_'),
           'aria-haspopup': 'true',
-          'aria-expanded': t.visible ? 'true' : 'false'
+          'aria-expanded': this.visible ? 'true' : 'false'
         },
         on: {
-          click: t.toggle, // click
-          keydown: t.toggle // enter, space, down
+          click: this.toggle, // click
+          keydown: this.toggle // enter, space, down
         }
       },
       [
-        t.split
-          ? h('span', { class: ['sr-only'] }, [t.toggleText])
-          : t.$slots['button-content'] || t.$slots.text || t.text
+        this.split
+          ? h('span', { class: ['sr-only'] }, [this.toggleText])
+          : this.$slots['button-content'] || this.$slots.text || this.text
       ]
     )
     const menu = h(
       'div',
       {
         ref: 'menu',
-        class: t.menuClasses,
+        class: this.menuClasses,
         attrs: {
-          role: t.role,
-          'aria-labelledby': t.safeId(t.split ? '_BV_toggle_' : '_BV_button_')
+          role: this.role,
+          'aria-labelledby': this.safeId(this.split ? '_BV_toggle_' : '_BV_button_')
         },
         on: {
-          mouseover: t.onMouseOver,
-          keydown: t.onKeydown // tab, up, down, esc
+          mouseover: this.onMouseOver,
+          keydown: this.onKeydown // tab, up, down, esc
         }
       },
       [this.$slots.default]
     )
-    return h('div', { attrs: { id: t.safeId() }, class: t.dropdownClasses }, [
+    return h('div', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [
       split,
       toggle,
       menu

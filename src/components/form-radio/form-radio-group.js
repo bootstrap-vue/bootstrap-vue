@@ -17,19 +17,18 @@ export default {
   ],
   components: { bFormRadio },
   render (h) {
-    const t = this
-    const $slots = t.$slots
+    const $slots = this.$slots
 
-    const radios = t.formOptions.map((option, idx) => {
+    const radios = this.formOptions.map((option, idx) => {
       return h(
         'b-form-radio',
         {
           key: `radio_${idx}_opt`,
           props: {
-            id: t.safeId(`_BV_radio_${idx}_opt_`),
-            name: t.name,
+            id: this.safeId(`_BV_radio_${idx}_opt_`),
+            name: this.name,
             value: option.value,
-            required: Boolean(t.name && t.required),
+            required: Boolean(this.name && this.required),
             disabled: option.disabled
           }
         },
@@ -39,13 +38,13 @@ export default {
     return h(
       'div',
       {
-        class: t.groupClasses,
+        class: this.groupClasses,
         attrs: {
-          id: t.safeId(),
+          id: this.safeId(),
           role: 'radiogroup',
           tabindex: '-1',
-          'aria-required': t.required ? 'true' : null,
-          'aria-invalid': t.computedAriaInvalid
+          'aria-required': this.required ? 'true' : null,
+          'aria-invalid': this.computedAriaInvalid
         }
       },
       [$slots.first, radios, $slots.default]

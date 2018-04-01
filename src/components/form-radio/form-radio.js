@@ -7,71 +7,69 @@ import looseEqual from '../../utils/loose-equal'
 export default {
   mixins: [idMixin, formRadioCheckMixin, formMixin, formStateMixin],
   render (h) {
-    const t = this
-
     const input = h('input', {
       ref: 'radio',
       class: [
-        t.is_ButtonMode
+        this.is_ButtonMode
           ? ''
-          : t.is_Plain ? 'form-check-input' : 'custom-control-input',
-        t.get_StateClass
+          : this.is_Plain ? 'form-check-input' : 'custom-control-input',
+        this.get_StateClass
       ],
       directives: [
         {
           name: 'model',
           rawName: 'v-model',
-          value: t.computedLocalChecked,
+          value: this.computedLocalChecked,
           expression: 'computedLocalChecked'
         }
       ],
       attrs: {
-        id: t.safeId(),
+        id: this.safeId(),
         type: 'radio',
-        name: t.get_Name,
-        required: t.get_Name && t.is_Required,
-        disabled: t.is_Disabled,
+        name: this.get_Name,
+        required: this.get_Name && this.is_Required,
+        disabled: this.is_Disabled,
         autocomplete: 'off'
       },
       domProps: {
-        value: t.value,
-        checked: looseEqual(t.computedLocalChecked, t.value)
+        value: this.value,
+        checked: looseEqual(this.computedLocalChecked, this.value)
       },
       on: {
-        focus: t.handleFocus,
-        blur: t.handleFocus,
-        change: t.emitChange,
+        focus: this.handleFocus,
+        blur: this.handleFocus,
+        change: this.emitChange,
         __c: evt => {
-          t.computedLocalChecked = t.value
+          this.computedLocalChecked = this.value
         }
       }
     })
 
     const description = h(
-      t.is_ButtonMode ? 'span' : 'label',
+      this.is_ButtonMode ? 'span' : 'label',
       {
-        class: t.is_ButtonMode
+        class: this.is_ButtonMode
           ? null
-          : t.is_Plain ? 'form-check-label' : 'custom-control-label',
-        attrs: { for: t.is_ButtonMode ? null : t.safeId() }
+          : this.is_Plain ? 'form-check-label' : 'custom-control-label',
+        attrs: { for: this.is_ButtonMode ? null : this.safeId() }
       },
-      [t.$slots.default]
+      [this.$slots.default]
     )
 
-    if (!t.is_ButtonMode) {
+    if (!this.is_ButtonMode) {
       return h(
         'div',
         {
           class: [
-            t.is_Plain ? 'form-check' : t.labelClasses,
-            { 'form-check-inline': t.is_Plain && !t.is_Stacked },
-            { 'custom-control-inline': !t.is_Plain && !t.is_Stacked }
+            this.is_Plain ? 'form-check' : this.labelClasses,
+            { 'form-check-inline': this.is_Plain && !this.is_Stacked },
+            { 'custom-control-inline': !this.is_Plain && !this.is_Stacked }
           ]
         },
         [input, description]
       )
     } else {
-      return h('label', { class: [t.buttonClasses] }, [input, description])
+      return h('label', { class: [this.buttonClasses] }, [input, description])
     }
   },
   watch: {

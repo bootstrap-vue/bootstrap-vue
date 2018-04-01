@@ -11,21 +11,20 @@ const ITEM_SELECTOR = [
 
 export default {
   render (h) {
-    const t = this
     return h(
       'div',
       {
-        class: t.classObject,
+        class: this.classObject,
         attrs: {
           role: 'toolbar',
-          tabindex: t.keyNav ? '0' : null
+          tabindex: this.keyNav ? '0' : null
         },
         on: {
-          focusin: t.onFocusin,
-          keydown: t.onKeydown
+          focusin: this.onFocusin,
+          keydown: this.onKeydown
         }
       },
-      [ t.$slots.default ]
+      [ this.$slots.default ]
     )
   },
   computed: {

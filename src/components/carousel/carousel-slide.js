@@ -6,34 +6,33 @@ export default {
   components: { bImg },
   mixins: [ idMixin ],
   render (h) {
-    const t = this
-    const $slots = t.$slots
+    const $slots = this.$slots
 
     let img = $slots.img
-    if (!img && (t.imgSrc || t.imgBlank)) {
+    if (!img && (this.imgSrc || this.imgBlank)) {
       img = h(
         'b-img',
         {
           props: {
             fluidGrow: true,
             block: true,
-            src: t.imgSrc,
-            blank: t.imgBlank,
-            blankColor: t.imgBlankColor,
-            width: t.computedWidth,
-            height: t.computedHeight,
-            alt: t.imgAlt
+            src: this.imgSrc,
+            blank: this.imgBlank,
+            blankColor: this.imgBlankColor,
+            width: this.computedWidth,
+            height: this.computedHeight,
+            alt: this.imgAlt
           }
         }
       )
     }
 
     const content = h(
-      t.contentTag,
-      { class: t.contentClasses },
+      this.contentTag,
+      { class: this.contentClasses },
       [
-        t.caption ? h(t.captionTag, { domProps: { innerHTML: t.caption } }) : h(false),
-        t.text ? h(t.textTag, { domProps: { innerHTML: t.text } }) : h(false),
+        this.caption ? h(this.captionTag, { domProps: { innerHTML: this.caption } }) : h(false),
+        this.text ? h(this.textTag, { domProps: { innerHTML: this.text } }) : h(false),
         $slots.default
       ]
     )
@@ -42,8 +41,8 @@ export default {
       'div',
       {
         class: [ 'carousel-item' ],
-        style: { background: t.background },
-        attrs: { id: t.safeId(), role: 'listitem' }
+        style: { background: this.background },
+        attrs: { id: this.safeId(), role: 'listitem' }
       },
       [ img, content ]
     )

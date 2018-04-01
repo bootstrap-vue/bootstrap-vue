@@ -40,8 +40,6 @@ function getTransisionEndEvent (el) {
 export default {
   mixins: [ idMixin ],
   render (h) {
-    const t = this
-
     // Wrapper for slides
     const inner = h(
       'div',
@@ -49,67 +47,67 @@ export default {
         ref: 'inner',
         class: [ 'carousel-inner' ],
         attrs: {
-          id: t.safeId('__BV_inner_'),
+          id: this.safeId('__BV_inner_'),
           role: 'list'
         }
       },
-      [ t.$slots.default ]
+      [ this.$slots.default ]
     )
 
     // Prev and Next Controls
     let controls = h(false)
-    if (t.controls) {
+    if (this.controls) {
       controls = [
         h(
           'a',
           {
             class: [ 'carousel-control-prev' ],
-            attrs: { href: '#', role: 'button', 'aria-controls': t.safeId('__BV_inner_') },
+            attrs: { href: '#', role: 'button', 'aria-controls': this.safeId('__BV_inner_') },
             on: {
               click: (evt) => {
                 evt.preventDefault()
                 evt.stopPropagation()
-                t.prev()
+                this.prev()
               },
               keydown: (evt) => {
                 const keyCode = evt.keyCode
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
-                  t.prev()
+                  this.prev()
                 }
               }
             }
           },
           [
             h('span', { class: [ 'carousel-control-prev-icon' ], attrs: { 'aria-hidden': 'true' } }),
-            h('span', { class: [ 'sr-only' ] }, [ t.labelPrev ])
+            h('span', { class: [ 'sr-only' ] }, [ this.labelPrev ])
           ]
         ),
         h(
           'a',
           {
             class: [ 'carousel-control-next' ],
-            attrs: { href: '#', role: 'button', 'aria-controls': t.safeId('__BV_inner_') },
+            attrs: { href: '#', role: 'button', 'aria-controls': this.safeId('__BV_inner_') },
             on: {
               click: (evt) => {
                 evt.preventDefault()
                 evt.stopPropagation()
-                t.next()
+                this.next()
               },
               keydown: (evt) => {
                 const keyCode = evt.keyCode
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
-                  t.next()
+                  this.next()
                 }
               }
             }
           },
           [
             h('span', { class: [ 'carousel-control-next-icon' ], attrs: { 'aria-hidden': 'true' } }),
-            h('span', { class: [ 'sr-only' ] }, [ t.labelNext ])
+            h('span', { class: [ 'sr-only' ] }, [ this.labelNext ])
           ]
         )
       ]
@@ -121,40 +119,40 @@ export default {
       {
         class: [ 'carousel-indicators' ],
         directives: [
-          { name: 'show', rawName: 'v-show', value: t.indicators, expression: 'indicators' }
+          { name: 'show', rawName: 'v-show', value: this.indicators, expression: 'indicators' }
         ],
         attrs: {
-          id: t.safeId('__BV_indicators_'),
-          'aria-hidden': t.indicators ? 'false' : 'true',
-          'aria-label': t.labelIndicators,
-          'aria-owns': t.safeId('__BV_inner_')
+          id: this.safeId('__BV_indicators_'),
+          'aria-hidden': this.indicators ? 'false' : 'true',
+          'aria-label': this.labelIndicators,
+          'aria-owns': this.safeId('__BV_inner_')
         }
       },
-      t.slides.map((slide, n) => {
+      this.slides.map((slide, n) => {
         return h(
           'li',
           {
             key: `slide_${n}`,
-            class: { active: n === t.index },
+            class: { active: n === this.index },
             attrs: {
               role: 'button',
-              id: t.safeId(`__BV_indicator_${n + 1}_`),
-              tabindex: t.indicators ? '0' : '-1',
-              'aria-current': n === t.index ? 'true' : 'false',
-              'aria-label': `${t.labelGotoSlide} ${n + 1}`,
-              'aria-describedby': t.slides[n].id || null,
-              'aria-controls': t.safeId('__BV_inner_')
+              id: this.safeId(`__BV_indicator_${n + 1}_`),
+              tabindex: this.indicators ? '0' : '-1',
+              'aria-current': n === this.index ? 'true' : 'false',
+              'aria-label': `${this.labelGotoSlide} ${n + 1}`,
+              'aria-describedby': this.slides[n].id || null,
+              'aria-controls': this.safeId('__BV_inner_')
             },
             on: {
               click: (evt) => {
-                t.setSlide(n)
+                this.setSlide(n)
               },
               keydown: (evt) => {
                 const keyCode = evt.keyCode
                 if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
                   evt.preventDefault()
                   evt.stopPropagation()
-                  t.setSlide(n)
+                  this.setSlide(n)
                 }
               }
             }
@@ -168,17 +166,17 @@ export default {
       'div',
       {
         class: [ 'carousel', 'slide' ],
-        style: { background: t.background },
+        style: { background: this.background },
         attrs: {
           role: 'region',
-          id: t.safeId(),
-          'aria-busy': t.isSliding ? 'true' : 'false'
+          id: this.safeId(),
+          'aria-busy': this.isSliding ? 'true' : 'false'
         },
         on: {
-          mouseenter: t.pause,
-          mouseleave: t.restart,
-          focusin: t.pause,
-          focusout: t.restart,
+          mouseenter: this.pause,
+          mouseleave: this.restart,
+          focusin: this.pause,
+          focusout: this.restart,
           keydown: (evt) => {
             const keyCode = evt.keyCode
             if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {

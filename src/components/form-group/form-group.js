@@ -14,32 +14,31 @@ export default {
   mixins: [ idMixin, formStateMixin ],
   components: { bFormRow, bFormText, bFormInvalidFeedback, bFormValidFeedback },
   render (h) {
-    const t = this
-    const $slots = t.$slots
+    const $slots = this.$slots
 
     // Label / Legend
     let legend = h(false)
-    if (t.hasLabel) {
+    if (this.hasLabel) {
       let children = $slots['label']
-      const legendTag = t.labelFor ? 'label' : 'legend'
-      const legendDomProps = children ? {} : { innerHTML: t.label }
-      const legendAttrs = { id: t.labelId, for: t.labelFor || null }
-      const legendClick = (t.labelFor || t.labelSrOnly) ? {} : { click: t.legendClick }
-      if (t.horizontal) {
+      const legendTag = this.labelFor ? 'label' : 'legend'
+      const legendDomProps = children ? {} : { innerHTML: this.label }
+      const legendAttrs = { id: this.labelId, for: this.labelFor || null }
+      const legendClick = (this.labelFor || this.labelSrOnly) ? {} : { click: this.legendClick }
+      if (this.horizontal) {
         // Horizontal layout with label
-        if (t.labelSrOnly) {
+        if (this.labelSrOnly) {
           // SR Only we wrap label/legend in a div to preserve layout
           children = h(
             legendTag,
             { class: [ 'sr-only' ], attrs: legendAttrs, domProps: legendDomProps },
             children
           )
-          legend = h('div', { class: t.labelLayoutClasses }, [ children ])
+          legend = h('div', { class: this.labelLayoutClasses }, [ children ])
         } else {
           legend = h(
             legendTag,
             {
-              class: [ t.labelLayoutClasses, t.labelClasses ],
+              class: [ this.labelLayoutClasses, this.labelClasses ],
               attrs: legendAttrs,
               domProps: legendDomProps,
               on: legendClick
@@ -52,7 +51,7 @@ export default {
         legend = h(
           legendTag,
           {
-            class: t.labelSrOnly ? [ 'sr-only' ] : t.labelClasses,
+            class: this.labelSrOnly ? [ 'sr-only' ] : this.labelClasses,
             attrs: legendAttrs,
             domProps: legendDomProps,
             on: legendClick
@@ -60,24 +59,24 @@ export default {
           children
         )
       }
-    } else if (t.horizontal) {
+    } else if (this.horizontal) {
       // No label but has horizontal layout, so we need a spacer element for layout
-      legend = h('div', { class: t.labelLayoutClasses })
+      legend = h('div', { class: this.labelLayoutClasses })
     }
 
     // Invalid feeback text (explicitly hidden if state is valid)
     let invalidFeedback = h(false)
-    if (t.hasInvalidFeedback) {
+    if (this.hasInvalidFeedback) {
       let domProps = {}
       if (!$slots['invalid-feedback'] && !$slots['feedback']) {
-        domProps = { innerHTML: t.invalidFeedback || t.feedback || '' }
+        domProps = { innerHTML: this.invalidFeedback || this.feedback || '' }
       }
       invalidFeedback = h(
         'b-form-invalid-feedback',
         {
           props: {
-            id: t.invalidFeedbackId,
-            forceShow: t.computedState === false
+            id: this.invalidFeedbackId,
+            forceShow: this.computedState === false
           },
           attrs: {
             role: 'alert',
@@ -92,14 +91,14 @@ export default {
 
     // Valid feeback text (explicitly hidden if state is invalid)
     let validFeedback = h(false)
-    if (t.hasValidFeedback) {
-      const domProps = $slots['valid-feedback'] ? {} : { innerHTML: t.validFeedback || '' }
+    if (this.hasValidFeedback) {
+      const domProps = $slots['valid-feedback'] ? {} : { innerHTML: this.validFeedback || '' }
       validFeedback = h(
         'b-form-valid-feedback',
         {
           props: {
-            id: t.validFeedbackId,
-            forceShow: t.computedState === true
+            id: this.validFeedbackId,
+            forceShow: this.computedState === true
           },
           attrs: {
             role: 'alert',
@@ -114,11 +113,11 @@ export default {
 
     // Form help text (description)
     let description = h(false)
-    if (t.hasDescription) {
-      const domProps = $slots['description'] ? {} : { innerHTML: t.description || '' }
+    if (this.hasDescription) {
+      const domProps = $slots['description'] ? {} : { innerHTML: this.description || '' }
       description = h(
         'b-form-text',
-        { attrs: { id: t.descriptionId }, domProps: domProps },
+        { attrs: { id: this.descriptionId }, domProps: domProps },
         $slots['description']
       )
     }
@@ -128,27 +127,27 @@ export default {
       'div',
       {
         ref: 'content',
-        class: t.inputLayoutClasses,
-        attrs: t.labelFor ? {} : { role: 'group', 'aria-labelledby': t.labelId }
+        class: this.inputLayoutClasses,
+        attrs: this.labelFor ? {} : { role: 'group', 'aria-labelledby': this.labelId }
       },
       [ $slots['default'], invalidFeedback, validFeedback, description ]
     )
 
     // Generate main form-group wrapper
     return h(
-      t.labelFor ? 'div' : 'fieldset',
+      this.labelFor ? 'div' : 'fieldset',
       {
-        class: t.groupClasses,
+        class: this.groupClasses,
         attrs: {
-          id: t.safeId(),
-          disabled: t.disabled,
+          id: this.safeId(),
+          disabled: this.disabled,
           role: 'group',
-          'aria-invalid': t.computedState === false ? 'true' : null,
-          'aria-labelledby': t.labelId,
-          'aria-describedby': t.labelFor ? null : t.describedByIds
+          'aria-invalid': this.computedState === false ? 'true' : null,
+          'aria-labelledby': this.labelId,
+          'aria-describedby': this.labelFor ? null : this.describedByIds
         }
       },
-      t.horizontal ? [ h('b-form-row', {}, [ legend, content ]) ] : [ legend, content ]
+      this.horizontal ? [ h('b-form-row', {}, [ legend, content ]) ] : [ legend, content ]
     )
   },
   props: {
