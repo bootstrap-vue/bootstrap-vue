@@ -69,6 +69,8 @@ jobs:
   docs:
     <<: *defaults
     steps:
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Publish Docs
           command: |
@@ -100,7 +102,7 @@ workflows:
 
       - docs:
           requires:
-            - build
+            - setup
           filters:
             branches:
               only:
