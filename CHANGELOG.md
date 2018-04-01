@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.3"></a>
+# [2.0.0-rc.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.2...v2.0.0-rc.3) (2018-04-01)
+
+
+### Bug Fixes
+
+* **contributing:** Improve the commit guidelines ([c506280](https://github.com/bootstrap-vue/bootstrap-vue/commit/c506280))
+* **modal:** Correct the internal btn variable names ([301f2e4](https://github.com/bootstrap-vue/bootstrap-vue/commit/301f2e4)), closes [#1650](https://github.com/bootstrap-vue/bootstrap-vue/issues/1650)
+* **select:** Fix issues with form-select ([#1673](https://github.com/bootstrap-vue/bootstrap-vue/issues/1673)) ([e3336c5](https://github.com/bootstrap-vue/bootstrap-vue/commit/e3336c5)), closes [#1658](https://github.com/bootstrap-vue/bootstrap-vue/issues/1658)
+* **table:** import lodash.get from "dependencies" ([#1697](https://github.com/bootstrap-vue/bootstrap-vue/issues/1697)) ([4d620a5](https://github.com/bootstrap-vue/bootstrap-vue/commit/4d620a5))
+
+
+### Features
+
+* **dropdown, nav-item-dropdown:** support menuClass and extraMenuClasses ([#1683](https://github.com/bootstrap-vue/bootstrap-vue/issues/1683)) ([3da5f18](https://github.com/bootstrap-vue/bootstrap-vue/commit/3da5f18))
+* **modal:** add `modalClass` property to `bModal` ([#1682](https://github.com/bootstrap-vue/bootstrap-vue/issues/1682)) ([c7a10ef](https://github.com/bootstrap-vue/bootstrap-vue/commit/c7a10ef))
+* **table:** add field to the table column data cell slots ([#1705](https://github.com/bootstrap-vue/bootstrap-vue/issues/1705)) ([e013d59](https://github.com/bootstrap-vue/bootstrap-vue/commit/e013d59))
+
+
+### Performance Improvements
+
+* **docs:** lodash dependency ([a02f10d](https://github.com/bootstrap-vue/bootstrap-vue/commit/a02f10d))
+
+
+
 <a name="2.0.0-rc.2"></a>
 # [2.0.0-rc.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.1...v2.0.0-rc.2) (2018-03-06)
 
