@@ -120,8 +120,7 @@
       ".*\\.(vue)$": "vue-jest",
       ".*\\.(css)$": "jest-css-modules"
     },
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "coverageDirectory": "./coverage/"
   },
   "keywords": [
     "Bootstrap",

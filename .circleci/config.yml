@@ -33,7 +33,7 @@ jobs:
       # Test
       - run:
           name: Tests
-          command: yarn test -- --maxWorkers=2 && yarn codecov
+          command: yarn test -- --maxWorkers=2 --coverage && yarn codecov
 
       # Publish Docs
       - deploy:
