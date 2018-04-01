@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.4"></a>
+# [2.0.0-rc.4](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.3...v2.0.0-rc.4) (2018-04-01)
+
+
+### Bug Fixes
+
+* **build:** don't exclude lodash.get ([543c3c2](https://github.com/bootstrap-vue/bootstrap-vue/commit/543c3c2))
+* **card:** pass children instead of default prop to sub-components ([63b35e3](https://github.com/bootstrap-vue/bootstrap-vue/commit/63b35e3))
+
+
+### Features
+
+* **test:** test against multi versions of vue ([25d0b13](https://github.com/bootstrap-vue/bootstrap-vue/commit/25d0b13))
+
+
+### Performance Improvements
+
+* **docs:** only import debounce from lodash ([a6abd6d](https://github.com/bootstrap-vue/bootstrap-vue/commit/a6abd6d))
+
+
+
 <a name="2.0.0-rc.3"></a>
 # [2.0.0-rc.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.2...v2.0.0-rc.3) (2018-04-01)
 
