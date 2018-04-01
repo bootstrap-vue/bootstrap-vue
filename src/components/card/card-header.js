@@ -23,7 +23,7 @@ export const props = assign(
 export default {
   functional: true,
   props,
-  render (h, { props, data, slots }) {
+  render (h, { props, data, slots, children }) {
     return h(
       props.headerTag,
       mergeData(data, {
@@ -41,7 +41,7 @@ export default {
           }
         ]
       }),
-      slots().default || [h('div', { domProps: { innerHTML: props.header } })]
+      children || [h('div', { domProps: { innerHTML: props.header } })]
     )
   }
 }
