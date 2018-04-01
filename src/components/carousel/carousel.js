@@ -182,7 +182,7 @@ export default {
             if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
               evt.preventDefault()
               evt.stopPropagation()
-              t[keyCode === KeyCodes.LEFT ? 'prev' : 'next']()
+              this[keyCode === KeyCodes.LEFT ? 'prev' : 'next']()
             }
           }
         }
