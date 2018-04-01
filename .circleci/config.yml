@@ -24,51 +24,55 @@ jobs:
           paths:
             - bootstrap-vue
 
-    lint:
-      <<: *defaults
-      steps:
-        - run:
-            name: Lint
-            command: yarn lint
+  lint:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+        at: ~/project
+      - run:
+          name: Lint
+          command: yarn lint
 
-    build:
-      <<: *defaults
-      steps:
-        - run:
-            name: Build
-            command: yarn build
+  build:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+        at: ~/project
+      - run:
+          name: Build
+          command: yarn build
 
-    test-latest:
-      <<: *defaults
-      steps:
-        - attach_workspace:
-            at: ~/project
-        - run:
-            name: Test
-            command: yarn test --maxWorkers=2 --coverage && yarn codecov
-      environment:
-          - VUE_VERSION: "latest"
+  test-latest:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Test
+          command: yarn test --maxWorkers=2 --coverage && yarn codecov
+    environment:
+        - VUE_VERSION: "latest"
 
-    test-beta:
-      <<: *defaults
-      steps:
-        - attach_workspace:
-            at: ~/project
-        - run:
-            name: Test
-            command: yarn test --maxWorkers=2 --coverage && yarn codecov
-      environment:
-          - VUE_VERSION: "beta"
+  test-beta:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Test
+          command: yarn test --maxWorkers=2 --coverage && yarn codecov
+    environment:
+        - VUE_VERSION: "beta"
 
-    docs:
-      <<: *defaults
-      steps:
-        - run:
-          name: Publish Docs
-          command: |
-            git config --global user.email vuebootstrap@gmail.com
-            git config --global user.name BootstrapVue
-            yarn docs-gen && yarn docs-publish
+  docs:
+    <<: *defaults
+    steps:
+      - run:
+        name: Publish Docs
+        command: |
+          git config --global user.email vuebootstrap@gmail.com
+          git config --global user.name BootstrapVue
+          yarn docs-gen && yarn docs-publish
 
 workflows:
   version: 2
