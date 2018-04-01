@@ -1,46 +1,101 @@
 version: 2
-jobs:
-  build:
-    working_directory: /usr/src/app
-    docker:
-      - image: banian/node
-    steps:
-      # Checkout repository
-      - checkout
 
-      # Restore cache
+defaults: &defaults
+  working_directory: ~/project/bootstrap-vue
+  docker:
+    - image: banian/node
+
+jobs:
+  setup:
+    <<: *defaults
+    steps:
+      - checkout
       - restore_cache:
           key: yarn-{{ checksum "yarn.lock" }}
-
-      # Install dependencies
       - run:
           name: Install Dependencies
           command: NODE_ENV=dev yarn
-
-      # Keep cache
       - save_cache:
           key: yarn-{{ checksum "yarn.lock" }}
           paths:
             - "node_modules"
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - bootstrap-vue
 
-      # Build
-      - run:
-          name: Build
-          command: |
-            mkdir -p dist
-            yarn build
+    lint:
+      <<: *defaults
+      steps:
+        - run:
+            name: Lint
+            command: yarn lint
 
-      # Test
-      - run:
-          name: Tests
-          command: yarn test -- --maxWorkers=2 --coverage && yarn codecov
+    build:
+      <<: *defaults
+      steps:
+        - run:
+            name: Build
+            command: yarn build
 
-      # Publish Docs
-      - deploy:
+    test-latest:
+      <<: *defaults
+      steps:
+        - attach_workspace:
+            at: ~/project
+        - run:
+            name: Test
+            command: yarn test --maxWorkers=2 --coverage && yarn codecov
+      environment:
+          - VUE_VERSION: "latest"
+
+    test-beta:
+      <<: *defaults
+      steps:
+        - attach_workspace:
+            at: ~/project
+        - run:
+            name: Test
+            command: yarn test --maxWorkers=2 --coverage && yarn codecov
+      environment:
+          - VUE_VERSION: "beta"
+
+    docs:
+      <<: *defaults
+      steps:
+        - run:
           name: Publish Docs
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              git config --global user.email vuebootstrap@gmail.com
-              git config --global user.name BootstrapVue
-              yarn docs-gen && yarn docs-publish
-            fi
+            git config --global user.email vuebootstrap@gmail.com
+            git config --global user.name BootstrapVue
+            yarn docs-gen && yarn docs-publish
+
+workflows:
+  version: 2
+  setup-and-parallel-test:
+    jobs:
+      - setup
+
+      - lint:
+          requires:
+            - setup
+
+      - build:
+          requires:
+            - setup
+
+      - test-latest:
+          requires:
+            - setup
+
+      - test-beta:
+          requires:
+            - setup
+
+      - docs:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master

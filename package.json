@@ -55,7 +55,7 @@
     "docs-gen": "nuxt generate -c docs/nuxt.config.js",
     "docs-build": "nuxt build -c docs/nuxt.config.js",
     "docs-publish": "gh-pages -t -d docs-dist -b master -r git@github.com:bootstrap-vue/bootstrap-vue.github.io.git",
-    "test": "yarn lint && NODE_ENV=test jest",
+    "test": "jest",
     "lint": "eslint src scripts docs tests nuxt",
     "release": "npm run build && npm run test && standard-version",
     "postinstall": "opencollective postinstall || exit 0"
@@ -106,7 +106,9 @@
     "rollup-watch": "^4.3.1",
     "standard-version": "^4.3.0",
     "uglify-es": "^3.3.6",
+    "vue-beta": "npm:vue@~2.5.17-beta.0",
     "vue-jest": "^2.1.1",
+    "vue-latest": "npm:vue@~2.5.16",
     "vue-test-utils": "1.0.0-beta.11"
   },
   "jest": {

@@ -8798,6 +8798,10 @@ vue-analytics@^5.4.0:
   version "5.9.1"
   resolved "https://registry.yarnpkg.com/vue-analytics/-/vue-analytics-5.9.1.tgz#3ac9810f56dbe54bca4fd1c3ee42354b433d932b"
 
+"vue-beta@npm:vue@~2.5.17-beta.0":
+  version "2.5.17-beta.0"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17-beta.0.tgz#b9985447818827306beee146923a1bd64f1bb834"
+
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"
@@ -8831,6 +8835,10 @@ vue-jest@^2.1.1:
     source-map "^0.5.6"
     tsconfig "^7.0.0"
     vue-template-es2015-compiler "^1.5.3"
+
+"vue-latest@npm:vue@~2.5.16", vue@^2.5.16:
+  version "2.5.16"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
 vue-loader@^15.0.0-beta.7:
   version "15.0.0-beta.7"
@@ -8896,10 +8904,6 @@ vue-test-utils@1.0.0-beta.11:
   resolved "https://registry.yarnpkg.com/vue-test-utils/-/vue-test-utils-1.0.0-beta.11.tgz#41b7fa53e0061d16ecbe18cfeea197c909d4ab8a"
   dependencies:
     lodash "^4.17.4"
-
-vue@^2.5.16:
-  version "2.5.16"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
 vuex@^3.0.1:
   version "3.0.1"

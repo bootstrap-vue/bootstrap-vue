@@ -1,7 +1,10 @@
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
-import Vue from 'vue/dist/vue.common'
 import BootstrapVue from '../src'
+
+const VUE_VERSION = process.env.VUE_VERSION ? 'vue-' + process.env.VUE_VERSION : 'vue'
+
+const Vue = require(`${VUE_VERSION}/dist/vue.common`)
 
 // Hide development mode warning
 Vue.config.productionTip = false
