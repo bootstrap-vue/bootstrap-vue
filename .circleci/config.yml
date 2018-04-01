@@ -28,7 +28,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-        at: ~/project
+          at: ~/project
       - run:
           name: Lint
           command: yarn lint
@@ -37,7 +37,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-        at: ~/project
+          at: ~/project
       - run:
           name: Build
           command: yarn build
@@ -52,6 +52,7 @@ jobs:
           command: yarn test --maxWorkers=2 --coverage && yarn codecov
     environment:
         - VUE_VERSION: "latest"
+        - NODE_ENV: "test"
 
   test-beta:
     <<: *defaults
@@ -63,6 +64,7 @@ jobs:
           command: yarn test --maxWorkers=2 --coverage && yarn codecov
     environment:
         - VUE_VERSION: "beta"
+        - NODE_ENV: "test"
 
   docs:
     <<: *defaults
