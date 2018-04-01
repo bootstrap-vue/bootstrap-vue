@@ -73,10 +73,7 @@ jobs:
           at: ~/project
       - run:
           name: Publish Docs
-          command: |
-            git config --global user.email vuebootstrap@gmail.com
-            git config --global user.name BootstrapVue
-            yarn docs-gen && yarn docs-publish
+          command: yarn docs-publish
 
 workflows:
   version: 2
