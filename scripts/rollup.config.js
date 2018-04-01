@@ -22,6 +22,7 @@ if (!fs.existsSync(dist)) {
 const externalExcludes = [
   'popper.js',
   'lodash.startcase',
+  'lodash.get',
   'vue-functional-data-merge'
 ]
 
