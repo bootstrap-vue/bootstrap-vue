@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.5"></a>
+# [2.0.0-rc.5](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.4...v2.0.0-rc.5) (2018-04-02)
+
+
+### Bug Fixes
+
+* **card:** duplicate header and footer slots with no-body ([#1713](https://github.com/bootstrap-vue/bootstrap-vue/issues/1713), [#1680](https://github.com/bootstrap-vue/bootstrap-vue/issues/1680)) ([2bd0e71](https://github.com/bootstrap-vue/bootstrap-vue/commit/2bd0e71))
+
+**NOTE** Vue `2.5.15` has known issues with card slots. Please upgrade to `2.5.16` or newer versions.
+
 <a name="2.0.0-rc.4"></a>
 # [2.0.0-rc.4](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.3...v2.0.0-rc.4) (2018-04-01)
 
