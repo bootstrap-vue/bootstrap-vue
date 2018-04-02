@@ -63,10 +63,10 @@ export default {
       )
     }
     if (props.noBody) {
-      childNodes.push(children)
+      childNodes.push($slots.default)
     } else {
       childNodes.push(
-        h(CardBody, { props: pluckProps(bodyProps, props) }, children)
+        h(CardBody, { props: pluckProps(bodyProps, props) }, $slots.default)
       )
     }
     if (props.footer || $slots.footer) {
