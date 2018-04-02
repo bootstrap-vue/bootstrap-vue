@@ -823,7 +823,7 @@ export default {
       }
       // Apply local Sort
       if (sortBy && localSorting) {
-        items = stableSort(items, function sortItemsFn (a, b) {
+        items = stableSort(items, (a, b) => {
           let ret = null
           if (typeof sortCompare === 'function') {
             // Call user provided sortCompare routine

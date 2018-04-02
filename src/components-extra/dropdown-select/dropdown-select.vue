@@ -110,7 +110,7 @@ export default {
       // Show text that coresponds to the model value
       if (!this.returnObject && this.model) {
         let result = this.model || ''
-        this.list.forEach(function (item) {
+        this.list.forEach((item) => {
           if (item.value === this.model) {
             result = item.text
           }
@@ -123,7 +123,7 @@ export default {
   },
   created () {
     const hub = this.$root
-    hub.$on('hide::dropdown', function () {
+    hub.$on('hide::dropdown', () => {
       this.show = false
     })
   },
