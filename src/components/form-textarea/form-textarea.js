@@ -33,7 +33,7 @@ export default {
         'aria-invalid': this.computedAriaInvalid
       },
       on: {
-        input: function (evt) {
+        input: (evt) => {
           this.localValue = evt.target.value
         }
       }
