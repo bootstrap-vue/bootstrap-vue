@@ -8,9 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **card:** duplicate header and footer slots with no-body ([#1713](https://github.com/bootstrap-vue/bootstrap-vue/issues/1713), [#1680](https://github.com/bootstrap-vue/bootstrap-vue/issues/1680)) ([2bd0e71](https://github.com/bootstrap-vue/bootstrap-vue/commit/2bd0e71))
-* **text-area:**  input event ([#1714](https://github.com/bootstrap-vue/bootstrap-vue/issues/1714)) ([5e2973d](https://github.com/bootstrap-vue/bootstrap-vue/commit/5e2973d))
-
+* **text-area:** correctly handle input event ([#1714](https://github.com/bootstrap-vue/bootstrap-vue/issues/1714)) ([5e2973d](https://github.com/bootstrap-vue/bootstrap-vue/commit/5e2973d))
 
 
 <a name="2.0.0-rc.5"></a>
