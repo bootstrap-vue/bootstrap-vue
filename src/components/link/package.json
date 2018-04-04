@@ -1,0 +1,14 @@
+{
+    "name": "@bootstrap-vue/link",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Link",
+        "component": "bLink",
+        "events": [
+            {
+                "event": "click",
+                "description": "when link clicked"
+            }
+        ]
+    }
+}

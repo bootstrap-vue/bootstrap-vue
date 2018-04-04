@@ -1,0 +1,124 @@
+{
+    "name": "@bootstrap-vue/popover",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Popover",
+        "component": "bPopover",
+        "events": [
+            {
+                "event": "show",
+                "description": "Emitted when popover is about to be shown. Cancelable. Call bvEvent.preventDefault() to cancel show.",
+                "args": [
+                    {
+                        "arg": "bvEvent",
+                        "description": "bvEvent object"
+                    }
+                ]
+            },
+            {
+                "event": "shown",
+                "description": "Emitted when popover is shown",
+                "args": [
+                    {
+                        "arg": "bvEvent",
+                        "description": "bvEvent object."
+                    }
+                ]
+            },
+            {
+                "event": "hide",
+                "description": "Emitted when popover is about to be hidden. Cancelable. Call bvEvent.preventDefault() to cancel hide.",
+                "args": [
+                    {
+                        "arg": "bvEvent",
+                        "description": "bvEvent object"
+                    }
+                ]
+            },
+            {
+                "event": "hidden",
+                "description": "Emitted when popover is hidden",
+                "args": [
+                    {
+                        "arg": "bvEvent",
+                        "description": "bvEvent object."
+                    }
+                ]
+            },
+            {
+                "event": "enabled",
+                "description": "Emitted when popover becomes enabled"
+            },
+            {
+                "event": "disabled",
+                "description": "Emitted when popover becomes disabled"
+            },
+            {
+                "event": "bv::popover::show",
+                "description": "Emitted on $root when popover is about to be shown. Cancelable. Call bvEvent.preventDefault() to cancel show.",
+                "args": [
+                    {
+                        "arg": "bvEvent",
+                        "description": "bvEvent object"
+                    }
+                ]
+            },
+            {
+                "event": "bv::popover::shown",
+                "description": "Emitted on $root when popover is shown",
+                "args": [
+                    {
+                        "arg": "bvEvent",
+                        "description": "bvEvent object."
+                    }
+                ]
+            },
+            {
+                "event": "bv::popover::hide",
+                "description": "Emitted on $root when popover is about to be hidden. Cancelable. Call bvEvent.preventDefault() to cancel hide.",
+                "args": [
+                    {
+                        "arg": "bvEvent",
+                        "description": "bvEvent object"
+                    }
+                ]
+            },
+            {
+                "event": "bv::popover::hidden",
+                "description": "Emitted on $root when popover is hidden",
+                "args": [
+                    {
+                        "arg": "bvEvent",
+                        "description": "bvEvent object."
+                    }
+                ]
+            },
+            {
+                "event": "bv::popover::enabled",
+                "description": "Emitted on $root when popover becomes enabled",
+                "args": [
+                    {
+                        "arg": "bvEvent",
+                        "description": "bvEvent object."
+                    }
+                ]
+            },
+            {
+                "event": "bv::popover::disabled",
+                "description": "Emitted on $root when popover becomes disabled",
+                "args": [
+                    {
+                        "arg": "bvEvent",
+                        "description": "bvEvent object."
+                    }
+                ]
+            }
+        ],
+        "slots": [
+            {
+                "name": "title",
+                "description": "Optional slot for title (html supported)"
+            }
+        ]
+    }
+}

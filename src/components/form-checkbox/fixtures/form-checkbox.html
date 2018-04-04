@@ -1,0 +1,46 @@
+<div id="app">
+    <b-form-checkbox v-model="state" value="accepted" unchecked-value="not_accepted">
+        I accept terms and use
+    </b-form-checkbox>
+    <div>State: <strong>{{state}}</strong></div>
+
+    <br><br>
+
+    <b-form-checkbox-group v-model="checked" :options="['One', 'Two', 'Three']">
+    </b-form-checkbox-group>
+    <div>Checked: <strong>{{checked}}</strong></div>
+
+    <br><br>
+
+    <b-form-checkbox-group v-model="checked">
+        <b-form-checkbox value="One">One</b-form-checkbox>
+        <b-form-checkbox value="Two">Two</b-form-checkbox>
+        <b-form-checkbox value="Three">Three</b-form-checkbox>
+    </b-form-checkbox-group>
+    <div>Checked: <strong>{{checked}}</strong></div>
+
+    <br><br>
+
+    <b-form-checkbox-group v-model="checked" stacked :options="['One', 'Two', 'Three']">
+    </b-form-checkbox-group>
+    <div>Checked: <strong>{{checked}}</strong></div>
+
+    <br><br>
+
+    <b-form-checkbox-group v-model="checked" buttons :options="['One', 'Two', 'Three']">
+    </b-form-checkbox-group>
+    <div>Checked: <strong>{{checked}}</strong></div>
+
+    <br><br>
+
+    <b-form-checkbox-group v-model="checked" buttons size="lg" button-variant="primary" :options="['One', 'Two', 'Three']">
+    </b-form-checkbox-group>
+    <div>Checked: <strong>{{checked}}</strong></div>
+    
+    <br><br>
+
+    <b-form-checkbox indeterminate>
+        Indeterminate
+    </b-form-checkbox>
+
+</div>

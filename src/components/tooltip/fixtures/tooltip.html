@@ -1,0 +1,22 @@
+<div id="app">
+  <b-btn id="button1">Button 1</b-btn>
+  <b-tooltip target="button1">Tooltip 1</b-tooltip>
+  <br>
+  <b-btn id="button2">Button 2</b-btn>
+  <b-tooltip target="button2" title="Tooltip 2"></b-tooltip>
+  <br>
+  <b-btn id="button3">Button 3</b-btn>
+  <b-tooltip target="button3" boundary="viewport">Tooltip 3</b-tooltip>
+  <br>
+  <b-btn id="button4">Button 4</b-btn>
+  <b-tooltip target="button4" placement="bottom">Tooltip 4</b-tooltip>
+  <br>
+  <b-btn id="button5">Button 5</b-btn>
+  <b-tooltip target="button5" trigger="click">Tooltip 5</b-tooltip>
+  <br>
+  <h5>Directive</h5>
+  <br>
+  <b-btn id="button6" v-b-tooltip.top.click title="Tooltip 6">Button 6</b-btn>
+  <br>
+  <b-btn id="button7" v-b-tooltip.right.focus="'Tooltip 7'">Button 7</b-btn>
+</div>

@@ -1,0 +1,21 @@
+/* Special styling for type=range and type=color input */
+input.form-control[type="range"],
+input.form-control[type="color"] {
+    height: 2.25rem;
+}
+input.form-control.form-control-sm[type="range"],
+input.form-control.form-control-sm[type="color"] {
+    height: 1.9375rem;
+}
+input.form-control.form-control-lg[type="range"],
+input.form-control.form-control-lg[type="color"] {
+    height: 3rem;
+}
+
+/* Less padding on type=color */
+input.form-control[type="color"] {
+    padding: 0.25rem 0.25rem;
+}
+input.form-control.form-control-sm[type="color"] {
+    padding: 0.125rem 0.125rem;
+}

@@ -1,0 +1,109 @@
+{
+    "name": "@bootstrap-vue/modal",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Modal",
+        "component": "bModal",
+        "directives": [
+            "vBModal"
+        ],
+        "events": [
+            {
+                "event": "change",
+                "description": "new modal visibility state",
+                "args": [
+                    {
+                        "arg": "is_visible",
+                        "description": "true if modal is visible, false otherwise"
+                    }
+                ]
+            },
+            {
+                "event": "show",
+                "description": "always emits just before modal is shown. cancelable",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show"
+                    }
+                ]
+            },
+            {
+                "event": "shown",
+                "description": "always emits when modal is shown",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object"
+                    }
+                ]
+            },
+            {
+                "event": "hide",
+                "description": "always emits just before modal has hidden",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide"
+                    }
+                ]
+            },
+            {
+                "event": "hidden",
+                "description": "always emits after modal is hidden",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object"
+                    }
+                ]
+            },
+            {
+                "event": "ok",
+                "description": "when default OK button pressed, just before modal has hidden. Cancelable",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide"
+                    }
+                ]
+            },
+            {
+                "event": "cancel",
+                "description": "when default CANCEL button pressed, just before modal has hidden. Cancelable",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide"
+                    }
+                ]
+            }
+        ],
+        "slots": [
+            {
+                "name": "modal-header",
+                "description": "Entire modal header container contents. Also removes the top right X close button."
+            },
+            {
+                "name": "modal-title",
+                "description": "Modal title. If modal-header slot is used, this slot will not be shown."
+            },
+            {
+                "name": "modal-header-close",
+                "description": "Content of Modal header close button. If modal-header slot is used, this slot will not be shown."
+            },
+            {
+                "name": "modal-footer",
+                "description": "Modal footer content. Also removes default OK and CANCEL buttons."
+            },
+            {
+                "name": "modal-ok",
+                "description": "Modal OK button content."
+            },
+            {
+                "name": "modal-cancel",
+                "description": "Modal CANCEL button content."
+            }
+        ]
+    }
+}

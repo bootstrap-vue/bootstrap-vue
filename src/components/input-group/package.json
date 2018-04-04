@@ -1,0 +1,19 @@
+{
+  "name": "@bootstrap-vue/input-group",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Input Group",
+    "component": "bInputGroup",
+    "components": ["bInputGroupAddon", "bInputGroupText"],
+    "slots": [
+      {
+        "name": "prepdend",
+        "description": "Prepend attachment"
+      },
+      {
+        "name": "append",
+        "description": "Append attachment"
+      }
+    ]
+  }
+}

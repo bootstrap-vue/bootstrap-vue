@@ -1,0 +1,103 @@
+@import './fonts.css';
+
+* {
+    -webkit-font-smoothing: antialiased;
+}
+
+.bd-toc-link, .bd-navbar .navbar-nav .nav-link.active {
+  font-weight: normal;
+}
+
+.bd-toc-link .badge, .bd-sidenav .badge {
+  font-size: 70%;
+  position: relative;
+  bottom: 0.1rem;
+}
+
+.hljs {
+  font-family: "Inconsolata", "Monaco", "Andale Mono", "Lucida Console", "Bitstream Vera Sans Mono", "Courier New",
+    Courier, monospace !important;
+  font-size: 17px;
+  overflow-x: auto;
+  position: relative;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+  padding: 1em 1em 1em 1em;
+  margin-bottom: 1em;
+}
+
+.CodeMirror {
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+}
+
+code {
+  color: #795da3;
+}
+
+blockquote {
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+.bd-content > h1,
+.bd-content > h2,
+.bd-content > h3,
+.bd-content > h4,
+.bd-content > h5 {
+  padding-top: 25px;
+  padding-bottom: 15px;
+}
+
+#__nuxt > .progress {
+  z-index: 100 !important;
+}
+
+pre.editable:after {
+  content: '(double click to edit)';
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #aaa;
+  text-align: right;
+  font-size: .75em;
+  padding: 5px 10px 0;
+  line-height: 15px;
+  height: 15px;
+  font-weight: 600;
+}
+
+pre.editable:hover:after {
+  font-size: .9em;
+  color: #444;
+  cursor: pointer;
+}
+
+pre.editable.live:after {
+  content: 'Live';
+}
+
+.bd-footer {
+  padding: 4rem 0;
+  margin-top: 4rem;
+  font-size: 85%;
+  text-align: center;
+  background-color: #f7f7f7;
+}
+
+.bv-example-row .row + .row {
+  margin-top: 1rem;
+}
+
+.bv-example-row .row > .col:not(.header),
+.bv-example-row .row > [class^=col-] {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  background-color: rgba(86, 61, 124, .15);
+  border: 1px solid rgba(86, 61, 124, .2);
+}
+
+.bv-example-row-flex-cols .row {
+  min-height: 10rem;
+  background-color: rgba(255, 0, 0, .1);
+}

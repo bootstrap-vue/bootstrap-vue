@@ -1,0 +1,39 @@
+{
+    "name": "@bootstrap-vue/collapse",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Collapse",
+        "component": "bCollapse",
+        "directives": [
+            "vBToggle"
+        ],
+        "events": [
+            {
+                "event": "show",
+                "description": "emitted when collaspe has started to open"
+            },
+            {
+                "event": "shown",
+                "description": "emitted when collaspe has finised opening"
+            },
+            {
+                "event": "hide",
+                "description": "emitted when collaspe has started to close"
+            },
+            {
+                "event": "hidden",
+                "description": "emitted when collaspe has finished closing"
+            },
+            {
+                "event": "bv::toggle::collapse",
+                "description": "toggles visible state of collaspe when this event is emitted on $root",
+                "args": [
+                    {
+                        "arg": "id",
+                        "description": "collapse id to toggle"
+                    }
+                ]
+            }
+        ]
+    }
+}

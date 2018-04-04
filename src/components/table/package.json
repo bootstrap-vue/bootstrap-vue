@@ -1,0 +1,158 @@
+{
+    "name": "@bootstrap-vue/table",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Table",
+        "component": "bTable",
+        "events": [
+            {
+                "event": "row-clicked",
+                "description": "Emitted when a row is clicked.",
+                "args": [
+                    {
+                        "arg": "item",
+                        "description": "Item data of the row being clicked."
+                    },
+                    {
+                        "arg": "index",
+                        "description": "Index of the row being clicked."
+                    },
+                    {
+                        "arg": "event",
+                        "description": "Native event object."
+                    }
+                ]
+            },
+            {
+                "event": "row-dblclicked",
+                "description": "Emitted when a row is double clicked.",
+                "args": [
+                    {
+                        "arg": "item",
+                        "description": "Item data of the row being double clicked."
+                    },
+                    {
+                        "arg": "index",
+                        "description": "Index of the row being double clicked."
+                    },
+                    {
+                        "arg": "event",
+                        "description": "Native event object."
+                    }
+                ]
+            },
+            {
+                "event": "row-hovered",
+                "description": "Emitted when a row is hovered.",
+                "args": [
+                    {
+                        "arg": "item",
+                        "description": "Item data of the row being hovered."
+                    },
+                    {
+                        "arg": "index",
+                        "description": "Index of the row being hovered."
+                    },
+                    {
+                        "arg": "event",
+                        "description": "Native event object."
+                    }
+                ]
+            },
+            {
+                "event": "head-clicked",
+                "description": "Emitted when a header or footer cell is clicked.",
+                "args": [
+                    {
+                        "arg": "key",
+                        "description": "Column key clicked (field name)."
+                    },
+                    {
+                        "arg": "field",
+                        "description": "Field definition object."
+                    },
+                    {
+                        "arg": "event",
+                        "description": "Native event object."
+                    }
+                ]
+            },
+            {
+                "event": "sort-changed",
+                "description": "Emitted when the sorting on the table has changed",
+                "args": [
+                    {
+                        "arg": "ctx",
+                        "description": "Table state context object. See docs."
+                    }
+                ]
+            },
+            {
+                "event": "context-changed",
+                "description": "Emitted whenever the table state context has changed",
+                "args": [
+                    {
+                        "arg": "ctx",
+                        "description": "Table state context object. See docs."
+                    }
+                ]
+            },
+            {
+                "event": "filtered",
+                "description": "Emitted when local filtering causes a change in the number of items.",
+                "args": [
+                    {
+                        "arg": "filteredItems",
+                        "description": "Array of items after filtering (before local pagination occurs)."
+                    }
+                ]
+            },
+            {
+                "event": "refreshed",
+                "description": "Emitted when the items provider function has returned data."
+            }
+        ],
+        "slots": [
+            {
+                "name": "table-caption",
+                "description": "Content to display in the table's caption element"
+            },
+            {
+                "name": "table-colgroup",
+                "description": "Slot to place custom colgroup and col elements"
+            },
+            {
+                "name": "[field]",
+                "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
+            },
+            {
+                "name": "HEAD_[field]",
+                "description": "Scoped slot for custom rendering of field header. See docs for scoped header"
+            },
+            {
+                "name": "FOOT_[field]",
+                "description": "Scoped slot for custom rendering of field footer. See docs for scoped footer"
+            },
+            {
+                "name": "row-details",
+                "description": "Scoped slot for optional rendering additional record details. See docs for Row details support"
+            },
+            {
+                "name": "empty",
+                "description": "Content to display when no items are present in the `items` array"
+            },
+            {
+                "name": "emptyfiltered",
+                "description": "Content to display when no items are present in the filtered `items` array"
+            },
+            {
+                "name": "top-row",
+                "description": "Fixed top row slot for user supplied TD cells. Scoped data: columns - number of TDs to provide, fields - fields object"
+            },
+            {
+                "name": "bottom-row",
+                "description": "Fixed bottom row slot for user supplied TD cells. Scoped data: columns - number of TDs to provide, fields - fields object"
+            }
+        ]
+    }
+}

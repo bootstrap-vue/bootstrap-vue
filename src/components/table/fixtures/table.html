@@ -1,0 +1,136 @@
+<div id="app">
+
+    <h2>Basic table</h2>
+    <b-table ref="table_basic" class="my-2" striped hover :items="items" :fields="fields">
+        <template slot="name" slot-scope="data">
+            {{ data.value.first }} {{ data.value.last }}
+        </template>
+        <template slot="isActive" slot-scope="data">
+            {{ data.value ? 'Yes' : 'No' }}
+        </template>
+        <template slot="actions" slot-scope="data">
+            <b-btn size="sm" @click.stop="details(data.item)">Details</b-btn>
+        </template>
+    </b-table>
+
+  <b-table ref="table_stacked" striped hover stacked :items="items" :fields="fields">
+    <template slot="name" slot-scope="data">
+      {{ data.value.first }} {{ data.value.last }}
+    </template>
+  </b-table>
+
+  <b-table ref="table_without_fields" :items="secondaryItems"></b-table>
+
+    <b-table ref="table_responsive" responsive :items="items" :fields="fields"></b-table>
+
+    <h2>Paginated Table</h2>
+    <div class="my-1 row">
+        <div class="col-6">
+            <b-form-fieldset horizontal label="Rows per page" :label-cols="6">
+                <b-form-select :options="[{text:5,value:5},{text:10,value:10},{text:15,value:15}]" v-model="perPage">
+                </b-form-select>
+            </b-form-fieldset>
+        </div>
+        <div class="col-6">
+            <b-form-fieldset horizontal label="Filter" :label-cols="2">
+                <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
+            </b-form-fieldset>
+        </div>
+        <div class="justify-content-center col-12 my-2">
+            <b-pagination size="md" :total-rows="items.length" :per-page="perPage" v-model="currentPage"></b-pagination>
+        </div>
+    </div>
+    <b-table ref="table_paginated"
+             small
+             striped
+             bordered
+             hover
+             foot-clone
+             show-empty
+             head-variant="dark"
+             foot-variant="light"
+             :busy="isBusy"
+             :items="items"
+             :fields="fields"
+             :current-page="currentPage"
+             :per-page="perPage"
+             :filter="filter"
+             v-model="visibleRecords"
+    >
+        <template slot="name" slot-scope="data">
+            {{ data.value.first }} {{ data.value.last }}
+        </template>
+        <template slot="FOOT_name" slot-scope="item">
+            Showing {{ visibleRecords.length }} People
+        </template>
+        <template slot="isActive" slot-scope="data">
+            {{ data.value ? 'Active' : 'Inactive' }}
+        </template>
+        <template slot="HEAD_actions" slot-scope="data">
+            Select
+        </template>
+        <template slot="actions" slot-scope="data">
+            <input type="checkbox" @click.stop v-model="selectedRecords" value="data.item">
+        </template>
+        <template slot="FOOT_actions" slot-scope="data">
+            Selected: {{ selectedRecords.length }}
+        </template>
+    </b-table>
+
+    <h2>Dark Table</h2>
+    <div class="my-1 row">
+        <div class="justify-content-center col-12 my-2">
+            <b-pagination size="md" :total-rows="items.length" :per-page="perPage" v-model="currentPage" />
+        </div>
+    </div>
+    <b-table ref="table_dark"
+             small
+             dark
+             bordered
+             head-variant="default"
+             show-empty
+             :items="items"
+             :fields="fields"
+             :per-page="perPage"
+             :current-page="currentPage"
+             :busy="isBusy"
+    >
+        <template slot="name" slot-scope="data">
+            {{ data.value.first }} {{ data.value.last }}
+        </template>
+        <template slot="isActive" slot-scope="data">
+            {{ data.value ? 'Active' : 'Inactive' }}
+        </template>
+        <template slot="actions" slot-scope="data">
+            <b-btn size="sm" @click.stop="details(data.item)">Details</b-btn>
+        </template>
+    </b-table>
+
+    <h2>Provider Test Table</h2>
+    <div class="my-1">
+        <b-form-fieldset horizontal label="Provider" :label-cols="6">
+            <b-form-select
+                 v-model="providerType"
+                 :options="[{text:'Array',value:'array'},{text:'Callback',value:'callback'},{text:'Promise',value:'promise'}]"
+            ></b-form-select>
+        </b-form-fieldset>
+    </div>
+    <b-table ref="table_provider"
+             id="table_provider"
+             small
+             head-variant="default"
+             show-empty
+             :items="provider"
+             :fields="fields"
+    >
+        <template slot="name" slot-scope="data">
+            {{ data.value.first }} {{ data.value.last }}
+        </template>
+        <template slot="isActive" slot-scope="data">
+            {{ data.value ? 'Active' : 'Inactive' }}
+        </template>
+        <template slot="actions" slot-scope="data">
+            <b-btn size="sm" @click.stop="details(data.item)">Details</b-btn>
+        </template>
+    </b-table>
+</div>

@@ -1,0 +1,35 @@
+<div id="app">
+    <div>
+        <h6>Default</h6>
+        <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10">
+        </b-pagination>
+
+        <br><br>
+
+        <b-pagination size="md" :total-rows="100" v-model="currentPage"  :limit="10" :per-page="10">
+        </b-pagination>
+
+        <br><br>
+
+        <b-pagination :total-rows="100" v-model="currentPage"  :limit="5" :per-page="10">
+        </b-pagination>
+
+        <br><br>
+
+        <b-pagination disabled :total-rows="100" v-model="currentPage" :per-page="10">
+        </b-pagination>
+
+        <br><br>
+
+        <b-pagination hide-elipsis :total-rows="100" v-model="currentPage" :limit="4" :per-page="10">
+        </b-pagination>
+
+        <br><br>
+
+        <b-pagination hide-goto-end-buttons :total-rows="100" v-model="currentPage" :limit="4" :per-page="10">
+        </b-pagination>
+
+        <br><br>
+        <div>currentPage: {{currentPage}}</div>
+    </div>
+</div>

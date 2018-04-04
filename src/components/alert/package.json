@@ -1,0 +1,30 @@
+{
+    "name": "@bootstrap-vue/alert",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Alert",
+        "component": "bAlert",
+        "events": [
+            {
+                "event": "dismissed",
+                "description": "Alert dismissed"
+            },
+            {
+                "event": "dismiss-count-down",
+                "description": "When dismissAfterSeconds enabled, this event emits every second on countdown.",
+                "args": [
+                    {
+                        "arg": "dismissCountDown",
+                        "description": "Time remaining to dismissed"
+                    }
+                ]
+            }
+        ],
+        "slots": [
+            {
+                "name": "dismiss",
+                "description": "Content for the dismiss button."
+            }
+        ]
+    }
+}

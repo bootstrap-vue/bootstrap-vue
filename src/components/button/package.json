@@ -1,0 +1,17 @@
+{
+    "name": "@bootstrap-vue/button",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Button",
+        "component": "bButton",
+        "components": [
+            "bButtonClose"
+        ],
+        "events": [
+            {
+                "event": "click",
+                "description": "when clicked on button"
+            }
+        ]
+    }
+}

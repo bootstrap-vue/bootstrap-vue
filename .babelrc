@@ -1,0 +1,30 @@
+{
+    "presets": [
+        [
+            "env",
+            {
+                "targets": {
+                    "browsers": [
+                        "last 4 versions",
+                        "safari >= 7"
+                    ]
+                },
+                "modules": false
+            }
+        ]
+    ],
+    "env": {
+        "test": {
+            "presets": [
+                [
+                    "env",
+                    {
+                        "targets": {
+                            "node": 8
+                        }
+                    }
+                ]
+            ]
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "name": "@bootstrap-vue/form",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Form",
+        "slug": "form",
+        "component": "bForm",
+        "components": [
+            "bFormText",
+            "bFormInvalidFeedback",
+            "bFormValidFeedback",
+            "bFormRow"
+        ],
+        "events": [
+            {
+                "event": "submit",
+                "description": "Emitted when the form is being submitted",
+                "args": [
+                    {
+                        "arg": "event",
+                        "description": "Native submit event."
+                    }
+                ]
+            }
+        ]
+    }
+}

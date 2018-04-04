@@ -1,0 +1,39 @@
+<div id="app">
+    <b-alert show
+             ref="default_alert"
+    >
+        Default Alert
+    </b-alert>
+
+    <b-alert ref="success_alert"
+             variant="success"
+             dismissible
+             show
+             dismiss-label="close me"
+    >
+        Success Alert
+    </b-alert>
+
+    <b-alert variant="danger"
+             ref="dismiss_alert"
+             dismissible
+             :show="showDismissibleAlert"
+             @dismissed="showDismissibleAlert=false"
+    >
+        Dismissible Alert!
+    </b-alert>
+
+    <b-alert :show="dismissCountDown"
+             ref="counter_alert"
+             variant="warning"
+             @dismiss-count-down="countDownChanged"
+    >
+        This alert will dismiss after {{dismissCountDown}} seconds...
+    </b-alert>
+
+    <b-btn @click="showAlert" variant="info" class="m-1">Show alert with count-down timer</b-btn>
+
+    <b-btn @click="showDismissibleAlert=true" variant="info" class="m-1" ref="dismissible_alert_btn">
+        Show dismissible alert ({{showDismissibleAlert?'visible':'hidden'}})
+    </b-btn>
+</div>

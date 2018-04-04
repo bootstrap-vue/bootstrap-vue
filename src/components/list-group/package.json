@@ -1,0 +1,11 @@
+{
+    "name": "@bootstrap-vue/list-group",
+    "version": "1.0.0",
+    "meta": {
+        "title": "List group",
+        "component": "bListGroup",
+        "components": [
+            "bListGroupItem"
+        ]
+    }
+}

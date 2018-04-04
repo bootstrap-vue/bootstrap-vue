@@ -1,0 +1,32 @@
+{
+    "name": "@bootstrap-vue/tabs",
+    "version": "1.0.0",
+    "meta": {
+        "title": "Tabs",
+        "component": "bTabs",
+        "components": [
+            "bTab"
+        ],
+        "events": [
+            {
+                "event": "input",
+                "description": "Emits when a tab is shown. Used to update the v-model",
+                "args": [
+                    {
+                        "arg": "tab_index"
+                    }
+                ]
+            }
+        ],
+        "slots": [
+            {
+                "name": "tabs",
+                "description": "Additional tabs without content"
+            },
+            {
+                "name": "empty",
+                "description": "Renders this slot if no tabs are present"
+            }
+        ]
+    }
+}

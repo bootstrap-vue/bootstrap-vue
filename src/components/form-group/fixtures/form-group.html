@@ -1,0 +1,49 @@
+<div id="app">
+    <!-- stacked with label -->
+    <b-form-group id="group1"
+                  label="Example Label"
+                  label-for="input1"
+                  description="Enter your fullname."
+                  :invalid-feedback="text.length ? '' : 'Please enter something'"
+                  :valid-feedback="text.length ? 'Thank you' : ''"
+                  :state="text.length ? true : false">
+        <b-form-input id="input1" v-model="text"></b-form-input>
+    </b-form-group>
+    <!-- horizontal with label -->
+    <b-form-group id="group2"
+                  horizontal
+                  label-cols="4"
+                  label="Example Label"
+                  label-for="input2"
+                  description="Enter your fullname."
+                  :invalid-feedback="text.length ? '' : 'Please enter something'"
+                  :valid-feedback="text.length ? 'Thank you' : ''"
+                  :state="text.length ? true : false">
+        <b-form-input id="input2" v-model="text"></b-form-input>
+    </b-form-group>
+    <!-- render fieldset+legend -->
+    <b-form-group id="group3"
+                  label="Example Legend"
+                  description="Fieldset"
+                  invalid-feedback="Invalid"
+                  valid-feedback="Valid"
+                  :state="null">
+        <b-form-input></b-form-input>
+        <b-form-input></b-form-input>
+        <b-form-input></b-form-input>
+    </b-form-group>
+    <!-- label size -->
+    <b-form-group id="group4"
+                  label="Example Label"
+                  label-size="lg"
+                  label-for="input4">
+        <b-form-input id="input4" size="lg"></b-form-input>
+    </b-form-group>
+    <!-- legend size -->
+    <b-form-group id="group5"
+                  label="Example Label"
+                  label-size="lg">
+        <b-form-input size="lg"></b-form-input>
+        <b-form-input size="lg"></b-form-input>
+    </b-form-group>
+</div>

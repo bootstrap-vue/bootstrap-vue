@@ -10,3 +10,6 @@ workbox*.js*
 .DS_Store
 .vscode
 coverage
+es
+docs/static/sw.js
+*.swp

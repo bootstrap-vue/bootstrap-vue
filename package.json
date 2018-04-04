@@ -1,14 +1,14 @@
 {
   "name": "bootstrap-vue",
-  "version": "1.0.0-beta.9",
-  "description": "Quickly integrate Bootstrap 4 components with Vue.js",
+  "version": "2.0.0-rc.6",
+  "description": "BootstrapVue provides one of the most comprehensive implementations of Bootstrap 4 components and grid system for Vue.js and with extensive and automated WAI-ARIA accessibility markup.",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
-  "module": "dist/bootstrap-vue.esm.js",
-  "jsnext:main": "dist/bootstrap-vue.esm.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
   "style": "dist/bootstrap-vue.css",
   "license": "MIT",
-  "homepage": "https://bootstrap-vue.github.io",
+  "homepage": "https://bootstrap-vue.js.org",
   "contributors": [
     {
       "name": "Pooya Parsa",
@@ -43,59 +43,73 @@
     "url": "git+https://github.com/bootstrap-vue/bootstrap-vue.git"
   },
   "files": [
-    "lib",
-    "dist"
+    "src",
+    "dist",
+    "nuxt",
+    "es"
   ],
   "scripts": {
-    "build": "build/build",
-    "watch": "rollup -c build/rollup.config.js --watch",
-    "docs-dev": "nuxt dev",
-    "docs-gen": "nuxt generate",
-    "docs-publish": "./build/gh-pages",
-    "test": "NODE_ENV=test npm run build && jest --maxWorkers=2",
-    "test-dev": "NODE_ENV=test npm run build && jest",
-    "prepublish": "npm run test && npm run build",
-    "postpublish": "npm run docs-publish",
-    "release": "standard-version"
-  },
-  "peerDependencies": {
-    "vue": "^2.4.2"
+    "build": "scripts/build",
+    "watch": "rollup -c scripts/rollup.config.js --watch",
+    "docs-dev": "nuxt dev -c docs/nuxt.config.js",
+    "docs-gen": "nuxt generate -c docs/nuxt.config.js",
+    "docs-build": "nuxt build -c docs/nuxt.config.js",
+    "docs-publish": "scripts/docs-publish",
+    "test": "jest",
+    "lint": "eslint src scripts docs tests nuxt",
+    "release": "npm run build && npm run test && standard-version",
+    "postinstall": "opencollective postinstall || exit 0"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-beta"
+    "bootstrap": "^4.0.0",
+    "lodash.get": "^4.4.2",
+    "lodash.startcase": "^4.4.0",
+    "opencollective": "^1.0.3",
+    "popper.js": "^1.12.9",
+    "vue-functional-data-merge": "^2.0.5"
   },
   "devDependencies": {
-    "@nuxtjs/pwa": "^0.2.1",
+    "@nuxtjs/google-analytics": "^2.0.2",
+    "@nuxtjs/pwa": "^2.0.5",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-istanbul": "^4.1.5",
     "clean-css": "^4.1.9",
-    "codecov": "^2.3.0",
-    "codemirror": "^5.30.0",
-    "cross-env": "^5.0.5",
-    "eslint": "^4.7.1",
-    "eslint-plugin-html": "^3.2.2",
-    "eslint-plugin-vue": "^2.1.0",
-    "eslint-plugin-vue-libs": "^1.2.1",
+    "codecov": "^3.0.0",
+    "codemirror": "^5.33.0",
+    "cross-env": "^5.1.3",
+    "eslint": "^4.15.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.6.2",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "^4.2.0",
+    "gh-pages": "^1.1.0",
     "highlight-loader": "^0.7.2",
     "highlightjs": "^9.8.0",
-    "html-loader": "^0.5.1",
-    "jest": "^21.1.0",
-    "jest-vue-preprocessor": "^1.1.0",
-    "lodash": "latest",
-    "lodash.startcase": "^4.4.0",
-    "markdown-loader": "^2.0.1",
-    "marked": "^0.3.6",
-    "nuxt": "1.0.0-rc11",
-    "popper.js": "^1.12.5",
-    "rollup": "^0.50.0",
-    "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-commonjs": "^8.2.1",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-vue": "^2.4.2",
+    "html-loader": "^0.5.4",
+    "jest": "^22.0.6",
+    "jest-css-modules": "^1.1.0",
+    "lodash": "^4.17.4",
+    "markdown-loader": "^2.0.2",
+    "marked": "^0.3.12",
+    "nuxt-edge": "^2.0.0-25376904.0ca9942",
+    "rollup": "^0.57.1",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-css-porter": "^0.1.2",
+    "rollup-plugin-node-resolve": "^3.0.2",
+    "rollup-plugin-vue": "^3.0.0",
     "rollup-watch": "^4.3.1",
-    "standard-version": "^4.2.0",
-    "uglify-es": "^3.1.1",
-    "vue-functional-data-merge": "^1.0.6"
+    "standard-version": "^4.3.0",
+    "uglify-es": "^3.3.6",
+    "vue-beta": "npm:vue@~2.5.17-beta.0",
+    "vue-jest": "^2.1.1",
+    "vue-latest": "npm:vue@~2.5.16",
+    "vue-test-utils": "1.0.0-beta.11"
   },
   "jest": {
     "testRegex": "spec.js$",
@@ -105,13 +119,10 @@
     ],
     "transform": {
       "^.+\\.js$": "babel-jest",
-      ".*\\.(vue)$": "jest-vue-preprocessor"
+      ".*\\.(vue)$": "vue-jest",
+      ".*\\.(css)$": "jest-css-modules"
     },
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "lib"
-    ]
+    "coverageDirectory": "./coverage/"
   },
   "keywords": [
     "Bootstrap",
@@ -160,5 +171,10 @@
     "Table",
     "Tag",
     "Tooltip"
-  ]
+  ],
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/bootstrap-vue",
+    "logo": "https://opencollective.com/opencollective/logo.txt"
+  }
 }
