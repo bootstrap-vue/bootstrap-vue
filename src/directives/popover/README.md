@@ -343,7 +343,7 @@ Where `[container]` can be (optional):
 ### Usage
 **Simplest usage:**
 ```
-v-b-popover="'This is a Poopover!'"
+v-b-popover="'This is a Popover!'"
 ```
 or use the element's `title` attribute for the popover header:
 ```
