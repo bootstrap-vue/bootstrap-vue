@@ -107,8 +107,8 @@ export default {
       {
         class: [
           'nav',
-          `nav-${this.navStyle}`,
           {
+            [`nav-${this.navStyle}`]: !this.noNavStyle,
             [`card-header-${this.navStyle}`]: this.card && !this.vertical,
             'card-header': this.card && this.vertical,
             'h-100': this.card && this.vertical,
@@ -223,6 +223,10 @@ export default {
       default: false
     },
     noFade: {
+      type: Boolean,
+      default: false
+    },
+    noNavStyle: {
       type: Boolean,
       default: false
     },
