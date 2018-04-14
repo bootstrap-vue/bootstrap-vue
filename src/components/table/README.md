@@ -981,7 +981,7 @@ if (typeof a[key] === 'number' && typeof b[key] === 'number') {
 
 ### Disable local sorting
 If you want to handle sorting entirely in your app, you can disable the local
-sorting in `<b-table>` bu setting the prop `no-local-sorting` to true, while
+sorting in `<b-table>` by setting the prop `no-local-sorting` to true, while
 still maintaining the sortable header functionality.
 
 You can use the syncable props `sort-by.sync` and `sort-desc.sync` to detect
