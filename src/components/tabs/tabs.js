@@ -15,7 +15,8 @@ const bTabButtonHelper = {
     active: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     linkClass: { default: null },
-    itemClass: { default: null }
+    itemClass: { default: null },
+    keyNav: { type: Boolean, default: false }
   },
   render (h) {
     const link = h('a', {
@@ -26,7 +27,7 @@ const bTabButtonHelper = {
       ],
       attrs: {
         role: 'tab',
-        tabindex: '-1',
+        tabindex: this.keyNav ? '-1' : null,
         href: this.href,
         id: this.id,
         disabled: this.disabled,
@@ -51,6 +52,9 @@ const bTabButtonHelper = {
       function stop () {
         evt.preventDefault()
         evt.stopPropagation()
+      }
+      if (evt.type !== 'click' && !this.keyNav) {
+        return
       }
       if (this.disabled) {
         stop()
@@ -86,7 +90,8 @@ export default {
           posInSet: index + 1,
           controls: this.safeId('_BV_tab_container_'),
           linkClass: tab.titleLinkClass,
-          itemClass: tab.titleItemClass
+          itemClass: tab.titleItemClass,
+          keyNav: this.keyNav
         },
         on: {
           click: evt => {
@@ -116,7 +121,7 @@ export default {
         ],
         attrs: {
           role: 'tablist',
-          tabindex: '0',
+          tabindex: this.keyNav ? '0' : null,
           id: this.safeId('_BV_tab_controls_')
         },
         on: { keydown: this.onKeynav }
@@ -237,6 +242,10 @@ export default {
     navWrapperClass: {
       type: [String, Array, Object],
       default: null
+    },
+    keyNav: {
+      type: Boolean,
+      default: false
     }
   },
   watch: {
@@ -280,6 +289,9 @@ export default {
          * handle keyboard navigation
          */
     onKeynav (evt) {
+      if (!this.keyNav) {
+        return
+      }
       const key = evt.keyCode
       const shift = evt.shiftKey
       function stop () {

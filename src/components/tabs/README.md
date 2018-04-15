@@ -295,6 +295,21 @@ export default {
 <!-- with-classes.vue -->
 ```
 
+## Keyboard Navigation
+Enable optional keyboard navigation by setting the prop `key-nav`.
+
+| Keypress | Action
+| -------- | ------
+| <kbd>LEFT</kbd> or <kbd>UP</kbd> | Move to the previous non-disabled tab
+| <kbd>RIGHT</kbd> or <kbd>DOWN</kbd> | Move to the next non-disabled tab
+| <kbd>SHIFT</kbd>+<kbd>LEFT</kbd> or <kbd>SHIFT</kbd>+<kbd>UP</kbd> | Move to the first non-disabled tab
+| <kbd>SHIFT</kbd>+<kbd>RIGHT</kbd> or <kbd>SHIFT</kbd>+<kbd>DOWN</kbd> | Move to the last non-disabled tab
+| <kbd>TAB</kbd> | Move to the next control on the page
+| <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Move to the previous control on the page
+
+**Caution:** If you have text or text-like inputs in your tabs, leave keyboard navigation off,
+as it is not possble to use key presses to jump out of a text (or test-like) inputs.
+
 
 ## Advanced Examples
 
