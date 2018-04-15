@@ -296,7 +296,7 @@ export default {
 ```
 
 ## Keyboard Navigation
-Enable optional keyboard navigation by setting the prop `key-nav`.
+Keyboard navigation is enabled by default.
 
 | Keypress | Action
 | -------- | ------
@@ -306,6 +306,13 @@ Enable optional keyboard navigation by setting the prop `key-nav`.
 | <kbd>SHIFT</kbd>+<kbd>RIGHT</kbd> or <kbd>SHIFT</kbd>+<kbd>DOWN</kbd> | Move to the last non-disabled tab
 | <kbd>TAB</kbd> | Move to the next control on the page
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Move to the previous control on the page
+
+Disable it by setting the prop `no-key-nav`. Behavior will now default to standard browser navigation with TAB key. 
+
+| Keypress | Action
+| -------- | ------
+| <kbd>TAB</kbd> | Move to the next tab or control on the page
+| <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Move to the previous tab or control on the page
 
 **Caution:** If you have text or text-like inputs in your tabs, leave keyboard navigation off,
 as it is not possble to use key presses to jump out of a text (or test-like) inputs.

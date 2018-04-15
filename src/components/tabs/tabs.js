@@ -16,7 +16,7 @@ const bTabButtonHelper = {
     disabled: { type: Boolean, default: false },
     linkClass: { default: null },
     itemClass: { default: null },
-    keyNav: { type: Boolean, default: true }
+    noKeyNav: { type: Boolean, default: false }
   },
   render (h) {
     const link = h('a', {
@@ -27,7 +27,7 @@ const bTabButtonHelper = {
       ],
       attrs: {
         role: 'tab',
-        tabindex: this.keyNav ? '-1' : null,
+        tabindex: this.noKeyNav ? null : '-1',
         href: this.href,
         id: this.id,
         disabled: this.disabled,
@@ -53,7 +53,7 @@ const bTabButtonHelper = {
         evt.preventDefault()
         evt.stopPropagation()
       }
-      if (evt.type !== 'click' && !this.keyNav) {
+      if (evt.type !== 'click' && this.noKeyNav) {
         return
       }
       if (this.disabled) {
@@ -91,7 +91,7 @@ export default {
           controls: this.safeId('_BV_tab_container_'),
           linkClass: tab.titleLinkClass,
           itemClass: tab.titleItemClass,
-          keyNav: this.keyNav
+          noKeyNav: this.noKeyNav
         },
         on: {
           click: evt => {
@@ -121,7 +121,7 @@ export default {
         ],
         attrs: {
           role: 'tablist',
-          tabindex: this.keyNav ? '0' : null,
+          tabindex: this.noKeyNav ? null : '0',
           id: this.safeId('_BV_tab_controls_')
         },
         on: { keydown: this.onKeynav }
@@ -230,6 +230,10 @@ export default {
       type: Boolean,
       default: false
     },
+    noKeyNav: {
+      type: Boolean,
+      default: false
+    },
     lazy: {
       // This prop is sniffed by the tab child
       type: Boolean,
@@ -246,10 +250,6 @@ export default {
     navWrapperClass: {
       type: [String, Array, Object],
       default: null
-    },
-    keyNav: {
-      type: Boolean,
-      default: true
     }
   },
   watch: {
@@ -293,7 +293,7 @@ export default {
          * handle keyboard navigation
          */
     onKeynav (evt) {
-      if (!this.keyNav) {
+      if (this.noKeyNav) {
         return
       }
       const key = evt.keyCode
