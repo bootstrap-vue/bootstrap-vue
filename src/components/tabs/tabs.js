@@ -16,7 +16,7 @@ const bTabButtonHelper = {
     disabled: { type: Boolean, default: false },
     linkClass: { default: null },
     itemClass: { default: null },
-    keyNav: { type: Boolean, default: false }
+    keyNav: { type: Boolean, default: true }
   },
   render (h) {
     const link = h('a', {
@@ -245,7 +245,7 @@ export default {
     },
     keyNav: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   watch: {
