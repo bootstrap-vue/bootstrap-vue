@@ -293,7 +293,7 @@ export default {
         } else {
           this.previousTab()
         }
-      } else if (key === KeyCodes.DWON || key === KeyCodes.RIGHT) {
+      } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT) {
         stop()
         if (shift) {
           this.setTab(this.tabs.length - 1, false, -1)
