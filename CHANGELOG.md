@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.7"></a>
+# [2.0.0-rc.7](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.6...v2.0.0-rc.7) (2018-04-16)
+
+
+### Bug Fixes
+
+* **table:** typo in README.md ([#1729](https://github.com/bootstrap-vue/bootstrap-vue/issues/1729)) ([8d0e186](https://github.com/bootstrap-vue/bootstrap-vue/commit/8d0e186))
+* **tabs:** change default key nav to avoid breaking changes ([#1733](https://github.com/bootstrap-vue/bootstrap-vue/issues/1733)) ([a6dea02](https://github.com/bootstrap-vue/bootstrap-vue/commit/a6dea02))
+* **tabs:** rename prop to no-key-nav, update docs ([491d698](https://github.com/bootstrap-vue/bootstrap-vue/commit/491d698))
+* **tabs:** typo in tabs ([#1735](https://github.com/bootstrap-vue/bootstrap-vue/issues/1735)) ([89eff3c](https://github.com/bootstrap-vue/bootstrap-vue/commit/89eff3c))
+
+
+### Features
+
+* add basic typescript declarations ([#1721](https://github.com/bootstrap-vue/bootstrap-vue/issues/1721)) ([3c040f0](https://github.com/bootstrap-vue/bootstrap-vue/commit/3c040f0))
+* **form-input:** add step, min and max props for use with number type ([40ff380](https://github.com/bootstrap-vue/bootstrap-vue/commit/40ff380))
+* **table:** support custom classes per table cell in a column ([d05d6b6](https://github.com/bootstrap-vue/bootstrap-vue/commit/d05d6b6))
+* **tabs:** add key nav prop like button toolbar has ([#1733](https://github.com/bootstrap-vue/bootstrap-vue/issues/1733)) ([bc3b82b](https://github.com/bootstrap-vue/bootstrap-vue/commit/bc3b82b))
+* **tabs/noNavStyle:** added related prop and check ([91c7257](https://github.com/bootstrap-vue/bootstrap-vue/commit/91c7257))
+
+
+
 <a name="2.0.0-rc.6"></a>
 # [2.0.0-rc.6](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.4...v2.0.0-rc.6) (2018-04-02)
 
