@@ -9,7 +9,7 @@ BootstrapVue provides one of the most comprehensive implementations of Bootstrap
 <br>
 
 <a href="https://getbootstrap.com/docs/4.0">
-    <img alt="" src="https://img.shields.io/badge/bootstrap-4.0.0-800080.svg?style=flat-square">
+    <img alt="" src="https://img.shields.io/badge/bootstrap-4.1.0-800080.svg?style=flat-square">
 </a>
 <a href="https://vuejs.org">
     <img alt="" src="https://img.shields.io/badge/vue.js-2.x-green.svg?style=flat-square">
