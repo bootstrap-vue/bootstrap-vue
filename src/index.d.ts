@@ -3,11 +3,14 @@
 // Definitions by: Nicola Bosco <https://github.com/nicolabosco87>
 
 declare module 'bootstrap-vue' {
-    import Vue from 'vue';
+    import Vue, { PluginFunction, PluginObject } from 'vue';
 
-    const VuePlugin = {
-        install: function(Vue: any): any;
+    class BootstrapVue implements PluginObject<{}> {
+        [key: string]: any;
+        public install: PluginFunction<{}>;
     }
+
+    const VuePlugin: BootstrapVue;
 
     export default VuePlugin;
 
