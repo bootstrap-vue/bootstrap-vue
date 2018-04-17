@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.8"></a>
+# [2.0.0-rc.8](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.7...v2.0.0-rc.8) (2018-04-17)
+
+
+### Bug Fixes
+
+* **docs:** fix table refresh event name ([#1692](https://github.com/bootstrap-vue/bootstrap-vue/issues/1692)) ([01e223c](https://github.com/bootstrap-vue/bootstrap-vue/commit/01e223c))
+* default export in TypeScript definitions ([cd7e310](https://github.com/bootstrap-vue/bootstrap-vue/commit/cd7e310))
+
+
+
 <a name="2.0.0-rc.7"></a>
 # [2.0.0-rc.7](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.6...v2.0.0-rc.7) (2018-04-16)
 
