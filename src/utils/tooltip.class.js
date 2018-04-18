@@ -922,7 +922,7 @@ class ToolTip {
           return 0
       }
     }
-    return parseFloat(this.$config.offset)
+    return this.$config.offset
   }
 
   getPlacement () {
