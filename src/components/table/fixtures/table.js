@@ -5,7 +5,8 @@ window.app = new Vue({
       name: {
         label: 'Person Full name',
         sortable: true,
-        tdClass: 'bg-primary'
+        tdClass: 'bg-primary',
+        tdAttr: {title: 'Person Full name'}
       },
       age: {
         label: 'Person age',
@@ -15,11 +16,13 @@ window.app = new Vue({
       },
       isActive: {
         label: 'is Active',
-        tdClass: (value, key, item) => { return 'bg-danger' }
+        tdClass: (value, key, item) => { return 'bg-danger' },
+        tdAttr: (value, key, item) => { return {title: 'is Active'} }
       },
       actions: {
         label: 'Actions',
-        tdClass: 'formatCell'
+        tdClass: 'formatCell',
+        tdAttr: 'formatCellAttrs'
       }
     },
     currentPage: 1,
@@ -138,6 +141,9 @@ window.app = new Vue({
     },
     formatCell (value, key, item) {
       return ['bg-primary', 'text-light']
+    },
+    formatCellAttrs (value, key, item) {
+      return {title: 'Actions'}
     }
   }
 })
