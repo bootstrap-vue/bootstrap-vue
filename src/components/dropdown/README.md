@@ -292,12 +292,12 @@ context about the dropdown item:
 ```html
 <div>
   <b-dropdown id="ddown-aria" text="Dropdown ARIA" variant="primary" class="m-2">
-    <div role="group" aria-lableledby="header1">
+    <div role="group" aria-labelledby="header1">
       <b-dropdown-header id="header1">Groups</b-dropdown-header>
       <b-dropdown-item-button aria-describedby="header1">Add</b-dropdown-item-button>
       <b-dropdown-item-button aria-describedby="header1">Delete</b-dropdown-item-button>
     </div>
-    <div role="group" aria-lableledby="header2">
+    <div role="group" aria-labelledby="header2">
       <b-dropdown-header id="header2">Users</b-dropdown-header>
       <b-dropdown-item-button aria-describedby="header2">Add</b-dropdown-item-button>
       <b-dropdown-item-button aria-describedby="header2">Delete</b-dropdown-item-button>
