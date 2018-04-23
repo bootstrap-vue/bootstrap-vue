@@ -42,9 +42,6 @@ export default {
         readonly: this.readonly || this.plaintext,
         placeholder: this.placeholder,
         autocomplete: this.autocomplete || null,
-        step: this.step || null,
-        min: this.min || null,
-        max: this.max || null,
         'aria-required': this.required ? 'true' : null,
         'aria-invalid': this.computedAriaInvalid
       },
@@ -94,18 +91,6 @@ export default {
     lazyFormatter: {
       type: Boolean,
       default: false
-    },
-    step: {
-      type: Number,
-      default: null
-    },
-    min: {
-      type: Number,
-      default: null
-    },
-    max: {
-      type: Number,
-      default: null
     }
   },
   computed: {
