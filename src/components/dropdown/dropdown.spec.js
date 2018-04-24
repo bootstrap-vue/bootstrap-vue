@@ -108,11 +108,20 @@ describe('dropdown', async () => {
     expect(Array.from(dd_6.$refs.menu.children).filter(node => node.classList.contains('dropdown-divider')).length).toBe(1)
   })
 
-  it('.dropdown menu aria-labelledby should target `_BV_button_` when not in split mode', async () => {
+  it('.dropdown menu aria-labelledby should target `_BV_toggle_` when not in split mode', async () => {
     const { app: { $refs } } = window
     const { dd_1 } = $refs // eslint-disable-line camelcase
 
     const menu = Array.from(dd_1.$el.children)
+      .find(node => node.attributes.role && node.attributes.role.value === 'menu')
+
+    expect(menu.attributes['aria-labelledby'].value).toMatch(/_BV_toggle_$/)
+  })
+  it('.dropdown menu aria-labelledby should target `_BV_button_` when in split mode', async () => {
+    const { app: { $refs } } = window
+    const { dd_2 } = $refs // eslint-disable-line camelcase
+
+    const menu = Array.from(dd_2.$el.children)
       .find(node => node.attributes.role && node.attributes.role.value === 'menu')
 
     expect(menu.attributes['aria-labelledby'].value).toMatch(/_BV_button_$/)

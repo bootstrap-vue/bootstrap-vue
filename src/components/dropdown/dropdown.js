@@ -62,7 +62,7 @@ export default {
         class: this.menuClasses,
         attrs: {
           role: this.role,
-          'aria-labelledby': this.safeId(this.split ? '_BV_toggle_' : '_BV_button_')
+          'aria-labelledby': this.safeId(this.split ? '_BV_button_' : '_BV_toggle_')
         },
         on: {
           mouseover: this.onMouseOver,
