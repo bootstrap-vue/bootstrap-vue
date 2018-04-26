@@ -186,7 +186,7 @@ class ToolTip {
     this.unListen()
     // Disable while open listeners/watchers
     this.setWhileOpenListeners(false)
-    // Clear any timouts
+    // Clear any timeouts
     clearTimeout(this.$hoverTimeout)
     this.$hoverTimeout = null
     clearTimeout(this.$fadeTimeout)
