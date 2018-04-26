@@ -140,7 +140,7 @@ export default {
   methods: {
     setListeners (on) {
       clearTimeout(this.scrollTimer)
-      this.scrollTimout = null
+      this.scrollTimeout = null
       const root = window
       if (on) {
         eventOn(root, 'scroll', this.onScroll)
