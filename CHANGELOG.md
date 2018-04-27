@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.9"></a>
+# [2.0.0-rc.9](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.8...v2.0.0-rc.9) (2018-04-27)
+
+
+### Bug Fixes
+
+* **docs:** typo in docs plugin ([#1777](https://github.com/bootstrap-vue/bootstrap-vue/issues/1777)) ([fb50c6f](https://github.com/bootstrap-vue/bootstrap-vue/commit/fb50c6f))
+* **dropdown:** aria-labbeledby for dropdowns ([8efa7ee](https://github.com/bootstrap-vue/bootstrap-vue/commit/8efa7ee))
+* **form-input:** revert step, min and max props ([#1767](https://github.com/bootstrap-vue/bootstrap-vue/issues/1767)) ([1ce1a20](https://github.com/bootstrap-vue/bootstrap-vue/commit/1ce1a20))
+* **img-lazy:** typo ([#1778](https://github.com/bootstrap-vue/bootstrap-vue/issues/1778)) ([11d113c](https://github.com/bootstrap-vue/bootstrap-vue/commit/11d113c))
+* **tooltip:** typo in comment ([#1779](https://github.com/bootstrap-vue/bootstrap-vue/issues/1779)) ([ef253f7](https://github.com/bootstrap-vue/bootstrap-vue/commit/ef253f7))
+
+
+### Features
+
+* **table:** support custom attributes per table cell in a column ([#1760](https://github.com/bootstrap-vue/bootstrap-vue/issues/1760)) ([fc083e5](https://github.com/bootstrap-vue/bootstrap-vue/commit/fc083e5))
+
+
+
 <a name="2.0.0-rc.8"></a>
 # [2.0.0-rc.8](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.7...v2.0.0-rc.8) (2018-04-17)
 
