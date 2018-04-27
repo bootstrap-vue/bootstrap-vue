@@ -6,7 +6,7 @@ import { scrollTo, offsetTop } from '~/utils'
 export default {
   data () {
     return {
-      scrollTimout: null
+      scrollTimeout: null
     }
   },
 
