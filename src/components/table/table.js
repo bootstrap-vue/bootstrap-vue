@@ -192,10 +192,9 @@ export default {
         const data = {
           key: `row-${rowIndex}-cell-${colIndex}`,
           class: this.tdClasses(field, item),
-          attrs: field.tdAttr || {},
+          attrs: this.tdAttrs(field, item, colIndex),
           domProps: {}
         }
-        data.attrs['aria-colindex'] = String(colIndex + 1)
         let childNodes
         if ($scoped[field.key]) {
           childNodes = [
@@ -221,15 +220,6 @@ export default {
           } else {
             // Non stacked
             childNodes = formatted
-          }
-        }
-        if (this.isStacked) {
-          // Generate the "header cell" label content in stacked mode
-          data.attrs['data-label'] = field.label
-          if (field.isRowHeader) {
-            data.attrs['role'] = 'rowheader'
-          } else {
-            data.attrs['role'] = 'cell'
           }
         }
         // Render either a td or th cell
@@ -864,7 +854,6 @@ export default {
       ]
     },
     tdClasses (field, item) {
-      const t = this
       let cellVariant = ''
       if (item._cellVariants && item._cellVariants[field.key]) {
         cellVariant = `${this.dark ? 'bg' : 'table'}-${
@@ -877,8 +866,22 @@ export default {
           : '',
         cellVariant,
         field.class ? field.class : '',
-        t.getTdClasses(item, field)
+        this.getTdValues(item, field.key, field.tdClass, '')
       ]
+    },
+    tdAttrs (field, item, colIndex) {
+      let attrs = {}
+      attrs['aria-colindex'] = String(colIndex + 1)
+      if (this.isStacked) {
+        // Generate the "header cell" label content in stacked mode
+        attrs['data-label'] = field.label
+        if (field.isRowHeader) {
+          attrs['role'] = 'rowheader'
+        } else {
+          attrs['role'] = 'cell'
+        }
+      }
+      return assign({}, attrs, this.getTdValues(item, field.key, field.tdAttr, {}))
     },
     rowClasses (item) {
       return [
@@ -982,21 +985,19 @@ export default {
         this._providerSetLocal(data)
       }
     },
-    getTdClasses (item, field) {
-      const key = field.key
-      const tdClass = field.tdClass
+    getTdValues (item, key, tdValue, defValue) {
       const parent = this.$parent
-      if (tdClass) {
-        if (typeof tdClass === 'function') {
+      if (tdValue) {
+        if (typeof tdValue === 'function') {
           let value = get(item, key)
-          return tdClass(value, key, item)
-        } else if (typeof tdClass === 'string' && typeof parent[tdClass] === 'function') {
+          return tdValue(value, key, item)
+        } else if (typeof tdValue === 'string' && typeof parent[tdValue] === 'function') {
           let value = get(item, key)
-          return parent[tdClass](value, key, item)
+          return parent[tdValue](value, key, item)
         }
-        return tdClass
+        return tdValue
       }
-      return ''
+      return defValue
     },
     getFormattedValue (item, field) {
       const key = field.key

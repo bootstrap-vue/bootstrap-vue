@@ -733,6 +733,18 @@ describe('table', async () => {
           tr.children[3].classList.contains('bg-primary') &&
           tr.children[3].classList.contains('text-light'))
           .toBe(true)
+        expect(Boolean(tr.children[0]) &&
+          Boolean(tr.children[0].attributes) &&
+          tr.children[0].getAttribute('title') === 'Person Full name')
+          .toBe(true)
+        expect(Boolean(tr.children[2]) &&
+          Boolean(tr.children[2].attributes) &&
+          tr.children[2].getAttribute('title') === 'is Active')
+          .toBe(true)
+        expect(Boolean(tr.children[3]) &&
+          Boolean(tr.children[3].attributes) &&
+          tr.children[3].getAttribute('title') === 'Actions')
+          .toBe(true)
       }
     })
   })

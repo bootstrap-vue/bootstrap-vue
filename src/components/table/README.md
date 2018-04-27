@@ -279,7 +279,7 @@ The following field properties are recognized:
 | `thClass` | String or Array | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.
 | `variant` | String | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly).
-| `tdAttr` | Object | JavaScript object representing additional attributes to apply to the `<tbody>` field `td` cell.
+| `tdAttr` | Object or Function | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.
 | `isRowHeader` | Boolean | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.
 
 >**Notes:**
