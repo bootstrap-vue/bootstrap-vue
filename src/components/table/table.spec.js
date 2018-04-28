@@ -528,6 +528,38 @@ describe('table', async () => {
     }
   })
 
+  it('non-sortable header th should not emit a sort-changed event when clicked and prop no-sort-reset is set', async () => {
+    const { app: { $refs } } = window
+    const vm = $refs.table_no_sort_reset
+    const spy = jest.fn()
+    const fieldKeys = Object.keys(vm.fields)
+
+    vm.$on('sort-changed', spy)
+    const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
+    expect(thead).toBeDefined()
+    if (thead) {
+      const tr = [...thead.children].find(el => el && el.tagName === 'TR')
+      expect(tr).toBeDefined()
+      if (tr) {
+        let sortBy = null
+        const ths = [...tr.children]
+        expect(ths.length).toBe(fieldKeys.length)
+        ths.forEach((th, idx) => {
+          th.click()
+          if (vm.fields[fieldKeys[idx]].sortable) {
+            expect(spy).toHaveBeenCalledWith(vm.context)
+            expect(vm.context.sortBy).toBe(fieldKeys[idx])
+            sortBy = vm.context.sortBy
+          } else {
+            expect(spy).not.toHaveBeenCalled()
+            expect(vm.context.sortBy).toBe(sortBy)
+          }
+          spy.mockClear()
+        })
+      }
+    }
+  })
+
   it('table_paginated pagination works', async () => {
     const { app: { $refs } } = window
     const vm = $refs.table_paginated
