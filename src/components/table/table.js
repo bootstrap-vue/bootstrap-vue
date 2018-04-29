@@ -927,6 +927,14 @@ export default {
         return
       }
       let sortChanged = false
+      const toggleLocalSortDesc = () => {
+        const sortDirection = field.sortDirection || this.sortDirection;
+        if (sortDirection === 'asc') {
+          this.localSortDesc = false
+        } else if (sortDirection === 'desc') {
+          this.localSortDesc = true
+        }
+      }
       if (field.sortable) {
         if (field.key === this.localSortBy) {
           // Change sorting direction on current column
@@ -934,20 +942,12 @@ export default {
         } else {
           // Start sorting this column ascending
           this.localSortBy = field.key
-          if (this.sortDirection === 'asc') {
-            this.localSortDesc = false
-          } else if (this.sortDirection === 'desc') {
-            this.localSortDesc = true
-          }
+          toggleLocalSortDesc()
         }
         sortChanged = true
       } else if (this.localSortBy && !this.noSortReset) {
         this.localSortBy = null
-        if (this.sortDirection === 'asc') {
-          this.localSortDesc = false
-        } else if (this.sortDirection === 'desc') {
-          this.localSortDesc = true
-        }
+        toggleLocalSortDesc()
         sortChanged = true
       }
       this.$emit('head-clicked', field.key, field, e)

@@ -275,6 +275,7 @@ The following field properties are recognized:
 | `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.
 | `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [**Custom Data Rendering**](#custom-data-rendering) for more details.
 | `sortable` | Boolean | Enable sorting on this column. Refer to the [**Sorting**](#sorting) Section for more details.
+| `sortDirection` | String | Change sort direction on this column. Refer to the [**Change sort direction**](#change-sort-direction) Section for more details.
 | `tdClass` | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.
 | `thClass` | String or Array | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.
@@ -999,9 +1000,11 @@ header is clicked, by using the the `sort-direction` prop. The default value `'a
 ascending sort first. To reverse the behavior and sort in descending direction first, set 
 it to `'desc'`.
 
-If you don't want the sorting direction to change at all when 
-clicking another sortable column header, set `sort-direction` to `'last'`. See the 
-[Complete Example](#complete-example) below for an example of using this feature.
+If you don't want the sorting direction to change at all when clicking another sortable 
+column header, set `sort-direction` to `'last'`. 
+
+For individual column sort directions, specify the property `sortDirection` in `fields`.
+See the [Complete Example](#complete-example) below for an example of using this feature.
 
 
 ## Filtering
@@ -1372,7 +1375,7 @@ export default {
     return {
       items: items,
       fields: [
-        { key: 'name', label: 'Person Full name', sortable: true },
+        { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
         { key: 'age', label: 'Person age', sortable: true, 'class': 'text-center' },
         { key: 'isActive', label: 'is Active' },
         { key: 'actions', label: 'Actions' }
