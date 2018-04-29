@@ -57,9 +57,10 @@
           slot-scope="field">
           <div
             v-for="arg in field.value"
-            :key="'' + arg">
+            :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`">
             <code v-if="arg.arg">{{ arg.arg }}</code>
             <span v-html="arg.description"/>
+            asdasd
           </div>
         </template>
       </b-table>
