@@ -18,7 +18,7 @@ export default {
         [ this.$slots.dismiss ]
       )
     }
-    let alert = h(
+    const alert = h(
       'div',
       {class: this.classObject, attrs: {role: 'alert', 'aria-live': 'polite', 'aria-atomic': true}},
       [dismissBtn, this.$slots.default]

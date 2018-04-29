@@ -168,7 +168,7 @@ with the dismiss button.
 <!-- alert-dismis-1.vue -->
 ```
 
-### Auto dismissing alerts:
+### Auto dismissing alerts
 To create a `<b-alert>` that dismisses automatically after a period of time, set
 the `show` prop to the number of seconds you would like the `<b-alert>` to remain visible for.
 
@@ -178,7 +178,7 @@ the `show` prop to the number of seconds you would like the `<b-alert>` to remai
     <b-alert :show="dismissCountDown"
              dismissible
              variant="warning"
-             @dismissed="dismissCountdown=0"
+             @dismissed="dismissCountDown=0"
              @dismiss-count-down="countDownChanged">
       This alert will dismiss after {{dismissCountDown}} seconds...
     </b-alert>
@@ -208,6 +208,65 @@ export default {
 </script>
 
 <!-- alert-auto-dismiss-1.vue -->
+```
+
+## Fading alerts
+Use the `fade` prop to enable animation. By default alerts are not animated.
+
+```html
+<template>
+  <div>
+    <b-alert show dismissible fade>
+      Dismissible Alert!
+    </b-alert>
+  
+    <b-alert variant="danger"
+             dismissible
+             fade
+             :show="showDismissibleAlert"
+             @dismissed="showDismissibleAlert=false">
+      Dismissible Alert!
+    </b-alert>
+  
+    <b-alert :show="dismissCountDown"
+             dismissible
+             fade
+             variant="warning"
+             @dismissed="dismissCountDown=0"
+             @dismiss-count-down="countDownChanged">
+      This alert will dismiss after {{dismissCountDown}} seconds...
+    </b-alert>
+      
+    <b-btn @click="showAlert" variant="info" class="m-1">
+      Show alert with count-down timer
+    </b-btn>
+    <b-btn @click="showDismissibleAlert=true" variant="info" class="m-1">
+      Show dismissible alert ({{showDismissibleAlert?'visible':'hidden'}})
+    </b-btn>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
+    }
+  },
+  methods: {
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert () {
+      this.dismissCountDown = this.dismissSecs
+    }
+  }
+}
+</script>
+
+<!-- alert-fade-1.vue -->
 ```
 
 ## Component Reference
