@@ -527,6 +527,10 @@ export default {
       type: Boolean,
       default: false
     },
+    noSortReset: {
+      type: Boolean,
+      default: false
+    },
     busy: {
       type: Boolean,
       default: false
@@ -928,7 +932,7 @@ export default {
           this.localSortDesc = false
         }
         sortChanged = true
-      } else if (this.localSortBy) {
+      } else if (this.localSortBy && !this.noSortReset) {
         this.localSortBy = null
         this.localSortDesc = false
         sortChanged = true

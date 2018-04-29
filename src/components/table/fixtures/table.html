@@ -13,15 +13,17 @@
         </template>
     </b-table>
 
-  <b-table ref="table_stacked" striped hover stacked :items="items" :fields="fields">
-    <template slot="name" slot-scope="data">
-      {{ data.value.first }} {{ data.value.last }}
-    </template>
-  </b-table>
+    <b-table ref="table_stacked" striped hover stacked :items="items" :fields="fields">
+        <template slot="name" slot-scope="data">
+        {{ data.value.first }} {{ data.value.last }}
+        </template>
+    </b-table>
 
-  <b-table ref="table_without_fields" :items="secondaryItems"></b-table>
+    <b-table ref="table_without_fields" :items="secondaryItems"></b-table>
 
     <b-table ref="table_responsive" responsive :items="items" :fields="fields"></b-table>
+
+    <b-table ref="table_no_sort_reset" :items="items" :fields="fields" no-sort-reset></b-table>
 
     <h2>Paginated Table</h2>
     <div class="my-1 row">

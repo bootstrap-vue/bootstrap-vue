@@ -886,7 +886,8 @@ export default {
 As mentioned in the [**Fields**](#fields-column-definitions-) section above,
 you can make columns sortable. Clicking on a sortable column header will sort the
 column in ascending direction (smallest first), while clicking on it again will switch the direction
-of sorting. Clicking on a non-sortable column will clear the sorting.
+of sorting. Clicking on a non-sortable column will clear the sorting. The prop `no-sort-reset` 
+can be used to disable this feature.
 
 You can control which column is pre-sorted and the order of sorting (ascending or
 descending). To pre-specify the column to be sorted, set the `sort-by` prop to
