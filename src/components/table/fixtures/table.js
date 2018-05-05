@@ -145,10 +145,11 @@ window.app = new Vue({
     formatCellAttrs (value, key, item) {
       return {title: 'Actions'}
     },
-    styleRow( item ) {
-      if ( !item )
-        return;
-      return { 'tr-start-with-l': item.name.first.charAt(0) === 'L', 'tr-last-name-macdonald': item.name.last === 'Macdonald' };
+    styleRow (item) {
+      if (!item) {
+        return
+      }
+      return { 'tr-start-with-l': item.name.first.charAt(0) === 'L', 'tr-last-name-macdonald': item.name.last === 'Macdonald' }
     }
   }
 })
