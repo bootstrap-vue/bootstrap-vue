@@ -202,13 +202,13 @@ and want to encourage a user through the rest of the fields.
 - `null` Displays no validation state
 
 To apply one of the contextual states on `<b-form-group>`, set the `state` prop
-to `'invalid'` (or `false`), `'valid'` (or `true`), or `null`. This will programmattically show
+to `'invalid'` (or `false`), `'valid'` (or `true`), or `null`. This will programmatically show
 the apropriate feedback text.
 
 Boostrap V4 uses sibling CSS slectors of `:invalid` or `:valid` inputs to show the feedback text. Some
 form controls (such as checkboxes, radios, and file inputs, or inputs inside input-groups) are
 wrapped in additional markup that will no longer make the feedback text a sibling of the input, and
-hence the feedback will not show.  In these situations you will ned to set the validity `state` on
+hence the feedback will not show.  In these situations you will need to set the validity `state` on
 the `<b-form-group>` _as well as_ the input.
 
 Feedback will be shown if the parent `<b-form>` component does _not_ have the
@@ -236,11 +236,11 @@ by setting the prop `valid-feedback` or using the named slot `valid-feedback`.
 Valid feedback is rendered using the [`<b-form-valid-feedback>`](/docs/components/form#helper-components)
 form sub-componment.
 
-### Feeback limitations
+### Feedback limitations
 **Note:** When using `<b-input-group>`, `<b-form-file>`, `<b-form-radio-group>`,
 `<b-form-radio>`, `<b-form-checkbox-group>` or `<b-form-checkbox>` inside a
 `<b-form-group>`, setting an invalid (or valid) `state` on the `input` alone will **not** trigger
-the invalid (or valid) feeback to show (due to limitations with the new Bootsrap V4 validation CSS).
+the invalid (or valid) feedback to show (due to limitations with the new Bootsrap V4 validation CSS).
 To get around this, **you must also** set the invalid/valid `state` on `<b-form-group>`.  Native
 browser validation will **not** trigger the invalid feedback to show when using one of
 the above mentiond form controls.
@@ -248,7 +248,7 @@ the above mentiond form controls.
 
 ## Accessibility
 To enable auto-generation of `aria-*` attributes, you should supply a unique `id` prop
-to `<b-form-group>`. This will associate the help text and feeback text to
+to `<b-form-group>`. This will associate the help text and feedback text to
 the `<b-form-group>` and, indirectly to its input control(s).
 
 By default, when no `label-for` value is provided, `<b-form-group>` renders the input control(s)
@@ -266,7 +266,7 @@ markup that produces a `<fieldset>` + `<legend>` which will describe the group o
 
 When placing multiple form controls inside a `<b-form-group>` (and you are not nesting
 `<b-form-group>`components), it is recommended to give each control its own associated
-`<label>` (which may be visually hidden using the `.sr-only` class) and set the label's
+`<label>` (which may be visually hidden using the `.sr-only` class) and set the labels
 `for` attribute to the `id` of the associated input control. Alternatively, you can set the
 `aria-label` attribute on each input control instead of using a `<label>`. For `<b-form-radio>`
 and `<b-form-checkbox>` (or the group versions), you do not need to set individual labels, as
