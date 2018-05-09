@@ -109,7 +109,7 @@ export default {
         })
         this.emitEvent(evt)
         if (evt.defaultPrevented) {
-          // Don't show if canceled
+          // Exit if canceled
           return
         }
         if (evtName === 'show') {
@@ -271,7 +271,7 @@ export default {
       }
       this.$emit('toggle', evt)
       if (evt.defaultPrevented) {
-        // Don't show if canceled
+        // Exit if canceled
         return
       }
       evt.preventDefault()
