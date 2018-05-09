@@ -269,6 +269,13 @@ export default {
         this.visible = false
         return
       }
+      this.$emit('toggle', evt)
+      if (evt.defaultPrevented) {
+        // Don't show if canceled
+        return
+      }
+      evt.preventDefault()
+      evt.stopPropagation()
       // Toggle visibility
       this.visible = !this.visible
     },
