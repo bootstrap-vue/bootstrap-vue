@@ -136,7 +136,7 @@ export default {
     emitEvent (bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
-      this.$root.$emit(`bv::dropdown::${type}`, bvEvt)
+      this.emitOnRoot(`bv::dropdown::${type}`, bvEvt)
     },
     showMenu () {
       if (this.disabled) {
