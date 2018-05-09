@@ -4,6 +4,7 @@ import listenOnRootMixin from './listen-on-root'
 import { from as arrayFrom } from '../utils/array'
 import { assign } from '../utils/object'
 import KeyCodes from '../utils/key-codes'
+import BvEvent from '../utils/bv-event.class'
 import warn from '../utils/warn'
 import { isVisible, closest, selectAll, getAttr, eventOn, eventOff } from '../utils/dom'
 
@@ -97,19 +98,29 @@ export default {
     this.removePopper()
   },
   watch: {
-    visible (state, old) {
-      if (state === old) {
-        // Avoid duplicated emits
-        return
-      }
-      if (state) {
-        this.showMenu()
-      } else {
-        this.hideMenu()
+    visible (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        const evtName = newValue ? 'show' : 'hide';
+        const evt = new BvEvent(evtName, {
+          cancelable: true,
+          vueTarget: this,
+          target: this.$refs.menu,
+          relatedTarget: null
+        })
+        this.emitEvent(evt)
+        if (evt.defaultPrevented) {
+          // Don't show if canceled
+          return
+        }
+        if (evtName === 'show') {
+          this.showMenu()
+        } else {
+          this.hideMenu()
+        }
       }
     },
-    disabled (state, old) {
-      if (state !== old && state && this.visible) {
+    disabled (newValue, oldValue) {
+      if (newValue !== oldValue && newValue && this.visible) {
         // Hide dropdown if disabled changes to true
         this.visible = false
       }
@@ -125,8 +136,6 @@ export default {
       if (this.disabled) {
         return
       }
-      // TODO: move emit show to visible watcher, to allow cancelling of show
-      this.$emit('show')
       // Ensure other menus are closed
       this.emitOnRoot('bv::dropdown::shown', this)
 
@@ -157,8 +166,6 @@ export default {
       this.$nextTick(this.focusFirstItem)
     },
     hideMenu () {
-      // TODO: move emit hide to visible watcher, to allow cancelling of hide
-      this.$emit('hide')
       this.setTouchStart(false)
       this.emitOnRoot('bv::dropdown::hidden', this)
       this.$emit('hidden')
@@ -258,8 +265,6 @@ export default {
         // We only toggle on Click, Enter, Space, and Arrow Down
         return
       }
-      evt.preventDefault()
-      evt.stopPropagation()
       if (this.disabled) {
         this.visible = false
         return
