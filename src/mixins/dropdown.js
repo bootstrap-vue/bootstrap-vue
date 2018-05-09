@@ -109,7 +109,8 @@ export default {
         })
         this.emitEvent(bvEvt)
         if (bvEvt.defaultPrevented) {
-          // Exit if canceled
+          // Reset value and exit if canceled
+          this.visible = oldValue
           return
         }
         if (evtName === 'show') {
