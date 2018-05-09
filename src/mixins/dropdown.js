@@ -100,7 +100,7 @@ export default {
   watch: {
     visible (newValue, oldValue) {
       if (newValue !== oldValue) {
-        const evtName = newValue ? 'show' : 'hide';
+        const evtName = newValue ? 'show' : 'hide'
         let evt = new BvEvent(evtName, {
           cancelable: true,
           vueTarget: this,
