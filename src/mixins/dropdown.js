@@ -101,7 +101,7 @@ export default {
     visible (newValue, oldValue) {
       if (newValue !== oldValue) {
         const evtName = newValue ? 'show' : 'hide';
-        const evt = new BvEvent(evtName, {
+        let evt = new BvEvent(evtName, {
           cancelable: true,
           vueTarget: this,
           target: this.$refs.menu,
