@@ -101,14 +101,14 @@ export default {
     visible (newValue, oldValue) {
       if (newValue !== oldValue) {
         const evtName = newValue ? 'show' : 'hide'
-        let evt = new BvEvent(evtName, {
+        let bvEvt = new BvEvent(evtName, {
           cancelable: true,
           vueTarget: this,
           target: this.$refs.menu,
           relatedTarget: null
         })
-        this.emitEvent(evt)
-        if (evt.defaultPrevented) {
+        this.emitEvent(bvEvt)
+        if (bvEvt.defaultPrevented) {
           // Exit if canceled
           return
         }
@@ -132,6 +132,12 @@ export default {
     }
   },
   methods: {
+    // Event emitter
+    emitEvent (bvEvt) {
+      const type = bvEvt.type
+      this.$emit(type, bvEvt)
+      this.$root.$emit(`bv::dropdown::${type}`, bvEvt)
+    },
     showMenu () {
       if (this.disabled) {
         return
