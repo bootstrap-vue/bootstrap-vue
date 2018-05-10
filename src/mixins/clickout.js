@@ -1,12 +1,12 @@
 export default {
   mounted () {
     if (typeof document !== 'undefined') {
-      document.documentElement.addEventListener('click', this._clickOutListener)
+      document.documentElement.addEventListener('mousedown', this._clickOutListener)
     }
   },
   beforeDestroy () {
     if (typeof document !== 'undefined') {
-      document.documentElement.removeEventListener('click', this._clickOutListener)
+      document.documentElement.removeEventListener('mousedown', this._clickOutListener)
     }
   },
   methods: {
