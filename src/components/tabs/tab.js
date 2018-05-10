@@ -38,7 +38,7 @@ export default {
     beforeEnter () {
       // change opacity 1 frame after display
       // otherwise css transition won't happen
-      window.requestAnimationFrame(()=>{this.show = true});
+      window.requestAnimationFrame(() => { this.show = true });
     },
     beforeLeave () {
       this.show = false
