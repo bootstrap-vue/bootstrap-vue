@@ -20,7 +20,16 @@ describe('dropdown', async () => {
 
     expect(dd_5).toBeComponent('b-dd')
   })
-
+  it('clickOut should be listened on demand', async () => {
+    const { app: { $refs } } = window
+    const { dd_3 } = $refs // eslint-disable-line camelcase
+    dd_3.listenClickOut()
+    expect(dd_3._clickOutElement).toBe(document.documentElement)
+    let mousedownEvent = new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window })
+    document.documentElement.dispatchEvent(mousedownEvent)
+    expect(dd_3._clickOutElement).toBe(null)
+    // buttonItem.dispatchEvent(mousedownEvent);
+  })
   /*
     // This test complains somewhat due to mising Range functions in JSDOM
     // Commenting out for now
@@ -74,22 +83,22 @@ describe('dropdown', async () => {
   })
   */
   it('dd-item should render as link by default', async () => {
-    const {app: {$refs}} = window
-    const {dd_6} = $refs // eslint-disable-line camelcase
+    const { app: { $refs } } = window
+    const { dd_6 } = $refs // eslint-disable-line camelcase
 
     expect(Array.from(dd_6.$refs.menu.children).find(node => node.innerHTML === 'link')).toBeElement('a')
   })
 
   it('dd-item-button should render as button', async () => {
-    const {app: {$refs}} = window
-    const {dd_6} = $refs // eslint-disable-line camelcase
+    const { app: { $refs } } = window
+    const { dd_6 } = $refs // eslint-disable-line camelcase
 
     expect(Array.from(dd_6.$refs.menu.children).find(node => node.innerHTML === 'button')).toBeElement('button')
   })
 
   it('dd-item-button should emit click event', async () => {
-    const {app: {$refs}} = window
-    const {dd_6} = $refs // eslint-disable-line camelcase
+    const { app: { $refs } } = window
+    const { dd_6 } = $refs // eslint-disable-line camelcase
 
     const spy = jest.fn()
 
@@ -102,8 +111,8 @@ describe('dropdown', async () => {
   })
 
   it('dd-divider should render', async () => {
-    const {app: {$refs}} = window
-    const {dd_6} = $refs // eslint-disable-line camelcase
+    const { app: { $refs } } = window
+    const { dd_6 } = $refs // eslint-disable-line camelcase
 
     expect(Array.from(dd_6.$refs.menu.children).filter(node => node.classList.contains('dropdown-divider')).length).toBe(1)
   })
