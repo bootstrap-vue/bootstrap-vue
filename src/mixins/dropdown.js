@@ -151,6 +151,7 @@ export default {
       }
 
       this.setTouchStart(true)
+      this.listenClickOut()
       this.$emit('shown')
 
       // Focus on the first item on show
