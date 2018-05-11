@@ -69,7 +69,8 @@ export default {
   data () {
     return {
       visible: false,
-      inNavbar: null
+      inNavbar: null,
+      visibleChangePrevented: false
     }
   },
   created () {
@@ -99,6 +100,11 @@ export default {
   },
   watch: {
     visible (newValue, oldValue) {
+      if (this.visibleChangePrevented) {
+        this.visibleChangePrevented = false
+        return
+      }
+
       if (newValue !== oldValue) {
         const evtName = newValue ? 'show' : 'hide'
         let bvEvt = new BvEvent(evtName, {
@@ -110,6 +116,7 @@ export default {
         this.emitEvent(bvEvt)
         if (bvEvt.defaultPrevented) {
           // Reset value and exit if canceled
+          this.visibleChangePrevented = true
           this.visible = oldValue
           return
         }
