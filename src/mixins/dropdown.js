@@ -92,7 +92,6 @@ export default {
   },
   /* istanbul ignore next: not easy to test */
   beforeDestroy () {
-    this.visible = false
     this.setTouchStart(false)
     this.removePopper()
   },

@@ -1,8 +1,12 @@
 export default {
+  /* istanbul ignore next: not easy to test */
   beforeDestroy () {
     if (this._clickOutElement) {
       this._clickOutElement.removeEventListener('mousedown', this._clickOutListener)
       this._clickOutElement = null
+      if (this.clickOutListener) {
+        this.clickOutListener()
+      }
     }
   },
   methods: {
