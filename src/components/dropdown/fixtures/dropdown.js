@@ -1,3 +1,6 @@
 window.app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    show_dd_10: true
+  }
 })

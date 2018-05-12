@@ -28,7 +28,15 @@ describe('dropdown', async () => {
     let mousedownEvent = new MouseEvent('mousedown', { bubbles: true, cancelable: true, view: window })
     document.documentElement.dispatchEvent(mousedownEvent)
     expect(dd_3._clickOutElement).toBe(null)
-    // buttonItem.dispatchEvent(mousedownEvent);
+  })
+  it('destroy the dropdown shoulld cancel listener', async () => {
+    const { app: { $refs } } = window
+    const { dd_10 } = $refs // eslint-disable-line camelcase
+    dd_10.listenClickOut()
+    expect(dd_10._clickOutElement).toBe(document.documentElement)
+    dd_10.$parent.show_dd_10 = false
+    await Vue.nextTick()
+    expect(dd_10._clickOutElement).toBe(null)
   })
   /*
     // This test complains somewhat due to mising Range functions in JSDOM
