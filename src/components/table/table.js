@@ -928,7 +928,7 @@ export default {
       }
       let sortChanged = false
       const toggleLocalSortDesc = () => {
-        const sortDirection = field.sortDirection || this.sortDirection;
+        const sortDirection = field.sortDirection || this.sortDirection
         if (sortDirection === 'asc') {
           this.localSortDesc = false
         } else if (sortDirection === 'desc') {
