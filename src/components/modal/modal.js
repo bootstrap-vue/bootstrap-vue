@@ -248,6 +248,7 @@ export default {
       is_visible: false,
       is_transitioning: false,
       is_show: false,
+      is_show_delayed: false,
       is_block: false,
       scrollbarWidth: 0,
       isBodyOverflowing: false,
@@ -501,6 +502,7 @@ export default {
       }
       if (hasClass(document.body, 'modal-open')) {
         // If another modal is already open, wait for it to close
+        this.is_show_delayed = true
         this.$root.$once('bv::modal::hidden', this.doShow)
       } else {
         // Show the modal
@@ -509,8 +511,18 @@ export default {
     },
     hide (trigger) {
       if (!this.is_visible) {
-        return
+        if (this.is_show_delayed) {
+          // If another modal is started to hide but not hidden yet,
+          // and yet another modal is about to open, wait for it to
+          // open.
+          this.$root.$once('bv::modal::shown', this.doHide)
+        } else {
+          return
+        }
       }
+      this.doHide(trigger)
+    },
+    doHide (trigger) {
       const hideEvt = new BvEvent('hide', {
         cancelable: true,
         vueTarget: this,
@@ -534,7 +546,10 @@ export default {
       }
       this.emitEvent(hideEvt)
       // Hide if not canceled
-      if (hideEvt.defaultPrevented || !this.is_visible) {
+      if (hideEvt.defaultPrevented) {
+        return
+      }
+      if (!this.is_visible) {
         return
       }
       // stop observing for content changes
@@ -547,6 +562,7 @@ export default {
     },
     // Private method to finish showing modal
     doShow () {
+      this.is_show_delayed = false
       // Plce modal in DOM if lazy
       this.is_hidden = false
       this.$nextTick(() => {
