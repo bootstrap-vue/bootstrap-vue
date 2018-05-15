@@ -15,7 +15,7 @@ Change the default `div` root tag to any other HTML element by specifying via th
 ```html
 <div>
   <b-card title="Card Title"
-          img-src="https://lorempixel.com/600/300/food/5/"
+          img-src="https://picsum.photos/600/300/?image=25"
           img-alt="Image"
           img-top
           tag="article"
@@ -126,7 +126,7 @@ Place the image in the background of the card by setting the boolean prop `overl
 ```html
 <div>
   <b-card overlay
-          img-src="https://lorempixel.com/900/250/sports/6/"
+          img-src="https://picsum.photos/900/250/?image=36"
           img-alt="Card Image"
           text-variant="white"
           title="Image Overlay"
@@ -471,7 +471,7 @@ card footers in decks will automatically line up.
 <div>
     <b-card-group deck>
         <b-card title="Title"
-                img-src="https://lorempixel.com/300/300/"
+                img-src="https://picsum.photos/300/300/?image=41"
                 img-alt="Img"
                 img-top>
             <p class="card-text">
@@ -484,7 +484,7 @@ card footers in decks will automatically line up.
             </div>
         </b-card>
         <b-card title="Title"
-                img-src="https://lorempixel.com/300/300/"
+                img-src="https://picsum.photos/300/300/?image=41"
                 img-alt="Img"
                 img-top>
             <p class="card-text">
@@ -496,7 +496,7 @@ card footers in decks will automatically line up.
             </div>
         </b-card>
         <b-card title="Title"
-                img-src="https://lorempixel.com/300/300/"
+                img-src="https://picsum.photos/300/300/?image=41"
                 img-alt="Img"
                 img-top>
             <p class="card-text">
@@ -569,12 +569,12 @@ isn’t a bulletproof solution yet.
             </p>
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
         </b-card>
-        <b-card img-src="https://lorempixel.com/400/400/"
+        <b-card img-src="https://picsum.photos/400/400/?image=41"
                 img-fluid
                 img-alt="image"
                 overlay>
         </b-card>
-        <b-card img-src="https://lorempixel.com/400/200/"
+        <b-card img-src="https://picsum.photos/400/200/?image=41"
                 img-fluid
                 img-alt="image"
                 img-top>

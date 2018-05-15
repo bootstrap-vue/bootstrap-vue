@@ -20,7 +20,7 @@ with the parent element - up to the maximum native width of the image.
 
 ```html
 <div>
-  <b-img src="https://lorempixel.com/1024/400/" fluid alt="Responsive image" />
+  <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
 </div>
 
 <!-- b-img-responsive-1.vue -->
@@ -32,9 +32,9 @@ the `fluid-grow` prop. Note this may cause bluring on small bitmap images.
 ```html
 <div>
   <h5>Small image with <code>fluid</code>:</h5>
-  <b-img src="https://lorempixel.com/300/150/" fluid alt="Fluid image" />
+  <b-img src="https://picsum.photos/300/150/?image=41" fluid alt="Fluid image" />
   <h5 class="my-3">Small image with <code>fluid-grow</code>:</h5>
-  <b-img src="https://lorempixel.com/300/150/" fluid-grow alt="Fluid-Grow image" />
+  <b-img src="https://picsum.photos/300/150/?image=41" fluid-grow alt="Fluid-Grow image" />
 </div>
 
 <!-- b-img-responsive-2.vue -->
@@ -54,13 +54,13 @@ You can use prop `thumbnail` to give an image a rounded light border appearance.
 <b-container fluid class="p-4 bg-dark">
   <b-row>
     <b-col>
-      <b-img thumbnail fluid src="https://lorempixel.com/250/250/technics/4/" alt="Thumbnail" />
+      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Thumbnail" />
     </b-col>
     <b-col>
-      <b-img thumbnail fluid src="https://lorempixel.com/250/250/technics/8/" alt="Thumbnail" />
+      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=58" alt="Thumbnail" />
     </b-col>
     <b-col>
-      <b-img thumbnail fluid src="https://lorempixel.com/250/250/technics/4/" alt="Thumbnail" />
+      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=59" alt="Thumbnail" />
     </b-col>
   </b-row>
 </b-container>
@@ -102,8 +102,8 @@ in a container that has the class `text-center`.
 **Left an Right aligned (float):**
 ```html
 <div class="clearfix">
-  <b-img left src="https://lorempixel.com/125/125/technics/8/" alt="left image" />
-  <b-img right src="https://lorempixel.com/125/125/technics/8/" alt="right image" />
+  <b-img left src="https://picsum.photos/125/125/?image=58" alt="left image" />
+  <b-img right src="https://picsum.photos/125/125/?image=58" alt="right image" />
 </div>
 
 <!-- b-img-left-right.vue -->
@@ -112,7 +112,7 @@ in a container that has the class `text-center`.
 **Center aligned (block):**
 ```html
 <div>
-  <b-img center src="https://lorempixel.com/125/125/technics/8/" alt="center image" />
+  <b-img center src="https://picsum.photos/125/125/?image=58" alt="center image" />
 </div>
 
 <!-- b-img-center.vue -->
@@ -194,15 +194,15 @@ removed.
 **Example usage:**
 ```html
 <div>
-  <b-img-lazy src="https://lorempixel.com/600/400/cats/1/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://lorempixel.com/600/400/cats/3/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://lorempixel.com/600/400/cats/4/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://lorempixel.com/600/400/cats/5/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://lorempixel.com/600/400/cats/6/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://lorempixel.com/600/400/cats/7/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://lorempixel.com/600/400/cats/8/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://lorempixel.com/600/400/cats/9/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://lorempixel.com/600/400/cats/10/" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://picsum.photos/600/400/?image=81" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://picsum.photos/600/400/?image=83" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://picsum.photos/600/400/?image=84" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://picsum.photos/600/400/?image=85" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://picsum.photos/600/400/?image=91" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://picsum.photos/600/400/?image=87" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://picsum.photos/600/400/?image=88" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://picsum.photos/600/400/?image=89" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy src="https://picsum.photos/600/400/?image=90" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
 </div>
 
 <!-- b-img-lazy.vue -->
