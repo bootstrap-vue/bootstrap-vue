@@ -25,12 +25,13 @@ describe('modal', async () => {
     // show the modal
     modalButton.click()
     await nextTick()
-    expect(modal.$el.classList.contains('show'))
+    expect(Array.isArray(modal._marginChangedForScroll)).toBe(true)
 
     // hide the modal
-    let clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true, view: window })
-    modal.$el.dispatchEvent(clickEvent)
+    modal.hide()
     await nextTick()
-    expect(!modal.$el.classList.contains('show'))
+    // manually run resetScrollbar because JSDOM doesn't support it
+    modal.resetScrollbar()
+    expect(modal._marginChangedForScroll).toBe(null)
   })
 })
