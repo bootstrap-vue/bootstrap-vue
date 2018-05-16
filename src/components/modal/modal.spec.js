@@ -17,4 +17,14 @@ describe('modal', async () => {
     await nextTick()
     expect(app.$refs.button).not.toHaveProperty('__BV_boundEventListeners__.click')
   })
+
+  it('Should show modal', async () => {
+    const { app: { $refs } } = window
+    const { modalButton, modal } = $refs
+
+    modalButton.click()
+
+    await nextTick()
+    expect(modal.$el.classList.contains('show'))
+  })
 })
