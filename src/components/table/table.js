@@ -358,10 +358,8 @@ export default {
           role: this.isStacked ? 'table' : null,
           'aria-busy': this.computedBusy ? 'true' : 'false',
           'aria-colcount': String(fields.length),
-          'aria-rowcount':
-            this.$attrs['aria-rowcount'] || (this.perPage && this.perPage > 0)
-              ? '-1'
-              : null
+          'aria-rowcount': this.$attrs['aria-rowcount'] ||
+            this.items.length > this.perPage ? this.items.length : null
         }
       },
       [caption, colgroup, thead, tfoot, tbody]
