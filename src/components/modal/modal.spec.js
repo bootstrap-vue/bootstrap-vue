@@ -18,13 +18,19 @@ describe('modal', async () => {
     expect(app.$refs.button).not.toHaveProperty('__BV_boundEventListeners__.click')
   })
 
-  it('Should show modal', async () => {
+  it('Should show hide modal', async () => {
     const { app: { $refs } } = window
     const { modalButton, modal } = $refs
 
+    // show the modal
     modalButton.click()
-
     await nextTick()
     expect(modal.$el.classList.contains('show'))
+
+    // hide the modal
+    let clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true, view: window })
+    modal.$el.dispatchEvent(clickEvent)
+    await nextTick()
+    expect(!modal.$el.classList.contains('show'))
   })
 })
