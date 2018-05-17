@@ -28,8 +28,7 @@ export default {
         props: { mode: 'out-in' },
         on: {
           beforeEnter: this.beforeEnter,
-          afterEnter: this.afterEnter,
-          afterLeave: this.afterLeave
+          beforeLeave: this.beforeLeave
         }
       },
       [content]
@@ -37,12 +36,11 @@ export default {
   },
   methods: {
     beforeEnter () {
-      this.show = false
+      // change opacity 1 frame after display
+      // otherwise css transition won't happen
+      window.requestAnimationFrame(() => { this.show = true })
     },
-    afterEnter () {
-      this.show = true
-    },
-    afterLeave () {
+    beforeLeave () {
       this.show = false
     }
   },
