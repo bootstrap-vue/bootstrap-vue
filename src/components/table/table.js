@@ -5,7 +5,7 @@ import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
 import { keys, assign } from '../../utils/object'
-import { isArray } from '../../utils/array'
+import { arrayIncludes, isArray } from '../../utils/array'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 
@@ -398,6 +398,11 @@ export default {
     sortDesc: {
       type: Boolean,
       default: false
+    },
+    sortDirection: {
+      type: String,
+      default: 'asc',
+      validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
     },
     caption: {
       type: String,
@@ -920,6 +925,14 @@ export default {
         return
       }
       let sortChanged = false
+      const toggleLocalSortDesc = () => {
+        const sortDirection = field.sortDirection || this.sortDirection
+        if (sortDirection === 'asc') {
+          this.localSortDesc = false
+        } else if (sortDirection === 'desc') {
+          this.localSortDesc = true
+        }
+      }
       if (field.sortable) {
         if (field.key === this.localSortBy) {
           // Change sorting direction on current column
@@ -927,12 +940,12 @@ export default {
         } else {
           // Start sorting this column ascending
           this.localSortBy = field.key
-          this.localSortDesc = false
+          toggleLocalSortDesc()
         }
         sortChanged = true
       } else if (this.localSortBy && !this.noSortReset) {
         this.localSortBy = null
-        this.localSortDesc = false
+        toggleLocalSortDesc()
         sortChanged = true
       }
       this.$emit('head-clicked', field.key, field, e)
