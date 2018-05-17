@@ -133,10 +133,7 @@ export default {
   methods: {
     format (value, e) {
       if (this.formatter) {
-        const formattedValue = this.formatter(value, e)
-        if (formattedValue !== value) {
-          return formattedValue
-        }
+          return this.formatter(value, e)
       }
       return value
     },
