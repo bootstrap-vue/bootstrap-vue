@@ -30,6 +30,9 @@ export default {
             value: option.value,
             required: Boolean(this.name && this.required),
             disabled: option.disabled
+          },
+          on: {
+            blur: this.onBlur
           }
         },
         [h('span', { domProps: { innerHTML: option.text } })]
@@ -127,6 +130,11 @@ export default {
     get_State () {
       // Required by child radios
       return this.computedState
+    }
+  },
+  methods: {
+    onBlur (evt) {
+      this.$emit('blur', evt)
     }
   }
 }

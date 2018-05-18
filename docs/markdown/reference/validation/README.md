@@ -86,3 +86,84 @@ This is a verbose example designed to show how Bootstrap-Vue and Vuelidate inter
 
 <!-- form-validation-1.vue -->
 ```
+
+## VeeValidate
+
+VeeValidate provides a simple, flexible and configurable fields validation, without needing a model. Installation instructions and other documentation can be found at https://baianat.github.io/vee-validate.
+
+### Example
+
+This example shows how to add different validation and feedback to two form fields, as well as dynamically disable the submit button based on the form validity. You can test it out live at https://codepen.io/uriannrima/pen/aGPvYm
+
+```html
+<template>
+  <b-form @submit="onSubmit">
+    <b-form-group id="exampleInputGroup1"
+                  label="Name"
+                  label-for="exampleInput1">
+      <b-form-input id="exampleInput1"
+                    type="text"
+                    name="name"
+                    v-model="form.name"
+                    :state="getState('name')"
+                    aria-describedby="input1LiveFeedback"
+                    placeholder="Enter name"
+                    v-validate="{ required: true, min: 3 }" />
+      <b-form-invalid-feedback id="input1LiveFeedback">
+        This is a required field and must be at least 3 characters
+      </b-form-invalid-feedback>
+    </b-form-group>
+    <b-form-group id="exampleInputGroup2"
+                  label="Food"
+                  label-for="exampleInput2">
+      <b-form-select id="exampleInput2"
+                     :options="foods"
+                     name="food"
+                     :state="getState('food')"
+                     v-model="form.food" 
+                     v-validate="{ required: true }"/>
+      <b-form-invalid-feedback id="input2LiveFeedback">
+        This is a required field
+      </b-form-invalid-feedback>
+    </b-form-group>
+    <b-button type="submit"
+              variant="primary"
+              :disabled="errors.any()">
+      Submit
+    </b-button>
+  </b-form>  
+</template>
+
+<script>
+  export default {
+    name: "myForm",
+    data() {
+      return {
+        foods: [
+          "apple",
+          "orange"
+        ],
+        form: {}
+      }
+    },
+    methods: {
+      /** Required to return a null state, since VeeValidate erros only only true or false. */
+      getState(fieldName) {
+        const field = this.$validator.fields.find({
+          name: fieldName
+        });
+        if (field && field.flags.touched) {
+          return field.flags.valid;
+        }
+        return null;
+      },
+      onSubmit() {
+        // form submit logic
+        console.log('Submited');
+      }
+    }
+  }
+</script>
+
+<!-- form-validation-2.vue -->
+```

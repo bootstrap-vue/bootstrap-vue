@@ -35,7 +35,8 @@ export default {
       on: {
         input: (evt) => {
           this.localValue = evt.target.value
-        }
+        },
+        blur: this.onBlur
       }
     })
   },
@@ -146,6 +147,9 @@ export default {
       if (!this.disabled) {
         this.$el.focus()
       }
+    },
+    onBlur (evt) {
+      this.$emit('blur', evt)
     }
   }
 }
