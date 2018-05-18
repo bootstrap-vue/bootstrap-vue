@@ -47,7 +47,7 @@ export default {
       domProps: { value: this.value, checked: this.is_Checked },
       on: {
         focus: this.handleFocus,
-        blur: this.handleFocus,
+        blur: this.onBlur,
         change: this.emitChange,
         __c: evt => {
           const $$a = this.computedLocalChecked
@@ -180,6 +180,10 @@ export default {
       this.$refs.check.indeterminate = state
       // Emit update event to prop
       this.$emit('update:indeterminate', this.$refs.check.indeterminate)
+    },
+    onBlur (evt) {
+      this.handleFocus(evt)
+      this.$emit('blur', evt)
     }
   },
   mounted () {

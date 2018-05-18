@@ -37,7 +37,7 @@ export default {
       },
       on: {
         focus: this.handleFocus,
-        blur: this.handleFocus,
+        blur: this.onBlur,
         change: this.emitChange,
         __c: evt => {
           this.computedLocalChecked = this.value
@@ -103,6 +103,10 @@ export default {
       if (this.is_Child) {
         this.$parent.$emit('change', this.computedLocalChecked)
       }
+    },
+    onBlur (evt) {
+      this.handleFocus(evt)
+      this.$emit('blur', evt)
     }
   }
 }

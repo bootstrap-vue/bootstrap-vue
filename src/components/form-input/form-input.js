@@ -47,7 +47,8 @@ export default {
       },
       on: {
         input: this.onInput,
-        change: this.onChange
+        change: this.onChange,
+        blur: this.onBlur
       }
     })
   },
@@ -133,7 +134,7 @@ export default {
   methods: {
     format (value, e) {
       if (this.formatter) {
-          return this.formatter(value, e)
+        return this.formatter(value, e)
       }
       return value
     },
@@ -154,6 +155,9 @@ export default {
       if (!this.disabled) {
         this.$el.focus()
       }
+    },
+    onBlur (evt) {
+      this.$emit('blur', evt)
     }
   }
 }

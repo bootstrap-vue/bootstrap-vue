@@ -55,7 +55,8 @@ export default {
               .map(o => ('_value' in o ? o._value : o.value))
             this.localValue = target.multiple ? selectedVal : selectedVal[0]
             this.$emit('change', this.localValue)
-          }
+          },
+          blur: this.onBlur
         }
       },
       [$slots.first, options, $slots.default]
@@ -112,6 +113,11 @@ export default {
         return 'true'
       }
       return this.stateClass === 'is-invalid' ? 'true' : null
+    }
+  },
+  methods: {
+    onBlur (evt) {
+      this.$emit('blur', evt)
     }
   }
 }
