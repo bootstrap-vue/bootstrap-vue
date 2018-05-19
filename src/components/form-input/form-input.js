@@ -113,16 +113,16 @@ export default {
       return this.ariaInvalid
     }
   },
-  mounted() {
+  mounted () {
     if (this.value) {
-      const fValue = this.format(this.value, null);
-      this.setValue(fValue);
+      const fValue = this.format(this.value, null)
+      this.setValue(fValue)
     }
   },
   watch: {
-    value(newVal) {
-      const fValue = this.format(this.value, null);
-      this.setValue(fValue);
+    value (newVal) {
+      const fValue = this.format(this.value, null)
+      this.setValue(fValue)
     }
   },
   methods: {
