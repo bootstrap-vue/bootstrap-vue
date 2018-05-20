@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.11"></a>
+# [2.0.0-rc.11](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.10...v2.0.0-rc.11) (2018-05-20)
+
+
+### Bug Fixes
+
+* **form-input:** force update formatted value ([#1845](https://github.com/bootstrap-vue/bootstrap-vue/issues/1845)) ([497cc6e](https://github.com/bootstrap-vue/bootstrap-vue/commit/497cc6e))
+
+
+
 <a name="2.0.0-rc.10"></a>
 # [2.0.0-rc.10](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.9...v2.0.0-rc.10) (2018-05-17)
 
