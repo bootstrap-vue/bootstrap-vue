@@ -32,7 +32,6 @@ export default {
     return h('input', {
       ref: 'input',
       class: this.inputClass,
-      domProps: { value: this.localValue },
       attrs: {
         id: this.safeId(),
         name: this.name,
@@ -43,18 +42,14 @@ export default {
         placeholder: this.placeholder,
         autocomplete: this.autocomplete || null,
         'aria-required': this.required ? 'true' : null,
-        'aria-invalid': this.computedAriaInvalid
+        'aria-invalid': this.computedAriaInvalid,
+        value: this.value
       },
       on: {
         input: this.onInput,
         change: this.onChange
       }
     })
-  },
-  data () {
-    return {
-      localValue: this.value
-    }
   },
   props: {
     value: {
@@ -118,37 +113,48 @@ export default {
       return this.ariaInvalid
     }
   },
+  mounted () {
+    if (this.value) {
+      const fValue = this.format(this.value, null)
+      this.setValue(fValue)
+    }
+  },
   watch: {
-    value (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.localValue = newVal
-      }
-    },
-    localValue (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.$emit('input', newVal)
+    value (newVal) {
+      if (this.lazyFormatter) {
+        this.setValue(newVal)
+      } else {
+        const fValue = this.format(newVal, null)
+        this.setValue(fValue)
       }
     }
   },
   methods: {
     format (value, e) {
       if (this.formatter) {
-          return this.formatter(value, e)
+        return this.formatter(value, e)
       }
       return value
     },
+    setValue (value) {
+      this.$emit('input', value)
+      // When formatter removes last typed character, value of text input should update to formatted value
+      this.$refs.input.value = value
+    },
     onInput (evt) {
       const value = evt.target.value
+
       if (this.lazyFormatter) {
-        // Update the model with the current unformated value
-        this.localValue = value
+        this.setValue(value)
       } else {
-        this.localValue = this.format(value, evt)
+        const fValue = this.format(value, evt)
+        this.setValue(fValue)
       }
     },
     onChange (evt) {
-      this.localValue = this.format(evt.target.value, evt)
-      this.$emit('change', this.localValue)
+      const fValue = this.format(evt.target.value, evt)
+      this.setValue(fValue)
+      this.$emit('change', fValue)
     },
     focus () {
       if (!this.disabled) {
