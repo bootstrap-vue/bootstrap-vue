@@ -121,8 +121,12 @@ export default {
   },
   watch: {
     value (newVal) {
-      const fValue = this.format(this.value, null)
-      this.setValue(fValue)
+      if (this.lazyFormatter) {
+        this.setValue(newVal)
+      } else {
+        const fValue = this.format(newVal, null)
+        this.setValue(fValue)
+      }
     }
   },
   methods: {
