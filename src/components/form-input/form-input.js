@@ -38,7 +38,7 @@ export default {
         type: this.localType,
         disabled: this.disabled,
         required: this.required,
-        readonly: this.readonly || this.plaintext,
+        readonly: this.readonly || (this.plaintext && this.readonly === null),
         placeholder: this.placeholder,
         autocomplete: this.autocomplete || null,
         'aria-required': this.required ? 'true' : null,
@@ -66,7 +66,7 @@ export default {
     },
     readonly: {
       type: Boolean,
-      default: false
+      default: null
     },
     plaintext: {
       type: Boolean,
