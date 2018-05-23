@@ -137,7 +137,7 @@ checkbox's `value` prop.
 
 ### Multiple checkboxes and accessibility
 When binding multiple checkboxes together, you should set the `name` prop to the same
-value for all `<b-formcheckbox>`s in the group individually or via the `name` prop
+value for all `<b-form-checkbox>`s in the group individually or via the `name` prop
 of `<b-form-checkbox-group>`. This will inform users of assitive technologies that the
 checkboxes are related.
 
@@ -158,7 +158,7 @@ when they are in the _checked_ state.
 <template>
   <div>
     <b-form-group label="Button style checkboxes">
-      <b-form-checkbox-group buttons v-model="selected" name="butons1" :options="options">
+      <b-form-checkbox-group buttons v-model="selected" name="buttons1" :options="options">
       </b-form-checkbox-group>
     </b-form-group>
 
