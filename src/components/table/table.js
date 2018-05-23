@@ -167,7 +167,7 @@ export default {
       rows.push(
         h(
           'tr',
-          { key: 'top-row', class: ['b-table-top-row', this.tbodyTrClass] },
+          { key: 'top-row', class: ['b-table-top-row', typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-top') : this.tbodyTrClass] },
           [$scoped['top-row']({ columns: fields.length, fields: fields })]
         )
       )
@@ -281,7 +281,7 @@ export default {
             'tr',
             {
               key: `details-${rowIndex}`,
-              class: ['b-table-details', this.tbodyTrClass],
+              class: ['b-table-details', typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row-details') : this.tbodyTrClass],
               attrs: trAttrs
             },
             [details]
@@ -317,7 +317,7 @@ export default {
           'tr',
           {
             key: 'empty-row',
-            class: ['b-table-empty-row', this.tbodyTrClass],
+            class: ['b-table-empty-row', typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-empty') : this.tbodyTrClass],
             attrs: this.isStacked ? { role: 'row' } : {}
           },
           [empty]
@@ -333,7 +333,7 @@ export default {
       rows.push(
         h(
           'tr',
-          { key: 'bottom-row', class: ['b-table-bottom-row', this.tbodyTrClass] },
+          { key: 'bottom-row', class: ['b-table-bottom-row', typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-bottom') : this.tbodyTrClass] },
           [$scoped['bottom-row']({ columns: fields.length, fields: fields })]
         )
       )
@@ -487,7 +487,7 @@ export default {
       default: null
     },
     tbodyTrClass: {
-      type: [String, Array],
+      type: [String, Array, Function],
       default: null
     },
     tfootClass: {
@@ -895,7 +895,7 @@ export default {
         item._rowVariant
           ? `${this.dark ? 'bg' : 'table'}-${item._rowVariant}`
           : '',
-        this.tbodyTrClass
+        typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass
       ]
     },
     rowClicked (e, item, index) {

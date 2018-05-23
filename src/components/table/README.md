@@ -307,6 +307,8 @@ fields: [
 ```
 
 ## Table style options
+
+### Table Styling ###
 `<b-table>` provides several props to alter the style of the table:
 
 | prop | Type | Description
@@ -376,7 +378,49 @@ export default {
 
 <!-- table-bordered.vue -->
 ```
+### Row Styling ###
 
+You can also style every row using the `tbdoy-tr-class` prop
+
+| Property | Type | Description
+| ---------| ---- | -----------
+| `tbodyTrClass` | String, Array or Function | Classes to be applied to every row on the table. If a function is given, it will be called as `tbodyTrClass( item, type )` and it may return an `Array`, `Object` or `String`.
+
+
+**Example: Basic row styles**
+```html
+<template>
+  <div>
+    <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass">
+    </b-table>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      fields: [ 'first_name', 'last_name', 'age' ],
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald', status: 'awesome'  },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+      ],
+    }
+  },
+  methods: {
+    rowClass( item, type ) {
+      if ( !item )
+        return;
+      if ( item.status === 'awesome' )
+        return 'table-success';
+    },
+  }
+}
+</script>
+
+<!-- table-styled-row-basic.vue -->
+```
 
 ## Responsive tables
 Responsive tables allow tables to be scrolled horizontally with ease. Make any table
