@@ -40,12 +40,29 @@ function recToString (obj) {
 }
 
 function defaultSortCompare (a, b, sortBy) {
-  if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-    return (a[sortBy] < b[sortBy] && -1) || (a[sortBy] > b[sortBy] && 1) || 0
+  if (sortBy.indexOf('.') < 0) {
+    return sort(a[sortBy], b[sortBy])
+  } else {
+    return sort(getNestedValue(a, sortBy), getNestedValue(b, sortBy))
   }
-  return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
+}
+
+function sort (a, b) {
+  if (typeof a === 'number' && typeof b === 'number') {
+    return (a < b && -1) || (a > b && 1) || 0
+  }
+  return toString(a).localeCompare(toString(b), undefined, {
     numeric: true
   })
+}
+
+function getNestedValue (obj, path) {
+  path = path.split('.')
+  var value = obj
+  for (var i = 0; i < path.length; i++) {
+    value = value[path[i]]
+  }
+  return value
 }
 
 function processField (key, value) {

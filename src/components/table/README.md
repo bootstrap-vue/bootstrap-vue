@@ -241,10 +241,12 @@ export default {
           sortable: true
         },
         city: {
-          key: 'address.city'
+          key: 'address.city',
+          sortable: true
         },
         'address.country': {
-          label: 'Country'
+          label: 'Country',
+          sortable: true
         }
       },
       items: [
