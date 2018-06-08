@@ -13,6 +13,7 @@
             }
         ]
     ],
+    "plugins": ["transform-object-rest-spread"],
     "env": {
         "test": {
             "presets": [

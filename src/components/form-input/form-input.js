@@ -18,12 +18,12 @@ const TYPES = [
   'search',
   'range',
   'color',
-  `date`,
-  `time`,
-  `datetime`,
-  `datetime-local`,
-  `month`,
-  `week`
+  'date',
+  'time',
+  'datetime',
+  'datetime-local',
+  'month',
+  'week'
 ]
 
 export default {
@@ -46,6 +46,7 @@ export default {
         value: this.value
       },
       on: {
+        ...this.$listeners,
         input: this.onInput,
         change: this.onChange
       }
@@ -155,11 +156,6 @@ export default {
       const fValue = this.format(evt.target.value, evt)
       this.setValue(fValue)
       this.$emit('change', fValue)
-    },
-    focus () {
-      if (!this.disabled) {
-        this.$el.focus()
-      }
     }
   }
 }

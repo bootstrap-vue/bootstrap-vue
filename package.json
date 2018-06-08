@@ -72,10 +72,13 @@
   "devDependencies": {
     "@nuxtjs/google-analytics": "^2.0.2",
     "@nuxtjs/pwa": "^2.0.5",
+    "@vue/test-utils": "^1.0.0-beta.16",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-jest": "^23.0.1",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-istanbul": "^4.1.5",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "clean-css": "^4.1.9",
     "codecov": "^3.0.2",
     "codemirror": "^5.37.0",
