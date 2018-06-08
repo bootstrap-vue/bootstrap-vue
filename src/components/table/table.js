@@ -254,6 +254,9 @@ export default {
               },
               mouseenter: evt => {
                 this.rowHovered(evt, item, rowIndex)
+              },
+              mouseleave: evt => {
+                this.rowUnHovered(evt, item, rowIndex)
               }
             }
           },
@@ -918,6 +921,13 @@ export default {
         return
       }
       this.$emit('row-hovered', item, index, e)
+    },
+    rowUnHovered (e, item, index) {
+      if (this.stopIfBusy(e)) {
+        // If table is busy (via provider) then don't propagate
+        return
+      }
+      this.$emit('row-unhovered', item, index, e)
     },
     headClicked (e, field) {
       if (this.stopIfBusy(e)) {
