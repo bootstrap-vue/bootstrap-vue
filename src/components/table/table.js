@@ -779,16 +779,6 @@ export default {
       })
     },
     computedItems () {
-      // Grab some props/data to ensure reactivity
-      const perPage = this.perPage
-      const currentPage = this.currentPage
-      const filter = this.filter
-      const sortBy = this.localSortBy
-      const sortDesc = this.localSortDesc
-      const sortCompare = this.sortCompare
-      const localFiltering = this.localFiltering
-      const localSorting = this.localSorting
-      const localPaging = this.localPaging
       let items = this.hasProvider ? this.localItems : this.items
       if (!items) {
         this.$nextTick(this._providerUpdate)
@@ -797,6 +787,24 @@ export default {
       // Array copy for sorting, filtering, etc.
       items = items.slice()
       // Apply local filter
+      items = this.filterItems(items)
+      // Apply local sort
+      items = this.sortItems(items)
+      // Apply local pagination
+      items = this.paginateItems(items)
+      // Update the value model with the filtered/sorted/paginated data set
+      this.$emit('input', items)
+      return items
+    },
+    computedBusy () {
+      return this.busy || this.localBusy
+    }
+  },
+  methods: {
+    keys,
+    filterItems (items) {
+      const filter = this.filter
+      const localFiltering = this.localFiltering
       if (filter && localFiltering) {
         if (filter instanceof Function) {
           items = items.filter(filter)
@@ -818,7 +826,13 @@ export default {
         // Make a local copy of filtered items to trigger filtered event
         this.filteredItems = items.slice()
       }
-      // Apply local Sort
+      return items
+    },
+    sortItems (items) {
+      const sortBy = this.localSortBy
+      const sortDesc = this.localSortDesc
+      const sortCompare = this.sortCompare
+      const localSorting = this.localSorting
       if (sortBy && localSorting) {
         items = stableSort(items, (a, b) => {
           let ret = null
@@ -834,21 +848,19 @@ export default {
           return (ret || 0) * (sortDesc ? -1 : 1)
         })
       }
+      return items
+    },
+    paginateItems (items) {
+      const currentPage = this.currentPage
+      const perPage = this.perPage
+      const localPaging = this.localPaging
       // Apply local pagination
       if (Boolean(perPage) && localPaging) {
         // Grab the current page of data (which may be past filtered items)
         items = items.slice((currentPage - 1) * perPage, currentPage * perPage)
       }
-      // Update the value model with the filtered/sorted/paginated data set
-      this.$emit('input', items)
       return items
     },
-    computedBusy () {
-      return this.busy || this.localBusy
-    }
-  },
-  methods: {
-    keys,
     fieldClasses (field) {
       return [
         field.sortable ? 'sorting' : '',
