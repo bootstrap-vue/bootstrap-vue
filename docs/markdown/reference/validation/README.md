@@ -124,7 +124,7 @@ Same example as above just modified for vee-validate:
     </b-form-group>
     <b-button type="submit"
               variant="primary"
-              :disabled="$v.form.$invalid">
+              :disabled="form.errors.any()">
       Submit
     </b-button>
   </b-form>  
@@ -146,7 +146,13 @@ Same example as above just modified for vee-validate:
     methods: {
       onSubmit() {
         // form submit logic
-      }
+      },
+      validateState(ref) {
+        if (this.fields[ref] && this.fields[ref].dirty) {
+          return !this.errors.has(ref)
+        }
+        return null
+      },
     }
   }
 </script>
