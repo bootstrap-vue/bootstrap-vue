@@ -787,7 +787,7 @@ export default {
       // Array copy for sorting, filtering, etc.
       items = items.slice()
       // Apply local filter
-      items = this.filterItems(items)
+      this.filteredItems = items = this.filterItems(items)
       // Apply local sort
       items = this.sortItems(items)
       // Apply local pagination
@@ -803,28 +803,23 @@ export default {
   methods: {
     keys,
     filterItems (items) {
-      const filter = this.filter
-      const localFiltering = this.localFiltering
-      if (filter && localFiltering) {
-        if (filter instanceof Function) {
-          items = items.filter(filter)
-        } else {
-          let regex
-          if (filter instanceof RegExp) {
-            regex = filter
-          } else {
-            regex = new RegExp('.*' + filter + '.*', 'ig')
-          }
-          items = items.filter(item => {
-            const test = regex.test(recToString(item))
-            regex.lastIndex = 0
-            return test
-          })
+      if (this.localFiltering && this.filter) {
+        if (this.filter instanceof Function) {
+          return items.filter(this.filter)
         }
-      }
-      if (localFiltering) {
-        // Make a local copy of filtered items to trigger filtered event
-        this.filteredItems = items.slice()
+
+        let regex
+        if (this.filter instanceof RegExp) {
+          regex = this.filter
+        } else {
+          regex = new RegExp('.*' + this.filter + '.*', 'ig')
+        }
+
+        return items.filter(item => {
+          const test = regex.test(recToString(item))
+          regex.lastIndex = 0
+          return test
+        })
       }
       return items
     },
@@ -834,7 +829,7 @@ export default {
       const sortCompare = this.sortCompare
       const localSorting = this.localSorting
       if (sortBy && localSorting) {
-        items = stableSort(items, (a, b) => {
+        return stableSort(items, (a, b) => {
           let ret = null
           if (typeof sortCompare === 'function') {
             // Call user provided sortCompare routine
@@ -855,9 +850,9 @@ export default {
       const perPage = this.perPage
       const localPaging = this.localPaging
       // Apply local pagination
-      if (Boolean(perPage) && localPaging) {
+      if (!!perPage && localPaging) {
         // Grab the current page of data (which may be past filtered items)
-        items = items.slice((currentPage - 1) * perPage, currentPage * perPage)
+        return items.slice((currentPage - 1) * perPage, currentPage * perPage)
       }
       return items
     },
