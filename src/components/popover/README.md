@@ -703,7 +703,7 @@ this.$root.$emit('bv::hide::popover');
 To close a **specific popover**, pass the trigger element's `id` as the first argument:
 
 ```js
-this.$root.$emit('bv::show::popover', 'my-trigger-button-id');
+this.$root.$emit('bv::hide::popover', 'my-trigger-button-id');
 ```
 
 To open (show) a **specific popover**, pass the trigger element's `id` as the first argument when
