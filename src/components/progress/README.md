@@ -40,7 +40,7 @@ export default {
 Set the maximum value with the `max` prop (default is `100`), and the current value via the
 `value` prop (default `0`).
 
-When creating multiple bars in a sinple process, place hte value prop on the individual
+When creating multiple bars in a single process, place the value prop on the individual
 `<b-progress-bar>` sub components (see the **Multiple Bars** section below for more details)
 
 ## Labels
