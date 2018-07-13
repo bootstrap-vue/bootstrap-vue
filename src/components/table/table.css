@@ -95,7 +95,7 @@ table.b-table.b-table-stacked > tbody > tr > [data-label]::before {
     font-style: normal;
 }
 
-@media all and (max-width: 575.99px) {
+@media all and (max-width: 575.98px) {
     /* Under SM */
     table.b-table.b-table-stacked-sm {
         width: 100%;
@@ -136,7 +136,7 @@ table.b-table.b-table-stacked > tbody > tr > [data-label]::before {
     }
 }
 
-@media all and (max-width: 767.99px) {
+@media all and (max-width: 767.98px) {
     /* under MD  */
     table.b-table.b-table-stacked-md {
         width: 100%;
@@ -177,7 +177,7 @@ table.b-table.b-table-stacked > tbody > tr > [data-label]::before {
     }
 }
 
-@media all and (max-width: 991.99px) {
+@media all and (max-width: 991.98px) {
     /* under LG  */
     table.b-table.b-table-stacked-lg {
         width: 100%;
@@ -218,7 +218,7 @@ table.b-table.b-table-stacked > tbody > tr > [data-label]::before {
     }
 }
 
-@media all and (max-width: 1199.99px) {
+@media all and (max-width: 1199.98px) {
     /* under XL  */
     table.b-table.b-table-stacked-xl {
         width: 100%;
