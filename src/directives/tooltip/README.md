@@ -17,7 +17,7 @@ to appear.
 ## Overview
 
 Things to know when using tooltips:
- - Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled wit Bootstrap-Vue!
+ - Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled with Bootstrap-Vue!
  - Tooltips with zero-length titles are never displayed.
  - Specify container: 'body' (default) to avoid rendering problems in more complex components (like input groups, button groups, etc).
  - Triggering tooltips on hidden elements will not work.
