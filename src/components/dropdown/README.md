@@ -50,7 +50,7 @@ Disabled the dropdown item by setting the `disabled` prop.
 Historically dropdown menu contents had to be links (`<b-dropdown-item>`), but that’s no
 longer the case with Bootstrap v4. Now you can optionally create `<button>` elements in
 your dropdowns by using the `<b-dropdown-item-button>` sub-component.
-`<b-dropdown-itmem-button>` does not support the `href` or `to` props.
+`<b-dropdown-item-button>` does not support the `href` or `to` props.
 
 Disabled the dropdown item button by setting the `disabled` prop.
 
