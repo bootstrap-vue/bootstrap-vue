@@ -77,8 +77,8 @@ export default {
     checked (newVal, oldVal) {
       this.computedLocalChecked = newVal
     },
-    computedLocalChceked (newVal, oldVal) {
-      this.$emit('input', this.computedLocalChceked)
+    computedLocalChecked (newVal, oldVal) {
+      this.$emit('input', this.computedLocalChecked)
     }
   },
   computed: {
