@@ -233,6 +233,10 @@ export default {
       type: Boolean,
       default: true
     },
+    wrap: {
+      type: Boolean,
+      default: true
+    },
     imgWidth: {
       // Sniffed by carousel-slide
       type: [Number, String]
@@ -343,7 +347,7 @@ export default {
     },
     calcDirection (direction = null, curIndex = 0, nextIndex = 0) {
       if (!direction) {
-        return (nextIndex > curIndex) ? DIRECTION.next : DIRECTION.prev
+        return (this.wrap || (nextIndex > curIndex)) ? DIRECTION.next : DIRECTION.prev
       }
       return DIRECTION[direction]
     }

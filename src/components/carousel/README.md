@@ -12,6 +12,7 @@ controls and indicators. Please be aware that nested carousels are **not** suppo
                 controls
                 indicators
                 focus
+                wrap
                 background="#ababab"
                 :interval="4000"
                 img-width="1024"
@@ -122,6 +123,9 @@ Both indicators and controls can be set at the same time or independently.
 The carousel will focus the next slide for screen readers if not in play mode (doesn't have an interval)
 
 To avoid this, set the prop `focus` to false
+
+# Wrap
+Set the prop `wrap` to set how the carousel should cycle. Continuously or with hard stops.
 
 
 ## V-model support
