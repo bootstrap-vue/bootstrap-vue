@@ -173,9 +173,9 @@ export default {
           'aria-busy': this.isSliding ? 'true' : 'false'
         },
         on: {
-          mouseenter: this.pause,
+          mouseenter: this.mouseEnter,
           mouseleave: this.restart,
-          focusin: this.pause,
+          focusin: this.pauseRotation,
           focusout: this.restart,
           keydown: (evt) => {
             const keyCode = evt.keyCode
@@ -237,6 +237,10 @@ export default {
       type: Boolean,
       default: true
     },
+    pause: {
+      type: [Boolean, String],
+      default: 'hover'
+    },
     imgWidth: {
       // Sniffed by carousel-slide
       type: [Number, String]
@@ -292,7 +296,7 @@ export default {
       this.setSlide(this.index + 1)
     },
     // Pause auto rotation
-    pause () {
+    pauseRotation () {
       if (this.isCycling) {
         clearInterval(this.intervalId)
         this.intervalId = null
@@ -300,6 +304,11 @@ export default {
           // Make current slide focusable for screen readers
           this.slides[this.index].tabIndex = 0
         }
+      }
+    },
+    mouseEnter () {
+      if (this.pause) {
+        this.pauseRotation()
       }
     },
     // Start auto rotate slides
@@ -323,7 +332,7 @@ export default {
     },
     // Update slide list
     updateSlides () {
-      this.pause()
+      this.pauseRotation()
       // Get all slides as DOM elements
       this.slides = selectAll('.carousel-item', this.$refs.inner)
       const numSlides = this.slides.length
@@ -364,10 +373,10 @@ export default {
       }
       if (!newVal) {
         // Pausing slide show
-        this.pause()
+        this.pauseRotation()
       } else {
         // Restarting or Changing interval
-        this.pause()
+        this.pauseRotation()
         this.start()
       }
     },

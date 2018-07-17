@@ -13,6 +13,7 @@ controls and indicators. Please be aware that nested carousels are **not** suppo
                 indicators
                 focus
                 wrap
+                pause="hover"
                 background="#ababab"
                 :interval="4000"
                 img-width="1024"
@@ -52,14 +53,12 @@ controls and indicators. Please be aware that nested carousels are **not** suppo
           ut lacus vel interdum.
         </p>
       </b-carousel-slide>
-
     </b-carousel>
 
     <p class="mt-4">
       Slide #: {{ slide }}<br>
       Sliding: {{ sliding }}
     </p>
-
   </div>
 </template>
 
@@ -127,6 +126,8 @@ To avoid this, set the prop `focus` to false
 # Wrap
 Set the prop `wrap` to set how the carousel should cycle. Continuously or with hard stops.
 
+# Pause
+Set the prop `pause` to avoid scroll to pause on `hover`
 
 ## V-model support
 Programmaticaly control which slide is showing via `v-model` (which binds to the
