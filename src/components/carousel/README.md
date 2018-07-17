@@ -11,6 +11,7 @@ controls and indicators. Please be aware that nested carousels are **not** suppo
                 style="text-shadow: 1px 1px 2px #333;"
                 controls
                 indicators
+                focus
                 background="#ababab"
                 :interval="4000"
                 img-width="1024"
@@ -116,6 +117,11 @@ Set the prop `controls` to enable the previous and next control buttons.
 Set the prop `indicators` to show the slide indicator buttons.
 
 Both indicators and controls can be set at the same time or independently.
+
+# Focus
+The carousel will focus the next slide for screen readers if not in play mode (doesn't have an interval)
+
+To avoid this, set the prop `focus` to false
 
 
 ## V-model support

@@ -229,6 +229,10 @@ export default {
       type: Boolean,
       default: false
     },
+    focus: {
+      type: Boolean,
+      default: true
+    },
     imgWidth: {
       // Sniffed by carousel-slide
       type: [Number, String]
@@ -413,7 +417,7 @@ export default {
         setAttr(nextSlide, 'aria-hidden', 'false')
         currentSlide.tabIndex = -1
         nextSlide.tabIndex = -1
-        if (!this.isCycling) {
+        if (!this.isCycling && this.focus) {
           // Focus the next slide for screen readers if not in play mode
           nextSlide.tabIndex = 0
           this.$nextTick(() => {
