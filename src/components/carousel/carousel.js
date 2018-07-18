@@ -359,6 +359,9 @@ export default {
         return (this.wrap || (nextIndex > curIndex)) ? DIRECTION.next : DIRECTION.prev
       }
       return DIRECTION[direction]
+    },
+    setFocus (el) {
+      el.focus()
     }
   },
   watch: {
@@ -434,7 +437,7 @@ export default {
           // Focus the next slide for screen readers if not in play mode
           nextSlide.tabIndex = 0
           this.$nextTick(() => {
-            nextSlide.focus()
+            this.setFocus(nextSlide)
           })
         }
         this.isSliding = false
