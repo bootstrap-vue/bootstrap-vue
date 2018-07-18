@@ -3,7 +3,8 @@ window.app = new Vue({
   data: {
     slide: 0,
     sliding: null,
-    interval: 3000
+    interval: 500,
+    pause: true
   },
   mounted () {
     // this.$nextTick(() => {
