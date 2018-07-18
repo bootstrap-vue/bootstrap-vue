@@ -47,5 +47,4 @@ describe('carousel', async () => {
       expect(carousel.isSliding).toBe(false)
     })
   })
-
 })
