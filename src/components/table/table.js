@@ -997,7 +997,7 @@ export default {
       this.localBusy = true
 
       // Call provider function with context and optional callback after DOM is fully updated
-      this.$nextTick(function(){
+      this.$nextTick(function () {
         const data = this.items(this.context, this._providerSetLocal)
         if (data && data.then && typeof data.then === 'function') {
           // Provider returned Promise
