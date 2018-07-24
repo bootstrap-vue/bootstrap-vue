@@ -20,7 +20,7 @@ Includes support for a handful of contextual variations, sizes, states, and more
 ## Button element type
 
 The `<b-button>` component generally renders a `<button>` element. However, you can also
-render an `<a>` element by providing an `href` prop value. You man also generate
+render an `<a>` element by providing an `href` prop value. You may also generate
 `vue-router` `<router-link>` when providing a value for the `to` prop (`vue-router`
 is required).
 
