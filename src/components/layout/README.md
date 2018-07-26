@@ -66,7 +66,7 @@ While containers can be nested, most layouts do not require a nested container.
 </b-container>
 ```
 
-## Rows `<b-row>`a and `<b-form-row>`
+## Rows `<b-row>` and `<b-form-row>`
 
 `<b-row>` components must be placed inside a `<b-container>` component, or an
 element (such as a `<div>`) that has the class `container` or `container-fluid`
