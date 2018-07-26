@@ -177,7 +177,7 @@ export default {
       this.$emit('shown')
 
       // Focus on the first item on show
-      this.$nextTick(this.focusFirstItem)
+      // this.$nextTick(this.focusFirstItem)
     },
     hideMenu () {
       this.setTouchStart(false)
