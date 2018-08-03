@@ -100,6 +100,7 @@ card is changed.
 
 ```html
 <div>
+    <h4>Top and Bottom</h4>
     <b-card-group deck>
         <b-card img-src="https://placekitten.com/1000/300"
                 img-alt="Card image"
@@ -114,10 +115,34 @@ card is changed.
             <p class="card-text">
                 Some quick example text to build on the card and make up the bulk of the card's content.
             </p>
-        </b-card>
-    </b-card-group>
+        </b-card>                
+  </b-card-group>
+  <br>
+  <h4>Left and Right</h4>
+  <b-card-group deck>
+      <b-card img-src="https://placekitten.com/300/300"
+              img-alt="Card image"
+              img-left>
+          <p class="card-text">
+              Add <code>.card-img-left { 
+                                         border-top-left-radius: calc(0.25rem - 1px);
+                                         border-bottom-left-radius: calc(0.25rem - 1px);
+                                        }
+                                        </code> to your css
+          </p>
+      </b-card>
+      <b-card img-src="https://placekitten.com/300/300"
+              img-alt="Card image"
+              img-right>
+          <p class="card-text">
+              Add <code>.card-img-right {
+                                          border-top-right-radius: calc(0.25rem - 1px);
+                                          border-bottom-right-radius: calc(0.25rem - 1px);
+                                         }</code> to your css
+          </p>
+      </b-card>
+ </b-card-group>
 </div>
-
 <!-- card-img-1.vue -->
 ```
 

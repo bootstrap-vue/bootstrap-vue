@@ -40,6 +40,7 @@ export default {
     // The order of the conditionals matter.
     // We are building the component markup in order.
     let childNodes = []
+    let staticClass = 'card'
     const $slots = slots()
     let img = props.imgSrc
       ? h(CardImg, {
@@ -51,16 +52,17 @@ export default {
       })
       : null
 
-    if (img) {
-      // Above the header placement.
-      if (props.imgTop || !props.imgBottom) {
-        childNodes.push(img)
-      }
+    if (img && props.imgTop) {
+      childNodes.push(img)
     }
     if (props.header || $slots.header) {
       childNodes.push(
         h(CardHeader, { props: pluckProps(headerProps, props) }, $slots.header)
       )
+    }
+    if (props.imgLeft) {
+      childNodes.push(img)
+      staticClass += ' flex-row'
     }
     if (props.noBody) {
       childNodes.push($slots.default)
@@ -68,6 +70,10 @@ export default {
       childNodes.push(
         h(CardBody, { props: pluckProps(bodyProps, props) }, $slots.default)
       )
+    }
+    if (props.imgRight) {
+      childNodes.push(img)
+      staticClass += ' flex-row'
     }
     if (props.footer || $slots.footer) {
       childNodes.push(
@@ -82,7 +88,7 @@ export default {
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: 'card',
+        staticClass: staticClass,
         class: {
           [`text-${props.align}`]: Boolean(props.align),
           [`bg-${props.bgVariant}`]: Boolean(props.bgVariant),
