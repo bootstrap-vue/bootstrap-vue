@@ -833,7 +833,7 @@ export default {
           let ret = null
           if (typeof sortCompare === 'function') {
             // Call user provided sortCompare routine
-            ret = sortCompare(a, b, sortBy)
+            ret = sortCompare(a, b, sortBy, sortDesc)
           }
           if (ret === null || ret === undefined) {
             // Fallback to defaultSortCompare if sortCompare not defined or returns null
