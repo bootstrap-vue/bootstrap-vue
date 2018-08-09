@@ -1,6 +1,5 @@
 # Collapse
 
-> The Bootstrap-Vue `<b-collapse>` component and `v-b-toggle` directive allows you to
   toggle content visibility on your pages. Includes support for making accordions.
 
 ```html
@@ -209,7 +208,7 @@ prop and/or `v-model` set to `true`.
 ## Hiding and showing content in the toggle button based on collapse state
 When using the `v-b-toggle` directive, the class `collapsed` will automatically be placed
 on the trigger element when the collapse is closed, and removed when open. You can
-use this class to display or hide content within the togger via custom CSS:
+use this class to display or hide content within the toggle via custom CSS:
 
 **Example HTML markup:**
 ```html

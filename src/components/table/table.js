@@ -995,17 +995,20 @@ export default {
       }
       // Set internal busy state
       this.localBusy = true
-      // Call provider function with context and optional callback
-      const data = this.items(this.context, this._providerSetLocal)
-      if (data && data.then && typeof data.then === 'function') {
-        // Provider returned Promise
-        data.then(items => {
-          this._providerSetLocal(items)
-        })
-      } else {
-        // Provider returned Array data
-        this._providerSetLocal(data)
-      }
+
+      // Call provider function with context and optional callback after DOM is fully updated
+      this.$nextTick(function () {
+        const data = this.items(this.context, this._providerSetLocal)
+        if (data && data.then && typeof data.then === 'function') {
+          // Provider returned Promise
+          data.then(items => {
+            this._providerSetLocal(items)
+          })
+        } else {
+          // Provider returned Array data
+          this._providerSetLocal(data)
+        }
+      })
     },
     getTdValues (item, key, tdValue, defValue) {
       const parent = this.$parent

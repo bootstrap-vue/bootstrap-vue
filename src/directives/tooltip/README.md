@@ -17,7 +17,7 @@ to appear.
 ## Overview
 
 Things to know when using tooltips:
- - Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled wit Bootstrap-Vue!
+ - Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled with Bootstrap-Vue!
  - Tooltips with zero-length titles are never displayed.
  - Specify container: 'body' (default) to avoid rendering problems in more complex components (like input groups, button groups, etc).
  - Triggering tooltips on hidden elements will not work.
@@ -166,13 +166,13 @@ Use both `click` and `blur` if you would like a tooltip that opens only on click
 the element, but will close when anything else in the document is clicked or
 receives focus.
 
-Note that your elment **must** be in the document tab sequence for this to work. If
+Note that your element **must** be in the document tab sequence for this to work. If
 your element is not tabable, add the `tabindex="0"` attribute to the element.
 
 ## Title content
-There are seveal options for providing the title of a tooltip.
+There are several options for providing the title of a tooltip.
 
-By default, tooltip will ue the `title` attribute of the element as the
+By default, tooltip will use the `title` attribute of the element as the
 tooltip content. The title can also be passed as an object to `v-b-tooltip
 ` in the form of
 ```js
@@ -244,7 +244,7 @@ Where [modX] can be (all optional):
  - Positioning: `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom` (last one found wins, defaults to `top`)
  - Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `focus` and `hover`. `blur` is a close handler only, and if specified by itself, will be converted to `focus`)
  - `nofade` to turn off animation
- - `html` to enable rendering raw HTML. by default HTML is escaped and converted to text
+ - `html` to enable rendering raw HTML. By default HTML is escaped and converted to text
  - A delay value in the format of `d###` (where `###` is in ms, defaults to 0);
  - An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults to 0. Negative values allowed)
  - A boundary setting of `window` or `viewport`.  The element to constrain the visual placement of the tooltip. If not specified, the boundary defaults to the trigger element's scroll parent (in most cases this will suffice).
@@ -252,14 +252,14 @@ Where [modX] can be (all optional):
 Where `<value>` can be (optional):
  - A string containing the title of the tooltip
  - A function reference to generate the title of the tooltip (receives one arg which is a reference to the DOM element triggering the tooltip)
- - An object containing more complex configuration of tooltip, See below for accepted object properties:
+ - An object containing more complex configuration of tooltip. See below for accepted object properties:
 
 
 **Options configuration object properties:**
 
 | Property | Type |	Default | Description
 | ---- | ---- | ------- | -----------
-| `animation` | boolean | `true` | Apply a CSS fade transition to the tooltip
+| `animation` | boolean | `true` | Apply a CSS fade transition to the tooltip.
 | `container` | string or Element or `false` | `false` | Appends the tooltip to a specific element. Example: `container: 'body'`. This option is particularly useful in that it allows you to position the tooltip in the flow of the document near the triggering element - which will prevent the tooltip from floating away from the triggering element during a window resize. When set to `false` the tooltip will be appended to `body`, or if the trigger element is inside a modal it will append to the modal's container.
 | `delay` | Number or Object | `0` | Delay showing and hiding the tooltip (ms). If a number is supplied, delay is applied to both hide/show. Object structure is: `delay: { "show": 500, "hide": 100 }`
 | `html` | Boolean | `false` | Allow HTML in the tooltip. If true, HTML tags in the tooltip's title will be rendered in the tooltip. If false, the titkle will be inserted as plain text. Use text if you're worried about XSS attacks.
@@ -268,7 +268,7 @@ Where `<value>` can be (optional):
 | `title` | String or Element or function |	`''` | Default title value if title attribute isn't present. If a function is given, it must return a string.
 | `trigger` | String | `'hover focus'` | How tooltip is triggered: `click`, `hover`, `focus`. You may pass multiple triggers; separate them with a space.
 | `offset` | Number or String | `0` | Offset of the tooltip relative to its target. For more information refer to Popper.js's offset docs.
-| `fallbackPlacement` | String or Array | `'flip'` | Allow to specify which position Popper will use on fallback. For more information refer to Popper.js's behavior docs
+| `fallbackPlacement` | String or Array | `'flip'` | Allow to specify which position Popper will use on fallback. For more information refer to Popper.js's behavior docs.
 | `boundary` | String or HTMLElement reference |`'scrollParent'` | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to chagne this if your target element is in a small container with overflow scroll. Supported values: `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.
 
 

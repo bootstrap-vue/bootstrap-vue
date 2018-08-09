@@ -44,13 +44,13 @@ This is a verbose example designed to show how Bootstrap-Vue and Vuelidate inter
               :disabled="$v.form.$invalid">
       Submit
     </b-button>
-  </b-form>  
+  </b-form>
 </template>
 
 <script>
   import { validationMixin } from "vuelidate"
   import { required, minLength } from "vuelidate/lib/validators"
-  
+
   export default {
     name: "myForm",
     data() {
@@ -72,7 +72,7 @@ This is a verbose example designed to show how Bootstrap-Vue and Vuelidate inter
         },
         name: {
           required,
-          minLength: minLength(3)   
+          minLength: minLength(3)
         }
       }
     },
@@ -90,6 +90,20 @@ This is a verbose example designed to show how Bootstrap-Vue and Vuelidate inter
 ## vee-validate
 
 [vee-validate](https://github.com/baianat/vee-validate) is a plugin for Vue.js that allows you to validate input fields and display errors. It has full support for `vue-i18n` and provides fairly good out of the box error messages.
+
+**Important**
+
+You need to configure `vee-validate`'s fields property or it will conflict with `b-table`'s `:fields` property when it injects itself.
+
+```
+import Vue from 'vue'
+import VeeValidate from 'vee-validate'
+
+Vue.use(VeeValidate, {
+  inject: true, //this is the default
+  fieldsBagName: 'veeFields' //important to name this something else
+});
+```
 
 Same example as above just modified for vee-validate:
 
@@ -127,11 +141,11 @@ Same example as above just modified for vee-validate:
               :disabled="form.errors.any()">
       Submit
     </b-button>
-  </b-form>  
+  </b-form>
 </template>
 
 <script>
-  
+
   export default {
     name: "myForm",
     data() {
@@ -148,7 +162,7 @@ Same example as above just modified for vee-validate:
         // form submit logic
       },
       validateState(ref) {
-        if (this.fields[ref] && this.fields[ref].dirty) {
+        if (this.veeFields[ref] && this.veeFields[ref].dirty) {
           return !this.errors.has(ref)
         }
         return null

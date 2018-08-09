@@ -152,7 +152,7 @@ export default {
       'div',
       {
         ref: 'content',
-        class: ['modal-content'],
+        class: this.contentClasses,
         attrs: {
           tabindex: '-1',
           role: 'document',
@@ -323,6 +323,10 @@ export default {
       type: [String, Array],
       default: null
     },
+    contentClass: {
+      type: [String, Array],
+      default: null
+    },
     bodyClass: {
       type: [String, Array],
       default: null
@@ -408,6 +412,12 @@ export default {
     }
   },
   computed: {
+    contentClasses () {
+      return [
+        'modal-content',
+        this.contentClass
+      ]
+    },
     modalClasses () {
       return [
         'modal',
