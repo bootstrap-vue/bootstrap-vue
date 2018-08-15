@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.11...v2.0.0) (2018-08-15)
+
+
+### Bug Fixes
+
+* **docs:** Button - typo ([#1962](https://github.com/bootstrap-vue/bootstrap-vue/issues/1962)) ([dcbfcf9](https://github.com/bootstrap-vue/bootstrap-vue/commit/dcbfcf9))
+* **docs:** Collapse - typo fix ([#1964](https://github.com/bootstrap-vue/bootstrap-vue/issues/1964)) ([becaa98](https://github.com/bootstrap-vue/bootstrap-vue/commit/becaa98))
+* **docs:** Embed - Typos ([#1965](https://github.com/bootstrap-vue/bootstrap-vue/issues/1965)) ([ae7101e](https://github.com/bootstrap-vue/bootstrap-vue/commit/ae7101e))
+* **docs:** fix typo in collapse events doc ([d8f5d69](https://github.com/bootstrap-vue/bootstrap-vue/commit/d8f5d69))
+* **docs:** fixes broken styling of docs navigation ([#1911](https://github.com/bootstrap-vue/bootstrap-vue/issues/1911)) ([95a5012](https://github.com/bootstrap-vue/bootstrap-vue/commit/95a5012))
+* **docs:** Layout - Typo ([#1966](https://github.com/bootstrap-vue/bootstrap-vue/issues/1966))  ([c5a37d3](https://github.com/bootstrap-vue/bootstrap-vue/commit/c5a37d3))
+* **docs:** missing dash and typo ([#1850](https://github.com/bootstrap-vue/bootstrap-vue/issues/1850)) ([7b5fde8](https://github.com/bootstrap-vue/bootstrap-vue/commit/7b5fde8))
+* **dropdown:** typo in README ([#1939](https://github.com/bootstrap-vue/bootstrap-vue/issues/1939)) ([#1942](https://github.com/bootstrap-vue/bootstrap-vue/issues/1942)) ([8a2ca5e](https://github.com/bootstrap-vue/bootstrap-vue/commit/8a2ca5e))
+* **form-input:** allow readonly to be forced to false when plaintext is enabled ([#1841](https://github.com/bootstrap-vue/bootstrap-vue/issues/1841)) ([b02a6ee](https://github.com/bootstrap-vue/bootstrap-vue/commit/b02a6ee))
+* **popover:** fixes close emit argument ([#1937](https://github.com/bootstrap-vue/bootstrap-vue/issues/1937)) ([8b9db28](https://github.com/bootstrap-vue/bootstrap-vue/commit/8b9db28))
+* **tab:** typo aria-lablelledby ([#1959](https://github.com/bootstrap-vue/bootstrap-vue/issues/1959)) ([5933955](https://github.com/bootstrap-vue/bootstrap-vue/commit/5933955)), closes [#954](https://github.com/bootstrap-vue/bootstrap-vue/issues/954)
+* **table:** only call provider once DOM is fully updated ([#1904](https://github.com/bootstrap-vue/bootstrap-vue/issues/1904)) ([#1955](https://github.com/bootstrap-vue/bootstrap-vue/issues/1955)) ([ae7147e](https://github.com/bootstrap-vue/bootstrap-vue/commit/ae7147e))
+* typo corrected in tooltips ([#1930](https://github.com/bootstrap-vue/bootstrap-vue/issues/1930)) ([5e4fbe4](https://github.com/bootstrap-vue/bootstrap-vue/commit/5e4fbe4))
+* typo in form-radio watcher ([#1943](https://github.com/bootstrap-vue/bootstrap-vue/issues/1943)) ([9ab23ef](https://github.com/bootstrap-vue/bootstrap-vue/commit/9ab23ef))
+
+
+### Features
+
+* **button:** Make button tag configurable ([#1929](https://github.com/bootstrap-vue/bootstrap-vue/issues/1929)) ([afcadd9](https://github.com/bootstrap-vue/bootstrap-vue/commit/afcadd9))
+* **dropdown:** add support for contextmenu ([b084026](https://github.com/bootstrap-vue/bootstrap-vue/commit/b084026))
+* **dropdown:** fixed linter errors ([c3da109](https://github.com/bootstrap-vue/bootstrap-vue/commit/c3da109))
+* **table:** Split computedItems into multiple functions ([#1893](https://github.com/bootstrap-vue/bootstrap-vue/issues/1893)) ([bb1c550](https://github.com/bootstrap-vue/bootstrap-vue/commit/bb1c550))
+
+
+
 <a name="2.0.0-rc.11"></a>
 # [2.0.0-rc.11](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.10...v2.0.0-rc.11) (2018-05-20)
 
