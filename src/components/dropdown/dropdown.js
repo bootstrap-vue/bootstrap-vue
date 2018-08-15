@@ -23,7 +23,8 @@ export default {
             id: this.safeId('_BV_button_')
           },
           on: {
-            click: this.click
+            click: this.click,
+            contextmenu: this.click
           }
         },
         [this.$slots['button-content'] || this.$slots.text || this.text]
@@ -47,6 +48,7 @@ export default {
         },
         on: {
           click: this.toggle, // click
+          contextmenu: this.toggle,
           keydown: this.toggle // enter, space, down
         }
       },
@@ -120,6 +122,10 @@ export default {
       // Object: HTML Element reference
       type: [String, Object],
       default: 'scrollParent'
+    },
+    isRightClick: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

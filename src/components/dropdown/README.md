@@ -322,6 +322,14 @@ Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 | <kbd>TAB</kbd> | Will close the dropdown and jump to the next focusable control on the page.
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Will close the dropdown and jump to the previous focusable control on the page.
 
+### Context menu click events
+Dropdowns support contextmenu mouse events. Add the prop `isRightMenu` to change the click behavior. This also works with split buttons.
+
+```
+<b-dropdown isRightClick>
+  <b-dropdown-item href="#">First Action</b-dropdown-item>
+</b-dropdown>
+```
 
 ## Dropdown component aliases
 - `<b-dropdown>` can be used via it's shorter alias of `<b-dd>`

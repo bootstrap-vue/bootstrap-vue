@@ -275,8 +275,14 @@ export default {
       evt = evt || {}
       const type = evt.type
       const key = evt.keyCode
-      if (type !== 'click' && !(type === 'keydown' && (key === KeyCodes.ENTER || key === KeyCodes.SPACE || key === KeyCodes.DOWN))) {
+      if (type !== 'click' && type !== 'contextmenu' && !(type === 'keydown' && (key === KeyCodes.ENTER || key === KeyCodes.SPACE || key === KeyCodes.DOWN))) {
         // We only toggle on Click, Enter, Space, and Arrow Down
+        return
+      }
+      if (this.isRightClick && (type == 'click' || type === 'keydown')) {
+        return
+      }
+      if (!this.isRightClick && type == 'contextmenu') {
         return
       }
       if (this.disabled) {
