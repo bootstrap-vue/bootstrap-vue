@@ -279,10 +279,10 @@ export default {
         // We only toggle on Click, Enter, Space, and Arrow Down
         return
       }
-      if (this.isRightClick && (type == 'click' || type === 'keydown')) {
+      if (this.isRightClick && (type === 'click' || type === 'keydown')) {
         return
       }
-      if (!this.isRightClick && type == 'contextmenu') {
+      if (!this.isRightClick && type === 'contextmenu') {
         return
       }
       if (this.disabled) {
