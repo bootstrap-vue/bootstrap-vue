@@ -56,7 +56,7 @@ export default {
       if (props.imgLeft) {
         staticClass += ' flex-row'
       }
-      if(props.imgRight) {
+      if (props.imgRight) {
         staticClass += ' flex-row-reverse'
       }
       childNodes.push(img)
