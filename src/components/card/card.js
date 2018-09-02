@@ -1,15 +1,15 @@
-import { mergeData } from 'vue-functional-data-merge'
+import {mergeData} from 'vue-functional-data-merge'
 
 import prefixPropName from '../../utils/prefix-prop-name'
 import unPrefixPropName from '../../utils/unprefix-prop-name'
 import copyProps from '../../utils/copyProps'
 import pluckProps from '../../utils/pluck-props'
-import { assign } from '../../utils/object'
+import {assign} from '../../utils/object'
 import cardMixin from '../../mixins/card-mixin'
-import CardBody, { props as bodyProps } from './card-body'
-import CardHeader, { props as headerProps } from './card-header'
-import CardFooter, { props as footerProps } from './card-footer'
-import CardImg, { props as imgProps } from './card-img'
+import CardBody, {props as bodyProps} from './card-body'
+import CardHeader, {props as headerProps} from './card-header'
+import CardFooter, {props as footerProps} from './card-footer'
+import CardImg, {props as imgProps} from './card-img'
 
 const cardImgProps = copyProps(imgProps, prefixPropName.bind(null, 'img'))
 cardImgProps.imgSrc.required = false
@@ -36,7 +36,7 @@ export const props = assign(
 export default {
   functional: true,
   props,
-  render (h, { props, data, slots, children }) {
+  render (h, {props, data, slots, children}) {
     // The order of the conditionals matter.
     // We are building the component markup in order.
     let childNodes = []
@@ -52,12 +52,12 @@ export default {
       })
       : null
 
-    if (img && props.imgTop) {
+    if (img) {
       childNodes.push(img)
     }
     if (props.header || $slots.header) {
       childNodes.push(
-        h(CardHeader, { props: pluckProps(headerProps, props) }, $slots.header)
+        h(CardHeader, {props: pluckProps(headerProps, props)}, $slots.header)
       )
     }
     if (props.imgLeft) {
@@ -68,7 +68,7 @@ export default {
       childNodes.push($slots.default)
     } else {
       childNodes.push(
-        h(CardBody, { props: pluckProps(bodyProps, props) }, $slots.default)
+        h(CardBody, {props: pluckProps(bodyProps, props)}, $slots.default)
       )
     }
     if (props.imgRight) {
@@ -77,7 +77,7 @@ export default {
     }
     if (props.footer || $slots.footer) {
       childNodes.push(
-        h(CardFooter, { props: pluckProps(footerProps, props) }, $slots.footer)
+        h(CardFooter, {props: pluckProps(footerProps, props)}, $slots.footer)
       )
     }
     if (img && props.imgBottom) {
