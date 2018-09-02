@@ -102,7 +102,6 @@ pre.editable.live:after {
   background-color: rgba(255, 0, 0, .1);
 }
 
-
 .card-img-left {
    border-top-left-radius: calc(0.25rem - 1px);
    border-bottom-left-radius: calc(0.25rem - 1px);
