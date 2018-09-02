@@ -119,29 +119,33 @@ card is changed.
   </b-card-group>
   <br>
   <h4>Left and Right</h4>
-  <b-card-group deck>
       <b-card img-src="https://placekitten.com/300/300"
               img-alt="Card image"
-              img-left>
+              img-left
+              class="mb-3">
           <p class="card-text">
-              Add <code>.card-img-left { 
-                                         border-top-left-radius: calc(0.25rem - 1px);
-                                         border-bottom-left-radius: calc(0.25rem - 1px);
-                                        }
-                                        </code> to your css
+              Add to your css: <br>
+              <code>
+                .card-img-left { <br>
+                &nbsp;&nbsp;border-top-left-radius: calc(0.25rem - 1px); <br>
+                &nbsp;&nbsp;border-bottom-left-radius: calc(0.25rem - 1px); <br>
+                }
+              </code>
           </p>
       </b-card>
       <b-card img-src="https://placekitten.com/300/300"
               img-alt="Card image"
               img-right>
           <p class="card-text">
-              Add <code>.card-img-right {
-                                          border-top-right-radius: calc(0.25rem - 1px);
-                                          border-bottom-right-radius: calc(0.25rem - 1px);
-                                         }</code> to your css
+              Add to your css: <br>
+              <code>
+                .card-img-right { <br>
+                &nbsp;&nbsp;border-top-right-radius: calc(0.25rem - 1px); <br>
+                &nbsp;&nbsp;border-bottom-right-radius: calc(0.25rem - 1px); <br>
+                }
+              </code>
           </p>
       </b-card>
- </b-card-group>
 </div>
 <!-- card-img-1.vue -->
 ```
