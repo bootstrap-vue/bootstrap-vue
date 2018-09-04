@@ -31,7 +31,7 @@ export default {
         [this.$slots['button-content'] || this.$slots.text || this.text]
       )
     }
-    if (this.elementType === 'button') {
+    if (this.tag === 'button') {
       const toggle = h(
         'b-button',
         {
@@ -81,7 +81,7 @@ export default {
         toggle,
         menu
       ])
-    } else if (this.elementType === 'anchor') {
+    } else if (this.tag === 'anchor') {
       const toggle = h(
         'b-link',
         {
@@ -136,7 +136,7 @@ export default {
       type: Boolean,
       default: false
     },
-    elementType: {
+    tag: {
       type: String,
       default: 'button'
     },

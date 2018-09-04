@@ -136,7 +136,7 @@ describe('dropdown', async () => {
     expect(menu.attributes['aria-labelledby'].value).toMatch(/_BV_button_$/)
   })
 
-  it('should use anchor tags when elementType prop value is `anchor`', async () => {
+  it('should use anchor tags when tag prop value is `anchor`', async () => {
     const { app: { $refs } } = window
     const { dd_11 } = $refs // eslint-disable-line camelcase
 
