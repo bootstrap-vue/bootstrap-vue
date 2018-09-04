@@ -7,7 +7,7 @@ import './dropdown.css'
 
 export default {
   mixins: [idMixin, dropdownMixin],
-  components: { bButton },
+  components: { bButton, bLink },
   render (h) {
     let split = h(false)
     if (this.split) {
