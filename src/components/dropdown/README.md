@@ -23,6 +23,8 @@ clicking (or pressing space or enter when focused), not by hovering; this is an
 <!-- dropdown.vue -->
 ```
 
+`b-dropdown` can also be used with `<a>` elements by passing the prop `elementType="anchor"`. The elementType default value is `button`. 
+
 
 ## Dropdown supported sub-components
 The following components can be placed inside of your dropdowns. Using any other
