@@ -138,10 +138,10 @@ describe('dropdown', async () => {
 
   it('should use anchor tags when elementType prop value is `anchor`', async () => {
     const { app: { $refs } } = window
-    const { dd_12 } = $refs // eslint-disable-line camelcase
+    const { dd_11 } = $refs // eslint-disable-line camelcase
 
-    const tagType = Array.from(dd_12.$el.children)
-      .find(node => node.id === `${dd_12.safeId('myDropdown__BV_toggle_')}`)
+    const tagType = Array.from(dd_11.$el.children)
+      .find(node => node.id === `${dd_11.safeId('myDropdown__BV_toggle_')}`)
 
     expect(tagType.tagName).toBeElement('a')
   })
