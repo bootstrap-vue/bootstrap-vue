@@ -62,7 +62,8 @@ Other elements can easily show modals using the `v-b-modal` directive.
   <!-- modal-directive-1.vue -->
 ```
 
-Focus will automatically be returned to the trigger element once the modal closes.
+This is the recommended approach because the focus will be automatically returned to the trigger element once the modal closes (similar to default bootstrap functionality). Other approaches for toggling modal visibility will require additional code to implement this accessibility feature.
+
 See the **Accessibility** section below for details.
 
 ### Using `show()` and `hide()` component methods
