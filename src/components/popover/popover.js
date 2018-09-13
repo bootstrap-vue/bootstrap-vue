@@ -39,6 +39,14 @@ export default {
       default: 'right'
     }
   },
+  watch: {
+    content: {
+      handler: function (to) {
+        // watch content changing, +v
+        this._toolpop.$config.content = to
+      }
+    }
+  },
   methods: {
     createToolpop () {
       // getTarget is in toolpop mixin
