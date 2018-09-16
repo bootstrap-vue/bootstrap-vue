@@ -188,7 +188,7 @@ export default {
       if (!this.multiple) {
         let firstElement = files[0];
         if (firstElement.type.match(this.accept)) {
-          this.selectedFile = selectedFile;
+          this.selectedFile = firstElement;
         }
         return
       }
