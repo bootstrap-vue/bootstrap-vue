@@ -657,7 +657,7 @@ export default {
         content &&
         !content.contains(evt.relatedTarget)
       ) {
-        content.focus()
+        content.focus({preventScroll: true})
       }
     },
     // Resize Listener
