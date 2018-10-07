@@ -249,6 +249,9 @@ export default {
               click: evt => {
                 this.rowClicked(evt, item, rowIndex)
               },
+              contextmenu: evt => {
+                this.rowContextmenu(evt, item, rowIndex)
+              },
               dblclick: evt => {
                 this.rowDblClicked(evt, item, rowIndex)
               },
@@ -925,6 +928,13 @@ export default {
         return
       }
       this.$emit('row-hovered', item, index, e)
+    },
+    rowContextmenu (e, item, index) {
+      if (this.stopIfBusy(e)) {
+        // If table is busy (via provider) then don't propagate
+        return
+      }
+      this.$emit('row-contextmenu', item, index, e)
     },
     headClicked (e, field) {
       if (this.stopIfBusy(e)) {

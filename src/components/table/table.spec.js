@@ -404,6 +404,25 @@ describe('table', async () => {
     }
   })
 
+  it('each data row should emit a row-contextmenu event when right clicked', async () => {
+    const { app: { $refs } } = window
+    const vm = $refs.table_paginated
+
+    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+    expect(tbody).toBeDefined()
+    if (tbody) {
+      const trs = [...tbody.children]
+      expect(trs.length).toBe(vm.perPage)
+      trs.forEach((tr, idx) => {
+        const spy = jest.fn()
+        vm.$on('row-contextmenu', spy)
+        tr.dispatchEvent(new MouseEvent('contextmenu', {button: 2}))
+        vm.$off('row-contextmenu', spy)
+        expect(spy).toHaveBeenCalled()
+      })
+    }
+  })
+
   it('each header th should emit a head-clicked event when clicked', async () => {
     const { app: { $refs } } = window
     const vm = $refs.table_paginated
