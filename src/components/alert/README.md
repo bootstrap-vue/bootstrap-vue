@@ -15,8 +15,7 @@ Alerts are available for any length of text, as well as an optional dismiss butt
 
     <b-alert variant="danger"
              dismissible
-             :show="showDismissibleAlert"
-             @dismissed="showDismissibleAlert=false">
+             v-bind="showDismissibleAlert">
       Dismissible Alert!
     </b-alert>
 
