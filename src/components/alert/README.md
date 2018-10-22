@@ -15,8 +15,7 @@ Alerts are available for any length of text, as well as an optional dismiss butt
 
     <b-alert variant="danger"
              dismissible
-             :show="showDismissibleAlert"
-             @dismissed="showDismissibleAlert=false">
+             v-model="showDismissibleAlert">
       Dismissible Alert!
     </b-alert>
 
@@ -69,6 +68,9 @@ export default {
 Use the `show` prop to control the visibility state of the alert. By
 default alerts are **not** shown. Set the prop `show` to explicity display them.
 
+You can use the `v-model` directive to create two-way data bindings on show prop as in 
+`v-model="showDismissibleAlert"` above. Useful when you use dismissible because when user closes 
+the alert, your variable will be updated.
 
 ## Alert contextual variants
 For proper styling of `<b-alert>`, use one of the four required contextual variants by setting the
