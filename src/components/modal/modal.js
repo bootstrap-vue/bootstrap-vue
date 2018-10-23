@@ -557,7 +557,7 @@ export default {
     },
     // Private method to finish showing modal
     doShow () {
-      // Plce modal in DOM if lazy
+      // Place modal in DOM if lazy
       this.is_hidden = false
       this.$nextTick(() => {
         // We do this in nextTick to ensure the modal is in DOM first before we show it
