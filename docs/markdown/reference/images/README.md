@@ -45,6 +45,35 @@ This will allow you to use the following format in your `.vue` files:
 
 <b-card-img img-src="~/static/picture.jpg" />
 ```
+### Vue CLI 3.0 Support
+Vue CLI 3.0 changed the way that webpack compiles a Vue app, in order to make bootstrap-vue work again, you need to do the following steps:
+
+1. Create `vue.config.js` in the root directory (next to `package.json`).
+2. Put the following code
+```javascript
+module.exports = {
+  chainWebpack: config => {
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap(options => {
+        options["transformAssetUrls"] = {
+          'img': 'src',
+          'image': 'xlink:href',
+          'b-img': 'src',
+          'b-img-lazy': ['src', 'blank-src'],
+          'b-card': 'img-src',
+          'b-card-img': 'img-src',
+          'b-carousel-slide': 'img-src',
+          'b-embed': 'src'
+        };
+
+        return options;
+      });
+  }
+}
+```
 
 ### Configuring `transformAssetUrls` in Nuxt
 
