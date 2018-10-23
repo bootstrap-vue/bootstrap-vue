@@ -17,4 +17,21 @@ describe('modal', async () => {
     await nextTick()
     expect(app.$refs.button).not.toHaveProperty('__BV_boundEventListeners__.click')
   })
+
+  it('Should show hide modal', async () => {
+    const { app: { $refs } } = window
+    const { modalButton2, modal2 } = $refs
+
+    // show the modal
+    modalButton2.click()
+    await nextTick()
+    expect(Array.isArray(modal2._marginChangedForScroll)).toBe(true)
+
+    // hide the modal
+    modal2.hide()
+    await nextTick()
+    // manually run resetScrollbar because JSDOM doesn't support it
+    modal2.resetScrollbar()
+    expect(modal2._marginChangedForScroll).toBe(null)
+  })
 })
