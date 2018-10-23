@@ -317,7 +317,7 @@ fields: [
 | ---- | ---- | -----------
 | `striped` | Boolean | Add zebra-striping to the table rows within the `<tbody>`
 | `bordered` | Boolean | For borders on all sides of the table and cells.
-| `outlined` | Boolean | For a thin border on all sides of the table. Has no effect is `bordered` is set.
+| `outlined` | Boolean | For a thin border on all sides of the table. Has no effect if `bordered` is set.
 | `small` | Boolean | To make tables more compact by cutting cell padding in half.
 | `hover` | Boolean | To enable a hover highlighting state on table rows within a `<tbody>`
 | `dark` | Boolean | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)
