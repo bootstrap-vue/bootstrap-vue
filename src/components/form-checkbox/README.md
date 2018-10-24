@@ -130,7 +130,7 @@ properties.
 single data state variable, you **must** provide an array reference `[]` to your `v-model`!
 
 Note that when `v-model` is bound to multiple checkboxes (i.e an array ref), the
-`unchecked-value` is **not used**. Only the value(s) of the checked chcekboxes will
+`unchecked-value` is **not used**. Only the value(s) of the checked checkboxes will
 be returned in the `v-model` bound array. You should provide unique values for each
 checkbox's `value` prop.
 
@@ -202,7 +202,7 @@ export default {
 apply the button styling to the checkboxes. This can cause a potential conflict if you
 are including Bootstrap V4's jQuery code in your project for other purposes.
 To get around this, you will need to exclude the Bootstrap V4 jQuery buttons plugin, and
-include only the other Bootstrap V4 jQuery plugins you reqwuire.
+include only the other Bootstrap V4 jQuery plugins you require.
 
 
 ## Non custom check inputs (plain)

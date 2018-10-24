@@ -16,7 +16,7 @@ export default {
             id: this.safeId(),
             'aria-hidden': this.localActive ? 'false' : 'true',
             'aria-expanded': this.localActive ? 'true' : 'false',
-            'aria-lablelledby': this.controlledBy || null
+            'aria-labelledby': this.controlledBy || null
           }
         },
         [this.$slots.default]

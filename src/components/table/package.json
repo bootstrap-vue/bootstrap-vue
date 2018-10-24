@@ -42,6 +42,24 @@
                 ]
             },
             {
+                "event": "row-contextmenu",
+                "description": "Emitted when a row is right clicked.",
+                "args": [
+                    {
+                        "arg": "item",
+                        "description": "Item data of the row being right clicked."
+                    },
+                    {
+                        "arg": "index",
+                        "description": "Index of the row being right clicked."
+                    },
+                    {
+                        "arg": "event",
+                        "description": "Native event object."
+                    }
+                ]
+            },
+            {
                 "event": "row-hovered",
                 "description": "Emitted when a row is hovered.",
                 "args": [

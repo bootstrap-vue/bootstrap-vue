@@ -37,7 +37,8 @@ export default {
         props: {
           variant: this.variant,
           size: this.size,
-          disabled: this.disabled
+          disabled: this.disabled,
+          tag: this.toggleTag
         },
         attrs: {
           id: this.safeId('_BV_toggle_'),
@@ -97,6 +98,10 @@ export default {
     menuClass: {
       type: [String, Array],
       default: null
+    },
+    toggleTag: {
+      type: String,
+      default: 'button'
     },
     toggleClass: {
       type: [String, Array],

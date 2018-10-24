@@ -50,7 +50,7 @@ Disabled the dropdown item by setting the `disabled` prop.
 Historically dropdown menu contents had to be links (`<b-dropdown-item>`), but that’s no
 longer the case with Bootstrap v4. Now you can optionally create `<button>` elements in
 your dropdowns by using the `<b-dropdown-item-button>` sub-component.
-`<b-dropdown-itmem-button>` does not support the `href` or `to` props.
+`<b-dropdown-item-button>` does not support the `href` or `to` props.
 
 Disabled the dropdown item button by setting the `disabled` prop.
 
@@ -242,7 +242,7 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 The dropdown trigger buttons can have one of the standard Bootstrap contextual variants applied
 by setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link` etc.
 
-See the [Variant Reference](/docs/reference/variants) for a list of supported contextual variants.
+See the [Variant Reference](/docs/reference/color-variants) for a list of supported contextual variants.
 
 You can also apply abritrary classes to the toggle button via the `toggle-class` prop. This prop accepts either a string or array of strings.
 
