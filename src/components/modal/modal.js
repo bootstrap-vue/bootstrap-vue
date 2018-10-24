@@ -737,15 +737,13 @@ export default {
       const modal = this.$refs.modal
       const isModalOverflowing =
         modal.scrollHeight > document.documentElement.clientHeight
+      this.resetAdjustments()
+      this.checkScrollbar()
       if (!this.isBodyOverflowing && isModalOverflowing) {
         modal.style.paddingLeft = `${this.scrollbarWidth}px`
-      } else {
-        modal.style.paddingLeft = ''
       }
       if (this.isBodyOverflowing && !isModalOverflowing) {
         modal.style.paddingRight = `${this.scrollbarWidth}px`
-      } else {
-        modal.style.paddingRight = ''
       }
     },
     resetAdjustments () {
