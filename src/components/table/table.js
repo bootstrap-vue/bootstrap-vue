@@ -40,12 +40,29 @@ function recToString (obj) {
 }
 
 function defaultSortCompare (a, b, sortBy) {
-  if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-    return (a[sortBy] < b[sortBy] && -1) || (a[sortBy] > b[sortBy] && 1) || 0
+  if (sortBy.indexOf('.') < 0) {
+    return sort(a[sortBy], b[sortBy])
+  } else {
+    return sort(getNestedValue(a, sortBy), getNestedValue(b, sortBy))
   }
-  return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
+}
+
+function sort (a, b) {
+  if (typeof a === 'number' && typeof b === 'number') {
+    return (a < b && -1) || (a > b && 1) || 0
+  }
+  return toString(a).localeCompare(toString(b), undefined, {
     numeric: true
   })
+}
+
+function getNestedValue (obj, path) {
+  path = path.split('.')
+  var value = obj
+  for (var i = 0; i < path.length; i++) {
+    value = value[path[i]]
+  }
+  return value
 }
 
 function processField (key, value) {
@@ -249,11 +266,17 @@ export default {
               click: evt => {
                 this.rowClicked(evt, item, rowIndex)
               },
+              contextmenu: evt => {
+                this.rowContextmenu(evt, item, rowIndex)
+              },
               dblclick: evt => {
                 this.rowDblClicked(evt, item, rowIndex)
               },
               mouseenter: evt => {
                 this.rowHovered(evt, item, rowIndex)
+              },
+              mouseleave: evt => {
+                this.rowUnhovered(evt, item, rowIndex)
               }
             }
           },
@@ -925,6 +948,20 @@ export default {
         return
       }
       this.$emit('row-hovered', item, index, e)
+    },
+    rowUnhovered (e, item, index) {
+      if (this.stopIfBusy(e)) {
+        // If table is busy (via provider) then don't propagate
+        return
+      }
+      this.$emit('row-unhovered', item, index, e)
+    },
+    rowContextmenu (e, item, index) {
+      if (this.stopIfBusy(e)) {
+        // If table is busy (via provider) then don't propagate
+        return
+      }
+      this.$emit('row-contextmenu', item, index, e)
     },
     headClicked (e, field) {
       if (this.stopIfBusy(e)) {

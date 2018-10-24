@@ -59,13 +59,13 @@
     "test": "jest",
     "lint": "eslint src scripts docs tests nuxt",
     "release": "npm run build && npm run test && standard-version",
-    "postinstall": "opencollective postinstall || exit 0"
+    "postinstall": "opencollective-postinstall || exit 0"
   },
   "dependencies": {
     "bootstrap": "^4.1.1",
     "lodash.get": "^4.4.2",
     "lodash.startcase": "^4.4.0",
-    "opencollective": "^1.0.3",
+    "opencollective-postinstall": "^2.0.0",
     "popper.js": "^1.12.9",
     "vue-functional-data-merge": "^2.0.5"
   },
