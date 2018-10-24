@@ -78,6 +78,24 @@
                 ]
             },
             {
+                "event": "row-unhovered",
+                "description": "Emitted when a row is unhovered.",
+                "args": [
+                    {
+                        "arg": "item",
+                        "description": "Item data of the row being unhovered."
+                    },
+                    {
+                        "arg": "index",
+                        "description": "Index of the row being unhovered."
+                    },
+                    {
+                        "arg": "event",
+                        "description": "Native event object."
+                    }
+                ]
+            },
+            {
                 "event": "head-clicked",
                 "description": "Emitted when a header or footer cell is clicked.",
                 "args": [
