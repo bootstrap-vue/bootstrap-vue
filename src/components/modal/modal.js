@@ -660,13 +660,20 @@ export default {
         content.focus()
       }
     },
+    onResize () {
+      this.resetAdjustments()
+      this.resetScrollbar()
+      this.checkScrollbar()
+      this.setScrollbar()
+      this.adjustDialog()
+    },
     // Resize Listener
     setResizeEvent (on) {
       ;['resize', 'orientationchange'].forEach(evtName => {
         if (on) {
-          eventOn(window, evtName, this.adjustDialog)
+          eventOn(window, evtName, this.onResize)
         } else {
-          eventOff(window, evtName, this.adjustDialog)
+          eventOff(window, evtName, this.onResize)
         }
       })
     },
@@ -737,8 +744,6 @@ export default {
       const modal = this.$refs.modal
       const isModalOverflowing =
         modal.scrollHeight > document.documentElement.clientHeight
-      this.resetAdjustments()
-      this.checkScrollbar()
       if (!this.isBodyOverflowing && isModalOverflowing) {
         modal.style.paddingLeft = `${this.scrollbarWidth}px`
       }
