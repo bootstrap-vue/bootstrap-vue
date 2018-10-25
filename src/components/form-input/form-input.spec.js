@@ -86,7 +86,7 @@ describe('form-input', async () => {
     input.trigger('focus')
     input.trigger('wheel', { deltaY: 10 })
 
-    expect(input.value).toBe('123')
+    expect(input.element.value).toBe('123')
   })
 
   it('does change value when focused with no-wheel false and wheel event triggered', async () => {
@@ -101,6 +101,6 @@ describe('form-input', async () => {
     input.trigger('focus')
     input.trigger('wheel', { deltaY: 10 })
 
-    expect(input.value).not.toBe('123')
+    expect(input.element.value).not.toBe('123')
   })
 })
