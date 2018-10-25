@@ -2,6 +2,8 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
+import formSelectionMixin from '../../mixins/form-selection'
+import formValidityMixin from '../../mixins/form-validity'
 import { arrayIncludes } from '../../utils/array'
 import { eventOn, eventOff } from '../../utils/dom'
 
@@ -28,7 +30,7 @@ const TYPES = [
 ]
 
 export default {
-  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
+  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formSelectionMixin, formValidityMixin],
   render (h) {
     return h('input', {
       ref: 'input',
@@ -204,6 +206,7 @@ export default {
     onBlur (evt) {
       eventOff(this.$refs.input, 'wheel', this.stopWheel)
     },
+    /* istanbul ignore next: difficult to test */
     stopWheel (evt) {
       evt.preventDefault()
       evt.target.blur()
