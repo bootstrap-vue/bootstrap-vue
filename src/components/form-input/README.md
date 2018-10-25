@@ -293,6 +293,12 @@ text, set the `plaintext` prop (no need to set `readonly`) to remove the default
 field styling and preserve the correct margin and padding.
 
 
+### Disabling mousewheel events on numeric-like inputs
+On some browsers, scrolling the mousewheel while a numeric-like input is focused will
+increment or decrement the input's value. To disable this browser feture, just set
+the `no-wheel` prop to `true`.
+
+
 ## Component alias
 You can also use `<b-form-input>` by it's shorter alias of `<b-input>`.
 
