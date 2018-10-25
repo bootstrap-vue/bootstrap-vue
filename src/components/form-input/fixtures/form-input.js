@@ -7,7 +7,8 @@ window.app = new Vue({
     radio: '',
     check: '',
     default: 'Default',
-    number: 123.45
+    number: 123.45,
+    noWheel: true
   },
   methods: {
     format (value) {
