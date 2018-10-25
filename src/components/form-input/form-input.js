@@ -58,9 +58,7 @@ export default {
       on: {
         ...this.$listeners,
         input: this.onInput,
-        change: this.onChange,
-        focus: this.onFocus,
-        blur: this.onBlur
+        change: this.onChange
       }
     })
   },
@@ -144,6 +142,10 @@ export default {
         this.$emit('input', this.localValue)
       }
     }
+    this.setWheelStopper(this.noWheel)
+  },
+  beforeDestroy () {
+    this.setWheelStopper(false)
   },
   watch: {
     value (newVal) {
@@ -152,6 +154,9 @@ export default {
         // If the value has changed, we need to emit an input event to update v-model
         this.$emit('input', this.localValue)
       }
+    },
+    noWheel (newVal) {
+      this.setWheelStopper(newVal)
     }
   },
   methods: {
@@ -181,17 +186,21 @@ export default {
       // We always emit the change event
       this.$emit('change', value)
     },
-    onFocus (evt) {
-      if (this.noWheel) {
-        this.$el.addEventListener('wheel', this.stopWheel)
+    setWheelStopper (on) {
+      const input = this.$refs.input
+      if (on) {
+        input.addEventListener('focus', this.onFocus)
+      } else {
+        input.removeEventListener('focus', this.onFocus)
+        input.removeEventListener('blur', this.onBlur)
+        input.removeEventListener('wheel', this.stopWheel)
       }
-      // Emit native focus event
-      this.$emit('focus', evt)
+    },
+    onFocus (evt) {
+      this.$refs.input.addEventListener('wheel', this.stopWheel)
     },
     onBlur (evt) {
-      this.$el.removeEventListener('wheel', this.stopWheel)
-      // Emit native blur event
-      this.$emit('blur', evt)
+      this.$refs.input.removeEventListener('wheel', this.stopWheel)
     },
     stopWheel (evt) {
       evt.preventDefault()
