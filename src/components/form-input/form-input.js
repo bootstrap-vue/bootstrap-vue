@@ -47,8 +47,8 @@ export default {
       domProps: {
         value: this.localValue
       },
-      directives: [ 
-        { 
+      directives: [
+        {
           name: 'model',
           rawName: 'v-model',
           value: (this.localValue),
