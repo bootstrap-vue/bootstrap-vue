@@ -94,7 +94,8 @@ describe('form-input', async () => {
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
-    expect(spy).not.toHaveBeenCalled()
+    // no-wheel=true will fire a blur event on the input
+    expect(spy).toHaveBeenCalled()
   })
 
   it('focused number inout with no-wheel set to false works', async () => {
@@ -118,6 +119,7 @@ describe('form-input', async () => {
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
-    expect(spy).toHaveBeenCalled()
+    // no-wheel=false will not fire a blur event on the input
+    expect(spy).not.toHaveBeenCalled()
   })
 })
