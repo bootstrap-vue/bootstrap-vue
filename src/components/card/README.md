@@ -118,7 +118,7 @@ card is changed.
         </b-card>                
   </b-card-group>
   <br>
-  <h4>Left and Right</h4>
+  <h4>Left and Right (or Start and End)</h4>
       <b-card img-src="https://placekitten.com/300/300"
               img-alt="Card image"
               img-left

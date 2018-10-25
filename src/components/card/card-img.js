@@ -22,9 +22,19 @@ export const props = {
     type: Boolean,
     default: false
   },
+  start: {
+    type: Boolean,
+    default: false
+    // alias of 'left'
+  },
   right: {
     type: Boolean,
     default: false
+  },
+  end: {
+    type: Boolean,
+    default: false
+    // alias of 'right'
   },
   height: {
     type: String,
@@ -45,17 +55,14 @@ export default {
   props,
   render (h, {props, data, slots}) {
     let staticClass = 'card-img'
-    if (props.left) {
-      staticClass += '-left'
-    }
-    if (props.right) {
-      staticClass += '-right'
-    }
     if (props.top) {
       staticClass += '-top'
-    }
-    if (props.bottom) {
+    } else if (props.right || props.end) {
+      staticClass += '-right'
+    } else if (props.bottom) {
       staticClass += '-bottom'
+    } else if (props.left || props.start) {
+      staticClass += '-left'
     }
 
     return h(
