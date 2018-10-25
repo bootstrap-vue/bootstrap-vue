@@ -187,7 +187,7 @@ export default {
     }
     this.emitState()
   },
-  updated() {
+  updated () {
     this.$root.$emit(EVENT_STATE, this.id, this.show)
   },
   beforeDestroy () {
