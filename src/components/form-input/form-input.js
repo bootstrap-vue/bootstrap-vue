@@ -208,6 +208,7 @@ export default {
     },
     stopWheel (evt) {
       evt.preventDefault()
+      evt.stopPropagation()
       this.$refs.input.blur()
     },
     /* istanbul ignore next */
