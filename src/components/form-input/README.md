@@ -59,20 +59,22 @@ export default {
 <!-- form-input-types.vue -->
 ```
 
-If prop `type` is set to an unsupported value, a `text` input will be rendered.
+If the `type` prop is set to an input type that is not supported (see above), a `text` input
+will be rendered and a console warning will be issued.
 
 **Caveats with input types:**
 - Not all browsers support all input types, nor do some types render in the same format across
-browser types/version.
+browser types/versions.
 - Browsers that do not support a particular type will fall back to
 a `text` input type. As an example, Firefox desktop doesn't support `date`, `datetime`,
 or `time`, while Firefox mobile does.
 - Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
 Instead of using `datetime`, since support should be deprecated, use `date` and `time`
-as two separate input types.
+as two separate inputs.
 - For date and time style input, where supported, the displayed value in the GUI may be different
 than what is returned by it's value.
-- Regardless of input type, the value is **always** returned as a string representation.
+- Regardless of input type, the value is **always** returned as a string representation. Use `v-model.number` to convert a numeric-like input's value to a native JavaSript number. Use `v-model.trim` to remove leading and trailing whitespace from user supplied input.
+- `v-model.lazy` is not supported by `<b-form-input>` (nor any custom component).
 
 
 ## Control sizing
@@ -206,10 +208,10 @@ When `<b-form-input>` has an invalid contextual state (i.e. `'invalid'` or `fals
 want to set the `<b-form-input>` prop `aria-invalid` to `true`, or to one of the supported
 values:
 
-- `false`: No errors detected (default)
-- `true` or `'true'`: The value has failed validation.
-- `'grammar'` A grammatical error has been detected.
-- `'spelling'` A spelling error has been detected.
+- `false`: Convey no errors detected (default)
+- `true` (or `'true'`): Convey that the value has failed validation.
+- `'grammar'` Convey that a grammatical error has been detected.
+- `'spelling'` Convey that a spelling error has been detected.
 
 If `aria-invalid` is not explicitly set and `state` is set to `false` (or `'invalid'`),
 then the `aria-invalid` attribute on the input will automatically be set to `'true'`;
@@ -219,16 +221,16 @@ then the `aria-invalid` attribute on the input will automatically be set to `'tr
 `<b-form-input>` optionally supports formatting by passing a function reference to
 the `formatter` prop.
 
-By default, formatting occurs when the control's native `input` event fires. You can
-use the boolean prop `lazy-formatter` to restrict the formatter function to being
-called on the control's native `change` event (which usually occurs on blur).
+Formatting (when a formatter funtion is supplied) occurs when the control's native `input`
+event fires. You can use the boolean prop `lazy-formatter` to restrict the formatter
+function to being called on the control's native `change` event (which usually occurs on blur).
 
 The `formatter` function receives two arguments: the raw `value` of the input element,
-and the native `event` object.
+and the native `event` object (if available).
 
 The `formatter` function should return the formatted value (as a string).
 
-No formatting occurs if a `formatter` is not provided.
+Formatting does not occur if a `formatter` is not provided.
 
 ```html
 <template>
@@ -282,7 +284,7 @@ export default {
 **Note:** When using a non-text-like input (i.e. `color`, `range`, `date`,
 `number` etc), ensure that your formatter function returns the value in the
 expected format for the input type. The formatter **must** return the value
-as a string.
+as a _string_.
 
 
 ## Readonly plain text
