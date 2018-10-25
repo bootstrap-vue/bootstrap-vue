@@ -81,11 +81,12 @@ describe('form-input', async () => {
         type: 'number',
         value: '123'
       },
+      listeners: {
+        blur: spy
+      },
       attachToDocument: true
     })
     const input = wrapper.find('input')
-    const doc = input.element.ownerDocument.documentElement
-    doc.addEventListener('wheel', spy)
 
     expect(input.element.type).toBe('number')
     expect(wrapper.props().noWheel).toBe(true)
@@ -94,8 +95,6 @@ describe('form-input', async () => {
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
     expect(spy).not.toHaveBeenCalled()
-
-    doc.removeEventListener('wheel', spy)
   })
 
   it('focused number inout with no-wheel set to false works', async () => {
@@ -106,11 +105,12 @@ describe('form-input', async () => {
         type: 'number',
         value: '123'
       },
+      listeners: {
+        blur: spy
+      },
       attachToDocument: true
     })
     const input = wrapper.find('input')
-    const doc = input.element.ownerDocument.documentElement
-    doc.addEventListener('wheel', spy)
 
     expect(input.element.type).toBe('number')
     expect(wrapper.props().noWheel).toBe(false)
@@ -119,7 +119,5 @@ describe('form-input', async () => {
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
     expect(spy).toHaveBeenCalled()
-
-    doc.removeEventListener('wheel', spy)
   })
 })
