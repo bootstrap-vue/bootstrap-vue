@@ -91,7 +91,7 @@ describe('form-input', async () => {
     input.trigger('wheel', { deltaY: 10 })
 
     expect(spy).toHaveBeenCalled()
-    expect(spy).toHaveReturned(true)
+    expect(spy).toHaveReturnedWith(true)
   })
 
   it('wheel event not defaultPrevented when focused with no-wheel false and wheel event triggered', async () => {
@@ -111,6 +111,6 @@ describe('form-input', async () => {
     input.trigger('wheel', { deltaY: 10 })
 
     expect(spy).toHaveBeenCalled()
-    expect(spy).toHaveReturned(false)
+    expect(spy).toHaveReturnedWith(false)
   })
 })
