@@ -85,7 +85,8 @@ describe('form-input', async () => {
       },
       listeners: {
         wheel: spy
-      }
+      },
+      attachToDocument: true
     })
     const input = wrapper.find('input')
 
@@ -110,7 +111,8 @@ describe('form-input', async () => {
       },
       listeners: {
         wheel: spy
-      }
+      },
+      attachToDocument: true
     })
     const input = wrapper.find('input')
 
