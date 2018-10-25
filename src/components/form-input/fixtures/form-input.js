@@ -6,7 +6,8 @@ window.app = new Vue({
     textlazy: '',
     radio: '',
     check: '',
-    default: 'Default'
+    default: 'Default',
+    number: 123.45
   },
   methods: {
     format (value) {
