@@ -74,12 +74,12 @@ describe('form-input', async () => {
     expect(wrapper.emitted().change[0]).toEqual(['test'])
   })
 
-  it('wheel event not defaultPrevented when focused with no-wheel true and wheel event triggered', async () => {
+  it('wheel event defaultPrevented when focused with no-wheel true and wheel event triggered', async () => {
     let result = null
     const spy = jest.fn((e) => { result = e.defaultPrevented })
     const wrapper = mount(Input, {
       propsData: {
-        noWheel: false,
+        noWheel: true,
         type: 'number',
         value: '123'
       },
