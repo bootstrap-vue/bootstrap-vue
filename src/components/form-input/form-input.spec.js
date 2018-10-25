@@ -108,7 +108,7 @@ describe('form-input', async () => {
         type: 'number',
         value: '123'
       },
-       listeners: {
+      listeners: {
         wheel: spy
       }
     })
