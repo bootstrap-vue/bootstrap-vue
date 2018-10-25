@@ -197,19 +197,32 @@ export default {
       } else {
         eventOff(input, 'focus', this.onFocus)
         eventOff(input, 'blur', this.onBlur)
-        eventOff(input, 'wheel', this.stopWheel)
+        eventOff(document, 'wheel', this.stopWheel)
       }
     },
     onFocus (evt) {
-      eventOn(this.$refs.input, 'wheel', this.stopWheel)
+      eventOn(document, 'wheel', this.stopWheel)
     },
     onBlur (evt) {
-      eventOff(this.$refs.input, 'wheel', this.stopWheel)
+      eventOff(document, 'wheel', this.stopWheel)
     },
     stopWheel (evt) {
       evt.preventDefault()
       this.$refs.input.blur()
-      eventOff(this.$refs.input, 'wheel', this.stopWheel)
+    },
+    /* istanbul ignore next */
+    focus () {
+      // Expose the input focus() method
+      if (!this.disabled) {
+        this.$refs.input.focus()
+      }
+    },
+    /* istanbul ignore next */
+    blur () {
+      // Expose the input blur() method
+      if (!this.disabled) {
+        this.$refs.input.blur()
+      }
     }
   }
 }
