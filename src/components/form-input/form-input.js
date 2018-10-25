@@ -59,7 +59,8 @@ export default {
         ...this.$listeners,
         input: this.onInput,
         change: this.onChange,
-        wheel: this.onWheel
+        focus: this.onFocus,
+        blur: this.onBlur
       }
     })
   },
@@ -180,13 +181,21 @@ export default {
       // We always emit the change event
       this.$emit('change', value)
     },
-    onWheel (evt) {
+    onFocus (evt) {
       if (this.noWheel) {
-        evt.preventDefault()
-        evt.target.blur()
+        this.$el.addEventListener('wheel', this.stopWheel)
       }
-      // Emit native wheel event
-      this.$emit('wheel', evt)
+      // Emit native focus event
+      this.$emit('focus', evt)
+    },
+    onBlur (evt) {
+      this.$el.removeEventListener('wheel', this.stopWheel)
+      // Emit native blur event
+      this.$emit('blur', evt)
+    },
+    stopWheel (evt) {
+      evt.preventDefault()
+      evt.target.blur()
     }
   }
 }
