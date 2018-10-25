@@ -83,12 +83,11 @@ describe('form-input', async () => {
         type: 'number',
         value: '123'
       },
-      listeners: {
-        wheel: spy
-      },
       attachToDocument: true
     })
     const input = wrapper.find('input')
+    const doc = input.element.ownerDocument.documentElement
+    doc.addEventListener('wheel', spy)
 
     expect(input.element.type).toBe('number')
     expect(wrapper.props().noWheel).toBe(true)
@@ -98,6 +97,8 @@ describe('form-input', async () => {
 
     expect(spy).toHaveBeenCalled()
     expect(result).toBe(true)
+
+    doc.removeEventListener('wheel', spy)
   })
 
   it('wheel event not defaultPrevented when focused with no-wheel false and wheel event triggered', async () => {
@@ -109,12 +110,11 @@ describe('form-input', async () => {
         type: 'number',
         value: '123'
       },
-      listeners: {
-        wheel: spy
-      },
       attachToDocument: true
     })
     const input = wrapper.find('input')
+    const doc = input.element.ownerDocument.documentElement
+    doc.addEventListener('wheel', spy)
 
     expect(input.element.type).toBe('number')
     expect(wrapper.props().noWheel).toBe(false)
@@ -124,5 +124,7 @@ describe('form-input', async () => {
 
     expect(spy).toHaveBeenCalled()
     expect(result).toBe(false)
+
+    doc.removeEventListener('wheel', spy)
   })
 })
