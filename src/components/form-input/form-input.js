@@ -163,10 +163,10 @@ export default {
     onInput (evt) {
       if (evt.target.composing) return
       let value = evt.target.value
-      if (this.lazyFormatter) {
+      if (!this.lazyFormatter) {
         value = this.format(value, evt)
       }
-      this.localValue = value
+      this.localValue = this.lazyFormatter ? value : this.format(value, evt)
       this.$emit('input', value)
     },
     onChange (evt) {
