@@ -146,7 +146,7 @@ export default {
   },
   watch: {
     value (newVal) {
-      this.localValue = this.lazyFormatter ? this.value : this.format(this.value, null)
+      this.localValue = this.lazyFormatter ? newVal : this.format(newVal, null)
       if (newVal !== this.localValue) {
         // If the value has changed, we need to emit an input event to update v-model
         this.$emit('input', this.localValue)
