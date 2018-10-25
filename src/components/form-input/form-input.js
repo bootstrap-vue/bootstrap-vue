@@ -208,7 +208,7 @@ export default {
     },
     stopWheel (evt) {
       evt.preventDefault()
-      evt.target.blur()
+      this.$refs.input.blur()
       eventOff(this.$refs.input, 'wheel', this.stopWheel)
     }
   }
