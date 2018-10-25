@@ -1,4 +1,3 @@
-// import {loadFixture, testVM} from '../../../tests/utils'
 import Input from './form-input'
 import { mount } from '@vue/test-utils'
 
@@ -74,9 +73,8 @@ describe('form-input', async () => {
     expect(wrapper.emitted().change[0]).toEqual(['test'])
   })
 
-  it('wheel event defaultPrevented when focused with no-wheel true and wheel event triggered', async () => {
-    let result = null
-    const spy = jest.fn((e) => { result = e.defaultPrevented })
+  it('focused number inout with no-wheel set to true works', async () => {
+    const spy = jest.fn()
     const wrapper = mount(Input, {
       propsData: {
         noWheel: true,
@@ -95,15 +93,13 @@ describe('form-input', async () => {
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
-    expect(spy).toHaveBeenCalled()
-    expect(result).toBe(true)
+    expect(spy).not.toHaveBeenCalled()
 
     doc.removeEventListener('wheel', spy)
   })
 
-  it('wheel event not defaultPrevented when focused with no-wheel false and wheel event triggered', async () => {
-    let result = null
-    const spy = jest.fn((e) => { result = e.defaultPrevented })
+  it('focused number inout with no-wheel set to false works', async () => {
+    const spy = jest.fn(() => {})
     const wrapper = mount(Input, {
       propsData: {
         noWheel: false,
@@ -123,7 +119,6 @@ describe('form-input', async () => {
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
     expect(spy).toHaveBeenCalled()
-    expect(result).toBe(false)
 
     doc.removeEventListener('wheel', spy)
   })
