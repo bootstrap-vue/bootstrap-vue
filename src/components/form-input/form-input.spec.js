@@ -73,4 +73,37 @@ describe('form-input', async () => {
     input.trigger('change')
     expect(wrapper.emitted().change[0]).toEqual(['test'])
   })
+
+  it('does not emit a native wheel event with no-wheel set when focused', async () => {
+    const spy = jest.fn()
+    const wrapper = mount(Input, {
+      listeners: {
+        wheel: spy
+      }
+    })
+    const input = wrapper.find('input#nowheel')
+    input.trigger('focus')
+    input.trigger('wheel', { deltaY: 10 })
+
+    expect(wrapper.emitted()).toMatchObject({})
+    expect(spy).not.toHaveBeenCalled()
+  })
+
+  it('does emit a native wheel event with no-wheel not set when focused', async () => {
+    const spy = jest.fn()
+    const wrapper = mount(Input, {
+      propsData: {
+        noWheel: false
+      },
+      listeners: {
+        wheel: spy
+      }
+    })
+    const input = wrapper.find('input#nowheel')
+    input.trigger('focus')
+    input.trigger('wheel', { deltaY: 10 })
+
+    expect(wrapper.emitted()).toMatchObject({})
+    expect(spy).toHaveBeenCalled()
+  })
 })
