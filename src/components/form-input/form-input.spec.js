@@ -75,7 +75,6 @@ describe('form-input', async () => {
   })
 
   it('does not change value when focused with no-wheel true and wheel event triggered', async () => {
-    const spy = jest.fn()
     const wrapper = mount(Input, {
       propsData: {
         noWheel: false,
@@ -91,7 +90,6 @@ describe('form-input', async () => {
   })
 
   it('does change value when focused with no-wheel false and wheel event triggered', async () => {
-    const spy = jest.fn()
     const wrapper = mount(Input, {
       propsData: {
         noWheel: false,
