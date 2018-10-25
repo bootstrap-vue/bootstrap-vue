@@ -75,7 +75,8 @@ describe('form-input', async () => {
   })
 
   it('wheel event not defaultPrevented when focused with no-wheel true and wheel event triggered', async () => {
-    const spy = jest.fn((e) => e.defaultPrevented)
+    let result = null
+    const spy = jest.fn((e) => { result = e.defaultPrevented })
     const wrapper = mount(Input, {
       propsData: {
         noWheel: false,
@@ -91,11 +92,12 @@ describe('form-input', async () => {
     input.trigger('wheel', { deltaY: 10 })
 
     expect(spy).toHaveBeenCalled()
-    expect(spy).toHaveReturnedWith(true)
+    expect(result).toBe(true)
   })
 
   it('wheel event not defaultPrevented when focused with no-wheel false and wheel event triggered', async () => {
-    const spy = jest.fn((e) => e.defaultPrevented)
+    let result = null
+    const spy = jest.fn((e) => { result = e.defaultPrevented })
     const wrapper = mount(Input, {
       propsData: {
         noWheel: false,
@@ -111,6 +113,6 @@ describe('form-input', async () => {
     input.trigger('wheel', { deltaY: 10 })
 
     expect(spy).toHaveBeenCalled()
-    expect(spy).toHaveReturnedWith(false)
+    expect(result).toBe(false)
   })
 })
