@@ -5,7 +5,6 @@ import formStateMixin from '../../mixins/form-state'
 import { arrayIncludes } from '../../utils/array'
 import { eventOn, eventOff } from '../../utils/dom'
 
-
 // Import styles
 import './form-input.css'
 
