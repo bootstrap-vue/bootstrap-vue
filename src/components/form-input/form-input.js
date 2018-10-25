@@ -42,15 +42,31 @@ export default {
         placeholder: this.placeholder,
         autocomplete: this.autocomplete || null,
         'aria-required': this.required ? 'true' : null,
-        'aria-invalid': this.computedAriaInvalid,
-        value: this.value
+        'aria-invalid': this.computedAriaInvalid
       },
+      domProps: {
+        value: this.localValue
+      },
+      directives: [ 
+        { 
+          name: 'model',
+          rawName: 'v-model',
+          value: (this.localValue),
+          expression: 'localValue'
+        }
+      ],
       on: {
         ...this.$listeners,
         input: this.onInput,
-        change: this.onChange
+        change: this.onChange,
+        wheel: this.onWheel
       }
     })
+  },
+  data () {
+    return {
+      localValue: null
+    }
   },
   props: {
     value: {
@@ -87,6 +103,11 @@ export default {
     lazyFormatter: {
       type: Boolean,
       default: false
+    },
+    noWheel: {
+      // Disable mousewheel to prevent wheel from changing values (i.e. number/date).
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -116,17 +137,19 @@ export default {
   },
   mounted () {
     if (this.value) {
-      const fValue = this.format(this.value, null)
-      this.setValue(fValue)
+      this.localValue = this.lazyFormatter ? this.value : this.format(this.value, null)
+      if (this.value !== this.localValue) {
+        // If the value has changed, we need to emit an input event to update v-model
+        this.$emit('input', this.localValue)
+      }
     }
   },
   watch: {
     value (newVal) {
-      if (this.lazyFormatter) {
-        this.setValue(newVal)
-      } else {
-        const fValue = this.format(newVal, null)
-        this.setValue(fValue)
+      this.localValue = this.lazyFormatter ? this.value : this.format(this.value, null)
+      if (newVal !== this.localValue) {
+        // If the value has changed, we need to emit an input event to update v-model
+        this.$emit('input', this.localValue)
       }
     }
   },
@@ -137,25 +160,33 @@ export default {
       }
       return value
     },
-    setValue (value) {
-      this.$emit('input', value)
-      // When formatter removes last typed character, value of text input should update to formatted value
-      this.$refs.input.value = value
-    },
     onInput (evt) {
-      const value = evt.target.value
-
+      if (evt.target.composing) return
+      let value = evt.target.value
       if (this.lazyFormatter) {
-        this.setValue(value)
-      } else {
-        const fValue = this.format(value, evt)
-        this.setValue(fValue)
+        value = this.format(value, evt)
       }
+      this.localValue = value
+      this.$emit('input', value)
     },
     onChange (evt) {
-      const fValue = this.format(evt.target.value, evt)
-      this.setValue(fValue)
-      this.$emit('change', fValue)
+      if (evt.target.composing) return
+      const value = this.format(evt.target.value, evt)
+      if (value !== evt.target.value) {
+        this.localValue = value
+        // We need to emit an input event to update the v-model
+        this.$emit('input', value)
+      }
+      // We always emit the change event
+      this.$emit('change', value)
+    },
+    onWheel (evt) {
+      if (this.noWheel) {
+        evt.preventDefault()
+        evt.target.blur()
+      }
+      // Emit native wheel event
+      this.$emit('wheel', evt)
     }
   }
 }
