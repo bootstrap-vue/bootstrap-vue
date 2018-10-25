@@ -3,6 +3,8 @@ import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import { arrayIncludes } from '../../utils/array'
+import { eventOn, eventOff } from '../../utils/dom'
+
 
 // Import styles
 import './form-input.css'
@@ -189,22 +191,24 @@ export default {
     setWheelStopper (on) {
       const input = this.$refs.input
       if (on) {
-        input.addEventListener('focus', this.onFocus)
+        eventOn(input, 'focus', this.onFocus)
+        eventOn(input, 'blur', this.onBlur)
       } else {
-        input.removeEventListener('focus', this.onFocus)
-        input.removeEventListener('blur', this.onBlur)
-        input.removeEventListener('wheel', this.stopWheel)
+        eventOff(input, 'focus', this.onFocus)
+        eventOff(input, 'blur', this.onBlur)
+        eventOff(input, 'wheel', this.stopWheel)
       }
     },
     onFocus (evt) {
-      this.$refs.input.addEventListener('wheel', this.stopWheel)
+      eventOn(this.$refs.input, 'wheel', this.stopWheel)
     },
     onBlur (evt) {
-      this.$refs.input.removeEventListener('wheel', this.stopWheel)
+      eventOff(this.$refs.input, 'wheel', this.stopWheel)
     },
     stopWheel (evt) {
       evt.preventDefault()
       evt.target.blur()
+      eventOff(this.$refs.input, 'wheel', this.stopWheel)
     }
   }
 }
