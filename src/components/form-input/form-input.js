@@ -206,7 +206,7 @@ export default {
     onBlur (evt) {
       eventOff(this.$refs.input, 'wheel', this.stopWheel)
     },
-     stopWheel (evt) {
+    stopWheel (evt) {
       evt.preventDefault()
       evt.target.blur()
       eventOff(this.$refs.input, 'wheel', this.stopWheel)
