@@ -5,7 +5,8 @@ window.app = new Vue({
     textformatter: '',
     textlazy: '',
     radio: '',
-    check: ''
+    check: '',
+    default: 'Default'
   },
   methods: {
     format (value) {
