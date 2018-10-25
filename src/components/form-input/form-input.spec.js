@@ -1,6 +1,6 @@
 // import {loadFixture, testVM} from '../../../tests/utils'
 import Input from './form-input'
-import { mount } from 'vue-test-utils'
+import { mount } from 'vue/test-utils'
 
 describe('form-input', async () => {
   it('emits an input event', async () => {
