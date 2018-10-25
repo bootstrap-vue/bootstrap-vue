@@ -88,8 +88,12 @@ describe('form-input', async () => {
       }
     })
     const input = wrapper.find('input')
-    input.trigger('focus')
-    input.trigger('wheel', { deltaY: 10 })
+
+    expect(input.element.type).toBe('number')
+    expect(wrapper.props('noWheel')).toBe(true)
+
+    input.element.focus()
+    input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
     expect(spy).toHaveBeenCalled()
     expect(result).toBe(true)
@@ -104,13 +108,17 @@ describe('form-input', async () => {
         type: 'number',
         value: '123'
       },
-      listeners: {
+       listeners: {
         wheel: spy
       }
     })
     const input = wrapper.find('input')
-    input.trigger('focus')
-    input.trigger('wheel', { deltaY: 10 })
+
+    expect(input.element.type).toBe('number')
+    expect(wrapper.props('noWheel')).toBe(false)
+
+    input.element.focus()
+    input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
     expect(spy).toHaveBeenCalled()
     expect(result).toBe(false)
