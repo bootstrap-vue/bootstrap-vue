@@ -184,11 +184,7 @@ export default {
       this.$emit('change', this.localValue, evt)
     },
     getFormatted (value, event = null) {
-      
-      if (this.formatter) {
-        return this.formatter(value, event)
-      }
-      return value
+      return this.formatter ? this.formatter(value, event) : value
     },
     setWheelStopper (on) {
       const input = this.$refs.input
@@ -214,7 +210,7 @@ export default {
     // Exposed methods
     format () {
       // Force the formatter to run
-      this.localValue = this.getFormatted (this.localValue, null)
+      this.localValue = this.getFormatted(this.localValue, null)
       return this.localValue
     },
     focus () {
