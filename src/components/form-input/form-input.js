@@ -29,6 +29,9 @@ const TYPES = [
   'week'
 ]
 
+// Custom event to update the model
+const MODEL_EVENT = 'update:value'
+
 export default {
   mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formSelectionMixin, formValidityMixin],
   render (h) {
@@ -69,6 +72,10 @@ export default {
     return {
       localValue: null
     }
+  },
+  model: {
+    prop: 'value',
+    event: MODEL_EVENT
   },
   props: {
     value: {
@@ -139,11 +146,7 @@ export default {
   },
   mounted () {
     if (this.value) {
-      this.localValue = this.lazyFormatter ? this.value : this.format(this.value, null)
-      if (this.value !== this.localValue) {
-        // If the value has changed, we need to emit an input event to update v-model
-        this.$emit('input', this.localValue)
-      }
+      this.localValue = this.lazyFormatter ? this.value : this.getFormatted(this.value, null)
     }
     this.setWheelStopper(this.noWheel)
   },
@@ -152,11 +155,16 @@ export default {
     this.setWheelStopper(false)
   },
   watch: {
-    value (newVal) {
-      this.localValue = this.lazyFormatter ? newVal : this.format(newVal, null)
-      if (newVal !== this.localValue) {
-        // If the value has changed, we need to emit an input event to update v-model
-        this.$emit('input', this.localValue)
+    value (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        // If value has changed, update the internal model
+        this.localValue = this.lazyFormatter ? newVal : this.getFormatted(newVal, null)
+      }
+    },
+    localValue (newVal, oldVal) {
+      // Update the model when internal model changes
+      if (newVal !== oldVal) {
+        this.$emit(MODEL_EVENT, this.localValue)
       }
     },
     noWheel (newVal) {
@@ -164,31 +172,23 @@ export default {
     }
   },
   methods: {
-    format (value, e) {
-      if (this.formatter) {
-        return this.formatter(value, e)
-      }
-      return value
-    },
     onInput (evt) {
       if (evt.target.composing) return
-      let value = evt.target.value
-      if (!this.lazyFormatter) {
-        value = this.format(value, evt)
-      }
-      this.localValue = this.lazyFormatter ? value : this.format(value, evt)
+      const value = evt.target.value
+      this.localValue = this.lazyFormatter ? value : this.getFormatted(value, evt)
       this.$emit('input', value)
     },
     onChange (evt) {
       if (evt.target.composing) return
-      const value = this.format(evt.target.value, evt)
-      if (value !== evt.target.value) {
-        this.localValue = value
-        // We need to emit an input event to update the v-model
-        this.$emit('input', value)
+      this.localValue = this.format(evt.target.value, evt)
+      this.$emit('change', this.localValue)
+    },
+    getFormatted (value, event = null) {
+      
+      if (this.formatter) {
+        return this.formatter(value, event)
       }
-      // We always emit the change event
-      this.$emit('change', value)
+      return value
     },
     setWheelStopper (on) {
       const input = this.$refs.input
@@ -210,6 +210,12 @@ export default {
     stopWheel (evt) {
       evt.preventDefault()
       this.$refs.input.blur()
+    },
+    // Exposed methods
+    format () {
+      // Force the formatter to run
+      this.localValue = this.getFormatted (this.localValue, null)
+      return this.localValue
     },
     focus () {
       // Expose the input focus() method
