@@ -187,6 +187,9 @@ export default {
     }
     this.emitState()
   },
+  updated () {
+    this.$root.$emit(EVENT_STATE, this.id, this.show)
+  },
   beforeDestroy () {
     if (this.isNav && typeof document !== 'undefined') {
       window.removeEventListener('resize', this.handleResize, false)

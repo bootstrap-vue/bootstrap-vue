@@ -186,7 +186,10 @@ export default {
         return
       }
       if (!this.multiple) {
-        this.selectedFile = files[0]
+        let firstElement = files[0]
+        if (firstElement.type.match(this.accept)) {
+          this.selectedFile = firstElement
+        }
         return
       }
       // Convert files to array
