@@ -271,24 +271,20 @@ describe('form-input', async () => {
   it('applies transform function when value updated after mount and not lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        value: 'abc123',
+        value: '',
         formatter (value) {
           return value.toLowerCase()
         }
       }
     })
-    const input = wrapper.find('input')
-    expect(input.element.value).toBe('abc123')
-
-    input.element.value = 'TEST'
-    input.trigger('input')
-    expect(wrapper.emitted().change[0]).toEqual(['test'])
+    wrapper.setProps({ value: 'TEST' })
+    expect(wrapper.emitted().input[0]).toEqual(['test'])
   })
 
   it('does not apply transform function when value updated after mount and lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        value: 'abc123',
+        value: '',
         formatter (value) {
           return value.toLowerCase()
         },
@@ -296,11 +292,8 @@ describe('form-input', async () => {
       }
     })
     const input = wrapper.find('input')
-    expect(input.element.value).toBe('abc123')
-
-    input.element.value = 'TEST'
-    input.trigger('input')
-    expect(wrapper.emitted().input[0]).toEqual(['test'])
+    wrapper.setProps({ value: 'TEST' })
+    expect(wrapper.emitted().input[0]).toEqual(['TEST'])
   })
 
   it('focused number input with no-wheel set to true works', async () => {
