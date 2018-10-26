@@ -515,7 +515,9 @@ export default {
           // If another modal is started to hide but not hidden yet,
           // and yet another modal is about to open, wait for it to
           // open.
-          this.$root.$once('bv::modal::shown', this.doHide)
+          this.$root.$once('bv::modal::shown', () => {
+            this.doHide(trigger)
+          })
         } else {
           return
         }
