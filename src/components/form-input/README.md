@@ -1,7 +1,7 @@
 # Textual and Value inputs
 
 > Create various text style inputs such as: `text`, `password`, `number`, `url`,
-`email`, `search`, and more.
+`email`, `search`, `range` and more.
 
 ```html
 <template>
@@ -66,12 +66,11 @@ will be rendered and a console warning will be issued.
 - Not all browsers support all input types, nor do some types render in the same format across
 browser types/versions.
 - Browsers that do not support a particular type will fall back to
-a `text` input type. As an example, Firefox desktop doesn't support `date`, `datetime`,
-or `time`, while Firefox mobile does.
+a `text` input type (event thoough the rendered `type` attribute markup shows the requested type).
 - Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
 Instead of using `datetime`, since support should be deprecated, use `date` and `time`
 as two separate inputs.
-- For date and time style input, where supported, the displayed value in the GUI may be different
+- For date and time style inputs, where supported, the displayed value in the GUI may be different
 than what is returned by it's value.
 - Regardless of input type, the value is **always** returned as a string representation. Use `v-model.number` to convert a numeric-like input's value to a native JavaSript number. Use `v-model.trim` to remove leading and trailing whitespace from user supplied input.
 - `v-model.lazy` is not supported by `<b-form-input>` (nor any custom component).
