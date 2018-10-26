@@ -277,6 +277,7 @@ describe('form-input', async () => {
         }
       }
     })
+    const input = wrapper.find('input')
     expect(input.element.value).toBe('abc123')
 
     input.element.value = 'TEST'
@@ -294,6 +295,7 @@ describe('form-input', async () => {
         lazyFormatter: true
       }
     })
+    const input = wrapper.find('input')
     expect(input.element.value).toBe('abc123')
 
     input.element.value = 'TEST'
