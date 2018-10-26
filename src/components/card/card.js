@@ -52,12 +52,15 @@ export default {
       })
       : null
     if (img) {
-      if (props.imgLeft || props.imgStart) {
+      if (props.imgTop) {
+        childNodes.push(img)
+      } else if (props.imgLeft || props.imgStart) {
         staticClass += ' flex-row'
+        childNodes.push(img)
       } else if (props.imgRight || props.imgEnd) {
         staticClass += ' flex-row-reverse'
+        childNodes.push(img)
       }
-      childNodes.push(img)
     }
 
     if (props.header || $slots.header) {
@@ -76,6 +79,10 @@ export default {
       childNodes.push(
         h(CardFooter, { props: pluckProps(footerProps, props) }, $slots.footer)
       )
+    }
+
+    if (img && props.imgBottom) {
+      childNodes.push(img)
     }
 
     return h(
