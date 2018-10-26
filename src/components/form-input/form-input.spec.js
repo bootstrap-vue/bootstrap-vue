@@ -192,6 +192,7 @@ describe('form-input', async () => {
     input.element.value = 'test'
     input.trigger('input')
 
+    expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted().input[0][0]).toEqual('test')
     expect(wrapper.emitted().input[0].length).toEqual(2)
   })
@@ -277,16 +278,15 @@ describe('form-input', async () => {
       attachToDocument: true
     })
     const input = wrapper.find('input')
-    input.element.value = 'TEST'
 
     // input event needed to set initial value
+    input.element.value = 'TEST'
     input.trigger('input')
     expect(input.vm.localValue).toEqual('TEST')
-    expect(input.element.value).toEqual('test')
+    expect(wrapper.emitted('update:value')).toBeDefined()
 
     input.trigger('change')
     expect(input.vm.localValue).toEqual('test')
-    expect(input.element.value).toEqual('test')
     expect(wrapper.emitted('update:value')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change')[0][0]).toEqual('test')
@@ -348,7 +348,6 @@ describe('form-input', async () => {
 
     wrapper.setProps({ value: 'TEST' })
 
-    expect(input.element.value).toBe('TEST')
     expect(input.vm.localValue).toBe('TEST')
     expect(wrapper.emitted('update:value')).toBeDefined()
     expect(wrapper.emitted('input')).not.toBeDefined()
