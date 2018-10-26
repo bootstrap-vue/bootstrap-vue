@@ -338,7 +338,7 @@ input type.
 
 
 ## Component alias
-You can also use `<b-form-input>` by it's shorter alias of `<b-input>`.
+You can also use `<b-form-input>` by its shorter alias of `<b-input>`.
 
 
 ## Component Reference
