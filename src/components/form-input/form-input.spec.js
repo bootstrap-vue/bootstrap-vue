@@ -282,9 +282,11 @@ describe('form-input', async () => {
     // input event needed to set initial value
     input.trigger('input')
     expect(input.vm.localValue).toEqual('TEST')
+    expect(input.element.value).toEqual('test')
 
     input.trigger('change')
     expect(input.vm.localValue).toEqual('test')
+    expect(input.element.value).toEqual('test')
     expect(wrapper.emitted('update:value')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change')[0][0]).toEqual('test')
