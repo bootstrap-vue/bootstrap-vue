@@ -176,12 +176,12 @@ export default {
       if (evt.target.composing) return
       const value = evt.target.value
       this.localValue = this.lazyFormatter ? value : this.getFormatted(value, evt)
-      this.$emit('input', value)
+      this.$emit('input', this.localValue, evt)
     },
     onChange (evt) {
       if (evt.target.composing) return
       this.localValue = this.format(evt.target.value, evt)
-      this.$emit('change', this.localValue)
+      this.$emit('change', this.localValue, evt)
     },
     getFormatted (value, event = null) {
       
