@@ -161,7 +161,7 @@ export default {
     value (newVal, oldVal) {
       if (newVal !== oldVal) {
         const val = this.lazyFormatter ? newVal : this.getFormatted(newVal, null)
-        if (val !== this.value) {
+        if (val !== newVal) {
           this.setValue(val)
         }
       }
