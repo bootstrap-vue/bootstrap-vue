@@ -2,6 +2,144 @@ import Input from './form-input'
 import { mount } from '@vue/test-utils'
 
 describe('form-input', async () => {
+  it('has class form-control', async () => {
+    const wrapper = mount(Input)
+    const input = wrapper.find('input')
+    expect(input.classes()).toContain('form-control')
+  })
+
+  it('does not have class form-control when plain=true', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        plain: true
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes()).not.toContain('form-control')
+  })
+
+  it('has class form-control-lg when size=lg and plane=false', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        size: 'lg'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes()).toContain('form-control-lg')
+  })
+
+  it('has class form-control-sm when size=lg and plain=false', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        size: 'sm'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes()).toContain('form-control-sm')
+  })
+
+  it('does not have class form-control or form-control-lg when plain=true and size=lg', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        plain: true,
+        size: 'lg'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes()).not.toContain('form-control')
+  })
+
+  it('has user supplied id', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        id: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('id')).toBe('foobar')
+  })
+
+  it('renders text input by default', async () => {
+    const wrapper = mount(Input)
+    const input = wrapper.find('input')
+    expect(input.attributes('type')).toBe('text')
+  })
+
+  it('renders number input when type set to number', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        type: 'number'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('type')).toBe('number')
+  })
+
+  it('renders text input when type not supported', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        type: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('type')).toBe('text')
+  })
+
+  it('does not have input-valid or input-invalid classes when state is default', async () => {
+    const wrapper = mount(Input)
+    const input = wrapper.find('input')
+    expect(input.classes()).not.toContain('input-valid')
+    expect(input.classes()).not.toContain('input-invalid')
+  })
+
+  it('has class input-valid when state=true', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: true
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes()).toContain('input-valid')
+    expect(input.classes()).not.toContain('input-invalid')
+  })
+
+  it('has class input-invalid when state=false', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: false
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes()).toContain('input-invalid')
+    expect(input.classes()).not.toContain('input-valid')
+  })
+
+  it('does not have aria-invalid attribute when state is true', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: true
+      }
+    })
+    const input = wrapper.find('input')
+    expect(wrapper.contains('[aria-invalid]')).toBe(false)
+  })
+
+  it('does not have aria-invalid attribute when state is default', async () => {
+    const wrapper = mount(Input)
+    const input = wrapper.find('input')
+    expect(wrapper.contains('[aria-invalid]')).toBe(false)
+  })
+
+  it('has aria-invalid attribute when state=false', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: false
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('aria-invalid')).toBe('true')
+  })
+
   it('emits an input event', async () => {
     const wrapper = mount(Input)
 
