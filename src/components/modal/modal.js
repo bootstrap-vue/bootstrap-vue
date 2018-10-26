@@ -548,10 +548,7 @@ export default {
       }
       this.emitEvent(hideEvt)
       // Hide if not canceled
-      if (hideEvt.defaultPrevented) {
-        return
-      }
-      if (!this.is_visible) {
+      if (hideEvt.defaultPrevented || !this.is_visible) {
         return
       }
       // stop observing for content changes
