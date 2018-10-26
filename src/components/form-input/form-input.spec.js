@@ -8,16 +8,6 @@ describe('form-input', async () => {
     expect(input.classes()).toContain('form-control')
   })
 
-  it('does not have class form-control when plain=true', async () => {
-    const wrapper = mount(Input, {
-      propsData: {
-        plain: true
-      }
-    })
-    const input = wrapper.find('input')
-    expect(input.classes()).not.toContain('form-control')
-  })
-
   it('has class form-control-lg when size=lg and plane=false', async () => {
     const wrapper = mount(Input, {
       propsData: {
@@ -38,15 +28,20 @@ describe('form-input', async () => {
     expect(input.classes()).toContain('form-control-sm')
   })
 
-  it('does not have class form-control or form-control-lg when plain=true and size=lg', async () => {
+  it('does not have class form-control-plaintext when plaintext not set', async () => {
+    const wrapper = mount(Input)
+    const input = wrapper.find('input')
+    expect(input.classes()).not.toContain('form-control-plaintext')
+  })
+
+  it('has class form-control-plaintext when plaintext=true', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        plain: true,
-        size: 'lg'
+        plaintext: true
       }
     })
     const input = wrapper.find('input')
-    expect(input.classes()).not.toContain('form-control')
+    expect(input.classes()).toContain('form-control-plaintext')
   })
 
   it('has user supplied id', async () => {
@@ -85,33 +80,38 @@ describe('form-input', async () => {
     expect(input.attributes('type')).toBe('text')
   })
 
-  it('does not have input-valid or input-invalid classes when state is default', async () => {
+  it('does not have is-valid or is-invalid classes when state is default', async () => {
     const wrapper = mount(Input)
     const input = wrapper.find('input')
-    expect(input.classes()).not.toContain('input-valid')
-    expect(input.classes()).not.toContain('input-invalid')
+    expect(input.classes()).not.toContain('is-valid')
+    expect(input.classes()).not.toContain('is-invalid')
   })
 
-  it('has class input-valid when state=true', async () => {
+  it('has class is-valid when state=true', async () => {
     const wrapper = mount(Input, {
       propsData: {
         state: true
       }
     })
     const input = wrapper.find('input')
-    expect(input.classes()).toContain('input-valid')
-    expect(input.classes()).not.toContain('input-invalid')
+    expect(input.classes()).toContain('is-valid')
+    expect(input.classes()).not.toContain('is-invalid')
   })
 
-  it('has class input-invalid when state=false', async () => {
+  it('has class is-invalid when state=false', async () => {
     const wrapper = mount(Input, {
       propsData: {
         state: false
       }
     })
     const input = wrapper.find('input')
-    expect(input.classes()).toContain('input-invalid')
-    expect(input.classes()).not.toContain('input-valid')
+    expect(input.classes()).toContain('is-invalid')
+    expect(input.classes()).not.toContain('is-valid')
+  })
+
+  it('does not have aria-invalid attribute by default', async () => {
+    const wrapper = mount(Input)
+    expect(wrapper.contains('[aria-invalid]')).toBe(false)
   })
 
   it('does not have aria-invalid attribute when state is true', async () => {
@@ -120,13 +120,6 @@ describe('form-input', async () => {
         state: true
       }
     })
-    const input = wrapper.find('input')
-    expect(wrapper.contains('[aria-invalid]')).toBe(false)
-  })
-
-  it('does not have aria-invalid attribute when state is default', async () => {
-    const wrapper = mount(Input)
-    const input = wrapper.find('input')
     expect(wrapper.contains('[aria-invalid]')).toBe(false)
   })
 
@@ -138,6 +131,36 @@ describe('form-input', async () => {
     })
     const input = wrapper.find('input')
     expect(input.attributes('aria-invalid')).toBe('true')
+  })
+
+  it('has aria-invalid attribute when aria-invalid="true"', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        ariaInvalid: 'true'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('aria-invalid')).toBe('true')
+  })
+
+  it('has aria-invalid attribute when aria-invalid=true', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        ariaInvalid: true
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('aria-invalid')).toBe('true')
+  })
+
+  it('has aria-invalid attribute when aria-invalid="spelling"', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        ariaInvalid: 'spelling'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('aria-invalid')).toBe('spelling')
   })
 
   it('emits an input event', async () => {
