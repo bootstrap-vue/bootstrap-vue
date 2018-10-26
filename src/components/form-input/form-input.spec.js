@@ -230,7 +230,8 @@ describe('form-input', async () => {
         formatter (value) {
           return value.toLowerCase()
         }
-      }
+      },
+      attachToDocument: true
     })
     const input = wrapper.find('input')
     input.element.value = 'TEST'
@@ -250,7 +251,8 @@ describe('form-input', async () => {
           return value.toLowerCase()
         },
         lazyFormatter: true
-      }
+      },
+      attachToDocument: true
     })
     const input = wrapper.find('input')
     input.element.value = 'TEST'
@@ -271,7 +273,8 @@ describe('form-input', async () => {
           return value.toLowerCase()
         },
         lazyFormatter: true
-      }
+      },
+      attachToDocument: true
     })
     const input = wrapper.find('input')
     input.element.value = 'TEST'
@@ -294,7 +297,8 @@ describe('form-input', async () => {
         formatter (value) {
           return String(value).toLowerCase()
         }
-      }
+      },
+      attachToDocument: true
     })
     const input = wrapper.find('input')
 
@@ -313,7 +317,8 @@ describe('form-input', async () => {
         formatter (value) {
           return value.toLowerCase()
         }
-      }
+      },
+      attachToDocument: true
     })
 
     wrapper.setProps({ value: 'TEST' })
@@ -334,7 +339,8 @@ describe('form-input', async () => {
           return value.toLowerCase()
         },
         lazyFormatter: true
-      }
+      },
+      attachToDocument: true
     })
     const input = wrapper.find('input')
 
