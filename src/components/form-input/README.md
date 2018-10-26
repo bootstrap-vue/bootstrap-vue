@@ -72,7 +72,7 @@ or `time`, while Firefox mobile does.
 Instead of using `datetime`, since support should be deprecated, use `date` and `time`
 as two separate inputs.
 - For date and time style input, where supported, the displayed value in the GUI may be different
-than what is returned by it's value.
+than what is returned by its value.
 - Regardless of input type, the value is **always** returned as a string representation. Use `v-model.number` to convert a numeric-like input's value to a native JavaSript number. Use `v-model.trim` to remove leading and trailing whitespace from user supplied input.
 - `v-model.lazy` is not supported by `<b-form-input>` (nor any custom component).
 
@@ -294,7 +294,7 @@ field styling and preserve the correct margin and padding.
 
 
 ## Component alias
-You can also use `<b-form-input>` by it's shorter alias of `<b-input>`.
+You can also use `<b-form-input>` by its shorter alias of `<b-input>`.
 
 
 ## Component Reference
