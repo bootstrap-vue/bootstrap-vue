@@ -192,7 +192,8 @@ describe('form-input', async () => {
     input.element.value = 'test'
     input.trigger('input')
 
-    expect(wrapper.emitted().input[0]).toEqual(['test'])
+    expect(wrapper.emitted().input[0][0]).toEqual('test')
+    expect(wrapper.emitted().input[0].length).toEqual(2)
   })
 
   it('emits a native focus event', async () => {
@@ -259,12 +260,13 @@ describe('form-input', async () => {
     expect(wrapper.emitted('update:value')[0][0]).toEqual('TEST')
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
-    expect(wrapper.emitted('change').not.toBeDefined())
+    expect(wrapper.emitted('change')).not.toBeDefined()
   })
 
   it('applies formatter on change when lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
+        value: '',
         formatter (value) {
           return value.toLowerCase()
         },
@@ -273,10 +275,14 @@ describe('form-input', async () => {
     })
     const input = wrapper.find('input')
     input.element.value = 'TEST'
-    input.trigger('change')
 
+    // input event needed to set initial value
+    input.trigger('input')
+    expect(input.vm.localValue).toEqual('TEST')
+    
+    input.trigger('change')
+    expect(input.vm.localValue).toEqual('test')
     expect(wrapper.emitted('update:value')).toBeDefined()
-    expect(wrapper.emitted('update:value')[0][0]).toEqual('test')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change')[0][0]).toEqual('test')
   })
