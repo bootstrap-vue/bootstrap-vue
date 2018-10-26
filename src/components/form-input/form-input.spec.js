@@ -317,7 +317,7 @@ describe('form-input', async () => {
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
-    // no-wheel=true will fire a blur event on the input
+    // no-wheel=true will fire a blur event on the input when wheel fired
     expect(spy).toHaveBeenCalled()
   })
 
@@ -342,7 +342,42 @@ describe('form-input', async () => {
     input.element.focus()
     input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
 
-    // no-wheel=false will not fire a blur event on the input
+    // no-wheel=false will not fire a blur event on the input when wheel fired
     expect(spy).not.toHaveBeenCalled()
+  })
+
+  it('changing no-wheel after mount works', async () => {
+    const spy = jest.fn(() => {})
+    const wrapper = mount(Input, {
+      propsData: {
+        noWheel: false,
+        type: 'number',
+        value: '123'
+      },
+      listeners: {
+        blur: spy
+      },
+      attachToDocument: true
+    })
+    const input = wrapper.find('input')
+
+    expect(input.element.type).toBe('number')
+    expect(wrapper.props().noWheel).toBe(false)
+
+    input.element.focus()
+    input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+
+    // no-wheel=false will not fire a blur event on the input when wheel fired
+    expect(spy).not.toHaveBeenCalled()
+
+    wrapper.setProps({ noWheel: true })
+
+    expect(wrapper.props().noWheel).toBe(true)
+
+    input.element.focus()
+    input.trigger('wheel', { deltaY: 33.33, deltaX: 0, deltaZ: 0, deltaMode: 0 })
+
+    // no-wheel=true will fire a blur event on the input when wheel fired
+    expect(spy).toHaveBeenCalled()
   })
 })
