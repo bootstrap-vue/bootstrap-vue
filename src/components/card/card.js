@@ -51,15 +51,12 @@ export default {
         )
       })
       : null
-    if (img) {
-      if (props.imgTop) {
-        childNodes.push(img)
-      } else if (props.imgLeft || props.imgStart) {
+    if (img && !props.imgBottom) {
+      childNodes.push(img)
+      if (props.imgLeft || props.imgStart) {
         staticClass += ' flex-row'
-        childNodes.push(img)
       } else if (props.imgRight || props.imgEnd) {
         staticClass += ' flex-row-reverse'
-        childNodes.push(img)
       }
     }
 
