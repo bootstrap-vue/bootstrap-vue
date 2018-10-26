@@ -14,7 +14,7 @@
             },
             {
                 "event": "shown",
-                "description": "emitted when collaspe has finised opening"
+                "description": "emitted when collaspe has finished opening"
             },
             {
                 "event": "hide",

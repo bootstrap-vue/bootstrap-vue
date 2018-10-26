@@ -404,6 +404,25 @@ describe('table', async () => {
     }
   })
 
+  it('each data row should emit a row-contextmenu event when right clicked', async () => {
+    const { app: { $refs } } = window
+    const vm = $refs.table_paginated
+
+    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+    expect(tbody).toBeDefined()
+    if (tbody) {
+      const trs = [...tbody.children]
+      expect(trs.length).toBe(vm.perPage)
+      trs.forEach((tr, idx) => {
+        const spy = jest.fn()
+        vm.$on('row-contextmenu', spy)
+        tr.dispatchEvent(new MouseEvent('contextmenu', {button: 2}))
+        vm.$off('row-contextmenu', spy)
+        expect(spy).toHaveBeenCalled()
+      })
+    }
+  })
+
   it('each header th should emit a head-clicked event when clicked', async () => {
     const { app: { $refs } } = window
     const vm = $refs.table_paginated
@@ -779,5 +798,27 @@ describe('table', async () => {
           .toBe(true)
       }
     })
+  })
+
+  it('should set row classes', async () => {
+    // Classes that children rows must contain
+    const classesTest = {
+      'tr-start-with-l': [1, 7],
+      'tr-last-name-macdonald': [0, 6]
+    }
+    const { app } = window
+    const vm = app.$refs.table_style_row
+    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+    expect(tbody).toBeDefined()
+    for (const className in classesTest) {
+      const children = classesTest[className]
+      for (let childIndex = 0, len = tbody.children.length - 1; childIndex < len; ++childIndex) {
+        const hasClass = children.indexOf(childIndex) >= 0
+        expect(Boolean(tbody.children[childIndex]) &&
+        Boolean(tbody.children[childIndex].classList) &&
+        tbody.children[childIndex].classList.contains(className))
+          .toBe(hasClass)
+      }
+    }
   })
 })

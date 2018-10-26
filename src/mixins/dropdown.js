@@ -4,6 +4,7 @@ import listenOnRootMixin from './listen-on-root'
 import { from as arrayFrom } from '../utils/array'
 import { assign } from '../utils/object'
 import KeyCodes from '../utils/key-codes'
+import BvEvent from '../utils/bv-event.class'
 import warn from '../utils/warn'
 import { isVisible, closest, selectAll, getAttr, eventOn, eventOff } from '../utils/dom'
 
@@ -68,7 +69,8 @@ export default {
   data () {
     return {
       visible: false,
-      inNavbar: null
+      inNavbar: null,
+      visibleChangePrevented: false
     }
   },
   created () {
@@ -97,19 +99,36 @@ export default {
     this.removePopper()
   },
   watch: {
-    visible (state, old) {
-      if (state === old) {
-        // Avoid duplicated emits
+    visible (newValue, oldValue) {
+      if (this.visibleChangePrevented) {
+        this.visibleChangePrevented = false
         return
       }
-      if (state) {
-        this.showMenu()
-      } else {
-        this.hideMenu()
+
+      if (newValue !== oldValue) {
+        const evtName = newValue ? 'show' : 'hide'
+        let bvEvt = new BvEvent(evtName, {
+          cancelable: true,
+          vueTarget: this,
+          target: this.$refs.menu,
+          relatedTarget: null
+        })
+        this.emitEvent(bvEvt)
+        if (bvEvt.defaultPrevented) {
+          // Reset value and exit if canceled
+          this.visibleChangePrevented = true
+          this.visible = oldValue
+          return
+        }
+        if (evtName === 'show') {
+          this.showMenu()
+        } else {
+          this.hideMenu()
+        }
       }
     },
-    disabled (state, old) {
-      if (state !== old && state && this.visible) {
+    disabled (newValue, oldValue) {
+      if (newValue !== oldValue && newValue && this.visible) {
         // Hide dropdown if disabled changes to true
         this.visible = false
       }
@@ -121,12 +140,16 @@ export default {
     }
   },
   methods: {
+    // Event emitter
+    emitEvent (bvEvt) {
+      const type = bvEvt.type
+      this.$emit(type, bvEvt)
+      this.emitOnRoot(`bv::dropdown::${type}`, bvEvt)
+    },
     showMenu () {
       if (this.disabled) {
         return
       }
-      // TODO: move emit show to visible watcher, to allow cancelling of show
-      this.$emit('show')
       // Ensure other menus are closed
       this.emitOnRoot('bv::dropdown::shown', this)
 
@@ -157,8 +180,6 @@ export default {
       this.$nextTick(this.focusFirstItem)
     },
     hideMenu () {
-      // TODO: move emit hide to visible watcher, to allow cancelling of hide
-      this.$emit('hide')
       this.setTouchStart(false)
       this.emitOnRoot('bv::dropdown::hidden', this)
       this.$emit('hidden')
@@ -258,12 +279,17 @@ export default {
         // We only toggle on Click, Enter, Space, and Arrow Down
         return
       }
-      evt.preventDefault()
-      evt.stopPropagation()
       if (this.disabled) {
         this.visible = false
         return
       }
+      this.$emit('toggle', evt)
+      if (evt.defaultPrevented) {
+        // Exit if canceled
+        return
+      }
+      evt.preventDefault()
+      evt.stopPropagation()
       // Toggle visibility
       this.visible = !this.visible
     },

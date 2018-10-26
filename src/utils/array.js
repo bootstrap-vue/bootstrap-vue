@@ -135,7 +135,6 @@ export const isArray = Array.isArray
 
 // Instance
 export const arrayIncludes = (array, value) => array.indexOf(value) !== -1
-export const arrayFind = (array, fn, thisArg) => array.find(fn, thisArg)
 export function concat () {
   return Array.prototype.concat.apply([], arguments)
 }

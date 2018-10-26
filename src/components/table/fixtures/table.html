@@ -135,4 +135,6 @@
             <b-btn size="sm" @click.stop="details(data.item)">Details</b-btn>
         </template>
     </b-table>
+
+    <b-table ref="table_style_row" :items="items" :fields="fields" :tbody-tr-class="styleRow"></b-table>
 </div>

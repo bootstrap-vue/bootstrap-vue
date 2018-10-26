@@ -124,7 +124,7 @@ to the `<b-form-file>` component:
 
 ```html
 <div id="#app">
-    <b-form-file v-model="file" ref="fileinput"></b-formfile>
+    <b-form-file v-model="file" ref="fileinput"></b-form-file>
     <b-button @click="clearFiles">Reset</b-button>
 </div>
 ```

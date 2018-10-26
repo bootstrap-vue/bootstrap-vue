@@ -15,7 +15,7 @@ Change the default `div` root tag to any other HTML element by specifying via th
 ```html
 <div>
   <b-card title="Card Title"
-          img-src="https://lorempixel.com/600/300/food/5/"
+          img-src="https://picsum.photos/600/300/?image=25"
           img-alt="Image"
           img-top
           tag="article"
@@ -100,6 +100,7 @@ card is changed.
 
 ```html
 <div>
+    <h4>Top and Bottom</h4>
     <b-card-group deck>
         <b-card img-src="https://placekitten.com/1000/300"
                 img-alt="Card image"
@@ -114,10 +115,38 @@ card is changed.
             <p class="card-text">
                 Some quick example text to build on the card and make up the bulk of the card's content.
             </p>
-        </b-card>
-    </b-card-group>
+        </b-card>                
+  </b-card-group>
+  <br>
+  <h4>Left and Right (or Start and End)</h4>
+      <b-card img-src="https://placekitten.com/300/300"
+              img-alt="Card image"
+              img-left
+              class="mb-3">
+          <p class="card-text">
+              Add to your css: <br>
+              <code>
+                .card-img-left { <br>
+                &nbsp;&nbsp;border-top-left-radius: calc(0.25rem - 1px); <br>
+                &nbsp;&nbsp;border-bottom-left-radius: calc(0.25rem - 1px); <br>
+                }
+              </code>
+          </p>
+      </b-card>
+      <b-card img-src="https://placekitten.com/300/300"
+              img-alt="Card image"
+              img-right>
+          <p class="card-text">
+              Add to your css: <br>
+              <code>
+                .card-img-right { <br>
+                &nbsp;&nbsp;border-top-right-radius: calc(0.25rem - 1px); <br>
+                &nbsp;&nbsp;border-bottom-right-radius: calc(0.25rem - 1px); <br>
+                }
+              </code>
+          </p>
+      </b-card>
 </div>
-
 <!-- card-img-1.vue -->
 ```
 
@@ -126,7 +155,7 @@ Place the image in the background of the card by setting the boolean prop `overl
 ```html
 <div>
   <b-card overlay
-          img-src="https://lorempixel.com/900/250/sports/6/"
+          img-src="https://picsum.photos/900/250/?image=3"
           img-alt="Card Image"
           text-variant="white"
           title="Image Overlay"
@@ -471,7 +500,7 @@ card footers in decks will automatically line up.
 <div>
     <b-card-group deck>
         <b-card title="Title"
-                img-src="https://lorempixel.com/300/300/"
+                img-src="https://picsum.photos/300/300/?image=41"
                 img-alt="Img"
                 img-top>
             <p class="card-text">
@@ -484,7 +513,7 @@ card footers in decks will automatically line up.
             </div>
         </b-card>
         <b-card title="Title"
-                img-src="https://lorempixel.com/300/300/"
+                img-src="https://picsum.photos/300/300/?image=41"
                 img-alt="Img"
                 img-top>
             <p class="card-text">
@@ -496,7 +525,7 @@ card footers in decks will automatically line up.
             </div>
         </b-card>
         <b-card title="Title"
-                img-src="https://lorempixel.com/300/300/"
+                img-src="https://picsum.photos/300/300/?image=41"
                 img-alt="Img"
                 img-top>
             <p class="card-text">
@@ -569,12 +598,12 @@ isn’t a bulletproof solution yet.
             </p>
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
         </b-card>
-        <b-card img-src="https://lorempixel.com/400/400/"
+        <b-card img-src="https://picsum.photos/400/400/?image=41"
                 img-fluid
                 img-alt="image"
                 overlay>
         </b-card>
-        <b-card img-src="https://lorempixel.com/400/200/"
+        <b-card img-src="https://picsum.photos/400/200/?image=41"
                 img-fluid
                 img-alt="image"
                 img-top>
