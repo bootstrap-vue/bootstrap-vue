@@ -223,7 +223,7 @@ describe('form-input', async () => {
     expect(spy).toHaveBeenCalled()
   })
 
-  it('apply transform function', async () => {
+  it('applies formatter on input when not lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
         formatter (value) {
@@ -235,10 +235,14 @@ describe('form-input', async () => {
     input.element.value = 'TEST'
     input.trigger('input')
 
-    expect(wrapper.emitted().input[0]).toEqual(['test'])
+    expect(wrapper.emitted('update:value')).toBeDefined()
+    expect(wrapper.emitted('update:value')[0][0]).toEqual('test')
+
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input')[0][0]).toEqual('test')
   })
 
-  it('lazy apply transform function', async () => {
+  it('does not apply formatter on input when lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
         formatter (value) {
@@ -250,13 +254,34 @@ describe('form-input', async () => {
     const input = wrapper.find('input')
     input.element.value = 'TEST'
     input.trigger('input')
-    expect(wrapper.emitted().input[0]).not.toEqual(['test'])
 
-    input.trigger('change')
-    expect(wrapper.emitted().change[0]).toEqual(['test'])
+    expect(wrapper.emitted('update:value')).toBeDefined()
+    expect(wrapper.emitted('update:value')[0][0]).toEqual('TEST')
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
+    expect(wrapper.emitted('change').not.toBeDefined())
   })
 
-  it('applies transform function when value supplied on mount and not lazy', async () => {
+  it('applies formatter on change when lazy', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        formatter (value) {
+          return value.toLowerCase()
+        },
+        lazyFormatter: true
+      }
+    })
+    const input = wrapper.find('input')
+    input.element.value = 'TEST'
+    input.trigger('change')
+
+    expect(wrapper.emitted('update:value')).toBeDefined()
+    expect(wrapper.emitted('update:value')[0][0]).toEqual('test')
+    expect(wrapper.emitted('change')).toBeDefined())
+    expect(wrapper.emitted('change')[0][0]).toEqual('test')
+  })
+
+  it('applies formatter when value supplied on mount and not lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
         value: 'TEST',
@@ -265,10 +290,16 @@ describe('form-input', async () => {
         }
       }
     })
-    expect(wrapper.emitted('input')[0]).toEqual(['test'])
+    const input = wrapper.find('input')
+
+    expect(input.element.value).toEqual('test')
+    expect(wrapper.emitted('update:value')).toBeDefined()
+    expect(wrapper.emitted('update:value')[0][0]).toEqual('test')
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
   })
 
-  it('applies transform function when value updated after mount and not lazy', async () => {
+  it('applies formatter when value prop updated and not lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
         value: '',
@@ -277,11 +308,18 @@ describe('form-input', async () => {
         }
       }
     })
+
     wrapper.setProps({ value: 'TEST' })
-    expect(wrapper.emitted('input')[0]).toEqual(['test'])
+    const input = wrapper.find('input')
+
+    expect(input.element.value).toEqual('test')
+    expect(wrapper.emitted('update:value')).toBeDefined()
+    expect(wrapper.emitted('update:value')[0][0]).toEqual('test')
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
   })
 
-  it('does not apply transform function when value updated after mount and lazy', async () => {
+  it('does not apply formatter when value prop updated and lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
         value: '',
@@ -291,9 +329,15 @@ describe('form-input', async () => {
         lazyFormatter: true
       }
     })
+    const input = wrapper.find('input')
+
     wrapper.setProps({ value: 'TEST' })
-    expect(wrapper.emitted().input).not.toBeDefined()
-    expect(wrapper.emitted().change).not.toBeDefined()
+
+    expect(input.element.value).toBe('TEST')
+    expect(input.vm.localValue).toBe('TEST')
+    expect(wrapper.emitted('update:value')).toBeDefined()
+    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
   })
 
   it('focused number input with no-wheel set to true works', async () => {
