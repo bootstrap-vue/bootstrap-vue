@@ -163,6 +163,28 @@ describe('form-input', async () => {
     expect(input.attributes('aria-invalid')).toBe('spelling')
   })
 
+  it('is disabled when disabled=true', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        disabled: true
+      }
+    })
+    const input = wrapper.find('input')
+    expect(!!input.attributes('disabled')).toBe(true)
+    expect(input.element.disabled).toBe(true)
+  })
+
+  it('is not disabled when disabled=false', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        disabled: false
+      }
+    })
+    const input = wrapper.find('input')
+    expect(!!input.attributes('disabled')).toBe(false)
+    expect(input.element.disabled).toBe(false)
+  })
+
   it('emits an input event', async () => {
     const wrapper = mount(Input)
 
@@ -234,7 +256,52 @@ describe('form-input', async () => {
     expect(wrapper.emitted().change[0]).toEqual(['test'])
   })
 
-  it('focused number inout with no-wheel set to true works', async () => {
+  it('applies transform function when value supplied on mount and not lazy', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        value: 'TEST',
+        formatter (value) {
+          return value.toLowerCase()
+        }
+      }
+    })
+    expect(wrapper.emitted().input[0]).toEqual(['test'])
+  })
+
+  it('applies transform function when value updated after mount and not lazy', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        value: 'abc123',
+        formatter (value) {
+          return value.toLowerCase()
+        }
+      }
+    })
+    expect(input.element.value).toBe('abc123')
+
+    input.element.value = 'TEST'
+    input.trigger('input')
+    expect(wrapper.emitted().change[0]).toEqual(['test'])
+  })
+
+  it('does not apply transform function when value updated after mount and lazy', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        value: 'abc123',
+        formatter (value) {
+          return value.toLowerCase()
+        },
+        lazyFormatter: true
+      }
+    })
+    expect(input.element.value).toBe('abc123')
+
+    input.element.value = 'TEST'
+    input.trigger('input')
+    expect(wrapper.emitted().input[0]).toEqual(['test'])
+  })
+
+  it('focused number input with no-wheel set to true works', async () => {
     const spy = jest.fn()
     const wrapper = mount(Input, {
       propsData: {
@@ -259,7 +326,7 @@ describe('form-input', async () => {
     expect(spy).toHaveBeenCalled()
   })
 
-  it('focused number inout with no-wheel set to false works', async () => {
+  it('focused number input with no-wheel set to false works', async () => {
     const spy = jest.fn(() => {})
     const wrapper = mount(Input, {
       propsData: {
