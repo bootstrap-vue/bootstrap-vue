@@ -298,7 +298,7 @@ describe('form-input', async () => {
     })
     const input = wrapper.find('input')
 
-    expect(input.element.value).toEqual('test')
+    expect(input.vm.localValue).toEqual('test')
     expect(wrapper.emitted('update:value')).toBeDefined()
     const last = wrapper.emitted('update:value').length - 1
     expect(wrapper.emitted('update:value')[last][0]).toEqual('test')
