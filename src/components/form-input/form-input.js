@@ -70,7 +70,7 @@ export default {
   },
   data () {
     return {
-      localValue: null
+      localValue: ''
     }
   },
   model: {
@@ -79,7 +79,7 @@ export default {
   },
   props: {
     value: {
-      default: null
+      default: ''
     },
     type: {
       type: String,
@@ -146,7 +146,10 @@ export default {
   },
   mounted () {
     if (this.value) {
-      this.localValue = this.lazyFormatter ? this.value : this.getFormatted(this.value, null)
+      const val = this.lazyFormatter ? this.value : this.getFormatted(this.value, null)
+      if (val !== this.value) {
+        this.setValue(val)
+      }
     }
     this.setWheelStopper(this.noWheel)
   },
@@ -157,14 +160,10 @@ export default {
   watch: {
     value (newVal, oldVal) {
       if (newVal !== oldVal) {
-        // If value has changed, update the internal model
-        this.localValue = this.lazyFormatter ? newVal : this.getFormatted(newVal, null)
-      }
-    },
-    localValue (newVal, oldVal) {
-      // Update the model when internal model changes
-      if (newVal !== oldVal) {
-        this.$emit(MODEL_EVENT, newVal)
+        const val = this.lazyFormatter ? newVal : this.getFormatted(newVal, null)
+        if (val !== this.value) {
+          this.setValue(val)
+        }
       }
     },
     noWheel (newVal) {
@@ -172,15 +171,19 @@ export default {
     }
   },
   methods: {
+    setValue (val) {
+      this.localValue = val
+      this.emit(MODEL_EVENT, this.localValue)
+    },
     onInput (evt) {
       if (evt.target.composing) return
       const value = evt.target.value
-      this.localValue = this.lazyFormatter ? value : this.getFormatted(value, evt)
+      this.setValue(this.lazyFormatter ? value : this.getFormatted(value, evt))
       this.$emit('input', this.localValue, evt)
     },
     onChange (evt) {
       if (evt.target.composing) return
-      this.localValue = this.format(evt.target.value, evt)
+      this.setValue(this.format(evt.target.value, evt))
       this.$emit('change', this.localValue, evt)
     },
     getFormatted (value, event = null) {
@@ -210,7 +213,7 @@ export default {
     // Exposed methods
     format () {
       // Force the formatter to run
-      this.localValue = this.getFormatted(this.localValue, null)
+      this.setValue(this.getFormatted(this.localValue, null))
       return this.localValue
     },
     focus () {
