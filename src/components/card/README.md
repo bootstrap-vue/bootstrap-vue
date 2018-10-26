@@ -155,7 +155,7 @@ Place the image in the background of the card by setting the boolean prop `overl
 ```html
 <div>
   <b-card overlay
-          img-src="https://picsum.photos/900/250/?image=36"
+          img-src="https://picsum.photos/900/250/?image=3"
           img-alt="Card Image"
           text-variant="white"
           title="Image Overlay"
