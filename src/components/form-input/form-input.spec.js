@@ -265,7 +265,7 @@ describe('form-input', async () => {
         }
       }
     })
-    expect(wrapper.emitted().input[0]).toEqual(['test'])
+    expect(wrapper.emitted('input')[0]).toEqual(['test'])
   })
 
   it('applies transform function when value updated after mount and not lazy', async () => {
@@ -278,7 +278,7 @@ describe('form-input', async () => {
       }
     })
     wrapper.setProps({ value: 'TEST' })
-    expect(wrapper.emitted().input[0]).toEqual(['test'])
+    expect(wrapper.emitted('input')[0]).toEqual(['test'])
   })
 
   it('does not apply transform function when value updated after mount and lazy', async () => {
@@ -292,8 +292,8 @@ describe('form-input', async () => {
       }
     })
     wrapper.setProps({ value: 'TEST' })
-    expect(wrapper.emitted().input.length).toEqual(0)
-    expect(wrapper.emitted().change.length).toEqual(0)
+    expect(wrapper.emitted('input').length).toEqual(0)
+    expect(wrapper.emitted('change').length).toEqual(0)
   })
 
   it('focused number input with no-wheel set to true works', async () => {
