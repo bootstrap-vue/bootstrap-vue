@@ -164,7 +164,7 @@ export default {
     localValue (newVal, oldVal) {
       // Update the model when internal model changes
       if (newVal !== oldVal) {
-        this.$emit(MODEL_EVENT, this.localValue)
+        this.$emit(MODEL_EVENT, newVal)
       }
     },
     noWheel (newVal) {
