@@ -291,9 +291,9 @@ describe('form-input', async () => {
         lazyFormatter: true
       }
     })
-    const input = wrapper.find('input')
     wrapper.setProps({ value: 'TEST' })
-    expect(wrapper.emitted().input[0]).toEqual(['TEST'])
+    expect(wrapper.emitted().input.length).toEqual(0)
+    expect(wrapper.emitted().change.length).toEqual(0)
   })
 
   it('focused number input with no-wheel set to true works', async () => {
