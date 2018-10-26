@@ -348,10 +348,10 @@ describe('form-input', async () => {
 
     wrapper.setProps({ value: 'TEST' })
 
-    expect(input.vm.localValue).toBe('TEST')
     expect(wrapper.emitted('update:value')).toBeDefined()
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.vm.localValue).toBe('TEST')
   })
 
   it('focused number input with no-wheel set to true works', async () => {
