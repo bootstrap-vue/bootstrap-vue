@@ -293,10 +293,49 @@ text, set the `plaintext` prop (no need to set `readonly`) to remove the default
 field styling and preserve the correct margin and padding.
 
 
-### Disabling mousewheel events on numeric-like inputs
+## Disabling mousewheel events on numeric-like inputs
 On some browsers, scrolling the mousewheel while a numeric-like input is focused will
 increment or decrement the input's value. To disable this browser feture, just set
 the `no-wheel` prop to `true`.
+
+## Native input events
+
+All native events (other than the special `input` and `change` events) are supported, without
+the need for the `.native` modifier. Available events will vary based on input type.
+
+## Exposed input properties and methods
+
+`<b-form-input>` exposes several of the native input element's properties and methods on the 
+component reference (i.e. assign a `ref` to your `<b-form-input ref="foo" ...>` and
+use `this.$refs['foo'].propertyName` or `this.$refs['foo'].methodName(...)`).
+
+### Input Properties
+
+| Property | Notes
+| -------- | -----
+| `.selectionStart` | Read/Write
+| `.selectionEnd` | Read/Write
+| `.selectionDirection` | Read/Write
+| `.validity` | Read only
+| `.validationMessage` | Read only
+| `.willValidate` | Read only
+
+### Input Methods
+
+| Property | Notes
+| -------- | -----
+| `.focus()` | Focus the input
+| `.blur()` | Remove focus from the input
+| `.select()` | Selects all text within the input
+| `.setSelectionRange()` | 
+| `.setRangeText()` | 
+| `.setCustomValidity()` | 
+| `.checkValidity()` | 
+| `.reportValidity()` | 
+
+Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for
+more information on these methods and properties.  Support will vary based on
+input type.
 
 
 ## Component alias
