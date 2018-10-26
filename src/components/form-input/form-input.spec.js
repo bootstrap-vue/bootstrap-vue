@@ -277,7 +277,7 @@ describe('form-input', async () => {
 
     expect(wrapper.emitted('update:value')).toBeDefined()
     expect(wrapper.emitted('update:value')[0][0]).toEqual('test')
-    expect(wrapper.emitted('change')).toBeDefined())
+    expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change')[0][0]).toEqual('test')
   })
 
