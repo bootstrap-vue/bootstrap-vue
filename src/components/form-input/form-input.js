@@ -173,7 +173,7 @@ export default {
   methods: {
     setValue (val) {
       this.localValue = val
-      this.emit(MODEL_EVENT, this.localValue)
+      this.$emit(MODEL_EVENT, this.localValue)
     },
     onInput (evt) {
       if (evt.target.composing) return
