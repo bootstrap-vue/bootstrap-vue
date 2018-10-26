@@ -148,6 +148,7 @@ export default {
     this.setWheelStopper(this.noWheel)
   },
   beforeDestroy () {
+    /* istanbul ignore next */
     this.setWheelStopper(false)
   },
   watch: {
@@ -210,16 +211,16 @@ export default {
       evt.preventDefault()
       this.$refs.input.blur()
     },
-    /* istanbul ignore next */
     focus () {
       // Expose the input focus() method
+      /* istanbul ignore next */
       if (!this.disabled) {
         this.$refs.input.focus()
       }
     },
-    /* istanbul ignore next */
     blur () {
       // Expose the input blur() method
+      /* istanbul ignore next */
       if (!this.disabled) {
         this.$refs.input.blur()
       }
