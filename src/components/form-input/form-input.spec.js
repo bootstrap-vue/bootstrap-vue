@@ -279,7 +279,7 @@ describe('form-input', async () => {
     // input event needed to set initial value
     input.trigger('input')
     expect(input.vm.localValue).toEqual('TEST')
-    
+
     input.trigger('change')
     expect(input.vm.localValue).toEqual('test')
     expect(wrapper.emitted('update:value')).toBeDefined()
@@ -292,7 +292,7 @@ describe('form-input', async () => {
       propsData: {
         value: 'TEST',
         formatter (value) {
-          return value.toLowerCase()
+          return String(value).toLowerCase()
         }
       }
     })
@@ -300,7 +300,8 @@ describe('form-input', async () => {
 
     expect(input.element.value).toEqual('test')
     expect(wrapper.emitted('update:value')).toBeDefined()
-    expect(wrapper.emitted('update:value')[0][0]).toEqual('test')
+    const last = wrapper.emitted('update:value').length - 1
+    expect(wrapper.emitted('update:value')[last][0]).toEqual('test')
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
   })
