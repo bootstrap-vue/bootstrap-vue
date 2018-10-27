@@ -168,8 +168,11 @@ export default {
   },
   methods: {
     setValue (val) {
-      this.localValue = val
-      this.$emit(MODEL_EVENT, this.localValue)
+      if (val !== this.localVal) {
+        // Only update value if changed, to minimize duplicte emits
+        this.localValue = val
+        this.$emit(MODEL_EVENT, this.localValue)
+      }
     },
     onInput (evt) {
       if (evt.target.composing) return
