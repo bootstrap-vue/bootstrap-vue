@@ -55,7 +55,7 @@ export default {
         value: self.localValue
       },
       directives: [
-        { name: 'model', rawName: 'v-model', value: (self.localValue), expression: 'localValue' }
+        { name: 'model', rawName: 'v-model', value: self.localValue, expression: 'localValue' }
       ],
       on: {
         ...self.$listeners,
@@ -66,7 +66,7 @@ export default {
   },
   data () {
     return {
-      localValue: ''
+      localValue: this.value
     }
   },
   model: {
@@ -144,12 +144,20 @@ export default {
     this.setValue(this.lazyFormatter ? this.value : this.getFormatted(this.value, null))
     this.setWheelStopper(this.noWheel)
   },
+  deactivated () {
+    // Turn off listeners when keep-alive component deactivated
+    this.setWheelStopper(false)
+  },
+  activated () {
+    // Turn on listeners (if no-wheel) when keep-alive component activated
+    this.setWheelStopper(this.noWheel)
+  },
   beforeDestroy () {
     /* istanbul ignore next */
     this.setWheelStopper(false)
   },
   watch: {
-    value (newVal, oldVal) {
+    value (newVal) {
       this.setValue(this.lazyFormatter ? newVal : this.getFormatted(newVal, null))
     },
     noWheel (newVal) {
