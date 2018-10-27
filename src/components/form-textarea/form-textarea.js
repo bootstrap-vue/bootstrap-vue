@@ -2,9 +2,11 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
+import formSelectionMixin from '../../mixins/form-selection'
+import formValidityMixin from '../../mixins/form-validity'
 
 export default {
-  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
+  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formSelectionMixin, formValidityMixin],
   render (h) {
     return h('textarea', {
       ref: 'input',
@@ -145,6 +147,12 @@ export default {
       // For external handler that may want a focus method
       if (!this.disabled) {
         this.$el.focus()
+      }
+    },
+    blur () {
+      // For external handler that may want a blur method
+      if (!this.disabled) {
+        this.$el.blur()
       }
     }
   }
