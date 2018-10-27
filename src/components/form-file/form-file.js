@@ -183,18 +183,18 @@ export default {
     setFiles (files) {
       if (!files) {
         this.selectedFile = null
-        return
-      }
-      if (!this.multiple) {
+      } else if (this.multiple) {
+        // Convert files to array
+        const filesArray = []
+        for (let i = 0; i < files.length; i++) {
+          filesArray.push(files[i])
+        }
+        // Return file(s) as array
+        this.selectedFile = filesArray
+      } else {
+        // Return single file object
         this.selectedFile = files[0]
-        return
       }
-      // Convert files to array
-      const filesArray = []
-      for (let i = 0; i < files.length; i++) {
-        filesArray.push(files[i])
-      }
-      this.selectedFile = filesArray
     },
     dragover (evt) {
       evt.preventDefault()
