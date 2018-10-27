@@ -35,36 +35,32 @@ const MODEL_EVENT = 'update:value'
 export default {
   mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formSelectionMixin, formValidityMixin],
   render (h) {
+    var self = this
     return h('input', {
       ref: 'input',
-      class: this.inputClass,
+      class: self.inputClass,
       attrs: {
-        id: this.safeId(),
-        name: this.name,
-        type: this.localType,
-        disabled: this.disabled,
-        required: this.required,
-        readonly: this.readonly || (this.plaintext && this.readonly === null),
-        placeholder: this.placeholder,
-        autocomplete: this.autocomplete || null,
-        'aria-required': this.required ? 'true' : null,
-        'aria-invalid': this.computedAriaInvalid
+        id: self.safeId(),
+        name: self.name,
+        type: self.localType,
+        disabled: self.disabled,
+        required: self.required,
+        readonly: self.readonly || (self.plaintext && self.readonly === null),
+        placeholder: self.placeholder,
+        autocomplete: self.autocomplete || null,
+        'aria-required': self.required ? 'true' : null,
+        'aria-invalid': self.computedAriaInvalid
       },
       domProps: {
-        value: this.localValue
+        value: self.localValue
       },
       directives: [
-        {
-          name: 'model',
-          rawName: 'v-model',
-          value: (this.localValue),
-          expression: 'localValue'
-        }
+        { name: 'model', rawName: 'v-model', value: (self.localValue), expression: 'localValue' }
       ],
       on: {
-        ...this.$listeners,
-        input: this.onInput,
-        change: this.onChange
+        ...self.$listeners,
+        input: self.onInput,
+        change: self.onChange
       }
     })
   },
@@ -145,12 +141,7 @@ export default {
     }
   },
   mounted () {
-    if (this.value) {
-      const val = this.lazyFormatter ? this.value : this.getFormatted(this.value, null)
-      if (val !== this.value) {
-        this.setValue(val)
-      }
-    }
+    this.setValue(this.lazyFormatter ? this.value : this.getFormatted(this.value, null))
     this.setWheelStopper(this.noWheel)
   },
   beforeDestroy () {
@@ -159,12 +150,7 @@ export default {
   },
   watch: {
     value (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        const val = this.lazyFormatter ? newVal : this.getFormatted(newVal, null)
-        if (val !== newVal) {
-          this.setValue(val)
-        }
-      }
+      this.setValue(this.lazyFormatter ? newVal : this.getFormatted(newVal, null))
     },
     noWheel (newVal) {
       this.setWheelStopper(newVal)
@@ -190,7 +176,8 @@ export default {
       return this.formatter ? this.formatter(value, event) : value
     },
     setWheelStopper (on) {
-      const input = this.$refs.input
+      const input = this.$el
+      // We use native events, so that we don't interfere with prepgation
       if (on) {
         eventOn(input, 'focus', this.onFocus)
         eventOn(input, 'blur', this.onBlur)
@@ -208,7 +195,7 @@ export default {
     },
     stopWheel (evt) {
       evt.preventDefault()
-      this.$refs.input.blur()
+      this.$el.blur()
     },
     // Exposed methods
     format () {
@@ -220,14 +207,14 @@ export default {
       // Expose the input focus() method
       /* istanbul ignore next */
       if (!this.disabled) {
-        this.$refs.input.focus()
+        this.$el.focus()
       }
     },
     blur () {
       // Expose the input blur() method
       /* istanbul ignore next */
       if (!this.disabled) {
-        this.$refs.input.blur()
+        this.$el.blur()
       }
     }
   }
