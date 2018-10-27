@@ -66,8 +66,8 @@ these names):
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`)
-| `_rowVariant` | String | Bootstrap contextual state applied to the entire row (Supported values: `active`, `success`, `info`, `warning`, `danger`)
+| `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set).
+| `_rowVariant` | String | Bootstrap contextual state applied to the entire row (Supported values: `active`, `success`, `info`, `warning`, `danger`). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set)
 | `_showDetails` | Boolean | Used to trigger the display of the `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information
 
 **Example: Using variants for table cells**
@@ -241,10 +241,12 @@ export default {
           sortable: true
         },
         city: {
-          key: 'address.city'
+          key: 'address.city',
+          sortable: true
         },
         'address.country': {
-          label: 'Country'
+          label: 'Country',
+          sortable: true
         }
       },
       items: [
@@ -279,7 +281,7 @@ The following field properties are recognized:
 | `tdClass` | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.
 | `thClass` | String or Array | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.
-| `variant` | String | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly).
+| `variant` | String | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when table prop `dark` is set).
 | `tdAttr` | Object or Function | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.
 | `isRowHeader` | Boolean | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.
 
@@ -315,7 +317,7 @@ fields: [
 | ---- | ---- | -----------
 | `striped` | Boolean | Add zebra-striping to the table rows within the `<tbody>`
 | `bordered` | Boolean | For borders on all sides of the table and cells.
-| `outlined` | Boolean | For a thin border on all sides of the table. Has no effect is `bordered` is set.
+| `outlined` | Boolean | For a thin border on all sides of the table. Has no effect if `bordered` is set.
 | `small` | Boolean | To make tables more compact by cutting cell padding in half.
 | `hover` | Boolean | To enable a hover highlighting state on table rows within a `<tbody>`
 | `dark` | Boolean | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)

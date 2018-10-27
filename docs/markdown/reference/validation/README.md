@@ -162,7 +162,7 @@ Same example as above just modified for vee-validate:
         // form submit logic
       },
       validateState(ref) {
-        if (this.veeFields[ref] && this.veeFields[ref].dirty) {
+        if (this.veeFields[ref] && (this.veeFields[ref].dirty || this.veeFields[ref].validated)) {
           return !this.errors.has(ref)
         }
         return null

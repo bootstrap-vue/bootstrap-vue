@@ -189,6 +189,11 @@ semantic grouping of related form controls:
 <!-- form-group-nested.vue -->
 ```
 
+## Disabled form-group
+Setting the `disabled` prop will disable the rendered `<fieldset>` and, on most
+browsers, will disable all the input elements contained within the fieldset.
+
+`disabled` has no effect when `label-for` is set (as a `fieldset` element is not rendered).
 
 ## Validation state feedback
 Bootstrap includes validation styles for `valid` and `invalid` states

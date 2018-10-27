@@ -2,7 +2,7 @@
 
 ## Webpack
 If you are using module bundlers such as Webpack, Rollup, Laravel elixir/mix, etc you may prefer to directly include the package
-into your project. To get started, use yarn or npm to get latest version of bootstrap-vue and bootstrap 4:
+into your project. To get started, use yarn or npm to get the latest version of bootstrap-vue and bootstrap 4:
 
 ```bash
 # With NPM:
