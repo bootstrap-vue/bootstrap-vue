@@ -239,7 +239,7 @@ describe('form-input', async () => {
     input.trigger('input')
 
     expect(wrapper.emitted('update:value')).toBeDefined()
-    let last = wrapper.emitted('update:value').length -1
+    let last = wrapper.emitted('update:value').length - 1
     expect(wrapper.emitted('update:value')[last][0]).toEqual('test')
 
     expect(wrapper.emitted('input')).toBeDefined()
@@ -261,7 +261,7 @@ describe('form-input', async () => {
     input.trigger('input')
 
     expect(wrapper.emitted('update:value')).toBeDefined()
-    let last = wrapper.emitted('update:value').length -1
+    let last = wrapper.emitted('update:value').length - 1
     expect(wrapper.emitted('update:value')[last][0]).toEqual('TEST')
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
@@ -330,7 +330,7 @@ describe('form-input', async () => {
 
     expect(input.element.value).toEqual('test')
     expect(wrapper.emitted('update:value')).toBeDefined()
-    let last = wrapper.emitted('update:value').length -1
+    let last = wrapper.emitted('update:value').length - 1
     expect(wrapper.emitted('update:value')[last][0]).toEqual('test')
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
