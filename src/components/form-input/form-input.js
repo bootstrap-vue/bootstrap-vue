@@ -146,10 +146,12 @@ export default {
   },
   deactivated () {
     // Turn off listeners when keep-alive component deactivated
+    /* istanbul ignore next */
     this.setWheelStopper(false)
   },
   activated () {
     // Turn on listeners (if no-wheel) when keep-alive component activated
+    /* istanbul ignore next */
     this.setWheelStopper(this.noWheel)
   },
   beforeDestroy () {
