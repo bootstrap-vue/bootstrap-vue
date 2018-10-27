@@ -1,7 +1,7 @@
 # Textual and Value inputs
 
 > Create various text style inputs such as: `text`, `password`, `number`, `url`,
-`email`, `search`, and more.
+`email`, `search`, `range` and more.
 
 ```html
 <template>
@@ -66,13 +66,12 @@ will be rendered and a console warning will be issued.
 - Not all browsers support all input types, nor do some types render in the same format across
 browser types/versions.
 - Browsers that do not support a particular type will fall back to
-a `text` input type. As an example, Firefox desktop doesn't support `date`, `datetime`,
-or `time`, while Firefox mobile does.
+a `text` input type (event thoough the rendered `type` attribute markup shows the requested type).
 - Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
 Instead of using `datetime`, since support should be deprecated, use `date` and `time`
 as two separate inputs.
-- For date and time style input, where supported, the displayed value in the GUI may be different
-than what is returned by its value.
+- For date and time style inputs, where supported, the displayed value in the GUI may be different
+than what is returned by it's value.
 - Regardless of input type, the value is **always** returned as a string representation. Use `v-model.number` to convert a numeric-like input's value to a native JavaSript number. Use `v-model.trim` to remove leading and trailing whitespace from user supplied input.
 - `v-model.lazy` is not supported by `<b-form-input>` (nor any custom component).
 
@@ -226,7 +225,9 @@ event fires. You can use the boolean prop `lazy-formatter` to restrict the forma
 function to being called on the control's native `change` event (which usually occurs on blur).
 
 The `formatter` function receives two arguments: the raw `value` of the input element,
-and the native `event` object (if available).
+and the native `event` object (if available). If the formatter is triggered during a
+`v-model` update (or by running the component `.format()` method), then the event argument
+will be `null`.
 
 The `formatter` function should return the formatted value (as a string).
 
@@ -282,15 +283,75 @@ export default {
 ```
 
 **Note:** When using a non-text-like input (i.e. `color`, `range`, `date`,
-`number` etc), ensure that your formatter function returns the value in the
+`number`, `email` etc), ensure that your formatter function returns the value in the
 expected format for the input type. The formatter **must** return the value
 as a _string_.
+
+**Note:** With non-lazy formatting, if the cursor is not at the end of the input value,
+the cursor may jump to the end _after_ a character is typed. You can use the provided
+event object and the `event.target` to access the native input's selection methods and
+properties to control where the insertion point is.  This is left as an exercise for the reader.
 
 
 ## Readonly plain text
 If you want to have `<b-form-input readonly>` elements in your form styled as plain
 text, set the `plaintext` prop (no need to set `readonly`) to remove the default form
 field styling and preserve the correct margin and padding.
+
+
+## Disabling mousewheel events on numeric-like inputs
+On some browsers, scrolling the mousewheel while a numeric-like input is focused will
+increment or decrement the input's value. To disable this browser feture, just set
+the `no-wheel` prop to `true`.
+
+## Native input events
+All native events (other than the cuustom `input` and `change` events) are supported, without
+the need for the `.native` modifier. Available events will vary based on input type.
+
+The custom `input` and `change` events receive to paramters: the input value (after
+custom formatter has been applied), and the native event object.
+
+You can always access the native `input` and `change` events by using the `.native` modifier.
+
+## Exposed input properties and methods
+`<b-form-input>` exposes several of the native input element's properties and methods on the 
+component reference (i.e. assign a `ref` to your `<b-form-input ref="foo" ...>` and
+use `this.$refs['foo'].propertyName` or `this.$refs['foo'].methodName(...)`).
+
+### Input Properties
+
+| Property | Notes
+| -------- | -----
+| `.selectionStart` | Read/Write
+| `.selectionEnd` | Read/Write
+| `.selectionDirection` | Read/Write
+| `.validity` | Read only
+| `.validationMessage` | Read only
+| `.willValidate` | Read only
+
+### Input Methods
+
+| Method | Notes
+| ------ | -----
+| `.focus()` | Focus the input
+| `.blur()` | Remove focus from the input
+| `.select()` | Selects all text within the input
+| `.setSelectionRange()` | 
+| `.setRangeText()` | 
+| `.setCustomValidity()` | 
+| `.checkValidity()` | 
+| `.reportValidity()` | 
+
+Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for
+more information on these methods and properties.  Support will vary based on
+input type.
+
+### Custom input methods
+`b-form-input` also exposes the following custom method(s):
+
+| Method | Notes
+| ------ | -----
+| `.format()` | Forces the input to run the formatter. The event arument passed to the formatter will be `null`
 
 
 ## Component alias

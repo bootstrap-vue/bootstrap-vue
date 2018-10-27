@@ -72,7 +72,7 @@
   "devDependencies": {
     "@nuxtjs/google-analytics": "^2.0.2",
     "@nuxtjs/pwa": "^2.0.5",
-    "@vue/test-utils": "^1.0.0-beta.16",
+    "@vue/test-utils": "^1.0.0-beta.24",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.0.1",
@@ -112,8 +112,7 @@
     "uglify-es": "^3.3.6",
     "vue-beta": "npm:vue@~2.5.17-beta.0",
     "vue-jest": "^2.1.1",
-    "vue-latest": "npm:vue@~2.5.16",
-    "vue-test-utils": "1.0.0-beta.11"
+    "vue-latest": "npm:vue@~2.5.16"
   },
   "jest": {
     "testRegex": "spec.js$",
