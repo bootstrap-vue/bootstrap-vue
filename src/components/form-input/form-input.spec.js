@@ -344,7 +344,6 @@ describe('form-input', async () => {
       },
       attachToDocument: true
     })
-    const input = wrapper.find('input')
 
     wrapper.setProps({ value: 'TEST' })
 
