@@ -183,23 +183,18 @@ export default {
     setFiles (files) {
       if (!files) {
         this.selectedFile = null
-        return
-      }
-      if (!this.multiple) {
-        let firstElement = files[0]
-        if (firstElement.type.match(this.accept)) {
-          this.selectedFile = firstElement
-        }
-        return
-      }
-      // Convert files to array
-      const filesArray = []
-      for (let i = 0; i < files.length; i++) {
-        if (files[i].type.match(this.accept)) {
+      } else if (this.multiple) {
+        // Convert files to array
+        const filesArray = []
+        for (let i = 0; i < files.length; i++) {
           filesArray.push(files[i])
         }
+        // Return file(s) as array
+        this.selectedFile = filesArray
+      } else {
+        // Return single file object
+        this.selectedFile = files[0]
       }
-      this.selectedFile = filesArray
     },
     dragover (evt) {
       evt.preventDefault()
