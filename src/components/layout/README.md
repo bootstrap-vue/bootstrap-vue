@@ -7,7 +7,7 @@ and mixins, and dozens of predefined classes.
 
 ## How It Works
 
-Bootstrap’s grid system uses a series of containers, rows, and columns to layout and align content. It’s built with flexbox and is fully responsive. Below is an example and an in-depth look at how the grid comes together.
+Bootstrap’s grid system uses a series of containers, rows, and columns to lay out and align content. It’s built with flexbox and is fully responsive. Below is an example and an in-depth look at how the grid comes together.
 
 ```html
 <b-container class="bv-example-row">
@@ -76,7 +76,7 @@ You can remove the margin from `<b-row>` and padding from `<b-col>` by setting t
 `no-gutters` prop on `<b-row>`.
 
 Or, for compact margins (smaller gutters between columns), use the `<b-form-row>`
-component, which is typiclly used in [forms](/docs/components/form).
+component, which is typically used in [forms](/docs/components/form).
 
 
 ## Columns `<b-col>`
