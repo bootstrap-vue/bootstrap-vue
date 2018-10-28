@@ -88,7 +88,7 @@ export default {
     // If we are being re-activated in <keep-alive>, enable opt-in resizing
     this.$nextTick(() => { this.dontResize = false })
   },
-  dectivated () {
+  deactivated () {
     // If we are in a deactivated <keep-alive>, disable opt-in resizing
     this.dontResize = true
   },
