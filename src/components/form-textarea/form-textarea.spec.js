@@ -2,10 +2,23 @@ import Textarea from './form-textarea'
 import { mount } from '@vue/test-utils'
 
 describe('form-textarea', async () => {
-
   it('root element is textarea', async () => {
     const input = mount(Textarea)
     expect(input.element.type).toBe('textarea')
+  })
+
+  it('does not have attribute disabled by default', async () => {
+    const input = mount(Textarea)
+    expect(input.attributes('disabled')).not.toBeDefined()
+  })
+
+  it('has attribute disabled when disabled=true', async () => {
+    const input = mount(Textarea, {
+      propsData: {
+        disabled: true
+      }
+    })
+    expect(input.attributes('disabled')).toBeDefined()
   })
 
   it('does not have attribute readonly by default', async () => {
@@ -22,18 +35,14 @@ describe('form-textarea', async () => {
     expect(input.attributes('readonly')).toBeDefined()
   })
 
-  it('does not have attribute disabled by default', async () => {
-    const input = mount(Textarea)
-    expect(input.attributes('readonly')).not.toBeDefined()
-  })
-
-  it('has attribute disabled when disabled=true', async () => {
+  it('inherits non-prop attributes', async () => {
     const input = mount(Textarea, {
-      propsData: {
-        disabled: true
+      attrs: {
+        foo: 'bar'
       }
     })
-    expect(input.attributes('readonly')).toBeDefined()
+    expect(input.attributes('foo')).toBeDefined()
+    expect(input.attributes('foo')).toBe('bar')
   })
 
   it('has class form-control by default', async () => {
@@ -84,7 +93,7 @@ describe('form-textarea', async () => {
     })
     expect(input.classes()).not.toContain('form-control')
   })
-  
+
   it('has attribute readonly when plaintext=true', async () => {
     const input = mount(Textarea, {
       propsData: {
@@ -115,9 +124,6 @@ describe('form-textarea', async () => {
         state: true
       }
     })
-    expect(input.classes()).toContain('is-valid')
-    expect(input.classes()).not.toContain('is-invalid')
-    input.setProps({ state: 'true' })
     expect(input.classes()).toContain('is-valid')
     expect(input.classes()).not.toContain('is-invalid')
   })
@@ -157,21 +163,37 @@ describe('form-textarea', async () => {
     expect(input.contains('[aria-invalid]')).toBe(false)
   })
 
-  it('does not have aria-invalid attribute when state is true', async () => {
+  it('does not have aria-invalid attribute when state=true', async () => {
     const input = mount(Textarea, {
       propsData: {
         state: true
       }
     })
-    expect(wrapper.contains('[aria-invalid]')).toBe(false)
-    input.setProps({ state: 'true' })
-    expect(wrapper.contains('[aria-invalid]')).toBe(false)
+    expect(input.contains('[aria-invalid]')).toBe(false)
+  })
+
+  it('does not have aria-invalid attribute when state=valid', async () => {
+    const input = mount(Textarea, {
+      propsData: {
+        state: 'valid'
+      }
+    })
+    expect(input.contains('[aria-invalid]')).toBe(false)
   })
 
   it('has aria-invalid attribute when state=false', async () => {
     const input = mount(Textarea, {
       propsData: {
         state: false
+      }
+    })
+    expect(input.attributes('aria-invalid')).toBe('true')
+  })
+
+  it('has aria-invalid attribute when state=invalid', async () => {
+    const input = mount(Textarea, {
+      propsData: {
+        state: 'invalid'
       }
     })
     expect(input.attributes('aria-invalid')).toBe('true')
@@ -206,7 +228,7 @@ describe('form-textarea', async () => {
     expect(input.emitted('input')).toBeDefined()
     expect(input.emitted('input')[0][0]).toEqual('test')
     expect(input.emitted('input')[0].length).toEqual(2)
-    expect(input.emitted('input')[0][0].type).toEqual('input')
+    expect(input.emitted('input')[0][1].type).toEqual('input')
   })
 
   it('emits an change event args value and event', async () => {
@@ -220,7 +242,7 @@ describe('form-textarea', async () => {
     expect(input.emitted('change')).toBeDefined()
     expect(input.emitted('change')[0][0]).toEqual('test')
     expect(input.emitted('change')[0].length).toEqual(2)
-    expect(input.emitted('change')[0][0].type).toEqual('change')
+    expect(input.emitted('change')[0][1].type).toEqual('change')
   })
 
   it('does not emit an update event on mount when value not set', async () => {
@@ -241,8 +263,8 @@ describe('form-textarea', async () => {
     input.element.value = 'test'
     input.trigger('input')
     expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update')[0][0]).toEqual('test')
     expect(input.emitted('update')[0].length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('test')
   })
 
   it('emits an update event with one arg on change', async () => {
@@ -254,7 +276,7 @@ describe('form-textarea', async () => {
     expect(input.emitted('update').length).toEqual(1)
     expect(input.emitted('update')[0][0]).toEqual('test')
     input.trigger('change')
-    expect(input.emitted('change').length).toEqual(2)
+    expect(input.emitted('update').length).toEqual(2)
     expect(input.emitted('update')[1][0]).toEqual('test')
   })
 
