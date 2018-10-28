@@ -112,6 +112,7 @@ export default {
     computedRows () {
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
     },
+    /* instanbul ignore next: style computations do not work in test environment */
     computedHeight () {
       const el = this.$el
 
