@@ -96,7 +96,7 @@ export default {
     },
     onChange (evt) {
       this.updateValue(this.getFormatted(evt.target.value, evt))
-      this.$emit('change', this.localValue, evt) }
+      this.$emit('change', this.localValue, evt)
     },
     focus () {
       // For external handler that may want a focus method
