@@ -663,7 +663,9 @@ describe('form-textarea', async () => {
     input.setProps({ value: 'TEST' })
     // Does not emit any events
     expect(input.emitted('input')).not.toBeDefined()
-    expect(input.emitted('update')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('TEST')
   })
 })
