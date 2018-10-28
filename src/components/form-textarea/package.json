@@ -7,8 +7,12 @@
     "events": [
       {
         "event": "input",
-        "description": "Native input event triggered by user interaction. Emitted before any formatting and before the v-model is updated. Cancelable.",
+        "description": "Input event triggered by user interaction. Emitted before any formatting and before the v-model is updated. Cancelable.",
         "args": [
+          {
+            "arg": "value",
+            "description": "Current value of input"
+          },
           {
             "arg": "event",
             "description": "Native input event object"
@@ -25,7 +29,7 @@
           },
           {
             "arg": "event",
-            "description": "Native change event object (from before any formatting)"
+            "description": "Native change event object"
           }
         ]
       },
