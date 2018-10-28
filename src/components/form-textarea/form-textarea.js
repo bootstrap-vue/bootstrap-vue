@@ -33,8 +33,7 @@ export default {
         required: self.required,
         autocomplete: self.autocomplete || null,
         readonly: self.readonly || self.plaintext,
-        // We use styles to control teh height
-        rows: self.computedMinRows === self.computedMaxRows ? self.computedMinRows : null,
+        rows: self.computedRows,
         wrap: self.wrap || null,
         'aria-required': self.required ? 'true' : null,
         'aria-invalid': self.computedAriaInvalid
@@ -53,7 +52,7 @@ export default {
       // to ensure that value is always a string
       localValue: this.value == null ? '' : String(this.value),
       // If we cannot auto resize height
-      dontResize: true,
+      dontResize: true
     }
   },
   model: {
@@ -128,7 +127,7 @@ export default {
         // resize the textarea. We also disable when in auto resize mode
         resize: (this.rowsMin !== this.rowsMax) || this.noResize ? 'none' : null,
         // THe computed height for auto resize
-        height: this.computedHeight 
+        height: this.computedHeight
       }
     },
     computedAriaInvalid () {
@@ -143,16 +142,19 @@ export default {
       // Most likely a string value (which could be the string 'true')
       return this.ariaInvalid
     },
-    computedMinRows: function () {
+    computedMinRows () {
       // Ensure rows is at least 1 and positive
       return Math.max(parseInt(this.rows, 10) || 1, 1)
     },
-    computedMaxRows: function () {
+    computedMaxRows () {
       return Math.max(this.computedMinRows, parseInt(this.maxRows, 10) || 0)
+    },
+    computedRows () {
+      return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
     },
     computedHeight () {
       const el = this.$el
-      
+
       if (this.$isServer || this.computedMinRows === this.computedMaxRows || !el) {
         return null
       }
@@ -175,10 +177,10 @@ export default {
       // Minimum height for min rows (browser dependant)
       const minHeight = parseInt(computedStyle.height, 10) || (lineHeight * this.computedMinRows)
       // Calculate height of content
-      const offset = (parseFloat(computedStyle.borderTopWidth) || 0)
-                   + (parseFloat(computedStyle.borderBottomWidth) || 0)
-                   + (parseFloat(computedStyle.paddingTop) || 0)
-                   + (parseFloat(computedStyle.paddingBottom) || 0)
+      const offset = (parseFloat(computedStyle.borderTopWidth) || 0) +
+                     (parseFloat(computedStyle.borderBottomWidth) || 0) +
+                     (parseFloat(computedStyle.paddingTop) || 0) +
+                     (parseFloat(computedStyle.paddingBottom) || 0)
       // Calculate content height in "rows"
       const contentRows = (el.scrollHeight - offset) / lineHeight
       // Put the old height back (needed when new height is equal to old height!)
@@ -202,12 +204,12 @@ export default {
     computedRows (newVal, oldVal) {
       if (newVal !== oldVal) {
         // if computed rows is truthy, we disable auto resizing
-        this.canResize = newVal ? false : true
+        this.dontResize = Boolean(newVal)
       }
     }
   },
   methods: {
-    setValue(val) {
+    setValue (val) {
       if (this.localValue !== val) {
         // Update the v-model only if value has changed
         this.localValue = val
