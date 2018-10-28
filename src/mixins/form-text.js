@@ -92,10 +92,10 @@ export default {
       this.$emit('input', evt.target.value, evt)
       if (evt.defaultPrevented) return
       const value = evt.target.value
-      this.updateValue(this.lazyFormatter ? value : this.getFormatted(value, evt))
+      this.setValue(this.lazyFormatter ? value : this.getFormatted(value, evt))
     },
     onChange (evt) {
-      this.updateValue(this.getFormatted(evt.target.value, evt))
+      this.setValue(this.getFormatted(evt.target.value, evt))
       this.$emit('change', this.localValue, evt)
     },
     focus () {
