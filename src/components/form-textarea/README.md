@@ -30,29 +30,28 @@ export default {
 ```
 
 ## Displayed rows
+To set the height of `<b-form-textarea>`, set the `rows` prop to the desired number of
+rows.  If no value is provided to `rows`, then it will default to `2` (the browser
+default and minimum acceptable value). Setting it to null or a value below two will
+result in the devault of `2` being used.
 
-`<b-form-textarea>` automaticlly adjusts its height (text rows) to fit the content,
-even as the user enters text. For a textarea with no content, the number of rows
-starts at `1`.
+### Disable resize handle
+Some web browsers will allow the user to re-size the hight of the textarea.
+To disable this feature, set the `no-resize` prop to `true`.
+
+
+### Auto height
+`<b-form-textarea>` can also automaticlly adjust its height (text rows) to fit the content,
+even as the user enters text.
 
 To set the initial minimum height (in rows), set the `rows` prop to the desired
-number of lines. If no value is provided to `rows`, then it will default to `1`.
+number of lines (or leave it at hte default of `2`).
 
 To limit the maximum rows that the text area will grow to (before showing a scrollbar),
 set the `max-rows` prop to the maximum number of lines of text.
 
-To keep the text-area at a set height, set both `rows` and `max-rows` to the same value.
 
-**Note:** auto rows will only work when the user explicitly enters newlines in the textarea.
-
-### Disable resize
-
-Note that some web browsers will allow the user to re-size the hight of the textarea.
-To disable this, set the `no-resize` prop to `true`.
-
-
-## Contextual states
-
+## Textarea contextual states
 Bootstrap includes validation styles for `valid` and `invalid` states on most form controls.
 
 Generally speaking, you’ll want to use a particular state for specific types of feedback:
@@ -88,7 +87,6 @@ export default {
 ```
 
 ### Conveying contextual state to assistive technologies and colorblind users
-
 Using these contextual states to denote the state of a form control only provides a
 visual, color-based indication, which will not be conveyed to users of assistive
 technologies - such as screen readers - or to colorblind users.
@@ -98,11 +96,10 @@ include a hint about state in the form control's `<label>` text itself, or by pr
 an additional help text block.
 
 ### ARIA `aria-invalid` attribute
-
 When `<b-form-textarea>` has an invalid contextual state (i.e. `'invalid'` or `false`)
 you may also want to set the prop `aria-invalid` to `true`, or one of hte supported values:
 
-- `false`: No errors detected (default)
+- `false`: No errors (default)
 - `true` or `'true'`: The value has failed validation.
 - `'grammar'`: A grammatical error has been detected.
 - `'spelling'` A spelling error has been detected.
@@ -112,8 +109,12 @@ not explicity set, `<b-form-textarea>` will automatically set the `aria-invalid`
 attribute to `'true'`.
 
 
-## Readonly plain text
+## Formatter support
+Refer to the (`<b-form-input>`)[../form-input] documentation regarding usage of the
+optional formatter feature.
 
+
+## Readonly plain text
 If you want to have `<b-form-textarea readonly>` elements in your form styled as plain
 text, set the `plaintext` prop (no need to set `readonly`) to remove the default form
 field styling and preserve the correct margin and padding and height.
@@ -135,6 +136,64 @@ export default {
 
 <!-- form-textarea-plaintext.vue -->
 ```
+
+## Native and custom events
+All native events (other than the cuustom `input` and `change` events) are supported, without
+the need for the `.native` modifier.
+
+The custom `input` and `change` events receive to paramters: the input `value`, and the native
+event `object`. The custom `update` event is passed the input value.
+
+The `input` event is emitted based on user interaction, before any formatting, and before
+the `v-model` is updated. You can cancel the input event by callling `preventDefault()` on
+the passed event object.
+
+The `update` event is emitted when updating the `v-model`, and will include any formatting that has
+been applied. 
+
+The `change` event is emitted based on user interaction (typically on blur, but also may fire
+on composition events depending on the browser). The value passed will include any applied formatting.
+
+You can always access the native `input` and `change` events by using the `.native` modifier.
+
+
+## Exposed input properties and methods
+`<b-form-input>` exposes several of the native input element's properties and methods on the 
+component reference (i.e. assign a `ref` to your `<b-form-input ref="foo" ...>` and
+use `this.$refs['foo'].propertyName` or `this.$refs['foo'].methodName(...)`).
+
+### Input Properties
+
+| Property | Notes
+| -------- | -----
+| `.selectionStart` | Read/Write
+| `.selectionEnd` | Read/Write
+| `.selectionDirection` | Read/Write
+| `.validity` | Read only
+| `.validationMessage` | Read only
+| `.willValidate` | Read only
+
+### Input Methods
+
+| Method | Notes
+| ------ | -----
+| `.focus()` | Focus the input
+| `.blur()` | Remove focus from the input
+| `.select()` | Selects all text within the input
+| `.setSelectionRange()` | 
+| `.setRangeText()` | 
+| `.setCustomValidity()` | 
+| `.checkValidity()` | 
+| `.reportValidity()` | 
+
+Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for
+more information on these methods and properties.  Support will vary based on
+input type.
+
+### Custom input methods
+`b-form-input` also exposes the following custom method(s):
+
+
 
 ## Component alias
 You can use `<b-form-textarea>` by it's shorter alias `<b-textarea>`.
