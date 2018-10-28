@@ -267,7 +267,7 @@ describe('form-textarea', async () => {
     expect(input.emitted('update')[0][0]).toEqual('test')
   })
 
-  it('emits an update event with one arg on change', async () => {
+  it('does not emit an update event on change when value not changed', async () => {
     const input = mount(Textarea)
 
     input.element.value = 'test'
@@ -276,8 +276,21 @@ describe('form-textarea', async () => {
     expect(input.emitted('update').length).toEqual(1)
     expect(input.emitted('update')[0][0]).toEqual('test')
     input.trigger('change')
+    expect(input.emitted('update').length).toEqual(1)
+  })
+
+  it('emits an update event with one arg on change when value changed', async () => {
+    const input = mount(Textarea)
+
+    input.element.value = 'test'
+    input.trigger('input')
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('test')
+    input.element.value = 'TEST'
+    input.trigger('change')
     expect(input.emitted('update').length).toEqual(2)
-    expect(input.emitted('update')[1][0]).toEqual('test')
+    expect(input.emitted('update')[1][0]).toEqual('TEST')
   })
 
   it('emits a native focus event', async () => {
