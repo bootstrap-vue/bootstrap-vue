@@ -39,7 +39,6 @@ result in the devault of `2` being used.
 Some web browsers will allow the user to re-size the hight of the textarea.
 To disable this feature, set the `no-resize` prop to `true`.
 
-
 ### Auto height
 `<b-form-textarea>` can also automaticlly adjust its height (text rows) to fit the content,
 even as the user enters text.
@@ -50,6 +49,35 @@ number of lines (or leave it at hte default of `2`).
 To limit the maximum rows that the text area will grow to (before showing a scrollbar),
 set the `max-rows` prop to the maximum number of lines of text.
 
+## Control sizing
+Set text heights using the `size` prop to `sm` or `lg` for small or large respectively.
+
+To control width, place the input inside standard Bootstrap grid column.
+
+```html
+<b-container fluid>
+  <b-row class="my-1">
+    <b-col sm="2"><label for="input-small">Small:</label></b-col>
+    <b-col sm="10">
+      <b-form-textarea id="input-small" size="sm" type="text" placeholder="Small Textarea"></b-form-textarea>
+    </b-col>
+  </b-row>
+  <b-row class="my-1">
+    <b-col sm="2"><label for="input-default">Default:</label></b-col>
+    <b-col sm="10">
+      <b-form-textarea id="input-default" type="text" placeholder="Default Textarea"></b-form-text-area>
+    </b-col>
+  </b-row>
+  <b-row class="my-1">
+    <b-col sm="2"><label for="input-large">Large:</label></b-col>
+    <b-col sm="10">
+      <b-form-textarea id="input-large" size="lg" type="text" placeholder="Large Textarea"></b-form-textarea>
+    </b-col>
+  </b-row>
+</b-container>
+
+<!-- form-textarea-size-1.vue -->
+```
 
 ## Textarea contextual states
 Bootstrap includes validation styles for `valid` and `invalid` states on most form controls.
