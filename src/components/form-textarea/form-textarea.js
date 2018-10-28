@@ -103,6 +103,16 @@ export default {
       default: false
     }
   },
+  watch: {
+    value (newVal, oldVal) {
+      // Update our localValue
+      if (newVal !== oldVal) {
+        // We use the '==' operator here so that undefined will also = null
+        // To ensure that value is always a string
+        this.localValue = newVal == null ? '' : String(newVal)
+      }
+    }
+  },
   mounted () {
     this.$nextTick(() => { this.dontResize = false })
   },
@@ -125,8 +135,8 @@ export default {
       return {
         // setting noResize to true will disable the ability for the user to
         // resize the textarea. We also disable when in auto resize mode
-        resize: (this.rowsMin !== this.rowsMax) || this.noResize ? 'none' : null,
-        // THe computed height for auto resize
+        resize: (this.computedRows || this.noResize) ? 'none' : null,
+        // The computed height for auto resize
         height: this.computedHeight
       }
     },
@@ -155,7 +165,7 @@ export default {
     computedHeight () {
       const el = this.$el
 
-      if (this.$isServer || this.computedMinRows === this.computedMaxRows || !el) {
+      if (this.$isServer || this.computedRows || !el) {
         return null
       }
 
@@ -190,22 +200,6 @@ export default {
 
       // return the new computed height in px units
       return `${Math.max(Math.ceil((rows * lineHeight) + offset), minHeight)}px`
-    }
-  },
-  watch: {
-    value (newVal, oldVal) {
-      // Update our localValue
-      if (newVal !== oldVal) {
-        // We use the '==' operator here so that undefined will also = null
-        // To ensure that value is always a string
-        this.localValue = newVal == null ? '' : String(newVal)
-      }
-    },
-    computedRows (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        // if computed rows is truthy, we disable auto resizing
-        this.dontResize = Boolean(newVal)
-      }
     }
   },
   methods: {
