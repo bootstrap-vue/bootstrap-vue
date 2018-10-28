@@ -317,5 +317,199 @@ describe('form-textarea', async () => {
     expect(spy).toHaveBeenCalled()
   })
 
-  // To be added: Formatter tests
+  it('has attribute rows set to 2 by default', async () => {
+    const input = mount(Textarea)
+    expect(input.attributes('rows')).toBeDefined()
+    expect(input.attributes('rows')).toEqual('2')
+  })
+
+  it('has attribute rows when rows set and max-rows not set', async () => {
+    const input = mount(Textarea, {
+      propsData: {
+        rows: 10
+      }
+    })
+    expect(input.attributes('rows')).toBeDefined()
+    expect(input.attributes('rows')).toEqual('10')
+    // should work with both text and number values
+    input.setProps({ rows: '20' })
+    expect(input.attributes('rows')).toBeDefined()
+    expect(input.attributes('rows')).toEqual('20')
+    // Should use minimum value of 2 when rows is set less than 2
+    input.setProps({ rows: '1' })
+    expect(input.attributes('rows')).toBeDefined()
+    expect(input.attributes('rows')).toEqual('2')
+    input.setProps({ rows: -10 })
+    expect(input.attributes('rows')).toBeDefined()
+    expect(input.attributes('rows')).toEqual('2')
+  })
+
+  it('has attribute rows set when rows and max-rows are equal', async () => {
+    const input = mount(Textarea, {
+      propsData: {
+        rows: 5,
+        maxRows: 5 
+      }
+    })
+    expect(input.attributes('rows')).toBeDefined()
+    expect(input.attributes('rows')).toEqual('5')
+    // should work with both text and number values
+    input.setProps({ rows: '10', maxRows: '10' })
+    expect(input.attributes('rows')).toBeDefined()
+    expect(input.attributes('rows')).toEqual('10')
+  })
+
+  it('does not have rows set when rows and max-rows set', async () => {
+    const input = mount(Textarea, {
+      propsData: {
+        rows: 2,
+        maxRows: 5 
+      }
+    })
+    expect(input.attributes('rows')).not.toBeDefined()
+  })
+
+  it('has attribute rows set when max-rows less than rows', async () => {
+    const input = mount(Textarea, {
+      propsData: {
+        rows: 10,
+        maxRows: 5 
+      }
+    })
+    expect(input.attributes('rows')).toBeDefined()
+    expect(input.attributes('rows')).toEqual('10')
+  })
+
+  it('does not have style resize by default', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true
+    })
+    expect(input.element.style).toBeDefined()
+    expect(input.element.style.resize).toEqual('')
+  })
+
+  it('does not have style resize when no-resize is set', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        noResize: true 
+      }
+    })
+    expect(input.element.style).toBeDefined()
+    expect(input.element.style.resize).toEqual('none')
+  })
+
+  it('does not have style resize when max-rows not set', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        rows: 10
+      }
+    })
+    expect(input.element.style).toBeDefined()
+    expect(input.element.style.resize).toEqual('')
+  })
+
+  it('does not have style resize when max-rows less than rows', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        rows: 10,
+        maxRows: 5
+      }
+    })
+    expect(input.element.style).toBeDefined()
+    expect(input.element.style.resize).toEqual('')
+  })
+
+  it('has style resize:none when max-rows greater than rows', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        rows: 2,
+        maxRows: 5 
+      }
+    })
+    expect(input.element.style).toBeDefined()
+    expect(input.element.style.resize).toBeDefined()
+    expect(input.element.style.resize).toEqual('none')
+  })
+
+  it('does not have style height by default', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true
+    })
+    expect(input.element.style).toBeDefined()
+    expect(input.element.style.height).toBeDefined()
+    expect(input.element.style.height).toEqual('')
+  })
+
+  it('does not have style height when rows and max-rows equal', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        rows: 2,
+        maxRows: 2
+      }
+    })
+    expect(input.element.style).toBeDefined()
+    expect(input.element.style.height).toBeDefined()
+    expect(input.element.style.height).toEqual('')
+  })
+
+  it('does not have style height when max-rows not set', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        rows: 5
+      }
+    })
+    expect(input.element.style).toBeDefined()
+    expect(input.element.style.height).toBeDefined()
+    expect(input.element.style.height).toEqual('')
+  })
+
+  it('has style height when max-rows greater than rows', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        rows: 2,
+        maxRows: 5 
+      }
+    })
+    expect(input.element.style).toBeDefined()
+    expect(input.element.style.height).toBeDefined()
+    expect(input.element.style.height).not.toEqual('')
+  })
+
+  it('auto height should work', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        value: '',
+        rows: 2,
+        maxRows: 10 
+      }
+    })
+    expect(input.element.style).toBeDefined()
+    expect(input.element.style.height).toBeDefined()
+    expect(input.element.style.height).not.toEqual('')
+    const firstHeight = parseFloat(input.element.style.height)
+    // Set content to five lines heigh
+    input.element.value = 'one\n two\n three\n four\n five'
+    input.trigger('input')
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.element.style.height).not.toEqual('')
+    const secondHeight = parseFloat(input.element.style.height)
+    expect(secondHeight).toBeGreaterThan(startheight)
+    // Set content to one lines heigh
+    input.element.value = 'one'
+    input.trigger('input')
+    expect(input.emitted('update').length).toEqual(2)
+    expect(input.element.style.height).not.toEqual('')
+    const thirdHeight = parseFloat(input.element.style.height)
+    expect(thirdHeight).toBeLessThan(startheight)
+  })
+
+  // To be added: Formatter tests (copy from form-input.spec.js
 })
