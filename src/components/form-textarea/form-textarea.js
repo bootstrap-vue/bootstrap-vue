@@ -166,11 +166,11 @@ export default {
       const el = this.$el
 
       // We compare this.localValue to null to ensure reactivity with content changes.
-      if (this.localValue === null || this.computedRows || this.dontResize ||  this.$isServer) {
+      if (this.localValue === null || this.computedRows || this.dontResize || this.$isServer) {
         return null
       }
 
-      // Element visibility *must* be checked last.
+      // Element must be visible (not hidden) and in document. *Must* be checked after above.
       if (!isVisible(el)) {
         return null
       }
