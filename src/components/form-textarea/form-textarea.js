@@ -135,7 +135,7 @@ export default {
       return {
         // setting noResize to true will disable the ability for the user to
         // resize the textarea. We also disable when in auto resize mode
-        resize: (this.computedRows || this.noResize) ? 'none' : null,
+        resize: (!this.computedRows || this.noResize) ? 'none' : null,
         // The computed height for auto resize
         height: this.computedHeight
       }
@@ -165,7 +165,7 @@ export default {
     computedHeight () {
       const el = this.$el
 
-      if (this.$isServer || this.computedRows || !el) {
+      if (this.$isServer || !this.computedRows || !el) {
         return null
       }
 
