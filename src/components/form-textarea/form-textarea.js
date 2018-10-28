@@ -6,12 +6,10 @@ import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
 import { getCS, isVisible } from '../../utils/dom'
 
-// Event to use for v-model updates
-const MODEL_EVENT = 'update:value'
-
 export default {
   mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formSelectionMixin, formValidityMixin],
   render (h) {
+    // using self instead of this helps reduce code size during minification
     const self = this
     return h('textarea', {
       ref: 'input',
@@ -38,7 +36,9 @@ export default {
         'aria-required': self.required ? 'true' : null,
         'aria-invalid': self.computedAriaInvalid
       },
-      domProps: { value: self.value },
+      domProps: {
+        value: self.value
+      },
       on: {
         ...self.$listeners,
         input: self.onInput,
@@ -57,7 +57,7 @@ export default {
   },
   model: {
     prop: 'value',
-    event: MODEL_EVENT
+    event: 'update'
   },
   props: {
     value: {
@@ -153,8 +153,8 @@ export default {
       return this.ariaInvalid
     },
     computedMinRows () {
-      // Ensure rows is at least 1 and positive
-      return Math.max(parseInt(this.rows, 10) || 1, 1)
+      // Ensure rows is at least 2 and positive (2 is the native textarea value)
+      return Math.max(parseInt(this.rows, 10) || 2, 2)
     },
     computedMaxRows () {
       return Math.max(this.computedMinRows, parseInt(this.maxRows, 10) || 0)
@@ -203,24 +203,24 @@ export default {
     }
   },
   methods: {
-    setValue (val) {
+    updateValue (val) {
       if (this.localValue !== val) {
         // Update the v-model only if value has changed
         this.localValue = val
-        this.$emit(MODEL_EVENT, this.localValue)
+        this.$emit('update', this.localValue)
       }
     },
     onInput (evt) {
+      this.$emit('input', evt)
       if (evt.target.composing) return
-      const val = evt.target.value
-      this.setValue(val)
-      this.$emit('input', val, evt)
+      if (evt.defaultPrevented) return
+      this.updateValue(evt.target.value)
     },
     onChange (evt) {
+      this.$emit('change', evt)
       if (evt.target.composing) return
-      const val = evt.target.value
-      this.setValue(val)
-      this.$emit('change', val, evt)
+      if (evt.defaultPrevented) return
+      this.updateValue(evt.target.value)
     },
     focus () {
       // For external handler that may want a focus method
