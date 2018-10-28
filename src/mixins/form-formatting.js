@@ -11,8 +11,11 @@ export default {
   },
   methods: {
     getFormatted (value, event = null) {
-      value = value == null ? '' : String(value)
+      value = this.stringifyValue(value)
       return this.formatter ? this.formatter(value, event) : value
+    },
+    stringifyValue (value) {
+      return value == null ? '' : String(value)
     }
   }
 }
