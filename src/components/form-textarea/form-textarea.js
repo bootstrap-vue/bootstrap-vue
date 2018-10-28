@@ -2,12 +2,21 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
+import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
 import { getCS, isVisible } from '../../utils/dom'
 
 export default {
-  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formSelectionMixin, formValidityMixin],
+  mixins: [
+    idMixin,
+    formMixin,
+    formSizeMixin,
+    formStateMixin,
+    formTextMixin,
+    formSelectionMixin,
+    formValidityMixin
+  ],
   render (h) {
     // using self instead of this helps reduce code size during minification
     const self = this
@@ -37,7 +46,7 @@ export default {
         'aria-invalid': self.computedAriaInvalid
       },
       domProps: {
-        value: self.value
+        value: self.localValue
       },
       on: {
         ...self.$listeners,
@@ -48,42 +57,10 @@ export default {
   },
   data () {
     return {
-      // We use the '==' operator here so that undefined will also equal null
-      // to ensure that value is always a string
-      localValue: this.value == null ? '' : String(this.value),
-      // If we cannot auto resize height
       dontResize: true
     }
   },
-  model: {
-    prop: 'value',
-    event: 'update'
-  },
   props: {
-    value: {
-      type: String,
-      default: ''
-    },
-    ariaInvalid: {
-      type: [Boolean, String],
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    plaintext: {
-      type: Boolean,
-      default: false
-    },
-    autocomplete: {
-      type: String,
-      default: null
-    },
-    placeholder: {
-      type: String,
-      default: null
-    },
     rows: {
       type: [Number, String],
       default: 2
@@ -98,19 +75,9 @@ export default {
       default: 'soft'
     },
     noResize: {
-      // Use CSS to disable the resize handle of textarea
+      // Disable the resize handle of textarea
       type: Boolean,
       default: false
-    }
-  },
-  watch: {
-    value (newVal, oldVal) {
-      // Update our localValue
-      if (newVal !== oldVal) {
-        // We use the '==' operator here so that undefined will also = null
-        // To ensure that value is always a string
-        this.updateValue(newVal == null ? '' : String(newVal))
-      }
     }
   },
   mounted () {
@@ -126,13 +93,6 @@ export default {
     this.dontResize = true
   },
   computed: {
-    computedClass () {
-      return [
-        this.plaintext ? 'form-control-plaintext' : 'form-control',
-        this.sizeFormClass,
-        this.stateClass
-      ]
-    },
     computedStyle () {
       return {
         // setting noResize to true will disable the ability for the user to
@@ -141,18 +101,6 @@ export default {
         // The computed height for auto resize
         height: this.computedHeight
       }
-    },
-    computedAriaInvalid () {
-      if (!this.ariaInvalid || this.ariaInvalid === 'false') {
-        // this.ariaInvalid is null or false or 'false'
-        return this.computedState === false ? 'true' : null
-      }
-      if (this.ariaInvalid === true) {
-        // User wants explicit aria-invalid=true
-        return 'true'
-      }
-      // Most likely a string value (which could be the string 'true')
-      return this.ariaInvalid
     },
     computedMinRows () {
       // Ensure rows is at least 2 and positive (2 is the native textarea value)
@@ -167,7 +115,7 @@ export default {
     computedHeight () {
       const el = this.$el
 
-      // We compare this.localValue to null to ensure reactivity with content changes.
+      // We compare this.localValue to null to ensure reactivity of content changes.
       if (this.localValue === null || this.computedRows || this.dontResize || this.$isServer) {
         return null
       }
@@ -203,36 +151,6 @@ export default {
 
       // return the new computed height in px units
       return `${height}px`
-    }
-  },
-  methods: {
-    updateValue (val) {
-      if (this.localValue !== val) {
-        // Update the v-model only if value has changed
-        this.localValue = val
-        this.$emit('update', this.localValue)
-      }
-    },
-    onInput (evt) {
-      this.$emit('input', evt)
-      if (evt.defaultPrevented) return
-      this.updateValue(evt.target.value)
-    },
-    onChange (evt) {
-      this.updateValue(evt.target.value)
-      this.$emit('change', this.localValue, evt)
-    },
-    focus () {
-      // For external handler that may want a focus method
-      if (!this.disabled) {
-        this.$el.focus()
-      }
-    },
-    blur () {
-      // For external handler that may want a blur method
-      if (!this.disabled) {
-        this.$el.blur()
-      }
     }
   }
 }
