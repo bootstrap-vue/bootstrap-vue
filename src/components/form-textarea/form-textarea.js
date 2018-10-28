@@ -165,13 +165,13 @@ export default {
     computedHeight () {
       const el = this.$el
 
-      if (this.$isServer || !this.computedRows || !el) {
+      // We compare this.localValue to null to ensure reactivity with content changes.
+      if (this.localValue === null || this.computedRows || this.dontResize ||  this.$isServer) {
         return null
       }
 
-      // We compare this.localValue to null to ensure reactivity with content changes.
       // Element visibility *must* be checked last.
-      if (this.localValue === null || this.dontResize || !isVisible(el)) {
+      if (!isVisible(el)) {
         return null
       }
 
@@ -211,13 +211,13 @@ export default {
       }
     },
     onInput (evt) {
-      if (evt.target.isComposing) return
+      if (evt.target.composing) return
       const val = evt.target.value
       this.setValue(val)
       this.$emit('input', val, evt)
     },
     onChange (evt) {
-      if (evt.target.isComposing) return
+      if (evt.target.composing) return
       const val = evt.target.value
       this.setValue(val)
       this.$emit('change', val, evt)
