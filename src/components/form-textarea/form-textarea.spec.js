@@ -614,7 +614,7 @@ describe('form-textarea', async () => {
         formatter (value) {
           return value.toLowerCase()
         },
-        laszyFormatter: true
+        lazyFormatter: true
       }
     })
     expect(input.emitted('input')).not.toBeDefined()
@@ -653,7 +653,8 @@ describe('form-textarea', async () => {
         value: '',
         formatter (value) {
           return value.toLowerCase()
-        }
+        },
+        lazyFormatter: true
       }
     })
     expect(input.emitted('input')).not.toBeDefined()
