@@ -1,20 +1,44 @@
 {
-    "name": "@bootstrap-vue/form-textarea",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Form Textarea",
-        "component": "bFormTextarea",
-        "events": [
-            {
-                "event": "input",
-                "description": "Emitted when the textarea receives input from user.",
-                "args": [
-                    {
-                        "arg": "value",
-                        "description": "current value of the textarea"
-                    }
-                ]
-            }
+  "name": "@bootstrap-vue/form-textarea",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Form Textarea",
+    "component": "bFormTextarea",
+    "events": [
+      {
+        "event": "input",
+        "description": "Native input event triggered by user interaction. Emitted before any formatting and before the v-model is updated. Cancelable.",
+        "args": [
+          {
+            "arg": "event",
+            "description": "Native input event object"
+          }
         ]
-    }
+      },
+      {
+        "event": "change",
+        "description": "Change event triggerd by user interaction. Emitted after any formatting and after the v-model is updated.",
+        "args": [
+          {
+            "arg": "value",
+            "description": "the value of the input"
+          },
+          {
+            "arg": "event",
+            "description": "Native change event object (from before any formatting)"
+          }
+        ]
+      },
+      {
+        "event": "update",
+        "description": "Emitted to update the v-model",
+        "args": [
+          {
+            "arg": "value",
+            "description": "Value of input, after any formatting"
+          }
+        ]
+      }
+    ]
+  }
 }
