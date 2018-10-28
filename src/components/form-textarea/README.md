@@ -175,16 +175,16 @@ use `this.$refs['foo'].propertyName` or `this.$refs['foo'].methodName(...)`).
 
 ### Input Methods
 
-| Method | Notes
-| ------ | -----
-| `.focus()` | Focus the input
-| `.blur()` | Remove focus from the input
-| `.select()` | Selects all text within the input
-| `.setSelectionRange()` | 
-| `.setRangeText()` | 
-| `.setCustomValidity()` | 
-| `.checkValidity()` | 
-| `.reportValidity()` | 
+| Method | Notes |
+| ------ | ----- |
+| `.focus()` | Focus the input |
+| `.blur()` | Remove focus from the input |
+| `.select()` | Selects all text within the input |
+| `.setSelectionRange()` |  |
+| `.setRangeText()` |  |
+| `.setCustomValidity()` |  |
+| `.checkValidity()` |  |
+| `.reportValidity()` |  |
 
 Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for
 more information on these methods and properties.  Support will vary based on
