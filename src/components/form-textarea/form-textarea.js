@@ -177,8 +177,8 @@ export default {
 
       // Remember old height and reset it temporarily
       const oldHeight = el.style.height
-      el.style.height = 'auto'
-      // el.style.height = 'inherit'
+      // el.style.height = 'auto'
+      el.style.height = 'inherit'
 
       // Get current computed styles
       const computedStyle = getCS(el)
@@ -211,11 +211,13 @@ export default {
       }
     },
     onInput (evt) {
+      if (evt.target.isComposing) return
       const val = evt.target.value
       this.setValue(val)
       this.$emit('input', val, evt)
     },
     onChange (evt) {
+      if (evt.target.isComposing) return
       const val = evt.target.value
       this.setValue(val)
       this.$emit('change', val, evt)
