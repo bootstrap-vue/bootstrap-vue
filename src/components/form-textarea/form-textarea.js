@@ -184,7 +184,7 @@ export default {
       // Put the old height back (needed when new height is equal to old height!)
       el.style.height = oldHeight
       // Calculate number of rows to display
-      const rows = Math.min(Math.max(contentRows, this.computedMinRows)), this.computedMaxRows)
+      const rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows)
 
       // return the new computed height in px units
       return `${Math.max(Math.ceil((rows * lineHeight) + offset), minHeight)}px`
