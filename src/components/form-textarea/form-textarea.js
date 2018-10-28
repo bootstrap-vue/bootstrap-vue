@@ -4,47 +4,61 @@ import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
+import { getCS, isVisible } from '../../utils/dom'
+
+// Event to use for v-model updates
+const MODEL_EVENT = 'update:value'
 
 export default {
   mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formSelectionMixin, formValidityMixin],
   render (h) {
+    const self = this
     return h('textarea', {
       ref: 'input',
-      class: this.inputClass,
-      style: this.inputStyle,
+      class: self.computedClass,
+      style: self.computedStyle,
       directives: [
         {
           name: 'model',
           rawName: 'v-model',
-          value: this.localValue,
+          value: self.localValue,
           expression: 'localValue'
         }
       ],
-      domProps: { value: this.value },
       attrs: {
-        id: this.safeId(),
-        name: this.name,
-        disabled: this.disabled,
-        placeholder: this.placeholder,
-        required: this.required,
-        autocomplete: this.autocomplete || null,
-        readonly: this.readonly || this.plaintext,
-        rows: this.rowsCount,
-        wrap: this.wrap || null,
-        'aria-required': this.required ? 'true' : null,
-        'aria-invalid': this.computedAriaInvalid
+        id: self.safeId(),
+        name: self.name,
+        disabled: self.disabled,
+        placeholder: self.placeholder,
+        required: self.required,
+        autocomplete: self.autocomplete || null,
+        readonly: self.readonly || self.plaintext,
+        // We use styles to control teh height
+        rows: self.computedMinRows === self.computedMaxRows ? self.computedMinRows : null,
+        wrap: self.wrap || null,
+        'aria-required': self.required ? 'true' : null,
+        'aria-invalid': self.computedAriaInvalid
       },
+      domProps: { value: self.value },
       on: {
-        input: (evt) => {
-          this.localValue = evt.target.value
-        }
+        ...self.$listeners,
+        input: self.onInput,
+        change: self.onChange
       }
     })
   },
   data () {
     return {
-      localValue: this.value
+      // We use the '==' operator here so that undefined will also equal null
+      // to ensure that value is always a string
+      localValue: this.value == null ? '' : String(this.value),
+      // If we cannot auto resize height
+      dontResize: true,
     }
+  },
+  model: {
+    prop: 'value',
+    event: MODEL_EVENT
   },
   props: {
     value: {
@@ -73,7 +87,7 @@ export default {
     },
     rows: {
       type: [Number, String],
-      default: null
+      default: 2
     },
     maxRows: {
       type: [Number, String],
@@ -85,34 +99,36 @@ export default {
       default: 'soft'
     },
     noResize: {
+      // Use CSS to disable the resize handle of textarea
       type: Boolean,
       default: false
     }
   },
+  mounted () {
+    this.$nextTick(() => { this.dontResize = false })
+  },
+  activated () {
+    this.$nextTick(() => { this.dontResize = false })
+  },
+  dectivated () {
+    // If we are in a deactivated <keep-alive>, dont try resizing
+    this.dontResize = true
+  },
   computed: {
-    rowsCount () {
-      // A better option could be based on https://codepen.io/vsync/pen/frudD
-      // As linebreaks aren't added until the input is submitted
-      const rows = parseInt(this.rows, 10) || 1
-      const maxRows = parseInt(this.maxRows, 10) || 0
-      const lines = (this.localValue || '').toString().split('\n').length
-      return maxRows
-        ? Math.min(maxRows, Math.max(rows, lines))
-        : Math.max(rows, lines)
-    },
-    inputClass () {
+    computedClass () {
       return [
         this.plaintext ? 'form-control-plaintext' : 'form-control',
         this.sizeFormClass,
         this.stateClass
       ]
     },
-    inputStyle () {
-      // We set width 100% in plaintext mode to get around a shortcoming in bootstrap CSS
-      // setting noResize to true will disable the ability for the user to resize the textarea
+    computedStyle () {
       return {
-        width: this.plaintext ? '100%' : null,
-        resize: this.noResize ? 'none' : null
+        // setting noResize to true will disable the ability for the user to
+        // resize the textarea. We also disable when in auto resize mode
+        resize: (this.rowsMin !== this.rowsMax) || this.noResize ? 'none' : null,
+        // THe computed height for auto resize
+        height: this.computedHeight 
       }
     },
     computedAriaInvalid () {
@@ -126,23 +142,88 @@ export default {
       }
       // Most likely a string value (which could be the string 'true')
       return this.ariaInvalid
+    },
+    computedMinRows: function () {
+      // Ensure rows is at least 1 and positive
+      return Math.max(parseInt(this.rows, 10) || 1, 1)
+    },
+    computedMaxRows: function () {
+      return Math.max(this.computedMinRows, parseInt(this.maxRows, 10) || 0)
+    },
+    computedHeight () {
+      const el = this.$el
+      
+      if (this.$isServer || this.computedMinRows === this.computedMaxRows || !el) {
+        return null
+      }
+
+      // We compare this.localValue to null to ensure reactivity with content changes.
+      // Element visibility *must* be checked last.
+      if (this.localValue === null || this.dontResize || !isVisible(el)) {
+        return null
+      }
+
+      // Remember old height and reset it temporarily
+      const oldHeight = el.style.height
+      el.style.height = 'auto'
+      // el.style.height = 'inherit'
+
+      // Get current computed styles
+      const computedStyle = getCS(el)
+      // Height of one line of text in px
+      const lineHeight = parseFloat(computedStyle.lineHeight)
+      // Minimum height for min rows (browser dependant)
+      const minHeight = parseInt(computedStyle.height, 10) || (lineHeight * this.computedMinRows)
+      // Calculate height of content
+      const offset = (parseFloat(computedStyle.borderTopWidth) || 0)
+                   + (parseFloat(computedStyle.borderBottomWidth) || 0)
+                   + (parseFloat(computedStyle.paddingTop) || 0)
+                   + (parseFloat(computedStyle.paddingBottom) || 0)
+      // Calculate content height in "rows"
+      const contentRows = (el.scrollHeight - offset) / lineHeight
+      // Put the old height back (needed when new height is equal to old height!)
+      el.style.height = oldHeight
+      // Calculate number of rows to display
+      const rows = Math.min(Math.max(contentRows, this.computedMinRows)), this.computedMaxRows)
+
+      // return the new computed height in px units
+      return `${Math.max(Math.ceil((rows * lineHeight) + offset), minHeight)}px`
     }
   },
   watch: {
     value (newVal, oldVal) {
       // Update our localValue
       if (newVal !== oldVal) {
-        this.localValue = newVal
+        // We use the '==' operator here so that undefined will also = null
+        // To ensure that value is always a string
+        this.localValue = newVal == null ? '' : String(newVal)
       }
     },
-    localValue (newVal, oldVal) {
-      // update Parent value
+    computedRows (newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.$emit('input', newVal)
+        // if computed rows is truthy, we disable auto resizing
+        this.canResize = newVal ? false : true
       }
     }
   },
   methods: {
+    setValue(val) {
+      if (this.localValue !== val) {
+        // Update the v-model only if value has changed
+        this.localValue = val
+        this.$emit(MODEL_EVENT, this.localValue)
+      }
+    },
+    onInput (evt) {
+      const val = evt.target.value
+      this.setValue(val)
+      this.$emit('input', val, evt)
+    },
+    onChange (evt) {
+      const val = evt.target.value
+      this.setValue(val)
+      this.$emit('change', val, evt)
+    },
     focus () {
       // For external handler that may want a focus method
       if (!this.disabled) {
