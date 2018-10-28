@@ -279,7 +279,7 @@ describe('form-textarea', async () => {
     expect(input.emitted('update').length).toEqual(1)
   })
 
-  it('emits an update event with one arg on change when value changed', async () => {
+  it('emits an update event with one arg on change when input text changed', async () => {
     const input = mount(Textarea)
 
     input.element.value = 'test'
@@ -291,6 +291,19 @@ describe('form-textarea', async () => {
     input.trigger('change')
     expect(input.emitted('update').length).toEqual(2)
     expect(input.emitted('update')[1][0]).toEqual('TEST')
+  })
+
+  it('emits an update event when value prop changed', async () => {
+    const input = mount(Textarea, {
+      value: ''
+    })
+
+    expect(input.emitted('update')).not.toBeDefined()
+    input.setProps({value: 'test'})
+    expect(input.emitted('update').length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('test')
+    expect(input.emitted('input')).not.toBeDefined()
+    expect(input.emitted('change')).not.toBeDefined()
   })
 
   it('emits a native focus event', async () => {
@@ -517,5 +530,139 @@ describe('form-textarea', async () => {
   })
   */
 
-  // To be added: Formatter tests (copy from form-input.spec.js
+  it('Formats on input when not lazy', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        value: '',
+        formatter (value) {
+          return value.toLowerCase()
+        }
+      }
+    })
+    input.element.value = 'TEST'
+    input.trigger('input')
+
+    // Input event fires first with user entered value
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input').length).toEqual(1)
+    expect(input.emitted('input')[0][0]).toEqual('TEST')
+    // Followed by an update with formatted value
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update')[0][0]).toEqual('test')
+    // And no change event
+    expect(input.emitted('change')).not.toBeDefined()
+  })
+
+  it('Formats on change when lazy', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        formatter (value) {
+          return value.toLowerCase()
+        },
+        lazyFormatter: true
+      }
+    })
+
+    input.element.value = 'TEST'
+    input.trigger('input')
+
+    // Input event fires first
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input').length).toEqual(1)
+    expect(input.emitted('input')[0][0]).toEqual('TEST')
+    // followed by an update
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('TEST')
+
+    input.trigger('change')
+
+    // Update fires before change with formatted value
+    expect(input.emitted('update').length).toEqual(2)
+    expect(input.emitted('update')[1][0]).toEqual('test')
+    // Followed by change event with formatted value
+    expect(input.emitted('change')).toBeDefined()
+    expect(input.emitted('change')[0][0]).toEqual('test')
+  })
+
+  it('Formats value on mount when not lazy', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        value: 'TEST',
+        formatter (value) {
+          return value.toLowerCase()
+        }
+      }
+    })
+    expect(input.emitted('input')).not.toBeDefined()
+    expect(input.emitted('change')).not.toBeDefined()
+    // Emits update with formatted value
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('test')
+    expect(input.vm.localValue).toEqual('test')
+  })
+
+  it('Does not format value on mount when lazy', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        value: 'TEST',
+        formatter (value) {
+          return value.toLowerCase()
+        },
+        laszyFormatter: true
+      }
+    })
+    expect(input.emitted('input')).not.toBeDefined()
+    expect(input.emitted('change')).not.toBeDefined()
+    expect(input.emitted('update')).not.toBeDefined()
+    expect(input.vm.localValue).toEqual('TEST')
+  })
+
+  it('Formats on value prop change when not lazy', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        value: '',
+        formatter (value) {
+          return value.toLowerCase()
+        }
+      }
+    })
+    expect(input.emitted('input')).not.toBeDefined()
+    expect(input.emitted('change')).not.toBeDefined()
+    expect(input.emitted('update')).not.toBeDefined()
+    input.setProps({ value: 'TEST' })
+    // Emits update with formatted value
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('test')
+
+    expect(input.emitted('input')).not.toBeDefined()
+    expect(input.emitted('change')).not.toBeDefined()
+  })
+
+  it('Does not format on value prop change when lazy', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        value: '',
+        formatter (value) {
+          return value.toLowerCase()
+        }
+      }
+    })
+    expect(input.emitted('input')).not.toBeDefined()
+    expect(input.emitted('update')).not.toBeDefined()
+    expect(input.emitted('change')).not.toBeDefined()
+    input.setProps({ value: 'TEST' })
+    // Does not emit any events
+    expect(input.emitted('input')).not.toBeDefined()
+    expect(input.emitted('update')).not.toBeDefined()
+    expect(input.emitted('change')).not.toBeDefined()
+  })
 })
