@@ -109,18 +109,20 @@ export default {
       if (newVal !== oldVal) {
         // We use the '==' operator here so that undefined will also = null
         // To ensure that value is always a string
-        this.localValue = newVal == null ? '' : String(newVal)
+        this.updateValue(newVal == null ? '' : String(newVal))
       }
     }
   },
   mounted () {
+    // Enable opt-in resizing once mounted
     this.$nextTick(() => { this.dontResize = false })
   },
   activated () {
+    // If we are being re-activated in <keep-alive>, enable opt-in resizing
     this.$nextTick(() => { this.dontResize = false })
   },
   dectivated () {
-    // If we are in a deactivated <keep-alive>, dont try resizing
+    // If we are in a deactivated <keep-alive>, disable opt-in resizing
     this.dontResize = true
   },
   computed: {
@@ -177,8 +179,7 @@ export default {
 
       // Remember old height and reset it temporarily
       const oldHeight = el.style.height
-      // el.style.height = 'auto'
-      el.style.height = 'inherit'
+      el.style.height = 'auto'
 
       // Get current computed styles
       const computedStyle = getCS(el)
@@ -195,11 +196,13 @@ export default {
       const contentRows = (el.scrollHeight - offset) / lineHeight
       // Put the old height back (needed when new height is equal to old height!)
       el.style.height = oldHeight
-      // Calculate number of rows to display
+      // Calculate number of rows to display (limited within min/max rows)
       const rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows)
+      // Calulate the required height of the textarea including border and padding (in pixels)
+      const height = Math.max(Math.ceil((rows * lineHeight) + offset), minHeight)
 
       // return the new computed height in px units
-      return `${Math.max(Math.ceil((rows * lineHeight) + offset), minHeight)}px`
+      return `${height}px`
     }
   },
   methods: {
@@ -212,15 +215,12 @@ export default {
     },
     onInput (evt) {
       this.$emit('input', evt)
-      if (evt.target.composing) return
       if (evt.defaultPrevented) return
       this.updateValue(evt.target.value)
     },
     onChange (evt) {
-      this.$emit('change', evt)
-      if (evt.target.composing) return
-      if (evt.defaultPrevented) return
       this.updateValue(evt.target.value)
+      this.$emit('change', this.localValue, evt)
     },
     focus () {
       // For external handler that may want a focus method
