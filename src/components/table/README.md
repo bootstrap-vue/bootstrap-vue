@@ -1003,26 +1003,30 @@ on the custom rendering of the field data (formatter functions and/or scoped slo
 are used only for presentation). For this reason, you can provide your own
 custom sort compare routine by passing a function reference to the prop `sort-compare`.
 
-The `sort-compare` routine is passed three arguments. The first two arguments
-(`a` and `b`) are the record objects for the rows being compared, and the third
-argument is the field `key` being sorted on (`sortBy`). The routine should return
-either `-1`, `0`, or `1` based on the result of the comparing of the two records.
-If the routine returns `null`, then the default sort-compare routine will be used.
-You can use this feature (i.e. returning `null`) to have your custom sort-compare
-routine handle only certain fields (keys).
+The `sort-compare` routine is passed four arguments. The first two arguments
+(`a` and `b`) are the record objects for the rows being compared, the third
+argument is the field `key` being sorted on (`sortBy`), andteh fourth argument
+is the value of `sortDesc`. The routine should return either `-1`, `0`, or `1`
+based on the result of the comparing of the two records. If the routine returns
+`null`, then the default sort-compare routine will be used. You can use this feature
+(i.e. returning `null`) to have your custom sort-compare routine handle only certain
+fields (keys) or the special case of virtual columns.
 
 The default sort-compare routine works as follows:
 
 ```js
 if (typeof a[key] === 'number' && typeof b[key] === 'number') {
   // If both compared fields are native numbers
-  return a[key] < b[key] ? -1 : (a[key] > b[key] ? 1 : 0)
+  result = a[key] < b[key] ? -1 : (a[key] > b[key] ? 1 : 0)
 } else {
   // Stringify the field data and use String.localeCompare
-  return toString(a[key]).localeCompare(toString(b[key]), undefined, {
+  // toString converts objects into a space sparated string
+  result toString(a[key]).localeCompare(toString(b[key]), undefined, {
     numeric: true
   })
 }
+// Invert result sign if sortDesc is true
+return (sortDesc ? -1 : 1) * result
 ```
 
 ### Disable local sorting
