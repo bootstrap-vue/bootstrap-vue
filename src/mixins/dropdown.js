@@ -46,6 +46,16 @@ export default {
       type: Boolean,
       default: false
     },
+    dropright: {
+      // place right if possible
+      type: Boolean,
+      default: false
+    },
+    dropleft: {
+      // place left if possible
+      type: Boolean,
+      default: false
+    },
     right: {
       // Right align menu (default is left align)
       type: Boolean,
@@ -198,14 +208,13 @@ export default {
     },
     getPopperConfig /* istanbul ignore next: can't test popper in JSDOM */ () {
       let placement = AttachmentMap.BOTTOM
-      if (this.dropup && this.right) {
-        // dropup + right
-        placement = AttachmentMap.TOPEND
-      } else if (this.dropup) {
-        // dropup + left
-        placement = AttachmentMap.TOP
+      if (this.dropup) {
+        placement = this.right ? AttachmentMap.TOPEND : AttachmentMap.TOP
+      } else if (this.dropright) {
+        placement = AttachmentMap.RIGHT
+      } else if (this.dropleft) {
+        placement = AttachmentMap.LEFT
       } else if (this.right) {
-        // dropdown + right
         placement = AttachmentMap.BOTTOMEND
       }
       const popperConfig = {

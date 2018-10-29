@@ -136,7 +136,7 @@ Turn your dropdown menu into a drop-up menu by setting the `dropup` prop.
 
 ```html
 <div>
-  <b-dropdown id="ddown-dropup" dropup text="Drop-Up" variant="info" class="m-2">
+  <b-dropdown id="ddown-dropup" dropup text="Drop-Up" variant="primary" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
@@ -144,6 +144,36 @@ Turn your dropdown menu into a drop-up menu by setting the `dropup` prop.
 </div>
 
 <!-- dropdown-dropup.vue -->
+```
+
+### Dropright
+Turn your dropdown menu into a drop-right menu by setting the `dropright` prop.
+
+```html
+<div>
+  <b-dropdown id="ddown-dropright" dropright text="Drop-Right" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-dropright.vue -->
+```
+
+### Dropleft
+Turn your dropdown menu into a drop-right menu by setting the `dropleft` prop.
+
+```html
+<div>
+  <b-dropdown id="ddown-dropleft" dropleft text="Drop-Left" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-dropleft.vue -->
 ```
 
 ### Auto "flipping"
