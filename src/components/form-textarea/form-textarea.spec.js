@@ -5,6 +5,7 @@ import { mount } from '@vue/test-utils'
 const Keepalive = {
   template: '<div><keep-alive>' +
             '<b-form-textarea ref="textarea" v-if="show" v-model="value"></b-form-textarea>' +
+            '<p v-else></p>' +
             '</keep-alive></div>',
   components: { bFormTextarea: Textarea },
   data () {
@@ -688,16 +689,21 @@ describe('form-textarea', async () => {
 
     const textarea = keepalive.find(Textarea)
     expect(textarea).toBeDefined()
+    expect(textarea.is(Textarea)).toBe(true)
+
+    await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(false)
 
     // v-if the component out of document
     textarea.setProps({ show: false })
     // dontResize setting happens in a next tick, so not sure if this happens immediately or not
+    await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(true)
 
     // v-if the component out of document
     textarea.setProps({ show: true })
     // dontResize setting happens in a next tick, so not sure if this happens immediately or not
+    await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(false)
   })
 })
