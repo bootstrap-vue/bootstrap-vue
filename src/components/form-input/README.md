@@ -74,7 +74,7 @@ as two separate inputs.
 than what is returned by it's value.
 - Regardless of input type, the value is **always** returned as a string representation.
 - `v-model.lazy` is not supported by `<b-form-input>` (nor any custom vue component).
-- `v-model` modifiers `.number` and `.trim` can cause unexpected cursor jumps when the user is typing. Use 
+- `v-model` modifiers `.number` and `.trim` can cause unexpected cursor jumps when the user is typing (this is a Vue issue with `v-model` on custom components). Avoid using these modifiers.
 
 
 ## Control sizing
@@ -321,27 +321,27 @@ use `this.$refs['foo'].propertyName` or `this.$refs['foo'].methodName(...)`).
 
 ### Input Properties
 
-| Property | Notes
-| -------- | -----
-| `.selectionStart` | Read/Write
-| `.selectionEnd` | Read/Write
-| `.selectionDirection` | Read/Write
-| `.validity` | Read only
-| `.validationMessage` | Read only
-| `.willValidate` | Read only
+| Property | Notes |
+| -------- | ----- |
+| `.selectionStart` | Read/Write |
+| `.selectionEnd` | Read/Write |
+| `.selectionDirection` | Read/Write |
+| `.validity` | Read only |
+| `.validationMessage` | Read only |
+| `.willValidate` | Read only |
 
 ### Input Methods
 
-| Method | Notes
-| ------ | -----
-| `.focus()` | Focus the input
-| `.blur()` | Remove focus from the input
-| `.select()` | Selects all text within the input
-| `.setSelectionRange()` | 
-| `.setRangeText()` | 
-| `.setCustomValidity()` | 
-| `.checkValidity()` | 
-| `.reportValidity()` | 
+| Method | Notes |
+| ------ | ----- |
+| `.focus()` | Focus the input |
+| `.blur()` | Remove focus from the input |
+| `.select()` | Selects all text within the input |
+| `.setSelectionRange()` | |
+| `.setRangeText()` | |
+| `.setCustomValidity()` | |
+| `.checkValidity()` | |
+| `.reportValidity()` | |
 
 Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for
 more information on these methods and properties.  Support will vary based on
