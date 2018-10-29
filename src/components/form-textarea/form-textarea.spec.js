@@ -8,9 +8,8 @@ const Keepalive = {
             '<p v-else></p>' +
             '</keep-alive></div>',
   components: { bFormTextarea: Textarea },
-  data () {
-    return { value: '', show: true }
-  }
+  props: { show: true },
+  data () { return { value: '' } }
 }
 
 describe('form-textarea', async () => {
@@ -507,6 +506,8 @@ describe('form-textarea', async () => {
         maxRows: 5
       }
     })
+    await input.vm.$nextTick()
+
     expect(input.element.style).toBeDefined()
     expect(input.element.style.height).toBeDefined()
     expect(input.element.style.height).not.toEqual('')
