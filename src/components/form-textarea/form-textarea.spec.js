@@ -495,8 +495,8 @@ describe('form-textarea', async () => {
 
   /*
 
-  // The height style calculations appear to not work in test environment
-  // But we do know they work in browser
+  // The height style calculations appear to not work in JSDOM environment
+  // But we do know auto height works in browser
 
   it('has style height when max-rows greater than rows', async () => {
     const input = mount(Textarea, {
@@ -688,9 +688,9 @@ describe('form-textarea', async () => {
     })
     expect(keepalive).toBeDefined()
 
-    const textarea = keepalive.find({ name: 'b-form-textarea' })
+    const textarea = keepalive.find({ name: 'bFormTextarea' })
     expect(textarea).toBeDefined()
-    expect(textarea.is({ name: 'b-form-textarea' })).toBe(true)
+    expect(textarea.is({ name: 'bFormTextarea' })).toBe(true)
 
     await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(false)
