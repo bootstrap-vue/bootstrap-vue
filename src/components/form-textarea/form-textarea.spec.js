@@ -699,13 +699,13 @@ describe('form-textarea', async () => {
     expect(textarea.vm.dontResize).toEqual(false)
 
     // v-if the component out of document
-    textarea.setProps({ show: false })
+    keepalive.setProps({ show: false })
     // dontResize setting happens in a next tick, so not sure if this happens immediately or not
     await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(true)
 
     // v-if the component out of document
-    textarea.setProps({ show: true })
+    keepalive.setProps({ show: true })
     // dontResize setting happens in a next tick, so not sure if this happens immediately or not
     await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(false)
