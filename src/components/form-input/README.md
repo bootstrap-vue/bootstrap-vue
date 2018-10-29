@@ -72,8 +72,9 @@ Instead of using `datetime`, since support should be deprecated, use `date` and 
 as two separate inputs.
 - For date and time style inputs, where supported, the displayed value in the GUI may be different
 than what is returned by it's value.
-- Regardless of input type, the value is **always** returned as a string representation. Use `v-model.number` to convert a numeric-like input's value to a native JavaSript number. Use `v-model.trim` to remove leading and trailing whitespace from user supplied input.
-- `v-model.lazy` is not supported by `<b-form-input>` (nor any custom component).
+- Regardless of input type, the value is **always** returned as a string representation.
+- `v-model.lazy` is not supported by `<b-form-input>` (nor any custom vue component).
+- `v-model` modifiers `.number` and `.trim` can cause unexpected cursor jumps when the user is typing. Use 
 
 
 ## Control sizing
