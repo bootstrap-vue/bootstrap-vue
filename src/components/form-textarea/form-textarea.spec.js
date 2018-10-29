@@ -688,9 +688,9 @@ describe('form-textarea', async () => {
     })
     expect(keepalive).toBeDefined()
 
-    const textarea = keepalive.find(Textarea)
+    const textarea = keepalive.find({ name: 'b-form-textarea' })
     expect(textarea).toBeDefined()
-    expect(textarea.is(Textarea)).toBe(true)
+    expect(textarea.is({ name: 'b-form-textarea' })).toBe(true)
 
     await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(false)
