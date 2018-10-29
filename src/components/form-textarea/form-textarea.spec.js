@@ -1,6 +1,17 @@
 import Textarea from './form-textarea'
 import { mount } from '@vue/test-utils'
 
+// Component for keep-alive testing
+const Keepalive = {
+  template: '<div><keep-alive>' +
+            '<b-form-textarea ref="textarea" v-if="show" v-model="value"></b-form-textarea>' +
+            '</keep-alive></div>',
+  components: { bFormTextarea: Textarea },
+  data() {
+    return { value: '', show: true }
+  }
+}
+
 describe('form-textarea', async () => {
   it('root element is textarea', async () => {
     const input = mount(Textarea)
@@ -667,5 +678,26 @@ describe('form-textarea', async () => {
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(1)
     expect(input.emitted('update')[0][0]).toEqual('TEST')
+  })
+
+  it('activate and deactivate hooks work (keepalive)', async () => {
+    const keepalive = mount(Keepalive, {
+      attachToDocument: true
+    })
+    expect(keepalive).toBeDefined();
+
+    const textarea = keepalive.vm.$refs.textarea
+    expect (textarea).toBeDefined()
+    expect(textarea.vm.dontResize).toEqual(false)
+
+    // v-if the component out of document
+    textarea.setProps({ show: false })
+    // dontResize setting happens in a next tick, so not sure if this happens immediately or not
+    expect(textarea.vm.dontResize).toEqual(true)
+
+    // v-if the component out of document
+    textarea.setProps({ show: true })
+    // dontResize setting happens in a next tick, so not sure if this happens immediately or not
+    expect(textarea.vm.dontResize).toEqual(false)
   })
 })
