@@ -684,13 +684,17 @@ describe('form-textarea', async () => {
 
   it('activate and deactivate hooks work (keepalive)', async () => {
     const keepalive = mount(Keepalive, {
-      attachToDocument: true
+      attachToDocument: true,
+      propsData: {
+        show: true
+      }
     })
     expect(keepalive).toBeDefined()
 
     const textarea = keepalive.find({ name: 'bFormTextarea' })
     expect(textarea).toBeDefined()
-    expect(textarea.is({ name: 'bFormTextarea' })).toBe(true)
+    expect(textarea.isVueInstance()).toBe(true)
+    expect(textarea.name()).toBe('bFormTextarea')
 
     await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(false)
