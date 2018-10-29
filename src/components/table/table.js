@@ -39,13 +39,17 @@ function recToString (obj) {
   )
 }
 
-function defaultSortCompare (a, b, sortBy) {
+function defaultSortCompare (a, b, sortBy, sortDesc) {
+  let result = 0
   if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-    return (a[sortBy] < b[sortBy] && -1) || (a[sortBy] > b[sortBy] && 1) || 0
+    result = (a[sortBy] < b[sortBy] && -1) || (a[sortBy] > b[sortBy] && 1) || 0
+  } else {
+    result = toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
+      numeric: true
+    })
   }
-  return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
-    numeric: true
-  })
+  // negate result if sorting in descending order
+  return (sortDesc ? -1 : 1) * (result || 0)
 }
 
 function processField (key, value) {
@@ -837,10 +841,9 @@ export default {
           }
           if (ret === null || ret === undefined) {
             // Fallback to defaultSortCompare if sortCompare not defined or returns null
-            ret = defaultSortCompare(a, b, sortBy)
+            ret = defaultSortCompare(a, b, sortBy, sortDesc)
           }
-          // Handle sorting direction
-          return (ret || 0) * (sortDesc ? -1 : 1)
+          return ret || 0
         })
       }
       return items
