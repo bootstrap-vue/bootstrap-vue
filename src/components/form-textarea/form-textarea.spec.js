@@ -1,17 +1,6 @@
 import Textarea from './form-textarea'
 import { mount } from '@vue/test-utils'
 
-// Component for keep-alive testing
-const Keepalive = {
-  template: '<div><keep-alive>' +
-            '<b-form-textarea ref="textarea" v-if="show" v-model="value"></b-form-textarea>' +
-            '<p v-else></p>' +
-            '</keep-alive></div>',
-  components: { bFormTextarea: Textarea },
-  props: { show: true },
-  data () { return { value: '' } }
-}
-
 describe('form-textarea', async () => {
   it('root element is textarea', async () => {
     const input = mount(Textarea)
@@ -683,12 +672,23 @@ describe('form-textarea', async () => {
   })
 
   it('activate and deactivate hooks work (keepalive)', async () => {
+    const Keepalive = {
+      template: '<div><keep-alive>' +
+                '<b-form-textarea ref="textarea" v-if="show" v-model="value"></b-form-textarea>' +
+                '<p v-else></p>' +
+                '</keep-alive></div>',
+      components: { bFormTextarea: Textarea },
+      props: { show: true },
+      data () { return { value: '' } }
+    }
+
     const keepalive = mount(Keepalive, {
       attachToDocument: true,
       propsData: {
         show: true
       }
     })
+
     expect(keepalive).toBeDefined()
 
     const textarea = keepalive.find(Textarea)
