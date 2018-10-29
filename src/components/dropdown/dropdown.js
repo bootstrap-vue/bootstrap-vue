@@ -124,20 +124,29 @@ export default {
   },
   computed: {
     dropdownClasses () {
-      let position = ''
       // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
       // when boundary is anything other than `scrollParent`
       // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
-      if (this.boundary !== 'scrollParent' || !this.boundary) {
-        position = 'position-static'
+      const positionStatic = this.boundary !== 'scrollParent' || !this.boundary
+
+      let direction = ''
+      if (this.dropup) {
+        direction = 'dropup'
+      } else if (this.dropright) {
+        direction = 'dropright'
+      } else if (this.dropleft) {
+        direction = 'dropleft'
       }
+
       return [
         'btn-group',
         'b-dropdown',
         'dropdown',
-        this.dropup ? 'dropup' : '',
-        this.visible ? 'show' : '',
-        position
+        direction,
+        {
+          show: this.visible,
+          'position-static': positionStatic
+        }
       ]
     },
     menuClasses () {
