@@ -92,6 +92,9 @@ export default {
     // If we are in a deactivated <keep-alive>, disable opt-in resizing
     this.dontResize = true
   },
+  beforeDestroy () {
+    this.dontResize = true
+  },
   computed: {
     computedStyle () {
       return {
