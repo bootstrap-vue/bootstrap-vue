@@ -7,7 +7,7 @@ const Keepalive = {
             '<b-form-textarea ref="textarea" v-if="show" v-model="value"></b-form-textarea>' +
             '</keep-alive></div>',
   components: { bFormTextarea: Textarea },
-  data() {
+  data () {
     return { value: '', show: true }
   }
 }
@@ -684,10 +684,10 @@ describe('form-textarea', async () => {
     const keepalive = mount(Keepalive, {
       attachToDocument: true
     })
-    expect(keepalive).toBeDefined();
+    expect(keepalive).toBeDefined()
 
-    const textarea = keepalive.vm.$refs.textarea
-    expect (textarea).toBeDefined()
+    const textarea = keepalive.find(Textarea)
+    expect(textarea).toBeDefined()
     expect(textarea.vm.dontResize).toEqual(false)
 
     // v-if the component out of document
