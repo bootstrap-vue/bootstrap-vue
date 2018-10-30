@@ -6,6 +6,9 @@ import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import bFormRadio from './form-radio'
 
+// Needed when radio-groups are inside an input group
+import '../input-group/input-group.css'
+
 export default {
   mixins: [
     idMixin,
