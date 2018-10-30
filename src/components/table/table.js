@@ -12,26 +12,40 @@ import listenOnRootMixin from '../../mixins/listen-on-root'
 // Import styles
 import './table.css'
 
+// Object of item keys that should be ignored for headers and stringification
+const IGNORED_FIELD_KEYS = {
+  _rowVariant: true,
+  _cellVariants: true,
+  _showDetails: true
+}
+
+// Stringifies the values of an object
+//   { b: 3, c: { z: 'zzz', d: null, e: 2 }, d: [10, 12, 11], a: 'one' }
+// becomes
+//   'one 3 2 zzz 10 12 11'
 function toString (v) {
   if (!v) {
     return ''
   }
   if (v instanceof Object) {
+    // Arrays are also object, and keys just returns the array
     return keys(v)
+      .sort() /* sort to prevent SSR issues on pre-rendered sorted tables */
       .map(k => toString(v[k]))
       .join(' ')
   }
   return String(v)
 }
 
+// Stringifies the values of a record, ignoring any special top level keys
 function recToString (obj) {
   if (!(obj instanceof Object)) {
     return ''
   }
   return toString(
     keys(obj).reduce((o, k) => {
-      // Ignore fields that start with _
-      if (!/^_/.test(k)) {
+      // Ignore special fields that start with _
+      if (!IGNORED_FIELD_KEYS[k]) {
         o[k] = obj[k]
       }
       return o
@@ -779,13 +793,8 @@ export default {
       // If no field provided, take a sample from first record (if exits)
       if (fields.length === 0 && this.computedItems.length > 0) {
         const sample = this.computedItems[0]
-        const ignoredKeys = [
-          '_rowVariant',
-          '_cellVariants',
-          '_showDetails'
-        ]
         keys(sample).forEach(k => {
-          if (!ignoredKeys.includes(k)) {
+          if (!IGNORED_FIELD_KEYS[k]) {
             fields.push({ key: k, label: startCase(k) })
           }
         })
@@ -853,17 +862,17 @@ export default {
       const localSorting = this.localSorting
       if (sortBy && localSorting) {
         return stableSort(items, (a, b) => {
-          let ret = null
+          let result = null
           if (typeof sortCompare === 'function') {
             // Call user provided sortCompare routine
-            ret = sortCompare(a, b, sortBy)
+            result = sortCompare(a, b, sortBy, sortDesc)
           }
-          if (ret === null || ret === undefined) {
+          if (result === null || result === undefined) {
             // Fallback to defaultSortCompare if sortCompare not defined or returns null
-            ret = defaultSortCompare(a, b, sortBy)
+            result = defaultSortCompare(a, b, sortBy)
           }
-          // Handle sorting direction
-          return (ret || 0) * (sortDesc ? -1 : 1)
+          // Negate result if sorting in descending order
+          return (result || 0) * (sortDesc ? -1 : 1)
         })
       }
       return items

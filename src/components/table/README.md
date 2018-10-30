@@ -40,7 +40,7 @@ keyed objects. Example format:
     { age: 42, first_name: 'Robert' }
 ]
 ```
-`<b-table>` automatically samples the first row to extract field names (they keys in the
+`<b-table>` automatically samples the first row to extract field names (the keys in the
 record data). Field names are automatically "humanized" by converting `kebab-case`, `snake_case`,
 and `camelCase` to individual words and capitalizes each word. Example conversions:
 
@@ -50,7 +50,7 @@ and `camelCase` to individual words and capitalizes each word. Example conversio
  - `YEAR` remains `YEAR`
  - `isActive` becomes `Is Active`
 
-These titles wil be displayed in the table header, in the order they appear in the
+These titles will be displayed in the table header, in the order they appear in the
 **first** record of data. See the [**Fields**](#fields-column-definitions-) section
 below for customizing how field headings appear.
 
@@ -133,7 +133,7 @@ object for an individual `field`).
 
 ### Fields as a simple array
 Fields can be a simple array, for defining the order of the columns, and
-which columns to display (order is guaranteed):
+which columns to display. **(field order is guaranteed)**:
 
 **Example: Using `array` fields definition**
 ```html
@@ -164,7 +164,7 @@ export default {
 ### Fields as an array of objects
 Fields can be a an array of objects, providing additional control over the fields (such
 as sorting, formatting, etc). Only columns (keys) that appear in the fields array will
-be shown (order is guaranteed):
+be shown **(field order is guaranteed)**:
 
 **Example: Using array of objects fields definition**
 ```html
@@ -212,7 +212,7 @@ export default {
 Also, fields can be a an object providing similar control over the fields as the
 _array of objects_ above does. Only columns listed in the fields object will be shown.
 The order of the fields will typically be in the order they were defined in the object,
-although **order is not guaranteed**.  
+although **field order is not guaranteed**.  
 
 **Example: Using object fields definition**
 ```html
@@ -265,14 +265,14 @@ export default {
 
 >**Notes:** 
 >- _if a `key` property is defined in the field definition, it will take precedence over the key used to define the field._
->- _It is possible to define `key` as column's object property, but currently, sorting of these columns **not supported**_
+>- _It is possible to define `key` as column's object property, but currently, sorting of these columns is **not supported**_
 
 ### Field definition reference
 The following field properties are recognized:
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| `key` | String | The key for selecting data from the record in the items array. Required when passing the props `fields` an array of objects.
+| `key` | String | The key for selecting data from the record in the items array. Required when setting the `fields` from as an array of objects.
 | `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""`
 | `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.
 | `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [**Custom Data Rendering**](#custom-data-rendering) for more details.
@@ -1005,25 +1005,44 @@ on the custom rendering of the field data (formatter functions and/or scoped slo
 are used only for presentation). For this reason, you can provide your own
 custom sort compare routine by passing a function reference to the prop `sort-compare`.
 
-The `sort-compare` routine is passed three arguments. The first two arguments
-(`a` and `b`) are the record objects for the rows being compared, and the third
-argument is the field `key` being sorted on (`sortBy`). The routine should return
-either `-1`, `0`, or `1` based on the result of the comparing of the two records.
-If the routine returns `null`, then the default sort-compare routine will be used.
-You can use this feature (i.e. returning `null`) to have your custom sort-compare
-routine handle only certain fields (keys).
+The `sort-compare` routine is passed four arguments. The first two arguments
+(`a` and `b`) are the record objects for the rows being compared, the third
+argument is the field `key` being sorted on (`sortBy`), and the fourth argument
+(`sortDesc`) is the order `<b-table>` will display the records (`true` for
+descending, `false` for ascending).
 
-The default sort-compare routine works as follows:
+The routine should always return either `-1`  for `a < b` , `0` for `a === b`,
+or `1` for `a > b` (the fourth argument, sorting direction, should not be used, as
+`b-table` will handle the direction). The routine can  also return `null` to fall back
+to the default built-in sort-compare routine. You can use this feature (i.e. by
+returning `null`) to have your custom sort-compare routine handle only certain fields
+(keys) or in the special case of virtual columns.
+
+The default sort-compare routine works similar to the following. Note the fourth
+argument (sorting direction) is **not** used in the sort comparison:
 
 ```js
-if (typeof a[key] === 'number' && typeof b[key] === 'number') {
-  // If both compared fields are native numbers
-  return a[key] < b[key] ? -1 : (a[key] > b[key] ? 1 : 0)
-} else {
-  // Stringify the field data and use String.localeCompare
-  return toString(a[key]).localeCompare(toString(b[key]), undefined, {
-    numeric: true
-  })
+function sortCompare(a, b, key) {
+  if (typeof a[key] === 'number' && typeof b[key] === 'number') {
+    // If both compared fields are native numbers
+    return a[key] < b[key] ? -1 : (a[key] > b[key] ? 1 : 0)
+  } else {
+    // Stringify the field data and use String.localeCompare
+    return toString(a[key]).localeCompare(toString(b[key]), undefined, {
+      numeric: true
+    })
+  }
+}
+function toString (value) {
+  if (!value) { 
+    return ''
+  } else if (value instanceof Object) {
+    return keys(value)
+      .sort()
+      .map(key => toString(value[key]))
+      .join(' ')
+  }
+  return String(value)
 }
 ```
 
