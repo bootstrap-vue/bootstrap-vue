@@ -126,6 +126,7 @@ describe('dropdown', async () => {
 
     expect(menu.attributes['aria-labelledby'].value).toMatch(/_BV_toggle_$/)
   })
+
   it('.dropdown menu aria-labelledby should target `_BV_button_` when in split mode', async () => {
     const { app: { $refs } } = window
     const { dd_2 } = $refs // eslint-disable-line camelcase
