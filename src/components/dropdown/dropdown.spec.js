@@ -33,12 +33,12 @@ describe('dropdown', async () => {
 
   it('destroy the dropdown shoulld cancel listener', async () => {
     const { app: { $refs } } = window
-    const { dd_11 } = $refs // eslint-disable-line camelcase
-    dd_10.listenClickOut()
-    expect(dd_11._clickOutElement).toBe(document.documentElement)
-    dd_10.$parent.show_dd_11 = false
+    const { dd_13 } = $refs // eslint-disable-line camelcase
+    dd_13.listenClickOut()
+    expect(dd_13._clickOutElement).toBe(document.documentElement)
+    dd_13.$parent.show_dd_13 = false
     await Vue.nextTick()
-    expect(dd_11._clickOutElement).toBe(null)
+    expect(dd_13._clickOutElement).toBe(null)
   })
 
   /*
