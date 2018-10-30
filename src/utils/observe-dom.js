@@ -22,7 +22,7 @@ export default function observeDOM (el, callback, opts) {
 
   let obs = null
 
-  /* istanbul ignore next: dificult to test in JSDOM */
+  /* istanbul ignore next: difficult to test in JSDOM */
   if (MutationObserver) {
     // Define a new observer
     obs = new MutationObserver(mutations => {

@@ -41,7 +41,7 @@ not be present, nor can you use the `modal-title` slot.
 
 There are several methods that you can employ to toggle the visibility of `<b-modal>`.
 
-### Using `v-b-modal` directive (recommended)
+### Using `v-b-modal` directive
 
 Other elements can easily show modals using the `v-b-modal` directive.
 
@@ -62,7 +62,8 @@ Other elements can easily show modals using the `v-b-modal` directive.
   <!-- modal-directive-1.vue -->
 ```
 
-Focus will automatically be returned to the trigger element once the modal closes.
+This approach will automatically return focus to the trigger element once the modal closes (similar to default bootstrap functionality). Other approaches for toggling modal visibility will require additional code to implement this accessibility feature.
+
 See the **Accessibility** section below for details.
 
 ### Using `show()` and `hide()` component methods

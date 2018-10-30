@@ -1,6 +1,6 @@
 {
     "name": "@bootstrap-vue/form-input",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "meta": {
         "title": "Form Input",
         "component": "bFormInput",
@@ -11,13 +11,31 @@
                 "args": [
                     {
                         "arg": "value",
-                        "description": "current value of the input"
+                        "description": "Current value of the input (after any formatting applied)"
+                    },
+                    {
+                        "arg": "event",
+                        "description": "The native input event object (before any formatting applied)"
                     }
                 ]
             },
             {
                 "event": "change",
-                "description": "Emitted when the input changes.",
+                "description": "Emitted when the input changes based on user input.",
+                "args": [
+                    {
+                        "arg": "value",
+                        "description": "Current value of the input (after any formatting applied)"
+                    },
+                    {
+                        "arg": "event",
+                        "description": "The native change event object (before any formatting applied)"
+                    }
+                ]
+            },
+            {
+                "event": "update:value",
+                "description": "Event that updates the v-model.",
                 "args": [
                     {
                         "arg": "value",

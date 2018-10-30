@@ -2,7 +2,10 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
+import formSelectionMixin from '../../mixins/form-selection'
+import formValidityMixin from '../../mixins/form-validity'
 import { arrayIncludes } from '../../utils/array'
+import { eventOn, eventOff } from '../../utils/dom'
 
 // Import styles
 import './form-input.css'
@@ -26,35 +29,53 @@ const TYPES = [
   'week'
 ]
 
+// Custom event to update the model
+const MODEL_EVENT = 'update:value'
+
 export default {
-  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin],
+  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formSelectionMixin, formValidityMixin],
   render (h) {
+    var self = this
     return h('input', {
       ref: 'input',
-      class: this.inputClass,
+      class: self.inputClass,
       attrs: {
-        id: this.safeId(),
-        name: this.name,
-        type: this.localType,
-        disabled: this.disabled,
-        required: this.required,
-        readonly: this.readonly || (this.plaintext && this.readonly === null),
-        placeholder: this.placeholder,
-        autocomplete: this.autocomplete || null,
-        'aria-required': this.required ? 'true' : null,
-        'aria-invalid': this.computedAriaInvalid,
-        value: this.value
+        id: self.safeId(),
+        name: self.name,
+        type: self.localType,
+        disabled: self.disabled,
+        required: self.required,
+        readonly: self.readonly || (self.plaintext && self.readonly === null),
+        placeholder: self.placeholder,
+        autocomplete: self.autocomplete || null,
+        'aria-required': self.required ? 'true' : null,
+        'aria-invalid': self.computedAriaInvalid
       },
+      domProps: {
+        value: self.localValue
+      },
+      directives: [
+        { name: 'model', rawName: 'v-model', value: self.localValue, expression: 'localValue' }
+      ],
       on: {
-        ...this.$listeners,
-        input: this.onInput,
-        change: this.onChange
+        ...self.$listeners,
+        input: self.onInput,
+        change: self.onChange
       }
     })
   },
+  data () {
+    return {
+      localValue: this.value
+    }
+  },
+  model: {
+    prop: 'value',
+    event: MODEL_EVENT
+  },
   props: {
     value: {
-      default: null
+      default: ''
     },
     type: {
       type: String,
@@ -87,6 +108,11 @@ export default {
     lazyFormatter: {
       type: Boolean,
       default: false
+    },
+    noWheel: {
+      // Disable mousewheel to prevent wheel from changing values (i.e. number/date).
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -115,47 +141,94 @@ export default {
     }
   },
   mounted () {
-    if (this.value) {
-      const fValue = this.format(this.value, null)
-      this.setValue(fValue)
-    }
+    this.setValue(this.lazyFormatter ? this.value : this.getFormatted(this.value, null))
+    this.setWheelStopper(this.noWheel)
+  },
+  deactivated () {
+    // Turn off listeners when keep-alive component deactivated
+    /* istanbul ignore next */
+    this.setWheelStopper(false)
+  },
+  activated () {
+    // Turn on listeners (if no-wheel) when keep-alive component activated
+    /* istanbul ignore next */
+    this.setWheelStopper(this.noWheel)
+  },
+  beforeDestroy () {
+    /* istanbul ignore next */
+    this.setWheelStopper(false)
   },
   watch: {
     value (newVal) {
-      if (this.lazyFormatter) {
-        this.setValue(newVal)
-      } else {
-        const fValue = this.format(newVal, null)
-        this.setValue(fValue)
-      }
+      this.setValue(this.lazyFormatter ? newVal : this.getFormatted(newVal, null))
+    },
+    noWheel (newVal) {
+      this.setWheelStopper(newVal)
     }
   },
   methods: {
-    format (value, e) {
-      if (this.formatter) {
-        return this.formatter(value, e)
+    setValue (val) {
+      if (val !== this.localVal) {
+        // Only update value if changed, to minimize duplicte emits
+        this.localValue = val
+        this.$emit(MODEL_EVENT, this.localValue)
       }
-      return value
-    },
-    setValue (value) {
-      this.$emit('input', value)
-      // When formatter removes last typed character, value of text input should update to formatted value
-      this.$refs.input.value = value
     },
     onInput (evt) {
+      if (evt.target.composing) return
       const value = evt.target.value
-
-      if (this.lazyFormatter) {
-        this.setValue(value)
-      } else {
-        const fValue = this.format(value, evt)
-        this.setValue(fValue)
-      }
+      this.setValue(this.lazyFormatter ? value : this.getFormatted(value, evt))
+      this.$emit('input', this.localValue, evt)
     },
     onChange (evt) {
-      const fValue = this.format(evt.target.value, evt)
-      this.setValue(fValue)
-      this.$emit('change', fValue)
+      if (evt.target.composing) return
+      this.setValue(this.format(evt.target.value, evt))
+      this.$emit('change', this.localValue, evt)
+    },
+    getFormatted (value, event = null) {
+      return this.formatter ? this.formatter(value, event) : value
+    },
+    setWheelStopper (on) {
+      const input = this.$el
+      // We use native events, so that we don't interfere with prepgation
+      if (on) {
+        eventOn(input, 'focus', this.onFocus)
+        eventOn(input, 'blur', this.onBlur)
+      } else {
+        eventOff(input, 'focus', this.onFocus)
+        eventOff(input, 'blur', this.onBlur)
+        eventOff(document, 'wheel', this.stopWheel)
+      }
+    },
+    onFocus (evt) {
+      eventOn(document, 'wheel', this.stopWheel)
+    },
+    onBlur (evt) {
+      eventOff(document, 'wheel', this.stopWheel)
+    },
+    stopWheel (evt) {
+      evt.preventDefault()
+      this.$el.blur()
+    },
+    // Exposed methods
+    format () {
+      // Force the formatter to run
+      this.setValue(this.getFormatted(this.localValue, null))
+      return this.localValue
+    },
+    focus () {
+      // Expose the input focus() method
+      /* istanbul ignore next */
+      if (!this.disabled) {
+        this.$el.focus()
+      }
+    },
+    blur () {
+      // Expose the input blur() method
+      /* istanbul ignore next */
+      if (!this.disabled) {
+        this.$el.blur()
+      }
     }
   }
 }
