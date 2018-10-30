@@ -122,7 +122,11 @@ export default {
     },
     inputClass () {
       return [
-        this.plaintext ? 'form-control-plaintext' : 'form-control',
+        {
+         'form-control-plaintext': this.plaintext,
+         'form-control': !this.plaintext,
+         'custom-range': this.type === 'range' && !this.plaintext
+        },
         this.sizeFormClass,
         this.stateClass
       ]
