@@ -2,6 +2,7 @@ import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import bButton from '../button/button'
 
+// Needed when dropdowns are inside an input group
 import '../input-group/input-group.css'
 
 export default {
