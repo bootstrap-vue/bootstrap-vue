@@ -20,6 +20,7 @@ describe('dropdown', async () => {
 
     expect(dd_5).toBeComponent('b-dd')
   })
+
   it('clickOut should be listened on demand', async () => {
     const { app: { $refs } } = window
     const { dd_3 } = $refs // eslint-disable-line camelcase
@@ -29,15 +30,17 @@ describe('dropdown', async () => {
     document.documentElement.dispatchEvent(mousedownEvent)
     expect(dd_3._clickOutElement).toBe(null)
   })
+
   it('destroy the dropdown shoulld cancel listener', async () => {
     const { app: { $refs } } = window
-    const { dd_10 } = $refs // eslint-disable-line camelcase
+    const { dd_11 } = $refs // eslint-disable-line camelcase
     dd_10.listenClickOut()
-    expect(dd_10._clickOutElement).toBe(document.documentElement)
-    dd_10.$parent.show_dd_10 = false
+    expect(dd_11._clickOutElement).toBe(document.documentElement)
+    dd_10.$parent.show_dd_11 = false
     await Vue.nextTick()
-    expect(dd_10._clickOutElement).toBe(null)
+    expect(dd_11._clickOutElement).toBe(null)
   })
+
   /*
     // This test complains somewhat due to mising Range functions in JSDOM
     // Commenting out for now
@@ -75,6 +78,7 @@ describe('dropdown', async () => {
       .find(node => node.tagName === 'BUTTON' && node.id === `${dd_8.safeId('_BV_toggle_')}`)
     expect(toggle).toHaveClass('dropdown-toggle')
   })
+
   /*
   it('boundary set to viewport should have class position-static', async () => {
     const {app: {$refs}} = window
@@ -90,6 +94,7 @@ describe('dropdown', async () => {
     expect(dd_1).not.toHaveClass('position-static')
   })
   */
+
   it('dd-item should render as link by default', async () => {
     const { app: { $refs } } = window
     const { dd_6 } = $refs // eslint-disable-line camelcase
@@ -134,6 +139,7 @@ describe('dropdown', async () => {
 
     expect(menu.attributes['aria-labelledby'].value).toMatch(/_BV_toggle_$/)
   })
+
   it('.dropdown menu aria-labelledby should target `_BV_button_` when in split mode', async () => {
     const { app: { $refs } } = window
     const { dd_2 } = $refs // eslint-disable-line camelcase
