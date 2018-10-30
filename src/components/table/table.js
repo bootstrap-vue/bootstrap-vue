@@ -40,9 +40,8 @@ function recToString (obj) {
 }
 
 function defaultSortCompare (a, b, sortBy, sortDesc) {
-  let result = 0
   if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-    returtn (a[sortBy] < b[sortBy] && -1) || (a[sortBy] > b[sortBy] && 1) || 0
+    return (a[sortBy] < b[sortBy] && -1) || (a[sortBy] > b[sortBy] && 1) || 0
   }
   return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
     numeric: true
