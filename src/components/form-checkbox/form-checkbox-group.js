@@ -7,6 +7,9 @@ import formCustomMixin from '../../mixins/form-custom'
 
 import bFormCheckbox from './form-checkbox'
 
+// Needed when checknox-groups are inside an input group
+import '../input-group/input-group.css'
+
 export default {
   mixins: [
     idMixin,
