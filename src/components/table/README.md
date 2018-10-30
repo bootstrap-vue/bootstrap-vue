@@ -1005,28 +1005,43 @@ custom sort compare routine by passing a function reference to the prop `sort-co
 
 The `sort-compare` routine is passed four arguments. The first two arguments
 (`a` and `b`) are the record objects for the rows being compared, the third
-argument is the field `key` being sorted on (`sortBy`), andteh fourth argument
-is the value of `sortDesc`. The routine should return either `-1`, `0`, or `1`
-based on the result of the comparing of the two records. If the routine returns
-`null`, then the default sort-compare routine will be used. You can use this feature
-(i.e. returning `null`) to have your custom sort-compare routine handle only certain
-fields (keys) or the special case of virtual columns.
+argument is the field `key` being sorted on (`sortBy`), and the fourth argument
+(`sortDesc`) is the order `<b-table>` will display the records (`true` for
+descending, `false` for ascending).
 
-The default sort-compare routine works as follows:
+The routine should always return either `-1`  for `a < b` , `0` for `a === b`,
+or `1` for `a > b` (the fourth argument, sorting direction, should not be used, as
+`b-table` will handle the direction). The routine can  also return `null` to fall back
+to the default built-in sort-compare routine. You can use this feature (i.e. by
+returning `null`) to have your custom sort-compare routine handle only certain fields
+(keys) or in the special case of virtual columns.
+
+The default sort-compare routine works similar to the following. Note the fourth
+argument (sorting direction) is **not** used in the sort comparison:
 
 ```js
-if (typeof a[key] === 'number' && typeof b[key] === 'number') {
-  // If both compared fields are native numbers
-  result = a[key] < b[key] ? -1 : (a[key] > b[key] ? 1 : 0)
-} else {
-  // Stringify the field data and use String.localeCompare
-  // toString converts objects into a space sparated string
-  result toString(a[key]).localeCompare(toString(b[key]), undefined, {
-    numeric: true
-  })
+function sortCompare(a, b, key) {
+  if (typeof a[key] === 'number' && typeof b[key] === 'number') {
+    // If both compared fields are native numbers
+    return a[key] < b[key] ? -1 : (a[key] > b[key] ? 1 : 0)
+  } else {
+    // Stringify the field data and use String.localeCompare
+    return toString(a[key]).localeCompare(toString(b[key]), undefined, {
+      numeric: true
+    })
+  }
 }
-// Invert result sign if sortDesc is true
-return (sortDesc ? -1 : 1) * result
+function toString (value) {
+  if (!value) { 
+    return ''
+  } else if (value instanceof Object) {
+    return keys(value)
+      .sort()
+      .map(key => toString(value[key]))
+      .join(' ')
+  }
+  return String(value)
+}
 ```
 
 ### Disable local sorting
