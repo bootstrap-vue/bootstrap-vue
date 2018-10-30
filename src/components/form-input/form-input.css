@@ -14,7 +14,7 @@
 }
 
 /* Range input */
-:not(input-group) .form.control.custom-range {
+:not(.input-group) .form.control.custom-range {
     padding: 0;
     border: none;
 }
