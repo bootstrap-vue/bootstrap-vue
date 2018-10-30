@@ -42,14 +42,11 @@ function recToString (obj) {
 function defaultSortCompare (a, b, sortBy, sortDesc) {
   let result = 0
   if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-    result = (a[sortBy] < b[sortBy] && -1) || (a[sortBy] > b[sortBy] && 1) || 0
-  } else {
-    result = toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
-      numeric: true
-    })
+    returtn (a[sortBy] < b[sortBy] && -1) || (a[sortBy] > b[sortBy] && 1) || 0
   }
-  // negate result if sorting in descending order
-  return (sortDesc ? -1 : 1) * (result || 0)
+  return toString(a[sortBy]).localeCompare(toString(b[sortBy]), undefined, {
+    numeric: true
+  })
 }
 
 function processField (key, value) {
@@ -843,7 +840,8 @@ export default {
             // Fallback to defaultSortCompare if sortCompare not defined or returns null
             ret = defaultSortCompare(a, b, sortBy, sortDesc)
           }
-          return ret || 0
+          // Negate result if sorting in descending order
+          return (ret || 0) * (sortDesc ? -1 : 1)
         })
       }
       return items
