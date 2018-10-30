@@ -1,4 +1,5 @@
 import bPopover from './popover'
+import popoverPlugin from '../../directives/popover'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
@@ -8,6 +9,7 @@ const components = {
 const VuePlugin = {
   install (Vue) {
     registerComponents(Vue, components)
+    Vue.use(popoverPlugin)
   }
 }
 

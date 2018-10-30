@@ -28,17 +28,13 @@ export default {
   render (h, { props: suppliedProps, data, children }) {
     const tag = suppliedProps.active ? 'span' : Link
 
-    let componentData = {
-      props: pluckProps(props, suppliedProps),
-      domProps: { innerHTML: suppliedProps.text }
-    }
-
+    let componentData = { props: pluckProps(props, suppliedProps) }
     if (suppliedProps.active) {
       componentData.attrs = { 'aria-current': suppliedProps.ariaCurrent }
     } else {
       componentData.attrs = { href: suppliedProps.href }
     }
 
-    return h(tag, mergeData(data, componentData), children)
+    return h(tag, mergeData(data, componentData), children || suppliedProps.text)
   }
 }

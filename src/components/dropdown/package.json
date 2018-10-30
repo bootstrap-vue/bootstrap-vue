@@ -12,22 +12,46 @@
         ],
         "events": [
             {
+                "event": "show",
+                "description": "Emitted just before dropdown is shown. Cancelable.",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show."
+                    }
+                ]
+            },
+            {
                 "event": "shown",
-                "description": "Emitted When dropdown is shown"
+                "description": "Emitted when dropdown is shown."
+            },
+            {
+                "event": "hide",
+                "description": "Emitted just before dropdown is hidden. Cancelable.",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide."
+                    }
+                ]
             },
             {
                 "event": "hidden",
-                "description": "Emitted When dropdown is hidden"
+                "description": "Emitted when dropdown is hidden."
+            },
+            {
+                "event": "toggle",
+                "description": "Emitted when toggle button is clicked."
             },
             {
                 "event": "click",
-                "description": "Emitted when split button clicked in split mode."
+                "description": "Emitted when split button is clicked in split mode."
             }
         ],
         "slots": [
             {
                 "name": "button-content",
-                "description": "Can be used to implement custom text with icons and more styling"
+                "description": "Can be used to implement custom text with icons and more styling."
             },
             {
                 "name": "text",

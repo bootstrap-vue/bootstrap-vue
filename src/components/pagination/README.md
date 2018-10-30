@@ -61,6 +61,15 @@ values for `total-rows` and `per-page`.
 | `hide-ellipsis` | never show ellipsis indicators
 | `hide-goto-end-buttons` | never display goto first/last buttons
 
+| Slot | Description
+|----- | -----------
+| `first-text` | The "goto first page" button text (html supported)
+| `prev-text` | The "goto previous page" button text (html supported)
+| `next-text` | The "goto next page" button text (html supported)
+| `last-text` | The "goto last page" button text (html supported)
+| `ellipsis-text` | the `...` indicator text (html supported)
+
+
 Ellipsis inidcator(s) will only be ever shown at the front and/or end of
 the page number buttons. For `limit` values less than or equal to `3`, the ellipsis
 indicator(s) will never be shown for practical display reasons.

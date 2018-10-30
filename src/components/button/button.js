@@ -26,6 +26,10 @@ const btnProps = {
     type: String,
     default: 'button'
   },
+  tag: {
+    type: String,
+    default: 'button'
+  },
   pressed: {
     // tri-state prop: true, false or null
     // => on, off, not a toggle
@@ -55,6 +59,7 @@ export default {
   render (h, { props, data, listeners, children }) {
     const isLink = Boolean(props.href || props.to)
     const isToggle = typeof props.pressed === 'boolean'
+    const isButtonTag = props.tag === 'button'
     const on = {
       click (e) {
         if (props.disabled && e instanceof Event) {
@@ -90,8 +95,8 @@ export default {
       ],
       props: isLink ? pluckProps(linkPropKeys, props) : null,
       attrs: {
-        type: isLink ? null : props.type,
-        disabled: isLink ? null : props.disabled,
+        type: isButtonTag && !isLink ? props.type : null,
+        disabled: isButtonTag && !isLink ? props.disabled : null,
         // Data attribute not used for js logic,
         // but only for BS4 style selectors.
         'data-toggle': isToggle ? 'button' : null,
@@ -107,6 +112,6 @@ export default {
       on
     }
 
-    return h(isLink ? Link : 'button', mergeData(data, componentData), children)
+    return h(isLink ? Link : props.tag, mergeData(data, componentData), children)
   }
 }

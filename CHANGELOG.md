@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-rc.11"></a>
+# [2.0.0-rc.11](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.10...v2.0.0-rc.11) (2018-05-20)
+
+
+### Bug Fixes
+
+* **form-input:** force update formatted value ([#1845](https://github.com/bootstrap-vue/bootstrap-vue/issues/1845)) ([497cc6e](https://github.com/bootstrap-vue/bootstrap-vue/commit/497cc6e))
+
+
+
+<a name="2.0.0-rc.10"></a>
+# [2.0.0-rc.10](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.9...v2.0.0-rc.10) (2018-05-17)
+
+
+### Bug Fixes
+
+* **docs:** Fix duplicate keys in events table ([#1786](https://github.com/bootstrap-vue/bootstrap-vue/issues/1786)) ([fa60d56](https://github.com/bootstrap-vue/bootstrap-vue/commit/fa60d56))
+* **docs:** incorrect closing <b-form-file> tag ([#1838](https://github.com/bootstrap-vue/bootstrap-vue/issues/1838)) ([69e410d](https://github.com/bootstrap-vue/bootstrap-vue/commit/69e410d))
+* **docs:** Remove incorrect code added during debugging ([#1787](https://github.com/bootstrap-vue/bootstrap-vue/issues/1787)) ([9911507](https://github.com/bootstrap-vue/bootstrap-vue/commit/9911507))
+* **form-input:** always return formatted value ([#1839](https://github.com/bootstrap-vue/bootstrap-vue/issues/1839)) ([77cc97b](https://github.com/bootstrap-vue/bootstrap-vue/commit/77cc97b))
+* **tab:** fix the delay in tab transition ([#1812](https://github.com/bootstrap-vue/bootstrap-vue/issues/1812)) ([#1806](https://github.com/bootstrap-vue/bootstrap-vue/issues/1806)) ([5a7a290](https://github.com/bootstrap-vue/bootstrap-vue/commit/5a7a290))
+* **table:** fix aria-rowcount ([#1836](https://github.com/bootstrap-vue/bootstrap-vue/issues/1836)) ([e3e5439](https://github.com/bootstrap-vue/bootstrap-vue/commit/e3e5439))
+
+
+### Features
+
+* **alert:** Add fade prop ([#1785](https://github.com/bootstrap-vue/bootstrap-vue/issues/1785)) ([0999b4c](https://github.com/bootstrap-vue/bootstrap-vue/commit/0999b4c))
+* **breadcrumb-link:** support children elements ([#1832](https://github.com/bootstrap-vue/bootstrap-vue/issues/1832)) ([#1833](https://github.com/bootstrap-vue/bootstrap-vue/issues/1833)) ([42175f8](https://github.com/bootstrap-vue/bootstrap-vue/commit/42175f8))
+* **dropdown:** make show/hide events cancelable . also adds toggle event ([#1807](https://github.com/bootstrap-vue/bootstrap-vue/issues/1807)) ([4136bd9](https://github.com/bootstrap-vue/bootstrap-vue/commit/4136bd9))
+* **table:** Add no-sort-reset prop ([#1784](https://github.com/bootstrap-vue/bootstrap-vue/issues/1784)) ([26aaeab](https://github.com/bootstrap-vue/bootstrap-vue/commit/26aaeab))
+* **table:** Add the sort-direction prop ([#1783](https://github.com/bootstrap-vue/bootstrap-vue/issues/1783)) ([#1788](https://github.com/bootstrap-vue/bootstrap-vue/issues/1788)) ([9e1959d](https://github.com/bootstrap-vue/bootstrap-vue/commit/9e1959d))
+
+
+
 <a name="2.0.0-rc.9"></a>
 # [2.0.0-rc.9](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.8...v2.0.0-rc.9) (2018-04-27)
 

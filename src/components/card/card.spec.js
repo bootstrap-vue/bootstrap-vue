@@ -85,6 +85,16 @@ describe('card', async () => {
     })
   })
 
+  it('should add flex-row to a img-left or img-right image', async () => {
+    const { app } = window
+    const node = app.$refs['img_card']
+    const childNodes = [...node.childNodes]
+    const imgEl = childNodes.find(el => el.tagName && el.tagName === 'IMG')
+
+    expect(imgEl).toBeDefined()
+    expect(imgEl.classList).toEqual(expect.objectContaining(/^flex-row/))
+  })
+
   it("should use the 'tag' for element tag", async () => {
     const { app: { $refs } } = window
     const $titleCard = $refs.card_group.querySelector('#title-tag-test')

@@ -23,23 +23,23 @@ controls and indicators. Please be aware that nested carousels are **not** suppo
       <!-- Text slides with image -->
       <b-carousel-slide caption="First slide"
                         text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-                        img-src="https://lorempixel.com/1024/480/technics/2/"
+                        img-src="https://picsum.photos/1024/480/?image=52"
       ></b-carousel-slide>
 
       <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://lorempixel.com/1024/480/technics/4/">
+      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
         <h1>Hello world!</h1>
       </b-carousel-slide>
 
       <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://lorempixel.com/1024/480/technics/8/">
+      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58">
       </b-carousel-slide>
 
       <!-- Slides with img slot -->
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
       <b-carousel-slide>
         <img slot="img" class="d-block img-fluid w-100" width="1024" height="480"
-             src="https://lorempixel.com/1024/480/technics/5/" alt="image slot">
+             src="https://picsum.photos/1024/480/?image=55" alt="image slot">
       </b-carousel-slide>
 
       <!-- Slide with blank fluid image to maintain slide aspect ratio -->

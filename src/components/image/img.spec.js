@@ -25,7 +25,7 @@ describe('img', async () => {
     })
   })
 
-  it("all but blanks should  have 'src' starting with 'https://lorempixel.com'", async () => {
+  it("all but blanks should  have 'src' starting with 'https://picsum.photos'", async () => {
     const { app: { $refs } } = window;
     [
       'default',
@@ -39,7 +39,7 @@ describe('img', async () => {
     ].forEach(ref => {
       const img = $refs[ref]
       expect(img).toBeDefined()
-      expect(img.getAttribute('src')).toContain('https://lorempixel.com')
+      expect(img.getAttribute('src')).toContain('https://picsum.photos')
     });
     [
       'blank',
@@ -48,7 +48,7 @@ describe('img', async () => {
     ].forEach(ref => {
       const img = $refs[ref]
       expect(img).toBeDefined()
-      expect(img.getAttribute('src')).not.toContain('https://lorempixel.com')
+      expect(img.getAttribute('src')).not.toContain('https://picsum.photos')
     })
   })
 

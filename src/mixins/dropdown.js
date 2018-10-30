@@ -4,6 +4,7 @@ import listenOnRootMixin from './listen-on-root'
 import { from as arrayFrom } from '../utils/array'
 import { assign } from '../utils/object'
 import KeyCodes from '../utils/key-codes'
+import BvEvent from '../utils/bv-event.class'
 import warn from '../utils/warn'
 import { isVisible, closest, selectAll, getAttr, eventOn, eventOff } from '../utils/dom'
 
@@ -45,6 +46,16 @@ export default {
       type: Boolean,
       default: false
     },
+    dropright: {
+      // place right if possible
+      type: Boolean,
+      default: false
+    },
+    dropleft: {
+      // place left if possible
+      type: Boolean,
+      default: false
+    },
     right: {
       // Right align menu (default is left align)
       type: Boolean,
@@ -68,7 +79,8 @@ export default {
   data () {
     return {
       visible: false,
-      inNavbar: null
+      inNavbar: null,
+      visibleChangePrevented: false
     }
   },
   created () {
@@ -95,19 +107,36 @@ export default {
     this.removePopper()
   },
   watch: {
-    visible (state, old) {
-      if (state === old) {
-        // Avoid duplicated emits
+    visible (newValue, oldValue) {
+      if (this.visibleChangePrevented) {
+        this.visibleChangePrevented = false
         return
       }
-      if (state) {
-        this.showMenu()
-      } else {
-        this.hideMenu()
+
+      if (newValue !== oldValue) {
+        const evtName = newValue ? 'show' : 'hide'
+        let bvEvt = new BvEvent(evtName, {
+          cancelable: true,
+          vueTarget: this,
+          target: this.$refs.menu,
+          relatedTarget: null
+        })
+        this.emitEvent(bvEvt)
+        if (bvEvt.defaultPrevented) {
+          // Reset value and exit if canceled
+          this.visibleChangePrevented = true
+          this.visible = oldValue
+          return
+        }
+        if (evtName === 'show') {
+          this.showMenu()
+        } else {
+          this.hideMenu()
+        }
       }
     },
-    disabled (state, old) {
-      if (state !== old && state && this.visible) {
+    disabled (newValue, oldValue) {
+      if (newValue !== oldValue && newValue && this.visible) {
         // Hide dropdown if disabled changes to true
         this.visible = false
       }
@@ -119,12 +148,16 @@ export default {
     }
   },
   methods: {
+    // Event emitter
+    emitEvent (bvEvt) {
+      const type = bvEvt.type
+      this.$emit(type, bvEvt)
+      this.emitOnRoot(`bv::dropdown::${type}`, bvEvt)
+    },
     showMenu () {
       if (this.disabled) {
         return
       }
-      // TODO: move emit show to visible watcher, to allow cancelling of show
-      this.$emit('show')
       // Ensure other menus are closed
       this.emitOnRoot('bv::dropdown::shown', this)
 
@@ -156,8 +189,6 @@ export default {
       this.$nextTick(this.focusFirstItem)
     },
     hideMenu () {
-      // TODO: move emit hide to visible watcher, to allow cancelling of hide
-      this.$emit('hide')
       this.setTouchStart(false)
       this.emitOnRoot('bv::dropdown::hidden', this)
       this.$emit('hidden')
@@ -176,14 +207,13 @@ export default {
     },
     getPopperConfig /* istanbul ignore next: can't test popper in JSDOM */ () {
       let placement = AttachmentMap.BOTTOM
-      if (this.dropup && this.right) {
-        // dropup + right
-        placement = AttachmentMap.TOPEND
-      } else if (this.dropup) {
-        // dropup + left
-        placement = AttachmentMap.TOP
+      if (this.dropup) {
+        placement = this.right ? AttachmentMap.TOPEND : AttachmentMap.TOP
+      } else if (this.dropright) {
+        placement = AttachmentMap.RIGHT
+      } else if (this.dropleft) {
+        placement = AttachmentMap.LEFT
       } else if (this.right) {
-        // dropdown + right
         placement = AttachmentMap.BOTTOMEND
       }
       const popperConfig = {
@@ -257,12 +287,17 @@ export default {
         // We only toggle on Click, Enter, Space, and Arrow Down
         return
       }
-      evt.preventDefault()
-      evt.stopPropagation()
       if (this.disabled) {
         this.visible = false
         return
       }
+      this.$emit('toggle', evt)
+      if (evt.defaultPrevented) {
+        // Exit if canceled
+        return
+      }
+      evt.preventDefault()
+      evt.stopPropagation()
       // Toggle visibility
       this.visible = !this.visible
     },
