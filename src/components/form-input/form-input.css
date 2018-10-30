@@ -14,27 +14,27 @@
 }
 
 /* Range input */
-:not(.input-group) .form.control.custom-range {
+*:not(.input-group) > .form.control.custom-range {
     padding: 0;
-    border: none;
+    border: 0;
 }
-/* Temporary fixes until Bootstrap V4.2 is released. Needs verification */
-input-group .form.control.custom-range {
+.input-group > .form.control.custom-range {
     padding-left: .75rem;
     height: 2.25rem;
 }
-.input-group-sm .form.control.custom-range {
+.input-group-sm > .form.control.custom-range {
     height: 1.9375rem;
 }
-.input-group-lg .form.control.custom-range {
+.input-group-lg > .form.control.custom-range {
     height: 3rem;
 }
-.custom-range:disabled::-webkit-slider-thumb,
-.custom-range:disabled::-moz-range-thumb,
-.custom-range:disabled::-ms-thumb {
+/* Temporary fixes until Bootstrap V4.2 is released. Needs verification */
+.custom-range[disabled]::-webkit-slider-thumb,
+.custom-range[disabled]::-moz-range-thumb,
+.custom-range[disabled]::-ms-thumb {
   background-color: #adb5bd;
 }
-.custom-range:disabled::-webkit-slider-runnable-track,
-.custom-range:disabled::-moz-range-track {
+.custom-range[disabled]::-webkit-slider-runnable-track,
+.custom-range[disabled]::-moz-range-track {
   cursor: default;
 }
