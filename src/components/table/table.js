@@ -39,7 +39,7 @@ function toString (v) {
 
 // Stringifies the values of a record, ignoring any special top level keys
 function recToString (obj) {
-  if (!obj instanceof Object)) {
+  if (!obj instanceof Object) {
     return ''
   }
   return toString(
