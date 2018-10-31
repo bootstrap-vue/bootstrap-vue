@@ -48,6 +48,9 @@ export default {
         readonly: self.readonly || (self.plaintext && self.readonly === null),
         placeholder: self.placeholder,
         autocomplete: self.autocomplete || null,
+        min: self.min,
+        max: self.max,
+        step: self.step,
         'aria-required': self.required ? 'true' : null,
         'aria-invalid': self.computedAriaInvalid
       },
@@ -113,6 +116,18 @@ export default {
       // Disable mousewheel to prevent wheel from changing values (i.e. number/date).
       type: Boolean,
       default: false
+    },
+    min: {
+      type: [String, Number],
+      default: null
+    },
+    max: {
+      type: [String, Number],
+      default: null
+    },
+    step: {
+      type: [String, Number],
+      default: null
     }
   },
   computed: {
@@ -123,9 +138,11 @@ export default {
     inputClass () {
       return [
         {
+          'custom-range': this.type === 'range',
+          // plaintext not supported by custom-range
           'form-control-plaintext': this.plaintext && this.type !== 'range',
-          'form-control': !this.plaintext && this.type !== 'range',
-          'custom-range': this.type === 'range'
+          // form-strontol not used by custom-range or plaintext
+          'form-control': !this.plaintext && this.type !== 'range'
         },
         this.sizeFormClass,
         this.stateClass
