@@ -16,6 +16,12 @@
   padding: 0;
 }
 
+/* Temporary fix for validation until Bootstrap includes validation styles for range */
+/* No PR for this yet at bootstrap */
+.custom-range: {
+  border: 1px solid transparent;
+}
+
 /* Temp fix until V4.2. Note these selectors _cannont_ be merged togheter */
 /* https://github.com/twbs/bootstrap/pull/26540 */
 .custom-range:disabled::-webkit-slider-thumb {
@@ -35,7 +41,7 @@
 }
 
 /* Temporary fixes until Bootstrap includes styles for range in .input-group */
-/* No PR for this yet at twbs/bootstrap */
+/* No PR for this yet at bootstrap */
 .input-group > .custom-range {
   display: block;
   height: calc(2.25rem + 2px);
@@ -45,7 +51,7 @@
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: .25rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .input-group > .custom-range {
@@ -55,7 +61,6 @@
   width: 1%;
   margin-bottom: 0;
 }
-
 
 .input-group-sm > .custom-range {
   height: calc(1.8125rem + 2px);
@@ -77,6 +82,7 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
+
 .input-group > .custom-range:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -88,7 +94,7 @@
 
 /* Add some custom style for focusing custom-range when inside an .input-group */
 /* Normally only the range thumb has focus styling */
-/* No PR for this at twbs/bootstrap yet */
+/* No PR for this at bootstrap yet */
 .input-group .custom-range:focus {
     background-color: #fff;
     border-color: #80bdff;
@@ -97,12 +103,7 @@
 }
 
 /* Temporary validation fixes until Bootstrap includes validation styles for range */
-/* No PR for this yet at twbs/bootstrap */
-.cust6om-range: {
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
-}
+/* No PR for this yet at bootstrap */
 .custom-range.is-invalid,
 .was-validated .custom-range:invalid {
   border-color: #dc3545;
