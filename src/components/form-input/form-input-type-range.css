@@ -6,17 +6,16 @@
  *
  * Fixes missing styling when placed inside an input-group
  * Fixes missing validation styling
- *
  */
 
 /* fixes padding issue in V4.1 css */
 input.custom-range {
   padding-left: 0;
   padding-right: 0;
-  padding-top: 0.65rem
+  padding-top: 0.65rem;
 }
 
-/ * Temp fix until V4.2. Note these selectors *cannont* be merged togheter */
+/* Temp fix until V4.2. Note these selectors _cannont_ be merged togheter */
 .custom-range:disabled::-webkit-slider-thumb {
   background-color: #adb5bd;
 }
