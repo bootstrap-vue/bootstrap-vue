@@ -124,7 +124,7 @@ export default {
       return [
         {
           'form-control-plaintext': this.plaintext && this.type !== 'range',
-          'form-control': !this.plaintext && !this.type === 'range',
+          'form-control': !this.plaintext && this.type !== 'range',
           'custom-range': this.type === 'range'
         },
         this.sizeFormClass,
