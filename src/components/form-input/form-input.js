@@ -141,7 +141,7 @@ export default {
           'custom-range': this.type === 'range',
           // plaintext not supported by custom-range
           'form-control-plaintext': this.plaintext && this.type !== 'range',
-          // form-strontol not used by custom-range or plaintext
+          // form-control not used by custom-range or plaintext
           'form-control': !this.plaintext && this.type !== 'range'
         },
         this.sizeFormClass,
