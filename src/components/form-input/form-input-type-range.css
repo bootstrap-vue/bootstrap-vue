@@ -117,7 +117,10 @@
 .custom-range.is-invalid::-moz-range-track {
     background-color: #f5c6cb;
 }
-.custom-range.is-invalid::-ms-track {
+.custom-range.is-invalid::-ms-fill-lower {
+    background-color: #f5c6cb;
+}
+.custom-range.is-invalid::-ms-fill-upper {
     background-color: #f5c6cb;
 }
 .custom-range.is-invalid:focus,
@@ -129,13 +132,16 @@
 .was-validated .custom-range:valid {
   border-color: #28a745;
 }
-.custom-range.is-invalid::-webkit-slider-runnable-track {
+.custom-range.is-valid::-webkit-slider-runnable-track {
     background-color: #c3e6cb;
 }
-.custom-range.is-invalid::-moz-range-track {
+.custom-range.is-valid::-moz-range-track {
     background-color: #c3e6cb;
 }
-.custom-range.is-invalid::-ms-track {
+.custom-range.is-valid::-ms-fill-lower {
+    background-color: #c3e6cb;
+}
+.custom-range.is-valid::-ms-fill-upper {
     background-color: #c3e6cb;
 }
 .custom-range.is-valid:focus,
