@@ -10,7 +10,7 @@ import { eventOn, eventOff } from '../../utils/dom'
 // Import styles for input type=color
 import './form-input-type-color.css'
 // Import temp styles and fixes for input type=range (custom-range)
-import './form-input-type-range.css'
+// import './form-input-type-range.css'
 
 // Valid supported input types
 const TYPES = [
