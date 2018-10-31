@@ -141,10 +141,10 @@ export default {
       return [
         {
           'custom-range': this.type === 'range',
-          // plaintext not supported by custom-range
-          'form-control-plaintext': this.plaintext && this.type !== 'range',
-          // form-control not used by custom-range or plaintext
-          'form-control': !this.plaintext && this.type !== 'range'
+          // plaintext not supported by type=range or type=color
+          'form-control-plaintext': this.plaintext && this.type !== 'range' && this.type !== 'color',
+          // form-control not used by type=range or plaintext. Always used by type=color
+          'form-control': (!this.plaintext && this.type !== 'range') || type === 'color'
         },
         this.sizeFormClass,
         this.stateClass
