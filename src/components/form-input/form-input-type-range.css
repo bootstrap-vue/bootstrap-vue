@@ -18,10 +18,12 @@
 
 /* Temporary fix for validation until Bootstrap includes validation styles for range */
 /* No PR for this yet at bootstrap */
+/*
 .custom-range {
   border: 1px solid transparent;
   border-radius: .25rem;
 }
+*/
 
 /* Temp fix until V4.2. Note these selectors _cannont_ be merged togheter */
 /* https://github.com/twbs/bootstrap/pull/26540 */
@@ -109,6 +111,15 @@
 .was-validated .custom-range:invalid {
   border-color: #dc3545;
 }
+.custom-range.is-invalid::-webkit-slider-runnable-track {
+    background-color: #f5c6cb;
+}
+.custom-range.is-invalid::-moz-range-track {
+    background-color: #f5c6cb;
+}
+.custom-range.is-invalid::-ms-track {
+    background-color: #f5c6cb;
+}
 .custom-range.is-invalid:focus,
 .was-validated .custom-range:invalid:focus {
   border-color: #dc3545;
@@ -117,6 +128,15 @@
 .custom-range.is-valid,
 .was-validated .custom-range:valid {
   border-color: #28a745;
+}
+.custom-range.is-invalid::-webkit-slider-runnable-track {
+    background-color: #c3e6cb;
+}
+.custom-range.is-invalid::-moz-range-track {
+    background-color: #c3e6cb;
+}
+.custom-range.is-invalid::-ms-track {
+    background-color: #c3e6cb;
 }
 .custom-range.is-valid:focus,
 .was-validated .custom-range:valid:focus {
