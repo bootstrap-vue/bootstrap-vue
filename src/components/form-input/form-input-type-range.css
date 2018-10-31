@@ -9,14 +9,15 @@
  * Fixes missing validation styling
  */
 
-/* fixes padding and height issue in V4.1 css */
-/* https://github.com/ysds/bootstrap/blob/3351d1819ff9ce6b24fc5fdcac465d06cbb7b80f/scss/_custom-forms.scss */
+/* fixes padding and height issue in V4.1 css until V4.2 shipped */
+/* https://github.com/twbs/bootstrap/pull/26898 */
 .custom-range {
   height: calc(1rem + .2rem * 2);
   padding: 0;
 }
 
 /* Temp fix until V4.2. Note these selectors _cannont_ be merged togheter */
+/* https://github.com/twbs/bootstrap/pull/26540 */
 .custom-range:disabled::-webkit-slider-thumb {
   background-color: #adb5bd;
 }
@@ -33,7 +34,8 @@
   background-color: #adb5bd;
 }
 
-/* Temporary fixes until Bootstrap includes styles for range in finput-group */
+/* Temporary fixes until Bootstrap includes styles for range in .input-group */
+/* No PR for this yet at twbs/bootstrap */
 .input-group > .custom-range {
   display: block;
   height: calc(2.25rem + 2px);
@@ -84,7 +86,8 @@
   z-index: 3;
 }
 
-/* Temporary fixes until Bootstrap includes validation styles for range */
+/* Temporary validation fixes until Bootstrap includes validation styles for range */
+/* No PR for this yet at twbs/bootstrap */
 .custom-range.is-invalid,
 .was-validated .custom-range:invalid {
   border-color: #dc3545;
@@ -94,7 +97,6 @@
   border-color: #dc3545;
   box-shadow: 0 0 0 .2rem rgba(220,53,69,.25);
 }
-
 .custom-range.is-valid,
 .was-validated .custom-range:valid {
   border-color: #28a745;
