@@ -1,7 +1,7 @@
 # Textual and Value inputs
 
-> Create various text style inputs such as: `text`, `password`, `number`, `url`,
-`email`, `search`, `range` and more.
+> Create various type inputs such as: `text`, `password`, `number`, `url`,
+`email`, `search`, `range`, `date` and more.
 
 ```html
 <template>
@@ -65,13 +65,14 @@ will be rendered and a console warning will be issued.
 **Caveats with input types:**
 - Not all browsers support all input types, nor do some types render in the same format across
 browser types/versions.
-- Browsers that do not support a particular type will fall back to
-a `text` input type (event thoough the rendered `type` attribute markup shows the requested type).
+- Browsers that do not support a particular type will fall back to a `text` input type (event thoough the rendered `type` attribute markup shows the requested type).
+- No testing is performed to see if the requested input type is supported by the browser.
 - Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
 Instead of using `datetime`, since support should be deprecated, use `date` and `time`
 as two separate inputs.
+- `date` and `time` inputs are native borwser types, and are not a custom date/time picker.
 - For date and time style inputs, where supported, the displayed value in the GUI may be different
-than what is returned by it's value.
+than what is returned by it's value (i.e. ordering of year-month-date).
 - Regardless of input type, the value is **always** returned as a string representation.
 - `v-model.lazy` is not supported by `<b-form-input>` (nor any custom vue component).
 - `v-model` modifiers `.number` and `.trim` can cause unexpected cursor jumps when the user is typing (this is a Vue issue with `v-model` on custom components). Avoid using these modifiers.
@@ -89,8 +90,8 @@ may specify new values for those using the `min` and `max` props.
 <template>
   <div>
     <label for="range-1">Example range with min and max</label>
-    <b-form-input type="range" id="range-1 v-model="value" min="0" max="5" />
-    <p class="mt-2">{{ value }}</p>
+    <b-form-input type="range" id="range-1" v-model="value" min="0" max="5" />
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -114,8 +115,8 @@ value. In the example below, we double the number of steps by using step="0.5".
 <template>
   <div>
     <label for="range-2">Example range with step value</label>
-    <b-form-input type="range" id="range-2 v-model="value" min="0" max="5" step="0.5" />
-    <p class="mt-2">{{ value }}</p>
+    <b-form-input type="range" id="range-2" v-model="value" min="0" max="5" step="0.5" />
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -131,6 +132,10 @@ export default {
 
 <!-- form-input-range-2.vue -->
 ```
+
+**Note:** Range inputs (as do all input types) return their value as a string. You may
+need to convert the value to a native number by using `Number(value)`, `parseInt(value, 10)`,
+`parseFloat(value)`, or use the `.number` modifier on the `v-model`.
 
 **Note:** Bootsttrap V4.1 CSS does not include styling for range inputs inside input groups,
 nor validation styling on range inputs. However, Bootstrap-Vue includes custom styling to handle
@@ -168,7 +173,11 @@ To control width, place the input inside standard Bootstrap grid column.
 ```
 
 **Note:** Input type `range` currently does not support control sizing unless it is placed inside a
-`<b-input-group>` that has a `size` prop set.
+`<b-input-group>` which has its `size` prop set.
+
+**Note:** The native HTML `<input>` attribute `size` (which sets a horizontal width on the
+`<input>` in characters) is not supported. Use styling, utility classes, or the layout rows (`<b-row>`)
+and columns (`<b-col>`) to set the desired width.
 
 
 ## Contextual States
