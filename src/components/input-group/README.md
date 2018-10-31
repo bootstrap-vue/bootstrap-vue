@@ -39,12 +39,11 @@ Values will be internally wrapped by a `<b-input-group-text>` to display correct
 
 ```html
 <div>
-  <b-input-group prepend="$" append=".00">
+  <b-input-group prepend="$" append=".00" class="mb-2">
     <b-form-input></b-form-input>
   </b-input-group>
-  <br><br>
   <b-input-group prepend="0" append="100">
-    <b-form-input type="range" min="0" max="0"></b-form-input>
+    <b-form-input type="range" min="0" max="100"></b-form-input>
   </b-input-group>
 </div>
 
@@ -167,7 +166,7 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
         <b-input-group-prepend is-text>
           <b>$</b>
         </b-input-group-prepend>
-        <b-form-input type="text" aria-label="Text input with checkbox" />
+        <b-form-input type="number" aria-label="Text input with checkbox" />
       </b-input-group>
     </b-col>
   </b-row>
@@ -199,7 +198,7 @@ To control width, place the input inside standard Bootstrap grid column.
 
 
 ## Contextual states
-Bootstrap currently **does not** support contextual state (i.e. valid or invalid) on
-input groups.
+Bootstrap V4 currently **does not** support contextual state styling (i.e. valid or invalid) of
+input groups. However, the inputs inside the input group do support contextual state.
 
 ## Component Reference
