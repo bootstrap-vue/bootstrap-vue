@@ -44,6 +44,9 @@ input.custom-range {
   border: 1px solid #ced4da;
   border-radius: .25rem;
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.input-group > .custom-range {
   position: relative;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -66,6 +69,15 @@ input.custom-range {
   border-radius: .3rem;
 }
 
+.input-group > .custom-range:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input-group > .custom-range:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 / * Temp fix until V4.2. Note these selectors *cannont* be merged togheter */
 .custom-range:disabled::-webkit-slider-thumb {
   background-color: #adb5bd;
@@ -81,6 +93,10 @@ input.custom-range {
 }
 .custom-range:disabled::-ms-thumb {
   background-color: #adb5bd;
+}
+
+.input-group > .custom-range:focus {
+  z-index: 3;
 }
 
 /* Temporary fixes until Bootstrap includes validation styles for range */
@@ -102,17 +118,4 @@ input.custom-range {
 .was-validated .custom-range:valid:focus {
   border-color: #28a745;
   box-shadow: 0 0 0 .2rem rgba(40,167,69,.25);
-}
-
-.input-group > .custom-range:focus {
-  z-index: 3;
-}
-
-.input-group > .custom-range:not(:last-child) {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-.input-group > .custom-range:not(:first-child) {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
 }
