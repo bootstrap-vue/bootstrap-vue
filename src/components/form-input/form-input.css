@@ -5,13 +5,13 @@
  */
 
 input[type="color"].form-control {
-    height: 2.25rem;
-    padding: 0.25rem 0.25rem;
+  height: 2.25rem;
+  padding: 0.25rem 0.25rem;
 }
 input[type="color"].form-control.form-control-sm,
 .input-group-sm input[type="color"].form-control {
-    height: 1.9375rem;
-    padding: 0.125rem 0.125rem;
+  height: 1.9375rem;
+  padding: 0.125rem 0.125rem;
 }
 input[type="color"].form-control.form-control-lg,
 .input-group-lg input[type="color"].form-control {
@@ -26,70 +26,93 @@ input[type="color"].form-control:disabled {
  * input=range .custom-range fixes and overrides
  */
 
-/* based padding fixes padding issue in V4.1 css */
-input[type="range"].custom-range {
-    padding-left: 0;
-    padding-right: 0;
+/* fixes padding issue in V4.1 css */
+input.custom-range {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0.65rem
 }
 
 /* Temporary fixes until Bootstrap includes styles for range in finput-group */
-.input-group > input[type="range"].custom-range {
-    display: block;
-    height: calc(2.25rem + 2px);
-    padding-left: .75rem;
-    padding-right: .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-.input-group > input[type="range"].custom-range {
-    position: relative;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    width: 1%;
-    margin-bottom: 0;
-}
-.input-group-sm > input[type="range"].custom-range {
-    height: calc(1.8125rem + 2px);
-    padding-left: .5rem;
-    padding-right: .5rem;
-    font-size: .875rem;
-    line-height: 1.5;
-    border-radius: .2rem;
-}
-.input-group-lg > input[type="range"].custom-range {
-    height: calc(2.875rem + 2px);
-    padding-left: 1rem;
-    padding-right: 1rem;
-    font-size: 1.25rem;
-    line-height: 1.5;
-    border-radius: .3rem;
-}
-.input-group > input[type="range"].custom-range:not(:last-child) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-.input-group > input[type="range"].custom-range:not(:first-child) {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+.input-group > .custom-range {
+  display: block;
+  height: calc(2.25rem + 2px);
+  padding: 0 .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  position: relative;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  width: 1%;
+  margin-bottom: 0;
 }
 
-/* Temporary disabled state fixes until Bootstrap V4.2 is released. Needs verification */
-input[type="range"].custom-range:disabled::-webkit-slider-thumb {
+.input-group-sm > .custom-range {
+  height: calc(1.8125rem + 2px);
+  padding: 0 .5rem;
+  font-size: .875rem;
+  line-height: 1.5;
+  border-radius: .2rem;
+}
+.input-group-lg > .custom-range {
+  height: calc(2.875rem + 2px);
+  padding-left: 0 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: .3rem;
+}
+
+/ * Temp fix until V4.2. Note these selectors *cannont* be merged togheter */
+.custom-range:disabled::-webkit-slider-thumb {
   background-color: #adb5bd;
 }
-input[type="range"].custom-range:disabled::-webkit-slider-runnable-track {
+.custom-range:disabled::-webkit-slider-runnable-track {
   cursor: default;
 }
-input[type="range"].custom-range:disabled::-moz-range-thumb {
+.custom-range:disabled::-moz-range-thumb {
   background-color: #adb5bd;
 }
-input[type="range"].custom-range:disabled::-moz-range-track {
+.custom-range:disabled::-moz-range-track {
   cursor: default;
 }
-input[type="range"].custom-range:disabled::-ms-thumb {
+.custom-range:disabled::-ms-thumb {
   background-color: #adb5bd;
+}
+
+/* Temporary fixes until Bootstrap includes validation styles for range */
+.custom-range.is-invalid,
+.was-validated .custom-range:invalid {
+  border-color: #dc3545;
+}
+.custom-range.is-invalid:focus,
+.was-validated .custom-range:invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 .2rem rgba(220,53,69,.25);
+}
+
+.custom-range.is-valid,
+.was-validated .custom-range:valid {
+  border-color: #28a745;
+}
+.custom-range.is-valid:focus,
+.was-validated .custom-range:valid:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 .2rem rgba(40,167,69,.25);
+}
+
+.input-group > .custom-range:focus {
+  z-index: 3;
+}
+
+.input-group > .custom-range:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input-group > .custom-range:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
