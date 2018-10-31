@@ -42,6 +42,10 @@ Values will be internally wrapped by a `<b-input-group-text>` to display correct
   <b-input-group prepend="$" append=".00">
     <b-form-input></b-form-input>
   </b-input-group>
+  <br><br>
+  <b-input-group prepend="0" append="100">
+    <b-form-input type="range" min="0" max="0"></b-form-input>
+  </b-input-group>
 </div>
 
 <!-- input-group-using-props.vue -->
@@ -54,7 +58,8 @@ This slots will be wrapped by `<b-input-group-prepend|append>` to display correc
 
 ```html
 <div>
-  <b-input-group prepend="Username">
+  <b-input-group>
+    <b-input-group-text slot="prepend">Username</b-input-group-text>
     <b-form-input></b-form-input>
     <b-dropdown text="Dropdown" variant="success" slot="append">
       <b-dropdown-item>Action A</b-dropdown-item>
@@ -68,9 +73,9 @@ This slots will be wrapped by `<b-input-group-prepend|append>` to display correc
 
 
 ### Using components
-Use the `<b-input-group-prepend>` or `<b-input-group-append>` to add arbitrary addons wherever you like,
-and use these components to group buttons in your input group.
-Single buttons must always be wrapped in components for proper styling.
+Use the `<b-input-group-prepend>` or `<b-input-group-append>` to add arbitrary addons
+wherever you like, and use these components to group buttons in your input group.
+Single buttons must always be wrapped in these components for proper styling.
 
 ```html
 <div>
@@ -91,6 +96,10 @@ Single buttons must always be wrapped in components for proper styling.
 <!-- input-group-addons-placement.vue -->
 ```
 
+Set the `is-text` prop on `<b-input-group-prepend>` or `<b-input-group-append>`
+if the content is textual in nature to apply proper styling. Alternatively, use
+the `<b-input-group-text>` subcomponent inside the `<b-input-group-prepend>` or
+`<b-input-group-append>`.
 
 ## Checkbox and radio addons
 Place any native checkbox or radio within an input group’s addon instead of text.
@@ -128,14 +137,14 @@ Place any native checkbox or radio within an input group’s addon instead of te
 
 ```html
 <b-input-group>
-  <b-dropdown text="Dropdown" variant="info" slot="prepend" v-for="i in 2" :key="i">
+  <b-dropdown slot="prepend" text="Dropdown" variant="info" v-for="i in 2" :key="i">
     <b-dropdown-item>Action A</b-dropdown-item>
     <b-dropdown-item>Action B</b-dropdown-item>
   </b-dropdown>
 
   <b-form-input></b-form-input>
 
-  <b-dropdown text="Dropdown" variant="outline-secondary" slot="append" v-for="i in 2" :key="i">
+  <b-dropdown slot="append" text="Dropdown" variant="outline-secondary" v-for="i in 2" :key="i">
     <b-dropdown-item>Action C</b-dropdown-item>
     <b-dropdown-item>Action D</b-dropdown-item>
   </b-dropdown>
@@ -151,11 +160,13 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
 <b-container>
   <b-row>
     <b-col lg="6">
-      <b-input-group prepend="$">
+      <b-input-group prepend="Item">
         <b-input-group-prepend is-text>
-            <input type="checkbox" aria-label="Checkbox for following text input">
+          <input type="checkbox" aria-label="Checkbox for following text input">
         </b-input-group-prepend>
-
+        <b-input-group-prepend is-text>
+          <b>$</b>
+        </b-input-group-prepend>
         <b-form-input type="text" aria-label="Text input with checkbox" />
       </b-input-group>
     </b-col>
