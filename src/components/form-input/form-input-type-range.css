@@ -20,6 +20,7 @@
 /* No PR for this yet at bootstrap */
 .custom-range {
   border: 1px solid transparent;
+  border-radius: .25rem;
 }
 
 /* Temp fix until V4.2. Note these selectors _cannont_ be merged togheter */
