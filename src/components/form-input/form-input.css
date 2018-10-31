@@ -1,40 +1,95 @@
-/* Special styling for type=color input */
-.form-control[type="color"] {
+/*
+ * Special styling for type=color input
+ * Bootstrap V4.x does not have special styling for color input
+ * So we define some basic styles to compensate
+ */
+
+input[type="color"].form-control {
     height: 2.25rem;
     padding: 0.25rem 0.25rem;
 }
-.form-control.form-control-sm[type="color"],
-.input-group-sm .form-control[type="color"] {
+input[type="color"].form-control.form-control-sm,
+.input-group-sm input[type="color"].form-control {
     height: 1.9375rem;
     padding: 0.125rem 0.125rem;
 }
-.form-control.form-control-lg[type="color"],
-.input-group-lg .form-control[type="color"] {
+input[type="color"].form-control.form-control-lg,
+.input-group-lg input[type="color"].form-control {
     height: 3rem;
+}
+input[type="color"].form-control:disabled {
+  background-color: #adb5bd;
+  opacity: 0.65;
 }
 
-/* Range input */
-*:not(.input-group) > .form.control.custom-range {
-    padding: 0;
-    border: 0;
+/*
+ * input=range .custom-range fixes and overrides
+ */
+
+/* based padding fixes padding issue in V4.1 css */
+input[type="range"].custom-range {
+    padding-left: 0;
+    padding-right: 0;
 }
-.input-group > .form.control.custom-range {
+
+/* Temporary fixes until Bootstrap includes styles for range in finput-group */
+.input-group > input[type="range"].custom-range {
+    display: block;
+    height: calc(2.25rem + 2px);
     padding-left: .75rem;
-    height: 2.25rem;
+    padding-right: .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-.input-group-sm > .form.control.custom-range {
-    height: 1.9375rem;
+.input-group > input[type="range"].custom-range {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 1%;
+    margin-bottom: 0;
 }
-.input-group-lg > .form.control.custom-range {
-    height: 3rem;
+.input-group-sm > input[type="range"].custom-range {
+    height: calc(1.8125rem + 2px);
+    padding-left: .5rem;
+    padding-right: .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
 }
-/* Temporary fixes until Bootstrap V4.2 is released. Needs verification */
-.custom-range[disabled]::-webkit-slider-thumb,
-.custom-range[disabled]::-moz-range-thumb,
-.custom-range[disabled]::-ms-thumb {
+.input-group-lg > input[type="range"].custom-range {
+    height: calc(2.875rem + 2px);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+}
+.input-group > input[type="range"].custom-range:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group > input[type="range"].custom-range:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Temporary disabled state fixes until Bootstrap V4.2 is released. Needs verification */
+input[type="range"].custom-range:disabled::-webkit-slider-thumb {
   background-color: #adb5bd;
 }
-.custom-range[disabled]::-webkit-slider-runnable-track,
-.custom-range[disabled]::-moz-range-track {
+input[type="range"].custom-range:disabled::-webkit-slider-runnable-track {
   cursor: default;
+}
+input[type="range"].custom-range:disabled::-moz-range-thumb {
+  background-color: #adb5bd;
+}
+input[type="range"].custom-range:disabled::-moz-range-track {
+  cursor: default;
+}
+input[type="range"].custom-range:disabled::-ms-thumb {
+  background-color: #adb5bd;
 }
