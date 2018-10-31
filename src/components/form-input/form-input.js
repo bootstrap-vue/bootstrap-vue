@@ -144,7 +144,7 @@ export default {
           // plaintext not supported by type=range or type=color
           'form-control-plaintext': this.plaintext && this.type !== 'range' && this.type !== 'color',
           // form-control not used by type=range or plaintext. Always used by type=color
-          'form-control': (!this.plaintext && this.type !== 'range') || type === 'color'
+          'form-control': (!this.plaintext && this.type !== 'range') || this.type === 'color'
         },
         this.sizeFormClass,
         this.stateClass
