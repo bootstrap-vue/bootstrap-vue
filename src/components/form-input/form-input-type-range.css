@@ -1,0 +1,106 @@
+/*
+ * CSS Overrides and fixes for input type range .custom-range
+ * .custom-range was introduced in V4.1
+ *
+ * V4.2 will have fixes for disabled states (included here)
+ *
+ * Fixes missing styling when placed inside an input-group
+ * Fixes missing validation styling
+ *
+ */
+
+/* fixes padding issue in V4.1 css */
+input.custom-range {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0.65rem
+}
+
+/ * Temp fix until V4.2. Note these selectors *cannont* be merged togheter */
+.custom-range:disabled::-webkit-slider-thumb {
+  background-color: #adb5bd;
+}
+.custom-range:disabled::-webkit-slider-runnable-track {
+  cursor: default;
+}
+.custom-range:disabled::-moz-range-thumb {
+  background-color: #adb5bd;
+}
+.custom-range:disabled::-moz-range-track {
+  cursor: default;
+}
+.custom-range:disabled::-ms-thumb {
+  background-color: #adb5bd;
+}
+
+/* Temporary fixes until Bootstrap includes styles for range in finput-group */
+.input-group > .custom-range {
+  display: block;
+  height: calc(2.25rem + 2px);
+  padding: 0 .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.input-group > .custom-range {
+  position: relative;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  width: 1%;
+  margin-bottom: 0;
+}
+
+
+.input-group-sm > .custom-range {
+  height: calc(1.8125rem + 2px);
+  padding: 0 .5rem;
+  font-size: .875rem;
+  line-height: 1.5;
+  border-radius: .2rem;
+}
+
+.input-group-lg > .custom-range {
+  height: calc(2.875rem + 2px);
+  padding-left: 0 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: .3rem;
+}
+
+.input-group > .custom-range:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input-group > .custom-range:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.input-group > .custom-range:focus {
+  z-index: 3;
+}
+
+/* Temporary fixes until Bootstrap includes validation styles for range */
+.custom-range.is-invalid,
+.was-validated .custom-range:invalid {
+  border-color: #dc3545;
+}
+.custom-range.is-invalid:focus,
+.was-validated .custom-range:invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 .2rem rgba(220,53,69,.25);
+}
+
+.custom-range.is-valid,
+.was-validated .custom-range:valid {
+  border-color: #28a745;
+}
+.custom-range.is-valid:focus,
+.was-validated .custom-range:valid:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 .2rem rgba(40,167,69,.25);
+}
