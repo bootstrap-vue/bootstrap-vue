@@ -1,6 +1,7 @@
 /*
  * CSS Overrides and fixes for input type range .custom-range
  * .custom-range was introduced in V4.1
+ * needs V4.1.3 minimum
  *
  * V4.2 will have fixes for disabled states (included here)
  *
@@ -8,11 +9,11 @@
  * Fixes missing validation styling
  */
 
-/* fixes padding issue in V4.1 css */
-input.custom-range {
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 0.65rem;
+/* fixes padding and height issue in V4.1 css */
+/* https://github.com/ysds/bootstrap/blob/3351d1819ff9ce6b24fc5fdcac465d06cbb7b80f/scss/_custom-forms.scss */
+.custom-range {
+  height: calc(1rem + .2rem * 2);
+  padding: 0;
 }
 
 /* Temp fix until V4.2. Note these selectors _cannont_ be merged togheter */
