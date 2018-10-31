@@ -75,6 +75,66 @@ than what is returned by it's value.
 - Regardless of input type, the value is **always** returned as a string representation.
 - `v-model.lazy` is not supported by `<b-form-input>` (nor any custom vue component).
 - `v-model` modifiers `.number` and `.trim` can cause unexpected cursor jumps when the user is typing (this is a Vue issue with `v-model` on custom components). Avoid using these modifiers.
+- Older version of firefox may not support `readonly` for `range` type inputs.
+- Input types that do not support `min`, `max` and `step` (i.e. `text`, `password`, `tel`, `email`, `url`, etc) will silently ignore these values (although they will still be rendered on the input markup).
+
+### Range type input
+Inputs with type `range` render using Bootstrap V4's `.custom-range` class. The track
+(the background) and thumb (the value) are both styled to appear the same across browsers.
+
+Range inputs have implicit values for `min` and `max` of `0` and `100` respectively. You
+may specify new values for those using the `min` and `max` props.
+
+```html
+<template>
+  <div>
+    <label for="range-1">Example range with min and max</label>
+    <b-form-input type="range" id="range-1 v-model="value" min="0" max="5" />
+    <p class="mt-2">{{ value }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      value: 2
+    }
+  }
+}
+</script>
+
+<!-- form-input-range-1.vue -->
+```
+
+By default, range inputs “snap” to integer values. To change this, you can specify a `step`
+value. In the example below, we double the number of steps by using step="0.5".
+
+```html
+<template>
+  <div>
+    <label for="range-2">Example range with step value</label>
+    <b-form-input type="range" id="range-2 v-model="value" min="0" max="5" step="0.5" />
+    <p class="mt-2">{{ value }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      value: 2
+    }
+  }
+}
+</script>
+
+<!-- form-input-range-2.vue -->
+```
+
+**Note:** Bootsttrap V4.1 CSS does not include styling for range inputs inside input groups,
+nor validation styling on range inputs. However, Bootstrap-Vue includes custom styling to handle
+these situations until styling is included in Bootstrap V4.
 
 
 ## Control sizing
@@ -106,6 +166,10 @@ To control width, place the input inside standard Bootstrap grid column.
 
 <!-- form-input-size-1.vue -->
 ```
+
+**Note:** Input type `range` currently does not support control sizing unless it is placed inside a
+`<b-input-group>` that has a `size` prop set.
+
 
 ## Contextual States
 Bootstrap includes validation styles for `valid` and `invalid` states
@@ -299,6 +363,7 @@ If you want to have `<b-form-input readonly>` elements in your form styled as pl
 text, set the `plaintext` prop (no need to set `readonly`) to remove the default form
 field styling and preserve the correct margin and padding.
 
+The `plaintext` option is not supported by input types `color` or `range`.
 
 ## Disabling mousewheel events on numeric-like inputs
 On some browsers, scrolling the mousewheel while a numeric-like input is focused will
