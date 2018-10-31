@@ -86,8 +86,23 @@
   z-index: 3;
 }
 
+/* Add some custom style for focusing custom-range when inside an .input-group */
+/* Normally only the range thumb has focus styling */
+/* No PR for this at twbs/bootstrap yet */
+.input-group .custom-range:focus {
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+}
+
 /* Temporary validation fixes until Bootstrap includes validation styles for range */
 /* No PR for this yet at twbs/bootstrap */
+.cust6om-range: {
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+}
 .custom-range.is-invalid,
 .was-validated .custom-range:invalid {
   border-color: #dc3545;
