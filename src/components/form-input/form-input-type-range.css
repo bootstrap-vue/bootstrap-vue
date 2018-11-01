@@ -1,5 +1,11 @@
 /* Manually compiled from form-input-type-range.scss SASS file */
 
+/* Temp padding and height fix until V4.2 https://github.com/twbs/bootstrap/pull/26898 */
+.custom-range {
+  height: calc(1rem + 0.4rem);
+  padding: 0;
+}
+
 /* Temp fix for :disabled state until V4.2 https://github.com/twbs/bootstrap/pull/26540 */
 .custom-range:disabled::-webkit-slider-thumb {
   background-color: #adb5bd;
