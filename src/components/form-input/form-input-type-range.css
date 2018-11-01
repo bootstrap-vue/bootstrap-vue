@@ -44,6 +44,7 @@
 .input-group > .custom-range:focus {
   z-index: 3;
 }
+
 .input-group > .custom-range:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
