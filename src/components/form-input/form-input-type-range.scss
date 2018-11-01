@@ -13,7 +13,6 @@
 }
 
 /* Temp fix for :disabled state until V4.2 https://github.com/twbs/bootstrap/pull/26540 */
-
 .custom-range:disabled {
   &::-webkit-slider-thumb {
     background-color: #adb5bd;
@@ -92,20 +91,18 @@
     }
   }
 }
-
 .input-group-lg > .custom-range {
   height: $input-height-lg;
   padding: 0 $input-padding-x-lg;
   @include border-radius($input-border-radius-lg);
 }
-
 .input-group-sm > .custom-range {
   height: $input-height-sm;
   padding: 0 $input-padding-x-sm;
   @include border-radius($input-border-radius-sm);
 }
 
-/* .custom-range Valid styling fix (no PR yet at BS V4) */
+/* Validation styling - valid (no PR yet on BS V4) */
 
 .input-group .custom-range {
   .was-validated &:#{'valid'},
@@ -119,7 +116,50 @@
   }
 }
 .custom-range {
-  .was-validated &:#{'valid'},
+  &.was-validated &:#{'valid'} {
+
+    // Pseudo-elements must be split across multiple rulesets to have an affect.
+    &::-webkit-slider-thumb {
+      background-color: $form-feedback-valid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-valid-color, .35);
+        background-image: none;
+      }
+    }
+    &::-webkit-slider-runnable-track { background-color: rgba($form-feedback-valid-color, 0.35); }
+
+    &::-moz-range-thumb {
+      background-color: $form-feedback-valid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-valid-color, .35);
+        background-image: none;
+      }
+    }
+    &::-moz-range-track { background: rgba($form-feedback-valid-color, 0.35); }
+    &::-moz-range-thumb { }
+    ~ .#{'valid'}-feedback,
+    ~ .#{'valid'}-tooltip {
+      display: block;
+    }
+
+    &::-ms-thumb {
+      background-color: $form-feedback-valid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-valid-color, .35);
+        background-image: none;
+      }
+    }
+    &::-ms-track-lower { background: rgba($form-feedback-valid-color, 0.35); }
+    &::-ms-track-upper { background: rgba($form-feedback-valid-color, 0.35); }
+  }
+}
+.custom-range {
   &.is-#{'valid'} {
 
     // Pseudo-elements must be split across multiple rulesets to have an affect.
@@ -164,7 +204,7 @@
   }
 }
  
-/* .custom-range Inalid styling fix (no PR yet at BS V4) */
+/* Validation styling - invalid (no PR yet on BS V4) */
 
 .input-group .custom-range {
   .was-validated &:#{'invalid'},
@@ -178,7 +218,46 @@
   }
 }
 .custom-range {
-  .was-validated &:#{'invalid'},
+  &.was-validated &:#{'invalid'} {
+
+    // Pseudo-elements must be split across multiple rulesets to have an affect.
+    &::-webkit-slider-thumb {
+      background-color: $form-feedback-invalid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-invalid-color, .35);
+        background-image: none;
+      }
+    }
+    &::-webkit-slider-runnable-track { background-color: rgba($form-feedback-invalid-color, 0.35); }
+
+    &::-moz-range-thumb {
+      background-color: $form-feedback-invalid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-invalid-color, .35);
+        background-image: none;
+      }
+    }
+    &::-moz-range-track { background: rgba($form-feedback-invalid-color, 0.35); }
+    &::-moz-range-thumb ~ .invalid-feedback { display: block; }
+    &::-moz-range-thumb ~ .invalid-tooltip { display: block; }
+
+    &::-ms-thumb {
+      background-color: $form-feedback-invalid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-invalid-color, .35);
+        background-image: none;
+      }
+    }
+    &::-ms-track-lower { background: rgba($form-feedback-invalid-color, 0.35); }
+    &::-ms-track-upper { background: rgba($form-feedback-invalid-color, 0.35); }
+  }
+
   &.is-#{'invalid'} {
 
     // Pseudo-elements must be split across multiple rulesets to have an affect.
@@ -203,11 +282,8 @@
       }
     }
     &::-moz-range-track { background: rgba($form-feedback-invalid-color, 0.35); }
-    &::-moz-range-thumb { }
-    ~ .#{'invalid'}-feedback,
-    ~ .#{'invalid'}-tooltip {
-      display: block;
-    }
+    &::-moz-range-thumb ~ .invalid-feedback { display: block; }
+    &::-moz-range-thumb ~ .invalid-tooltip { display: block; }
 
     &::-ms-thumb {
       background-color: $form-feedback-invalid-color;
