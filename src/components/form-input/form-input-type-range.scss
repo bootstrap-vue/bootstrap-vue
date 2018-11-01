@@ -1,4 +1,4 @@
-/* form-input-range style source file. Used to manually create form-input-type-range.css */
+/* form-input-range style SASS source file. Used to manually create form-input-type-range.css */
 /* Someday, we can integrate sass-loader and node-sass */
 
 @import "~bootstrap/scss/functions";
@@ -6,6 +6,7 @@
 @import "~bootstrap/scss/mixins";
 
 /* Temp fix for :disabled state until V4.2 https://github.com/twbs/bootstrap/pull/26540 */
+
 .custom-range:disabled {
   &::-webkit-slider-thumb {
     background-color: #adb5bd;
@@ -120,7 +121,7 @@
       background-image: none;
 
       &:active {
-        background-color: lignten($form-feedback-valid-color, .35);
+        background-color: lighten($form-feedback-valid-color, .35);
         background-image: none;
       }
     }
@@ -131,7 +132,7 @@
       background-image: none;
 
       &:active {
-        background-color: lignten($form-feedback-valid-color, .35);
+        background-color: lighten($form-feedback-valid-color, .35);
         background-image: none;
       }
     }
@@ -147,7 +148,7 @@
       background-image: none;
 
       &:active {
-        background-color: lignten($form-feedback-valid-color, .35);
+        background-color: lighten($form-feedback-valid-color, .35);
         background-image: none;
       }
     }
@@ -179,7 +180,7 @@
       background-image: none;
 
       &:active {
-        background-color: lignten($form-feedback-invalid-color, .35);
+        background-color: lighten($form-feedback-invalid-color, .35);
         background-image: none;
       }
     }
@@ -190,7 +191,7 @@
       background-image: none;
 
       &:active {
-        background-color: lignten($form-feedback-invalid-color, .35);
+        background-color: lighten($form-feedback-invalid-color, .35);
         background-image: none;
       }
     }
@@ -206,7 +207,7 @@
       background-image: none;
 
       &:active {
-        background-color: lignten($form-feedback-invalid-color, .35);
+        background-color: lighten($form-feedback-invalid-color, .35);
         background-image: none;
       }
     }
