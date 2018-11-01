@@ -12,15 +12,8 @@
 /* fixes padding and height issue in V4.1 css until V4.2 shipped */
 /* based on https://github.com/twbs/bootstrap/pull/26898 */
 .custom-range {
-  height: calc(1rem + .2rem * 2 + 1px * 2); /* added 1px * 2 for border width */
-  padding: 1px .125rem; /* Increase left/right padding to compensate for thumb width */
-}
-
-/* Temporary fix for validation until Bootstrap includes validation styles for range */
-/* Added border for latter validation style */
-.custom-range {
-  border: 1px solid transparent;
-  border-radius: .25rem;
+  height: calc(1rem + .2rem * 2);
+  padding: 0 .125rem; /* Increase left/right padding to compensate for thumb width */
 }
 
 /* Temp fix until V4.2. Note these selectors _cannont_ be merged togheter */
@@ -107,11 +100,6 @@
 /* No PR for this yet at bootstrap */
 
 /* invalid outer border */
-.custom-range.is-invalid,
-.was-validated .custom-range:invalid {
-  border-color: #dc3545;
-}
-
 .input-group .custom-range.is-invalid:focus,
 .was-validated .input-group .custom-range:invalid:focus {
   border-color: #dc3545;
