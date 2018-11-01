@@ -102,7 +102,7 @@
 /* invalid outer border */
 .custom-range.is-invalid,
 .was-validated .custom-range:invalid {
-  border-color: #28a745;
+  border-color: #dc3545;
 }
 .input-group .custom-range.is-invalid:focus,
 .was-validated .input-group .custom-range:invalid:focus {
