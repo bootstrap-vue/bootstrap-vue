@@ -229,28 +229,28 @@
 }
 
 /* valid track color */
-.custom-range.is-invalid::-webkit-slider-runnable-track {
+.custom-range.is-valid::-webkit-slider-runnable-track {
   background-color: #c3e6cb;
 }
-.was-validated .custom-range:invalid::-webkit-slider-runnable-track {
+.was-validated .custom-range:valid::-webkit-slider-runnable-track {
   background-color: #c3e6cb;
 }
-.custom-range.is-invalid::-moz-range-track {
+.custom-range.is-valid::-moz-range-track {
   background-color: #c3e6cb;
 }
-.was-validated .custom-range:invalid::-moz-range-track {
+.was-validated .custom-range:valid::-moz-range-track {
   background-color: #c3e6cb;
 }
-.custom-range.is-invalid::-ms-fill-lower {
+.custom-range.is-valid::-ms-fill-lower {
   background-color: #c3e6cb;
 }
-.was-validated .custom-range:invalid::-ms-fill-lower {
+.was-validated .custom-range:valid::-ms-fill-lower {
   background-color: #c3e6cb;
 }
-.custom-range.is-invalid::-ms-fill-upper {
+.custom-range.is-valid::-ms-fill-upper {
   background-color: #c3e6cb;
 }
-.was-validated .custom-range:invalid::-ms-fill-upper {
+.was-validated .custom-range:valid::-ms-fill-upper {
   background-color: #c3e6cb;
 }
 
