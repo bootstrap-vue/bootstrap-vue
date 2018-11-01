@@ -13,7 +13,7 @@
 /* based on https://github.com/twbs/bootstrap/pull/26898 */
 .custom-range {
   height: calc(1rem + .2rem * 2 + 1px * 2); /* added 1px * 2 for border width */
-  padding: 0 calc(1rem / 2); /* Increase left/right padding to compensate for 1/2 thumb width */
+  padding: 1px .125rem; /* Increase left/right padding to compensate for thumb width */
 }
 
 /* Temporary fix for validation until Bootstrap includes validation styles for range */
@@ -111,8 +111,8 @@
 .was-validated .custom-range:invalid {
   border-color: #dc3545;
 }
-.custom-range.is-invalid:focus,
-.was-validated .custom-range:invalid:focus {
+.input-group .custom-range.is-invalid:focus,
+.input-group .was-validated .custom-range:invalid:focus {
   border-color: #dc3545;
   box-shadow: 0 0 0 .2rem rgba(220,53,69,.25);
 }
@@ -164,29 +164,29 @@
 }
 
 /* invalid thumb active */
-/* Color result of Sass lighten($color, 35%) */
+/* Color result of Sass lighten($color, 15%) */
 .custom-range.is-invalid:active::-webkit-slider-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
 .was-validated .custom-range:invalid:active::-webkit-slider-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
 .custom-range.is-invalid:active::-moz-range-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
 .was-validated .custom-range:invalid:active::-moz-range-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
 .custom-range.is-invalid:active::-ms-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
 .was-validated .custom-range:invalid:active::-ms-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
 
@@ -195,8 +195,8 @@
 .was-validated .custom-range:valid {
   border-color: #28a745;
 }
-.custom-range.is-valid:focus,
-.was-validated .custom-range:valid:focus {
+.input-group.custom-range.is-valid:focus,
+.input-group .was-validated .custom-range:valid:focus {
   border-color: #28a745;
   box-shadow: 0 0 0 .2rem rgba(40,167,69,.25);
 }
@@ -248,28 +248,28 @@
 }
 
 /* invalid thumb active */
-/* Color result of Sass lighten($color, 35%) */
+/* Color result of Sass lighten($color, 15%) */
 .custom-range.is-valid:active::-webkit-slider-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
 .was-validated .custom-range:valid:active::-webkit-slider-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
 .custom-range.is-valid:active::-moz-range-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
 .was-validated .custom-range:valid:active::-moz-range-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
 .custom-range.is-valid:active::-ms-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
 .was-validated .custom-range:valid:active::-ms-thumb {
-  background-color: #aae3c6;
+  background-color: #70d09f;
   background-image: none;
 }
