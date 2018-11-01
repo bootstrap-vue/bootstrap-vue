@@ -164,29 +164,29 @@
 }
 
 /* invalid thumb active */
-/* Color result of Sass lighten($color, 15%) */
+/* Color result of Sass lighten($color, 35%) */
 .custom-range.is-invalid:active::-webkit-slider-thumb {
-  background-color: #70d09f;
+  background-color: #f6cdd1;
   background-image: none;
 }
 .was-validated .custom-range:invalid:active::-webkit-slider-thumb {
-  background-color: #70d09f;
+  background-color: #f6cdd1;
   background-image: none;
 }
 .custom-range.is-invalid:active::-moz-range-thumb {
-  background-color: #70d09f;
+  background-color: #f6cdd1;
   background-image: none;
 }
 .was-validated .custom-range:invalid:active::-moz-range-thumb {
-  background-color: #70d09f;
+  background-color: #f6cdd1;
   background-image: none;
 }
 .custom-range.is-invalid:active::-ms-thumb {
-  background-color: #70d09f;
+  background-color: #f6cdd1;
   background-image: none;
 }
 .was-validated .custom-range:invalid:active::-ms-thumb {
-  background-color: #70d09f;
+  background-color: #f6cdd1;
   background-image: none;
 }
 
@@ -247,29 +247,29 @@
   box-shadow: 0 0 0 1px #fff, 0 0 0 .2rem rgba(40,167,69,.25);
 }
 
-/* invalid thumb active */
-/* Color result of Sass lighten($color, 15%) */
+/* valid thumb active */
+/* Color result of Sass lighten($color, 35%) */
 .custom-range.is-valid:active::-webkit-slider-thumb {
-  background-color: #70d09f;
+  background-color: #9be7ac;
   background-image: none;
 }
 .was-validated .custom-range:valid:active::-webkit-slider-thumb {
-  background-color: #70d09f;
+  background-color: #9be7ac;
   background-image: none;
 }
 .custom-range.is-valid:active::-moz-range-thumb {
-  background-color: #70d09f;
+  background-color: #9be7ac;
   background-image: none;
 }
 .was-validated .custom-range:valid:active::-moz-range-thumb {
-  background-color: #70d09f;
+  background-color: #9be7ac;
   background-image: none;
 }
 .custom-range.is-valid:active::-ms-thumb {
-  background-color: #70d09f;
+  background-color: #9be7ac;
   background-image: none;
 }
 .was-validated .custom-range:valid:active::-ms-thumb {
-  background-color: #70d09f;
+  background-color: #9be7ac;
   background-image: none;
 }
