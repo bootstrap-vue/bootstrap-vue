@@ -5,6 +5,13 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
+/* Temp pading and height fix until V4.2 */
+
+.custom-range {
+  height: calc(#{$custom-range-thumb-height} + #{$custom-range-thumb-focus-box-shadow-width * 2});
+  padding: 0; // Need to reset padding
+}
+
 /* Temp fix for :disabled state until V4.2 https://github.com/twbs/bootstrap/pull/26540 */
 
 .custom-range:disabled {
