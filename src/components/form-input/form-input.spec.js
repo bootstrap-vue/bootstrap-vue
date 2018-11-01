@@ -44,6 +44,43 @@ describe('form-input', async () => {
     expect(input.classes()).toContain('form-control-plaintext')
   })
 
+  it('has class custom-range instead of form-control when type=range', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        type: 'range'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes()).toContain('custom-range')
+    expect(input.classes()).not.toContain('form-control')
+  })
+
+  it('does not have class form-control-plaintext when type=range and plaintext=true', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        type: 'range',
+        plaintext: true
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes()).toContain('custom-range')
+    expect(input.classes()).not.toContain('form-control')
+    expect(input.classes()).not.toContain('form-control-plaintext')
+  })
+
+  it('does not have class form-control-plaintext when type=color and plaintext=true', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        type: 'color',
+        plaintext: true
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes()).not.toContain('custom-range')
+    expect(input.classes()).not.toContain('form-control-plaintext')
+    expect(input.classes()).toContain('form-control')
+  })
+
   it('has user supplied id', async () => {
     const wrapper = mount(Input, {
       propsData: {
