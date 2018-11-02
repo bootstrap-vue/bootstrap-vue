@@ -32,11 +32,11 @@ export default {
 ## Displayed rows
 To set the height of `<b-form-textarea>`, set the `rows` prop to the desired number of
 rows.  If no value is provided to `rows`, then it will default to `2` (the browser
-default and minimum acceptable value). Setting it to null or a value below two will
-result in the devault of `2` being used.
+default and minimum acceptable value). Setting it to null or a value below 2 will
+result in the default of `2` being used.
 
 ### Disable resize handle
-Some web browsers will allow the user to re-size the hight of the textarea.
+Some web browsers will allow the user to re-size the height of the textarea.
 To disable this feature, set the `no-resize` prop to `true`.
 
 ### Auto height
@@ -44,13 +44,13 @@ To disable this feature, set the `no-resize` prop to `true`.
 even as the user enters text.
 
 To set the initial minimum height (in rows), set the `rows` prop to the desired
-number of lines (or leave it at hte default of `2`).
+number of lines (or leave it at the default of `2`).
 
 To limit the maximum rows that the text area will grow to (before showing a scrollbar),
 set the `max-rows` prop to the maximum number of lines of text.
 
 ## Control sizing
-Set text heights using the `size` prop to `sm` or `lg` for small or large respectively.
+Set text height using the `size` prop to `sm` or `lg` for small or large respectively.
 
 To control width, place the input inside standard Bootstrap grid column.
 
@@ -166,7 +166,7 @@ export default {
 ```
 
 ## Native and custom events
-All native events (other than the cuustom `input` and `change` events) are supported, without
+All native events (other than the custom `input` and `change` events) are supported, without
 the need for the `.native` modifier.
 
 The custom `input` and `change` events receive to paramters: the input `value`, and the native
