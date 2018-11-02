@@ -27,6 +27,8 @@ function looseEqual (a, b) {
         return a.length === b.length && a.every((e, i) => {
           return looseEqual(e, b[i])
         })
+      } else if (a instanceof Date && b instanceof Date) {
+        return a.getTime() === b.getTime()
       } else if (!isArrayA && !isArrayB) {
         const keysA = keys(a)
         const keysB = keys(b)
@@ -34,9 +36,11 @@ function looseEqual (a, b) {
           return looseEqual(a[key], b[key])
         })
       } else {
+        /* istanbul ignore next */
         return false
       }
     } catch (e) {
+      /* istanbul ignore next */
       return false
     }
   } else if (!isObjectA && !isObjectB) {
