@@ -120,18 +120,18 @@
     &.is-valid {
 
     // Pseudo-elements must be split across multiple rulesets to have an affect.
+    &:focus {
+      &::-webkit-slider-thumb { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-valid-color; }
+      &::-moz-range-thumb     { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-valid-color; }
+      &::-ms-thumb            { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-valid-color; }
+    }
+
     &::-webkit-slider-thumb {
       background-color: $form-feedback-valid-color;
       background-image: none;
 
-      &:focus {
-        &::-webkit-slider-thumb { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-valid-color; }
-        &::-moz-range-thumb     { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-valid-color; }
-        &::-ms-thumb            { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-valid-color; }
-      }
-
       &:active {
-        background-color: lighten($form-feedback-valid-color, .35);
+        background-color: lighten($form-feedback-valid-color, 35%);
         background-image: none;
       }
     }
@@ -142,7 +142,7 @@
       background-image: none;
 
       &:active {
-        background-color: lighten($form-feedback-valid-color, .35);
+        background-color: lighten($form-feedback-valid-color, 35%);
         background-image: none;
       }
     }
@@ -158,7 +158,7 @@
       background-image: none;
 
       &:active {
-        background-color: lighten($form-feedback-valid-color, .35);
+        background-color: lighten($form-feedback-valid-color, 35%);
         background-image: none;
       }
     }
@@ -185,18 +185,18 @@
   &.is-invalid {
 
     // Pseudo-elements must be split across multiple rulesets to have an affect.
+    &:focus {
+      &::-webkit-slider-thumb { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-invalid-color; }
+      &::-moz-range-thumb     { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-invalid-color; }
+      &::-ms-thumb            { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-invalid-color; }
+    }
+
     &::-webkit-slider-thumb {
       background-color: $form-feedback-invalid-color;
       background-image: none;
 
-      &:focus {
-        &::-webkit-slider-thumb { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-invalid-color; }
-        &::-moz-range-thumb     { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-invalid-color; }
-        &::-ms-thumb            { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-invalid-color; }
-      }
-
       &:active {
-        background-color: lighten($form-feedback-invalid-color, .35);
+        background-color: lighten($form-feedback-invalid-color, 35%);
         background-image: none;
       }
     }
@@ -207,7 +207,7 @@
       background-image: none;
 
       &:active {
-        background-color: lighten($form-feedback-invalid-color, .35);
+        background-color: lighten($form-feedback-invalid-color, 35%);
         background-image: none;
       }
     }
@@ -220,7 +220,7 @@
       background-image: none;
 
       &:active {
-        background-color: lighten($form-feedback-invalid-color, .35);
+        background-color: lighten($form-feedback-invalid-color, 35%);
         background-image: none;
       }
     }
