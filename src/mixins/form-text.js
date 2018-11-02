@@ -81,8 +81,7 @@ export default {
   },
   methods: {
     stringifyValue (value) {
-      // We use == so that undefined will also equal null
-      return value == null ? '' : String(value)
+      return (value === null || typeof value === 'undefined') ? '' : String(value)
     },
     getFormatted (value, event = null) {
       value = this.stringifyValue(value)
@@ -97,6 +96,9 @@ export default {
       }
     },
     onInput (evt) {
+      // evt.target.composing is set by Vue
+      // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
+      if (evt.target.composing) return
       this.$emit('input', evt.target.value, evt)
       if (evt.defaultPrevented) return
       const value = evt.target.value
