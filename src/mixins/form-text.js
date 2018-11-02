@@ -54,6 +54,14 @@ export default {
     computedClass () {
       return [
         this.plaintext ? 'form-control-plaintext' : 'form-control',
+        {
+          // Special class cases for b-form-input input types
+          'custom-range': this.type === 'range',
+          // plaintext not supported by type=range or type=color
+          'form-control-plaintext': this.plaintext && this.type !== 'range' && this.type !== 'color',
+          // form-control not used by type=range or plaintext. Always used by type=color
+          'form-control': (!this.plaintext && this.type !== 'range') || this.type === 'color'
+        },
         this.sizeFormClass,
         this.stateClass
       ]
