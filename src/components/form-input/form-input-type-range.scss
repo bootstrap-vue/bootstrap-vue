@@ -121,9 +121,9 @@
 
     // Pseudo-elements must be split across multiple rulesets to have an affect.
     &:focus {
-      &::-webkit-slider-thumb { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-valid-color; }
-      &::-moz-range-thumb     { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-valid-color; }
-      &::-ms-thumb            { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-valid-color; }
+      &::-webkit-slider-thumb { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-valid-color, 35%); }
+      &::-moz-range-thumb     { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-valid-color, 35%); }
+      &::-ms-thumb            { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-valid-color, 35%); }
     }
 
     &::-webkit-slider-thumb {
@@ -186,9 +186,9 @@
 
     // Pseudo-elements must be split across multiple rulesets to have an affect.
     &:focus {
-      &::-webkit-slider-thumb { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-invalid-color; }
-      &::-moz-range-thumb     { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-invalid-color; }
-      &::-ms-thumb            { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width $form-feedback-invalid-color; }
+      &::-webkit-slider-thumb { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-invalid-color, 35%); }
+      &::-moz-range-thumb     { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-invalid-color, 35%); }
+      &::-ms-thumb            { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-invalid-color, 35%); }
     }
 
     &::-webkit-slider-thumb {
