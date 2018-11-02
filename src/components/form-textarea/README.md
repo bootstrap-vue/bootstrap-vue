@@ -40,7 +40,7 @@ Some web browsers will allow the user to re-size the height of the textarea.
 To disable this feature, set the `no-resize` prop to `true`.
 
 ### Auto height
-`<b-form-textarea>` can also automaticlly adjust its height (text rows) to fit the content,
+`<b-form-textarea>` can also automatically adjust its height (text rows) to fit the content,
 even as the user enters text.
 
 To set the initial minimum height (in rows), set the `rows` prop to the desired
