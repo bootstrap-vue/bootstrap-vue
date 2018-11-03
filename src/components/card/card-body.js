@@ -40,25 +40,22 @@ export default {
   functional: true,
   props,
   render (h, { props, data, children }) {
-    let cardBodyChildren = []
+    let cardTitle = h(false);
+    let cardSubTitle = h(false);
+    let cardContent = children || [ h(false) ]
+
     if (props.title) {
-      cardBodyChildren.push(
-        h(props.titleTag, {
-          staticClass: 'card-title',
-          domProps: { innerHTML: props.title }
-        })
-      )
+      cardTitle = h(props.titleTag, {
+        staticClass: 'card-title',
+        domProps: { innerHTML: props.title }
+      })
     }
+
     if (props.subTitle) {
-      cardBodyChildren.push(
-        h(props.subTitleTag, {
-          staticClass: 'card-subtitle mb-2 text-muted',
-          domProps: { innerHTML: props.subTitle }
-        })
-      )
-    }
-    if (children) {
-      cardBodyChildren.push(...children)
+      cardSubTitle = h(props.subTitleTag, {
+        staticClass: 'card-subtitle mb-2 text-muted',
+        domProps: { innerHTML: props.subTitle }
+      })
     }
 
     return h(
@@ -77,7 +74,7 @@ export default {
           props.bodyClass || {}
         ]
       }),
-      cardBodyChildren
+      [ cardTitle, cardSubTitle, ...cardContent ]
     )
   }
 }
