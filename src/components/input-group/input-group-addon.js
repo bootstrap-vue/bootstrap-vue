@@ -22,7 +22,7 @@ export default {
     ...commonProps,
     append: {
       type: Boolean,
-      default: append
+      default: false
     }
   },
   render (h, { props, data, children }) {
