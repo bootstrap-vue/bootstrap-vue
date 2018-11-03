@@ -7,8 +7,8 @@ export default {
   render (h, { data, children }) {
     // pass all our props/attrs down to child, and set`append` to true
     return h(InputGroupAddon,
-             mergeData(data, { props: {append: true} }),
-             children
+      mergeData(data, { props: {append: true} }),
+      children
     )
   }
 }
