@@ -4,7 +4,12 @@
   "meta": {
     "title": "Input Group",
     "component": "bInputGroup",
-    "components": ["bInputGroupAddon", "bInputGroupText"],
+    "components": [
+      "bInputGroupPrepend",
+      "bInputGroupAppend",
+      "bInputGroupText",
+      "bInputGroupAddon"
+    ],
     "slots": [
       {
         "name": "prepend",

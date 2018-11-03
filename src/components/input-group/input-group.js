@@ -43,15 +43,23 @@ export default {
           h(InputGroupText, { domProps: { innerHTML: props.prepend } })
         ])
       )
+    } else {
+      childNodes.push(h(false))
     }
 
     // Prepend slot
     if ($slots.prepend) {
       childNodes.push(h(InputGroupPrepend, $slots.prepend))
+    } else {
+      childNodes.push(h(false))
     }
 
     // Default slot
-    childNodes.push($slots.default)
+    if ($slots.default) {
+      childNodes.push(...$slots.default)
+    } else {
+      childNodes.push(h(false))
+    }
 
     // Append prop
     if (props.append) {
@@ -60,11 +68,15 @@ export default {
           h(InputGroupText, { domProps: { innerHTML: props.append } })
         ])
       )
+    } else {
+      childNodes.push(h(false))
     }
 
     // Append slot
     if ($slots.append) {
       childNodes.push(h(InputGroupAppend, $slots.append))
+    } else {
+      childNodes.push(h(false))
     }
 
     return h(
