@@ -65,13 +65,15 @@ export default {
         h(CardHeader, { props: pluckProps(headerProps, props) }, $slots.header)
       )
     }
-    if (props.noBody) {
+
+    if (props.noBody && $slots.default) {
       childNodes.push(...$slots.default)
-    } else {
+    } else if (!props.noBody) {
       childNodes.push(
         h(CardBody, { props: pluckProps(bodyProps, props) }, $slots.default)
       )
     }
+
     if (props.footer || $slots.footer) {
       childNodes.push(
         h(CardFooter, { props: pluckProps(footerProps, props) }, $slots.footer)
