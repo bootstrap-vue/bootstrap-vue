@@ -5,8 +5,8 @@
     "title": "Input Group",
     "component": "bInputGroup",
     "components": [
-      "bInputGroupPrepend"
-      "bInputGroupAppend"
+      "bInputGroupPrepend",
+      "bInputGroupAppend",
       "bInputGroupText"
     ],
     "slots": [
