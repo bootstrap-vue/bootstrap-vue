@@ -37,65 +37,61 @@ export default {
   functional: true,
   props,
   render (h, { props, data, slots }) {
-    // The order of the conditionals matter.
-    // We are building the component markup in order.
-    let childNodes = []
-    let staticClass = 'card'
     const $slots = slots()
-    let img = props.imgSrc
-      ? h(CardImg, {
+    
+    // Create placeholder elements for each section
+    let imgFirst = h(false)
+    let header = h(false)
+    let content = h(false)
+    let footer = h(false)
+    let imgLast = h(false)
+
+    if (props.imgSrc) {
+      let img = h(CardImg, {
         props: pluckProps(
           cardImgProps,
           props,
           unPrefixPropName.bind(null, 'img')
         )
       })
-      : null
-    if (img && !props.imgBottom) {
-      childNodes.push(img)
-      if (props.imgLeft || props.imgStart) {
-        staticClass += ' flex-row'
-      } else if (props.imgRight || props.imgEnd) {
-        staticClass += ' flex-row-reverse'
+      if (props.imgBottom) {
+        imgLast = img
+      } else {
+        imgFirst = img
       }
     }
 
     if (props.header || $slots.header) {
-      childNodes.push(
-        h(CardHeader, { props: pluckProps(headerProps, props) }, $slots.header)
-      )
+      header = h(CardHeader, { props: pluckProps(headerProps, props) }, $slots.header)
     }
 
-    if (props.noBody && $slots.default) {
-      childNodes.push(...$slots.default)
-    } else if (!props.noBody) {
-      childNodes.push(
-        h(CardBody, { props: pluckProps(bodyProps, props) }, $slots.default)
-      )
+    if (props.noBody) {
+      content = $slots.default
+    } else {
+      // Wrap content in card-body
+      content = [ h(CardBody, { props: pluckProps(bodyProps, props) }, $slots.default) ]
     }
 
     if (props.footer || $slots.footer) {
-      childNodes.push(
-        h(CardFooter, { props: pluckProps(footerProps, props) }, $slots.footer)
-      )
-    }
-
-    if (img && props.imgBottom) {
-      childNodes.push(img)
+      footer = h(CardFooter, {
+        props: pluckProps(footerProps, props)
+      }, $slots.footer)
     }
 
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: staticClass,
+        staticClass: 'card',
         class: {
+          ['flex-row']: props.imgLeft || props.imgStart,
+          ['flex-row-reverse']: (props.imgRight || props.imgEnd) && !(props.imgLeft || props.imgStart),
           [`text-${props.align}`]: Boolean(props.align),
           [`bg-${props.bgVariant}`]: Boolean(props.bgVariant),
           [`border-${props.borderVariant}`]: Boolean(props.borderVariant),
           [`text-${props.textVariant}`]: Boolean(props.textVariant)
         }
       }),
-      childNodes
+      [ imgFirst, header, ...content, footer, imgLast ]
     )
   }
 }
