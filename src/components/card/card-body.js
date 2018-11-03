@@ -6,6 +6,7 @@ import cardMixin from '../../mixins/card-mixin'
 
 export const props = assign(
   {},
+  // Import common card props and prefix them with `body-`
   copyProps(cardMixin.props, prefixPropName.bind(null, 'body')),
   {
     bodyClass: {
@@ -38,7 +39,7 @@ export const props = assign(
 export default {
   functional: true,
   props,
-  render (h, { props, data, slots }) {
+  render (h, { props, data, children }) {
     let cardBodyChildren = []
     if (props.title) {
       cardBodyChildren.push(
@@ -56,7 +57,7 @@ export default {
         })
       )
     }
-    cardBodyChildren.push(slots().default)
+    cardBodyChildren.push(...children)
 
     return h(
       props.bodyTag,
