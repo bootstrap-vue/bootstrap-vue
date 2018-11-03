@@ -57,7 +57,9 @@ export default {
         })
       )
     }
-    cardBodyChildren.push(...children)
+    if (children) {
+      cardBodyChildren.push(...children)
+    }
 
     return h(
       props.bodyTag,
