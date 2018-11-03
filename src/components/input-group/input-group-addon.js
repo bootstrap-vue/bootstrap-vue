@@ -16,12 +16,6 @@ export const commonProps = {
   }
 }
 
-export const propsFactory = append => ({
-  ...commonProps,
-  append: {
-  }
-})
-
 export default {
   functional: true,
   props: {
@@ -35,9 +29,10 @@ export default {
     return h(
       props.tag,
       mergeData(data, {
-        class: [
-          `input-group-${props.append ? 'append' : 'prepend'}`
-        ],
+        class: {
+          'input-group-append': props.append,
+          'input-group-prepend': !props.append
+        },
         attrs: {
           id: props.id
         }
