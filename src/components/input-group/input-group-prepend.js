@@ -4,7 +4,7 @@ import InputGroupAddon, { commonProps } from './input-group-addon'
 export default {
   functional: true,
   props: commonProps,
-  render (h, { data, children }) {
+  render (h, { props, data, children }) {
     // pass all our props/attrs down to child, and set`append` to false
     return h(
       InputGroupAddon,
