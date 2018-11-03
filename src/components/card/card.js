@@ -36,7 +36,7 @@ export const props = assign(
 export default {
   functional: true,
   props,
-  render (h, { props, data, slots, children }) {
+  render (h, { props, data, slots }) {
     // The order of the conditionals matter.
     // We are building the component markup in order.
     let childNodes = []
@@ -66,7 +66,7 @@ export default {
       )
     }
     if (props.noBody) {
-      childNodes.push($slots.default)
+      childNodes.push(...$slots.default)
     } else {
       childNodes.push(
         h(CardBody, { props: pluckProps(bodyProps, props) }, $slots.default)
