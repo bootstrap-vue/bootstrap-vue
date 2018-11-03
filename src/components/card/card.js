@@ -38,7 +38,7 @@ export default {
   props,
   render (h, { props, data, slots }) {
     const $slots = slots()
-    
+
     // Create placeholder elements for each section
     let imgFirst = h(false)
     let header = h(false)
@@ -83,8 +83,8 @@ export default {
       mergeData(data, {
         staticClass: 'card',
         class: {
-          ['flex-row']: props.imgLeft || props.imgStart,
-          ['flex-row-reverse']: (props.imgRight || props.imgEnd) && !(props.imgLeft || props.imgStart),
+          'flex-row': props.imgLeft || props.imgStart,
+          'flex-row-reverse': (props.imgRight || props.imgEnd) && !(props.imgLeft || props.imgStart),
           [`text-${props.align}`]: Boolean(props.align),
           [`bg-${props.bgVariant}`]: Boolean(props.bgVariant),
           [`border-${props.borderVariant}`]: Boolean(props.borderVariant),
