@@ -27,7 +27,9 @@ export default {
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: `input-group-${props.append ? 'append' : 'prepend'}`,
+        class: [
+          `input-group-${props.append ? 'append' : 'prepend'}`
+        ],
         attrs: {
           id: props.id
         }
