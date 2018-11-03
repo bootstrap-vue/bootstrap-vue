@@ -40,8 +40,8 @@ export default {
   functional: true,
   props,
   render (h, { props, data, children }) {
-    let cardTitle = h(false);
-    let cardSubTitle = h(false);
+    let cardTitle = h(false)
+    let cardSubTitle = h(false)
     let cardContent = children || [ h(false) ]
 
     if (props.title) {
