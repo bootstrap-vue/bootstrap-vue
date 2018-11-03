@@ -34,30 +34,37 @@ Change the default `div` root tag to any other HTML element by specifying via th
 ## Content types
 
 Cards support a wide variety of content, including images, text, list groups,
-links and more. Below are examples of what’s supported.
+links and more. The following are examples of what’s supported inside a `<b-card>`
 
 ### Card Body
 
 The building block of a `<b-card>` is the `<b-card-body>` section which provides a padded
-section within a card. By default the `<b-card>` content is automatically placed in a
-`<b-card-body>` section:
+section within a card.
+
+By default the `<b-card>` content is automatically placed in a`<b-card-body>` section:
 
 ```html
 <b-card class="text-center">
-  This is some text within the default <code>&lt;b-card-body&gt;</code>
-  block of the b-card component.
+  <div class="bg-secondary text-light">
+    This is some content within the default <samp>&lt;b-card-body&gt;</samp>
+    block of the <samp>&lt;b-card&gt;</samp> component. Notice the padding
+    between the card's border and this gray <samp>&lt;div&gt;</samp>.
+  </div>
 </b-card>
 
 <!-- card-body-1.vue -->
 ```
 
 Disable the automatic `<b-card-body>` section (and associated padding) by setting the prop `no-body`
-on hte `<b-card>`.
+on the `<b-card>`.
 
 ```html
 <b-card no-body class="text-center">
-  This is some text without the default <code>&lt;b-card-body&gt;</code>
-  section. Notice the lack of padding.
+  <div class="bg-secondary text-light">
+    This is some content without the default <samp>&lt;b-card-body&gt;</samp>
+    section. Notice the lack of padding between the card's border and this
+    gray <samp>&lt;div&gt;</samp>.
+  </div>
 </b-card>
 
 <!-- card-body-2.vue -->
@@ -67,6 +74,7 @@ Note that with `no-body` enabled, the content of the `title` and `sub-title` pro
 
 Use the `<b-card-body>` sub-componet to place your own card body anywhere
 in a `<b-card>` component that has `no-body` set.
+
 
 #### Titles, text, and links
 
