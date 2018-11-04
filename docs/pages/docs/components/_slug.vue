@@ -2,14 +2,19 @@
     <div class="container">
         <div class="bd-content" v-html="readme" v-play></div>
 
-        <componentdoc :component="meta.component" :events="meta.events" :slots="meta.slots"></componentdoc>
+        <!-- main component reference information -->
+        <componentdoc :component="meta.component"
+                      :events="meta.events"
+                      :slots="meta.slots">
+        </componentdoc>
 
-        <template v-for="component in meta.components">
-            <!-- if component is just a string component name -->
-            <componentdoc v-if="typeof component === 'string'" :component="component" :key="component"></componentdoc>
-            <!-- else component is an object containing slots and events -->
-            <componentdoc v-else :component="component.component" :events="component.events" :slots="component.slots" :key="component.component"></componentdoc>
-        </template>
+        <!-- sub-component reference information -->
+        <componentdoc v-for="meta in meta.components"
+                      :component="meta.component"
+                      :events="meta.events"
+                      :slots="meta.slots"
+                      :key="meta.component">
+        </componentdoc>
 
         <b-card class="my-4">
             <p class="card-text small font-italic mb-0">
