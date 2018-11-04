@@ -6,6 +6,7 @@ import observeDom from '../../utils/observe-dom'
 import warn from '../../utils/warn'
 import KeyCodes from '../../utils/key-codes'
 import BvEvent from '../../utils/bv-event.class'
+import stripScripts from '../../utils/strip-scripts'
 
 import {
   isVisible,
@@ -70,7 +71,7 @@ export default {
         }
         modalHeader = [
           h(this.titleTag, { class: ['modal-title'] }, [
-            $slots['modal-title'] || this.title
+            $slots['modal-title'] || stripScripts(this.title)
           ]),
           closeButton
         ]
@@ -116,7 +117,7 @@ export default {
                 }
               }
             },
-            [$slots['modal-cancel'] || this.cancelTitle]
+            [$slots['modal-cancel'] || stripScripts(this.cancelTitle)]
           )
         }
         const okButton = h(
@@ -133,7 +134,7 @@ export default {
               }
             }
           },
-          [$slots['modal-ok'] || this.okTitle]
+          [$slots['modal-ok'] || stripScripts(this.okTitle)]
         )
         modalFooter = [cancelButton, okButton]
       }

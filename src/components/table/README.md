@@ -699,7 +699,7 @@ the `row-clicked` event:_
 
 #### Displaying raw HTML
 By default `b-table` escapes HTML tags in items, if you need to display raw HTML code in `b-table`, you should use 
-`v-html` prop in scoped field slot
+`v-html` directive on an element in a in scoped field slot
 
 ```html
 <template>
@@ -727,21 +727,26 @@ export default {
 <!-- table-html-data-slots.vue -->
 ```
 
+**Note:** Be  cautious of using this to display user supplied content, as script
+tags could be injected into your page!
+
+
 ### Formatter callback
 One more option to customize field output is to use formatter callback function.
 To enable this field's property `formatter` is used. Value of this property may be
-String or function reference. In case of a String value, function must be defined at
-parent component's methods. Providing formatter as `Function`, it must be declared at
-global scope (window or as global mixin at Vue).
+String or function reference. In case of a String value, the function must be defined at
+the parent component's methods. Providing formatter as a `Function`, it must be declared at
+global scope (window or as global mixin at Vue), unless it has been bound to a `this` context.
 
-Callback function accepts three arguments - `value`, `key`, and `item`, and should
-return the formatted value as a string (basic HTML is supported)
+The callback function accepts three arguments - `value`, `key`, and `item`, and should
+return the formatted value as a string (HTML strings are not supported)
 
 **Example: Custom data rendering with formatter callback function**
 ```html
 <template>
   <b-table :fields="fields" :items="items">
     <template slot="name" slot-scope="data">
+      <!-- data.value is th value after formattetd by the Formatter -->
       <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">
         {{data.value}}
       </a>
