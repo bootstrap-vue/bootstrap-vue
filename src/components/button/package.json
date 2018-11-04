@@ -1,17 +1,31 @@
 {
-    "name": "@bootstrap-vue/button",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Button",
-        "component": "bButton",
-        "components": [
-            "bButtonClose"
-        ],
-        "events": [
-            {
-                "event": "click",
-                "description": "when clicked on button"
-            }
+  "name": "@bootstrap-vue/button",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Button",
+    "component": "bButton",
+    "events": [
+      {
+        "event": "click",
+        "description": "Emitted when non-disabled button clicked",
+        "args": [ 
+          { "name": "event", "description": "Native click event object" }
         ]
-    }
+      }
+    ],
+    "components": [
+      { 
+        "component": "bButtonClose",
+        "events": [
+          {
+            "event": "click",
+            "description": "Emitted when non-disabled button clicked",
+            "args": [ 
+              { "name": "event", "description": "Native click event object" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
