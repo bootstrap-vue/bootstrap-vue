@@ -133,7 +133,12 @@ export default {
       })
     },
     components () {
-      return [].concat(this.meta.component, this.meta.components).filter(c => c)
+      let subcomponents = []
+      if (this.meta.components) {
+        // We just want the sub-component name
+        subcomponents = this.meta.components.map(m => m.component)
+      }
+      return [].concat(this.meta.component, subcomponents).filter(c => c)
     },
     directives () {
       return [].concat(this.meta.directive, this.meta.directives).filter(d => d)
