@@ -1,6 +1,5 @@
 import { isArray } from '../utils/array'
 import { keys } from '../utils/object'
-import stripScripts from '../utils/strip-scripts'
 
 function isObject (obj) {
   return obj && ({}).toString.call(obj) === '[object Object]'
@@ -42,13 +41,13 @@ export default {
           if (isObject(option)) {
             return {
               value: option[valueField],
-              text: stripScripts(String(option[textField])),
+              text: String(option[textField]),
               disabled: option[disabledField] || false
             }
           }
           return {
             value: option,
-            text: stripScripts(String(option)),
+            text: String(option),
             disabled: false
           }
         })
@@ -62,13 +61,13 @@ export default {
             const text = option[textField]
             return {
               value: typeof value === 'undefined' ? key : value,
-              text: typeof text === 'undefined' ? key : stripScripts(String(text)),
+              text: typeof text === 'undefined' ? key : String(text),
               disabled: option[disabledField] || false
             }
           }
           return {
             value: key,
-            text: stripScripts(String(option)),
+            text: String(option),
             disabled: false
           }
         })

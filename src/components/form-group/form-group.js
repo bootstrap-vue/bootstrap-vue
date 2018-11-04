@@ -1,5 +1,4 @@
 import warn from '../../utils/warn'
-import stripScripts from '../../utils/strip-scripts'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 import formStateMixin from '../../mixins/form-state'
@@ -22,7 +21,7 @@ export default {
     if (this.hasLabel) {
       let children = $slots['label']
       const legendTag = this.labelFor ? 'label' : 'legend'
-      const legendDomProps = children ? {} : { innerHTML: stripScripts(this.label) }
+      const legendDomProps = children ? {} : { innerHTML: this.label }
       const legendAttrs = { id: this.labelId, for: this.labelFor || null }
       const legendClick = (this.labelFor || this.labelSrOnly) ? {} : { click: this.legendClick }
       if (this.horizontal) {
@@ -70,7 +69,7 @@ export default {
     if (this.hasInvalidFeedback) {
       let domProps = {}
       if (!$slots['invalid-feedback'] && !$slots['feedback']) {
-        domProps = { innerHTML: stripScripts(this.invalidFeedback || this.feedback || '') }
+        domProps = { innerHTML: this.invalidFeedback || this.feedback || '' }
       }
       invalidFeedback = h(
         'b-form-invalid-feedback',
@@ -93,7 +92,7 @@ export default {
     // Valid feeback text (explicitly hidden if state is invalid)
     let validFeedback = h(false)
     if (this.hasValidFeedback) {
-      const domProps = $slots['valid-feedback'] ? {} : { innerHTML: stripScripts(this.validFeedback || '') }
+      const domProps = $slots['valid-feedback'] ? {} : { innerHTML: this.validFeedback || '' }
       validFeedback = h(
         'b-form-valid-feedback',
         {
@@ -115,7 +114,7 @@ export default {
     // Form help text (description)
     let description = h(false)
     if (this.hasDescription) {
-      const domProps = $slots['description'] ? {} : { innerHTML: stripScripts(this.description || '') }
+      const domProps = $slots['description'] ? {} : { innerHTML: this.description || '' }
       description = h(
         'b-form-text',
         { attrs: { id: this.descriptionId }, domProps: domProps },

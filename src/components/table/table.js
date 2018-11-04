@@ -4,7 +4,6 @@ import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
-import stripScripts from '../../utils/strip-scripts'
 import { keys, assign } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
 import idMixin from '../../mixins/id'
@@ -80,7 +79,7 @@ export default {
     if (this.caption || $slots['table-caption']) {
       const data = { style: this.captionStyles }
       if (!$slots['table-caption']) {
-        data.domProps = { innerHTML: stripScripts(this.caption) }
+        data.domProps = { innerHTML: this.caption }
       }
       caption = h('caption', data, $slots['table-caption'])
     }
@@ -135,7 +134,7 @@ export default {
         if (slot) {
           slot = [slot({ label: field.label, column: field.key, field: field })]
         } else {
-          data.domProps = { innerHTML: stripScripts(field.label) }
+          data.domProps = { innerHTML: field.label }
         }
         return h('th', data, slot)
       })
@@ -216,7 +215,7 @@ export default {
         } else {
           const formatted = this.getFormattedValue(item, field)
           if (this.isStacked) {
-            // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
+            // We innerHTML a DIV to ensure rendered as a single cell when visually stacked!
             childNodes = [h('div', formatted)]
           } else {
             // Non stacked
@@ -300,7 +299,7 @@ export default {
       if (!empty) {
         empty = h('div', {
           class: ['text-center', 'my-2'],
-          domProps: { innerHTML: stripScripts(this.filter ? this.emptyFilteredText : this.emptyText) }
+          domProps: { innerHTML: this.filter ? this.emptyFilteredText : this.emptyText }
         })
       }
       empty = h(
