@@ -18,7 +18,7 @@ const props = {
 export default {
   functional: true,
   props,
-  render (h, { props, data, listeners, slots }) {
+  render (h, { props, data, listeners, children }) {
     const componentData = {
       staticClass: 'close',
       class: {
@@ -39,10 +39,10 @@ export default {
         }
       }
     }
-    // Careful not to override the slot with innerHTML
-    if (!slots().default) {
+    // Careful not to override the children with innerHTML
+    if (!children) {
       componentData.domProps = { innerHTML: '&times;' }
     }
-    return h('button', mergeData(data, componentData), slots().default)
+    return h('button', mergeData(data, componentData), children)
   }
 }
