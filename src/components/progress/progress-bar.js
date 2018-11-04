@@ -1,10 +1,12 @@
+import stripScripts from '../../utils/strip-scripts'
+
 export default {
   render (h) {
     let childNodes = h(false)
     if (this.$slots.default) {
       childNodes = this.$slots.default
     } else if (this.label) {
-      childNodes = h('span', { domProps: { innerHTML: this.label } })
+      childNodes = h('span', { domProps: { innerHTML: stripScripts(this.label) } })
     } else if (this.computedShowProgress) {
       childNodes = this.progress.toFixed(this.computedPrecision)
     } else if (this.computedShowValue) {
