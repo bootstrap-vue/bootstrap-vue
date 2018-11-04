@@ -3,6 +3,7 @@ import dropdownMixin from '../../mixins/dropdown'
 import stripScripts from '../../utils/strip-scripts'
 import bButton from '../button/button'
 
+import './dropdown.css'
 // Needed when dropdowns are inside an input group
 import '../input-group/input-group.css'
 
@@ -163,9 +164,10 @@ export default {
     },
     toggleClasses () {
       return [
+        'dropdown-toggle',
         {
-          'dropdown-toggle': !this.noCaret || this.split,
-          'dropdown-toggle-split': this.split
+          'dropdown-toggle-split': this.split,
+          'dropdown-toggle-no-caret': this.noCaret && !this.split
         },
         this.toggleClass
       ]
