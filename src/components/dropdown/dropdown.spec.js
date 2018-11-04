@@ -41,22 +41,22 @@ describe('dropdown', async () => {
     });
 */
 
-  it('should not have a toggle caret when no-caret is true', async () => {
+  it('should have "dropdown-toggle-no-caret" class when no-caret is true', async () => {
     const { app: { $refs } } = window
     const { dd_7 } = $refs // eslint-disable-line camelcase
 
     const toggle = Array.from(dd_7.$el.children)
       .find(node => node.tagName === 'BUTTON' && node.id === `${dd_7.safeId('_BV_toggle_')}`)
-    expect(toggle).not.toHaveClass('dropdown-toggle')
+    expect(toggle).toHaveClass('dropdown-toggle-no-caret')
   })
 
-  it('should have a toggle caret when no-caret and split are true', async () => {
+  it('should not have "dropdown-toggle-no-caret" class when no-caret and split are true', async () => {
     const { app: { $refs } } = window
     const { dd_8 } = $refs // eslint-disable-line camelcase
 
     const toggle = Array.from(dd_8.$el.children)
       .find(node => node.tagName === 'BUTTON' && node.id === `${dd_8.safeId('_BV_toggle_')}`)
-    expect(toggle).toHaveClass('dropdown-toggle')
+    expect(toggle).not.toHaveClass('dropdown-toggle-no-caret')
   })
   /*
   it('boundary set to viewport should have class position-static', async () => {

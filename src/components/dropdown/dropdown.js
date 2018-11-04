@@ -167,7 +167,7 @@ export default {
         'dropdown-toggle',
         {
           'dropdown-toggle-split': this.split,
-          'dropdown-toggle-no-caret': this.noCaret
+          'dropdown-toggle-no-caret': this.noCaret && !this.split
         },
         this.toggleClass
       ]
