@@ -69,6 +69,10 @@ export function importAll (r) {
       return 0
     })
     .forEach(m => {
+      if (m.components) {
+        // Normalize meta.components to array of objects form
+        m.components = m.components.map(c => (typeof c === 'string') ? {component: c} : c)
+      }
       obj[m.slug] = m
     })
 
