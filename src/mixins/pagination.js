@@ -4,7 +4,6 @@
 
 import range from '../utils/range'
 import KeyCodes from '../utils/key-codes'
-import stripScripts from '../utils/strip-scripts'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import bLink from '../components/link/link'
 
@@ -121,7 +120,7 @@ export default {
           [
             h('span', {
               class: ['page-link'],
-              domProps: { innerHTML: stripScripts(btnText) }
+              domProps: { innerHTML: btnText }
             })
           ]
         )
@@ -160,7 +159,7 @@ export default {
               [
                 h('span', {
                   attrs: { 'aria-hidden': 'true' },
-                  domProps: { innerHTML: stripScripts(btnText) }
+                  domProps: { innerHTML: btnText }
                 })
               ]
             )
@@ -181,7 +180,7 @@ export default {
         [
           h('span', {
             class: ['page-link'],
-            domProps: { innerHTML: stripScripts(this.ellipsisText) }
+            domProps: { innerHTML: this.ellipsisText }
           })
         ]
       )
@@ -191,7 +190,7 @@ export default {
     buttons.push(
       this.hideGotoEndButtons
         ? h(false)
-        : makeEndBtns(1, this.labelFirstPage, stripScripts(this.firstText))
+        : makeEndBtns(1, this.labelFirstPage, this.firstText)
     )
 
     // Goto Previous page button
@@ -203,7 +202,7 @@ export default {
     // Individual Page links
     this.pageList.forEach(page => {
       let inner
-      let pageNum = stripScripts(this.makePage(page.number))
+      let pageNum = this.makePage(page.number)
       if (this.disabled) {
         inner = h('span', {
           class: ['page-link'],
@@ -420,7 +419,10 @@ export default {
     pageLinkClasses (page) {
       return [
         'page-link',
-        this.disabled ? 'disabled' : ''
+        this.disabled ? 'disabled' : '',
+        // Interim workaround to get better focus styling of active button
+        // See https://github.com/twbs/bootstrap/issues/24838
+        this.isActive(page.number) ? 'btn-primary' : ''
       ]
     },
     getButtons () {

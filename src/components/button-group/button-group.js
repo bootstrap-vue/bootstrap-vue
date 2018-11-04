@@ -1,4 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
+import { arrayIncludes } from '../../utils/array'
 
 export const props = {
   vertical: {
@@ -7,7 +8,8 @@ export const props = {
   },
   size: {
     type: String,
-    default: null
+    default: null,
+    validator: size => arrayIncludes(['sm', '', 'lg'], size)
   },
   tag: {
     type: String,
