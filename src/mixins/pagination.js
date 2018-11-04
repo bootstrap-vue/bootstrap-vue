@@ -420,7 +420,7 @@ export default {
     pageLinkClasses (page) {
       return [
         'page-link',
-        this.disabled ? 'disabled' : '',
+        this.disabled ? 'disabled' : ''
       ]
     },
     getButtons () {
