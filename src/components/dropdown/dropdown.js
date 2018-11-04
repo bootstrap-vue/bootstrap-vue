@@ -1,5 +1,6 @@
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
+import stripScripts from '../../utils/strip-scripts'
 import bButton from '../button/button'
 
 import './dropdown.css'
@@ -26,7 +27,7 @@ export default {
             click: this.click
           }
         },
-        [this.$slots['button-content'] || this.$slots.text || this.text]
+        [this.$slots['button-content'] || this.$slots.text || stripScripts(this.text)]
       )
     }
     const toggle = h(
@@ -52,7 +53,7 @@ export default {
       [
         this.split
           ? h('span', { class: ['sr-only'] }, [this.toggleText])
-          : this.$slots['button-content'] || this.$slots.text || this.text
+          : this.$slots['button-content'] || this.$slots.text || stripScripts(this.text)
       ]
     )
     const menu = h(
