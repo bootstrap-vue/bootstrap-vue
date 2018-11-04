@@ -1,6 +1,6 @@
 import { isArray } from '../utils/array'
 import { keys } from '../utils/object'
-import stripScripts from '../../utils/strip-scripts'
+import stripScripts from '../utils/strip-scripts'
 
 function isObject (obj) {
   return obj && ({}).toString.call(obj) === '[object Object]'
