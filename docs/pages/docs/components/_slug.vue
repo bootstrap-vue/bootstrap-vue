@@ -4,8 +4,15 @@
 
         <componentdoc :component="meta.component" :events="meta.events" :slots="meta.slots"></componentdoc>
 
+        <template v-for="component in meta.components">
+            <!-- if component is just a string component name -->
+            <componentdoc v-if="typeof component === 'string'" :component="component" :key="component"></componentdoc>
+            <!-- else component is an object containing slots and events -->
+            <componentdoc v-else :component="component.component" :events="component.events" :slots="component.slots" :key="component.component"></componentdoc>
+        </template>
+
         <b-card class="my-4">
-            <small class="font-italic">
+            <p class="card-text small font-italic mb-0">
                 Trying to get native browser events working on your component? Use the
                 <code>.native</code>
                 modifier to capture browser native events such as:
@@ -13,10 +20,8 @@
                 <code>@mouseover.native="..."</code>, etc. See the the official
                 <a href="https://vuejs.org/v2/guide/components.html#Binding-Native-Events-to-Components">Vue.js documentation</a>
                 for more information.
-            </small>
+            </p>
         </b-card>
-
-        <componentdoc :component="component" :key="component" v-for="component in meta.components"></componentdoc>
 
         <importdoc :meta="meta"></importdoc>
     </div>
