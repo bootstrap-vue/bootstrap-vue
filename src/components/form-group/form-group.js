@@ -141,7 +141,7 @@ export default {
         class: this.groupClasses,
         attrs: {
           id: this.safeId(),
-          disabled: this.disabled,
+          disabled: this.labelFor ? null : this.disabled,
           role: 'group',
           'aria-invalid': this.computedState === false ? 'true' : null,
           'aria-labelledby': this.labelId,
@@ -213,6 +213,10 @@ export default {
       default: null
     },
     validated: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     }

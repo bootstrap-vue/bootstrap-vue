@@ -1,6 +1,6 @@
 # Button group
 
-> Group a series of buttons together on a single line with `<b-button group>`.
+> Group a series of buttons together on a single line with `<b-button-group>`.
 
 **Example 1:** Default button group and button group using contextual variants
 ```html

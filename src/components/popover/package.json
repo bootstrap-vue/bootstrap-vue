@@ -4,6 +4,9 @@
     "meta": {
         "title": "Popover",
         "component": "bPopover",
+        "directives": [
+            "vBPopover"
+        ],
         "events": [
             {
                 "event": "show",

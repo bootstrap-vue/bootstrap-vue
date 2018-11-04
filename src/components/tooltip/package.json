@@ -4,6 +4,9 @@
     "meta": {
         "title": "Tooltip",
         "component": "bTooltip",
+        "directives": [
+            "vBTooltip"
+        ],
         "events": [
             {
                 "event": "show",

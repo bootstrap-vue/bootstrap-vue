@@ -3,7 +3,8 @@ import dropdownMixin from '../../mixins/dropdown'
 import stripScripts from '../../utils/strip-scripts'
 import bButton from '../button/button'
 
-import './dropdown.css'
+// Needed when dropdowns are inside an input group
+import '../input-group/input-group.css'
 
 export default {
   mixins: [idMixin, dropdownMixin],
@@ -38,7 +39,8 @@ export default {
         props: {
           variant: this.variant,
           size: this.size,
-          disabled: this.disabled
+          disabled: this.disabled,
+          tag: this.toggleTag
         },
         attrs: {
           id: this.safeId('_BV_toggle_'),
@@ -99,6 +101,10 @@ export default {
       type: [String, Array],
       default: null
     },
+    toggleTag: {
+      type: String,
+      default: 'button'
+    },
     toggleClass: {
       type: [String, Array],
       default: null
@@ -120,20 +126,29 @@ export default {
   },
   computed: {
     dropdownClasses () {
-      let position = ''
       // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
       // when boundary is anything other than `scrollParent`
       // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
-      if (this.boundary !== 'scrollParent' || !this.boundary) {
-        position = 'position-static'
+      const positionStatic = this.boundary !== 'scrollParent' || !this.boundary
+
+      let direction = ''
+      if (this.dropup) {
+        direction = 'dropup'
+      } else if (this.dropright) {
+        direction = 'dropright'
+      } else if (this.dropleft) {
+        direction = 'dropleft'
       }
+
       return [
         'btn-group',
         'b-dropdown',
         'dropdown',
-        this.dropup ? 'dropup' : '',
-        this.visible ? 'show' : '',
-        position
+        direction,
+        {
+          show: this.visible,
+          'position-static': positionStatic
+        }
       ]
     },
     menuClasses () {

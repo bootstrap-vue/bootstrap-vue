@@ -41,7 +41,7 @@ Any additional attributes provided to `<b-embed>` (other than the above `type`,
 `video`, `embed` and `object`).
 
 Any children elements between the opening and closing `<b-embed>` will be placed
-inside the inner embded element. Note that type `iframe` does not support any children.
+inside the inner embeded element. Note that type `iframe` does not support any children.
 
 **Example: Responsive embedding of an HTML5 `<video>`**
 ```html

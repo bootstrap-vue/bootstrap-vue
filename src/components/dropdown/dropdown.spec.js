@@ -73,6 +73,15 @@ describe('dropdown', async () => {
     expect(dd_1).not.toHaveClass('position-static')
   })
   */
+
+  it('should have a toggle with the given toggle tag', async () => {
+    const { app: { $refs } } = window
+    const { dd_10 } = $refs // eslint-disable-line camelcase
+
+    const toggle = dd_10.$el.querySelector('.dropdown-toggle')
+    expect(toggle).toBeElement('div')
+  })
+
   it('dd-item should render as link by default', async () => {
     const {app: {$refs}} = window
     const {dd_6} = $refs // eslint-disable-line camelcase
@@ -117,6 +126,7 @@ describe('dropdown', async () => {
 
     expect(menu.attributes['aria-labelledby'].value).toMatch(/_BV_toggle_$/)
   })
+
   it('.dropdown menu aria-labelledby should target `_BV_button_` when in split mode', async () => {
     const { app: { $refs } } = window
     const { dd_2 } = $refs // eslint-disable-line camelcase

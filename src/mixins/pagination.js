@@ -179,6 +179,7 @@ export default {
           attrs: { role: 'separator' }
         },
         [
+          this.$slots['ellipsis-text'] ||
           h('span', {
             class: ['page-link'],
             domProps: { innerHTML: stripScripts(this.ellipsisText) }
@@ -191,11 +192,11 @@ export default {
     buttons.push(
       this.hideGotoEndButtons
         ? h(false)
-        : makeEndBtns(1, this.labelFirstPage, stripScripts(this.firstText))
+        : makeEndBtns(1, this.labelFirstPage, this.$slots['first-text'] || stripScripts(this.firstText))
     )
 
     // Goto Previous page button
-    buttons.push(makeEndBtns(this.currentPage - 1, this.labelPrevPage, this.prevText, 1))
+    buttons.push(makeEndBtns(this.currentPage - 1, this.labelPrevPage, this.$slots['prev-text'] || this.prevText, 1))
 
     // First Ellipsis Bookend
     buttons.push(this.showFirstDots ? makeEllipsis() : h(false))
@@ -258,7 +259,7 @@ export default {
       makeEndBtns(
         this.currentPage + 1,
         this.labelNextPage,
-        this.nextText,
+        this.$slots['next-text'] || this.nextText,
         this.numberOfPages
       )
     )
@@ -267,7 +268,7 @@ export default {
     buttons.push(
       this.hideGotoEndButtons
         ? h(false)
-        : makeEndBtns(this.numberOfPages, this.labelLastPage, this.lastText)
+        : makeEndBtns(this.numberOfPages, this.labelLastPage, this.$slots['last-text'] || this.lastText)
     )
 
     // Assemble the paginatiom buttons

@@ -7,6 +7,7 @@ import cardMixin from '../../mixins/card-mixin'
 
 export const props = assign(
   {},
+  // Import common card props and prefix them with `body-`
   copyProps(cardMixin.props, prefixPropName.bind(null, 'body')),
   {
     bodyClass: {
@@ -39,25 +40,24 @@ export const props = assign(
 export default {
   functional: true,
   props,
-  render (h, { props, data, slots }) {
-    let cardBodyChildren = []
+  render (h, { props, data, children }) {
+    let cardTitle = h(false)
+    let cardSubTitle = h(false)
+    let cardContent = children || [ h(false) ]
+
     if (props.title) {
-      cardBodyChildren.push(
-        h(props.titleTag, {
-          staticClass: 'card-title',
-          domProps: { innerHTML: stripScripts(props.title) }
-        })
-      )
+      cardTitle = h(props.titleTag, {
+        staticClass: 'card-title',
+        domProps: { innerHTML: stripScripts(props.title) }
+      })
     }
+
     if (props.subTitle) {
-      cardBodyChildren.push(
-        h(props.subTitleTag, {
-          staticClass: 'card-subtitle mb-2 text-muted',
-          domProps: { innerHTML: stripScripts(props.subTitle) }
-        })
-      )
+      cardSubTitle = h(props.subTitleTag, {
+        staticClass: 'card-subtitle mb-2 text-muted',
+        domProps: { innerHTML: stripScripts(props.subTitle) }
+      })
     }
-    cardBodyChildren.push(slots().default)
 
     return h(
       props.bodyTag,
@@ -75,7 +75,7 @@ export default {
           props.bodyClass || {}
         ]
       }),
-      cardBodyChildren
+      [ cardTitle, cardSubTitle, ...cardContent ]
     )
   }
 }

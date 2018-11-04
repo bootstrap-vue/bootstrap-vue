@@ -55,6 +55,20 @@ describe('button', async () => {
     expect(btnRootNode.href).toBe('https://github.com/bootstrap-vue/bootstrap-vue')
   })
 
+  it('should use the given tag', async () => {
+    const { app: { $refs } } = window
+    const btnRootNode = $refs.btn_div
+
+    expect(btnRootNode).toBeElement('div')
+  })
+
+  it('should use button when no tag is given', async () => {
+    const { app: { $refs } } = window
+    const btnRootNode = $refs.btn_no_tag
+
+    expect(btnRootNode).toBeElement('button')
+  })
+
   it('should emit "click" event when clicked', async () => {
     const { app: { $refs } } = window
     const btn = $refs.btn_click

@@ -4,6 +4,8 @@ import InputGroupPrepend from './input-group-prepend'
 import InputGroupAppend from './input-group-append'
 import InputGroupText from './input-group-text'
 
+import './input-group.css'
+
 export const props = {
   id: {
     type: String,
@@ -42,15 +44,23 @@ export default {
           h(InputGroupText, { domProps: { innerHTML: stripScripts(props.prepend) } })
         ])
       )
+    } else {
+      childNodes.push(h(false))
     }
 
     // Prepend slot
     if ($slots.prepend) {
       childNodes.push(h(InputGroupPrepend, $slots.prepend))
+    } else {
+      childNodes.push(h(false))
     }
 
     // Default slot
-    childNodes.push($slots.default)
+    if ($slots.default) {
+      childNodes.push(...$slots.default)
+    } else {
+      childNodes.push(h(false))
+    }
 
     // Append prop
     if (props.append) {
@@ -59,11 +69,15 @@ export default {
           h(InputGroupText, { domProps: { innerHTML: stripScripts(props.append) } })
         ])
       )
+    } else {
+      childNodes.push(h(false))
     }
 
     // Append slot
     if ($slots.append) {
       childNodes.push(h(InputGroupAppend, $slots.append))
+    } else {
+      childNodes.push(h(false))
     }
 
     return h(

@@ -50,7 +50,7 @@ Disabled the dropdown item by setting the `disabled` prop.
 Historically dropdown menu contents had to be links (`<b-dropdown-item>`), but that’s no
 longer the case with Bootstrap v4. Now you can optionally create `<button>` elements in
 your dropdowns by using the `<b-dropdown-item-button>` sub-component.
-`<b-dropdown-itmem-button>` does not support the `href` or `to` props.
+`<b-dropdown-item-button>` does not support the `href` or `to` props.
 
 Disabled the dropdown item button by setting the `disabled` prop.
 
@@ -136,7 +136,7 @@ Turn your dropdown menu into a drop-up menu by setting the `dropup` prop.
 
 ```html
 <div>
-  <b-dropdown id="ddown-dropup" dropup text="Drop-Up" variant="info" class="m-2">
+  <b-dropdown id="ddown-dropup" dropup text="Drop-Up" variant="primary" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
@@ -144,6 +144,36 @@ Turn your dropdown menu into a drop-up menu by setting the `dropup` prop.
 </div>
 
 <!-- dropdown-dropup.vue -->
+```
+
+### Dropright
+Turn your dropdown menu into a drop-right menu by setting the `dropright` prop.
+
+```html
+<div>
+  <b-dropdown id="ddown-dropright" dropright text="Drop-Right" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-dropright.vue -->
+```
+
+### Dropleft
+Turn your dropdown menu into a drop-right menu by setting the `dropleft` prop.
+
+```html
+<div>
+  <b-dropdown id="ddown-dropleft" dropleft text="Drop-Left" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-dropleft.vue -->
 ```
 
 ### Auto "flipping"
@@ -242,7 +272,7 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 The dropdown trigger buttons can have one of the standard Bootstrap contextual variants applied
 by setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link` etc.
 
-See the [Variant Reference](/docs/reference/variants) for a list of supported contextual variants.
+See the [Variant Reference](/docs/reference/color-variants) for a list of supported contextual variants.
 
 You can also apply abritrary classes to the toggle button via the `toggle-class` prop. This prop accepts either a string or array of strings.
 

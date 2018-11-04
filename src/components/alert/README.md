@@ -15,8 +15,7 @@ Alerts are available for any length of text, as well as an optional dismiss butt
 
     <b-alert variant="danger"
              dismissible
-             :show="showDismissibleAlert"
-             @dismissed="showDismissibleAlert=false">
+             v-model="showDismissibleAlert">
       Dismissible Alert!
     </b-alert>
 
@@ -65,10 +64,20 @@ export default {
 <!-- alert-1.vue -->
 ```
 
+
 ## Visible state
 Use the `show` prop to control the visibility state of the alert. By
 default alerts are **not** shown. Set the prop `show` to explicity display them.
 
+The `show` prop accepts boolean `true` or `false` to show  and hide the alert
+respectively. It can also be set to a positive integer (representing seconds) to
+create a self dismissing alert.  See the [Auto Dismissing Alerts](#auto-dismissing-alerts)
+section below for details.
+
+### Alert v-model support
+You can use the `v-model` directive to create two-way data bindings on the `show` prop as in 
+`v-model="showDismissibleAlert"` above. Useful when you use dismissible because when user closes 
+the alert, your variable will be updated. Do not use the `show` prop when using `v-model`.
 
 ## Alert contextual variants
 For proper styling of `<b-alert>`, use one of the four required contextual variants by setting the
@@ -168,9 +177,11 @@ with the dismiss button.
 <!-- alert-dismis-1.vue -->
 ```
 
+
 ### Auto dismissing alerts
 To create a `<b-alert>` that dismisses automatically after a period of time, set
-the `show` prop to the number of seconds you would like the `<b-alert>` to remain visible for.
+the `show` prop (or the `v-model`) to the number of seconds you would like the
+`<b-alert>` to remain visible for. Only integer number of seconds are supported.
 
 ```html
 <template>

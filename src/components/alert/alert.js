@@ -112,8 +112,8 @@ export default {
       if (this.show === true || this.show === false || this.show === null || this.show === 0) {
         return
       }
-      // Start counter
-      let dismissCountDown = this.show
+      // Start counter (ensure we have an integer value)
+      let dismissCountDown = parseInt(this.show, 10) || 1
       this.countDownTimerId = setInterval(() => {
         if (dismissCountDown < 1) {
           this.dismiss()

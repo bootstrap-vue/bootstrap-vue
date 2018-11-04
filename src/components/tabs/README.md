@@ -1,6 +1,6 @@
 # Tabs
 
-> Create tabbable panes of local content.
+> Create tabbable panes of local content. The tabs component is built upon navs and cards internally.
 
 
 ## Basic usage
@@ -21,6 +21,10 @@
 <!-- basic.vue -->
 ```
 
+**Tip:** You should supply each child `<b-tab>` component a unique `key` value if dynamically
+adding, removing, showing, or hiding `<b-tab>` components. The `key` attribute is a special
+Vue attribute, see https://vuejs.org/v2/api/#key).
+
 ## Cards Integration
 
 Tabs support integrating with bootstrap cards. Just add the `card` property to
@@ -31,10 +35,10 @@ header and remove the extra padding introduced by `card-body`.
 ```html
 <b-card no-body>
   <b-tabs card>
-    <b-tab title="Tab 1" active>
+    <b-tab title="Tab 1" active key="tab-1">
       Tab Contents 1
     </b-tab>
-    <b-tab title="Tab 2">
+    <b-tab title="Tab 2" key="tab-2">
       Tab Contents 2
     </b-tab>
   </b-tabs>
@@ -50,19 +54,19 @@ To disable the `card-body` class, set the `no-body` prop on `<b-tab>` sub compon
 ```html
 <b-card no-body>
   <b-tabs card>
-    <b-tab no-body title="Picture 1" active>
+    <b-tab no-body title="Picture 1" active key="tab-1">
       <b-card-img bottom src="https://picsum.photos/600/200/?image=21" />
       <b-card-footer>Picture 1 footer</b-card-footer>
     </b-tab>
-    <b-tab no-body title="Picture 2">
+    <b-tab no-body title="Picture 2" key="tab-2">
       <b-card-img bottom src="https://picsum.photos/600/200/?image=25" />
       <b-card-footer>Picture 2 footer</b-card-footer>
     </b-tab>
-    <b-tab no-body title="Picture 3">
+    <b-tab no-body title="Picture 3" key="tab-3">
       <b-card-img bottom src="https://picsum.photos/600/200/?image=26" />
       <b-card-footer>Picture 3 footer</b-card-footer>
     </b-tab>
-    <b-tab title="Text">
+    <b-tab title="Text" key="tab-1">
       <h5>This tab does not have the <code>no-body</code> prop set</h5>
       Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
       tempor. Laborum consequat non elit enim exercitation cillum aliqua consequat
@@ -88,10 +92,10 @@ the pill style variant.
 ```html
 <b-card no-body>
   <b-tabs pills card>
-    <b-tab title="Tab 1" active>
+    <b-tab title="Tab 1" active key="tab-1">
       Tab Contents 1
     </b-tab>
-    <b-tab title="Tab 2">
+    <b-tab title="Tab 2" key="tab-2">
       Tab Contents 2
     </b-tab>
   </b-tabs>
@@ -107,10 +111,10 @@ Visually move the tab controls to the bottom by setting the prop `end`
 ```html
 <b-card no-body>
   <b-tabs pills card end>
-    <b-tab title="Tab 1" active>
+    <b-tab title="Tab 1" active key="tab-1">
       Tab Contents 1
     </b-tab>
-    <b-tab title="Tab 2">
+    <b-tab title="Tab 2" key="tab-1">
       Tab Contents 2
     </b-tab>
   </b-tabs>
@@ -138,13 +142,13 @@ Vertical tabs work with or without `card` mode enabled.
 ```html
 <b-card no-body>
   <b-tabs pills card vertical>
-    <b-tab title="Tab 1" active>
+    <b-tab title="Tab 1" active key="tab-1">
       Tab Contents 1
     </b-tab>
-    <b-tab title="Tab 2">
+    <b-tab title="Tab 2" key="tab-2">
       Tab Contents 2
     </b-tab>
-    <b-tab title="Tab 3">
+    <b-tab title="Tab 3" key="tab-3">
       Tab Contents 3
     </b-tab>
   </b-tabs>
@@ -158,13 +162,13 @@ Visually move the tab controls to the right hand side by setting the `end` prop:
 ```html
 <b-card no-body>
   <b-tabs pills card vertical end>
-    <b-tab title="Tab 1" active>
+    <b-tab title="Tab 1" active key="tab-1">
       Tab Contents 1
     </b-tab>
-    <b-tab title="Tab 2">
+    <b-tab title="Tab 2" key="tab-2">
       Tab Contents 2
     </b-tab>
-    <b-tab title="Tab 3">
+    <b-tab title="Tab 3" key="tab-3">
       Tab Contents 3
     </b-tab>
   </b-tabs>
@@ -181,13 +185,13 @@ or column classes such as `col-2`, `col-3`, etc.
 ```html
 <b-card no-body>
   <b-tabs pills card vertical nav-wrapper-class="w-50">
-    <b-tab title="Tab 1" active>
+    <b-tab title="Tab 1" active key="tab-1">
       Tab Contents 1
     </b-tab>
-    <b-tab title="Tab 2">
+    <b-tab title="Tab 2" key="tab-2">
       Tab Contents 2
     </b-tab>
-    <b-tab title="Tab 3">
+    <b-tab title="Tab 3" key="tab-3">
       Tab Contents 3
     </b-tab>
   </b-tabs>
@@ -233,7 +237,7 @@ If you want to add custom content to tab title, like HTML code, icons, or anothe
 
 ```html
 <b-tabs>
- <b-tab active>
+ <b-tab active key="tab-1">
  <!-- Add your custom title here-->
    <template slot="title">
      i'm <i>Custom</i> <strong>Title</strong>
@@ -260,13 +264,13 @@ You may need to accomodate your custom classes for this._
 <template>
   <b-card no-body>
     <b-tabs card v-model="tabIndex">
-      <b-tab title="Tab 1" :title-link-class="linkClass(0)">
+      <b-tab title="Tab 1" :title-link-class="linkClass(0)" key="tab-1">
         Tab Contents 1
       </b-tab>
-      <b-tab title="Tab 2" :title-link-class="linkClass(1)">
+      <b-tab title="Tab 2" :title-link-class="linkClass(1)" key="tab-2">
         Tab Contents 2
       </b-tab>
-      <b-tab title="Tab 3" :title-link-class="linkClass(2)">
+      <b-tab title="Tab 3" :title-link-class="linkClass(2)" key="tab-3">
         Tab Contents 3
       </b-tab>
     </b-tabs>
@@ -328,14 +332,14 @@ as it is not possble to use key presses to jump out of a text (or test-like) inp
     <!-- Tabs with card integration -->
     <b-card no-body>
       <b-tabs small card v-model="tabIndex">
-        <b-tab title="General">
+        <b-tab title="General" key="tab-1">
           I'm the first fading tab
         </b-tab>
-        <b-tab title="Edit profile">
+        <b-tab title="Edit profile" key="tab-2">
           I'm the second tab
           <b-card>I'm the card in tab</b-card>
         </b-tab>
-        <b-tab title="Premium Plan" disabled>
+        <b-tab title="Premium Plan" disabled key="tab-3">
           Sibzamini!
         </b-tab>
         <b-tab title="Info">
@@ -376,8 +380,8 @@ export default {
   <div>
     <b-card no-body>
       <b-tabs card>
-        <!-- Render Tabs -->
-        <b-tab :title="`Tab ${i}`" v-for="i in tabs" :key="i">
+        <!-- Render Tabs, supply a unique `key` to each tab -->
+        <b-tab :title="`Tab ${i}`" v-for="i in tabs" :key="`dyntab-${i}`">
           Tab Contents {{i}}
           <b-btn size="sm" variant="danger" class="float-right" @click="()=>closeTab(i)">
             Close tab

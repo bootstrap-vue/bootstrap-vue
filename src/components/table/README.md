@@ -40,7 +40,7 @@ keyed objects. Example format:
     { age: 42, first_name: 'Robert' }
 ]
 ```
-`<b-table>` automatically samples the first row to extract field names (they keys in the
+`<b-table>` automatically samples the first row to extract field names (the keys in the
 record data). Field names are automatically "humanized" by converting `kebab-case`, `snake_case`,
 and `camelCase` to individual words and capitalizes each word. Example conversions:
 
@@ -50,7 +50,7 @@ and `camelCase` to individual words and capitalizes each word. Example conversio
  - `YEAR` remains `YEAR`
  - `isActive` becomes `Is Active`
 
-These titles wil be displayed in the table header, in the order they appear in the
+These titles will be displayed in the table header, in the order they appear in the
 **first** record of data. See the [**Fields**](#fields-column-definitions-) section
 below for customizing how field headings appear.
 
@@ -66,8 +66,8 @@ these names):
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`)
-| `_rowVariant` | String | Bootstrap contextual state applied to the entire row (Supported values: `active`, `success`, `info`, `warning`, `danger`)
+| `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set).
+| `_rowVariant` | String | Bootstrap contextual state applied to the entire row (Supported values: `active`, `success`, `info`, `warning`, `danger`). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set)
 | `_showDetails` | Boolean | Used to trigger the display of the `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information
 
 **Example: Using variants for table cells**
@@ -133,7 +133,7 @@ object for an individual `field`).
 
 ### Fields as a simple array
 Fields can be a simple array, for defining the order of the columns, and
-which columns to display (order is guaranteed):
+which columns to display. **(field order is guaranteed)**:
 
 **Example: Using `array` fields definition**
 ```html
@@ -164,7 +164,7 @@ export default {
 ### Fields as an array of objects
 Fields can be a an array of objects, providing additional control over the fields (such
 as sorting, formatting, etc). Only columns (keys) that appear in the fields array will
-be shown (order is guaranteed):
+be shown **(field order is guaranteed)**:
 
 **Example: Using array of objects fields definition**
 ```html
@@ -212,7 +212,7 @@ export default {
 Also, fields can be a an object providing similar control over the fields as the
 _array of objects_ above does. Only columns listed in the fields object will be shown.
 The order of the fields will typically be in the order they were defined in the object,
-although **order is not guaranteed**.  
+although **field order is not guaranteed**.  
 
 **Example: Using object fields definition**
 ```html
@@ -241,10 +241,12 @@ export default {
           sortable: true
         },
         city: {
-          key: 'address.city'
+          key: 'address.city',
+          sortable: true
         },
         'address.country': {
-          label: 'Country'
+          label: 'Country',
+          sortable: true
         }
       },
       items: [
@@ -263,14 +265,14 @@ export default {
 
 >**Notes:** 
 >- _if a `key` property is defined in the field definition, it will take precedence over the key used to define the field._
->- _It is possible to define `key` as column's object property, but currently, sorting of these columns **not supported**_
+>- _It is possible to define `key` as column's object property, but currently, sorting of these columns is **not supported**_
 
 ### Field definition reference
 The following field properties are recognized:
 
 | Property | Type | Description
 | ---------| ---- | -----------
-| `key` | String | The key for selecting data from the record in the items array. Required when passing the props `fields` an array of objects.
+| `key` | String | The key for selecting data from the record in the items array. Required when setting the `fields` from as an array of objects.
 | `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""`
 | `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.
 | `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [**Custom Data Rendering**](#custom-data-rendering) for more details.
@@ -279,7 +281,7 @@ The following field properties are recognized:
 | `tdClass` | String or Array or Function | Class name (or array of class names) to add to `<tbody>` data `<td>` cells in the column. If custom classes per cell are required, a callback function can be specified instead.
 | `thClass` | String or Array | Class name (or array of class names) to add to `<thead>`/`<tfoot>` heading `<th>` cell.
 | `thStyle` | Object | JavaScript object representing CSS styles you would like to apply to the table `<thead>`/`<tfoot>` field `<th>`.
-| `variant` | String | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger` (these variants map to classes `thead-${variant}`, `table-${variant}`, or `bg-${variant}` accordingly).
+| `variant` | String | Apply contextual class to all the `<th>` **and** `<td>` in the column - `active`, `success`, `info`, `warning`, `danger`. These variants map to classes `thead-${variant}` (in the header), `table-${variant}` (in the body), or `bg-${variant}` (when table prop `dark` is set).
 | `tdAttr` | Object or Function | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.
 | `isRowHeader` | Boolean | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.
 
@@ -307,13 +309,15 @@ fields: [
 ```
 
 ## Table style options
+
+### Table Styling ###
 `<b-table>` provides several props to alter the style of the table:
 
 | prop | Type | Description
 | ---- | ---- | -----------
 | `striped` | Boolean | Add zebra-striping to the table rows within the `<tbody>`
 | `bordered` | Boolean | For borders on all sides of the table and cells.
-| `outlined` | Boolean | For a thin border on all sides of the table. Has no effect is `bordered` is set.
+| `outlined` | Boolean | For a thin border on all sides of the table. Has no effect if `bordered` is set.
 | `small` | Boolean | To make tables more compact by cutting cell padding in half.
 | `hover` | Boolean | To enable a hover highlighting state on table rows within a `<tbody>`
 | `dark` | Boolean | Invert the colors — with light text on dark backgrounds (equivalent to Bootstrap V4 class `.table-dark`)
@@ -376,7 +380,49 @@ export default {
 
 <!-- table-bordered.vue -->
 ```
+### Row Styling ###
 
+You can also style every row using the `tbdoy-tr-class` prop
+
+| Property | Type | Description
+| ---------| ---- | -----------
+| `tbodyTrClass` | String, Array or Function | Classes to be applied to every row on the table. If a function is given, it will be called as `tbodyTrClass( item, type )` and it may return an `Array`, `Object` or `String`.
+
+
+**Example: Basic row styles**
+```html
+<template>
+  <div>
+    <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass">
+    </b-table>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      fields: [ 'first_name', 'last_name', 'age' ],
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald', status: 'awesome'  },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+      ],
+    }
+  },
+  methods: {
+    rowClass( item, type ) {
+      if ( !item )
+        return;
+      if ( item.status === 'awesome' )
+        return 'table-success';
+    },
+  }
+}
+</script>
+
+<!-- table-styled-row-basic.vue -->
+```
 
 ## Responsive tables
 Responsive tables allow tables to be scrolled horizontally with ease. Make any table
@@ -964,25 +1010,44 @@ on the custom rendering of the field data (formatter functions and/or scoped slo
 are used only for presentation). For this reason, you can provide your own
 custom sort compare routine by passing a function reference to the prop `sort-compare`.
 
-The `sort-compare` routine is passed three arguments. The first two arguments
-(`a` and `b`) are the record objects for the rows being compared, and the third
-argument is the field `key` being sorted on (`sortBy`). The routine should return
-either `-1`, `0`, or `1` based on the result of the comparing of the two records.
-If the routine returns `null`, then the default sort-compare routine will be used.
-You can use this feature (i.e. returning `null`) to have your custom sort-compare
-routine handle only certain fields (keys).
+The `sort-compare` routine is passed four arguments. The first two arguments
+(`a` and `b`) are the record objects for the rows being compared, the third
+argument is the field `key` being sorted on (`sortBy`), and the fourth argument
+(`sortDesc`) is the order `<b-table>` will display the records (`true` for
+descending, `false` for ascending).
 
-The default sort-compare routine works as follows:
+The routine should always return either `-1`  for `a < b` , `0` for `a === b`,
+or `1` for `a > b` (the fourth argument, sorting direction, should not be used, as
+`b-table` will handle the direction). The routine can  also return `null` to fall back
+to the default built-in sort-compare routine. You can use this feature (i.e. by
+returning `null`) to have your custom sort-compare routine handle only certain fields
+(keys) or in the special case of virtual columns.
+
+The default sort-compare routine works similar to the following. Note the fourth
+argument (sorting direction) is **not** used in the sort comparison:
 
 ```js
-if (typeof a[key] === 'number' && typeof b[key] === 'number') {
-  // If both compared fields are native numbers
-  return a[key] < b[key] ? -1 : (a[key] > b[key] ? 1 : 0)
-} else {
-  // Stringify the field data and use String.localeCompare
-  return toString(a[key]).localeCompare(toString(b[key]), undefined, {
-    numeric: true
-  })
+function sortCompare(a, b, key) {
+  if (typeof a[key] === 'number' && typeof b[key] === 'number') {
+    // If both compared fields are native numbers
+    return a[key] < b[key] ? -1 : (a[key] > b[key] ? 1 : 0)
+  } else {
+    // Stringify the field data and use String.localeCompare
+    return toString(a[key]).localeCompare(toString(b[key]), undefined, {
+      numeric: true
+    })
+  }
+}
+function toString (value) {
+  if (!value) { 
+    return ''
+  } else if (value instanceof Object) {
+    return keys(value)
+      .sort()
+      .map(key => toString(value[key]))
+      .join(' ')
+  }
+  return String(value)
 }
 ```
 

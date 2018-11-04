@@ -1,0 +1,230 @@
+// form-input-type-range.scss style SASS source file. Used to manually create form-input-type-range.css
+// Someday, we can integrate sass-loader and node-sass */
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+/* Temp padding and height fix until V4.2 https://github.com/twbs/bootstrap/pull/26898 */
+
+.custom-range {
+  height: calc(#{$custom-range-thumb-height} + #{$custom-range-thumb-focus-box-shadow-width * 2});
+  padding: 0; // Need to reset padding
+}
+
+/* Temp fix for :disabled state until V4.2 https://github.com/twbs/bootstrap/pull/26540 */
+.custom-range:disabled {
+  &::-webkit-slider-thumb {
+    background-color: #adb5bd;
+  }
+  &::-webkit-slider-runnable-track {
+    cursor: default;
+  }
+  &::-moz-range-thumb {
+    background-color: #adb5bd;
+  }
+  &::-moz-range-track {
+    cursor: default;
+  }
+  &::-ms-thumb {
+    background-color: #adb5bd;
+  }
+}
+
+/* Base .input-group > .custom-range styling (no PR yet on BS V4) */
+
+.input-group {
+  > .custom-range {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    margin-bottom: 0;
+
+    + .form-control,
+    + .custom-select,
+    + .form-control-plaintext,
+    + .custom-range,
+    + .custom-file { 
+      margin-left: -$input-border-width;
+    }
+  }
+
+  > .form-control,
+  > .form-control-plaintext,
+  > .custom-select,
+  > .custom-range,
+  > .custom-file {
+      + .custom-range {
+      margin-left: -$input-border-width;
+    }
+  }
+
+  > .custom-range:focus {
+    z-index: 3;
+  }
+  
+  > .custom-range {
+    &:not(:last-child) { @include border-right-radius(0); }
+    &:not(:first-child) { @include border-left-radius(0); }
+  }
+
+  > .custom-range {
+    height: $input-height;
+    padding: 0 $input-padding-x;
+    background-color: $input-bg;
+    background-clip: padding-box;
+    border: $input-border-width solid $input-border-color;
+    height: $input-height;
+
+    @if $enable-rounded {
+      border-radius: $input-border-radius;
+    } @else {
+      border-radius: 0;
+    }
+    
+    @include box-shadow($input-box-shadow);
+    @include transition($input-transition);
+    @include form-control-focus();
+    &:disabled,
+    &[readonly] {
+      background-color: $input-disabled-bg;
+    }
+  }
+}
+.input-group-lg > .custom-range {
+  height: $input-height-lg;
+  padding: 0 $input-padding-x-lg;
+  @include border-radius($input-border-radius-lg);
+}
+.input-group-sm > .custom-range {
+  height: $input-height-sm;
+  padding: 0 $input-padding-x-sm;
+  @include border-radius($input-border-radius-sm);
+}
+
+/* Validation styling - valid (no PR yet on BS V4) */
+
+.input-group .custom-range {
+  .was-validated &:#{'valid'},
+  &.is-#{'valid'} {
+    border-color: $form-feedback-valid-color;
+
+    &:focus {
+      border-color: $form-feedback-valid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-valid-color, .25);
+    }
+  }
+}
+.custom-range {
+    .was-validated &:valid,
+    &.is-valid {
+
+    // Pseudo-elements must be split across multiple rulesets to have an affect.
+    &:focus {
+      &::-webkit-slider-thumb { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-valid-color, 35%); }
+      &::-moz-range-thumb     { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-valid-color, 35%); }
+      &::-ms-thumb            { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-valid-color, 35%); }
+    }
+
+    &::-webkit-slider-thumb {
+      background-color: $form-feedback-valid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-valid-color, 35%);
+        background-image: none;
+      }
+    }
+    &::-webkit-slider-runnable-track { background-color: rgba($form-feedback-valid-color, 0.35); }
+
+    &::-moz-range-thumb {
+      background-color: $form-feedback-valid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-valid-color, 35%);
+        background-image: none;
+      }
+    }
+    &::-moz-range-track { background: rgba($form-feedback-valid-color, 0.35); }
+    &::-moz-range-thumb { }
+    ~ .#{'valid'}-feedback,
+    ~ .#{'valid'}-tooltip {
+      display: block;
+    }
+
+    &::-ms-thumb {
+      background-color: $form-feedback-valid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-valid-color, 35%);
+        background-image: none;
+      }
+    }
+    &::-ms-track-lower { background: rgba($form-feedback-valid-color, 0.35); }
+    &::-ms-track-upper { background: rgba($form-feedback-valid-color, 0.35); }
+  }
+}
+ 
+/* Validation styling - invalid (no PR yet on BS V4) */
+
+.input-group .custom-range {
+  .was-validated &:invalid,
+  &.is-invalid {
+    border-color: $form-feedback-invalid-color;
+
+    &:focus {
+      border-color: $form-feedback-invalid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-invalid-color, .25);
+    }
+  }
+}
+.custom-range {
+  .was-validated &:invalid,
+  &.is-invalid {
+
+    // Pseudo-elements must be split across multiple rulesets to have an affect.
+    &:focus {
+      &::-webkit-slider-thumb { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-invalid-color, 35%); }
+      &::-moz-range-thumb     { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-invalid-color, 35%); }
+      &::-ms-thumb            { box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-btn-focus-width lighten($form-feedback-invalid-color, 35%); }
+    }
+
+    &::-webkit-slider-thumb {
+      background-color: $form-feedback-invalid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-invalid-color, 35%);
+        background-image: none;
+      }
+    }
+    &::-webkit-slider-runnable-track { background-color: rgba($form-feedback-invalid-color, 0.35); }
+
+    &::-moz-range-thumb {
+      background-color: $form-feedback-invalid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-invalid-color, 35%);
+        background-image: none;
+      }
+    }
+    &::-moz-range-track { background: rgba($form-feedback-invalid-color, 0.35); }
+    &::-moz-range-thumb ~ .invalid-feedback { display: block; }
+    &::-moz-range-thumb ~ .invalid-tooltip { display: block; }
+
+    &::-ms-thumb {
+      background-color: $form-feedback-invalid-color;
+      background-image: none;
+
+      &:active {
+        background-color: lighten($form-feedback-invalid-color, 35%);
+        background-image: none;
+      }
+    }
+    &::-ms-track-lower { background: rgba($form-feedback-invalid-color, 0.35); }
+    &::-ms-track-upper { background: rgba($form-feedback-invalid-color, 0.35); }
+  }
+}

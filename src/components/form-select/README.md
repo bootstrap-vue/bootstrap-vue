@@ -34,7 +34,7 @@ export default {
 <!-- form-select-options.vue -->
 ```
 
-Or manualy provide your options and optgroups:
+Or manually provide your options and optgroups:
 
 ```html
 <template>
