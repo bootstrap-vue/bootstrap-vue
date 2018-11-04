@@ -214,7 +214,7 @@ export default {
             childNodes = [h('div', {}, [childNodes])]
           }
         } else {
-          const formatted = this.getFormattedValue(item, field))
+          const formatted = this.getFormattedValue(item, field)
           if (this.isStacked) {
             // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
             childNodes = [h('div', formatted)]
