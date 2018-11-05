@@ -363,4 +363,4 @@ triggering the code that closes the dropdown. Once the dropdown is closed, these
 additional empty `mouseover` handlers are removed.
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
