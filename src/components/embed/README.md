@@ -53,4 +53,4 @@ inside the inner embeded element. Note that type `iframe` does not support any c
 </b-embed>
 ```
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
