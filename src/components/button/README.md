@@ -166,4 +166,4 @@ Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap
 - [`Router Link Support`](/docs/reference/router-links)
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
