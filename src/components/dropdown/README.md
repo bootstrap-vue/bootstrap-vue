@@ -349,8 +349,8 @@ Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 | <kbd>UP</kbd> | Will highlight the next higher non-disabled item in the menu.
 | <kbd>ENTER</kbd> or <kbd>SPACE</kbd> | Will click the highlighted menu item.
 | <kbd>ESC</kbd> | Will close the dropdown and return focus to the trigger button.
-| <kbd>TAB</kbd> | Will close the dropdown and jump to the next focusable control on the page.
-| <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Will close the dropdown and jump to the previous focusable control on the page.
+| <kbd>TAB</kbd> | Will  jump to the next focusable control in the menu or on the page.
+| <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Will jump to the previous focusable control in the menu or on the page.
 
 
 ## Implementation Note

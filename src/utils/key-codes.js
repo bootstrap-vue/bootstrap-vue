@@ -13,5 +13,15 @@ export default {
   PAGEUP: 33,
   PAGEDOWN: 34,
   HOME: 36,
-  END: 35
+  END: 35,
+  TAB: 9,
+  SHIFT: 16,
+  CTRL: 17,
+  BACKSPACE: 8,
+  ALT: 18,
+  PAUSE: 19,
+  BREAK: 19,
+  INSERT: 45,
+  INS: 45,
+  DELETE: 46
 }
