@@ -18,6 +18,14 @@
       </b-col>
     </b-row>
 
+    <article v-if="aliases && aliases.length > 0">
+      <h4>Component aliases</h4>
+      <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
+        <ul v-for="(alias, idx) in aliases">
+          <code :key="alias">&lt;{{ kebabCase(alias) }}&gt;</code>
+        </ul>
+    </article>
+
     <article v-if="props_items && props_items.length > 0">
       <h4>Properties</h4>
       <b-table
@@ -88,7 +96,14 @@ export default {
     events: {
       type: Array,
       default: () => []
+    },
+    aliases: {
+      type: Array,
+      default: () => []
     }
+  },
+  methods: {
+    kebabCase
   },
   computed: {
     componentOptions () {
