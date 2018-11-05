@@ -4,6 +4,7 @@
   "meta": {
     "title": "Form Select",
     "component": "bFormSelect",
+    "aliases": [ "bSelect" ],
     "slots": [
       { 
         "name": "first",
