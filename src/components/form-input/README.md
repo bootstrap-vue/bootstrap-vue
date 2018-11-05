@@ -429,4 +429,4 @@ input type.
 | `.format()` | Forces the input to run the formatter. The event arument passed to the formatter will be `null`
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
