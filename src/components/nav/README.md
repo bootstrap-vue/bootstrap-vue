@@ -173,4 +173,5 @@ be automatically generated.
 - [`<b-dropdown>`](/docs/components/dropdown) for sub-components that you can place inside `<b-nav-item-dropdown>`
 - [Router Link Support reference](/docs/reference/router-links) for information about router-link specific props available on `<b-nav-item>`
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->
