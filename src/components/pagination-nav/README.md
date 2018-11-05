@@ -264,4 +264,5 @@ list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (c
 For pagination control of a component (such as `<b-table>`), use the
 [`<b-pagination>`](./pagination) component instead.
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->
