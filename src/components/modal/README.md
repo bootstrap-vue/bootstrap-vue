@@ -533,4 +533,4 @@ In some circumstances, you may need to disable the enforce focus feature. You ca
 by setting the prop `no-enforce-focus`.
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
