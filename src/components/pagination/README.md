@@ -168,4 +168,5 @@ Both events provide the single argument of the current page number (starting fro
 For navigation based pagination, please see the [`<b-pagination-nav>`](./pagination-nav)
 component.
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->
