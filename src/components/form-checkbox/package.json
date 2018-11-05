@@ -6,6 +6,7 @@
     "components": [
       {
         "component": "bFormCheckboxGroup",
+        "aliases": [ "bCheckboxGroup", "bCheckGroup" ],
         "slots": [
           {
             "name": "first",
@@ -37,6 +38,7 @@
       },
       {
         "component": "bFormCheckbox",
+        "aliases": [ "bCheckbox", "bCheck" ],
         "events": [
           {
             "event": "input",
