@@ -410,4 +410,4 @@ These events work for both the component **and** directive versions of tooltip.
 tooltip to be enabled or disabled._
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
