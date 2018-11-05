@@ -6,6 +6,7 @@
     "components": [
       {
         "component": "bFormRadioGroup",
+        "aliases": [ "bRadioGroup" ],
         "slots": [
           {
             "name": "first",
@@ -32,6 +33,7 @@
       },
       {
         "component": "bFormRadio",
+        "aliases": [ "bRadio" ],
         "events": [
           {
             "event": "input",
