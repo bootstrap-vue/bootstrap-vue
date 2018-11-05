@@ -54,7 +54,7 @@ export function makeTOC (readme, meta = null) {
       }
     }
   })
-  
+
   // Process meta inforamtion for component pages
   // IDs for headings are defined in componentdoc.vue and importdoc.vue
   if (meta && (meta.component || (meta.components && meta.components.length))) {
@@ -74,7 +74,7 @@ export function makeTOC (readme, meta = null) {
         }
       }))
       // Add component import sub entry
-      toc[toc.length -1].push({
+      toc[toc.length - 1].push({
         label: `Importing Individual ${startCase(meta.title)} Components`,
         href: '#importing-individual-components'
       })
