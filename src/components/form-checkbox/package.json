@@ -19,11 +19,21 @@
             "args": [
               {
                 "arg": "checked",
-                "description": "Value of checkboxes. When bound to multiple checkboxes, value will be an array."
+                "description": "Value of checkboxes. Value will be an array."
+              }
+            ]
+          },
+          {
+            "event": "change",
+            "description": "Emitted when selected value(s) is changed due to user interaction",
+            "args": [
+              {
+                "arg": "checked",
+                "description": "Value of checkboxes. Value will be an array."
               }
             ]
           }
-        ],
+        ]
       },
       {
         "component": "bFormCheckbox",
