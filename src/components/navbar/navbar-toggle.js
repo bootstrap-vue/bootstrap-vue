@@ -36,6 +36,7 @@ export default {
   methods: {
     onClick (evt) {
       this.$emit('click', evt)
+      /* istanbul ignore next */
       if (!evt.defaultPrevented) {
         this.$root.$emit('bv::toggle::collapse', this.target)
       }
