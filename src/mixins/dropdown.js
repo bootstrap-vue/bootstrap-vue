@@ -340,12 +340,9 @@ export default {
     },
     /* istanbul ignore next: not easy to test */
     onTab (evt) {
-      if (this.visible) {
-        // TODO: Need special handler for dealing with form inputs
-        // Tab, if in a text-like input, we should just focus next item in the dropdown
-        // Note: Inputs are in a special .dropdown-form container
-        this.visible = false
-      }
+      // TODO: Need special handler for dealing with form inputs
+      // Tab, if in a text-like input, we should just focus next item in the dropdown
+      // Note: Inputs are in a special .dropdown-form container
     },
     onFocusOut (evt) {
       if (this.$refs.menu.contains(evt.relatedTarget)) {
