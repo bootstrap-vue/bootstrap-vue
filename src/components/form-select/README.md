@@ -322,4 +322,5 @@ Set the prop `plain` to have a native browser `<select>` rendered (although the 
 A `plain` select will always be rendered for non `multiple` selects which have the
 `select-size` prop set to a value greater than 1.
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->
