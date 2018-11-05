@@ -2,7 +2,7 @@
   <main class="container">
     <div class="bd-content" v-html="readme" v-play></div>
     <section class="bd-content">
-      <h2 id="directive-reference">{{ metaTitle }} Directive Reference<h2>
+      <h2 id="directive-reference">{{ metaTitle }} Directive Reference</h2>
       <importdoc :meta="meta"></importdoc>
     </section>
   </main>
