@@ -3,7 +3,7 @@
     <div class="bd-content" v-html="readme" v-play></div>
 
     <section class="bd-content">
-      <h2 id="component-reference">Component Reference</h2>
+      <h2 id="component-reference">{{ startCase(meta.title)}} Component Reference</h2>
 
       <!-- main component reference information -->
       <componentdoc :component="meta.component"
@@ -34,6 +34,7 @@ import componentdoc from "~/components/componentdoc.vue";
 import importdoc from "~/components/importdoc.vue";
 import { components as _meta } from "~/content";
 import docsMixin from "~/plugins/docs-mixin";
+import startCase from 'lodash/startCase'
 
 const getReadMe = name => import('~/../src/components/' + name + '/README.md' /* webpackChunkName: "docs/components" */)
 
@@ -41,11 +42,12 @@ export default {
   components: { componentdoc, importdoc },
   mixins: [docsMixin],
   layout: "docs",
-
+  methods: {
+    startCase
+  }
   validate({ params }) {
       return Boolean(_meta[params.slug])
   },
-
   async asyncData({ params }) {
       const readme = await getReadMe(params.slug)
       const meta = _meta[params.slug]
