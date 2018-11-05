@@ -1,37 +1,31 @@
 <template>
-    <div class="container">
-        <div class="bd-content" v-html="readme" v-play></div>
+  <main class="container">
+    <div class="bd-content" v-html="readme" v-play></div>
 
-        <!-- main component reference information -->
-        <componentdoc :component="meta.component"
-                      :events="meta.events"
-                      :slots="meta.slots"
-                      :aliases="meta.aliases">
-        </componentdoc>
+    <section class="bd-content">
+      <h2 id="component-reference">Component Reference</h2>
 
-        <!-- sub-component reference information -->
-        <componentdoc v-for="meta in meta.components"
-                      :key="meta.component"
-                      :component="meta.component"
-                      :events="meta.events"
-                      :slots="meta.slots"
-                      :aliases="meta.aliases">
-        </componentdoc>
+      <!-- main component reference information -->
+      <componentdoc :component="meta.component"
+                    :events="meta.events"
+                    :slots="meta.slots"
+                    :aliases="meta.aliases">
+      </componentdoc>
 
-        <b-card class="my-4">
-            <p class="card-text small font-italic mb-0">
-                Trying to get native browser events working on your component? Use the
-                <code>.native</code>
-                modifier to capture browser native events such as:
-                <code>@click.native="..."</code>,
-                <code>@mouseover.native="..."</code>, etc. See the the official
-                <a href="https://vuejs.org/v2/guide/components.html#Binding-Native-Events-to-Components">Vue.js documentation</a>
-                for more information.
-            </p>
-        </b-card>
+      <!-- sub-component reference information -->
+      <componentdoc v-for="meta in meta.components"
+                    :key="meta.component"
+                    :component="meta.component"
+                    :events="meta.events"
+                    :slots="meta.slots"
+                    :aliases="meta.aliases">
+      </componentdoc>
 
-        <importdoc :meta="meta"></importdoc>
-    </div>
+      <!-- Component importing information -->
+      <importdoc :meta="meta"></importdoc>
+    </section>
+
+  </main>
 </template>
 
 
