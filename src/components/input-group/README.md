@@ -201,4 +201,5 @@ To control width, place the input inside standard Bootstrap grid column.
 Bootstrap V4 currently **does not** support contextual state styling (i.e. valid or invalid) of
 input groups. However, the inputs inside the input group do support contextual state.
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->
