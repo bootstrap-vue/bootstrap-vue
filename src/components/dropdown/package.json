@@ -6,6 +6,7 @@
     "components": [
       {
         "component": "bDropdown",
+        "aliases": [ "bDd" ],
         "events": [
           {
             "event": "show",
@@ -57,6 +58,7 @@
       },
       {
         "component": "bDropdownItem",
+        "aliases": [ "bDdItem" ],
         "events": [
           {
             "event": "click",
@@ -69,6 +71,7 @@
       },
       {
         "component": "bDropdownItemButton",
+        "aliases": [ "bDropdownItemBtn", "bDdItemButton", "bDdItemBtn" ],
         "events": [
           {
             "event": "click",
@@ -79,8 +82,14 @@
           }
         ]
       },
-      "bDropdownHeader",
-      "bDropdownDivider"
+      {
+        "component": "bDropdownHeader",
+        "aliases": [ "bDdHeader" ],
+      },
+      {
+        "component": "bDropdownDivider",
+        "aliases": [ "bDdDivider" ],
+      }
     ]
   }
 }
