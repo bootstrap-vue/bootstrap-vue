@@ -44,7 +44,7 @@ export default {
   layout: "docs",
   methods: {
     startCase
-  }
+  },
   validate({ params }) {
       return Boolean(_meta[params.slug])
   },
