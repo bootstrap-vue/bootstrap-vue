@@ -1086,7 +1086,7 @@ export default {
           value = parent[formatter](value, key, item)
         }
       }
-      return value
+      return (value === null || typeof value === 'undefined') ? '' : value
     }
   }
 }
