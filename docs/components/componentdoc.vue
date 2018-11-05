@@ -21,7 +21,7 @@
     <article v-if="aliases && aliases.length > 0">
       <h4>Component aliases</h4>
       <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
-        <ul v-for="(alias, idx) in aliases">
+        <ul v-for="alias in aliases">
           <code :key="alias">&lt;{{ kebabCase(alias) }}&gt;</code>
         </ul>
     </article>
