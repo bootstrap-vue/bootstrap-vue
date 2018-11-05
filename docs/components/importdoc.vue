@@ -4,7 +4,7 @@
     v-if="components.length > 0 || directives.length > 0">
 
     <article v-if="components.length > 0">
-      <h3>Importing Individual Components</h3>
+      <h3 id="importing-individual-components">Importing Individual  {{ pluginTitle }} Components</h3>
       <b-table
         :items="componentImports"
         small
@@ -32,7 +32,7 @@
     </article>
 
     <article v-if="directives.length > 0">
-      <h3>Importing Individual Directives</h3>
+      <h3 id="importing-individual-directives">Importing Individual  {{ pluginTitle }} Directives</h3>
       <b-table
         :items="directiveImports"
         small
@@ -62,7 +62,7 @@
     </article>
 
     <article class="pb-5">
-      <h3>Importing {{ pluginTitle }} as a Vue plugin</h3>
+      <h3 id="importing-as-a-plugin">Importing {{ pluginTitle }} as a Vue plugin</h3>
       <p v-if="$route.name === 'docs-components-slug'">
         This plugin includes all of the above listed individual
         components<span v-if="directives.length"> and directives</span>.
@@ -105,6 +105,7 @@
 <script>
 import kebabCase from 'lodash/kebabCase'
 import startCase from 'lodash/startCase'
+
 export default {
   props: {
     meta: {}
@@ -133,7 +134,12 @@ export default {
       })
     },
     components () {
-      return [].concat(this.meta.component, this.meta.components).filter(c => c)
+      let subcomponents = []
+      if (this.meta.components) {
+        // We just want the sub-component name
+        subcomponents = this.meta.components.map(m => m.component)
+      }
+      return [].concat(this.meta.component, subcomponents).filter(c => c)
     },
     directives () {
       return [].concat(this.meta.directive, this.meta.directives).filter(d => d)

@@ -394,9 +394,4 @@ by via the `.sr-only` class) if the indeterminate state has special contextual
 meaning in your application.
 
 
-## Checkbox component aliases
-- `<b-form-checkbox-group>` can be used by the shorter aliases `<b-checkbox-group>` and `<b-check-group>`.
-- `<b-form-checkbox>` can be used by thes shorter aliases `<b-checkbox>` and `<b-check>`.
-
-
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

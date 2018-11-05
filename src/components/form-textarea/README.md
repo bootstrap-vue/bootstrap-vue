@@ -136,7 +136,5 @@ export default {
 <!-- form-textarea-plaintext.vue -->
 ```
 
-## Component alias
-You can use `<b-form-textarea>` by it's shorter alias `<b-textarea>`.
 
-## Component reference
+<!-- Component reference added automatically from component package.json -->

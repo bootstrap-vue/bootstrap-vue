@@ -370,4 +370,5 @@ tooltip to be enabled or disabled.
 - [`<b-popover>` component](/docs/components/popover)
 
 
-## Directive reference
+<!-- Directive reference section auto generated from directive package.json -->
+

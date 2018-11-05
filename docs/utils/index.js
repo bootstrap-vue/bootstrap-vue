@@ -1,3 +1,6 @@
+import kebabCase from 'lodash/kebabCase'
+import startCase from 'lodash/startCase'
+
 // Remove any HTML tags, but leave entities alone
 function stripHTML (str = '') {
   return str.replace(/<[^>]+>/g, '')
@@ -13,7 +16,8 @@ function stripQuotes (str = '') {
 // advantage of that when using our RegExpr matches
 // Note IDs may not have quotes when the readme's are parsed in production mode !?!?
 // Expected format: <h(1|2|3) id="?id-string"?>heading content</h(1|2|3)>
-export function makeTOC (readme) {
+// Also grabs meta data if available to generate auto headings
+export function makeTOC (readme, meta = null) {
   if (!readme) {
     return {}
   }
@@ -51,6 +55,66 @@ export function makeTOC (readme) {
     }
   })
 
+  // Process meta inforamtion for component pages
+  // IDs for headings are defined in componentdoc.vue and importdoc.vue
+  if (meta && (meta.component || (meta.components && meta.components.length))) {
+    // Addpend component reference info to the TOC
+    const comps = [].concat(meta, meta.components).filter(m => m)
+    if (comps.length) {
+      // Add the reference heading
+      toc.push({
+        label: `${startCase(meta.title)} Component Reference`,
+        href: '#component-reference'
+      })
+      // Add component sub entries
+      toc.push(comps.map((c) => {
+        const tag = kebabCase(c.component)
+        return {
+          label: tag,
+          href: `#comp-ref-${tag}`
+        }
+      }))
+      // Add component import sub entry
+      toc[toc.length - 1].push({
+        label: `Importing Individual ${startCase(meta.title)} Components`,
+        href: '#importing-individual-components'
+      })
+      // Add directive import sub entry
+      if (meta.directives && meta.directives.length) {
+        toc[toc.length - 1].push({
+          label: `Importing Individual ${startCase(meta.title)} Directives`,
+          href: '#importing-individual-directives'
+        })
+      }
+      // add plugin import sub entry
+      toc[toc.length - 1].push({
+        label: `Importing ${startCase(meta.title)} as a Vue Plugin`,
+        href: '#importing-as-a-plugin'
+      })
+    }
+  }
+
+  // Process meta inforamtion for directive pages.
+  // Directive pages only reference a single directive
+  // IDs for headings are defined in importdoc.vue
+  if (meta && meta.directive && (!meta.directives)) {
+    // Add the reference heading
+    toc.push({
+      label: `${startCase(meta.title)} Directive Reference`,
+      href: '#directive-reference'
+    })
+    // Add directive import sub entry
+    toc.push([{
+      label: `Importing Individual ${startCase(meta.title)} Directive`,
+      href: '#importing-individual-directives'
+    }])
+    // add plugin import sub entry
+    toc[toc.length - 1].push({
+      label: `Importing ${startCase(meta.title)} as a Vue Plugin`,
+      href: '#importing-as-a-plugin'
+    })
+  }
+
   return { toc, title, top }
 }
 
@@ -69,6 +133,10 @@ export function importAll (r) {
       return 0
     })
     .forEach(m => {
+      if (m.components) {
+        // Normalize meta.components to array of objects form
+        m.components = m.components.map(c => (typeof c === 'string') ? {component: c} : c)
+      }
       obj[m.slug] = m
     })
 

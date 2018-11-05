@@ -353,13 +353,6 @@ Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Will close the dropdown and jump to the previous focusable control on the page.
 
 
-## Dropdown component aliases
-- `<b-dropdown>` can be used via it's shorter alias of `<b-dd>`
-- `<b-dropdown-item>` can be used via it's shorter alias of `<b-dd-item>`
-- `<b-dropdown-item-button>` can be used by the shorter aliases `<b-dropdown-item-btn>`, `<b-dd-item-button>` and `<b-dd-item-btn>`
-- `<b-dropdown-header>` can be used via it's shorter alias of `<b-dd-header>`
-- `<b-dropdown-divider>` can be used via it's shorter alias of `<b-dd-divider>`
-
 ## Implementation Note
 On touch-enabled devices, opening a `<b-dropdown>` adds empty (noop) `mouseover`
 handlers to the immediate children of the `<body>` element. This admittedly ugly
@@ -370,4 +363,4 @@ triggering the code that closes the dropdown. Once the dropdown is closed, these
 additional empty `mouseover` handlers are removed.
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

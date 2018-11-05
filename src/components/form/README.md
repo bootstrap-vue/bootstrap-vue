@@ -204,4 +204,4 @@ Please see the following references:
 - [MDN: Validity State API](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

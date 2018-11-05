@@ -26,6 +26,9 @@ export default {
         }
       )
     }
+    if (!img) {
+      img = h(false)
+    }
 
     const content = h(
       this.contentTag,

@@ -8,7 +8,7 @@ export default {
       {
         class: ['navbar-toggler'],
         attrs: {
-          type: 'button',
+          type: 'button', // Is this needed anymore?
           'aria-label': this.label,
           'aria-controls': this.target,
           'aria-expanded': this.toggleState ? 'true' : 'false'
@@ -34,8 +34,12 @@ export default {
     }
   },
   methods: {
-    onClick () {
-      this.$root.$emit('bv::toggle::collapse', this.target)
+    onClick (evt) {
+      this.$emit('click', evt)
+      /* istanbul ignore next */
+      if (!evt.defaultPrevented) {
+        this.$root.$emit('bv::toggle::collapse', this.target)
+      }
     },
     handleStateEvt (id, state) {
       if (id === this.target) {

@@ -283,13 +283,8 @@ See the first example on this page for reference, and also refer to
 [`<b-collapse>`](/docs/components/collapse) for details on the collapse component.
 
 
-## Component aliases
-
-| Component | Alias(es)
-| --------- | ---------
-| `<b-navbar-toggle>` | `<b-nav-toggle>`
-
-Also see [`<b-nav>`](/docs/components/nav) for additional sub-component aliases.
+## See also
+Also see [`<b-nav>`](/docs/components/nav) for additional components and sub-component aliases.
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

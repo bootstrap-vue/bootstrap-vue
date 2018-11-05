@@ -88,7 +88,7 @@ a `<b-progress-bar>` sub-component, or by using the `label` prop on `<b-progress
   <div>
     <h5>Custom Label via Default Slot</h5>
     <b-progress :max="max">
-      <b-progress-bar :value="value">
+      <b-progress-bar :value="value" height="2rem">
         Progress: <strong>{{ value.toFixed(3) }} / {{ max }}</strong>
       </b-progress-bar>
     </b-progress>
@@ -115,7 +115,7 @@ export default {
 <!-- progress-custom-labels.vue -->
 ```
 
-Precedence order for label methods:
+Precedence order for label methods (top-most has precedence):
 - default slot of `<b-progress-bar>`
 - `label` prop of `<b-progress-bar>`
 - `show-progress` prop of `<b-progress-bar>`
@@ -352,4 +352,4 @@ Notes:
 - `<b-progress-bar>` will not inherit `value` from `<b-progress>`.
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

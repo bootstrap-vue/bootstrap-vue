@@ -352,4 +352,5 @@ new Vue({
 ```
 
 
-## Directive reference
+<!-- Directive reference section auto generated from directive package.json -->
+

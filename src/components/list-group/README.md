@@ -238,4 +238,4 @@ the help of [flexbox utility classes](http://getbootstrap.com/docs/4.0/utilities
 <!-- list-group-content.vue -->
 ```
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

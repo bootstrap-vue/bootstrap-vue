@@ -765,4 +765,4 @@ user is interacting with it (keeping focus inside the popover until it is closed
 by the user).
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

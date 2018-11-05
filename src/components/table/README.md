@@ -1492,4 +1492,4 @@ export default {
 ```
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

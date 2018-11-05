@@ -39,7 +39,7 @@ export default {
         }
       }
     }
-    // Careful not to override the slot with innerHTML
+    // Careful not to override the default slot with innerHTML
     if (!slots().default) {
       componentData.domProps = { innerHTML: '&times;' }
     }

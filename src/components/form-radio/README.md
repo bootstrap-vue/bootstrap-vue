@@ -259,8 +259,4 @@ Supported `invalid` values are:
 `aria-invalid` is automatically set if `state` is `invalid`.
 
 
-## Radio component aliases
-- `<b-form-radio-group>` can be used by the shorter alias `<b-radio-group>`.
-- `<b-form-radio>` can be used by the shorter alias of `<b-radio>`.
-
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

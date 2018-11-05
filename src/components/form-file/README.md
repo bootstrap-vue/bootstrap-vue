@@ -145,8 +145,5 @@ window.app = new Vue({
 })
 ```
 
-## Component alias
 
-`<b-form-file>` can be used via the shorter component alians `<b-file>`.
-
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
