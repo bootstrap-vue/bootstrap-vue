@@ -280,4 +280,4 @@ export default {
 <!-- alert-fade-1.vue -->
 ```
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
