@@ -146,4 +146,4 @@ window.app = new Vue({
 ```
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
