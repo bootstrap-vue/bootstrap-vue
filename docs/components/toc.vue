@@ -77,17 +77,19 @@ import { scrollTo, offsetTop, makeTOC } from '~/utils'
 export default {
   data () {
     return {
-      readme: ''
+      readme: '',
+      meta: null
     }
   },
   computed: {
     toc () {
-      return makeTOC(this.readme)
+      return makeTOC(this.readme, this.meta)
     }
   },
   mounted () {
-    this.$root.$on('setTOC', readme => {
+    this.$root.$on('setTOC', (readme, meta) => {
       this.readme = readme
+      this.meta = meta || null
     })
   },
   methods: {
