@@ -12,7 +12,7 @@
 import importdoc from '~/components/importdoc.vue';
 import { directives as _meta } from "~/content";
 import docsMixin from "~/plugins/docs-mixin";
-import startCase from 'lodash/shartCase'
+import startCase from 'lodash/startCase'
 
 const getReadMe = name => import('~/../src/directives/' + name + '/README.md' /* webpackChunkName: "docs/directives" */)
 
