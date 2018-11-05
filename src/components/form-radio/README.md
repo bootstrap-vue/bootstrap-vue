@@ -259,4 +259,4 @@ Supported `invalid` values are:
 `aria-invalid` is automatically set if `state` is `invalid`.
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
