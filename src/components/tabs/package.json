@@ -1,32 +1,43 @@
 {
-    "name": "@bootstrap-vue/tabs",
-    "version": "1.0.0",
-    "meta": {
-        "title": "Tabs",
+  "name": "@bootstrap-vue/tabs",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Tabs",
+    "components": [
+      {
         "component": "bTabs",
-        "components": [
-            "bTab"
-        ],
         "events": [
-            {
-                "event": "input",
-                "description": "Emits when a tab is shown. Used to update the v-model",
-                "args": [
-                    {
-                        "arg": "tab_index"
-                    }
-                ]
-            }
+          {
+            "event": "input",
+            "description": "Emits when a tab is shown. Used to update the v-model",
+            "args": [
+              { 
+                "arg": "tab_index",
+                "description": "Current selected tab index (0-based index)"
+              }
+            ]
+          }
         ],
         "slots": [
-            {
-                "name": "tabs",
-                "description": "Additional tabs without content"
-            },
-            {
-                "name": "empty",
-                "description": "Renders this slot if no tabs are present"
-            }
+          {
+            "name": "tabs",
+            "description": "Additional tab buttons without tab content"
+          },
+          {
+            "name": "empty",
+            "description": "Renders this slot if no tabs are present"
+          }
         ]
-    }
+      },
+      { 
+        "component": "bTab",
+        "slots": [
+          {
+            "name": "title",
+            "description": "Slot for custom tab title"
+          }
+        ]
+      }
+    ]
+  }
 }
