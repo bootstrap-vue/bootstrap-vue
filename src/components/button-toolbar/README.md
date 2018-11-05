@@ -109,4 +109,5 @@ as it is not possble to use key presses to jump out of a text (or test-like) inp
 - [`<b-button-group>`](./button-group)
 - [`<b-dropdown>`](./dropdown)
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->
