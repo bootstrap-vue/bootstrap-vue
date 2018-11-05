@@ -61,6 +61,7 @@ export function makeTOC (readme, meta = null) {
     // Addpend component reference info to the TOC
     const comps = [].concat(meta, meta.components).filter(m => m)
     if (comps.length) {
+      // Add the reference heading
       toc.push({
         label: `${startCase(meta.title)} Component Reference`,
         href: '#component-reference'
@@ -87,10 +88,31 @@ export function makeTOC (readme, meta = null) {
       }
       // add plugin import sub entry
       toc[toc.length - 1].push({
-        label: `Importing ${startCase(meta.title)} as a View Plugin`,
+        label: `Importing ${startCase(meta.title)} as a Vue Plugin`,
         href: '#importing-as-a-plugin'
       })
     }
+  }
+
+  // Process meta inforamtion for directive pages.
+  // Directive pages only reference a single directive
+  // IDs for headings are defined in importdoc.vue
+  if (meta && meta.directive && (!meta.directives)) {
+    // Add the reference heading
+    toc.push({
+      label: `${startCase(meta.title)} Directive Reference`,
+      href: '#directive-reference'
+    })
+    // Add directive import sub entry
+    toc.push([{
+      label: `Importing Individual ${startCase(meta.title)} Directive`,
+      href: '#importing-individual-directives'
+    }])
+    // add plugin import sub entry
+    toc[toc.length - 1].push({
+      label: `Importing ${startCase(meta.title)} as a Vue Plugin`,
+      href: '#importing-as-a-plugin'
+    })
   }
 
   return { toc, title, top }
