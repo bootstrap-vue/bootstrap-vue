@@ -278,4 +278,4 @@ and `<b-form-checkbox>` (or the group versions), you do not need to set individu
 the rendered markup for these types of inputs already includes a `<label>` element.
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
