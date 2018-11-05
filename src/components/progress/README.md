@@ -352,4 +352,4 @@ Notes:
 - `<b-progress-bar>` will not inherit `value` from `<b-progress>`.
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
