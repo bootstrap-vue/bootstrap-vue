@@ -6,7 +6,7 @@
     <b-row
       tag="header"
       align-v="center">
-      <b-col sm="9"><h2><code>{{ tag }}</code></h2></b-col>
+      <b-col sm="9"><h2 :id="`ref-comp-${componentName}`"><code>{{ tag }}</code></h2></b-col>
       <b-col
         sm="3"
         class="text-sm-right">
@@ -19,7 +19,7 @@
     </b-row>
 
     <article v-if="aliases && aliases.length > 0">
-      <h4>Component aliases</h4>
+      <h4 :id="`ref-comp-${componentName}-aliases`">Component aliases</h4>
       <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
       <ul>
         <li v-for="alias in aliases" :key="alias"><code>&lt;{{ kebabCase(alias) }}&gt;</code></li>
@@ -27,7 +27,7 @@
     </article>
 
     <article v-if="props_items && props_items.length > 0">
-      <h4>Properties</h4>
+      <h4 :id="`ref-comp-${componentName}-props`">Properties</h4>
       <b-table
         :items="props_items"
         :fields="props_fields"
@@ -43,7 +43,7 @@
     </article>
 
     <article v-if="slots && slots.length > 0">
-      <h4>Slots</h4>
+      <h4 :id="`ref-comp-${componentName}-slots`">Slots</h4>
       <b-table
         :items="slots"
         :fields="slots_fields"
@@ -53,7 +53,7 @@
     </article>
 
     <article v-if="events && events.length > 0">
-      <h4>Events</h4>
+      <h4 :id="`ref-comp-${componentName}-events`">Events</h4>
       <b-table
         :items="events"
         :fields="events_fields"
