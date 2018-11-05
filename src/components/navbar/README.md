@@ -287,4 +287,4 @@ See the first example on this page for reference, and also refer to
 Also see [`<b-nav>`](/docs/components/nav) for additional components and sub-component aliases.
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
