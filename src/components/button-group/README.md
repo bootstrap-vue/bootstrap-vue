@@ -107,4 +107,4 @@ Also check out the [`<b-button-toolbar>`](./button-toolbar) component for genera
 toolbars containing button groups and input groups.
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
