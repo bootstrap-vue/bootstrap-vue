@@ -84,11 +84,11 @@
       },
       {
         "component": "bDropdownHeader",
-        "aliases": [ "bDdHeader" ],
+        "aliases": [ "bDdHeader" ]
       },
       {
         "component": "bDropdownDivider",
-        "aliases": [ "bDdDivider" ],
+        "aliases": [ "bDdDivider" ]
       }
     ]
   }
