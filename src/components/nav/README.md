@@ -146,10 +146,6 @@ will produce something like:
 
 Refer to [`<b-dropdown>`](../dropdown) for a list of supported sub-components.
 
-### `<b-nav-item-dropdown>` Component Alias
-
-`<b-nav-item-dropdown>` can be used via it's shorter aliases of `<b-nav-item-dd>` and `<b-nav-dd>`.
-
 
 ## Using in Navbar
 
