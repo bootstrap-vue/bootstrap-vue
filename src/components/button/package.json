@@ -4,6 +4,7 @@
   "meta": {
     "title": "Button",
     "component": "bButton",
+    "aliases": [ "bBtn" ],
     "events": [
       {
         "event": "click",
@@ -16,6 +17,7 @@
     "components": [
       { 
         "component": "bButtonClose",
+        "aliases": [ "bBtnClose" ],
         "events": [
           {
             "event": "click",
