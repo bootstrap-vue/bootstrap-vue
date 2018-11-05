@@ -624,4 +624,4 @@ isn’t a bulletproof solution yet.
 <!-- card-group-3.vue -->
 ```
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->
