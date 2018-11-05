@@ -21,9 +21,9 @@
     <article v-if="aliases && aliases.length > 0">
       <h4>Component aliases</h4>
       <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
-        <ul v-for="alias in aliases" class="list-inline">
-          <li class="list-inline-item"><code :key="alias">&lt;{{ kebabCase(alias) }}&gt;</code></li>
-        </ul>
+      <ul>
+        <li v-for="alias in aliases" :key="alias"><code>&lt;{{ kebabCase(alias) }}&gt;</code></li>
+      </ul>
     </article>
 
     <article v-if="props_items && props_items.length > 0">
