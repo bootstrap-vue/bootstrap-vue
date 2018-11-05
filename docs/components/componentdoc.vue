@@ -27,7 +27,7 @@
     </article>
 
     <article v-if="props_items && props_items.length > 0">
-      <h4 :id="`ref-comp-${componentName}-props`">Properties</h4>
+      <h4 :id="`comp-ref-${componentName}-props`">Properties</h4>
       <b-table
         :items="props_items"
         :fields="props_fields"
