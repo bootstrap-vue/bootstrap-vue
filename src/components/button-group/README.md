@@ -101,8 +101,6 @@ that split dropdown menus are not supported when prop `vertical` is set.
 <!-- button-group-4.vue -->
 ```
 
-## Component alias
-`<b-button-group>` can also be used by its shorter alias `<b-btn-group>`.
 
 ## See also
 Also check out the [`<b-button-toolbar>`](./button-toolbar) component for generating
