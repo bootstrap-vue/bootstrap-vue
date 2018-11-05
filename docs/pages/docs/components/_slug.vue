@@ -5,15 +5,17 @@
         <!-- main component reference information -->
         <componentdoc :component="meta.component"
                       :events="meta.events"
-                      :slots="meta.slots">
+                      :slots="meta.slots"
+                      :aliases="meta.aliases">
         </componentdoc>
 
         <!-- sub-component reference information -->
         <componentdoc v-for="meta in meta.components"
+                      :key="meta.component"
                       :component="meta.component"
                       :events="meta.events"
                       :slots="meta.slots"
-                      :key="meta.component">
+                      :aliases="meta.aliases">
         </componentdoc>
 
         <b-card class="my-4">
