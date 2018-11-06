@@ -1,5 +1,5 @@
 /**
- * Register a component plugin as being loaded. returns true if compoent plugin already registered
+ * Register a component plugin as being loaded. returns true if component plugin already registered
  * @param {object} Vue
  * @param {string} Component name
  * @param {object} Component definition
