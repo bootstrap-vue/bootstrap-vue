@@ -104,6 +104,18 @@ Add a header to label sections of actions in any dropdown menu.
 See Section [Dropdown headers and accessibility](#dropdown-headers-and-accessibility)
 for details on making headers more accessible for users of assistive technologies.
 
+## Text
+You can customize the text of the dropdown by using the `text` slot instead of the basic prop.
+
+```html
+<b-dropdown>
+  <span slot="text">
+    <strong>Custom text</strong>
+  </span>
+   
+  <b-dropdown-item href="#">An item</b-dropdown-item>
+</b-dropdown>
+```
 
 ## Positioning
 Dropdown supports various positioning such as left and right aligned, drodown and dropup, and
