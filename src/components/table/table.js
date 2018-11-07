@@ -878,10 +878,7 @@ export default {
       }
       // We emit a filtered event if filtering is active, or if filtering state has changed.
       if (this.isFiltered || this.isFiltered !== oldIsFiltered) {
-        // Wait for table to render updates before emitting filtered event
-        this.$nextTick(() => {
-          this.$emit('filtered', filtered)
-        })
+        this.$emit('filtered', filtered)
       }
       // Return the possibly filtered items
       return filtered || []
