@@ -104,6 +104,32 @@ Add a header to label sections of actions in any dropdown menu.
 See Section [Dropdown headers and accessibility](#dropdown-headers-and-accessibility)
 for details on making headers more accessible for users of assistive technologies.
 
+## Dropdown button content
+You can customize the text of the dropdown button by using either the `text` prop
+(shown in previous examples), or use the `button-content` slot instead of the `text` prop.
+The `button-content` slot allows you to use basic HTML and icons in the button content.
+
+If both the prop `text` and slot `button-content` are present, the slot `button-content` will
+take precedence.
+
+```html
+<h4>Dropdown button content using prop</h4>
+<b-dropdown text="Button text">
+  <b-dropdown-item href="#">An item</b-dropdown-item>
+  <b-dropdown-item href="#">Another item</b-dropdown-item>
+</b-dropdown>
+
+<h4>Dropdown button content using slot</h4>
+<b-dropdown>
+  <template slot="button-content">
+    Custom <strong>Content</strong> with <em>HTML</em>
+  </template>
+  <b-dropdown-item href="#">An item</b-dropdown-item>
+  <b-dropdown-item href="#">Another item</b-dropdown-item>
+</b-dropdown>
+
+<!-- dropdown-button-content.vue -->
+```
 
 ## Positioning
 Dropdown supports various positioning such as left and right aligned, drodown and dropup, and
