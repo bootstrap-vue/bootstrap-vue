@@ -838,7 +838,6 @@ export default {
           regex = this.filter
         } else {
           // Escape special RegExp characters in the string
-          /
           const string = this.filter.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
           regex = new RegExp(`.*${string}.*`, 'ig')
         }
