@@ -841,6 +841,7 @@ export default {
       }
       let filtered = items || []
       const oldIsFiltered = this.isFiltered
+      let newIsFiltered = false
       if (this.filter && items && items.length) {
         if (this.filter instanceof Function) {
           // filter the items array using the function set in the filter prop
@@ -862,23 +863,19 @@ export default {
         if (filtered.length !== items.length) {
           // If the length of the filterd items is not the same as the original items,
           // then we flag the table as filtered.
-          this.isFiltered = true
+          newIsFiltered = true
         } else if (!(filtered.every((f, idx) => looseEqual(sanitizeRow(f), sanitizeRow(items[idx]))))) {
           // We compare row-by-row until the first non loosely equal row is found.
           // A differing row at some index was found, so we flag the table as filtered.
-          this.isFiltered = true
-        } else {
-          // Filtered items are "loosely" equal to the original items, so we
-          // flag that the table is not showing filtered items.
-          this.isFiltered = false
+          newIsFiltered = true
         }
-      } else {
-        // No filter prop specified or no items to filter, so we flag that the table as not filtered
-        this.isFiltered = false
       }
       // We emit a filtered event if filtering is active, or if filtering state has changed.
-      if (this.isFiltered || this.isFiltered !== oldIsFiltered) {
-        this.$emit('filtered', filtered)
+      if (newIsFiltered || newIsFiltered !== oldIsFiltered) {
+        this.$nextTick(() => {
+          this.isFiltered = newIsFiltered
+          this.$emit('filtered', filtered)
+        })
       }
       // Return the possibly filtered items
       return filtered || []
@@ -1076,11 +1073,15 @@ export default {
         if (data && data.then && typeof data.then === 'function') {
           // Provider returned Promise
           data.then(items => {
-            this._providerSetLocal(items)
+            // Provider resolved with items
+            this._providerSetLocal(Array.isArray(items) ? items : [])
+          }, () => {
+            // Provider rejected with no items
+            this._providerSetLocal([])
           })
         } else {
           // Provider returned Array data
-          this._providerSetLocal(data)
+          this._providerSetLocal(Array.isArray(data) ? data : [])
         }
       })
     },
