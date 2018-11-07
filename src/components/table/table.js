@@ -827,7 +827,29 @@ export default {
     },
     computedBusy () {
       return this.busy || this.localBusy
-    }
+    },
+    computedFilter () {
+      if (this.filter instanceof Function) {
+        // filter the items array using the function set in the filter prop
+        return this.filter
+      } else if (this.filter) {
+        let regex == null
+        if (this.filter instanceof RegExp) {
+          regex = this.filter
+        } else {
+          // Escape special RegExp characters in the string
+          const string = this.filter.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+          regex = new RegExp(`.*${string}.*`, 'ig')
+        }
+        // return a filter function
+        return (item) => {
+          const test = regex.test(recToString(item))
+          regex.lastIndex = 0
+          return test
+        }
+      } else {
+        return null
+      }
   },
   methods: {
     keys,
@@ -842,30 +864,15 @@ export default {
       let filtered = items || []
       const oldIsFiltered = this.isFiltered
       let newIsFiltered = false
-      if (this.filter && items && items.length) {
-        if (this.filter instanceof Function) {
-          // filter the items array using the function set in the filter prop
-          filtered = items.filter(this.filter) || []
-        } else {
-          let regex
-          if (this.filter instanceof RegExp) {
-            regex = this.filter
-          } else {
-            regex = new RegExp('.*' + this.filter + '.*', 'ig')
-          }
-          filtered = items.filter(item => {
-            const test = regex.test(recToString(item))
-            regex.lastIndex = 0
-            return test
-          })
-        }
+      if (!!this.computedFilter && items && items.length) {
+        filtered = items.filter(this.computedFilter) || []
         // Determine if the filtered items are indeed filtered/different from items
         if (filtered.length !== items.length) {
           // If the length of the filterd items is not the same as the original items,
-          // then we flag the table as filtered.
+          // then we flag the table as filtered. We do this test first for performance reasons
           newIsFiltered = true
         } else if (!(filtered.every((f, idx) => looseEqual(sanitizeRow(f), sanitizeRow(items[idx]))))) {
-          // We compare row-by-row until the first non loosely equal row is found.
+          // We compare row-by-row until the first loosely non-equal row is found.
           // A differing row at some index was found, so we flag the table as filtered.
           newIsFiltered = true
         }
