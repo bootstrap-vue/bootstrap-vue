@@ -833,7 +833,7 @@ export default {
         // filter the items array using the function set in the filter prop
         return this.filter
       } else if (this.filter) {
-        let regex == null
+        let regex = null
         if (this.filter instanceof RegExp) {
           regex = this.filter
         } else {
