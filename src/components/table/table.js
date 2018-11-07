@@ -341,7 +341,7 @@ export default {
 
     // Empty Items / Empty Filtered Row slot
     if (this.showEmpty && (!items || items.length === 0)) {
-      let empty = this.filter ? $slots['emptyfiltered'] : $slots['empty']
+      let empty = this.isFiltered ? $slots['emptyfiltered'] : $slots['empty']
       if (!empty) {
         empty = h('div', {
           class: ['text-center', 'my-2'],
@@ -421,7 +421,8 @@ export default {
       localSortBy: this.sortBy || '',
       localSortDesc: this.sortDesc || false,
       localItems: [],
-      localBusy: false
+      localBusy: false,
+      isFiltered: false
     }
   },
   props: {
@@ -857,13 +858,20 @@ export default {
         // We check the legnths first for performance reasons.
         if (filtered.length !== items.length ||
             !looseEqual(sanitizeRows(filtered), sanitizeRows(items))) {
+          // Flag that the table is showing filtered items
+          this.isFiltered = true
+          // Wait for table to render updates before emitting filtered event
           this.$nextTick(() => {
-            // Wait for table to render updates before emitting
             this.$emit('filtered', filtered)
           })
+        } else {
+          // Flag that the table is not showing filtered items
+          this.isFiltered = false
         }
+      } else {
+        // Flag that the table is not showing filtered items
+        this.isFiltered = false
       }
-
       return filtered
     },
     sortItems (items) {
