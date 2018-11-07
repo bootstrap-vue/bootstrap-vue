@@ -421,8 +421,6 @@ export default {
       localSortBy: this.sortBy || '',
       localSortDesc: this.sortDesc || false,
       localItems: [],
-      // Note: filteredItems only used to determine if items changed (set to null initially)
-      filteredItems: null,
       localBusy: false
     }
   },
@@ -625,25 +623,6 @@ export default {
         this.$emit('context-changed', newVal)
       }
     },
-    filteredItems (newRows, oldRows) {
-      if (!this.localFiltering || newRows === oldRows) {
-        // If not local Filtering or nothing changed, don't emit a filtered event
-        return
-      }
-      if (oldRows === null || newRows === null) {
-        // If first run of updating items, don't emit a filtered event.
-        return
-      }
-      // We compare lengths first for performance reasons, even though looseEqual
-      // does this test, as we must sanitize the row data before passing it to
-      // looseEqual, of which both could take time to run on long record sets!
-      if (newRows.length !== oldRows.length ||
-          !looseEqual(sanitizeRows(newRows), sanitizeRows(oldRows))) {
-        // Emit a filtered notification event, as filtered items has changed
-        // Note this may fire before the v-model has updated
-        this.$emit('filtered', newRows)
-      }
-    },
     sortDesc (newVal, oldVal) {
       if (newVal === this.localSortDesc) {
         return
@@ -841,7 +820,7 @@ export default {
       // Array copy for sorting, filtering, etc.
       items = items.slice()
       // Apply local filter
-      this.filteredItems = items = this.filterItems(items)
+      items = this.filterItems(items)
       // Apply local sort
       items = this.sortItems(items)
       // Apply local pagination
@@ -857,25 +836,35 @@ export default {
   methods: {
     keys,
     filterItems (items) {
+      let filtered = items
       if (this.localFiltering && this.filter) {
         if (this.filter instanceof Function) {
-          return items.filter(this.filter)
-        }
-
-        let regex
-        if (this.filter instanceof RegExp) {
-          regex = this.filter
+          filtered = items.filter(this.filter)
         } else {
-          regex = new RegExp('.*' + this.filter + '.*', 'ig')
+          let regex
+          if (this.filter instanceof RegExp) {
+            regex = this.filter
+          } else {
+            regex = new RegExp('.*' + this.filter + '.*', 'ig')
+          }
+          filtered = items.filter(item => {
+            const test = regex.test(recToString(item))
+            regex.lastIndex = 0
+            return test
+          })
         }
-
-        return items.filter(item => {
-          const test = regex.test(recToString(item))
-          regex.lastIndex = 0
-          return test
-        })
+        // If the filtered items are not the same as the unfiltered, emit a filtered event.
+        // We check the legnths first for performance reasons.
+        if (filtered.length !== items.length ||
+            !looseEqual(sanitizeRows(filtered), sanitizeRows(items))) {
+          this.$nextTick(() => {
+            // Wait for table to render updates before emitting
+            this.$emit('filtered', filtered)
+          })
+        }
       }
-      return items
+
+      return filtered
     },
     sortItems (items) {
       const sortBy = this.localSortBy
