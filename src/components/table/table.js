@@ -921,7 +921,7 @@ export default {
       if (!!perPage && localPaging) {
         // Does the requested page exist?
         const maxPages = Math.ceil(items.length / perPage) || 1
-        currentPage Math.max(Math.min(currentPage, maxPages), 1)
+        currentPage = Math.max(Math.min(currentPage, maxPages), 1)
         if (currentPage !== this.currentPage) {
           // send out a .sync update to the currentPage prop
           this.$emit('update:currentPage', currentPage)
