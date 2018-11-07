@@ -25,7 +25,7 @@ function sanitizeRow (row) {
   return keys(row).reduce((obj, key) => {
     // Ignore special fields that start with _
     if (!IGNORED_FIELD_KEYS[key]) {
-      obj[k] = row[k]
+      obj[key] = row[key]
     }
     return obj
   }, {})
@@ -56,7 +56,7 @@ function toString (v) {
 
 // Stringifies the values of a record, ignoring any special top level keys
 function recToString (row) {
-  if (!(obj instanceof Object)) {
+  if (!(row instanceof Object)) {
     return ''
   }
   return toString(sanitizeRow(row))
