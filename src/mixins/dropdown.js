@@ -246,9 +246,9 @@ export default {
         const children = arrayFrom(document.body.children)
         children.forEach(el => {
           if (on) {
-            eventOn('mouseover', this._noop)
+            eventOn(el, 'mouseover', this._noop)
           } else {
-            eventOff('mouseover', this._noop)
+            eventOff(el, 'mouseover', this._noop)
           }
         })
       }
