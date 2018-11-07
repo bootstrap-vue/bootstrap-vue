@@ -13,11 +13,27 @@ import listenOnRootMixin from '../../mixins/listen-on-root'
 // Import styles
 import './table.css'
 
-// Object of item keys that should be ignored for headers and stringification
+// Object of item keys that should be ignored for headers and stringification and filter events
 const IGNORED_FIELD_KEYS = {
   _rowVariant: true,
   _cellVariants: true,
   _showDetails: true
+}
+
+// Return a copy of a row after all reserved fields have been filtered out
+function sanitizeRow (row) {
+  return keys(row).reduce((obj, key) => {
+    // Ignore special fields that start with _
+    if (!IGNORED_FIELD_KEYS[key]) {
+      obj[k] = row[k]
+    }
+    return obj
+  }, {})
+}
+
+// Return a new array of records/rows that have been sanitized
+function sanitizeRows (rows) {
+  return rows.map(row => sanitizeRow(row))
 }
 
 // Stringifies the values of an object
@@ -39,19 +55,11 @@ function toString (v) {
 }
 
 // Stringifies the values of a record, ignoring any special top level keys
-function recToString (obj) {
+function recToString (row) {
   if (!(obj instanceof Object)) {
     return ''
   }
-  return toString(
-    keys(obj).reduce((o, k) => {
-      // Ignore special fields that start with _
-      if (!IGNORED_FIELD_KEYS[k]) {
-        o[k] = obj[k]
-      }
-      return o
-    }, {})
-  )
+  return toString(sanitizeRow(row))
 }
 
 function defaultSortCompare (a, b, sortBy) {
@@ -413,8 +421,8 @@ export default {
       localSortBy: this.sortBy || '',
       localSortDesc: this.sortDesc || false,
       localItems: [],
-      // Note: filteredItems only used to determine if # of items changed
-      filteredItems: [],
+      // Note: filteredItems only used to determine if items changed (set to null initially)
+      filteredItems: null,
       localBusy: false
     }
   },
@@ -617,10 +625,23 @@ export default {
         this.$emit('context-changed', newVal)
       }
     },
-    filteredItems (newVal, oldVal) {
-      if (this.localFiltering && newVal.length !== oldVal.length) {
-        // Emit a filtered notification event, as number of filtered items has changed
-        this.$emit('filtered', newVal)
+    filteredItems (newRows, oldRows) {
+      if (!this.localFiltering || newRows === oldRows) {
+        // If not local Filtering or nothing changed, don't emit a filtered event
+        return
+      }
+      if (oldRows === null || newRows === null) {
+        // If first run of updating items, don't emit a filtered event.
+        return
+      }
+      // We compare lengths first for performance reasons, even though looseEqual
+      // does this test, as we must sanitize the row data before passing it to
+      // looseEqual, of which both could take time to run on long record sets!
+      if (newRows.length !== oldRows.length ||
+          !looseEqual(sanitizeRows(newRows), sanitizeRows(oldRows))) {
+        // Emit a filtered notification event, as filtered items has changed
+        // Note this may fire before the v-model has updated
+        this.$emit('filtered', newRows)
       }
     },
     sortDesc (newVal, oldVal) {
