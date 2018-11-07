@@ -31,11 +31,6 @@ function sanitizeRow (row) {
   }, {})
 }
 
-// Return a new array of records/rows that have been sanitized
-function sanitizeRows (rows) {
-  return rows.map(row => sanitizeRow(row))
-}
-
 // Stringifies the values of an object
 //   { b: 3, c: { z: 'zzz', d: null, e: 2 }, d: [10, 12, 11], a: 'one' }
 // becomes
@@ -869,7 +864,7 @@ export default {
           // then the table is flagged as not filtered
           this.isFiltered = false
         } else if (filtered.length !== items.length) {
-          // If the length of the filterd items is not the same as teh original items,
+          // If the length of the filterd items is not the same as the original items,
           // then we flag the table as filtered.
           this.isFiltered = true
         } else if (!(filtered.every((f, idx) => looseEqual(sanitizeRow(f), sanitizeRow(items[idx]))))) {
