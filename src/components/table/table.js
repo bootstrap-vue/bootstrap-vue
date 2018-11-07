@@ -859,11 +859,7 @@ export default {
           })
         }
         // Determine if the filtered items are indeed filtered/different from items
-        if (filtered === items) {
-          // If the filtered array is the same reference as the items array
-          // then the table is flagged as not filtered
-          this.isFiltered = false
-        } else if (filtered.length !== items.length) {
+        if (filtered.length !== items.length) {
           // If the length of the filterd items is not the same as the original items,
           // then we flag the table as filtered.
           this.isFiltered = true
