@@ -645,6 +645,7 @@ describe('table', async () => {
       // Empty filter alert
       await setData(app, 'filter', 'ZZZZZZZZZZZZZZZZZzzzzzzzzzzzzzzzzz........')
       await nextTick()
+      await nextTick()
       expect(vm.value.length).toBe(0)
       expect(tbody.children.length).toBe(1)
       expect(tbody.children[0].children[0].textContent).toContain(
