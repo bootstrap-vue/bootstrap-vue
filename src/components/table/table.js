@@ -831,7 +831,10 @@ export default {
     computedFilter () {
       if (this.filter instanceof Function) {
         // filter the items array using the function set in the filter prop
-        return this.filter
+        // Wrap it in a function so we can prevent the filter function from mutating the top level data
+        return (item) => {
+          return this.filter(assign({}, item))
+        }
       } else if (this.filter) {
         let regex = null
         if (this.filter instanceof RegExp) {
@@ -872,7 +875,7 @@ export default {
           // If the length of the filterd items is not the same as the original items,
           // then we flag the table as filtered. We do this test first for performance reasons
           newIsFiltered = true
-        } else if (!(filtered.every((f, idx) => looseEqual(sanitizeRow(f), sanitizeRow(items[idx]))))) {
+        } else if (!(filtered.every((item, idx) => looseEqual(item, items[idx])))) {
           // We compare row-by-row until the first loosely non-equal row is found.
           // A differing row at some index was found, so we flag the table as filtered.
           newIsFiltered = true
@@ -911,11 +914,18 @@ export default {
       return items
     },
     paginateItems (items) {
-      const currentPage = this.currentPage
+      let currentPage = this.currentPage
       const perPage = this.perPage
       const localPaging = this.localPaging
       // Apply local pagination
       if (!!perPage && localPaging) {
+        // Does the requested page exist?
+        const maxPages = Math.ceil(items.length / perPage) || 1
+        currentPage Math.max(Math.min(currentPage, maxPages), 1)
+        if (currentPage !== this.currentPage) {
+          // send out a .sync update to the currentPage prop
+          this.$emit('update:currentPage', currentPage)
+        }
         // Grab the current page of data (which may be past filtered items)
         return items.slice((currentPage - 1) * perPage, currentPage * perPage)
       }
