@@ -839,12 +839,12 @@ export default {
         this.isFiltered = Boolean(this.filter)
         return items
       }
-      let filtered = items
+      let filtered = items || []
       const oldIsFiltered = this.isFiltered
-      if (this.filter) {
+      if (this.filter && items && items.length) {
         if (this.filter instanceof Function) {
           // filter the items array using the function set in the filter prop
-          filtered = items.filter(this.filter)
+          filtered = items.filter(this.filter) || []
         } else {
           let regex
           if (this.filter instanceof RegExp) {
@@ -873,7 +873,7 @@ export default {
           this.isFiltered = false
         }
       } else {
-        // No filter prop specified, so we flag that the table as not filtered
+        // No filter prop specified or no items to filter, so we flag that the table as not filtered
         this.isFiltered = false
       }
       // We emit a filtered event if filtering is active, or if filtering state has changed.
@@ -884,7 +884,7 @@ export default {
         })
       }
       // Return the possibly filtered items
-      return filtered
+      return filtered || []
     },
     sortItems (items) {
       const sortBy = this.localSortBy
