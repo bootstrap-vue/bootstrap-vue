@@ -837,9 +837,18 @@ export default {
   methods: {
     keys,
     filterItems (items) {
+      if (!this.localFiltering) {
+        // If the provider is filtering, we just set the state of this.isFiltered based on the
+        // truthy-ness of the fitler prop, and then return the original items as-is.
+        // We dont emit filtered events for non-local filtering.
+        this.isFiltered = Boolean(this.filter)
+        return items
+      }
       let filtered = items
-      if (this.localFiltering && this.filter) {
+      const oldIsFiltered = this.isFiltered
+      if (this.filter) {
         if (this.filter instanceof Function) {
+          // filter the items array using the function set in the filter prop
           filtered = items.filter(this.filter)
         } else {
           let regex
@@ -854,24 +863,36 @@ export default {
             return test
           })
         }
-        // If the filtered items are not the same as the unfiltered, emit a filtered event.
-        // We check the legnths first for performance reasons.
-        if (filtered.length !== items.length ||
-            !looseEqual(sanitizeRows(filtered), sanitizeRows(items))) {
-          // Flag that the table is showing filtered items
+        // Determine if the filtered items are indeed filtered/different from items
+        if (filtered === items) {
+          // If the filtered array is the same reference as the items array
+          // then the table is flagged as not filtered
+          this.isFiltered = false
+        } else if (filtered.length !== items.length) {
+          // If the length of the filterd items is not the same as teh original items,
+          // then we flag the table as filtered.
           this.isFiltered = true
-          // Wait for table to render updates before emitting filtered event
-          this.$nextTick(() => {
-            this.$emit('filtered', filtered)
-          })
+        } else if (!(filtered.every((f, idx) => looseEqual(sanitizeRow(f), sanitizeRow(items[idx]))))) {
+          // We compare row-by-row until the first non loosely equal row is found.
+          // A differing row at some index was found, so we flag the table as filtered.
+          this.isFiltered = true
         } else {
-          // Flag that the table is not showing filtered items
+          // Filtered items are "loosely" equal to the original items, so we
+          // flag that the table is not showing filtered items.
           this.isFiltered = false
         }
       } else {
-        // Flag that the table is not showing filtered items
+        // No filter prop specified, so we flag that the table as not filtered
         this.isFiltered = false
       }
+      // We emit a filtered event if filtering is active, or if filtering state has changed.
+      if (this.isFiltered || this.isFiltered !== oldIsFiltered) {
+        // Wait for table to render updates before emitting filtered event
+        this.$nextTick(() => {
+          this.$emit('filtered', filtered)
+        })
+      }
+      // Return the possibly filtered items
       return filtered
     },
     sortItems (items) {
