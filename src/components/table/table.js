@@ -415,9 +415,11 @@ export default {
     return {
       localSortBy: this.sortBy || '',
       localSortDesc: this.sortDesc || false,
-      localItems: [],
       localBusy: false,
-      isFiltered: false
+      localItems: Array.isArray(this.items) ? this.items.slice() : [],
+      filteredItems: [],
+      isFiltered: false,
+      filteredTrigger: false
     }
   },
   props: {
@@ -611,7 +613,17 @@ export default {
   watch: {
     items (newVal, oldVal) {
       if (oldVal !== newVal) {
-        this._providerUpdate()
+        if (this.hasProvider) {
+          this._providerUpdate()
+        } else {
+          this.localItems = this.items.slice()
+        }
+      }
+    },
+    filteredTrigger (newVal, oldVal) {
+      // Whenever this value changes state (true=>false, false=>true), we emit a filtered event.
+      if (newVal !== oldVal) {
+        this.$emit('filtered', this.filteredItems.slice())
       }
     },
     context (newVal, oldVal) {
@@ -808,21 +820,34 @@ export default {
       })
     },
     computedItems () {
-      let items = this.hasProvider ? this.localItems : this.items
-      if (!items) {
-        this.$nextTick(this._providerUpdate)
-        return []
+      let items = this.localItems || []
+      // Grab some values to help trigger reactivity to prop changes, since
+      // all of the grunt work is done via methods (which arent reactive)
+      const sortBy = this.localSortBy
+      const sortDesc = this.localSortDesc
+      const sortCompare = this.sortCompare
+      const filter = this.computedFilter
+      const currPage = this.currentPage
+      const perPage = this.perPage
+      // If table is busy, just return the current localItems
+      if (this.computedBusy) {
+        return items
       }
-      // Array copy for sorting, filtering, etc.
-      items = items.slice()
-      // Apply local filter
-      items = this.filterItems(items)
-      // Apply local sort
-      items = this.sortItems(items)
-      // Apply local pagination
-      items = this.paginateItems(items)
-      // Update the value model with the filtered/sorted/paginated data set
+      // Apply local filter (returns a new array if filtering)
+      if (filter) {
+        items = this.filterItems(items)
+      }
+      // Apply local sort (returns a new array if sorting)
+      if (sortBy || typeof sortDesc === 'boolean' || sortCompare) {
+        items = this.sortItems(items)
+      }
+      // Apply local pagination (returns new array if paginating)
+      if (currPage || perPage) {
+        items = this.paginateItems(items)
+      }
+      // Update the value model with the filtered/sorted/paginated data set.
       this.$emit('input', items)
+      // send the (possibly) updated items to the table.
       return items
     },
     computedBusy () {
@@ -881,22 +906,26 @@ export default {
           newIsFiltered = true
         }
       }
-      // We emit a filtered event if filtering is active, or if filtering state has changed.
+      // Store a reference of the filtered items in data for later use by the emitter
+      this.filteredItems = filtered
+      // We set some flags if filtering is active, or if filtering state has changed.
       if (newIsFiltered || newIsFiltered !== oldIsFiltered) {
-        this.$nextTick(() => {
-          this.isFiltered = newIsFiltered
-          this.$emit('filtered', filtered)
-        })
+        // We toggle this flag to trigger the emit of 'filtered' event
+        this.filteredTrigger = !this.filteredTrigger
+        // Set a flag for showing that filtering is active
+        this.isFiltered = newIsFiltered
       }
       // Return the possibly filtered items
-      return filtered || []
+      return filtered
     },
     sortItems (items) {
+      // Sorts the items and returns a new array of the sorted items
       const sortBy = this.localSortBy
       const sortDesc = this.localSortDesc
       const sortCompare = this.sortCompare
       const localSorting = this.localSorting
       if (sortBy && localSorting) {
+        // stableSort returns a new arary, and leaves the original array intact
         return stableSort(items, (a, b) => {
           let result = null
           if (typeof sortCompare === 'function') {
@@ -919,14 +948,7 @@ export default {
       const localPaging = this.localPaging
       // Apply local pagination
       if (!!perPage && localPaging) {
-        // Does the requested page exist?
-        const maxPages = Math.ceil(items.length / perPage) || 1
-        currentPage = Math.max(Math.min(currentPage, maxPages), 1)
-        if (currentPage !== this.currentPage) {
-          // send out a .sync update to the currentPage prop
-          this.$emit('update:currentPage', currentPage)
-        }
-        // Grab the current page of data (which may be past filtered items)
+        // Grab the current page of data (which may be past filtered items limit)
         return items.slice((currentPage - 1) * perPage, currentPage * perPage)
       }
       return items
@@ -1069,8 +1091,6 @@ export default {
       this.localItems = items && items.length > 0 ? items.slice() : []
       this.localBusy = false
       this.$emit('refreshed')
-      // Deprecated root emit
-      this.emitOnRoot('table::refreshed', this.id)
       // New root emit
       if (this.id) {
         this.emitOnRoot('bv::table::refreshed', this.id)
@@ -1093,9 +1113,6 @@ export default {
           data.then(items => {
             // Provider resolved with items
             this._providerSetLocal(Array.isArray(items) ? items : [])
-          }, () => {
-            // Provider rejected with no items
-            this._providerSetLocal([])
           })
         } else {
           // Provider returned Array data
