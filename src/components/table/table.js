@@ -648,11 +648,6 @@ export default {
         this.isFiltered = true
         this.$emit('filtered', filteredItems, filteredItems.length)
       } else {
-        if (isFiltered === true) {
-          // We need to emit a filtered event if isFiltered transitions to false so that
-          // users can update their pagination controls.
-          this.$emit('filtered', filteredItems, filteredItems.length)
-        }
         this.isFiltered = false
       }
     },
@@ -660,9 +655,7 @@ export default {
       if (newVal === false && oldVal === true) {
         // We need to emit a filtered event if isFiltered transitions from true to
         // false so that users can update their pagination controls.
-        this.$nextTick(() => {
-          this.$emit('filtered', this.filteredItems, this.filteredItems.length)
-        })
+        this.$emit('filtered', this.localItems, this.localItems.length)
       }
     },
     context (newVal, oldVal) {
