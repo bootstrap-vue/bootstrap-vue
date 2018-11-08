@@ -916,8 +916,8 @@ export default {
   methods: {
     keys,
     filterItems (items = []) {
-      if (this.localFiltering && !!this.computedFilter && items && items.length) {
-        return = items.filter(this.computedFilter) || []
+      if (this.localFiltering && !!this.computedFilter && isArray(items) && items.length) {
+        return items.filter(this.computedFilter) || []
       }
       return items
     },
