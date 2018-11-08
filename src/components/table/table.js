@@ -648,7 +648,9 @@ export default {
         this.isFiltered = true
         this.$emit('filtered', filteredItems, filteredItems.length)
       } else {
-        this.isFiltered = false
+        this.$nextTick(() => {
+          this.isFiltered = false
+        })
       }
     },
     isFiltered (newVal, oldVal) {
@@ -918,8 +920,7 @@ export default {
       // For watching changes to filtered items
       return {
         filteredItems: this.filteredItems,
-        localItems: this.localItems,
-        isFiltered: this.isFiltered
+        localItems: this.localItems
       }
     }
   },
