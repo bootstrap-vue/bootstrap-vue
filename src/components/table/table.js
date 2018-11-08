@@ -906,14 +906,16 @@ export default {
           newIsFiltered = true
         }
       }
-      // Store a reference of the filtered items in data for later use by the emitter
-      this.filteredItems = filtered
-      // We set some flags if filtering is active, or if filtering state has changed.
+      // If filtering has change, we store some data and set sme flags
       if (newIsFiltered || newIsFiltered !== oldIsFiltered) {
-        // We toggle this flag to trigger the emit of 'filtered' event
-        this.filteredTrigger = !this.filteredTrigger
-        // Set a flag for showing that filtering is active
-        this.isFiltered = newIsFiltered
+        this.$nextTick(() => {
+          // Store a reference of the filtered items in data for later use by the emitter
+          this.filteredItems = filtered
+          // We toggle this flag to trigger the emit of 'filtered' event
+          this.filteredTrigger = !this.filteredTrigger
+          // Set a flag for showing that filtering is active
+          this.isFiltered = newIsFiltered
+        })
       }
       // Return the possibly filtered items
       return filtered
