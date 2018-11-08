@@ -662,7 +662,7 @@ export default {
         // false so that users can update their pagination controls.
         this.$nextTick(() => {
           this.$emit('filtered', this.filteredItems, this.filteredItems.length)
-        }
+        })
       }
     },
     context (newVal, oldVal) {
