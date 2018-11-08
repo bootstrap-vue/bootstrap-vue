@@ -10,7 +10,7 @@ import { arrayIncludes, isArray } from '../../utils/array'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 
-// Import styles
+// Import styles for busy and stacked
 import './table.css'
 
 // Object of item keys that should be ignored for headers and stringification and filter events
@@ -99,6 +99,28 @@ function processField (key, value) {
     field = { key }
   }
   return field
+}
+
+// Determine if two given arrays are *not* loosely equal
+function arraysNotEqual(left = [] , right = []) {
+  if (left === right) {
+    // If left reference is equal to the right reference, then they are equal
+    return false
+  } else if (left.length === 0 && right.length === 0) {
+    // If they are both zero length then they are equal
+    return true
+  } else if (left.length !== right.length) {
+    // If they have different lengths then they are definitely not equal
+    return true
+  } else {
+    const equal = left.every((item, index) => {
+      // We compare left array, row by row, until we find a row that is not equal in the same
+      // row index in the right array. 
+      // Note: This process can be slow for rather large datasets!
+      return looseEquals(sanitizeRow(item), sanitizeRow(right[index]))
+    })
+    return !equal
+  }
 }
 
 export default {
@@ -411,17 +433,6 @@ export default {
       ? h('div', { class: this.responsiveClass }, [table])
       : table
   },
-  data () {
-    return {
-      localSortBy: this.sortBy || '',
-      localSortDesc: this.sortDesc || false,
-      localBusy: false,
-      localItems: Array.isArray(this.items) ? this.items.slice() : [],
-      filteredItems: [],
-      isFiltered: false,
-      filteredTrigger: false
-    }
-  },
   props: {
     items: {
       type: [Array, Function],
@@ -610,20 +621,39 @@ export default {
       default: ''
     }
   },
+  data () {
+    return {
+      localSortBy: this.sortBy || '',
+      localSortDesc: this.sortDesc || false,
+      localBusy: false,
+      localItems: isArray(this.items) ? this.items : [],
+      filteredItems: isArray(this.items) ? this.items : [],
+      isFiltered: false
+    }
+  },
   watch: {
-    items (newVal, oldVal) {
-      if (oldVal !== newVal) {
-        if (this.hasProvider) {
-          this._providerUpdate()
-        } else {
-          this.localItems = this.items.slice()
-        }
+    items (newItems = []) {
+      if (this.hasProvider || newItems instanceof Function) {
+        this.$nextTick(this._providerUpdate)
+      } else if (isArray(newItems)){
+        // Set localItems/filteredItems to a copy of the provided array
+        this.localItems = this.filteredItems = this.newItems.slice()
+      } else {
+        this.localItems = this.filteredItems = []
       }
     },
-    filteredTrigger (newVal, oldVal) {
-      // Whenever this value changes state (true=>false, false=>true), we emit a filtered event.
-      if (newVal !== oldVal) {
-        this.$emit('filtered', this.filteredItems.slice())
+    filteredItems (newItems = [], oldItems = []) {
+      // These comparisons can be computationally intensive on large datasets!
+      if (arraysNotEqual(newItems, oldItems) || arraysNotEqual(newItems, this.localItems)) {
+        this.isFiltered = true
+        this.$emit('filtered', newItems, newItems.length)
+      } else {
+        if (this.isFiltered === true) {
+          // We need to emit a filtered event if isFiltered transitions to false so that
+          // users can update their pagination controls.
+          this.$emit('filtered', newItems, newItems.length)
+        }
+        this.isFiltered = false
       }
     },
     context (newVal, oldVal) {
@@ -685,11 +715,13 @@ export default {
     this.localSortBy = this.sortBy
     this.localSortDesc = this.sortDesc
     if (this.hasProvider) {
+      // Fetch on mount
       this._providerUpdate()
     }
+    // Listen for global messages to tell us to force refresh the table
     this.listenOnRoot('bv::refresh::table', id => {
       if (id === this.id || id === this) {
-        this._providerUpdate()
+        this.refresh()
       }
     })
   },
@@ -822,7 +854,7 @@ export default {
     computedItems () {
       let items = this.localItems || []
       // Grab some values to help trigger reactivity to prop changes, since
-      // all of the grunt work is done via methods (which arent reactive)
+      // all of the grunt work is done via methods (which aren't reactive)
       const sortBy = this.localSortBy
       const sortDesc = this.localSortDesc
       const sortCompare = this.sortCompare
@@ -833,15 +865,16 @@ export default {
       if (this.computedBusy) {
         return items
       }
-      // Apply local filter (returns a new array if filtering)
+      // Apply (optional) local filter (returns a new array if filtering)
       if (filter) {
-        items = this.filterItems(items)
+        // We also set this.filteredItems for triggering filtered events
+        items = this.filteredItems = this.filterItems(items)
       }
-      // Apply local sort (returns a new array if sorting)
+      // Apply (optional) local sort (returns a new array if sorting)
       if (sortBy || typeof sortDesc === 'boolean' || sortCompare) {
         items = this.sortItems(items)
       }
-      // Apply local pagination (returns new array if paginating)
+      // Apply (optional) local pagination (returns new array if paginating)
       if (currPage || perPage) {
         items = this.paginateItems(items)
       }
@@ -882,43 +915,11 @@ export default {
   },
   methods: {
     keys,
-    filterItems (items) {
-      if (!this.localFiltering) {
-        // If the provider is filtering, we just set the state of this.isFiltered based on the
-        // truthy-ness of the fitler prop, and then return the original items as-is.
-        // We dont emit filtered events for non-local filtering.
-        this.isFiltered = Boolean(this.filter)
-        return items
+    filterItems (items = []) {
+      if (this.localFiltering && !!this.computedFilter && items && items.length) {
+        return = items.filter(this.computedFilter) || []
       }
-      let filtered = items || []
-      const oldIsFiltered = this.isFiltered
-      let newIsFiltered = false
-      if (!!this.computedFilter && items && items.length) {
-        filtered = items.filter(this.computedFilter) || []
-        // Determine if the filtered items are indeed filtered/different from items
-        if (filtered.length !== items.length) {
-          // If the length of the filterd items is not the same as the original items,
-          // then we flag the table as filtered. We do this test first for performance reasons
-          newIsFiltered = true
-        } else if (!(filtered.every((item, idx) => looseEqual(item, items[idx])))) {
-          // We compare row-by-row until the first loosely non-equal row is found.
-          // A differing row at some index was found, so we flag the table as filtered.
-          newIsFiltered = true
-        }
-      }
-      // If filtering has change, we store some data and set sme flags
-      if (newIsFiltered || newIsFiltered !== oldIsFiltered) {
-        this.$nextTick(() => {
-          // Store a reference of the filtered items in data for later use by the emitter
-          this.filteredItems = filtered
-          // We toggle this flag to trigger the emit of 'filtered' event
-          this.filteredTrigger = !this.filteredTrigger
-          // Set a flag for showing that filtering is active
-          this.isFiltered = newIsFiltered
-        })
-      }
-      // Return the possibly filtered items
-      return filtered
+      return items
     },
     sortItems (items) {
       // Sorts the items and returns a new array of the sorted items
@@ -1086,11 +1087,13 @@ export default {
     refresh () {
       // Expose refresh method
       if (this.hasProvider) {
-        this._providerUpdate()
+        this.$nextTick(this._providerUpdate)
+      } else {
+        this.localItems = this.filteredItems = isArray(this.items) ? this.items.slice() : []
       }
     },
     _providerSetLocal (items) {
-      this.localItems = items && items.length > 0 ? items.slice() : []
+      this.localItems = this.filteredItems = isArray(items) ? items.slice() : []
       this.localBusy = false
       this.$emit('refreshed')
       // New root emit
@@ -1099,7 +1102,10 @@ export default {
       }
     },
     _providerUpdate () {
-      // Refresh the provider items
+      // Refresh the provider function items.
+      // This method should be debounced with lodash.debounce to minimize network requests
+      // with a 100ms default debounce period (i.e. 100ms wait after the last update before
+      // the new update is called)
       if (this.computedBusy || !this.hasProvider) {
         // Don't refresh remote data if we are 'busy' or if no provider
         return
@@ -1114,11 +1120,11 @@ export default {
           // Provider returned Promise
           data.then(items => {
             // Provider resolved with items
-            this._providerSetLocal(Array.isArray(items) ? items : [])
+            this._providerSetLocal(items)
           })
         } else {
           // Provider returned Array data
-          this._providerSetLocal(Array.isArray(data) ? data : [])
+          this._providerSetLocal(data)
         }
       })
     },
