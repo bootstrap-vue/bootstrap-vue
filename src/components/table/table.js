@@ -642,16 +642,16 @@ export default {
         this.localItems = this.filteredItems = []
       }
     },
-    filteredItems (newItems = [], oldItems = []) {
-      // These comparisons can be computationally intensive on large datasets!
-      if (arraysNotEqual(newItems, oldItems) || arraysNotEqual(newItems, this.localItems)) {
+    filteredCheck ({filteredItems, localItems}) {
+      // This comparisons can be computationally intensive on large datasets!
+      if (arraysNotEqual(filteredItems, localItems)) {
         this.isFiltered = true
-        this.$emit('filtered', newItems, newItems.length)
+        this.$emit('filtered', filteredItems, filteredItems.length)
       } else {
         if (this.isFiltered === true) {
           // We need to emit a filtered event if isFiltered transitions to false so that
           // users can update their pagination controls.
-          this.$emit('filtered', newItems, newItems.length)
+          this.$emit('filtered', filteredItems, filteredItems.length)
         }
         this.isFiltered = false
       }
@@ -910,6 +910,13 @@ export default {
         }
       } else {
         return null
+      }
+    },
+    filteredCheck () {
+      // For watching changes to filtered items
+      return {
+        filteredItems: this.filteredItems,
+        localItems: this.localItems
       }
     }
   },
