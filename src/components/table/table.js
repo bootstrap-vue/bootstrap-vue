@@ -637,7 +637,7 @@ export default {
         this.$nextTick(this._providerUpdate)
       } else if (isArray(newItems)) {
         // Set localItems/filteredItems to a copy of the provided array
-        this.localItems = this.filteredItems = this.newItems.slice()
+        this.localItems = this.filteredItems = newItems.slice()
       } else {
         this.localItems = this.filteredItems = []
       }
