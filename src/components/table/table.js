@@ -102,7 +102,7 @@ function processField (key, value) {
 }
 
 // Determine if two given arrays are *not* loosely equal
-function arraysNotEqual(left = [] , right = []) {
+function arraysNotEqual (left = [], right = []) {
   if (left === right) {
     // If left reference is equal to the right reference, then they are equal
     return false
@@ -115,9 +115,9 @@ function arraysNotEqual(left = [] , right = []) {
   } else {
     const equal = left.every((item, index) => {
       // We compare left array, row by row, until we find a row that is not equal in the same
-      // row index in the right array. 
+      // row index in the right array.
       // Note: This process can be slow for rather large datasets!
-      return looseEquals(sanitizeRow(item), sanitizeRow(right[index]))
+      return looseEqual(sanitizeRow(item), sanitizeRow(right[index]))
     })
     return !equal
   }
@@ -635,7 +635,7 @@ export default {
     items (newItems = []) {
       if (this.hasProvider || newItems instanceof Function) {
         this.$nextTick(this._providerUpdate)
-      } else if (isArray(newItems)){
+      } else if (isArray(newItems)) {
         // Set localItems/filteredItems to a copy of the provided array
         this.localItems = this.filteredItems = this.newItems.slice()
       } else {
