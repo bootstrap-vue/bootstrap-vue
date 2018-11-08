@@ -656,6 +656,15 @@ export default {
         this.isFiltered = false
       }
     },
+    isFiltered (newVal, oldVal) {
+      if (newVal === false && oldVal === true) {
+        // We need to emit a filtered event if isFiltered transitions from true to
+        // false so that users can update their pagination controls.
+        this.$nextTick(() => {
+          this.$emit('filtered', this.filteredItems, this.filteredItems.length)
+        }
+      }
+    },
     context (newVal, oldVal) {
       if (!looseEqual(newVal, oldVal)) {
         this.$emit('context-changed', newVal)
