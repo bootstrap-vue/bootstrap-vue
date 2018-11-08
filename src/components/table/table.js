@@ -872,8 +872,9 @@ export default {
       // Apply (optional) local filter (returns a new array if filtering)
       if (filter) {
         // We also set this.filteredItems for triggering filtered events
-        items = this.filteredItems = this.filterItems(items)
+        items = this.filterItems(items)
       }
+      this.filteredItems = items
       // Apply (optional) local sort (returns a new array if sorting)
       if (sortBy || typeof sortDesc === 'boolean' || sortCompare) {
         items = this.sortItems(items)
