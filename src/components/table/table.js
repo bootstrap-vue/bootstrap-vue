@@ -1017,7 +1017,7 @@ export default {
       return items
     },
     computedItems () {
-      reutrn this.paginatedItems || []
+      return this.paginatedItems || []
     }
   },
   methods: {
