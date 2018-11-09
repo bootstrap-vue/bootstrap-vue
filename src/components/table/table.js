@@ -819,12 +819,13 @@ export default {
     },
     providerTriggerContext () {
       // Used to trigger the provider function via a watcher.
+      // Only the fields that are needed for triggering an update are included.
       // The regular this.context is sent to the provider during fetches
       const ctx = {
         apiUrl: this.apiUrl
       }
       if (!this.noProviderFiltering) {
-        ctx.filter = typeof this.filter === 'function' : '' : this.filter
+        ctx.filter = typeof this.filter === 'function' ? '' : this.filter
       }
       if (!this.noProviderSorting) {
         ctx.sortBy = this.localSortBy
