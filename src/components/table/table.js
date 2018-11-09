@@ -577,7 +577,7 @@ export default {
     filterFunction: {
       type: Function,
       default () {
-        if (typeof this.filter === 'function') {
+        if (this && typeof this.filter === 'function') {
           // Deprecate setting 'filter' prop to a function
           warn(
             "b-table: setting prop 'filter' to a function has been deprecated. Use 'filter-function' instead"
@@ -975,7 +975,7 @@ export default {
     sortedItems () {
       // Sorts the filtered items and returns a new array of the sorted items
       // or the original items array if not sorted.
-      let items = this.filteredItems
+      let items = this.filteredItems || []
       const sortBy = this.localSortBy
       const sortDesc = this.localSortDesc
       const sortCompare = this.sortCompare
