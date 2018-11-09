@@ -664,9 +664,9 @@ export default {
         this.$nextTick(this._providerUpdate)
       } else if (isArray(newItems)) {
         // Set localItems/filteredItems to a copy of the provided array
-        this.localItems = this.filteredItems = newItems.slice()
+        this.localItems = newItems.slice()
       } else {
-        this.localItems = this.filteredItems = []
+        this.localItems = []
       }
     },
     sortDesc (newVal, oldVal) {
@@ -1187,12 +1187,12 @@ export default {
       if (this.hasProvider) {
         this.$nextTick(this._providerUpdate)
       } else {
-        this.localItems = this.filteredItems = isArray(this.items) ? this.items.slice() : []
+        this.localItems = isArray(this.items) ? this.items.slice() : []
       }
     },
     // Provider related methods
     _providerSetLocal (items) {
-      this.localItems = this.filteredItems = isArray(items) ? items.slice() : []
+      this.localItems = isArray(items) ? items.slice() : []
       this.localBusy = false
       this.$emit('refreshed')
       // New root emit
