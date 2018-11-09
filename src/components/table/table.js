@@ -107,16 +107,18 @@ function arraysNotEqual (left = [], right = []) {
     // If left reference is equal to the right reference, then they are equal
     return false
   } else if (left.length === 0 && right.length === 0) {
-    // If they are both zero length then they are equal
+    // If they are both zero length then they are considered equal
     return true
   } else if (left.length !== right.length) {
     // If they have different lengths then they are definitely not equal
     return true
   } else {
     const equal = left.every((item, index) => {
-      // We compare left array, row by row, until we find a row that is not equal in the same
-      // row index in the right array.
+      // We compare left array, row by row, with a row at the same index in the right
+      // array until we find a row that is not equal at the same row index.
       // Note: This process can be slow for rather large datasets!
+      // We try and optimize the usage by targettign the upper conditions if at all
+      // possible (i.e. setting left and right variables to the same reference when possible)
       return looseEqual(sanitizeRow(item), sanitizeRow(right[index]))
     })
     return !equal
@@ -133,8 +135,14 @@ export default {
 
     // Build the caption
     let caption = h(false)
+    let captionId = null
     if (this.caption || $slots['table-caption']) {
-      const data = { style: this.captionStyles }
+      captionId = this.isStacked ? this.safeId('_caption_') : null
+      const data = {
+        key: 'caption',
+        id: captionId,
+        style: this.captionStyles
+      }
       if (!$slots['table-caption']) {
         data.domProps = { innerHTML: stripScripts(this.caption) }
       }
@@ -143,7 +151,7 @@ export default {
 
     // Build the colgroup
     const colgroup = $slots['table-colgroup']
-      ? h('colgroup', {}, $slots['table-colgroup'])
+      ? h('colgroup', { key: 'colgroup' }, $slots['table-colgroup'])
       : h(false)
 
     // factory function for thead and tfoot cells (th's)
@@ -201,7 +209,7 @@ export default {
     let thead = h(false)
     if (this.isStacked !== true) {
       // If in always stacked mode (this.isStacked === true), then we don't bother rendering the thead
-      thead = h('thead', { class: this.headClasses }, [
+      thead = h('thead', { key: 'thead', class: this.headClasses }, [
         h('tr', { class: this.theadTrClass }, makeHeadCells(false))
       ])
     }
@@ -210,7 +218,7 @@ export default {
     let tfoot = h(false)
     if (this.footClone && this.isStacked !== true) {
       // If in always stacked mode (this.isStacked === true), then we don't bother rendering the tfoot
-      tfoot = h('tfoot', { class: this.footClasses }, [
+      tfoot = h('tfoot', { key: 'tfoot', class: this.footClasses }, [
         h('tr', { class: this.tfootTrClass }, makeHeadCells(true))
       ])
     }
@@ -224,7 +232,11 @@ export default {
       rows.push(
         h(
           'tr',
-          { key: 'top-row', class: ['b-table-top-row', typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-top') : this.tbodyTrClass] },
+          {
+            key: 'top-row',
+            staticClass: 'b-table-top-row',
+            class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-top') : this.tbodyTrClass]
+          },
           [$scoped['top-row']({ columns: fields.length, fields: fields })]
         )
       )
@@ -236,6 +248,7 @@ export default {
     items.forEach((item, rowIndex) => {
       const detailsSlot = $scoped['row-details']
       const rowShowDetails = Boolean(item._showDetails && detailsSlot)
+      // Details ID needed for aria-describedby when details showing
       const detailsId = rowShowDetails
         ? this.safeId(`_details_${rowIndex}_`)
         : null
@@ -246,6 +259,7 @@ export default {
       }
       // For each item data field in row
       const tds = fields.map((field, colIndex) => {
+        const formatted = this.getFormattedValue(item, field)
         const data = {
           key: `row-${rowIndex}-cell-${colIndex}`,
           class: this.tdClasses(field, item),
@@ -260,7 +274,7 @@ export default {
               index: rowIndex,
               field: field,
               unformatted: get(item, field.key),
-              value: this.getFormattedValue(item, field),
+              value: formatted,
               toggleDetails: toggleDetailsFn,
               detailsShowing: Boolean(item._showDetails)
             })
@@ -270,7 +284,6 @@ export default {
             childNodes = [h('div', {}, [childNodes])]
           }
         } else {
-          const formatted = this.getFormattedValue(item, field)
           if (this.isStacked) {
             // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
             childNodes = [h('div', formatted)]
@@ -303,21 +316,11 @@ export default {
               role: this.isStacked ? 'row' : null
             },
             on: {
-              click: evt => {
-                this.rowClicked(evt, item, rowIndex)
-              },
-              contextmenu: evt => {
-                this.rowContextmenu(evt, item, rowIndex)
-              },
-              dblclick: evt => {
-                this.rowDblClicked(evt, item, rowIndex)
-              },
-              mouseenter: evt => {
-                this.rowHovered(evt, item, rowIndex)
-              },
-              mouseleave: evt => {
-                this.rowUnhovered(evt, item, rowIndex)
-              }
+              click: evt => { this.rowClicked(evt, item, rowIndex) },
+              contextmenu: evt => { this.rowContextmenu(evt, item, rowIndex) },
+              dblclick: evt => { this.rowDblClicked(evt, item, rowIndex) },
+              mouseenter: evt => { this.rowHovered(evt, item, rowIndex) },
+              mouseleave: evt => { this.rowUnhovered(evt, item, rowIndex) }
             }
           },
           tds
@@ -344,7 +347,8 @@ export default {
             'tr',
             {
               key: `details-${rowIndex}`,
-              class: ['b-table-details', typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row-details') : this.tbodyTrClass],
+              staticClass: 'b-table-details',
+              class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row-details') : this.tbodyTrClass],
               attrs: trAttrs
             },
             [details]
@@ -380,7 +384,8 @@ export default {
           'tr',
           {
             key: 'empty-row',
-            class: ['b-table-empty-row', typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-empty') : this.tbodyTrClass],
+            staticClass: 'b-table-empty-row',
+            class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-empty') : this.tbodyTrClass],
             attrs: this.isStacked ? { role: 'row' } : {}
           },
           [empty]
@@ -396,7 +401,11 @@ export default {
       rows.push(
         h(
           'tr',
-          { key: 'bottom-row', class: ['b-table-bottom-row', typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-bottom') : this.tbodyTrClass] },
+          {
+            key: 'bottom-row',
+            staticClass: 'b-table-bottom-row',
+            class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-bottom') : this.tbodyTrClass]
+          },
           [$scoped['bottom-row']({ columns: fields.length, fields: fields })]
         )
       )
@@ -415,14 +424,16 @@ export default {
     const table = h(
       'table',
       {
+        key: 'b-table',
         class: this.tableClasses,
         attrs: {
           id: this.safeId(),
           role: this.isStacked ? 'table' : null,
+          'aria-describedby': captionId,
           'aria-busy': this.computedBusy ? 'true' : 'false',
           'aria-colcount': String(fields.length),
           'aria-rowcount': this.$attrs['aria-rowcount'] ||
-            this.items.length > this.perPage ? this.items.length : null
+            this.items.length > this.perPage ? String(this.items.length) : null
         }
       },
       [caption, colgroup, thead, tfoot, tbody]
@@ -430,7 +441,7 @@ export default {
 
     // Add responsive wrapper if needed and return table
     return this.isResponsive
-      ? h('div', { class: this.responsiveClass }, [table])
+      ? h('div', { key: 'responsive-wrap', class: this.responsiveClass }, [table])
       : table
   },
   props: {
@@ -560,8 +571,22 @@ export default {
       default: 1
     },
     filter: {
-      type: [String, RegExp, Function],
+      type: [String, RegExp, Object, Array, Function],
       default: null
+    },
+    filterFunction: {
+      type: Function,
+      default () {
+        if (typeof this.filter === 'function') {
+          // Deprecate setting 'filter' prop to a function
+          warn(
+            "b-table: setting prop 'filter' to a function has been deprecated. Use 'filter-function' instead"
+          )
+          return this.filter
+        } else {
+          return null
+        }
+      }
     },
     sortCompare: {
       type: Function,
@@ -626,13 +651,15 @@ export default {
       localSortBy: this.sortBy || '',
       localSortDesc: this.sortDesc || false,
       localBusy: false,
+      // Our local copy of the items.  Must be an array
       localItems: isArray(this.items) ? this.items : [],
-      filteredItems: isArray(this.items) ? this.items : [],
+      // Flag for displaying which empty slot to show, and for some event triggering.
       isFiltered: false
     }
   },
   watch: {
-    items (newItems = []) {
+    // Watch props for changes and update local values
+    items (newItems) {
       if (this.hasProvider || newItems instanceof Function) {
         this.$nextTick(this._providerUpdate)
       } else if (isArray(newItems)) {
@@ -642,15 +669,46 @@ export default {
         this.localItems = this.filteredItems = []
       }
     },
-    filteredCheck ({filteredItems, localItems, isFiltered}) {
-      // This comparisons can be computationally intensive on large datasets!
+    sortDesc (newVal, oldVal) {
+      if (newVal === this.localSortDesc) {
+        return
+      }
+      this.localSortDesc = newVal || false
+    },
+    sortBy (newVal, oldVal) {
+      if (newVal === this.localSortBy) {
+        return
+      }
+      this.localSortBy = newVal || null
+    },
+    // Update .sync props
+    localSortDesc (newVal, oldVal) {
+      // Emit update to sort-desc.sync
+      if (newVal !== oldVal) {
+        this.$emit('update:sortDesc', newVal)
+      }
+    },
+    localSortBy (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit('update:sortBy', newVal)
+      }
+    },
+    localBusy (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit('update:busy', newVal)
+      }
+    },
+    // Watch for changes to the filtered items (vs localItems).
+    // And set visual state and emit events as required
+    filteredCheck ({filteredItems, localItems}) {
+      // This comparison can potentially be computationally intensive on large datasets!
+      // i.e. when a filtered dataset is equal to the entire localItems.
+      // Large data set users shoud use provider sorting and filtering.
       if (arraysNotEqual(filteredItems, localItems)) {
         this.isFiltered = true
         this.$emit('filtered', filteredItems, filteredItems.length)
       } else {
-        this.$nextTick(() => {
-          this.isFiltered = false
-        })
+        this.isFiltered = false
       }
     },
     isFiltered (newVal, oldVal) {
@@ -661,57 +719,16 @@ export default {
       }
     },
     context (newVal, oldVal) {
+      // Emit context info for enternal paging/filtering/sorting handling
       if (!looseEqual(newVal, oldVal)) {
         this.$emit('context-changed', newVal)
       }
     },
-    sortDesc (newVal, oldVal) {
-      if (newVal === this.localSortDesc) {
-        return
-      }
-      this.localSortDesc = newVal || false
-    },
-    localSortDesc (newVal, oldVal) {
-      // Emit update to sort-desc.sync
-      if (newVal !== oldVal) {
-        this.$emit('update:sortDesc', newVal)
-        if (!this.noProviderSorting) {
-          this._providerUpdate()
-        }
-      }
-    },
-    sortBy (newVal, oldVal) {
-      if (newVal === this.localSortBy) {
-        return
-      }
-      this.localSortBy = newVal || null
-    },
-    localSortBy (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.$emit('update:sortBy', newVal)
-        if (!this.noProviderSorting) {
-          this._providerUpdate()
-        }
-      }
-    },
-    perPage (newVal, oldVal) {
-      if (oldVal !== newVal && !this.noProviderPaging) {
-        this._providerUpdate()
-      }
-    },
-    currentPage (newVal, oldVal) {
-      if (oldVal !== newVal && !this.noProviderPaging) {
-        this._providerUpdate()
-      }
-    },
-    filter (newVal, oldVal) {
-      if (oldVal !== newVal && !this.noProviderFiltering) {
-        this._providerUpdate()
-      }
-    },
-    localBusy (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.$emit('update:busy', newVal)
+    // Provider update triggering
+    providerTriggerContext (newVal, oldVal) {
+      // Trigger the provider to update as the relevant context values have changed.
+      if (!looseEqual(newVal, oldVal)) {
+        this.$nextTick(this._providerUpdate)
       }
     }
   },
@@ -730,6 +747,7 @@ export default {
     })
   },
   computed: {
+    // Layout related computed props
     isStacked () {
       return this.stacked === '' ? true : this.stacked
     },
@@ -775,6 +793,7 @@ export default {
       // Move caption to top
       return this.captionTop ? { captionSide: 'top' } : {}
     },
+    // Items related computed props
     hasProvider () {
       return this.items instanceof Function
     },
@@ -788,14 +807,37 @@ export default {
       return this.hasProvider ? this.noProviderPaging : true
     },
     context () {
+      // Current state of sorting, filtering and pagination
       return {
-        perPage: this.perPage,
-        currentPage: this.currentPage,
-        filter: this.filter,
+        filter: typeof this.filter === 'function' ? '' : this.filter,
         sortBy: this.localSortBy,
         sortDesc: this.localSortDesc,
+        perPage: this.perPage,
+        currentPage: this.currentPage,
         apiUrl: this.apiUrl
       }
+    },
+    providerTriggerContext () {
+      // Used to trigger the provider function via a watcher.
+      // The regular this.context is sent to the provider during fetches
+      const ctx = {
+        apiUrl: this.apiUrl
+      }
+      if (!this.noProviderFiltering) {
+        ctx.filter = typeof this.filter === 'function' : '' : this.filter
+      }
+      if (!this.noProviderSorting) {
+        ctx.sortBy = this.localSortBy
+        ctx.sortDesc = this.localSortDesc
+      }
+      if (!this.noProviderPaging) {
+        ctx.perPage = this.perPage
+        ctx.currentPage = this.currentPage
+      }
+      return ctx
+    },
+    computedBusy () {
+      return this.busy || this.localBusy
     },
     computedFields () {
       // We normalize fields into an array of objects
@@ -836,8 +878,8 @@ export default {
         })
       }
       // If no field provided, take a sample from first record (if exits)
-      if (fields.length === 0 && this.computedItems.length > 0) {
-        const sample = this.computedItems[0]
+      if (fields.length === 0 && this.localItems.length > 0) {
+        const sample = this.localItems[0]
         keys(sample).forEach(k => {
           if (!IGNORED_FIELD_KEYS[k]) {
             fields.push({ key: k, label: startCase(k) })
@@ -855,86 +897,87 @@ export default {
         return false
       })
     },
-    computedItems () {
-      let items = this.localItems || []
-      // Grab some values to help trigger reactivity to prop changes, since
-      // all of the grunt work is done via methods (which aren't reactive)
-      const sortBy = this.localSortBy
-      const sortDesc = this.localSortDesc
-      const sortCompare = this.sortCompare
-      const filter = this.computedFilter
-      const currPage = this.currentPage
-      const perPage = this.perPage
-      // If table is busy, just return the current localItems
-      if (this.computedBusy) {
-        return items
+    computedFilterFn () {
+      // Factory for building filter functions.
+      // We do this as a computed prop so that we can be reactive to the filterFn.
+      let criteria = this.filter
+      let filterFn = this.filterFunction
+      // Handle deprecation of passing function to prop filter
+      if (typeof criteria === 'function') {
+        filterFn = criteria
+        criteria = ''
       }
-      // Apply (optional) local filter (returns a new array if filtering)
-      if (filter) {
-        // We also set this.filteredItems for triggering filtered events
-        items = this.filterItems(items)
-      }
-      this.filteredItems = items
-      // Apply (optional) local sort (returns a new array if sorting)
-      if (sortBy || typeof sortDesc === 'boolean' || sortCompare) {
-        items = this.sortItems(items)
-      }
-      // Apply (optional) local pagination (returns new array if paginating)
-      if (currPage || perPage) {
-        items = this.paginateItems(items)
-      }
-      // Update the value model with the filtered/sorted/paginated data set.
-      this.$emit('input', items)
-      // send the (possibly) updated items to the table.
-      return items
-    },
-    computedBusy () {
-      return this.busy || this.localBusy
-    },
-    computedFilter () {
-      if (this.filter instanceof Function) {
-        // filter the items array using the function set in the filter prop
-        // Wrap it in a function so we can prevent the filter function from mutating the top level data
+      if (typeof filterFn === 'function') {
+        // If we have a user supplied filter function, we use it.
+        // We wrap the filter function inside an anonymous function
+        // to pass context and to trigger reactive changes when using
+        // the 'filter-functon' prop in combination with the the 'filter' prop.
         return (item) => {
-          return this.filter(assign({}, item))
+          // We provide the filter function a shallow copy of the item, and pass a
+          // second argument which is the filter criteria (value of the filter prop)
+          // passed as an object (as we may add more to this object in the future)
+          // Criteria (i.e. this.filter when not a function), could be a string,
+          // array, object or regex. It is up to the
+          return filterFn(assign({}, item), { filter: criteria })
         }
-      } else if (this.filter) {
+      } else if (criteria) {
+        // Handle filter criteria when no filter-function specified
+        if (!filterFn && typeof criteria !== 'string' && !(criteria instanceof RegExp)) {
+          // Currently we can't use an object (or array) when using the built-in filter
+          criteria = ''
+        }
+        // Start building a filter function based on the string or regex passed
         let regex = null
-        if (this.filter instanceof RegExp) {
-          regex = this.filter
+        if (criteria instanceof RegExp) {
+          regex = criteria
         } else {
           // Escape special RegExp characters in the string
-          const string = this.filter.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+          const string = criteria
+            .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+            .replace(/\s+/g, '\\s+')
+          // Build the RegExp
           regex = new RegExp(`.*${string}.*`, 'ig')
         }
-        // return a filter function
+        // Return the generated filter function
         return (item) => {
+          // This searches the entire row values (excluding special _ prefixed keys),
+          // even ones that are not visible (not specified in this.fields).
+          // TODO: enable searching on formatted fields and scoped slots
+          // TODO: allow for searching on specific fields/key
           const test = regex.test(recToString(item))
           regex.lastIndex = 0
           return test
         }
       } else {
+        // no filtering
         return null
       }
     },
     filteredCheck () {
-      // For watching changes to filtered items
+      // For watching changes to filteredItems vs localItems
       return {
         filteredItems: this.filteredItems,
         localItems: this.localItems
       }
-    }
-  },
-  methods: {
-    keys,
-    filterItems (items = []) {
-      if (this.localFiltering && !!this.computedFilter && isArray(items) && items.length) {
-        return items.filter(this.computedFilter) || []
+    },
+    filteredItems () {
+      // Returns the records in localItems that match the filter criteria
+      let items = this.localItems || []
+      const filter = this.computedFilterFn
+      items = isArray(items) ? items : []
+      // If table is busy, just return the current localItems
+      if (this.computedBusy) {
+        return items
+      }
+      if (this.localFiltering && !!this.computedFilterFn && items.length) {
+        items = items.filter(this.computedFilterFn) || []
       }
       return items
     },
-    sortItems (items) {
-      // Sorts the items and returns a new array of the sorted items
+    sortedItems () {
+      // Sorts the filtered items and returns a new array of the sorted items
+      // or the original items array if not sorted.
+      let items = this.filteredItems
       const sortBy = this.localSortBy
       const sortDesc = this.localSortDesc
       const sortCompare = this.sortCompare
@@ -947,8 +990,8 @@ export default {
             // Call user provided sortCompare routine
             result = sortCompare(a, b, sortBy, sortDesc)
           }
-          if (result === null || result === undefined) {
-            // Fallback to defaultSortCompare if sortCompare not defined or returns null
+          if (result === null || result === undefined || result === false) {
+            // Fallback to built-in defaultSortCompare if sortCompare not defined or returns null/false
             result = defaultSortCompare(a, b, sortBy)
           }
           // Negate result if sorting in descending order
@@ -957,17 +1000,29 @@ export default {
       }
       return items
     },
-    paginateItems (items) {
-      let currentPage = this.currentPage
-      const perPage = this.perPage
-      const localPaging = this.localPaging
+    paginatedItems () {
+      let items = this.sortedItems || []
+      const currentPage = Math.max(parseInt(this.currentPage, 10) || 1, 1)
+      const perPage = Math.max(parseInt(this.perPage, 10) || 0, 0)
+      const maxPages = Math.max(Math.ceil(items.length / perPage), 1)
       // Apply local pagination
-      if (!!perPage && localPaging) {
+      if (this.localPaging && !!perPage) {
         // Grab the current page of data (which may be past filtered items limit)
-        return items.slice((currentPage - 1) * perPage, currentPage * perPage)
+        items = items.slice((currentPage - 1) * perPage, currentPage * perPage)
       }
+      // update the v-model view
+      this.$emit('input', items)
+      // Return the items to display
       return items
     },
+    computedItems () {
+      reutrn this.paginatedItems || []
+    }
+  },
+  methods: {
+    // Convenience method for render function (old SFC templates)
+    keys,
+    // Methods for computing classes, attributes and styles for table cells
     fieldClasses (field) {
       return [
         field.sortable ? 'sorting' : '',
@@ -1017,6 +1072,39 @@ export default {
         typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass
       ]
     },
+    getTdValues (item, key, tdValue, defValue) {
+      const parent = this.$parent
+      if (tdValue) {
+        if (typeof tdValue === 'function') {
+          let value = get(item, key)
+          return tdValue(value, key, item)
+        } else if (typeof tdValue === 'string' && typeof parent[tdValue] === 'function') {
+          let value = get(item, key)
+          return parent[tdValue](value, key, item)
+        }
+        return tdValue
+      }
+      return defValue
+    },
+    // Method to get the value for a field
+    getFormattedValue (item, field) {
+      const key = field.key
+      const formatter = field.formatter
+      const parent = this.$parent
+      let value = get(item, key)
+      if (formatter) {
+        if (typeof formatter === 'function') {
+          value = formatter(value, key, item)
+        } else if (
+          typeof formatter === 'string' &&
+          typeof parent[formatter] === 'function'
+        ) {
+          value = parent[formatter](value, key, item)
+        }
+      }
+      return (value === null || typeof value === 'undefined') ? '' : value
+    },
+    // Event handlers
     rowClicked (e, item, index) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
@@ -1096,6 +1184,7 @@ export default {
       }
       return false
     },
+    // Exposed method(s)
     refresh () {
       // Expose refresh method
       if (this.hasProvider) {
@@ -1104,6 +1193,7 @@ export default {
         this.localItems = this.filteredItems = isArray(this.items) ? this.items.slice() : []
       }
     },
+    // Provider related methods
     _providerSetLocal (items) {
       this.localItems = this.filteredItems = isArray(items) ? items.slice() : []
       this.localBusy = false
@@ -1115,9 +1205,9 @@ export default {
     },
     _providerUpdate () {
       // Refresh the provider function items.
-      // This method should be debounced with lodash.debounce to minimize network requests
-      // with a 100ms default debounce period (i.e. 100ms wait after the last update before
-      // the new update is called)
+      // TODO: this method should be debounced with lodash.debounce to minimize network requests,
+      // with a 100ms default debounce period (i.e. 100ms holdtime after the last update before
+      // the new update is called). Debounce period should be a prop
       if (this.computedBusy || !this.hasProvider) {
         // Don't refresh remote data if we are 'busy' or if no provider
         return
@@ -1139,37 +1229,6 @@ export default {
           this._providerSetLocal(data)
         }
       })
-    },
-    getTdValues (item, key, tdValue, defValue) {
-      const parent = this.$parent
-      if (tdValue) {
-        if (typeof tdValue === 'function') {
-          let value = get(item, key)
-          return tdValue(value, key, item)
-        } else if (typeof tdValue === 'string' && typeof parent[tdValue] === 'function') {
-          let value = get(item, key)
-          return parent[tdValue](value, key, item)
-        }
-        return tdValue
-      }
-      return defValue
-    },
-    getFormattedValue (item, field) {
-      const key = field.key
-      const formatter = field.formatter
-      const parent = this.$parent
-      let value = get(item, key)
-      if (formatter) {
-        if (typeof formatter === 'function') {
-          value = formatter(value, key, item)
-        } else if (
-          typeof formatter === 'string' &&
-          typeof parent[formatter] === 'function'
-        ) {
-          value = parent[formatter](value, key, item)
-        }
-      }
-      return (value === null || typeof value === 'undefined') ? '' : value
     }
   }
 }
