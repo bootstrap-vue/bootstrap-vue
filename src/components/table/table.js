@@ -425,6 +425,7 @@ export default {
       'table',
       {
         key: 'b-table',
+        staticClass: ['table', 'b-table'],
         class: this.tableClasses,
         attrs: {
           id: this.safeId(),
@@ -652,7 +653,7 @@ export default {
       localSortDesc: this.sortDesc || false,
       localBusy: false,
       // Our local copy of the items.  Must be an array
-      localItems: isArray(this.items) ? this.items : [],
+      localItems: isArray(this.items) ? this.items.slice() : [],
       // Flag for displaying which empty slot to show, and for some event triggering.
       isFiltered: false
     }
@@ -738,6 +739,8 @@ export default {
     if (this.hasProvider) {
       // Fetch on mount
       this._providerUpdate()
+    } else {
+      this.localItems = isArray(this.items) ? this.items.slice() : []
     }
     // Listen for global messages to tell us to force refresh the table
     this.listenOnRoot('bv::refresh::table', id => {
@@ -762,8 +765,6 @@ export default {
     },
     tableClasses () {
       return [
-        'table',
-        'b-table',
         this.striped ? 'table-striped' : '',
         this.hover ? 'table-hover' : '',
         this.dark ? 'table-dark' : '',
@@ -966,8 +967,7 @@ export default {
       let items = this.localItems || []
       const filter = this.computedFilterFn
       const localFiltering = this.localFiltering
-      items = isArray(items) ? items : []
-      if (localFiltering && !!filter && items.length) {
+      if (localFiltering && !!filter && isArray(items) && items.length) {
         items = items.filter(filter) || []
       }
       return items
@@ -1017,8 +1017,6 @@ export default {
     }
   },
   methods: {
-    // Convenience method for render function (old SFC templates)
-    keys,
     // Methods for computing classes, attributes and styles for table cells
     fieldClasses (field) {
       return [
