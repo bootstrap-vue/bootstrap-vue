@@ -366,7 +366,7 @@ export default {
       if (!empty) {
         empty = h('div', {
           class: ['text-center', 'my-2'],
-          domProps: { innerHTML: stripScripts(this.filter ? this.emptyFilteredText : this.emptyText) }
+          domProps: { innerHTML: stripScripts(this.isFiltered ? this.emptyFilteredText : this.emptyText) }
         })
       }
       empty = h(
@@ -965,13 +965,10 @@ export default {
       // Returns the records in localItems that match the filter criteria
       let items = this.localItems || []
       const filter = this.computedFilterFn
+      const localFiltering = this.localFiltering
       items = isArray(items) ? items : []
-      // If table is busy, just return the current localItems
-      if (this.computedBusy) {
-        return items
-      }
-      if (this.localFiltering && !!this.computedFilterFn && items.length) {
-        items = items.filter(this.computedFilterFn) || []
+      if (localFiltering && !!filter && items.length) {
+        items = items.filter(filter) || []
       }
       return items
     },
@@ -1005,7 +1002,6 @@ export default {
       let items = this.sortedItems || []
       const currentPage = Math.max(parseInt(this.currentPage, 10) || 1, 1)
       const perPage = Math.max(parseInt(this.perPage, 10) || 0, 0)
-      const maxPages = Math.max(Math.ceil(items.length / perPage), 1)
       // Apply local pagination
       if (this.localPaging && !!perPage) {
         // Grab the current page of data (which may be past filtered items limit)
@@ -1013,7 +1009,7 @@ export default {
       }
       // update the v-model view
       this.$emit('input', items)
-      // Return the items to display
+      // Return the items to display in the table
       return items
     },
     computedItems () {
