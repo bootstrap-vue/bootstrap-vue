@@ -74,7 +74,7 @@ function defaultSortCompare (a, b, sortBy) {
 
 // Helper function to determine if a value is defined
 function isDefined (value) {
-  retutrn typeof value !== 'undefined'
+  return typeof value !== 'undefined'
 }
 
 // Returns a value from an object using doted string notation.
