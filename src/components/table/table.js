@@ -936,7 +936,6 @@ export default {
       // if a filter criteria was specified
       console.log('Before Filter values:', this.localFiltering, filterFn, items.length)
       if (this.localFiltering && filterFn && items.length > 0) {
-        console.log('Filtering items using filterFn', filterFn)
         items = items.filter(filterFn)
       }
       return items
@@ -1104,7 +1103,6 @@ export default {
         regex = new RegExp(`.*${string}.*`, 'i')
       }
 
-      console.log('Outside Regex', regex)
       // Generate the test function to use
       const fn = (item) => {
         // This searches all row values (and sub property values) in the entire (excluding
@@ -1122,10 +1120,13 @@ export default {
         console.log('Inside Item', item)
         console.log('Inside Regex', regex)
         console.log('recordToString:', recToString(item))
-        return this.test(recToString(item))
+        // We set lastIndex = 0 on regex in case someone uses the /g global flag
+        regexp.lastIndex = 0
+        return regex.test(recToString(item))
       }
 
-      return fn.bind(regex)
+      // Return the generated function
+      return fn
     },
     // Event handlers
     rowClicked (e, item, index) {
