@@ -1093,14 +1093,14 @@ export default {
 
       // Build the regexp needed for filtering
       let regexp = criteria
-      if (typeof regex === 'string') {
+      if (typeof regexp === 'string') {
         // Escape special RegExp characters in the string and convert contiguous
         // whitespace to \s+ matches
-        const string = criteria
+        const pattern = criteria
           .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
           .replace(/[\s\uFEFF\xA0]+/g, '\\s+')
         // Build the RegExp (no need for global flag, as we only need to find the value once in the string)
-        regexp = new RegExp(`.*${string}.*`, 'i')
+        regexp = new RegExp(`.*${pattern}.*`, 'i')
       }
 
       // Generate the test function to use
