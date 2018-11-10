@@ -936,7 +936,7 @@ export default {
       let filterFn = this.filterFunction
       
       // Sanitized/normalize filter-function prop
-      if typeof filterFn === 'funtion') {
+      if (typeof filterFn === 'funtion') {
         return filterFn
       } else if (typeof filter === 'function') {
         // Deprecate setting prop filter to a function
