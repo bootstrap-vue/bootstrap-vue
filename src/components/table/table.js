@@ -140,8 +140,8 @@ export default {
         // Assemble the aria-label
         ariaLabel = [ariaLabel, ariaLabelSorting].filter(a => a).join(': ') || null
         const ariaSort = field.sortable && this.localSortBy === field.key
-                ? (this.localSortDesc ? 'descending' : 'ascending')
-                : null
+          ? (this.localSortDesc ? 'descending' : 'ascending')
+          : null
         const data = {
           key: field.key,
           class: this.fieldClasses(field),
