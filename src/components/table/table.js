@@ -126,6 +126,22 @@ export default {
     // factory function for thead and tfoot cells (th's)
     const makeHeadCells = (isFoot = false) => {
       return fields.map((field, colIndex) => {
+        let ariaLabel = ''
+        if (!(field.label.trim()) && !field.headerTitle) {
+          // In case field's label and title are empty/balnk
+          // We need to add a hint about what the column is about for non-dighted users
+          ariaLabel = _startCase(field.key)
+        }
+        const ariaLabelSorting = field.sortable
+          ? this.localSortDesc && this.localSortBy === field.key
+            ? this.labelSortAsc
+            : this.labelSortDesc
+          : null
+        // Assemble the aria-label
+        ariaLabel = [ariaLabel, ariaLabelSorting].filter(a => a).join(': ') || null
+        const ariaSort = field.sortable && this.localSortBy === field.key
+                ? (this.localSortDesc ? 'descending' : 'ascending')
+                : null
         const data = {
           key: field.key,
           class: this.fieldClasses(field),
@@ -135,15 +151,8 @@ export default {
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
             'aria-colindex': String(colIndex + 1),
-            'aria-label': field.sortable
-              ? this.localSortDesc && this.localSortBy === field.key
-                ? this.labelSortAsc
-                : this.labelSortDesc
-              : null,
-            'aria-sort':
-              field.sortable && this.localSortBy === field.key
-                ? this.localSortDesc ? 'descending' : 'ascending'
-                : null
+            'aria-label': ariaLabel,
+            'aria-sort': ariaSort
           },
           on: {
             click: evt => {
