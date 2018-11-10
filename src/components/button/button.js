@@ -78,7 +78,7 @@ function isNonStandardTag (props) {
 }
 
 // Compute required classes (non static classes)
-function computedClass (props) {
+function computeClass (props) {
   return [
     props.variant ? `btn-${props.variant}` : `btn-secondary`,
     {
@@ -96,7 +96,7 @@ function computeLinkProps (props) {
 }
 
 // Compute the attributes for a button
-function computedAttrs (props, data) {
+function computeAttrs (props, data) {
   const button = isButton(props)
   const link = isLink(props)
   const toggle = isToggle(props)
