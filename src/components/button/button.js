@@ -59,7 +59,7 @@ function handleFocus (evt) {
 // Is the requested button a link?
 function isLink (props) {
   // If tag prop is set to `a`, we use a b-link to get proper disabled handling
-  return Boolean(props.href || props.to || props.tag.toLowerCase() === 'a')
+  return Boolean(props.href || props.to || (props.tag && props.tag.toLowerCase() === 'a'))
 }
 
 // Is the button to be a toggle button?
