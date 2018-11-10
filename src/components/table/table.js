@@ -593,7 +593,7 @@ export default {
     },
     filterFunction: {
       type: Function,
-      default  null
+      default: null
     },
     sortCompare: {
       type: Function,
