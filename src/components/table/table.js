@@ -1123,9 +1123,9 @@ export default {
         console.log('Inside Regex', regex)
         console.log('recordToString:', recToString(item))
         return this.test(recToString(item))
-      }.bind(regex)
+      }
 
-      return fn
+      return fn.bind(regex)
     },
     // Event handlers
     rowClicked (e, item, index) {
