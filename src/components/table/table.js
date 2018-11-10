@@ -286,7 +286,7 @@ export default {
               item: item,
               index: rowIndex,
               field: field,
-              unformatted: get(item, field.key),
+              unformatted: _get(item, field.key),
               value: formatted,
               toggleDetails: toggleDetailsFn,
               detailsShowing: Boolean(item._showDetails)
@@ -449,8 +449,8 @@ export default {
           'aria-busy': this.computedBusy ? 'true' : 'false',
           'aria-colcount': String(fields.length),
           // Only set aria-rowcount if provided in $attrs or if localItems > shown items
-          'aria-rowcount': this.$attrs['aria-rowcount'] || (this.filteredItems.length > items.length) ?
-            String(this.filteredItems.length) : null
+          'aria-rowcount': this.$attrs['aria-rowcount'] ||
+            (this.filteredItems.length > items.length) ? String(this.filteredItems.length) : null
         }
       },
       [caption, colgroup, thead, tfoot, tbody]
@@ -778,7 +778,7 @@ export default {
         'table-bordered': this.bordered,
         'table-sm': this.small,
         'border': this.outlined,
-         // The following are b-table custom styles
+        // The following are b-table custom styles
         'b-table-fixed': this.fixed,
         'b-table-stacked': this.stacked === true || this.stacked === '',
         [`b-table-stacked-${this.stacked}`]: this.stacked !== true && this.stacked
@@ -934,9 +934,8 @@ export default {
     localFilterFn () {
       let filter = this.filter
       let filterFn = this.filterFunction
-      
       // Sanitized/normalize filter-function prop
-      if (typeof filterFn === 'funtion') {
+      if (typeof filterFn === 'function') {
         return filterFn
       } else if (typeof filter === 'function') {
         // Deprecate setting prop filter to a function
@@ -1272,11 +1271,11 @@ export default {
             // Provider returned Array data
             this._providerSetLocal(data)
           } else if (this.items.length !== 2) {
-              // Check number of arguments provider function requested
-              // Provider not using callback (didn't request second argument), so we clear
-              // busy state as most likely there was an error in the provider function
-              warn('b-table provider function didn\'t request calback and did not return a promise or data')
-              this.localBusy = false
+            // Check number of arguments provider function requested
+            // Provider not using callback (didn't request second argument), so we clear
+            // busy state as most likely there was an error in the provider function
+            warn('b-table provider function didn\'t request calback and did not return a promise or data')
+            this.localBusy = false
           }
         } catch (e) {
           // Provider function borked on us, so we spew out a warning
