@@ -60,7 +60,9 @@ function recToString (row) {
 }
 
 // Default sort compare routine
-// TODO: add option to sort by multiple columns
+// TODO: add option to sort by multiple columns (tri-state per column, plus order of columns in sort)
+//  where sprtBy could be an array of objects [ {key: 'foo', sortDir: 'asc'}, {key:'bar', sortDir: 'desc'} ...]
+//  or an array of arrays [ ['foo','asc'], ['bar','desc'] ]
 function defaultSortCompare (a, b, sortBy) {
   a = _get(a, sortBy, '')
   b = _get(b, sortBy, '')
@@ -89,30 +91,6 @@ function processField (key, value) {
     field = { key }
   }
   return field
-}
-
-// Determine if two given arrays are *not* loosely equal
-function arraysNotEqual (left = [], right = []) {
-  if (left === right) {
-    // If left reference is equal to the right reference, then they are equal
-    return false
-  } else if (left.length === 0 && right.length === 0) {
-    // If they are both zero length then they are considered equal
-    return true
-  } else if (left.length !== right.length) {
-    // If they have different lengths then they are definitely not equal
-    return true
-  } else {
-    const equal = left.every((item, index) => {
-      // We compare left array with the right array, row by row, until we find
-      // a row that is not equal at the same row index.
-      // Note: This process can be slow for rather large datasets!
-      // We try and optimize the usage by targetting the upper conditions first if at all
-      // possible (i.e. setting left and right arrays to the same reference when possible)
-      return looseEqual(sanitizeRow(item), sanitizeRow(right[index]))
-    })
-    return !equal
-  }
 }
 
 // b-table component definition
@@ -700,18 +678,27 @@ export default {
         this.$emit('update:busy', newVal)
       }
     },
-    // Watch for changes to the filtered items vs localItems).
+    // Watch for changes to the filter criteria and filtered items vs localItems).
     // And set visual state and emit events as required
     filteredCheck ({filteredItems, localItems, localFilter}) {
-      // This comparison can potentially be computationally intensive on large datasets!
-      // i.e. when a filtered dataset is equal to the entire localItems.
-      // Large data set users shoud use provider sorting and filtering.
-      if (arraysNotEqual(filteredItems, localItems) || !!localFilter) {
-        this.isFiltered = true
-        this.$emit('filtered', filteredItems, filteredItems.length)
+      // Determine if the dataset is filtered or not
+      let isFiltered
+      if (!localFilter) {
+        // If filter criteria is falsey
+        isFiltered = false
+      } else if (looseEqual(localFilter, []) || looseEqual(localFilter, {})) {
+        // If filter criteria is an empty array or object
+        isFiltered = false
+      } else if (!!localFilter) {
+        // if Filter criteria is truthy
+        isFiltered = true
       } else {
-        this.isFiltered = false
+        isFiltered = false
       }
+      if (isFiltered) {
+        this.$emit('filtered', filteredItems, filteredItems.length)
+      }
+      this.isFiltered = isFiltered
     },
     isFiltered (newVal, oldVal) {
       if (newVal === false && oldVal === true) {
@@ -934,7 +921,6 @@ export default {
 
       // We only do local filtering if requested, and if the are records to filter and
       // if a filter criteria was specified
-      console.log('Before Filter values:', this.localFiltering, filterFn, items.length)
       if (this.localFiltering && filterFn && items.length > 0) {
         items = items.filter(filterFn)
       }
@@ -1117,9 +1103,6 @@ export default {
         //      and a reference to $scopedSlots)
         //
         // Generated function returns true if the crieria matches part of the serialzed data, otherwise false
-        console.log('Inside Item', item)
-        console.log('Inside Regex', regexp)
-        console.log('recordToString:', recToString(item))
         // We set lastIndex = 0 on regex in case someone uses the /g global flag
         regexp.lastIndex = 0
         return regexp.test(recToString(item))
