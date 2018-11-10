@@ -1073,15 +1073,19 @@ export default {
         return null
       }
 
-      // Return the wrapped filter test function
-      return (item) => {
+      // Build the wrapped filter test function, passing the criteria to the provided function
+      const fn = (item) => {
         // Generated function returns true if the crieria matches part of the serialzed data, otherwise false
         return filterFn(item, criteria)
       }
+
+      // return the wrapped function
+      return fn
     },
     defaultFilterFnFactory (criteria) {
-      // Generates the default filter function, using the given criteria
+      // Generates the default filter function, using the given flter criteria
       if (!criteria || !(typeof criteria === 'string' || criteria instanceof RegExp)) {
+        // Bult in filter can only support strings or RegExp criteria (at the moment)
         return null
       }
 
@@ -1097,7 +1101,7 @@ export default {
         regexp = new RegExp(`.*${pattern}.*`, 'i')
       }
 
-      // Generate the test function to use
+      // Generate the wrapped filter test function to use
       const fn = (item) => {
         // This searches all row values (and sub property values) in the entire (excluding
         // special _ prefixed keys), because we convert the record to a space-separated
