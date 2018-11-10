@@ -59,7 +59,7 @@ function handleFocus (evt) {
 // Is the requested button a link?
 function isLink (props) {
   // If tag prop is set to `a`, we use a b-link to get proper disabled handling
-  return Boolean(props.href || props.to || props.tag.toLowerCase() === 'a') 
+  return Boolean(props.href || props.to || props.tag.toLowerCase() === 'a')
 }
 
 // Is the button to be a toggle button?
@@ -73,12 +73,12 @@ function isButton (props) {
 }
 
 // Is the requested tag not a button or link?
-function isNonStandardTag(props) {
-   return !isLink(props) && !isButtonTag(props)
+function isNonStandardTag (props) {
+  return !isLink(props) && !isButton(props)
 }
 
 // Compute required classes (non static classes)
-function computeClass (props) {
+function computedClass (props) {
   return [
     props.variant ? `btn-${props.variant}` : `btn-secondary`,
     {
@@ -96,7 +96,7 @@ function computeLinkProps (props) {
 }
 
 // Compute the attributes for a button
-function computeAttrs (props, data) {
+function computedAttrs (props, data) {
   const button = isButton(props)
   const link = isLink(props)
   const toggle = isToggle(props)
@@ -108,7 +108,7 @@ function computeAttrs (props, data) {
   }
   return {
     // Type only used for "real" buttons
-    type: button ? props.type : null,
+    type: (button && !link) ? props.type : null,
     // Disabled only set on "real" buttons
     disabled: button ? props.disabled : null,
     // We add a role of button when the tag is not a link or button for ARIA.
@@ -140,7 +140,7 @@ export default {
         if (props.disabled && e instanceof Event) {
           e.stopPropagation()
           e.preventDefault()
-        } else if (isToggle(props) && listeners && listeners['update:pressed']) {
+        } else if (toggle && listeners && listeners['update:pressed']) {
           // Send .sync updates to any "pressed" prop (if .sync listeners)
           // Concat will normalize the value to an array
           // without double wrapping an array value in an array.
@@ -153,7 +153,7 @@ export default {
       }
     }
 
-    if (isToggle(props)) {
+    if (toggle) {
       on.focusin = handleFocus
       on.focusout = handleFocus
     }
