@@ -69,7 +69,12 @@ function isToggle (props) {
 
 // Is the button "really" a button?
 function isButton (props) {
-  return props.tag.tolowerCase() === 'button' && !isLink(props)
+  if (isLink(props)) {
+    return false
+  } else if (props.tag && String(props.tag).toLowerCase() !== 'button') {
+    return false
+  }
+  return true
 }
 
 // Is the requested tag not a button or link?
