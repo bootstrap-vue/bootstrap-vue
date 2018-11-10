@@ -1268,7 +1268,7 @@ export default {
               // Provider resolved with items
               this._providerSetLocal(items)
             })
-          } else if isArray(data) {
+          } else if (isArray(data)) {
             // Provider returned Array data
             this._providerSetLocal(data)
           } else if (this.items.length !== 2) {
