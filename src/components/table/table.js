@@ -689,7 +689,7 @@ export default {
       } else if (looseEqual(localFilter, []) || looseEqual(localFilter, {})) {
         // If filter criteria is an empty array or object
         isFiltered = false
-      } else if (!!localFilter) {
+      } else if (localFilter) {
         // if Filter criteria is truthy
         isFiltered = true
       } else {
