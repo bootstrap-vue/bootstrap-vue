@@ -940,7 +940,7 @@ export default {
         return filterFn
       } else if (typeof filter === 'function') {
         // Deprecate setting prop filter to a function
-        return = filter
+        return filter
       } else {
         // no filterFunction, so signal to use internal filter function
         return null
