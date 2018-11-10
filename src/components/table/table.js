@@ -1114,7 +1114,7 @@ export default {
 
       // Build the regexp needed for filtering
       let regex = criteria
-      if (tyepof regex === 'string') {
+      if (typeof regex === 'string') {
         // Escape special RegExp characters in the string and convert contiguous
         // whitespace to \s+ matches
         const string = criteria
@@ -1275,7 +1275,7 @@ export default {
               // Check number of arguments provider function requested
               // Provider not using callback (didn't request second argument), so we clear
               // busy state as most likely there was an error in the provider function
-              warn('b-table provider function didnt request calback and did not return a promise or data')
+              warn('b-table provider function didn\'t request calback and did not return a promise or data')
               this.localBusy = false
           }
         } catch (e) {
