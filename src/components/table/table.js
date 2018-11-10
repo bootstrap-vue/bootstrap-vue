@@ -242,7 +242,7 @@ export default {
               item: item,
               index: rowIndex,
               field: field,
-              unformatted: _get(item, field.key),
+              unformatted: _get(item, field.key, ''),
               value: formatted,
               toggleDetails: toggleDetailsFn,
               detailsShowing: Boolean(item._showDetails)
@@ -1024,11 +1024,10 @@ export default {
     getTdValues (item, key, tdValue, defValue) {
       const parent = this.$parent
       if (tdValue) {
+        const value = _get(item, key, '')
         if (typeof tdValue === 'function') {
-          let value = _get(item, key)
           return tdValue(value, key, item)
         } else if (typeof tdValue === 'string' && typeof parent[tdValue] === 'function') {
-          let value = _get(item, key)
           return parent[tdValue](value, key, item)
         }
         return tdValue
@@ -1040,7 +1039,7 @@ export default {
       const key = field.key
       const formatter = field.formatter
       const parent = this.$parent
-      let value = _get(item, key)
+      let value = _get(item, key, null)
       if (formatter) {
         if (typeof formatter === 'function') {
           value = formatter(value, key, item)
