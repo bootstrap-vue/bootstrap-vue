@@ -170,11 +170,11 @@ export default {
 | ---- | -----------
 | `limit` | Limit the maximum number of displayed page buttons (including ellipsis if present, and excluding first/prev/next/last buttons)
 | `number-of-pages` | The total number of pages
-| `first-text` | The "goto first page" button text (html supported)
-| `prev-text` | The "goto previous page" button text (html supported)
-| `next-text` | The "goto next page" button text (html supported)
-| `last-text` | The "goto last page" button text (html supported)
-| `ellipsis-text` | the `...` indicator text (html supported)
+| `first-text` | The "goto first page" button text (plain html supported)
+| `prev-text` | The "goto previous page" button text (plain html supported)
+| `next-text` | The "goto next page" button text (plain html supported)
+| `last-text` | The "goto last page" button text (plain html supported)
+| `ellipsis-text` | the `...` indicator text (plain html supported)
 | `hide-ellipsis` | never show ellipsis indicators
 | `hide-goto-end-buttons` | never display goto first/last buttons
 
