@@ -162,7 +162,7 @@ export default {
       staticClass: 'btn',
       class: computeClass(props),
       props: computeLinkProps(props),
-      attrs: computedAttrs(props, data),
+      attrs: computeAttrs(props, data),
       on
     }
 
