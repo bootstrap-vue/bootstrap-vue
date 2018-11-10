@@ -77,23 +77,6 @@ function isDefined (value) {
   return typeof value !== 'undefined'
 }
 
-// Returns a value from an object using doted string notation.
-// If no value found at pathReturns an empty string if no value is found
-function getNestedValue (obj, path) {
-  // Split the path by the dots
-  path = path.split('.')
-  // Sanity check!!
-  if (path.length !== path.filter(p => p).length) {
-    // return empty string if too many dots (malformed path)
-    return ''
-  }
-  let value = obj
-  for (let i = 0; i < path.length && isDefined(value); i++) {
-    value = value[path[i]]
-  }
-  return isDefined(value) ? value : ''
-}
-
 // Helper function to massage field entry into common object format
 function processField (key, value) {
   let field = null
