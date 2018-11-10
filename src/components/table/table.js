@@ -922,8 +922,8 @@ export default {
         // this.localFilterFn will contain the correct function ref.
         // Deprecate setting prop filter to a function
         return ''
-      } else if (typeof this.filterFunction !== 'function') &&
-        !(typeof this.filter === 'string' || this.filter instanceof RegExp) {
+      } else if ((typeof this.filterFunction !== 'function') &&
+        !(typeof this.filter === 'string' || this.filter instanceof RegExp)) {
         // Using internal filter function, which only acccepts string or regexp at the moment
         return ''
       } else {
