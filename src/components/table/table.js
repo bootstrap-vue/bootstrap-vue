@@ -1102,6 +1102,7 @@ export default {
         regex = new RegExp(`.*${string}.*`, 'i')
       }
 
+      console.log('Regex', regex)
       // Return the generated filter test function
       return function (item) {
         // This searches all row values (and sub property values) in the entire (excluding
@@ -1116,9 +1117,9 @@ export default {
         //      and a reference to $scopedSlots)
         //
         // Generated function returns true if the crieria matches part of the serialzed data, otherwise false
-        console.log(recToString(item))
+        console.log('recordToString:', recToString(item))
         return regex.test(recToString(item))
-      }.bind(this)
+      }
     },
     // Event handlers
     rowClicked (e, item, index) {
