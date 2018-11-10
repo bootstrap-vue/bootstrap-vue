@@ -1092,7 +1092,7 @@ export default {
       }
 
       // Build the regexp needed for filtering
-      let regex = criteria
+      let regexp = criteria
       if (typeof regex === 'string') {
         // Escape special RegExp characters in the string and convert contiguous
         // whitespace to \s+ matches
@@ -1100,7 +1100,7 @@ export default {
           .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
           .replace(/[\s\uFEFF\xA0]+/g, '\\s+')
         // Build the RegExp (no need for global flag, as we only need to find the value once in the string)
-        regex = new RegExp(`.*${string}.*`, 'i')
+        regexp = new RegExp(`.*${string}.*`, 'i')
       }
 
       // Generate the test function to use
@@ -1118,11 +1118,11 @@ export default {
         //
         // Generated function returns true if the crieria matches part of the serialzed data, otherwise false
         console.log('Inside Item', item)
-        console.log('Inside Regex', regex)
+        console.log('Inside Regex', regexp)
         console.log('recordToString:', recToString(item))
         // We set lastIndex = 0 on regex in case someone uses the /g global flag
         regexp.lastIndex = 0
-        return regex.test(recToString(item))
+        return regexp.test(recToString(item))
       }
 
       // Return the generated function
