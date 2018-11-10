@@ -72,11 +72,6 @@ function defaultSortCompare (a, b, sortBy) {
   })
 }
 
-// Helper function to determine if a value is defined
-function isDefined (value) {
-  return typeof value !== 'undefined'
-}
-
 // Helper function to massage field entry into common object format
 function processField (key, value) {
   let field = null
