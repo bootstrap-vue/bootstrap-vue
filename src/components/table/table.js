@@ -935,6 +935,7 @@ export default {
       // We only do local filtering if requested, and if the are records to filter and
       // if a filter criteria was specified
       if (this.localFiltering && !!filterFn && !!criteria && isArray[items] && items.length > 0) {
+        console.log('Filtering items using filterFn', filterFn)
         items = items.filter(filterFn)
       }
       return items
@@ -1102,9 +1103,9 @@ export default {
         regex = new RegExp(`.*${string}.*`, 'i')
       }
 
-      console.log('Regex', regex)
-      // Return the generated filter test function
-      return function (item) {
+      console.log('Outside Regex', regex)
+      // Generate teh test function to use
+      const fn = (item) => {
         // This searches all row values (and sub property values) in the entire (excluding
         // special _ prefixed keys), because we convert the record to a space-separated
         // string containing all the value properties (recursively), even ones that are
@@ -1117,9 +1118,13 @@ export default {
         //      and a reference to $scopedSlots)
         //
         // Generated function returns true if the crieria matches part of the serialzed data, otherwise false
+        console.log('Inside Item', item)
+        console.log('Inside Regex', regex)
         console.log('recordToString:', recToString(item))
         return regex.test(recToString(item))
       }
+
+      return fn
     },
     // Event handlers
     rowClicked (e, item, index) {
