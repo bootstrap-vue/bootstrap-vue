@@ -934,7 +934,8 @@ export default {
 
       // We only do local filtering if requested, and if the are records to filter and
       // if a filter criteria was specified
-      if (this.localFiltering && !!filterFn && !!criteria && isArray[items] && items.length > 0) {
+      console.log('Before Filter values:', this.localFiltering, filterFn, items.length)
+      if (this.localFiltering && filterFn && items.length > 0) {
         console.log('Filtering items using filterFn', filterFn)
         items = items.filter(filterFn)
       }
@@ -1069,6 +1070,7 @@ export default {
     },
     // Filter Function factories
     filterFnFactory (filterFn, criteria) {
+      // Wrapper factory for external filter functions.
       // Wrap the provided filter-function and return a new function.
       // returns null if no filter-function defined or if criteria is falsey.
       // Rather than directly grabbing this.computedLocalFilterFn or this.filterFunction
@@ -1096,15 +1098,14 @@ export default {
         // Escape special RegExp characters in the string and convert contiguous
         // whitespace to \s+ matches
         const string = criteria
-        // Commented out to test
-        //  .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
-        //  .replace(/[\s\uFEFF\xA0]+/g, '\\s+')
+          .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+          .replace(/[\s\uFEFF\xA0]+/g, '\\s+')
         // Build the RegExp (no need for global flag, as we only need to find the value once in the string)
         regex = new RegExp(`.*${string}.*`, 'i')
       }
 
       console.log('Outside Regex', regex)
-      // Generate teh test function to use
+      // Generate the test function to use
       const fn = (item) => {
         // This searches all row values (and sub property values) in the entire (excluding
         // special _ prefixed keys), because we convert the record to a space-separated
@@ -1121,8 +1122,8 @@ export default {
         console.log('Inside Item', item)
         console.log('Inside Regex', regex)
         console.log('recordToString:', recToString(item))
-        return regex.test(recToString(item))
-      }
+        return this.test(recToString(item))
+      }.bind(regex)
 
       return fn
     },
