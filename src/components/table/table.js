@@ -1095,14 +1095,15 @@ export default {
         // Escape special RegExp characters in the string and convert contiguous
         // whitespace to \s+ matches
         const string = criteria
-          .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
-          .replace(/[\s\uFEFF\xA0]+/g, '\\s+')
+        // Commented out to test
+        //  .replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+        //  .replace(/[\s\uFEFF\xA0]+/g, '\\s+')
         // Build the RegExp (no need for global flag, as we only need to find the value once in the string)
         regex = new RegExp(`.*${string}.*`, 'i')
       }
 
       // Return the generated filter test function
-      return (item) => {
+      return function (item) {
         // This searches all row values (and sub property values) in the entire (excluding
         // special _ prefixed keys), because we convert the record to a space-separated
         // string containing all the value properties (recursively), even ones that are
@@ -1115,8 +1116,9 @@ export default {
         //      and a reference to $scopedSlots)
         //
         // Generated function returns true if the crieria matches part of the serialzed data, otherwise false
+        console.log(recToString(item))
         return regex.test(recToString(item))
-      }
+      }.bind(this)
     },
     // Event handlers
     rowClicked (e, item, index) {
