@@ -27,7 +27,8 @@ If yes, please describe the impact:
 **The PR fulfills these requirements:**
 - [ ] It's submitted to the `dev` branch, **not** the `master` branch
 - [ ] When resolving a specific issue, it's referenced in the PR's title (i.e. `fixes #xxxx[,#xxxx]`, where "xxxx" is the issue number)
-- [ ] PR titles should following the [**Conventional Commits**](https://www.conventionalcommits.org/) naming convention (i.e. "fix(alert): not alerting during SSR render", "docs(badge): Updated pill examples, fix typos", "chore: fix typo in docs", etc)
+- [ ] The PR should address only one issue or feature. If adding multiple features or fixing a bug and adding a new feature, break them into separate PRs if at all possible.
+- [ ] PR titles should following the [**Conventional Commits**](https://www.conventionalcommits.org/) naming convention (i.e. "fix(alert): not alerting during SSR render", "docs(badge): Updated pill examples, fix typos", "chore: fix typo in docs", etc). **This is very important, as the `CHANGELOG` is generated from these messages.**
 
 **If new features/enhancement/fixes are added or changed:**
 - [ ] Includes documentation updates (including updating the component's `package.json` for slot and event changes)
