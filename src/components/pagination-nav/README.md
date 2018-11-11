@@ -182,6 +182,18 @@ Ellipsis indicator(s) will only be ever shown at the front and/or end of
 the page number buttons. For `limit` values less than or equal to `3`, the ellipsis
 indicator(s) will never be shown for practical display reasons.
 
+### Named slots
+
+`<b-pagination-nav>` supports several slots that allow you to customize the appearance.
+
+| Slot | Description
+|----- | -----------
+| `first-text` | The "goto first page" button text (html/sub-components supported)
+| `prev-text` | The "goto previous page" button text (html/sub-components supported)
+| `next-text` | The "goto next page" button text (html/sub-components supported)
+| `last-text` | The "goto last page" button text (html/sub-components supported)
+| `ellipsis-text` | the `...` indicator text (html/sub-components supported)
+
 ## Alignment
 
 By default the pagination component is left aligned. Change the alignment to
