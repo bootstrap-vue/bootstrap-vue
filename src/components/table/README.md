@@ -54,10 +54,10 @@ These titles will be displayed in the table header, in the order they appear in 
 **first** record of data. See the [**Fields**](#fields-column-definitions-) section
 below for customizing how field headings appear.
 
->**Note:** _Field order is not guaranteed. Fields will typically appear in the order they
+**Note:** Field order is not guaranteed. Fields will typically appear in the order they
 were defined in the first row, but this may not always be the case depending on the version
 of browser in use. See section [**Fields (column definitions)**](#fields-column-definitions-)
-below to see how to guarantee the order of fields._
+below to see how to guarantee the order of fields.
 
 Record data may also have additional special reserved name keys for colorizing
 rows and individual cells (variants), and for triggering additional row detail. The supported
@@ -264,8 +264,8 @@ export default {
 ```
 
 >**Notes:** 
->- _if a `key` property is defined in the field definition, it will take precedence over the key used to define the field._
->- _It is possible to define `key` as column's object property, but currently, sorting of these columns is **not supported**_
+- if a `key` property is defined in the field definition, it will take precedence over the key used to define the field.
+- It is possible to define `key` as column's object property, but currently, sorting of these columns is **not supported**
 
 ### Field definition reference
 The following field properties are recognized:
@@ -274,8 +274,8 @@ The following field properties are recognized:
 | ---------| ---- | -----------
 | `key` | String | The key for selecting data from the record in the items array. Required when setting the `fields` from as an array of objects.
 | `label` | String | Appears in the columns table header (and footer if `foot-clone` is set). Defaults to the field's key (in humanized format) if not provided. It's possible to use empty labels by assigning an empty string `""` but be sure you also set `headerTitle` to provide non-sighted users a hint about the column contents.
-| `headerTitle` | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.
-| `headerAbbr` | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.
+| `headerTitle` | String | Text to place on the fields header `<th>` attribute `title`. Defaults to no `title` attribute.
+| `headerAbbr` | String | Text to place on the fields header `<th>` attribute `abbr`. Set this to the unabbreviated version of the label (or title) if label (or title) is an abbreviation. Defaults to no `abbr` attribute.
 | `class` | String or Array | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.
 | `formatter` | String or Function | A formatter callback function, can be used instead of (or in conjunction with) slots for real table fields (i.e. fields, that have corresponding data at items array). Refer to [**Custom Data Rendering**](#custom-data-rendering) for more details.
 | `sortable` | Boolean | Enable sorting on this column. Refer to the [**Sorting**](#sorting) Section for more details.
@@ -287,13 +287,13 @@ The following field properties are recognized:
 | `tdAttr` | Object or Function | JavaScript object representing additional attributes to apply to the `<tbody>` field `<td>` cell. If custom attributes per cell are required, a callback function can be specified instead.
 | `isRowHeader` | Boolean | When set to `true`, the field's item data cell will be rendered with `<th>` rather than the default of `<td>`.
 
->**Notes:**
-> - _Field properties, if not present, default to `null` (falsey) unless otherwise stated above._
-> - _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
-> - _For information on the syntax supported by `thStyle`, see
+**Notes:**
+- _Field properties, if not present, default to `null` (falsey) unless otherwise stated above._
+- _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
+- _For information on the syntax supported by `thStyle`, see
 [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
 in the Vue.js guide._
-> - _Any additional properties added to the field objects will be left intact - so you can access
+- _Any additional properties added to the field objects will be left intact - so you can access
 them via the named scoped slots for custom data, header, and footer rendering._
 
 For information and usage about scoped slots and formatters, refer to
@@ -867,12 +867,12 @@ scoped slot by calling the `toggleDetails` function passed to the field's scoped
 variable. You can use the scoped fields slot variable `detailsShowing` to determine
 the visibility of the `row-details` slot.
 
->**Note:** _If manipulating the `_showDetails` property directly on the item data (i.e.
+**Note:** If manipulating the `_showDetails` property directly on the item data (i.e.
  not via the `toggleDetails` function reference), the `_showDetails` propertly **must**
  exist in the items data for proper reactive detection of changes to it's value. Read more about
-[Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats)._
+[Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats).
 
-Available `row-details` scoped variable properties:
+**Available `row-details` scoped variable properties:**
 
 | Property | Type | Description
 | -------- | ---- | -----------
@@ -953,11 +953,11 @@ based on the current sort critera. See the
 [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
 on the `.sync` prop modifier
 
-**Note:** _The built-in `sort-compare` routine **cannot** sort virtual columns, nor
+**Note:** The built-in `sort-compare` routine **cannot** sort virtual columns, nor
 sort based on the custom rendering of the field data (formatter functions and/or
 scoped slots are used only for presentation only, and do not affect the underlying data).
 Refer to the [**Sort-compare routine**](#sort-compare-routine) section below for details on
-sorting by presentational data._
+sorting by presentational data.
 
 ```html
 <template>
@@ -1230,9 +1230,9 @@ function myProvider (ctx) {
 a `busy` prop that can be used either to override inner `busy`state, or to monitor
 `<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
 
-**Note:** _in order to allow `<b-table>` fully track it's `busy` state, custom items
+**Note:** in order to allow `<b-table>` fully track it's `busy` state, custom items
 provider function should handle errors from data sources and return an empty
-array to `<b-table>`._
+array to `<b-table>`.
 
 `<b-table>` provides a `busy` prop that will flag the table as busy, which you can
 set to `true` just before your async fetch, and then set it to `false` once you have
@@ -1270,11 +1270,11 @@ methods: {
 ```
 
 **Notes:**
-- _If you manually place the table in the `busy` state, the items provider will
-__not__ be called/refreshed until the `busy` state has been set to `false`._
-- _All click related and hover events, and sort-changed events will __not__ be
+- If you manually place the table in the `busy` state, the items provider will
+__not__ be called/refreshed until the `busy` state has been set to `false`.
+- All click related and hover events, and sort-changed events will __not__ be
  emitted when in the `busy` state (either set automatically during provider update,
- or when manually set)._
+ or when manually set).
 
 ### Provider Paging, Filtering, and Sorting
 By default, the items provider function is responsible for **all paging, filtering, and sorting**
@@ -1293,11 +1293,11 @@ When `no-provider-paging` is `false` (default), you should only return at
 maximum, `perPage` number of records.
 
 **Notes:**
-- _`<b-table>` needs reference to your pagination and filtering values in order to
+- `<b-table>` needs reference to your pagination and filtering values in order to
 trigger the calling of the provider function. So be sure to bind to the `per-page`,
 `current-page` and `filter` props on `b-table` to trigger the provider update function call
-(unless you have the respective `no-provider-*` prop set to `true`)._
-- _The `no-local-sorting` prop has no effect when `items` is a provider function._
+(unless you have the respective `no-provider-*` prop set to `true`).
+- The `no-local-sorting` prop has no effect when `items` is a provider function.
 
 ### Event based refreshing of data
 You may also trigger the refresh of the provider function by emitting the
