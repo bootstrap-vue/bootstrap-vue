@@ -12,11 +12,11 @@ export default {
     }
   },
   data () {
-    locaId_: null
+    localId_: null
   },
   mounted () {
     // mounted only occurs client side
-    this.localUid_ = `__BVID__${this._uid}`
+    this.localId_ = `__BVID__${this._uid}`
   },
   methods: {
     safeId (suffix = '') {
