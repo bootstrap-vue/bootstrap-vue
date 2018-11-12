@@ -91,15 +91,13 @@ export default {
     // Create non-reactive property
     this._popper = null
   },
-  /* istanbul ignore next: not easy to test */
-  deactivated () {
+  deactivated /* istanbul ignore next: not easy to test */ () {
     // In case we are inside a `<keep-alive>`
     this.visible = false
     this.whileOpenListen(false)
     this.removePopper()
   },
-  /* istanbul ignore next: not easy to test */
-  beforeDestroy () {
+  beforeDestroy /* istanbul ignore next: not easy to test */ () {
     this.visible = false
     this.whileOpenListen(false)
     this.removePopper()
@@ -165,7 +163,8 @@ export default {
       }
 
       // Disable totally Popper.js for Dropdown in Navbar
-      if (!this.inNavbar) /* istanbul ignore next: not easy to test */ {
+      /* istanbul ignore next: not easy to test */
+      if (!this.inNavbar) {
         if (typeof Popper === 'undefined') {
           warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.')
         } else {
