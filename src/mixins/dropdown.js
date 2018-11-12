@@ -1,6 +1,4 @@
 import Popper from 'popper.js'
-import clickoutMixin from './clickout'
-import listenOnRootMixin from './listen-on-root'
 import { from as arrayFrom } from '../utils/array'
 import { assign } from '../utils/object'
 import KeyCodes from '../utils/key-codes'
@@ -37,7 +35,6 @@ const AttachmentMap = {
 }
 
 export default {
-  mixins: [clickoutMixin, listenOnRootMixin],
   props: {
     disabled: {
       type: Boolean,
@@ -94,25 +91,17 @@ export default {
     // Create non-reactive property
     this._popper = null
   },
-  mounted () {
-    // To keep one dropdown opened on page
-    this.listenOnRoot('bv::dropdown::shown', this.rootCloseListener)
-    // Hide when clicked on links
-    this.listenOnRoot('clicked::link', this.rootCloseListener)
-    // Use new namespaced events
-    this.listenOnRoot('bv::link::clicked', this.rootCloseListener)
-  },
   /* istanbul ignore next: not easy to test */
   deactivated () {
     // In case we are inside a `<keep-alive>`
     this.visible = false
-    this.setTouchStart(false)
+    this.whileOpenListen(false)
     this.removePopper()
   },
   /* istanbul ignore next: not easy to test */
   beforeDestroy () {
     this.visible = false
-    this.setTouchStart(false)
+    this.whileOpenListen(false)
     this.removePopper()
   },
   watch: {
@@ -190,14 +179,14 @@ export default {
         }
       }
 
-      this.setTouchStart(true)
+      this.whileOpenListen(true)
       this.$emit('shown')
 
       // Focus on the first item on show
       this.$nextTick(this.focusFirstItem)
     },
     hideMenu () {
-      this.setTouchStart(false)
+      this.whileOpenListen(false)
       this.emitOnRoot('bv::dropdown::hidden', this)
       this.$emit('hidden')
       this.removePopper()
@@ -242,15 +231,27 @@ export default {
       }
       return assign(popperConfig, this.popperOpts || {})
     },
-    setTouchStart (on) {
-      /*
-       * If this is a touch-enabled device we add extra
-       * empty mouseover listeners to the body's immediate children;
-       * only needed because of broken event delegation on iOS
-       * https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
-       * Only enabled if we are *not* in an .navbar-nav.
-       */
+    whileOpenListen (on) {
+      // turn listeners on/off while open
+      if (on) {
+        // If another dropdown is opened
+        this.$root.$on('bv::dropdown::shown', this.rootCloseListener)
+        // Hide when links clicked (needed when items in menu are clicked)
+        this.$root.$on('clicked::link', this.rootCloseListener)
+        // Use new namespaced events for clicked
+        this.$root.$on('bv::link::clicked', this.rootCloseListener)
+      } else {
+        this.$root.$off('bv::dropdown::shown', this.rootCloseListener)
+        this.$root.$off('clicked::link', this.rootCloseListener)
+        this.$root.$off('bv::link::clicked', this.rootCloseListener)
+      }
+      // touchstart handling fix
       if ('ontouchstart' in document.documentElement) {
+        // If this is a touch-enabled device we add extra
+        // empty mouseover listeners to the body's immediate children;
+        // only needed because of broken event delegation on iOS
+        // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+        // Only enabled if we are *not* in an .navbar-nav.
         const children = arrayFrom(document.body.children)
         const isNavBarNav = closest(this.$el, Selector.NAVBAR_NAV)
         children.forEach(el => {
@@ -270,9 +271,6 @@ export default {
       if (vm !== this) {
         this.visible = false
       }
-    },
-    clickOutListener () {
-      this.visible = false
     },
     show () {
       // Public method to show dropdown
