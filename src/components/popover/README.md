@@ -28,7 +28,7 @@ The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermed
 element at the point in the DOM where the `<b-popover>` component is placed. This may
 affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
 and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>`
-component **outside** of theese types of components.
+component **outside** of these types of components.
 
 The target element **must** exist in the document before `<b-popover>` is mounted.
 If the target element is not found during mount, the popover will never open. Always
@@ -37,7 +37,7 @@ place your `<b-popover>` component lower in the DOM than your target element.
 >**Note:** _When using slots for content and/or title, `<b-popover>` transfers the
 rendered DOM from those slots into the popover's markup when shown, and returns
 them back to the `<b-popover>` component when hidden. This may cause some issues
-in rare circumstances, so please test your implmentation accordingly! The `title`
+in rare circumstances, so please test your implementation accordingly! The `title`
 and `content` props do not have this behavior. For simple popovers, we recommend
 using the `v-b-popover` directive and enable the `html` modifer if needed._
 
