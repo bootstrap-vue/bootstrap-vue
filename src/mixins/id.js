@@ -27,7 +27,7 @@ export default {
   computed: {
     safeId () {
       // Computed property that returns a dynamic function for creating the ID.
-      // Reacts to changes in both .id and .localId_ And regens a new function  
+      // Reacts to changes in both .id and .localId_ And regens a new function
       const id = this.id || this.localId_
 
       // We return a function that accepts an optional suffix string
