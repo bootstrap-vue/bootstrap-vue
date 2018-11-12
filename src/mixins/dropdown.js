@@ -91,13 +91,13 @@ export default {
     // Create non-reactive property
     this._popper = null
   },
-  deactivated /* istanbul ignore next: not easy to test */ () {
+  deactivated () /* istanbul ignore next: not easy to test */ {
     // In case we are inside a `<keep-alive>`
     this.visible = false
     this.whileOpenListen(false)
     this.removePopper()
   },
-  beforeDestroy /* istanbul ignore next: not easy to test */ () {
+  beforeDestroy () /* istanbul ignore next: not easy to test */ {
     this.visible = false
     this.whileOpenListen(false)
     this.removePopper()
@@ -163,7 +163,7 @@ export default {
       }
 
       // Disable totally Popper.js for Dropdown in Navbar
-      /* istanbul ignore next: not easy to test */
+      /* istanbul ignore next: cant test popper in JSDOM */
       if (!this.inNavbar) {
         if (typeof Popper === 'undefined') {
           warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.')
@@ -189,18 +189,18 @@ export default {
       this.$emit('hidden')
       this.removePopper()
     },
-    createPopper /* istanbul ignore next: cant test popper in JSDOM */ (element) {
+    createPopper (element) /* istanbul ignore next: cant test popper in JSDOM */ {
       this.removePopper()
       this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
-    removePopper /* istanbul ignore next: cant test popper in JSDOM */ () {
+    removePopper () /* istanbul ignore next: cant test popper in JSDOM */ {
       if (this._popper) {
         // Ensure popper event listeners are removed cleanly
         this._popper.destroy()
       }
       this._popper = null
     },
-    getPopperConfig /* istanbul ignore next: can't test popper in JSDOM */ () {
+    getPopperConfig () /* istanbul ignore next: can't test popper in JSDOM */ {
       let placement = AttachmentMap.BOTTOM
       if (this.dropup) {
         placement = this.right ? AttachmentMap.TOPEND : AttachmentMap.TOP
@@ -262,7 +262,7 @@ export default {
         })
       }
     },
-    _noop /* istanbul ignore next: no need to test */ () {
+    _noop () /* istanbul ignore next: no need to test */ {
       // Do nothing event handler (used in touchstart event handler)
     },
     rootCloseListener (vm) {
@@ -315,7 +315,7 @@ export default {
       }
       this.$emit('click', evt)
     },
-    onKeydown /* istanbul ignore next: not easy to test */ (evt) {
+    onKeydown (evt) /* istanbul ignore next: not easy to test */ {
       // Called from dropdown menu context
       const key = evt.keyCode
       if (key === KeyCodes.ESC) {
@@ -332,7 +332,7 @@ export default {
         this.focusNext(evt, true)
       }
     },
-    onEsc /* istanbul ignore next: not easy to test */ (evt) {
+    onEsc (evt) /* istanbul ignore next: not easy to test */ {
       if (this.visible) {
         this.visible = false
         evt.preventDefault()
@@ -341,7 +341,7 @@ export default {
         this.$nextTick(this.focusToggler)
       }
     },
-    onTab /* istanbul ignore next: not easy to test */ (evt) {
+    onTab (evt) /* istanbul ignore next: not easy to test */ {
       // TODO: Need special handler for dealing with form inputs
       // Tab, if in a text-like input, we should just focus next item in the dropdown
       // Note: Inputs are in a special .dropdown-form container
@@ -352,7 +352,7 @@ export default {
       }
       this.visible = false
     },
-    onMouseOver /* istanbul ignore next: not easy to test */ (evt) {
+    onMouseOver (evt) /* istanbul ignore next: not easy to test */ {
       // Removed mouseover focus handler
     },
     focusNext (evt, up) {
