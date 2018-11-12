@@ -165,8 +165,7 @@ export default {
       }
 
       // Disable totally Popper.js for Dropdown in Navbar
-      /* istnbul ignore next: can't test popper in JSDOM */
-      if (!this.inNavbar) {
+      if (!this.inNavbar) /* istanbul ignore next: not easy to test */ {
         if (typeof Popper === 'undefined') {
           warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.')
         } else {
@@ -246,7 +245,7 @@ export default {
         this.$root.$off('bv::link::clicked', this.rootCloseListener)
       }
       // touchstart handling fix
-      if ('ontouchstart' in document.documentElement) {
+      if ('ontouchstart' in document.documentElement) /* istanbul ignore next: not easy to test */ {
         // If this is a touch-enabled device we add extra
         // empty mouseover listeners to the body's immediate children;
         // only needed because of broken event delegation on iOS
@@ -263,8 +262,7 @@ export default {
         })
       }
     },
-    /* istanbul ignore next: not easy to test */
-    _noop () {
+    _noop /* istanbul ignore next: no need to test */ () {
       // Do nothing event handler (used in touchstart event handler)
     },
     rootCloseListener (vm) {
@@ -317,8 +315,7 @@ export default {
       }
       this.$emit('click', evt)
     },
-    /* istanbul ignore next: not easy to test */
-    onKeydown (evt) {
+    onKeydown /* istanbul ignore next: not easy to test */ (evt) {
       // Called from dropdown menu context
       const key = evt.keyCode
       if (key === KeyCodes.ESC) {
@@ -335,8 +332,7 @@ export default {
         this.focusNext(evt, true)
       }
     },
-    /* istanbul ignore next: not easy to test */
-    onEsc (evt) {
+    onEsc /* istanbul ignore next: not easy to test */ (evt) {
       if (this.visible) {
         this.visible = false
         evt.preventDefault()
@@ -345,8 +341,7 @@ export default {
         this.$nextTick(this.focusToggler)
       }
     },
-    /* istanbul ignore next: not easy to test */
-    onTab (evt) {
+    onTab /* istanbul ignore next: not easy to test */ (evt) {
       // TODO: Need special handler for dealing with form inputs
       // Tab, if in a text-like input, we should just focus next item in the dropdown
       // Note: Inputs are in a special .dropdown-form container
@@ -357,8 +352,7 @@ export default {
       }
       this.visible = false
     },
-    /* istanbul ignore next: not easy to test */
-    onMouseOver (evt) {
+    onMouseOver /* istanbul ignore next: not easy to test */ (evt) {
       // Removed mouseover focus handler
     },
     focusNext (evt, up) {
