@@ -231,9 +231,9 @@ export default {
       }
       return assign(popperConfig, this.popperOpts || {})
     },
-    whileOpenListen (on) {
+    whileOpenListen (open) {
       // turn listeners on/off while open
-      if (on) {
+      if (open) {
         // If another dropdown is opened
         this.$root.$on('bv::dropdown::shown', this.rootCloseListener)
         // Hide when links clicked (needed when items in menu are clicked)
@@ -255,7 +255,7 @@ export default {
         const children = arrayFrom(document.body.children)
         const isNavBarNav = closest(this.$el, Selector.NAVBAR_NAV)
         children.forEach(el => {
-          if (on && !isNavBarNav) {
+          if (open && !isNavBarNav) {
             eventOn(el, 'mouseover', this._noop)
           } else {
             eventOff(el, 'mouseover', this._noop)
@@ -359,17 +359,7 @@ export default {
     },
     /* istanbul ignore next: not easy to test */
     onMouseOver (evt) {
-      // Focus the item on hover
-      // TODO: Special handling for inputs? Inputs are in a special .dropdown-form container
-      const item = evt.target
-      if (
-        item.classList.contains('dropdown-item') &&
-                !item.disabled &&
-                !item.classList.contains('disabled') &&
-                item.focus
-      ) {
-        item.focus()
-      }
+      // Removed mouseover focus handler
     },
     focusNext (evt, up) {
       if (!this.visible) {
