@@ -1,6 +1,7 @@
 /*
  * SSR Safe Client Side ID attribute generation
- *
+ * id's can only be generated client side, after mount.
+ * this._uid is not synched between server and client.
  */
 
 export default {
@@ -10,6 +11,13 @@ export default {
       default: null
     }
   },
+  data () {
+    locaId_: null
+  },
+  mounted () {
+    // mounted only occurs client side
+    this.localUid_ = `__BVID__${this._uid}`
+  },
   methods: {
     safeId (suffix = '') {
       const id = this.id || this.localId_ || null
@@ -18,13 +26,6 @@ export default {
       }
       suffix = String(suffix).replace(/\s+/g, '_')
       return suffix ? id + '_' + suffix : id
-    }
-  },
-  computed: {
-    localId_ () {
-      if (!this.$isServer && !this.id && typeof this._uid !== 'undefined') {
-        return '__BVID__' + this._uid
-      }
     }
   }
 }
