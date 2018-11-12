@@ -6,24 +6,24 @@
         "component": "bPaginationNav",
         "slots": [
             {
-              "title": "first-text",
+              "name": "first-text",
               "description": "The \"goto first page\" button text (html/sub-components supported)"
             },
             {
-              "title": "prev-text",
+              "name": "prev-text",
               "description": "The \"goto previous page\" button text (html/sub-components supported)"
             },
             {
-              "title": "next-text",
+              "name": "next-text",
               "description": "The \"goto next page\" button text (html/sub-components supported)"
             },
             {
-              "title": "last-text",
+              "name": "last-text",
               "description": "The \"goto last page\" button text (html/sub-components supported)"
             },
             {
-              "title": "ellipsis-text",
-              "description": " | the `...` indicator text (html/sub-components supported)"
+              "name": "ellipsis-text",
+              "description": " | the '...' indicator text (html/sub-components supported)"
             }
         ]
     }
