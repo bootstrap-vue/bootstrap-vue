@@ -12,7 +12,9 @@ export default {
     }
   },
   data () {
-    localId_: null
+    return {
+      localId_: null
+    }
   },
   mounted () {
     // mounted only occurs client side
