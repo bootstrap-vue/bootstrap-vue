@@ -354,7 +354,7 @@ export default {
       // Note: Inputs are in a special .dropdown-form container
     },
     onFocusOut (evt) {
-      if (this.$refs.menu.contains(evt.relatedTarget)) {
+      if (this.$el.contains(evt.relatedTarget)) {
         return
       }
       this.visible = false
