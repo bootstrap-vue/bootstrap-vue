@@ -15,7 +15,14 @@ function filterVisible (els) {
 
 // Dropdown item CSS selectors
 // TODO: .dropdown-form handling
-const ITEM_SELECTOR = '.dropdown-item:not(.disabled):not([disabled])'
+const Selector = {
+  FORM_CHILD: '.dropdown form',
+  MENU: '.dropdown-menu',
+  NAVBAR_NAV: '.navbar-nav',
+  VISIBLE_ITEMS: '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)',
+  // Since we can target the dropdown menu via refs, we use hte following instead of the previous
+  ITEM_SELECTOR: '.dropdown-item:not(.disabled):not([disabled])'
+}
 
 // Popper attachment positions
 const AttachmentMap = {
@@ -241,11 +248,13 @@ export default {
        * empty mouseover listeners to the body's immediate children;
        * only needed because of broken event delegation on iOS
        * https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+       * Only enabled if we are *not* in an .navbar-nav.
        */
       if ('ontouchstart' in document.documentElement) {
         const children = arrayFrom(document.body.children)
+        const isNavBarNav = closest(this.$el, Selector.NAVBAR_NAV)
         children.forEach(el => {
-          if (on) {
+          if (on && !isNavBarNav) {
             eventOn(el, 'mouseover', this._noop)
           } else {
             eventOff(el, 'mouseover', this._noop)
@@ -395,7 +404,7 @@ export default {
     },
     getItems () {
       // Get all items
-      return filterVisible(selectAll(ITEM_SELECTOR, this.$refs.menu))
+      return filterVisible(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
     },
     getFirstItem () {
       // Get the first non-disabled item
