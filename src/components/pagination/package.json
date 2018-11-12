@@ -28,24 +28,24 @@
         ],
         "slots": [
             {
-                "title": "first-text",
-                "description": "The \"goto first page\" button text (html/sub-components supported)"
+                "name": "first-text",
+                "description": "The \"goto first page\" button content (html/sub-components supported)"
             },
             {
-                "title": "prev-text",
-                "description": "The \"goto previous page\" button text (html/sub-components supported)"
+                "name": "prev-text",
+                "description": "The \"goto previous page\" button content (html/sub-components supported)"
             },
             {
-                "title": "next-text",
-                "description": "The \"goto next page\" button text (html/sub-components supported)"
+                "name": "next-text",
+                "description": "The \"goto next page\" button content (html/sub-components supported)"
             },
             {
-                "title": "last-text",
-                "description": "The \"goto last page\" button text (html/sub-components supported)"
+                "name": "last-text",
+                "description": "The \"goto last page\" button content (html/sub-components supported)"
             },
             {
-                "title": "ellipsis-text",
-                "description": " | the `...` indicator text (html/sub-components supported)"
+                "name": "ellipsis-text",
+                "description": " | the '...' indicator content (html/sub-components supported)"
             }
         ]
     }
