@@ -172,8 +172,11 @@ Turn your dropdown menu into a drop-up menu by setting the `dropup` prop.
 ```
 
 ### Drop right or left
-Turn your dropdown menu into a drop-right menu by setting the `dropright` prop. Or, turn it into a drop-left
-menu by setting the `dropleft` right prop to true.  `dropright` takes precedence over `dropleft`.
+Turn your dropdown menu into a drop-right menu by setting the `dropright` prop. Or, turn
+it into a drop-left menu by setting the `dropleft` right prop to true.
+
+`dropright` takes precedence over `dropleft`. Neither `dropright` or `dropleft` have
+any effect if `dropup` is set.
 
 ```html
 <div>
