@@ -1,6 +1,4 @@
 import Popper from 'popper.js'
-import clickoutMixin from './clickout'
-import listenOnRootMixin from './listen-on-root'
 import { from as arrayFrom } from '../utils/array'
 import { assign } from '../utils/object'
 import KeyCodes from '../utils/key-codes'
@@ -15,7 +13,14 @@ function filterVisible (els) {
 
 // Dropdown item CSS selectors
 // TODO: .dropdown-form handling
-const ITEM_SELECTOR = '.dropdown-item:not(.disabled):not([disabled])'
+const Selector = {
+  FORM_CHILD: '.dropdown form',
+  MENU: '.dropdown-menu',
+  NAVBAR_NAV: '.navbar-nav',
+  VISIBLE_ITEMS: '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)',
+  // Since we can target the dropdown menu via refs, we use hte following instead of the previous
+  ITEM_SELECTOR: '.dropdown-item:not(.disabled):not([disabled])'
+}
 
 // Popper attachment positions
 const AttachmentMap = {
@@ -30,7 +35,6 @@ const AttachmentMap = {
 }
 
 export default {
-  mixins: [clickoutMixin, listenOnRootMixin],
   props: {
     disabled: {
       type: Boolean,
@@ -87,25 +91,15 @@ export default {
     // Create non-reactive property
     this._popper = null
   },
-  mounted () {
-    // To keep one dropdown opened on page
-    this.listenOnRoot('bv::dropdown::shown', this.rootCloseListener)
-    // Hide when clicked on links
-    this.listenOnRoot('clicked::link', this.rootCloseListener)
-    // Use new namespaced events
-    this.listenOnRoot('bv::link::clicked', this.rootCloseListener)
-  },
-  /* istanbul ignore next: not easy to test */
-  deactivated () {
+  deactivated () /* istanbul ignore next: not easy to test */ {
     // In case we are inside a `<keep-alive>`
     this.visible = false
-    this.setTouchStart(false)
+    this.whileOpenListen(false)
     this.removePopper()
   },
-  /* istanbul ignore next: not easy to test */
-  beforeDestroy () {
+  beforeDestroy () /* istanbul ignore next: not easy to test */ {
     this.visible = false
-    this.setTouchStart(false)
+    this.whileOpenListen(false)
     this.removePopper()
   },
   watch: {
@@ -154,14 +148,14 @@ export default {
     emitEvent (bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
-      this.emitOnRoot(`bv::dropdown::${type}`, bvEvt)
+      this.$root.$emit(`bv::dropdown::${type}`, bvEvt)
     },
     showMenu () {
       if (this.disabled) {
         return
       }
       // Ensure other menus are closed
-      this.emitOnRoot('bv::dropdown::shown', this)
+      this.$root.$emit('bv::dropdown::shown', this)
 
       // Are we in a navbar ?
       if (this.inNavbar === null && this.isNav) {
@@ -169,7 +163,7 @@ export default {
       }
 
       // Disable totally Popper.js for Dropdown in Navbar
-      /* istnbul ignore next: can't test popper in JSDOM */
+      /* istanbul ignore next: cant test popper in JSDOM */
       if (!this.inNavbar) {
         if (typeof Popper === 'undefined') {
           warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.')
@@ -183,30 +177,30 @@ export default {
         }
       }
 
-      this.setTouchStart(true)
+      this.whileOpenListen(true)
       this.$emit('shown')
 
       // Focus on the first item on show
       this.$nextTick(this.focusFirstItem)
     },
     hideMenu () {
-      this.setTouchStart(false)
-      this.emitOnRoot('bv::dropdown::hidden', this)
+      this.whileOpenListen(false)
+      this.$root.$emit('bv::dropdown::hidden', this)
       this.$emit('hidden')
       this.removePopper()
     },
-    createPopper (element) {
+    createPopper (element) /* istanbul ignore next: cant test popper in JSDOM */ {
       this.removePopper()
       this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
-    removePopper () {
+    removePopper () /* istanbul ignore next: cant test popper in JSDOM */ {
       if (this._popper) {
         // Ensure popper event listeners are removed cleanly
         this._popper.destroy()
       }
       this._popper = null
     },
-    getPopperConfig /* istanbul ignore next: can't test popper in JSDOM */ () {
+    getPopperConfig () /* istanbul ignore next: can't test popper in JSDOM */ {
       let placement = AttachmentMap.BOTTOM
       if (this.dropup) {
         placement = this.right ? AttachmentMap.TOPEND : AttachmentMap.TOP
@@ -235,35 +229,46 @@ export default {
       }
       return assign(popperConfig, this.popperOpts || {})
     },
-    setTouchStart (on) {
-      /*
-       * If this is a touch-enabled device we add extra
-       * empty mouseover listeners to the body's immediate children;
-       * only needed because of broken event delegation on iOS
-       * https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
-       */
+    whileOpenListen (open) {
+      // turn listeners on/off while open
+      if (open) {
+        // If another dropdown is opened
+        this.$root.$on('bv::dropdown::shown', this.rootCloseListener)
+        // Hide when links clicked (needed when items in menu are clicked)
+        this.$root.$on('clicked::link', this.rootCloseListener)
+        // Use new namespaced events for clicked
+        this.$root.$on('bv::link::clicked', this.rootCloseListener)
+      } else {
+        this.$root.$off('bv::dropdown::shown', this.rootCloseListener)
+        this.$root.$off('clicked::link', this.rootCloseListener)
+        this.$root.$off('bv::link::clicked', this.rootCloseListener)
+      }
+      // touchstart handling fix
+      /* istanbul ignore next: not easy to test */
       if ('ontouchstart' in document.documentElement) {
+        // If this is a touch-enabled device we add extra
+        // empty mouseover listeners to the body's immediate children;
+        // only needed because of broken event delegation on iOS
+        // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+        // Only enabled if we are *not* in an .navbar-nav.
         const children = arrayFrom(document.body.children)
+        const isNavBarNav = closest(this.$el, Selector.NAVBAR_NAV)
         children.forEach(el => {
-          if (on) {
-            eventOn('mouseover', this._noop)
+          if (open && !isNavBarNav) {
+            eventOn(el, 'mouseover', this._noop)
           } else {
-            eventOff('mouseover', this._noop)
+            eventOff(el, 'mouseover', this._noop)
           }
         })
       }
     },
-    /* istanbul ignore next: not easy to test */
-    _noop () {
+    _noop () /* istanbul ignore next: no need to test */ {
       // Do nothing event handler (used in touchstart event handler)
     },
     rootCloseListener (vm) {
       if (vm !== this) {
         this.visible = false
       }
-    },
-    clickOutListener () {
-      this.visible = false
     },
     show () {
       // Public method to show dropdown
@@ -310,8 +315,7 @@ export default {
       }
       this.$emit('click', evt)
     },
-    /* istanbul ignore next: not easy to test */
-    onKeydown (evt) {
+    onKeydown (evt) /* istanbul ignore next: not easy to test */ {
       // Called from dropdown menu context
       const key = evt.keyCode
       if (key === KeyCodes.ESC) {
@@ -328,8 +332,7 @@ export default {
         this.focusNext(evt, true)
       }
     },
-    /* istanbul ignore next: not easy to test */
-    onEsc (evt) {
+    onEsc (evt) /* istanbul ignore next: not easy to test */ {
       if (this.visible) {
         this.visible = false
         evt.preventDefault()
@@ -338,31 +341,19 @@ export default {
         this.$nextTick(this.focusToggler)
       }
     },
-    /* istanbul ignore next: not easy to test */
-    onTab (evt) {
+    onTab (evt) /* istanbul ignore next: not easy to test */ {
       // TODO: Need special handler for dealing with form inputs
       // Tab, if in a text-like input, we should just focus next item in the dropdown
       // Note: Inputs are in a special .dropdown-form container
     },
     onFocusOut (evt) {
-      if (this.$refs.menu.contains(evt.relatedTarget)) {
+      if (this.$el.contains(evt.relatedTarget)) {
         return
       }
       this.visible = false
     },
-    /* istanbul ignore next: not easy to test */
-    onMouseOver (evt) {
-      // Focus the item on hover
-      // TODO: Special handling for inputs? Inputs are in a special .dropdown-form container
-      const item = evt.target
-      if (
-        item.classList.contains('dropdown-item') &&
-                !item.disabled &&
-                !item.classList.contains('disabled') &&
-                item.focus
-      ) {
-        item.focus()
-      }
+    onMouseOver (evt) /* istanbul ignore next: not easy to test */ {
+      // Removed mouseover focus handler
     },
     focusNext (evt, up) {
       if (!this.visible) {
@@ -395,7 +386,7 @@ export default {
     },
     getItems () {
       // Get all items
-      return filterVisible(selectAll(ITEM_SELECTOR, this.$refs.menu))
+      return filterVisible(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
     },
     getFirstItem () {
       // Get the first non-disabled item
