@@ -189,11 +189,11 @@ export default {
       this.$emit('hidden')
       this.removePopper()
     },
-    createPopper (element) {
+    createPopper /* istanbul ignore next: cant test popper in JSDOM */ (element) {
       this.removePopper()
       this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
-    removePopper () {
+    removePopper /* istanbul ignore next: cant test popper in JSDOM */ () {
       if (this._popper) {
         // Ensure popper event listeners are removed cleanly
         this._popper.destroy()
@@ -244,7 +244,8 @@ export default {
         this.$root.$off('bv::link::clicked', this.rootCloseListener)
       }
       // touchstart handling fix
-      if ('ontouchstart' in document.documentElement) /* istanbul ignore next: not easy to test */ {
+      /* istanbul ignore next: not easy to test */
+      if ('ontouchstart' in document.documentElement) {
         // If this is a touch-enabled device we add extra
         // empty mouseover listeners to the body's immediate children;
         // only needed because of broken event delegation on iOS
