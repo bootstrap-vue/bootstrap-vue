@@ -36,7 +36,7 @@ export default {
         if (!id) {
           return null
         }
-        suffix = String(suffix || '').replace(\/s+/g, '_')
+        suffix = String(suffix || '').replace(/\/s+/g, '_')
         return suffix ? id + '_' + suffix : id
       }
       return fn
