@@ -150,14 +150,14 @@ export default {
     emitEvent (bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
-      this.emitOnRoot(`bv::dropdown::${type}`, bvEvt)
+      this.$root.$emit(`bv::dropdown::${type}`, bvEvt)
     },
     showMenu () {
       if (this.disabled) {
         return
       }
       // Ensure other menus are closed
-      this.emitOnRoot('bv::dropdown::shown', this)
+      this.$root.$emit('bv::dropdown::shown', this)
 
       // Are we in a navbar ?
       if (this.inNavbar === null && this.isNav) {
@@ -187,7 +187,7 @@ export default {
     },
     hideMenu () {
       this.whileOpenListen(false)
-      this.emitOnRoot('bv::dropdown::hidden', this)
+      this.$root.$emit('bv::dropdown::hidden', this)
       this.$emit('hidden')
       this.removePopper()
     },
