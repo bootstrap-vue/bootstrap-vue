@@ -11,7 +11,7 @@ export default {
   props: {
     state: {
       // true/'valid', false/'invalid', '',null
-      type: [Boolean, String],
+      type: [String, Boolean],
       default: null
     }
   },
