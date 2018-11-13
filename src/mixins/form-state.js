@@ -11,6 +11,7 @@ export default {
   props: {
     state: {
       // true/'valid', false/'invalid', '',null
+      // The order must be String first, then Boolean!
       type: [String, Boolean],
       default: null
     }
