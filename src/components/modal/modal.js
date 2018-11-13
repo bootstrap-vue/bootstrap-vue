@@ -40,7 +40,7 @@ const OBSERVER_CONFIG = {
 }
 
 // modal wrapper ZINDEX offset incrememnt
-const ZINDEX_OFFSET = 2000;
+const ZINDEX_OFFSET = 2000
 
 // Modal open count helpers
 function getModalOpenCount () {
