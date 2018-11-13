@@ -36,7 +36,8 @@ export default {
       on: {
         change: this.onFileChange,
         focusin: this.focusHandler,
-        focusout: this.focusHandler
+        focusout: this.focusHandler,
+        reset: this.onReset
       }
     })
 
@@ -223,6 +224,10 @@ export default {
         // Return single file object
         this.selectedFile = files[0]
       }
+    },
+    onReset () {
+      // Triggered when the parent form (if any) is reset
+      this.selectedFile = this.multiple ? [] : null
     },
     onDragover (evt) {
       evt.preventDefault()
