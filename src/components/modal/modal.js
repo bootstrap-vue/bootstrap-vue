@@ -80,6 +80,7 @@ export default {
         'header',
         {
           ref: 'header',
+          staticClass: 'modal-header',
           class: this.headerClasses,
           attrs: { id: this.safeId('__BV_modal_header_') }
         },
@@ -91,6 +92,7 @@ export default {
       'div',
       {
         ref: 'body',
+        staticClass: 'modal-body',
         class: this.bodyClasses,
         attrs: { id: this.safeId('__BV_modal_body_') }
       },
@@ -142,6 +144,7 @@ export default {
         'footer',
         {
           ref: 'footer',
+          staticClass: 'modal-footer',
           class: this.footerClasses,
           attrs: { id: this.safeId('__BV_modal_footer_') }
         },
@@ -174,12 +177,20 @@ export default {
       [header, body, footer]
     )
     // Modal Dialog wrapper
-    const modalDialog = h('div', { class: this.dialogClasses }, [modalContent])
+    const modalDialog = h(
+      'div',
+      {
+        staticClass: 'modal-dialog',
+        class: this.dialogClasses
+      },
+      [modalContent]
+    )
     // Modal
     let modal = h(
       'div',
       {
         ref: 'modal',
+        staticClass: 'modal',
         class: this.modalClasses,
         directives: [
           {
@@ -228,6 +239,7 @@ export default {
     let backdrop = h(false)
     if (!this.hideBackdrop && (this.is_visible || this.is_transitioning)) {
       backdrop = h('div', {
+        staticClass: 'modal-backdrop',
         class: this.backdropClasses,
         attrs: { id: this.safeId('__BV_modal_backdrop_') }
       })
@@ -421,7 +433,6 @@ export default {
     },
     modalClasses () {
       return [
-        'modal',
         {
           fade: !this.noFade,
           show: this.is_show,
@@ -431,26 +442,19 @@ export default {
       ]
     },
     dialogClasses () {
-      return [
-        'modal-dialog',
-        {
-          [`modal-${this.size}`]: Boolean(this.size),
-          'modal-dialog-centered': this.centered
-        }
-      ]
+      return {
+        [`modal-${this.size}`]: Boolean(this.size),
+        'modal-dialog-centered': this.centered
+      }
     },
     backdropClasses () {
-      return [
-        'modal-backdrop',
-        {
-          fade: !this.noFade,
-          show: this.is_show || this.noFade
-        }
-      ]
+      return {
+        fade: !this.noFade,
+        show: this.is_show || this.noFade
+      }
     },
     headerClasses () {
       return [
-        'modal-header',
         {
           [`bg-${this.headerBgVariant}`]: Boolean(this.headerBgVariant),
           [`text-${this.headerTextVariant}`]: Boolean(this.headerTextVariant),
@@ -463,7 +467,6 @@ export default {
     },
     bodyClasses () {
       return [
-        'modal-body',
         {
           [`bg-${this.bodyBgVariant}`]: Boolean(this.bodyBgVariant),
           [`text-${this.bodyTextVariant}`]: Boolean(this.bodyTextVariant)
@@ -473,7 +476,6 @@ export default {
     },
     footerClasses () {
       return [
-        'modal-footer',
         {
           [`bg-${this.footerBgVariant}`]: Boolean(this.footerBgVariant),
           [`text-${this.footerTextVariant}`]: Boolean(this.footerTextVariant),
