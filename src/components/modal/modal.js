@@ -39,6 +39,9 @@ const OBSERVER_CONFIG = {
   attributeFilter: ['style', 'class']
 }
 
+// modal wrapper ZINDEX offset incrememnt
+const ZINDEX_OFFSET = 2000;
+
 // Modal open count helpers
 function getModalOpenCount () {
   return parseInt(getAttr(document.body, 'data-modal-open-count') || 0, 10)
@@ -64,8 +67,8 @@ function getModalNextZIndex () {
     .filter(isVisible) /* filter only visible ones */
     .map(m => m.parentElement) /* select the outer div */
     .reduce((max, el) => { /* compute the next z-index */
-      return Math.max(max, parseInt(el.style.zIndex || 0, 10) + 2000)
-    }, 0)
+      return Math.max(max, parseInt(el.style.zIndex || 0, 10))
+    }, 0) + ZINDEX_OFFSET
 }
 
 export default {
@@ -298,7 +301,7 @@ export default {
       is_show: false, // Used for style control
       is_block: false, // Used for style control
       scrollbarWidth: 0,
-      zIndex: 0, // z-index for modal stacking
+      zIndex: ZINDEX_OFFSET, // z-index for modal stacking
       isBodyOverflowing: false,
       return_focus: this.returnFocus || null
     }
@@ -525,8 +528,8 @@ export default {
     modalOuterStyle () {
       return {
         // We only set these styles on the stacked modals (ones with next z-index > 0).
-        position: this.zIndex ? 'static' : '',
-        zIndex: this.zIndex || ''
+        position: 'relative',
+        zIndex: this.zIndex
       }
     }
   },
