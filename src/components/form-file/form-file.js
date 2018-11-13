@@ -80,6 +80,9 @@ export default {
     }
   },
   props: {
+    value: {
+      default: null
+    },
     accept: {
       type: String,
       default: ''
@@ -151,6 +154,11 @@ export default {
         this.$emit('input', [])
       } else {
         this.$emit('input', newVal)
+      }
+    },
+    value (newVal) {
+      if (newVal === null || newVal === '') {
+        this.reset()
       }
     }
   },
