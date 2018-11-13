@@ -45,7 +45,7 @@ function getModalOpenCount () {
 }
 
 function setModalOpenCount (count) {
-  setAttr(document.body, 'data-modal-open-count', String('count'))
+  setAttr(document.body, 'data-modal-open-count', String(count))
   return count
 }
 
