@@ -7,7 +7,10 @@ multiple files, and directory upload (for browsers that support directory mode)
 <template>
 <div>
   <!-- Styled -->
-  <b-form-file v-model="file" :state="Boolean(file)" placeholder="Choose a file..."></b-form-file>
+  <b-form-file v-model="file"
+               :state="Boolean(file)"
+               placeholder="Choose a file..."
+               drop-placeholder="Drop file here..."></b-form-file>
   <div class="mt-3">Selected file: {{file && file.name}}</div>
 
   <!-- Plain mode -->
@@ -59,9 +62,15 @@ be relied for production.
 
 Directory mode is not supported when the file input is in plain mode.
 
-## Drag and Drop
+
+## Drag and Drop support
 Drop mode is enabled by default. It can disabled by setting the `no-drop`
 prop. `no-drop`has no effect in plain mode.
+
+You can optionally set a different placeholder while dragging via the
+`drop-placeholder` prop. The default is no drop placeholder text. Only
+plain text is supported. HTML and components are not supported. The
+`drop-placeholder` prop has no effect if `no-drop`is set or in `plain` mode,
 
 
 ## Limiting to certain file types
@@ -90,7 +99,7 @@ list of standard media types.
 
 ## Customize the placeholder text
 Use the prop `placeholder` to change the prompt text that is shown when no
-files are selected.
+files are selected. Only plain text is supported. HTML and components are not supported.
 
 
 ## Customize browse button label
@@ -104,12 +113,13 @@ Also it is advised to use [:lang()](https://developer.mozilla.org/en-US/docs/Web
 ```
 
 Alternatively you can set the content of the custom file browe button
-text via the `browse-text` prop. Note, only plain text is supported. HTML or
-sub-components are not supported.
+text via the `browse-text` prop. Note, only plain text is supported. HTML and
+components are not supported.
 
 
 ## Non custom file input
 You can have `<b-form-file>` render a browser native file input by setting the `plain` prop.
+Note that many of the customer form-file features do not apply when `plain` is set.
 
 
 ## Contextual state feedback

@@ -63,7 +63,11 @@ export default {
       {
         class: ['custom-file', 'b-form-file', this.stateClass],
         attrs: { id: this.safeId('_BV_file_outer_') },
-        on: { dragover: this.dragover }
+        on: {
+          dragover: this.onDragover,
+          dragleave: this.onDragleave,
+          drop: this.onDrop
+        }
       },
       [input, label]
     )
@@ -93,6 +97,10 @@ export default {
       type: String,
       default: null
     },
+    dropPlaceholder: {
+      type: String,
+      default: null
+    },
     multiple: {
       type: Boolean,
       default: false
@@ -112,6 +120,11 @@ export default {
   },
   computed: {
     selectLabel () {
+      // Draging active
+      if (this.dragging && this.dropPlaceholder) {
+        return this.dropPlaceholder
+      }
+
       // No file choosen
       if (!this.selectedFile || this.selectedFile.length === 0) {
         return this.placeholder
@@ -203,7 +216,7 @@ export default {
         this.selectedFile = files[0]
       }
     },
-    dragover (evt) {
+    onDragover (evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop || !this.custom) {
@@ -212,12 +225,12 @@ export default {
       this.dragging = true
       evt.dataTransfer.dropEffect = 'copy'
     },
-    dragleave (evt) {
+    onDragleave (evt) {
       evt.preventDefault()
       evt.stopPropagation()
       this.dragging = false
     },
-    drop (evt) {
+    onDrop (evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop) {
