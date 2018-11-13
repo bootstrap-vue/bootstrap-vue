@@ -21,17 +21,18 @@ describe('modal', async () => {
   it('Should show hide modal', async () => {
     const { app: { $refs } } = window
     const { modalButton2, modal2 } = $refs
+    const body = document.body
 
     // show the modal
     modalButton2.click()
     await nextTick()
-    expect(Array.isArray(modal2._marginChangedForScroll)).toBe(true)
+    expect(Array.isArray(body._marginChangedForModal)).toBe(true)
 
     // hide the modal
     modal2.hide()
     await nextTick()
     // manually run resetScrollbar because JSDOM doesn't support it
     modal2.resetScrollbar()
-    expect(modal2._marginChangedForScroll).toBe(null)
+    expect(body._marginChangedForModal).toBe(null)
   })
 })
