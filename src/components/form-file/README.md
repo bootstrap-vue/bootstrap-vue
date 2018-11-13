@@ -34,16 +34,19 @@ For cross browser consistency, Form file defaults to the Bootstrap custom file
 input to replace the browser defaults. They’re built on top of semantic and accessible
 markup, so it is a solid replacement for the default file input.
 
+
 ## Single file (default)
 On single file mode, when no file is selected or user cancels Browse dialog, `v-model` is `null`
 indicating no file selected. When a file is selected the return value will be a javascript
 [`File`](https://developer.mozilla.org/en/docs/Web/API/File) object instance.
+
 
 ## Multiple files
 Multiple file uploading is supported by adding `multiple` prop to component.
 In this case `v-model` is *always* an `Array`. When no files are selected, an empty array
 will be returned. When a file or files are selected the return value will be an array of
 javascript [`File`](https://developer.mozilla.org/en/docs/Web/API/File) object instances.
+
 
 ## Directory mode
 By adding `directory` prop, the user can select directories instead of files.
@@ -54,8 +57,12 @@ The selected file system entries can be obtained using the `webkitEntries` prope
 be relied for production.
 [Read more on MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory)
 
+Directory mode is not supported when the file input is in plain mode.
+
 ## Drag and Drop
-Drop mode is enabled by default. it can disabled by setting the `no-drop` prop.
+Drop mode is enabled by default. It can disabled by setting the `no-drop`
+prop. `no-drop`has no effect in plain mode.
+
 
 ## Limiting to certain file types
 You can limit the file types by setting the `accept` prop to a string containing the
@@ -80,7 +87,13 @@ list of standard media types.
 
 **Note:** Not all browsers support or respect the `accept` attribute on file inputs.
 
-## Customize browse label
+
+## Customize the placeholder text
+Use the prop `placeholder` to change the prompt text that is shown when no
+files are selected.
+
+
+## Customize browse button label
 If you want to globally change `Browse` label, you can add something like this to your global stylesheets.
 Also it is advised to use [:lang()](https://developer.mozilla.org/en-US/docs/Web/CSS/:lang) for multi-language sites.
 
@@ -90,8 +103,14 @@ Also it is advised to use [:lang()](https://developer.mozilla.org/en-US/docs/Web
 }
 ```
 
+Alternatively you can set the content of the custom file browe button
+text via the `browse-text` prop. Note, only plain text is supported. HTML or
+sub-components are not supported.
+
+
 ## Non custom file input
 You can have `<b-form-file>` render a browser native file input by setting the `plain` prop.
+
 
 ## Contextual state feedback
 Bootstrap includes validation styles for `valid` and `invalid` states
@@ -107,11 +126,13 @@ and want to encourage a user through the rest of the fields.
 To apply one of the contextual state icons on `<b-form-file`, set the `state` prop
 to `'invalid'` (or `false`), `'valid'` ( or `true`), or `null`.
 
+
 ## Accessibility
 When using the custom version of  `<b-form-file>` input which hides the original input, it is
 **highly recommended** that you supply a document unique ID string via the `id` prop. This will
 automatically render the extra ARIA atributes required to improve usability for persons using
 assitive technologies.
+
 
 ## Clearing the file selection
 Because of limitations in the value binding with `<input type="file">` elements, `v-model`
