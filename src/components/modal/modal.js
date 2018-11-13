@@ -46,15 +46,15 @@ function getModalOpenCount() {
 }
 
 function setModalOpenCount(count) {
-  setAttr(document.body, 'data-modal-open-count'), String('count'))
+  setAttr(document.body, 'data-modal-open-count', String('count'))
   return count
 }
 
-function incrememntModalOpen() {
+function incrementModalOpenCount() {
   return setModalOpenCount(getModalOpenCount() + 1)
 }
 
-function decrementModalOpen() {
+function decrementModalOpenCount() {
   return setModalOpenCount(Math.max(getModalOpenCount() - 1, 0))
 }
 
@@ -591,7 +591,7 @@ export default {
     onBeforeEnter () {
       this.is_transitioning = true
       this.checkScrollbar()
-      const count = incrementModalOpen()
+      const count = incrementModalOpenCount()
       if (count === 1) {
         this.setScrollbar()
       }
@@ -875,7 +875,7 @@ export default {
       this.is_visible = false
       this.is_show = false
       this.is_transitioning = false
-      const count = decrementModalOpen()
+      const count = decrementModalOpenCount()
       if (count === 0) {
         // Re-adjust body/navbar/fixed padding/margins (if needed)
         removeClass(document.body, 'modal-open')
