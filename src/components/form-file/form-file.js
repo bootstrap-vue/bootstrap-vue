@@ -4,6 +4,9 @@ import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import { from as arrayFrom } from '../../utils/array'
 
+// temporary css until Bootstrap V4.2 is released
+include './form-file.css'
+
 export default {
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
   render (h) {
@@ -48,7 +51,8 @@ export default {
       {
         class: ['custom-file-label', this.dragging ? 'dragging' : null],
         attrs: {
-          id: this.safeId('_BV_file_control_')
+          id: this.safeId('_BV_file_control_'),
+          'data-browse': this.browseText || null
         }
       },
       this.selectLabel
@@ -85,6 +89,10 @@ export default {
     placeholder: {
       type: String,
       default: undefined
+    },
+    browseText: {
+      type: String,
+      default: null
     },
     multiple: {
       type: Boolean,
