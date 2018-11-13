@@ -574,6 +574,7 @@ export default {
     },
     // Transition Handlers
     onBeforeEnter () {
+      this.getScrollbarWidth()
       this.is_transitioning = true
       this.checkScrollbar()
       this.setScrollbar()
@@ -836,8 +837,6 @@ export default {
     this._observer = null
   },
   mounted () {
-    // Measure scrollbar
-    this.getScrollbarWidth()
     // Listen for events from others to either open or close ourselves
     this.listenOnRoot('bv::show::modal', this.showHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
