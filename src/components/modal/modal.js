@@ -42,7 +42,7 @@ const OBSERVER_CONFIG = {
 
 // Modal open count helpers
 function getModalOpenCount() {
-  return parseInt(getAttr(document.body, 'data-modal-open-count') || 0), 10)
+  return parseInt(getAttr(document.body, 'data-modal-open-count') || 0, 10)
 }
 
 function setModalOpenCount(count) {
