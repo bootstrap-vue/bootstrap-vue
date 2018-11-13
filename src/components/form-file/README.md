@@ -145,18 +145,20 @@ assitive technologies.
 
 
 ## Clearing the file selection
-Because of limitations in the value binding with `<input type="file">` elements, `v-model`
-for `<b-form-file>` is unidirectional, and cannot be used to set or clear the file(s) selection.
-To get around this limitation, `<b-form-file>` provides a `reset()` method that can be
+With inputs of type file, normally the `v-model` is uni-directional (meaning
+you cannot pre-set the selected files). However, you can clear the file input's 
+selected files by setting the `v-model` to either `null` or an empty string.
+Alternatively,  `<b-form-file>` provides a `reset()` method that can be
 called to clear the file input.
 
 To take advantage of the `reset()` method, you will need to obtain a reference
-to the `<b-form-file>` component:
+to the `<b-form-file>` component.
 
 ```html
 <div id="#app">
-    <b-form-file v-model="file" ref="fileinput"></b-form-file>
-    <b-button @click="clearFiles">Reset</b-button>
+  <b-form-file v-model="file" ref="fileinput"></b-form-file>
+  <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
+  <b-button @click="file = null">Reset via v-model</b-button>
 </div>
 ```
 
