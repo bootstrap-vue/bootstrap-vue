@@ -781,15 +781,15 @@ export default {
         const body = document.body
         const computedStyle = window.getComputedStyle
         const scrollbarWidth = this.scrollbarWidth
-        body._paddingChangedForScroll = []
-        body._marginChangedForScroll = []
+        body._paddingChangedForModal = []
+        body._marginChangedForModal = []
         // Adjust fixed content padding
         selectAll(Selector.FIXED_CONTENT).forEach(el => {
           const actualPadding = el.style.paddingRight
           const calculatedPadding = computedStyle(el).paddingRight || 0
           setAttr(el, 'data-padding-right', actualPadding)
           el.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
-          body._paddingChangedForScroll.push(el)
+          body._paddingChangedForModal.push(el)
         })
         // Adjust sticky content margin
         selectAll(Selector.STICKY_CONTENT).forEach(el => {
@@ -797,7 +797,7 @@ export default {
           const calculatedMargin = computedStyle(el).marginRight || 0
           setAttr(el, 'data-margin-right', actualMargin)
           el.style.marginRight = `${parseFloat(calculatedMargin) - scrollbarWidth}px`
-          body._marginChangedForScroll.push(el)
+          body._marginChangedForModal.push(el)
         })
         // Adjust navbar-toggler margin
         selectAll(Selector.NAVBAR_TOGGLER).forEach(el => {
@@ -805,7 +805,7 @@ export default {
           const calculatedMargin = computedStyle(el).marginRight || 0
           setAttr(el, 'data-margin-right', actualMargin)
           el.style.marginRight = `${parseFloat(calculatedMargin) + scrollbarWidth}px`
-          body._marginChangedForScroll.push(el)
+          body._marginChangedForModal.push(el)
         })
         // Adjust body padding
         const actualPadding = body.style.paddingRight
@@ -816,28 +816,30 @@ export default {
     },
     resetScrollbar () {
       const body = document.body
-      if (body._marginChangedForScroll && body._paddingChangedForScroll) {
+      if (body._paddingChangedForModal) {
         // Restore fixed content padding
-        body._paddingChangedForScroll.forEach(el => {
+        body._paddingChangedForModal.forEach(el => {
           if (hasAttr(el, 'data-padding-right')) {
             el.style.paddingRight = getAttr(el, 'data-padding-right') || ''
             removeAttr(el, 'data-padding-right')
           }
         })
+      }
+      if (body._marginChangedForModal) {
         // Restore sticky content and navbar-toggler margin
-        body._marginChangedForScroll.forEach(el => {
+        body._marginChangedForModal.forEach(el => {
           if (hasAttr(el, 'data-margin-right')) {
             el.style.marginRight = getAttr(el, 'data-margin-right') || ''
             removeAttr(el, 'data-margin-right')
           }
         })
-        body._paddingChangedForScroll = null
-        body._marginChangedForScroll = null
-        // Restore body padding
-        if (hasAttr(body, 'data-padding-right')) {
-          body.style.paddingRight = getAttr(body, 'data-padding-right') || ''
-          removeAttr(body, 'data-padding-right')
-        }
+      }
+      body._paddingChangedForModal = null
+      body._marginChangedForModal = null
+      // Restore body padding
+      if (hasAttr(body, 'data-padding-right')) {
+        body.style.paddingRight = getAttr(body, 'data-padding-right') || ''
+        removeAttr(body, 'data-padding-right')
       }
     }
   },
