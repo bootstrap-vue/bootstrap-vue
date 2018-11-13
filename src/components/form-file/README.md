@@ -155,16 +155,16 @@ To take advantage of the `reset()` method, you will need to obtain a reference
 to the `<b-form-file>` component.
 
 ```html
-<div id="#app">
-  <b-form-file v-model="file" ref="fileinput"></b-form-file>
-  <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
-  <b-button @click="file = null">Reset via v-model</b-button>
-</div>
-```
+<template>
+  <div>
+    <b-form-file v-model="file" ref="fileinput"></b-form-file>
+    <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
+    <b-button @click="file = null">Reset via v-model</b-button>
+  </div>
+</template>
 
-```js
-window.app = new Vue({
-  el: '#app',
+<script>
+export default {
   data () {
     return {
       file: null
@@ -175,7 +175,10 @@ window.app = new Vue({
       this.$refs.fileinput.reset();
     }
   }
-})
+}
+</script>
+
+<!-- form-file-reset.vue -->
 ```
 
 
