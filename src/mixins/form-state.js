@@ -18,7 +18,9 @@ export default {
   computed: {
     computedState () {
       const state = this.state
-      if (state === true || state === 'valid') {
+      if (state === '') {
+        return null
+      } else if (state === true || state === 'valid') {
         return true
       } else if (state === false || state === 'invalid') {
         return false
