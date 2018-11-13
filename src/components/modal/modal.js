@@ -609,7 +609,7 @@ export default {
     },
     onAfterLeave () {
       this.is_block = false
-      this.resetAdjustments()
+      this.resetDialogAdjustments()
       this.resetScrollbar()
       this.is_transitioning = false
       removeClass(document.body, 'modal-open')
@@ -740,12 +740,16 @@ export default {
         modal.scrollHeight > document.documentElement.clientHeight
       if (!this.isBodyOverflowing && isModalOverflowing) {
         modal.style.paddingLeft = `${this.scrollbarWidth}px`
+      } else {
+        modal.style.paddingLeft = ''
       }
       if (this.isBodyOverflowing && !isModalOverflowing) {
         modal.style.paddingRight = `${this.scrollbarWidth}px`
+      } else {
+        modal.style.paddingRight = ''
       }
     },
-    resetAdjustments () {
+    resetDialogAdjustments () {
       const modal = this.$refs.modal
       if (modal) {
         modal.style.paddingLeft = ''
@@ -853,7 +857,7 @@ export default {
     this.setResizeEvent(false)
     // Re-adjust body/navbar/fixed padding/margins (if needed)
     removeClass(document.body, 'modal-open')
-    this.resetAdjustments()
+    this.resetDialogAdjustments()
     this.resetScrollbar()
   }
 }
