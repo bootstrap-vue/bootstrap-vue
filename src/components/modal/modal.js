@@ -279,8 +279,8 @@ export default {
         'div',
         {
           key: 'modal-outer',
+          style: this.modalOuterStyle,
           attrs: {
-            style: this.modalOuterStyle,
             id: this.safeId('__BV_modal_outer_')
           }
         },
