@@ -628,7 +628,7 @@ export default {
       this.is_block = false
       this.resetDialogAdjustments()
       this.is_transitioning = false
-      const count = decrementModalOpenCCount()
+      const count = decrementModalOpenCount()
       if (count === 0) {
         this.resetScrollbar()
         removeClass(document.body, 'modal-open')
