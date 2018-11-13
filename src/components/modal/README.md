@@ -149,7 +149,7 @@ an element reference, or a component reference.
   <b-button @click="showModal" ref="btnShow">
     Open Modal
   </b-button>
-  <b-modal @hidden="onHidden">
+  <b-modal id="modal1" @hidden="onHidden">
     <div class="d-block">Hello From My Modal!</div>
     <b-btn @click="hideModal">Close Me</b-btn>
   </b-modal>
