@@ -31,8 +31,7 @@ export default {
         accept: this.accept || null,
         multiple: this.multiple,
         webkitdirectory: this.directory,
-        'aria-required': this.required ? 'true' : null,
-        'aria-describedby': this.plain ? null : this.safeId('_BV_file_control_')
+        'aria-required': this.required ? 'true' : null
       },
       on: {
         change: this.onFileChange,
@@ -51,7 +50,7 @@ export default {
       {
         class: ['custom-file-label', this.dragging ? 'dragging' : null],
         attrs: {
-          id: this.safeId('_BV_file_control_'),
+          for: this.safeId(),
           'data-browse': this.browseText || null
         }
       },
@@ -88,7 +87,7 @@ export default {
     },
     placeholder: {
       type: String,
-      default: null
+      default: 'No file chosen' // Chrome default file prompt
     },
     browseText: {
       type: String,
