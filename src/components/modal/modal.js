@@ -40,6 +40,24 @@ const OBSERVER_CONFIG = {
   attributeFilter: ['style', 'class']
 }
 
+// Modal open count helpers
+function getModalOpenCount() {
+  return parseInt(getAttr(document.body, 'data-modal-open-count') || 0), 10)
+}
+
+function setModalOpenCount(count) {
+  setAttr(document.body, 'data-modal-open-count'), String('count'))
+  return count
+}
+
+function incrememntModalOpen() {
+  return setModalOpenCount(getModalOpenCount() + 1)
+}
+
+function decrementModalOpen() {
+  return setModalOpenCount(Math.max(getModalOpenCount() - 1, 0))
+}
+
 export default {
   mixins: [idMixin, listenOnRootMixin],
   components: { bBtn, bBtnClose },
@@ -512,13 +530,8 @@ export default {
         // Don't show if canceled
         return
       }
-      if (hasClass(document.body, 'modal-open')) {
-        // If another modal is already open, wait for it to close
-        this.$root.$once('bv::modal::hidden', this.doShow)
-      } else {
-        // Show the modal
-        this.doShow()
-      }
+      // Show the modal
+      this.doShow()
     },
     hide (trigger) {
       if (!this.is_visible) {
@@ -578,7 +591,10 @@ export default {
     onBeforeEnter () {
       this.is_transitioning = true
       this.checkScrollbar()
-      this.setScrollbar()
+      const count = incrementModalOpen()
+      if (count === 1) {
+        this.setScrollbar()
+      }
       this.adjustDialog()
       addClass(document.body, 'modal-open')
       this.setResizeEvent(true)
@@ -612,9 +628,14 @@ export default {
     onAfterLeave () {
       this.is_block = false
       this.resetDialogAdjustments()
-      this.resetScrollbar()
+      const count = decrememntModalOpen()
+      if (count === 0) {
+        this.resetScrollbar()
+      }
       this.is_transitioning = false
-      removeClass(document.body, 'modal-open')
+      if (count === 0) {
+        removeClass(document.body, 'modal-open')
+      }
       this.$nextTick(() => {
         this.is_hidden = this.lazy || false
         this.returnFocusTo()
@@ -682,12 +703,6 @@ export default {
     },
     hideHandler (id) {
       if (id === this.id) {
-        this.hide()
-      }
-    },
-    modalListener (bvEvt) {
-      // If another modal opens, close this one
-      if (bvEvt.vueTarget !== this) {
         this.hide()
       }
     },
@@ -769,8 +784,8 @@ export default {
         const computedStyle = window.getComputedStyle
         const body = document.body
         const scrollbarWidth = this.scrollbarWidth
-        this._marginChangedForScroll = []
-        this._paddingChangedForScroll = []
+        body._paddingChangedForScroll = []
+        body._marginChangedForScroll = []
         // Adjust fixed content padding
         selectAll(Selector.FIXED_CONTENT).forEach(el => {
           const actualPadding = el.style.paddingRight
@@ -778,7 +793,7 @@ export default {
           setAttr(el, 'data-padding-right', actualPadding)
           el.style.paddingRight = `${parseFloat(calculatedPadding) +
             scrollbarWidth}px`
-          this._paddingChangedForScroll.push(el)
+          body._paddingChangedForScroll.push(el)
         })
         // Adjust sticky content margin
         selectAll(Selector.STICKY_CONTENT).forEach(el => {
@@ -787,7 +802,7 @@ export default {
           setAttr(el, 'data-margin-right', actualMargin)
           el.style.marginRight = `${parseFloat(calculatedMargin) -
             scrollbarWidth}px`
-          this._marginChangedForScroll.push(el)
+          body._marginChangedForScroll.push(el)
         })
         // Adjust navbar-toggler margin
         selectAll(Selector.NAVBAR_TOGGLER).forEach(el => {
@@ -796,7 +811,7 @@ export default {
           setAttr(el, 'data-margin-right', actualMargin)
           el.style.marginRight = `${parseFloat(calculatedMargin) +
             scrollbarWidth}px`
-          this._marginChangedForScroll.push(el)
+          body._marginChangedForScroll.push(el)
         })
         // Adjust body padding
         const actualPadding = body.style.paddingRight
@@ -807,23 +822,24 @@ export default {
       }
     },
     resetScrollbar () {
-      if (this._marginChangedForScroll && this._paddingChangedForScroll) {
+      const body = document.body
+      if (body._marginChangedForScroll && body._paddingChangedForScroll) {
         // Restore fixed content padding
-        this._paddingChangedForScroll.forEach(el => {
+        body._paddingChangedForScroll.forEach(el => {
           if (hasAttr(el, 'data-padding-right')) {
             el.style.paddingRight = getAttr(el, 'data-padding-right') || ''
             removeAttr(el, 'data-padding-right')
           }
         })
         // Restore sticky content and navbar-toggler margin
-        this._marginChangedForScroll.forEach(el => {
+        body._marginChangedForScroll.forEach(el => {
           if (hasAttr(el, 'data-margin-right')) {
             el.style.marginRight = getAttr(el, 'data-margin-right') || ''
             removeAttr(el, 'data-margin-right')
           }
         })
-        this._paddingChangedForScroll = null
-        this._marginChangedForScroll = null
+        body._paddingChangedForScroll = null
+        body._marginChangedForScroll = null
         // Restore body padding
         const body = document.body
         if (hasAttr(body, 'data-padding-right')) {
@@ -843,8 +859,6 @@ export default {
     // Listen for events from others to either open or close ourselves
     this.listenOnRoot('bv::show::modal', this.showHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
-    // Listen for bv:modal::show events, and close ourselves if the opening modal not us
-    this.listenOnRoot('bv::modal::show', this.modalListener)
     // Initially show modal?
     if (this.visible === true) {
       this.show()
@@ -857,9 +871,17 @@ export default {
       this._observer = null
     }
     this.setResizeEvent(false)
-    // Re-adjust body/navbar/fixed padding/margins (if needed)
-    removeClass(document.body, 'modal-open')
-    this.resetDialogAdjustments()
-    this.resetScrollbar()
+    if (this.is_visible) {
+      this.is_visible = false
+      this.is_show = false
+      this.is_transitioning = false
+      const count = decrementModalOpen()
+      if (count === 0) {
+        // Re-adjust body/navbar/fixed padding/margins (if needed)
+        removeClass(document.body, 'modal-open')
+        this.resetScrollbar()
+        this.resetDialogAdjustments()
+      }
+    }
   }
 }
