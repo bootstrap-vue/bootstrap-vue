@@ -176,8 +176,9 @@ methods: {
 ### Prevent Closing
 
 To prevent `<b-modal>` from closing (for example when validation fails). you can call
-the `preventDefault()` method of the event object passed to your `ok` (**OK** button),
-`cancel` (**Cancel** button) and `hide` event handlers.
+the `.preventDefault()` method of the event object passed to your `ok` (**OK** button),
+`cancel` (**Cancel** button) and `hide` event handlers. Note that `.preventDevault()`, when used,
+must be called synchronously, as async is not supported.
 
 ```html
 <template>
@@ -434,6 +435,32 @@ the button.
 To disable both **Cancel** and **OK** buttons at the same time, simply set the `busy`
 prop to `true`. Set it to `false` to re-enable both buttons.
 
+
+## Multiple modal support
+Unlike native Bootstrap V4, Bootstrap-Vue supports multiple modals opened at the same time.
+
+```html
+<div>
+  <b-button v-b-modal.modal-multi-1>Open First Modal</b-button>
+  <b-modal id="modal-multi-1" size="lg"title="First Modal" ok-only>
+    <p class="my-5">First Modal</p>
+    <b-button v-b-modal.modal-multi-2>Open Second Modal</b-button>
+  </b-modal>
+  <b-modal id="modal-multi-2" title="Second Modal" ok-only>
+    <p class="my-2">Second Modal</p>
+    <b-button v-b-modal.modal-multi-3 size="sm">Open Third Modal</b-button>
+  </b-modal>
+  <b-modal id="modal-multi-3" size="sm" title="Third Modal" ok-only>
+    <p class="my-1">Third Modal</p>
+  </b-modal>
+</div>
+
+<!-- modal-multiple.vue -->
+```
+
+**Notes:**
+- Do not nest `b-modal` _inside_ another `b-modal`, as it will get "constrained" to the boundaries of the containing modal dialog.
+- The opaque backdrop will appear progressively darker for each modal that is opened. This is expected behaviour as each backdrop is opened over top the other backdrops.
 
 ## Accessibility
 
