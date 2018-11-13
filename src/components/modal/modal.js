@@ -524,8 +524,9 @@ export default {
     },
     modalOuterStyle () {
       return {
-        position: 'relative', /* needed for stacking to work */
-        zIndex: this.zIndex
+        // We only set these styles on the stacked modals (ones with next z-index > 0).
+        position: this.zIndex ? 'static' : '',
+        zIndex: this.zIndex || ''
       }
     }
   },
