@@ -11,14 +11,17 @@ export default {
   props: {
     state: {
       // true/'valid', false/'invalid', '',null
-      type: [Boolean, String],
+      // The order must be String first, then Boolean!
+      type: [String, Boolean],
       default: null
     }
   },
   computed: {
     computedState () {
       const state = this.state
-      if (state === true || state === 'valid') {
+      if (state === '') {
+        return null
+      } else if (state === true || state === 'valid') {
         return true
       } else if (state === false || state === 'invalid') {
         return false
