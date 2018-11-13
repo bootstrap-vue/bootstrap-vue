@@ -12,7 +12,6 @@ import {
   isVisible,
   selectAll,
   select,
-  closest,
   getBCR,
   addClass,
   removeClass,
@@ -60,13 +59,13 @@ function decrementModalOpenCount () {
 
 // Returns the next z-index to be used by a modal to ensure proper stacking
 // regardless of document order. Increments by 2000
-function getNextModalZIndex () {
+function getModalNextZIndex () {
   return selectAll('div.modal') /* find all modals that are in document */
-  .filter(isVisible) /* filter only visible ones */
-  .map(m => m.parentElement) /* select the outer div */
-  .reduce((max, el) => {  /* Compute the next z-index */
-    return Math.max(max, parseInt(el.style.zIndex || 0, 10) + 2000)
-  }, 0)
+    .filter(isVisible) /* filter only visible ones */
+    .map(m => m.parentElement) /* select the outer div */
+    .reduce((max, el) => { /* compute the next z-index */
+      return Math.max(max, parseInt(el.style.zIndex || 0, 10) + 2000)
+    }, 0)
 }
 
 export default {
@@ -794,7 +793,7 @@ export default {
       }
     },
     checkScrollbar () {
-      const {left, right, height}  = getBCR(document.body)
+      const {left, right, height} = getBCR(document.body)
       // Extra check for body.height needed for stacked modals
       this.isBodyOverflowing = (left + right) < window.innerWidth || height > window.innerHeight
     },
