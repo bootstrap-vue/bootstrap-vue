@@ -276,9 +276,9 @@ export default {
     return {
       is_hidden: this.lazy || false,
       is_visible: false,
-      is_transitioning: false,
-      is_show: false,
-      is_block: false,
+      is_transitioning: false, // Used for style control
+      is_show: false, // Used for style control
+      is_block: false, // Used for style control
       scrollbarWidth: 0,
       isBodyOverflowing: false,
       return_focus: this.returnFocus || null
@@ -627,12 +627,10 @@ export default {
     onAfterLeave () {
       this.is_block = false
       this.resetDialogAdjustments()
-      const count = decrementModalOpen()
+      this.is_transitioning = false
+      const count = decrementModalOpenCCount()
       if (count === 0) {
         this.resetScrollbar()
-      }
-      this.is_transitioning = false
-      if (count === 0) {
         removeClass(document.body, 'modal-open')
       }
       this.$nextTick(() => {
@@ -790,8 +788,7 @@ export default {
           const actualPadding = el.style.paddingRight
           const calculatedPadding = computedStyle(el).paddingRight || 0
           setAttr(el, 'data-padding-right', actualPadding)
-          el.style.paddingRight = `${parseFloat(calculatedPadding) +
-            scrollbarWidth}px`
+          el.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
           body._paddingChangedForScroll.push(el)
         })
         // Adjust sticky content margin
@@ -799,8 +796,7 @@ export default {
           const actualMargin = el.style.marginRight
           const calculatedMargin = computedStyle(el).marginRight || 0
           setAttr(el, 'data-margin-right', actualMargin)
-          el.style.marginRight = `${parseFloat(calculatedMargin) -
-            scrollbarWidth}px`
+          el.style.marginRight = `${parseFloat(calculatedMargin) - scrollbarWidth}px`
           body._marginChangedForScroll.push(el)
         })
         // Adjust navbar-toggler margin
@@ -808,16 +804,14 @@ export default {
           const actualMargin = el.style.marginRight
           const calculatedMargin = computedStyle(el).marginRight || 0
           setAttr(el, 'data-margin-right', actualMargin)
-          el.style.marginRight = `${parseFloat(calculatedMargin) +
-            scrollbarWidth}px`
+          el.style.marginRight = `${parseFloat(calculatedMargin) + scrollbarWidth}px`
           body._marginChangedForScroll.push(el)
         })
         // Adjust body padding
         const actualPadding = body.style.paddingRight
         const calculatedPadding = computedStyle(body).paddingRight
         setAttr(body, 'data-padding-right', actualPadding)
-        body.style.paddingRight = `${parseFloat(calculatedPadding) +
-          scrollbarWidth}px`
+        body.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
       }
     },
     resetScrollbar () {
@@ -840,7 +834,6 @@ export default {
         body._paddingChangedForScroll = null
         body._marginChangedForScroll = null
         // Restore body padding
-        const body = document.body
         if (hasAttr(body, 'data-padding-right')) {
           body.style.paddingRight = getAttr(body, 'data-padding-right') || ''
           removeAttr(body, 'data-padding-right')
