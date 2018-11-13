@@ -124,6 +124,17 @@ describe('form-input', async () => {
     expect(input.classes()).not.toContain('is-invalid')
   })
 
+  it('does not have is-valid or is-invalid classes when state=""', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: ''
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes()).not.toContain('is-valid')
+    expect(input.classes()).not.toContain('is-invalid')
+  })
+
   it('has class is-valid when state=true', async () => {
     const wrapper = mount(Input, {
       propsData: {
