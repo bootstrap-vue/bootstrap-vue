@@ -88,7 +88,7 @@ export default {
     },
     placeholder: {
       type: String,
-      default: undefined
+      default: null
     },
     browseText: {
       type: String,
