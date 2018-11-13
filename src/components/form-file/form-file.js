@@ -4,6 +4,9 @@ import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import { from as arrayFrom } from '../../utils/array'
 
+// temporary css until Bootstrap V4.2 is released
+import './form-file.css'
+
 export default {
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
   render (h) {
@@ -28,8 +31,7 @@ export default {
         accept: this.accept || null,
         multiple: this.multiple,
         webkitdirectory: this.directory,
-        'aria-required': this.required ? 'true' : null,
-        'aria-describedby': this.plain ? null : this.safeId('_BV_file_control_')
+        'aria-required': this.required ? 'true' : null
       },
       on: {
         change: this.onFileChange,
@@ -48,7 +50,8 @@ export default {
       {
         class: ['custom-file-label', this.dragging ? 'dragging' : null],
         attrs: {
-          id: this.safeId('_BV_file_control_')
+          for: this.safeId(),
+          'data-browse': this.browseText || null
         }
       },
       this.selectLabel
@@ -84,7 +87,11 @@ export default {
     },
     placeholder: {
       type: String,
-      default: undefined
+      default: 'No file chosen' // Chrome default file prompt
+    },
+    browseText: {
+      type: String,
+      default: null
     },
     multiple: {
       type: Boolean,
