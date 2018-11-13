@@ -524,8 +524,8 @@ export default {
     },
     modalOuterStyle () {
       return {
-        positon: 'relative',
-        zIndex: this.zIndex
+        position: 'relative', /* needed for stacking to work */
+        zIndex: this.zIndex || null
       }
     }
   },
