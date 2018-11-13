@@ -15,7 +15,6 @@ import {
   getBCR,
   addClass,
   removeClass,
-  hasClass,
   setAttr,
   removeAttr,
   getAttr,
@@ -41,20 +40,20 @@ const OBSERVER_CONFIG = {
 }
 
 // Modal open count helpers
-function getModalOpenCount() {
+function getModalOpenCount () {
   return parseInt(getAttr(document.body, 'data-modal-open-count') || 0, 10)
 }
 
-function setModalOpenCount(count) {
+function setModalOpenCount (count) {
   setAttr(document.body, 'data-modal-open-count', String('count'))
   return count
 }
 
-function incrementModalOpenCount() {
+function incrementModalOpenCount () {
   return setModalOpenCount(getModalOpenCount() + 1)
 }
 
-function decrementModalOpenCount() {
+function decrementModalOpenCount () {
   return setModalOpenCount(Math.max(getModalOpenCount() - 1, 0))
 }
 
@@ -628,7 +627,7 @@ export default {
     onAfterLeave () {
       this.is_block = false
       this.resetDialogAdjustments()
-      const count = decrememntModalOpen()
+      const count = decrementModalOpen()
       if (count === 0) {
         this.resetScrollbar()
       }
@@ -781,8 +780,8 @@ export default {
       if (this.isBodyOverflowing) {
         // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
         //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
-        const computedStyle = window.getComputedStyle
         const body = document.body
+        const computedStyle = window.getComputedStyle
         const scrollbarWidth = this.scrollbarWidth
         body._paddingChangedForScroll = []
         body._marginChangedForScroll = []
