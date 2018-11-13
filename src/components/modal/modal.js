@@ -765,8 +765,7 @@ export default {
       const scrollDiv = document.createElement('div')
       scrollDiv.className = 'modal-scrollbar-measure'
       document.body.appendChild(scrollDiv)
-      this.scrollbarWidth =
-        scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth
+      this.scrollbarWidth = getBCR(scrollDiv).width - scrollDiv.clientWidth
       document.body.removeChild(scrollDiv)
     },
     adjustDialog () {
@@ -795,7 +794,7 @@ export default {
       }
     },
     checkScrollbar () {
-      const (left, right, height}  = getBCR(document.body)
+      const {left, right, height}  = getBCR(document.body)
       // Extra check for body.height needed for stacked modals
       this.isBodyOverflowing = (left + right) < window.innerWidth || height > window.innerHeight
     },
