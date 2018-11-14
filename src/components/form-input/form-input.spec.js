@@ -53,7 +53,7 @@ describe('form-input', async () => {
     })
     const input = wrapper.find('input')
     expect(input.classes()).toContain('form-control-plaintext')
-    expect(input.attribures('readonly')).toBeDefined()
+    expect(input.attributes('readonly')).toBeDefined()
   })
 
   it('has class custom-range instead of form-control when type=range', async () => {
