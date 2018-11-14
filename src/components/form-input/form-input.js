@@ -44,6 +44,7 @@ export default {
       attrs: {
         id: self.safeId(),
         name: self.name,
+        form: this.form || null,
         type: self.localType,
         disabled: self.disabled,
         required: self.required,
