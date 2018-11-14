@@ -147,12 +147,12 @@ assitive technologies.
 ## Clearing the file selection
 With inputs of type file, normally the `v-model` is uni-directional (meaning
 you cannot pre-set the selected files). However, you can clear the file input's 
-selected files by setting the `v-model` to either `null` or an empty string.
-Alternatively,  `<b-form-file>` provides a `reset()` method that can be
-called to clear the file input.
+selected files by setting the `v-model` to either `null`, an empty string, or an
+empty array).
 
-To take advantage of the `reset()` method, you will need to obtain a reference
-to the `<b-form-file>` component.
+Alternatively,  `<b-form-file>` provides a `reset()` method that can be called to
+clear the file input. To take advantage of the `reset()` method, you will need
+to obtain a reference to the `<b-form-file>` component.
 
 ```html
 <template>
@@ -181,6 +181,11 @@ export default {
 
 <!-- form-file-reset.vue -->
 ```
+
+**Implementation note:** As not all browsers allow setting a value of a file
+input (even to null or an empty string), `b-form-input` employs a technique that
+works cross-browser that involves changing the input type to null and then back
+to type file.
 
 
 <!-- Component reference added automatically from component package.json -->
