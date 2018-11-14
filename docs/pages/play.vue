@@ -320,7 +320,7 @@ export default {
         }
         // Try to compile template
         try {
-          let result = Vue.compile(html.replace(/\s{2,}/g, '')
+          let result = Vue.compile(html.replace(/\s{2,}/g, ''))
         } catch (err) {
           throw new Error(`Compiling template: ${err.message}`)
         }
