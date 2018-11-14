@@ -288,6 +288,7 @@ export default {
         } catch (err) {
         }
         this.playVM = null
+        this.$refs.result.innerHTML = ''
       }
     },
     _run () {
@@ -334,11 +335,10 @@ export default {
           const message = h('pre', {staticClass: 'text-small'}, err.message)
           return h('div', {staticClass: 'alert alert-danger'}, [title, message])
         }
-        delete options.el
+        options.el = el
         const vm = new Vue(options)
         if (vm) {
           this.playVM = vm
-          vm.$mount(el)
           // commit latest changes to localStorage
           this.commit()
         } else {
