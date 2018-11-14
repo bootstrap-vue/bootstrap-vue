@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import hljs from 'highlightjs'
 import debounce from 'lodash/debounce'
+import hljs from 'highlightjs'
 
 const NAME_REGEX = /<!-- (.*)\.vue -->/
 const NAME_DEFINITION_REGEX = /<!-- .*\.vue -->/
