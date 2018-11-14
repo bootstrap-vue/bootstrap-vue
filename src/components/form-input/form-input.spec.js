@@ -32,6 +32,7 @@ describe('form-input', async () => {
     const wrapper = mount(Input)
     const input = wrapper.find('input')
     expect(input.classes()).not.toContain('form-control-plaintext')
+    expect(input.attributes('readonly')).not.toBeDefined()
   })
 
   it('has class form-control-plaintext when plaintext=true', async () => {
@@ -42,6 +43,17 @@ describe('form-input', async () => {
     })
     const input = wrapper.find('input')
     expect(input.classes()).toContain('form-control-plaintext')
+  })
+
+  it('has attribute read-only when plaintext=true', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        plaintext: true
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes()).toContain('form-control-plaintext')
+    expect(input.attributes('readonly')).toBeDefined()
   })
 
   it('has class custom-range instead of form-control when type=range', async () => {

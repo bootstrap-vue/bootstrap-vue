@@ -48,7 +48,7 @@ export default {
         type: self.localType,
         disabled: self.disabled,
         required: self.required,
-        readonly: self.readonly || (self.plaintext && self.readonly === null),
+        readonly: self.readonly || self.plaintext,
         placeholder: self.placeholder,
         autocomplete: self.autocomplete || null,
         min: self.min,
@@ -94,7 +94,7 @@ export default {
     },
     readonly: {
       type: Boolean,
-      default: null
+      default: false
     },
     plaintext: {
       type: Boolean,
