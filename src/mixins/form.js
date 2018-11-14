@@ -12,6 +12,10 @@ export default {
     required: {
       type: Boolean,
       default: false
+    },
+    form: {
+      type: String,
+      default: null
     }
   }
 }

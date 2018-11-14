@@ -40,6 +40,7 @@ export default {
         attrs: {
           id: this.safeId(),
           name: this.name,
+          form: this.form || null,
           multiple: this.multiple || null,
           size: this.computedSelectSize,
           disabled: this.disabled,

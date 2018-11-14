@@ -37,6 +37,7 @@ export default {
         id: this.safeId(),
         type: 'checkbox',
         name: this.get_Name,
+        form: this.get_Form || null,
         disabled: this.is_Disabled,
         required: this.is_Required,
         autocomplete: 'off',

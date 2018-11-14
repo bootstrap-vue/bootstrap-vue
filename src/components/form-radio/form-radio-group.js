@@ -30,6 +30,7 @@ export default {
           props: {
             id: this.safeId(`_BV_radio_${idx}_opt_`),
             name: this.name,
+            form: this.form || null,
             value: option.value,
             required: Boolean(this.name && this.required),
             disabled: option.disabled
@@ -67,6 +68,10 @@ export default {
   props: {
     checked: {
       type: [String, Object, Number, Boolean],
+      default: null
+    },
+    form: {
+      type: String,
       default: null
     },
     validated: {

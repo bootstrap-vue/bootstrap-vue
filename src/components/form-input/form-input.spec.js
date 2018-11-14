@@ -91,6 +91,27 @@ describe('form-input', async () => {
     expect(input.attributes('id')).toBe('foobar')
   })
 
+  it('has safeId after mount when no id provided', async () => {
+    const wrapper = mount(Input, {
+      attachToDocument: true
+    })
+    const input = wrapper.find('input')
+    return wrapper.vm.$nextTick()
+      .then(function () {
+        expect(input.attributes('id')).toBeDefined()
+      })
+  })
+
+  it('has form attribute when form prop set', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        form: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('form')).toBe('foobar')
+  })
+
   it('renders text input by default', async () => {
     const wrapper = mount(Input)
     const input = wrapper.find('input')
