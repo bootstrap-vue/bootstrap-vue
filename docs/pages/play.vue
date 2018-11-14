@@ -346,7 +346,7 @@ export default {
           throw new Error('unable to create Vue instance')
         }
       } catch (err) {
-        this.log('danger', `${err}`])
+        this.log('danger', [err.toString()])
       }
     },
     toggleVertical () {
