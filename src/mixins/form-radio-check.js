@@ -89,6 +89,9 @@ export default {
     get_Name () {
       return (this.is_Child ? (this.$parent.name || this.$parent.safeId()) : this.name) || null
     },
+    get_Form () {
+      return this.is_Child ? (this.$parent.form || this.form) : this.form
+    },
     buttonClasses () {
       // Same for radio & check
       return [
