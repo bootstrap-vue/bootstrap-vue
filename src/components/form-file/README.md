@@ -145,24 +145,27 @@ assitive technologies.
 
 
 ## Clearing the file selection
-Because of limitations in the value binding with `<input type="file">` elements, `v-model`
-for `<b-form-file>` is unidirectional, and cannot be used to set or clear the file(s) selection.
-To get around this limitation, `<b-form-file>` provides a `reset()` method that can be
-called to clear the file input.
+With inputs of type file, normally the `v-model` is uni-directional (meaning
+you cannot pre-set the selected files). However, you can clear the file input's 
+selected files by setting the `v-model` to either `null`, an empty string, or an
+empty array).
 
-To take advantage of the `reset()` method, you will need to obtain a reference
-to the `<b-form-file>` component:
+Alternatively,  `<b-form-file>` provides a `reset()` method that can be called to
+clear the file input. To take advantage of the `reset()` method, you will need
+to obtain a reference to the `<b-form-file>` component.
 
 ```html
-<div id="#app">
-    <b-form-file v-model="file" ref="fileinput"></b-form-file>
-    <b-button @click="clearFiles">Reset</b-button>
-</div>
-```
+<template>
+  <div>
+    <b-form-file v-model="file" ref="fileinput" class="mb-2"></b-form-file>
+    <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
+    <b-button @click="file = null">Reset via v-model</b-button>
+    <p class="mt-2">Selected file: <b>{{ file ? file.name : ''}}</b><p>
+  </div>
+</template>
 
-```js
-window.app = new Vue({
-  el: '#app',
+<script>
+export default {
   data () {
     return {
       file: null
@@ -173,8 +176,16 @@ window.app = new Vue({
       this.$refs.fileinput.reset();
     }
   }
-})
+}
+</script>
+
+<!-- form-file-reset.vue -->
 ```
+
+**Implementation note:** As not all browsers allow setting a value of a file
+input (even to null or an empty string), `b-form-input` employs a technique that
+works cross-browser that involves changing the input type to null and then back
+to type file.
 
 
 <!-- Component reference added automatically from component package.json -->

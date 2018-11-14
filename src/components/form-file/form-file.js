@@ -2,7 +2,7 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
-import { from as arrayFrom } from '../../utils/array'
+import { from as arrayFrom, isArray } from '../../utils/array'
 
 // temporary css until Bootstrap V4.2 is released
 import './form-file.css'
@@ -36,7 +36,8 @@ export default {
       on: {
         change: this.onFileChange,
         focusin: this.focusHandler,
-        focusout: this.focusHandler
+        focusout: this.focusHandler,
+        reset: this.onReset
       }
     })
 
@@ -80,6 +81,9 @@ export default {
     }
   },
   props: {
+    value: {
+      default: null
+    },
     accept: {
       type: String,
       default: ''
@@ -152,6 +156,11 @@ export default {
       } else {
         this.$emit('input', newVal)
       }
+    },
+    value (newVal) {
+      if (!newVal || (isArray(newVal) && newVal.length === 0)) {
+        this.reset()
+      }
     }
   },
   methods: {
@@ -215,6 +224,10 @@ export default {
         // Return single file object
         this.selectedFile = files[0]
       }
+    },
+    onReset () {
+      // Triggered when the parent form (if any) is reset
+      this.selectedFile = this.multiple ? [] : null
     },
     onDragover (evt) {
       evt.preventDefault()
