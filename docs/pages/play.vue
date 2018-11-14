@@ -163,7 +163,7 @@ import Vue from 'vue'
 import debounce from 'lodash/debounce'
 
 // temp for debugging compile
-if (type of window !== 'undefined') {
+if (typeof window !== 'undefined') {
   window.Vue = Vue
 }
 
