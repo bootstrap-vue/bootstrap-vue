@@ -2,7 +2,7 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
-import { from as arrayFrom } from '../../utils/array'
+import { from as arrayFrom, isArray } from '../../utils/array'
 
 // temporary css until Bootstrap V4.2 is released
 import './form-file.css'
@@ -158,7 +158,7 @@ export default {
       }
     },
     value (newVal) {
-      if (newVal === null || newVal === '') {
+      if (!newVal || (isArray(newVal) && newVal.length === 0)) {
         this.reset()
       }
     }
