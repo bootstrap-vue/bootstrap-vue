@@ -167,7 +167,9 @@ const defaultJS = `{
         name: 'Zeus'
     },
 }`
-const defaultHTML = `<b-alert show> Hello {{ name }}! </b-alert>`
+const defaultHTML = `<div>
+  <b-alert show> Hello {{ name }}! </b-alert>
+</div>`
 
 // Maximum age of localstorage before we revert back to defaults
 // 7 days
@@ -316,13 +318,14 @@ export default {
           eval(`options = ${js}`)
           /* eslint-enable no-eval */
         } catch (err) {
-          throw new Error(`Compiling JS: ${err.message}`)
+          throw new Error(`compiling JS: ${err.message}`)
         }
         // Try to compile template
         try {
           let result = Vue.compile(html.replace(/\s{2,}/g, ''))
+          this.log('info', ['compile result', result])
         } catch (err) {
-          throw new Error(`Compiling template: ${err.message}`)
+          throw new Error(`compiling template: ${err.message}`)
         }
         options.router = this.$router
         options.template = html
@@ -340,10 +343,10 @@ export default {
           this.commit()
         } else {
           this.destroyVM()
-          throw new Error('Unable to create Vue instance')
+          throw new Error('unable to create Vue instance')
         }
       } catch (err) {
-        this.log('danger', [err.message])
+        this.log('danger', `${err}`])
       }
     },
     toggleVertical () {
