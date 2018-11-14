@@ -260,7 +260,7 @@ export default {
         argsArr.push(args[i])
       }
 
-      oLog = this.originalLog
+      let oLog = this.originalLog
       if (tag === 'danger') {
         oLog = this.originalError
       } else if (tag === 'warning') {
