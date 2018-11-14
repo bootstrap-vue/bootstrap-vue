@@ -305,6 +305,19 @@ export default {
         options.router = this.$router
         options.el = '#result'
         options.template = `<div>${this.html}</div>`
+        options.renderError = (h, err) => {
+          const title = h('h4', {}, 'Render Error')
+          const message = h('pre', { staticClass: 'text-small' }, err.stack)
+          return h(
+            'div',
+            {
+              staticClass: 'alert alert-danger'
+            },
+            [ title, message ]
+          )
+        }
+        options.errorCaptured = (err, vm, info) => {
+        }
         this.vm = new Vue(options)
 
         // Commit latest changes
