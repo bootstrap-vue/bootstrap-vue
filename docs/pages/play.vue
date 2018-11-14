@@ -162,6 +162,11 @@
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
 
+// temp for debugging compile
+if (type of window !== 'undefined') {
+  window.Vue = Vue
+}
+
 const defaultJS = `{
     data: {
         name: 'Zeus'
@@ -242,8 +247,6 @@ export default {
       console.error = function () {
         self.log('danger', arguments)
       }
-      // temp for debugging
-      window.Vue = Vue
     }
 
     this.load()
