@@ -27,6 +27,7 @@ export default {
         name: this.name,
         disabled: this.disabled,
         required: this.required,
+        form: this.form || null,
         capture: this.capture || null,
         accept: this.accept || null,
         multiple: this.multiple,
