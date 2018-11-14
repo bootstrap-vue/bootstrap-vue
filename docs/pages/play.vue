@@ -180,8 +180,7 @@ export default {
       originalWarn: null,
       originalError: null,
       vertical: false,
-      full: false,
-      lazy_run_: null
+      full: false
     }
   },
   head () {
@@ -204,21 +203,19 @@ export default {
     },
     html_fiddle () {
       return `<div id='app'>\r\n${this.html}\r\n</div>`.trim()
-    },
-    lazy_run () {
-      if (!this.lazy_run_) {
-        this.lazy_run_ = debounce(this.run.bind(this), 500)
-      }
-      return this.lazy_run_
     }
   },
   watch: {
     html () {
-      this.lazy_run()
+      this.run()
     },
     js () {
-      this.lazy_run()
+      this.run()
     }
+  },
+  created () {
+    // Create our debounced runner
+    this.run = debounce(this._run, 500)
   },
   mounted () {
     if (typeof window !== 'undefined') {
@@ -241,7 +238,7 @@ export default {
     }
 
     this.load()
-    this.run()
+    this.$nextTick(this.run)
   },
   beforeDestroy () {
     if (typeof window !== 'undefined') {
@@ -263,7 +260,13 @@ export default {
         argsArr.push(args[i])
       }
 
-      this.originalLog.apply(console, argsArr)
+      oLog = this.originalLog
+      if (tag === 'danger') {
+        oLog = this.originalError
+      } else if (tag === 'warning') {
+        oLog = this.originalWarn
+      }
+      oLog.apply(console, argsArr)
 
       if (this.messages.length > 10) {
         this.messages.splice(10)
@@ -279,51 +282,61 @@ export default {
         this.vm = null
       }
     },
-    run () {
+    _run () {
       // Destroy old VM if exists
       this.destroyVM()
 
       // Set HTML
-      this.$refs.result.innerHTML = `<div id="result"></div>`
+      this.$refs.result.innerHTML = ''
+      const el = document.createElement('div')
+      this.$refs.result.appendChild(el)
 
       // Clear messages
       this.clear()
 
+      // Build template
+      const template = `<div>${this.html}</div>`
+
       // Try Create new VM
       try {
-        let options
+        let options = {}
+        // Try to compile js
         try {
           /* eslint-disable no-eval */
           let js = this.js.trim()
           if (js.indexOf('{') !== 0) {
             js = `{${js}}`
           }
-          eval(`options= ${js}`)
+          eval(`options = ${js}`)
         } catch (err) {
-          throw new Error(`Compiling JS: ${err}`)
+          throw new Error(`Compiling JS: ${err.message}`)
+        }
+        // Try to compile template
+        try {
+          let result = Vue.compile(template)
+        } catch (err) {
+          throw new Error(`Compiling template: ${err.message}`)
         }
         options.router = this.$router
-        options.el = '#result'
-        options.template = `<div>${this.html}</div>`
+        options.template = template
         options.renderError = (h, err) => {
           const title = h('h4', {}, 'Render Error')
-          const message = h('pre', { staticClass: 'text-small' }, err.stack)
-          return h(
-            'div',
-            {
-              staticClass: 'alert alert-danger'
-            },
-            [ title, message ]
-          )
+          const message = h('pre', {staticClass: 'text-small'}, err.toString())
+          return h('div', {staticClass: 'alert alert-danger'}, [title, message])
         }
-        options.errorCaptured = (err, vm, info) => {
+        delete options.el
+        const vm = new Vue(options)
+        if (vm) {
+          this.vm = vm
+          vm.$mount(el)
+          // commit latest changes to localStorage
+          this.commit()
+        } else {
+          this.destroyVM()
+          this.log('danger', 'Unable to create Vue instance')
         }
-        this.vm = new Vue(options)
-
-        // Commit latest changes
-        this.commit()
       } catch (err) {
-        console.error(err)
+        this.log('danger', err.message)
       }
     },
     toggleVertical () {
