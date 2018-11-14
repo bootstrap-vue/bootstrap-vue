@@ -221,9 +221,6 @@ export default {
     }
   },
   mounted () {
-    this.load()
-    this.run()
-
     if (typeof window !== 'undefined') {
       this.originalLog = console.log
       this.originalWarn = console.warn
@@ -242,6 +239,9 @@ export default {
         self.log('danger', arguments)
       }
     }
+
+    this.load()
+    this.run()
   },
   beforeDestroy () {
     if (typeof window !== 'undefined') {
