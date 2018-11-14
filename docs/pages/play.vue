@@ -169,12 +169,15 @@ const defaultJS = `{
 }`
 const defaultHTML = `<b-alert show> Hello {{ name }}! </b-alert>`
 
+// Maximum age of localstorage before we revert back to defaults
+// 7 days
+const maxRetention = 7 * 24 * 60 * 60 * 1000
+
 export default {
   data () {
     return {
       html: '',
       js: '',
-      vm: null,
       messages: [],
       originalLog: null,
       originalWarn: null,
@@ -198,11 +201,11 @@ export default {
       ]
     },
     js_fiddle () {
-      const js = `new Vue({el:'#app',\r\n${this.js.trim()}})`.trim()
+      const js = `new Vue({el:'#app',\r\n${this.js.trim()}})`
       return `window.onload = function() {${js}}`
     },
     html_fiddle () {
-      return `<div id='app'>\r\n${this.html}\r\n</div>`.trim()
+      return `<div id='app'>\r\n${this.html.trim()}\r\n</div>`
     }
   },
   watch: {
@@ -214,6 +217,8 @@ export default {
     }
   },
   created () {
+    // Non reactive property to store the playground vm
+    this.playVM = null
     // Create our debounced runner
     this.run = debounce(this._run, 500)
   },
@@ -238,7 +243,8 @@ export default {
     }
 
     this.load()
-    this.$nextTick(this.run)
+    // not really needed as loading will trigger the watchers
+    // this.$nextTick(this.run)
   },
   beforeDestroy () {
     if (typeof window !== 'undefined') {
@@ -255,7 +261,7 @@ export default {
         return
       }
 
-      const argsArr = [tag]
+      const argsArr = []
       for (let i = 0; i < args.length; i++) {
         argsArr.push(args[i])
       }
@@ -271,22 +277,22 @@ export default {
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
-      this.messages.unshift([argsArr.shift(), argsArr.map(String).join(' ')])
+      this.messages.unshift([tag, argsArr.map(String).join(' ')])
     },
     destroyVM () {
-      if (this.vm) {
+      if (this.playVM) {
         try {
-          this.vm.$destroy()
+          this.playVM.$destroy()
         } catch (err) {
         }
-        this.vm = null
+        this.playVM = null
       }
     },
     _run () {
       // Destroy old VM if exists
       this.destroyVM()
 
-      // Set HTML
+      // Prepare result area
       this.$refs.result.innerHTML = ''
       const el = document.createElement('div')
       this.$refs.result.appendChild(el)
@@ -295,30 +301,31 @@ export default {
       this.clear()
 
       // Build template
-      const template = `<div>${this.html}</div>`
+      let js = this.js.trim()
+      const html = this.html.trim()
+      if (is.indexOf('{') !== 0) {
+        js = `{${js}}`
+      }
 
-      // Try Create new VM
+      // Try to create new VM
       try {
         let options = {}
         // Try to compile js
         try {
           /* eslint-disable no-eval */
-          let js = this.js.trim()
-          if (js.indexOf('{') !== 0) {
-            js = `{${js}}`
-          }
           eval(`options = ${js}`)
+          /* eslint-enable no-eval */
         } catch (err) {
           throw new Error(`Compiling JS: ${err.message}`)
         }
         // Try to compile template
         try {
-          let result = Vue.compile(template)
+          const result = Vue.compile(html)
         } catch (err) {
           throw new Error(`Compiling template: ${err.message}`)
         }
         options.router = this.$router
-        options.template = template
+        options.template = `<div>${html}</div>`
         options.renderError = (h, err) => {
           const title = h('h4', {}, 'Render Error')
           const message = h('pre', {staticClass: 'text-small'}, err.toString())
@@ -327,7 +334,7 @@ export default {
         delete options.el
         const vm = new Vue(options)
         if (vm) {
-          this.vm = vm
+          this.playVM = vm
           vm.$mount(el)
           // commit latest changes to localStorage
           this.commit()
@@ -349,18 +356,33 @@ export default {
       this.messages.splice(0)
     },
     load () {
-      if (typeof window === 'undefined' || !window.localStorage) {
+      const ls = window && window.localStorage
+      if (!ls) {
+        this.js = defaultJS.trim()
+        this.html = defaultHTML.trim()
         return
       }
-      this.js = window.localStorage.getItem('playground_js') || defaultJS.trim()
-      this.html = window.localStorage.getItem('playground_html') || defaultHTML.trim()
+      const ts = parseInt(ls.getItem('playground_ts'), 10) || 0
+      if (Date.now() - ts > maxRetention) {
+        // clear local storage if it is old
+        ls.removeItem('playground_js')
+        ls.removeItem('playground_html')
+        ls.removeItem('playground_ts')
+      }
+      this.js = ls.getItem('playground_js') || defaultJS.trim()
+      this.html = ls.getItem('playground_html') || defaultHTML.trim()
     },
     commit () {
       if (typeof window === 'undefined' || !window.localStorage) {
         return
       }
-      window.localStorage.setItem('playground_js', this.js)
-      window.localStorage.setItem('playground_html', this.html)
+      try {
+        window.localStorage.setItem('playground_js', this.js)
+        window.localStorage.setItem('playground_html', this.html)
+        window.localStorage.setItem('playground_ts', String(Date.now()))
+      } catch (err) {
+        // silently ignore errors on safari iOS private mode
+      }
     }
   }
 }
