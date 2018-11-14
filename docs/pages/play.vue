@@ -280,9 +280,6 @@ export default {
       }
     },
     run () {
-      // Commit latest changes
-      this.commit()
-
       // Destroy old VM if exists
       this.destroyVM()
 
@@ -309,6 +306,9 @@ export default {
         options.el = '#result'
         options.template = `<div>${this.html}</div>`
         this.vm = new Vue(options)
+
+        // Commit latest changes
+        this.commit()
       } catch (err) {
         console.error(err)
       }
