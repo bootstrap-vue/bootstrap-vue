@@ -81,7 +81,7 @@ export default {
         class: this.is_ButtonMode
           ? null
           : this.is_Plain ? 'form-check-label' : 'custom-control-label',
-        attrs: { for: this.is_ButtonMode ? null : this.safeId() }
+        attrs: { for: this.safeId() }
       },
       [this.$slots.default]
     )
