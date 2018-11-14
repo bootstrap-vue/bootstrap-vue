@@ -242,6 +242,8 @@ export default {
       console.error = function () {
         self.log('danger', arguments)
       }
+      // temp for debugging
+      window.Vue = Vue
     }
 
     this.load()
