@@ -320,7 +320,7 @@ export default {
         }
         // Try to compile template
         try {
-          const result = Vue.compile(html)
+          let result = Vue.compile(html.replace(/\s{2,}/g, '')
         } catch (err) {
           throw new Error(`Compiling template: ${err.message}`)
         }
@@ -328,7 +328,7 @@ export default {
         options.template = html
         options.renderError = (h, err) => {
           const title = h('h4', {}, 'Render Error')
-          const message = h('pre', {staticClass: 'text-small'}, err.toString())
+          const message = h('pre', {staticClass: 'text-small'}, err.message)
           return h('div', {staticClass: 'alert alert-danger'}, [title, message])
         }
         delete options.el
