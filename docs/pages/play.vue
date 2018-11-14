@@ -272,7 +272,7 @@ export default {
       } else if (tag === 'warning') {
         oLog = this.originalWarn
       }
-      oLog.apply(console, argsArr)
+      oLog.apply(console, [].concat(tag, argsArr))
 
       if (this.messages.length > 10) {
         this.messages.splice(10)
@@ -325,7 +325,7 @@ export default {
           throw new Error(`Compiling template: ${err.message}`)
         }
         options.router = this.$router
-        options.template = `<div>${html}</div>`
+        options.template = html
         options.renderError = (h, err) => {
           const title = h('h4', {}, 'Render Error')
           const message = h('pre', {staticClass: 'text-small'}, err.toString())
@@ -340,10 +340,10 @@ export default {
           this.commit()
         } else {
           this.destroyVM()
-          this.log('danger', 'Unable to create Vue instance')
+          throw new Error('Unable to create Vue instance')
         }
       } catch (err) {
-        this.log('danger', err.message)
+        this.log('danger', [err.message])
       }
     },
     toggleVertical () {
