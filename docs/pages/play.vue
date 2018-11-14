@@ -303,7 +303,7 @@ export default {
       // Build template
       let js = this.js.trim()
       const html = this.html.trim()
-      if (is.indexOf('{') !== 0) {
+      if (js.indexOf('{') !== 0) {
         js = `{${js}}`
       }
 
