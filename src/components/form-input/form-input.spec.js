@@ -96,7 +96,10 @@ describe('form-input', async () => {
       attachToDocument: true
     })
     const input = wrapper.find('input')
-    expect(input.attributes('id')).toBeDefined()
+    return wrapper.vm.$nextTick()
+      .then(function () {
+        expect(input.attributes('id')).toBeDefined()
+      })
   })
 
   it('has form attribute when form prop set', async () => {
