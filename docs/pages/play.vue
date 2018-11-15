@@ -284,7 +284,7 @@ export default {
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
-      this.messages.unshift([tag, args.map(String).join(' ')])
+      this.messages.unshift([tag, [].concat(args).map(String).join(' ')])
     },
     destroyVM () {
       if (this.playVM) {
@@ -318,10 +318,8 @@ export default {
       }
 
       // Build vm and mount it
-      Vue.config.errorHandler = (err, vm, info) => {
-        self.log('danger', [err.toString()])
-      }
       try {
+        const self = this
         const holder = document.createElement('div')
         this.$refs.result.appendChild(holder)
         html = `<div>${html}</div>`
