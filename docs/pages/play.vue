@@ -229,10 +229,13 @@ export default {
     this.playVM = null
     // disable global error handler
     this.oldErrorHandler = Vue.config.errorHandler
+    Vue.config.errorHandler = null
+/*
     Vue.config.errorHandler = (err, vm, info) => {
       self.log('danger', `Error in ${info}: [${err.name}] ${err.message}`)
       // Note Vue still sends original error to console.error()!!!
     }
+*/
     // original console logger
     if (typeof window !== 'undefined' && console) {
       this.originalLog = console.log
@@ -293,21 +296,26 @@ export default {
         this.playVM = null
         return
       }
+      
+      if (!html) {
+        this.log('danger', 'No template provided')
+        return
+      }
 
       // Build vm and mount it
+      let holder = document.createElement('div')
+      this.$refs.result.appendChild(holder)
       try {
-        const holder = document.createElement('div')
-        this.$refs.result.appendChild(holder)
         this.playVM = new Vue(Object.assign({}, options, {
-          template: `<div>${html}</div>`,
+          template: `<div id="playground-app">${html}</div>`,
           el: holder,
           // router needed for tooltips and popovers so they hide when route changes
-          router: self.$router
+          router: this.$router
         }))
       } catch (err) {
+        holder = null
         this.destroyVM()
-        // send to errorHandler
-        throw err
+        self.log('danger', `Error in render: [${err.name}] ${err.message}`)
         return
       }
 
