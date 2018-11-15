@@ -308,21 +308,18 @@ export default {
       this.messages.unshift([tag, argsArr.map(String).join(' ')])
     },
     destroyVM () {
-      console.log('destroyVM...')
       if (this.playVM) {
         try {
           this.playVM.$destroy()
         } catch (err) {
         }
-        removeNode(this.playVM)
+        removeNode(this.playVM.$el)
         this.playVM.$el.innerHTML = ''
-        this.playVM = null
-        this.$refs.result.innerHTML = ''
       }
+      this.playVM = null
       this.$refs.result.innerHTML = ''
     },
     createVM () {
-      console.log('createVM...')
       let options = {}
       let js = this.js.trim()
       if (js.indexOf('{') !== 0) {
