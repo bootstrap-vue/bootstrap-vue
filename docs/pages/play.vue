@@ -187,7 +187,7 @@ const playErrorBoundary = {
     return false
   },
   render (h) {
-    return this.error ? h('p', 'whoops!') : this.slots.default[0]
+    return this.error ? h('p', 'whoops!') : this.$slots.default[0]
   }
 }
 
