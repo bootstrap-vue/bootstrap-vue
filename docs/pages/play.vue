@@ -70,9 +70,11 @@
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
+              <code>&lt;div&gt;</code>
               <codemirror
-                v-model="html"
+                v-model="ctx.html"
                 mode="htmlmixed"/>
+              <code>&lt;/div&gt;</code>
             </div>
           </div>
           <div
@@ -91,7 +93,7 @@
                 </b-btn>
               </div>
               <codemirror
-                v-model="js"
+                v-model="ctx.js"
                 mode="javascript"/>
             </div>
           </div>
@@ -179,8 +181,10 @@ const removeNode = node => node && node.parentNode && node.parentNode.removeChil
 export default {
   data () {
     return {
-      html: '',
-      js: '',
+      ctx: {
+        html: '',
+        js: ''
+      },
       messages: [],
       vertical: false,
       full: false
@@ -201,60 +205,45 @@ export default {
       ]
     },
     js_fiddle () {
-      const js = `new Vue({el:'#app',\r\n${this.js.trim()}})`
+      const js = `new Vue({el:'#app',\r\n${this.ctx.js.trim()}})`
       return `window.onload = function() {${js}}`
     },
     html_fiddle () {
-      return `<div id='app'>\r\n${this.html.trim()}\r\n</div>`
+      return `<div id='app'>\r\n${this.ctx.html.trim()}\r\n</div>`
     }
   },
   watch: {
-    html (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.run()
-      }
-    },
-    js (newVal, oldVal) {
-      if (newVal !== oldVal) { 
-        this.run()
-      }
+    ctx () {
+      this.run()
     }
   },
   created () {
+    const self = this
     // Non reactive property to store the playground vm
     this.playVM = null
     // disable global error handler
     this.oldErrorHandler = Vue.config.errorHandler
-    Vue.config.errorHandler = null
-    // original console loggers
+    Vue.config.errorHandler = (err, vm, info) => {
+      self.log('danger', [`Error in ${info}: [${err.name}] ${err.message}`])
+    }
+    // original console logger
     if (typeof window !== 'undefined') {
       this.originalLog = console.log
-      this.originalWarn = console.warn
-      this.originalError = console.error
-      const self = this
-/*
-      console.warn = function () {
-        self.log('warning', arguments)
-      }
       console.log = function () {
         self.log('info', arguments)
+        this.originalLog.apply(console, arguements)
       }
-      console.error = function () {
-        self.log('danger', arguments)
-      }
-*/
     }
     // Create our debounced runner
     this.run = debounce(this._run, 500)
   },
   mounted () {
+    // load our content into the editors after dom updated
     this.$nextTick(this.load)
   },
   beforeDestroy () {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && this.originalLog) {
       console.log = this.originalLog
-      console.warn = this.originalWarn
-      console.error = this.originalError
     }
     Vue.config.errorHandler = this.oldErrorHandler
     this.destroyVM()
@@ -265,8 +254,6 @@ export default {
       if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
         return
       }
-      // this.originalLog.apply(console, [].concat(tag, args))
-
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
@@ -276,18 +263,18 @@ export default {
       if (this.playVM) {
         try {
           this.playVM.$destroy()
+          removeNode(this.playVM.$el)
+          this.playVM.$el.innerHTML = ''
         } catch (err) {
         }
-        removeNode(this.playVM.$el)
-        this.playVM.$el.innerHTML = ''
       }
       this.playVM = null
       this.$refs.result.innerHTML = ''
     },
     createVM () {
       let options
-      let js = this.js.trim()
-      let html = this.html.trim()
+      let js = this.ctx.js.trim()
+      let html = this.ctx.html.trim()
 
       // Test JavaScript
       try {
@@ -311,17 +298,9 @@ export default {
         html = `<div>${html}</div>`
         this.playVM = new Vue(Object.assign({}, options, {
           template: html,
-          // router: this.$router,
-          el: holder,
-          renderError (h, err) {
-            // Only works in dev mode
-            self.log('danger', [err])
-            return h(
-              'div',
-              {class: 'text-danger'},
-              [h('h5', 'Whoops!'), h('pre', err.toString())]
-            )
-          }
+          el.holder,
+          // router needed for tooltips and popovers so they hide when route changes
+          router: this.$router
         }))
       } catch (err) {
         this.destroyVM()
@@ -351,8 +330,8 @@ export default {
     load () {
       const ls = window && window.localStorage
       if (!ls) {
-        this.js = defaultJS.trim()
-        this.html = defaultHTML.trim()
+        this.ctx.js = defaultJS.trim()
+        this.ctx.html = defaultHTML.trim()
         return
       }
       const ts = parseInt(ls.getItem('playground_ts'), 10) || 0
@@ -362,16 +341,16 @@ export default {
         ls.removeItem('playground_html')
         ls.removeItem('playground_ts')
       }
-      this.js = ls.getItem('playground_js') || defaultJS.trim()
-      this.html = ls.getItem('playground_html') || defaultHTML.trim()
+      this.ctx.js = ls.getItem('playground_js') || defaultJS.trim()
+      this.ctx.html = ls.getItem('playground_html') || defaultHTML.trim()
     },
     save () {
       if (typeof window === 'undefined' || !window.localStorage) {
         return
       }
       try {
-        window.localStorage.setItem('playground_js', this.js)
-        window.localStorage.setItem('playground_html', this.html)
+        window.localStorage.setItem('playground_js', this.ctx.js)
+        window.localStorage.setItem('playground_html', this.ctx.html)
         window.localStorage.setItem('playground_ts', String(Date.now()))
       } catch (err) {
         // silently ignore errors on safari iOS private mode
