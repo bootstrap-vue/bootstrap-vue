@@ -167,6 +167,7 @@ const defaultJS = `{
         name: 'Zeus'
     },
 }`
+
 const defaultHTML = `<div>
   <b-alert show> Hello {{ name }}! </b-alert>
 </div>`
@@ -174,6 +175,8 @@ const defaultHTML = `<div>
 // Maximum age of localstorage before we revert back to defaults
 // 7 days
 const maxRetention = 7 * 24 * 60 * 60 * 1000
+
+const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
 // Helper wrapper component
 const playErrorBoundary = {
@@ -310,59 +313,64 @@ export default {
           this.playVM.$destroy()
         } catch (err) {
         }
+        removeNode(this.playVM)
+        this.playVM.$el.innerHTML = ''
         this.playVM = null
         this.$refs.result.innerHTML = ''
       }
-    },
-    _run () {
-      // Destroy old VM if exists
-      this.destroyVM()
-
-      // Prepare result area
       this.$refs.result.innerHTML = ''
-      const el = document.createElement('div')
-      this.$refs.result.appendChild(el)
-
-      // Clear messages
-      this.clear()
-
-      // Build template
+    },
+    createVM () {
+      let options = {}
       let js = this.js.trim()
-      const html = this.html.trim()
       if (js.indexOf('{') !== 0) {
         js = `{${js}}`
       }
 
+      // Test javascript
       try {
-        let options = {}
-        // Try to compile js
-        try {
-          /* eslint-disable no-eval */
-          eval(`options = ${js}`)
-          /* eslint-enable no-eval */
-        } catch (err) {
-          throw new Error(`compiling JS: ${err.message}`)
-        }
-        options.router = this.$router
-        options.template = `<play-error-boundary><div>${html}</div></play-error-boundary>`
-        options.renderError = (h, err) => {
-          const title = h('h4', {}, 'Render Error')
-          const message = h('pre', {staticClass: 'text-small'}, err.message)
-          return h('div', {staticClass: 'alert alert-danger'}, [title, message])
-        }
-        options.el = el
-        const vm = new Vue(options)
-        if (vm) {
-          this.playVM = vm
-          // commit latest changes to localStorage
-          this.commit()
-        } else {
-          this.destroyVM()
-          throw new Error('unable to create Vue instance')
-        }
+        /* eslint-disable no-eval */
+        eval(`options = ${js}`)
+        /* eslint-enable no-eval */
       } catch (err) {
-        this.log('danger', [err.toString()])
+        this.log('danger', [`Error compiling JS: ${err.message}`])
+        this.playVM = null
+        return
       }
+
+      const holder = document.createElement('div')
+      this.$refs.result.appendChild(holder)
+      const self = this
+
+      options = Object.assign({}, options, {
+        template = `<div>${this.html,trim()}</div>`,
+        el: holder,
+        router: this.$router,
+        errorCaptured (err, vm, info) {
+          self.log('danger', [err, info])
+          return false
+        },
+        renderError (h, err) {
+          self.log('danger', [err])
+          return h('div', ['Whoops!`, h('br'), err.message]) 
+        }
+      })
+
+      try {
+        this.playVM = new Vue(options)
+      } catch (err) {
+        this.log('danger', [`Error creating Vue instance: ${err.message}`])
+        this.playVM = null
+        return
+      }
+
+      this.save()
+    },
+    _run () {
+      // Destroy old VM if exists
+      this.destroyVM()
+      this.clear()
+      this.createVM()
     },
     toggleVertical () {
       this.vertical = !this.vertical
@@ -390,7 +398,7 @@ export default {
       this.js = ls.getItem('playground_js') || defaultJS.trim()
       this.html = ls.getItem('playground_html') || defaultHTML.trim()
     },
-    commit () {
+    save () {
       if (typeof window === 'undefined' || !window.localStorage) {
         return
       }
