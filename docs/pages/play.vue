@@ -236,6 +236,7 @@ export default {
       this.originalError = console.error
       const self = this
 
+      if (false) {
       console.warn = function () {
         self.log('warning', arguments)
       }
@@ -244,6 +245,7 @@ export default {
       }
       console.error = function () {
         self.log('danger', arguments)
+      }
       }
     }
 
@@ -259,27 +261,11 @@ export default {
   },
   methods: {
     log (tag, args) {
-      let skipConsole = false
       // We have to ignore props mutation warning due to vue bug when we have two instances
       if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
         return
       }
-      if (String(args[0]).indexOf('is not defined') !== -1) {
-        skipConsole = true
-      }
-      if (String(args[0]).indexOf('Illegal invocation') !== -1) {
-        skipConsole = true
-      }
-
-      if (!skipConsole) {
-        let oLog = this.originalLog
-        if (tag === 'danger') {
-          oLog = this.originalError
-        } else if (tag === 'warning') {
-          oLog = this.originalWarn
-        }
-        oLog.apply(console, [].concat(tag, args))
-      }
+      this.originalLog.apply(console, [].concat(tag, args))
 
       if (this.messages.length > 10) {
         this.messages.splice(10)
