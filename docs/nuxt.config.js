@@ -1,8 +1,17 @@
 const fs = require('fs')
+const hljs = require('highlightjs')
 const marked = require('marked')
 
-// Markdown renderer with BS4 tables support
 const renderer = new marked.Renderer()
+
+// Custom "highlightjs" implementation for markdown renderer
+renderer.code = (code, language) => {
+  const validLang = !!(language && hljs.getLanguage(language))
+  const highlighted = validLang ? hljs.highlight(language, code).value : code
+  return `<pre class="hljs ${language}">${highlighted}</pre>`
+}
+
+// BS4 table support for markdown renderer
 const originalTable = renderer.table
 renderer.table = function renderTable (header, body) {
   let r = originalTable.apply(this, arguments)
@@ -25,7 +34,6 @@ module.exports = {
         test: /\.md$/,
         use: [
           { loader: 'html-loader' },
-          { loader: 'highlight-loader' },
           { loader: 'markdown-loader', options: { renderer } }
         ]
       })

@@ -48,43 +48,40 @@ This is a verbose example designed to show how Bootstrap-Vue and Vuelidate inter
 </template>
 
 <script>
-  import { validationMixin } from "vuelidate"
-  import { required, minLength } from "vuelidate/lib/validators"
+import { validationMixin } from 'vuelidate'
+import validators from 'vuelidate/lib/validators'
 
-  export default {
-    name: "myForm",
-    data() {
-      return {
-        foods: [
-          "apple",
-          "orange"
-        ],
-        form: {}
-      }
-    },
-    mixins: [
-      validationMixin
-    ],
-    validations: {
-      form: {
-        food: {
-          required
-        },
-        name: {
-          required,
-          minLength: minLength(3)
-        }
-      }
-    },
-    methods: {
-      onSubmit() {
-        // form submit logic
+export default {
+  data() {
+    return {
+      foods: [
+        'apple',
+        'orange'
+      ],
+      form: {}
+    }
+  },
+  mixins: [
+    validationMixin
+  ],
+  validations: {
+    form: {
+      food: {
+        required: validators.required
+      },
+      name: {
+        required: validators.required,
+        minLength: validators.minLength(3)
       }
     }
+  },
+  methods: {
+    onSubmit() {
+      // form submit logic
+    }
   }
+}
 </script>
-
-<!-- form-validation-1.vue -->
 ```
 
 ## vee-validate
@@ -95,7 +92,7 @@ This is a verbose example designed to show how Bootstrap-Vue and Vuelidate inter
 
 You need to configure `vee-validate`'s fields property or it will conflict with `b-table`'s `:fields` property when it injects itself.
 
-```
+```js
 import Vue from 'vue'
 import VeeValidate from 'vee-validate'
 
@@ -145,32 +142,28 @@ Same example as above just modified for vee-validate:
 </template>
 
 <script>
-
-  export default {
-    name: "myForm",
-    data() {
-      return {
-        foods: [
-          "apple",
-          "orange"
-        ],
-        form: {}
-      }
-    },
-    methods: {
-      onSubmit() {
-        // form submit logic
-      },
-      validateState(ref) {
-        if (this.veeFields[ref] && (this.veeFields[ref].dirty || this.veeFields[ref].validated)) {
-          return !this.errors.has(ref)
-        }
-        return null
-      },
+export default {
+  data() {
+    return {
+      foods: [
+        'apple',
+        'orange'
+      ],
+      form: {}
     }
+  },
+  methods: {
+    onSubmit() {
+      // form submit logic
+    },
+    validateState(ref) {
+      if (this.veeFields[ref] && (this.veeFields[ref].dirty || this.veeFields[ref].validated)) {
+        return !this.errors.has(ref)
+      }
+      return null
+    },
   }
+}
 </script>
-
-<!-- form-validation-1.vue -->
 ```
 

@@ -92,7 +92,6 @@
     "eslint-plugin-standard": "^3.1.0",
     "eslint-plugin-vue": "^4.5.0",
     "gh-pages": "^1.1.0",
-    "highlight-loader": "^0.7.2",
     "highlightjs": "^9.8.0",
     "html-loader": "^0.5.4",
     "jest": "^22.0.6",

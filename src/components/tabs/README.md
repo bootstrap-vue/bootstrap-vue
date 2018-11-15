@@ -10,7 +10,7 @@
   <b-tab title="first" active>
     <br>I'm the first fading tab
   </b-tab>
-  <b-tab title="second" >
+  <b-tab title="second">
     <br>I'm the second tab content
   </b-tab>
   <b-tab title="disabled" disabled>
@@ -66,7 +66,7 @@ To disable the `card-body` class, set the `no-body` prop on `<b-tab>` sub compon
       <b-card-img bottom src="https://picsum.photos/600/200/?image=26" />
       <b-card-footer>Picture 3 footer</b-card-footer>
     </b-tab>
-    <b-tab title="Text" key="tab-1">
+    <b-tab title="Text" key="tab-4">
       <h5>This tab does not have the <code>no-body</code> prop set</h5>
       Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
       tempor. Laborum consequat non elit enim exercitation cillum aliqua consequat
@@ -114,7 +114,7 @@ Visually move the tab controls to the bottom by setting the prop `end`
     <b-tab title="Tab 1" active key="tab-1">
       Tab Contents 1
     </b-tab>
-    <b-tab title="Tab 2" key="tab-1">
+    <b-tab title="Tab 2" key="tab-2">
       Tab Contents 2
     </b-tab>
   </b-tabs>
@@ -124,7 +124,7 @@ Visually move the tab controls to the bottom by setting the prop `end`
 ```
 
 **Caveats:**
-- Bottom placement visually works best with the `pills` variant. When using the default 
+- Bottom placement visually works best with the `pills` variant. When using the default
 `tabs` vairiant, you may want to provided your own custom styling classes, as Bootstrap
 V4 CSS assumes the tabs will always be placed on the top of the tabs content.
 - To provide a better user experience with bottom palced controls, ensure that the
@@ -200,7 +200,7 @@ or column classes such as `col-2`, `col-3`, etc.
 <!-- tabs-vertical-width.vue -->
 ```
 
-Vertical placement visually works best with the `pills` variant. When using the default 
+Vertical placement visually works best with the `pills` variant. When using the default
 `tabs` vairiant, you may want to provided your own custom styling classes, as Bootstrap
 V4 CSS assumes the tab controls will always be placed on the top of the tabs content.
 
@@ -232,7 +232,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
 
 ## Add custom content to tab title
 
-If you want to add custom content to tab title, like HTML code, icons, or another Vue component, this possible by using 
+If you want to add custom content to tab title, like HTML code, icons, or another Vue component, this possible by using
 `title` slot
 
 ```html
@@ -247,7 +247,7 @@ If you want to add custom content to tab title, like HTML code, icons, or anothe
 </b-tabs>
 
 <!-- tabs-title-slot.vue -->
-``` 
+```
 
 ## Apply custom classes to the generated nav-tabs or pills
 
@@ -311,7 +311,7 @@ Keyboard navigation is enabled by default.
 | <kbd>TAB</kbd> | Move to the next control on the page
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Move to the previous control on the page
 
-Disable it by setting the prop `no-key-nav`. Behavior will now default to standard browser navigation with TAB key. 
+Disable it by setting the prop `no-key-nav`. Behavior will now default to standard browser navigation with TAB key.
 
 | Keypress | Action
 | -------- | ------
