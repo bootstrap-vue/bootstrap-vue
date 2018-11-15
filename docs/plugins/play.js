@@ -118,6 +118,8 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
         // Recreate VM
         destroyVM(name, vm)
         vm = createVM(name, pre, vnode)
+
+        pre.classList.toggle('error', vm === null)
       }, 250)
     }
   })
