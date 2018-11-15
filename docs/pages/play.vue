@@ -115,9 +115,7 @@
             </b-btn>
           </div>
           <div class="card-body">
-            <play-error-boundary>
-             <div ref="result"/>
-            </play-error-boundary>
+             <div id="playground-result" key="playground-result" ref="result"/>
           </div>
         </div>
 
@@ -163,9 +161,9 @@ import Vue from 'vue'
 import debounce from 'lodash/debounce'
 
 const defaultJS = `{
-    data: {
-        name: 'Zeus'
-    },
+  data: {
+    name: 'Zeus'
+  },
 }`
 
 const defaultHTML = `<div>
@@ -178,26 +176,7 @@ const maxRetention = 7 * 24 * 60 * 60 * 1000
 
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
-// Helper wrapper component
-const playErrorBoundary = {
-  name: 'playErrorBoundary',
-  data () {
-    return { error: false }
-  },
-  errorCaptured (err, vm, info) {
-    this.error = true
-    console.error(err, info)
-    return false
-  },
-  render (h) {
-    return this.error ? h('p', 'whoops!') : this.$slots.default[0]
-  }
-}
-
 export default {
-  components: {
-    playErrorBoundary
-  },
   data () {
     return {
       html: '',
@@ -260,19 +239,15 @@ export default {
       console.warn = function () {
         self.log('warning', arguments)
       }
-
       console.log = function () {
         self.log('info', arguments)
       }
-
       console.error = function () {
         self.log('danger', arguments)
       }
     }
 
-    this.load()
-    // not really needed as loading will trigger the watchers
-    // this.$nextTick(this.run)
+    this.$nextTick(this.load)
   },
   beforeDestroy () {
     if (typeof window !== 'undefined') {
@@ -320,14 +295,15 @@ export default {
       this.$refs.result.innerHTML = ''
     },
     createVM () {
-      let options = {}
+      let options
       let js = this.js.trim()
-      if (js.indexOf('{') !== 0) {
-        js = `{${js}}`
-      }
+      let html = this.html.trim()
 
-      // Test javascript
+      // Test JavaScript
       try {
+        if (js.indexOf('{') !== 0) {
+          js = `{${js}}`
+        }
         /* eslint-disable no-eval */
         eval(`options = ${js}`)
         /* eslint-enable no-eval */
@@ -337,30 +313,25 @@ export default {
         return
       }
 
-      const holder = document.createElement('div')
-      this.$refs.result.appendChild(holder)
-      const self = this
-
-      options = Object.assign({}, options, {
-        template: `<div>${this.html.trim()}</div>`,
-        el: holder,
-        router: this.$router,
-        errorCaptured (err, vm, info) {
-          self.log('danger', [err, info])
-          return false
-        },
-        renderError (h, err) {
-          // Only works in dev mode
-          self.log('danger', [err])
-          return h('div', ['Whoops!', h('br'), err.message]) 
-        }
-      })
-
+      // Build vm and mount it
       try {
-        this.playVM = new Vue(options)
+        const holder = document.createElement('div')
+        this.$refs.result.appendChild(holder)
+        const self = this
+        html = `<div>${html}</div>`
+        thiss.playVM = new Vue(Object.assign({}, options, {
+          template: html,
+          // router: this.$router,
+          el: holder,
+          renderError (h, err) {
+            // Only works in dev mode
+            self.log('danger', [err])
+            return h('div', {class: 'text-danger'}, [h('h5', 'Whoops!'], h('pre', err.toString())])
+          }
+        }))
       } catch (err) {
+        this.destroyVM()
         this.log('danger', [`Error creating Vue instance: ${err.message}`])
-        this.playVM = null
         return
       }
 
