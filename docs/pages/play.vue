@@ -333,7 +333,7 @@ export default {
             return h(
               'div',
               {class: 'text-danger'},
-              [h('h5', 'Whoops!']), h('pre', err.toString())]
+              [h('h5', 'Whoops!'), h('pre', err.toString())]
             )
           }
         }))
