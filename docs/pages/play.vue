@@ -114,9 +114,7 @@
               <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
             </b-btn>
           </div>
-          <div class="card-body">
-             <div id="playground-result" key="playground-result" ref="result"/>
-          </div>
+          <div class="card-body" ref="result"></div>
         </div>
 
         <!--Console-->
@@ -133,17 +131,17 @@
                 <span>Clear</span>
               </b-btn>
             </div>
-            <div class="card-body">
-              <div
+            <ul class="list-group list-group-flush">
+              <li
                 v-for="(message, idx) in messages"
+                class="list-group-item"
                 :key="`console-${idx}`">
                 <b-badge :variant="message[0]" style="width:1.25rem;">{{
                   message[0] === 'danger' ? 'X' : '?'
                 }}</b-badge>
                 <span class="text-muted"> {{ message[1] }}</span>
-                <br>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -235,7 +233,7 @@ export default {
     }
     // original console logger
     if (typeof window !== 'undefined' && console) {
-      that = console
+      const that = console
       this.originalLog = console.log
       console.log = function () {
         self.log.call(self, 'info', ...arguments)
@@ -320,6 +318,9 @@ export default {
       this.save()
     },
     _run () {
+      if (this.$isServer) {
+        return
+      }
       // Destroy old VM if exists
       this.destroyVM()
       // clear the log
