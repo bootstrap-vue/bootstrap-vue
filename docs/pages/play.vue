@@ -115,9 +115,9 @@
             </b-btn>
           </div>
           <div class="card-body">
-            <div
-              id="result-container"
-              ref="result"/>
+            <play-error-boundary>
+             <div ref="result"/>
+            </play-error-boundary>
           </div>
         </div>
 
@@ -179,7 +179,7 @@ const maxRetention = 7 * 24 * 60 * 60 * 1000
 const playErrorBoundary = {
   name: 'playErrorBoundary',
   data () {
-    return { error: flase }
+    return { error: false }
   },
   errorCaptured (err, vm, info) {
     this.error = true
@@ -339,7 +339,6 @@ export default {
         } catch (err) {
           throw new Error(`compiling JS: ${err.message}`)
         }
-        options.components = { playErrorBoundary }
         options.router = this.$router
         options.template = `<play-error-boundary><div>${html}</div></play-error-boundary>`
         options.renderError = (h, err) => {
