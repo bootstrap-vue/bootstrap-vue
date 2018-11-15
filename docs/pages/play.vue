@@ -352,7 +352,7 @@ export default {
         },
         renderError (h, err) {
           self.log('danger', [err])
-          return h('div', ['Whoops!`, h('br'), err.message]) 
+          return h('div', ['Whoops!', h('br'), err.message]) 
         }
       })
 
