@@ -314,26 +314,36 @@ export default {
       }
 
       // Build vm and mount it
+      const self = this
+      const oldErrHandler = Vue.config.errorHandler
+      Vue.config.errorHandler = (err, vm, info) => {
+        self.log('danger', [err.toString()])
+      }
       try {
         const holder = document.createElement('div')
         this.$refs.result.appendChild(holder)
-        const self = this
         html = `<div>${html}</div>`
-        thiss.playVM = new Vue(Object.assign({}, options, {
+        this.playVM = new Vue(Object.assign({}, options, {
           template: html,
           // router: this.$router,
           el: holder,
           renderError (h, err) {
             // Only works in dev mode
             self.log('danger', [err])
-            return h('div', {class: 'text-danger'}, [h('h5', 'Whoops!']), h('pre', err.toString())])
+            return h(
+              'div',
+              {class: 'text-danger'},
+              [h('h5', 'Whoops!']), h('pre', err.toString())]
+            )
           }
         }))
       } catch (err) {
         this.destroyVM()
         this.log('danger', [`Error creating Vue instance: ${err.message}`])
+        Vue.config.errorHandler = oldErrHandler
         return
       }
+      Vue.config.errorHandler = oldErrHandler
 
       this.save()
     },
