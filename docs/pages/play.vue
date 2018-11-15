@@ -230,11 +230,15 @@ export default {
     }
   },
   watch: {
-    html () {
-      this.run()
+    html (newVal, oldVal) {
+      if (newVal! === oldVal) {
+        this.run()
+      }
     },
-    js () {
-      this.run()
+    js (newVal, oldVal) {
+      if (newVal !== oldVal) { 
+        this.run()
+      }
     }
   },
   created () {
