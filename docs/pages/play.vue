@@ -326,7 +326,7 @@ export default {
           renderError (h, err) {
             // Only works in dev mode
             self.log('danger', [err])
-            return h('div', {class: 'text-danger'}, [h('h5', 'Whoops!'], h('pre', err.toString())])
+            return h('div', {class: 'text-danger'}, [h('h5', 'Whoops!']), h('pre', err.toString())])
           }
         }))
       } catch (err) {
