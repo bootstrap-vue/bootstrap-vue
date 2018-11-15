@@ -118,31 +118,30 @@
         </div>
 
         <!--Console-->
-        <div class="">
-          <div class="card mt-2">
-            <div class="card-header card-outline-secondary">
-              <span>Console</span>
-              <b-btn
-                size="sm"
-                @click="clear"
-                variant="outline-danger"
-                class="float-right"
-                v-if="messages.length">
-                <span>Clear</span>
-              </b-btn>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li
-                v-for="(message, idx) in messages"
-                class="list-group-item"
-                :key="`console-${idx}`">
-                <b-badge :variant="message[0]" style="width:1.25rem;">{{
-                  message[0] === 'danger' ? 'X' : '?'
-                }}</b-badge>
-                <span class="text-muted"> {{ message[1] }}</span>
-              </li>
-            </ul>
+        <div class="card mt-2">
+          <div class="card-header card-outline-secondary">
+            <span>Console</span>
+            <b-btn
+              size="sm"
+              @click="clear"
+              variant="outline-danger"
+              class="float-right"
+              v-if="messages.length">
+              <span>Clear</span>
+            </b-btn>
           </div>
+          <ul v-if="messages.length" class="list-group list-group-flush">
+            <li
+              v-for="(message, idx) in messages"
+              class="list-group-item"
+              :key="`console-${idx}`">
+              <b-badge :variant="message[0]" style="width:1.25rem;">{{
+                message[0] === 'danger' ? 'X' : '?'
+              }}</b-badge>
+              <span class="text-muted"> {{ message[1] }}</span>
+            </li>
+          </ul>
+          <div v-else class="card-body">&nbsp;</div>
         </div>
       </div>
     </transition-group>
@@ -222,15 +221,17 @@ export default {
     this.playVM = null
     // disable global error handler
     this.oldErrorHandler = Vue.config.errorHandler
+/*
     Vue.config.errorHandler = null
     Vue.config.errorHandler = (err, vm, info) => {
       try {
-        self.log.call(self, 'danger', `Error in ${info}: [${err.name}] ${err.message}`)
+        self.log.call(self, 'danger', `Error in ${info}: ${String(err)}`)
         // Note Vue still sends original error to console.error()!!!
       } catch (err) {
         // prevent possible endless loops
       }
     }
+*/
     // original console logger
     if (typeof window !== 'undefined' && console) {
       const that = console
@@ -267,10 +268,16 @@ export default {
     },
     destroyVM () {
       if (this.playVM) {
+        let parent
         try {
+          parent = this.playVM.$parent
           this.playVM.$destroy()
           removeNode(this.playVM.$el)
           this.playVM.$el.innerHTML = ''
+        } catch (err) {
+        }
+        try {
+          parent.$destroy()
         } catch (err) {
         }
       }
@@ -302,16 +309,26 @@ export default {
       let holder = document.createElement('div')
       this.$refs.result.appendChild(holder)
       try {
+        const fakeParent = new Vue({
+          template: '<div></div>',
+          errorCaptured(err, vm, info) {
+            self.log.call(self, 'danger', `Error in ${info}: ${err.message}`)
+            // return false so we don't propagate to global error handler
+            return false
+          },
+        })
         this.playVM = new Vue(Object.assign({}, options, {
           template: `<div id="playground-app">${html}</div>`,
           el: holder,
+          // we set a fake parent so we can capture errors
+          parent: fakeParent,
           // router needed for tooltips and popovers so they hide when route changes
           router: this.$router
         }))
       } catch (err) {
         holder = null
         this.destroyVM()
-        self.log('danger', `Error in render: [${err.name}] ${err.message}`)
+        self.log('danger', `Error in render: ${err.message}`)
         return
       }
 
