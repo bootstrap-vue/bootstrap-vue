@@ -78,7 +78,7 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
     // Store example name globally
     const name = match(NAME_REGEX, pre.textContent)
 
-    // Exit early when name is given
+    // Exit early when no name is given
     if (!name) {
       return
     }
