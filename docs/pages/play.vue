@@ -154,18 +154,13 @@
 
 <style>
 .flip-move {
-    transition: all .3s;
+  transition: all .3s;
 }
 </style>
 
 <script>
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
-
-// temp for debugging compile
-if (typeof window !== 'undefined') {
-  window.Vue = Vue
-}
 
 const defaultJS = `{
     data: {
@@ -180,7 +175,26 @@ const defaultHTML = `<div>
 // 7 days
 const maxRetention = 7 * 24 * 60 * 60 * 1000
 
+// Helper wrapper component
+const playErrorBoundary = {
+  name: 'playErrorBoundary',
+  data () {
+    return { error: flase }
+  },
+  errorCaptured (err, vm, info) {
+    this.error = true
+    console.error(err, info)
+    return false
+  },
+  render (h) {
+    return this.error ? h('p', 'whoops!') : this.slots.default[0]
+  }
+}
+
 export default {
+  components: {
+    playErrorBoundary
+  },
   data () {
     return {
       html: '',
@@ -315,10 +329,6 @@ export default {
         js = `{${js}}`
       }
 
-      // Try to create new VM
-      const eh = Vue.config.errorHnaddler
-      Vue.config.errorHandler = (err, vm, info) => {}
-
       try {
         let options = {}
         // Try to compile js
@@ -329,15 +339,9 @@ export default {
         } catch (err) {
           throw new Error(`compiling JS: ${err.message}`)
         }
-        // Try to compile template
-        try {
-          let result = Vue.compile(html.replace(/\s{2,}/g, ''))
-          this.log('info', ['compile result', result])
-        } catch (err) {
-          throw new Error(`compiling template: ${err.message}`)
-        }
+        options.components = { playErrorBoundary }
         options.router = this.$router
-        options.template = html
+        options.template = `<play-error-boundary><div>${html}</div></play-error-boundary>`
         options.renderError = (h, err) => {
           const title = h('h4', {}, 'Render Error')
           const message = h('pre', {staticClass: 'text-small'}, err.message)
@@ -356,7 +360,6 @@ export default {
       } catch (err) {
         this.log('danger', [err.toString()])
       }
-      Vue.config.errorHandler = eh
     },
     toggleVertical () {
       this.vertical = !this.vertical
