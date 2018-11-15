@@ -343,9 +343,9 @@ export default {
       const self = this
 
       options = Object.assign({}, options, {
-        template = `<div>${this.html.trim()}</div>`,
+        template: `<div>${this.html.trim()}</div>`,
         el: holder,
-        router: self.$router,
+        router: this.$router,
         errorCaptured (err, vm, info) {
           self.log('danger', [err, info])
           return false
