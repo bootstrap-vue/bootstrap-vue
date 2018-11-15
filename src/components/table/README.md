@@ -289,7 +289,7 @@ The following field properties are recognized:
 
 **Notes:**
 - _Field properties, if not present, default to `null` (falsey) unless otherwise stated above._
-- _`thClass` and `tdClass` will not work with classes that are defined in scoped CSS_
+- _`class`, `thClass`, `tdClass` etc. will not work with classes that are defined in scoped CSS_
 - _For information on the syntax supported by `thStyle`, see
 [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
 in the Vue.js guide._
