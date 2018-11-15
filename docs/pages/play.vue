@@ -162,11 +162,6 @@
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
 
-// for temp debugging
-if (typeof window !== 'undefined') {
-  window.Vue = Vue
-}
-
 const defaultJS = `{
   data: {
     name: 'Zeus'
@@ -230,18 +225,21 @@ export default {
     // disable global error handler
     this.oldErrorHandler = Vue.config.errorHandler
     Vue.config.errorHandler = null
-/*
     Vue.config.errorHandler = (err, vm, info) => {
-      self.log('danger', `Error in ${info}: [${err.name}] ${err.message}`)
-      // Note Vue still sends original error to console.error()!!!
+      try {
+        self.log.call(self, 'danger', `Error in ${info}: [${err.name}] ${err.message}`)
+        // Note Vue still sends original error to console.error()!!!
+      } catch (err) {
+        // prevent possible endless loops
+      }
     }
-*/
     // original console logger
     if (typeof window !== 'undefined' && console) {
+      that = console
       this.originalLog = console.log
       console.log = function () {
-        self.log('info', ...arguments)
-        // self.originalLog.apply(console, arguments)
+        self.log.call(self, 'info', ...arguments)
+        // self.originalLog.apply(that, arguments)
       }
     }
     // Create our debounced runner
