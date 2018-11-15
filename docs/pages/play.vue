@@ -70,11 +70,9 @@
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
-              <code>&lt;div&gt;</code>
               <codemirror
                 v-model="ctx.html"
                 mode="htmlmixed"/>
-              <code>&lt;/div&gt;</code>
             </div>
           </div>
           <div
@@ -224,14 +222,14 @@ export default {
     // disable global error handler
     this.oldErrorHandler = Vue.config.errorHandler
     Vue.config.errorHandler = (err, vm, info) => {
-      self.log('danger', [`Error in ${info}: [${err.name}] ${err.message}`])
+      self.log('danger', `Error in ${info}: [${err.name}] ${err.message}`)
     }
     // original console logger
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && console) {
       this.originalLog = console.log
       console.log = function () {
-        self.log('info', arguments)
-        this.originalLog.apply(console, arguements)
+        self.log('info', ...arguments)
+        self.originalLog.apply(console, arguments)
       }
     }
     // Create our debounced runner
@@ -249,7 +247,7 @@ export default {
     this.destroyVM()
   },
   methods: {
-    log (tag, args) {
+    log (tag, ...args) {
       // We have to ignore props mutation warning due to vue bug when we have two instances
       if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
         return
@@ -257,7 +255,7 @@ export default {
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
-      this.messages.unshift([tag, [].concat(args).map(String).join(' ')])
+      this.messages.unshift([tag, args.map(String).join(' ')])
     },
     destroyVM () {
       if (this.playVM) {
@@ -273,38 +271,33 @@ export default {
     },
     createVM () {
       let options
-      let js = this.ctx.js.trim()
-      let html = this.ctx.html.trim()
+      const js = this.ctx.js.trim()
+      const html = this.ctx.html.trim()
 
       // Test JavaScript
       try {
-        if (js.indexOf('{') !== 0) {
-          js = `{${js}}`
-        }
         /* eslint-disable no-eval */
         eval(`options = ${js}`)
         /* eslint-enable no-eval */
       } catch (err) {
-        this.log('danger', [`Error compiling JS: ${err.message}`])
+        this.log('danger', `Error compiling JS: ${err.message}`)
         this.playVM = null
         return
       }
 
       // Build vm and mount it
       try {
-        const self = this
         const holder = document.createElement('div')
         this.$refs.result.appendChild(holder)
-        html = `<div>${html}</div>`
         this.playVM = new Vue(Object.assign({}, options, {
-          template: html,
+          template: `<div>${html}</div>`,
           el: holder,
           // router needed for tooltips and popovers so they hide when route changes
-          router: this.$router
+          router: self.$router
         }))
       } catch (err) {
         this.destroyVM()
-        this.log('danger', [`Error creating Vue instance: ${err.message}`])
+        this.log('danger', `Error creating Vue instance: ${err.message}`)
         return
       }
 
