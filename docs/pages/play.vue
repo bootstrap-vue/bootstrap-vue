@@ -316,6 +316,9 @@ export default {
       }
 
       // Try to create new VM
+      const eh = Vue.config.errorHnaddler
+      Vue.config.errorHandler = (err, vm, info) => {}
+
       try {
         let options = {}
         // Try to compile js
@@ -353,6 +356,7 @@ export default {
       } catch (err) {
         this.log('danger', [err.toString()])
       }
+      Vue.config.errorHandler = eh
     },
     toggleVertical () {
       this.vertical = !this.vertical
