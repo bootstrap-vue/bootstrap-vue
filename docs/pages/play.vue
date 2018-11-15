@@ -343,14 +343,15 @@ export default {
       const self = this
 
       options = Object.assign({}, options, {
-        template = `<div>${this.html,trim()}</div>`,
+        template = `<div>${this.html.trim()}</div>`,
         el: holder,
-        router: this.$router,
+        router: self.$router,
         errorCaptured (err, vm, info) {
           self.log('danger', [err, info])
           return false
         },
         renderError (h, err) {
+          // Only works in dev mode
           self.log('danger', [err])
           return h('div', ['Whoops!', h('br'), err.message]) 
         }
@@ -369,7 +370,9 @@ export default {
     _run () {
       // Destroy old VM if exists
       this.destroyVM()
+      // clear the log
       this.clear()
+      // create and render the instance
       this.createVM()
     },
     toggleVertical () {
