@@ -223,6 +223,9 @@ export default {
   created () {
     // Non reactive property to store the playground vm
     this.playVM = null
+    // disable global error handler
+    this.oldErrorHandler = Vue.config.errorHandler
+    Vue.config.errorHandler = null
     // original console loggers
     if (typeof window !== 'undefined') {
       this.originalLog = console.log
@@ -253,6 +256,7 @@ export default {
       console.warn = this.originalWarn
       console.error = this.originalError
     }
+    Vue.config.errorHandler = this.oldErrorHandler
     this.destroyVM()
   },
   methods: {
