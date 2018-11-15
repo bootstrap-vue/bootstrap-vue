@@ -229,6 +229,7 @@ export default {
       this.originalWarn = console.warn
       this.originalError = console.error
       const self = this
+/*
       console.warn = function () {
         self.log('warning', arguments)
       }
@@ -238,6 +239,7 @@ export default {
       console.error = function () {
         self.log('danger', arguments)
       }
+*/
     }
     // Create our debounced runner
     this.run = debounce(this._run, 500)
