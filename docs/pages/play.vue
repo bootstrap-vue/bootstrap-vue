@@ -298,7 +298,7 @@ export default {
         html = `<div>${html}</div>`
         this.playVM = new Vue(Object.assign({}, options, {
           template: html,
-          el.holder,
+          el: holder,
           // router needed for tooltips and popovers so they hide when route changes
           router: this.$router
         }))
