@@ -231,7 +231,7 @@ export default {
   },
   watch: {
     html (newVal, oldVal) {
-      if (newVal! === oldVal) {
+      if (newVal !== oldVal) {
         this.run()
       }
     },
