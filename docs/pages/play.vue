@@ -308,6 +308,7 @@ export default {
       this.messages.unshift([tag, argsArr.map(String).join(' ')])
     },
     destroyVM () {
+      console.log('destroyVM...')
       if (this.playVM) {
         try {
           this.playVM.$destroy()
@@ -321,6 +322,7 @@ export default {
       this.$refs.result.innerHTML = ''
     },
     createVM () {
+      console.log('createVM...')
       let options = {}
       let js = this.js.trim()
       if (js.indexOf('{') !== 0) {
