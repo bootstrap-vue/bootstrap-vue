@@ -71,7 +71,7 @@
                 </b-btn>
               </div>
               <codemirror
-                v-model="ctx.html"
+                v-model="html"
                 mode="htmlmixed"/>
             </div>
           </div>
@@ -91,7 +91,7 @@
                 </b-btn>
               </div>
               <codemirror
-                v-model="ctx.js"
+                v-model="js"
                 mode="javascript"/>
             </div>
           </div>
@@ -137,7 +137,9 @@
               <div
                 v-for="(message, idx) in messages"
                 :key="`console-${idx}`">
-                <b-badge :variant="message[0]">{{ message[0] }}</b-badge>
+                <b-badge :variant="message[0]" style="width:1.25rem;">{{
+                  message[0] === 'danger' ? 'X' : '?'
+                }}</b-badge>
                 <span class="text-muted"> {{ message[1] }}</span>
                 <br>
               </div>
@@ -179,10 +181,8 @@ const removeNode = node => node && node.parentNode && node.parentNode.removeChil
 export default {
   data () {
     return {
-      ctx: {
-        html: '',
-        js: ''
-      },
+      html: '',
+      js: '',
       messages: [],
       vertical: false,
       full: false
@@ -203,15 +203,18 @@ export default {
       ]
     },
     js_fiddle () {
-      const js = `new Vue({el:'#app',\r\n${this.ctx.js.trim()}})`
+      const js = `new Vue({el:'#app',\r\n${this.js.trim()}})`
       return `window.onload = function() {${js}}`
     },
     html_fiddle () {
-      return `<div id='app'>\r\n${this.ctx.html.trim()}\r\n</div>`
+      return `<div id='app'>\r\n${this.html.trim()}\r\n</div>`
     }
   },
   watch: {
-    ctx () {
+    html () {
+      this.run()
+    },
+    js () {
       this.run()
     }
   },
@@ -223,6 +226,7 @@ export default {
     this.oldErrorHandler = Vue.config.errorHandler
     Vue.config.errorHandler = (err, vm, info) => {
       self.log('danger', `Error in ${info}: [${err.name}] ${err.message}`)
+      // Note Vue still sends original error to console.error()
     }
     // original console logger
     if (typeof window !== 'undefined' && console) {
@@ -271,8 +275,8 @@ export default {
     },
     createVM () {
       let options
-      const js = this.ctx.js.trim()
-      const html = this.ctx.html.trim()
+      const js = this.js.trim()
+      const html = this.html.trim()
 
       // Test JavaScript
       try {
@@ -323,8 +327,8 @@ export default {
     load () {
       const ls = window && window.localStorage
       if (!ls) {
-        this.ctx.js = defaultJS.trim()
-        this.ctx.html = defaultHTML.trim()
+        this.js = defaultJS.trim()
+        this.html = defaultHTML.trim()
         return
       }
       const ts = parseInt(ls.getItem('playground_ts'), 10) || 0
@@ -334,16 +338,16 @@ export default {
         ls.removeItem('playground_html')
         ls.removeItem('playground_ts')
       }
-      this.ctx.js = ls.getItem('playground_js') || defaultJS.trim()
-      this.ctx.html = ls.getItem('playground_html') || defaultHTML.trim()
+      this.js = ls.getItem('playground_js') || defaultJS.trim()
+      this.html = ls.getItem('playground_html') || defaultHTML.trim()
     },
     save () {
       if (typeof window === 'undefined' || !window.localStorage) {
         return
       }
       try {
-        window.localStorage.setItem('playground_js', this.ctx.js)
-        window.localStorage.setItem('playground_html', this.ctx.html)
+        window.localStorage.setItem('playground_js', this.js)
+        window.localStorage.setItem('playground_html', this.html)
         window.localStorage.setItem('playground_ts', String(Date.now()))
       } catch (err) {
         // silently ignore errors on safari iOS private mode
