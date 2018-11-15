@@ -182,9 +182,6 @@ export default {
       html: '',
       js: '',
       messages: [],
-      originalLog: null,
-      originalWarn: null,
-      originalError: null,
       vertical: false,
       full: false
     }
@@ -226,17 +223,12 @@ export default {
   created () {
     // Non reactive property to store the playground vm
     this.playVM = null
-    // Create our debounced runner
-    this.run = debounce(this._run, 500)
-  },
-  mounted () {
+    // original console loggers
     if (typeof window !== 'undefined') {
       this.originalLog = console.log
       this.originalWarn = console.warn
       this.originalError = console.error
       const self = this
-
-      if (false) {
       console.warn = function () {
         self.log('warning', arguments)
       }
@@ -246,9 +238,11 @@ export default {
       console.error = function () {
         self.log('danger', arguments)
       }
-      }
     }
-
+    // Create our debounced runner
+    this.run = debounce(this._run, 500)
+  },
+  mounted () {
     this.$nextTick(this.load)
   },
   beforeDestroy () {
@@ -265,7 +259,7 @@ export default {
       if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
         return
       }
-      this.originalLog.apply(console, [].concat(tag, args))
+      // this.originalLog.apply(console, [].concat(tag, args))
 
       if (this.messages.length > 10) {
         this.messages.splice(10)
