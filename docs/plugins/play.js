@@ -7,6 +7,12 @@ const NAME_DEFINITION_REGEX = /<!-- .*\.vue -->/
 const TEMPLATE_REGEX = /<template>([\s\S]*)<\/template>/
 const SCRIPT_REGEX = /<script>([\s\S]*)<\/script>/
 
+const CLASS_NAMES = {
+  editable: 'editable',
+  live: 'live',
+  error: 'error',
+}
+
 const match = (regex, text) => (regex.exec(text) || [])[1]
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
@@ -91,7 +97,7 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
     hljs.highlightBlock(pre)
 
     // Add editable class
-    pre.classList.add('editable')
+    pre.classList.add(CLASS_NAMES.editable)
 
     // Initial load
     let vm = createVM(name, pre, vnode)
@@ -105,7 +111,7 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
     // Enable live edit on double click
     pre.ondblclick = async () => {
       // Add live class
-      pre.classList.add('live')
+      pre.classList.add(CLASS_NAMES.live)
       // Make editable
       pre.contentEditable = true
 
@@ -119,7 +125,12 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
         destroyVM(name, vm)
         vm = createVM(name, pre, vnode)
 
-        pre.classList.toggle('error', vm === null)
+        // Toggle error class
+        if (vm === null) {
+          pre.classList.add(CLASS_NAMES.error)
+        } else {
+          pre.classList.remove(CLASS_NAMES.error)
+        }
       }, 250)
     }
   })
