@@ -259,28 +259,32 @@ export default {
   },
   methods: {
     log (tag, args) {
+      let skipConsole = false
       // We have to ignore props mutation warning due to vue bug when we have two instances
       if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
         return
       }
-
-      const argsArr = []
-      for (let i = 0; i < args.length; i++) {
-        argsArr.push(args[i])
+      if (String(args[0]).indexOf('is not defined') !== -1) {
+        skipConsole = true
+      }
+      if (String(args[0]).indexOf('Illegal invocation') !== -1) {
+        skipConsole = true
       }
 
-      let oLog = this.originalLog
-      if (tag === 'danger') {
-        oLog = this.originalError
-      } else if (tag === 'warning') {
-        oLog = this.originalWarn
+      if (!skipConsole) {
+        let oLog = this.originalLog
+        if (tag === 'danger') {
+          oLog = this.originalError
+        } else if (tag === 'warning') {
+          oLog = this.originalWarn
+        }
+        oLog.apply(console, [].concat(tag, args))
       }
-      oLog.apply(console, [].concat(tag, argsArr))
 
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
-      this.messages.unshift([tag, argsArr.map(String).join(' ')])
+      this.messages.unshift([tag, args.map(String).join(' ')])
     },
     destroyVM () {
       if (this.playVM) {
@@ -314,8 +318,6 @@ export default {
       }
 
       // Build vm and mount it
-      const self = this
-      const oldErrHandler = Vue.config.errorHandler
       Vue.config.errorHandler = (err, vm, info) => {
         self.log('danger', [err.toString()])
       }
@@ -340,10 +342,8 @@ export default {
       } catch (err) {
         this.destroyVM()
         this.log('danger', [`Error creating Vue instance: ${err.message}`])
-        Vue.config.errorHandler = oldErrHandler
         return
       }
-      Vue.config.errorHandler = oldErrHandler
 
       this.save()
     },
