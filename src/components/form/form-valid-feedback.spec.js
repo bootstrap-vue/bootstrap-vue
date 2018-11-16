@@ -38,7 +38,7 @@ describe('form-valid-feedback', async () => {
 
   it('should have tag small when tag=small', async () => {
     const feedback = mount(Feedback, {
-      proosData: {
+      propsData: {
         tag: 'small'
       }
     })
