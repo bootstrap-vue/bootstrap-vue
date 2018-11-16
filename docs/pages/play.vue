@@ -13,12 +13,12 @@
         <router-link to="/docs"> Docs </router-link>
         <span>for more info about available tags and usage.</span>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-2">
         <form
           method="post"
           action="https://jsfiddle.net/api/post/library/pure/"
           target="_blank"
-          v-if="vm">
+          v-if="html || js">
           <input
             type="hidden"
             :value="html_fiddle"
@@ -288,6 +288,12 @@ export default {
       let options
       const js = this.js.trim()
       const html = this.html.trim()
+      const log = this.log
+
+      const errHandler = (err, vm, info) => {
+        log('danger', `Error in ${info}: ${err.message}`)
+        return false
+      }
 
       // Test JavaScript
       try {
@@ -295,32 +301,42 @@ export default {
         eval(`options = ${js}`)
         /* eslint-enable no-eval */
       } catch (err) {
-        this.log('danger', `Error compiling JS: ${err.message}`)
+        errHandler(err, null, 'javascript')
         this.playVM = null
         return
       }
       
-      if (!html) {
-        this.log('danger', 'No template provided')
+      if (!html && !options.template && !options.render && !(options.staticRenderFns && options.render)) {
+        this.log('danger', 'No template or render function provided')
         return
       }
 
-      // Build vm and mount it
-      const log = this.log
+      const res
+      if (html) {
+        try {
+          res = Vue.compile(`<div id="playground-app">${html}</div>`)
+        } catch (err) {
+          errHandler(err, null, 'compiling template')
+          return
+        }
+      }
+
+      if (html && res) {
+        delete options.template
+        // we use render functions so that we can trap errors in the templates
+        options.render = res.render
+        options.staticRenderFns = res.staticRenderFns
+      }
+
       let holder = document.createElement('div')
       this.$refs.result.appendChild(holder)
-      const errHandler = (err, vm, info) => {
-        log('danger', `Error in ${info}: ${err.message}`)
-        return false
-      }
-      
+
       try {
         const fakeParent = new Vue({
           template: '<div></div>',
           errorCaptured: errHandler
         })
         this.playVM = new Vue(Object.assign({}, options, {
-          template: `<div id="playground-app">${html}</div>`,
           el: holder,
           // we set a fake parent so we can capture errors
           parent: fakeParent,
