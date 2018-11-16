@@ -334,7 +334,7 @@ export default {
 
       if (!options.render) {
         options.template = `<div id="playground-app">${options.template || html}</div>`
-      } else (
+      } else {
         delete options.template
       }
 
