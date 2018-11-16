@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 
 describe('form-valid-feedback', async () => {
   it('default should have tag div', async () => {
-    const feedback = mount(Fedback)
+    const feedback = mount(Feedback)
     expect(feedback.is('div')).toBe(true)
   })
 
@@ -13,17 +13,17 @@ describe('form-valid-feedback', async () => {
   })
 
   it('default should not have class d-block', async () => {
-    const feedback = mount(Feedback) 
+    const feedback = mount(Feedback)
     expect(feedback.classes()).not.toContain('d-block')
   })
 
   it('default should not have class valid-tooltip', async () => {
-    const feedback = mount(Feedback) 
+    const feedback = mount(Feedback)
     expect(feedback.classes()).not.toContain('valid-tooltip')
   })
 
   it('default should not have id', async () => {
-    const feedback = mount(Feedback) 
+    const feedback = mount(Feedback)
     expect(feedback.attributes('id')).not.toBeDefined()
   })
 
@@ -32,7 +32,7 @@ describe('form-valid-feedback', async () => {
       propsData: {
         id: 'foobar'
       }
-    }) 
+    })
     expect(feedback.attributes('id')).toBe('foobar')
   })
 
@@ -46,29 +46,29 @@ describe('form-valid-feedback', async () => {
   })
 
   it('should contain class d-block when force-show is set', async () => {
-    const feedback = mount(Feedback,  {
+    const feedback = mount(Feedback, {
       propsData: {
         forceShow: true
       }
     })
-    expect(input.classes()).toContain('d-block')
+    expect(feedback.classes()).toContain('d-block')
   })
 
   it('should contain class valid-tooltip when tooltip is set', async () => {
-    const feedback = mount(Feedback,  {
+    const feedback = mount(Feedback, {
       propsData: {
         tooltip: true
       }
     })
-    expect(input.classes()).toContain('valid-tooltip')
+    expect(feedback.classes()).toContain('valid-tooltip')
   })
 
   it('should not contain class alid-feedback when tooltip is set', async () => {
-    const feedback = mount(Feedback,  {
+    const feedback = mount(Feedback, {
       propsData: {
         tooltip: true
       }
     })
-    expect(input.classes()).not.toContain('valid-feedbac88')
+    expect(feedback.classes()).not.toContain('valid-feedback')
   })
 })
