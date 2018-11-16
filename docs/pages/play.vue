@@ -2,45 +2,34 @@
   <div class="container">
 
     <div class="mb-3 row">
-      <div class="col-md-10">
-        <span>Here you can interactively play and test components with a fresh vue instance.</span>
-        <br>
-        <Strong>TIP: </Strong>
-        <span>You can clone docs repo, to hack and develop components.</span>
-        <span> changes will be reflected and hot-reloaded instantly.</span>
-        <br>
-        <span>Please refer to</span>
-        <router-link to="/docs"> Docs </router-link>
-        <span>for more info about available tags and usage.</span>
+      <div class="col-12 mb-3">
+        <p class="mb-1">
+          Here you can interactively play and test components with a fresh vue instance.
+          Please refer to the <router-link to="/docs">Docs</router-link>
+          section for more info about available tags and usage.
+        </p>
+        <p class="mb-1">
+          <strong>TIP:</strong>
+          You can clone docs repo, to hack and develop components.
+          changes will be reflected and hot-reloaded instantly.
+        </p>
       </div>
-      <div class="col-md-1">
+      <div class="col-12">
         <form
+          class="d-inline-block ml-2 mr-0 p-0 float-right"
           method="post"
           action="https://jsfiddle.net/api/post/library/pure/"
-          target="_blank"
-          v-if="vm">
-          <input
-            type="hidden"
-            :value="html_fiddle"
-            name="html">
-          <input
-            type="hidden"
-            :value="js_fiddle"
-            name="js">
-          <input
-            type="hidden"
-            value="l"
-            name="js_wrap">
-          <input
-            name="resources"
-            type="hidden"
-            :value="fiddle_dependencies.join(',')">
-          <b-btn
-            size="sm"
-            type="submit">
-            <span>Export to JSFiddle</span>
+          target="_blank">
+          <input type="hidden" :value="html_fiddle" name="html">
+          <input type="hidden" :value="js_fiddle" name="js">
+          <input type="hidden" value="body { padding: 1rem; }" name="css">
+          <input type="hidden" value="l" name="js_wrap">
+          <input name="resources" type="hidden" :value="fiddle_dependencies.join(',')">
+          <b-btn size="sm" type="submit" :disabled="!isOk">
+            Export to JSFiddle
           </b-btn>
         </form>
+        <b-btn @click="reset" size="sm" variant="danger" :disabled="isDefault">Reset to default</b-btn>
       </div>
     </div>
 
@@ -114,37 +103,38 @@
               <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
             </b-btn>
           </div>
-          <div class="card-body">
-            <div
-              id="result-container"
-              ref="result"/>
-          </div>
+          <div class="card-body" ref="result"></div>
         </div>
 
         <!--Console-->
-        <div class="">
-          <div class="card mt-2">
-            <div class="card-header card-outline-secondary">
-              <span>Console</span>
-              <b-btn
-                size="sm"
-                @click="clear"
-                variant="outline-danger"
-                class="float-right"
-                v-if="messages.length">
-                <span>Clear</span>
-              </b-btn>
-            </div>
-            <div class="card-body">
-              <div
-                v-for="(message, idx) in messages"
-                :key="`console-${idx}`">
-                <b-badge :variant="message[0]">{{ message[0] }}</b-badge>
-                <span class="text-muted"> {{ message[1] }}</span>
-                <br>
-              </div>
-            </div>
+        <div class="card mt-2">
+          <div class="card-header card-outline-secondary">
+            <span>Console</span>
+            <b-btn
+              size="sm"
+              @click="clear"
+              variant="outline-danger"
+              class="float-right"
+              v-if="messages.length">
+              <span>Clear</span>
+            </b-btn>
           </div>
+          <transition-group
+            tag="ul"
+            name="flip-list"
+            v-if="messages.length"
+            class="list-group list-group-flush play-log">
+            <li
+              v-for="(message, idx) in messages"
+              :class="['list-group-item','list-group-item-${message[0]}']"
+              :key="`console-${message[2]}`">
+              <b-badge :variant="message[0]" style="font-size:0.9rem;">{{
+                message[0] === 'danger' ? 'error' : 'log'
+              }}</b-badge>
+              <span class="text-muted"> {{ message[1] }}</span>
+            </li>
+          </transition-group>
+          <div v-else class="card-body">&nbsp;</div>
         </div>
       </div>
     </transition-group>
@@ -154,7 +144,19 @@
 
 <style>
 .flip-move {
-    transition: all .3s;
+  transition: all .3s;
+}
+.play-log .list-group-item {
+ transition: all .3s;
+}
+.flip-list-enter, .flip-list-leave-to {
+  opacity: 0
+}
+.flip-list-leave-active {
+  position: absolute;
+}
+.flip-list-move {
+  transform: .3s
 }
 </style>
 
@@ -163,25 +165,43 @@ import Vue from 'vue'
 import debounce from 'lodash/debounce'
 
 const defaultJS = `{
-    data: {
-        name: 'Zeus'
-    },
+  data: {
+    name: 'Bootstrap-Vue',
+    show: true
+  },
+  watch: {
+    show(newVal, oldVal) {
+      console.log(
+        'Alert is ' + (this.show ? 'visible' : 'hidden')
+      )
+    }
+  }
 }`
-const defaultHTML = `<b-alert show> Hello {{ name }}! </b-alert>`
+
+const defaultHTML = `<div>
+  <b-button @click="show = !show">
+    {{ show ? 'Hide' : 'Show' }} Alert
+  </b-button>
+  <b-alert v-model="show" dismissible class="mt-3">
+    Hello {{ name }}!
+  </b-alert>
+</div>`
+
+// Maximum age of localstorage before we revert back to defaults
+// 7 days
+const maxRetention = 7 * 24 * 60 * 60 * 1000
+
+const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
 export default {
   data () {
     return {
       html: '',
       js: '',
-      vm: null,
       messages: [],
-      originalLog: null,
-      originalWarn: null,
-      originalError: null,
+      logIdx: 0,
       vertical: false,
-      full: false,
-      lazy_run_: null
+      full: false
     }
   },
   head () {
@@ -198,120 +218,188 @@ export default {
         '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
       ]
     },
+    isDefault () {
+      return this.js.trim() === defaultJS.trim() &&
+        this.html.trim() === defaultHTML.trim()
+    },
+    isOk () {
+      let o
+      const js = this.js.trim() || '{}'
+      try {
+        /* eslint-disable no-eval */
+        eval(`o = ${js}`)
+        /* eslint-enable no-eval */
+      } catch (err) {
+        return false
+      }
+      if (!this.html && !o.template && typeof o.render !== 'function') {
+        return false
+      }
+      return true
+    },
     js_fiddle () {
-      const js = `new Vue({el:'#app',\r\n${this.js.trim()}})`.trim()
-      return `window.onload = function() {${js}}`
+      let js = this.js.trim() || '{}'
+      const comma = js === '{}' ? '' : ','
+      js = js.replace(/^\{/, `{\r\n  el: '#app'${comma}\r\n`)
+      js = `new Vue(${js})`
+      return `window.onload = function() {\r\n${js}\r\n}`
     },
     html_fiddle () {
-      return `<div id='app'>\r\n${this.html}\r\n</div>`.trim()
-    },
-    lazy_run () {
-      if (!this.lazy_run_) {
-        this.lazy_run_ = debounce(this.run.bind(this), 500)
-      }
-      return this.lazy_run_
+      return `<div id='app'>\r\n${this.html.trim()}\r\n</div>`
     }
   },
   watch: {
     html () {
-      this.lazy_run()
+      this.run()
     },
     js () {
-      this.lazy_run()
+      this.run()
+    }
+  },
+  created () {
+    const self = this
+    // Non reactive property to store the playground vm
+    this.playVM = null
+
+    if (this.$isServer) {
+      this.run = () => {}
+      return
+    }
+
+    // Create our debounced runner
+    this.run = debounce(this._run, 500)
+
+    // Disable global error handler as it screws up out log capture
+    this.oldErrorHandler = Vue.config.errorHandler
+    Vue.config.errorHandler = null
+
+    // Override console.log
+    if (typeof window !== 'undefined' && console) {
+      const that = console
+      this.originalLog = console.log
+      console.log = function () {
+        self.log.call(self, 'info', ...arguments)
+        self.originalLog.apply(that, arguments)
+      }
     }
   },
   mounted () {
-    this.load()
-    this.run()
-
-    if (typeof window !== 'undefined') {
-      this.originalLog = console.log
-      this.originalWarn = console.warn
-      this.originalError = console.error
-      const self = this
-
-      console.warn = function () {
-        self.log('warning', arguments)
-      }
-
-      console.log = function () {
-        self.log('info', arguments)
-      }
-
-      console.error = function () {
-        self.log('danger', arguments)
-      }
-    }
+    // load our content into the editors after dom updated
+    this.$nextTick(this.load)
   },
   beforeDestroy () {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && this.originalLog) {
       console.log = this.originalLog
-      console.warn = this.originalWarn
-      console.error = this.originalError
     }
-    this.destroyVM()
+    if (this.oldErrorHandler) {
+      Vue.config.errorHandler = this.oldErrorHandler
+    }
+    if (!this.$isServer) {
+      this.destroyVM()
+    }
   },
   methods: {
-    log (tag, args) {
+    log (tag, ...args) {
       // We have to ignore props mutation warning due to vue bug when we have two instances
       if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
         return
       }
-
-      const argsArr = [tag]
-      for (let i = 0; i < args.length; i++) {
-        argsArr.push(args[i])
+      const msg = args.map(String).join(' ')
+      if (this.messages.length && msg.indexOf('Error in render') !== -1 && msg === this.messages[0][1]) {
+        // prevent duplicate render errors
+        return
       }
-
-      this.originalLog.apply(console, argsArr)
-
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
-      this.messages.unshift([argsArr.shift(), argsArr.map(String).join(' ')])
+      this.messages.unshift([tag, msg, this.logIdx++])
     },
     destroyVM () {
-      if (this.vm) {
+      if (this.playVM) {
+        let parent
         try {
-          this.vm.$destroy()
+          parent = this.playVM.$parent
+          this.playVM.$destroy()
+          removeNode(this.playVM.$el)
+          this.playVM.$el.innerHTML = ''
         } catch (err) {
         }
-        this.vm = null
+        try {
+          parent.$destroy()
+        } catch (err) {
+        }
       }
+      this.playVM = null
+      this.$refs.result.innerHTML = ''
     },
-    run () {
-      // Commit latest changes
-      this.commit()
+    createVM () {
+      let options
+      const js = this.js.trim() || '{}'
+      const html = this.html.trim()
+      const self = this
 
+      const errHandler = (err, vm, info) => {
+        self.log('danger', `Error in ${info}: ${err.message}`)
+        self.destroyVM()
+        return false
+      }
+
+      // Test JavaScript
+      try {
+        /* eslint-disable no-eval */
+        eval(`options = ${js}`)
+        /* eslint-enable no-eval */
+      } catch (err) {
+        errHandler(err, null, 'javascript')
+        this.playVM = null
+        return
+      }
+
+      if (!html && !options.template && typeof options.render !== 'function') {
+        this.log('danger', 'No template or render function provided')
+        return
+      }
+
+      if (!options.render) {
+        options.template = `<div id="playground-app">${options.template || html}</div>`
+      } else {
+        delete options.template
+      }
+
+      let holder = document.createElement('div')
+      this.$refs.result.appendChild(holder)
+
+      try {
+        const fakeParent = new Vue({
+          template: '<div></div>',
+          errorCaptured: errHandler
+        })
+        this.playVM = new Vue(Object.assign({}, options, {
+          el: holder,
+          // we set a fake parent so we can capture errors
+          parent: fakeParent,
+          // router needed for tooltips and popovers so they hide when route changes
+          router: this.$router
+        }))
+      } catch (err) {
+        holder = null
+        this.destroyVM()
+        errhandler(err, null, 'vm create')
+        return
+      }
+
+      this.save()
+    },
+    _run () {
+      if (this.$isServer) {
+        return
+      }
       // Destroy old VM if exists
       this.destroyVM()
-
-      // Set HTML
-      this.$refs.result.innerHTML = `<div id="result"></div>`
-
-      // Clear messages
+      // clear the log
       this.clear()
-
-      // Try Create new VM
-      try {
-        let options
-        try {
-          /* eslint-disable no-eval */
-          let js = this.js.trim()
-          if (js.indexOf('{') !== 0) {
-            js = `{${js}}`
-          }
-          eval(`options= ${js}`)
-        } catch (err) {
-          throw new Error(`Compiling JS: ${err}`)
-        }
-        options.router = this.$router
-        options.el = '#result'
-        options.template = `<div>${this.html}</div>`
-        this.vm = new Vue(options)
-      } catch (err) {
-        console.error(err)
-      }
+      // create and render the instance
+      this.createVM()
     },
     toggleVertical () {
       this.vertical = !this.vertical
@@ -322,19 +410,43 @@ export default {
     clear () {
       this.messages.splice(0)
     },
-    load () {
-      if (typeof window === 'undefined' || !window.localStorage) {
-        return
-      }
-      this.js = window.localStorage.getItem('playground_js') || defaultJS.trim()
-      this.html = window.localStorage.getItem('playground_html') || defaultHTML.trim()
+    reset() {
+      // Needed to trick codemirror component to reload contents
+      this.js = this.html = ''
+      this.$nextTick(() => {
+        this.js = defaultJS.trim()
+        this.html = defaultHTML.trim()
+        this.save()
+      })
     },
-    commit () {
+    load () {
+      const ls = window && window.localStorage
+      if (!ls) {
+        this.js = defaultJS.trim()
+        this.html = defaultHTML.trim()
+        return
+      }
+      const ts = parseInt(ls.getItem('playground_ts'), 10) || 0
+      if (Date.now() - ts > maxRetention) {
+        // clear local storage if it is old
+        ls.removeItem('playground_js')
+        ls.removeItem('playground_html')
+        ls.removeItem('playground_ts')
+      }
+      this.js = ls.getItem('playground_js') || defaultJS.trim()
+      this.html = ls.getItem('playground_html') || defaultHTML.trim()
+    },
+    save () {
       if (typeof window === 'undefined' || !window.localStorage) {
         return
       }
-      window.localStorage.setItem('playground_js', this.js)
-      window.localStorage.setItem('playground_html', this.html)
+      try {
+        window.localStorage.setItem('playground_js', this.js)
+        window.localStorage.setItem('playground_html', this.html)
+        window.localStorage.setItem('playground_ts', String(Date.now()))
+      } catch (err) {
+        // silently ignore errors on safari iOS private mode
+      }
     }
   }
 }
