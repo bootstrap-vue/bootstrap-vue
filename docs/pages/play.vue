@@ -300,7 +300,8 @@ export default {
         this.playVM = null
         return
       }
-      
+      options = Object.assign({}, options)
+
       if (!html && !options.template && !options.render) {
         this.log('danger', 'No template or render function provided')
         return
@@ -322,6 +323,8 @@ export default {
 
       if (!options.render) {
         options.template = `<div id="playground-app">${options.template || html}</div>`
+      } else (
+        delete options.template
       }
 
       let holder = document.createElement('div')
@@ -334,7 +337,6 @@ export default {
         })
         this.playVM = new Vue(Object.assign({}, options, {
           el: holder,
-          template: `<div id="playground-app">${options.template || html}</div>`
           // we set a fake parent so we can capture errors
           parent: fakeParent,
           // router needed for tooltips and popovers so they hide when route changes
