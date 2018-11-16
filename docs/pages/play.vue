@@ -22,6 +22,7 @@
           target="_blank">
           <input type="hidden" :value="html_fiddle" name="html">
           <input type="hidden" :value="js_fiddle" name="js">
+          <input tyoe="hidden" value="body { padding: 1rem; }" name="css">
           <input type="hidden" value="l" name="js_wrap">
           <input name="resources" type="hidden" :value="fiddle_dependencies.join(',')">
           <b-btn size="sm" type="submit" :disabled="!isOk">
