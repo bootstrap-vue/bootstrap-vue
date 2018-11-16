@@ -28,7 +28,7 @@
             Export to JSFiddle
           </b-btn>
         </form>
-        <b-btn @click="reset" size="sm" variant="danger" :disabled="!isDefault">Reset to default</b-btn>
+        <b-btn @click="reset" size="sm" variant="danger" :disabled="isDefault">Reset to default</b-btn>
       </div>
     </div>
 
