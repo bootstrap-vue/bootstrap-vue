@@ -63,7 +63,7 @@ describe('form-invalid-feedback', async () => {
   it('should contain class invalid-tooltip when tooltip is set', async () => {
     const feedback = mount(Feedback, {
       context: {
-        propsData: {
+        props: {
           tooltip: true
         }
       }
@@ -74,11 +74,22 @@ describe('form-invalid-feedback', async () => {
   it('should not contain class invalid-feedback when tooltip is set', async () => {
     const feedback = mount(Feedback, {
       context: {
-        propsData: {
+        props: {
           tooltip: true
         }
       }
     })
     expect(feedback.classes()).not.toContain('invalid-feedback')
   })
+
+  it('should have children in the default slot when supplied', async () => {
+    const feedback = mount(Feedback, {
+      context: {
+        children: ['foo', '<b>bar</>']
+      }
+    })
+    expect(feedback.text()).toContain('foo')
+    expect(feedback.find('b').exists()).toBe(true)
+    expect(feedback.find('b').text()).toContain('bar') 
+  }
 })
