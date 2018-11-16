@@ -371,8 +371,6 @@ export default {
       this.js = defaultJS.trim()
       this.html = defaultHTML.trim()
       this.save()
-      // needed to get code mirror to use new values
-      this.$forceReload()
     },
     load () {
       const ls = window && window.localStorage
