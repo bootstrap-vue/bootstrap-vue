@@ -3,15 +3,16 @@
 
     <div class="mb-3 row">
       <div class="col-12 mb-3">
-        <span>Here you can interactively play and test components with a fresh vue instance.</span>
-        <br>
-        <Strong>TIP: </Strong>
-        <span>You can clone docs repo, to hack and develop components.</span>
-        <span> changes will be reflected and hot-reloaded instantly.</span>
-        <br>
-        <span>Please refer to</span>
-        <router-link to="/docs"> Docs </router-link>
-        <span>for more info about available tags and usage.</span>
+        <p class="mb-1">
+          Here you can interactively play and test components with a fresh vue instance.
+        </p>
+        <p class="mb-1">
+          <strong>TIP:</strong>
+          You can clone docs repo, to hack and develop components.
+          changes will be reflected and hot-reloaded instantly.
+          Please refer to the <router-link to="/docs">Docs</router-link>
+          section for more info about available tags and usage.
+        </p>
       </div>
       <div class="col-12">
         <form
