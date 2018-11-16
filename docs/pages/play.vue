@@ -122,7 +122,7 @@
             <li
               v-for="(message, idx) in messages"
               :class="['list-group-item','list-group-item-${message[0]}']"
-              :key="`console-${messages.length - idx}`">
+              :key="`console-${messag[2]}`">
               <b-badge :variant="message[0]" style="font-size:0.9rem;">{{
                 message[0] === 'danger' ? 'error' : 'log'
               }}</b-badge>
@@ -140,6 +140,9 @@
 <style>
 .flip-move {
   transition: all .3s;
+}
+.flip-list-move {
+  transform: .3s
 }
 </style>
 
@@ -162,12 +165,12 @@ const defaultJS = `{
 }`
 
 const defaultHTML = `<div>
-  <b-alert v-model="show" dismissible>
-    Hello {{ name }}!
-  </b-alert>
-  <b-button v-if="!show" @click="show = true">
+  <b-button @click="show = !show">
     Show Alert
   </b-button>
+  <b-alert v-model="show" dismissible class="mt-3">
+    Hello {{ name }}!
+  </b-alert>
 </div>`
 
 // Maximum age of localstorage before we revert back to defaults
@@ -182,6 +185,7 @@ export default {
       html: '',
       js: '',
       messages: [],
+      logIdx: 0,
       vertical: false,
       full: false
     }
@@ -294,7 +298,7 @@ export default {
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
-      this.messages.unshift([tag, msg])
+      this.messages.unshift([tag, msg, this.logIdx++])
     },
     destroyVM () {
       if (this.playVM) {
