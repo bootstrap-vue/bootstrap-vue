@@ -1,51 +1,74 @@
-import { loadFixture, testVM } from '../../../tests/utils'
+import Feedback from './form-valid-feedback'
+import { mount } from '@vue/test-utils'
 
 describe('form-valid-feedback', async () => {
-  beforeEach(loadFixture(__dirname, 'form-valid-feedback'))
-  testVM()
-
   it('default should have tag div', async () => {
-    const { app: { $refs } } = window
-    expect($refs.default).toBeElement('div')
+    const feedback = mount(Fedback)
+    expect(feedback.is('div')).toBe(true)
   })
 
   it('default should contain base class', async () => {
-    const { app: { $refs } } = window
-    expect($refs.default).toHaveClass('valid-feedback')
+    const feedback = mount(Feedback)
+    expect(feedback.classes()).toContain('valid-feedback')
   })
 
   it('default should not have class d-block', async () => {
-    const { app: { $refs } } = window
-    expect($refs.default).not.toHaveClass('d-block')
+    const feedback = mount(Feedback) 
+    expect(feedback.classes()).not.toContain('d-block')
   })
 
-  it('default should have id', async () => {
-    const { app: { $refs } } = window
-    expect($refs.default.getAttribute('id')).toBe('default')
+  it('default should not have class valid-tooltip', async () => {
+    const feedback = mount(Feedback) 
+    expect(feedback.classes()).not.toContain('valid-tooltip')
   })
 
-  it('tag should have tag small', async () => {
-    const { app: { $refs } } = window
-    expect($refs.tag).toBeElement('small')
+  it('default should not have id', async () => {
+    const feedback = mount(Feedback) 
+    expect(feedback.attributes('id')).not.toBeDefined()
   })
 
-  it('tag should contain base class', async () => {
-    const { app: { $refs } } = window
-    expect($refs.tag).toHaveClass('valid-feedback')
+  it('default should have user supplied id', async () => {
+    const feedback = mount(Feedback, {
+      propsData: {
+        id: 'foobar'
+      }
+    }) 
+    expect(feedback.attributes('id')).toBe('foobar')
   })
 
-  it('show should have tag div', async () => {
-    const { app: { $refs } } = window
-    expect($refs.show).toBeElement('div')
+  it('should have tag small when tag=small', async () => {
+    const feedback = mount(Feedback, {
+      proosData: {
+        tag: 'small'
+      }
+    })
+    expect(feedback.is('small')).toBe(true)
   })
 
-  it('show should contain base class', async () => {
-    const { app: { $refs } } = window
-    expect($refs.show).toHaveClass('valid-feedback')
+  it('should contain class d-block when force-show is set', async () => {
+    const feedback = mount(Feedback,  {
+      propsData: {
+        forceShow: true
+      }
+    })
+    expect(input.classes()).toContain('d-block')
   })
 
-  it('show should contain class d-block', async () => {
-    const { app: { $refs } } = window
-    expect($refs.show).toHaveClass('d-block')
+  it('should contain class valid-tooltip when tooltip is set', async () => {
+    const feedback = mount(Feedback,  {
+      propsData: {
+        tooltip: true
+      }
+    })
+    expect(input.classes()).toContain('valid-tooltip')
+  })
+
+  it('should not contain class alid-feedback when tooltip is set', async () => {
+    const feedback = mount(Feedback,  {
+      propsData: {
+        tooltip: true
+      }
+    })
+    expect(input.classes()).not.toContain('valid-feedbac88')
   })
 })
