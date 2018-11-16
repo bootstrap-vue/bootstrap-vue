@@ -306,7 +306,7 @@ export default {
       }
 
       // Build vm and mount it
-      log = this.log
+      const log = this.log
       let holder = document.createElement('div')
       this.$refs.result.appendChild(holder)
       const errHandler = (err, vm, info) => {
