@@ -2,7 +2,7 @@
   <div class="container">
 
     <div class="mb-3 row">
-      <div class="col-md-10">
+      <div class="col-12">
         <span>Here you can interactively play and test components with a fresh vue instance.</span>
         <br>
         <Strong>TIP: </Strong>
@@ -13,34 +13,22 @@
         <router-link to="/docs"> Docs </router-link>
         <span>for more info about available tags and usage.</span>
       </div>
-      <div class="col-md-2">
+      <div class="col-12 mb-2">
         <form
+          class="d-inline-block ml-2 mr-0 p-0 float-right"
           method="post"
           action="https://jsfiddle.net/api/post/library/pure/"
           target="_blank"
           v-if="html || js">
-          <input
-            type="hidden"
-            :value="html_fiddle"
-            name="html">
-          <input
-            type="hidden"
-            :value="js_fiddle"
-            name="js">
-          <input
-            type="hidden"
-            value="l"
-            name="js_wrap">
-          <input
-            name="resources"
-            type="hidden"
-            :value="fiddle_dependencies.join(',')">
-          <b-btn
-            size="sm"
-            type="submit">
-            <span>Export to JSFiddle</span>
+          <input type="hidden" :value="html_fiddle" name="html">
+          <input type="hidden" :value="js_fiddle" name="js">
+          <input type="hidden" value="l" name="js_wrap">
+          <input name="resources" type="hidden" :value="fiddle_dependencies.join(',')">
+          <b-btn size="sm" type="submit">
+            Export to JSFiddle
           </b-btn>
         </form>
+        <b-btn @click="reset" size="sm" variant="danger">Reset to default</b-btn>
       </div>
     </div>
 
@@ -135,8 +123,8 @@
               v-for="(message, idx) in messages"
               class="list-group-item"
               :key="`console-${idx}`">
-              <b-badge :variant="message[0]" style="width:1.25rem;">{{
-                message[0] === 'danger' ? 'X' : '?'
+              <b-badge :variant="message[0]" style="width:1.25rem;font-sizze:1rem;">{{
+                message[0] === 'danger' ? '!' : '?'
               }}</b-badge>
               <span class="text-muted"> {{ message[1] }}</span>
             </li>
@@ -242,7 +230,7 @@ export default {
       this.originalLog = console.log
       console.log = function () {
         self.log.call(self, 'info', ...arguments)
-        // self.originalLog.apply(that, arguments)
+        self.originalLog.apply(that, arguments)
       }
     }
   },
@@ -313,7 +301,7 @@ export default {
         return
       }
       
-      if (!html && !options.template && !options.render && !(options.staticRenderFns && options.render)) {
+      if (!html && !options.template && !options.render)) {
         this.log('danger', 'No template or render function provided')
         return
       }
@@ -331,6 +319,11 @@ export default {
         }
       }
 */
+
+      if (!options.render) {
+        options.template = `<div id="playground-app">${options.template || html}</div>`
+      }
+
       let holder = document.createElement('div')
       this.$refs.result.appendChild(holder)
 
@@ -375,6 +368,10 @@ export default {
     },
     clear () {
       this.messages.splice(0)
+    },
+    reset() {
+      this.js = defaultJS.trim()
+      this.html = defaultHTML.trim()
     },
     load () {
       const ls = window && window.localStorage
