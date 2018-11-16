@@ -301,7 +301,7 @@ export default {
         return
       }
       
-      if (!html && !options.template && !options.render)) {
+      if (!html && !options.template && !options.render) {
         this.log('danger', 'No template or render function provided')
         return
       }
