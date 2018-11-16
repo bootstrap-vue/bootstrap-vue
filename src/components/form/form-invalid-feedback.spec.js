@@ -29,8 +29,10 @@ describe('form-invalid-feedback', async () => {
 
   it('default should have user supplied id', async () => {
     const feedback = mount(Feedback, {
-      propsData: {
-        id: 'foobar'
+      context: {
+        props: {
+          id: 'foobar'
+        }
       }
     })
     expect(feedback.attributes('id')).toBe('foobar')
@@ -38,8 +40,10 @@ describe('form-invalid-feedback', async () => {
 
   it('should have tag small when tag=small', async () => {
     const feedback = mount(Feedback, {
-      propsData: {
-        tag: 'small'
+      context: {
+        props: {
+          tag: 'small'
+        }
       }
     })
     expect(feedback.is('small')).toBe(true)
@@ -47,8 +51,10 @@ describe('form-invalid-feedback', async () => {
 
   it('should contain class d-block when force-show is set', async () => {
     const feedback = mount(Feedback, {
-      propsData: {
-        forceShow: true
+      context: {
+        props: {
+          forceShow: true
+        }
       }
     })
     expect(feedback.classes()).toContain('d-block')
@@ -56,8 +62,10 @@ describe('form-invalid-feedback', async () => {
 
   it('should contain class invalid-tooltip when tooltip is set', async () => {
     const feedback = mount(Feedback, {
-      propsData: {
-        tooltip: true
+      context: {
+        propsData: {
+          tooltip: true
+        }
       }
     })
     expect(feedback.classes()).toContain('invalid-tooltip')
@@ -65,8 +73,10 @@ describe('form-invalid-feedback', async () => {
 
   it('should not contain class invalid-feedback when tooltip is set', async () => {
     const feedback = mount(Feedback, {
-      propsData: {
-        tooltip: true
+      context: {
+        propsData: {
+          tooltip: true
+        }
       }
     })
     expect(feedback.classes()).not.toContain('invalid-feedback')
