@@ -178,7 +178,7 @@ const defaultJS = `{
   }
 }`
 
-const defaultHTML = `<div>
+const defaultHTML = `<div style="height:7.5rem;">
   <b-button @click="show = !show">
     {{ show ? 'Hide' : 'Show' }} Alert
   </b-button>
