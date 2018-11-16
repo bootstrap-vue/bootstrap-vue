@@ -78,7 +78,7 @@ export default {
       mode: this.mode,
       theme: this.theme,
       tabMode: this.tabMode,
-      tabSize: parseInt(this.tabSize, 10) || 2
+      tabSize: parseInt(this.tabSize, 10) || 2,
       lineWrapping: this.lineWrapping,
       lineNumbers: this.lineNumbers,
       autoCloseTags: true,
