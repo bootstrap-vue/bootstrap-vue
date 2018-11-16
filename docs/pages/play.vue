@@ -5,13 +5,13 @@
       <div class="col-12 mb-3">
         <p class="mb-1">
           Here you can interactively play and test components with a fresh vue instance.
+          Please refer to the <router-link to="/docs">Docs</router-link>
+          section for more info about available tags and usage.
         </p>
         <p class="mb-1">
           <strong>TIP:</strong>
           You can clone docs repo, to hack and develop components.
           changes will be reflected and hot-reloaded instantly.
-          Please refer to the <router-link to="/docs">Docs</router-link>
-          section for more info about available tags and usage.
         </p>
       </div>
       <div class="col-12">
@@ -122,7 +122,7 @@
             <li
               v-for="(message, idx) in messages"
               :class="['list-group-item','list-group-item-${message[0]}']"
-              :key="`console-${message[2]}`">
+              :key="`console-${messages.length - idx}`">
               <b-badge :variant="message[0]" style="font-size:0.9rem;">{{
                 message[0] === 'danger' ? 'error' : 'log'
               }}</b-badge>
@@ -182,7 +182,6 @@ export default {
       html: '',
       js: '',
       messages: [],
-      mesgIdx: 0,
       vertical: false,
       full: false
     }
@@ -289,7 +288,7 @@ export default {
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
-      this.messages.unshift([tag, msg, this.msgIdx++])
+      this.messages.unshift([tag, msg])
     },
     destroyVM () {
       if (this.playVM) {
