@@ -77,7 +77,8 @@ export default {
         {
           props: {
             id: this.invalidFeedbackId,
-            forceShow: this.computedState === false
+            forceShow: this.computedState === false,
+            tooltip: this.tooltip
           },
           attrs: {
             role: 'alert',
@@ -99,7 +100,8 @@ export default {
         {
           props: {
             id: this.validFeedbackId,
-            forceShow: this.computedState === true
+            forceShow: this.computedState === true,
+            tooltip: this.tooltip
           },
           attrs: {
             role: 'alert',
@@ -211,6 +213,10 @@ export default {
     validFeedback: {
       type: String,
       default: null
+    },
+    tooltip: {
+      type: Boolean,
+      default: false
     },
     validated: {
       type: Boolean,
