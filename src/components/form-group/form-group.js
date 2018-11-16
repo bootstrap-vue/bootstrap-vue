@@ -252,7 +252,8 @@ export default {
     },
     inputLayoutClasses () {
       return [
-        this.horizontal ? `col-${this.breakpoint}-${12 - Number(this.labelCols)}` : null
+        this.horizontal ? `col-${this.breakpoint}-${12 - Number(this.labelCols)}` : null,
+        this.tooltip ? 'position-relative' : null
       ]
     },
     hasLabel () {
