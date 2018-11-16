@@ -28,7 +28,7 @@
             Export to JSFiddle
           </b-btn>
         </form>
-        <b-btn @click="reset" size="sm" variant="danger">Reset to default</b-btn>
+        <b-btn @click="reset" size="sm" variant="danger" :disabled="!isDefault">Reset to default</b-btn>
       </div>
     </div>
 
@@ -199,6 +199,10 @@ export default {
         '//unpkg.com/vue@latest/dist/vue.min.js',
         '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
       ]
+    },
+    isDefault () {
+      return this.js.trim() === defaultJS.trim() &&
+        this.html.trim() === defaultHTML.trim()
     },
     isOk () {
       let o
