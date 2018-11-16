@@ -311,7 +311,7 @@ export default {
         return
       }
 
-      const res
+      let res
       if (html) {
         try {
           res = Vue.compile(`<div id="playground-app">${html}</div>`)
