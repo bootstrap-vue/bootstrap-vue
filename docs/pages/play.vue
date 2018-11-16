@@ -117,17 +117,17 @@
               <span>Clear</span>
             </b-btn>
           </div>
-          <ul v-if="messages.length" class="list-group list-group-flush">
+          <transition-group tag="ul" name="flip" v-if="messages.length" class="list-group list-group-flush">
             <li
               v-for="(message, idx) in messages"
-              class="list-group-item"
-              :key="`console-${idx}`">
-              <b-badge :variant="message[0]" style="width:1.25rem;font-size:0.9rem;">{{
-                message[0] === 'danger' ? '!' : '?'
+              :class="['list-group-item','list-group-item-${message[0]}']"
+              :key="`console-${messages.length - idx}`">
+              <b-badge :variant="message[0]" style="font-size:0.9rem;">{{
+                message[0] === 'danger' ? 'error' : 'log'
               }}</b-badge>
               <span class="text-muted"> {{ message[1] }}</span>
             </li>
-          </ul>
+          </transition-group>
           <div v-else class="card-body">&nbsp;</div>
         </div>
       </div>
@@ -148,12 +148,25 @@ import debounce from 'lodash/debounce'
 
 const defaultJS = `{
   data: {
-    name: 'Bootstrap-Vue'
+    name: 'Bootstrap-Vue',
+    show: true
+  },
+  watch: {
+    show(newVal, oldVal) {
+      console.log(
+        'Alert is ' + (this.show ? 'visible : 'hidden')
+      )
+    }
   }
 }`
 
 const defaultHTML = `<div>
-  <b-alert show> Hello {{ name }}! </b-alert>
+  <b-alert v-model="show" dismissible>
+    Hello {{ name }}!
+  </b-alert>
+  <b-button v-if="!show" @click="show = true">
+    Show Alert
+  </b-button>
 </div>`
 
 // Maximum age of localstorage before we revert back to defaults
@@ -266,10 +279,15 @@ export default {
       if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
         return
       }
+      const msg = args.map(String).join(' ')
+      if (this.messages.length && msg.indexOf('Error in render') !== -1 && msg === this.messages[0][1]) {
+        // prevent duplicate render errors
+        return
+      }
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
-      this.messages.unshift([tag, args.map(String).join(' ')])
+      this.messages.unshift([tag, msg])
     },
     destroyVM () {
       if (this.playVM) {
