@@ -19,7 +19,7 @@
           method="post"
           action="https://jsfiddle.net/api/post/library/pure/"
           target="_blank"
-          v-if="html || js">
+          v-if="isOk">
           <input type="hidden" :value="html_fiddle" name="html">
           <input type="hidden" :value="js_fiddle" name="js">
           <input type="hidden" value="l" name="js_wrap">
@@ -149,8 +149,8 @@ import debounce from 'lodash/debounce'
 
 const defaultJS = `{
   data: {
-    name: 'Zeus'
-  },
+    name: 'Bootstrap-Vue'
+  }
 }`
 
 const defaultHTML = `<div>
@@ -187,13 +187,25 @@ export default {
         '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
       ]
     },
-    js_fiddle () {
-      let js = this.js.trim()
-      if (!js) {
-        js = `{${js}}`
+    is ok () {
+      let o
+      const js = this.js.trim() || '{}'
+      try {
+        /* eslint-disable no-eval */
+        eval(`o = ${js}`)
+        /* eslint-enable no-eval */
+      } catch (err) {
+        return false
       }
+      if (!this.html && !o.template && typeof o.render !== 'function') {
+        return false
+      }
+      return true
+    },
+    js_fiddle () {
+      let js = this.js.trim() || '{}'
       js = `new Vue(${js}).$mount('#app')`
-      return `window.onload = function() {${js}}`
+      return `window.onload = function() {\r\n${js}\r\n}`
     },
     html_fiddle () {
       return `<div id='app'>\r\n${this.html.trim()}\r\n</div>`
@@ -280,7 +292,7 @@ export default {
     },
     createVM () {
       let options
-      const js = this.js.trim()
+      const js = this.js.trim() || '{}'
       const html = this.html.trim()
       const self = this
 
@@ -302,7 +314,7 @@ export default {
       }
       options = Object.assign({}, options)
 
-      if (!html && !options.template && !options.render) {
+      if (!html && !options.template && typeof options.render !== 'function') {
         this.log('danger', 'No template or render function provided')
         return
       }
