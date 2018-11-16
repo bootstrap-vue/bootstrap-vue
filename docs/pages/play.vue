@@ -154,7 +154,7 @@ const defaultJS = `{
   watch: {
     show(newVal, oldVal) {
       console.log(
-        'Alert is ' + (this.show ? 'visible : 'hidden')
+        'Alert is ' + (this.show ? 'visible' : 'hidden')
       )
     }
   }
