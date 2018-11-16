@@ -18,13 +18,12 @@
           class="d-inline-block ml-2 mr-0 p-0 float-right"
           method="post"
           action="https://jsfiddle.net/api/post/library/pure/"
-          target="_blank"
-          v-if="isOk">
+          target="_blank">
           <input type="hidden" :value="html_fiddle" name="html">
           <input type="hidden" :value="js_fiddle" name="js">
           <input type="hidden" value="l" name="js_wrap">
           <input name="resources" type="hidden" :value="fiddle_dependencies.join(',')">
-          <b-btn size="sm" type="submit">
+          <b-btn size="sm" type="submit" :disabled="!isOk">
             Export to JSFiddle
           </b-btn>
         </form>
@@ -187,7 +186,7 @@ export default {
         '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
       ]
     },
-    is ok () {
+    isOk () {
       let o
       const js = this.js.trim() || '{}'
       try {
