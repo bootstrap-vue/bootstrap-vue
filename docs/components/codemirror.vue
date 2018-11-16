@@ -68,7 +68,7 @@ export default {
   },
   watch: {
     value (new_val, old_val) {
-      if (!old_val || old_val === '' || new_val !== old_val) {
+      if (!old_val || old_val === '') {
         this.CM.setValue(new_val)
       }
     }
