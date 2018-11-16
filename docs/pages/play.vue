@@ -286,11 +286,10 @@ export default {
         // prevent duplicate render errors
         return
       }
-      this.msgIdx++
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
-      this.messages.unshift([tag, msg, msgIdx])
+      this.messages.unshift([tag, msg, this.msgIdx++])
     },
     destroyVM () {
       if (this.playVM) {
