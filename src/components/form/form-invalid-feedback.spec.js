@@ -69,6 +69,6 @@ describe('form-invalid-feedback', async () => {
         tooltip: true
       }
     })
-    expect(feedback.classes()).not.toContain('invalid-feedbac88')
+    expect(feedback.classes()).not.toContain('invalid-feedback')
   })
 })
