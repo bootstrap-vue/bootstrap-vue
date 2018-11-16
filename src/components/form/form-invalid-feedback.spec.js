@@ -91,5 +91,5 @@ describe('form-invalid-feedback', async () => {
     expect(feedback.text()).toContain('foo')
     expect(feedback.find('b').exists()).toBe(true)
     expect(feedback.find('b').text()).toContain('bar') 
-  }
+  })
 })
