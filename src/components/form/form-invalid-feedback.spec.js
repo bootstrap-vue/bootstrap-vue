@@ -85,11 +85,11 @@ describe('form-invalid-feedback', async () => {
   it('should have children in the default slot when supplied', async () => {
     const feedback = mount(Feedback, {
       context: {
-        children: ['foo', '<b>bar</>']
+        children: ['foo', '<span>bar</span>']
       }
     })
     expect(feedback.text()).toContain('foo')
-    expect(feedback.find('b').exists()).toBe(true)
-    expect(feedback.find('b').text()).toContain('bar') 
+    expect(feedback.find('span').exists()).toBe(true)
+    expect(feedback.find('span').text()).toContain('bar')
   })
 })
