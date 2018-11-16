@@ -180,6 +180,23 @@ See also:
 - `<b-form-invalid-feedback>` Invalid feedback text blocks for input `invalid` states
 - `<b-form-valid-feedback>` Valid feedback text blocks for input `valid` states
 
+### Text helper
+Display a block of help text below an input with the `<b-form-text>` helper component.
+text is displayed with a muted color and slightly smaller font-size.
+
+### Feedback helpers
+The valid and invalid feedback helper components will display feedback (based on input state)
+as a block of colored text. They rely on being placed after an input (sibling) and will show
+based on the browser native validation state of the input. To force them to show,
+set the prop `force-show`, or set the `was-validated` class on a parent element (such as a form).
+See the **Validation** section below for additional details.
+
+Use the optional Boolean prop `tooltip` to change the display from a
+block to a static tooltip style. The feedback will typically appear below the form control.
+When this mode is enabled, it is important that the parent container have a
+`position: relative:` css style (or `position-relative` class). Note that tooltip style
+feedback may, since it's positioning is static, obscure other inputs, labels, etc.
+
 
 ## Validation
 
@@ -189,7 +206,7 @@ on `<b-form>`.
 Set the `validated` prop, on `<b-form>`, to `true` to add the Bootstrap V4 `.was-validated` class
 to the form to trigger validation states
 
-Refer to the [Bootstrap V4 Form Validation Documentation](https://getbootstrap.com/docs/4.0/components/forms/#validation)
+Refer to the [Bootstrap V4 Form Validation Documentation](https://getbootstrap.com/docs/4.1/components/forms/#validation)
 for details on the new Bootstrap V4 validation states.
 
 ### Validation mechanisms

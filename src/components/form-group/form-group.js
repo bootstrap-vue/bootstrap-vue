@@ -77,7 +77,8 @@ export default {
         {
           props: {
             id: this.invalidFeedbackId,
-            forceShow: this.computedState === false
+            forceShow: this.computedState === false,
+            tooltip: this.tooltip
           },
           attrs: {
             role: 'alert',
@@ -99,7 +100,8 @@ export default {
         {
           props: {
             id: this.validFeedbackId,
-            forceShow: this.computedState === true
+            forceShow: this.computedState === true,
+            tooltip: this.tooltip
           },
           attrs: {
             role: 'alert',
@@ -212,6 +214,10 @@ export default {
       type: String,
       default: null
     },
+    tooltip: {
+      type: Boolean,
+      default: false
+    },
     validated: {
       type: Boolean,
       default: false
@@ -246,7 +252,8 @@ export default {
     },
     inputLayoutClasses () {
       return [
-        this.horizontal ? `col-${this.breakpoint}-${12 - Number(this.labelCols)}` : null
+        this.horizontal ? `col-${this.breakpoint}-${12 - Number(this.labelCols)}` : null,
+        this.tooltip ? 'position-relative' : null
       ]
     },
     hasLabel () {

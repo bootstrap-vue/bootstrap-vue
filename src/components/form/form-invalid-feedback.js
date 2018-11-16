@@ -9,6 +9,10 @@ export const props = {
     type: String,
     default: 'div'
   },
+  tooltip: {
+    type: Boolean,
+    default: false
+  },
   forceShow: {
     type: Boolean,
     default: false
@@ -22,8 +26,11 @@ export default {
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: 'invalid-feedback',
-        class: { 'd-block': props.forceShow },
+        class: {
+          'invalid-feedback': !props.tooltip,
+          'invalid-tooltip': props.tooltip,
+          'd-block': props.forceShow
+        },
         attrs: { id: props.id }
       }),
       children
