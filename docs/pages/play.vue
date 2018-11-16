@@ -118,7 +118,11 @@
               <span>Clear</span>
             </b-btn>
           </div>
-          <transition-group tag="ul" name="flip-list" v-if="messages.length" class="list-group list-group-flush">
+          <transition-group
+            tag="ul"
+            name="flip-list"
+            v-if="messages.length"
+            class="list-group list-group-flush play-log">
             <li
               v-for="(message, idx) in messages"
               :class="['list-group-item','list-group-item-${message[0]}']"
@@ -141,7 +145,7 @@
 .flip-move {
   transition: all .3s;
 }
-.list-group-item {
+.play-log .list-group-item {
  transition: all .3s;
 }
 .flip-list-enter, .flip-list-leave-to {
