@@ -90,8 +90,5 @@ describe('form-invalid-feedback', async () => {
     })
     expect(feedback.text()).toContain('foo')
     expect(feedback.text()).toContain('bar')
-    // contains and find appear to only work on non-functional components
-    // expect(feedback.contains('span')).toBe(true)
-    expect(feedback.html()).toContain('foo<span>bar</span>')
   })
 })
