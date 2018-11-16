@@ -368,9 +368,13 @@ export default {
       this.messages.splice(0)
     },
     reset() {
-      this.js = defaultJS.trim()
-      this.html = defaultHTML.trim()
-      this.save()
+      // Needed to trick codemirror component to reload contents
+      this.js = this.html = ''
+      this.$nextTick(() => {
+        this.js = defaultJS.trim()
+        this.html = defaultHTML.trim()
+        this.save()
+      })
     },
     load () {
       const ls = window && window.localStorage
