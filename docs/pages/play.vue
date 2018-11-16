@@ -221,8 +221,8 @@ export default {
     this.playVM = null
     // disable global error handler
     this.oldErrorHandler = Vue.config.errorHandler
-/*
     Vue.config.errorHandler = null
+/*
     Vue.config.errorHandler = (err, vm, info) => {
       try {
         self.log.call(self, 'danger', `Error in ${info}: ${String(err)}`)
@@ -288,10 +288,11 @@ export default {
       let options
       const js = this.js.trim()
       const html = this.html.trim()
-      const log = this.log
+      const self = this
 
       const errHandler = (err, vm, info) => {
-        log('danger', `Error in ${info}: ${err.message}`)
+        self.log('danger', `Error in ${info}: ${err.message}`)
+        self.destroyVM()
         return false
       }
 
@@ -312,20 +313,16 @@ export default {
       }
 
       let res
-      if (html) {
+      if (html || options.template) {
         try {
-          res = Vue.compile(`<div id="playground-app">${html}</div>`)
+          res = Vue.compile(`<div id="playground-app">${html || options.template}</div>`)
+          options.render = res.render
+          options.staticRenderFns = res.staticRenderFns
+          delete options.template
         } catch (err) {
           errHandler(err, null, 'compiling template')
           return
         }
-      }
-
-      if (html && res) {
-        delete options.template
-        // we use render functions so that we can trap errors in the templates
-        options.render = res.render
-        options.staticRenderFns = res.staticRenderFns
       }
 
       let holder = document.createElement('div')
