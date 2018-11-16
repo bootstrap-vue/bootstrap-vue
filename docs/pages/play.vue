@@ -200,7 +200,11 @@ export default {
       ]
     },
     js_fiddle () {
-      const js = `new Vue({el:'#app',\r\n${this.js.trim()}})`
+      let js = this.js.trim()
+      if (!js) {
+        js = `{${js}}`
+      }
+      js = `new Vue(${js}).$mount('#app')`
       return `window.onload = function() {${js}}`
     },
     html_fiddle () {
@@ -219,20 +223,20 @@ export default {
     const self = this
     // Non reactive property to store the playground vm
     this.playVM = null
-    // disable global error handler
+
+    if (this.$isServer) {
+      this.run = () => {}
+      return
+    }
+
+    // Create our debounced runner
+    this.run = debounce(this._run, 500)
+
+    // Disable global error handler as it screws up out log capture
     this.oldErrorHandler = Vue.config.errorHandler
     Vue.config.errorHandler = null
-/*
-    Vue.config.errorHandler = (err, vm, info) => {
-      try {
-        self.log.call(self, 'danger', `Error in ${info}: ${String(err)}`)
-        // Note Vue still sends original error to console.error()!!!
-      } catch (err) {
-        // prevent possible endless loops
-      }
-    }
-*/
-    // original console logger
+
+    // Override console.log
     if (typeof window !== 'undefined' && console) {
       const that = console
       this.originalLog = console.log
@@ -241,8 +245,6 @@ export default {
         // self.originalLog.apply(that, arguments)
       }
     }
-    // Create our debounced runner
-    this.run = debounce(this._run, 500)
   },
   mounted () {
     // load our content into the editors after dom updated
@@ -252,8 +254,12 @@ export default {
     if (typeof window !== 'undefined' && this.originalLog) {
       console.log = this.originalLog
     }
-    Vue.config.errorHandler = this.oldErrorHandler
-    this.destroyVM()
+    if (this.oldErrorHandler) {
+      Vue.config.errorHandler = this.oldErrorHandler
+    }
+    if (!this.$isServer) {
+      this.destroyVM()
+    }
   },
   methods: {
     log (tag, ...args) {
@@ -311,7 +317,7 @@ export default {
         this.log('danger', 'No template or render function provided')
         return
       }
-
+/*
       let res
       if (html || options.template) {
         try {
@@ -324,7 +330,7 @@ export default {
           return
         }
       }
-
+*/
       let holder = document.createElement('div')
       this.$refs.result.appendChild(holder)
 
@@ -335,6 +341,7 @@ export default {
         })
         this.playVM = new Vue(Object.assign({}, options, {
           el: holder,
+          template: `<div id="playground-app">${options.template || html}</div>`
           // we set a fake parent so we can capture errors
           parent: fakeParent,
           // router needed for tooltips and popovers so they hide when route changes
