@@ -2,7 +2,7 @@
   <div class="container">
 
     <div class="mb-3 row">
-      <div class="col-12">
+      <div class="col-12 mb-3">
         <span>Here you can interactively play and test components with a fresh vue instance.</span>
         <br>
         <Strong>TIP: </Strong>
@@ -13,7 +13,7 @@
         <router-link to="/docs"> Docs </router-link>
         <span>for more info about available tags and usage.</span>
       </div>
-      <div class="col-12 mb-2">
+      <div class="col-12">
         <form
           class="d-inline-block ml-2 mr-0 p-0 float-right"
           method="post"
@@ -122,7 +122,7 @@
               v-for="(message, idx) in messages"
               class="list-group-item"
               :key="`console-${idx}`">
-              <b-badge :variant="message[0]" style="width:1.25rem;font-sizze:1rem;">{{
+              <b-badge :variant="message[0]" style="width:1.25rem;font-size:0.9rem;">{{
                 message[0] === 'danger' ? '!' : '?'
               }}</b-badge>
               <span class="text-muted"> {{ message[1] }}</span>
@@ -311,26 +311,11 @@ export default {
         this.playVM = null
         return
       }
-      options = Object.assign({}, options)
 
       if (!html && !options.template && typeof options.render !== 'function') {
         this.log('danger', 'No template or render function provided')
         return
       }
-/*
-      let res
-      if (html || options.template) {
-        try {
-          res = Vue.compile(`<div id="playground-app">${html || options.template}</div>`)
-          options.render = res.render
-          options.staticRenderFns = res.staticRenderFns
-          delete options.template
-        } catch (err) {
-          errHandler(err, null, 'compiling template')
-          return
-        }
-      }
-*/
 
       if (!options.render) {
         options.template = `<div id="playground-app">${options.template || html}</div>`
@@ -385,6 +370,9 @@ export default {
     reset() {
       this.js = defaultJS.trim()
       this.html = defaultHTML.trim()
+      this.save()
+      // needed to get code mirror to use new values
+      this.$forceReload()
     },
     load () {
       const ls = window && window.localStorage
