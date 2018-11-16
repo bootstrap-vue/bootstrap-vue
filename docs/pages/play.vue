@@ -217,7 +217,7 @@ export default {
     },
     js_fiddle () {
       let js = this.js.trim() || '{}'
-      const comma = js === '{}' ? '', ','
+      const comma = js === '{}' ? '' : ','
       js = js.replace(/^\{/, `{\r\n  el: '#app'${comma}\r\n`)
       js = `new Vue(${js})`
       return `window.onload = function() {\r\n${js}\r\n}`
