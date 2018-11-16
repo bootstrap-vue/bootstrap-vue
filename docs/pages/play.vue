@@ -306,16 +306,18 @@ export default {
       }
 
       // Build vm and mount it
+      log = this.log
       let holder = document.createElement('div')
       this.$refs.result.appendChild(holder)
+      const errHandler = (err, vm, info) => {
+        log('danger', `Error in ${info}: ${err.message}`)
+        return false
+      }
+      
       try {
         const fakeParent = new Vue({
           template: '<div></div>',
-          errorCaptured(err, vm, info) {
-            self.log.call(self, 'danger', `Error in ${info}: ${err.message}`)
-            // return false so we don't propagate to global error handler
-            return false
-          },
+          errorCaptured: errHandler
         })
         this.playVM = new Vue(Object.assign({}, options, {
           template: `<div id="playground-app">${html}</div>`,
@@ -328,7 +330,7 @@ export default {
       } catch (err) {
         holder = null
         this.destroyVM()
-        self.log('danger', `Error in render: ${err.message}`)
+        errhandler(err, null, 'vm create')
         return
       }
 
