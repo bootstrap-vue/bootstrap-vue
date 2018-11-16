@@ -11,7 +11,7 @@ export const props = {
   },
   tooltip: {
     type: Boolean,
-    default: flase
+    default: false
   },
   forceShow: {
     type: Boolean,
