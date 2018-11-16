@@ -241,6 +241,11 @@ by setting the prop `valid-feedback` or using the named slot `valid-feedback`.
 Valid feedback is rendered using the [`<b-form-valid-feedback>`](/docs/components/form#helper-components)
 form sub-componment.
 
+### Feedback style
+By default, when visible, feedback (valid or invalid) will show as a block of text. You can change
+the feedback so that it shows as a static tooltip when visible, by setting the prop `tooltip` to `true`.
+
+
 ### Feedback limitations
 **Note:** When using `<b-input-group>`, `<b-form-file>`, `<b-form-radio-group>`,
 `<b-form-radio>`, `<b-form-checkbox-group>` or `<b-form-checkbox>` inside a
