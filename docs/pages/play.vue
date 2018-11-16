@@ -126,7 +126,7 @@
             <li
               v-for="(message, idx) in messages"
               :class="['list-group-item','list-group-item-${message[0]}']"
-              :key="`console-${messag[2]}`">
+              :key="`console-${message[2]}`">
               <b-badge :variant="message[0]" style="font-size:0.9rem;">{{
                 message[0] === 'danger' ? 'error' : 'log'
               }}</b-badge>
@@ -179,7 +179,7 @@ const defaultJS = `{
 
 const defaultHTML = `<div>
   <b-button @click="show = !show">
-    Show Alert
+    {{ show ? 'Hide' : 'Show' }} Alert
   </b-button>
   <b-alert v-model="show" dismissible class="mt-3">
     Hello {{ name }}!
