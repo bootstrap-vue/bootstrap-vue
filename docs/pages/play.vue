@@ -194,16 +194,16 @@ const removeNode = node => node && node.parentNode && node.parentNode.removeChil
 
 // fake console object const console = new FakeConsole(this.log)
 function FakeConsole(logger) {
-  let wc = window && window.console
-  log() {
+  const wc = window && window.console
+  this.log = () => {
     logger && logger('info', ...arguments)
     wc && wc.log && wc.log(...arguments)
   }
-  warn() {
+  this.warn = () => {
     logger && logger('warning', ...arguments)
     wc && wc.warn && wc.warn(...arguments)
   }
-  error() {
+  this.error = () => {
     logger && logger('danger', ...arguments)
     wc && wc.error && wc.error(...arguments)
   }
