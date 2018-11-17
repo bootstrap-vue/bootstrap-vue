@@ -123,6 +123,7 @@
             tag="ul"
             name="flip-list"
             class="list-group list-group-flush play-log">
+            <li v-if="!messages.length" key="console-1" class="list-group-item">&nbsp;</li>
             <li
               v-for="(msg, idx) in messages"
               :class="['list-group-item',`list-group-item-${msg[0]}`]"
@@ -132,7 +133,6 @@
               }}</b-badge>
               <span> {{ msg[1] }}</span>
             </li>
-            <li v-if="!messages.length" key="empty" class="list-group-item">&nbsp;</li>
           </transition-group>
         </div>
       </div>
