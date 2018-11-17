@@ -361,12 +361,15 @@ export default {
         return false
       }
 
+
       // Test JavaScript
       try {
-        // present a locally scoped fake console to the user code
-        const console = new FakeConsole(this.log)
         /* eslint-disable no-eval */
-        eval(`options = ${js}`)
+        eval(`
+        // present a locally scoped fake console to the user code
+        const console = new FakeConsole(this.log.bind(this))
+        options = ${js}
+        `)
         /* eslint-enable no-eval */
       } catch (err) {
         errHandler(err, null, 'javascript')
