@@ -388,7 +388,7 @@ export default {
         return
       }
       if (options.render && typeof options.render !== 'function') {
-        this.errHandler('render must be a function'), 'javascript')
+        this.errHandler('Render must be a function', 'javascript')
         return
       }
       if (!options.render) {
