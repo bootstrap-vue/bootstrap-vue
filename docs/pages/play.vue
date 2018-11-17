@@ -122,19 +122,18 @@
           <transition-group
             tag="ul"
             name="flip-list"
-            v-if="messages.length"
             class="list-group list-group-flush play-log">
+            <li v-if="!messages.length" key="empty" class="list-group-item">&nbsp;</li>
             <li
-              v-for="(message, idx) in messages"
-              :class="['list-group-item','list-group-item-${message[0]}']"
-              :key="`console-${message[2]}`">
-              <b-badge :variant="message[0]" style="font-size:0.9rem;">{{
-                message[0] === 'danger' ? 'error' : 'log'
+              v-for="(msg, idx) in messages"
+              :class="['list-group-item',`list-group-item-${msg[0]}`]"
+              :key="`console-${msg[2]}`">
+              <b-badge :variant="msg[0]" style="font-size:1em;">{{
+                msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log'
               }}</b-badge>
-              <span class="text-muted"> {{ message[1] }}</span>
+              <span> {{ msg[1] }}</span>
             </li>
           </transition-group>
-          <div v-else class="card-body">&nbsp;</div>
         </div>
       </div>
     </transition-group>
@@ -192,6 +191,23 @@ const defaultHTML = `<div style="height:7.5rem;">
 const maxRetention = 7 * 24 * 60 * 60 * 1000
 
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
+
+// fake console object const console = new FakeConsole(this.log)
+function FakeConsole(logger) {
+  let wc = window && window.console
+  log() {
+    logger && logger('info', ...arguments)
+    wc && wc.log && wc.log(...arguments)
+  }
+  warn() {
+    logger && logger('warning', ...arguments)
+    wc && wc.warn && wc.warn(...arguments)
+  }
+  error() {
+    logger && logger('danger', ...arguments)
+    wc && wc.error && wc.error(...arguments)
+  }
+}
 
 export default {
   data () {
@@ -272,7 +288,7 @@ export default {
     // Disable global error handler as it screws up out log capture
     this.oldErrorHandler = Vue.config.errorHandler
     Vue.config.errorHandler = null
-
+/*
     // Override console.log
     if (typeof window !== 'undefined' && console) {
       const that = console
@@ -282,6 +298,7 @@ export default {
         self.originalLog.apply(that, arguments)
       }
     }
+*/
   },
   mounted () {
     // load our content into the editors after dom updated
@@ -312,7 +329,7 @@ export default {
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
-      this.messages.unshift([tag, msg, this.logIdx++])
+      this.messages.unshift([tag, msg, ++this.logIdx])
     },
     destroyVM () {
       if (this.playVM) {
@@ -346,6 +363,8 @@ export default {
 
       // Test JavaScript
       try {
+        // present a locally scoped fake console to the user code
+        const console = new FakeConsole(this.log)
         /* eslint-disable no-eval */
         eval(`options = ${js}`)
         /* eslint-enable no-eval */
