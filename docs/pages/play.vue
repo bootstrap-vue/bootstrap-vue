@@ -376,7 +376,7 @@ export default {
         // Options are eval'ed in our variable scope, so we can override
         // the "global" console reference just for the user app
         /* eslint-disable no-eval */
-        eval(`console = this.fakeConsole; options = ${code};`)
+        eval(`console = this.fakeConsole; options = ${js};`)
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
