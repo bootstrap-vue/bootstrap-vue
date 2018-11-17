@@ -349,7 +349,7 @@ export default {
   },
   methods: {
     destroyVM () {
-      vm = this.playVM
+      let vm = this.playVM
       if (vm) {
         let parent
         try {
