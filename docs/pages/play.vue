@@ -193,8 +193,8 @@ const maxRetention = 7 * 24 * 60 * 60 * 1000
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
 // fake console object const console = new FakeConsole(this.log)
+const wc = window && window.console
 function FakeConsole(logger) {
-  const wc = window && window.console
   this.log = () => {
     logger && logger('info', ...arguments)
     wc && wc.log && wc.log(...arguments)
@@ -367,7 +367,7 @@ export default {
         /* eslint-disable no-eval */
         eval(`
         // present a locally scoped fake console to the user code
-        const console = new FakeConsole(this.log.bind(this))
+        const console = new FakeConsole(self.log.bind(self))
         options = ${js}
         `)
         /* eslint-enable no-eval */
