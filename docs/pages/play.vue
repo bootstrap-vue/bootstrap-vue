@@ -123,7 +123,6 @@
             tag="ul"
             name="flip-list"
             class="list-group list-group-flush play-log">
-            <li v-if="!messages.length" key="empty" class="list-group-item">&nbsp;</li>
             <li
               v-for="(msg, idx) in messages"
               :class="['list-group-item',`list-group-item-${msg[0]}`]"
@@ -133,6 +132,7 @@
               }}</b-badge>
               <span> {{ msg[1] }}</span>
             </li>
+            <li v-if="!messages.length" key="empty" class="list-group-item">&nbsp;</li>
           </transition-group>
         </div>
       </div>
@@ -192,31 +192,13 @@ const maxRetention = 7 * 24 * 60 * 60 * 1000
 
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
-// fake console object const console = new FakeConsole(this.log)
-const wc = window && window.console
-function FakeConsole(logger) {
-  this.logger = logger
-  this.log = () => {
-    this.logger('info', ...arguments)
-    wc.log.apply(wc, arguments)
-  }
-  this.warn = () => {
-    this.logger('warning', ...arguments)
-    wc.warn.apply(wc, arguments)
-  }
-  this.error = () => {
-    this.logger('danger', ...arguments)
-    wc.error.apply(wc, arguments)
-  }
-}
-
 export default {
   data () {
     return {
       html: '',
       js: '',
       messages: [],
-      logIdx: 0,
+      logIdx: 1,
       vertical: false,
       full: false
     }
@@ -330,7 +312,7 @@ export default {
       if (this.messages.length > 10) {
         this.messages.splice(10)
       }
-      this.messages.unshift([tag, msg, ++this.logIdx])
+      this.messages.unshift([tag, msg, this.logIdx++])
     },
     destroyVM () {
       if (this.playVM) {
@@ -362,15 +344,26 @@ export default {
         return false
       }
 
-
-      // Test JavaScript
+      // Test JavaScript and prove a hijacked console
       try {
-        /* eslint-disable no-eval */
-        eval(`
         // present a locally scoped fake console to the user code
-        let console = new FakeConsole(self.log)
-        options = ${js}
-        `)
+        const wc = console
+        const console = {
+          log () {
+            self.log('info', ...arguments)
+            wc.log(...arguments)
+          },
+          warn () {
+            self.log('warning', ...arguments)
+            wc.warn(...argumwnts)
+          },
+          error () {
+            self.log('danger', ...arguments)
+            wc.error(...argumwnts)
+          }
+        }
+        /* eslint-disable no-eval */
+        eval(`options = ${js}`)
         /* eslint-enable no-eval */
       } catch (err) {
         errHandler(err, null, 'javascript')
@@ -431,6 +424,7 @@ export default {
       this.full = !this.full
     },
     clear () {
+      this.logIdx = 1
       this.messages.splice(0)
     },
     reset() {
