@@ -265,13 +265,13 @@ export default {
         oError = window.console.error
       } catch (e) {}
       return {
-        log = function () {
+        log: function () {
           try {
             logger('info', ...arguments)
             oLog.apply(oConsole, arguments)
           } catch (e) {}
         },
-        warn = function () {
+        warn: function () {
           try {
             logger('warning', ...arguments)
             oWarn.apply(oConsole, arguments)
