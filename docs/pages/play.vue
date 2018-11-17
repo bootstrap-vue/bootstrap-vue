@@ -344,26 +344,28 @@ export default {
         return false
       }
 
-      // Test JavaScript and prove a hijacked console
+      // Test JavaScript and provide a hijacked console
       try {
-        // present a locally scoped fake console to the user code
-        const wc = console
-        const console = {
-          log () {
-            self.log('info', ...arguments)
-            wc.log(...arguments)
-          },
-          warn () {
-            self.log('warning', ...arguments)
-            wc.warn(...argumwnts)
-          },
-          error () {
-            self.log('danger', ...arguments)
-            wc.error(...argumwnts)
-          }
-        }
+        // present a locally scoped fake console to the user code 
         /* eslint-disable no-eval */
-        eval(`options = ${js}`)
+        eval(`
+          const wc = console
+          const console = {
+            log () {
+              self.log('info', ...arguments)
+              wc.log(...arguments)
+            },
+            warn () {
+              self.log('warning', ...arguments)
+              wc.warn(...argumwnts)
+            },
+            error () {
+              self.log('danger', ...arguments)
+              wc.error(...argumwnts)
+            }
+          }
+          options = ${js}
+        `)
         /* eslint-enable no-eval */
       } catch (err) {
         errHandler(err, null, 'javascript')
