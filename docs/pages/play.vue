@@ -189,38 +189,6 @@ const maxRetention = 7 * 24 * 60 * 60 * 1000
 // Helper function to remove a node from it's parent's children
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
-// Helper function to generate a fake 'console' object with logger override
-// For trapping playground app result console logging
-function makeFakeConsole(logger) {
-  let oConsole, oLog, oWarn, oError
-  try {
-    oConsole = window.console
-    oLog = window.console.log
-    oWarn = window.console.warn
-    oError = window.console.error
-  } catch (e) {}
-  return {
-    log() {
-      try {
-        logger('info', ...arguments)
-        oLog.apply(oCnsole, arguments)
-      } catch (e) {}
-    },
-    warn() {
-      try {
-        logger('warning', ...arguments)
-        oWarn.apply(oConsole, arguments)
-      } catch (e) {}
-    },
-    error(...args) {
-      try {
-        logger('danger', ...arguments)
-        oError.apply(oConsole, arguments)
-      } catch (e) {}
-    }
-  }
-}
-
 export default {
   data () {
     return {
@@ -285,21 +253,49 @@ export default {
     },
     fiddle_html () {
       return `<div id='app'>\r\n${this.html.trim()}\r\n</div>`
+    },
+    fakeConsole() {
+      const logger = this.log
+      let oConsole, oLog, oWarn, oError
+      try {
+        // Native console methods
+        oConsole = window.console
+        oLog = window.console.log
+        oWarn = window.console.warn
+        oError = window.console.error
+      } catch (e) {}
+      return {
+        log = function () {
+          try {
+            logger('info', ...arguments)
+            oLog.apply(oConsole, arguments)
+          } catch (e) {}
+        },
+        warn = function () {
+          try {
+            logger('warning', ...arguments)
+            oWarn.apply(oConsole, arguments)
+          } catch (e) {}
+        },
+        error: function () {
+          try {
+            logger('danger', ...arguments)
+            oError.apply(oConsole, arguments)
+          } catch (e) {}
+        }
+      }
     }
   },
   created () {
-    const self = this
-    // Non reactive property to store the playground vm
+    // Create some non reactive properties
     this.playVM = null
+    this.oldErrorHandler = null
+    this.contentUnWatch = null
+    this.run = () => {}
 
-    // Create our debounced runner
-    this.run = debounce(this._run, 500)
-
-    // Disable global error handler as it can cause endless loops
-    this.oldErrorHandler = Vue.config.errorHandler
-    Vue.config.errorHandler = null
 /*
     // Override console.log
+    const self = this
     if (typeof window !== 'undefined' && console) {
       const that = console
       this.originalLog = console.log
@@ -311,10 +307,18 @@ export default {
 */
   },
   mounted () {
-    // Set up our editor content watcher
+    // Disable any global errorHandler, as it can cause endless console loops
+    // which cause the page to hang
+    this.oldErrorHandler = Vue.config.errorHandler
+    Vue.config.errorHandler = null
+
+    // Create our debounced runner
+    this.run = debounce(this._run, 500)
+
+    // Set up our editor content watcher.
     // We do this on mount to avoid SSR issues as normal watchers
-    // run before mount
-    this.$watch(
+    // can run before mount
+    this.contentUnWatch = this.$watch(
       () => {
         return {
           js: this.js.trim(),
@@ -326,17 +330,21 @@ export default {
       }
     )
     // load our content into the editors after dom updated
+    // Which triggers our watcher
     this.$nextTick(this.load)
   },
   beforeDestroy () {
     if (typeof window !== 'undefined' && this.originalLog) {
       console.log = this.originalLog
     }
-    if (this.oldErrorHandler) {
-      Vue.config.errorHandler = this.oldErrorHandler
+    if (this.contentUnWatch) {
+      this.contentUnWatch()
     }
     if (!this.$isServer) {
       this.destroyVM()
+    }
+    if (this.oldErrorHandler) {
+      Vue.config.errorHandler = this.oldErrorHandler
     }
   },
   methods: {
@@ -358,24 +366,24 @@ export default {
       this.$refs.result.innerHTML = ''
     },
     createVM () {
-      let options
       const js = this.js.trim() || '{}'
       const html = this.html.trim()
-      const faeConsole = makeFakeConsole(this.log)
+      let options
       let console
 
       // Test and assign options JavaScript
       try {
-        // options are eval'ed in our scope, so we can override "global" console reference
+        // Options are eval'ed in our variable scope, so we can override
+        // the "global" console reference just for the user app
         /* eslint-disable no-eval */
-        eval(`console = fakeConsole; options = ${js};`)
+        eval(`console = this.fakeConsole; options = ${code};`)
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
         return
       }
 
-      // Sanitize template
+      // Sanitize template possibilities
       if (!html && !options.template && typeof options.render !== 'function') {
         this.errHandler('No template or render function provided', 'template')
         return
@@ -399,7 +407,7 @@ export default {
 
       // Try and buld the user app
       try {
-        let self = this
+        let playground = this
         let holder = document.createElement('div')
         this.$refs.result.appendChild(holder)
         this.playVM = new Vue(Object.assign({}, options, {
@@ -412,7 +420,7 @@ export default {
             template: '<span />',
             errorCaptured(err, vm, info) {
               // pass error to playground error handler
-              self.errHandler(err, info)
+              playground.errHandler(err, info)
               // dont propegate to parent/global error handler!
               return false
             }
@@ -420,7 +428,7 @@ export default {
         }))
       } catch (err) {
         this.destroyVM()
-        this.errhandler(err, 'app create')
+        this.errHandler(err, 'app create')
         return
       }
 
