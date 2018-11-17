@@ -126,12 +126,12 @@
             <li v-if="!messages.length" key="console-1" class="list-group-item">&nbsp;</li>
             <li
               v-for="(msg, idx) in messages"
-              :class="['list-group-item',`list-group-item-${msg[0]}`]"
+              class="list-group-item py-2"
               :key="`console-${msg[2]}`">
-              <b-badge :variant="msg[0]" style="font-size:1em;">{{
+              <b-badge :variant="msg[0]" class="mr-1" style="font-size:90%;">{{
                 msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log'
               }}</b-badge>
-              <span> {{ msg[1] }}</span>
+              <span :class="[`text-${msg[0]}`]"> {{ msg[1] }}</span>
             </li>
           </transition-group>
         </div>
