@@ -322,7 +322,7 @@ export default {
       () => {
         return {
           js: this.js.trim(),
-          html: this.html().trim()
+          html: this.html.trim()
         }
       },
       (newVal, oldVal) => {
