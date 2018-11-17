@@ -368,7 +368,7 @@ export default {
         /* eslint-disable no-eval */
         eval(`
         // present a locally scoped fake console to the user code
-        const console = new FakeConsole(self.log.bind(self))
+        let console = new FakeConsole(self.log)
         options = ${js}
         `)
         /* eslint-enable no-eval */
