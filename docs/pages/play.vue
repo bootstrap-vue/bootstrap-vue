@@ -271,7 +271,7 @@ export default {
     // Disable global error handler as it screws up out log capture
     this.oldErrorHandler = Vue.config.errorHandler
     Vue.config.errorHandler = null
-/*
+
     // Override console.log
     if (typeof window !== 'undefined' && console) {
       const that = console
@@ -281,7 +281,6 @@ export default {
         self.originalLog.apply(that, arguments)
       }
     }
-*/
   },
   mounted () {
     // load our content into the editors after dom updated
@@ -344,28 +343,10 @@ export default {
         return false
       }
 
-      // Test JavaScript and provide a hijacked console
+      // Test and assign options JavaScript
       try {
-        // present a locally scoped fake console to the user code 
         /* eslint-disable no-eval */
-        eval(`
-          const wc = console
-          const console = {
-            log () {
-              self.log('info', ...arguments)
-              wc.log(...arguments)
-            },
-            warn () {
-              self.log('warning', ...arguments)
-              wc.warn(...argumwnts)
-            },
-            error () {
-              self.log('danger', ...arguments)
-              wc.error(...argumwnts)
-            }
-          }
-          options = ${js}
-        `)
+        eval(`options = ${js}`)
         /* eslint-enable no-eval */
       } catch (err) {
         errHandler(err, null, 'javascript')
