@@ -54,7 +54,7 @@ export default {
       }
       if (props.disabled) {
         // Set disabled attribute if button and disabled
-        attrs.disabled = props.disabled
+        attrs.disabled = true
       }
     } else {
       itemProps = pluckProps(linkProps, props)
