@@ -43,7 +43,7 @@ describe('b-table busy state', async () => {
   it('should render table-busy slot when busy=true and slot provided', async () => {
     const wrapper = mount(Table, {
       propsData: {
-        busy: true
+        busy: true,
         items: testItems
       },
       slots: {
@@ -61,7 +61,7 @@ describe('b-table busy state', async () => {
   it('should not render table-busy slot when busy=false and slot provided', async () => {
     const wrapper = mount(Table, {
       propsData: {
-        busy: false
+        busy: false,
         items: testItems
       },
       slots: {
@@ -79,7 +79,7 @@ describe('b-table busy state', async () => {
   it('should set class b-table-busy-slot on tbody>tr when busy=true and slot provided', async () => {
     const wrapper = mount(Table, {
       propsData: {
-        busy: true
+        busy: true,
         items: testItems
       },
       slots: {
