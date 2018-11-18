@@ -609,6 +609,73 @@ elements are limited. Refer to [MDN](https://developer.mozilla.org/en-US/docs/We
 for details and usage of `<colgroup>`
 
 
+## Table busy state
+`<b-table>` provides a `busy` prop that will flag the table as busy, which you can
+set to `true` just before you update your items, and then set it to `false` once you have
+your items. When in hte busy state, the tabe will have the attribute `aria-busy="true"`.
+
+During the busy state, the table will be rendered in a "muted" look (`opacity: 0.6`), using the
+following custom CSS:
+
+```css
+/* Busy table styling */
+table.b-table[aria-busy='false'] {
+    opacity: 1;
+}
+table.b-table[aria-busy='true'] {
+    opacity: 0.6;
+}
+```
+
+You can override this styling using your own CSS.
+
+You may optionally provide a `table-busy` slot to show a custom loading message or spinner
+whenever the table's busy state is `true`.  The slot will be placed in a `<tr>` element with
+class `b-table-busy-slot`, which has one single `<td>` with a `colspan` set to the number of fields.
+
+**Example of `table-busy` slot usage:**
+```html
+<template>
+  <div>
+    <b-button @click="toggleBusy">Toggle Busy State</b-button>
+    <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
+      <div slot="table-busy" class="text-center text-danger">
+        <br><strong>Loading...</strong><br><br>
+      </div>
+    </b-table>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      isBusy: false,
+      items: [
+        { first_name: 'Dickerson', last_name: 'MacDonald', age: 40 },
+        { first_name: 'Larsen', last_name: 'Shaw', age: 21 },
+        { first_name: 'Geneva', last_name: 'Wilson', age: 89 },
+        { first_name: 'Jami', last_name: 'Carney',age: 38 }
+      ]
+    }
+  },
+  methods: {
+    toggleBusy() {
+      this.isBusy = !this.isBusy
+    }
+  }
+}
+</script>
+
+<!-- table-busy-slot.vue -->
+```
+
+Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for additional
+informaton on the `busy` state.
+
+**Note:** All click related and hover events, and sort-changed events will __not__ be
+ emitted when the table is in the `busy` state.
+
+
 ## Custom Data Rendering
 Custom rendering for each data field in a row is possible using either
 [scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots)
@@ -1226,22 +1293,23 @@ function myProvider (ctx) {
 }
 ```
 
-`<b-table>` automatically tracks/controls it's `busy` state, however it provides
-a `busy` prop that can be used either to override inner `busy`state, or to monitor
-`<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
+### Automated table busy state
+`<b-table>` automatically tracks/controls it's `busy` state when items provider functions are
+used, however it also provides a `busy` prop that can be used either to override the inner `busy`
+state, or to monitor `<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
 
-**Note:** in order to allow `<b-table>` fully track it's `busy` state, custom items
+**Note:** in order to allow `<b-table>` fully track it's `busy` state, the custom items
 provider function should handle errors from data sources and return an empty
 array to `<b-table>`.
 
-`<b-table>` provides a `busy` prop that will flag the table as busy, which you can
-set to `true` just before your async fetch, and then set it to `false` once you have
-your data, and just before you send it to the table for display. Example:
-
+**Example: usage of busy state**
 ```html
-<b-table id="my-table" :busy.sync="isBusy" :items="myProvider" :fields="fields" ...></b-table>
+<b-table id="my-table"
+         :busy.sync="isBusy"
+         :items="myProvider"
+         :fields="fields" ...>
+</b-table>
 ```
-
 ```js
 data () {
   return {
@@ -1250,8 +1318,8 @@ data () {
 }
 methods: {
   myProvider (ctx) {
-      // Here we don't set isBusy prop, so busy state will be handled by table itself
-      // this.isBusy = true
+    // Here we don't set isBusy prop, so busy state will be handled by table itself
+    // this.isBusy = true
     let promise = axios.get('/some/url')
 
     return promise.then((data) => {
@@ -1275,6 +1343,7 @@ __not__ be called/refreshed until the `busy` state has been set to `false`.
 - All click related and hover events, and sort-changed events will __not__ be
  emitted when in the `busy` state (either set automatically during provider update,
  or when manually set).
+
 
 ### Provider Paging, Filtering, and Sorting
 By default, the items provider function is responsible for **all paging, filtering, and sorting**
