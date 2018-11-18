@@ -415,12 +415,12 @@ export default {
           id: this.safeId(),
           role: this.isStacked ? 'table' : null,
           'aria-busy': this.computedBusy ? 'true' : 'false',
-          'aria-colcount': String(fields.length)
+          'aria-colcount': String(fields.length),
           'aria-describedby': [
             // Preserve user supplied aria-describedby, if provided in $attrs
             (this.$attrs || {})['aria-describedby'],
             captionId
-          ].filter(a => a).join(' ') || null,
+          ].filter(a => a).join(' ') || null
         }
       },
       [caption, colgroup, thead, tfoot, tbody]
