@@ -238,7 +238,7 @@ export default {
           {
             key: 'table-busy-slot',
             staticClass: 'b-table-busy-slot',
-            class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'table-busy') : this.tbodyTrClass],
+            class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'table-busy') : this.tbodyTrClass],
             attrs: trAttrs
           },
           [busyContent]
