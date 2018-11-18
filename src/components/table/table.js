@@ -223,15 +223,15 @@ export default {
     }
 
     // Add the item data rows or the busy slot
-    if (this.computedBusy && $slots['table-busy']) {
-      // show the busy slot
-      const tdAttrs = { colspan: String(fields.length) }
-      const trAttrs = { }
-      if (this.isStacked) {
-        tdAttrs['role'] = 'cell'
-        trAttrs['role'] = 'row'
+    if ($slots['table-busy'] && this.computedBusy) {
+      // Show the busy slot
+      const trAttrs = {
+        role: this.isStacked ? 'row' : null
       }
-      const busyContent = h('td', { attrs: tdAttrs }, $slots['table-busy'])
+      const tdAttrs = {
+        colspan: String(fields.length),
+        role: this.isStacked ? 'cell' : null
+      }
       rows.push(
         h(
           'tr',
@@ -241,7 +241,7 @@ export default {
             class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'table-busy') : this.tbodyTrClass],
             attrs: trAttrs
           },
-          [busyContent]
+          [h('td', { attrs: tdAttrs }, [$slots['table-busy']])]
         )
       )
     } else {
