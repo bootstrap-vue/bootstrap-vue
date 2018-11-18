@@ -48,7 +48,7 @@ export default {
     const attrs = {}
     let itemProps = {}
     if (tag === 'button') {
-      if (data.attrs && !data.attrs.type) {
+      if (!data.attrs || !data.attrs.type) {
         // Add a type for button is one not provided in passed attributes
         attrs.type = 'button'
       }
