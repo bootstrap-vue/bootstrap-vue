@@ -46,18 +46,22 @@ export default {
       arrayIncludes(actionTags, props.tag)
     )
     const attrs = {}
-    let props = {}
+    let itemProps = {}
     if (tag === 'button') {
-      attrs.type = 'button'
+      if (data.attrs && !data.attrs.type) {
+        // Add a type for button is one not provided in passed attributes
+        attrs.type = 'button'
+      }
       if (props.disabled) {
-        attrs.disabled = true
+        // Set disabled attribute if button and disabled
+        attrs.disabled = props.disabled
       }
     } else {
-      props = pluckProps(linkProps, props)
+      itemProps = pluckProps(linkProps, props)
     }
     const componentData = {
       attrs,
-      props,
+      props: itemProps,
       staticClass: 'list-group-item',
       class: {
         [`list-group-item-${props.variant}`]: Boolean(props.variant),
