@@ -78,7 +78,7 @@ describe('b-table busy state', async () => {
     })
 
     // Await until next tick to check rendered DOM
-    return Vue.nextTick().then(function() {
+    return wrapper.vm.nextTick().then(function () {
       expect(wrapper.attributes('aria-busy')).toBeDefined()
       expect(wrapper.attributes('aria-busy')).toEqual('true')
       expect(wrapper.find('tbody').exists()).toBe(true)
