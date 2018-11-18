@@ -84,6 +84,24 @@ describe('list-group-item', async () => {
     expect(wrapper.classes()).toContain('list-group-item-action')
   })
 
+  it('should have class list-group-item-action when action=true', async () => {
+    const wrapper = mount(ListGroupItem, {
+      context: {
+        props: { action: true }
+      }
+    })
+    expect(wrapper.classes()).toContain('list-group-item-action')
+  })
+
+  it('should have class list-group-item-action when tag=a', async () => {
+    const wrapper = mount(ListGroupItem, {
+      context: {
+        props: { tag: 'a' }
+      }
+    })
+    expect(wrapper.classes()).toContain('list-group-item-action')
+  })
+
   it('should have href attribute when href is set', async () => {
     const wrapper = mount(ListGroupItem, {
       context: {
@@ -93,6 +111,24 @@ describe('list-group-item', async () => {
     expect(wrapper.attributes('href')).toBe('/foobar')
   })
 
+  it('should have tag button when tag=button', async () => {
+    const wrapper = mount(ListGroupItem, {
+      context: {
+        props: { tag: 'button' }
+      }
+    })
+    expect(wrapper.is('button')).toBe(true)
+  })
+
+  it('should have tag a when tag=a', async () => {
+    const wrapper = mount(ListGroupItem, {
+      context: {
+        props: { tag: 'a' }
+      }
+    })
+    expect(wrapper.is('a')).toBe(true)
+  })
+
   it('should have tag button when button=true', async () => {
     const wrapper = mount(ListGroupItem, {
       context: {
@@ -100,6 +136,31 @@ describe('list-group-item', async () => {
       }
     })
     expect(wrapper.is('button')).toBe(true)
+  })
+
+  it('should have tag button when button=true and tag=foo', async () => {
+    const wrapper = mount(ListGroupItem, {
+      context: {
+        props: {
+          button: true,
+          tag: 'foo'
+        }
+      }
+    })
+    expect(wrapper.is('button')).toBe(true)
+  })
+
+  it('should not have href when button=true and href set', async () => {
+    const wrapper = mount(ListGroupItem, {
+      context: {
+        props: {
+          button: true,
+          href: '/foobar'
+        }
+      }
+    })
+    expect(wrapper.is('button')).toBe(true)
+    expect(wrapper.attributes('href')).not.toBeDefined()
   })
 
   it('should have class list-group-item-action when button=true', async () => {
@@ -121,7 +182,7 @@ describe('list-group-item', async () => {
   })
 
   it('should have type=submit when button=true and attr type=submit', async () => {
-    const wrapper = mount(ListGroupItem,{
+    const wrapper = mount(ListGroupItem, {
       context: {
         props: { button: true },
         attrs: { type: 'submit' }
@@ -140,21 +201,12 @@ describe('list-group-item', async () => {
   })
 
   it('should have attribute disabled when button=true and disabled=true', async () => {
-    const wrapper = mount(ListGroupItem,{
+    const wrapper = mount(ListGroupItem, {
       context: {
         props: {
           button: true,
-          disabled: 'true'
+          disabled: true
         }
-      }
-    })
-    expect(wrapper.attributes('disabled')).toBeDefined()
-  })
-
-  it('should render button when tag=button', async () => {
-    const wrapper = mount(ListGroupItem,{
-      context: {
-        props: { tag: 'button' }
       }
     })
     expect(wrapper.attributes('disabled')).toBeDefined()
