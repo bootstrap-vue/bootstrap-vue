@@ -40,21 +40,31 @@ export default {
       : !props.href && !props.to ? props.tag : Link
     const isAction = Boolean(
       props.href ||
-        props.to ||
-        props.action ||
-        props.button ||
-        arrayIncludes(actionTags, props.tag)
+      props.to ||
+      props.action ||
+      props.button ||
+      arrayIncludes(actionTags, props.tag)
     )
+    const attrs = {}
+    let props = {}
+    if (tag === 'button') {
+      attrs.type = 'button'
+      if (props.disabled) {
+        attrs.disabled = true
+      }
+    } else {
+      props = pluckProps(linkProps, props)
+    }
     const componentData = {
+      attrs,
+      props,
       staticClass: 'list-group-item',
       class: {
         [`list-group-item-${props.variant}`]: Boolean(props.variant),
         'list-group-item-action': isAction,
         active: props.active,
         disabled: props.disabled
-      },
-      attrs: tag === 'button' && props.disabled ? { disabled: true } : {},
-      props: props.button ? {} : pluckProps(linkProps, props)
+      }
     }
 
     return h(tag, mergeData(data, componentData), children)
