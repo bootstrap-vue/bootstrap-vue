@@ -1,5 +1,5 @@
 import Table from './table'
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 
 const testItems = [
   { a: 1, b: 2, c: 3 },
@@ -58,13 +58,16 @@ describe('b-table busy state', async () => {
   })
 
   it('should render table-busy slot when busy=true and slot provided', async () => {
-    const wrapper = mount(Table, {
+    const wrapper = shallowMount(Table, {
       propsData: {
         busy: false,
         items: testItems
       },
       slots: {
-        'table-busy': 'busy slot content'
+        // Note slot data needs to be wrapped in an element.
+        // https://github.com/vue/vue-test-utils/issues:992
+        // Will be fixed in v1.0.0-beta.26
+        'table-busy': '<span>busy slot content</span>'
       }
     })
     expect(wrapper.attributes('aria-busy')).toBeDefined()
@@ -77,15 +80,22 @@ describe('b-table busy state', async () => {
       busy: true
     })
 
-    // Await until next tick to check rendered DOM
-    return wrapper.vm.$nextTick().then(function () {
-      expect(wrapper.attributes('aria-busy')).toBeDefined()
-      expect(wrapper.attributes('aria-busy')).toEqual('true')
-      expect(wrapper.find('tbody').exists()).toBe(true)
-      expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
-      expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
-      expect(wrapper.find('tbody').text()).toContain('busy slot content')
-      expect(wrapper.find('tbody').find('tr').classes()).toContain('b-table-busy-slot')
+    expect(wrapper.attributes('aria-busy')).toBeDefined()
+    expect(wrapper.attributes('aria-busy')).toEqual('true')
+    expect(wrapper.find('tbody').exists()).toBe(true)
+    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
+    expect(wrapper.find('tbody').text()).toContain('busy slot content')
+    expect(wrapper.find('tbody').find('tr').classes()).toContain('b-table-busy-slot')
+
+    wrapper.setProps({
+      busy: false
     })
+
+    expect(wrapper.attributes('aria-busy')).toBeDefined()
+    expect(wrapper.attributes('aria-busy')).toEqual('false')
+    expect(wrapper.find('tbody').exists()).toBe(true)
+    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
   })
 })
