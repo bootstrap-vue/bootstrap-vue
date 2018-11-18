@@ -256,15 +256,24 @@ export default {
     },
     fakeConsole() {
       const logger = this.log
-      let oConsole, oLog, oWarn, oError
+      const clear = this.clear
+      let oConsole, oInfo, oLog, oWarn, oError, oClear
       try {
-        // Native console methods
+        // Native console object & methods
         oConsole = window.console
+        oInfo = window.console.info
         oLog = window.console.log
         oWarn = window.console.warn
         oError = window.console.error
+        oClear = window.console.clear
       } catch (e) {}
       return {
+        info: function () {
+          try {
+            logger('info', ...arguments)
+            oInfo.apply(oConsole, arguments)
+          } catch (e) {}
+        },
         log: function () {
           try {
             logger('info', ...arguments)
@@ -283,6 +292,12 @@ export default {
             oError.apply(oConsole, arguments)
           } catch (e) {}
         }
+        clear: function () {
+          try {
+            clear()
+            oClear.apply(oConsole)
+          } catch (e) {}
+        }
       }
     }
   },
@@ -292,19 +307,6 @@ export default {
     this.oldErrorHandler = null
     this.contentUnWatch = null
     this.run = () => {}
-
-/*
-    // Override console.log
-    const self = this
-    if (typeof window !== 'undefined' && console) {
-      const that = console
-      this.originalLog = console.log
-      console.log = function () {
-        self.log.call(self, 'info', ...arguments)
-        self.originalLog.apply(that, arguments)
-      }
-    }
-*/
   },
   mounted () {
     // Disable any global errorHandler, as it can cause endless console loops
@@ -319,24 +321,14 @@ export default {
     // We do this on mount to avoid SSR issues as normal watchers
     // can run before mount
     this.contentUnWatch = this.$watch(
-      () => {
-        return {
-          js: this.js.trim(),
-          html: this.html.trim()
-        }
-      },
-      (newVal, oldVal) => {
-        this.run()
-      }
+      () => { return { js: this.js.trim(), html: this.html.trim() } },
+      (newVal, oldVal) => { this.run() }
     )
     // load our content into the editors after dom updated
     // Which triggers our watcher
     this.$nextTick(this.load)
   },
   beforeDestroy () {
-    if (typeof window !== 'undefined' && this.originalLog) {
-      console.log = this.originalLog
-    }
     if (this.contentUnWatch) {
       this.contentUnWatch()
     }
@@ -415,7 +407,7 @@ export default {
           el: holder,
           // Router needed for tooltips/popovers so they hide when docs route changes
           router: this.$router,
-          // We set a fake parent so we can capture most runtime and render errors
+          // We set a fake parent so we can capture most runtime and render errors (error boundary)
           parent: new Vue({
             template: '<span />',
             errorCaptured(err, vm, info) {
