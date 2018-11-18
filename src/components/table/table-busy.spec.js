@@ -77,12 +77,15 @@ describe('b-table busy state', async () => {
       busy: true
     })
 
-    expect(wrapper.attributes('aria-busy')).toBeDefined()
-    expect(wrapper.attributes('aria-busy')).toEqual('true')
-    expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
-    expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
-    expect(wrapper.find('tbody').text()).toContain('busy slot content')
-    expect(wrapper.find('tbody').find('tr').classes()).toContain('b-table-busy-slot')
+    // Await until next tick to check rendered DOM
+    return Vue.nextTick().then(function() {
+      expect(wrapper.attributes('aria-busy')).toBeDefined()
+      expect(wrapper.attributes('aria-busy')).toEqual('true')
+      expect(wrapper.find('tbody').exists()).toBe(true)
+      expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+      expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
+      expect(wrapper.find('tbody').text()).toContain('busy slot content')
+      expect(wrapper.find('tbody').find('tr').classes()).toContain('b-table-busy-slot')
+    })
   })
 })
