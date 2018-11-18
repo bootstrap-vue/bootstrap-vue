@@ -291,7 +291,7 @@ export default {
             logger('danger', ...arguments)
             oError.apply(oConsole, arguments)
           } catch (e) {}
-        }
+        },
         clear: function () {
           try {
             clear()
