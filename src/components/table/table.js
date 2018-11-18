@@ -407,15 +407,20 @@ export default {
         staticClass: 'table b-table',
         class: this.tableClasses,
         attrs: {
+          // We set aria-rowcount before merging in $attrs, in case user has supplied their own
+          'aria-rowcount': (this.filteredItems.length > items.length) ? String(this.filteredItems.length) : null,
+          // Merge in user supplied $attrs if any
           ...this.$attrs,
+          // Now we can override any $attrs here
           id: this.safeId(),
           role: this.isStacked ? 'table' : null,
-          'aria-describedby': captionId,
           'aria-busy': this.computedBusy ? 'true' : 'false',
           'aria-colcount': String(fields.length),
-          // Only set aria-rowcount if provided in $attrs or if localItems > shown items
-          'aria-rowcount': this.$attrs['aria-rowcount'] ||
-            (this.filteredItems.length > items.length) ? String(this.filteredItems.length) : null
+          'aria-describedby': [
+            // Preserve user supplied aria-describedby, if provided in $attrs
+            (this.$attrs || {})['aria-describedby'],
+            captionId
+          ].filter(a => a).join(' ') || null
         }
       },
       [caption, colgroup, thead, tfoot, tbody]
@@ -426,6 +431,8 @@ export default {
       ? h('div', { key: 'b-table-responsive', class: this.responsiveClass }, [table])
       : table
   },
+  // Don't place ATTRS on root element automatically, as table could be wrapped in responsive div
+  inheritAttrs: false,
   props: {
     items: {
       type: [Array, Function],
