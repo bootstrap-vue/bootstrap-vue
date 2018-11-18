@@ -20,14 +20,12 @@
           method="post"
           action="https://jsfiddle.net/api/post/library/pure/"
           target="_blank">
-          <input type="hidden" :value="html_fiddle" name="html">
-          <input type="hidden" :value="js_fiddle" name="js">
-          <input type="hidden" value="body { padding: 1rem; }" name="css">
-          <input type="hidden" value="l" name="js_wrap">
-          <input name="resources" type="hidden" :value="fiddle_dependencies.join(',')">
-          <b-btn size="sm" type="submit" :disabled="!isOk">
-            Export to JSFiddle
-          </b-btn>
+          <input type="hidden" name="html" :value="fiddle_html">
+          <input type="hidden" name="js" :value="fiddle_js">
+          <input type="hidden" name="resources" :value="fiddle_dependencies">
+          <input type="hidden" name="css" value="body { padding: 1rem; }">
+          <input type="hidden" name="js_wrap" value="l">
+          <b-btn size="sm" type="submit" :disabled="!isOk">Export to JSFiddle</b-btn>
         </form>
         <b-btn @click="reset" size="sm" variant="danger" :disabled="isDefault">Reset to default</b-btn>
       </div>
@@ -169,10 +167,8 @@ const defaultJS = `{
     show: true
   },
   watch: {
-    show(newVal, oldVal) {
-      console.log(
-        'Alert is ' + (this.show ? 'visible' : 'hidden')
-      )
+    show: function (newVal, oldVal) {
+      console.log('Alert is ' + (this.show ? 'visible' : 'hidden'))
     }
   }
 }`
@@ -190,6 +186,7 @@ const defaultHTML = `<div style="height:7.5rem;">
 // 7 days
 const maxRetention = 7 * 24 * 60 * 60 * 1000
 
+// Helper function to remove a node from it's parent's children
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
 export default {
@@ -198,7 +195,7 @@ export default {
       html: '',
       js: '',
       messages: [],
-      logIdx: 1,
+      logIdx: 1, // used as the ":key" on console section for transition hooks
       vertical: false,
       full: false
     }
@@ -209,185 +206,230 @@ export default {
     }
   },
   computed: {
-    fiddle_dependencies () {
-      return [
-        '//unpkg.com/bootstrap/dist/css/bootstrap.min.css',
-        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css',
-        '//unpkg.com/vue@latest/dist/vue.min.js',
-        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
-      ]
-    },
     isDefault () {
+      // Check if editors contain default JS and Template
       return this.js.trim() === defaultJS.trim() &&
         this.html.trim() === defaultHTML.trim()
     },
     isOk () {
-      let o
+      // Check if JS and HTML are "valid-ish"
+      // Used to enable export to JS Fiddle Button
+      let options
       const js = this.js.trim() || '{}'
+      // Check if JS will compile without error
       try {
         /* eslint-disable no-eval */
-        eval(`o = ${js}`)
+        eval(`obj = ${js}`)
         /* eslint-enable no-eval */
       } catch (err) {
         return false
       }
-      if (!this.html && !o.template && typeof o.render !== 'function') {
+      if (o.el) {
+        return false
+      }
+      // Check for template existance
+      // Doesn't check validity of HTML markup though
+      // Vue.compile(html) doesn't throw an error in production mode!
+      if (!this.html && !opts.template && typeof opts.render !== 'function') {
         return false
       }
       return true
     },
-    js_fiddle () {
+    fiddle_dependencies () {
+      return [
+        '//unpkg.com/bootstrap/dist/css/bootstrap.min.css',
+        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css',
+        '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js',
+        '//unpkg.com/vue@latest/dist/vue.min.js',
+        '//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js'
+      ].join(',')
+    },
+    fiddle_js () {
       let js = this.js.trim() || '{}'
       const comma = js === '{}' ? '' : ','
       js = js.replace(/^\{/, `{\r\n  el: '#app'${comma}\r\n`)
       js = `new Vue(${js})`
       return `window.onload = function() {\r\n${js}\r\n}`
     },
-    html_fiddle () {
+    fiddle_html () {
       return `<div id='app'>\r\n${this.html.trim()}\r\n</div>`
-    }
-  },
-  watch: {
-    html () {
-      this.run()
     },
-    js () {
-      this.run()
+    fakeConsole() {
+      const logger = this.log
+      const clear = this.clear
+      let oConsole, oInfo, oLog, oWarn, oError, oClear
+      try {
+        // Native console object & methods
+        oConsole = window.console
+        oInfo = window.console.info
+        oLog = window.console.log
+        oWarn = window.console.warn
+        oError = window.console.error
+        oClear = window.console.clear
+      } catch (e) {}
+      return {
+        info: function () {
+          try {
+            logger('info', ...arguments)
+            oInfo.apply(oConsole, arguments)
+          } catch (e) {}
+        },
+        log: function () {
+          try {
+            logger('info', ...arguments)
+            oLog.apply(oConsole, arguments)
+          } catch (e) {}
+        },
+        warn: function () {
+          try {
+            logger('warning', ...arguments)
+            oWarn.apply(oConsole, arguments)
+          } catch (e) {}
+        },
+        error: function () {
+          try {
+            logger('danger', ...arguments)
+            oError.apply(oConsole, arguments)
+          } catch (e) {}
+        },
+        clear: function () {
+          try {
+            clear()
+            oClear.apply(oConsole)
+          } catch (e) {}
+        }
+      }
     }
   },
   created () {
-    const self = this
-    // Non reactive property to store the playground vm
+    // Create some non reactive properties
     this.playVM = null
-
-    if (this.$isServer) {
-      this.run = () => {}
-      return
-    }
+    this.oldErrorHandler = null
+    this.contentUnWatch = null
+    this.run = () => {}
+  },
+  mounted () {
+    // Disable any global errorHandler, as it can cause endless console loops on ocassion.
+    // Also prevents Vue-Analytics from logging errors from the user generated apps
+    this.oldErrorHandler = Vue.config.errorHandler
+    Vue.config.errorHandler = null
 
     // Create our debounced runner
     this.run = debounce(this._run, 500)
 
-    // Disable global error handler as it screws up out log capture
-    this.oldErrorHandler = Vue.config.errorHandler
-    Vue.config.errorHandler = null
-
-    // Override console.log
-    if (typeof window !== 'undefined' && console) {
-      const that = console
-      this.originalLog = console.log
-      console.log = function () {
-        self.log.call(self, 'info', ...arguments)
-        self.originalLog.apply(that, arguments)
-      }
-    }
-  },
-  mounted () {
+    // Set up our editor content watcher.
+    // We do this on mount to avoid SSR issues as normal watchers
+    // can run before mount
+    this.contentUnWatch = this.$watch(
+      () => { return { js: this.js.trim(), html: this.html.trim() } },
+      (newVal, oldVal) => { this.run() }
+    )
     // load our content into the editors after dom updated
+    // Which triggers our watcher
     this.$nextTick(this.load)
   },
   beforeDestroy () {
-    if (typeof window !== 'undefined' && this.originalLog) {
-      console.log = this.originalLog
-    }
-    if (this.oldErrorHandler) {
-      Vue.config.errorHandler = this.oldErrorHandler
+    if (this.contentUnWatch) {
+      this.contentUnWatch()
     }
     if (!this.$isServer) {
       this.destroyVM()
     }
+    if (this.oldErrorHandler) {
+      Vue.config.errorHandler = this.oldErrorHandler
+    }
   },
   methods: {
-    log (tag, ...args) {
-      // We have to ignore props mutation warning due to vue bug when we have two instances
-      if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
-        return
-      }
-      const msg = args.map(String).join(' ')
-      if (this.messages.length && msg.indexOf('Error in render') !== -1 && msg === this.messages[0][1]) {
-        // prevent duplicate render errors
-        return
-      }
-      if (this.messages.length > 10) {
-        this.messages.splice(10)
-      }
-      this.messages.unshift([tag, msg, this.logIdx++])
-    },
     destroyVM () {
-      if (this.playVM) {
+      let vm = this.playVM
+      if (vm) {
         let parent
         try {
-          parent = this.playVM.$parent
-          this.playVM.$destroy()
-          removeNode(this.playVM.$el)
-          this.playVM.$el.innerHTML = ''
-        } catch (err) {
-        }
+          parent = vm.$parent
+          vm.$destroy()
+          removeNode(vm.$el)
+          vm.$el.innerHTML = ''
+        } catch (err) { }
         try {
           parent.$destroy()
-        } catch (err) {
-        }
+        } catch (err) { }
       }
-      this.playVM = null
+      this.playVM = vm = null
       this.$refs.result.innerHTML = ''
     },
     createVM () {
-      let options
       const js = this.js.trim() || '{}'
       const html = this.html.trim()
-      const self = this
-
-      const errHandler = (err, vm, info) => {
-        self.log('danger', `Error in ${info}: ${err.message}`)
-        self.destroyVM()
-        return false
-      }
+      let options
+      let console
 
       // Test and assign options JavaScript
       try {
+        // Options are eval'ed in our variable scope, so we can override
+        // the "global" console reference just for the user app
         /* eslint-disable no-eval */
-        eval(`options = ${js}`)
+        eval(`console = this.fakeConsole; options = ${js};`)
         /* eslint-enable no-eval */
       } catch (err) {
-        errHandler(err, null, 'javascript')
-        this.playVM = null
+        this.errHandler(err, 'javascript')
         return
       }
 
+      // Sanitize template possibilities
       if (!html && !options.template && typeof options.render !== 'function') {
-        this.log('danger', 'No template or render function provided')
+        this.errHandler('No template or render function provided', 'template')
+        return
+      } else if (!html && options.template && options.template.trim().charAt(0) === '#') {
+        this.errHandler('Do not set template to an element ID', 'template')
         return
       }
-
+      if (options.el) {
+        this.errHandler('Do not set "el" property', 'javascript')
+        return
+      }
+      if (options.render && typeof options.render !== 'function') {
+        this.errHandler('Render must be a function', 'javascript')
+        return
+      }
       if (!options.render) {
         options.template = `<div id="playground-app">${options.template || html}</div>`
       } else {
         delete options.template
       }
 
-      let holder = document.createElement('div')
-      this.$refs.result.appendChild(holder)
-
+      // Try and buld the user app
       try {
-        const fakeParent = new Vue({
-          template: '<div></div>',
-          errorCaptured: errHandler
-        })
+        let playground = this
+        let holder = document.createElement('div')
+        this.$refs.result.appendChild(holder)
         this.playVM = new Vue(Object.assign({}, options, {
+          // set the app mountpoint
           el: holder,
-          // we set a fake parent so we can capture errors
-          parent: fakeParent,
-          // router needed for tooltips and popovers so they hide when route changes
-          router: this.$router
+          // Router needed for tooltips/popovers so they hide when docs route changes
+          router: this.$router,
+          // We set a fake parent so we can capture most runtime and render errors (error boundary)
+          parent: new Vue({
+            template: '<span />',
+            errorCaptured(err, vm, info) {
+              // pass error to playground error handler
+              playground.errHandler(err, info)
+              // dont propegate to parent/global error handler!
+              return false
+            }
+          })
         }))
       } catch (err) {
-        holder = null
         this.destroyVM()
-        errhandler(err, null, 'vm create')
+        this.errHandler(err, 'app create')
         return
       }
 
+      // We got this far, so save the JS/HTML changes to localStorage
       this.save()
+    },
+    errHandler(err, info) {
+      this.log('danger', `Error in ${info}: ${String(err)}`)
+      this.destroyVM()
     },
     _run () {
       if (this.$isServer) {
@@ -405,6 +447,21 @@ export default {
     },
     toggleFull () {
       this.full = !this.full
+    },
+    log (tag, ...args) {
+      // We have to ignore props mutation warning due to vue bug when we have two instances
+      if (String(args[0]).indexOf('Avoid mutating a prop directly') !== -1) {
+        return
+      }
+      const msg = args.map(String).join(' ')
+      if (this.messages.length && msg.indexOf('Error in render') !== -1 && msg === this.messages[0][1]) {
+        // prevent duplicate render errors
+        return
+      }
+      if (this.messages.length > 10) {
+        this.messages.splice(10)
+      }
+      this.messages.unshift([tag, msg, this.logIdx++])
     },
     clear () {
       this.logIdx = 1
