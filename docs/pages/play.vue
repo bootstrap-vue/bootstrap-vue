@@ -139,7 +139,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .flip-move {
   transition: all .3s;
 }
@@ -168,16 +168,28 @@ const defaultJS = `{
   },
   watch: {
     show: function (newVal, oldVal) {
-      console.log('Alert is ' + (this.show ? 'visible' : 'hidden'))
+      console.log('Alert is now ' + (this.show ? 'visible' : 'hidden'))
+    }
+  },
+  methods: {
+    toggle: function () {
+      console.log('Toggle button clicked')
+      this.show = !this.show
+    },
+    dismissed: function () {
+      console.log('Dismiss button clicked')
     }
   }
 }`
 
 const defaultHTML = `<div style="height:7.5rem;">
-  <b-button @click="show = !show">
+  <b-button @click="toggle">
     {{ show ? 'Hide' : 'Show' }} Alert
   </b-button>
-  <b-alert v-model="show" dismissible class="mt-3">
+  <b-alert v-model="show"
+           dismissible
+           @dismissed="dismissed"
+           class="mt-3">
     Hello {{ name }}!
   </b-alert>
 </div>`
@@ -194,6 +206,7 @@ export default {
     return {
       html: '',
       js: '',
+      isOk: false,
       messages: [],
       logIdx: 1, // used as the ":key" on console section for transition hooks
       vertical: false,
@@ -210,30 +223,6 @@ export default {
       // Check if editors contain default JS and Template
       return this.js.trim() === defaultJS.trim() &&
         this.html.trim() === defaultHTML.trim()
-    },
-    isOk () {
-      // Check if JS and HTML are "valid-ish"
-      // Used to enable export to JS Fiddle Button
-      let options
-      const js = this.js.trim() || '{}'
-      // Check if JS will compile without error
-      try {
-        /* eslint-disable no-eval */
-        eval(`obj = ${js}`)
-        /* eslint-enable no-eval */
-      } catch (err) {
-        return false
-      }
-      if (o.el) {
-        return false
-      }
-      // Check for template existance
-      // Doesn't check validity of HTML markup though
-      // Vue.compile(html) doesn't throw an error in production mode!
-      if (!this.html && !opts.template && typeof opts.render !== 'function') {
-        return false
-      }
-      return true
     },
     fiddle_dependencies () {
       return [
@@ -304,16 +293,10 @@ export default {
   created () {
     // Create some non reactive properties
     this.playVM = null
-    this.oldErrorHandler = null
     this.contentUnWatch = null
     this.run = () => {}
   },
   mounted () {
-    // Disable any global errorHandler, as it can cause endless console loops on ocassion.
-    // Also prevents Vue-Analytics from logging errors from the user generated apps
-    this.oldErrorHandler = Vue.config.errorHandler
-    Vue.config.errorHandler = null
-
     // Create our debounced runner
     this.run = debounce(this._run, 500)
 
@@ -335,9 +318,6 @@ export default {
     if (!this.$isServer) {
       this.destroyVM()
     }
-    if (this.oldErrorHandler) {
-      Vue.config.errorHandler = this.oldErrorHandler
-    }
   },
   methods: {
     destroyVM () {
@@ -358,10 +338,14 @@ export default {
       this.$refs.result.innerHTML = ''
     },
     createVM () {
+      const playground = this
       const js = this.js.trim() || '{}'
       const html = this.html.trim()
       let options
       let console
+
+      // Disable the export to fiddle button
+      this.isOk = false
 
       // Test and assign options JavaScript
       try {
@@ -376,10 +360,10 @@ export default {
       }
 
       // Sanitize template possibilities
-      if (!html && !options.template && typeof options.render !== 'function') {
+      if (!(html || typeof options.template === 'string' || typeof options.render === 'function')) {
         this.errHandler('No template or render function provided', 'template')
         return
-      } else if (!html && options.template && options.template.trim().charAt(0) === '#') {
+      } else if (!html && typeof options.template === 'string' && options.template.charAt(0) === '#') {
         this.errHandler('Do not set template to an element ID', 'template')
         return
       }
@@ -388,7 +372,7 @@ export default {
         return
       }
       if (options.render && typeof options.render !== 'function') {
-        this.errHandler('Render must be a function', 'javascript')
+        this.errHandler('render must be a function', 'javascript')
         return
       }
       if (!options.render) {
@@ -397,9 +381,30 @@ export default {
         delete options.template
       }
 
+      // Vue's errorCapture doesn't always handle errors in methods, so we
+      // wrap any methods with a try/catch handler so we can show the error in our GUI console
+      // https://github.com/vuejs/vue/issues/8568
+      // Doesn't handle errors in async methods
+      if (options.methods) {
+        Object.keys(options.methods).forEach((methodName) => {
+          const fn = options.methods[methodName]
+          if (typeof fn !== 'function') {
+             this.errorHandler(`TypeError: ${methodName} is not a function`, 'methods')
+          } else {
+            // Replace it with a wrapped method
+            options.methods[methodName] = function () {
+              try {
+                return fn.apply(this, arguments)
+              } catch (err) {
+                playground.errHandler(err, `method "${methodName}"`)
+              }
+            }
+          }
+        })
+      }
+
       // Try and buld the user app
       try {
-        let playground = this
         let holder = document.createElement('div')
         this.$refs.result.appendChild(holder)
         this.playVM = new Vue(Object.assign({}, options, {
@@ -424,7 +429,8 @@ export default {
         return
       }
 
-      // We got this far, so save the JS/HTML changes to localStorage
+      // We got this far, so save the JS/HTML changes to localStorage and enable export button
+      this.isOk = true
       this.save()
     },
     errHandler(err, info) {
