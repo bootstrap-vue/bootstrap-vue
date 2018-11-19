@@ -347,6 +347,7 @@ export default {
       this.$refs.result.innerHTML = ''
     },
     createVM () {
+      const playground = this
       const js = this.js.trim() || '{}'
       const html = this.html.trim()
       let options
@@ -389,9 +390,30 @@ export default {
         delete options.template
       }
 
+      // Vue's errorCapture doesn't always handle errors in methods, so we
+      // wrap any methods with a try/catch handler so we can show the error in our GUI console
+      // https://github.com/vuejs/vue/issues/8568
+      // Doesn't handle errors in async methods
+      if (options.methods) {
+        Object.keys(options.methods).forEach((methodName) => {
+          const fn = options.methods[methodName]
+          if (typeof fn !== 'function') {
+             this.errorHandler(`TypeError: ${methodName} is not a function`, 'methods')
+          } else {
+            // Replace it with a wrapped method
+            options.methods[methodName] = funtion () {
+              try {
+                return fn.apply(this, arguments)
+              } catch (err) {
+                playground.errHandler(err, `method "${methodName}"`)
+              }
+            }
+          }
+        })
+      }
+
       // Try and buld the user app
       try {
-        let playground = this
         let holder = document.createElement('div')
         this.$refs.result.appendChild(holder)
         this.playVM = new Vue(Object.assign({}, options, {
