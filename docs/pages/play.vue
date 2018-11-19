@@ -359,7 +359,7 @@ export default {
       if (!(html || typeof options.template === 'string' || typeof options.render === 'function')) {
         this.errHandler('No template or render function provided', 'template')
         return
-      } else if (!html && tyepof options.template === 'string' && options.template.charAt(0) === '#') {
+      } else if (!html && typeof options.template === 'string' && options.template.charAt(0) === '#') {
         this.errHandler('Do not set template to an element ID', 'template')
         return
       }
