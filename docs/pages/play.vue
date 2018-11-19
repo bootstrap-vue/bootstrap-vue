@@ -194,6 +194,7 @@ export default {
     return {
       html: '',
       js: '',
+      isOk: false,
       messages: [],
       logIdx: 1, // used as the ":key" on console section for transition hooks
       vertical: false,
@@ -210,30 +211,6 @@ export default {
       // Check if editors contain default JS and Template
       return this.js.trim() === defaultJS.trim() &&
         this.html.trim() === defaultHTML.trim()
-    },
-    isOk () {
-      // Check if JS and HTML are "valid-ish"
-      // Used to enable export to JS Fiddle Button
-      let opts
-      const js = this.js.trim() || '{}'
-      // Check if JS will compile without error
-      try {
-        /* eslint-disable no-eval */
-        eval(`opts = ${js}`)
-        /* eslint-enable no-eval */
-      } catch (err) {
-        return false
-      }
-      if (opts.el) {
-        return false
-      }
-      // Check for template existance
-      // Doesn't check validity of HTML markup though
-      // Vue.compile(html) doesn't throw an error in production mode!
-      if (!this.html && !opts.template && typeof opts.render !== 'function') {
-        return false
-      }
-      return true
     },
     fiddle_dependencies () {
       return [
@@ -363,6 +340,9 @@ export default {
       let options
       let console
 
+      // Disable the export to fiddle button
+      this.isOk = false
+
       // Test and assign options JavaScript
       try {
         // Options are eval'ed in our variable scope, so we can override
@@ -376,10 +356,10 @@ export default {
       }
 
       // Sanitize template possibilities
-      if (!html && !options.template && typeof options.render !== 'function') {
+      if (!(html || typeof options.template === 'string' || typeof options.render === 'function')) {
         this.errHandler('No template or render function provided', 'template')
         return
-      } else if (!html && options.template && options.template.trim().charAt(0) === '#') {
+      } else if (!html && tyepof options.template === 'string' && options.template.charAt(0) === '#') {
         this.errHandler('Do not set template to an element ID', 'template')
         return
       }
@@ -388,7 +368,7 @@ export default {
         return
       }
       if (options.render && typeof options.render !== 'function') {
-        this.errHandler('Render must be a function', 'javascript')
+        this.errHandler('render must be a function', 'javascript')
         return
       }
       if (!options.render) {
@@ -424,7 +404,8 @@ export default {
         return
       }
 
-      // We got this far, so save the JS/HTML changes to localStorage
+      // We got this far, so save the JS/HTML changes to localStorage and enable export button
+      this.isOk = true
       this.save()
     },
     errHandler(err, info) {
