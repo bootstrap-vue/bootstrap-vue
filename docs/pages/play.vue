@@ -293,16 +293,10 @@ export default {
   created () {
     // Create some non reactive properties
     this.playVM = null
-    this.oldErrorHandler = null
     this.contentUnWatch = null
     this.run = () => {}
   },
   mounted () {
-    // Disable any global errorHandler, as it can cause endless console loops on ocassion.
-    // Also prevents Vue-Analytics from logging errors from the user generated apps
-//    this.oldErrorHandler = Vue.config.errorHandler
-//    Vue.config.errorHandler = null
-
     // Create our debounced runner
     this.run = debounce(this._run, 500)
 
@@ -323,9 +317,6 @@ export default {
     }
     if (!this.$isServer) {
       this.destroyVM()
-    }
-    if (this.oldErrorHandler) {
-      Vue.config.errorHandler = this.oldErrorHandler
     }
   },
   methods: {
