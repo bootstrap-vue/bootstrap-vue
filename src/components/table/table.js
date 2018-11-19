@@ -222,122 +222,146 @@ export default {
       rows.push(h(false))
     }
 
-    // Add the item data rows
-    items.forEach((item, rowIndex) => {
-      const detailsSlot = $scoped['row-details']
-      const rowShowDetails = Boolean(item._showDetails && detailsSlot)
-      // Details ID needed for aria-describedby when details showing
-      const detailsId = rowShowDetails
-        ? this.safeId(`_details_${rowIndex}_`)
-        : null
-      const toggleDetailsFn = () => {
-        if (detailsSlot) {
-          this.$set(item, '_showDetails', !item._showDetails)
-        }
+    // Add the item data rows or the busy slot
+    if ($slots['table-busy'] && this.computedBusy) {
+      // Show the busy slot
+      const trAttrs = {
+        role: this.isStacked ? 'row' : null
       }
-      // For each item data field in row
-      const tds = fields.map((field, colIndex) => {
-        const formatted = this.getFormattedValue(item, field)
-        const data = {
-          key: `row-${rowIndex}-cell-${colIndex}`,
-          class: this.tdClasses(field, item),
-          attrs: this.tdAttrs(field, item, colIndex),
-          domProps: {}
-        }
-        let childNodes
-        if ($scoped[field.key]) {
-          childNodes = [
-            $scoped[field.key]({
-              item: item,
-              index: rowIndex,
-              field: field,
-              unformatted: _get(item, field.key, ''),
-              value: formatted,
-              toggleDetails: toggleDetailsFn,
-              detailsShowing: Boolean(item._showDetails)
-            })
-          ]
-          if (this.isStacked) {
-            // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
-            childNodes = [h('div', {}, [childNodes])]
-          }
-        } else {
-          if (this.isStacked) {
-            // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
-            childNodes = [h('div', formatted)]
-          } else {
-            // Non stacked
-            childNodes = formatted
-          }
-        }
-        // Render either a td or th cell
-        return h(field.isRowHeader ? 'th' : 'td', data, childNodes)
-      })
-      // Calculate the row number in the dataset (indexed from 1)
-      let ariaRowIndex = null
-      if (this.currentPage && this.perPage && this.perPage > 0) {
-        ariaRowIndex = String((this.currentPage - 1) * this.perPage + rowIndex + 1)
+      const tdAttrs = {
+        colspan: String(fields.length),
+        role: this.isStacked ? 'cell' : null
       }
-      // Assemble and add the row
       rows.push(
         h(
           'tr',
           {
-            key: `row-${rowIndex}`,
-            class: [
-              this.rowClasses(item),
-              { 'b-table-has-details': rowShowDetails }
-            ],
-            attrs: {
-              'aria-describedby': detailsId,
-              'aria-owns': detailsId,
-              'aria-rowindex': ariaRowIndex,
-              role: this.isStacked ? 'row' : null
-            },
-            on: {
-              click: evt => { this.rowClicked(evt, item, rowIndex) },
-              contextmenu: evt => { this.rowContextmenu(evt, item, rowIndex) },
-              dblclick: evt => { this.rowDblClicked(evt, item, rowIndex) },
-              mouseenter: evt => { this.rowHovered(evt, item, rowIndex) },
-              mouseleave: evt => { this.rowUnhovered(evt, item, rowIndex) }
-            }
+            key: 'table-busy-slot',
+            staticClass: 'b-table-busy-slot',
+            class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'table-busy') : this.tbodyTrClass],
+            attrs: trAttrs
           },
-          tds
+          [h('td', { attrs: tdAttrs }, [$slots['table-busy']])]
         )
       )
-      // Row Details slot
-      if (rowShowDetails) {
-        const tdAttrs = { colspan: String(fields.length) }
-        const trAttrs = { id: detailsId }
-        if (this.isStacked) {
-          tdAttrs['role'] = 'cell'
-          trAttrs['role'] = 'row'
+    } else {
+      // Show the rows
+      items.forEach((item, rowIndex) => {
+        const detailsSlot = $scoped['row-details']
+        const rowShowDetails = Boolean(item._showDetails && detailsSlot)
+        // Details ID needed for aria-describedby when details showing
+        const detailsId = rowShowDetails
+          ? this.safeId(`_details_${rowIndex}_`)
+          : null
+        const toggleDetailsFn = () => {
+          if (detailsSlot) {
+            this.$set(item, '_showDetails', !item._showDetails)
+          }
         }
-        const details = h('td', { attrs: tdAttrs }, [
-          detailsSlot({
-            item: item,
-            index: rowIndex,
-            fields: fields,
-            toggleDetails: toggleDetailsFn
-          })
-        ])
+        // For each item data field in row
+        const tds = fields.map((field, colIndex) => {
+          const formatted = this.getFormattedValue(item, field)
+          const data = {
+            key: `row-${rowIndex}-cell-${colIndex}`,
+            class: this.tdClasses(field, item),
+            attrs: this.tdAttrs(field, item, colIndex),
+            domProps: {}
+          }
+          let childNodes
+          if ($scoped[field.key]) {
+            childNodes = [
+              $scoped[field.key]({
+                item: item,
+                index: rowIndex,
+                field: field,
+                unformatted: _get(item, field.key, ''),
+                value: formatted,
+                toggleDetails: toggleDetailsFn,
+                detailsShowing: Boolean(item._showDetails)
+              })
+            ]
+            if (this.isStacked) {
+              // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
+              childNodes = [h('div', {}, [childNodes])]
+            }
+          } else {
+            if (this.isStacked) {
+              // We wrap in a DIV to ensure rendered as a single cell when visually stacked!
+              childNodes = [h('div', formatted)]
+            } else {
+              // Non stacked
+              childNodes = formatted
+            }
+          }
+          // Render either a td or th cell
+          return h(field.isRowHeader ? 'th' : 'td', data, childNodes)
+        })
+        // Calculate the row number in the dataset (indexed from 1)
+        let ariaRowIndex = null
+        if (this.currentPage && this.perPage && this.perPage > 0) {
+          ariaRowIndex = String((this.currentPage - 1) * this.perPage + rowIndex + 1)
+        }
+        // Assemble and add the row
         rows.push(
           h(
             'tr',
             {
-              key: `details-${rowIndex}`,
-              staticClass: 'b-table-details',
-              class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row-details') : this.tbodyTrClass],
-              attrs: trAttrs
+              key: `row-${rowIndex}`,
+              class: [
+                this.rowClasses(item),
+                { 'b-table-has-details': rowShowDetails }
+              ],
+              attrs: {
+                'aria-describedby': detailsId,
+                'aria-owns': detailsId,
+                'aria-rowindex': ariaRowIndex,
+                role: this.isStacked ? 'row' : null
+              },
+              on: {
+                click: evt => { this.rowClicked(evt, item, rowIndex) },
+                contextmenu: evt => { this.rowContextmenu(evt, item, rowIndex) },
+                dblclick: evt => { this.rowDblClicked(evt, item, rowIndex) },
+                mouseenter: evt => { this.rowHovered(evt, item, rowIndex) },
+                mouseleave: evt => { this.rowUnhovered(evt, item, rowIndex) }
+              }
             },
-            [details]
+            tds
           )
         )
-      } else if (detailsSlot) {
-        // Only add the placeholder if a the table has a row-details slot defined (but not shown)
-        rows.push(h(false))
-      }
-    })
+        // Row Details slot
+        if (rowShowDetails) {
+          const tdAttrs = { colspan: String(fields.length) }
+          const trAttrs = { id: detailsId }
+          if (this.isStacked) {
+            tdAttrs['role'] = 'cell'
+            trAttrs['role'] = 'row'
+          }
+          const details = h('td', { attrs: tdAttrs }, [
+            detailsSlot({
+              item: item,
+              index: rowIndex,
+              fields: fields,
+              toggleDetails: toggleDetailsFn
+            })
+          ])
+          rows.push(
+            h(
+              'tr',
+              {
+                key: `details-${rowIndex}`,
+                staticClass: 'b-table-details',
+                class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row-details') : this.tbodyTrClass],
+                attrs: trAttrs
+              },
+              [details]
+            )
+          )
+        } else if (detailsSlot) {
+          // Only add the placeholder if a the table has a row-details slot defined (but not shown)
+          rows.push(h(false))
+        }
+      })
+    }
 
     // Empty Items / Empty Filtered Row slot
     if (this.showEmpty && (!items || items.length === 0)) {

@@ -158,6 +158,10 @@
                 "description": "Slot to place custom colgroup and col elements"
             },
             {
+                "name": "table-busy",
+                "description": "Optional slot to place loading message when table is in the busy state"
+            },
+            {
                 "name": "[field]",
                 "description": "Scoped slot for custom data rendering of field data. See docs for scoped data"
             },
