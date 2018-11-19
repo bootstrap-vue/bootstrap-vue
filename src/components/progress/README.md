@@ -87,8 +87,8 @@ a `<b-progress-bar>` sub-component, or by using the `label` prop on `<b-progress
 <template>
   <div>
     <h5>Custom Label via Default Slot</h5>
-    <b-progress :max="max">
-      <b-progress-bar :value="value" height="2rem">
+    <b-progress :max="max" height="2rem">
+      <b-progress-bar :value="value">
         Progress: <strong>{{ value.toFixed(3) }} / {{ max }}</strong>
       </b-progress-bar>
     </b-progress>
