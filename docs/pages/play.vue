@@ -214,17 +214,17 @@ export default {
     isOk () {
       // Check if JS and HTML are "valid-ish"
       // Used to enable export to JS Fiddle Button
-      let options
+      let opts
       const js = this.js.trim() || '{}'
       // Check if JS will compile without error
       try {
         /* eslint-disable no-eval */
-        eval(`obj = ${js}`)
+        eval(`opts = ${js}`)
         /* eslint-enable no-eval */
       } catch (err) {
         return false
       }
-      if (o.el) {
+      if (opts.el) {
         return false
       }
       // Check for template existance
