@@ -401,7 +401,7 @@ export default {
              this.errorHandler(`TypeError: ${methodName} is not a function`, 'methods')
           } else {
             // Replace it with a wrapped method
-            options.methods[methodName] = funtion () {
+            options.methods[methodName] = function () {
               try {
                 return fn.apply(this, arguments)
               } catch (err) {
