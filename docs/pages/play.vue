@@ -300,8 +300,8 @@ export default {
   mounted () {
     // Disable any global errorHandler, as it can cause endless console loops on ocassion.
     // Also prevents Vue-Analytics from logging errors from the user generated apps
-    this.oldErrorHandler = Vue.config.errorHandler
-    Vue.config.errorHandler = null
+//    this.oldErrorHandler = Vue.config.errorHandler
+//    Vue.config.errorHandler = null
 
     // Create our debounced runner
     this.run = debounce(this._run, 500)
