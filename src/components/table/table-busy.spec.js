@@ -1,5 +1,5 @@
 import Table from './table'
-import { mount, shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 
 const testItems = [
   { a: 1, b: 2, c: 3 },
@@ -74,7 +74,7 @@ describe('b-table busy state', async () => {
   })
 
   it('should render table-busy slot when busy=true and slot provided', async () => {
-    const wrapper = shallowMount(Table, {
+    const wrapper = mount(Table, {
       propsData: {
         busy: false,
         items: testItems
@@ -117,21 +117,30 @@ describe('b-table busy state', async () => {
 
   it('table-busy slot works with async provider function', async () => {
     let callback = null
+    let called = false
     const providerFn = (ctx, cb) => {
       // Simulate async function by letting us call calback manually
       callback = cb
+      called = true
     }
-    const wrapper = shallowMount(Table, {
+    const wrapper = mount(Table, {
       propsData: {
         fields: Object.keys(testItems[0]),
-        items: providerFn
+        items: providerFn,
+        busy: false
       },
       slots: {
         'table-busy': '<span>busy slot content</span>'
       }
     })
 
-    // WHen items is a provider function, localBusy is immediately set to true
+    expect(callback).toBe(null)
+    expect(called).toBe(false)
+    expect(typeof wrapper.props('items')).toBe('function')
+    expect(wrapper.vm.localBusy).toBe(true)
+    expect(wrapper.vm.computedBusy).toBe(true)
+
+    // When items is a provider function, localBusy is immediately set to true
     expect(wrapper.attributes('aria-busy')).toBeDefined()
     expect(wrapper.attributes('aria-busy')).toEqual('true')
     expect(wrapper.find('tbody').exists()).toBe(true)
