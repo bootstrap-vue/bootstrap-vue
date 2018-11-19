@@ -44,6 +44,9 @@ describe('b-table busy state', async () => {
     const wrapper = mount(Table, {
       propsData: {
         items: testItems
+      },
+      listeners: {
+        busy
       }
     })
     expect(wrapper.attributes('aria-busy')).toBeDefined()
@@ -55,6 +58,22 @@ describe('b-table busy state', async () => {
 
     expect(wrapper.attributes('aria-busy')).toBeDefined()
     expect(wrapper.attributes('aria-busy')).toEqual('true')
+  })
+
+  it('should emit update:busy event when data localBusy is set to true', async () => {
+    const wrapper = mount(Table, {
+      propsData: {
+        items: testItems
+      }
+    })
+    expect(wrapper.emitted('update:busy')).not.toBeDefined()
+
+    wrapper.setData({
+      localBusy: true
+    })
+
+    expect(wrapper.emitted('update:busy')).toBeDefined()
+    expect(wrapper.emitted('update:busy')[0][0]).toEqual(true)
   })
 
   it('should render table-busy slot when busy=true and slot provided', async () => {
@@ -97,5 +116,53 @@ describe('b-table busy state', async () => {
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
+  })
+
+  it('table-busy slot works with async provider function', async () => {
+    let callback = null
+    const providerFn = (ctx, cb) => {
+      // Simulate async function by letting us call calback manually
+      callback = cb
+    }
+    const wrapper = shallowMount(Table, {
+      propsData: {
+        fields: Object.keys(testItems[0]),
+        items: providerFn
+      },
+      slots: {
+        'table-busy': '<span>busy slot content</span>'
+      }
+    })
+
+    // WHen items is a provider function, localBusy is immediately set to true
+    expect(wrapper.attributes('aria-busy')).toBeDefined()
+    expect(wrapper.attributes('aria-busy')).toEqual('true')
+    expect(wrapper.find('tbody').exists()).toBe(true)
+    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
+    expect(wrapper.find('tbody').text()).toContain('busy slot content')
+    expect(wrapper.emitted('update:busy')).toBeDefined()
+    expect(wrapper.emitted('update:busy').length).toBe(1)
+    expect(wrapper.emitted('update:busy')[0][0]).toEqual(true)
+
+    // Provider function is called after nextTick on mount, so we wait and call the callback
+    return wrapper.vm.$nextTick(() => {
+      // callback should now be set
+      expect(typeof callback).toBe('function')
+
+      // Send the items array to b-table
+      callback(testItems)
+
+      // b-table should immediately clear busy state and populate items
+      expect(wrapper.attributes('aria-busy')).toBeDefined()
+      expect(wrapper.attributes('aria-busy')).toEqual('false')
+      expect(wrapper.find('tbody').exists()).toBe(true)
+      expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+      expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
+      expect(wrapper.emitted('update:busy').length).toBe(2)
+      expect(wrapper.emitted('update:busy')[1][0]).toEqual(false)
+      expect(wrapper.emitted('refreshed')).toBeDefined()
+      expect(wrapper.emitted('refreshed').length).toBe(1)
+    })
   })
 })
