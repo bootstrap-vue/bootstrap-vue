@@ -6,7 +6,7 @@ Bootstrap-Vue does not include form validation by default; we leave that up to t
 
 Vuelidate provides "Simple, lightweight model-based validation for Vue.js". Installation instructions and other documentation can be found at https://monterail.github.io/vuelidate.
 
-### Example
+### Vuelidate Example
 
 This example shows how to add different validation and feedback to two form fields, as well as dynamically disable the submit button based on the form validity.
 
@@ -86,23 +86,30 @@ export default {
 
 ## vee-validate
 
-[vee-validate](https://github.com/baianat/vee-validate) is a plugin for Vue.js that allows you to validate input fields and display errors. It has full support for `vue-i18n` and provides fairly good out of the box error messages.
+[vee-validate](https://github.com/baianat/vee-validate) is a plugin for Vue.js
+that allows you to validate input fields and display errors. It has full support
+for `vue-i18n` and provides fairly good out of the box error messages.
 
 **Important**
 
-You need to configure `vee-validate`'s fields property or it will conflict with `b-table`'s `:fields` property when it injects itself.
+You **must** configure `vee-validate`'s fields property or it will conflict with the
+`:feilds` property of `b-table` (and posibly other components) when it injects itself.
 
 ```js
 import Vue from 'vue'
 import VeeValidate from 'vee-validate'
 
 Vue.use(VeeValidate, {
-  inject: true, //this is the default
-  fieldsBagName: 'veeFields' //important to name this something else
+  // this is the default
+  inject: true,
+  // important to name this something other than 'fields'
+  fieldsBagName: 'veeFields'
 });
 ```
 
-Same example as above just modified for vee-validate:
+### vee-validate Example
+
+Same example as above, just modified for vee-validate:
 
 ```html
 <template>
