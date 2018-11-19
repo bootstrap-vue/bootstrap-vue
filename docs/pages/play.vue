@@ -139,7 +139,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .flip-move {
   transition: all .3s;
 }
@@ -168,16 +168,28 @@ const defaultJS = `{
   },
   watch: {
     show: function (newVal, oldVal) {
-      console.log('Alert is ' + (this.show ? 'visible' : 'hidden'))
+      console.log('Alert is now ' + (this.show ? 'visible' : 'hidden'))
+    }
+  },
+  methods: {
+    toggle: function () {
+      console.log('Toggle button clicked')
+      this.show = !this.show
+    },
+    dismissed: function () {
+      console.log('Dismiss button clicked')
     }
   }
 }`
 
 const defaultHTML = `<div style="height:7.5rem;">
-  <b-button @click="show = !show">
+  <b-button @click="toggle">
     {{ show ? 'Hide' : 'Show' }} Alert
   </b-button>
-  <b-alert v-model="show" dismissible class="mt-3">
+  <b-alert v-model="show"
+           dismissible
+           @dismissed="dismissed"
+           class="mt-3">
     Hello {{ name }}!
   </b-alert>
 </div>`
