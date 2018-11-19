@@ -44,9 +44,6 @@ describe('b-table busy state', async () => {
     const wrapper = mount(Table, {
       propsData: {
         items: testItems
-      },
-      listeners: {
-        busy
       }
     })
     expect(wrapper.attributes('aria-busy')).toBeDefined()
