@@ -48,26 +48,29 @@ values for `total-rows` and `per-page`.
 ## Customizing
 `<b-pagination>` supports several props that allow you to customize the appearance.
 
+### Props
 | Prop | Description
 | ---- | -----------
 | `limit` | Limit the maximum number of displayed page buttons (including ellipsis if present, and excluding first/prev/next/last buttons)
 | `total-rows` | The total number of records in your data
 | `per-page` | The maximum number of data records per page
-| `first-text` | The "goto first page" button text (html supported)
-| `prev-text` | The "goto previous page" button text (html supported)
-| `next-text` | The "goto next page" button text (html supported)
-| `last-text` | The "goto last page" button text (html supported)
-| `ellipsis-text` | the `...` indicator text (html supported)
+| `first-text` | The "goto first page" button text (plain html supported)
+| `prev-text` | The "goto previous page" button text (plain html supported)
+| `next-text` | The "goto next page" button text (plain html supported)
+| `last-text` | The "goto last page" button text (plain html supported)
+| `ellipsis-text` | the `...` indicator text (plain html supported)
 | `hide-ellipsis` | never show ellipsis indicators
 | `hide-goto-end-buttons` | never display goto first/last buttons
 
+
+### Named slots
 | Slot | Description
 |----- | -----------
-| `first-text` | The "goto first page" button text (html supported)
-| `prev-text` | The "goto previous page" button text (html supported)
-| `next-text` | The "goto next page" button text (html supported)
-| `last-text` | The "goto last page" button text (html supported)
-| `ellipsis-text` | the `...` indicator text (html supported)
+| `first-text` | The "goto first page" button text (html/sub-components supported)
+| `prev-text` | The "goto previous page" button text (html/sub-components supported)
+| `next-text` | The "goto next page" button text (html/sub-components supported)
+| `last-text` | The "goto last page" button text (html/sub-components supported)
+| `ellipsis-text` | the `...` indicator text (html/sub-components supported)
 
 
 Ellipsis inidcator(s) will only be ever shown at the front and/or end of
@@ -168,4 +171,5 @@ Both events provide the single argument of the current page number (starting fro
 For navigation based pagination, please see the [`<b-pagination-nav>`](./pagination-nav)
 component.
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->

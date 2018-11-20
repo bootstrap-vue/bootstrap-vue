@@ -208,4 +208,5 @@ removed.
 <!-- b-img-lazy.vue -->
 ```
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->

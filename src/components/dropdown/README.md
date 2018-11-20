@@ -104,6 +104,31 @@ Add a header to label sections of actions in any dropdown menu.
 See Section [Dropdown headers and accessibility](#dropdown-headers-and-accessibility)
 for details on making headers more accessible for users of assistive technologies.
 
+## Dropdown button content
+You can customize the text of the dropdown button by using either the `text` prop
+(shown in previous examples), or use the `button-content` slot instead of the `text` prop.
+The `button-content` slot allows you to use basic HTML and icons in the button content.
+
+If both the prop `text` and slot `button-content` are present, the slot `button-content` will
+take precedence.
+
+```html
+<div>
+  <b-dropdown text="Button text via Prop">
+    <b-dropdown-item href="#">An item</b-dropdown-item>
+    <b-dropdown-item href="#">Another item</b-dropdown-item>
+  </b-dropdown>
+  <b-dropdown>
+    <template slot="button-content">
+      Custom <strong>Content</strong> with <em>HTML</em> via Slot
+    </template>
+    <b-dropdown-item href="#">An item</b-dropdown-item>
+    <b-dropdown-item href="#">Another item</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-button-content.vue -->
+```
 
 ## Positioning
 Dropdown supports various positioning such as left and right aligned, drodown and dropup, and
@@ -136,7 +161,7 @@ Turn your dropdown menu into a drop-up menu by setting the `dropup` prop.
 
 ```html
 <div>
-  <b-dropdown id="ddown-dropup" dropup text="Drop-Up" variant="info" class="m-2">
+  <b-dropdown id="ddown-dropup" dropup text="Drop-Up" variant="primary" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
@@ -144,6 +169,30 @@ Turn your dropdown menu into a drop-up menu by setting the `dropup` prop.
 </div>
 
 <!-- dropdown-dropup.vue -->
+```
+
+### Drop right or left
+Turn your dropdown menu into a drop-right menu by setting the `dropright` prop. Or, turn
+it into a drop-left menu by setting the `dropleft` right prop to true.
+
+`dropright` takes precedence over `dropleft`. Neither `dropright` or `dropleft` have
+any effect if `dropup` is set.
+
+```html
+<div>
+  <b-dropdown id="ddown-dropright" dropright text="Drop-Right" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+  <b-dropdown id="ddown-dropleft" dropleft text="Drop-Left" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-droprightleft.vue -->
 ```
 
 ### Auto "flipping"
@@ -319,16 +368,9 @@ Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 | <kbd>UP</kbd> | Will highlight the next higher non-disabled item in the menu.
 | <kbd>ENTER</kbd> or <kbd>SPACE</kbd> | Will click the highlighted menu item.
 | <kbd>ESC</kbd> | Will close the dropdown and return focus to the trigger button.
-| <kbd>TAB</kbd> | Will close the dropdown and jump to the next focusable control on the page.
-| <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Will close the dropdown and jump to the previous focusable control on the page.
+| <kbd>TAB</kbd> | Will  jump to the next focusable control in the menu or on the page.
+| <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Will jump to the previous focusable control in the menu or on the page.
 
-
-## Dropdown component aliases
-- `<b-dropdown>` can be used via it's shorter alias of `<b-dd>`
-- `<b-dropdown-item>` can be used via it's shorter alias of `<b-dd-item>`
-- `<b-dropdown-item-button>` can be used by the shorter aliases `<b-dropdown-item-btn>`, `<b-dd-item-button>` and `<b-dd-item-btn>`
-- `<b-dropdown-header>` can be used via it's shorter alias of `<b-dd-header>`
-- `<b-dropdown-divider>` can be used via it's shorter alias of `<b-dd-divider>`
 
 ## Implementation Note
 On touch-enabled devices, opening a `<b-dropdown>` adds empty (noop) `mouseover`
@@ -340,4 +382,4 @@ triggering the code that closes the dropdown. Once the dropdown is closed, these
 additional empty `mouseover` handlers are removed.
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

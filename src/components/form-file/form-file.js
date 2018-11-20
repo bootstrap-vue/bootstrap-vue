@@ -2,7 +2,10 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
-import { from as arrayFrom } from '../../utils/array'
+import { from as arrayFrom, isArray } from '../../utils/array'
+
+// temporary css until Bootstrap V4.2 is released
+import './form-file.css'
 
 export default {
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
@@ -24,17 +27,18 @@ export default {
         name: this.name,
         disabled: this.disabled,
         required: this.required,
+        form: this.form || null,
         capture: this.capture || null,
         accept: this.accept || null,
         multiple: this.multiple,
         webkitdirectory: this.directory,
-        'aria-required': this.required ? 'true' : null,
-        'aria-describedby': this.plain ? null : this.safeId('_BV_file_control_')
+        'aria-required': this.required ? 'true' : null
       },
       on: {
         change: this.onFileChange,
         focusin: this.focusHandler,
-        focusout: this.focusHandler
+        focusout: this.focusHandler,
+        reset: this.onReset
       }
     })
 
@@ -48,7 +52,8 @@ export default {
       {
         class: ['custom-file-label', this.dragging ? 'dragging' : null],
         attrs: {
-          id: this.safeId('_BV_file_control_')
+          for: this.safeId(),
+          'data-browse': this.browseText || null
         }
       },
       this.selectLabel
@@ -60,7 +65,11 @@ export default {
       {
         class: ['custom-file', 'b-form-file', this.stateClass],
         attrs: { id: this.safeId('_BV_file_outer_') },
-        on: { dragover: this.dragover }
+        on: {
+          dragover: this.onDragover,
+          dragleave: this.onDragleave,
+          drop: this.onDrop
+        }
       },
       [input, label]
     )
@@ -73,6 +82,9 @@ export default {
     }
   },
   props: {
+    value: {
+      default: null
+    },
     accept: {
       type: String,
       default: ''
@@ -84,7 +96,15 @@ export default {
     },
     placeholder: {
       type: String,
-      default: undefined
+      default: 'No file chosen' // Chrome default file prompt
+    },
+    browseText: {
+      type: String,
+      default: null
+    },
+    dropPlaceholder: {
+      type: String,
+      default: null
     },
     multiple: {
       type: Boolean,
@@ -105,6 +125,11 @@ export default {
   },
   computed: {
     selectLabel () {
+      // Draging active
+      if (this.dragging && this.dropPlaceholder) {
+        return this.dropPlaceholder
+      }
+
       // No file choosen
       if (!this.selectedFile || this.selectedFile.length === 0) {
         return this.placeholder
@@ -131,6 +156,11 @@ export default {
         this.$emit('input', [])
       } else {
         this.$emit('input', newVal)
+      }
+    },
+    value (newVal) {
+      if (!newVal || (isArray(newVal) && newVal.length === 0)) {
+        this.reset()
       }
     }
   },
@@ -196,7 +226,11 @@ export default {
         this.selectedFile = files[0]
       }
     },
-    dragover (evt) {
+    onReset () {
+      // Triggered when the parent form (if any) is reset
+      this.selectedFile = this.multiple ? [] : null
+    },
+    onDragover (evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop || !this.custom) {
@@ -205,12 +239,12 @@ export default {
       this.dragging = true
       evt.dataTransfer.dropEffect = 'copy'
     },
-    dragleave (evt) {
+    onDragleave (evt) {
       evt.preventDefault()
       evt.stopPropagation()
       this.dragging = false
     },
-    drop (evt) {
+    onDrop (evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop) {

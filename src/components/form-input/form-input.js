@@ -7,8 +7,10 @@ import formValidityMixin from '../../mixins/form-validity'
 import { arrayIncludes } from '../../utils/array'
 import { eventOn, eventOff } from '../../utils/dom'
 
-// Import styles
-import './form-input.css'
+// Import styles for input type=color
+import './form-input-type-color.css'
+// Import temp styles and fixes for input type=range (custom-range)
+import './form-input-type-range.css'
 
 // Valid supported input types
 const TYPES = [
@@ -42,12 +44,16 @@ export default {
       attrs: {
         id: self.safeId(),
         name: self.name,
+        form: this.form || null,
         type: self.localType,
         disabled: self.disabled,
         required: self.required,
-        readonly: self.readonly || (self.plaintext && self.readonly === null),
+        readonly: self.readonly || self.plaintext,
         placeholder: self.placeholder,
         autocomplete: self.autocomplete || null,
+        min: self.min,
+        max: self.max,
+        step: self.step,
         'aria-required': self.required ? 'true' : null,
         'aria-invalid': self.computedAriaInvalid
       },
@@ -88,7 +94,7 @@ export default {
     },
     readonly: {
       type: Boolean,
-      default: null
+      default: false
     },
     plaintext: {
       type: Boolean,
@@ -113,6 +119,18 @@ export default {
       // Disable mousewheel to prevent wheel from changing values (i.e. number/date).
       type: Boolean,
       default: false
+    },
+    min: {
+      type: [String, Number],
+      default: null
+    },
+    max: {
+      type: [String, Number],
+      default: null
+    },
+    step: {
+      type: [String, Number],
+      default: null
     }
   },
   computed: {
@@ -122,7 +140,13 @@ export default {
     },
     inputClass () {
       return [
-        this.plaintext ? 'form-control-plaintext' : 'form-control',
+        {
+          'custom-range': this.type === 'range',
+          // plaintext not supported by type=range or type=color
+          'form-control-plaintext': this.plaintext && this.type !== 'range' && this.type !== 'color',
+          // form-control not used by type=range or plaintext. Always used by type=color
+          'form-control': (!this.plaintext && this.type !== 'range') || this.type === 'color'
+        },
         this.sizeFormClass,
         this.stateClass
       ]

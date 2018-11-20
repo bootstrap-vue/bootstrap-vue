@@ -475,4 +475,4 @@ all 12 available columns).
 ```
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

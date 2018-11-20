@@ -6,6 +6,9 @@ import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import bFormRadio from './form-radio'
 
+// Needed when radio-groups are inside an input group
+import '../input-group/input-group.css'
+
 export default {
   mixins: [
     idMixin,
@@ -27,6 +30,7 @@ export default {
           props: {
             id: this.safeId(`_BV_radio_${idx}_opt_`),
             name: this.name,
+            form: this.form || null,
             value: option.value,
             required: Boolean(this.name && this.required),
             disabled: option.disabled
@@ -64,6 +68,10 @@ export default {
   props: {
     checked: {
       type: [String, Object, Number, Boolean],
+      default: null
+    },
+    form: {
+      type: String,
       default: null
     },
     validated: {

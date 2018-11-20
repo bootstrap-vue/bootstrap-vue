@@ -442,4 +442,5 @@ enabled or disabled.
 - [`<b-tooltip>` component](/docs/components/tooltip)
 
 
-## Directive reference
+<!-- Directive reference section auto generated from directive package.json -->
+

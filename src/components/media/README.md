@@ -144,4 +144,5 @@ utilities wherever needed to fine tune.
 <!-- media-4.vue -->
 ```
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->

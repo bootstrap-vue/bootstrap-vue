@@ -104,11 +104,10 @@ Enable optional keyboard navigation by setting the prop `key-nav`.
 **Caution:** If you have text or text-like inputs in your toolbar, leave keyboard navigation off,
 as it is not possble to use key presses to jump out of a text (or test-like) inputs.
 
-## Component alias
-`<b-button-toolbar>` can also be used via the shorthand alias `<b-btn-toolbar>`
 
 ## See Also
 - [`<b-button-group>`](./button-group)
 - [`<b-dropdown>`](./dropdown)
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->

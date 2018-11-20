@@ -158,11 +158,6 @@ various supported `<router-link>` related props.
 Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap-vue`.
 
 
-## Button component alias
-
-`<b-button>` can also be used by its shorter alias `<b-btn>`.
-
-
 ## See also
 
 - [`<b-button-group>`](/docs/components/button-group)
@@ -171,4 +166,4 @@ Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap
 - [`Router Link Support`](/docs/reference/router-links)
 
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

@@ -4,6 +4,7 @@
   "meta": {
     "title": "Form Textarea",
     "component": "bFormTextarea",
+    "aliases": [ "bTextarea" ],
     "events": [
       {
         "event": "input",

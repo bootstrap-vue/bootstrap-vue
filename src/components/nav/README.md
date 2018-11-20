@@ -146,10 +146,6 @@ will produce something like:
 
 Refer to [`<b-dropdown>`](../dropdown) for a list of supported sub-components.
 
-### `<b-nav-item-dropdown>` Component Alias
-
-`<b-nav-item-dropdown>` can be used via it's shorter aliases of `<b-nav-item-dd>` and `<b-nav-dd>`.
-
 
 ## Using in Navbar
 
@@ -177,4 +173,5 @@ be automatically generated.
 - [`<b-dropdown>`](/docs/components/dropdown) for sub-components that you can place inside `<b-nav-item-dropdown>`
 - [Router Link Support reference](/docs/reference/router-links) for information about router-link specific props available on `<b-nav-item>`
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->

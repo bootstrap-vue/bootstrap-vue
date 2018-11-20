@@ -27,6 +27,7 @@ export default {
         id: this.safeId(),
         type: 'radio',
         name: this.get_Name,
+        form: this.get_Form || null,
         required: this.get_Name && this.is_Required,
         disabled: this.is_Disabled,
         autocomplete: 'off'

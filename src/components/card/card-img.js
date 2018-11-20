@@ -53,7 +53,7 @@ export const props = {
 export default {
   functional: true,
   props,
-  render (h, {props, data, slots}) {
+  render (h, {props, data}) {
     let staticClass = 'card-img'
     if (props.top) {
       staticClass += '-top'

@@ -218,12 +218,8 @@ Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for
 more information on these methods and properties.  Support will vary based on
 input type.
 
-### Custom input methods
-`b-form-input` also exposes the following custom method(s):
-
-
 
 ## Component alias
 You can use `<b-form-textarea>` by it's shorter alias `<b-textarea>`.
 
-## Component reference
+!-- Component reference added automatically from component package.json -->

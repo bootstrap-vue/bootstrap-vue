@@ -23,7 +23,7 @@ export const props = assign(
 export default {
   functional: true,
   props,
-  render (h, { props, data, slots, children }) {
+  render (h, { props, data, children }) {
     return h(
       props.headerTag,
       mergeData(data, {

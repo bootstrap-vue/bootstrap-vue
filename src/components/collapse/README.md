@@ -254,4 +254,5 @@ element's container in order to help screen reader users navigate the accordion 
 Unfortunately, Boostrap-Vue cannot apply those roles for you automaticaly, as it depends on
 your final document markup.
 
-## Component Reference
+
+<!-- Component reference added automatically from component package.json -->

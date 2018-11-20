@@ -133,4 +133,4 @@ accessibility features. It is highly recommended to always add an ID to all comp
 All carousel controls and indicators have aria labels. These can be customized by
 setting the various `label-*` props.
 
-## Component Reference
+<!-- Component reference added automatically from component package.json -->

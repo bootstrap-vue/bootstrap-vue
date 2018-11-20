@@ -77,6 +77,16 @@ pre.editable.live:after {
   content: 'Live';
 }
 
+pre.editable.error {
+  border: 1px solid #dc3545;
+  box-shadow: 0 1px 1px rgba(220, 53, 69, 0.5);
+}
+
+pre.editable.error:after {
+  content: 'JavaScript compile error!';
+  color: #dc3545;
+}
+
 .bd-footer {
   padding: 4rem 0;
   margin-top: 4rem;
