@@ -816,7 +816,7 @@ describe('form-textarea', async () => {
       attachToDocument: true,
       propsData: {
         value: '',
-        number
+        number: true
       }
     })
     expect(input.vm.localValue).toEqual('')
