@@ -35,7 +35,7 @@ export default {
       attrs: {
         id: self.safeId(),
         name: self.name,
-        form: this.form || null,
+        form: self.form || null,
         disabled: self.disabled,
         placeholder: self.placeholder,
         required: self.required,
