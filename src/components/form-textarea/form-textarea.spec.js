@@ -542,11 +542,11 @@ describe('form-textarea', async () => {
     // Update event fires first with formatted value
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('TEST')
+    expect(input.emitted('update')[0][0]).toEqual('test')
     // Followed by an input event with formatted value
     expect(input.emitted('input')).toBeDefined()
     expect(input.emitted('input').length).toEqual(1)
-    expect(input.emitted('input')[0][0]).toEqual('TEST')
+    expect(input.emitted('input')[0][0]).toEqual('test')
     // And no change event
     expect(input.emitted('change')).not.toBeDefined()
   })
@@ -567,11 +567,11 @@ describe('form-textarea', async () => {
     // Update event fires first with formatted value
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('TEST')
+    expect(input.emitted('update')[0][0]).toEqual('test')
     // Followed by a change event with formatted value
     expect(input.emitted('change')).toBeDefined()
     expect(input.emitted('change').length).toEqual(1)
-    expect(input.emitted('change')[0][0]).toEqual('TEST')
+    expect(input.emitted('change')[0][0]).toEqual('test')
     // And no input event
     expect(input.emitted('input')).not.toBeDefined()
   })
@@ -598,15 +598,35 @@ describe('form-textarea', async () => {
     expect(input.emitted('input')).toBeDefined()
     expect(input.emitted('input').length).toEqual(1)
     expect(input.emitted('input')[0][0]).toEqual('TEST')
+    expect(input.vm.localValue).toEqual('TEST')
+
+    input.trigger('change')
+    // Update does not fire again
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('TEST')
+    // Event change emitted
+    expect(input.emitted('change')).toBeDefined()
+    expect(input.emitted('change').length).toEqual(1)
+    expect(input.emitted('change')[0][0]).toEqual('TEST')
+    expect(input.vm.localValue).toEqual('TEST')
 
     input.trigger('blur')
 
     // Update fires before change with formatted value
+    expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(2)
     expect(input.emitted('update')[1][0]).toEqual('test')
     // Followed by blur event with native event
-    expect(input.emitted('change')).toBeDefined()
-    expect(input.emitted('change')[0][0] instanceof Event).toBe(true)
+    expect(input.emitted('blur')).toBeDefined()
+    expect(input.emitted('blur')[0][0] instanceof Event).toBe(true)
+    expect(input.emitted('blur')[0][0].type).toEqual('blur')
+    
+    // Expected number of events from above sequence
+    expect(input.emitted('input').length).toEqual(1)
+    expect(input.emitted('change').length).toEqual(1)
+    expect(input.emitted('blur').length).toEqual(1)
+    expect(input.emitted('update').length).toEqual(2)
   })
 
   it('Does not format value on mount when not lazy', async () => {
