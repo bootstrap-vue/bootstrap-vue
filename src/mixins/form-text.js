@@ -66,9 +66,8 @@ export default {
   computed: {
     computedClass () {
       return [
-        this.plaintext ? 'form-control-plaintext' : 'form-control',
         {
-          // Special class cases for b-form-input input types
+          // Range input needs class custom-range
           'custom-range': this.type === 'range',
           // plaintext not supported by type=range or type=color
           'form-control-plaintext': this.plaintext && this.type !== 'range' && this.type !== 'color',

@@ -296,8 +296,8 @@ describe('form-input', async () => {
     input.trigger('input')
 
     expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted().input[0].length).toEqual(1)
     expect(wrapper.emitted().input[0][0]).toEqual('test')
-    expect(wrapper.emitted().input[0].length).toEqual(2)
   })
 
   it('emits a native focus event', async () => {
@@ -314,18 +314,19 @@ describe('form-input', async () => {
     expect(spy).toHaveBeenCalled()
   })
 
-  it('emits a native blur event', async () => {
-    const spy = jest.fn()
+  it('emits a blur event with native event as only arg', async () => {
     const wrapper = mount(Input, {
-      listeners: {
-        blur: spy
+      propsData: {
+        value: 'TEST'
       }
     })
     const input = wrapper.find('input')
     input.trigger('blur')
 
-    expect(wrapper.emitted()).toMatchObject({})
-    expect(spy).toHaveBeenCalled()
+    expect(wrapper.emitted('blur')).toBeDefined()
+    expect(wrapper.emitted('blur')[0].length).toEqual(1)
+    expect(wrapper.emitted('blur')[0][0] instanceof Event).toBe(true)
+    expect(wrapper.emitted('blur')[0][0].type).toEqual('blur')
   })
 
   it('applies formatter on input when not lazy', async () => {
@@ -341,12 +342,15 @@ describe('form-input', async () => {
     input.element.value = 'TEST'
     input.trigger('input')
 
-    expect(wrapper.emitted('update:value')).toBeDefined()
-    let last = wrapper.emitted('update:value').length - 1
-    expect(wrapper.emitted('update:value')[last][0]).toEqual('test')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('test')
 
     expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual('test')
+
+    expect(input.vm.localValue).toEqual('test')
   })
 
   it('does not apply formatter on input when lazy', async () => {
@@ -363,15 +367,17 @@ describe('form-input', async () => {
     input.element.value = 'TEST'
     input.trigger('input')
 
-    expect(wrapper.emitted('update:value')).toBeDefined()
-    let last = wrapper.emitted('update:value').length - 1
-    expect(wrapper.emitted('update:value')[last][0]).toEqual('TEST')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
     expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
     expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(input.vm.localValue).toEqual('TEST')
   })
 
-  it('applies formatter on change when lazy', async () => {
+  it('applies formatter on blur when lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
         value: '',
@@ -387,17 +393,25 @@ describe('form-input', async () => {
     // input event needed to set initial value
     input.element.value = 'TEST'
     input.trigger('input')
-    expect(input.vm.localValue).toEqual('TEST')
-    expect(wrapper.emitted('update:value')).toBeDefined()
 
-    input.trigger('change')
+    expect(input.vm.localValue).toEqual('TEST')
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(1)
+    expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
+
+    input.trigger('blur')
+
+    expect(wrapper.emitted('update')).toBeDefined()
+    expect(wrapper.emitted('update').length).toEqual(2)
+    expect(wrapper.emitted('update')[1][0]).toEqual('test')
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('blur')).toBeDefined()
+    expect(wrapper.emitted('blur').length).toEqual(1)
     expect(input.vm.localValue).toEqual('test')
-    expect(wrapper.emitted('update:value')).toBeDefined()
-    expect(wrapper.emitted('change')).toBeDefined()
-    expect(wrapper.emitted('change')[0][0]).toEqual('test')
   })
 
-  it('applies formatter when value supplied on mount and not lazy', async () => {
+  it('does not apply formatter when value supplied on mount and not lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
         value: 'TEST',
@@ -409,15 +423,14 @@ describe('form-input', async () => {
     })
     const input = wrapper.find('input')
 
-    expect(input.vm.localValue).toEqual('test')
-    expect(wrapper.emitted('update:value')).toBeDefined()
-    const last = wrapper.emitted('update:value').length - 1
-    expect(wrapper.emitted('update:value')[last][0]).toEqual('test')
+    expect(input.vm.localValue).toEqual('TEST')
+    expect(wrapper.emitted('update')).not.toBeDefined()
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('blur')).not.toBeDefined()
   })
 
-  it('applies formatter when value prop updated and not lazy', async () => {
+  it('does not apply formatter when value prop updated and not lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
         value: '',
@@ -431,12 +444,11 @@ describe('form-input', async () => {
     wrapper.setProps({ value: 'TEST' })
     const input = wrapper.find('input')
 
-    expect(input.element.value).toEqual('test')
-    expect(wrapper.emitted('update:value')).toBeDefined()
-    let last = wrapper.emitted('update:value').length - 1
-    expect(wrapper.emitted('update:value')[last][0]).toEqual('test')
+    expect(input.element.value).toEqual('TEST')
+    expect(wrapper.emitted('update')).not.toBeDefined() // Note emitted as value hasnt changed
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('blur')).not.toBeDefined()
   })
 
   it('does not apply formatter when value prop updated and lazy', async () => {
@@ -450,13 +462,14 @@ describe('form-input', async () => {
       },
       attachToDocument: true
     })
-
     wrapper.setProps({ value: 'TEST' })
+    const input = wrapper.find('input')
 
-    expect(wrapper.emitted('update:value')).toBeDefined()
+    expect(input.element.value).toEqual('TEST')
+    expect(wrapper.emitted('update')).not.toBeDefined() // not emitted when value doesnt change
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
-    expect(wrapper.vm.localValue).toBe('TEST')
+    expect(wrapper.emitted('blur')).not.toBeDefined()
   })
 
   it('focused number input with no-wheel set to true works', async () => {

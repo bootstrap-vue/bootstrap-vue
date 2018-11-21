@@ -9,8 +9,8 @@ and maximum number of rows, and contextual states.
     <b-form-textarea id="textarea1"
                      v-model="text"
                      placeholder="Enter something"
-                     :rows="3"
-                     :max-rows="6">
+                     rows="3"
+                     max-rows="6">
     </b-form-textarea>
     <pre class="mt-3">{{ text }}</pre>
   </div>
@@ -75,10 +75,12 @@ To disable this feature, set the `no-resize` prop to `true`.
 even as the user enters text.
 
 To set the initial minimum height (in rows), set the `rows` prop to the desired
-number of lines (or leave it at the default of `2`).
+number of lines (or leave it at the default of `2`), And then set maximum rows that
+the text area will grow to (before showing a scrollbar) by setting the `max-rows` prop
+to the maximum number of lines of text.
 
-To limit the maximum rows that the text area will grow to (before showing a scrollbar),
-set the `max-rows` prop to the maximum number of lines of text.
+Note that the resize handle of the textarea (if supported by the browser) will automatically
+be disabled in auto-height mode.
 
 
 ## Textarea contextual states
@@ -98,9 +100,9 @@ To apply one of the contextual state icons on `<b-form-textarea>`, set the `stat
 <template>
   <b-form-textarea id="textarea2"
                    :state="text.length >= 10"
-                   v-model.trim="text"
+                   v-model="text"
                    placeholder="Enter at least 10 characters"
-                   :rows="3"></b-form-textarea>
+                   rows="3"></b-form-textarea>
 </template>
 
 <script>

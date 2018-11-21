@@ -75,7 +75,7 @@ as two separate inputs.
 than what is returned by it's value (i.e. ordering of year-month-date).
 - Regardless of input type, the value is **always** returned as a string representation.
 - `v-model.lazy` is not supported by `<b-form-input>` (nor any custom vue component).
-- `v-model` modifiers `.number` and `.trim` can cause unexpected cursor jumps when the user is typing (this is a Vue issue with `v-model` on custom components). Avoid using these modifiers.
+- `v-model` modifiers `.number` and `.trim` can cause unexpected cursor jumps when the user is typing (this is a Vue issue with `v-model` on custom components). _Avoid using these modifiers_.
 - Older version of firefox may not support `readonly` for `range` type inputs.
 - Input types that do not support `min`, `max` and `step` (i.e. `text`, `password`, `tel`, `email`, `url`, etc) will silently ignore these values (although they will still be rendered on the input markup).
 
@@ -135,7 +135,7 @@ export default {
 
 **Note:** Range inputs (as do all input types) return their value as a string. You may
 need to convert the value to a native number by using `Number(value)`, `parseInt(value, 10)`,
-`parseFloat(value)`, or use the `.number` modifier on the `v-model`.
+`parseFloat(value)`, or use the `number` prop.
 
 **Note:** Bootsttrap V4.1 CSS does not include styling for range inputs inside input groups,
 nor validation styling on range inputs. However, Bootstrap-Vue includes custom styling to handle
@@ -192,8 +192,8 @@ Generally speaking, you’ll want to use a particular state for specific types o
 
 To apply one of the contextual state icons on `<b-form-input>`, set the `state` prop
 to:
-- `'invalid'` or `false` for invalid contextual state
-- `'valid'` or `true` for the valid contextual state
+- The string `'invalid'` or boolean `false` for invalid contextual state
+- The string `'valid'` or boolean `true` for the valid contextual state
 - `null` for no validation contextual state (default)
 
 ```html
@@ -291,19 +291,17 @@ then the `aria-invalid` attribute on the input will automatically be set to `'tr
 
 
 ## Formatter support
-`<b-form-input>` optionally supports formatting by passing a function reference to
+`<b-form-input>` and `<b-form-textarea>` optionally supports formatting by passing a function reference to
 the `formatter` prop.
 
-Formatting (when a formatter funtion is supplied) occurs when the control's native `input`
-event fires. You can use the boolean prop `lazy-formatter` to restrict the formatter
-function to being called on the control's native `change` event (which usually occurs on blur).
+Formatting (when a formatter funtion is supplied) occurs when the control's native `input` and `change`
+events fire. You can use the boolean prop `lazy-formatter` to restrict the formatter
+function to being called on the control's native `blur` event.
 
 The `formatter` function receives two arguments: the raw `value` of the input element,
-and the native `event` object (if available). If the formatter is triggered during a
-`v-model` update (or by running the component `.format()` method), then the event argument
-will be `null`.
+and the native `event` object that triggered teh format (if available).
 
-The `formatter` function should return the formatted value (as a string).
+The `formatter` function should return the formatted value as a _string_.
 
 Formatting does not occur if a `formatter` is not provided.
 
@@ -322,7 +320,7 @@ Formatting does not occur if a `formatter` is not provided.
     </b-form-text>
     <p>Value: {{ text1 }}</p>
 
-    <label for="inputLazy">Text input with lazy formatter (on change)</label>
+    <label for="inputLazy">Text input with lazy formatter (on blur)</label>
     <b-form-input id="inputLazy"
                   v-model="text2"
                   type="text"
@@ -374,19 +372,39 @@ field styling and preserve the correct margin and padding.
 
 The `plaintext` option is not supported by input types `color` or `range`.
 
+
 ## Disabling mousewheel events on numeric-like inputs
 On some browsers, scrolling the mousewheel while a numeric-like input is focused will
 increment or decrement the input's value. To disable this browser feture, just set
 the `no-wheel` prop to `true`.
 
-## Native input events
-All native events (other than the cuustom `input` and `change` events) are supported, without
-the need for the `.native` modifier. Available events will vary based on input type.
 
-The custom `input` and `change` events receive to paramters: the input value (after
-custom formatter has been applied), and the native event object.
+## V-model modifiers
+Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of
+custom component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
+
+To get around this, `<b-form-input>` and `<b-for-textarea>` have two boolean props `trim` and `number`
+which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectivley. Emulation of the
+`.lazy` modifier is _not_ supported (listen for `change` or `blur` events instead).
+
+**Notes:**
+- The `number` prop takes precedence over the `trim` prop (i.e. `trim` will have no effect when `number` is set).
+- When using the `number` prop, and if the value can be parsed as a number (via `parseFloat`) it will return a value of type `Number` to the `v-model`, otherwise the original input value is returned as type `String`. This is the same behaviour as the native `.number` modifier.
+- The `trim` and `number` modifier props do not affect the value returned by the `input` or `change` events. These events will aways return the string value of the content of `<textarea>` after optional formatting (which may not match the value returned via the `v-model` `update` event, which handles the modifiers).
+
+
+## Native and custom events
+All native events (other than the custom `input` and `change` events) are supported, without
+the need for the `.native` modifier.
+
+The custom `input` and `change` events receive a single argument of the current `value` (after any
+formatting has been applied), and are triggerd by user interaction.
+
+The custom `update` event is passed the input value, and is emitted wehenever the v-model needs
+updating (it is emitted before `input`, `change`. and `blur` as needed).
 
 You can always access the native `input` and `change` events by using the `.native` modifier.
+
 
 ## Exposed input properties and methods
 `<b-form-input>` exposes several of the native input element's properties and methods on the 
@@ -421,12 +439,8 @@ Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for
 more information on these methods and properties.  Support will vary based on
 input type.
 
-### Custom input methods
-`b-form-input` also exposes the following custom method(s):
-
-| Method | Notes
-| ------ | -----
-| `.format()` | Forces the input to run the formatter. The event arument passed to the formatter will be `null`
+## Component alias
+You can use `<b-form-input>` by it's shorter alias `<b-input>`.
 
 
 <!-- Component reference added automatically from component package.json -->

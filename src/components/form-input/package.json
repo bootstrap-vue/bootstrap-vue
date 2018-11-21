@@ -8,39 +8,41 @@
     "events": [
       {
         "event": "input",
-        "description": "Emitted when the input receives input from user.",
+        "description": "Input event triggered by user interaction. Emitted after any formatting and after the v-model is updated",
         "args": [
           {
             "arg": "value",
-            "description": "Current value of the input (after any formatting applied)"
-          },
-          {
-            "arg": "event",
-            "description": "The native input event object (before any formatting applied)"
+            "description": "Current value of input"
           }
         ]
       },
       {
         "event": "change",
-        "description": "Emitted when the input changes based on user input.",
+        "description": "Change event triggerd by user interaction. Emitted after any formatting and after the v-model is updated.",
         "args": [
           {
             "arg": "value",
-            "description": "Current value of the input (after any formatting applied)"
-          },
-          {
-            "arg": "event",
-            "description": "The native change event object (before any formatting applied)"
+            "description": "Current value of input"
           }
         ]
       },
       {
-        "event": "update:value",
-        "description": "Event that updates the v-model.",
+        "event": "update",
+        "description": "Emitted to update the v-model",
         "args": [
           {
             "arg": "value",
-            "description": "current value of the input"
+            "description": "Value of input, after any formatting. Not emitted if the value does nto change"
+          }
+        ]
+      },
+      {
+        "event": "blur",
+        "description": "Emitted after the input looses focus",
+        "args": [
+          {
+            "arg": "event",
+            "description": "Native blur event (before any formmating)"
           }
         ]
       }

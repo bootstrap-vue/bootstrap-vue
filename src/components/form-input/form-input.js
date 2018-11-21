@@ -2,6 +2,7 @@ import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
+import formTextMixin from '../../mixins/form-text'
 import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
 import { arrayIncludes } from '../../utils/array'
@@ -31,26 +32,39 @@ const TYPES = [
   'week'
 ]
 
-// Custom event to update the model
-const MODEL_EVENT = 'update:value'
-
 export default {
-  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formSelectionMixin, formValidityMixin],
+  mixins: [
+    idMixin,
+    formMixin,
+    formSizeMixin,
+    formStateMixin,
+    formTextMixin,
+    formSelectionMixin,
+    formValidityMixin
+  ],
   render (h) {
     var self = this
     return h('input', {
       ref: 'input',
-      class: self.inputClass,
+      class: self.computedClass,
+      directives: [
+        {
+          name: 'model',
+          rawName: 'v-model',
+          value: self.localValue,
+          expression: 'localValue'
+        }
+      ],
       attrs: {
         id: self.safeId(),
         name: self.name,
-        form: this.form || null,
+        form: self.form || null,
         type: self.localType,
         disabled: self.disabled,
-        required: self.required,
-        readonly: self.readonly || self.plaintext,
         placeholder: self.placeholder,
+        required: self.required,
         autocomplete: self.autocomplete || null,
+        readonly: self.readonly || self.plaintext,
         min: self.min,
         max: self.max,
         step: self.step,
@@ -60,60 +74,19 @@ export default {
       domProps: {
         value: self.localValue
       },
-      directives: [
-        { name: 'model', rawName: 'v-model', value: self.localValue, expression: 'localValue' }
-      ],
       on: {
         ...self.$listeners,
         input: self.onInput,
-        change: self.onChange
+        change: self.onChange,
+        blur: self.onBlur
       }
     })
   },
-  data () {
-    return {
-      localValue: this.value
-    }
-  },
-  model: {
-    prop: 'value',
-    event: MODEL_EVENT
-  },
   props: {
-    value: {
-      default: ''
-    },
     type: {
       type: String,
       default: 'text',
       validator: type => arrayIncludes(TYPES, type)
-    },
-    ariaInvalid: {
-      type: [Boolean, String],
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    plaintext: {
-      type: Boolean,
-      default: false
-    },
-    autocomplete: {
-      type: String,
-      default: null
-    },
-    placeholder: {
-      type: String,
-      default: null
-    },
-    formatter: {
-      type: Function
-    },
-    lazyFormatter: {
-      type: Boolean,
-      default: false
     },
     noWheel: {
       // Disable mousewheel to prevent wheel from changing values (i.e. number/date).
@@ -137,35 +110,9 @@ export default {
     localType () {
       // We only allow certain types
       return arrayIncludes(TYPES, this.type) ? this.type : 'text'
-    },
-    inputClass () {
-      return [
-        {
-          'custom-range': this.type === 'range',
-          // plaintext not supported by type=range or type=color
-          'form-control-plaintext': this.plaintext && this.type !== 'range' && this.type !== 'color',
-          // form-control not used by type=range or plaintext. Always used by type=color
-          'form-control': (!this.plaintext && this.type !== 'range') || this.type === 'color'
-        },
-        this.sizeFormClass,
-        this.stateClass
-      ]
-    },
-    computedAriaInvalid () {
-      if (!this.ariaInvalid || this.ariaInvalid === 'false') {
-        // this.ariaInvalid is null or false or 'false'
-        return this.computedState === false ? 'true' : null
-      }
-      if (this.ariaInvalid === true) {
-        // User wants explicit aria-invalid=true
-        return 'true'
-      }
-      // Most likely a string value (which could be 'true')
-      return this.ariaInvalid
     }
   },
   mounted () {
-    this.setValue(this.lazyFormatter ? this.value : this.getFormatted(this.value, null))
     this.setWheelStopper(this.noWheel)
   },
   deactivated () {
@@ -183,76 +130,32 @@ export default {
     this.setWheelStopper(false)
   },
   watch: {
-    value (newVal) {
-      this.setValue(this.lazyFormatter ? newVal : this.getFormatted(newVal, null))
-    },
     noWheel (newVal) {
       this.setWheelStopper(newVal)
     }
   },
   methods: {
-    setValue (val) {
-      if (val !== this.localVal) {
-        // Only update value if changed, to minimize duplicte emits
-        this.localValue = val
-        this.$emit(MODEL_EVENT, this.localValue)
-      }
-    },
-    onInput (evt) {
-      if (evt.target.composing) return
-      const value = evt.target.value
-      this.setValue(this.lazyFormatter ? value : this.getFormatted(value, evt))
-      this.$emit('input', this.localValue, evt)
-    },
-    onChange (evt) {
-      if (evt.target.composing) return
-      this.setValue(this.format(evt.target.value, evt))
-      this.$emit('change', this.localValue, evt)
-    },
-    getFormatted (value, event = null) {
-      return this.formatter ? this.formatter(value, event) : value
-    },
     setWheelStopper (on) {
       const input = this.$el
-      // We use native events, so that we don't interfere with prepgation
+      // We use native events, so that we don't interfere with propgation
       if (on) {
-        eventOn(input, 'focus', this.onFocus)
-        eventOn(input, 'blur', this.onBlur)
+        eventOn(input, 'focus', this.onWheelFocus)
+        eventOn(input, 'blur', this.onWheelBlur)
       } else {
-        eventOff(input, 'focus', this.onFocus)
-        eventOff(input, 'blur', this.onBlur)
+        eventOff(input, 'focus', this.onWheelFocus)
+        eventOff(input, 'blur', this.onWheelBlur)
         eventOff(document, 'wheel', this.stopWheel)
       }
     },
-    onFocus (evt) {
+    onWheelFocus (evt) {
       eventOn(document, 'wheel', this.stopWheel)
     },
-    onBlur (evt) {
+    onWheelBlur (evt) {
       eventOff(document, 'wheel', this.stopWheel)
     },
     stopWheel (evt) {
       evt.preventDefault()
       this.$el.blur()
-    },
-    // Exposed methods
-    format () {
-      // Force the formatter to run
-      this.setValue(this.getFormatted(this.localValue, null))
-      return this.localValue
-    },
-    focus () {
-      // Expose the input focus() method
-      /* istanbul ignore next */
-      if (!this.disabled) {
-        this.$el.focus()
-      }
-    },
-    blur () {
-      // Expose the input blur() method
-      /* istanbul ignore next */
-      if (!this.disabled) {
-        this.$el.blur()
-      }
     }
   }
 }
