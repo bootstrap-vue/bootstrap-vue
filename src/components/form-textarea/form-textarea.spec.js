@@ -621,7 +621,7 @@ describe('form-textarea', async () => {
     expect(input.emitted('blur')).toBeDefined()
     expect(input.emitted('blur')[0][0] instanceof Event).toBe(true)
     expect(input.emitted('blur')[0][0].type).toEqual('blur')
-    
+
     // Expected number of events from above sequence
     expect(input.emitted('input').length).toEqual(1)
     expect(input.emitted('change').length).toEqual(1)
