@@ -18,7 +18,7 @@ export default {
     formValidityMixin
   ],
   render (h) {
-    // using self instead of this helps reduce code size during minification
+    // Using self instead of this helps reduce code size during minification
     const self = this
     return h('textarea', {
       ref: 'input',
@@ -52,7 +52,8 @@ export default {
       on: {
         ...self.$listeners,
         input: self.onInput,
-        change: self.onChange
+        change: self.onChange,
+        blur: self.onBlur
       }
     })
   },
@@ -119,6 +120,9 @@ export default {
     computedHeight () /* istanbul ignore next: can't test getComputedProperties */ {
       const el = this.$el
 
+      if (this.isServer) {
+        return null
+      }
       // We compare this.localValue to null to ensure reactivity of content changes.
       if (this.localValue === null || this.computedRows || this.dontResize || this.$isServer) {
         return null
