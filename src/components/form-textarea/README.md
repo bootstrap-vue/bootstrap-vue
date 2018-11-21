@@ -80,6 +80,7 @@ number of lines (or leave it at the default of `2`).
 To limit the maximum rows that the text area will grow to (before showing a scrollbar),
 set the `max-rows` prop to the maximum number of lines of text.
 
+
 ## Textarea contextual states
 Bootstrap includes validation styles for `valid` and `invalid` states on most form controls.
 
@@ -173,15 +174,12 @@ custom component based inputs, and may generate a bad user experience. Avoid usi
 
 To get around this, `<b-for-textarea>` and `<b-form-input>` have two boolean props `trim` and `number`
 which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectivley. Emulation of the
-`.lazy` modifier is _not_ supported (listen for `change` event instead).
-
-The `.number` modifer uses `parseFloat` on the input value and will return a value of type `Number` if
-the value can be parsed as a number (via `parseFloat`), otherwise the original input value is
-returned as type `String`. This is the same behaviour as the native `.number` modifier.
+`.lazy` modifier is _not_ supported (listen for `change` or `blur` events instead).
 
 **Notes:**
-- The `number` prop takes precedence over the `trim` prop.
-- The `trim` and `number` modifier props do not affect the value returned by the `input` or `change` events. These events will aways return the string value of the content of `<textarea>` after optional formatting (which may not match the value returned via the `v-model` `update` event which handles the modifiers).
+- The `number` prop takes precedence over the `trim` prop (i.e. `trim` will have no effect when `number` is set).
+- When using the `number` prop, and if the value can be parsed as a number (via `parseFloat`) it will return a value of type `Number` to the `v-model`, otherwise the original input value is returned as type `String`. This is the same behaviour as the native `.number` modifier.
+- The `trim` and `number` modifier props do not affect the value returned by the `input` or `change` events. These events will aways return the string value of the content of `<textarea>` after optional formatting (which may not match the value returned via the `v-model` `update` event, which handles the modifiers).
 
 
 ## Native and custom events
