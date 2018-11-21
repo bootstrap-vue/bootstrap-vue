@@ -135,7 +135,7 @@ export default {
 
 **Note:** Range inputs (as do all input types) return their value as a string. You may
 need to convert the value to a native number by using `Number(value)`, `parseInt(value, 10)`,
-`parseFloat(value)`, or use the `.number` modifier on the `v-model`.
+`parseFloat(value)`, or use the `number` prop.
 
 **Note:** Bootsttrap V4.1 CSS does not include styling for range inputs inside input groups,
 nor validation styling on range inputs. However, Bootstrap-Vue includes custom styling to handle
