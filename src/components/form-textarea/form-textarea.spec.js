@@ -794,8 +794,7 @@ describe('form-textarea', async () => {
 
     expect(input.vm.localValue).toEqual('  TEST  ')
     expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(4)
-    expect(input.emitted('update')[3][0]).toEqual('TEST')
+    expect(input.emitted('update').length).toEqual(3) // not emitted because no change in value
     expect(input.emitted('input')).toBeDefined()
     expect(input.emitted('input').length).toEqual(4)
     expect(input.emitted('input')[3][0]).toEqual('  TEST  ')
@@ -804,8 +803,7 @@ describe('form-textarea', async () => {
 
     expect(input.vm.localValue).toEqual('  TEST  ')
     expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(4)
-    expect(input.emitted('update')[3][0]).toEqual('TEST')
+    expect(input.emitted('update').length).toEqual(3) // not emitted because no change in value
     expect(input.emitted('change')).toBeDefined()
     expect(input.emitted('change').length).toEqual(1)
     expect(input.emitted('change')[3][0]).toEqual('  TEST  ')
@@ -828,7 +826,7 @@ describe('form-textarea', async () => {
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(1)
     expect(input.emitted('update')[0][0]).toEqual('TEST')
-    expect(typeof input.emitted('update')[1][0]).toEqual('string')
+    expect(typeof input.emitted('update')[0][0]).toEqual('string')
     expect(input.emitted('input')).toBeDefined()
     expect(input.emitted('input').length).toEqual(1)
     expect(input.emitted('input')[0][0]).toEqual('TEST')
