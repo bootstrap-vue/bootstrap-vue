@@ -219,32 +219,6 @@ describe('form-textarea', async () => {
     expect(input.attributes('aria-invalid')).toBe('spelling')
   })
 
-  it('emits an input event with args value and event', async () => {
-    const input = mount(Textarea)
-
-    input.element.value = 'test'
-    input.trigger('input')
-
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input')[0][0]).toEqual('test')
-    expect(input.emitted('input')[0].length).toEqual(2)
-    expect(input.emitted('input')[0][1].type).toEqual('input')
-  })
-
-  it('emits an change event args value and event', async () => {
-    const input = mount(Textarea)
-
-    input.element.value = 'test'
-    input.trigger('input')
-    expect(input.emitted('change')).not.toBeDefined()
-
-    input.trigger('change')
-    expect(input.emitted('change')).toBeDefined()
-    expect(input.emitted('change')[0][0]).toEqual('test')
-    expect(input.emitted('change')[0].length).toEqual(2)
-    expect(input.emitted('change')[0][1].type).toEqual('change')
-  })
-
   it('does not emit an update event on mount when value not set', async () => {
     const input = mount(Textarea)
     expect(input.emitted('update')).not.toBeDefined()
@@ -255,6 +229,31 @@ describe('form-textarea', async () => {
       value: 'foobar'
     })
     expect(input.emitted('update')).not.toBeDefined()
+  })
+
+  it('emits an input event with single arg of value', async () => {
+    const input = mount(Textarea)
+
+    input.element.value = 'test'
+    input.trigger('input')
+
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input')[0].length).toEqual(1)
+    expect(input.emitted('input')[0][0]).toEqual('test')
+  })
+
+  it('emits an change event with single arg of value', async () => {
+    const input = mount(Textarea)
+
+    input.element.value = 'test'
+    // Need to trigger an input event before change can be emitted
+    input.trigger('input')
+    expect(input.emitted('change')).not.toBeDefined()
+
+    input.trigger('change')
+    expect(input.emitted('change')).toBeDefined()
+    expect(input.emitted('change')[0].length).toEqual(1)
+    expect(input.emitted('change')[0][0]).toEqual('test')
   })
 
   it('emits an update event with one arg on input', async () => {
@@ -293,15 +292,16 @@ describe('form-textarea', async () => {
     expect(input.emitted('update')[1][0]).toEqual('TEST')
   })
 
-  it('emits an update event when value prop changed', async () => {
+  it('does not emit an update, input or change event when value prop changed', async () => {
     const input = mount(Textarea, {
       value: ''
     })
 
     expect(input.emitted('update')).not.toBeDefined()
+    expect(input.emitted('input')).not.toBeDefined()
+    expect(input.emitted('change')).not.toBeDefined()
     input.setProps({value: 'test'})
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('test')
+    expect(input.emitted('update')).not.toBeDefined()
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
   })
@@ -318,16 +318,10 @@ describe('form-textarea', async () => {
     expect(spy).toHaveBeenCalled()
   })
 
-  it('emits a native blur event', async () => {
-    const spy = jest.fn()
-    const input = mount(Textarea, {
-      listeners: {
-        blur: spy
-      }
-    })
+  it('emits a blur event when blurred', async () => {
+    const input = mount(Textarea)
     input.trigger('blur')
-    expect(input.emitted('blur')).not.toBeDefined()
-    expect(spy).toHaveBeenCalled()
+    expect(input.emitted('blur')).toBeDefined()
   })
 
   it('has attribute rows set to 2 by default', async () => {
@@ -484,8 +478,8 @@ describe('form-textarea', async () => {
 
   /*
 
-  // The height style calculations appear to not work in JSDOM environment
-  // But we do know auto height works in browser
+  // The height style calculations do not work in JSDOM environment
+  // But we do know auto height works in browser from manual testing
 
   it('has style height when max-rows greater than rows', async () => {
     const input = mount(Textarea, {
@@ -545,18 +539,44 @@ describe('form-textarea', async () => {
     input.element.value = 'TEST'
     input.trigger('input')
 
-    // Input event fires first with user entered value
+    // Update event fires first with formatted value
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('TEST')
+    // Followed by an input event with formatted value
     expect(input.emitted('input')).toBeDefined()
     expect(input.emitted('input').length).toEqual(1)
     expect(input.emitted('input')[0][0]).toEqual('TEST')
-    // Followed by an update with formatted value
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update')[0][0]).toEqual('test')
     // And no change event
     expect(input.emitted('change')).not.toBeDefined()
   })
 
-  it('Formats on change when lazy', async () => {
+  it('Formats on change when not lazy', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        value: '',
+        formatter (value) {
+          return value.toLowerCase()
+        }
+      }
+    })
+    input.element.value = 'TEST'
+    input.trigger('change')
+
+    // Update event fires first with formatted value
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('TEST')
+    // Followed by a change event with formatted value
+    expect(input.emitted('change')).toBeDefined()
+    expect(input.emitted('change').length).toEqual(1)
+    expect(input.emitted('change')[0][0]).toEqual('TEST')
+    // And no input event
+    expect(input.emitted('input')).not.toBeDefined()
+  })
+
+  it('Formats on blur when lazy', async () => {
     const input = mount(Textarea, {
       attachToDocument: true,
       propsData: {
@@ -570,26 +590,26 @@ describe('form-textarea', async () => {
     input.element.value = 'TEST'
     input.trigger('input')
 
-    // Input event fires first
-    expect(input.emitted('input')).toBeDefined()
-    expect(input.emitted('input').length).toEqual(1)
-    expect(input.emitted('input')[0][0]).toEqual('TEST')
-    // followed by an update
+    // Update event fires first
     expect(input.emitted('update')).toBeDefined()
     expect(input.emitted('update').length).toEqual(1)
     expect(input.emitted('update')[0][0]).toEqual('TEST')
+    // followed by an input
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input').length).toEqual(1)
+    expect(input.emitted('input')[0][0]).toEqual('TEST')
 
-    input.trigger('change')
+    input.trigger('blur')
 
     // Update fires before change with formatted value
     expect(input.emitted('update').length).toEqual(2)
     expect(input.emitted('update')[1][0]).toEqual('test')
-    // Followed by change event with formatted value
+    // Followed by blur event with native event
     expect(input.emitted('change')).toBeDefined()
-    expect(input.emitted('change')[0][0]).toEqual('test')
+    expect(input.emitted('change')[0][0] instanceof Event).toBe(true)
   })
 
-  it('Formats value on mount when not lazy', async () => {
+  it('Does not format value on mount when not lazy', async () => {
     const input = mount(Textarea, {
       attachToDocument: true,
       propsData: {
@@ -601,11 +621,8 @@ describe('form-textarea', async () => {
     })
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
-    // Emits update with formatted value
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('test')
-    expect(input.vm.localValue).toEqual('test')
+    expect(input.emitted('update')).not.toBeDefined()
+    expect(input.vm.localValue).toEqual('TEST')
   })
 
   it('Does not format value on mount when lazy', async () => {
@@ -625,7 +642,7 @@ describe('form-textarea', async () => {
     expect(input.vm.localValue).toEqual('TEST')
   })
 
-  it('Formats on value prop change when not lazy', async () => {
+  it('Does not format on prop "value" change when not lazy', async () => {
     const input = mount(Textarea, {
       attachToDocument: true,
       propsData: {
@@ -635,17 +652,15 @@ describe('form-textarea', async () => {
         }
       }
     })
-    expect(input.emitted('input')).not.toBeDefined()
-    expect(input.emitted('change')).not.toBeDefined()
     expect(input.emitted('update')).not.toBeDefined()
-    input.setProps({ value: 'TEST' })
-    // Emits update with formatted value
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('test')
-
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
+    expect(input.vm.localValue).toEqual('')
+    input.setProps({ value: 'TEST' })
+    expect(input.emitted('update')).not.toBeDefined()
+    expect(input.emitted('input')).not.toBeDefined()
+    expect(input.emitted('change')).not.toBeDefined()
+    expect(input.vm.localValue).toEqual('TEST')
   })
 
   it('Does not format on value prop change when lazy', async () => {
@@ -659,16 +674,16 @@ describe('form-textarea', async () => {
         lazyFormatter: true
       }
     })
-    expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('update')).not.toBeDefined()
+    expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
+    expect(input.vm.localValue).toEqual('')
     input.setProps({ value: 'TEST' })
     // Does not emit any events
+    expect(input.emitted('update')).not.toBeDefined()
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
-    expect(input.emitted('update')).toBeDefined()
-    expect(input.emitted('update').length).toEqual(1)
-    expect(input.emitted('update')[0][0]).toEqual('TEST')
+    expect(input.vm.localValue).toEqual('TEST')
   })
 
   it('activate and deactivate hooks work (keepalive)', async () => {
@@ -695,18 +710,19 @@ describe('form-textarea', async () => {
     expect(textarea).toBeDefined()
     expect(textarea.isVueInstance()).toBe(true)
 
+    // Check that the internal dontResize flag is now false
     await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(false)
 
     // v-if the component out of document
     keepalive.setProps({ show: false })
-    // dontResize setting happens in a next tick, so not sure if this happens immediately or not
+    // Check that the internal dontResize flag is now true
     await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(true)
 
     // v-if the component out of document
     keepalive.setProps({ show: true })
-    // dontResize setting happens in a next tick, so not sure if this happens immediately or not
+    // Check that the internal dontResize flag is now false
     await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(false)
   })
