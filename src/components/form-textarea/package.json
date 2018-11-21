@@ -8,15 +8,11 @@
     "events": [
       {
         "event": "input",
-        "description": "Input event triggered by user interaction. Emitted before any formatting and before the v-model is updated. Cancelable.",
+        "description": "Input event triggered by user interaction. Emitted after any formatting and after the v-model is updated",
         "args": [
           {
             "arg": "value",
-            "description": "Current value of input"
-          },
-          {
-            "arg": "event",
-            "description": "Native input event object"
+            "description": "Current value of textarea"
           }
         ]
       },
@@ -26,11 +22,7 @@
         "args": [
           {
             "arg": "value",
-            "description": "the value of the input"
-          },
-          {
-            "arg": "event",
-            "description": "Native change event object"
+            "description": "Current value of the textarea"
           }
         ]
       },
@@ -40,7 +32,17 @@
         "args": [
           {
             "arg": "value",
-            "description": "Value of input, after any formatting"
+            "description": "Value of textarea, after any formatting. Not emitted if the value does nto change"
+          }
+        ]
+      },
+      {
+        "event": "blur",
+        "description": "Emitted after the textarea looses focus",
+        "args": [
+          {
+            "arg": "event",
+            "description": "Native blur event (before any formmating)"
           }
         ]
       }
