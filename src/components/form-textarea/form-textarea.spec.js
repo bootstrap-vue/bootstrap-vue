@@ -806,7 +806,7 @@ describe('form-textarea', async () => {
     expect(input.emitted('update').length).toEqual(3) // not emitted because no change in value
     expect(input.emitted('change')).toBeDefined()
     expect(input.emitted('change').length).toEqual(1)
-    expect(input.emitted('change')[3][0]).toEqual('  TEST  ')
+    expect(input.emitted('change')[0][0]).toEqual('  TEST  ')
   })
 
   it('number modifier prop works', async () => {
