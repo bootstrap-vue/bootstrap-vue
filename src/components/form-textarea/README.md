@@ -179,7 +179,9 @@ The `.number` modifer uses `parseFloat` on the input value and will return a val
 the value can be parsed as a number (via `parseFloat`), otherwise the original input value is
 returned as type `String`. This is the same behaviour as the native `.number` modifier.
 
-The `number` prop takes precedence over the `trim` prop.
+**Notes:**
+- The `number` prop takes precedence over the `trim` prop.
+- The `trim` and `number` modifier props do not affect the value returned by the `input` or `change` events. These events will aways return the string value of the content of `<textarea>` after optional formatting (which may not match the value returned via the `v-model` `update` event which handles the modifiers).
 
 
 ## Native and custom events
