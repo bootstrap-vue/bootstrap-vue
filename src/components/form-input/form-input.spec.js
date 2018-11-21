@@ -405,7 +405,6 @@ describe('form-input', async () => {
     expect(wrapper.emitted('update').length).toEqual(2)
     expect(wrapper.emitted('update')[1][0]).toEqual('test')
     expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('change')).not.toBeDefined()
     expect(wrapper.emitted('blur')).toBeDefined()
     expect(wrapper.emitted('blur').length).toEqual(1)
@@ -446,9 +445,7 @@ describe('form-input', async () => {
     const input = wrapper.find('input')
 
     expect(input.element.value).toEqual('TEST')
-    expect(wrapper.emitted('update')).toBeDefined()
-    expect(wrapper.emitted('update').length).toEqual(1)
-    expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
+    expect(wrapper.emitted('update')).not.toBeDefined() // Note emitted as value hasnt changed
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
     expect(wrapper.emitted('blur')).not.toBeDefined()
@@ -469,9 +466,7 @@ describe('form-input', async () => {
     const input = wrapper.find('input')
 
     expect(input.element.value).toEqual('TEST')
-    expect(wrapper.emitted('update')).toBeDefined()
-    expect(wrapper.emitted('update').length).toEqual(1)
-    expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
+    expect(wrapper.emitted('update')).not.toBeDefined() // not emitted when value doesnt change
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
     expect(wrapper.emitted('blur')).not.toBeDefined()
