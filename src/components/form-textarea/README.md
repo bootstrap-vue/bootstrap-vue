@@ -29,26 +29,6 @@ export default {
 <!-- form-textarea-1.vue -->
 ```
 
-## Displayed rows
-To set the height of `<b-form-textarea>`, set the `rows` prop to the desired number of
-rows.  If no value is provided to `rows`, then it will default to `2` (the browser
-default and minimum acceptable value). Setting it to null or a value below 2 will
-result in the default of `2` being used.
-
-### Disable resize handle
-Some web browsers will allow the user to re-size the height of the textarea.
-To disable this feature, set the `no-resize` prop to `true`.
-
-### Auto height
-`<b-form-textarea>` can also automatically adjust its height (text rows) to fit the content,
-even as the user enters text.
-
-To set the initial minimum height (in rows), set the `rows` prop to the desired
-number of lines (or leave it at the default of `2`).
-
-To limit the maximum rows that the text area will grow to (before showing a scrollbar),
-set the `max-rows` prop to the maximum number of lines of text.
-
 ## Control sizing
 Set text height using the `size` prop to `sm` or `lg` for small or large respectively.
 
@@ -79,6 +59,27 @@ To control width, place the input inside standard Bootstrap grid column.
 <!-- form-textarea-size-1.vue -->
 ```
 
+
+## Displayed rows
+To set the height of `<b-form-textarea>`, set the `rows` prop to the desired number of
+rows.  If no value is provided to `rows`, then it will default to `2` (the browser
+default and minimum acceptable value). Setting it to null or a value below 2 will
+result in the default of `2` being used.
+
+### Disable resize handle
+Some web browsers will allow the user to re-size the height of the textarea.
+To disable this feature, set the `no-resize` prop to `true`.
+
+### Auto height
+`<b-form-textarea>` can also automatically adjust its height (text rows) to fit the content,
+even as the user enters text.
+
+To set the initial minimum height (in rows), set the `rows` prop to the desired
+number of lines (or leave it at the default of `2`).
+
+To limit the maximum rows that the text area will grow to (before showing a scrollbar),
+set the `max-rows` prop to the maximum number of lines of text.
+
 ## Textarea contextual states
 Bootstrap includes validation styles for `valid` and `invalid` states on most form controls.
 
@@ -88,16 +89,16 @@ Generally speaking, you’ll want to use a particular state for specific types o
 - `null` Displays no validation state
 
 To apply one of the contextual state icons on `<b-form-textarea>`, set the `state` prop to:
-- `'invalid'` or `false` to apply invalid styling)
-- `'valid'` or `true` to apply valid highlighting,
+- The string `'invalid'` or Boolean `false` to apply invalid styling
+- The string `'valid'` or Boolean `true` to apply valid styling
 - `null` for no validation contextual state
 
 ```html
 <template>
   <b-form-textarea id="textarea2"
-                   state="invalid"
+                   :state="text.length >= 10"
                    v-model.trim="text"
-                   placeholder="Enter something"
+                   placeholder="Enter at least 10 characters"
                    :rows="3"></b-form-textarea>
 </template>
 
@@ -144,8 +145,9 @@ optional formatter feature.
 
 ## Readonly plain text
 If you want to have `<b-form-textarea readonly>` elements in your form styled as plain
-text, set the `plaintext` prop (no need to set `readonly`) to remove the default form
-field styling and preserve the correct margin and padding and height.
+text, set the `plaintext` prop (no need to set `readonly` as it will be set
+automatically) to remove the default form field styling and preserve the correct
+text size, margin, padding and height.
 
 ```html
 <template>
@@ -165,22 +167,30 @@ export default {
 <!-- form-textarea-plaintext.vue -->
 ```
 
+## V-model modifiers
+Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of
+custom component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
+
+To get around this, `<b-for-textarea>` and `<b-form-input>` have two boolean props `trim` and `number`
+which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectivley. Emulation of the
+`.lazy` modifier is _not_ supported (listen for `change` event instead).
+
+The `.number` modifer uses `parseFloat` on the input value and will return a value of type `Number` if
+the value can be parsed as a number (via `parseFloat`), otherwise the original input value is
+returned as type `String`. This is the same behaviour as the native `.number` modifier.
+
+The `number` prop takes precedence over the `trim` prop.
+
+
 ## Native and custom events
 All native events (other than the custom `input` and `change` events) are supported, without
 the need for the `.native` modifier.
 
-The custom `input` and `change` events receive to paramters: the input `value`, and the native
-event `object`. The custom `update` event is passed the input value.
+The custom `input` and `change` events receive a single argument of the current `value` (after any
+formatting has been applied), and are triggerd by user interaction.
 
-The `input` event is emitted based on user interaction, before any formatting, and before
-the `v-model` is updated. You can cancel the input event by callling `preventDefault()` on
-the passed event object.
-
-The `update` event is emitted when updating the `v-model`, and will include any formatting that has
-been applied. 
-
-The `change` event is emitted based on user interaction (typically on blur, but also may fire
-on composition events depending on the browser). The value passed will include any applied formatting.
+The custom `update` event is passed the input value, and is emitted wehenever the v-model needs
+updating (it is emitted before `input`, `change`. and `blur` as needed).
 
 You can always access the native `input` and `change` events by using the `.native` modifier.
 
@@ -222,4 +232,4 @@ input type.
 ## Component alias
 You can use `<b-form-textarea>` by it's shorter alias `<b-textarea>`.
 
-!-- Component reference added automatically from component package.json -->
+<!-- Component reference added automatically from component package.json -->
