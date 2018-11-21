@@ -1,6 +1,8 @@
-.fade-enter-active, .fade-leave-active {
-    transition: opacity .15s linear;
-}
-.fade-enter, .fade-leave-to {
-    opacity: 0;
-}
+.alert.fade-enter-active,
+.alert.fade-leave-active {
+     transition: opacity .15s linear;
+ }
+.alert.fade-enter,
+.alert.fade-leave-to {
+     opacity: 0;
+ }
