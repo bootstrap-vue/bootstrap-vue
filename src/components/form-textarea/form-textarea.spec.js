@@ -746,4 +746,131 @@ describe('form-textarea', async () => {
     await keepalive.vm.$nextTick()
     expect(textarea.vm.dontResize).toEqual(false)
   })
+
+  it('trim modifier prop works', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        value: '',
+        trim: true
+      }
+    })
+    expect(input.vm.localValue).toEqual('')
+
+    input.element.value = 'TEST'
+    input.trigger('input')
+
+    expect(input.vm.localValue).toEqual('TEST')
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('TEST')
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input').length).toEqual(1)
+    expect(input.emitted('input')[0][0]).toEqual('TEST')
+
+    input.element.value = 'TEST  '
+    input.trigger('input')
+
+    expect(input.vm.localValue).toEqual('TEST  ')
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(2)
+    expect(input.emitted('update')[1][0]).toEqual('TEST')
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input').length).toEqual(2)
+    expect(input.emitted('input')[1][0]).toEqual('TEST  ')
+
+    input.element.value = '  TEST  '
+    input.trigger('input')
+
+    expect(input.vm.localValue).toEqual('  TEST  ')
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(3)
+    expect(input.emitted('update')[2][0]).toEqual('TEST')
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input').length).toEqual(3)
+    expect(input.emitted('input')[2][0]).toEqual('  TEST  ')
+
+    input.trigger('input')
+
+    expect(input.vm.localValue).toEqual('  TEST  ')
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(4)
+    expect(input.emitted('update')[3][0]).toEqual('TEST')
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input').length).toEqual(4)
+    expect(input.emitted('input')[3][0]).toEqual('  TEST  ')
+
+    input.trigger('change')
+
+    expect(input.vm.localValue).toEqual('  TEST  ')
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(4)
+    expect(input.emitted('update')[3][0]).toEqual('TEST')
+    expect(input.emitted('change')).toBeDefined()
+    expect(input.emitted('change').length).toEqual(1)
+    expect(input.emitted('change')[3][0]).toEqual('  TEST  ')
+  })
+
+  it('number modifier prop works', async () => {
+    const input = mount(Textarea, {
+      attachToDocument: true,
+      propsData: {
+        value: '',
+        number
+      }
+    })
+    expect(input.vm.localValue).toEqual('')
+
+    input.element.value = 'TEST'
+    input.trigger('input')
+
+    expect(input.vm.localValue).toEqual('TEST')
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(1)
+    expect(input.emitted('update')[0][0]).toEqual('TEST')
+    expect(typeof input.emitted('update')[1][0]).toEqual('string')
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input').length).toEqual(1)
+    expect(input.emitted('input')[0][0]).toEqual('TEST')
+    expect(typeof input.emitted('input')[0][0]).toEqual('string')
+
+    input.element.value = '123.45'
+    input.trigger('input')
+
+    expect(input.vm.localValue).toEqual('123.45')
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(2)
+    expect(input.emitted('update')[1][0]).toEqual(123.45)
+    expect(typeof input.emitted('update')[1][0]).toEqual('number')
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input').length).toEqual(2)
+    expect(input.emitted('input')[1][0]).toEqual('123.45')
+    expect(typeof input.emitted('input')[1][0]).toEqual('string')
+
+    input.element.value = '0123.450'
+    input.trigger('input')
+
+    expect(input.vm.localValue).toEqual('0123.450')
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(3)
+    expect(input.emitted('update')[2][0]).toEqual(123.45)
+    expect(typeof input.emitted('update')[2][0]).toEqual('number')
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input').length).toEqual(3)
+    expect(input.emitted('input')[2][0]).toEqual('0123.450')
+    expect(typeof input.emitted('input')[2][0]).toEqual('string')
+
+    input.element.value = '0123 450'
+    input.trigger('input')
+
+    expect(input.vm.localValue).toEqual('0123 450')
+    expect(input.emitted('update')).toBeDefined()
+    expect(input.emitted('update').length).toEqual(4)
+    expect(input.emitted('update')[3][0]).toEqual(123)
+    expect(typeof input.emitted('update')[3][0]).toEqual('number')
+    expect(input.emitted('input')).toBeDefined()
+    expect(input.emitted('input').length).toEqual(4)
+    expect(input.emitted('input')[3][0]).toEqual('0123 450')
+    expect(typeof input.emitted('input')[3][0]).toEqual('string')
+  })
 })
