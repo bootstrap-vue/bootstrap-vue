@@ -111,7 +111,7 @@ export default {
         if (this.number) {
           // Emulate .number modifier behaviour
           const num = parseFloat(value)
-          value = num === NaN ? value : num
+          value = isNaN(num) ? value : num
         } else if (this.trim) {
           // Emulate .trim modifier behaviour
           value = value.trim()
