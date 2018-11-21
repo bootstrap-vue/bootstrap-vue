@@ -46,7 +46,7 @@ export default {
     var self = this
     return h('input', {
       ref: 'input',
-      class: self.inputClass,
+      class: self.computedClass,
       directives: [
         {
           name: 'model',
