@@ -28,6 +28,14 @@ export default {
       type: Function,
       value: null
     },
+    trim: {
+      type: Boolean,
+      default: false
+    },
+    number: {
+      type: Boolean,
+      default: false
+    },
     lazyFormatter: {
       type: Boolean,
       value: false
@@ -44,11 +52,16 @@ export default {
   },
   watch: {
     value (newVal, oldVal) {
-      this.setValue(this.lazyFormatter ? newVal : this.getFormatted(newVal, null))
+      if (newVal !== oldVal && newVal !== this.localValue) {
+        this.localValue = this.stringifyValue(newVal)
+      }
     }
   },
   mounted () {
-    this.setValue(this.lazyFormatter ? this.value : this.getFormatted(this.value, null))
+    const value = this.stringifyValue(this.value)
+    if (value !== this.localValue) {
+      this.localValue = value
+    }
   },
   computed: {
     computedClass () {
@@ -83,30 +96,67 @@ export default {
     stringifyValue (value) {
       return (value === null || typeof value === 'undefined') ? '' : String(value)
     },
-    getFormatted (value, event = null) {
+    getFormatted (value, event, force = false) {
       value = this.stringifyValue(value)
-      return this.formatter ? this.formatter(value, event) : value
+      if ((!this.lazyFormatter || force) && typeof this.formatter === 'function') {
+        value = this.formatter(value, event)
+      }
+      return value
     },
-    setValue (value) {
+    updateValue (value) {
       value = this.stringifyValue(value)
       if (this.localValue !== value) {
-        // Update the v-model only if value has changed
+        // keep the input set to the value before modifiers
         this.localValue = value
+        if (this.number) {
+          // Emulate .number modifier behaviour
+          const num = parseFloat(value)
+          value = num === NaN ? value : num
+        } else if (this.trim) {
+          // Emulate .trim modifier behaviour
+          value = value.trim()
+        }
+        // Update the v-model
         this.$emit('update', value)
       }
     },
     onInput (evt) {
       // evt.target.composing is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
-      if (evt.target.composing) return
-      this.$emit('input', evt.target.value, evt)
-      if (evt.defaultPrevented) return
-      const value = evt.target.value
-      this.setValue(this.lazyFormatter ? value : this.getFormatted(value, evt))
+      if (evt.target.composing) {
+        return
+      }
+      const formatted = this.getFormatted(evt.target.value, evt)
+      if (formatted === false || evt.defaultPrevented) {
+        return
+      }
+      this.updateValue(formatted)
+      this.$emit('input', formatted)
     },
     onChange (evt) {
-      this.setValue(this.getFormatted(evt.target.value, evt))
-      this.$emit('change', this.localValue, evt)
+      // evt.target.composing is set by Vue
+      // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
+      if (evt.target.composing) {
+        return
+      }
+      const formatted = this.getFormatted(evt.target.value, evt)
+      if (formatted === false) {
+        return
+      }
+      this.updateValue(formatted)
+      this.$emit('change', formatted)
+    },
+    onBlur (evt) {
+      // lazy formatter
+      if (this.lazyFormatter) {
+        const formatted = this.getFormatted(evt.target.value, evt, true)
+        if (formatted === false) {
+          return
+        }
+        this.updateValue(formatted)
+      }
+      // Emit native blur event
+      this.emit('blur', evt)
     },
     focus () {
       // For external handler that may want a focus method
