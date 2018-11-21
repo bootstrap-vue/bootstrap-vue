@@ -156,7 +156,7 @@ export default {
         this.updateValue(formatted)
       }
       // Emit native blur event
-      this.emit('blur', evt)
+      this.$emit('blur', evt)
     },
     focus () {
       // For external handler that may want a focus method
