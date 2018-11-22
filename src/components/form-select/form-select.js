@@ -55,7 +55,9 @@ export default {
               .filter(o => o.selected)
               .map(o => ('_value' in o ? o._value : o.value))
             this.localValue = target.multiple ? selectedVal : selectedVal[0]
-            this.$emit('change', this.localValue)
+            this.$nextTick(() => {
+              this.$emit('change', this.localValue)
+            })
           }
         }
       },
