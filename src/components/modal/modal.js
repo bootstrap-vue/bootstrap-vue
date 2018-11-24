@@ -639,7 +639,6 @@ export default {
       this.is_show = true
       this.is_transitioning = false
       this.$nextTick(() => {
-        this.focusFirst()
         const shownEvt = new BvEvent('shown', {
           cancelable: false,
           vueTarget: this,
@@ -647,6 +646,7 @@ export default {
           relatedTarget: null
         })
         this.emitEvent(shownEvt)
+        this.focusFirst()
       })
     },
     onBeforeLeave () {
@@ -764,7 +764,9 @@ export default {
           modal.scrollTop = 0
         }
         // Focus the modal content wrapper
-        content.focus()
+        this.$nextTick(() => {
+          content.focus()
+        })
       }
     },
     returnFocusTo () {
