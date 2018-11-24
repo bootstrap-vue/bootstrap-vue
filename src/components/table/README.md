@@ -753,17 +753,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 computed after pagination and filtering have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
 number will align with the indexes from the optional `v-model` bound variable._
-- _When placing inputs, buttons, selects or links within a data cell scoped slot,
-be sure to add a `@click.stop` (or `@click.native.stop` if needed) handler (which can
-be empty) to prevent the click on the input, button, select, or link, from triggering
-the `row-clicked` event:_ 
 
-```html
-<template slot="actions" slot-scope="cell">
-  <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-  <b-btn size="sm" @click.stop="details(cell.item,cell.index,$event.target)">Details</b-btn>
-</template>
-```
 
 #### Displaying raw HTML
 By default `b-table` escapes HTML tags in items data and results of formatter functions, if you need to display
@@ -905,19 +895,11 @@ The slot's scope variable (`data` in the above example) will have the following 
 | `field` | Object | the field's object (from the `fields` prop)
 | `label` | String | The fields label value (also available as `data.field.label`)
 
-When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot,
-be sure to add a `@click.stop` (or `@click.native.stop`) handler (which can be empty) to prevent the
-click on the input, button, select, or link, from triggering a change in sorting,
-or a `head-clicked` event.
+When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot, note that `head-clicked`
+event will not be emitted when the input, select, textarea is clicked (unless they are disabled).
+`head-clicked` will never be emitted when clicking on links or buttons inside the scoped slots
+(even when disabled)
 
-```html
-<template slot="HEAD_actions" slot-scope="foo">
-  <!-- We use click.stop here to prevent 'sort-changed' or 'head-clicked' events -->
-  <input @click.stop type="checkbox" :value="foo.column" v-model="selected">
-  <!-- We use click.native.stop here to prevent 'sort-changed' or 'head-clicked' events -->
-  <b-form-checkbox @click.native.stop :value="foo.column" v-model="selected">
-</template>
-```
 
 ## Row details support
 If you would optionally like to display additional record information (such as
@@ -956,13 +938,11 @@ to have details initially showing.
 <template>
   <b-table :items="items" :fields="fields">
     <template slot="show_details" slot-scope="row">
-      <!-- we use @click.stop here to prevent emitting of a 'row-clicked' event  -->
-      <b-button size="sm" @click.stop="row.toggleDetails" class="mr-2">
+      <b-button size="sm" @click="row.toggleDetails" class="mr-2">
        {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
       </b-button>
-      <!-- In some circumstances you may need to use @click.native.stop instead -->
       <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
-      <b-form-checkbox @click.native.stop @change="row.toggleDetails" v-model="row.detailsShowing">
+      <b-form-checkbox @change="row.toggleDetails" v-model="row.detailsShowing">
         Details via check
       </b-form-checkbox>
     </template>
@@ -1488,11 +1468,10 @@ When `b-table` is mounted in the document, it will automatically trigger a provi
       <template slot="name" slot-scope="row">{{row.value.first}} {{row.value.last}}</template>
       <template slot="isActive" slot-scope="row">{{row.value?'Yes :)':'No :('}}</template>
       <template slot="actions" slot-scope="row">
-        <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
-        <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
+        <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
         </b-button>
-        <b-button size="sm" @click.stop="row.toggleDetails">
+        <b-button size="sm" @click="row.toggleDetails">
           {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
         </b-button>
       </template>
