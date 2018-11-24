@@ -1,4 +1,5 @@
-import { keys } from '../utils/object'
+import { keys } from './object'
+import { eventOn, eventOff } from './dom'
 
 const allListenTypes = {hover: true, click: true, focus: true}
 
@@ -18,7 +19,7 @@ const bindTargets = (vnode, binding, listenTypes, fn) => {
 
   keys(allListenTypes).forEach(type => {
     if (listenTypes[type] || binding.modifiers[type]) {
-      vnode.elm.addEventListener(type, listener)
+      eventOn(vnode.elm, type, listener)
       const boundListeners = vnode.elm[BVBoundListeners] || {}
       boundListeners[type] = boundListeners[type] || []
       boundListeners[type].push(listener)
@@ -35,7 +36,7 @@ const unbindTargets = (vnode, binding, listenTypes) => {
     if (listenTypes[type] || binding.modifiers[type]) {
       const boundListeners = vnode.elm[BVBoundListeners] && vnode.elm[BVBoundListeners][type]
       if (boundListeners) {
-        boundListeners.forEach(listener => vnode.elm.removeEventListener(type, listener))
+        boundListeners.forEach(listener => eventOff(vnode.elm, type, listener))
         delete vnode.elm[BVBoundListeners][type]
       }
     }
