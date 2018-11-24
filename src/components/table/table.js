@@ -7,6 +7,7 @@ import warn from '../../utils/warn'
 import stripScripts from '../../utils/strip-scripts'
 import { keys, assign } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
+import { closest, matches } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 
@@ -93,6 +94,46 @@ function processField (key, value) {
   return field
 }
 
+// Filter CSS Selector for click/dblclick/etc events
+// If any of these selectors match the clicked element, we ignore the event
+const EVENT_FILTER = [
+  'a',
+  'a *', // include content inside links
+  'button',
+  'button *', // include content inside buttons
+  'input:not(.disabled):not([disabled])',
+  'select:not(.disabled):not([disabled])',
+  'textarea:not(.disabled):not([disabled])',
+  '[role="link"]',
+  '[role="link"] *',
+  '[role="button"]',
+  '[role="button"] *',
+  '[tabindex]:not(.disabled):not([disabled])'
+].join(',')
+
+// Returns true of we should ignore the click/dbclick/keypress event
+// Avoids having the user need to use @click.stop on the form control
+function filterEvent (evt) {
+  if (!evt || !evt.target) {
+    return
+  }
+  const el = evt.target
+  if (el.tagName === 'TD' || el.tagName === 'TH' || el.tagName === 'TR' || el.disabled) {
+    // Shortut all the following tests for efficiency
+    return false
+  }
+  if (closest('.dropdown-menu', el)) {
+    // Click was in a dropdown menu, so ignore
+    return true
+  }
+  const label = el.tagName === 'LABEL' ? el : closest('label', el)
+  if (label && label.control && !label.control.disabled) {
+    // If the label's form control is not disabled then we don't propagate evt
+    return true
+  }
+  return matches(el, EVENT_FILTER)
+}
+
 // b-table component definition
 export default {
   mixins: [idMixin, listenOnRootMixin],
@@ -141,7 +182,7 @@ export default {
         ariaLabel = [ariaLabel, ariaLabelSorting].filter(a => a).join(': ') || null
         const ariaSort = field.sortable && this.localSortBy === field.key
           ? (this.localSortDesc ? 'descending' : 'ascending')
-          : null
+          : (field.sortable ? 'none' : null)
         const data = {
           key: field.key,
           class: this.fieldClasses(field),
@@ -155,16 +196,10 @@ export default {
             'aria-sort': ariaSort
           },
           on: {
-            click: evt => {
-              evt.stopPropagation()
-              evt.preventDefault()
-              this.headClicked(evt, field)
-            },
+            click: evt => { this.headClicked(evt, field) },
             keydown: evt => {
               const keyCode = evt.keyCode
               if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
-                evt.stopPropagation()
-                evt.preventDefault()
                 this.headClicked(evt, field)
               }
             }
@@ -1159,12 +1194,18 @@ export default {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
+      } else if (filterEvent(e)) {
+        // clicked on a non-disabled control so ignore
+        return
       }
       this.$emit('row-clicked', item, index, e)
     },
     rowDblClicked (e, item, index) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
+        return
+      } else if (filterEvent(e)) {
+        // clicked on a non-disabled control so ignore
         return
       }
       this.$emit('row-dblclicked', item, index, e)
@@ -1194,7 +1235,12 @@ export default {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
+      } else if (filterEvent(e)) {
+        // clicked on a non-disabled control so ignore
+        return
       }
+      e.stopPropagation()
+      e.preventDefault()
       let sortChanged = false
       const toggleLocalSortDesc = () => {
         const sortDirection = field.sortDirection || this.sortDirection
