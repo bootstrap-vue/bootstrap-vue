@@ -60,25 +60,20 @@ function decrementModalOpenCount () {
   return setModalOpenCount(Math.max(getModalOpenCount() - 1, 0))
 }
 
-// Returns the next z-index to be used by a modal to ensure proper stacking
-// regardless of document order. Increments by 2000
-function getModalNextZIndex () {
-  return selectAll('div.modal') /* find all modals that are in document */
-    .filter(isVisible) /* filter only visible ones */
-    .map(m => m.parentElement) /* select the outer div */
-    .reduce((max, el) => { /* compute the next z-index */
-      return Math.max(max, parseInt(el.style.zIndex || 0, 10))
-    }, 0) + ZINDEX_OFFSET
-}
-
 // Returns the current visible modal highest z-index
 function getModalMaxZIndex () {
   return selectAll('div.modal') /* find all modals that are in document */
     .filter(isVisible) /* filter only visible ones */
     .map(m => m.parentElement) /* select the outer div */
-    .reduce((max, el) => { /* compute the next z-index */
+    .reduce((max, el) => { /* compute the highest z-index */
       return Math.max(max, parseInt(el.style.zIndex || 0, 10))
     }, 0)
+}
+
+// Returns the next z-index to be used by a modal to ensure proper stacking
+// regardless of document order. Increments by 2000
+function getModalNextZIndex () {
+   return getModalMaxZIndex() + ZINDEX_OFFSET
 }
 
 export default {
@@ -738,15 +733,15 @@ export default {
         this.show()
       }
     },
-    shownHandler (id, triggerEl) {
-      this.setTop()
-    },
     hideHandler (id) {
       if (id === this.id) {
         this.hide()
       }
     },
-    hiddenHandler (id) {
+    shownHandler () {
+      this.setTop()
+    },
+    hiddenHandler () {
       this.setTop()
     },
     setTop () {
@@ -901,9 +896,9 @@ export default {
     // Listen for events from others to either open or close ourselves
     // And to enable/disable enforce focus
     this.listenOnRoot('bv::show::modal', this.showHandler)
-    this.listenOnRoot('bv::shown::modal', this.shownHandler)
+    this.listenOnRoot('bv::modal::shown', this.shownHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
-    this.listenOnRoot('bv::hidden::modal', this.hiddenHandler)
+    this.listenOnRoot('bv::modal::hidden', this.hiddenHandler)
     // Initially show modal?
     if (this.visible === true) {
       this.show()
