@@ -71,6 +71,16 @@ function getModalNextZIndex () {
     }, 0) + ZINDEX_OFFSET
 }
 
+// Returns the current visible modal highest z-index
+function getModalMaxZIndex () {
+  return selectAll('div.modal') /* find all modals that are in document */
+    .filter(isVisible) /* filter only visible ones */
+    .map(m => m.parentElement) /* select the outer div */
+    .reduce((max, el) => { /* compute the next z-index */
+      return Math.max(max, parseInt(el.style.zIndex || 0, 10))
+    }, 0)
+}
+
 export default {
   mixins: [idMixin, listenOnRootMixin],
   components: { bBtn, bBtnClose },
@@ -302,6 +312,7 @@ export default {
       is_block: false, // Used for style control
       scrollbarWidth: 0,
       zIndex: ZINDEX_OFFSET, // z-index for modal stacking
+      isTop: true, // If the modal is the topmost opened modal
       isBodyOverflowing: false,
       return_focus: this.returnFocus || null
     }
@@ -702,6 +713,7 @@ export default {
       const content = this.$refs.content
       if (
         !this.noEnforceFocus &&
+        this.isTop &&
         this.is_visible &&
         content &&
         !content.contains(evt.relatedTarget)
@@ -726,10 +738,21 @@ export default {
         this.show()
       }
     },
+    showHandler (id, triggerEl) {
+      this.setTop()
+    },
     hideHandler (id) {
       if (id === this.id) {
         this.hide()
       }
+    },
+    hiddenHandler (id) {
+      this.setTop()
+    },
+    setTop () {
+      // Determine if we are the topmost visible modal
+      const maxZ = getModalMaxZIndex()
+      this.isTop = this.zIndex < maxZ ? false : true
     },
     // Focus control handlers
     focusFirst () {
@@ -877,8 +900,11 @@ export default {
   },
   mounted () {
     // Listen for events from others to either open or close ourselves
+    // And to enable/disable enforce focus
     this.listenOnRoot('bv::show::modal', this.showHandler)
+    this.listenOnRoot('bv::shown::modal', this.shownHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
+    this.listenOnRoot('bv::hidden::modal', this.hiddenHandler)
     // Initially show modal?
     if (this.visible === true) {
       this.show()
