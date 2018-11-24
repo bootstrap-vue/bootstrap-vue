@@ -114,13 +114,8 @@ function filterEvent (evt) {
     return
   }
   const el = evt.target
-  if (el.tagName === 'TD' || el.tagName === 'TH' || el.tagName === 'TR') {
+  if (el.tagName === 'TD' || el.tagName === 'TH' || el.tagName === 'TR' || el.disabled) {
     // Shortut all the following tests for efficiency
-    return false
-  }
-  if (el.disabled) {
-    // Element (i.e. a button/input/select/etc) is disabled, we propegate the event
-    // Note: most disabled elements dont propegate a click event when disabled, although textarea might
     return false
   }
   if (closest('.dropdown-menu', el)) {
@@ -131,8 +126,11 @@ function filterEvent (evt) {
   if (label && label.control && !label.control.disabled) {
     // If the label's form control is not disabled then we don't propagate evt
     return true
-  } else if (closest('a:not(.disabled),button:not([disabled]):not(.disabled)', el)) {
-    // Clicked markup inside a non disabled A or BUTTON so don't propagate evt
+  }
+  const parentLinkOrButton = closest('a,button', el)
+  } else if (parentLinkOrButton && (parentLinkOrButton.disabled || hasClass(parentLinkOrButton, 'disabled'))) {
+    // clicked on markup inside a disabled button or link, so dont propegate (disabled buttons 
+    // don't emit clicks, but their content _can_)
     return true
   }
   return matches(el, EVENT_FILTER)
