@@ -97,7 +97,7 @@ function processField (key, value) {
 // Filter CSS Selector for click/dblclick/etc events
 // If any of these selectors match the clicked element, we ignore the event
 const EVENT_FILTER = [
-  'a:not(.disabled):not([aria-disabled="true"]',
+  'a:not(.disabled):not([aria-disabled="true"])',
   'button:not(.disabled):not([disabled])',
   'input:not(.disabled):not([disabled])',
   'select:not(.disabled):not([disabled])',
