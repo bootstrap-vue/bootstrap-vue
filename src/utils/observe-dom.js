@@ -1,5 +1,18 @@
 import { assign } from './object'
-import { isElement } from '../utils/dom'
+import { isElement, eventOn, eventOff } from './dom'
+
+// Falback observation for legacy broswers
+// Emulate observer disconnect() method so that we can detach the events later
+function fakeObserverFactory (el, callback) {
+  eventOn(el, 'DOMNodeInserted', callback, false)
+  eventOn(el, 'DOMNodeRemoved', callback, false)
+  return {
+    disconnect: function () {
+      eventOff(el, 'DOMNodeInserted', callback, false)
+      eventOff(el, 'DOMNodeRemoved', callback, false)
+    }
+  }
+}
 
 /**
  * Observe a DOM element changes, falls back to eventListener mode
@@ -37,7 +50,7 @@ export default function observeDOM (el, callback, opts) {
         // DOM Node (could be any DOM Node type - HTMLElement, Text, comment, etc)
         const target = mutation.target
         if (type === 'characterData' && target.nodeType === Node.TEXT_NODE) {
-          // We ignore nodes that are not TEXt (i.e. comments, etc) as they don't change layout
+          // We ignore nodes that are not TEXT (i.e. comments, etc) as they don't change layout
           changed = true
         } else if (type === 'attributes') {
           changed = true
@@ -56,8 +69,7 @@ export default function observeDOM (el, callback, opts) {
     obs.observe(el, assign({childList: true, subtree: true}, opts))
   } else if (eventListenerSupported) {
     // Legacy interface. most likely not used in modern browsers
-    el.addEventListener('DOMNodeInserted', callback, false)
-    el.addEventListener('DOMNodeRemoved', callback, false)
+    obs = fakeObserverFactory(el, callback)
   }
 
   // We return a reference to the observer so that obs.disconnect() can be called if necessary
