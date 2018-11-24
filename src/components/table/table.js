@@ -128,11 +128,11 @@ function filterEvent (evt) {
     return true
   }
   const label = el.tagName === 'LABEL' ? el : closest('label', el)
-  if (label && label.control && label.control.disabled) {
-    // If the label's form control is disabled then we can propagate the evt
-    return false
+  if (label && label.control && !label.control.disabled) {
+    // If the label's form control is not disabled then we don't propagate evt
+    return true
   } else if (closest('a:not(.disabled),button:not([disabled]):not(.disabled)', el)) {
-    // Clicked markup inside a non disabled A or BUTTON so dont propagate
+    // Clicked markup inside a non disabled A or BUTTON so don't propagate evt
     return true
   }
   return matches(el, EVENT_FILTER)
