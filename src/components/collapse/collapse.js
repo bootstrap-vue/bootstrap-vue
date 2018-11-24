@@ -1,5 +1,5 @@
 import listenOnRootMixin from '../../mixins/listen-on-root'
-import { hasClass, reflow, getCS, eventOn, eventOff } from '../../utils/dom'
+import { hasClass, reflow, getCS, getBCR, eventOn, eventOff } from '../../utils/dom'
 
 // Events we emit on $root
 const EVENT_STATE = 'bv::collapse::state'
@@ -114,7 +114,7 @@ export default {
     onLeave (el) {
       el.style.height = 'auto'
       el.style.display = 'block'
-      el.style.height = el.getBoundingClientRect().height + 'px'
+      el.style.height = getBCR(el).height + 'px'
       reflow(el)
       this.transitioning = true
       el.style.height = 0
