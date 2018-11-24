@@ -103,7 +103,7 @@ const EVENT_FILTER = [
   'select:not(.disabled):not([disabled])',
   'textarea:not(.disabled):not([disabled])',
   '[role="button"]:not(.disabled):not([disabled])',
-  '[role="link"]:not(.disabled):not([disabled])'
+  '[role="link"]:not(.disabled):not([disabled])',
   '[tabindex]:not(.disabled):not([disabled])'
 ].join(',')
 
