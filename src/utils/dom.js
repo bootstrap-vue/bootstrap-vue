@@ -218,15 +218,15 @@ export const position = el => {
 }
 
 // Attach an event listener to an element
-export const eventOn = (el, evtName, handler) => {
+export const eventOn = (el, evtName, handler, options) => {
   if (el && el.addEventListener) {
-    el.addEventListener(evtName, handler)
+    el.addEventListener(evtName, handler, options)
   }
 }
 
 // Remove an event listener from an element
-export const eventOff = (el, evtName, handler) => {
+export const eventOff = (el, evtName, handler, options) => {
   if (el && el.removeEventListener) {
-    el.removeEventListener(evtName, handler)
+    el.removeEventListener(evtName, handler, options)
   }
 }
