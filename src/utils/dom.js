@@ -161,17 +161,20 @@ export const hasAttr = (el, attr) => {
 
 // Return the Bounding Client Rec of an element. Retruns null if not an element
 export const getBCR = el => {
+  /* istanbul ignore next: getBoundingClientRect() doesnt work in JSDOM */
   return isElement(el) ? el.getBoundingClientRect() : null
 }
 
 // Get computed style object for an element
 export const getCS = el => {
+  /* istanbul ignore next: getComputedStyle() doesnt work in JSDOM */
   return isElement(el) ? window.getComputedStyle(el) : {}
 }
 
 // Return an element's offset wrt document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
 export const offset = el => {
+  /* istanbul ignore if: getClientRects() doesnt work in JSDOM */
   if (isElement(el)) {
     if (!el.getClientRects().length) {
       return { top: 0, left: 0 }
@@ -218,15 +221,15 @@ export const position = el => {
 }
 
 // Attach an event listener to an element
-export const eventOn = (el, evtName, handler) => {
+export const eventOn = (el, evtName, handler, options) => {
   if (el && el.addEventListener) {
-    el.addEventListener(evtName, handler)
+    el.addEventListener(evtName, handler, options)
   }
 }
 
 // Remove an event listener from an element
-export const eventOff = (el, evtName, handler) => {
+export const eventOff = (el, evtName, handler, options) => {
   if (el && el.removeEventListener) {
-    el.removeEventListener(evtName, handler)
+    el.removeEventListener(evtName, handler, options)
   }
 }

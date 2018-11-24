@@ -1,5 +1,5 @@
 import listenOnRootMixin from '../../mixins/listen-on-root'
-import { hasClass, reflow } from '../../utils/dom'
+import { hasClass, reflow, getCS, getBCR, eventOn, eventOff } from '../../utils/dom'
 
 // Events we emit on $root
 const EVENT_STATE = 'bv::collapse::state'
@@ -114,7 +114,7 @@ export default {
     onLeave (el) {
       el.style.height = 'auto'
       el.style.display = 'block'
-      el.style.height = el.getBoundingClientRect().height + 'px'
+      el.style.height = getBCR(el).height + 'px'
       reflow(el)
       this.transitioning = true
       el.style.height = 0
@@ -138,7 +138,7 @@ export default {
     clickHandler (evt) {
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
       const el = evt.target
-      if (!this.isNav || !el || getComputedStyle(this.$el).display !== 'block') {
+      if (!this.isNav || !el || getCS(this.$el).display !== 'block') {
         return
       }
       if (hasClass(el, 'nav-link') || hasClass(el, 'dropdown-item')) {
@@ -169,7 +169,7 @@ export default {
     },
     handleResize () {
       // Handler for orientation/resize to set collapsed state in nav/navbar
-      this.show = (getComputedStyle(this.$el).display === 'block')
+      this.show = (getCS(this.$el).display === 'block')
     }
   },
   created () {
@@ -181,8 +181,8 @@ export default {
   mounted () {
     if (this.isNav && typeof document !== 'undefined') {
       // Set up handlers
-      window.addEventListener('resize', this.handleResize, false)
-      window.addEventListener('orientationchange', this.handleResize, false)
+      eventOn(window, 'resize', this.handleResize, false)
+      eventOn(window, 'orientationchange', this.handleResize, false)
       this.handleResize()
     }
     this.emitState()
@@ -192,8 +192,8 @@ export default {
   },
   beforeDestroy () {
     if (this.isNav && typeof document !== 'undefined') {
-      window.removeEventListener('resize', this.handleResize, false)
-      window.removeEventListener('orientationchange', this.handleResize, false)
+      eventOff(window, 'resize', this.handleResize, false)
+      eventOff(window, 'orientationchange', this.handleResize, false)
     }
   }
 }
