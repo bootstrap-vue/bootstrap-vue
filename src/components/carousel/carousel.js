@@ -381,7 +381,7 @@ export default {
       this.$emit('sliding-start', val)
       // Update v-model
       this.$emit('input', this.index)
-      nextSlide.classList.add(direction.overlayClass)
+      addClass(nextSlide, direction.overlayClass)
       // Trigger a reflow of next slide
       reflow(nextSlide)
       addClass(currentSlide, direction.dirClass)
