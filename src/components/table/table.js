@@ -133,8 +133,8 @@ function filterEvent (evt) {
   }
   const parentButton = closest('button', el)
   if (parentButton && parentButton.disabled) {
-    // clicked on markup inside a disabled button, so dont propegate (disabled buttons 
-    // don't emit clicks, but their HTML content _can_ for some weird reason)
+    // clicked on markup inside a disabled button, so dont propegate (disabled buttons
+    // don't emit clicks, but their HTML content _can_ bubble up for some weird reason)
     return true
   }
   return matches(el, EVENT_FILTER)
