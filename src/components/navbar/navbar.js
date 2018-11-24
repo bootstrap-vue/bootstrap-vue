@@ -39,7 +39,6 @@ export default {
     } else if (props.toggleable === false) {
       breakpoint = 'navbar-expand'
     }
-    let breakpoint = (props.toggleable === true ? 'sm' : props.toggleable) || 'sm'
     return h(
       props.tag,
       mergeData(data, {
