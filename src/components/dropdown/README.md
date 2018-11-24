@@ -15,7 +15,7 @@ clicking (or pressing space or enter when focused), not by hovering; this is an
     <b-dropdown-item>Second Action</b-dropdown-item>
     <b-dropdown-item>Third Action</b-dropdown-item>
     <b-dropdown-divider></b-dropdown-divider>
-    <b-dropdown-item>Something else here...</b-dropdown-item>
+    <b-dropdown-item active>Active action</b-dropdown-item>
     <b-dropdown-item disabled>Disabled action</b-dropdown-item>
   </b-dropdown>
 </div>
@@ -58,7 +58,7 @@ Disabled the dropdown item button by setting the `disabled` prop.
 <div>
   <b-dropdown id="ddown-buttons" text="Dropdown using buttons as menu items" class="m-2">
     <b-dropdown-item-button>I'm a button</b-dropdown-item-button>
-    <b-dropdown-item-button>I'm also a button</b-dropdown-item-button>
+    <b-dropdown-item-button active>I'm a active button</b-dropdown-item-button>
     <b-dropdown-item-button disabled>I'm a button, but disabled!</b-dropdown-item-button>
     <b-dropdown-item-button>I don't look like a button, but I am!</b-dropdown-item-button>
   </b-dropdown>

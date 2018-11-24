@@ -1,6 +1,14 @@
 import { mergeData } from 'vue-functional-data-merge'
 
 export const props = {
+  active: {
+    type: Boolean,
+    default: false
+  },
+  activeClass: {
+    type: String,
+    default: 'active'
+  },
   disabled: {
     type: Boolean,
     default: false
@@ -16,6 +24,7 @@ export default {
       mergeData(data, {
         props,
         staticClass: 'dropdown-item',
+        class: { [props.activeClass]: props.active },
         attrs: { role: 'menuitem', type: 'button', disabled: props.disabled },
         on: {
           click (e) {
