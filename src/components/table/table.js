@@ -7,7 +7,7 @@ import warn from '../../utils/warn'
 import stripScripts from '../../utils/strip-scripts'
 import { keys, assign } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
-import { closest, matches } from '../../utils/dom'
+import { closest, matches, hasClass } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 
@@ -97,7 +97,7 @@ function processField (key, value) {
 // Filter CSS Selector for click/dblclick/etc events
 // If any of these selectors match the clicked element, we ignore the event
 const EVENT_FILTER = [
-  'a:not(.disabled)',
+  'a:not(.disabled):not([aria-disabled="true"]',
   'button:not(.disabled):not([disabled])',
   'input:not(.disabled):not([disabled])',
   'select:not(.disabled):not([disabled])',
@@ -127,14 +127,13 @@ function filterEvent (evt) {
     // If the label's form control is not disabled then we don't propagate evt
     return true
   }
-  if (closest('a.disabled', el)) {
-    // Clicked on HTML markup inside of a disabled (b-)link, so we can propegate the event
-    return false
+  if (parentLink && !hasClass(closest('a', el), 'disabled')) {
+    // Clicked on HTML markup inside of a non-disabled (b-)link, so we don't propegate the event
+    return true
   }
-  const parentButton = closest('button', el)
-  if (parentButton && parentButton.disabled) {
-    // clicked on markup inside a disabled button, so dont propegate (disabled buttons
-    // don't emit clicks, but their HTML content _can_ bubble up for some weird reason)
+  if (closest('button', el)) {
+    // clicked on markup inside a button, so dont propegate (disabled buttons don't emit click events, but
+    // their HTML content _can_ bubble up for some weird reason, so we always filter them out)
     return true
   }
   return matches(el, EVENT_FILTER)
