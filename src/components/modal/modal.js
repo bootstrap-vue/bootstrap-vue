@@ -60,15 +60,20 @@ function decrementModalOpenCount () {
   return setModalOpenCount(Math.max(getModalOpenCount() - 1, 0))
 }
 
-// Returns the next z-index to be used by a modal to ensure proper stacking
-// regardless of document order. Increments by 2000
-function getModalNextZIndex () {
+// Returns the current visible modal highest z-index
+function getModalMaxZIndex () {
   return selectAll('div.modal') /* find all modals that are in document */
     .filter(isVisible) /* filter only visible ones */
     .map(m => m.parentElement) /* select the outer div */
-    .reduce((max, el) => { /* compute the next z-index */
+    .reduce((max, el) => { /* compute the highest z-index */
       return Math.max(max, parseInt(el.style.zIndex || 0, 10))
-    }, 0) + ZINDEX_OFFSET
+    }, 0)
+}
+
+// Returns the next z-index to be used by a modal to ensure proper stacking
+// regardless of document order. Increments by 2000
+function getModalNextZIndex () {
+  return getModalMaxZIndex() + ZINDEX_OFFSET
 }
 
 export default {
@@ -302,6 +307,7 @@ export default {
       is_block: false, // Used for style control
       scrollbarWidth: 0,
       zIndex: ZINDEX_OFFSET, // z-index for modal stacking
+      isTop: true, // If the modal is the topmost opened modal
       isBodyOverflowing: false,
       return_focus: this.returnFocus || null
     }
@@ -633,7 +639,6 @@ export default {
       this.is_show = true
       this.is_transitioning = false
       this.$nextTick(() => {
-        this.focusFirst()
         const shownEvt = new BvEvent('shown', {
           cancelable: false,
           vueTarget: this,
@@ -641,6 +646,7 @@ export default {
           relatedTarget: null
         })
         this.emitEvent(shownEvt)
+        this.focusFirst()
       })
     },
     onBeforeLeave () {
@@ -702,6 +708,7 @@ export default {
       const content = this.$refs.content
       if (
         !this.noEnforceFocus &&
+        this.isTop &&
         this.is_visible &&
         content &&
         !content.contains(evt.relatedTarget)
@@ -731,6 +738,16 @@ export default {
         this.hide()
       }
     },
+    shownHandler () {
+      this.setTop()
+    },
+    hiddenHandler () {
+      this.setTop()
+    },
+    setTop () {
+      // Determine if we are the topmost visible modal
+      this.isTop = this.zIndex >= getModalMaxZIndex()
+    },
     // Focus control handlers
     focusFirst () {
       // Don't try and focus if we are SSR
@@ -747,7 +764,9 @@ export default {
           modal.scrollTop = 0
         }
         // Focus the modal content wrapper
-        content.focus()
+        this.$nextTick(() => {
+          content.focus()
+        })
       }
     },
     returnFocusTo () {
@@ -877,8 +896,11 @@ export default {
   },
   mounted () {
     // Listen for events from others to either open or close ourselves
+    // And to enable/disable enforce focus
     this.listenOnRoot('bv::show::modal', this.showHandler)
+    this.listenOnRoot('bv::modal::shown', this.shownHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
+    this.listenOnRoot('bv::modal::hidden', this.hiddenHandler)
     // Initially show modal?
     if (this.visible === true) {
       this.show()
