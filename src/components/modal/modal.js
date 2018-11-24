@@ -738,7 +738,7 @@ export default {
         this.show()
       }
     },
-    showHandler (id, triggerEl) {
+    shownHandler (id, triggerEl) {
       this.setTop()
     },
     hideHandler (id) {
@@ -751,8 +751,7 @@ export default {
     },
     setTop () {
       // Determine if we are the topmost visible modal
-      const maxZ = getModalMaxZIndex()
-      this.isTop = this.zIndex < maxZ ? false : true
+      this.isTop = this.zIndex >= getModalMaxZIndex()
     },
     // Focus control handlers
     focusFirst () {
