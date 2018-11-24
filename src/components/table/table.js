@@ -127,13 +127,8 @@ function filterEvent (evt) {
     // If the label's form control is not disabled then we don't propagate evt
     return true
   }
-  const parentLink = closest('a', el)
-  if (parentLink && !hasClass(parentLink, 'disabled')) {
-    // Clicked on HTML markup inside of a non-disabled (b-)link, so we don't propegate the event
-    return true
-  }
-  if (closest('button', el)) {
-    // clicked on markup inside a button, so dont propegate (disabled buttons don't emit click events, but
+  if (closest('button,a', el)) {
+    // clicked on markup inside a button or link, so dont propegate (disabled buttons/links don't emit click events, but
     // their HTML content _can_ bubble up for some weird reason, so we always filter them out)
     return true
   }
