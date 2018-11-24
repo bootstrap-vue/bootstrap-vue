@@ -97,13 +97,17 @@ function processField (key, value) {
 // Filter CSS Selector for click/dblclick/etc events
 // If any of these selectors match the clicked element, we ignore the event
 const EVENT_FILTER = [
-  'a:not(.disabled):not([aria-disabled="true"])',
-  'button:not(.disabled):not([disabled])',
+  'a',
+  'a *', // include content inside links
+  'button',
+  'button *', // include content inside buttons
   'input:not(.disabled):not([disabled])',
   'select:not(.disabled):not([disabled])',
   'textarea:not(.disabled):not([disabled])',
-  '[role="button"]:not(.disabled):not([disabled])',
-  '[role="link"]:not(.disabled):not([disabled])',
+  '[role="link"]',
+  '[role="link"] *',
+  '[role="button"]',
+  '[role="button"] *',
   '[tabindex]:not(.disabled):not([disabled])'
 ].join(',')
 
@@ -125,11 +129,6 @@ function filterEvent (evt) {
   const label = el.tagName === 'LABEL' ? el : closest('label', el)
   if (label && label.control && !label.control.disabled) {
     // If the label's form control is not disabled then we don't propagate evt
-    return true
-  }
-  if (closest('button,a', el)) {
-    // clicked on markup inside a button or link, so dont propegate (disabled buttons/links don't emit click events, but
-    // their HTML content _can_ bubble up for some weird reason, so we always filter them out)
     return true
   }
   return matches(el, EVENT_FILTER)
