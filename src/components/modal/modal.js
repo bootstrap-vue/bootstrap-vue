@@ -73,7 +73,7 @@ function getModalMaxZIndex () {
 // Returns the next z-index to be used by a modal to ensure proper stacking
 // regardless of document order. Increments by 2000
 function getModalNextZIndex () {
-   return getModalMaxZIndex() + ZINDEX_OFFSET
+  return getModalMaxZIndex() + ZINDEX_OFFSET
 }
 
 export default {
