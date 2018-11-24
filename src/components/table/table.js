@@ -109,8 +109,8 @@ const EVENT_FILTER = [
 
 // Returns true of we should ignore the click/dbclick/keypress event
 // Avoids having the user need to use @click.stop on the form control
-function filterEvent(evt) {
-  if (!evt || !evt.target ) {
+function filterEvent (evt) {
+  if (!evt || !evt.target) {
     return
   }
   const el = evt.target
