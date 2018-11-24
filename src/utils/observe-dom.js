@@ -3,7 +3,8 @@ import { isElement, eventOn, eventOff } from './dom'
 
 // Falback observation for legacy broswers
 // Emulate observer disconnect() method so that we can detach the events later
-function fakeObserverFactory (el, callback) {
+
+function fakeObserverFactory (el, callback) /* istanbul ignore next: hard to test in JSDOM */ {
   eventOn(el, 'DOMNodeInserted', callback, false)
   eventOn(el, 'DOMNodeRemoved', callback, false)
   return {
@@ -21,7 +22,7 @@ function fakeObserverFactory (el, callback) {
  * @param {object} [opts={childList: true, subtree: true}] observe options
  * @see http://stackoverflow.com/questions/3219758
  */
-export default function observeDOM (el, callback, opts) {
+export default function observeDOM (el, callback, opts) /* istanbul ignore next: difficult to test in JSDOM */ {
   const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
   const eventListenerSupported = window.addEventListener
 
@@ -35,7 +36,6 @@ export default function observeDOM (el, callback, opts) {
 
   let obs = null
 
-  /* istanbul ignore next: difficult to test in JSDOM */
   if (MutationObserver) {
     // Define a new observer
     obs = new MutationObserver(mutations => {
