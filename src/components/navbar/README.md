@@ -260,7 +260,7 @@ Input groups work as well:
 ```
 
 ### `<b-navbar-toggle>` and `<b-collapse is-nav>`
-Navbars are responsive by default, but you can easily modify them to change that. Responsive
+Navbars are not responsive by default, but you can easily modify them to change that. Responsive
 behavior depends on our `<b-collapse>` component.
 
 Wrap `<b-navbar-nav>` components in a `<b-collapse is-nav>` (**remember to set the `is-nav`
@@ -271,9 +271,9 @@ Use the `<b-navbar-toggle>` component to control the collapse component, and set
 `target` prop of `<b-navbar-toggle>` to the `id` of `<b-collapse>`.
 
 Set the `toggleable` prop on `<b-navbar>` to the desired breakpoint you would like content
-to automatically collapse at. Possible `toggleable`values are `sm`, `md`, and `lg`. Setting
-`toggleable` to `true` (or with no explicit value) will set the breakpoint to `sm`, while
-setting it to `false` will disable collapsing.
+to automatically expand at. Possible `toggleable` values are `sm`, `md`, `lg` and `xl`. Setting
+`toggleable` to `true` (or with no explicit value) will set the navbar to be always collapsed, while
+setting it to `false` (the default) will disable collapsing (always expanded).
 
 `<b-navbar-toggle>` components are left-aligned by default, but should they follow a sibling
 element like `<b-navbar-brand>`, they’ll automatically be aligned to the far right. Reversing
@@ -281,6 +281,10 @@ your markup will reverse the placement of the toggler.
 
 See the first example on this page for reference, and also refer to
 [`<b-collapse>`](/docs/components/collapse) for details on the collapse component.
+
+
+## Printing
+Navbars are hidden by deafult when printing. Force them to be printed by setting the `print` prop.
 
 
 ## See also
