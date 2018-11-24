@@ -7,7 +7,7 @@ import warn from '../../utils/warn'
 import stripScripts from '../../utils/strip-scripts'
 import { keys, assign } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
-import { closest, matches, hasClass } from '../../utils/dom'
+import { closest, matches } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 
