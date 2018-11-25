@@ -90,7 +90,7 @@
 /* b-table: stackled tables */
 // Generate series of `.table-stacked-*` classes for configuring the screen
 // size of where your table will be stacked.
-.b-table.table.table-stacked {
+.b-table.table.b-table-stacked {
   @each $breakpoint in map-keys($grid-breakpoints) {
     $next: breakpoint-next($breakpoint, $grid-breakpoints);
     $infix: breakpoint-infix($next, $grid-breakpoints);
