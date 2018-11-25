@@ -279,14 +279,10 @@ export default {
       })
     }
     // Tab trap to prevent page from scrolling to next element in tab index during enforce focus tab cycle
-    const tabTrap = h(
-      'div',
-      {
-        attrs: {
-          tabindex: this.is_visible && this.isTop && !this.noEnforceFocus ? '0' : null
-        }
-      }
-    )
+    let tabTrap = h(false)
+    if (this.is_visible && this.isTop && !this.noEnforceFocus) {
+      tabTrap = h('div', { attrs: { tabindex: '0' } })
+    }
     // Assemble modal and backdrop in an outer div needed for lazy modals
     let outer = h(false)
     if (!this.is_hidden) {
@@ -694,7 +690,6 @@ export default {
     },
     // UI Event Handlers
     onClickOut (evt) {
-      console.log('Clickout:', evt)
       // If backdrop clicked, hide modal
       if (this.is_visible && !this.noCloseOnBackdrop && !contains(this.$refs.content, evt.target)) {
         this.hide('backdrop')
@@ -714,7 +709,6 @@ export default {
     focusHandler (evt) {
       // If focus leaves modal, bring it back
       const modal = this.$refs.modal
-      console.log('focus handler:', modal, document.activeElement, evt)
       if (
         !this.noEnforceFocus &&
         this.isTop &&
@@ -724,7 +718,6 @@ export default {
         !contains(modal, evt.target)
       ) {
         modal.focus({preventScroll: true})
-        console.log('After focus handler:', modal, document.activeElement)
       }
     },
     // Turn on/off focusin listener
@@ -775,7 +768,6 @@ export default {
       }
       const modal = this.$refs.modal
       const activeElement = document.activeElement
-      console.log('Before Auto Focusing Modal:', modal, activeElement)
       if (activeElement && contains(modal, activeElement)) {
         // If activeElement is child of modal or is modal, no need to change focus
         return
@@ -785,9 +777,7 @@ export default {
         modal.scrollTop = 0
         // Focus the modal content wrapper
         this.$nextTick(() => {
-          console.log('Auto Focusing Modal:', modal)
           modal.focus()
-          console.log('After Auto Focusing Modal:', modal, activeElement)
         })
       }
     },
