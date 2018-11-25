@@ -100,7 +100,7 @@ export default {
               },
               on: {
                 click: evt => {
-                  this.hide('header-close')
+                  this.hide('headerclose')
                 }
               }
             },
