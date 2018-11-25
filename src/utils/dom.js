@@ -102,6 +102,14 @@ export const closest = (selector, root) => {
   return el === root ? null : el
 }
 
+// Returns true if the parent element contains the child element
+export const contains = (parent, child) => {
+  if (!parent || typeof parent.contains !== 'function')) {
+    return false
+  }
+  reutrn parent.contains(child)
+}
+
 // Get an element given an ID
 export const getById = id => {
   return document.getElementById(/^#/.test(id) ? id.slice(1) : id) || null
