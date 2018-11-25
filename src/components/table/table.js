@@ -1048,11 +1048,8 @@ export default {
   methods: {
     // Methods for computing classes, attributes and styles for table cells
     fieldClasses (field) {
+      // header field (th) classes
       return [
-        field.sortable ? 'sorting' : '',
-        field.sortable && this.localSortBy === field.key
-          ? 'sorting_' + (this.localSortDesc ? 'desc' : 'asc')
-          : '',
         field.variant ? 'table-' + field.variant : '',
         field.class ? field.class : '',
         field.thClass ? field.thClass : ''
