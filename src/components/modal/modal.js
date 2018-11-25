@@ -905,10 +905,10 @@ export default {
   },
   mounted () {
     // Listen for events from others to either open or close ourselves
+    // And listen to all modals to enable/disable enforce focus
     this.listenOnRoot('bv::show::modal', this.showHandler)
-    this.listenOnRoot('bv::hide::modal', this.hideHandler)
-    // Listen to all modals to enable/disable enforce focus
     this.listenOnRoot('bv::modal::shown', this.shownHandler)
+    this.listenOnRoot('bv::hide::modal', this.hideHandler)
     this.listenOnRoot('bv::modal::hidden', this.hiddenHandler)
     // Initially show modal?
     if (this.visible === true) {
