@@ -765,12 +765,20 @@ export default {
       const content = this.$refs.content
       const modal = this.$refs.modal
       const activeElement = document.activeElement
+      console.log('Before Auto Focusing Content:', content, modal, activeElement)
       if (activeElement && content && contains(content, activeElement)) {
         // If activeElement is child of content, no need to change focus
-      } else if (content && modal) {
-        modal.scrollTop = 0
+        return
+      } else if (content) {
+        if (modal) {
+          // make sure top of modal is showing (if longer than the viewport)
+          modal.scrollTop = 0
+        }
         // Focus the modal content wrapper
-        this.$nextTick(() => content.focus)
+        this.$nextTick(() => {
+          console.log('Auto Focusing Content:', content)
+          content.focus()
+        })
       }
     },
     returnFocusTo () {
