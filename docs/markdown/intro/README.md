@@ -30,7 +30,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 **Note**: _requires webpack configuration to load css files ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_
 
-## Nuxt.js
+## Nuxt.js plugin module
 Install dependencies:
 
 ```bash
@@ -43,18 +43,38 @@ yarn add bootstrap-vue
 
 Add `bootstrap-vue/nuxt` to modules section of **nuxt.config.js**
 
+This will include both `boostrap.css` and `bootstrap-vue.css` default CSS
+
 ```js
 {
-  modules: [
-    'bootstrap-vue/nuxt',
-
-    // Or if you have custom bootstrap CSS...
-    ['bootstrap-vue/nuxt', { css: false }],
-  ]
+  modules: [ 'bootstrap-vue/nuxt' ]
 }
 ```
 
-## vue-cli
+If you are using custom bootstrap CSS, you can disable automatic inclusion of either
+CSS file, set the folliwing option(s) to false:
+
+```js
+{
+  modules: [
+    ['bootstrap-vue/nuxt', { bootstrapCss: false, bootstrapVueCss: false }],
+  ]
+}
+
+```
+
+Bootstrap-Vue's custom CSS relies on some Boostrap SCSS variables.  You can include Bootstrap
+and Bootstrap-Vue SCSS in your project's SCSS file:
+
+```scss
+@include "bootstrap/scss/bootstrap"
+@include "bootstrap-vue/src/index.scss"
+```
+
+Be sure to include boostrap-vue SCSS _after_ bootstrap SCSS to ensure variables are set up correctly
+
+
+## vue-cli V2
 
 Bootstrap-Vue has two vue-cli templates available:
 
@@ -77,8 +97,12 @@ npm run dev
 You can repeat the commands above replacing `bootstrap-vue/webpack-simple` with
 `bootstrap-vue/webpack` for the webpack template.
 
-## Individual components and directives
+## vue-cli V3
 
+Coming soon!
+
+
+## Individual components and directives
 If you would like to only pull in a specific component or set of components, you can do
 this by directly importing those components.
 
@@ -114,11 +138,14 @@ Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-ca
 camel-casing, pascal-casing, and/or object property shorthand.
 
 ### Component groups and Directives as Vue plugins
-
 You can also import component groups and directives as Vue plugins by importing
 the component group or directive directory:
 
 ```js
+// This imports all the layout components such as <b-container>, <b-row>, <b-col>:
+import { Layout } from 'bootstrap-vue/es/components';
+Vue.use(Layout);
+
 // This imports <b-modal> as well as the v-b-modal directive as a plugin:
 import { Modal } from 'bootstrap-vue/es/components';
 Vue.use(Modal);
@@ -134,12 +161,12 @@ Vue.use(Scrollspy);
 
 When importing as plugins, all subcomponents and related directives are imported in most cases.
 i.e. When importing `<b-nav>`, all the `<nav-*>` sub components are also included, as well all
-dropdown sub components.
+dropdown sub components. Component shorthand aliases (if any) are also included in the plugin.
 
 Refer to the component and directive documentation for details.
 
-### Webpack + Babel
 
+### Webpack + Babel
 When importing components/directives individually, you must configure your app to properly
 build the bootstrap-vue library source code. This commonly involves white-listing the node
 module for your babel loader rule in webpack.
@@ -169,28 +196,30 @@ module.exports = {
 }
 ```
 
-## Browser
 
+## Browser
 ```html
 <!-- Add this to <head> -->
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
-<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"/>
 
 <!-- Add this after vue.js -->
 <script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 ```
+
 
 ## Build variants
 
 Choosing the best variant for your build environment / packager helps less bundle sizes.
 If your bundler supports es modules, it will automatically prefer it over commonjs.
 
-| Variant        | Environments         | Package path
-| -------------- | -------------------- | -----------------------------------
-| **ES Module**  | Webpack 2 / Rollup   | `dist/bootstrap-vue.esm.js`
-| commonjs2      | Webpack 1 / ...      | `dist/bootstrap-vue.common.js`
-| UMD            | Browser              | `dist/bootstrap-vue.js`
+| Variant        | Environments         | Package path                   | Minified
+| -------------- | -------------------- | ------------------------------ | ---------------------------------
+| **ES Module**  | Webpack 2 / Rollup   | `dist/bootstrap-vue.esm.js`    | `dist/bootstrap-vue.esm.min.js`
+| commonjs2      | Webpack 1 / ...      | `dist/bootstrap-vue.common.js` | `dist/bootstrap-vue.common.min.js`
+| UMD            | Browser              | `dist/bootstrap-vue.js`        | `dist/bootstrap-vue.min.js`
+
 
 ## Migrating a project already using Bootstrap
 
@@ -200,31 +229,29 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 - If Bootstrap is the only thing relying on jQuery, you can safely remove it — BootstrapVue **does not** depend on jQuery
 - Convert your native bootstrap HTML markup into the simplified Bootstrap-Vue custom component markup
 
+
 ## Browsers Support
 
 ### CSS
-
 BootstrapVue is to be used with Bootstrap 4 CSS.
 Please see [Browsers and devices](https://getbootstrap.com/docs/4.0/getting-started/browsers-devices)
 for more information about browsers currently supported by Bootstrap 4.
 
 ### JS
-
 BootstrapVue is written in Vue! So this is up to your project and bundler which browsers are supported.
 If you want to support older IE, Android and IOS devices, you may want to use
 [Babel Polyfill](https://babeljs.io/docs/usage/polyfill)
 
 ### IE 11
-
 You'll need babel-polyfill for BootstrapVue to work properly. In order to support this browser:
 
 - `npm install babel-polyfill`
 - Import it in your app main entry point with `import 'babel-polyfill'`
 
+
 ## Tooling Support
 
 ### vscode + vetur
-
 If you are using [vscode](https://code.visualstudio.com/) as your text editor, bootstrap-vue
 has intellisense autocompletion for component attributes available when using the
 [vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur).
