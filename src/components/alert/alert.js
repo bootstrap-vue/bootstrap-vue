@@ -1,7 +1,5 @@
 import bButtonClose from '../button/button-close'
 
-import './alert.css'
-
 export default {
   components: {bButtonClose},
   render (h) {

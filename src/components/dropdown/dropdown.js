@@ -3,10 +3,6 @@ import dropdownMixin from '../../mixins/dropdown'
 import stripScripts from '../../utils/strip-scripts'
 import bButton from '../button/button'
 
-import './dropdown.css'
-// Needed when dropdowns are inside an input group
-import '../input-group/input-group.css'
-
 export default {
   mixins: [idMixin, dropdownMixin],
   components: { bButton },

@@ -1,5 +1,0 @@
-/* temporary css until Bootstrap V4.2 is released */
-
-.custom-file-input ~ .custom-file-label[data-browse]::after {
-  content: attr(data-browse);
-}
