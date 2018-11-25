@@ -27,7 +27,10 @@ const baseConfig = {
   plugins: [
     resolve({ external: ['vue'] }),
     commonjs(),
-    babel()
+    babel({
+      exclude: 'node_modules/**',
+      runtimeHelpers: true
+    })
   ]
 }
 

@@ -11,10 +11,9 @@ module.exports = {
     'jest/globals': true
   },
   globals: {
-    Tether: true,
     Vue: true
   },
   rules: {
     'vue/attributes-order': 'off'
   }
-};
+}
