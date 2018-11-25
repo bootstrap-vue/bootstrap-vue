@@ -1,4 +1,4 @@
-import {loadFixture, testVM, nextTick} from '../../../tests/utils'
+import { loadFixture, testVM, nextTick } from '../../../tests/utils'
 
 describe('modal', async () => {
   beforeEach(loadFixture(__dirname, 'modal'))

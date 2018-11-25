@@ -1,4 +1,4 @@
-import {mergeData} from 'vue-functional-data-merge'
+import { mergeData } from 'vue-functional-data-merge'
 
 export const props = {
   src: {
@@ -53,7 +53,7 @@ export const props = {
 export default {
   functional: true,
   props,
-  render (h, {props, data}) {
+  render (h, { props, data }) {
     let staticClass = 'card-img'
     if (props.top) {
       staticClass += '-top'
@@ -69,8 +69,8 @@ export default {
       'img',
       mergeData(data, {
         staticClass,
-        class: {'img-fluid': props.fluid},
-        attrs: {src: props.src, alt: props.alt, height: props.height, width: props.width}
+        class: { 'img-fluid': props.fluid },
+        attrs: { src: props.src, alt: props.alt, height: props.height, width: props.width }
       })
     )
   }

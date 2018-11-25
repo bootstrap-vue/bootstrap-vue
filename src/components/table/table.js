@@ -752,7 +752,7 @@ export default {
     },
     // Watch for changes to the filter criteria and filtered items vs localItems).
     // And set visual state and emit events as required
-    filteredCheck ({filteredItems, localItems, localFilter}) {
+    filteredCheck ({ filteredItems, localItems, localFilter }) {
       // Determine if the dataset is filtered or not
       let isFiltered
       if (!localFilter) {

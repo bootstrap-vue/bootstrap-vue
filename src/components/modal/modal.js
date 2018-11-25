@@ -706,7 +706,7 @@ export default {
         document !== evt.target &&
         !contains(modal, evt.target)
       ) {
-        modal.focus({preventScroll: true})
+        modal.focus({ preventScroll: true })
       }
     },
     // Turn on/off focusin listener
@@ -818,7 +818,7 @@ export default {
       }
     },
     checkScrollbar () {
-      const {left, right, height} = getBCR(document.body)
+      const { left, right, height } = getBCR(document.body)
       // Extra check for body.height needed for stacked modals
       this.isBodyOverflowing = (left + right) < window.innerWidth || height > window.innerHeight
     },
