@@ -104,7 +104,7 @@ export const closest = (selector, root) => {
 
 // Returns true if the parent element contains the child element
 export const contains = (parent, child) => {
-  if (!parent || typeof parent.contains !== 'function')) {
+  if (!parent || typeof parent.contains !== 'function') {
     return false
   }
   reutrn parent.contains(child)
