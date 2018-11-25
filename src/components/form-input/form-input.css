@@ -1,4 +1,29 @@
-/* Manually compiled from form-input-type-range.scss SASS file */
+/*
+ * Special styling for type=color input
+ * Bootstrap V4.x does not have special styling for color input
+ * So we define some basic styles to compensate
+ */
+
+input[type="color"].form-control {
+  height: 2.25rem;
+  padding: 0.25rem 0.25rem;
+}
+
+input[type="color"].form-control.form-control-sm,
+.input-group-sm input[type="color"].form-control {
+  height: 1.9375rem;
+  padding: 0.125rem 0.125rem;
+}
+
+input[type="color"].form-control.form-control-lg,
+.input-group-lg input[type="color"].form-control {
+    height: 3rem;
+}
+
+input[type="color"].form-control:disabled {
+  background-color: #adb5bd;
+  opacity: 0.65;
+}
 
 /* Temp padding and height fix until V4.2 https://github.com/twbs/bootstrap/pull/26898 */
 .custom-range {
@@ -35,13 +60,11 @@
 }
 .input-group > .custom-range + .form-control,
 .input-group > .custom-range + .custom-select,
-.input-group > .custom-range + .form-control-plaintext,
 .input-group > .custom-range + .custom-range,
 .input-group > .custom-range + .custom-file {
   margin-left: -1px;
 }
 .input-group > .form-control + .custom-range,
-.input-group > .form-control-plaintext + .custom-range,
 .input-group > .custom-select + .custom-range,
 .input-group > .custom-range + .custom-range,
 .input-group > .custom-file + .custom-range {

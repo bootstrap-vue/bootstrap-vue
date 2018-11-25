@@ -1,18 +1,45 @@
-// form-input-type-range.scss style SASS source file. Used to manually create form-input-type-range.css
-// Someday, we can integrate sass-loader and node-sass */
+// @import "bootstrap/scss/functions";
+// @import "bootstrap/scss/variables";
+// @import "bootstrap/scss/mixins";
 
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
+@import "./variables"
 
-/* Temp padding and height fix until V4.2 https://github.com/twbs/bootstrap/pull/26898 */
+/* b-form-input: type=color custom styling */
+// Bootstrap V4.x does not have special styling for color input
+// So we define some basic styles to compensate
+input[type="color"].form-control {
+  height: $input-height;
+  // We use the smaller padding to make the color block larger
+  padding: $input-padding-y-sm $input-padding-x-sm;
+}
 
+input[type="color"].form-control.form-control-sm,
+.input-group-sm input[type="color"].form-control {
+  height: $input-height-sm;
+  // We use the smaller padding to make the color block larger
+  padding: ($input-padding-y-sm / 2) ($input-padding-x-sm / 2);
+}
+
+input[type="color"].form-control.form-control-lg,
+.input-group-lg input[type="color"].form-control {
+  height: $input-height-lg;
+  padding: $input-padding-y-lg $input-padding-x-lg;
+}
+
+input[type="color"].form-control:disabled {
+  // Disabled styling needs to be a bit different than regular inputs
+  background-color: $gray-500;
+  opacity: 0.65;
+}
+
+/* b-form-input: custom range style temporary tweaks */
+// Temp padding and height fix until V4.2 https://github.com/twbs/bootstrap/pull/26898
 .custom-range {
   height: calc(#{$custom-range-thumb-height} + #{$custom-range-thumb-focus-box-shadow-width * 2});
   padding: 0; // Need to reset padding
 }
 
-/* Temp fix for :disabled state until V4.2 https://github.com/twbs/bootstrap/pull/26540 */
+// Temp fix for :disabled state until V4.2 https://github.com/twbs/bootstrap/pull/26540
 .custom-range:disabled {
   &::-webkit-slider-thumb {
     background-color: #adb5bd;
@@ -32,7 +59,6 @@
 }
 
 /* Base .input-group > .custom-range styling (no PR yet on BS V4) */
-
 .input-group {
   > .custom-range {
     position: relative;
@@ -42,7 +68,6 @@
 
     + .form-control,
     + .custom-select,
-    + .form-control-plaintext,
     + .custom-range,
     + .custom-file { 
       margin-left: -$input-border-width;
@@ -50,7 +75,6 @@
   }
 
   > .form-control,
-  > .form-control-plaintext,
   > .custom-select,
   > .custom-range,
   > .custom-file {
@@ -102,8 +126,7 @@
   @include border-radius($input-border-radius-sm);
 }
 
-/* Validation styling - valid (no PR yet on BS V4) */
-
+/* b-form-input: custom-range validation styling - valid (no PR yet on BS V4) */
 .input-group .custom-range {
   .was-validated &:#{'valid'},
   &.is-#{'valid'} {
@@ -167,8 +190,7 @@
   }
 }
  
-/* Validation styling - invalid (no PR yet on BS V4) */
-
+/* b-form-input: custom-range validation styling - invalid (no PR yet on BS V4) */
 .input-group .custom-range {
   .was-validated &:invalid,
   &.is-invalid {
