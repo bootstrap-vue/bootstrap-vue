@@ -742,13 +742,13 @@ export default {
     },
     // Root Listener handlers
     showHandler (id, triggerEl) {
-      if (id === this.id || id === this) {
+      if (id === this.id) {
         this.return_focus = triggerEl || null
         this.show()
       }
     },
     hideHandler (id) {
-      if (id === this.id || id == this) {
+      if (id === this.id) {
         this.hide()
       }
     },
