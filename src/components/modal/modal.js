@@ -232,12 +232,7 @@ export default {
         staticClass: 'modal',
         class: this.modalClasses,
         directives: [
-          {
-            name: 'show',
-            rawName: 'v-show',
-            value: this.is_visible,
-            expression: 'is_visible'
-          }
+          { name: 'show', rawName: 'v-show', value: this.is_visible, expression: 'is_visible' }
         ],
         attrs: {
           id: this.safeId(),
@@ -291,9 +286,7 @@ export default {
         {
           key: 'modal-outer',
           style: this.modalOuterStyle,
-          attrs: {
-            id: this.safeId('__BV_modal_outer_')
-          }
+          attrs: { id: this.safeId('__BV_modal_outer_') }
         },
         [modal, backdrop]
       )
@@ -711,13 +704,13 @@ export default {
     focusHandler (evt) {
       // If focus leaves modal, bring it back
       const content = this.$refs.content
-      const target = evt.target
+      console.log('focus handler:', content, evt)
       if (
         !this.noEnforceFocus &&
         this.isTop &&
         this.is_visible &&
         content &&
-        !contains(content, target)
+        !contains(content, evt.target)
       ) {
         content.focus({preventScroll: true})
       }
