@@ -724,7 +724,7 @@ export default {
       }
     },
     // Turn on/off focus listener
-    setEnforceFocus(on) {
+    setEnforceFocus (on) {
       if (on) {
         eventOn(document, 'focusin', this.focusHandler, false)
       } else {
