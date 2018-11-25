@@ -717,7 +717,6 @@ export default {
         this.is_visible &&
         content &&
         document !== target &&
-        content !== target &&
         !contains(content, target)
       ) {
         content.focus({preventScroll: true})
