@@ -19,5 +19,8 @@ npx babel src --out-dir es --ignore 'src/**/*/fixtures,src/**/*.spec.js'
 # Compile SASS
 node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 src/index.scss dist/bootstrap-vue.css
 
+# Prefix CSS
+postcss --config scripts/postcss.config.js --replace dist/bootstrap-vue.css
+
 # Minify CSS
 cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output dist/bootstrap-vue.min.css dist/bootstrap-vue.css
