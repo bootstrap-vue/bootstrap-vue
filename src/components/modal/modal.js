@@ -716,7 +716,6 @@ export default {
         this.isTop &&
         this.is_visible &&
         content &&
-        document !== target &&
         !contains(content, target)
       ) {
         content.focus({preventScroll: true})
@@ -915,7 +914,7 @@ export default {
       this.show()
     }
   },
-  beforeDestroy () {
+  beforeDestroy () /* instanbul ignore next */ {
     // Ensure everything is back to normal
     if (this._observer) {
       this._observer.disconnect()
