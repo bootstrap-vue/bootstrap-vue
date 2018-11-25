@@ -12,6 +12,7 @@ import {
   isVisible,
   selectAll,
   select,
+  contains,
   getBCR,
   getCS,
   addClass,
@@ -99,7 +100,7 @@ export default {
               },
               on: {
                 click: evt => {
-                  this.hide('header-close')
+                  this.hide('headerclose')
                 }
               }
             },
@@ -195,20 +196,10 @@ export default {
         ref: 'content',
         class: this.contentClasses,
         attrs: {
-          tabindex: '-1',
           role: 'document',
-          'aria-labelledby': this.hideHeader
-            ? null
-            : this.safeId('__BV_modal_header_'),
+          id: this.safeId('__BV_modal_content_'),
+          'aria-labelledby': this.hideHeader ? null : this.safeId('__BV_modal_header_'),
           'aria-describedby': this.safeId('__BV_modal_body_')
-        },
-        on: {
-          focusout: this.onFocusout,
-          click: evt => {
-            evt.stopPropagation()
-            // https://github.com/bootstrap-vue/bootstrap-vue/issues/1528
-            this.$root.$emit('bv::dropdown::shown')
-          }
         }
       },
       [header, body, footer]
@@ -230,16 +221,12 @@ export default {
         staticClass: 'modal',
         class: this.modalClasses,
         directives: [
-          {
-            name: 'show',
-            rawName: 'v-show',
-            value: this.is_visible,
-            expression: 'is_visible'
-          }
+          { name: 'show', rawName: 'v-show', value: this.is_visible, expression: 'is_visible' }
         ],
         attrs: {
           id: this.safeId(),
           role: 'dialog',
+          tabindex: '-1',
           'aria-hidden': this.is_visible ? null : 'true'
         },
         on: {
@@ -281,6 +268,11 @@ export default {
         attrs: { id: this.safeId('__BV_modal_backdrop_') }
       })
     }
+    // Tab trap to prevent page from scrolling to next element in tab index during enforce focus tab cycle
+    let tabTrap = h(false)
+    if (this.is_visible && this.isTop && !this.noEnforceFocus) {
+      tabTrap = h('div', { attrs: { tabindex: '0' } })
+    }
     // Assemble modal and backdrop in an outer div needed for lazy modals
     let outer = h(false)
     if (!this.is_hidden) {
@@ -289,11 +281,9 @@ export default {
         {
           key: 'modal-outer',
           style: this.modalOuterStyle,
-          attrs: {
-            id: this.safeId('__BV_modal_outer_')
-          }
+          attrs: { id: this.safeId('__BV_modal_outer_') }
         },
-        [modal, backdrop]
+        [modal, tabTrap, backdrop]
       )
     }
     // Wrap in DIV to maintain thi.$el reference for hide/show method aceess
@@ -634,7 +624,6 @@ export default {
     },
     onEnter () {
       this.is_block = true
-      this.$refs.modal.scrollTop = 0
     },
     onAfterEnter () {
       this.is_show = true
@@ -648,6 +637,7 @@ export default {
         })
         this.emitEvent(shownEvt)
         this.focusFirst()
+        this.setEnforceFocus(true)
       })
     },
     onBeforeLeave () {
@@ -667,6 +657,7 @@ export default {
         this.resetScrollbar()
         removeClass(document.body, 'modal-open')
       }
+      this.setEnforceFocus(false)
       this.$nextTick(() => {
         this.is_hidden = this.lazy || false
         this.zIndex = 0
@@ -689,7 +680,7 @@ export default {
     // UI Event Handlers
     onClickOut (evt) {
       // If backdrop clicked, hide modal
-      if (this.is_visible && !this.noCloseOnBackdrop) {
+      if (this.is_visible && !this.noCloseOnBackdrop && !contains(this.$refs.content, evt.target)) {
         this.hide('backdrop')
       }
     },
@@ -703,18 +694,27 @@ export default {
         this.hide('esc')
       }
     },
-    onFocusout (evt) {
+    // Document focusin listener
+    focusHandler (evt) {
       // If focus leaves modal, bring it back
-      // 'focusout' Event Listener bound on content
-      const content = this.$refs.content
+      const modal = this.$refs.modal
       if (
         !this.noEnforceFocus &&
         this.isTop &&
         this.is_visible &&
-        content &&
-        !content.contains(evt.relatedTarget)
+        modal &&
+        document !== evt.target &&
+        !contains(modal, evt.target)
       ) {
-        content.focus({preventScroll: true})
+        modal.focus({preventScroll: true})
+      }
+    },
+    // Turn on/off focusin listener
+    setEnforceFocus (on) {
+      if (on) {
+        eventOn(document, 'focusin', this.focusHandler, false)
+      } else {
+        eventOff(document, 'focusin', this.focusHandler, false)
       }
     },
     // Resize Listener
@@ -755,18 +755,18 @@ export default {
       if (typeof document === 'undefined') {
         return
       }
-      const content = this.$refs.content
       const modal = this.$refs.modal
       const activeElement = document.activeElement
-      if (activeElement && content && content.contains(activeElement)) {
-        // If activeElement is child of content, no need to change focus
-      } else if (content) {
-        if (modal) {
-          modal.scrollTop = 0
-        }
-        // Focus the modal content wrapper
+      if (activeElement && contains(modal, activeElement)) {
+        // If activeElement is child of modal or is modal, no need to change focus
+        return
+      }
+      if (modal) {
+        // make sure top of modal is showing (if longer than the viewport) and
+        // focus the modal content wrapper
         this.$nextTick(() => {
-          content.focus()
+          modal.scrollTop = 0
+          modal.focus()
         })
       }
     },
@@ -896,7 +896,7 @@ export default {
   },
   mounted () {
     // Listen for events from others to either open or close ourselves
-    // And to enable/disable enforce focus
+    // And listen to all modals to enable/disable enforce focus
     this.listenOnRoot('bv::show::modal', this.showHandler)
     this.listenOnRoot('bv::modal::shown', this.shownHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
@@ -906,12 +906,13 @@ export default {
       this.show()
     }
   },
-  beforeDestroy () {
+  beforeDestroy () /* instanbul ignore next */ {
     // Ensure everything is back to normal
     if (this._observer) {
       this._observer.disconnect()
       this._observer = null
     }
+    this.setEnforceFocus(false)
     this.setResizeEvent(false)
     if (this.is_visible) {
       this.is_visible = false

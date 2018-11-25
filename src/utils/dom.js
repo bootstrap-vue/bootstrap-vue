@@ -7,6 +7,7 @@ export const isElement = el => {
 
 // Determine if an HTML element is visible - Faster than CSS check
 export const isVisible = el => {
+  /* istanbul ignore next: getBoundingClientRect not avaiable in JSDOM */
   return isElement(el) &&
            document.body.contains(el) &&
            el.getBoundingClientRect().height > 0 &&
@@ -24,6 +25,7 @@ export const isDisabled = el => {
 // Cause/wait-for an element to reflow it's content (adjusting it's height/width)
 export const reflow = el => {
   // requsting an elements offsetHight will trigger a reflow of the element content
+  /* istanbul ignore next: reflow doesnt happen in JSDOM */
   return isElement(el) && el.offsetHeight
 }
 
@@ -52,14 +54,14 @@ export const matches = (el, selector) => {
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
   // Prefer native implementations over polyfill function
   const proto = Element.prototype
+  /* istanbul ignore next */
   const Matches = proto.matches ||
         proto.matchesSelector ||
         proto.mozMatchesSelector ||
         proto.msMatchesSelector ||
         proto.oMatchesSelector ||
         proto.webkitMatchesSelector ||
-        /* istanbul ignore next */
-        function (sel) {
+        function (sel) /* istanbul ignore next */ {
           const element = this
           const m = selectAll(sel, element.document || element.ownerDocument)
           let i = m.length
@@ -80,8 +82,8 @@ export const closest = (selector, root) => {
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
   // Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
   // Prefer native implementation over polyfill function
+  /* istanbul ignore next */
   const Closest = Element.prototype.closest ||
-                  /* istanbul ignore next */
                   function (sel) {
                     let element = this
                     if (!document.documentElement.contains(element)) {
@@ -100,6 +102,14 @@ export const closest = (selector, root) => {
   const el = Closest.call(root, selector)
   // Emulate jQuery closest and return null if match is the passed in element (root)
   return el === root ? null : el
+}
+
+// Returns true if the parent element contains the child element
+export const contains = (parent, child) => {
+  if (!parent || typeof parent.contains !== 'function') {
+    return false
+  }
+  return parent.contains(child)
 }
 
 // Get an element given an ID
@@ -160,21 +170,21 @@ export const hasAttr = (el, attr) => {
 }
 
 // Return the Bounding Client Rec of an element. Retruns null if not an element
+/* istanbul ignore next: getBoundingClientRect() doesnt work in JSDOM */
 export const getBCR = el => {
-  /* istanbul ignore next: getBoundingClientRect() doesnt work in JSDOM */
   return isElement(el) ? el.getBoundingClientRect() : null
 }
 
 // Get computed style object for an element
+/* istanbul ignore next: getComputedStyle() doesnt work in JSDOM */
 export const getCS = el => {
-  /* istanbul ignore next: getComputedStyle() doesnt work in JSDOM */
   return isElement(el) ? window.getComputedStyle(el) : {}
 }
 
 // Return an element's offset wrt document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
+/* istanbul ignore next: getBoundingClientRect(), getClientRects() doesnt work in JSDOM */
 export const offset = el => {
-  /* istanbul ignore if: getClientRects() doesnt work in JSDOM */
   if (isElement(el)) {
     if (!el.getClientRects().length) {
       return { top: 0, left: 0 }
@@ -190,6 +200,7 @@ export const offset = el => {
 
 // Return an element's offset wrt to it's offsetParent
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.position
+/* istanbul ignore next: getBoundingClientRect(), getClientRects() doesnt work in JSDOM */
 export const position = el => {
   if (!isElement(el)) {
     return
