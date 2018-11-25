@@ -624,7 +624,6 @@ export default {
     },
     onEnter () {
       this.is_block = true
-      // this.$refs.modal.scrollTop = 0
     },
     onAfterEnter () {
       this.is_show = true
