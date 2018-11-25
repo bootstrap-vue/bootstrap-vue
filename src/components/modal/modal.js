@@ -198,7 +198,7 @@ export default {
         attrs: {
           tabindex: '-1',
           role: 'document',
-          id: this.safeId('__BV_modal_content_')
+          id: this.safeId('__BV_modal_content_'),
           'aria-labelledby': this.hideHeader
             ? null
             : this.safeId('__BV_modal_header_'),
