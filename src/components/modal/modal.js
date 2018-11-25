@@ -198,6 +198,7 @@ export default {
         attrs: {
           tabindex: '-1',
           role: 'document',
+          id: this.safeId('__BV_modal_content_')
           'aria-labelledby': this.hideHeader
             ? null
             : this.safeId('__BV_modal_header_'),
@@ -640,7 +641,6 @@ export default {
     onAfterEnter () {
       this.is_show = true
       this.is_transitioning = false
-      this.setEnforceFocus(true)
       this.$nextTick(() => {
         const shownEvt = new BvEvent('shown', {
           cancelable: false,
@@ -650,11 +650,11 @@ export default {
         })
         this.emitEvent(shownEvt)
         this.focusFirst()
+        this.setEnforceFocus(true)
       })
     },
     onBeforeLeave () {
       this.is_transitioning = true
-      this.setEnforceFocus(false)
       this.setResizeEvent(false)
     },
     onLeave () {
@@ -670,6 +670,7 @@ export default {
         this.resetScrollbar()
         removeClass(document.body, 'modal-open')
       }
+      this.setEnforceFocus(false)
       this.$nextTick(() => {
         this.is_hidden = this.lazy || false
         this.zIndex = 0
@@ -721,7 +722,7 @@ export default {
         content.focus({preventScroll: true})
       }
     },
-    // Turn on/off focus listener
+    // Turn on/off focusin listener
     setEnforceFocus (on) {
       if (on) {
         eventOn(document, 'focusin', this.focusHandler, false)
@@ -741,13 +742,13 @@ export default {
     },
     // Root Listener handlers
     showHandler (id, triggerEl) {
-      if (id === this.id) {
+      if (id === this.id || id === this) {
         this.return_focus = triggerEl || null
         this.show()
       }
     },
     hideHandler (id) {
-      if (id === this.id) {
+      if (id === this.id || id == this) {
         this.hide()
       }
     },
