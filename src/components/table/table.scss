@@ -2,8 +2,8 @@
 // @import "bootstrap/scss/variables";
 // @import "bootstrap/scss/mixins";
 
-// b-table: defaults
-$b-table-busy-opacity: 0.55 !default;
+// Import b-table variables (from _variables.scss)
+@import "./variables.scss"
 
 /* b-table: general styling */
 .b-table.table {
