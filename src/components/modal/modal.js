@@ -685,8 +685,9 @@ export default {
     },
     // UI Event Handlers
     onClickOut (evt) {
+      console.log('Clickout:', evt)
       // If backdrop clicked, hide modal
-      if (this.is_visible && !this.noCloseOnBackdrop) {
+      if (this.is_visible && !this.noCloseOnBackdrop && !contains(this.$refs.content, evt.target)) {
         this.hide('backdrop')
       }
     },
