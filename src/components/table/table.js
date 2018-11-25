@@ -151,7 +151,7 @@ export default {
       const data = {
         key: 'caption',
         id: captionId,
-        style: this.captionStyles
+        class: this.captionClasses
       }
       if (!$slots['table-caption']) {
         data.domProps = { innerHTML: stripScripts(this.caption) }
@@ -837,9 +837,10 @@ export default {
       const variant = this.footVariant || this.headVariant || null
       return [variant ? 'thead-' + variant : '', this.tfootClass]
     },
-    captionStyles () {
-      // Move caption to top
-      return this.captionTop ? { captionSide: 'top' } : {}
+    captionClasses () {
+      return {
+        'b-table-caption-top': this.captionTop
+      }
     },
     // Items related computed props
     hasProvider () {
