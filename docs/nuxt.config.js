@@ -87,7 +87,6 @@ module.exports = {
 
   css: [
     'bootstrap/dist/css/bootstrap.css',
-    'bootstrap-vue/dist/bootstrap-vue.css',
     'highlightjs/styles/atom-one-light.css',
     'codemirror/lib/codemirror.css',
     '~assets/css/docs.min.css',
