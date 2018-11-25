@@ -286,7 +286,7 @@ export default {
           tabindex: this.is_visible && this.isTop && !this.noEnforceFocus ? '0' : null
         }
       }
-    );
+    )
     // Assemble modal and backdrop in an outer div needed for lazy modals
     let outer = h(false)
     if (!this.is_hidden) {
@@ -776,10 +776,11 @@ export default {
       const modal = this.$refs.modal
       const activeElement = document.activeElement
       console.log('Before Auto Focusing Modal:', modal, activeElement)
-      if (activeElement && modal && contains(modal, activeElement)) {
-        // If activeElement is child of content, no need to change focus
+      if (activeElement && contains(modal, activeElement)) {
+        // If activeElement is child of modal or is modal, no need to change focus
         return
-      } else if (modal) {
+      }
+      if (modal) {
         // make sure top of modal is showing (if longer than the viewport)
         modal.scrollTop = 0
         // Focus the modal content wrapper
