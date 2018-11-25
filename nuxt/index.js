@@ -37,7 +37,7 @@ module.exports = function nuxtBootstrapVue (moduleOptions = {}) {
     options.bootstrapCss = false
     delete options.css
     try {
-      cosole.warn('Bootstrap-Vue Plugin: option "css" deprecated, use "bootstrapCss" instead')
+      console.warn('Bootstrap-Vue Plugin: option "css" deprecated, use "bootstrapCss" instead')
     } catch (e) {}
   }
 
