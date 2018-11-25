@@ -44,7 +44,7 @@ module.exports = function nuxtBootstrapVue (moduleOptions = {}) {
   // Conditionally require bootstrap css if not explicitly disabled
   if (options.bootstrapCss === true) {
     // Add bootstrap CSS to first in head
-    this.options.css.unshift('bootstrap/dist/css/bootstrap.css')
+    this.options.css.unshift('bootstrap/dist/css/bootstrap.min.css')
   }
 
   // Register plugin, pasing options to plugin template
