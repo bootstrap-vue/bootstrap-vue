@@ -4,35 +4,33 @@ set -e
 # Cleanup
 rm -rf dist es
 
-# Compile JS (dist/)
 echo 'Compile JS...'
 rollup -c scripts/rollup.config.js
 echo 'Done.'
 echo ''
 
-# Uglify JS
-# We don't use --compress for the ESM build because it removes the imports from the top
 echo 'Uglify JS...'
+# We don't use --compress for the ESM build because it removes the imports from the top
 uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/bootstrap-vue.js.map,includeSources,url=bootstrap-vue.min.js.map" --output dist/bootstrap-vue.min.js dist/bootstrap-vue.js
 uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/bootstrap-vue.common.js.map,includeSources,url=bootstrap-vue.min.common.js.map" --output dist/bootstrap-vue.min.common.js dist/bootstrap-vue.common.js
 uglifyjs --mangle --comments "/^!/" --source-map "content=dist/bootstrap-vue.esm.js.map,includeSources,url=bootstrap-vue.min.esm.js.map" --output dist/bootstrap-vue.min.esm.js dist/bootstrap-vue.esm.js
 echo 'Done.'
 echo ''
 
-# Build ES Modules (es/)
-echo 'Build ES Modules...'
+echo 'Build ES modules...'
 npx babel src --out-dir es --ignore 'src/**/*/fixtures,src/**/*.spec.js'
 echo 'Done.'
 echo ''
 
-# Compile SASS
 echo 'Compile SASS...'
 node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 src/index.scss dist/bootstrap-vue.css
 postcss --config scripts/postcss.config.js --replace dist/bootstrap-vue.css
 echo 'Done.'
 echo ''
 
-# Minify CSS
 echo 'Minify CSS...'
 cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output dist/bootstrap-vue.min.css dist/bootstrap-vue.css
 echo 'Done.'
+echo ''
+
+echo 'Done building assets.'
