@@ -1,0 +1,16 @@
+// @import "bootstrap/scss/functions"
+// @import "bootstrap/scss/variables"
+// @import "bootstrap/scss/mixins"
+
+@import "./variables"
+
+.alert {
+  &.fade-enter-active,
+  &.alert.fade-leave-active {
+    transition: $bv-alert-transition;
+  }
+  &.fade-enter,
+  &.fade-leave-to {
+    opacity: 0;
+  }
+}
