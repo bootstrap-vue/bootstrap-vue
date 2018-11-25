@@ -107,7 +107,7 @@ export const contains = (parent, child) => {
   if (!parent || typeof parent.contains !== 'function') {
     return false
   }
-  reutrn parent.contains(child)
+  return parent.contains(child)
 }
 
 // Get an element given an ID
