@@ -185,7 +185,7 @@ describe('table', async () => {
           const ths = [...tr.children]
           expect(ths.length).toBe(fieldKeys.length)
           ths.forEach((th, idx) => {
-            expect(th.classList.contains('sorting')).toBe(
+            expect(th.hasAttribute('aria-sort')).toBe(
               vm.fields[fieldKeys[idx]].sortable || false
             )
           })
@@ -208,7 +208,7 @@ describe('table', async () => {
         const ths = [...tr.children]
         expect(ths.length).toBe(fieldKeys.length)
         ths.forEach((th, idx) => {
-          expect(th.classList.contains('sorting')).toBe(
+          expect(th.hasAttribute('aria-sort')).toBe(
             vm.fields[fieldKeys[idx]].sortable || false
           )
         })

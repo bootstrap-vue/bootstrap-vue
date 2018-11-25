@@ -1,265 +1,299 @@
-/* Add support for fixed layout table */
-table.b-table.b-table-fixed {
-    table-layout: fixed;
+/* b-table: general styling */
+.b-table.table.table-fixed {
+  /* fixed width columns */
+  table-layout: fixed;
 }
 
-/* Busy table styling */
-table.b-table[aria-busy='false'] {
-    opacity: 1;
-}
-table.b-table[aria-busy='true'] {
-    opacity: 0.6;
+.b-table.table[aria-busy="true"] {
+  opacity: 0.55;
 }
 
-/* Sort styling */
-table.b-table > thead > tr > th,
-table.b-table > tfoot > tr > th {
-    position: relative;
+.b-table.table > tbody > tr.b-table-details > td {
+  border-top: none !important;
 }
-table.b-table > thead > tr > th.sorting,
-table.b-table > tfoot > tr > th.sorting {
-    padding-right: 1.5em;
-    cursor: pointer;
+
+.b-table.table > caption {
+  caption-side: bottom;
 }
-table.b-table > thead > tr > th.sorting::before,
-table.b-table > thead > tr > th.sorting::after,
-table.b-table > tfoot > tr > th.sorting::before,
-table.b-table > tfoot > tr > th.sorting::after {
-    position: absolute;
-    bottom: 0;
+
+.b-table.table > caption.b-table-caption-top {
+  caption-side: top !important;
+}
+
+.b-table.table > thead > tr > th,
+.b-table.table > thead > tr > td,
+.b-table.table > tfoot > tr > th,
+.b-table.table > tfoot > tr > td {
+  position: relative;
+}
+
+/* b-table: sort styling */
+.b-table.table > thead > tr > th[aria-sort],
+.b-table.table > tfoot > tr > th[aria-sort] {
+  position: relative;
+  padding-right: 1.125em;
+  cursor: pointer;
+}
+
+.b-table.table > thead > tr > th[aria-sort]::after,
+.b-table.table > tfoot > tr > th[aria-sort]::after {
+  position: absolute;
+  display: block;
+  bottom: 0;
+  right: 0.35em;
+  padding-bottom: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  opacity: 0.4;
+  content: "\2195";
+  speak: none;
+}
+
+.b-table.table > thead > tr > th[aria-sort][aria-sort="ascending"]::after,
+.b-table.table > tfoot > tr > th[aria-sort][aria-sort="ascending"]::after {
+  opacity: 1;
+  content: "\2193";
+}
+
+.b-table.table > thead > tr > th[aria-sort][aria-sort="descending"]::after,
+.b-table.table > tfoot > tr > th[aria-sort][aria-sort="descending"]::after {
+  opacity: 1;
+  content: "\2191";
+}
+
+/* b-table: stacked tables */
+@media (max-width: 575.98px) {
+  .b-table.table.b-table-stacked-sm {
     display: block;
-    opacity: 0.4;
-    padding-bottom: inherit;
-    font-size: inherit;
-    line-height: 180%;
-}
-table.b-table > thead > tr > th.sorting::before,
-table.b-table > tfoot > tr > th.sorting::before {
-    right: 0.75em;
-    content: '\2191';
-}
-table.b-table > thead > tr > th.sorting::after,
-table.b-table > tfoot > tr > th.sorting::after {
-    right: 0.25em;
-    content: '\2193';
-}
-table.b-table > thead > tr > th.sorting_asc::after,
-table.b-table > thead > tr > th.sorting_desc::before,
-table.b-table > tfoot > tr > th.sorting_asc::after,
-table.b-table > tfoot > tr > th.sorting_desc::before {
-    opacity: 1;
-}
-
-/* Stacked table layout */
-/* Derived from http://blog.adrianroselli.com/2017/11/a-responsive-accessible-table.html */
-/* Always stacked */
-table.b-table.b-table-stacked {
     width: 100%;
-}
-table.b-table.b-table-stacked,
-table.b-table.b-table-stacked > tbody,
-table.b-table.b-table-stacked > tbody > tr,
-table.b-table.b-table-stacked > tbody > tr > td,
-table.b-table.b-table-stacked > tbody > tr > th,
-table.b-table.b-table-stacked > caption {
+  }
+  .b-table.table.b-table-stacked-sm > caption,
+  .b-table.table.b-table-stacked-sm > tbody,
+  .b-table.table.b-table-stacked-sm > tbody > tr,
+  .b-table.table.b-table-stacked-sm > tbody > tr > td,
+  .b-table.table.b-table-stacked-sm > tbody > tr > td {
     display: block;
-}
-
-/* Hide stuff we can't deal with, or shouldn't show */
-table.b-table.b-table-stacked > thead,
-table.b-table.b-table-stacked > tfoot,
-table.b-table.b-table-stacked > tbody > tr.b-table-top-row,
-table.b-table.b-table-stacked > tbody > tr.b-table-bottom-row {
+  }
+  .b-table.table.b-table-stacked-sm > thead,
+  .b-table.table.b-table-stacked-sm > tfoot {
     display: none;
-}
-
-/* inter-row top border */
-table.b-table.b-table-stacked > tbody > tr > :first-child {
-    border-top-width: 0.4rem;
-}
-
-/* convert TD/TH contents to "cells". Caveat: child elements become cells! */
-table.b-table.b-table-stacked > tbody > tr > [data-label] {
+  }
+  .b-table.table.b-table-stacked-sm > thead > tr.b-table-top-row,
+  .b-table.table.b-table-stacked-sm > thead > tr.b-table-bottom-row,
+  .b-table.table.b-table-stacked-sm > tfoot > tr.b-table-top-row,
+  .b-table.table.b-table-stacked-sm > tfoot > tr.b-table-bottom-row {
+    display: none;
+  }
+  .b-table.table.b-table-stacked-sm > caption {
+    caption-side: top !important;
+  }
+  .b-table.table.b-table-stacked-sm > tbody > tr > [data-label] {
     display: grid;
     grid-template-columns: 40% auto;
     grid-gap: 0.25rem 1rem;
-}
-
-/* generate row cell "heading" */
-table.b-table.b-table-stacked > tbody > tr > [data-label]::before {
+  }
+  .b-table.table.b-table-stacked-sm > tbody > tr > [data-label]::before {
     content: attr(data-label);
     display: inline;
     text-align: right;
     overflow-wrap: break-word;
     font-weight: bold;
     font-style: normal;
+  }
+  .b-table.table.b-table-stacked-sm > tbody > tr.top-row, .b-table.table.b-table-stacked-sm > tbody > tr.bottom-row {
+    display: none;
+  }
+  .b-table.table.b-table-stacked-sm > tbody > tr > :first-child {
+    border-top-width: 3px;
+  }
 }
 
-@media all and (max-width: 575.98px) {
-    /* Under SM */
-    table.b-table.b-table-stacked-sm {
-        width: 100%;
-    }
-    table.b-table.b-table-stacked-sm,
-    table.b-table.b-table-stacked-sm > tbody,
-    table.b-table.b-table-stacked-sm > tbody > tr,
-    table.b-table.b-table-stacked-sm > tbody > tr > td,
-    table.b-table.b-table-stacked-sm > tbody > tr > th,
-    table.b-table.b-table-stacked-sm > caption {
-        display: block;
-    }
-    /* hide stuff we can't deal with, or shouldn't show */
-    table.b-table.b-table-stacked-sm > thead,
-    table.b-table.b-table-stacked-sm > tfoot,
-    table.b-table.b-table-stacked-sm > tbody > tr.b-table-top-row,
-    table.b-table.b-table-stacked-sm > tbody > tr.b-table-bottom-row {
-        display: none;
-    }
-    /* inter-row top border */
-    table.b-table.b-table-stacked-sm > tbody > tr > :first-child {
-        border-top-width: 0.4rem;
-    }
-    /* convert TD/TH contents to "cells". Caveat: child elements become cells! */
-    table.b-table.b-table-stacked-sm > tbody > tr > [data-label] {
-        display: grid;
-        grid-template-columns: 40% auto;
-        grid-gap: 0.25rem 1rem;
-    }
-    /* generate row cell "heading" */
-    table.b-table.b-table-stacked-sm > tbody > tr > [data-label]::before {
-        content: attr(data-label);
-        display: inline;
-        text-align: right;
-        overflow-wrap: break-word;
-        font-weight: bold;
-        font-style: normal;
-    }
+@media (max-width: 767.98px) {
+  .b-table.table.b-table-stacked-md {
+    display: block;
+    width: 100%;
+  }
+  .b-table.table.b-table-stacked-md > caption,
+  .b-table.table.b-table-stacked-md > tbody,
+  .b-table.table.b-table-stacked-md > tbody > tr,
+  .b-table.table.b-table-stacked-md > tbody > tr > td,
+  .b-table.table.b-table-stacked-md > tbody > tr > td {
+    display: block;
+  }
+  .b-table.table.b-table-stacked-md > thead,
+  .b-table.table.b-table-stacked-md > tfoot {
+    display: none;
+  }
+  .b-table.table.b-table-stacked-md > thead > tr.b-table-top-row,
+  .b-table.table.b-table-stacked-md > thead > tr.b-table-bottom-row,
+  .b-table.table.b-table-stacked-md > tfoot > tr.b-table-top-row,
+  .b-table.table.b-table-stacked-md > tfoot > tr.b-table-bottom-row {
+    display: none;
+  }
+  .b-table.table.b-table-stacked-md > caption {
+    caption-side: top !important;
+  }
+  .b-table.table.b-table-stacked-md > tbody > tr > [data-label] {
+    display: grid;
+    grid-template-columns: 40% auto;
+    grid-gap: 0.25rem 1rem;
+  }
+  .b-table.table.b-table-stacked-md > tbody > tr > [data-label]::before {
+    content: attr(data-label);
+    display: inline;
+    text-align: right;
+    overflow-wrap: break-word;
+    font-weight: bold;
+    font-style: normal;
+  }
+  .b-table.table.b-table-stacked-md > tbody > tr.top-row, .b-table.table.b-table-stacked-md > tbody > tr.bottom-row {
+    display: none;
+  }
+  .b-table.table.b-table-stacked-md > tbody > tr > :first-child {
+    border-top-width: 3px;
+  }
 }
 
-@media all and (max-width: 767.98px) {
-    /* under MD  */
-    table.b-table.b-table-stacked-md {
-        width: 100%;
-    }
-    table.b-table.b-table-stacked-md,
-    table.b-table.b-table-stacked-md > tbody,
-    table.b-table.b-table-stacked-md > tbody > tr,
-    table.b-table.b-table-stacked-md > tbody > tr > td,
-    table.b-table.b-table-stacked-md > tbody > tr > th,
-    table.b-table.b-table-stacked-md > caption {
-        display: block;
-    }
-    /* hide stuff we can't deal with, or shouldn't show */
-    table.b-table.b-table-stacked-md > thead,
-    table.b-table.b-table-stacked-md > tfoot,
-    table.b-table.b-table-stacked-md > tbody > tr.b-table-top-row,
-    table.b-table.b-table-stacked-md > tbody > tr.b-table-bottom-row {
-        display: none;
-    }
-    /* inter-row top border */
-    table.b-table.b-table-stacked-md > tbody > tr > :first-child {
-        border-top-width: 0.4rem;
-    }
-    /* convert TD/TH contents to "cells". Caveat: child elements become cells! */
-    table.b-table.b-table-stacked-md > tbody > tr > [data-label] {
-        display: grid;
-        grid-template-columns: 40% auto;
-        grid-gap: 0.25rem 1rem;
-    }
-    /* generate row cell "heading" */
-    table.b-table.b-table-stacked-md > tbody > tr > [data-label]::before {
-        content: attr(data-label);
-        display: inline;
-        text-align: right;
-        overflow-wrap: break-word;
-        font-weight: bold;
-        font-style: normal;
-    }
+@media (max-width: 991.98px) {
+  .b-table.table.b-table-stacked-lg {
+    display: block;
+    width: 100%;
+  }
+  .b-table.table.b-table-stacked-lg > caption,
+  .b-table.table.b-table-stacked-lg > tbody,
+  .b-table.table.b-table-stacked-lg > tbody > tr,
+  .b-table.table.b-table-stacked-lg > tbody > tr > td,
+  .b-table.table.b-table-stacked-lg > tbody > tr > td {
+    display: block;
+  }
+  .b-table.table.b-table-stacked-lg > thead,
+  .b-table.table.b-table-stacked-lg > tfoot {
+    display: none;
+  }
+  .b-table.table.b-table-stacked-lg > thead > tr.b-table-top-row,
+  .b-table.table.b-table-stacked-lg > thead > tr.b-table-bottom-row,
+  .b-table.table.b-table-stacked-lg > tfoot > tr.b-table-top-row,
+  .b-table.table.b-table-stacked-lg > tfoot > tr.b-table-bottom-row {
+    display: none;
+  }
+  .b-table.table.b-table-stacked-lg > caption {
+    caption-side: top !important;
+  }
+  .b-table.table.b-table-stacked-lg > tbody > tr > [data-label] {
+    display: grid;
+    grid-template-columns: 40% auto;
+    grid-gap: 0.25rem 1rem;
+  }
+  .b-table.table.b-table-stacked-lg > tbody > tr > [data-label]::before {
+    content: attr(data-label);
+    display: inline;
+    text-align: right;
+    overflow-wrap: break-word;
+    font-weight: bold;
+    font-style: normal;
+  }
+  .b-table.table.b-table-stacked-lg > tbody > tr.top-row, .b-table.table.b-table-stacked-lg > tbody > tr.bottom-row {
+    display: none;
+  }
+  .b-table.table.b-table-stacked-lg > tbody > tr > :first-child {
+    border-top-width: 3px;
+  }
 }
 
-@media all and (max-width: 991.98px) {
-    /* under LG  */
-    table.b-table.b-table-stacked-lg {
-        width: 100%;
-    }
-    table.b-table.b-table-stacked-lg,
-    table.b-table.b-table-stacked-lg > tbody,
-    table.b-table.b-table-stacked-lg > tbody > tr,
-    table.b-table.b-table-stacked-lg > tbody > tr > td,
-    table.b-table.b-table-stacked-lg > tbody > tr > th,
-    table.b-table.b-table-stacked-lg > caption {
-        display: block;
-    }
-    /* hide stuff we can't deal with, or shouldn't show */
-    table.b-table.b-table-stacked-lg > thead,
-    table.b-table.b-table-stacked-lg > tfoot,
-    table.b-table.b-table-stacked-lg > tbody > tr.b-table-top-row,
-    table.b-table.b-table-stacked-lg > tbody > tr.b-table-bottom-row {
-        display: none;
-    }
-    /* inter-row top border */
-    table.b-table.b-table-stacked-lg > tbody > tr > :first-child {
-        border-top-width: 0.4rem;
-    }
-    /* convert TD/TH contents to "cells". Caveat: child elements become cells! */
-    table.b-table.b-table-stacked-lg > tbody > tr > [data-label] {
-        display: grid;
-        grid-template-columns: 40% auto;
-        grid-gap: 0.25rem 1rem;
-    }
-    /* generate row cell "heading" */
-    table.b-table.b-table-stacked-lg > tbody > tr > [data-label]::before {
-        content: attr(data-label);
-        display: inline;
-        text-align: right;
-        overflow-wrap: break-word;
-        font-weight: bold;
-        font-style: normal;
-    }
+@media (max-width: 1199.98px) {
+  .b-table.table.b-table-stacked-xl {
+    display: block;
+    width: 100%;
+  }
+  .b-table.table.b-table-stacked-xl > caption,
+  .b-table.table.b-table-stacked-xl > tbody,
+  .b-table.table.b-table-stacked-xl > tbody > tr,
+  .b-table.table.b-table-stacked-xl > tbody > tr > td,
+  .b-table.table.b-table-stacked-xl > tbody > tr > td {
+    display: block;
+  }
+  .b-table.table.b-table-stacked-xl > thead,
+  .b-table.table.b-table-stacked-xl > tfoot {
+    display: none;
+  }
+  .b-table.table.b-table-stacked-xl > thead > tr.b-table-top-row,
+  .b-table.table.b-table-stacked-xl > thead > tr.b-table-bottom-row,
+  .b-table.table.b-table-stacked-xl > tfoot > tr.b-table-top-row,
+  .b-table.table.b-table-stacked-xl > tfoot > tr.b-table-bottom-row {
+    display: none;
+  }
+  .b-table.table.b-table-stacked-xl > caption {
+    caption-side: top !important;
+  }
+  .b-table.table.b-table-stacked-xl > tbody > tr > [data-label] {
+    display: grid;
+    grid-template-columns: 40% auto;
+    grid-gap: 0.25rem 1rem;
+  }
+  .b-table.table.b-table-stacked-xl > tbody > tr > [data-label]::before {
+    content: attr(data-label);
+    display: inline;
+    text-align: right;
+    overflow-wrap: break-word;
+    font-weight: bold;
+    font-style: normal;
+  }
+  .b-table.table.b-table-stacked-xl > tbody > tr.top-row, .b-table.table.b-table-stacked-xl > tbody > tr.bottom-row {
+    display: none;
+  }
+  .b-table.table.b-table-stacked-xl > tbody > tr > :first-child {
+    border-top-width: 3px;
+  }
 }
 
-@media all and (max-width: 1199.98px) {
-    /* under XL  */
-    table.b-table.b-table-stacked-xl {
-        width: 100%;
-    }
-    table.b-table.b-table-stacked-xl,
-    table.b-table.b-table-stacked-xl > tbody,
-    table.b-table.b-table-stacked-xl > tbody > tr,
-    table.b-table.b-table-stacked-xl > tbody > tr > td,
-    table.b-table.b-table-stacked-xl > tbody > tr > th,
-    table.b-table.b-table-stacked-xl > caption {
-        display: block;
-    }
-    /* hide stuff we can't deal with, or shouldn't show */
-    table.b-table.b-table-stacked-xl > thead,
-    table.b-table.b-table-stacked-xl > tfoot,
-    table.b-table.b-table-stacked-xl > tbody > tr.b-table-top-row,
-    table.b-table.b-table-stacked-xl > tbody > tr.b-table-bottom-row {
-        display: none;
-    }
-    /* inter-row top border */
-    table.b-table.b-table-stacked-xl > tbody > tr > :first-child {
-        border-top-width: 0.4rem;
-    }
-    /* convert TD/TH contents to "cells". Caveat: child elements become cells! */
-    table.b-table.b-table-stacked-xl > tbody > tr > [data-label] {
-        display: grid;
-        grid-template-columns: 40% auto;
-        grid-gap: 0.25rem 1rem;
-    }
-    /* generate row cell "heading" */
-    table.b-table.b-table-stacked-xl > tbody > tr > [data-label]::before {
-        content: attr(data-label);
-        display: inline;
-        text-align: right;
-        overflow-wrap: break-word;
-        font-weight: bold;
-        font-style: normal;
-    }
+.b-table.table.b-table-stacked {
+  display: block;
+  width: 100%;
 }
 
-/* Details row styling */
-table.b-table > tbody > tr.b-table-details > td {
-    border-top: none;
+.b-table.table.b-table-stacked > caption,
+.b-table.table.b-table-stacked > tbody,
+.b-table.table.b-table-stacked > tbody > tr,
+.b-table.table.b-table-stacked > tbody > tr > td,
+.b-table.table.b-table-stacked > tbody > tr > td {
+  display: block;
+}
+
+.b-table.table.b-table-stacked > thead,
+.b-table.table.b-table-stacked > tfoot {
+  display: none;
+}
+
+.b-table.table.b-table-stacked > thead > tr.b-table-top-row,
+.b-table.table.b-table-stacked > thead > tr.b-table-bottom-row,
+.b-table.table.b-table-stacked > tfoot > tr.b-table-top-row,
+.b-table.table.b-table-stacked > tfoot > tr.b-table-bottom-row {
+  display: none;
+}
+
+.b-table.table.b-table-stacked > caption {
+  caption-side: top !important;
+}
+
+.b-table.table.b-table-stacked > tbody > tr > [data-label] {
+  display: grid;
+  grid-template-columns: 40% auto;
+  grid-gap: 0.25rem 1rem;
+}
+
+.b-table.table.b-table-stacked > tbody > tr > [data-label]::before {
+  content: attr(data-label);
+  display: inline;
+  text-align: right;
+  overflow-wrap: break-word;
+  font-weight: bold;
+  font-style: normal;
+}
+
+.b-table.table.b-table-stacked > tbody > tr.top-row, .b-table.table.b-table-stacked > tbody > tr.bottom-row {
+  display: none;
+}
+
+.b-table.table.b-table-stacked > tbody > tr > :first-child {
+  border-top-width: 3px;
 }
