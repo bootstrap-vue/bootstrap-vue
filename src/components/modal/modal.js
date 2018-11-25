@@ -196,7 +196,6 @@ export default {
         ref: 'content',
         class: this.contentClasses,
         attrs: {
-          tabindex: '-1',
           role: 'document',
           id: this.safeId('__BV_modal_content_'),
           'aria-labelledby': this.hideHeader
@@ -237,6 +236,7 @@ export default {
         attrs: {
           id: this.safeId(),
           role: 'dialog',
+          tabindex: '-1',
           'aria-hidden': this.is_visible ? null : 'true'
         },
         on: {
@@ -704,16 +704,18 @@ export default {
     // Document focusin listener
     focusHandler (evt) {
       // If focus leaves modal, bring it back
-      const content = this.$refs.content
-      console.log('focus handler:', content, evt)
+      const modal = this.$refs.modal
+      console.log('focus handler:', modal, document.activeElement, evt)
       if (
         !this.noEnforceFocus &&
         this.isTop &&
         this.is_visible &&
-        content &&
-        !contains(content, evt.target)
+        modal &&
+        document !== evt.target &&
+        !contains(modal, evt.target)
       ) {
-        content.focus({preventScroll: true})
+        modal.focus({preventScroll: true})
+        console.log('After focus handler:', modal, document.activeElement)
       }
     },
     // Turn on/off focusin listener
@@ -762,22 +764,20 @@ export default {
       if (typeof document === 'undefined') {
         return
       }
-      const content = this.$refs.content
       const modal = this.$refs.modal
       const activeElement = document.activeElement
-      console.log('Before Auto Focusing Content:', content, modal, activeElement)
-      if (activeElement && content && contains(content, activeElement)) {
+      console.log('Before Auto Focusing Modal:', modal, activeElement)
+      if (activeElement && modal && contains(modal, activeElement)) {
         // If activeElement is child of content, no need to change focus
         return
-      } else if (content) {
-        if (modal) {
-          // make sure top of modal is showing (if longer than the viewport)
-          modal.scrollTop = 0
-        }
+      } else if (modal) {
+        // make sure top of modal is showing (if longer than the viewport)
+        modal.scrollTop = 0
         // Focus the modal content wrapper
         this.$nextTick(() => {
-          console.log('Auto Focusing Content:', content)
-          content.focus()
+          console.log('Auto Focusing Modal:', modal)
+          modal.focus()
+          console.log('After Auto Focusing Modal:', modal, activeElement)
         })
       }
     },
