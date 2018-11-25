@@ -12,6 +12,7 @@ import {
   isVisible,
   selectAll,
   select,
+  contains,
   getBCR,
   getCS,
   addClass,
@@ -203,12 +204,12 @@ export default {
           'aria-describedby': this.safeId('__BV_modal_body_')
         },
         on: {
-          focusout: this.onFocusout,
-          click: evt => {
-            evt.stopPropagation()
-            // https://github.com/bootstrap-vue/bootstrap-vue/issues/1528
-            this.$root.$emit('bv::dropdown::shown')
-          }
+          // Don't think this is needed anymore
+          // click: evt => {
+          //   evt.stopPropagation()
+          //   // https://github.com/bootstrap-vue/bootstrap-vue/issues/1528
+          //   this.$root.$emit('bv::dropdown::shown')
+          // }
         }
       },
       [header, body, footer]
@@ -648,10 +649,12 @@ export default {
         })
         this.emitEvent(shownEvt)
         this.focusFirst()
+        this.setEnforceFocus(true)
       })
     },
     onBeforeLeave () {
       this.is_transitioning = true
+      this.setEnforceFocus(false)
       this.setResizeEvent(false)
     },
     onLeave () {
@@ -703,18 +706,29 @@ export default {
         this.hide('esc')
       }
     },
-    onFocusout (evt) {
+    // Document focusin listener
+    focusHandler (evt) {
       // If focus leaves modal, bring it back
-      // 'focusout' Event Listener bound on content
       const content = this.$refs.content
+      const target = evt.target
       if (
         !this.noEnforceFocus &&
         this.isTop &&
         this.is_visible &&
         content &&
-        !content.contains(evt.relatedTarget)
+        document !== target &&
+        content !== target &&
+        !contains(content, target)
       ) {
         content.focus({preventScroll: true})
+      }
+    },
+    // Turn on/off focus listener
+    setEnforceFocus(on) {
+      if (on) {
+        eventOn(document, 'focusin', this.focusHandler, false)
+      } else {
+        eventOff(document, 'focusin', this.focusHandler, false)
       }
     },
     // Resize Listener
@@ -896,10 +910,10 @@ export default {
   },
   mounted () {
     // Listen for events from others to either open or close ourselves
-    // And to enable/disable enforce focus
     this.listenOnRoot('bv::show::modal', this.showHandler)
-    this.listenOnRoot('bv::modal::shown', this.shownHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
+    // Listen to all modals to enable/disable enforce focus
+    this.listenOnRoot('bv::modal::shown', this.shownHandler)
     this.listenOnRoot('bv::modal::hidden', this.hiddenHandler)
     // Initially show modal?
     if (this.visible === true) {
@@ -912,6 +926,7 @@ export default {
       this._observer.disconnect()
       this._observer = null
     }
+    this.setEnforceFocus(false)
     this.setResizeEvent(false)
     if (this.is_visible) {
       this.is_visible = false
