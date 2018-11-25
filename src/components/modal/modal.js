@@ -198,18 +198,8 @@ export default {
         attrs: {
           role: 'document',
           id: this.safeId('__BV_modal_content_'),
-          'aria-labelledby': this.hideHeader
-            ? null
-            : this.safeId('__BV_modal_header_'),
+          'aria-labelledby': this.hideHeader ? null : this.safeId('__BV_modal_header_'),
           'aria-describedby': this.safeId('__BV_modal_body_')
-        },
-        on: {
-          // Don't think this is needed anymore
-          // click: evt => {
-          //   evt.stopPropagation()
-          //   // https://github.com/bootstrap-vue/bootstrap-vue/issues/1528
-          //   this.$root.$emit('bv::dropdown::shown')
-          // }
         }
       },
       [header, body, footer]
@@ -634,7 +624,7 @@ export default {
     },
     onEnter () {
       this.is_block = true
-      this.$refs.modal.scrollTop = 0
+      // this.$refs.modal.scrollTop = 0
     },
     onAfterEnter () {
       this.is_show = true
@@ -773,10 +763,10 @@ export default {
         return
       }
       if (modal) {
-        // make sure top of modal is showing (if longer than the viewport)
-        modal.scrollTop = 0
-        // Focus the modal content wrapper
+        // make sure top of modal is showing (if longer than the viewport) and
+        // focus the modal content wrapper
         this.$nextTick(() => {
+          modal.scrollTop = 0
           modal.focus()
         })
       }
