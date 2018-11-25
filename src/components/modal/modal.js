@@ -640,6 +640,7 @@ export default {
     onAfterEnter () {
       this.is_show = true
       this.is_transitioning = false
+      this.setEnforceFocus(true)
       this.$nextTick(() => {
         const shownEvt = new BvEvent('shown', {
           cancelable: false,
@@ -649,7 +650,6 @@ export default {
         })
         this.emitEvent(shownEvt)
         this.focusFirst()
-        this.setEnforceFocus(true)
       })
     },
     onBeforeLeave () {
@@ -771,16 +771,12 @@ export default {
       const content = this.$refs.content
       const modal = this.$refs.modal
       const activeElement = document.activeElement
-      if (activeElement && content && content.contains(activeElement)) {
+      if (activeElement && content && contains(content, activeElement)) {
         // If activeElement is child of content, no need to change focus
-      } else if (content) {
-        if (modal) {
-          modal.scrollTop = 0
-        }
+      } else if (content && modal) {
+        modal.scrollTop = 0
         // Focus the modal content wrapper
-        this.$nextTick(() => {
-          content.focus()
-        })
+        this.$nextTick(() => content.focus)
       }
     },
     returnFocusTo () {
