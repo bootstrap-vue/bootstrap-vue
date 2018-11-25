@@ -87,6 +87,7 @@ module.exports = {
 
   css: [
     'bootstrap/dist/css/bootstrap.css',
+    '../src/index.scss',
     'highlightjs/styles/atom-one-light.css',
     'codemirror/lib/codemirror.css',
     '~assets/css/docs.min.css',
