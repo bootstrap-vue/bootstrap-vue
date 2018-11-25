@@ -186,7 +186,7 @@ describe('table', async () => {
           expect(ths.length).toBe(fieldKeys.length)
           ths.forEach((th, idx) => {
             expect(th.hasAttribute('aria-sort')).toBe(
-              vm.fields[fieldKeys[idx]].sortable  || false
+              vm.fields[fieldKeys[idx]].sortable || false
             )
           })
         }
