@@ -278,6 +278,15 @@ export default {
         attrs: { id: this.safeId('__BV_modal_backdrop_') }
       })
     }
+    // Tab trap to prevent page from scrolling to next element in tab index during enforce focus tab cycle
+    const tabTrap = h(
+      'div',
+      {
+        attrs: {
+          tabindex: this.is_visible && this.isTop && !this.noEnforceFocus ? '0' : null
+        }
+      }
+    );
     // Assemble modal and backdrop in an outer div needed for lazy modals
     let outer = h(false)
     if (!this.is_hidden) {
@@ -288,7 +297,7 @@ export default {
           style: this.modalOuterStyle,
           attrs: { id: this.safeId('__BV_modal_outer_') }
         },
-        [modal, backdrop]
+        [modal, tabTrap, backdrop]
       )
     }
     // Wrap in DIV to maintain thi.$el reference for hide/show method aceess
