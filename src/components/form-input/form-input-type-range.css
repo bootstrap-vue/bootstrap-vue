@@ -1,0 +1,220 @@
+/* Manually compiled from form-input-type-range.scss SASS file */
+
+/* Temp padding and height fix until V4.2 https://github.com/twbs/bootstrap/pull/26898 */
+.custom-range {
+  height: calc(1rem + 0.4rem);
+  padding: 0;
+}
+
+/* Temp fix for :disabled state until V4.2 https://github.com/twbs/bootstrap/pull/26540 */
+.custom-range:disabled::-webkit-slider-thumb {
+  background-color: #adb5bd;
+}
+.custom-range:disabled::-webkit-slider-runnable-track {
+  cursor: default;
+}
+.custom-range:disabled::-moz-range-thumb {
+  background-color: #adb5bd;
+}
+.custom-range:disabled::-moz-range-track {
+  cursor: default;
+}
+.custom-range:disabled::-ms-thumb {
+  background-color: #adb5bd;
+}
+
+/* Base .input-group > .custom-range styling (no PR yet on BS V4) */
+.input-group > .custom-range {
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  width: 1%;
+  margin-bottom: 0;
+}
+.input-group > .custom-range + .form-control,
+.input-group > .custom-range + .custom-select,
+.input-group > .custom-range + .form-control-plaintext,
+.input-group > .custom-range + .custom-range,
+.input-group > .custom-range + .custom-file {
+  margin-left: -1px;
+}
+.input-group > .form-control + .custom-range,
+.input-group > .form-control-plaintext + .custom-range,
+.input-group > .custom-select + .custom-range,
+.input-group > .custom-range + .custom-range,
+.input-group > .custom-file + .custom-range {
+  margin-left: -1px;
+}
+.input-group > .custom-range:focus {
+  z-index: 3;
+}
+.input-group > .custom-range:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input-group > .custom-range:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.input-group > .custom-range {
+  height: calc(2.25rem + 2px);
+  padding: 0 0.75rem;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  height: calc(2.25rem + 2px);
+  border-radius: 0.25rem;
+  -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+          transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  .input-group > .custom-range {
+    -webkit-transition: none;
+            transition: none;
+  }
+}
+.input-group > .custom-range:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.input-group > .custom-range:disabled, .input-group > .custom-range[readonly] {
+  background-color: #e9ecef;
+}
+
+.input-group-lg > .custom-range {
+  height: calc(2.875rem + 2px);
+  padding: 0 1rem;
+  border-radius: 0.3rem;
+}
+
+.input-group-sm > .custom-range {
+  height: calc(1.8125rem + 2px);
+  padding: 0 0.5rem;
+  border-radius: 0.2rem;
+}
+
+/* Validation styling - valid (no PR yet on BS V4) */
+.was-validated .input-group .custom-range:valid, .input-group .custom-range.is-valid {
+  border-color: #28a745;
+}
+.was-validated .input-group .custom-range:valid:focus, .input-group .custom-range.is-valid:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.was-validated .custom-range:valid:focus::-webkit-slider-thumb, .custom-range.is-valid:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #9be7ac;
+}
+.was-validated .custom-range:valid:focus::-moz-range-thumb, .custom-range.is-valid:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #9be7ac;
+}
+.was-validated .custom-range:valid:focus::-ms-thumb, .custom-range.is-valid:focus::-ms-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #9be7ac;
+}
+.was-validated .custom-range:valid::-webkit-slider-thumb, .custom-range.is-valid::-webkit-slider-thumb {
+  background-color: #28a745;
+  background-image: none;
+}
+.was-validated .custom-range:valid::-webkit-slider-thumb:active, .custom-range.is-valid::-webkit-slider-thumb:active {
+  background-color: #9be7ac;
+  background-image: none;
+}
+.was-validated .custom-range:valid::-webkit-slider-runnable-track, .custom-range.is-valid::-webkit-slider-runnable-track {
+  background-color: rgba(40, 167, 69, 0.35);
+}
+.was-validated .custom-range:valid::-moz-range-thumb, .custom-range.is-valid::-moz-range-thumb {
+  background-color: #28a745;
+  background-image: none;
+}
+.was-validated .custom-range:valid::-moz-range-thumb:active, .custom-range.is-valid::-moz-range-thumb:active {
+  background-color: #9be7ac;
+  background-image: none;
+}
+.was-validated .custom-range:valid::-moz-range-track, .custom-range.is-valid::-moz-range-track {
+  background: rgba(40, 167, 69, 0.35);
+}
+.was-validated .custom-range:valid ~ .valid-feedback,
+.was-validated .custom-range:valid ~ .valid-tooltip, .custom-range.is-valid ~ .valid-feedback,
+.custom-range.is-valid ~ .valid-tooltip {
+  display: block;
+}
+.was-validated .custom-range:valid::-ms-thumb, .custom-range.is-valid::-ms-thumb {
+  background-color: #28a745;
+  background-image: none;
+}
+.was-validated .custom-range:valid::-ms-thumb:active, .custom-range.is-valid::-ms-thumb:active {
+  background-color: #9be7ac;
+  background-image: none;
+}
+.was-validated .custom-range:valid::-ms-track-lower, .custom-range.is-valid::-ms-track-lower {
+  background: rgba(40, 167, 69, 0.35);
+}
+.was-validated .custom-range:valid::-ms-track-upper, .custom-range.is-valid::-ms-track-upper {
+  background: rgba(40, 167, 69, 0.35);
+}
+
+/* Validation styling - invalid (no PR yet on BS V4) */
+.was-validated .input-group .custom-range:invalid, .input-group .custom-range.is-invalid {
+  border-color: #dc3545;
+}
+.was-validated .input-group .custom-range:invalid:focus, .input-group .custom-range.is-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.was-validated .custom-range:invalid:focus::-webkit-slider-thumb, .custom-range.is-invalid:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #f6cdd1;
+}
+.was-validated .custom-range:invalid:focus::-moz-range-thumb, .custom-range.is-invalid:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #f6cdd1;
+}
+.was-validated .custom-range:invalid:focus::-ms-thumb, .custom-range.is-invalid:focus::-ms-thumb {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem #f6cdd1;
+}
+.was-validated .custom-range:invalid::-webkit-slider-thumb, .custom-range.is-invalid::-webkit-slider-thumb {
+  background-color: #dc3545;
+  background-image: none;
+}
+.was-validated .custom-range:invalid::-webkit-slider-thumb:active, .custom-range.is-invalid::-webkit-slider-thumb:active {
+  background-color: #f6cdd1;
+  background-image: none;
+}
+.was-validated .custom-range:invalid::-webkit-slider-runnable-track, .custom-range.is-invalid::-webkit-slider-runnable-track {
+  background-color: rgba(220, 53, 69, 0.35);
+}
+.was-validated .custom-range:invalid::-moz-range-thumb, .custom-range.is-invalid::-moz-range-thumb {
+  background-color: #dc3545;
+  background-image: none;
+}
+.was-validated .custom-range:invalid::-moz-range-thumb:active, .custom-range.is-invalid::-moz-range-thumb:active {
+  background-color: #f6cdd1;
+  background-image: none;
+}
+.was-validated .custom-range:invalid::-moz-range-track, .custom-range.is-invalid::-moz-range-track {
+  background: rgba(220, 53, 69, 0.35);
+}
+.was-validated .custom-range:invalid::-moz-range-thumb ~ .invalid-feedback, .custom-range.is-invalid::-moz-range-thumb ~ .invalid-feedback {
+  display: block;
+}
+.was-validated .custom-range:invalid::-moz-range-thumb ~ .invalid-tooltip, .custom-range.is-invalid::-moz-range-thumb ~ .invalid-tooltip {
+  display: block;
+}
+.was-validated .custom-range:invalid::-ms-thumb, .custom-range.is-invalid::-ms-thumb {
+  background-color: #dc3545;
+  background-image: none;
+}
+.was-validated .custom-range:invalid::-ms-thumb:active, .custom-range.is-invalid::-ms-thumb:active {
+  background-color: #f6cdd1;
+  background-image: none;
+}
+.was-validated .custom-range:invalid::-ms-track-lower, .custom-range.is-invalid::-ms-track-lower {
+  background: rgba(220, 53, 69, 0.35);
+}
+.was-validated .custom-range:invalid::-ms-track-upper, .custom-range.is-invalid::-ms-track-upper {
+  background: rgba(220, 53, 69, 0.35);
+}
