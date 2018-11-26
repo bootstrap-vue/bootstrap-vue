@@ -28,9 +28,10 @@ To use your own theme and colors in `bootstrap-vue`, you will need to create a
 ```
 
 **Via app main entry point:**
+
 Create an SCSS file such as `custom.scss`
 ```css
-// Define your vatiable overrides here
+// Define your variable overrides here
 $enable-shadows: true;
 $enable-gradients: true;
 $grid-breakpoints: (
