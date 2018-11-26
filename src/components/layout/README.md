@@ -375,7 +375,7 @@ Includes support for 1 through 12 across all five grid tiers.
 
 ### Offsetting columns
 You can offset grid columns in two ways: our responsive `offset-*` props or the
-[margin](/docs/reference/spacing) utility classes. Grid `offset-*` props are sized to
+[margin](/docs/reference/spacing-classes) utility classes. Grid `offset-*` props are sized to
 match columns while margins utility classes are more useful for quick layouts where
 the width of the offset is variable.
 

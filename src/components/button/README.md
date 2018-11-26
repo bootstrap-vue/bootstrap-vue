@@ -146,8 +146,8 @@ export default {
 ```
 
 If using toggle button style for a radio or checkbox style interface, it is best to use the
-built-in `button` style support of [`<b-form-radio-group>`](/docs/components/form-radios) and
-[`<b-checkbox-group>`](/docs/components/form-checkboxes).
+built-in `button` style support of [`<b-form-radio-group>`](/docs/components/form-radio) and
+[`<b-checkbox-group>`](/docs/components/form-checkbox).
 
 
 ## Router link support

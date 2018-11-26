@@ -95,7 +95,7 @@ have these values automatically applied to each `carousel-slide` image.
 Note that images will still be responsive and automatically grow or shrink to fit
 within the width of its parent container.
 
-Internally, `<b-carousel-slide>` uses the [`<b-img>`](/docs/components/img)
+Internally, `<b-carousel-slide>` uses the [`<b-img>`](/docs/components/image)
 component to render the images. The `img-*` props map to the corresponsing props
 available to `<b-img>`.
 
