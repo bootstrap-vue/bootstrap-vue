@@ -67,9 +67,7 @@
       <p v-else>
         This plugin includes all of the above listed individual directives.
       </p>
-      <b-card
-        no-body
-        tag="p">
+      <div class="bd-example">
         <code v-if="$route.name === 'docs-components-slug'">
           import { {{ pluginName }} } from 'bootstrap-vue/es/components';
         </code>
@@ -78,7 +76,7 @@
         </code>
         <br>
         <code>Vue.use({{ pluginName }});</code>
-      </b-card>
+      </div>
       <template v-if="meta.plugins && meta.plugins.length > 0">
         <p>This plugin also automatically includes the following plugins:</p>
         <ul>
