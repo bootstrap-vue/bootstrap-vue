@@ -27,9 +27,14 @@ And import Bootstrap and Bootstrap-Vue *css* files:
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
-Or import Bootstrap and Bootstrap-Vue *scss* files:
+Or import Bootstrap and Bootstrap-Vue *scss* files via a custom SCSS file:
+```css
+// custom.scss
+@include "bootstrap/scss/bootstrap"
+@include "bootstrap-vue/src/index.scss"
+```
 ```js
-import 'bootstrap/scss/bootstrap.scss'
+import 'custom.scss'
 import 'bootstrap-vue/src/index.scss'
 ```
 Be sure to include your custom variables before bootstrap.scss and include boostrap-vue
@@ -75,7 +80,7 @@ and Bootstrap-Vue pre-compiled CSS files by setting the folliwing option(s) to `
 Bootstrap-Vue's custom CSS relies on some Boostrap SCSS variables. You can include Bootstrap
 and Bootstrap-Vue SCSS in your project's custom SCSS file:
 
-**`custom.css` file:**
+**custom.css file:**
 ```scss
 // custom overrides go first
 $grid-breakpoints: (
@@ -237,11 +242,12 @@ module.exports = {
 Choosing the best variant for your build environment / packager helps less bundle sizes.
 If your bundler supports es modules, it will automatically prefer it over commonjs.
 
-| Variant        | Environments         | Package path                   | Minified
-| -------------- | -------------------- | ------------------------------ | ---------------------------------
-| **ES Module**  | Webpack 2 / Rollup   | `dist/bootstrap-vue.esm.js`    | `dist/bootstrap-vue.esm.min.js`
-| commonjs2      | Webpack 1 / ...      | `dist/bootstrap-vue.common.js` | `dist/bootstrap-vue.common.min.js`
-| UMD            | Browser              | `dist/bootstrap-vue.js`        | `dist/bootstrap-vue.min.js`
+| Variant        | Environments         | Package path
+| -------------- | -------------------- | -------------------------------------------------------------
+| **ES Module**  | Webpack 2 / Rollup   | `es/index.js`
+| **ESM Module** | Webpack 2 / Rollup   | `dist/bootstrap-vue.esm.js` / `dist/bootstrap-vue.esm.min.js`
+| commonjs2      | Webpack 1 / ...      | `dist/bootstrap-vue.common.js` / `dist/bootstrap-vue.common.min.js`
+| UMD            | Browser              | `dist/bootstrap-vue.js` / `dist/bootstrap-vue.min.js`
 
 
 ## Migrating a project already using Bootstrap
