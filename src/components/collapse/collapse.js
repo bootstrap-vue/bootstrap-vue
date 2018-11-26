@@ -16,7 +16,7 @@ export default {
         class: this.classObject,
         directives: [ { name: 'show', value: this.show } ],
         attrs: { id: this.id || null },
-        on: { click: this.clickHandler }
+        on: { '!click': this.clickHandler }
       },
       [ this.$slots.default ]
     )
