@@ -141,7 +141,7 @@ export default {
       if (!this.isNav || !el || getCS(this.$el).display !== 'block') {
         return
       }
-      if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item, el')) {
+      if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) {
         this.show = false
       }
     },
