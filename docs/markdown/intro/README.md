@@ -245,9 +245,9 @@ If your bundler supports es modules, it will automatically prefer it over common
 | Variant        | Environments         | Package path
 | -------------- | -------------------- | -------------------------------------------------------------
 | **ES Module**  | Webpack 2 / Rollup   | `es/index.js`
-| **ESM Module** | Webpack 2 / Rollup   | `dist/bootstrap-vue.esm.js` / `dist/bootstrap-vue.esm.min.js`
-| commonjs2      | Webpack 1 / ...      | `dist/bootstrap-vue.common.js` / `dist/bootstrap-vue.common.min.js`
-| UMD            | Browser              | `dist/bootstrap-vue.js` / `dist/bootstrap-vue.min.js`
+| **ESM Module** | Webpack 2 / Rollup   | `dist/bootstrap-vue.esm.js` _or_ `dist/bootstrap-vue.esm.min.js`
+| commonjs2      | Webpack 1 / ...      | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js`
+| UMD            | Browser              | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`
 
 
 ## Migrating a project already using Bootstrap
