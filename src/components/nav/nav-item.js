@@ -7,7 +7,7 @@ export default {
   functional: true,
   props,
   render (h, { props, data, children }) {
-    const listeners = data.on
+    const listeners = data.on || {}
     data.on = {}
     return h(
       'li',
