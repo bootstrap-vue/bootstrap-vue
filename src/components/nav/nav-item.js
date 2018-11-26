@@ -7,14 +7,12 @@ export default {
   functional: true,
   props,
   render (h, { props, data, children }) {
-    const listeners = data.on || {}
-    data.on = {}
     return h(
       'li',
       mergeData(data, {
         staticClass: 'nav-item'
       }),
-      [h(Link, { staticClass: 'nav-link', props, on: listeners }, children)]
+      [h(Link, { staticClass: 'nav-link', props }, children)]
     )
   }
 }
