@@ -1,5 +1,5 @@
 import listenOnRootMixin from '../../mixins/listen-on-root'
-import { hasClass, reflow, getCS, getBCR, eventOn, eventOff } from '../../utils/dom'
+import { closest, matches, reflow, getCS, getBCR, eventOn, eventOff } from '../../utils/dom'
 
 // Events we emit on $root
 const EVENT_STATE = 'bv::collapse::state'
@@ -141,7 +141,7 @@ export default {
       if (!this.isNav || !el || getCS(this.$el).display !== 'block') {
         return
       }
-      if (hasClass(el, 'nav-link') || hasClass(el, 'dropdown-item')) {
+      if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) {
         this.show = false
       }
     },
