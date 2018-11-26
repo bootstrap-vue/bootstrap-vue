@@ -8,8 +8,6 @@ import formValidityMixin from '../../mixins/form-validity'
 import { arrayIncludes } from '../../utils/array'
 import { eventOn, eventOff } from '../../utils/dom'
 
-import './form-input.css'
-
 // Valid supported input types
 const TYPES = [
   'text',

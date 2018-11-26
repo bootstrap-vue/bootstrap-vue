@@ -1,7 +1,7 @@
 import { keys } from './object'
 import { eventOn, eventOff } from './dom'
 
-const allListenTypes = {hover: true, click: true, focus: true}
+const allListenTypes = { hover: true, click: true, focus: true }
 
 const BVBoundListeners = '__BV_boundEventListeners__'
 
@@ -14,7 +14,7 @@ const bindTargets = (vnode, binding, listenTypes, fn) => {
   }
 
   const listener = () => {
-    fn({targets, vnode})
+    fn({ targets, vnode })
   }
 
   keys(allListenTypes).forEach(type => {

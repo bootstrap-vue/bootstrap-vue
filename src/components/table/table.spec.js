@@ -416,7 +416,7 @@ describe('table', async () => {
       trs.forEach((tr, idx) => {
         const spy = jest.fn()
         vm.$on('row-contextmenu', spy)
-        tr.dispatchEvent(new MouseEvent('contextmenu', {button: 2}))
+        tr.dispatchEvent(new MouseEvent('contextmenu', { button: 2 }))
         vm.$off('row-contextmenu', spy)
         expect(spy).toHaveBeenCalled()
       })

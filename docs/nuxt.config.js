@@ -92,6 +92,12 @@ module.exports = {
     }
   },
 
+  head: {
+    script: [
+      { type: 'javascript', src: '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js' }
+    ]
+  },
+
   css: [
     'bootstrap/dist/css/bootstrap.css',
     'highlightjs/styles/atom-one-light.css',

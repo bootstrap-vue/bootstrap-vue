@@ -5,7 +5,7 @@ import { setAttr, addClass, removeClass } from '../../utils/dom'
 const inBrowser = typeof window !== 'undefined'
 
 // target listen types
-const listenTypes = {click: true}
+const listenTypes = { click: true }
 
 // Property key for handler storage
 const BVT = '__BV_toggle__'
@@ -19,7 +19,7 @@ const EVENT_STATE = 'bv::collapse::state'
 export default {
 
   bind (el, binding, vnode) {
-    const targets = target(vnode, binding, listenTypes, ({targets, vnode}) => {
+    const targets = target(vnode, binding, listenTypes, ({ targets, vnode }) => {
       targets.forEach(target => {
         vnode.context.$root.$emit(EVENT_TOGGLE, target)
       })

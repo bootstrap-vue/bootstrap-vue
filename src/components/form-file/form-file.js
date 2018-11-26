@@ -4,9 +4,6 @@ import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import { from as arrayFrom, isArray } from '../../utils/array'
 
-// temporary css until Bootstrap V4.2 is released
-import './form-file.css'
-
 export default {
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
   render (h) {

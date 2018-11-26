@@ -4,8 +4,6 @@ import InputGroupPrepend from './input-group-prepend'
 import InputGroupAppend from './input-group-append'
 import InputGroupText from './input-group-text'
 
-import './input-group.css'
-
 export const props = {
   id: {
     type: String,

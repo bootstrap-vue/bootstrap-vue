@@ -1,9 +1,7 @@
 import bButtonClose from '../button/button-close'
 
-import './alert.css'
-
 export default {
-  components: {bButtonClose},
+  components: { bButtonClose },
   render (h) {
     if (!this.localShow) {
       // If not showing, render placeholder
@@ -20,7 +18,7 @@ export default {
     }
     const alert = h(
       'div',
-      {class: this.classObject, attrs: {role: 'alert', 'aria-live': 'polite', 'aria-atomic': true}},
+      { class: this.classObject, attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true } },
       [dismissBtn, this.$slots.default]
     )
     return !this.fade ? alert : h(

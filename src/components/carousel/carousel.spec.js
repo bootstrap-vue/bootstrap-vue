@@ -1,4 +1,4 @@
-import {loadFixture, nextTick, testVM} from '../../../tests/utils'
+import { loadFixture, nextTick, testVM } from '../../../tests/utils'
 
 jest.useFakeTimers()
 

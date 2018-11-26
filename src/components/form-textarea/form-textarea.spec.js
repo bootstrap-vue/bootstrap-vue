@@ -300,7 +300,7 @@ describe('form-textarea', async () => {
     expect(input.emitted('update')).not.toBeDefined()
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()
-    input.setProps({value: 'test'})
+    input.setProps({ value: 'test' })
     expect(input.emitted('update')).not.toBeDefined()
     expect(input.emitted('input')).not.toBeDefined()
     expect(input.emitted('change')).not.toBeDefined()

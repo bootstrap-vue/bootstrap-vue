@@ -1,12 +1,12 @@
 import { bindTargets, unbindTargets } from '../../utils/target'
 import { setAttr, removeAttr } from '../../utils/dom'
 
-const listenTypes = {click: true}
+const listenTypes = { click: true }
 
 export default {
   // eslint-disable-next-line no-shadow-restricted-names
   bind (el, binding, vnode) {
-    bindTargets(vnode, binding, listenTypes, ({targets, vnode}) => {
+    bindTargets(vnode, binding, listenTypes, ({ targets, vnode }) => {
       targets.forEach(target => {
         vnode.context.$root.$emit('bv::show::modal', target, vnode.elm)
       })

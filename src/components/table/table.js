@@ -11,9 +11,6 @@ import { closest, matches } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 
-// Import styles for busy and stacked
-import './table.css'
-
 // Object of item keys that should be ignored for headers and stringification and filter events
 const IGNORED_FIELD_KEYS = {
   _rowVariant: true,
@@ -755,7 +752,7 @@ export default {
     },
     // Watch for changes to the filter criteria and filtered items vs localItems).
     // And set visual state and emit events as required
-    filteredCheck ({filteredItems, localItems, localFilter}) {
+    filteredCheck ({ filteredItems, localItems, localFilter }) {
       // Determine if the dataset is filtered or not
       let isFiltered
       if (!localFilter) {

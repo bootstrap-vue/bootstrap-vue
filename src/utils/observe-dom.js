@@ -66,7 +66,7 @@ export default function observeDOM (el, callback, opts) /* istanbul ignore next:
     })
 
     // Have the observer observe foo for changes in children, etc
-    obs.observe(el, assign({childList: true, subtree: true}, opts))
+    obs.observe(el, assign({ childList: true, subtree: true }, opts))
   } else if (eventListenerSupported) {
     // Legacy interface. most likely not used in modern browsers
     obs = fakeObserverFactory(el, callback)
