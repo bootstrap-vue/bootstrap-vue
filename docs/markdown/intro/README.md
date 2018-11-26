@@ -21,14 +21,23 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue);
 ```
 
-And import Bootstrap and Bootstrap-Vue css files:
+And import Bootstrap and Bootstrap-Vue *css* files:
 
 ```js
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
+Or import Bootstrap and Bootstrap-Vue *scss* files:
+```js
+import 'bootstrap/scss/bootstrap.scss'
+import 'bootstrap-vue/src/index.scss'
+```
+Be sure to include your custom variables before bootstrap.scss and include boostrap-vue
+SCSS _after_ bootstrap SCSS to ensure variables are set up correctly
 
-**Note**: _requires webpack configuration to load css files ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_
+**Note**: _requires webpack configuration to load css/scss files
+([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_
+
 
 ## Nuxt.js plugin module
 Install dependencies:
