@@ -22,13 +22,11 @@
         </template>
       </b-table>
       <p><strong>Example:</strong></p>
-      <b-card
-        no-body
-        tag="p">
+      <div class="bd-example">
         <code>import {{ components[0] }} from '{{ componentImports[0].import_path }}';</code>
         <br>
         <code>Vue.component('{{ componentName(components[0]) }}', {{ components[0] }});</code>
-      </b-card>
+      </div>
     </article>
 
     <article v-if="directives.length > 0">
@@ -50,15 +48,13 @@
         </template>
       </b-table>
       <p><strong>Example:</strong></p>
-      <b-card
-        no-body
-        tag="p">
+      <div class="bd-example">
         <code>import {{ directives[0] }} from '{{ directiveImports[0].import_path }}';</code>
         <br>
         <code>Vue.directive('{{ directiveName(directives[0]) }}', {{ directives[0] }});</code>
         <br>
-        <code>// Note Vue automatically prefixes the directive name with 'v-'</code>
-      </b-card>
+        <code>// <b>Note:</b> Vue automatically prefixes the directive name with 'v-'</code>
+      </div>
     </article>
 
     <article class="pb-5">
@@ -71,9 +67,7 @@
       <p v-else>
         This plugin includes all of the above listed individual directives.
       </p>
-      <b-card
-        no-body
-        tag="p">
+      <div class="bd-example">
         <code v-if="$route.name === 'docs-components-slug'">
           import { {{ pluginName }} } from 'bootstrap-vue/es/components';
         </code>
@@ -82,7 +76,7 @@
         </code>
         <br>
         <code>Vue.use({{ pluginName }});</code>
-      </b-card>
+      </div>
       <template v-if="meta.plugins && meta.plugins.length > 0">
         <p>This plugin also automatically includes the following plugins:</p>
         <ul>
