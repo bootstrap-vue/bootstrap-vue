@@ -131,7 +131,7 @@ $custom-range-thumb-disabled-bg: $gray-500 !default;
 @mixin bv-custom-range-validation-state($state, $color) {
   .input-group .custom-range {
     .was-validated &:#{$state},
-    &.is-#{$sate} {
+    &.is-#{$state} {
       border-color: $color;
 
       &:focus {
@@ -143,7 +143,7 @@ $custom-range-thumb-disabled-bg: $gray-500 !default;
 
   .custom-range {
       .was-validated &:#{$state},
-      &.is-#{$sate} {
+      &.is-#{$state} {
 
       // Pseudo-elements must be split across multiple rulesets to have an affect.
       &:focus {
