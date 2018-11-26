@@ -12,7 +12,7 @@ export default {
     return h(
       'li',
       mergeData(data, {
-        staticClass: 'nav-item',
+        staticClass: 'nav-item'
       }),
       [h(Link, { staticClass: 'nav-link', props, on: listeners }, children)]
     )
