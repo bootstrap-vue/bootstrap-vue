@@ -60,8 +60,8 @@ This will include both `boostrap.css` and `bootstrap-vue.css` default CSS
 }
 ```
 
-If you are using custom bootstrap CSS, you can disable automatic inclusion of either
-CSS file, set the folliwing option(s) to false:
+If you are using custom bootstrap SCSS, you can disable automatic inclusion of Bootstrap
+and Bootstrap-Vue pre-compiled CSS files by setting the folliwing option(s) to `false`:
 
 ```js
 {
@@ -72,15 +72,29 @@ CSS file, set the folliwing option(s) to false:
 
 ```
 
-Bootstrap-Vue's custom CSS relies on some Boostrap SCSS variables.  You can include Bootstrap
-and Bootstrap-Vue SCSS in your project's SCSS file:
+Bootstrap-Vue's custom CSS relies on some Boostrap SCSS variables. You can include Bootstrap
+and Bootstrap-Vue SCSS in your project's custom SCSS file:
 
+**`custom.css` file:**
 ```scss
+// custom overrides go first
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+  foo: 1999px
+);
+
+// then include the following
 @include "bootstrap/scss/bootstrap"
 @include "bootstrap-vue/src/index.scss"
 ```
-
-Be sure to include boostrap-vue SCSS _after_ bootstrap SCSS to ensure variables are set up correctly
+and in your app main entry point include the single custom scss file (wen using nodes-sass/sass-loader):
+```js
+import 'custom.scss'
+```
 
 
 ## vue-cli V2
