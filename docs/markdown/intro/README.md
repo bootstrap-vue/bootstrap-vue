@@ -30,12 +30,12 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Or import Bootstrap and Bootstrap-Vue *scss* files via a custom SCSS file:
 ```css
 // custom.scss
-@include "bootstrap/scss/bootstrap"
-@include "bootstrap-vue/src/index.scss"
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap-vue/src/index.scss";
 ```
 ```js
+// App entry point
 import 'custom.scss'
-import 'bootstrap-vue/src/index.scss'
 ```
 Be sure to include your custom variables before bootstrap.scss and include boostrap-vue
 SCSS _after_ bootstrap SCSS to ensure variables are set up correctly
