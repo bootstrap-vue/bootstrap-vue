@@ -461,6 +461,7 @@ Unlike native Bootstrap V4, Bootstrap-Vue supports multiple modals opened at the
 **Notes:**
 - Do not nest `b-modal` _inside_ another `b-modal`, as it will get "constrained" to the boundaries of the containing modal dialog.
 - The opaque backdrop will appear progressively darker for each modal that is opened. This is expected behaviour as each backdrop is opened over top the other backdrops.
+- For multiple modals to stack properly, they **must** be defined in the document in the order they will be opened, otherwise a newly opened modal may appear hidden or obscured by a currently open modal.
 
 ## Accessibility
 
