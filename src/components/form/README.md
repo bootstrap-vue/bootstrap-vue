@@ -99,7 +99,7 @@ from their default states.
 - Controls **only appear inline in viewports that are at least 576px wide** to account for narrow viewports on mobile devices.
 
 You may need to manually address the width and alignment of individual form controls with
-[spacing utilities](/docs/reference/spacing) (as shown below). Lastly, be sure to always
+[spacing utilities](/docs/reference/spacing-classes) (as shown below). Lastly, be sure to always
 include a `<label>` with each form control, even if you need to hide it from non-screenreader
 visitors with class `.sr-only`.
 
