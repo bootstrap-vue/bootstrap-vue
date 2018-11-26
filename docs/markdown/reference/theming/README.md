@@ -63,6 +63,8 @@ Do not forget to include `node-sass` and `sass-loader` to use `scss` in Vue:
 npm install --save-dev node-sass sass-loader
 ```
 
+**Note:** You may need to adjust the SCSS import paths based on your build environment.
+
 
 ## See also
 For more details on theming Bootstrap's CSS, refer to the
