@@ -227,7 +227,8 @@ to:
   <div role="group">
     <label for="inputLive">Name:</label>
     <b-form-input id="inputLive"
-                  v-model.trim="name"
+                  v-model="name"
+                  trim
                   type="text"
                   :state="nameState"
                   aria-describedby="inputLiveHelp inputLiveFeedback"
