@@ -379,7 +379,7 @@ You can offset grid columns in two ways: our responsive `offset-*` props or the
 match columns while margins utility classes are more useful for quick layouts where
 the width of the offset is variable.
 
-```
+```html
 <b-container fluid class="bv-example-row">
   <b-row>
     <b-col md="4">md="4"</b-col>
@@ -400,7 +400,7 @@ the width of the offset is variable.
 In addition to column clearing at responsive breakpoints, you may need to
 reset offsets by setting the offset to `0` at  a larger breakpoint:
 
-```
+```html
 <b-container fluid class="bv-example-row">
   <b-row>
     <b-col sm="5" md="6">
@@ -427,7 +427,7 @@ reset offsets by setting the offset to `0` at  a larger breakpoint:
 With the move to flexbox in Bootstrap v4, you can use [margin and spacing](/docs/reference/spacing-classes)
 utility classes like `.mr-auto` to force sibling columns away from one another.
 
-```
+```html
 <b-container fluid class="text-light text-center">
   <b-row class="mb-3">
     <b-col md="4" class="p-3 bg-info">md="4"</b-col>
@@ -454,7 +454,7 @@ include a set of columns that add up to 12 or fewer (it is not required that you
 all 12 available columns).
 
 
-```
+```html
 <b-container fluid class="bv-example-row">
   <b-row>
     <b-col sm="9">
