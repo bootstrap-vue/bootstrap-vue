@@ -58,7 +58,7 @@ export default {
     boundary: {
       // String: scrollParent, window, or viewport
       // Element: element reference
-      type: [String, Object],
+      type: [String, HTMLElement],
       default: 'scrollParent'
     },
     show: {
