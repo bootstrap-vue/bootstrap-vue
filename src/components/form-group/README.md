@@ -15,7 +15,7 @@ invalid/valid feedback text, as well as visual (color) contextual state feedback
       :valid-feedback="validFeedback"
       :state="state"
   >
-    <b-form-input id="input1" :state="state" v-model.trim="name"></b-form-input>
+    <b-form-input id="input1" :state="state" v-model="name" trim></b-form-input>
   </b-form-group>
 </template>
 
