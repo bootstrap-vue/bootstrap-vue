@@ -114,7 +114,6 @@
     "sass-loader": "^7.1.0",
     "standard-version": "^4.4.0",
     "terser": "^3.10.13",
-    "uglify-es": "^3.3.9",
     "vue-beta": "npm:vue@~2.5.17-beta.0",
     "vue-jest": "^3.0.0",
     "vue-latest": "npm:vue@~2.5.16"
