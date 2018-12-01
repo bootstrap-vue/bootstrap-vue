@@ -9,27 +9,50 @@ rollup -c scripts/rollup.config.js
 echo 'Done.'
 echo ''
 
-echo 'Uglify JS...'
-# We don't use --compress for the ESM build because it removes the imports from the top
-uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/bootstrap-vue.js.map,includeSources,url=bootstrap-vue.min.js.map" --output dist/bootstrap-vue.min.js dist/bootstrap-vue.js
-uglifyjs --compress typeofs=false --mangle --comments "/^!/" --source-map "content=dist/bootstrap-vue.common.js.map,includeSources,url=bootstrap-vue.min.common.js.map" --output dist/bootstrap-vue.min.common.js dist/bootstrap-vue.common.js
-uglifyjs --mangle --comments "/^!/" --source-map "content=dist/bootstrap-vue.esm.js.map,includeSources,url=bootstrap-vue.min.esm.js.map" --output dist/bootstrap-vue.min.esm.js dist/bootstrap-vue.esm.js
-echo 'Done.'
-echo ''
-
 echo 'Build ES modules...'
 npx babel src --out-dir es --ignore 'src/**/*/fixtures,src/**/*.spec.js'
 echo 'Done.'
 echo ''
 
+echo 'Minify JS...'
+terser dist/bootstrap-vue.js \
+       --compress typeofs=false \
+       --mangle --comments "/^!/" \
+       --source-map "content=dist/bootstrap-vue.js.map,includeSources,url=bootstrap-vue.min.js.map" \
+       --output dist/bootstrap-vue.min.js
+terser dist/bootstrap-vue.common.js \
+       --compress typeofs=false \
+       --mangle --comments "/^!/" \
+       --source-map "content=dist/bootstrap-vue.common.js.map,includeSources,url=bootstrap-vue.common.min.js.map" \
+       --output dist/bootstrap-vue.common.min.js
+terser dist/bootstrap-vue.esm.js \
+       --compress typeofs=false \
+       --mangle \
+       --comments "/^!/" \
+       --source-map "content=dist/bootstrap-vue.esm.js.map,includeSources,url=bootstrap-vue.esm.min.js.map" \
+       --output dist/bootstrap-vue.esm.min.js
+echo 'Done.'
+echo ''
+
 echo 'Compile SASS...'
-node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 src/index.scss dist/bootstrap-vue.css
-postcss --config scripts/postcss.config.js --replace dist/bootstrap-vue.css
+node-sass --output-style expanded \
+          --source-map true \
+          --source-map-contents true \
+          --precision 6 \
+          src/index.scss \
+          dist/bootstrap-vue.css
+postcss --config scripts/postcss.config.js \
+        --replace dist/bootstrap-vue.css
 echo 'Done.'
 echo ''
 
 echo 'Minify CSS...'
-cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output dist/bootstrap-vue.min.css dist/bootstrap-vue.css
+cleancss --level 1 \
+         --format breaksWith=lf \
+         --source-map \
+         --source-map-inline-sources \
+         --output dist/bootstrap-vue.min.css \
+         dist/bootstrap-vue.css
 echo 'Done.'
 echo ''
 
