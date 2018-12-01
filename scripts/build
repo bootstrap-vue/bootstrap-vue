@@ -24,7 +24,7 @@ terser dist/bootstrap-vue.common.js \
        --compress typeofs=false \
        --mangle --comments "/^!/" \
        --source-map "content=dist/bootstrap-vue.common.js.map,includeSources,url=bootstrap-vue.common.min.js.map" \
-       --output dist/bootstrap-vue.min.common.js
+       --output dist/bootstrap-vue.common.min.js
 terser dist/bootstrap-vue.esm.js \
        --compress typeofs=false \
        --mangle \
