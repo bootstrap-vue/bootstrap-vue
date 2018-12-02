@@ -110,11 +110,11 @@ export default {
     checked: {
       // This is the v-model
     },
-    plain: {
+    inline: {
       type: Boolean,
       default: false
     },
-    inline: {
+    plain: {
       type: Boolean,
       default: false
     },
