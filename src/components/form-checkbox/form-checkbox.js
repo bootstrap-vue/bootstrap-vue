@@ -9,8 +9,8 @@ import looseIndexOf from '../../utils/loose-index-of'
 
 export default {
   mixins: [
-    idMixin,
     formRadioCheckMixin, // includes shared render function
+    idMixin,
     formMixin,
     formSizeMixin,
     formStateMixin
