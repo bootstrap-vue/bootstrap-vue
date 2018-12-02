@@ -111,5 +111,8 @@ export default {
       }
       return this.computedState === false ? 'true' : null
     }
+  },
+  mounted () {
+    this.localChecked = this.checked
   }
 }
