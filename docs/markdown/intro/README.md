@@ -163,7 +163,7 @@ Vue.directive('b-modal', bModalDirective);
 ```
 
 Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-casing (shown),
-camel-casing, pascal-casing, and/or object property shorthand.
+camelCasing, PascalCasing, and/or object property shorthand.
 
 ### Component groups and Directives as Vue plugins
 You can also import component groups and directives as Vue plugins by importing
