@@ -99,9 +99,10 @@ export default {
   },
   props: {
     value: {
+      // value when checked
     },
     checked: {
-      // This is the model, except when in group mode
+      // This is the v-model
     },
     plain: {
       type: Boolean,
@@ -132,23 +133,27 @@ export default {
       }
     },
     is_Group () {
+      // Is this check/radio a child of check-group or radio-group?
       return this.bvGroup !== this
+    },
+    is_Array () {
+      // Is the v-model bound to an array?
+      return this.is_Radio ? false : isArray(this.bvGroup.localChecked)
     },
     is_BtnMode () {
       return this.bvGroup.buttons || false
     },
     is_Plain () {
-      return this.bvGroup.plain && !this.is_BtnMode
+      return this.is_BtnMode ? false : this.bvGroup.plain
     },
     is_Custom () {
-      return !this.bvGroup.plain && !this.is_BtnMode
+      return this.is_BtnMode ? false : !this.bvGroup.plain
     },
     is_Inline () {
-      return this.bvGroup.inline && !this.is_BtnMode
+      return this.is_BtnMode ? false : this.bvGroup.inline
     },
     is_Disabled () {
-      // Child can be disabled while parent isn't, but is always
-      // disabled if group is
+      // Child can be disabled while parent isn't, but is always disabled if group is
       return this.bvGroup.disabled || this.disabled
     },
     is_Required () {
