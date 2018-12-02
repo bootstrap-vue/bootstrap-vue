@@ -59,12 +59,17 @@ export default {
     )
 
     if (this.is_BtnMode) {
-      // Button mode, requires wrapping in a radio-group
-      return h(
+      // Button mode
+      let button = h(
         'label',
         { class: this.buttonClasses },
         [input, defaultSlot]
       )
+      if (!this.is_Group) {
+        // Standalone button mode, so wrap in 'btn-group-toggle'
+        button = h('div', { class: ['btn-group-toggle'] }, [button])
+      }
+      return button
     } else {
       // Not button mode
       const label = h(
@@ -112,6 +117,11 @@ export default {
       type: Boolean,
       default: false
     },
+    button: {
+      // only aplicable in standalone mode (non group)
+      type: Boolean,
+      default: false
+    },
     buttonVariant: {
       // Only applicable when rendered with button style
       type: String,
@@ -141,7 +151,8 @@ export default {
       return this.is_Radio ? false : isArray(this.bvGroup.localChecked)
     },
     is_BtnMode () {
-      return this.bvGroup.buttons || false
+      // Support button style in single input mode
+      return this.is_Group ? this.bvGroup.buttons : this.button
     },
     is_Plain () {
       return this.is_BtnMode ? false : this.bvGroup.plain
