@@ -89,8 +89,6 @@ export default {
             'custom-control-inline': this.is_Custom && this.is_Inline,
             'custom-checkbox': this.is_Custom && this.is_Check,
             'custom-radio': this.is_Custom && this.is_Radio,
-            'is-valid': this.get_State === true,
-            'is-invalid': this.get_State === false,
             // Temprary until BS V4 supports sizing
             [`form-control-${this.get_Size}`]: Boolean(this.get_Size && !this.is_BtnMode)
           }
@@ -169,9 +167,9 @@ export default {
     },
     get_State () {
       // local state preferred over group state (except when null)
-      if (this.computedState === 'boolean') {
+      if (typeof this.computedState === 'boolean') {
         return this.computedState
-      } else if (this.bvGroup.computedState === 'boolean') {
+      } else if (typeof this.bvGroup.computedState === 'boolean') {
         return this.bvGroup.computedState
       } else {
         return null
