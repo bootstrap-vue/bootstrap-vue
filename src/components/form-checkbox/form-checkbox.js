@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     handleChange ({ target: { checked, indeterminate } }) {
-      let localChecked = this.computedlocalChecked
+      let localChecked = this.computedLocalChecked
       const value = this.value
       const isArr = isArray(localChecked)
       const uncheckedValue = isArr ? null : this.uncheckedValue
@@ -104,9 +104,6 @@ export default {
     }
   },
   mounted () {
-    if (!isArray(this.bvGroup.localValue) && !this.is_Checked) {
-      this.bvGroup.localChecked = this.uncheckedValue
-    }
     // Set initial indeterminate state
     this.setIndeterminate(this.indeterminate)
   }
