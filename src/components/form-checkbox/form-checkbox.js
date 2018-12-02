@@ -40,7 +40,7 @@ export default {
       const checked = this.computedLocalChecked
       const value = this.value
       if (isArray(checked)) {
-        return looseIndexOf(checked, value) !== -1
+        return looseIndexOf(checked, value) > -1
       } else {
         return looseEqual(checked, value)
       }
@@ -82,7 +82,7 @@ export default {
       } else {
         localChecked = checked ? value : uncheckedValue
       }
-      this.computedLocalChceked = localChecked
+      this.computedLocalChecked = localChecked
       // Change is only emitted on user interaction
       this.$emit('change', checked ? value : uncheckedValue)
       // If this is a child of form-checkbox-group, we emit a change event on it as well
