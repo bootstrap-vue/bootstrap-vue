@@ -1,7 +1,7 @@
 export default {
   data () {
     return {
-      localChecked: this.checked,
+      localChecked: this.bvGroup.checked,
       hasFocus: false,
       // Can never be a button when not in group (currently)
       // We use a data so we can easily test classes/structure
