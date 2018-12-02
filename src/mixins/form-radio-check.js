@@ -5,8 +5,7 @@ export default {
     return {
       localChecked: this.bvGroup.checked,
       hasFocus: false,
-      // Can never be a button when not in group (currently)
-      // We use a data so we can easily test classes/structure
+      // Surrogate value when not a childe of group
       buttons: false
     }
   },
@@ -163,7 +162,7 @@ export default {
       return this.is_BtnMode ? false : !this.bvGroup.plain
     },
     is_Inline () {
-      return this.is_BtnMode ? false : this.bvGroup.inline
+      return this.bvGroup.inline
     },
     is_Disabled () {
       // Child can be disabled while parent isn't, but is always disabled if group is
