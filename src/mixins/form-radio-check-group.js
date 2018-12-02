@@ -73,11 +73,8 @@ export default {
     checked (newVal, oldVal) {
       this.localChecked = newVal
     },
-    localChecked: {
-      deep: true,
-      handler (newVal, oldVal) {
-        this.$emit('input', newVal)
-      }
+    localChecked (newVal, oldVal) {
+      this.$emit('input', newVal)
     }
   },
   computed: {
