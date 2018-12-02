@@ -11,9 +11,9 @@ export default {
           props: {
             id: this.safeId(uid),
             value: option.value,
-            disabled: option.disabled
+            disabled: option.disabled || null
             // Do we need to do these, since radio's will know they are inside here?
-            // name: this.name,
+            // name: this.groupName,
             // form: this.form || null,
             // required: Boolean(this.name && this.required),
           }
