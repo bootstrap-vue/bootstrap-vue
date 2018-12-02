@@ -213,8 +213,8 @@ export default {
   },
   methods: {
     handleFocus (evt) {
-      // When in buttons mode, we need to add 'focus' class to label when radio focused
-      if (this.is_BtnMode && evt.target) {
+      // When in buttons mode, we need to add 'focus' class to label when input focused
+      if (evt.target) {
         if (evt.type === 'focus') {
           this.hasFocus = true
         } else if (evt.type === 'blur') {
