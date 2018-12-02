@@ -68,7 +68,8 @@ export default {
       )
       if (!this.is_Group) {
         // Standalone button mode, so wrap in 'btn-group-toggle'
-        button = h('div', { class: ['btn-group-toggle'] }, [button])
+        // and flag it as inline-block to mimic regular buttons
+        button = h('div', { class: ['btn-group-toggle', 'd-inline-block'] }, [button])
       }
       return button
     } else {
