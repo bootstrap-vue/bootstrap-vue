@@ -55,8 +55,8 @@ export default {
   watch: {
     computedLocalChecked (newVal, oldVal) {
       this.$emit('input', newVal)
-      if (this.$refs && this.$refs.check) {
-        this.$emit('update:indeterminate', this.$refs.check.indeterminate)
+      if (this.$refs && this.$refs.input) {
+        this.$emit('update:indeterminate', this.$refs.input.indeterminate)
       }
     },
     indeterminate (newVal, oldVal) {
