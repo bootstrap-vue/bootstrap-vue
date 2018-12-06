@@ -8,9 +8,9 @@ other elements into a concise header. It’s easily extensible and thanks to the
 ```html
 <b-navbar toggleable="md" type="dark" variant="info">
 
-  <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-
   <b-navbar-brand href="#">NavBar</b-navbar-brand>
+  
+  <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
   <b-collapse is-nav id="nav_collapse">
 
