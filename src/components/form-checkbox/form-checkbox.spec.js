@@ -779,7 +779,7 @@ describe('form-checkbox', async () => {
     expect(wrapper.vm.localChecked).toEqual(true)
   })
 
-  it('default has internal localChecked undefined', async () => {
+  it('default has internal localChecked null', async () => {
     const wrapper = mount(Input, {
       propsData: {
         uncheckedValue: 'foo',
@@ -790,7 +790,8 @@ describe('form-checkbox', async () => {
       }
     })
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.vm.localChecked).not.toBeDefined()
+    expect(wrapper.vm.localChecked).toBeDefined()
+    expect(wrapper.vm.localChecked).toBe(null)
   })
 
   it('default has internal localChecked set to checked prop', async () => {
@@ -836,7 +837,8 @@ describe('form-checkbox', async () => {
       }
     })
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.vm.localChecked).not.toBeDefined()
+    expect(wrapper.vm.localChecked).toBeDefined()
+    expect(wrapper.vm.localChecked).toBe(null)
     wrapper.setProps({
       checked: 'bar'
     })
@@ -858,7 +860,8 @@ describe('form-checkbox', async () => {
       }
     })
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.vm.localChecked).not.toBeDefined()
+    expect(wrapper.vm.localChecked).toBeDefined()
+    expect(wrapper.vm.localChecked).toBe(null)
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     const input = wrapper.find('input')
