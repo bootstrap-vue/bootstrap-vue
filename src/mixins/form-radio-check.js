@@ -148,10 +148,6 @@ export default {
       // Is this check/radio a child of check-group or radio-group?
       return this.bvGroup !== this
     },
-    is_Array () {
-      // Is the v-model bound to an array?
-      return this.is_Radio ? false : isArray(this.bvGroup.localChecked)
-    },
     is_BtnMode () {
       // Support button style in single input mode
       return this.is_Group ? this.bvGroup.buttons : this.button
