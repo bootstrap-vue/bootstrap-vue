@@ -194,4 +194,20 @@ describe('form-checkbox-group', async () => {
     expect(wrapper.classes()).toContain('btn-group-toggle')
     expect(wrapper.classes()).toContain('btn-group-lg')
   })
+
+  /* functionality testing */
+
+  it('has checkboxes via options array', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: []
+      }
+    })
+    expect(wrapper.classes()).toBeDefined()
+    const checks = wrapper.findAll('input')
+    expect(checks.length).toBe(3)
+    expect(wrapper.vm.localChecked).toEqual([])
+  })
 })
