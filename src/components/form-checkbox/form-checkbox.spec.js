@@ -760,7 +760,7 @@ describe('form-checkbox', async () => {
     const wrapper = mount(Input, {
       propsData: {
         uncheckedValue: 'foo',
-        checked: 'bar'
+        value: 'bar'
       },
       slots: {
         default: 'foobar'
@@ -770,7 +770,7 @@ describe('form-checkbox', async () => {
     expect(wrapper.vm.localChecked).toBeDefined()
     expect(wrapper.vm.localChecked).toEqual('foo')
     wrapper.setProps({
-      value: 'bar'
+      checked: 'bar'
     })
     expect(wrapper.vm.localChecked).toEqual('bar')
     expect(wrapper.vm.emitted('input')).toBeDefined()
