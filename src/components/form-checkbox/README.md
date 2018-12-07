@@ -156,6 +156,9 @@ checkbox's `value` prop (the default of `true` will not work when bound to an ar
 To pre-check any radios, set the v-model to the value(s) of the checks that you would like
 pre-selected.
 
+When placing individual `<b-form-checkbox>` components within a `<b-form-checkbox-group>`, most
+props and the v-model are inherited from the `<b-form-checkbox-group>`.
+
 
 ### Multiple checkboxes and accessibility
 When binding multiple checkboxes together, you should set the `name` prop to the same
