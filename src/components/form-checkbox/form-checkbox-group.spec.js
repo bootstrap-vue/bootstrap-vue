@@ -49,7 +49,7 @@ describe('form-checkbox-group', async () => {
       }
     })
     expect(wrapper.attributes('tabindex')).toBeDefined()
-    expect(wrapper.attributes('tabindex')).toBe(-1)
+    expect(wrapper.attributes('tabindex')).toBe('-1')
   })
 
   it('default does not have aria-required set', async () => {
