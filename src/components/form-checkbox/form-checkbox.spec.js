@@ -695,6 +695,60 @@ describe('form-checkbox', async () => {
     expect(label.classes()).toContain('btn-primary')
   })
 
+  /* indeterminate testing */
+
+  it('does not have input indeterminate set by default', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(input.element.indeterminate).toBe(false)
+  })
+
+  it('has input indeterminate set by when indetermnate=true', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        checked: false,
+        indeterminate: true
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(input.element.indeterminate).toBe(true)
+  })
+
+  it('has input indeterminate set by when indetermnate set to true after mount', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        checked: false,
+        indeterminate: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(input.element.indeterminate).toBe(false)
+    wrapper.setProps({
+      indeterminate: true
+    })
+    expect(input.element.indeterminate).toBe(true)
+    wrapper.setProps({
+      indeterminate: false
+    })
+    expect(input.element.indeterminate).toBe(false)
+  })
+
   /* functionality testing */
 
   it('default has internal localChecked=false when prop checked=false', async () => {
