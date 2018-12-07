@@ -188,7 +188,7 @@ describe('form-radio', async () => {
     const wrapper = mount(Input, {
       propsData: {
         checked: '',
-        value: 'a'
+        value: 'a',
         required: true,
         name: 'test'
       },
