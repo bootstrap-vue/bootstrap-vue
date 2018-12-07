@@ -104,9 +104,6 @@ export default {
     }
   },
   mounted () {
-    if (!this.is_Array && !this.is_Checked) {
-      this.bvGroup.localChecked = this.uncheckedValue
-    }
     // Set initial indeterminate state
     this.setIndeterminate(this.indeterminate)
   }
