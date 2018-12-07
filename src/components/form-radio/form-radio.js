@@ -22,7 +22,7 @@ export default {
   props: {
     checked: {
       // v-model
-      type: [Object, String, Boolean],
+      type: [String, Object, Number, Boolean],
       default: null
     }
   },
