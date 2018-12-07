@@ -791,7 +791,6 @@ describe('form-checkbox', async () => {
     })
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.vm.localChecked).not.toBeDefined()
-    expect(wrapper.vm.localChecked).toEqual('foo')
   })
 
   it('default has internal localChecked set to checked prop', async () => {
