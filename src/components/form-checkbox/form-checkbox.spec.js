@@ -773,9 +773,9 @@ describe('form-checkbox', async () => {
       checked: 'bar'
     })
     expect(wrapper.vm.localChecked).toEqual('bar')
-    expect(wrapper.vm.emitted('input')).toBeDefined()
-    const last = wrapper.vm.emitted('input') - 1
-    expect(wrapper.vm.emitted('input')[last]).toBeDefined()
-    expect(wrapper.vm.emitted('input')[last][0]).toEqual('bar')
+    expect(wrapper.emitted('input')).toBeDefined()
+    const last = wrapper.emitted('input') - 1
+    expect(wrapper.emitted('input')[last]).toBeDefined()
+    expect(wrapper.emitted('input')[last][0]).toEqual('bar')
   })
 })
