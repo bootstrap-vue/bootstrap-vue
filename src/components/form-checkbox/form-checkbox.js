@@ -33,6 +33,11 @@ export default {
       // Not applicable in multi-check mode
       type: Boolean,
       default: false
+    },
+    checked: {
+      // v-model
+      type: [Array, Object, String, Boolean],
+      default: null
     }
   },
   computed: {
