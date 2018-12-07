@@ -912,7 +912,7 @@ describe('form-checkbox', async () => {
   it('works when value is an object', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        value: {bar: 1, baz: 2},
+        value: { bar: 1, baz: 2 },
         checked: ['foo']
       },
       slots: {
@@ -924,6 +924,9 @@ describe('form-checkbox', async () => {
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(1)
     expect(wrapper.vm.localChecked[0]).toEqual('foo')
+
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
 
     input.setChecked(true)
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
