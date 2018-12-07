@@ -425,7 +425,7 @@ your `disabled` value will be updated as long as you have provided the `.sync` p
         {{ disabled ? 'Enable' : 'Disable' }} Popover by $ref event
       </b-btn>
 
-      <b-popover :disabled.sync="disabled" target="popoverButton-disable" title="Popover">
+      <b-popover :disabled.sync="disabled" target="popoverButton-disable" title="Popover" ref="popover">
         Hello <strong>World!</strong>
       </b-popover>
     </div>

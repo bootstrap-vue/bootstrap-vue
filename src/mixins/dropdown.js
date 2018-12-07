@@ -350,7 +350,9 @@ export default {
       if (this.$el.contains(evt.relatedTarget)) {
         return
       }
-      this.visible = false
+      setTimeout(() => {
+        this.visible = false
+      })
     },
     onMouseOver (evt) /* istanbul ignore next: not easy to test */ {
       // Removed mouseover focus handler
