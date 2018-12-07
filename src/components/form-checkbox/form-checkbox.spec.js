@@ -832,4 +832,108 @@ describe('form-checkbox', async () => {
     expect(wrapper.emitted('input')[last]).toBeDefined()
     expect(wrapper.emitted('input')[last][0]).toEqual('bar')
   })
+
+  it('emits a change event when clicked', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        uncheckedValue: 'foo',
+        value: 'bar'
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.vm.localChecked).toBeDefined()
+    expect(wrapper.vm.localChecked).toEqual('foo')
+    expect(wrapper.emitted('change')).not.toBeDefined()
+
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+
+    input.setChecked(true)
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('change').length).toBe(1)
+    expect(wrapper.emitted('change')[0][0]).toEqual('bar')
+
+    input.setChecked(false)
+    expect(wrapper.emitted('change')).toBeDefined()
+    expect(wrapper.emitted('change').length).toBe(2)
+    expect(wrapper.emitted('change')[1][0]).toEqual('foo')
+  })
+
+  it('works when v-model bound to an array', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        value: 'bar',
+        checked: ['foo']
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.vm.localChecked).toBeDefined()
+    expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
+    expect(wrapper.vm.localChecked.length).toBe(1)
+    expect(wrapper.vm.localChecked[0]).toEqual('foo')
+
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+
+    input.setChecked(true)
+    expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
+    expect(wrapper.vm.localChecked.length).toBe(2)
+    expect(wrapper.vm.localChecked[0]).toEqual('foo')
+    expect(wrapper.vm.localChecked[1]).toEqual('bar')
+
+    input.setChecked(false)
+    expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
+    expect(wrapper.vm.localChecked.length).toBe(1)
+    expect(wrapper.vm.localChecked[0]).toEqual('foo')
+
+    wrapper.setProps({
+      checked: []
+    })
+
+    expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
+    expect(wrapper.vm.localChecked.length).toBe(0)
+
+    input.setChecked(true)
+    expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
+    expect(wrapper.vm.localChecked.length).toBe(1)
+    expect(wrapper.vm.localChecked[0]).toEqual('bar')
+
+    input.setChecked(false)
+    expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
+    expect(wrapper.vm.localChecked.length).toBe(0)
+  })
+
+  it('works when value is an object', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        value: {bar: 1, baz: 2},
+        checked: ['foo']
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.vm.localChecked).toBeDefined()
+    expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
+    expect(wrapper.vm.localChecked.length).toBe(1)
+    expect(wrapper.vm.localChecked[0]).toEqual('foo')
+
+    input.setChecked(true)
+    expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
+    expect(wrapper.vm.localChecked.length).toBe(2)
+    expect(wrapper.vm.localChecked[0]).toEqual('foo')
+    expect(wrapper.vm.localChecked[1]).toEqual({ bar: 1, baz: 2 })
+
+    input.setChecked(false)
+    expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
+    expect(wrapper.vm.localChecked.length).toBe(1)
+    expect(wrapper.vm.localChecked[0]).toEqual('foo')
+  })
 })
