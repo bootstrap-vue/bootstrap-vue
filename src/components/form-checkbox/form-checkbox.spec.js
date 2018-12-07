@@ -313,7 +313,7 @@ describe('form-checkbox', async () => {
   it('default has input validation class is-invalid when state=false', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        state: true,
+        state: false,
         checked: false
       },
       slots: {
@@ -508,7 +508,7 @@ describe('form-checkbox', async () => {
   it('plain has input validation class is-invalid when state=false', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        state: true,
+        state: false,
         plain: true,
         checked: false
       },
