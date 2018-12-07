@@ -366,7 +366,7 @@ describe('form-checkbox', async () => {
     expect(input[0].tagName).toEqual('INPUT')
   })
 
-  it('stand-alone button has wrapper class btn-group-toggle', async () => {
+  it('stand-alone button has wrapper classes btn-group-toggle and d-inline-block', async () => {
     const wrapper = mount(Input, {
       propsData: {
         button: true,
@@ -377,8 +377,9 @@ describe('form-checkbox', async () => {
         default: 'foobar'
       }
     })
-    expect(wrapper.classes().length).toEqual(1)
+    expect(wrapper.classes().length).toEqual(2)
     expect(wrapper.classes()).toContain('btn-group-toggle')
+    expect(wrapper.classes()).toContain('d-inline-block')
   })
 
   it('stand-alone button has label classes btn and btn-secondary when uchecked', async () => {
@@ -477,7 +478,7 @@ describe('form-checkbox', async () => {
     const wrapper = mount(Input, {
       propsData: {
         button: true,
-        btnVariant: 'primary',
+        buttonVariant: 'primary',
         checked: '',
         value: 'a'
       },
