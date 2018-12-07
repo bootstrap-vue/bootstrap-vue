@@ -283,4 +283,100 @@ describe('form-checkbox-group', async () => {
     expect(checks.at(1).element.checked).toBe(false)
     expect(checks.at(2).element.checked).toBe(true)
   })
+
+  it('child checkboxes have is-valid classes when group state set to valid', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: [],
+        state: true
+      }
+    })
+    expect(wrapper.classes()).toBeDefined()
+    const checks = wrapper.findAll('input')
+    expect(checks.length).toBe(3)
+    expect(wrapper.vm.localChecked).toEqual([])
+    expect(checks.is('input[type=checkbox]')).toBe(true)
+    expect(checks.is('input.is-valid')).toBe(true)
+  })
+
+  it('child checkboxes have is-invalid classes when group state set to invalid', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: [],
+        state: false
+      }
+    })
+    const checks = wrapper.findAll('input')
+    expect(checks.length).toBe(3)
+    expect(wrapper.vm.localChecked).toEqual([])
+    expect(checks.is('input[type=checkbox]')).toBe(true)
+    expect(checks.is('input.is-invalid')).toBe(true)
+  })
+
+  it('child checkboxes have disabled attribute when group disabled', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: [],
+        disabled: true
+      }
+    })
+    const checks = wrapper.findAll('input')
+    expect(checks.length).toBe(3)
+    expect(wrapper.vm.localChecked).toEqual([])
+    expect(checks.is('input[type=checkbox]')).toBe(true)
+    expect(checks.is('input[disabled]')).toBe(true)
+  })
+
+  it('child checkboxes have required attribute when group required', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        name: 'group',
+        options: ['one', 'two', 'three'],
+        checked: [],
+        disabled: true
+      }
+    })
+    const checks = wrapper.findAll('input')
+    expect(checks.length).toBe(3)
+    expect(wrapper.vm.localChecked).toEqual([])
+    expect(checks.is('input[type=checkbox]')).toBe(true)
+    expect(checks.is('input[disabled]')).toBe(true)
+  })
+
+  it('child checkboxes have class custom-control-inline when stacked=false', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        name: 'group',
+        options: ['one', 'two', 'three'],
+        checked: [],
+        stacked: false
+      }
+    })
+    const checks = wrapper.findAll('.custom-control')
+    expect(checks.length).toBe(3)
+    expect(checks.is('div.custom-control-inline')).toBe(true)
+  })
+
+  it('child checkboxes do not have class custom-control-inline when stacked=true', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        name: 'group',
+        options: ['one', 'two', 'three'],
+        checked: [],
+        stacked: true
+      }
+    })
+    const checks = wrapper.findAll('.custom-control')
+    expect(checks.length).toBe(3)
+    expect(checks.is('div.custom-control-inline')).toBe(false)
+  })
 })
