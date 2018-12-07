@@ -209,7 +209,7 @@ describe('form-checkbox-group', async () => {
     const checks = wrapper.findAll('input')
     expect(checks.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual([])
-    expect(checks.is('input[type=checkbox]')).toBe(True)
+    expect(checks.is('input[type=checkbox]')).toBe(true)
   })
 
   it('emits change event when checkbox clicked', async () => {
