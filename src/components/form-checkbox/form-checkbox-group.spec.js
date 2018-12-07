@@ -35,7 +35,7 @@ describe('form-checkbox-group', async () => {
       slots: {
       }
     })
-    expect(wrapper.attiutes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toBeDefined()
   })
 
   it('default has tabindex set to -1', async () => {
@@ -45,8 +45,8 @@ describe('form-checkbox-group', async () => {
       slots: {
       }
     })
-    expect(wrapper.attiutes('tabindex')).toBeDefined()
-    expect(wrapper.attiutes('tabindex')).toBe(-1)
+    expect(wrapper.attributes('tabindex')).toBeDefined()
+    expect(wrapper.attributes('tabindex')).toBe(-1)
   })
 
   it('default does not have aria-required set', async () => {
@@ -56,7 +56,7 @@ describe('form-checkbox-group', async () => {
       slots: {
       }
     })
-    expect(wrapper.attiutes('aria-required')).not.toBeDefined()
+    expect(wrapper.attributes('aria-required')).not.toBeDefined()
   })
 
   it('default does not have aria-invalid set', async () => {
@@ -66,7 +66,7 @@ describe('form-checkbox-group', async () => {
       slots: {
       }
     })
-    expect(wrapper.attiutes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
   })
 
   it('default has attribute role=group', async () => {
@@ -76,7 +76,7 @@ describe('form-checkbox-group', async () => {
       slots: {
       }
     })
-    expect(wrapper.attiutes('role')).toBeDefined()
-    expect(wrapper.attiutes('role')).toBe('group')
+    expect(wrapper.attributes('role')).toBeDefined()
+    expect(wrapper.attributes('role')).toBe('group')
   })
 })
