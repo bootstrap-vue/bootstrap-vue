@@ -78,7 +78,7 @@
     "@babel/preset-env": "^7.1.6",
     "@nuxtjs/google-analytics": "^2.0.2",
     "@nuxtjs/pwa": "^2.0.5",
-    "@vue/test-utils": "^1.0.0-beta.24",
+    "@vue/test-utils": "^1.0.0-beta.26",
     "autoprefixer": "^9.3.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
