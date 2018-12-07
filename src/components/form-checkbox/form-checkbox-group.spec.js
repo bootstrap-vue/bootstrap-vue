@@ -86,7 +86,7 @@ describe('form-checkbox-group', async () => {
     const wrapper = mount(Group, {
       attachToDocument: true,
       propsData: {
-        state: false
+        state: true
       }
     })
     expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
