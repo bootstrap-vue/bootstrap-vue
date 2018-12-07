@@ -231,7 +231,7 @@ describe('form-checkbox', async () => {
     expect(label.text()).toEqual('foobar')
   })
 
-  it('derfault has class custom-control-inline when prop inline=true', async () => {
+  it('default has class custom-control-inline when prop inline=true', async () => {
     const wrapper = mount(Input, {
       propsData: {
         checked: false,
@@ -245,6 +245,101 @@ describe('form-checkbox', async () => {
     expect(wrapper.classes()).toContain('custom-checkbox')
     expect(wrapper.classes()).toContain('custom-control')
     expect(wrapper.classes()).toContain('custom-control-inline')
+  })
+
+  it('default has no input validation classes by default', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(input.classes()).not.toContain('is-invalid')
+    expect(input.classes()).not.toContain('is-valid')
+  })
+
+  it('default has no input validation classes when state=null', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: null,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(wrapper.classes()).not.toContain('is-invalid')
+    expect(wrapper.classes()).not.toContain('is-valid')
+  })
+
+  it('default has input validation class is-valid when state=true', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: true,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(wrapper.classes()).not.toContain('is-invalid')
+    expect(wrapper.classes()).toContain('is-valid')
+  })
+
+  it('default has input validation class is-valid when state="valid"', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: 'valid',
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(wrapper.classes()).not.toContain('is-invalid')
+    expect(wrapper.classes()).toContain('is-valid')
+  })
+
+  it('default has input validation class is-invalid when state=false', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: true,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(wrapper.classes()).toContain('is-invalid')
+    expect(wrapper.classes()).not.toContain('is-valid')
+  })
+
+  it('default has input validation class is-invalid when state="invalid"', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: 'invalid',
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(wrapper.classes()).toContain('is-invalid')
+    expect(wrapper.classes()).not.toContain('is-valid')
   })
 
   /* plain styling */
@@ -341,6 +436,107 @@ describe('form-checkbox', async () => {
     })
     const label = wrapper.find('label')
     expect(label.text()).toEqual('foobar')
+  })
+
+  it('plain has no input validation classes by default', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        plain: true,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(input.classes()).not.toContain('is-invalid')
+    expect(input.classes()).not.toContain('is-valid')
+  })
+
+  it('plain has no input validation classes when state=null', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: null,
+        plain: true,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(wrapper.classes()).not.toContain('is-invalid')
+    expect(wrapper.classes()).not.toContain('is-valid')
+  })
+
+  it('plain has input validation class is-valid when state=true', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: true,
+        plain: true,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(wrapper.classes()).not.toContain('is-invalid')
+    expect(wrapper.classes()).toContain('is-valid')
+  })
+
+  it('plain has input validation class is-valid when state="valid"', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: 'valid',
+        plain: true,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(wrapper.classes()).not.toContain('is-invalid')
+    expect(wrapper.classes()).toContain('is-valid')
+  })
+
+  it('plain has input validation class is-invalid when state=false', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: true,
+        plain: true,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(wrapper.classes()).toContain('is-invalid')
+    expect(wrapper.classes()).not.toContain('is-valid')
+  })
+
+  it('plain has input validation class is-invalid when state="invalid"', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        state: 'invalid',
+        plain: true,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input).toBeDefined()
+    expect(wrapper.classes()).toContain('is-invalid')
+    expect(wrapper.classes()).not.toContain('is-valid')
   })
 
   /* button styling - stand-alone mode */
