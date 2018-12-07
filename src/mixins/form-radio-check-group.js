@@ -27,7 +27,7 @@ export default {
         class: this.groupClasses,
         attrs: {
           id: this.safeId(),
-          role: 'radiogroup',
+          role: this.is_RadioGroup ? 'radiogroup' : 'group',
           // Tabindex to allow group to be focused if needed
           tabindex: '-1',
           'aria-required': this.required ? 'true' : null,
