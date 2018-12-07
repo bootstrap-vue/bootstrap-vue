@@ -30,11 +30,14 @@ describe('form-checkbox-group', async () => {
 
   it('default has auto ID set', async () => {
     const wrapper = mount(Group, {
+      attachToDocument: true,
       propsData: {
       },
       slots: {
       }
     })
+    await wrapper.vm.$nextTick()
+    // Auto ID not generated until after mount
     expect(wrapper.attributes('id')).toBeDefined()
   })
 
