@@ -272,14 +272,14 @@ for assistive technologies, invalid form controls can also be assigned an
 
 
 ### ARIA `aria-invalid` attribute
-When `<b-form-radio>` has an invalid contextual state (i.e. `invalid`) you may also
-want to set the `<b-form-radio>` prop `aria-invalid` to `true`.
+When `<b-form-radio-group>` has an invalid contextual state (i.e. `invalid`) you may also
+want to set the `<b-form-radio-group>` prop `aria-invalid` to `true`.
 
-Supported `invalid` values are:
+Supported `aria-invalid` values are:
 - `false` (default) No errors detected
 - `true` The value has failed validation.
 
-`aria-invalid` is automatically set if `state` is `invalid`.
+`aria-invalid` is automatically set to `true` if `state` is `'invalid'` (or `false`).
 
 
 <!-- Component reference added automatically from component package.json -->
