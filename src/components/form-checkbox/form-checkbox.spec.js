@@ -851,12 +851,12 @@ describe('form-checkbox', async () => {
     const input = wrapper.find('input')
     expect(input).toBeDefined()
 
-    input.setChecked(true)
+    input.trigger('click')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
     expect(wrapper.emitted('change')[0][0]).toEqual('bar')
 
-    input.setChecked(false)
+    input.trigger('click')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(2)
     expect(wrapper.emitted('change')[1][0]).toEqual('foo')
@@ -881,13 +881,13 @@ describe('form-checkbox', async () => {
     const input = wrapper.find('input')
     expect(input).toBeDefined()
 
-    input.setChecked(true)
+    input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(2)
     expect(wrapper.vm.localChecked[0]).toEqual('foo')
     expect(wrapper.vm.localChecked[1]).toEqual('bar')
 
-    input.setChecked(false)
+    input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(1)
     expect(wrapper.vm.localChecked[0]).toEqual('foo')
@@ -899,12 +899,12 @@ describe('form-checkbox', async () => {
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(0)
 
-    input.setChecked(true)
+    input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(1)
     expect(wrapper.vm.localChecked[0]).toEqual('bar')
 
-    input.setChecked(false)
+    input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(0)
   })
@@ -928,13 +928,13 @@ describe('form-checkbox', async () => {
     const input = wrapper.find('input')
     expect(input).toBeDefined()
 
-    input.setChecked(true)
+    input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(2)
     expect(wrapper.vm.localChecked[0]).toEqual('foo')
     expect(wrapper.vm.localChecked[1]).toEqual({ bar: 1, baz: 2 })
 
-    input.setChecked(false)
+    input.trigger('click')
     expect(Array.isArray(wrapper.vm.localChecked)).toBe(true)
     expect(wrapper.vm.localChecked.length).toBe(1)
     expect(wrapper.vm.localChecked[0]).toEqual('foo')
