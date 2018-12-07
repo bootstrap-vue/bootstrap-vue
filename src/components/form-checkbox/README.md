@@ -139,12 +139,12 @@ export default {
 <!-- form-checkbox-stacked-1.vue -->
 ```
 
-## Value(s)
+## Checkbox Value(s) and v-model
 By default, `<b-form-checkbox>` value will be `true` when checked and `false` when unchecked.
 You can customize the checked and unchecked values by specifying the `value` and `unchecked-value`
 properties.
 
-The `v-model` binds to the `checked` property. When you have multiple checkboxes that bind to a
+The `v-model` binds to the `checked` prop. When you have multiple checkboxes that bind to a
 single data state variable, you **must** provide an array reference `[]` to your `v-model`.
 
 Note that when `v-model` is bound to multiple checkboxes (i.e an array ref), the
