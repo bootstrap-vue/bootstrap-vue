@@ -40,7 +40,7 @@ prop of `<b-form-radio-group>`, or via manual placement of the `<b-form-radio>` 
 ```html
 <template>
   <div>
-    <b-form-group label="Radios using <code>options</code>">
+    <b-form-group label="Radios using options">
       <b-form-radio-group id="radios1" v-model="selected" :options="options" name="radioOptions">
       </b-form-radio-group>
     </b-form-group>
