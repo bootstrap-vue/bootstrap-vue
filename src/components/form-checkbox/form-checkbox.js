@@ -36,7 +36,7 @@ export default {
     },
     checked: {
       // v-model
-      type: [Array, Object, String, Boolean],
+      type: [String, Number, Object, Array, Boolean],
       default: null
     }
   },
