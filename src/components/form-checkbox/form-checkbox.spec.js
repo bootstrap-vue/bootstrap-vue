@@ -343,7 +343,7 @@ describe('form-checkbox', async () => {
     expect(label.text()).toEqual('foobar')
   })
 
-  /* button styling - stand-alone mode*/
+  /* button styling - stand-alone mode */
 
   it('stand-alone button has structure <div><label><input/></label></div>', async () => {
     const wrapper = mount(Input, {
