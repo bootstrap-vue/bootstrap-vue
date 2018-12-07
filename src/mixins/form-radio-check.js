@@ -1,5 +1,3 @@
-import { isArray } from '../utils/array'
-
 export default {
   data () {
     return {
