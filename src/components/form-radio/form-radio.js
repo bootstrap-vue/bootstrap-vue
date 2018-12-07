@@ -19,6 +19,13 @@ export default {
       default: function () { return this }
     }
   },
+  props: {
+    checked: {
+      // v-model
+      type: [Object, String, Boolean],
+      default: null
+    }
+  },
   watch: {
     // Radio Groups can only have a single value, so our watchers are simple
     computedLocalChecked (newVal, oldVal) {
