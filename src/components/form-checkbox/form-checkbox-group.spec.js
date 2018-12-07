@@ -255,4 +255,32 @@ describe('form-checkbox-group', async () => {
     expect(wrapper.emitted('input').length).toBe(4)
     expect(wrapper.emitted('input')[3][0]).toEqual(['three', 'two'])
   })
+
+  it('checkboxes reflect group checked v-model', async () => {
+    const wrapper = mount(Group, {
+      attachToDocument: true,
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: ['two']
+      }
+    })
+    expect(wrapper.classes()).toBeDefined()
+    const checks = wrapper.findAll('input')
+    expect(checks.length).toBe(3)
+    expect(wrapper.vm.localChecked).toEqual(['two'])
+    expect(checks.is('input[type=checkbox]')).toBe(true)
+    expect(checks.at(0).element.checked).toBe(false)
+    expect(checks.at(1).element.checked).toBe(true)
+    expect(checks.at(2).element.checked).toBe(false)
+    
+    wrapper.setProps({
+      checked: ['three', 'one']
+    })
+
+    expect(wrapper.vm.localChecked).toEqual(['three', 'one'])
+    expect(checks.is('input[type=checkbox]')).toBe(true)
+    expect(checks.at(0).element.checked).toBe(true)
+    expect(checks.at(1).element.checked).toBe(false)
+    expect(checks.at(2).element.checked).toBe(true)
+  })
 })
