@@ -751,7 +751,7 @@ export default {
       }
     },
     // Watch for changes on computedItems and update the v-model
-    computedItems(newVal, OldVal) {
+    computedItems (newVal, OldVal) {
       this.$emit('input', newVal)
     },
     // Watch for changes to the filter criteria and filtered items vs localItems).
