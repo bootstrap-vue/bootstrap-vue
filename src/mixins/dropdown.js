@@ -347,10 +347,12 @@ export default {
       // Note: Inputs are in a special .dropdown-form container
     },
     onFocusOut (evt) {
-      if (this.$el.contains(evt.target)) {
+      if (this.$el.contains(evt.relatedTarget)) {
         return
       }
-      this.visible = false
+      setTimeout(() => {
+        this.visible = false
+      }, 150)
     },
     onMouseOver (evt) /* istanbul ignore next: not easy to test */ {
       // Removed mouseover focus handler
