@@ -32,7 +32,7 @@ module.exports = {
         }
       }
     },
-    extend (config) {
+    extend (config, { loaders }) {
       config.resolve.alias.vue = 'vue/dist/vue.common'
 
       config.devtool = 'source-map'
@@ -44,6 +44,9 @@ module.exports = {
           { loader: 'markdown-loader', options: { renderer } }
         ]
       })
+
+      loaders.scss.precision = 6
+      loaders.scss.outputStyle = 'expanded'
     }
   },
 
@@ -66,7 +69,7 @@ module.exports = {
         .map(page => `/docs/${dir}/${page}`)
 
       return []
-        .concat(scan('src', 'components', ['link']))
+        .concat(scan('src', 'components'))
         .concat(scan('src', 'directives', ['modal', 'toggle']))
         .concat(scan('docs/markdown', 'reference'))
         .concat(scan('docs/markdown', 'misc'))
@@ -99,10 +102,5 @@ module.exports = {
   },
 
   css: [
-    'bootstrap/dist/css/bootstrap.css',
-    'highlightjs/styles/atom-one-light.css',
-    'codemirror/lib/codemirror.css',
-    '~assets/css/docs.min.css',
-    '~assets/css/styles.css'
   ]
 }
