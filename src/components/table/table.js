@@ -750,6 +750,10 @@ export default {
         this.$emit('update:busy', newVal)
       }
     },
+    // Watch for changes on computedItems and update the v-model
+    computedItems (newVal, OldVal) {
+      this.$emit('input', newVal)
+    },
     // Watch for changes to the filter criteria and filtered items vs localItems).
     // And set visual state and emit events as required
     filteredCheck ({ filteredItems, localItems, localFilter }) {
@@ -1034,8 +1038,6 @@ export default {
         // Grab the current page of data (which may be past filtered items limit)
         items = items.slice((currentPage - 1) * perPage, currentPage * perPage)
       }
-      // update the v-model view
-      this.$emit('input', items)
       // Return the items to display in the table
       return items
     },
