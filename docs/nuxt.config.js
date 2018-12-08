@@ -99,9 +99,5 @@ module.exports = {
   },
 
   css: [
-    'highlightjs/styles/atom-one-light.css',
-    'codemirror/lib/codemirror.css',
-    '~assets/css/docs.min.css',
-    '~assets/css/styles.css'
   ]
 }
