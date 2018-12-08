@@ -44,7 +44,7 @@ module.exports = {
           { loader: 'markdown-loader', options: { renderer } }
         ]
       })
-      
+
       loaders.scss.precision = 6
       loaders.scss.outputStyle = 'expanded'
     }
