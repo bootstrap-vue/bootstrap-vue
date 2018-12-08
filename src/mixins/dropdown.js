@@ -4,7 +4,7 @@ import { assign } from '../utils/object'
 import KeyCodes from '../utils/key-codes'
 import BvEvent from '../utils/bv-event.class'
 import warn from '../utils/warn'
-import { closest, contains, eventOff, eventOn, getAttr, isVisible, selectAll } from '../utils/dom'
+import { isVisible, closest, selectAll, getAttr, eventOn, eventOff } from '../utils/dom'
 
 // Return an Array of visible items
 function filterVisible (els) {
@@ -238,13 +238,10 @@ export default {
         this.$root.$on('clicked::link', this.rootCloseListener)
         // Use new namespaced events for clicked
         this.$root.$on('bv::link::clicked', this.rootCloseListener)
-        // Hide the dropdown when it loses focus
-        eventOn(document, 'focusin', this.focusHandler, false)
       } else {
         this.$root.$off('bv::dropdown::shown', this.rootCloseListener)
         this.$root.$off('clicked::link', this.rootCloseListener)
         this.$root.$off('bv::link::clicked', this.rootCloseListener)
-        eventOff(document, 'focusin', this.focusHandler, false)
       }
       // touchstart handling fix
       /* istanbul ignore next: not easy to test */
@@ -349,21 +346,14 @@ export default {
       // Tab, if in a text-like input, we should just focus next item in the dropdown
       // Note: Inputs are in a special .dropdown-form container
     },
+    onFocusOut (evt) {
+      if (this.$el.contains(evt.target)) {
+        return
+      }
+      this.visible = false
+    },
     onMouseOver (evt) /* istanbul ignore next: not easy to test */ {
       // Removed mouseover focus handler
-    },
-    // Document focusin listener
-    focusHandler (evt) {
-      // If focus leaves dropdown, hide it
-      const menu = this.$refs.menu
-      if (
-        this.visible &&
-        menu &&
-        document !== evt.target &&
-        !contains(menu, evt.target)
-      ) {
-        this.visible = false
-      }
     },
     focusNext (evt, up) {
       if (!this.visible) {
