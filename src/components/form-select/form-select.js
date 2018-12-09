@@ -116,5 +116,13 @@ export default {
       }
       return this.stateClass === 'is-invalid' ? 'true' : null
     }
+  },
+  methods: {
+    focus () {
+      this.$refs.input.focus()
+    },
+    blur () {
+      this.$refs.input.blur()
+    }
   }
 }
