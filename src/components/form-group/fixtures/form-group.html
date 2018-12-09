@@ -49,4 +49,24 @@
         <b-form-input size="lg"></b-form-input>
         <b-form-input size="lg"></b-form-input>
     </b-form-group>
+    <!-- valid state -->
+    <b-form-group id="group6"
+                  label="Example Label"
+                  label-for="input6"
+                  description="Enter your fullname."
+                  invalid-feedback="Please enter something"
+                  valid-feedback="Thank you"
+                  :state="true">
+        <b-form-input id="input6" v-model="text"></b-form-input>
+    </b-form-group>
+    <!-- invalid state -->
+    <b-form-group id="group7"
+                  label="Example Label"
+                  label-for="input7"
+                  description="Enter your fullname."
+                  invalid-feedback="Please enter something"
+                  valid-feedback="Thank you"
+                  :state="false">
+        <b-form-input id="input7" v-model="text"></b-form-input>
+    </b-form-group>
 </div>
