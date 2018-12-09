@@ -3,20 +3,24 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 <a name="2.0.0-rc.11"></a>
-# [2.0.0-rc.11](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.10...v2.0.0-rc.11) (2018-05-20)
+## [v2.0.0-rc.11](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.10...v2.0.0-rc.11)
+
+Released: 2018-05-20
 
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.11
 
 * **form-input:** force update formatted value ([#1845](https://github.com/bootstrap-vue/bootstrap-vue/issues/1845)) ([497cc6e](https://github.com/bootstrap-vue/bootstrap-vue/commit/497cc6e))
 
 
 
 <a name="2.0.0-rc.10"></a>
-# [2.0.0-rc.10](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.9...v2.0.0-rc.10) (2018-05-17)
+## [v2.0.0-rc.10](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.9...v2.0.0-rc.10)
+
+Released: 2018-05-17
 
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.10
 
 * **docs:** Fix duplicate keys in events table ([#1786](https://github.com/bootstrap-vue/bootstrap-vue/issues/1786)) ([fa60d56](https://github.com/bootstrap-vue/bootstrap-vue/commit/fa60d56))
 * **docs:** incorrect closing <b-form-file> tag ([#1838](https://github.com/bootstrap-vue/bootstrap-vue/issues/1838)) ([69e410d](https://github.com/bootstrap-vue/bootstrap-vue/commit/69e410d))
@@ -26,7 +30,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **table:** fix aria-rowcount ([#1836](https://github.com/bootstrap-vue/bootstrap-vue/issues/1836)) ([e3e5439](https://github.com/bootstrap-vue/bootstrap-vue/commit/e3e5439))
 
 
-### Features
+### Features v2.0.0-rc.10
 
 * **alert:** Add fade prop ([#1785](https://github.com/bootstrap-vue/bootstrap-vue/issues/1785)) ([0999b4c](https://github.com/bootstrap-vue/bootstrap-vue/commit/0999b4c))
 * **breadcrumb-link:** support children elements ([#1832](https://github.com/bootstrap-vue/bootstrap-vue/issues/1832)) ([#1833](https://github.com/bootstrap-vue/bootstrap-vue/issues/1833)) ([42175f8](https://github.com/bootstrap-vue/bootstrap-vue/commit/42175f8))
@@ -37,10 +41,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.9"></a>
-# [2.0.0-rc.9](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.8...v2.0.0-rc.9) (2018-04-27)
+## [v2.0.0-rc.9](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.8...v2.0.0-rc.9)
+
+Released: 2018-04-27
 
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.9
 
 * **docs:** typo in docs plugin ([#1777](https://github.com/bootstrap-vue/bootstrap-vue/issues/1777)) ([fb50c6f](https://github.com/bootstrap-vue/bootstrap-vue/commit/fb50c6f))
 * **dropdown:** aria-labbeledby for dropdowns ([8efa7ee](https://github.com/bootstrap-vue/bootstrap-vue/commit/8efa7ee))
@@ -49,17 +55,19 @@ All notable changes to this project will be documented in this file. See [standa
 * **tooltip:** typo in comment ([#1779](https://github.com/bootstrap-vue/bootstrap-vue/issues/1779)) ([ef253f7](https://github.com/bootstrap-vue/bootstrap-vue/commit/ef253f7))
 
 
-### Features
+### Features v2.0.0-rc.9
 
 * **table:** support custom attributes per table cell in a column ([#1760](https://github.com/bootstrap-vue/bootstrap-vue/issues/1760)) ([fc083e5](https://github.com/bootstrap-vue/bootstrap-vue/commit/fc083e5))
 
 
 
 <a name="2.0.0-rc.8"></a>
-# [2.0.0-rc.8](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.7...v2.0.0-rc.8) (2018-04-17)
+## [v2.0.0-rc.8](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.7...v2.0.0-rc.8)
+
+Released: 2018-04-17
 
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.8
 
 * **docs:** fix table refresh event name ([#1692](https://github.com/bootstrap-vue/bootstrap-vue/issues/1692)) ([01e223c](https://github.com/bootstrap-vue/bootstrap-vue/commit/01e223c))
 * default export in TypeScript definitions ([cd7e310](https://github.com/bootstrap-vue/bootstrap-vue/commit/cd7e310))
@@ -67,10 +75,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.7"></a>
-# [2.0.0-rc.7](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.6...v2.0.0-rc.7) (2018-04-16)
+## [v2.0.0-rc.7](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.6...v2.0.0-rc.7)
+
+Released: 2018-04-16
 
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.7
 
 * **table:** typo in README.md ([#1729](https://github.com/bootstrap-vue/bootstrap-vue/issues/1729)) ([8d0e186](https://github.com/bootstrap-vue/bootstrap-vue/commit/8d0e186))
 * **tabs:** change default key nav to avoid breaking changes ([#1733](https://github.com/bootstrap-vue/bootstrap-vue/issues/1733)) ([a6dea02](https://github.com/bootstrap-vue/bootstrap-vue/commit/a6dea02))
@@ -78,7 +88,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **tabs:** typo in tabs ([#1735](https://github.com/bootstrap-vue/bootstrap-vue/issues/1735)) ([89eff3c](https://github.com/bootstrap-vue/bootstrap-vue/commit/89eff3c))
 
 
-### Features
+### Features v2.0.0-rc.7
 
 * add basic typescript declarations ([#1721](https://github.com/bootstrap-vue/bootstrap-vue/issues/1721)) ([3c040f0](https://github.com/bootstrap-vue/bootstrap-vue/commit/3c040f0))
 * **form-input:** add step, min and max props for use with number type ([40ff380](https://github.com/bootstrap-vue/bootstrap-vue/commit/40ff380))
@@ -89,50 +99,58 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.6"></a>
-# [2.0.0-rc.6](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.4...v2.0.0-rc.6) (2018-04-02)
+## [v2.0.0-rc.6](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.4...v2.0.0-rc.6)
+
+Released: 2018-04-02
 
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.6
 
 * **text-area:** correctly handle input event ([#1714](https://github.com/bootstrap-vue/bootstrap-vue/issues/1714)) ([5e2973d](https://github.com/bootstrap-vue/bootstrap-vue/commit/5e2973d))
 
 
 <a name="2.0.0-rc.5"></a>
-# [2.0.0-rc.5](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.4...v2.0.0-rc.5) (2018-04-02)
+## [v2.0.0-rc.5](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.4...v2.0.0-rc.5)
+
+Released: 2018-04-02
 
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.5
 
 * **card:** duplicate header and footer slots with no-body ([#1713](https://github.com/bootstrap-vue/bootstrap-vue/issues/1713), [#1680](https://github.com/bootstrap-vue/bootstrap-vue/issues/1680)) ([2bd0e71](https://github.com/bootstrap-vue/bootstrap-vue/commit/2bd0e71))
 
 **NOTE** Vue `2.5.15` has known issues with card slots. Please upgrade to `2.5.16` or newer versions.
 
 <a name="2.0.0-rc.4"></a>
-# [2.0.0-rc.4](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.3...v2.0.0-rc.4) (2018-04-01)
+## [v2.0.0-rc.4](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.3...v2.0.0-rc.4)
+
+Released: 2018-04-01
 
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.4
 
 * **build:** don't exclude lodash.get ([543c3c2](https://github.com/bootstrap-vue/bootstrap-vue/commit/543c3c2))
 * **card:** pass children instead of default prop to sub-components ([63b35e3](https://github.com/bootstrap-vue/bootstrap-vue/commit/63b35e3))
 
 
-### Features
+### Features v2.0.0-rc.4
 
 * **test:** test against multi versions of vue ([25d0b13](https://github.com/bootstrap-vue/bootstrap-vue/commit/25d0b13))
 
 
-### Performance Improvements
+### Performance Improvements v2.0.0-rc.4
 
 * **docs:** only import debounce from lodash ([a6abd6d](https://github.com/bootstrap-vue/bootstrap-vue/commit/a6abd6d))
 
 
 
 <a name="2.0.0-rc.3"></a>
-# [2.0.0-rc.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.2...v2.0.0-rc.3) (2018-04-01)
+## [v2.0.0-rc.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.2...v2.0.0-rc.3)
+
+Released: 2018-04-01
 
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.3
 
 * **contributing:** Improve the commit guidelines ([c506280](https://github.com/bootstrap-vue/bootstrap-vue/commit/c506280))
 * **modal:** Correct the internal btn variable names ([301f2e4](https://github.com/bootstrap-vue/bootstrap-vue/commit/301f2e4)), closes [#1650](https://github.com/bootstrap-vue/bootstrap-vue/issues/1650)
@@ -140,30 +158,32 @@ All notable changes to this project will be documented in this file. See [standa
 * **table:** import lodash.get from "dependencies" ([#1697](https://github.com/bootstrap-vue/bootstrap-vue/issues/1697)) ([4d620a5](https://github.com/bootstrap-vue/bootstrap-vue/commit/4d620a5))
 
 
-### Features
+### Features v2.0.0-rc.3
 
 * **dropdown, nav-item-dropdown:** support menuClass and extraMenuClasses ([#1683](https://github.com/bootstrap-vue/bootstrap-vue/issues/1683)) ([3da5f18](https://github.com/bootstrap-vue/bootstrap-vue/commit/3da5f18))
 * **modal:** add `modalClass` property to `bModal` ([#1682](https://github.com/bootstrap-vue/bootstrap-vue/issues/1682)) ([c7a10ef](https://github.com/bootstrap-vue/bootstrap-vue/commit/c7a10ef))
 * **table:** add field to the table column data cell slots ([#1705](https://github.com/bootstrap-vue/bootstrap-vue/issues/1705)) ([e013d59](https://github.com/bootstrap-vue/bootstrap-vue/commit/e013d59))
 
 
-### Performance Improvements
+### Performance Improvements v2.0.0-rc.3
 
 * **docs:** lodash dependency ([a02f10d](https://github.com/bootstrap-vue/bootstrap-vue/commit/a02f10d))
 
 
 
 <a name="2.0.0-rc.2"></a>
-# [2.0.0-rc.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.1...v2.0.0-rc.2) (2018-03-06)
+## [v2.0.0-rc.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.1...v2.0.0-rc.2)
 
-### Features
+Released: 2018-03-06
+
+### Features v2.0.0-rc.2
 
 * **popovers / tooltips:** Accept an HTMLElement as a valid target ([a375452](https://github.com/bootstrap-vue/bootstrap-vue/commit/a375452))
 * **tab:** add title slot ([#1586](https://github.com/bootstrap-vue/bootstrap-vue/pull/1586)) ([724b453](https://github.com/bootstrap-vue/bootstrap-vue/commit/724b453))
 * **table:** Use object's property as a key ([#1614](https://github.com/bootstrap-vue/bootstrap-vue/pull/1614)) ([4464f0a](https://github.com/bootstrap-vue/bootstrap-vue/commit/4464f0a))
 * **tooltip:** Allow a function as a tooltip target attribute ([#1493](https://github.com/bootstrap-vue/bootstrap-vue/pull/1493)) ([048c3d4](https://github.com/bootstrap-vue/bootstrap-vue/commit/048c3d4))
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.2
 
 * **modal:** fix v-b-modal directive unbinding ([#1617](https://github.com/bootstrap-vue/bootstrap-vue/pull/1617)) ([3f6a86a](https://github.com/bootstrap-vue/bootstrap-vue/commit/3f6a86a))
 * **table:** avoid HTML injection in table data ([63d8097](https://github.com/bootstrap-vue/bootstrap-vue/commit/63d8097))
@@ -179,10 +199,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.1"></a>
-# [2.0.0-rc.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2018-01-25)
+## [v2.0.0-rc.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.0...v2.0.0-rc.1)
+
+Released: 2018-01-25
 
 
-### Bug Fixes
+### Bug Fixes v2.0.0-rc.1
 
 * call `removeEventListener` on the right element ([#1557](https://github.com/bootstrap-vue/bootstrap-vue/issues/1557)) ([cf2bfca](https://github.com/bootstrap-vue/bootstrap-vue/commit/cf2bfca)), closes [#1391](https://github.com/bootstrap-vue/bootstrap-vue/issues/1391)
 * **form-group:** replace .col-form-legend with .col-form-label ([ac2d4dd](https://github.com/bootstrap-vue/bootstrap-vue/commit/ac2d4dd))
@@ -190,14 +212,14 @@ All notable changes to this project will be documented in this file. See [standa
 * **modal:** hide dropdown on click. ([#1528](https://github.com/bootstrap-vue/bootstrap-vue/issues/1528)) ([3ad8a9a](https://github.com/bootstrap-vue/bootstrap-vue/commit/3ad8a9a))
 
 
-### Performance Improvements
+### Performance Improvements v2.0.0-rc.1
 
 * **id mixin:** make localId_ a computed field ([873b0e7](https://github.com/bootstrap-vue/bootstrap-vue/commit/873b0e7))
 
 
 
 <a name="2.0.0-rc.0"></a>
-## [2.0.0-rc.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v2.0.0-rc.0)
+## [v2.0.0-rc.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v2.0.0-rc.0)
 
 Released: 2018-01-23
 
@@ -210,10 +232,10 @@ With `v2.0.0` release, BootstrapVue is compatible with final stable release of B
 * `input-group-addon` API has been changed and `left/right` changed into `prepend/append`. Please refer to the docs for more information.
 
 <a name="1.5.0"></a>
-# [1.5.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.1...v1.5.0) (2018-01-23)
+## [v1.5.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.1...v1.5.0) (2018-01-23)
 
 
-### Features
+### Features v1.5.0
 
 * **dropdown:** add toggleClass prop ([#1485](https://github.com/bootstrap-vue/bootstrap-vue/issues/1485)) ([da16cc0](https://github.com/bootstrap-vue/bootstrap-vue/commit/da16cc0))
 * **nav-item-dropdown:** add extra-toggle-classes prop with tests and docs. closes [#1550](https://github.com/bootstrap-vue/bootstrap-vue/issues/1550). ([#1555](https://github.com/bootstrap-vue/bootstrap-vue/issues/1555)) ([7967018](https://github.com/bootstrap-vue/bootstrap-vue/commit/7967018))
@@ -221,10 +243,10 @@ With `v2.0.0` release, BootstrapVue is compatible with final stable release of B
 
 
 <a name="1.4.1"></a>
-## [1.4.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v1.4.1) (2018-01-14)
+## [v1.4.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v1.4.1) (2018-01-14)
 
 
-### Bug Fixes
+### Bug Fixes v1.4.1
 
 * **alert:** import button-close in alert with a name matching tag. ([#1523](https://github.com/bootstrap-vue/bootstrap-vue/issues/1523)) fixes [#1522](https://github.com/bootstrap-vue/bootstrap-vue/issues/1522). ([51b527f](https://github.com/bootstrap-vue/bootstrap-vue/commit/51b527f))
 * **docs play:** prevent duplicate key errors in console output ([#1476](https://github.com/bootstrap-vue/bootstrap-vue/issues/1476)) ([68deee1](https://github.com/bootstrap-vue/bootstrap-vue/commit/68deee1))
@@ -234,7 +256,7 @@ With `v2.0.0` release, BootstrapVue is compatible with final stable release of B
 * **id:** fixed check for _uid in client side id generator ([#1499](https://github.com/bootstrap-vue/bootstrap-vue/issues/1499)) ([f3fe0f4](https://github.com/bootstrap-vue/bootstrap-vue/commit/f3fe0f4))
 
 
-### Performance Improvements
+### Performance Improvements v1.4.1
 
 * **dropdown:** changed 'this' to 't' ([#1500](https://github.com/bootstrap-vue/bootstrap-vue/issues/1500)) ([ace3e94](https://github.com/bootstrap-vue/bootstrap-vue/commit/ace3e94))
 
