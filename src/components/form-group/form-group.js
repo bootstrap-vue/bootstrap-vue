@@ -328,7 +328,7 @@ export default {
     isHorizontal () {
       // Determine if the resultant form-group will be rendered
       // horizontal (meaning it has label-col breakpoints)
-      return keys(this.colLabelProps).length > 0
+      return keys(this.labelColProps).length > 0
     },
     labelId () {
       return (this.$slots['label'] || this.label) ? this.safeId('_BV_label_') : null
