@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 <a name="2.0.0-rc.11"></a>
-# [2.0.0-rc.11](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.10...v2.0.0-rc.11) (2018-05-20)
+## [v2.0.0-rc.11](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.10...v2.0.0-rc.11) (2018-05-20)
 
 
 ### Bug Fixes
@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.10"></a>
-# [2.0.0-rc.10](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.9...v2.0.0-rc.10) (2018-05-17)
+## [v2.0.0-rc.10](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.9...v2.0.0-rc.10) (2018-05-17)
 
 
 ### Bug Fixes
@@ -37,7 +37,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.9"></a>
-# [2.0.0-rc.9](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.8...v2.0.0-rc.9) (2018-04-27)
+## [v2.0.0-rc.9](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.8...v2.0.0-rc.9) (2018-04-27)
 
 
 ### Bug Fixes
@@ -56,7 +56,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.8"></a>
-# [2.0.0-rc.8](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.7...v2.0.0-rc.8) (2018-04-17)
+## [v2.0.0-rc.8](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.7...v2.0.0-rc.8) (2018-04-17)
 
 
 ### Bug Fixes
@@ -67,7 +67,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.7"></a>
-# [2.0.0-rc.7](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.6...v2.0.0-rc.7) (2018-04-16)
+## [v2.0.0-rc.7](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.6...v2.0.0-rc.7) (2018-04-16)
 
 
 ### Bug Fixes
@@ -89,7 +89,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.6"></a>
-# [2.0.0-rc.6](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.4...v2.0.0-rc.6) (2018-04-02)
+## [v2.0.0-rc.6](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.4...v2.0.0-rc.6) (2018-04-02)
 
 
 ### Bug Fixes
@@ -98,7 +98,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.5"></a>
-# [2.0.0-rc.5](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.4...v2.0.0-rc.5) (2018-04-02)
+## [v2.0.0-rc.5](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.4...v2.0.0-rc.5) (2018-04-02)
 
 
 ### Bug Fixes
@@ -108,7 +108,7 @@ All notable changes to this project will be documented in this file. See [standa
 **NOTE** Vue `2.5.15` has known issues with card slots. Please upgrade to `2.5.16` or newer versions.
 
 <a name="2.0.0-rc.4"></a>
-# [2.0.0-rc.4](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.3...v2.0.0-rc.4) (2018-04-01)
+## [v2.0.0-rc.4](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.3...v2.0.0-rc.4) (2018-04-01)
 
 
 ### Bug Fixes
@@ -129,7 +129,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.3"></a>
-# [2.0.0-rc.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.2...v2.0.0-rc.3) (2018-04-01)
+## [v2.0.0-rc.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.2...v2.0.0-rc.3) (2018-04-01)
 
 
 ### Bug Fixes
@@ -154,7 +154,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.2"></a>
-# [2.0.0-rc.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.1...v2.0.0-rc.2) (2018-03-06)
+## [v2.0.0-rc.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.1...v2.0.0-rc.2) (2018-03-06)
 
 ### Features
 
@@ -179,7 +179,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.1"></a>
-# [2.0.0-rc.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2018-01-25)
+## [v2.0.0-rc.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2018-01-25)
 
 
 ### Bug Fixes
@@ -197,7 +197,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 <a name="2.0.0-rc.0"></a>
-## [2.0.0-rc.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v2.0.0-rc.0)
+## [v2.0.0-rc.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v2.0.0-rc.0)
 
 Released: 2018-01-23
 
@@ -210,7 +210,7 @@ With `v2.0.0` release, BootstrapVue is compatible with final stable release of B
 * `input-group-addon` API has been changed and `left/right` changed into `prepend/append`. Please refer to the docs for more information.
 
 <a name="1.5.0"></a>
-# [1.5.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.1...v1.5.0) (2018-01-23)
+## [v1.5.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.1...v1.5.0) (2018-01-23)
 
 
 ### Features
@@ -221,7 +221,7 @@ With `v2.0.0` release, BootstrapVue is compatible with final stable release of B
 
 
 <a name="1.4.1"></a>
-## [1.4.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v1.4.1) (2018-01-14)
+## [v1.4.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v1.4.0...v1.4.1) (2018-01-14)
 
 
 ### Bug Fixes
