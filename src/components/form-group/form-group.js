@@ -1,182 +1,230 @@
-import warn from '../../utils/warn'
-import stripScripts from '../../utils/strip-scripts'
-import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
+// Mixins
 import idMixin from '../../mixins/id'
 import formStateMixin from '../../mixins/form-state'
+// Utils
+import upperFirst from '../../utils/upper-first'
+import memoize from '../../utils/memoize'
+import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
+import { arrayIncludes } from '../../utils/array'
+import { keys } from '../../utils/object'
+// Sub components
 import bFormRow from '../layout/form-row'
+import bCol from '../layout/col'
 import bFormText from '../form/form-text'
 import bFormInvalidFeedback from '../form/form-invalid-feedback'
 import bFormValidFeedback from '../form/form-valid-feedback'
 
-// Selector for finding firt input in the form-group
+// Selector for finding first input in the form-group
 const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'
 
-export default {
-  mixins: [ idMixin, formStateMixin ],
-  components: { bFormRow, bFormText, bFormInvalidFeedback, bFormValidFeedback },
-  render (h) {
-    const $slots = this.$slots
+// Breakpoint names for label-cols and label-align props
+const BREAKPOINTS = ['', 'sm', 'md', 'lg', 'xl']
 
-    // Label / Legend
-    let legend = h(false)
-    if (this.hasLabel) {
-      let children = $slots['label']
-      const legendTag = this.labelFor ? 'label' : 'legend'
-      const legendDomProps = children ? {} : { innerHTML: stripScripts(this.label) }
-      const legendAttrs = { id: this.labelId, for: this.labelFor || null }
-      const legendClick = (this.labelFor || this.labelSrOnly) ? {} : { click: this.legendClick }
-      if (this.horizontal) {
-        // Horizontal layout with label
-        if (this.labelSrOnly) {
-          // SR Only we wrap label/legend in a div to preserve layout
-          children = h(
-            legendTag,
-            { class: [ 'sr-only' ], attrs: legendAttrs, domProps: legendDomProps },
-            children
-          )
-          legend = h('div', { class: this.labelLayoutClasses }, [ children ])
-        } else {
-          legend = h(
-            legendTag,
-            {
-              class: [ this.labelLayoutClasses, this.labelClasses ],
-              attrs: legendAttrs,
-              domProps: legendDomProps,
-              on: legendClick
-            },
-            children
-          )
+// Memoize this function to return cached values to save time in computed functions
+const makePropName = memoize((bp = '', prefix) => {
+  return `${prefix}${upperFirst(bp)}`
+})
+
+// Generate the labelCol breakpoint props
+const bpLabelColProps = BREAKPOINTS.reduce((props, bp) => {
+  // label-cols, label-cols-sm, label-cols-md, ...
+  props[makePropName(bp, 'labelCols')] = {
+    type: bp === '' ? [Number, String] : [Boolean, Number, String],
+    default: null
+  }
+}, {})
+
+// Generate the labelAlign breakpoint props
+const bpLabelAlignProps = BREAKPOINTS.reduce((props, bp) => {
+  // label-align, label-align-sm, label-align-md, ...
+  props[makePropName(bp, 'labelAlign')] = {
+    type: String,
+    default: null
+  }
+}, {})
+
+// render helper functions (here rather than polluting the instance with more methods)
+function renderInvalidFeedback (h, ctx) {
+  let content = ctx.$slots['invalid-feedback'] || ctx.invalidFeedback
+  let invalidFeedback = h(false)
+  if (content) {
+    invalidFeedback = h(
+      'b-form-invalid-feedback',
+      {
+        props: {
+          id: ctx.invalidFeedbackId,
+          // If state is explicitly false, always show the feedback
+          forceShow: ctx.computedState === false,
+          tooltip: ctx.tooltip
+        },
+        attrs: {
+          tabindex: content ? '-1' : null,
+          role: 'alert',
+          'aria-live': 'assertive',
+          'aria-atomic': 'true'
         }
-      } else {
-        // Vertical layout with label
-        legend = h(
-          legendTag,
-          {
-            class: this.labelSrOnly ? [ 'sr-only' ] : this.labelClasses,
-            attrs: legendAttrs,
-            domProps: legendDomProps,
-            on: legendClick
-          },
-          children
-        )
-      }
-    } else if (this.horizontal) {
-      // No label but has horizontal layout, so we need a spacer element for layout
-      legend = h('div', { class: this.labelLayoutClasses })
-    }
+      },
+      [content]
+    )
+  }
+  return invalidFeedback
+}
 
-    // Invalid feeback text (explicitly hidden if state is valid)
-    let invalidFeedback = h(false)
-    if (this.hasInvalidFeedback) {
-      let domProps = {}
-      if (!$slots['invalid-feedback'] && !$slots['feedback']) {
-        domProps = { innerHTML: stripScripts(this.invalidFeedback || this.feedback || '') }
-      }
-      invalidFeedback = h(
-        'b-form-invalid-feedback',
-        {
-          props: {
-            id: this.invalidFeedbackId,
-            forceShow: this.computedState === false,
-            tooltip: this.tooltip
-          },
-          attrs: {
-            role: 'alert',
-            'aria-live': 'assertive',
-            'aria-atomic': 'true'
-          },
-          domProps: domProps
+function renderValidFeedback (h, ctx) {
+  const content = ctx.$slots['valid-feedback'] || ctx.validFeedback
+  let validFeedback = h(false)
+  if (content) {
+    validFeedback = h(
+      'b-form-valid-feedback',
+      {
+        props: {
+          id: ctx.validFeedbackId,
+          // If state is explicitly true, always show the feedback
+          forceShow: ctx.computedState === true,
+          tooltip: ctx.tooltip
         },
-        $slots['invalid-feedback'] || $slots['feedback']
-      )
-    }
+        attrs: {
+          tabindex: '-1',
+          role: 'alert',
+          'aria-live': 'assertive',
+          'aria-atomic': 'true'
+        }
+      },
+      [content]
+    )
+  }
+  return validFeedback
+}
 
-    // Valid feeback text (explicitly hidden if state is invalid)
-    let validFeedback = h(false)
-    if (this.hasValidFeedback) {
-      const domProps = $slots['valid-feedback'] ? {} : { innerHTML: stripScripts(this.validFeedback || '') }
-      validFeedback = h(
-        'b-form-valid-feedback',
-        {
-          props: {
-            id: this.validFeedbackId,
-            forceShow: this.computedState === true,
-            tooltip: this.tooltip
-          },
-          attrs: {
-            role: 'alert',
-            'aria-live': 'assertive',
-            'aria-atomic': 'true'
-          },
-          domProps: domProps
+function renderHelpText (h, ctx) {
+  // Form help text (description)
+  const content = ctx.$slots['description'] || ctx.description
+  let description = h(false)
+  if (content) {
+    description = h(
+      'b-form-text',
+      {
+        attrs: {
+          id: ctx.descriptionId,
+          tabindex: '-1'
+        }
+      },
+      [content]
+    )
+  }
+  return description
+}
+
+function renderLabel (h, ctx) {
+  // render label/legend
+  const content = ctx.$slots['label'] || ctx.label
+  let label = h(false)
+  if (content) {
+    const labelFor = ctx.labelFor
+    const isLegend = !labelFor
+    const isHorizontal = ctx.isHorizontal
+    const isSrOnly = ctx.labelSrOnly
+    const on = {}
+    if (isLegend && !isSrOnly) {
+      // Add the legend click handler
+      on.click = ctx.legendClick
+    }
+    label = h(
+      isLegend ? 'legend' : 'label',
+      {
+        on,
+        attrs: {
+          id: ctx.labelId,
+          for: labelFor || null,
+          // We add a tab index to legend so that screen readers will
+          // properly read the aria-labelledby in IE.
+          tabindex: isLegend ? '-1' : null
         },
-        $slots['valid-feedback']
-      )
-    }
+        class: [
+          // when horizontal or a legend is rendered add col-form-label for correct sizing
+          isHorizontal || isLegend ? 'col-form-label' : '',
+          // Emulate label padding top of 0 on legend when not horizontal
+          !isHorizontal && isLegend ? 'pt-0' : '',
+          isSrOnly ? 'sr-only' : '',
+          ctx.size ? `col-form-label-${ctx.size}` : '',
+          ctx.labelAlignClasses,
+          ctx.labelClass
+        ]
+      },
+      [ content ]
+    )
+  }
+  return label
+}
 
-    // Form help text (description)
-    let description = h(false)
-    if (this.hasDescription) {
-      const domProps = $slots['description'] ? {} : { innerHTML: stripScripts(this.description || '') }
-      description = h(
-        'b-form-text',
-        { attrs: { id: this.descriptionId }, domProps: domProps },
-        $slots['description']
-      )
-    }
-
-    // Build content layout
+// bFormGroup
+export default {
+  mixins: [
+    idMixin,
+    formStateMixin
+  ],
+  components: {
+    bFormRow,
+    bCol,
+    bFormInvalidFeedback,
+    bFormValidFeedback,
+    bFormText
+  },
+  render (h) {
+    const isFieldset = !this.labelFor
+    const isHorizontal = this.isHorizontal
+    // Generate the label col
+    const label = h(
+      isHorizontal ? 'b-col' : 'div',
+      { props: this.labelColProps },
+      [ renderLabel(h, this) ]
+    )
+    // Generate the content col
     const content = h(
-      'div',
+      isHorizontal ? 'b-col' : 'div',
       {
         ref: 'content',
-        class: this.inputLayoutClasses,
-        attrs: this.labelFor ? {} : { role: 'group', 'aria-labelledby': this.labelId }
-      },
-      [ $slots['default'], invalidFeedback, validFeedback, description ]
-    )
-
-    // Generate main form-group wrapper
-    return h(
-      this.labelFor ? 'div' : 'fieldset',
-      {
-        class: this.groupClasses,
         attrs: {
-          id: this.safeId(),
-          disabled: this.labelFor ? null : this.disabled,
-          role: 'group',
-          'aria-invalid': this.computedState === false ? 'true' : null,
-          'aria-labelledby': this.labelId,
-          'aria-describedby': this.labelFor ? null : this.describedByIds
+          tabindex: isFieldset ? '-1' : null,
+          role: isFieldset ? 'group' : null,
+          'aria-labelledby': isFieldset ? this.labelId : null,
+          'aria-describedby': isFieldset ? this.ariaDescribedBy : null
         }
       },
-      this.horizontal ? [ h('b-form-row', {}, [ legend, content ]) ] : [ legend, content ]
+      [
+        this.$slots['default'] || h(false),
+        renderInvalidFeedback(h, this),
+        renderValidFeedback(h, this),
+        renderHelpText(h, this)
+      ]
+    )
+    // Create the form-group
+    const data = {
+      staticClass: 'form-group b-form-group',
+      class: [
+        this.validated ? 'was-validated' : null,
+        this.stateClass // from form-state mixin
+      ],
+      attrs: {
+        id: this.safeId(),
+        disabled: isFieldset ? this.disabled : null,
+        role: isFieldset ? null : 'group',
+        'aria-invalid': this.computedState === false ? 'true' : null,
+        'aria-labelledby': this.labelId || null,
+        'aria-describedby': this.ariaDescribedBy || null
+      }
+    }
+    // Return it wrapped in a form-group.
+    // Note: fieldsets do not support adding `row` or `form-row` directly to them
+    // due to browser specific render issues, so we move the form-row to an
+    // inner wrapper div when horizontal
+    return h(
+      isFieldset ? 'fieldset' : (isHorizontal ? 'b-form-row' : 'div'),
+      data,
+      isHorizontal && isFieldset ? [h('b-form-row', {}, [label, content])] : [label, content]
     )
   },
   props: {
-    horizontal: {
-      type: Boolean,
-      default: false
-    },
-    labelCols: {
-      type: [Number, String],
-      default: 3,
-      validator (value) {
-        if (Number(value) >= 1 && Number(value) <= 11) {
-          return true
-        }
-        warn('b-form-group: label-cols must be a value between 1 and 11')
-        return false
-      }
-    },
-    breakpoint: {
-      type: String,
-      default: 'sm'
-    },
-    labelTextAlign: {
-      type: String,
-      default: null
-    },
     label: {
       type: String,
       default: null
@@ -194,7 +242,7 @@ export default {
       default: false
     },
     labelClass: {
-      type: [String, Array],
+      type: [String, Array, Object],
       default: null
     },
     description: {
@@ -205,16 +253,12 @@ export default {
       type: String,
       default: null
     },
-    feedback: {
-      // Deprecated in favor of invalid-feedback
-      type: String,
-      default: null
-    },
     validFeedback: {
       type: String,
       default: null
     },
     tooltip: {
+      // Enable tooltip style feedback
       type: Boolean,
       default: false
     },
@@ -225,70 +269,90 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    // label-cols prop and all label-cols-{bp} props
+    ...bpLabelColProps,
+    // label-align prop and all label-align-{bp} props
+    ...bpLabelAlignProps,
+    horizontal: {
+      // Deprecated
+      type: Boolean,
+      default: false
+    },
+    breakpoint: {
+      // Deprecated
+      type: String,
+      default: null // legacy value 'sm'
     }
   },
   computed: {
-    groupClasses () {
-      return [
-        'b-form-group',
-        'form-group',
-        this.validated ? 'was-validated' : null,
-        this.stateClass
-      ]
-    },
-    labelClasses () {
-      return [
-        'col-form-label',
-        this.labelSize ? `col-form-label-${this.labelSize}` : null,
-        this.labelTextAlign ? `text-${this.labelTextAlign}` : null,
-        this.horizontal ? null : 'pt-0',
-        this.labelClass
-      ]
-    },
-    labelLayoutClasses () {
-      return [
-        this.horizontal ? `col-${this.breakpoint}-${this.labelCols}` : null
-      ]
-    },
-    inputLayoutClasses () {
-      return [
-        this.horizontal ? `col-${this.breakpoint}-${12 - Number(this.labelCols)}` : null,
-        this.tooltip ? 'position-relative' : null
-      ]
-    },
-    hasLabel () {
-      return this.label || this.$slots['label']
-    },
-    hasDescription () {
-      return this.description || this.$slots['description']
-    },
-    hasInvalidFeedback () {
-      if (this.computedState === true) {
-        // If the form-group state is explicityly valid, we return false
-        return false
+    labelColProps () {
+      const props = {}
+      if (this.horizontal) {
+        // Deprecated setting of horizontal prop
+        // Legacy default is breakpoint sm and cols 3
+        const bp = this.breakpoint || 'sm'
+        const cols = parseInt(this.labelCols, 10) || 3
+        props[bp] = cols > 0 ? cols : 3
       }
-      return this.invalidFeedback || this.feedback || this.$slots['invalid-feedback'] || this.$slots['feedback']
+      BREAKPOINTS.forEach(bp => {
+        // Assemble the label column breakpoint props
+        let propVal = this[makePropName(bp, 'labelCols')]
+        propVal = propVal === '' ? Boolean(bp) : (propVal || false)
+        if (typeof propVal !== 'boolean') {
+          // Convert to column size
+          propVal = parseInt(propVal, 10) || 0
+          // Ensure column size is greater than 0
+          propVal = propVal > 0 ? propVal : false
+        }
+        if (propVal) {
+          props[bp || 'cols'] = propVal
+        }
+      })
+      return props
     },
-    hasValidFeedback () {
-      if (this.computedState === false) {
-        // If the form-group state is explicityly invalid, we return false
-        return false
-      }
-      return this.validFeedback || this.$slots['valid-feedback']
+    labelAlignClasses () {
+      const classes = []
+      BREAKPOINTS.forEach(bp => {
+        // assemble the label column breakpoint align classes
+        const propVal = this[makePropName(bp, 'labelAlign')] || null
+        if (propVal) {
+          const className = bp ? `text-${bp}-${propVal}` : `text-${propVal}`
+          classes.push(className)
+        }
+      })
+      return classes
+    },
+    isHorizontal () {
+      // Determine if the resultant form-group will be rendered
+      // horizontal (meaning it has label-col breakpoints)
+      return keys(this.colLabelProps).length > 0
     },
     labelId () {
-      return this.hasLabel ? this.safeId('_BV_label_') : null
+      return (this.$slots['label'] || this.label) ? this.safeId('_BV_label_') : null
     },
     descriptionId () {
-      return this.hasDescription ? this.safeId('_BV_description_') : null
+      return (this.$slots['description'] || this.description) ? this.safeId('_BV_description_') : null
+    },
+    hasInvalidFeedback () {
+      // used for computing aria-describedby
+      const $slots = this.$slots
+      return this.computedState === false && ($slots['invalid-feedback'] || this.invalidFeedback)
     },
     invalidFeedbackId () {
       return this.hasInvalidFeedback ? this.safeId('_BV_feedback_invalid_') : null
+    },
+    hasValidFeedback () {
+      // used for computing aria-describedby
+      return this.computedState === true && (this.$slots['valid-feedback'] || this.validFeedback)
     },
     validFeedbackId () {
       return this.hasValidFeedback ? this.safeId('_BV_feedback_valid_') : null
     },
     describedByIds () {
+      // Screen readers will read out any content linked to by aria-describedby
+      // even if the content is hidden with 'display: none', hence we only include
+      // feedback IDs if the form-group's state is explicitly valid or invalid.
       return [
         this.descriptionId,
         this.invalidFeedbackId,
@@ -305,15 +369,24 @@ export default {
   },
   methods: {
     legendClick (evt) {
-      const tagName = evt.target ? evt.target.tagName : ''
-      if (/^(input|select|textarea|label)$/i.test(tagName)) {
-        // If clicked an input inside legend, we just let the default happen
+      if (this.labelFor) {
+        // don't do anything if labelFor is set
         return
       }
-      // Focus the first non-disabled visible input when the legend element is clicked
+      const tagName = evt.target ? evt.target.tagName : ''
+      if (/^(input|select|textarea|label|button|a)$/i.test(tagName)) {
+        // If clicked an interactive element inside legend, we just let the default happen
+        return
+      }
       const inputs = selectAll(SELECTOR, this.$refs.content).filter(isVisible)
-      if (inputs[0] && inputs[0].focus) {
+      if (inputs && inputs.length === 1 && inputs[0].focus) {
+        // if only a single input, focus it
         inputs[0].focus()
+      } else {
+        // Focus the content group
+        if (this.$refs.content && this.$refs.content.focus) {
+          this.$refs.content.focus()
+        }
       }
     },
     setInputDescribedBy (add, remove) {
@@ -326,10 +399,11 @@ export default {
           let ids = (getAttr(input, adb) || '').split(/\s+/)
           remove = (remove || '').split(/\s+/)
           // Update ID list, preserving any original IDs
-          ids = ids.filter(id => remove.indexOf(id) === -1).concat(add || '').join(' ').trim()
+          ids = ids.filter(id => !arrayIncludes(remove, id)).concat(add || '').join(' ').trim()
           if (ids) {
             setAttr(input, adb, ids)
           } else {
+            // No IDs, so remove the attribute
             removeAttr(input, adb)
           }
         }
