@@ -32,6 +32,7 @@ const bpLabelColProps = BREAKPOINTS.reduce((props, bp) => {
     type: bp === '' ? [Number, String] : [Boolean, Number, String],
     default: null
   }
+  return props
 }, create(null))
 
 // Generate the labelAlign breakpoint props
@@ -41,6 +42,7 @@ const bpLabelAlignProps = BREAKPOINTS.reduce((props, bp) => {
     type: String,
     default: null
   }
+  return props
 }, create(null))
 
 // render helper functions (here rather than polluting the instance with more methods)
