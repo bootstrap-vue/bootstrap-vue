@@ -6,7 +6,7 @@ import upperFirst from '../../utils/upper-first'
 import memoize from '../../utils/memoize'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import { arrayIncludes } from '../../utils/array'
-import { keys } from '../../utils/object'
+import { keys, create } from '../../utils/object'
 // Sub components
 import bFormRow from '../layout/form-row'
 import bCol from '../layout/col'
@@ -32,7 +32,7 @@ const bpLabelColProps = BREAKPOINTS.reduce((props, bp) => {
     type: bp === '' ? [Number, String] : [Boolean, Number, String],
     default: null
   }
-}, {})
+}, create(null))
 
 // Generate the labelAlign breakpoint props
 const bpLabelAlignProps = BREAKPOINTS.reduce((props, bp) => {
@@ -41,7 +41,7 @@ const bpLabelAlignProps = BREAKPOINTS.reduce((props, bp) => {
     type: String,
     default: null
   }
-}, {})
+}, create(null))
 
 // render helper functions (here rather than polluting the instance with more methods)
 function renderInvalidFeedback (h, ctx) {
