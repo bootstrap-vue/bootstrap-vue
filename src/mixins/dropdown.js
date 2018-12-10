@@ -259,6 +259,10 @@ export default {
     rootCloseListener (vm) {
       if (vm !== this) {
         this.visible = false
+        // Return focus to original trigger button
+        this.$nextTick(() => {
+          this.focusToggler()
+        })
       }
     },
     show () {
@@ -329,7 +333,9 @@ export default {
         evt.preventDefault()
         evt.stopPropagation()
         // Return focus to original trigger button
-        this.$nextTick(this.focusToggler)
+        this.$nextTick(() => {
+          this.focusToggler()
+        })
       }
     },
     onTab (evt) /* istanbul ignore next: not easy to test */ {
