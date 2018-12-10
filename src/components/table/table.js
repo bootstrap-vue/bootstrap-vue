@@ -343,7 +343,8 @@ export default {
                 this.rowClasses(item),
                 {
                   'b-table-has-details': rowShowDetails,
-                  [(this.dark ? 'bg-' : 'table-') + this.selectedVariant]: this.selectedRows[rowIndex]
+                  [(this.dark ? 'bg-' : 'table-') + this.selectedVariant]: this.selectedRows[rowIndex],
+                  'b-row-selected': this.selectedRows[rowIndex]
                 }
               ],
               attrs: {
@@ -584,7 +585,7 @@ export default {
     },
     selectMode: {
       type: String,
-      default: ''
+      default: 'multi'
     },
     selectedVariant: {
       type: String,
