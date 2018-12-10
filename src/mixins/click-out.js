@@ -37,7 +37,7 @@ export default {
     },
     _clickOutHandler (evt) {
       if (this.clickOutHandler && this.isClickOut(evt)) {
-        this.clickOutHandler(event)
+        this.clickOutHandler(evt)
       }
     }
   }
