@@ -150,7 +150,8 @@ export default {
   },
   computed: {
     toggler () {
-      return this.$refs.toggle.$el || this.$refs.toggle
+      const toggle = this.$refs.toggle
+      return toggle ? toggle.$el || toggle : null
     }
   },
   methods: {
