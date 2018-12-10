@@ -69,6 +69,7 @@ these names):
 | `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set).
 | `_rowVariant` | String | Bootstrap contextual state applied to the entire row (Supported values: `active`, `success`, `info`, `warning`, `danger`). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set)
 | `_showDetails` | Boolean | Used to trigger the display of the `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information
+| `_selected` | Boolean | UI triggered. See section [Selectable rows](#row-select-support) below for additional information
 
 **Example: Using variants for table cells**
 ```html
@@ -901,6 +902,52 @@ event will not be emitted when the input, select, textarea is clicked (unless th
 (even when disabled)
 
 
+## Row select
+You can make rows selectable, by using the prop `selectable`.
+
+By default, any row clicked is toggled, any other deselected. the SHIFT key selects a range of
+rows, and CTRL/CMD click will toggle the selected row.
+
+The prop `select-mode` can change the selecting mode:
+ - `multi`: each click will select/deselect the row
+ - `single`: only a single row can be selected at a time
+
+When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
+event, passing a single argument which is the complete list of selected items.
+**Treat this argument as read-only.**
+
+**Note:** _Paging or sorting will clear the selection._
+
+```html
+<template>
+  <b-table selectable select-mode="os" :items="items" @row-selected="rowSelected"></b-table>
+  {{ selected }}
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      items: [
+        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+      ],
+      selected: []
+    }
+  },
+  methods: {
+    rowSelected(items) {
+      this.selected = items
+    }
+  }
+}
+</script>
+
+<!-- table-selectable.vue -->
+```
+
 ## Row details support
 If you would optionally like to display additional record information (such as
 columns not specified in the fields definition array), you can use the scoped slot
@@ -1454,6 +1501,7 @@ When `b-table` is mounted in the document, it will automatically trigger a provi
 
     <!-- Main table element -->
     <b-table show-empty
+             selectable
              stacked="md"
              :items="items"
              :fields="fields"
