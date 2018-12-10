@@ -341,7 +341,10 @@ export default {
               key: `row-${rowIndex}`,
               class: [
                 this.rowClasses(item),
-                { 'b-table-has-details': rowShowDetails }
+                {
+                  'b-table-has-details': rowShowDetails,
+                  [this.selectedClass]: this.selectedRows[rowIndex]
+                }
               ],
               attrs: {
                 'aria-describedby': detailsId,
@@ -575,6 +578,18 @@ export default {
       type: [Boolean, String],
       default: false
     },
+    selectable: {
+      type: Boolean,
+      default: false
+    },
+    selectMode: {
+      type: String,
+      default: ''
+    },
+    selectedClass: {
+      type: String,
+      default: 'table-primary'
+    },
     headVariant: {
       type: String,
       default: ''
@@ -692,7 +707,9 @@ export default {
       // Our local copy of the items. Must be an array
       localItems: isArray(this.items) ? this.items : [],
       // Flag for displaying which empty slot to show, and for some event triggering.
-      isFiltered: false
+      isFiltered: false,
+      selectedRows: [],
+      lastRowClicked: -1
     }
   },
   mounted () {
@@ -733,16 +750,28 @@ export default {
       }
       this.localSortBy = newVal || null
     },
+    perPage (newVal, oldVal) {
+      if (oldVal !== newVal) {
+        this.clearSelected()
+      }
+    },
+    currentPage (newVal, oldVal) {
+      if (oldVal !== newVal) {
+        this.clearSelected()
+      }
+    },
     // Update .sync props
     localSortDesc (newVal, oldVal) {
       // Emit update to sort-desc.sync
       if (newVal !== oldVal) {
+        this.clearSelected()
         this.$emit('update:sortDesc', newVal)
       }
     },
     localSortBy (newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.$emit('update:sortBy', newVal)
+      this.clearSelected()
+      this.$emit('update:sortBy', newVal)
       }
     },
     localBusy (newVal, oldVal) {
@@ -752,6 +781,8 @@ export default {
     },
     // Watch for changes on computedItems and update the v-model
     computedItems (newVal, OldVal) {
+      // Reset for selectable
+      this.lastRowClicked = -1
       this.$emit('input', newVal)
     },
     // Watch for changes to the filter criteria and filtered items vs localItems).
@@ -822,7 +853,8 @@ export default {
         // The following are b-table custom styles
         'b-table-fixed': this.fixed,
         'b-table-stacked': this.stacked === true || this.stacked === '',
-        [`b-table-stacked-${this.stacked}`]: this.stacked !== true && this.stacked
+        [`b-table-stacked-${this.stacked}`]: this.stacked !== true && this.stacked,
+        'b-table-selectable': this.selectable
       }
     },
     headClasses () {
@@ -1186,6 +1218,9 @@ export default {
       // Return the generated function
       return fn
     },
+    clearSelected() {
+      this.selectedRows = []
+    },
     // Event handlers
     rowClicked (e, item, index) {
       if (this.stopIfBusy(e)) {
@@ -1194,6 +1229,36 @@ export default {
       } else if (filterEvent(e)) {
         // clicked on a non-disabled control so ignore
         return
+      }
+      if (this.selectable) {
+        let selected = !this.selectedRows[index]
+        switch (this.selectMode) {
+          case 'single':
+            this.clearSelected()
+            break
+          case 'multi':
+            break
+          default:
+            if (this.lastRowClicked >= 0 && e.shiftKey) { // range
+              for (let idx=Math.min(this.lastRowClicked, index); idx <= Math.max(this.lastRowClicked, index); idx++) {
+                this.selectedRows[idx] = true
+              }
+            } else {
+              if (!(e.ctrlKey || e.metaKey)) { // clear range selection if any
+                this.clearSelected()
+              }
+              this.lastRowClicked = selected ? index : -1;
+            }
+            break
+        }
+        this.$set(this.selectedRows, index, selected)
+        let items = []
+        this.selectedRows.forEach((v, idx) => {
+          if (v) {
+            items.push(this.computedItems[idx])
+          }
+        })
+        this.$emit('row-selected', items)
       }
       this.$emit('row-clicked', item, index, e)
     },
