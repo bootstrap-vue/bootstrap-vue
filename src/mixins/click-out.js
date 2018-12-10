@@ -3,7 +3,6 @@ import { contains, eventOff, eventOn } from '../utils/dom'
 export default {
   data () {
     return {
-      clickOutEventName: null,
       listenForClickOut: false
     }
   },
@@ -16,6 +15,11 @@ export default {
         }
       }
     }
+  },
+  beforeCreate () {
+    // Declare non-reactive properties
+    this.clickOutElement = null
+    this.clickOutEventName = null
   },
   mounted () {
     if (!this.clickOutElement) {

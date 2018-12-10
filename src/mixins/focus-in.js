@@ -16,6 +16,10 @@ export default {
       }
     }
   },
+  beforeCreate () {
+    // Declare non-reactive properties
+    this.focusInElement = null
+  },
   mounted () {
     if (!this.focusInElement) {
       this.focusInElement = document
