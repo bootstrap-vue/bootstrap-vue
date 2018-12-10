@@ -145,7 +145,6 @@ function renderLabel (h, ctx) {
       [label]
     )
   } else {
-    if
     return h(
       isHorizontal ? 'b-col' : labelTag,
       {
