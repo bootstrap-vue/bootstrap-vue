@@ -1511,7 +1511,6 @@ When `b-table` is mounted in the document, it will automatically trigger a provi
 
     <!-- Main table element -->
     <b-table show-empty
-             selectable
              stacked="md"
              :items="items"
              :fields="fields"
