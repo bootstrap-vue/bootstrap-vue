@@ -905,10 +905,10 @@ event will not be emitted when the input, select, textarea is clicked (unless th
 You can make rows selectable, by using the prop `selectable`.
 
 Users can easily change the selecting mode by setting the `select-mode` prop.
+ - `multi`: each click will select/deselect the row (default mode)
  - `single`: only a single row can be selected at one time
- - `multi`: each click will select/deselect the row
  - `range`: any row clicked is toggled, any other deselected. the SHIFT key selects a range of
-rows, and CTRL/CMD click will toggle the selected row. (default mode)
+rows, and CTRL/CMD click will toggle the selected row.
 
 When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
 event, passing a single argument which is the complete list of selected items.
@@ -918,7 +918,15 @@ event, passing a single argument which is the complete list of selected items.
 
 ```html
 <template>
-  <b-table selectable select-mode="multi" selectedVariant="success" :items="items" @row-selected="rowSelected"></b-table>
+  <b-form-group
+      label="Selection mode:"
+      horizontal
+      :label-cols="4"
+      breakpoint="md"
+  >
+    <b-form-select v-model="selectMode" :options="modes" class="mb-3" />
+  </b-form-group>
+  <b-table selectable :select-mode="selectMode" selectedVariant="success" :items="items" @row-selected="rowSelected"></b-table>
   {{ selected }}
 </template>
 
@@ -926,12 +934,18 @@ event, passing a single argument which is the complete list of selected items.
 export default {
   data () {
     return {
+      modes: [
+        { value: 'multi', text: 'multi' },
+        { value: 'single', text: 'single' },
+        { value: 'range', text: 'range' }
+      ],
       items: [
         { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
         { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
         { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
         { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
       ],
+      selectMode: 'multi',
       selected: []
     }
   },
