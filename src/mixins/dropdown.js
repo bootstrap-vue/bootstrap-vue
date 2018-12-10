@@ -236,13 +236,27 @@ export default {
     whileOpenListen (open) {
       // turn listeners on/off while open
       if (open) {
+        // If another dropdown is opened
+        this.$root.$on('bv::dropdown::shown', this.rootCloseListener)
+        // Hide when links clicked (needed when items in menu are clicked)
+        this.$root.$on('clicked::link', this.rootCloseListener)
+        // Use new namespaced events for clicked
+        this.$root.$on('bv::link::clicked', this.rootCloseListener)
         // Hide the dropdown when clicked outside
         this.listenForClickOut = true
         // Hide the dropdown when it loses focus
         this.listenForFocusIn = true
       } else {
+        this.$root.$off('bv::dropdown::shown', this.rootCloseListener)
+        this.$root.$off('clicked::link', this.rootCloseListener)
+        this.$root.$off('bv::link::clicked', this.rootCloseListener)
         this.listenForClickOut = false
         this.listenForFocusIn = false
+      }
+    },
+    rootCloseListener (vm) {
+      if (vm !== this) {
+        this.visible = false
       }
     },
     show () {
@@ -323,9 +337,6 @@ export default {
     },
     onMouseOver (evt) /* istanbul ignore next: not easy to test */ {
       // Removed mouseover focus handler
-    },
-    isClickOut () {
-      return true
     },
     // Docmunet click out listener
     clickOutHandler () {

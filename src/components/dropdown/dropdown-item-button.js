@@ -25,7 +25,12 @@ export default {
         props,
         staticClass: 'dropdown-item',
         class: { [props.activeClass]: props.active },
-        attrs: { role: 'menuitem', type: 'button', disabled: props.disabled }
+        attrs: { role: 'menuitem', type: 'button', disabled: props.disabled },
+        on: {
+          click (e) {
+            parent.$root.$emit('clicked::link', e)
+          }
+        }
       }),
       children
     )
