@@ -281,6 +281,7 @@ export default {
       items.forEach((item, rowIndex) => {
         const detailsSlot = $scoped['row-details']
         const rowShowDetails = Boolean(item._showDetails && detailsSlot)
+        const rowSelected = this.selectedRows[rowIndex]
         // Details ID needed for aria-describedby when details showing
         const detailsId = rowShowDetails
           ? this.safeId(`_details_${rowIndex}_`)
@@ -309,7 +310,8 @@ export default {
                 unformatted: _get(item, field.key, ''),
                 value: formatted,
                 toggleDetails: toggleDetailsFn,
-                detailsShowing: Boolean(item._showDetails)
+                detailsShowing: Boolean(item._showDetails),
+                rowSelected: Boolean(rowSelected)
               })
             ]
             if (this.isStacked) {
@@ -343,8 +345,9 @@ export default {
                 this.rowClasses(item),
                 {
                   'b-table-has-details': rowShowDetails,
-                  [(this.dark ? 'bg-' : 'table-') + this.selectedVariant]: this.selectedRows[rowIndex],
-                  'b-row-selected': this.selectedRows[rowIndex]
+                  'b-row-selected': rowSelected,
+                  [`${(this.dark ? 'bg' : 'table')}-${this.selectedVariant}`]: rowSelected && this.selectedVariant
+                  
                 }
               ],
               attrs: {
