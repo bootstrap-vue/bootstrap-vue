@@ -148,7 +148,7 @@ function renderLabel (h, ctx) {
           // Emulate label padding top of 0 on legend when not horizontal
           !isHorizontal && isLegend ? 'pt-0' : '',
           isSrOnly ? 'sr-only' : '',
-          ctx.size ? `col-form-label-${ctx.size}` : '',
+          ctx.labelSize ? `col-form-label-${ctx.labelSize}` : '',
           ctx.labelAlignClasses,
           ctx.labelClass
         ]
