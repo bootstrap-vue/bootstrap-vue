@@ -477,6 +477,7 @@ export default {
           // Now we can override any $attrs here
           id: this.safeId(),
           role: this.isStacked ? 'table' : null,
+          'aria-multiselectable': this.selectable ? (this.selectMode === 'single' ? 'false' : 'true') : null,
           'aria-busy': this.computedBusy ? 'true' : 'false',
           'aria-colcount': String(fields.length),
           'aria-describedby': [
