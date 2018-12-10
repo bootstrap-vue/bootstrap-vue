@@ -4,6 +4,7 @@ import formStateMixin from '../../mixins/form-state'
 // Utils
 import upperFirst from '../../utils/upper-first'
 import memoize from '../../utils/memoize'
+import warn from '../../utils/warn'
 import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../../utils/dom'
 import { arrayIncludes } from '../../utils/array'
 import { keys, create } from '../../utils/object'
@@ -21,25 +22,25 @@ const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disab
 const BREAKPOINTS = ['', 'sm', 'md', 'lg', 'xl']
 
 // Memoize this function to return cached values to save time in computed functions
-const makePropName = memoize((bp = '', prefix) => {
-  return `${prefix}${upperFirst(bp)}`
+const makePropName = memoize((breakpoint = '', prefix) => {
+  return `${prefix}${upperFirst(breakpoint)}`
 })
 
 // Generate the labelCol breakpoint props
-const bpLabelColProps = BREAKPOINTS.reduce((props, bp) => {
+const bpLabelColProps = BREAKPOINTS.reduce((props, breakpoint) => {
   // label-cols, label-cols-sm, label-cols-md, ...
-  props[makePropName(bp, 'labelCols')] = {
-    type: bp === '' ? [Number, String] : [Boolean, Number, String],
-    default: null
+  props[makePropName(breakpoint, 'labelCols')] = {
+    type: [Number, String, Boolean],
+    default: breakpoint ? false : null
   }
   return props
 }, create(null))
 
 // Generate the labelAlign breakpoint props
-const bpLabelAlignProps = BREAKPOINTS.reduce((props, bp) => {
+const bpLabelAlignProps = BREAKPOINTS.reduce((props, breakpoint) => {
   // label-align, label-align-sm, label-align-md, ...
-  props[makePropName(bp, 'labelAlign')] = {
-    type: String,
+  props[makePropName(breakpoint, 'labelAlign')] = {
+    type: String, // left, right, center
     default: null
   }
   return props
@@ -292,7 +293,7 @@ export default {
       default: false
     },
     breakpoint: {
-      // Deprecated
+      // Deprecated (ignored if horizontal is not true)
       type: String,
       default: null // legacy value 'sm'
     }
@@ -301,35 +302,43 @@ export default {
     labelColProps () {
       const props = {}
       if (this.horizontal) {
-        // Deprecated setting of horizontal prop
+        // Deprecated setting of horizontal/breakpoint props
+        warn("b-form-group: Props 'horizontal' and 'breakpoint' are deprecated. Use 'label-cols(-{breakpoint})' props instead.")
         // Legacy default is breakpoint sm and cols 3
         const bp = this.breakpoint || 'sm'
         const cols = parseInt(this.labelCols, 10) || 3
         props[bp] = cols > 0 ? cols : 3
+        // We then return the single breakpoint prop for legacy compatability
+        return props
       }
-      BREAKPOINTS.forEach(bp => {
-        // Assemble the label column breakpoint props
-        let propVal = this[makePropName(bp, 'labelCols')]
-        propVal = propVal === '' ? Boolean(bp) : (propVal || false)
+      BREAKPOINTS.forEach(breakpoint => {
+        // Grab the value if the label column breakpoint prop
+        let propVal = this[makePropName(breakpoint, 'labelCols')]
+        // Handle case where the prop's value is an empty string, which represents true
+        propVal = propVal === '' ? true : (propVal || false)
         if (typeof propVal !== 'boolean') {
-          // Convert to column size
+          // Convert to column size to number
           propVal = parseInt(propVal, 10) || 0
           // Ensure column size is greater than 0
           propVal = propVal > 0 ? propVal : false
         }
         if (propVal) {
-          props[bp || 'cols'] = propVal
+          // Add the prop to the list of props to give to b-col.
+          // if breakpoint is '' (labelCols=true), then we use the col prop to make equal width at xs
+          const bColPropName = breakpoint || (typeof propVal === 'boolean' ? 'col' : 'cols')
+          // Add it to the props
+          props[bColPropName] = propVal
         }
       })
       return props
     },
     labelAlignClasses () {
       const classes = []
-      BREAKPOINTS.forEach(bp => {
+      BREAKPOINTS.forEach(breakpoint => {
         // assemble the label column breakpoint align classes
-        const propVal = this[makePropName(bp, 'labelAlign')] || null
+        const propVal = this[makePropName(breakpoint, 'labelAlign')] || null
         if (propVal) {
-          const className = bp ? `text-${bp}-${propVal}` : `text-${propVal}`
+          const className = breakpoint ? `text-${breakpoint}-${propVal}` : `text-${propVal}`
           classes.push(className)
         }
       })
