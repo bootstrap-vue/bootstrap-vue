@@ -770,8 +770,8 @@ export default {
     },
     localSortBy (newVal, oldVal) {
       if (newVal !== oldVal) {
-      this.clearSelected()
-      this.$emit('update:sortBy', newVal)
+        this.clearSelected()
+        this.$emit('update:sortBy', newVal)
       }
     },
     localBusy (newVal, oldVal) {
@@ -1218,7 +1218,7 @@ export default {
       // Return the generated function
       return fn
     },
-    clearSelected() {
+    clearSelected () {
       this.selectedRows = []
     },
     // Event handlers
@@ -1240,14 +1240,14 @@ export default {
             break
           default:
             if (this.lastRowClicked >= 0 && e.shiftKey) { // range
-              for (let idx=Math.min(this.lastRowClicked, index); idx <= Math.max(this.lastRowClicked, index); idx++) {
+              for (let idx = Math.min(this.lastRowClicked, index); idx <= Math.max(this.lastRowClicked, index); idx++) {
                 this.selectedRows[idx] = true
               }
             } else {
               if (!(e.ctrlKey || e.metaKey)) { // clear range selection if any
                 this.clearSelected()
               }
-              this.lastRowClicked = selected ? index : -1;
+              this.lastRowClicked = selected ? index : -1
             }
             break
         }
