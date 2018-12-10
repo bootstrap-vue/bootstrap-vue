@@ -25,14 +25,22 @@ const Selector = {
 
 // Popper attachment positions
 const AttachmentMap = {
-  // DropUp Left Align
+  // Dropup left align
   TOP: 'top-start',
-  // DropUp Right Align
+  // Dropup right align
   TOPEND: 'top-end',
-  // Dropdown left Align
+  // Dropdown left align
   BOTTOM: 'bottom-start',
-  // Dropdown Right Align
-  BOTTOMEND: 'bottom-end'
+  // Dropdown right align
+  BOTTOMEND: 'bottom-end',
+  // Dropright left align
+  RIGHT: 'right-start',
+  // Dropright right align
+  RIGHTEND: 'right-end',
+  // Dropleft left align
+  LEFT: 'left-start',
+  // Dropleft right align
+  LEFTEND: 'left-end'
 }
 
 export default {
@@ -215,21 +223,15 @@ export default {
       } else if (this.right) {
         placement = AttachmentMap.BOTTOMEND
       }
-      const popperConfig = {
+      let popperConfig = {
         placement,
         modifiers: {
-          offset: {
-            offset: this.offset || 0
-          },
-          flip: {
-            enabled: !this.noFlip
-          }
+          offset: { offset: this.offset || 0 },
+          flip: { enabled: !this.noFlip }
         }
       }
       if (this.boundary) {
-        popperConfig.modifiers.preventOverflow = {
-          boundariesElement: this.boundary
-        }
+        popperConfig.modifiers.preventOverflow = { boundariesElement: this.boundary }
       }
       return assign(popperConfig, this.popperOpts || {})
     },
