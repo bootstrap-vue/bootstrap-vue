@@ -914,6 +914,8 @@ When a table is `selectable` and the user clicks on a row, `<b-table>` will emit
 event, passing a single argument which is the complete list of selected items.
 **Treat this argument as read-only.**
 
+Selected rows have a class of `b-row-selected`
+
 **Note:** _Paging or sorting will clear the selection._
 
 ```html
@@ -934,11 +936,7 @@ event, passing a single argument which is the complete list of selected items.
 export default {
   data () {
     return {
-      modes: [
-        { value: 'multi', text: 'multi' },
-        { value: 'single', text: 'single' },
-        { value: 'range', text: 'range' }
-      ],
+      modes: ['multi', 'single', 'range'],
       items: [
         { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
         { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
