@@ -343,7 +343,7 @@ export default {
                 this.rowClasses(item),
                 {
                   'b-table-has-details': rowShowDetails,
-                  ['table-'+this.selectedVariant]: this.selectedRows[rowIndex]
+                  ['table-' + this.selectedVariant]: this.selectedRows[rowIndex]
                 }
               ],
               attrs: {
