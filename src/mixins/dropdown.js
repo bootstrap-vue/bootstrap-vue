@@ -347,12 +347,10 @@ export default {
     // Document focusin listener
     focusInHandler (evt) {
       // If focus leaves dropdown, hide it
-      const menu = this.$refs.menu
       if (
         this.visible &&
-        menu &&
-        document !== evt.target &&
-        !contains(menu, evt.target)
+        !contains(this.$refs.menu, evt.target) &&
+        !contains(this.$refs.toggle, evt.target)
       ) {
         this.visible = false
       }
