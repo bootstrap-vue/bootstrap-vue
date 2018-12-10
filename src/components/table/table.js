@@ -347,7 +347,6 @@ export default {
                   'b-table-has-details': rowShowDetails,
                   'b-row-selected': rowSelected,
                   [`${(this.dark ? 'bg' : 'table')}-${this.selectedVariant}`]: rowSelected && this.selectedVariant
-                  
                 }
               ],
               attrs: {
