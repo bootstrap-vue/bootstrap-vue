@@ -353,6 +353,7 @@ export default {
                 'aria-describedby': detailsId,
                 'aria-owns': detailsId,
                 'aria-rowindex': ariaRowIndex,
+                'aria-selected': this.selectable ? (rowSelected ? 'true' : 'false') : null,
                 role: this.isStacked ? 'row' : null
               },
               on: {
