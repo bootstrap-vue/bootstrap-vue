@@ -94,9 +94,7 @@ export default {
     return {
       visible: false,
       inNavbar: null,
-      visibleChangePrevented: false,
-      listenForClickOut: false,
-      listenForFocusIn: false
+      visibleChangePrevented: false
     }
   },
   created () {

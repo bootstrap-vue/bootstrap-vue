@@ -3,8 +3,7 @@ import { eventOff, eventOn } from '../utils/dom'
 export default {
   data () {
     return {
-      focusInElement: null,
-      listenForFocusIn: true
+      listenForFocusIn: false
     }
   },
   watch: {

@@ -3,9 +3,8 @@ import { contains, eventOff, eventOn } from '../utils/dom'
 export default {
   data () {
     return {
-      clickOutElement: null,
       clickOutEventName: null,
-      listenForClickOut: true
+      listenForClickOut: false
     }
   },
   watch: {
