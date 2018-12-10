@@ -343,7 +343,7 @@ export default {
                 this.rowClasses(item),
                 {
                   'b-table-has-details': rowShowDetails,
-                  [this.selectedClass]: this.selectedRows[rowIndex]
+                  ['table-'+this.selectedVariant]: this.selectedRows[rowIndex]
                 }
               ],
               attrs: {
@@ -586,9 +586,9 @@ export default {
       type: String,
       default: ''
     },
-    selectedClass: {
+    selectedVariant: {
       type: String,
-      default: 'table-primary'
+      default: 'primary'
     },
     headVariant: {
       type: String,
@@ -808,6 +808,9 @@ export default {
       this.isFiltered = isFiltered
     },
     isFiltered (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.clearSelected()
+      }
       if (newVal === false && oldVal === true) {
         // We need to emit a filtered event if isFiltered transitions from true to
         // false so that users can update their pagination controls.
