@@ -904,12 +904,11 @@ event will not be emitted when the input, select, textarea is clicked (unless th
 ## Row select
 You can make rows selectable, by using the prop `selectable`.
 
-By default, any row clicked is toggled, any other deselected. the SHIFT key selects a range of
-rows, and CTRL/CMD click will toggle the selected row.
-
-The prop `select-mode` can change the selecting mode:
+Users can easily change the selecting mode by setting the `select-mode` prop.
+ - `single`: only a single row can be selected at one time
  - `multi`: each click will select/deselect the row
- - `single`: only a single row can be selected at a time
+ - `range`: any row clicked is toggled, any other deselected. the SHIFT key selects a range of
+rows, and CTRL/CMD click will toggle the selected row. (default mode)
 
 When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
 event, passing a single argument which is the complete list of selected items.
@@ -919,7 +918,7 @@ event, passing a single argument which is the complete list of selected items.
 
 ```html
 <template>
-  <b-table selectable select-mode="multi" :items="items" @row-selected="rowSelected"></b-table>
+  <b-table selectable select-mode="multi" selectedVariant="success" :items="items" @row-selected="rowSelected"></b-table>
   {{ selected }}
 </template>
 
