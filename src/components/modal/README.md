@@ -439,10 +439,13 @@ prop to `true`. Set it to `false` to re-enable both buttons.
 ## Multiple modal support
 Unlike native Bootstrap V4, Bootstrap-Vue supports multiple modals opened at the same time.
 
+Setting `stackable` to `false` on a specific modal will disable stacking for this specific modal
+and it will hide itself when another modal is opened.
+
 ```html
 <div>
   <b-button v-b-modal.modal-multi-1>Open First Modal</b-button>
-  <b-modal id="modal-multi-1" size="lg"title="First Modal" ok-only>
+  <b-modal id="modal-multi-1" size="lg"title="First Modal" ok-only :stackable="false">
     <p class="my-5">First Modal</p>
     <b-button v-b-modal.modal-multi-2>Open Second Modal</b-button>
   </b-modal>
