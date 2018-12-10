@@ -223,7 +223,7 @@ export default {
         role: isFieldset ? null : 'group',
         'aria-invalid': this.computedState === false ? 'true' : null,
         'aria-labelledby': this.labelId || null,
-        'aria-describedby': this.ariaDescribedBy || null
+        'aria-describedby': this.describedByIds || null
       }
     }
     // Return it wrapped in a form-group.
