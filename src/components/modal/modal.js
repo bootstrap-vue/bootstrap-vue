@@ -329,9 +329,9 @@ export default {
       type: String,
       default: ''
     },
-    stackable: {
+    noStacking: {
       type: Boolean,
-      default: true
+      default: false
     },
     noFade: {
       type: Boolean,
@@ -560,7 +560,7 @@ export default {
         // Don't show if canceled
         return
       }
-      if (this.stackable) {
+      if (!this.noStacking) {
         // Find the z-index to use
         this.zIndex = getModalNextZIndex()
         // Show the modal
@@ -771,7 +771,7 @@ export default {
     },
     modalListener (bvEvt) {
       // If another modal opens, close this one
-      if (!this.stackable && bvEvt.vueTarget !== this) {
+      if (this.noStacking && bvEvt.vueTarget !== this) {
         this.hide()
       }
     },
