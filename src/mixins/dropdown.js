@@ -1,10 +1,11 @@
 import Popper from 'popper.js'
-import { from as arrayFrom } from '../utils/array'
+import clickOutMixin from './click-out'
+import focusInMixin from './focus-in'
 import { assign } from '../utils/object'
 import KeyCodes from '../utils/key-codes'
 import BvEvent from '../utils/bv-event.class'
 import warn from '../utils/warn'
-import { isVisible, closest, selectAll, getAttr, eventOn, eventOff } from '../utils/dom'
+import { closest, contains, getAttr, isVisible, selectAll } from '../utils/dom'
 
 // Return an Array of visible items
 function filterVisible (els) {
@@ -35,6 +36,7 @@ const AttachmentMap = {
 }
 
 export default {
+  mixins: [clickOutMixin, focusInMixin],
   props: {
     disabled: {
       type: Boolean,
@@ -84,7 +86,9 @@ export default {
     return {
       visible: false,
       inNavbar: null,
-      visibleChangePrevented: false
+      visibleChangePrevented: false,
+      listenForClickOut: false,
+      listenForFocusIn: false
     }
   },
   created () {
@@ -232,42 +236,13 @@ export default {
     whileOpenListen (open) {
       // turn listeners on/off while open
       if (open) {
-        // If another dropdown is opened
-        this.$root.$on('bv::dropdown::shown', this.rootCloseListener)
-        // Hide when links clicked (needed when items in menu are clicked)
-        this.$root.$on('clicked::link', this.rootCloseListener)
-        // Use new namespaced events for clicked
-        this.$root.$on('bv::link::clicked', this.rootCloseListener)
+        // Hide the dropdown when clicked outside
+        this.listenForClickOut = true
+        // Hide the dropdown when it loses focus
+        this.listenForFocusIn = true
       } else {
-        this.$root.$off('bv::dropdown::shown', this.rootCloseListener)
-        this.$root.$off('clicked::link', this.rootCloseListener)
-        this.$root.$off('bv::link::clicked', this.rootCloseListener)
-      }
-      // touchstart handling fix
-      /* istanbul ignore next: not easy to test */
-      if ('ontouchstart' in document.documentElement) {
-        // If this is a touch-enabled device we add extra
-        // empty mouseover listeners to the body's immediate children;
-        // only needed because of broken event delegation on iOS
-        // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
-        // Only enabled if we are *not* in an .navbar-nav.
-        const children = arrayFrom(document.body.children)
-        const isNavBarNav = closest(this.$el, Selector.NAVBAR_NAV)
-        children.forEach(el => {
-          if (open && !isNavBarNav) {
-            eventOn(el, 'mouseover', this._noop)
-          } else {
-            eventOff(el, 'mouseover', this._noop)
-          }
-        })
-      }
-    },
-    _noop () /* istanbul ignore next: no need to test */ {
-      // Do nothing event handler (used in touchstart event handler)
-    },
-    rootCloseListener (vm) {
-      if (vm !== this) {
-        this.visible = false
+        this.listenForClickOut = false
+        this.listenForFocusIn = false
       }
     },
     show () {
@@ -346,14 +321,30 @@ export default {
       // Tab, if in a text-like input, we should just focus next item in the dropdown
       // Note: Inputs are in a special .dropdown-form container
     },
-    onFocusOut (evt) {
-      if (this.$el.contains(evt.target)) {
-        return
-      }
-      this.visible = false
-    },
     onMouseOver (evt) /* istanbul ignore next: not easy to test */ {
       // Removed mouseover focus handler
+    },
+    isClickOut () {
+      return true
+    },
+    // Docmunet click out listener
+    clickOutHandler () {
+      if (this.visible) {
+        this.visible = false
+      }
+    },
+    // Document focusin listener
+    focusInHandler (evt) {
+      // If focus leaves dropdown, hide it
+      const menu = this.$refs.menu
+      if (
+        this.visible &&
+        menu &&
+        document !== evt.target &&
+        !contains(menu, evt.target)
+      ) {
+        this.visible = false
+      }
     },
     focusNext (evt, up) {
       if (!this.visible) {

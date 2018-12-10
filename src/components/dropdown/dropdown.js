@@ -66,7 +66,6 @@ export default {
         },
         on: {
           mouseover: this.onMouseOver,
-          focusout: this.onFocusOut, // focus out of menu
           keydown: this.onKeydown // tab, up, down, esc
         }
       },

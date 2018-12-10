@@ -36,7 +36,6 @@ export default {
         attrs: { 'aria-labelledby': this.safeId('_BV_button_') },
         on: {
           mouseover: this.onMouseOver,
-          focusout: this.onFocusOut, // focus out of menu
           keydown: this.onKeydown // tab, up, down, esc
         }
       },
