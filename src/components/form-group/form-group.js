@@ -118,45 +118,59 @@ function renderHelpText (h, ctx) {
 }
 
 function renderLabel (h, ctx) {
-  // render label/legend
+  // render label/legend inside b-col if necessary
   const content = ctx.$slots['label'] || ctx.label
-  let label = h(false)
-  if (content) {
-    const labelFor = ctx.labelFor
-    const isLegend = !labelFor
-    const isHorizontal = ctx.isHorizontal
-    const isSrOnly = ctx.labelSrOnly
-    const on = {}
-    if (isLegend && !isSrOnly) {
-      // Add the legend click handler
-      on.click = ctx.legendClick
+  const labelFor = ctx.labelFor
+  const isLegend = !labelFor
+  const isHorizontal = ctx.isHorizontal
+  const labelTag = isLegend ? 'legend' : 'label'
+  if (!content && !isHorizontal) {
+    return h(false)
+  } else if (ctx.labelSrOnly) {
+    let label = h(false)
+    if (content) {
+      label = h(
+        labelTag,
+        {
+          class: 'sr-only',
+          attrs: { id: ctx.labelId, for: labelFor || null }
+        },
+        [content]
+      )
     }
-    label = h(
-      isLegend ? 'legend' : 'label',
+    return h(
+      isHorizontal ? 'b-col' : 'div',
+      { props: isHorizontal ? ctx.labelColProps : {} },
+      [label]
+    )
+  } else {
+    if
+    return h(
+      isHorizontal ? 'b-col' : labelTag,
       {
-        on,
+        on: isLegend ? { click: ctx.legendClick } : {},
+        props: isHorizontal ? { tag: labelTag, ...ctx.labelColProps } : {},
         attrs: {
           id: ctx.labelId,
           for: labelFor || null,
-          // We add a tab index to legend so that screen readers will
-          // properly read the aria-labelledby in IE.
+          // We add a tab index to legend so that screen readers will properly read the aria-labelledby in IE.
           tabindex: isLegend ? '-1' : null
         },
         class: [
-          // when horizontal or a legend is rendered add col-form-label for correct sizing
+          // When horizontal or if a legend is rendered, add col-form-label for correct sizing
+          // as Boostrap has inconsitent font styling for legend in non-horiontal form-groups.
+          // see: https://github.com/twbs/bootstrap/issues/27805
           isHorizontal || isLegend ? 'col-form-label' : '',
           // Emulate label padding top of 0 on legend when not horizontal
           !isHorizontal && isLegend ? 'pt-0' : '',
-          isSrOnly ? 'sr-only' : '',
           ctx.labelSize ? `col-form-label-${ctx.labelSize}` : '',
           ctx.labelAlignClasses,
           ctx.labelClass
         ]
       },
-      [ content ]
+      [content]
     )
   }
-  return label
 }
 
 // bFormGroup
@@ -175,13 +189,9 @@ export default {
   render (h) {
     const isFieldset = !this.labelFor
     const isHorizontal = this.isHorizontal
-    // Generate the label col
-    const label = h(
-      isHorizontal ? 'b-col' : 'div',
-      { props: this.labelColProps },
-      [ renderLabel(h, this) ]
-    )
-    // Generate the content col
+    // Generate the label
+    const label = renderLabel(h, this)
+    // Generate the content
     const content = h(
       isHorizontal ? 'b-col' : 'div',
       {
@@ -202,10 +212,10 @@ export default {
     )
     // Create the form-group
     const data = {
-      staticClass: 'form-group b-form-group',
+      staticClass: 'form-group',
       class: [
         this.validated ? 'was-validated' : null,
-        this.stateClass // from form-state mixin
+        this.stateClass
       ],
       attrs: {
         id: this.safeId(),
@@ -219,7 +229,7 @@ export default {
     // Return it wrapped in a form-group.
     // Note: fieldsets do not support adding `row` or `form-row` directly to them
     // due to browser specific render issues, so we move the form-row to an
-    // inner wrapper div when horizontal
+    // inner wrapper div when horizontal and using a fieldset
     return h(
       isFieldset ? 'fieldset' : (isHorizontal ? 'b-form-row' : 'div'),
       data,
@@ -382,13 +392,8 @@ export default {
       }
       const inputs = selectAll(SELECTOR, this.$refs.content).filter(isVisible)
       if (inputs && inputs.length === 1 && inputs[0].focus) {
-        // if only a single input, focus it
+        // if only a single input, focus it, emulating label behaviour
         inputs[0].focus()
-      } else {
-        // Focus the content group
-        if (this.$refs.content && this.$refs.content.focus) {
-          this.$refs.content.focus()
-        }
       }
     },
     setInputDescribedBy (add, remove) {
