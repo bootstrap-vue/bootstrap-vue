@@ -343,7 +343,7 @@ export default {
                 this.rowClasses(item),
                 {
                   'b-table-has-details': rowShowDetails,
-                  ['table-' + this.selectedVariant]: this.selectedRows[rowIndex]
+                  [(this.dark ? 'bg-' : 'table-') + this.selectedVariant]: this.selectedRows[rowIndex]
                 }
               ],
               attrs: {
@@ -749,6 +749,11 @@ export default {
         return
       }
       this.localSortBy = newVal || null
+    },
+    selectMode (newVal, oldVal) {
+      if (oldVal !== newVal) {
+        this.clearSelected()
+      }
     },
     perPage (newVal, oldVal) {
       if (oldVal !== newVal) {
@@ -1242,9 +1247,7 @@ export default {
           case 'single':
             this.selectedRows = []
             break
-          case 'multi':
-            break
-          default:
+          case 'range':
             if (this.lastRowClicked >= 0 && e.shiftKey) { // range
               for (let idx = Math.min(this.lastRowClicked, index); idx <= Math.max(this.lastRowClicked, index); idx++) {
                 this.selectedRows[idx] = true
