@@ -1219,7 +1219,10 @@ export default {
       return fn
     },
     clearSelected () {
-      this.selectedRows = []
+      if (this.selectedRows.length) {
+        this.selectedRows = []
+        this.$emit('row-selected', [])
+      }
     },
     // Event handlers
     rowClicked (e, item, index) {
@@ -1234,7 +1237,7 @@ export default {
         let selected = !this.selectedRows[index]
         switch (this.selectMode) {
           case 'single':
-            this.clearSelected()
+            this.selectedRows = []
             break
           case 'multi':
             break
@@ -1245,7 +1248,7 @@ export default {
               }
             } else {
               if (!(e.ctrlKey || e.metaKey)) { // clear range selection if any
-                this.clearSelected()
+                this.selectedRows = []
               }
               this.lastRowClicked = selected ? index : -1
             }
