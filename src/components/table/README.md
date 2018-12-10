@@ -901,7 +901,7 @@ event will not be emitted when the input, select, textarea is clicked (unless th
 (even when disabled)
 
 
-## Row select
+## Row select support
 You can make rows selectable, by using the prop `selectable`.
 
 Users can easily change the selecting mode by setting the `select-mode` prop.
