@@ -69,7 +69,6 @@ these names):
 | `_cellVariants` | Object | Bootstrap contextual state applied to individual cells. Keyed by field (Supported values: `active`, `success`, `info`, `warning`, `danger`). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set).
 | `_rowVariant` | String | Bootstrap contextual state applied to the entire row (Supported values: `active`, `success`, `info`, `warning`, `danger`). These variants map to classes `table-${variant}` or `bg-${variant}` (when the `dark` prop is set)
 | `_showDetails` | Boolean | Used to trigger the display of the `row-details` scoped slot. See section [Row details support](#row-details-support) below for additional information
-| `_selected` | Boolean | UI triggered. See section [Selectable rows](#row-select-support) below for additional information
 
 **Example: Using variants for table cells**
 ```html
@@ -920,7 +919,7 @@ event, passing a single argument which is the complete list of selected items.
 
 ```html
 <template>
-  <b-table selectable select-mode="os" :items="items" @row-selected="rowSelected"></b-table>
+  <b-table selectable select-mode="multi" :items="items" @row-selected="rowSelected"></b-table>
   {{ selected }}
 </template>
 
