@@ -1,4 +1,4 @@
-import { contains, eventOff, eventOn } from '../utils/dom'
+import { eventOff, eventOn } from '../utils/dom'
 
 export default {
   data () {
