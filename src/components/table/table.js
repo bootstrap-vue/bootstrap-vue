@@ -772,16 +772,6 @@ export default {
         this.clearSelected()
       }
     },
-    perPage (newVal, oldVal) {
-      if (oldVal !== newVal) {
-        this.clearSelected()
-      }
-    },
-    currentPage (newVal, oldVal) {
-      if (oldVal !== newVal) {
-        this.clearSelected()
-      }
-    },
     // Update .sync props
     localSortDesc (newVal, oldVal) {
       // Emit update to sort-desc.sync
