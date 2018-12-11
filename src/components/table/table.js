@@ -1402,6 +1402,7 @@ export default {
         // Can't force an update when busy
         return false
       }
+      this.clearSelected()
       if (this.hasProvider) {
         this.$nextTick(this._providerUpdate)
       } else {
