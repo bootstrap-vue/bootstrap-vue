@@ -166,7 +166,7 @@ export default {
       return fields.map((field, colIndex) => {
         let ariaLabel = ''
         if (!(field.label.trim()) && !field.headerTitle) {
-          // In case field's label and title are empty/balnk
+          // In case field's label and title are empty/blank
           // We need to add a hint about what the column is about for non-dighted users
           ariaLabel = _startCase(field.key)
         }
@@ -188,6 +188,7 @@ export default {
             tabindex: field.sortable ? '0' : null,
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
+            scope: isFoot ? null : 'col',
             'aria-colindex': String(colIndex + 1),
             'aria-label': ariaLabel,
             'aria-sort': ariaSort
@@ -1119,6 +1120,9 @@ export default {
     tdAttrs (field, item, colIndex) {
       let attrs = {}
       attrs['aria-colindex'] = String(colIndex + 1)
+      if (field.isRowHeader) {
+        attrs['scope'] = 'row'
+      }
       if (this.isStacked) {
         // Generate the "header cell" label content in stacked mode
         attrs['data-label'] = field.label
