@@ -556,6 +556,7 @@ export default {
     dark: {
       type: Boolean,
       default () {
+        /* istanbul ignore if */
         if (this && typeof this.inverse === 'boolean') {
           // Deprecate inverse
           warn(
