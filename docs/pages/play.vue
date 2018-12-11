@@ -162,27 +162,29 @@ import Vue from 'vue'
 import debounce from 'lodash/debounce'
 
 const defaultJS = `{
-  data: {
-    name: 'Bootstrap-Vue',
-    show: true
+  data () {
+    return {
+      show: true,
+      name: 'Bootstrap-Vue'
+    }
   },
   watch: {
-    show: function (newVal, oldVal) {
-      console.log('Alert is now ' + (this.show ? 'visible' : 'hidden'))
+    show (newVal) {
+      console.log('Alert is now ' + (newVal ? 'visible' : 'hidden'))
     }
   },
   methods: {
-    toggle: function () {
+    toggle () {
       console.log('Toggle button clicked')
       this.show = !this.show
     },
-    dismissed: function () {
+    dismissed () {
       console.log('Dismiss button clicked')
     }
   }
 }`
 
-const defaultHTML = `<div style="height:7.5rem;">
+const defaultHTML = `<div>
   <b-button @click="toggle">
     {{ show ? 'Hide' : 'Show' }} Alert
   </b-button>
