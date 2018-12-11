@@ -94,8 +94,8 @@ bootstrap with an odd number of columns).
 ```html
 <div>
   <b-form-group id="fieldsetHorizontal"
-                label-cols-sm-"4"
-                lanel-cols-lg="3"
+                label-cols-sm="4"
+                label-cols-lg="3"
                 description="Let us know your name."
                 label="Enter your name"
                 label-for="inputHorizontal">
@@ -107,7 +107,7 @@ bootstrap with an odd number of columns).
 ```
 
 **Deprecation warning:** The props `horizontal` and `breakpoint` have been deprecated in
-favour of using the `label-cols` and `lab3l-cols-{breakpoint}` props.
+favour of using the `label-cols` and `label-cols-{breakpoint}` props.
 
 
 ### Label size
@@ -117,21 +117,21 @@ label, respectively. Sizes work for both `horizontal` and non-horizontal form gr
 
 ```html
 <div>
-  <b-form-group horizontal
-                :label-cols="2"
+  <b-form-group label-cols="4"
+                label-cols-lg="2"
                 label-size="sm"
                 label="Small"
                 label-for="input_sm">
     <b-form-input id="input_sm" size="sm"></b-form-input>
   </b-form-group>
-  <b-form-group horizontal
-                :label-cols="2"
+  <b-form-group label-cols="4"
+                label-cols-lg="2"
                 label="Default"
                 label-for="input_default">
     <b-form-input id="input_default"></b-form-input>
   </b-form-group>
-  <b-form-group horizontal
-                :label-cols="2"
+  <b-form-group label-cols="4"
+                label-cols-lg="2"
                 label-size="lg"
                 label="Large"
                 label-for="input_lg">
@@ -146,8 +146,13 @@ label, respectively. Sizes work for both `horizontal` and non-horizontal form gr
 The label text may also optionally be aligned `left`, `center` or `right` by setting
 the respective value via the prop `label-text-align` and/or `label-align-{breakpoint}`.
 
-Alignment will occur from the specified breakpoints or higher. supported breakpoints
-are `sm`, `md`, `lg`,  and `xl`.
+| prop | description
+| ---- | -----------
+| `label-align` | Applies to breakpoint `xs` up
+| `label-align-sm` | Applies to breakpoint `sm` and up
+| `label-align-md` | Applies to breakpoint `md` and up
+| `label-align-lg` | Applies to breakpoint `lg` and up
+| `label-align-xl` | Applies 5o breakpoint `lx` and up
 
 Alignment has no effect if the `label-sr-only` prop is set.
 
@@ -165,38 +170,38 @@ semantic grouping of related form controls:
 
 ```html
 <b-card bg-variant="light">
-  <b-form-group lan3l-cols-lg="3"
+  <b-form-group label-cols-lg="3"
                 label="Shipping Address"
                 label-size="lg"
                 label-class="font-weight-bold pt-0"
                 class="mb-0">
     <b-form-group label-cols-sm="3"
                   label="Street:"
-                  label-class="text-sm-right"
+                  label-align-sm="right"
                   label-for="nestedStreet">
       <b-form-input id="nestedStreet"></b-form-input>
     </b-form-group>
     <b-form-group label-cols-sm="3"
                   label="City:"
-                  label-class="text-sm-right"
+                  label-align-sm="right"
                   label-for="nestedCity">
       <b-form-input id="nestedCity"></b-form-input>
     </b-form-group>
     <b-form-group label-cols-sm="3"
                   label="State:"
-                  label-class="text-sm-right"
+                  label-align-sm="right"
                   label-for="nestedState">
       <b-form-input id="nestedState"></b-form-input>
     </b-form-group>
     <b-form-group label-cols-sm="3"
                   label="Country:"
-                  label-class="text-sm-right"
+                  label-align-sm="right"
                   label-for="nestedCountry">
       <b-form-input id="nestedCountry"></b-form-input>
     </b-form-group>
     <b-form-group label-cols-sm="3"
                   label="Ship via:"
-                  label-class="text-sm-right"
+                  label-align-sm="right"
                   class="mb-0">
       <b-form-radio-group class="pt-2" :options="['Air', 'Courier', 'Mail']" />
     </b-form-group>
