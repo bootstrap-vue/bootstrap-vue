@@ -51,8 +51,8 @@ export default {
 
 
 ## Label
-Use the prop `label` to set the content of the generated `<legend>` or `<label>` element (html
-supported), or by using the named slot `label`, You may optionally visually hide the label text
+Use the prop `label` to set the content of the generated `<legend>` or `<label>` element, or
+by using the named slot `label`, You may optionally visually hide the label text
 while still making it available to screen readers by setting the prop `label-sr-only`.
 
 `<b-form-group>` will render a `<fieldset>` with `<legend>` if the `label-for` prop is not
@@ -65,32 +65,37 @@ of a `<legend>` element, and will have the `for` attribute set to the `id` speci
 When specifying the id, **do not** prepend it with `#`. The `label-for` prop should only
 be used when you have a single form input inside the `<b-form-group>` component. Do not
 set the `label-for` prop when using `<b-form-radio-group>`, `<b-form-checkbox-group>`,
-`<b-form-radio>`, `<b-form-checkbox>` or `<b-form-file>` components, as these inputs
-include integrated label element(s) and the `<legend>` element is more suitable.
-
-The label text may also optionally be aligned `left`, `center` or `right` by setting
-the respective value via the prop `label-text-align`. Alignment has no effect if
-`label-sr-only` is set.
+`<b-form-radio>`, `<b-form-checkbox>` or `<b-form-file>` components (or when placing multiple
+inputs in the same form group), as these inputs include integrated label element(s) and the
+`<legend>` element is more suitable.
 
 You can also apply additional classes to the label via the `label-class` prop, such as
 responsive padding and text alignment utility classes. The `label-class` prop accepts either
 a string or array of strings.
 
 ### Horizontal layout
-By default, the label appears above the input element(s), but you may optionally set
-the prop `horizontal` to place the label on the same line, and control the width
-of the label by setting `label-cols` to the number of columns (default of `3`,
-valid range of 1 through 11). `label-cols` has no effect if the layout is
-not `horizontal`. For viewports below size `sm`, the label will revert to
-being displayed above the input control. You can control the breakpoint for this
-by setting the `breakpoint` prop (`'sm'`, `'md'`, `'lg'`, or `'xl'`. The default is `'sm'`).
+By default, the label appears above the input element(s), but you may optionally
+render horizontal (label to the left of the input) at the various standard Bootstrap breakpoints.
+
+The props`label-cols` and `label-cols-{breakpoint}` allow you to specify how many columns
+the label should occupy in the row. The input(s) will fill the rest of the row. The value
+must be a number greater than `0`. Or you can set the prop to `true` to make the label and
+input(s) each occupy half of the width of the rendered row (handy if you have custom
+bootstrap with an odd number of columns).
+
+| prop | description
+| ---- | -----------
+| `label-cols` | Applies to breakpoint `xs` up
+| `label-cols-sm` | Applies to breakpoint `sm` and up
+| `label-cols-md` | Applies to breakpoint `md` and up
+| `label-cols-lg` | Applies to breakpoint `lg` and up
+| `label-cols-xl` | Applies to breakpoint `xl` and up
 
 ```html
 <div>
   <b-form-group id="fieldsetHorizontal"
-                horizontal
-                :label-cols="4"
-                breakpoint="md"
+                label-cols-sm="4"
+                label-cols-lg="3"
                 description="Let us know your name."
                 label="Enter your name"
                 label-for="inputHorizontal">
@@ -101,6 +106,10 @@ by setting the `breakpoint` prop (`'sm'`, `'md'`, `'lg'`, or `'xl'`. The default
 <!-- form-group-horizontal.vue -->
 ```
 
+**Deprecation warning:** The props `horizontal` and `breakpoint` have been deprecated in
+favour of using the `label-cols` and `label-cols-{breakpoint}` props.
+
+
 ### Label size
 You can control the label text size match the size of your form input(s) via the
 optional `label-size` prop. Values can be `'sm'` or `'lg'` for small or large
@@ -108,21 +117,21 @@ label, respectively. Sizes work for both `horizontal` and non-horizontal form gr
 
 ```html
 <div>
-  <b-form-group horizontal
-                :label-cols="2"
+  <b-form-group label-cols="4"
+                label-cols-lg="2"
                 label-size="sm"
                 label="Small"
                 label-for="input_sm">
     <b-form-input id="input_sm" size="sm"></b-form-input>
   </b-form-group>
-  <b-form-group horizontal
-                :label-cols="2"
+  <b-form-group label-cols="4"
+                label-cols-lg="2"
                 label="Default"
                 label-for="input_default">
     <b-form-input id="input_default"></b-form-input>
   </b-form-group>
-  <b-form-group horizontal
-                :label-cols="2"
+  <b-form-group label-cols="4"
+                label-cols-lg="2"
                 label-size="lg"
                 label="Large"
                 label-for="input_lg">
@@ -133,10 +142,24 @@ label, respectively. Sizes work for both `horizontal` and non-horizontal form gr
 <!-- form-group-label-size.vue -->
 ```
 
+### Label text alignment
+The label text may also optionally be aligned `left`, `center` or `right` by setting
+the respective value via the prop `label-text-align` and/or `label-align-{breakpoint}`.
+
+| prop | description
+| ---- | -----------
+| `label-align` | Applies to breakpoint `xs` up
+| `label-align-sm` | Applies to breakpoint `sm` and up
+| `label-align-md` | Applies to breakpoint `md` and up
+| `label-align-lg` | Applies to breakpoint `lg` and up
+| `label-align-xl` | Applies to breakpoint `xl` and up
+
+Alignment has no effect if the `label-sr-only` prop is set.
+
 
 ## Description
 Optional descriptive text which is always shown with the `.text-muted` class
-(html supported) by setting the `description` prop or using the named slot `description`.
+by setting the `description` prop or using the named slot `description`.
 The description text is rendered using the [`<b-form-text>`](/docs/components/form#helper-components)
 form sub-component.
 
@@ -147,39 +170,38 @@ semantic grouping of related form controls:
 
 ```html
 <b-card bg-variant="light">
-  <b-form-group horizontal
-                breakpoint="lg"
+  <b-form-group label-cols-lg="3"
                 label="Shipping Address"
                 label-size="lg"
                 label-class="font-weight-bold pt-0"
                 class="mb-0">
-    <b-form-group horizontal
+    <b-form-group label-cols-sm="3"
                   label="Street:"
-                  label-class="text-sm-right"
+                  label-align-sm="right"
                   label-for="nestedStreet">
       <b-form-input id="nestedStreet"></b-form-input>
     </b-form-group>
-    <b-form-group horizontal
+    <b-form-group label-cols-sm="3"
                   label="City:"
-                  label-class="text-sm-right"
+                  label-align-sm="right"
                   label-for="nestedCity">
       <b-form-input id="nestedCity"></b-form-input>
     </b-form-group>
-    <b-form-group horizontal
+    <b-form-group label-cols-sm="3"
                   label="State:"
-                  label-class="text-sm-right"
+                  label-align-sm="right"
                   label-for="nestedState">
       <b-form-input id="nestedState"></b-form-input>
     </b-form-group>
-    <b-form-group horizontal
+    <b-form-group label-cols-sm="3"
                   label="Country:"
-                  label-class="text-sm-right"
+                  label-align-sm="right"
                   label-for="nestedCountry">
       <b-form-input id="nestedCountry"></b-form-input>
     </b-form-group>
-    <b-form-group horizontal
+    <b-form-group label-cols-sm="3"
                   label="Ship via:"
-                  label-class="text-sm-right"
+                  label-align-sm="right"
                   class="mb-0">
       <b-form-radio-group class="pt-2" :options="['Air', 'Courier', 'Mail']" />
     </b-form-group>

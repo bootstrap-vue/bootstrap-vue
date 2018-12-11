@@ -917,15 +917,15 @@ event, passing a single argument which is the complete list of selected items.
 
 ```html
 <template>
-  <b-form-group
-      label="Selection mode:"
-      horizontal
-      :label-cols="4"
-      breakpoint="md"
-  >
+  <b-form-group label="Selection mode:" label-cols-md="4">
     <b-form-select v-model="selectMode" :options="modes" class="mb-3" />
   </b-form-group>
-  <b-table selectable :select-mode="selectMode" selectedVariant="success" :items="items" @row-selected="rowSelected"></b-table>
+  <b-table selectable
+           :select-mode="selectMode"
+           selectedVariant="success"
+           :items="items"
+           @row-selected="rowSelected">
+  </b-table>
   {{ selected }}
 </template>
 
@@ -1487,7 +1487,7 @@ functionality is non critical or can be provided via other means:
     <!-- User Interface controls -->
     <b-row>
       <b-col md="6" class="my-1">
-        <b-form-group horizontal label="Filter" class="mb-0">
+        <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
           <b-input-group>
             <b-form-input v-model="filter" placeholder="Type to Search" />
             <b-input-group-append>
@@ -1497,7 +1497,7 @@ functionality is non critical or can be provided via other means:
         </b-form-group>
       </b-col>
       <b-col md="6" class="my-1">
-        <b-form-group horizontal label="Sort" class="mb-0">
+        <b-form-group label-cols-sm="3" label="Sort" class="mb-0">
           <b-input-group>
             <b-form-select v-model="sortBy" :options="sortOptions">
               <option slot="first" :value="null">-- none --</option>
@@ -1510,7 +1510,7 @@ functionality is non critical or can be provided via other means:
         </b-form-group>
       </b-col>
       <b-col md="6" class="my-1">
-        <b-form-group horizontal label="Sort direction" class="mb-0">
+        <b-form-group label-cols-sm="3" label="Sort direction" class="mb-0">
           <b-input-group>
             <b-form-select v-model="sortDirection" slot="append">
               <option value="asc">Asc</option>
@@ -1521,7 +1521,7 @@ functionality is non critical or can be provided via other means:
         </b-form-group>
       </b-col>
       <b-col md="6" class="my-1">
-        <b-form-group horizontal label="Per page" class="mb-0">
+        <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
           <b-form-select :options="pageOptions" v-model="perPage" />
         </b-form-group>
       </b-col>
