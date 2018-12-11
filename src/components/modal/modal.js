@@ -297,6 +297,8 @@ export default {
       is_transitioning: false, // Used for style control
       is_show: false, // Used for style control
       is_block: false, // Used for style control
+      is_opening: false, // Semaphore for previnting incorrect modal open counts
+      is_closing: false, // Semapbore for preventing incorrect modal open counts
       scrollbarWidth: 0,
       zIndex: ZINDEX_OFFSET, // z-index for modal stacking
       isTop: true, // If the modal is the topmost opened modal
@@ -546,9 +548,16 @@ export default {
   methods: {
     // Public Methods
     show () {
-      if (this.is_visible) {
+      if (this.is_visible || this.is_opening) {
+        // if already open, on in the process of opening, do nothing
         return
       }
+      if (this.is_closing) {
+        // if we are in the process of closing, wait until hidden before re-opening
+        this.$once('hidden', this.show)
+        return
+      }
+      this.is_opening = true
       const showEvt = new BvEvent('show', {
         cancelable: true,
         vueTarget: this,
@@ -576,9 +585,10 @@ export default {
       this.doShow()
     },
     hide (trigger) {
-      if (!this.is_visible) {
+      if (!this.is_visible || this.is_closing) {
         return
       }
+      this.is_closing = true
       const hideEvt = new BvEvent('hide', {
         cancelable: true,
         vueTarget: this,
@@ -620,6 +630,7 @@ export default {
       this.$nextTick(() => {
         // We do this in nextTick to ensure the modal is in DOM first before we show it
         this.is_visible = true
+        this.is_opening = false
         this.$emit('change', true)
         // Observe changes in modal content and adjust if necessary
         this._observer = observeDom(
@@ -682,6 +693,7 @@ export default {
         this.is_hidden = this.lazy || false
         this.zIndex = ZINDEX_OFFSET
         this.returnFocusTo()
+        this.is_closing = false
         const hiddenEvt = new BvEvent('hidden', {
           cancelable: false,
           vueTarget: this,
