@@ -825,6 +825,7 @@ export default {
         isFiltered = false
       }
       if (isFiltered) {
+        this.clearSelected()
         this.$emit('filtered', filteredItems, filteredItems.length)
       }
       this.isFiltered = isFiltered
@@ -1248,6 +1249,7 @@ export default {
     },
     clearSelected () {
       if (this.selectedRows.length) {
+        this.lastRowClicked = -1
         this.selectedRows = []
         this.$emit('row-selected', [])
       }
