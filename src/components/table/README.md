@@ -334,14 +334,14 @@ fields: [
 ```html
 <template>
   <div>
-    <b-form-checkbox v-model="striped">Striped</b-form-checkbox>
-    <b-form-checkbox v-model="bordered">Bordered</b-form-checkbox>
-    <b-form-checkbox v-model="outlined">Outlined</b-form-checkbox>
-    <b-form-checkbox v-model="small">Small</b-form-checkbox>
-    <b-form-checkbox v-model="hover">Hover</b-form-checkbox>
-    <b-form-checkbox v-model="dark">Dark</b-form-checkbox>
-    <b-form-checkbox v-model="fixed">Fixed</b-form-checkbox>
-    <b-form-checkbox v-model="footClone">Foot Clone</b-form-checkbox>
+    <b-form-checkbox inline v-model="striped">Striped</b-form-checkbox>
+    <b-form-checkbox inline v-model="bordered">Bordered</b-form-checkbox>
+    <b-form-checkbox inline v-model="outlined">Outlined</b-form-checkbox>
+    <b-form-checkbox inline v-model="small">Small</b-form-checkbox>
+    <b-form-checkbox inline v-model="hover">Hover</b-form-checkbox>
+    <b-form-checkbox inline v-model="dark">Dark</b-form-checkbox>
+    <b-form-checkbox inline v-model="fixed">Fixed</b-form-checkbox>
+    <b-form-checkbox inline v-model="footClone">Foot Clone</b-form-checkbox>
 
     <b-table :striped="striped"
              :bordered="bordered"
@@ -612,7 +612,7 @@ for details and usage of `<colgroup>`
 ## Table busy state
 `<b-table>` provides a `busy` prop that will flag the table as busy, which you can
 set to `true` just before you update your items, and then set it to `false` once you have
-your items. When in hte busy state, the tabe will have the attribute `aria-busy="true"`.
+your items. When in the busy state, the table will have the attribute `aria-busy="true"`.
 
 During the busy state, the table will be rendered in a "muted" look (`opacity: 0.6`), using the
 following custom CSS:
@@ -751,7 +751,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 
 **Notes:**
 - _`index` will not always be the actual row's index number, as it is
-computed after pagination and filtering have been applied to the original
+computed after filtering, sorting and pagination have been applied to the original
 table data. The `index` value will refer to the **displayed row number**. This
 number will align with the indexes from the optional `v-model` bound variable._
 
@@ -915,10 +915,6 @@ When a table is `selectable` and the user clicks on a row, `<b-table>` will emit
 event, passing a single argument which is the complete list of selected items.
 **Treat this argument as read-only.**
 
-Selected rows have a class of `b-row-selected`
-
-**Note:** _Paging or sorting will clear the selection._
-
 ```html
 <template>
   <b-form-group
@@ -958,6 +954,11 @@ export default {
 
 <!-- table-selectable.vue -->
 ```
+
+**Notes:** 
+- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted with an empty array._
+- _Selected rows will have a class of `b-row-selected` added to them._
+- _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab sequence (`tabindex="0"`) for accesibility reasons._
 
 ## Row details support
 If you would optionally like to display additional record information (such as
@@ -1461,6 +1462,22 @@ when fetching your data!
 
 When `b-table` is mounted in the document, it will automatically trigger a provider update call.
 
+
+## Table accessibility notes
+When the table is in `selectable` mode, or if their is a `row-clicked` event listener registered, all
+data item rows (`<tr>` elements) will be placed into the document tab sequence (via `tabindex="0"`) to
+allow keyboard only and screen reader users the ability to click the rows.
+
+When a column (field) is sortable, the header (and footer) heading cells will also be placed into the
+document tab sequence for accesibility. 
+
+Note the following row based events/actions are not considered accessible, and should only be used if the
+functionality is non critical or can be provided via other means:
+
+- `row-dblclicked`
+- `row-contextmenu`
+- `row-hovered`
+- `row-unhovered`
 
 ## Complete Example
 
