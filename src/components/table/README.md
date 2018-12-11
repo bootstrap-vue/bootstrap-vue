@@ -1464,9 +1464,9 @@ When `b-table` is mounted in the document, it will automatically trigger a provi
 
 
 ## Table accessibility notes
-When the table is in `selectable` mode, or if their is a `row-clicked` event listener registered, all
+When the table is in `selectable` mode, or if there is a `row-clicked` event listener registered, all
 data item rows (`<tr>` elements) will be placed into the document tab sequence (via `tabindex="0"`) to
-allow keyboard only and screen reader users the ability to click the rows.
+allow keyboard-only and screen reader users the ability to click the rows.
 
 When a column (field) is sortable, the header (and footer) heading cells will also be placed into the
 document tab sequence for accesibility. 
