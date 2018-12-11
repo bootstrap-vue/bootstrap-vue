@@ -155,14 +155,13 @@ function clickHandlerFactory ({ disabled, tag, href, suppliedHandler, parent }) 
       // Kill the event loop attached to this specific EventTarget.
       e.stopImmediatePropagation()
     } else {
-      parent.$root.$emit('clicked::link', e)
-
       if (isRouterLink && e.target.__vue__) {
         e.target.__vue__.$emit('click', e)
       }
       if (typeof suppliedHandler === 'function') {
         suppliedHandler(...arguments)
       }
+      parent.$root.$emit('clicked::link', e)
     }
 
     if ((!isRouterLink && href === '#') || disabled) {

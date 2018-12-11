@@ -139,7 +139,7 @@ export default {
     const $scoped = this.$scopedSlots
     const fields = this.computedFields
     const items = this.computedItems
-
+    const hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable
     // Build the caption
     let caption = h(false)
     let captionId = null
@@ -166,7 +166,7 @@ export default {
       return fields.map((field, colIndex) => {
         let ariaLabel = ''
         if (!(field.label.trim()) && !field.headerTitle) {
-          // In case field's label and title are empty/balnk
+          // In case field's label and title are empty/blank
           // We need to add a hint about what the column is about for non-dighted users
           ariaLabel = _startCase(field.key)
         }
@@ -188,6 +188,7 @@ export default {
             tabindex: field.sortable ? '0' : null,
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
+            scope: isFoot ? null : 'col',
             'aria-colindex': String(colIndex + 1),
             'aria-label': ariaLabel,
             'aria-sort': ariaSort
@@ -281,6 +282,7 @@ export default {
       items.forEach((item, rowIndex) => {
         const detailsSlot = $scoped['row-details']
         const rowShowDetails = Boolean(item._showDetails && detailsSlot)
+        const rowSelected = this.selectedRows[rowIndex]
         // Details ID needed for aria-describedby when details showing
         const detailsId = rowShowDetails
           ? this.safeId(`_details_${rowIndex}_`)
@@ -309,7 +311,8 @@ export default {
                 unformatted: _get(item, field.key, ''),
                 value: formatted,
                 toggleDetails: toggleDetailsFn,
-                detailsShowing: Boolean(item._showDetails)
+                detailsShowing: Boolean(item._showDetails),
+                rowSelected: Boolean(rowSelected)
               })
             ]
             if (this.isStacked) {
@@ -341,17 +344,33 @@ export default {
               key: `row-${rowIndex}`,
               class: [
                 this.rowClasses(item),
-                { 'b-table-has-details': rowShowDetails }
+                {
+                  'b-table-has-details': rowShowDetails,
+                  'b-row-selected': rowSelected,
+                  [`${(this.dark ? 'bg' : 'table')}-${this.selectedVariant}`]: rowSelected && this.selectedVariant
+                }
               ],
               attrs: {
+                tabindex: hasRowClickHandler ? '0' : null,
                 'aria-describedby': detailsId,
                 'aria-owns': detailsId,
                 'aria-rowindex': ariaRowIndex,
+                'aria-selected': this.selectable ? (rowSelected ? 'true' : 'false') : null,
                 role: this.isStacked ? 'row' : null
               },
               on: {
+                // TODO: only instatiate handlers if we have registered listeners
                 click: evt => { this.rowClicked(evt, item, rowIndex) },
+                keydown: evt => {
+                  const keyCode = evt.keyCode
+                  if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
+                    if (evt.target && evt.target.tagName === 'TR' && evt.target === document.activeElement) {
+                      this.rowClicked(evt, item, rowIndex)
+                    }
+                  }
+                },
                 contextmenu: evt => { this.rowContextmenu(evt, item, rowIndex) },
+                // Note: these events are not accessibility friendly
                 dblclick: evt => { this.rowDblClicked(evt, item, rowIndex) },
                 mouseenter: evt => { this.rowHovered(evt, item, rowIndex) },
                 mouseleave: evt => { this.rowUnhovered(evt, item, rowIndex) }
@@ -470,6 +489,7 @@ export default {
           // Now we can override any $attrs here
           id: this.safeId(),
           role: this.isStacked ? 'table' : null,
+          'aria-multiselectable': this.selectable ? (this.selectMode === 'single' ? 'false' : 'true') : null,
           'aria-busy': this.computedBusy ? 'true' : 'false',
           'aria-colcount': String(fields.length),
           'aria-describedby': [
@@ -574,6 +594,18 @@ export default {
     stacked: {
       type: [Boolean, String],
       default: false
+    },
+    selectable: {
+      type: Boolean,
+      default: false
+    },
+    selectMode: {
+      type: String,
+      default: 'multi'
+    },
+    selectedVariant: {
+      type: String,
+      default: 'primary'
     },
     headVariant: {
       type: String,
@@ -692,7 +724,9 @@ export default {
       // Our local copy of the items. Must be an array
       localItems: isArray(this.items) ? this.items : [],
       // Flag for displaying which empty slot to show, and for some event triggering.
-      isFiltered: false
+      isFiltered: false,
+      selectedRows: [],
+      lastRowClicked: -1
     }
   },
   mounted () {
@@ -733,15 +767,32 @@ export default {
       }
       this.localSortBy = newVal || null
     },
+    selectMode (newVal, oldVal) {
+      if (oldVal !== newVal) {
+        this.clearSelected()
+      }
+    },
+    perPage (newVal, oldVal) {
+      if (oldVal !== newVal) {
+        this.clearSelected()
+      }
+    },
+    currentPage (newVal, oldVal) {
+      if (oldVal !== newVal) {
+        this.clearSelected()
+      }
+    },
     // Update .sync props
     localSortDesc (newVal, oldVal) {
       // Emit update to sort-desc.sync
       if (newVal !== oldVal) {
+        this.clearSelected()
         this.$emit('update:sortDesc', newVal)
       }
     },
     localSortBy (newVal, oldVal) {
       if (newVal !== oldVal) {
+        this.clearSelected()
         this.$emit('update:sortBy', newVal)
       }
     },
@@ -752,6 +803,8 @@ export default {
     },
     // Watch for changes on computedItems and update the v-model
     computedItems (newVal, OldVal) {
+      // Reset for selectable
+      this.lastRowClicked = -1
       this.$emit('input', newVal)
     },
     // Watch for changes to the filter criteria and filtered items vs localItems).
@@ -772,11 +825,15 @@ export default {
         isFiltered = false
       }
       if (isFiltered) {
+        this.clearSelected()
         this.$emit('filtered', filteredItems, filteredItems.length)
       }
       this.isFiltered = isFiltered
     },
     isFiltered (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.clearSelected()
+      }
       if (newVal === false && oldVal === true) {
         // We need to emit a filtered event if isFiltered transitions from true to
         // false so that users can update their pagination controls.
@@ -822,7 +879,8 @@ export default {
         // The following are b-table custom styles
         'b-table-fixed': this.fixed,
         'b-table-stacked': this.stacked === true || this.stacked === '',
-        [`b-table-stacked-${this.stacked}`]: this.stacked !== true && this.stacked
+        [`b-table-stacked-${this.stacked}`]: this.stacked !== true && this.stacked,
+        'b-table-selectable': this.selectable
       }
     },
     headClasses () {
@@ -1074,6 +1132,9 @@ export default {
     tdAttrs (field, item, colIndex) {
       let attrs = {}
       attrs['aria-colindex'] = String(colIndex + 1)
+      if (field.isRowHeader) {
+        attrs['scope'] = 'row'
+      }
       if (this.isStacked) {
         // Generate the "header cell" label content in stacked mode
         attrs['data-label'] = field.label
@@ -1186,6 +1247,13 @@ export default {
       // Return the generated function
       return fn
     },
+    clearSelected () {
+      if (this.selectedRows.length) {
+        this.lastRowClicked = -1
+        this.selectedRows = []
+        this.$emit('row-selected', [])
+      }
+    },
     // Event handlers
     rowClicked (e, item, index) {
       if (this.stopIfBusy(e)) {
@@ -1194,6 +1262,39 @@ export default {
       } else if (filterEvent(e)) {
         // clicked on a non-disabled control so ignore
         return
+      }
+      if (e.type === 'keydown') {
+        // If the click was generated by space or enter, stop page scroll
+        e.stopPropagation()
+        e.preventDefault()
+      }
+      if (this.selectable) {
+        let selected = !this.selectedRows[index]
+        switch (this.selectMode) {
+          case 'single':
+            this.selectedRows = []
+            break
+          case 'range':
+            if (this.lastRowClicked >= 0 && e.shiftKey) { // range
+              for (let idx = Math.min(this.lastRowClicked, index); idx <= Math.max(this.lastRowClicked, index); idx++) {
+                this.selectedRows[idx] = true
+              }
+            } else {
+              if (!(e.ctrlKey || e.metaKey)) { // clear range selection if any
+                this.selectedRows = []
+              }
+              this.lastRowClicked = selected ? index : -1
+            }
+            break
+        }
+        this.$set(this.selectedRows, index, selected)
+        let items = []
+        this.selectedRows.forEach((v, idx) => {
+          if (v) {
+            items.push(this.computedItems[idx])
+          }
+        })
+        this.$emit('row-selected', items)
       }
       this.$emit('row-clicked', item, index, e)
     },

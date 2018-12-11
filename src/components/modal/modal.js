@@ -9,20 +9,21 @@ import BvEvent from '../../utils/bv-event.class'
 import stripScripts from '../../utils/strip-scripts'
 
 import {
-  isVisible,
-  selectAll,
-  select,
+  addClass,
   contains,
+  eventOff,
+  eventOn,
+  getAttr,
   getBCR,
   getCS,
-  addClass,
-  removeClass,
-  setAttr,
-  removeAttr,
-  getAttr,
   hasAttr,
-  eventOn,
-  eventOff
+  hasClass,
+  isVisible,
+  removeAttr,
+  removeClass,
+  select,
+  selectAll,
+  setAttr
 } from '../../utils/dom'
 
 // Selectors for padding/margin adjustments
@@ -328,6 +329,10 @@ export default {
       type: String,
       default: ''
     },
+    noStacking: {
+      type: Boolean,
+      default: false
+    },
     noFade: {
       type: Boolean,
       default: false
@@ -555,21 +560,20 @@ export default {
         // Don't show if canceled
         return
       }
-      // Find the z-index to use
-      this.zIndex = getModalNextZIndex()
-      // Place modal in DOM if lazy
-      this.is_hidden = false
-      this.$nextTick(() => {
-        // We do this in nextTick to ensure the modal is in DOM first before we show it
-        this.is_visible = true
-        this.$emit('change', true)
-        // Observe changes in modal content and adjust if necessary
-        this._observer = observeDom(
-          this.$refs.content,
-          this.adjustDialog.bind(this),
-          OBSERVER_CONFIG
-        )
-      })
+      if (!this.noStacking) {
+        // Find the z-index to use
+        this.zIndex = getModalNextZIndex()
+        // Show the modal
+        this.doShow()
+        return
+      }
+      if (hasClass(document.body, 'modal-open')) {
+        // If another modal is already open, wait for it to close
+        this.$root.$once('bv::modal::hidden', this.doShow)
+        return
+      }
+      // Show the modal
+      this.doShow()
     },
     hide (trigger) {
       if (!this.is_visible) {
@@ -609,6 +613,22 @@ export default {
       this.is_visible = false
       this.$emit('change', false)
     },
+    // Private method to finish showing modal
+    doShow () {
+      // Place modal in DOM if lazy
+      this.is_hidden = false
+      this.$nextTick(() => {
+        // We do this in nextTick to ensure the modal is in DOM first before we show it
+        this.is_visible = true
+        this.$emit('change', true)
+        // Observe changes in modal content and adjust if necessary
+        this._observer = observeDom(
+          this.$refs.content,
+          this.adjustDialog.bind(this),
+          OBSERVER_CONFIG
+        )
+      })
+    },
     // Transition Handlers
     onBeforeEnter () {
       this.getScrollbarWidth()
@@ -619,7 +639,7 @@ export default {
         this.setScrollbar()
       }
       this.adjustDialog()
-      addClass(document.body, 'modal-open')
+      this.setModalOpenClass(true)
       this.setResizeEvent(true)
     },
     onEnter () {
@@ -655,12 +675,12 @@ export default {
       const count = decrementModalOpenCount()
       if (count === 0) {
         this.resetScrollbar()
-        removeClass(document.body, 'modal-open')
+        this.setModalOpenClass(false)
       }
       this.setEnforceFocus(false)
       this.$nextTick(() => {
         this.is_hidden = this.lazy || false
-        this.zIndex = 0
+        this.zIndex = ZINDEX_OFFSET
         this.returnFocusTo()
         const hiddenEvt = new BvEvent('hidden', {
           cancelable: false,
@@ -719,7 +739,7 @@ export default {
     },
     // Resize Listener
     setResizeEvent (on) {
-      ;['resize', 'orientationchange'].forEach(evtName => {
+      ['resize', 'orientationchange'].forEach(evtName => {
         if (on) {
           eventOn(window, evtName, this.adjustDialog)
         } else {
@@ -748,6 +768,12 @@ export default {
     setTop () {
       // Determine if we are the topmost visible modal
       this.isTop = this.zIndex >= getModalMaxZIndex()
+    },
+    modalListener (bvEvt) {
+      // If another modal opens, close this one
+      if (this.noStacking && bvEvt.vueTarget !== this) {
+        this.hide()
+      }
     },
     // Focus control handlers
     focusFirst () {
@@ -791,6 +817,13 @@ export default {
       document.body.appendChild(scrollDiv)
       this.scrollbarWidth = getBCR(scrollDiv).width - scrollDiv.clientWidth
       document.body.removeChild(scrollDiv)
+    },
+    setModalOpenClass (open) {
+      if (open) {
+        addClass(document.body, 'modal-open')
+      } else {
+        removeClass(document.body, 'modal-open')
+      }
     },
     adjustDialog () {
       if (!this.is_visible) {
@@ -901,6 +934,8 @@ export default {
     this.listenOnRoot('bv::modal::shown', this.shownHandler)
     this.listenOnRoot('bv::hide::modal', this.hideHandler)
     this.listenOnRoot('bv::modal::hidden', this.hiddenHandler)
+    // Listen for bv:modal::show events, and close ourselves if the opening modal not us
+    this.listenOnRoot('bv::modal::show', this.modalListener)
     // Initially show modal?
     if (this.visible === true) {
       this.show()
@@ -921,7 +956,7 @@ export default {
       const count = decrementModalOpenCount()
       if (count === 0) {
         // Re-adjust body/navbar/fixed padding/margins (as we were the last modal open)
-        removeClass(document.body, 'modal-open')
+        this.setModalOpenClass(false)
         this.resetScrollbar()
         this.resetDialogAdjustments()
       }

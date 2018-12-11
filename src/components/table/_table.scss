@@ -155,3 +155,9 @@
     }
   }
 }
+
+/* b-table: selectable rows */
+table.b-table.b-table-selectable > tbody > tr {
+  cursor: pointer;
+  user-select: none;
+}
