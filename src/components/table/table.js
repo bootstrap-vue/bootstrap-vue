@@ -746,6 +746,7 @@ export default {
   watch: {
     // Watch props for changes and update local values
     items (newItems) {
+      this.clearSelected()
       if (this.hasProvider || newItems instanceof Function) {
         this.$nextTick(this._providerUpdate)
       } else if (isArray(newItems)) {
@@ -1272,6 +1273,7 @@ export default {
         let selected = !this.selectedRows[index]
         switch (this.selectMode) {
           case 'single':
+          case 'radio':
             this.selectedRows = []
             break
           case 'range':
@@ -1385,6 +1387,7 @@ export default {
         // Can't force an update when busy
         return false
       }
+      this.clearSelected()
       if (this.hasProvider) {
         this.$nextTick(this._providerUpdate)
       } else {
