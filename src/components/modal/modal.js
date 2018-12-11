@@ -553,7 +553,7 @@ export default {
         return
       }
       if (this.is_closing) {
-        // if we are in the process of closing, wait until hidden before re-opening 
+        // if we are in the process of closing, wait until hidden before re-opening
         this.$once('hidden', this.show)
         return
       }
