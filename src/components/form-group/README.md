@@ -89,7 +89,7 @@ bootstrap with an odd number of columns).
 | `label-cols-sm` | Applies to breakpoint `sm` and up
 | `label-cols-md` | Applies to breakpoint `md` and up
 | `label-cols-lg` | Applies to breakpoint `lg` and up
-| `label-cols-xl` | Applies 5o breakpoint `lx` and up
+| `label-cols-xl` | Applies to breakpoint `xl` and up
 
 ```html
 <div>
@@ -152,7 +152,7 @@ the respective value via the prop `label-text-align` and/or `label-align-{breakp
 | `label-align-sm` | Applies to breakpoint `sm` and up
 | `label-align-md` | Applies to breakpoint `md` and up
 | `label-align-lg` | Applies to breakpoint `lg` and up
-| `label-align-xl` | Applies 5o breakpoint `lx` and up
+| `label-align-xl` | Applies to breakpoint `xl` and up
 
 Alignment has no effect if the `label-sr-only` prop is set.
 
