@@ -96,6 +96,16 @@
                 ]
             },
             {
+                "event": "row-selected",
+                "description": "Emitted when a row or rows have been selected.",
+                "args": [
+                    {
+                        "arg": "rows",
+                        "description": "Array of the row items that are selected."
+                    }
+                ]
+            },
+            {
                 "event": "head-clicked",
                 "description": "Emitted when a header or footer cell is clicked.",
                 "args": [
