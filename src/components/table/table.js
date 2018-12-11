@@ -746,7 +746,6 @@ export default {
   watch: {
     // Watch props for changes and update local values
     items (newItems) {
-      this.clearSelected()
       if (this.hasProvider || newItems instanceof Function) {
         this.$nextTick(this._providerUpdate)
       } else if (isArray(newItems)) {
@@ -803,10 +802,26 @@ export default {
       }
     },
     // Watch for changes on computedItems and update the v-model
-    computedItems (newVal, OldVal) {
+    computedItems (newVal, oldVal) {
       // Reset for selectable
       this.lastRowClicked = -1
       this.$emit('input', newVal)
+      let equal = false
+      if (this.selectable && this.selectedRows.length > 0) {
+        // Quick check against array length
+        equal = isArray(newVal) && isArray(oldVal) && newVal.length === oldVal.length
+        for (let i = 0; equal && i < newVal.length; i++) {
+          // Look for the first non-loosely equal row, after ignoring reserved fields
+          equal = looseEqual(sanitizeRow(newVal[i]), sanitizeRow(oldVal[i]))
+        }
+      }
+      if (!equal) {
+        this.clearSelected()
+      }
+    },
+    selectable (newVal, oldVal) {
+      // Clear selection if prop selectable changes
+      this.clearSelected()
     },
     // Watch for changes to the filter criteria and filtered items vs localItems).
     // And set visual state and emit events as required
@@ -1387,7 +1402,6 @@ export default {
         // Can't force an update when busy
         return false
       }
-      this.clearSelected()
       if (this.hasProvider) {
         this.$nextTick(this._providerUpdate)
       } else {
