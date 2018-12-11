@@ -594,14 +594,14 @@ small screens can be harder to deal with on mobile devices (such as smart-phones
         Interactive Content
       </template>
       <div>
-        <b-form-group label="Name" label-for="pop1"
-                      :state="input1state" horizontal class="mb-1"
+        <b-form-group label="Name" label-for="pop1" label-cols="3"
+                      :state="input1state" class="mb-1"
                       description="Enter your name"
                       invalid-feedback="This field is required">
           <b-form-input ref="input1" id="pop1" :state="input1state" size="sm" v-model="input1" />
         </b-form-group>
-        <b-form-group label="Color" label-for="pop2"
-                      :state="input2state" horizontal class="mb-1"
+        <b-form-group label="Color" label-for="pop2" label-cols="3"
+                      :state="input2state" class="mb-1"
                       description="Pick a color"
                       invalid-feedback="This field is required">
           <b-form-select size="sm" id="pop2" :state="input2state" v-model="input2" :options="options" />
