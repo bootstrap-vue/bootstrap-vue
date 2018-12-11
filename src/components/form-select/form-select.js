@@ -102,12 +102,10 @@ export default {
     },
     inputClass () {
       return [
-        'form-control',
-        this.stateClass,
-        this.sizeFormClass,
-        // Awaiting for https://github.com/twbs/bootstrap/issues/23058
-        this.plain ? null : 'custom-select',
-        this.plain || !this.size ? null : 'custom-select-' + this.size
+        this.plain ? 'form-control' : 'custom-select',
+        this.size && this.plain ? `form-control-${this.size}` : null,
+        this.size && !this.plain ? `custom-select-${this.size}` : null,
+        this.stateClass
       ]
     },
     computedAriaInvalid () {
