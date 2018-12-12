@@ -169,6 +169,9 @@ if (typeof window !== 'undefined' && window && window.removeEventListener) {
 
 // Helper function to transpile es6 code to js
 function compileJs (code) {
+  if (!code) {
+    return ''
+  }
   return transform(code, {
     presets: [ 'es2015' ],
     plugins: [
