@@ -53,6 +53,7 @@ jobs:
     environment:
         - VUE_VERSION: "latest"
         - NODE_ENV: "test"
+
   docs:
     <<: *defaults
     steps:
@@ -77,10 +78,6 @@ workflows:
             - setup
 
       - test-latest:
-          requires:
-            - setup
-
-      - test-beta:
           requires:
             - setup
 
