@@ -36,7 +36,7 @@ export default {
 ```html
 <template>
   <div>
-    <b-form-group label="Using <code>options</code> array:">
+    <b-form-group label="Using options array:">
       <b-form-checkbox-group id="checkboxes1" name="flavour1" v-model="selected" :options="options">
       </b-form-checkbox-group>
     </b-form-group>
