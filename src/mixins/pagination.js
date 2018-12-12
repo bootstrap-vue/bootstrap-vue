@@ -117,7 +117,55 @@ export default {
       }
       return ''
     },
-    pageList () {
+    pageList() {
+      // TODO: generatePageList() has side effects. Computed props should not have side effects!
+      const { startNum, numLinks } = this.generatePageList()
+
+      // Generate list of page numbers
+      const pages = makePageArray(startNum, numLinks)
+
+      // We limit to a total of 3 page buttons on small screens
+      // Ellipsis will also be hidden on small screens
+      if (pages.length > 3) {
+        const idx = this.currentPage - startNum
+        if (idx === 0) {
+          // Keep leftmost 3 buttons visible
+          for (let i = 3; i < pages.length; i++) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+        } else if (idx === pages.length - 1) {
+          // Keep rightmost 3 buttons visible
+          for (let i = 0; i < pages.length - 3; i++) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+        } else {
+          // hide left button(s)
+          for (let i = 0; i < idx - 1; i++) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+          // hide right button(s)
+          for (let i = pages.length - 1; i > idx + 1; i--) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+        }
+      }
+      return pages
+    }
+  },
+  watch: {
+    currentPage (newPage, oldPage) {
+      if (newPage !== oldPage) {
+        this.$emit('input', newPage)
+      }
+    },
+    value (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.currentPage = newValue
+      }
+    }
+  },
+  methods: {
+    generatePageList () {
       // Sanity checks
       if (this.currentPage > this.numberOfPages) {
         this.currentPage = this.numberOfPages
@@ -167,49 +215,8 @@ export default {
       } else if (startNum > this.numberOfPages - numLinks) {
         startNum = this.numberOfPages - numLinks + 1
       }
-      // Generate list of page numbers
-      const pages = makePageArray(startNum, numLinks)
-      // We limit to a total of 3 page buttons on small screens
-      // Ellipsis will also be hidden on small screens
-      if (pages.length > 3) {
-        const idx = this.currentPage - startNum
-        if (idx === 0) {
-          // Keep leftmost 3 buttons visible
-          for (let i = 3; i < pages.length; i++) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-        } else if (idx === pages.length - 1) {
-          // Keep rightmost 3 buttons visible
-          for (let i = 0; i < pages.length - 3; i++) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-        } else {
-          // hide left button(s)
-          for (let i = 0; i < idx - 1; i++) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-          // hide right button(s)
-          for (let i = pages.length - 1; i > idx + 1; i--) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-        }
-      }
-      return pages
-    }
-  },
-  watch: {
-    currentPage (newPage, oldPage) {
-      if (newPage !== oldPage) {
-        this.$emit('input', newPage)
-      }
+      return { startNum, numLinks }
     },
-    value (newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.currentPage = newValue
-      }
-    }
-  },
-  methods: {
     isActive (pagenum) {
       return pagenum === this.currentPage
     },
