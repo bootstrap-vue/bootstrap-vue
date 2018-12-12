@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import BootstrapVue from '../../src'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.css'
 import '../../src/index.scss'
 import 'highlightjs/styles/atom-one-light.css'
 import 'codemirror/lib/codemirror.css'
