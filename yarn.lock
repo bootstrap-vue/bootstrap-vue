@@ -6899,20 +6899,15 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-markdown-loader@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/markdown-loader/-/markdown-loader-2.0.2.tgz#1cdcf11307658cd611046d7db34c2fe80542af7c"
-  integrity sha512-v/ej7DflZbb6t//3Yu9vg0T+sun+Q9EoqggifeyABKfvFROqPwwwpv+hd1NKT2QxTRg6VCFk10IIJcMI13yCoQ==
+markdown-loader@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/markdown-loader/-/markdown-loader-4.0.0.tgz#502eb94f5db1673beb1721bed82dac9e1d333b9a"
+  integrity sha512-9BCm8iyLF4AVYtjtybOTg8cTcpWYKsDGWWhsc7XaJlXQiddo3ztbZxLPJ28pmCxFI1BlMkT1wDVav1chPjTpdA==
   dependencies:
     loader-utils "^1.1.0"
-    marked "^0.3.9"
+    marked "^0.5.0"
 
-marked@^0.3.9:
-  version "0.3.19"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.19.tgz#5d47f709c4c9fc3c216b6d46127280f40b39d790"
-  integrity sha512-ea2eGWOqNxPcXv8dyERdSr/6FmzvWwzjMxpfGB/sbMccXoct+xY+YukPD+QTUZwyvK7BZwcr4m21WBOW41pAkg==
-
-marked@^0.5.2:
+marked@^0.5.0, marked@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.5.2.tgz#3efdb27b1fd0ecec4f5aba362bddcd18120e5ba9"
   integrity sha512-fdZvBa7/vSQIZCi4uuwo2N3q+7jJURpMVCcbaX0S1Mg65WZ5ilXvC67MviJAsdjqqgD+CEq4RKo5AYGgINkVAA==
