@@ -55,7 +55,8 @@
     "./es/utils/array.js",
     "./src/utils/array.js",
     "**/*.scss",
-    "**/*.css"
+    "**/*.css",
+    "**/*.vue"
   ],
   "scripts": {
     "build": "scripts/build",
