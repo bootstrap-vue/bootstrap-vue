@@ -111,7 +111,7 @@ module.exports = {
   css: [
     'bootstrap/dist/css/bootstrap.css',
     'highlightjs/styles/atom-one-light.css',
-    'codemirror/lib/codemirror.css'
+    'codemirror/lib/codemirror.css',
     '../src/index.scss', // Boostrap-Vue SCSS
     '@assets/css/docs.min.css',
     '@assets/css/styles.css'
