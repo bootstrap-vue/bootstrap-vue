@@ -173,7 +173,7 @@ function compileJs (code) {
     return ''
   }
   return transform(code, {
-    presets: [ 'es2015' ],
+    // presets: [ 'es2015' ],
     plugins: [
       'proposal-object-rest-spread',
       'transform-runtime'
