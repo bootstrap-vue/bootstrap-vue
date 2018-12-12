@@ -167,7 +167,7 @@ if (typeof window !== 'undefined' && window && window.removeEventListener) {
   disableScriptTags()
 }
 
-const transformOptons = {
+const transformOptions = {
     presets: [
       'es2015'
     ],
