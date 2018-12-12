@@ -375,13 +375,14 @@ export default {
       try {
         // Options are eval'ed in our variable scope, so we can override
         // the "global" console reference just for the user app
-        const code = compileJs(`console = this.fakeConsole; options = ${js};`)
+        const code = compileJs(`options = ${js};`)
+        window.console.log('Transpiled:', code)
         /* eslint-disable no-eval */
-        eval(code)
+        eval(`console = this.fakeConsole; ${code};`)
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
-        window.console.log('Compile Error', err)
+        window.console.error('Error in javascript', err)
         return
       }
 
