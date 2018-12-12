@@ -565,8 +565,9 @@ export default {
         relatedTarget: null
       })
       this.emitEvent(showEvt)
+      // Don't show if canceled
       if (showEvt.defaultPrevented || this.is_visible) {
-        // Don't show if canceled
+        this.is_opening = false
         return
       }
       if (!this.noStacking) {
@@ -613,6 +614,7 @@ export default {
       this.emitEvent(hideEvt)
       // Hide if not canceled
       if (hideEvt.defaultPrevented || !this.is_visible) {
+        this.is_closing = false
         return
       }
       // stop observing for content changes
@@ -862,12 +864,13 @@ export default {
         modal.style.paddingRight = ''
       }
     },
-    checkScrollbar () {
+    checkScrollbar () /* istanbul ignore next: getBCR can't be tested in JSDOM */{
       const { left, right, height } = getBCR(document.body)
       // Extra check for body.height needed for stacked modals
       this.isBodyOverflowing = (left + right) < window.innerWidth || height > window.innerHeight
     },
     setScrollbar () {
+      /* istanbul ignore if: get Computed Style can't be tested in JSDOM */
       if (this.isBodyOverflowing) {
         // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
         //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
@@ -959,6 +962,8 @@ export default {
       this._observer.disconnect()
       this._observer = null
     }
+    // Ensure our root "once" listener is gone
+    this.$root.$off('bv::modal::hidden', this.doShow)
     this.setEnforceFocus(false)
     this.setResizeEvent(false)
     if (this.is_visible) {
