@@ -37,8 +37,282 @@ function getTransisionEndEvent (el) {
   return null
 }
 
+// @vue/component
 export default {
   mixins: [ idMixin ],
+  props: {
+    labelPrev: {
+      type: String,
+      default: 'Previous Slide'
+    },
+    labelNext: {
+      type: String,
+      default: 'Next Slide'
+    },
+    labelGotoSlide: {
+      type: String,
+      default: 'Goto Slide'
+    },
+    labelIndicators: {
+      type: String,
+      default: 'Select a slide to display'
+    },
+    interval: {
+      type: Number,
+      default: 5000
+    },
+    indicators: {
+      type: Boolean,
+      default: false
+    },
+    controls: {
+      type: Boolean,
+      default: false
+    },
+    imgWidth: {
+      // Sniffed by carousel-slide
+      type: [Number, String],
+      default: undefined
+    },
+    imgHeight: {
+      // Sniffed by carousel-slide
+      type: [Number, String],
+      default: undefined
+    },
+    background: {
+      type: String,
+      default: undefined
+    },
+    value: {
+      type: Number,
+      default: 0
+    }
+  },
+  data () {
+    return {
+      index: this.value || 0,
+      isSliding: false,
+      intervalId: null,
+      transitionEndEvent: null,
+      slides: [],
+      direction: null
+    }
+  },
+  computed: {
+    isCycling () {
+      return Boolean(this.intervalId)
+    }
+  },
+  watch: {
+    value (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.setSlide(newVal)
+      }
+    },
+    interval (newVal, oldVal) {
+      if (newVal === oldVal) {
+        return
+      }
+      if (!newVal) {
+        // Pausing slide show
+        this.pause()
+      } else {
+        // Restarting or Changing interval
+        this.pause()
+        this.start()
+      }
+    },
+    index (val, oldVal) {
+      if (val === oldVal || this.isSliding) {
+        return
+      }
+      // Determine sliding direction
+      let direction = this.calcDirection(this.direction, oldVal, val)
+      // Determine current and next slides
+      const currentSlide = this.slides[oldVal]
+      const nextSlide = this.slides[val]
+      // Don't do anything if there aren't any slides to slide to
+      if (!currentSlide || !nextSlide) {
+        return
+      }
+      // Start animating
+      this.isSliding = true
+      this.$emit('sliding-start', val)
+      // Update v-model
+      this.$emit('input', this.index)
+      addClass(nextSlide, direction.overlayClass)
+      // Trigger a reflow of next slide
+      reflow(nextSlide)
+      addClass(currentSlide, direction.dirClass)
+      addClass(nextSlide, direction.dirClass)
+      // Transition End handler
+      let called = false
+      /* istanbul ignore next: dificult to test */
+      const onceTransEnd = (evt) => {
+        if (called) {
+          return
+        }
+        called = true
+        if (this.transitionEndEvent) {
+          const events = this.transitionEndEvent.split(/\s+/)
+          events.forEach(event => {
+            eventOff(currentSlide, event, onceTransEnd)
+          })
+        }
+        this._animationTimeout = null
+        removeClass(nextSlide, direction.dirClass)
+        removeClass(nextSlide, direction.overlayClass)
+        addClass(nextSlide, 'active')
+        removeClass(currentSlide, 'active')
+        removeClass(currentSlide, direction.dirClass)
+        removeClass(currentSlide, direction.overlayClass)
+        setAttr(currentSlide, 'aria-current', 'false')
+        setAttr(nextSlide, 'aria-current', 'true')
+        setAttr(currentSlide, 'aria-hidden', 'true')
+        setAttr(nextSlide, 'aria-hidden', 'false')
+        currentSlide.tabIndex = -1
+        nextSlide.tabIndex = -1
+        if (!this.isCycling) {
+          // Focus the next slide for screen readers if not in play mode
+          nextSlide.tabIndex = 0
+          this.$nextTick(() => {
+            nextSlide.focus()
+          })
+        }
+        this.isSliding = false
+        this.direction = null
+        // Notify ourselves that we're done sliding (slid)
+        this.$nextTick(() => this.$emit('sliding-end', val))
+      }
+      // Clear transition classes after transition ends
+      if (this.transitionEndEvent) {
+        const events = this.transitionEndEvent.split(/\s+/)
+        events.forEach(event => {
+          eventOn(currentSlide, event, onceTransEnd)
+        })
+      }
+      // Fallback to setTimeout
+      this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION)
+    }
+  },
+  created () {
+    // Create private non-reactive props
+    this._animationTimeout = null
+  },
+  mounted () {
+    // Cache current browser transitionend event name
+    this.transitionEndEvent = getTransisionEndEvent(this.$el) || null
+    // Get all slides
+    this.updateSlides()
+    // Observe child changes so we can update slide list
+    observeDom(this.$refs.inner, this.updateSlides.bind(this), {
+      subtree: false,
+      childList: true,
+      attributes: true,
+      attributeFilter: [ 'id' ]
+    })
+  },
+  /* istanbul ignore next: dificult to test */
+  beforeDestroy () {
+    clearInterval(this.intervalId)
+    clearTimeout(this._animationTimeout)
+    this.intervalId = null
+    this._animationTimeout = null
+  },
+  methods: {
+    // Set slide
+    setSlide (slide) {
+      // Don't animate when page is not visible
+      if (typeof document !== 'undefined' && document.visibilityState && document.hidden) {
+        return
+      }
+      const len = this.slides.length
+      // Don't do anything if nothing to slide to
+      if (len === 0) {
+        return
+      }
+      // Don't change slide while transitioning, wait until transition is done
+      if (this.isSliding) {
+        // Schedule slide after sliding complete
+        this.$once('sliding-end', () => this.setSlide(slide))
+        return
+      }
+      // Make sure we have an integer (you never know!)
+      slide = Math.floor(slide)
+      // Set new slide index. Wrap around if necessary
+      this.index = slide >= len ? 0 : (slide >= 0 ? slide : len - 1)
+    },
+    // Previous slide
+    prev () {
+      this.direction = 'prev'
+      this.setSlide(this.index - 1)
+    },
+    // Next slide
+    next () {
+      this.direction = 'next'
+      this.setSlide(this.index + 1)
+    },
+    // Pause auto rotation
+    pause () {
+      if (this.isCycling) {
+        clearInterval(this.intervalId)
+        this.intervalId = null
+        if (this.slides[this.index]) {
+          // Make current slide focusable for screen readers
+          this.slides[this.index].tabIndex = 0
+        }
+      }
+    },
+    // Start auto rotate slides
+    start () {
+      // Don't start if no interval, or if we are already running
+      if (!this.interval || this.isCycling) {
+        return
+      }
+      this.slides.forEach(slide => {
+        slide.tabIndex = -1
+      })
+      this.intervalId = setInterval(() => {
+        this.next()
+      }, Math.max(1000, this.interval))
+    },
+    // Re-Start auto rotate slides when focus/hover leaves the carousel
+    restart (evt) {
+      if (!this.$el.contains(document.activeElement)) {
+        this.start()
+      }
+    },
+    // Update slide list
+    updateSlides () {
+      this.pause()
+      // Get all slides as DOM elements
+      this.slides = selectAll('.carousel-item', this.$refs.inner)
+      const numSlides = this.slides.length
+      // Keep slide number in range
+      const index = Math.max(0, Math.min(Math.floor(this.index), numSlides - 1))
+      this.slides.forEach((slide, idx) => {
+        const n = idx + 1
+        if (idx === index) {
+          addClass(slide, 'active')
+        } else {
+          removeClass(slide, 'active')
+        }
+        setAttr(slide, 'aria-current', idx === index ? 'true' : 'false')
+        setAttr(slide, 'aria-posinset', String(n))
+        setAttr(slide, 'aria-setsize', String(numSlides))
+        slide.tabIndex = -1
+      })
+      // Set slide as active
+      this.setSlide(index)
+      this.start()
+    },
+    calcDirection (direction = null, curIndex = 0, nextIndex = 0) {
+      if (!direction) {
+        return (nextIndex > curIndex) ? DIRECTION.next : DIRECTION.prev
+      }
+      return DIRECTION[direction]
+    }
+  },
   render (h) {
     // Wrapper for slides
     const inner = h(
@@ -189,275 +463,5 @@ export default {
       },
       [ inner, controls, indicators ]
     )
-  },
-  data () {
-    return {
-      index: this.value || 0,
-      isSliding: false,
-      intervalId: null,
-      transitionEndEvent: null,
-      slides: [],
-      direction: null
-    }
-  },
-  props: {
-    labelPrev: {
-      type: String,
-      default: 'Previous Slide'
-    },
-    labelNext: {
-      type: String,
-      default: 'Next Slide'
-    },
-    labelGotoSlide: {
-      type: String,
-      default: 'Goto Slide'
-    },
-    labelIndicators: {
-      type: String,
-      default: 'Select a slide to display'
-    },
-    interval: {
-      type: Number,
-      default: 5000
-    },
-    indicators: {
-      type: Boolean,
-      default: false
-    },
-    controls: {
-      type: Boolean,
-      default: false
-    },
-    imgWidth: {
-      // Sniffed by carousel-slide
-      type: [Number, String]
-    },
-    imgHeight: {
-      // Sniffed by carousel-slide
-      type: [Number, String]
-    },
-    background: {
-      type: String
-    },
-    value: {
-      type: Number,
-      default: 0
-    }
-  },
-  computed: {
-    isCycling () {
-      return Boolean(this.intervalId)
-    }
-  },
-  methods: {
-    // Set slide
-    setSlide (slide) {
-      // Don't animate when page is not visible
-      if (typeof document !== 'undefined' && document.visibilityState && document.hidden) {
-        return
-      }
-      const len = this.slides.length
-      // Don't do anything if nothing to slide to
-      if (len === 0) {
-        return
-      }
-      // Don't change slide while transitioning, wait until transition is done
-      if (this.isSliding) {
-        // Schedule slide after sliding complete
-        this.$once('sliding-end', () => this.setSlide(slide))
-        return
-      }
-      // Make sure we have an integer (you never know!)
-      slide = Math.floor(slide)
-      // Set new slide index. Wrap around if necessary
-      this.index = slide >= len ? 0 : (slide >= 0 ? slide : len - 1)
-    },
-    // Previous slide
-    prev () {
-      this.direction = 'prev'
-      this.setSlide(this.index - 1)
-    },
-    // Next slide
-    next () {
-      this.direction = 'next'
-      this.setSlide(this.index + 1)
-    },
-    // Pause auto rotation
-    pause () {
-      if (this.isCycling) {
-        clearInterval(this.intervalId)
-        this.intervalId = null
-        if (this.slides[this.index]) {
-          // Make current slide focusable for screen readers
-          this.slides[this.index].tabIndex = 0
-        }
-      }
-    },
-    // Start auto rotate slides
-    start () {
-      // Don't start if no interval, or if we are already running
-      if (!this.interval || this.isCycling) {
-        return
-      }
-      this.slides.forEach(slide => {
-        slide.tabIndex = -1
-      })
-      this.intervalId = setInterval(() => {
-        this.next()
-      }, Math.max(1000, this.interval))
-    },
-    // Re-Start auto rotate slides when focus/hover leaves the carousel
-    restart (evt) {
-      if (!this.$el.contains(document.activeElement)) {
-        this.start()
-      }
-    },
-    // Update slide list
-    updateSlides () {
-      this.pause()
-      // Get all slides as DOM elements
-      this.slides = selectAll('.carousel-item', this.$refs.inner)
-      const numSlides = this.slides.length
-      // Keep slide number in range
-      const index = Math.max(0, Math.min(Math.floor(this.index), numSlides - 1))
-      this.slides.forEach((slide, idx) => {
-        const n = idx + 1
-        if (idx === index) {
-          addClass(slide, 'active')
-        } else {
-          removeClass(slide, 'active')
-        }
-        setAttr(slide, 'aria-current', idx === index ? 'true' : 'false')
-        setAttr(slide, 'aria-posinset', String(n))
-        setAttr(slide, 'aria-setsize', String(numSlides))
-        slide.tabIndex = -1
-      })
-      // Set slide as active
-      this.setSlide(index)
-      this.start()
-    },
-    calcDirection (direction = null, curIndex = 0, nextIndex = 0) {
-      if (!direction) {
-        return (nextIndex > curIndex) ? DIRECTION.next : DIRECTION.prev
-      }
-      return DIRECTION[direction]
-    }
-  },
-  watch: {
-    value (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.setSlide(newVal)
-      }
-    },
-    interval (newVal, oldVal) {
-      if (newVal === oldVal) {
-        return
-      }
-      if (!newVal) {
-        // Pausing slide show
-        this.pause()
-      } else {
-        // Restarting or Changing interval
-        this.pause()
-        this.start()
-      }
-    },
-    index (val, oldVal) {
-      if (val === oldVal || this.isSliding) {
-        return
-      }
-      // Determine sliding direction
-      let direction = this.calcDirection(this.direction, oldVal, val)
-      // Determine current and next slides
-      const currentSlide = this.slides[oldVal]
-      const nextSlide = this.slides[val]
-      // Don't do anything if there aren't any slides to slide to
-      if (!currentSlide || !nextSlide) {
-        return
-      }
-      // Start animating
-      this.isSliding = true
-      this.$emit('sliding-start', val)
-      // Update v-model
-      this.$emit('input', this.index)
-      addClass(nextSlide, direction.overlayClass)
-      // Trigger a reflow of next slide
-      reflow(nextSlide)
-      addClass(currentSlide, direction.dirClass)
-      addClass(nextSlide, direction.dirClass)
-      // Transition End handler
-      let called = false
-      /* istanbul ignore next: dificult to test */
-      const onceTransEnd = (evt) => {
-        if (called) {
-          return
-        }
-        called = true
-        if (this.transitionEndEvent) {
-          const events = this.transitionEndEvent.split(/\s+/)
-          events.forEach(event => {
-            eventOff(currentSlide, event, onceTransEnd)
-          })
-        }
-        this._animationTimeout = null
-        removeClass(nextSlide, direction.dirClass)
-        removeClass(nextSlide, direction.overlayClass)
-        addClass(nextSlide, 'active')
-        removeClass(currentSlide, 'active')
-        removeClass(currentSlide, direction.dirClass)
-        removeClass(currentSlide, direction.overlayClass)
-        setAttr(currentSlide, 'aria-current', 'false')
-        setAttr(nextSlide, 'aria-current', 'true')
-        setAttr(currentSlide, 'aria-hidden', 'true')
-        setAttr(nextSlide, 'aria-hidden', 'false')
-        currentSlide.tabIndex = -1
-        nextSlide.tabIndex = -1
-        if (!this.isCycling) {
-          // Focus the next slide for screen readers if not in play mode
-          nextSlide.tabIndex = 0
-          this.$nextTick(() => {
-            nextSlide.focus()
-          })
-        }
-        this.isSliding = false
-        this.direction = null
-        // Notify ourselves that we're done sliding (slid)
-        this.$nextTick(() => this.$emit('sliding-end', val))
-      }
-      // Clear transition classes after transition ends
-      if (this.transitionEndEvent) {
-        const events = this.transitionEndEvent.split(/\s+/)
-        events.forEach(event => {
-          eventOn(currentSlide, event, onceTransEnd)
-        })
-      }
-      // Fallback to setTimeout
-      this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION)
-    }
-  },
-  created () {
-    // Create private non-reactive props
-    this._animationTimeout = null
-  },
-  mounted () {
-    // Cache current browser transitionend event name
-    this.transitionEndEvent = getTransisionEndEvent(this.$el) || null
-    // Get all slides
-    this.updateSlides()
-    // Observe child changes so we can update slide list
-    observeDom(this.$refs.inner, this.updateSlides.bind(this), {
-      subtree: false,
-      childList: true,
-      attributes: true,
-      attributeFilter: [ 'id' ]
-    })
-  },
-  /* istanbul ignore next: dificult to test */
-  beforeDestroy () {
-    clearInterval(this.intervalId)
-    clearTimeout(this._animationTimeout)
-    this.intervalId = null
-    this._animationTimeout = null
   }
 }

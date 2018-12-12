@@ -2,37 +2,9 @@ import bImg from './img'
 import { isVisible, getBCR, eventOn, eventOff } from '../../utils/dom'
 const THROTTLE = 100
 
+// @vue/component
 export default {
   components: { bImg },
-  render (h) {
-    return h(
-      'b-img',
-      {
-        props: {
-          src: this.computedSrc,
-          alt: this.alt,
-          blank: this.computedBlank,
-          blankColor: this.blankColor,
-          width: this.computedWidth,
-          height: this.computedHeight,
-          fluid: this.fluid,
-          fluidGrow: this.fluidGrow,
-          block: this.block,
-          thumbnail: this.thumbnail,
-          rounded: this.rounded,
-          left: this.left,
-          right: this.right,
-          center: this.center
-        }
-      }
-    )
-  },
-  data () {
-    return {
-      isShown: false,
-      scrollTimeout: null
-    }
-  },
   props: {
     src: {
       type: String,
@@ -109,6 +81,12 @@ export default {
       default: THROTTLE
     }
   },
+  data () {
+    return {
+      isShown: false,
+      scrollTimeout: null
+    }
+  },
   computed: {
     computedSrc () {
       return (!this.blankSrc || this.isShown) ? this.src : this.blankSrc
@@ -132,9 +110,6 @@ export default {
     this.checkView()
   },
   deactivated () {
-    this.setListeners(false)
-  },
-  beforeDdestroy () {
     this.setListeners(false)
   },
   methods: {
@@ -181,5 +156,31 @@ export default {
         this.scrollTimeout = setTimeout(this.checkView, parseInt(this.throttle, 10) || THROTTLE)
       }
     }
+  },
+  render (h) {
+    return h(
+      'b-img',
+      {
+        props: {
+          src: this.computedSrc,
+          alt: this.alt,
+          blank: this.computedBlank,
+          blankColor: this.blankColor,
+          width: this.computedWidth,
+          height: this.computedHeight,
+          fluid: this.fluid,
+          fluidGrow: this.fluidGrow,
+          block: this.block,
+          thumbnail: this.thumbnail,
+          rounded: this.rounded,
+          left: this.left,
+          right: this.right,
+          center: this.center
+        }
+      }
+    )
+  },
+  beforeDdestroy () {
+    this.setListeners(false)
   }
 }

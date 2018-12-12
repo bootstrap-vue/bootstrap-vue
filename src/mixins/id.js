@@ -4,6 +4,7 @@
  * this._uid is not synched between server and client.
  */
 
+// @vue/component
 export default {
   props: {
     id: {
@@ -15,14 +16,6 @@ export default {
     return {
       localId_: null
     }
-  },
-  mounted () {
-    // mounted only occurs client side
-    this.$nextTick(() => {
-      // Update dom with auto ID after dom loaded to prevent
-      // SSR hydration errors.
-      this.localId_ = `__BVID__${this._uid}`
-    })
   },
   computed: {
     safeId () {
@@ -41,5 +34,13 @@ export default {
       }
       return fn
     }
+  },
+  mounted () {
+    // mounted only occurs client side
+    this.$nextTick(() => {
+      // Update dom with auto ID after dom loaded to prevent
+      // SSR hydration errors.
+      this.localId_ = `__BVID__${this._uid}`
+    })
   }
 }

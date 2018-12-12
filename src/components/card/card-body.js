@@ -37,6 +37,7 @@ export const props = assign(
   }
 )
 
+// @vue/component
 export default {
   functional: true,
   props,

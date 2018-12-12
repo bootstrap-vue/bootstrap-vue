@@ -7,6 +7,7 @@ import formSelectionMixin from '../../mixins/form-selection'
 import formValidityMixin from '../../mixins/form-validity'
 import { getCS, isVisible } from '../../utils/dom'
 
+// @vue/component
 export default {
   mixins: [
     idMixin,
@@ -17,51 +18,6 @@ export default {
     formSelectionMixin,
     formValidityMixin
   ],
-  render (h) {
-    // Using self instead of this helps reduce code size during minification
-    const self = this
-    return h('textarea', {
-      ref: 'input',
-      class: self.computedClass,
-      style: self.computedStyle,
-      directives: [
-        {
-          name: 'model',
-          rawName: 'v-model',
-          value: self.localValue,
-          expression: 'localValue'
-        }
-      ],
-      attrs: {
-        id: self.safeId(),
-        name: self.name,
-        form: self.form || null,
-        disabled: self.disabled,
-        placeholder: self.placeholder,
-        required: self.required,
-        autocomplete: self.autocomplete || null,
-        readonly: self.readonly || self.plaintext,
-        rows: self.computedRows,
-        wrap: self.wrap || null,
-        'aria-required': self.required ? 'true' : null,
-        'aria-invalid': self.computedAriaInvalid
-      },
-      domProps: {
-        value: self.localValue
-      },
-      on: {
-        ...self.$listeners,
-        input: self.onInput,
-        change: self.onChange,
-        blur: self.onBlur
-      }
-    })
-  },
-  data () {
-    return {
-      dontResize: true
-    }
-  },
   props: {
     rows: {
       type: [Number, String],
@@ -82,20 +38,10 @@ export default {
       default: false
     }
   },
-  mounted () {
-    // Enable opt-in resizing once mounted
-    this.$nextTick(() => { this.dontResize = false })
-  },
-  activated () {
-    // If we are being re-activated in <keep-alive>, enable opt-in resizing
-    this.$nextTick(() => { this.dontResize = false })
-  },
-  deactivated () {
-    // If we are in a deactivated <keep-alive>, disable opt-in resizing
-    this.dontResize = true
-  },
-  beforeDestroy () {
-    this.dontResize = true
+  data () {
+    return {
+      dontResize: true
+    }
   },
   computed: {
     computedStyle () {
@@ -160,5 +106,60 @@ export default {
       // return the new computed height in px units
       return `${height}px`
     }
+  },
+  mounted () {
+    // Enable opt-in resizing once mounted
+    this.$nextTick(() => { this.dontResize = false })
+  },
+  activated () {
+    // If we are being re-activated in <keep-alive>, enable opt-in resizing
+    this.$nextTick(() => { this.dontResize = false })
+  },
+  deactivated () {
+    // If we are in a deactivated <keep-alive>, disable opt-in resizing
+    this.dontResize = true
+  },
+  beforeDestroy () {
+    this.dontResize = true
+  },
+  render (h) {
+    // Using self instead of this helps reduce code size during minification
+    const self = this
+    return h('textarea', {
+      ref: 'input',
+      class: self.computedClass,
+      style: self.computedStyle,
+      directives: [
+        {
+          name: 'model',
+          rawName: 'v-model',
+          value: self.localValue,
+          expression: 'localValue'
+        }
+      ],
+      attrs: {
+        id: self.safeId(),
+        name: self.name,
+        form: self.form || null,
+        disabled: self.disabled,
+        placeholder: self.placeholder,
+        required: self.required,
+        autocomplete: self.autocomplete || null,
+        readonly: self.readonly || self.plaintext,
+        rows: self.computedRows,
+        wrap: self.wrap || null,
+        'aria-required': self.required ? 'true' : null,
+        'aria-invalid': self.computedAriaInvalid
+      },
+      domProps: {
+        value: self.localValue
+      },
+      on: {
+        ...self.$listeners,
+        input: self.onInput,
+        change: self.onChange,
+        blur: self.onBlur
+      }
+    })
   }
 }

@@ -94,8 +94,10 @@ const props = {
   }
 }
 
+// @vue/component
 export default {
   components: { bLink },
+  props,
   data () {
     return {
       showFirstDots: false,
@@ -103,7 +105,189 @@ export default {
       currentPage: this.value
     }
   },
-  props,
+  computed: {
+    btnSize () {
+      return this.size ? `pagination-${this.size}` : ''
+    },
+    alignment () {
+      if (this.align === 'center') {
+        return 'justify-content-center'
+      } else if (this.align === 'end' || this.align === 'right') {
+        return 'justify-content-end'
+      }
+      return ''
+    },
+    pageList () {
+      // TODO: generatePageList() has side effects. Computed props should not have side effects!
+      const { startNum, numLinks } = this.generatePageList()
+
+      // Generate list of page numbers
+      const pages = makePageArray(startNum, numLinks)
+
+      // We limit to a total of 3 page buttons on small screens
+      // Ellipsis will also be hidden on small screens
+      if (pages.length > 3) {
+        const idx = this.currentPage - startNum
+        if (idx === 0) {
+          // Keep leftmost 3 buttons visible
+          for (let i = 3; i < pages.length; i++) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+        } else if (idx === pages.length - 1) {
+          // Keep rightmost 3 buttons visible
+          for (let i = 0; i < pages.length - 3; i++) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+        } else {
+          // hide left button(s)
+          for (let i = 0; i < idx - 1; i++) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+          // hide right button(s)
+          for (let i = pages.length - 1; i > idx + 1; i--) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+        }
+      }
+      return pages
+    }
+  },
+  watch: {
+    currentPage (newPage, oldPage) {
+      if (newPage !== oldPage) {
+        this.$emit('input', newPage)
+      }
+    },
+    value (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.currentPage = newValue
+      }
+    }
+  },
+  methods: {
+    generatePageList () {
+      // Sanity checks
+      if (this.currentPage > this.numberOfPages) {
+        this.currentPage = this.numberOfPages
+      } else if (this.currentPage < 1) {
+        this.currentPage = 1
+      }
+      // - Hide first ellipsis marker
+      this.showFirstDots = false
+      // - Hide last ellipsis marker
+      this.showLastDots = false
+      let numLinks = this.limit
+      let startNum = 1
+      if (this.numberOfPages <= this.limit) {
+        // Special Case: Less pages available than the limit of displayed pages
+        numLinks = this.numberOfPages
+      } else if (
+        this.currentPage < this.limit - 1 &&
+        this.limit > ELLIPSIS_THRESHOLD
+      ) {
+        // We are near the beginning of the page list
+        if (!this.hideEllipsis) {
+          numLinks = this.limit - 1
+          this.showLastDots = true
+        }
+      } else if (
+        this.numberOfPages - this.currentPage + 2 < this.limit &&
+        this.limit > ELLIPSIS_THRESHOLD
+      ) {
+        // We are near the end of the list
+        if (!this.hideEllipsis) {
+          this.showFirstDots = true
+          numLinks = this.limit - 1
+        }
+        startNum = this.numberOfPages - numLinks + 1
+      } else {
+        // We are somewhere in the middle of the page list
+        if (this.limit > ELLIPSIS_THRESHOLD && !this.hideEllipsis) {
+          this.showFirstDots = true
+          this.showLastDots = true
+          numLinks = this.limit - 2
+        }
+        startNum = this.currentPage - Math.floor(numLinks / 2)
+      }
+      // Sanity checks
+      if (startNum < 1) {
+        startNum = 1
+      } else if (startNum > this.numberOfPages - numLinks) {
+        startNum = this.numberOfPages - numLinks + 1
+      }
+      return { startNum, numLinks }
+    },
+    isActive (pagenum) {
+      return pagenum === this.currentPage
+    },
+    pageItemClasses (page) {
+      return [
+        'page-item',
+        this.disabled ? 'disabled' : '',
+        this.isActive(page.number) ? 'active' : '',
+        page.className
+      ]
+    },
+    pageLinkClasses (page) {
+      return [
+        'page-link',
+        this.disabled ? 'disabled' : ''
+      ]
+    },
+    getButtons () {
+      // Return only buttons that are visible
+      return selectAll('a.page-link', this.$el).filter(btn => isVisible(btn))
+    },
+    setBtnFocus (btn) {
+      this.$nextTick(() => {
+        btn.focus()
+      })
+    },
+    focusCurrent () {
+      const btn = this.getButtons().find(
+        el => parseInt(getAttr(el, 'aria-posinset'), 10) === this.currentPage
+      )
+      if (btn && btn.focus) {
+        this.setBtnFocus(btn)
+      } else {
+        // Fallback if current page is not in button list
+        this.focusFirst()
+      }
+    },
+    focusFirst () {
+      const btn = this.getButtons().find(el => !isDisabled(el))
+      if (btn && btn.focus && btn !== document.activeElement) {
+        this.setBtnFocus(btn)
+      }
+    },
+    focusLast () {
+      const btn = this.getButtons()
+        .reverse()
+        .find(el => !isDisabled(el))
+      if (btn && btn.focus && btn !== document.activeElement) {
+        this.setBtnFocus(btn)
+      }
+    },
+    focusPrev () {
+      const buttons = this.getButtons()
+      const idx = buttons.indexOf(document.activeElement)
+      if (idx > 0 && !isDisabled(buttons[idx - 1]) && buttons[idx - 1].focus) {
+        this.setBtnFocus(buttons[idx - 1])
+      }
+    },
+    focusNext () {
+      const buttons = this.getButtons()
+      const idx = buttons.indexOf(document.activeElement)
+      const cnt = buttons.length - 1
+      if (
+        idx < cnt &&
+        !isDisabled(buttons[idx + 1]) &&
+        buttons[idx + 1].focus
+      ) {
+        this.setBtnFocus(buttons[idx + 1])
+      }
+    }
+  },
   render (h) {
     const buttons = []
 
@@ -301,181 +485,5 @@ export default {
 
     // if we are pagination-nav, wrap in '<nav>' wrapper
     return this.isNav ? h('nav', {}, [pagination]) : pagination
-  },
-  watch: {
-    currentPage (newPage, oldPage) {
-      if (newPage !== oldPage) {
-        this.$emit('input', newPage)
-      }
-    },
-    value (newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.currentPage = newValue
-      }
-    }
-  },
-  computed: {
-    btnSize () {
-      return this.size ? `pagination-${this.size}` : ''
-    },
-    alignment () {
-      if (this.align === 'center') {
-        return 'justify-content-center'
-      } else if (this.align === 'end' || this.align === 'right') {
-        return 'justify-content-end'
-      }
-      return ''
-    },
-    pageList () {
-      // Sanity checks
-      if (this.currentPage > this.numberOfPages) {
-        this.currentPage = this.numberOfPages
-      } else if (this.currentPage < 1) {
-        this.currentPage = 1
-      }
-      // - Hide first ellipsis marker
-      this.showFirstDots = false
-      // - Hide last ellipsis marker
-      this.showLastDots = false
-      let numLinks = this.limit
-      let startNum = 1
-      if (this.numberOfPages <= this.limit) {
-        // Special Case: Less pages available than the limit of displayed pages
-        numLinks = this.numberOfPages
-      } else if (
-        this.currentPage < this.limit - 1 &&
-        this.limit > ELLIPSIS_THRESHOLD
-      ) {
-        // We are near the beginning of the page list
-        if (!this.hideEllipsis) {
-          numLinks = this.limit - 1
-          this.showLastDots = true
-        }
-      } else if (
-        this.numberOfPages - this.currentPage + 2 < this.limit &&
-        this.limit > ELLIPSIS_THRESHOLD
-      ) {
-        // We are near the end of the list
-        if (!this.hideEllipsis) {
-          this.showFirstDots = true
-          numLinks = this.limit - 1
-        }
-        startNum = this.numberOfPages - numLinks + 1
-      } else {
-        // We are somewhere in the middle of the page list
-        if (this.limit > ELLIPSIS_THRESHOLD && !this.hideEllipsis) {
-          this.showFirstDots = true
-          this.showLastDots = true
-          numLinks = this.limit - 2
-        }
-        startNum = this.currentPage - Math.floor(numLinks / 2)
-      }
-      // Sanity checks
-      if (startNum < 1) {
-        startNum = 1
-      } else if (startNum > this.numberOfPages - numLinks) {
-        startNum = this.numberOfPages - numLinks + 1
-      }
-      // Generate list of page numbers
-      const pages = makePageArray(startNum, numLinks)
-      // We limit to a total of 3 page buttons on small screens
-      // Ellipsis will also be hidden on small screens
-      if (pages.length > 3) {
-        const idx = this.currentPage - startNum
-        if (idx === 0) {
-          // Keep leftmost 3 buttons visible
-          for (let i = 3; i < pages.length; i++) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-        } else if (idx === pages.length - 1) {
-          // Keep rightmost 3 buttons visible
-          for (let i = 0; i < pages.length - 3; i++) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-        } else {
-          // hide left button(s)
-          for (let i = 0; i < idx - 1; i++) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-          // hide right button(s)
-          for (let i = pages.length - 1; i > idx + 1; i--) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-        }
-      }
-      return pages
-    }
-  },
-  methods: {
-    isActive (pagenum) {
-      return pagenum === this.currentPage
-    },
-    pageItemClasses (page) {
-      return [
-        'page-item',
-        this.disabled ? 'disabled' : '',
-        this.isActive(page.number) ? 'active' : '',
-        page.className
-      ]
-    },
-    pageLinkClasses (page) {
-      return [
-        'page-link',
-        this.disabled ? 'disabled' : ''
-      ]
-    },
-    getButtons () {
-      // Return only buttons that are visible
-      return selectAll('a.page-link', this.$el).filter(btn => isVisible(btn))
-    },
-    setBtnFocus (btn) {
-      this.$nextTick(() => {
-        btn.focus()
-      })
-    },
-    focusCurrent () {
-      const btn = this.getButtons().find(
-        el => parseInt(getAttr(el, 'aria-posinset'), 10) === this.currentPage
-      )
-      if (btn && btn.focus) {
-        this.setBtnFocus(btn)
-      } else {
-        // Fallback if current page is not in button list
-        this.focusFirst()
-      }
-    },
-    focusFirst () {
-      const btn = this.getButtons().find(el => !isDisabled(el))
-      if (btn && btn.focus && btn !== document.activeElement) {
-        this.setBtnFocus(btn)
-      }
-    },
-    focusLast () {
-      const btn = this.getButtons()
-        .reverse()
-        .find(el => !isDisabled(el))
-      if (btn && btn.focus && btn !== document.activeElement) {
-        this.setBtnFocus(btn)
-      }
-    },
-    focusPrev () {
-      const buttons = this.getButtons()
-      const idx = buttons.indexOf(document.activeElement)
-      if (idx > 0 && !isDisabled(buttons[idx - 1]) && buttons[idx - 1].focus) {
-        this.setBtnFocus(buttons[idx - 1])
-      }
-    },
-    focusNext () {
-      const buttons = this.getButtons()
-      const idx = buttons.indexOf(document.activeElement)
-      const cnt = buttons.length - 1
-      if (
-        idx < cnt &&
-        !isDisabled(buttons[idx + 1]) &&
-        buttons[idx + 1].focus
-      ) {
-        this.setBtnFocus(buttons[idx + 1])
-      }
-    }
   }
 }

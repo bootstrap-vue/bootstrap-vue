@@ -13,6 +13,7 @@ export const props = assign({}, crumbLinks, {
   }
 })
 
+// @vue/component
 export default {
   functional: true,
   props,

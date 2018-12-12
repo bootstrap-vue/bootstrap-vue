@@ -1,6 +1,7 @@
 import Form from '../form/form'
 import { mergeData } from 'vue-functional-data-merge'
 
+// @vue/component
 export default {
   functional: true,
   props: {

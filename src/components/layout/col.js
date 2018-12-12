@@ -101,6 +101,7 @@ export const props = assign({}, breakpointCol, breakpointOffset, breakpointOrder
  * We need ".col" to default in when no other props are passed,
  * but always render when col=true.
  */
+// @vue/component
 export default {
   functional: true,
   props,

@@ -17,6 +17,7 @@ const props = {
 }
 
 // Our render function is brought in from the pagination mixin
+// @vue/component
 export default {
   mixins: [ paginationMixin ],
   props,

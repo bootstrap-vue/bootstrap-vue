@@ -174,11 +174,8 @@ function renderLabel (h, ctx) {
 }
 
 // bFormGroup
+// @vue/component
 export default {
-  mixins: [
-    idMixin,
-    formStateMixin
-  ],
   components: {
     bFormRow,
     bCol,
@@ -186,56 +183,10 @@ export default {
     bFormValidFeedback,
     bFormText
   },
-  render (h) {
-    const isFieldset = !this.labelFor
-    const isHorizontal = this.isHorizontal
-    // Generate the label
-    const label = renderLabel(h, this)
-    // Generate the content
-    const content = h(
-      isHorizontal ? 'b-col' : 'div',
-      {
-        ref: 'content',
-        attrs: {
-          tabindex: isFieldset ? '-1' : null,
-          role: isFieldset ? 'group' : null,
-          'aria-labelledby': isFieldset ? this.labelId : null,
-          'aria-describedby': isFieldset ? this.ariaDescribedBy : null
-        }
-      },
-      [
-        this.$slots['default'] || h(false),
-        renderInvalidFeedback(h, this),
-        renderValidFeedback(h, this),
-        renderHelpText(h, this)
-      ]
-    )
-    // Create the form-group
-    const data = {
-      staticClass: 'form-group',
-      class: [
-        this.validated ? 'was-validated' : null,
-        this.stateClass
-      ],
-      attrs: {
-        id: this.safeId(),
-        disabled: isFieldset ? this.disabled : null,
-        role: isFieldset ? null : 'group',
-        'aria-invalid': this.computedState === false ? 'true' : null,
-        'aria-labelledby': this.labelId || null,
-        'aria-describedby': this.describedByIds || null
-      }
-    }
-    // Return it wrapped in a form-group.
-    // Note: fieldsets do not support adding `row` or `form-row` directly to them
-    // due to browser specific render issues, so we move the form-row to an
-    // inner wrapper div when horizontal and using a fieldset
-    return h(
-      isFieldset ? 'fieldset' : (isHorizontal ? 'b-form-row' : 'div'),
-      data,
-      isHorizontal && isFieldset ? [h('b-form-row', {}, [label, content])] : [label, content]
-    )
-  },
+  mixins: [
+    idMixin,
+    formStateMixin
+  ],
   props: {
     label: {
       type: String,
@@ -387,6 +338,13 @@ export default {
       }
     }
   },
+  mounted () {
+    this.$nextTick(() => {
+      // Set the adia-describedby IDs on the input specified by label-for
+      // We do this in a nextTick to ensure the children have finished rendering
+      this.setInputDescribedBy(this.describedByIds)
+    })
+  },
   methods: {
     legendClick (evt) {
       if (this.labelFor) {
@@ -425,11 +383,54 @@ export default {
       }
     }
   },
-  mounted () {
-    this.$nextTick(() => {
-      // Set the adia-describedby IDs on the input specified by label-for
-      // We do this in a nextTick to ensure the children have finished rendering
-      this.setInputDescribedBy(this.describedByIds)
-    })
+  render (h) {
+    const isFieldset = !this.labelFor
+    const isHorizontal = this.isHorizontal
+    // Generate the label
+    const label = renderLabel(h, this)
+    // Generate the content
+    const content = h(
+      isHorizontal ? 'b-col' : 'div',
+      {
+        ref: 'content',
+        attrs: {
+          tabindex: isFieldset ? '-1' : null,
+          role: isFieldset ? 'group' : null,
+          'aria-labelledby': isFieldset ? this.labelId : null,
+          'aria-describedby': isFieldset ? this.ariaDescribedBy : null
+        }
+      },
+      [
+        this.$slots['default'] || h(false),
+        renderInvalidFeedback(h, this),
+        renderValidFeedback(h, this),
+        renderHelpText(h, this)
+      ]
+    )
+    // Create the form-group
+    const data = {
+      staticClass: 'form-group',
+      class: [
+        this.validated ? 'was-validated' : null,
+        this.stateClass
+      ],
+      attrs: {
+        id: this.safeId(),
+        disabled: isFieldset ? this.disabled : null,
+        role: isFieldset ? null : 'group',
+        'aria-invalid': this.computedState === false ? 'true' : null,
+        'aria-labelledby': this.labelId || null,
+        'aria-describedby': this.describedByIds || null
+      }
+    }
+    // Return it wrapped in a form-group.
+    // Note: fieldsets do not support adding `row` or `form-row` directly to them
+    // due to browser specific render issues, so we move the form-row to an
+    // inner wrapper div when horizontal and using a fieldset
+    return h(
+      isFieldset ? 'fieldset' : (isHorizontal ? 'b-form-row' : 'div'),
+      data,
+      isHorizontal && isFieldset ? [h('b-form-row', {}, [label, content])] : [label, content]
+    )
   }
 }

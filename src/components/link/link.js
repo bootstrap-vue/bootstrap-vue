@@ -171,6 +171,7 @@ function clickHandlerFactory ({ disabled, tag, href, suppliedHandler, parent }) 
   }
 }
 
+// @vue/component
 export default {
   functional: true,
   props: propsFactory(),

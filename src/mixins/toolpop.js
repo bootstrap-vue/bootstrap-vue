@@ -32,11 +32,13 @@ const OBSERVER_CONFIG = {
   attributeFilter: ['class', 'style']
 }
 
+// @vue/component
 export default {
   props: {
     target: {
       // String ID of element, or element/component reference
-      type: [String, Object, HTMLElement, Function]
+      type: [String, Object, HTMLElement, Function],
+      default: undefined
     },
     delay: {
       type: [Number, Object, String],
@@ -68,6 +70,41 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    }
+  },
+  computed: {
+    baseConfig () {
+      const cont = this.container
+      let delay = (typeof this.delay === 'object') ? this.delay : (parseInt(this.delay, 10) || 0)
+      return {
+        // Title prop
+        title: (this.title || '').trim() || '',
+        // Contnt prop (if popover)
+        content: (this.content || '').trim() || '',
+        // Tooltip/Popover placement
+        placement: PLACEMENTS[this.placement] || 'auto',
+        // Container curently needs to be an ID with '#' prepended, if null then body is used
+        container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,
+        // boundariesElement passed to popper
+        boundary: this.boundary,
+        // Show/Hide delay
+        delay: delay || 0,
+        // Offset can be css distance. if no units, pixels are assumed
+        offset: this.offset || 0,
+        // Disable fade Animation?
+        animation: !this.noFade,
+        // Open/Close Trigger(s)
+        trigger: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
+        // Callbacks so we can trigger events on component
+        callbacks: {
+          show: this.onShow,
+          shown: this.onShown,
+          hide: this.onHide,
+          hidden: this.onHidden,
+          enabled: this.onEnabled,
+          disabled: this.onDisabled
+        }
+      }
     }
   },
   watch: {
@@ -149,41 +186,6 @@ export default {
     if (this._toolpop) {
       this._toolpop.destroy()
       this._toolpop = null
-    }
-  },
-  computed: {
-    baseConfig () {
-      const cont = this.container
-      let delay = (typeof this.delay === 'object') ? this.delay : (parseInt(this.delay, 10) || 0)
-      return {
-        // Title prop
-        title: (this.title || '').trim() || '',
-        // Contnt prop (if popover)
-        content: (this.content || '').trim() || '',
-        // Tooltip/Popover placement
-        placement: PLACEMENTS[this.placement] || 'auto',
-        // Container curently needs to be an ID with '#' prepended, if null then body is used
-        container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,
-        // boundariesElement passed to popper
-        boundary: this.boundary,
-        // Show/Hide delay
-        delay: delay || 0,
-        // Offset can be css distance. if no units, pixels are assumed
-        offset: this.offset || 0,
-        // Disable fade Animation?
-        animation: !this.noFade,
-        // Open/Close Trigger(s)
-        trigger: isArray(this.triggers) ? this.triggers.join(' ') : this.triggers,
-        // Callbacks so we can trigger events on component
-        callbacks: {
-          show: this.onShow,
-          shown: this.onShown,
-          hide: this.onHide,
-          hidden: this.onHidden,
-          enabled: this.onEnabled,
-          disabled: this.onDisabled
-        }
-      }
     }
   },
   methods: {

@@ -1,8 +1,13 @@
 module.exports = {
-  extends: ['standard', 'plugin:vue/recommended'],
-  plugins: ['jest'],
+  extends: [
+    'standard',
+    'plugin:vue/recommended'
+  ],
+  plugins: [
+    'jest'
+  ],
   parserOptions: {
-    ecmaVersion: 8,
+    parser: 'babel-eslint',
     sourceType: 'module'
   },
   env: {
@@ -14,6 +19,5 @@ module.exports = {
     Vue: true
   },
   rules: {
-    'vue/attributes-order': 'off'
   }
 }

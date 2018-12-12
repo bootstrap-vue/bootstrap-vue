@@ -1,4 +1,9 @@
+// @vue/component
 export default {
+  model: {
+    prop: 'value',
+    event: 'update'
+  },
   props: {
     value: {
       type: String,
@@ -26,7 +31,7 @@ export default {
     },
     formatter: {
       type: Function,
-      value: null
+      default: null
     },
     trim: {
       type: Boolean,
@@ -41,26 +46,9 @@ export default {
       value: false
     }
   },
-  model: {
-    prop: 'value',
-    event: 'update'
-  },
   data () {
     return {
       localValue: this.stringifyValue(this.value)
-    }
-  },
-  watch: {
-    value (newVal, oldVal) {
-      if (newVal !== oldVal && newVal !== this.localValue) {
-        this.localValue = this.stringifyValue(newVal)
-      }
-    }
-  },
-  mounted () {
-    const value = this.stringifyValue(this.value)
-    if (value !== this.localValue) {
-      this.localValue = value
     }
   },
   computed: {
@@ -89,6 +77,19 @@ export default {
       }
       // Most likely a string value (which could be the string 'true')
       return this.ariaInvalid
+    }
+  },
+  watch: {
+    value (newVal, oldVal) {
+      if (newVal !== oldVal && newVal !== this.localValue) {
+        this.localValue = this.stringifyValue(newVal)
+      }
+    }
+  },
+  mounted () {
+    const value = this.stringifyValue(this.value)
+    if (value !== this.localValue) {
+      this.localValue = value
     }
   },
   methods: {

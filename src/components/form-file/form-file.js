@@ -4,82 +4,12 @@ import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import { from as arrayFrom, isArray } from '../../utils/array'
 
+// @vue/component
 export default {
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
-  render (h) {
-    // Form Input
-    const input = h('input', {
-      ref: 'input',
-      class: [
-        {
-          'form-control-file': this.plain,
-          'custom-file-input': this.custom,
-          focus: this.custom && this.hasFocus
-        },
-        this.stateClass
-      ],
-      attrs: {
-        type: 'file',
-        id: this.safeId(),
-        name: this.name,
-        disabled: this.disabled,
-        required: this.required,
-        form: this.form || null,
-        capture: this.capture || null,
-        accept: this.accept || null,
-        multiple: this.multiple,
-        webkitdirectory: this.directory,
-        'aria-required': this.required ? 'true' : null
-      },
-      on: {
-        change: this.onFileChange,
-        focusin: this.focusHandler,
-        focusout: this.focusHandler,
-        reset: this.onReset
-      }
-    })
-
-    if (this.plain) {
-      return input
-    }
-
-    // Overlay Labels
-    const label = h(
-      'label',
-      {
-        class: ['custom-file-label', this.dragging ? 'dragging' : null],
-        attrs: {
-          for: this.safeId(),
-          'data-browse': this.browseText || null
-        }
-      },
-      this.selectLabel
-    )
-
-    // Return rendered custom file input
-    return h(
-      'div',
-      {
-        class: ['custom-file', 'b-form-file', this.stateClass],
-        attrs: { id: this.safeId('_BV_file_outer_') },
-        on: {
-          dragover: this.onDragover,
-          dragleave: this.onDragleave,
-          drop: this.onDrop
-        }
-      },
-      [input, label]
-    )
-  },
-  data () {
-    return {
-      selectedFile: null,
-      dragging: false,
-      hasFocus: false
-    }
-  },
   props: {
     value: {
+      type: Object,
       default: null
     },
     accept: {
@@ -118,6 +48,13 @@ export default {
     noDrop: {
       type: Boolean,
       default: false
+    }
+  },
+  data () {
+    return {
+      selectedFile: null,
+      dragging: false,
+      hasFocus: false
     }
   },
   computed: {
@@ -278,5 +215,70 @@ export default {
         }
       })
     }
+  },
+  render (h) {
+    // Form Input
+    const input = h('input', {
+      ref: 'input',
+      class: [
+        {
+          'form-control-file': this.plain,
+          'custom-file-input': this.custom,
+          focus: this.custom && this.hasFocus
+        },
+        this.stateClass
+      ],
+      attrs: {
+        type: 'file',
+        id: this.safeId(),
+        name: this.name,
+        disabled: this.disabled,
+        required: this.required,
+        form: this.form || null,
+        capture: this.capture || null,
+        accept: this.accept || null,
+        multiple: this.multiple,
+        webkitdirectory: this.directory,
+        'aria-required': this.required ? 'true' : null
+      },
+      on: {
+        change: this.onFileChange,
+        focusin: this.focusHandler,
+        focusout: this.focusHandler,
+        reset: this.onReset
+      }
+    })
+
+    if (this.plain) {
+      return input
+    }
+
+    // Overlay Labels
+    const label = h(
+      'label',
+      {
+        class: ['custom-file-label', this.dragging ? 'dragging' : null],
+        attrs: {
+          for: this.safeId(),
+          'data-browse': this.browseText || null
+        }
+      },
+      this.selectLabel
+    )
+
+    // Return rendered custom file input
+    return h(
+      'div',
+      {
+        class: ['custom-file', 'b-form-file', this.stateClass],
+        attrs: { id: this.safeId('_BV_file_outer_') },
+        on: {
+          dragover: this.onDragover,
+          dragleave: this.onDragleave,
+          drop: this.onDrop
+        }
+      },
+      [input, label]
+    )
   }
 }

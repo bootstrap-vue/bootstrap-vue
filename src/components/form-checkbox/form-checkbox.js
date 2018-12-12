@@ -7,6 +7,7 @@ import { isArray } from '../../utils/array'
 import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
 
+// @vue/component
 export default {
   mixins: [
     formRadioCheckMixin, // includes shared render function
@@ -23,9 +24,11 @@ export default {
   },
   props: {
     value: {
+      type: [Object, Boolean],
       default: true
     },
     uncheckedValue: {
+      type: [Object, Boolean],
       // Not applicable in multi-check mode
       default: false
     },
@@ -68,6 +71,10 @@ export default {
       this.setIndeterminate(newVal)
     }
   },
+  mounted () {
+    // Set initial indeterminate state
+    this.setIndeterminate(this.indeterminate)
+  },
   methods: {
     handleChange ({ target: { checked, indeterminate } }) {
       let localChecked = this.computedLocalChecked
@@ -107,9 +114,5 @@ export default {
         this.$emit('update:indeterminate', state)
       }
     }
-  },
-  mounted () {
-    // Set initial indeterminate state
-    this.setIndeterminate(this.indeterminate)
   }
 }

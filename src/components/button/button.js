@@ -134,6 +134,7 @@ function computeAttrs (props, data) {
   }
 }
 
+// @vue/component
 export default {
   functional: true,
   props,

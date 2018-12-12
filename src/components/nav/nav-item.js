@@ -3,6 +3,7 @@ import Link, { propsFactory as linkPropsFactory } from '../link/link'
 
 export const props = linkPropsFactory()
 
+// @vue/component
 export default {
   functional: true,
   props,

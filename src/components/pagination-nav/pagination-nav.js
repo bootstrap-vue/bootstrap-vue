@@ -34,6 +34,7 @@ const props = assign(
   routerProps
 )
 // Our render function is brought in via the pagination mixin
+// @vue/component
 export default {
   mixins: [ paginationMixin ],
   props,

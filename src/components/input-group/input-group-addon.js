@@ -16,6 +16,7 @@ export const commonProps = {
   }
 }
 
+// @vue/component
 export default {
   functional: true,
   props: {

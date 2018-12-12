@@ -1,83 +1,8 @@
 import idMixin from '../../mixins/id'
 
+// @vue/component
 export default {
   mixins: [idMixin],
-  render (h) {
-    let content = h(false)
-    if (this.localActive || !this.computedLazy) {
-      content = h(
-        this.tag,
-        {
-          ref: 'panel',
-          class: this.tabClasses,
-          directives: [{ name: 'show', value: this.localActive }],
-          attrs: {
-            role: 'tabpanel',
-            id: this.safeId(),
-            'aria-hidden': this.localActive ? 'false' : 'true',
-            'aria-expanded': this.localActive ? 'true' : 'false',
-            'aria-labelledby': this.controlledBy || null
-          }
-        },
-        [this.$slots.default]
-      )
-    }
-    return h(
-      'transition',
-      {
-        props: { mode: 'out-in' },
-        on: {
-          beforeEnter: this.beforeEnter,
-          beforeLeave: this.beforeLeave
-        }
-      },
-      [content]
-    )
-  },
-  methods: {
-    beforeEnter () {
-      // change opacity 1 frame after display
-      // otherwise css transition won't happen
-      window.requestAnimationFrame(() => { this.show = true })
-    },
-    beforeLeave () {
-      this.show = false
-    }
-  },
-  data () {
-    return {
-      localActive: this.active && !this.disabled,
-      show: false
-    }
-  },
-  mounted () {
-    this.show = this.localActive
-  },
-  computed: {
-    tabClasses () {
-      return [
-        'tab-pane',
-        this.$parent && this.$parent.card && !this.noBody ? 'card-body' : '',
-        this.show ? 'show' : '',
-        this.computedFade ? 'fade' : '',
-        this.disabled ? 'disabled' : '',
-        this.localActive ? 'active' : ''
-      ]
-    },
-    controlledBy () {
-      return this.buttonId || this.safeId('__BV_tab_button__')
-    },
-    computedFade () {
-      return this.$parent.fade
-    },
-    computedLazy () {
-      return this.$parent.lazy
-    },
-    _isTab () {
-      // For parent sniffing of child
-      return true
-    }
-  },
   props: {
     active: {
       type: Boolean,
@@ -122,5 +47,81 @@ export default {
       type: String,
       default: '#'
     }
+  },
+  data () {
+    return {
+      localActive: this.active && !this.disabled,
+      show: false
+    }
+  },
+  computed: {
+    tabClasses () {
+      return [
+        'tab-pane',
+        this.$parent && this.$parent.card && !this.noBody ? 'card-body' : '',
+        this.show ? 'show' : '',
+        this.computedFade ? 'fade' : '',
+        this.disabled ? 'disabled' : '',
+        this.localActive ? 'active' : ''
+      ]
+    },
+    controlledBy () {
+      return this.buttonId || this.safeId('__BV_tab_button__')
+    },
+    computedFade () {
+      return this.$parent.fade
+    },
+    computedLazy () {
+      return this.$parent.lazy
+    },
+    _isTab () {
+      // For parent sniffing of child
+      return true
+    }
+  },
+  mounted () {
+    this.show = this.localActive
+  },
+  methods: {
+    beforeEnter () {
+      // change opacity 1 frame after display
+      // otherwise css transition won't happen
+      window.requestAnimationFrame(() => { this.show = true })
+    },
+    beforeLeave () {
+      this.show = false
+    }
+  },
+  render (h) {
+    let content = h(false)
+    if (this.localActive || !this.computedLazy) {
+      content = h(
+        this.tag,
+        {
+          ref: 'panel',
+          class: this.tabClasses,
+          directives: [{ name: 'show', value: this.localActive }],
+          attrs: {
+            role: 'tabpanel',
+            id: this.safeId(),
+            'aria-hidden': this.localActive ? 'false' : 'true',
+            'aria-expanded': this.localActive ? 'true' : 'false',
+            'aria-labelledby': this.controlledBy || null
+          }
+        },
+        [this.$slots.default]
+      )
+    }
+    return h(
+      'transition',
+      {
+        props: { mode: 'out-in' },
+        on: {
+          beforeEnter: this.beforeEnter,
+          beforeLeave: this.beforeLeave
+        }
+      },
+      [content]
+    )
   }
 }

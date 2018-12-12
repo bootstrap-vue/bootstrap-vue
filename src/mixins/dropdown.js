@@ -43,6 +43,7 @@ const AttachmentMap = {
   LEFTEND: 'left-end'
 }
 
+// @vue/component
 export default {
   mixins: [clickOutMixin, focusInMixin],
   props: {
@@ -97,20 +98,11 @@ export default {
       visibleChangePrevented: false
     }
   },
-  created () {
-    // Create non-reactive property
-    this._popper = null
-  },
-  deactivated () /* istanbul ignore next: not easy to test */ {
-    // In case we are inside a `<keep-alive>`
-    this.visible = false
-    this.whileOpenListen(false)
-    this.removePopper()
-  },
-  beforeDestroy () /* istanbul ignore next: not easy to test */ {
-    this.visible = false
-    this.whileOpenListen(false)
-    this.removePopper()
+  computed: {
+    toggler () {
+      const toggle = this.$refs.toggle
+      return toggle ? toggle.$el || toggle : null
+    }
   },
   watch: {
     visible (newValue, oldValue) {
@@ -148,11 +140,20 @@ export default {
       }
     }
   },
-  computed: {
-    toggler () {
-      const toggle = this.$refs.toggle
-      return toggle ? toggle.$el || toggle : null
-    }
+  created () {
+    // Create non-reactive property
+    this._popper = null
+  },
+  deactivated () /* istanbul ignore next: not easy to test */ {
+    // In case we are inside a `<keep-alive>`
+    this.visible = false
+    this.whileOpenListen(false)
+    this.removePopper()
+  },
+  beforeDestroy () /* istanbul ignore next: not easy to test */ {
+    this.visible = false
+    this.whileOpenListen(false)
+    this.removePopper()
   },
   methods: {
     // Event emitter
