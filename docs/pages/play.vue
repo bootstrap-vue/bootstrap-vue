@@ -361,7 +361,6 @@ export default {
       const playground = this
       const js = this.js.trim() || '{}'
       const html = this.html.trim()
-      const oConsole = console
       let options
       let console
 
@@ -378,7 +377,7 @@ export default {
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
-        oConsole.log('Compile Error', err)
+        window.console.log('Compile Error', err)
         return
       }
 
