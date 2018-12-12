@@ -167,18 +167,22 @@ if (typeof window !== 'undefined' && window && window.removeEventListener) {
   disableScriptTags()
 }
 
+const transformOptons = {
+    presets: [
+      'es2015'
+    ],
+    plugins: [
+      'proposal-object-rest-spread',
+      'transform-runtime'
+    ]
+}
+
 // Helper function to transpile es6 code to js
 function compileJs (code) {
   if (!code) {
     return ''
   }
-  return transform(code, {
-    presets: [ 'es2015' ],
-    plugins: [
-      'proposal-object-rest-spread',
-      'transform-runtime'
-    ]
-  }).code
+  return transform(code, transformOptions).code || ''
 }
 
 const defaultJS = `{
@@ -371,7 +375,7 @@ export default {
       try {
         // Options are eval'ed in our variable scope, so we can override
         // the "global" console reference just for the user app
-        const code = transform(`console = this.fakeConsole; options = ${js};`)
+        const code = compileJs(`console = this.fakeConsole; options = ${js};`)
         /* eslint-disable no-eval */
         eval(code)
         /* eslint-enable no-eval */
