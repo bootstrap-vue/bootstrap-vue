@@ -9,7 +9,7 @@ export default {
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
   props: {
     value: {
-      type: Object,
+      // type: Object,
       default: null
     },
     accept: {

@@ -18,7 +18,7 @@ export default {
   ],
   props: {
     value: {
-      type: Object,
+      // type: Object,
       default: undefined
     },
     multiple: {

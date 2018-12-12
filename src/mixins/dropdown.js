@@ -87,7 +87,7 @@ export default {
       default: false
     },
     popperOpts: {
-      type: Object,
+      // type: Object,
       default: () => {}
     }
   },

@@ -7,12 +7,12 @@ export default {
   props: {
     value: {
       // value when checked
-      type: Object,
+      // type: Object,
       default: undefined
     },
     checked: {
       // This is the v-model
-      type: Object,
+      // type: Object,
       default: undefined
     },
     inline: {
