@@ -115,7 +115,7 @@
     "markdown-loader": "^4.0.0",
     "marked": "^0.5.2",
     "node-sass": "^4.11.0",
-    "nuxt-edge": "^2.0.0-25638738.d69b4b8",
+    "nuxt-edge": "^2.4.0-25743461.8d728da",
     "postcss-cli": "^6.0.1",
     "rollup": "^0.67.4",
     "rollup-plugin-babel": "^4.0.3",
@@ -125,9 +125,8 @@
     "sass-loader": "^7.1.0",
     "standard-version": "^4.4.0",
     "terser": "^3.11.0",
-    "vue-beta": "npm:vue@~2.5.17-beta.0",
     "vue-jest": "^3.0.1",
-    "vue-latest": "npm:vue@~2.5.16"
+    "vue": "^2.5.21"
   },
   "jest": {
     "testRegex": "spec.js$",
