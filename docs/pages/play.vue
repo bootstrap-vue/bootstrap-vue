@@ -178,7 +178,7 @@ function compileJs (code) {
       'proposal-object-rest-spread',
       'transform-runtime'
     ]
-  })
+  }).code
 }
 
 const defaultJS = `{
