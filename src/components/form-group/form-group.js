@@ -159,10 +159,12 @@ function renderLabel (h, ctx) {
         class: [
           // When horizontal or if a legend is rendered, add col-form-label for correct sizing
           // as Boostrap has inconsitent font styling for legend in non-horiontal form-groups.
-          // see: https://github.com/twbs/bootstrap/issues/27805
+          // See: https://github.com/twbs/bootstrap/issues/27805
           isHorizontal || isLegend ? 'col-form-label' : '',
           // Emulate label padding top of 0 on legend when not horizontal
           !isHorizontal && isLegend ? 'pt-0' : '',
+          // If not horizontal and not a legend, we add d-block to label so that label-align works
+          !isHorizontal && !isLegend ? 'd-block' : '',
           ctx.labelSize ? `col-form-label-${ctx.labelSize}` : '',
           ctx.labelAlignClasses,
           ctx.labelClass
