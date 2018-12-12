@@ -174,11 +174,8 @@ function renderLabel (h, ctx) {
 }
 
 // bFormGroup
+// @vue/component
 export default {
-  mixins: [
-    idMixin,
-    formStateMixin
-  ],
   components: {
     bFormRow,
     bCol,
@@ -186,6 +183,10 @@ export default {
     bFormValidFeedback,
     bFormText
   },
+  mixins: [
+    idMixin,
+    formStateMixin
+  ],
   render (h) {
     const isFieldset = !this.labelFor
     const isHorizontal = this.isHorizontal

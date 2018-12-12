@@ -6,8 +6,8 @@ function isObject (obj) {
   return obj && ({}).toString.call(obj) === '[object Object]'
 }
 
+// @vue/component
 export default {
-
   props: {
     options: {
       type: [Array, Object],

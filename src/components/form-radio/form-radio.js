@@ -5,6 +5,7 @@ import formSizeMixin from '../../mixins/form-size'
 import formRadioCheckMixin from '../../mixins/form-radio-check'
 import looseEqual from '../../utils/loose-equal'
 
+// @vue/component
 export default {
   mixins: [
     idMixin,
@@ -26,12 +27,6 @@ export default {
       default: null
     }
   },
-  watch: {
-    // Radio Groups can only have a single value, so our watchers are simple
-    computedLocalChecked (newVal, oldVal) {
-      this.$emit('input', this.computedLocalChecked)
-    }
-  },
   computed: {
     // Radio Groups can only have a single value, so determining if checked is simple
     is_Checked () {
@@ -42,6 +37,12 @@ export default {
     },
     is_Check () {
       return false
+    }
+  },
+  watch: {
+    // Radio Groups can only have a single value, so our watchers are simple
+    computedLocalChecked (newVal, oldVal) {
+      this.$emit('input', this.computedLocalChecked)
     }
   },
   methods: {

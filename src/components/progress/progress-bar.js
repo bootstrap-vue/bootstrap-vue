@@ -1,31 +1,46 @@
 import stripScripts from '../../utils/strip-scripts'
 
+// @vue/component
 export default {
-  render (h) {
-    let childNodes = h(false)
-    if (this.$slots.default) {
-      childNodes = this.$slots.default
-    } else if (this.label) {
-      childNodes = h('span', { domProps: { innerHTML: stripScripts(this.label) } })
-    } else if (this.computedShowProgress) {
-      childNodes = this.progress.toFixed(this.computedPrecision)
-    } else if (this.computedShowValue) {
-      childNodes = this.value.toFixed(this.computedPrecision)
+  props: {
+    value: {
+      type: Number,
+      default: 0
+    },
+    label: {
+      type: String,
+      default: null
+    },
+    // $parent prop values take precedence over the following props
+    // Which is why they are defaulted to null
+    max: {
+      type: Number,
+      default: null
+    },
+    precision: {
+      type: Number,
+      default: null
+    },
+    variant: {
+      type: String,
+      default: null
+    },
+    striped: {
+      type: Boolean,
+      default: null
+    },
+    animated: {
+      type: Boolean,
+      default: null
+    },
+    showProgress: {
+      type: Boolean,
+      default: null
+    },
+    showValue: {
+      type: Boolean,
+      default: null
     }
-    return h(
-      'div',
-      {
-        class: this.progressBarClasses,
-        style: this.progressBarStyles,
-        attrs: {
-          role: 'progressbar',
-          'aria-valuemin': '0',
-          'aria-valuemax': this.computedMax.toString(),
-          'aria-valuenow': this.value.toFixed(this.computedPrecision)
-        }
-      },
-      [ childNodes ]
-    )
   },
   computed: {
     progressBarClasses () {
@@ -74,44 +89,30 @@ export default {
       return typeof this.showValue === 'boolean' ? this.showValue : (this.$parent.showValue || false)
     }
   },
-  props: {
-    value: {
-      type: Number,
-      default: 0
-    },
-    label: {
-      type: String,
-      default: null
-    },
-    // $parent prop values take precedence over the following props
-    // Which is why they are defaulted to null
-    max: {
-      type: Number,
-      default: null
-    },
-    precision: {
-      type: Number,
-      default: null
-    },
-    variant: {
-      type: String,
-      default: null
-    },
-    striped: {
-      type: Boolean,
-      default: null
-    },
-    animated: {
-      type: Boolean,
-      default: null
-    },
-    showProgress: {
-      type: Boolean,
-      default: null
-    },
-    showValue: {
-      type: Boolean,
-      default: null
+  render (h) {
+    let childNodes = h(false)
+    if (this.$slots.default) {
+      childNodes = this.$slots.default
+    } else if (this.label) {
+      childNodes = h('span', { domProps: { innerHTML: stripScripts(this.label) } })
+    } else if (this.computedShowProgress) {
+      childNodes = this.progress.toFixed(this.computedPrecision)
+    } else if (this.computedShowValue) {
+      childNodes = this.value.toFixed(this.computedPrecision)
     }
+    return h(
+      'div',
+      {
+        class: this.progressBarClasses,
+        style: this.progressBarStyles,
+        attrs: {
+          role: 'progressbar',
+          'aria-valuemin': '0',
+          'aria-valuemax': this.computedMax.toString(),
+          'aria-valuenow': this.value.toFixed(this.computedPrecision)
+        }
+      },
+      [ childNodes ]
+    )
   }
 }

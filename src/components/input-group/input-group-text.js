@@ -7,9 +7,10 @@ export const props = {
   }
 }
 
+// @vue/component
 export default {
-  props,
   functional: true,
+  props,
   render (h, { props, data, children }) {
     return h(
       props.tag,

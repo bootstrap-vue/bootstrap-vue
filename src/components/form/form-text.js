@@ -19,6 +19,7 @@ export const props = {
   }
 }
 
+// @vue/component
 export default {
   functional: true,
   props,

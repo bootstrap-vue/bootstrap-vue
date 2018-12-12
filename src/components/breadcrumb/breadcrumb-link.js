@@ -22,6 +22,7 @@ export const props = assign(linkPropsFactory(), {
   }
 })
 
+// @vue/component
 export default {
   functional: true,
   props,

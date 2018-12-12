@@ -7,7 +7,9 @@ import formStateMixin from '../../mixins/form-state'
 
 import bFormRadio from './form-radio'
 
+// @vue/component
 export default {
+  components: { bFormRadio },
   mixins: [
     idMixin,
     formMixin,
@@ -16,21 +18,20 @@ export default {
     formSizeMixin,
     formStateMixin
   ],
-  components: { bFormRadio },
   provide () {
     return {
       bvRadioGroup: this
-    }
-  },
-  data () {
-    return {
-      localChecked: this.checked
     }
   },
   props: {
     checked: {
       type: [String, Object, Number, Boolean],
       default: null
+    }
+  },
+  data () {
+    return {
+      localChecked: this.checked
     }
   },
   computed: {

@@ -2,8 +2,60 @@ import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import stripScripts from '../../utils/strip-scripts'
 
+// @vue/component
 export default {
   mixins: [idMixin, dropdownMixin],
+  props: {
+    noCaret: {
+      type: Boolean,
+      default: false
+    },
+    extraToggleClasses: {
+      // Extra Toggle classes
+      type: String,
+      default: ''
+    },
+    extraMenuClasses: {
+      // Extra Menu classes
+      type: String,
+      default: ''
+    },
+    role: {
+      type: String,
+      default: 'menu'
+    }
+  },
+  computed: {
+    isNav () {
+      // Signal to dropdown mixin that we are in a navbar
+      return true
+    },
+    dropdownClasses () {
+      return [
+        'nav-item',
+        'b-nav-dropdown',
+        'dropdown',
+        this.dropup ? 'dropup' : '',
+        this.visible ? 'show' : ''
+      ]
+    },
+    toggleClasses () {
+      return [
+        'nav-link',
+        this.noCaret ? '' : 'dropdown-toggle',
+        this.disabled ? 'disabled' : '',
+        this.extraToggleClasses ? this.extraToggleClasses : ''
+      ]
+    },
+    menuClasses () {
+      return [
+        'dropdown-menu',
+        this.right ? 'dropdown-menu-right' : 'dropdown-menu-left',
+        this.visible ? 'show' : '',
+        this.extraMenuClasses ? this.extraMenuClasses : ''
+      ]
+    }
+  },
   render (h) {
     const button = h(
       'a',
@@ -45,56 +97,5 @@ export default {
       button,
       menu
     ])
-  },
-  computed: {
-    isNav () {
-      // Signal to dropdown mixin that we are in a navbar
-      return true
-    },
-    dropdownClasses () {
-      return [
-        'nav-item',
-        'b-nav-dropdown',
-        'dropdown',
-        this.dropup ? 'dropup' : '',
-        this.visible ? 'show' : ''
-      ]
-    },
-    toggleClasses () {
-      return [
-        'nav-link',
-        this.noCaret ? '' : 'dropdown-toggle',
-        this.disabled ? 'disabled' : '',
-        this.extraToggleClasses ? this.extraToggleClasses : ''
-      ]
-    },
-    menuClasses () {
-      return [
-        'dropdown-menu',
-        this.right ? 'dropdown-menu-right' : 'dropdown-menu-left',
-        this.visible ? 'show' : '',
-        this.extraMenuClasses ? this.extraMenuClasses : ''
-      ]
-    }
-  },
-  props: {
-    noCaret: {
-      type: Boolean,
-      default: false
-    },
-    extraToggleClasses: {
-      // Extra Toggle classes
-      type: String,
-      default: ''
-    },
-    extraMenuClasses: {
-      // Extra Menu classes
-      type: String,
-      default: ''
-    },
-    role: {
-      type: String,
-      default: 'menu'
-    }
   }
 }

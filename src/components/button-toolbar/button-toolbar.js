@@ -9,23 +9,17 @@ const ITEM_SELECTOR = [
   'input[type="radio"]:not(.disabled)'
 ].join(',')
 
+// @vue/component
 export default {
-  render (h) {
-    return h(
-      'div',
-      {
-        class: this.classObject,
-        attrs: {
-          role: 'toolbar',
-          tabindex: this.keyNav ? '0' : null
-        },
-        on: {
-          focusin: this.onFocusin,
-          keydown: this.onKeydown
-        }
-      },
-      [ this.$slots.default ]
-    )
+  props: {
+    justify: {
+      type: Boolean,
+      default: false
+    },
+    keyNav: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     classObject () {
@@ -35,14 +29,10 @@ export default {
       ]
     }
   },
-  props: {
-    justify: {
-      type: Boolean,
-      default: false
-    },
-    keyNav: {
-      type: Boolean,
-      default: false
+  mounted () {
+    if (this.keyNav) {
+      // Pre-set the tabindexes if the markup does not include tabindex="-1" on the toolbar items
+      this.getItems()
     }
   },
   methods: {
@@ -119,10 +109,21 @@ export default {
       return items.filter(el => isVisible(el))
     }
   },
-  mounted () {
-    if (this.keyNav) {
-      // Pre-set the tabindexes if the markup does not include tabindex="-1" on the toolbar items
-      this.getItems()
-    }
+  render (h) {
+    return h(
+      'div',
+      {
+        class: this.classObject,
+        attrs: {
+          role: 'toolbar',
+          tabindex: this.keyNav ? '0' : null
+        },
+        on: {
+          focusin: this.onFocusin,
+          keydown: this.onKeydown
+        }
+      },
+      [ this.$slots.default ]
+    )
   }
 }

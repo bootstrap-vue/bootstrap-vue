@@ -7,6 +7,7 @@
  *  - null (or empty string) for no contextual state
  */
 
+// @vue/component
 export default {
   props: {
     state: {

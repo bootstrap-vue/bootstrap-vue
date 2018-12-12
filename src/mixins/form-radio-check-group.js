@@ -1,4 +1,77 @@
+// @vue/component
 export default {
+  model: {
+    prop: 'checked',
+    event: 'input'
+  },
+  props: {
+    validated: {
+      type: Boolean,
+      default: false
+    },
+    ariaInvalid: {
+      type: [Boolean, String],
+      default: false
+    },
+    stacked: {
+      type: Boolean,
+      default: false
+    },
+    plain: {
+      type: Boolean,
+      default: false
+    },
+    buttons: {
+      // Render as button style
+      type: Boolean,
+      default: false
+    },
+    buttonVariant: {
+      // Only applicable when rendered with button style
+      type: String,
+      default: 'secondary'
+    }
+  },
+  computed: {
+    inline () {
+      return !this.stacked
+    },
+    groupName () {
+      // checks/radios tied to the same model must have the sanme name,
+      // especially for ARIA accessibility.
+      return this.name || this.safeId()
+    },
+    groupClasses () {
+      if (this.buttons) {
+        return [
+          'btn-group-toggle',
+          this.inline ? 'btn-group' : 'btn-group-vertical',
+          this.size ? `btn-group-${this.size}` : '',
+          this.validated ? `was-validated` : ''
+        ]
+      }
+      return [
+        // is this needed since children will pick up on size?
+        this.sizeFormClass,
+        this.validated ? `was-validated` : ''
+      ]
+    },
+    computedAriaInvalid () {
+      const ariaInvalid = this.ariaInvalid
+      if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
+        return 'true'
+      }
+      return this.computedState === false ? 'true' : null
+    }
+  },
+  watch: {
+    checked (newVal, oldVal) {
+      this.localChecked = newVal
+    },
+    localChecked (newVal, oldVal) {
+      this.$emit('input', newVal)
+    }
+  },
   render (h) {
     const $slots = this.$slots
 
@@ -36,77 +109,5 @@ export default {
       },
       [$slots.first, inputs, $slots.default]
     )
-  },
-  model: {
-    prop: 'checked',
-    event: 'input'
-  },
-  props: {
-    validated: {
-      type: Boolean,
-      default: false
-    },
-    ariaInvalid: {
-      type: [Boolean, String],
-      default: false
-    },
-    stacked: {
-      type: Boolean,
-      default: false
-    },
-    plain: {
-      type: Boolean,
-      default: false
-    },
-    buttons: {
-      // Render as button style
-      type: Boolean,
-      default: false
-    },
-    buttonVariant: {
-      // Only applicable when rendered with button style
-      type: String,
-      default: 'secondary'
-    }
-  },
-  watch: {
-    checked (newVal, oldVal) {
-      this.localChecked = newVal
-    },
-    localChecked (newVal, oldVal) {
-      this.$emit('input', newVal)
-    }
-  },
-  computed: {
-    inline () {
-      return !this.stacked
-    },
-    groupName () {
-      // checks/radios tied to the same model must have the sanme name,
-      // especially for ARIA accessibility.
-      return this.name || this.safeId()
-    },
-    groupClasses () {
-      if (this.buttons) {
-        return [
-          'btn-group-toggle',
-          this.inline ? 'btn-group' : 'btn-group-vertical',
-          this.size ? `btn-group-${this.size}` : '',
-          this.validated ? `was-validated` : ''
-        ]
-      }
-      return [
-        // is this needed since children will pick up on size?
-        this.sizeFormClass,
-        this.validated ? `was-validated` : ''
-      ]
-    },
-    computedAriaInvalid () {
-      const ariaInvalid = this.ariaInvalid
-      if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
-        return 'true'
-      }
-      return this.computedState === false ? 'true' : null
-    }
   }
 }

@@ -27,6 +27,7 @@ const TYPES = [
   'week'
 ]
 
+// @vue/component
 export default {
   mixins: [
     idMixin,
@@ -37,6 +38,82 @@ export default {
     formSelectionMixin,
     formValidityMixin
   ],
+  props: {
+    type: {
+      type: String,
+      default: 'text',
+      validator: type => arrayIncludes(TYPES, type)
+    },
+    noWheel: {
+      // Disable mousewheel to prevent wheel from changing values (i.e. number/date).
+      type: Boolean,
+      default: false
+    },
+    min: {
+      type: [String, Number],
+      default: null
+    },
+    max: {
+      type: [String, Number],
+      default: null
+    },
+    step: {
+      type: [String, Number],
+      default: null
+    }
+  },
+  computed: {
+    localType () {
+      // We only allow certain types
+      return arrayIncludes(TYPES, this.type) ? this.type : 'text'
+    }
+  },
+  watch: {
+    noWheel (newVal) {
+      this.setWheelStopper(newVal)
+    }
+  },
+  mounted () {
+    this.setWheelStopper(this.noWheel)
+  },
+  deactivated () {
+    // Turn off listeners when keep-alive component deactivated
+    /* istanbul ignore next */
+    this.setWheelStopper(false)
+  },
+  activated () {
+    // Turn on listeners (if no-wheel) when keep-alive component activated
+    /* istanbul ignore next */
+    this.setWheelStopper(this.noWheel)
+  },
+  beforeDestroy () {
+    /* istanbul ignore next */
+    this.setWheelStopper(false)
+  },
+  methods: {
+    setWheelStopper (on) {
+      const input = this.$el
+      // We use native events, so that we don't interfere with propgation
+      if (on) {
+        eventOn(input, 'focus', this.onWheelFocus)
+        eventOn(input, 'blur', this.onWheelBlur)
+      } else {
+        eventOff(input, 'focus', this.onWheelFocus)
+        eventOff(input, 'blur', this.onWheelBlur)
+        eventOff(document, 'wheel', this.stopWheel)
+      }
+    },
+    onWheelFocus (evt) {
+      eventOn(document, 'wheel', this.stopWheel)
+    },
+    onWheelBlur (evt) {
+      eventOff(document, 'wheel', this.stopWheel)
+    },
+    stopWheel (evt) {
+      evt.preventDefault()
+      this.$el.blur()
+    }
+  },
   render (h) {
     var self = this
     return h('input', {
@@ -76,81 +153,5 @@ export default {
         blur: self.onBlur
       }
     })
-  },
-  props: {
-    type: {
-      type: String,
-      default: 'text',
-      validator: type => arrayIncludes(TYPES, type)
-    },
-    noWheel: {
-      // Disable mousewheel to prevent wheel from changing values (i.e. number/date).
-      type: Boolean,
-      default: false
-    },
-    min: {
-      type: [String, Number],
-      default: null
-    },
-    max: {
-      type: [String, Number],
-      default: null
-    },
-    step: {
-      type: [String, Number],
-      default: null
-    }
-  },
-  computed: {
-    localType () {
-      // We only allow certain types
-      return arrayIncludes(TYPES, this.type) ? this.type : 'text'
-    }
-  },
-  mounted () {
-    this.setWheelStopper(this.noWheel)
-  },
-  deactivated () {
-    // Turn off listeners when keep-alive component deactivated
-    /* istanbul ignore next */
-    this.setWheelStopper(false)
-  },
-  activated () {
-    // Turn on listeners (if no-wheel) when keep-alive component activated
-    /* istanbul ignore next */
-    this.setWheelStopper(this.noWheel)
-  },
-  beforeDestroy () {
-    /* istanbul ignore next */
-    this.setWheelStopper(false)
-  },
-  watch: {
-    noWheel (newVal) {
-      this.setWheelStopper(newVal)
-    }
-  },
-  methods: {
-    setWheelStopper (on) {
-      const input = this.$el
-      // We use native events, so that we don't interfere with propgation
-      if (on) {
-        eventOn(input, 'focus', this.onWheelFocus)
-        eventOn(input, 'blur', this.onWheelBlur)
-      } else {
-        eventOff(input, 'focus', this.onWheelFocus)
-        eventOff(input, 'blur', this.onWheelBlur)
-        eventOff(document, 'wheel', this.stopWheel)
-      }
-    },
-    onWheelFocus (evt) {
-      eventOn(document, 'wheel', this.stopWheel)
-    },
-    onWheelBlur (evt) {
-      eventOff(document, 'wheel', this.stopWheel)
-    },
-    stopWheel (evt) {
-      evt.preventDefault()
-      this.$el.blur()
-    }
   }
 }

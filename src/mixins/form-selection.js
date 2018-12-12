@@ -1,3 +1,4 @@
+// @vue/component
 export default {
   computed: {
     /* istanbul ignore next */

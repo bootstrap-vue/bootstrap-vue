@@ -1,5 +1,6 @@
 import { contains, eventOff, eventOn } from '../utils/dom'
 
+// @vue/component
 export default {
   data () {
     return {

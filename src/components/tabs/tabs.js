@@ -72,122 +72,9 @@ const bTabButtonHelper = {
   }
 }
 
+// @vue/component
 export default {
   mixins: [idMixin],
-  render (h) {
-    const tabs = this.tabs
-    // Navigation 'buttons'
-    const buttons = tabs.map((tab, index) => {
-      return h(bTabButtonHelper, {
-        key: index,
-        props: {
-          content: tab.$slots.title || tab.title,
-          href: tab.href,
-          id: tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`),
-          active: tab.localActive,
-          disabled: tab.disabled,
-          setSize: tabs.length,
-          posInSet: index + 1,
-          controls: this.safeId('_BV_tab_container_'),
-          linkClass: tab.titleLinkClass,
-          itemClass: tab.titleItemClass,
-          noKeyNav: this.noKeyNav
-        },
-        on: {
-          click: evt => {
-            this.setTab(index)
-          }
-        }
-      })
-    })
-
-    // Nav 'button' wrapper
-    let navs = h(
-      'ul',
-      {
-        class: [
-          'nav',
-          {
-            [`nav-${this.navStyle}`]: !this.noNavStyle,
-            [`card-header-${this.navStyle}`]: this.card && !this.vertical,
-            'card-header': this.card && this.vertical,
-            'h-100': this.card && this.vertical,
-            'flex-column': this.vertical,
-            'border-bottom-0': this.vertical,
-            'rounded-0': this.vertical,
-            small: this.small
-          },
-          this.navClass
-        ],
-        attrs: {
-          role: 'tablist',
-          tabindex: this.noKeyNav ? null : '0',
-          id: this.safeId('_BV_tab_controls_')
-        },
-        on: { keydown: this.onKeynav }
-      },
-      [buttons, this.$slots.tabs]
-    )
-    navs = h(
-      'div',
-      {
-        class: [
-          {
-            'card-header': this.card && !this.vertical && !(this.end || this.bottom),
-            'card-footer': this.card && !this.vertical && (this.end || this.bottom),
-            'col-auto': this.vertical
-          },
-          this.navWrapperClass
-        ]
-      },
-      [navs]
-    )
-
-    let empty
-    if (tabs && tabs.length) {
-      empty = h(false)
-    } else {
-      empty = h(
-        'div',
-        { class: ['tab-pane', 'active', { 'card-body': this.card }] },
-        this.$slots.empty
-      )
-    }
-
-    // Main content section
-    const content = h(
-      'div',
-      {
-        ref: 'tabsContainer',
-        class: ['tab-content', { col: this.vertical }, this.contentClass],
-        attrs: { id: this.safeId('_BV_tab_container_') }
-      },
-      [this.$slots.default, empty]
-    )
-
-    // Render final output
-    return h(
-      this.tag,
-      {
-        class: [
-          'tabs',
-          { row: this.vertical, 'no-gutters': this.vertical && this.card }
-        ],
-        attrs: { id: this.safeId() }
-      },
-      [
-        this.end || this.bottom ? content : h(false),
-        [navs],
-        this.end || this.bottom ? h(false) : content
-      ]
-    )
-  },
-  data () {
-    return {
-      currentTab: this.value,
-      tabs: []
-    }
-  },
   props: {
     tag: {
       type: String,
@@ -252,6 +139,21 @@ export default {
       default: null
     }
   },
+  data () {
+    return {
+      currentTab: this.value,
+      tabs: []
+    }
+  },
+  computed: {
+    fade () {
+      // This computed prop is sniffed by the tab child
+      return !this.noFade
+    },
+    navStyle () {
+      return this.pills ? 'pills' : 'tabs'
+    }
+  },
   watch: {
     currentTab (val, old) {
       if (val === old) {
@@ -273,14 +175,12 @@ export default {
       this.setTab(val, false, direction)
     }
   },
-  computed: {
-    fade () {
-      // This computed prop is sniffed by the tab child
-      return !this.noFade
-    },
-    navStyle () {
-      return this.pills ? 'pills' : 'tabs'
-    }
+  mounted () {
+    this.updateTabs()
+    // Observe Child changes so we can notify tabs change
+    observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
+      subtree: false
+    })
   },
   methods: {
     /**
@@ -410,11 +310,112 @@ export default {
       this.setTab(tabIndex || 0, true, 0)
     }
   },
-  mounted () {
-    this.updateTabs()
-    // Observe Child changes so we can notify tabs change
-    observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
-      subtree: false
+  render (h) {
+    const tabs = this.tabs
+    // Navigation 'buttons'
+    const buttons = tabs.map((tab, index) => {
+      return h(bTabButtonHelper, {
+        key: index,
+        props: {
+          content: tab.$slots.title || tab.title,
+          href: tab.href,
+          id: tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`),
+          active: tab.localActive,
+          disabled: tab.disabled,
+          setSize: tabs.length,
+          posInSet: index + 1,
+          controls: this.safeId('_BV_tab_container_'),
+          linkClass: tab.titleLinkClass,
+          itemClass: tab.titleItemClass,
+          noKeyNav: this.noKeyNav
+        },
+        on: {
+          click: evt => {
+            this.setTab(index)
+          }
+        }
+      })
     })
+
+    // Nav 'button' wrapper
+    let navs = h(
+      'ul',
+      {
+        class: [
+          'nav',
+          {
+            [`nav-${this.navStyle}`]: !this.noNavStyle,
+            [`card-header-${this.navStyle}`]: this.card && !this.vertical,
+            'card-header': this.card && this.vertical,
+            'h-100': this.card && this.vertical,
+            'flex-column': this.vertical,
+            'border-bottom-0': this.vertical,
+            'rounded-0': this.vertical,
+            small: this.small
+          },
+          this.navClass
+        ],
+        attrs: {
+          role: 'tablist',
+          tabindex: this.noKeyNav ? null : '0',
+          id: this.safeId('_BV_tab_controls_')
+        },
+        on: { keydown: this.onKeynav }
+      },
+      [buttons, this.$slots.tabs]
+    )
+    navs = h(
+      'div',
+      {
+        class: [
+          {
+            'card-header': this.card && !this.vertical && !(this.end || this.bottom),
+            'card-footer': this.card && !this.vertical && (this.end || this.bottom),
+            'col-auto': this.vertical
+          },
+          this.navWrapperClass
+        ]
+      },
+      [navs]
+    )
+
+    let empty
+    if (tabs && tabs.length) {
+      empty = h(false)
+    } else {
+      empty = h(
+        'div',
+        { class: ['tab-pane', 'active', { 'card-body': this.card }] },
+        this.$slots.empty
+      )
+    }
+
+    // Main content section
+    const content = h(
+      'div',
+      {
+        ref: 'tabsContainer',
+        class: ['tab-content', { col: this.vertical }, this.contentClass],
+        attrs: { id: this.safeId('_BV_tab_container_') }
+      },
+      [this.$slots.default, empty]
+    )
+
+    // Render final output
+    return h(
+      this.tag,
+      {
+        class: [
+          'tabs',
+          { row: this.vertical, 'no-gutters': this.vertical && this.card }
+        ],
+        attrs: { id: this.safeId() }
+      },
+      [
+        this.end || this.bottom ? content : h(false),
+        [navs],
+        this.end || this.bottom ? h(false) : content
+      ]
+    )
   }
 }

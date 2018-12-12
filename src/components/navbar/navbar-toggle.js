@@ -1,28 +1,8 @@
 import listenOnRootMixin from '../../mixins/listen-on-root'
 
+// @vue/component
 export default {
   mixins: [listenOnRootMixin],
-  render (h) {
-    return h(
-      'button',
-      {
-        class: ['navbar-toggler'],
-        attrs: {
-          type: 'button', // Is this needed anymore?
-          'aria-label': this.label,
-          'aria-controls': this.target,
-          'aria-expanded': this.toggleState ? 'true' : 'false'
-        },
-        on: { click: this.onClick }
-      },
-      [this.$slots.default || h('span', { class: ['navbar-toggler-icon'] })]
-    )
-  },
-  data () {
-    return {
-      toggleState: false
-    }
-  },
   props: {
     label: {
       type: String,
@@ -32,6 +12,14 @@ export default {
       type: String,
       required: true
     }
+  },
+  data () {
+    return {
+      toggleState: false
+    }
+  },
+  created () {
+    this.listenOnRoot('bv::collapse::state', this.handleStateEvt)
   },
   methods: {
     onClick (evt) {
@@ -47,7 +35,20 @@ export default {
       }
     }
   },
-  created () {
-    this.listenOnRoot('bv::collapse::state', this.handleStateEvt)
+  render (h) {
+    return h(
+      'button',
+      {
+        class: ['navbar-toggler'],
+        attrs: {
+          type: 'button', // Is this needed anymore?
+          'aria-label': this.label,
+          'aria-controls': this.target,
+          'aria-expanded': this.toggleState ? 'true' : 'false'
+        },
+        on: { click: this.onClick }
+      },
+      [this.$slots.default || h('span', { class: ['navbar-toggler-icon'] })]
+    )
   }
 }

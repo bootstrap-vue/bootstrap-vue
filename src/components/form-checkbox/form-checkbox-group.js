@@ -7,7 +7,9 @@ import formStateMixin from '../../mixins/form-state'
 
 import bFormCheckbox from './form-checkbox'
 
+// @vue/component
 export default {
+  components: { bFormCheckbox },
   mixins: [
     idMixin,
     formMixin,
@@ -16,21 +18,20 @@ export default {
     formSizeMixin,
     formStateMixin
   ],
-  components: { bFormCheckbox },
   provide () {
     return {
       bvCheckGroup: this
-    }
-  },
-  data () {
-    return {
-      localChecked: this.checked || []
     }
   },
   props: {
     checked: {
       type: [String, Number, Object, Array, Boolean],
       default: null
+    }
+  },
+  data () {
+    return {
+      localChecked: this.checked || []
     }
   },
   computed: {

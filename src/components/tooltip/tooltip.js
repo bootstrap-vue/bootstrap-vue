@@ -2,18 +2,9 @@ import ToolTip from '../../utils/tooltip.class'
 import warn from '../../utils/warn'
 import toolpopMixin from '../../mixins/toolpop'
 
+// @vue/component
 export default {
   mixins: [ toolpopMixin ],
-  render (h) {
-    return h(
-      'div',
-      { class: [ 'd-none' ], style: { display: 'none' }, attrs: { 'aria-hidden': true } },
-      [ h('div', { ref: 'title' }, this.$slots.default) ]
-    )
-  },
-  data () {
-    return {}
-  },
   props: {
     title: {
       type: String,
@@ -28,6 +19,9 @@ export default {
       default: 'top'
     }
   },
+  data () {
+    return {}
+  },
   methods: {
     createToolpop () {
       // getTarget is in toolpop mixin
@@ -40,5 +34,12 @@ export default {
       }
       return this._toolpop
     }
+  },
+  render (h) {
+    return h(
+      'div',
+      { class: [ 'd-none' ], style: { display: 'none' }, attrs: { 'aria-hidden': true } },
+      [ h('div', { ref: 'title' }, this.$slots.default) ]
+    )
   }
 }

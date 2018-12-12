@@ -3,6 +3,7 @@
  */
 import { scrollTo, offsetTop } from '~/utils'
 
+// @vue/component
 export default {
   data () {
     return {

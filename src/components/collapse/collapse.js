@@ -7,46 +7,9 @@ const EVENT_ACCORDION = 'bv::collapse::accordion'
 // Events we listen to on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
 
+// @vue/component
 export default {
   mixins: [listenOnRootMixin],
-  render (h) {
-    const content = h(
-      this.tag,
-      {
-        class: this.classObject,
-        directives: [ { name: 'show', value: this.show } ],
-        attrs: { id: this.id || null },
-        on: { click: this.clickHandler }
-      },
-      [ this.$slots.default ]
-    )
-    return h(
-      'transition',
-      {
-        props: {
-          enterClass: '',
-          enterActiveClass: 'collapsing',
-          enterToClass: '',
-          leaveClass: '',
-          leaveActiveClass: 'collapsing',
-          leaveToClass: ''
-        },
-        on: {
-          enter: this.onEnter,
-          afterEnter: this.onAfterEnter,
-          leave: this.onLeave,
-          afterLeave: this.onAfterLeave
-        }
-      },
-      [ content ]
-    )
-  },
-  data () {
-    return {
-      show: this.visible,
-      transitioning: false
-    }
-  },
   model: {
     prop: 'visible',
     event: 'input'
@@ -73,6 +36,21 @@ export default {
       default: 'div'
     }
   },
+  data () {
+    return {
+      show: this.visible,
+      transitioning: false
+    }
+  },
+  computed: {
+    classObject () {
+      return {
+        'navbar-collapse': this.isNav,
+        'collapse': !this.transitioning,
+        'show': this.show && !this.transitioning
+      }
+    }
+  },
   watch: {
     visible (newVal) {
       if (newVal !== this.show) {
@@ -85,13 +63,28 @@ export default {
       }
     }
   },
-  computed: {
-    classObject () {
-      return {
-        'navbar-collapse': this.isNav,
-        'collapse': !this.transitioning,
-        'show': this.show && !this.transitioning
-      }
+  created () {
+    // Listen for toggle events to open/close us
+    this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
+    // Listen to otehr collapses for accordion events
+    this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
+  },
+  mounted () {
+    if (this.isNav && typeof document !== 'undefined') {
+      // Set up handlers
+      eventOn(window, 'resize', this.handleResize, false)
+      eventOn(window, 'orientationchange', this.handleResize, false)
+      this.handleResize()
+    }
+    this.emitState()
+  },
+  updated () {
+    this.$root.$emit(EVENT_STATE, this.id, this.show)
+  },
+  beforeDestroy () {
+    if (this.isNav && typeof document !== 'undefined') {
+      eventOff(window, 'resize', this.handleResize, false)
+      eventOff(window, 'orientationchange', this.handleResize, false)
     }
   },
   methods: {
@@ -172,28 +165,36 @@ export default {
       this.show = (getCS(this.$el).display === 'block')
     }
   },
-  created () {
-    // Listen for toggle events to open/close us
-    this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
-    // Listen to otehr collapses for accordion events
-    this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
-  },
-  mounted () {
-    if (this.isNav && typeof document !== 'undefined') {
-      // Set up handlers
-      eventOn(window, 'resize', this.handleResize, false)
-      eventOn(window, 'orientationchange', this.handleResize, false)
-      this.handleResize()
-    }
-    this.emitState()
-  },
-  updated () {
-    this.$root.$emit(EVENT_STATE, this.id, this.show)
-  },
-  beforeDestroy () {
-    if (this.isNav && typeof document !== 'undefined') {
-      eventOff(window, 'resize', this.handleResize, false)
-      eventOff(window, 'orientationchange', this.handleResize, false)
-    }
+  render (h) {
+    const content = h(
+      this.tag,
+      {
+        class: this.classObject,
+        directives: [ { name: 'show', value: this.show } ],
+        attrs: { id: this.id || null },
+        on: { click: this.clickHandler }
+      },
+      [ this.$slots.default ]
+    )
+    return h(
+      'transition',
+      {
+        props: {
+          enterClass: '',
+          enterActiveClass: 'collapsing',
+          enterToClass: '',
+          leaveClass: '',
+          leaveActiveClass: 'collapsing',
+          leaveToClass: ''
+        },
+        on: {
+          enter: this.onEnter,
+          afterEnter: this.onAfterEnter,
+          leave: this.onLeave,
+          afterLeave: this.onAfterLeave
+        }
+      },
+      [ content ]
+    )
   }
 }

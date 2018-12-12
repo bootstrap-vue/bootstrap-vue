@@ -1,28 +1,8 @@
 import bProgressBar from './progress-bar'
 
+// @vue/component
 export default {
   components: { bProgressBar },
-  render (h) {
-    let childNodes = this.$slots.default
-    if (!childNodes) {
-      childNodes = h(
-        'b-progress-bar',
-        {
-          props: {
-            value: this.value,
-            max: this.max,
-            precision: this.precision,
-            variant: this.variant,
-            animated: this.animated,
-            striped: this.striped,
-            showProgress: this.showProgress,
-            showValue: this.showValue
-          }
-        }
-      )
-    }
-    return h('div', { class: [ 'progress' ], style: this.progressHeight }, [ childNodes ])
-  },
   props: {
     // These props can be inherited via the child b-progress-bar(s)
     variant: {
@@ -67,5 +47,26 @@ export default {
     progressHeight () {
       return { height: this.height || null }
     }
+  },
+  render (h) {
+    let childNodes = this.$slots.default
+    if (!childNodes) {
+      childNodes = h(
+        'b-progress-bar',
+        {
+          props: {
+            value: this.value,
+            max: this.max,
+            precision: this.precision,
+            variant: this.variant,
+            animated: this.animated,
+            striped: this.striped,
+            showProgress: this.showProgress,
+            showValue: this.showValue
+          }
+        }
+      )
+    }
+    return h('div', { class: [ 'progress' ], style: this.progressHeight }, [ childNodes ])
   }
 }

@@ -6,7 +6,18 @@ import { isArray } from '../utils/array'
 
 const BVRL = '__BV_root_listeners__'
 
+// @vue/component
 export default {
+
+  beforeDestroy () {
+    if (this[BVRL] && isArray(this[BVRL])) {
+      while (this[BVRL].length > 0) {
+        // shift to process in order
+        const { event, callback } = this[BVRL].shift()
+        this.$root.$off(event, callback)
+      }
+    }
+  },
   methods: {
     /**
          * Safely register event listeners on the root Vue node.
@@ -41,16 +52,6 @@ export default {
     emitOnRoot (event, ...args) {
       this.$root.$emit(event, ...args)
       return this
-    }
-  },
-
-  beforeDestroy () {
-    if (this[BVRL] && isArray(this[BVRL])) {
-      while (this[BVRL].length > 0) {
-        // shift to process in order
-        const { event, callback } = this[BVRL].shift()
-        this.$root.$off(event, callback)
-      }
     }
   }
 }
