@@ -565,8 +565,9 @@ export default {
         relatedTarget: null
       })
       this.emitEvent(showEvt)
+      // Don't show if canceled
       if (showEvt.defaultPrevented || this.is_visible) {
-        // Don't show if canceled
+        this.is_opening = false
         return
       }
       if (!this.noStacking) {
@@ -613,6 +614,7 @@ export default {
       this.emitEvent(hideEvt)
       // Hide if not canceled
       if (hideEvt.defaultPrevented || !this.is_visible) {
+        this.is_closing = false
         return
       }
       // stop observing for content changes
