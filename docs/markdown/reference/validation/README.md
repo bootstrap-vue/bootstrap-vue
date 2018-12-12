@@ -93,7 +93,7 @@ for `vue-i18n` and provides fairly good out of the box error messages.
 **Important**
 
 You **must** configure `vee-validate`'s fields property or it will conflict with the
-`:feilds` property of `b-table` (and posibly other components) when it injects itself.
+`:fields` property of `b-table` (and possibly other components) when it injects itself.
 
 ```js
 import Vue from 'vue'
