@@ -213,6 +213,7 @@ export default {
       default: false
     },
     returnFocus: {
+      type: Object,
       default: null
     },
     headerCloseLabel: {

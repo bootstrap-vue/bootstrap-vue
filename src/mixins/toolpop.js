@@ -37,7 +37,8 @@ export default {
   props: {
     target: {
       // String ID of element, or element/component reference
-      type: [String, Object, HTMLElement, Function]
+      type: [String, Object, HTMLElement, Function],
+      default: undefined
     },
     delay: {
       type: [Number, Object, String],

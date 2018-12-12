@@ -24,9 +24,11 @@ export default {
   },
   props: {
     value: {
+      type: [Object, Boolean],
       default: true
     },
     uncheckedValue: {
+      type: [Object, Boolean],
       // Not applicable in multi-check mode
       default: false
     },

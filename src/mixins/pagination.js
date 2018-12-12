@@ -117,7 +117,7 @@ export default {
       }
       return ''
     },
-    pageList() {
+    pageList () {
       // TODO: generatePageList() has side effects. Computed props should not have side effects!
       const { startNum, numLinks } = this.generatePageList()
 

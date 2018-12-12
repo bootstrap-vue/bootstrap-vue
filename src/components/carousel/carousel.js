@@ -71,14 +71,17 @@ export default {
     },
     imgWidth: {
       // Sniffed by carousel-slide
-      type: [Number, String]
+      type: [Number, String],
+      default: undefined
     },
     imgHeight: {
       // Sniffed by carousel-slide
-      type: [Number, String]
+      type: [Number, String],
+      default: undefined
     },
     background: {
-      type: String
+      type: String,
+      default: undefined
     },
     value: {
       type: Number,

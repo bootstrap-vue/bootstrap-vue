@@ -2,10 +2,12 @@
 export default {
   props: {
     name: {
-      type: String
+      type: String,
+      default: undefined
     },
     id: {
-      type: String
+      type: String,
+      default: undefined
     },
     disabled: {
       type: Boolean

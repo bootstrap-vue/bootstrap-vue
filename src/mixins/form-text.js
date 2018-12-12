@@ -31,7 +31,7 @@ export default {
     },
     formatter: {
       type: Function,
-      value: null
+      default: null
     },
     trim: {
       type: Boolean,

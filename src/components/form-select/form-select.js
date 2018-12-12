@@ -17,7 +17,10 @@ export default {
     formOptionsMixin
   ],
   props: {
-    value: {},
+    value: {
+      type: Object,
+      default: undefined
+    },
     multiple: {
       type: Boolean,
       default: false
