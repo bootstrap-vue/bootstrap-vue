@@ -3,7 +3,7 @@
 ## Description of Pull Request:
 
 
-Please replace this line with a detailed description of your pull rqeuest. If no descrpion your PR may be rejected.
+Please replace this line with a detailed description of your pull request. If no description your PR may be rejected.
 
 
 ## PR checklist:
@@ -23,6 +23,7 @@ Please replace this line with a detailed description of your pull rqeuest. If no
 - [ ] No
 
 If yes, please describe the impact:
+
 
 **The PR fulfills these requirements:**
 - [ ] It's submitted to the `dev` branch, **not** the `master` branch
