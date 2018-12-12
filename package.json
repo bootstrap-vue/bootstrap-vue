@@ -93,6 +93,7 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-plugin-istanbul": "^5.1.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
     "clean-css-cli": "^4.2.1",
     "codecov": "^3.1.0",
     "codemirror": "^5.42.0",
