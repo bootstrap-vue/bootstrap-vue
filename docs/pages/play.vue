@@ -173,7 +173,7 @@ function compileJs (code) {
     return ''
   }
   return transform(code, {
-    // presets: [ 'es2015' ],
+    presets: [ 'es2015' ],
     plugins: [
       'proposal-object-rest-spread',
       'transform-runtime'
@@ -361,6 +361,7 @@ export default {
       const playground = this
       const js = this.js.trim() || '{}'
       const html = this.html.trim()
+      const oConsole = console
       let options
       let console
 
@@ -377,6 +378,7 @@ export default {
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
+        oConsole.log('Compile Error', err)
         return
       }
 
