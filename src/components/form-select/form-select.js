@@ -19,7 +19,7 @@ export default {
   props: {
     value: {
       // type: Object,
-      default: undefined
+      // default: undefined
     },
     multiple: {
       type: Boolean,

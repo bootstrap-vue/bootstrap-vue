@@ -8,12 +8,12 @@ export default {
     value: {
       // value when checked
       // type: Object,
-      default: undefined
+      // default: undefined
     },
     checked: {
       // This is the v-model
       // type: Object,
-      default: undefined
+      // default: undefined
     },
     inline: {
       type: Boolean,

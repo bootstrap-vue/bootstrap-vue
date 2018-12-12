@@ -20,20 +20,20 @@ export default {
     },
     src: {
       // Deprecated: use img-src instead
-      type: String,
-      default: undefined
+      type: String
+      // default: undefined
     },
     imgAlt: {
-      type: String,
-      default: undefined
+      type: String
+      // default: undefined
     },
     imgWidth: {
-      type: [Number, String],
-      default: undefined
+      type: [Number, String]
+      // default: undefined
     },
     imgHeight: {
-      type: [Number, String],
-      default: undefined
+      type: [Number, String]
+      // default: undefined
     },
     imgBlank: {
       type: Boolean,
@@ -44,32 +44,32 @@ export default {
       default: 'transparent'
     },
     contentVisibleUp: {
-      type: String,
-      default: undefined
+      type: String
+      // default: undefined
     },
     contentTag: {
       type: String,
       default: 'div'
     },
     caption: {
-      type: String,
-      default: undefined
+      type: String
+      // default: undefined
     },
     captionTag: {
       type: String,
       default: 'h3'
     },
     text: {
-      type: String,
-      default: undefined
+      type: String
+      // default: undefined
     },
     textTag: {
       type: String,
       default: 'p'
     },
     background: {
-      type: String,
-      default: undefined
+      type: String
+      // default: undefined
     }
   },
   computed: {
