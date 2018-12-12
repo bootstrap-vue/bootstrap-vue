@@ -864,12 +864,13 @@ export default {
         modal.style.paddingRight = ''
       }
     },
-    checkScrollbar () {
+    checkScrollbar () /* istanbul ignore next: getBCR can't be tested in JSDOM */{
       const { left, right, height } = getBCR(document.body)
       // Extra check for body.height needed for stacked modals
       this.isBodyOverflowing = (left + right) < window.innerWidth || height > window.innerHeight
     },
     setScrollbar () {
+      /* istanbul ignore if: get Computed Style can't be tested in JSDOM */
       if (this.isBodyOverflowing) {
         // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
         //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
