@@ -160,6 +160,23 @@
 <script>
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
+import { transform, disableScriptTags } from '@babel/standalone'
+
+if (typeof window !== 'undefined' && window && window.removeEventListener) {
+  // Prevent Babel/Standalone from processing <script> tag insertions
+  disableScriptTags()
+}
+
+// Helper function to transpile es6 code to js
+function compileJs (code) {
+  return transform(code, {
+    presets: [ 'es2015' ],
+    plugins: [
+      'proposal-object-rest-spread',
+      'transform-runtime'
+    ]
+  })
+}
 
 const defaultJS = `{
   data: {
@@ -167,22 +184,22 @@ const defaultJS = `{
     show: true
   },
   watch: {
-    show: function (newVal, oldVal) {
+    show (newVal, oldVal) {
       console.log('Alert is now ' + (this.show ? 'visible' : 'hidden'))
     }
   },
   methods: {
-    toggle: function () {
+    toggle () {
       console.log('Toggle button clicked')
       this.show = !this.show
     },
-    dismissed: function () {
+    dismissed () {
       console.log('Dismiss button clicked')
     }
   }
 }`
 
-const defaultHTML = `<div style="height:7.5rem;">
+const defaultHTML = `<div>
   <b-button @click="toggle">
     {{ show ? 'Hide' : 'Show' }} Alert
   </b-button>
@@ -351,8 +368,9 @@ export default {
       try {
         // Options are eval'ed in our variable scope, so we can override
         // the "global" console reference just for the user app
+        const code = transform(`console = this.fakeConsole; options = ${js};`)
         /* eslint-disable no-eval */
-        eval(`console = this.fakeConsole; options = ${js};`)
+        eval(code)
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
