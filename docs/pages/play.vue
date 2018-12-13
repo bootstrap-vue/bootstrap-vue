@@ -161,34 +161,34 @@
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
 import { transform, disableScriptTags, registerPreset } from '@babel/standalone'
-import babelPresetEnv from '@babel/preset-env'
+import '@babel/preset-env-standalone'
 
 if (typeof window !== 'undefined' && window && window.removeEventListener) {
   // Prevent Babel/Standalone from processing <script> tag insertions
   disableScriptTags()
 }
 
-registerPreset('env', babelPresetEnv)
-
 const transformOptions = {
     presets: [
       [ 
-        'env',
+        '@babel/preset-env',
         {
-          useBuiltIns: 'entry',
-          targets: [
-            '>= 1%',
-            'last 1 major version',
-            'not dead',
-            'Chrome >= 45',
-            'Firefox >= 38',
-            'Edge >= 12',
-            'Explorer >= 11',
-            'iOS >= 9',
-            'Safari >= 9',
-            'Android >= 4.4',
-            'Opera >= 30'
-          ]
+          useBuiltIns: 'usage',
+          targets: {
+            browsers: [
+              '>= 1%',
+              'last 1 major version',
+              'not dead',
+              'Chrome >= 45',
+              'Firefox >= 38',
+              'Edge >= 12',
+              'Explorer >= 11',
+              'iOS >= 9',
+              'Safari >= 9',
+              'Android >= 4.4',
+              'Opera >= 30'
+            ]
+          }
         }
       ]
     ],
