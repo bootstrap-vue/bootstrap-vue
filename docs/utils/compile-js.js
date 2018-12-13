@@ -15,7 +15,7 @@ const transformOptions = {
     ]
 }
 
-export defaut function compileJs (code) {
+export default function compileJs (code) {
   if (!code) {
     return ''
   }
