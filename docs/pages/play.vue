@@ -306,22 +306,25 @@ export default {
   mounted () {
     // Create our debounced runner
     this.run = debounce(this._run, 500)
-
-    // Lazy load the babel transpiler
-    import('../utils/compile-js').then((module) => {
-      // Store a reference to the compiler
-      compileJs - module.default
-
-      // Set up our editor content watcher.
-      this.contentUnWatch = this.$watch(
-        () => this.js.trim() + '::' + this.html.trim(),
-        (newVal, oldVal) => { this.run() },
-        { immediate: true }
-      )
+    
+    this.$nextTick(() => {
+      // Start the loading indicator
+      this.$nuxt.$loading.start()
+      // Lazy load the babel transpiler
+      import('../utils/compile-js').then((module) => {
+        // Update compiler reference
+        compileJs - module.default
+        // Set up our editor content watcher.
+        this.contentUnWatch = this.$watch(
+          () => this.js.trim() + '::' + this.html.trim(),
+          (newVal, oldVal) => { this.run() }
+        )
+        // load our content into the editors
+        this.load()
+        // Stop the loading indicator
+        this.$nuxt.$loading.finish()
+      })
     })
-
-    // load our content into the editors after dom updated
-    this.$nextTick(this.load)
   },
   beforeDestroy () {
     if (this.contentUnWatch) {
