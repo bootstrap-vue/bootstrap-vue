@@ -304,9 +304,7 @@ export default {
     this.run = () => {}
   },
   mounted () {
-    // Create our debounced runner
-    this.run = debounce(this._run, 500)
-    
+   
     this.$nextTick(() => {
       // Start the loading indicator
       this.$nuxt.$loading.start()
@@ -314,6 +312,8 @@ export default {
       import('../utils/compile-js').then((module) => {
         // Update compiler reference
         compileJs - module.default
+        // Create our debounced runner
+        this.run = debounce(this._run, 500)
         // Set up our editor content watcher.
         this.contentUnWatch = this.$watch(
           () => this.js.trim() + '::' + this.html.trim(),
