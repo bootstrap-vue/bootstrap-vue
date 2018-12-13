@@ -53,7 +53,7 @@
                   size="sm"
                   @click="toggleFull"
                   variant="outline-info"
-                  class="float-right">
+                  class="float-right d-none d-md-inline-block">
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
@@ -73,7 +73,7 @@
                   size="sm"
                   @click="toggleFull"
                   variant="outline-info"
-                  class="float-right">
+                  class="float-right d-none d-md-inline-block">
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
@@ -96,7 +96,7 @@
               size="sm"
               @click="toggleVertical"
               variant="outline-info"
-              class="float-right"
+              class="float-right d-none d-md-inline-block"
               v-if="!full">
               <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
             </b-btn>
@@ -160,29 +160,8 @@
 <script>
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
-import { transform, disableScriptTags } from '@babel/standalone'
 
-if (typeof window !== 'undefined' && window && window.removeEventListener) {
-  // Prevent Babel/Standalone from processing <script> tag insertions
-  disableScriptTags()
-}
-
-const transformOptions = {
-    presets: [ 'es2015', 'es2016', 'es2017' ],
-    plugins: [
-      // Not used as we need to import the helpers into the transpiled code
-      // 'transform-runtime',
-      'proposal-object-rest-spread'
-    ]
-}
-
-// Helper function to transpile es6 code to js
-function compileJs (code) {
-  if (!code) {
-    return ''
-  }
-  return transform(code, transformOptions).code || ''
-}
+let compileJs  = () => ''
 
 const defaultJS = `{
   data () {
@@ -328,15 +307,20 @@ export default {
     // Create our debounced runner
     this.run = debounce(this._run, 500)
 
-    // Set up our editor content watcher.
-    // We do this on mount to avoid SSR issues as normal watchers
-    // can run before mount
-    this.contentUnWatch = this.$watch(
-      () => { return { js: this.js.trim(), html: this.html.trim() } },
-      (newVal, oldVal) => { this.run() }
-    )
+    // Lazy load the babel transpiler
+    import('../utils/compile-js').then((module) => {
+      // Store a reference to the compiler
+      compileJs - module.default
+
+      // Set up our editor content watcher.
+      this.contentUnWatch = this.$watch(
+        () => this.js.trim() + '::' + this.html.trim(),
+        (newVal, oldVal) => { this.run() },
+        { immediate: true }
+      )
+    })
+
     // load our content into the editors after dom updated
-    // Which triggers our watcher
     this.$nextTick(this.load)
   },
   beforeDestroy () {
