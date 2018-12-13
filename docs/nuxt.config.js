@@ -105,7 +105,9 @@ module.exports = {
   head: {
     script: [
       // { type: 'javascript', src: '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js' }
-      { type: 'javascript', src: '//cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.0.0/polyfill.min.js' }
+      { type: 'javascript', src: '//cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.0.0/polyfill.min.js' },
+      // For some reason, babel-polyfill does nto polyfill WeakSet on IE 11
+      { type: 'javascript', src: '//cdn.polyfill.io/v2/polyfill.js?features=es6' }
     ]
   },
 
