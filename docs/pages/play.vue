@@ -161,6 +161,7 @@
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
 import { transform, disableScriptTags } from '@babel/standalone'
+import '@babel/preset-env-standalone'
 
 if (typeof window !== 'undefined' && window && window.removeEventListener) {
   // Prevent Babel/Standalone from processing <script> tag insertions
@@ -169,7 +170,7 @@ if (typeof window !== 'undefined' && window && window.removeEventListener) {
 
 const transformOptions = {
     presets: [
-      'es2015-loose'
+      [ 'env', { useBuiltIns: 'entry' } ]
     ],
     plugins: [
       // Not used as we need to import the helpers into the transpiled code
