@@ -7,12 +7,12 @@ if (typeof window !== 'undefined' && window && window.removeEventListener) {
 }
 
 const transformOptions = {
-    presets: [ 'es2015', 'es2016', 'es2017' ],
-    plugins: [
-      // Not used as we need to import the helpers into the transpiled code
-      // 'transform-runtime',
-      'proposal-object-rest-spread'
-    ]
+  presets: [ 'es2015', 'es2016', 'es2017' ],
+  plugins: [
+    // Not used as we need to import the helpers into the transpiled code
+    // 'transform-runtime',
+    'proposal-object-rest-spread'
+  ]
 }
 
 export default function compileJs (code) {
