@@ -13,6 +13,9 @@
           You can clone docs repo, to hack and develop components.
           changes will be reflected and hot-reloaded instantly.
         </p>
+        <div v-if="loading" class="alert alert-info show text-center">
+          <strong>Loading JavaScript Compiler...</strong>
+        </div>
       </div>
       <div class="col-12">
         <form
@@ -161,18 +164,12 @@
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
 
-// Where our compiler will be stored
-let compileJs  = (code) => code
-
 const defaultJS = `{
   data () {
     return {
       name: 'Bootstrap-Vue',
       show: true
     }
-  },
-    name: 'Bootstrap-Vue',
-    show: true
   },
   watch: {
     show (newVal, oldVal) {
@@ -218,7 +215,8 @@ export default {
       messages: [],
       logIdx: 1, // used as the ":key" on console section for transition hooks
       vertical: false,
-      full: false
+      full: false,
+      loading: false
     }
   },
   head () {
@@ -303,16 +301,18 @@ export default {
     this.playVM = null
     this.contentUnWatch = null
     this.run = () => {}
+    this.compileJs = () => '{}'
   },
   mounted () {
-   
     this.$nextTick(() => {
       // Start the loading indicator
+      this.loading = true
       this.$nuxt.$loading.start()
       // Lazy load the babel transpiler
       import('../utils/compile-js').then((module) => {
+        window.console.log('Compiler Module:', module)
         // Update compiler reference
-        compileJs - module.default
+        this.compileJs - module.default
         // Create our debounced runner
         this.run = debounce(this._run, 500)
         // Set up our editor content watcher.
@@ -320,10 +320,11 @@ export default {
           () => this.js.trim() + '::' + this.html.trim(),
           (newVal, oldVal) => { this.run() }
         )
-        // load our content into the editors
-        this.load()
         // Stop the loading indicator
         this.$nuxt.$loading.finish()
+        this.loading = false
+        // load our content into the editors
+        this.load()
       })
     })
   },
@@ -357,7 +358,7 @@ export default {
       const playground = this
       const js = this.js.trim() || '{}'
       const html = this.html.trim()
-      let options
+      let options = {}
       let console
 
       // Disable the export to fiddle button
@@ -367,10 +368,10 @@ export default {
       try {
         // Options are eval'ed in our variable scope, so we can override
         // the "global" console reference just for the user app
-        const code = compileJs(`options = ${js};`)
+        const code = compileJs(`;options = ${js};`)
         window.console.log('Transpiled:', code)
         /* eslint-disable no-eval */
-        eval(`console = this.fakeConsole; ${code};`)
+        eval(`console = this.fakeConsole; ${code}`)
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
