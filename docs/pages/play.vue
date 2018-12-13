@@ -169,7 +169,7 @@ if (typeof window !== 'undefined' && window && window.removeEventListener) {
 
 const transformOptions = {
     presets: [
-      'es2015'
+      'es2015-loose'
     ],
     plugins: [
       // Not used as we need to import the helpers into the transpiled code
