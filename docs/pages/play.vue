@@ -301,7 +301,7 @@ export default {
     this.playVM = null
     this.contentUnWatch = null
     this.run = () => {}
-    this.compileJs = () => '{}'
+    this.compiler = (code) => code
   },
   mounted () {
     this.$nextTick(() => {
@@ -310,9 +310,8 @@ export default {
       this.$nuxt.$loading.start()
       // Lazy load the babel transpiler
       import('../utils/compile-js').then((module) => {
-        window.console.log('Compiler Module:', module)
         // Update compiler reference
-        this.compileJs - module.default
+        this.compiler = module.default
         // Create our debounced runner
         this.run = debounce(this._run, 500)
         // Set up our editor content watcher.
@@ -324,7 +323,7 @@ export default {
         this.$nuxt.$loading.finish()
         this.loading = false
         // load our content into the editors
-        this.load()
+        this.$nextTick(this.load)
       })
     })
   },
@@ -368,7 +367,7 @@ export default {
       try {
         // Options are eval'ed in our variable scope, so we can override
         // the "global" console reference just for the user app
-        const code = this.compileJs(`;options = ${js};`)
+        const code = this.compiler(`;options = ${js};`)
         window.console.log('Transpiled:', code)
         /* eslint-disable no-eval */
         eval(`console = this.fakeConsole; ${code}`)
