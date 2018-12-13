@@ -84,7 +84,6 @@ module.exports = {
   },
 
   plugins: [
-    { src: '~plugins/babel-polyfill.js', ssr: false },
     '~plugins/bootstrap-vue.js',
     '~plugins/codemirror.js',
     '~plugins/play.js',
