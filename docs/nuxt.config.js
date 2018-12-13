@@ -104,7 +104,9 @@ module.exports = {
 
   head: {
     script: [
-      { type: 'javascript', src: '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js' }
+      { type: 'javascript', src: '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js' },
+      // Needed for IE 11 and babel-standalone.  It apepars the above does not polyfil WeakSet for some reason
+      { type: 'javascript', src: '//cdn.pollyfill.io/v2/polyfill.min.js?features=WeakSet' }
     ]
   },
 
