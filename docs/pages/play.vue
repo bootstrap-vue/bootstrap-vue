@@ -185,7 +185,12 @@ function compileJs (code) {
 }
 
 const defaultJS = `{
-  data: {
+  data () {
+    return {
+      name: 'Bootstrap-Vue',
+      show: true
+    }
+  },
     name: 'Bootstrap-Vue',
     show: true
   },
