@@ -19,5 +19,7 @@ module.exports = {
     Vue: true
   },
   rules: {
+    'vue/require-default-prop': 'off',
+    'vue/require-prop-types': 'off'
   }
 }
