@@ -121,15 +121,15 @@
             tag="ul"
             name="flip-list"
             class="list-group list-group-flush play-log">
-            <li v-if="!messages.length" key="console-1" class="list-group-item">&nbsp;</li>
+            <li v-if="!messages.length" key="empty-console" class="list-group-item">&nbsp;</li>
             <li
               v-for="(msg, idx) in messages"
-              class="list-group-item py-2"
+              class="list-group-item py-2 d-flex"
               :key="`console-${msg[2]}`">
               <b-badge :variant="msg[0]" class="mr-1" style="font-size:90%;">{{
                 msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log'
               }}</b-badge>
-              <span :class="[`text-${msg[0]}`]"> {{ msg[1] }}</span>
+              <div :class="[`text-${msg[0]}`, 'text-monospace', 'small']" style="white-space: pre-wrap;">{{ msg[1] }}</div>
             </li>
           </transition-group>
         </div>
@@ -488,7 +488,7 @@ export default {
       }
       const msg = args.map(String).join(' ')
       if (this.messages.length && msg.indexOf('Error in render') !== -1 && msg === this.messages[0][1]) {
-        // prevent duplicate render errors
+        // prevent duplicate render error messages
         return
       }
       if (this.messages.length > 10) {
