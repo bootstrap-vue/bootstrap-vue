@@ -172,8 +172,9 @@ const transformOptions = {
       'es2015'
     ],
     plugins: [
-      'proposal-object-rest-spread',
-      'transform-runtime'
+      // Not used as we need to import the helpers into the transpiled code
+      // 'transform-runtime',
+      'proposal-object-rest-spread'
     ]
 }
 
