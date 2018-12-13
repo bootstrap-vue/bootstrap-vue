@@ -161,7 +161,8 @@
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
 
-let compileJs  = () => ''
+// Where our compiler will be stored
+let compileJs  = (code) => code
 
 const defaultJS = `{
   data () {
