@@ -108,8 +108,7 @@ module.exports = {
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }
     ],
     script: [
-      // IE 11 may not always load hte polyfills from a 3rd party domain
-      // { type: 'javascript', src: '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js' }
+      { type: 'text/javascript', src: '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js' }
     ]
   },
 
