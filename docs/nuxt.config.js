@@ -8,14 +8,14 @@ const renderer = new marked.Renderer()
 renderer.code = (code, language) => {
   const validLang = !!(language && hljs.getLanguage(language))
   const highlighted = validLang ? hljs.highlight(language, code).value : code
-  return `<pre class="hljs ${language}">${highlighted}</pre>`
+  return `<pre class="hljs ${language} text-monospace">${highlighted}</pre>`
 }
 
 // BS4 table support for markdown renderer
 const originalTable = renderer.table
 renderer.table = function renderTable (header, body) {
   let r = originalTable.apply(this, arguments)
-  return r.replace('<table>', '<table class="table b-table table-sm table-striped">')
+  return r.replace('<table>', '<table class="table b-table table-striped">')
     .replace('<thead>', '<thead class="thead-default">')
 }
 
