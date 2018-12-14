@@ -8,14 +8,14 @@ const renderer = new marked.Renderer()
 renderer.code = (code, language) => {
   const validLang = !!(language && hljs.getLanguage(language))
   const highlighted = validLang ? hljs.highlight(language, code).value : code
-  return `<pre class="hljs ${language}">${highlighted}</pre>`
+  return `<pre class="hljs ${language} text-monospace p-2">${highlighted}</pre>`
 }
 
 // BS4 table support for markdown renderer
 const originalTable = renderer.table
 renderer.table = function renderTable (header, body) {
   let r = originalTable.apply(this, arguments)
-  return r.replace('<table>', '<table class="table b-table table-sm table-striped">')
+  return r.replace('<table>', '<table class="table b-table table-striped">')
     .replace('<thead>', '<thead class="thead-default">')
 }
 
@@ -103,15 +103,18 @@ module.exports = {
   },
 
   head: {
+    meta: [
+      { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }
+    ],
     script: [
-      { type: 'javascript', src: '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js' }
+      { type: 'text/javascript', src: '//unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js' }
     ]
   },
 
   css: [
-    'bootstrap/dist/css/bootstrap.css',
     'highlightjs/styles/atom-one-light.css',
     'codemirror/lib/codemirror.css',
+    'bootstrap/dist/css/bootstrap.css',
     '../src/index.scss', // Boostrap-Vue SCSS
     '@assets/css/docs.min.css',
     '@assets/css/styles.css'

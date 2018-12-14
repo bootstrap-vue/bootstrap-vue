@@ -13,6 +13,9 @@
           You can clone docs repo, to hack and develop components.
           changes will be reflected and hot-reloaded instantly.
         </p>
+        <div v-if="loading" class="alert alert-info show text-center">
+          <strong>Loading JavaScript Compiler...</strong>
+        </div>
       </div>
       <div class="col-12">
         <form
@@ -53,7 +56,7 @@
                   size="sm"
                   @click="toggleFull"
                   variant="outline-info"
-                  class="float-right">
+                  class="float-right d-none d-md-inline-block">
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
@@ -73,7 +76,7 @@
                   size="sm"
                   @click="toggleFull"
                   variant="outline-info"
-                  class="float-right">
+                  class="float-right d-none d-md-inline-block">
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
@@ -96,7 +99,7 @@
               size="sm"
               @click="toggleVertical"
               variant="outline-info"
-              class="float-right"
+              class="float-right d-none d-md-inline-block"
               v-if="!full">
               <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
             </b-btn>
@@ -121,15 +124,15 @@
             tag="ul"
             name="flip-list"
             class="list-group list-group-flush play-log">
-            <li v-if="!messages.length" key="console-1" class="list-group-item">&nbsp;</li>
+            <li v-if="!messages.length" key="empty-console" class="list-group-item">&nbsp;</li>
             <li
               v-for="(msg, idx) in messages"
-              class="list-group-item py-2"
+              class="list-group-item py-2 d-flex"
               :key="`console-${msg[2]}`">
               <b-badge :variant="msg[0]" class="mr-1" style="font-size:90%;">{{
                 msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log'
               }}</b-badge>
-              <span :class="[`text-${msg[0]}`]"> {{ msg[1] }}</span>
+              <div :class="[`text-${msg[0]}`, 'text-monospace', 'small']" style="white-space: pre-wrap;">{{ msg[1] }}</div>
             </li>
           </transition-group>
         </div>
@@ -162,27 +165,29 @@ import Vue from 'vue'
 import debounce from 'lodash/debounce'
 
 const defaultJS = `{
-  data: {
-    name: 'Bootstrap-Vue',
-    show: true
+  data () {
+    return {
+      name: 'Bootstrap-Vue',
+      show: true
+    }
   },
   watch: {
-    show: function (newVal, oldVal) {
+    show (newVal, oldVal) {
       console.log('Alert is now ' + (this.show ? 'visible' : 'hidden'))
     }
   },
   methods: {
-    toggle: function () {
+    toggle () {
       console.log('Toggle button clicked')
       this.show = !this.show
     },
-    dismissed: function () {
+    dismissed () {
       console.log('Dismiss button clicked')
     }
   }
 }`
 
-const defaultHTML = `<div style="height:7.5rem;">
+const defaultHTML = `<div>
   <b-button @click="toggle">
     {{ show ? 'Hide' : 'Show' }} Alert
   </b-button>
@@ -210,7 +215,8 @@ export default {
       messages: [],
       logIdx: 1, // used as the ":key" on console section for transition hooks
       vertical: false,
-      full: false
+      full: false,
+      loading: false
     }
   },
   head () {
@@ -295,21 +301,31 @@ export default {
     this.playVM = null
     this.contentUnWatch = null
     this.run = () => {}
+    this.compiler = (code) => code
   },
   mounted () {
-    // Create our debounced runner
-    this.run = debounce(this._run, 500)
-
-    // Set up our editor content watcher.
-    // We do this on mount to avoid SSR issues as normal watchers
-    // can run before mount
-    this.contentUnWatch = this.$watch(
-      () => { return { js: this.js.trim(), html: this.html.trim() } },
-      (newVal, oldVal) => { this.run() }
-    )
-    // load our content into the editors after dom updated
-    // Which triggers our watcher
-    this.$nextTick(this.load)
+    this.$nextTick(() => {
+      // Start the loading indicator
+      this.loading = true
+      this.$nuxt.$loading.start()
+      // Lazy load the babel transpiler
+      import('../utils/compile-js').then((module) => {
+        // Update compiler reference
+        this.compiler = module.default
+        // Create our debounced runner
+        this.run = debounce(this._run, 500)
+        // Set up our editor content watcher.
+        this.contentUnWatch = this.$watch(
+          () => this.js.trim() + '::' + this.html.trim(),
+          (newVal, oldVal) => { this.run() }
+        )
+        // Stop the loading indicator
+        this.$nuxt.$loading.finish()
+        this.loading = false
+        // load our content into the editors
+        this.$nextTick(this.load)
+      })
+    })
   },
   beforeDestroy () {
     if (this.contentUnWatch) {
@@ -341,7 +357,7 @@ export default {
       const playground = this
       const js = this.js.trim() || '{}'
       const html = this.html.trim()
-      let options
+      let options = {}
       let console
 
       // Disable the export to fiddle button
@@ -351,11 +367,13 @@ export default {
       try {
         // Options are eval'ed in our variable scope, so we can override
         // the "global" console reference just for the user app
+        const code = this.compiler(`;options = ${js};`)
         /* eslint-disable no-eval */
-        eval(`console = this.fakeConsole; options = ${js};`)
+        eval(`console = this.fakeConsole; ${code}`)
         /* eslint-enable no-eval */
       } catch (err) {
         this.errHandler(err, 'javascript')
+        window.console.error('Error in javascript', err)
         return
       }
 
@@ -461,7 +479,7 @@ export default {
       }
       const msg = args.map(String).join(' ')
       if (this.messages.length && msg.indexOf('Error in render') !== -1 && msg === this.messages[0][1]) {
-        // prevent duplicate render errors
+        // prevent duplicate render error messages
         return
       }
       if (this.messages.length > 10) {

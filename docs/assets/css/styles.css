@@ -16,15 +16,10 @@
 }
 
 .hljs {
-  font-family: "Inconsolata", "Monaco", "Andale Mono", "Lucida Console", "Bitstream Vera Sans Mono", "Courier New",
-    Courier, monospace !important;
-  font-size: 17px;
   overflow-x: auto;
   position: relative;
   background-color: #f9f9f9;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
-  padding: 1em 1em 1em 1em;
-  margin-bottom: 1em;
 }
 
 .CodeMirror {
@@ -52,6 +47,10 @@ blockquote {
 
 #__nuxt > .progress {
   z-index: 100 !important;
+}
+
+.vue-example {
+  overflow-x: auto;
 }
 
 pre.editable:after {

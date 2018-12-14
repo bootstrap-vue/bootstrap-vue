@@ -56,7 +56,8 @@
     "./src/utils/array.js",
     "**/*.scss",
     "**/*.css",
-    "**/*.vue"
+    "**/*.vue",
+    "./docs"
   ],
   "scripts": {
     "build": "scripts/build",
@@ -85,6 +86,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
+    "@babel/standalone": "^7.2.0",
     "@nuxtjs/google-analytics": "^2.0.2",
     "@nuxtjs/pwa": "^2.6.0",
     "@vue/test-utils": "^1.0.0-beta.27",
