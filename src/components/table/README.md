@@ -263,9 +263,9 @@ export default {
 <!-- table-fields-object.vue -->
 ```
 
->**Notes:** 
+**Notes:** 
 - if a `key` property is defined in the field definition, it will take precedence over the key used to define the field.
-- It is possible to define `key` as column's object property, but currently, sorting of these columns is **not supported**
+
 
 ### Field definition reference
 The following field properties are recognized:
@@ -384,7 +384,7 @@ export default {
 ```
 ### Row Styling ###
 
-You can also style every row using the `tbdoy-tr-class` prop
+You can also style every row using the `tbody-tr-class` prop
 
 | Property | Type | Description
 | ---------| ---- | -----------
