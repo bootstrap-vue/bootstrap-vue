@@ -112,12 +112,3 @@ pre.editable.error:after {
   min-height: 10rem;
   background-color: rgba(255, 0, 0, .1);
 }
-
-.card-img-left {
-   border-top-left-radius: calc(0.25rem - 1px);
-   border-bottom-left-radius: calc(0.25rem - 1px);
- }
-.card-img-right {
-  border-top-right-radius: calc(0.25rem - 1px);
-  border-bottom-right-radius: calc(0.25rem - 1px);
-}
