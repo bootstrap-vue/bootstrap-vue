@@ -241,8 +241,8 @@ export default {
           sortable: true
         },
         city: {
-          key: 'address.city', 
-          sortable: true 
+          key: 'address.city',
+          sortable: true
         },
         'address.country': {
           label: 'Country',
@@ -265,7 +265,7 @@ export default {
 
 **Notes:** 
 - if a `key` property is defined in the field definition, it will take precedence over the key used to define the field.
-- You can set the `key` to be a property of a column (e.g. `age.months`), but currently sorting of these columns is **not supported**.  
+
 
 ### Field definition reference
 The following field properties are recognized:
