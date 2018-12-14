@@ -107,7 +107,7 @@ module.exports = {
       { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }
     ],
     script: [
-      { type: 'text/javascript', src: '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js' }
+      { type: 'text/javascript', src: '//unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js' }
     ]
   },
 
