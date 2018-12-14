@@ -50,7 +50,7 @@ blockquote {
 }
 
 .vue-example {
-  overflow-y: auto;
+  overflow-x: auto;
 }
 
 pre.editable:after {
