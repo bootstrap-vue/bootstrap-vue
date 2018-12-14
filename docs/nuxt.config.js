@@ -108,7 +108,7 @@ module.exports = {
     ],
     script: [
       // { type: 'javascript', src: '//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js' }
-      { type: 'javascript', src: '@babel/polyfill/dist/polyfill.js' }
+      { type: 'javascript', src: '../node_modules/@babel/polyfill/dist/polyfill.js' }
     ]
   },
 
