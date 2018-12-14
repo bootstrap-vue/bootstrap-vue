@@ -3,6 +3,7 @@
   // Only include this SCSS if not already defined
   // From Boostrap v4.2 SCSS _custom-forms.scss
   // Define default values
+  $custom-control-indicator-border-width: $input-border-width !default;
   $custom-switch-width:                   $custom-control-indicator-size * 1.75 !default;
   $custom-switch-indicator-border-radius: $custom-control-indicator-size / 2 !default;
   $custom-switch-indicator-size:          calc(#{$custom-control-indicator-size} - #{$custom-control-indicator-border-width * 4}) !default;
