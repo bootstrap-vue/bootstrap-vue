@@ -13,6 +13,9 @@ const CLASS_NAMES = {
   error: 'error',
 }
 
+// Temporary compiler code, until directive is loaded/applied
+let compiler = (code) => code
+
 const match = (regex, text) => (regex.exec(text) || [])[1]
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
 
@@ -29,7 +32,8 @@ const parseVueTemplate = text => {
   // Try to evalue script
   if (script && script.includes('export default')) {
     try {
-      eval(script.replace('export default', 'options = '))
+      const code = compiler(script.replace('export default', ';options = '))
+      eval(code)
     } catch (e) {
       return false
     }
@@ -76,62 +80,67 @@ const destroyVM = (name, vm) => {
 }
 
 Vue.directive('play', (el, binding, vnode, oldVnode) => {
-  // Get all code-snippets
-  const pres = [...el.querySelectorAll('pre.hljs')]
+  import('../utils/compile-js').then((module) => {
+    // Save the compiler reference for template parser
+    compiler = module.default
+    
+    // Get all code-snippets
+    const pres = [...el.querySelectorAll('pre.hljs')]
 
-  // Iterate over them and parse
-  pres.forEach(pre => {
-    // Store example name globally
-    const name = match(NAME_REGEX, pre.textContent)
+    // Iterate over them and parse
+    pres.forEach(pre => {
+      // Store example name globally
+      const name = match(NAME_REGEX, pre.textContent)
 
-    // Exit early when no name is given
-    if (!name) {
-      return
-    }
-
-    // Remove name defintion
-    let text = pre.textContent.replace(NAME_DEFINITION_REGEX, '').trim()
-    pre.textContent = text
-
-    // Highlight again
-    hljs.highlightBlock(pre)
-
-    // Add editable class
-    pre.classList.add(CLASS_NAMES.editable)
-
-    // Initial load
-    let vm = createVM(name, pre, vnode)
-
-    if (!Array.isArray(vnode.context.$options['beforeDestroy'])) {
-      vnode.context.$options['beforeDestroy'] = []
-    }
-
-    vnode.context.$options['beforeDestroy'].push(() => destroyVM(name, vm))
-
-    // Enable live edit on double click
-    pre.ondblclick = async () => {
-      // Add live class
-      pre.classList.add(CLASS_NAMES.live)
-      // Make editable
-      pre.contentEditable = true
-
-      pre.onblur = () => {
-        // Rehighlight
-        hljs.highlightBlock(pre)
+      // Exit early when no name is given
+      if (!name) {
+        return
       }
 
-      pre.onkeyup = debounce(() => {
-        // Recreate VM
-        destroyVM(name, vm)
-        vm = createVM(name, pre, vnode)
+      // Remove name defintion
+      let text = pre.textContent.replace(NAME_DEFINITION_REGEX, '').trim()
+      pre.textContent = text
 
-        // Toggle error class
-        if (vm === null) {
-          pre.classList.add(CLASS_NAMES.error)
-        } else {
-          pre.classList.remove(CLASS_NAMES.error)
+      // Highlight again
+      hljs.highlightBlock(pre)
+
+      // Add editable class
+      pre.classList.add(CLASS_NAMES.editable)
+
+      // Initial load
+      let vm = createVM(name, pre, vnode)
+
+      if (!Array.isArray(vnode.context.$options['beforeDestroy'])) {
+        vnode.context.$options['beforeDestroy'] = []
+      }
+
+      vnode.context.$options['beforeDestroy'].push(() => destroyVM(name, vm))
+
+      // Enable live edit on double click
+      pre.ondblclick = async () => {
+        // Add live class
+        pre.classList.add(CLASS_NAMES.live)
+        // Make editable
+        pre.contentEditable = true
+
+        pre.onblur = () => {
+          // Rehighlight
+          hljs.highlightBlock(pre)
         }
-      }, 250)
-    }
+
+        pre.onkeyup = debounce(() => {
+          // Recreate VM
+          destroyVM(name, vm)
+          vm = createVM(name, pre, vnode)
+
+          // Toggle error class
+          if (vm === null) {
+            pre.classList.add(CLASS_NAMES.error)
+          } else {
+            pre.classList.remove(CLASS_NAMES.error)
+          }
+        }, 250)
+      }
+    })
   })
 })
