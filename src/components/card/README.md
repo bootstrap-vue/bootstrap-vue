@@ -133,31 +133,22 @@ card is changed.
           img-left
           class="mb-3">
     <p class="card-text">
-      Add to your css: <br>
-      <code>
-        .card-img-left { <br>
-        &nbsp;&nbsp;border-top-left-radius: calc(0.25rem - 1px); <br>
-        &nbsp;&nbsp;border-bottom-left-radius: calc(0.25rem - 1px); <br>
-        }
-      </code>
+      Some quick example text to build on the card and make up the bulk of the card's content.
     </p>
   </b-card>
   <b-card img-src="https://placekitten.com/300/300"
           img-alt="Card image"
           img-right>
     <p class="card-text">
-      Add to your css: <br>
-      <code>
-        .card-img-right { <br>
-        &nbsp;&nbsp;border-top-right-radius: calc(0.25rem - 1px); <br>
-        &nbsp;&nbsp;border-bottom-right-radius: calc(0.25rem - 1px); <br>
-        }
-      </code>
+      Some quick example text to build on the card and make up the bulk of the card's content.
     </p>
   </b-card>
 </div>
 <!-- card-img-1.vue -->
 ```
+
+**Note:** For left and right images, you may need to apply additional styles to classes `.card-img-left` and
+`.card-img-right`, as images will "strech" in height if you have content that is taller than your image.
 
 Place the image in the background of the card by setting the boolean prop `overlay`:
 
