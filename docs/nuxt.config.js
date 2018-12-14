@@ -8,7 +8,7 @@ const renderer = new marked.Renderer()
 renderer.code = (code, language) => {
   const validLang = !!(language && hljs.getLanguage(language))
   const highlighted = validLang ? hljs.highlight(language, code).value : code
-  return `<pre class="hljs ${language} text-monospace">${highlighted}</pre>`
+  return `<pre class="hljs ${language} text-monospace p-2">${highlighted}</pre>`
 }
 
 // BS4 table support for markdown renderer
