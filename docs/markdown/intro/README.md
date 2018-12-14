@@ -231,8 +231,8 @@ module.exports = {
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"/>
 
-<!-- Add this after vue.js -->
-<script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="//unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
+<script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 ```
 
@@ -262,8 +262,8 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 ## Browsers Support
 
 ### CSS
-BootstrapVue is to be used with Bootstrap 4 CSS.
-Please see [Browsers and devices](https://getbootstrap.com/docs/4.0/getting-started/browsers-devices)
+BootstrapVue is to be used with Bootstrap 4 CSS/SCSS.
+Please see [Browsers and devices](https://getbootstrap.com/docs/4.1/getting-started/browsers-devices)
 for more information about browsers currently supported by Bootstrap 4.
 
 ### JS
@@ -274,8 +274,8 @@ If you want to support older IE, Android and IOS devices, you may want to use
 ### IE 11
 You'll need babel-polyfill for BootstrapVue to work properly. In order to support this browser:
 
-- `npm install babel-polyfill`
-- Import it in your app main entry point with `import 'babel-polyfill'`
+- `npm install @babel/polyfill`
+- Import it in your app main entry point with `import '@babel/polyfill'`
 
 
 ## Tooling Support
