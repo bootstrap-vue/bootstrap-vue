@@ -116,40 +116,6 @@ export default {
         return 'justify-content-end'
       }
       return ''
-    },
-    pageList () {
-      // TODO: generatePageList() has side effects. Computed props should not have side effects!
-      const { startNum, numLinks } = this.generatePageList()
-
-      // Generate list of page numbers
-      const pages = makePageArray(startNum, numLinks)
-
-      // We limit to a total of 3 page buttons on small screens
-      // Ellipsis will also be hidden on small screens
-      if (pages.length > 3) {
-        const idx = this.currentPage - startNum
-        if (idx === 0) {
-          // Keep leftmost 3 buttons visible
-          for (let i = 3; i < pages.length; i++) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-        } else if (idx === pages.length - 1) {
-          // Keep rightmost 3 buttons visible
-          for (let i = 0; i < pages.length - 3; i++) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-        } else {
-          // hide left button(s)
-          for (let i = 0; i < idx - 1; i++) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-          // hide right button(s)
-          for (let i = pages.length - 1; i > idx + 1; i--) {
-            pages[i].className = 'd-none d-sm-flex'
-          }
-        }
-      }
-      return pages
     }
   },
   watch: {
@@ -216,6 +182,39 @@ export default {
         startNum = this.numberOfPages - numLinks + 1
       }
       return { startNum, numLinks }
+    },
+    getPageList () {
+      const { startNum, numLinks } = this.generatePageList()
+
+      // Generate list of page numbers
+      const pages = makePageArray(startNum, numLinks)
+
+      // We limit to a total of 3 page buttons on small screens
+      // Ellipsis will also be hidden on small screens
+      if (pages.length > 3) {
+        const idx = this.currentPage - startNum
+        if (idx === 0) {
+          // Keep leftmost 3 buttons visible
+          for (let i = 3; i < pages.length; i++) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+        } else if (idx === pages.length - 1) {
+          // Keep rightmost 3 buttons visible
+          for (let i = 0; i < pages.length - 3; i++) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+        } else {
+          // hide left button(s)
+          for (let i = 0; i < idx - 1; i++) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+          // hide right button(s)
+          for (let i = pages.length - 1; i > idx + 1; i--) {
+            pages[i].className = 'd-none d-sm-flex'
+          }
+        }
+      }
+      return pages
     },
     isActive (pagenum) {
       return pagenum === this.currentPage
@@ -290,6 +289,7 @@ export default {
   },
   render (h) {
     const buttons = []
+    const pageList = this.getPageList()
 
     // Factory function for prev/next/first/last buttons
     const makeEndBtns = (linkTo, ariaLabel, btnText, pageTest) => {
@@ -386,7 +386,7 @@ export default {
     buttons.push(this.showFirstDots ? makeEllipsis() : h(false))
 
     // Individual Page links
-    this.pageList.forEach(page => {
+    pageList.forEach(page => {
       let inner
       let pageNum = stripScripts(this.makePage(page.number))
       if (this.disabled) {
