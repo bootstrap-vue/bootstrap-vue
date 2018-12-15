@@ -58,7 +58,8 @@ module.exports = {
   },
 
   loading: {
-    color: '#59cc93'
+    color: '#59cc93',
+    height: '3px'
   },
 
   manifest: {

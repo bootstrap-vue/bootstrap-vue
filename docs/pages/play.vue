@@ -311,6 +311,7 @@ export default {
       if (needsTranspiler) {
         // Start the loading indicator
         this.loading = true
+        window && window.$nuxt && window.$nuxt.$loading.start()
         // Lazy load the babel transpiler
         import('../utils/compile-js').then((module) => {
           // Update compiler reference
@@ -319,6 +320,7 @@ export default {
           this.doSetup()
           // Stop the loading indicator
           this.loading = false
+          window && window.$nuxt && window.$nuxt.$loading.finish()
         })
       } else {
         this.doSetup()

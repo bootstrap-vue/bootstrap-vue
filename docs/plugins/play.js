@@ -146,15 +146,19 @@ const processExamples = (el, binding, vnode, oldVnode) => {
 
 // Register our v-play directive
 Vue.directive('play', (el, binding, vnode, oldVnode) => {
-  if (needsTranspiler) {
-    import('../utils/compile-js').then((module) => {
-      // Save the compiler reference for template parser
-      compiler = module.default
+  vnode.context.$nextTick(() => {
+    if (needsTranspiler) {
+      window && window.$nuxt && window.$nuxt.$loading.start()
+      import('../utils/compile-js').then((module) => {
+        // Save the compiler reference for template parser
+        compiler = module.default
+        // Convert examples to live/editable
+        processExamples(el, binding, vnode, oldVnode)
+        window && window.$nuxt && window.$nuxt.$loading.finish()
+      })
+    } else {
       // Convert examples to live/editable
       processExamples(el, binding, vnode, oldVnode)
-    })
-  } else {
-    // Convert examples to live/editable
-    processExamples(el, binding, vnode, oldVnode)
-  }
+    }
+  })
 })

@@ -1,9 +1,24 @@
 /*! Boostrap-Vue Docs Additional Styles */
 @import './fonts.css';
 
+.nuxt-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: #59cc93;
+  transition: width .2s,opacity .4s;
+  opacity: 1;
+  z-index: 999999;
+}
+
+
 * {
     -webkit-font-smoothing: antialiased;
 }
+
+
 
 .bd-toc-link, .bd-navbar .navbar-nav .nav-link.active {
   font-weight: normal;
@@ -43,10 +58,6 @@ blockquote {
 .bd-content > h5 {
   padding-top: 25px;
   padding-bottom: 15px;
-}
-
-#__nuxt > .progress {
-  z-index: 100 !important;
 }
 
 pre.editable:after {
