@@ -4,14 +4,11 @@
 Includes support for a handful of contextual variations, sizes, states, and more.
 
 ```html
-<div class="row">
-    <template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
-        <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']" :key="`${variant}_${size}`">
-            <b-button :size="size" :variant="variant">
-                {{variant}} {{size}}
-            </b-button>
-        </div>
-    </template>
+<div>
+  <b-button>Button</b-button>
+  <b-button variant="danger">Button</b-button>
+  <b-button variant="success">Button</b-button>
+  <b-button variant="outline-primary">Button</b-button>
 </div>
 
 <!-- button-1.vue -->
@@ -30,22 +27,48 @@ is required).
   <b-button href="#">I am a Link</b-button>
 </div>
 
-<!-- button-2.vue -->
+<!-- button-element.vue -->
 ```
 
 ## Button type
 
-When neither `href` nor `to` props are provided, `<b-button>` renders an html `<button>`
-element. You can specify the button's type by setting the prop `type` to `button`,
-`submit` or `reset`. The default type is `button`.
+You can specify the button's type by setting the prop `type` to `'button'`,
+`'submit'` or `'reset'`. The default type is `'button'`. 
+
+Note the `type` prop has no effect when either `href` or `to` props are set.
 
 
 ## Button sizing
 
 Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
 
+```html
+<b-row>
+  <b-col lg="4" class="pb-2">
+    <b-button size="sm">Small Button</b-button>
+  </b-col>
+  <b-col lg="4" class="pb-2">
+    <b-button>Default Button</b-button>
+  </b-col>
+  <b-col lg="4" class="pb-2">
+    <b-button size="lg">Large Button</b-button>
+  </b-col>
+</b-row>
+
+<!-- button-sizes.vue -->
+```
+
+### Block level buttons
 Create block level buttons — those that span the full width of a parent — by
 setting the `block` prop.
+
+```html
+<div>
+  <b-button block variant="primary">Block Level Button</b-button>
+</div>
+
+<!-- button-block.vue -->
+```
 
 ## Button contextual variants
 
@@ -55,20 +78,59 @@ By default `<b-button>` will render with the `secondary` variant.
 
 ### Solid color variants
 
-`primary`, `secondary`, `success`, `warning`, and `danger`.
+`primary`, `secondary`, `success`, `danger`, `warning`, `info`, `light` and `dark`.
+
+```html
+<div>
+  <b-button variant="primary">Primary</b-button>
+  <b-button variant="secondary">Secondary</b-button>
+  <b-button variant="success">Success</b-button>
+  <b-button variant="danger">Danger</b-button>
+  <b-button variant="warning">Warning</b-button>
+  <b-button variant="info">Info</b-button>
+  <b-button variant="light">Light</b-button>
+  <b-button variant="dark">Dark</b-button>
+</div>
+
+<!-- button-solid.vue -->
+```
 
 ### Outline color variants
 
 In need of a button, but not the hefty background colors they bring? Use the
 `outline-*` variants to remove all background images and colors on any `<b-button>`:
 
-`outline-primary`, `outline-secondary`, `outline-success`, `outline-warning`,
-and `outline-danger`.
+`outline-primary`, `outline-secondary`, `outline-success`, `outline-danger`, `outline-warning`,
+`outline-info`, `outline-light` and `outline-dark`.
+
+```html
+<div>
+  <b-button variant="outline-primary">Primary</b-button>
+  <b-button variant="outline-secondary">Secondary</b-button>
+  <b-button variant="outline-success">Success</b-button>
+  <b-button variant="outline-danger">Danger</b-button>
+  <b-button variant="outline-warning">Warning</b-button>
+  <b-button variant="outline-info">Info</b-button>
+  <b-button variant="outline-light">Light</b-button>
+  <b-button variant="outline-dark">Dark</b-button>
+</div>
+
+<!-- button-outline.vue -->
+```
 
 ### Link variant
 
 Variant `link` will render a button with the appearance of a link while maintaining the
 default padding and size of a button.
+
+```html
+<div>
+  <b-button variant="link">Link</b-button>
+</div>
+
+<!-- button-link.vue -->
+```
+
 
 ## Disabled state
 
@@ -77,14 +139,14 @@ works with buttons, rendered as `<a>` elements and `<router-link>`.
 
 ```html
 <div>
-  <b-button disabled variant="success">Disabled</b-button>
-  <b-button variant="success">Not Disabled</b-button>
+  <b-button disabled size="lg" variant="primary">Disabled</b-button>
+  <b-button disabled size="lg">Also Disabled</b-button>
 </div>
 
-<!-- button-3.vue -->
+<!-- button-disabled.vue -->
 ```
 
-## Pressed state and toggling
+## Button Pressed state and toggling
 
 Buttons will appear pressed (with a darker background, darker border, and inset shadow)
 when the prop `pressed` is set to `true`.
@@ -105,13 +167,16 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
     <b-button :pressed="true" variant="success">Always Pressed</b-button>
     <b-button :pressed="false" variant="success">Not Pressed</b-button>
 
-    <h5>Toggleable Button</h5>
+    <h5 class="mt-3">Toggleable Button</h5>
     <b-button :pressed.sync="myToggle" variant="primary">Toggle Me</b-button>
     <p>Pressed State: <strong>{{ myToggle }}</strong></p>
 
     <h5>In a button group</h5>
     <b-button-group size="sm">
-      <b-button v-for="btn in buttons" :pressed.sync="btn.state" :variant="btn.variant" :key="btn.variant">
+      <b-button v-for="(btn, idx) in buttons"
+                :key="idx"
+                :pressed.sync="btn.state"
+                variant="primary">
         {{ btn.caption }}
       </b-button>
     </b-button-group>
@@ -125,12 +190,10 @@ export default {
     return {
       myToggle: false,
       buttons: [
-        { variant: 'primary', caption: 'Toggle 1', state: true },
-        { variant: 'danger', caption: 'Toggle 2', state: false },
-        { variant: 'warning', caption: 'Toggle 3', state: true },
-        { variant: 'success', caption: 'No Toggle', state: null },
-        { variant: 'outline-success', caption: 'Toggle 5', state: false },
-        { variant: 'outline-primary', caption: 'Toggle 6', state: false }
+        { caption: 'Toggle 1', state: true },
+        { caption: 'Toggle 2', state: false },
+        { caption: 'Toggle 3', state: true },
+        { caption: 'Toggle 4', state: false }
       ]
     }
   },
@@ -142,7 +205,7 @@ export default {
 }
 </script>
 
-<!-- button-4.vue -->
+<!-- button-toggles.vue -->
 ```
 
 If using toggle button style for a radio or checkbox style interface, it is best to use the
@@ -163,7 +226,7 @@ Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap
 - [`<b-button-group>`](/docs/components/button-group)
 - [`<b-button-toolbar>`](/docs/components/button-toolbar)
 - [`<b-link>`](/docs/components/link)
-- [`Router Link Support`](/docs/reference/router-links)
-
+- [Router Link Support](/docs/reference/router-links)
+- [Color Variants](/docs/reference/color-variants)
 
 <!-- Component reference added automatically from component package.json -->
