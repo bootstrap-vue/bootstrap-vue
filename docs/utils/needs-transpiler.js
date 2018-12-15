@@ -14,7 +14,9 @@ const tests = [
   // Object rest spread
   'const test4a = { a: 1, b: 2}; const test4b = { c: 3, ...test4a }',
   // String interpolation
+  /* eslint-disable no-template-curly-in-string */
   'const test5a = "bar"; const test5b = `foo${test5a}`'
+  /* eslint-enable no-template-curly-in-string */
 ]
 
 // Run tests to see if transpilation is needed. Returns after first test that fails
