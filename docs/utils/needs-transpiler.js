@@ -2,16 +2,24 @@
 
 let needsTranspiler = false
 
-// Tests to see if we need to compile ES6 to ES5
-// If any test fails, then we need to transpile code with @babel/standalone
+// Tests to see if we need to compile ES6 to ES5.  Tests for commonly used ES6 features.
+// If any test fails, then we need to transpile code with @babel/standalone.
 const tests = [
+  // Arrow functions
   'const test1 = (a) => a',
+  // Object function shortcut
   'const test2 = { a: 1, b () { return 0 } }',
-  'const test3a = { a: 1, b: 2}; const test3b = { c: 3, ...test3a }'
+  // Object shortcut
+  'const test3a = { a: 1}; const test3b = { test3a, b: 2 }',
+  // Object rest spread
+  'const test4a = { a: 1, b: 2}; const test4b = { c: 3, ...test4a }',
+  // String interpolation
+  'const test5a = "bar"; const test5b = `foo${test5a}`'
 ]
 
-// Run tests to see if transpilation is needed
+// Run tests to see if transpilation is needed. Returns after first test that fails
 if (typeof window !== 'undefined') {
+  /* eslint-disable no-eval */
   for (let i = 0; i < tests.length && !needsTranspiler; i++) {
     try {
       eval(tests[i])
@@ -19,6 +27,7 @@ if (typeof window !== 'undefined') {
       needsTranspiler = true
     }
   }
+  /* eslint-enable no-eval */
 }
 
 export default needsTranspiler
