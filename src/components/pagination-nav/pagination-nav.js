@@ -1,4 +1,4 @@
-import { assign } from '../../utils/object'
+import warn from '../../utils/warn'
 import paginationMixin from '../../mixins/pagination'
 import { pickLinkProps } from '../link/link'
 
@@ -6,33 +6,40 @@ import { pickLinkProps } from '../link/link'
 const routerProps = pickLinkProps('activeClass', 'exactActiveClass', 'append', 'exact', 'replace', 'target', 'rel')
 
 // Props object
-const props = assign(
+const props = {
   // pagination-nav specific props
-  {
-    numberOfPages: {
-      type: Number,
-      default: 1
-    },
-    baseUrl: {
-      type: String,
-      default: '/'
-    },
-    useRouter: {
-      type: Boolean,
-      default: false
-    },
-    linkGen: {
-      type: Function,
-      default: null
-    },
-    pageGen: {
-      type: Function,
-      default: null
+  numberOfPages: {
+    type: [Number, String],
+    default: 1,
+    validator (value) {
+      const num = parseInt(value, 10)
+      if (isNaN(num) || num < 1) {
+        warn('b-pagination: prop "number-of-pages" must be a number greater than 0')
+        return false
+      }
+      return true
     }
   },
+  baseUrl: {
+    type: String,
+    default: '/'
+  },
+  useRouter: {
+    type: Boolean,
+    default: false
+  },
+  linkGen: {
+    type: Function,
+    default: null
+  },
+  pageGen: {
+    type: Function,
+    default: null
+  },
   // Router specific props
-  routerProps
-)
+  ...routerProps
+}
+
 // Our render function is brought in via the pagination mixin
 // @vue/component
 export default {
@@ -46,6 +53,7 @@ export default {
   },
   methods: {
     onClick (pageNum, evt) {
+      // Update the v-model
       this.currentPage = pageNum
     },
     makePage (pagenum) {
@@ -70,14 +78,15 @@ export default {
         disabled: this.disabled
       }
       if (this.useRouter || typeof link === 'object') {
-        props = assign(props, {
+        props = {
+          ...props,
           to: link,
           exact: this.exact,
           activeClass: this.activeClass,
           exactActiveClass: this.exactActiveClass,
           append: this.append,
           replace: this.replace
-        })
+        }
       }
       return props
     }
