@@ -37,6 +37,11 @@ export default {
       type: Boolean,
       default: false
     },
+    switch: {
+      // Custom switch styling
+      type: Boolean,
+      default: false
+    },
     checked: {
       // v-model
       type: [String, Number, Object, Array, Boolean],

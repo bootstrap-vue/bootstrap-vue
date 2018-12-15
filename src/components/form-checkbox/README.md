@@ -263,6 +263,77 @@ export default {
 ```
 
 
+## Switch style checkboxes
+Bootstrap V4.2 (unreleased) adds in support for _Switch Style_ checkboxes. Bootstrap-Vue has added
+this pre-release feature by conditionally including the required custom SCSS styles.
+
+Switch styling is supported on `<b-form-checkbox>` and `<b-form-checkbox-group>` components.
+
+**Note:** If the checkbox is in [button mode](#button-style-checkboxes), switch mode will have no effect.
+
+### Individual checkbox switch style
+A single checkbox can be rendered with a switch appearance by setting the prop `switch` to `true`
+
+```html
+<template>
+  <div>
+    <b-form-checkbox switch v-model="checked" name="check-button">
+      Switch Checkbox <b>(Checked: {{ checked }})</b>
+    </b-form-checkbox>
+   </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      checked: false
+    }
+  }
+}
+</script>
+
+<!-- form-checkbox-switch.vue -->
+```
+
+### Grouped switch style checkboxes
+Render groups of checkboxes with the look of a switches by setting the prop `switches` on `<b-form-checkbox-group>`.
+
+```html
+<template>
+  <div>
+    <b-form-group label="Inline switch style checkboxes">
+      <b-form-checkbox-group switches v-model="selected" name="switches1" :options="options">
+      </b-form-checkbox-group>
+    </b-form-group>
+
+    <b-form-group label="Stacked (vertical) switch style checkboxes">
+      <b-form-checkbox-group switches v-model="selected" stacked :options="options">
+      </b-form-checkbox-group>
+    </b-form-group>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      selected: [], // Must be an array reference!
+      options: [
+        {text: 'Red', value: 'red'},
+        {text: 'Green', value: 'green'},
+        {text: 'Yellow (disabled)', value: 'yellow', disabled: true},
+        {text: 'Blue', value: 'blue'}
+      ]
+    }
+  }
+}
+</script>
+
+<!-- form-checkboxs-switch-group.vue -->
+```
+
+
 ## Non custom check inputs (plain)
 You can have `<b-form-checkbox-group>` or `<b-form-checkbox>` render a browser native
 chechbox input by setting the `plain` prop.
@@ -335,7 +406,7 @@ prop (defaults to `false`). Clicking the checkbox will clear its indeterminate s
 The `indeterminate` prop can be synced to the checkbox's state by v-binding the
 `indeterminate` prop with the `.sync` modifier.
 
-**Note:** indeterminate is not supported in button mode, nor is it supported in
+**Note:** indeterminate styling is not supported in button or switch mode, nor is it supported in
 `<b-form-checkbox-group>` (multiple checkboxes).
 
 **Single Indeterminate checkbox:**

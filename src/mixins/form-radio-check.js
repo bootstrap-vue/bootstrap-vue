@@ -65,6 +65,10 @@ export default {
     is_Custom () {
       return this.is_BtnMode ? false : !this.bvGroup.plain
     },
+    is_Switch () {
+      // Custom switch styling (checkboxes only)
+      return (this.is_BtnMode || this.is_Radio || this.is_Plain) ? false : (this.is_Group ? this.bvGroup.switches : this.switch)
+    },
     is_Inline () {
       return this.bvGroup.inline
     },
@@ -213,7 +217,8 @@ export default {
             'form-check-inline': this.is_Plain && this.is_Inline,
             'custom-control': this.is_Custom,
             'custom-control-inline': this.is_Custom && this.is_Inline,
-            'custom-checkbox': this.is_Custom && this.is_Check,
+            'custom-checkbox': this.is_Custom && this.is_Check && !this.is_Switch,
+            'custom-switch': this.is_Switch,
             'custom-radio': this.is_Custom && this.is_Radio,
             // Temprary until BS V4 supports sizing
             [`form-control-${this.get_Size}`]: Boolean(this.get_Size && !this.is_BtnMode)

@@ -24,6 +24,11 @@ export default {
     }
   },
   props: {
+    switches: {
+      // Custom switch styling
+      type: Boolean,
+      default: false
+    },
     checked: {
       type: [String, Number, Object, Array, Boolean],
       default: null
