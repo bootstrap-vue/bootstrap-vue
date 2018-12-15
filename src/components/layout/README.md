@@ -5,6 +5,11 @@
 thanks to a twelve column system, five default responsive tiers, CSS Sass variables
 and mixins, and dozens of predefined classes.
 
+Boostrap-Vue provides several convenient _functional_ components tailored for layout, 
+which can simplify your complex page markup compared to traditional Bootstrap V4 markup.
+Feel free to switch back and forth between traditional Bootstrap V4
+markup (i.e. `<div>`s and classes) and Bootstrap-Vue functional layout components.
+
 ## How It Works
 
 Bootstrap’s grid system uses a series of containers, rows, and columns to lay out and align content. It’s built with flexbox and is fully responsive. Below is an example and an in-depth look at how the grid comes together.
