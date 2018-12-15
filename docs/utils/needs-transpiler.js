@@ -21,4 +21,4 @@ if (typeof window !== 'undefined') {
   }
 }
 
-export defailt needsTranspiler
+export default needsTranspiler
