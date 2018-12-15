@@ -49,10 +49,6 @@ blockquote {
   z-index: 100 !important;
 }
 
-.vue-example {
-  overflow-x: auto;
-}
-
 pre.editable:after {
   content: '(double click to edit)';
   position: absolute;
