@@ -4,14 +4,8 @@
 Includes support for a handful of contextual variations, sizes, states, and more.
 
 ```html
-<div class="row">
-    <template v-for="variant in ['primary','secondary','success','outline-success','warning','danger','link']">
-        <div class="col-md-4 pb-2" v-for="size in ['sm','','lg']" :key="`${variant}_${size}`">
-            <b-button :size="size" :variant="variant">
-                {{variant}} {{size}}
-            </b-button>
-        </div>
-    </template>
+<div>
+  <b-button>Button</b-button>
 </div>
 
 <!-- button-1.vue -->
@@ -30,7 +24,7 @@ is required).
   <b-button href="#">I am a Link</b-button>
 </div>
 
-<!-- button-2.vue -->
+<!-- button-element.vue -->
 ```
 
 ## Button type
@@ -44,8 +38,33 @@ element. You can specify the button's type by setting the prop `type` to `button
 
 Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
 
+```html
+<b-row>
+  <b-col md="4" class="pb-2">
+    <b-button size="sm">Small Size Button</b-button>
+  </b-col>
+  <b-col md="4" class="pb-2">
+    <b-button>Default Size Button</b-button>
+  </b-col>
+  <b-col md="4" class="pb-2">
+    <b-button size="lg">Large Size Button</b-button>
+  </b-col>
+</b-row>
+
+<!-- button-sizes.vue -->
+```
+
+### Block level buttons
 Create block level buttons — those that span the full width of a parent — by
 setting the `block` prop.
+
+```html
+<div>
+  <b-button block variant="prmary">Block Level Button</b-button>
+</div>
+
+<!-- button-block.vue -->
+```
 
 ## Button contextual variants
 
@@ -81,7 +100,7 @@ works with buttons, rendered as `<a>` elements and `<router-link>`.
   <b-button variant="success">Not Disabled</b-button>
 </div>
 
-<!-- button-3.vue -->
+<!-- button-disabled.vue -->
 ```
 
 ## Pressed state and toggling
@@ -142,7 +161,7 @@ export default {
 }
 </script>
 
-<!-- button-4.vue -->
+<!-- button-toggles.vue -->
 ```
 
 If using toggle button style for a radio or checkbox style interface, it is best to use the
