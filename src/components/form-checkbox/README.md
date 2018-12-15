@@ -264,7 +264,10 @@ export default {
 
 
 ## Switch style checkboxes
-You can optionally render checkboxes to appear as switches, either individually, or in a group.
+Bootstrap V4.2 (unreleased) adds in support for _Switch Style_ checkboxes. Bootstrap-Vue has added
+this pre-release feature by conditionally including the required custom SCSS styles.
+
+Switch styling is supported on idividual checkboxes and via `<b-formcheckbox-group>`.
 
 **Note:** If the checkbox is in [button mode](#button-style-checkboxes), switch mode will have no effect.
 
@@ -403,7 +406,7 @@ prop (defaults to `false`). Clicking the checkbox will clear its indeterminate s
 The `indeterminate` prop can be synced to the checkbox's state by v-binding the
 `indeterminate` prop with the `.sync` modifier.
 
-**Note:** indeterminate is not supported in button mode, nor is it supported in
+**Note:** indeterminate styling is not supported in button or switch mode, nor is it supported in
 `<b-form-checkbox-group>` (multiple checkboxes).
 
 **Single Indeterminate checkbox:**
