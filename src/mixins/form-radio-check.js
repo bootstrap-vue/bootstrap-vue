@@ -67,7 +67,7 @@ export default {
     },
     is_Switch () {
       // Custom switch styling (checkboxes only)
-      return (this.is_BtnMode || this.is_Radio) ? false : (this.is_Group ? this.bvGroup.switches : this.switch)
+      return (this.is_BtnMode || this.is_Radio || this.is_Plain) ? false : (this.is_Group ? this.bvGroup.switches : this.switch)
     },
     is_Inline () {
       return this.bvGroup.inline
