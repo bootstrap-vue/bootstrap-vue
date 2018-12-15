@@ -6,6 +6,9 @@ Includes support for a handful of contextual variations, sizes, states, and more
 ```html
 <div>
   <b-button>Button</b-button>
+  <b-button variant="danger">Button</b-button>
+  <b-button variant="success">Button</b-button>
+  <b-button variant="outline-primary">Button</b-button>
 </div>
 
 <!-- button-1.vue -->
@@ -41,14 +44,14 @@ Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
 
 ```html
 <b-row>
-  <b-col md="4" class="pb-2">
-    <b-button size="sm">Small Size Button</b-button>
+  <b-col lg="4" class="pb-2">
+    <b-button size="sm">Small Button</b-button>
   </b-col>
-  <b-col md="4" class="pb-2">
-    <b-button>Default Size Button</b-button>
+  <b-col lg="4" class="pb-2">
+    <b-button>Default Button</b-button>
   </b-col>
-  <b-col md="4" class="pb-2">
-    <b-button size="lg">Large Size Button</b-button>
+  <b-col lg="4" class="pb-2">
+    <b-button size="lg">Large Button</b-button>
   </b-col>
 </b-row>
 
@@ -61,7 +64,7 @@ setting the `block` prop.
 
 ```html
 <div>
-  <b-button block variant="prmary">Block Level Button</b-button>
+  <b-button block variant="primary">Block Level Button</b-button>
 </div>
 
 <!-- button-block.vue -->
@@ -164,14 +167,14 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
     <b-button :pressed="true" variant="success">Always Pressed</b-button>
     <b-button :pressed="false" variant="success">Not Pressed</b-button>
 
-    <h5 c;lass="mt-3">Toggleable Button</h5>
+    <h5 class="mt-3">Toggleable Button</h5>
     <b-button :pressed.sync="myToggle" variant="primary">Toggle Me</b-button>
     <p>Pressed State: <strong>{{ myToggle }}</strong></p>
 
     <h5>In a button group</h5>
     <b-button-group size="sm">
-      <b-button v-for="btn in buttons"
-                :key="btn.variant"
+      <b-button v-for="(btn, idx) in buttons"
+                :key="idx"
                 :pressed.sync="btn.state"
                 variant="primary">
         {{ btn.caption }}
