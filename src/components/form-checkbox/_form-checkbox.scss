@@ -1,5 +1,5 @@
 
-@if global-variable-exists(custom-switch-width) == false {
+@if variable-exists(custom-switch-width) == false {
   // Only include this SCSS if not already defined (i.e. not using V4.2 SCSS)
 
   // From Boostrap v4.2 SCSS _custom-forms.scss
