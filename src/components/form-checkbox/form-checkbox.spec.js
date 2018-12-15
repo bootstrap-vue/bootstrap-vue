@@ -539,6 +539,89 @@ describe('form-checkbox', async () => {
     expect(input.classes()).not.toContain('is-valid')
   })
 
+  /* switch styling - stand alone */
+
+  it('switch has structure <div><input/><label></label></div>', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        'switch': true,
+        checked: '',
+        value: 'a'
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.is('div')).toBe(true)
+    const children = wrapper.element.children
+    expect(children.length).toEqual(2)
+    expect(children[0].tagName).toEqual('INPUT')
+    expect(children[1].tagName).toEqual('LABEL')
+  })
+
+  it('switch has wrapper classes custom-control and custom-switch', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        'switch': true,
+        checked: '',
+        value: 'a'
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    expect(wrapper.classes().length).toEqual(2)
+    expect(wrapper.classes()).toContain('custom-control')
+    expect(wrapper.classes()).toContain('custom-switch')
+  })
+
+  it('switch has input type checkbox', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        'switch': true,
+        checked: '',
+        value: 'a'
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.attributes('type')).toBeDefined()
+    expect(input.attributes('type')).toEqual('checkbox')
+  })
+
+  it('switch has input class custom-control-input', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        'switch': true,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('input')
+    expect(input.classes().length).toEqual(1)
+    expect(input.classes()).toContain('custom-control-input')
+  })
+
+  it('switch has label class custom-control-label', async () => {
+    const wrapper = mount(Input, {
+      propsData: {
+        'switch': true,
+        checked: false
+      },
+      slots: {
+        default: 'foobar'
+      }
+    })
+    const input = wrapper.find('label')
+    expect(input.classes().length).toEqual(1)
+    expect(input.classes()).toContain('custom-control-label')
+  })
+
   /* button styling - stand-alone mode */
 
   it('stand-alone button has structure <div><label><input/></label></div>', async () => {
