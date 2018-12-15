@@ -13,24 +13,25 @@
           You can clone docs repo, to hack and develop components.
           changes will be reflected and hot-reloaded instantly.
         </p>
+      </div>
+      <div class="col-12">
         <div v-if="loading" class="alert alert-info show text-center">
           <strong>Loading JavaScript Compiler...</strong>
         </div>
-      </div>
-      <div class="col-12">
-        <form
-          class="d-inline-block ml-2 mr-0 p-0 float-right"
-          method="post"
-          action="https://jsfiddle.net/api/post/library/pure/"
-          target="_blank">
-          <input type="hidden" name="html" :value="fiddle_html">
-          <input type="hidden" name="js" :value="fiddle_js">
-          <input type="hidden" name="resources" :value="fiddle_dependencies">
-          <input type="hidden" name="css" value="body { padding: 1rem; }">
-          <input type="hidden" name="js_wrap" value="l">
-          <b-btn size="sm" type="submit" :disabled="!isOk">Export to JSFiddle</b-btn>
-        </form>
-        <b-btn @click="reset" size="sm" variant="danger" :disabled="isDefault">Reset to default</b-btn>
+        <div v-else class="clearfix">
+          <form class="d-inline-block ml-2 mr-0 p-0 float-right"
+                method="post"
+                action="https://jsfiddle.net/api/post/library/pure/"
+                target="_blank">
+            <input type="hidden" name="html" :value="fiddle_html">
+            <input type="hidden" name="js" :value="fiddle_js">
+            <input type="hidden" name="resources" :value="fiddle_dependencies">
+            <input type="hidden" name="css" value="body { padding: 1rem; }">
+            <input type="hidden" name="js_wrap" value="l">
+            <b-btn size="sm" type="submit" :disabled="!isOk">Export to JSFiddle</b-btn>
+          </form>
+          <b-btn @click="reset" size="sm" variant="danger" :disabled="isDefault">Reset to default</b-btn>
+        </div>
       </div>
     </div>
 
@@ -163,6 +164,7 @@
 <script>
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
+import needsTranspiler from '../utils/needs-transpiler'
 
 const defaultJS = `{
   data () {
@@ -188,7 +190,7 @@ const defaultJS = `{
 }`
 
 const defaultHTML = `<div>
-  <b-button @click="toggle">
+  <b-button @click="toggle" size="sm">
     {{ show ? 'Hide' : 'Show' }} Alert
   </b-button>
   <b-alert v-model="show"
@@ -301,30 +303,26 @@ export default {
     this.playVM = null
     this.contentUnWatch = null
     this.run = () => {}
+    // Default code "transpiler"
     this.compiler = (code) => code
   },
   mounted () {
     this.$nextTick(() => {
-      // Start the loading indicator
-      this.loading = true
-      this.$nuxt.$loading.start()
-      // Lazy load the babel transpiler
-      import('../utils/compile-js').then((module) => {
-        // Update compiler reference
-        this.compiler = module.default
-        // Create our debounced runner
-        this.run = debounce(this._run, 500)
-        // Set up our editor content watcher.
-        this.contentUnWatch = this.$watch(
-          () => this.js.trim() + '::' + this.html.trim(),
-          (newVal, oldVal) => { this.run() }
-        )
-        // Stop the loading indicator
-        this.$nuxt.$loading.finish()
-        this.loading = false
-        // load our content into the editors
-        this.$nextTick(this.load)
-      })
+      if (needsTranspiler) {
+        // Start the loading indicator
+        this.loading = true
+        // Lazy load the babel transpiler
+        import('../utils/compile-js').then((module) => {
+          // Update compiler reference
+          this.compiler = module.default
+          // Run the setup code
+          this.doSetup()
+          // Stop the loading indicator
+          this.loading = false
+        })
+      } else {
+        this.doSetup()
+      }
     })
   },
   beforeDestroy () {
@@ -336,6 +334,17 @@ export default {
     }
   },
   methods: {
+    doSetup () {
+      // Create our debounced runner
+      this.run = debounce(this._run, 500)
+      // Set up our editor content watcher.
+      this.contentUnWatch = this.$watch(
+        () => this.js.trim() + '::' + this.html.trim(),
+        (newVal, oldVal) => { this.run() }
+      )
+      // load our content into the editors
+      this.$nextTick(this.load)
+    },
     destroyVM () {
       let vm = this.playVM
       if (vm) {
