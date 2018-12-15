@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import debounce from 'lodash/debounce'
 import hljs from 'highlightjs'
+import needsTranspiler from '../utils/needs-transpiler'
 
 const NAME_REGEX = /<!-- (.*)\.vue -->/
 const NAME_DEFINITION_REGEX = /<!-- .*\.vue -->/
@@ -13,7 +14,7 @@ const CLASS_NAMES = {
   error: 'error',
 }
 
-// Temporary compiler code, until directive is loaded/applied
+// Default "transpiler" function
 let compiler = (code) => code
 
 const match = (regex, text) => (regex.exec(text) || [])[1]
@@ -79,68 +80,81 @@ const destroyVM = (name, vm) => {
   [...document.querySelectorAll(`.vue-example-${name}`)].forEach(removeNode)
 }
 
-Vue.directive('play', (el, binding, vnode, oldVnode) => {
-  import('../utils/compile-js').then((module) => {
-    // Save the compiler reference for template parser
-    compiler = module.default
-    
-    // Get all code-snippets
-    const pres = [...el.querySelectorAll('pre.hljs')]
+const processExamples = (el, binding, vnode, oldVnode) => {
+  if (vnode.context.$options['beforeDestroy']) {
+    vnode.context.$options['beforeDestroy'] = [].concat(vnode.context.$options['beforeDestroy']).filter(h => h)
+  } else {
+    vnode.context.$options['beforeDestroy'] = []
+  }
 
-    // Iterate over them and parse
-    pres.forEach(pre => {
-      // Store example name globally
-      const name = match(NAME_REGEX, pre.textContent)
+  // Get all code-snippets
+  const pres = [...el.querySelectorAll('pre.hljs')]
 
-      // Exit early when no name is given
-      if (!name) {
-        return
+  // Iterate over them and parse
+  pres.forEach(pre => {
+    // Store example name globally
+    const name = match(NAME_REGEX, pre.textContent)
+
+    // Exit early when no name is given
+    if (!name) {
+      return
+    }
+
+    // Remove name defintion
+    let text = pre.textContent.replace(NAME_DEFINITION_REGEX, '').trim()
+    pre.textContent = text
+
+    // Highlight again
+    hljs.highlightBlock(pre)
+
+    // Add editable class
+    pre.classList.add(CLASS_NAMES.editable)
+
+    // Initial load
+    let vm = createVM(name, pre, vnode)
+
+    // Ensure we destroy the VM when parent is destroued
+    vnode.context.$options['beforeDestroy'].push(() => destroyVM(name, vm))
+
+    // Enable live edit on double click
+    pre.ondblclick = async () => {
+      // Add live class
+      pre.classList.add(CLASS_NAMES.live)
+      // Make editable
+      pre.contentEditable = true
+
+      pre.onblur = () => {
+        // Rehighlight
+        hljs.highlightBlock(pre)
       }
 
-      // Remove name defintion
-      let text = pre.textContent.replace(NAME_DEFINITION_REGEX, '').trim()
-      pre.textContent = text
+      pre.onkeyup = debounce(() => {
+        // Recreate VM
+        destroyVM(name, vm)
+        vm = createVM(name, pre, vnode)
 
-      // Highlight again
-      hljs.highlightBlock(pre)
-
-      // Add editable class
-      pre.classList.add(CLASS_NAMES.editable)
-
-      // Initial load
-      let vm = createVM(name, pre, vnode)
-
-      if (!Array.isArray(vnode.context.$options['beforeDestroy'])) {
-        vnode.context.$options['beforeDestroy'] = []
-      }
-
-      vnode.context.$options['beforeDestroy'].push(() => destroyVM(name, vm))
-
-      // Enable live edit on double click
-      pre.ondblclick = async () => {
-        // Add live class
-        pre.classList.add(CLASS_NAMES.live)
-        // Make editable
-        pre.contentEditable = true
-
-        pre.onblur = () => {
-          // Rehighlight
-          hljs.highlightBlock(pre)
+        // Toggle error class
+        if (vm === null) {
+          pre.classList.add(CLASS_NAMES.error)
+        } else {
+          pre.classList.remove(CLASS_NAMES.error)
         }
-
-        pre.onkeyup = debounce(() => {
-          // Recreate VM
-          destroyVM(name, vm)
-          vm = createVM(name, pre, vnode)
-
-          // Toggle error class
-          if (vm === null) {
-            pre.classList.add(CLASS_NAMES.error)
-          } else {
-            pre.classList.remove(CLASS_NAMES.error)
-          }
-        }, 250)
-      }
-    })
+      }, 500)
+    }
   })
+}
+
+// Register our v-play directive
+Vue.directive('play', (el, binding, vnode, oldVnode) => {
+  if (needsTranspiler) {
+    import('../utils/compile-js').then((module) => {
+      // Save the compiler reference for template parser
+      compiler = module.default
+      // Convert examples to live/editable
+      processExamples(el, binding, vnode, oldVnode)
+    })
+  } else {
+    // Convert examples to live/editable
+    processExamples(el, binding, vnode, oldVnode)
+  }
 })
