@@ -24,7 +24,9 @@
 
     .custom-control-label {
       &::before {
-        left: -($custom-switch-width + $custom-control-gutter);
+        // V4.2 uses a different gutter size
+        // left: -($custom-switch-width + $custom-control-gutter);
+        left: -($custom-switch-width + $bv-custom-control-gutter);
         width: $custom-switch-width;
         pointer-events: all;
         border-radius: $custom-switch-indicator-border-radius;
@@ -32,7 +34,9 @@
 
       &::after {
         top: calc(#{(($font-size-base * $line-height-base - $custom-control-indicator-size) / 2)} + #{$custom-control-indicator-border-width * 2});
-        left: calc(#{-($custom-switch-width + $custom-control-gutter)} + #{$custom-control-indicator-border-width * 2});
+        // V4.2 uses a different gutter size
+        // left: calc(#{-($custom-switch-width + $custom-control-gutter)} + #{$custom-control-indicator-border-width * 2});
+        left: calc(#{-($custom-switch-width + $bv-custom-control-gutter)} + #{$custom-control-indicator-border-width * 2});
         width: $custom-switch-indicator-size;
         height: $custom-switch-indicator-size;
         background-color: $custom-control-indicator-border-color;
