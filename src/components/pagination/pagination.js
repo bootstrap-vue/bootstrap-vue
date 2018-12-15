@@ -4,12 +4,12 @@ import { isVisible } from '../../utils/dom'
 const DEFAULT_PER_PAGE = 20
 const DEFAULT_TOTAL_ROWS = 20
 
-function sanitizePerPage(value) {
+function sanitizePerPage (value) {
   const perPage = parseInt(value, 10) || DEFAULT_PER_PAGE
   return perPage < 1 ? 1 : perPage
 }
 
-function sanitizeTotalRows(value) {
+function sanitizeTotalRows (value) {
   const totalRows = parseInt(value, 10) || DEFAULT_TOTAL_ROWS
   return totalRows < 0 ? 0 : totalRows
 }
