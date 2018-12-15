@@ -29,9 +29,10 @@ is required).
 
 ## Button type
 
-When neither `href` nor `to` props are provided, `<b-button>` renders an html `<button>`
-element. You can specify the button's type by setting the prop `type` to `button`,
-`submit` or `reset`. The default type is `button`.
+You can specify the button's type by setting the prop `type` to `'button'`,
+`'submit'` or `'reset'`. The default type is `'button'`. 
+
+Note the `type` prop has no effect when either `href` or `to` props are set.
 
 
 ## Button sizing
@@ -74,20 +75,59 @@ By default `<b-button>` will render with the `secondary` variant.
 
 ### Solid color variants
 
-`primary`, `secondary`, `success`, `warning`, and `danger`.
+`primary`, `secondary`, `success`, `danger`, `warning`, `info`, `light` and `dark`.
+
+```html
+<div>
+  <b-button variant="primary">Primary</b-button>
+  <b-button variant="secondary">Secondary</b-button>
+  <b-button variant="success">Success</b-button>
+  <b-button variant="danger">Danger</b-button>
+  <b-button variant="warning">Warning</b-button>
+  <b-button variant="info">Info</b-button>
+  <b-button variant="light">Light</b-button>
+  <b-button variant="dark">Dark</b-button>
+</div>
+
+<!-- button-solid.vue -->
+```
 
 ### Outline color variants
 
 In need of a button, but not the hefty background colors they bring? Use the
 `outline-*` variants to remove all background images and colors on any `<b-button>`:
 
-`outline-primary`, `outline-secondary`, `outline-success`, `outline-warning`,
-and `outline-danger`.
+`outline-primary`, `outline-secondary`, `outline-success`, `outline-danger`, `outline-warning`,
+`outline-info`, `outline-light` and `outline-dark`.
+
+```html
+<div>
+  <b-button variant="outline-primary">Primary</b-button>
+  <b-button variant="outline-secondary">Secondary</b-button>
+  <b-button variant="outline-success">Success</b-button>
+  <b-button variant="outline-danger">Danger</b-button>
+  <b-button variant="outline-warning">Warning</b-button>
+  <b-button variant="outline-info">Info</b-button>
+  <b-button variant="outline-light">Light</b-button>
+  <b-button variant="outline-dark">Dark</b-button>
+</div>
+
+<!-- button-outline.vue -->
+```
 
 ### Link variant
 
 Variant `link` will render a button with the appearance of a link while maintaining the
 default padding and size of a button.
+
+```html
+<div>
+  <b-button variant="link">Link</b-button>
+</div>
+
+<!-- button-link.vue -->
+```
+
 
 ## Disabled state
 
@@ -96,14 +136,14 @@ works with buttons, rendered as `<a>` elements and `<router-link>`.
 
 ```html
 <div>
-  <b-button disabled variant="success">Disabled</b-button>
-  <b-button variant="success">Not Disabled</b-button>
+  <b-button disabled size="lg" variant="primary">Disabled</b-button>
+  <b-button disabled size="lg">Also Disabled</b-button>
 </div>
 
 <!-- button-disabled.vue -->
 ```
 
-## Pressed state and toggling
+## Button Pressed state and toggling
 
 Buttons will appear pressed (with a darker background, darker border, and inset shadow)
 when the prop `pressed` is set to `true`.
@@ -124,13 +164,16 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
     <b-button :pressed="true" variant="success">Always Pressed</b-button>
     <b-button :pressed="false" variant="success">Not Pressed</b-button>
 
-    <h5>Toggleable Button</h5>
+    <h5 c;lass="mt-3">Toggleable Button</h5>
     <b-button :pressed.sync="myToggle" variant="primary">Toggle Me</b-button>
     <p>Pressed State: <strong>{{ myToggle }}</strong></p>
 
     <h5>In a button group</h5>
     <b-button-group size="sm">
-      <b-button v-for="btn in buttons" :pressed.sync="btn.state" :variant="btn.variant" :key="btn.variant">
+      <b-button v-for="btn in buttons"
+                :key="btn.variant"
+                :pressed.sync="btn.state"
+                variant="primary">
         {{ btn.caption }}
       </b-button>
     </b-button-group>
@@ -144,12 +187,10 @@ export default {
     return {
       myToggle: false,
       buttons: [
-        { variant: 'primary', caption: 'Toggle 1', state: true },
-        { variant: 'danger', caption: 'Toggle 2', state: false },
-        { variant: 'warning', caption: 'Toggle 3', state: true },
-        { variant: 'success', caption: 'No Toggle', state: null },
-        { variant: 'outline-success', caption: 'Toggle 5', state: false },
-        { variant: 'outline-primary', caption: 'Toggle 6', state: false }
+        { caption: 'Toggle 1', state: true },
+        { caption: 'Toggle 2', state: false },
+        { caption: 'Toggle 3', state: true },
+        { caption: 'Toggle 4', state: false }
       ]
     }
   },
@@ -182,7 +223,7 @@ Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap
 - [`<b-button-group>`](/docs/components/button-group)
 - [`<b-button-toolbar>`](/docs/components/button-toolbar)
 - [`<b-link>`](/docs/components/link)
-- [`Router Link Support`](/docs/reference/router-links)
-
+- [Router Link Support](/docs/reference/router-links)
+- [Color Variants](/docs/reference/color-variants)
 
 <!-- Component reference added automatically from component package.json -->
