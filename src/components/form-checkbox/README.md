@@ -171,6 +171,74 @@ be placed in a [`<b-form-group>`](/docs/components/form-group) component to
 associate a label with the entire group of checkboxes. See examples above.
 
 
+## Switch style checkboxes
+You can optionally render checkboxes to appear as switches, either individually, or in a group.
+
+**Note:** If the checkbox is in [button mode](#button-style-checkboxes), switch mode will have no effect.
+
+### Individual checkbox switch style
+A single checkbox can be rendered with a switch appearance by setting the prop `switch` to `true`
+
+```html
+<template>
+  <div>
+    <b-form-checkbox switch v-model="checked" name="check-button">
+      Switch Checkbox <b>(Checked: {{ checked }})</b>
+    </b-form-checkbox>
+   </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      checked: false
+    }
+  }
+}
+</script>
+
+<!-- form-checkbox-switch.vue -->
+```
+
+### Grouped switch style checkboxes
+Render groups of checkboxes with the look of a switches by setting the prop `switches` on `<b-form-checkbox-group>`.
+
+```html
+<template>
+  <div>
+    <b-form-group label="Inline switch style checkboxes">
+      <b-form-checkbox-group switchess v-model="selected" name="switches1" :options="options">
+      </b-form-checkbox-group>
+    </b-form-group>
+
+    <b-form-group label="Stacked (vertical) switch style checkboxes">
+      <b-form-checkbox-group switches v-model="selected" stacked :options="options">
+      </b-form-checkbox-group>
+    </b-form-group>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      selected: [], // Must be an array reference!
+      options: [
+        {text: 'Orange', value: 'orange'},
+        {text: 'Apple', value: 'apple'},
+        {text: 'Pineapple', value: 'pineapple'},
+        {text: 'Grape', value: 'grape'}
+      ]
+    }
+  }
+}
+</script>
+
+<!-- form-checkboxs-switch-group.vue -->
+```
+
+
 ## Button style checkboxes
 You can optionally render checkboxes to appear as buttons, either individually, or in a group.
 
