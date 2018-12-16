@@ -7,6 +7,7 @@ import looseEqual from '../../utils/loose-equal'
 
 // @vue/component
 export default {
+  name: 'BFormRadio',
   mixins: [
     idMixin,
     formRadioCheckMixin, // includes shared render function
