@@ -1,7 +1,11 @@
 # Pagination Navigation
 
-> Quick first, previous, next, last, and page buttons for pagination based navigation, supporting
+> Quick first, previous, next, last, and page buttons for navigation based pagination, supporting
 regular links or router links.
+
+`<b-pagination-nav>` is used for navigating to new page URLs. For controlling in page component
+pagination (such as table or list pagination), use the [`<b-pagination>`](/docs/components/pagination)
+component instead.
 
 ```html
 <template>
@@ -86,7 +90,7 @@ buttons. You can override this behaviour by supplying a function reference to
 the `page-gen` property. The function reference should accept a single argument
 which is a page number (1-N). The `page-gen` function should return a string.
 
-Note HTML strings are currently not supported.
+**Note:** HTML content in generated page number strings is **not** supported.
 
 **Example: Using an array of links to generate pagination:**
 
@@ -131,6 +135,7 @@ export default {
 
 <!-- pagination-nav-links.vue -->
 ```
+
 ## Button Size
 Optionally change from the default button size by setting the `size`
 prop to eiter `'am` for smaller buttons or `'lg'` for larger buttons.
@@ -162,6 +167,7 @@ export default {
 <!-- pagination-size.vue -->
 ```
 
+
 ## Customizing
 
 `<b-pagination-nav>` supports several props that allow you to customize the appearance.
@@ -170,17 +176,26 @@ export default {
 | ---- | -----------
 | `limit` | Limit the maximum number of displayed page buttons (including ellipsis if present, and excluding first/prev/next/last buttons)
 | `number-of-pages` | The total number of pages
+| `hide-ellipsis` | never show ellipsis indicators
+| `hide-goto-end-buttons` | never display goto first/last buttons
+
+And provides several props for setting the content of the bookend buttons:
+
+| Prop | Description
+| ---- | -----------
 | `first-text` | The "goto first page" button text (plain html supported)
 | `prev-text` | The "goto previous page" button text (plain html supported)
 | `next-text` | The "goto next page" button text (plain html supported)
 | `last-text` | The "goto last page" button text (plain html supported)
 | `ellipsis-text` | the `...` indicator text (plain html supported)
-| `hide-ellipsis` | never show ellipsis indicators
-| `hide-goto-end-buttons` | never display goto first/last buttons
 
 Ellipsis indicator(s) will only be ever shown at the front and/or end of
 the page number buttons. For `limit` values less than or equal to `3`, the ellipsis
 indicator(s) will never be shown for practical display reasons.
+
+**Note:** HTML is supported via the bookend content props. If allowing user supplied content
+to populate these props, you should use named slots (see below) instead to avoid possible XSS attacks.
+
 
 ### Named slots
 
@@ -193,6 +208,7 @@ indicator(s) will never be shown for practical display reasons.
 | `next-text` | The "goto next page" button text (html/sub-components supported)
 | `last-text` | The "goto last page" button text (html/sub-components supported)
 | `ellipsis-text` | the `...` indicator text (html/sub-components supported)
+
 
 ## Alignment
 
@@ -274,7 +290,7 @@ list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (c
 ## See also
 
 For pagination control of a component (such as `<b-table>`), use the
-[`<b-pagination>`](./pagination) component instead.
+[`<b-pagination>`](/docs/components/pagination) component instead.
 
 
 <!-- Component reference added automatically from component package.json -->

@@ -1,14 +1,27 @@
 import paginationMixin from '../../mixins/pagination'
 import { isVisible } from '../../utils/dom'
 
+const DEFAULT_PER_PAGE = 20
+const DEFAULT_TOTAL_ROWS = 20
+
+function sanitizePerPage (value) {
+  const perPage = parseInt(value, 10) || DEFAULT_PER_PAGE
+  return perPage < 1 ? 1 : perPage
+}
+
+function sanitizeTotalRows (value) {
+  const totalRows = parseInt(value, 10) || DEFAULT_TOTAL_ROWS
+  return totalRows < 0 ? 0 : totalRows
+}
+
 const props = {
   perPage: {
-    type: Number,
-    default: 20
+    type: [Number, String],
+    default: DEFAULT_PER_PAGE
   },
   totalRows: {
-    type: Number,
-    default: 20
+    type: [Number, String],
+    default: DEFAULT_TOTAL_ROWS
   },
   ariaControls: {
     type: String,
@@ -23,7 +36,7 @@ export default {
   props,
   computed: {
     numberOfPages () {
-      const result = Math.ceil(this.totalRows / this.perPage)
+      const result = Math.ceil(sanitizeTotalRows(this.totalRows) / sanitizePerPage(this.perPage))
       return (result < 1) ? 1 : result
     }
   },
@@ -36,7 +49,10 @@ export default {
       } else if (num < 1) {
         num = 1
       }
+      // Update the v-model
       this.currentPage = num
+      // Emit event triggerd by user interaction
+      this.$emit('change', this.currentPage)
       this.$nextTick(() => {
         // Keep the current button focused if possible
         const target = evt.target
@@ -46,12 +62,12 @@ export default {
           this.focusCurrent()
         }
       })
-      this.$emit('change', this.currentPage)
     },
     makePage (pagenum) {
       return pagenum
     },
     linkProps (pagenum) {
+      // Always '#' for pagination component
       return { href: '#' }
     }
   }

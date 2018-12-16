@@ -6,7 +6,7 @@
 
         <br><br>
 
-        <b-pagination size="md" :total-rows="100" v-model="currentPage"  :limit="10" :per-page="10">
+        <b-pagination size="md" total-rows="100" v-model="currentPage"  limit="10" per-page="10">
         </b-pagination>
 
         <br><br>
@@ -40,6 +40,41 @@
         </b-pagination>
 
         <br><br>
+
+        <b-pagination :total-rows="100" v-model="currentPage" limit="-1" :per-page="10">
+        </b-pagination>
+
+        <br><br>
+
+        <b-pagination align="center" :total-rows="100" v-model="currentPage" :limit="4" :per-page="10">
+        </b-pagination>
+
+        <br><br>
+
+        <b-pagination align="right" hide-goto-end-buttons :total-rows="100" v-model="currentPage" :limit="4" :per-page="10">
+        </b-pagination>
+
+        <br><br>
+
+        <b-pagination align="end" hide-goto-end-buttons :total-rows="100" v-model="currentPage" :limit="4" :per-page="10">
+        </b-pagination>
+
+        <br><br>
         <div>currentPage: {{currentPage}}</div>
+        <br><br>
+
+        <b-pagination total-rows="100" v-model="currentPage2" limit="4" per-page="20">
+        </b-pagination>
+        <div>currentPage: {{currentPage2}}</div>
+
+        <br><br>
+
+        <b-pagination total-rows="100" value="10" limit="4" per-page="10">
+        </b-pagination>
+
+        <br><br>
+
+        <b-pagination total-rows="100" value="20" limit="4" per-page="10">
+        </b-pagination>
     </div>
 </div>
