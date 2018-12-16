@@ -2,6 +2,7 @@ import bProgressBar from './progress-bar'
 
 // @vue/component
 export default {
+  name: 'BProgress',
   components: { bProgressBar },
   props: {
     // These props can be inherited via the child b-progress-bar(s)
