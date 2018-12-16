@@ -177,6 +177,10 @@ export default {
       type: Boolean,
       default: false
     },
+    borderless: {
+      type: Boolean,
+      default: false
+    },
     outlined: {
       type: Boolean,
       default: false
@@ -378,6 +382,7 @@ export default {
         'table-hover': this.hover,
         'table-dark': this.dark,
         'table-bordered': this.bordered,
+        'table-borderless': this.borderless,
         'table-sm': this.small,
         'border': this.outlined,
         // The following are b-table custom styles
