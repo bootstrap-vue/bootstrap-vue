@@ -173,28 +173,26 @@ export default {
       // Should we show the first ellipsis
       const limit = this.limit
       const numPages = this.localNumPages
-      let show = false
-      if (!this.hideEllipsis && numPages > limit) {
-        if ((numPages - this.currentPage + 2) < limit && limit > ELLIPSIS_THRESHOLD) {
-          show = true
-        } else if (limit > ELLIPSIS_THRESHOLD) {
-          show = true
-        }
+      if (numPages <= limit || this.hideEllipsis) {
+        return false
+      } else if ((numPages - this.currentPage + 2) < limit && limit > ELLIPSIS_THRESHOLD) {
+        return true
+      } else if (limit > ELLIPSIS_THRESHOLD) {
+        return true
       }
-      return show
+      return false
     },
     showLastDots () {
       // Should we show the last ellipsis
       const limit = this.limit
-      let show = false
-      if (!this.hideEllipsis && this.localNumPages > limit) {
-        if (this.currentPage < (limit - 1) && limit > ELLIPSIS_THRESHOLD) {
-          show = true
-        } else if (limit > ELLIPSIS_THRESHOLD) {
-          show = true
-        }
+      if (this.loccalNumPages <= limit || this.hideEllipsis) {
+        return false
+      } else if (this.currentPage < (limit - 1) && limit > ELLIPSIS_THRESHOLD) {
+        return true
+      } else if (limit > ELLIPSIS_THRESHOLD) {
+        return true
       }
-      return show
+      return false
     },
     pageList () {
       // Generates the pageList array
