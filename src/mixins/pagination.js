@@ -476,7 +476,7 @@ export default {
           'span',
           {
             key: `page-${page.number}-link-disabled`,
-            staticClass:,
+            staticClass,
             attrs,
             domProps
           }
