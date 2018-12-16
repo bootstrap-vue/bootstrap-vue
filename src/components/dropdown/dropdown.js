@@ -4,6 +4,7 @@ import bButton from '../button/button'
 
 // @vue/component
 export default {
+  name: 'BDropdown',
   components: { bButton },
   mixins: [idMixin, dropdownMixin],
   props: {
