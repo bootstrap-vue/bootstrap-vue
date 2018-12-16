@@ -452,7 +452,7 @@ export default {
     // Individual Page links
     this.pageList.forEach(page => {
       let inner
-      const domProps = { innerHTML: stripScripts(this.makePage(page.number)) }
+      const pageText = this.makePage(page.number)
       const active = isActivePage(page.number)
       const staticClass = 'page-link'
       const attrs = {
@@ -472,9 +472,9 @@ export default {
           {
             key: `page-${page.number}-link-disabled`,
             staticClass,
-            attrs,
-            domProps
+            attrs
           }
+          pageText
         )
       } else {
         inner = h(
@@ -484,12 +484,12 @@ export default {
             props: this.linkProps(page.number),
             staticClass,
             attrs,
-            domProps,
             on: {
               click: evt => { this.onClick(page.number, evt) },
               keydown: onSpaceKey
             }
-          }
+          },
+          pageText
         )
       }
       buttons.push(
