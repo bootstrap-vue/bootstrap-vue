@@ -35,6 +35,7 @@ export const props = assign(
 
 // @vue/component
 export default {
+  name: 'BCard',
   functional: true,
   props,
   render (h, { props, data, slots }) {
