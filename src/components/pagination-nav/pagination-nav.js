@@ -65,7 +65,7 @@ export default {
             document.activeElement.blur()
           }
         } catch (e) {}
-      }
+      })
     },
     makePage (pagenum) {
       if (this.pageGen && typeof this.pageGen === 'function') {
