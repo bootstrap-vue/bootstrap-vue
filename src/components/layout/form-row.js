@@ -9,6 +9,7 @@ export const props = {
 
 // @vue/component
 export default {
+  name: 'BFormRow',
   functional: true,
   props,
   render (h, { props, data, children }) {
