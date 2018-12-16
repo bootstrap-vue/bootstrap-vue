@@ -7,6 +7,7 @@ import looseEqual from '../../utils/loose-equal'
 
 // @vue/component
 export default {
+  name: 'BFormFile',
   mixins: [idMixin, formMixin, formStateMixin, formCustomMixin],
   props: {
     value: {
