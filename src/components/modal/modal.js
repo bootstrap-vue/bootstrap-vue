@@ -81,6 +81,7 @@ function getModalNextZIndex () {
 
 // @vue/component
 export default {
+  name: 'BModal',
   components: { bBtn, bBtnClose },
   mixins: [idMixin, listenOnRootMixin],
   model: {
