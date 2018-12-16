@@ -241,17 +241,39 @@ by setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link` 
 
 See the [Variant Reference](/docs/reference/color-variants) for a list of supported contextual variants.
 
+```html
+<div>
+  <b-dropdown text="Primary" variant="primary" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+  <b-dropdown text="Success" variant="success" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+  <b-dropdown text="Outline Danger" variant="outline-danger" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-variants.vue -->
+```
+
 You can also apply abritrary classes to the toggle button via the `toggle-class` prop. This prop
 accepts either a string or array of strings.
 
 
 ## Split button support
-Create a split dropdown button, where the left button provides standard
-`click` event support, while the right hand side is the dropdown menu toggle button.
+Create a split dropdown button, where the left button provides standard `click` event
+and link support, while the right hand side is the dropdown menu toggle button.
 
 ```html
 <div>
-  <b-dropdown id="ddown-split" split text="Split Dropdown" class="m-2">
+  <b-dropdown split text="Split Dropdown" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here...</b-dropdown-item>
@@ -267,9 +289,8 @@ the split button its own variant via the `split-variant` prop.
 
 ```html
 <div>
-  <b-dropdown id="ddown-split-variant"
-              split
-              split-variant="info"
+  <b-dropdown split
+              split-variant="outline-primary"
               variant="primary"
               text="Split Variant Dropdown"
               class="m-2">
@@ -283,10 +304,21 @@ the split button its own variant via the `split-variant` prop.
 ```
 
 ### Split button Link support
-The left split button defaults to an element of type `<button>` (`<b-button>` to be exact).
+The left split button defaults to an element of type `<button>` (a `<b-button>` to be exact).
 To convert this button into a link or `<router-link>`, specify the href via the `split-href`
 prop or a router link `to` value via the `split-to` prop, while manitaining the look of a button.
 
+```html
+<div>
+  <b-dropdown split split-href="#foo/bar" text="Split Link" class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-split-link.vue -->
+```
 
 ## Sizing
 Dropdowns work with trigger buttons of all sizes, including default and split
@@ -296,23 +328,23 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 
 ```html
 <div>
-  <b-dropdown id="ddown-lg" size="lg" text="Large" class="m-2">
+  <b-dropdown size="lg" text="Large" class="m-2">
     <b-dropdown-item-button>Action</b-dropdown-item-button>
     <b-dropdown-item-button>Another action</b-dropdown-item-button>
     <b-dropdown-item-button>Something else here</b-dropdown-item-button>
   </b-dropdown>
-  <b-dropdown id="ddown-lg-split" size="lg" split text="Large Split" class="m-2">
+  <b-dropdown size="lg" split text="Large Split" class="m-2">
     <b-dropdown-item-button>Action</b-dropdown-item-button>
     <b-dropdown-item-button>Another action</b-dropdown-item-button>
     <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
   </b-dropdown>
   <br>
-  <b-dropdown id="ddown-sm" size="sm" text="Small" class="m-2">
+  <b-dropdown size="sm" text="Small" class="m-2">
     <b-dropdown-item-button>Action</b-dropdown-item-button>
     <b-dropdown-item-button>Another action</b-dropdown-item-button>
     <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
   </b-dropdown>
-  <b-dropdown id="ddown-sm-split" size="sm" split text="Small Split" class="m-2">
+  <b-dropdown size="sm" split text="Small Split" class="m-2">
     <b-dropdown-item-button>Action</b-dropdown-item-button>
     <b-dropdown-item-button>Another action</b-dropdown-item-button>
     <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
@@ -326,8 +358,8 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 
 
 ## Hidden Caret
-The dropdown can be created with the caret hidden by setting the `no-caret` prop to `true`.
-This is useful when the dropdown is to be displayed as an icon.
+The dropdown can be created with the toggle's caret visually hidden by setting the
+`no-caret` prop to `true`. This is useful when the dropdown is to be displayed as an icon.
 
 ```html
 <div>
@@ -344,9 +376,7 @@ This is useful when the dropdown is to be displayed as an icon.
 <!-- dropdown-hidden-caret.vue -->
 ```
 
-**Notes:**
-- The caret will always be shown when using `split` mode.
-- Hidden caret works by removing the `.dropdown-toggle` class from the dropdown trigger button. This may cause styling and/or functionality issues in certain situations where the `.dropdown-toggle` class is required. Your mileage may vary.
+**Note:** The caret will always be shown when using `split` mode.
 
 
 ## Accessibility
