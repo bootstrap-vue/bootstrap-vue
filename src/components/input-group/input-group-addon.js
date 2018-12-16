@@ -18,6 +18,7 @@ export const commonProps = {
 
 // @vue/component
 export default {
+  name: 'BInputGroupAddon',
   functional: true,
   props: {
     ...commonProps,
