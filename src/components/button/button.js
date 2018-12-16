@@ -136,6 +136,7 @@ function computeAttrs (props, data) {
 
 // @vue/component
 export default {
+  name: 'BButton',
   functional: true,
   props,
   render (h, { props, data, listeners, children }) {
