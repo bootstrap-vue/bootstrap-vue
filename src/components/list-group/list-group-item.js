@@ -33,6 +33,7 @@ export const props = assign(
 
 // @vue/component
 export default {
+  name: 'BListGroupItem',
   functional: true,
   props,
   render (h, { props, data, children }) {
