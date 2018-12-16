@@ -9,6 +9,7 @@ export const props = {
 
 // @vue/component
 export default {
+  name: 'BInputGroupText',
   functional: true,
   props,
   render (h, { props, data, children }) {
