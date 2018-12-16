@@ -38,7 +38,7 @@ export default {
       mergeData (
         data,
         {
-          attrs: { role: props.role }
+          attrs: { role: props.role },
           class: {
             [`spinner-${props.type}`]: Boolean(props.type),
             [`spinner-${props.type}-sm`]: props.small,
