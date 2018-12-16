@@ -4,6 +4,7 @@ import idMixin from '../../mixins/id'
 
 // @vue/component
 export default {
+  name: 'BCarouselSlide',
   components: { bImg },
   mixins: [ idMixin ],
   props: {
