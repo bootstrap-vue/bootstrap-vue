@@ -29,6 +29,7 @@ export const props = {
 
 // @vue/component
 export default {
+  name: 'BInputGroup',
   functional: true,
   props: props,
   render (h, { props, data, slots }) {
