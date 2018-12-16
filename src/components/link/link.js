@@ -173,6 +173,7 @@ function clickHandlerFactory ({ disabled, tag, href, suppliedHandler, parent }) 
 
 // @vue/component
 export default {
+  name: 'BLink',
   functional: true,
   props: propsFactory(),
   render (h, { props, data, parent, children }) {
