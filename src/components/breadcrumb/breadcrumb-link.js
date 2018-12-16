@@ -24,6 +24,7 @@ export const props = assign(linkPropsFactory(), {
 
 // @vue/component
 export default {
+  name: 'BBreadCrumbLink',
   functional: true,
   props,
   render (h, { props: suppliedProps, data, children }) {
