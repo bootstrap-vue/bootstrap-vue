@@ -319,6 +319,7 @@ fields: [
 | ---- | ---- | -----------
 | `striped` | Boolean | Add zebra-striping to the table rows within the `<tbody>`
 | `bordered` | Boolean | For borders on all sides of the table and cells.
+| `borderless` | Boolean | removes inner borders from table.
 | `outlined` | Boolean | For a thin border on all sides of the table. Has no effect if `bordered` is set.
 | `small` | Boolean | To make tables more compact by cutting cell padding in half.
 | `hover` | Boolean | To enable a hover highlighting state on table rows within a `<tbody>`
@@ -334,17 +335,20 @@ fields: [
 ```html
 <template>
   <div>
-    <b-form-checkbox inline v-model="striped">Striped</b-form-checkbox>
-    <b-form-checkbox inline v-model="bordered">Bordered</b-form-checkbox>
-    <b-form-checkbox inline v-model="outlined">Outlined</b-form-checkbox>
-    <b-form-checkbox inline v-model="small">Small</b-form-checkbox>
-    <b-form-checkbox inline v-model="hover">Hover</b-form-checkbox>
-    <b-form-checkbox inline v-model="dark">Dark</b-form-checkbox>
-    <b-form-checkbox inline v-model="fixed">Fixed</b-form-checkbox>
-    <b-form-checkbox inline v-model="footClone">Foot Clone</b-form-checkbox>
-
+    <b-form-group label="Table Options">
+      <b-form-checkbox inline v-model="striped">Striped</b-form-checkbox>
+      <b-form-checkbox inline v-model="bordered">Bordered</b-form-checkbox>
+      <b-form-checkbox inline v-model="borderless">Borderless</b-form-checkbox>
+      <b-form-checkbox inline v-model="outlined">Outlined</b-form-checkbox>
+      <b-form-checkbox inline v-model="small">Small</b-form-checkbox>
+      <b-form-checkbox inline v-model="hover">Hover</b-form-checkbox>
+      <b-form-checkbox inline v-model="dark">Dark</b-form-checkbox>
+      <b-form-checkbox inline v-model="fixed">Fixed</b-form-checkbox>
+      <b-form-checkbox inline v-model="footClone">Foot Clone</b-form-checkbox>
+    </b-form-group>
     <b-table :striped="striped"
              :bordered="bordered"
+             :borderless="borderless"
              :outlined="outlined"
              :small="small"
              :hover="hover"
@@ -369,6 +373,7 @@ export default {
       ],
       striped: false,
       bordered: false,
+      borderless: false,
       outlined: false,
       small: false,
       hover: false,
