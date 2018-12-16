@@ -7,18 +7,6 @@ export default {
   components: { bButton },
   mixins: [idMixin, dropdownMixin],
   props: {
-    split: {
-      type: Boolean,
-      default: false
-    },
-    splitHref: {
-      type: String
-      // default: undefined
-    },
-    splitTo: {
-      type: [String, Object]
-      // default: undefined
-    },
     toggleText: {
       type: String,
       default: 'Toggle Dropdown'
@@ -46,6 +34,22 @@ export default {
     noCaret: {
       type: Boolean,
       default: false
+    },
+    split: {
+      type: Boolean,
+      default: false
+    },
+    splitHref: {
+      type: String
+      // default: undefined
+    },
+    splitTo: {
+      type: [String, Object]
+      // default: undefined
+    },
+    splitVariant: {
+      type: String,
+      default: null
     },
     role: {
       type: String,
@@ -111,9 +115,10 @@ export default {
     if (this.split) {
       const btnProps = {
         disabled: this.disabled,
-        variant: this.variant,
+        variant: this.splitVariant || this.variant,
         size: this.size
       }
+      // We add these as needed due to router-link issues with defined property with undefined/null values
       if (this.splitTo) {
         btnProps.to = this.splitTo
       }
