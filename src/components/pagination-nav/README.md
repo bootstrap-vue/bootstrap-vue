@@ -194,7 +194,7 @@ the page number buttons. For `limit` values less than or equal to `3`, the ellip
 indicator(s) will never be shown for practical display reasons.
 
 **Note:** HTML is supported via the bookend content props. If allowing user supplied content
-to populate these props, you should use named slots (se below) instead to avoid possible XSS attacks.
+to populate these props, you should use named slots (see below) instead to avoid possible XSS attacks.
 
 
 ### Named slots
@@ -290,7 +290,7 @@ list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (c
 ## See also
 
 For pagination control of a component (such as `<b-table>`), use the
-[`<b-pagination>`](./pagination) component instead.
+[`<b-pagination>`](/docs/components/pagination) component instead.
 
 
 <!-- Component reference added automatically from component package.json -->
