@@ -4,6 +4,7 @@ const THROTTLE = 100
 
 // @vue/component
 export default {
+  name: 'BImgLazy',
   components: { bImg },
   props: {
     src: {
