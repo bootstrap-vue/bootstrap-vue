@@ -21,6 +21,7 @@ export const props = {
 
 // @vue/component
 export default {
+  name: 'BForm',
   functional: true,
   props,
   render (h, { props, data, children }) {
