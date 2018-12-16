@@ -4,6 +4,7 @@ import toolpopMixin from '../../mixins/toolpop'
 
 // @vue/component
 export default {
+  name: 'BPopover',
   mixins: [toolpopMixin],
   props: {
     title: {
