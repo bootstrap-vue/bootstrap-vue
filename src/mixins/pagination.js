@@ -169,68 +169,51 @@ export default {
       }
       return ''
     },
-    showFirstDots () {
-      // Should we show the first ellipsis
+    paginationParams () {
+      // Determine if we should show the the ellipsis
       const limit = this.limit
       const numPages = this.localNumPages
-      if (numPages <= limit || this.hideEllipsis) {
-        return false
-      } else if ((numPages - this.currentPage + 2) < limit && limit > ELLIPSIS_THRESHOLD) {
-        return true
-      } else if (limit > ELLIPSIS_THRESHOLD) {
-        return true
-      }
-      return false
-    },
-    showLastDots () {
-      // Should we show the last ellipsis
-      const limit = this.limit
-      if (this.loccalNumPages <= limit || this.hideEllipsis) {
-        return false
-      } else if (this.currentPage < (limit - 1) && limit > ELLIPSIS_THRESHOLD) {
-        return true
-      } else if (limit > ELLIPSIS_THRESHOLD) {
-        return true
-      }
-      return false
-    },
-    pageList () {
-      // Generates the pageList array
-      const currentPage = this.currentPage
-      const numberOfPages = this.localNumPages
+      const curPage = this.currentPage
       const hideEllipsis = this.hideEllipsis
-      const limit = this.localLimit
+      let showFirstDots = false
+      let showLastDots = false
       let numLinks = limit
       let startNum = 1
 
-      // Determine the starting page link number and number of links to generate
-      if (numberOfPages <= limit) {
+      if (numPages <= limit) {
         // Special Case: Less pages available than the limit of displayed pages
-        numLinks = numberOfPages
-      } else if (currentPage < (limit - 1) && limit > ELLIPSIS_THRESHOLD) {
+        numLinks = numPages
+      } else if (curPage < limit - 1 && limit > ELLIPSIS_THRESHOLD) {
         // We are near the beginning of the page list
         if (!hideEllipsis) {
+          showLastDots = true
           numLinks = limit - 1
         }
-      } else if ((numberOfPages - currentPage + 2) < limit && limit > ELLIPSIS_THRESHOLD) {
+      } else if ((numPages - curPage + 2) < limit && limit > ELLIPSIS_THRESHOLD) {
         // We are near the end of the list
         if (!hideEllipsis) {
           numLinks = limit - 1
+          showFirstDots = true
         }
-        startNum = numberOfPages - numLinks + 1
+        startNum = numPages - numLinks + 1
       } else {
         // We are somewhere in the middle of the page list
         if (limit > ELLIPSIS_THRESHOLD && !hideEllipsis) {
           numLinks = limit - 2
         }
-        startNum = currentPage - Math.floor(numLinks / 2)
+        startNum = curPage - Math.floor(numLinks / 2)
       }
       // Sanity checks
       if (startNum < 1) {
         startNum = 1
-      } else if (startNum > (numberOfPages - numLinks)) {
-        startNum = numberOfPages - numLinks + 1
+      } else if (startNum > (numPages - numLinks)) {
+        startNum = numPages - numLinks + 1
       }
+      return { showFirstDots, showLastDots, numLinks, startNum }
+    },
+    pageList () {
+      // Generates the pageList array
+      const { numLinks, startNum } = this.paginationParams
 
       // Generate list of page numbers
       const pages = makePageArray(startNum, numLinks)
@@ -239,7 +222,7 @@ export default {
       // Note: Ellipsis will also be hidden on XS screens
       // TODO: Make this visual limit configurable based on breakpoint(s)
       if (pages.length > 3) {
-        const idx = currentPage - startNum
+        const idx = this.currentPage - startNum
         if (idx === 0) {
           // Keep leftmost 3 buttons visible when current page is first page
           for (let i = 3; i < pages.length; i++) {
@@ -299,59 +282,73 @@ export default {
       return selectAll('a.page-link', this.$el).filter(btn => isVisible(btn))
     },
     setBtnFocus (btn) {
-      this.$nextTick(() => {
-        btn.focus()
-      })
+      btn.focus()
     },
     focusCurrent () {
-      const btn = this.getButtons().find(
-        el => parseInt(getAttr(el, 'aria-posinset'), 10) === this.currentPage
-      )
-      if (btn && btn.focus) {
-        this.setBtnFocus(btn)
-      } else {
-        // Fallback if current page is not in button list
-        this.focusFirst()
-      }
+      // We do this in next tick to ensure buttons have finished rendering
+      this.$nextTick(() => {
+        const btn = this.getButtons().find(
+          el => parseInt(getAttr(el, 'aria-posinset'), 10) === this.currentPage
+        )
+        if (btn && btn.focus) {
+          this.setBtnFocus(btn)
+        } else {
+          // Fallback if current page is not in button list
+          this.focusFirst()
+        }
+      })
     },
     focusFirst () {
-      const btn = this.getButtons().find(el => !isDisabled(el))
-      if (btn && btn.focus && btn !== document.activeElement) {
-        this.setBtnFocus(btn)
-      }
+      // We do this in next tick to ensure buttons have finished rendering
+      this.$nextTick(() => {
+        const btn = this.getButtons().find(el => !isDisabled(el))
+        if (btn && btn.focus && btn !== document.activeElement) {
+          this.setBtnFocus(btn)
+        }
+      })
     },
     focusLast () {
-      const btn = this.getButtons()
-        .reverse()
-        .find(el => !isDisabled(el))
-      if (btn && btn.focus && btn !== document.activeElement) {
-        this.setBtnFocus(btn)
-      }
+      // We do this in next tick to ensure buttons have finished rendering
+      this.$nextTick(() => {
+        const btn = this.getButtons()
+          .reverse()
+          .find(el => !isDisabled(el))
+        if (btn && btn.focus && btn !== document.activeElement) {
+          this.setBtnFocus(btn)
+        }
+      })
     },
     focusPrev () {
-      const buttons = this.getButtons()
-      const idx = buttons.indexOf(document.activeElement)
-      if (idx > 0 && !isDisabled(buttons[idx - 1]) && buttons[idx - 1].focus) {
-        this.setBtnFocus(buttons[idx - 1])
-      }
+      // We do this in next tick to ensure buttons have finished rendering
+      this.$nextTick(() => {
+        const buttons = this.getButtons()
+        const idx = buttons.indexOf(document.activeElement)
+        if (idx > 0 && !isDisabled(buttons[idx - 1]) && buttons[idx - 1].focus) {
+          this.setBtnFocus(buttons[idx - 1])
+        }
+      })
     },
     focusNext () {
-      const buttons = this.getButtons()
-      const idx = buttons.indexOf(document.activeElement)
-      const cnt = buttons.length - 1
-      if (
-        idx < cnt &&
-        !isDisabled(buttons[idx + 1]) &&
-        buttons[idx + 1].focus
-      ) {
-        this.setBtnFocus(buttons[idx + 1])
-      }
+      // We do this in next tick to ensure buttons have finished rendering
+      this.$nextTick(() => {
+        const buttons = this.getButtons()
+        const idx = buttons.indexOf(document.activeElement)
+        const cnt = buttons.length - 1
+        if (
+          idx < cnt &&
+          !isDisabled(buttons[idx + 1]) &&
+          buttons[idx + 1].focus
+        ) {
+          this.setBtnFocus(buttons[idx + 1])
+        }
+      })
     }
   },
   render (h) {
     const buttons = []
     const numberOfPages = this.localNumPages
     const disabled = this.disabled
+    const { showFirstDots, showLastDots } = this.paginationParams
 
     // Helper function
     const isActivePage = (pageNum) => pageNum === this.currentPage
@@ -422,7 +419,7 @@ export default {
       )
     }
 
-    // Goto First Page button
+    // Goto First Page button bookend
     buttons.push(
       this.hideGotoEndButtons
         ? h(false)
@@ -436,7 +433,7 @@ export default {
         )
     )
 
-    // Goto Previous page button
+    // Goto Previous page button bookend
     buttons.push(
       makeEndBtn(
         this.currentPage - 1,
@@ -449,7 +446,7 @@ export default {
     )
 
     // First Ellipsis Bookend
-    buttons.push(this.showFirstDots ? makeEllipsis(false) : h(false))
+    buttons.push(showFirstDots ? makeEllipsis(false) : h(false))
 
     // Individual Page links
     this.pageList.forEach(page => {
@@ -513,9 +510,9 @@ export default {
     })
 
     // Last Ellipsis Bookend
-    buttons.push(this.showLastDots ? makeEllipsis(true) : h(false))
+    buttons.push(showLastDots ? makeEllipsis(true) : h(false))
 
-    // Goto Next page button
+    // Goto Next page button bookend
     buttons.push(
       makeEndBtn(
         this.currentPage + 1,
@@ -527,7 +524,7 @@ export default {
       )
     )
 
-    // Goto Last Page button
+    // Goto Last Page button bookend
     buttons.push(
       this.hideGotoEndButtons
         ? h(false)
