@@ -2,9 +2,9 @@ import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import idMixin from '../../mixins/id'
 
-// Helper component
+// Private Helper component
 const bTabButtonHelper = {
-  name: 'bTabButtonHelper',
+  name: 'BTabButtonHelper',
   props: {
     content: { type: [String, Array], default: '' },
     href: { type: String, default: '#' },
@@ -17,6 +17,29 @@ const bTabButtonHelper = {
     linkClass: { default: null },
     itemClass: { default: null },
     noKeyNav: { type: Boolean, default: false }
+  },
+  methods: {
+    handleClick (evt) {
+      function stop () {
+        evt.preventDefault()
+        evt.stopPropagation()
+      }
+      if (evt.type !== 'click' && this.noKeyNav) {
+        return
+      }
+      if (this.disabled) {
+        stop()
+        return
+      }
+      if (
+        evt.type === 'click' ||
+        evt.keyCode === KeyCodes.ENTER ||
+        evt.keyCode === KeyCodes.SPACE
+      ) {
+        stop()
+        this.$emit('click', evt)
+      }
+    }
   },
   render (h) {
     const link = h('a', {
@@ -46,29 +69,6 @@ const bTabButtonHelper = {
       { class: ['nav-item', this.itemClass], attrs: { role: 'presentation' } },
       [link]
     )
-  },
-  methods: {
-    handleClick (evt) {
-      function stop () {
-        evt.preventDefault()
-        evt.stopPropagation()
-      }
-      if (evt.type !== 'click' && this.noKeyNav) {
-        return
-      }
-      if (this.disabled) {
-        stop()
-        return
-      }
-      if (
-        evt.type === 'click' ||
-        evt.keyCode === KeyCodes.ENTER ||
-        evt.keyCode === KeyCodes.SPACE
-      ) {
-        stop()
-        this.$emit('click', evt)
-      }
-    }
   }
 }
 
