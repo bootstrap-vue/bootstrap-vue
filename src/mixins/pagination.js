@@ -579,7 +579,7 @@ export default {
             'aria-hidden': disabled ? 'true' : 'false'
           }
         },
-        pagination
+        [pagination]
       )
     } else {
       return pagination
