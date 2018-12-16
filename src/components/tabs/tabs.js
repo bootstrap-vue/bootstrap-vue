@@ -74,6 +74,7 @@ const bTabButtonHelper = {
 
 // @vue/component
 export default {
+  name: 'BTabs',
   mixins: [idMixin],
   props: {
     tag: {
