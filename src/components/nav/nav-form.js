@@ -3,6 +3,7 @@ import { mergeData } from 'vue-functional-data-merge'
 
 // @vue/component
 export default {
+  name: 'BNavForm',
   functional: true,
   props: {
     id: {
