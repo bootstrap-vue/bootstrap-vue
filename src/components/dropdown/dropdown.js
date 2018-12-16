@@ -123,7 +123,7 @@ export default {
         btnProps.to = this.splitTo
       }
       if (this.splitHref) {
-        btnProps.to = this.splitHref
+        btnProps.href = this.splitHref
       }
       split = h(
         'b-button',
