@@ -289,8 +289,8 @@ export default {
       }
     }
   },
-  beforeCreate () {
-    // Set our default values in data, before any watchers are set up
+  created () {
+    // Set our default values in data
     this.localLimit = sanitizeLimit(this.limit)
     this.localNumPages = sanitizeNumPages(this.numberOfPages)
     this.currentPage = sanitizeCurPage(this.value, this.localNumPages)
