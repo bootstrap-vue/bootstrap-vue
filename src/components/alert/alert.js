@@ -2,6 +2,7 @@ import bButtonClose from '../button/button-close'
 
 // @vue/component
 export default {
+  name: 'BAlert',
   components: { bButtonClose },
   model: {
     prop: 'show',
