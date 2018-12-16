@@ -178,6 +178,7 @@ function renderLabel (h, ctx) {
 // bFormGroup
 // @vue/component
 export default {
+  name: 'BFormGroup',
   components: {
     bFormRow,
     bCol,
