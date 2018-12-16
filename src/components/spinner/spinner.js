@@ -35,18 +35,15 @@ export default {
   render (h, { props, data, slots }) {
     return h(
       props.tag,
-      mergeData (
-        data,
-        {
-          attrs: { role: props.role },
-          class: {
-            [`spinner-${props.type}`]: Boolean(props.type),
-            [`spinner-${props.type}-sm`]: props.small,
-            [`text-${props.variant}`]: Boolean(props.variant)
-          }
-        },
-        [h('span', { staticClass: 'sr-only' }, slots().label || props.label)]
-      )
+      mergeData(data, {
+        attrs: { role: props.role },
+        class: {
+          [`spinner-${props.type}`]: Boolean(props.type),
+          [`spinner-${props.type}-sm`]: props.small,
+          [`text-${props.variant}`]: Boolean(props.variant)
+        }
+      }),
+      [h('span', { staticClass: 'sr-only' }, slots().label || props.label)]
     )
   }
 }
