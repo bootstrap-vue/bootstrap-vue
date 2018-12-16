@@ -29,6 +29,7 @@ const TYPES = [
 
 // @vue/component
 export default {
+  name: 'BFormInput',
   mixins: [
     idMixin,
     formMixin,
