@@ -23,25 +23,25 @@ function makePageArray (startNum, numPages) {
 }
 
 // Sanitize the provided Limit value (converting to a number)
-function sanitizeLimit(value) {
+function sanitizeLimit (value) {
   const limit = parseInt(value, 10) || 1
   return limit < 1 ? DEFAULT_LIMIT : limit
 }
 
 // Sanitize the provided numberOfPages value (converting to a number)
-function sanitizeNumPages(value) {
+function sanitizeNumPages (value) {
   let num = parseInt(value, 10) || 1
   return num < 1 ? 1 : num
 }
 
 // Sanitize the provided current page number (converting to a number)
-function sanitizeCurPage(value, numPages) {
+function sanitizeCurPage (value, numPages) {
   let page = parseInt(value, 10) || 1
   return page > numPages ? numPages : (page < 1 ? 1 : page)
 }
 
 // Links don't normally respond to SPACE, so we add that functionality via this handler
-function onSpaceKey(evt) {
+function onSpaceKey (evt) {
   if (evt.keyCode === KeyCodes.SPACE) {
     evt.preventDefault() // Stop page from scrolling
     evt.stopImmediatePropagation()
@@ -354,7 +354,6 @@ export default {
     const buttons = []
     const numberOfPages = this.localNumPages
     const disabled = this.disabled
-    const pages = this.pageData
 
     // Helper function
     const isActivePage = (pageNum) => pageNum === this.currentPage
@@ -461,7 +460,7 @@ export default {
       const active = isActivePage(page.number)
       const staticClass = 'page-link'
       const attrs = {
-         role: 'menuitemradio',
+        role: 'menuitemradio',
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': this.ariaControls || null,
         'aria-label': `${this.labelPage} ${page.number}`,
