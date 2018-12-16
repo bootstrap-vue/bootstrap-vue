@@ -9,6 +9,7 @@ import bFormRadio from './form-radio'
 
 // @vue/component
 export default {
+  name: 'BFormRadioGroup',
   components: { bFormRadio },
   mixins: [
     idMixin,
