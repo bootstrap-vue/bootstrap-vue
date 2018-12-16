@@ -3,6 +3,7 @@ import InputGroupAddon, { commonProps } from './input-group-addon'
 
 // @vue/component
 export default {
+  name: 'BInputGroupAppend',
   functional: true,
   props: commonProps,
   render (h, { props, data, children }) {
