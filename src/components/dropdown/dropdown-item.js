@@ -5,6 +5,7 @@ export const props = linkPropsFactory()
 
 // @vue/component
 export default {
+  name: 'BDropdownItem',
   functional: true,
   props,
   render (h, { props, data, children }) {
