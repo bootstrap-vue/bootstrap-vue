@@ -1,6 +1,5 @@
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
-import stripScripts from '../../utils/strip-scripts'
 import bButton from '../button/button'
 
 // @vue/component
@@ -8,10 +7,6 @@ export default {
   components: { bButton },
   mixins: [idMixin, dropdownMixin],
   props: {
-    split: {
-      type: Boolean,
-      default: false
-    },
     toggleText: {
       type: String,
       default: 'Toggle Dropdown'
@@ -39,6 +34,22 @@ export default {
     noCaret: {
       type: Boolean,
       default: false
+    },
+    split: {
+      type: Boolean,
+      default: false
+    },
+    splitHref: {
+      type: String
+      // default: undefined
+    },
+    splitTo: {
+      type: [String, Object]
+      // default: undefined
+    },
+    splitVariant: {
+      type: String,
+      default: null
     },
     role: {
       type: String,
@@ -102,15 +113,23 @@ export default {
   render (h) {
     let split = h(false)
     if (this.split) {
+      const btnProps = {
+        disabled: this.disabled,
+        variant: this.splitVariant || this.variant,
+        size: this.size
+      }
+      // We add these as needed due to router-link issues with defined property with undefined/null values
+      if (this.splitTo) {
+        btnProps.to = this.splitTo
+      }
+      if (this.splitHref) {
+        btnProps.href = this.splitHref
+      }
       split = h(
         'b-button',
         {
           ref: 'button',
-          props: {
-            disabled: this.disabled,
-            variant: this.variant,
-            size: this.size
-          },
+          props: btnProps,
           attrs: {
             id: this.safeId('_BV_button_')
           },
@@ -118,7 +137,7 @@ export default {
             click: this.click
           }
         },
-        [this.$slots['button-content'] || this.$slots.text || stripScripts(this.text)]
+        [this.$slots['button-content'] || this.$slots.text || this.text]
       )
     }
     const toggle = h(
@@ -145,7 +164,7 @@ export default {
       [
         this.split
           ? h('span', { class: ['sr-only'] }, [this.toggleText])
-          : this.$slots['button-content'] || this.$slots.text || stripScripts(this.text)
+          : this.$slots['button-content'] || this.$slots.text || this.text
       ]
     )
     const menu = h(
