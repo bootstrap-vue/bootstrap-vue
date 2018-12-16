@@ -90,7 +90,7 @@ buttons. You can override this behaviour by supplying a function reference to
 the `page-gen` property. The function reference should accept a single argument
 which is a page number (1-N). The `page-gen` function should return a string.
 
-Note HTML strings are currently not supported.
+**Note:** HTML content in generated page number strings is **not** supported.
 
 **Example: Using an array of links to generate pagination:**
 
