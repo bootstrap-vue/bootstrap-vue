@@ -51,6 +51,7 @@ export const props = {
 
 // @vue/component
 export default {
+  name: 'BJumbotron',
   functional: true,
   props,
   render (h, { props, data, slots }) {
