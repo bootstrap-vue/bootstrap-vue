@@ -41,5 +41,10 @@
 
         <br><br>
         <div>currentPage: {{currentPage}}</div>
+        <br><br>
+
+        <b-pagination hide-goto-end-buttons :total-rows="100" v-model="currentPage" limit="-1" :per-page="10">
+        </b-pagination>
+
     </div>
 </div>
