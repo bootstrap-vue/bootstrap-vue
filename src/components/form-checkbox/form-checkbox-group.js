@@ -9,6 +9,7 @@ import bFormCheckbox from './form-checkbox'
 
 // @vue/component
 export default {
+  name: 'BFormCheckboxGroup',
   components: { bFormCheckbox },
   mixins: [
     idMixin,
