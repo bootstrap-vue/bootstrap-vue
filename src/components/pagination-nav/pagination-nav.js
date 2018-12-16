@@ -1,5 +1,4 @@
 import warn from '../../utils/warn'
-import { contains } from '../../utils/dom'
 import paginationMixin from '../../mixins/pagination'
 import { pickLinkProps } from '../link/link'
 
