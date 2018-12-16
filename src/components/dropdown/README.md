@@ -234,6 +234,17 @@ menu to "break-out" of its scroll container. In some situations this may affect 
 positioning of the dropdown trigger button. In these cases you may need to wrap your
 dropdown inside another element.
 
+
+## Dropdown color variants
+The dropdown trigger buttons can have one of the standard Bootstrap contextual variants applied
+by setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link` etc.
+
+See the [Variant Reference](/docs/reference/color-variants) for a list of supported contextual variants.
+
+You can also apply abritrary classes to the toggle button via the `toggle-class` prop. This prop
+accepts either a string or array of strings.
+
+
 ## Split button support
 Create a split dropdown button, where the left button provides standard
 `click` event support, while the right hand side is the dropdown menu toggle button.
@@ -249,6 +260,33 @@ Create a split dropdown button, where the left button provides standard
 
 <!-- dropdown-split.vue -->
 ```
+
+### Split button variant
+By default the left split button uses the same `variant` as teh `toggle` button.  You can give
+the split button its own variant via the `split-variant` prop.
+
+```html
+<div>
+  <b-dropdown id="ddown-split-variant"
+              split
+              split-variant="info"
+              variant="primary"
+              text="Split Variant Dropdown"
+              class="m-2">
+    <b-dropdown-item href="#">Action</b-dropdown-item>
+    <b-dropdown-item href="#">Another action</b-dropdown-item>
+    <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-split-variant.vue -->
+```
+
+### Split button Link support
+The left split button defaults to an element of type `<button>` (`<b-button>` to be exact).
+To convert this button into a link or `<router-link>`, specify the href via the `split-href`
+prop or a router link `to` value via the `split-to` prop, while manitaining the look of a button.
+
 
 ## Sizing
 Dropdowns work with trigger buttons of all sizes, including default and split
@@ -286,14 +324,6 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 
 **Note:** _changing the size of the button(s) does not affect the size of the menu items!_
 
-
-## Dropdown color variants
-The dropdown trigger buttons can have one of the standard Bootstrap contextual variants applied
-by setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link` etc.
-
-See the [Variant Reference](/docs/reference/color-variants) for a list of supported contextual variants.
-
-You can also apply abritrary classes to the toggle button via the `toggle-class` prop. This prop accepts either a string or array of strings.
 
 ## Hidden Caret
 The dropdown can be created with the caret hidden by setting the `no-caret` prop to `true`.
