@@ -200,6 +200,7 @@ export default {
         // We are somewhere in the middle of the page list
         if (limit > ELLIPSIS_THRESHOLD && !hideEllipsis) {
           numLinks = limit - 2
+          showFirstDots = showLastDots = true
         }
         startNum = curPage - Math.floor(numLinks / 2)
       }
