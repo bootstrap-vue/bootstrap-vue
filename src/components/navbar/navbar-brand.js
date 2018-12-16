@@ -16,6 +16,7 @@ export const props = assign(linkProps, {
 
 // @vue/component
 export default {
+  name: 'BNavbarBrand',
   functional: true,
   props,
   render (h, { props, data, children }) {
