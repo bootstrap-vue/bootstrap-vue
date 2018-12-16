@@ -39,6 +39,7 @@ export const props = assign(
 
 // @vue/component
 export default {
+  name: 'BCardBody',
   functional: true,
   props,
   render (h, { props, data, children }) {
