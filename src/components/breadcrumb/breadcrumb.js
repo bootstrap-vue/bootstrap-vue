@@ -12,6 +12,7 @@ export const props = {
 
 // @vue/component
 export default {
+  name: 'BBreadcrumb',
   functional: true,
   props,
   render (h, { props, data, children }) {
