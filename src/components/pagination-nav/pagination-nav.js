@@ -59,11 +59,10 @@ export default {
       this.currentPage = pageNum
       this.$nextTick(() => {
         try {
-          // Emulate native link click page reloading behaviour by bluring the paginator
-          // Returing focus to the document
-          if (contains(this.$el, document.activeElement)) {
-            document.activeElement.blur()
-          }
+          // Emulate native link click page reloading behaviour by bluring the
+          // paginator and returing focus to the document
+          const target = evt.currentTarget || evt.target
+          target.blur()
         } catch (e) {}
       })
     },
