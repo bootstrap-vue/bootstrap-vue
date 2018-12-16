@@ -1,4 +1,5 @@
 import warn from '../../utils/warn'
+import { contains } from '../../utils/dom'
 import paginationMixin from '../../mixins/pagination'
 import { pickLinkProps } from '../link/link'
 
@@ -56,6 +57,15 @@ export default {
     onClick (pageNum, evt) {
       // Update the v-model
       this.currentPage = pageNum
+      this.$nextTick(() => {
+        try {
+          // Emulate native link click page reloading behaviour by bluring the paginator
+          // Returing focus to the document
+          if (contains(this.$el, document.activeElement)) {
+            document.activeElement.blur()
+          }
+        } catch (e) {}
+      }
     },
     makePage (pagenum) {
       if (this.pageGen && typeof this.pageGen === 'function') {
