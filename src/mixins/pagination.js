@@ -473,7 +473,7 @@ export default {
             key: `page-${page.number}-link-disabled`,
             staticClass,
             attrs
-          }
+          },
           pageText
         )
       } else {
