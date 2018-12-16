@@ -9,6 +9,7 @@ import { getCS, isVisible } from '../../utils/dom'
 
 // @vue/component
 export default {
+  name: 'BFormTextarea',
   mixins: [
     idMixin,
     formMixin,
