@@ -236,10 +236,11 @@ dropdown inside another element.
 
 
 ## Dropdown color variants
-The dropdown trigger buttons can have one of the standard Bootstrap contextual variants applied
-by setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link` etc.
+The dropdown toggle button can have one of the standard Bootstrap contextual variants applied
+by setting the prop `variant` to `success`, `primary`, `info`, `danger`, `link`, `outline-dark`,
+etc. (or custom variants, if defined). The default variant is `secondary`.
 
-See the [Variant Reference](/docs/reference/color-variants) for a list of supported contextual variants.
+See the [Variant Reference](/docs/reference/color-variants) for a full list of built-in contextual variants.
 
 ```html
 <div>
@@ -283,7 +284,7 @@ and link support, while the right hand side is the dropdown menu toggle button.
 <!-- dropdown-split.vue -->
 ```
 
-### Split button variant
+### Split button color variant
 By default the left split button uses the same `variant` as teh `toggle` button.  You can give
 the split button its own variant via the `split-variant` prop.
 
@@ -303,7 +304,7 @@ the split button its own variant via the `split-variant` prop.
 <!-- dropdown-split-variant.vue -->
 ```
 
-### Split button Link support
+### Split button link support
 The left split button defaults to an element of type `<button>` (a `<b-button>` to be exact).
 To convert this button into a link or `<router-link>`, specify the href via the `split-href`
 prop or a router link `to` value via the `split-to` prop, while manitaining the look of a button.
