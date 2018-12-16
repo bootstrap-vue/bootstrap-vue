@@ -117,7 +117,7 @@
     "markdown-loader": "^4.0.0",
     "marked": "^0.5.2",
     "node-sass": "^4.11.0",
-    "nuxt-edge": "^2.4.0-25747721.7831e579",
+    "nuxt-edge": "^2.4.0-25749246.669fecc6",
     "postcss-cli": "^6.0.1",
     "rollup": "^0.67.4",
     "rollup-plugin-babel": "^4.1.0",
