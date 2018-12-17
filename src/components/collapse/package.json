@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "meta": {
         "title": "Collapse",
-        "component": "bCollapse",
+        "component": "BCollapse",
         "directives": [
             "vBToggle"
         ],
