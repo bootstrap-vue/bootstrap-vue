@@ -2,10 +2,10 @@
   "name": "@bootstrap-vue/button-toolbar",
   "version": "1.0.0",
   "meta": {
-    "title": "Button toolbar",
-    "component": "bButtonToolbar",
+    "title": "Button Toolbar",
+    "component": "BButtonToolbar",
     "aliases": [
-      "bBtnToolbar"
+      "BBtnToolbar"
     ]
   }
 }
