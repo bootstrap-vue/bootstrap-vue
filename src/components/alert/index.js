@@ -1,8 +1,8 @@
-import bAlert from './alert'
+import BAlert from './alert'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bAlert
+  BAlert
 }
 
 const VuePlugin = {
