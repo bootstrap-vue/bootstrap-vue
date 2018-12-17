@@ -134,7 +134,7 @@ Using flex utility classes:
   </div>
   <div class="d-flex align-items-center">
     <strong>Loading...</strong>
-    <b-spinner class="ml-auto" label="" aria-hidden="true"></b-spinner>
+    <b-spinner class="ml-auto" aria-hidden="true"></b-spinner>
   </div>
 </div>
 
