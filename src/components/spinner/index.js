@@ -1,8 +1,8 @@
-import BSpinner from './spinner'
+import bSpinner from './spinner'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  BSpinner
+  bSpinner
 }
 
 const VuePlugin = {
