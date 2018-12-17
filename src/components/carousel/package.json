@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Carousel",
-    "component": "bCarousel",
+    "component": "BCarousel",
     "events": [
       {
         "event": "sliding-start",
@@ -22,7 +22,7 @@
     ],
     "components": [
       {
-        "component": "bCarouselSlide",
+        "component": "BCarouselSlide",
         "slots": [
           { "name": "img", "description": "Slot for img element or image component" }
         ]
