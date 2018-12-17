@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Spinner",
-    "slig": "spinner",
-    "component": "bSpinner",
+    "slug": "spinner",
+    "component": "BSpinner",
     "slots": [
       {
         "name": "label",
