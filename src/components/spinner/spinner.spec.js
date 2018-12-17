@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 describe('spinner', async () => {
   it('default has structure <div><span></span></div>', async () => {
     const spinner = mount(Spinner)
-    expect(spinner).toBeDefained()
+    expect(spinner).toBeDefined()
     expect(spinner.is('div')).toBe(true)
     expect(spinner.find('span').exists()).toBe(true)
   })
@@ -123,7 +123,7 @@ describe('spinner', async () => {
         class: ['foo', 'bar']
       }
     })
-    expect(spinner.classes()).toContain('spinner-broder')
+    expect(spinner.classes()).toContain('spinner-border')
     expect(spinner.classes()).toContain('foo')
     expect(spinner.classes()).toContain('bar')
   })
