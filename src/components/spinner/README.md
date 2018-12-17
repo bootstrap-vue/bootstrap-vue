@@ -1,26 +1,27 @@
 # Spinners
 
-> The `<b-spinner>` component can be used to show the loading state in your projects. They're rendered only with
-basical HTML and CSS as a Vue functional component. Their appearance, alignment, and sizing can be easily customized
-with a few props and Bootstrap V4 utility classes.
+> The `<b-spinner>` component can be used to show the loading state in your projects. They're rendered
+only with basical HTML and CSS as a lightweight Vue functional component. Their appearance, alignment,
+and sizing can be easily customized with a few built-in props and/or Bootstrap V4 utility classes.
 
 Spinners can be placed just about anywhere, including inside buttons, alerts, and even `<b-table>`'s busy slot.
 
-For accessibility purposes, each spinner has a `role="status"` and a nested `<span class="sr-only">Loading...</span>`.
-You can easily customize these if required via props `role` and `label`. YOu can also use the named slot `label for the
-loading text.
+For accessibility purposes, each spinner has a `role="status"` and an optional nested hidden
+label text. You can easily customize these if required via props `role` and `label`. You
+can also use the named slot `label` for the loading text. The default is to not have
+any hidden label.
 
 ## Spinner types
 
-Bootstrap V4.2 includes two types of spinners.  The default spinner is called `border` (spinning circle border), and
-`grow` (a throbber style indicator).
+Bootstrap V4.2 includes two types of spinners. The default spinner type is called `border`
+(spinning circle border), and the optional type `grow` (a throbber style indicator).
 
 ### Border spinner
 Use the default `border` type spinners for a lightweight loading indicator.
 
 ```html
 <div>
-  <b-spinner></b-spinner>
+  <b-spinner label="Loading..."></b-spinner>
 </div>
 
 <!-- spinner-border.vue -->
@@ -32,7 +33,7 @@ While it doesn't technically spin, it does repeatedly grow!
 
 ```html
 <div>
-  <b-spinner type="grow"></b-spinner>
+  <b-spinner type="grow" label="Loading..."></b-spinner>
 </div>
 
 <!-- spinner-grow.vue -->
@@ -51,8 +52,8 @@ you have custom defined text variants, feel free to use them via the `variant` p
 <template>
   <div>
     <b-row class="mb-2" v-for="variant in variants">
-      <b-col><b-spinner :variant="variant"></b-spinner></b-col>
-      <b-col><b-spinner :variant="variant" type="grow"></b-spinner></b-col>
+      <b-col><b-spinner :variant="variant" label="Spinning"></b-spinner></b-col>
+      <b-col><b-spinner :variant="variant" type="grow" label="Spinning"></b-spinner></b-col>
     </b-row>
   </div>
 </template>
@@ -83,8 +84,8 @@ Set the prop `small` to `true` to make a smaller spinner that can quickly be use
 
 ```html
 <div>
-  <b-spinner small></b-spinner>
-  <b-spinner small type="grow"></b-spinner>
+  <b-spinner small label="Small Spinner"></b-spinner>
+  <b-spinner small type="grow" label="Small Spinner"></b-spinner>
 </div>
 
 <!-- spinner-sizes.vue -->
@@ -94,8 +95,8 @@ Or, use custom CSS or inline styles to change the dimensions as needed.
 
 ```html
 <div>
-  <b-spinner style="width: 3rem; height: 3rem;"></b-spinner>
-  <b-spinner style="width: 3rem; height: 3rem;" type="grow"></b-spinner>
+  <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
+  <b-spinner style="width: 3rem; height: 3rem;" type="grow" label="Large Spinner"></b-spinner>
 </div>
 
 <!-- spinner-sizes-custom.vue -->
@@ -112,7 +113,7 @@ Use margin utilities like `.m-5` for easy spacing.
 
 ```html
 <div>
-  <b-spinner class="m-5"></b-spinner>
+  <b-spinner class="m-5" label="Busy"></b-spinner>
 </div>
 
 <!-- spinner-margin.vue -->
@@ -129,7 +130,7 @@ Using flex utility classes:
 ```html
 <div>
   <div class="d-flex justify-content-center mb-3">
-    <b-spinner></b-spinner>
+    <b-spinner label="Loading..."></b-spinner>
   </div>
   <div class="d-flex align-items-center">
     <strong>Loading...</strong>
@@ -146,7 +147,7 @@ Using float utility classes:
 ```html
 <div>
   <div class="clearfix">
-    <b-spinner class="float-right"></b-spinner>
+    <b-spinner class="float-right" label="Floated Right"></b-spinner>
   </div>
 </div>
 
@@ -158,8 +159,8 @@ Using text alignment utility classes:
 
 ```html
 <div>
-  <div class="text">
-    <b-spinner variant="primary"></b-spinner>
+  <div class="text-center">
+    <b-spinner variant="primary" label="Text Centered"></b-spinner>
   </div>
 </div>
 
@@ -174,9 +175,10 @@ may also swap the label text out of the spinner element and utilize button text 
 <div>
   <b-button variant="primary" disabled>
     <b-spinner small aria-hidden="true"></span>
+    <span class="sr-only">Loading...</span>
   </b-button>
   <b-button variant="primary" disabled>
-    <b-spinner small type="grow" aria-hidden="true" label=""></span>
+    <b-spinner small type="grow" aria-hidden="true"></span>
     Loading...
   </b-button>
 </div>
