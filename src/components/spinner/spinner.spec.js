@@ -5,25 +5,40 @@ describe('spinner', async () => {
   it('default has structure <div></div>', async () => {
     const spinner = mount(Spinner)
     expect(spinner).toBeDefined()
-    expect(spinner.is('div')).toBe(true)
-    expect(spinner.find('span').exists()).toBe(false)
+    expect(spinner.is('span')).toBe(true)
+    expect(spinner.find('span.sr-only').exists()).toBe(false)
   })
 
-  it('default has structure <div><span></span></div> when label is set', async () => {
+  it('renders custom root element when tag prop is set', async () => {
     const spinner = mount(Spinner, {
       context: {
-        props: { label: 'Loading..' }
+        props: { tag: 'aside' }
+      }
+    })
+    expect(spinner.is('aside')).toBe(true)
+  })
+
+  it('default has inner span when label is set', async () => {
+    const spinner = mount(Spinner, {
+      context: {
+        props: {
+          tag: 'div',
+          label: 'Loading...'
+        }
       }
     })
     expect(spinner).toBeDefined()
     expect(spinner.is('div')).toBe(true)
     expect(spinner.find('span').exists()).toBe(true)
+    expect(spinner.text()).toBe('Loading...')
   })
 
-  it('default has class "spinner-border"', async () => {
-    const spinner = mount(Spinner)
-    expect(spinner.classes().length).toBe(1)
-    expect(spinner.classes()).toContain('spinner-border')
+  it('accepts custom label text via label slot', async () => {
+    const spinner = mount(Spinner, {
+      slots: { label: 'foobar' },
+      context: {}
+    })
+    expect(spinner.text()).toBe('foobar')
   })
 
   it('has inner span class "sr-only" when label is set', async () => {
@@ -36,15 +51,12 @@ describe('spinner', async () => {
     expect(span).toBeDefined()
     expect(span.classes().length).toBe(1)
     expect(span.classes()).toContain('sr-only')
-    expect(spinner.text()).toBe('Loading...')
   })
 
-  it('accepts custom label text via label slot', async () => {
-    const spinner = mount(Spinner, {
-      slots: { label: 'foobar' },
-      context: {}
-    })
-    expect(spinner.text()).toBe('foobar')
+  it('default has class "spinner-border"', async () => {
+    const spinner = mount(Spinner)
+    expect(spinner.classes().length).toBe(1)
+    expect(spinner.classes()).toContain('spinner-border')
   })
 
   it('default has class "spinner-border-sm" when prop small=true', async () => {
@@ -58,7 +70,7 @@ describe('spinner', async () => {
     expect(spinner.classes()).toContain('spinner-border-sm')
   })
 
-  it('default has classes :spinner-border" and "text-danger" when prop variant="danger"', async () => {
+  it('default has classes "spinner-border" and "text-danger" when prop variant="danger"', async () => {
     const spinner = mount(Spinner, {
       context: {
         props: { variant: 'danger' }
@@ -84,29 +96,65 @@ describe('spinner', async () => {
     expect(spinner.classes()).toContain('text-danger')
   })
 
-  it('default has role "status"', async () => {
+  it('does not have role "status" when no label provided', async () => {
     const spinner = mount(Spinner)
+    expect(spinner.attributes('role')).not.toBeDefined()
+  })
+
+  it('has role "status" when label provided', async () => {
+    const spinner = mount(Spinner, {
+      label: 'Loading'
+    })
     expect(spinner.attributes('role')).toBeDefined()
     expect(spinner.attributes('role')).toEqual('status')
   })
 
-  it('accepts custom role when role prop is set', async () => {
+  it('does not add custom role when role prop is set and no label', async () => {
     const spinner = mount(Spinner, {
       context: {
-        props: { role: 'foobar' }
+        props: {
+          role: 'foobar'
+        }
+      }
+    })
+    expect(spinner.attributes('role')).not.toBeDefined()
+  })
+
+  it('adds custom role when role prop is set and label provided', async () => {
+    const spinner = mount(Spinner, {
+      context: {
+        props: {
+          role: 'foobar',
+          label: 'loading'
+        }
       }
     })
     expect(spinner.attributes('role')).toBeDefined()
     expect(spinner.attributes('role')).toEqual('foobar')
   })
 
-  it('renders custom root element tag prop is set', async () => {
+  it('has attribute "aria-hidden" when no label provided', async () => {
+    const spinner = mount(Spinner)
+    expect(spinner.attributes('aria-hidden')).toBeDefined()
+    expect(spinner.attributes('aria-hidden')).toEqal('true')
+  })
+
+  it('does not have attribute "aria-hidden" when label provided', async () => {
     const spinner = mount(Spinner, {
       context: {
-        props: { tag: 'aside' }
+        props: { label: 'loading' }
       }
     })
-    expect(spinner.is('aside')).toBe(true)
+    expect(spinner.attributes('aria-hidden')).not.toBeDefined()
+  })
+
+  it('does not have attribute "aria-hidden" when label slot provided', async () => {
+    const spinner = mount(Spinner, {
+      slots: {
+        props: { label: 'loading' }
+      },
+    })
+    expect(spinner.attributes('aria-hidden')).not.toBeDefined()
   })
 
   it('places user supplied attributes on root element', async () => {
