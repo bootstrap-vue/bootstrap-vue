@@ -4,7 +4,7 @@
   "meta": {
     "title": "Spinner",
     "slug": "spinner",
-    "component": "BSpinner",
+    "component": "bSpinner",
     "slots": [
       {
         "name": "label",
