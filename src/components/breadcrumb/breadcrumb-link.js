@@ -24,7 +24,7 @@ export const props = assign(linkPropsFactory(), {
 
 // @vue/component
 export default {
-  name: 'BBreadCrumbLink',
+  name: 'BBreadcrumbLink',
   functional: true,
   props,
   render (h, { props: suppliedProps, data, children }) {
