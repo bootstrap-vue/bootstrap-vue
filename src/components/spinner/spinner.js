@@ -15,7 +15,7 @@ const props = {
   },
   small: {
     type: Boolean,
-    default: true
+    default: false
   },
   role: {
     type: String,
