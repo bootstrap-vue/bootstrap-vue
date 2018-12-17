@@ -106,7 +106,9 @@ describe('spinner', async () => {
 
   it('has role "status" when label provided', async () => {
     const spinner = mount(Spinner, {
-      label: 'Loading'
+      context: {
+        props: { label: 'Loading' }
+      }
     })
     expect(spinner.attributes('role')).toBeDefined()
     expect(spinner.attributes('role')).toEqual('status')
@@ -155,7 +157,7 @@ describe('spinner', async () => {
     const spinner = mount(Spinner, {
       slots: {
         props: { label: 'loading' }
-      },
+      }
     })
     expect(spinner.attributes('aria-hidden')).not.toBeDefined()
   })
