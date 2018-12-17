@@ -15,7 +15,7 @@ export const props = assign({}, crumbLinks, {
 
 // @vue/component
 export default {
-  name: 'BBreadCrumbItem',
+  name: 'BBreadcrumbItem',
   functional: true,
   props,
   render (h, { props, data, children }) {
