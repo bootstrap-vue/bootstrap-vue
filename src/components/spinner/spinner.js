@@ -1,37 +1,35 @@
 import { mergeData } from 'vue-functional-data-merge'
 
-const props = {
-  type: {
-    type: String,
-    default: 'border' // SCSS currently supports 'border' or 'grow'
-  },
-  label: {
-    type: String,
-    default: null
-  },
-  variant: {
-    type: String,
-    default: null
-  },
-  small: {
-    type: Boolean,
-    default: false
-  },
-  role: {
-    type: String,
-    default: 'status'
-  },
-  tag: {
-    type: String,
-    default: 'span'
-  }
-}
-
 // @vue/component
 export default {
   name: 'BSpinner',
   functional: true,
-  props,
+  props: {
+    type: {
+      type: String,
+      default: 'border' // SCSS currently supports 'border' or 'grow'
+    },
+    label: {
+      type: String,
+      default: null
+    },
+    variant: {
+      type: String,
+      default: null
+    },
+    small: {
+      type: Boolean,
+      default: false
+    },
+    role: {
+      type: String,
+      default: 'status'
+    },
+    tag: {
+      type: String,
+      default: 'span'
+    }
+  },
   render (h, { props, data, slots }) {
     let label = h(false)
     const hasLabel = slots().label || props.label
