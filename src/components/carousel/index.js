@@ -1,10 +1,10 @@
-import bCarousel from './carousel'
-import bCarouselSlide from './carousel-slide'
+import BCarousel from './carousel'
+import BCarouselSlide from './carousel-slide'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bCarousel,
-  bCarouselSlide
+  BCarousel,
+  BCarouselSlide
 }
 
 const VuePlugin = {
