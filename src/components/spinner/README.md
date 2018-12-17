@@ -7,15 +7,13 @@ and sizing can be easily customized with a few built-in props and/or Bootstrap V
 Spinners can be placed just about anywhere, including inside buttons, alerts, and even `<b-table>`'s busy slot.
 
 ```html
-<div>
-  <b-row class="text-center">
-    <b-col><b-spinner label="Spinning"></b-spinner></b-col>
-    <b-col><b-spinner type="grow" label="Spinning"></b-spinner></b-col>
-    <b-col><b-spinner variant="primary" label="Spinning"></b-spinner></b-col>
-    <b-col><b-spinner variant="primary" type="grow" label="Spinning"></b-spinner></b-col>
-    <b-col><b-spinner variant="success" label="Spinning"></b-spinner></b-col>
-    <b-col><b-spinner variant="success" type="grow" label="Spinning"></b-spinner></b-col>
-  </b-row>
+<div class="text-center">
+  <b-spinner label="Spinning"></b-spinner>
+  <b-spinner type="grow" label="Spinning"></b-spinner>
+  <b-spinner variant="primary" label="Spinning"></b-spinner>
+  <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+  <b-spinner variant="success" label="Spinning"></b-spinner>
+  <b-spinner variant="success" type="grow" label="Spinning"></b-spinner>
 </div>
 
 <!-- spinners.vue -->
@@ -61,10 +59,12 @@ you have custom defined text variants, feel free to use them via the `variant` p
 ```html
 <template>
   <div>
-    <b-row class="mb-2" v-for="variant in variants">
-      <b-col><b-spinner :variant="variant" label="Spinning"></b-spinner></b-col>
-      <b-col><b-spinner :variant="variant" type="grow" label="Spinning"></b-spinner></b-col>
-    </b-row>
+    <div class="text-center mb-2 d-flex justify-content-between">
+      <b-spinner v-for="variant in variants" :variant="variant" :key="variant"></b-spinner>
+    </div>
+    <div class="text-center d-flex justify-content-between">
+      <b-spinner v-for="variant in variants" :variant="variant" type="grow" :key="variant"></b-spinner>
+    </div>
   </div>
 </template>
 
@@ -73,7 +73,7 @@ export default {
   data () {
     return {
       variants: [
-        'primary', 'secondary', 'danger', 'success', 'info', 'dark'
+        'primary', 'secondary', 'danger', 'warning', 'success', 'info', 'light', 'dark'
       ]
     }
   }
@@ -185,7 +185,7 @@ may also swap the label text out of the spinner element and utilize button text 
     <span class="sr-only">Loading...</span>
   </b-button>
   <b-button variant="primary" disabled>
-    <b-spinner small type="grow"></span>
+    <b-spinner small type="grow"></b-spinner>
     Loading...
   </b-button>
 </div>
@@ -195,8 +195,8 @@ may also swap the label text out of the spinner element and utilize button text 
 
 ## Spinner accessibility
 Place a hidden label text inside the spinner for screen reader users, via the `label` prop or `label` slot.
-The content will be placed _inside_ the spinner wrapped in a `<span>` element that has the class `sr-only`
-To make the label appear only to screen reader users.
+The content will be placed _inside_ the spinner wrapped in a `<span>` element that has the class `sr-only`,
+which will make the label available to screen reader users.
 
 For accessibility purposes, each spinner will automatically have a `role="status"` attribute when
 a label is provided. You can easily customize the role if required via prop `role`.  The specified `role`
