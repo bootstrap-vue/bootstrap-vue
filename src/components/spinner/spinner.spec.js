@@ -2,7 +2,7 @@ import Spinner from './spinner'
 import { mount } from '@vue/test-utils'
 
 describe('spinner', async () => {
-  it('default has structure <div></div>', async () => {
+  it('default has root element of span, and no children', async () => {
     const spinner = mount(Spinner)
     expect(spinner).toBeDefined()
     expect(spinner.is('span')).toBe(true)
@@ -44,7 +44,10 @@ describe('spinner', async () => {
   it('has inner span class "sr-only" when label is set', async () => {
     const spinner = mount(Spinner, {
       context: {
-        props: { label: 'Loading...' }
+        props: {
+          tag: 'div',
+          label: 'Loading...'
+        }
       }
     })
     const span = spinner.find('span')
