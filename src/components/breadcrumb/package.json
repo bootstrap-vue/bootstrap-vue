@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "meta": {
     "title": "Breadcrumb",
-    "component": "bBreadcrumb",
+    "component": "BBreadcrumb",
     "events": [],
     "components": [
       {
-        "component": "bBreadcrumbItem",
+        "component": "BBreadcrumbItem",
         "events": [
           {
             "event": "click",
