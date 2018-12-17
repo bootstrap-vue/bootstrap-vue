@@ -23,7 +23,7 @@ const props = {
   },
   tag: {
     type: String,
-    default: 'div'
+    default: 'span'
   }
 }
 
@@ -34,13 +34,17 @@ export default {
   props,
   render (h, { props, data, slots }) {
     let label = h(false)
-    if (slots().label || props.label) {
-      label = h('span', { staticClass: 'sr-only' }, slots().label || props.label)
+    const hasLabel = slots().label || props.label
+    if (hasLabel) {
+      label = h('span', { staticClass: 'sr-only' }, hasLabel)
     }
     return h(
       props.tag,
       mergeData(data, {
-        attrs: { role: props.role },
+        attrs: {
+          role: hasLabel ? (props.role || 'status') : null,
+          'aria-hiddden': hasLabel ? null : 'true'
+        },
         class: {
           [`spinner-${props.type}`]: Boolean(props.type),
           [`spinner-${props.type}-sm`]: props.small,
