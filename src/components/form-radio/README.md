@@ -209,7 +209,7 @@ when they are in the checked state.
                           name="radiosBtnDefault" />
     </b-form-group>
 
-    <b-form-group label="Button style radios with outline-primary variant and size lg</code>">
+    <b-form-group label="Button style radios with outline-primary variant and size lg">
       <b-form-radio-group id="btnradios2"
                           buttons
                           button-variant="outline-primary"

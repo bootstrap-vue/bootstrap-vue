@@ -31,6 +31,7 @@ import Pagination from './pagination'
 import PaginationNav from './pagination-nav'
 import Popover from './popover'
 import Progress from './progress'
+import Spinner from './spinner'
 import Table from './table'
 import Tabs from './tabs'
 import Tooltip from './tooltip'
@@ -69,6 +70,7 @@ export {
   PaginationNav,
   Popover,
   Progress,
+  Spinner,
   Table,
   Tabs,
   Tooltip
