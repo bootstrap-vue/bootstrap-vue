@@ -2,8 +2,19 @@ import Spinner from './spinner'
 import { mount } from '@vue/test-utils'
 
 describe('spinner', async () => {
-  it('default has structure <div><span></span></div>', async () => {
+  it('default has structure <div></div>', async () => {
     const spinner = mount(Spinner)
+    expect(spinner).toBeDefined()
+    expect(spinner.is('div')).toBe(true)
+    expect(spinner.find('span').exists()).toBe(false)
+  })
+
+  it('default has structure <div><span></span></div> when label is set', async () => {
+    const spinner = mount(Spinner, {
+      context: {
+        props: { label: 'Loading..' }
+      }
+    })
     expect(spinner).toBeDefined()
     expect(spinner.is('div')).toBe(true)
     expect(spinner.find('span').exists()).toBe(true)
@@ -15,26 +26,17 @@ describe('spinner', async () => {
     expect(spinner.classes()).toContain('spinner-border')
   })
 
-  it('has inner span class "sr-only"', async () => {
-    const spinner = mount(Spinner)
+  it('has inner span class "sr-only" when label is set', async () => {
+    const spinner = mount(Spinner, {
+      context: {
+        props: { label: 'Loading...' }
+      }
+    })
     const span = spinner.find('span')
     expect(span).toBeDefined()
     expect(span.classes().length).toBe(1)
     expect(span.classes()).toContain('sr-only')
-  })
-
-  it('default has default inner text of "Loading..."', async () => {
-    const spinner = mount(Spinner)
     expect(spinner.text()).toBe('Loading...')
-  })
-
-  it('accepts custom label text', async () => {
-    const spinner = mount(Spinner, {
-      context: {
-        props: { label: 'foobar' }
-      }
-    })
-    expect(spinner.text()).toBe('foobar')
   })
 
   it('accepts custom label text via label slot', async () => {
