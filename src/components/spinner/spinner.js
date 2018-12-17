@@ -43,7 +43,7 @@ export default {
       mergeData(data, {
         attrs: {
           role: hasLabel ? (props.role || 'status') : null,
-          'aria-hiddden': hasLabel ? null : 'true'
+          'aria-hidden': hasLabel ? null : 'true'
         },
         class: {
           [`spinner-${props.type}`]: Boolean(props.type),
