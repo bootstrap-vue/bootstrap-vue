@@ -3,13 +3,13 @@
     "version": "1.0.0",
     "meta": {
         "title": "Card",
-        "component": "bCard",
+        "component": "BCard",
         "components": [
-            "bCardHeader",
-            "bCardFooter",
-            "bCardBody",
-            "bCardImg",
-            "bCardGroup"
+            "BCardHeader",
+            "BCardFooter",
+            "BCardBody",
+            "BCardImg",
+            "BCardGroup"
         ],
         "slots": [
             {
