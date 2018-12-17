@@ -141,7 +141,7 @@ describe('spinner', async () => {
   it('has attribute "aria-hidden" when no label provided', async () => {
     const spinner = mount(Spinner)
     expect(spinner.attributes('aria-hidden')).toBeDefined()
-    expect(spinner.attributes('aria-hidden')).toEqal('true')
+    expect(spinner.attributes('aria-hidden')).toEqual('true')
   })
 
   it('does not have attribute "aria-hidden" when label provided', async () => {
@@ -156,7 +156,7 @@ describe('spinner', async () => {
   it('does not have attribute "aria-hidden" when label slot provided', async () => {
     const spinner = mount(Spinner, {
       slots: {
-        props: { label: 'loading' }
+        label: 'loading'
       }
     })
     expect(spinner.attributes('aria-hidden')).not.toBeDefined()
