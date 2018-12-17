@@ -7,7 +7,7 @@ const props = {
   },
   label: {
     type: String,
-    default: 'Loading...'
+    default: null
   },
   variant: {
     type: String,
@@ -33,6 +33,10 @@ export default {
   functional: true,
   props,
   render (h, { props, data, slots }) {
+    let label = h(false)
+    if (slots().label || props.label) {
+      label = h('span', { staticClass: 'sr-only' }, slots().label || props.label)
+    }
     return h(
       props.tag,
       mergeData(data, {
@@ -43,7 +47,7 @@ export default {
           [`text-${props.variant}`]: Boolean(props.variant)
         }
       }),
-      [h('span', { staticClass: 'sr-only' }, slots().label || props.label)]
+      [label]
     )
   }
 }
