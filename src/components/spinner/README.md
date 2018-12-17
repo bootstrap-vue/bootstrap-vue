@@ -6,10 +6,20 @@ and sizing can be easily customized with a few built-in props and/or Bootstrap V
 
 Spinners can be placed just about anywhere, including inside buttons, alerts, and even `<b-table>`'s busy slot.
 
-For accessibility purposes, each spinner has a `role="status"` and an optional nested hidden
-label text. You can easily customize these if required via props `role` and `label`. You
-can also use the named slot `label` for the loading text. The default is to not have
-any hidden label.
+```html
+<div>
+  <b-row class="text-center">
+    <b-col><b-spinner label="Spinning"></b-spinner></b-col>
+    <b-col><b-spinner type="grow" label="Spinning"></b-spinner></b-col>
+    <b-col><b-spinner variant="primary" label="Spinning"></b-spinner></b-col>
+    <b-col><b-spinner variant="primary" type="grow" label="Spinning"></b-spinner></b-col>
+    <b-col><b-spinner variant="success" label="Spinning"></b-spinner></b-col>
+    <b-col><b-spinner variant="success" type="grow" label="Spinning"></b-spinner></b-col>
+  </b-row>
+</div>
+
+<!-- spinners.vue -->
+```
 
 ## Spinner types
 
@@ -76,10 +86,7 @@ export default {
 **Why not use `border-color` utilities?** Each `border` spinner specifies a `transparent`
 border for at least one side, so `.border-{color}` utilities would override that.
 
-## Spinner accessibility
-Place a hidden label text inside teh spinner for screen reader users, via the `label` prop or `label` slot.
-
-## Spinner size
+## Size
 Set the prop `small` to `true` to make a smaller spinner that can quickly be used within other components.
 
 ```html
@@ -102,7 +109,7 @@ Or, use custom CSS or inline styles to change the dimensions as needed.
 <!-- spinner-sizes-custom.vue -->
 ```
 
-## Spinner alignment
+## Alignment
 
 Spinners in Bootstrap are built with `rem`s, `currentColor`, and `display: inline-flex`. This means they
 can easily be resized, recolored, and quickly aligned.
@@ -119,7 +126,7 @@ Use margin utilities like `.m-5` for easy spacing.
 <!-- spinner-margin.vue -->
 ```
 
-## Spinner placement
+## Placement
 
 Use flexbox utilities, float utilities, or text alignment utility classes to place spinners exactly
 where you need them in any situation.
@@ -134,7 +141,7 @@ Using flex utility classes:
   </div>
   <div class="d-flex align-items-center">
     <strong>Loading...</strong>
-    <b-spinner class="ml-auto" aria-hidden="true"></b-spinner>
+    <b-spinner class="ml-auto"></b-spinner>
   </div>
 </div>
 
@@ -167,18 +174,18 @@ Using text alignment utility classes:
 <!-- spinner-text-align.vue -->
 ```
 
-## Spinner buttons
+## Spinners in buttons
 Use spinners within buttons to indicate an action is currently processing or taking place. You
 may also swap the label text out of the spinner element and utilize button text as needed.
 
 ```html
 <div>
   <b-button variant="primary" disabled>
-    <b-spinner small aria-hidden="true"></span>
+    <b-spinner small></b-spinner>
     <span class="sr-only">Loading...</span>
   </b-button>
   <b-button variant="primary" disabled>
-    <b-spinner small type="grow" aria-hidden="true"></span>
+    <b-spinner small type="grow"></span>
     Loading...
   </b-button>
 </div>
@@ -187,6 +194,14 @@ may also swap the label text out of the spinner element and utilize button text 
 ```
 
 ## Spinner accessibility
-Place a hidden label text inside teh spinner for screen reader users, via the `label` prop or `label` slot.
+Place a hidden label text inside the spinner for screen reader users, via the `label` prop or `label` slot.
+The content will be placed _inside_ the spinner wrapped in a `<span>` element that has the class `sr-only`
+To make the label appear only to screen reader users.
 
-The content will be placed inside the spinner  wrapped in a `<span>` element that has the class `sr-only`.
+For accessibility purposes, each spinner will automatically have a `role="status"` attribute when
+a label is provided. You can easily customize the role if required via prop `role`.  The specified `role`
+will not be applied when no label is provided.
+
+As well, when no label is provided, the spinner will automatically have the attribute `aria-hidden="true"` to hide
+the spinner from screen reader users.
+
