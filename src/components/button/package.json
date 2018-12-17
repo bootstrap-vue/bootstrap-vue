@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Button",
-    "component": "bButton",
-    "aliases": [ "bBtn" ],
+    "component": "BButton",
+    "aliases": [ "BBtn" ],
     "events": [
       {
         "event": "click",
@@ -16,8 +16,8 @@
     ],
     "components": [
       { 
-        "component": "bButtonClose",
-        "aliases": [ "bBtnClose" ],
+        "component": "BButtonClose",
+        "aliases": [ "BBtnClose" ],
         "events": [
           {
             "event": "click",
