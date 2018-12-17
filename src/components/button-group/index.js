@@ -1,9 +1,9 @@
-import bButtonGroup from './button-group'
+import BButtonGroup from './button-group'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bButtonGroup,
-  bBtnGroup: bButtonGroup
+  BButtonGroup,
+  BBtnGroup: BButtonGroup
 }
 
 const VuePlugin = {
