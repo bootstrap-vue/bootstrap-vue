@@ -1,18 +1,18 @@
-import bCard from './card'
-import bCardHeader from './card-header'
-import bCardBody from './card-body'
-import bCardFooter from './card-footer'
-import bCardImg from './card-img'
-import bCardGroup from './card-group'
+import BCard from './card'
+import BCardHeader from './card-header'
+import BCardBody from './card-body'
+import BCardFooter from './card-footer'
+import BCardImg from './card-img'
+import BCardGroup from './card-group'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bCard,
-  bCardHeader,
-  bCardBody,
-  bCardFooter,
-  bCardImg,
-  bCardGroup
+  BCard,
+  BCardHeader,
+  BCardBody,
+  BCardFooter,
+  BCardImg,
+  BCardGroup
 }
 
 const VuePlugin = {
