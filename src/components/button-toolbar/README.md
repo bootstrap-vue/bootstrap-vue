@@ -26,25 +26,18 @@
 <!-- button-toolbar-1.vue -->
 ```
 
-**Example 2:** with mixture of small button groups and small input groups
+**Example 2:** with mixture of small button group and small input group
 
 ```html
 <div>
   <b-button-toolbar aria-label="Toolbar with button groups and input groups">
-    <b-button-group size="sm" class="mx-1">
-      <b-btn>New</b-btn>
-      <b-btn>Edit</b-btn>
-    </b-button-group>
-    <b-input-group size="sm" class="w-25 mx-1" prepend="$" append=".00">
-      <b-form-input value="100" class="text-right"></b-form-input>
-    </b-input-group>
-    <b-input-group  size="sm" class="w-25 mx-1" prepend="Size">
-      <b-form-select value="Medium" :options="['Large','Medium','Small']"></b-form-select>
-    </b-input-group>
-      <b-button-group  size="sm" class="mx-1">
+    <b-button-group  size="sm" class="mr-1">
       <b-btn>Save</b-btn>
       <b-btn>Cancel</b-btn>
     </b-button-group>
+    <b-input-group size="sm" prepend="$" append=".00">
+      <b-form-input value="100" class="text-right"></b-form-input>
+    </b-input-group>
   </b-button-toolbar>
 </div>
 
