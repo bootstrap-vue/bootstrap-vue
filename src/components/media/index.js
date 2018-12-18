@@ -1,12 +1,12 @@
-import bMedia from './media'
-import bMediaAside from './media-aside'
-import bMediaBody from './media-body'
+import BMedia from './media'
+import BMediaAside from './media-aside'
+import BMediaBody from './media-body'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bMedia,
-  bMediaAside,
-  bMediaBody
+  BMedia,
+  BMediaAside,
+  BMediaBody
 }
 
 const VuePlugin = {

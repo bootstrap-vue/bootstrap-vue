@@ -1,9 +1,9 @@
-import bFormSelect from './form-select'
+import BFormSelect from './form-select'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bFormSelect,
-  bSelect: bFormSelect
+  BFormSelect,
+  BSelect: BFormSelect
 }
 
 const VuePlugin = {

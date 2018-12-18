@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form File",
-    "component": "bFormFile",
-    "aliases": [ "bFile" ],
+    "component": "BFormFile",
+    "aliases": [ "BFile" ],
     "events": [
       {
         "event": "change",

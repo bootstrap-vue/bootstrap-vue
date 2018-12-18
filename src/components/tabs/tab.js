@@ -2,6 +2,7 @@ import idMixin from '../../mixins/id'
 
 // @vue/component
 export default {
+  name: 'BTab',
   mixins: [idMixin],
   props: {
     active: {

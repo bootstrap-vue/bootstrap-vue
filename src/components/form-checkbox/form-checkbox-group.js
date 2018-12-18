@@ -5,11 +5,12 @@ import formRadioCheckGroupMixin from '../../mixins/form-radio-check-group'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 
-import bFormCheckbox from './form-checkbox'
+import BFormCheckbox from './form-checkbox'
 
 // @vue/component
 export default {
-  components: { bFormCheckbox },
+  name: 'BFormCheckboxGroup',
+  components: { BFormCheckbox },
   mixins: [
     idMixin,
     formMixin,

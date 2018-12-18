@@ -1,18 +1,18 @@
-import bNavbar from './navbar'
-import bNavbarNav from './navbar-nav'
-import bNavbarBrand from './navbar-brand'
-import bNavbarToggle from './navbar-toggle'
+import BNavbar from './navbar'
+import BNavbarNav from './navbar-nav'
+import BNavbarBrand from './navbar-brand'
+import BNavbarToggle from './navbar-toggle'
 import navPlugin from '../nav'
 import collapsePlugin from '../collapse'
 import dropdownPlugin from '../dropdown'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bNavbar,
-  bNavbarNav,
-  bNavbarBrand,
-  bNavbarToggle,
-  bNavToggle: bNavbarToggle
+  BNavbar,
+  BNavbarNav,
+  BNavbarBrand,
+  BNavbarToggle,
+  BNavToggle: BNavbarToggle
 }
 
 const VuePlugin = {

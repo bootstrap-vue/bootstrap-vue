@@ -1,10 +1,11 @@
-import bImg from './img'
+import BImg from './img'
 import { isVisible, getBCR, eventOn, eventOff } from '../../utils/dom'
 const THROTTLE = 100
 
 // @vue/component
 export default {
-  components: { bImg },
+  name: 'BImgLazy',
+  components: { BImg },
   props: {
     src: {
       type: String,

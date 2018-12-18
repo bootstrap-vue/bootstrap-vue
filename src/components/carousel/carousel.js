@@ -39,6 +39,7 @@ function getTransisionEndEvent (el) {
 
 // @vue/component
 export default {
+  name: 'BCarousel',
   mixins: [ idMixin ],
   props: {
     labelPrev: {

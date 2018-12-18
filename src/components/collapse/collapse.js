@@ -9,6 +9,7 @@ const EVENT_TOGGLE = 'bv::toggle::collapse'
 
 // @vue/component
 export default {
+  name: 'BCollapse',
   mixins: [listenOnRootMixin],
   model: {
     prop: 'visible',

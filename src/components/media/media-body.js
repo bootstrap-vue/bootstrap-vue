@@ -8,6 +8,7 @@ export const props = {
 }
 
 export default {
+  name: 'BMediaBody',
   functional: true,
   props,
   render (h, { props, data, children }) {

@@ -1,8 +1,8 @@
-import bBadge from './badge'
+import BBadge from './badge'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bBadge
+  BBadge
 }
 
 const VuePlugin = {

@@ -1,10 +1,11 @@
-import bImg from '../image/img'
+import BImg from '../image/img'
 import warn from '../../utils/warn'
 import idMixin from '../../mixins/id'
 
 // @vue/component
 export default {
-  components: { bImg },
+  name: 'BCarouselSlide',
+  components: { BImg },
   mixins: [ idMixin ],
   props: {
     imgSrc: {

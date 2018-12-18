@@ -1,8 +1,8 @@
-import bPagination from './pagination'
+import BPagination from './pagination'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bPagination
+  BPagination
 }
 
 const VuePlugin = {

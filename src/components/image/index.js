@@ -1,10 +1,10 @@
-import bImg from './img'
-import bImgLazy from './img-lazy'
+import BImg from './img'
+import BImgLazy from './img-lazy'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bImg,
-  bImgLazy
+  BImg,
+  BImgLazy
 }
 
 const VuePlugin = {

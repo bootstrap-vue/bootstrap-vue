@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "meta": {
     "title": "Input Group",
-    "component": "bInputGroup",
+    "component": "BInputGroup",
     "components": [
-      "bInputGroupPrepend",
-      "bInputGroupAppend",
-      "bInputGroupText",
-      "bInputGroupAddon"
+      "BInputGroupPrepend",
+      "BInputGroupAppend",
+      "BInputGroupText",
+      "BInputGroupAddon"
     ],
     "slots": [
       {

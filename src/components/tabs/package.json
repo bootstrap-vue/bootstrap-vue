@@ -5,7 +5,7 @@
     "title": "Tabs",
     "components": [
       {
-        "component": "bTabs",
+        "component": "BTabs",
         "events": [
           {
             "event": "input",
@@ -30,7 +30,7 @@
         ]
       },
       { 
-        "component": "bTab",
+        "component": "BTab",
         "slots": [
           {
             "name": "title",

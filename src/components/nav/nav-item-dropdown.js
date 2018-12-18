@@ -4,6 +4,7 @@ import stripScripts from '../../utils/strip-scripts'
 
 // @vue/component
 export default {
+  name: 'BNavItemDropdown',
   mixins: [idMixin, dropdownMixin],
   props: {
     noCaret: {

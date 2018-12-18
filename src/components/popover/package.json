@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "meta": {
         "title": "Popover",
-        "component": "bPopover",
+        "component": "BPopover",
         "directives": [
             "vBPopover"
         ],

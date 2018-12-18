@@ -9,11 +9,11 @@ import { select, selectAll, isVisible, setAttr, removeAttr, getAttr } from '../.
 import { arrayIncludes } from '../../utils/array'
 import { keys, create } from '../../utils/object'
 // Sub components
-import bFormRow from '../layout/form-row'
-import bCol from '../layout/col'
-import bFormText from '../form/form-text'
-import bFormInvalidFeedback from '../form/form-invalid-feedback'
-import bFormValidFeedback from '../form/form-valid-feedback'
+import BFormRow from '../layout/form-row'
+import BCol from '../layout/col'
+import BFormText from '../form/form-text'
+import BFormInvalidFeedback from '../form/form-invalid-feedback'
+import BFormValidFeedback from '../form/form-valid-feedback'
 
 // Selector for finding first input in the form-group
 const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disabled)'
@@ -178,12 +178,13 @@ function renderLabel (h, ctx) {
 // bFormGroup
 // @vue/component
 export default {
+  name: 'BFormGroup',
   components: {
-    bFormRow,
-    bCol,
-    bFormInvalidFeedback,
-    bFormValidFeedback,
-    bFormText
+    BFormRow,
+    BCol,
+    BFormInvalidFeedback,
+    BFormValidFeedback,
+    BFormText
   },
   mixins: [
     idMixin,

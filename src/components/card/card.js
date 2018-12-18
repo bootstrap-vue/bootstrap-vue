@@ -6,10 +6,10 @@ import copyProps from '../../utils/copyProps'
 import pluckProps from '../../utils/pluck-props'
 import { assign } from '../../utils/object'
 import cardMixin from '../../mixins/card-mixin'
-import CardBody, { props as bodyProps } from './card-body'
-import CardHeader, { props as headerProps } from './card-header'
-import CardFooter, { props as footerProps } from './card-footer'
-import CardImg, { props as imgProps } from './card-img'
+import BCardBody, { props as bodyProps } from './card-body'
+import BCardHeader, { props as headerProps } from './card-header'
+import BCardFooter, { props as footerProps } from './card-footer'
+import BCardImg, { props as imgProps } from './card-img'
 
 const cardImgProps = copyProps(imgProps, prefixPropName.bind(null, 'img'))
 cardImgProps.imgSrc.required = false
@@ -35,6 +35,7 @@ export const props = assign(
 
 // @vue/component
 export default {
+  name: 'BCard',
   functional: true,
   props,
   render (h, { props, data, slots }) {
@@ -48,7 +49,7 @@ export default {
     let imgLast = h(false)
 
     if (props.imgSrc) {
-      let img = h(CardImg, {
+      let img = h(BCardImg, {
         props: pluckProps(
           cardImgProps,
           props,
@@ -63,18 +64,18 @@ export default {
     }
 
     if (props.header || $slots.header) {
-      header = h(CardHeader, { props: pluckProps(headerProps, props) }, $slots.header)
+      header = h(BCardHeader, { props: pluckProps(headerProps, props) }, $slots.header)
     }
 
     if (props.noBody) {
       content = $slots.default
     } else {
       // Wrap content in card-body
-      content = [ h(CardBody, { props: pluckProps(bodyProps, props) }, $slots.default) ]
+      content = [ h(BCardBody, { props: pluckProps(bodyProps, props) }, $slots.default) ]
     }
 
     if (props.footer || $slots.footer) {
-      footer = h(CardFooter, {
+      footer = h(BCardFooter, {
         props: pluckProps(footerProps, props)
       }, $slots.footer)
     }

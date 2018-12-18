@@ -9,6 +9,7 @@ import looseIndexOf from '../../utils/loose-index-of'
 
 // @vue/component
 export default {
+  name: 'BFormCheckbox',
   mixins: [
     formRadioCheckMixin, // includes shared render function
     idMixin,

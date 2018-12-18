@@ -1,8 +1,8 @@
-import bEmbed from './embed'
+import BEmbed from './embed'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bEmbed
+  BEmbed
 }
 
 const VuePlugin = {

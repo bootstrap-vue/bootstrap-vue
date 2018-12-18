@@ -2,9 +2,9 @@ import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import idMixin from '../../mixins/id'
 
-// Helper component
-const bTabButtonHelper = {
-  name: 'bTabButtonHelper',
+// Private Helper component
+const BTabButtonHelper = {
+  name: 'BTabButtonHelper',
   props: {
     content: { type: [String, Array], default: '' },
     href: { type: String, default: '#' },
@@ -20,8 +20,8 @@ const bTabButtonHelper = {
   },
   render (h) {
     const link = h('a', {
+      staticClass: 'nav-link',
       class: [
-        'nav-link',
         { active: this.active, disabled: this.disabled },
         this.linkClass
       ],
@@ -74,6 +74,7 @@ const bTabButtonHelper = {
 
 // @vue/component
 export default {
+  name: 'BTabs',
   mixins: [idMixin],
   props: {
     tag: {
@@ -314,7 +315,7 @@ export default {
     const tabs = this.tabs
     // Navigation 'buttons'
     const buttons = tabs.map((tab, index) => {
-      return h(bTabButtonHelper, {
+      return h(BTabButtonHelper, {
         key: index,
         props: {
           content: tab.$slots.title || tab.title,

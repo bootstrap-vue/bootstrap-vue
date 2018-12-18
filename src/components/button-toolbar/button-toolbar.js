@@ -11,6 +11,7 @@ const ITEM_SELECTOR = [
 
 // @vue/component
 export default {
+  name: 'BButtonToolbar',
   props: {
     justify: {
       type: Boolean,

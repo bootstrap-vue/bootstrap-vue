@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Textarea",
-    "component": "bFormTextarea",
-    "aliases": [ "bTextarea" ],
+    "component": "BFormTextarea",
+    "aliases": [ "BTextarea" ],
     "events": [
       {
         "event": "input",

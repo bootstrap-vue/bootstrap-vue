@@ -21,6 +21,7 @@ export const props = {
 
 // @vue/component
 export default {
+  name: 'BFormText',
   functional: true,
   props,
   render (h, { props, data, children }) {

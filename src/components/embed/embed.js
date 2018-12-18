@@ -19,6 +19,7 @@ export const props = {
 
 // @vue/component
 export default {
+  name: 'BEmbed',
   functional: true,
   props,
   render (h, { props, data, children }) {

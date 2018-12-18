@@ -1,12 +1,12 @@
-import bBreadcrumb from './breadcrumb'
-import bBreadcrumbItem from './breadcrumb-item'
-import bBreadcrumbLink from './breadcrumb-link'
+import BBreadcrumb from './breadcrumb'
+import BBreadcrumbItem from './breadcrumb-item'
+import BBreadcrumbLink from './breadcrumb-link'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bBreadcrumb,
-  bBreadcrumbItem,
-  bBreadcrumbLink
+  BBreadcrumb,
+  BBreadcrumbItem,
+  BBreadcrumbLink
 }
 
 const VuePlugin = {

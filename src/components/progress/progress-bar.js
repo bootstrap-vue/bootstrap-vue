@@ -2,6 +2,7 @@ import stripScripts from '../../utils/strip-scripts'
 
 // @vue/component
 export default {
+  name: 'BProgressBar',
   props: {
     value: {
       type: Number,

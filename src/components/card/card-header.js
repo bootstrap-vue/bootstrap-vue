@@ -22,6 +22,7 @@ export const props = assign(
 
 // @vue/component
 export default {
+  name: 'BCardHeader',
   functional: true,
   props,
   render (h, { props, data, children }) {

@@ -1,9 +1,9 @@
-import bButtonToolbar from './button-toolbar'
+import BButtonToolbar from './button-toolbar'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bButtonToolbar,
-  bBtnToolbar: bButtonToolbar
+  BButtonToolbar,
+  BBtnToolbar: BButtonToolbar
 }
 
 const VuePlugin = {

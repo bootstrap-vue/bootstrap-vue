@@ -1,10 +1,10 @@
-import bTabs from './tabs'
-import bTab from './tab'
+import BTabs from './tabs'
+import BTab from './tab'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bTabs,
-  bTab
+  BTabs,
+  BTab
 }
 
 const VuePlugin = {

@@ -1,9 +1,9 @@
-import bFormInput from './form-input'
+import BFormInput from './form-input'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bFormInput,
-  bInput: bFormInput
+  BFormInput,
+  BInput: BFormInput
 }
 
 const VuePlugin = {

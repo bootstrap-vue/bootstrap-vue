@@ -5,10 +5,10 @@
         "title": "Layout and Grid System",
         "slug": "layout",
         "components": [
-            "bContainer",
-            "bRow",
-            "bCol",
-            "bFormRow"
+            "BContainer",
+            "BRow",
+            "BCol",
+            "BFormRow"
         ]
     }
 }

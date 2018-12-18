@@ -1,8 +1,8 @@
-import bLink from './link'
+import BLink from './link'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bLink
+  BLink
 }
 
 const VuePlugin = {

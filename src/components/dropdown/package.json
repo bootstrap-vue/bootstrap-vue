@@ -5,8 +5,8 @@
     "title": "Dropdown",
     "components": [
       {
-        "component": "bDropdown",
-        "aliases": [ "bDd" ],
+        "component": "BDropdown",
+        "aliases": [ "BDd" ],
         "events": [
           {
             "event": "show",
@@ -57,8 +57,8 @@
         ]
       },
       {
-        "component": "bDropdownItem",
-        "aliases": [ "bDdItem" ],
+        "component": "BDropdownItem",
+        "aliases": [ "BDdItem" ],
         "events": [
           {
             "event": "click",
@@ -70,8 +70,8 @@
         ]
       },
       {
-        "component": "bDropdownItemButton",
-        "aliases": [ "bDropdownItemBtn", "bDdItemButton", "bDdItemBtn" ],
+        "component": "BDropdownItemButton",
+        "aliases": [ "BDropdownItemBtn", "BDdItemButton", "BDdItemBtn" ],
         "events": [
           {
             "event": "click",
@@ -83,12 +83,12 @@
         ]
       },
       {
-        "component": "bDropdownHeader",
-        "aliases": [ "bDdHeader" ]
+        "component": "BDropdownHeader",
+        "aliases": [ "BDdHeader" ]
       },
       {
-        "component": "bDropdownDivider",
-        "aliases": [ "bDdDivider" ]
+        "component": "BDropdownDivider",
+        "aliases": [ "BDdDivider" ]
       }
     ]
   }

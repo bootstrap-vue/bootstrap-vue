@@ -8,6 +8,7 @@ import { from as arrayFrom } from '../../utils/array'
 
 // @vue/component
 export default {
+  name: 'BFormSelect',
   mixins: [
     idMixin,
     formMixin,

@@ -1,9 +1,9 @@
-import bFormFile from './form-file'
+import BFormFile from './form-file'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bFormFile,
-  bFile: bFormFile
+  BFormFile,
+  BFile: BFormFile
 }
 
 const VuePlugin = {

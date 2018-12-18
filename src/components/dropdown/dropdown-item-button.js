@@ -17,6 +17,7 @@ export const props = {
 
 // @vue/component
 export default {
+  name: 'BDropdownItemButton',
   functional: true,
   props,
   render (h, { props, data, parent, children }) {

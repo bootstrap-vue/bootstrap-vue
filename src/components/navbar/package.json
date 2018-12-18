@@ -3,18 +3,18 @@
   "version": "1.0.0",
   "meta": {
     "title": "Navbar",
-    "component": "bNavbar",
+    "component": "BNavbar",
     "plugins": [
       "Nav",
       "Dropdown",
       "Collapse"
     ],
     "components": [
-      "bNavbarNav",
-      "bNavbarBrand",
+      "BNavbarNav",
+      "BNavbarBrand",
       {
-        "component": "bNavbarToggle",
-        "aliases": [ "bNavToggle" ],
+        "component": "BNavbarToggle",
+        "aliases": [ "BNavToggle" ],
         "events": [
           {
             "event": "click",

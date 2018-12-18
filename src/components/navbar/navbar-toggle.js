@@ -2,6 +2,7 @@ import listenOnRootMixin from '../../mixins/listen-on-root'
 
 // @vue/component
 export default {
+  name: 'BNavbarToggle',
   mixins: [listenOnRootMixin],
   props: {
     label: {

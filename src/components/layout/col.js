@@ -103,6 +103,7 @@ export const props = assign({}, breakpointCol, breakpointOffset, breakpointOrder
  */
 // @vue/component
 export default {
+  name: 'BCol',
   functional: true,
   props,
   render (h, { props, data, children }) {

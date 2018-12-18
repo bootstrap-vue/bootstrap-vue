@@ -1,14 +1,14 @@
-import bFormCheckbox from './form-checkbox'
-import bFormCheckboxGroup from './form-checkbox-group'
+import BFormCheckbox from './form-checkbox'
+import BFormCheckboxGroup from './form-checkbox-group'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bFormCheckbox,
-  bCheckbox: bFormCheckbox,
-  bCheck: bFormCheckbox,
-  bFormCheckboxGroup,
-  bCheckboxGroup: bFormCheckboxGroup,
-  bCheckGroup: bFormCheckboxGroup
+  BFormCheckbox,
+  BCheckbox: BFormCheckbox,
+  BCheck: BFormCheckbox,
+  BFormCheckboxGroup,
+  BCheckboxGroup: BFormCheckboxGroup,
+  BCheckGroup: BFormCheckboxGroup
 }
 
 const VuePlugin = {

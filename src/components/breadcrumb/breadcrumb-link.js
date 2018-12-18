@@ -1,7 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
 import { assign } from '../../utils/object'
-import Link, { propsFactory as linkPropsFactory } from '../link/link'
+import BLink, { propsFactory as linkPropsFactory } from '../link/link'
 
 export const props = assign(linkPropsFactory(), {
   text: {
@@ -24,10 +24,11 @@ export const props = assign(linkPropsFactory(), {
 
 // @vue/component
 export default {
+  name: 'BBreadcrumbLink',
   functional: true,
   props,
   render (h, { props: suppliedProps, data, children }) {
-    const tag = suppliedProps.active ? 'span' : Link
+    const tag = suppliedProps.active ? 'span' : BLink
 
     let componentData = { props: pluckProps(props, suppliedProps) }
     if (suppliedProps.active) {

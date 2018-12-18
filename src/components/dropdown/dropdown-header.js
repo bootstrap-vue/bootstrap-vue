@@ -13,6 +13,7 @@ export const props = {
 
 // @vue/component
 export default {
+  name: 'BDropdownHeader',
   functional: true,
   props,
   render (h, { props, data, children }) {
