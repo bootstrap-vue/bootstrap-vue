@@ -7,7 +7,7 @@ import range from '../utils/range'
 import KeyCodes from '../utils/key-codes'
 import stripScripts from '../utils/strip-scripts'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
-import bLink from '../components/link/link'
+import BLink from '../components/link/link'
 
 // Threshold of limit size when we start/stop showing ellipsis
 const ELLIPSIS_THRESHOLD = 3
@@ -148,7 +148,7 @@ const props = {
 
 // @vue/component
 export default {
-  components: { bLink },
+  components: { BLink },
   props,
   data () {
     return {
