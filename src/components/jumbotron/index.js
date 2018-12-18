@@ -1,8 +1,8 @@
-import bJumbotron from './jumbotron'
+import BJumbotron from './jumbotron'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bJumbotron
+  BJumbotron
 }
 
 const VuePlugin = {
