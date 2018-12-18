@@ -127,8 +127,52 @@ You can repeat the commands above replacing `bootstrap-vue/webpack-simple` with
 
 ## vue-cli V3
 
-Coming soon!
+Unlike V2, vue-cli v3 doesn't use templates.
 
+1) Create a new Vue CLI project in the directory `my-project`
+
+   ```bash
+   $ npx @vue/cli create my-project
+   ```
+
+2) Enter the `my-project` directory and install `bootstrap-vue`
+
+   ```bash
+   $ npm i bootstrap-vue
+   ```
+
+3) Under the hood, Vue CLI uses webpack, so we can register the BootstrapVue
+   plugin as with the webpack instructions.
+
+   ```js
+   import Vue from 'vue'
+   import BootstrapVue from 'bootstrap-vue'
+
+   Vue.use(BootstrapVue);
+
+   import 'bootstrap/dist/css/bootstrap.css'
+   import 'bootstrap-vue/dist/bootstrap-vue.css'
+   ```
+
+Optionally, you can import components individually, as below. To shorten
+imports, we can add a webpack alias via `vue.config.js`.
+
+```js
+const path = require('path');
+
+module.exports = {
+  configureWebpack: {
+    resolve: {
+      alias: {
+        'bootstrap-components': path.resolve(
+          __dirname,
+          'node_modules/bootstrap-vue/es/components'
+        ),
+      }
+    }
+  }
+}
+```
 
 ## Individual components and directives
 If you would like to only pull in a specific component or set of components, you can do
