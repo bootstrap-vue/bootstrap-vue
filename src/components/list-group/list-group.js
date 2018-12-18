@@ -8,6 +8,10 @@ export const props = {
   flush: {
     type: Boolean,
     default: false
+  },
+  striped: {
+    type: Boolean,
+    default: false
   }
 }
 
@@ -18,9 +22,11 @@ export default {
   render (h, { props, data, children }) {
     const componentData = {
       staticClass: 'list-group',
-      class: { 'list-group-flush': props.flush }
+      class: {
+        'list-group-flush': props.flush,
+        'list-group-striped': props.striped
+      }
     }
-
     return h(props.tag, mergeData(data, componentData), children)
   }
 }
