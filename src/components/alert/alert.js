@@ -1,9 +1,9 @@
-import bButtonClose from '../button/button-close'
+import BButtonClose from '../button/button-close'
 
 // @vue/component
 export default {
   name: 'BAlert',
-  components: { bButtonClose },
+  components: { BButtonClose },
   model: {
     prop: 'show',
     event: 'input'
