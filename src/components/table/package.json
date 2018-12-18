@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "meta": {
         "title": "Table",
-        "component": "bTable",
+        "component": "BTable",
         "events": [
             {
                 "event": "row-clicked",
