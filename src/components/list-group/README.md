@@ -83,6 +83,7 @@ Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
 (other than `active`) and the `tag` prop will have no effect.
 - When `href` or `to` are set, the `tag` prop has no effect.
 
+
 ## Contextual variants
 Use contextual variants to style list items with a stateful background and color, via
 the `variant` prop.
@@ -128,6 +129,25 @@ Using color to add meaning only provides a visual indication, which will not be 
 of assistive technologies – such as screen readers. Ensure that information denoted by the color
 is either obvious from the content itself (e.g. the visible text), or is included through alternative
 means, such as additional text hidden using the `.sr-only` class.
+
+
+## Striped
+Alternate the background colors of list items with by adding the prop `striped`.
+
+```html
+<b-list-group striped>
+  <b-list-group-item>Cras justo odio</b-list-group-item>
+  <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+  <b-list-group-item>Morbi leo risus</b-list-group-item>
+  <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
+  <b-list-group-item>Vestibulum at eros</b-list-group-item>
+</b-list-group>
+
+<!-- list-group-striped.vue -->
+```
+
+**Note:** currently, the `striped` option will not work well with list group items which
+are `active`, or have a `variant` set.
 
 
 ## With badges
