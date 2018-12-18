@@ -919,7 +919,8 @@ export default {
           id: this.safeId(),
           role: 'dialog',
           tabindex: '-1',
-          'aria-hidden': this.is_visible ? null : 'true'
+          'aria-hidden': this.is_visible ? null : 'true',
+          'aria-modal': this.is_visible ? 'true' : null
         },
         on: {
           click: this.onClickOut,
