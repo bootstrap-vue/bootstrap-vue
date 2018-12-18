@@ -3,7 +3,7 @@ import observeDom from '../../utils/observe-dom'
 import idMixin from '../../mixins/id'
 
 // Private Helper component
-const bTabButtonHelper = {
+const BTabButtonHelper = {
   name: 'BTabButtonHelper',
   props: {
     content: { type: [String, Array], default: '' },
@@ -315,7 +315,7 @@ export default {
     const tabs = this.tabs
     // Navigation 'buttons'
     const buttons = tabs.map((tab, index) => {
-      return h(bTabButtonHelper, {
+      return h(BTabButtonHelper, {
         key: index,
         props: {
           content: tab.$slots.title || tab.title,
