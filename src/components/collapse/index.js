@@ -1,5 +1,5 @@
 import BCollapse from './collapse'
-import togglePlugin from '../../directives/toggle'
+import toggleDirectivePlugin from '../../directives/toggle'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
@@ -9,7 +9,7 @@ const components = {
 const VuePlugin = {
   install (Vue) {
     registerComponents(Vue, components)
-    Vue.use(togglePlugin)
+    Vue.use(toggleDirectivePlugin)
   }
 }
 
