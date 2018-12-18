@@ -6,7 +6,7 @@ other elements into a concise header. It’s easily extensible and thanks to the
 
 **Example:**
 ```html
-<b-navbar toggleable="md" type="dark" variant="info">
+<b-navbar toggleable="lg" type="dark" variant="info">
 
   <b-navbar-brand href="#">NavBar</b-navbar-brand>
   
