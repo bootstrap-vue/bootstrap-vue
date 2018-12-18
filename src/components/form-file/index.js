@@ -3,7 +3,7 @@ import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
   BFormFile,
-  BFile: bFormFile
+  BFile: BFormFile
 }
 
 const VuePlugin = {
