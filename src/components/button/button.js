@@ -3,7 +3,7 @@ import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
 import { assign, keys } from '../../utils/object'
 import { addClass, removeClass } from '../../utils/dom'
-import Link, { propsFactory as linkPropsFactory } from '../link/link'
+import BLink, { propsFactory as linkPropsFactory } from '../link/link'
 
 const btnProps = {
   block: {
@@ -173,6 +173,6 @@ export default {
       on
     }
 
-    return h(link ? Link : props.tag, mergeData(data, componentData), children)
+    return h(link ? BLink : props.tag, mergeData(data, componentData), children)
   }
 }
