@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Select",
-    "component": "bFormSelect",
-    "aliases": [ "bSelect" ],
+    "component": "BFormSelect",
+    "aliases": [ "BSelect" ],
     "slots": [
       { 
         "name": "first",
