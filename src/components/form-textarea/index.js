@@ -1,9 +1,9 @@
-import bFormTextarea from './form-textarea'
+import BFormTextarea from './form-textarea'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bFormTextarea,
-  bTextarea: bFormTextarea
+  BFormTextarea,
+  BTextarea: BFormTextarea
 }
 
 const VuePlugin = {
