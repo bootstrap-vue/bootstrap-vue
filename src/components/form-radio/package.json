@@ -5,8 +5,8 @@
     "title": "Form Radio",
     "components": [
       {
-        "component": "bFormRadioGroup",
-        "aliases": [ "bRadioGroup" ],
+        "component": "BFormRadioGroup",
+        "aliases": [ "BRadioGroup" ],
         "slots": [
           {
             "name": "first",
@@ -32,8 +32,8 @@
         ]
       },
       {
-        "component": "bFormRadio",
-        "aliases": [ "bRadio" ],
+        "component": "BFormRadio",
+        "aliases": [ "BRadio" ],
         "events": [
           {
             "event": "input",
