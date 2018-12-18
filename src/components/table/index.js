@@ -1,8 +1,8 @@
-import bTable from './table'
+import BTable from './table'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bTable
+  BTable
 }
 
 const VuePlugin = {
