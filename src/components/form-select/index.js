@@ -3,7 +3,7 @@ import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
   BFormSelect,
-  BSelect: bFormSelect
+  BSelect: BFormSelect
 }
 
 const VuePlugin = {
