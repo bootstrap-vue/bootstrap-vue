@@ -156,25 +156,25 @@ export default {
   },
   updated () {
     // If content/props changes, etc
+    /* istanbul ignore if: can't test in JSDOM */
     if (this._toolpop) {
       this._toolpop.updateConfig(this.getConfig())
     }
   },
-  /* istanbul ignore next: not easy to test */
   activated () {
     // Called when component is inside a <keep-alive> and component brought offline
+    /* istanbul ignore next: can't test in JSDOM */
     this.setObservers(true)
   },
-  /* istanbul ignore next: not easy to test */
   deactivated () {
     // Called when component is inside a <keep-alive> and component taken offline
+    /* istanbul ignore if: can't test in JSDOM */
     if (this._toolpop) {
       this.setObservers(false)
       this._toolpop.hide()
     }
   },
-  /* istanbul ignore next: not easy to test */
-  beforeDestroy () {
+  beforeDestroy () /* Istanbul ignore next: not easy to test */ {
     // Shutdown our local event listeners
     this.$off('open', this.onOpen)
     this.$off('close', this.onClose)
@@ -218,16 +218,19 @@ export default {
       }
     },
     onDisable () {
+      /* istanbul ignore if: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.disable()
       }
     },
     onEnable () {
+      /* istanbul ignore if: can't test in JSDOM */
       if (this._toolpop) {
         this._toolpop.enable()
       }
     },
     updatePosition () {
+      /* istanbul ignore if: can't test in JSDOM */
       if (this._toolpop) {
         // Instruct popper to reposition popover if necessary
         this._toolpop.update()
@@ -294,8 +297,7 @@ export default {
         this.$el.appendChild(this.$refs.content)
       }
     },
-    /* istanbul ignore next: not easy to test */
-    setObservers (on) {
+    setObservers (on) /* istanbul ignore next: can't test in JSDOM */ {
       if (on) {
         if (this.$refs.title) {
           this._obs_title = observeDom(this.$refs.title, this.updatePosition.bind(this), OBSERVER_CONFIG)
