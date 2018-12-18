@@ -9,17 +9,12 @@
     <b-button>Button 1</b-button>
     <b-button>Button 2</b-button>
     <b-button>Button 3</b-button>
-    <b-button>Button 4</b-button>
-    <b-button>Button 5</b-button>
   </b-button-group>
   <br><br>
   <b-button-group>
     <b-button variant="success">Success</b-button>
     <b-button variant="info">Info</b-button>
     <b-button variant="warning">Warning</b-button>
-    <b-button variant="primary">Primary</b-button>
-    <b-button variant="danger">Danger</b-button>
-    <b-button variant="link">Link</b-button>
   </b-button-group>
 </div>
 
@@ -80,15 +75,13 @@ that split dropdown menus are not supported when prop `vertical` is set.
 ```html
 <div>
   <b-button-group>
-    <b-button>Button 1</b-button>
-    <b-button>Button 2</b-button>
+    <b-button>Button</b-button>
     <b-dropdown right text="Menu">
       <b-dropdown-item>Item 1</b-dropdown-item>
       <b-dropdown-item>Item 2</b-dropdown-item>
       <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-item>Item 3</b-dropdown-item>
     </b-dropdown>
-    <b-button>Button 3</b-button>
     <b-dropdown right split text="Split Menu">
       <b-dropdown-item>Item 1</b-dropdown-item>
       <b-dropdown-item>Item 2</b-dropdown-item>
