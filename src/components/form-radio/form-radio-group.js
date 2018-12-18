@@ -5,12 +5,12 @@ import formRadioCheckGroupMixin from '../../mixins/form-radio-check-group'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 
-import bFormRadio from './form-radio'
+import BFormRadio from './form-radio'
 
 // @vue/component
 export default {
   name: 'BFormRadioGroup',
-  components: { bFormRadio },
+  components: { BFormRadio },
   mixins: [
     idMixin,
     formMixin,
