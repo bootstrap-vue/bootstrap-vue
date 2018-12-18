@@ -1,9 +1,9 @@
-import bFormGroup from './form-group'
+import BFormGroup from './form-group'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bFormGroup,
-  bFormFieldset: bFormGroup
+  BFormGroup,
+  BFormFieldset: BFormGroup
 }
 
 const VuePlugin = {
