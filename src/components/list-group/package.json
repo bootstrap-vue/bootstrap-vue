@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "meta": {
         "title": "List group",
-        "component": "bListGroup",
+        "component": "BListGroup",
         "components": [
             "bListGroupItem"
         ]
