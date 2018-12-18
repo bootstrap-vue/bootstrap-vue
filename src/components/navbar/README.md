@@ -6,7 +6,7 @@ other elements into a concise header. It’s easily extensible and thanks to the
 
 **Example:**
 ```html
-<b-navbar toggleable="md" type="dark" variant="info">
+<b-navbar toggleable="lg" type="dark" variant="info">
 
   <b-navbar-brand href="#">NavBar</b-navbar-brand>
   
@@ -201,25 +201,21 @@ Note split dropdowns are not supported in `<b-navbar>` and `<b-navbar-nav>`.
 
 ```html
 <div>
-  <b-navbar type="dark" variant="primary" toggleable>
-    <b-navbar-toggle target="nav_dropdown_collapse"></b-navbar-toggle>
-    <b-collapse is-nav id="nav_dropdown_collapse">
-      <b-navbar-nav>
-        <b-nav-item href="#">Home</b-nav-item>
-        <b-nav-item href="#">Link</b-nav-item>
-        <!-- Navbar dropdowns -->
-        <b-nav-item-dropdown text="Lang" right>
-          <b-dropdown-item href="#">EN</b-dropdown-item>
-          <b-dropdown-item href="#">ES</b-dropdown-item>
-          <b-dropdown-item href="#">RU</b-dropdown-item>
-          <b-dropdown-item href="#">FA</b-dropdown-item>
-        </b-nav-item-dropdown>
-        <b-nav-item-dropdown text="User" right>
-          <b-dropdown-item href="#">Account</b-dropdown-item>
-          <b-dropdown-item href="#">Settings</b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
-    </b-collapse>
+  <b-navbar type="dark" variant="dark">
+    <b-navbar-nav>
+      <b-nav-item href="#">Home</b-nav-item>
+      <!-- Navbar dropdowns -->
+      <b-nav-item-dropdown text="Lang" right>
+        <b-dropdown-item href="#">EN</b-dropdown-item>
+        <b-dropdown-item href="#">ES</b-dropdown-item>
+        <b-dropdown-item href="#">RU</b-dropdown-item>
+        <b-dropdown-item href="#">FA</b-dropdown-item>
+      </b-nav-item-dropdown>
+      <b-nav-item-dropdown text="User" right>
+        <b-dropdown-item href="#">Account</b-dropdown-item>
+        <b-dropdown-item href="#">Settings</b-dropdown-item>
+      </b-nav-item-dropdown>
+    </b-navbar-nav>
   </b-navbar>
 </div>
 
@@ -272,7 +268,7 @@ Use the `<b-navbar-toggle>` component to control the collapse component, and set
 
 Set the `toggleable` prop on `<b-navbar>` to the desired breakpoint you would like content
 to automatically expand at. Possible `toggleable` values are `sm`, `md`, `lg` and `xl`. Setting
-`toggleable` to `true` (or with no explicit value) will set the navbar to be always collapsed, while
+`toggleable` to `true` (or an empty string) will set the navbar to be always collapsed, while
 setting it to `false` (the default) will disable collapsing (always expanded).
 
 `<b-navbar-toggle>` components are left-aligned by default, but should they follow a sibling
