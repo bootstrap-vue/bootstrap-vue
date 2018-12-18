@@ -5,8 +5,8 @@
     "title": "Form Checkbox",
     "components": [
       {
-        "component": "bFormCheckboxGroup",
-        "aliases": [ "bCheckboxGroup", "bCheckGroup" ],
+        "component": "BFormCheckboxGroup",
+        "aliases": [ "BCheckboxGroup", "BCheckGroup" ],
         "slots": [
           {
             "name": "first",
@@ -37,8 +37,8 @@
         ]
       },
       {
-        "component": "bFormCheckbox",
-        "aliases": [ "bCheckbox", "bCheck" ],
+        "component": "BFormCheckbox",
+        "aliases": [ "BCheckbox", "BCheck" ],
         "events": [
           {
             "event": "input",
