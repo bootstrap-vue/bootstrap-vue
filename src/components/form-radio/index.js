@@ -1,12 +1,12 @@
-import bFormRadio from './form-radio'
-import bFormRadioGroup from './form-radio-group'
+import BFormRadio from './form-radio'
+import BFormRadioGroup from './form-radio-group'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bFormRadio,
-  bRadio: bFormRadio,
-  bFormRadioGroup,
-  bRadioGroup: bFormRadioGroup
+  BFormRadio,
+  BRadio: BFormRadio,
+  BFormRadioGroup,
+  BRadioGroup: BFormRadioGroup
 }
 
 const VuePlugin = {
