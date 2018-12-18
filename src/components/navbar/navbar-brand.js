@@ -1,4 +1,4 @@
-import Link, { propsFactory } from '../link/link'
+import BLink, { propsFactory } from '../link/link'
 import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
 import { assign } from '../../utils/object'
@@ -21,7 +21,7 @@ export default {
   props,
   render (h, { props, data, children }) {
     const isLink = Boolean(props.to || props.href)
-    const tag = isLink ? Link : props.tag
+    const tag = isLink ? BLink : props.tag
 
     return h(
       tag,
