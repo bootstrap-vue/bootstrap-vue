@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Group",
-    "component": "bFormGroup",
-    "alias": [ "bFormFieldset" ],
+    "component": "BFormGroup",
+    "alias": [ "BFormFieldset" ],
     "slots": [
       {
         "name": "label",
