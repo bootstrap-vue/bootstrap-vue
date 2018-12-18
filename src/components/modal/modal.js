@@ -1,5 +1,5 @@
-import bBtn from '../button/button'
-import bBtnClose from '../button/button-close'
+import BBtn from '../button/button'
+import BBtnClose from '../button/button-close'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import observeDom from '../../utils/observe-dom'
@@ -82,7 +82,7 @@ function getModalNextZIndex () {
 // @vue/component
 export default {
   name: 'BModal',
-  components: { bBtn, bBtnClose },
+  components: { BBtn, BBtnClose },
   mixins: [idMixin, listenOnRootMixin],
   model: {
     prop: 'visible',
