@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "meta": {
         "title": "Tooltip",
-        "component": "bTooltip",
+        "component": "BTooltip",
         "directives": [
             "vBTooltip"
         ],
