@@ -168,13 +168,13 @@ export default {
   },
   deactivated () {
     // Called when component is inside a <keep-alive> and component taken offline
-    /* istanbul ignore if: can't test in JSDOM */ 
+    /* istanbul ignore if: can't test in JSDOM */
     if (this._toolpop) {
       this.setObservers(false)
       this._toolpop.hide()
     }
   },
-  beforeDestroy () /* Istanbul ignore next: not easy to test */{
+  beforeDestroy () /* Istanbul ignore next: not easy to test */ {
     // Shutdown our local event listeners
     this.$off('open', this.onOpen)
     this.$off('close', this.onClose)
