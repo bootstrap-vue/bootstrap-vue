@@ -18,33 +18,10 @@ const bTabButtonHelper = {
     itemClass: { default: null },
     noKeyNav: { type: Boolean, default: false }
   },
-  methods: {
-    handleClick (evt) {
-      function stop () {
-        evt.preventDefault()
-        evt.stopPropagation()
-      }
-      if (evt.type !== 'click' && this.noKeyNav) {
-        return
-      }
-      if (this.disabled) {
-        stop()
-        return
-      }
-      if (
-        evt.type === 'click' ||
-        evt.keyCode === KeyCodes.ENTER ||
-        evt.keyCode === KeyCodes.SPACE
-      ) {
-        stop()
-        this.$emit('click', evt)
-      }
-    }
-  },
   render (h) {
     const link = h('a', {
+      staticClass: 'nav-link',
       class: [
-        'nav-link',
         { active: this.active, disabled: this.disabled },
         this.linkClass
       ],
@@ -69,6 +46,29 @@ const bTabButtonHelper = {
       { class: ['nav-item', this.itemClass], attrs: { role: 'presentation' } },
       [link]
     )
+  },
+  methods: {
+    handleClick (evt) {
+      function stop () {
+        evt.preventDefault()
+        evt.stopPropagation()
+      }
+      if (evt.type !== 'click' && this.noKeyNav) {
+        return
+      }
+      if (this.disabled) {
+        stop()
+        return
+      }
+      if (
+        evt.type === 'click' ||
+        evt.keyCode === KeyCodes.ENTER ||
+        evt.keyCode === KeyCodes.SPACE
+      ) {
+        stop()
+        this.$emit('click', evt)
+      }
+    }
   }
 }
 
