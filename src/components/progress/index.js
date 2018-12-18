@@ -1,10 +1,10 @@
-import bProgress from './progress'
-import bProgressBar from './progress-bar'
+import BProgress from './progress'
+import BProgressBar from './progress-bar'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bProgress,
-  bProgressBar
+  BProgress,
+  BProgressBar
 }
 
 const VuePlugin = {
