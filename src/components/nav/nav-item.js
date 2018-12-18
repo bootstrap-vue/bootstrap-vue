@@ -1,5 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
-import Link, { propsFactory as linkPropsFactory } from '../link/link'
+import BLink, { propsFactory as linkPropsFactory } from '../link/link'
 
 export const props = linkPropsFactory()
 
@@ -14,7 +14,7 @@ export default {
       mergeData(data, {
         staticClass: 'nav-item'
       }),
-      [h(Link, { staticClass: 'nav-link', props }, children)]
+      [h(BLink, { staticClass: 'nav-link', props }, children)]
     )
   }
 }
