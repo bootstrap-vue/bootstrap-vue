@@ -1,5 +1,5 @@
-import BBtn from '../button/button'
-import BBtnClose from '../button/button-close'
+import BButton from '../button/button'
+import BButtonClose from '../button/button-close'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import observeDom from '../../utils/observe-dom'
@@ -82,7 +82,7 @@ function getModalNextZIndex () {
 // @vue/component
 export default {
   name: 'BModal',
-  components: { BBtn, BBtnClose },
+  components: { BButton, BButtonClose },
   mixins: [idMixin, listenOnRootMixin],
   model: {
     prop: 'visible',
@@ -784,7 +784,7 @@ export default {
         let closeButton = h(false)
         if (!this.hideHeaderClose) {
           closeButton = h(
-            'b-btn-close',
+            'b-button-close',
             {
               props: {
                 disabled: this.is_transitioning,
@@ -837,7 +837,7 @@ export default {
         let cancelButton = h(false)
         if (!this.okOnly) {
           cancelButton = h(
-            'b-btn',
+            'b-button',
             {
               props: {
                 variant: this.cancelVariant,
@@ -854,7 +854,7 @@ export default {
           )
         }
         const okButton = h(
-          'b-btn',
+          'b-button',
           {
             props: {
               variant: this.okVariant,
