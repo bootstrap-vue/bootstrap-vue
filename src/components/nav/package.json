@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "meta": {
     "title": "Nav",
-    "component": "bNav",
+    "component": "BNav",
     "plugins": [
         "Dropdown"
     ],
     "components": [
-      "bNavItem",
-      "bNavText",
-      "bNavForm",
+      "BNavItem",
+      "BNavText",
+      "BNavForm",
       {
-        "component": "bNavItemDropdown",
-        "aliases": [ "bNavItemDd", "bNavDropdown", "bNavDd" ],
+        "component": "BNavItemDropdown",
+        "aliases": [ "BNavItemDd", "BNavDropdown", "BNavDd" ],
         "slots": [
           {
             "name": "button-content",
