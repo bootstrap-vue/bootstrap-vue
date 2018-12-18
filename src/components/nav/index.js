@@ -12,9 +12,9 @@ const components = {
   BNavText,
   BNavForm,
   BNavItemDropdown,
-  BNavItemDd: bNavItemDropdown,
-  BNavDropdown: bNavItemDropdown,
-  BNavDd: bNavItemDropdown
+  BNavItemDd: BNavItemDropdown,
+  BNavDropdown: BNavItemDropdown,
+  BNavDd: BNavItemDropdown
 }
 
 const VuePlugin = {
