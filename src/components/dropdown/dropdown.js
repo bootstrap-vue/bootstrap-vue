@@ -1,11 +1,11 @@
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
-import bButton from '../button/button'
+import BButton from '../button/button'
 
 // @vue/component
 export default {
   name: 'BDropdown',
-  components: { bButton },
+  components: { BButton },
   mixins: [idMixin, dropdownMixin],
   props: {
     toggleText: {
