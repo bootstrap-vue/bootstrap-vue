@@ -1,8 +1,8 @@
-import bPaginationNav from './pagination-nav'
+import BPaginationNav from './pagination-nav'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
-  bPaginationNav
+  BPaginationNav
 }
 
 const VuePlugin = {
