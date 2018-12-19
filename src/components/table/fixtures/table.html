@@ -23,6 +23,14 @@
 
     <b-table ref="table_responsive" responsive :items="items" :fields="fields"></b-table>
 
+    <b-table ref="table_caption" :items="items" :fields="fields" caption="Table Caption"></b-table>
+
+    <b-table ref="table_caption_slot" :items="items" :fields="fields">
+      <span slot="caption">Table Caption</span>
+    </b-table>
+
+    <b-table ref="table_selectable" selectable :items="items" :fields="fields"></b-table>
+
     <b-table ref="table_no_sort_reset" :items="items" :fields="fields" no-sort-reset></b-table>
 
     <h2>Paginated Table</h2>
