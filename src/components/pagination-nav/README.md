@@ -142,7 +142,7 @@ prop to eiter `'am` for smaller buttons or `'lg'` for larger buttons.
 
 ```html
 <template>
-<div style="overflow-x:auto:">
+<div style="overflow-x:auto;">
   <h6>Small</h6>
   <b-pagination-nav size="sm" base-url="#" :number-of-pages="5" v-model="currentPage" />
 
