@@ -916,7 +916,6 @@ export default {
         let selected = !this.selectedRows[index]
         switch (this.selectMode) {
           case 'single':
-          case 'radio':
             this.selectedRows = []
             break
           case 'range':
