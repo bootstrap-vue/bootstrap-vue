@@ -889,7 +889,10 @@ export default {
       return fn
     },
     clearSelected () {
-      if (this.selectedRows.length) {
+      let hasSelection = this.selectedRows.reduce((prev, v) => {
+        return prev || v
+      }, false)
+      if (hasSelection) {
         this.lastRowClicked = -1
         this.selectedRows = []
         this.$emit('row-selected', [])
