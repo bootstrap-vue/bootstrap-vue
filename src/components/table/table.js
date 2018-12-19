@@ -923,9 +923,11 @@ export default {
               for (let idx = Math.min(this.lastRowClicked, index); idx <= Math.max(this.lastRowClicked, index); idx++) {
                 this.selectedRows[idx] = true
               }
+              selected = true
             } else {
               if (!(e.ctrlKey || e.metaKey)) { // clear range selection if any
                 this.selectedRows = []
+                selected = true
               }
               this.lastRowClicked = selected ? index : -1
             }
