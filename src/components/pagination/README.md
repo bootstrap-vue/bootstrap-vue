@@ -8,7 +8,7 @@ component instead.
 
 ```html
 <template>
-  <div>
+  <div style="overflow-x:auto;">
     <h6>Default</h6>
     <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10">
     </b-pagination>

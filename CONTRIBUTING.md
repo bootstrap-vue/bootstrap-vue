@@ -53,7 +53,7 @@ Anyone can file an expense. If the expense makes sense for the development of th
 ### Contributors
 
 Thank you to all the people who have already contributed to bootstrap-vue!
-<a href="graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" /></a>
+<a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" class="img-fluid"></a>
 
 
 ### Backers

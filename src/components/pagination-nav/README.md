@@ -9,7 +9,7 @@ component instead.
 
 ```html
 <template>
-<div>
+<div style="overflow-x:auto;">
   <h6>Default</h6>
   <b-pagination-nav base-url="#" :number-of-pages="10" v-model="currentPage" />
 
@@ -17,7 +17,7 @@ component instead.
   <b-pagination-nav :link-gen="linkGen" :number-of-pages="10" v-model="currentPage" />
   <br>
 
-  <div class="mt-4">currentPage: {{currentPage}}</div>
+  <p class="mt-4">currentPage: {{currentPage}}</p>
 </div>
 </template>
 
@@ -96,7 +96,7 @@ which is a page number (1-N). The `page-gen` function should return a string.
 
 ```html
 <template>
-  <div>
+  <div style="overflow-x:auto;">
     <b-pagination-nav :link-gen="linkGen"
                       :page-gen="pageGen"
                       :number-of-pages="links.length"
@@ -142,7 +142,7 @@ prop to eiter `'am` for smaller buttons or `'lg'` for larger buttons.
 
 ```html
 <template>
-<div>
+<div style="overflow-x:auto;">
   <h6>Small</h6>
   <b-pagination-nav size="sm" base-url="#" :number-of-pages="5" v-model="currentPage" />
 
