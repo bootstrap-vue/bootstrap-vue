@@ -46,6 +46,7 @@ module.exports = {
             options: {
               renderer,
               headerIds: true,
+              sanitize: false,
               gfm: true
             }
           }
