@@ -60,7 +60,9 @@ Thank you to all the people who have already contributed to bootstrap-vue!
 
 Thank you to all our backers! [[Become a backer](https://opencollective.com/bootstrap-vue#backer)]
 
+<div class="w-100">
 <a href="https://opencollective.com/bootstrap-vue#backers" target="_blank"><img src="https://opencollective.com/bootstrap-vue/backers.svg?width=890" class="img-fluid"></a>
+</div>
 
 
 ### Sponsors
