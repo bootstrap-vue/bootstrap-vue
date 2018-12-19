@@ -913,7 +913,7 @@ You can make rows selectable, by using the prop `selectable`.
 Users can easily change the selecting mode by setting the `select-mode` prop.
  - `multi`: each click will select/deselect the row (default mode)
  - `single`: only a single row can be selected at one time
- - `range`: any row clicked is toggled, any other deselected. the SHIFT key selects a range of
+ - `range`: any row clicked is selected, any other deselected. the SHIFT key selects a range of
 rows, and CTRL/CMD click will toggle the selected row.
 
 When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
@@ -961,7 +961,7 @@ export default {
 ```
 
 **Notes:** 
-- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted with an empty array._
+- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted with an empty array if needed._
 - _Selected rows will have a class of `b-row-selected` added to them._
 - _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab sequence (`tabindex="0"`) for accesibility reasons._
 

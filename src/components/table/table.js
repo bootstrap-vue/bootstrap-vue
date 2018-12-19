@@ -889,7 +889,10 @@ export default {
       return fn
     },
     clearSelected () {
-      if (this.selectedRows.length) {
+      let hasSelection = this.selectedRows.reduce((prev, v) => {
+        return prev || v
+      }, false)
+      if (hasSelection) {
         this.lastRowClicked = -1
         this.selectedRows = []
         this.$emit('row-selected', [])
@@ -913,7 +916,6 @@ export default {
         let selected = !this.selectedRows[index]
         switch (this.selectMode) {
           case 'single':
-          case 'radio':
             this.selectedRows = []
             break
           case 'range':
@@ -921,9 +923,11 @@ export default {
               for (let idx = Math.min(this.lastRowClicked, index); idx <= Math.max(this.lastRowClicked, index); idx++) {
                 this.selectedRows[idx] = true
               }
+              selected = true
             } else {
               if (!(e.ctrlKey || e.metaKey)) { // clear range selection if any
                 this.selectedRows = []
+                selected = true
               }
               this.lastRowClicked = selected ? index : -1
             }
