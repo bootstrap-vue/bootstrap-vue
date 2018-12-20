@@ -118,7 +118,7 @@
     "marked": "^0.5.2",
     "node-sass": "^4.11.0",
     "nuxt-edge": "^2.4.0-25754270.4fb220c9",
-    "postcss-cli": "^6.0.1",
+    "postcss-cli": "^6.1.0",
     "rollup": "^0.68.1",
     "rollup-plugin-babel": "^4.1.0",
     "rollup-plugin-commonjs": "^9.2.0",
@@ -126,7 +126,7 @@
     "rollup-watch": "^4.3.1",
     "sass-loader": "^7.1.0",
     "standard-version": "^4.4.0",
-    "terser": "^3.12.0",
+    "terser": "^3.13.1",
     "vue-jest": "^3.0.2",
     "vue": "^2.5.21"
   },

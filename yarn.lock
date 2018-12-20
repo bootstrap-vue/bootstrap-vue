@@ -3679,10 +3679,10 @@ depd@~1.1.2:
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
 
-dependency-graph@^0.7.0:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/dependency-graph/-/dependency-graph-0.7.2.tgz#91db9de6eb72699209d88aea4c1fd5221cac1c49"
-  integrity sha512-KqtH4/EZdtdfWX0p6MGP9jljvxSY6msy/pRUD4jgNwVpv3v1QmNLlsB3LDSSUg79BRVSn7jI1QPRtArGABovAQ==
+dependency-graph@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/dependency-graph/-/dependency-graph-0.8.0.tgz#2da2d35ed852ecc24a5d6c17788ba57c3708755b"
+  integrity sha512-DCvzSq2UiMsuLnj/9AL484ummEgLtZIcRS7YvtO38QnpX3vqh9nJ8P+zhu8Ja+SmLrBHO2iDbva20jq38qvBkQ==
 
 des.js@^1.0.0:
   version "1.0.0"
@@ -8035,14 +8035,14 @@ postcss-calc@^7.0.0:
     postcss-selector-parser "^5.0.0-rc.4"
     postcss-value-parser "^3.3.1"
 
-postcss-cli@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/postcss-cli/-/postcss-cli-6.0.1.tgz#24c990f9313c7b21b2c4b2301c8f21591240c23f"
-  integrity sha512-M9GiEMzXVMlI4ln8e+mdeHT+qvoHVZdlN06hj5/EhrRZWDr+J1sniPeGJ4nghknl+du3Oj2UoqqhgpKKhiZ9+w==
+postcss-cli@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-cli/-/postcss-cli-6.1.0.tgz#a2eb4e6b8d7fe85a9b30321685049fa3c542891f"
+  integrity sha512-qXufMvDOvD0fvcnDYO6Rz85nSmXjIDpx2IP8CzrGv8RxAfxx5Zjvfx1GGXxbOyk8terq1Q1O8GL4ZTzBuZ1TYg==
   dependencies:
     chalk "^2.1.0"
     chokidar "^2.0.0"
-    dependency-graph "^0.7.0"
+    dependency-graph "^0.8.0"
     fs-extra "^7.0.0"
     get-stdin "^6.0.0"
     globby "^8.0.0"
@@ -10255,10 +10255,10 @@ terser-webpack-plugin@^1.1.0:
     webpack-sources "^1.1.0"
     worker-farm "^1.5.2"
 
-terser@^3.12.0:
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-3.12.0.tgz#b1a81d6d28b8b88f5073321341a1d69c20feb7d8"
-  integrity sha512-Jx2XedVgku7U1eLvEsl8UD9wa9AT6sjcjAu1h1cggY7jzRZuyLM0cWsKIZNXNltM5jmUNOprFxQoIf5Y9/1vOA==
+terser@^3.13.1:
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-3.13.1.tgz#a02e8827fb9705fe7b609c31093d010b28cea8eb"
+  integrity sha512-ogyZye4DFqOtMzT92Y3Nxxw8OvXmL39HOALro4fc+EUYFFF9G/kk0znkvwMz6PPYgBtdKAodh3FPR70eugdaQA==
   dependencies:
     commander "~2.17.1"
     source-map "~0.6.1"
