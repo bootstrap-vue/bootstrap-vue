@@ -25,34 +25,6 @@ input[type="color"].form-control:disabled {
   opacity: $btn-disabled-opacity;
 }
 
-/* b-form-input: custom range style temporary tweaks */
-$custom-range-thumb-disabled-bg: $gray-500 !default;
-
-// Temp padding and height fix until V4.2 https://github.com/twbs/bootstrap/pull/26898
-.custom-range {
-  height: calc(#{$custom-range-thumb-height} + #{$custom-range-thumb-focus-box-shadow-width * 2});
-  padding: 0; // Need to reset padding
-}
-
-// Temp fixes for :disabled state until V4.2 https://github.com/twbs/bootstrap/pull/26540
-.custom-range:disabled {
-  &::-webkit-slider-thumb {
-    background-color: $custom-range-thumb-disabled-bg;
-  }
-  &::-webkit-slider-runnable-track {
-    cursor: default;
-  }
-  &::-moz-range-thumb {
-    background-color: $custom-range-thumb-disabled-bg;
-  }
-  &::-moz-range-track {
-    cursor: default;
-  }
-  &::-ms-thumb {
-    background-color: $custom-range-thumb-disabled-bg;
-  }
-}
-
 /* Base .input-group > .custom-range styling (no PR yet on BS V4) */
 .input-group {
   > .custom-range {
