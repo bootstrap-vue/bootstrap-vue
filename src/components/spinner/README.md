@@ -21,7 +21,7 @@ Spinners can be placed just about anywhere, including inside buttons, alerts, an
 
 ## Spinner types
 
-Bootstrap V4.2 includes two types of spinners. The default spinner type is called `border`
+Bootstrap includes two types of spinners. The default spinner type is called `border`
 (spinning circle border), and the optional type `grow` (a throbber style indicator).
 
 ### Border spinner
