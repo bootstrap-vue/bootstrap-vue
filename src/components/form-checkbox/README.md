@@ -264,9 +264,6 @@ export default {
 
 
 ## Switch style checkboxes
-Bootstrap V4.2 (unreleased) adds in support for _Switch Style_ checkboxes. Bootstrap-Vue has added
-this pre-release feature by conditionally including the required custom SCSS styles.
-
 Switch styling is supported on `<b-form-checkbox>` and `<b-form-checkbox-group>` components.
 
 **Note:** If the checkbox is in [button mode](#button-style-checkboxes), switch mode will have no effect.
