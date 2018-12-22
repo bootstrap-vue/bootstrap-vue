@@ -263,15 +263,19 @@ or `'cancel'` respectively. The argument passed to `hide()` will be placed into 
 
 
 ## Modal sizing
-Modals have two optional sizes, available via the prop `size`. These sizes kick in at certain
+Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain
 breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are
-`lg`, or `sm`.
+`sm`, `lg`, and `xl`
 
 ```html
 <div>
-  <b-btn v-b-modal.modallg variant="primary">Large modal</b-btn>
-  <b-btn v-b-modal.modalsm variant="primary">Small modal</b-btn>
+  <b-btn v-b-modal.modalxl variant="primary">lg modal</b-btn>
+  <b-btn v-b-modal.modallg variant="primary">xl modal</b-btn>
+  <b-btn v-b-modal.modalsm variant="primary">sm modal</b-btn>
 
+  <b-modal id="modalxl" size="xl" title="Extra Large Modal">
+    Hello Modal!
+  </b-modal>
   <b-modal id="modallg" size="lg" title="Large Modal">
     Hello Modal!
   </b-modal>
