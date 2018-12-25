@@ -85,7 +85,7 @@ up at `/b`, but with `append` we will end up at `/a/b`.
 
 Sometimes we want `<router-link>` to render as another tag, e.g `<li>`. Then we can use `router-tag`
 prop to specify which tag to render to, and it will still listen to click events for navigation.
-`routr-tag` translates to the `tag` prop on the final rendered `<router-link>`.
+`router-tag` translates to the `tag` prop on the final rendered `<router-link>`.
 
 ``` html
 <b-link to="/foo" router-tag="li">foo</b-link>
