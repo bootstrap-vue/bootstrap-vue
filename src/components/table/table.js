@@ -1338,7 +1338,7 @@ export default {
         )
         // Row Details slot
         if (rowShowDetails) {
-          const tdAttrs = { colspan: String(fields.length) }
+          const tdAttrs = { colspan: String(fields.length), class: 'col-12' }
           const trAttrs = { id: detailsId }
           if (this.isStacked) {
             tdAttrs['role'] = 'cell'
