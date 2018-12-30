@@ -85,11 +85,10 @@ and Bootstrap-Vue SCSS in your project's custom SCSS file:
 // custom overrides go first
 $grid-breakpoints: (
   xs: 0,
-  sm: 576px,
-  md: 768px,
+  sm: 480px,
+  md: 640px,
   lg: 992px,
-  xl: 1200px
-  foo: 1999px
+  xl: 1300px
 );
 
 // then include the following
@@ -307,7 +306,7 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 
 ### CSS
 BootstrapVue is to be used with Bootstrap 4 CSS/SCSS.
-Please see [Browsers and devices](https://getbootstrap.com/docs/4.1/getting-started/browsers-devices)
+Please see [Browsers and devices](https://getbootstrap.com/docs/4.2/getting-started/browsers-devices)
 for more information about browsers currently supported by Bootstrap 4.
 
 ### JS
