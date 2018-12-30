@@ -241,6 +241,39 @@ a fixed-width card.
 <!-- card-kitchen-1.vue -->
 ```
 
+## Horizontal Card Layout
+
+Using a combination of grid components, utility classes and idividual card sub-components, cards
+can be made horizontal in a mobile-friendly and responsive way.
+
+In the example below, we remove the row grid gutters with the row `no-gutters` prop and use `md` column
+props to make the card horizontal at the `md` breakpoint. Further adjustments may be needed depending
+on your card content.
+
+```html
+<div>
+  <b-card no-body style="max-width: 540px;">
+    <b-row no-gutters>
+      <b-col md="6">
+        <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
+      </b-col>
+      <b-col md="6">
+        <b-card-body>
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">
+            This is a wider card with supporting text below as a natural lead-in to
+            additional content. This content is a little bit longer.
+          </p>
+        </b-card-body>
+      </b-col>
+    </b-row>
+  </b-card>
+</div>
+
+<!-- card-horizontal-1.vue -->
+```
+
+
 ## Text variants
 
 By default, cards use dark text and assume a light background. You can reverse that by
