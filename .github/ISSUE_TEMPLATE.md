@@ -7,7 +7,7 @@ Before opening an issue:
 When asking general "how to" questions:
 
 - Please avoid opening an issue here
-- Instead, ask for help on StackOverflow, IRC, or [Slack](https://bootstrap-vue.now.sh/), and also check out the [online documentation](https://bootstrap-vue.js.org)
+- Instead, ask for help on StackOverflow, IRC, or [Discord](https://discord.gg/j2Mtcny), and also check out the [online documentation](https://bootstrap-vue.js.org)
 
 When reporting a bug, include:
 
