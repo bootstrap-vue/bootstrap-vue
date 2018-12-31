@@ -3,10 +3,9 @@ import prefixPropName from '../../utils/prefix-prop-name'
 import copyProps from '../../utils/copyProps'
 import pluckProps from '../../utils/pluck-props'
 import { assign } from '../../utils/object'
-import stripScripts from '../../utils/strip-scripts'
 import cardMixin from '../../mixins/card-mixin'
-import BCardTitle, { props as titleProps} from './card-title'
-import BCardSubTitle, { props as subTitleProps} from './card-sub-title'
+import BCardTitle, { props as titleProps } from './card-title'
+import BCardSubTitle, { props as subTitleProps } from './card-sub-title'
 
 export const props = assign(
   {},
@@ -16,7 +15,7 @@ export const props = assign(
     bodyClass: {
       type: [String, Object, Array],
       default: null
-    },
+    }
   },
   titleProps,
   subTitleProps,
