@@ -42,7 +42,10 @@ export default {
     }
 
     if (props.subTitle) {
-      cardSubTitle = h(BCardSubTitle, { props: pluckProps(subTitleProps, props) })
+      cardSubTitle = h(BCardSubTitle, {
+        props: pluckProps(subTitleProps, props),
+        class: [ 'mb-2' ]
+      })
     }
 
     return h(
