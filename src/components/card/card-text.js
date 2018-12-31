@@ -4,7 +4,7 @@ export const props = {
   textTag: {
     type: String,
     default: 'p'
-  },
+  }
 }
 
 // @vue/component
