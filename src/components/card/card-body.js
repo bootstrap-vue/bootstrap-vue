@@ -1,9 +1,11 @@
 import { mergeData } from 'vue-functional-data-merge'
 import prefixPropName from '../../utils/prefix-prop-name'
 import copyProps from '../../utils/copyProps'
+import pluckProps from '../../utils/pluck-props'
 import { assign } from '../../utils/object'
-import stripScripts from '../../utils/strip-scripts'
 import cardMixin from '../../mixins/card-mixin'
+import BCardTitle, { props as titleProps } from './card-title'
+import BCardSubTitle, { props as subTitleProps } from './card-sub-title'
 
 export const props = assign(
   {},
@@ -13,23 +15,11 @@ export const props = assign(
     bodyClass: {
       type: [String, Object, Array],
       default: null
-    },
-    title: {
-      type: String,
-      default: null
-    },
-    titleTag: {
-      type: String,
-      default: 'h4'
-    },
-    subTitle: {
-      type: String,
-      default: null
-    },
-    subTitleTag: {
-      type: String,
-      default: 'h6'
-    },
+    }
+  },
+  titleProps,
+  subTitleProps,
+  {
     overlay: {
       type: Boolean,
       default: false
@@ -48,16 +38,13 @@ export default {
     let cardContent = children || [ h(false) ]
 
     if (props.title) {
-      cardTitle = h(props.titleTag, {
-        staticClass: 'card-title',
-        domProps: { innerHTML: stripScripts(props.title) }
-      })
+      cardTitle = h(BCardTitle, { props: pluckProps(titleProps, props) })
     }
 
     if (props.subTitle) {
-      cardSubTitle = h(props.subTitleTag, {
-        staticClass: 'card-subtitle mb-2 text-muted',
-        domProps: { innerHTML: stripScripts(props.subTitle) }
+      cardSubTitle = h(BCardSubTitle, {
+        props: pluckProps(subTitleProps, props),
+        class: [ 'mb-2' ]
       })
     }
 
@@ -69,9 +56,7 @@ export default {
           {
             'card-img-overlay': props.overlay,
             [`bg-${props.bodyBgVariant}`]: Boolean(props.bodyBgVariant),
-            [`border-${props.bodyBorderVariant}`]: Boolean(
-              props.bodyBorderVariant
-            ),
+            [`border-${props.bodyBorderVariant}`]: Boolean(props.bodyBorderVariant),
             [`text-${props.bodyTextVariant}`]: Boolean(props.bodyTextVariant)
           },
           props.bodyClass || {}
