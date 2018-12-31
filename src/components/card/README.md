@@ -197,7 +197,7 @@ the `header-tag` and `footer-tag` props (both default is `div`)
             footer="Card Footer"
             footer-tag="footer"
             title="Title">
-      <b-card-text">Header and footers using props.</b-card-text>
+      <b-card-text>Header and footers using props.</b-card-text>
       <b-button href="#" variant="primary">Go somewhere</b-button>
     </b-card>
     <b-card title="Title"
@@ -230,7 +230,7 @@ a fixed-width card.
     <h4 slot="header">Hello World</h4>
     <b-card-body>
       <b-card-title>Card Title</b-card-title>
-      <b-card-sub-title>Card Sub Title</b-card-sub-title>
+      <b-card-sub-title class="mb-2">Card Sub Title</b-card-sub-title>
       <b-card-text>
         Some quick example text to build on the card title and make
         up the bulk of the card's content.
