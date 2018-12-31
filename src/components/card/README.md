@@ -149,6 +149,8 @@ card is changed.
 
 **Note:** For left and right images, you may need to apply additional styles to classes `.card-img-left` and
 `.card-img-right`, as images will "strech" in height if you have content that is taller than your image.
+You may find the [Horizontal Card Layout](#horizontal-card) example to be more flexible when creating a
+responsive horizontal card.
 
 Place the image in the background of the card by setting the boolean prop `overlay`:
 
@@ -241,27 +243,29 @@ a fixed-width card.
 <!-- card-kitchen-1.vue -->
 ```
 
-## Horizontal Card Layout
+
+## Horizontal card layout
 
 Using a combination of grid components, utility classes and idividual card sub-components, cards
 can be made horizontal in a mobile-friendly and responsive way.
 
-In the example below, we remove the row grid gutters with the row `no-gutters` prop and use `md` column
-props to make the card horizontal at the `md` breakpoint. Further adjustments may be needed depending
+In the example below, we remove the row grid gutters with the `no-gutters` prop on  `<b-row>` and use
+`md` props on `<b-col>` to make the card horizontal at the `md` breakpoint. Class `rounded-0` removes
+the rounding of the `<b-card-img>` corners while class `overflow-hidden` on `<b-card>` will appropriately
+clip the image's corners based on the border-radius of the card. Further adjustments may be needed depending
 on your card content.
 
 ```html
 <div>
-  <b-card no-body style="max-width: 540px;">
+  <b-card no-body class="overflow-hidden" style="max-width: 540px;">
     <b-row no-gutters>
       <b-col md="6">
         <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
       </b-col>
       <b-col md="6">
-        <b-card-body>
-          <h5 class="card-title">Card title</h5>
+        <b-card-body title="Horizontal Card">
           <p class="card-text">
-            This is a wider card with supporting text below as a natural lead-in to
+            This is a wider card with supporting text as a natural lead-in to
             additional content. This content is a little bit longer.
           </p>
         </b-card-body>
