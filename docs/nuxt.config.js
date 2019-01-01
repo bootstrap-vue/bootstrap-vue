@@ -3,6 +3,7 @@ const hljs = require('highlightjs')
 const marked = require('marked')
 
 const renderer = new marked.Renderer()
+renderer.slugger = new marked.Slugger()
 
 // Custom "highlightjs" implementation for markdown renderer
 renderer.code = (code, language) => {
