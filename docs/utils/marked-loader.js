@@ -4,12 +4,12 @@ const marked = require("marked");
 const loaderUtils = require("loader-utils");
 
 module.exports = function (markdown) {
-    // merge params and default config
-    const options = loaderUtils.getOptions(this);
+  // merge params and default config
+  const options = loaderUtils.getOptions(this);
 
-    this.cacheable();
+  this.cacheable();
 
-    marked.setOptions(options);
+  marked.setOptions(options);
 
-    return marked(markdown);
+  return marked(markdown);
 };
