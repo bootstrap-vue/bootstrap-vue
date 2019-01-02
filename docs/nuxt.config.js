@@ -35,6 +35,8 @@ module.exports = {
     extend (config, { loaders }) {
       config.resolve.alias.vue = 'vue/dist/vue.common'
 
+      config.resolveLoader['marked-loader'] = path.join(__dirname, './utils/marked-loader'),
+
       config.devtool = 'source-map'
 
       config.module.rules.push({
@@ -42,7 +44,7 @@ module.exports = {
         use: [
           { loader: 'html-loader' },
           {
-            loader: 'markdown-loader',
+            loader: 'marked-loader',
             options: {
               renderer,
               headerIds: true,
