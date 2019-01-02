@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const hljs = require('highlightjs')
 const marked = require('marked')
 
