@@ -5,7 +5,7 @@ const loaderUtils = require('loader-utils')
 
 module.exports = function (markdown) {
   // merge params and default config
-  const options = loaderUtils.getOptions(this);
+  const options = loaderUtils.getOptions(this)
   this.cacheable()
   marked.setOptions(options)
   return marked(markdown)
