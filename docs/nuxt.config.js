@@ -36,7 +36,7 @@ module.exports = {
     extend (config, { loaders }) {
       config.resolve.alias.vue = 'vue/dist/vue.common'
 
-      config.resolveLoader['marked-loader'] = path.join(__dirname, './utils/marked-loader'),
+      config.resolveLoader['marked-loader'] = path.join(__dirname, './utils/marked-loader')
 
       config.devtool = 'source-map'
 
