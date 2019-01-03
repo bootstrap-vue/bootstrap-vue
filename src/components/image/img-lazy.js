@@ -127,7 +127,9 @@ export default {
     this.isShown = this.show
   },
   mounted () {
-    if (!this.isShown) {
+    if (this.isShown) {
+      this.setListeners(false)
+    } else {
       this.setListeners(true)
       this.$nextTick(this.checkView)
     }
