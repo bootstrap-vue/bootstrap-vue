@@ -115,7 +115,7 @@ export const computed = {
 }
 
 function computeTag (props, parent) {
-  return Boolean(parent.$router) && props.to && !props.disabled ? (Boolean(parent.$nuxt) ? 'nuxt-link' : 'router-link') : 'a'
+  return (parent.$router && props.to && !props.disabled) ? (parent.$nuxt ? 'nuxt-link' : 'router-link') : 'a'
 }
 
 function computeHref ({ disabled, href, to }, tag) {
