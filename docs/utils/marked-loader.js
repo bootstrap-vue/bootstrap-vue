@@ -1,5 +1,7 @@
 // Based on https://github.com/peerigon/markdown-loader/
 // Converts markdown files into HTML format
+// Config options are passed directly to marked
+// - https://marked.js.org/#/USING_ADVANCED.md#options
 
 const marked = require('marked')
 const { getOptions } = require('loader-utils')
