@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const hljs = require('highlightjs')
 const marked = require('marked')
 
@@ -35,6 +36,9 @@ module.exports = {
     extend (config, { loaders }) {
       config.resolve.alias.vue = 'vue/dist/vue.common'
 
+      config.resolveLoader.alias = config.resolveLoader.alias || {}
+      config.resolveLoader.alias['marked-loader'] = path.join(__dirname, './utils/marked-loader')
+
       config.devtool = 'source-map'
 
       config.module.rules.push({
@@ -42,7 +46,7 @@ module.exports = {
         use: [
           { loader: 'html-loader' },
           {
-            loader: 'markdown-loader',
+            loader: 'marked-loader',
             options: {
               renderer,
               headerIds: true,
