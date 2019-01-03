@@ -41,6 +41,10 @@ export default {
       type: [Number, String],
       default: null
     },
+    show: {
+      type: Boolean,
+      default: false
+    },
     fluid: {
       type: Boolean,
       default: false
@@ -102,13 +106,35 @@ export default {
       return this.isShown ? this.height : (this.blankHeight || this.height)
     }
   },
+  watch: {
+    show (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isShown = newVal
+        if (!newVal) {
+          // make sure listeners are re-enabled
+          this.setListeners(true)
+        }
+      }
+    },
+    isShown (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        // Update synched show prop
+        this.$emit('update:show', newVal)
+      }
+    }
+  },
   mounted () {
-    this.setListeners(true)
-    this.checkView()
+    this.isShown = this.show
+    if (!this.show) {
+      this.setListeners(true)
+      this.$nextTick(this.checkView)
+    }
   },
   activated () {
-    this.setListeners(true)
-    this.checkView()
+    if (!this.isShown) {
+      this.setListeners(true)
+      this.$nextTick(this.checkView)
+    }
   },
   deactivated () {
     this.setListeners(false)
