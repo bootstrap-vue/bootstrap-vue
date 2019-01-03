@@ -150,11 +150,13 @@ export default {
       this.scrollTimeout = null
       const root = window
       if (on) {
+        eventOn(this.$el, 'load', this.checkView)
         eventOn(root, 'scroll', this.onScroll)
         eventOn(root, 'resize', this.onScroll)
         eventOn(root, 'orientationchange', this.onScroll)
         eventOn(document, 'transitionend', this.onScroll)
       } else {
+        eventOff(this.$el, 'load', this.checkView)
         eventOff(root, 'scroll', this.onScroll)
         eventOff(root, 'resize', this.onScroll)
         eventOff(root, 'orientationchange', this.onScroll)
@@ -163,8 +165,8 @@ export default {
     },
     checkView () /* istanbul ignore next: can't test getBoundingClientRect in JSDOM */ {
       // check bounding box + offset to see if we should show
-      if (!isVisible(this.$el)) {
-        // Element is hidden, so skip for now
+      if (this.isShown) {
+        this.setListeners(false)
         return
       }
       const offset = parseInt(this.offset, 10) || 0
