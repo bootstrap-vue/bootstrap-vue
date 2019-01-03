@@ -1,5 +1,5 @@
 import BImg from './img'
-import { isVisible, getBCR, eventOn, eventOff } from '../../utils/dom'
+import { getBCR, eventOn, eventOff } from '../../utils/dom'
 const THROTTLE = 100
 
 // @vue/component
@@ -40,6 +40,10 @@ export default {
     blankHeight: {
       type: [Number, String],
       default: null
+    },
+    show: {
+      type: Boolean,
+      default: false
     },
     fluid: {
       type: Boolean,
@@ -93,7 +97,7 @@ export default {
       return (!this.blankSrc || this.isShown) ? this.src : this.blankSrc
     },
     computedBlank () {
-      return !((this.isShown || this.blankSrc))
+      return !(this.isShown || this.blankSrc)
     },
     computedWidth () {
       return this.isShown ? this.width : (this.blankWidth || this.width)
@@ -102,15 +106,47 @@ export default {
       return this.isShown ? this.height : (this.blankHeight || this.height)
     }
   },
+  watch: {
+    show (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isShown = newVal
+        if (!newVal) {
+          // Make sure listeners are re-enabled if img is force set to blank
+          this.setListeners(true)
+        }
+      }
+    },
+    isShown (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        // Update synched show prop
+        this.$emit('update:show', newVal)
+      }
+    }
+  },
+  created () {
+    this.isShown = this.show
+  },
   mounted () {
-    this.setListeners(true)
-    this.checkView()
+    if (this.isShown) {
+      this.setListeners(false)
+    } else {
+      this.setListeners(true)
+      this.$nextTick(this.checkView)
+    }
   },
   activated () {
-    this.setListeners(true)
-    this.checkView()
+    /* istanbul ignore if */
+    if (!this.isShown) {
+      this.setListeners(true)
+      this.$nextTick(this.checkView)
+    }
   },
   deactivated () {
+    /* istanbul ignore next */
+    this.setListeners(false)
+  },
+  beforeDestroy () {
+    /* istanbul ignore next */
     this.setListeners(false)
   },
   methods: {
@@ -119,19 +155,23 @@ export default {
       this.scrollTimeout = null
       const root = window
       if (on) {
+        eventOn(this.$el, 'load', this.checkView)
         eventOn(root, 'scroll', this.onScroll)
         eventOn(root, 'resize', this.onScroll)
         eventOn(root, 'orientationchange', this.onScroll)
+        eventOn(document, 'transitionend', this.onScroll)
       } else {
+        eventOff(this.$el, 'load', this.checkView)
         eventOff(root, 'scroll', this.onScroll)
         eventOff(root, 'resize', this.onScroll)
         eventOff(root, 'orientationchange', this.onScroll)
+        eventOff(document, 'transitionend', this.onScroll)
       }
     },
-    checkView () {
+    checkView () /* istanbul ignore next: can't test getBoundingClientRect in JSDOM */ {
       // check bounding box + offset to see if we should show
-      if (!isVisible(this.$el)) {
-        // Element is hidden, so skip for now
+      if (this.isShown) {
+        this.setListeners(false)
         return
       }
       const offset = parseInt(this.offset, 10) || 0
@@ -142,7 +182,9 @@ export default {
         b: docElement.clientHeight + offset,
         r: docElement.clientWidth + offset
       }
+      /* istanbul ignore next */
       const box = getBCR(this.$el)
+      /* istanbul ignore if */
       if (box.right >= view.l && box.bottom >= view.t && box.left <= view.r && box.top <= view.b) {
         // image is in view (or about to be in view)
         this.isShown = true
@@ -180,8 +222,5 @@ export default {
         }
       }
     )
-  },
-  beforeDdestroy () {
-    this.setListeners(false)
   }
 }
