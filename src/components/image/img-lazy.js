@@ -1,5 +1,5 @@
 import BImg from './img'
-import { isVisible, getBCR, eventOn, eventOff } from '../../utils/dom'
+import { getBCR, eventOn, eventOff } from '../../utils/dom'
 const THROTTLE = 100
 
 // @vue/component
