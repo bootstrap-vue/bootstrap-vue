@@ -97,7 +97,7 @@ export default {
       return (!this.blankSrc || this.isShown) ? this.src : this.blankSrc
     },
     computedBlank () {
-      return !((this.isShown || this.blankSrc))
+      return !(this.isShown || this.blankSrc)
     },
     computedWidth () {
       return this.isShown ? this.width : (this.blankWidth || this.width)
@@ -111,7 +111,7 @@ export default {
       if (newVal !== oldVal) {
         this.isShown = newVal
         if (!newVal) {
-          // make sure listeners are re-enabled
+          // Make sure listeners are re-enabled if img is force set to blank
           this.setListeners(true)
         }
       }
@@ -123,9 +123,11 @@ export default {
       }
     }
   },
-  mounted () {
+  created () {
     this.isShown = this.show
-    if (!this.show) {
+  },
+  mounted () {
+    if (!this.isShown) {
       this.setListeners(true)
       this.$nextTick(this.checkView)
     }
@@ -139,6 +141,9 @@ export default {
   deactivated () {
     this.setListeners(false)
   },
+  beforeDestroy() {
+    this.setListeners(false)
+  },
   methods: {
     setListeners (on) {
       clearTimeout(this.scrollTimer)
@@ -148,10 +153,12 @@ export default {
         eventOn(root, 'scroll', this.onScroll)
         eventOn(root, 'resize', this.onScroll)
         eventOn(root, 'orientationchange', this.onScroll)
+        eventOn(document, 'transitionend', this.onScroll)
       } else {
         eventOff(root, 'scroll', this.onScroll)
         eventOff(root, 'resize', this.onScroll)
         eventOff(root, 'orientationchange', this.onScroll)
+        eventOff(document, 'transitionend', this.onScroll)
       }
     },
     checkView () {
@@ -206,8 +213,5 @@ export default {
         }
       }
     )
-  },
-  beforeDdestroy () {
-    this.setListeners(false)
   }
 }
