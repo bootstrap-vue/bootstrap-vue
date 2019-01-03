@@ -161,7 +161,7 @@ export default {
         eventOff(document, 'transitionend', this.onScroll)
       }
     },
-    checkView () {
+    checkView () /* istanbul ignore next: can't test getBoundingClientRect in JSDOM */ {
       // check bounding box + offset to see if we should show
       if (!isVisible(this.$el)) {
         // Element is hidden, so skip for now
@@ -175,7 +175,9 @@ export default {
         b: docElement.clientHeight + offset,
         r: docElement.clientWidth + offset
       }
+      /* istanbul ignore next */
       const box = getBCR(this.$el)
+      /* istanbul ignore if */
       if (box.right >= view.l && box.bottom >= view.t && box.left <= view.r && box.top <= view.b) {
         // image is in view (or about to be in view)
         this.isShown = true
