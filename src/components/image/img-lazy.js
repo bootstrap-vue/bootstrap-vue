@@ -135,15 +135,18 @@ export default {
     }
   },
   activated () {
+    /* istanbul ignore if */
     if (!this.isShown) {
       this.setListeners(true)
       this.$nextTick(this.checkView)
     }
   },
   deactivated () {
+    /* istanbul ignore next */
     this.setListeners(false)
   },
   beforeDestroy () {
+    /* istanbul ignore next */
     this.setListeners(false)
   },
   methods: {
