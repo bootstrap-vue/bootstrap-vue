@@ -141,7 +141,7 @@ export default {
   deactivated () {
     this.setListeners(false)
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.setListeners(false)
   },
   methods: {
