@@ -118,23 +118,37 @@ function computeTag (props, parent) {
   return (parent.$router && props.to && !props.disabled) ? (parent.$nuxt ? 'nuxt-link' : 'router-link') : 'a'
 }
 
+function isRouterLink (tag) {
+  return tag !== 'a'
+}
+
 function computeHref ({ disabled, href, to }, tag) {
   // We've already checked the parent.$router in computeTag,
-  // so router-link means live router.
-  // When deferring to Vue Router's router-link,
-  // don't use the href attr at all.
-  // Must return undefined for router-link to populate href.
-  if (tag === 'router-link') return void 0
+  // so isRouterLink(tag) means live router.
+  // When deferring to Vue Router's router-link, don't use the href attr at all.
+  // We must return undefined for router-link to properly populate href.
+  if (isRouterLink(tag)) {
+    return void 0
+  }
+
   // If href explicitly provided
-  if (href) return href
+  if (href) {
+    return href
+  }
+
   // Reconstruct href when `to` used, but no router
   if (to) {
     // Fallback to `to` prop (if `to` is a string)
-    if (typeof to === 'string') return to
+    if (typeof to === 'string') {
+      return to
+    }
     // Fallback to `to.path` prop (if `to` is an object)
-    if (typeof to === 'object' && typeof to.path === 'string') return to.path
+    if (typeof to === 'object' && typeof to.path === 'string') {
+      return to.path
+    }
   }
-  // If nothing is provided use '#'
+
+  // If nothing is provided use '#' as a fallback
   return '#'
 }
 
@@ -146,8 +160,6 @@ function computeRel ({ target, rel }) {
 }
 
 function clickHandlerFactory ({ disabled, tag, href, suppliedHandler, parent }) {
-  const isRouterLink = tag === 'router-link'
-
   return function onClick (e) {
     if (disabled && e instanceof Event) {
       // Stop event from bubbling up.
@@ -155,7 +167,7 @@ function clickHandlerFactory ({ disabled, tag, href, suppliedHandler, parent }) 
       // Kill the event loop attached to this specific EventTarget.
       e.stopImmediatePropagation()
     } else {
-      if (isRouterLink && e.target.__vue__) {
+      if (isRouterLink(tag) && e.target.__vue__) {
         e.target.__vue__.$emit('click', e)
       }
       if (typeof suppliedHandler === 'function') {
@@ -164,7 +176,7 @@ function clickHandlerFactory ({ disabled, tag, href, suppliedHandler, parent }) 
       parent.$root.$emit('clicked::link', e)
     }
 
-    if ((!isRouterLink && href === '#') || disabled) {
+    if ((!isRouterLink(tag) && href === '#') || disabled) {
       // Stop scroll-to-top behavior or navigation.
       e.preventDefault()
     }
@@ -180,9 +192,11 @@ export default {
     const tag = computeTag(props, parent)
     const rel = computeRel(props)
     const href = computeHref(props, tag)
-    const eventType = tag === 'router-link' ? 'nativeOn' : 'on'
+    const eventType = isRouterLink(tag) ? 'nativeOn' : 'on'
     const suppliedHandler = (data[eventType] || {}).click
-    const handlers = { click: clickHandlerFactory({ tag, href, disabled: props.disabled, suppliedHandler, parent }) }
+    const handlers = {
+      click: clickHandlerFactory({ tag, href, disabled: props.disabled, suppliedHandler, parent })
+    }
 
     const componentData = mergeData(data, {
       class: [
@@ -194,7 +208,7 @@ export default {
         href,
         target: props.target,
         tabindex: props.disabled ? '-1' : (data.attrs ? data.attrs.tabindex : null),
-        'aria-disabled': (tag === 'a' && props.disabled) ? 'true' : null
+        'aria-disabled': props.disabled ? 'true' : null
       },
       props: assign(props, { tag: props.routerTag })
     })
@@ -205,7 +219,7 @@ export default {
     }
 
     // We want to overwrite any click handler since our callback
-    // will invoke the supplied handler if !props.disabled
+    // will invoke the user supplied handler if !props.disabled
     componentData[eventType] = assign(componentData[eventType] || {}, handlers)
 
     return h(tag, componentData, children)
