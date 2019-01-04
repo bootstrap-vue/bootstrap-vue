@@ -65,6 +65,11 @@ export function propsFactory () {
     to: {
       type: [String, Object],
       default: null
+    },
+    // nuxt-link specific prop(s)
+    noPrefetch: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -124,11 +129,11 @@ function isRouterLink (tag) {
 
 function computeHref ({ disabled, href, to }, tag) {
   // We've already checked the parent.$router in computeTag,
-  // so isRouterLink(tag) means live router.
+  // so isRouterLink(tag) indicates a live router.
   // When deferring to Vue Router's router-link, don't use the href attr at all.
-  // We must return undefined for router-link to properly populate href.
+  // We return null, and then remove href from the attributes passed to router-link
   if (isRouterLink(tag)) {
-    return void 0
+    return null
   }
 
   // If href explicitly provided
@@ -136,7 +141,7 @@ function computeHref ({ disabled, href, to }, tag) {
     return href
   }
 
-  // Reconstruct href when `to` used, but no router
+  // Reconstruct `href` when `to` used, but no router
   if (to) {
     // Fallback to `to` prop (if `to` is a string)
     if (typeof to === 'string') {
@@ -205,7 +210,6 @@ export default {
       ],
       attrs: {
         rel,
-        href,
         target: props.target,
         tabindex: props.disabled ? '-1' : (data.attrs ? data.attrs.tabindex : null),
         'aria-disabled': props.disabled ? 'true' : null
@@ -213,9 +217,10 @@ export default {
       props: assign(props, { tag: props.routerTag })
     })
 
-    // If href prop exists on router-link (even undefined or null) it fails working on SSR
-    if (!componentData.attrs.href) {
-      delete componentData.attrs.href
+    // If href attribute exists on router-link (even undefined or null) it fails working on SSR
+    // So we explicitly add it here if needed (i.e. if computeHref() is truthy)
+    if (href) {
+      componentData.attrs.href = href
     }
 
     // We want to overwrite any click handler since our callback
