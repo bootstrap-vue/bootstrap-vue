@@ -23,8 +23,8 @@ Router links support various additional props.  Refer to the [Router support](/d
 reference section for details.
 
 If your app is running under [Nuxt](https://nuxtjs.org), the [`<nuxt-link>`](https://nuxtjs.org/api/components-nuxt-link)
-component will be used instead of `<router-link>`.  The `<nuxt-link>` component supports all the
-same features as `<router-link>` (as it is a wrapper component for `<router-link>`).
+component will be used instead of `<router-link>`. The `<nuxt-link>` component supports all the
+same features as `<router-link>` (as it is a wrapper component for `<router-link>`) and more.
 
 
 ## Links with href="#"
@@ -32,7 +32,7 @@ same features as `<router-link>` (as it is a wrapper component for `<router-link
 Typically `<a href="#">` will cause the document to scroll to the top of page when clicked.
 `<b-link>` addresses this by preventing the default action (scroll to top) when `href` is set to `#`.
 
-If you need scroll to top behaviour, use a standard `<a>` tag.
+If you need scroll to top behaviour, use a standard `<a href="#">...</a>` tag.
 
 
 ## Link disabled state
