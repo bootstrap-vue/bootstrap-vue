@@ -100,7 +100,7 @@ of keyboard and/or screen-reader users, and is also not very SEO friendly.
 ### `active-class`
 
 - type: `string`
-- default: `'router-link-active'`
+- default: `'router-link-active'` (`'nuxt-link-active'` when using Nuxt.js)
 
 Configure the active CSS class applied when the link is active. Note the default value can also
 be configured globally via the `linkActiveClass` router constructor option.
@@ -127,7 +127,7 @@ Check out more examples explaining active link class [live](https://jsfiddle.net
 ### `exact-active-class`
 
 - type: `string`
-- default: `'router-link-exact-active'`
+- default: `'router-link-exact-active'` (`'nuxt-link-exact-active'` when using Nuxt.js)
 - availablity: Vue-Router 2.5.0+
 
 Configure the active CSS class applied when the link is active with exact match. Note the
