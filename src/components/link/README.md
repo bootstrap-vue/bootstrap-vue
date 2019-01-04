@@ -32,6 +32,8 @@ same features as `<router-link>` (as it is a wrapper component for `<router-link
 Typically `<a href="#">` will cause the document to scroll to the top of page when clicked.
 `<b-link>` addresses this by preventing the default action (scroll to top) when `href` is set to `#`.
 
+If you need scroll to top behaviour, use a standard `<a>` tag.
+
 
 ## Link disabled state
 
@@ -59,7 +61,7 @@ a.disabled {
 }
 ```
 
-Note that not all browsers support `pointer-events: none;`.
+Not all browsers support `pointer-events: none;`.
 
 
 <!-- Component reference added automatically from component package.json -->
