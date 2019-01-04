@@ -31,7 +31,7 @@ export function propsFactory () {
       default: false
     },
     activeClass: {
-      type: String,
+      type: String
       // default: undefined
     },
     append: {
@@ -51,7 +51,7 @@ export function propsFactory () {
       default: false
     },
     exactActiveClass: {
-      type: String,
+      type: String
       // default: undefined
     },
     replace: {
