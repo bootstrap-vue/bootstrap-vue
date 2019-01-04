@@ -134,10 +134,10 @@ Configure the active CSS class applied when the link is active with exact match.
 default value can also be configured globally via the `linkExactActiveClass` router constructor option.
 
 
-## Nuxt.js specific `nuxt-link` props
-When Bootstrap-Vue detects that your app is running under [Nuxt](https://nuxtjs.org), it will render
+## Nuxt specific router link props
+When Bootstrap-Vue detects that your app is running under [Nuxt.js](https://nuxtjs.org), it will render
 a [`<nuxt-link>`](https://nuxtjs.org/api/components-nuxt-link) sub component instead of a `<router-link>`.
-`<nuxt-link>` supports all of the above router-link props, plus the following additional Nuxt specific props.
+`<nuxt-link>` supports all of the above router link props, plus the following additional Nuxt specific props.
 
 ### `no-prefetch`
 
