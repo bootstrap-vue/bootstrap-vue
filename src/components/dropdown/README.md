@@ -443,4 +443,9 @@ triggering the code that closes the dropdown. Once the dropdown is closed, these
 additional empty `mouseover` handlers are removed.
 
 
+## See Also
+- [`<b-nav-item-dropdown>`](/docs/components/nav#dropdown-support) for dropdown support inside `<b-nav>` and `<n-navbar>`
+- [Router Link Support](/docs/reference/router-links) reference for information about router-link specific props available on `<b-dropdown-item>`
+
+
 <!-- Component reference added automatically from component package.json -->
