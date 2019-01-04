@@ -32,7 +32,7 @@ export function propsFactory () {
     },
     activeClass: {
       type: String,
-      default: 'active'
+      // default: undefined
     },
     append: {
       type: Boolean,
@@ -52,7 +52,7 @@ export function propsFactory () {
     },
     exactActiveClass: {
       type: String,
-      default: 'active'
+      // default: undefined
     },
     replace: {
       type: Boolean,
