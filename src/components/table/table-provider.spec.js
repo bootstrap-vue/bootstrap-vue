@@ -68,4 +68,39 @@ describe('b-table provider functions', async () => {
     expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
   })
+
+  it('promise items provider works', async () => {
+    let resolve
+    const promise = new Promise((res, rej) => { resolve = res })
+    function provider (ctx) {
+      return promise
+    }
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: provider,
+        showEmpty: true
+      }
+    })
+    expect(wrapper).toBeDefined()
+
+    await Vue.nextTick()
+
+    expect(wrapper.emitted('update:busy')).toBeDefined()
+
+    expect(wrapper.find('tbody').exists()).toBe(true)
+    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    // Should have single empty row
+    expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
+
+    await Vue.nextTick()
+
+    expect(resolve).toBeDefined()
+    resolve(testItems.slice())
+
+    await Vue.nextTick()
+
+    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
+  })
 })
