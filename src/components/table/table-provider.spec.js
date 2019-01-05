@@ -144,24 +144,27 @@ describe('b-table provider functions', async () => {
     }
     const wrapper = mount(Table, {
       propsData: {
+        id: 'thetable',
         fields: testFields,
-        items: provider,
-        showEmpty: true
+        items: provider
       }
     })
     expect(wrapper).toBeDefined()
 
     await Vue.nextTick()
 
+    // Always initially emits a refresh when provider used
     expect(wrapper.emitted('refreshed')).toBeDefined()
     expect(wrapper.emitted('refreshed').length).toBe(1)
 
+    // Instance refresh method
     wrapper.vm.refresh()
-
     await Vue.nextTick()
-
-    expect(wrapper.emitted('refreshed')).toBeDefined()
-    // Should emit only a single refreshed event
     expect(wrapper.emitted('refreshed').length).toBe(2)
+
+    // Root event refreshing
+    wrapper.vm.$root.$emit('bv::refresh::table', 'thetable')
+    await Vue.nextTick()
+    expect(wrapper.emitted('refreshed').length).toBe(3)
   })
 })
