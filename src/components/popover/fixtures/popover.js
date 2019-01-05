@@ -29,7 +29,8 @@ window.app = new Vue({
         trigger: 'click blur',
         position: 'bottom',
         delay: { show: 200, hide: 100 },
-        boundary: 'window'
+        boundary: 'window',
+        animation: false
       }
     }
   }
