@@ -194,7 +194,7 @@ describe('b-table provider functions', async () => {
     wrapper.vm.refresh()
     wrapper.vm.refresh()
     // Trigger a context change that would trigger an internal _providerUpdate
-    wrapper.setProps({sortBy: 'b'})
+    wrapper.setProps({ sortBy: 'b' })
 
     await Vue.nextTick()
     expect(wrapper.emitted('refreshed')).not.toBeDefined()
