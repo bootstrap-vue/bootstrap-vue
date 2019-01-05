@@ -21,6 +21,12 @@ window.app = new Vue({
     },
     contentMethod () {
       return 'content method'
+    },
+    configMethod () {
+      return {
+        title: 'Title',
+        content: 'Content:' + Date.now()
+      }
     }
   }
 })
