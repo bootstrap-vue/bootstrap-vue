@@ -70,8 +70,8 @@ describe('b-table provider functions', async () => {
   })
 
   it('promise items provider works', async () => {
-    let resolve
-    const promise = new Promise((res, rej) => { resolve = res })
+    let doResolve
+    const promise = new Promise((resolve, reject) => { doResolve = resolve })
     function provider (ctx) {
       return promise
     }
@@ -95,8 +95,8 @@ describe('b-table provider functions', async () => {
 
     await Vue.nextTick()
 
-    expect(resolve).toBeDefined()
-    resolve(testItems.slice())
+    expect(doResolve).toBeDefined()
+    doResolve(testItems.slice())
 
     await Vue.nextTick()
 
