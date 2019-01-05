@@ -152,8 +152,8 @@ describe('b-table provider functions', async () => {
 
     await Vue.nextTick()
 
-    expect(wrapper.emitted('update:busy')).toBeDefined()
-    expect(wrapper.emitted('refreshed')).not.toBeDefined()
+    expect(wrapper.emitted('refreshed')).toBeDefined()
+    expect(wrapper.emitted('refreshed').length).toBe(1)
 
     wrapper.vm.refresh()
 
@@ -161,6 +161,6 @@ describe('b-table provider functions', async () => {
 
     expect(wrapper.emitted('refreshed')).toBeDefined()
     // Should emit only a single refreshed event
-    expect(wrapper.emitted('refreshed').length).toBe(1)
+    expect(wrapper.emitted('refreshed').length).toBe(2)
   })
 })
