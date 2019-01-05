@@ -148,3 +148,19 @@ a [`<nuxt-link>`](https://nuxtjs.org/api/components-nuxt-link) sub component ins
 To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the
 viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will disabled
 this feature for the specific link.
+
+**Note:** If you have prefetching disabled in your `nuxt.config.js` configuration (`router: { prefetchLinks: false}`), or are using a version of Nuxt.JS `< 2.4.0`, then this prop will have no effect.
+
+Prefetching support requires [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+to be supported (see [CanIUse](https://caniuse.com/#feat=intersectionobserver)). For browsers that do not support
+IntersectionObserver, you can use the following conditional polyfill in `nuxt.config.js`:
+
+```js
+export default {
+  head: {
+    script: [
+      { src: 'https://polyfill.io/v2/polyfill.min.js?features=IntersectionObserver', body: true }
+    ]
+  }
+}
+```
