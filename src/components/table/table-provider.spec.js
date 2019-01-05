@@ -166,5 +166,13 @@ describe('b-table provider functions', async () => {
     wrapper.vm.$root.$emit('bv::refresh::table', 'thetable')
     await Vue.nextTick()
     expect(wrapper.emitted('refreshed').length).toBe(3)
+
+    // No refreshing if localBusy is true
+    wrapper.vm.refresh()
+    wrapper.vm.refresh()
+    await Vue.nextTick()
+    expect(wrapper.emitted('refreshed').length).toBe(4)
+    await Vue.nextTick()
+    expect(wrapper.emitted('refreshed').length).toBe(4)
   })
 })
