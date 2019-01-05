@@ -28,6 +28,7 @@ describe('b-table provider functions', async () => {
     await Vue.nextTick()
 
     expect(wrapper.emitted('update:busy')).toBeDefined()
+    expect(wrapper.emitted('input')).toBeDefined()
 
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
