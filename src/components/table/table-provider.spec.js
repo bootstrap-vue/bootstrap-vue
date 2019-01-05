@@ -145,8 +145,9 @@ describe('b-table provider functions', async () => {
     const wrapper = mount(Table, {
       propsData: {
         id: 'thetable',
-        fields: testFields,
-        items: provider
+        fields: testFields.map(f => ({key:f, sortable: true})),
+        items: provider,
+        noProviderSorting: true
       }
     })
     expect(wrapper).toBeDefined()
