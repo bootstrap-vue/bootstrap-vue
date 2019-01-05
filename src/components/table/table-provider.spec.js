@@ -14,7 +14,7 @@ const testFields = Object.keys(testItems[0]).sort()
 
 describe('b-table provider functions', async () => {
   it('syncronous items provider works', async () => {
-    function provider = (ctx) {
+    function provider (ctx) {
       return testItems.slice()
     }
     const wrapper = mount(Table, {
