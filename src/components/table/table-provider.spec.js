@@ -129,7 +129,7 @@ describe('b-table provider functions', async () => {
     await Vue.nextTick()
 
     // Expect busy to be updated to false
-    const last = wrapper.emitted('update:busy').length
+    const last = wrapper.emitted('update:busy').length - 1
     expect(wrapper.emitted('update:busy')[last][0]).toBe(false)
 
     expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
