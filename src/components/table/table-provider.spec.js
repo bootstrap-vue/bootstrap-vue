@@ -129,10 +129,38 @@ describe('b-table provider functions', async () => {
     await Vue.nextTick()
 
     // Expect busy to be updated to false
+    expect(wrapper.vm.localBusy).toBe(false)
     const last = wrapper.emitted('update:busy').length - 1
     expect(wrapper.emitted('update:busy')[last][0]).toBe(false)
 
     expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
+  })
+
+  it('provider refreshing works', async () => {
+    function provider (ctx) {
+      return testItems.slice()
+    }
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: provider,
+        showEmpty: true
+      }
+    })
+    expect(wrapper).toBeDefined()
+
+    await Vue.nextTick()
+
+    expect(wrapper.emitted('update:busy')).toBeDefined()
+    expect(wrapper.emitted('refreshed')).not.toBeDefined()
+
+    wrapper.vm.refresh()
+
+    await Vue.nextTick()
+
+    expect(wrapper.emitted('refreshed')).toBeDefined()
+    // Should emit only a single refreshed event
+    expect(wrapper.emitted('refreshed').length).toBe(1)
   })
 })
