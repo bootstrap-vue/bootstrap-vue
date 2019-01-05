@@ -15,6 +15,12 @@ window.app = new Vue({
         return input.join(' + ')
       }
       return input
+    },
+    titleMethod () {
+      return 'title method'
+    },
+    contentMethod () {
+      return 'content method'
     }
   }
 })
