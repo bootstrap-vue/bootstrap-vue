@@ -25,7 +25,11 @@ window.app = new Vue({
     configMethod () {
       return {
         title: 'Title',
-        content: 'Content:' + Date.now()
+        content: 'Content:' + Date.now(),
+        trigger: 'click blur',
+        position: 'bottom',
+        delay: { show: 200, hide: 100 },
+        boundary: 'window'
       }
     }
   }
