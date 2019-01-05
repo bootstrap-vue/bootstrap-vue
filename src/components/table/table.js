@@ -731,10 +731,15 @@ export default {
     }
   },
   mounted () {
+    // Call the items provider if necessary
     if (this.hasProvider && (!this.localItems || this.localItems.length === 0)) {
       // Fetch on mount if localItems is empty
       this._providerUpdate()
     }
+
+    // Initially update the v-model of displayed items
+    this.$emit('input', this.computedItems)
+
     // Listen for global messages to tell us to force refresh the table
     this.listenOnRoot('bv::refresh::table', id => {
       if (id === this.id || id === this) {
