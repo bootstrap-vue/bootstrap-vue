@@ -34,6 +34,41 @@ describe('b-table provider functions', async () => {
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
   })
 
+  it('promise items provider works', async () => {
+    let doResolve
+    const promise = new Promise((resolve, reject) => { doResolve = resolve })
+    function provider (ctx) {
+      return promise
+    }
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: provider,
+        showEmpty: true
+      }
+    })
+    expect(wrapper).toBeDefined()
+
+    await Vue.nextTick()
+
+    expect(wrapper.emitted('update:busy')).toBeDefined()
+
+    expect(wrapper.find('tbody').exists()).toBe(true)
+    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    // Should have single empty row
+    expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
+
+    await Vue.nextTick()
+
+    expect(doResolve).toBeDefined()
+    doResolve(testItems.slice())
+
+    await Vue.nextTick()
+
+    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
+  })
+
   it('callback items provider works', async () => {
     let callback
     function provider (ctx, cb) {
@@ -69,11 +104,9 @@ describe('b-table provider functions', async () => {
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
   })
 
-  it('promise items provider works', async () => {
-    let doResolve
-    const promise = new Promise((resolve, reject) => { doResolve = resolve })
+  it('callback items provider expects 2 arguments', async () => {
     function provider (ctx) {
-      return promise
+      return null
     }
     const wrapper = mount(Table, {
       propsData: {
@@ -95,12 +128,11 @@ describe('b-table provider functions', async () => {
 
     await Vue.nextTick()
 
-    expect(doResolve).toBeDefined()
-    doResolve(testItems.slice())
-
-    await Vue.nextTick()
+    // Expect busy to be updated to false
+    const last = wrapper.emitted('update:busy').length
+    expect(wrapper.emitted('update:busy')[last][0]).toBe(false)
 
     expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
-    expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
+    expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
   })
 })
