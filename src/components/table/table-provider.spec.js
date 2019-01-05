@@ -177,7 +177,8 @@ describe('b-table provider functions', async () => {
     const wrapper = mount(Table, {
       propsData: {
         fields: testFields,
-        items: provider
+        items: provider,
+        sortBy: null
       }
     })
     expect(wrapper).toBeDefined()
@@ -192,6 +193,9 @@ describe('b-table provider functions', async () => {
     // No refreshing if localBusy is true
     wrapper.vm.refresh()
     wrapper.vm.refresh()
+    // Trigger a context change that would trigger an internal _providerUpdate
+    wrapper.setProps({sortBy: 'b'})
+
     await Vue.nextTick()
     expect(wrapper.emitted('refreshed')).not.toBeDefined()
 
@@ -199,10 +203,13 @@ describe('b-table provider functions', async () => {
     callback(testItems.slice())
     await Vue.nextTick()
 
-    // refresh should have happened only once, even though called twice while busy
+    // refreshed event should happen only once, even though thriggered 3 times while busy
     expect(wrapper.emitted('refreshed')).toBeDefined()
     expect(wrapper.emitted('refreshed').length).toBe(1)
 
+    // Just to be sure, we wait again and re-test
+    await Vue.nextTick()
+    expect(wrapper.emitted('refreshed').length).toBe(1)
     await Vue.nextTick()
     expect(wrapper.emitted('refreshed').length).toBe(1)
   })
