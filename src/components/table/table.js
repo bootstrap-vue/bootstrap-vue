@@ -731,8 +731,6 @@ export default {
     }
   },
   mounted () {
-    this.localSortBy = this.sortBy
-    this.localSortDesc = this.sortDesc
     if (this.hasProvider && (!this.localItems || this.localItems.length === 0)) {
       // Fetch on mount if localItems is empty
       this._providerUpdate()
