@@ -1,6 +1,6 @@
 <div id="app">
     <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
-    <div class="row">
+    <div>
         <div v-for="placement in ['top', 'left', 'right', 'bottom']" :key="placement">
             <b-btn :id="placement" variant="primary">{{ placement }}</b-btn>
             <b-popover :target="placement" triggers="click" :placement="placement" :title="placement">
@@ -9,7 +9,13 @@
         </div>
     </div>
     <h4 class="mt-sm-4 ms-sm-4 text-muted">Directive</h4>
-    <div class="row">
+    <div>
       <b-btn id="directive1" v-b-popover.top.click.viewport="'content'" title="popover" variant="primary">Directive 1</b-btn>
+    </div>
+    <div>
+      <b-btn id="directive2" v-b-popover.top.click.viewport="'content'" variant="primary">Directive 2</b-btn>
+    </div>
+    <div>
+      <b-btn id="directive3" v-b-popover.top.click="{ title: 'title', content: 'content' }" variant="primary">Directive 3</b-btn>
     </div>
 </div>
