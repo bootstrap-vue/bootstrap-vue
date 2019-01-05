@@ -15,6 +15,23 @@ window.app = new Vue({
         return input.join(' + ')
       }
       return input
+    },
+    titleMethod () {
+      return 'title method'
+    },
+    contentMethod () {
+      return 'content method'
+    },
+    configMethod () {
+      return {
+        title: 'Title',
+        content: 'Content:' + Date.now(),
+        trigger: 'click blur',
+        position: 'bottom',
+        delay: { show: 200, hide: 100 },
+        boundary: 'window',
+        animation: false
+      }
     }
   }
 })
