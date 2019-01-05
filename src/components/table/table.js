@@ -356,7 +356,7 @@ export default {
       localSortDesc: this.sortDesc || false,
       localBusy: false,
       // Our local copy of the items. Must be an array
-      localItems: isArray(this.items) ? this.items : [],
+      localItems: isArray(this.items) ? this.items.slice() : [],
       // Flag for displaying which empty slot to show, and for some event triggering.
       isFiltered: false,
       selectedRows: [],
