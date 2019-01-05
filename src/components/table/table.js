@@ -1061,7 +1061,7 @@ export default {
       // If table is busy, wait until refereshed before calling again
       if (this.computedBusy) {
         // Schedule a new refresh once `refreshed` is emitted
-        this.refresh()
+        this.$nextTick(this.refresh)
         return
       }
 
@@ -1089,11 +1089,12 @@ export default {
             warn('b-table provider function didn\'t request calback and did not return a promise or data')
             this.localBusy = false
           }
-        } catch (e) {
+        } catch (e) /* istanbul ignore next */ {
           // Provider function borked on us, so we spew out a warning
           // and clear the busy state
-          warn(`b-table provider function error [${e.name}]: ${e.message}`)
+          warn(`b-table provider function error [${e.name}] ${e.message}`)
           this.localBusy = false
+          this.$off('refreshed', this.refresh)
         }
       })
     }
