@@ -166,13 +166,44 @@ describe('b-table provider functions', async () => {
     wrapper.vm.$root.$emit('bv::refresh::table', 'thetable')
     await Vue.nextTick()
     expect(wrapper.emitted('refreshed').length).toBe(3)
+  })
+
+  it('refresh debouncing works', async () => {
+    let callback
+    function provider (ctx, cb) {
+      callback = cb
+      return null
+    }
+    const wrapper = mount(Table, {
+      propsData: {
+        fields: testFields,
+        items: provider
+      }
+    })
+    expect(wrapper).toBeDefined()
+
+    expect(wrapper.emitted('refreshed')).not.toBeDefined()
+
+    await Vue.nextTick()
+
+    expect(wrapper.emitted('refreshed')).not.toBeDefined()
+    expect(wrapper.vm.localBusy).toBe(true)
 
     // No refreshing if localBusy is true
     wrapper.vm.refresh()
     wrapper.vm.refresh()
     await Vue.nextTick()
-    expect(wrapper.emitted('refreshed').length).toBe(4)
+    expect(wrapper.emitted('refreshed')).not.toBeDefined()
+
+    expect(callback).toBeDefined()
+    callback(testItems.slice())
     await Vue.nextTick()
-    expect(wrapper.emitted('refreshed').length).toBe(4)
+
+    // refresh should have happened only once, even though called twice while busy
+    expect(wrapper.emitted('refreshed')).toBeDefined()
+    expect(wrapper.emitted('refreshed').length).toBe(1)
+
+    await Vue.nextTick()
+    expect(wrapper.emitted('refreshed').length).toBe(1)
   })
 })
