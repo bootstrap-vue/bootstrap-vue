@@ -46,11 +46,11 @@
         <b-nav-item
           to="/docs"
           exact>Docs</b-nav-item>
-        <b-nav-item to="/docs/components">Components</b-nav-item>
-        <b-nav-item to="/docs/directives">Directives</b-nav-item>
-        <b-nav-item to="/docs/reference">Reference</b-nav-item>
-        <b-nav-item to="/docs/misc">Misc</b-nav-item>
-        <b-nav-item to="/play">Play</b-nav-item>
+        <b-nav-item to="/docs/components" active-class="active">Components</b-nav-item>
+        <b-nav-item to="/docs/directives" active-class="active">Directives</b-nav-item>
+        <b-nav-item to="/docs/reference" active-class="active">Reference</b-nav-item>
+        <b-nav-item to="/docs/misc" active-class="active">Misc</b-nav-item>
+        <b-nav-item to="/play" active-class="active">Play</b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav>
@@ -60,9 +60,6 @@
           right>
           <b-dropdown-item href="http://dev.bootstrap-vue.netlify.com">Development</b-dropdown-item>
           <b-dropdown-item href="https://bootstrap-vue.js.org">Latest (v{{ version }})</b-dropdown-item>
-          <b-dropdown-divider />
-          <b-dropdown-item href="http://beta.bootstrap-vue.netlify.com">Beta 2 (v1.5.0)</b-dropdown-item>
-          <b-dropdown-item href="http://alpha.bootstrap-vue.netlify.com">Alpha 6 (v0.23.1)</b-dropdown-item>
         </b-nav-item-dropdown>
 
         <b-nav-item

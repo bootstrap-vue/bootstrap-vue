@@ -32,9 +32,9 @@
       <b-nav class="bd-sidenav">
         <b-nav-item
           v-for="page in group.pages"
+          :key="page.title"
           :to="('/docs/' + group.base + page.slug).replace(/\/\//g,'/')"
-          :key="page.title
-          ">
+          active-class="active">
           {{ page.title }}
           <b-badge
             tag="small"

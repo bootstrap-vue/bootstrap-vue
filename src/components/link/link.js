@@ -31,8 +31,8 @@ export function propsFactory () {
       default: false
     },
     activeClass: {
-      type: String,
-      default: 'active'
+      type: String
+      // default: undefined
     },
     append: {
       type: Boolean,
@@ -51,8 +51,8 @@ export function propsFactory () {
       default: false
     },
     exactActiveClass: {
-      type: String,
-      default: 'active'
+      type: String
+      // default: undefined
     },
     replace: {
       type: Boolean,
