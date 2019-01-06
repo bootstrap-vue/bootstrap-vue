@@ -121,6 +121,7 @@ export default {
     this.dontResize = true
   },
   beforeDestroy () {
+    /* istanbul ignore next */
     this.dontResize = true
   },
   render (h) {
