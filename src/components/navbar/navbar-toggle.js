@@ -42,7 +42,7 @@ export default {
       {
         class: ['navbar-toggler'],
         attrs: {
-          type: 'button', // Is this needed anymore?
+          type: 'button',
           'aria-label': this.label,
           'aria-controls': this.target,
           'aria-expanded': this.toggleState ? 'true' : 'false'
