@@ -11,13 +11,13 @@ describe('navbar-toggle', async () => {
     expect(wrapper.is('button')).toBe(true)
   })
 
-  it('default has class "navbar-toggle"', async () => {
+  it('default has class "navbar-toggler"', async () => {
     const wrapper = mount(NavbarToggle, {
       propsData: {
         target: 'target'
       }
     })
-    expect(wrapper.classes()).toContain('navbar-toggle')
+    expect(wrapper.classes()).toContain('navbar-toggler')
     expect(wrapper.classes().length).toBe(1)
   })
 
@@ -62,7 +62,7 @@ describe('navbar-toggle', async () => {
     function onRootClick () {
       rootClicked = true
     }
-    wrapper.$root.$on('bv::toggle::collapse', onRootClick)
+    wrapper.vm.$root.$on('bv::toggle::collapse', onRootClick)
 
     expect(wrapper.emitted('click')).not.toBeDefined()
     expect(rootClicked).toBe(false)
@@ -71,7 +71,7 @@ describe('navbar-toggle', async () => {
     expect(wrapper.emitted('click')).toBeDefined()
     expect(rootClicked).toBe(true)
 
-    wrapper.$root.$off('bv::toggle::collapse', onRootClick)
+    wrapper.vm.$root.$off('bv::toggle::collapse', onRootClick)
   })
 
   it('sets areia-expanded when receives root emit for target', async () => {
