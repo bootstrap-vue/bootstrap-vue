@@ -74,4 +74,52 @@ describe('card-body', async () => {
     expect(wrapper.classes()).toContain('border-dark')
     expect(wrapper.classes().length).toBe(4)
   })
+
+  it('has class "card-img-overlay" when overlay="true"', async () => {
+    const wrapper = mount(CardBody, {
+      context: {
+        props: {
+          bodyTextVariant: 'info',
+          bodyBgVariant: 'danger',
+          bodyBorderVariant: 'dark'
+        }
+      }
+    })
+    expect(wrapper.classes()).toContain('card-body')
+    expect(wrapper.classes()).toContain('card-img-overlay')
+    expect(wrapper.classes().length).toBe(2)
+  })
+
+  it('has card-title when title prop is set', async () => {
+    const wrapper = mount(CardBody, {
+      context: {
+        props: {
+          title: 'title',
+        }
+      }
+    })
+    expect(wrapper.find('div.card-title')).toBeDefined()
+  })
+
+  it('has card-sub-title when sub-title prop is set', async () => {
+    const wrapper = mount(CardBody, {
+      context: {
+        props: {
+          subTitle: 'sub title',
+        }
+      }
+    })
+    expect(wrapper.find('div.card-subtitle')).toBeDefined()
+  })
+
+  it('has card-sub-title when sub-title prop is set', async () => {
+    const wrapper = mount(CardBody, {
+      context: {
+        props: {
+          subTitle: 'sub title',
+        }
+      }
+    })
+    expect(wrapper.find('div.card-subtitle')).toBeDefined()
+  })
 })
