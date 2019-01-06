@@ -1,4 +1,4 @@
-import NavbarBrand from './navbar-nav'
+import NavbarNav from './navbar-nav'
 import { mount } from '@vue/test-utils'
 
 describe('navbar-nav', async () => {
