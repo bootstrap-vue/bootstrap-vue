@@ -74,6 +74,7 @@ describe('carousel', async () => {
   it('Should scroll to specified slide', async () => {
     const { app } = window
     const carousel = app.$refs.carousel
+    const indicators = carousel.$el.querySelectorAll('.carousel-indicators > li')
 
     const spyBegin = jest.fn()
     const spyEnd = jest.fn()
@@ -81,7 +82,7 @@ describe('carousel', async () => {
     carousel.$on('sliding-start', spyBegin)
     carousel.$on('sliding-end', spyEnd)
 
-    app.$refs.carousel.setSlide(2)
+    indicators[2].click()
 
     app.$nextTick(() => {
       expect(spyBegin).toHaveBeenCalled()
@@ -92,18 +93,6 @@ describe('carousel', async () => {
 
     app.$nextTick(() => {
       expect(spyEnd).toHaveBeenCalledWith(2)
-      expect(carousel.isSliding).toBe(false)
-    })
-
-    app.$refs.carousel.setSlide(1)
-
-    app.$nextTick(() => {
-      expect(carousel.isSliding).toBe(true)
-    })
-
-    jest.runAllTimers()
-
-    app.$nextTick(() => {
       expect(carousel.isSliding).toBe(false)
     })
   })
