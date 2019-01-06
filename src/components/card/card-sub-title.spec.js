@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 describe('card-sub-title', async () => {
   it('default has tag "h6"', async () => {
     const wrapper = mount(CardSubTitle)
-    expect(wrapper.is('hs')).toBe(true)
+    expect(wrapper.is('h6')).toBe(true)
   })
 
   it('default has class "card-subtitle" and "text-muted"', async () => {
@@ -23,10 +23,10 @@ describe('card-sub-title', async () => {
     expect(wrapper.is('div')).toBe(true)
   })
 
-  it('accepts subTitleVariant value', async () => {
+  it('accepts subTitleTextVariant value', async () => {
     const wrapper = mount(CardSubTitle, {
       context: {
-        props: { subTitleVariant: 'info' }
+        props: { subTitleTextVariant: 'info' }
       }
     })
     expect(wrapper.classes()).toContain('card-subtitle')
