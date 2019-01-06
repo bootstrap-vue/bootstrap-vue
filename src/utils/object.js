@@ -7,6 +7,7 @@
  */
 
 // @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+/* istanbul ignore if */
 if (typeof Object.assign !== 'function') {
   Object.assign = function (target, varArgs) {
     // .length of function is 2
@@ -36,6 +37,7 @@ if (typeof Object.assign !== 'function') {
 }
 
 // @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Polyfill
+/* istanbul ignore if */
 if (!Object.is) {
   Object.is = function (x, y) {
     // SameValue algorithm
