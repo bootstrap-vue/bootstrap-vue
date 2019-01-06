@@ -356,7 +356,7 @@ export default {
       localSortDesc: this.sortDesc || false,
       localBusy: false,
       // Our local copy of the items. Must be an array
-      localItems: isArray(this.items) ? this.items : [],
+      localItems: isArray(this.items) ? this.items.slice() : [],
       // Flag for displaying which empty slot to show, and for some event triggering.
       isFiltered: false,
       selectedRows: [],
@@ -731,12 +731,15 @@ export default {
     }
   },
   mounted () {
-    this.localSortBy = this.sortBy
-    this.localSortDesc = this.sortDesc
+    // Call the items provider if necessary
     if (this.hasProvider && (!this.localItems || this.localItems.length === 0)) {
       // Fetch on mount if localItems is empty
       this._providerUpdate()
     }
+
+    // Initially update the v-model of displayed items
+    this.$emit('input', this.computedItems)
+
     // Listen for global messages to tell us to force refresh the table
     this.listenOnRoot('bv::refresh::table', id => {
       if (id === this.id || id === this) {
@@ -1026,18 +1029,21 @@ export default {
     },
     // Exposed method(s)
     refresh () {
-      // Expose refresh method
+      this.$off('refreshed', this.refresh)
       if (this.computedBusy) {
-        // Can't force an update when busy
-        return false
-      }
-      this.clearSelected()
-      if (this.hasProvider) {
-        this.$nextTick(this._providerUpdate)
+        // Can't force an update when forced busy by user (busy prop === true)
+        if (this.localBusy && this.hasProvider) {
+          // But if provider running (localBusy), re-schedule refresh once `refreshed` emitted
+          this.$on('refreshed', this.refresh)
+        }
       } else {
-        this.localItems = isArray(this.items) ? this.items.slice() : []
+        this.clearSelected()
+        if (this.hasProvider) {
+          this.$nextTick(this._providerUpdate)
+        } else {
+          this.localItems = isArray(this.items) ? this.items.slice() : []
+        }
       }
-      return true
     },
     // Provider related methods
     _providerSetLocal (items) {
@@ -1051,13 +1057,17 @@ export default {
     },
     _providerUpdate () {
       // Refresh the provider function items.
-      // TODO: this method should be debounced with lodash.debounce to minimize network requests,
-      // with a 100ms default debounce period (i.e. 100ms holdtime after the last update before
-      // the new update is called). Debounce period should be a prop
-      if (this.computedBusy || !this.hasProvider) {
-        // Don't refresh remote data if we are 'busy' or if no provider
+      if (!this.hasProvider) {
+        // Do nothing if no provider
         return
       }
+      // If table is busy, wait until refereshed before calling again
+      if (this.computedBusy) {
+        // Schedule a new refresh once `refreshed` is emitted
+        this.$nextTick(this.refresh)
+        return
+      }
+
       // Set internal busy state
       this.localBusy = true
 
@@ -1082,11 +1092,12 @@ export default {
             warn('b-table provider function didn\'t request calback and did not return a promise or data')
             this.localBusy = false
           }
-        } catch (e) {
+        } catch (e) /* istanbul ignore next */ {
           // Provider function borked on us, so we spew out a warning
-          // console.error(`b-table provider function error [${e.name}]: ${e.message}`, e.stack)
           // and clear the busy state
+          warn(`b-table provider function error [${e.name}] ${e.message}`)
           this.localBusy = false
+          this.$off('refreshed', this.refresh)
         }
       })
     }
