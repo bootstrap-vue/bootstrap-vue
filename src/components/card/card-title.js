@@ -1,5 +1,4 @@
 import { mergeData } from 'vue-functional-data-merge'
-import stripScripts from '../../utils/strip-scripts'
 
 export const props = {
   title: {
