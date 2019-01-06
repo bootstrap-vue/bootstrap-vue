@@ -81,7 +81,7 @@ describe('carousel', async () => {
     carousel.$on('sliding-start', spyBegin)
     carousel.$on('sliding-end', spyEnd)
 
-    app.$refs.carousel.slide = 2
+    app.$refs.carousel.setSlide(2)
 
     app.$nextTick(() => {
       expect(spyBegin).toHaveBeenCalled()
@@ -95,7 +95,7 @@ describe('carousel', async () => {
       expect(carousel.isSliding).toBe(false)
     })
 
-    app.$refs.carousel.slide = 1
+    app.$refs.carousel.setSlide(1)
 
     app.$nextTick(() => {
       expect(carousel.isSliding).toBe(true)
