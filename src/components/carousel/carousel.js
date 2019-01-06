@@ -266,8 +266,8 @@ export default {
     },
     // Start auto rotate slides
     start () {
-      // Don't start if no interval, or if we are already running
-      if (!this.interval || this.isCycling) {
+      // Don't start if no interval, no slides, or if we are already running
+      if (!this.interval || this.isCycling || this.intervalId || this.slides.length === 0) {
         return
       }
       this.slides.forEach(slide => {
