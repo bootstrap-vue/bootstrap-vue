@@ -1,10 +1,9 @@
 import { mergeData } from 'vue-functional-data-merge'
-import stripScripts from '../../utils/strip-scripts'
 
 export const props = {
   title: {
     type: String,
-    default: null
+    default: ''
   },
   titleTag: {
     type: String,
@@ -18,14 +17,12 @@ export default {
   functional: true,
   props,
   render (h, { props, data, children }) {
-    const domProps = children ? {} : { innerHTML: stripScripts(props.title) }
     return h(
       props.titleTag,
       mergeData(data, {
-        staticClass: 'card-title',
-        domProps
+        staticClass: 'card-title'
       }),
-      children
+      children || props.title
     )
   }
 }
