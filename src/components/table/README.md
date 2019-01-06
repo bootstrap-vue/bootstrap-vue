@@ -1412,7 +1412,7 @@ trigger the calling of the provider function. So be sure to bind to the `per-pag
 (unless you have the respective `no-provider-*` prop set to `true`).
 - The `no-local-sorting` prop has no effect when `items` is a provider function.
 
-### Event based refreshing of data
+### Force refreshing of table data
 You may also trigger the refresh of the provider function by emitting the
 event `refresh::table` on `$root` with the single argument being the `id` of your `b-table`.
 You must have a unique ID on your table for this to work.
@@ -1421,7 +1421,7 @@ You must have a unique ID on your table for this to work.
     this.$root.$emit('bv::refresh::table', 'my-table');
 ```
 
-Or by calling the refresh method on the table reference
+Or by calling the `refresh()` method on the table reference
 ```html
 <b-table ref="table" ... ></b-table>
 ```
@@ -1429,7 +1429,9 @@ Or by calling the refresh method on the table reference
     this.$refs.table.refresh();
 ```
 
-**Note:** If the table is in the `busy` state, refresh event/methods will silently be ignored.
+**Note:** If the table is in the `busy` state (i.e. a provider update is currently running), the
+refresh will wait until the current update is completed. If there is currently a refresh pending and a
+new refresh is requested, then only one refresh will occur.
 
 
 ### Detection of sorting change
