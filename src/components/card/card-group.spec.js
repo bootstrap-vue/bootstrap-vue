@@ -22,7 +22,7 @@ describe('card-group', async () => {
       }
     })
     expect(wrapper.is('article')).toBe(true)
-    expect(wrapper.classes()).toContain('card-text')
+    expect(wrapper.classes()).toContain('card-group')
   })
 
   it('has class card-deck when prop deck=true', async () => {
