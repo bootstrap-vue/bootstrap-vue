@@ -213,8 +213,7 @@ export default {
       attributeFilter: [ 'id' ]
     })
   },
-  /* istanbul ignore next: dificult to test */
-  beforeDestroy () {
+  beforeDestroy () /* istanbul ignore next: dificult to test */ {
     clearInterval(this.intervalId)
     clearTimeout(this._animationTimeout)
     this.intervalId = null
@@ -224,6 +223,7 @@ export default {
     // Set slide
     setSlide (slide) {
       // Don't animate when page is not visible
+      /* istanbul ignore if: dificult to test */
       if (typeof document !== 'undefined' && document.visibilityState && document.hidden) {
         return
       }
@@ -266,8 +266,8 @@ export default {
     },
     // Start auto rotate slides
     start () {
-      // Don't start if no interval, or if we are already running
-      if (!this.interval || this.isCycling) {
+      // Don't start if no interval, no slides, or if we are already running
+      if (!this.interval || this.isCycling || this.intervalId || this.slides.length === 0) {
         return
       }
       this.slides.forEach(slide => {
@@ -279,6 +279,7 @@ export default {
     },
     // Re-Start auto rotate slides when focus/hover leaves the carousel
     restart (evt) {
+      /* istanbul ignore if: dificult to test */
       if (!this.$el.contains(document.activeElement)) {
         this.start()
       }
