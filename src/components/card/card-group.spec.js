@@ -17,7 +17,7 @@ describe('card-group', async () => {
     const wrapper = mount(CardGroup, {
       context: {
         props: {
-          textTag: 'article'
+          tag: 'article'
         }
       }
     })
