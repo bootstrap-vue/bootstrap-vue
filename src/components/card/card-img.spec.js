@@ -71,7 +71,7 @@ describe('card-image', async () => {
         }
       }
     })
-    expect(wrapper.classes()).toContain('card-img-top')
+    expect(wrapper.classes()).toContain('card-img-bottom')
     expect(wrapper.classes().length).toBe(1)
   })
 
@@ -94,7 +94,7 @@ describe('card-image', async () => {
       context: {
         props: {
           src: 'https://picsum.photos/600/300/?image=25',
-          bottom: true
+          left: true
         }
       }
     })
@@ -107,26 +107,12 @@ describe('card-image', async () => {
       context: {
         props: {
           src: 'https://picsum.photos/600/300/?image=25',
-          bottom: true
+          right: true
         }
       }
     })
-    expect(wrapper.classes()).toContain('card-img-left')
+    expect(wrapper.classes()).toContain('card-img-right')
     expect(wrapper.classes().length).toBe(1)
-  })
-
-  it('has class "img-fluid" when fluid=true', async () => {
-    const wrapper = mount(CardImg, {
-      context: {
-        props: {
-          src: 'https://picsum.photos/600/300/?image=25',
-          fluid: true
-        }
-      }
-    })
-    expect(wrapper.classes()).toContain('card-img')
-    expect(wrapper.classes()).toContain('img-fluid')
-    expect(wrapper.classes().length).toBe(2)
   })
 
   it('has class "img-fluid" when fluid=true', async () => {
