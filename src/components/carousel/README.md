@@ -79,6 +79,7 @@ export default {
   }
 }
 </script>
+
 <!-- carousel-1.vue -->
 ```
 
@@ -101,14 +102,17 @@ available to `<b-img>`.
 
 
 ## Interval
-Carousel defaults to an interval of `5000`ms (5 seconds). To pause the carousel from
-auto sliding, set the `interval` prop to `0`. To restart a paused carousel, set the
-`interval` back to the number of ms.
+Carousel defaults to an interval of `5000`ms (5 seconds).  You can change the interval between
+slides by setting the `interval` prop to the desired number of milliseconds.  The smallest
+supported sliding inteval is 1000ms (1 second).
 
 In browsers where the [Page Visibility API](https://www.w3.org/TR/page-visibility/)
 is supported, the carousel will avoid sliding when the webpage is not visible to
 the user (such as when the browser tab is inactive, the browser window is minimized, etc.).
 
+### Pausing the carousel
+To pause the carousel from auto sliding, set the `interval` prop to `0`. To restart a
+paused carousel, set the `interval` back to the desired number of ms.
 
 ## Controls and Indicators
 Set the prop `controls` to enable the previous and next control buttons.
@@ -116,6 +120,37 @@ Set the prop `controls` to enable the previous and next control buttons.
 Set the prop `indicators` to show the slide indicator buttons.
 
 Both indicators and controls can be set at the same time or independently.
+
+
+## Crossfade animation
+Set the `<b-carousel>` `fade` prop to true to animate slides with a fade transition
+instead of the default slide animation.
+
+```html
+<div>
+  <b-carousel id="carousel-fade"
+              style="text-shadow: 0px 0px 2px #000"
+              fade
+              indicators
+              img-width="1024"
+              img-height="480">
+    <b-carousel-slide caption="First slide"
+                      img-src="https://picsum.photos/1024/480/?image=10">
+    </b-carousel-slide>
+    <b-carousel-slide caption="Second Slide"
+                      img-src="https://picsum.photos/1024/480/?image=12">
+    </b-carousel-slide>
+    <b-carousel-slide caption="Third Slide"
+                      img-src="https://picsum.photos/1024/480/?image=22">
+    </b-carousel-slide>
+    <b-carousel-slide caption="Fourth Slide"
+                      img-src="https://picsum.photos/1024/480/?image=23">
+    </b-carousel-slide>
+  </b-carousel>
+</div>
+
+<!-- carousel-fade.vue -->
+```
 
 
 ## V-model support
@@ -132,5 +167,6 @@ accessibility features. It is highly recommended to always add an ID to all comp
 
 All carousel controls and indicators have aria labels. These can be customized by
 setting the various `label-*` props.
+
 
 <!-- Component reference added automatically from component package.json -->

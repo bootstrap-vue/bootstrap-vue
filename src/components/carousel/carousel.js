@@ -70,6 +70,11 @@ export default {
       type: Boolean,
       default: false
     },
+    fade: {
+      // Enable cross-fade animation instead of slide animation
+      type: Boolean,
+      default: false
+    },
     imgWidth: {
       // Sniffed by carousel-slide
       type: [Number, String]
@@ -441,7 +446,11 @@ export default {
     return h(
       'div',
       {
-        class: [ 'carousel', 'slide' ],
+        class: [
+          'carousel',
+          'slide',
+          { 'carousel-fade': this.fade }
+        ],
         style: { background: this.background },
         attrs: {
           role: 'region',
