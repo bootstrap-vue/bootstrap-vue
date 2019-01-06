@@ -79,9 +79,7 @@ describe('card-body', async () => {
     const wrapper = mount(CardBody, {
       context: {
         props: {
-          bodyTextVariant: 'info',
-          bodyBgVariant: 'danger',
-          bodyBorderVariant: 'dark'
+          overlay: true
         }
       }
     })
@@ -94,7 +92,7 @@ describe('card-body', async () => {
     const wrapper = mount(CardBody, {
       context: {
         props: {
-          title: 'title',
+          title: 'title'
         }
       }
     })
@@ -105,18 +103,7 @@ describe('card-body', async () => {
     const wrapper = mount(CardBody, {
       context: {
         props: {
-          subTitle: 'sub title',
-        }
-      }
-    })
-    expect(wrapper.find('div.card-subtitle')).toBeDefined()
-  })
-
-  it('has card-sub-title when sub-title prop is set', async () => {
-    const wrapper = mount(CardBody, {
-      context: {
-        props: {
-          subTitle: 'sub title',
+          subTitle: 'sub title'
         }
       }
     })
