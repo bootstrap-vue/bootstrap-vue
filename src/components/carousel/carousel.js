@@ -41,6 +41,9 @@ function getTransisionEndEvent (el) {
 export default {
   name: 'BCarousel',
   mixins: [ idMixin ],
+  provide () {
+    return { carousel: this }
+  },
   props: {
     labelPrev: {
       type: String,
