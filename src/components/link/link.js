@@ -30,21 +30,30 @@ export function propsFactory () {
       type: Boolean,
       default: false
     },
-    activeClass: {
-      type: String
-      // default: undefined
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    // router-link specific props
+    to: {
+      type: [String, Object],
+      default: null
     },
     append: {
       type: Boolean,
       default: false
     },
-    disabled: {
+    replace: {
       type: Boolean,
       default: false
     },
     event: {
       type: [String, Array],
       default: 'click'
+    },
+    activeClass: {
+      type: String
+      // default: undefined
     },
     exact: {
       type: Boolean,
@@ -54,17 +63,9 @@ export function propsFactory () {
       type: String
       // default: undefined
     },
-    replace: {
-      type: Boolean,
-      default: false
-    },
     routerTag: {
       type: String,
       default: 'a'
-    },
-    to: {
-      type: [String, Object],
-      default: null
     },
     // nuxt-link specific prop(s)
     noPrefetch: {
@@ -204,10 +205,7 @@ export default {
     }
 
     const componentData = mergeData(data, {
-      class: [
-        props.active ? (props.exact ? props.exactActiveClass : props.activeClass) : null,
-        { disabled: props.disabled }
-      ],
+      class: { active: props.active, disabled: props.disabled },
       attrs: {
         rel,
         target: props.target,
