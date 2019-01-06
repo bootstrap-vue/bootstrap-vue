@@ -81,7 +81,7 @@ describe('carousel', async () => {
     carousel.$on('sliding-start', spyBegin)
     carousel.$on('sliding-end', spyEnd)
 
-    app.slide = 2
+    app.$refs.carousel.slide = 2
 
     app.$nextTick(() => {
       expect(spyBegin).toHaveBeenCalled()
@@ -91,7 +91,7 @@ describe('carousel', async () => {
     jest.runAllTimers()
 
     app.$nextTick(() => {
-      expect(spyEnd).toHaveBeenCalledWith(app.slide)
+      expect(spyEnd).toHaveBeenCalledWith(2)
       expect(carousel.isSliding).toBe(false)
     })
   })
