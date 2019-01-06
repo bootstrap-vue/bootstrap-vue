@@ -14,7 +14,7 @@ describe('navbar', async () => {
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-expand')
     expect(wrapper.classes()).toContain('navbar-light')
-    expect(wrapper.classes().length).toBe('3')
+    expect(wrapper.classes().length).toBe(3)
   })
 
   it('accepts custom tag', async () => {
@@ -37,7 +37,7 @@ describe('navbar', async () => {
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-expand-lg')
     expect(wrapper.classes()).toContain('navbar-light')
-    expect(wrapper.classes().length).toBe('3')
+    expect(wrapper.classes().length).toBe(3)
   })
 
   it('toggleable=true has expected classes', async () => {
@@ -48,7 +48,7 @@ describe('navbar', async () => {
     })
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-light')
-    expect(wrapper.classes().length).toBe('2')
+    expect(wrapper.classes().length).toBe(2)
   })
 
   it('toggleable=xs has expected classes', async () => {
@@ -59,7 +59,7 @@ describe('navbar', async () => {
     })
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-light')
-    expect(wrapper.classes().length).toBe('2')
+    expect(wrapper.classes().length).toBe(2)
   })
 
   it('has class "fixed-top" when fixed="top"', async () => {
@@ -72,7 +72,7 @@ describe('navbar', async () => {
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-expand')
     expect(wrapper.classes()).toContain('navbar-light')
-    expect(wrapper.classes().length).toBe('4')
+    expect(wrapper.classes().length).toBe(4)
   })
 
   it('has class "fixed-top" when fixed="top"', async () => {
@@ -85,7 +85,7 @@ describe('navbar', async () => {
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-expand')
     expect(wrapper.classes()).toContain('navbar-light')
-    expect(wrapper.classes().length).toBe('4')
+    expect(wrapper.classes().length).toBe(4)
   })
 
   it('has class "sticky-top" when sticky=true', async () => {
@@ -98,7 +98,7 @@ describe('navbar', async () => {
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-expand')
     expect(wrapper.classes()).toContain('navbar-light')
-    expect(wrapper.classes().length).toBe('4')
+    expect(wrapper.classes().length).toBe(4)
   })
 
   it('accepts variant prop', async () => {
@@ -111,6 +111,6 @@ describe('navbar', async () => {
     expect(wrapper.classes()).toContain('navbar')
     expect(wrapper.classes()).toContain('navbar-expand')
     expect(wrapper.classes()).toContain('navbar-light')
-    expect(wrapper.classes().length).toBe('4')
+    expect(wrapper.classes().length).toBe(4)
   })
 })
