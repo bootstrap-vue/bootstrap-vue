@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 
 describe('card-group', async () => {
   it('has root element "div"', async () => {
-    const wrapper = mount(CardText)
+    const wrapper = mount(CardGroup)
     expect(wrapper.is('div')).toBe(true)
   })
 
@@ -46,7 +46,7 @@ describe('card-group', async () => {
   })
 
   it('accepts custom classes', async () => {
-    const wrapper = mount(CardText, {
+    const wrapper = mount(CardGroup, {
       context: {
         class: ['foobar']
       }
