@@ -1,5 +1,4 @@
 import { mergeData } from 'vue-functional-data-merge'
-import stripScripts from '../../utils/strip-scripts'
 
 export const props = {
   subTitle: {
@@ -22,17 +21,15 @@ export default {
   functional: true,
   props,
   render (h, { props, data, children }) {
-    const domProps = children ? {} : { innerHTML: stripScripts(props.subTitle) }
     return h(
       props.subTitleTag,
       mergeData(data, {
         staticClass: 'card-subtitle',
         class: [
           props.subTitleTextVariant ? `text-${props.subTitleTextVariant}` : null
-        ],
-        domProps
+        ]
       }),
-      children
+      children || props.subTitle
     )
   }
 }
