@@ -24,7 +24,7 @@ describe('navbar-nav', async () => {
     expect(wrapper.classes().length).toBe(1)
   })
 
-  it(has class "nav-fill" when fill=true', async () => {
+  it('has class "nav-fill" when fill=true', async () => {
     const wrapper = mount(NavbarNav, {
       context: {
         props: { fill: true }
@@ -35,7 +35,7 @@ describe('navbar-nav', async () => {
     expect(wrapper.classes().length).toBe(2)
   })
 
-  it(has class "nav-justified" when justified=true', async () => {
+  it('has class "nav-justified" when justified=true', async () => {
     const wrapper = mount(NavbarNav, {
       context: {
         props: { justified: true }
