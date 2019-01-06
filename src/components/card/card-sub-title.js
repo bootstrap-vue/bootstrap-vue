@@ -3,7 +3,7 @@ import { mergeData } from 'vue-functional-data-merge'
 export const props = {
   subTitle: {
     type: String,
-    default: null
+    default: ''
   },
   subTitleTag: {
     type: String,
