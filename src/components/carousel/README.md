@@ -79,6 +79,7 @@ export default {
   }
 }
 </script>
+
 <!-- carousel-1.vue -->
 ```
 
@@ -118,6 +119,38 @@ Set the prop `indicators` to show the slide indicator buttons.
 Both indicators and controls can be set at the same time or independently.
 
 
+## Crossfade
+Set the `<b-carousel>` `fade` prop to true to animate slides with a fade transition instead of a slide.
+
+```html
+<div>
+  <b-carousel id="carousel-fade"
+              style="text-shadow: 0px 0px 2px #000"
+              fade
+              controls
+              indicators
+              :interval="4000"
+              img-width="1024"
+              img-height="480">
+    <b-carousel-slide caption="First slide"
+                      img-src="https://picsum.photos/1024/480/?image=10">
+    </b-carousel-slide>
+    <b-carousel-slide caption="Second Slide"
+                      img-src="https://picsum.photos/1024/480/?image=12">
+    </b-carousel-slide>
+    <b-carousel-slide caption="Third Slide"
+                      img-src="https://picsum.photos/1024/480/?image=22">
+    </b-carousel-slide>
+    <b-carousel-slide caption="Fourth Slide"
+                      img-src="https://picsum.photos/1024/480/?image=23">
+    </b-carousel-slide>
+  </b-carousel>
+</div>
+
+<!-- carousel-fade.vue -->
+```
+
+
 ## V-model support
 Programmaticaly control which slide is showing via `v-model` (which binds to the
 `value` prop). Note, that slides are indexed starting at `0`.
@@ -132,5 +165,6 @@ accessibility features. It is highly recommended to always add an ID to all comp
 
 All carousel controls and indicators have aria labels. These can be customized by
 setting the various `label-*` props.
+
 
 <!-- Component reference added automatically from component package.json -->
