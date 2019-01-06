@@ -1,5 +1,6 @@
 // Production steps of ECMA-262, Edition 6, 22.1.2.1
 // es6-ified by @alexsasharegan
+/* istanbul ignore if */
 if (!Array.from) {
   Array.from = (function () {
     const toStr = Object.prototype.toString
@@ -80,6 +81,7 @@ if (!Array.from) {
 
 // https://tc39.github.io/ecma262/#sec-array.prototype.find
 // Needed for IE support
+/* istanbul ignore if */
 if (!Array.prototype.find) {
   // eslint-disable-next-line no-extend-native
   Object.defineProperty(Array.prototype, 'find', {
@@ -125,6 +127,7 @@ if (!Array.prototype.find) {
   })
 }
 
+/* istanbul ignore if */
 if (!Array.isArray) {
   Array.isArray = arg => Object.prototype.toString.call(arg) === '[object Array]'
 }
