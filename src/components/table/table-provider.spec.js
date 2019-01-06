@@ -176,7 +176,7 @@ describe('b-table provider functions', async () => {
     }
     const wrapper = mount(Table, {
       propsData: {
-        fields: testFields.map(f => ({ key:f, sortable: true })),,
+        fields: testFields.map(f => ({ key:f, sortable: true })),
         items: provider,
         sortBy: null
       }
