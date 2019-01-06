@@ -16,7 +16,7 @@ describe('card-title', async () => {
   it('renders custom tag', async () => {
     const wrapper = mount(CardTitle, {
       context: {
-        props: { tag: 'div' }
+        props: { titleTag: 'div' }
       }
     })
     expect(wrapper.is('div')).toBe(true)
@@ -28,22 +28,18 @@ describe('card-title', async () => {
         props: { title: 'foobar' }
       }
     })
-    expect(wrapper.classes()).toContain('card-title')
-    expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toContain('foobar')
   })
 
   it('has content from default slot', async () => {
     const wrapper = mount(CardTitle, {
       context: {
-        props: { tag: 'div' }
+        props: { title: 'foo' }
       },
       slots: {
         default: 'bar'
       }
     })
-    expect(wrapper.classes()).toContain('card-title')
-    expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toContain('bar')
   })
 })
