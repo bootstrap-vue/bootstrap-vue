@@ -31,7 +31,7 @@ describe('navbar-nav', async () => {
       }
     })
     expect(wrapper.classes()).toContain('nav-fill')
-    expect(wrapper.classes()).toContain('navbar-brand')
+    expect(wrapper.classes()).toContain('navbar-nav')
     expect(wrapper.classes().length).toBe(2)
   })
 
@@ -42,7 +42,7 @@ describe('navbar-nav', async () => {
       }
     })
     expect(wrapper.classes()).toContain('nav-justified')
-    expect(wrapper.classes()).toContain('navbar-brand')
+    expect(wrapper.classes()).toContain('navbar-nav')
     expect(wrapper.classes().length).toBe(2)
   })
 })
