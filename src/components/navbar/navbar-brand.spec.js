@@ -31,7 +31,7 @@ describe('navbar-brand', async () => {
       }
     })
     expect(wrapper.is('a')).toBe(true)
-    expect(wrapper.attributes('href').toBe('#foo')
+    expect(wrapper.attributes('href')).toBe('#foo')
     expect(wrapper.classes()).toContain('navbar-brand')
     expect(wrapper.classes().length).toBe(1)
   })
