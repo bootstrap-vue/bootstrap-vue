@@ -94,5 +94,17 @@ describe('carousel', async () => {
       expect(spyEnd).toHaveBeenCalledWith(2)
       expect(carousel.isSliding).toBe(false)
     })
+
+    app.$refs.carousel.slide = 1
+
+    app.$nextTick(() => {
+      expect(carousel.isSliding).toBe(true)
+    })
+
+    jest.runAllTimers()
+
+    app.$nextTick(() => {
+      expect(carousel.isSliding).toBe(false)
+    })
   })
 })
