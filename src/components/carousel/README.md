@@ -122,17 +122,16 @@ Set the prop `indicators` to show the slide indicator buttons.
 Both indicators and controls can be set at the same time or independently.
 
 
-## Crossfade
-Set the `<b-carousel>` `fade` prop to true to animate slides with a fade transition instead of a slide.
+## Crossfade animation
+Set the `<b-carousel>` `fade` prop to true to animate slides with a fade transition
+instead of the default slide animation.
 
 ```html
 <div>
   <b-carousel id="carousel-fade"
               style="text-shadow: 0px 0px 2px #000"
               fade
-              controls
               indicators
-              :interval="4000"
               img-width="1024"
               img-height="480">
     <b-carousel-slide caption="First slide"
