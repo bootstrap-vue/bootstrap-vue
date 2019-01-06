@@ -1,5 +1,4 @@
 import BImg from '../image/img'
-import warn from '../../utils/warn'
 import idMixin from '../../mixins/id'
 
 // @vue/component
@@ -122,7 +121,7 @@ export default {
       'div',
       {
         class: [ 'carousel-item' ],
-        style: { background: this.background || this.carousel.background || null},
+        style: { background: this.background || this.carousel.background || null },
         attrs: { id: this.safeId(), role: 'listitem' }
       },
       [ img, content ]
