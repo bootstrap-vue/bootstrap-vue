@@ -25,7 +25,7 @@ describe('navbar', async () => {
     })
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.attributes('role')).toBeDefined()
-    expect(wrapper.attributes('role')).toBe('true')
+    expect(wrapper.attributes('role')).toBe('navigation')
   })
 
   it('accepts breakpoint via toggleable prop', async () => {
