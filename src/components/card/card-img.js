@@ -56,23 +56,30 @@ export default {
   functional: true,
   props,
   render (h, { props, data }) {
-    let staticClass = 'card-img'
+    let baseClass = 'card-img'
     if (props.top) {
-      staticClass += '-top'
+      baseClass += '-top'
     } else if (props.right || props.end) {
-      staticClass += '-right'
+      baseClass += '-right'
     } else if (props.bottom) {
-      staticClass += '-bottom'
+      baseClass += '-bottom'
     } else if (props.left || props.start) {
-      staticClass += '-left'
+      baseClass += '-left'
     }
 
     return h(
       'img',
       mergeData(data, {
-        staticClass,
-        class: { 'img-fluid': props.fluid },
-        attrs: { src: props.src, alt: props.alt, height: props.height, width: props.width }
+        class: [
+          baseClass,
+          props.fluid ? 'img-fluid' : null
+        ],
+        attrs: {
+          src: props.src,
+          alt: props.alt,
+          height: props.height,
+          width: props.width
+        }
       })
     )
   }
