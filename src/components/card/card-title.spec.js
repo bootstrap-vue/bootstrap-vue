@@ -22,20 +22,8 @@ describe('card-title', async () => {
     expect(wrapper.is('div')).toBe(true)
   })
 
-  it('has content when title prop set', async () => {
-    const wrapper = mount(CardTitle, {
-      context: {
-        props: { title: 'foobar' }
-      }
-    })
-    expect(wrapper.text()).toContain('foobar')
-  })
-
   it('has content from default slot', async () => {
     const wrapper = mount(CardTitle, {
-      context: {
-        props: { title: 'foo' }
-      },
       slots: {
         default: 'bar'
       }
