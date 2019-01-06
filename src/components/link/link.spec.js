@@ -29,6 +29,11 @@ describe('link', async () => {
     expect(app.$refs.rel.getAttribute('rel')).toBe('alternate')
   })
 
+  it("should add '.active' class when prop active=true", async () => {
+    const { app } = window
+    expect(app.$refs.active).toHaveClass('active')
+  })
+
   it('should not add aria-disabled when not disabled', async () => {
     const { app } = window
     expect(app.$refs.plain.hasAttribute('aria-disabled')).toBe(false)
@@ -39,7 +44,7 @@ describe('link', async () => {
     expect(app.$refs.disabled.getAttribute('aria-disabled')).toBe('true')
   })
 
-  it("should add '.disabled' class when disabled", async () => {
+  it("should add '.disabled' class when prop disabled=true", async () => {
     const { app } = window
     expect(app.$refs.disabled).toHaveClass('disabled')
   })
