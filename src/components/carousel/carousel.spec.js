@@ -96,4 +96,58 @@ describe('carousel', async () => {
       expect(carousel.isSliding).toBe(false)
     })
   })
+
+  it('Next button works with keypress enter', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+    const nextButton = carousel.$el.querySelector('.carousel-control-next')
+
+    const spyBegin = jest.fn()
+    const spyEnd = jest.fn()
+
+    carousel.$on('sliding-start', spyBegin)
+    carousel.$on('sliding-end', spyEnd)
+
+    const event = new KeyboardEvent('keydown', {'keyCode': 13});
+    nextButton.dispatchEvent(event);
+
+    app.$nextTick(() => {
+      expect(spyBegin).toHaveBeenCalledWith(1)
+      expect(carousel.isSliding).toBe(true)
+    })
+
+    jest.runAllTimers()
+
+    app.$nextTick(() => {
+      expect(spyEnd).toHaveBeenCalledWith(app.slide)
+      expect(carousel.isSliding).toBe(false)
+    })
+  })
+
+  it('Next button works with keypress space', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+    const nextButton = carousel.$el.querySelector('.carousel-control-next')
+
+    const spyBegin = jest.fn()
+    const spyEnd = jest.fn()
+
+    carousel.$on('sliding-start', spyBegin)
+    carousel.$on('sliding-end', spyEnd)
+
+    const event = new KeyboardEvent('keydown', {'keyCode': 32});
+    nextButton.dispatchEvent(event);
+
+    app.$nextTick(() => {
+      expect(spyBegin).toHaveBeenCalledWith(1)
+      expect(carousel.isSliding).toBe(true)
+    })
+
+    jest.runAllTimers()
+
+    app.$nextTick(() => {
+      expect(spyEnd).toHaveBeenCalledWith(app.slide)
+      expect(carousel.isSliding).toBe(false)
+    })
+  })
 })
