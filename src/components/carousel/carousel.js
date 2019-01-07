@@ -1,6 +1,7 @@
 import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
 import { selectAll, reflow, addClass, removeClass, setAttr, eventOn, eventOff } from '../../utils/dom'
+import { hasTouchSupport, hasPointerEvent } from '../../utils/env'
 import idMixin from '../../mixins/id'
 
 // Slide directional classes
@@ -17,6 +18,18 @@ const DIRECTION = {
 
 // Fallback Transition duration (with a little buffer) in ms
 const TRANS_DURATION = 600 + 50
+
+// Time for mouse compat events to fire after touch
+const TOUCHEVENT_COMPAT_WAIT = 500
+
+// Number of pixels to consider touch move a swipe
+const SWIPE_THRESHOLD = 40
+
+// PointerEvent pointer types
+const PointerType = {
+  TOUCH: 'touch',
+  PEN: 'pen'
+}
 
 // Transition Event names
 const TransitionEndEvents = {
@@ -109,7 +122,11 @@ export default {
       intervalId: null,
       transitionEndEvent: null,
       slides: [],
-      direction: null
+      direction: null,
+      // Touch event handling values
+      touchTimeout: null,
+      touchStartX: 0,
+      touchDeltaX: 0
     }
   },
   computed: {
@@ -214,6 +231,7 @@ export default {
   created () {
     // Create private non-reactive props
     this._animationTimeout = null
+    this._touchTimeout = null
   },
   mounted () {
     // Cache current browser transitionend event name
@@ -231,8 +249,10 @@ export default {
   beforeDestroy () /* istanbul ignore next: dificult to test */ {
     clearInterval(this.intervalId)
     clearTimeout(this._animationTimeout)
+    clearTimeout(this._touchTimeout)
     this.intervalId = null
     this._animationTimeout = null
+    this._touchTimeout = null
   },
   methods: {
     // Set slide
@@ -336,6 +356,53 @@ export default {
         evt.stopPropagation()
         fn()
       }
+    },
+    handleSwipe () {
+      const absDeltax = Math.abs(this.touchDeltaX)
+      if (absDeltax <= SWIPE_THRESHOLD) {
+        return
+      }
+      const direction = absDeltax / this.touchDeltaX
+      if (direction > 0) {
+        // swipe left
+        this.prev()
+      } else if (direction < 0) {
+        // swipe right
+        this.next()
+      }
+    },
+    touchStart (evt) {
+      if (hasPointerEvent && PointerType[evt.originalEvent.pointerType.toUpperCase()]) {
+        this.touchStartX = evt.originalEvent.clientX
+      } else if (!hasPointerEvent) {
+        this.touchStartX = evt.originalEvent.touches[0].clientX
+      }
+    },
+    touchMove (evt) {
+      // ensure swiping with one touch and not pinching
+      if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) {
+        this.touchDeltaX = 0
+      } else {
+        this.touchDeltaX = evt.originalEvent.touches[0].clientX - this.touchStartX
+      }
+    },
+    touchEnd (evt) {
+      if (hasPointerEvent && PointerType[evt.originalEvent.pointerType.toUpperCase()]) {
+        this.touchDeltaX = evt.originalEvent.clientX - this.touchStartX
+      }
+      this.handleSwipe()
+      // If it's a touch-enabled device, mouseenter/leave are fired as
+      // part of the mouse compatibility events on first tap - the carousel
+      // would stop cycling until user tapped out of it;
+      // here, we listen for touchend, explicitly pause the carousel
+      // (as if it's the second time we tap on it, mouseenter compat event
+      // is NOT fired) and after a timeout (to allow for mouse compatibility
+      // events to fire) we explicitly restart cycling
+      this.pause()
+      if (this._touchTimeout) {
+        clearTimeout(this._touchTimeout)
+      }
+      this._touchTimeout = setTimeout(this.start, TOUCHEVENT_COMPAT_WAIT)
     }
   },
   render (h) {
@@ -429,6 +496,33 @@ export default {
       })
     )
 
+    const on = {
+      mouseenter: this.pause,
+      mouseleave: this.restart,
+      focusin: this.pause,
+      focusout: this.restart,
+      keydown: (evt) => {
+        const keyCode = evt.keyCode
+        if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
+          evt.preventDefault()
+          evt.stopPropagation()
+          this[keyCode === KeyCodes.LEFT ? 'prev' : 'next']()
+        }
+      }
+    }
+    // Touch support event handlers for environment
+    if (!this.noTouch && hasTouchSupport) {
+      // Attach appropriate listeners
+      if (hasPointerEvent) {
+        on.pointerdown = this.touchStart
+        on.pointerup = this.touchEnd
+      } else {
+        on.touchstart = this.touchStart
+        on.touchmove = this.touchMove
+        on.touchend = this.touchEnd
+      }
+    }
+
     // Return the carousel
     return h(
       'div',
@@ -444,20 +538,7 @@ export default {
           id: this.safeId(),
           'aria-busy': this.isSliding ? 'true' : 'false'
         },
-        on: {
-          mouseenter: this.pause,
-          mouseleave: this.restart,
-          focusin: this.pause,
-          focusout: this.restart,
-          keydown: (evt) => {
-            const keyCode = evt.keyCode
-            if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
-              evt.preventDefault()
-              evt.stopPropagation()
-              this[keyCode === KeyCodes.LEFT ? 'prev' : 'next']()
-            }
-          }
-        }
+        on
       },
       [ inner, controls, indicators ]
     )
