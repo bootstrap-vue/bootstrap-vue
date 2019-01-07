@@ -380,7 +380,7 @@ export default {
     },
     touchStart (evt) {
       if (hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
-        this.touchStartX = evt.originalEvent.clientX
+        this.touchStartX = evt.clientX
       } else if (!hasPointerEvent) {
         this.touchStartX = evt.touches[0].clientX
       }
