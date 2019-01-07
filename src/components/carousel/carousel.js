@@ -536,11 +536,11 @@ export default {
     return h(
       'div',
       {
-        class: [
-          'carousel',
-          'slide',
-          { 'carousel-fade': this.fade }
-        ],
+        staticClass: 'carousel slide',
+        class: {
+          'carousel-fade': this.fade,
+          'pointer-event': !this.noTouch && hasTouchSupport && hasPointerEvent
+        },
         style: { background: this.background },
         attrs: {
           role: 'region',
