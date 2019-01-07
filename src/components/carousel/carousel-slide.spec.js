@@ -173,11 +173,9 @@ describe('carousel-slide', async () => {
     const wrapper = mount(CarouselSlide, {
       provide: {
         // Mock carousel injection
-        carousel () {
-          return {
-            imgWidth: '1024',
-            imgHeight: '480'
-          }
+        carousel: {
+          imgWidth: '1024',
+          imgHeight: '480'
         }
       },
       propsData: {
@@ -186,9 +184,6 @@ describe('carousel-slide', async () => {
     })
     expect(wrapper.find('img').exists()).toBe(true)
     expect(wrapper.find('img').attributes('src')).toBeDefined()
-
-    await wrapper.vm.$nextTick()
-
     expect(wrapper.find('img').attributes('width')).toBeDefined()
     expect(wrapper.find('img').attributes('width')).toBe('1024')
     expect(wrapper.find('img').attributes('height')).toBeDefined()
