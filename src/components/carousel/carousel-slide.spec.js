@@ -21,23 +21,23 @@ describe('carousel-slide', async () => {
 
   it('has child div.carousel-caption by default', async () => {
     const wrapper = mount(CarouselSlide)
-    expect(wrapper.find('.carousel-caption')).toBeDefined()
+    expect(wrapper.find('.carousel-caption').exists()).toBe(true)
     expect(wrapper.find('.carousel-caption').is('div')).toBe(true)
   })
 
   it('does not have image by default', async () => {
     const wrapper = mount(CarouselSlide)
-    expect(wrapper.find('img')).not.toBeDefined()
+    expect(wrapper.find('img').exists()).toBe(false)
   })
 
   it('does not have caption tag h3 by default', async () => {
     const wrapper = mount(CarouselSlide)
-    expect(wrapper.find('h3')).not.toBeDefined()
+    expect(wrapper.find('h3').exists()).toBe(false)
   })
 
   it('does not have text tag p by default', async () => {
     const wrapper = mount(CarouselSlide)
-    expect(wrapper.find('p')).not.toBeDefined()
+    expect(wrapper.find('p').exists()).toBe(false)
   })
 
   it('has caption tag h3 when prop caption is set', async () => {
@@ -46,7 +46,7 @@ describe('carousel-slide', async () => {
         caption: 'foobar'
       }
     })
-    expect(wrapper.find('h3')).toBeDefined()
+    expect(wrapper.find('h3').exists()).toBe(true)
     expect(wrapper.find('h3').text()).toBe('foobar')
   })
 
@@ -56,7 +56,7 @@ describe('carousel-slide', async () => {
         text: 'foobar'
       }
     })
-    expect(wrapper.find('p')).toBeDefined()
+    expect(wrapper.find('p').exists()).toBe(true)
     expect(wrapper.find('p').text()).toBe('foobar')
   })
 })
