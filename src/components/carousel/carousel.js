@@ -41,6 +41,9 @@ function getTransisionEndEvent (el) {
 export default {
   name: 'BCarousel',
   mixins: [ idMixin ],
+  provide () {
+    return { carousel: this }
+  },
   props: {
     labelPrev: {
       type: String,
@@ -159,6 +162,7 @@ export default {
           return
         }
         called = true
+        /* istanbul ignore if: transition events cant be tested in JSDOM */
         if (this.transitionEndEvent) {
           const events = this.transitionEndEvent.split(/\s+/)
           events.forEach(event => {
@@ -190,7 +194,8 @@ export default {
         // Notify ourselves that we're done sliding (slid)
         this.$nextTick(() => this.$emit('sliding-end', val))
       }
-      // Clear transition classes after transition ends
+      // Set up transitionend handler
+      /* istanbul ignore if: transition events cant be tested in JSDOM */
       if (this.transitionEndEvent) {
         const events = this.transitionEndEvent.split(/\s+/)
         events.forEach(event => {
@@ -318,6 +323,14 @@ export default {
         return (nextIndex > curIndex) ? DIRECTION.next : DIRECTION.prev
       }
       return DIRECTION[direction]
+    },
+    handleClick (evt, fn) {
+      const keyCode = evt.keyCode
+      if (evt.type === 'click' || keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
+        evt.preventDefault()
+        evt.stopPropagation()
+        fn()
+      }
     }
   },
   render (h) {
@@ -345,19 +358,8 @@ export default {
             class: [ 'carousel-control-prev' ],
             attrs: { href: '#', role: 'button', 'aria-controls': this.safeId('__BV_inner_') },
             on: {
-              click: (evt) => {
-                evt.preventDefault()
-                evt.stopPropagation()
-                this.prev()
-              },
-              keydown: (evt) => {
-                const keyCode = evt.keyCode
-                if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
-                  evt.preventDefault()
-                  evt.stopPropagation()
-                  this.prev()
-                }
-              }
+              click: (evt) => { this.handleClick(evt, this.prev) },
+              keydown: (evt) => { this.handleClick(evt, this.prev) }
             }
           },
           [
@@ -371,19 +373,8 @@ export default {
             class: [ 'carousel-control-next' ],
             attrs: { href: '#', role: 'button', 'aria-controls': this.safeId('__BV_inner_') },
             on: {
-              click: (evt) => {
-                evt.preventDefault()
-                evt.stopPropagation()
-                this.next()
-              },
-              keydown: (evt) => {
-                const keyCode = evt.keyCode
-                if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
-                  evt.preventDefault()
-                  evt.stopPropagation()
-                  this.next()
-                }
-              }
+              click: (evt) => { this.handleClick(evt, this.next) },
+              keydown: (evt) => { this.handleClick(evt, this.next) }
             }
           },
           [
@@ -425,17 +416,8 @@ export default {
               'aria-controls': this.safeId('__BV_inner_')
             },
             on: {
-              click: (evt) => {
-                this.setSlide(n)
-              },
-              keydown: (evt) => {
-                const keyCode = evt.keyCode
-                if (keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
-                  evt.preventDefault()
-                  evt.stopPropagation()
-                  this.setSlide(n)
-                }
-              }
+              click: (evt) => { this.handleClick(evt, () => { this.setSlide(n) }) },
+              keydown: (evt) => { this.handleClick(evt, () => { this.setSlide(n) }) }
             }
           }
         )
