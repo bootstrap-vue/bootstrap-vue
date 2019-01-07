@@ -502,6 +502,9 @@ export default {
       focusin: this.pause,
       focusout: this.restart,
       keydown: (evt) => {
+        if (/input|textarea/i.test(evt.target.tagName)) {
+          return
+        }
         const keyCode = evt.keyCode
         if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
           evt.preventDefault()
