@@ -6,8 +6,8 @@ const TOUCHEVENT_COMPAT_WAIT = 500
 // Number of pixels to consider touch move a swipe
 const SWIPE_THRESHOLD = 40
 
-const HAS_POINTER_EVENT = Boolean(window && (window.PointerEvent || window.MSPointerEvent))
-const HAS_TOUCH_SUPPORT = (document && ('ontouchstart' in document.documentElement)) || navigator.maxTouchPoints > 0
+const HAS_POINTER_EVENT = Boolean(document && window && (window.PointerEvent || window.MSPointerEvent))
+const HAS_TOUCH_SUPPORT = document && ('ontouchstart' in document.documentElement) || && navigator.maxTouchPoints > 0)
 const PointerType = {
   TOUCH: 'touch',
   PEN: 'pen'
@@ -21,7 +21,12 @@ export default {
   inject: {
     carousel: {
       from: 'carousel',
-      default: function () { return {} }
+      default: function () {
+        return {
+          // Explicitly disable touch if not a child of carousel
+          noTouch: true
+        }
+      }
     }
   },
   props: {
