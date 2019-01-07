@@ -261,7 +261,7 @@ export default {
         this.start()
       }
     },
-    doSlide(to, from) {
+    doSlide (to, from) {
       const isCycling = Boolean(this.interval)
       // Determine sliding direction
       let direction = this.calcDirection(this.direction, from, to)
