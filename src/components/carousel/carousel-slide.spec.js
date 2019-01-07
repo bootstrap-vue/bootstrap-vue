@@ -100,7 +100,7 @@ describe('carousel-slide', async () => {
         background: '#123456'
       }
     })
-    if (wrapper.attributes('style').exists()) {
+    if (wrapper.attributes('style')) {
       expect(wrapper.attributes('style')).not.toContain('background:')
     }
   })
@@ -111,7 +111,7 @@ describe('carousel-slide', async () => {
         background: '#123456'
       }
     })
-    expect(wrapper.attributes('style').exists()).toBe(true)
+    expect(wrapper.attributes('style')).toBeDefined()
     expect(wrapper.attributes('style')).toContain('background:')
     expect(wrapper.attributes('style')).toContain('#123456')
   })
@@ -124,7 +124,7 @@ describe('carousel-slide', async () => {
         }
       }
     })
-    expect(wrapper.attributes('style').exists()).toBe(true)
+    expect(wrapper.attributes('style')).toBeDefined()
     expect(wrapper.attributes('style')).toContain('background:')
     expect(wrapper.attributes('style')).toContain('#123456')
   })
