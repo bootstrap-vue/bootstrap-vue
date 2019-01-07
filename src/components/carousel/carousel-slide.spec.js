@@ -94,6 +94,41 @@ describe('carousel-slide', async () => {
     expect(wrapper.find('.carousel-caption').classes().length).toBe(3)
   })
 
+  it('does not have style background when prop background not set', async () => {
+    const wrapper = mount(CarouselSlide, {
+      propsData: {
+        background: '#123456'
+      }
+    })
+    if (wrapper.attributes('style').exists()) {
+      expect(wrapper.attributes('style')).not.toContain('background:')
+    }
+  })
+
+  it('has style background when prop background is set', async () => {
+    const wrapper = mount(CarouselSlide, {
+      propsData: {
+        background: '#123456'
+      }
+    })
+    expect(wrapper.attributes('style').exists()).toBe(true)
+    expect(wrapper.attributes('style')).toContain('background:')
+    expect(wrapper.attributes('style')).toContain('#123456')
+  })
+
+  it('has style background inherited from carousel parent', async () => {
+    const wrapper = mount(CarouselSlide, {
+      provide: {
+        carousel: {
+          background: '#123456'
+        }
+      }
+    })
+    expect(wrapper.attributes('style').exists()).toBe(true)
+    expect(wrapper.attributes('style')).toContain('background:')
+    expect(wrapper.attributes('style')).toContain('#123456')
+  })
+
   it('has custom caption tag when prop captionTag is set', async () => {
     const wrapper = mount(CarouselSlide, {
       propsData: {
