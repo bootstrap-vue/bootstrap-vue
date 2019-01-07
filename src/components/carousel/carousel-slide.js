@@ -1,13 +1,12 @@
 import BImg from '../image/img'
 import idMixin from '../../mixins/id'
+import { hasTouchSupport, hasPointerEvent } from '../../utils/env'
 
 // Time for mouse compat events to fire after touch
 const TOUCHEVENT_COMPAT_WAIT = 500
 // Number of pixels to consider touch move a swipe
 const SWIPE_THRESHOLD = 40
 
-const HAS_POINTER_EVENT = Boolean(document && window && (window.PointerEvent || window.MSPointerEvent))
-const HAS_TOUCH_SUPPORT = document && ('ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0)
 const PointerType = {
   TOUCH: 'touch',
   PEN: 'pen'
@@ -128,9 +127,9 @@ export default {
       }
     },
     touchStart (evt) {
-      if (HAS_POINTER_EVENT && PointerType[evt.originalEvent.pointerType.toUpperCase()]) {
+      if (hasPointerEvent && PointerType[evt.originalEvent.pointerType.toUpperCase()]) {
         this.touchStartX = evt.originalEvent.clientX
-      } else if (!HAS_POINTER_EVENT) {
+      } else if (!hasPointerEvent) {
         this.touchStartX = evt.originalEvent.touches[0].clientX
       }
     },
@@ -143,26 +142,23 @@ export default {
       }
     },
     touchEnd (evt) {
-      if (HAS_POINTER_EVENT && PointerType[evt.originalEvent.pointerType.toUpperCase()]) {
+      if (hasPointerEvent && PointerType[evt.originalEvent.pointerType.toUpperCase()]) {
         this.touchDeltaX = evt.originalEvent.clientX - this.touchStartX
       }
 
       this.handleSwipe()
-      if (this._config.pause === 'hover') {
-        // If it's a touch-enabled device, mouseenter/leave are fired as
-        // part of the mouse compatibility events on first tap - the carousel
-        // would stop cycling until user tapped out of it;
-        // here, we listen for touchend, explicitly pause the carousel
-        // (as if it's the second time we tap on it, mouseenter compat event
-        // is NOT fired) and after a timeout (to allow for mouse compatibility
-        // events to fire) we explicitly restart cycling
-
-        this.carousel.pause()
-        if (this.touchTimeout) {
-          clearTimeout(this.touchTimeout)
-        }
-        this.touchTimeout = setTimeout(this.carousel.start, TOUCHEVENT_COMPAT_WAIT)
+      // If it's a touch-enabled device, mouseenter/leave are fired as
+      // part of the mouse compatibility events on first tap - the carousel
+      // would stop cycling until user tapped out of it;
+      // here, we listen for touchend, explicitly pause the carousel
+      // (as if it's the second time we tap on it, mouseenter compat event
+      // is NOT fired) and after a timeout (to allow for mouse compatibility
+      // events to fire) we explicitly restart cycling
+      this.carousel.pause()
+      if (this.touchTimeout) {
+        clearTimeout(this.touchTimeout)
       }
+      this.touchTimeout = setTimeout(this.carousel.start, TOUCHEVENT_COMPAT_WAIT)
     }
   },
   render (h) {
@@ -202,11 +198,11 @@ export default {
 
     // Touch support event handlers
     const on = {}
-    if (!this.carousel.noTouch && HAS_TOUCH_SUPPORT) {
+    if (!this.carousel.noTouch && hasTouchSupport) {
       // Prevent default for dragstart
       on.dragstart = (evt) => { evt.preventDefault() }
       // Attach appropriate listeners
-      if (HAS_POINTER_EVENT) {
+      if (hasPointerEvent) {
         on.pointerdown = this.touchStart
         on.pointerup = this.touchEnd
       } else {
@@ -221,7 +217,7 @@ export default {
       {
         staticClass: 'carousel-item',
         class: {
-          'pointer-event': !this.carousel.noTouch && HAS_TOUCH_SUPPORT && HAS_POINTER_EVENT
+          'pointer-event': !this.carousel.noTouch && hasTouchSupport && hasPointerEvent
         },
         style: { background: this.background || this.carousel.background || null },
         attrs: { id: this.safeId(), role: 'listitem' },
