@@ -162,6 +162,7 @@ export default {
           return
         }
         called = true
+        /* istanbul ignore if: transition events cant be tested in JSDOM */
         if (this.transitionEndEvent) {
           const events = this.transitionEndEvent.split(/\s+/)
           events.forEach(event => {
@@ -193,7 +194,8 @@ export default {
         // Notify ourselves that we're done sliding (slid)
         this.$nextTick(() => this.$emit('sliding-end', val))
       }
-      // Clear transition classes after transition ends
+      // Set up transitionend handler
+      /* istanbul ignore if: transition events cant be tested in JSDOM */
       if (this.transitionEndEvent) {
         const events = this.transitionEndEvent.split(/\s+/)
         events.forEach(event => {
