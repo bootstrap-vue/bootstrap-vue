@@ -59,4 +59,26 @@ describe('carousel-slide', async () => {
     expect(wrapper.find('p').exists()).toBe(true)
     expect(wrapper.find('p').text()).toBe('foobar')
   })
+
+  it('has image when prop img-src is set', async () => {
+    const wrapper = mount(CarouselSlide, {
+      propsData: {
+        imgSrc: 'https://picsum.photos/1024/480/?image=52'
+      }
+    })
+    expect(wrapper.find('img').exists()).toBe(true)
+    expect(wrapper.find('img').attributes('src')).toBeDefined()
+    expect(wrapper.find('img').attributes('src')).toBe('https://picsum.photos/1024/480/?image=52')
+  })
+
+  it('has image when prop img-blank is set', async () => {
+    const wrapper = mount(CarouselSlide, {
+      propsData: {
+        imgBlank: true
+      }
+    })
+    expect(wrapper.find('img').exists()).toBe(true)
+    expect(wrapper.find('img').attributes('src')).toBeDefined()
+    expect(wrapper.find('img').attributes('src')).toContain('data:')
+  })
 })
