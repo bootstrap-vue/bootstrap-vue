@@ -93,6 +93,7 @@ export default {
   },
   render (h) {
     const $slots = this.$slots
+    const noDrag = !this.carousel.noTouch && hasTouchSupport
 
     let img = $slots.img
     if (!img && (this.imgSrc || this.imgBlank)) {
@@ -108,7 +109,9 @@ export default {
             width: this.computedWidth,
             height: this.computedHeight,
             alt: this.imgAlt
-          }
+          },
+          // Touch support event handler
+          on: noDrag ? { dragstart: e => { e.preventDefault() } } : {}
         }
       )
     }
@@ -126,20 +129,12 @@ export default {
       ]
     )
 
-    // Touch support event handlers
-    const on = {}
-    if (!this.carousel.noTouch && hasTouchSupport) {
-      // Prevent default for dragstart
-      on.dragstart = (evt) => { evt.preventDefault() }
-    }
-
     return h(
       'div',
       {
         staticClass: 'carousel-item',
         style: { background: this.background || this.carousel.background || null },
-        attrs: { id: this.safeId(), role: 'listitem' },
-        on
+        attrs: { id: this.safeId(), role: 'listitem' }
       },
       [ img, content ]
     )
