@@ -78,6 +78,11 @@ export default {
       type: Boolean,
       default: false
     },
+    noTouch: {
+      // Sniffed by carousel-slide
+      type: Boolean,
+      default: false
+    },
     imgWidth: {
       // Sniffed by carousel-slide
       type: [Number, String]
