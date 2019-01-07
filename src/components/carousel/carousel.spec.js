@@ -189,7 +189,7 @@ describe('carousel', async () => {
     carousel.$on('sliding-end', spyEnd)
 
     const event = new KeyboardEvent('keydown', { keyCode: 39 })
-    carousel.dispatchEvent(event)
+    carousel.$el.dispatchEvent(event)
 
     app.$nextTick(() => {
       expect(spyBegin).toHaveBeenCalledWith(1)
@@ -215,7 +215,7 @@ describe('carousel', async () => {
     carousel.$on('sliding-end', spyEnd)
 
     const event = new KeyboardEvent('keydown', { keyCode: 37 })
-    carousel.dispatchEvent(event)
+    carousel.$el.dispatchEvent(event)
 
     app.$nextTick(() => {
       expect(spyBegin).toHaveBeenCalled()
