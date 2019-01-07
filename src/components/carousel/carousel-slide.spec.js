@@ -22,7 +22,7 @@ describe('carousel-slide', async () => {
   it('has child div.carousel-caption by default', async () => {
     const wrapper = mount(CarouselSlide)
     expect(wrapper.find('.carousel-caption')).toBeDefined()
-    expect(wrapper.find('.carousel-caption').is('div').toBe(true)
+    expect(wrapper.find('.carousel-caption').is('div')).toBe(true)
   })
 
   it('does not have image by default', async () => {
