@@ -7,7 +7,7 @@ const TOUCHEVENT_COMPAT_WAIT = 500
 const SWIPE_THRESHOLD = 40
 
 const HAS_POINTER_EVENT = Boolean(document && window && (window.PointerEvent || window.MSPointerEvent))
-const HAS_TOUCH_SUPPORT = document && ('ontouchstart' in document.documentElement) || navigator.maxTouchPoints > 0)
+const HAS_TOUCH_SUPPORT = document && ('ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0)
 const PointerType = {
   TOUCH: 'touch',
   PEN: 'pen'
