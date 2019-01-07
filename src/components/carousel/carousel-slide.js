@@ -1,6 +1,18 @@
 import BImg from '../image/img'
 import idMixin from '../../mixins/id'
 
+// Time for mouse compat events to fire after touch
+const TOUCHEVENT_COMPAT_WAIT = 500
+// Number of pixels to consider touch move a swipe
+const SWIPE_THRESHOLD = 40
+
+const HAS_POINTER_EVENT = Boolean(window && (window.PointerEvent || window.MSPointerEvent))
+const HAS_TOUCH_SUPPORT = (document && ('ontouchstart' in document.documentElement)) || navigator.maxTouchPoints > 0
+const PointerType = {
+  TOUCH : 'touch',
+  PEN   : 'pen'
+}
+
 // @vue/component
 export default {
   name: 'BCarouselSlide',
@@ -66,6 +78,13 @@ export default {
       // default: undefined
     }
   },
+  data () {
+    return {
+      touchTimeout: null,
+      touchStartX: 0,
+      touchDeltaX: 0
+    }
+  },
   computed: {
     contentClasses () {
       return [
@@ -80,6 +99,65 @@ export default {
     computedHeight () {
       // Use local height, or try parent height
       return this.imgHeight || this.carousel.imgHeight || null
+    }
+  },
+  beforeDestroy () /* istanbul ignore next */ {
+    if (this.touchTimeout) {
+      clearTimeout(this.touchTimeout)
+      this.touchTimeout = null
+    }
+  },
+  methods: {
+    handleSwipe () {
+      const absDeltax = Math.abs(this.touchDeltaX)
+      if (absDeltax <= SWIPE_THRESHOLD) {
+        return
+      }
+      const direction = absDeltax / this.touchDeltaX
+      if (direction > 0) {
+        // swipe left
+        this.carousel.prev()
+      } else if (direction < 0) {
+        // swipe right
+        this.carousel.next()
+      }
+    },
+    touchStart (evt) {
+      if (HAS_POINTER_EVENT && PointerType[evt.originalEvent.pointerType.toUpperCase()]) {
+        this.touchStartX = evt.originalEvent.clientX
+      } else if (!HAS_POINTER_EVENT) {
+        this.touchStartX = evt.originalEvent.touches[0].clientX
+      }
+    },
+    touchMove (evt) {
+      // ensure swiping with one touch and not pinching
+      if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) {
+        this.touchDeltaX = 0
+      } else {
+        this.touchDeltaX = evt.originalEvent.touches[0].clientX - this.touchStartX
+      }
+    },
+    touchEnd (evt) {
+      if (HAS_POINTER_EVENT && PointerType[evt.originalEvent.pointerType.toUpperCase()]) {
+        this.touchDeltaX = evt.originalEvent.clientX - this.touchStartX
+      }
+
+      this.handleSwipe()
+      if (this._config.pause === 'hover') {
+        // If it's a touch-enabled device, mouseenter/leave are fired as
+        // part of the mouse compatibility events on first tap - the carousel
+        // would stop cycling until user tapped out of it;
+        // here, we listen for touchend, explicitly pause the carousel
+        // (as if it's the second time we tap on it, mouseenter compat event
+        // is NOT fired) and after a timeout (to allow for mouse compatibility
+        // events to fire) we explicitly restart cycling
+
+        this.carousel.pause()
+        if (this.touchTimeout) {
+          clearTimeout(this.touchTimeout)
+        }
+        this.touchTimeout = setTimeout(this.carousel.start, TOUCHEVENT_COMPAT_WAIT)
+      }
     }
   },
   render (h) {
@@ -117,12 +195,32 @@ export default {
       ]
     )
 
+    // Touch support event handlers
+    const on = {}
+    if (!this.carousel.noTouch && HAS_TOUCH_SUPPORT) {
+      // Prevent default for dragstart
+      on.dragstart = (evt) => { evt.preventDefault() }
+      // Attach appropriate listeners
+      if (HAS_POINTER_EVENT) {
+        on.pointerdown = this.touchStart
+        on.pointerup = this.touchEnd
+      } else {
+        on.touchstart = this.touchStart
+        on.touchmove = this.touchMove
+        on.touchend = this.touchEnd
+      }
+    }
+
     return h(
       'div',
       {
-        class: [ 'carousel-item' ],
+        staticClass: 'carousel-item',
+        class: {
+          'pointer-event': !this.carousel.noTouch && HAS_TOUCH_SUPPORT && HAS_POINTER_EVENT
+        },
         style: { background: this.background || this.carousel.background || null },
-        attrs: { id: this.safeId(), role: 'listitem' }
+        attrs: { id: this.safeId(), role: 'listitem' },
+        on
       },
       [ img, content ]
     )
