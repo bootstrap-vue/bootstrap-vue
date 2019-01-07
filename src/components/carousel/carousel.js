@@ -1,7 +1,7 @@
 import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
 import { selectAll, reflow, addClass, removeClass, setAttr, eventOn, eventOff } from '../../utils/dom'
-import { hasTouchSupport, hasPointerEvent } from '../../utils/env'
+import { inBrowser, hasTouchSupport, hasPointerEvent } from '../../utils/env'
 import idMixin from '../../mixins/id'
 
 // Slide directional classes
@@ -119,19 +119,13 @@ export default {
     return {
       index: this.value || 0,
       isSliding: false,
-      intervalId: null,
       transitionEndEvent: null,
       slides: [],
       direction: null,
+      isPaused: false,
       // Touch event handling values
-      touchTimeout: null,
       touchStartX: 0,
       touchDeltaX: 0
-    }
-  },
-  computed: {
-    isCycling () {
-      return Boolean(this.intervalId)
     }
   },
   watch: {
@@ -146,11 +140,16 @@ export default {
       }
       if (!newVal) {
         // Pausing slide show
-        this.pause()
+        this.pause(false)
       } else {
         // Restarting or Changing interval
-        this.pause()
-        this.start()
+        this.pause(true)
+        this.start(false)
+      }
+    },
+    isPaused (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit(newVal ? 'paused' : 'started')
       }
     },
     index (val, oldVal) {
@@ -204,7 +203,7 @@ export default {
         setAttr(nextSlide, 'aria-hidden', 'false')
         currentSlide.tabIndex = -1
         nextSlide.tabIndex = -1
-        if (!this.isCycling) {
+        if (this.isPaused) {
           // Focus the next slide for screen readers if not in play mode
           nextSlide.tabIndex = 0
           this.$nextTick(() => {
@@ -230,6 +229,7 @@ export default {
   },
   created () {
     // Create private non-reactive props
+    this._intervalId = null,
     this._animationTimeout = null
     this._touchTimeout = null
   },
@@ -247,10 +247,10 @@ export default {
     })
   },
   beforeDestroy () /* istanbul ignore next: dificult to test */ {
-    clearInterval(this.intervalId)
     clearTimeout(this._animationTimeout)
     clearTimeout(this._touchTimeout)
-    this.intervalId = null
+    clearInterval(this._intervalId)
+    this._intervalId = null
     this._animationTimeout = null
     this._touchTimeout = null
   },
@@ -259,7 +259,7 @@ export default {
     setSlide (slide) {
       // Don't animate when page is not visible
       /* istanbul ignore if: dificult to test */
-      if (typeof document !== 'undefined' && document.visibilityState && document.hidden) {
+      if (inBrowser && document.visibilityState && document.hidden) {
         return
       }
       const len = this.slides.length
@@ -289,28 +289,33 @@ export default {
       this.setSlide(this.index + 1)
     },
     // Pause auto rotation
-    pause () {
-      if (this.isCycling) {
-        clearInterval(this.intervalId)
-        this.intervalId = null
+    pause (evt) {
+      if (!evt) {
+        this.isPaused = true
         if (this.slides[this.index]) {
           // Make current slide focusable for screen readers
           this.slides[this.index].tabIndex = 0
         }
       }
+      if (this._intervalId) {
+        clearInterval(this._intervalId)
+        this._intervalId = null
+      }
     },
     // Start auto rotate slides
-    start () {
-      // Don't start if no interval, no slides, or if we are already running
-      if (!this.interval || this.isCycling || this.intervalId || this.slides.length === 0) {
-        return
+    start (evt) {
+      if (!evt) {
+        this.isPaused = false
+        this.slides.forEach(slide => { slide.tabIndex = -1 })
       }
-      this.slides.forEach(slide => {
-        slide.tabIndex = -1
-      })
-      this.intervalId = setInterval(() => {
-        this.next()
-      }, Math.max(1000, this.interval))
+      if (this._intervalId) {
+        clearInterval(this._intervalId)
+        this._intervalId = null
+      }
+      // Don't start if no interval, or less than 2 slides
+      if (this.interval && this.slides.length > 1) {
+        this._intervalId = setInterval(this.next, Math.max(1000, this.interval))
+      }
     },
     // Re-Start auto rotate slides when focus/hover leaves the carousel
     restart (evt) {
@@ -321,7 +326,7 @@ export default {
     },
     // Update slide list
     updateSlides () {
-      this.pause()
+      this.pause(true)
       // Get all slides as DOM elements
       this.slides = selectAll('.carousel-item', this.$refs.inner)
       const numSlides = this.slides.length
@@ -331,17 +336,18 @@ export default {
         const n = idx + 1
         if (idx === index) {
           addClass(slide, 'active')
+          setAttr(slide, 'aria-current', 'true')
         } else {
           removeClass(slide, 'active')
+          setAttr(slide, 'aria-current', 'false')
         }
-        setAttr(slide, 'aria-current', idx === index ? 'true' : 'false')
         setAttr(slide, 'aria-posinset', String(n))
         setAttr(slide, 'aria-setsize', String(numSlides))
         slide.tabIndex = -1
       })
       // Set slide as active
       this.setSlide(index)
-      this.start()
+      this.start(this.isPaused)
     },
     calcDirection (direction = null, curIndex = 0, nextIndex = 0) {
       if (!direction) {
@@ -398,11 +404,11 @@ export default {
       // (as if it's the second time we tap on it, mouseenter compat event
       // is NOT fired) and after a timeout (to allow for mouse compatibility
       // events to fire) we explicitly restart cycling
-      this.pause()
+      this.pause(false)
       if (this._touchTimeout) {
         clearTimeout(this._touchTimeout)
       }
-      this._touchTimeout = setTimeout(this.start, TOUCHEVENT_COMPAT_WAIT)
+      this._touchTimeout = setTimeout(this.start, TOUCHEVENT_COMPAT_WAIT + Math.max(1000, this.interval))
     }
   },
   render (h) {
@@ -499,8 +505,8 @@ export default {
     const on = {
       mouseenter: this.pause,
       mouseleave: this.restart,
-      focusin: this.pause,
-      focusout: this.restart,
+      // focusin: this.pause,
+      // focusout: this.restart,
       keydown: (evt) => {
         if (/input|textarea/i.test(evt.target.tagName)) {
           return
