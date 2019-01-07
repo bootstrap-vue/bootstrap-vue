@@ -1,6 +1,6 @@
 import BImg from '../image/img'
 import idMixin from '../../mixins/id'
-import { hasTouchSupport, hasPointerEvent } from '../../utils/env'
+import { hasTouchSupport } from '../../utils/env'
 
 // @vue/component
 export default {
@@ -137,9 +137,6 @@ export default {
       'div',
       {
         staticClass: 'carousel-item',
-        class: {
-          'pointer-event': !this.carousel.noTouch && hasTouchSupport && hasPointerEvent
-        },
         style: { background: this.background || this.carousel.background || null },
         attrs: { id: this.safeId(), role: 'listitem' },
         on
