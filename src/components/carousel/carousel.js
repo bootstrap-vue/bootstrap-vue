@@ -43,6 +43,7 @@ const TransitionEndEvents = {
 function getTransisionEndEvent (el) {
   for (const name in TransitionEndEvents) {
     if (el.style[name] !== undefined) {
+      /* istanbul ignore next: JSDOM doesn't support transition events */
       return TransitionEndEvents[name]
     }
   }
@@ -149,7 +150,7 @@ export default {
     },
     isPaused (newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.$emit(newVal ? 'paused' : 'started')
+        this.$emit(newVal ? 'paused' : 'unpaused')
       }
     },
     index (val, oldVal) {
