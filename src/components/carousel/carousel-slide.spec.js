@@ -75,34 +75,35 @@ describe('carousel-slide', async () => {
   it('has custom content tag when prop contentTag is set', async () => {
     const wrapper = mount(CarouselSlide, {
       propsData: {
-        contentTag: 'span',
+        contentTag: 'span'
       }
     })
     expect(wrapper.find('.carousel-caption').exists()).toBe(true)
     expect(wrapper.find('.carousel-caption').is('span')).toBe(true)
   })
 
-  it('has custom classes on .carousel-caption when prop contentClasses is set', async () => {
+  it('has display classes on .carousel-caption when prop contentVisibleUp is set', async () => {
     const wrapper = mount(CarouselSlide, {
       propsData: {
-        contentClasses: 'foobar',
+        contentVisibleUp: 'lg'
       }
     })
     expect(wrapper.find('.carousel-caption').exists()).toBe(true)
-    expect(wrapper.find('.carousel-caption').classes().length).toBe(2)
-    expect(wrapper.find('.carousel-caption').classes()).toContain('foobar')
+    expect(wrapper.find('.carousel-caption').classes()).toContain('d-none')
+    expect(wrapper.find('.carousel-caption').classes()).toContain('d-lg-block')
+    expect(wrapper.find('.carousel-caption').classes().length).toBe(3)
   })
 
   it('has custom caption tag when prop captionTag is set', async () => {
     const wrapper = mount(CarouselSlide, {
       propsData: {
-        captionTag: 'em',
-        text: 'foobar'
+        captionTag: 'h1',
+        caption: 'foobar'
       }
     })
     const content = wrapper.find('.carousel-caption')
-    expect(content.find('em').exists()).toBe(true)
-    expect(content.find('em').text()).toBe('foobar')
+    expect(content.find('h1').exists()).toBe(true)
+    expect(content.find('h1').text()).toBe('foobar')
   })
 
   it('has custom text tag when prop textTag is set', async () => {
@@ -172,7 +173,7 @@ describe('carousel-slide', async () => {
     const wrapper = mount(CarouselSlide, {
       provide: {
         // Mock carousel injection
-        carousel() {
+        carousel () {
           return {
             imgWidth: '1024',
             imgHeight: '480'
@@ -185,6 +186,9 @@ describe('carousel-slide', async () => {
     })
     expect(wrapper.find('img').exists()).toBe(true)
     expect(wrapper.find('img').attributes('src')).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+
     expect(wrapper.find('img').attributes('width')).toBeDefined()
     expect(wrapper.find('img').attributes('width')).toBe('1024')
     expect(wrapper.find('img').attributes('height')).toBeDefined()
