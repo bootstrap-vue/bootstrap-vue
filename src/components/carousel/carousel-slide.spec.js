@@ -95,38 +95,38 @@ describe('carousel-slide', async () => {
   })
 
   it('does not have style background when prop background not set', async () => {
-    const wrapper = mount(CarouselSlide, {
-      propsData: {
-        background: '#123456'
-      }
-    })
+    const wrapper = mount(CarouselSlide)
     if (wrapper.attributes('style')) {
+      // Vue always includes a style attr when passed an empty style object
       expect(wrapper.attributes('style')).not.toContain('background:')
+    } else {
+      // But just in case that changes in the future
+      expect(true).toBe(true)
     }
   })
 
   it('has style background when prop background is set', async () => {
     const wrapper = mount(CarouselSlide, {
       propsData: {
-        background: '#123456'
+        background: 'rgb(1, 2, 3)'
       }
     })
     expect(wrapper.attributes('style')).toBeDefined()
     expect(wrapper.attributes('style')).toContain('background:')
-    expect(wrapper.attributes('style')).toContain('#123456')
+    expect(wrapper.attributes('style')).toContain('rgb(')
   })
 
   it('has style background inherited from carousel parent', async () => {
     const wrapper = mount(CarouselSlide, {
       provide: {
         carousel: {
-          background: '#123456'
+          background: 'rgb(1, 2, 3)'
         }
       }
     })
     expect(wrapper.attributes('style')).toBeDefined()
     expect(wrapper.attributes('style')).toContain('background:')
-    expect(wrapper.attributes('style')).toContain('#123456')
+    expect(wrapper.attributes('style')).toContain('rgb(')
   })
 
   it('has custom caption tag when prop captionTag is set', async () => {
