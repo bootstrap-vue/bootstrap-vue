@@ -229,7 +229,7 @@ export default {
   },
   created () {
     // Create private non-reactive props
-    this._intervalId = null,
+    this._intervalId = null
     this._animationTimeout = null
     this._touchTimeout = null
   },
