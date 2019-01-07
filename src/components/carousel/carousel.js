@@ -379,23 +379,23 @@ export default {
       }
     },
     touchStart (evt) {
-      if (hasPointerEvent && PointerType[evt.originalEvent.pointerType.toUpperCase()]) {
+      if (hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchStartX = evt.originalEvent.clientX
       } else if (!hasPointerEvent) {
-        this.touchStartX = evt.originalEvent.touches[0].clientX
+        this.touchStartX = evt.touches[0].clientX
       }
     },
     touchMove (evt) {
       // ensure swiping with one touch and not pinching
-      if (evt.originalEvent.touches && evt.originalEvent.touches.length > 1) {
+      if (evt.touches && evt.originalEvent.touches.length > 1) {
         this.touchDeltaX = 0
       } else {
-        this.touchDeltaX = evt.originalEvent.touches[0].clientX - this.touchStartX
+        this.touchDeltaX = evt.touches[0].clientX - this.touchStartX
       }
     },
     touchEnd (evt) {
-      if (hasPointerEvent && PointerType[evt.originalEvent.pointerType.toUpperCase()]) {
-        this.touchDeltaX = evt.originalEvent.clientX - this.touchStartX
+      if (hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
+        this.touchDeltaX = evt.clientX - this.touchStartX
       }
       this.handleSwipe()
       // If it's a touch-enabled device, mouseenter/leave are fired as
@@ -506,8 +506,8 @@ export default {
     const on = {
       mouseenter: this.pause,
       mouseleave: this.restart,
-      // focusin: this.pause,
-      // focusout: this.restart,
+      focusin: this.pause,
+      focusout: this.restart,
       keydown: (evt) => {
         if (/input|textarea/i.test(evt.target.tagName)) {
           return
