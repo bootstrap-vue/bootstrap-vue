@@ -393,7 +393,7 @@ export default {
         fn()
       }
     },
-    handleSwipe () {
+    handleSwipe () /* istanbul ignore next: JSDOM doesn't support touch events */ {
       const absDeltax = Math.abs(this.touchDeltaX)
       if (absDeltax <= SWIPE_THRESHOLD) {
         return
@@ -407,14 +407,14 @@ export default {
         this.next()
       }
     },
-    touchStart (evt) {
+    touchStart (evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
       if (hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchStartX = evt.clientX
       } else if (!hasPointerEvent) {
         this.touchStartX = evt.touches[0].clientX
       }
     },
-    touchMove (evt) {
+    touchMove (evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
       // ensure swiping with one touch and not pinching
       if (evt.touches && evt.originalEvent.touches.length > 1) {
         this.touchDeltaX = 0
@@ -422,7 +422,7 @@ export default {
         this.touchDeltaX = evt.touches[0].clientX - this.touchStartX
       }
     },
-    touchEnd (evt) {
+    touchEnd (evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
       if (hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchDeltaX = evt.clientX - this.touchStartX
       }
