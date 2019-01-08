@@ -12,7 +12,7 @@ describe('carousel', async () => {
 
     expect(carousel.$el.classList.contains('carousel')).toBe(true)
     expect(carousel.$el.classList.contains('slide')).toBe(true)
-    expect(carousel.$el.classList.contains('fade')).toBe(false)
+    expect(carousel.$el.classList.contains('carousel-fade')).toBe(false)
   })
 
   it('Should have class carousel, slide and fade when prop fade=true', async () => {
@@ -24,7 +24,7 @@ describe('carousel', async () => {
 
     expect(carousel.$el.classList.contains('carousel')).toBe(true)
     expect(carousel.$el.classList.contains('slide')).toBe(true)
-    expect(carousel.$el.classList.contains('fade')).toBe(true)
+    expect(carousel.$el.classList.contains('carousel-fade')).toBe(true)
   })
 
   it('Should only have class carousel when no-animation=true', async () => {
@@ -36,7 +36,7 @@ describe('carousel', async () => {
 
     expect(carousel.$el.classList.contains('carousel')).toBe(true)
     expect(carousel.$el.classList.contains('slide')).toBe(false)
-    expect(carousel.$el.classList.contains('fade')).toBe(false)
+    expect(carousel.$el.classList.contains('carousel-fade')).toBe(false)
   })
 
   it('Should only have class carousel when no-animation=true and fade=true', async () => {
@@ -49,7 +49,7 @@ describe('carousel', async () => {
 
     expect(carousel.$el.classList.contains('carousel')).toBe(true)
     expect(carousel.$el.classList.contains('slide')).toBe(false)
-    expect(carousel.$el.classList.contains('fade')).toBe(false)
+    expect(carousel.$el.classList.contains('carousel-fade')).toBe(false)
   })
 
   it('Should not scroll to next slide', async () => {
