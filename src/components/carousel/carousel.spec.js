@@ -285,18 +285,20 @@ describe('carousel', async () => {
 
     await setData(app, 'interval', 0)
     await setData(app, 'noAnimation', true)
+    await app.$nextTick()
     carousel.$on('paused', spyPaused)
-   
+    carousel.$on('unpaused', spyUnpaused)
+
     await app.$nextTick()
     expect(spyPaused).not.toHaveBeenCalled()
 
     await setData(app, 'interval', 5000)
     await app.$nextTick()
-    expect(spyPaused).not.toHaveBeenCalled()
+    expect(spyUnpaused).toHaveBeenCalled()
 
-    carousel.$on('unpaused', spyUnpaused)
     await setData(app, 'interval', 0)
     await app.$nextTick()
-    expect(spyUnpaused).toHaveBeenCalled()
+    await app.$nextTick()
+    expect(spyPaused).toHaveBeenCalled()
   })
 })
