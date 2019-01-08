@@ -19,8 +19,8 @@ describe('carousel', async () => {
     const { app } = window
     const carousel = app.$refs.carousel
 
-    setData(app, 'fade', true)
-    await nextTick()
+    await setData(app, 'fade', true)
+    await app.$nextTick()
 
     expect(carousel.$el.classList.contains('carousel')).toBe(true)
     expect(carousel.$el.classList.contains('slide')).toBe(true)
@@ -31,8 +31,8 @@ describe('carousel', async () => {
     const { app } = window
     const carousel = app.$refs.carousel
 
-    setData(app, 'noAnimation', true)
-    await nextTick()
+    await setData(app, 'noAnimation', true)
+    await app.$nextTick()
 
     expect(carousel.$el.classList.contains('carousel')).toBe(true)
     expect(carousel.$el.classList.contains('slide')).toBe(false)
@@ -43,9 +43,9 @@ describe('carousel', async () => {
     const { app } = window
     const carousel = app.$refs.carousel
 
-    setData(app, 'noAnimation', true)
-    setData(app, 'fade', true)
-    await nextTick()
+    await setData(app, 'noAnimation', true)
+    await setData(app, 'fade', true)
+    await app.$nextTick()
 
     expect(carousel.$el.classList.contains('carousel')).toBe(true)
     expect(carousel.$el.classList.contains('slide')).toBe(false)
