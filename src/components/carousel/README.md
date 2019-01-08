@@ -109,10 +109,15 @@ supported sliding inteval is 1000ms (1 second).
 In browsers where the [Page Visibility API](https://www.w3.org/TR/page-visibility/)
 is supported, the carousel will avoid sliding when the webpage is not visible to
 the user (such as when the browser tab is inactive, the browser window is minimized, etc.).
+Sliding will resume when the browser tab is active.
 
 ### Pausing the carousel
 To pause the carousel from auto sliding, set the `interval` prop to `0`. To restart a
 paused carousel, set the `interval` back to the desired number of ms.
+
+When the carousel is paused, the user can still switch slides via the controls (if enabled) or
+touch swipe (on touch enabled devices, if not disabled).
+
 
 ## Controls and Indicators
 Set the prop `controls` to enable the previous and next control buttons.
@@ -122,8 +127,12 @@ Set the prop `indicators` to show the slide indicator buttons.
 Both indicators and controls can be set at the same time or independently.
 
 
-## Crossfade animation
-Set the `<b-carousel>` `fade` prop to true to animate slides with a fade transition
+## Carousel animation
+Carousel, by default, uses a sliding animation.  You can change teh slide animation to
+a cross-fade animation, or disable animation completely.
+
+### Crossfade animation
+Set the `<b-carousel>` `fade` prop to `true` to animate slides with a fade transition
 instead of the default slide animation.
 
 ```html
@@ -152,6 +161,38 @@ instead of the default slide animation.
 <!-- carousel-fade.vue -->
 ```
 
+### Disable animation
+Set the `<b-carousel>` `no-animation` prop to `true` to disable slide animation.
+
+```html
+<div>
+  <b-carousel id="carousel-no-anim"
+              style="text-shadow: 0px 0px 2px #000"
+              no-animation
+              indicators
+              img-width="1024"
+              img-height="480">
+    <b-carousel-slide caption="First slide"
+                      img-src="https://picsum.photos/1024/480/?image=10">
+    </b-carousel-slide>
+    <b-carousel-slide caption="Second Slide"
+                      img-src="https://picsum.photos/1024/480/?image=12">
+    </b-carousel-slide>
+    <b-carousel-slide caption="Third Slide"
+                      img-src="https://picsum.photos/1024/480/?image=22">
+    </b-carousel-slide>
+    <b-carousel-slide caption="Fourth Slide"
+                      img-src="https://picsum.photos/1024/480/?image=23">
+    </b-carousel-slide>
+  </b-carousel>
+</div>
+
+<!-- carousel-no-anim.vue -->
+```
+
+## Touch swipe support
+On touch enabled devices, users can switch slides by swiping left or right on the carousel.
+To disable touch control, set the `no-touch` prop to `true`.
 
 ## V-model support
 Programmaticaly control which slide is showing via `v-model` (which binds to the

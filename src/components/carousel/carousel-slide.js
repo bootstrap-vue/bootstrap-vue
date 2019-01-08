@@ -1,5 +1,6 @@
 import BImg from '../image/img'
 import idMixin from '../../mixins/id'
+import { hasTouchSupport } from '../../utils/env'
 
 // @vue/component
 export default {
@@ -9,7 +10,12 @@ export default {
   inject: {
     carousel: {
       from: 'carousel',
-      default: function () { return {} }
+      default: function () {
+        return {
+          // Explicitly disable touch if not a child of carousel
+          noTouch: true
+        }
+      }
     }
   },
   props: {
@@ -66,6 +72,9 @@ export default {
       // default: undefined
     }
   },
+  data () {
+    return {}
+  },
   computed: {
     contentClasses () {
       return [
@@ -84,6 +93,7 @@ export default {
   },
   render (h) {
     const $slots = this.$slots
+    const noDrag = !this.carousel.noTouch && hasTouchSupport
 
     let img = $slots.img
     if (!img && (this.imgSrc || this.imgBlank)) {
@@ -99,7 +109,9 @@ export default {
             width: this.computedWidth,
             height: this.computedHeight,
             alt: this.imgAlt
-          }
+          },
+          // Touch support event handler
+          on: noDrag ? { dragstart: e => { e.preventDefault() } } : {}
         }
       )
     }
@@ -120,7 +132,7 @@ export default {
     return h(
       'div',
       {
-        class: [ 'carousel-item' ],
+        staticClass: 'carousel-item',
         style: { background: this.background || this.carousel.background || null },
         attrs: { id: this.safeId(), role: 'listitem' }
       },

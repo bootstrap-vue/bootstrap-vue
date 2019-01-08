@@ -1,10 +1,56 @@
-import { loadFixture, nextTick, testVM } from '../../../tests/utils'
+import { loadFixture, nextTick, testVM, setData } from '../../../tests/utils'
 
 jest.useFakeTimers()
 
 describe('carousel', async () => {
   beforeEach(loadFixture(__dirname, 'carousel'))
   testVM()
+
+  it('Should have class carousel and slide by default', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+
+    expect(carousel.$el.classList.contains('carousel')).toBe(true)
+    expect(carousel.$el.classList.contains('slide')).toBe(true)
+    expect(carousel.$el.classList.contains('carousel-fade')).toBe(false)
+  })
+
+  it('Should have class carousel, slide and fade when prop fade=true', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+
+    await setData(app, 'fade', true)
+    await app.$nextTick()
+
+    expect(carousel.$el.classList.contains('carousel')).toBe(true)
+    expect(carousel.$el.classList.contains('slide')).toBe(true)
+    expect(carousel.$el.classList.contains('carousel-fade')).toBe(true)
+  })
+
+  it('Should only have class carousel when no-animation=true', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+
+    await setData(app, 'noAnimation', true)
+    await app.$nextTick()
+
+    expect(carousel.$el.classList.contains('carousel')).toBe(true)
+    expect(carousel.$el.classList.contains('slide')).toBe(false)
+    expect(carousel.$el.classList.contains('carousel-fade')).toBe(false)
+  })
+
+  it('Should only have class carousel when no-animation=true and fade=true', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+
+    await setData(app, 'noAnimation', true)
+    await setData(app, 'fade', true)
+    await app.$nextTick()
+
+    expect(carousel.$el.classList.contains('carousel')).toBe(true)
+    expect(carousel.$el.classList.contains('slide')).toBe(false)
+    expect(carousel.$el.classList.contains('carousel-fade')).toBe(false)
+  })
 
   it('Should not scroll to next slide', async () => {
     const { app } = window

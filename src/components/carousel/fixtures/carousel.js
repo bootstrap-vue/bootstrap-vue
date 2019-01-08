@@ -3,7 +3,9 @@ window.app = new Vue({
   data: {
     slide: 0,
     sliding: null,
-    interval: 0
+    interval: 0,
+    noAnimation: false,
+    fade: false
   },
   mounted () {
     // this.$nextTick(() => {
