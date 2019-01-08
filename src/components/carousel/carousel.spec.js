@@ -291,9 +291,12 @@ describe('carousel', async () => {
 
     await app.$nextTick()
     expect(spyPaused).not.toHaveBeenCalled()
+    expect(spyUnpaused).not.toHaveBeenCalled()
 
     await setData(app, 'interval', 5000)
     await app.$nextTick()
+    await app.$nextTick()
+    expect(spyPaused).not.toHaveBeenCalled()
     expect(spyUnpaused).toHaveBeenCalled()
 
     await setData(app, 'interval', 0)
