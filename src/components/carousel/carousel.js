@@ -550,7 +550,7 @@ export default {
       }
     }
     // Touch support event handlers for environment
-    if (!this.noTouch && hasTouchSupport) {
+    if (!this.noTouch && hasTouchSupport) /* istanbul ignore next: JSDOM doesn't support touch events */ {
       // Attach appropriate listeners
       if (hasPointerEvent) {
         on.pointerdown = this.touchStart
