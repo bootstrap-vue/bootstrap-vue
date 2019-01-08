@@ -10,9 +10,9 @@ describe('carousel', async () => {
     const { app } = window
     const carousel = app.$refs.carousel
 
-    expect(carousel).toHaveClass('carousel')
-    expect(carousel).toHaveClass('slide')
-    expect(carousel).not.toHaveClass('fade')
+    expect(carousel.$el.classList.contains('carousel')).toBe(true)
+    expect(carousel.$el.classList.contains('slide')).toBe(true)
+    expect(carousel.$el.classList.contains('fade')).toBe(false)
   })
 
   it('Should have class carousel, slide and fade when prop fade=true', async () => {
@@ -22,9 +22,9 @@ describe('carousel', async () => {
     setData(app, 'fade', true)
     await nextTick()
 
-    expect(carousel).toHaveClass('carousel')
-    expect(carousel).toHaveClass('slide')
-    expect(carousel).toHaveClass('fade')
+    expect(carousel.$el.classList.contains('carousel')).toBe(true)
+    expect(carousel.$el.classList.contains('slide')).toBe(true)
+    expect(carousel.$el.classList.contains('fade')).toBe(true)
   })
 
   it('Should only have class carousel when no-animation=true', async () => {
@@ -34,9 +34,9 @@ describe('carousel', async () => {
     setData(app, 'noAnimation', true)
     await nextTick()
 
-    expect(carousel).toHaveClass('carousel')
-    expect(carousel).not.toHaveClass('slide')
-    expect(carousel).not.toHaveClass('fade')
+    expect(carousel.$el.classList.contains('carousel')).toBe(true)
+    expect(carousel.$el.classList.contains('slide')).toBe(false)
+    expect(carousel.$el.classList.contains('fade')).toBe(false)
   })
 
   it('Should only have class carousel when no-animation=true and fade=true', async () => {
@@ -47,9 +47,9 @@ describe('carousel', async () => {
     setData(app, 'fade', true)
     await nextTick()
 
-    expect(carousel).toHaveClass('carousel')
-    expect(carousel).not.toHaveClass('slide')
-    expect(carousel).not.toHaveClass('fade')
+    expect(carousel.$el.classList.contains('carousel')).toBe(true)
+    expect(carousel.$el.classList.contains('slide')).toBe(false)
+    expect(carousel.$el.classList.contains('fade')).toBe(false)
   })
 
   it('Should not scroll to next slide', async () => {
