@@ -1,10 +1,56 @@
-import { loadFixture, nextTick, testVM } from '../../../tests/utils'
+import { loadFixture, nextTick, testVM, hasClass, setData } from '../../../tests/utils'
 
 jest.useFakeTimers()
 
 describe('carousel', async () => {
   beforeEach(loadFixture(__dirname, 'carousel'))
   testVM()
+
+  it('Should have class carousel and slide by default', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+
+    expect(hasClass(carousel, 'carousel')).toBe(true)
+    expect(hasClass(carousel, 'slide')).toBe(true)
+    expect(hasClass(carousel, 'fade')).toBe(false)
+  })
+
+  it('Should have class carousel, slide and fade when prop fade=true', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+
+    setData(app, 'fade', true)
+    await nextTick()
+
+    expect(hasClass(carousel, 'carousel')).toBe(true)
+    expect(hasClass(carousel, 'slide')).toBe(true)
+    expect(hasClass(carousel, 'fade')).toBe(true)
+  })
+
+  it('Should only have class carousel when no-animation=true', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+
+    setData(app, 'noAnimation', true)
+    await nextTick()
+
+    expect(hasClass(carousel, 'carousel')).toBe(true)
+    expect(hasClass(carousel, 'slide')).toBe(false)
+    expect(hasClass(carousel, 'fade')).toBe(false)
+  })
+
+  it('Should only have class carousel when no-animation=true and fade=true', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+
+    setData(app, 'noAnimation', true)
+    setData(app, 'fade', true)
+    await nextTick()
+
+    expect(hasClass(carousel, 'carousel')).toBe(true)
+    expect(hasClass(carousel, 'slide')).toBe(false)
+    expect(hasClass(carousel, 'fade')).toBe(false)
+  })
 
   it('Should not scroll to next slide', async () => {
     const { app } = window
