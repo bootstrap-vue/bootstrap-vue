@@ -1,4 +1,4 @@
-import { loadFixture, nextTick, testVM, hasClass, setData } from '../../../tests/utils'
+import { loadFixture, nextTick, testVM, setData } from '../../../tests/utils'
 
 jest.useFakeTimers()
 
@@ -10,9 +10,9 @@ describe('carousel', async () => {
     const { app } = window
     const carousel = app.$refs.carousel
 
-    expect(hasClass(carousel, 'carousel')).toBe(true)
-    expect(hasClass(carousel, 'slide')).toBe(true)
-    expect(hasClass(carousel, 'fade')).toBe(false)
+    expect(carousel).toHaveClass('carousel')
+    expect(carousel).toHaveClass('slide')
+    expect(carousel).not.toHaveClass('fade')
   })
 
   it('Should have class carousel, slide and fade when prop fade=true', async () => {
@@ -22,9 +22,9 @@ describe('carousel', async () => {
     setData(app, 'fade', true)
     await nextTick()
 
-    expect(hasClass(carousel, 'carousel')).toBe(true)
-    expect(hasClass(carousel, 'slide')).toBe(true)
-    expect(hasClass(carousel, 'fade')).toBe(true)
+    expect(carousel).toHaveClass('carousel')
+    expect(carousel).toHaveClass('slide')
+    expect(carousel).toHaveClass('fade')
   })
 
   it('Should only have class carousel when no-animation=true', async () => {
@@ -34,9 +34,9 @@ describe('carousel', async () => {
     setData(app, 'noAnimation', true)
     await nextTick()
 
-    expect(hasClass(carousel, 'carousel')).toBe(true)
-    expect(hasClass(carousel, 'slide')).toBe(false)
-    expect(hasClass(carousel, 'fade')).toBe(false)
+    expect(carousel).toHaveClass('carousel')
+    expect(carousel).not.toHaveClass('slide')
+    expect(carousel).not.toHaveClass('fade')
   })
 
   it('Should only have class carousel when no-animation=true and fade=true', async () => {
@@ -47,9 +47,9 @@ describe('carousel', async () => {
     setData(app, 'fade', true)
     await nextTick()
 
-    expect(hasClass(carousel, 'carousel')).toBe(true)
-    expect(hasClass(carousel, 'slide')).toBe(false)
-    expect(hasClass(carousel, 'fade')).toBe(false)
+    expect(carousel).toHaveClass('carousel')
+    expect(carousel).not.toHaveClass('slide')
+    expect(carousel).not.toHaveClass('fade')
   })
 
   it('Should not scroll to next slide', async () => {
