@@ -275,4 +275,28 @@ describe('carousel', async () => {
       expect(carousel.isSliding).toBe(false)
     })
   })
+
+  it('Setting interval to 0 triggers pause event', async () => {
+    const { app } = window
+    const carousel = app.$refs.carousel
+
+    const spyPause = jest.fn()
+    const spyUnpased = jest.fn()
+
+    await setData(app, 'interval', 0)
+    await setData(app, 'noAnimation', true)
+    carousel.$on('paused', spyPaused)
+   
+    await app.$nextTick()
+    expect(spyPaused).not.toHaveBeenCalled()
+
+    await setData(app, 'interval', 5000)
+    await app.$nextTick()
+    expect(spyPaused).not.toHaveBeenCalled()
+
+    carousel.$on('unpaused', spyUnpaused)
+    await setData(app, 'interval', 0)
+    await app.$nextTick()
+    expect(spyUnpaused).toHaveBeenCalled()
+  })
 })
