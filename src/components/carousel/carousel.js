@@ -229,10 +229,6 @@ export default {
     pause (evt) {
       if (!evt) {
         this.isPaused = true
-        if (this.slides[this.index]) {
-          // Make current slide focusable for screen readers
-          this.slides[this.index].tabIndex = 0
-        }
       }
       if (this._intervalId) {
         clearInterval(this._intervalId)
@@ -243,7 +239,6 @@ export default {
     start (evt) {
       if (!evt) {
         this.isPaused = false
-        this.slides.forEach(slide => { slide.tabIndex = -1 })
       }
       if (this._intervalId) {
         clearInterval(this._intervalId)
@@ -285,15 +280,6 @@ export default {
       if (this.noAnimation) {
         addClass(nextSlide, 'active')
         removeClass(currentSlide, 'active')
-        currentSlide.tabIndex = -1
-        nextSlide.tabIndex = -1
-        if (this.isPaused) {
-          // Focus the next slide for screen readers if not in play mode
-          nextSlide.tabIndex = 0
-          this.$nextTick(() => {
-            nextSlide.focus()
-          })
-        }
         this.isSliding = false
         // Notify ourselves that we're done sliding (slid)
         this.$nextTick(() => this.$emit('sliding-end', to))
@@ -327,15 +313,6 @@ export default {
           setAttr(nextSlide, 'aria-current', 'true')
           setAttr(currentSlide, 'aria-hidden', 'true')
           setAttr(nextSlide, 'aria-hidden', 'false')
-          currentSlide.tabIndex = -1
-          nextSlide.tabIndex = -1
-          if (this.isPaused) {
-            // Focus the next slide for screen readers if not in play mode
-            nextSlide.tabIndex = 0
-            this.$nextTick(() => {
-              nextSlide.focus()
-            })
-          }
           this.isSliding = false
           this.direction = null
           // Notify ourselves that we're done sliding (slid)
@@ -373,7 +350,6 @@ export default {
         }
         setAttr(slide, 'aria-posinset', String(n))
         setAttr(slide, 'aria-setsize', String(numSlides))
-        slide.tabIndex = -1
       })
       // Set slide as active
       this.setSlide(index)
