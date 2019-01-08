@@ -280,8 +280,8 @@ describe('carousel', async () => {
     const { app } = window
     const carousel = app.$refs.carousel
 
-    const spyPause = jest.fn()
-    const spyUnpased = jest.fn()
+    const spyPaused = jest.fn()
+    const spyUnpaused = jest.fn()
 
     await setData(app, 'interval', 0)
     await setData(app, 'noAnimation', true)
