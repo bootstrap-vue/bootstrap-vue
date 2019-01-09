@@ -84,14 +84,12 @@ const EventOptions = { passive: true, capture: false }
  */
 
 // Better var type detection
-/* istanbul ignore next: not easy to test */
-function toType (obj) {
+function toType (obj) /* istanbul ignore next: not easy to test */ {
   return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 }
 
 // Check config properties for expected types
-/* istanbul ignore next: not easy to test */
-function typeCheckConfig (componentName, config, configTypes) {
+function typeCheckConfig (componentName, config, configTypes) /* istanbul ignore next: not easy to test */ {
   for (const property in configTypes) {
     if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
       const expectedTypes = configTypes[property]
@@ -117,7 +115,7 @@ function typeCheckConfig (componentName, config, configTypes) {
  */
 
 /* istanbul ignore next: not easy to test */
-class ScrollSpy {
+class ScrollSpy /* istanbul ignore next: not easy to test */ {
   constructor (element, config, $root) {
     // The element we activate links in
     this.$el = element
