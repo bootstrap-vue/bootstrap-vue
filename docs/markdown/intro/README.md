@@ -171,8 +171,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 
-Optionally, you can import components individually, as below. To shorten
-imports, we can add a webpack alias via `vue.config.js`.
+Optionally, you can import components individually, as [below](#individual-components-and-directives).
+To shorten import paths, we can add a webpack alias via `vue.config.js`.
 
 ```js
 const path = require('path')
@@ -190,6 +190,10 @@ module.exports = {
   }
 }
 ```
+
+For additional configuration for Vue CLI 3 for using project relative paths for image src
+props on various BootstrapVue components, refer to the Vue CLI 3 section of the 
+[Image Src Resolving](/docs/reference/images#vue-cli-3-support) reference page.
 
 
 ## Individual components and directives
