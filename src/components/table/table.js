@@ -149,6 +149,12 @@ export default {
       type: [Object, Array],
       default: null
     },
+    primaryKey: {
+      // Primary key for record.
+      // If provided the value in each row must be unique!!!
+      type: String,
+      default: null
+    },
     sortBy: {
       type: String,
       default: null
@@ -1264,7 +1270,8 @@ export default {
         const tds = fields.map((field, colIndex) => {
           const formatted = this.getFormattedValue(item, field)
           const data = {
-            key: `row-${rowIndex}-cell-${colIndex}`,
+            // For the Vue key, we concatinate the column index and field key (as field keys can be duplicated)
+            key: `row-${rowIndex}-cell-${colIndex}-${field.key}`,
             class: this.tdClasses(field, item),
             attrs: this.tdAttrs(field, item, colIndex),
             domProps: {}
@@ -1304,12 +1311,19 @@ export default {
         if (this.currentPage && this.perPage && this.perPage > 0) {
           ariaRowIndex = String((this.currentPage - 1) * this.perPage + rowIndex + 1)
         }
+        // Create a unique key based on the record content, to ensure that sub components are
+        // re-rendered rather than re-used, which can cause issues. If a primary key is not provided
+        // we concatinate the row number and stringified record (in case there are duplicate records).
+        // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
+        const rowKey = (this.primaryKey && typeof item[this.primaryKey] !== 'undefined')
+          ? toString(item[this.primaryKey])
+          : `${rowIndex}__${recToString(item)}`
         // Assemble and add the row
         rows.push(
           h(
             'tr',
             {
-              key: `row-${rowIndex}`,
+              key: `__b-table-row-${rowKey}__`,
               class: [
                 this.rowClasses(item),
                 {
@@ -1363,11 +1377,22 @@ export default {
               toggleDetails: toggleDetailsFn
             })
           ])
+          if (this.striped) {
+            // Add a hidden row to keep table row striping consistent
+            rows.push(
+              'tr',
+              {
+                key: `__b-table-details-${rowIndex}__spacer`,
+                staticClass: 'd-none',
+                attrs: { 'aria-hidden': 'true'}
+              }
+            )
+          }
           rows.push(
             h(
               'tr',
               {
-                key: `details-${rowIndex}`,
+                key: `__b-table-details-${rowIndex}__`,
                 staticClass: 'b-table-details',
                 class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row-details') : this.tbodyTrClass],
                 attrs: trAttrs
@@ -1378,6 +1403,9 @@ export default {
         } else if (detailsSlot) {
           // Only add the placeholder if a the table has a row-details slot defined (but not shown)
           rows.push(h(false))
+          if (table.striped) {
+            rows.push(h(false))
+          }
         }
       })
     }
@@ -1405,7 +1433,7 @@ export default {
         h(
           'tr',
           {
-            key: 'empty-row',
+            key: '__b-table-empty-row__',
             staticClass: 'b-table-empty-row',
             class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-empty') : this.tbodyTrClass],
             attrs: this.isStacked ? { role: 'row' } : {}
@@ -1424,7 +1452,7 @@ export default {
         h(
           'tr',
           {
-            key: 'bottom-row',
+            key: '__b-table-bottom-row__',
             staticClass: 'b-table-bottom-row',
             class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-bottom') : this.tbodyTrClass]
           },
