@@ -1,16 +1,18 @@
 # Form Validation
 
-Bootstrap-Vue does not include form validation by default; we leave that up to the many existing form validation plugins. Below are some examples of plugins and how they may be integrated.
+BootstrapVue does not include form validation by default; we leave that up to the many existing form validation plugins. Below are some examples of plugins and how they may be integrated.
+
 
 ## Vuelidate
 
 Vuelidate provides "Simple, lightweight model-based validation for Vue.js". Installation instructions and other documentation can be found at https://monterail.github.io/vuelidate.
 
+
 ### Vuelidate Example
 
 This example shows how to add different validation and feedback to two form fields, as well as dynamically disable the submit button based on the form validity.
 
-This is a verbose example designed to show how Bootstrap-Vue and Vuelidate interact; in larger applications, you'd likely want to abstract some of the functionality, such as creating a standard error message component.
+This is a verbose example designed to show how BootstrapVue and Vuelidate interact; in larger applications, you'd likely want to abstract some of the functionality, such as creating a standard error message component.
 
 ```html
 <template>
@@ -84,6 +86,7 @@ export default {
 </script>
 ```
 
+
 ## vee-validate
 
 [vee-validate](https://github.com/baianat/vee-validate) is a plugin for Vue.js
@@ -106,6 +109,7 @@ Vue.use(VeeValidate, {
   fieldsBagName: 'veeFields'
 });
 ```
+
 
 ### vee-validate Example
 

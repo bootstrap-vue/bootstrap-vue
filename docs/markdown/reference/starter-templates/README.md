@@ -1,9 +1,11 @@
 # Starter Templates
+
 > There are several ways you can create your app, from basic client side HTML
-all the way up to using a build system and compilers.
+> all the way up to using a build system and compilers.
 
 In all cases, you should have familiarity with using [Vue](https://vuejs.org). A good
 resource for Vue tutorials is [Laracasts](https://laracasts.com/search?q=vue).
+
 
 ## Basic example
 
@@ -19,7 +21,7 @@ tags to load the required javascript and CSS in your page.
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    <title>My first Bootstrap-Vue app</title>
+    <title>My first BootstrapVue app</title>
 
     <!-- Required Stylesheets -->
     <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
@@ -30,12 +32,11 @@ tags to load the required javascript and CSS in your page.
     <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
   </head>
-
   <body>
     <!-- Our application root element -->
     <div id="app">
       <b-container>
-        <b-jumbotron header="Bootstrap Vue"
+        <b-jumbotron header="BootstrapVue"
                      lead="Bootstrap 4 Components for Vue.js 2"
         >
           <p>For more information visit our website</p>
@@ -70,30 +71,34 @@ tags to load the required javascript and CSS in your page.
         }
       })
     </script>
-
   </body>
 </html>
 ```
 
-## Vue-CLI
+
+## Vue CLI
+
 
 ### `webpack-simple` example
 
 Starter template: https://github.com/bootstrap-vue/webpack-simple
 
-Note: you may need to adjust the template package.json file to use the latest Bootstrap-Vue version
+Note: you may need to adjust the template package.json file to use the latest BootstrapVue version
 
 Coming soon!
+
 
 ### `webpack` example
 
 Starter template: https://github.com/bootstrap-vue/webpack
 
-Note: you may need to adjust the template package.json file to use the latest Bootstrap-Vue version
+Note: you may need to adjust the template package.json file to use the latest BootstrapVue version
 
 Coming soon!
 
+
 ## Building with customized Bootstrap V4 CSS
+
 If you are using a build system, and would like to customize the Bootstrap V4 CSS,
 the following references will be handy starting points:
 
@@ -108,10 +113,11 @@ There are a few methods that you can use to import individual components and dir
 You will need `vue-loader` configured to handle the compiling any components that are
 internally single file `.vue` components.
 
-The Bootstrap-Vue distribution now includes `ES` modules for all components and directives.
+The BootstrapVue distribution now includes `ES` modules for all components and directives.
 These are located in the `bootstrap-vue/es/components/` and `bootstrap-vue/es/directives/`
-directories, when using the NPM bundle. When building from the Bootstrap-Vue repo source
+directories, when using the NPM bundle. When building from the BootstrapVue repo source
 the directories will be created when you run `yarn build`.
+
 
 ### Importing individual components and directives as ES modules
 
@@ -149,6 +155,7 @@ export default {
 }
 ```
 
+
 ### Importing component groups and directives as Vue plugins
 
 A component group and/or directive can be imported as a Vue plugin by importing
@@ -157,11 +164,11 @@ sub-components) and `<b-table>` can be done with:
 
 ```js
 // Import the components as Vue plugins
-import { Card, Table } from 'bootstrap-vue/es/components';
+import { Card, Table } from 'bootstrap-vue/es/components'
 
 // Add the plugins to Vue
-Vue.use(Card);
-Vue.use(Table);
+Vue.use(Card)
+Vue.use(Table)
 ```
 
 Now you can use the `<b-card>` (including the `<b-card-*>` sub-components) and `<b-table>`
@@ -172,4 +179,3 @@ Note that some component plugins automatically import other directives and compo
 automatically imports all `nav-*` sub-components and the dropdown sub-components).
 Refer to the component reference or directive reference at the bottom of each
 documentation page for details.
-
