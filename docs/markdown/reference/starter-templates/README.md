@@ -36,7 +36,7 @@ tags to load the required javascript and CSS in your page.
     <!-- Our application root element -->
     <div id="app">
       <b-container>
-        <b-jumbotron header="Bootstrap Vue"
+        <b-jumbotron header="BootstrapVue"
                      lead="Bootstrap 4 Components for Vue.js 2"
         >
           <p>For more information visit our website</p>

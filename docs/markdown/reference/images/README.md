@@ -1,4 +1,4 @@
-# Project relative image URLs for Bootstrap Vue custom components
+# Project relative image URLs for BootstrapVue custom components
 
 > vue-loader automatically converts project relative `src` attributes
 > on `<img>` tags, but doesn't automatically for BootstrapVue custom
