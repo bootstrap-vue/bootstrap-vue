@@ -1,10 +1,10 @@
 # Alerts
 
-> Provide contextual feedback messages for typical user actions with the handful of
-> available and flexible alert messages.
+> Provide contextual feedback messages for typical user actions with the handful of available and
+> flexible alert messages.
 
-Alerts are available for any length of text, as well as an optional dismiss button
-(and optional auto-dismissing).
+Alerts are available for any length of text, as well as an optional dismiss button (and optional
+auto-dismissing).
 
 ```html
 <template>
@@ -61,25 +61,24 @@ Alerts are available for any length of text, as well as an optional dismiss butt
 
 ## Visible state
 
-Use the `show` prop to control the visibility state of the alert. By
-default alerts are **not** shown. Set the prop `show` to explicity display them.
+Use the `show` prop to control the visibility state of the alert. By default alerts are **not**
+shown. Set the prop `show` to explicity display them.
 
-The `show` prop accepts boolean `true` or `false` to show and hide the alert
-respectively. It can also be set to a positive integer (representing seconds) to
-create a self dismissing alert. See the [Auto Dismissing Alerts](#auto-dismissing-alerts)
-section below for details.
+The `show` prop accepts boolean `true` or `false` to show and hide the alert respectively. It can
+also be set to a positive integer (representing seconds) to create a self dismissing alert. See the
+[Auto Dismissing Alerts](#auto-dismissing-alerts) section below for details.
 
 ### Alert v-model support
 
 You can use the `v-model` directive to create two-way data bindings on the `show` prop as in
-`v-model="showDismissibleAlert"` above. Useful when you use dismissible because when user closes
-the alert, your variable will be updated. Do not use the `show` prop when using `v-model`.
+`v-model="showDismissibleAlert"` above. Useful when you use dismissible because when user closes the
+alert, your variable will be updated. Do not use the `show` prop when using `v-model`.
 
 ## Alert contextual variants
 
 For proper styling of `<b-alert>`, use one of the four required contextual variants by setting the
-`variant` prop to one of the following: `info`, `success`, `warning` or `danger`.
-The default is `info`.
+`variant` prop to one of the following: `info`, `success`, `warning` or `danger`. The default is
+`info`.
 
 ```html
 <div>
@@ -98,16 +97,15 @@ The default is `info`.
 
 ### Conveying meaning to assistive technologies:
 
-Using color variants to add meaning only provides a visual indication, which will not
-be conveyed to users of assistive technologies – such as screen readers. Ensure that
-information denoted by the color is either obvious from the content itself (e.g. the
-visible text), or is included through alternative means, such as additional text hidden
-with the `.sr-only` class.
+Using color variants to add meaning only provides a visual indication, which will not be conveyed to
+users of assistive technologies – such as screen readers. Ensure that information denoted by the
+color is either obvious from the content itself (e.g. the visible text), or is included through
+alternative means, such as additional text hidden with the `.sr-only` class.
 
 ## Additional content inside alerts
 
-`<b-alerts>` can also contain additional HTML elements like headings and paragraphs,
-which will be styled with the appropriate color matching the variant.
+`<b-alerts>` can also contain additional HTML elements like headings and paragraphs, which will be
+styled with the appropriate color matching the variant.
 
 ```html
 <b-alert show variant="success">
@@ -127,8 +125,8 @@ which will be styled with the appropriate color matching the variant.
 
 ### Color of links within alerts
 
-Use the `.alert-link` utility CSS class to quickly provide matching colored links
-within any alert. Use on `<a>` or `<b-link>`.
+Use the `.alert-link` utility CSS class to quickly provide matching colored links within any alert.
+Use on `<a>` or `<b-link>`.
 
 ```html
 <div>
@@ -163,9 +161,9 @@ within any alert. Use on `<a>` or `<b-link>`.
 
 ## Dismissible alerts
 
-Using the `dismissible` prop it’s possible to dismiss any `<b-alert>` inline. This will add
-a close `X` button. Use the `dismiss-label` prop to change the hidden label text associated
-with the dismiss button.
+Using the `dismissible` prop it’s possible to dismiss any `<b-alert>` inline. This will add a close
+`X` button. Use the `dismiss-label` prop to change the hidden label text associated with the dismiss
+button.
 
 ```html
 <div>
@@ -179,9 +177,9 @@ with the dismiss button.
 
 ### Auto dismissing alerts
 
-To create a `<b-alert>` that dismisses automatically after a period of time, set
-the `show` prop (or the `v-model`) to the number of seconds you would like the
-`<b-alert>` to remain visible for. Only integer number of seconds are supported.
+To create a `<b-alert>` that dismisses automatically after a period of time, set the `show` prop (or
+the `v-model`) to the number of seconds you would like the `<b-alert>` to remain visible for. Only
+integer number of seconds are supported.
 
 ```html
 <template>

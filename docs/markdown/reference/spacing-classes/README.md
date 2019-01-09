@@ -1,20 +1,19 @@
 # Spacing
 
-> Bootstrap V4 CSS includes a wide range of shorthand responsive margin and
-> padding utility classes to modify an element's appearance.
+> Bootstrap V4 CSS includes a wide range of shorthand responsive margin and padding utility classes
+> to modify an element's appearance.
 
 ## How it works
 
-Assign responsive-friendly margin or padding values to an element or a subset of its
-sides with shorthand classes. Includes support for individual properties, all properties,
-and vertical and horizontal properties. Classes are built from a default Sass map
-ranging from .25rem to 3rem.
+Assign responsive-friendly margin or padding values to an element or a subset of its sides with
+shorthand classes. Includes support for individual properties, all properties, and vertical and
+horizontal properties. Classes are built from a default Sass map ranging from .25rem to 3rem.
 
 ## Notation
 
-Spacing utilities that apply to all breakpoints, from xs to xl, have no breakpoint abbreviation
-in them. This is because those classes are applied from `min-width: 0` and up, and thus are
-not bound by a media query. The remaining breakpoints, however, do include a breakpoint abbreviation.
+Spacing utilities that apply to all breakpoints, from xs to xl, have no breakpoint abbreviation in
+them. This is because those classes are applied from `min-width: 0` and up, and thus are not bound
+by a media query. The remaining breakpoints, however, do include a breakpoint abbreviation.
 
 The classes are named using the format `{property}{sides}-{size}` for `xs` and
 `{property}{sides}-{breakpoint}-{size}` for `sm`, `md`, `lg`, and `xl`.
@@ -70,9 +69,9 @@ Here are some representative examples of these classes:
 
 ## Horizontal centering
 
-Additionally, Bootstrap also includes an `.mx-auto` class for horizontally centering
-fixed-width block level content — that is, content that has `display: block` and a `width`
-set—by setting the horizontal margins to `auto`.
+Additionally, Bootstrap also includes an `.mx-auto` class for horizontally centering fixed-width
+block level content — that is, content that has `display: block` and a `width` set—by setting the
+horizontal margins to `auto`.
 
 ```html
 <div class="mx-auto bg-info" style="width: 200px;">Centered element</div>

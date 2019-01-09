@@ -1,10 +1,10 @@
 # Pagination
 
-> Quick first, previous, next, last, and page buttons for pagination control
-> of another component (such as `<b-table>` or lists).
+> Quick first, previous, next, last, and page buttons for pagination control of another component
+> (such as `<b-table>` or lists).
 
-For pagination that navigates to a new URL, use the [`<b-pagination-nav>`](/docs/components/pagination-nav)
-component instead.
+For pagination that navigates to a new URL, use the
+[`<b-pagination-nav>`](/docs/components/pagination-nav) component instead.
 
 ```html
 <template>
@@ -40,10 +40,9 @@ component instead.
 
 ## Overview
 
-`<b-pagination>` is a custom input component that provides a current page number
-input control. The value should be bound via `v-model` in your app. Page numbers
-are indexed from 1. The number of pages is computed from the provided prop
-values for `total-rows` and `per-page`.
+`<b-pagination>` is a custom input component that provides a current page number input control. The
+value should be bound via `v-model` in your app. Page numbers are indexed from 1. The number of
+pages is computed from the provided prop values for `total-rows` and `per-page`.
 
 ## Customizing
 
@@ -68,12 +67,12 @@ And provides several props for setting the content of the bookend buttons:
 | `last-text`     | The "goto last page" button text (plain html supported)     |
 | `ellipsis-text` | the `...` indicator text (plain html supported)             |
 
-Ellipsis indicator(s) will only be ever shown at the front and/or end of
-the page number buttons. For `limit` values less than or equal to `3`, the ellipsis
-indicator(s) will never be shown for practical display reasons.
+Ellipsis indicator(s) will only be ever shown at the front and/or end of the page number buttons.
+For `limit` values less than or equal to `3`, the ellipsis indicator(s) will never be shown for
+practical display reasons.
 
-**Note:** HTML is supported via the bookend content props. If allowing user supplied content
-to populate these props, you should use named slots (see below) instead to avoid possible XSS attacks.
+**Note:** HTML is supported via the bookend content props. If allowing user supplied content to
+populate these props, you should use named slots (see below) instead to avoid possible XSS attacks.
 
 ### Named slots
 
@@ -85,15 +84,14 @@ to populate these props, you should use named slots (see below) instead to avoid
 | `last-text`     | The "goto last page" button text (html/sub-components supported)     |
 | `ellipsis-text` | the `...` indicator text (html/sub-components supported)             |
 
-Ellipsis inidcator(s) will only be ever shown at the front and/or end of
-the page number buttons. For `limit` values less than or equal to `3`, the ellipsis
-indicator(s) will never be shown for practical display reasons.
+Ellipsis inidcator(s) will only be ever shown at the front and/or end of the page number buttons.
+For `limit` values less than or equal to `3`, the ellipsis indicator(s) will never be shown for
+practical display reasons.
 
 ## Alignment
 
-By default the pagination component is left aligned. Change the alignment to
-`center` or `right` (`right` is an alias for `end`) by setting the prop
-`align` to the appropriate value.
+By default the pagination component is left aligned. Change the alignment to `center` or `right`
+(`right` is an alias for `end`) by setting the prop `align` to the appropriate value.
 
 ```html
 <template>
@@ -131,31 +129,31 @@ By default the pagination component is left aligned. Change the alignment to
 
 ## Small screen support
 
-On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to
-minimize the potential of the pagination interface wrapping onto multiple lines:
+On smaller screens (i.e. mobile), some of the `<b-pagination>` buttons will be hidden to minimize
+the potential of the pagination interface wrapping onto multiple lines:
 
 - The ellipsis indicators will be hidden on screens `xs` and smaller.
 - Page number buttons will be limited to a maximum of 3 visible on `xs` screens and smaller.
 
-This ensures that no more than 3 page number buttons are visible,
-along with the goto _first_, _prev_, _next_, and _last_ buttons.
+This ensures that no more than 3 page number buttons are visible, along with the goto _first_,
+_prev_, _next_, and _last_ buttons.
 
 ## Accessibility
 
-The `<b-pagination>` component provides many features to support assistive technology users,
-such as `aria-` attributes and keyboard navigation.
+The `<b-pagination>` component provides many features to support assistive technology users, such as
+`aria-` attributes and keyboard navigation.
 
 ### `aria-controls`
 
-When pagination is controling another component on the page (such as `<b-table>`), set
-the `aria-controls` prop to the `id` of the element it is controling. This will help
-non-sighted users know what component is being updated/controlled.
+When pagination is controling another component on the page (such as `<b-table>`), set the
+`aria-controls` prop to the `id` of the element it is controling. This will help non-sighted users
+know what component is being updated/controlled.
 
 ### ARIA labels
 
 `<b-pagination>` provides various `*-label-*` props which are used to set the `aria-label`
-attributes on the various elements within the component, which will help users of
-assistive technology.
+attributes on the various elements within the component, which will help users of assistive
+technology.
 
 | Prop               | `aria-label` content default                            |
 | ------------------ | ------------------------------------------------------- |
@@ -171,21 +169,23 @@ assistive technology.
 `<b-pagination>` supports keyboard navigation out of the box.
 
 - Tabbing into the pagination component will autofocus the current page button
-- <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the page
-  list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the focused page button
+- <kbd>LEFT</kbd> and <kbd>RIGHT</kbd> arrow keys will focus the previous and next buttons in the
+  page list, respectively, and <kbd>ENTER</kbd> or <kbd>SPACE</kbd> keys will select (click) the
+  focused page button
 
 ## Events
 
 `<b-pagination>` provides two events that are emitted on the component:
 
-- `input` is emitted anytime the current page changes (either programmatically or via user interaction)
+- `input` is emitted anytime the current page changes (either programmatically or via user
+  interaction)
 - `change` is emitted only when the current page changes based on user interaction
 
 Both events provide the single argument of the current page number (starting from 1)
 
 ## See Also
 
-For navigation based pagination, please see the [`<b-pagination-nav>`](/docs/components/pagination-nav)
-component.
+For navigation based pagination, please see the
+[`<b-pagination-nav>`](/docs/components/pagination-nav) component.
 
 <!-- Component reference added automatically from component package.json -->

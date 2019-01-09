@@ -1,7 +1,7 @@
 # Form Select
 
-> Bootstrap custom `<select>` using custom styles. Optionally specify options based on an
-> array, array of objects, or an object.
+> Bootstrap custom `<select>` using custom styles. Optionally specify options based on an array,
+> array of objects, or an object.
 
 Generate your select options by passing an array or object to the `options` props:
 
@@ -64,10 +64,9 @@ Or manually provide your options and optgroups:
 <!-- form-select-manual.vue -->
 ```
 
-Feel free to mix the `options` prop with `<option>` and `<optgroup>`.
-Manully placed options and optgroups will appear _below_ the options generated via the
-`options` prop. To place manual options and optgroups _above_ the options specified
-by the `options` prop, use the named slot `first`.
+Feel free to mix the `options` prop with `<option>` and `<optgroup>`. Manully placed options and
+optgroups will appear _below_ the options generated via the `options` prop. To place manual options
+and optgroups _above_ the options specified by the `options` prop, use the named slot `first`.
 
 ```html
 <template>
@@ -109,8 +108,8 @@ by the `options` prop, use the named slot `first`.
 - **`value`** The selected text which will be set on `v-model`
 - **`disabled`** Disables item for selection
 
-If you want to customize fields (for example using `name` field for display text)
-you can easily change them using `text-field` and `value-field` props.
+If you want to customize fields (for example using `name` field for display text) you can easily
+change them using `text-field` and `value-field` props.
 
 ### Array
 
@@ -149,8 +148,8 @@ By default, Bootstrap V4's custom select styling is applied.
 
 ### Value in single mode
 
-In non `multiple` mode, `<b-form-select>` returns the a single `value` of the currently
-selected option.
+In non `multiple` mode, `<b-form-select>` returns the a single `value` of the currently selected
+option.
 
 ```html
 <template>
@@ -182,12 +181,12 @@ selected option.
 
 ### Select sizing (displayed rows)
 
-You can use the `select-size` prop to switch the custom select into a select
-list-box, rather than a dropdown. Set the `select-size` prop to a numerical
-value greater than 1 to control how many rows of options are visible.
+You can use the `select-size` prop to switch the custom select into a select list-box, rather than a
+dropdown. Set the `select-size` prop to a numerical value greater than 1 to control how many rows of
+options are visible.
 
-Note when `select-size` is set to a value greater than 1, the Bootstrap V4 custom
-styling will **not** be applied, unless the `multiple` prop is also set.
+Note when `select-size` is set to a value greater than 1, the Bootstrap V4 custom styling will
+**not** be applied, unless the `multiple` prop is also set.
 
 Note: not all mobile browsers will show a the select as a list-box.
 
@@ -224,15 +223,14 @@ Note: not all mobile browsers will show a the select as a list-box.
 
 ## Multiple select support
 
-Enable multiple select mode by setting the prop `multiple`, and control how many
-rows are displayed in the multiple select list-box by setting `select-size` to
-the number of rows to display. The default is to let the browser use it's default
-(typically 4).
+Enable multiple select mode by setting the prop `multiple`, and control how many rows are displayed
+in the multiple select list-box by setting `select-size` to the number of rows to display. The
+default is to let the browser use it's default (typically 4).
 
 ### Value in multiple mode
 
-In `multiple` mode, `<b-form-select>` always returns an array of option values.
-You **must** provide an array reference as your `v-model` when in `multiple` mode.
+In `multiple` mode, `<b-form-select>` always returns an array of option values. You **must** provide
+an array reference as your `v-model` when in `multiple` mode.
 
 ```html
 <template>
@@ -267,43 +265,42 @@ You **must** provide an array reference as your `v-model` when in `multiple` mod
 
 ## Control sizing
 
-Set the form-control text size using the `size` prop to `sm` or `lg` for small or
-large respectively.
+Set the form-control text size using the `size` prop to `sm` or `lg` for small or large
+respectively.
 
-By default `<b-form-select>` will occupy the full width of the container that it
-appears in. To control the select width, place the input inside standard Bootstrap
-grid column.
+By default `<b-form-select>` will occupy the full width of the container that it appears in. To
+control the select width, place the input inside standard Bootstrap grid column.
 
 ## Contextual States
 
-Bootstrap includes validation styles for `valid` and `invalid` states
-on most form controls.
+Bootstrap includes validation styles for `valid` and `invalid` states on most form controls.
 
 Generally speaking, you’ll want to use a particular state for specific types of feedback:
 
-- `'invalid'` is great for when there’s a blocking or required field. A user must fill in this field properly to submit the form.
-- `'valid'` is ideal for situations when you have per-field validation throughout a form and want to encourage a user through the rest of the fields.
+- `'invalid'` is great for when there’s a blocking or required field. A user must fill in this field
+  properly to submit the form.
+- `'valid'` is ideal for situations when you have per-field validation throughout a form and want to
+  encourage a user through the rest of the fields.
 - `null` Displays no validation state
 
-To apply one of the contextual states on `<b-form-select>`, set the `state` prop
-to `'invalid'` (or `false`), `'valid'` (or `true`), or `null`.
+To apply one of the contextual states on `<b-form-select>`, set the `state` prop to `'invalid'` (or
+`false`), `'valid'` (or `true`), or `null`.
 
 ### Conveying contextual validation state to assistive technologies and colorblind users:
 
-Using these contextual states to denote the state of a form control only provides
-a visual, color-based indication, which will not be conveyed to users of assistive
-technologies - such as screen readers - or to colorblind users.
+Using these contextual states to denote the state of a form control only provides a visual,
+color-based indication, which will not be conveyed to users of assistive technologies - such as
+screen readers - or to colorblind users.
 
-Ensure that an alternative indication of state is also provided. For instance, you
-could include a hint about state in the form control's `<label>` text itself, or by
-providing an additional help text block (via `<b-form-group>` or `<b-form-feedback>`).
-Specifically for assistive technologies, invalid form controls can also be assigned
-an `aria-invalid="true"` attribute (see below).
+Ensure that an alternative indication of state is also provided. For instance, you could include a
+hint about state in the form control's `<label>` text itself, or by providing an additional help
+text block (via `<b-form-group>` or `<b-form-feedback>`). Specifically for assistive technologies,
+invalid form controls can also be assigned an `aria-invalid="true"` attribute (see below).
 
 ### ARIA `aria-invalid` attribute:
 
-When `<b-form-select>` has an invalid contextual state (i.e. `invalid`) you may also
-want to set the `<b-form-select>` prop `aria-invalid` to `true`.
+When `<b-form-select>` has an invalid contextual state (i.e. `invalid`) you may also want to set the
+`<b-form-select>` prop `aria-invalid` to `true`.
 
 Supported `invalid` values are:
 
@@ -317,7 +314,7 @@ When `state` is set to `invalid`, aria-invalid will also be set to true.
 Set the prop `plain` to have a native browser `<select>` rendered (although the class
 `.form-control` will always be placed on the select).
 
-A `plain` select will always be rendered for non `multiple` selects which have the
-`select-size` prop set to a value greater than 1.
+A `plain` select will always be rendered for non `multiple` selects which have the `select-size`
+prop set to a value greater than 1.
 
 <!-- Component reference added automatically from component package.json -->

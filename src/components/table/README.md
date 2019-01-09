@@ -1,7 +1,7 @@
 # Tables
 
-> For displaying tabular data. `<b-table>` supports pagination, filtering, sorting,
-> custom rendering, events, and asynchronous data.
+> For displaying tabular data. `<b-table>` supports pagination, filtering, sorting, custom
+> rendering, events, and asynchronous data.
 
 **Example: Basic usage**
 
@@ -32,8 +32,8 @@
 
 ## Items (record data)
 
-`items` is the table data in array format, where each record (row) data are
-keyed objects. Example format:
+`items` is the table data in array format, where each record (row) data are keyed objects. Example
+format:
 
 ```js
 ;[
@@ -43,9 +43,9 @@ keyed objects. Example format:
 ]
 ```
 
-`<b-table>` automatically samples the first row to extract field names (the keys in the
-record data). Field names are automatically "humanized" by converting `kebab-case`, `snake_case`,
-and `camelCase` to individual words and capitalizes each word. Example conversions:
+`<b-table>` automatically samples the first row to extract field names (the keys in the record
+data). Field names are automatically "humanized" by converting `kebab-case`, `snake_case`, and
+`camelCase` to individual words and capitalizes each word. Example conversions:
 
 - `first_name` becomes `First Name`
 - `last-name` becomes `Last Name`
@@ -53,19 +53,18 @@ and `camelCase` to individual words and capitalizes each word. Example conversio
 - `YEAR` remains `YEAR`
 - `isActive` becomes `Is Active`
 
-These titles will be displayed in the table header, in the order they appear in the
-**first** record of data. See the [**Fields**](#fields-column-definitions-) section
-below for customizing how field headings appear.
+These titles will be displayed in the table header, in the order they appear in the **first** record
+of data. See the [**Fields**](#fields-column-definitions-) section below for customizing how field
+headings appear.
 
-**Note:** Field order is not guaranteed. Fields will typically appear in the order they
-were defined in the first row, but this may not always be the case depending on the version
-of browser in use. See section [**Fields (column definitions)**](#fields-column-definitions-)
-below to see how to guarantee the order of fields.
+**Note:** Field order is not guaranteed. Fields will typically appear in the order they were defined
+in the first row, but this may not always be the case depending on the version of browser in use.
+See section [**Fields (column definitions)**](#fields-column-definitions-) below to see how to
+guarantee the order of fields.
 
-Record data may also have additional special reserved name keys for colorizing
-rows and individual cells (variants), and for triggering additional row detail. The supported
-optional item record modifier properties (make sure your field keys do not conflict with
-these names):
+Record data may also have additional special reserved name keys for colorizing rows and individual
+cells (variants), and for triggering additional row detail. The supported optional item record
+modifier properties (make sure your field keys do not conflict with these names):
 
 | Property        | Type    | Description                                                                                                                                                                                                                                     |
 | --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -113,34 +112,32 @@ these names):
 <!-- table-variants-1.vue -->
 ```
 
-`items` can also be a reference to a _provider_ function, which returns an
-`Array` of items data. Provider functions can also be asynchronous:
+`items` can also be a reference to a _provider_ function, which returns an `Array` of items data.
+Provider functions can also be asynchronous:
 
-- By returning `null` (or `undefined`) and calling a callback, when the data is
-  ready, with the data array as the only argument to the callback,
+- By returning `null` (or `undefined`) and calling a callback, when the data is ready, with the data
+  array as the only argument to the callback,
 - By returning a `Promise` that resolves to an array.
 
-See the [**"Using Items Provider functions"**](#using-items-provider-functions)
-section below for more details.
+See the [**"Using Items Provider functions"**](#using-items-provider-functions) section below for
+more details.
 
 ## Fields (column definitions)
 
-The `fields` prop is used to customize the table columns headings,
-and in which order the columns of data are displayed. The field object keys
-(i.e. `age` or `first_name` as shown below) are used to extract the value from
-each item (record) row, and to provide additional fetures such as enabling
+The `fields` prop is used to customize the table columns headings, and in which order the columns of
+data are displayed. The field object keys (i.e. `age` or `first_name` as shown below) are used to
+extract the value from each item (record) row, and to provide additional fetures such as enabling
 [**sorting**](#sorting) on the column, etc.
 
-Fields can be provided as a _simple array_, an _array of objects_, or an
-_object_. **Internally the fields data will be normalized into the _array of
-objects_ format**. Events or slots that include the column `field` data will be
-in the normalized field object format (array of objects for `fields`, or an
-object for an individual `field`).
+Fields can be provided as a _simple array_, an _array of objects_, or an _object_. **Internally the
+fields data will be normalized into the _array of objects_ format**. Events or slots that include
+the column `field` data will be in the normalized field object format (array of objects for
+`fields`, or an object for an individual `field`).
 
 ### Fields as a simple array
 
-Fields can be a simple array, for defining the order of the columns, and
-which columns to display. **(field order is guaranteed)**:
+Fields can be a simple array, for defining the order of the columns, and which columns to display.
+**(field order is guaranteed)**:
 
 **Example: Using `array` fields definition**
 
@@ -171,9 +168,9 @@ which columns to display. **(field order is guaranteed)**:
 
 ### Fields as an array of objects
 
-Fields can be a an array of objects, providing additional control over the fields (such
-as sorting, formatting, etc). Only columns (keys) that appear in the fields array will
-be shown **(field order is guaranteed)**:
+Fields can be a an array of objects, providing additional control over the fields (such as sorting,
+formatting, etc). Only columns (keys) that appear in the fields array will be shown **(field order
+is guaranteed)**:
 
 **Example: Using array of objects fields definition**
 
@@ -220,11 +217,10 @@ be shown **(field order is guaranteed)**:
 
 ### Fields as an object
 
-Also, fields can be a an object providing similar control over the fields as the
-_array of objects_ above does. Only columns listed in the fields object will be shown.
-The order of the fields will typically be in the order they were defined in the object,
-although **field order is not guaranteed (this may cause issues with Server Side Rendering
-and client rehydration)**.
+Also, fields can be a an object providing similar control over the fields as the _array of objects_
+above does. Only columns listed in the fields object will be shown. The order of the fields will
+typically be in the order they were defined in the object, although **field order is not guaranteed
+(this may cause issues with Server Side Rendering and client rehydration)**.
 
 **Example: Using object fields definition**
 
@@ -302,7 +298,8 @@ and client rehydration)**.
 
 **Notes:**
 
-- if a `key` property is defined in the field definition, it will take precedence over the key used to define the field.
+- if a `key` property is defined in the field definition, it will take precedence over the key used
+  to define the field.
 
 ### Field definition reference
 
@@ -332,11 +329,11 @@ The following field properties are recognized:
 - _For information on the syntax supported by `thStyle`, see
   [Class and Style Bindings](https://vuejs.org/v2/guide/class-and-style.html#Binding-Inline-Styles)
   in the Vue.js guide._
-- _Any additional properties added to the field objects will be left intact - so you can access
-  them via the named scoped slots for custom data, header, and footer rendering._
+- _Any additional properties added to the field objects will be left intact - so you can access them
+  via the named scoped slots for custom data, header, and footer rendering._
 
-For information and usage about scoped slots and formatters, refer to
-the [**Custom Data Rendering**](#custom-data-rendering) section below.
+For information and usage about scoped slots and formatters, refer to the
+[**Custom Data Rendering**](#custom-data-rendering) section below.
 
 Feel free to mix and match simple array and object array together:
 
@@ -346,16 +343,17 @@ fields: [{ key: 'first_name', label: 'First' }, { key: 'last_name', label: 'Last
 
 ### Primary key
 
-`<b-table>` provides an additional prop `primary-key`, which you can use to identify the field
-key that uniquely identifies the row.
+`<b-table>` provides an additional prop `primary-key`, which you can use to identify the field key
+that uniquely identifies the row.
 
-This value is used by `<b-table>` to help Vue optimize the rendering of table rows.
-Internally, the the value of the field key specified by the `primary-key` prop is used as the
-Vue `:key` value for each rendered item row `<tr>` element. The value specified by the column key
-**must be** either a `string` or `number`, and **must be** unique accross all rows in the table.
+This value is used by `<b-table>` to help Vue optimize the rendering of table rows. Internally, the
+the value of the field key specified by the `primary-key` prop is used as the Vue `:key` value for
+each rendered item row `<tr>` element. The value specified by the column key **must be** either a
+`string` or `number`, and **must be** unique accross all rows in the table.
 
-If you are seeing rendering issue (i.e. tooltips hiding when item data changes or is sorted/filtered),
-setting the `primary-key` prop (if you have a unique identifier per row) can alleviate these issues.
+If you are seeing rendering issue (i.e. tooltips hiding when item data changes or is
+sorted/filtered), setting the `primary-key` prop (if you have a unique identifier per row) can
+alleviate these issues.
 
 Specifying the `primary-key` column is handy if you are using 3rd party table transitions or drag
 and drop plugins, as they rely on having a consitent and unique per row `:key` value.
@@ -485,10 +483,10 @@ You can also style every row using the `tbody-tr-class` prop
 
 ## Responsive tables
 
-Responsive tables allow tables to be scrolled horizontally with ease. Make any table
-responsive across all viewports by setting the prop `responsive` to `true`. Or, pick a
-maximum breakpoint with which to have a responsive table up to by setting the prop
-`responsive` to one of the breakpoint values: `sm`, `md`, `lg`, or `xl`.
+Responsive tables allow tables to be scrolled horizontally with ease. Make any table responsive
+across all viewports by setting the prop `responsive` to `true`. Or, pick a maximum breakpoint with
+which to have a responsive table up to by setting the prop `responsive` to one of the breakpoint
+values: `sm`, `md`, `lg`, or `xl`.
 
 **Example: Always responsive table**
 
@@ -549,18 +547,20 @@ maximum breakpoint with which to have a responsive table up to by setting the pr
 
 **Responsive table notes:**
 
-- _Possible vertical clipping/truncation_. Responsive tables make use of `overflow-y: hidden`, which clips off any content that goes beyond the bottom or top edges of the table. In particular, this may clip off dropdown menus and other third-party widgets.
+- _Possible vertical clipping/truncation_. Responsive tables make use of `overflow-y: hidden`, which
+  clips off any content that goes beyond the bottom or top edges of the table. In particular, this
+  may clip off dropdown menus and other third-party widgets.
 
 ## Stacked tables
 
-An alternative to responsive tables, Bootstrap-Vue includes the stacked table option (using
-custom SCSS/CSS), which allow tables to be rendered in a visually stacked format. Make any
-table stacked across _all viewports_ by setting the prop `stacked` to `true`. Or, alternatively,
-set a breakpoint at which the table will return to normal table format by setting the prop
-`stacked` to one of the breakpoint values `'sm'`, `'md'`, `'lg'`, or `'xl'`.
+An alternative to responsive tables, Bootstrap-Vue includes the stacked table option (using custom
+SCSS/CSS), which allow tables to be rendered in a visually stacked format. Make any table stacked
+across _all viewports_ by setting the prop `stacked` to `true`. Or, alternatively, set a breakpoint
+at which the table will return to normal table format by setting the prop `stacked` to one of the
+breakpoint values `'sm'`, `'md'`, `'lg'`, or `'xl'`.
 
-Column header labels will be rendered to the left of each field value using a CSS
-`::before` pseudo element, with a width of 40%.
+Column header labels will be rendered to the left of each field value using a CSS `::before` pseudo
+element, with a width of 40%.
 
 The prop `stacked` takes precedence over the `responsive` prop.
 
@@ -592,16 +592,21 @@ The prop `stacked` takes precedence over the `responsive` prop.
 
 - The table header (and table footer) will be hidden.
 - Custom rendred header slots will not be shown, rather, the fields' `label` will be used.
-- The table **cannot** be sorted by clicking the rendered field labels. You will need to provide an external control to select the field to sort by and the sort direction. See the [**Sorting**](#sorting) section below for sorting control information, as well as the [**complete example**](#complete-example) at the bottom of this page for an example of controlling sorting via the use of form controls.
+- The table **cannot** be sorted by clicking the rendered field labels. You will need to provide an
+  external control to select the field to sort by and the sort direction. See the
+  [**Sorting**](#sorting) section below for sorting control information, as well as the
+  [**complete example**](#complete-example) at the bottom of this page for an example of controlling
+  sorting via the use of form controls.
 - The slots `top-row` and `bottom-row` will be hidden when visually stacked.
 - The table caption, if provided, will always appear at the top of the table when visually stacked.
-- In an always stacked table, the table header and footer, and the fixed top and bottom row slots will not be rendered.
+- In an always stacked table, the table header and footer, and the fixed top and bottom row slots
+  will not be rendered.
 
 ## Table caption
 
-Add an optional caption to your table via the prop `caption` or the named
-slot `table-caption` (the slot takes precedence over the prop). The default
-Bootstrap V4 styling places the caption at the bottom of the table:
+Add an optional caption to your table via the prop `caption` or the named slot `table-caption` (the
+slot takes precedence over the prop). The default Bootstrap V4 styling places the caption at the
+bottom of the table:
 
 ```html
 <template>
@@ -630,8 +635,7 @@ Bootstrap V4 styling places the caption at the bottom of the table:
 <!-- table-caption.vue -->
 ```
 
-You can have the caption placed at the top of the table by setting the
-`caption-top` prop to `true`:
+You can have the caption placed at the top of the table by setting the `caption-top` prop to `true`:
 
 ```html
 <template>
@@ -660,21 +664,21 @@ You can have the caption placed at the top of the table by setting the
 <!-- table-caption-top.vue -->
 ```
 
-You can also use [custom CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/caption-side)
-to control the caption positioning.
+You can also use [custom CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/caption-side) to
+control the caption positioning.
 
 ## Table colgroup
 
-Use the named slot `table-colgroup` to specify `<colgroup>` and `<col>` elements
-for optional grouping and styling of table columns. Note the styles available via `<col>`
-elements are limited. Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup)
-for details and usage of `<colgroup>`
+Use the named slot `table-colgroup` to specify `<colgroup>` and `<col>` elements for optional
+grouping and styling of table columns. Note the styles available via `<col>` elements are limited.
+Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/colgroup) for details and
+usage of `<colgroup>`
 
 ## Table busy state
 
-`<b-table>` provides a `busy` prop that will flag the table as busy, which you can
-set to `true` just before you update your items, and then set it to `false` once you have
-your items. When in the busy state, the table will have the attribute `aria-busy="true"`.
+`<b-table>` provides a `busy` prop that will flag the table as busy, which you can set to `true`
+just before you update your items, and then set it to `false` once you have your items. When in the
+busy state, the table will have the attribute `aria-busy="true"`.
 
 During the busy state, the table will be rendered in a "muted" look (`opacity: 0.6`), using the
 following custom CSS:
@@ -691,9 +695,9 @@ table.b-table[aria-busy='true'] {
 
 You can override this styling using your own CSS.
 
-You may optionally provide a `table-busy` slot to show a custom loading message or spinner
-whenever the table's busy state is `true`. The slot will be placed in a `<tr>` element with
-class `b-table-busy-slot`, which has one single `<td>` with a `colspan` set to the number of fields.
+You may optionally provide a `table-busy` slot to show a custom loading message or spinner whenever
+the table's busy state is `true`. The slot will be placed in a `<tr>` element with class
+`b-table-busy-slot`, which has one single `<td>` with a `colspan` set to the number of fields.
 
 **Example of `table-busy` slot usage:**
 
@@ -732,24 +736,23 @@ class `b-table-busy-slot`, which has one single `<td>` with a `colspan` set to t
 <!-- table-busy-slot.vue -->
 ```
 
-Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for additional
-informaton on the `busy` state.
+Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for
+additional informaton on the `busy` state.
 
-**Note:** All click related and hover events, and sort-changed events will **not** be
-emitted when the table is in the `busy` state.
+**Note:** All click related and hover events, and sort-changed events will **not** be emitted when
+the table is in the `busy` state.
 
 ## Custom Data Rendering
 
 Custom rendering for each data field in a row is possible using either
-[scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots)
-or formatter callback function.
+[scoped slots](http://vuejs.org/v2/guide/components.html#Scoped-Slots) or formatter callback
+function.
 
 ### Scoped Field Slots
 
-Scoped slots give you greater control over how the record data appears.
-If you want to add an extra field which does not exist in the records,
-just add it to the `fields` array, And then reference the field(s) in the scoped
-slot(s).
+Scoped slots give you greater control over how the record data appears. If you want to add an extra
+field which does not exist in the records, just add it to the `fields` array, And then reference the
+field(s) in the scoped slot(s).
 
 **Example: Custom data rendering with scoped slots**
 
@@ -815,15 +818,16 @@ The slot's scope variable (`data` in the above sample) will have the following p
 
 **Notes:**
 
-- _`index` will not always be the actual row's index number, as it is
-  computed after filtering, sorting and pagination have been applied to the original
-  table data. The `index` value will refer to the **displayed row number**. This
-  number will align with the indexes from the optional `v-model` bound variable._
+- _`index` will not always be the actual row's index number, as it is computed after filtering,
+  sorting and pagination have been applied to the original table data. The `index` value will refer
+  to the **displayed row number**. This number will align with the indexes from the optional
+  `v-model` bound variable._
 
 #### Displaying raw HTML
 
-By default `b-table` escapes HTML tags in items data and results of formatter functions, if you need to display
-raw HTML code in `b-table`, you should use `v-html` directive on an element in a in scoped field slot
+By default `b-table` escapes HTML tags in items data and results of formatter functions, if you need
+to display raw HTML code in `b-table`, you should use `v-html` directive on an element in a in
+scoped field slot
 
 ```html
 <template>
@@ -850,19 +854,19 @@ raw HTML code in `b-table`, you should use `v-html` directive on an element in a
 <!-- table-html-data-slots.vue -->
 ```
 
-**Warning:** Be cautious of using this to display user supplied content, **as script
-tags could be injected into your page!**
+**Warning:** Be cautious of using this to display user supplied content, **as script tags could be
+injected into your page!**
 
 ### Formatter callback
 
-One more option to customize field output is to use formatter callback function.
-To enable this field's property `formatter` is used. Value of this property may be
-String or function reference. In case of a String value, the function must be defined at
-the parent component's methods. Providing formatter as a `Function`, it must be declared at
-global scope (window or as global mixin at Vue), unless it has been bound to a `this` context.
+One more option to customize field output is to use formatter callback function. To enable this
+field's property `formatter` is used. Value of this property may be String or function reference. In
+case of a String value, the function must be defined at the parent component's methods. Providing
+formatter as a `Function`, it must be declared at global scope (window or as global mixin at Vue),
+unless it has been bound to a `this` context.
 
-The callback function accepts three arguments - `value`, `key`, and `item`, and should
-return the formatted value as a string (HTML strings are not supported)
+The callback function accepts three arguments - `value`, `key`, and `item`, and should return the
+formatted value as a string (HTML strings are not supported)
 
 **Example: Custom data rendering with formatter callback function**
 
@@ -927,14 +931,12 @@ return the formatted value as a string (HTML strings are not supported)
 
 ## Header/Footer custom rendering via scoped slots
 
-It is also possible to provide custom rendering for the tables `thead` and
-`tfoot` elements. Note by default the table footer is not rendered unless
-`foot-clone` is set to `true`.
+It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
+default the table footer is not rendered unless `foot-clone` is set to `true`.
 
-Scoped slots for the header and footer cells uses a special naming
-convention of `HEAD_<fieldkey>` and `FOOT_<fieldkey>` respectively. if a `FOOT_`
-slot for a field is not provided, but a `HEAD_` slot is provided, then
-the footer will use the `HEAD_` slot content.
+Scoped slots for the header and footer cells uses a special naming convention of `HEAD_<fieldkey>`
+and `FOOT_<fieldkey>` respectively. if a `FOOT_` slot for a field is not provided, but a `HEAD_`
+slot is provided, then the footer will use the `HEAD_` slot content.
 
 ```html
 <b-table :fields="fields" :items="items" foot-clone>
@@ -961,10 +963,10 @@ The slot's scope variable (`data` in the above example) will have the following 
 | `field`  | Object | the field's object (from the `fields` prop)                   |
 | `label`  | String | The fields label value (also available as `data.field.label`) |
 
-When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot, note that `head-clicked`
-event will not be emitted when the input, select, textarea is clicked (unless they are disabled).
-`head-clicked` will never be emitted when clicking on links or buttons inside the scoped slots
-(even when disabled)
+When placing inputs, buttons, selects or links within a `HEAD_` or `FOOT_` slot, note that
+`head-clicked` event will not be emitted when the input, select, textarea is clicked (unless they
+are disabled). `head-clicked` will never be emitted when clicking on links or buttons inside the
+scoped slots (even when disabled)
 
 ## Row select support
 
@@ -974,12 +976,12 @@ Users can easily change the selecting mode by setting the `select-mode` prop.
 
 - `multi`: each click will select/deselect the row (default mode)
 - `single`: only a single row can be selected at one time
-- `range`: any row clicked is selected, any other deselected. the SHIFT key selects a range of
-  rows, and CTRL/CMD click will toggle the selected row.
+- `range`: any row clicked is selected, any other deselected. the SHIFT key selects a range of rows,
+  and CTRL/CMD click will toggle the selected row.
 
 When a table is `selectable` and the user clicks on a row, `<b-table>` will emit the `row-selected`
-event, passing a single argument which is the complete list of selected items.
-**Treat this argument as read-only.**
+event, passing a single argument which is the complete list of selected items. **Treat this argument
+as read-only.**
 
 ```html
 <template>
@@ -1025,29 +1027,29 @@ event, passing a single argument which is the complete list of selected items.
 
 **Notes:**
 
-- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted with an empty array if needed._
+- _Paging, filtering, or sorting will clear the selection. The `row-selected` event will be emitted
+  with an empty array if needed._
 - _Selected rows will have a class of `b-row-selected` added to them._
-- _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab sequence (`tabindex="0"`) for accesibility reasons._
+- _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
+  sequence (`tabindex="0"`) for accesibility reasons._
 
 ## Row details support
 
-If you would optionally like to display additional record information (such as
-columns not specified in the fields definition array), you can use the scoped slot
-`row-details`, in combination with the special item record Boolean property
-`_showDetails`.
+If you would optionally like to display additional record information (such as columns not specified
+in the fields definition array), you can use the scoped slot `row-details`, in combination with the
+special item record Boolean property `_showDetails`.
 
-If the record has it's `_showDetails` property set to `true`, **and** a `row-details`
-scoped slot exists, a new row will be shown just below the item, with the rendered
-contents of the `row-details` scoped slot.
+If the record has it's `_showDetails` property set to `true`, **and** a `row-details` scoped slot
+exists, a new row will be shown just below the item, with the rendered contents of the `row-details`
+scoped slot.
 
-In the scoped field slot, you can toggle the visibility of the row's `row-details`
-scoped slot by calling the `toggleDetails` function passed to the field's scoped slot
-variable. You can use the scoped fields slot variable `detailsShowing` to determine
-the visibility of the `row-details` slot.
+In the scoped field slot, you can toggle the visibility of the row's `row-details` scoped slot by
+calling the `toggleDetails` function passed to the field's scoped slot variable. You can use the
+scoped fields slot variable `detailsShowing` to determine the visibility of the `row-details` slot.
 
-**Note:** If manipulating the `_showDetails` property directly on the item data (i.e.
-not via the `toggleDetails` function reference), the `_showDetails` propertly **must**
-exist in the items data for proper reactive detection of changes to it's value. Read more about
+**Note:** If manipulating the `_showDetails` property directly on the item data (i.e. not via the
+`toggleDetails` function reference), the `_showDetails` propertly **must** exist in the items data
+for proper reactive detection of changes to it's value. Read more about
 [Vue's reactivity limitations](https://vuejs.org/v2/guide/reactivity.html#Change-Detection-Caveats).
 
 **Available `row-details` scoped variable properties:**
@@ -1059,9 +1061,9 @@ exist in the items data for proper reactive detection of changes to it's value. 
 | `fields`        | Array    | The normalized fields definition array (in the _array of objects_ format) |
 | `toggleDetails` | Function | Function to toggle visibility of the row's details slot                   |
 
-In the following example, we show two methods of toggling the visibility of the details:
-one via a button, and one via a checkbox. We also have the third row row details defaulting
-to have details initially showing.
+In the following example, we show two methods of toggling the visibility of the details: one via a
+button, and one via a checkbox. We also have the third row row details defaulting to have details
+initially showing.
 
 ```html
 <template>
@@ -1118,28 +1120,26 @@ to have details initially showing.
 
 ## Sorting
 
-As mentioned in the [**Fields**](#fields-column-definitions-) section above,
-you can make columns sortable. Clicking on a sortable column header will sort the
-column in ascending direction (smallest first), while clicking on it again will switch the direction
-of sorting. Clicking on a non-sortable column will clear the sorting. The prop `no-sort-reset`
-can be used to disable this feature.
+As mentioned in the [**Fields**](#fields-column-definitions-) section above, you can make columns
+sortable. Clicking on a sortable column header will sort the column in ascending direction (smallest
+first), while clicking on it again will switch the direction of sorting. Clicking on a non-sortable
+column will clear the sorting. The prop `no-sort-reset` can be used to disable this feature.
 
-You can control which column is pre-sorted and the order of sorting (ascending or
-descending). To pre-specify the column to be sorted, set the `sort-by` prop to
-the field's key. Set the sort direction by setting `sort-desc` to either `true`
-(for descending) or `false` (for ascending, the default).
+You can control which column is pre-sorted and the order of sorting (ascending or descending). To
+pre-specify the column to be sorted, set the `sort-by` prop to the field's key. Set the sort
+direction by setting `sort-desc` to either `true` (for descending) or `false` (for ascending, the
+default).
 
-The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by
-adding the `.sync` modifier. Your bound variables will then be updated accordingly
-based on the current sort critera. See the
-[Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details
-on the `.sync` prop modifier
+The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by adding the
+`.sync` modifier. Your bound variables will then be updated accordingly based on the current sort
+critera. See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details on
+the `.sync` prop modifier
 
-**Note:** The built-in `sort-compare` routine **cannot** sort virtual columns, nor
-sort based on the custom rendering of the field data (formatter functions and/or
-scoped slots are used only for presentation only, and do not affect the underlying data).
-Refer to the [**Sort-compare routine**](#sort-compare-routine) section below for details on
-sorting by presentational data.
+**Note:** The built-in `sort-compare` routine **cannot** sort virtual columns, nor sort based on the
+custom rendering of the field data (formatter functions and/or scoped slots are used only for
+presentation only, and do not affect the underlying data). Refer to the
+[**Sort-compare routine**](#sort-compare-routine) section below for details on sorting by
+presentational data.
 
 ```html
 <template>
@@ -1181,30 +1181,28 @@ sorting by presentational data.
 
 ### Sort-Compare routine
 
-The built-in default `sort-compare` function sorts the specified field `key` based
-on the data in the underlying record object (not by the formatted value). The field
-value is first stringified if it is an object, and then sorted.
+The built-in default `sort-compare` function sorts the specified field `key` based on the data in
+the underlying record object (not by the formatted value). The field value is first stringified if
+it is an object, and then sorted.
 
-The default `sort-compare` routine **cannot** sort virtual columns, nor sort based
-on the custom rendering of the field data (formatter functions and/or scoped slots
-are used only for presentation). For this reason, you can provide your own
-custom sort compare routine by passing a function reference to the prop `sort-compare`.
+The default `sort-compare` routine **cannot** sort virtual columns, nor sort based on the custom
+rendering of the field data (formatter functions and/or scoped slots are used only for
+presentation). For this reason, you can provide your own custom sort compare routine by passing a
+function reference to the prop `sort-compare`.
 
-The `sort-compare` routine is passed four arguments. The first two arguments
-(`a` and `b`) are the record objects for the rows being compared, the third
-argument is the field `key` being sorted on (`sortBy`), and the fourth argument
-(`sortDesc`) is the order `<b-table>` will display the records (`true` for
-descending, `false` for ascending).
+The `sort-compare` routine is passed four arguments. The first two arguments (`a` and `b`) are the
+record objects for the rows being compared, the third argument is the field `key` being sorted on
+(`sortBy`), and the fourth argument (`sortDesc`) is the order `<b-table>` will display the records
+(`true` for descending, `false` for ascending).
 
-The routine should always return either `-1` for `a < b` , `0` for `a === b`,
-or `1` for `a > b` (the fourth argument, sorting direction, should not be used, as
-`b-table` will handle the direction). The routine can also return `null` to fall back
-to the default built-in sort-compare routine. You can use this feature (i.e. by
-returning `null`) to have your custom sort-compare routine handle only certain fields
-(keys) or in the special case of virtual columns.
+The routine should always return either `-1` for `a < b` , `0` for `a === b`, or `1` for `a > b`
+(the fourth argument, sorting direction, should not be used, as `b-table` will handle the
+direction). The routine can also return `null` to fall back to the default built-in sort-compare
+routine. You can use this feature (i.e. by returning `null`) to have your custom sort-compare
+routine handle only certain fields (keys) or in the special case of virtual columns.
 
-The default sort-compare routine works similar to the following. Note the fourth
-argument (sorting direction) is **not** used in the sort comparison:
+The default sort-compare routine works similar to the following. Note the fourth argument (sorting
+direction) is **not** used in the sort comparison:
 
 ```js
 function sortCompare(a, b, key) {
@@ -1233,78 +1231,77 @@ function toString(value) {
 
 ### Disable local sorting
 
-If you want to handle sorting entirely in your app, you can disable the local
-sorting in `<b-table>` by setting the prop `no-local-sorting` to true, while
-still maintaining the sortable header functionality (via `sort-changed` or
-`context-changed` events as well as syncable props).
+If you want to handle sorting entirely in your app, you can disable the local sorting in `<b-table>`
+by setting the prop `no-local-sorting` to true, while still maintaining the sortable header
+functionality (via `sort-changed` or `context-changed` events as well as syncable props).
 
-You can use the syncable props `sort-by.sync` and `sort-desc.sync` to detect
-changes in sorting column and direction.
+You can use the syncable props `sort-by.sync` and `sort-desc.sync` to detect changes in sorting
+column and direction.
 
-Also, When a sortable column header (or footer) is clicked, the event `sort-changed`
-will be emitted with a single argument containing the context object of `<b-table>`.
-See the [Detection of sorting change](#detection-of-sorting-change) section below
-for details about the sort-changed event and the context object.
+Also, When a sortable column header (or footer) is clicked, the event `sort-changed` will be emitted
+with a single argument containing the context object of `<b-table>`. See the
+[Detection of sorting change](#detection-of-sorting-change) section below for details about the
+sort-changed event and the context object.
 
 ### Change sort direction
 
-Control the order in which ascending and descending sorting is applied when a sortable column
-header is clicked, by using the the `sort-direction` prop. The default value `'asc'` applies
-ascending sort first. To reverse the behavior and sort in descending direction first, set
-it to `'desc'`.
+Control the order in which ascending and descending sorting is applied when a sortable column header
+is clicked, by using the the `sort-direction` prop. The default value `'asc'` applies ascending sort
+first. To reverse the behavior and sort in descending direction first, set it to `'desc'`.
 
-If you don't want the sorting direction to change at all when clicking another sortable
-column header, set `sort-direction` to `'last'`.
+If you don't want the sorting direction to change at all when clicking another sortable column
+header, set `sort-direction` to `'last'`.
 
-For individual column sort directions, specify the property `sortDirection` in `fields`.
-See the [Complete Example](#complete-example) below for an example of using this feature.
+For individual column sort directions, specify the property `sortDirection` in `fields`. See the
+[Complete Example](#complete-example) below for an example of using this feature.
 
 ## Filtering
 
-Filtering, when used, is applied to the **original items** array data, and hence it is not
-currently possible to filter data based on custom rendering of virtual columns.
+Filtering, when used, is applied to the **original items** array data, and hence it is not currently
+possible to filter data based on custom rendering of virtual columns.
 
 ### Built in filtering
 
-The items row data values are stringified (see the sorting section above for how
-stringification is done) and the filter searches that stringified data (excluding
-any of the special properties that begin with an underscore `_`). The stringification
-also includes any data not shown in the presented columns.
+The items row data values are stringified (see the sorting section above for how stringification is
+done) and the filter searches that stringified data (excluding any of the special properties that
+begin with an underscore `_`). The stringification also includes any data not shown in the presented
+columns.
 
-With the default built-in filter function, The `filter` prop value can either be a string or
-a `RegExp` object (regular expressions should _not_ have the `/g` global flag set).
+With the default built-in filter function, The `filter` prop value can either be a string or a
+`RegExp` object (regular expressions should _not_ have the `/g` global flag set).
 
-If the stringified row contains the provided string value or matches the RegExp expression
-then it is inclded in the displayed results.
+If the stringified row contains the provided string value or matches the RegExp expression then it
+is inclded in the displayed results.
 
 Set the `filter` prop to `null` or the empty string to clear the current filter.
 
 ### Custom filter function
 
-You can also use a custom filter function, by setting the prop `filter-function` to a
-reference of custom filter test function. The filter function will be passed two arguments:
+You can also use a custom filter function, by setting the prop `filter-function` to a reference of
+custom filter test function. The filter function will be passed two arguments:
 
 - the original item row record data object. **Treat this argument as read-only.**
 - the content of the `filter` prop (could be a string, RegExp, array, or object)
 
-The function should return `true` if the record matches your criteria or `false` if
-the record is to be filtered out.
+The function should return `true` if the record matches your criteria or `false` if the record is to
+be filtered out.
 
-For proper reactive updates to the displayed data, when not filtering you should set the
-`filter` prop to `null` or an emtpy string (and not an empty object or array).
-The filter function will not be called when the `fitler` prop is a falsey value.
+For proper reactive updates to the displayed data, when not filtering you should set the `filter`
+prop to `null` or an emtpy string (and not an empty object or array). The filter function will not
+be called when the `fitler` prop is a falsey value.
 
 The display of the `empty-filter-text` relies on the truthyness of the `filter` prop.
 
-**Deprecation Notice:** Passing a filter function via the `filter` prop is deprecated
-and should be avoided. Use the `filter-function` prop instead.
+**Deprecation Notice:** Passing a filter function via the `filter` prop is deprecated and should be
+avoided. Use the `filter-function` prop instead.
 
 ### Filter events
 
-When local filtering is applied, and the resultant number of items change, `<b-table>`
-will emit the `filtered` event with a two arguments:
+When local filtering is applied, and the resultant number of items change, `<b-table>` will emit the
+`filtered` event with a two arguments:
 
-- an array reference which is the complete list of items passing the filter routine. **Treat this argument as read-only.**
+- an array reference which is the complete list of items passing the filter routine. **Treat this
+  argument as read-only.**
 - the number of records that passed the filter test (the length of the first argument)
 
 Setting the prop `filter` to null or an empty string will clear local items filtering.
@@ -1313,40 +1310,37 @@ Setting the prop `filter` to null or an empty string will clear local items filt
 
 You can disable local filtering competely by setting the `no-local-filtering` prop to `true`.
 
-See the [Complete Example](#complete-example) below for an example of using the
-`filter` feature.
+See the [Complete Example](#complete-example) below for an example of using the `filter` feature.
 
 ## Pagination
 
-`<b-table>` supports built in pagination of item data. You can control how many
-rows are displayed at a time by setting the `per-page` prop to the maximum
-number of rows you would like displayed, and use the `current-page` prop
-to specify which page to display (starting from page `1`). If you set `current-page`
-to a value larger than the computed number of pages, then no rows will be shown.
+`<b-table>` supports built in pagination of item data. You can control how many rows are displayed
+at a time by setting the `per-page` prop to the maximum number of rows you would like displayed, and
+use the `current-page` prop to specify which page to display (starting from page `1`). If you set
+`current-page` to a value larger than the computed number of pages, then no rows will be shown.
 
-You can use the [`<b-pagination>`](/docs/components/pagination) component in
-conjunction with `<b-table>` for providing control over pagination.
+You can use the [`<b-pagination>`](/docs/components/pagination) component in conjunction with
+`<b-table>` for providing control over pagination.
 
 Setting `per-page` to `0` (default) will disable the local items pagination feature.
 
 ## `v-model` binding
 
-If you bind a variable to the `v-model` prop, the contents of this variable will
-be the currently displayed item records (zero based index, up to `page-size` - 1).
-This variable (the `value` prop) should usually be treated as readonly.
+If you bind a variable to the `v-model` prop, the contents of this variable will be the currently
+displayed item records (zero based index, up to `page-size` - 1). This variable (the `value` prop)
+should usually be treated as readonly.
 
-The records within the v-model are a filtered/paginated shallow copy of `items`, and
-hence any changes to a record's properties in the v-model will be reflected in
-the original `items` array (except when `items` is set to a provider function).
-Deleting a record from the v-model will **not** remove the record from the
-original items array.
+The records within the v-model are a filtered/paginated shallow copy of `items`, and hence any
+changes to a record's properties in the v-model will be reflected in the original `items` array
+(except when `items` is set to a provider function). Deleting a record from the v-model will **not**
+remove the record from the original items array.
 
 **Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
 
 ## Using Items Provider Functions
 
-As mentioned under the [**Items**](#items-record-data-) prop section, it is possible to use a function to provide
-the row data (items), by specifying a function reference via the `items` prop.
+As mentioned under the [**Items**](#items-record-data-) prop section, it is possible to use a
+function to provide the row data (items), by specifying a function reference via the `items` prop.
 
 The provider function is called with the following signature:
 
@@ -1354,8 +1348,8 @@ The provider function is called with the following signature:
 provider(ctx, [callback])
 ```
 
-The `ctx` is the context object associated with the table state, and contains the
-following five properties:
+The `ctx` is the context object associated with the table state, and contains the following five
+properties:
 
 | Property      | Type                         | Description                                                                       |
 | ------------- | ---------------------------- | --------------------------------------------------------------------------------- |
@@ -1366,7 +1360,8 @@ following five properties:
 | `sortDesc`    | Boolean                      | The current sort direction (`true` for descending, `false` for ascending)         |
 | `apiUrl`      | String                       | the value providedd to the `api-url` prop. `null` if none provided.               |
 
-The second argument `callback` is an optional parameter for when using the callback asynchronous method.
+The second argument `callback` is an optional parameter for when using the callback asynchronous
+method.
 
 **Example: returning an array of data (synchronous):**
 
@@ -1421,13 +1416,12 @@ function myProvider(ctx) {
 
 ### Automated table busy state
 
-`<b-table>` automatically tracks/controls it's `busy` state when items provider functions are
-used, however it also provides a `busy` prop that can be used either to override the inner `busy`
-state, or to monitor `<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
+`<b-table>` automatically tracks/controls it's `busy` state when items provider functions are used,
+however it also provides a `busy` prop that can be used either to override the inner `busy` state,
+or to monitor `<b-table>`'s current busy state in your application using the 2-way `.sync` modifier.
 
-**Note:** in order to allow `<b-table>` fully track it's `busy` state, the custom items
-provider function should handle errors from data sources and return an empty
-array to `<b-table>`.
+**Note:** in order to allow `<b-table>` fully track it's `busy` state, the custom items provider
+function should handle errors from data sources and return an empty array to `<b-table>`.
 
 **Example: usage of busy state**
 
@@ -1469,19 +1463,18 @@ array to `<b-table>`.
 
 **Notes:**
 
-- If you manually place the table in the `busy` state, the items provider will
-  **not** be called/refreshed until the `busy` state has been set to `false`.
-- All click related and hover events, and sort-changed events will **not** be
-  emitted when in the `busy` state (either set automatically during provider update,
-  or when manually set).
+- If you manually place the table in the `busy` state, the items provider will **not** be
+  called/refreshed until the `busy` state has been set to `false`.
+- All click related and hover events, and sort-changed events will **not** be emitted when in the
+  `busy` state (either set automatically during provider update, or when manually set).
 
 ### Provider Paging, Filtering, and Sorting
 
-By default, the items provider function is responsible for **all paging, filtering, and sorting**
-of the data, before passing it to `b-table` for display.
+By default, the items provider function is responsible for **all paging, filtering, and sorting** of
+the data, before passing it to `b-table` for display.
 
-You can disable provider paging, filtering, and sorting (individually) by setting the
-following `b-table` prop(s) to `true`:
+You can disable provider paging, filtering, and sorting (individually) by setting the following
+`b-table` prop(s) to `true`:
 
 | Prop                    | Type    | Default | Description                                                    |
 | ----------------------- | ------- | ------- | -------------------------------------------------------------- |
@@ -1489,22 +1482,22 @@ following `b-table` prop(s) to `true`:
 | `no-provider-sorting`   | Boolean | `false` | When `true` enables the use of `b-table` local sorting         |
 | `no-provider-filtering` | Boolean | `false` | When `true` enables the use of `b-table` local filtering       |
 
-When `no-provider-paging` is `false` (default), you should only return at
-maximum, `perPage` number of records.
+When `no-provider-paging` is `false` (default), you should only return at maximum, `perPage` number
+of records.
 
 **Notes:**
 
-- `<b-table>` needs reference to your pagination and filtering values in order to
-  trigger the calling of the provider function. So be sure to bind to the `per-page`,
-  `current-page` and `filter` props on `b-table` to trigger the provider update function call
-  (unless you have the respective `no-provider-*` prop set to `true`).
+- `<b-table>` needs reference to your pagination and filtering values in order to trigger the
+  calling of the provider function. So be sure to bind to the `per-page`, `current-page` and
+  `filter` props on `b-table` to trigger the provider update function call (unless you have the
+  respective `no-provider-*` prop set to `true`).
 - The `no-local-sorting` prop has no effect when `items` is a provider function.
 
 ### Force refreshing of table data
 
-You may also trigger the refresh of the provider function by emitting the
-event `refresh::table` on `$root` with the single argument being the `id` of your `b-table`.
-You must have a unique ID on your table for this to work.
+You may also trigger the refresh of the provider function by emitting the event `refresh::table` on
+`$root` with the single argument being the `id` of your `b-table`. You must have a unique ID on your
+table for this to work.
 
 ```js
 this.$root.$emit('bv::refresh::table', 'my-table')
@@ -1521,13 +1514,13 @@ this.$refs.table.refresh()
 ```
 
 **Note:** If the table is in the `busy` state (i.e. a provider update is currently running), the
-refresh will wait until the current update is completed. If there is currently a refresh pending and a
-new refresh is requested, then only one refresh will occur.
+refresh will wait until the current update is completed. If there is currently a refresh pending and
+a new refresh is requested, then only one refresh will occur.
 
 ### Detection of sorting change
 
-By listening on `<b-table>` `sort-changed` event, you can detect when the sorting key
-and direction have changed.
+By listening on `<b-table>` `sort-changed` event, you can detect when the sorting key and direction
+have changed.
 
 ```html
 <b-table @sort-changed="sortingChanged" ...></b-table>
@@ -1546,7 +1539,8 @@ methods: {
 ```
 
 You can also obtain the current sortBy and sortDesc values by using the `:sort-by.sync` and
-`:sort-desc.sync` two-way props respectively (see section [**Sorting**](#sorting) above for details).
+`:sort-desc.sync` two-way props respectively (see section [**Sorting**](#sorting) above for
+details).
 
 ```html
 <b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ...> </b-table>
@@ -1554,23 +1548,22 @@ You can also obtain the current sortBy and sortDesc values by using the `:sort-b
 
 ### Server Side Rendering
 
-Special care must be taken when using server side rendering (SSR) and an `items` provider
-function. Make sure you handle any special situations that may be needed server side
-when fetching your data!
+Special care must be taken when using server side rendering (SSR) and an `items` provider function.
+Make sure you handle any special situations that may be needed server side when fetching your data!
 
 When `<b-table>` is mounted in the document, it will automatically trigger a provider update call.
 
 ## Table accessibility notes
 
-When the table is in `selectable` mode, or if there is a `row-clicked` event listener registered, all
-data item rows (`<tr>` elements) will be placed into the document tab sequence (via `tabindex="0"`) to
-allow keyboard-only and screen reader users the ability to click the rows.
+When the table is in `selectable` mode, or if there is a `row-clicked` event listener registered,
+all data item rows (`<tr>` elements) will be placed into the document tab sequence (via
+`tabindex="0"`) to allow keyboard-only and screen reader users the ability to click the rows.
 
-When a column (field) is sortable, the header (and footer) heading cells will also be placed into the
-document tab sequence for accesibility.
+When a column (field) is sortable, the header (and footer) heading cells will also be placed into
+the document tab sequence for accesibility.
 
-Note the following row based events/actions are not considered accessible, and should only be used if the
-functionality is non critical or can be provided via other means:
+Note the following row based events/actions are not considered accessible, and should only be used
+if the functionality is non critical or can be provided via other means:
 
 - `row-dblclicked`
 - `row-contextmenu`

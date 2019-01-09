@@ -1,18 +1,18 @@
 # Theming Bootstrap & BootstrapVue
 
-Theming is accomplished by Sass variables, Sass maps, and custom CSS. There’s no dedicated
-theme stylesheet; instead, you can enable the built-in theme to add gradients, shadows, and more.
+Theming is accomplished by Sass variables, Sass maps, and custom CSS. There’s no dedicated theme
+stylesheet; instead, you can enable the built-in theme to add gradients, shadows, and more.
 
 While BootstrapVue uses Bootstrap's CSS, cetain features of BootstrapVue uses custom CSS (i.e.
 stacked tables, etc). Our custom CSS relies on variables defined the Bootstrap V4.x SCSS. The
-`bootstrap-vue.css` is compiled using the default Bootstrap V4.x variables. Using the
-BootstrapVue source SCSS, you can have your variable overrides (such as breakpoints, etc) adjust
-the custom BootstrapVue css.
+`bootstrap-vue.css` is compiled using the default Bootstrap V4.x variables. Using the BootstrapVue
+source SCSS, you can have your variable overrides (such as breakpoints, etc) adjust the custom
+BootstrapVue css.
 
 ## Custom SCSS
 
-To use your own theme and colors in `bootstrap-vue`, you will need to create a
-`custom.scss` file in your project, which you can include in your main app:
+To use your own theme and colors in `bootstrap-vue`, you will need to create a `custom.scss` file in
+your project, which you can include in your main app:
 
 **Via template:**
 
@@ -60,8 +60,8 @@ import 'custom.scss'
 ```
 
 The `_custom.scss` file, which needs to be loaded before Bootstrap's scss, will include your
-Bootstrap V4 variable overrides (i.e. colors, shadows, font sizes, breakpoints, etc).
-You can find all of the possible variables in `node_modules/bootstrap/scss/_variables.scss`.
+Bootstrap V4 variable overrides (i.e. colors, shadows, font sizes, breakpoints, etc). You can find
+all of the possible variables in `node_modules/bootstrap/scss/_variables.scss`.
 
 Do not forget to include `node-sass` and `sass-loader` to use `scss` in Vue:
 

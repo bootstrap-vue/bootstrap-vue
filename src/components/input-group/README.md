@@ -1,6 +1,7 @@
 # Input Groups
 
-> Easily extend form controls by adding text, buttons, or button groups on either side of textual inputs.
+> Easily extend form controls by adding text, buttons, or button groups on either side of textual
+> inputs.
 
 ```html
 <div>
@@ -72,9 +73,9 @@ This slots will be wrapped by `<b-input-group-prepend|append>` to display correc
 
 ### Using components
 
-Use the `<b-input-group-prepend>` or `<b-input-group-append>` to add arbitrary addons
-wherever you like, and use these components to group buttons in your input group.
-Single buttons must always be wrapped in these components for proper styling.
+Use the `<b-input-group-prepend>` or `<b-input-group-append>` to add arbitrary addons wherever you
+like, and use these components to group buttons in your input group. Single buttons must always be
+wrapped in these components for proper styling.
 
 ```html
 <div>
@@ -93,17 +94,16 @@ Single buttons must always be wrapped in these components for proper styling.
 <!-- input-group-addons-placement.vue -->
 ```
 
-Set the `is-text` prop on `<b-input-group-prepend>` or `<b-input-group-append>`
-if the content is textual in nature to apply proper styling. Alternatively, use
-the `<b-input-group-text>` subcomponent inside the `<b-input-group-prepend>` or
-`<b-input-group-append>`.
+Set the `is-text` prop on `<b-input-group-prepend>` or `<b-input-group-append>` if the content is
+textual in nature to apply proper styling. Alternatively, use the `<b-input-group-text>`
+subcomponent inside the `<b-input-group-prepend>` or `<b-input-group-append>`.
 
 ## Checkbox and radio addons
 
 Place any native checkbox or radio within an input group’s addon instead of text.
 
-**Note:** you must use native radio and checkbox inputs, as `<b-form-radio>` and
-`<b-form-checkbox>` include additional markup not required in input groups.
+**Note:** you must use native radio and checkbox inputs, as `<b-form-radio>` and `<b-form-checkbox>`
+include additional markup not required in input groups.
 
 ```html
 <b-container>
@@ -175,9 +175,9 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
 
 ## Control sizing
 
-Set height using the `size` prop to `sm` or `lg` for small or large respectively. There
-is no need to set size on the individual inputs or buttons. Note however, you will be
-required to also set the size on dropdowns.
+Set height using the `size` prop to `sm` or `lg` for small or large respectively. There is no need
+to set size on the individual inputs or buttons. Note however, you will be required to also set the
+size on dropdowns.
 
 To control width, place the input inside standard Bootstrap grid column.
 

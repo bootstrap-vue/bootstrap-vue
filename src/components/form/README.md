@@ -88,13 +88,14 @@
 
 ## Inline form
 
-Use the `inline` prop on `<b-form>` to display a series of labels, form controls, and
-buttons on a single horizontal row. Form controls within inline forms vary slightly
-from their default states.
+Use the `inline` prop on `<b-form>` to display a series of labels, form controls, and buttons on a
+single horizontal row. Form controls within inline forms vary slightly from their default states.
 
-- Controls are `display: flex`, collapsing any HTML white space and allowing you to provide alignment control with spacing and flexbox utilities.
+- Controls are `display: flex`, collapsing any HTML white space and allowing you to provide
+  alignment control with spacing and flexbox utilities.
 - Controls and input groups receive `width: auto` to override the Bootstrap default width: 100%.
-- Controls **only appear inline in viewports that are at least 576px wide** to account for narrow viewports on mobile devices.
+- Controls **only appear inline in viewports that are at least 576px wide** to account for narrow
+  viewports on mobile devices.
 
 You may need to manually address the width and alignment of individual form controls with
 [spacing utilities](/docs/reference/spacing-classes) (as shown below). Lastly, be sure to always
@@ -148,13 +149,12 @@ Custom form controls and selects are also supported.
 
 ### Alternatives to hidden labels
 
-Assistive technologies such as screen readers will have trouble with your forms if you
-don’t include a label for every input. For these inline forms, you can hide the labels
-using the `.sr-only` class. There are further alternative methods of providing a label
-for assistive technologies, such as the `aria-label`, `aria-labelledby` or `title`
-attributes. If none of these are present, assistive technologies may resort to using
-the `placeholder` attribute, if present, but note that use of `placeholder` as a
-replacement for other labelling methods is not advised.
+Assistive technologies such as screen readers will have trouble with your forms if you don’t include
+a label for every input. For these inline forms, you can hide the labels using the `.sr-only` class.
+There are further alternative methods of providing a label for assistive technologies, such as the
+`aria-label`, `aria-labelledby` or `title` attributes. If none of these are present, assistive
+technologies may resort to using the `placeholder` attribute, if present, but note that use of
+`placeholder` as a replacement for other labelling methods is not advised.
 
 ## Related Form Control Components
 
@@ -166,7 +166,8 @@ See also:
 - [`<b-form-radio>`](/docs/components/form-radio) Radio Inputs
 - [`<b-form-checkbox>`](/docs/components/form-checkbox) Checkbox Inputs
 - [`<b-form-file>`](/docs/components/form-file) File Input
-- [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups that support labels, help text and feedback
+- [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups that
+  support labels, help text and feedback
 - [`<b-button>`](/docs/components/button) Buttons
 - [`<b-input-group>`](/docs/components/input-group) Form inputs with add-ons
 
@@ -179,32 +180,32 @@ See also:
 
 ### Text helper
 
-Display a block of help text below an input with the `<b-form-text>` helper component.
-text is displayed with a muted color and slightly smaller font-size.
+Display a block of help text below an input with the `<b-form-text>` helper component. text is
+displayed with a muted color and slightly smaller font-size.
 
 ### Feedback helpers
 
-The valid and invalid feedback helper components will display feedback (based on input state)
-as a block of colored text. They rely on being placed after an input (sibling) and will show
-based on the browser native validation state of the input. To force them to show,
-set the prop `force-show`, or set the `was-validated` class on a parent element (such as a form).
-See the **Validation** section below for additional details.
+The valid and invalid feedback helper components will display feedback (based on input state) as a
+block of colored text. They rely on being placed after an input (sibling) and will show based on the
+browser native validation state of the input. To force them to show, set the prop `force-show`, or
+set the `was-validated` class on a parent element (such as a form). See the **Validation** section
+below for additional details.
 
-Use the optional Boolean prop `tooltip` to change the display from a
-block to a static tooltip style. The feedback will typically appear below the form control.
-When this mode is enabled, it is important that the parent container have a
-`position: relative:` css style (or `position-relative` class). Note that tooltip style
-feedback may, since it's positioning is static, obscure other inputs, labels, etc.
+Use the optional Boolean prop `tooltip` to change the display from a block to a static tooltip
+style. The feedback will typically appear below the form control. When this mode is enabled, it is
+important that the parent container have a `position: relative:` css style (or `position-relative`
+class). Note that tooltip style feedback may, since it's positioning is static, obscure other
+inputs, labels, etc.
 
 ## Validation
 
-Disable browser native HTML5 validation by setting the `novalidate` prop to true
-on `<b-form>`.
+Disable browser native HTML5 validation by setting the `novalidate` prop to true on `<b-form>`.
 
-Set the `validated` prop, on `<b-form>`, to `true` to add the Bootstrap V4 `.was-validated` class
-to the form to trigger validation states
+Set the `validated` prop, on `<b-form>`, to `true` to add the Bootstrap V4 `.was-validated` class to
+the form to trigger validation states
 
-Refer to the [Bootstrap V4 Form Validation Documentation](https://getbootstrap.com/docs/4.2/components/forms/#validation)
+Refer to the
+[Bootstrap V4 Form Validation Documentation](https://getbootstrap.com/docs/4.2/components/forms/#validation)
 for details on the new Bootstrap V4 validation states.
 
 ### Validation mechanisms

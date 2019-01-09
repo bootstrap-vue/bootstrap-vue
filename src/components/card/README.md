@@ -1,14 +1,14 @@
 # Cards
 
-> A card is a flexible and extensible content container. It includes options for headers and footers,
-> a wide variety of content, contextual background colors, and powerful display options.
+> A card is a flexible and extensible content container. It includes options for headers and
+> footers, a wide variety of content, contextual background colors, and powerful display options.
 
-Cards are built with as little markup and styles as possible, but still manage to deliver a
-ton of control and customization. Built with flexbox, they offer easy alignment and mix well
-with other components.
+Cards are built with as little markup and styles as possible, but still manage to deliver a ton of
+control and customization. Built with flexbox, they offer easy alignment and mix well with other
+components.
 
-`<b-card>` has no fixed width to start, so they’ll naturally fill the full width of its
-parent element. This is easily customized via styles or standard Bootstrap V4 sizing clases.
+`<b-card>` has no fixed width to start, so they’ll naturally fill the full width of its parent
+element. This is easily customized via styles or standard Bootstrap V4 sizing clases.
 
 Change the default `div` root tag to any other HTML element by specifying via the `tag` prop
 
@@ -35,13 +35,13 @@ Change the default `div` root tag to any other HTML element by specifying via th
 
 ## Content types
 
-Cards support a wide variety of content, including images, text, list groups,
-links and more. The following are examples of what’s supported inside a `<b-card>`
+Cards support a wide variety of content, including images, text, list groups, links and more. The
+following are examples of what’s supported inside a `<b-card>`
 
 ### Card Body
 
-The building block of a `<b-card>` is the `<b-card-body>` section which provides a padded
-section within a card.
+The building block of a `<b-card>` is the `<b-card-body>` section which provides a padded section
+within a card.
 
 By default the `<b-card>` content is automatically placed in a`<b-card-body>` section:
 
@@ -71,23 +71,24 @@ on the `<b-card>`.
 <!-- card-body-2.vue -->
 ```
 
-Note that with `no-body` enabled, the content of the `title` and `sub-title` props will not be rendered.
+Note that with `no-body` enabled, the content of the `title` and `sub-title` props will not be
+rendered.
 
-Use the `<b-card-body>` sub-componet to place your own card body anywhere
-in a `<b-card>` component that has `no-body` set.
+Use the `<b-card-body>` sub-componet to place your own card body anywhere in a `<b-card>` component
+that has `no-body` set.
 
 #### Titles, text, and links
 
-_Card titles_ are adding via the `title` prop, and _sub titles_ are added via the
-`sub-title` prop. The title is rendered using the sub-component `<b-card-title>` while
-the Sub Title is rendered using the sub-component `<b-card-sub-title>`.
+_Card titles_ are adding via the `title` prop, and _sub titles_ are added via the `sub-title` prop.
+The title is rendered using the sub-component `<b-card-title>` while the Sub Title is rendered using
+the sub-component `<b-card-sub-title>`.
 
 With sub-component `<b-card-text>`, paragraph text can be added to the card. The last
-`<b-card-text>` in the card body will have it's bottom margin automaticaly remvoed (via CSS).
-Text within `<b-card-text>` can also be styled with the standard HTML tags.
+`<b-card-text>` in the card body will have it's bottom margin automaticaly remvoed (via CSS). Text
+within `<b-card-text>` can also be styled with the standard HTML tags.
 
-Links can be added and placed next to each other by adding the `.card-link` class
-to a `<a>` tag (or `<b-link>` component).
+Links can be added and placed next to each other by adding the `.card-link` class to a `<a>` tag (or
+`<b-link>` component).
 
 ```html
 <div>
@@ -107,10 +108,9 @@ to a `<a>` tag (or `<b-link>` component).
 
 ### Images
 
-The prop `img-src` places an image on the top of the card, and use the `img-alt` prop to
-specify a string to be placed in the image's `alt` attribute. The image specified
-by the `img-src` prop will be responsive and will adjust it's width when the width of the
-card is changed.
+The prop `img-src` places an image on the top of the card, and use the `img-alt` prop to specify a
+string to be placed in the image's `alt` attribute. The image specified by the `img-src` prop will
+be responsive and will adjust it's width when the width of the card is changed.
 
 ```html
 <div>
@@ -144,11 +144,11 @@ card is changed.
 <!-- card-img-1.vue -->
 ```
 
-**Note:** For left and right images, you may need to apply additional styles to classes `.card-img-left` and
-`.card-img-right`, as images will "strech" in height if you have content that is taller than your image.
-Note headers and footers are not supported when images are left or right aligned.
-You may find the [Horizontal Card Layout](#horizontal-card-layout) example to be more flexible when creating a
-responsive horizontal card.
+**Note:** For left and right images, you may need to apply additional styles to classes
+`.card-img-left` and `.card-img-right`, as images will "strech" in height if you have content that
+is taller than your image. Note headers and footers are not supported when images are left or right
+aligned. You may find the [Horizontal Card Layout](#horizontal-card-layout) example to be more
+flexible when creating a responsive horizontal card.
 
 #### Overlay image
 
@@ -175,9 +175,9 @@ Place the image in the background of the card by setting the boolean prop `overl
 
 ### Header and footer
 
-Add an optional header and/or footer within a card via the `header`/`footer`
-props or named slots. You can control the wrapper element tags used by setting
-the `header-tag` and `footer-tag` props (both default is `div`)
+Add an optional header and/or footer within a card via the `header`/`footer` props or named slots.
+You can control the wrapper element tags used by setting the `header-tag` and `footer-tag` props
+(both default is `div`)
 
 ```html
 <div>
@@ -206,9 +206,9 @@ the `header-tag` and `footer-tag` props (both default is `div`)
 
 ### Kitchen sink Example
 
-Mix and match multiple content types to create the card you need, or throw everything in
-there. Shown below are image styles, blocks, text styles, and a list group—all wrapped in
-a fixed-width card.
+Mix and match multiple content types to create the card you need, or throw everything in there.
+Shown below are image styles, blocks, text styles, and a list group—all wrapped in a fixed-width
+card.
 
 ```html
 <div>
@@ -246,14 +246,14 @@ a fixed-width card.
 
 ## Horizontal card layout
 
-Using a combination of grid components, utility classes and idividual card sub-components, cards
-can be made horizontal in a mobile-friendly and responsive way.
+Using a combination of grid components, utility classes and idividual card sub-components, cards can
+be made horizontal in a mobile-friendly and responsive way.
 
 In the example below, we remove the row grid gutters with the `no-gutters` prop on `<b-row>` and use
-`md` props on `<b-col>` to make the card horizontal at the `md` breakpoint. Class `rounded-0` removes
-the rounding of the `<b-card-img>` corners while class `overflow-hidden` on `<b-card>` will appropriately
-clip the image's corners based on the border-radius of the card. Further adjustments may be needed depending
-on your card content.
+`md` props on `<b-col>` to make the card horizontal at the `md` breakpoint. Class `rounded-0`
+removes the rounding of the `<b-card-img>` corners while class `overflow-hidden` on `<b-card>` will
+appropriately clip the image's corners based on the border-radius of the card. Further adjustments
+may be needed depending on your card content.
 
 ```html
 <div>
@@ -279,9 +279,9 @@ on your card content.
 
 ## Text variants
 
-By default, cards use dark text and assume a light background. You can reverse that by
-toggling the color of text within, as well as that of the card’s sub-components,
-via the prop `text-variant`. Then, specify a dark background variant.
+By default, cards use dark text and assume a light background. You can reverse that by toggling the
+color of text within, as well as that of the card’s sub-components, via the prop `text-variant`.
+Then, specify a dark background variant.
 
 ```html
 <b-card bg-variant="dark" text-variant="white" title="Card Title">
@@ -296,9 +296,9 @@ via the prop `text-variant`. Then, specify a dark background variant.
 
 ## Background and Border variants
 
-Cards include their own variant style for quickly changing the background-color and
-of a card via the `bg-variant` and `border-variant` props. Darker solid variants my require setting the
-prop `text-variant` to adjust the text color.
+Cards include their own variant style for quickly changing the background-color and of a card via
+the `bg-variant` and `border-variant` props. Darker solid variants my require setting the prop
+`text-variant` to adjust the text color.
 
 ### Solid
 
@@ -405,14 +405,14 @@ prop `text-variant` to adjust the text color.
 
 #### Variant to class mapping
 
-BootstrapVue `<b-card>` variants are directly mapped to Bootstrap V4 card classes by
-pre-pending `bg-` (for solid) or `border-` (for bordered) to the above variant names.
+BootstrapVue `<b-card>` variants are directly mapped to Bootstrap V4 card classes by pre-pending
+`bg-` (for solid) or `border-` (for bordered) to the above variant names.
 
 ### Header and Footer variants
 
-You can also apply the solid and border variants individually to card headers and footers
-via the `header-bg-variant`, `header-border-variant`, `header-text-variant`,
-`footer-bg-variant`, `footer-border-variant`, and `footer-text-variant` props.
+You can also apply the solid and border variants individually to card headers and footers via the
+`header-bg-variant`, `header-border-variant`, `header-text-variant`, `footer-bg-variant`,
+`footer-border-variant`, and `footer-text-variant` props.
 
 ```html
 <div>
@@ -437,21 +437,20 @@ via the `header-bg-variant`, `header-border-variant`, `header-text-variant`,
 
 ### Conveying meaning to assistive technologies
 
-Using color to add meaning only provides a visual indication, which will not be conveyed
-to users of assistive technologies – such as screen readers. Ensure that information denoted
-by the color is either obvious from the content itself (e.g. the visible text), or is
-included through alternative means, such as additional text hidden with the `.sr-only` class.
+Using color to add meaning only provides a visual indication, which will not be conveyed to users of
+assistive technologies – such as screen readers. Ensure that information denoted by the color is
+either obvious from the content itself (e.g. the visible text), or is included through alternative
+means, such as additional text hidden with the `.sr-only` class.
 
 ## Card Groups
 
-In addition to styling the content within cards, BootstrapVue includes a `<b-card-group>`
-component for laying out series of cards. For the time being, these layout options are
-not yet responsive.
+In addition to styling the content within cards, BootstrapVue includes a `<b-card-group>` component
+for laying out series of cards. For the time being, these layout options are not yet responsive.
 
 ### Default card group
 
-Use card groups to render cards as a single, attached element with equal width and
-height columns. Card groups use display: flex; to achieve their uniform sizing.
+Use card groups to render cards as a single, attached element with equal width and height columns.
+Card groups use display: flex; to achieve their uniform sizing.
 
 When using card groups with footers, their content will automatically line up.
 
@@ -486,9 +485,9 @@ When using card groups with footers, their content will automatically line up.
 
 ### Card deck groups
 
-Need a set of equal width and height cards that aren’t attached to one another? Use
-card decks by setting the `deck` prop. And just like with regular card groups,
-card footers in decks will automatically line up.
+Need a set of equal width and height cards that aren’t attached to one another? Use card decks by
+setting the `deck` prop. And just like with regular card groups, card footers in decks will
+automatically line up.
 
 ```html
 <div>
@@ -521,13 +520,12 @@ card footers in decks will automatically line up.
 
 ### Card column groups
 
-Cards can be organized into Masonry-like columns with by wrapping them in a `<b-card-group>`
-with the prop `columns` set. Cards are built with CSS column properties instead of flexbox for
-easier alignment. Cards are ordered from top to bottom and left to right.
+Cards can be organized into Masonry-like columns with by wrapping them in a `<b-card-group>` with
+the prop `columns` set. Cards are built with CSS column properties instead of flexbox for easier
+alignment. Cards are ordered from top to bottom and left to right.
 
-Heads up! Your mileage with card columns may vary. To prevent cards breaking across
-columns, we must set them to display: inline-block as column-break-inside: avoid
-isn’t a bulletproof solution yet.
+Heads up! Your mileage with card columns may vary. To prevent cards breaking across columns, we must
+set them to display: inline-block as column-break-inside: avoid isn’t a bulletproof solution yet.
 
 ```html
 <div>

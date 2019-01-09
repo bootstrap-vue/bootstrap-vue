@@ -3,8 +3,8 @@
 > Documentation and examples for adding custom Bootstrap-Vue tooltips, using Bootstrap V4 CSS for
 > styling and animations. Tooltips can be triggered by hovering, focusing, or clicking an element
 
-Use the `v-b-tooltip` directive on any element or component where you would like a tooltip
-to appear.
+Use the `v-b-tooltip` directive on any element or component where you would like a tooltip to
+appear.
 
 ```html
 <div class="text-center my-3">
@@ -18,12 +18,15 @@ to appear.
 
 Things to know when using tooltips:
 
-- Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled with Bootstrap-Vue!
+- Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled with
+  Bootstrap-Vue!
 - Tooltips with zero-length titles are never displayed.
-- Specify container: 'body' (default) to avoid rendering problems in more complex components (like input groups, button groups, etc).
+- Specify container: 'body' (default) to avoid rendering problems in more complex components (like
+  input groups, button groups, etc).
 - Triggering tooltips on hidden elements will not work.
 - Tooltips for `disabled` elements must be triggered on a wrapper element.
-- When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
+- When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use
+  white-space: nowrap; on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
 - Tooltips must be hidden before their corresponding elements have been removed from the DOM.
 
 ## Positioning
@@ -133,13 +136,12 @@ The default position is `top`. Positioning is relative to the trigger element.
 
 ## Triggers
 
-Tooltips can be triggered (opened/closed) via any combination of `click`, `hover` and
-`focus`. The default trigger is `hover focus`.
+Tooltips can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
+default trigger is `hover focus`.
 
-If a tooltip has more than one trigger, then all triggers must be cleared before the
-tooltip will close. I.e. if a tooltip has the trigger `focus click`, and it was opened by
-`focus`, and the user then clicks the trigger element, they must click it again **and**
-move focus to close the tooltip.
+If a tooltip has more than one trigger, then all triggers must be cleared before the tooltip will
+close. I.e. if a tooltip has the trigger `focus click`, and it was opened by `focus`, and the user
+then clicks the trigger element, they must click it again **and** move focus to close the tooltip.
 
 ```html
 <template>
@@ -166,19 +168,18 @@ move focus to close the tooltip.
 
 ### Dismiss on next click
 
-Use both `click` and `blur` if you would like a tooltip that opens only on click of
-the element, but will close when anything else in the document is clicked or
-receives focus.
+Use both `click` and `blur` if you would like a tooltip that opens only on click of the element, but
+will close when anything else in the document is clicked or receives focus.
 
-Note that your element **must** be in the document tab sequence for this to work. If
-your element is not tabable, add the `tabindex="0"` attribute to the element.
+Note that your element **must** be in the document tab sequence for this to work. If your element is
+not tabable, add the `tabindex="0"` attribute to the element.
 
 ## Title content
 
 There are several options for providing the title of a tooltip.
 
-By default, tooltip will use the `title` attribute of the element as the
-tooltip content. The title can also be passed as an object to `v-b-tooltip` in the form of
+By default, tooltip will use the `title` attribute of the element as the tooltip content. The title
+can also be passed as an object to `v-b-tooltip` in the form of
 
 ```js
 {
@@ -186,8 +187,8 @@ tooltip content. The title can also be passed as an object to `v-b-tooltip` in t
 }
 ```
 
-If your title content has basic HTML markup, then you will also need to set the `html`
-property to true, or use the diretive modifier `html`
+If your title content has basic HTML markup, then you will also need to set the `html` property to
+true, or use the diretive modifier `html`
 
 ```js
 // Object format with HTML:
@@ -246,23 +247,32 @@ v-b-tooltip:[container].[mod1].[mod2].[...].[modN]="<value>"
 Where [container] can be (optional)
 
 - An element ID (minus the #) to place the tooltip markup in
-- If not provided, tooltips are appended to the `body`. If the trigger element is inside a modal, the tooltip will be appended to the modal's container
+- If not provided, tooltips are appended to the `body`. If the trigger element is inside a modal,
+  the tooltip will be appended to the modal's container
 
 Where [modX] can be (all optional):
 
-- Positioning: `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom` (last one found wins, defaults to `top`)
-- Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `focus` and `hover`. `blur` is a close handler only, and if specified by itself, will be converted to `focus`)
+- Positioning: `top`, `bottom`, `left`, `right`, `auto`, `topleft`, `topright`, `bottomleft`,
+  `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom` (last one found wins,
+  defaults to `top`)
+- Event trigger: `click`, `hover`, `focus`, `blur` (if none specified, defaults to `focus` and
+  `hover`. `blur` is a close handler only, and if specified by itself, will be converted to `focus`)
 - `nofade` to turn off animation
 - `html` to enable rendering raw HTML. By default HTML is escaped and converted to text
 - A delay value in the format of `d###` (where `###` is in ms, defaults to 0);
-- An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults to 0. Negative values allowed)
-- A boundary setting of `window` or `viewport`. The element to constrain the visual placement of the tooltip. If not specified, the boundary defaults to the trigger element's scroll parent (in most cases this will suffice).
+- An offset value in pixels in the format of `o###` (where `###` is the number of pixels, defaults
+  to 0. Negative values allowed)
+- A boundary setting of `window` or `viewport`. The element to constrain the visual placement of the
+  tooltip. If not specified, the boundary defaults to the trigger element's scroll parent (in most
+  cases this will suffice).
 
 Where `<value>` can be (optional):
 
 - A string containing the title of the tooltip
-- A function reference to generate the title of the tooltip (receives one arg which is a reference to the DOM element triggering the tooltip)
-- An object containing more complex configuration of tooltip. See below for accepted object properties:
+- A function reference to generate the title of the tooltip (receives one arg which is a reference
+  to the DOM element triggering the tooltip)
+- An object containing more complex configuration of tooltip. See below for accepted object
+  properties:
 
 **Options configuration object properties:**
 
@@ -336,20 +346,20 @@ To close a **specific tooltip**, pass the trigger element's `id` as the first ar
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id')
 ```
 
-To open a **specific tooltip**, pass the trigger element's `id` as the first argument when
-emitting the `bv::show::tooltip` \$root event:
+To open a **specific tooltip**, pass the trigger element's `id` as the first argument when emitting
+the `bv::show::tooltip` \$root event:
 
 ```js
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id')
 ```
 
-To open all popovers simultaneously, omit the `id` argument when emitting the
-`bv::show::tooltip` event.
+To open all popovers simultaneously, omit the `id` argument when emitting the `bv::show::tooltip`
+event.
 
 These events work for both the component **and** directive versions of tooltip.
 
-Note the **trigger element** must exist in the DOM and be in a visible state in order
-for the tooltip to show.
+Note the **trigger element** must exist in the DOM and be in a visible state in order for the
+tooltip to show.
 
 ## Disabling and enabling tooltips via \$root events
 
@@ -377,8 +387,8 @@ To enable all popovers simultaneously, omit the `id` argument when emitting the
 
 These events work for both the component **and** directive versions of tooltip.
 
-Note the **trigger element** must exist in the DOM in order for the
-tooltip to be enabled or disabled.
+Note the **trigger element** must exist in the DOM in order for the tooltip to be enabled or
+disabled.
 
 ## See also
 

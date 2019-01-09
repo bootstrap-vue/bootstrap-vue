@@ -5,8 +5,9 @@
 ## Playground & Issue Reports
 
 If you want to play with BootstrapVue components without any local setup just head to
-[OnlinePlayground](https://bootstrap-vue.js.org/play) and you can interactively play and test components with a fresh Vue instance.
-If you want to keep your changes or make PRs reporting a component's misbehaviour you can save them in JSFiddle and provide that link in issues.
+[OnlinePlayground](https://bootstrap-vue.js.org/play) and you can interactively play and test
+components with a fresh Vue instance. If you want to keep your changes or make PRs reporting a
+component's misbehaviour you can save them in JSFiddle and provide that link in issues.
 
 ## Setup
 
@@ -32,14 +33,14 @@ If you want to see your changes in your project instead of the playground:
 - Execute `yarn link` inside _bootstrap-vue_ directory.
 - In your project run `yarn link bootstrap-vue`
 - Run `yarn watch` inside _bootstrap-vue_
-- Now every time you change a component, a new production version will be built and ready on your project.
+- Now every time you change a component, a new production version will be built and ready on your
+  project.
 
 ## Pull requests
 
-Please ensure all pull requests are made aganst the `dev` branch on GitHub. See
-the [Conventional Commits](https://conventionalcommits.org/) spec for commit
-and PR naming guidelines. This is very important, as the `CHANGELOG` is
-generated from these messages.
+Please ensure all pull requests are made aganst the `dev` branch on GitHub. See the
+[Conventional Commits](https://conventionalcommits.org/) spec for commit and PR naming guidelines.
+This is very important, as the `CHANGELOG` is generated from these messages.
 
 Examples:
 
@@ -48,8 +49,10 @@ Examples:
 
 ## Financial contributions
 
-We also welcome financial contributions in full transparency on our [open collective](https://opencollective.com/bootstrap-vue).
-Anyone can file an expense. If the expense makes sense for the development of the community, it will be "merged" in the ledger of our open collective by the core contributors and the person who filed the expense will be reimbursed.
+We also welcome financial contributions in full transparency on our
+[open collective](https://opencollective.com/bootstrap-vue). Anyone can file an expense. If the
+expense makes sense for the development of the community, it will be "merged" in the ledger of our
+open collective by the core contributors and the person who filed the expense will be reimbursed.
 
 ## Credits
 
@@ -66,7 +69,8 @@ Thank you to all our backers! [[Become a backer](https://opencollective.com/boot
 
 ### Sponsors
 
-Thank you to all our sponsors! (please ask your company to also support this open source project by [becoming a sponsor](https://opencollective.com/bootstrap-vue#sponsor))
+Thank you to all our sponsors! (please ask your company to also support this open source project by
+[becoming a sponsor](https://opencollective.com/bootstrap-vue#sponsor))
 
 <a href="https://opencollective.com/bootstrap-vue/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/bootstrap-vue/sponsor/1/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/1/avatar.svg"></a>

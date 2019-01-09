@@ -1,7 +1,7 @@
 # Progress
 
-> Use our custom progress component for displaying simple or complex progress
-> bars, featuring support for horizontally stacked bars, animated backgrounds, and text labels.
+> Use our custom progress component for displaying simple or complex progress bars, featuring
+> support for horizontally stacked bars, animated backgrounds, and text labels.
 
 ```html
 <template>
@@ -38,8 +38,8 @@
 
 ## Value
 
-Set the maximum value with the `max` prop (default is `100`), and the current value via the
-`value` prop (default `0`).
+Set the maximum value with the `max` prop (default is `100`), and the current value via the `value`
+prop (default `0`).
 
 When creating multiple bars in a single process, place the value prop on the individual
 `<b-progress-bar>` sub components (see the **Multiple Bars** section below for more details)
@@ -47,8 +47,8 @@ When creating multiple bars in a single process, place the value prop on the ind
 ## Labels
 
 Add labels to your progress bars by either enabling `show-progress` (percentage of max) or
-`show-value`for the current absolute value. You may also set the precision (number of
-digits after the decimal) via the `precision` prop (default is `0`digits after the decimal).
+`show-value`for the current absolute value. You may also set the precision (number of digits after
+the decimal) via the `precision` prop (default is `0`digits after the decimal).
 
 ```html
 <template>
@@ -82,9 +82,9 @@ digits after the decimal) via the `precision` prop (default is `0`digits after t
 
 ### Custom progress label
 
-Need more control over the label? Provide your own label by using the default slot within
-a `<b-progress-bar>` sub-component, or by using the `label` prop on `<b-progress-bar>`
-(HTML supported):
+Need more control over the label? Provide your own label by using the default slot within a
+`<b-progress-bar>` sub-component, or by using the `label` prop on `<b-progress-bar>` (HTML
+supported):
 
 ```html
 <template>
@@ -129,9 +129,9 @@ Precedence order for label methods (top-most has precedence):
 
 ## Width and Height
 
-`<b-progress>` will always expand to the maximum with of it's parent container. To
-change the width, place `<b-progress>` in a standard Bootstrap column or apply
-one of the standard Bootstrap width classes.
+`<b-progress>` will always expand to the maximum with of it's parent container. To change the width,
+place `<b-progress>` in a standard Bootstrap column or apply one of the standard Bootstrap width
+classes.
 
 ```html
 <template>
@@ -158,9 +158,8 @@ one of the standard Bootstrap width classes.
 <!-- progress-width.vue -->
 ```
 
-The height of the progress bar can be controled with the `height` prop. The height
-value should be a standard CSS dimension (`px`, `rem`, `em`, etc). The default
-height is `1rem`.
+The height of the progress bar can be controled with the `height` prop. The height value should be a
+standard CSS dimension (`px`, `rem`, `em`, etc). The default height is `1rem`.
 
 ```html
 <template>
@@ -189,8 +188,8 @@ height is `1rem`.
 
 ## Backgrounds
 
-Use background variants to change the appearance of individual progress bars.
-The default variant is `primary`.
+Use background variants to change the appearance of individual progress bars. The default variant is
+`primary`.
 
 ### Solid background variants
 
@@ -239,8 +238,7 @@ The default variant is `primary`.
 
 ### Striped backgrounds
 
-Set `striped` to apply a stripe via CSS gradient over the progress bar’s
-background variant.
+Set `striped` to apply a stripe via CSS gradient over the progress bar’s background variant.
 
 ```html
 <template>
@@ -305,8 +303,8 @@ Notes:
 
 ## Multiple bars
 
-Include multiple `<b-progress-bar>` sub-components in a `<b-progress>` component to build
-a horizontally stacked set of progress bars.
+Include multiple `<b-progress-bar>` sub-components in a `<b-progress>` component to build a
+horizontally stacked set of progress bars.
 
 ```html
 <template>
@@ -348,8 +346,8 @@ export default {
 <!-- progress-multiple.vue -->
 ```
 
-`<b-prgress-bar>` will inherit most of the props from the `<b-progress>` parent component,
-but you can override any of the props by setting them on the `<b-progress-bar>`
+`<b-prgress-bar>` will inherit most of the props from the `<b-progress>` parent component, but you
+can override any of the props by setting them on the `<b-progress-bar>`
 
 Notes:
 

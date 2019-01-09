@@ -1,10 +1,12 @@
 # Spinners
 
-> The `<b-spinner>` component can be used to show the loading state in your projects. They're rendered
-> only with basical HTML and CSS as a lightweight Vue functional component. Their appearance, alignment,
-> and sizing can be easily customized with a few built-in props and/or Bootstrap V4 utility classes.
+> The `<b-spinner>` component can be used to show the loading state in your projects. They're
+> rendered only with basical HTML and CSS as a lightweight Vue functional component. Their
+> appearance, alignment, and sizing can be easily customized with a few built-in props and/or
+> Bootstrap V4 utility classes.
 
-Spinners can be placed just about anywhere, including inside buttons, alerts, and even `<b-table>`'s busy slot.
+Spinners can be placed just about anywhere, including inside buttons, alerts, and even `<b-table>`'s
+busy slot.
 
 ```html
 <div class="text-center">
@@ -21,8 +23,8 @@ Spinners can be placed just about anywhere, including inside buttons, alerts, an
 
 ## Spinner types
 
-Bootstrap includes two types of spinners. The default spinner type is called `border`
-(spinning circle border), and the optional type `grow` (a throbber style indicator).
+Bootstrap includes two types of spinners. The default spinner type is called `border` (spinning
+circle border), and the optional type `grow` (a throbber style indicator).
 
 ### Border spinner
 
@@ -36,8 +38,8 @@ Use the default `border` type spinners for a lightweight loading indicator.
 
 ### Grow spinner
 
-If you don't fancy a `border` spinner, switch to the `grow` spinner by setting the prop `type` to `'grow'`.
-While it doesn't technically spin, it does repeatedly grow!
+If you don't fancy a `border` spinner, switch to the `grow` spinner by setting the prop `type` to
+`'grow'`. While it doesn't technically spin, it does repeatedly grow!
 
 ```html
 <div><b-spinner type="grow" label="Loading..."></b-spinner></div>
@@ -47,9 +49,9 @@ While it doesn't technically spin, it does repeatedly grow!
 
 ## Spinner color variants
 
-Spinners use `currentColor` for their color, meaning it inherits the current font color.
-You can customize the color using the standard text color variants using the `variant` prop,
-or place classes or styles on the component to change it's color.
+Spinners use `currentColor` for their color, meaning it inherits the current font color. You can
+customize the color using the standard text color variants using the `variant` prop, or place
+classes or styles on the component to change it's color.
 
 The `variant` prop translates the variant name to the bootstrap V4 class `.text-{variant}`, so if
 you have custom defined text color variants, feel free to use them via the `variant` prop.
@@ -84,12 +86,13 @@ you have custom defined text color variants, feel free to use them via the `vari
 <!-- spinner-variants.vue -->
 ```
 
-**Why not use `border-color` utilities?** Each `border` spinner specifies a `transparent`
-border for at least one side, so `.border-{color}` utilities would override that.
+**Why not use `border-color` utilities?** Each `border` spinner specifies a `transparent` border for
+at least one side, so `.border-{color}` utilities would override that.
 
 ## Size
 
-Set the prop `small` to `true` to make a smaller spinner that can quickly be used within other components.
+Set the prop `small` to `true` to make a smaller spinner that can quickly be used within other
+components.
 
 ```html
 <div>
@@ -113,8 +116,8 @@ Or, use custom CSS or inline styles to change the dimensions as needed.
 
 ## Alignment
 
-Spinners in Bootstrap are built with `rem`s, `currentColor`, and `display: inline-flex`. This means they
-can easily be resized, recolored, and quickly aligned.
+Spinners in Bootstrap are built with `rem`s, `currentColor`, and `display: inline-flex`. This means
+they can easily be resized, recolored, and quickly aligned.
 
 ### Margin
 
@@ -173,8 +176,8 @@ Using text alignment utility classes:
 
 ## Spinners in buttons
 
-Use spinners within buttons to indicate an action is currently processing or taking place. You
-may also swap the label text out of the spinner element and utilize button text as needed.
+Use spinners within buttons to indicate an action is currently processing or taking place. You may
+also swap the label text out of the spinner element and utilize button text as needed.
 
 ```html
 <div>
@@ -193,13 +196,13 @@ may also swap the label text out of the spinner element and utilize button text 
 
 ## Spinner accessibility
 
-Place a hidden label text inside the spinner for screen reader users, via the `label` prop or `label` slot.
-The content will be placed _inside_ the spinner wrapped in a `<span>` element that has the class `sr-only`,
-which will make the label available to screen reader users.
+Place a hidden label text inside the spinner for screen reader users, via the `label` prop or
+`label` slot. The content will be placed _inside_ the spinner wrapped in a `<span>` element that has
+the class `sr-only`, which will make the label available to screen reader users.
 
-For accessibility purposes, each spinner will automatically have a `role="status"` attribute when
-a label is provided. You can easily customize the role if required via prop `role`. The specified `role`
-will not be applied when no label is provided.
+For accessibility purposes, each spinner will automatically have a `role="status"` attribute when a
+label is provided. You can easily customize the role if required via prop `role`. The specified
+`role` will not be applied when no label is provided.
 
-As well, when no label is provided, the spinner will automatically have the attribute `aria-hidden="true"` to hide
-the spinner from screen reader users.
+As well, when no label is provided, the spinner will automatically have the attribute
+`aria-hidden="true"` to hide the spinner from screen reader users.

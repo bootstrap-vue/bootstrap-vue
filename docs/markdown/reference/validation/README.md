@@ -1,16 +1,21 @@
 # Form Validation
 
-BootstrapVue does not include form validation by default; we leave that up to the many existing form validation plugins. Below are some examples of plugins and how they may be integrated.
+BootstrapVue does not include form validation by default; we leave that up to the many existing form
+validation plugins. Below are some examples of plugins and how they may be integrated.
 
 ## Vuelidate
 
-Vuelidate provides "Simple, lightweight model-based validation for Vue.js". Installation instructions and other documentation can be found at https://monterail.github.io/vuelidate.
+Vuelidate provides "Simple, lightweight model-based validation for Vue.js". Installation
+instructions and other documentation can be found at https://monterail.github.io/vuelidate.
 
 ### Vuelidate Example
 
-This example shows how to add different validation and feedback to two form fields, as well as dynamically disable the submit button based on the form validity.
+This example shows how to add different validation and feedback to two form fields, as well as
+dynamically disable the submit button based on the form validity.
 
-This is a verbose example designed to show how BootstrapVue and Vuelidate interact; in larger applications, you'd likely want to abstract some of the functionality, such as creating a standard error message component.
+This is a verbose example designed to show how BootstrapVue and Vuelidate interact; in larger
+applications, you'd likely want to abstract some of the functionality, such as creating a standard
+error message component.
 
 ```html
 <template>
@@ -77,14 +82,14 @@ This is a verbose example designed to show how BootstrapVue and Vuelidate intera
 
 ## vee-validate
 
-[vee-validate](https://github.com/baianat/vee-validate) is a plugin for Vue.js
-that allows you to validate input fields and display errors. It has full support
-for `vue-i18n` and provides fairly good out of the box error messages.
+[vee-validate](https://github.com/baianat/vee-validate) is a plugin for Vue.js that allows you to
+validate input fields and display errors. It has full support for `vue-i18n` and provides fairly
+good out of the box error messages.
 
 **Important**
 
-You **must** configure `vee-validate`'s fields property or it will conflict with the
-`:fields` property of `b-table` (and possibly other components) when it injects itself.
+You **must** configure `vee-validate`'s fields property or it will conflict with the `:fields`
+property of `b-table` (and possibly other components) when it injects itself.
 
 ```js
 import Vue from 'vue'

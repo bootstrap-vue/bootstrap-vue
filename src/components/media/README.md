@@ -1,8 +1,8 @@
 # Media
 
-> The media object helps build complex and repetitive components where some media is
-> positioned alongside content that doesn’t wrap around said media. Plus, it does this
-> with only two required classes thanks to flexbox.
+> The media object helps build complex and repetitive components where some media is positioned
+> alongside content that doesn’t wrap around said media. Plus, it does this with only two required
+> classes thanks to flexbox.
 
 ```html
 <b-card>
@@ -97,16 +97,15 @@ You can easily nest media objects by including another `<b-media>` inside parent
 
 ## Vertical Align
 
-Aside can be vertical aligned using `vertical-align` should be either `top`, `center`
-or `end`. Default is `top`.
+Aside can be vertical aligned using `vertical-align` should be either `top`, `center` or `end`.
+Default is `top`.
 
 ## Media list
 
-Because the media object has so few structural requirements, you can also
-use these component as list HTML elements. On your `<ul>` or `<ol>`, add the
-class `list-unstyled` to remove any browser default list styles, and then use
-the `<b-media>` component with `tag` prop set to `li`. As always, use spacing
-utilities wherever needed to fine tune.
+Because the media object has so few structural requirements, you can also use these component as
+list HTML elements. On your `<ul>` or `<ol>`, add the class `list-unstyled` to remove any browser
+default list styles, and then use the `<b-media>` component with `tag` prop set to `li`. As always,
+use spacing utilities wherever needed to fine tune.
 
 ```html
 <ul class="list-unstyled">

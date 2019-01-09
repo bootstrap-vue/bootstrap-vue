@@ -1,7 +1,8 @@
 # Popover
 
-> The Popover feature, which provides a tooltip-like behavior, can be easily applied to any interactive
-> element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popover) directive.
+> The Popover feature, which provides a tooltip-like behavior, can be easily applied to any
+> interactive element via the `<b-popover>` component or [`v-b-popover`](/docs/directives/popover)
+> directive.
 
 ```html
 <div class="my-3">
@@ -15,30 +16,33 @@
 
 Things to know when using popover component:
 
-- Popovers rely on the 3rd party library Popper.js for positioning. The library is bundled with Bootstrap-Vue dist files!
+- Popovers rely on the 3rd party library Popper.js for positioning. The library is bundled with
+  Bootstrap-Vue dist files!
 - Popovers with zero-length title _and_ content are never displayed.
-- Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more complex components (like input groups, button groups, etc). You can use `container` to optionally specify a different element to append the popover to.
+- Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
+  complex components (like input groups, button groups, etc). You can use `container` to optionally
+  specify a different element to append the popover to.
 - Triggering popovers on hidden elements will not work.
 - Popovers for `disabled` elements must be triggered on a wrapper element.
-- When triggered from hyperlinks that span multiple lines, popovers will be centered. Use `white-space: nowrap;` on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
+- When triggered from hyperlinks that span multiple lines, popovers will be centered. Use
+  `white-space: nowrap;` on your `<a>`s, `<b-link>`s and `<router-link>`s to avoid this behavior.
 - Popovers must be hidden before their corresponding markup elements have been removed from the DOM.
 
 The `<b-popover>` component inserts a hidden (`display: none;`) `<div>` intermediate container
-element at the point in the DOM where the `<b-popover>` component is placed. This may
-affect layout and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`,
-and `<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>`
-component **outside** of these types of components.
+element at the point in the DOM where the `<b-popover>` component is placed. This may affect layout
+and/or styling of components such as `<b-button-group>`, `<b-button-toolbar>`, and
+`<b-input-group>`. To avoid these posible layout issues, place the `<b-popover>` component
+**outside** of these types of components.
 
-The target element **must** exist in the document before `<b-popover>` is mounted.
-If the target element is not found during mount, the popover will never open. Always
-place your `<b-popover>` component lower in the DOM than your target element.
+The target element **must** exist in the document before `<b-popover>` is mounted. If the target
+element is not found during mount, the popover will never open. Always place your `<b-popover>`
+component lower in the DOM than your target element.
 
-> **Note:** _When using slots for content and/or title, `<b-popover>` transfers the
-> rendered DOM from those slots into the popover's markup when shown, and returns
-> them back to the `<b-popover>` component when hidden. This may cause some issues
-> in rare circumstances, so please test your implementation accordingly! The `title`
-> and `content` props do not have this behavior. For simple popovers, we recommend
-> using the `v-b-popover` directive and enable the `html` modifer if needed._
+> **Note:** _When using slots for content and/or title, `<b-popover>` transfers the rendered DOM
+> from those slots into the popover's markup when shown, and returns them back to the `<b-popover>`
+> component when hidden. This may cause some issues in rare circumstances, so please test your
+> implementation accordingly! The `title` and `content` props do not have this behavior. For simple
+> popovers, we recommend using the `v-b-popover` directive and enable the `html` modifer if needed._
 
 ## Positioning
 
@@ -140,23 +144,22 @@ Positioning is relative to the trigger element.
 
 ## Triggers
 
-Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and
-`focus`. The default trigger is `click`.
+Popovers can be triggered (opened/closed) via any combination of `click`, `hover` and `focus`. The
+default trigger is `click`.
 
-If a popover has more than one trigger, then all triggers must be cleared before the
-popover will close. I.e. if a popover has the trigger `focus click`, and it was opened by
-`focus`, and the user then clicks the trigger element, they must click it again **and**
-move focus to close the popover.
+If a popover has more than one trigger, then all triggers must be cleared before the popover will
+close. I.e. if a popover has the trigger `focus click`, and it was opened by `focus`, and the user
+then clicks the trigger element, they must click it again **and** move focus to close the popover.
 
 ### Dismiss on next click (self-dismissing)
 
-Use the `focus` trigger by itself to dismiss popovers on the next click that the user makes.
-`focus` also makes the popover activate on both `focus` and `click` (as a click makes
-the element receive focus, assuming it is in the tab sequence of the page).
+Use the `focus` trigger by itself to dismiss popovers on the next click that the user makes. `focus`
+also makes the popover activate on both `focus` and `click` (as a click makes the element receive
+focus, assuming it is in the tab sequence of the page).
 
-You can, however, specify your trigger as `click blur`, which will make only a
-click activate the popover, and either a click on the element, _or_ losing focus
-to another element or part of the document will close the popover.
+You can, however, specify your trigger as `click blur`, which will make only a click activate the
+popover, and either a click on the element, _or_ losing focus to another element or part of the
+document will close the popover.
 
 The special `blur` trigger must be used in combination with the `click` trigger.
 
@@ -250,8 +253,8 @@ The special `blur` trigger must be used in combination with the `click` trigger.
 
 ### Programmatically show and hide popover
 
-You can manually control the visibility of a popover via the syncable Boolean `show` prop.
-Setting it to `true` will show the popover, while setting it to `false` will hide the popover.
+You can manually control the visibility of a popover via the syncable Boolean `show` prop. Setting
+it to `true` will show the popover, while setting it to `false` will hide the popover.
 
 ```html
 <template>
@@ -279,8 +282,8 @@ Setting it to `true` will show the popover, while setting it to `false` will hid
 <!-- popover-show-sync.vue -->
 ```
 
-Programmatic control can also be affected by submitting `'open'` and `'close'`
-events to the popover by reference.
+Programmatic control can also be affected by submitting `'open'` and `'close'` events to the popover
+by reference.
 
 ```html
 <template>
@@ -315,8 +318,7 @@ events to the popover by reference.
 <!-- popover-show-event.vue -->
 ```
 
-To make the popover shown on initial render, simply add the `show` prop
-on `<b-popover>`:
+To make the popover shown on initial render, simply add the `show` prop on `<b-popover>`:
 
 ```html
 <div class="text-center">
@@ -330,15 +332,15 @@ on `<b-popover>`:
 <!-- popover-show-open.vue -->
 ```
 
-A popover which is opened programmatically via the 'show' property or by an event call
-can only be closed programmatically. Built-in triggers will work inadequatly, because trigger
-event will try to open the popover even though it is already opened.
+A popover which is opened programmatically via the 'show' property or by an event call can only be
+closed programmatically. Built-in triggers will work inadequatly, because trigger event will try to
+open the popover even though it is already opened.
 
-In the below example, when the first Popover is opened with the 'open' event, it will
-take two button clicks to close it. Play with the below demo to understand this. When
-you desire graceful handling of both programmatic control of the Popover
-component as well as user interaction triggers, you should disable built-in
-triggers and handle control yourself as demonstrated by the second Popover.
+In the below example, when the first Popover is opened with the 'open' event, it will take two
+button clicks to close it. Play with the below demo to understand this. When you desire graceful
+handling of both programmatic control of the Popover component as well as user interaction triggers,
+you should disable built-in triggers and handle control yourself as demonstrated by the second
+Popover.
 
 ```html
 <template>
@@ -391,16 +393,16 @@ triggers and handle control yourself as demonstrated by the second Popover.
 <!-- popover-advanced-caution.vue -->
 ```
 
-You can also use `$root` events to trigger the showing and hiding of popover(s).
-See the **Hiding and showing popovers via \$root events** section below for details.
+You can also use `$root` events to trigger the showing and hiding of popover(s). See the **Hiding
+and showing popovers via \$root events** section below for details.
 
 ### Programmatically disabling popover
 
-You can disable popover via the syncable Boolean prop `disabled` (default vlaue is `false`)
-Setting it to `true` will disable the popover. If the popover is currently visible
-when disabled is set to `false`, it will remain visible until it is enabled or
-programmatically closed. If the popover is disabled/enabled via \$root events (see below),
-your `disabled` value will be updated as long as you have provided the `.sync` prop modifier.
+You can disable popover via the syncable Boolean prop `disabled` (default vlaue is `false`) Setting
+it to `true` will disable the popover. If the popover is currently visible when disabled is set to
+`false`, it will remain visible until it is enabled or programmatically closed. If the popover is
+disabled/enabled via \$root events (see below), your `disabled` value will be updated as long as you
+have provided the `.sync` prop modifier.
 
 ```html
 <template>
@@ -451,8 +453,8 @@ your `disabled` value will be updated as long as you have provided the `.sync` p
 <!-- popover-disable.vue -->
 ```
 
-Programmatic control can also be affected by submitting `'enable'` and `'disable'`
-events to the popover by reference.
+Programmatic control can also be affected by submitting `'enable'` and `'disable'` events to the
+popover by reference.
 
 ```html
 <template>
@@ -487,11 +489,11 @@ events to the popover by reference.
 <!-- popover-disabled-event.vue -->
 ```
 
-When disabled, the popover can be opened programmatically (either via the `show` prop,
-methods or events).
+When disabled, the popover can be opened programmatically (either via the `show` prop, methods or
+events).
 
-You can also use `$root` events to trigger disabling and enabling of popover(s).
-See the **Disabling and enabling popovers via \$root events** section below for details.
+You can also use `$root` events to trigger disabling and enabling of popover(s). See the **Disabling
+and enabling popovers via \$root events** section below for details.
 
 ## `v-b-popover` Directive usage
 
@@ -531,19 +533,21 @@ information on the directive usage.
 
 ## Advanced `<b-popover>` usage with reactive content
 
-You can even make your `<b-popover>` content interactive. Just remember not to use the
-`focus`, `hover` or `blur` triggers (use only `click`), otherwise your popover will
-close automatically as soon as someone will try to interact with the content.
+You can even make your `<b-popover>` content interactive. Just remember not to use the `focus`,
+`hover` or `blur` triggers (use only `click`), otherwise your popover will close automatically as
+soon as someone will try to interact with the content.
 
-If you absolutely must use a trigger other than `click` (or want to disable closing of the
-popover when the trigger element is clicked a second time), then you can either:
+If you absolutely must use a trigger other than `click` (or want to disable closing of the popover
+when the trigger element is clicked a second time), then you can either:
 
-- Listen for the `hide` event on the `<b-popover>` element, and call the `preventDefault()` method (when appropriate) on the `BvEvent` object passed to your `hide` handler;
-- Disable your trigger element (if possible) as soon as the popover begins to open (via the `show` event), and re-enable it when appropriate (i.e. via the `hide` or `hidden` event).
+- Listen for the `hide` event on the `<b-popover>` element, and call the `preventDefault()` method
+  (when appropriate) on the `BvEvent` object passed to your `hide` handler;
+- Disable your trigger element (if possible) as soon as the popover begins to open (via the `show`
+  event), and re-enable it when appropriate (i.e. via the `hide` or `hidden` event).
 
-For practical purposes, interactive content popovers should be minimal. The maximum
-width of the popover is hard coded by Bootstrap V4 CSS to `276px`. Tall popovers on
-small screens can be harder to deal with on mobile devices (such as smart-phones).
+For practical purposes, interactive content popovers should be minimal. The maximum width of the
+popover is hard coded by Bootstrap V4 CSS to `276px`. Tall popovers on small screens can be harder
+to deal with on mobile devices (such as smart-phones).
 
 ```html
 <template>
@@ -726,12 +730,13 @@ emitting the `bv::show::popover` event:
 this.$root.$emit('bv::show::popover', 'my-trigger-button-id')
 ```
 
-To open all popovers simultaneously, omit the `id` argument when emitting the
-`bv::show::popover` event.
+To open all popovers simultaneously, omit the `id` argument when emitting the `bv::show::popover`
+event.
 
 These events work for both the component **and** directive versions of popover.
 
-> **Note:** _The **trigger element** must exist in the DOM and be in a visible state in order for the popover to instantiate and show._
+> **Note:** _The **trigger element** must exist in the DOM and be in a visible state in order for
+> the popover to instantiate and show._
 
 ## Disabling and enabling popovers via \$root events
 
@@ -759,22 +764,21 @@ To enable all popovers simultaneously, omit the `id` argument when emitting the
 
 These events work for both the component and directive versions of popover.
 
-> **Note:** _The **trigger element** must exist in the DOM in order for the popover to be enabled or disabled._
+> **Note:** _The **trigger element** must exist in the DOM in order for the popover to be enabled or
+> disabled._
 
 ## Accessibility
 
 Popovers, in their current implementation, are not overly accessible when used as interactive
-components. Content may not be actively read to screen reader users, and the popover
-markup might not be located close to the trigger element in the DOM (as popovers usually
-get appended to the end of `<body>`).
+components. Content may not be actively read to screen reader users, and the popover markup might
+not be located close to the trigger element in the DOM (as popovers usually get appended to the end
+of `<body>`).
 
-When using popovers as interactive component, you should transfer focus into the
-popover if possible. When the popover is closed, you should return focus back to
-your triggering element (assuming `focus` is not used as a trigger method), as we
-have done in the above example.
+When using popovers as interactive component, you should transfer focus into the popover if
+possible. When the popover is closed, you should return focus back to your triggering element
+(assuming `focus` is not used as a trigger method), as we have done in the above example.
 
-You may also want to implement focus containment in the popover content while the
-user is interacting with it (keeping focus inside the popover until it is closed
-by the user).
+You may also want to implement focus containment in the popover content while the user is
+interacting with it (keeping focus inside the popover until it is closed by the user).
 
 <!-- Component reference added automatically from component package.json -->

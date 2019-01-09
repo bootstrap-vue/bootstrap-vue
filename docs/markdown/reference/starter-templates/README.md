@@ -1,10 +1,10 @@
 # Starter Templates
 
-> There are several ways you can create your app, from basic client side HTML
-> all the way up to using a build system and compilers.
+> There are several ways you can create your app, from basic client side HTML all the way up to
+> using a build system and compilers.
 
-In all cases, you should have familiarity with using [Vue](https://vuejs.org). A good
-resource for Vue tutorials is [Laracasts](https://laracasts.com/search?q=vue).
+In all cases, you should have familiarity with using [Vue](https://vuejs.org). A good resource for
+Vue tutorials is [Laracasts](https://laracasts.com/search?q=vue).
 
 ## Basic example
 
@@ -99,28 +99,31 @@ Coming soon!
 
 ## Building with customized Bootstrap V4 CSS
 
-If you are using a build system, and would like to customize the Bootstrap V4 CSS,
-the following references will be handy starting points:
+If you are using a build system, and would like to customize the Bootstrap V4 CSS, the following
+references will be handy starting points:
 
-- Article on [Integrating and Customising Bootstrap 4 in vue-js](https://medium.com/@_Dreamstream/integrating-and-customising-bootstrap-4-in-vue-js-cbc29ba7688e) hosted on medium.com
-- Official Bootstrap [Theming Bootstrap](http://getbootstrap.com/docs/4.0/getting-started/theming/) guide
+- Article on
+  [Integrating and Customising Bootstrap 4 in vue-js](https://medium.com/@_Dreamstream/integrating-and-customising-bootstrap-4-in-vue-js-cbc29ba7688e)
+  hosted on medium.com
+- Official Bootstrap [Theming Bootstrap](http://getbootstrap.com/docs/4.0/getting-started/theming/)
+  guide
 
 ## Individual component import
 
 There are a few methods that you can use to import individual components and directvies.
 
-You will need `vue-loader` configured to handle the compiling any components that are
-internally single file `.vue` components.
+You will need `vue-loader` configured to handle the compiling any components that are internally
+single file `.vue` components.
 
-The BootstrapVue distribution now includes `ES` modules for all components and directives.
-These are located in the `bootstrap-vue/es/components/` and `bootstrap-vue/es/directives/`
-directories, when using the NPM bundle. When building from the BootstrapVue repo source
-the directories will be created when you run `yarn build`.
+The BootstrapVue distribution now includes `ES` modules for all components and directives. These are
+located in the `bootstrap-vue/es/components/` and `bootstrap-vue/es/directives/` directories, when
+using the NPM bundle. When building from the BootstrapVue repo source the directories will be
+created when you run `yarn build`.
 
 ### Importing individual components and directives as ES modules
 
-Components and directives appear in sub directories, grouped by functionality. As an example,
-you can import `<b-card>` (plus it's sub components) and `<b-table>` as follows:
+Components and directives appear in sub directories, grouped by functionality. As an example, you
+can import `<b-card>` (plus it's sub components) and `<b-table>` as follows:
 
 ```js
 // Import the individual components
@@ -155,9 +158,9 @@ export default {
 
 ### Importing component groups and directives as Vue plugins
 
-A component group and/or directive can be imported as a Vue plugin by importing
-the component group or directive directory. Importing `<b-card>` (and related
-sub-components) and `<b-table>` can be done with:
+A component group and/or directive can be imported as a Vue plugin by importing the component group
+or directive directory. Importing `<b-card>` (and related sub-components) and `<b-table>` can be
+done with:
 
 ```js
 // Import the components as Vue plugins
@@ -171,8 +174,7 @@ Vue.use(Table)
 Now you can use the `<b-card>` (including the `<b-card-*>` sub-components) and `<b-table>`
 components in your project templates.
 
-Note that some component plugins automatically import other directives and components
-(i.e. the `modal` plugin also imports the `v-b-modal` directive, and `nav` plugin
-automatically imports all `nav-*` sub-components and the dropdown sub-components).
-Refer to the component reference or directive reference at the bottom of each
-documentation page for details.
+Note that some component plugins automatically import other directives and components (i.e. the
+`modal` plugin also imports the `v-b-modal` directive, and `nav` plugin automatically imports all
+`nav-*` sub-components and the dropdown sub-components). Refer to the component reference or
+directive reference at the bottom of each documentation page for details.

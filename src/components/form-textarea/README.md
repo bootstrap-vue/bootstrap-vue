@@ -1,7 +1,7 @@
 # Form textarea
 
-> Create multi-line text inputs with support for auto height sizing, minimum
-> and maximum number of rows, and contextual states.
+> Create multi-line text inputs with support for auto height sizing, minimum and maximum number of
+> rows, and contextual states.
 
 ```html
 <template>
@@ -64,28 +64,26 @@ To control width, place the input inside standard Bootstrap grid column.
 
 ## Displayed rows
 
-To set the height of `<b-form-textarea>`, set the `rows` prop to the desired number of
-rows. If no value is provided to `rows`, then it will default to `2` (the browser
-default and minimum acceptable value). Setting it to null or a value below 2 will
-result in the default of `2` being used.
+To set the height of `<b-form-textarea>`, set the `rows` prop to the desired number of rows. If no
+value is provided to `rows`, then it will default to `2` (the browser default and minimum acceptable
+value). Setting it to null or a value below 2 will result in the default of `2` being used.
 
 ### Disable resize handle
 
-Some web browsers will allow the user to re-size the height of the textarea.
-To disable this feature, set the `no-resize` prop to `true`.
+Some web browsers will allow the user to re-size the height of the textarea. To disable this
+feature, set the `no-resize` prop to `true`.
 
 ### Auto height
 
-`<b-form-textarea>` can also automatically adjust its height (text rows) to fit the content,
-even as the user enters text.
+`<b-form-textarea>` can also automatically adjust its height (text rows) to fit the content, even as
+the user enters text.
 
-To set the initial minimum height (in rows), set the `rows` prop to the desired
-number of lines (or leave it at the default of `2`), And then set maximum rows that
-the text area will grow to (before showing a scrollbar) by setting the `max-rows` prop
-to the maximum number of lines of text.
+To set the initial minimum height (in rows), set the `rows` prop to the desired number of lines (or
+leave it at the default of `2`), And then set maximum rows that the text area will grow to (before
+showing a scrollbar) by setting the `max-rows` prop to the maximum number of lines of text.
 
-Note that the resize handle of the textarea (if supported by the browser) will automatically
-be disabled in auto-height mode.
+Note that the resize handle of the textarea (if supported by the browser) will automatically be
+disabled in auto-height mode.
 
 ## Textarea contextual states
 
@@ -93,8 +91,10 @@ Bootstrap includes validation styles for `valid` and `invalid` states on most fo
 
 Generally speaking, you’ll want to use a particular state for specific types of feedback:
 
-- `'invalid'` (or `false`) is great for when there’s a blocking or required field. A user must fill in this field properly to submit the form.
-- `'valid'` (or `true`) is ideal for situations when you have per-field validation throughout a form and want to encourage a user through the rest of the fields.
+- `'invalid'` (or `false`) is great for when there’s a blocking or required field. A user must fill
+  in this field properly to submit the form.
+- `'valid'` (or `true`) is ideal for situations when you have per-field validation throughout a form
+  and want to encourage a user through the rest of the fields.
 - `null` Displays no validation state
 
 To apply one of the contextual state icons on `<b-form-textarea>`, set the `state` prop to:
@@ -129,39 +129,37 @@ To apply one of the contextual state icons on `<b-form-textarea>`, set the `stat
 
 ### Conveying contextual state to assistive technologies and colorblind users
 
-Using these contextual states to denote the state of a form control only provides a
-visual, color-based indication, which will not be conveyed to users of assistive
-technologies - such as screen readers - or to colorblind users.
+Using these contextual states to denote the state of a form control only provides a visual,
+color-based indication, which will not be conveyed to users of assistive technologies - such as
+screen readers - or to colorblind users.
 
-Ensure that an alternative indication of state is also provided. For instance, you could
-include a hint about state in the form control's `<label>` text itself, or by providing
-an additional help text block.
+Ensure that an alternative indication of state is also provided. For instance, you could include a
+hint about state in the form control's `<label>` text itself, or by providing an additional help
+text block.
 
 ### ARIA `aria-invalid` attribute
 
-When `<b-form-textarea>` has an invalid contextual state (i.e. `'invalid'` or `false`)
-you may also want to set the prop `aria-invalid` to `true`, or one of hte supported values:
+When `<b-form-textarea>` has an invalid contextual state (i.e. `'invalid'` or `false`) you may also
+want to set the prop `aria-invalid` to `true`, or one of hte supported values:
 
 - `false`: No errors (default)
 - `true` or `'true'`: The value has failed validation.
 - `'grammar'`: A grammatical error has been detected.
 - `'spelling'` A spelling error has been detected.
 
-If the `state` prop is set to `false` (or `'invalid'`), and the `aria-invalid` prop is
-not explicity set, `<b-form-textarea>` will automatically set the `aria-invalid`
-attribute to `'true'`.
+If the `state` prop is set to `false` (or `'invalid'`), and the `aria-invalid` prop is not explicity
+set, `<b-form-textarea>` will automatically set the `aria-invalid` attribute to `'true'`.
 
 ## Formatter support
 
-Refer to the (`<b-form-input>`)[../form-input] documentation regarding usage of the
-optional formatter feature.
+Refer to the (`<b-form-input>`)[../form-input] documentation regarding usage of the optional
+formatter feature.
 
 ## Readonly plain text
 
-If you want to have `<b-form-textarea readonly>` elements in your form styled as plain
-text, set the `plaintext` prop (no need to set `readonly` as it will be set
-automatically) to remove the default form field styling and preserve the correct
-text size, margin, padding and height.
+If you want to have `<b-form-textarea readonly>` elements in your form styled as plain text, set the
+`plaintext` prop (no need to set `readonly` as it will be set automatically) to remove the default
+form field styling and preserve the correct text size, margin, padding and height.
 
 ```html
 <template>
@@ -183,23 +181,29 @@ text size, margin, padding and height.
 
 ## V-model modifiers
 
-Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of
-custom component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
+Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of custom
+component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
 
-To get around this, `<b-for-textarea>` and `<b-form-input>` have two boolean props `trim` and `number`
-which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectivley. Emulation of the
-`.lazy` modifier is _not_ supported (listen for `change` or `blur` events instead).
+To get around this, `<b-for-textarea>` and `<b-form-input>` have two boolean props `trim` and
+`number` which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectivley.
+Emulation of the `.lazy` modifier is _not_ supported (listen for `change` or `blur` events instead).
 
 **Notes:**
 
-- The `number` prop takes precedence over the `trim` prop (i.e. `trim` will have no effect when `number` is set).
-- When using the `number` prop, and if the value can be parsed as a number (via `parseFloat`) it will return a value of type `Number` to the `v-model`, otherwise the original input value is returned as type `String`. This is the same behaviour as the native `.number` modifier.
-- The `trim` and `number` modifier props do not affect the value returned by the `input` or `change` events. These events will aways return the string value of the content of `<textarea>` after optional formatting (which may not match the value returned via the `v-model` `update` event, which handles the modifiers).
+- The `number` prop takes precedence over the `trim` prop (i.e. `trim` will have no effect when
+  `number` is set).
+- When using the `number` prop, and if the value can be parsed as a number (via `parseFloat`) it
+  will return a value of type `Number` to the `v-model`, otherwise the original input value is
+  returned as type `String`. This is the same behaviour as the native `.number` modifier.
+- The `trim` and `number` modifier props do not affect the value returned by the `input` or `change`
+  events. These events will aways return the string value of the content of `<textarea>` after
+  optional formatting (which may not match the value returned via the `v-model` `update` event,
+  which handles the modifiers).
 
 ## Native and custom events
 
-All native events (other than the custom `input` and `change` events) are supported, without
-the need for the `.native` modifier.
+All native events (other than the custom `input` and `change` events) are supported, without the
+need for the `.native` modifier.
 
 The custom `input` and `change` events receive a single argument of the current `value` (after any
 formatting has been applied), and are triggerd by user interaction.
@@ -212,8 +216,8 @@ You can always access the native `input` and `change` events by using the `.nati
 ## Exposed input properties and methods
 
 `<b-form-input>` exposes several of the native input element's properties and methods on the
-component reference (i.e. assign a `ref` to your `<b-form-input ref="foo" ...>` and
-use `this.$refs['foo'].propertyName` or `this.$refs['foo'].methodName(...)`).
+component reference (i.e. assign a `ref` to your `<b-form-input ref="foo" ...>` and use
+`this.$refs['foo'].propertyName` or `this.$refs['foo'].methodName(...)`).
 
 ### Input Properties
 
@@ -239,9 +243,8 @@ use `this.$refs['foo'].propertyName` or `this.$refs['foo'].methodName(...)`).
 | `.checkValidity()`     |                                   |
 | `.reportValidity()`    |                                   |
 
-Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for
-more information on these methods and properties. Support will vary based on
-input type.
+Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for more information on
+these methods and properties. Support will vary based on input type.
 
 ## Component alias
 
