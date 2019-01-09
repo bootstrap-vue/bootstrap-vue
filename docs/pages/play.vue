@@ -169,7 +169,7 @@ import needsTranspiler from '../utils/needs-transpiler'
 const defaultJS = `{
   data () {
     return {
-      name: 'Bootstrap-Vue',
+      name: 'BootstrapVue',
       show: true
     }
   },
