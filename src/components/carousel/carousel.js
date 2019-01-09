@@ -39,6 +39,8 @@ const TransitionEndEvents = {
   transition: 'transitionend'
 }
 
+const EventOptions = { passive: true, capture: false }
+
 // Return the browser specific transitionEnd event name
 function getTransisionEndEvent (el) {
   for (const name in TransitionEndEvents) {
@@ -300,7 +302,7 @@ export default {
           /* istanbul ignore if: transition events cant be tested in JSDOM */
           if (this.transitionEndEvent) {
             const events = this.transitionEndEvent.split(/\s+/)
-            events.forEach(evt => eventOff(currentSlide, evt, onceTransEnd))
+            events.forEach(evt => eventOff(currentSlide, evt, onceTransEnd, EventOptions))
           }
           this._animationTimeout = null
           removeClass(nextSlide, dirClass)
@@ -322,7 +324,7 @@ export default {
         /* istanbul ignore if: transition events cant be tested in JSDOM */
         if (this.transitionEndEvent) {
           const events = this.transitionEndEvent.split(/\s+/)
-          events.forEach(event => eventOn(currentSlide, event, onceTransEnd))
+          events.forEach(event => eventOn(currentSlide, event, onceTransEnd, EventOptions))
         }
         // Fallback to setTimeout
         this._animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION)
@@ -527,14 +529,14 @@ export default {
     }
     // Touch support event handlers for environment
     if (!this.noTouch && hasTouchSupport) /* istanbul ignore next: JSDOM doesn't support touch events */ {
-      // Attach appropriate listeners
+      // Attach appropriate listeners (passsive mode)
       if (hasPointerEvent) {
-        on.pointerdown = this.touchStart
-        on.pointerup = this.touchEnd
+        on['&pointerdown'] = this.touchStart
+        on['&pointerup'] = this.touchEnd
       } else {
-        on.touchstart = this.touchStart
-        on.touchmove = this.touchMove
-        on.touchend = this.touchEnd
+        on['&touchstart'] = this.touchStart
+        on['&touchmove'] = this.touchMove
+        on['&touchend'] = this.touchEnd
       }
     }
 

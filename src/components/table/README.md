@@ -212,7 +212,8 @@ export default {
 Also, fields can be a an object providing similar control over the fields as the
 _array of objects_ above does. Only columns listed in the fields object will be shown.
 The order of the fields will typically be in the order they were defined in the object,
-although **field order is not guaranteed**.  
+although **field order is not guaranteed (this may cause issues with Server Side Rendering
+and client rehydration)**.  
 
 **Example: Using object fields definition**
 ```html
@@ -309,6 +310,24 @@ fields: [
   'sex'
 ]
 ```
+
+### Primary key
+`<b-table>` provides an additional prop `primary-key`, which you can use to identify the field
+key that uniquely identifies the row.
+
+This value is used by `<b-table>` to help Vue optimize the rendering of table rows.
+Internally, the the value of the field key specified by the `primary-key` prop is used as the
+Vue `:key` value for each rendered item row `<tr>` element.  The value specified by the column key
+**must be** either a `string` or `number`, and **must be** unique accross all rows in the table.
+
+If you are seeing rendering issue (i.e. tooltips hiding when item data changes or is sorted/filtered),
+setting the `primary-key` prop (if you have a unique identifier per row) can alleviate these issues.
+
+Specifying the `primary-key` column is handy if you are using 3rd party table transitions or drag
+and drop plugins, as they rely on having a consitent and unique per row `:key` value.
+
+In future releases of BootstrapVue, the `primary-key` may be used for additional features.
+
 
 ## Table style options
 
@@ -1000,7 +1019,7 @@ to have details initially showing.
 
 ```html
 <template>
-  <b-table :items="items" :fields="fields">
+  <b-table :items="items" :fields="fields" striped>
     <template slot="show_details" slot-scope="row">
       <b-button size="sm" @click="row.toggleDetails" class="mr-2">
        {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
@@ -1274,7 +1293,7 @@ the row data (items), by specifying a function reference via the `items` prop.
 The provider function is called with the following signature:
 
 ```js
-    provider(ctx, [callback])
+provider(ctx, [callback])
 ```
 
 The `ctx` is the context object associated with the table state, and contains the
@@ -1348,37 +1367,43 @@ array to `<b-table>`.
 
 **Example: usage of busy state**
 ```html
-<b-table id="my-table"
-         :busy.sync="isBusy"
-         :items="myProvider"
-         :fields="fields" ...>
-</b-table>
-```
-```js
-data () {
-  return {
-    isBusy: false
-  }
-}
-methods: {
-  myProvider (ctx) {
-    // Here we don't set isBusy prop, so busy state will be handled by table itself
-    // this.isBusy = true
-    let promise = axios.get('/some/url')
+<template>
+  <b-table id="my-table"
+           :busy.sync="isBusy"
+           :items="myProvider"
+           :fields="fields" ...>
+  </b-table>
+</template>
+<script>
+  export defailt {
+    data () {
+      return {
+        isBusy: false
+      }
+    }
+    methods: {
+      myProvider (ctx) {
+        // Here we don't set isBusy prop, so busy state will be
+        // handled by table itself
+        // this.isBusy = true
+        let promise = axios.get('/some/url')
 
-    return promise.then((data) => {
-      const items = data.items
-      // Here we could override the busy state, setting isBusy to false
-      // this.isBusy = false
-      return(items)
-    }).catch(error => {
-      // Here we could override the busy state, setting isBusy to false
-      // this.isBusy = false
-      // Returning an empty array, allows table to correctly handle busy state in case of error
-      return []
-    })
+        return promise.then((data) => {
+          const items = data.items
+          // Here we could override the busy state, setting isBusy to false
+          // this.isBusy = false
+          return(items)
+        }).catch(error => {
+          // Here we could override the busy state, setting isBusy to false
+          // this.isBusy = false
+          // Returning an empty array, allows table to correctly handle
+          // internal busy state in case of error
+          return []
+        })
+      }
+    }
   }
-}
+</script>
 ```
 
 **Notes:**
@@ -1418,7 +1443,7 @@ event `refresh::table` on `$root` with the single argument being the `id` of you
 You must have a unique ID on your table for this to work.
 
 ```js
-    this.$root.$emit('bv::refresh::table', 'my-table');
+this.$root.$emit('bv::refresh::table', 'my-table');
 ```
 
 Or by calling the `refresh()` method on the table reference
@@ -1426,7 +1451,7 @@ Or by calling the `refresh()` method on the table reference
 <b-table ref="table" ... ></b-table>
 ```
 ```js
-    this.$refs.table.refresh();
+this.$refs.table.refresh();
 ```
 
 **Note:** If the table is in the `busy` state (i.e. a provider update is currently running), the
@@ -1467,7 +1492,7 @@ Special care must be taken when using server side rendering (SSR) and an `items`
 function. Make sure you handle any special situations that may be needed server side
 when fetching your data!
 
-When `b-table` is mounted in the document, it will automatically trigger a provider update call.
+When `<b-table>` is mounted in the document, it will automatically trigger a provider update call.
 
 
 ## Table accessibility notes
@@ -1485,6 +1510,7 @@ functionality is non critical or can be provided via other means:
 - `row-contextmenu`
 - `row-hovered`
 - `row-unhovered`
+
 
 ## Complete Example
 
