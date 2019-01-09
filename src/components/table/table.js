@@ -149,6 +149,12 @@ export default {
       type: [Object, Array],
       default: null
     },
+    primaryKey: {
+      // Primary key for record.
+      // If provided the value in each row must be unique!!!
+      type: String,
+      default: null
+    },
     sortBy: {
       type: String,
       default: null
@@ -356,7 +362,7 @@ export default {
       localSortDesc: this.sortDesc || false,
       localBusy: false,
       // Our local copy of the items. Must be an array
-      localItems: isArray(this.items) ? this.items : [],
+      localItems: isArray(this.items) ? this.items.slice() : [],
       // Flag for displaying which empty slot to show, and for some event triggering.
       isFiltered: false,
       selectedRows: [],
@@ -731,12 +737,15 @@ export default {
     }
   },
   mounted () {
-    this.localSortBy = this.sortBy
-    this.localSortDesc = this.sortDesc
+    // Call the items provider if necessary
     if (this.hasProvider && (!this.localItems || this.localItems.length === 0)) {
       // Fetch on mount if localItems is empty
       this._providerUpdate()
     }
+
+    // Initially update the v-model of displayed items
+    this.$emit('input', this.computedItems)
+
     // Listen for global messages to tell us to force refresh the table
     this.listenOnRoot('bv::refresh::table', id => {
       if (id === this.id || id === this) {
@@ -1033,18 +1042,21 @@ export default {
     },
     // Exposed method(s)
     refresh () {
-      // Expose refresh method
+      this.$off('refreshed', this.refresh)
       if (this.computedBusy) {
-        // Can't force an update when busy
-        return false
-      }
-      this.clearSelected()
-      if (this.hasProvider) {
-        this.$nextTick(this._providerUpdate)
+        // Can't force an update when forced busy by user (busy prop === true)
+        if (this.localBusy && this.hasProvider) {
+          // But if provider running (localBusy), re-schedule refresh once `refreshed` emitted
+          this.$on('refreshed', this.refresh)
+        }
       } else {
-        this.localItems = isArray(this.items) ? this.items.slice() : []
+        this.clearSelected()
+        if (this.hasProvider) {
+          this.$nextTick(this._providerUpdate)
+        } else {
+          this.localItems = isArray(this.items) ? this.items.slice() : []
+        }
       }
-      return true
     },
     // Provider related methods
     _providerSetLocal (items) {
@@ -1058,13 +1070,17 @@ export default {
     },
     _providerUpdate () {
       // Refresh the provider function items.
-      // TODO: this method should be debounced with lodash.debounce to minimize network requests,
-      // with a 100ms default debounce period (i.e. 100ms holdtime after the last update before
-      // the new update is called). Debounce period should be a prop
-      if (this.computedBusy || !this.hasProvider) {
-        // Don't refresh remote data if we are 'busy' or if no provider
+      if (!this.hasProvider) {
+        // Do nothing if no provider
         return
       }
+      // If table is busy, wait until refereshed before calling again
+      if (this.computedBusy) {
+        // Schedule a new refresh once `refreshed` is emitted
+        this.$nextTick(this.refresh)
+        return
+      }
+
       // Set internal busy state
       this.localBusy = true
 
@@ -1089,11 +1105,12 @@ export default {
             warn('b-table provider function didn\'t request calback and did not return a promise or data')
             this.localBusy = false
           }
-        } catch (e) {
+        } catch (e) /* istanbul ignore next */ {
           // Provider function borked on us, so we spew out a warning
-          // console.error(`b-table provider function error [${e.name}]: ${e.message}`, e.stack)
           // and clear the busy state
+          warn(`b-table provider function error [${e.name}] ${e.message}`)
           this.localBusy = false
+          this.$off('refreshed', this.refresh)
         }
       })
     }
@@ -1103,6 +1120,7 @@ export default {
     const $scoped = this.$scopedSlots
     const fields = this.computedFields
     const items = this.computedItems
+    const tableStriped = this.striped
     const hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable
     // Build the caption
     let caption = h(false)
@@ -1260,7 +1278,8 @@ export default {
         const tds = fields.map((field, colIndex) => {
           const formatted = this.getFormattedValue(item, field)
           const data = {
-            key: `row-${rowIndex}-cell-${colIndex}`,
+            // For the Vue key, we concatinate the column index and field key (as field keys can be duplicated)
+            key: `row-${rowIndex}-cell-${colIndex}-${field.key}`,
             class: this.tdClasses(field, item),
             attrs: this.tdAttrs(field, item, colIndex),
             domProps: {}
@@ -1300,12 +1319,19 @@ export default {
         if (this.currentPage && this.perPage && this.perPage > 0) {
           ariaRowIndex = String((this.currentPage - 1) * this.perPage + rowIndex + 1)
         }
+        // Create a unique key based on the record content, to ensure that sub components are
+        // re-rendered rather than re-used, which can cause issues. If a primary key is not provided
+        // we concatinate the row number and stringified record (in case there are duplicate records).
+        // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
+        const rowKey = (this.primaryKey && typeof item[this.primaryKey] !== 'undefined')
+          ? toString(item[this.primaryKey])
+          : `${rowIndex}__${recToString(item)}`
         // Assemble and add the row
         rows.push(
           h(
             'tr',
             {
-              key: `row-${rowIndex}`,
+              key: `__b-table-row-${rowKey}__`,
               class: [
                 this.rowClasses(item),
                 {
@@ -1364,11 +1390,24 @@ export default {
               toggleDetails: toggleDetailsFn
             })
           ])
+          if (tableStriped) {
+            // Add a hidden row to keep table row striping consistent when details showing
+            rows.push(
+              h(
+                'tr',
+                {
+                  key: `__b-table-details-${rowIndex}-stripe__`,
+                  staticClass: 'd-none',
+                  attrs: { 'aria-hidden': 'true' }
+                }
+              )
+            )
+          }
           rows.push(
             h(
               'tr',
               {
-                key: `details-${rowIndex}`,
+                key: `__b-table-details-${rowIndex}__`,
                 staticClass: 'b-table-details',
                 class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row-details') : this.tbodyTrClass],
                 attrs: trAttrs
@@ -1379,6 +1418,10 @@ export default {
         } else if (detailsSlot) {
           // Only add the placeholder if a the table has a row-details slot defined (but not shown)
           rows.push(h(false))
+          if (tableStriped) {
+            // add extra placeholder if table is striped
+            rows.push(h(false))
+          }
         }
       })
     }
@@ -1406,7 +1449,7 @@ export default {
         h(
           'tr',
           {
-            key: 'empty-row',
+            key: '__b-table-empty-row__',
             staticClass: 'b-table-empty-row',
             class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-empty') : this.tbodyTrClass],
             attrs: this.isStacked ? { role: 'row' } : {}
@@ -1425,7 +1468,7 @@ export default {
         h(
           'tr',
           {
-            key: 'bottom-row',
+            key: '__b-table-bottom-row__',
             staticClass: 'b-table-bottom-row',
             class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-bottom') : this.tbodyTrClass]
           },

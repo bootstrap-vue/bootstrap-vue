@@ -1,10 +1,11 @@
 # Sizing props and classes
 
 > Bootstrap V4 CSS provides several classes that control the sizing of elements,
-of which some of these have been translated into props on components.
+> of which some of these have been translated into props on components.
 
 
 ## Component `size` prop
+
 Various components allow for an optional size (via the `size` prop). Below are the
 sizes supported via the default Bootsrap V4 CSS.
 
@@ -22,6 +23,7 @@ for modal, `.form-control-<size>` for form elements, `.pagination-<size>` for
 pagination buttons, etc.
 
 ## Breakpoint sizes
+
 Bootstrap V4 also includes viewport breakpoint sizes: `xs`, `sm`, `md`, `lg`,
 and `xl`. which refer to the width of the user's view port.
 
@@ -29,6 +31,7 @@ For details on breakpoint sizes, please check the [Layout and Grid](/docs/layout
 documentation.
 
 ## Sizing utility classes
+
 Easily make an element as wide or as tall (relative to its parent) with the width
 and height utilities classes.
 
@@ -64,5 +67,7 @@ Modify those values as you need to generate different utilities here.
 
 You can also use `mw-100` (`max-width: 100%;`) and `mh-100` (`max-height: 100%;`) utilities as needed.
 
+
 ## Additional Resources
+
 Refer to [Bootstrap V4](http://getbootstrap.com/) official documentation site for more information.

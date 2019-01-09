@@ -355,7 +355,7 @@ or provide an object for title and content:
 v-b-popover="{title:'Popover header', content:'Popover content'}"
 ```
 **Enable HTML content/title:**
-```
+```html
 v-b-popover.html="'<em>Emphasis</em> in content'" title="<strong>Bolded title</strong>"
 ```
 

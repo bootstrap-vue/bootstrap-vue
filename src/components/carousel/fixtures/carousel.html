@@ -4,6 +4,8 @@
                 controls
                 indicators
                 :interval="interval"
+                :no-animation="noAnimation"
+                :fade="fade"
                 v-model="slide"
                 @sliding-start="onSlide"
                 @sliding-end="onSlid"
@@ -30,8 +32,16 @@
 
     </b-carousel>
 
-    <p class="mt-4">
+    <p class="mt-4 mb-4">
         Slide #: {{ slide }}<br>
         Is Sliding: {{ sliding }}
     </p>
+
+    <!-- empty carousel -->
+    <b-carousel id="carousel2"
+                ref="carousel2"
+                controls
+                indicators
+                background="grey">
+    </b-carousel>
 </div>

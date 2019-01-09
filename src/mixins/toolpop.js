@@ -174,7 +174,7 @@ export default {
       this._toolpop.hide()
     }
   },
-  beforeDestroy () /* Istanbul ignore next: not easy to test */ {
+  beforeDestroy () /* istanbul ignore next: not easy to test */ {
     // Shutdown our local event listeners
     this.$off('open', this.onOpen)
     this.$off('close', this.onClose)

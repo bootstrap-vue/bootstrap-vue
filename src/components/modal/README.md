@@ -269,24 +269,25 @@ breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional
 
 ```html
 <div>
-  <b-btn v-b-modal.modalxl variant="primary">lg modal</b-btn>
-  <b-btn v-b-modal.modallg variant="primary">xl modal</b-btn>
+  <b-btn v-b-modal.modalxl variant="primary">xl modal</b-btn>
+  <b-btn v-b-modal.modallg variant="primary">lg modal</b-btn>
   <b-btn v-b-modal.modalsm variant="primary">sm modal</b-btn>
 
   <b-modal id="modalxl" size="xl" title="Extra Large Modal">
-    Hello Modal!
+    Hello Extra Large Modal!
   </b-modal>
   <b-modal id="modallg" size="lg" title="Large Modal">
-    Hello Modal!
+    Hello Large Modal!
   </b-modal>
   <b-modal id="modalsm" size="sm" title="Small Modal">
-    Hello Modal!
+    Hello Small Modal!
   </b-modal>
 </div>
 
 <!-- modal-sizes.vue -->
 ```
 
+The `size` prop maps the size to the `.modal-<size>` classes.
 
 ## Vertically centering
 Vertically center your modal in the viewport by setting the `centered` prop.

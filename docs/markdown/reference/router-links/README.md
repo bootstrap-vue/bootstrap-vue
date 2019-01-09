@@ -1,14 +1,14 @@
 # Router link support
 
-> Several Bootstrap-Vue components support rendering `<router-link>` components compatible with
-_Vue-Router_ and _Nuxt_. For more information, see the [official Vue-Router docs](https://router.vuejs.org/)
-and [official Nuxt docs](https://nuxtjs.org/).
+> Several BootstrapVue components support rendering `<router-link>` components compatible with
+> _Vue-Router_ and _Nuxt_. For more information, see the [official Vue-Router docs](https://router.vuejs.org/)
+> and [official Nuxt docs](https://nuxtjs.org/).
 
 
 ## Common router link props
 
 In the following sections, we are using the `<b-link>` component to render router links.
-`<b-link>` is the building block of most of Bootstrap-Vue's  _actionable_ components.
+`<b-link>` is the building block of most of BootstrapVue's  _actionable_ components.
 You could use any other component that supports link generation such as [`<b-link>`](/docs/components/link),
 [`<b-button>`](/docs/components/button), [`<b-breadcrumb-item>`](/docs/components/breadcrumb),
 [`<b-list-group-item>`](/docs/components/list-group), [`<b-nav-item>`](/docs/components/nav),
@@ -70,7 +70,7 @@ so the navigation will not leave a history record.
 - default: `false`
 
 Setting `append` prop always appends the relative path to the current path. For example,
-assuming we are navigating from `/a` to a relative link `b`, without `append` we will end 
+assuming we are navigating from `/a` to a relative link `b`, without `append` we will end
 up at `/b`, but with `append` we will end up at `/a/b`.
 
 ``` html
@@ -100,10 +100,11 @@ of keyboard and/or screen-reader users, and is also not very SEO friendly.
 ### `active-class`
 
 - type: `string`
-- default: `'router-link-active'`
+- default: `'router-link-active'` (`'nuxt-link-active'` when using Nuxt.js)
 
 Configure the active CSS class applied when the link is active. Note the default value can also
 be configured globally via the `linkActiveClass` router constructor option.
+
 
 ### `exact`
 
@@ -127,9 +128,42 @@ Check out more examples explaining active link class [live](https://jsfiddle.net
 ### `exact-active-class`
 
 - type: `string`
-- default: `'router-link-exact-active'`
+- default: `'router-link-exact-active'` (`'nuxt-link-exact-active'` when using Nuxt.js)
 - availablity: Vue-Router 2.5.0+
 
 Configure the active CSS class applied when the link is active with exact match. Note the
 default value can also be configured globally via the `linkExactActiveClass` router constructor option.
 
+
+## Nuxt specific router link props
+
+When BootstrapVue detects that your app is running under [Nuxt.js](https://nuxtjs.org), it will render
+a [`<nuxt-link>`](https://nuxtjs.org/api/components-nuxt-link) sub component instead of a `<router-link>`.
+`<nuxt-link>` supports all of the above router link props, plus the following additional Nuxt specific props.
+
+
+### `no-prefetch`
+
+- type: `boolean`
+- default: `false`
+- availablity: Nuxt 2.4.0+
+
+To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the
+viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will disabled
+this feature for the specific link.
+
+**Note:** If you have prefetching disabled in your `nuxt.config.js` configuration (`router: { prefetchLinks: false}`), or are using a version of Nuxt.JS `< 2.4.0`, then this prop will have no effect.
+
+Prefetching support requires [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+to be supported (see [CanIUse](https://caniuse.com/#feat=intersectionobserver)). For browsers that do not support
+IntersectionObserver, you can use the following conditional polyfill in `nuxt.config.js`:
+
+```js
+export default {
+  head: {
+    script: [
+      { src: 'https://polyfill.io/v2/polyfill.min.js?features=IntersectionObserver', body: true }
+    ]
+  }
+}
+```

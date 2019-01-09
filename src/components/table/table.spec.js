@@ -369,6 +369,8 @@ describe('table', async () => {
   it('table_paginated should contain custom formatted footers', async () => {
     const { app: { $refs } } = window
 
+    await nextTick()
+
     const tfoot = [...$refs.table_paginated.$el.children].find(
       el => el && el.tagName === 'TFOOT'
     )

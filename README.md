@@ -53,7 +53,7 @@ BootstrapVue provides one of the most comprehensive implementations of Bootstrap
 
 - 📘 [Documentation](https://bootstrap-vue.js.org)
 - 🔨 [Release Notes](https://bootstrap-vue.js.org/docs/misc/changelog)
-- 💬 [Slack Community](https://bootstrap-vue.now.sh)
+- 💬 [Discord Chat](https://discord.gg/j2Mtcny)
 - 🐦 [Twitter](https://twitter.com/BootstrapVue)
 
 

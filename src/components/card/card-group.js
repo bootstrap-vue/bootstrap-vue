@@ -21,14 +21,13 @@ export default {
   functional: true,
   props,
   render (h, { props, data, children }) {
-    let staticClass = 'card-group'
-    if (props.columns) {
-      staticClass = 'card-columns'
-    }
+    let baseClass = 'card-group'
     if (props.deck) {
-      staticClass = 'card-deck'
+      baseClass = 'card-deck'
+    } else if (props.columns) {
+      baseClass = 'card-columns'
     }
 
-    return h(props.tag, mergeData(data, { staticClass }), children)
+    return h(props.tag, mergeData(data, { class: baseClass }), children)
   }
 }
