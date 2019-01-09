@@ -1,5 +1,36 @@
 import { from as arrayFrom } from './array'
 
+// Determine if the browser supports the options parameter for events
+let passiveSupported = false;
+if (typeof document !== 'undefined' && typeof document !== 'undefined') {
+  try {
+    var options = {
+      get passive() {
+        // This function will be called when the browser
+        // attempts to access the passive property.
+        passiveSupported = true;
+      }
+    };
+    window.addEventListener("test", options, options);
+    window.removeEventListener("test", options, options);
+  } catch(err) {
+    passiveSupported = false;
+  }
+}
+
+// Normalize event options based on support of passive option
+function parseEventOptions(options) {
+  let useCapture = false
+  if (options) {
+    if (typeof(options) === 'object') {
+      useCapture = options.useCapture ? true : false
+    } else {
+      useCapture = options
+    }
+  }
+  return passiveSupported ? options : useCapture
+}
+
 // Determine if an element is an HTML Element
 export const isElement = el => {
   return el && el.nodeType === Node.ELEMENT_NODE
@@ -234,13 +265,13 @@ export const position = el => {
 // Attach an event listener to an element
 export const eventOn = (el, evtName, handler, options) => {
   if (el && el.addEventListener) {
-    el.addEventListener(evtName, handler, options)
+    el.addEventListener(evtName, handler, parseEventOptions(options))
   }
 }
 
 // Remove an event listener from an element
 export const eventOff = (el, evtName, handler, options) => {
   if (el && el.removeEventListener) {
-    el.removeEventListener(evtName, handler, options)
+    el.removeEventListener(evtName, handler, parseEventOptions(options))
   }
 }
