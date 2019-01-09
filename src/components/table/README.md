@@ -1483,6 +1483,7 @@ functionality is non critical or can be provided via other means:
 - `row-contextmenu`
 - `row-hovered`
 - `row-unhovered`
+- `row-middle-clicked`
 
 ## Complete Example
 
