@@ -1113,6 +1113,7 @@ export default {
     const $scoped = this.$scopedSlots
     const fields = this.computedFields
     const items = this.computedItems
+    const tableStriped = this.striped
     const hasRowClickHandler = this.$listeners['row-clicked'] || this.selectable
     // Build the caption
     let caption = h(false)
@@ -1377,7 +1378,7 @@ export default {
               toggleDetails: toggleDetailsFn
             })
           ])
-          if (this.striped) {
+          if (tableStriped) {
             // Add a hidden row to keep table row striping consistent when details showing
             rows.push(
               'tr',
@@ -1403,7 +1404,8 @@ export default {
         } else if (detailsSlot) {
           // Only add the placeholder if a the table has a row-details slot defined (but not shown)
           rows.push(h(false))
-          if (table.striped) {
+          if (tableStriped) {
+            // add extra placeholder if table is striped
             rows.push(h(false))
           }
         }
