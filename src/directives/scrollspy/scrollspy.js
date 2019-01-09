@@ -72,8 +72,7 @@ function removeBVSS (el) /* istanbul ignore next: not easy to test */ {
  * Export our directive
  */
 
-/* istanbul ignore next: not easy to test */
-export default {
+export default /* istanbul ignore next: not easy to test */ {
   bind (el, binding, vnode) {
     addBVSS(el, binding, vnode)
   },
