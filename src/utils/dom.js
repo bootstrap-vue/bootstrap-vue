@@ -3,6 +3,7 @@ import { inBrowser } from './env'
 
 // Determine if the browser supports the option passive for events
 let passiveEventSupported = false
+/* istanbul ignore if */
 if (inBrowser) {
   try {
     var options = {
