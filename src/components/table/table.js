@@ -1386,7 +1386,8 @@ export default {
                 key: `__b-table-details-${rowIndex}-stripe__`,
                 staticClass: 'd-none',
                 attrs: { 'aria-hidden': 'true' }
-              }
+              },
+              [h(false)]
             )
           }
           rows.push(
