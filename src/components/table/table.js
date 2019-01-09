@@ -1378,13 +1378,13 @@ export default {
             })
           ])
           if (this.striped) {
-            // Add a hidden row to keep table row striping consistent
+            // Add a hidden row to keep table row striping consistent when details showing
             rows.push(
               'tr',
               {
-                key: `__b-table-details-${rowIndex}__spacer`,
+                key: `__b-table-details-${rowIndex}-stripe__`,
                 staticClass: 'd-none',
-                attrs: { 'aria-hidden': 'true'}
+                attrs: { 'aria-hidden': 'true' }
               }
             )
           }
