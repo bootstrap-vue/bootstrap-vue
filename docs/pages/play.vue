@@ -313,7 +313,7 @@ export default {
         this.loading = true
         window && window.$nuxt && window.$nuxt.$loading.start()
         // Lazy load the babel transpiler
-        import('../utils/compile-js').then((module) => {
+        import('../utils/compile-js' /* webpackChunkName: "compile-js" */).then((module) => {
           // Update compiler reference
           this.compiler = module.default
           // Run the setup code
