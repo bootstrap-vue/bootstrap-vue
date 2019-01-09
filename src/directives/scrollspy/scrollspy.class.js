@@ -76,19 +76,20 @@ const TransitionEndEvents = [
   'oTransitionEnd'
 ]
 
+// Options for events
+const EventOptions = { passive: true, capture: false }
+
 /*
  * Utility Methods
  */
 
 // Better var type detection
-/* istanbul ignore next: not easy to test */
-function toType (obj) {
+function toType (obj) /* istanbul ignore next: not easy to test */ {
   return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 }
 
 // Check config properties for expected types
-/* istanbul ignore next: not easy to test */
-function typeCheckConfig (componentName, config, configTypes) {
+function typeCheckConfig (componentName, config, configTypes) /* istanbul ignore next: not easy to test */ {
   for (const property in configTypes) {
     if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
       const expectedTypes = configTypes[property]
@@ -114,7 +115,7 @@ function typeCheckConfig (componentName, config, configTypes) {
  */
 
 /* istanbul ignore next: not easy to test */
-class ScrollSpy {
+class ScrollSpy /* istanbul ignore next: not easy to test */ {
   constructor (element, config, $root) {
     // The element we activate links in
     this.$el = element
@@ -189,13 +190,13 @@ class ScrollSpy {
   listen () {
     const scroller = this.getScroller()
     if (scroller && scroller.tagName !== 'BODY') {
-      eventOn(scroller, 'scroll', this)
+      eventOn(scroller, 'scroll', this, EventOptions)
     }
-    eventOn(window, 'scroll', this)
-    eventOn(window, 'resize', this)
-    eventOn(window, 'orientationchange', this)
+    eventOn(window, 'scroll', this, EventOptions)
+    eventOn(window, 'resize', this, EventOptions)
+    eventOn(window, 'orientationchange', this, EventOptions)
     TransitionEndEvents.forEach(evtName => {
-      eventOn(window, evtName, this)
+      eventOn(window, evtName, this, EventOptions)
     })
     this.setObservers(true)
     // Scedule a refresh
@@ -206,13 +207,13 @@ class ScrollSpy {
     const scroller = this.getScroller()
     this.setObservers(false)
     if (scroller && scroller.tagName !== 'BODY') {
-      eventOff(scroller, 'scroll', this)
+      eventOff(scroller, 'scroll', this, EventOptions)
     }
-    eventOff(window, 'scroll', this)
-    eventOff(window, 'resize', this)
-    eventOff(window, 'orientationchange', this)
+    eventOff(window, 'scroll', this, EventOptions)
+    eventOff(window, 'resize', this, EventOptions)
+    eventOff(window, 'orientationchange', this, EventOptions)
     TransitionEndEvents.forEach(evtName => {
-      eventOff(window, evtName, this)
+      eventOff(window, evtName, this, EventOptions)
     })
   }
 
