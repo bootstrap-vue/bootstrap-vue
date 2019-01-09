@@ -1,6 +1,8 @@
 import BImg from './img'
 import { getBCR, eventOn, eventOff } from '../../utils/dom'
+
 const THROTTLE = 100
+const EventOptions = { passive: true, capture: false }
 
 // @vue/component
 export default {
@@ -156,16 +158,16 @@ export default {
       const root = window
       if (on) {
         eventOn(this.$el, 'load', this.checkView)
-        eventOn(root, 'scroll', this.onScroll)
-        eventOn(root, 'resize', this.onScroll)
-        eventOn(root, 'orientationchange', this.onScroll)
-        eventOn(document, 'transitionend', this.onScroll)
+        eventOn(root, 'scroll', this.onScroll, EventOptions)
+        eventOn(root, 'resize', this.onScroll, EventOptions)
+        eventOn(root, 'orientationchange', this.onScroll, EventOptions)
+        eventOn(document, 'transitionend', this.onScroll, EventOptions)
       } else {
         eventOff(this.$el, 'load', this.checkView)
-        eventOff(root, 'scroll', this.onScroll)
-        eventOff(root, 'resize', this.onScroll)
-        eventOff(root, 'orientationchange', this.onScroll)
-        eventOff(document, 'transitionend', this.onScroll)
+        eventOff(root, 'scroll', this.onScroll, EventOptions)
+        eventOff(root, 'resize', this.onScroll, EventOptions)
+        eventOff(root, 'orientationchange', this.onScroll, EventOptions)
+        eventOff(document, 'transitionend', this.onScroll, EventOptions)
       }
     },
     checkView () /* istanbul ignore next: can't test getBoundingClientRect in JSDOM */ {
