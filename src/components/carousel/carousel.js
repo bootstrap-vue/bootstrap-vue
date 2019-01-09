@@ -39,7 +39,7 @@ const TransitionEndEvents = {
   transition: 'transitionend'
 }
 
-const EventOptions = { passive: false, capture: false }
+const EventOptions = { passive: true, capture: false }
 
 // Return the browser specific transitionEnd event name
 function getTransisionEndEvent (el) {
