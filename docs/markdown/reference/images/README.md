@@ -58,7 +58,7 @@ Vue CLI 3 changed the way that webpack compiles a Vue app, in order to make Boot
 
 ```js
 module.exports = {
-  chainwebpack: config => {
+  chainWebpack: config => {
     config.module
       .rule('vue')
       .use('vue-loader')
