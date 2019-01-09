@@ -4,18 +4,16 @@
 > _Vue-Router_ and _Nuxt_. For more information, see the [official Vue-Router docs](https://router.vuejs.org/)
 > and [official Nuxt docs](https://nuxtjs.org/).
 
-
 ## Common router link props
 
 In the following sections, we are using the `<b-link>` component to render router links.
-`<b-link>` is the building block of most of BootstrapVue's  _actionable_ components.
+`<b-link>` is the building block of most of BootstrapVue's _actionable_ components.
 You could use any other component that supports link generation such as [`<b-link>`](/docs/components/link),
 [`<b-button>`](/docs/components/button), [`<b-breadcrumb-item>`](/docs/components/breadcrumb),
 [`<b-list-group-item>`](/docs/components/list-group), [`<b-nav-item>`](/docs/components/nav),
 [`<b-dropdown-item>`](/docs/components/dropdown), and [`<b-pagination-nav>`](/docs/components/pagination-nav).
 Note that not all props are available on all components. Refer to the respective component
 documentation for details.
-
 
 ### `to`
 
@@ -25,7 +23,7 @@ documentation for details.
 Denotes the target route of the link. When clicked, the value of the `to` prop will be passed to
 `router.push()` internally, so the value can be either a string or a location descriptor object.
 
-``` html
+```html
 <!-- literal string -->
 <b-link to="home">Home</b-link>
 <!-- renders to -->
@@ -50,7 +48,6 @@ Denotes the target route of the link. When clicked, the value of the `to` prop w
 <b-link href="/home">Home</b-link>
 ```
 
-
 ### `replace`
 
 - type: `boolean`
@@ -59,10 +56,9 @@ Denotes the target route of the link. When clicked, the value of the `to` prop w
 Setting `replace` prop will call `router.replace()` instead of `router.push()` when clicked,
 so the navigation will not leave a history record.
 
-``` html
+```html
 <b-link :to="{ path: '/abc'}" replace></b-link>
 ```
-
 
 ### `append`
 
@@ -73,10 +69,9 @@ Setting `append` prop always appends the relative path to the current path. For 
 assuming we are navigating from `/a` to a relative link `b`, without `append` we will end
 up at `/b`, but with `append` we will end up at `/a/b`.
 
-``` html
+```html
 <b-link :to="{ path: 'relative/path'}" append></b-link>
 ```
-
 
 ### `router-tag`
 
@@ -87,7 +82,7 @@ Sometimes we want `<router-link>` to render as another tag, e.g `<li>`. Then we 
 prop to specify which tag to render to, and it will still listen to click events for navigation.
 `router-tag` translates to the `tag` prop on the final rendered `<router-link>`.
 
-``` html
+```html
 <b-link to="/foo" router-tag="li">foo</b-link>
 <!-- renders as -->
 <li>foo</li>
@@ -96,7 +91,6 @@ prop to specify which tag to render to, and it will still listen to click events
 **Note:** Changing the tag from anything other than `<a>` is discouraged, as it hinders accessibility
 of keyboard and/or screen-reader users, and is also not very SEO friendly.
 
-
 ### `active-class`
 
 - type: `string`
@@ -104,7 +98,6 @@ of keyboard and/or screen-reader users, and is also not very SEO friendly.
 
 Configure the active CSS class applied when the link is active. Note the default value can also
 be configured globally via the `linkActiveClass` router constructor option.
-
 
 ### `exact`
 
@@ -117,13 +110,12 @@ will get this class applied as long as the current path starts with `/a/` or is 
 One consequence of this is that `<b-link to="/">` will be active for every route! To force the
 link into "exact match mode", use the `exact` prop:
 
-``` html
+```html
 <!-- this link will only be active at `/` -->
-<b-link to="/" exact>
+<b-link to="/" exact></b-link>
 ```
 
 Check out more examples explaining active link class [live](https://jsfiddle.net/8xrk1n9f/).
-
 
 ### `exact-active-class`
 
@@ -134,13 +126,11 @@ Check out more examples explaining active link class [live](https://jsfiddle.net
 Configure the active CSS class applied when the link is active with exact match. Note the
 default value can also be configured globally via the `linkExactActiveClass` router constructor option.
 
-
 ## Nuxt specific router link props
 
 When BootstrapVue detects that your app is running under [Nuxt.js](https://nuxtjs.org), it will render
 a [`<nuxt-link>`](https://nuxtjs.org/api/components-nuxt-link) sub component instead of a `<router-link>`.
 `<nuxt-link>` supports all of the above router link props, plus the following additional Nuxt specific props.
-
 
 ### `no-prefetch`
 

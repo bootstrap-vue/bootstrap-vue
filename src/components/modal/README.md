@@ -1,23 +1,22 @@
 # Modals
 
 > Modals are streamlined, but flexible dialog prompts powered by JavaScript and CSS. They
-support a number of use cases from user notification to completely custom content and
-feature a handful of helpful sub-components, sizes, variants, accessibility, and more.
+> support a number of use cases from user notification to completely custom content and
+> feature a handful of helpful sub-components, sizes, variants, accessibility, and more.
 
 ```html
 <div>
   <b-btn v-b-modal.modal1>Launch demo modal</b-btn>
 
   <!-- Modal Component -->
-  <b-modal id="modal1" title="Bootstrap-Vue">
-    <p class="my-4">Hello from modal!</p>
-  </b-modal>
+  <b-modal id="modal1" title="Bootstrap-Vue"> <p class="my-4">Hello from modal!</p> </b-modal>
 </div>
 
 <!-- modal-1.vue -->
 ```
 
 ## Overview
+
 `<b-modal>`, by default, has an **OK** and **Cancel** buttons in the footer. These buttons can
 be customized by setting various props on the component. You can customize the size of the buttons,
 disable buttons, hide the **Cancel** button (i.e. OK Only), choose a variant (e.g. `danger`
@@ -54,12 +53,10 @@ Other elements can easily show modals using the `v-b-modal` directive.
   <b-btn v-b-modal="'myModal'">Show Modal</b-btn>
 
   <!-- the modal -->
-  <b-modal id="myModal">
-    Hello From My Modal!
-  </b-modal>
-  </div>
+  <b-modal id="myModal"> Hello From My Modal! </b-modal>
+</div>
 
-  <!-- modal-directive-1.vue -->
+<!-- modal-directive-1.vue -->
 ```
 
 This approach will automatically return focus to the trigger element once the modal closes (similar to default bootstrap functionality). Other approaches for toggling modal visibility will require additional code to implement this accessibility feature.
@@ -73,29 +70,25 @@ You can access modal using `ref` attribute and then call the `show()` or `hide()
 ```html
 <template>
   <div>
-    <b-button @click="showModal">
-      Open Modal
-    </b-button>
+    <b-button @click="showModal"> Open Modal </b-button>
     <b-modal ref="myModalRef" hide-footer title="Using Component Methods">
-      <div class="d-block text-center">
-        <h3>Hello From My Modal!</h3>
-      </div>
+      <div class="d-block text-center"><h3>Hello From My Modal!</h3></div>
       <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
     </b-modal>
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    showModal () {
-      this.$refs.myModalRef.show()
-    },
-    hideModal () {
-      this.$refs.myModalRef.hide()
+  export default {
+    methods: {
+      showModal() {
+        this.$refs.myModalRef.show()
+      },
+      hideModal() {
+        this.$refs.myModalRef.hide()
+      }
     }
   }
-}
 </script>
 
 <!-- modal-methods-1.vue -->
@@ -112,23 +105,19 @@ and you can show/hide using `v-model`.
 ```html
 <template>
   <div>
-    <b-button @click="modalShow = !modalShow">
-      Open Modal
-    </b-button>
-    <b-modal v-model="modalShow">
-      Hello From Modal!
-    </b-modal>
+    <b-button @click="modalShow = !modalShow"> Open Modal </b-button>
+    <b-modal v-model="modalShow"> Hello From Modal! </b-modal>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      modalShow: false
+  export default {
+    data() {
+      return {
+        modalShow: false
+      }
     }
   }
-}
 </script>
 
 <!-- modal-v-model-1.vue -->
@@ -136,8 +125,7 @@ export default {
 
 When using the `v-model` property, do not use the `visible` property at the same time.
 
-
-### Emitting Events on $root
+### Emitting Events on \$root
 
 You can emit `bv::show::modal` and `bv::hide::modal` event on `$root` with the first
 argument set to the modal's id. An optional second argument can specify the element
@@ -146,9 +134,7 @@ an element reference, or a component reference.
 
 ```html
 <div>
-  <b-button @click="showModal" ref="btnShow">
-    Open Modal
-  </b-button>
+  <b-button @click="showModal" ref="btnShow"> Open Modal </b-button>
   <b-modal id="modal1" @hidden="onHidden">
     <div class="d-block">Hello From My Modal!</div>
     <b-btn @click="hideModal">Close Me</b-btn>
@@ -172,7 +158,6 @@ methods: {
 }
 ```
 
-
 ### Prevent Closing
 
 To prevent `<b-modal>` from closing (for example when validation fails). you can call
@@ -192,48 +177,48 @@ must be called synchronously, as async is not supported.
       </ul>
     </div>
     <!-- Modal Component -->
-    <b-modal id="modalPrevent"
-             ref="modal"
-             title="Submit your name"
-             @ok="handleOk"
-             @shown="clearName">
+    <b-modal
+      id="modalPrevent"
+      ref="modal"
+      title="Submit your name"
+      @ok="handleOk"
+      @shown="clearName"
+    >
       <form @submit.stop.prevent="handleSubmit">
-        <b-form-input type="text"
-                      placeholder="Enter your name"
-                      v-model="name"></b-form-input>
+        <b-form-input type="text" placeholder="Enter your name" v-model="name"></b-form-input>
       </form>
     </b-modal>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      name: '',
-      names: []
-    }
-  },
-  methods: {
-    clearName () {
-      this.name = ''
-    },
-    handleOk (evt) {
-      // Prevent modal from closing
-      evt.preventDefault()
-      if (!this.name) {
-        alert('Please enter your name')
-      } else {
-        this.handleSubmit()
+  export default {
+    data() {
+      return {
+        name: '',
+        names: []
       }
     },
-    handleSubmit () {
-      this.names.push(this.name)
-      this.clearName()
-      this.$refs.modal.hide()
+    methods: {
+      clearName() {
+        this.name = ''
+      },
+      handleOk(evt) {
+        // Prevent modal from closing
+        evt.preventDefault()
+        if (!this.name) {
+          alert('Please enter your name')
+        } else {
+          this.handleSubmit()
+        }
+      },
+      handleSubmit() {
+        this.names.push(this.name)
+        this.clearName()
+        this.$refs.modal.hide()
+      }
     }
   }
-}
 </script>
 
 <!-- modal-prevent-1.vue -->
@@ -247,12 +232,12 @@ are emitted.
 
 The `ok`, `cancel`, and `hide` event object contains several properties and methods:
 
-| Property or Method | Type | Description
-| ------------ | ------ | --------------------------------------------
-| `e.preventDefault()` | Method | When called prevents the modal from closing
-| `trigger` | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the argument provided to the `hide()` method, or `undefined` otherwise.
-| `target` | Property | A reference to the modal element
-| `vueTarget` | property | A reference to the modal's Vue VM instance
+| Property or Method   | Type     | Description                                                                                                                                                                                                                                                                                                |
+| -------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `e.preventDefault()` | Method   | When called prevents the modal from closing                                                                                                                                                                                                                                                                |
+| `trigger`            | Property | Will be one of: `ok` (Default **OK** Clicked), `cancel` (Default **Cancel** clicked), `esc` (if the <kbd>ESC</kbd> key was pressed), `backdrop` (if the backdrop was clicked), `headerclose` (if the header X button was clicked), the argument provided to the `hide()` method, or `undefined` otherwise. |
+| `target`             | Property | A reference to the modal element                                                                                                                                                                                                                                                                           |
+| `vueTarget`          | property | A reference to the modal's Vue VM instance                                                                                                                                                                                                                                                                 |
 
 You can set the value of `trigger` by passing an argument to the component's
 `hide()` method for advanced control.
@@ -261,8 +246,8 @@ You can set the value of `trigger` by passing an argument to the component's
 or `'cancel'` respectively. The argument passed to `hide()` will be placed into the
 `trigger` property of the event object.
 
-
 ## Modal sizing
+
 Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain
 breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are
 `sm`, `lg`, and `xl`
@@ -273,15 +258,9 @@ breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional
   <b-btn v-b-modal.modallg variant="primary">lg modal</b-btn>
   <b-btn v-b-modal.modalsm variant="primary">sm modal</b-btn>
 
-  <b-modal id="modalxl" size="xl" title="Extra Large Modal">
-    Hello Extra Large Modal!
-  </b-modal>
-  <b-modal id="modallg" size="lg" title="Large Modal">
-    Hello Large Modal!
-  </b-modal>
-  <b-modal id="modalsm" size="sm" title="Small Modal">
-    Hello Small Modal!
-  </b-modal>
+  <b-modal id="modalxl" size="xl" title="Extra Large Modal"> Hello Extra Large Modal! </b-modal>
+  <b-modal id="modallg" size="lg" title="Large Modal"> Hello Large Modal! </b-modal>
+  <b-modal id="modalsm" size="sm" title="Small Modal"> Hello Small Modal! </b-modal>
 </div>
 
 <!-- modal-sizes.vue -->
@@ -290,6 +269,7 @@ breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional
 The `size` prop maps the size to the `.modal-<size>` classes.
 
 ## Vertically centering
+
 Vertically center your modal in the viewport by setting the `centered` prop.
 
 ```html
@@ -306,12 +286,13 @@ Vertically center your modal in the viewport by setting the `centered` prop.
 ```
 
 ## Using the grid
+
 Utilize the Bootstrap grid system within a modal by nesting `<b-container fluid>` within
 the modal-body. Then, use the normal grid system `<b-row>` (or `<b-form-row>`) and `<b-col>`
 as you would anywhere else.
 
-
 ## Tooltips and popovers
+
 Tooltips and popovers can be placed within modals as needed. When modals are closed, any tooltips
 and popovers within are also automatically dismissed. Tooltips and popovers are automatically
 appended to the modal element (to ensure correct z-indexing), although you can override where
@@ -323,14 +304,12 @@ they are appended by specifying a container ID (refer to tooltip and popover doc
   <b-modal id="modalPopover" title="Modal with Popover" ok-only>
     <p>
       This
-      <b-btn v-b-popover="'Popover inside a modal!'" title="Popover">
-        Button
-      </b-btn>
+      <b-btn v-b-popover="'Popover inside a modal!'" title="Popover"> Button </b-btn>
       triggers a popover on click.
     </p>
     <p>
-      This <a href="#" v-b-tooltip title="Tooltip in a modal!">Link</a>
-      will show a tooltip on hover.
+      This <a href="#" v-b-tooltip title="Tooltip in a modal!">Link</a> will show a tooltip on
+      hover.
     </p>
   </b-modal>
 </div>
@@ -338,8 +317,8 @@ they are appended by specifying a container ID (refer to tooltip and popover doc
 <!-- modal-popover.vue -->
 ```
 
-
 ## Variants
+
 Control the header, footer, and body background and text variants by setting the
 `header-bg-variant`, `header-text-variant`, `body-bg-variant`, `body-text-variant`,
 `footer-bg-variant`, and `footer-text-variant` props. Use any of the standard Bootstrap
@@ -352,63 +331,61 @@ controlled by the `header-border-variant` and `footer-border-variant` props resp
 <template>
   <div>
     <b-btn @click="show=true" variant="primary">Show Modal</b-btn>
-    <b-modal v-model="show"
-             title="Modal Variants"
-             :header-bg-variant="headerBgVariant"
-             :header-text-variant="headerTextVariant"
-             :body-bg-variant="bodyBgVariant"
-             :body-text-variant="bodyTextVariant"
-             :footer-bg-variant="footerBgVariant"
-             :footer-text-variant="footerTextVariant">
-       <b-container fluid>
-         <b-row class="mb-1 text-center">
-           <b-col cols="3"> </b-col>
-           <b-col>Background</b-col>
-           <b-col>Text</b-col>
-         </b-row>
-         <b-row class="mb-1">
-           <b-col cols="3">Header</b-col>
-           <b-col><b-form-select :options="variants" v-model="headerBgVariant" /></b-col>
-           <b-col><b-form-select :options="variants" v-model="headerTextVariant" /></b-col>
-         </b-row>
-         <b-row class="mb-1">
-           <b-col cols="3">Body</b-col>
-           <b-col><b-form-select :options="variants" v-model="bodyBgVariant" /></b-col>
-           <b-col><b-form-select :options="variants" v-model="bodyTextVariant" /></b-col>
-         </b-row>
-         <b-row>
-           <b-col cols="3">Footer</b-col>
-           <b-col><b-form-select :options="variants" v-model="footerBgVariant" /></b-col>
-           <b-col><b-form-select :options="variants" v-model="footerTextVariant" /></b-col>
-         </b-row>
-       </b-container>
-       <div slot="modal-footer" class="w-100">
-         <p class="float-left">Modal Footer Content</p>
-         <b-btn size="sm" class="float-right" variant="primary" @click="show=false">
-           Close
-         </b-btn>
-       </div>
+    <b-modal
+      v-model="show"
+      title="Modal Variants"
+      :header-bg-variant="headerBgVariant"
+      :header-text-variant="headerTextVariant"
+      :body-bg-variant="bodyBgVariant"
+      :body-text-variant="bodyTextVariant"
+      :footer-bg-variant="footerBgVariant"
+      :footer-text-variant="footerTextVariant"
+    >
+      <b-container fluid>
+        <b-row class="mb-1 text-center">
+          <b-col cols="3"> </b-col>
+          <b-col>Background</b-col>
+          <b-col>Text</b-col>
+        </b-row>
+        <b-row class="mb-1">
+          <b-col cols="3">Header</b-col>
+          <b-col><b-form-select :options="variants" v-model="headerBgVariant"/></b-col>
+          <b-col><b-form-select :options="variants" v-model="headerTextVariant"/></b-col>
+        </b-row>
+        <b-row class="mb-1">
+          <b-col cols="3">Body</b-col>
+          <b-col><b-form-select :options="variants" v-model="bodyBgVariant"/></b-col>
+          <b-col><b-form-select :options="variants" v-model="bodyTextVariant"/></b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="3">Footer</b-col>
+          <b-col><b-form-select :options="variants" v-model="footerBgVariant"/></b-col>
+          <b-col><b-form-select :options="variants" v-model="footerTextVariant"/></b-col>
+        </b-row>
+      </b-container>
+      <div slot="modal-footer" class="w-100">
+        <p class="float-left">Modal Footer Content</p>
+        <b-btn size="sm" class="float-right" variant="primary" @click="show=false"> Close </b-btn>
+      </div>
     </b-modal>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      show: false,
-      variants: [
-        'primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark'
-      ],
-      headerBgVariant: 'dark',
-      headerTextVariant: 'light',
-      bodyBgVariant: 'light',
-      bodyTextVariant: 'dark',
-      footerBgVariant: 'warning',
-      footerTextVariant: 'dark'
+  export default {
+    data() {
+      return {
+        show: false,
+        variants: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'light', 'dark'],
+        headerBgVariant: 'dark',
+        headerTextVariant: 'light',
+        bodyBgVariant: 'light',
+        bodyTextVariant: 'dark',
+        footerBgVariant: 'warning',
+        footerTextVariant: 'dark'
+      }
     }
   }
-}
 </script>
 
 <!-- modal-variant-1.vue -->
@@ -419,29 +396,30 @@ You can also apply abritrary classes to the modal dialog container, content (mod
 accept either a string or array of strings.
 
 ## Lazy loading
+
 Modal will always render its HTML markup in the document at the location that
 the `<b-modal>` component is placed (even if it is not shown). You can hide
 the modal markup from being in the DOM while modal is in the hidden state by
 setting the `lazy` prop.
 
-
 ## Disable open and close animation
+
 To disable the fading transition/animation when modal opens and closes, just set the prop
 `no-fade` on the `<b-modal>` component.
 
-
 ## Disabling built-in buttons
+
 You can disable the built-in footer buttons programatically.
 
 You can disable the **Cancel** and **OK** buttons individually by setting the `cancel-disabled`
-and `ok-disabled` props, respectively,  to `true`. Set the prop to `false` to re-enable
+and `ok-disabled` props, respectively, to `true`. Set the prop to `false` to re-enable
 the button.
 
 To disable both **Cancel** and **OK** buttons at the same time, simply set the `busy`
 prop to `true`. Set it to `false` to re-enable both buttons.
 
-
 ## Multiple modal support
+
 Unlike native Bootstrap V4, Bootstrap-Vue supports multiple modals opened at the same time.
 
 To disable stacking for a specific modal, just set the prop `no-stacking` on the
@@ -467,6 +445,7 @@ To disable stacking for a specific modal, just set the prop `no-stacking` on the
 ```
 
 **Notes:**
+
 - Do not nest `b-modal` _inside_ another `b-modal`, as it will get "constrained" to the boundaries of the containing modal dialog.
 - The opaque backdrop will appear progressively darker for each modal that is opened. This is expected behaviour as each backdrop is opened over top the other backdrops.
 - For multiple modals to stack properly, they **must** be defined in the document in the order they will be opened, otherwise a newly opened modal may appear hidden or obscured by a currently open modal.
@@ -491,12 +470,12 @@ an element already has focus within the `<b-modal>`.
 ```html
 <b-modal @shown="focusMyElement">
   <b-button>I Don't Have Focus</b-button>
-  <br>
+  <br />
   <b-form-input type="text"></b-form-input>
-  <br>
+  <br />
   <!-- element to gain focus when modal is opened -->
   <b-form-input ref="focusThis" type="text"></b-form-input>
-  <br>
+  <br />
   <b-form-input type="text"></b-form-input>
 </b-modal>
 ```
@@ -544,29 +523,25 @@ which is the element to return focus to. This argument accepts the same types
 as the `return-focus` prop.
 
 ```js
-this.$root.$emit('bv::show::modal', 'modal1', '#focusThisOnClose');
+this.$root.$emit('bv::show::modal', 'modal1', '#focusThisOnClose')
 ```
 
-*Tip:* if using a click event (or similar) to trigger modal to open, pass the
+_Tip:_ if using a click event (or similar) to trigger modal to open, pass the
 event's `target` property:
 
 ```html
-<b-btn @click="$root.$emit.('bv::show::modal', 'modal1', $event.target)">
-  Open Modal
-</b-btn>
+<b-btn @click="$root.$emit.('bv::show::modal', 'modal1', $event.target)"> Open Modal </b-btn>
 ```
 
 **Note:** If the `<b-modal>` has the `return-focus` prop set, then the element specified
 via the event will be ignored.
 
-
 ## Keyboard Navigation
 
 When tabbing through elements within a `<b-modal>`, if focus attempts to leave the modal into the document,
-it  will be brought back into the modal.
+it will be brought back into the modal.
 
 In some circumstances, you may need to disable the enforce focus feature. You can do this
 by setting the prop `no-enforce-focus`.
-
 
 <!-- Component reference added automatically from component package.json -->

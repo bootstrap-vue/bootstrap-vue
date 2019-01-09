@@ -1,6 +1,6 @@
 # Collapse
 
-  toggle content visibility on your pages. Includes support for making accordions.
+toggle content visibility on your pages. Includes support for making accordions.
 
 ```html
 <div>
@@ -9,9 +9,7 @@
     <b-card>
       <p class="card-text">Collapse contents Here</p>
       <b-btn v-b-toggle.collapse1_inner size="sm">Toggle Inner Collapse</b-btn>
-      <b-collapse id=collapse1_inner class="mt-2">
-        <b-card>Hello!</b-card>
-      </b-collapse>
+      <b-collapse id="collapse1_inner" class="mt-2"> <b-card>Hello!</b-card> </b-collapse>
     </b-card>
   </b-collapse>
 </div>
@@ -32,33 +30,27 @@ Other elements can easily toggle `<b-collapse>` components using the `v-b-toggle
   <b-btn v-b-toggle="'collapse2'" class="m-1">Toggle Collapse</b-btn>
 
   <!-- element to collapse -->
-  <b-collapse id="collapse2">
-    <b-card>
-      I am collapsable content!
-    </b-card>
-  </b-collapse>
+  <b-collapse id="collapse2"> <b-card> I am collapsable content! </b-card> </b-collapse>
 </div>
 
 <!-- collapse-2.vue -->
 ```
 
 ## Initial visibility (start expanded)
+
 To make the `<b-collapse>` show initially, set the `visible` prop:
 
 ```html
 <div>
   <b-btn v-b-toggle.collapse3 class="m-1">Toggle Collapse</b-btn>
-  <b-collapse visible id="collapse3">
-    <b-card>
-      I should start open!
-    </b-card>
-  </b-collapse>
+  <b-collapse visible id="collapse3"> <b-card> I should start open! </b-card> </b-collapse>
 </div>
 
 <!-- collapse-3.vue -->
 ```
 
 ## `v-model` support
+
 The component's collapsed (visible) state can also be set with `v-model` which
 binds internally to the `visible` prop.
 
@@ -69,34 +61,35 @@ when using the `v-b-toggle` directive). In this example we must control them our
 ```html
 <template>
   <div>
-    <b-btn @click="showCollapse = !showCollapse"
-           :class="showCollapse ? 'collapsed' : null"
-           aria-controls="collapse4"
-           :aria-expanded="showCollapse ? 'true' : 'false'">
+    <b-btn
+      @click="showCollapse = !showCollapse"
+      :class="showCollapse ? 'collapsed' : null"
+      aria-controls="collapse4"
+      :aria-expanded="showCollapse ? 'true' : 'false'"
+    >
       Toggle Collapse
     </b-btn>
     <b-collapse class="mt-2" v-model="showCollapse" id="collapse4">
-      <b-card>
-        I should start open!
-      </b-card>
+      <b-card> I should start open! </b-card>
     </b-collapse>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      showCollapse: true
+  export default {
+    data() {
+      return {
+        showCollapse: true
+      }
     }
   }
-}
 </script>
 
 <-- collapse-4.vue -->
 ```
 
 ## Trigger multiple collapse elements
+
 You can even collapse multiple `<b-collapse>` components via a single `v-b-toggle` by
 providing multiple target IDs using modifers:
 
@@ -107,20 +100,15 @@ providing multiple target IDs using modifers:
 
   <!-- elements to collapse -->
   <b-collapse id="collapseA" class="mt-2">
-    <b-card>
-      I am collapsable content A!
-    </b-card>
+    <b-card> I am collapsable content A! </b-card>
   </b-collapse>
   <b-collapse id="collapseB" class="mt-2">
-    <b-card>
-      I am collapsable content B!
-    </b-card>
+    <b-card> I am collapsable content B! </b-card>
   </b-collapse>
 </div>
 
 <!-- collapse-mult-1.vue -->
 ```
-
 
 ## Accordion Support
 
@@ -136,12 +124,8 @@ an accordion group identifier via the `accordion` prop:
       </b-card-header>
       <b-collapse id="accordion1" visible accordion="my-accordion" role="tabpanel">
         <b-card-body>
-          <p class="card-text">
-            I start opened because <code>visible</code> is <code>true</code>
-          </p>
-          <p class="card-text">
-            {{ text }}
-          </p>
+          <p class="card-text">I start opened because <code>visible</code> is <code>true</code></p>
+          <p class="card-text">{{ text }}</p>
         </b-card-body>
       </b-collapse>
     </b-card>
@@ -150,11 +134,7 @@ an accordion group identifier via the `accordion` prop:
         <b-btn block href="#" v-b-toggle.accordion2 variant="info">Accordion 2</b-btn>
       </b-card-header>
       <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
-        <b-card-body>
-          <p class="card-text">
-            {{ text }}
-          </p>
-        </b-card-body>
+        <b-card-body> <p class="card-text">{{ text }}</p> </b-card-body>
       </b-collapse>
     </b-card>
     <b-card no-body class="mb-1">
@@ -162,21 +142,17 @@ an accordion group identifier via the `accordion` prop:
         <b-btn block href="#" v-b-toggle.accordion3 variant="info">Accordion 3</b-btn>
       </b-card-header>
       <b-collapse id="accordion3" accordion="my-accordion" role="tabpanel">
-        <b-card-body>
-          <p class="card-text">
-            {{ text }}
-          </p>
-        </b-card-body>
+        <b-card-body> <p class="card-text">{{ text }}</p> </b-card-body>
       </b-collapse>
     </b-card>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      text: `
+  export default {
+    data() {
+      return {
+        text: `
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
         richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
         brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
@@ -186,49 +162,48 @@ export default {
         vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
         synth nesciunt you probably haven't heard of them accusamus labore VHS.
       `
+      }
     }
   }
-}
 </script>
 
 <!-- accordion-1.vue -->
 ```
 
 **Notes:**
-- When using accordion mode, make sure you place the trigger elements and `<b-collapse>`
-components inside an element with `role="tablist"` and set `role="tab"` on each trigger
-element's container (each trigger element should be wrapped) in order to help screen
-reader users navigate the accordion group.
-- If using the `v-model` feature of `<b-collapse>` in accordion mode, do not bind the
-`v-model` or `visible` prop of all the collapses in the accordion group to the same variable!
-- Ensure, at most, only one `<b-collapse>` in the accordion group has the `visible`
-prop and/or `v-model` set to `true`.
 
+- When using accordion mode, make sure you place the trigger elements and `<b-collapse>`
+  components inside an element with `role="tablist"` and set `role="tab"` on each trigger
+  element's container (each trigger element should be wrapped) in order to help screen
+  reader users navigate the accordion group.
+- If using the `v-model` feature of `<b-collapse>` in accordion mode, do not bind the
+  `v-model` or `visible` prop of all the collapses in the accordion group to the same variable!
+- Ensure, at most, only one `<b-collapse>` in the accordion group has the `visible`
+  prop and/or `v-model` set to `true`.
 
 ## Hiding and showing content in the toggle button based on collapse state
+
 When using the `v-b-toggle` directive, the class `collapsed` will automatically be placed
 on the trigger element when the collapse is closed, and removed when open. You can
 use this class to display or hide content within the toggle via custom CSS:
 
 **Example HTML markup:**
+
 ```html
 <b-btn v-b-toggle.myCollapse>
-  <span class="when-opened">Close</span>
-  <span class="when-closed">Open</span>
-  My Collapse
+  <span class="when-opened">Close</span> <span class="when-closed">Open</span> My Collapse
 </b-btn>
-<b-collapse id="myCollapse">
-  <!-- content here -->
-</b-collapse>
+<b-collapse id="myCollapse"> <!-- content here --> </b-collapse>
 ```
+
 **Example Custom CSS:**
+
 ```css
 .collapsed > .when-opened,
 :not(.collapsed) > .when-closed {
   display: none;
 }
 ```
-
 
 ## Accessibility
 
@@ -253,6 +228,5 @@ components inside an element with `role="tablist"` and set `role="tab"` on each 
 element's container in order to help screen reader users navigate the accordion group.
 Unfortunately, Boostrap-Vue cannot apply those roles for you automaticaly, as it depends on
 your final document markup.
-
 
 <!-- Component reference added automatically from component package.json -->

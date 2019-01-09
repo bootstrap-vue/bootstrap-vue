@@ -1,19 +1,18 @@
 # Navbar
 
 > The component `<b-navbar>` is a wrapper that positions branding, navigation, and
-other elements into a concise header. It’s easily extensible and thanks to the
-`<b-collapse>` component, it can easily integrate responsive behaviors.
+> other elements into a concise header. It’s easily extensible and thanks to the
+> `<b-collapse>` component, it can easily integrate responsive behaviors.
 
 **Example:**
+
 ```html
 <b-navbar toggleable="lg" type="dark" variant="info">
-
   <b-navbar-brand href="#">NavBar</b-navbar-brand>
-  
+
   <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
   <b-collapse is-nav id="nav_collapse">
-
     <b-navbar-nav>
       <b-nav-item href="#">Link</b-nav-item>
       <b-nav-item href="#" disabled>Disabled</b-nav-item>
@@ -21,9 +20,8 @@ other elements into a concise header. It’s easily extensible and thanks to the
 
     <!-- Right aligned nav items -->
     <b-navbar-nav class="ml-auto">
-
       <b-nav-form>
-        <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
+        <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search" />
         <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
       </b-nav-form>
 
@@ -43,7 +41,6 @@ other elements into a concise header. It’s easily extensible and thanks to the
         <b-dropdown-item href="#">Signout</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-navbar-nav>
-
   </b-collapse>
 </b-navbar>
 
@@ -63,16 +60,15 @@ color variants, or `dark` for dark background color variants.
 
 Control the placement of the navbar by setting one of two props:
 
-| prop | type | default | description
-| ---- | ---- | ------- | -----------
-| `fixed` | String | `null` | Set to `top` for fixed to the top of the viewport, or `bottom` for fixed to the `bottom` of the viewport. 
-| `sticky` | Boolean | `false` | Set to `true` to make the navbar stick to the top of the viewport (or parent container that has `position: relative` set) when scrolled.
+| prop     | type    | default | description                                                                                                                              |
+| -------- | ------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `fixed`  | String  | `null`  | Set to `top` for fixed to the top of the viewport, or `bottom` for fixed to the `bottom` of the viewport.                                |
+| `sticky` | Boolean | `false` | Set to `true` to make the navbar stick to the top of the viewport (or parent container that has `position: relative` set) when scrolled. |
 
 **Notes:**
 
 - Fixed positioning uses CSS `position: fixed`. You may need to adjust your document top/bottom padding or margin.
 - CSS `position: sticky` (used for `sticky`) is not fully supported in every browser. For browsers that do not support `position: sticky`, it will fallback natively to `position: relative`.
-
 
 ## Supported Content
 
@@ -123,7 +119,7 @@ to properly size. Here are some examples to demonstrate:
   <!-- Just an image -->
   <b-navbar variant="faded" type="light">
     <b-navbar-brand href="#">
-      <img src="https://placekitten.com/g/30/30" alt="BV">
+      <img src="https://placekitten.com/g/30/30" alt="BV" />
     </b-navbar-brand>
   </b-navbar>
 </div>
@@ -136,7 +132,7 @@ to properly size. Here are some examples to demonstrate:
   <!-- Image and text -->
   <b-navbar variant="faded" type="light">
     <b-navbar-brand href="#">
-      <img src="https://placekitten.com/g/30/30" class="d-inline-block align-top" alt="BV">
+      <img src="https://placekitten.com/g/30/30" class="d-inline-block align-top" alt="BV" />
       BootstrapVue
     </b-navbar-brand>
   </b-navbar>
@@ -180,15 +176,13 @@ adjusts vertical alignment and horizontal spacing for strings of text.
 
 ```html
 <div>
-    <b-navbar toggleable type="light" variant="light">
-        <b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
-        <b-navbar-brand>BootstrapVue</b-navbar-brand>
-        <b-collapse is-nav id="nav_text_collapse">
-            <b-navbar-nav>
-                <b-nav-text>Navbar text</b-nav-text>
-            </b-navbar-nav>
-        </b-collapse>
-    </b-navbar>
+  <b-navbar toggleable type="light" variant="light">
+    <b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
+    <b-navbar-brand>BootstrapVue</b-navbar-brand>
+    <b-collapse is-nav id="nav_text_collapse">
+      <b-navbar-nav> <b-nav-text>Navbar text</b-nav-text> </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
 </div>
 
 <!-- navbar-text-1.vue -->
@@ -256,6 +250,7 @@ Input groups work as well:
 ```
 
 ### `<b-navbar-toggle>` and `<b-collapse is-nav>`
+
 Navbars are not responsive by default, but you can easily modify them to change that. Responsive
 behavior depends on our `<b-collapse>` component.
 
@@ -278,13 +273,12 @@ your markup will reverse the placement of the toggler.
 See the first example on this page for reference, and also refer to
 [`<b-collapse>`](/docs/components/collapse) for details on the collapse component.
 
-
 ## Printing
+
 Navbars are hidden by deafult when printing. Force them to be printed by setting the `print` prop.
 
-
 ## See also
-Also see [`<b-nav>`](/docs/components/nav) for additional components and sub-component aliases.
 
+Also see [`<b-nav>`](/docs/components/nav) for additional components and sub-component aliases.
 
 <!-- Component reference added automatically from component package.json -->

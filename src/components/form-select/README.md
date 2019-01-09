@@ -1,7 +1,7 @@
 # Form Select
 
 > Bootstrap custom `<select>` using custom styles. Optionally specify options based on an
-array, array of objects, or an object.
+> array, array of objects, or an object.
 
 Generate your select options by passing an array or object to the `options` props:
 
@@ -15,20 +15,20 @@ Generate your select options by passing an array or object to the `options` prop
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      selected: null,
-      options: [
-        { value: null, text: 'Please select an option' },
-        { value: 'a', text: 'This is First option' },
-        { value: 'b', text: 'Selected Option' },
-        { value: {'C': '3PO'}, text: 'This is an option with object value' },
-        { value: 'd', text: 'This one is disabled', disabled: true }
-      ]
+  export default {
+    data() {
+      return {
+        selected: null,
+        options: [
+          { value: null, text: 'Please select an option' },
+          { value: 'a', text: 'This is First option' },
+          { value: 'b', text: 'Selected Option' },
+          { value: { C: '3PO' }, text: 'This is an option with object value' },
+          { value: 'd', text: 'This one is disabled', disabled: true }
+        ]
+      }
     }
   }
-}
 </script>
 
 <!-- form-select-options.vue -->
@@ -40,8 +40,7 @@ Or manually provide your options and optgroups:
 <template>
   <div>
     <b-form-select v-model="selected" class="mb-3">
-      <option :value="null">Please select an option</option>
-      <option value="a">Option A</option>
+      <option :value="null">Please select an option</option> <option value="a">Option A</option>
       <option value="b" disabled>Option B (disabled)</option>
       <optgroup label="Grouped Options">
         <option :value="{'C':'3PO'}">Option with object value</option>
@@ -53,13 +52,13 @@ Or manually provide your options and optgroups:
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      selected: null
+  export default {
+    data() {
+      return {
+        selected: null
+      }
     }
   }
-}
 </script>
 
 <!-- form-select-manual.vue -->
@@ -79,25 +78,24 @@ by the `options` prop, use the named slot `first`.
         <option :value="null" disabled>-- Please select an option --</option>
       </template>
       <!-- these options will appear after the ones from 'options' prop -->
-      <option value="C">Option C</option>
-      <option value="D">Option D</option>
+      <option value="C">Option C</option> <option value="D">Option D</option>
     </b-form-select>
     <div>Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      selected: null,
-      options: [
-        { value: 'A', text: 'Option A (from options prop)' },
-        { value: 'B', text: 'Option B (from options prop)' }
-      ]
+  export default {
+    data() {
+      return {
+        selected: null,
+        options: [
+          { value: 'A', text: 'Option A (from options prop)' },
+          { value: 'B', text: 'Option B (from options prop)' }
+        ]
+      }
     }
   }
-}
 </script>
 
 <!-- form-select-both.vue -->
@@ -117,7 +115,7 @@ you can easily change them using `text-field` and `value-field` props.
 ### Array
 
 ```js
-['A', 'B', 'C', {text:'D', value:'d', disabled:true}, 'E', 'F']
+;['A', 'B', 'C', { text: 'D', value: 'd', disabled: true }, 'E', 'F']
 ```
 
 ### Array of objects
@@ -157,27 +155,26 @@ selected option.
 ```html
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" class="mb-3">
-    </b-form-select>
+    <b-form-select v-model="selected" :options="options" class="mb-3"> </b-form-select>
     <div>Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      selected: null,
-      options: [
-        { value: null, text: 'Please select some item' },
-        { value: 'a', text: 'This is First option' },
-        { value: 'b', text: 'Default Selected Option' },
-        { value: 'c', text: 'This is another option' },
-        { value: 'd', text: 'This one is disabled', disabled: true }
-      ]
+  export default {
+    data() {
+      return {
+        selected: null,
+        options: [
+          { value: null, text: 'Please select some item' },
+          { value: 'a', text: 'This is First option' },
+          { value: 'b', text: 'Default Selected Option' },
+          { value: 'c', text: 'This is another option' },
+          { value: 'd', text: 'This one is disabled', disabled: true }
+        ]
+      }
     }
   }
-}
 </script>
 
 <!-- form-select-3.vue -->
@@ -204,22 +201,22 @@ Note: not all mobile browsers will show a the select as a list-box.
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      selected: null,
-      options: [
-        { value: null, text: 'Please select some item' },
-        { value: 'a', text: 'This is option a' },
-        { value: 'b', text: 'Default Selected Option b' },
-        { value: 'c', text: 'This is option c' },
-        { value: 'd', text: 'This one is disabled', disabled: true },
-        { value: 'e', text: 'This is option e' },
-        { value: 'e', text: 'This is option f' }
-      ]
+  export default {
+    data() {
+      return {
+        selected: null,
+        options: [
+          { value: null, text: 'Please select some item' },
+          { value: 'a', text: 'This is option a' },
+          { value: 'b', text: 'Default Selected Option b' },
+          { value: 'c', text: 'This is option c' },
+          { value: 'd', text: 'This one is disabled', disabled: true },
+          { value: 'e', text: 'This is option e' },
+          { value: 'e', text: 'This is option f' }
+        ]
+      }
     }
   }
-}
 </script>
 
 <!-- form-select-4.vue -->
@@ -247,22 +244,22 @@ You **must** provide an array reference as your `v-model` when in `multiple` mod
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      selected: ['b'], // Array reference
-      options: [
-        { value: 'a', text: 'This is First option' },
-        { value: 'b', text: 'Default Selected Option' },
-        { value: 'c', text: 'This is another option' },
-        { value: 'd', text: 'This one is disabled', disabled: true },
-        { value: 'e', text: 'This is option e' },
-        { value: 'f', text: 'This is option f' },
-        { value: 'g', text: 'This is option g' }
-      ]
+  export default {
+    data() {
+      return {
+        selected: ['b'], // Array reference
+        options: [
+          { value: 'a', text: 'This is First option' },
+          { value: 'b', text: 'Default Selected Option' },
+          { value: 'c', text: 'This is another option' },
+          { value: 'd', text: 'This one is disabled', disabled: true },
+          { value: 'e', text: 'This is option e' },
+          { value: 'f', text: 'This is option f' },
+          { value: 'g', text: 'This is option g' }
+        ]
+      }
     }
   }
-}
 </script>
 
 <!-- form-select-5.vue -->
@@ -278,6 +275,7 @@ appears in. To control the select width, place the input inside standard Bootstr
 grid column.
 
 ## Contextual States
+
 Bootstrap includes validation styles for `valid` and `invalid` states
 on most form controls.
 
@@ -321,6 +319,5 @@ Set the prop `plain` to have a native browser `<select>` rendered (although the 
 
 A `plain` select will always be rendered for non `multiple` selects which have the
 `select-size` prop set to a value greater than 1.
-
 
 <!-- Component reference added automatically from component package.json -->

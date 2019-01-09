@@ -1,31 +1,27 @@
 # Links
 
 > Use Bootstrap-Vue’s custom `b-link` component for generating a standard `<a>` link or
-`<router-link>`. `<b-link>` supports the `disabled` state and `click` event propagation.
+> `<router-link>`. `<b-link>` supports the `disabled` state and `click` event propagation.
 
 `<b-link>` is the building block for most Bootstrap-Vue components that offer link functionality.
 
 ```html
-<div>
-   <b-link href="#foo">Link</b-link>
-</div>
+<div><b-link href="#foo">Link</b-link></div>
 
 <!-- link-example.vue -->
 ```
-
 
 ## Link type
 
 By specifying a value in the `href` prop, a standard link (`<a>`) element will be rendered.
 To generate a `<router-link>` instead, specify the route location via the `to` prop.
 
-Router links support various additional props.  Refer to the [Router support](/docs/reference/router-links)
+Router links support various additional props. Refer to the [Router support](/docs/reference/router-links)
 reference section for details.
 
 If your app is running under [Nuxt](https://nuxtjs.org), the [`<nuxt-link>`](https://nuxtjs.org/api/components-nuxt-link)
 component will be used instead of `<router-link>`. The `<nuxt-link>` component supports all the
 same features as `<router-link>` (as it is a wrapper component for `<router-link>`) and more.
-
 
 ## Links with href="#"
 
@@ -34,15 +30,12 @@ Typically `<a href="#">` will cause the document to scroll to the top of page wh
 
 If you need scroll to top behaviour, use a standard `<a href="#">...</a>` tag.
 
-
 ## Link disabled state
 
 Disable link functionality by setting the `disabled` prop to true.
 
 ```html
-<div>
-   <b-link href="#foo" disabled>Disabled Link</b-link>
-</div>
+<div><b-link href="#foo" disabled>Disabled Link</b-link></div>
 
 <!-- link-disabled.vue -->
 ```
@@ -62,6 +55,5 @@ a.disabled {
 ```
 
 Not all browsers support `pointer-events: none;`.
-
 
 <!-- Component reference added automatically from component package.json -->

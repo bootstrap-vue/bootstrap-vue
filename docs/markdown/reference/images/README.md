@@ -4,7 +4,6 @@
 > on `<img>` tags, but doesn't automatically for BootstrapVue custom
 > components that accept image src url tags.
 
-
 ## Vue-loader `transformAssetUrls` to resolve img paths
 
 To have your project convert these custom component image URLs for you, you will need to
@@ -48,7 +47,6 @@ This will allow you to use the following format in your `.vue` files:
 <b-card-img img-src="~/static/picture.jpg" />
 ```
 
-
 ### Vue CLI 3 Support
 
 Vue CLI 3 changed the way that webpack compiles a Vue app, in order to make BootstrapVue work again, you need to do the following steps:
@@ -65,22 +63,21 @@ module.exports = {
       .loader('vue-loader')
       .tap(options => {
         options['transformAssetUrls'] = {
-          'img': 'src',
-          'image': 'xlink:href',
+          img: 'src',
+          image: 'xlink:href',
           'b-img': 'src',
           'b-img-lazy': ['src', 'blank-src'],
           'b-card': 'img-src',
           'b-card-img': 'img-src',
           'b-carousel-slide': 'img-src',
           'b-embed': 'src'
-        };
+        }
 
-        return options;
-      });
+        return options
+      })
   }
 }
 ```
-
 
 ### Configuring `transformAssetUrls` in Nuxt
 
@@ -105,7 +102,6 @@ build: {
   }
 }
 ```
-
 
 ## Using `require` to resolve image paths
 

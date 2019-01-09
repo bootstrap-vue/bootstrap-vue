@@ -6,34 +6,33 @@
 <template>
   <div>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-      <b-form-group id="exampleInputGroup1"
-                    label="Email address:"
-                    label-for="exampleInput1"
-                    description="We'll never share your email with anyone else.">
-        <b-form-input id="exampleInput1"
-                      type="email"
-                      v-model="form.email"
-                      required
-                      placeholder="Enter email">
+      <b-form-group
+        id="exampleInputGroup1"
+        label="Email address:"
+        label-for="exampleInput1"
+        description="We'll never share your email with anyone else."
+      >
+        <b-form-input
+          id="exampleInput1"
+          type="email"
+          v-model="form.email"
+          required
+          placeholder="Enter email"
+        >
         </b-form-input>
       </b-form-group>
-      <b-form-group id="exampleInputGroup2"
-                    label="Your Name:"
-                    label-for="exampleInput2">
-        <b-form-input id="exampleInput2"
-                      type="text"
-                      v-model="form.name"
-                      required
-                      placeholder="Enter name">
+      <b-form-group id="exampleInputGroup2" label="Your Name:" label-for="exampleInput2">
+        <b-form-input
+          id="exampleInput2"
+          type="text"
+          v-model="form.name"
+          required
+          placeholder="Enter name"
+        >
         </b-form-input>
       </b-form-group>
-      <b-form-group id="exampleInputGroup3"
-                    label="Food:"
-                    label-for="exampleInput3">
-        <b-form-select id="exampleInput3"
-                      :options="foods"
-                      required
-                      v-model="form.food">
+      <b-form-group id="exampleInputGroup3" label="Food:" label-for="exampleInput3">
+        <b-form-select id="exampleInput3" :options="foods" required v-model="form.food">
         </b-form-select>
       </b-form-group>
       <b-form-group id="exampleGroup4">
@@ -49,40 +48,39 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      form: {
-        email: '',
-        name: '',
-        food: null,
-        checked: []
-      },
-      foods: [
-        { text: 'Select One', value: null },
-        'Carrots', 'Beans', 'Tomatoes', 'Corn'
-      ],
-      show: true
-    }
-  },
-  methods: {
-    onSubmit (evt) {
-      evt.preventDefault();
-      alert(JSON.stringify(this.form));
+  export default {
+    data() {
+      return {
+        form: {
+          email: '',
+          name: '',
+          food: null,
+          checked: []
+        },
+        foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+        show: true
+      }
     },
-    onReset (evt) {
-      evt.preventDefault();
-      /* Reset our form values */
-      this.form.email = '';
-      this.form.name = '';
-      this.form.food = null;
-      this.form.checked = [];
-      /* Trick to reset/clear native browser form validation state */
-      this.show = false;
-      this.$nextTick(() => { this.show = true });
+    methods: {
+      onSubmit(evt) {
+        evt.preventDefault()
+        alert(JSON.stringify(this.form))
+      },
+      onReset(evt) {
+        evt.preventDefault()
+        /* Reset our form values */
+        this.form.email = ''
+        this.form.name = ''
+        this.form.food = null
+        this.form.checked = []
+        /* Trick to reset/clear native browser form validation state */
+        this.show = false
+        this.$nextTick(() => {
+          this.show = true
+        })
+      }
     }
   }
-}
 </script>
 
 <!-- b-form-1.vue -->
@@ -129,15 +127,15 @@ Custom form controls and selects are also supported.
   <div>
     <b-form inline>
       <label class="mr-sm-2" for="inlineFormCustomSelectPref">Preference</label>
-      <b-form-select class="mb-2 mr-sm-2 mb-sm-0"
-                     :value="null"
-                     :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
-                     id="inlineFormCustomSelectPref">
+      <b-form-select
+        class="mb-2 mr-sm-2 mb-sm-0"
+        :value="null"
+        :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
+        id="inlineFormCustomSelectPref"
+      >
         <option slot="first" :value="null">Choose...</option>
       </b-form-select>
-      <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">
-        Remember my preference
-      </b-form-checkbox>
+      <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0"> Remember my preference </b-form-checkbox>
       <b-button variant="primary">Save</b-button>
     </b-form>
   </div>
@@ -149,6 +147,7 @@ Custom form controls and selects are also supported.
 **Note:** _`<b-form-group>` is not supported in `inline` forms due to layout conflicts._
 
 ### Alternatives to hidden labels
+
 Assistive technologies such as screen readers will have trouble with your forms if you
 don’t include a label for every input. For these inline forms, you can hide the labels
 using the `.sr-only` class. There are further alternative methods of providing a label
@@ -156,7 +155,6 @@ for assistive technologies, such as the `aria-label`, `aria-labelledby` or `titl
 attributes. If none of these are present, assistive technologies may resort to using
 the `placeholder` attribute, if present, but note that use of `placeholder` as a
 replacement for other labelling methods is not advised.
-
 
 ## Related Form Control Components
 
@@ -172,7 +170,6 @@ See also:
 - [`<b-button>`](/docs/components/button) Buttons
 - [`<b-input-group>`](/docs/components/input-group) Form inputs with add-ons
 
-
 ## Helper components
 
 - [`<b-form-row>`](/docs/components/layout) create grid rows and columns with tighter margins
@@ -181,10 +178,12 @@ See also:
 - `<b-form-valid-feedback>` Valid feedback text blocks for input `valid` states
 
 ### Text helper
+
 Display a block of help text below an input with the `<b-form-text>` helper component.
 text is displayed with a muted color and slightly smaller font-size.
 
 ### Feedback helpers
+
 The valid and invalid feedback helper components will display feedback (based on input state)
 as a block of colored text. They rely on being placed after an input (sibling) and will show
 based on the browser native validation state of the input. To force them to show,
@@ -196,7 +195,6 @@ block to a static tooltip style. The feedback will typically appear below the fo
 When this mode is enabled, it is important that the parent container have a
 `position: relative:` css style (or `position-relative` class). Note that tooltip style
 feedback may, since it's positioning is static, obscure other inputs, labels, etc.
-
 
 ## Validation
 
@@ -219,6 +217,5 @@ Please see the following references:
 - [MDN: Learn Form Validation - Using JavaScript API](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Validating_forms_using_JavaScript)
 - [MDN: HTML5 Constraint Validation](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
 - [MDN: Validity State API](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
-
 
 <!-- Component reference added automatically from component package.json -->

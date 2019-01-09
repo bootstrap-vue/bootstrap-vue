@@ -36,8 +36,8 @@ Or import Bootstrap and BootstrapVue `scss` files via a custom SCSS file:
 
 ```scss
 // custom.scss
-@import "node_modules/bootstrap/scss/bootstrap";
-@import "node_modules/bootstrap-vue/src/index.scss";
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
 ```
 
 ```js
@@ -50,7 +50,6 @@ SCSS _after_ Bootstrap SCSS to ensure variables are set up correctly.
 
 **Note**: _Requires webpack configuration to load CSS/SCSS files
 ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))_.
-
 
 ## Nuxt.js plugin module
 
@@ -79,11 +78,8 @@ and BootstrapVue pre-compiled CSS files by setting the folliwing option(s) to `f
 
 ```js
 {
-  modules: [
-    ['bootstrap-vue/nuxt', { bootstrapCss: false, bootstrapVueCss: false }],
-  ]
+  modules: [['bootstrap-vue/nuxt', { bootstrapCss: false, bootstrapVueCss: false }]]
 }
-
 ```
 
 BootstrapVue's custom CSS relies on some Boostrap SCSS variables. You can include Bootstrap
@@ -102,8 +98,8 @@ $grid-breakpoints: (
 );
 
 // Then include the following
-@include "bootstrap/scss/bootstrap";
-@include "bootstrap-vue/src/index.scss";
+@include 'bootstrap/scss/bootstrap';
+@include 'bootstrap-vue/src/index.scss';
 ```
 
 In your app main entry point include the single custom SCSS file (when using `sass-loader`):
@@ -112,7 +108,6 @@ In your app main entry point include the single custom SCSS file (when using `sa
 // app.js
 import 'custom.scss'
 ```
-
 
 ## Vue CLI 2
 
@@ -140,7 +135,6 @@ npm run dev
 
 You can repeat the commands above replacing `bootstrap-vue/webpack-simple` with
 `bootstrap-vue/webpack` for the webpack template.
-
 
 ## Vue CLI 3
 
@@ -181,10 +175,7 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        'bootstrap-components': path.resolve(
-          __dirname,
-          'node_modules/bootstrap-vue/es/components'
-        ),
+        'bootstrap-components': path.resolve(__dirname, 'node_modules/bootstrap-vue/es/components')
       }
     }
   }
@@ -192,9 +183,8 @@ module.exports = {
 ```
 
 For additional configuration for Vue CLI 3 for using project relative paths for image src
-props on various BootstrapVue components, refer to the Vue CLI 3 section of the 
+props on various BootstrapVue components, refer to the Vue CLI 3 section of the
 [Image Src Resolving](/docs/reference/images#vue-cli-3-support) reference page.
-
 
 ## Individual components and directives
 
@@ -231,7 +221,6 @@ Vue.directive('b-modal', BModalDirective)
 
 Vue and ES2015 allow for various syntaxes here, so feel free to utilize kebab-casing (shown),
 camelCasing, PascalCasing, and/or object property shorthand.
-
 
 ### Component groups and Directives as Vue plugins
 
@@ -282,9 +271,10 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: [ // Use `include` vs `exclude` to whitelist vs blacklist
+        include: [
+          // Use `include` vs `exclude` to whitelist vs blacklist
           path.resolve(__dirname, 'src'), // Whitelist your app source files
-          require.resolve('bootstrap-vue'), // Whitelist bootstrap-vue
+          require.resolve('bootstrap-vue') // Whitelist bootstrap-vue
         ],
         loader: 'babel-loader'
       }
@@ -293,18 +283,21 @@ module.exports = {
 }
 ```
 
-
 ## Browser
+
 ```html
 <!-- Add this to <head> -->
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+<link
+  type="text/css"
+  rel="stylesheet"
+  href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"
+/>
 
 <script src="//unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
 <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 ```
-
 
 ## Build Variants
 
@@ -318,7 +311,6 @@ If your bundler supports es modules, it will automatically prefer it over common
 | commonjs2      | webpack 1 / ...       | `dist/bootstrap-vue.common.js` _or_ `dist/bootstrap-vue.common.min.js` |
 | UMD            | Browser               | `dist/bootstrap-vue.js` _or_ `dist/bootstrap-vue.min.js`               |
 
-
 ## Migrating a project already using Bootstrap
 
 If you've already been using Bootstrap 4, there are a couple adjustments you may need to make to your project:
@@ -327,15 +319,16 @@ If you've already been using Bootstrap 4, there are a couple adjustments you may
 - If Bootstrap is the only thing relying on jQuery, you can safely remove it — BootstrapVue **does not** depend on jQuery
 - Convert your native Bootstrap HTML markup into the simplified BootstrapVue custom component markup
 
-
 ## Browser Support
 
 ### CSS
+
 BootstrapVue is to be used with Bootstrap 4 CSS/SCSS.
 Please see [Browsers and devices](https://getbootstrap.com/docs/4.2/getting-started/browsers-devices)
 for more information about browsers currently supported by Bootstrap 4.
 
 ### JS
+
 BootstrapVue is written in Vue! So this is up to your project and bundler which browsers are supported.
 
 If you want to support older IE, Android and IOS devices, you may want to use
@@ -344,10 +337,10 @@ If you want to support older IE, Android and IOS devices, you may want to use
 - `npm install @babel/polyfill`
 - Import it in your app main entry point with `import '@babel/polyfill'`
 
-
 ## Tooling Support
 
 ### VS Code + Vetur
+
 If you are using [VS Code](https://code.visualstudio.com/) as your text editor, BootstrapVue
 has intellisense autocompletion for component attributes available when using the
 [Vetur extension](https://marketplace.visualstudio.com/items?itemName=octref.vetur).

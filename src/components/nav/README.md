@@ -1,8 +1,8 @@
 # Navs
 
 > Navigation available in Bootstrap share general markup and styles,
-from the base `<b-nav>` class to the `active` and `disabled` states.
-Swap modifier props to switch between each style.
+> from the base `<b-nav>` class to the `active` and `disabled` states.
+> Swap modifier props to switch between each style.
 
 ```html
 <div>
@@ -138,14 +138,19 @@ will produce something like:
 
 ```html
 <li id="nav7_ddown" class="nav-item b-nav-dropdown dropdown">
-   <a href="#" id="nav7_ddown__BV_button_" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle nav-link-custom">
+  <a
+    href="#"
+    id="nav7_ddown__BV_button_"
+    aria-haspopup="true"
+    aria-expanded="false"
+    class="nav-link dropdown-toggle nav-link-custom"
+  >
   </a>
   ...
 </li>
 ```
 
 Refer to [`<b-dropdown>`](../dropdown) for a list of supported sub-components.
-
 
 ## Using in Navbar
 
@@ -157,6 +162,7 @@ See the [`<b-tabs>`](./tabs) component for creating tabbable panes of local
 content (not suited for navigation).
 
 ## Accessibility
+
 If you’re using `<b-nav>` to provide a navigation bar, be sure to add a
 `role="navigation"` to the most logical parent container of `<b-nav>`, or wrap
 a `<nav>` element around `<b-nav>`. Do **not** add the role to the `<b-nav>` itself,
@@ -172,6 +178,5 @@ be automatically generated.
 - [`<b-navbar>`](/docs/components/navbar) a wrapper that positions branding, navigation, and other elements in a concise header.
 - [`<b-dropdown>`](/docs/components/dropdown) for sub-components that you can place inside `<b-nav-item-dropdown>`
 - [Router Link Support reference](/docs/reference/router-links) for information about router-link specific props available on `<b-nav-item>`
-
 
 <!-- Component reference added automatically from component package.json -->

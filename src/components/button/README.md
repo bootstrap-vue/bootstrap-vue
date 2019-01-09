@@ -1,7 +1,7 @@
 # Buttons
 
 > Use Bootstrap’s custom `b-button` component for actions in forms, dialogs, and more.
-Includes support for a handful of contextual variations, sizes, states, and more.
+> Includes support for a handful of contextual variations, sizes, states, and more.
 
 ```html
 <div>
@@ -33,10 +33,9 @@ is required).
 ## Button type
 
 You can specify the button's type by setting the prop `type` to `'button'`,
-`'submit'` or `'reset'`. The default type is `'button'`. 
+`'submit'` or `'reset'`. The default type is `'button'`.
 
 Note the `type` prop has no effect when either `href` or `to` props are set.
-
 
 ## Button sizing
 
@@ -44,28 +43,21 @@ Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
 
 ```html
 <b-row>
-  <b-col lg="4" class="pb-2">
-    <b-button size="sm">Small Button</b-button>
-  </b-col>
-  <b-col lg="4" class="pb-2">
-    <b-button>Default Button</b-button>
-  </b-col>
-  <b-col lg="4" class="pb-2">
-    <b-button size="lg">Large Button</b-button>
-  </b-col>
+  <b-col lg="4" class="pb-2"> <b-button size="sm">Small Button</b-button> </b-col>
+  <b-col lg="4" class="pb-2"> <b-button>Default Button</b-button> </b-col>
+  <b-col lg="4" class="pb-2"> <b-button size="lg">Large Button</b-button> </b-col>
 </b-row>
 
 <!-- button-sizes.vue -->
 ```
 
 ### Block level buttons
+
 Create block level buttons — those that span the full width of a parent — by
 setting the `block` prop.
 
 ```html
-<div>
-  <b-button block variant="primary">Block Level Button</b-button>
-</div>
+<div><b-button block variant="primary">Block Level Button</b-button></div>
 
 <!-- button-block.vue -->
 ```
@@ -124,13 +116,10 @@ Variant `link` will render a button with the appearance of a link while maintain
 default padding and size of a button.
 
 ```html
-<div>
-  <b-button variant="link">Link</b-button>
-</div>
+<div><b-button variant="link">Link</b-button></div>
 
 <!-- button-link.vue -->
 ```
-
 
 ## Disabled state
 
@@ -173,10 +162,12 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 
     <h5>In a button group</h5>
     <b-button-group size="sm">
-      <b-button v-for="(btn, idx) in buttons"
-                :key="idx"
-                :pressed.sync="btn.state"
-                variant="primary">
+      <b-button
+        v-for="(btn, idx) in buttons"
+        :key="idx"
+        :pressed.sync="btn.state"
+        variant="primary"
+      >
         {{ btn.caption }}
       </b-button>
     </b-button-group>
@@ -185,24 +176,24 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      myToggle: false,
-      buttons: [
-        { caption: 'Toggle 1', state: true },
-        { caption: 'Toggle 2', state: false },
-        { caption: 'Toggle 3', state: true },
-        { caption: 'Toggle 4', state: false }
-      ]
-    }
-  },
-  computed: {
-    btnStates () {
-      return this.buttons.map(btn => btn.state)
+  export default {
+    data() {
+      return {
+        myToggle: false,
+        buttons: [
+          { caption: 'Toggle 1', state: true },
+          { caption: 'Toggle 2', state: false },
+          { caption: 'Toggle 3', state: true },
+          { caption: 'Toggle 4', state: false }
+        ]
+      }
+    },
+    computed: {
+      btnStates() {
+        return this.buttons.map(btn => btn.state)
+      }
     }
   }
-}
 </script>
 
 <!-- button-toggles.vue -->
@@ -212,14 +203,12 @@ If using toggle button style for a radio or checkbox style interface, it is best
 built-in `button` style support of [`<b-form-radio-group>`](/docs/components/form-radio) and
 [`<b-checkbox-group>`](/docs/components/form-checkbox).
 
-
 ## Router link support
 
 Refer to the [`Router support`](/docs/reference/router-links) reference docs for the
 various supported `<router-link>` related props.
 
 Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap-vue`.
-
 
 ## See also
 

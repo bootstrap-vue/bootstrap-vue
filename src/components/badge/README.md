@@ -13,7 +13,7 @@ relative font sizing and `em` units.
   <h5>Example heading <b-badge>New</b-badge></h5>
   <h6>Example heading <b-badge>New</b-badge></h6>
 </div>
-  
+
 <!-- badges.vue -->
 ```
 
@@ -21,9 +21,7 @@ Badges can be used as part of links or buttons to provide a counter (or similar 
 
 ```html
 <div class="text-center">
-  <b-button variant="primary">
-    Notifications <b-badge variant="light">4</b-badge>
-  </b-button>
+  <b-button variant="primary"> Notifications <b-badge variant="light">4</b-badge> </b-button>
 </div>
 
 <!-- badge-button-1.vue -->
@@ -43,17 +41,15 @@ context with a visually hidden piece of additional text.
 <div class="text-center">
   <b-button variant="primary">
     Profile
-    <b-badge variant="light">
-      9 <span class="sr-only">unread messages</span>
-    </b-badge>
+    <b-badge variant="light"> 9 <span class="sr-only">unread messages</span> </b-badge>
   </b-button>
 </div>
 
 <!-- badge-button-aria.vue -->
 ```
 
-
 ## Contextual variations
+
 Add any of the following variants via the `variant` prop to change the
 appearance of a `<b-badge>`: `default`, `primary`, `success`, `warning`, `info`,
 and `danger`. If no variant is specified `default` will be used.
@@ -73,8 +69,8 @@ and `danger`. If no variant is specified `default` will be used.
 <!-- badge-variants.vue -->
 ```
 
-
 ### Conveying meaning to assistive technologies:
+
 Using color to add meaning only provides a visual indication, which will not
 be conveyed to users of assistive technologies – such as screen readers. Ensure
 that information denoted by the color is either obvious from the content itself
@@ -82,6 +78,7 @@ that information denoted by the color is either obvious from the content itself
 additional text hidden with the `.sr-only` class.
 
 ## Pill badges
+
 Use the `pill` prop to make badges more rounded (with a larger border-radius
 and additional horizontal padding). Useful if you miss the badges from Bootstrap v3.
 
@@ -100,8 +97,8 @@ and additional horizontal padding). Useful if you miss the badges from Bootstrap
 <!-- badge-pill.vue -->
 ```
 
-
 ## Actionable badges
+
 Quickly provide actionable badges with hover and focus states by specifying either the
 `href` prop (links) or `to` prop (router-links):
 
@@ -122,6 +119,5 @@ Quickly provide actionable badges with hover and focus states by specifying eith
 
 Refer to the [Router support](/docs/reference/router-links) reference page for
 router-link specific props.
-
 
 <!-- Component reference added automatically from component package.json -->

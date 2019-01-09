@@ -1,36 +1,41 @@
 # Breadcrumb
 
 > Indicate the current page’s location within a navigational hierarchy.
-  Separators are automatically added in CSS through <code>::before</code> and <code>content</code>.
+> Separators are automatically added in CSS through <code>::before</code> and <code>content</code>.
 
 ```html
 <template>
-  <b-breadcrumb :items="items"/>
+  <b-breadcrumb :items="items" />
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      items: [{
-        text: 'Admin',
-        href: '#'
-      }, {
-        text: 'Manage',
-        href: '#'
-      }, {
-        text: 'Library',
-        active: true
-      }]
+  export default {
+    data() {
+      return {
+        items: [
+          {
+            text: 'Admin',
+            href: '#'
+          },
+          {
+            text: 'Manage',
+            href: '#'
+          },
+          {
+            text: 'Library',
+            active: true
+          }
+        ]
+      }
     }
   }
-}
 </script>
 
 <!-- breadcrumb.vue -->
 ```
 
 ## Breadcrumb items
+
 Items are rendered using `:items` prop.
 It can be an array of objects to provide link and active state.
 Links can be `href`'s for anchor tags, or `to`'s for router-links.

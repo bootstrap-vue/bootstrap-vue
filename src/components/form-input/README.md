@@ -1,33 +1,31 @@
 # Textual and Value inputs
 
 > Create various type inputs such as: `text`, `password`, `number`, `url`,
-`email`, `search`, `range`, `date` and more.
+> `email`, `search`, `range`, `date` and more.
 
 ```html
 <template>
   <div>
-    <b-form-input v-model="text1"
-                  type="text"
-                  placeholder="Enter your name"></b-form-input>
+    <b-form-input v-model="text1" type="text" placeholder="Enter your name"></b-form-input>
     <p>Value: {{ text1 }}</p>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      text1: ''
+  export default {
+    data() {
+      return {
+        text1: ''
+      }
     }
   }
-}
 </script>
 
 <!-- form-input-1.vue -->
 ```
 
-
 ## Input type
+
 `<b-form-input>` defaults to a `text` input, but you can set the `type` prop to one
 of the supported native browser HTML5 types: `text`, `password`, `email`, `number`, `url`,
 `tel`, `search`, `date`, `datetime`, `datetime-local`, `month`, `week`, `time`,
@@ -44,16 +42,24 @@ of the supported native browser HTML5 types: `text`, `password`, `email`, `numbe
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      types: [
-        'text', 'password', 'email', 'number', 'url',
-        'tel', 'date', `time`, 'range', 'color'
-      ]
+  export default {
+    data() {
+      return {
+        types: [
+          'text',
+          'password',
+          'email',
+          'number',
+          'url',
+          'tel',
+          'date',
+          `time`,
+          'range',
+          'color'
+        ]
+      }
     }
   }
-}
 </script>
 
 <!-- form-input-types.vue -->
@@ -63,16 +69,17 @@ If the `type` prop is set to an input type that is not supported (see above), a 
 will be rendered and a console warning will be issued.
 
 **Caveats with input types:**
+
 - Not all browsers support all input types, nor do some types render in the same format across
-browser types/versions.
+  browser types/versions.
 - Browsers that do not support a particular type will fall back to a `text` input type (event thoough the rendered `type` attribute markup shows the requested type).
 - No testing is performed to see if the requested input type is supported by the browser.
 - Chrome lost support for `datetime` in version 26, Opera in version 15, and Safari in iOS 7.
-Instead of using `datetime`, since support should be deprecated, use `date` and `time`
-as two separate inputs.
+  Instead of using `datetime`, since support should be deprecated, use `date` and `time`
+  as two separate inputs.
 - `date` and `time` inputs are native borwser types, and are not a custom date/time picker.
 - For date and time style inputs, where supported, the displayed value in the GUI may be different
-than what is returned by it's value (i.e. ordering of year-month-date).
+  than what is returned by it's value (i.e. ordering of year-month-date).
 - Regardless of input type, the value is **always** returned as a string representation.
 - `v-model.lazy` is not supported by `<b-form-input>` (nor any custom vue component).
 - `v-model` modifiers `.number` and `.trim` can cause unexpected cursor jumps when the user is typing (this is a Vue issue with `v-model` on custom components). _Avoid using these modifiers_.
@@ -80,6 +87,7 @@ than what is returned by it's value (i.e. ordering of year-month-date).
 - Input types that do not support `min`, `max` and `step` (i.e. `text`, `password`, `tel`, `email`, `url`, etc) will silently ignore these values (although they will still be rendered on the input markup).
 
 ### Range type input
+
 Inputs with type `range` render using Bootstrap V4's `.custom-range` class. The track
 (the background) and thumb (the value) are both styled to appear the same across browsers.
 
@@ -96,13 +104,13 @@ may specify new values for those using the `min` and `max` props.
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      value: 2
+  export default {
+    data() {
+      return {
+        value: 2
+      }
     }
   }
-}
 </script>
 
 <!-- form-input-range-1.vue -->
@@ -121,13 +129,13 @@ value. In the example below, we double the number of steps by using step="0.5".
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      value: 2
+  export default {
+    data() {
+      return {
+        value: 2
+      }
     }
   }
-}
 </script>
 
 <!-- form-input-range-2.vue -->
@@ -141,8 +149,8 @@ need to convert the value to a native number by using `Number(value)`, `parseInt
 nor validation styling on range inputs. However, Bootstrap-Vue includes custom styling to handle
 these situations until styling is included in Bootstrap V4.
 
-
 ## Control sizing
+
 Set heights using the `size` prop to `sm` or `lg` for small or large respectively.
 
 To control width, place the input inside standard Bootstrap grid column.
@@ -152,7 +160,12 @@ To control width, place the input inside standard Bootstrap grid column.
   <b-row class="my-1">
     <b-col sm="2"><label for="input-small">Small:</label></b-col>
     <b-col sm="10">
-      <b-form-input id="input-small" size="sm" type="text" placeholder="Enter your name"></b-form-input>
+      <b-form-input
+        id="input-small"
+        size="sm"
+        type="text"
+        placeholder="Enter your name"
+      ></b-form-input>
     </b-col>
   </b-row>
   <b-row class="my-1">
@@ -164,7 +177,12 @@ To control width, place the input inside standard Bootstrap grid column.
   <b-row class="my-1">
     <b-col sm="2"><label for="input-large">Large:</label></b-col>
     <b-col sm="10">
-      <b-form-input id="input-large" size="lg" type="text" placeholder="Enter your name"></b-form-input>
+      <b-form-input
+        id="input-large"
+        size="lg"
+        type="text"
+        placeholder="Enter your name"
+      ></b-form-input>
     </b-col>
   </b-row>
 </b-container>
@@ -179,8 +197,8 @@ To control width, place the input inside standard Bootstrap grid column.
 `<input>` in characters) is not supported. Use styling, utility classes, or the layout rows (`<b-row>`)
 and columns (`<b-col>`) to set the desired width.
 
-
 ## Contextual States
+
 Bootstrap includes validation styles for `valid` and `invalid` states
 on most form controls.
 
@@ -192,6 +210,7 @@ Generally speaking, you’ll want to use a particular state for specific types o
 
 To apply one of the contextual state icons on `<b-form-input>`, set the `state` prop
 to:
+
 - The string `'invalid'` or boolean `false` for invalid contextual state
 - The string `'valid'` or boolean `true` for the valid contextual state
 - `null` for no validation contextual state (default)
@@ -201,19 +220,34 @@ to:
   <b-row class="my-1">
     <b-col sm="3"><label for="input-none">No State:</label></b-col>
     <b-col sm="9">
-      <b-form-input id="input-none" :state="null" type="text" placeholder="No validation"></b-form-input>
+      <b-form-input
+        id="input-none"
+        :state="null"
+        type="text"
+        placeholder="No validation"
+      ></b-form-input>
     </b-col>
   </b-row>
   <b-row class="my-1">
     <b-col sm="3"><label for="input-valid">Valid State:</label></b-col>
     <b-col sm="9">
-      <b-form-input id="input-valid" :state="true" type="text" placeholder="Valid input"></b-form-input>
+      <b-form-input
+        id="input-valid"
+        :state="true"
+        type="text"
+        placeholder="Valid input"
+      ></b-form-input>
     </b-col>
   </b-row>
   <b-row class="my-1">
     <b-col sm="3"><label for="input-invalid">Invalid State:</label></b-col>
     <b-col sm="9">
-      <b-form-input id="input-invalid" :state="false" type="text" placeholder="Invalid input"></b-form-input>
+      <b-form-input
+        id="input-invalid"
+        :state="false"
+        type="text"
+        placeholder="Invalid input"
+      ></b-form-input>
     </b-col>
   </b-row>
 </b-container>
@@ -222,17 +256,20 @@ to:
 ```
 
 **Live Example**
+
 ```html
 <template>
   <div role="group">
     <label for="inputLive">Name:</label>
-    <b-form-input id="inputLive"
-                  v-model="name"
-                  trim
-                  type="text"
-                  :state="nameState"
-                  aria-describedby="inputLiveHelp inputLiveFeedback"
-                  placeholder="Enter your name"></b-form-input>
+    <b-form-input
+      id="inputLive"
+      v-model="name"
+      trim
+      type="text"
+      :state="nameState"
+      aria-describedby="inputLiveHelp inputLiveFeedback"
+      placeholder="Enter your name"
+    ></b-form-input>
     <b-form-invalid-feedback id="inputLiveFeedback">
       <!-- This will only be shown if the preceeding input has an invalid state -->
       Enter at least 3 letters
@@ -245,27 +282,28 @@ to:
 </template>
 
 <script>
-export default {
-  computed: {
-    nameState () {
-      return this.name.length > 2 ? true : false
-    }
-  },
-  data () {
-    return {
-      name: ''
+  export default {
+    computed: {
+      nameState() {
+        return this.name.length > 2 ? true : false
+      }
+    },
+    data() {
+      return {
+        name: ''
+      }
     }
   }
-}
 </script>
 
 <!-- form-input-states-2.vue -->
 ```
 
 > **Tip:** Use the [`<b-form-group>`](/docs/components/form-group) component to
-automatically generate markup similar to above.
+> automatically generate markup similar to above.
 
 ### Conveying contextual state to assistive technologies and colorblind users
+
 Using these contextual states to denote the state of a form control only provides
 a visual, color-based indication, which will not be conveyed to users of assistive
 technologies - such as screen readers - or to colorblind users.
@@ -275,6 +313,7 @@ could include a hint about state in the form control's `<label>` text itself, or
 providing an additional help text block.
 
 ### ARIA `aria-invalid` attribute
+
 Specifically for assistive technologies, invalid form controls can also be assigned
 an `aria-invalid="true"` attribute.
 
@@ -290,8 +329,8 @@ values:
 If `aria-invalid` is not explicitly set and `state` is set to `false` (or `'invalid'`),
 then the `aria-invalid` attribute on the input will automatically be set to `'true'`;
 
-
 ## Formatter support
+
 `<b-form-input>` and `<b-form-textarea>` optionally supports formatting by passing a function reference to
 the `formatter` prop.
 
@@ -310,46 +349,48 @@ Formatting does not occur if a `formatter` is not provided.
 <template>
   <div>
     <label for="inputFormatter">Text input with formatter (on input)</label>
-    <b-form-input id="inputFormatter"
-                  v-model="text1"
-                  type="text"
-                  placeholder="Enter your name"
-                  aria-describedby="inputFormatterHelp"
-                  :formatter="format"></b-form-input>
+    <b-form-input
+      id="inputFormatter"
+      v-model="text1"
+      type="text"
+      placeholder="Enter your name"
+      aria-describedby="inputFormatterHelp"
+      :formatter="format"
+    ></b-form-input>
     <b-form-text id="inputFormatterHelp">
-     We will convert your name to lowercase instantly
+      We will convert your name to lowercase instantly
     </b-form-text>
     <p>Value: {{ text1 }}</p>
 
     <label for="inputLazy">Text input with lazy formatter (on blur)</label>
-    <b-form-input id="inputLazy"
-                  v-model="text2"
-                  type="text"
-                  placeholder="Enter your name"
-                  aria-describedby="inputLazyHelp"
-                  :formatter="format"
-                  lazy-formatter></b-form-input>
-    <b-form-text id="inputLazyHelp">
-      This one is a little lazy!
-    </b-form-text>
+    <b-form-input
+      id="inputLazy"
+      v-model="text2"
+      type="text"
+      placeholder="Enter your name"
+      aria-describedby="inputLazyHelp"
+      :formatter="format"
+      lazy-formatter
+    ></b-form-input>
+    <b-form-text id="inputLazyHelp"> This one is a little lazy! </b-form-text>
     <p>Value: {{ text2 }}</p>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      text1: '',
-      text2: ''
-    }
-  },
-  methods: {
-    format (value, event) {
-      return value.toLowerCase()
+  export default {
+    data() {
+      return {
+        text1: '',
+        text2: ''
+      }
+    },
+    methods: {
+      format(value, event) {
+        return value.toLowerCase()
+      }
     }
   }
-}
 </script>
 
 <!-- form-input-formatter.vue -->
@@ -363,24 +404,24 @@ as a _string_.
 **Note:** With non-lazy formatting, if the cursor is not at the end of the input value,
 the cursor may jump to the end _after_ a character is typed. You can use the provided
 event object and the `event.target` to access the native input's selection methods and
-properties to control where the insertion point is.  This is left as an exercise for the reader.
-
+properties to control where the insertion point is. This is left as an exercise for the reader.
 
 ## Readonly plain text
+
 If you want to have `<b-form-input readonly>` elements in your form styled as plain
 text, set the `plaintext` prop (no need to set `readonly`) to remove the default form
 field styling and preserve the correct margin and padding.
 
 The `plaintext` option is not supported by input types `color` or `range`.
 
-
 ## Disabling mousewheel events on numeric-like inputs
+
 On some browsers, scrolling the mousewheel while a numeric-like input is focused will
 increment or decrement the input's value. To disable this browser feture, just set
 the `no-wheel` prop to `true`.
 
-
 ## V-model modifiers
+
 Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of
 custom component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
 
@@ -389,12 +430,13 @@ which emulate the native Vue `v-model` modifiers `.trim` and `.number` respectiv
 `.lazy` modifier is _not_ supported (listen for `change` or `blur` events instead).
 
 **Notes:**
+
 - The `number` prop takes precedence over the `trim` prop (i.e. `trim` will have no effect when `number` is set).
 - When using the `number` prop, and if the value can be parsed as a number (via `parseFloat`) it will return a value of type `Number` to the `v-model`, otherwise the original input value is returned as type `String`. This is the same behaviour as the native `.number` modifier.
 - The `trim` and `number` modifier props do not affect the value returned by the `input` or `change` events. These events will aways return the string value of the content of `<textarea>` after optional formatting (which may not match the value returned via the `v-model` `update` event, which handles the modifiers).
 
-
 ## Native and custom events
+
 All native events (other than the custom `input` and `change` events) are supported, without
 the need for the `.native` modifier.
 
@@ -406,42 +448,42 @@ updating (it is emitted before `input`, `change`. and `blur` as needed).
 
 You can always access the native `input` and `change` events by using the `.native` modifier.
 
-
 ## Exposed input properties and methods
-`<b-form-input>` exposes several of the native input element's properties and methods on the 
+
+`<b-form-input>` exposes several of the native input element's properties and methods on the
 component reference (i.e. assign a `ref` to your `<b-form-input ref="foo" ...>` and
 use `this.$refs['foo'].propertyName` or `this.$refs['foo'].methodName(...)`).
 
 ### Input Properties
 
-| Property | Notes |
-| -------- | ----- |
-| `.selectionStart` | Read/Write |
-| `.selectionEnd` | Read/Write |
+| Property              | Notes      |
+| --------------------- | ---------- |
+| `.selectionStart`     | Read/Write |
+| `.selectionEnd`       | Read/Write |
 | `.selectionDirection` | Read/Write |
-| `.validity` | Read only |
-| `.validationMessage` | Read only |
-| `.willValidate` | Read only |
+| `.validity`           | Read only  |
+| `.validationMessage`  | Read only  |
+| `.willValidate`       | Read only  |
 
 ### Input Methods
 
-| Method | Notes |
-| ------ | ----- |
-| `.focus()` | Focus the input |
-| `.blur()` | Remove focus from the input |
-| `.select()` | Selects all text within the input |
-| `.setSelectionRange()` | |
-| `.setRangeText()` | |
-| `.setCustomValidity()` | |
-| `.checkValidity()` | |
-| `.reportValidity()` | |
+| Method                 | Notes                             |
+| ---------------------- | --------------------------------- |
+| `.focus()`             | Focus the input                   |
+| `.blur()`              | Remove focus from the input       |
+| `.select()`            | Selects all text within the input |
+| `.setSelectionRange()` |                                   |
+| `.setRangeText()`      |                                   |
+| `.setCustomValidity()` |                                   |
+| `.checkValidity()`     |                                   |
+| `.reportValidity()`    |                                   |
 
 Refer to https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement for
-more information on these methods and properties.  Support will vary based on
+more information on these methods and properties. Support will vary based on
 input type.
 
 ## Component alias
-You can use `<b-form-input>` by it's shorter alias `<b-input>`.
 
+You can use `<b-form-input>` by it's shorter alias `<b-input>`.
 
 <!-- Component reference added automatically from component package.json -->

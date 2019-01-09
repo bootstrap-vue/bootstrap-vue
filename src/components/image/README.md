@@ -1,12 +1,13 @@
 # Images
 
 > Documentation and examples for opting images (via `<b-img>` component) into
-responsive behavior (so they never become larger than their parent elements),
-optionally adding lightweight styles to them — all via props. Support for
-rounded images, thumbnail styling, alignment, and even the ability to create
-blank images with  an optional solid background color.
+> responsive behavior (so they never become larger than their parent elements),
+> optionally adding lightweight styles to them — all via props. Support for
+> rounded images, thumbnail styling, alignment, and even the ability to create
+> blank images with an optional solid background color.
 
 ## Image src resolving
+
 The `src` prop (and `blank-src` prop of `<b-img-lazy>`), out of the box, works
 only with absolute/fully-qualified-domain-name URLs. If you are using project
 assets as image sources, please refer to
@@ -14,14 +15,13 @@ assets as image sources, please refer to
 to understand custom component props that specify image sources.
 
 ## Responsive images
+
 Images in Bootstrap-Vue can be made responsive with the `fluid` prop (which
 sets `max-width: 100%; height: auto;` via CSS classes) so that it scales
 with the parent element - up to the maximum native width of the image.
 
 ```html
-<div>
-  <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
-</div>
+<div><b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" /></div>
 
 <!-- b-img-responsive-1.vue -->
 ```
@@ -48,6 +48,7 @@ To fix this, add the style `width: 100% \9;` where necessary. This fix improperl
 other image formats, so Bootstrap V4 doesn’t apply it automatically._
 
 ## Image thumbnails
+
 You can use prop `thumbnail` to give an image a rounded light border appearance.
 
 ```html
@@ -69,8 +70,10 @@ You can use prop `thumbnail` to give an image a rounded light border appearance.
 ```
 
 ## Rounded corners
+
 You can control which corners are rounded by setting the rounded prop to one
 of the following values:
+
 - `true` (or prop present with no value): round all corners
 - `false` (or prop not present): no explit rounding or corners (default)
 - `'top'`: round the top corners
@@ -95,11 +98,13 @@ of the following values:
 ```
 
 ## Aligning images
+
 Align images with the boolean props `left` (floats left) `right`(floats right),
 and `center` (auto left+right margins). You can also center images by placing them
 in a container that has the class `text-center`.
 
 **Left an Right aligned (float):**
+
 ```html
 <div class="clearfix">
   <b-img left src="https://picsum.photos/125/125/?image=58" alt="left image" />
@@ -110,18 +115,17 @@ in a container that has the class `text-center`.
 ```
 
 **Center aligned (block):**
+
 ```html
-<div>
-  <b-img center src="https://picsum.photos/125/125/?image=58" alt="center image" />
-</div>
+<div><b-img center src="https://picsum.photos/125/125/?image=58" alt="center image" /></div>
 
 <!-- b-img-center.vue -->
 ```
 
 Note: `left` takes precedence over `right` which takes precedence over `center`.
 
-
 ## Blank (or solid color) Images
+
 `<b-img>` provides built-in support for generating blank images (transparent by
 default) of any width and height, by setting the `blank` prop, and specifying
 `width` and `height` values (in pixels). You can apply any of the other
@@ -129,6 +133,7 @@ default) of any width and height, by setting the `blank` prop, and specifying
 
 Use the `blank-color` prop to set the blank image color. The `blank-color`prop
 can accept any CSS color value:
+
 - Named colors — i.e. `orange` or `blue`
 - Hex colors — i.e. `#FF9E2C`
 - RGB and RGBa colors — i.e. `rgb(255, 158, 44)` and `rgba(255, 158, 44, .5)`
@@ -143,7 +148,14 @@ The default `blank-color` is `transparent`.
   <b-img blank width="75" height="75" blank-color="red" alt="named color" class="m-1" />
   <b-img blank width="75" height="75" blank-color="black" alt="named color" class="m-1" />
   <b-img blank width="75" height="75" blank-color="#338833" alt="hex color" class="m-1" />
-  <b-img blank width="75" height="75" blank-color="rgba(128,255,255,0.5)" alt="RGBa color" class="m-1" />
+  <b-img
+    blank
+    width="75"
+    height="75"
+    blank-color="rgba(128,255,255,0.5)"
+    alt="RGBa color"
+    class="m-1"
+  />
   <b-img blank width="75" height="75" blank-color="#88f" alt="hex shorthand color" class="m-1" />
 </div>
 
@@ -151,22 +163,24 @@ The default `blank-color` is `transparent`.
 ```
 
 **Notes:**
+
 - In blank image mode, if only one of width or height is set, the image will be have both width and height set to the same value.
 - In blank image mode, if width and height are not set, both width and height will internally be set to 1.
 - The `blank` prop takes precedence over the `src` prop. If you set both and later set `blank` to `false` the image specified in `src` will then be displayed.
 - Blank images are rendered using SVG image data URLs.
 - The `width` and `height` props will also apply the `width` and `height` attributes to the rendered `<img>` tag, even if `blank` is not set.
 
-
 ## Lazy Loaded images
+
 > Use our complementary `<b-img-lazy>` image component (based on `<b-img>`) to lazy
-load images as they are scrolled into view (or within `offset` pixels of the viewport).
+> load images as they are scrolled into view (or within `offset` pixels of the viewport).
 
 Lazy loading images relies on the document `scroll` and `transitionend` events to trigger the
 loading of the final image. Scrolling of other elements is not monitored, and will not trigger
 image loading.
 
 ### Usage
+
 Set the `src` prop to the URL of the image you want loadied lazily, and either specify a
 placeholder image URL via the prop `blank-src`, or have a blank placeholder image generated
 for you by leaving `blank-src` as `null`.
@@ -192,25 +206,107 @@ has come within view (or within `offset` of view). The default is `100` (ms).
 Once an image has come into view and is shown, the event listeners are removed.
 
 **Example usage:**
+
 ```html
 <div>
-  <b-img-lazy src="https://picsum.photos/600/400/?image=81" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://picsum.photos/600/400/?image=83" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://picsum.photos/600/400/?image=84" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://picsum.photos/600/400/?image=85" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://picsum.photos/600/400/?image=91" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://picsum.photos/600/400/?image=87" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://picsum.photos/600/400/?image=88" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://picsum.photos/600/400/?image=89" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
-  <b-img-lazy src="https://picsum.photos/600/400/?image=90" center fluid-grow width="600" height="400" blank-color="#bbb" alt="img" class="my-5" />
+  <b-img-lazy
+    src="https://picsum.photos/600/400/?image=81"
+    center
+    fluid-grow
+    width="600"
+    height="400"
+    blank-color="#bbb"
+    alt="img"
+    class="my-5"
+  />
+  <b-img-lazy
+    src="https://picsum.photos/600/400/?image=83"
+    center
+    fluid-grow
+    width="600"
+    height="400"
+    blank-color="#bbb"
+    alt="img"
+    class="my-5"
+  />
+  <b-img-lazy
+    src="https://picsum.photos/600/400/?image=84"
+    center
+    fluid-grow
+    width="600"
+    height="400"
+    blank-color="#bbb"
+    alt="img"
+    class="my-5"
+  />
+  <b-img-lazy
+    src="https://picsum.photos/600/400/?image=85"
+    center
+    fluid-grow
+    width="600"
+    height="400"
+    blank-color="#bbb"
+    alt="img"
+    class="my-5"
+  />
+  <b-img-lazy
+    src="https://picsum.photos/600/400/?image=91"
+    center
+    fluid-grow
+    width="600"
+    height="400"
+    blank-color="#bbb"
+    alt="img"
+    class="my-5"
+  />
+  <b-img-lazy
+    src="https://picsum.photos/600/400/?image=87"
+    center
+    fluid-grow
+    width="600"
+    height="400"
+    blank-color="#bbb"
+    alt="img"
+    class="my-5"
+  />
+  <b-img-lazy
+    src="https://picsum.photos/600/400/?image=88"
+    center
+    fluid-grow
+    width="600"
+    height="400"
+    blank-color="#bbb"
+    alt="img"
+    class="my-5"
+  />
+  <b-img-lazy
+    src="https://picsum.photos/600/400/?image=89"
+    center
+    fluid-grow
+    width="600"
+    height="400"
+    blank-color="#bbb"
+    alt="img"
+    class="my-5"
+  />
+  <b-img-lazy
+    src="https://picsum.photos/600/400/?image=90"
+    center
+    fluid-grow
+    width="600"
+    height="400"
+    blank-color="#bbb"
+    alt="img"
+    class="my-5"
+  />
 </div>
 
 <!-- b-img-lazy.vue -->
 ```
 
 ### Force show of lazy loaded image
+
 To force the final image to be shown, set the `show` prop to `true`. The `show` prop supports
 the Vue `.sync` modifier, and will be updated to `true` when the final image is shown.
-
 
 <!-- Component reference added automatically from component package.json -->

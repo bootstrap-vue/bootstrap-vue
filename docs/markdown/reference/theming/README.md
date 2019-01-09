@@ -9,17 +9,17 @@ stacked tables, etc). Our custom CSS relies on variables defined the Bootstrap V
 BootstrapVue source SCSS, you can have your variable overrides (such as breakpoints, etc) adjust
 the custom BootstrapVue css.
 
-
 ## Custom SCSS
 
 To use your own theme and colors in `bootstrap-vue`, you will need to create a
 `custom.scss` file in your project, which you can include in your main app:
 
 **Via template:**
+
 ```html
 <style lang="scss">
-  @import "assets/custom.scss";
-  @import "~bootstrap/scss/bootstrap.scss";
+  @import 'assets/custom.scss';
+  @import '~bootstrap/scss/bootstrap.scss';
   @import '~bootstrap-vue/src/index.scss';
 
   body {
@@ -44,12 +44,11 @@ $grid-breakpoints: (
   sm: 428px,
   md: 799px,
   lg: 899px,
-  xl: 1234px
-  xxl: 1600px
+  xl: 1234px xxl: 1600px
 );
 
 // Include Bootstrap and BootstrapVue SCSS files
-@import "~bootstrap/scss/bootstrap.scss";
+@import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
 ```
 
@@ -57,7 +56,7 @@ Then import that single SCSS file into your app code entry point:
 
 ```js
 // app.js
-import "custom.scss";
+import 'custom.scss'
 ```
 
 The `_custom.scss` file, which needs to be loaded before Bootstrap's scss, will include your
@@ -71,7 +70,6 @@ npm install --save-dev node-sass sass-loader
 ```
 
 **Note:** You may need to adjust the SCSS import paths based on your build environment.
-
 
 ## See also
 

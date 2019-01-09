@@ -3,7 +3,6 @@
 > Bootstrap V4 CSS provides several classes that control the sizing of elements,
 > of which some of these have been translated into props on components.
 
-
 ## Component `size` prop
 
 Various components allow for an optional size (via the `size` prop). Below are the
@@ -11,8 +10,8 @@ sizes supported via the default Bootsrap V4 CSS.
 
 Available Sizes:
 
-* `sm` small
-* `lg` large
+- `sm` small
+- `lg` large
 
 When no size is specified, this results in normal sized appearance (usually
 referend to as `md`).
@@ -40,6 +39,7 @@ Width and height utilities are generated from the `$sizes` Sass map in Bootstrap
 Modify those values as you need to generate different utilities here.
 
 **Widths:**
+
 ```html
 <div class="text-center">
   <div class="w-25 p-3 mb-1 bg-secondary">Width 25%</div>
@@ -52,12 +52,21 @@ Modify those values as you need to generate different utilities here.
 ```
 
 **Heights:**
+
 ```html
 <div style="height: 100px; background-color: rgba(255,0,0,0.1);">
-  <div class="h-25 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">Height 25%</div>
-  <div class="h-50 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">Height 50%</div>
-  <div class="h-75 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">Height 75%</div>
-  <div class="h-100 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">Height 100%</div>
+  <div class="h-25 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">
+    Height 25%
+  </div>
+  <div class="h-50 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">
+    Height 50%
+  </div>
+  <div class="h-75 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">
+    Height 75%
+  </div>
+  <div class="h-100 d-inline-block" style="width: 120px; background-color: rgba(0,0,255,.1)">
+    Height 100%
+  </div>
 </div>
 
 <!-- heights.vue -->
@@ -66,7 +75,6 @@ Modify those values as you need to generate different utilities here.
 **Max width and height:**
 
 You can also use `mw-100` (`max-width: 100%;`) and `mh-100` (`max-height: 100%;`) utilities as needed.
-
 
 ## Additional Resources
 
