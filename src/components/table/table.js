@@ -1381,13 +1381,14 @@ export default {
           if (tableStriped) {
             // Add a hidden row to keep table row striping consistent when details showing
             rows.push(
-              'tr',
-              {
-                key: `__b-table-details-${rowIndex}-stripe__`,
-                staticClass: 'd-none',
-                attrs: { 'aria-hidden': 'true' }
-              },
-              [h(false)]
+              h(
+                'tr',
+                {
+                  key: `__b-table-details-${rowIndex}-stripe__`,
+                  staticClass: 'd-none',
+                  attrs: { 'aria-hidden': 'true' }
+                }
+              )
             )
           }
           rows.push(
