@@ -435,7 +435,7 @@ describe('table', async () => {
       trs.forEach((tr, idx) => {
         const spy = jest.fn()
         vm.$on('row-middle-clicked', spy)
-        tr.dispatchEvent(new MouseEvent('auxclick', { button: 1 }))
+        tr.dispatchEvent(new MouseEvent('auxclick', { 'button': 1, 'which': 2 }))
         vm.$off('row-middle-clicked', spy)
         expect(spy).toHaveBeenCalled()
       })
