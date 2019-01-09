@@ -178,7 +178,7 @@ imports, we can add a webpack alias via `vue.config.js`.
 const path = require('path')
 
 module.exports = {
-  configurewebpack: {
+  configureWebpack: {
     resolve: {
       alias: {
         'bootstrap-components': path.resolve(
