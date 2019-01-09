@@ -4,7 +4,7 @@
 
 import ScrollSpy from './scrollspy.class'
 import { keys } from '../../utils/object'
-import { inBroswer, isServer } from '../../utils/env'
+import { isServer } from '../../utils/env'
 
 // Key we use to store our Instance
 const BVSS = '__BV_ScrollSpy__'
