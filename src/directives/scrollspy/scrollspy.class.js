@@ -76,6 +76,9 @@ const TransitionEndEvents = [
   'oTransitionEnd'
 ]
 
+// Options for events
+const EventOptions = { passive: true, capture: false }
+
 /*
  * Utility Methods
  */
@@ -189,13 +192,13 @@ class ScrollSpy {
   listen () {
     const scroller = this.getScroller()
     if (scroller && scroller.tagName !== 'BODY') {
-      eventOn(scroller, 'scroll', this)
+      eventOn(scroller, 'scroll', this, EventOptions)
     }
-    eventOn(window, 'scroll', this)
-    eventOn(window, 'resize', this)
-    eventOn(window, 'orientationchange', this)
+    eventOn(window, 'scroll', this, EventOptions)
+    eventOn(window, 'resize', this, EventOptions)
+    eventOn(window, 'orientationchange', this, EventOptions)
     TransitionEndEvents.forEach(evtName => {
-      eventOn(window, evtName, this)
+      eventOn(window, evtName, this, EventOptions)
     })
     this.setObservers(true)
     // Scedule a refresh
@@ -206,13 +209,13 @@ class ScrollSpy {
     const scroller = this.getScroller()
     this.setObservers(false)
     if (scroller && scroller.tagName !== 'BODY') {
-      eventOff(scroller, 'scroll', this)
+      eventOff(scroller, 'scroll', this, EventOptions)
     }
-    eventOff(window, 'scroll', this)
-    eventOff(window, 'resize', this)
-    eventOff(window, 'orientationchange', this)
+    eventOff(window, 'scroll', this, EventOptions)
+    eventOff(window, 'resize', this, EventOptions)
+    eventOff(window, 'orientationchange', this, EventOptions)
     TransitionEndEvents.forEach(evtName => {
-      eventOff(window, evtName, this)
+      eventOff(window, evtName, this, EventOptions)
     })
   }
 
