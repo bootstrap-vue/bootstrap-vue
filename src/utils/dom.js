@@ -1,34 +1,50 @@
 import { from as arrayFrom } from './array'
+import { inBrowser } from './env'
 
-// Determine if the browser supports the options parameter for events
-let passiveSupported = false;
-if (typeof document !== 'undefined' && typeof document !== 'undefined') {
+// Determine if the browser supports the option passive for events
+let passiveEventSupported = false
+if (inBrowser) {
   try {
     var options = {
-      get passive() {
+      get passive () {
         // This function will be called when the browser
         // attempts to access the passive property.
-        passiveSupported = true;
+        passiveEventSupported = true
       }
-    };
-    window.addEventListener("test", options, options);
-    window.removeEventListener("test", options, options);
-  } catch(err) {
-    passiveSupported = false;
+    }
+    window.addEventListener('test', options, options)
+    window.removeEventListener('test', options, options)
+  } catch (err) {
+    passiveEventSupported = false
   }
 }
 
 // Normalize event options based on support of passive option
-function parseEventOptions(options) {
+function parseEventOptions (options) {
   let useCapture = false
   if (options) {
-    if (typeof(options) === 'object') {
+    if (typeof options === 'object') {
+      // eslint-disable-next-line no-unneeded-ternary
       useCapture = options.useCapture ? true : false
     } else {
       useCapture = options
     }
   }
-  return passiveSupported ? options : useCapture
+  return passiveEventSupported ? options : useCapture
+}
+
+// Attach an event listener to an element
+export const eventOn = (el, evtName, handler, options) => {
+  if (el && el.addEventListener) {
+    el.addEventListener(evtName, handler, parseEventOptions(options))
+  }
+}
+
+// Remove an event listener from an element
+export const eventOff = (el, evtName, handler, options) => {
+  if (el && el.removeEventListener) {
+    el.removeEventListener(evtName, handler, parseEventOptions(options))
+  }
 }
 
 // Determine if an element is an HTML Element
@@ -259,19 +275,5 @@ export const position = el => {
   return {
     top: offsetSelf.top - parentOffset.top - parseFloat(getCS(el).marginTop),
     left: offsetSelf.left - parentOffset.left - parseFloat(getCS(el).marginLeft)
-  }
-}
-
-// Attach an event listener to an element
-export const eventOn = (el, evtName, handler, options) => {
-  if (el && el.addEventListener) {
-    el.addEventListener(evtName, handler, parseEventOptions(options))
-  }
-}
-
-// Remove an event listener from an element
-export const eventOff = (el, evtName, handler, options) => {
-  if (el && el.removeEventListener) {
-    el.removeEventListener(evtName, handler, parseEventOptions(options))
   }
 }
