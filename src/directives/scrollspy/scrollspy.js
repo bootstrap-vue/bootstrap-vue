@@ -72,20 +72,20 @@ function removeBVSS (el) /* istanbul ignore next: not easy to test */ {
  * Export our directive
  */
 
-export default /* istanbul ignore next: not easy to test */ {
-  bind (el, binding, vnode) {
+export default {
+  bind (el, binding, vnode) /* istanbul ignore next: not easy to test */ {
     addBVSS(el, binding, vnode)
   },
-  inserted (el, binding, vnode) {
+  inserted (el, binding, vnode) /* istanbul ignore next: not easy to test */ {
     addBVSS(el, binding, vnode)
   },
-  update (el, binding, vnode) {
+  update (el, binding, vnode) /* istanbul ignore next: not easy to test */ {
     addBVSS(el, binding, vnode)
   },
-  componentUpdated (el, binding, vnode) {
+  componentUpdated (el, binding, vnode) /* istanbul ignore next: not easy to test */ {
     addBVSS(el, binding, vnode)
   },
-  unbind (el) {
+  unbind (el) /* istanbul ignore next: not easy to test */ {
     if (isServer) {
       return
     }
