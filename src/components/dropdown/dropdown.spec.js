@@ -96,20 +96,6 @@ describe('dropdown', async () => {
     expect(Array.from(dd_6.$refs.menu.children).find(node => node.innerHTML === 'button')).toBeElement('button')
   })
 
-  it('dd-item-button should emit click event', async () => {
-    const { app: { $refs } } = window
-    const { dd_6 } = $refs // eslint-disable-line camelcase
-
-    const spy = jest.fn()
-
-    dd_6.$parent.$root.$on('clicked::link', spy)
-
-    const buttonItem = Array.from(dd_6.$refs.menu.children).find(node => node.innerHTML === 'button')
-    buttonItem.click()
-
-    expect(spy).toHaveBeenCalled()
-  })
-
   it('dd-divider should render', async () => {
     const { app: { $refs } } = window
     const { dd_6 } = $refs // eslint-disable-line camelcase

@@ -86,7 +86,10 @@ export default {
       {
         class: this.menuClasses,
         ref: 'menu',
-        attrs: { 'aria-labelledby': this.safeId('_BV_button_') },
+        attrs: {
+          tabindex: '-1',
+          'aria-labelledby': this.safeId('_BV_button_')
+        },
         on: {
           mouseover: this.onMouseOver,
           keydown: this.onKeydown // tab, up, down, esc
@@ -94,9 +97,10 @@ export default {
       },
       [this.$slots.default]
     )
-    return h('li', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [
-      button,
-      menu
-    ])
+    return h(
+      'li',
+      { attrs: { id: this.safeId() }, class: this.dropdownClasses },
+      [button, menu]
+    )
   }
 }
