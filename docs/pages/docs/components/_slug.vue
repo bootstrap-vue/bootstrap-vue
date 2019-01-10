@@ -8,6 +8,7 @@
       <!-- main component reference information -->
       <componentdoc :component="meta.component"
                     :events="meta.events"
+                    :root-event-emitters="meta.rootEventEmitters"
                     :slots="meta.slots"
                     :aliases="meta.aliases">
       </componentdoc>
@@ -28,12 +29,11 @@
   </main>
 </template>
 
-
 <script>
-import componentdoc from "~/components/componentdoc.vue";
-import importdoc from "~/components/importdoc.vue";
-import { components as _meta } from "~/content";
-import docsMixin from "~/plugins/docs-mixin";
+import componentdoc from '~/components/componentdoc.vue';
+import importdoc from '~/components/importdoc.vue';
+import { components as _meta } from '~/content';
+import docsMixin from '~/plugins/docs-mixin';
 import startCase from 'lodash/startCase'
 
 const getReadMe = name => import('~/../src/components/' + name + '/README.md' /* webpackChunkName: "docs/components" */)
@@ -41,21 +41,21 @@ const getReadMe = name => import('~/../src/components/' + name + '/README.md' /*
 export default {
   components: { componentdoc, importdoc },
   mixins: [docsMixin],
-  layout: "docs",
+  layout: 'docs',
   methods: {
     startCase
   },
-  validate({ params }) {
-      return Boolean(_meta[params.slug])
+  validate ({ params }) {
+    return Boolean(_meta[params.slug])
   },
-  async asyncData({ params }) {
-      const readme = await getReadMe(params.slug)
-      const meta = _meta[params.slug]
+  async asyncData ({ params }) {
+    const readme = await getReadMe(params.slug)
+    const meta = _meta[params.slug]
 
-      return {
-          readme: readme.default,
-          meta
-      }
+    return {
+      readme: readme.default,
+      meta
+    }
   }
 };
 </script>

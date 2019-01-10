@@ -539,6 +539,7 @@ Just need quick popovers without too much markup? Use the
 Refer to the [`v-b-popover` directive](/docs/directives/popover) documentation for detailed
 information on the directive usage.
 
+
 ## Advanced `<b-popover>` usage with reactive content
 
 You can even make your `<b-popover>` content interactive. Just remember not to use the
@@ -693,7 +694,15 @@ export default {
 <!-- popover-advanced-1.vue -->
 ```
 
-## Hiding and showing popovers via $root events
+
+## 'Global' $root instance events 
+
+Using `$root` instance it is possible to emit and listen events somewhere out of a component, where `<b-collapse>` is used.
+In short, `$root` behaves like a global event emitters and listener.
+Details about `$root` instance can be found in [the official Vue docs](https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-the-Root-Instance).
+
+
+### Hiding and showing popovers via $root events
 You can close (hide) **all open popovers** by emitting the `bv::hide::popover` event on $root:
 
 ```js
@@ -721,7 +730,7 @@ These events work for both the component **and** directive versions of popover.
 >**Note:** _The **trigger element** must exist in the DOM and be in a visible state in order for the popover to instantiate and show._
 
 
-## Disabling and enabling popovers via $root events
+### Disabling and enabling popovers via $root events
 You can disable **all** popovers by emitting the `bv::disable::popover` event on $root:
 
 ```js
@@ -747,6 +756,21 @@ To enable all popovers simultaneously, omit the `id` argument when emitting the
 These events work for both the component and directive versions of popover.
 
 >**Note:** _The **trigger element** must exist in the DOM in order for the popover to be enabled or disabled._
+
+
+### Listening to popover changes via $root events
+
+To listen to any popover opening, use:
+
+```js
+mounted () {
+  this.$root.$on("bv::popover::show", function(bvEventObj) {
+    console.log("bvEventObj:", bvEventObj);
+  });
+}
+```
+
+Refer to the [Events](/docs/components/popover#component-reference) section of documentation for the full list of events.
 
 
 ## Accessibility
