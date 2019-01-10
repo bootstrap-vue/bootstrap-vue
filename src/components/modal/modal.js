@@ -586,18 +586,19 @@ export default {
     // Turn on/off focusin listener
     setEnforceFocus (on) {
       if (on) {
-        eventOn(document, 'focusin', this.focusHandler, false)
+        eventOn(document, 'focusin', this.focusHandler)
       } else {
-        eventOff(document, 'focusin', this.focusHandler, false)
+        eventOff(document, 'focusin', this.focusHandler)
       }
     },
     // Resize Listener
     setResizeEvent (on) {
+      const options = { passive: true, capture: false }
       ['resize', 'orientationchange'].forEach(evtName => {
         if (on) {
-          eventOn(window, evtName, this.adjustDialog)
+          eventOn(window, evtName, this.adjustDialog, options)
         } else {
-          eventOff(window, evtName, this.adjustDialog)
+          eventOff(window, evtName, this.adjustDialog, options)
         }
       })
     },
