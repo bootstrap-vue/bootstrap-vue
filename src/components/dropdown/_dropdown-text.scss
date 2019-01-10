@@ -4,8 +4,9 @@
 .b-dropdown-text {
   display: block;
   padding: $dropdown-item-padding-y $dropdown-item-padding-x;
+  margin-bottom: 0;
   clear: both;
-  font-weight: $font-weight-normal;
+  font-weight: $font-weight-lighter;
 
   &:first-child {
     @include border-top-radius($dropdown-inner-border-radius);
