@@ -19,6 +19,7 @@ export const props = {
 export default {
   name: 'BDropdownItemButton',
   functional: true,
+  inject: ['dropdown'],
   props,
   render (h, { props, data, parent, children }) {
     return h(
@@ -29,9 +30,7 @@ export default {
         class: { [props.activeClass]: props.active },
         attrs: { role: 'menuitem', type: 'button', disabled: props.disabled },
         on: {
-          click (e) {
-            parent.$root.$emit('clicked::link', e)
-          }
+          click: () => { this.dropdown && this.dropdown.hide() }
         }
       }),
       children
