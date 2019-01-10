@@ -79,29 +79,21 @@
                 ]
             },
             {
-                "event": "bv::show::modal",
-                "description": "Emitted on $root when modal is about to be shown.",
-                "args": [
-                    {
-                      "arg": "id",
-                      "description": "modal id to be shown"
-                    },
-                    {
-                      "arg": "elIDtoFocusOnClose",
-                      "description": "(optional), specify the element to return focus to once the modal is closed"
-                    }
-                ]
+                "event": "bv::modal::show",
+                "description": "Emitted on $root when modal is about to be shown"
             },
-          {
-            "event": "bv::hide::modal",
-            "description": "Emitted on $root when modal is about to be hidden.",
-            "args": [
-              {
-                "arg": "id",
-                "description": "changed state collapse id"
-              }
-            ]
-          }
+            {
+                "event": "bv::modal::shown",
+                "description": "Emitted on $root when modal is shown"
+            },
+            {
+                "event": "bv::modal::hide",
+                "description": "Emitted on $root when modal is about to be hidden"
+            },
+            {
+                "event": "bv::modal::hidden",
+                "description": "Emitted on $root when modal is hidden"
+            }
         ],
         "rootEventEmitters": [
             {

@@ -473,32 +473,19 @@ To disable stacking for a specific modal, just set the prop `no-stacking` on the
 - For multiple modals to stack properly, they **must** be defined in the document in the order they will be opened, otherwise a newly opened modal may appear hidden or obscured by a currently open modal.
 
 
-## Listen for a modal changes via $root events
+## Listening to modal changes via $root events
 
 To listen for opening any modals, use:
 
 ```js
 mounted () {
-  this.$root.$on("bv::show::modal", function(modalId, elIDtoFocusOnClose) { {
-    console.log("modalId:", modalId);
-    console.log("elIDtoFocusOnClose:", elIDtoFocusOnClose);
+  this.$root.$on("bv::modal::show", function() { {
+    console.log("Modal is about to be shown");
   });
 }
 ```
 
-where `modalId` is modal id to be shown; `elIDtoFocusOnClose` is id of element to return focus to once the modal is closed.
-
-To listen for hiding any modals, use:
-
-```js
-mounted () {
-  this.$root.$on("bv::hide::modal", function(modalId) { {
-    console.log("modalId:", modalId);
-  });
-}
-```
-
-where `modalId` is modal id to be shown.
+Refer to the [Events](/docs/components/modal#component-reference) section of documentation for the full list of events.
 
 
 ## Accessibility
