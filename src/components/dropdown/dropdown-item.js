@@ -23,7 +23,7 @@ export default {
     return h(
       BLink,
       {
-        props,
+        props: this.$props,
         staticClass: 'dropdown-item',
         attrs: { role: 'menuitem' },
         on: { click: this.closeDropdown }
