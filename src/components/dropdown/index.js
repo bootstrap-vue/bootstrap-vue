@@ -3,6 +3,7 @@ import BDropdownItem from './dropdown-item'
 import BDropdownItemButton from './dropdown-item-button'
 import BDropdownHeader from './dropdown-header'
 import BDropdownDivider from './dropdown-divider'
+import BDropdownForm from './dropdown-form'
 import { registerComponents, vueUse } from '../../utils/plugins'
 
 const components = {
@@ -17,7 +18,9 @@ const components = {
   BDropdownHeader,
   BDdHeader: BDropdownHeader,
   BDropdownDivider,
-  BDdDivider: BDropdownDivider
+  BDdDivider: BDropdownDivider,
+  BDropdownForm,
+  BDdForm: BDropdownForm,
 }
 
 const VuePlugin = {
