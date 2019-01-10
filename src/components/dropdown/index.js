@@ -20,7 +20,7 @@ const components = {
   BDropdownDivider,
   BDdDivider: BDropdownDivider,
   BDropdownForm,
-  BDdForm: BDropdownForm,
+  BDdForm: BDropdownForm
 }
 
 const VuePlugin = {
