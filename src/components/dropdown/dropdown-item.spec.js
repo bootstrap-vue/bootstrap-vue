@@ -37,7 +37,7 @@ describe('dropdown-item', async () => {
   })
 
   it('does not call dropdown hide(true) method when clicked and disabled', async () => {
-    let called = null
+    let called = false
     let refocus = null
     const wrapper = mount(DropdownItem, {
       provide: {
