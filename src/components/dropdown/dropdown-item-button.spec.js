@@ -1,6 +1,5 @@
 import DropdownItemBtn from './dropdown-item-button'
 import { mount } from '@vue/test-utils'
-import Vue from 'vue'
 
 describe('dropdown-item-button', async () => {
   it('renders with tag "button" and type="button" by default', async () => {
@@ -17,9 +16,7 @@ describe('dropdown-item-button', async () => {
 
   it('has class "active" when active=true', async () => {
     const wrapper = mount(DropdownItemBtn, {
-      context: {
-        props: { active: true }
-      }
+      propsData: { active: true }
     })
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('dropdown-item')
@@ -27,9 +24,7 @@ describe('dropdown-item-button', async () => {
 
   it('has attribute "disabled" when disabled=true', async () => {
     const wrapper = mount(DropdownItemBtn, {
-      context: {
-        props: { disabled: true }
-      }
+      propsData: { disabled: true }
     })
     expect(wrapper.attributes('disabled')).toBeDefined()
   })
@@ -50,7 +45,7 @@ describe('dropdown-item-button', async () => {
     const btn = wrapper.find('button')
     expect(btn).toBeDefined()
     btn.trigger('click')
-    await Vue.nextTick()
+    await wrapper.vm.$nextTick()
     expect(called).toBe(true)
     expect(refocus).toBe(true)
   })
@@ -67,14 +62,12 @@ describe('dropdown-item-button', async () => {
           }
         }
       },
-      context: {
-        props: { disabled: true }
-      }
+      propsData: { active: true }
     })
     const btn = wrapper.find('button')
     expect(btn).toBeDefined()
     btn.trigger('click')
-    await Vue.nextTick()
+    await wrapper.vm.$nextTick()
     expect(called).toBe(false)
     expect(refocus).toBe(null)
   })
