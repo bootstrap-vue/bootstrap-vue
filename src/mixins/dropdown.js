@@ -129,6 +129,8 @@ export default {
           // Reset value and exit if canceled
           this.visibleChangePrevented = true
           this.visible = oldValue
+          // Just in case a child element triggerded this.hide(true)
+          this.$off('hidden', this.focusToggler)
           return
         }
         if (evtName === 'show') {
@@ -245,18 +247,12 @@ export default {
       if (open) {
         // If another dropdown is opened
         this.$root.$on('bv::dropdown::shown', this.rootCloseListener)
-        // Hide when links clicked (needed when items in menu are clicked)
-        this.$root.$on('clicked::link', this.rootCloseListener)
-        // Use new namespaced events for clicked
-        this.$root.$on('bv::link::clicked', this.rootCloseListener)
         // Hide the dropdown when clicked outside
         this.listenForClickOut = true
         // Hide the dropdown when it loses focus
         this.listenForFocusIn = true
       } else {
         this.$root.$off('bv::dropdown::shown', this.rootCloseListener)
-        this.$root.$off('clicked::link', this.rootCloseListener)
-        this.$root.$off('bv::link::clicked', this.rootCloseListener)
         this.listenForClickOut = false
         this.listenForFocusIn = false
       }
@@ -264,10 +260,6 @@ export default {
     rootCloseListener (vm) {
       if (vm !== this) {
         this.visible = false
-        // Return focus to original trigger button
-        this.$nextTick(() => {
-          this.focusToggler()
-        })
       }
     },
     show () {
@@ -277,12 +269,16 @@ export default {
       }
       this.visible = true
     },
-    hide () {
+    hide (refocus = false) {
       // Public method to hide dropdown
       if (this.disabled) {
         return
       }
       this.visible = false
+      if (refocus) {
+        // Child element is closing the dropdown on click
+        this.$once('hidden', this.focusToggler)
+      }
     },
     toggle (evt) {
       // Called only by a button that toggles the menu
@@ -308,7 +304,7 @@ export default {
       this.visible = !this.visible
     },
     click (evt) {
-      // Calle only in split button mode, for the split button
+      // Called only in split button mode, for the split button
       if (this.disabled) {
         this.visible = false
         return
@@ -338,9 +334,7 @@ export default {
         evt.preventDefault()
         evt.stopPropagation()
         // Return focus to original trigger button
-        this.$nextTick(() => {
-          this.focusToggler()
-        })
+        this.$once('hidden', this.focusToggler)
       }
     },
     onTab (evt) /* istanbul ignore next: not easy to test */ {
@@ -351,7 +345,7 @@ export default {
     onMouseOver (evt) /* istanbul ignore next: not easy to test */ {
       // Removed mouseover focus handler
     },
-    // Docmunet click out listener
+    // Document click out listener
     clickOutHandler () {
       if (this.visible) {
         this.visible = false
