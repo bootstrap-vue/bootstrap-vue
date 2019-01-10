@@ -14,7 +14,8 @@ export default {
     }
   },
   props,
-  render (h, { props, data, children }) {
+  render (h, { props, injections, data, children }) {
+    const dropdown = injections.dropdown
     return h(
       BLink,
       mergeData(data, {
@@ -22,7 +23,7 @@ export default {
         staticClass: 'dropdown-item',
         attrs: { role: 'menuitem' },
         on: {
-          click: () => { this.dropdown && this.dropdown.hide(true) }
+          click: () => { dropdown && dropdown.hide(true) }
         }
       }),
       children
