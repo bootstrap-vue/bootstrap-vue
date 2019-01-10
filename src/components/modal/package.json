@@ -80,19 +80,43 @@
             },
             {
                 "event": "bv::modal::show",
-                "description": "Emitted on $root when modal is about to be shown"
+                "description": "Emitted on $root when modal is about to be shown",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show"
+                    }
+                ]
             },
             {
                 "event": "bv::modal::shown",
-                "description": "Emitted on $root when modal is shown"
+                "description": "Emitted on $root when modal is shown",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object"
+                    }
+                ]
             },
             {
                 "event": "bv::modal::hide",
-                "description": "Emitted on $root when modal is about to be hidden"
+                "description": "Emitted on $root when modal is about to be hidden",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide"
+                    }
+                ]
             },
             {
                 "event": "bv::modal::hidden",
-                "description": "Emitted on $root when modal is hidden"
+                "description": "Emitted on $root when modal is hidden",
+                "args": [
+                    {
+                        "arg": "bvEvt",
+                        "description": "BvEvent object"
+                    }
+                ]
             }
         ],
         "rootEventEmitters": [
