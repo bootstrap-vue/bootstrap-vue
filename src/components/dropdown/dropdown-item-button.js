@@ -31,7 +31,6 @@ export default {
     }
   },
   render (h) {
-    console.log('Dropdown:', dropdown)
     return h(
       'button',
       {
