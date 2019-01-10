@@ -12,18 +12,6 @@ describe('dropdown-item-button', async () => {
   it('has class "dropdown-item"', async () => {
     const wrapper = mount(DropdownItemBtn)
     expect(wrapper.classes()).toContain('dropdown-item')
-    expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.classes()).not.toContain('active')
-  })
-
-  it('has class "disabled" when disabled=true', async () => {
-    const wrapper = mount(DropdownItemBtn, {
-      context: {
-        props: { disabled: true }
-      }
-    })
-    expect(wrapper.classes()).toContain('disabled')
-    expect(wrapper.classes()).toContain('dropdown-item')
     expect(wrapper.classes()).not.toContain('active')
   })
 
@@ -35,7 +23,15 @@ describe('dropdown-item-button', async () => {
     })
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).toContain('dropdown-item')
-    expect(wrapper.classes()).not.toContain('disabled')
+  })
+
+  it('has attribute "disabled" when disabled=true', async () => {
+    const wrapper = mount(DropdownItemBtn, {
+      context: {
+        props: { disabled: true }
+      }
+    })
+    expect(wrapper.attributes('disabled')).toBeDefined()
   })
 
   it('calls dropdown hide(true) method when clicked', async () => {
