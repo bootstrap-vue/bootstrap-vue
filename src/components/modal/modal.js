@@ -549,7 +549,7 @@ export default {
     emitEvent (bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
-      this.$root.$emit(`bv::modal::${type}`, bvEvt)
+      this.$root.$emit(`bv::modal::${type}`, bvEvt, this.safeId())
     },
     // UI Event Handlers
     onClickOut (evt) {
