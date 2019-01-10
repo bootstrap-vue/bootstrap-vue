@@ -420,8 +420,8 @@ a regular form.
 
 ```html
 <template>
-  <div>
-    <b-dropdown id="ddown-form" text="Dropdown with form" ref="ddown" class="m-2">
+  <div class="p-2">
+    <b-dropdown id="ddown-form" text="Dropdown with form" ref="ddown">
       <b-dropdown-form>
         <b-form-group label="Email" label-for="ddown-form-email">
           <b-form-input size="sm"
@@ -465,7 +465,7 @@ sets some basic styles which are suitable in most situations. By default it's wi
 the same as the widest `<b-dropdown-item>` content. You may need to place additional
 styles or helper classes on the component.
 
-### Closing the menu via form interaction
+#### Closing the menu via form interaction
 Clicking buttons inside of a `<b-dropdown-form>` will not automatically close the menu. If
 you need to close the menu using a button (or via the form submit event), call the `hide()` 
 method on the `<b-dropdown>` instance, as is shown in the above example.
