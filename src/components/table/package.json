@@ -158,6 +158,18 @@
                 "description": "Emitted when the items provider function has returned data."
             }
         ],
+        "rootEventEmitters": [
+            {
+                "event": "bv::refresh::table",
+                "description": "Refresh data of a specific table when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "table id to refresh data"
+                    }
+                ]
+            }
+        ],
         "slots": [
             {
                 "name": "table-caption",

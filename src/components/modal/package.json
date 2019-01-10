@@ -77,6 +77,56 @@
                         "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide"
                     }
                 ]
+            },
+            {
+                "event": "bv::show::modal",
+                "description": "Emitted on $root when modal is about to be shown.",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "modal id to be shown"
+                    },
+                    {
+                      "arg": "elIDtoFocusOnClose",
+                      "description": "(optional), specify the element to return focus to once the modal is closed"
+                    }
+                ]
+            },
+          {
+            "event": "bv::hide::modal",
+            "description": "Emitted on $root when modal is about to be hidden.",
+            "args": [
+              {
+                "arg": "id",
+                "description": "changed state collapse id"
+              }
+            ]
+          }
+        ],
+        "rootEventEmitters": [
+            {
+                "event": "bv::show::modal",
+                "description": "Show modal with specified id when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "modal id to show"
+                    },
+                    {
+                      "arg": "elIDtoFocusOnClose",
+                      "description": "(optional), specify the element to return focus to once the modal is closed"
+                    }
+                ]
+            },
+            {
+                "event": "bv::hide::modal",
+                "description": "Hide modal with specified id when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "modal id to hide"
+                    }
+                ]
             }
         ],
         "slots": [
