@@ -1,0 +1,17 @@
+// Custom styles for b-dropdown-text
+// Based on class .dropdown-item
+
+.b-dropdown-text {
+  display: block;
+  padding: $dropdown-item-padding-y $dropdown-item-padding-x;
+  clear: both;
+  font-weight: $font-weight-normal;
+
+  &:first-child {
+    @include border-top-radius($dropdown-inner-border-radius);
+  }
+
+  &:last-child {
+    @include border-bottom-radius($dropdown-inner-border-radius);
+  }
+}
