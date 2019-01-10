@@ -39,7 +39,7 @@ export default {
         class: { [this.activeClass]: this.active },
         attrs: { role: 'menuitem', type: 'button', disabled: this.disabled },
         on: { click: this.closeDropdown }
-      }),
+      },
       this.$slots.default
     )
   }
