@@ -7,7 +7,7 @@ export const props = linkPropsFactory()
 export default {
   name: 'BDropdownItem',
   functional: true,
-  inject: [dropdown],
+  inject: ['dropdown'],
   props,
   render (h, { props, data, children }) {
     return h(
