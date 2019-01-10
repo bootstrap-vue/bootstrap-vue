@@ -47,9 +47,7 @@ const AttachmentMap = {
 export default {
   mixins: [clickOutMixin, focusInMixin],
   provide () {
-    return {
-      dropdown: this
-    }
+    return { dropdown: this }
   },
   props: {
     disabled: {
