@@ -7,6 +7,9 @@ const EVENT_ACCORDION = 'bv::collapse::accordion'
 // Events we listen to on $root
 const EVENT_TOGGLE = 'bv::toggle::collapse'
 
+// Event Listener options
+const EventOptions = { passive: true, capture: false }
+
 // @vue/component
 export default {
   name: 'BCollapse',
@@ -73,8 +76,8 @@ export default {
   mounted () {
     if (this.isNav && typeof document !== 'undefined') {
       // Set up handlers
-      eventOn(window, 'resize', this.handleResize, false)
-      eventOn(window, 'orientationchange', this.handleResize, false)
+      eventOn(window, 'resize', this.handleResize, EventOptions)
+      eventOn(window, 'orientationchange', this.handleResize, EventOptions)
       this.handleResize()
     }
     this.emitState()
@@ -84,8 +87,8 @@ export default {
   },
   beforeDestroy () {
     if (this.isNav && typeof document !== 'undefined') {
-      eventOff(window, 'resize', this.handleResize, false)
-      eventOff(window, 'orientationchange', this.handleResize, false)
+      eventOff(window, 'resize', this.handleResize, EventOptions)
+      eventOff(window, 'orientationchange', this.handleResize, EventOptions)
     }
   },
   methods: {
