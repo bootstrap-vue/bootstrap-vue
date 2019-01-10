@@ -5,7 +5,7 @@ export default {
   functional: true,
   props: {
     tag: {
-      type: String
+      type: String,
       default: 'p'
     }
   },
