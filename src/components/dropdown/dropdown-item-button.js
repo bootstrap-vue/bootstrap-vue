@@ -28,6 +28,7 @@ export default {
   props,
   render (h, { props, injections, data, parent, children }) {
     const dropdown = injections.dropdown
+    console.log('Dropdown:', dropdown)
     return h(
       'button',
       mergeData(data, {
@@ -36,7 +37,10 @@ export default {
         class: { [props.activeClass]: props.active },
         attrs: { role: 'menuitem', type: 'button', disabled: props.disabled },
         on: {
-          click: () => { dropdown && dropdown.hide(true) }
+          click: () => {
+            console.log('Click Dropdown:', dropdown)
+            dropdown && dropdown.hide(true)
+          }
         }
       }),
       children
