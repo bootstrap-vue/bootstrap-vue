@@ -758,9 +758,9 @@ These events work for both the component and directive versions of popover.
 >**Note:** _The **trigger element** must exist in the DOM in order for the popover to be enabled or disabled._
 
 
-### Listen for a popover changes via $root events
+### Listening to popover changes via $root events
 
-To listen for opening any popover, use:
+To listen to any popover opening, use:
 
 ```js
 mounted () {

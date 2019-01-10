@@ -415,9 +415,9 @@ These events work for both the component **and** directive versions of tooltip.
 >**Note:** _The **trigger element** must exist in the DOM in order for the
 tooltip to be enabled or disabled._
 
-### Listen for a tooltip changes via $root events
+### Listening to tooltip changes via $root events
 
-To listen for opening any tooltip, use:
+To listen to any tooltip opening, use:
 
 ```js
 mounted () {

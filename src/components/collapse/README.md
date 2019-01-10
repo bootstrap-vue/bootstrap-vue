@@ -236,9 +236,9 @@ Using `$root` instance it is possible to emit and listen events somewhere out of
 In short, `$root` behaves like a global event emitters and listener.
 Details about `$root` instance can be found in [the official Vue docs](https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-the-Root-Instance).
 
-### Listen collapses state changes via $root events
+### Listening to collapses state changes via $root events
 
-To listen for a state changes of any collapses, use:
+To listen to any collapse state changes, use:
 
 ```js
 mounted () {

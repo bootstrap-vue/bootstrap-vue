@@ -475,7 +475,7 @@ To disable stacking for a specific modal, just set the prop `no-stacking` on the
 
 ## Listening to modal changes via $root events
 
-To listen for opening any modals, use:
+To listen to any modal opening, use:
 
 ```js
 mounted () {
