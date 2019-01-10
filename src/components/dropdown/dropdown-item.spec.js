@@ -36,9 +36,11 @@ describe('dropdown-item', async () => {
     let refocus = null
     const wrapper = mount(DropdownItem, {
       provide: {
-        hide (arg) {
-          called = true
-          refocus = arg
+        dropdown: {
+          hide (arg) {
+            called = true
+            refocus = arg
+          }
         }
       },
       context: {
