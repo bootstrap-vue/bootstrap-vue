@@ -1,6 +1,5 @@
 import DropdownItem from './dropdown-item'
 import { mount } from '@vue/test-utils'
-import Vue from 'vue'
 
 describe('dropdown-item', async () => {
   it('renders with tag "a" and href="#" by default', async () => {
@@ -48,14 +47,12 @@ describe('dropdown-item', async () => {
           }
         }
       },
-      context: {
-        props: { disabled: true }
-      }
+      propsData: { disabled: true }
     })
     const link = wrapper.find('a')
     expect(link).toBeDefined()
     link.trigger('click')
-    await Vue.nextTick()
+    await wrapper.vm.nextTick()
     expect(called).toBe(false)
     expect(refocus).toBe(null)
   })
