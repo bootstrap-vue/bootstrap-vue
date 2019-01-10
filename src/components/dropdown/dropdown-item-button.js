@@ -30,7 +30,7 @@ export default {
         class: { [props.activeClass]: props.active },
         attrs: { role: 'menuitem', type: 'button', disabled: props.disabled },
         on: {
-          click: () => { this.dropdown && this.dropdown.hide() }
+          click: () => { this.dropdown && this.dropdown.hide(true) }
         }
       }),
       children
