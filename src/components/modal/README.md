@@ -479,7 +479,7 @@ To listen to any modal opening, use:
 
 ```js
 mounted () {
-  this.$root.$on("bv::modal::show", function(bvEvent, modalId) { {
+  this.$root.$on("bv::modal::show", (bvEvent, modalId) => {
     console.log("Modal is about to be shown", bvEvent, modalId);
   });
 }
