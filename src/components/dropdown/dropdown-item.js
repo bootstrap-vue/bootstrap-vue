@@ -17,7 +17,7 @@ export default {
         staticClass: 'dropdown-item',
         attrs: { role: 'menuitem' },
         on: {
-          click: () => { this.dropdown && this.dropdown.hide() }
+          click: () => { this.dropdown && this.dropdown.hide(true) }
         }
       }),
       children
