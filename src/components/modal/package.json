@@ -85,6 +85,10 @@
                     {
                         "arg": "bvEvt",
                         "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show"
+                    },
+                    {
+                        "arg": "modalId",
+                        "description": "modal id"
                     }
                 ]
             },
@@ -95,6 +99,10 @@
                     {
                         "arg": "bvEvt",
                         "description": "BvEvent object"
+                    },
+                    {
+                        "arg": "modalId",
+                        "description": "modal id"
                     }
                 ]
             },
@@ -105,6 +113,10 @@
                     {
                         "arg": "bvEvt",
                         "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide"
+                    },
+                    {
+                        "arg": "modalId",
+                        "description": "modal id"
                     }
                 ]
             },
@@ -115,6 +127,10 @@
                     {
                         "arg": "bvEvt",
                         "description": "BvEvent object"
+                    },
+                    {
+                        "arg": "modalId",
+                        "description": "modal id"
                     }
                 ]
             }
