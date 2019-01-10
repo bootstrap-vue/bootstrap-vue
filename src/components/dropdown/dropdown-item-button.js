@@ -1,5 +1,3 @@
-import { mergeData } from 'vue-functional-data-merge'
-
 export const props = {
   active: {
     type: Boolean,
@@ -18,7 +16,6 @@ export const props = {
 // @vue/component
 export default {
   name: 'BDropdownItemButton',
-  functional: true,
   inject: {
     dropdown: {
       from: 'dropdown',
@@ -26,24 +23,24 @@ export default {
     }
   },
   props,
-  render (h, { props, injections, data, parent, children }) {
-    const dropdown = injections.dropdown
+  methods: {
+    closeDropdown () {
+      if (this.dropdown) {
+        this.dropdown.hide(true)
+      }
+    }
+  },
+  render (h) {
     console.log('Dropdown:', dropdown)
     return h(
       'button',
-      mergeData(data, {
-        props,
+      {
         staticClass: 'dropdown-item',
-        class: { [props.activeClass]: props.active },
-        attrs: { role: 'menuitem', type: 'button', disabled: props.disabled },
-        on: {
-          click: () => {
-            console.log('Click Dropdown:', dropdown)
-            dropdown && dropdown.hide(true)
-          }
-        }
+        class: { [this.activeClass]: this.active },
+        attrs: { role: 'menuitem', type: 'button', disabled: this.disabled },
+        on: { click: this.closeDropdown }
       }),
-      children
+      this.$slots.default
     )
   }
 }
