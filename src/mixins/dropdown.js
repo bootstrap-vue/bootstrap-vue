@@ -46,6 +46,11 @@ const AttachmentMap = {
 // @vue/component
 export default {
   mixins: [clickOutMixin, focusInMixin],
+  provide () {
+    return {
+      dropdown: this
+    }
+  },
   props: {
     disabled: {
       type: Boolean,
