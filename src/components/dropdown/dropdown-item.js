@@ -7,6 +7,7 @@ export const props = linkPropsFactory()
 export default {
   name: 'BDropdownItem',
   functional: true,
+  inject: [dropdown],
   props,
   render (h, { props, data, children }) {
     return h(
@@ -14,7 +15,10 @@ export default {
       mergeData(data, {
         props,
         staticClass: 'dropdown-item',
-        attrs: { role: 'menuitem' }
+        attrs: { role: 'menuitem' },
+        on: {
+          click: () => { this.dropdown && this.dropdown.hide() }
+        }
       }),
       children
     )
