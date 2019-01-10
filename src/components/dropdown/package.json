@@ -93,6 +93,10 @@
       {
         "component": "BDropdownForm",
         "aliases": [ "BDdForm" ]
+      },
+      {
+        "component": "BDropdownText",
+        "aliases": [ "BDdText" ]
       }
     ]
   }
