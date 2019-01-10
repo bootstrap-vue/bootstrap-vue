@@ -16,10 +16,7 @@ function filterVisible (els) {
 // TODO: .dropdown-form handling
 const Selector = {
   FORM_CHILD: '.dropdown form',
-  MENU: '.dropdown-menu',
   NAVBAR_NAV: '.navbar-nav',
-  VISIBLE_ITEMS: '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)',
-  // Since we can target the dropdown menu via refs, we use hte following instead of the previous
   ITEM_SELECTOR: '.dropdown-item:not(.disabled):not([disabled])'
 }
 
@@ -197,8 +194,8 @@ export default {
       this.whileOpenListen(true)
       this.$emit('shown')
 
-      // Focus on the first item on show
-      this.$nextTick(this.focusFirstItem)
+      // Focus on the menu container on show
+      this.$nextTick(this.focusMenu)
     },
     hideMenu () {
       this.whileOpenListen(false)
@@ -360,6 +357,7 @@ export default {
         this.visible = false
       }
     },
+    // Keyboard nav
     focusNext (evt, up) {
       if (!this.visible) {
         return
@@ -393,16 +391,8 @@ export default {
       // Get all items
       return filterVisible(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
     },
-    getFirstItem () {
-      // Get the first non-disabled item
-      let item = this.getItems()[0]
-      return item || null
-    },
-    focusFirstItem () {
-      const item = this.getFirstItem()
-      if (item) {
-        this.focusItem(0, [item])
-      }
+    focusMenu () {
+      this.$refs.menu.focus && this.$refs.menu.focus()
     },
     focusToggler () {
       let toggler = this.toggler
