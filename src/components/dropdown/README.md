@@ -419,35 +419,43 @@ form controls within the `<b-dropdown-form>`.  The `<b-dropdown-form>` is based 
 a regular form.
 
 ```html
-<div>
-  <b-dropdown id="ddown-form" text="Dropdown with form" class="m-2">
-    <b-dropdown-form class="pt-0">
-      <b-form-group label="Email"
-                    label-for="ddown-form-email"
-                    label-cols="12"
-                    class="mb-1">
-        <b-form-input size="sm"
-                      placeholder="email@example.com"
-                      id="ddown-form-email">
-        </b-form-input>
-      </b-form-group>
-      <b-form-group label="Password"
-                    label-for="ddown-form-passwd"
-                    label-cols="12"
-                    class="mb-2">
-        <b-form-input type="password"
-                      size="sm"
-                      placeholder="Password" id="ddown-form-passwd">
-        </b-form-input>
-      </b-form-group>
-      <b-form-checkbox class="mb-2">Remember me</b-form-checkbox>
-      <b-button variant="primary" size="sm">Sign In</b-button>
-    </b-dropdown-form>
-    <b-dropdown-divider></b-dropdown-divider>
-    <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button>
-    <b-dropdown-item-button>Forgot Password?</b-dropdown-item-button>
-  </b-dropdown>
-</div>
+<template>
+  <div>
+    <b-dropdown id="ddown-form" text="Dropdown with form" ref="ddown" class="m-2">
+      <b-dropdown-form>
+        <b-form-group label="Email" label-for="ddown-form-email">
+          <b-form-input size="sm"
+                        placeholder="email@example.com"
+                        id="ddown-form-email">
+          </b-form-input>
+        </b-form-group>
+        <b-form-group label="Password" label-for="ddown-form-passwd">
+          <b-form-input type="password"
+                        size="sm"
+                        placeholder="Password"
+                        id="ddown-form-passwd">
+          </b-form-input>
+        </b-form-group>
+        <b-form-checkbox class="mb-2">Remember me</b-form-checkbox>
+        <b-button variant="primary" size="sm">Sign In</b-button>
+      </b-dropdown-form>
+      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button>
+      <b-dropdown-item-button>Forgot Password?</b-dropdown-item-button>
+    </b-dropdown>
+  </div>
+</template>
+
+<script>
+  export default {
+    methods: {
+      onClick () {
+        // Close the menu and (by passing true) return focus to the toggle button
+        this.$refs.ddown.hide(true)
+      }
+    }
+  }
+</script>
 
 <!-- dropdown-form.vue -->
 ```
@@ -456,6 +464,15 @@ a regular form.
 sets some basic styles which are suitable in most situations. By default it's width will be
 the same as the widest `<b-dropdown-item>` content. You may need to place additional
 styles or helper classes on the component.
+
+### Closing the menu via form interaction
+Clicking buttons inside of a `<b-dropdown-form>` will not automatically close the menu. If
+you need to close the menu using a button (or via the form submit event), call the `hide()` 
+method on the `<b-dropdown>` instance, as is shown in the above example.
+
+The `hide()` method accepts a single boolean argument. If the argument is `true`, then focus
+will be returned to the dropdown toggle button after the menu has closed. Otherwise the document
+will gain focus once the menu is closed.
 
 
 ## Accessibility
