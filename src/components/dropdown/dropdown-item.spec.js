@@ -1,5 +1,6 @@
 import DropdownItem from './dropdown-item'
 import { mount } from '@vue/test-utils'
+import Vue from 'vue'
 
 describe('dropdown-item', async () => {
   it('renders with tag "a" and href="#" by default', async () => {
@@ -19,20 +20,24 @@ describe('dropdown-item', async () => {
     let refocus = null
     const wrapper = mount(DropdownItem, {
       provide: {
-        hide (arg) {
-          called = true
-          refocus = arg
+        dropdown: {
+          hide (arg) {
+            called = true
+            refocus = arg
+          }
         }
       }
     })
-    wrapper.element.trigger('click')
-    await wrapper.vm.$nextTick()
+    const link = wrapper.find('a')
+    expect(link).toBeDefined()
+    link.trigger('click')
+    await Vue.nextTick()
     expect(called).toBe(true)
     expect(refocus).toBe(true)
   })
 
   it('does not call dropdown hide(true) method when clicked and disabled', async () => {
-    let called = false
+    let called = null
     let refocus = null
     const wrapper = mount(DropdownItem, {
       provide: {
@@ -47,8 +52,10 @@ describe('dropdown-item', async () => {
         props: { disabled: true }
       }
     })
-    wrapper.element.trigger('click')
-    await wrapper.vm.$nextTick()
+    const link = wrapper.find('a')
+    expect(link).toBeDefined()
+    link.trigger('click')
+    await Vue.nextTick()
     expect(called).toBe(false)
     expect(refocus).toBe(null)
   })
