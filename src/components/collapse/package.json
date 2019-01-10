@@ -26,7 +26,7 @@
             },
             {
                 "event": "bv::collapse::state",
-                "description": "Emitted when collapse has changed its state",
+                "description": "Emitted on $root when collapse has changed its state",
                 "args": [
                     {
                       "arg": "id",
