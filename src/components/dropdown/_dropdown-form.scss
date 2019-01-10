@@ -2,8 +2,9 @@
 // Based on class .dropdown-item
 
 .b-dropdown-form {
-  display: block;
+  display: inline-block;
   padding: $dropdown-item-padding-y $dropdown-item-padding-x;
+  width: 100%;
   clear: both;
   font-weight: $font-weight-normal;
 
