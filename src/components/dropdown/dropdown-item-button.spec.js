@@ -62,7 +62,7 @@ describe('dropdown-item-button', async () => {
           }
         }
       },
-      propsData: { active: true }
+      propsData: { disabled: true }
     })
     const btn = wrapper.find('button')
     expect(btn).toBeDefined()
