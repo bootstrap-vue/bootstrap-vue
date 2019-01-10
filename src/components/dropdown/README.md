@@ -22,88 +22,6 @@ clicking (or pressing space or enter when focused), not by hovering; this is an
 
 <!-- dropdown.vue -->
 ```
-
-
-## Dropdown supported sub-components
-The following components can be placed inside of your dropdowns. Using any other
-component or markup may break layout and/or keyboard navigation.
-
-| Sub-component | Description | Aliases
-| --------- | ----------- | -------
-| `<b-dropdown-item>` | Action items that provide click, link, and `<router-link>` functionality. Renders as an `<a>` element by default. | `<b-dd-item>`
-| `<b-dropdown-item-button>` | An alternative to `<b-dropdown-item>` that renders a menu item using a `<button>` element. | `<b-dropdown-item-btn>`, `<b-dd-item-button>`, `<b-dd-item-btn>`
-| `<b-dropdown-header>` | A header item, used to help identify a group of dropdown items. | `<b-dd-header>`
-| `<b-dropdown-divider>` | A divider / spacer which can be used to separate dropdown items. | `<b-dd-divider>`
-
-**Note:** _Nested sub-menus are **not** supported._
-
-### `<b-dropdown-item>`
-The `<b-dropdown-item>` is typically used to create a navigation link inside your menu.
-Use either the `href` prop or the `to` prop (for router link support) to generate the
-appropriate navigation link. If neither `href` nor `to` are provided, a standard `<a>`
-link will be generated with an `href` of `#` (with an event handler that will prevent
-scroll to top behaviour by preventing the default link action).
-
-Disabled the dropdown item by setting the `disabled` prop.
-
-### `<b-dropdown-item-button>`
-Historically dropdown menu contents had to be links (`<b-dropdown-item>`), but that’s no
-longer the case with Bootstrap v4. Now you can optionally create `<button>` elements in
-your dropdowns by using the `<b-dropdown-item-button>` sub-component.
-`<b-dropdown-item-button>` does not support the `href` or `to` props.
-
-Disabled the dropdown item button by setting the `disabled` prop.
-
-```html
-<div>
-  <b-dropdown id="ddown-buttons" text="Dropdown using buttons as menu items" class="m-2">
-    <b-dropdown-item-button>I'm a button</b-dropdown-item-button>
-    <b-dropdown-item-button active>I'm a active button</b-dropdown-item-button>
-    <b-dropdown-item-button disabled>I'm a button, but disabled!</b-dropdown-item-button>
-    <b-dropdown-item-button>I don't look like a button, but I am!</b-dropdown-item-button>
-  </b-dropdown>
-</div>
-
-<!-- dropdown-item-buttons.vue -->
-```
-
-When the menu item doesn't trigger navigation, it is recommended to use
-the `<b-dropdown-item-button>` sub-component.
-
-### `<b-dropdown-item-divider>`
-Separate groups of related menu items with `<b-dropdown-divider>`.
-
-```html
-<div>
-  <b-dropdown id="ddown-divider" text="Dropdown with divider" class="m-2">
-    <b-dropdown-item-button>First item</b-dropdown-item-button>
-    <b-dropdown-item-button>Second item</b-dropdown-item-button>
-    <b-dropdown-divider></b-dropdown-divider>
-    <b-dropdown-item-button>Separated Item</b-dropdown-item-button>
-  </b-dropdown>
-</div>
-
-<!-- dropdown-item-divider.vue -->
-```
-
-### `<b-dropdown-item-header>`
-Add a header to label sections of actions in any dropdown menu.
-
-```html
-<div>
-  <b-dropdown id="ddown-header" text="Dropdown with header" class="m-2">
-    <b-dropdown-header>Dropdown header</b-dropdown-header>
-    <b-dropdown-item-button>First item</b-dropdown-item-button>
-    <b-dropdown-item-button>Second Item</b-dropdown-item-button>
-  </b-dropdown>
-</div>
-
-<!-- dropdown-item-header.vue -->
-```
-
-See Section [Dropdown headers and accessibility](#dropdown-headers-and-accessibility)
-for details on making headers more accessible for users of assistive technologies.
-
 ## Dropdown button content
 You can customize the text of the dropdown button by using either the `text` prop
 (shown in previous examples), or use the `button-content` slot instead of the `text` prop.
@@ -380,6 +298,183 @@ The dropdown can be created with the toggle's caret visually hidden by setting t
 **Note:** The caret will always be shown when using `split` mode.
 
 
+## Dropdown supported sub-components
+The following components can be placed inside of your dropdowns. Using any other
+component or markup may break layout and/or keyboard navigation.
+
+| Sub-component | Description | Aliases
+| --------- | ----------- | -------
+| `<b-dropdown-item>` | Action items that provide click, link, and `<router-link>`/`<nuxt-link>` functionality. Renders as an `<a>` element by default. | `<b-dd-item>`
+| `<b-dropdown-item-button>` | An alternative to `<b-dropdown-item>` that renders a menu item using a `<button>` element. | `<b-dropdown-item-btn>`, `<b-dd-item-button>`, `<b-dd-item-btn>`
+| `<b-dropdown-header>` | A header item, used to help identify a group of dropdown items. | `<b-dd-header>`
+| `<b-dropdown-divider>` | A divider / spacer which can be used to separate dropdown items. | `<b-dd-divider>`
+| `<b-dropdown-text>` | Free flowing text content in a menu. | `<b-dd-text>`
+| `<b-dropdown-form>` | For placing form controls within a dropdown menu. | `<b-dd-form>`
+
+**Note:** _Nested sub-menus are **not** supported._
+
+### `<b-dropdown-item>`
+The `<b-dropdown-item>` is typically used to create a navigation link inside your menu.
+Use either the `href` prop or the `to` prop (for router link support) to generate the
+appropriate navigation link. If neither `href` nor `to` are provided, a standard `<a>`
+link will be generated with an `href` of `#` (with an event handler that will prevent
+scroll to top behaviour by preventing the default link action).
+
+Disabled the dropdown item by setting the `disabled` prop.
+
+### `<b-dropdown-item-button>`
+Historically dropdown menu contents had to be links (`<b-dropdown-item>`), but that’s no
+longer the case with Bootstrap v4. Now you can optionally create `<button>` elements in
+your dropdowns by using the `<b-dropdown-item-button>` sub-component.
+`<b-dropdown-item-button>` does not support the `href` or `to` props.
+
+Disabled the dropdown item button by setting the `disabled` prop.
+
+```html
+<div>
+  <b-dropdown id="ddown-buttons" text="Dropdown using buttons as menu items" class="m-2">
+    <b-dropdown-item-button>I'm a button</b-dropdown-item-button>
+    <b-dropdown-item-button active>I'm a active button</b-dropdown-item-button>
+    <b-dropdown-item-button disabled>I'm a button, but disabled!</b-dropdown-item-button>
+    <b-dropdown-item-button>I don't look like a button, but I am!</b-dropdown-item-button>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-item-buttons.vue -->
+```
+
+When the menu item doesn't trigger navigation, it is recommended to use
+the `<b-dropdown-item-button>` sub-component.
+
+### `<b-dropdown-item-divider>`
+Separate groups of related menu items with `<b-dropdown-divider>`.
+
+```html
+<div>
+  <b-dropdown id="ddown-divider" text="Dropdown with divider" class="m-2">
+    <b-dropdown-item-button>First item</b-dropdown-item-button>
+    <b-dropdown-item-button>Second item</b-dropdown-item-button>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-item-button>Separated Item</b-dropdown-item-button>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-item-divider.vue -->
+```
+
+### `<b-dropdown-item-header>`
+Add a header to label sections of actions in any dropdown menu.
+
+```html
+<div>
+  <b-dropdown id="ddown-header" text="Dropdown with header" class="m-2">
+    <b-dropdown-header>Dropdown header</b-dropdown-header>
+    <b-dropdown-item-button>First item</b-dropdown-item-button>
+    <b-dropdown-item-button>Second Item</b-dropdown-item-button>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-item-header.vue -->
+```
+
+See Section [Dropdown headers and accessibility](#dropdown-headers-and-accessibility)
+for details on making headers more accessible for users of assistive technologies.
+
+
+### `<b-dropdown-text>`
+Place any freeform text within a dropdown menu using the `<b-dropdown-text>` sub component
+or use text and use spacing utilities. Note that you’ll likely need additional sizing styles
+to constrain/set the menu width.
+
+```html
+<div>
+  <b-dropdown id="ddown-text" text="Dropdown with text" class="m-2">
+    <b-dropdown-text style="width: 240px;">
+      Some example text that's free-flowing within the dropdown menu.
+    </b-dropdown-text>
+    <b-dropdown-text>
+      And this is more example text.
+    </b-dropdown-text>
+    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-item-button>First item</b-dropdown-item-button>
+    <b-dropdown-item-button>Second Item</b-dropdown-item-button>
+  </b-dropdown>
+</div>
+
+<!-- dropdown-text.vue -->
+```
+
+`<b-dropdown-text>` has the BootstrapVue custom class `.b-dropdown-text` applied to it which
+sets some basic styles which are suitable in most situations. By default it's width will be
+the same as the widest `<b-dropdown-item>` content. You may need to place additional
+styles or helper classes on the component.
+
+By default `<b-dropdown-text>` renders using tag `<p>`.  You can change the rendered
+tag by setting the `tag` prop to any valid HTML5 tag on the `<b-dropdown-text>` sub-component.
+
+### `<b-dropdown-form>`
+Dropdowns suupport basic forms. Put a `<b-dropdown-form>` within a dropdown menu and place
+form controls within the `<b-dropdown-form>`.  The `<b-dropdown-form>` is based on the
+[`<b-form>`](/docs/components/form) component, and supports the same props and attributes as
+a regular form.
+
+```html
+<template>
+  <div class="p-2">
+    <b-dropdown id="ddown-form" text="Dropdown with form" ref="ddown">
+      <b-dropdown-form>
+        <b-form-group label="Email" label-for="ddown-form-email">
+          <b-form-input size="sm"
+                        placeholder="email@example.com"
+                        id="ddown-form-email">
+          </b-form-input>
+        </b-form-group>
+        <b-form-group label="Password" label-for="ddown-form-passwd">
+          <b-form-input type="password"
+                        size="sm"
+                        placeholder="Password"
+                        id="ddown-form-passwd">
+          </b-form-input>
+        </b-form-group>
+        <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
+        <b-button variant="primary" size="sm">Sign In</b-button>
+      </b-dropdown-form>
+      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button>
+      <b-dropdown-item-button>Forgot Password?</b-dropdown-item-button>
+    </b-dropdown>
+  </div>
+</template>
+
+<script>
+  export default {
+    methods: {
+      onClick () {
+        // Close the menu and (by passing true) return focus to the toggle button
+        this.$refs.ddown.hide(true)
+      }
+    }
+  }
+</script>
+
+<!-- dropdown-form.vue -->
+```
+
+`<b-dropdown-form>` has the BootstrapVue custom class `.b-dropdown-form` applied to it which
+sets some basic styles which are suitable in most situations. By default it's width will be
+the same as the widest `<b-dropdown-item>` content. You may need to place additional
+styles or helper classes on the component.
+
+#### Closing the menu via form interaction
+Clicking buttons inside of a `<b-dropdown-form>` will not automatically close the menu. If
+you need to close the menu using a button (or via the form submit event), call the `hide()` 
+method on the `<b-dropdown>` instance, as is shown in the above example.
+
+The `hide()` method accepts a single boolean argument. If the argument is `true`, then focus
+will be returned to the dropdown toggle button after the menu has closed. Otherwise the document
+will gain focus once the menu is closed.
+
+
 ## Accessibility
 Providing a unique `id` prop ensures ARIA compliance by automatically adding
 the appropriate `aria-*` attributes in the rendered markup.
@@ -431,6 +526,10 @@ Dropdowns support keyboard navigation, emulating native `<select>` behaviour.
 | <kbd>ESC</kbd> | Will close the dropdown and return focus to the trigger button.
 | <kbd>TAB</kbd> | Will  jump to the next focusable control in the menu or on the page.
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Will jump to the previous focusable control in the menu or on the page.
+
+Note that <kbd>DOWN</kbd> and <kbd>UP</kbd> will not move focus into `<b-dropdown-form>`
+sub components, but users can still use <kbd>TAB</kbd> or <kbd>SHIFT</kbd>+<kbd>TAB</kbd>
+to move into form controls within the menu.
 
 
 ## Implementation Note

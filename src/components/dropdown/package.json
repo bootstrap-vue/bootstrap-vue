@@ -89,6 +89,14 @@
       {
         "component": "BDropdownDivider",
         "aliases": [ "BDdDivider" ]
+      },
+      {
+        "component": "BDropdownForm",
+        "aliases": [ "BDdForm" ]
+      },
+      {
+        "component": "BDropdownText",
+        "aliases": [ "BDdText" ]
       }
     ]
   }
