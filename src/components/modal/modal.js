@@ -594,14 +594,16 @@ export default {
     },
     // Resize Listener
     setResizeEvent (on) /* istanbul ignore next: can't easily test in JSDOM */ {
-      const options = { passive: true, capture: false }
-      ['resize', 'orientationchange'].forEach(evtName => {
-        if (on) {
-          eventOn(window, evtName, this.adjustDialog, options)
-        } else {
-          eventOff(window, evtName, this.adjustDialog, options)
+      ['resize', 'orientationchange'].forEach(
+        evtName => {
+          const options = { passive: true, capture: false }
+          if (on) {
+            eventOn(window, evtName, this.adjustDialog, options)
+          } else {
+            eventOff(window, evtName, this.adjustDialog, options)
+          }
         }
-      })
+      )
     },
     // Root Listener handlers
     showHandler (id, triggerEl) {
