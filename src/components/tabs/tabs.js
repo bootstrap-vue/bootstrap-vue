@@ -76,6 +76,11 @@ const BTabButtonHelper = {
 export default {
   name: 'BTabs',
   mixins: [idMixin],
+  provide () {
+    return {
+      tabs: this
+    }
+  },
   props: {
     tag: {
       type: String,
