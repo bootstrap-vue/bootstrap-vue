@@ -272,7 +272,7 @@ export default {
     updateTabs () {
       // Probe tabs
       this.tabs = stableSort(this.$children.filter(child => child._isTab), (a, b) => {
-        a.computedOrder - b.computedOrder
+        return a.computedOrder - b.computedOrder
       })
       // Set initial active tab
       let tabIndex = null
