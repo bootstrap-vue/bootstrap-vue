@@ -1,7 +1,7 @@
 # Buttons
 
-> Use Bootstrap’s custom `b-button` component for actions in forms, dialogs, and more.
-Includes support for a handful of contextual variations, sizes, states, and more.
+> Use Bootstrap’s custom `b-button` component for actions in forms, dialogs, and more. Includes
+> support for a handful of contextual variations, sizes, states, and more.
 
 ```html
 <div>
@@ -16,10 +16,9 @@ Includes support for a handful of contextual variations, sizes, states, and more
 
 ## Button element type
 
-The `<b-button>` component generally renders a `<button>` element. However, you can also
-render an `<a>` element by providing an `href` prop value. You may also generate
-`vue-router` `<router-link>` when providing a value for the `to` prop (`vue-router`
-is required).
+The `<b-button>` component generally renders a `<button>` element. However, you can also render an
+`<a>` element by providing an `href` prop value. You may also generate `vue-router` `<router-link>`
+when providing a value for the `to` prop (`vue-router` is required).
 
 ```html
 <div>
@@ -32,11 +31,10 @@ is required).
 
 ## Button type
 
-You can specify the button's type by setting the prop `type` to `'button'`,
-`'submit'` or `'reset'`. The default type is `'button'`. 
+You can specify the button's type by setting the prop `type` to `'button'`, `'submit'` or `'reset'`.
+The default type is `'button'`.
 
 Note the `type` prop has no effect when either `href` or `to` props are set.
-
 
 ## Button sizing
 
@@ -44,28 +42,21 @@ Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
 
 ```html
 <b-row>
-  <b-col lg="4" class="pb-2">
-    <b-button size="sm">Small Button</b-button>
-  </b-col>
-  <b-col lg="4" class="pb-2">
-    <b-button>Default Button</b-button>
-  </b-col>
-  <b-col lg="4" class="pb-2">
-    <b-button size="lg">Large Button</b-button>
-  </b-col>
+  <b-col lg="4" class="pb-2"> <b-button size="sm">Small Button</b-button> </b-col>
+  <b-col lg="4" class="pb-2"> <b-button>Default Button</b-button> </b-col>
+  <b-col lg="4" class="pb-2"> <b-button size="lg">Large Button</b-button> </b-col>
 </b-row>
 
 <!-- button-sizes.vue -->
 ```
 
 ### Block level buttons
-Create block level buttons — those that span the full width of a parent — by
-setting the `block` prop.
+
+Create block level buttons — those that span the full width of a parent — by setting the `block`
+prop.
 
 ```html
-<div>
-  <b-button block variant="primary">Block Level Button</b-button>
-</div>
+<div><b-button block variant="primary">Block Level Button</b-button></div>
 
 <!-- button-block.vue -->
 ```
@@ -97,8 +88,8 @@ By default `<b-button>` will render with the `secondary` variant.
 
 ### Outline color variants
 
-In need of a button, but not the hefty background colors they bring? Use the
-`outline-*` variants to remove all background images and colors on any `<b-button>`:
+In need of a button, but not the hefty background colors they bring? Use the `outline-*` variants to
+remove all background images and colors on any `<b-button>`:
 
 `outline-primary`, `outline-secondary`, `outline-success`, `outline-danger`, `outline-warning`,
 `outline-info`, `outline-light` and `outline-dark`.
@@ -120,22 +111,19 @@ In need of a button, but not the hefty background colors they bring? Use the
 
 ### Link variant
 
-Variant `link` will render a button with the appearance of a link while maintaining the
-default padding and size of a button.
+Variant `link` will render a button with the appearance of a link while maintaining the default
+padding and size of a button.
 
 ```html
-<div>
-  <b-button variant="link">Link</b-button>
-</div>
+<div><b-button variant="link">Link</b-button></div>
 
 <!-- button-link.vue -->
 ```
 
-
 ## Disabled state
 
-Set the `disabled` prop to disable button default functionality. `disabled` also
-works with buttons, rendered as `<a>` elements and `<router-link>`.
+Set the `disabled` prop to disable button default functionality. `disabled` also works with buttons,
+rendered as `<a>` elements and `<router-link>`.
 
 ```html
 <div>
@@ -148,8 +136,8 @@ works with buttons, rendered as `<a>` elements and `<router-link>`.
 
 ## Button Pressed state and toggling
 
-Buttons will appear pressed (with a darker background, darker border, and inset shadow)
-when the prop `pressed` is set to `true`.
+Buttons will appear pressed (with a darker background, darker border, and inset shadow) when the
+prop `pressed` is set to `true`.
 
 The `pressed` prop can be set to one of three values:
 
@@ -157,8 +145,8 @@ The `pressed` prop can be set to one of three values:
 - `false`: Clears the `.active` class and adds the attribute `aria-pressed="false"`.
 - `null`: (default) Neither the class `.active` nor the attribute `aria-pressed` will be set.
 
-To create a button that can be toggled between active and non-active states, use
-the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
+To create a button that can be toggled between active and non-active states, use the `.sync` prop
+modifier (available in Vue 2.3+) on the `pressed` property
 
 ```html
 <template>
@@ -173,10 +161,12 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 
     <h5>In a button group</h5>
     <b-button-group size="sm">
-      <b-button v-for="(btn, idx) in buttons"
-                :key="idx"
-                :pressed.sync="btn.state"
-                variant="primary">
+      <b-button
+        v-for="(btn, idx) in buttons"
+        :key="idx"
+        :pressed.sync="btn.state"
+        variant="primary"
+      >
         {{ btn.caption }}
       </b-button>
     </b-button-group>
@@ -185,41 +175,39 @@ the `.sync` prop modifier (available in Vue 2.3+) on the `pressed` property
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      myToggle: false,
-      buttons: [
-        { caption: 'Toggle 1', state: true },
-        { caption: 'Toggle 2', state: false },
-        { caption: 'Toggle 3', state: true },
-        { caption: 'Toggle 4', state: false }
-      ]
-    }
-  },
-  computed: {
-    btnStates () {
-      return this.buttons.map(btn => btn.state)
+  export default {
+    data() {
+      return {
+        myToggle: false,
+        buttons: [
+          { caption: 'Toggle 1', state: true },
+          { caption: 'Toggle 2', state: false },
+          { caption: 'Toggle 3', state: true },
+          { caption: 'Toggle 4', state: false }
+        ]
+      }
+    },
+    computed: {
+      btnStates() {
+        return this.buttons.map(btn => btn.state)
+      }
     }
   }
-}
 </script>
 
 <!-- button-toggles.vue -->
 ```
 
-If using toggle button style for a radio or checkbox style interface, it is best to use the
-built-in `button` style support of [`<b-form-radio-group>`](/docs/components/form-radio) and
+If using toggle button style for a radio or checkbox style interface, it is best to use the built-in
+`button` style support of [`<b-form-radio-group>`](/docs/components/form-radio) and
 [`<b-checkbox-group>`](/docs/components/form-checkbox).
-
 
 ## Router link support
 
-Refer to the [`Router support`](/docs/reference/router-links) reference docs for the
-various supported `<router-link>` related props.
+Refer to the [`Router support`](/docs/reference/router-links) reference docs for the various
+supported `<router-link>` related props.
 
 Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap-vue`.
-
 
 ## See also
 

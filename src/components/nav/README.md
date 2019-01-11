@@ -1,8 +1,7 @@
 # Navs
 
-> Navigation available in Bootstrap share general markup and styles,
-from the base `<b-nav>` class to the `active` and `disabled` states.
-Swap modifier props to switch between each style.
+> Navigation available in Bootstrap share general markup and styles, from the base `<b-nav>` class
+> to the `active` and `disabled` states. Swap modifier props to switch between each style.
 
 ```html
 <div>
@@ -19,15 +18,15 @@ Swap modifier props to switch between each style.
 
 ## Overview
 
-The base `<b-nav>` component is built with flexbox and provides a strong
-foundation for building all types of navigation components. It includes
-some style overrides (for working with lists), some link padding for larger
-hit areas, and basic disabled styling. No active states are included in the base nav.
+The base `<b-nav>` component is built with flexbox and provides a strong foundation for building all
+types of navigation components. It includes some style overrides (for working with lists), some link
+padding for larger hit areas, and basic disabled styling. No active states are included in the base
+nav.
 
 ## Link Appearance
 
-Two style variations are supported: `tabs` and `pills`, which support `active` state styling.
-These variants are mutually exclusive - use only one style or the other.
+Two style variations are supported: `tabs` and `pills`, which support `active` state styling. These
+variants are mutually exclusive - use only one style or the other.
 
 ### Tab style
 
@@ -65,9 +64,8 @@ Force your `b-nav` content to extend the full available width.
 
 ### Fill
 
-To proportionately fill all available space with your `<b-nav-item>` components,
-set the `fill` prop. Notice that all horizontal space is occupied, but not
-every nav item has the same width.
+To proportionately fill all available space with your `<b-nav-item>` components, set the `fill`
+prop. Notice that all horizontal space is occupied, but not every nav item has the same width.
 
 ```html
 <b-nav fill tabs>
@@ -82,9 +80,8 @@ every nav item has the same width.
 
 ### Justified
 
-For equal-width elements, set prop `justified` instead. All horizontal space
-will be occupied by nav links, but unlike `fill` above, every `<b-nav-item>`
-will be the same width.
+For equal-width elements, set prop `justified` instead. All horizontal space will be occupied by nav
+links, but unlike `fill` above, every `<b-nav-item>` will be the same width.
 
 ```html
 <b-nav justified tabs>
@@ -99,8 +96,8 @@ will be the same width.
 
 ## Vertical variation
 
-By default `<b-nav>` appear on a horizontal line. Stack your navigation by setting
-the `vertical` prop.
+By default `<b-nav>` appear on a horizontal line. Stack your navigation by setting the `vertical`
+prop.
 
 ```html
 <b-nav vertical class="w-25">
@@ -132,13 +129,19 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
 <!-- nav-dropdown.vue -->
 ```
 
-Sometimes you want to add your own class names to the generated dropdown toggle button, that by default have
-the classes `nav-link` and `dropdown-toggle`. Use the `extra-toggle-classes` prop to add them (like above) which
-will produce something like:
+Sometimes you want to add your own class names to the generated dropdown toggle button, that by
+default have the classes `nav-link` and `dropdown-toggle`. Use the `extra-toggle-classes` prop to
+add them (like above) which will produce something like:
 
 ```html
 <li id="nav7_ddown" class="nav-item b-nav-dropdown dropdown">
-   <a href="#" id="nav7_ddown__BV_button_" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle nav-link-custom">
+  <a
+    href="#"
+    id="nav7_ddown__BV_button_"
+    aria-haspopup="true"
+    aria-expanded="false"
+    class="nav-link dropdown-toggle nav-link-custom"
+  >
   </a>
   ...
 </li>
@@ -146,32 +149,35 @@ will produce something like:
 
 Refer to [`<b-dropdown>`](../dropdown) for a list of supported sub-components.
 
-
 ## Using in Navbar
 
 Prop `is-nav-bar` has been deprecated and will be removed in a future release.
 
 ## Tabbed local content support
 
-See the [`<b-tabs>`](./tabs) component for creating tabbable panes of local
-content (not suited for navigation).
+See the [`<b-tabs>`](./tabs) component for creating tabbable panes of local content (not suited for
+navigation).
 
 ## Accessibility
-If you’re using `<b-nav>` to provide a navigation bar, be sure to add a
-`role="navigation"` to the most logical parent container of `<b-nav>`, or wrap
-a `<nav>` element around `<b-nav>`. Do **not** add the role to the `<b-nav>` itself,
-as this would prevent it from being announced as an actual list by assistive technologies.
 
-When using a `<b-nav-item-dropdown>` in your `<b-nav>`, be sure to assign a unique `id`
-prop value to the `<b-nav-dropdown>` so that the appropriate `aria-*` attributes can
-be automatically generated.
+If you’re using `<b-nav>` to provide a navigation bar, be sure to add a `role="navigation"` to the
+most logical parent container of `<b-nav>`, or wrap a `<nav>` element around `<b-nav>`. Do **not**
+add the role to the `<b-nav>` itself, as this would prevent it from being announced as an actual
+list by assistive technologies.
+
+When using a `<b-nav-item-dropdown>` in your `<b-nav>`, be sure to assign a unique `id` prop value
+to the `<b-nav-dropdown>` so that the appropriate `aria-*` attributes can be automatically
+generated.
 
 ## See Also
 
-- [`<b-tabs>`](/docs/components/tabs) to create tabbable panes of local content, even via dropdown menus.
-- [`<b-navbar>`](/docs/components/navbar) a wrapper that positions branding, navigation, and other elements in a concise header.
-- [`<b-dropdown>`](/docs/components/dropdown) for sub-components that you can place inside `<b-nav-item-dropdown>`
-- [Router Link Support reference](/docs/reference/router-links) for information about router-link specific props available on `<b-nav-item>`
-
+- [`<b-tabs>`](/docs/components/tabs) to create tabbable panes of local content, even via dropdown
+  menus.
+- [`<b-navbar>`](/docs/components/navbar) a wrapper that positions branding, navigation, and other
+  elements in a concise header.
+- [`<b-dropdown>`](/docs/components/dropdown) for sub-components that you can place inside
+  `<b-nav-item-dropdown>`
+- [Router Link Support reference](/docs/reference/router-links) for information about router-link
+  specific props available on `<b-nav-item>`
 
 <!-- Component reference added automatically from component package.json -->

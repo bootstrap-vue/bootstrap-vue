@@ -3,6 +3,7 @@
 > Group a series of buttons together on a single line with `<b-button-group>`.
 
 **Example 1:** Default button group and button group using contextual variants
+
 ```html
 <div>
   <b-button-group>
@@ -10,7 +11,7 @@
     <b-button>Button 2</b-button>
     <b-button>Button 3</b-button>
   </b-button-group>
-  <br><br>
+  <br /><br />
   <b-button-group>
     <b-button variant="success">Success</b-button>
     <b-button variant="info">Info</b-button>
@@ -22,10 +23,12 @@
 ```
 
 ## Sizing
-Set the size prop to `lg` or `sm` to render larger or smaller, respectively, buttons.
-There is no need to specify the size on the individual buttons.
+
+Set the size prop to `lg` or `sm` to render larger or smaller, respectively, buttons. There is no
+need to specify the size on the individual buttons.
 
 **Example 2:** Default, Small, and Large button groups
+
 ```html
 <div>
   <b-button-group>
@@ -33,13 +36,13 @@ There is no need to specify the size on the individual buttons.
     <b-button>Button 2</b-button>
     <b-button>Button 3</b-button>
   </b-button-group>
-  <br><br>
+  <br /><br />
   <b-button-group size="sm">
     <b-button>Left</b-button>
     <b-button>Middle</b-button>
     <b-button>Right</b-button>
   </b-button-group>
-  <br><br>
+  <br /><br />
   <b-button-group size="lg">
     <b-button>Left</b-button>
     <b-button>Middle</b-button>
@@ -51,10 +54,12 @@ There is no need to specify the size on the individual buttons.
 ```
 
 ## Vertical variation
-Make a set of buttons appear vertically stacked rather than horizontally by setting
-the `vertical` prop. Split button dropdowns are not supported here.
+
+Make a set of buttons appear vertically stacked rather than horizontally by setting the `vertical`
+prop. Split button dropdowns are not supported here.
 
 **Example 3:** Vertical button group
+
 ```html
 <div>
   <b-button-group vertical>
@@ -68,10 +73,12 @@ the `vertical` prop. Split button dropdowns are not supported here.
 ```
 
 ## Dropdown menu support
-Add [`<b-dropdown>`](./dropdown) menus directly inside your `<b-button-group>`. Note
-that split dropdown menus are not supported when prop `vertical` is set.
+
+Add [`<b-dropdown>`](./dropdown) menus directly inside your `<b-button-group>`. Note that split
+dropdown menus are not supported when prop `vertical` is set.
 
 **Example 4:** button group with dropdown menus
+
 ```html
 <div>
   <b-button-group>
@@ -94,10 +101,9 @@ that split dropdown menus are not supported when prop `vertical` is set.
 <!-- button-group-4.vue -->
 ```
 
-
 ## See also
-Also check out the [`<b-button-toolbar>`](./button-toolbar) component for generating
-toolbars containing button groups and input groups.
 
+Also check out the [`<b-button-toolbar>`](./button-toolbar) component for generating toolbars
+containing button groups and input groups.
 
 <!-- Component reference added automatically from component package.json -->

@@ -68,6 +68,7 @@
     "docs-publish": "scripts/docs-publish",
     "test": "jest",
     "lint": "eslint src scripts docs tests nuxt",
+    "prettify": "prettier --write '{docs,src}/**/*.md'",
     "release": "npm run build && npm run test && standard-version",
     "postinstall": "opencollective-postinstall || exit 0"
   },
@@ -84,6 +85,7 @@
     "@babel/core": "^7.2.2",
     "@babel/plugin-external-helpers": "^7.2.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/plugin-syntax-jsx": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/standalone": "^7.2.5",
@@ -95,7 +97,6 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-plugin-istanbul": "^5.1.0",
-    "@babel/plugin-syntax-jsx": "^7.2.0",
     "clean-css-cli": "^4.2.1",
     "codecov": "^3.1.0",
     "codemirror": "^5.42.2",
@@ -119,6 +120,7 @@
     "node-sass": "^4.11.0",
     "nuxt-edge": "^2.4.0-25784644.e8083fb3",
     "postcss-cli": "^6.1.1",
+    "prettier": "^1.15.3",
     "rollup": "^1.1.0",
     "rollup-plugin-babel": "^4.3.0",
     "rollup-plugin-commonjs": "^9.2.0",
@@ -127,8 +129,8 @@
     "sass-loader": "^7.1.0",
     "standard-version": "^4.4.0",
     "terser": "^3.14.1",
-    "vue-jest": "^3.0.2",
-    "vue": "^2.5.21"
+    "vue": "^2.5.21",
+    "vue-jest": "^3.0.2"
   },
   "jest": {
     "testRegex": "spec.js$",

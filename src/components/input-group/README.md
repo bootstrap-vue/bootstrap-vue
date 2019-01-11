@@ -1,22 +1,20 @@
 # Input Groups
-> Easily extend form controls by adding text, buttons, or button groups on either side of textual inputs.
+
+> Easily extend form controls by adding text, buttons, or button groups on either side of textual
+> inputs.
 
 ```html
 <div>
   <!-- Using props -->
-  <b-input-group size="lg" prepend="$" append=".00">
-    <b-form-input></b-form-input>
-  </b-input-group>
-  <br>
+  <b-input-group size="lg" prepend="$" append=".00"> <b-form-input></b-form-input> </b-input-group>
+  <br />
 
   <!-- Using slots -->
   <b-input-group>
-    <b-input-group-text slot="append">
-        <strong class="text-danger">!</strong>
-    </b-input-group-text>
+    <b-input-group-text slot="append"> <strong class="text-danger">!</strong> </b-input-group-text>
     <b-form-input></b-form-input>
   </b-input-group>
-  <br>
+  <br />
 
   <!-- Using components -->
   <b-input-group prepend="Username">
@@ -32,9 +30,11 @@
 ```
 
 ## Usage
+
 You can attach addons using either props, named slots or components.
 
 ### Using `prepend` and `append` props
+
 Values will be internally wrapped by a `<b-input-group-text>` to display correctly.
 
 ```html
@@ -51,6 +51,7 @@ Values will be internally wrapped by a `<b-input-group-text>` to display correct
 ```
 
 ### Using named slots
+
 if you want better control over addons, you can use `prepend` and `append` slots instead.
 
 This slots will be wrapped by `<b-input-group-prepend|append>` to display correctly.
@@ -70,18 +71,16 @@ This slots will be wrapped by `<b-input-group-prepend|append>` to display correc
 <!-- input-group-using-slots.vue -->
 ```
 
-
 ### Using components
-Use the `<b-input-group-prepend>` or `<b-input-group-append>` to add arbitrary addons
-wherever you like, and use these components to group buttons in your input group.
-Single buttons must always be wrapped in these components for proper styling.
+
+Use the `<b-input-group-prepend>` or `<b-input-group-append>` to add arbitrary addons wherever you
+like, and use these components to group buttons in your input group. Single buttons must always be
+wrapped in these components for proper styling.
 
 ```html
 <div>
   <b-input-group>
-    <b-input-group-prepend>
-      <b-btn variant="outline-info">Button</b-btn>
-    </b-input-group-prepend>
+    <b-input-group-prepend> <b-btn variant="outline-info">Button</b-btn> </b-input-group-prepend>
 
     <b-form-input type="number" min="0.00"></b-form-input>
 
@@ -95,16 +94,16 @@ Single buttons must always be wrapped in these components for proper styling.
 <!-- input-group-addons-placement.vue -->
 ```
 
-Set the `is-text` prop on `<b-input-group-prepend>` or `<b-input-group-append>`
-if the content is textual in nature to apply proper styling. Alternatively, use
-the `<b-input-group-text>` subcomponent inside the `<b-input-group-prepend>` or
-`<b-input-group-append>`.
+Set the `is-text` prop on `<b-input-group-prepend>` or `<b-input-group-append>` if the content is
+textual in nature to apply proper styling. Alternatively, use the `<b-input-group-text>`
+subcomponent inside the `<b-input-group-prepend>` or `<b-input-group-append>`.
 
 ## Checkbox and radio addons
+
 Place any native checkbox or radio within an input group’s addon instead of text.
 
-**Note:** you must use native radio and checkbox inputs, as `<b-form-radio>` and
-`<b-form-checkbox>` include additional markup not required in input groups.
+**Note:** you must use native radio and checkbox inputs, as `<b-form-radio>` and `<b-form-checkbox>`
+include additional markup not required in input groups.
 
 ```html
 <b-container>
@@ -112,7 +111,7 @@ Place any native checkbox or radio within an input group’s addon instead of te
     <b-col lg="6">
       <b-input-group>
         <b-input-group-prepend is-text>
-            <input type="checkbox" aria-label="Checkbox for following text input">
+          <input type="checkbox" aria-label="Checkbox for following text input" />
         </b-input-group-prepend>
         <b-form-input type="text" aria-label="Text input with checkbox" />
       </b-input-group>
@@ -121,7 +120,7 @@ Place any native checkbox or radio within an input group’s addon instead of te
     <b-col lg="6">
       <b-input-group>
         <b-input-group-prepend is-text>
-            <input type="radio" aria-label="Radio for following text input">
+          <input type="radio" aria-label="Radio for following text input" />
         </b-input-group-prepend>
         <b-form-input type="text" aria-label="Text input with radio button" />
       </b-input-group>
@@ -153,6 +152,7 @@ Place any native checkbox or radio within an input group’s addon instead of te
 ```
 
 ## Multiple addons
+
 Multiple add-ons are supported and can be mixed with checkbox and radio input versions.
 
 ```html
@@ -161,11 +161,9 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
     <b-col lg="6">
       <b-input-group prepend="Item">
         <b-input-group-prepend is-text>
-          <input type="checkbox" aria-label="Checkbox for following text input">
+          <input type="checkbox" aria-label="Checkbox for following text input" />
         </b-input-group-prepend>
-        <b-input-group-prepend is-text>
-          <b>$</b>
-        </b-input-group-prepend>
+        <b-input-group-prepend is-text> <b>$</b> </b-input-group-prepend>
         <b-form-input type="number" aria-label="Text input with checkbox" />
       </b-input-group>
     </b-col>
@@ -176,15 +174,22 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
 ```
 
 ## Control sizing
-Set height using the `size` prop to `sm` or `lg` for small or large respectively. There
-is no need to set size on the individual inputs or buttons. Note however, you will be
-required to also set the size on dropdowns.
+
+Set height using the `size` prop to `sm` or `lg` for small or large respectively. There is no need
+to set size on the individual inputs or buttons. Note however, you will be required to also set the
+size on dropdowns.
 
 To control width, place the input inside standard Bootstrap grid column.
 
 ```html
 <div>
-  <b-input-group v-for="size in ['sm','','lg']" :key="size" :size="size" class="mb-3" prepend="Label">
+  <b-input-group
+    v-for="size in ['sm','','lg']"
+    :key="size"
+    :size="size"
+    class="mb-3"
+    prepend="Label"
+  >
     <b-form-input />
     <b-input-group-append>
       <b-btn size="sm" text="Button" variant="success">Button</b-btn>
@@ -192,14 +197,12 @@ To control width, place the input inside standard Bootstrap grid column.
   </b-input-group>
 </div>
 
-
 <!-- input-group-size.vue -->
 ```
 
-
 ## Contextual states
+
 Bootstrap V4 currently **does not** support contextual state styling (i.e. valid or invalid) of
 input groups. However, the inputs inside the input group do support contextual state.
-
 
 <!-- Component reference added automatically from component package.json -->

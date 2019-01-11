@@ -1,8 +1,8 @@
 # List group
 
-> List groups are a flexible and powerful component for displaying a series of content.
-List group items can be modified to support just about any content within.
-They can also be used as navigation via various props.
+> List groups are a flexible and powerful component for displaying a series of content. List group
+> items can be modified to support just about any content within. They can also be used as
+> navigation via various props.
 
 ```html
 <b-list-group>
@@ -16,8 +16,8 @@ They can also be used as navigation via various props.
 <!-- list-group.vue -->
 ```
 
-
 ## Active items
+
 Set the `active` prop on a `<b-list-group-item>` to indicate the current active selection.
 
 ```html
@@ -32,10 +32,10 @@ Set the `active` prop on a `<b-list-group-item>` to indicate the current active 
 <!-- list-group-active.vue -->
 ```
 
-
 ## Disabled items
-Set the `disabled` prop on a `<b-list-group-item>` to make it appear disabled (also works
-with actionalable items. see below).
+
+Set the `disabled` prop on a `<b-list-group-item>` to make it appear disabled (also works with
+actionalable items. see below).
 
 ```html
 <b-list-group>
@@ -49,10 +49,10 @@ with actionalable items. see below).
 <!-- list-group-disabled.vue -->
 ```
 
-
 ## Actionable list group items
-Turn a `<b-list-group-item>` into an actionable link by specifying either an
-`href` prop or [router-link](/docs/reference/router-links) `to` prop.
+
+Turn a `<b-list-group-item>` into an actionable link by specifying either an `href` prop or
+[router-link](/docs/reference/router-links) `to` prop.
 
 ```html
 <b-list-group>
@@ -79,14 +79,15 @@ Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
 ```
 
 **Notes:**
-- When the prop `button` is `true`, all [link related props](/docs/components/link)
-(other than `active`) and the `tag` prop will have no effect.
+
+- When the prop `button` is `true`, all [link related props](/docs/components/link) (other than
+  `active`) and the `tag` prop will have no effect.
 - When `href` or `to` are set, the `tag` prop has no effect.
 
-
 ## Contextual variants
-Use contextual variants to style list items with a stateful background and color, via
-the `variant` prop.
+
+Use contextual variants to style list items with a stateful background and color, via the `variant`
+prop.
 
 ```html
 <b-list-group>
@@ -104,18 +105,26 @@ the `variant` prop.
 <!-- list-group-variant.vue -->
 ```
 
-Contextual variants also work with action items. Note the addition of the hover styling
-here not present in the previous example. Also supported is the `active` state; set it to
-indicate an active selection on a contextual list group item.
+Contextual variants also work with action items. Note the addition of the hover styling here not
+present in the previous example. Also supported is the `active` state; set it to indicate an active
+selection on a contextual list group item.
 
 ```html
 <b-list-group>
   <b-list-group-item href="#">This is a default list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="primary">This is a primary list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="secondary">This is a secondary list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="success">This is a success list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="primary"
+    >This is a primary list group item</b-list-group-item
+  >
+  <b-list-group-item href="#" variant="secondary"
+    >This is a secondary list group item</b-list-group-item
+  >
+  <b-list-group-item href="#" variant="success"
+    >This is a success list group item</b-list-group-item
+  >
   <b-list-group-item href="#" variant="danger">This is a danger list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="warning">This is a warning list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="warning"
+    >This is a warning list group item</b-list-group-item
+  >
   <b-list-group-item href="#" variant="info">This is a info list group item</b-list-group-item>
   <b-list-group-item href="#" variant="light">This is a light list group item</b-list-group-item>
   <b-list-group-item href="#" variant="dark">This is a dark list group item</b-list-group-item>
@@ -125,13 +134,14 @@ indicate an active selection on a contextual list group item.
 ```
 
 ### Conveying meaning to assistive technologies
-Using color to add meaning only provides a visual indication, which will not be conveyed to users
-of assistive technologies – such as screen readers. Ensure that information denoted by the color
-is either obvious from the content itself (e.g. the visible text), or is included through alternative
+
+Using color to add meaning only provides a visual indication, which will not be conveyed to users of
+assistive technologies – such as screen readers. Ensure that information denoted by the color is
+either obvious from the content itself (e.g. the visible text), or is included through alternative
 means, such as additional text hidden using the `.sr-only` class.
 
-
 ## Striped
+
 Alternate the background colors of list items with by adding the prop `striped`.
 
 ```html
@@ -146,11 +156,11 @@ Alternate the background colors of list items with by adding the prop `striped`.
 <!-- list-group-striped.vue -->
 ```
 
-**Note:** currently, the `striped` option will not work well with list group items which
-are `active`, or have a `variant` set.
-
+**Note:** currently, the `striped` option will not work well with list group items which are
+`active`, or have a `variant` set.
 
 ## With badges
+
 Add [badges](/docs/components/badge) to any list group item to show unread counts, activity, and
 more with the help of some [utility classes](http://getbootstrap.com/docs/4.0/utilities/flex/).
 
@@ -173,11 +183,10 @@ more with the help of some [utility classes](http://getbootstrap.com/docs/4.0/ut
 <!-- list-group-badges.vue -->
 ```
 
-
 ## List groups inside cards
-Incorporate list groups into [cards](/docs/components/card). Use the `<b-list-group>`
-prop `flush` prop when using cards with `no-body` to make the sides of the list group
-flush with the card.
+
+Incorporate list groups into [cards](/docs/components/card). Use the `<b-list-group>` prop `flush`
+prop when using cards with `no-body` to make the sides of the list group flush with the card.
 
 ```html
 <b-card-group deck>
@@ -188,10 +197,9 @@ flush with the card.
       <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
     </b-list-group>
     <p class="card-text mt-2">
-      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex
-      nulla tempor. Laborum consequat non elit enim exercitation cillum aliqua
-      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis laboris
-      ad sit ipsum anim Lorem.
+      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
+      consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur
+      mollit voluptate est in duis laboris ad sit ipsum anim Lorem.
     </p>
   </b-card>
   <b-card no-body header="<b>Card with flush list group</b>">
@@ -201,22 +209,20 @@ flush with the card.
       <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
     </b-list-group>
     <b-card-body>
-      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex
-      nulla tempor. Laborum consequat non elit enim exercitation cillum aliqua
-      consequat id aliqua. Esse ex consectetur mollit voluptate est in duis laboris
-      ad sit ipsum anim Lorem.
+      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
+      consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur
+      mollit voluptate est in duis laboris ad sit ipsum anim Lorem.
     </b-card-body>
   </b-card>
 </b-card-group>
 
-
 <!-- list-group-card.vue -->
 ```
 
-
 ## Custom content
-Add nearly any HTML or component within, even for linked list groups like the one below, with
-the help of [flexbox utility classes](http://getbootstrap.com/docs/4.0/utilities/flex/).
+
+Add nearly any HTML or component within, even for linked list groups like the one below, with the
+help of [flexbox utility classes](http://getbootstrap.com/docs/4.0/utilities/flex/).
 
 ```html
 <b-list-group>
@@ -226,8 +232,7 @@ the help of [flexbox utility classes](http://getbootstrap.com/docs/4.0/utilities
       <small>3 days ago</small>
     </div>
     <p class="mb-1">
-      Donec id elit non mi porta gravida at eget metus. Maecenas
-      sed diam eget risus varius blandit.
+      Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
     </p>
     <small>Donec id elit non mi porta.</small>
   </b-list-group-item>
@@ -237,8 +242,7 @@ the help of [flexbox utility classes](http://getbootstrap.com/docs/4.0/utilities
       <small class="text-muted">3 days ago</small>
     </div>
     <p class="mb-1">
-      Donec id elit non mi porta gravida at eget metus. Maecenas
-      sed diam eget risus varius blandit.
+      Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
     </p>
     <small class="text-muted">Donec id elit non mi porta.</small>
   </b-list-group-item>
@@ -248,8 +252,7 @@ the help of [flexbox utility classes](http://getbootstrap.com/docs/4.0/utilities
       <small class="text-muted">3 days ago</small>
     </div>
     <p class="mb-1">
-      Donec id elit non mi porta gravida at eget metus. Maecenas
-      sed diam eget risus varius blandit.
+      Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
     </p>
     <small class="text-muted">Donec id elit non mi porta.</small>
   </b-list-group-item>

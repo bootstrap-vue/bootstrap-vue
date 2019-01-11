@@ -1,7 +1,7 @@
 # Progress
 
-> Use our custom progress component for displaying simple or complex progress
-bars, featuring support for horizontally stacked bars, animated backgrounds, and text labels.
+> Use our custom progress component for displaying simple or complex progress bars, featuring
+> support for horizontally stacked bars, animated backgrounds, and text labels.
 
 ```html
 <template>
@@ -17,36 +17,38 @@ bars, featuring support for horizontally stacked bars, animated backgrounds, and
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      counter: 45,
-      max: 100
-    }
-  },
-  methods: {
-    clicked () {
-      this.counter = Math.random() * this.max
-      console.log('Change progress to ' +
-        Math.round(this.counter * 100) / 100)
+  export default {
+    data() {
+      return {
+        counter: 45,
+        max: 100
+      }
+    },
+    methods: {
+      clicked() {
+        this.counter = Math.random() * this.max
+        console.log('Change progress to ' + Math.round(this.counter * 100) / 100)
+      }
     }
   }
-}
 </script>
 
 <!-- progress-1.vue -->
 ```
+
 ## Value
-Set the maximum value with the `max` prop (default is `100`), and the current value via the
-`value` prop (default `0`).
+
+Set the maximum value with the `max` prop (default is `100`), and the current value via the `value`
+prop (default `0`).
 
 When creating multiple bars in a single process, place the value prop on the individual
 `<b-progress-bar>` sub components (see the **Multiple Bars** section below for more details)
 
 ## Labels
+
 Add labels to your progress bars by either enabling `show-progress` (percentage of max) or
-`show-value`for the current absolute value. You may also set the precision (number of
-digits after the decimal) via the `precision` prop (default is `0`digits after the decimal).
+`show-value`for the current absolute value. You may also set the precision (number of digits after
+the decimal) via the `precision` prop (default is `0`digits after the decimal).
 
 ```html
 <template>
@@ -65,23 +67,24 @@ digits after the decimal) via the `precision` prop (default is `0`digits after t
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      max: 50,
-      value: 33.333333333
+  export default {
+    data() {
+      return {
+        max: 50,
+        value: 33.333333333
+      }
     }
   }
-}
 </script>
 
 <!-- progress-labels.vue -->
 ```
 
 ### Custom progress label
-Need more control over the label? Provide your own label by using the default slot within
-a `<b-progress-bar>` sub-component, or by using the `label` prop on `<b-progress-bar>`
-(HTML supported):
+
+Need more control over the label? Provide your own label by using the default slot within a
+`<b-progress-bar>` sub-component, or by using the `label` prop on `<b-progress-bar>` (HTML
+supported):
 
 ```html
 <template>
@@ -95,27 +98,27 @@ a `<b-progress-bar>` sub-component, or by using the `label` prop on `<b-progress
 
     <h5 class="mt-3">Custom Label via Prop</h5>
     <b-progress :max="max">
-      <b-progress-bar :value="value" :label="'&lt;'+value.toFixed(0)+'&gt;'">
-      </b-progress-bar>
+      <b-progress-bar :value="value" :label="'&lt;'+value.toFixed(0)+'&gt;'"> </b-progress-bar>
     </b-progress>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      max: 50,
-      value: 33.333333333
+  export default {
+    data() {
+      return {
+        max: 50,
+        value: 33.333333333
+      }
     }
   }
-}
 </script>
 
 <!-- progress-custom-labels.vue -->
 ```
 
 Precedence order for label methods (top-most has precedence):
+
 - default slot of `<b-progress-bar>`
 - `label` prop of `<b-progress-bar>`
 - `show-progress` prop of `<b-progress-bar>`
@@ -124,11 +127,11 @@ Precedence order for label methods (top-most has precedence):
 - `show-value` prop of `<b-progress>`
 - no label
 
-
 ## Width and Height
-`<b-progress>` will always expand to the maximum with of it's parent container. To
-change the width, place `<b-progress>` in a standard Bootstrap column or apply
-one of the standard Bootstrap width classes.
+
+`<b-progress>` will always expand to the maximum with of it's parent container. To change the width,
+place `<b-progress>` in a standard Bootstrap column or apply one of the standard Bootstrap width
+classes.
 
 ```html
 <template>
@@ -143,21 +146,20 @@ one of the standard Bootstrap width classes.
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      value: 75
+  export default {
+    data() {
+      return {
+        value: 75
+      }
     }
   }
-}
 </script>
 
 <!-- progress-width.vue -->
 ```
 
-The height of the progress bar can be controled with the `height` prop. The height
-value should be a standard CSS dimension (`px`, `rem`, `em`, etc). The default
-height is `1rem`.
+The height of the progress bar can be controled with the `height` prop. The height value should be a
+standard CSS dimension (`px`, `rem`, `em`, etc). The default height is `1rem`.
 
 ```html
 <template>
@@ -172,21 +174,22 @@ height is `1rem`.
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      value: 75
+  export default {
+    data() {
+      return {
+        value: 75
+      }
     }
   }
-}
 </script>
 
 <!-- progress-height.vue -->
 ```
 
 ## Backgrounds
-Use background variants to change the appearance of individual progress bars.
-The default variant is `primary`.
+
+Use background variants to change the appearance of individual progress bars. The default variant is
+`primary`.
 
 ### Solid background variants
 
@@ -196,49 +199,46 @@ The default variant is `primary`.
     <div v-for="bar in bars" class="row mb-1">
       <div class="col-sm-2">{{ bar.variant }}:</div>
       <div class="col-sm-10 pt-1">
-        <b-progress :value="bar.value"
-                    :variant="bar.variant"
-                    :key="bar.variant"
-        ></b-progress>
+        <b-progress :value="bar.value" :variant="bar.variant" :key="bar.variant"></b-progress>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      bars: [
-        {variant: 'success', value: 75},
-        {variant: 'info', value: 75},
-        {variant: 'warning', value: 75},
-        {variant: 'danger', value: 75},
-        {variant: 'primary', value: 75},
-        {variant: 'secondary', value: 75},
-        {variant: 'dark', value: 75}
-      ],
-      timer: null
+  export default {
+    data() {
+      return {
+        bars: [
+          { variant: 'success', value: 75 },
+          { variant: 'info', value: 75 },
+          { variant: 'warning', value: 75 },
+          { variant: 'danger', value: 75 },
+          { variant: 'primary', value: 75 },
+          { variant: 'secondary', value: 75 },
+          { variant: 'dark', value: 75 }
+        ],
+        timer: null
+      }
+    },
+    mounted() {
+      this.timer = setInterval(() => {
+        this.bars.forEach(bar => (bar.value = 25 + Math.random() * 75))
+      }, 2000)
+    },
+    beforeDestroy() {
+      clearInterval(this.timer)
+      this.timer = null
     }
-  },
-  mounted () {
-    this.timer = setInterval(() => {
-      this.bars.forEach(bar => bar.value = 25 + (Math.random() * 75))
-    }, 2000)
-  },
-  beforeDestroy () {
-    clearInterval(this.timer)
-    this.timer = null
   }
-}
 </script>
 
 <!-- progress-backgrounds.vue -->
 ```
 
 ### Striped backgrounds
-Set `striped` to apply a stripe via CSS gradient over the progress bar’s
-background variant.
+
+Set `striped` to apply a stripe via CSS gradient over the progress bar’s background variant.
 
 ```html
 <template>
@@ -254,19 +254,20 @@ background variant.
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      striped: true
+  export default {
+    data() {
+      return {
+        striped: true
+      }
     }
   }
-}
 </script>
 
 <!-- progress-striped.vue -->
 ```
 
 ### Animated backgrounds
+
 The striped gradient can also be animated by setting the `animated`prop.
 
 ```html
@@ -283,26 +284,27 @@ The striped gradient can also be animated by setting the `animated`prop.
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      animate: true
+  export default {
+    data() {
+      return {
+        animate: true
+      }
     }
   }
-}
 </script>
 
 <!-- progress-animated.vue -->
 ```
 
 Notes:
- - if `animated` is true, `striped` will automatically be enabled.
- - Animated progress bars don’t work in Opera 12 — as they don’t support CSS3 animations.
 
+- if `animated` is true, `striped` will automatically be enabled.
+- Animated progress bars don’t work in Opera 12 — as they don’t support CSS3 animations.
 
 ## Multiple bars
-Include multiple `<b-progress-bar>` sub-components in a `<b-progress>` component to build
-a horizontally stacked set of progress bars.
+
+Include multiple `<b-progress-bar>` sub-components in a `<b-progress>` component to build a
+horizontally stacked set of progress bars.
 
 ```html
 <template>
@@ -344,12 +346,12 @@ export default {
 <!-- progress-multiple.vue -->
 ```
 
-`<b-prgress-bar>` will inherit most of the props from the `<b-progress>` parent component,
-but you can override any of the props by setting them on the `<b-progress-bar>`
+`<b-prgress-bar>` will inherit most of the props from the `<b-progress>` parent component, but you
+can override any of the props by setting them on the `<b-progress-bar>`
 
 Notes:
+
 - `height`, if specified, should always set on the `<b-progress>` component.
 - `<b-progress-bar>` will not inherit `value` from `<b-progress>`.
-
 
 <!-- Component reference added automatically from component package.json -->
