@@ -50,6 +50,10 @@ export default {
     href: {
       type: String,
       default: '#'
+    },
+    order: {
+      type: [Number, String],
+      default: 0
     }
   },
   data () {
@@ -77,6 +81,9 @@ export default {
     computedLazy () {
       return this.tabs ? this.tabs.lazy : false
     },
+    computedOrder () {
+      return parseInt(this.order, 10) || 0
+    },
     _isTab () {
       // For parent sniffing of child
       return true
@@ -87,11 +94,19 @@ export default {
   },
   methods: {
     beforeEnter () {
-      // change opacity 1 frame after display
+      // change opacity (add 'show' class) 1 frame after display
       // otherwise css transition won't happen
-      window.requestAnimationFrame(() => { this.show = true })
+      const raf = window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            this.$nextTick
+
+      raf(() => { this.show = true })
     },
     beforeLeave () {
+      // remove the 'show' class
       this.show = false
     }
   },
