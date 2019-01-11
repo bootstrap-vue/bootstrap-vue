@@ -287,7 +287,9 @@ export default {
     updateTabs () {
       // Probe tabs
       if (inBrowser) {
-        this.tabs = selectAll(SELECTOR_TABS).filter(tab => tab.__vue).map(tab => tab.__vue_)
+        this.tabs = selectAll(SELECTOR_TABS)
+          .filter(tab => tab.__vue && tab.__vue._isTab)
+          .map(tab => tab.__vue_)
       } else {
         // On dynamic Vue updates, children order is not guaranteed
         this.tabs = this.$children.filter(child => child._isTab)
