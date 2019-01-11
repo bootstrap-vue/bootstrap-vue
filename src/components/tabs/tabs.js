@@ -5,6 +5,11 @@ import idMixin from '../../mixins/id'
 // Private Helper component
 const BTabButtonHelper = {
   name: 'BTabButtonHelper',
+  privide () {
+    return {
+      tabs: this
+    }
+  },
   props: {
     content: { type: [String, Array], default: '' },
     href: { type: String, default: '#' },
