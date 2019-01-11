@@ -585,21 +585,25 @@ export default {
     },
     // Turn on/off focusin listener
     setEnforceFocus (on) {
+      const options = { passive: true, capture: false }
       if (on) {
-        eventOn(document, 'focusin', this.focusHandler, false)
+        eventOn(document, 'focusin', this.focusHandler, options)
       } else {
-        eventOff(document, 'focusin', this.focusHandler, false)
+        eventOff(document, 'focusin', this.focusHandler, options)
       }
     },
     // Resize Listener
-    setResizeEvent (on) {
-      ['resize', 'orientationchange'].forEach(evtName => {
-        if (on) {
-          eventOn(window, evtName, this.adjustDialog)
-        } else {
-          eventOff(window, evtName, this.adjustDialog)
+    setResizeEvent (on) /* istanbul ignore next: can't easily test in JSDOM */ {
+      ['resize', 'orientationchange'].forEach(
+        evtName => {
+          const options = { passive: true, capture: false }
+          if (on) {
+            eventOn(window, evtName, this.adjustDialog, options)
+          } else {
+            eventOff(window, evtName, this.adjustDialog, options)
+          }
         }
-      })
+      )
     },
     // Root Listener handlers
     showHandler (id, triggerEl) {
