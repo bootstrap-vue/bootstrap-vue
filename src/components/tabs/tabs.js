@@ -287,7 +287,7 @@ export default {
     updateTabs () {
       // Probe tabs
       if (inBrowser) {
-        this.tabs = selectAll(SELECTOR_TABS)
+        this.tabs = selectAll(this.$refs.tabsContainer, SELECTOR_TABS)
           .filter(tab => tab.__vue && tab.__vue._isTab)
           .map(tab => tab.__vue_)
       } else {
