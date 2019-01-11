@@ -17,7 +17,7 @@
     >
       I accept the terms and use
     </b-form-checkbox>
-    <div>State: <strong>{{status}}</strong></div>
+    <div>State: <strong>{{ status }}</strong></div>
   </div>
 </template>
 

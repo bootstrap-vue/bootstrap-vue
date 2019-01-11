@@ -13,11 +13,11 @@
       placeholder="Choose a file..."
       drop-placeholder="Drop file here..."
     />
-    <div class="mt-3">Selected file: {{file && file.name}}</div>
+    <div class="mt-3">Selected file: {{ file ? file.name : '' }}</div>
 
     <!-- Plain mode -->
     <b-form-file v-model="file2" class="mt-3" plain />
-    <div class="mt-3">Selected file: {{file2 && file2.name}}</div>
+    <div class="mt-3">Selected file: {{ file2 ? file2.name : '' }}</div>
   </div>
 </template>
 
@@ -160,7 +160,7 @@ input. To take advantage of the `reset()` method, you will need to obtain a refe
     <b-form-file v-model="file" ref="fileinput" class="mb-2" />
     <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
     <b-button @click="file = null">Reset via v-model</b-button>
-    <p class="mt-2">Selected file: <b>{{ file ? file.name : ''}}</b></p>
+    <p class="mt-2">Selected file: <b>{{ file ? file.name : '' }}</b></p>
   </div>
 </template>
 

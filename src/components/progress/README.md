@@ -248,7 +248,7 @@ Set `striped` to apply a stripe via CSS gradient over the progress bar’s backg
     <b-progress :value="75" variant="warning" :striped="striped" class="mb-2" />
     <b-progress :value="100" variant="danger" :striped="striped" class="mb-2" />
     <b-button variant="secondary" @click="striped = !striped">
-      {{ striped ? 'Remove' : 'Add'}} Striped
+      {{ striped ? 'Remove' : 'Add' }} Striped
     </b-button>
   </div>
 </template>
@@ -278,7 +278,7 @@ The striped gradient can also be animated by setting the `animated`prop.
     <b-progress :value="75" variant="warning" striped :animated="animate" class="mb-2" />
     <b-progress :value="100" variant="danger" :animated="animate" class="mb-3" />
     <b-button variant="secondary" @click="animate = !animate">
-      {{ animate ? 'Stop' : 'Start'}} Animation
+      {{ animate ? 'Stop' : 'Start' }} Animation
     </b-button>
   </div>
 </template>

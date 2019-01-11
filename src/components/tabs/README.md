@@ -306,7 +306,7 @@ is not possble to use key presses to jump out of a text (or test-like) inputs.
         <b-btn @click="tabIndex++">Next</b-btn>
       </b-button-group>
       <br />
-      <span class="text-muted">Current Tab: {{tabIndex}}</span>
+      <span class="text-muted">Current Tab: {{ tabIndex }}</span>
     </div>
   </div>
 </template>
@@ -333,7 +333,7 @@ is not possble to use key presses to jump out of a text (or test-like) inputs.
       <b-tabs card>
         <!-- Render Tabs, supply a unique `key` to each tab -->
         <b-tab :title="`Tab ${i}`" v-for="i in tabs" :key="`dyntab-${i}`">
-          Tab Contents {{i}}
+          Tab Contents {{ i }}
           <b-btn size="sm" variant="danger" class="float-right" @click="()=>closeTab(i)">
             Close tab
           </b-btn>

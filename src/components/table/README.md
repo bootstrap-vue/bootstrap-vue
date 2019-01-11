@@ -761,15 +761,15 @@ field(s) in the scoped slot(s).
   <b-table :fields="fields" :items="items">
     <!-- A virtual column -->
     <template slot="index" slot-scope="data">
-      {{data.index + 1}}
+      {{ data.index + 1 }}
     </template>
     <!-- A custom formatted column -->
     <template slot="name" slot-scope="data">
-      {{data.value.first}} {{data.value.last}}
+      {{ data.value.first }} {{ data.value.last }}
     </template>
     <!-- A virtual composite column -->
     <template slot="nameage" slot-scope="data">
-      {{data.item.name.first}} is {{data.item.age}} years old
+      {{ data.item.name.first }} is {{ data.item.age }} years old
     </template>
   </b-table>
 </template>
@@ -940,15 +940,15 @@ slot is provided, then the footer will use the `HEAD_` slot content.
 <b-table :fields="fields" :items="items" foot-clone>
   <template slot="name" slot-scope="data">
     <!-- A custom formatted data column cell -->
-    {{data.value.first}} {{data.value.last}}
+    {{ data.value.first }} {{ data.value.last }}
   </template>
   <template slot="HEAD_name" slot-scope="data">
     <!-- A custom formatted header cell for field 'name' -->
-    <em>{{data.label}}</em>
+    <em>{{ data.label }}</em>
   </template>
   <template slot="FOOT_name" slot-scope="data">
     <!-- A custom formatted footer cell  for field 'name' -->
-    <strong>{{data.label}}</strong>
+    <strong>{{ data.label }}</strong>
   </template>
 </b-table>
 ```
@@ -1641,12 +1641,12 @@ differences between operating systems, this too is not a preventable default beh
       :sort-direction="sortDirection"
       @filtered="onFiltered"
     >
-      <template slot="name" slot-scope="row"
-        >{{row.value.first}} {{row.value.last}}</template
-      >
-      <template slot="isActive" slot-scope="row"
-        >{{row.value?'Yes :)':'No :('}}</template
-      >
+      <template slot="name" slot-scope="row">
+        {{ row.value.first }} {{ row.value.last }}
+      </template>
+      <template slot="isActive" slot-scope="row">
+        {{ row.value ? 'Yes :)' : 'No :(' }}
+      </template>
       <template slot="actions" slot-scope="row">
         <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
@@ -1658,7 +1658,7 @@ differences between operating systems, this too is not a preventable default beh
       <template slot="row-details" slot-scope="row">
         <b-card>
           <ul>
-            <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value}}</li>
+            <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
           </ul>
         </b-card>
       </template>

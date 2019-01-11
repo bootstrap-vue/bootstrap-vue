@@ -174,7 +174,7 @@ called synchronously, as async is not supported.
     <div class="mt-3 mb-3">
       Submitted Names:
       <ul>
-        <li v-for="n in names">{{n}}</li>
+        <li v-for="n in names">{{ n }}</li>
       </ul>
     </div>
     <!-- Modal Component -->

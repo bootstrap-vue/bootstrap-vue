@@ -21,7 +21,7 @@ For pagination that navigates to a new URL, use the
     <b-pagination size="lg" :total-rows="100" v-model="currentPage" :per-page="10" />
     <br />
 
-    <div>currentPage: {{currentPage}}</div>
+    <div>currentPage: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -110,7 +110,7 @@ By default the pagination component is left aligned. Change the alignment to `ce
     </b-pagination>
     <br />
 
-    <div>currentPage: {{currentPage}}</div>
+    <div>currentPage: {{ currentPage }}</div>
   </div>
 </template>
 
