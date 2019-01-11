@@ -50,8 +50,8 @@ This will allow you to use the following format in your `.vue` files:
 Vue CLI 3 changed the way that webpack compiles a Vue app, in order to make BootstrapVue work again,
 you need to do the following steps:
 
-1. Create `vue.config.js` in the root directory (next to `package.json`).
-2. Put the following code
+1.  Create `vue.config.js` in the root directory (next to `package.json`).
+2.  Put the following code
 
 ```js
 module.exports = {

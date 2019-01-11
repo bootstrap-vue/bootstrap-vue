@@ -1,4 +1,3 @@
-import { mergeData } from 'vue-functional-data-merge'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
 
 export const props = linkPropsFactory()
@@ -6,17 +5,30 @@ export const props = linkPropsFactory()
 // @vue/component
 export default {
   name: 'BDropdownItem',
-  functional: true,
+  inject: {
+    dropdown: {
+      from: 'dropdown',
+      default: null
+    }
+  },
   props,
-  render (h, { props, data, children }) {
+  methods: {
+    closeDropdown () {
+      if (this.dropdown) {
+        this.dropdown.hide(true)
+      }
+    }
+  },
+  render (h) {
     return h(
       BLink,
-      mergeData(data, {
-        props,
+      {
+        props: this.$props,
         staticClass: 'dropdown-item',
-        attrs: { role: 'menuitem' }
-      }),
-      children
+        attrs: { role: 'menuitem' },
+        on: { click: this.closeDropdown }
+      },
+      this.$slots.default
     )
   }
 }

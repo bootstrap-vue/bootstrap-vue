@@ -221,7 +221,7 @@ by reference.
 <template>
   <div class="d-flex flex-column text-md-center">
     <div class="p-2">
-      <b-btn id="tooltipButton-showEvent" variant="primary">I have a popover</b-btn>
+      <b-btn id="tooltipButton-showEvent" variant="primary">I have a tooltip</b-btn>
     </div>
     <div class="p-2">
       <b-btn class="px-1" @click="onOpen">Open</b-btn>
@@ -309,8 +309,8 @@ long as you have provided the `.sync` prop modifier.
 > the tooltip will close before it is disabled due to loosing focus (and hover) to the toggle
 > button._
 
-When disabled, the tooltip can be opened programmatically (either via the `show` prop, methods or
-events).
+You can also emit `$root` events to trigger disabling and enabling of tooltip(s). See the
+**Disabling and enabling tooltips via $root events** section below for details.
 
 You can also emit `$root` events to trigger disabling and enabling of popover(s). See the
 **Disabling and enabling tooltips via \$root events** section below for details.
@@ -346,7 +346,16 @@ features of the directive format.
 
 ## Hiding and showing tooltips via \$root events
 
-You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` event on \$root:
+## 'Global' $root instance events
+
+Using `$root` instance it is possible to emit and listen events somewhere out of a component, where
+`<b-collapse>` is used. In short, `$root` behaves like a global event emitters and listener. Details
+about `$root` instance can be found in
+[the official Vue docs](https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-the-Root-Instance).
+
+### Hiding and showing tooltips via $root events
+
+You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` event on $root:
 
 ```js
 this.$root.$emit('bv::hide::tooltip')
@@ -365,7 +374,7 @@ To open a **specific tooltip**, pass the trigger element's `id` as the argument 
 this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id')
 ```
 
-To open all popovers simultaneously, omit the `id` argument when emitting the `bv::show::tooltip`
+To open all tooltips simultaneously, omit the `id` argument when emitting the `bv::show::tooltip`
 event.
 
 These events work for both the component **and** directive versions of tooltip.
@@ -375,7 +384,9 @@ These events work for both the component **and** directive versions of tooltip.
 
 ## Disabling and enabling tooltips via \$root events
 
-You can disable **all open tooltips** by emitting the `bv::disable::tooltip` event on \$root:
+### Disabling and enabling tooltips via $root events
+
+You can disable **all open tooltips** by emitting the `bv::disable::tooltip` event on $root:
 
 ```js
 this.$root.$emit('bv::disable::tooltip')
@@ -394,12 +405,27 @@ To enable a **specific tooltip**, pass the trigger element's `id` as the argumen
 this.$root.$emit('bv::enable::tooltip', 'my-trigger-button-id')
 ```
 
-To enable all popovers simultaneously, omit the `id` argument when emitting the
+To enable all tooltips simultaneously, omit the `id` argument when emitting the
 `bv::enable::tooltip` event.
 
 These events work for both the component **and** directive versions of tooltip.
 
 > **Note:** _The **trigger element** must exist in the DOM in order for the tooltip to be enabled or
 > disabled._
+
+### Listening to tooltip changes via $root events
+
+To listen to any tooltip opening, use:
+
+```js
+mounted () {
+  this.$root.$on("bv::tooltip::show", function(bvEventObj) {
+    console.log("bvEventObj:", bvEventObj);
+  });
+}
+```
+
+Refer to the [Events](/docs/components/tooltip#component-reference) section of documentation for the
+full list of events.
 
 <!-- Component reference added automatically from component package.json -->

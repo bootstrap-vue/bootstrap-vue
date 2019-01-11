@@ -709,9 +709,16 @@ to deal with on mobile devices (such as smart-phones).
 <!-- popover-advanced-1.vue -->
 ```
 
-## Hiding and showing popovers via \$root events
+## 'Global' $root instance events
 
-You can close (hide) **all open popovers** by emitting the `bv::hide::popover` event on \$root:
+Using `$root` instance it is possible to emit and listen events somewhere out of a component, where
+`<b-collapse>` is used. In short, `$root` behaves like a global event emitters and listener. Details
+about `$root` instance can be found in
+[the official Vue docs](https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-the-Root-Instance).
+
+### Hiding and showing popovers via $root events
+
+You can close (hide) **all open popovers** by emitting the `bv::hide::popover` event on $root:
 
 ```js
 this.$root.$emit('bv::hide::popover')
@@ -740,7 +747,9 @@ These events work for both the component **and** directive versions of popover.
 
 ## Disabling and enabling popovers via \$root events
 
-You can disable **all** popovers by emitting the `bv::disable::popover` event on \$root:
+### Disabling and enabling popovers via $root events
+
+You can disable **all** popovers by emitting the `bv::disable::popover` event on $root:
 
 ```js
 this.$root.$emit('bv::disable::popover')
@@ -766,6 +775,21 @@ These events work for both the component and directive versions of popover.
 
 > **Note:** _The **trigger element** must exist in the DOM in order for the popover to be enabled or
 > disabled._
+
+### Listening to popover changes via $root events
+
+To listen to any popover opening, use:
+
+```js
+mounted () {
+  this.$root.$on("bv::popover::show", function(bvEventObj) {
+    console.log("bvEventObj:", bvEventObj);
+  });
+}
+```
+
+Refer to the [Events](/docs/components/popover#component-reference) section of documentation for the
+full list of events.
 
 ## Accessibility
 

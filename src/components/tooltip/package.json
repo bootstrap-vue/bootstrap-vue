@@ -116,6 +116,48 @@
                     }
                 ]
             }
+        ],
+        "rootEventEmitters": [
+            {
+                "event": "bv::hide::tooltip",
+                "description": "Close (hide) all or a specific open tooltip when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "(optional), tooltip id to hide"
+                    }
+                ]
+            },
+            {
+                "event": "bv::show::tooltip",
+                "description": "Open (show) all or a specific tooltip when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "(optional), tooltip id to show"
+                    }
+                ]
+            },
+            {
+                "event": "bv::disable::tooltip",
+                "description": "Disable all or a specific tooltip when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "(optional), tooltip id to disable"
+                    }
+                ]
+            },
+            {
+                "event": "bv::enable::tooltip",
+                "description": "Enable all or a specific tooltip when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "(optional), tooltip id to enable"
+                    }
+                ]
+            }
         ]
     }
 }

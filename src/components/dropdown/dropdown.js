@@ -175,6 +175,7 @@ export default {
         class: this.menuClasses,
         attrs: {
           role: this.role,
+          tabindex: '-1',
           'aria-labelledby': this.safeId(this.split ? '_BV_button_' : '_BV_toggle_')
         },
         on: {
@@ -184,10 +185,10 @@ export default {
       },
       [this.$slots.default]
     )
-    return h('div', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [
-      split,
-      toggle,
-      menu
-    ])
+    return h(
+      'div',
+      { attrs: { id: this.safeId() }, class: this.dropdownClasses },
+      [split, toggle, menu]
+    )
   }
 }
