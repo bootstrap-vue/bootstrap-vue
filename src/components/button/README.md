@@ -56,7 +56,7 @@ Create block level buttons — those that span the full width of a parent — by
 prop.
 
 ```html
-<div><b-button block variant="primary">Block Level Button</b-button></div>
+<b-button block variant="primary">Block Level Button</b-button>
 
 <!-- button-block.vue -->
 ```
@@ -115,7 +115,7 @@ Variant `link` will render a button with the appearance of a link while maintain
 padding and size of a button.
 
 ```html
-<div><b-button variant="link">Link</b-button></div>
+<b-button variant="link">Link</b-button>
 
 <!-- button-link.vue -->
 ```

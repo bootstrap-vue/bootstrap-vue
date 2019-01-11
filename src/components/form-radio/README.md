@@ -41,8 +41,7 @@ v-model from the `<b-form-radio-group>`.
 <template>
   <div>
     <b-form-group label="Radios using options">
-      <b-form-radio-group id="radios1" v-model="selected" :options="options" name="radioOptions">
-      </b-form-radio-group>
+      <b-form-radio-group id="radios1" v-model="selected" :options="options" name="radioOptions" />
     </b-form-group>
 
     <b-form-group label="Radios using sub-components">
@@ -148,13 +147,11 @@ render them inline.
 <template>
   <div>
     <b-form-group label="Inline radios (default)">
-      <b-form-radio-group v-model="selected" :options="options" name="radioInline">
-      </b-form-radio-group>
+      <b-form-radio-group v-model="selected" :options="options" name="radioInline" />
     </b-form-group>
 
     <b-form-group label="Stacked radios">
-      <b-form-radio-group v-model="selected" :options="options" stacked name="radiosStacked">
-      </b-form-radio-group>
+      <b-form-radio-group v-model="selected" :options="options" stacked name="radiosStacked" />
     </b-form-group>
 
     <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>

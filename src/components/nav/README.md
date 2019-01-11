@@ -141,8 +141,7 @@ add them (like above) which will produce something like:
     aria-haspopup="true"
     aria-expanded="false"
     class="nav-link dropdown-toggle nav-link-custom"
-  >
-  </a>
+  />
   ...
 </li>
 ```

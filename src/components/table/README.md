@@ -36,7 +36,7 @@
 format:
 
 ```js
-;[
+const items = [
   { age: 32, first_name: 'Cyndi' },
   { age: 27, first_name: 'Havij' },
   { age: 42, first_name: 'Robert' }
@@ -410,8 +410,7 @@ In future releases of BootstrapVue, the `primary-key` may be used for additional
       :foot-clone="footClone"
       :items="items"
       :fields="fields"
-    >
-    </b-table>
+    />
   </div>
 </template>
 
@@ -454,7 +453,7 @@ You can also style every row using the `tbody-tr-class` prop
 
 ```html
 <template>
-  <div><b-table :items="items" :fields="fields" :tbody-tr-class="rowClass" /></div>
+  <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass" />
 </template>
 
 <script>
@@ -992,8 +991,7 @@ as read-only.**
     selectedVariant="success"
     :items="items"
     @row-selected="rowSelected"
-  >
-  </b-table>
+  />
   {{ selected }}
 </template>
 
@@ -1214,6 +1212,7 @@ function sortCompare(a, b, key) {
     })
   }
 }
+
 function toString(value) {
   if (!value) {
     return ''
@@ -1425,7 +1424,7 @@ function should handle errors from data sources and return an empty array to `<b
 
 ```html
 <template>
-  <b-table id="my-table" :busy.sync="isBusy" :items="myProvider" :fields="fields" ...> </b-table>
+  <b-table id="my-table" :busy.sync="isBusy" :items="myProvider" :fields="fields" ... />
 </template>
 <script>
   export defailt {
@@ -1541,7 +1540,7 @@ You can also obtain the current sortBy and sortDesc values by using the `:sort-b
 details).
 
 ```html
-<b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ...> </b-table>
+<b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... />
 ```
 
 ### Server Side Rendering

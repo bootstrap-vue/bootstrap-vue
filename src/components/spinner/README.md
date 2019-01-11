@@ -31,7 +31,7 @@ circle border), and the optional type `grow` (a throbber style indicator).
 Use the default `border` type spinners for a lightweight loading indicator.
 
 ```html
-<div><b-spinner label="Loading..." /></div>
+<b-spinner label="Loading..." />
 
 <!-- spinner-border.vue -->
 ```
@@ -42,7 +42,7 @@ If you don't fancy a `border` spinner, switch to the `grow` spinner by setting t
 `'grow'`. While it doesn't technically spin, it does repeatedly grow!
 
 ```html
-<div><b-spinner type="grow" label="Loading..." /></div>
+<b-spinner type="grow" label="Loading..." />
 
 <!-- spinner-grow.vue -->
 ```
@@ -119,7 +119,7 @@ they can easily be resized, recolored, and quickly aligned.
 Use margin utilities like `.m-5` for easy spacing.
 
 ```html
-<div><b-spinner class="m-5" label="Busy" /></div>
+<b-spinner class="m-5" label="Busy" />
 
 <!-- spinner-margin.vue -->
 ```
@@ -150,9 +150,7 @@ Using flex utility classes:
 Using float utility classes:
 
 ```html
-<div>
-  <div class="clearfix"><b-spinner class="float-right" label="Floated Right" /></div>
-</div>
+<div class="clearfix"><b-spinner class="float-right" label="Floated Right" /></div>
 
 <!-- spinner-floats.vue -->
 ```
@@ -162,9 +160,7 @@ Using float utility classes:
 Using text alignment utility classes:
 
 ```html
-<div>
-  <div class="text-center"><b-spinner variant="primary" label="Text Centered" /></div>
-</div>
+<div class="text-center"><b-spinner variant="primary" label="Text Centered" /></div>
 
 <!-- spinner-text-align.vue -->
 ```

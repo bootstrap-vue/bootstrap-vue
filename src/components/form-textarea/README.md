@@ -12,8 +12,7 @@
       placeholder="Enter something"
       rows="3"
       max-rows="6"
-    >
-    </b-form-textarea>
+    />
     <pre class="mt-3">{{ text }}</pre>
   </div>
 </template>
