@@ -2,7 +2,7 @@ import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import idMixin from '../../mixins/id'
 import { inBrowser } from '../utils/env'
-import { seletcAll } from '../utils/dom'
+import { selectAll } from '../utils/dom'
 
 const SELECTOR_TABS = '.tab-pane'
 
