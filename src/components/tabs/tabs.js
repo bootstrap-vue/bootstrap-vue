@@ -1,6 +1,10 @@
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
 import idMixin from '../../mixins/id'
+import { inBroser } from '../utils/env'
+import { seletAll } from '../utils/dom'
+
+const SELECTOR_TABS = '.tab-pane'
 
 // Private Helper component
 const BTabButtonHelper = {
@@ -282,12 +286,18 @@ export default {
      */
     updateTabs () {
       // Probe tabs
-      this.tabs = this.$children.filter(child => child._isTab)
+      if (inBrowser) {
+        this.tabs = selectAll(SELECTOR_TABS).filter(tab => tab.__vue).map(tab => tab.__vue_)
+      } else {
+        // On dynamic Vue updates, children order is not guaranteed
+        this.tabs = this.$children.filter(child => child._isTab)
+      }
       // Set initial active tab
       let tabIndex = null
-      // Find *last* active non-dsabled tab in current tabs
+      // Find *last* active non-disabled tab in current tabs
       // We trust tab state over currentTab
       this.tabs.forEach((tab, index) => {
+        // Last active tab winds
         if (tab.localActive && !tab.disabled) {
           tabIndex = index
         }
