@@ -10,27 +10,43 @@
         "events": [
             {
                 "event": "show",
-                "description": "emitted when collaspe has started to open"
+                "description": "Emitted when collapse has started to open"
             },
             {
                 "event": "shown",
-                "description": "emitted when collaspe has finished opening"
+                "description": "Emitted when collapse has finished opening"
             },
             {
                 "event": "hide",
-                "description": "emitted when collaspe has started to close"
+                "description": "Emitted when collapse has started to close"
             },
             {
                 "event": "hidden",
-                "description": "emitted when collaspe has finished closing"
+                "description": "Emitted when collapse has finished closing"
             },
             {
-                "event": "bv::toggle::collapse",
-                "description": "toggles visible state of collaspe when this event is emitted on $root",
+                "event": "bv::collapse::state",
+                "description": "Emitted on $root when collapse has changed its state",
                 "args": [
                     {
-                        "arg": "id",
-                        "description": "collapse id to toggle"
+                      "arg": "id",
+                      "description": "changed state collapse id"
+                    },
+                    {
+                      "arg": "state",
+                      "description": "true/false, i.e. opened/closed"
+                    }
+                ]
+            }
+        ],
+        "rootEventEmitters": [
+            {
+                "event": "bv::toggle::collapse",
+                "description": "Toggles visible state of collapse with specified id when this event is emitted on $root",
+                "args": [
+                    {
+                      "arg": "id",
+                      "description": "collapse id to toggle"
                     }
                 ]
             }

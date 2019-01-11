@@ -418,6 +418,7 @@ You can also apply abritrary classes to the modal dialog container, content (mod
 `modal-class`, `content-class`, `header-class`, `body-class` and `footer-class` props, respectively. The props
 accept either a string or array of strings.
 
+
 ## Lazy loading
 Modal will always render its HTML markup in the document at the location that
 the `<b-modal>` component is placed (even if it is not shown). You can hide
@@ -471,6 +472,22 @@ To disable stacking for a specific modal, just set the prop `no-stacking` on the
 - The opaque backdrop will appear progressively darker for each modal that is opened. This is expected behaviour as each backdrop is opened over top the other backdrops.
 - For multiple modals to stack properly, they **must** be defined in the document in the order they will be opened, otherwise a newly opened modal may appear hidden or obscured by a currently open modal.
 
+
+## Listening to modal changes via $root events
+
+To listen to any modal opening, use:
+
+```js
+mounted () {
+  this.$root.$on("bv::modal::show", (bvEvent, modalId) => {
+    console.log("Modal is about to be shown", bvEvent, modalId);
+  });
+}
+```
+
+Refer to the [Events](/docs/components/modal#component-reference) section of documentation for the full list of events.
+
+
 ## Accessibility
 
 `<b-modal>` provides several accessibility features, including auto focus, return
@@ -479,6 +496,7 @@ focus, and keyboard (tab) _focus containment_.
 For `aria-labelledby` and `aria-described` by attributes to appear on the
 modal, you **must** supply an `id` attribute on `<b-modal>`. `aria-labelledby` will
 not be present if you have the header hidden.
+
 
 ## Auto Focus on open
 

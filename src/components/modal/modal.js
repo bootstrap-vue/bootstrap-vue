@@ -398,6 +398,7 @@ export default {
         cancelable: true,
         vueTarget: this,
         target: this.$refs.modal,
+        modalId: this.safeId(),
         relatedTarget: null
       })
       this.emitEvent(showEvt)
@@ -430,6 +431,7 @@ export default {
         cancelable: true,
         vueTarget: this,
         target: this.$refs.modal,
+        modalId: this.safeId(),
         // this could be the trigger element/component reference
         relatedTarget: null,
         isOK: trigger || null,
@@ -502,6 +504,7 @@ export default {
           cancelable: false,
           vueTarget: this,
           target: this.$refs.modal,
+          modalId: this.safeId(),
           relatedTarget: null
         })
         this.emitEvent(shownEvt)
@@ -536,6 +539,7 @@ export default {
           cancelable: false,
           vueTarget: this,
           target: this.lazy ? null : this.$refs.modal,
+          modalId: this.safeId(),
           relatedTarget: null
         })
         this.emitEvent(hiddenEvt)
@@ -545,7 +549,7 @@ export default {
     emitEvent (bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
-      this.$root.$emit(`bv::modal::${type}`, bvEvt)
+      this.$root.$emit(`bv::modal::${type}`, bvEvt, this.safeId())
     },
     // UI Event Handlers
     onClickOut (evt) {

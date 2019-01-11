@@ -66,7 +66,28 @@
           <div
             v-for="arg in field.value"
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`">
-            <code v-if="arg.arg">{{ arg.arg }}</code>
+            <code v-if="arg.arg">{{ arg.arg }}</code> -
+            <span v-html="arg.description"/>
+          </div>
+        </template>
+      </b-table>
+    </article>
+
+    <article v-if="rootEventEmitters && rootEventEmitters.length > 0">
+      <h4 :id="`comp-ref-${componentName}-rootEventEmitters`">$root Event Emitters</h4>
+      <b-table
+        :items="rootEventEmitters"
+        :fields="rootEventEmitters_fields"
+        small
+        head-variant="default"
+        striped>
+        <template
+          slot="args"
+          slot-scope="field">
+          <div
+            v-for="arg in field.value"
+            :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`">
+            <code v-if="arg.arg">{{ arg.arg }}</code> -
             <span v-html="arg.description"/>
           </div>
         </template>
@@ -97,6 +118,10 @@ export default {
       type: Array,
       default: () => []
     },
+    rootEventEmitters: {
+      type: Array,
+      default: () => []
+    },
     aliases: {
       type: Array,
       default: () => []
@@ -119,9 +144,9 @@ export default {
       const hasRequired = props.length > 0 && props.filter(p => p.required).length > 0
 
       const fields = {
-        prop: {label: 'Property'},
-        type: {label: 'Type'},
-        default: {label: 'Default Value'}
+        prop: { label: 'Property' },
+        type: { label: 'Type' },
+        default: { label: 'Default Value' }
       }
 
       // Add the required column if there are required field(s)
@@ -133,15 +158,22 @@ export default {
     },
     events_fields () {
       return {
-        event: {label: 'Event'},
-        args: {label: 'Arguments'},
-        description: {label: 'Description'}
+        event: { label: 'Event' },
+        args: { label: 'Arguments' },
+        description: { label: 'Description' }
+      }
+    },
+    rootEventEmitters_fields () {
+      return {
+        event: { label: 'Event' },
+        args: { label: 'Arguments' },
+        description: { label: 'Description' }
       }
     },
     slots_fields () {
       return {
-        name: {label: 'Slot'},
-        description: {label: 'Description'}
+        name: { label: 'Slot' },
+        description: { label: 'Description' }
       }
     },
     props_items () {
