@@ -4,6 +4,9 @@ import idMixin from '../../mixins/id'
 export default {
   name: 'BTab',
   mixins: [idMixin],
+  inject: {
+    tabs: { default: null }
+  },
   props: {
     active: {
       type: Boolean,
