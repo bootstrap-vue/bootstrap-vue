@@ -101,7 +101,7 @@ export default {
             window.mozRequestAnimationFrame ||
             window.msRequestAnimationFrame ||
             window.oRequestAnimationFrame ||
-            this.$nextTick
+            (cb) => { setTimeout(cb, 16) }
 
       raf(() => { this.show = true })
     },
