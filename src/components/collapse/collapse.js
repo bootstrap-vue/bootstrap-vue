@@ -85,7 +85,7 @@ export default {
   updated () {
     this.$root.$emit(EVENT_STATE, this.id, this.show)
   },
-  beforeDestroy () {
+  beforeDestroy () /* istanbul ignore next */ {
     if (this.isNav && typeof document !== 'undefined') {
       eventOff(window, 'resize', this.handleResize, EventOptions)
       eventOff(window, 'orientationchange', this.handleResize, EventOptions)
