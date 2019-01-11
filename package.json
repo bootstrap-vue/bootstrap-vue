@@ -147,7 +147,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettify"
+      "pre-push": "npm run prettify"
     }
   },
   "keywords": [
