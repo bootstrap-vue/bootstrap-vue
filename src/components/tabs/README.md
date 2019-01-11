@@ -6,14 +6,13 @@
 For navigation based tabs, use the [`<b-nav>`](/docs/components/nav) component and
 [`<b-card>`](/docs/components/card) component instead.
 
-
 ## Basic usage
 
 ```html
 <b-tabs>
-  <b-tab title="first" active> <br />I'm the first fading tab </b-tab>
-  <b-tab title="second"> <br />I'm the second tab content </b-tab>
-  <b-tab title="disabled" disabled> <br />Disabled tab! </b-tab>
+  <b-tab title="first" active><br />I'm the first fading tab</b-tab>
+  <b-tab title="second"><br />I'm the second tab content</b-tab>
+  <b-tab title="disabled" disabled><br />Disabled tab!</b-tab>
 </b-tabs>
 
 <!-- basic.vue -->
@@ -32,8 +31,8 @@ order to propertly decorate the card header and remove the extra padding introdu
 ```html
 <b-card no-body>
   <b-tabs card>
-    <b-tab title="Tab 1" active key="tab-1"> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2" key="tab-2"> Tab Contents 2 </b-tab>
+    <b-tab title="Tab 1" active key="tab-1">Tab Contents 1</b-tab>
+    <b-tab title="Tab 2" key="tab-2">Tab Contents 2 </b-tab>
   </b-tabs>
 </b-card>
 
@@ -83,8 +82,8 @@ variant.
 ```html
 <b-card no-body>
   <b-tabs pills card>
-    <b-tab title="Tab 1" active key="tab-1"> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2" key="tab-2"> Tab Contents 2 </b-tab>
+    <b-tab title="Tab 1" active key="tab-1">Tab Contents 1</b-tab>
+    <b-tab title="Tab 2" key="tab-2">Tab Contents 2</b-tab>
   </b-tabs>
 </b-card>
 
@@ -98,8 +97,8 @@ Visually move the tab controls to the bottom by setting the prop `end`
 ```html
 <b-card no-body>
   <b-tabs pills card end>
-    <b-tab title="Tab 1" active key="tab-1"> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2" key="tab-2"> Tab Contents 2 </b-tab>
+    <b-tab title="Tab 1" active key="tab-1">Tab Contents 1</b-tab>
+    <b-tab title="Tab 2" key="tab-2">Tab Contents 2</b-tab>
   </b-tabs>
 </b-card>
 
@@ -125,9 +124,9 @@ tabs work with or without `card` mode enabled.
 ```html
 <b-card no-body>
   <b-tabs pills card vertical>
-    <b-tab title="Tab 1" active key="tab-1"> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2" key="tab-2"> Tab Contents 2 </b-tab>
-    <b-tab title="Tab 3" key="tab-3"> Tab Contents 3 </b-tab>
+    <b-tab title="Tab 1" active key="tab-1">Tab Contents 1</b-tab>
+    <b-tab title="Tab 2" key="tab-2">Tab Contents 2</b-tab>
+    <b-tab title="Tab 3" key="tab-3">Tab Contents 3</b-tab>
   </b-tabs>
 </b-card>
 
@@ -139,9 +138,9 @@ Visually move the tab controls to the right hand side by setting the `end` prop:
 ```html
 <b-card no-body>
   <b-tabs pills card vertical end>
-    <b-tab title="Tab 1" active key="tab-1"> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2" key="tab-2"> Tab Contents 2 </b-tab>
-    <b-tab title="Tab 3" key="tab-3"> Tab Contents 3 </b-tab>
+    <b-tab title="Tab 1" active key="tab-1">Tab Contents 1</b-tab>
+    <b-tab title="Tab 2" key="tab-2">Tab Contents 2</b-tab>
+    <b-tab title="Tab 3" key="tab-3">Tab Contents 3</b-tab>
   </b-tabs>
 </b-card>
 
@@ -156,9 +155,9 @@ column classes such as `col-2`, `col-3`, etc.
 ```html
 <b-card no-body>
   <b-tabs pills card vertical nav-wrapper-class="w-50">
-    <b-tab title="Tab 1" active key="tab-1"> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2" key="tab-2"> Tab Contents 2 </b-tab>
-    <b-tab title="Tab 3" key="tab-3"> Tab Contents 3 </b-tab>
+    <b-tab title="Tab 1" active key="tab-1">Tab Contents 1</b-tab>
+    <b-tab title="Tab 2" key="tab-2">Tab Contents 2</b-tab>
+    <b-tab title="Tab 3" key="tab-3">Tab Contents 3</b-tab>
   </b-tabs>
 </b-card>
 
@@ -227,9 +226,9 @@ need to accomodate your custom classes for this._
 <template>
   <b-card no-body>
     <b-tabs card v-model="tabIndex">
-      <b-tab title="Tab 1" :title-link-class="linkClass(0)" key="tab-1"> Tab Contents 1 </b-tab>
-      <b-tab title="Tab 2" :title-link-class="linkClass(1)" key="tab-2"> Tab Contents 2 </b-tab>
-      <b-tab title="Tab 3" :title-link-class="linkClass(2)" key="tab-3"> Tab Contents 3 </b-tab>
+      <b-tab title="Tab 1" :title-link-class="linkClass(0)" key="tab-1">Tab Contents 1</b-tab>
+      <b-tab title="Tab 2" :title-link-class="linkClass(1)" key="tab-2">Tab Contents 2</b-tab>
+      <b-tab title="Tab 3" :title-link-class="linkClass(2)" key="tab-3">Tab Contents 3</b-tab>
     </b-tabs>
   </b-card>
 </template>
@@ -290,13 +289,13 @@ is not possble to use key presses to jump out of a text (or test-like) inputs.
     <!-- Tabs with card integration -->
     <b-card no-body>
       <b-tabs small card v-model="tabIndex">
-        <b-tab title="General" key="tab-1"> I'm the first fading tab </b-tab>
+        <b-tab title="General" key="tab-1">I'm the first fading tab</b-tab>
         <b-tab title="Edit profile" key="tab-2">
           I'm the second tab
           <b-card>I'm the card in tab</b-card>
         </b-tab>
-        <b-tab title="Premium Plan" disabled key="tab-3"> Sibzamini! </b-tab>
-        <b-tab title="Info"> I'm the last tab </b-tab>
+        <b-tab title="Premium Plan" disabled key="tab-3">Sibzamini!</b-tab>
+        <b-tab title="Info">I'm the last tab</b-tab>
       </b-tabs>
     </b-card>
 
@@ -341,7 +340,7 @@ is not possble to use key presses to jump out of a text (or test-like) inputs.
         </b-tab>
 
         <!-- New Tab Button (Using tabs slot) -->
-        <b-nav-item slot="tabs" @click.prevent="newTab" href="#"> + </b-nav-item>
+        <b-nav-item slot="tabs" @click.prevent="newTab" href="#">+</b-nav-item>
 
         <!-- Render this if no tabs -->
         <div slot="empty" class="text-center text-muted">

@@ -154,7 +154,7 @@ option.
 ```html
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" class="mb-3"> </b-form-select>
+    <b-form-select v-model="selected" :options="options" class="mb-3" />
     <div>Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>

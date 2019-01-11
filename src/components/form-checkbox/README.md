@@ -488,7 +488,7 @@ modifier.
         :options="flavours"
         class="ml-4"
         aria-label="Individual flavours"
-      ></b-form-checkbox-group>
+      />
     </b-form-group>
     <p>
       Selected: <strong>{{ selected }}</strong><br />

@@ -9,7 +9,7 @@ toggle content visibility on your pages. Includes support for making accordions.
     <b-card>
       <p class="card-text">Collapse contents Here</p>
       <b-btn v-b-toggle.collapse1_inner size="sm">Toggle Inner Collapse</b-btn>
-      <b-collapse id="collapse1_inner" class="mt-2"> <b-card>Hello!</b-card> </b-collapse>
+      <b-collapse id="collapse1_inner" class="mt-2"><b-card>Hello!</b-card></b-collapse>
     </b-card>
   </b-collapse>
 </div>
@@ -30,7 +30,7 @@ Other elements can easily toggle `<b-collapse>` components using the `v-b-toggle
   <b-btn v-b-toggle="'collapse2'" class="m-1">Toggle Collapse</b-btn>
 
   <!-- element to collapse -->
-  <b-collapse id="collapse2"> <b-card> I am collapsable content! </b-card> </b-collapse>
+  <b-collapse id="collapse2"><b-card>I am collapsable content!</b-card></b-collapse>
 </div>
 
 <!-- collapse-2.vue -->
@@ -43,7 +43,7 @@ To make the `<b-collapse>` show initially, set the `visible` prop:
 ```html
 <div>
   <b-btn v-b-toggle.collapse3 class="m-1">Toggle Collapse</b-btn>
-  <b-collapse visible id="collapse3"> <b-card> I should start open! </b-card> </b-collapse>
+  <b-collapse visible id="collapse3"><b-card>I should start open!</b-card></b-collapse>
 </div>
 
 <!-- collapse-3.vue -->
@@ -193,7 +193,7 @@ display or hide content within the toggle via custom CSS:
 <b-btn v-b-toggle.myCollapse>
   <span class="when-opened">Close</span> <span class="when-closed">Open</span> My Collapse
 </b-btn>
-<b-collapse id="myCollapse"> <!-- content here --> </b-collapse>
+<b-collapse id="myCollapse"><!-- content here --></b-collapse>
 ```
 
 **Example Custom CSS:**
@@ -205,14 +205,14 @@ display or hide content within the toggle via custom CSS:
 }
 ```
 
-## 'Global' $root instance events
+## 'Global' \$root instance events
 
 Using `$root` instance it is possible to emit and listen events somewhere out of a component, where
 `<b-collapse>` is used. In short, `$root` behaves like a global event emitters and listener. Details
 about `$root` instance can be found in
 [the official Vue docs](https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-the-Root-Instance).
 
-### Listening to collapses state changes via $root events
+### Listening to collapses state changes via \$root events
 
 To listen to any collapse state changes, use:
 
@@ -228,7 +228,7 @@ mounted () {
 where `collapseId` is collapse id which changed its state; `isJustShown` is true/false, i.e.
 shown/hidden collapse.
 
-### Toggling collapses via $root events
+### Toggling collapses via \$root events
 
 To toggle (open/close) a **specific collapse**, pass the collapse `id`:
 

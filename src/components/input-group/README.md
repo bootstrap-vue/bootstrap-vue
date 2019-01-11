@@ -6,19 +6,19 @@
 ```html
 <div>
   <!-- Using props -->
-  <b-input-group size="lg" prepend="$" append=".00"> <b-form-input></b-form-input> </b-input-group>
+  <b-input-group size="lg" prepend="$" append=".00"><b-form-input /></b-input-group>
   <br />
 
   <!-- Using slots -->
   <b-input-group>
-    <b-input-group-text slot="append"> <strong class="text-danger">!</strong> </b-input-group-text>
-    <b-form-input></b-form-input>
+    <b-input-group-text slot="append"><strong class="text-danger">!</strong></b-input-group-text>
+    <b-form-input />
   </b-input-group>
   <br />
 
   <!-- Using components -->
   <b-input-group prepend="Username">
-    <b-form-input></b-form-input>
+    <b-form-input />
     <b-input-group-append>
       <b-btn variant="outline-success">Button</b-btn>
       <b-btn variant="info">Button</b-btn>
@@ -39,11 +39,9 @@ Values will be internally wrapped by a `<b-input-group-text>` to display correct
 
 ```html
 <div>
-  <b-input-group prepend="$" append=".00" class="mb-2">
-    <b-form-input></b-form-input>
-  </b-input-group>
+  <b-input-group prepend="$" append=".00" class="mb-2"><b-form-input /></b-input-group>
   <b-input-group prepend="0" append="100">
-    <b-form-input type="range" min="0" max="100"></b-form-input>
+    <b-form-input type="range" min="0" max="100" />
   </b-input-group>
 </div>
 
@@ -60,7 +58,7 @@ This slots will be wrapped by `<b-input-group-prepend|append>` to display correc
 <div>
   <b-input-group>
     <b-input-group-text slot="prepend">Username</b-input-group-text>
-    <b-form-input></b-form-input>
+    <b-form-input />
     <b-dropdown text="Dropdown" variant="success" slot="append">
       <b-dropdown-item>Action A</b-dropdown-item>
       <b-dropdown-item>Action B</b-dropdown-item>
@@ -82,7 +80,7 @@ wrapped in these components for proper styling.
   <b-input-group>
     <b-input-group-prepend> <b-btn variant="outline-info">Button</b-btn> </b-input-group-prepend>
 
-    <b-form-input type="number" min="0.00"></b-form-input>
+    <b-form-input type="number" min="0.00" />
 
     <b-input-group-append>
       <b-btn variant="outline-secondary">Button</b-btn>
@@ -140,7 +138,7 @@ include additional markup not required in input groups.
     <b-dropdown-item>Action B</b-dropdown-item>
   </b-dropdown>
 
-  <b-form-input></b-form-input>
+  <b-form-input />
 
   <b-dropdown slot="append" text="Dropdown" variant="outline-secondary" v-for="i in 2" :key="i">
     <b-dropdown-item>Action C</b-dropdown-item>

@@ -237,7 +237,7 @@ card.
       <a href="#" class="card-link">Card link</a> <a href="#" class="card-link">Another link</a>
     </b-card-body>
     <b-card-footer>This is a footer</b-card-footer>
-    <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img>
+    <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom />
   </b-card>
 </div>
 
@@ -260,7 +260,7 @@ may be needed depending on your card content.
   <b-card no-body class="overflow-hidden" style="max-width: 540px;">
     <b-row no-gutters>
       <b-col md="6">
-        <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
+        <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0" />
       </b-col>
       <b-col md="6">
         <b-card-body title="Horizontal Card">

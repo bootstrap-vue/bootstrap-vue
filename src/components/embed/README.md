@@ -12,7 +12,7 @@ Rules are directly applied to `<iframe>`, `<embed>`, `<video>`, and `<object>` e
     aspect="16by9"
     src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
     allowfullscreen
-  ></b-embed>
+  />
 </div>
 
 <!-- b-embed-1.vue -->

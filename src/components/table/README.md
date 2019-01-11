@@ -7,7 +7,7 @@
 
 ```html
 <template>
-  <b-table striped hover :items="items"></b-table>
+  <b-table striped hover :items="items" />
 </template>
 
 <script>
@@ -76,7 +76,7 @@ modifier properties (make sure your field keys do not conflict with these names)
 
 ```html
 <template>
-  <b-table hover :items="items"></b-table>
+  <b-table hover :items="items" />
 </template>
 
 <script>
@@ -143,7 +143,7 @@ Fields can be a simple array, for defining the order of the columns, and which c
 
 ```html
 <template>
-  <b-table striped hover :items="items" :fields="fields"></b-table>
+  <b-table striped hover :items="items" :fields="fields" />
 </template>
 
 <script>
@@ -176,7 +176,7 @@ is guaranteed)**:
 
 ```html
 <template>
-  <b-table striped hover :items="items" :fields="fields"></b-table>
+  <b-table striped hover :items="items" :fields="fields" />
 </template>
 
 <script>
@@ -226,7 +226,7 @@ typically be in the order they were defined in the object, although **field orde
 
 ```html
 <template>
-  <b-table striped hover :items="items" :fields="fields"></b-table>
+  <b-table striped hover :items="items" :fields="fields" />
 </template>
 
 <script>
@@ -454,7 +454,7 @@ You can also style every row using the `tbody-tr-class` prop
 
 ```html
 <template>
-  <div><b-table :items="items" :fields="fields" :tbody-tr-class="rowClass"> </b-table></div>
+  <div><b-table :items="items" :fields="fields" :tbody-tr-class="rowClass" /></div>
 </template>
 
 <script>
@@ -492,7 +492,7 @@ values: `sm`, `md`, `lg`, or `xl`.
 
 ```html
 <template>
-  <b-table responsive :items="items"></b-table>
+  <b-table responsive :items="items" />
 </template>
 
 <script>
@@ -568,7 +568,7 @@ The prop `stacked` takes precedence over the `responsive` prop.
 
 ```html
 <template>
-  <b-table stacked :items="items"></b-table>
+  <b-table stacked :items="items" />
 </template>
 
 <script>
@@ -831,9 +831,7 @@ scoped field slot
 
 ```html
 <template>
-  <b-table :items="items">
-    <span slot="html" slot-scope="data" v-html="data.value"> </span>
-  </b-table>
+  <b-table :items="items"><span slot="html" slot-scope="data" v-html="data.value"/></b-table>
 </template>
 
 <script>
@@ -875,7 +873,7 @@ formatted value as a string (HTML strings are not supported)
   <b-table :fields="fields" :items="items">
     <template slot="name" slot-scope="data">
       <!-- data.value is th value after formattetd by the Formatter -->
-      <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`"> {{data.value}} </a>
+      <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
     </template>
   </b-table>
 </template>
@@ -1506,7 +1504,7 @@ this.$root.$emit('bv::refresh::table', 'my-table')
 Or by calling the `refresh()` method on the table reference
 
 ```html
-<b-table ref="table" ...></b-table>
+<b-table ref="table" ... />
 ```
 
 ```js
@@ -1523,7 +1521,7 @@ By listening on `<b-table>` `sort-changed` event, you can detect when the sortin
 have changed.
 
 ```html
-<b-table @sort-changed="sortingChanged" ...></b-table>
+<b-table @sort-changed="sortingChanged" ... />
 ```
 
 The `sort-changed` event provides a single argument of the table's current state context object.
@@ -1571,15 +1569,17 @@ if the functionality is non critical or can be provided via other means:
 - `row-unhovered`
 - `row-middle-clicked`
 
-Also, `row-middle-clicked` event is not supported in all browsers (i.e. IE, Safari and most mobile browsers).
-When listening for `row-middle-clicked` events originating on elements that do not support input or navigation, 
-you will often want to explicitly prevent other default actions mapped to the down action of the middle mouse button. 
-On Windows this is usually autoscroll, and on macOS and Linux this is usually clipboard paste. 
-This can be done by preventing the default behaviour of the `mousedown` or `pointerdown` event.
+Also, `row-middle-clicked` event is not supported in all browsers (i.e. IE, Safari and most mobile
+browsers). When listening for `row-middle-clicked` events originating on elements that do not
+support input or navigation, you will often want to explicitly prevent other default actions mapped
+to the down action of the middle mouse button. On Windows this is usually autoscroll, and on macOS
+and Linux this is usually clipboard paste. This can be done by preventing the default behaviour of
+the `mousedown` or `pointerdown` event.
 
-Additionally, you may need to avoid opening a system context menu after a right click. 
-Due to timing differences between operating systems, this too is not a preventable default behaviour 
-of `row-middle-clicked`. Instead, this can be done by preventing the default behaviour of the `contextmenu` event.
+Additionally, you may need to avoid opening a system context menu after a right click. Due to timing
+differences between operating systems, this too is not a preventable default behaviour of
+`row-middle-clicked`. Instead, this can be done by preventing the default behaviour of the
+`contextmenu` event.
 
 ## Complete Example
 
