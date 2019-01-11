@@ -1,7 +1,11 @@
 # Tabs
 
-> Create tabbable panes of local content. The tabs component is built upon navs and cards
+> Create tabbable panes of _local content_. The tabs component is built upon navs and cards
 > internally.
+
+For navigation based tabs, use the [`<b-nav>`](/docs/components/nav) component and
+[`<b-card>`](/docs/components/card) component instead.
+
 
 ## Basic usage
 
