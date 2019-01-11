@@ -226,7 +226,7 @@ Use the `fade` prop to enable animation. By default alerts are not animated.
 ```html
 <template>
   <div>
-    <b-alert show dismissible fade> Dismissible Alert! </b-alert>
+    <b-alert show dismissible fade>Dismissible Alert!</b-alert>
 
     <b-alert
       variant="danger"

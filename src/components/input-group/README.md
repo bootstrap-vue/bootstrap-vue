@@ -78,7 +78,7 @@ wrapped in these components for proper styling.
 ```html
 <div>
   <b-input-group>
-    <b-input-group-prepend> <b-btn variant="outline-info">Button</b-btn> </b-input-group-prepend>
+    <b-input-group-prepend<b-btn variant="outline-info">Button</b-btn></b-input-group-prepend>
 
     <b-form-input type="number" min="0.00" />
 
@@ -161,7 +161,7 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
         <b-input-group-prepend is-text>
           <input type="checkbox" aria-label="Checkbox for following text input" />
         </b-input-group-prepend>
-        <b-input-group-prepend is-text> <b>$</b> </b-input-group-prepend>
+        <b-input-group-prepend is-text><b>$</b></b-input-group-prepend>
         <b-form-input type="number" aria-label="Text input with checkbox" />
       </b-input-group>
     </b-col>

@@ -520,9 +520,9 @@ item:
       <b-dropdown-item-button aria-describedby="header2">Delete</b-dropdown-item-button>
     </div>
     <b-dropdown-divider />
-    <b-dropdown-item-button
-      >Something <strong>not</strong> associated with user</b-dropdown-item-button
-    >
+    <b-dropdown-item-button>
+      Something <strong>not</strong> associated with user
+    </b-dropdown-item-button>
   </b-dropdown>
 </div>
 

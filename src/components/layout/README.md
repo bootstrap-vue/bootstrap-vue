@@ -77,13 +77,13 @@ While containers can be nested, most layouts do not require a nested container.
 **Fixed width container, based on viewport breakpoints:**
 
 ```html
-<b-container> <!-- Content here --> </b-container>
+<b-container><!-- Content here --></b-container>
 ```
 
 **Fluid container which is always 100% width, regardless of viewport breakpoint:**
 
 ```html
-<b-container fluid> <!-- Content here --> </b-container>
+<b-container fluid><!-- Content here --></b-container>
 ```
 
 ## Rows `<b-row>` and `<b-form-row>`
