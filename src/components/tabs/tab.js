@@ -61,8 +61,7 @@ export default {
   computed: {
     tabClasses () {
       return [
-        'tab-pane',
-        this.$parent && this.$parent.card && !this.noBody ? 'card-body' : '',
+        this.tabs && this.tabs.card && !this.noBody ? 'card-body' : '',
         this.show ? 'show' : '',
         this.computedFade ? 'fade' : '',
         this.disabled ? 'disabled' : '',
@@ -73,10 +72,10 @@ export default {
       return this.buttonId || this.safeId('__BV_tab_button__')
     },
     computedFade () {
-      return this.$parent.fade
+      return this.tabs ? this.tabs.fade : false
     },
     computedLazy () {
-      return this.$parent.lazy
+      return this.tabs ? this.tabs.lazy : false
     },
     _isTab () {
       // For parent sniffing of child
@@ -103,6 +102,7 @@ export default {
         this.tag,
         {
           ref: 'panel',
+          staticClass: 'tab-pane',
           class: this.tabClasses,
           directives: [{ name: 'show', value: this.localActive }],
           attrs: {
