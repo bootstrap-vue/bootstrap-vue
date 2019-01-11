@@ -425,6 +425,25 @@ describe('table', async () => {
     }
   })
 
+  it('each data row should emit a row-middle-clicked event when middle clicked', async () => {
+    const { app: { $refs } } = window
+    const vm = $refs.table_paginated
+
+    const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
+    expect(tbody).toBeDefined()
+    if (tbody) {
+      const trs = [...tbody.children]
+      expect(trs.length).toBe(vm.perPage)
+      trs.forEach((tr, idx) => {
+        const spy = jest.fn()
+        vm.$on('row-middle-clicked', spy)
+        tr.dispatchEvent(new MouseEvent('auxclick', { 'button': 1, 'which': 2 }))
+        vm.$off('row-middle-clicked', spy)
+        expect(spy).toHaveBeenCalled()
+      })
+    }
+  })
+
   it('each header th should emit a head-clicked event when clicked', async () => {
     const { app: { $refs } } = window
     const vm = $refs.table_paginated

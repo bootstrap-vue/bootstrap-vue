@@ -953,6 +953,13 @@ export default {
       }
       this.$emit('row-clicked', item, index, e)
     },
+    middleMouseRowClicked (e, item, index) {
+      if (this.stopIfBusy(e)) {
+        // If table is busy (via provider) then don't propagate
+        return
+      }
+      this.$emit('row-middle-clicked', item, index, e)
+    },
     rowDblClicked (e, item, index) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
@@ -1343,6 +1350,11 @@ export default {
               },
               on: {
                 // TODO: only instatiate handlers if we have registered listeners
+                auxclick: evt => {
+                  if (evt.which === 2) {
+                    this.middleMouseRowClicked(evt, item, rowIndex)
+                  }
+                },
                 click: evt => { this.rowClicked(evt, item, rowIndex) },
                 keydown: evt => {
                   const keyCode = evt.keyCode
