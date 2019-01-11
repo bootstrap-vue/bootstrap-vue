@@ -1,5 +1,6 @@
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
+import stableSort from '../../utils/stable-sort'
 import idMixin from '../../mixins/id'
 
 // Private Helper component
@@ -189,15 +190,11 @@ export default {
     })
   },
   methods: {
-    /**
-     * Util: Return the sign of a number (as -1, 0, or 1)
-     */
+    // Return the sign of a number (as -1, 0, or 1)
     sign (x) {
       return x === 0 ? 0 : x > 0 ? 1 : -1
     },
-    /*
-         * handle keyboard navigation
-         */
+    // handle keyboard navigation
     onKeynav (evt) {
       if (this.noKeyNav) {
         return
@@ -224,24 +221,18 @@ export default {
         }
       }
     },
-    /**
-     * Move to next tab
-     */
+    // Move to next tab
     nextTab () {
       this.setTab(this.currentTab + 1, false, 1)
     },
-    /**
-     * Move to previous tab
-     */
+    // Move to previous tab
     previousTab () {
       this.setTab(this.currentTab - 1, false, -1)
     },
-    /**
-     * Set active tab on the tabs collection and the child 'tab' component
-     * Index is the tab we want to activate. Direction is the direction we are moving
-     * so if the tab we requested is disabled, we can skip over it.
-     * Force is used by updateTabs to ensure we have cleared any previous active tabs.
-     */
+    // Set active tab on the tabs collection and the child 'tab' component
+    // Index is the tab we want to activate. Direction is the direction we are moving
+    // so if the tab we requested is disabled, we can skip over it.
+    // Force is used by updateTabs to ensure we have cleared any previous active tabs.
     setTab (index, force, direction) {
       direction = this.sign(direction || 0)
       index = index || 0
@@ -277,12 +268,12 @@ export default {
       // Update currentTab
       this.currentTab = index
     },
-    /**
-     * Dynamically update tabs list
-     */
+    // Dynamically update tabs list
     updateTabs () {
       // Probe tabs
-      this.tabs = this.$children.filter(child => child._isTab)
+      this.tabs = stableSort(this.$children.filter(child => child._isTab), (a, b) => {
+        a.computedOrder - b.computedOrder
+      })
       // Set initial active tab
       let tabIndex = null
       // Find *last* active non-dsabled tab in current tabs
