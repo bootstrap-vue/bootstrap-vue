@@ -9,7 +9,7 @@ const SELECTOR_TABS = '.tab-pane'
 // Private Helper component
 const BTabButtonHelper = {
   name: 'BTabButtonHelper',
-  privide () {
+  provide () {
     return {
       tabs: this
     }
