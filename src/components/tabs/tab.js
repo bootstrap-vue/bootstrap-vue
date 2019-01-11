@@ -4,6 +4,12 @@ import idMixin from '../../mixins/id'
 export default {
   name: 'BTab',
   mixins: [idMixin],
+  inject: {
+    tabs: {
+      from: 'tabs',
+      default: null
+    }
+  },
   props: {
     active: {
       type: Boolean,
@@ -58,7 +64,6 @@ export default {
   computed: {
     tabClasses () {
       return [
-        'tab-pane',
         this.$parent && this.$parent.card && !this.noBody ? 'card-body' : '',
         this.show ? 'show' : '',
         this.computedFade ? 'fade' : '',
@@ -100,6 +105,7 @@ export default {
         this.tag,
         {
           ref: 'panel',
+          staticClass: 'tab-pane',
           class: this.tabClasses,
           directives: [{ name: 'show', value: this.localActive }],
           attrs: {
