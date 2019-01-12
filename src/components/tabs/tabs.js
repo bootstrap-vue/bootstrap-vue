@@ -15,6 +15,7 @@ const BTabButtonHelper = {
     id: { type: String, default: null },
     active: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
+    tabIndex: { type: Boolean, default: null },
     linkClass: { default: null },
     itemClass: { default: null },
     noKeyNav: { type: Boolean, default: false }
@@ -37,7 +38,7 @@ const BTabButtonHelper = {
           role: 'tab',
           id: this.id,
           // Roving tab index when keynav enabled
-          tabindex: this.noKeyNav ? null : (this.active ? null : '-1'),
+          tabindex: this.tabIndex,
           'aria-selected': this.active ? 'true' : 'false',
           'aria-setsize': this.setSize,
           'aria-posinset': this.posInSet,
@@ -343,8 +344,21 @@ export default {
   render (h) {
     const tabs = this.tabs
     // Navigation 'buttons'
+    let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
+    const fallbackTab = tabs.find(tab => !tab.disabled)
+    // For each b-tab found
     const buttons = tabs.map((tab, index) => {
       const buttonId = tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`)
+      let tabindex = null
+      // Ensure at least one tab button is focusable when keynav enabled (if possible)
+      if (!this.noKeyNav) {
+        // buttons are not in tab index unless active, or a fallback tab
+        tabindex = '-1'
+        if (activeTab === tab || (!activeTab && fallbackTab === tab)) {
+          // Place tab button in tab sequence
+          tabindex = null
+        }
+      }
       return h(
         BTabButtonHelper,
         {
@@ -353,6 +367,7 @@ export default {
           props: {
             href: tab.href, // To be deprecated to be always '#'
             id: buttonId,
+            tabIndex: tabindex,
             active: tab.localActive && !tab.disabled,
             disabled: tab.disabled,
             setSize: tabs.length,
