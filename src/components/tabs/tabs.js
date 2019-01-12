@@ -195,6 +195,7 @@ export default {
   },
   watch: {
     currentTab (val, old) {
+      /* istanbul ignore if */
       if (val === old) {
         return
       }
@@ -205,6 +206,7 @@ export default {
       this.$emit('input', val)
     },
     value (val, old) {
+      /* istanbul ignore if */
       if (val === old) {
         return
       }
