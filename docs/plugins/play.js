@@ -11,11 +11,11 @@ const SCRIPT_REGEX = /<script>([\s\S]*)<\/script>/
 const CLASS_NAMES = {
   editable: 'editable',
   live: 'live',
-  error: 'error',
+  error: 'error'
 }
 
 // Default "transpiler" function
-let compiler = (code) => code
+let compiler = code => code
 
 const match = (regex, text) => (regex.exec(text) || [])[1]
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)
@@ -58,11 +58,13 @@ const createVM = (name, node, vnode) => {
     node.parentNode.insertBefore(holder, node)
 
     // Create VM
-    return new Vue(Object.assign({}, options, {
-      template: `<div class='bd-example vue-example vue-example-${name}'>${template}</div>`,
-      router: vnode.context.$router,
-      el: holder
-    }))
+    return new Vue(
+      Object.assign({}, options, {
+        template: `<div class='bd-example vue-example vue-example-${name}'>${template}</div>`,
+        router: vnode.context.$router,
+        el: holder
+      })
+    )
   } catch (e) {
     console.error('[v-play]', e)
   }
@@ -77,12 +79,14 @@ const destroyVM = (name, vm) => {
     vm.$el.innerHTML = ''
   }
 
-  [...document.querySelectorAll(`.vue-example-${name}`)].forEach(removeNode)
+  ;[...document.querySelectorAll(`.vue-example-${name}`)].forEach(removeNode)
 }
 
 const processExamples = (el, binding, vnode, oldVnode) => {
   if (vnode.context.$options['beforeDestroy']) {
-    vnode.context.$options['beforeDestroy'] = [].concat(vnode.context.$options['beforeDestroy']).filter(h => h)
+    vnode.context.$options['beforeDestroy'] = []
+      .concat(vnode.context.$options['beforeDestroy'])
+      .filter(h => h)
   } else {
     vnode.context.$options['beforeDestroy'] = []
   }
@@ -149,7 +153,7 @@ Vue.directive('play', (el, binding, vnode, oldVnode) => {
   vnode.context.$nextTick(() => {
     if (needsTranspiler) {
       window && window.$nuxt && window.$nuxt.$loading.start()
-      import('../utils/compile-js').then((module) => {
+      import('../utils/compile-js').then(module => {
         // Save the compiler reference for template parser
         compiler = module.default
         // Convert examples to live/editable

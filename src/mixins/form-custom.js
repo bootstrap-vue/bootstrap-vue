@@ -7,7 +7,7 @@ export default {
     }
   },
   computed: {
-    custom () {
+    custom() {
       return !this.plain
     }
   }

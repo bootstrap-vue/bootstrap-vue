@@ -1,11 +1,6 @@
 module.exports = {
-  extends: [
-    'standard',
-    'plugin:vue/recommended'
-  ],
-  plugins: [
-    'jest'
-  ],
+  extends: ['standard', 'plugin:vue/recommended', 'plugin:prettier/recommended'],
+  plugins: ['jest', 'node', 'promise'],
   parserOptions: {
     parser: 'babel-eslint',
     sourceType: 'module'
@@ -19,6 +14,9 @@ module.exports = {
     Vue: true
   },
   rules: {
+    'vue/no-template-shadow': 'off',
+    'vue/no-use-v-if-with-v-for': 'off',
+    'vue/no-v-html': 'off',
     'vue/require-default-prop': 'off',
     'vue/require-prop-types': 'off'
   }

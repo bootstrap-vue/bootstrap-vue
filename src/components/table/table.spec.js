@@ -1,24 +1,15 @@
-import {
-  loadFixture,
-  testVM,
-  setData,
-  nextTick,
-  sleep
-} from '../../../tests/utils'
+import { loadFixture, testVM, setData, nextTick, sleep } from '../../../tests/utils'
 
 describe('table', async () => {
   beforeEach(loadFixture(__dirname, 'table'))
   testVM()
 
   it('all example tables should contain class names', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
-    expect($refs.table_basic).toHaveAllClasses([
-      'table',
-      'b-table',
-      'table-striped',
-      'table-hover'
-    ])
+    expect($refs.table_basic).toHaveAllClasses(['table', 'b-table', 'table-striped', 'table-hover'])
 
     expect($refs.table_paginated).toHaveAllClasses([
       'table',
@@ -39,7 +30,9 @@ describe('table', async () => {
   })
 
   it('table_responsive should be wrapped in a div', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const table = $refs.table_responsive
 
     expect(table.$el.tagName).toBe('DIV')
@@ -49,7 +42,9 @@ describe('table', async () => {
   })
 
   it('should generate fields automatically from the first item', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const table = $refs.table_without_fields
     const thead = $refs.table_without_fields.$el.children[0]
     const tr = thead.children[0]
@@ -60,7 +55,9 @@ describe('table', async () => {
   })
 
   it('table_basic should have thead and tbody', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const parts = [...$refs.table_basic.$el.children]
 
@@ -75,7 +72,9 @@ describe('table', async () => {
   })
 
   it('table_paginated should have thead, tbody and tfoot', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const parts = [...$refs.table_paginated.$el.children]
 
@@ -90,7 +89,9 @@ describe('table', async () => {
   })
 
   it('table_dark should have thead and tbody', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const parts = [...$refs.table_dark.$el.children]
 
@@ -105,10 +106,10 @@ describe('table', async () => {
   })
 
   it('table_paginated thead should contain class thead-dark', async () => {
-    const { app: { $refs } } = window
-    const thead = [...$refs.table_paginated.$el.children].find(
-      el => el && el.tagName === 'THEAD'
-    )
+    const {
+      app: { $refs }
+    } = window
+    const thead = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'THEAD')
     expect(thead).toBeDefined()
     if (thead) {
       expect(thead.classList.contains('thead-dark')).toBe(true)
@@ -116,10 +117,10 @@ describe('table', async () => {
   })
 
   it('table_paginated tfoot should contain class thead-light', async () => {
-    const { app: { $refs } } = window
-    const tfoot = [...$refs.table_paginated.$el.children].find(
-      el => el && el.tagName === 'TFOOT'
-    )
+    const {
+      app: { $refs }
+    } = window
+    const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
     expect(tfoot).toBeDefined()
     if (tfoot) {
       expect(tfoot.classList.contains('thead-light')).toBe(true)
@@ -127,15 +128,15 @@ describe('table', async () => {
   })
 
   it('all examples have correct number of columns', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const tables = ['table_basic', 'table_paginated', 'table_dark']
 
     tables.forEach((table, idx) => {
       const vm = $refs[table]
-      const thead = [...vm.$el.children].find(
-        el => el && el.tagName === 'THEAD'
-      )
+      const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
       expect(thead).toBeDefined()
       if (thead) {
         const tr = [...thead.children].find(el => el && el.tagName === 'TR')
@@ -148,16 +149,16 @@ describe('table', async () => {
   })
 
   it('all examples should show the correct number of visible rows', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const app = window.app
 
     const tables = ['table_basic', 'table_paginated', 'table_dark']
 
     tables.forEach((table, idx) => {
       const vm = $refs[table]
-      const tbody = [...vm.$el.children].find(
-        el => el && el.tagName === 'TBODY'
-      )
+      const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
       expect(tbody).toBeDefined()
       if (tbody) {
         expect(tbody.children.length).toBe(vm.perPage || app.items.length)
@@ -166,16 +167,16 @@ describe('table', async () => {
   })
 
   it('all examples have sortable & unsortable headers', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const tables = ['table_basic', 'table_paginated', 'table_dark']
     // const sortables = [true, true, false, false]
 
     tables.forEach(table => {
       const vm = $refs[table]
-      const thead = [...vm.$el.children].find(
-        el => el && el.tagName === 'THEAD'
-      )
+      const thead = [...vm.$el.children].find(el => el && el.tagName === 'THEAD')
       expect(thead).toBeDefined()
       if (thead) {
         const tr = [...thead.children].find(el => el && el.tagName === 'TR')
@@ -185,9 +186,7 @@ describe('table', async () => {
           const ths = [...tr.children]
           expect(ths.length).toBe(fieldKeys.length)
           ths.forEach((th, idx) => {
-            expect(th.hasAttribute('aria-sort')).toBe(
-              vm.fields[fieldKeys[idx]].sortable || false
-            )
+            expect(th.hasAttribute('aria-sort')).toBe(vm.fields[fieldKeys[idx]].sortable || false)
           })
         }
       }
@@ -195,7 +194,9 @@ describe('table', async () => {
   })
 
   it('table_paginated has sortable & unsortable footers', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
     const fieldKeys = Object.keys(vm.fields)
 
@@ -208,9 +209,7 @@ describe('table', async () => {
         const ths = [...tr.children]
         expect(ths.length).toBe(fieldKeys.length)
         ths.forEach((th, idx) => {
-          expect(th.hasAttribute('aria-sort')).toBe(
-            vm.fields[fieldKeys[idx]].sortable || false
-          )
+          expect(th.hasAttribute('aria-sort')).toBe(vm.fields[fieldKeys[idx]].sortable || false)
         })
       }
     }
@@ -230,7 +229,9 @@ describe('table', async () => {
   })
 
   it('table_paginated should have attribute aria-busy="true" when busy is true', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const app = window.app
 
     await setData(app, 'isBusy', true)
@@ -243,7 +244,9 @@ describe('table', async () => {
   })
 
   it('sortable columns should have ARIA labels in thead', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
     const ariaLabel = vm.labelSortDesc
 
@@ -262,7 +265,9 @@ describe('table', async () => {
   })
 
   it('sortable columns should have ARIA labels in tfoot', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
     const ariaLabel = vm.labelSortDesc
 
@@ -281,7 +286,9 @@ describe('table', async () => {
   })
 
   it('all examples should have variant "success" on 1st row', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const app = window.app
 
     const tables = ['table_basic', 'table_paginated', 'table_dark']
@@ -293,16 +300,12 @@ describe('table', async () => {
 
     tables.forEach((table, idx) => {
       const vm = $refs[table]
-      const tbody = [...vm.$el.children].find(
-        el => el && el.tagName === 'TBODY'
-      )
+      const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
       expect(tbody).toBeDefined()
       if (tbody) {
         const tr = tbody.children[0]
         const variant = vm.dark ? 'bg-success' : 'table-success'
-        expect(
-          Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(variant)
-        ).toBe(true)
+        expect(Boolean(tr) && Boolean(tr.classList) && tr.classList.contains(variant)).toBe(true)
       }
     })
   })
@@ -348,11 +351,11 @@ describe('table', async () => {
   })
 
   it('table_paginated should contain custom formatted headers', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
-    const thead = [...$refs.table_paginated.$el.children].find(
-      el => el && el.tagName === 'THEAD'
-    )
+    const thead = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'THEAD')
     expect(thead).toBeDefined()
     if (thead) {
       const tr = [...thead.children].find(el => el && el.tagName === 'TR')
@@ -367,13 +370,13 @@ describe('table', async () => {
   })
 
   it('table_paginated should contain custom formatted footers', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     await nextTick()
 
-    const tfoot = [...$refs.table_paginated.$el.children].find(
-      el => el && el.tagName === 'TFOOT'
-    )
+    const tfoot = [...$refs.table_paginated.$el.children].find(el => el && el.tagName === 'TFOOT')
     expect(tfoot).toBeDefined()
     if (tfoot) {
       const tr = [...tfoot.children].find(el => el && el.tagName === 'TR')
@@ -388,7 +391,9 @@ describe('table', async () => {
   })
 
   it('each data row should emit a row-clicked event when clicked', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
 
     const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
@@ -407,7 +412,9 @@ describe('table', async () => {
   })
 
   it('each data row should emit a row-contextmenu event when right clicked', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
 
     const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
@@ -426,7 +433,9 @@ describe('table', async () => {
   })
 
   it('each data row should emit a row-middle-clicked event when middle clicked', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
 
     const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
@@ -437,7 +446,7 @@ describe('table', async () => {
       trs.forEach((tr, idx) => {
         const spy = jest.fn()
         vm.$on('row-middle-clicked', spy)
-        tr.dispatchEvent(new MouseEvent('auxclick', { 'button': 1, 'which': 2 }))
+        tr.dispatchEvent(new MouseEvent('auxclick', { button: 1, which: 2 }))
         vm.$off('row-middle-clicked', spy)
         expect(spy).toHaveBeenCalled()
       })
@@ -445,7 +454,9 @@ describe('table', async () => {
   })
 
   it('each header th should emit a head-clicked event when clicked', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
     const fieldKeys = Object.keys(vm.fields)
 
@@ -469,7 +480,9 @@ describe('table', async () => {
   })
 
   it('each footer th should emit a head-clicked event when clicked', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
     const fieldKeys = Object.keys(vm.fields)
 
@@ -493,7 +506,9 @@ describe('table', async () => {
   })
 
   it('sortable header th should emit a sort-changed event with context when clicked and sort changed', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
     const spy = jest.fn()
     const fieldKeys = Object.keys(vm.fields)
@@ -531,7 +546,9 @@ describe('table', async () => {
   })
 
   it('sortable footer th should emit a sort-changed event with context when clicked and sort changed', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
     const spy = jest.fn()
     const fieldKeys = Object.keys(vm.fields)
@@ -569,7 +586,9 @@ describe('table', async () => {
   })
 
   it('non-sortable header th should not emit a sort-changed event when clicked and prop no-sort-reset is set', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_no_sort_reset
     const spy = jest.fn()
     const fieldKeys = Object.keys(vm.fields)
@@ -601,7 +620,9 @@ describe('table', async () => {
   })
 
   it('table_paginated pagination works', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
     const app = window.app
     const spy = jest.fn()
@@ -634,7 +655,9 @@ describe('table', async () => {
   })
 
   it('table_paginated filtering works', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
     const app = window.app
     const spyInput = jest.fn()
@@ -673,16 +696,16 @@ describe('table', async () => {
 
       expect(vm.value.length).toBe(0)
       expect(tbody.children.length).toBe(1)
-      expect(tbody.children[0].children[0].textContent).toContain(
-        vm.emptyFilteredText
-      )
+      expect(tbody.children[0].children[0].textContent).toContain(vm.emptyFilteredText)
 
       expect(spyInput).toHaveBeenCalled()
     }
   })
 
   it('table_paginated shows empty message when no items', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const vm = $refs.table_paginated
     const app = window.app
     const spy = jest.fn()
@@ -772,56 +795,61 @@ describe('table', async () => {
     const { app } = window
     const vm = app.$refs.table_stacked
 
-    expect(vm).toHaveAllClasses([
-      'b-table-stacked'
-    ])
+    expect(vm).toHaveAllClasses(['b-table-stacked'])
   })
 
   it('all example tables should have custom formatted cells', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     const tables = ['table_basic', 'table_paginated', 'table_dark']
     await nextTick()
 
     tables.forEach((table, idx) => {
       const vm = $refs[table]
-      const tbody = [...vm.$el.children].find(
-        el => el && el.tagName === 'TBODY'
-      )
+      const tbody = [...vm.$el.children].find(el => el && el.tagName === 'TBODY')
       expect(tbody).toBeDefined()
       if (tbody) {
         const tr = tbody.children[0]
         expect(tr).toBeDefined()
-        expect(Boolean(tr.children[0]) &&
-          Boolean(tr.children[0].classList) &&
-          tr.children[0].classList.contains('bg-primary'))
-          .toBe(true)
-        expect(Boolean(tr.children[1]) &&
-          Boolean(tr.children[1].classList) &&
-          tr.children[1].classList.contains('bg-primary') &&
-          tr.children[1].classList.contains('text-dark'))
-          .toBe(true)
-        expect(Boolean(tr.children[2]) &&
-          Boolean(tr.children[2].classList) &&
-          tr.children[2].classList.contains('bg-danger'))
-          .toBe(true)
-        expect(Boolean(tr.children[3]) &&
-          Boolean(tr.children[3].classList) &&
-          tr.children[3].classList.contains('bg-primary') &&
-          tr.children[3].classList.contains('text-light'))
-          .toBe(true)
-        expect(Boolean(tr.children[0]) &&
-          Boolean(tr.children[0].attributes) &&
-          tr.children[0].getAttribute('title') === 'Person Full name')
-          .toBe(true)
-        expect(Boolean(tr.children[2]) &&
-          Boolean(tr.children[2].attributes) &&
-          tr.children[2].getAttribute('title') === 'is Active')
-          .toBe(true)
-        expect(Boolean(tr.children[3]) &&
-          Boolean(tr.children[3].attributes) &&
-          tr.children[3].getAttribute('title') === 'Actions')
-          .toBe(true)
+        expect(
+          Boolean(tr.children[0]) &&
+            Boolean(tr.children[0].classList) &&
+            tr.children[0].classList.contains('bg-primary')
+        ).toBe(true)
+        expect(
+          Boolean(tr.children[1]) &&
+            Boolean(tr.children[1].classList) &&
+            tr.children[1].classList.contains('bg-primary') &&
+            tr.children[1].classList.contains('text-dark')
+        ).toBe(true)
+        expect(
+          Boolean(tr.children[2]) &&
+            Boolean(tr.children[2].classList) &&
+            tr.children[2].classList.contains('bg-danger')
+        ).toBe(true)
+        expect(
+          Boolean(tr.children[3]) &&
+            Boolean(tr.children[3].classList) &&
+            tr.children[3].classList.contains('bg-primary') &&
+            tr.children[3].classList.contains('text-light')
+        ).toBe(true)
+        expect(
+          Boolean(tr.children[0]) &&
+            Boolean(tr.children[0].attributes) &&
+            tr.children[0].getAttribute('title') === 'Person Full name'
+        ).toBe(true)
+        expect(
+          Boolean(tr.children[2]) &&
+            Boolean(tr.children[2].attributes) &&
+            tr.children[2].getAttribute('title') === 'is Active'
+        ).toBe(true)
+        expect(
+          Boolean(tr.children[3]) &&
+            Boolean(tr.children[3].attributes) &&
+            tr.children[3].getAttribute('title') === 'Actions'
+        ).toBe(true)
       }
     })
   })
@@ -840,10 +868,11 @@ describe('table', async () => {
       const children = classesTest[className]
       for (let childIndex = 0, len = tbody.children.length - 1; childIndex < len; ++childIndex) {
         const hasClass = children.indexOf(childIndex) >= 0
-        expect(Boolean(tbody.children[childIndex]) &&
-        Boolean(tbody.children[childIndex].classList) &&
-        tbody.children[childIndex].classList.contains(className))
-          .toBe(hasClass)
+        expect(
+          Boolean(tbody.children[childIndex]) &&
+            Boolean(tbody.children[childIndex].classList) &&
+            tbody.children[childIndex].classList.contains(className)
+        ).toBe(hasClass)
       }
     }
   })

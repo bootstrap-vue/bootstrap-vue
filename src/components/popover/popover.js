@@ -24,11 +24,11 @@ export default {
       default: 'right'
     }
   },
-  data () {
+  data() {
     return {}
   },
   methods: {
-    createToolpop () {
+    createToolpop() {
       // getTarget is in toolpop mixin
       const target = this.getTarget()
       if (target) {
@@ -40,7 +40,7 @@ export default {
       return this._toolpop
     }
   },
-  render (h) {
+  render(h) {
     return h(
       'div',
       {

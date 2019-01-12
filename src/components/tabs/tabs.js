@@ -18,38 +18,35 @@ const BTabButtonHelper = {
     itemClass: { default: null },
     noKeyNav: { type: Boolean, default: false }
   },
-  render (h) {
-    const link = h('a', {
-      staticClass: 'nav-link',
-      class: [
-        { active: this.active, disabled: this.disabled },
-        this.linkClass
-      ],
-      attrs: {
-        role: 'tab',
-        tabindex: this.noKeyNav ? null : '-1',
-        href: this.href,
-        id: this.id,
-        disabled: this.disabled,
-        'aria-selected': this.active ? 'true' : 'false',
-        'aria-setsize': this.setSize,
-        'aria-posinset': this.posInSet,
-        'aria-controls': this.controls
+  render(h) {
+    const link = h(
+      'a',
+      {
+        staticClass: 'nav-link',
+        class: [{ active: this.active, disabled: this.disabled }, this.linkClass],
+        attrs: {
+          role: 'tab',
+          tabindex: this.noKeyNav ? null : '-1',
+          href: this.href,
+          id: this.id,
+          disabled: this.disabled,
+          'aria-selected': this.active ? 'true' : 'false',
+          'aria-setsize': this.setSize,
+          'aria-posinset': this.posInSet,
+          'aria-controls': this.controls
+        },
+        on: {
+          click: this.handleClick,
+          keydown: this.handleClick
+        }
       },
-      on: {
-        click: this.handleClick,
-        keydown: this.handleClick
-      }
-    }, this.content)
-    return h(
-      'li',
-      { class: ['nav-item', this.itemClass], attrs: { role: 'presentation' } },
-      [link]
+      this.content
     )
+    return h('li', { class: ['nav-item', this.itemClass], attrs: { role: 'presentation' } }, [link])
   },
   methods: {
-    handleClick (evt) {
-      function stop () {
+    handleClick(evt) {
+      function stop() {
         evt.preventDefault()
         evt.stopPropagation()
       }
@@ -140,23 +137,23 @@ export default {
       default: null
     }
   },
-  data () {
+  data() {
     return {
       currentTab: this.value,
       tabs: []
     }
   },
   computed: {
-    fade () {
+    fade() {
       // This computed prop is sniffed by the tab child
       return !this.noFade
     },
-    navStyle () {
+    navStyle() {
       return this.pills ? 'pills' : 'tabs'
     }
   },
   watch: {
-    currentTab (val, old) {
+    currentTab(val, old) {
       if (val === old) {
         return
       }
@@ -164,7 +161,7 @@ export default {
       this.$emit('input', val)
       this.tabs[val].$emit('click')
     },
-    value (val, old) {
+    value(val, old) {
       if (val === old) {
         return
       }
@@ -176,7 +173,7 @@ export default {
       this.setTab(val, false, direction)
     }
   },
-  mounted () {
+  mounted() {
     this.updateTabs()
     // Observe Child changes so we can notify tabs change
     observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
@@ -187,19 +184,19 @@ export default {
     /**
      * Util: Return the sign of a number (as -1, 0, or 1)
      */
-    sign (x) {
+    sign(x) {
       return x === 0 ? 0 : x > 0 ? 1 : -1
     },
     /*
-         * handle keyboard navigation
-         */
-    onKeynav (evt) {
+     * handle keyboard navigation
+     */
+    onKeynav(evt) {
       if (this.noKeyNav) {
         return
       }
       const key = evt.keyCode
       const shift = evt.shiftKey
-      function stop () {
+      function stop() {
         evt.preventDefault()
         evt.stopPropagation()
       }
@@ -222,13 +219,13 @@ export default {
     /**
      * Move to next tab
      */
-    nextTab () {
+    nextTab() {
       this.setTab(this.currentTab + 1, false, 1)
     },
     /**
      * Move to previous tab
      */
-    previousTab () {
+    previousTab() {
       this.setTab(this.currentTab - 1, false, -1)
     },
     /**
@@ -237,7 +234,7 @@ export default {
      * so if the tab we requested is disabled, we can skip over it.
      * Force is used by updateTabs to ensure we have cleared any previous active tabs.
      */
-    setTab (index, force, direction) {
+    setTab(index, force, direction) {
       direction = this.sign(direction || 0)
       index = index || 0
       // Prevent setting same tab and infinite loops!
@@ -275,7 +272,7 @@ export default {
     /**
      * Dynamically update tabs list
      */
-    updateTabs () {
+    updateTabs() {
       // Probe tabs
       this.tabs = this.$children.filter(child => child._isTab)
       // Set initial active tab
@@ -293,10 +290,7 @@ export default {
           // Handle last tab being removed
           this.setTab(this.tabs.length - 1, true, -1)
           return
-        } else if (
-          this.tabs[this.currentTab] &&
-          !this.tabs[this.currentTab].disabled
-        ) {
+        } else if (this.tabs[this.currentTab] && !this.tabs[this.currentTab].disabled) {
           tabIndex = this.currentTab
         }
       }
@@ -311,7 +305,7 @@ export default {
       this.setTab(tabIndex || 0, true, 0)
     }
   },
-  render (h) {
+  render(h) {
     const tabs = this.tabs
     // Navigation 'buttons'
     const buttons = tabs.map((tab, index) => {
@@ -406,10 +400,7 @@ export default {
     return h(
       this.tag,
       {
-        class: [
-          'tabs',
-          { row: this.vertical, 'no-gutters': this.vertical && this.card }
-        ],
+        class: ['tabs', { row: this.vertical, 'no-gutters': this.vertical && this.card }],
         attrs: { id: this.safeId() }
       },
       [

@@ -205,14 +205,14 @@ display or hide content within the toggle via custom CSS:
 }
 ```
 
-## 'Global' $root instance events
+## 'Global' \$root instance events
 
 Using `$root` instance it is possible to emit and listen events somewhere out of a component, where
 `<b-collapse>` is used. In short, `$root` behaves like a global event emitters and listener. Details
 about `$root` instance can be found in
 [the official Vue docs](https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-the-Root-Instance).
 
-### Listening to collapses state changes via $root events
+### Listening to collapses state changes via \$root events
 
 To listen to any collapse state changes, use:
 
@@ -228,7 +228,7 @@ mounted () {
 where `collapseId` is collapse id which changed its state; `isJustShown` is true/false, i.e.
 shown/hidden collapse.
 
-### Toggling collapses via $root events
+### Toggling collapses via \$root events
 
 To toggle (open/close) a **specific collapse**, pass the collapse `id`:
 

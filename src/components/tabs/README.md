@@ -6,7 +6,6 @@
 For navigation based tabs, use the [`<b-nav>`](/docs/components/nav) component and
 [`<b-card>`](/docs/components/card) component instead.
 
-
 ## Basic usage
 
 ```html

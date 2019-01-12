@@ -453,7 +453,7 @@ component. This will hide the modal before another modal is shown.
   will be opened, otherwise a newly opened modal may appear hidden or obscured by a currently open
   modal.
 
-## Listening to modal changes via $root events
+## Listening to modal changes via \$root events
 
 To listen to any modal opening, use:
 

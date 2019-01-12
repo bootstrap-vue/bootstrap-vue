@@ -34,7 +34,7 @@ export default {
   name: 'BNavbar',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     let breakpoint = ''
     if (props.toggleable && typeof props.toggleable === 'string' && props.toggleable !== 'xs') {
       breakpoint = `navbar-expand-${props.toggleable}`

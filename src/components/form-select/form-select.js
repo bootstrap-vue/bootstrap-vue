@@ -9,14 +9,7 @@ import { from as arrayFrom } from '../../utils/array'
 // @vue/component
 export default {
   name: 'BFormSelect',
-  mixins: [
-    idMixin,
-    formMixin,
-    formSizeMixin,
-    formStateMixin,
-    formCustomMixin,
-    formOptionsMixin
-  ],
+  mixins: [idMixin, formMixin, formSizeMixin, formStateMixin, formCustomMixin, formOptionsMixin],
   props: {
     value: {
       // type: Object,
@@ -37,18 +30,18 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       localValue: this.value
     }
   },
   computed: {
-    computedSelectSize () {
+    computedSelectSize() {
       // Custom selects with a size of zero causes the arrows to be hidden,
       // so dont render the size attribute in this case
       return !this.plain && this.selectSize === 0 ? null : this.selectSize
     },
-    inputClass () {
+    inputClass() {
       return [
         this.plain ? 'form-control' : 'custom-select',
         this.size && this.plain ? `form-control-${this.size}` : null,
@@ -56,7 +49,7 @@ export default {
         this.stateClass
       ]
     },
-    computedAriaInvalid () {
+    computedAriaInvalid() {
       if (this.ariaInvalid === true || this.ariaInvalid === 'true') {
         return 'true'
       }
@@ -64,22 +57,22 @@ export default {
     }
   },
   watch: {
-    value (newVal, oldVal) {
+    value(newVal, oldVal) {
       this.localValue = newVal
     },
-    localValue (newVal, oldVal) {
+    localValue(newVal, oldVal) {
       this.$emit('input', this.localValue)
     }
   },
   methods: {
-    focus () {
+    focus() {
       this.$refs.input.focus()
     },
-    blur () {
+    blur() {
       this.$refs.input.blur()
     }
   },
-  render (h) {
+  render(h) {
     const $slots = this.$slots
     const options = this.formOptions.map((option, index) => {
       return h('option', {

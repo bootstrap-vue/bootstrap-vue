@@ -33,15 +33,15 @@ export default {
     }
   },
   computed: {
-    inline () {
+    inline() {
       return !this.stacked
     },
-    groupName () {
+    groupName() {
       // checks/radios tied to the same model must have the sanme name,
       // especially for ARIA accessibility.
       return this.name || this.safeId()
     },
-    groupClasses () {
+    groupClasses() {
       if (this.buttons) {
         return [
           'btn-group-toggle',
@@ -56,7 +56,7 @@ export default {
         this.validated ? `was-validated` : ''
       ]
     },
-    computedAriaInvalid () {
+    computedAriaInvalid() {
       const ariaInvalid = this.ariaInvalid
       if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
         return 'true'
@@ -65,14 +65,14 @@ export default {
     }
   },
   watch: {
-    checked (newVal, oldVal) {
+    checked(newVal, oldVal) {
       this.localChecked = newVal
     },
-    localChecked (newVal, oldVal) {
+    localChecked(newVal, oldVal) {
       this.$emit('input', newVal)
     }
   },
-  render (h) {
+  render(h) {
     const $slots = this.$slots
 
     const inputs = this.formOptions.map((option, idx) => {

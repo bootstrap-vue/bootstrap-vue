@@ -14,7 +14,7 @@ const testFields = Object.keys(testItems[0]).sort()
 
 describe('b-table provider functions', async () => {
   it('syncronous items provider works', async () => {
-    function provider (ctx) {
+    function provider(ctx) {
       return testItems.slice()
     }
     const wrapper = mount(Table, {
@@ -31,14 +31,21 @@ describe('b-table provider functions', async () => {
     expect(wrapper.emitted('input')).toBeDefined()
 
     expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .findAll('tr')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
   })
 
   it('promise items provider works', async () => {
     let doResolve
-    const promise = new Promise((resolve, reject) => { doResolve = resolve })
-    function provider (ctx) {
+    const promise = new Promise((resolve, reject) => {
+      doResolve = resolve
+    })
+    function provider(ctx) {
       return promise
     }
     const wrapper = mount(Table, {
@@ -55,7 +62,12 @@ describe('b-table provider functions', async () => {
     expect(wrapper.emitted('update:busy')).toBeDefined()
 
     expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .findAll('tr')
+        .exists()
+    ).toBe(true)
     // Should have single empty row
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
@@ -66,13 +78,18 @@ describe('b-table provider functions', async () => {
 
     await Vue.nextTick()
 
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .findAll('tr')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
   })
 
   it('callback items provider works', async () => {
     let callback
-    function provider (ctx, cb) {
+    function provider(ctx, cb) {
       callback = cb
       return null
     }
@@ -90,7 +107,12 @@ describe('b-table provider functions', async () => {
     expect(wrapper.emitted('update:busy')).toBeDefined()
 
     expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .findAll('tr')
+        .exists()
+    ).toBe(true)
     // Should have single empty row
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
@@ -101,12 +123,17 @@ describe('b-table provider functions', async () => {
 
     await Vue.nextTick()
 
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .findAll('tr')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
   })
 
   it('callback items provider expects 2 arguments', async () => {
-    function provider (ctx) {
+    function provider(ctx) {
       return null
     }
     const wrapper = mount(Table, {
@@ -123,7 +150,12 @@ describe('b-table provider functions', async () => {
     expect(wrapper.emitted('update:busy')).toBeDefined()
 
     expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .findAll('tr')
+        .exists()
+    ).toBe(true)
     // Should have single empty row
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
@@ -134,12 +166,17 @@ describe('b-table provider functions', async () => {
     const last = wrapper.emitted('update:busy').length - 1
     expect(wrapper.emitted('update:busy')[last][0]).toBe(false)
 
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .findAll('tr')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
   })
 
   it('provider refreshing works', async () => {
-    function provider (ctx) {
+    function provider(ctx) {
       return testItems.slice()
     }
     const wrapper = mount(Table, {
@@ -170,7 +207,7 @@ describe('b-table provider functions', async () => {
 
   it('refresh debouncing works', async () => {
     let callback
-    function provider (ctx, cb) {
+    function provider(ctx, cb) {
       callback = cb
       return null
     }

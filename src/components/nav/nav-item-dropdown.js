@@ -27,11 +27,11 @@ export default {
     }
   },
   computed: {
-    isNav () {
+    isNav() {
       // Signal to dropdown mixin that we are in a navbar
       return true
     },
-    dropdownClasses () {
+    dropdownClasses() {
       return [
         'nav-item',
         'b-nav-dropdown',
@@ -40,7 +40,7 @@ export default {
         this.visible ? 'show' : ''
       ]
     },
-    toggleClasses () {
+    toggleClasses() {
       return [
         'nav-link',
         this.noCaret ? '' : 'dropdown-toggle',
@@ -48,7 +48,7 @@ export default {
         this.extraToggleClasses ? this.extraToggleClasses : ''
       ]
     },
-    menuClasses () {
+    menuClasses() {
       return [
         'dropdown-menu',
         this.right ? 'dropdown-menu-right' : 'dropdown-menu-left',
@@ -57,7 +57,7 @@ export default {
       ]
     }
   },
-  render (h) {
+  render(h) {
     const button = h(
       'a',
       {
@@ -97,10 +97,6 @@ export default {
       },
       [this.$slots.default]
     )
-    return h(
-      'li',
-      { attrs: { id: this.safeId() }, class: this.dropdownClasses },
-      [button, menu]
-    )
+    return h('li', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [button, menu])
   }
 }

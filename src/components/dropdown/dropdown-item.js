@@ -13,13 +13,13 @@ export default {
   },
   props,
   methods: {
-    closeDropdown () {
+    closeDropdown() {
       if (this.dropdown) {
         this.dropdown.hide(true)
       }
     }
   },
-  render (h) {
+  render(h) {
     return h(
       BLink,
       {

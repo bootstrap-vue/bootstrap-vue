@@ -20,7 +20,7 @@ export default {
   name: 'BCardGroup',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     let baseClass = 'card-group'
     if (props.deck) {
       baseClass = 'card-deck'

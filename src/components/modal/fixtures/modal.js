@@ -6,10 +6,10 @@ window.app = new Vue({
     enableModal: true
   },
   methods: {
-    clearName () {
+    clearName() {
       this.name = ''
     },
-    submit (e) {
+    submit(e) {
       if (!this.name) {
         return e.preventDefault()
       }

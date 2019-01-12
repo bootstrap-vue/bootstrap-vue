@@ -46,19 +46,20 @@ export default {
       value: false
     }
   },
-  data () {
+  data() {
     return {
       localValue: this.stringifyValue(this.value)
     }
   },
   computed: {
-    computedClass () {
+    computedClass() {
       return [
         {
           // Range input needs class custom-range
           'custom-range': this.type === 'range',
           // plaintext not supported by type=range or type=color
-          'form-control-plaintext': this.plaintext && this.type !== 'range' && this.type !== 'color',
+          'form-control-plaintext':
+            this.plaintext && this.type !== 'range' && this.type !== 'color',
           // form-control not used by type=range or plaintext. Always used by type=color
           'form-control': (!this.plaintext && this.type !== 'range') || this.type === 'color'
         },
@@ -66,7 +67,7 @@ export default {
         this.stateClass
       ]
     },
-    computedAriaInvalid () {
+    computedAriaInvalid() {
       if (!this.ariaInvalid || this.ariaInvalid === 'false') {
         // this.ariaInvalid is null or false or 'false'
         return this.computedState === false ? 'true' : null
@@ -80,30 +81,30 @@ export default {
     }
   },
   watch: {
-    value (newVal, oldVal) {
+    value(newVal, oldVal) {
       if (newVal !== oldVal && newVal !== this.localValue) {
         this.localValue = this.stringifyValue(newVal)
       }
     }
   },
-  mounted () {
+  mounted() {
     const value = this.stringifyValue(this.value)
     if (value !== this.localValue) {
       this.localValue = value
     }
   },
   methods: {
-    stringifyValue (value) {
-      return (value === null || typeof value === 'undefined') ? '' : String(value)
+    stringifyValue(value) {
+      return value === null || typeof value === 'undefined' ? '' : String(value)
     },
-    getFormatted (value, event, force = false) {
+    getFormatted(value, event, force = false) {
       value = this.stringifyValue(value)
       if ((!this.lazyFormatter || force) && typeof this.formatter === 'function') {
         value = this.formatter(value, event)
       }
       return value
     },
-    updateValue (value) {
+    updateValue(value) {
       value = this.stringifyValue(value)
       if (this.localValue !== value) {
         // keep the input set to the value before modifiers
@@ -120,7 +121,7 @@ export default {
         this.$emit('update', value)
       }
     },
-    onInput (evt) {
+    onInput(evt) {
       // evt.target.composing is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
       if (evt.target.composing) {
@@ -133,7 +134,7 @@ export default {
       this.updateValue(formatted)
       this.$emit('input', formatted)
     },
-    onChange (evt) {
+    onChange(evt) {
       // evt.target.composing is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
       if (evt.target.composing) {
@@ -146,7 +147,7 @@ export default {
       this.updateValue(formatted)
       this.$emit('change', formatted)
     },
-    onBlur (evt) {
+    onBlur(evt) {
       // lazy formatter
       if (this.lazyFormatter) {
         const formatted = this.getFormatted(evt.target.value, evt, true)
@@ -158,13 +159,13 @@ export default {
       // Emit native blur event
       this.$emit('blur', evt)
     },
-    focus () {
+    focus() {
       // For external handler that may want a focus method
       if (!this.disabled) {
         this.$el.focus()
       }
     },
-    blur () {
+    blur() {
       // For external handler that may want a blur method
       if (!this.disabled) {
         this.$el.blur()

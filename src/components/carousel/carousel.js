@@ -1,6 +1,14 @@
 import observeDom from '../../utils/observe-dom'
 import KeyCodes from '../../utils/key-codes'
-import { selectAll, reflow, addClass, removeClass, setAttr, eventOn, eventOff } from '../../utils/dom'
+import {
+  selectAll,
+  reflow,
+  addClass,
+  removeClass,
+  setAttr,
+  eventOn,
+  eventOff
+} from '../../utils/dom'
 import { inBrowser, hasTouchSupport, hasPointerEvent } from '../../utils/env'
 import idMixin from '../../mixins/id'
 
@@ -42,7 +50,7 @@ const TransitionEndEvents = {
 const EventOptions = { passive: true, capture: false }
 
 // Return the browser specific transitionEnd event name
-function getTransisionEndEvent (el) {
+function getTransisionEndEvent(el) {
   for (const name in TransitionEndEvents) {
     if (el.style[name] !== undefined) {
       /* istanbul ignore next: JSDOM doesn't support transition events */
@@ -56,8 +64,8 @@ function getTransisionEndEvent (el) {
 // @vue/component
 export default {
   name: 'BCarousel',
-  mixins: [ idMixin ],
-  provide () {
+  mixins: [idMixin],
+  provide() {
     return { carousel: this }
   },
   props: {
@@ -123,7 +131,7 @@ export default {
       default: 0
     }
   },
-  data () {
+  data() {
     return {
       index: this.value || 0,
       isSliding: false,
@@ -137,12 +145,12 @@ export default {
     }
   },
   watch: {
-    value (newVal, oldVal) {
+    value(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.setSlide(newVal)
       }
     },
-    interval (newVal, oldVal) {
+    interval(newVal, oldVal) {
       if (newVal === oldVal) {
         return
       }
@@ -155,25 +163,25 @@ export default {
         this.start(false)
       }
     },
-    isPaused (newVal, oldVal) {
+    isPaused(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.$emit(newVal ? 'paused' : 'unpaused')
       }
     },
-    index (to, from) {
+    index(to, from) {
       if (to === from || this.isSliding) {
         return
       }
       this.doSlide(to, from)
     }
   },
-  created () {
+  created() {
     // Create private non-reactive props
     this._intervalId = null
     this._animationTimeout = null
     this._touchTimeout = null
   },
-  mounted () {
+  mounted() {
     // Cache current browser transitionend event name
     this.transitionEndEvent = getTransisionEndEvent(this.$el) || null
     // Get all slides
@@ -183,10 +191,10 @@ export default {
       subtree: false,
       childList: true,
       attributes: true,
-      attributeFilter: [ 'id' ]
+      attributeFilter: ['id']
     })
   },
-  beforeDestroy () /* istanbul ignore next: dificult to test */ {
+  beforeDestroy() /* istanbul ignore next: dificult to test */ {
     clearTimeout(this._animationTimeout)
     clearTimeout(this._touchTimeout)
     clearInterval(this._intervalId)
@@ -196,7 +204,7 @@ export default {
   },
   methods: {
     // Set slide
-    setSlide (slide, direction = null) {
+    setSlide(slide, direction = null) {
       // Don't animate when page is not visible
       /* istanbul ignore if: dificult to test */
       if (inBrowser && document.visibilityState && document.hidden) {
@@ -217,18 +225,18 @@ export default {
       // Make sure we have an integer (you never know!)
       slide = Math.floor(slide)
       // Set new slide index. Wrap around if necessary
-      this.index = slide >= len ? 0 : (slide >= 0 ? slide : len - 1)
+      this.index = slide >= len ? 0 : slide >= 0 ? slide : len - 1
     },
     // Previous slide
-    prev () {
+    prev() {
       this.setSlide(this.index - 1, 'prev')
     },
     // Next slide
-    next () {
+    next() {
       this.setSlide(this.index + 1, 'next')
     },
     // Pause auto rotation
-    pause (evt) {
+    pause(evt) {
       if (!evt) {
         this.isPaused = true
       }
@@ -238,7 +246,7 @@ export default {
       }
     },
     // Start auto rotate slides
-    start (evt) {
+    start(evt) {
       if (!evt) {
         this.isPaused = false
       }
@@ -252,13 +260,13 @@ export default {
       }
     },
     // Re-Start auto rotate slides when focus/hover leaves the carousel
-    restart (evt) {
+    restart(evt) {
       /* istanbul ignore if: dificult to test */
       if (!this.$el.contains(document.activeElement)) {
         this.start()
       }
     },
-    doSlide (to, from) {
+    doSlide(to, from) {
       const isCycling = Boolean(this.interval)
       // Determine sliding direction
       let direction = this.calcDirection(this.direction, from, to)
@@ -294,7 +302,7 @@ export default {
         // Transition End handler
         let called = false
         /* istanbul ignore next: dificult to test */
-        const onceTransEnd = (evt) => {
+        const onceTransEnd = evt => {
           if (called) {
             return
           }
@@ -334,7 +342,7 @@ export default {
       }
     },
     // Update slide list
-    updateSlides () {
+    updateSlides() {
       this.pause(true)
       // Get all slides as DOM elements
       this.slides = selectAll('.carousel-item', this.$refs.inner)
@@ -357,13 +365,13 @@ export default {
       this.setSlide(index)
       this.start(this.isPaused)
     },
-    calcDirection (direction = null, curIndex = 0, nextIndex = 0) {
+    calcDirection(direction = null, curIndex = 0, nextIndex = 0) {
       if (!direction) {
-        return (nextIndex > curIndex) ? DIRECTION.next : DIRECTION.prev
+        return nextIndex > curIndex ? DIRECTION.next : DIRECTION.prev
       }
       return DIRECTION[direction]
     },
-    handleClick (evt, fn) {
+    handleClick(evt, fn) {
       const keyCode = evt.keyCode
       if (evt.type === 'click' || keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
         evt.preventDefault()
@@ -371,7 +379,7 @@ export default {
         fn()
       }
     },
-    handleSwipe () /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    handleSwipe() /* istanbul ignore next: JSDOM doesn't support touch events */ {
       const absDeltax = Math.abs(this.touchDeltaX)
       if (absDeltax <= SWIPE_THRESHOLD) {
         return
@@ -385,14 +393,14 @@ export default {
         this.next()
       }
     },
-    touchStart (evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    touchStart(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
       if (hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchStartX = evt.clientX
       } else if (!hasPointerEvent) {
         this.touchStartX = evt.touches[0].clientX
       }
     },
-    touchMove (evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    touchMove(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
       // ensure swiping with one touch and not pinching
       if (evt.touches && evt.originalEvent.touches.length > 1) {
         this.touchDeltaX = 0
@@ -400,7 +408,7 @@ export default {
         this.touchDeltaX = evt.touches[0].clientX - this.touchStartX
       }
     },
-    touchEnd (evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    touchEnd(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
       if (hasPointerEvent && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchDeltaX = evt.clientX - this.touchStartX
       }
@@ -416,22 +424,25 @@ export default {
       if (this._touchTimeout) {
         clearTimeout(this._touchTimeout)
       }
-      this._touchTimeout = setTimeout(this.start, TOUCHEVENT_COMPAT_WAIT + Math.max(1000, this.interval))
+      this._touchTimeout = setTimeout(
+        this.start,
+        TOUCHEVENT_COMPAT_WAIT + Math.max(1000, this.interval)
+      )
     }
   },
-  render (h) {
+  render(h) {
     // Wrapper for slides
     const inner = h(
       'div',
       {
         ref: 'inner',
-        class: [ 'carousel-inner' ],
+        class: ['carousel-inner'],
         attrs: {
           id: this.safeId('__BV_inner_'),
           role: 'list'
         }
       },
-      [ this.$slots.default ]
+      [this.$slots.default]
     )
 
     // Prev and Next Controls
@@ -441,31 +452,39 @@ export default {
         h(
           'a',
           {
-            class: [ 'carousel-control-prev' ],
+            class: ['carousel-control-prev'],
             attrs: { href: '#', role: 'button', 'aria-controls': this.safeId('__BV_inner_') },
             on: {
-              click: (evt) => { this.handleClick(evt, this.prev) },
-              keydown: (evt) => { this.handleClick(evt, this.prev) }
+              click: evt => {
+                this.handleClick(evt, this.prev)
+              },
+              keydown: evt => {
+                this.handleClick(evt, this.prev)
+              }
             }
           },
           [
-            h('span', { class: [ 'carousel-control-prev-icon' ], attrs: { 'aria-hidden': 'true' } }),
-            h('span', { class: [ 'sr-only' ] }, [ this.labelPrev ])
+            h('span', { class: ['carousel-control-prev-icon'], attrs: { 'aria-hidden': 'true' } }),
+            h('span', { class: ['sr-only'] }, [this.labelPrev])
           ]
         ),
         h(
           'a',
           {
-            class: [ 'carousel-control-next' ],
+            class: ['carousel-control-next'],
             attrs: { href: '#', role: 'button', 'aria-controls': this.safeId('__BV_inner_') },
             on: {
-              click: (evt) => { this.handleClick(evt, this.next) },
-              keydown: (evt) => { this.handleClick(evt, this.next) }
+              click: evt => {
+                this.handleClick(evt, this.next)
+              },
+              keydown: evt => {
+                this.handleClick(evt, this.next)
+              }
             }
           },
           [
-            h('span', { class: [ 'carousel-control-next-icon' ], attrs: { 'aria-hidden': 'true' } }),
-            h('span', { class: [ 'sr-only' ] }, [ this.labelNext ])
+            h('span', { class: ['carousel-control-next-icon'], attrs: { 'aria-hidden': 'true' } }),
+            h('span', { class: ['sr-only'] }, [this.labelNext])
           ]
         )
       ]
@@ -475,7 +494,7 @@ export default {
     const indicators = h(
       'ol',
       {
-        class: [ 'carousel-indicators' ],
+        class: ['carousel-indicators'],
         directives: [
           { name: 'show', rawName: 'v-show', value: this.indicators, expression: 'indicators' }
         ],
@@ -487,26 +506,31 @@ export default {
         }
       },
       this.slides.map((slide, n) => {
-        return h(
-          'li',
-          {
-            key: `slide_${n}`,
-            class: { active: n === this.index },
-            attrs: {
-              role: 'button',
-              id: this.safeId(`__BV_indicator_${n + 1}_`),
-              tabindex: this.indicators ? '0' : '-1',
-              'aria-current': n === this.index ? 'true' : 'false',
-              'aria-label': `${this.labelGotoSlide} ${n + 1}`,
-              'aria-describedby': this.slides[n].id || null,
-              'aria-controls': this.safeId('__BV_inner_')
+        return h('li', {
+          key: `slide_${n}`,
+          class: { active: n === this.index },
+          attrs: {
+            role: 'button',
+            id: this.safeId(`__BV_indicator_${n + 1}_`),
+            tabindex: this.indicators ? '0' : '-1',
+            'aria-current': n === this.index ? 'true' : 'false',
+            'aria-label': `${this.labelGotoSlide} ${n + 1}`,
+            'aria-describedby': this.slides[n].id || null,
+            'aria-controls': this.safeId('__BV_inner_')
+          },
+          on: {
+            click: evt => {
+              this.handleClick(evt, () => {
+                this.setSlide(n)
+              })
             },
-            on: {
-              click: (evt) => { this.handleClick(evt, () => { this.setSlide(n) }) },
-              keydown: (evt) => { this.handleClick(evt, () => { this.setSlide(n) }) }
+            keydown: evt => {
+              this.handleClick(evt, () => {
+                this.setSlide(n)
+              })
             }
           }
-        )
+        })
       })
     )
 
@@ -515,7 +539,7 @@ export default {
       mouseleave: this.restart,
       focusin: this.pause,
       focusout: this.restart,
-      keydown: (evt) => {
+      keydown: evt => {
         if (/input|textarea/i.test(evt.target.tagName)) {
           return
         }
@@ -528,8 +552,8 @@ export default {
       }
     }
     // Touch support event handlers for environment
-    if (!this.noTouch && hasTouchSupport) /* istanbul ignore next: JSDOM doesn't support touch events */ {
-      // Attach appropriate listeners (passsive mode)
+    if (!this.noTouch && hasTouchSupport) {
+      /* istanbul ignore next: JSDOM doesn't support touch events */ // Attach appropriate listeners (passsive mode)
       if (hasPointerEvent) {
         on['&pointerdown'] = this.touchStart
         on['&pointerup'] = this.touchEnd
@@ -546,7 +570,7 @@ export default {
       {
         staticClass: 'carousel',
         class: {
-          'slide': !this.noAnimation,
+          slide: !this.noAnimation,
           'carousel-fade': !this.noAnimation && this.fade,
           'pointer-event': !this.noTouch && hasTouchSupport && hasPointerEvent
         },
@@ -558,7 +582,7 @@ export default {
         },
         on
       },
-      [ inner, controls, indicators ]
+      [inner, controls, indicators]
     )
   }
 }

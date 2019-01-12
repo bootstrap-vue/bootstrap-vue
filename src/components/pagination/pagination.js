@@ -4,12 +4,12 @@ import { isVisible } from '../../utils/dom'
 const DEFAULT_PER_PAGE = 20
 const DEFAULT_TOTAL_ROWS = 20
 
-function sanitizePerPage (value) {
+function sanitizePerPage(value) {
   const perPage = parseInt(value, 10) || DEFAULT_PER_PAGE
   return perPage < 1 ? 1 : perPage
 }
 
-function sanitizeTotalRows (value) {
+function sanitizeTotalRows(value) {
   const totalRows = parseInt(value, 10) || DEFAULT_TOTAL_ROWS
   return totalRows < 0 ? 0 : totalRows
 }
@@ -33,17 +33,17 @@ const props = {
 // @vue/component
 export default {
   name: 'BPagination',
-  mixins: [ paginationMixin ],
+  mixins: [paginationMixin],
   props,
   computed: {
-    numberOfPages () {
+    numberOfPages() {
       const result = Math.ceil(sanitizeTotalRows(this.totalRows) / sanitizePerPage(this.perPage))
-      return (result < 1) ? 1 : result
+      return result < 1 ? 1 : result
     }
   },
   methods: {
     // These methods are used by the render function
-    onClick (num, evt) {
+    onClick(num, evt) {
       // Handle edge cases where number of pages has changed (i.e. if perPage changes)
       if (num > this.numberOfPages) {
         num = this.numberOfPages
@@ -64,10 +64,10 @@ export default {
         }
       })
     },
-    makePage (pagenum) {
+    makePage(pagenum) {
       return pagenum
     },
-    linkProps (pagenum) {
+    linkProps(pagenum) {
       // Always '#' for pagination component
       return { href: '#' }
     }

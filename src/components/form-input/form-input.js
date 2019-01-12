@@ -64,35 +64,35 @@ export default {
     }
   },
   computed: {
-    localType () {
+    localType() {
       // We only allow certain types
       return arrayIncludes(TYPES, this.type) ? this.type : 'text'
     }
   },
   watch: {
-    noWheel (newVal) {
+    noWheel(newVal) {
       this.setWheelStopper(newVal)
     }
   },
-  mounted () {
+  mounted() {
     this.setWheelStopper(this.noWheel)
   },
-  deactivated () {
+  deactivated() {
     // Turn off listeners when keep-alive component deactivated
     /* istanbul ignore next */
     this.setWheelStopper(false)
   },
-  activated () {
+  activated() {
     // Turn on listeners (if no-wheel) when keep-alive component activated
     /* istanbul ignore next */
     this.setWheelStopper(this.noWheel)
   },
-  beforeDestroy () {
+  beforeDestroy() {
     /* istanbul ignore next */
     this.setWheelStopper(false)
   },
   methods: {
-    setWheelStopper (on) {
+    setWheelStopper(on) {
       const input = this.$el
       // We use native events, so that we don't interfere with propgation
       if (on) {
@@ -104,18 +104,18 @@ export default {
         eventOff(document, 'wheel', this.stopWheel)
       }
     },
-    onWheelFocus (evt) {
+    onWheelFocus(evt) {
       eventOn(document, 'wheel', this.stopWheel)
     },
-    onWheelBlur (evt) {
+    onWheelBlur(evt) {
       eventOff(document, 'wheel', this.stopWheel)
     },
-    stopWheel (evt) {
+    stopWheel(evt) {
       evt.preventDefault()
       this.$el.blur()
     }
   },
-  render (h) {
+  render(h) {
     var self = this
     return h('input', {
       ref: 'input',

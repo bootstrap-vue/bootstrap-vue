@@ -10,16 +10,16 @@ const BVPO = '__BV_PopOver__'
 
 // Valid event triggers
 const validTriggers = {
-  'focus': true,
-  'hover': true,
-  'click': true,
-  'blur': true
+  focus: true,
+  hover: true,
+  click: true,
+  blur: true
 }
 
 // Build a PopOver config based on bindings (if any)
 // Arguments and modifiers take precedence over pased value config object
 /* istanbul ignore next: not easy to test */
-function parseBindings (bindings) {
+function parseBindings(bindings) {
   // We start out with a blank config
   let config = {}
 
@@ -49,7 +49,9 @@ function parseBindings (bindings) {
     } else if (/^nofade$/.test(mod)) {
       // no animation
       config.animation = false
-    } else if (/^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)) {
+    } else if (
+      /^(auto|top(left|right)?|bottom(left|right)?|left(top|bottom)?|right(top|bottom)?)$/.test(mod)
+    ) {
       // placement of popover
       config.placement = mod
     } else if (/^(window|viewport)$/.test(mod)) {
@@ -106,7 +108,7 @@ function parseBindings (bindings) {
 // Add or Update popover on our element
 //
 /* istanbul ignore next: not easy to test */
-function applyBVPO (el, bindings, vnode) {
+function applyBVPO(el, bindings, vnode) {
   if (!inBrowser) {
     return
   }
@@ -120,13 +122,13 @@ function applyBVPO (el, bindings, vnode) {
   } else {
     el[BVPO] = new PopOver(el, parseBindings(bindings), vnode.context.$root)
   }
-};
+}
 
 //
 // Remove popover on our element
 //
 /* istanbul ignore next */
-function removeBVPO (el) {
+function removeBVPO(el) {
   if (!inBrowser) {
     return
   }
@@ -142,23 +144,23 @@ function removeBVPO (el) {
  */
 /* istanbul ignore next: not easy to test */
 export default {
-  bind (el, bindings, vnode) {
+  bind(el, bindings, vnode) {
     applyBVPO(el, bindings, vnode)
   },
-  inserted (el, bindings, vnode) {
+  inserted(el, bindings, vnode) {
     applyBVPO(el, bindings, vnode)
   },
-  update (el, bindings, vnode) {
+  update(el, bindings, vnode) {
     if (bindings.value !== bindings.oldValue) {
       applyBVPO(el, bindings, vnode)
     }
   },
-  componentUpdated (el, bindings, vnode) {
+  componentUpdated(el, bindings, vnode) {
     if (bindings.value !== bindings.oldValue) {
       applyBVPO(el, bindings, vnode)
     }
   },
-  unbind (el) {
+  unbind(el) {
     removeBVPO(el)
   }
 }

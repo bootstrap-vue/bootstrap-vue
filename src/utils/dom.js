@@ -7,7 +7,7 @@ let passiveEventSupported = false
 if (inBrowser) {
   try {
     var options = {
-      get passive () {
+      get passive() {
         // This function will be called when the browser
         // attempts to access the passive property.
         passiveEventSupported = true
@@ -21,7 +21,7 @@ if (inBrowser) {
 }
 
 // Normalize event options based on support of passive option
-function parseEventOptions (options) {
+function parseEventOptions(options) {
   let useCapture = false
   if (options) {
     if (typeof options === 'object') {
@@ -56,18 +56,22 @@ export const isElement = el => {
 // Determine if an HTML element is visible - Faster than CSS check
 export const isVisible = el => {
   /* istanbul ignore next: getBoundingClientRect not avaiable in JSDOM */
-  return isElement(el) &&
-           document.body.contains(el) &&
-           el.getBoundingClientRect().height > 0 &&
-           el.getBoundingClientRect().width > 0
+  return (
+    isElement(el) &&
+    document.body.contains(el) &&
+    el.getBoundingClientRect().height > 0 &&
+    el.getBoundingClientRect().width > 0
+  )
 }
 
 // Determine if an element is disabled
 export const isDisabled = el => {
-  return !isElement(el) ||
-           el.disabled ||
-           el.classList.contains('disabled') ||
-           Boolean(el.getAttribute('disabled'))
+  return (
+    !isElement(el) ||
+    el.disabled ||
+    el.classList.contains('disabled') ||
+    Boolean(el.getAttribute('disabled'))
+  )
 }
 
 // Cause/wait-for an element to reflow it's content (adjusting it's height/width)
@@ -103,20 +107,21 @@ export const matches = (el, selector) => {
   // Prefer native implementations over polyfill function
   const proto = Element.prototype
   /* istanbul ignore next */
-  const Matches = proto.matches ||
-        proto.matchesSelector ||
-        proto.mozMatchesSelector ||
-        proto.msMatchesSelector ||
-        proto.oMatchesSelector ||
-        proto.webkitMatchesSelector ||
-        function (sel) /* istanbul ignore next */ {
-          const element = this
-          const m = selectAll(sel, element.document || element.ownerDocument)
-          let i = m.length
-          // eslint-disable-next-line no-empty
-          while (--i >= 0 && m.item(i) !== element) {}
-          return i > -1
-        }
+  const Matches =
+    proto.matches ||
+    proto.matchesSelector ||
+    proto.mozMatchesSelector ||
+    proto.msMatchesSelector ||
+    proto.oMatchesSelector ||
+    proto.webkitMatchesSelector ||
+    function(sel) /* istanbul ignore next */ {
+      const element = this
+      const m = selectAll(sel, element.document || element.ownerDocument)
+      let i = m.length
+      // eslint-disable-next-line no-empty
+      while (--i >= 0 && m.item(i) !== element) {}
+      return i > -1
+    }
 
   return Matches.call(el, selector)
 }
@@ -131,21 +136,22 @@ export const closest = (selector, root) => {
   // Since we dont support IE < 10, we can use the "Matches" version of the polyfill for speed
   // Prefer native implementation over polyfill function
   /* istanbul ignore next */
-  const Closest = Element.prototype.closest ||
-                  function (sel) {
-                    let element = this
-                    if (!document.documentElement.contains(element)) {
-                      return null
-                    }
-                    do {
-                      // Use our "patched" matches function
-                      if (matches(element, sel)) {
-                        return element
-                      }
-                      element = element.parentElement
-                    } while (element !== null)
-                    return null
-                  }
+  const Closest =
+    Element.prototype.closest ||
+    function(sel) {
+      let element = this
+      if (!document.documentElement.contains(element)) {
+        return null
+      }
+      do {
+        // Use our "patched" matches function
+        if (matches(element, sel)) {
+          return element
+        }
+        element = element.parentElement
+      } while (element !== null)
+      return null
+    }
 
   const el = Closest.call(root, selector)
   // Emulate jQuery closest and return null if match is the passed in element (root)
@@ -262,9 +268,11 @@ export const position = el => {
     offsetSelf = offset(el)
     const doc = el.ownerDocument
     offsetParent = el.offsetParent || doc.documentElement
-    while (offsetParent &&
-                (offsetParent === doc.body || offsetParent === doc.documentElement) &&
-                getCS(offsetParent).position === 'static') {
+    while (
+      offsetParent &&
+      (offsetParent === doc.body || offsetParent === doc.documentElement) &&
+      getCS(offsetParent).position === 'static'
+    ) {
       offsetParent = offsetParent.parentNode
     }
     if (offsetParent && offsetParent !== el && offsetParent.nodeType === Node.ELEMENT_NODE) {

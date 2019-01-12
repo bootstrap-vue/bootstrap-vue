@@ -14,9 +14,10 @@ renderer.code = (code, language) => {
 
 // BS4 table support for markdown renderer
 const originalTable = renderer.table
-renderer.table = function renderTable (header, body) {
+renderer.table = function renderTable(header, body) {
   let r = originalTable.apply(this, arguments)
-  return r.replace('<table>', '<table class="table b-table table-striped">')
+  return r
+    .replace('<table>', '<table class="table b-table table-striped">')
     .replace('<thead>', '<thead class="thead-default">')
 }
 
@@ -33,7 +34,7 @@ module.exports = {
         }
       }
     },
-    extend (config, { loaders }) {
+    extend(config, { loaders }) {
       config.resolve.alias.vue = 'vue/dist/vue.common'
 
       config.resolveLoader.alias = config.resolveLoader.alias || {}
@@ -75,10 +76,12 @@ module.exports = {
   generate: {
     dir: 'docs-dist',
     routes: () => {
-      let scan = (root, dir, excludeDirs = []) => fs.readdirSync(`${root}/${dir}`)
-        .filter(c => c !== 'index.js' && c[0] !== '_')
-        .filter(c => excludeDirs.indexOf(c) === -1)
-        .map(page => `/docs/${dir}/${page}`)
+      let scan = (root, dir, excludeDirs = []) =>
+        fs
+          .readdirSync(`${root}/${dir}`)
+          .filter(c => c !== 'index.js' && c[0] !== '_')
+          .filter(c => excludeDirs.indexOf(c) === -1)
+          .map(page => `/docs/${dir}/${page}`)
 
       return []
         .concat(scan('src', 'components'))
@@ -95,10 +98,7 @@ module.exports = {
     '~/plugins/docs.js'
   ],
 
-  modules: [
-    '@nuxtjs/pwa',
-    '@nuxtjs/google-analytics'
-  ],
+  modules: ['@nuxtjs/pwa', '@nuxtjs/google-analytics'],
 
   'google-analytics': {
     id: 'UA-89526435-1',
@@ -108,9 +108,7 @@ module.exports = {
   },
 
   head: {
-    meta: [
-      { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }
-    ],
+    meta: [{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
     script: [
       { type: 'text/javascript', src: '//unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js' }
     ]

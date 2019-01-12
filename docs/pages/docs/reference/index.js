@@ -1,9 +1,5 @@
-<template/>
-
-<script>
 export default {
-  fetch ({ redirect }) {
+  fetch({ redirect }) {
     redirect('/docs/reference/color-variants')
   }
 }
-</script>

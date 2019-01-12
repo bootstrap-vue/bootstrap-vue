@@ -3,7 +3,7 @@ import * as directivePlugins from './directives'
 import { vueUse } from './utils/plugins'
 
 const VuePlugin = {
-  install: function (Vue) {
+  install: function(Vue) {
     if (Vue._bootstrap_vue_installed) {
       return
     }

@@ -27,7 +27,7 @@ const components = {
 }
 
 const VuePlugin = {
-  install (Vue) {
+  install(Vue) {
     registerComponents(Vue, components)
   }
 }

@@ -49,14 +49,14 @@ export default {
       default: '#'
     }
   },
-  data () {
+  data() {
     return {
       localActive: this.active && !this.disabled,
       show: false
     }
   },
   computed: {
-    tabClasses () {
+    tabClasses() {
       return [
         'tab-pane',
         this.$parent && this.$parent.card && !this.noBody ? 'card-body' : '',
@@ -66,34 +66,36 @@ export default {
         this.localActive ? 'active' : ''
       ]
     },
-    controlledBy () {
+    controlledBy() {
       return this.buttonId || this.safeId('__BV_tab_button__')
     },
-    computedFade () {
+    computedFade() {
       return this.$parent.fade
     },
-    computedLazy () {
+    computedLazy() {
       return this.$parent.lazy
     },
-    _isTab () {
+    _isTab() {
       // For parent sniffing of child
       return true
     }
   },
-  mounted () {
+  mounted() {
     this.show = this.localActive
   },
   methods: {
-    beforeEnter () {
+    beforeEnter() {
       // change opacity 1 frame after display
       // otherwise css transition won't happen
-      window.requestAnimationFrame(() => { this.show = true })
+      window.requestAnimationFrame(() => {
+        this.show = true
+      })
     },
-    beforeLeave () {
+    beforeLeave() {
       this.show = false
     }
   },
-  render (h) {
+  render(h) {
     let content = h(false)
     if (this.localActive || !this.computedLazy) {
       content = h(

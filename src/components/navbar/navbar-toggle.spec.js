@@ -59,7 +59,7 @@ describe('navbar-toggle', async () => {
       }
     })
     let rootClicked = false
-    function onRootClick () {
+    function onRootClick() {
       rootClicked = true
     }
     wrapper.vm.$root.$on('bv::toggle::collapse', onRootClick)

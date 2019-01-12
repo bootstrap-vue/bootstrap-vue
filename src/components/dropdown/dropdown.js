@@ -64,7 +64,7 @@ export default {
     }
   },
   computed: {
-    dropdownClasses () {
+    dropdownClasses() {
       // Position `static` is needed to allow menu to "breakout" of the scrollParent boundaries
       // when boundary is anything other than `scrollParent`
       // See https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
@@ -90,17 +90,17 @@ export default {
         }
       ]
     },
-    menuClasses () {
+    menuClasses() {
       return [
         'dropdown-menu',
         {
           'dropdown-menu-right': this.right,
-          'show': this.visible
+          show: this.visible
         },
         this.menuClass
       ]
     },
-    toggleClasses () {
+    toggleClasses() {
       return [
         'dropdown-toggle',
         {
@@ -111,7 +111,7 @@ export default {
       ]
     }
   },
-  render (h) {
+  render(h) {
     let split = h(false)
     if (this.split) {
       const btnProps = {
@@ -185,10 +185,10 @@ export default {
       },
       [this.$slots.default]
     )
-    return h(
-      'div',
-      { attrs: { id: this.safeId() }, class: this.dropdownClasses },
-      [split, toggle, menu]
-    )
+    return h('div', { attrs: { id: this.safeId() }, class: this.dropdownClasses }, [
+      split,
+      toggle,
+      menu
+    ])
   }
 }

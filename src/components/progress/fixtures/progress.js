@@ -4,7 +4,7 @@ window.app = new Vue({
     progress: Math.random() * 100
   },
   methods: {
-    clicked () {
+    clicked() {
       this.progress = Math.random() * 100
     }
   }

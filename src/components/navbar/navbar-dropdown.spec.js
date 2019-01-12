@@ -5,10 +5,16 @@ describe('navbar', async () => {
   testVM()
 
   it('should have custom toggle class in nav-item-dropdown', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const extraClass = $refs.extraToggleClasses
     expect(extraClass).toBeDefined()
     expect(extraClass.$refs.toggle).toBeDefined()
-    expect(extraClass.$refs.toggle).toHaveAllClasses(['nav-link', 'dropdown-toggle', 'nav-link-custom'])
+    expect(extraClass.$refs.toggle).toHaveAllClasses([
+      'nav-link',
+      'dropdown-toggle',
+      'nav-link-custom'
+    ])
   })
 })

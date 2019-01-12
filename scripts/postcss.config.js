@@ -1,4 +1,4 @@
-module.exports = (ctx) => ({
+module.exports = ctx => ({
   map: {
     inline: false,
     annotation: true,

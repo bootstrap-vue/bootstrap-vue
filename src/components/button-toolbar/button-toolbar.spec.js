@@ -5,13 +5,17 @@ describe('button-toolbar', async () => {
   testVM()
 
   it('toolbar should contain base class', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     expect($refs.toolbar).toHaveClass('btn-toolbar')
   })
 
   it('toolbar should have role', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     expect($refs.toolbar.$el.getAttribute('role')).toBe('toolbar')
   })

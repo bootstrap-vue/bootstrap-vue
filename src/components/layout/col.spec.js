@@ -1,7 +1,7 @@
 import { loadFixture, testVM } from '../../../tests/utils'
 
 // TODO: Export function from col.js
-function computeBkPtClass (type, breakpoint, val) {
+function computeBkPtClass(type, breakpoint, val) {
   let className = type
   if (val === false || val === null || val === undefined) {
     return undefined
@@ -89,8 +89,8 @@ describe('col', async () => {
   })
 
   it("should apply boolean breakpoint classes for 'sm', 'md', 'lg', 'xl' prop", async () => {
-    const { $refs } = window.app;
-    ['sm', 'md', 'lg', 'xl'].forEach((bkpt, idx) => {
+    const { $refs } = window.app
+    ;['sm', 'md', 'lg', 'xl'].forEach((bkpt, idx) => {
       // Shorthand binding <b-col sm />
       expect($refs[bkpt]).toHaveClass(`col-${bkpt}`)
       // Dynamically bound using object literals { sm: true }

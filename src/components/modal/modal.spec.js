@@ -19,7 +19,9 @@ describe('modal', async () => {
   })
 
   it('Should show hide modal', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const { modalButton2, modal2 } = $refs
     const body = document.body
 

@@ -310,7 +310,7 @@ long as you have provided the `.sync` prop modifier.
 > button._
 
 You can also emit `$root` events to trigger disabling and enabling of tooltip(s). See the
-**Disabling and enabling tooltips via $root events** section below for details.
+**Disabling and enabling tooltips via \$root events** section below for details.
 
 You can also emit `$root` events to trigger disabling and enabling of popover(s). See the
 **Disabling and enabling tooltips via \$root events** section below for details.
@@ -346,16 +346,16 @@ features of the directive format.
 
 ## Hiding and showing tooltips via \$root events
 
-## 'Global' $root instance events
+## 'Global' \$root instance events
 
 Using `$root` instance it is possible to emit and listen events somewhere out of a component, where
 `<b-collapse>` is used. In short, `$root` behaves like a global event emitters and listener. Details
 about `$root` instance can be found in
 [the official Vue docs](https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-the-Root-Instance).
 
-### Hiding and showing tooltips via $root events
+### Hiding and showing tooltips via \$root events
 
-You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` event on $root:
+You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` event on \$root:
 
 ```js
 this.$root.$emit('bv::hide::tooltip')
@@ -384,9 +384,9 @@ These events work for both the component **and** directive versions of tooltip.
 
 ## Disabling and enabling tooltips via \$root events
 
-### Disabling and enabling tooltips via $root events
+### Disabling and enabling tooltips via \$root events
 
-You can disable **all open tooltips** by emitting the `bv::disable::tooltip` event on $root:
+You can disable **all open tooltips** by emitting the `bv::disable::tooltip` event on \$root:
 
 ```js
 this.$root.$emit('bv::disable::tooltip')
@@ -413,7 +413,7 @@ These events work for both the component **and** directive versions of tooltip.
 > **Note:** _The **trigger element** must exist in the DOM in order for the tooltip to be enabled or
 > disabled._
 
-### Listening to tooltip changes via $root events
+### Listening to tooltip changes via \$root events
 
 To listen to any tooltip opening, use:
 

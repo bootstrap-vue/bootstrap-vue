@@ -32,7 +32,7 @@ export default {
   name: 'BInputGroup',
   functional: true,
   props: props,
-  render (h, { props, data, slots }) {
+  render(h, { props, data, slots }) {
     const $slots = slots()
 
     const childNodes = []

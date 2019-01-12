@@ -44,53 +44,55 @@ export default {
     }
   },
   computed: {
-    progressBarClasses () {
+    progressBarClasses() {
       return [
         'progress-bar',
         this.computedVariant ? `bg-${this.computedVariant}` : '',
-        (this.computedStriped || this.computedAnimated) ? 'progress-bar-striped' : '',
+        this.computedStriped || this.computedAnimated ? 'progress-bar-striped' : '',
         this.computedAnimated ? 'progress-bar-animated' : ''
       ]
     },
-    progressBarStyles () {
+    progressBarStyles() {
       return {
-        width: (100 * (this.value / this.computedMax)) + '%'
+        width: 100 * (this.value / this.computedMax) + '%'
       }
     },
-    progress () {
+    progress() {
       const p = Math.pow(10, this.computedPrecision)
       return Math.round((100 * p * this.value) / this.computedMax) / p
     },
-    computedMax () {
+    computedMax() {
       // Prefer our max over parent setting
-      return typeof this.max === 'number' ? this.max : (this.$parent.max || 100)
+      return typeof this.max === 'number' ? this.max : this.$parent.max || 100
     },
-    computedVariant () {
+    computedVariant() {
       // Prefer our variant over parent setting
       return this.variant || this.$parent.variant
     },
-    computedPrecision () {
+    computedPrecision() {
       // Prefer our precision over parent setting
-      return typeof this.precision === 'number' ? this.precision : (this.$parent.precision || 0)
+      return typeof this.precision === 'number' ? this.precision : this.$parent.precision || 0
     },
-    computedStriped () {
+    computedStriped() {
       // Prefer our striped over parent setting
-      return typeof this.striped === 'boolean' ? this.striped : (this.$parent.striped || false)
+      return typeof this.striped === 'boolean' ? this.striped : this.$parent.striped || false
     },
-    computedAnimated () {
+    computedAnimated() {
       // Prefer our animated over parent setting
-      return typeof this.animated === 'boolean' ? this.animated : (this.$parent.animated || false)
+      return typeof this.animated === 'boolean' ? this.animated : this.$parent.animated || false
     },
-    computedShowProgress () {
+    computedShowProgress() {
       // Prefer our showProgress over parent setting
-      return typeof this.showProgress === 'boolean' ? this.showProgress : (this.$parent.showProgress || false)
+      return typeof this.showProgress === 'boolean'
+        ? this.showProgress
+        : this.$parent.showProgress || false
     },
-    computedShowValue () {
+    computedShowValue() {
       // Prefer our showValue over parent setting
-      return typeof this.showValue === 'boolean' ? this.showValue : (this.$parent.showValue || false)
+      return typeof this.showValue === 'boolean' ? this.showValue : this.$parent.showValue || false
     }
   },
-  render (h) {
+  render(h) {
     let childNodes = h(false)
     if (this.$slots.default) {
       childNodes = this.$slots.default
@@ -113,7 +115,7 @@ export default {
           'aria-valuenow': this.value.toFixed(this.computedPrecision)
         }
       },
-      [ childNodes ]
+      [childNodes]
     )
   }
 }

@@ -408,9 +408,7 @@ constrain/set the menu width.
     <b-dropdown-text style="width: 240px;">
       Some example text that's free-flowing within the dropdown menu.
     </b-dropdown-text>
-    <b-dropdown-text>
-      And this is more example text.
-    </b-dropdown-text>
+    <b-dropdown-text> And this is more example text. </b-dropdown-text>
     <b-dropdown-divider></b-dropdown-divider>
     <b-dropdown-item-button>First item</b-dropdown-item-button>
     <b-dropdown-item-button>Second Item</b-dropdown-item-button>
@@ -441,16 +439,11 @@ regular form.
     <b-dropdown id="ddown-form" text="Dropdown with form" ref="ddown">
       <b-dropdown-form>
         <b-form-group label="Email" label-for="ddown-form-email">
-          <b-form-input size="sm"
-                        placeholder="email@example.com"
-                        id="ddown-form-email">
+          <b-form-input size="sm" placeholder="email@example.com" id="ddown-form-email">
           </b-form-input>
         </b-form-group>
         <b-form-group label="Password" label-for="ddown-form-passwd">
-          <b-form-input type="password"
-                        size="sm"
-                        placeholder="Password"
-                        id="ddown-form-passwd">
+          <b-form-input type="password" size="sm" placeholder="Password" id="ddown-form-passwd">
           </b-form-input>
         </b-form-group>
         <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
@@ -466,7 +459,7 @@ regular form.
 <script>
   export default {
     methods: {
-      onClick () {
+      onClick() {
         // Close the menu and (by passing true) return focus to the toggle button
         this.$refs.ddown.hide(true)
       }

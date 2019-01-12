@@ -531,7 +531,7 @@ describe('form-textarea', async () => {
       attachToDocument: true,
       propsData: {
         value: '',
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         }
       }
@@ -556,7 +556,7 @@ describe('form-textarea', async () => {
       attachToDocument: true,
       propsData: {
         value: '',
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         }
       }
@@ -580,7 +580,7 @@ describe('form-textarea', async () => {
     const input = mount(Textarea, {
       attachToDocument: true,
       propsData: {
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         },
         lazyFormatter: true
@@ -634,7 +634,7 @@ describe('form-textarea', async () => {
       attachToDocument: true,
       propsData: {
         value: 'TEST',
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         }
       }
@@ -650,7 +650,7 @@ describe('form-textarea', async () => {
       attachToDocument: true,
       propsData: {
         value: 'TEST',
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         },
         lazyFormatter: true
@@ -667,7 +667,7 @@ describe('form-textarea', async () => {
       attachToDocument: true,
       propsData: {
         value: '',
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         }
       }
@@ -688,7 +688,7 @@ describe('form-textarea', async () => {
       attachToDocument: true,
       propsData: {
         value: '',
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         },
         lazyFormatter: true
@@ -708,13 +708,16 @@ describe('form-textarea', async () => {
 
   it('activate and deactivate hooks work (keepalive)', async () => {
     const Keepalive = {
-      template: '<div><keep-alive>' +
-                '<b-form-textarea ref="textarea" v-if="show" v-model="value"></b-form-textarea>' +
-                '<p v-else></p>' +
-                '</keep-alive></div>',
+      template:
+        '<div><keep-alive>' +
+        '<b-form-textarea ref="textarea" v-if="show" v-model="value"></b-form-textarea>' +
+        '<p v-else></p>' +
+        '</keep-alive></div>',
       components: { bFormTextarea: Textarea },
       props: { show: true },
-      data () { return { value: '' } }
+      data() {
+        return { value: '' }
+      }
     }
 
     const keepalive = mount(Keepalive, {

@@ -1,29 +1,37 @@
 <template>
   <div
     class="dropdown-select"
-    :class="{open: show, dropdown: !dropup, dropup: dropup}">
+    :class="{ open: show, dropdown: !dropup, dropup: dropup }"
+  >
     <button
       :id="id"
-      :class="['btn','dropdown',dropdownToggle,btnVariant,btnSize]"
+      :class="['btn', 'dropdown', dropdownToggle, btnVariant, btnSize]"
       role="button"
       aria-haspopup="true"
       aria-expanded="show"
+      :disabled="disabled"
       @click.prevent="toggle($event)"
-      :disabled="disabled">
+    >
       <span
         class="checked-items"
-        v-html="displayItem"/>
+        v-html="displayItem"
+      />
     </button>
     <ul
       class="dropdown-menu"
-      :class="{'dropdown-menu-right' : position == 'right'}"
-      aria-labelledby="dLabel">
+      :class="{ 'dropdown-menu-right': position == 'right' }"
+      aria-labelledby="dLabel"
+    >
       <li
         v-for="item in list"
-        :key="item.text">
+        :key="item.text"
+      >
         <button
           class="dropdown-item"
-          @click.stop.prevent="select(item)">{{ item.text }}</button>
+          @click.stop.prevent="select(item)"
+        >
+          {{ item.text }}
+        </button>
       </li>
     </ul>
   </div>
@@ -40,7 +48,6 @@ export default {
     },
     list: {
       type: Array,
-      default: [],
       required: true
     },
     caret: {
@@ -80,25 +87,29 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       show: false,
       selected: false
     }
   },
   computed: {
-    btnVariant () {
+    btnVariant() {
       return !this.variant || this.variant === `default` ? `btn-secondary` : `btn-${this.variant}`
     },
-    btnSize () {
+    btnSize() {
       return !this.size || this.size === `default` ? `` : `btn-${this.size}`
     },
-    dropdownToggle () {
+    dropdownToggle() {
       return this.caret ? 'dropdown-toggle' : ''
     },
-    displayItem () {
+    displayItem() {
       // If zero show default message
-      if ((this.returnObject && this.model && !this.model.text) || (!this.returnObject && this.model && this.model.length === 0) || this.forceDefault) {
+      if (
+        (this.returnObject && this.model && !this.model.text) ||
+        (!this.returnObject && this.model && this.model.length === 0) ||
+        this.forceDefault
+      ) {
         return this.defaultText
       }
 
@@ -110,7 +121,7 @@ export default {
       // Show text that coresponds to the model value
       if (!this.returnObject && this.model) {
         let result = this.model || ''
-        this.list.forEach((item) => {
+        this.list.forEach(item => {
           if (item.value === this.model) {
             result = item.text
           }
@@ -121,14 +132,14 @@ export default {
       return ''
     }
   },
-  created () {
+  created() {
     const hub = this.$root
     hub.$on('hide::dropdown', () => {
       this.show = false
     })
   },
   methods: {
-    toggle (e) {
+    toggle(e) {
       // Hide an alert
       this.show = !this.show
       // Dispatch an event from the current vm that propagates all the way up to its $root
@@ -139,7 +150,7 @@ export default {
         this.$root.$emit('hidden::dropdown', this.id)
       }
     },
-    select (item) {
+    select(item) {
       // We need to set empty model to make model watchers react to it
       if (this.returnObject) {
         this.model = item

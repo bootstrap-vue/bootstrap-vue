@@ -5,7 +5,7 @@ import toolpopMixin from '../../mixins/toolpop'
 // @vue/component
 export default {
   name: 'BTooltip',
-  mixins: [ toolpopMixin ],
+  mixins: [toolpopMixin],
   props: {
     title: {
       type: String,
@@ -20,11 +20,11 @@ export default {
       default: 'top'
     }
   },
-  data () {
+  data() {
     return {}
   },
   methods: {
-    createToolpop () {
+    createToolpop() {
       // getTarget is in toolpop mixin
       const target = this.getTarget()
       if (target) {
@@ -36,11 +36,11 @@ export default {
       return this._toolpop
     }
   },
-  render (h) {
+  render(h) {
     return h(
       'div',
-      { class: [ 'd-none' ], style: { display: 'none' }, attrs: { 'aria-hidden': true } },
-      [ h('div', { ref: 'title' }, this.$slots.default) ]
+      { class: ['d-none'], style: { display: 'none' }, attrs: { 'aria-hidden': true } },
+      [h('div', { ref: 'title' }, this.$slots.default)]
     )
   }
 }

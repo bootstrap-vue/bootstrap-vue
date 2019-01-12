@@ -1,11 +1,7 @@
 import Table from './table'
 import { mount } from '@vue/test-utils'
 
-const testItems = [
-  { a: 1, b: 2, c: 3 },
-  { a: 5, b: 5, c: 6 },
-  { a: 7, b: 8, c: 9 }
-]
+const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 
 describe('b-table busy state', async () => {
   it('default should have attribute aria-busy=false', async () => {
@@ -25,7 +21,12 @@ describe('b-table busy state', async () => {
       }
     })
     expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .findAll('tr')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
   })
 
@@ -89,7 +90,12 @@ describe('b-table busy state', async () => {
     expect(wrapper.attributes('aria-busy')).toBeDefined()
     expect(wrapper.attributes('aria-busy')).toEqual('false')
     expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .findAll('tr')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
 
     wrapper.setProps({
@@ -99,10 +105,20 @@ describe('b-table busy state', async () => {
     expect(wrapper.attributes('aria-busy')).toBeDefined()
     expect(wrapper.attributes('aria-busy')).toEqual('true')
     expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .findAll('tr')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
     expect(wrapper.find('tbody').text()).toContain('busy slot content')
-    expect(wrapper.find('tbody').find('tr').classes()).toContain('b-table-busy-slot')
+    expect(
+      wrapper
+        .find('tbody')
+        .find('tr')
+        .classes()
+    ).toContain('b-table-busy-slot')
 
     wrapper.setProps({
       busy: false
@@ -111,7 +127,12 @@ describe('b-table busy state', async () => {
     expect(wrapper.attributes('aria-busy')).toBeDefined()
     expect(wrapper.attributes('aria-busy')).toEqual('false')
     expect(wrapper.find('tbody').exists()).toBe(true)
-    expect(wrapper.find('tbody').findAll('tr').exists()).toBe(true)
+    expect(
+      wrapper
+        .find('tbody')
+        .findAll('tr')
+        .exists()
+    ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
   })
 })

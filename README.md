@@ -56,12 +56,12 @@ BootstrapVue provides one of the most comprehensive implementations of Bootstrap
 - 💬 [Discord Chat](https://discord.gg/j2Mtcny)
 - 🐦 [Twitter](https://twitter.com/BootstrapVue)
 
-
 <h2 align="center">Sponsors</h2>
 
 Support this project by becoming a sponsor.
 
-Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/bootstrap-vue#sponsor)]
+Your logo will show up here with a link to your website.
+[[Become a sponsor](https://opencollective.com/bootstrap-vue#sponsor)]
 
 <a href="https://opencollective.com/bootstrap-vue/sponsor/0/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/bootstrap-vue/sponsor/1/website" target="_blank"><img src="https://opencollective.com/bootstrap-vue/sponsor/1/avatar.svg"></a>
@@ -76,7 +76,8 @@ Your logo will show up here with a link to your website. [[Become a sponsor](htt
 
 <h2 align="center">Backers</h2>
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/bootstrap-vue#backer)]
+Thank you to all our backers! 🙏
+[[Become a backer](https://opencollective.com/bootstrap-vue#backer)]
 
 <a href="https://opencollective.com/bootstrap-vue#backers" target="_blank"><img src="https://opencollective.com/bootstrap-vue/backers.svg?width=890"></a>
 
@@ -84,7 +85,6 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 
 This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
 <a href="https://github.com/bootstrap-vue/bootstrap-vue/graphs/contributors"><img src="https://opencollective.com/bootstrap-vue/contributors.svg?width=890" /></a>
-
 
 <h2 align="center">License</h2>
 

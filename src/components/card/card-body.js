@@ -32,10 +32,10 @@ export default {
   name: 'BCardBody',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     let cardTitle = h(false)
     let cardSubTitle = h(false)
-    let cardContent = children || [ h(false) ]
+    let cardContent = children || [h(false)]
 
     if (props.title) {
       cardTitle = h(BCardTitle, { props: pluckProps(titleProps, props) })
@@ -44,7 +44,7 @@ export default {
     if (props.subTitle) {
       cardSubTitle = h(BCardSubTitle, {
         props: pluckProps(subTitleProps, props),
-        class: [ 'mb-2' ]
+        class: ['mb-2']
       })
     }
 
@@ -62,7 +62,7 @@ export default {
           props.bodyClass || {}
         ]
       }),
-      [ cardTitle, cardSubTitle, ...cardContent ]
+      [cardTitle, cardSubTitle, ...cardContent]
     )
   }
 }

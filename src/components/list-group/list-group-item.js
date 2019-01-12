@@ -36,16 +36,10 @@ export default {
   name: 'BListGroupItem',
   functional: true,
   props,
-  render (h, { props, data, children }) {
-    const tag = props.button
-      ? 'button'
-      : !props.href && !props.to ? props.tag : Link
+  render(h, { props, data, children }) {
+    const tag = props.button ? 'button' : !props.href && !props.to ? props.tag : Link
     const isAction = Boolean(
-      props.href ||
-      props.to ||
-      props.action ||
-      props.button ||
-      arrayIncludes(actionTags, props.tag)
+      props.href || props.to || props.action || props.button || arrayIncludes(actionTags, props.tag)
     )
     const attrs = {}
     let itemProps = {}

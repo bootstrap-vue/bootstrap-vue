@@ -10,10 +10,10 @@ window.app = new Vue({
     testData: {}
   },
   methods: {
-    handleClick (e) {
+    handleClick(e) {
       clickSpy.apply(this, arguments)
     },
-    handleDisabledClick (e) {
+    handleDisabledClick(e) {
       this.testData.disabled_event = e
       disabledClickSpy.apply(this, arguments)
     }

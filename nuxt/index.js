@@ -28,7 +28,7 @@ const PluginDefaluts = {
 }
 
 // Main module entry point
-module.exports = function nuxtBootstrapVue (moduleOptions = {}) {
+module.exports = function nuxtBootstrapVue(moduleOptions = {}) {
   // Merge moduleOptions with default
   const options = Object.assign({}, PluginDefaluts, moduleOptions)
 

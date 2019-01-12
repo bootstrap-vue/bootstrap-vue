@@ -5,10 +5,10 @@ window.app = new Vue({
     showDismissibleAlert: false
   },
   methods: {
-    countDownChanged (dismissCountDown) {
+    countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown
     },
-    showAlert () {
+    showAlert() {
       this.dismissCountDown = 5
     }
   }

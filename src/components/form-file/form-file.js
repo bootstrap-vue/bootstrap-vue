@@ -52,7 +52,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       selectedFile: null,
       dragging: false,
@@ -60,7 +60,7 @@ export default {
     }
   },
   computed: {
-    selectLabel () {
+    selectLabel() {
       // Draging active
       if (this.dragging && this.dropPlaceholder) {
         return this.dropPlaceholder
@@ -84,7 +84,7 @@ export default {
     }
   },
   watch: {
-    selectedFile (newVal, oldVal) {
+    selectedFile(newVal, oldVal) {
       if (looseEqual(newVal, oldVal)) {
         return
       }
@@ -94,14 +94,14 @@ export default {
         this.$emit('input', newVal)
       }
     },
-    value (newVal) {
+    value(newVal) {
       if (!newVal || (isArray(newVal) && newVal.length === 0)) {
         this.reset()
       }
     }
   },
   methods: {
-    focusHandler (evt) {
+    focusHandler(evt) {
       // Boostrap v4.beta doesn't have focus styling for custom file input
       // Firefox has a borked '[type=file]:focus ~ sibling' selector issue,
       // So we add a 'focus' class to get around these "bugs"
@@ -112,7 +112,7 @@ export default {
         this.hasFocus = true
       }
     },
-    reset () {
+    reset() {
       try {
         // Wrapped in try in case IE < 11 craps out
         this.$refs.input.value = ''
@@ -124,7 +124,7 @@ export default {
       this.$refs.input.type = 'file'
       this.selectedFile = this.multiple ? [] : null
     },
-    onFileChange (evt) {
+    onFileChange(evt) {
       // Always emit original event
       this.$emit('change', evt)
       // Check if special `items` prop is available on event (drop mode)
@@ -146,7 +146,7 @@ export default {
       // Normal handling
       this.setFiles(evt.target.files || evt.dataTransfer.files)
     },
-    setFiles (files) {
+    setFiles(files) {
       if (!files) {
         this.selectedFile = null
       } else if (this.multiple) {
@@ -162,11 +162,11 @@ export default {
         this.selectedFile = files[0]
       }
     },
-    onReset () {
+    onReset() {
       // Triggered when the parent form (if any) is reset
       this.selectedFile = this.multiple ? [] : null
     },
-    onDragover (evt) {
+    onDragover(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop || !this.custom) {
@@ -175,12 +175,12 @@ export default {
       this.dragging = true
       evt.dataTransfer.dropEffect = 'copy'
     },
-    onDragleave (evt) {
+    onDragleave(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       this.dragging = false
     },
-    onDrop (evt) {
+    onDrop(evt) {
       evt.preventDefault()
       evt.stopPropagation()
       if (this.noDrop) {
@@ -191,7 +191,7 @@ export default {
         this.onFileChange(evt)
       }
     },
-    traverseFileTree (item, path) {
+    traverseFileTree(item, path) {
       // Based on http://stackoverflow.com/questions/3590058
       return new Promise(resolve => {
         path = path || ''
@@ -206,9 +206,7 @@ export default {
           item.createReader().readEntries(entries => {
             const queue = []
             for (let i = 0; i < entries.length; i++) {
-              queue.push(
-                this.traverseFileTree(entries[i], path + item.name + '/')
-              )
+              queue.push(this.traverseFileTree(entries[i], path + item.name + '/'))
             }
             Promise.all(queue).then(filesArr => {
               resolve(arrayFrom(filesArr))
@@ -218,7 +216,7 @@ export default {
       })
     }
   },
-  render (h) {
+  render(h) {
     // Form Input
     const input = h('input', {
       ref: 'input',

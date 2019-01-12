@@ -6,7 +6,7 @@ const directives = {
 }
 
 const VuePlugin = {
-  install (Vue) {
+  install(Vue) {
     registerDirectives(Vue, directives)
   }
 }

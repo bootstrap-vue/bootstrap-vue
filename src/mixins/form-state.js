@@ -18,7 +18,7 @@ export default {
     }
   },
   computed: {
-    computedState () {
+    computedState() {
       const state = this.state
       if (state === '') {
         return null
@@ -29,7 +29,7 @@ export default {
       }
       return null
     },
-    stateClass () {
+    stateClass() {
       const state = this.computedState
       if (state === true) {
         return 'is-valid'

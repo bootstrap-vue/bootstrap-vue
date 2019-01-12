@@ -6,11 +6,11 @@ import { hasTouchSupport } from '../../utils/env'
 export default {
   name: 'BCarouselSlide',
   components: { BImg },
-  mixins: [ idMixin ],
+  mixins: [idMixin],
   inject: {
     carousel: {
       from: 'carousel',
-      default: function () {
+      default: function() {
         return {
           // Explicitly disable touch if not a child of carousel
           noTouch: true
@@ -72,48 +72,51 @@ export default {
       // default: undefined
     }
   },
-  data () {
+  data() {
     return {}
   },
   computed: {
-    contentClasses () {
+    contentClasses() {
       return [
         this.contentVisibleUp ? 'd-none' : '',
         this.contentVisibleUp ? `d-${this.contentVisibleUp}-block` : ''
       ]
     },
-    computedWidth () {
+    computedWidth() {
       // Use local width, or try parent width
       return this.imgWidth || this.carousel.imgWidth || null
     },
-    computedHeight () {
+    computedHeight() {
       // Use local height, or try parent height
       return this.imgHeight || this.carousel.imgHeight || null
     }
   },
-  render (h) {
+  render(h) {
     const $slots = this.$slots
     const noDrag = !this.carousel.noTouch && hasTouchSupport
 
     let img = $slots.img
     if (!img && (this.imgSrc || this.imgBlank)) {
-      img = h(
-        'b-img',
-        {
-          props: {
-            fluidGrow: true,
-            block: true,
-            src: this.imgSrc,
-            blank: this.imgBlank,
-            blankColor: this.imgBlankColor,
-            width: this.computedWidth,
-            height: this.computedHeight,
-            alt: this.imgAlt
-          },
-          // Touch support event handler
-          on: noDrag ? { dragstart: e => { e.preventDefault() } } : {}
-        }
-      )
+      img = h('b-img', {
+        props: {
+          fluidGrow: true,
+          block: true,
+          src: this.imgSrc,
+          blank: this.imgBlank,
+          blankColor: this.imgBlankColor,
+          width: this.computedWidth,
+          height: this.computedHeight,
+          alt: this.imgAlt
+        },
+        // Touch support event handler
+        on: noDrag
+          ? {
+              dragstart: e => {
+                e.preventDefault()
+              }
+            }
+          : {}
+      })
     }
     if (!img) {
       img = h(false)
@@ -136,7 +139,7 @@ export default {
         style: { background: this.background || this.carousel.background || null },
         attrs: { id: this.safeId(), role: 'listitem' }
       },
-      [ img, content ]
+      [img, content]
     )
   }
 }

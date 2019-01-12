@@ -108,10 +108,9 @@ describe('form-input', async () => {
       attachToDocument: true
     })
     const input = wrapper.find('input')
-    return wrapper.vm.$nextTick()
-      .then(function () {
-        expect(input.attributes('id')).toBeDefined()
-      })
+    return wrapper.vm.$nextTick().then(function() {
+      expect(input.attributes('id')).toBeDefined()
+    })
   })
 
   it('has form attribute when form prop set', async () => {
@@ -332,7 +331,7 @@ describe('form-input', async () => {
   it('applies formatter on input when not lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         }
       },
@@ -356,7 +355,7 @@ describe('form-input', async () => {
   it('does not apply formatter on input when lazy', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         },
         lazyFormatter: true
@@ -381,7 +380,7 @@ describe('form-input', async () => {
     const wrapper = mount(Input, {
       propsData: {
         value: '',
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         },
         lazyFormatter: true
@@ -415,7 +414,7 @@ describe('form-input', async () => {
     const wrapper = mount(Input, {
       propsData: {
         value: 'TEST',
-        formatter (value) {
+        formatter(value) {
           return String(value).toLowerCase()
         }
       },
@@ -434,7 +433,7 @@ describe('form-input', async () => {
     const wrapper = mount(Input, {
       propsData: {
         value: '',
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         }
       },
@@ -455,7 +454,7 @@ describe('form-input', async () => {
     const wrapper = mount(Input, {
       propsData: {
         value: '',
-        formatter (value) {
+        formatter(value) {
           return value.toLowerCase()
         },
         lazyFormatter: true

@@ -31,7 +31,9 @@ describe('button', async () => {
   testVM()
 
   it('should contain class names', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
 
     btnRefs.forEach(({ ref, variant, size }) => {
       // ref will contain an array of children because of v-for
@@ -48,7 +50,9 @@ describe('button', async () => {
   })
 
   it('should use <a> when given href', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const btnRootNode = $refs.btn_href
 
     expect(btnRootNode).toBeElement('a')
@@ -56,21 +60,27 @@ describe('button', async () => {
   })
 
   it('should use the given tag', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const btnRootNode = $refs.btn_div
 
     expect(btnRootNode).toBeElement('div')
   })
 
   it('should use button when no tag is given', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const btnRootNode = $refs.btn_no_tag
 
     expect(btnRootNode).toBeElement('button')
   })
 
   it('should emit "click" event when clicked', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const btn = $refs.btn_click
     const spy = jest.fn()
 
@@ -81,7 +91,9 @@ describe('button', async () => {
   })
 
   it('should "click" event should emit with native event object', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const btn = $refs.btn_click
     let event = null
 
@@ -92,7 +104,9 @@ describe('button', async () => {
   })
 
   it('should be disabled and not emit click event with `disabled` prop true', async () => {
-    const { app: { $refs } } = window
+    const {
+      app: { $refs }
+    } = window
     const btn = $refs.btn_block_disabled
     const spy = jest.fn()
 
