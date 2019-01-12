@@ -274,8 +274,10 @@ export default {
     // Force a button to re-render it's content, given a b-tab instance
     // Called by b-tab on update()
     updateButton (tab) {
+      console.log('b-tabs received button update request for tab', tab)
       const button = this.$refs.buttons[this.tabs.indexOf(tab)]
-      if (button) {
+      console.log('b-tabs update button', button)
+      if (button && button.$forceUpdate) {
         button.$forceUpdate()
       }
     },
