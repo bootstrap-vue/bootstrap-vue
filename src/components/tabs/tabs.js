@@ -7,55 +7,14 @@ import idMixin from '../../mixins/id'
 const BTabButtonHelper = {
   name: 'BTabButtonHelper',
   props: {
-    content: { type: [String, Array], default: '' },
-    href: { type: String, default: '#' }, // To be deprecated
+    // Reference to the child b-tab instance
+    tab: { default: null, required: true },
+    id: { type: String, default: null },
+    controls: { type: String, default: null },
+    tabIndex: { type: Boolean, default: null },
     posInSet: { type: Number, default: null },
     setSize: { type: Number, default: null },
-    controls: { type: String, default: null },
-    id: { type: String, default: null },
-    active: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
-    tabIndex: { type: Boolean, default: null },
-    linkClass: { default: null },
-    itemClass: { default: null },
     noKeyNav: { type: Boolean, default: false }
-  },
-  render (h) {
-    const link = h(
-      BLink,
-      {
-        ref: 'link',
-        staticClass: 'nav-link',
-        class: [
-          { active: this.active, disabled: this.disabled },
-          this.linkClass
-        ],
-        props: {
-          href: this.href, // To be deprecated to always be '#'
-          disabled: this.disabled
-        },
-        attrs: {
-          role: 'tab',
-          id: this.id,
-          // Roving tab index when keynav enabled
-          tabindex: this.tabIndex,
-          'aria-selected': this.active ? 'true' : 'false',
-          'aria-setsize': this.setSize,
-          'aria-posinset': this.posInSet,
-          'aria-controls': this.controls
-        },
-        on: {
-          click: this.handleClick,
-          keydown: this.handleClick
-        }
-      },
-      this.$slots.default || this.content
-    )
-    return h(
-      'li',
-      { class: ['nav-item', this.itemClass], attrs: { role: 'presentation' } },
-      [link]
-    )
   },
   methods: {
     focus () {
@@ -68,7 +27,7 @@ const BTabButtonHelper = {
         evt.preventDefault()
         evt.stopPropagation()
       }
-      if (this.disabled) {
+      if (this.tab.disabled) {
         return
       }
       if (
@@ -76,12 +35,52 @@ const BTabButtonHelper = {
         (!this.noKeyNav && evt.type === 'keydown' && evt.keyCode === KeyCodes.SPACE)
       ) {
         stop()
-        this.$emit('click', evt)
+        this.$emit('click', evt) // Could call this.tab.activate() instead
       } else if (evt.type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
         this.$emit('keydown', evt)
       }
     }
+  },
+  render (h) {
+    const link = h(
+      BLink,
+      {
+        ref: 'link',
+        staticClass: 'nav-link',
+        class: [
+          { 
+            active: this.tab.localActive && !this.tab.disabled,
+            disabled: this.tab.disabled
+          },
+          this.tab.linkClass
+        ],
+        props: {
+          href: this.tab.href, // To be deprecated to always be '#'
+          disabled: this.tab.disabled
+        },
+        attrs: {
+          role: 'tab',
+          id: this.id,
+          // Roving tab index when keynav enabled
+          tabindex: this.tabIndex,
+          'aria-selected': this.tab.localActive && !this.tab.disabled ? 'true' : 'false',
+          'aria-setsize': this.setSize,
+          'aria-posinset': this.posInSet,
+          'aria-controls': this.controls
+        },
+        on: {
+          click: this.handleClick,
+          keydown: this.handleClick
+        }
+      },
+      [this.tab.$slots.title || this.tab.title]
+    )
+    return h(
+      'li',
+      { class: ['nav-item', this.tab.itemClass], attrs: { role: 'presentation' } },
+      [link]
+    )
   }
 }
 
@@ -379,30 +378,23 @@ export default {
           key: buttonId || index,
           ref: 'buttons',
           props: {
-            href: tab.href, // To be deprecated to be always '#'
+            tab: tab,
             id: buttonId,
+            controls: this.safeId('_BV_tab_container_'),
             tabIndex: tabindex,
-            active: tab.localActive && !tab.disabled,
-            disabled: tab.disabled,
             setSize: tabs.length,
             posInSet: index + 1,
-            controls: this.safeId('_BV_tab_container_'),
-            linkClass: tab.titleLinkClass,
-            itemClass: tab.titleItemClass,
             noKeyNav: this.noKeyNav
           },
           on: {
-            click: evt => {
-              this.currentTab = index
-            },
+            click: evt => { this.activateTab(tab) },
             keydown: evt => {
               if (!this.noKeyNav && !tab.disabled) {
                 this.onKeynav(evt)
               }
             }
           }
-        },
-        [tab.$slots.title || tab.title]
+        }
       )
     })
 
