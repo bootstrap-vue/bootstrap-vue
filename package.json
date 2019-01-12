@@ -118,7 +118,7 @@
     "lodash": "^4.17.11",
     "marked": "^0.6.0",
     "node-sass": "^4.11.0",
-    "nuxt-edge": "^2.4.0-25784644.e8083fb3",
+    "nuxt-edge": "^2.4.0-25786640.3ebd6b70",
     "postcss-cli": "^6.1.1",
     "prettier": "^1.15.3",
     "rollup": "^1.1.0",
