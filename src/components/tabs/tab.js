@@ -64,10 +64,6 @@ export default {
     lazy: {
       type: Boolean,
       default: false
-    },
-    order: {
-      type: [Number, String],
-      default: 0
     }
   },
   data () {
@@ -94,9 +90,6 @@ export default {
     },
     computedLazy () {
       return this.bTabs.lazy || this.lazy
-    },
-    computedOrder () {
-      return parseInt(this.order, 10) || 0
     },
     _isTab () {
       // For parent sniffing of child
