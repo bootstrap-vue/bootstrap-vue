@@ -107,6 +107,15 @@ export default {
     // }
   },
   methods: {
+    // Public methods
+    activate () {
+      if (this.bTabs.activateTab && !this.disabled) {
+        return this.bTabs.activateTab(this)
+      } else {
+        return false
+      }
+    },
+    // Transition handlers
     beforeEnter () {
       // change opacity (add 'show' class) 1 frame after display
       // otherwise css transition won't happen
