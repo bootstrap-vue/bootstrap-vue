@@ -279,7 +279,7 @@ export default {
     // Find a button taht controls a tab, given the tab reference
     // Returns the button vm instance
     getButtonForTab (tab) {
-      return = (this.$refs.buttons || []).find(btn => btn.tab === tab)
+      return (this.$refs.buttons || []).find(btn => btn.tab === tab)
     },
     // Force a button to re-render it's content, given a b-tab instance
     // Called by b-tab on update()
