@@ -67,7 +67,7 @@ const BTabButtonHelper = {
         ref: 'link',
         staticClass: 'nav-link',
         class: [
-          { 
+          {
             active: this.tab.localActive && !this.tab.disabled,
             disabled: this.tab.disabled
           },
