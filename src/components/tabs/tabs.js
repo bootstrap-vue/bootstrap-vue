@@ -257,15 +257,29 @@ export default {
     // Force a button to re-render it's content, given a b-tab instance
     // Called by b-tab on update()
     updateButton (tab) {
-      const index = this.tabs.indexOf(tab)
-      const button = this.$refs.buttons[index]
+      const button = this.$refs.buttons[this.tabs.indexOf(tab)]
       if (button) {
         button.$forceUpdate()
       }
     },
-    focusButton (index) {
-      // Focus a tab button given it's index
-      const button = this.$refs.buttons[index]
+    // Activate a tab given a b-tab instance
+    // Also accessed by b-tab
+    activateTab (tab) {
+      if (tab) {
+        if (tab.disabled) {
+          return false
+        } else {
+          const index = this.tabs.indexOf(tab)
+          this.currentTab = index
+          return index > -1
+        }
+      } else {
+        return false
+      }
+    },
+    // Focus a tab button given it's b-tab instance
+    focusButton (tab) {
+      const button = this.$refs.buttons[this.tabs.indexOf(tab)]
       if (button && button.focus) {
         button.focus()
       }
@@ -299,22 +313,21 @@ export default {
     },
     // Move to first non-disabled tab
     firstTab (focus) {
-      const tabs = this.tabs
-      const index = tabs.indexOf(tabs.find(tab => !tab.disabled))
-      this.currentTab = index
+      const tab = this.tabs.find(tab => !tab.disabled)
+      this.activateTab(tab)
       if (focus) {
-        this.focusButton(index)
+        this.focusButton(tab)
       }
     },
     // Move to previous non-disabled tab
     previousTab (focus) {
       const currentIndex = Math.max(this.currentTab, 0)
-      const tabs = this.tabs.slice(0, currentIndex)
-      const index = tabs.lastIndexOf(tabs.find(tab => !tab.disabled))
-      if (index > -1) {
-        this.currentTab = index
+      const tabs = this.tabs.slice(0, currentIndex).reverse()
+      const tab = tabs.find(tab => !tab.disabled)
+      if (tab) {
+        this.activateTab(tab)
         if (focus) {
-          this.focusButton(index)
+          this.focusButton(tab)
         }
       } else {
         this.$emit('input', this.currentTab)
@@ -323,12 +336,11 @@ export default {
     // Move to next non-disabled tab
     nextTab (focus) {
       const currentIndex = Math.max(this.currentTab, -1)
-      const tabs = this.tabs
-      const index = tabs.indexOf(tabs.slice(currentIndex + 1).find(tab => !tab.disabled))
-      if (index > -1) {
-        this.currentTab = index
+      const tab = this.tabs.slice(currentIndex + 1).find(tab => !tab.disabled)
+      if (tab) {
+        this.activateTab(tab)
         if (focus) {
-          this.focusButton(index)
+          this.focusButton(tab)
         }
       } else {
         this.$emit('input', this.currentTab)
@@ -336,11 +348,10 @@ export default {
     },
     // Move to last non-disabled tab
     lastTab (focus) {
-      const tabs = this.tabs
-      const index = tabs.indexOf(tabs.slice().reverse().find(tab => !tab.disabled))
-      this.currentTab = index
+      const tab = this.tabs.slice().reverse().find(tab => !tab.disabled)
+      this.activateTab(tab)
       if (focus) {
-        this.focusButton(index)
+        this.focusButton(tab)
       }
     }
   },
