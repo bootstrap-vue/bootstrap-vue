@@ -190,7 +190,7 @@ export default {
       val = parseInt(val, 10)
       const tabs = this.tabs
       const currentIndex = this.currentTab
-      else if (tabs[val] && !tabs[val].disabled) {
+      if (tabs[val] && !tabs[val].disabled) {
         this.currentTab = val
       } else if (tabs[currentIndex] && !tabs[currentIndex].disabled]) {
         // Stick with current tab, so update-v-model
