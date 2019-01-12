@@ -96,6 +96,23 @@ export default {
       return true
     }
   },
+  watch: {
+    localActive (newVal, oldVal) {
+      // Make 'active' prop work with `.sync` modifier
+      this.$emit('update:active', newVal)
+    },
+    active (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        if (newVal) {
+          // If activated post mount
+          this.activate()
+        } else {
+          // We don't have a method to deactivate a tab yet
+          this.$emit('update:active', this.localActive)
+        }
+      }
+    }
+  },
   mounted () {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
