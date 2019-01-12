@@ -37,7 +37,7 @@ const BTabButtonHelper = {
           role: 'tab',
           id: this.id,
           // Roving tab index when keynav enabled
-          tabindex: this.noKeyNav ? null : (this.active ? '0' : '-1'),
+          tabindex: this.noKeyNav ? null : (this.active ? null : '-1'),
           'aria-selected': this.active ? 'true' : 'false',
           'aria-setsize': this.setSize,
           'aria-posinset': this.posInSet,
