@@ -6,9 +6,7 @@
       v-html="readme"
     />
     <section class="bd-content">
-      <h2 id="directive-reference">
-        {{ metaTitle }} Directive Reference
-      </h2>
+      <h2 id="directive-reference">{{ metaTitle }} Directive Reference</h2>
       <importdoc :meta="meta" />
     </section>
   </main>

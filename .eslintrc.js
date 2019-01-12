@@ -18,6 +18,7 @@ module.exports = {
     'vue/no-use-v-if-with-v-for': 'off',
     'vue/no-v-html': 'off',
     'vue/require-default-prop': 'off',
-    'vue/require-prop-types': 'off'
+    'vue/require-prop-types': 'off',
+    'vue/singleline-html-element-content-newline': 'off'
   }
 }

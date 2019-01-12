@@ -8,9 +8,7 @@
       align-v="center"
     >
       <b-col sm="9">
-        <h2 :id="`comp-ref-${componentName}`">
-          <code>{{ tag }}</code>
-        </h2>
+        <h2 :id="`comp-ref-${componentName}`"><code>{{ tag }}</code></h2>
       </b-col>
       <b-col
         sm="3"
@@ -28,12 +26,8 @@
     </b-row>
 
     <article v-if="aliases && aliases.length > 0">
-      <h4 :id="`comp-ref-${componentName}-aliases`">
-        Component aliases
-      </h4>
-      <p>
-        <code>{{ tag }}</code> can also be used via the following aliases:
-      </p>
+      <h4 :id="`comp-ref-${componentName}-aliases`">Component aliases</h4>
+      <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
       <ul>
         <li
           v-for="alias in aliases"
@@ -45,9 +39,7 @@
     </article>
 
     <article v-if="props_items && props_items.length > 0">
-      <h4 :id="`comp-ref-${componentName}-props`">
-        Properties
-      </h4>
+      <h4 :id="`comp-ref-${componentName}-props`">Properties</h4>
       <b-table
         :items="props_items"
         :fields="props_fields"
@@ -59,17 +51,13 @@
           slot="default"
           slot-scope="field"
         >
-          <code v-if="field.value">
-            {{ field.value }}
-          </code>
+          <code v-if="field.value">{{ field.value }}</code>
         </template>
       </b-table>
     </article>
 
     <article v-if="slots && slots.length > 0">
-      <h4 :id="`comp-ref-${componentName}-slots`">
-        Slots
-      </h4>
+      <h4 :id="`comp-ref-${componentName}-slots`">Slots</h4>
       <b-table
         :items="slots"
         :fields="slots_fields"
@@ -80,9 +68,7 @@
     </article>
 
     <article v-if="events && events.length > 0">
-      <h4 :id="`comp-ref-${componentName}-events`">
-        Events
-      </h4>
+      <h4 :id="`comp-ref-${componentName}-events`">Events</h4>
       <b-table
         :items="events"
         :fields="events_fields"
@@ -98,18 +84,15 @@
             v-for="arg in field.value"
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <code v-if="arg.arg">
-              {{ arg.arg }}
-            </code> - <span v-html="arg.description" />
+            <code v-if="arg.arg">{{ arg.arg }}</code> -
+            <span v-html="arg.description" />
           </div>
         </template>
       </b-table>
     </article>
 
     <article v-if="rootEventEmitters && rootEventEmitters.length > 0">
-      <h4 :id="`comp-ref-${componentName}-rootEventEmitters`">
-        $root Event Emitters
-      </h4>
+      <h4 :id="`comp-ref-${componentName}-rootEventEmitters`">$root Event Emitters</h4>
       <b-table
         :items="rootEventEmitters"
         :fields="rootEventEmitters_fields"
@@ -125,9 +108,8 @@
             v-for="arg in field.value"
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <code v-if="arg.arg">
-              {{ arg.arg }}
-            </code> - <span v-html="arg.description" />
+            <code v-if="arg.arg">{{ arg.arg }}</code> -
+            <span v-html="arg.description" />
           </div>
         </template>
       </b-table>

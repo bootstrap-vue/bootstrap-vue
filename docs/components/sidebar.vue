@@ -19,7 +19,8 @@
         :to="'/docs/' + group.base"
         :exact="group.exact"
       >
-        {{ group.title }} <small
+        {{ group.title }}
+        <small
           v-if="group.new"
           class="badge badge-success"
         >

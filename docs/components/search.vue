@@ -19,8 +19,7 @@
         height="30"
         focusable="false"
       >
-        <title>Menu</title>
-        <path
+        <title>Menu</title><path
           stroke="currentColor"
           stroke-width="2"
           stroke-linecap="round"
@@ -34,12 +33,9 @@
       placement="bottom"
       triggers="focus"
     >
-      <span v-if="search.length && Object.keys(results).length === 0">
-        No results found
-      </span>
-      <span v-else-if="search.length" /> <span v-else>
-        Type something to start search
-      </span>
+      <span v-if="search.length && Object.keys(results).length === 0">No results found</span>
+      <span v-else-if="search.length" />
+      <span v-else>Type something to start search</span>
 
       <div
         v-for="(results, section, idx) in results"

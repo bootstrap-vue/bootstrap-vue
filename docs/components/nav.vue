@@ -44,9 +44,7 @@
           </tspan>
         </text>
       </svg>
-      <span class="sr-only">
-        Home
-      </span>
+      <span class="sr-only">Home</span>
     </b-navbar-brand>
 
     <b-collapse
@@ -98,14 +96,8 @@
           :text="`v${version}`"
           right
         >
-          <b-dropdown-item href="http://dev.bootstrap-vue.netlify.com">
-            Development
-          </b-dropdown-item>
-          <b-dropdown-item
-            href="https://bootstrap-vue.js.org"
-          >
-            Latest (v{{ version }})
-          </b-dropdown-item>
+          <b-dropdown-item href="http://dev.bootstrap-vue.netlify.com">Development</b-dropdown-item>
+          <b-dropdown-item href="https://bootstrap-vue.js.org">Latest (v{{ version }})</b-dropdown-item>
         </b-nav-item-dropdown>
 
         <b-nav-item
@@ -125,9 +117,7 @@
               fill-rule="evenodd"
             />
           </svg>
-          <span class="sr-only">
-            GitHub
-          </span>
+          <span class="sr-only">GitHub</span>
         </b-nav-item>
 
         <b-nav-item
@@ -146,9 +136,7 @@
               fill="currentColor"
             />
           </svg>
-          <span class="sr-only">
-            Twitter
-          </span>
+          <span class="sr-only">Twitter</span>
         </b-nav-item>
 
         <b-nav-item
@@ -171,9 +159,7 @@
               fill="currentColor"
             />
           </svg>
-          <span class="sr-only">
-            Discord Chat
-          </span>
+          <span class="sr-only">Discord Chat</span>
         </b-nav-item>
 
         <div class="nav-item nav-link">

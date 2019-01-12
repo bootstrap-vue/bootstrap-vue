@@ -70,11 +70,9 @@
     </h3>
 
     <p v-if="isComponentRoute">
-      This plugin includes all of the above listed individual components<span
-        v-if="directives.length"
-      >
-        and directives
-      </span>. Plugins also include any component aliases.
+      This plugin includes all of the above listed individual
+      components<span v-if="directives.length"> and directives</span>.
+      Plugins also include any component aliases.
     </p>
     <p v-else>
       This plugin includes all of the above listed individual directives.

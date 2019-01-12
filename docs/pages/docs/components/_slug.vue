@@ -7,9 +7,7 @@
     />
 
     <section class="bd-content">
-      <h2 id="component-reference">
-        {{ startCase(meta.title) }} Component Reference
-      </h2>
+      <h2 id="component-reference">{{ startCase(meta.title) }} Component Reference</h2>
 
       <!-- main component reference information -->
       <componentdoc
