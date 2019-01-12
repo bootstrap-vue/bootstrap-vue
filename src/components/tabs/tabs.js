@@ -218,8 +218,9 @@ export default {
     updateTabs () {
       // Probe tabs
       const tabs = (this.$slots.default || [])
-        .map(vnode => vnode.componentInstance)
+        .map(vnode => vnode.componentInstance )
         .filter(tab => tab && tab._istab)
+      console.log('UpdatTabs:', tabs, this.$slots.default)
 
       // Find *last* active non-disabled tab in current tabs
       // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
