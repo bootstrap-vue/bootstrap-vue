@@ -87,9 +87,7 @@ export default {
   name: 'BTabs',
   mixins: [idMixin],
   provide () {
-    return {
-      tabs: this
-    }
+    return { bTabs: this }
   },
   props: {
     tag: {
@@ -359,7 +357,7 @@ export default {
             },
             keydown: evt => {
               if (!this.noKeyNav && tab.localActive && !tab.disabled) {
-                this.onKeyNav(evt)
+                this.onKeynav(evt)
               }
             }
           }
