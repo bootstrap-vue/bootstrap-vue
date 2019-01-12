@@ -22,7 +22,7 @@ const BTabButtonHelper = {
         this.$refs.link.focus()
       }
     },
-    handleClick (evt) {
+    handleEvt (evt) {
       function stop () {
         evt.preventDefault()
         evt.stopPropagation()
@@ -30,15 +30,33 @@ const BTabButtonHelper = {
       if (this.tab.disabled) {
         return
       }
-      if (
-        evt.type === 'click' ||
-        (!this.noKeyNav && evt.type === 'keydown' && evt.keyCode === KeyCodes.SPACE)
-      ) {
+      const type = evt.type
+      const key = evt.keyCode
+      const shift = evt.shiftKey
+      if (type === 'click') {
         stop()
         this.$emit('click', evt) // Could call this.tab.activate() instead
-      } else if (evt.type === 'keydown' && !this.noKeyNav) {
+      } else if (type === 'keydown' && !this.noKeyNav && key === KeyCodes.SPACE) {
+        // In keyNav mode, SAPCE press will also trigger a click/select
+        stop()
+        this.$emit('click', evt) // Could call this.tab.activate() instead
+      } else if (type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
-        this.$emit('keydown', evt)
+        if (key === KeyCodes.UP || key === KeyCodes.LEFT || key === KeyCodes.HOME) {
+          stop()
+          if (shift || key === KeyCodes.HOME) {
+            this.$emit('first', evt)
+          } else {
+            this.$emit('prev', evt)
+          }
+        } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT || key === KeyCodes.END) {
+          stop()
+          if (shift || key === KeyCodes.END) {
+            this.$emit('last', evt)
+          } else {
+            this.$emit('next', evt)
+          }
+        }
       }
     }
   },
@@ -70,8 +88,8 @@ const BTabButtonHelper = {
           'aria-controls': this.controls
         },
         on: {
-          click: this.handleClick,
-          keydown: this.handleClick
+          click: this.handleEvt,
+          keydown: this.handleEvt
         }
       },
       [this.tab.$slots.title || this.tab.title]
@@ -283,33 +301,6 @@ export default {
         button.focus()
       }
     },
-    // handle keyboard navigation
-    onKeynav (evt) {
-      if (this.nokeyNav) {
-        return
-      }
-      const key = evt.keyCode
-      const shift = evt.shiftKey
-      function stop () {
-        evt.preventDefault()
-        evt.stopPropagation()
-      }
-      if (key === KeyCodes.UP || key === KeyCodes.LEFT || key === KeyCodes.HOME) {
-        stop()
-        if (shift || key === KeyCodes.HOME) {
-          this.firstTab(true)
-        } else {
-          this.previousTab(true)
-        }
-      } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT || key === KeyCodes.END) {
-        stop()
-        if (shift || key === KeyCodes.END) {
-          this.lastTab(true)
-        } else {
-          this.nextTab(true)
-        }
-      }
-    },
     // Move to first non-disabled tab
     firstTab (focus) {
       const tab = this.tabs.find(tab => !tab.disabled)
@@ -388,11 +379,10 @@ export default {
           },
           on: {
             click: evt => { this.activateTab(tab) },
-            keydown: evt => {
-              if (!this.noKeyNav && !tab.disabled) {
-                this.onKeynav(evt)
-              }
-            }
+            first: this.firstTab,
+            prev: this.previousTab,
+            next: this.nextTab,
+            last: this.lastTab
           }
         }
       )
