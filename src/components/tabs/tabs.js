@@ -188,16 +188,18 @@ export default {
         return
       }
       val = parseInt(val, 10)
+      old = parseInt(old, 10) || 0
       const tabs = this.tabs
       const currentIndex = this.currentTab
       if (tabs[val] && !tabs[val].disabled) {
         this.currentTab = val
-      } else if (tabs[currentIndex] && !tabs[currentIndex].disabled) {
-        // Stick with current tab, so update-v-model
-        this.$emit('input', this.currentTab)
       } else {
-        // Tab not available
-        this.currentTab = -1
+        // Try next/prev tabs
+        if (val < old) {
+          this.nextTab()
+        } else {
+          this.previousTab()
+        }
       }
     }
   },
@@ -270,7 +272,7 @@ export default {
     },
     // handle keyboard navigation
     onKeynav (evt) {
-      if (!this.nokeyNav) {
+      if (this.nokeyNav) {
         return
       }
       const key = evt.keyCode
@@ -443,7 +445,10 @@ export default {
       this.tag,
       {
         staticClass: 'tabs',
-        class: { row: this.vertical, 'no-gutters': this.vertical && this.card },
+        class: {
+          row: this.vertical, 
+          'no-gutters': this.vertical && this.card
+        },
         attrs: { id: this.safeId() }
       },
       [
