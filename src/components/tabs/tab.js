@@ -102,9 +102,9 @@ export default {
   },
   updated () {
     // Force the tab buton content to update (since slots are not reactive)
-    // if (this.bTabs.updateButton) {
-    //   this.bTabs.updateButton(this)
-    // }
+    if (this.bTabs.updateButton) {
+      this.bTabs.updateButton(this)
+    }
   },
   methods: {
     // Public methods
