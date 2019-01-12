@@ -130,7 +130,7 @@ export default {
       raf(() => { this.show = true })
     },
     beforeLeave () {
-      // remove the 'show' class
+      // Remove the 'show' class
       this.show = false
     }
   },
