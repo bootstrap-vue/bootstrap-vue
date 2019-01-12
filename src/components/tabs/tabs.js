@@ -31,8 +31,7 @@ const BTabButtonHelper = {
         ],
         props: {
           href: this.href, // To be deprecated to always be '#'
-          disabled: this.disabled,
-          active: this.active
+          disabled: this.disabled
         },
         attrs: {
           role: 'tab',
@@ -71,10 +70,13 @@ const BTabButtonHelper = {
       if (this.disabled) {
         return
       }
-      if (evt.type === 'click' || (evt.keyCode === KeyCodes.SPACE && !this.noKeyNav)) {
+      if (
+        evt.type === 'click' ||
+        (!this.noKeyNav && evt.type === 'keydown' && evt.keyCode === KeyCodes.SPACE)
+      ) {
         stop()
         this.$emit('click', evt)
-      } else if (evt.type === 'keydown' && this.active && !this.noKeyNav) {
+      } else if (evt.type === 'keydown' && !this.noKeyNav) {
         // for keyboard navigation
         this.$emit('keydown', evt)
       }
@@ -268,6 +270,9 @@ export default {
     },
     // handle keyboard navigation
     onKeynav (evt) {
+      if (!this.nokeyNav) {
+        return
+      }
       const key = evt.keyCode
       const shift = evt.shiftKey
       function stop () {
@@ -304,25 +309,29 @@ export default {
       const currentIndex = Math.max(this.currentTab, 0)
       const tabs = this.tabs.slice(0, currentIndex)
       const index = tabs.lastIndexOf(tabs.find(tab => !tab.disabled))
-      this.currentTab = currentIndex - 1 - index
-      if (focus) {
-        this.focusButton(index)
+      if (index > -1) {
+        this.currentTab = currentIndex - 1 - index
+        if (focus) {
+          this.focusButton(index)
+        }
       }
     },
     // Move to next non-disabled tab
     nextTab (focus) {
       const currentIndex = Math.max(this.currentTab, -1)
       const tabs = this.tabs
-      const index = tabs.indexOf(tabs.find(tab => !tab.disabled), currentIndex + 1)
-      this.currentTab = index
-      if (focus) {
-        this.focusButton(index)
+      const index = tabs.indexOf(tabs.slice(currentIndex + 1).find(tab => !tab.disabled))
+      if (index > -1) {
+        this.currentTab = index
+        if (focus) {
+          this.focusButton(index)
+        }
       }
     },
     // Move to last non-disabled tab
     lastTab (focus) {
       const tabs = this.tabs
-      const index = tabs.lastIndexOf(tabs.find(tab => !tab.disabled))
+      const index = tabs.indexOf(tabs.slice().reverse().find(tab => !tab.disabled))
       this.currentTab = index
       if (focus) {
         this.focusButton(index)
@@ -356,7 +365,7 @@ export default {
               this.currentTab = index
             },
             keydown: evt => {
-              if (!this.noKeyNav && tab.localActive && !tab.disabled) {
+              if (!this.noKeyNav && !tab.disabled) {
                 this.onKeynav(evt)
               }
             }
