@@ -103,6 +103,7 @@ export default {
   updated () {
     // Force the tab button content to update (since slots are not reactive)
     if (this.bTabs.updateButton) {
+      console.log('b-tab calling updateButton', this)
       this.bTabs.updateButton(this)
     }
   },
