@@ -196,9 +196,9 @@ export default {
       } else {
         // Try next/prev tabs
         if (val < old) {
-          this.nextTab()
-        } else {
           this.previousTab()
+        } else {
+          this.nextTab()
         }
       }
     }
@@ -312,10 +312,12 @@ export default {
       const tabs = this.tabs.slice(0, currentIndex)
       const index = tabs.lastIndexOf(tabs.find(tab => !tab.disabled))
       if (index > -1) {
-        this.currentTab = currentIndex - 1 - index
+        this.currentTab = index
         if (focus) {
           this.focusButton(index)
         }
+      } else {
+        this.$emit('input', this.currentTab)
       }
     },
     // Move to next non-disabled tab
@@ -328,6 +330,8 @@ export default {
         if (focus) {
           this.focusButton(index)
         }
+      } else {
+        this.$emit('input', this.currentTab)
       }
     },
     // Move to last non-disabled tab
