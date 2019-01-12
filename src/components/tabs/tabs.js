@@ -191,7 +191,6 @@ export default {
       val = parseInt(val, 10)
       old = parseInt(old, 10) || 0
       const tabs = this.tabs
-      const currentIndex = this.currentTab
       if (tabs[val] && !tabs[val].disabled) {
         this.currentTab = val
       } else {
@@ -461,7 +460,7 @@ export default {
       {
         staticClass: 'tabs',
         class: {
-          row: this.vertical, 
+          row: this.vertical,
           'no-gutters': this.vertical && this.card
         },
         attrs: { id: this.safeId() }
