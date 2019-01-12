@@ -1,6 +1,6 @@
+import BLink from '../link/link'
 import KeyCodes from '../../utils/key-codes'
 import observeDom from '../../utils/observe-dom'
-import stableSort from '../../utils/stable-sort'
 import idMixin from '../../mixins/id'
 
 // Private Helper component
@@ -8,7 +8,7 @@ const BTabButtonHelper = {
   name: 'BTabButtonHelper',
   props: {
     content: { type: [String, Array], default: '' },
-    href: { type: String, default: '#' },
+    href: { type: String, default: '#' }, // To be deprecated
     posInSet: { type: Number, default: null },
     setSize: { type: Number, default: null },
     controls: { type: String, default: null },
@@ -20,28 +20,37 @@ const BTabButtonHelper = {
     noKeyNav: { type: Boolean, default: false }
   },
   render (h) {
-    const link = h('a', {
-      staticClass: 'nav-link',
-      class: [
-        { active: this.active, disabled: this.disabled },
-        this.linkClass
-      ],
-      attrs: {
-        role: 'tab',
-        tabindex: this.noKeyNav ? null : '-1',
-        href: this.href,
-        id: this.id,
-        disabled: this.disabled,
-        'aria-selected': this.active ? 'true' : 'false',
-        'aria-setsize': this.setSize,
-        'aria-posinset': this.posInSet,
-        'aria-controls': this.controls
+    const link = h(
+      BLink,
+      {
+        ref: 'link',
+        staticClass: 'nav-link',
+        class: [
+          { active: this.active, disabled: this.disabled },
+          this.linkClass
+        ],
+        props: { 
+          href: this.href, // To be deprecated to always be '#'
+          disabled: this.disabled,
+          active: this.active
+        },
+        attrs: {
+          role: 'tab',
+          id: this.id,
+          // Roving tab index when keynav enabled
+          tabindex: this.noKeyNav ? null : (this.active ? '0' : '-1'),
+          'aria-selected': this.active ? 'true' : 'false',
+          'aria-setsize': this.setSize,
+          'aria-posinset': this.posInSet,
+          'aria-controls': this.controls
+        },
+        on: {
+          click: this.handleClick,
+          keydown: this.handleClick
+        }
       },
-      on: {
-        click: this.handleClick,
-        keydown: this.handleClick
-      }
-    }, this.content)
+      this.$slots.default || this.content
+    )
     return h(
       'li',
       { class: ['nav-item', this.itemClass], attrs: { role: 'presentation' } },
@@ -49,25 +58,25 @@ const BTabButtonHelper = {
     )
   },
   methods: {
+    focus () {
+      if (this.$refs.link && this.refs.link.focus) {
+        this.$refs.link.focus()
+      }
+    },
     handleClick (evt) {
       function stop () {
         evt.preventDefault()
         evt.stopPropagation()
       }
-      if (evt.type !== 'click' && this.noKeyNav) {
-        return
-      }
       if (this.disabled) {
-        stop()
         return
       }
-      if (
-        evt.type === 'click' ||
-        evt.keyCode === KeyCodes.ENTER ||
-        evt.keyCode === KeyCodes.SPACE
-      ) {
+      if (evt.type === 'click' || (evt.keyCode === KeyCodes.SPACE && !this.noKeyNav)) {
         stop()
         this.$emit('click', evt)
+      } else if (evt.type === 'keydown' && this.active && !this.noKeyNav) {
+        // for keyboard navigation
+        this.$emit('keydown', evt)
       }
     }
   }
@@ -148,7 +157,9 @@ export default {
   },
   data () {
     return {
-      currentTab: this.value,
+      // Index of current tab
+      currentTab: parseInt(this.value, 10) || -1,
+      // Array of direct child b-tab instances
       tabs: []
     }
   },
@@ -166,23 +177,36 @@ export default {
       if (val === old) {
         return
       }
-      this.$root.$emit('changed::tab', this, val, this.tabs[val])
+      // Ensure only one tab is active
+      this.tabs.forEach((tab, idx) => {
+        tab.localActive = val === idx && !tab.disabled
+      })
       this.$emit('input', val)
-      this.tabs[val].$emit('click')
     },
     value (val, old) {
       if (val === old) {
         return
       }
-      if (typeof old !== 'number') {
-        old = 0
+      val = parseInt(val, 10)
+      const tabs = this.tabs
+      const currentIndex = this.currentTab
+      else if (tabs[val] && !tabs[val].disabled) {
+        this.currentTab = val
+      } else if (tabs[currentIndex] && !tabs[currentIndex].disabled]) {
+        // Stick with current tab, so update-v-model
+        this.$emit('input', this.currentTab)
+      } else {
+        // Tab not available
+        this.currentTab = -1
       }
-      // Moving left or right?
-      const direction = val < old ? -1 : 1
-      this.setTab(val, false, direction)
     }
   },
+  created () {
+    // For SSR and to make sure only a single tab is shown on mount
+    this.updateTabs()
+  },
   mounted () {
+    // In case tabs have changed before mount
     this.updateTabs()
     // Observe Child changes so we can notify tabs change
     observeDom(this.$refs.tabsContainer, this.updateTabs.bind(this), {
@@ -190,148 +214,158 @@ export default {
     })
   },
   methods: {
-    // Return the sign of a number (as -1, 0, or 1)
-    sign (x) {
-      return x === 0 ? 0 : x > 0 ? 1 : -1
+    // Update list of b-tab children
+    updateTabs () {
+      // Probe tabs
+      const tabs = (this.$slots.default || [])
+        .map(vnode => vnode.componentInstance)
+        .filter(tab => tab && tab._istab)
+
+      // Find *last* active non-disabled tab in current tabs
+      // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
+      let tabIndex = tabs.indexOf(tabs.slice().reverse().find(tab => tab.localActive && !tab.disabled))
+
+      // Else try setting to currentTab
+      if (tabIndex < 0) {
+        const currentTab = this.currentTab
+        if (currentTab >= tabs.length) {
+          // Handle last tab being removed, so find the last non-disabled tab
+          tabIndex = tabs.indexOf(tabs.slice().reverse().find(tab => !tab.disabled))
+        } else if (tabs[currentTab] && !tabs[currentTab].disabled) {
+          // current tab is not disabled
+          tabIndex = currentTab
+        }
+      }
+
+      // Else find *first* non-disabled tab in current tabs
+      if (tabIndex < 0) {
+        tabIndex = tabs.indexOf(tabs.find(tab => !tabs.disabled))
+      }
+      
+      // Set the current tab state to active
+      tabs.forEach((tab, idx) => {
+        tab.localActive = idx === tabIndex && !tab.disabled
+      })
+
+      // update the array of tab children
+      this.tabs = tabs
+      // Set teh currentTab index (can be -1 if no non-disabled tabs)
+      this.currentTab = tabIndex
+    },
+    // Force a button to re-render it's content, given a b-tab instance
+    // Called by b-tab on update()
+    updateButton(tab) {
+      const index = this.tabs.indexOf(tab)
+      const button = this.$refs.buttons[index]
+      if (button) {
+        button.$forceUpdate()
+      }
+    },
+    focusButton(index) {
+      // Focus a tab button given it's index
+      const button = this.$refs.buttons[index]
+      if (button && button.focus) {
+        button.focus()
+      }
     },
     // handle keyboard navigation
     onKeynav (evt) {
-      if (this.noKeyNav) {
-        return
-      }
       const key = evt.keyCode
       const shift = evt.shiftKey
       function stop () {
         evt.preventDefault()
         evt.stopPropagation()
       }
-      if (key === KeyCodes.UP || key === KeyCodes.LEFT) {
+      if (key === KeyCodes.UP || key === KeyCodes.LEFT || key === KeyCodes.HOME) {
         stop()
-        if (shift) {
-          this.setTab(0, false, 1)
+        if (shift || key === KeyCodes.HOME) {
+          this.firstTab(true)
         } else {
-          this.previousTab()
+          this.previousTab(true)
         }
-      } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT) {
+      } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT || key === KeyCodes.END) {
         stop()
-        if (shift) {
-          this.setTab(this.tabs.length - 1, false, -1)
+        if (shift || key === KeyCodes.END) {
+          this.lastTab(true)
         } else {
-          this.nextTab()
+          this.nextTab(true)
         }
       }
     },
-    // Move to next tab
-    nextTab () {
-      this.setTab(this.currentTab + 1, false, 1)
-    },
-    // Move to previous tab
-    previousTab () {
-      this.setTab(this.currentTab - 1, false, -1)
-    },
-    // Set active tab on the tabs collection and the child 'tab' component
-    // Index is the tab we want to activate. Direction is the direction we are moving
-    // so if the tab we requested is disabled, we can skip over it.
-    // Force is used by updateTabs to ensure we have cleared any previous active tabs.
-    setTab (index, force, direction) {
-      direction = this.sign(direction || 0)
-      index = index || 0
-      // Prevent setting same tab and infinite loops!
-      if (!force && index === this.currentTab) {
-        return
-      }
-      const tab = this.tabs[index]
-      // Don't go beyond indexes!
-      if (!tab) {
-        // Reset the v-model to the current Tab
-        this.$emit('input', this.currentTab)
-        return
-      }
-      // Ignore or Skip disabled
-      if (tab.disabled) {
-        if (direction) {
-          // Skip to next non disabled tab in specified direction (recursive)
-          this.setTab(index + direction, force, direction)
-        }
-        return
-      }
-      // Activate requested current tab, and deactivte any old tabs
-      this.tabs.forEach(t => {
-        if (t === tab) {
-          // Set new tab as active
-          this.$set(t, 'localActive', true)
-        } else {
-          // Ensure non current tabs are not active
-          this.$set(t, 'localActive', false)
-        }
-      })
-      // Update currentTab
+    // Move to first non-disabled tab
+    firstTab (focus) {
+      const tabs = this.tabs
+      const index = tabs.indexOf(tabs.find(tab => !tab.disabled))
       this.currentTab = index
+      if (focus) {
+        this.focusButton(index)
+      }
     },
-    // Dynamically update tabs list
-    updateTabs () {
-      // Probe tabs
-      this.tabs = stableSort(this.$children.filter(child => child._isTab), (a, b) => {
-        return a.computedOrder - b.computedOrder
-      })
-      // Set initial active tab
-      let tabIndex = null
-      // Find *last* active non-dsabled tab in current tabs
-      // We trust tab state over currentTab
-      this.tabs.forEach((tab, index) => {
-        if (tab.localActive && !tab.disabled) {
-          tabIndex = index
-        }
-      })
-      // Else try setting to currentTab
-      if (tabIndex === null) {
-        if (this.currentTab >= this.tabs.length) {
-          // Handle last tab being removed
-          this.setTab(this.tabs.length - 1, true, -1)
-          return
-        } else if (
-          this.tabs[this.currentTab] &&
-          !this.tabs[this.currentTab].disabled
-        ) {
-          tabIndex = this.currentTab
-        }
+    // Move to previous non-disabled tab
+    previousTab (focus) {
+      const currentIndex = Math.max(this.currentTab, 0)
+      const tabs = this.tabs.slice(0, currentIndex)
+      const index = tabs.lastIndexOf(tabs.find(tab => !tab.disabled))
+      this.currentTab = currentIndex - 1 - index
+      if (focus) {
+        this.focusButton(index)
       }
-      // Else find *first* non-disabled tab in current tabs
-      if (tabIndex === null) {
-        this.tabs.forEach((tab, index) => {
-          if (!tab.disabled && tabIndex === null) {
-            tabIndex = index
-          }
-        })
+    },
+    // Move to next non-disabled tab
+    nextTab (focus) {
+      const currentIndex = Math.max(this.currentTab, -1)
+      const tabs = this.tabs
+      const index = tabs.indexOf(tabs.find(tab => !tab.disabled), currentIndex + 1)
+      this.currentTab = index
+      if (focus) {
+        this.focusButton(index)
       }
-      this.setTab(tabIndex || 0, true, 0)
+    },
+    // Move to last non-disabled tab
+    lastTab (focus) {
+      const tabs = this.tabs
+      const index = tabs.lastIndexOf(tabs.find(tab => !tab.disabled))
+      this.currentTab = index
+      if (focus) {
+        this.focusButton(index)
+      }
     }
   },
   render (h) {
     const tabs = this.tabs
     // Navigation 'buttons'
     const buttons = tabs.map((tab, index) => {
-      return h(BTabButtonHelper, {
-        key: index,
-        props: {
-          content: tab.$slots.title || tab.title,
-          href: tab.href,
-          id: tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`),
-          active: tab.localActive,
-          disabled: tab.disabled,
-          setSize: tabs.length,
-          posInSet: index + 1,
-          controls: this.safeId('_BV_tab_container_'),
-          linkClass: tab.titleLinkClass,
-          itemClass: tab.titleItemClass,
-          noKeyNav: this.noKeyNav
-        },
-        on: {
-          click: evt => {
-            this.setTab(index)
+      const buttonId = tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`)
+      return h(
+        BTabButtonHelper,
+        {
+          key: buttonId || index,
+          ref: 'buttons',
+          props: {
+            href: tab.href, // To be deprecated to be always '#'
+            id: buttonId,
+            active: tab.localActive && !tab.disabled,
+            disabled: tab.disabled,
+            setSize: tabs.length,
+            posInSet: index + 1,
+            controls: this.safeId('_BV_tab_container_'),
+            linkClass: tab.titleLinkClass,
+            itemClass: tab.titleItemClass,
+            noKeyNav: this.noKeyNav
+          },
+          on: {
+            click: evt => {
+              this.currentTab = index
+            },
+            keydown: evt => {
+              if (!this.noKeyNav && tab.localActive && !tab.disabled) {
+                this.onKeyNav(evt)
+              }
+            }
           }
-        }
-      })
+        },
+        [tab.$slots.title || tab.title]
+      )
     })
 
     // Nav 'button' wrapper
@@ -354,10 +388,8 @@ export default {
         ],
         attrs: {
           role: 'tablist',
-          tabindex: this.noKeyNav ? null : '0',
           id: this.safeId('_BV_tab_controls_')
-        },
-        on: { keydown: this.onKeynav }
+        }
       },
       [buttons, this.$slots.tabs]
     )
@@ -382,7 +414,7 @@ export default {
     } else {
       empty = h(
         'div',
-        { class: ['tab-pane', 'active', { 'card-body': this.card }] },
+        { key: 'empty-tab', class: ['tab-pane', 'active', { 'card-body': this.card }] },
         this.$slots.empty
       )
     }
@@ -392,7 +424,8 @@ export default {
       'div',
       {
         ref: 'tabsContainer',
-        class: ['tab-content', { col: this.vertical }, this.contentClass],
+        staticClass: 'tab-content',
+        class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
       },
       [this.$slots.default, empty]
@@ -402,10 +435,8 @@ export default {
     return h(
       this.tag,
       {
-        class: [
-          'tabs',
-          { row: this.vertical, 'no-gutters': this.vertical && this.card }
-        ],
+        staticClass: 'tabs',
+        class: { row: this.vertical, 'no-gutters': this.vertical && this.card },
         attrs: { id: this.safeId() }
       },
       [
