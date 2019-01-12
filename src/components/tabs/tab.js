@@ -101,7 +101,7 @@ export default {
     this.show = this.localActive
   },
   updated () {
-    // Force the tab buton content to update (since slots are not reactive)
+    // Force the tab button content to update (since slots are not reactive)
     if (this.bTabs.updateButton) {
       this.bTabs.updateButton(this)
     }
