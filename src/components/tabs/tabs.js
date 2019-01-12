@@ -29,7 +29,7 @@ const BTabButtonHelper = {
           { active: this.active, disabled: this.disabled },
           this.linkClass
         ],
-        props: { 
+        props: {
           href: this.href, // To be deprecated to always be '#'
           disabled: this.disabled,
           active: this.active
@@ -241,7 +241,7 @@ export default {
       if (tabIndex < 0) {
         tabIndex = tabs.indexOf(tabs.find(tab => !tabs.disabled))
       }
-      
+
       // Set the current tab state to active
       tabs.forEach((tab, idx) => {
         tab.localActive = idx === tabIndex && !tab.disabled
@@ -254,14 +254,14 @@ export default {
     },
     // Force a button to re-render it's content, given a b-tab instance
     // Called by b-tab on update()
-    updateButton(tab) {
+    updateButton (tab) {
       const index = this.tabs.indexOf(tab)
       const button = this.$refs.buttons[index]
       if (button) {
         button.$forceUpdate()
       }
     },
-    focusButton(index) {
+    focusButton (index) {
       // Focus a tab button given it's index
       const button = this.$refs.buttons[index]
       if (button && button.focus) {
