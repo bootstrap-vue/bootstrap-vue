@@ -192,7 +192,7 @@ export default {
       const currentIndex = this.currentTab
       if (tabs[val] && !tabs[val].disabled) {
         this.currentTab = val
-      } else if (tabs[currentIndex] && !tabs[currentIndex].disabled]) {
+      } else if (tabs[currentIndex] && !tabs[currentIndex].disabled) {
         // Stick with current tab, so update-v-model
         this.$emit('input', this.currentTab)
       } else {
