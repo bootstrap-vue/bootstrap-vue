@@ -7,7 +7,10 @@ export default {
   inject: {
     bTabs: {
       default: function () {
-        return {}
+        return {
+          // Dont set a tab index if not rendered inside b-tabs
+          noKeyNav: true
+        }
       }
     }
   },
@@ -101,7 +104,14 @@ export default {
     }
   },
   mounted () {
+    // Initially show on mount if active and not disabled
     this.show = this.localActive
+  },
+  updated () {
+    // Force the tab buton content to update (since slots are not reactive)
+    // if (this.bTabs.updateButton) {
+    //   this.bTabs.updateButton(this)
+    // }
   },
   methods: {
     beforeEnter () {
@@ -133,6 +143,7 @@ export default {
         attrs: {
           role: 'tabpanel',
           id: this.safeId(),
+          tabindex: (this.localActive && !this.bTabs.noKeyNav) ? '0' : null,
           'aria-hidden': this.localActive ? 'false' : 'true',
           'aria-expanded': this.localActive ? 'true' : 'false',
           'aria-labelledby': this.controlledBy || null
