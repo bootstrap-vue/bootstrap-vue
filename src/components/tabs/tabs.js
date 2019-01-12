@@ -370,6 +370,8 @@ export default {
         {
           key: buttonId || index,
           ref: 'buttons',
+          // Needed to make this.$refs.buttons an array
+          refInFor: true,
           props: {
             tab: tab,
             id: buttonId,
