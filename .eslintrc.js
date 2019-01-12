@@ -14,6 +14,7 @@ module.exports = {
     Vue: true
   },
   rules: {
+    'vue/max-attributes-per-line': ['error', { singleline: 3 }],
     'vue/no-template-shadow': 'off',
     'vue/no-use-v-if-with-v-for': 'off',
     'vue/no-v-html': 'off',

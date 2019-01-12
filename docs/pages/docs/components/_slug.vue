@@ -1,10 +1,6 @@
 <template>
   <main class="container">
-    <div
-      v-play
-      class="bd-content"
-      v-html="readme"
-    />
+    <div v-play class="bd-content" v-html="readme" />
 
     <section class="bd-content">
       <h2 id="component-reference">{{ startCase(meta.title) }} Component Reference</h2>
