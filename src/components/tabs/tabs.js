@@ -102,6 +102,9 @@ const BTabButtonHelper = {
   }
 }
 
+// Filter function to filter out disabled tabs
+const notDisabled = tab => !tab.disabled
+
 // @vue/component
 export default {
   name: 'BTabs',
@@ -249,7 +252,7 @@ export default {
         const currentTab = this.currentTab
         if (currentTab >= tabs.length) {
           // Handle last tab being removed, so find the last non-disabled tab
-          tabIndex = tabs.indexOf(tabs.slice().reverse().find(tab => !tab.disabled))
+          tabIndex = tabs.indexOf(tabs.slice().reverse().find(notDisabled))
         } else if (tabs[currentTab] && !tabs[currentTab].disabled) {
           // current tab is not disabled
           tabIndex = currentTab
@@ -258,7 +261,7 @@ export default {
 
       // Else find *first* non-disabled tab in current tabs
       if (tabIndex < 0) {
-        tabIndex = tabs.indexOf(tabs.find(tab => !tabs.disabled))
+        tabIndex = tabs.indexOf(tabs.find(notDisabled))
       }
 
       // Set the current tab state to active
@@ -271,12 +274,15 @@ export default {
       // Set the currentTab index (can be -1 if no non-disabled tabs)
       this.currentTab = tabIndex
     },
+    // Find a button taht controls a tab, given the tab reference
+    // Returns the button vm instance
+    getButtonForTab (tab) {
+      return = (this.$refs.buttons || []).find(btn => btn.tab === tab)
+    },
     // Force a button to re-render it's content, given a b-tab instance
     // Called by b-tab on update()
     updateButton (tab) {
-      console.log('b-tabs received button update request for tab', tab)
-      const button = this.$refs.buttons[this.tabs.indexOf(tab)]
-      console.log('b-tabs update button', button)
+      const button = this.getButtonForTab(tab)
       if (button && button.$forceUpdate) {
         button.$forceUpdate()
       }
@@ -298,14 +304,14 @@ export default {
     },
     // Focus a tab button given it's b-tab instance
     focusButton (tab) {
-      const button = this.$refs.buttons[this.tabs.indexOf(tab)]
+      const button = this.getButtonForTab(tab)
       if (button && button.focus) {
         button.focus()
       }
     },
     // Move to first non-disabled tab
     firstTab (focus) {
-      const tab = this.tabs.find(tab => !tab.disabled)
+      const tab = this.tabs.find(notDisabled)
       this.activateTab(tab)
       if (focus) {
         this.focusButton(tab)
@@ -315,7 +321,7 @@ export default {
     previousTab (focus) {
       const currentIndex = Math.max(this.currentTab, 0)
       const tabs = this.tabs.slice(0, currentIndex).reverse()
-      const tab = tabs.find(tab => !tab.disabled)
+      const tab = tabs.find(notDisabled)
       if (tab) {
         this.activateTab(tab)
         if (focus) {
@@ -328,7 +334,7 @@ export default {
     // Move to next non-disabled tab
     nextTab (focus) {
       const currentIndex = Math.max(this.currentTab, -1)
-      const tab = this.tabs.slice(currentIndex + 1).find(tab => !tab.disabled)
+      const tab = this.tabs.slice(currentIndex + 1).find(notDisabled)
       if (tab) {
         this.activateTab(tab)
         if (focus) {
@@ -340,7 +346,7 @@ export default {
     },
     // Move to last non-disabled tab
     lastTab (focus) {
-      const tab = this.tabs.slice().reverse().find(tab => !tab.disabled)
+      const tab = this.tabs.slice().reverse().find(notDisabled)
       this.activateTab(tab)
       if (focus) {
         this.focusButton(tab)
