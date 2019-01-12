@@ -78,7 +78,7 @@ const BTabButtonHelper = {
         stop()
         this.$emit('click', evt)
       } else if (evt.type === 'keydown' && !this.noKeyNav) {
-        // for keyboard navigation
+        // For keyboard navigation
         this.$emit('keydown', evt)
       }
     }
@@ -249,9 +249,9 @@ export default {
         tab.localActive = idx === tabIndex && !tab.disabled
       })
 
-      // update the array of tab children
+      // Update the array of tab children
       this.tabs = tabs
-      // Set teh currentTab index (can be -1 if no non-disabled tabs)
+      // Set the currentTab index (can be -1 if no non-disabled tabs)
       this.currentTab = tabIndex
     },
     // Force a button to re-render it's content, given a b-tab instance
@@ -366,7 +366,7 @@ export default {
       let tabindex = null
       // Ensure at least one tab button is focusable when keynav enabled (if possible)
       if (!this.noKeyNav) {
-        // buttons are not in tab index unless active, or a fallback tab
+        // Buttons are not in tab index unless active, or a fallback tab
         tabindex = '-1'
         if (activeTab === tab || (!activeTab && fallbackTab === tab)) {
           // Place tab button in tab sequence
