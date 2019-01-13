@@ -1,6 +1,8 @@
 import Tab from './tab'
 import { mount } from '@vue/test-utils'
 
+jest.useFakeTimers()
+
 describe('tab', async () => {
   it('default has expected classes, attributes and structure', async () => {
     const wrapper = mount(Tab)
@@ -358,19 +360,28 @@ describe('tab', async () => {
     })
 
     const wrapper = mount(Tab, {
-      attachToDocument: true
+      attachToDocument: true,
+      provide () {
+        return {
+          bTabs: {
+            fade: true
+          }
+        }
+      }
     })
 
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('show')
 
     wrapper.setData({ localActive: true })
+    jest.runAllTimers()
     await wrapper.vm.$nextTick()
 
     expect(wrapper.classes()).toContain('show')
     expect(wrapper.classes()).toContain('active')
 
     wrapper.setData({ localActive: false })
+    jest.runAllTimers()
     await wrapper.vm.$nextTick()
 
     expect(wrapper.classes()).not.toContain('show')
