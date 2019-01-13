@@ -229,4 +229,74 @@ describe('tab', async () => {
     expect(called).toBe(true)
     expect(vm).toEqual(wrapper.vm)
   })
+
+  it('emits event "update:active" when prop active changes and calls de/activateTab', async () => {
+    let updateCalled = false
+    let value = null
+    let activateCalled = false
+    let activateVm = null
+    let deactivateCalled = false
+    let deactivateVm = null
+
+    const wrapper = mount(Tab, {
+      provide () {
+        return {
+          bTabs: {
+            fade: false,
+            lazy: false,
+            card: false,
+            noKeyNav: false,
+            activateTab (tab) {
+              called = true
+              vm = tab
+              return true
+            },
+            deactivateTab (tab) {
+              called = true
+              vm = tab
+              return true
+            }
+          }
+        }
+      }
+    })
+
+    wrapper.vm.$on('update:active', (val) => {
+      updateCalled = true
+      value = val
+    })
+
+    expect(updateCalled).toBe(false)
+    expect(value).toBe(null)
+    expect(activateCalled).toBe(false)
+    expect(activateVm).toBe(null)
+    expect(deactivateCalled).toBe(false)
+    expect(deactivateVm).toBe(null)
+    expect(wrapper.vm.localActive).toBe(false)
+
+    wrapper.setProps({ active: true })
+
+    expect(updateCalled).toBe(true)
+    expect(value).toBe(true)
+    expect(activateCalled).toBe(true)
+    expect(activateVm).toBe(wrapper.vm)
+    expect(deactivateCalled).toBe(false)
+    expect(deactivateVm).toBe(null)
+    expect(wrapper.vm.localActive).toBe(true)
+    
+    updateCalled = false
+    value = null
+    activateCalled = false
+    activateVm = null
+
+    wrapper.setProps({ active: false })
+
+    expect(updateCalled).toBe(true)
+    expect(value).toBe(false)
+    expect(activateCalled).toBe(false)
+    expect(activateVm).toBe(null)
+    expect(deactivateCalled).toBe(true)
+    expect(deactivateVm).toBe(wrapper.vm)
+    expect(wrapper.vm.localActive).toBe(false)
+  })
 })
