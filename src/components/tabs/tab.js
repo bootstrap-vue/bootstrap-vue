@@ -152,15 +152,15 @@ export default {
       if (this.bTabs.activateTab && !this.disabled) {
         return this.bTabs.activateTab(this)
       } else {
-        // Not inside a b-tabs component
+        // Not inside a b-tabs component or tab is disabled
         return false
       }
     },
     deactivate () {
-      if (this.bTabs.deactivateTab) {
+      if (this.bTabs.deactivateTab && this.localActive) {
         return this.bTabs.deactivateTab(this)
       } else {
-        // Not inside a b-tabs component
+        // Not inside a b-tabs component or not active to begin with
         return false
       }
     }
