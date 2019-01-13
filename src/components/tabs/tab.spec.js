@@ -45,7 +45,7 @@ describe('tab', async () => {
     const wrapper = mount(Tab, {
       propsData: { active: true }
     })
-    
+
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('show')
@@ -60,7 +60,7 @@ describe('tab', async () => {
         disabled: true
       }
     })
-    
+
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).toContain('disabled')
     expect(wrapper.classes()).toContain('tab-pane')
@@ -71,7 +71,7 @@ describe('tab', async () => {
 
   it('has class active when localActive becomes true', async () => {
     const wrapper = mount(Tab)
-    
+
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('show')
@@ -89,7 +89,7 @@ describe('tab', async () => {
 
   it('emits event "update:active" when localActive becomes true', async () => {
     const wrapper = mount(Tab)
-    
+
     let called = false
     let value = null
     wrapper.$on('update:active', (val) => {
@@ -108,12 +108,14 @@ describe('tab', async () => {
 
   it('has class fade when parent has fade=true', async () => {
     const wrapper = mount(Tab, {
-      inject: {
-        bTabs: {
-          fade: true,
-          lazy: false,
-          card: false,
-          noKeyNav: true
+      provide () {
+        return {
+          bTabs: {
+            fade: true,
+            lazy: false,
+            card: false,
+            noKeyNav: true
+          }
         }
       }
     })
@@ -129,12 +131,14 @@ describe('tab', async () => {
 
   it('has class card-body when parent has card=true', async () => {
     const wrapper = mount(Tab, {
-      inject: {
-        bTabs: {
-          fade: false,
-          lazy: false,
-          card: true,
-          noKeyNav: true
+      provide () {
+        return {
+          bTabs: {
+            fade: false,
+            lazy: false,
+            card: true,
+            noKeyNav: true
+          }
         }
       }
     })
@@ -150,12 +154,14 @@ describe('tab', async () => {
 
   it('does not have class card-body when parent has card=true and prop no-body is set', async () => {
     const wrapper = mount(Tab, {
-      inject: {
-        bTabs: {
-          fade: false,
-          lazy: false,
-          card: true,
-          noKeyNav: true
+      provide () {
+        return {
+          bTabs: {
+            fade: false,
+            lazy: false,
+            card: true,
+            noKeyNav: true
+          }
         }
       },
       propsData: {
@@ -174,12 +180,14 @@ describe('tab', async () => {
 
   it('has attribute tabindex="0" when parent has keynav enabled', async () => {
     const wrapper = mount(Tab, {
-      inject: {
-        bTabs: {
-          fade: false,
-          lazy: false,
-          card: false,
-          noKeyNav: false
+      provide () {
+        return {
+          bTabs: {
+            fade: false,
+            lazy: false,
+            card: false,
+            noKeyNav: false
+          }
         }
       }
     })
