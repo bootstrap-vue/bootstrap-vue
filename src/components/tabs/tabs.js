@@ -18,9 +18,7 @@ const BTabButtonHelper = {
   },
   methods: {
     focus () {
-      console.log('Btn Focus...', this)
-      if (this.$refs && this.$refs.link && this.refs.link.focus) {
-        console.log('Btn Focus $refs', this.$refs)
+      if (this.$refs && this.$refs.link && this.$refs.link.focus) {
         this.$refs.link.focus()
       }
     },
