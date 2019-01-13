@@ -107,14 +107,7 @@ function typeCheckConfig(
 
       if (!new RegExp(expectedTypes).test(valueType)) {
         warn(
-          componentName +
-            ': Option "' +
-            property +
-            '" provided type "' +
-            valueType +
-            '", but expected type "' +
-            expectedTypes +
-            '"'
+          `${componentName}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}"`
         )
       }
     }
