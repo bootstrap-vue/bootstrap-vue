@@ -231,8 +231,6 @@ describe('tab', async () => {
   })
 
   it('calls parent de/activateTab() when prop active changes', async () => {
-    let updateCalled = false
-    let value = null
     let activateCalled = false
     let activateVm = null
     let deactivateCalled = false
@@ -266,8 +264,6 @@ describe('tab', async () => {
       value = val
     })
 
-    expect(updateCalled).toBe(false)
-    expect(value).toBe(null)
     expect(activateCalled).toBe(false)
     expect(activateVm).toBe(null)
     expect(deactivateCalled).toBe(false)
@@ -275,22 +271,18 @@ describe('tab', async () => {
 
     wrapper.setProps({ active: true })
 
-    expect(updateCalled).toBe(false)
-    expect(value).toBe(null)
     expect(activateCalled).toBe(true)
     expect(activateVm).toBe(wrapper.vm)
     expect(deactivateCalled).toBe(false)
     expect(deactivateVm).toBe(null)
 
-    updateCalled = false
-    value = null
     activateCalled = false
     activateVm = null
+    deactivateCalled = false
+    deactivateVm = null
 
     wrapper.setProps({ active: false })
 
-    expect(updateCalled).toBe(false)
-    expect(value).toBe(null)
     expect(activateCalled).toBe(false)
     expect(activateVm).toBe(null)
     expect(deactivateCalled).toBe(true)
