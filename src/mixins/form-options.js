@@ -2,8 +2,8 @@ import { isArray } from '../utils/array'
 import { keys } from '../utils/object'
 import stripScripts from '../utils/strip-scripts'
 
-function isObject (obj) {
-  return obj && ({}).toString.call(obj) === '[object Object]'
+function isObject(obj) {
+  return obj && {}.toString.call(obj) === '[object Object]'
 }
 
 // @vue/component
@@ -11,7 +11,7 @@ export default {
   props: {
     options: {
       type: [Array, Object],
-      default () {
+      default() {
         return []
       }
     },
@@ -29,7 +29,7 @@ export default {
     }
   },
   computed: {
-    formOptions () {
+    formOptions() {
       let options = this.options
 
       const valueField = this.valueField

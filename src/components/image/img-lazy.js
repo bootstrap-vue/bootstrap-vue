@@ -88,28 +88,28 @@ export default {
       default: THROTTLE
     }
   },
-  data () {
+  data() {
     return {
       isShown: false,
       scrollTimeout: null
     }
   },
   computed: {
-    computedSrc () {
-      return (!this.blankSrc || this.isShown) ? this.src : this.blankSrc
+    computedSrc() {
+      return !this.blankSrc || this.isShown ? this.src : this.blankSrc
     },
-    computedBlank () {
+    computedBlank() {
       return !(this.isShown || this.blankSrc)
     },
-    computedWidth () {
-      return this.isShown ? this.width : (this.blankWidth || this.width)
+    computedWidth() {
+      return this.isShown ? this.width : this.blankWidth || this.width
     },
-    computedHeight () {
-      return this.isShown ? this.height : (this.blankHeight || this.height)
+    computedHeight() {
+      return this.isShown ? this.height : this.blankHeight || this.height
     }
   },
   watch: {
-    show (newVal, oldVal) {
+    show(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.isShown = newVal
         if (!newVal) {
@@ -118,17 +118,17 @@ export default {
         }
       }
     },
-    isShown (newVal, oldVal) {
+    isShown(newVal, oldVal) {
       if (newVal !== oldVal) {
         // Update synched show prop
         this.$emit('update:show', newVal)
       }
     }
   },
-  created () {
+  created() {
     this.isShown = this.show
   },
-  mounted () {
+  mounted() {
     if (this.isShown) {
       this.setListeners(false)
     } else {
@@ -136,23 +136,23 @@ export default {
       this.$nextTick(this.checkView)
     }
   },
-  activated () {
+  activated() {
     /* istanbul ignore if */
     if (!this.isShown) {
       this.setListeners(true)
       this.$nextTick(this.checkView)
     }
   },
-  deactivated () {
+  deactivated() {
     /* istanbul ignore next */
     this.setListeners(false)
   },
-  beforeDestroy () {
+  beforeDestroy() {
     /* istanbul ignore next */
     this.setListeners(false)
   },
   methods: {
-    setListeners (on) {
+    setListeners(on) {
       clearTimeout(this.scrollTimer)
       this.scrollTimeout = null
       const root = window
@@ -170,7 +170,7 @@ export default {
         eventOff(document, 'transitionend', this.onScroll, EventOptions)
       }
     },
-    checkView () /* istanbul ignore next: can't test getBoundingClientRect in JSDOM */ {
+    checkView() /* istanbul ignore next: can't test getBoundingClientRect in JSDOM */ {
       // check bounding box + offset to see if we should show
       if (this.isShown) {
         this.setListeners(false)
@@ -193,7 +193,7 @@ export default {
         this.setListeners(false)
       }
     },
-    onScroll () {
+    onScroll() {
       if (this.isShown) {
         this.setListeners(false)
       } else {
@@ -202,27 +202,24 @@ export default {
       }
     }
   },
-  render (h) {
-    return h(
-      'b-img',
-      {
-        props: {
-          src: this.computedSrc,
-          alt: this.alt,
-          blank: this.computedBlank,
-          blankColor: this.blankColor,
-          width: this.computedWidth,
-          height: this.computedHeight,
-          fluid: this.fluid,
-          fluidGrow: this.fluidGrow,
-          block: this.block,
-          thumbnail: this.thumbnail,
-          rounded: this.rounded,
-          left: this.left,
-          right: this.right,
-          center: this.center
-        }
+  render(h) {
+    return h('b-img', {
+      props: {
+        src: this.computedSrc,
+        alt: this.alt,
+        blank: this.computedBlank,
+        blankColor: this.blankColor,
+        width: this.computedWidth,
+        height: this.computedHeight,
+        fluid: this.fluid,
+        fluidGrow: this.fluidGrow,
+        block: this.block,
+        thumbnail: this.thumbnail,
+        rounded: this.rounded,
+        left: this.left,
+        right: this.right,
+        center: this.center
       }
-    )
+    })
   }
 }

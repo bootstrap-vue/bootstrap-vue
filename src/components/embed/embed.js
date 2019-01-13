@@ -5,7 +5,8 @@ export const props = {
   type: {
     type: String,
     default: 'iframe',
-    validator: str => arrayIncludes(['iframe', 'embed', 'video', 'object', 'img', 'b-img', 'b-img-lazy'], str)
+    validator: str =>
+      arrayIncludes(['iframe', 'embed', 'video', 'object', 'img', 'b-img', 'b-img-lazy'], str)
   },
   tag: {
     type: String,
@@ -22,7 +23,7 @@ export default {
   name: 'BEmbed',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(
       props.tag,
       {

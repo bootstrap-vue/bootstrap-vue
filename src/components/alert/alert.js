@@ -30,37 +30,37 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       countDownTimerId: null,
       dismissed: false
     }
   },
   computed: {
-    classObject () {
+    classObject() {
       return ['alert', this.alertVariant, this.dismissible ? 'alert-dismissible' : '']
     },
-    alertVariant () {
+    alertVariant() {
       const variant = this.variant
       return `alert-${variant}`
     },
-    localShow () {
+    localShow() {
       return !this.dismissed && (this.countDownTimerId || this.show)
     }
   },
   watch: {
-    show () {
+    show() {
       this.showChanged()
     }
   },
-  mounted () {
+  mounted() {
     this.showChanged()
   },
-  destroyed /* istanbul ignore next */ () {
+  destroyed /* istanbul ignore next */() {
     this.clearCounter()
   },
   methods: {
-    dismiss () {
+    dismiss() {
       this.clearCounter()
       this.dismissed = true
       this.$emit('dismissed')
@@ -72,13 +72,13 @@ export default {
         this.$emit('input', false)
       }
     },
-    clearCounter () {
+    clearCounter() {
       if (this.countDownTimerId) {
         clearInterval(this.countDownTimerId)
         this.countDownTimerId = null
       }
     },
-    showChanged () {
+    showChanged() {
       // Reset counter status
       this.clearCounter()
       // Reset dismiss status
@@ -100,7 +100,7 @@ export default {
       }, 1000)
     }
   },
-  render (h) {
+  render(h) {
     if (!this.localShow) {
       // If not showing, render placeholder
       return h(false)
@@ -111,18 +111,17 @@ export default {
       dismissBtn = h(
         'b-button-close',
         { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
-        [ this.$slots.dismiss ]
+        [this.$slots.dismiss]
       )
     }
     const alert = h(
       'div',
-      { class: this.classObject, attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true } },
+      {
+        class: this.classObject,
+        attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
+      },
       [dismissBtn, this.$slots.default]
     )
-    return !this.fade ? alert : h(
-      'transition',
-      { props: { name: 'fade', appear: true } },
-      [ alert ]
-    )
+    return !this.fade ? alert : h('transition', { props: { name: 'fade', appear: true } }, [alert])
   }
 }

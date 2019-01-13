@@ -5,10 +5,10 @@ export default {
     selectionStart: {
       // Expose selectionStart for formatters, etc
       cache: false,
-      get () {
+      get() {
         return this.$refs.input.selectionStart
       },
-      set (val) {
+      set(val) {
         this.$refs.input.selectionStart = val
       }
     },
@@ -16,10 +16,10 @@ export default {
     selectionEnd: {
       // Expose selectionEnd for formatters, etc
       cache: false,
-      get () {
+      get() {
         return this.$refs.input.selectionEnd
       },
-      set (val) {
+      set(val) {
         this.$refs.input.selectionEnd = val
       }
     },
@@ -27,27 +27,27 @@ export default {
     selectionDirection: {
       // Expose selectionDirection for formatters, etc
       cache: false,
-      get () {
+      get() {
         return this.$refs.input.selectionDirection
       },
-      set (val) {
+      set(val) {
         this.$refs.input.selectionDirection = val
       }
     }
   },
   methods: {
     /* istanbul ignore next */
-    select () {
+    select() {
       // For external handler that may want a select() method
       this.$refs.input.select(...arguments)
     },
     /* istanbul ignore next */
-    setSelectionRange () {
+    setSelectionRange() {
       // For external handler that may want a setSelectionRange(a,b,c) method
       this.$refs.input.setSelectionRange(...arguments)
     },
     /* istanbul ignore next */
-    setRangeText () {
+    setRangeText() {
       // For external handler that may want a setRangeText(a,b,c) method
       this.$refs.input.setRangeText(...arguments)
     }

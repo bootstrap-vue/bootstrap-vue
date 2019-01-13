@@ -3,8 +3,8 @@
     <main
       id="content"
       class="bd-masthead"
-
-      role="main">
+      role="main"
+    >
       <div class="container">
         <div class="row align-items-center">
           <div class="col-6 mx-auto col-md-6 order-md-2">
@@ -39,16 +39,23 @@
                 to="/docs"
                 variant="bd-primary"
                 size="lg"
-                class="mb-3 mb-md-0 mr-md-3">Get started</b-btn>
+                class="mb-3 mb-md-0 mr-md-3"
+              >
+                Get started
+              </b-btn>
               <b-btn
                 href="https://github.com/bootstrap-vue/bootstrap-vue"
                 variant="outline-secondary"
                 size="lg"
-                target="_blank">Github</b-btn>
+                target="_blank"
+              >
+                Github
+              </b-btn>
             </div>
             <b-link
               class="text-muted mb-0"
-              to="/docs/misc/changelog">
+              to="/docs/misc/changelog"
+            >
               Currently v{{ version }}
             </b-link>
           </div>
@@ -70,7 +77,7 @@
 
 @keyframes flip {
   0% {
-    opacity: .5;
+    opacity: 0.5;
     transform: rotateY(180deg);
   }
   100% {

@@ -55,7 +55,7 @@ export default {
   name: 'BCardImg',
   functional: true,
   props,
-  render (h, { props, data }) {
+  render(h, { props, data }) {
     let baseClass = 'card-img'
     if (props.top) {
       baseClass += '-top'
@@ -70,10 +70,7 @@ export default {
     return h(
       'img',
       mergeData(data, {
-        class: [
-          baseClass,
-          props.fluid ? 'img-fluid' : null
-        ],
+        class: [baseClass, props.fluid ? 'img-fluid' : null],
         attrs: {
           src: props.src,
           alt: props.alt,

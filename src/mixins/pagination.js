@@ -16,32 +16,32 @@ const ELLIPSIS_THRESHOLD = 3
 const DEFAULT_LIMIT = 5
 
 // Make an array of N to N+X
-function makePageArray (startNum, numPages) {
-  return range(numPages).map(function (value, index) {
+function makePageArray(startNum, numPages) {
+  return range(numPages).map(function(value, index) {
     return { number: index + startNum, classes: null }
   })
 }
 
 // Sanitize the provided Limit value (converting to a number)
-function sanitizeLimit (value) {
+function sanitizeLimit(value) {
   const limit = parseInt(value, 10) || 1
   return limit < 1 ? DEFAULT_LIMIT : limit
 }
 
 // Sanitize the provided numberOfPages value (converting to a number)
-function sanitizeNumPages (value) {
+function sanitizeNumPages(value) {
   let num = parseInt(value, 10) || 1
   return num < 1 ? 1 : num
 }
 
 // Sanitize the provided current page number (converting to a number)
-function sanitizeCurPage (value, numPages) {
+function sanitizeCurPage(value, numPages) {
   let page = parseInt(value, 10) || 1
-  return page > numPages ? numPages : (page < 1 ? 1 : page)
+  return page > numPages ? numPages : page < 1 ? 1 : page
 }
 
 // Links don't normally respond to SPACE, so we add that functionality via this handler
-function onSpaceKey (evt) {
+function onSpaceKey(evt) {
   if (evt.keyCode === KeyCodes.SPACE) {
     evt.preventDefault() // Stop page from scrolling
     evt.stopImmediatePropagation()
@@ -61,7 +61,7 @@ const props = {
   value: {
     type: [Number, String],
     default: 1,
-    validator (value) {
+    validator(value) {
       const num = parseInt(value, 10)
       /* istanbul ignore if */
       if (isNaN(num) || num < 1) {
@@ -74,7 +74,7 @@ const props = {
   limit: {
     type: [Number, String],
     default: DEFAULT_LIMIT,
-    validator (value) {
+    validator(value) {
       const num = parseInt(value, 10)
       /* istanbul ignore if */
       if (isNaN(num) || num < 1) {
@@ -150,7 +150,7 @@ const props = {
 export default {
   components: { BLink },
   props,
-  data () {
+  data() {
     return {
       currentPage: 1,
       localNumPages: 1,
@@ -158,10 +158,10 @@ export default {
     }
   },
   computed: {
-    btnSize () {
+    btnSize() {
       return this.size ? `pagination-${this.size}` : ''
     },
-    alignment () {
+    alignment() {
       if (this.align === 'center') {
         return 'justify-content-center'
       } else if (this.align === 'end' || this.align === 'right') {
@@ -169,7 +169,7 @@ export default {
       }
       return ''
     },
-    paginationParams () {
+    paginationParams() {
       // Determine if we should show the the ellipsis
       const limit = this.limit
       const numPages = this.localNumPages
@@ -189,7 +189,7 @@ export default {
           showLastDots = true
           numLinks = limit - 1
         }
-      } else if ((numPages - curPage + 2) < limit && limit > ELLIPSIS_THRESHOLD) {
+      } else if (numPages - curPage + 2 < limit && limit > ELLIPSIS_THRESHOLD) {
         // We are near the end of the list
         if (!hideEllipsis) {
           numLinks = limit - 1
@@ -207,12 +207,12 @@ export default {
       // Sanity checks
       if (startNum < 1) {
         startNum = 1
-      } else if (startNum > (numPages - numLinks)) {
+      } else if (startNum > numPages - numLinks) {
         startNum = numPages - numLinks + 1
       }
       return { showFirstDots, showLastDots, numLinks, startNum }
     },
-    pageList () {
+    pageList() {
       // Generates the pageList array
       const { numLinks, startNum } = this.paginationParams
 
@@ -250,42 +250,42 @@ export default {
     }
   },
   watch: {
-    value (newValue, oldValue) {
+    value(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.currentPage = sanitizeCurPage(newValue, this.localNumPages)
       }
     },
-    currentPage (newValue, oldValue) {
+    currentPage(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.$emit('input', newValue)
       }
     },
-    numberOfPages (newValue, oldValue) {
+    numberOfPages(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.localNumPages = sanitizeNumPages(newValue)
       }
     },
-    limit (newValue, oldValue) {
+    limit(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.localLimit = sanitizeLimit(newValue)
       }
     }
   },
-  created () {
+  created() {
     // Set our default values in data
     this.localLimit = sanitizeLimit(this.limit)
     this.localNumPages = sanitizeNumPages(this.numberOfPages)
     this.currentPage = sanitizeCurPage(this.value, this.localNumPages)
   },
   methods: {
-    getButtons () {
+    getButtons() {
       // Return only buttons that are visible
       return selectAll('a.page-link', this.$el).filter(btn => isVisible(btn))
     },
-    setBtnFocus (btn) {
+    setBtnFocus(btn) {
       btn.focus()
     },
-    focusCurrent () {
+    focusCurrent() {
       // We do this in next tick to ensure buttons have finished rendering
       this.$nextTick(() => {
         const btn = this.getButtons().find(
@@ -299,7 +299,7 @@ export default {
         }
       })
     },
-    focusFirst () {
+    focusFirst() {
       // We do this in next tick to ensure buttons have finished rendering
       this.$nextTick(() => {
         const btn = this.getButtons().find(el => !isDisabled(el))
@@ -308,7 +308,7 @@ export default {
         }
       })
     },
-    focusLast () {
+    focusLast() {
       // We do this in next tick to ensure buttons have finished rendering
       this.$nextTick(() => {
         const btn = this.getButtons()
@@ -319,7 +319,7 @@ export default {
         }
       })
     },
-    focusPrev () {
+    focusPrev() {
       // We do this in next tick to ensure buttons have finished rendering
       this.$nextTick(() => {
         const buttons = this.getButtons()
@@ -329,30 +329,26 @@ export default {
         }
       })
     },
-    focusNext () {
+    focusNext() {
       // We do this in next tick to ensure buttons have finished rendering
       this.$nextTick(() => {
         const buttons = this.getButtons()
         const idx = buttons.indexOf(document.activeElement)
         const cnt = buttons.length - 1
-        if (
-          idx < cnt &&
-          !isDisabled(buttons[idx + 1]) &&
-          buttons[idx + 1].focus
-        ) {
+        if (idx < cnt && !isDisabled(buttons[idx + 1]) && buttons[idx + 1].focus) {
           this.setBtnFocus(buttons[idx + 1])
         }
       })
     }
   },
-  render (h) {
+  render(h) {
     const buttons = []
     const numberOfPages = this.localNumPages
     const disabled = this.disabled
     const { showFirstDots, showLastDots } = this.paginationParams
 
     // Helper function
-    const isActivePage = (pageNum) => pageNum === this.currentPage
+    const isActivePage = pageNum => pageNum === this.currentPage
 
     // Factory function for prev/next/first/last buttons
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, pageTest, key) => {
@@ -364,42 +360,38 @@ export default {
         'aria-hidden': disabled ? 'true' : null
       }
       if (disabled || isActivePage(pageTest) || linkTo < 1 || linkTo > numberOfPages) {
-        button = h(
-          'li',
-          { key, attrs, staticClass, class: ['disabled'] },
-          [h('span', { staticClass: 'page-link', domProps }, [btnSlot])]
-        )
+        button = h('li', { key, attrs, staticClass, class: ['disabled'] }, [
+          h('span', { staticClass: 'page-link', domProps }, [btnSlot])
+        ])
       } else {
-        button = h(
-          'li',
-          { key, attrs, staticClass },
-          [
-            h(
-              'b-link',
-              {
-                staticClass: 'page-link',
-                props: this.linkProps(linkTo),
-                attrs: {
-                  role: 'menuitem',
-                  tabindex: '-1',
-                  'aria-label': ariaLabel,
-                  'aria-controls': this.ariaControls || null
-                },
-                on: {
-                  click: evt => { this.onClick(linkTo, evt) },
-                  keydown: onSpaceKey
-                }
+        button = h('li', { key, attrs, staticClass }, [
+          h(
+            'b-link',
+            {
+              staticClass: 'page-link',
+              props: this.linkProps(linkTo),
+              attrs: {
+                role: 'menuitem',
+                tabindex: '-1',
+                'aria-label': ariaLabel,
+                'aria-controls': this.ariaControls || null
               },
-              [h('span', { domProps }, [btnSlot])]
-            )
-          ]
-        )
+              on: {
+                click: evt => {
+                  this.onClick(linkTo, evt)
+                },
+                keydown: onSpaceKey
+              }
+            },
+            [h('span', { domProps }, [btnSlot])]
+          )
+        ])
       }
       return button
     }
 
     // Ellipsis factory
-    const makeEllipsis = (isLast) => {
+    const makeEllipsis = isLast => {
       return h(
         'li',
         {
@@ -409,13 +401,10 @@ export default {
         },
         [
           this.$slots['ellipsis-text'] ||
-          h(
-            'span',
-            {
+            h('span', {
               class: ['page-link'],
               domProps: { innerHTML: stripScripts(this.ellipsisText) }
-            }
-          )
+            })
         ]
       )
     }
@@ -425,13 +414,13 @@ export default {
       this.hideGotoEndButtons
         ? h(false)
         : makeEndBtn(
-          1,
-          this.labelFirstPage,
-          this.$slots['first-text'],
-          this.firstText,
-          1,
-          'bookend-goto-first'
-        )
+            1,
+            this.labelFirstPage,
+            this.$slots['first-text'],
+            this.firstText,
+            1,
+            'bookend-goto-first'
+          )
     )
 
     // Goto Previous page button bookend
@@ -464,7 +453,7 @@ export default {
         'aria-posinset': page.number,
         'aria-setsize': numberOfPages,
         // ARIA "roving tabindex" method
-        tabindex: disabled ? null : (active ? '0' : '-1')
+        tabindex: disabled ? null : active ? '0' : '-1'
       }
       if (disabled) {
         inner = h(
@@ -485,7 +474,9 @@ export default {
             staticClass,
             attrs,
             on: {
-              click: evt => { this.onClick(page.number, evt) },
+              click: evt => {
+                this.onClick(page.number, evt)
+              },
               keydown: onSpaceKey
             }
           },
@@ -498,11 +489,7 @@ export default {
           {
             key: `page-${page.number}`,
             staticClass: 'page-item',
-            class: [
-              disabled ? 'disabled' : '',
-              active ? 'active' : '',
-              page.classes
-            ],
+            class: [disabled ? 'disabled' : '', active ? 'active' : '', page.classes],
             attrs: { role: 'none presentation' }
           },
           [inner]
@@ -530,13 +517,13 @@ export default {
       this.hideGotoEndButtons
         ? h(false)
         : makeEndBtn(
-          numberOfPages,
-          this.labelLastPage,
-          this.$slots['last-text'],
-          this.lastText,
-          numberOfPages,
-          'bookend-goto-last'
-        )
+            numberOfPages,
+            this.labelLastPage,
+            this.$slots['last-text'],
+            this.lastText,
+            numberOfPages,
+            'bookend-goto-last'
+          )
     )
 
     // Assemble the paginatiom buttons

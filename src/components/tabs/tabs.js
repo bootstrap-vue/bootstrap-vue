@@ -17,13 +17,13 @@ const BTabButtonHelper = {
     noKeyNav: { type: Boolean, default: false }
   },
   methods: {
-    focus () {
+    focus() {
       if (this.$refs && this.$refs.link && this.$refs.link.focus) {
         this.$refs.link.focus()
       }
     },
-    handleEvt (evt) {
-      function stop () {
+    handleEvt(evt) {
+      function stop() {
         evt.preventDefault()
         evt.stopPropagation()
       }
@@ -60,7 +60,7 @@ const BTabButtonHelper = {
       }
     }
   },
-  render (h) {
+  render(h) {
     const link = h(
       BLink,
       {
@@ -107,7 +107,7 @@ const BTabButtonHelper = {
 }
 
 // Filter function to filter out disabled tabs
-function notDisabled (tab) {
+function notDisabled(tab) {
   return !tab.disabled
 }
 
@@ -115,7 +115,7 @@ function notDisabled (tab) {
 export default {
   name: 'BTabs',
   mixins: [idMixin],
-  provide () {
+  provide() {
     return { bTabs: this }
   },
   props: {
@@ -183,7 +183,7 @@ export default {
       default: null
     }
   },
-  data () {
+  data() {
     return {
       // Index of current tab
       currentTab: parseInt(this.value, 10) || -1,
@@ -192,16 +192,16 @@ export default {
     }
   },
   computed: {
-    fade () {
+    fade() {
       // This computed prop is sniffed by the tab child
       return !this.noFade
     },
-    navStyle () {
+    navStyle() {
       return this.pills ? 'pills' : 'tabs'
     }
   },
   watch: {
-    currentTab (val, old) {
+    currentTab(val, old) {
       let index = -1
       // Ensure only one tab is active at most
       this.tabs.forEach((tab, idx) => {
@@ -215,7 +215,7 @@ export default {
       // update the v-model
       this.$emit('input', index)
     },
-    value (val, old) {
+    value(val, old) {
       if (val !== old) {
         val = parseInt(val, 10)
         old = parseInt(old, 10) || 0
@@ -233,11 +233,11 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     // For SSR and to make sure only a single tab is shown on mount
     this.updateTabs()
   },
-  mounted () {
+  mounted() {
     // In case tabs have changed before mount
     this.updateTabs()
     // Observe Child changes so we can update list of tabs
@@ -247,7 +247,7 @@ export default {
   },
   methods: {
     // Update list of b-tab children
-    updateTabs () {
+    updateTabs() {
       // Probe tabs
       const tabs = (this.$slots.default || [])
         .map(vnode => vnode.componentInstance)
@@ -255,14 +255,24 @@ export default {
 
       // Find *last* active non-disabled tab in current tabs
       // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
-      let tabIndex = tabs.indexOf(tabs.slice().reverse().find(tab => tab.localActive && !tab.disabled))
+      let tabIndex = tabs.indexOf(
+        tabs
+          .slice()
+          .reverse()
+          .find(tab => tab.localActive && !tab.disabled)
+      )
 
       // Else try setting to currentTab
       if (tabIndex < 0) {
         const currentTab = this.currentTab
         if (currentTab >= tabs.length) {
           // Handle last tab being removed, so find the last non-disabled tab
-          tabIndex = tabs.indexOf(tabs.slice().reverse().find(notDisabled))
+          tabIndex = tabs.indexOf(
+            tabs
+              .slice()
+              .reverse()
+              .find(notDisabled)
+          )
         } else if (tabs[currentTab] && !tabs[currentTab].disabled) {
           // current tab is not disabled
           tabIndex = currentTab
@@ -286,12 +296,12 @@ export default {
     },
     // Find a button taht controls a tab, given the tab reference
     // Returns the button vm instance
-    getButtonForTab (tab) {
+    getButtonForTab(tab) {
       return (this.$refs.buttons || []).find(btn => btn.tab === tab)
     },
     // Force a button to re-render it's content, given a b-tab instance
     // Called by b-tab on update()
-    updateButton (tab) {
+    updateButton(tab) {
       const button = this.getButtonForTab(tab)
       if (button && button.$forceUpdate) {
         button.$forceUpdate()
@@ -299,7 +309,7 @@ export default {
     },
     // Activate a tab given a b-tab instance
     // Also accessed by b-tab
-    activateTab (tab) {
+    activateTab(tab) {
       let result = false
       if (tab) {
         const index = this.tabs.indexOf(tab)
@@ -313,7 +323,7 @@ export default {
     },
     // Deactivate a tab given a b-tab instance
     // Accessed by b-tab
-    deactivateTab (tab) {
+    deactivateTab(tab) {
       if (tab) {
         // Find first non-disabled tab that isn't the one being deactivated
         // If no available tabs, then don't deactivate current tab
@@ -324,7 +334,7 @@ export default {
       }
     },
     // Focus a tab button given it's b-tab instance
-    focusButton (tab) {
+    focusButton(tab) {
       // Wrap in nextTick to ensure DOM has completed rendering/updating before focusing
       this.$nextTick(() => {
         const button = this.getButtonForTab(tab)
@@ -334,22 +344,25 @@ export default {
       })
     },
     // Move to first non-disabled tab
-    firstTab (focus) {
+    firstTab(focus) {
       const tab = this.tabs.find(notDisabled)
       if (this.activateTab(tab) && focus) {
         this.focusButton(tab)
       }
     },
     // Move to previous non-disabled tab
-    previousTab (focus) {
+    previousTab(focus) {
       const currentIndex = Math.max(this.currentTab, 0)
-      const tab = this.tabs.slice(0, currentIndex).reverse().find(notDisabled)
+      const tab = this.tabs
+        .slice(0, currentIndex)
+        .reverse()
+        .find(notDisabled)
       if (this.activateTab(tab) && focus) {
         this.focusButton(tab)
       }
     },
     // Move to next non-disabled tab
-    nextTab (focus) {
+    nextTab(focus) {
       const currentIndex = Math.max(this.currentTab, -1)
       const tab = this.tabs.slice(currentIndex + 1).find(notDisabled)
       if (this.activateTab(tab) && focus) {
@@ -357,14 +370,17 @@ export default {
       }
     },
     // Move to last non-disabled tab
-    lastTab (focus) {
-      const tab = this.tabs.slice().reverse().find(notDisabled)
+    lastTab(focus) {
+      const tab = this.tabs
+        .slice()
+        .reverse()
+        .find(notDisabled)
       if (this.activateTab(tab) && focus) {
         this.focusButton(tab)
       }
     }
   },
-  render (h) {
+  render(h) {
     const tabs = this.tabs
     // Currently active tab
     let activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
@@ -384,31 +400,30 @@ export default {
           tabindex = null
         }
       }
-      return h(
-        BTabButtonHelper,
-        {
-          key: tab._uid || buttonId || index,
-          ref: 'buttons',
-          // Needed to make this.$refs.buttons an array
-          refInFor: true,
-          props: {
-            tab: tab,
-            id: buttonId,
-            controls: this.safeId('_BV_tab_container_'),
-            tabIndex: tabindex,
-            setSize: tabs.length,
-            posInSet: index + 1,
-            noKeyNav: this.noKeyNav
+      return h(BTabButtonHelper, {
+        key: tab._uid || buttonId || index,
+        ref: 'buttons',
+        // Needed to make this.$refs.buttons an array
+        refInFor: true,
+        props: {
+          tab: tab,
+          id: buttonId,
+          controls: this.safeId('_BV_tab_container_'),
+          tabIndex: tabindex,
+          setSize: tabs.length,
+          posInSet: index + 1,
+          noKeyNav: this.noKeyNav
+        },
+        on: {
+          click: evt => {
+            this.activateTab(tab)
           },
-          on: {
-            click: evt => { this.activateTab(tab) },
-            first: this.firstTab,
-            prev: this.previousTab,
-            next: this.nextTab,
-            last: this.lastTab
-          }
+          first: this.firstTab,
+          prev: this.previousTab,
+          next: this.nextTab,
+          last: this.lastTab
         }
-      )
+      })
     })
 
     // Nav 'button' wrapper

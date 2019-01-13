@@ -12,20 +12,20 @@ export default {
       default: null
     }
   },
-  data () {
+  data() {
     return {
       localId_: null
     }
   },
   computed: {
-    safeId () {
+    safeId() {
       // Computed property that returns a dynamic function for creating the ID.
       // Reacts to changes in both .id and .localId_ And regens a new function
       const id = this.id || this.localId_
 
       // We return a function that accepts an optional suffix string
       // So this computed prop looks and works like a method!!!
-      const fn = (suffix) => {
+      const fn = suffix => {
         if (!id) {
           return null
         }
@@ -35,7 +35,7 @@ export default {
       return fn
     }
   },
-  mounted () {
+  mounted() {
     // mounted only occurs client side
     this.$nextTick(() => {
       // Update dom with auto ID after dom loaded to prevent

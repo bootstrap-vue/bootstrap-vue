@@ -20,14 +20,12 @@ export default {
   name: 'BCardSubTitle',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(
       props.subTitleTag,
       mergeData(data, {
         staticClass: 'card-subtitle',
-        class: [
-          props.subTitleTextVariant ? `text-${props.subTitleTextVariant}` : null
-        ]
+        class: [props.subTitleTextVariant ? `text-${props.subTitleTextVariant}` : null]
       }),
       children || props.subTitle
     )

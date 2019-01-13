@@ -23,28 +23,25 @@ export default {
     }
   },
   computed: {
-    classObject () {
-      return [
-        'btn-toolbar',
-        (this.justify && !this.vertical) ? 'justify-content-between' : ''
-      ]
+    classObject() {
+      return ['btn-toolbar', this.justify && !this.vertical ? 'justify-content-between' : '']
     }
   },
-  mounted () {
+  mounted() {
     if (this.keyNav) {
       // Pre-set the tabindexes if the markup does not include tabindex="-1" on the toolbar items
       this.getItems()
     }
   },
   methods: {
-    onFocusin (evt) {
+    onFocusin(evt) {
       if (evt.target === this.$el) {
         evt.preventDefault()
         evt.stopPropagation()
         this.focusFirst(evt)
       }
     },
-    onKeydown (evt) {
+    onKeydown(evt) {
       if (!this.keyNav) {
         return
       }
@@ -68,12 +65,12 @@ export default {
         }
       }
     },
-    setItemFocus (item) {
+    setItemFocus(item) {
       this.$nextTick(() => {
         item.focus()
       })
     },
-    focusNext (evt, prev) {
+    focusNext(evt, prev) {
       const items = this.getItems()
       if (items.length < 1) {
         return
@@ -89,19 +86,19 @@ export default {
       }
       this.setItemFocus(items[index])
     },
-    focusFirst (evt) {
+    focusFirst(evt) {
       const items = this.getItems()
       if (items.length > 0) {
         this.setItemFocus(items[0])
       }
     },
-    focusLast (evt) {
+    focusLast(evt) {
       const items = this.getItems()
       if (items.length > 0) {
         this.setItemFocus([items.length - 1])
       }
     },
-    getItems () {
+    getItems() {
       let items = selectAll(ITEM_SELECTOR, this.$el)
       items.forEach(item => {
         // Ensure tabfocus is -1 on any new elements
@@ -110,7 +107,7 @@ export default {
       return items.filter(el => isVisible(el))
     }
   },
-  render (h) {
+  render(h) {
     return h(
       'div',
       {
@@ -124,7 +121,7 @@ export default {
           keydown: this.onKeydown
         }
       },
-      [ this.$slots.default ]
+      [this.$slots.default]
     )
   }
 }

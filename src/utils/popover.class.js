@@ -10,10 +10,11 @@ const Defaults = assign({}, ToolTip.Default, {
   placement: 'right',
   trigger: 'click',
   content: '',
-  template: '<div class="popover" role="tooltip">' +
-              '<div class="arrow"></div>' +
-              '<h3 class="popover-header"></h3>' +
-              '<div class="popover-body"></div></div>'
+  template:
+    '<div class="popover" role="tooltip">' +
+    '<div class="arrow"></div>' +
+    '<h3 class="popover-header"></h3>' +
+    '<div class="popover-body"></div></div>'
 })
 
 const ClassName = {
@@ -30,17 +31,17 @@ const Selector = {
 class PopOver extends ToolTip {
   // Getter overrides
 
-  static get Default () {
+  static get Default() {
     return Defaults
   }
 
-  static get NAME () {
+  static get NAME() {
     return NAME
   }
 
   // Method overrides
 
-  isWithContent (tip) {
+  isWithContent(tip) {
     tip = tip || this.$tip
     if (!tip) {
       return false
@@ -50,11 +51,11 @@ class PopOver extends ToolTip {
     return hasTitle || hasContent
   }
 
-  addAttachmentClass (attachment) {
+  addAttachmentClass(attachment) {
     addClass(this.getTipElement(), `${CLASS_PREFIX}-${attachment}`)
   }
 
-  setContent (tip) {
+  setContent(tip) {
     // we use append for html objects to maintain js events/components
     this.setElementContent(select(Selector.TITLE, tip), this.getTitle())
     this.setElementContent(select(Selector.CONTENT, tip), this.getContent())
@@ -64,7 +65,7 @@ class PopOver extends ToolTip {
   }
 
   // This method may look identical to ToolTip version, but it uses a different RegEx defined above
-  cleanTipClass () {
+  cleanTipClass() {
     const tip = this.getTipElement()
     const tabClass = tip.className.match(BSCLS_PREFIX_REGEX)
     if (tabClass !== null && tabClass.length > 0) {
@@ -74,7 +75,7 @@ class PopOver extends ToolTip {
     }
   }
 
-  getTitle () {
+  getTitle() {
     let title = this.$config.title || ''
     if (typeof title === 'function') {
       title = title(this.$element)
@@ -96,7 +97,7 @@ class PopOver extends ToolTip {
 
   // New methods
 
-  getContent () {
+  getContent() {
     let content = this.$config.content || ''
     if (typeof content === 'function') {
       content = content(this.$element)

@@ -10,7 +10,7 @@ import identity from './identity'
  * @param {Function} transformFn
  * @return {{}}
  */
-export default function pluckProps (keysToPluck, objToPluck, transformFn = identity) {
+export default function pluckProps(keysToPluck, objToPluck, transformFn = identity) {
   return (isArray(keysToPluck) ? keysToPluck.slice() : keys(keysToPluck)).reduce((memo, prop) => {
     // eslint-disable-next-line no-sequences
     return (memo[transformFn(prop)] = objToPluck[prop]), memo

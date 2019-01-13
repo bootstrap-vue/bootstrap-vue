@@ -6,7 +6,7 @@ import identity from './identity'
  * @param {[]|{}} props
  * @param {Function} transformFn
  */
-export default function copyProps (props, transformFn = identity) {
+export default function copyProps(props, transformFn = identity) {
   if (isArray(props)) {
     return props.map(transformFn)
   }

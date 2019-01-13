@@ -20,7 +20,7 @@ export default {
   name: 'BButtonClose',
   functional: true,
   props,
-  render (h, { props, data, listeners, slots }) {
+  render(h, { props, data, listeners, slots }) {
     const componentData = {
       staticClass: 'close',
       class: {
@@ -32,7 +32,7 @@ export default {
         'aria-label': props.ariaLabel ? String(props.ariaLabel) : null
       },
       on: {
-        click (e) {
+        click(e) {
           // Ensure click on button HTML content is also disabled
           if (props.disabled && e instanceof Event) {
             e.stopPropagation()

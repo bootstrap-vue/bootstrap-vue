@@ -25,8 +25,9 @@ attribute, see https://vuejs.org/v2/api/#key).
 ## Cards Integration
 
 Tabs support integrating with Bootstrap cards. Just add the `card` property to `<b-tabs>`. and place
-it inside a `<b-card>` component. Note that you should add `no-body` prop on the `<b-card>` component
-in order to propertly decorate the card header and remove the extra padding introduced by `card-body`.
+it inside a `<b-card>` component. Note that you should add `no-body` prop on the `<b-card>`
+component in order to propertly decorate the card header and remove the extra padding introduced by
+`card-body`.
 
 ```html
 <b-card no-body>

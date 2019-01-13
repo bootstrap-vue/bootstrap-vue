@@ -27,7 +27,7 @@ export default {
   name: 'BBreadcrumbLink',
   functional: true,
   props,
-  render (h, { props: suppliedProps, data, children }) {
+  render(h, { props: suppliedProps, data, children }) {
     const tag = suppliedProps.active ? 'span' : BLink
 
     let componentData = { props: pluckProps(props, suppliedProps) }

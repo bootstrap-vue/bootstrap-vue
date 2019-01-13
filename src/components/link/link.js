@@ -12,7 +12,7 @@ import { mergeData } from 'vue-functional-data-merge'
  * https://github.com/vuejs/vue-router/blob/dev/src/components/link.js
  * @return {{}}
  */
-export function propsFactory () {
+export function propsFactory() {
   return {
     href: {
       type: String,
@@ -77,7 +77,7 @@ export function propsFactory () {
 
 export const props = propsFactory()
 
-export function pickLinkProps (propsToPick) {
+export function pickLinkProps(propsToPick) {
   const freshLinkProps = propsFactory()
   // Normalize everything to array.
   propsToPick = concat(propsToPick)
@@ -91,7 +91,7 @@ export function pickLinkProps (propsToPick) {
   }, {})
 }
 
-export function omitLinkProps (propsToOmit) {
+export function omitLinkProps(propsToOmit) {
   const freshLinkProps = propsFactory()
   // Normalize everything to array.
   propsToOmit = concat(propsToOmit)
@@ -106,7 +106,7 @@ export function omitLinkProps (propsToOmit) {
 }
 
 export const computed = {
-  linkProps () {
+  linkProps() {
     let linkProps = {}
     let propKeys = keys(props)
 
@@ -120,15 +120,19 @@ export const computed = {
   }
 }
 
-function computeTag (props, parent) {
-  return (parent.$router && props.to && !props.disabled) ? (parent.$nuxt ? 'nuxt-link' : 'router-link') : 'a'
+function computeTag(props, parent) {
+  return parent.$router && props.to && !props.disabled
+    ? parent.$nuxt
+      ? 'nuxt-link'
+      : 'router-link'
+    : 'a'
 }
 
-function isRouterLink (tag) {
+function isRouterLink(tag) {
   return tag !== 'a'
 }
 
-function computeHref ({ disabled, href, to }, tag) {
+function computeHref({ disabled, href, to }, tag) {
   // We've already checked the parent.$router in computeTag,
   // so isRouterLink(tag) indicates a live router.
   // When deferring to Vue Router's router-link, don't use the href attr at all.
@@ -158,15 +162,15 @@ function computeHref ({ disabled, href, to }, tag) {
   return '#'
 }
 
-function computeRel ({ target, rel }) {
+function computeRel({ target, rel }) {
   if (target === '_blank' && rel === null) {
     return 'noopener'
   }
   return rel || null
 }
 
-function clickHandlerFactory ({ disabled, tag, href, suppliedHandler, parent }) {
-  return function onClick (e) {
+function clickHandlerFactory({ disabled, tag, href, suppliedHandler, parent }) {
+  return function onClick(e) {
     if (disabled && e instanceof Event) {
       // Stop event from bubbling up.
       e.stopPropagation()
@@ -194,7 +198,7 @@ export default {
   name: 'BLink',
   functional: true,
   props: propsFactory(),
-  render (h, { props, data, parent, children }) {
+  render(h, { props, data, parent, children }) {
     const tag = computeTag(props, parent)
     const rel = computeRel(props)
     const href = computeHref(props, tag)
@@ -209,7 +213,7 @@ export default {
       attrs: {
         rel,
         target: props.target,
-        tabindex: props.disabled ? '-1' : (data.attrs ? data.attrs.tabindex : null),
+        tabindex: props.disabled ? '-1' : data.attrs ? data.attrs.tabindex : null,
         'aria-disabled': props.disabled ? 'true' : null
       },
       props: assign(props, { tag: props.routerTag })

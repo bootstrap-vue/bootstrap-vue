@@ -1,20 +1,25 @@
 <template>
   <section
+    v-if="component"
     class="bd-content"
-    v-if="component">
-
+  >
     <b-row
       tag="header"
-      align-v="center">
+      align-v="center"
+    >
       <b-col sm="9"><h2 :id="`comp-ref-${componentName}`"><code>{{ tag }}</code></h2></b-col>
       <b-col
         sm="3"
-        class="text-sm-right">
+        class="text-sm-right"
+      >
         <b-btn
           variant="outline-secondary"
           size="sm"
           :href="githubURL"
-          target="_blank">view source</b-btn>
+          target="_blank"
+        >
+          view source
+        </b-btn>
       </b-col>
     </b-row>
 
@@ -33,10 +38,12 @@
         :fields="props_fields"
         small
         head-variant="default"
-        striped>
+        striped
+      >
         <template
           slot="default"
-          slot-scope="field">
+          slot-scope="field"
+        >
           <code v-if="field.value">{{ field.value }}</code>
         </template>
       </b-table>
@@ -49,7 +56,8 @@
         :fields="slots_fields"
         small
         head-variant="default"
-        striped/>
+        striped
+      />
     </article>
 
     <article v-if="events && events.length > 0">
@@ -59,15 +67,18 @@
         :fields="events_fields"
         small
         head-variant="default"
-        striped>
+        striped
+      >
         <template
           slot="args"
-          slot-scope="field">
+          slot-scope="field"
+        >
           <div
             v-for="arg in field.value"
-            :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`">
+            :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
+          >
             <code v-if="arg.arg">{{ arg.arg }}</code> -
-            <span v-html="arg.description"/>
+            <span v-html="arg.description" />
           </div>
         </template>
       </b-table>
@@ -80,27 +91,33 @@
         :fields="rootEventEmitters_fields"
         small
         head-variant="default"
-        striped>
+        striped
+      >
         <template
           slot="args"
-          slot-scope="field">
+          slot-scope="field"
+        >
           <div
             v-for="arg in field.value"
-            :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`">
+            :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
+          >
             <code v-if="arg.arg">{{ arg.arg }}</code> -
-            <span v-html="arg.description"/>
+            <span v-html="arg.description" />
           </div>
         </template>
       </b-table>
     </article>
-
   </section>
 </template>
 
 <style scoped>
-    h1, h2, h3, h4, h5 {
-        padding: 20px 0;
-    }
+h1,
+h2,
+h3,
+h4,
+h5 {
+  padding: 20px 0;
+}
 </style>
 
 <script>
@@ -127,15 +144,12 @@ export default {
       default: () => []
     }
   },
-  methods: {
-    kebabCase
-  },
   computed: {
-    componentOptions () {
+    componentOptions() {
       const component = Vue.options.components[this.component]
-      return (component && component.options) ? component.options : {}
+      return component && component.options ? component.options : {}
     },
-    props_fields () {
+    props_fields() {
       const component = Vue.options.components[this.component]
       let props = []
       if (component) {
@@ -151,32 +165,32 @@ export default {
 
       // Add the required column if there are required field(s)
       if (hasRequired) {
-        fields.required = {label: 'Required'}
+        fields.required = { label: 'Required' }
       }
 
       return fields
     },
-    events_fields () {
+    events_fields() {
       return {
         event: { label: 'Event' },
         args: { label: 'Arguments' },
         description: { label: 'Description' }
       }
     },
-    rootEventEmitters_fields () {
+    rootEventEmitters_fields() {
       return {
         event: { label: 'Event' },
         args: { label: 'Arguments' },
         description: { label: 'Description' }
       }
     },
-    slots_fields () {
+    slots_fields() {
       return {
         name: { label: 'Slot' },
         description: { label: 'Description' }
       }
     },
-    props_items () {
+    props_items() {
       const component = Vue.options.components[this.component]
       if (!component) {
         return {}
@@ -198,21 +212,21 @@ export default {
         }
 
         // Describe value
-        let default_val = p.default
+        let defaultVal = p.default
 
-        if (default_val instanceof Function && !Array.isArray(default_val)) {
-          default_val = default_val()
+        if (defaultVal instanceof Function && !Array.isArray(defaultVal)) {
+          defaultVal = defaultVal()
         }
 
-        if (typeof default_val !== 'string') {
-          default_val = JSON.stringify(default_val)
+        if (typeof defaultVal !== 'string') {
+          defaultVal = JSON.stringify(defaultVal)
         }
 
-        if (default_val === '' || default_val === null || default_val === 'null') {
-          default_val = ''
+        if (defaultVal === '' || defaultVal === null || defaultVal === 'null') {
+          defaultVal = ''
         }
 
-        default_val = (default_val || '').replace(/"/g, '\'')
+        defaultVal = (defaultVal || '').replace(/"/g, "'")
 
         // Requied prop?
         const required = p.required ? 'Yes' : ''
@@ -222,23 +236,26 @@ export default {
           type,
           required,
           typeClass,
-          default: default_val
+          default: defaultVal
         }
       })
     },
-    componentName () {
+    componentName() {
       return kebabCase(this.component)
     },
-    tag () {
+    tag() {
       return '<' + this.componentName + '>'
     },
-    githubURL () {
+    githubURL() {
       const base = 'https://github.com/bootstrap-vue/bootstrap-vue/tree/dev/src/components'
       const slug = this.$route.params.slug
       const name = kebabCase(this.component).replace(/^b-/, '')
       // Always point to the .js file (which may import a .vue file)
       return `${base}/${slug}/${name}.js`
     }
+  },
+  methods: {
+    kebabCase
   }
 }
 </script>

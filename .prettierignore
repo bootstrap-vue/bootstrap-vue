@@ -1,1 +1,3 @@
-node_modules/*
+.nuxt/
+node_modules/
+nuxt/plugin.template.js

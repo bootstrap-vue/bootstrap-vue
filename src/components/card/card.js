@@ -38,7 +38,7 @@ export default {
   name: 'BCard',
   functional: true,
   props,
-  render (h, { props, data, slots }) {
+  render(h, { props, data, slots }) {
     const $slots = slots()
 
     // Create placeholder elements for each section
@@ -50,11 +50,7 @@ export default {
 
     if (props.imgSrc) {
       let img = h(BCardImg, {
-        props: pluckProps(
-          cardImgProps,
-          props,
-          unPrefixPropName.bind(null, 'img')
-        )
+        props: pluckProps(cardImgProps, props, unPrefixPropName.bind(null, 'img'))
       })
       if (props.imgBottom) {
         imgLast = img
@@ -71,13 +67,17 @@ export default {
       content = $slots.default
     } else {
       // Wrap content in card-body
-      content = [ h(BCardBody, { props: pluckProps(bodyProps, props) }, $slots.default) ]
+      content = [h(BCardBody, { props: pluckProps(bodyProps, props) }, $slots.default)]
     }
 
     if (props.footer || $slots.footer) {
-      footer = h(BCardFooter, {
-        props: pluckProps(footerProps, props)
-      }, $slots.footer)
+      footer = h(
+        BCardFooter,
+        {
+          props: pluckProps(footerProps, props)
+        },
+        $slots.footer
+      )
     }
 
     return h(
@@ -86,14 +86,15 @@ export default {
         staticClass: 'card',
         class: {
           'flex-row': props.imgLeft || props.imgStart,
-          'flex-row-reverse': (props.imgRight || props.imgEnd) && !(props.imgLeft || props.imgStart),
+          'flex-row-reverse':
+            (props.imgRight || props.imgEnd) && !(props.imgLeft || props.imgStart),
           [`text-${props.align}`]: Boolean(props.align),
           [`bg-${props.bgVariant}`]: Boolean(props.bgVariant),
           [`border-${props.borderVariant}`]: Boolean(props.borderVariant),
           [`text-${props.textVariant}`]: Boolean(props.textVariant)
         }
       }),
-      [ imgFirst, header, ...content, footer, imgLast ]
+      [imgFirst, header, ...content, footer, imgLast]
     )
   }
 }

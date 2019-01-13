@@ -28,7 +28,7 @@ export default {
   name: 'BBadge',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     const tag = !props.href && !props.to ? props.tag : Link
 
     const componentData = {

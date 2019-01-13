@@ -8,7 +8,7 @@ import warn from '../utils/warn'
 import { closest, contains, getAttr, isVisible, selectAll } from '../utils/dom'
 
 // Return an Array of visible items
-function filterVisible (els) {
+function filterVisible(els) {
   return (els || []).filter(isVisible)
 }
 
@@ -43,7 +43,7 @@ const AttachmentMap = {
 // @vue/component
 export default {
   mixins: [clickOutMixin, focusInMixin],
-  provide () {
+  provide() {
     return { dropdown: this }
   },
   props: {
@@ -91,7 +91,7 @@ export default {
       default: () => {}
     }
   },
-  data () {
+  data() {
     return {
       visible: false,
       inNavbar: null,
@@ -99,13 +99,13 @@ export default {
     }
   },
   computed: {
-    toggler () {
+    toggler() {
       const toggle = this.$refs.toggle
       return toggle ? toggle.$el || toggle : null
     }
   },
   watch: {
-    visible (newValue, oldValue) {
+    visible(newValue, oldValue) {
       if (this.visibleChangePrevented) {
         this.visibleChangePrevented = false
         return
@@ -135,36 +135,36 @@ export default {
         }
       }
     },
-    disabled (newValue, oldValue) {
+    disabled(newValue, oldValue) {
       if (newValue !== oldValue && newValue && this.visible) {
         // Hide dropdown if disabled changes to true
         this.visible = false
       }
     }
   },
-  created () {
+  created() {
     // Create non-reactive property
     this._popper = null
   },
-  deactivated () /* istanbul ignore next: not easy to test */ {
+  deactivated() /* istanbul ignore next: not easy to test */ {
     // In case we are inside a `<keep-alive>`
     this.visible = false
     this.whileOpenListen(false)
     this.removePopper()
   },
-  beforeDestroy () /* istanbul ignore next: not easy to test */ {
+  beforeDestroy() /* istanbul ignore next: not easy to test */ {
     this.visible = false
     this.whileOpenListen(false)
     this.removePopper()
   },
   methods: {
     // Event emitter
-    emitEvent (bvEvt) {
+    emitEvent(bvEvt) {
       const type = bvEvt.type
       this.$emit(type, bvEvt)
       this.$root.$emit(`bv::dropdown::${type}`, bvEvt)
     },
-    showMenu () {
+    showMenu() {
       if (this.disabled) {
         return
       }
@@ -183,7 +183,7 @@ export default {
           warn('b-dropdown: Popper.js not found. Falling back to CSS positioning.')
         } else {
           // for dropup with alignment we use the parent element as popper container
-          let element = ((this.dropup && this.right) || this.split) ? this.$el : this.$refs.toggle
+          let element = (this.dropup && this.right) || this.split ? this.$el : this.$refs.toggle
           // Make sure we have a reference to an element, not a component!
           element = element.$el || element
           // Instantiate popper.js
@@ -197,24 +197,24 @@ export default {
       // Focus on the menu container on show
       this.$nextTick(this.focusMenu)
     },
-    hideMenu () {
+    hideMenu() {
       this.whileOpenListen(false)
       this.$root.$emit('bv::dropdown::hidden', this)
       this.$emit('hidden')
       this.removePopper()
     },
-    createPopper (element) /* istanbul ignore next: cant test popper in JSDOM */ {
+    createPopper(element) /* istanbul ignore next: cant test popper in JSDOM */ {
       this.removePopper()
       this._popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
-    removePopper () /* istanbul ignore next: cant test popper in JSDOM */ {
+    removePopper() /* istanbul ignore next: cant test popper in JSDOM */ {
       if (this._popper) {
         // Ensure popper event listeners are removed cleanly
         this._popper.destroy()
       }
       this._popper = null
     },
-    getPopperConfig () /* istanbul ignore next: can't test popper in JSDOM */ {
+    getPopperConfig() /* istanbul ignore next: can't test popper in JSDOM */ {
       let placement = AttachmentMap.BOTTOM
       if (this.dropup) {
         placement = this.right ? AttachmentMap.TOPEND : AttachmentMap.TOP
@@ -237,7 +237,7 @@ export default {
       }
       return assign(popperConfig, this.popperOpts || {})
     },
-    whileOpenListen (open) {
+    whileOpenListen(open) {
       // turn listeners on/off while open
       if (open) {
         // If another dropdown is opened
@@ -252,19 +252,19 @@ export default {
         this.listenForFocusIn = false
       }
     },
-    rootCloseListener (vm) {
+    rootCloseListener(vm) {
       if (vm !== this) {
         this.visible = false
       }
     },
-    show () {
+    show() {
       // Public method to show dropdown
       if (this.disabled) {
         return
       }
       this.visible = true
     },
-    hide (refocus = false) {
+    hide(refocus = false) {
       // Public method to hide dropdown
       if (this.disabled) {
         return
@@ -275,12 +275,18 @@ export default {
         this.$once('hidden', this.focusToggler)
       }
     },
-    toggle (evt) {
+    toggle(evt) {
       // Called only by a button that toggles the menu
       evt = evt || {}
       const type = evt.type
       const key = evt.keyCode
-      if (type !== 'click' && !(type === 'keydown' && (key === KeyCodes.ENTER || key === KeyCodes.SPACE || key === KeyCodes.DOWN))) {
+      if (
+        type !== 'click' &&
+        !(
+          type === 'keydown' &&
+          (key === KeyCodes.ENTER || key === KeyCodes.SPACE || key === KeyCodes.DOWN)
+        )
+      ) {
         // We only toggle on Click, Enter, Space, and Arrow Down
         return
       }
@@ -298,7 +304,7 @@ export default {
       // Toggle visibility
       this.visible = !this.visible
     },
-    click (evt) {
+    click(evt) {
       // Called only in split button mode, for the split button
       if (this.disabled) {
         this.visible = false
@@ -306,7 +312,7 @@ export default {
       }
       this.$emit('click', evt)
     },
-    onKeydown (evt) /* istanbul ignore next: not easy to test */ {
+    onKeydown(evt) /* istanbul ignore next: not easy to test */ {
       // Called from dropdown menu context
       const key = evt.keyCode
       if (key === KeyCodes.ESC) {
@@ -323,7 +329,7 @@ export default {
         this.focusNext(evt, true)
       }
     },
-    onEsc (evt) /* istanbul ignore next: not easy to test */ {
+    onEsc(evt) /* istanbul ignore next: not easy to test */ {
       if (this.visible) {
         this.visible = false
         evt.preventDefault()
@@ -332,22 +338,22 @@ export default {
         this.$once('hidden', this.focusToggler)
       }
     },
-    onTab (evt) /* istanbul ignore next: not easy to test */ {
+    onTab(evt) /* istanbul ignore next: not easy to test */ {
       // TODO: Need special handler for dealing with form inputs
       // Tab, if in a text-like input, we should just focus next item in the dropdown
       // Note: Inputs are in a special .dropdown-form container
     },
-    onMouseOver (evt) /* istanbul ignore next: not easy to test */ {
+    onMouseOver(evt) /* istanbul ignore next: not easy to test */ {
       // Removed mouseover focus handler
     },
     // Document click out listener
-    clickOutHandler () {
+    clickOutHandler() {
       if (this.visible) {
         this.visible = false
       }
     },
     // Document focusin listener
-    focusInHandler (evt) {
+    focusInHandler(evt) {
       // If focus leaves dropdown, hide it
       if (
         this.visible &&
@@ -358,7 +364,7 @@ export default {
       }
     },
     // Keyboard nav
-    focusNext (evt, up) {
+    focusNext(evt, up) {
       if (!this.visible) {
         return
       }
@@ -381,20 +387,20 @@ export default {
         this.focusItem(index, items)
       })
     },
-    focusItem (idx, items) {
+    focusItem(idx, items) {
       let el = items.find((el, i) => i === idx)
       if (el && getAttr(el, 'tabindex') !== '-1') {
         el.focus()
       }
     },
-    getItems () {
+    getItems() {
       // Get all items
       return filterVisible(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
     },
-    focusMenu () {
+    focusMenu() {
       this.$refs.menu.focus && this.$refs.menu.focus()
     },
-    focusToggler () {
+    focusToggler() {
       let toggler = this.toggler
       if (toggler && toggler.focus) {
         toggler.focus()

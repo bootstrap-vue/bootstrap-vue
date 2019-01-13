@@ -19,7 +19,7 @@ export default {
     formSizeMixin,
     formStateMixin
   ],
-  provide () {
+  provide() {
     return {
       bvRadioGroup: this
     }
@@ -30,13 +30,13 @@ export default {
       default: null
     }
   },
-  data () {
+  data() {
     return {
       localChecked: this.checked
     }
   },
   computed: {
-    is_RadioGroup () {
+    is_RadioGroup() {
       return true
     }
   }

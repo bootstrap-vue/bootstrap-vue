@@ -2,13 +2,13 @@ import { eventOff, eventOn } from '../utils/dom'
 
 // @vue/component
 export default {
-  data () {
+  data() {
     return {
       listenForFocusIn: false
     }
   },
   watch: {
-    listenForFocusIn (newValue, oldValue) {
+    listenForFocusIn(newValue, oldValue) {
       if (newValue !== oldValue) {
         eventOff(this.focusInElement, 'focusin', this._focusInHandler, false)
         if (newValue) {
@@ -17,11 +17,11 @@ export default {
       }
     }
   },
-  beforeCreate () {
+  beforeCreate() {
     // Declare non-reactive properties
     this.focusInElement = null
   },
-  mounted () {
+  mounted() {
     if (!this.focusInElement) {
       this.focusInElement = document
     }
@@ -29,11 +29,11 @@ export default {
       eventOn(this.focusInElement, 'focusin', this._focusInHandler, false)
     }
   },
-  beforeDestroy () {
+  beforeDestroy() {
     eventOff(this.focusInElement, 'focusin', this._focusInHandler, false)
   },
   methods: {
-    _focusInHandler (evt) {
+    _focusInHandler(evt) {
       if (this.focusInHandler) {
         this.focusInHandler(evt)
       }

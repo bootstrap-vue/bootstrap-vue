@@ -4,25 +4,26 @@ window.app = new Vue({
     triggerExamples: [
       'click',
       'focus',
-      'hover', ['click', 'focus'],
+      'hover',
+      ['click', 'focus'],
       ['click', 'hover'],
       ['focus', 'hover']
     ]
   },
   methods: {
-    triggersToString (input) {
+    triggersToString(input) {
       if (Array.isArray(input)) {
         return input.join(' + ')
       }
       return input
     },
-    titleMethod () {
+    titleMethod() {
       return 'title method'
     },
-    contentMethod () {
+    contentMethod() {
       return 'content method'
     },
-    configMethod () {
+    configMethod() {
       return {
         title: 'Title',
         content: 'Content:' + Date.now(),

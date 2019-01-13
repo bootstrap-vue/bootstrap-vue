@@ -4,10 +4,10 @@ window.app = new Vue({
     title: 'Tooltip Title'
   },
   methods: {
-    titleMethod () {
+    titleMethod() {
       return 'title method'
     },
-    configMethod () {
+    configMethod() {
       return {
         title: 'Title: ' + Date.now(),
         trigger: 'click blur',

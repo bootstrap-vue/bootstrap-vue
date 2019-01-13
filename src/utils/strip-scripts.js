@@ -6,6 +6,6 @@
  * @param {string} stringToStrip
  * @return {string}
  */
-export default function stripScripts (str = '') {
+export default function stripScripts(str = '') {
   return String(str).replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
 }

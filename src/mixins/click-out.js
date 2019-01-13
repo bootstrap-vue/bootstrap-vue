@@ -2,13 +2,13 @@ import { contains, eventOff, eventOn } from '../utils/dom'
 
 // @vue/component
 export default {
-  data () {
+  data() {
     return {
       listenForClickOut: false
     }
   },
   watch: {
-    listenForClickOut (newValue, oldValue) {
+    listenForClickOut(newValue, oldValue) {
       if (newValue !== oldValue) {
         eventOff(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, false)
         if (newValue) {
@@ -17,12 +17,12 @@ export default {
       }
     }
   },
-  beforeCreate () {
+  beforeCreate() {
     // Declare non-reactive properties
     this.clickOutElement = null
     this.clickOutEventName = null
   },
-  mounted () {
+  mounted() {
     if (!this.clickOutElement) {
       this.clickOutElement = document
     }
@@ -33,14 +33,14 @@ export default {
       eventOn(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, false)
     }
   },
-  beforeDestroy () {
+  beforeDestroy() {
     eventOff(this.clickOutElement, this.clickOutEventName, this._clickOutHandler, false)
   },
   methods: {
-    isClickOut (evt) {
+    isClickOut(evt) {
       return !contains(this.$el, evt.target)
     },
-    _clickOutHandler (evt) {
+    _clickOutHandler(evt) {
       if (this.clickOutHandler && this.isClickOut(evt)) {
         this.clickOutHandler(evt)
       }

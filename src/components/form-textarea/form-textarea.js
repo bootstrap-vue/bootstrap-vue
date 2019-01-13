@@ -39,32 +39,32 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       dontResize: true
     }
   },
   computed: {
-    computedStyle () {
+    computedStyle() {
       return {
         // setting noResize to true will disable the ability for the user to
         // resize the textarea. We also disable when in auto resize mode
-        resize: (!this.computedRows || this.noResize) ? 'none' : null,
+        resize: !this.computedRows || this.noResize ? 'none' : null,
         // The computed height for auto resize
         height: this.computedHeight
       }
     },
-    computedMinRows () {
+    computedMinRows() {
       // Ensure rows is at least 2 and positive (2 is the native textarea value)
       return Math.max(parseInt(this.rows, 10) || 2, 2)
     },
-    computedMaxRows () {
+    computedMaxRows() {
       return Math.max(this.computedMinRows, parseInt(this.maxRows, 10) || 0)
     },
-    computedRows () {
+    computedRows() {
       return this.computedMinRows === this.computedMaxRows ? this.computedMinRows : null
     },
-    computedHeight () /* istanbul ignore next: can't test getComputedProperties */ {
+    computedHeight() /* istanbul ignore next: can't test getComputedProperties */ {
       const el = this.$el
 
       if (this.isServer) {
@@ -89,12 +89,13 @@ export default {
       // Height of one line of text in px
       const lineHeight = parseFloat(computedStyle.lineHeight)
       // Minimum height for min rows (browser dependant)
-      const minHeight = parseInt(computedStyle.height, 10) || (lineHeight * this.computedMinRows)
+      const minHeight = parseInt(computedStyle.height, 10) || lineHeight * this.computedMinRows
       // Calculate height of content
-      const offset = (parseFloat(computedStyle.borderTopWidth) || 0) +
-                     (parseFloat(computedStyle.borderBottomWidth) || 0) +
-                     (parseFloat(computedStyle.paddingTop) || 0) +
-                     (parseFloat(computedStyle.paddingBottom) || 0)
+      const offset =
+        (parseFloat(computedStyle.borderTopWidth) || 0) +
+        (parseFloat(computedStyle.borderBottomWidth) || 0) +
+        (parseFloat(computedStyle.paddingTop) || 0) +
+        (parseFloat(computedStyle.paddingBottom) || 0)
       // Calculate content height in "rows"
       const contentRows = (el.scrollHeight - offset) / lineHeight
       // Put the old height back (needed when new height is equal to old height!)
@@ -102,29 +103,33 @@ export default {
       // Calculate number of rows to display (limited within min/max rows)
       const rows = Math.min(Math.max(contentRows, this.computedMinRows), this.computedMaxRows)
       // Calulate the required height of the textarea including border and padding (in pixels)
-      const height = Math.max(Math.ceil((rows * lineHeight) + offset), minHeight)
+      const height = Math.max(Math.ceil(rows * lineHeight + offset), minHeight)
 
       // return the new computed height in px units
       return `${height}px`
     }
   },
-  mounted () {
+  mounted() {
     // Enable opt-in resizing once mounted
-    this.$nextTick(() => { this.dontResize = false })
+    this.$nextTick(() => {
+      this.dontResize = false
+    })
   },
-  activated () {
+  activated() {
     // If we are being re-activated in <keep-alive>, enable opt-in resizing
-    this.$nextTick(() => { this.dontResize = false })
+    this.$nextTick(() => {
+      this.dontResize = false
+    })
   },
-  deactivated () {
+  deactivated() {
     // If we are in a deactivated <keep-alive>, disable opt-in resizing
     this.dontResize = true
   },
-  beforeDestroy () {
+  beforeDestroy() {
     /* istanbul ignore next */
     this.dontResize = true
   },
-  render (h) {
+  render(h) {
     // Using self instead of this helps reduce code size during minification
     const self = this
     return h('textarea', {

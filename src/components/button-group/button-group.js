@@ -24,7 +24,7 @@ export default {
   name: 'BButtonGroup',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {
@@ -33,7 +33,7 @@ export default {
           'btn-group-vertical': props.vertical,
           [`btn-group-${props.size}`]: Boolean(props.size)
         },
-        attrs: { 'role': props.ariaRole }
+        attrs: { role: props.ariaRole }
       }),
       children
     )

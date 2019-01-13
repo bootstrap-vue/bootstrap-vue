@@ -10,7 +10,7 @@ import { isServer } from '../../utils/env'
 const BVSS = '__BV_ScrollSpy__'
 
 // Generate config from bindings
-function makeConfig (binding) /* istanbul ignore next: not easy to test */ {
+function makeConfig(binding) /* istanbul ignore next: not easy to test */ {
   const config = {}
 
   // If Argument, assume element ID
@@ -40,15 +40,17 @@ function makeConfig (binding) /* istanbul ignore next: not easy to test */ {
   } else if (typeof binding.value === 'object') {
     // Value is config object
     // Filter the object based on our supported config options
-    keys(binding.value).filter(k => Boolean(ScrollSpy.DefaultType[k])).forEach(k => {
-      config[k] = binding.value[k]
-    })
+    keys(binding.value)
+      .filter(k => Boolean(ScrollSpy.DefaultType[k]))
+      .forEach(k => {
+        config[k] = binding.value[k]
+      })
   }
 
   return config
 }
 
-function addBVSS (el, binding, vnode) /* istanbul ignore next: not easy to test */ {
+function addBVSS(el, binding, vnode) /* istanbul ignore next: not easy to test */ {
   if (isServer) {
     return
   }
@@ -61,7 +63,7 @@ function addBVSS (el, binding, vnode) /* istanbul ignore next: not easy to test 
   return el[BVSS]
 }
 
-function removeBVSS (el) /* istanbul ignore next: not easy to test */ {
+function removeBVSS(el) /* istanbul ignore next: not easy to test */ {
   if (el[BVSS]) {
     el[BVSS].dispose()
     el[BVSS] = null
@@ -73,19 +75,19 @@ function removeBVSS (el) /* istanbul ignore next: not easy to test */ {
  */
 
 export default {
-  bind (el, binding, vnode) /* istanbul ignore next: not easy to test */ {
+  bind(el, binding, vnode) /* istanbul ignore next: not easy to test */ {
     addBVSS(el, binding, vnode)
   },
-  inserted (el, binding, vnode) /* istanbul ignore next: not easy to test */ {
+  inserted(el, binding, vnode) /* istanbul ignore next: not easy to test */ {
     addBVSS(el, binding, vnode)
   },
-  update (el, binding, vnode) /* istanbul ignore next: not easy to test */ {
+  update(el, binding, vnode) /* istanbul ignore next: not easy to test */ {
     addBVSS(el, binding, vnode)
   },
-  componentUpdated (el, binding, vnode) /* istanbul ignore next: not easy to test */ {
+  componentUpdated(el, binding, vnode) /* istanbul ignore next: not easy to test */ {
     addBVSS(el, binding, vnode)
   },
-  unbind (el) /* istanbul ignore next: not easy to test */ {
+  unbind(el) /* istanbul ignore next: not easy to test */ {
     if (isServer) {
       return
     }

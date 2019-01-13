@@ -4,7 +4,7 @@ window.app = new Vue({
     spies: []
   },
   methods: {
-    handleClick () {
+    handleClick() {
       this.spies.forEach(spy => spy.apply(undefined, arguments))
     }
   }

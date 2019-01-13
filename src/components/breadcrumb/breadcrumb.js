@@ -15,7 +15,7 @@ export default {
   name: 'BBreadcrumb',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     let childNodes = children
     // Build child nodes from items if given.
     if (isArray(props.items)) {

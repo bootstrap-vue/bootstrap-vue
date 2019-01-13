@@ -98,7 +98,7 @@ describe('tab', async () => {
 
     let called = false
     let value = null
-    wrapper.vm.$on('update:active', (val) => {
+    wrapper.vm.$on('update:active', val => {
       called = true
       value = val
     })
@@ -114,7 +114,7 @@ describe('tab', async () => {
 
   it('has class fade when parent has fade=true', async () => {
     const wrapper = mount(Tab, {
-      provide () {
+      provide() {
         return {
           bTabs: {
             fade: true,
@@ -136,7 +136,7 @@ describe('tab', async () => {
 
   it('has class card-body when parent has card=true', async () => {
     const wrapper = mount(Tab, {
-      provide () {
+      provide() {
         return {
           bTabs: {
             fade: false,
@@ -159,7 +159,7 @@ describe('tab', async () => {
 
   it('does not have class card-body when parent has card=true and prop no-body is set', async () => {
     const wrapper = mount(Tab, {
-      provide () {
+      provide() {
         return {
           bTabs: {
             fade: false,
@@ -185,7 +185,7 @@ describe('tab', async () => {
 
   it('has attribute tabindex="0" when parent has keynav enabled and active', async () => {
     const wrapper = mount(Tab, {
-      provide () {
+      provide() {
         return {
           bTabs: {
             fade: false,
@@ -202,18 +202,18 @@ describe('tab', async () => {
     expect(wrapper.attributes('tabindex')).toBe('0')
   })
 
-  it('calls parent\'s updateButton() when title slot provided', async () => {
+  it("calls parent's updateButton() when title slot provided", async () => {
     let called = false
     let vm = null
     const wrapper = mount(Tab, {
-      provide () {
+      provide() {
         return {
           bTabs: {
             fade: false,
             lazy: false,
             card: false,
             noKeyNav: false,
-            updateButton (tab) {
+            updateButton(tab) {
               called = true
               vm = tab
               return true
@@ -239,20 +239,20 @@ describe('tab', async () => {
     let deactivateVm = null
 
     const wrapper = mount(Tab, {
-      provide () {
+      provide() {
         return {
           bTabs: {
             fade: false,
             lazy: false,
             card: false,
             noKeyNav: false,
-            activateTab (tab) {
+            activateTab(tab) {
               activateCalled = true
               activateVm = tab
               tab.localActive = true
               return true
             },
-            deactivateTab (tab) {
+            deactivateTab(tab) {
               deactivateCalled = true
               deactivateVm = tab
               tab.localActive = false
@@ -293,14 +293,14 @@ describe('tab', async () => {
     let activateVm = null
 
     const wrapper = mount(Tab, {
-      provide () {
+      provide() {
         return {
           bTabs: {
             fade: false,
             lazy: false,
             card: false,
             noKeyNav: false,
-            activateTab (tab) {
+            activateTab(tab) {
               activateCalled = true
               activateVm = tab
               tab.localActive = true
@@ -326,14 +326,14 @@ describe('tab', async () => {
     let deactivateVm = null
 
     const wrapper = mount(Tab, {
-      provide () {
+      provide() {
         return {
           bTabs: {
             fade: false,
             lazy: false,
             card: false,
             noKeyNav: false,
-            deactivateTab (tab) {
+            deactivateTab(tab) {
               deactivateCalled = true
               deactivateVm = tab
               tab.localActive = false

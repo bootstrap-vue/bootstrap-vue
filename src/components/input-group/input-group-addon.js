@@ -27,7 +27,7 @@ export default {
       default: false
     }
   },
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {
@@ -39,9 +39,7 @@ export default {
           id: props.id
         }
       }),
-      props.isText ? [
-        h(InputGroupText, children)
-      ] : children
+      props.isText ? [h(InputGroupText, children)] : children
     )
   }
 }

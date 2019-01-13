@@ -44,7 +44,8 @@
   > tfoot {
     > tr {
       > th {
-        &[aria-sort] { // &.sorting
+        &[aria-sort] {
+          // &.sorting
           position: relative;
           padding-right: 1.125em;
           cursor: pointer;
@@ -64,13 +65,15 @@
           }
 
           // Ascending indicator
-          &[aria-sort="ascending"]::after { // &.sorting_asc::after.sorting_asc
+          &[aria-sort="ascending"]::after {
+            // &.sorting_asc::after.sorting_asc
             opacity: 1;
             content: "\2193"; // down arrow
           }
 
           // Descending indicator
-          &[aria-sort="descending"]::after { // &.sorting_desc::after
+          &[aria-sort="descending"]::after {
+            // &.sorting_desc::after
             opacity: 1;
             content: "\2191"; // up arrow
           }
@@ -120,7 +123,6 @@
 
         > tbody {
           > tr {
-
             // Turn cells with labels into micro-grids
             > [data-label] {
               // convert TD/TH contents to "cells". Caveat: child elements become cells!

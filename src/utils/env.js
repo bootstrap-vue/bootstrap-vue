@@ -4,6 +4,7 @@ export const inBrowser = typeof document !== 'undefined' && typeof window !== 'u
 
 export const isServer = !inBrowser
 
-export const hasTouchSupport = inBrowser && ('ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0)
+export const hasTouchSupport =
+  inBrowser && ('ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0)
 
 export const hasPointerEvent = inBrowser && Boolean(window.PointerEvent || window.MSPointerEvent)

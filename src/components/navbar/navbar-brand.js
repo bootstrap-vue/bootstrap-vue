@@ -19,7 +19,7 @@ export default {
   name: 'BNavbarBrand',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     const isLink = Boolean(props.to || props.href)
     const tag = isLink ? BLink : props.tag
 

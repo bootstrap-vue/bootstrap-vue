@@ -9,11 +9,7 @@ export default {
       default: 'p'
     }
   },
-  render (h, { props, data, children }) {
-    return h(
-      props.tag,
-      mergeData(data, { props, staticClass: 'b-dropdown-text' }),
-      children
-    )
+  render(h, { props, data, children }) {
+    return h(props.tag, mergeData(data, { props, staticClass: 'b-dropdown-text' }), children)
   }
 }

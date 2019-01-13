@@ -84,12 +84,19 @@ const EventOptions = { passive: true, capture: false }
  */
 
 // Better var type detection
-function toType (obj) /* istanbul ignore next: not easy to test */ {
-  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+function toType(obj) /* istanbul ignore next: not easy to test */ {
+  return {}.toString
+    .call(obj)
+    .match(/\s([a-zA-Z]+)/)[1]
+    .toLowerCase()
 }
 
 // Check config properties for expected types
-function typeCheckConfig (componentName, config, configTypes) /* istanbul ignore next: not easy to test */ {
+function typeCheckConfig(
+  componentName,
+  config,
+  configTypes
+) /* istanbul ignore next: not easy to test */ {
   for (const property in configTypes) {
     if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
       const expectedTypes = configTypes[property]
@@ -100,8 +107,7 @@ function typeCheckConfig (componentName, config, configTypes) /* istanbul ignore
 
       if (!new RegExp(expectedTypes).test(valueType)) {
         warn(
-          componentName + ': Option "' + property + '" provided type "' +
-                    valueType + '", but expected type "' + expectedTypes + '"'
+          `${componentName}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}"`
         )
       }
     }
@@ -116,15 +122,11 @@ function typeCheckConfig (componentName, config, configTypes) /* istanbul ignore
 
 /* istanbul ignore next: not easy to test */
 class ScrollSpy /* istanbul ignore next: not easy to test */ {
-  constructor (element, config, $root) {
+  constructor(element, config, $root) {
     // The element we activate links in
     this.$el = element
     this.$scroller = null
-    this.$selector = [
-      Selector.NAV_LINKS,
-      Selector.LIST_ITEMS,
-      Selector.DROPDOWN_ITEMS
-    ].join(',')
+    this.$selector = [Selector.NAV_LINKS, Selector.LIST_ITEMS, Selector.DROPDOWN_ITEMS].join(',')
     this.$offsets = []
     this.$targets = []
     this.$activeTarget = null
@@ -138,19 +140,19 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     this.updateConfig(config)
   }
 
-  static get Name () {
+  static get Name() {
     return NAME
   }
 
-  static get Default () {
+  static get Default() {
     return Default
   }
 
-  static get DefaultType () {
+  static get DefaultType() {
     return DefaultType
   }
 
-  updateConfig (config, $root) {
+  updateConfig(config, $root) {
     if (this.$scroller) {
       // Just in case out scroll element has changed
       this.unlisten()
@@ -173,7 +175,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     }
   }
 
-  dispose () {
+  dispose() {
     this.unlisten()
     clearTimeout(this.$resizeTimeout)
     this.$resizeTimeout = null
@@ -187,7 +189,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     this.$scrollHeight = null
   }
 
-  listen () {
+  listen() {
     const scroller = this.getScroller()
     if (scroller && scroller.tagName !== 'BODY') {
       eventOn(scroller, 'scroll', this, EventOptions)
@@ -203,7 +205,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     this.handleEvent('refresh')
   }
 
-  unlisten () {
+  unlisten() {
     const scroller = this.getScroller()
     this.setObservers(false)
     if (scroller && scroller.tagName !== 'BODY') {
@@ -217,7 +219,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     })
   }
 
-  setObservers (on) {
+  setObservers(on) {
     // We observe both the scroller for content changes, and the target links
     if (this.$obs_scroller) {
       this.$obs_scroller.disconnect()
@@ -228,28 +230,40 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
       this.$obs_targets = null
     }
     if (on) {
-      this.$obs_targets = observeDom(this.$el, () => { this.handleEvent('mutation') }, {
-        subtree: true,
-        childList: true,
-        attributes: true,
-        attributeFilter: ['href']
-      })
-      this.$obs_scroller = observeDom(this.getScroller(), () => { this.handleEvent('mutation') }, {
-        subtree: true,
-        childList: true,
-        characterData: true,
-        attributes: true,
-        attributeFilter: ['id', 'style', 'class']
-      })
+      this.$obs_targets = observeDom(
+        this.$el,
+        () => {
+          this.handleEvent('mutation')
+        },
+        {
+          subtree: true,
+          childList: true,
+          attributes: true,
+          attributeFilter: ['href']
+        }
+      )
+      this.$obs_scroller = observeDom(
+        this.getScroller(),
+        () => {
+          this.handleEvent('mutation')
+        },
+        {
+          subtree: true,
+          childList: true,
+          characterData: true,
+          attributes: true,
+          attributeFilter: ['id', 'style', 'class']
+        }
+      )
     }
   }
 
   // general event handler
-  handleEvent (evt) {
+  handleEvent(evt) {
     const type = typeof evt === 'string' ? evt : evt.type
 
     const self = this
-    function resizeThrottle () {
+    function resizeThrottle() {
       if (!self.$resizeTimeout) {
         self.$resizeTimeout = setTimeout(() => {
           self.refresh()
@@ -273,7 +287,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
   }
 
   // Refresh the list of target links on the element we are applied to
-  refresh () {
+  refresh() {
     const scroller = this.getScroller()
     if (!scroller) {
       return
@@ -318,7 +332,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
   }
 
   // Handle activating/clearing
-  process () {
+  process() {
     const scrollTop = this.getScrollTop() + this.$config.offset
     const scrollHeight = this.getScrollHeight()
     const maxScroll = this.$config.offset + scrollHeight - this.getOffsetHeight()
@@ -341,10 +355,11 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
       return
     }
 
-    for (let i = this.$offsets.length; i--;) {
-      const isActiveTarget = this.$activeTarget !== this.$targets[i] &&
-                scrollTop >= this.$offsets[i] &&
-                (typeof this.$offsets[i + 1] === 'undefined' || scrollTop < this.$offsets[i + 1])
+    for (let i = this.$offsets.length; i--; ) {
+      const isActiveTarget =
+        this.$activeTarget !== this.$targets[i] &&
+        scrollTop >= this.$offsets[i] &&
+        (typeof this.$offsets[i + 1] === 'undefined' || scrollTop < this.$offsets[i + 1])
 
       if (isActiveTarget) {
         this.activate(this.$targets[i])
@@ -352,7 +367,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     }
   }
 
-  getScroller () {
+  getScroller() {
     if (this.$scroller) {
       return this.$scroller
     }
@@ -371,24 +386,24 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     return this.$scroller
   }
 
-  getScrollTop () {
+  getScrollTop() {
     const scroller = this.getScroller()
     return scroller === window ? scroller.pageYOffset : scroller.scrollTop
   }
 
-  getScrollHeight () {
-    return this.getScroller().scrollHeight || Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight
+  getScrollHeight() {
+    return (
+      this.getScroller().scrollHeight ||
+      Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
     )
   }
 
-  getOffsetHeight () {
+  getOffsetHeight() {
     const scroller = this.getScroller()
     return scroller === window ? window.innerHeight : getBCR(scroller).height
   }
 
-  activate (target) {
+  activate(target) {
     this.$activeTarget = target
     this.clear()
 
@@ -397,8 +412,9 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
       this.$selector
         .split(',')
         .map(selector => `${selector}[href="${target}"]`)
-        .join(',')
-      , this.$el)
+        .join(','),
+      this.$el
+    )
 
     links.forEach(link => {
       if (hasClass(link, ClassName.DROPDOWN_ITEM)) {
@@ -441,13 +457,13 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     }
   }
 
-  clear () {
+  clear() {
     selectAll(`${this.$selector}, ${Selector.NAV_ITEMS}`, this.$el)
       .filter(el => hasClass(el, ClassName.ACTIVE))
       .forEach(el => this.setActiveState(el, false))
   }
 
-  setActiveState (el, active) {
+  setActiveState(el, active) {
     if (!el) {
       return
     }

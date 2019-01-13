@@ -20,7 +20,7 @@ const IGNORED_FIELD_KEYS = {
 
 // Return a copy of a row after all reserved fields have been filtered out
 // TODO: add option to specify which fields to include
-function sanitizeRow (row) {
+function sanitizeRow(row) {
   return keys(row).reduce((obj, key) => {
     // Ignore special fields that start with _
     if (!IGNORED_FIELD_KEYS[key]) {
@@ -34,7 +34,7 @@ function sanitizeRow (row) {
 //   { b: 3, c: { z: 'zzz', d: null, e: 2 }, d: [10, 12, 11], a: 'one' }
 // becomes
 //   'one 3 2 zzz 10 12 11'
-function toString (v) {
+function toString(v) {
   if (!v) {
     return ''
   }
@@ -50,7 +50,7 @@ function toString (v) {
 
 // Stringifies the values of a record, ignoring any special top level field keys
 // TODO: add option to strigify formatted/scopedSlot items, and only specific fields
-function recToString (row) {
+function recToString(row) {
   if (!(row instanceof Object)) {
     return ''
   }
@@ -61,7 +61,7 @@ function recToString (row) {
 // TODO: add option to sort by multiple columns (tri-state per column, plus order of columns in sort)
 //  where sprtBy could be an array of objects [ {key: 'foo', sortDir: 'asc'}, {key:'bar', sortDir: 'desc'} ...]
 //  or an array of arrays [ ['foo','asc'], ['bar','desc'] ]
-function defaultSortCompare (a, b, sortBy) {
+function defaultSortCompare(a, b, sortBy) {
   a = _get(a, sortBy, '')
   b = _get(b, sortBy, '')
   if (typeof a === 'number' && typeof b === 'number') {
@@ -73,7 +73,7 @@ function defaultSortCompare (a, b, sortBy) {
 }
 
 // Helper function to massage field entry into common object format
-function processField (key, value) {
+function processField(key, value) {
   let field = null
   if (typeof value === 'string') {
     // Label shortcut
@@ -110,7 +110,7 @@ const EVENT_FILTER = [
 
 // Returns true of we should ignore the click/dbclick/keypress event
 // Avoids having the user need to use @click.stop on the form control
-function filterEvent (evt) {
+function filterEvent(evt) {
   if (!evt || !evt.target) {
     return
   }
@@ -141,7 +141,7 @@ export default {
   props: {
     items: {
       type: [Array, Function],
-      default () {
+      default() {
         return []
       }
     },
@@ -194,13 +194,11 @@ export default {
     },
     dark: {
       type: Boolean,
-      default () {
+      default() {
         /* istanbul ignore if */
         if (this && typeof this.inverse === 'boolean') {
           // Deprecate inverse
-          warn(
-            "b-table: prop 'inverse' has been deprecated. Use 'dark' instead"
-          )
+          warn("b-table: prop 'inverse' has been deprecated. Use 'dark' instead")
           return this.dark
         }
         return false
@@ -326,7 +324,7 @@ export default {
     value: {
       // v-model for retreiving the current displayed rows
       type: Array,
-      default () {
+      default() {
         return []
       }
     },
@@ -356,7 +354,7 @@ export default {
       default: ''
     }
   },
-  data () {
+  data() {
     return {
       localSortBy: this.sortBy || '',
       localSortDesc: this.sortDesc || false,
@@ -371,19 +369,21 @@ export default {
   },
   computed: {
     // Layout related computed props
-    isStacked () {
+    isStacked() {
       return this.stacked === '' ? true : this.stacked
     },
-    isResponsive () {
+    isResponsive() {
       const responsive = this.responsive === '' ? true : this.responsive
       return this.isStacked ? false : responsive
     },
-    responsiveClass () {
+    responsiveClass() {
       return this.isResponsive === true
         ? 'table-responsive'
-        : this.isResponsive ? `table-responsive-${this.responsive}` : ''
+        : this.isResponsive
+          ? `table-responsive-${this.responsive}`
+          : ''
     },
-    tableClasses () {
+    tableClasses() {
       return {
         'table-striped': this.striped,
         'table-hover': this.hover,
@@ -391,7 +391,7 @@ export default {
         'table-bordered': this.bordered,
         'table-borderless': this.borderless,
         'table-sm': this.small,
-        'border': this.outlined,
+        border: this.outlined,
         // The following are b-table custom styles
         'b-table-fixed': this.fixed,
         'b-table-stacked': this.stacked === true || this.stacked === '',
@@ -399,38 +399,35 @@ export default {
         'b-table-selectable': this.selectable
       }
     },
-    headClasses () {
-      return [
-        this.headVariant ? 'thead-' + this.headVariant : '',
-        this.theadClass
-      ]
+    headClasses() {
+      return [this.headVariant ? 'thead-' + this.headVariant : '', this.theadClass]
     },
-    bodyClasses () {
+    bodyClasses() {
       return [this.tbodyClass]
     },
-    footClasses () {
+    footClasses() {
       const variant = this.footVariant || this.headVariant || null
       return [variant ? 'thead-' + variant : '', this.tfootClass]
     },
-    captionClasses () {
+    captionClasses() {
       return {
         'b-table-caption-top': this.captionTop
       }
     },
     // Items related computed props
-    hasProvider () {
+    hasProvider() {
       return this.items instanceof Function
     },
-    localFiltering () {
+    localFiltering() {
       return this.hasProvider ? !!this.noProviderFiltering : true
     },
-    localSorting () {
+    localSorting() {
       return this.hasProvider ? !!this.noProviderSorting : !this.noLocalSorting
     },
-    localPaging () {
+    localPaging() {
       return this.hasProvider ? !!this.noProviderPaging : true
     },
-    context () {
+    context() {
       // Current state of sorting, filtering and pagination props/values
       return {
         filter: this.localFilter,
@@ -441,7 +438,7 @@ export default {
         apiUrl: this.apiUrl
       }
     },
-    providerTriggerContext () {
+    providerTriggerContext() {
       // Used to trigger the provider function via a watcher. Only the fields that
       // are needed for triggering a provider update are included. Note that the
       // regular this.context is sent to the provider during fetches though, as they
@@ -463,10 +460,10 @@ export default {
       }
       return ctx
     },
-    computedBusy () {
+    computedBusy() {
       return this.busy || this.localBusy
     },
-    computedFields () {
+    computedFields() {
       // We normalize fields into an array of objects
       // [ { key:..., label:..., ...}, {...}, ..., {..}]
       let fields = []
@@ -475,11 +472,7 @@ export default {
         this.fields.filter(f => f).forEach(f => {
           if (typeof f === 'string') {
             fields.push({ key: f, label: _startCase(f) })
-          } else if (
-            typeof f === 'object' &&
-            f.key &&
-            typeof f.key === 'string'
-          ) {
+          } else if (typeof f === 'object' && f.key && typeof f.key === 'string') {
             // Full object definition. We use assign so that we don't mutate the original
             fields.push(assign({}, f))
           } else if (typeof f === 'object' && keys(f).length === 1) {
@@ -491,11 +484,7 @@ export default {
             }
           }
         })
-      } else if (
-        this.fields &&
-        typeof this.fields === 'object' &&
-        keys(this.fields).length > 0
-      ) {
+      } else if (this.fields && typeof this.fields === 'object' && keys(this.fields).length > 0) {
         // Normalize object Form
         keys(this.fields).forEach(key => {
           let field = processField(key, this.fields[key])
@@ -524,7 +513,7 @@ export default {
         return false
       })
     },
-    filteredCheck () {
+    filteredCheck() {
       // For watching changes to filteredItems vs localItems
       return {
         filteredItems: this.filteredItems,
@@ -532,14 +521,16 @@ export default {
         localFilter: this.localFilter
       }
     },
-    localFilter () {
+    localFilter() {
       // Returns a sanitized/normalized version of filter prop
       if (typeof this.filter === 'function') {
         // this.localFilterFn will contain the correct function ref.
         // Deprecate setting prop filter to a function
         return ''
-      } else if ((typeof this.filterFunction !== 'function') &&
-        !(typeof this.filter === 'string' || this.filter instanceof RegExp)) {
+      } else if (
+        typeof this.filterFunction !== 'function' &&
+        !(typeof this.filter === 'string' || this.filter instanceof RegExp)
+      ) {
         // Using internal filter function, which only acccepts string or regexp at the moment
         return ''
       } else {
@@ -547,7 +538,7 @@ export default {
         return this.filter
       }
     },
-    localFilterFn () {
+    localFilterFn() {
       let filter = this.filter
       let filterFn = this.filterFunction
       // Sanitized/normalize filter-function prop
@@ -561,14 +552,13 @@ export default {
         return null
       }
     },
-    filteredItems () {
+    filteredItems() {
       // Returns the records in localItems that match the filter criteria.
       // Returns the original localItems array if not sorting
       let items = this.localItems || []
       const criteria = this.localFilter
       const filterFn =
-        this.filterFnFactory(this.localFilterFn, criteria) ||
-        this.defaultFilterFnFactory(criteria)
+        this.filterFnFactory(this.localFilterFn, criteria) || this.defaultFilterFnFactory(criteria)
 
       // We only do local filtering if requested, and if the are records to filter and
       // if a filter criteria was specified
@@ -577,7 +567,7 @@ export default {
       }
       return items
     },
-    sortedItems () {
+    sortedItems() {
       // Sorts the filtered items and returns a new array of the sorted items
       // or the original items array if not sorted.
       let items = this.filteredItems || []
@@ -603,7 +593,7 @@ export default {
       }
       return items
     },
-    paginatedItems () {
+    paginatedItems() {
       let items = this.sortedItems || []
       const currentPage = Math.max(parseInt(this.currentPage, 10) || 1, 1)
       const perPage = Math.max(parseInt(this.perPage, 10) || 0, 0)
@@ -615,13 +605,13 @@ export default {
       // Return the items to display in the table
       return items
     },
-    computedItems () {
+    computedItems() {
       return this.paginatedItems || []
     }
   },
   watch: {
     // Watch props for changes and update local values
-    items (newItems) {
+    items(newItems) {
       if (this.hasProvider || newItems instanceof Function) {
         this.$nextTick(this._providerUpdate)
       } else if (isArray(newItems)) {
@@ -631,44 +621,44 @@ export default {
         this.localItems = []
       }
     },
-    sortDesc (newVal, oldVal) {
+    sortDesc(newVal, oldVal) {
       if (newVal === this.localSortDesc) {
         return
       }
       this.localSortDesc = newVal || false
     },
-    sortBy (newVal, oldVal) {
+    sortBy(newVal, oldVal) {
       if (newVal === this.localSortBy) {
         return
       }
       this.localSortBy = newVal || null
     },
-    selectMode (newVal, oldVal) {
+    selectMode(newVal, oldVal) {
       if (oldVal !== newVal) {
         this.clearSelected()
       }
     },
     // Update .sync props
-    localSortDesc (newVal, oldVal) {
+    localSortDesc(newVal, oldVal) {
       // Emit update to sort-desc.sync
       if (newVal !== oldVal) {
         this.clearSelected()
         this.$emit('update:sortDesc', newVal)
       }
     },
-    localSortBy (newVal, oldVal) {
+    localSortBy(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.clearSelected()
         this.$emit('update:sortBy', newVal)
       }
     },
-    localBusy (newVal, oldVal) {
+    localBusy(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.$emit('update:busy', newVal)
       }
     },
     // Watch for changes on computedItems and update the v-model
-    computedItems (newVal, oldVal) {
+    computedItems(newVal, oldVal) {
       // Reset for selectable
       this.lastRowClicked = -1
       this.$emit('input', newVal)
@@ -685,13 +675,13 @@ export default {
         this.clearSelected()
       }
     },
-    selectable (newVal, oldVal) {
+    selectable(newVal, oldVal) {
       // Clear selection if prop selectable changes
       this.clearSelected()
     },
     // Watch for changes to the filter criteria and filtered items vs localItems).
     // And set visual state and emit events as required
-    filteredCheck ({ filteredItems, localItems, localFilter }) {
+    filteredCheck({ filteredItems, localItems, localFilter }) {
       // Determine if the dataset is filtered or not
       let isFiltered
       if (!localFilter) {
@@ -712,7 +702,7 @@ export default {
       }
       this.isFiltered = isFiltered
     },
-    isFiltered (newVal, oldVal) {
+    isFiltered(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.clearSelected()
       }
@@ -722,21 +712,21 @@ export default {
         this.$emit('filtered', this.localItems, this.localItems.length)
       }
     },
-    context (newVal, oldVal) {
+    context(newVal, oldVal) {
       // Emit context info for enternal paging/filtering/sorting handling
       if (!looseEqual(newVal, oldVal)) {
         this.$emit('context-changed', newVal)
       }
     },
     // Provider update triggering
-    providerTriggerContext (newVal, oldVal) {
+    providerTriggerContext(newVal, oldVal) {
       // Trigger the provider to update as the relevant context values have changed.
       if (!looseEqual(newVal, oldVal)) {
         this.$nextTick(this._providerUpdate)
       }
     }
   },
-  mounted () {
+  mounted() {
     // Call the items provider if necessary
     if (this.hasProvider && (!this.localItems || this.localItems.length === 0)) {
       // Fetch on mount if localItems is empty
@@ -755,7 +745,7 @@ export default {
   },
   methods: {
     // Methods for computing classes, attributes and styles for table cells
-    fieldClasses (field) {
+    fieldClasses(field) {
       // header field (th) classes
       return [
         field.variant ? 'table-' + field.variant : '',
@@ -763,23 +753,19 @@ export default {
         field.thClass ? field.thClass : ''
       ]
     },
-    tdClasses (field, item) {
+    tdClasses(field, item) {
       let cellVariant = ''
       if (item._cellVariants && item._cellVariants[field.key]) {
-        cellVariant = `${this.dark ? 'bg' : 'table'}-${
-          item._cellVariants[field.key]
-        }`
+        cellVariant = `${this.dark ? 'bg' : 'table'}-${item._cellVariants[field.key]}`
       }
       return [
-        field.variant && !cellVariant
-          ? `${this.dark ? 'bg' : 'table'}-${field.variant}`
-          : '',
+        field.variant && !cellVariant ? `${this.dark ? 'bg' : 'table'}-${field.variant}` : '',
         cellVariant,
         field.class ? field.class : '',
         this.getTdValues(item, field.key, field.tdClass, '')
       ]
     },
-    tdAttrs (field, item, colIndex) {
+    tdAttrs(field, item, colIndex) {
       let attrs = {}
       attrs['aria-colindex'] = String(colIndex + 1)
       if (field.isRowHeader) {
@@ -796,15 +782,13 @@ export default {
       }
       return assign({}, attrs, this.getTdValues(item, field.key, field.tdAttr, {}))
     },
-    rowClasses (item) {
+    rowClasses(item) {
       return [
-        item._rowVariant
-          ? `${this.dark ? 'bg' : 'table'}-${item._rowVariant}`
-          : '',
+        item._rowVariant ? `${this.dark ? 'bg' : 'table'}-${item._rowVariant}` : '',
         typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row') : this.tbodyTrClass
       ]
     },
-    getTdValues (item, key, tdValue, defValue) {
+    getTdValues(item, key, tdValue, defValue) {
       const parent = this.$parent
       if (tdValue) {
         const value = _get(item, key, '')
@@ -818,7 +802,7 @@ export default {
       return defValue
     },
     // Method to get the value for a field
-    getFormattedValue (item, field) {
+    getFormattedValue(item, field) {
       const key = field.key
       const formatter = field.formatter
       const parent = this.$parent
@@ -826,17 +810,14 @@ export default {
       if (formatter) {
         if (typeof formatter === 'function') {
           value = formatter(value, key, item)
-        } else if (
-          typeof formatter === 'string' &&
-          typeof parent[formatter] === 'function'
-        ) {
+        } else if (typeof formatter === 'string' && typeof parent[formatter] === 'function') {
           value = parent[formatter](value, key, item)
         }
       }
-      return (value === null || typeof value === 'undefined') ? '' : value
+      return value === null || typeof value === 'undefined' ? '' : value
     },
     // Filter Function factories
-    filterFnFactory (filterFn, criteria) {
+    filterFnFactory(filterFn, criteria) {
       // Wrapper factory for external filter functions.
       // Wrap the provided filter-function and return a new function.
       // returns null if no filter-function defined or if criteria is falsey.
@@ -848,7 +829,7 @@ export default {
       }
 
       // Build the wrapped filter test function, passing the criteria to the provided function
-      const fn = (item) => {
+      const fn = item => {
         // Generated function returns true if the crieria matches part of the serialzed data, otherwise false
         return filterFn(item, criteria)
       }
@@ -856,7 +837,7 @@ export default {
       // return the wrapped function
       return fn
     },
-    defaultFilterFnFactory (criteria) {
+    defaultFilterFnFactory(criteria) {
       // Generates the default filter function, using the given flter criteria
       if (!criteria || !(typeof criteria === 'string' || criteria instanceof RegExp)) {
         // Bult in filter can only support strings or RegExp criteria (at the moment)
@@ -876,7 +857,7 @@ export default {
       }
 
       // Generate the wrapped filter test function to use
-      const fn = (item) => {
+      const fn = item => {
         // This searches all row values (and sub property values) in the entire (excluding
         // special _ prefixed keys), because we convert the record to a space-separated
         // string containing all the value properties (recursively), even ones that are
@@ -897,7 +878,7 @@ export default {
       // Return the generated function
       return fn
     },
-    clearSelected () {
+    clearSelected() {
       let hasSelection = this.selectedRows.reduce((prev, v) => {
         return prev || v
       }, false)
@@ -908,7 +889,7 @@ export default {
       }
     },
     // Event handlers
-    rowClicked (e, item, index) {
+    rowClicked(e, item, index) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
@@ -928,13 +909,19 @@ export default {
             this.selectedRows = []
             break
           case 'range':
-            if (this.lastRowClicked >= 0 && e.shiftKey) { // range
-              for (let idx = Math.min(this.lastRowClicked, index); idx <= Math.max(this.lastRowClicked, index); idx++) {
+            if (this.lastRowClicked >= 0 && e.shiftKey) {
+              // range
+              for (
+                let idx = Math.min(this.lastRowClicked, index);
+                idx <= Math.max(this.lastRowClicked, index);
+                idx++
+              ) {
                 this.selectedRows[idx] = true
               }
               selected = true
             } else {
-              if (!(e.ctrlKey || e.metaKey)) { // clear range selection if any
+              if (!(e.ctrlKey || e.metaKey)) {
+                // clear range selection if any
                 this.selectedRows = []
                 selected = true
               }
@@ -953,14 +940,14 @@ export default {
       }
       this.$emit('row-clicked', item, index, e)
     },
-    middleMouseRowClicked (e, item, index) {
+    middleMouseRowClicked(e, item, index) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       }
       this.$emit('row-middle-clicked', item, index, e)
     },
-    rowDblClicked (e, item, index) {
+    rowDblClicked(e, item, index) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
@@ -970,28 +957,28 @@ export default {
       }
       this.$emit('row-dblclicked', item, index, e)
     },
-    rowHovered (e, item, index) {
+    rowHovered(e, item, index) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       }
       this.$emit('row-hovered', item, index, e)
     },
-    rowUnhovered (e, item, index) {
+    rowUnhovered(e, item, index) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       }
       this.$emit('row-unhovered', item, index, e)
     },
-    rowContextmenu (e, item, index) {
+    rowContextmenu(e, item, index) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
       }
       this.$emit('row-contextmenu', item, index, e)
     },
-    headClicked (e, field) {
+    headClicked(e, field) {
       if (this.stopIfBusy(e)) {
         // If table is busy (via provider) then don't propagate
         return
@@ -1031,7 +1018,7 @@ export default {
         this.$emit('sort-changed', this.context)
       }
     },
-    stopIfBusy (evt) {
+    stopIfBusy(evt) {
       if (this.computedBusy) {
         // If table is busy (via provider) then don't propagate
         evt.preventDefault()
@@ -1041,7 +1028,7 @@ export default {
       return false
     },
     // Exposed method(s)
-    refresh () {
+    refresh() {
       this.$off('refreshed', this.refresh)
       if (this.computedBusy) {
         // Can't force an update when forced busy by user (busy prop === true)
@@ -1059,7 +1046,7 @@ export default {
       }
     },
     // Provider related methods
-    _providerSetLocal (items) {
+    _providerSetLocal(items) {
       this.localItems = isArray(items) ? items.slice() : []
       this.localBusy = false
       this.$emit('refreshed')
@@ -1068,7 +1055,7 @@ export default {
         this.emitOnRoot('bv::table::refreshed', this.id)
       }
     },
-    _providerUpdate () {
+    _providerUpdate() {
       // Refresh the provider function items.
       if (!this.hasProvider) {
         // Do nothing if no provider
@@ -1085,7 +1072,7 @@ export default {
       this.localBusy = true
 
       // Call provider function with context and optional callback after DOM is fully updated
-      this.$nextTick(function () {
+      this.$nextTick(function() {
         try {
           // Call provider function passing it the context and optional callback
           const data = this.items(this.context, this._providerSetLocal)
@@ -1102,7 +1089,9 @@ export default {
             // Check number of arguments provider function requested
             // Provider not using callback (didn't request second argument), so we clear
             // busy state as most likely there was an error in the provider function
-            warn('b-table provider function didn\'t request calback and did not return a promise or data')
+            warn(
+              "b-table provider function didn't request calback and did not return a promise or data"
+            )
             this.localBusy = false
           }
         } catch (e) /* istanbul ignore next */ {
@@ -1115,7 +1104,7 @@ export default {
       })
     }
   },
-  render (h) {
+  render(h) {
     const $slots = this.$slots
     const $scoped = this.$scopedSlots
     const fields = this.computedFields
@@ -1147,7 +1136,7 @@ export default {
     const makeHeadCells = (isFoot = false) => {
       return fields.map((field, colIndex) => {
         let ariaLabel = ''
-        if (!(field.label.trim()) && !field.headerTitle) {
+        if (!field.label.trim() && !field.headerTitle) {
           // In case field's label and title are empty/blank
           // We need to add a hint about what the column is about for non-dighted users
           ariaLabel = _startCase(field.key)
@@ -1159,9 +1148,14 @@ export default {
           : null
         // Assemble the aria-label
         ariaLabel = [ariaLabel, ariaLabelSorting].filter(a => a).join(': ') || null
-        const ariaSort = field.sortable && this.localSortBy === field.key
-          ? (this.localSortDesc ? 'descending' : 'ascending')
-          : (field.sortable ? 'none' : null)
+        const ariaSort =
+          field.sortable && this.localSortBy === field.key
+            ? this.localSortDesc
+              ? 'descending'
+              : 'ascending'
+            : field.sortable
+              ? 'none'
+              : null
         const data = {
           key: field.key,
           class: this.fieldClasses(field),
@@ -1176,7 +1170,9 @@ export default {
             'aria-sort': ariaSort
           },
           on: {
-            click: evt => { this.headClicked(evt, field) },
+            click: evt => {
+              this.headClicked(evt, field)
+            },
             keydown: evt => {
               const keyCode = evt.keyCode
               if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
@@ -1228,7 +1224,11 @@ export default {
           {
             key: 'top-row',
             staticClass: 'b-table-top-row',
-            class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-top') : this.tbodyTrClass]
+            class: [
+              typeof this.tbodyTrClass === 'function'
+                ? this.tbodyTrClass(null, 'row-top')
+                : this.tbodyTrClass
+            ]
           },
           [$scoped['top-row']({ columns: fields.length, fields: fields })]
         )
@@ -1253,7 +1253,11 @@ export default {
           {
             key: 'table-busy-slot',
             staticClass: 'b-table-busy-slot',
-            class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'table-busy') : this.tbodyTrClass],
+            class: [
+              typeof this.tbodyTrClass === 'function'
+                ? this.tbodyTrClass(null, 'table-busy')
+                : this.tbodyTrClass
+            ],
             attrs: trAttrs
           },
           [h('td', { attrs: tdAttrs }, [$slots['table-busy']])]
@@ -1266,9 +1270,7 @@ export default {
         const rowShowDetails = Boolean(item._showDetails && detailsSlot)
         const rowSelected = this.selectedRows[rowIndex]
         // Details ID needed for aria-describedby when details showing
-        const detailsId = rowShowDetails
-          ? this.safeId(`_details_${rowIndex}_`)
-          : null
+        const detailsId = rowShowDetails ? this.safeId(`_details_${rowIndex}_`) : null
         const toggleDetailsFn = () => {
           if (detailsSlot) {
             this.$set(item, '_showDetails', !item._showDetails)
@@ -1323,9 +1325,10 @@ export default {
         // re-rendered rather than re-used, which can cause issues. If a primary key is not provided
         // we concatinate the row number and stringified record (in case there are duplicate records).
         // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/2410
-        const rowKey = (this.primaryKey && typeof item[this.primaryKey] !== 'undefined')
-          ? toString(item[this.primaryKey])
-          : `${rowIndex}__${recToString(item)}`
+        const rowKey =
+          this.primaryKey && typeof item[this.primaryKey] !== 'undefined'
+            ? toString(item[this.primaryKey])
+            : `${rowIndex}__${recToString(item)}`
         // Assemble and add the row
         rows.push(
           h(
@@ -1337,7 +1340,8 @@ export default {
                 {
                   'b-table-has-details': rowShowDetails,
                   'b-row-selected': rowSelected,
-                  [`${(this.dark ? 'bg' : 'table')}-${this.selectedVariant}`]: rowSelected && this.selectedVariant
+                  [`${this.dark ? 'bg' : 'table'}-${this.selectedVariant}`]:
+                    rowSelected && this.selectedVariant
                 }
               ],
               attrs: {
@@ -1355,20 +1359,34 @@ export default {
                     this.middleMouseRowClicked(evt, item, rowIndex)
                   }
                 },
-                click: evt => { this.rowClicked(evt, item, rowIndex) },
+                click: evt => {
+                  this.rowClicked(evt, item, rowIndex)
+                },
                 keydown: evt => {
                   const keyCode = evt.keyCode
                   if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
-                    if (evt.target && evt.target.tagName === 'TR' && evt.target === document.activeElement) {
+                    if (
+                      evt.target &&
+                      evt.target.tagName === 'TR' &&
+                      evt.target === document.activeElement
+                    ) {
                       this.rowClicked(evt, item, rowIndex)
                     }
                   }
                 },
-                contextmenu: evt => { this.rowContextmenu(evt, item, rowIndex) },
+                contextmenu: evt => {
+                  this.rowContextmenu(evt, item, rowIndex)
+                },
                 // Note: these events are not accessibility friendly
-                dblclick: evt => { this.rowDblClicked(evt, item, rowIndex) },
-                mouseenter: evt => { this.rowHovered(evt, item, rowIndex) },
-                mouseleave: evt => { this.rowUnhovered(evt, item, rowIndex) }
+                dblclick: evt => {
+                  this.rowDblClicked(evt, item, rowIndex)
+                },
+                mouseenter: evt => {
+                  this.rowHovered(evt, item, rowIndex)
+                },
+                mouseleave: evt => {
+                  this.rowUnhovered(evt, item, rowIndex)
+                }
               }
             },
             tds
@@ -1393,14 +1411,11 @@ export default {
           if (tableStriped) {
             // Add a hidden row to keep table row striping consistent when details showing
             rows.push(
-              h(
-                'tr',
-                {
-                  key: `__b-table-details-${rowIndex}-stripe__`,
-                  staticClass: 'd-none',
-                  attrs: { 'aria-hidden': 'true' }
-                }
-              )
+              h('tr', {
+                key: `__b-table-details-${rowIndex}-stripe__`,
+                staticClass: 'd-none',
+                attrs: { 'aria-hidden': 'true' }
+              })
             )
           }
           rows.push(
@@ -1409,7 +1424,11 @@ export default {
               {
                 key: `__b-table-details-${rowIndex}__`,
                 staticClass: 'b-table-details',
-                class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(item, 'row-details') : this.tbodyTrClass],
+                class: [
+                  typeof this.tbodyTrClass === 'function'
+                    ? this.tbodyTrClass(item, 'row-details')
+                    : this.tbodyTrClass
+                ],
                 attrs: trAttrs
               },
               [details]
@@ -1432,7 +1451,9 @@ export default {
       if (!empty) {
         empty = h('div', {
           class: ['text-center', 'my-2'],
-          domProps: { innerHTML: stripScripts(this.isFiltered ? this.emptyFilteredText : this.emptyText) }
+          domProps: {
+            innerHTML: stripScripts(this.isFiltered ? this.emptyFilteredText : this.emptyText)
+          }
         })
       }
       empty = h(
@@ -1451,7 +1472,11 @@ export default {
           {
             key: '__b-table-empty-row__',
             staticClass: 'b-table-empty-row',
-            class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-empty') : this.tbodyTrClass],
+            class: [
+              typeof this.tbodyTrClass === 'function'
+                ? this.tbodyTrClass(null, 'row-empty')
+                : this.tbodyTrClass
+            ],
             attrs: this.isStacked ? { role: 'row' } : {}
           },
           [empty]
@@ -1470,7 +1495,11 @@ export default {
           {
             key: '__b-table-bottom-row__',
             staticClass: 'b-table-bottom-row',
-            class: [typeof this.tbodyTrClass === 'function' ? this.tbodyTrClass(null, 'row-bottom') : this.tbodyTrClass]
+            class: [
+              typeof this.tbodyTrClass === 'function'
+                ? this.tbodyTrClass(null, 'row-bottom')
+                : this.tbodyTrClass
+            ]
           },
           [$scoped['bottom-row']({ columns: fields.length, fields: fields })]
         )
@@ -1495,20 +1524,28 @@ export default {
         class: this.tableClasses,
         attrs: {
           // We set aria-rowcount before merging in $attrs, in case user has supplied their own
-          'aria-rowcount': (this.filteredItems.length > items.length) ? String(this.filteredItems.length) : null,
+          'aria-rowcount':
+            this.filteredItems.length > items.length ? String(this.filteredItems.length) : null,
           // Merge in user supplied $attrs if any
           ...this.$attrs,
           // Now we can override any $attrs here
           id: this.safeId(),
           role: this.isStacked ? 'table' : null,
-          'aria-multiselectable': this.selectable ? (this.selectMode === 'single' ? 'false' : 'true') : null,
+          'aria-multiselectable': this.selectable
+            ? this.selectMode === 'single'
+              ? 'false'
+              : 'true'
+            : null,
           'aria-busy': this.computedBusy ? 'true' : 'false',
           'aria-colcount': String(fields.length),
-          'aria-describedby': [
-            // Preserve user supplied aria-describedby, if provided in $attrs
-            (this.$attrs || {})['aria-describedby'],
-            captionId
-          ].filter(a => a).join(' ') || null
+          'aria-describedby':
+            [
+              // Preserve user supplied aria-describedby, if provided in $attrs
+              (this.$attrs || {})['aria-describedby'],
+              captionId
+            ]
+              .filter(a => a)
+              .join(' ') || null
         }
       },
       [caption, colgroup, thead, tfoot, tbody]

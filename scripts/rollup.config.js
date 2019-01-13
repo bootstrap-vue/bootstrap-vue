@@ -43,9 +43,7 @@ module.exports = [
   // UMD
   {
     ...baseConfig,
-    external: Object.keys(dependencies).filter(
-      dep => externalExcludes.indexOf(dep) === -1
-    ),
+    external: Object.keys(dependencies).filter(dep => externalExcludes.indexOf(dep) === -1),
     output: {
       format: 'umd',
       name: camelCase(name),
@@ -57,9 +55,7 @@ module.exports = [
   // COMMON
   {
     ...baseConfig,
-    external: Object.keys(dependencies).filter(
-      dep => externalExcludes.indexOf(dep) === -1
-    ),
+    external: Object.keys(dependencies).filter(dep => externalExcludes.indexOf(dep) === -1),
     output: {
       format: 'cjs',
       name: camelCase(name),

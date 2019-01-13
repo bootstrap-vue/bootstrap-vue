@@ -20,7 +20,7 @@ export default {
   name: 'BListGroup',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     const componentData = {
       staticClass: 'list-group',
       class: {

@@ -544,7 +544,7 @@ describe('form-checkbox', async () => {
   it('switch has structure <div><input/><label></label></div>', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        'switch': true,
+        switch: true,
         checked: '',
         value: 'a'
       },
@@ -563,7 +563,7 @@ describe('form-checkbox', async () => {
   it('switch has wrapper classes custom-control and custom-switch', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        'switch': true,
+        switch: true,
         checked: '',
         value: 'a'
       },
@@ -579,7 +579,7 @@ describe('form-checkbox', async () => {
   it('switch has input type checkbox', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        'switch': true,
+        switch: true,
         checked: '',
         value: 'a'
       },
@@ -595,7 +595,7 @@ describe('form-checkbox', async () => {
   it('switch has input class custom-control-input', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        'switch': true,
+        switch: true,
         checked: false
       },
       slots: {
@@ -610,7 +610,7 @@ describe('form-checkbox', async () => {
   it('switch has label class custom-control-label', async () => {
     const wrapper = mount(Input, {
       propsData: {
-        'switch': true,
+        switch: true,
         checked: false
       },
       slots: {

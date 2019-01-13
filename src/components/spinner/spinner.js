@@ -30,7 +30,7 @@ export default {
       default: 'span'
     }
   },
-  render (h, { props, data, slots }) {
+  render(h, { props, data, slots }) {
     let label = h(false)
     const hasLabel = slots().label || props.label
     if (hasLabel) {
@@ -40,7 +40,7 @@ export default {
       props.tag,
       mergeData(data, {
         attrs: {
-          role: hasLabel ? (props.role || 'status') : null,
+          role: hasLabel ? props.role || 'status' : null,
           'aria-hidden': hasLabel ? null : 'true'
         },
         class: {

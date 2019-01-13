@@ -20,7 +20,9 @@ export default {
   inject: {
     bvGroup: {
       from: 'bvCheckGroup',
-      default: function () { return this }
+      default: function() {
+        return this
+      }
     }
   },
   props: {
@@ -50,7 +52,7 @@ export default {
     }
   },
   computed: {
-    is_Checked () {
+    is_Checked() {
       const checked = this.computedLocalChecked
       const value = this.value
       if (isArray(checked)) {
@@ -59,30 +61,30 @@ export default {
         return looseEqual(checked, value)
       }
     },
-    is_Radio () {
+    is_Radio() {
       return false
     },
-    is_Check () {
+    is_Check() {
       return true
     }
   },
   watch: {
-    computedLocalChecked (newVal, oldVal) {
+    computedLocalChecked(newVal, oldVal) {
       this.$emit('input', newVal)
       if (this.$refs && this.$refs.input) {
         this.$emit('update:indeterminate', this.$refs.input.indeterminate)
       }
     },
-    indeterminate (newVal, oldVal) {
+    indeterminate(newVal, oldVal) {
       this.setIndeterminate(newVal)
     }
   },
-  mounted () {
+  mounted() {
     // Set initial indeterminate state
     this.setIndeterminate(this.indeterminate)
   },
   methods: {
-    handleChange ({ target: { checked, indeterminate } }) {
+    handleChange({ target: { checked, indeterminate } }) {
       let localChecked = this.computedLocalChecked
       const value = this.value
       const isArr = isArray(localChecked)
@@ -109,7 +111,7 @@ export default {
       }
       this.$emit('update:indeterminate', indeterminate)
     },
-    setIndeterminate (state) {
+    setIndeterminate(state) {
       // Indeterminate only supported in single checkbox mode
       if (isArray(this.computedLocalChecked)) {
         state = false

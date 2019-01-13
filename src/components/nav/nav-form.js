@@ -11,7 +11,7 @@ export default {
       default: null
     }
   },
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(BForm, mergeData(data, { attrs: { id: props.id }, props: { inline: true } }), children)
   }
 }

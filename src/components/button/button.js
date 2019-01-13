@@ -46,7 +46,7 @@ const linkPropKeys = keys(linkProps)
 export const props = assign(linkProps, btnProps)
 
 // Focus handler for toggle buttons.  Needs class of 'focus' when focused.
-function handleFocus (evt) {
+function handleFocus(evt) {
   if (evt.type === 'focusin') {
     addClass(evt.target, 'focus')
   } else if (evt.type === 'focusout') {
@@ -57,18 +57,18 @@ function handleFocus (evt) {
 // Helper functons to minimize runtime memory footprint when lots of buttons on page
 
 // Is the requested button a link?
-function isLink (props) {
+function isLink(props) {
   // If tag prop is set to `a`, we use a b-link to get proper disabled handling
   return Boolean(props.href || props.to || (props.tag && String(props.tag).toLowerCase() === 'a'))
 }
 
 // Is the button to be a toggle button?
-function isToggle (props) {
+function isToggle(props) {
   return typeof props.pressed === 'boolean'
 }
 
 // Is the button "really" a button?
-function isButton (props) {
+function isButton(props) {
   if (isLink(props)) {
     return false
   } else if (props.tag && String(props.tag).toLowerCase() !== 'button') {
@@ -78,12 +78,12 @@ function isButton (props) {
 }
 
 // Is the requested tag not a button or link?
-function isNonStandardTag (props) {
+function isNonStandardTag(props) {
   return !isLink(props) && !isButton(props)
 }
 
 // Compute required classes (non static classes)
-function computeClass (props) {
+function computeClass(props) {
   return [
     props.variant ? `btn-${props.variant}` : `btn-secondary`,
     {
@@ -96,12 +96,12 @@ function computeClass (props) {
 }
 
 // Compute the link props to pass to b-link (if required)
-function computeLinkProps (props) {
+function computeLinkProps(props) {
   return isLink(props) ? pluckProps(linkPropKeys, props) : null
 }
 
 // Compute the attributes for a button
-function computeAttrs (props, data) {
+function computeAttrs(props, data) {
   const button = isButton(props)
   const link = isLink(props)
   const toggle = isToggle(props)
@@ -113,7 +113,7 @@ function computeAttrs (props, data) {
   }
   return {
     // Type only used for "real" buttons
-    type: (button && !link) ? props.type : null,
+    type: button && !link ? props.type : null,
     // Disabled only set on "real" buttons
     disabled: button ? props.disabled : null,
     // We add a role of button when the tag is not a link or button for ARIA.
@@ -139,11 +139,11 @@ export default {
   name: 'BButton',
   functional: true,
   props,
-  render (h, { props, data, listeners, children }) {
+  render(h, { props, data, listeners, children }) {
     const toggle = isToggle(props)
     const link = isLink(props)
     const on = {
-      click (e) {
+      click(e) {
         if (props.disabled && e instanceof Event) {
           e.stopPropagation()
           e.preventDefault()

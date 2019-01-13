@@ -14,29 +14,29 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       toggleState: false
     }
   },
-  created () {
+  created() {
     this.listenOnRoot('bv::collapse::state', this.handleStateEvt)
   },
   methods: {
-    onClick (evt) {
+    onClick(evt) {
       this.$emit('click', evt)
       /* istanbul ignore next */
       if (!evt.defaultPrevented) {
         this.$root.$emit('bv::toggle::collapse', this.target)
       }
     },
-    handleStateEvt (id, state) {
+    handleStateEvt(id, state) {
       if (id === this.target) {
         this.toggleState = state
       }
     }
   },
-  render (h) {
+  render(h) {
     return h(
       'button',
       {

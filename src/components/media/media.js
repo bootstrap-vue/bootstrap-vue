@@ -26,14 +26,18 @@ export default {
   name: 'BMedia',
   functional: true,
   props,
-  render (h, { props, data, slots, children }) {
+  render(h, { props, data, slots, children }) {
     let childNodes = props.noBody ? children : []
     const $slots = slots()
 
     if (!props.noBody) {
       if ($slots.aside && !props.rightAlign) {
         childNodes.push(
-          h(BMediaAside, { staticClass: 'mr-3', props: { verticalAlign: props.verticalAlign } }, $slots.aside)
+          h(
+            BMediaAside,
+            { staticClass: 'mr-3', props: { verticalAlign: props.verticalAlign } },
+            $slots.aside
+          )
         )
       }
 
@@ -41,7 +45,11 @@ export default {
 
       if ($slots.aside && props.rightAlign) {
         childNodes.push(
-          h(BMediaAside, { staticClass: 'ml-3', props: { verticalAlign: props.verticalAlign } }, $slots.aside)
+          h(
+            BMediaAside,
+            { staticClass: 'ml-3', props: { verticalAlign: props.verticalAlign } },
+            $slots.aside
+          )
         )
       }
     }

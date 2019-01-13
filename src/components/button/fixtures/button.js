@@ -18,7 +18,7 @@ window.app = new Vue({
     btnToggle: null
   },
   methods: {
-    handleClick (event) {
+    handleClick(event) {
       // STUB!
     }
   }

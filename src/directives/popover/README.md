@@ -20,8 +20,7 @@ to appear.
 
 Things to know when using popovers:
 
-- Popovers rely on the 3rd party library Popper.js for positioning. It is bundled with
-  BootstrapVue!
+- Popovers rely on the 3rd party library Popper.js for positioning. It is bundled with BootstrapVue!
 - Zero-length title and content values will never show a popover.
 - Specify container: 'body' (default) to avoid rendering problems in more complex components (like
   input groups, button groups, etc).

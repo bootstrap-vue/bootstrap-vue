@@ -1,8 +1,8 @@
 <template>
   <section
+    v-if="components.length > 0 || directives.length > 0"
     class="bd-content"
-    v-if="components.length > 0 || directives.length > 0">
-
+  >
     <template v-if="components.length > 0">
       <h3 id="importing-individual-components">
         Importing individual {{ pluginTitle }} Components
@@ -12,17 +12,19 @@
         :items="componentImports"
         small
         head-variant="default"
-        striped>
-
+        striped
+      >
         <template
           slot="component"
-          slot-scope="field">
+          slot-scope="field"
+        >
           <code>{{ field.value }}</code>
         </template>
 
         <template
           slot="importPath"
-          slot-scope="field">
+          slot-scope="field"
+        >
           <code>{{ field.value }}</code>
         </template>
       </b-table>
@@ -41,17 +43,19 @@
         :items="directiveImports"
         small
         head-variant="default"
-        striped>
-
+        striped
+      >
         <template
           slot="directive"
-          slot-scope="field">
+          slot-scope="field"
+        >
           <code>{{ field.value }}</code>
         </template>
 
         <template
           slot="importPath"
-          slot-scope="field">
+          slot-scope="field"
+        >
           <code>{{ field.value }}</code>
         </template>
       </b-table>
@@ -81,7 +85,10 @@
       <ul>
         <li
           v-for="plugin in meta.plugins"
-          :key="plugin"><code>{{ plugin }}</code></li>
+          :key="plugin"
+        >
+          <code>{{ plugin }}</code>
+        </li>
       </ul>
     </template>
   </section>
@@ -97,16 +104,16 @@ export default {
     meta: {}
   },
   computed: {
-    isComponentRoute () {
+    isComponentRoute() {
       return this.$route.name === 'docs-components-slug'
     },
-    pluginName () {
+    pluginName() {
       return startCase(this.$route.params.slug).replace(/\s+/g, '')
     },
-    pluginTitle () {
+    pluginTitle() {
       return startCase(this.meta.title)
     },
-    componentImports () {
+    componentImports() {
       return this.components.map(c => {
         return {
           component: this.componentTag(c),
@@ -114,7 +121,7 @@ export default {
         }
       })
     },
-    directiveImports () {
+    directiveImports() {
       return this.directives.map(d => {
         return {
           directive: this.directiveAttr(d),
@@ -122,7 +129,7 @@ export default {
         }
       })
     },
-    components () {
+    components() {
       let subcomponents = []
       if (this.meta.components) {
         // We just want the sub-component name
@@ -130,27 +137,27 @@ export default {
       }
       return [].concat(this.meta.component, subcomponents).filter(c => c)
     },
-    directives () {
+    directives() {
       return [].concat(this.meta.directive, this.meta.directives).filter(d => d)
     },
-    componentImportCode () {
+    componentImportCode() {
       const firstComponent = this.components[0]
       const firstComponentImport = this.componentImports[0]
       return [
         `import ${firstComponent} from '${firstComponentImport.importPath}'`,
-        `Vue.component('${this.componentName(firstComponent)}', ${firstComponent })`
+        `Vue.component('${this.componentName(firstComponent)}', ${firstComponent})`
       ].join('\n')
     },
-    directiveImportCode () {
+    directiveImportCode() {
       const firstDirective = this.directives[0]
       const firstDirectiveImport = this.directiveImports[0]
       return [
         "// <b>Note:</b> Vue automatically prefixes the directive name with 'v-'",
         `import ${firstDirective} from '${firstDirectiveImport.importPath}'`,
-        `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective })`
+        `Vue.directive('${this.directiveName(firstDirective)}', ${firstDirective})`
       ].join('\n')
     },
-    pluginImportCode () {
+    pluginImportCode() {
       const pluginLocation = this.isComponentRoute ? 'components' : 'directives'
       return [
         `import { ${this.pluginName} } from 'bootstrap-vue/es/${pluginLocation}'`,
@@ -158,30 +165,30 @@ export default {
       ].join('\n')
     }
   },
-  mounted () {
+  mounted() {
     // Highlight code blocks
-    [...this.$el.querySelectorAll('pre.hljs')].forEach(pre => {
+    ;[...this.$el.querySelectorAll('pre.hljs')].forEach(pre => {
       hljs.highlightBlock(pre)
     })
   },
   methods: {
-    componentName (component) {
+    componentName(component) {
       return kebabCase(component)
     },
-    componentTag (component) {
+    componentTag(component) {
       return `<${this.componentName(component)}>`
     },
-    componentPath (component) {
+    componentPath(component) {
       const componentName = this.componentName(component).replace(/^b-/, '')
       return `bootstrap-vue/es/components/${componentName}/${componentName}`
     },
-    directiveName (directive) {
+    directiveName(directive) {
       return kebabCase(directive).replace(/^v-/, '')
     },
-    directiveAttr (directive) {
+    directiveAttr(directive) {
       return this.directiveName(directive)
     },
-    directivePath (directive) {
+    directivePath(directive) {
       const directiveName = this.directiveName(directive)
       return `bootstrap-vue/es/directives/${directiveName}/${directiveName}`
     }

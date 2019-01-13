@@ -6,7 +6,7 @@ export default {
   mixins: [idMixin],
   inject: {
     bTabs: {
-      default: function () {
+      default: function() {
         return {
           // Dont set a tab index if not rendered inside b-tabs
           noKeyNav: true
@@ -66,14 +66,14 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       localActive: this.active && !this.disabled,
       show: false
     }
   },
   computed: {
-    tabClasses () {
+    tabClasses() {
       return [
         this.bTabs.card && !this.noBody ? 'card-body' : '',
         this.show ? 'show' : '',
@@ -82,26 +82,26 @@ export default {
         this.localActive ? 'active' : ''
       ]
     },
-    controlledBy () {
+    controlledBy() {
       return this.buttonId || this.safeId('__BV_tab_button__')
     },
-    computedFade () {
+    computedFade() {
       return this.bTabs.fade || false
     },
-    computedLazy () {
+    computedLazy() {
       return this.bTabs.lazy || this.lazy
     },
-    _isTab () {
+    _isTab() {
       // For parent sniffing of child
       return true
     }
   },
   watch: {
-    localActive (newVal, oldVal) {
+    localActive(newVal, oldVal) {
       // Make 'active' prop work with `.sync` modifier
       this.$emit('update:active', newVal)
     },
-    active (newVal, oldVal) {
+    active(newVal, oldVal) {
       if (newVal !== oldVal) {
         if (newVal) {
           // If activated post mount
@@ -115,7 +115,7 @@ export default {
         }
       }
     },
-    disabled (newVal, oldVal) {
+    disabled(newVal, oldVal) {
       if (newVal !== oldVal) {
         if (newVal && this.localActive && this.bTabs.firstTab) {
           this.localActive = false
@@ -124,11 +124,11 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     // Initially show on mount if active and not disabled
     this.show = this.localActive
   },
-  updated () {
+  updated() {
     // Force the tab button content to update (since slots are not reactive)
     // Only done if we have a title slot, as the title prop is reactive
     if (this.$slots.title && this.bTabs.updateButton) {
@@ -137,26 +137,31 @@ export default {
   },
   methods: {
     // Transition handlers
-    beforeEnter () /* instanbul ignore next: difficult to test rAF in JSDOM */ {
+    beforeEnter() /* instanbul ignore next: difficult to test rAF in JSDOM */ {
       // change opacity (add 'show' class) 1 frame after display
       // otherwise css transition won't happen
       // TODO: Move raf method into utils/dom.js
-      const raf = window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            /* istanbul ignore next */
-            function (cb) { setTimeout(cb, 16) }
+      const raf =
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        /* istanbul ignore next */
+        function(cb) {
+          setTimeout(cb, 16)
+        }
 
-      raf(() => { this.show = true })
+      raf(() => {
+        this.show = true
+      })
     },
-    beforeLeave () /* instanbul ignore next: difficult to test rAF in JSDOM */ {
+    beforeLeave() /* instanbul ignore next: difficult to test rAF in JSDOM */ {
       // Remove the 'show' class
       this.show = false
     },
     // Public methods
-    activate () {
+    activate() {
       if (this.bTabs.activateTab && !this.disabled) {
         return this.bTabs.activateTab(this)
       } else {
@@ -164,7 +169,7 @@ export default {
         return false
       }
     },
-    deactivate () {
+    deactivate() {
       if (this.bTabs.deactivateTab && this.localActive) {
         return this.bTabs.deactivateTab(this)
       } else {
@@ -173,7 +178,7 @@ export default {
       }
     }
   },
-  render (h) {
+  render(h) {
     let content = h(
       this.tag,
       {
@@ -184,14 +189,14 @@ export default {
         attrs: {
           role: 'tabpanel',
           id: this.safeId(),
-          tabindex: (this.localActive && !this.bTabs.noKeyNav) ? '0' : null,
+          tabindex: this.localActive && !this.bTabs.noKeyNav ? '0' : null,
           'aria-hidden': this.localActive ? 'false' : 'true',
           'aria-expanded': this.localActive ? 'true' : 'false',
           'aria-labelledby': this.controlledBy || null
         }
       },
       // Render content lazily if requested
-      [(this.localActive || !this.computedLazy) ? this.$slots.default : h(false)]
+      [this.localActive || !this.computedLazy ? this.$slots.default : h(false)]
     )
     return h(
       'transition',

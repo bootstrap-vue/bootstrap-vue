@@ -18,7 +18,9 @@ export default {
   inject: {
     bvGroup: {
       from: 'bvRadioGroup',
-      default: function () { return this }
+      default: function() {
+        return this
+      }
     }
   },
   props: {
@@ -30,24 +32,24 @@ export default {
   },
   computed: {
     // Radio Groups can only have a single value, so determining if checked is simple
-    is_Checked () {
+    is_Checked() {
       return looseEqual(this.value, this.computedLocalChecked)
     },
-    is_Radio () {
+    is_Radio() {
       return true
     },
-    is_Check () {
+    is_Check() {
       return false
     }
   },
   watch: {
     // Radio Groups can only have a single value, so our watchers are simple
-    computedLocalChecked (newVal, oldVal) {
+    computedLocalChecked(newVal, oldVal) {
       this.$emit('input', this.computedLocalChecked)
     }
   },
   methods: {
-    handleChange ({ target: { checked } }) {
+    handleChange({ target: { checked } }) {
       const value = this.value
       this.computedLocalChecked = value
       // Change is only emitted on user interaction

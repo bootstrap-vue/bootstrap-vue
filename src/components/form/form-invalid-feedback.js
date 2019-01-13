@@ -24,7 +24,7 @@ export default {
   name: 'BFormInvalidFeedback',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(
       props.tag,
       mergeData(data, {

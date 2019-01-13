@@ -3,16 +3,16 @@ window.app = new Vue({
   data: {
     currentPage: 1
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => {
       this.currentPage = 2
     })
   },
   methods: {
-    pageGen (num) {
+    pageGen(num) {
       return `Page ${num})`
     },
-    linkGen (num) {
+    linkGen(num) {
       return `#page/${num})`
     }
   }

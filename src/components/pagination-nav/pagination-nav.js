@@ -3,7 +3,15 @@ import paginationMixin from '../../mixins/pagination'
 import { pickLinkProps } from '../link/link'
 
 // Props needed for router links
-const routerProps = pickLinkProps('activeClass', 'exactActiveClass', 'append', 'exact', 'replace', 'target', 'rel')
+const routerProps = pickLinkProps(
+  'activeClass',
+  'exactActiveClass',
+  'append',
+  'exact',
+  'replace',
+  'target',
+  'rel'
+)
 
 // Props object
 const props = {
@@ -11,7 +19,7 @@ const props = {
   numberOfPages: {
     type: [Number, String],
     default: 1,
-    validator (value) {
+    validator(value) {
       const num = parseInt(value, 10)
       /* istanbul ignore if */
       if (isNaN(num) || num < 1) {
@@ -45,16 +53,16 @@ const props = {
 // @vue/component
 export default {
   name: 'BPaginatonNav',
-  mixins: [ paginationMixin ],
+  mixins: [paginationMixin],
   props,
   computed: {
     // Used by render function to trigger wraping in '<nav>' element
-    isNav () {
+    isNav() {
       return true
     }
   },
   methods: {
-    onClick (pageNum, evt) {
+    onClick(pageNum, evt) {
       // Update the v-model
       this.currentPage = pageNum
       this.$nextTick(() => {
@@ -66,20 +74,20 @@ export default {
         } catch (e) {}
       })
     },
-    makePage (pagenum) {
+    makePage(pagenum) {
       if (this.pageGen && typeof this.pageGen === 'function') {
         return this.pageGen(pagenum)
       }
       return pagenum
     },
-    makeLink (pagenum) {
+    makeLink(pagenum) {
       if (this.linkGen && typeof this.linkGen === 'function') {
         return this.linkGen(pagenum)
       }
       const link = `${this.baseUrl}${pagenum}`
       return this.useRouter ? { path: link } : link
     },
-    linkProps (pagenum) {
+    linkProps(pagenum) {
       const link = this.makeLink(pagenum)
       let props = {
         href: typeof link === 'string' ? link : void 0,

@@ -18,7 +18,7 @@ export default {
   name: 'BBreadcrumbItem',
   functional: true,
   props,
-  render (h, { props, data, children }) {
+  render(h, { props, data, children }) {
     return h(
       'li',
       mergeData(data, {
