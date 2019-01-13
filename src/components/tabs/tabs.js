@@ -18,9 +18,12 @@ const BTabButtonHelper = {
   },
   methods: {
     focus () {
-      if (this.$refs.link && this.refs.link.focus) {
-        this.$refs.link.focus()
-      }
+      // wrap in nextTick to ensure DOM has completed rendering
+      this.$nextTick(() => {
+        if (this.$refs && this.$refs.link && this.refs.link.focus) {
+          this.$refs.link.focus()
+        }
+      })
     },
     handleEvt (evt) {
       function stop () {
