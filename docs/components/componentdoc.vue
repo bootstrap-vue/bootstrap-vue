@@ -7,9 +7,7 @@
       tag="header"
       align-v="center"
     >
-      <b-col sm="9">
-        <h2 :id="`comp-ref-${componentName}`"><code>{{ tag }}</code></h2>
-      </b-col>
+      <b-col sm="9"><h2 :id="`comp-ref-${componentName}`"><code>{{ tag }}</code></h2></b-col>
       <b-col
         sm="3"
         class="text-sm-right"
@@ -29,12 +27,7 @@
       <h4 :id="`comp-ref-${componentName}-aliases`">Component aliases</h4>
       <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
       <ul>
-        <li
-          v-for="alias in aliases"
-          :key="alias"
-        >
-          <code>&lt;{{ kebabCase(alias) }}&gt;</code>
-        </li>
+        <li v-for="alias in aliases" :key="alias"><code>&lt;{{ kebabCase(alias) }}&gt;</code></li>
       </ul>
     </article>
 
