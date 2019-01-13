@@ -447,7 +447,7 @@ regular form.
           </b-form-input>
         </b-form-group>
         <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
-        <b-button variant="primary" size="sm">Sign In</b-button>
+        <b-button variant="primary" size="sm" @click="onClick">Sign In</b-button>
       </b-dropdown-form>
       <b-dropdown-divider />
       <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button>
