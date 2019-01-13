@@ -311,11 +311,12 @@ export default {
         // Find first non-disabled tab that isn't the one being deactivated
         const newTab = this.tabs.filter(t => t !== tab).find(notDisabled)
         if (newTab) {
-          // activate found tab
+          // Activate found tab (which will deactivate calling tab)
           this.activateTab(newTab)
+          return true
         } else {
-          // No tab to show
-          this.currentTab = -1
+          // No tab to fall back to
+          return false
         }
       }
     },
