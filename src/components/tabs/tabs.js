@@ -103,7 +103,7 @@ const BTabButtonHelper = {
 }
 
 // Filter function to filter out disabled tabs
-function notDisabled (tab) { 
+function notDisabled (tab) {
   return !tab.disabled
 }
 
@@ -332,7 +332,7 @@ export default {
     // Move to first non-disabled tab
     firstTab (focus) {
       const tab = this.tabs.find(notDisabled)
-      if (this.activateTab(tab) && focus) {        
+      if (this.activateTab(tab) && focus) {
         this.focusButton(tab)
       }
     },
