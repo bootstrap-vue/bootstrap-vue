@@ -351,4 +351,31 @@ describe('tab', async () => {
     expect(deactivateVm).toBe(null)
     expect(result).toBe(false)
   })
+
+  it('has class show when localActive becomes true', async () => {
+    const wrapper = mount(Tab)
+
+    expect(wrapper.classes()).not.toContain('active')
+    expect(wrapper.classes()).not.toContain('show')
+
+    wrapper.setData({ localActive: true })
+
+    expect(wrapper.classes()).toContain('active')
+    expect(wrapper.classes()).not.toContain('show')
+
+    // JSDOM doesnt support requestAnimationFrame
+    // So it falls back to setTimeout.  So we advance the time
+    jest.runAllTimers()
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.classes()).toContain('show')
+    expect(wrapper.classes()).toContain('active')
+
+    wrapper.setData({ localActive: false })
+    jest.runAllTimers()
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.classes()).not.toContain('active')
+  })
 })
