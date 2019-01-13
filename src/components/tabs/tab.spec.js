@@ -195,4 +195,34 @@ describe('tab', async () => {
     expect(wrapper.attributes('tabindex')).toBeDefined()
     expect(wrapper.attributes('tabindex')).toBe('0')
   })
+
+  it('calls parent\'s updateButton() when title slot provided', async () => {
+    let called = false
+    let vm = null
+    const wrapper = mount(Tab, {
+      provide () {
+        return {
+          bTabs: {
+            fade: false,
+            lazy: false,
+            card: false,
+            noKeyNav: false,
+            updateButton(tab) {
+              called = true
+              vm = tab
+              return true
+            }
+          }
+        }
+      },
+      slots: {
+        default: '<b>foobar</b>'
+      }
+    })
+
+    wrapper.setData({ localActive: true })
+
+    expect(called).toBe(true)
+    expect(vm).toEqual(wrapper.vm)
+  })
 })
