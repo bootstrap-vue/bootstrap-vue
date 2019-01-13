@@ -1,6 +1,6 @@
 # Popovers
 
-> Documentation and examples for adding Bootstrap-Vue popovers to any element on your site, using
+> Documentation and examples for adding BootstrapVue popovers to any element on your site, using
 > Bootstrap V4 CSS for styling and animations. Popovers can be triggered by hovering, focusing, or
 > clicking an element, and can contain both content and a title heading. Popovers are tooltips on
 > steroids.
@@ -21,7 +21,7 @@ to appear.
 Things to know when using popovers:
 
 - Popovers rely on the 3rd party library Popper.js for positioning. It is bundled with
-  Bootstrap-Vue!
+  BootstrapVue!
 - Zero-length title and content values will never show a popover.
 - Specify container: 'body' (default) to avoid rendering problems in more complex components (like
   input groups, button groups, etc).

@@ -553,7 +553,7 @@ values: `sm`, `md`, `lg`, or `xl`.
 
 ## Stacked tables
 
-An alternative to responsive tables, Bootstrap-Vue includes the stacked table option (using custom
+An alternative to responsive tables, BootstrapVue includes the stacked table option (using custom
 SCSS/CSS), which allow tables to be rendered in a visually stacked format. Make any table stacked
 across _all viewports_ by setting the prop `stacked` to `true`. Or, alternatively, set a breakpoint
 at which the table will return to normal table format by setting the prop `stacked` to one of the
@@ -1572,13 +1572,13 @@ if the functionality is non critical or can be provided via other means:
 - `row-middle-clicked`
 
 Also, `row-middle-clicked` event is not supported in all browsers (i.e. IE, Safari and most mobile browsers).
-When listening for `row-middle-clicked` events originating on elements that do not support input or navigation, 
-you will often want to explicitly prevent other default actions mapped to the down action of the middle mouse button. 
-On Windows this is usually autoscroll, and on macOS and Linux this is usually clipboard paste. 
+When listening for `row-middle-clicked` events originating on elements that do not support input or navigation,
+you will often want to explicitly prevent other default actions mapped to the down action of the middle mouse button.
+On Windows this is usually autoscroll, and on macOS and Linux this is usually clipboard paste.
 This can be done by preventing the default behaviour of the `mousedown` or `pointerdown` event.
 
-Additionally, you may need to avoid opening a system context menu after a right click. 
-Due to timing differences between operating systems, this too is not a preventable default behaviour 
+Additionally, you may need to avoid opening a system context menu after a right click.
+Due to timing differences between operating systems, this too is not a preventable default behaviour
 of `row-middle-clicked`. Instead, this can be done by preventing the default behaviour of the `contextmenu` event.
 
 ## Complete Example

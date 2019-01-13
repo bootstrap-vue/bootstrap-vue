@@ -1,6 +1,6 @@
 # Tooltips
 
-> Documentation and examples for adding custom Bootstrap-Vue tooltips, using Bootstrap V4 CSS for
+> Documentation and examples for adding custom BootstrapVue tooltips, using Bootstrap V4 CSS for
 > styling and animations. Tooltips can be triggered by hovering, focusing, or clicking an element
 
 Use the `v-b-tooltip` directive on any element or component where you would like a tooltip to
@@ -19,7 +19,7 @@ appear.
 Things to know when using tooltips:
 
 - Tooltips rely on the 3rd party library Popper.js for positioning. The library is bundled with
-  Bootstrap-Vue!
+  BootstrapVue!
 - Tooltips with zero-length titles are never displayed.
 - Specify container: 'body' (default) to avoid rendering problems in more complex components (like
   input groups, button groups, etc).

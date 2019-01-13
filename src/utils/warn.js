@@ -4,7 +4,7 @@
  */
 /* istanbul ignore next */
 function warn (message) {
-  console.warn(`[Bootstrap-Vue warn]: ${message}`)
+  console.warn(`[BootstrapVue warn]: ${message}`)
 }
 
 export default warn

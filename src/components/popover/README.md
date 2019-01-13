@@ -17,7 +17,7 @@
 Things to know when using popover component:
 
 - Popovers rely on the 3rd party library Popper.js for positioning. The library is bundled with
-  Bootstrap-Vue dist files!
+  BootstrapVue dist files!
 - Popovers with zero-length title _and_ content are never displayed.
 - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
   complex components (like input groups, button groups, etc). You can use `container` to optionally

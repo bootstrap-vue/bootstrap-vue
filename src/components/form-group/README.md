@@ -79,7 +79,7 @@ By default, the label appears above the input element(s), but you may optionally
 The props`label-cols` and `label-cols-{breakpoint}` allow you to specify how many columns the label
 should occupy in the row. The input(s) will fill the rest of the row. The value must be a number
 greater than `0`. Or you can set the prop to `true` to make the label and input(s) each occupy half
-of the width of the rendered row (handy if you have custom bootstrap with an odd number of columns).
+of the width of the rendered row (handy if you have custom Bootstrap with an odd number of columns).
 
 | prop            | description                       |
 | --------------- | --------------------------------- |

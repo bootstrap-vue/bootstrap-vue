@@ -63,7 +63,7 @@ prop.
 
 ## Button contextual variants
 
-Use the `variant` prop to generate the various bootstrap contextual button variants.
+Use the `variant` prop to generate the various Bootstrap contextual button variants.
 
 By default `<b-button>` will render with the `secondary` variant.
 

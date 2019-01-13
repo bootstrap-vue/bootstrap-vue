@@ -14,7 +14,7 @@ understand custom component props that specify image sources.
 
 ## Responsive images
 
-Images in Bootstrap-Vue can be made responsive with the `fluid` prop (which sets
+Images in BootstrapVue can be made responsive with the `fluid` prop (which sets
 `max-width: 100%; height: auto;` via CSS classes) so that it scales with the parent element - up to
 the maximum native width of the image.
 
