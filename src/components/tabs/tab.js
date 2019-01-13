@@ -107,8 +107,11 @@ export default {
           // If activated post mount
           this.activate()
         } else {
-          // We don't have a method to deactivate a tab yet
-          this.$emit('update:active', this.localActive)
+          if (!this.deactivate()) {
+            // Tab couldn't be deactivated, so we reset the synced active prop
+            // Deactivation will fail if no other tabs to activate.
+            this.$emit('update:active', this.localActive)
+          }
         }
       }
     }
@@ -148,6 +151,7 @@ export default {
       if (this.bTabs.activateTab && !this.disabled) {
         return this.bTabs.activateTab(this)
       } else {
+        // Not inside a b-tabs component
         return false
       }
     },
@@ -155,6 +159,7 @@ export default {
       if (this.bTabs.deactivateTab) {
         return this.bTabs.deactivateTab(this)
       } else {
+        // Not inside a b-tabs component
         return false
       }
     },
