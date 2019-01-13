@@ -277,7 +277,7 @@ describe('tab', async () => {
     wrapper.setProps({ active: true })
 
     expect(updateCalled).toBe(false)
-    expect(value).toBe(true)
+    expect(value).toBe(null)
     expect(activateCalled).toBe(true)
     expect(activateVm).toBe(wrapper.vm)
     expect(deactivateCalled).toBe(false)
@@ -292,7 +292,7 @@ describe('tab', async () => {
     wrapper.setProps({ active: false })
 
     expect(updateCalled).toBe(false)
-    expect(value).toBe(false)
+    expect(value).toBe(null)
     expect(activateCalled).toBe(false)
     expect(activateVm).toBe(null)
     expect(deactivateCalled).toBe(true)
