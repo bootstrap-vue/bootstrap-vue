@@ -42,9 +42,9 @@ Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
 
 ```html
 <b-row>
-  <b-col lg="4" class="pb-2"> <b-button size="sm">Small Button</b-button> </b-col>
-  <b-col lg="4" class="pb-2"> <b-button>Default Button</b-button> </b-col>
-  <b-col lg="4" class="pb-2"> <b-button size="lg">Large Button</b-button> </b-col>
+  <b-col lg="4" class="pb-2"><b-button size="sm">Small Button</b-button></b-col>
+  <b-col lg="4" class="pb-2"><b-button>Default Button</b-button></b-col>
+  <b-col lg="4" class="pb-2"><b-button size="lg">Large Button</b-button></b-col>
 </b-row>
 
 <!-- button-sizes.vue -->
@@ -56,14 +56,14 @@ Create block level buttons — those that span the full width of a parent — by
 prop.
 
 ```html
-<div><b-button block variant="primary">Block Level Button</b-button></div>
+<b-button block variant="primary">Block Level Button</b-button>
 
 <!-- button-block.vue -->
 ```
 
 ## Button contextual variants
 
-Use the `variant` prop to generate the various bootstrap contextual button variants.
+Use the `variant` prop to generate the various Bootstrap contextual button variants.
 
 By default `<b-button>` will render with the `secondary` variant.
 
@@ -115,7 +115,7 @@ Variant `link` will render a button with the appearance of a link while maintain
 padding and size of a button.
 
 ```html
-<div><b-button variant="link">Link</b-button></div>
+<b-button variant="link">Link</b-button>
 
 <!-- button-link.vue -->
 ```

@@ -33,7 +33,7 @@ as well.
       <b-nav-item-dropdown text="Dropdown 1,2,3" right-alignment>
         <b-dropdown-item href="#one" @click="scrollIntoView">one</b-dropdown-item>
         <b-dropdown-item href="#two" @click="scrollIntoView">two</b-dropdown-item>
-        <b-dropdown-divider></b-dropdown-divider>
+        <b-dropdown-divider />
         <b-dropdown-item href="#three" @click="scrollIntoView">three</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item href="#pi0" @click="scrollIntoView">@pi0</b-nav-item>
@@ -236,7 +236,7 @@ Where:
 - `option` can be a string identifying the `element` to monitor scrolling on, a numeric `offset`, or
   a configuration object (see below). Optional
 
-**Note:** The directive is applied backwards compared to native Bootstrap V4. In **Bootstrap-Vue**
+**Note:** The directive is applied backwards compared to native Bootstrap V4. In **BootstrapVue**
 the `v-b-scrollspy` directive is applied to the target element that has the links to be activated,
 and the arg or option specifies which element to monitor (spy) scrolling on.
 

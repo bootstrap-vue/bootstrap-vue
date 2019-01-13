@@ -1,12 +1,12 @@
 # Links
 
-> Use Bootstrap-Vue’s custom `b-link` component for generating a standard `<a>` link or
+> Use BootstrapVue’s custom `b-link` component for generating a standard `<a>` link or
 > `<router-link>`. `<b-link>` supports the `disabled` state and `click` event propagation.
 
-`<b-link>` is the building block for most Bootstrap-Vue components that offer link functionality.
+`<b-link>` is the building block for most BootstrapVue components that offer link functionality.
 
 ```html
-<div><b-link href="#foo">Link</b-link></div>
+<b-link href="#foo">Link</b-link>
 
 <!-- link-example.vue -->
 ```
@@ -37,7 +37,7 @@ If you need scroll to top behaviour, use a standard `<a href="#">...</a>` tag.
 Disable link functionality by setting the `disabled` prop to true.
 
 ```html
-<div><b-link href="#foo" disabled>Disabled Link</b-link></div>
+<b-link href="#foo" disabled>Disabled Link</b-link>
 
 <!-- link-disabled.vue -->
 ```

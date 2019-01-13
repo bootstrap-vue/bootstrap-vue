@@ -121,7 +121,7 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
   <b-nav-item-dropdown id="nav7_ddown" text="Dropdown" extra-toggle-classes="nav-link-custom" right>
     <b-dropdown-item>one</b-dropdown-item>
     <b-dropdown-item>two</b-dropdown-item>
-    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-divider />
     <b-dropdown-item>three</b-dropdown-item>
   </b-nav-item-dropdown>
 </b-nav>
@@ -141,8 +141,7 @@ add them (like above) which will produce something like:
     aria-haspopup="true"
     aria-expanded="false"
     class="nav-link dropdown-toggle nav-link-custom"
-  >
-  </a>
+  />
   ...
 </li>
 ```

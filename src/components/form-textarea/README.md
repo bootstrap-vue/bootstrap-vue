@@ -12,8 +12,7 @@
       placeholder="Enter something"
       rows="3"
       max-rows="6"
-    >
-    </b-form-textarea>
+    />
     <pre class="mt-3">{{ text }}</pre>
   </div>
 </template>
@@ -42,19 +41,19 @@ To control width, place the input inside standard Bootstrap grid column.
   <b-row class="my-1">
     <b-col sm="2"><label for="input-small">Small:</label></b-col>
     <b-col sm="10">
-      <b-form-textarea id="input-small" size="sm" type="text" placeholder="Small Textarea"></b-form-textarea>
+      <b-form-textarea id="input-small" size="sm" type="text" placeholder="Small Textarea" />
     </b-col>
   </b-row>
   <b-row class="my-1">
     <b-col sm="2"><label for="input-default">Default:</label></b-col>
     <b-col sm="10">
-      <b-form-textarea id="input-default" type="text" placeholder="Default Textarea"></b-form-text-area>
+      <b-form-textarea id="input-default" type="text" placeholder="Default Textarea" />
     </b-col>
   </b-row>
   <b-row class="my-1">
     <b-col sm="2"><label for="input-large">Large:</label></b-col>
     <b-col sm="10">
-      <b-form-textarea id="input-large" size="lg" type="text" placeholder="Large Textarea"></b-form-textarea>
+      <b-form-textarea id="input-large" size="lg" type="text" placeholder="Large Textarea" />
     </b-col>
   </b-row>
 </b-container>
@@ -111,7 +110,7 @@ To apply one of the contextual state icons on `<b-form-textarea>`, set the `stat
     v-model="text"
     placeholder="Enter at least 10 characters"
     rows="3"
-  ></b-form-textarea>
+  />
 </template>
 
 <script>
@@ -163,7 +162,7 @@ form field styling and preserve the correct text size, margin, padding and heigh
 
 ```html
 <template>
-  <b-form-textarea id="textarea3" plaintext :value="text"></b-form-textarea>
+  <b-form-textarea id="textarea3" plaintext :value="text" />
 </template>
 
 <script>

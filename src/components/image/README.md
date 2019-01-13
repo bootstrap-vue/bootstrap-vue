@@ -14,12 +14,12 @@ understand custom component props that specify image sources.
 
 ## Responsive images
 
-Images in Bootstrap-Vue can be made responsive with the `fluid` prop (which sets
+Images in BootstrapVue can be made responsive with the `fluid` prop (which sets
 `max-width: 100%; height: auto;` via CSS classes) so that it scales with the parent element - up to
 the maximum native width of the image.
 
 ```html
-<div><b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" /></div>
+<b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
 
 <!-- b-img-responsive-1.vue -->
 ```
@@ -115,7 +115,7 @@ left+right margins). You can also center images by placing them in a container t
 **Center aligned (block):**
 
 ```html
-<div><b-img center src="https://picsum.photos/125/125/?image=58" alt="center image" /></div>
+<b-img center src="https://picsum.photos/125/125/?image=58" alt="center image" />
 
 <!-- b-img-center.vue -->
 ```
