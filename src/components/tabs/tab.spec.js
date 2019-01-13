@@ -5,6 +5,10 @@ describe('tab', async () => {
   it('default has expected classes, attributes and structure', async () => {
     const wrapper = mount(Tab)
 
+    expect(wrapper).toBeDefined()
+
+    await wrapper.vm.$nextTick()
+
     expect(wrapper.is('div')).toBe(true)
     expect(wrapper.classes()).toContain('tab-pane')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -92,7 +96,7 @@ describe('tab', async () => {
 
     let called = false
     let value = null
-    wrapper.$on('update:active', (val) => {
+    wrapper.vm.$on('update:active', (val) => {
       called = true
       value = val
     })
@@ -125,7 +129,6 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.classes()).not.toContain('fade')
     expect(wrapper.classes()).not.toContain('card-body')
   })
 
@@ -165,7 +168,7 @@ describe('tab', async () => {
         }
       },
       propsData: {
-        noCard: true
+        noBody: true
       }
     })
 
@@ -178,7 +181,7 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('fade')
   })
 
-  it('has attribute tabindex="0" when parent has keynav enabled', async () => {
+  it('has attribute tabindex="0" when parent has keynav enabled and active', async () => {
     const wrapper = mount(Tab, {
       provide () {
         return {
@@ -189,7 +192,8 @@ describe('tab', async () => {
             noKeyNav: false
           }
         }
-      }
+      },
+      propsData: { active: true }
     })
 
     expect(wrapper.attributes('tabindex')).toBeDefined()
@@ -207,7 +211,7 @@ describe('tab', async () => {
             lazy: false,
             card: false,
             noKeyNav: false,
-            updateButton(tab) {
+            updateButton (tab) {
               called = true
               vm = tab
               return true
@@ -216,7 +220,7 @@ describe('tab', async () => {
         }
       },
       slots: {
-        default: '<b>foobar</b>'
+        title: '<b>foobar</b>'
       }
     })
 
