@@ -10,9 +10,9 @@ For navigation based tabs (i.e. tabs that would change the URL), use the
 
 ```html
 <b-tabs>
-  <b-tab title="first" active><p class="m-3">I'm the first fading tab</p></b-tab>
-  <b-tab title="second"><p class="m-3">I'm the second tab content</p></b-tab>
-  <b-tab title="disabled" disabled><p class="m-3">Disabled tab!</p></b-tab>
+  <b-tab title="first" active><p class="p-3">I'm the first fading tab</p></b-tab>
+  <b-tab title="second"><p class="p-3">I'm the second tab content</p></b-tab>
+  <b-tab title="disabled" disabled><p class="p-3">Disabled tab!</p></b-tab>
 </b-tabs>
 
 <!-- basic.vue -->
@@ -205,13 +205,13 @@ Vue component, this possible by using `title` slot
     <template slot="title">
       <b-spinner type="grow" small /> I'm <i>Custom</i> <strong>Title</strong>
     </template>
-    <p class="m-3">Tab Contents 1</p>
+    <p class="p-3">Tab Contents 1</p>
   </b-tab>
   <b-tab>
     <template slot="title">
       <b-spinner type="border" small /> Tab 2
     </template>
-    <p class="m-3">Tab Contents 2</p>
+    <p class="p-3">Tab Contents 2</p>
   </b-tab>
 </b-tabs>
 
