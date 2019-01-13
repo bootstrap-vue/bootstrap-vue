@@ -162,7 +162,7 @@ export default {
         // Not inside a b-tabs component
         return false
       }
-    },
+    }
   },
   render (h) {
     let content = h(
