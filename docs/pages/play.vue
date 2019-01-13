@@ -30,38 +30,12 @@
             action="https://jsfiddle.net/api/post/library/pure/"
             target="_blank"
           >
-            <input
-              type="hidden"
-              name="html"
-              :value="fiddle_html"
-            >
-            <input
-              type="hidden"
-              name="js"
-              :value="fiddle_js"
-            >
-            <input
-              type="hidden"
-              name="resources"
-              :value="fiddle_dependencies"
-            >
-            <input
-              type="hidden"
-              name="css"
-              value="body { padding: 1rem; }"
-            >
-            <input
-              type="hidden"
-              name="js_wrap"
-              value="l"
-            >
-            <b-btn
-              size="sm"
-              type="submit"
-              :disabled="!isOk"
-            >
-              Export to JSFiddle
-            </b-btn>
+            <input type="hidden" name="html" :value="fiddle_html">
+            <input type="hidden" name="js" :value="fiddle_js">
+            <input type="hidden" name="resources" :value="fiddle_dependencies">
+            <input type="hidden" name="css" value="body { padding: 1rem; }">
+            <input type="hidden" name="js_wrap" value="l">
+            <b-btn size="sm" type="submit" :disabled="!isOk">Export to JSFiddle</b-btn>
           </form>
           <b-btn
             size="sm"
