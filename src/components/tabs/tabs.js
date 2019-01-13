@@ -71,7 +71,7 @@ const BTabButtonHelper = {
             active: this.tab.localActive && !this.tab.disabled,
             disabled: this.tab.disabled
           },
-          this.tab.linkClass
+          this.tab.titleLinkClass
         ],
         props: {
           href: this.tab.href, // To be deprecated to always be '#'
@@ -96,7 +96,11 @@ const BTabButtonHelper = {
     )
     return h(
       'li',
-      { class: ['nav-item', this.tab.itemClass], attrs: { role: 'presentation' } },
+      {
+        staticClass: 'nav-item',
+        class: [this.tab.titleItemClass],
+        attrs: { role: 'presentation' }
+      },
       [link]
     )
   }
