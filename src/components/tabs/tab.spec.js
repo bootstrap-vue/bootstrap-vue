@@ -285,4 +285,70 @@ describe('tab', async () => {
     expect(deactivateCalled).toBe(true)
     expect(deactivateVm).toBe(wrapper.vm)
   })
+
+  it('does not call parent activateTab() when prop active changes and disabled=true', async () => {
+    let activateCalled = false
+    let activateVm = null
+
+    const wrapper = mount(Tab, {
+      provide () {
+        return {
+          bTabs: {
+            fade: false,
+            lazy: false,
+            card: false,
+            noKeyNav: false,
+            activateTab (tab) {
+              activateCalled = true
+              activateVm = tab
+              tab.localActive = true
+              return true
+            }
+          }
+        }
+      },
+      propsData: { disabled: true }
+    })
+
+    expect(activateCalled).toBe(false)
+    expect(activateVm).toBe(null)
+
+    wrapper.setProps({ active: true })
+
+    expect(activateCalled).toBe(false)
+    expect(activateVm).toBe(null)
+  })
+
+  it('does not call parent deactivateTab() when deactivate() called and not active', async () => {
+    let deactivateCalled = false
+    let deactivateVm = null
+
+    const wrapper = mount(Tab, {
+      provide () {
+        return {
+          bTabs: {
+            fade: false,
+            lazy: false,
+            card: false,
+            noKeyNav: false,
+            deactivateTab (tab) {
+              deactivateCalled = true
+              deactivateVm = tab
+              tab.localActive = false
+              return true
+            }
+          }
+        }
+      }
+    })
+
+    expect(deactivateCalled).toBe(false)
+    expect(deactivateVm).toBe(null)
+
+    const result = wrapper.vm.deactivate()
+
+    expect(deactivateCalled).toBe(false)
+    expect(deactivateVm).toBe(null)
+    expect(result).toBe(false)
+  })
 })
