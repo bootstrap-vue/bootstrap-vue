@@ -20,14 +20,15 @@ For navigation based tabs, use the [`<b-nav>`](/docs/components/nav) component a
 ```
 
 **Tip:** You should supply each child `<b-tab>` component a unique `key` value if dynamically
-adding, removing, showing, or hiding `<b-tab>` components. The `key` attribute is a special Vue
-attribute, see https://vuejs.org/v2/api/#key).
+adding or removing `<b-tab>` components (i.e. `v-if` or for loops). The `key` attribute is a
+special Vue attribute, see https://vuejs.org/v2/api/#key).
+
 
 ## Cards Integration
 
 Tabs support integrating with bootstrap cards. Just add the `card` property to `<b-tabs>`. and place
-it inside a `<b-card>` component. Note that you should add `no-body` prop on `<b-card>` component in
-order to propertly decorate the card header and remove the extra padding introduced by `card-body`.
+it inside a `<b-card>` component. Note that you should add `no-body` prop on the `<b-card>` component
+in order to propertly decorate the card header and remove the extra padding introduced by `card-body`.
 
 ```html
 <b-card no-body>
@@ -72,8 +73,9 @@ When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatical
 <!-- with-card-nobody.vue -->
 ```
 
-Setting the `no-body` prop on `<b-tab>` will have no affect when `<b-tabs>` is not in `card` mode
+**Note:** Setting the `no-body` prop on `<b-tab>` will have no affect when `<b-tabs>` is not in `card` mode
 (as the `card-body` class is only set when in `card` mode).
+
 
 ## Pills variant
 
@@ -174,9 +176,7 @@ additional custom styling._
 
 ## Fade animation
 
-Fade is enabled by default when changing tabs. It can disabled with `no-fade` property. Note you
-should use the `<b-nav-item>` component when adding contentless-tabs to maintain correct sizing and
-alignment. See the advanced usage examples below for an example.
+Fade is enabled by default when changing tabs. It can disabled with `no-fade` property.
 
 ## Add Tabs without content
 
@@ -193,24 +193,37 @@ If you want to add extra tabs that do not have any content, you can put them in 
 <!-- tabs-item-slot.vue -->
 ```
 
+**Note:** extra (contentless) tabs should be a `<b-nav-item>` or have the class `nav-item`
+with a root element of `<li>` for proper rendering.
+
+
 ## Add custom content to tab title
 
-If you want to add custom content to tab title, like HTML code, icons, or another Vue component,
-this possible by using `title` slot
+If you want to add custom content to tab title, like HTML code, icons, or another
+non-interactive Vue component, this possible by using `title` slot
 
 ```html
 <b-tabs>
-  <b-tab active key="tab-1">
-    <!-- Add your custom title here-->
+  <b-tab active>
     <template slot="title">
-      i'm <i>Custom</i> <strong>Title</strong>
+      <b-spinner type="grow" small /> i'm <i>Custom</i> <strong>Title</strong>
     </template>
-    Tab Contents 1
+    <p clas="m-3">Tab Contents 1</p>
+  </b-tab>
+  <b-tab>
+    <template slot="title">
+      <b-spinner type="border" small /> tab 2
+    </template>
+    <p clas="m-3">Tab Contents 2</p>
   </b-tab>
 </b-tabs>
 
 <!-- tabs-title-slot.vue -->
 ```
+
+**Do not** place inteactive elements/components inside the title slot. The tab button is a
+link which does not support child interactive elements per the HTML5 spec.
+
 
 ## Apply custom classes to the generated nav-tabs or pills
 
@@ -258,31 +271,46 @@ need to accomodate your custom classes for this._
 
 ## Keyboard Navigation
 
-Keyboard navigation is enabled by default.
+Keyboard navigation is enabled by default for ARIA compliance with tablists.
 
-| Keypress                                                              | Action                                   |
-| --------------------------------------------------------------------- | ---------------------------------------- |
-| <kbd>LEFT</kbd> or <kbd>UP</kbd>                                      | Move to the previous non-disabled tab    |
-| <kbd>RIGHT</kbd> or <kbd>DOWN</kbd>                                   | Move to the next non-disabled tab        |
-| <kbd>SHIFT</kbd>+<kbd>LEFT</kbd> or <kbd>SHIFT</kbd>+<kbd>UP</kbd>    | Move to the first non-disabled tab       |
-| <kbd>SHIFT</kbd>+<kbd>RIGHT</kbd> or <kbd>SHIFT</kbd>+<kbd>DOWN</kbd> | Move to the last non-disabled tab        |
-| <kbd>TAB</kbd>                                                        | Move to the next control on the page     |
-| <kbd>SHIFT</kbd>+<kbd>TAB</kbd>                                       | Move to the previous control on the page |
+| Keypress                                                              | Action                                    |
+| --------------------------------------------------------------------- | ----------------------------------------- |
+| <kbd>LEFT</kbd> or <kbd>UP</kbd>                                      | Activate the previous non-disabled tab    |
+| <kbd>RIGHT</kbd> or <kbd>DOWN</kbd>                                   | Activate the next non-disabled tab        |
+| <kbd>SHIFT</kbd>+<kbd>LEFT</kbd> or <kbd>SHIFT</kbd>+<kbd>UP</kbd>    | Activate the first non-disabled tab       |
+| <kbd>HOME</kbd>                                                       | Activate the first non-disabled tab       |
+| <kbd>SHIFT</kbd>+<kbd>RIGHT</kbd> or <kbd>SHIFT</kbd>+<kbd>DOWN</kbd> | Activate the last non-disabled tab        |
+| <kbd>END</kbd>                                                        | Activate the last non-disabled tab        |
+| <kbd>TAB</kbd>                                                        | Move focus to the active tab content      |
+| <kbd>SHIFT</kbd>+<kbd>TAB</kbd>                                       | Move to the previous control on the page  |
 
-Disable it by setting the prop `no-key-nav`. Behavior will now default to standard browser
+Disable keyboard navigation by setting the prop `no-key-nav`. Behavior will now default to standard browser
 navigation with TAB key.
 
 | Keypress                        | Action                                          |
 | ------------------------------- | ----------------------------------------------- |
 | <kbd>TAB</kbd>                  | Move to the next tab or control on the page     |
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Move to the previous tab or control on the page |
+| <kbd>ENTER</kbd>                | Activate current focused tab                    |
 
-**Caution:** If you have text or text-like inputs in your tabs, leave keyboard navigation off, as it
-is not possble to use key presses to jump out of a text (or test-like) inputs.
+
+## Dynamically activating and deactivating tabs
+
+Use the `<b-tabs>` v-model to control which tab is active by setting the v-model to
+the index (zero-based) of the tab to be shown.
+
+Alternatively, you can use the `active` prop on each `<b-tab>` with the `.sync` modifier
+to activate the tab, or detect if a particular tab is active.
+
+Each `<b-tab>` instance also provides two public methods to activate or deactivate
+the tab. The methods are `.activate()` and `.deactivate()`, respectively. If activation
+or deactivaton fails (i.e. a tab is disabled or no tab is available to move activation
+to), then the currently active tab will remain active and the method will return `false`.
+
 
 ## Advanced Examples
 
-### External controls
+### External controls using v-model
 
 ```html
 <template>
@@ -325,7 +353,7 @@ is not possble to use key presses to jump out of a text (or test-like) inputs.
 <!-- tabs-controls.vue -->
 ```
 
-### Dynamic Tabs
+### Dynamic Tabs + tabs slot
 
 ```html
 <template>
@@ -341,7 +369,9 @@ is not possble to use key presses to jump out of a text (or test-like) inputs.
         </b-tab>
 
         <!-- New Tab Button (Using tabs slot) -->
-        <b-nav-item slot="tabs" @click.prevent="newTab" href="#"> + </b-nav-item>
+        <template slot="tabs">
+          <b-nav-item @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
+        </template>
 
         <!-- Render this if no tabs -->
         <div slot="empty" class="text-center text-muted">
