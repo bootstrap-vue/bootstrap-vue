@@ -353,38 +353,4 @@ describe('tab', async () => {
     expect(deactivateVm).toBe(null)
     expect(result).toBe(false)
   })
-
-  it('has class show when localActive becomes true', async () => {
-    window.requestAnimationFrame = (cb) => { setTimeout(cb, 0) }
-
-    const wrapper = mount(Tab, {
-      attachToDocument: true,
-      provide () {
-        return {
-          bTabs: {
-            fade: true
-          }
-        }
-      }
-    })
-
-    expect(wrapper.classes()).not.toContain('active')
-    expect(wrapper.classes()).not.toContain('show')
-
-    wrapper.setData({ localActive: true })
-    await wrapper.vm.$nextTick()
-    jest.runAllTimers()
-    await wrapper.vm.$nextTick()
-
-    expect(wrapper.classes()).toContain('show')
-    expect(wrapper.classes()).toContain('active')
-
-    wrapper.setData({ localActive: false })
-    await wrapper.vm.$nextTick()
-    jest.runAllTimers()
-    await wrapper.vm.$nextTick()
-
-    expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.classes()).not.toContain('active')
-  })
 })
