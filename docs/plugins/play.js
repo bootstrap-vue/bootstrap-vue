@@ -34,6 +34,7 @@ const parseVueTemplate = text => {
   if (script && script.includes('export default')) {
     try {
       const code = compiler(script.replace('export default', ';options = '))
+      // eslint-disable-next-line no-eval
       eval(code)
     } catch (e) {
       return false
