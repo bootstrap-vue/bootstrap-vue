@@ -17,7 +17,7 @@
     >
       I accept the terms and use
     </b-form-checkbox>
-    <div>State: <strong>{{status}}</strong></div>
+    <div>State: <strong>{{ status }}</strong></div>
   </div>
 </template>
 
@@ -114,8 +114,9 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
         v-model="selected"
         :value="option.value"
         name="flavour3"
-        >{{ option.text }}</b-form-checkbox
       >
+        {{ option.text }}
+      </b-form-checkbox>
     </b-form-group>
 
     <b-form-group label="Individual inline checkboxes">
@@ -125,8 +126,9 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
         inline
         :value="option.value"
         name="flavour4"
-        >{{ option.text }}</b-form-checkbox
       >
+        {{ option.text }}
+      </b-form-checkbox>
     </b-form-group>
   </div>
 </template>
@@ -235,8 +237,7 @@ variants). The default `button-variant` is `secondary`.
 <template>
   <div>
     <b-form-group label="Button-group style checkboxes">
-      <b-form-checkbox-group buttons v-model="selected" name="buttons1" :options="options">
-      </b-form-checkbox-group>
+      <b-form-checkbox-group buttons v-model="selected" name="buttons1" :options="options" />
     </b-form-group>
 
     <b-form-group label="Button-group style checkboxes with variant primary and large buttons">
@@ -247,13 +248,11 @@ variants). The default `button-variant` is `secondary`.
         size="lg"
         name="buttons2"
         :options="options"
-      >
-      </b-form-checkbox-group>
+      />
     </b-form-group>
 
     <b-form-group label="Stacked (vertical) button-group style checkboxes">
-      <b-form-checkbox-group buttons v-model="selected" stacked :options="options">
-      </b-form-checkbox-group>
+      <b-form-checkbox-group buttons v-model="selected" stacked :options="options" />
     </b-form-group>
   </div>
 </template>
@@ -319,13 +318,11 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
 <template>
   <div>
     <b-form-group label="Inline switch style checkboxes">
-      <b-form-checkbox-group switches v-model="selected" name="switches1" :options="options">
-      </b-form-checkbox-group>
+      <b-form-checkbox-group switches v-model="selected" name="switches1" :options="options" />
     </b-form-group>
 
     <b-form-group label="Stacked (vertical) switch style checkboxes">
-      <b-form-checkbox-group switches v-model="selected" stacked :options="options">
-      </b-form-checkbox-group>
+      <b-form-checkbox-group switches v-model="selected" stacked :options="options" />
     </b-form-group>
   </div>
 </template>
@@ -488,7 +485,7 @@ modifier.
         :options="flavours"
         class="ml-4"
         aria-label="Individual flavours"
-      ></b-form-checkbox-group>
+      />
     </b-form-group>
     <p>
       Selected: <strong>{{ selected }}</strong><br />

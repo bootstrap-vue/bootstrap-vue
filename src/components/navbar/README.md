@@ -10,7 +10,7 @@
 <b-navbar toggleable="lg" type="dark" variant="info">
   <b-navbar-brand href="#">NavBar</b-navbar-brand>
 
-  <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+  <b-navbar-toggle target="nav_collapse" />
 
   <b-collapse is-nav id="nav_collapse">
     <b-navbar-nav>
@@ -179,10 +179,10 @@ alignment and horizontal spacing for strings of text.
 ```html
 <div>
   <b-navbar toggleable type="light" variant="light">
-    <b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
+    <b-navbar-toggle target="nav_text_collapse" />
     <b-navbar-brand>BootstrapVue</b-navbar-brand>
     <b-collapse is-nav id="nav_text_collapse">
-      <b-navbar-nav> <b-nav-text>Navbar text</b-nav-text> </b-navbar-nav>
+      <b-navbar-nav><b-nav-text>Navbar text</b-nav-text></b-navbar-nav>
     </b-collapse>
   </b-navbar>
 </div>
@@ -226,7 +226,7 @@ Use `<b-nav-form>` to place inline form controls into your navbar
 <div>
   <b-navbar type="light" variant="light">
     <b-nav-form>
-      <b-form-input class="mr-sm-2" type="text" placeholder="Search"></b-form-input>
+      <b-form-input class="mr-sm-2" type="text" placeholder="Search" />
       <b-button variant="outline-success" class="my-2 my-sm-0" type="submit">Search</b-button>
     </b-nav-form>
   </b-navbar>
@@ -242,7 +242,7 @@ Input groups work as well:
   <b-navbar type="light" variant="light">
     <b-nav-form>
       <b-input-group left="@">
-        <b-form-input class="mr-sm-2" type="text" placeholder="Username"></b-form-input>
+        <b-form-input class="mr-sm-2" type="text" placeholder="Username" />
       </b-input-group>
     </b-nav-form>
   </b-navbar>

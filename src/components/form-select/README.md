@@ -43,8 +43,8 @@ Or manually provide your options and optgroups:
       <option :value="null">Please select an option</option> <option value="a">Option A</option>
       <option value="b" disabled>Option B (disabled)</option>
       <optgroup label="Grouped Options">
-        <option :value="{'C':'3PO'}">Option with object value</option>
-        <option :value="{'R':'2D2'}">Another option with object value</option>
+        <option :value="{ C: '3PO' }">Option with object value</option>
+        <option :value="{ R: '2D2' }">Another option with object value</option>
       </optgroup>
     </b-form-select>
     <div>Selected: <strong>{{ selected }}</strong></div>
@@ -114,13 +114,13 @@ change them using `text-field` and `value-field` props.
 ### Array
 
 ```js
-;['A', 'B', 'C', { text: 'D', value: 'd', disabled: true }, 'E', 'F']
+const options = ['A', 'B', 'C', { text: 'D', value: 'd', disabled: true }, 'E', 'F']
 ```
 
 ### Array of objects
 
 ```js
-[
+const options = [
   {text: 'Item 1', value: 'first'},
   {text: 'Item 2', value: 'second'},
   {text: 'Item 3', value: 'third', disabled: true}
@@ -133,12 +133,12 @@ change them using `text-field` and `value-field` props.
 Keys are mapped to value and values are mapped to option object.
 
 ```js
-{
+const options = {
   a: 'Item A',
   b: 'Item B',
-  c: {text: 'Item C', disabled: true},
-  d: {text: 'Item D', value: 'overridden_value'},
-  e: {text: 'Item E', value: { foo:'bar', baz:true}}
+  c: { text: 'Item C', disabled: true },
+  d: { text: 'Item D', value: 'overridden_value' },
+  e: { text: 'Item E', value: { foo: 'bar', baz: true } }
 }
 ```
 
@@ -154,7 +154,7 @@ option.
 ```html
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" class="mb-3"> </b-form-select>
+    <b-form-select v-model="selected" :options="options" class="mb-3" />
     <div>Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
@@ -193,8 +193,7 @@ Note: not all mobile browsers will show a the select as a list-box.
 ```html
 <template>
   <div>
-    <b-form-select v-model="selected" :options="options" class="mb-3" :select-size="4">
-    </b-form-select>
+    <b-form-select v-model="selected" :options="options" class="mb-3" :select-size="4" />
     <div>Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
@@ -235,8 +234,7 @@ an array reference as your `v-model` when in `multiple` mode.
 ```html
 <template>
   <div>
-    <b-form-select multiple :select-size="4" v-model="selected" :options="options" class="mb-3">
-    </b-form-select>
+    <b-form-select multiple :select-size="4" v-model="selected" :options="options" class="mb-3" />
     <div>Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>

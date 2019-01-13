@@ -37,7 +37,7 @@
       <b-btn>Cancel</b-btn>
     </b-button-group>
     <b-input-group size="sm" prepend="$" append=".00">
-      <b-form-input value="100" class="text-right"></b-form-input>
+      <b-form-input value="100" class="text-right" />
     </b-input-group>
   </b-button-toolbar>
 </div>

@@ -17,7 +17,7 @@ pagination (such as table or list pagination), use the
     <b-pagination-nav :link-gen="linkGen" :number-of-pages="10" v-model="currentPage" />
     <br />
 
-    <p class="mt-4">currentPage: {{currentPage}}</p>
+    <p class="mt-4">currentPage: {{ currentPage }}</p>
   </div>
 </template>
 
@@ -227,7 +227,7 @@ By default the pagination component is left aligned. Change the alignment to `ce
     <b-pagination-nav align="right" :number-of-pages="10" base-url="#" v-model="currentPage" />
     <br />
 
-    <div>currentPage: {{currentPage}}</div>
+    <div>currentPage: {{ currentPage }}</div>
   </div>
 </template>
 

@@ -77,13 +77,13 @@ While containers can be nested, most layouts do not require a nested container.
 **Fixed width container, based on viewport breakpoints:**
 
 ```html
-<b-container> <!-- Content here --> </b-container>
+<b-container><!-- Content here --></b-container>
 ```
 
 **Fluid container which is always 100% width, regardless of viewport breakpoint:**
 
 ```html
-<b-container fluid> <!-- Content here --> </b-container>
+<b-container fluid><!-- Content here --></b-container>
 ```
 
 ## Rows `<b-row>` and `<b-form-row>`
@@ -163,7 +163,7 @@ Both these fixes have been documented in a
   <b-row>
     <b-col>Column</b-col>
     <b-col>Column</b-col>
-    <div class="w-100"></div>
+    <div class="w-100" />
     <b-col>Column</b-col>
     <b-col>Column</b-col>
   </b-row>
@@ -228,7 +228,7 @@ columns to break to a new line. Make the breaks responsive by mixing the `.w-100
   <b-row>
     <b-col>col</b-col>
     <b-col>col</b-col>
-    <div class="w-100"></div>
+    <div class="w-100" />
     <b-col>col</b-col>
     <b-col>col</b-col>
   </b-row>
@@ -398,9 +398,9 @@ you can set the order by breakpoint (e.g., `order="1" order-md="2"`). Includes s
 ```html
 <b-container fluid class="bv-example-row">
   <b-row>
-    <b-col> First, but unordered </b-col>
-    <b-col order="12"> Second, but last </b-col>
-    <b-col order="1"> Third, but first </b-col>
+    <b-col>First, but unordered</b-col>
+    <b-col order="12">Second, but last</b-col>
+    <b-col order="1">Third, but first</b-col>
   </b-row>
 </b-container>
 
@@ -424,7 +424,7 @@ offset is variable.
     <b-col md="3" offset-md="3">md="3" offset-md="3"</b-col>
     <b-col md="3" offset-md="3">md="3" offset-md="3"</b-col>
   </b-row>
-  <b-row> <b-col md="6" offset-md="3">md="6" offset-md="3"</b-col> </b-row>
+  <b-row><b-col md="6" offset-md="3">md="6" offset-md="3"</b-col></b-row>
 </b-container>
 
 <!-- grid-offset.vue -->
@@ -436,13 +436,13 @@ the offset to `0` at a larger breakpoint:
 ```html
 <b-container fluid class="bv-example-row">
   <b-row>
-    <b-col sm="5" md="6"> sm="5" md="6" </b-col>
+    <b-col sm="5" md="6">sm="5" md="6"</b-col>
     <b-col sm="5" offset-sm="2" md="6" offset-md="0">
       sm="5" offset-sm="2" md="6" offset-md="0"
     </b-col>
   </b-row>
   <b-row>
-    <b-col sm="6" md="5" lg="6"> sm="6" md="5" lg="6" </b-col>
+    <b-col sm="6" md="5" lg="6">sm="6" md="5" lg="6"</b-col>
     <b-col sm="6" md="5" offset-md="2" lg="6" offset-lg="0">
       sm="6" md="5" offset-md="2" col-lg="6" offset-lg="0"
     </b-col>
@@ -489,8 +489,8 @@ within an existing `<b-col>` component. Nested rows should include a set of colu
     <b-col sm="9">
       Level 1: sm="9"
       <b-row>
-        <b-col cols="8" sm="6"> Level 2: cols="8" sm="6" </b-col>
-        <b-col cols="4" sm="6"> Level 2: cols="4" sm="6" </b-col>
+        <b-col cols="8" sm="6">Level 2: cols="8" sm="6"</b-col>
+        <b-col cols="4" sm="6">Level 2: cols="4" sm="6"</b-col>
       </b-row>
     </b-col>
   </b-row>

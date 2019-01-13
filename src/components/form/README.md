@@ -136,7 +136,7 @@ Custom form controls and selects are also supported.
       >
         <option slot="first" :value="null">Choose...</option>
       </b-form-select>
-      <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0"> Remember my preference </b-form-checkbox>
+      <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember my preference</b-form-checkbox>
       <b-button variant="primary">Save</b-button>
     </b-form>
   </div>

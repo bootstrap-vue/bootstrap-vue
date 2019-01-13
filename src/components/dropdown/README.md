@@ -14,7 +14,7 @@ enter when focused), not by hovering; this is an
     <b-dropdown-item>First Action</b-dropdown-item>
     <b-dropdown-item>Second Action</b-dropdown-item>
     <b-dropdown-item>Third Action</b-dropdown-item>
-    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-divider />
     <b-dropdown-item active>Active action</b-dropdown-item>
     <b-dropdown-item disabled>Disabled action</b-dropdown-item>
   </b-dropdown>
@@ -369,7 +369,7 @@ Separate groups of related menu items with `<b-dropdown-divider>`.
   <b-dropdown id="ddown-divider" text="Dropdown with divider" class="m-2">
     <b-dropdown-item-button>First item</b-dropdown-item-button>
     <b-dropdown-item-button>Second item</b-dropdown-item-button>
-    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-divider />
     <b-dropdown-item-button>Separated Item</b-dropdown-item-button>
   </b-dropdown>
 </div>
@@ -408,10 +408,8 @@ constrain/set the menu width.
     <b-dropdown-text style="width: 240px;">
       Some example text that's free-flowing within the dropdown menu.
     </b-dropdown-text>
-    <b-dropdown-text>
-      And this is more example text.
-    </b-dropdown-text>
-    <b-dropdown-divider></b-dropdown-divider>
+    <b-dropdown-text>And this is more example text.</b-dropdown-text>
+    <b-dropdown-divider />
     <b-dropdown-item-button>First item</b-dropdown-item-button>
     <b-dropdown-item-button>Second Item</b-dropdown-item-button>
   </b-dropdown>
@@ -441,22 +439,17 @@ regular form.
     <b-dropdown id="ddown-form" text="Dropdown with form" ref="ddown">
       <b-dropdown-form>
         <b-form-group label="Email" label-for="ddown-form-email">
-          <b-form-input size="sm"
-                        placeholder="email@example.com"
-                        id="ddown-form-email">
+          <b-form-input size="sm" placeholder="email@example.com" id="ddown-form-email">
           </b-form-input>
         </b-form-group>
         <b-form-group label="Password" label-for="ddown-form-passwd">
-          <b-form-input type="password"
-                        size="sm"
-                        placeholder="Password"
-                        id="ddown-form-passwd">
+          <b-form-input type="password" size="sm" placeholder="Password" id="ddown-form-passwd">
           </b-form-input>
         </b-form-group>
         <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
         <b-button variant="primary" size="sm">Sign In</b-button>
       </b-dropdown-form>
-      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-divider />
       <b-dropdown-item-button>New around here? Sign up</b-dropdown-item-button>
       <b-dropdown-item-button>Forgot Password?</b-dropdown-item-button>
     </b-dropdown>
@@ -466,7 +459,7 @@ regular form.
 <script>
   export default {
     methods: {
-      onClick () {
+      onClick() {
         // Close the menu and (by passing true) return focus to the toggle button
         this.$refs.ddown.hide(true)
       }
@@ -526,10 +519,10 @@ item:
       <b-dropdown-item-button aria-describedby="header2">Add</b-dropdown-item-button>
       <b-dropdown-item-button aria-describedby="header2">Delete</b-dropdown-item-button>
     </div>
-    <b-dropdown-divider></b-dropdown-divider>
-    <b-dropdown-item-button
-      >Something <strong>not</strong> associated with user</b-dropdown-item-button
-    >
+    <b-dropdown-divider />
+    <b-dropdown-item-button>
+      Something <strong>not</strong> associated with user
+    </b-dropdown-item-button>
   </b-dropdown>
 </div>
 

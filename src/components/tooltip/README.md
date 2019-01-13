@@ -50,73 +50,73 @@ The default position is `top`. Positioning is relative to the trigger element.
 
 <div class="bd-example bd-example-tooltip-static">
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
-    <div class="arrow"></div>
+    <div class="arrow" style="left: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the top
     </div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
-    <div class="arrow" style="left:93%"></div>
+    <div class="arrow" style="right: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the topleft
     </div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
-    <div class="arrow" style="left:5%"></div>
+    <div class="arrow" style="left: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the topright
     </div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
-    <div class="arrow"></div>
+    <div class="arrow" style="top: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the right
     </div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
-    <div class="arrow" style="top:60%"></div>
+    <div class="arrow" style="bottom: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the righttop
     </div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
-    <div class="arrow" style="top:26%"></div>
+    <div class="arrow" style="top: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the rightbottom
     </div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
-    <div class="arrow"></div>
+    <div class="arrow" style="left: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the bottom
     </div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
-    <div class="arrow" style="left:93%"></div>
+    <div class="arrow" style="right: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the bottomleft
     </div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
-    <div class="arrow" style="left:5%"></div>
+    <div class="arrow" style="left: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the bottomright
     </div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
-    <div class="arrow"></div>
+    <div class="arrow" style="top: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the left
     </div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
-    <div class="arrow" style="top:60%"></div>
+    <div class="arrow" style="bottom: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the lefttop
     </div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
-    <div class="arrow" style="top:26%"></div>
+    <div class="arrow" style="top: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the leftbottom
     </div>
@@ -149,13 +149,13 @@ then clicks the trigger element, they must click it again **and** move focus to 
   </b-row>
 
   <!-- Tooltip title specified via prop title -->
-  <b-tooltip target="exButton1" title="Online!"></b-tooltip>
+  <b-tooltip target="exButton1" title="Online!" />
 
   <!-- HTML title specified via default slot -->
-  <b-tooltip target="exButton2" placement="bottom"> Hello <strong>World!</strong> </b-tooltip>
+  <b-tooltip target="exButton2" placement="bottom">Hello <strong>World!</strong></b-tooltip>
 
   <!-- Tooltip for an element identified by ref -->
-  <b-tooltip :target="() => $refs.exButton3" title="Alternative!"></b-tooltip>
+  <b-tooltip :target="() => $refs.exButton3" title="Alternative!" />
 </b-container>
 
 <!-- tooltip-component-1.vue -->
@@ -208,7 +208,7 @@ To make the tooltip shown on initial render, simply add the `show` prop on `<b-t
 ```html
 <div class="text-center">
   <b-btn id="tooltipButton-2" variant="primary">Button</b-btn>
-  <b-tooltip show target="tooltipButton-2"> I start open </b-tooltip>
+  <b-tooltip show target="tooltipButton-2">I start open</b-tooltip>
 </div>
 
 <!-- tooltip-show-open.vue -->
@@ -310,7 +310,7 @@ long as you have provided the `.sync` prop modifier.
 > button._
 
 You can also emit `$root` events to trigger disabling and enabling of tooltip(s). See the
-**Disabling and enabling tooltips via $root events** section below for details.
+**Disabling and enabling tooltips via \$root events** section below for details.
 
 You can also emit `$root` events to trigger disabling and enabling of popover(s). See the
 **Disabling and enabling tooltips via \$root events** section below for details.
@@ -324,7 +324,7 @@ markup:
 <b-container fluid>
   <b-row>
     <b-col md="6" class="py-4">
-      <b-btn v-b-tooltip title="Online!" variant="outline-success"> Live chat </b-btn>
+      <b-btn v-b-tooltip title="Online!" variant="outline-success">Live chat</b-btn>
     </b-col>
     <b-col md="6" class="py-4">
       <b-btn
@@ -346,16 +346,16 @@ features of the directive format.
 
 ## Hiding and showing tooltips via \$root events
 
-## 'Global' $root instance events
+## 'Global' \$root instance events
 
 Using `$root` instance it is possible to emit and listen events somewhere out of a component, where
 `<b-collapse>` is used. In short, `$root` behaves like a global event emitters and listener. Details
 about `$root` instance can be found in
 [the official Vue docs](https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-the-Root-Instance).
 
-### Hiding and showing tooltips via $root events
+### Hiding and showing tooltips via \$root events
 
-You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` event on $root:
+You can close (hide) **all open tooltips** by emitting the `bv::hide::tooltip` event on \$root:
 
 ```js
 this.$root.$emit('bv::hide::tooltip')
@@ -384,9 +384,9 @@ These events work for both the component **and** directive versions of tooltip.
 
 ## Disabling and enabling tooltips via \$root events
 
-### Disabling and enabling tooltips via $root events
+### Disabling and enabling tooltips via \$root events
 
-You can disable **all open tooltips** by emitting the `bv::disable::tooltip` event on $root:
+You can disable **all open tooltips** by emitting the `bv::disable::tooltip` event on \$root:
 
 ```js
 this.$root.$emit('bv::disable::tooltip')
@@ -413,7 +413,7 @@ These events work for both the component **and** directive versions of tooltip.
 > **Note:** _The **trigger element** must exist in the DOM in order for the tooltip to be enabled or
 > disabled._
 
-### Listening to tooltip changes via $root events
+### Listening to tooltip changes via \$root events
 
 To listen to any tooltip opening, use:
 

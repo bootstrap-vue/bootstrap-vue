@@ -6,7 +6,7 @@
 ```html
 <template>
   <div>
-    <b-form-input v-model="text1" type="text" placeholder="Enter your name"></b-form-input>
+    <b-form-input v-model="text1" type="text" placeholder="Enter your name" />
     <p>Value: {{ text1 }}</p>
   </div>
 </template>
@@ -35,7 +35,7 @@ native browser HTML5 types: `text`, `password`, `email`, `number`, `url`, `tel`,
   <b-container fluid>
     <b-row class="my-1" v-for="type in types" :key="type">
       <b-col sm="3"><label :for="`type-${type}`">Type {{ type }}:</label></b-col>
-      <b-col sm="9"><b-form-input :id="`type-${type}`" :type="type"></b-form-input></b-col>
+      <b-col sm="9"><b-form-input :id="`type-${type}`" :type="type"/></b-col>
     </b-row>
   </b-container>
 </template>
@@ -163,29 +163,19 @@ To control width, place the input inside standard Bootstrap grid column.
   <b-row class="my-1">
     <b-col sm="2"><label for="input-small">Small:</label></b-col>
     <b-col sm="10">
-      <b-form-input
-        id="input-small"
-        size="sm"
-        type="text"
-        placeholder="Enter your name"
-      ></b-form-input>
+      <b-form-input id="input-small" size="sm" type="text" placeholder="Enter your name" />
     </b-col>
   </b-row>
   <b-row class="my-1">
     <b-col sm="2"><label for="input-default">Default:</label></b-col>
     <b-col sm="10">
-      <b-form-input id="input-default" type="text" placeholder="Enter your name"></b-form-input>
+      <b-form-input id="input-default" type="text" placeholder="Enter your name" />
     </b-col>
   </b-row>
   <b-row class="my-1">
     <b-col sm="2"><label for="input-large">Large:</label></b-col>
     <b-col sm="10">
-      <b-form-input
-        id="input-large"
-        size="lg"
-        type="text"
-        placeholder="Enter your name"
-      ></b-form-input>
+      <b-form-input id="input-large" size="lg" type="text" placeholder="Enter your name" />
     </b-col>
   </b-row>
 </b-container>
@@ -223,34 +213,19 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
   <b-row class="my-1">
     <b-col sm="3"><label for="input-none">No State:</label></b-col>
     <b-col sm="9">
-      <b-form-input
-        id="input-none"
-        :state="null"
-        type="text"
-        placeholder="No validation"
-      ></b-form-input>
+      <b-form-input id="input-none" :state="null" type="text" placeholder="No validation" />
     </b-col>
   </b-row>
   <b-row class="my-1">
     <b-col sm="3"><label for="input-valid">Valid State:</label></b-col>
     <b-col sm="9">
-      <b-form-input
-        id="input-valid"
-        :state="true"
-        type="text"
-        placeholder="Valid input"
-      ></b-form-input>
+      <b-form-input id="input-valid" :state="true" type="text" placeholder="Valid input" />
     </b-col>
   </b-row>
   <b-row class="my-1">
     <b-col sm="3"><label for="input-invalid">Invalid State:</label></b-col>
     <b-col sm="9">
-      <b-form-input
-        id="input-invalid"
-        :state="false"
-        type="text"
-        placeholder="Invalid input"
-      ></b-form-input>
+      <b-form-input id="input-invalid" :state="false" type="text" placeholder="Invalid input" />
     </b-col>
   </b-row>
 </b-container>
@@ -272,7 +247,7 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
       :state="nameState"
       aria-describedby="inputLiveHelp inputLiveFeedback"
       placeholder="Enter your name"
-    ></b-form-input>
+    />
     <b-form-invalid-feedback id="inputLiveFeedback">
       <!-- This will only be shown if the preceeding input has an invalid state -->
       Enter at least 3 letters
@@ -358,7 +333,7 @@ Formatting does not occur if a `formatter` is not provided.
       placeholder="Enter your name"
       aria-describedby="inputFormatterHelp"
       :formatter="format"
-    ></b-form-input>
+    />
     <b-form-text id="inputFormatterHelp">
       We will convert your name to lowercase instantly
     </b-form-text>
@@ -373,8 +348,8 @@ Formatting does not occur if a `formatter` is not provided.
       aria-describedby="inputLazyHelp"
       :formatter="format"
       lazy-formatter
-    ></b-form-input>
-    <b-form-text id="inputLazyHelp"> This one is a little lazy! </b-form-text>
+    />
+    <b-form-text id="inputLazyHelp">This one is a little lazy!</b-form-text>
     <p>Value: {{ text2 }}</p>
   </div>
 </template>
