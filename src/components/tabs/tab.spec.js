@@ -259,11 +259,6 @@ describe('tab', async () => {
       }
     })
 
-    wrapper.vm.$on('update:active', (val) => {
-      updateCalled = true
-      value = val
-    })
-
     expect(activateCalled).toBe(false)
     expect(activateVm).toBe(null)
     expect(deactivateCalled).toBe(false)
