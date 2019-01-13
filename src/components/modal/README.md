@@ -9,7 +9,7 @@
   <b-btn v-b-modal.modal1>Launch demo modal</b-btn>
 
   <!-- Modal Component -->
-  <b-modal id="modal1" title="Bootstrap-Vue"><p class="my-4">Hello from modal!</p></b-modal>
+  <b-modal id="modal1" title="BootstrapVue"><p class="my-4">Hello from modal!</p></b-modal>
 </div>
 
 <!-- modal-1.vue -->
@@ -60,7 +60,7 @@ Other elements can easily show modals using the `v-b-modal` directive.
 ```
 
 This approach will automatically return focus to the trigger element once the modal closes (similar
-to default bootstrap functionality). Other approaches for toggling modal visibility will require
+to default Bootstrap functionality). Other approaches for toggling modal visibility will require
 additional code to implement this accessibility feature.
 
 See the **Accessibility** section below for details.
@@ -278,7 +278,7 @@ Vertically center your modal in the viewport by setting the `centered` prop.
   <b-btn v-b-modal.modal-center>Launch centered modal</b-btn>
 
   <!-- Modal Component -->
-  <b-modal id="modal-center" centered title="Bootstrap-Vue">
+  <b-modal id="modal-center" centered title="BootstrapVue">
     <p class="my-4">Vertically centered modal!</p>
   </b-modal>
 </div>
@@ -419,7 +419,7 @@ To disable both **Cancel** and **OK** buttons at the same time, simply set the `
 
 ## Multiple modal support
 
-Unlike native Bootstrap V4, Bootstrap-Vue supports multiple modals opened at the same time.
+Unlike native Bootstrap V4, BootstrapVue supports multiple modals opened at the same time.
 
 To disable stacking for a specific modal, just set the prop `no-stacking` on the `<b-modal>`
 component. This will hide the modal before another modal is shown.

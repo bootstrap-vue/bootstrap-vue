@@ -552,7 +552,7 @@ values: `sm`, `md`, `lg`, or `xl`.
 
 ## Stacked tables
 
-An alternative to responsive tables, Bootstrap-Vue includes the stacked table option (using custom
+An alternative to responsive tables, BootstrapVue includes the stacked table option (using custom
 SCSS/CSS), which allow tables to be rendered in a visually stacked format. Make any table stacked
 across _all viewports_ by setting the prop `stacked` to `true`. Or, alternatively, set a breakpoint
 at which the table will return to normal table format by setting the prop `stacked` to one of the

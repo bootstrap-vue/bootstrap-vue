@@ -4,7 +4,7 @@ describe('breadcrumb', async () => {
   beforeEach(loadFixture(__dirname, 'breadcrumb'))
   testVM()
 
-  it('should apply bootstrap breadcrumb classes', async () => {
+  it('should apply Bootstrap breadcrumb classes', async () => {
     const { app: { $refs } } = window
     const $ol = $refs.breadcrumb1
 

@@ -390,9 +390,9 @@ Released: 2017-12-15
   [#1391](https://github.com/bootstrap-vue/bootstrap-vue/issues/1391)
 - **form-group:** import b-form-row directly from layout
   ([8dcce39](https://github.com/bootstrap-vue/bootstrap-vue/commit/8dcce39))
-- **form-radio-group:** prepare for bootstrap V4.beta.3
+- **form-radio-group:** prepare for Bootstrap V4.beta.3
   ([39eb237](https://github.com/bootstrap-vue/bootstrap-vue/commit/39eb237))
-- **form-radio-group:** prepare for bootstrap V4.beta.3
+- **form-radio-group:** prepare for Bootstrap V4.beta.3
   ([5b659d1](https://github.com/bootstrap-vue/bootstrap-vue/commit/5b659d1))
 - **id mixin:** set prop type to String
   ([9a6eaa5](https://github.com/bootstrap-vue/bootstrap-vue/commit/9a6eaa5))
@@ -747,9 +747,9 @@ Relesed: 2017-11-07
 
 Released: 2017-11-05
 
-**Version v1.0.0 marks Bootstrap-Vue's departure from the beta development phase.**
+**Version v1.0.0 marks BootstrapVue's departure from the beta development phase.**
 
-Bootstrap-Vue v1.0.0 is based on the latest Bootstrap v4.0.0-beta.2 CSS, although it should work
+BootstrapVue v1.0.0 is based on the latest Bootstrap v4.0.0-beta.2 CSS, although it should work
 without major changes when Bootstrap V4.0.0-beta.3 is released.
 
 Notable changes:
@@ -1077,7 +1077,7 @@ to generate a series of radio inputs.
   ([f1730ee](https://github.com/bootstrap-vue/bootstrap-vue/commit/f1730ee))
 - **docs:** Hide TOC sub-sections when not `active`
   ([9d5a626](https://github.com/bootstrap-vue/bootstrap-vue/commit/9d5a626))
-- **docs:** New reference section wrt project relative urls and image based Bootstrap-Vue components
+- **docs:** New reference section wrt project relative urls and image based BootstrapVue components
   ([#1072](https://github.com/bootstrap-vue/bootstrap-vue/issues/1072))
   ([7809fb2](https://github.com/bootstrap-vue/bootstrap-vue/commit/7809fb2))
 - **docs:** search support
@@ -1703,7 +1703,7 @@ Released: 2017-08-09
 - **checkbox:** Add indeterminate state prop
   ([#720](https://github.com/bootstrap-vue/bootstrap-vue/issues/720))
   ([2271e7a](https://github.com/bootstrap-vue/bootstrap-vue/commit/2271e7a))
-- **collapse:** apply bootstrap classes during transition stages (issue
+- **collapse:** apply Bootstrap classes during transition stages (issue
   [#565](https://github.com/bootstrap-vue/bootstrap-vue/issues/565))
   ([#707](https://github.com/bootstrap-vue/bootstrap-vue/issues/707))
   ([947d253](https://github.com/bootstrap-vue/bootstrap-vue/commit/947d253))

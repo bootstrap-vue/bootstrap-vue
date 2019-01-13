@@ -406,7 +406,7 @@ To apply one of the contextual state icons on `<b-form-checkbox>`, set the `stat
 
 Normally a checkbox input can only have two states: _checked_ or _unchecked_. They can have any
 value, but they either submit that value (_checked_) or don't (_unchecked_) with a form submission
-(although Bootstrap-Vue allows a value for the _unchecked_ state)
+(although BootstrapVue allows a value for the _unchecked_ state)
 
 _Visually_, there are actually three states a checkbox can be in: _checked_, _unchecked_, or
 **_indeterminate_**.
