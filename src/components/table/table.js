@@ -1516,17 +1516,26 @@ export default {
       rows.push(h(false))
     }
 
+    // Is tbody transition enabled
+    const isTransGroup = this.tbodyTransitionProps || this.tbodyTransitionHandlers
+    let tbodyProps = {}
+    let tbodyOn = {}
+    if (isTransGroup) {
+      tbodyOn = this.tbodyTransitionHandlers || {}
+      tbodyProps = assign(
+        {},
+        this.tbodyTransitionProps || {},
+        // Always use tbody element as tag. Users can't override this.
+        { tag: 'tbody' }
+      )
+    }
+
     // Assemble the rows into the tbody
     const tbody = h(
-      'transition-group',
+      isTransGroup ? 'transition-group' : 'tbody',
       {
-        props: assign(
-          {},
-          this.tbodyTransitionProps || {},
-          // Always use tbody tag as element. Users can't override this.
-          { tag: 'tbody' }
-        ),
-        on: this.tbodyTransitionHandlers || {},
+        props: tbodyProps,
+        on: tbodyOn,
         class: this.bodyClasses,
         attrs: this.isStacked ? { role: 'rowgroup' } : {}
       },
