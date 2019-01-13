@@ -1522,7 +1522,7 @@ export default {
       {
         props: assign(
           {},
-          this.tbodyTransitionProps || { css: false },
+          this.tbodyTransitionProps || {},
           // Always use tbody tag as element. Users can't override this.
           { tag: 'tbody' }
         ),
