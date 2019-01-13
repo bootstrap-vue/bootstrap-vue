@@ -316,7 +316,7 @@ export default {
         return this.activateTab(this.tabs.filter(t => t !== tab).find(notDisabled))
       } else {
         // No tab specified
-        reutrn false
+        return false
       }
     },
     // Focus a tab button given it's b-tab instance
