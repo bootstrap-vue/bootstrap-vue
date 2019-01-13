@@ -247,13 +247,13 @@ describe('tab', async () => {
             card: false,
             noKeyNav: false,
             activateTab (tab) {
-              called = true
-              vm = tab
+              activateCalled = true
+              activateVm = tab
               return true
             },
             deactivateTab (tab) {
-              called = true
-              vm = tab
+              deactivateCalled = true
+              deactivateVm = tab
               return true
             }
           }
@@ -283,7 +283,7 @@ describe('tab', async () => {
     expect(deactivateCalled).toBe(false)
     expect(deactivateVm).toBe(null)
     expect(wrapper.vm.localActive).toBe(true)
-    
+
     updateCalled = false
     value = null
     activateCalled = false
