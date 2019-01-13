@@ -87,7 +87,7 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('card-body')
   })
 
-  it('emits event `update:active' when localActive becomes true', async () => {
+  it('emits event "update:active" when localActive becomes true', async () => {
     const wrapper = mount(Tab)
     
     let called = false
