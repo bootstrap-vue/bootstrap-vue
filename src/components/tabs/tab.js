@@ -129,7 +129,7 @@ export default {
   },
   methods: {
     // Transition handlers
-    beforeEnter () {
+    beforeEnter () /* instanbul ignore next: difficult to test rAF in JSDOM */ {
       // change opacity (add 'show' class) 1 frame after display
       // otherwise css transition won't happen
       // TODO: Move raf method into utils/dom.js
@@ -143,7 +143,7 @@ export default {
 
       raf(() => { this.show = true })
     },
-    beforeLeave () {
+    beforeLeave () /* instanbul ignore next: difficult to test rAF in JSDOM */ {
       // Remove the 'show' class
       this.show = false
     },
