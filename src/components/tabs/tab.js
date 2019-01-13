@@ -124,14 +124,6 @@ export default {
     }
   },
   methods: {
-    // Public methods
-    activate () {
-      if (this.bTabs.activateTab && !this.disabled) {
-        return this.bTabs.activateTab(this)
-      } else {
-        return false
-      }
-    },
     // Transition handlers
     beforeEnter () {
       // change opacity (add 'show' class) 1 frame after display
@@ -150,7 +142,22 @@ export default {
     beforeLeave () {
       // Remove the 'show' class
       this.show = false
-    }
+    },
+    // Public methods
+    activate () {
+      if (this.bTabs.activateTab && !this.disabled) {
+        return this.bTabs.activateTab(this)
+      } else {
+        return false
+      }
+    },
+    deactivate () {
+      if (this.bTabs.deactivateTab) {
+        return this.bTabs.deactivateTab(this)
+      } else {
+        return false
+      }
+    },
   },
   render (h) {
     let content = h(
