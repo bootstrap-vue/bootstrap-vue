@@ -355,9 +355,7 @@ describe('tab', async () => {
   })
 
   it('has class show when localActive becomes true', async () => {
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
-      cb()
-    })
+    window.requestAnimationFrame = (cb) => { setTimeout(cb, 0) }
 
     const wrapper = mount(Tab, {
       attachToDocument: true,
@@ -374,6 +372,7 @@ describe('tab', async () => {
     expect(wrapper.classes()).not.toContain('show')
 
     wrapper.setData({ localActive: true })
+    await wrapper.vm.$nextTick()
     jest.runAllTimers()
     await wrapper.vm.$nextTick()
 
@@ -381,6 +380,7 @@ describe('tab', async () => {
     expect(wrapper.classes()).toContain('active')
 
     wrapper.setData({ localActive: false })
+    await wrapper.vm.$nextTick()
     jest.runAllTimers()
     await wrapper.vm.$nextTick()
 
