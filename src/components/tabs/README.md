@@ -1,40 +1,39 @@
 # Tabs
 
-> Create a widget of tabbable panes of _local content_. The tabs component is built upon navs and cards
-> internally, and provides full keyboard navigation control of the tabs.
+> Create a widget of tabbable panes of _local content_. The tabs component is built upon navs and
+> cards internally, and provides full keyboard navigation control of the tabs.
 
 For navigation based tabs (i.e. tabs that would change the URL), use the
 [`<b-nav>`](/docs/components/nav) component instead.
-
 
 ## Basic usage
 
 ```html
 <b-tabs>
-  <b-tab title="first" active><p class="m-3">I'm the first fading tab</p></b-tab>
-  <b-tab title="second"><p class="m-3">I'm the second tab content</p></b-tab>
-  <b-tab title="disabled" disabled><p class="m-3">Disabled tab!</p></b-tab>
+  <b-tab title="first" active><p class="p-3">I'm the first fading tab</p></b-tab>
+  <b-tab title="second"><p class="p-3">I'm the second tab content</p></b-tab>
+  <b-tab title="disabled" disabled><p class="p-3">Disabled tab!</p></b-tab>
 </b-tabs>
 
 <!-- basic.vue -->
 ```
 
-**Tip:** You should supply each child `<b-tab>` component a unique `key` value if dynamically
-adding or removing `<b-tab>` components (i.e. `v-if` or for loops). The `key` attribute is a
-special Vue attribute, see https://vuejs.org/v2/api/#key).
-
+**Tip:** You should supply each child `<b-tab>` component a unique `key` value if dynamically adding
+or removing `<b-tab>` components (i.e. `v-if` or for loops). The `key` attribute is a special Vue
+attribute, see https://vuejs.org/v2/api/#key).
 
 ## Cards Integration
 
 Tabs support integrating with bootstrap cards. Just add the `card` property to `<b-tabs>`. and place
-it inside a `<b-card>` component. Note that you should add `no-body` prop on the `<b-card>` component
-in order to propertly decorate the card header and remove the extra padding introduced by `card-body`.
+it inside a `<b-card>` component. Note that you should add `no-body` prop on the `<b-card>`
+component in order to propertly decorate the card header and remove the extra padding introduced by
+`card-body`.
 
 ```html
 <b-card no-body>
   <b-tabs card>
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
   </b-tabs>
 </b-card>
 
@@ -73,9 +72,8 @@ When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatical
 <!-- with-card-nobody.vue -->
 ```
 
-**Note:** Setting the `no-body` prop on `<b-tab>` will have no affect when `<b-tabs>` is not in `card` mode
-(as the `card-body` class is only set when in `card` mode).
-
+**Note:** Setting the `no-body` prop on `<b-tab>` will have no affect when `<b-tabs>` is not in
+`card` mode (as the `card-body` class is only set when in `card` mode).
 
 ## Pills variant
 
@@ -85,8 +83,8 @@ variant.
 ```html
 <b-card no-body>
   <b-tabs pills card>
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
   </b-tabs>
 </b-card>
 
@@ -100,8 +98,8 @@ Visually move the tab controls to the bottom by setting the prop `end`
 ```html
 <b-card no-body>
   <b-tabs pills card end>
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
   </b-tabs>
 </b-card>
 
@@ -127,9 +125,9 @@ tabs work with or without `card` mode enabled.
 ```html
 <b-card no-body>
   <b-tabs pills card vertical>
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
-    <b-tab title="Tab 3"> Tab Contents 3 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
+    <b-tab title="Tab 3">Tab Contents 3</b-tab>
   </b-tabs>
 </b-card>
 
@@ -141,9 +139,9 @@ Visually move the tab controls to the right hand side by setting the `end` prop:
 ```html
 <b-card no-body>
   <b-tabs pills card vertical end>
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
-    <b-tab title="Tab 3"> Tab Contents 3 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
+    <b-tab title="Tab 3">Tab Contents 3 </b-tab>
   </b-tabs>
 </b-card>
 
@@ -158,9 +156,9 @@ column classes such as `col-2`, `col-3`, etc.
 ```html
 <b-card no-body>
   <b-tabs pills card vertical nav-wrapper-class="w-50">
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
-    <b-tab title="Tab 3"> Tab Contents 3 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
+    <b-tab title="Tab 3">Tab Contents 3</b-tab>
   </b-tabs>
 </b-card>
 
@@ -193,45 +191,43 @@ If you want to add extra tabs that do not have any content, you can put them in 
 <!-- tabs-item-slot.vue -->
 ```
 
-**Note:** extra (contentless) tabs should be a `<b-nav-item>` or have the class `nav-item`
-with a root element of `<li>` for proper rendering.
-
+**Note:** extra (contentless) tabs should be a `<b-nav-item>` or have the class `nav-item` with a
+root element of `<li>` for proper rendering.
 
 ## Add custom content to tab title
 
-If you want to add custom content to tab title, like HTML code, icons, or another
-non-interactive Vue component, this possible by using `title` slot
+If you want to add custom content to tab title, like HTML code, icons, or another non-interactive
+Vue component, this possible by using `title` slot
 
 ```html
 <b-tabs>
   <b-tab active>
     <template slot="title">
-      <b-spinner type="grow" small /> i'm <i>Custom</i> <strong>Title</strong>
+      <b-spinner type="grow" small /> I'm <i>Custom</i> <strong>Title</strong>
     </template>
-    <p class="m-3">Tab Contents 1</p>
+    <p class="p-3">Tab Contents 1</p>
   </b-tab>
   <b-tab>
     <template slot="title">
-      <b-spinner type="border" small /> tab 2
+      <b-spinner type="border" small /> Tab 2
     </template>
-    <p class="m-3">Tab Contents 2</p>
+    <p class="p-3">Tab Contents 2</p>
   </b-tab>
 </b-tabs>
 
 <!-- tabs-title-slot.vue -->
 ```
 
-**Do not** place interactive elements/components inside the title slot. The tab button is a
-link which does not support child interactive elements per the HTML5 spec.
-
+**Do not** place interactive elements/components inside the title slot. The tab button is a link
+which does not support child interactive elements per the HTML5 spec.
 
 ## Apply custom classes to the generated nav-tabs or pills
 
-The tab selectors are based on Boostrap V4's `nav` markup ( i.e. `ul.nav > li.nav-item > a.nav-link`).
-In some situations, you may want to add classes to the `<li>` (nav-item) and/or the `<a>` (nav-link)
-on a per tab basis. To do so, simply supply the classname to the `title-item-class` prop (for the
-`<li>` element) or `title-link-class` prop (for the `<a>` element). Value's can be passed as a string
-or array of strings.
+The tab selectors are based on Boostrap V4's `nav` markup ( i.e.
+`ul.nav > li.nav-item > a.nav-link`). In some situations, you may want to add classes to the `<li>`
+(nav-item) and/or the `<a>` (nav-link) on a per tab basis. To do so, simply supply the classname to
+the `title-item-class` prop (for the `<li>` element) or `title-link-class` prop (for the `<a>`
+element). Value's can be passed as a string or array of strings.
 
 **Note:** _The `active` class is automatically applied to the active tabs `<a>` element. You may
 need to accomodate your custom classes for this._
@@ -240,9 +236,9 @@ need to accomodate your custom classes for this._
 <template>
   <b-card no-body>
     <b-tabs card v-model="tabIndex">
-      <b-tab title="Tab 1" :title-link-class="linkClass(0)"> Tab Contents 1 </b-tab>
-      <b-tab title="Tab 2" :title-link-class="linkClass(1)"> Tab Contents 2 </b-tab>
-      <b-tab title="Tab 3" :title-link-class="linkClass(2)"> Tab Contents 3 </b-tab>
+      <b-tab title="Tab 1" :title-link-class="linkClass(0)">Tab Contents 1</b-tab>
+      <b-tab title="Tab 2" :title-link-class="linkClass(1)">Tab Contents 2</b-tab>
+      <b-tab title="Tab 3" :title-link-class="linkClass(2)">Tab Contents 3</b-tab>
     </b-tabs>
   </b-card>
 </template>
@@ -271,8 +267,8 @@ need to accomodate your custom classes for this._
 
 ## Keyboard Navigation
 
-Keyboard navigation is enabled by default for ARIA compliance with tablists when
-a tab button has focus.
+Keyboard navigation is enabled by default for ARIA compliance with tablists when a tab button has
+focus.
 
 | Keypress                                                              | Action                                         |
 | --------------------------------------------------------------------- | ---------------------------------------------- |
@@ -285,8 +281,8 @@ a tab button has focus.
 | <kbd>TAB</kbd>                                                        | Move focus to the active tab content           |
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd>                                       | Move focus to the previous control on the page |
 
-Disable keyboard navigation by setting the prop `no-key-nav`. Behavior will now default to
-regular browser navigation with TAB key.
+Disable keyboard navigation by setting the prop `no-key-nav`. Behavior will now default to regular
+browser navigation with TAB key.
 
 | Keypress                        | Action                                                 |
 | ------------------------------- | ------------------------------------------------------ |
@@ -294,21 +290,19 @@ regular browser navigation with TAB key.
 | <kbd>SHIFT</kbd>+<kbd>TAB</kbd> | Move to the previous tab button or control on the page |
 | <kbd>ENTER</kbd>                | Activate current focused button's tab                  |
 
-
 ## Programatically activating and deactivating tabs
 
-Use the `<b-tabs>` v-model to control which tab is active by setting the v-model to
-the index (zero-based) of the tab to be shown (see example below).
+Use the `<b-tabs>` v-model to control which tab is active by setting the v-model to the index
+(zero-based) of the tab to be shown (see example below).
 
-Alternatively, you can use the `active` prop on each `<b-tab>` with the `.sync` modifier
-to activate the tab, or to detect if a particular tab is active.
+Alternatively, you can use the `active` prop on each `<b-tab>` with the `.sync` modifier to activate
+the tab, or to detect if a particular tab is active.
 
-Each `<b-tab>` instance also provides two public methods to activate or deactivate
-the tab. The methods are `.activate()` and `.deactivate()`, respectively. If activation
-or deactivaton fails (i.e. a tab is disabled or no tab is available to move activation
-to), then the currently active tab will remain active and the method will return `false`.
-You will need a reference to the `<b-tab>` in order to use these methods.
-
+Each `<b-tab>` instance also provides two public methods to activate or deactivate the tab. The
+methods are `.activate()` and `.deactivate()`, respectively. If activation or deactivaton fails
+(i.e. a tab is disabled or no tab is available to move activation to), then the currently active tab
+will remain active and the method will return `false`. You will need a reference to the `<b-tab>` in
+order to use these methods.
 
 ## Advanced Examples
 
@@ -320,13 +314,13 @@ You will need a reference to the `<b-tab>` in order to use these methods.
     <!-- Tabs with card integration -->
     <b-card no-body>
       <b-tabs small card v-model="tabIndex">
-        <b-tab title="General"> I'm the first fading tab </b-tab>
+        <b-tab title="General">I'm the first fading tab</b-tab>
         <b-tab title="Edit profile">
           I'm the second tab
           <b-card>I'm the card in tab</b-card>
         </b-tab>
-        <b-tab title="Premium Plan" disabled> Sibzamini! </b-tab>
-        <b-tab title="Info"> I'm the last tab </b-tab>
+        <b-tab title="Premium Plan" disabled>Sibzamini!</b-tab>
+        <b-tab title="Info">I'm the last tab</b-tab>
       </b-tabs>
     </b-card>
 
@@ -337,7 +331,7 @@ You will need a reference to the `<b-tab>` in order to use these methods.
         <b-btn @click="tabIndex++">Next</b-btn>
       </b-button-group>
       <br />
-      <span class="text-muted">Current Tab: {{tabIndex}}</span>
+      <span class="text-muted">Current Tab: {{ tabIndex }}</span>
     </div>
   </div>
 </template>
@@ -364,7 +358,7 @@ You will need a reference to the `<b-tab>` in order to use these methods.
       <b-tabs card>
         <!-- Render Tabs, supply a unique `key` to each tab -->
         <b-tab :title="`Tab ${i}`" v-for="i in tabs" :key="`dyntab-${i}`">
-          Tab Contents {{i}}
+          Tab Contents {{ i }}
           <b-btn size="sm" variant="danger" class="float-right" @click="()=>closeTab(i)">
             Close tab
           </b-btn>

@@ -57,7 +57,7 @@ tags to load the required javascript and CSS in your page.
           <b-form-input v-model.trim="name"></b-form-input>
         </b-form-group>
 
-        <b-alert variant="success" :show="showAlert"> Hello {{ name }} </b-alert>
+        <b-alert variant="success" :show="showAlert">Hello {{ name }}</b-alert>
       </b-container>
     </div>
 
@@ -127,30 +127,30 @@ can import `<b-card>` (plus it's sub components) and `<b-table>` as follows:
 
 ```js
 // Import the individual components
-import bCard from 'bootstrap-vue/es/components/card/card'
-import bCardHeader from 'bootstrap-vue/es/components/card/card-header'
-import bCardBody from 'bootstrap-vue/es/components/card/card-body'
-import bCardFooter from 'bootstrap-vue/es/components/card/card-footer'
-import bCardImage from 'bootstrap-vue/es/components/card/card-footer'
-import bTable from 'bootstrap-vue/es/components/table/table'
+import BCard from 'bootstrap-vue/es/components/card/card'
+import BCardHeader from 'bootstrap-vue/es/components/card/card-header'
+import BCardBody from 'bootstrap-vue/es/components/card/card-body'
+import BCardFooter from 'bootstrap-vue/es/components/card/card-footer'
+import BCardImage from 'bootstrap-vue/es/components/card/card-footer'
+import BTable from 'bootstrap-vue/es/components/table/table'
 
 // Add components globally:
-Vue.component('b-card', bCard)
-Vue.component('b-card-header', bCardHeader)
-Vue.component('b-card-body', bCardBody)
-Vue.component('b-card-footer', bCardFooter)
-Vue.component('b-card-img', bCardImg)
-Vue.component('b-table', bTable)
+Vue.component('b-card', BCard)
+Vue.component('b-card-header', BCardHeader)
+Vue.component('b-card-body', BCardBody)
+Vue.component('b-card-footer', BCardFooter)
+Vue.component('b-card-img', BCardImg)
+Vue.component('b-table', BTable)
 
 // Or make available to your component or app:
 export default {
   components: {
-    bCard,
-    bCardHeader,
-    bCardBody,
-    bCardFooter,
-    bCardImg,
-    bTable
+    BCard,
+    BCardHeader,
+    BCardBody,
+    BCardFooter,
+    BCardImg,
+    BTable
   }
   // ...
 }

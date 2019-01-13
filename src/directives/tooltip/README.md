@@ -37,73 +37,73 @@ The default position is `top`. Positioning is relative to the trigger element.
 
 <div class="bd-example bd-example-tooltip-static">
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
-    <div class="arrow"></div>
+    <div class="arrow" style="left: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the top
     </div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
-    <div class="arrow" style="left:93%"></div>
+    <div class="arrow" style="right: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the topleft
     </div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
-    <div class="arrow" style="left:5%"></div>
+    <div class="arrow" style="left: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the topright
     </div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
-    <div class="arrow"></div>
+    <div class="arrow" style="top: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the right
     </div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
-    <div class="arrow" style="top:60%"></div>
+    <div class="arrow" style="bottom: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the righttop
     </div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
-    <div class="arrow" style="top:26%"></div>
+    <div class="arrow" style="top: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the rightbottom
     </div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
-    <div class="arrow"></div>
+    <div class="arrow" style="left: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the bottom
     </div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
-    <div class="arrow" style="left:93%"></div>
+    <div class="arrow" style="right: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the bottomleft
     </div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
-    <div class="arrow" style="left:5%"></div>
+    <div class="arrow" style="left: 6px"></div>
     <div class="tooltip-inner">
       Tooltip on the bottomright
     </div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
-    <div class="arrow"></div>
+    <div class="arrow" style="top: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the left
     </div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
-    <div class="arrow" style="top:60%"></div>
+    <div class="arrow" style="bottom: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the lefttop
     </div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
-    <div class="arrow" style="top:26%"></div>
+    <div class="arrow" style="top: 4px"></div>
     <div class="tooltip-inner">
       Tooltip on the leftbottom
     </div>
@@ -276,19 +276,19 @@ Where `<value>` can be (optional):
 
 **Options configuration object properties:**
 
-| Property            | Type                            | Default                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `animation`         | boolean                         | `true`                                                                                                      | Apply a CSS fade transition to the tooltip.                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `container`         | string or Element or `false`    | `false`                                                                                                     | Appends the tooltip to a specific element. Example: `container: 'body'`. This option is particularly useful in that it allows you to position the tooltip in the flow of the document near the triggering element - which will prevent the tooltip from floating away from the triggering element during a window resize. When set to `false` the tooltip will be appended to `body`, or if the trigger element is inside a modal it will append to the modal's container. |
-| `delay`             | Number or Object                | `0`                                                                                                         | Delay showing and hiding the tooltip (ms). If a number is supplied, delay is applied to both hide/show. Object structure is: `delay: { "show": 500, "hide": 100 }`                                                                                                                                                                                                                                                                                                         |
-| `html`              | Boolean                         | `false`                                                                                                     | Allow HTML in the tooltip. If true, HTML tags in the tooltip's title will be rendered in the tooltip. If false, the titkle will be inserted as plain text. Use text if you're worried about XSS attacks.                                                                                                                                                                                                                                                                   |
-| `placement`         | String or Function              | `'top'`                                                                                                     | How to position the tooltip - `auto`, `top`, `bottom`, `left`, `right`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom`. When `auto` is specified, it will dynamically reorient the tooltip.                                                                                                                                                                                                                     |
-| `template`          | String                          | `'<div class="tooltip" role="tooltip"> <div class="arrow"></div> <div class="tooltip-inner"></div> </div>'` | Base HTML to use when creating the tooltip. The tooltip's title will be injected into the `.tooltip-inner`, while `.arrow` will become the tooltip's arrow. The outermost wrapper element should have the `.tooltip` class.                                                                                                                                                                                                                                                |
-| `title`             | String or Element or function   | `''`                                                                                                        | Default title value if title attribute isn't present. If a function is given, it must return a string.                                                                                                                                                                                                                                                                                                                                                                     |
-| `trigger`           | String                          | `'hover focus'`                                                                                             | How tooltip is triggered: `click`, `hover`, `focus`. You may pass multiple triggers; separate them with a space.                                                                                                                                                                                                                                                                                                                                                           |
-| `offset`            | Number or String                | `0`                                                                                                         | Offset of the tooltip relative to its target. For more information refer to Popper.js's offset docs.                                                                                                                                                                                                                                                                                                                                                                       |
-| `fallbackPlacement` | String or Array                 | `'flip'`                                                                                                    | Allow to specify which position Popper will use on fallback. For more information refer to Popper.js's behavior docs.                                                                                                                                                                                                                                                                                                                                                      |
-| `boundary`          | String or HTMLElement reference | `'scrollParent'`                                                                                            | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to chagne this if your target element is in a small container with overflow scroll. Supported values: `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                                                                                                                     |
+| Property            | Type                            | Default                                                                                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `animation`         | boolean                         | `true`                                                                                                   | Apply a CSS fade transition to the tooltip.                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `container`         | string or Element or `false`    | `false`                                                                                                  | Appends the tooltip to a specific element. Example: `container: 'body'`. This option is particularly useful in that it allows you to position the tooltip in the flow of the document near the triggering element - which will prevent the tooltip from floating away from the triggering element during a window resize. When set to `false` the tooltip will be appended to `body`, or if the trigger element is inside a modal it will append to the modal's container. |
+| `delay`             | Number or Object                | `0`                                                                                                      | Delay showing and hiding the tooltip (ms). If a number is supplied, delay is applied to both hide/show. Object structure is: `delay: { "show": 500, "hide": 100 }`                                                                                                                                                                                                                                                                                                         |
+| `html`              | Boolean                         | `false`                                                                                                  | Allow HTML in the tooltip. If true, HTML tags in the tooltip's title will be rendered in the tooltip. If false, the titkle will be inserted as plain text. Use text if you're worried about XSS attacks.                                                                                                                                                                                                                                                                   |
+| `placement`         | String or Function              | `'top'`                                                                                                  | How to position the tooltip - `auto`, `top`, `bottom`, `left`, `right`, `topleft`, `topright`, `bottomleft`, `bottomright`, `lefttop`, `leftbottom`, `righttop`, or `rightbottom`. When `auto` is specified, it will dynamically reorient the tooltip.                                                                                                                                                                                                                     |
+| `template`          | String                          | `'<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'` | Base HTML to use when creating the tooltip. The tooltip's title will be injected into the `.tooltip-inner`, while `.arrow` will become the tooltip's arrow. The outermost wrapper element should have the `.tooltip` class.                                                                                                                                                                                                                                                |
+| `title`             | String or Element or function   | `''`                                                                                                     | Default title value if title attribute isn't present. If a function is given, it must return a string.                                                                                                                                                                                                                                                                                                                                                                     |
+| `trigger`           | String                          | `'hover focus'`                                                                                          | How tooltip is triggered: `click`, `hover`, `focus`. You may pass multiple triggers; separate them with a space.                                                                                                                                                                                                                                                                                                                                                           |
+| `offset`            | Number or String                | `0`                                                                                                      | Offset of the tooltip relative to its target. For more information refer to Popper.js's offset docs.                                                                                                                                                                                                                                                                                                                                                                       |
+| `fallbackPlacement` | String or Array                 | `'flip'`                                                                                                 | Allow to specify which position Popper will use on fallback. For more information refer to Popper.js's behavior docs.                                                                                                                                                                                                                                                                                                                                                      |
+| `boundary`          | String or HTMLElement reference | `'scrollParent'`                                                                                         | The container that the tooltip will be constrained visually. The default should suffice in most cases, but you may need to chagne this if your target element is in a small container with overflow scroll. Supported values: `'scrollParent'` (default), `'viewport'`, `'window'`, or a reference to an HTML element.                                                                                                                                                     |
 
 ### Usage
 
@@ -314,16 +314,16 @@ v-b-tooltip.right
 **Trigger examples:**
 
 ```
-v-b-tooltip.hover  => Hover only
-v-b-tooltip.click  => Click only
+v-b-tooltip.hover => Hover only
+v-b-tooltip.click => Click only
 v-b-tooltip.hover.focus => Both hover and focus
 ```
 
 **Combo:**
 
 ```
-v-b-tooltip.hover.bottom  => Show on hover and place at bottom
-v-b-tooltip.bottom.hover  => Same as above
+v-b-tooltip.hover.bottom => Show on hover and place at bottom
+v-b-tooltip.bottom.hover => Same as above
 ```
 
 **Object:**

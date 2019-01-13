@@ -10,18 +10,18 @@ For pagination that navigates to a new URL, use the
 <template>
   <div style="overflow-x:auto;">
     <h6>Default</h6>
-    <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10"> </b-pagination>
+    <b-pagination size="md" :total-rows="100" v-model="currentPage" :per-page="10" />
     <br />
 
     <h6>Small</h6>
-    <b-pagination size="sm" :total-rows="100" v-model="currentPage" :per-page="10"> </b-pagination>
+    <b-pagination size="sm" :total-rows="100" v-model="currentPage" :per-page="10" />
     <br />
 
     <h6>Large</h6>
-    <b-pagination size="lg" :total-rows="100" v-model="currentPage" :per-page="10"> </b-pagination>
+    <b-pagination size="lg" :total-rows="100" v-model="currentPage" :per-page="10" />
     <br />
 
-    <div>currentPage: {{currentPage}}</div>
+    <div>currentPage: {{ currentPage }}</div>
   </div>
 </template>
 
@@ -97,7 +97,7 @@ By default the pagination component is left aligned. Change the alignment to `ce
 <template>
   <div>
     <h6>Left alignment (default)</h6>
-    <b-pagination :total-rows="100" v-model="currentPage" :per-page="10"> </b-pagination>
+    <b-pagination :total-rows="100" v-model="currentPage" :per-page="10" />
     <br />
 
     <h6>Center alignment</h6>
@@ -110,7 +110,7 @@ By default the pagination component is left aligned. Change the alignment to `ce
     </b-pagination>
     <br />
 
-    <div>currentPage: {{currentPage}}</div>
+    <div>currentPage: {{ currentPage }}</div>
   </div>
 </template>
 

@@ -44,7 +44,7 @@ error message component.
         This is a required field
       </b-form-invalid-feedback>
     </b-form-group>
-    <b-button type="submit" variant="primary" :disabled="$v.form.$invalid"> Submit </b-button>
+    <b-button type="submit" variant="primary" :disabled="$v.form.$invalid">Submit</b-button>
   </b-form>
 </template>
 
@@ -136,7 +136,7 @@ Same example as above, just modified for vee-validate:
         This is a required field
       </b-form-invalid-feedback>
     </b-form-group>
-    <b-button type="submit" variant="primary" :disabled="form.errors.any()"> Submit </b-button>
+    <b-button type="submit" variant="primary" :disabled="form.errors.any()">Submit</b-button>
   </b-form>
 </template>
 
