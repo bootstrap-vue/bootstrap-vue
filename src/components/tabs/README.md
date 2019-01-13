@@ -32,8 +32,8 @@ component in order to propertly decorate the card header and remove the extra pa
 ```html
 <b-card no-body>
   <b-tabs card>
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
   </b-tabs>
 </b-card>
 
@@ -83,8 +83,8 @@ variant.
 ```html
 <b-card no-body>
   <b-tabs pills card>
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
   </b-tabs>
 </b-card>
 
@@ -98,8 +98,8 @@ Visually move the tab controls to the bottom by setting the prop `end`
 ```html
 <b-card no-body>
   <b-tabs pills card end>
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
   </b-tabs>
 </b-card>
 
@@ -125,9 +125,9 @@ tabs work with or without `card` mode enabled.
 ```html
 <b-card no-body>
   <b-tabs pills card vertical>
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
-    <b-tab title="Tab 3"> Tab Contents 3 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
+    <b-tab title="Tab 3">Tab Contents 3</b-tab>
   </b-tabs>
 </b-card>
 
@@ -139,9 +139,9 @@ Visually move the tab controls to the right hand side by setting the `end` prop:
 ```html
 <b-card no-body>
   <b-tabs pills card vertical end>
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
-    <b-tab title="Tab 3"> Tab Contents 3 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
+    <b-tab title="Tab 3">Tab Contents 3 </b-tab>
   </b-tabs>
 </b-card>
 
@@ -156,9 +156,9 @@ column classes such as `col-2`, `col-3`, etc.
 ```html
 <b-card no-body>
   <b-tabs pills card vertical nav-wrapper-class="w-50">
-    <b-tab title="Tab 1" active> Tab Contents 1 </b-tab>
-    <b-tab title="Tab 2"> Tab Contents 2 </b-tab>
-    <b-tab title="Tab 3"> Tab Contents 3 </b-tab>
+    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+    <b-tab title="Tab 2">Tab Contents 2</b-tab>
+    <b-tab title="Tab 3">Tab Contents 3</b-tab>
   </b-tabs>
 </b-card>
 
@@ -203,13 +203,13 @@ Vue component, this possible by using `title` slot
 <b-tabs>
   <b-tab active>
     <template slot="title">
-      <b-spinner type="grow" small /> i'm <i>Custom</i> <strong>Title</strong>
+      <b-spinner type="grow" small /> I'm <i>Custom</i> <strong>Title</strong>
     </template>
     <p class="m-3">Tab Contents 1</p>
   </b-tab>
   <b-tab>
     <template slot="title">
-      <b-spinner type="border" small /> tab 2
+      <b-spinner type="border" small /> Tab 2
     </template>
     <p class="m-3">Tab Contents 2</p>
   </b-tab>
@@ -236,9 +236,9 @@ need to accomodate your custom classes for this._
 <template>
   <b-card no-body>
     <b-tabs card v-model="tabIndex">
-      <b-tab title="Tab 1" :title-link-class="linkClass(0)"> Tab Contents 1 </b-tab>
-      <b-tab title="Tab 2" :title-link-class="linkClass(1)"> Tab Contents 2 </b-tab>
-      <b-tab title="Tab 3" :title-link-class="linkClass(2)"> Tab Contents 3 </b-tab>
+      <b-tab title="Tab 1" :title-link-class="linkClass(0)">Tab Contents 1</b-tab>
+      <b-tab title="Tab 2" :title-link-class="linkClass(1)">Tab Contents 2</b-tab>
+      <b-tab title="Tab 3" :title-link-class="linkClass(2)">Tab Contents 3</b-tab>
     </b-tabs>
   </b-card>
 </template>
@@ -314,13 +314,13 @@ order to use these methods.
     <!-- Tabs with card integration -->
     <b-card no-body>
       <b-tabs small card v-model="tabIndex">
-        <b-tab title="General"> I'm the first fading tab </b-tab>
+        <b-tab title="General">I'm the first fading tab</b-tab>
         <b-tab title="Edit profile">
           I'm the second tab
           <b-card>I'm the card in tab</b-card>
         </b-tab>
-        <b-tab title="Premium Plan" disabled> Sibzamini! </b-tab>
-        <b-tab title="Info"> I'm the last tab </b-tab>
+        <b-tab title="Premium Plan" disabled>Sibzamini!</b-tab>
+        <b-tab title="Info">I'm the last tab</b-tab>
       </b-tabs>
     </b-card>
 
