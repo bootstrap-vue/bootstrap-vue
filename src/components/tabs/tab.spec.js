@@ -247,11 +247,13 @@ describe('tab', async () => {
             activateTab (tab) {
               activateCalled = true
               activateVm = tab
+              tab.localActive = true
               return true
             },
             deactivateTab (tab) {
               deactivateCalled = true
               deactivateVm = tab
+              tab.localActive = false
               return true
             }
           }
