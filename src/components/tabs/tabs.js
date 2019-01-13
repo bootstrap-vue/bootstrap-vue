@@ -199,7 +199,7 @@ export default {
       if (val === old) {
         return
       }
-      // Ensure only one tab is active
+      // Ensure only one tab is active at most
       this.tabs.forEach((tab, idx) => {
         tab.localActive = val === idx && !tab.disabled
       })
@@ -302,6 +302,21 @@ export default {
         }
       } else {
         return false
+      }
+    },
+    // Deactivate a tab given a b-tab instance
+    // Accessed by b-tab
+    deactivateTab (tab) {
+      if (tab) {
+        // Find first non-disabled tab that isn't the one being deactivated
+        const newTab = this.tabs.filter(t => t !== tab).find(notDisabled)
+        if (newTab) {
+          // activate found tab
+          this.activateTab(newTab)
+        } else {
+          // No tab to show
+          this.currentTab = -1
+        }
       }
     },
     // Focus a tab button given it's b-tab instance
