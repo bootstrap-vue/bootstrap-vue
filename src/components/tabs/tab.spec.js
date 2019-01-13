@@ -366,14 +366,14 @@ describe('tab', async () => {
 
     // JSDOM doesnt support requestAnimationFrame
     // So it falls back to setTimeout.  So we advance the time
-    jest.runAllPendingTimers()
+    jest.runAllTimers()
     await wrapper.vm.$nextTick()
 
     expect(wrapper.classes()).toContain('show')
     expect(wrapper.classes()).toContain('active')
 
     wrapper.setData({ localActive: false })
-    jest.runAllPendingTimers()
+    jest.runAllTimers()
     await wrapper.vm.$nextTick()
 
     expect(wrapper.classes()).not.toContain('show')
