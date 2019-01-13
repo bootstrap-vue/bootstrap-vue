@@ -117,7 +117,7 @@ export default {
     },
     disabled (newVal, oldVal) {
       if (newVal !== oldVal) {
-        if (!newVal && this.localActive && this.bTabs.firstTab) {
+        if (newVal && this.localActive && this.bTabs.firstTab) {
           this.localActive = false
           this.bTabs.firstTab()
         }
