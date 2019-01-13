@@ -122,7 +122,8 @@ export default {
   },
   updated () {
     // Force the tab button content to update (since slots are not reactive)
-    if (this.bTabs.updateButton) {
+    // Only done if we have a title slot, as the title prop is reactive
+    if (this.$slots.title && this.bTabs.updateButton) {
       this.bTabs.updateButton(this)
     }
   },
