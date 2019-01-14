@@ -9,10 +9,12 @@
   <b-btn v-b-modal.modal1>Launch demo modal</b-btn>
 
   <!-- Modal Component -->
-  <b-modal id="modal1" title="BootstrapVue"><p class="my-4">Hello from modal!</p></b-modal>
+  <b-modal id="modal1" title="BootstrapVue">
+    <p class="my-4">Hello from modal!</p>
+  </b-modal>
 </div>
 
-<!-- modal-1.vue -->
+<!-- modal.vue -->
 ```
 
 ## Overview
@@ -52,11 +54,11 @@ Other elements can easily show modals using the `v-b-modal` directive.
   <!-- Using value -->
   <b-btn v-b-modal="'myModal'">Show Modal</b-btn>
 
-  <!-- the modal -->
+  <!-- The modal -->
   <b-modal id="myModal">Hello From My Modal!</b-modal>
 </div>
 
-<!-- modal-directive-1.vue -->
+<!-- modal-directive.vue -->
 ```
 
 This approach will automatically return focus to the trigger element once the modal closes (similar
@@ -73,8 +75,11 @@ You can access modal using `ref` attribute and then call the `show()` or `hide()
 <template>
   <div>
     <b-button @click="showModal">Open Modal</b-button>
+
     <b-modal ref="myModalRef" hide-footer title="Using Component Methods">
-      <div class="d-block text-center"><h3>Hello From My Modal!</h3></div>
+      <div class="d-block text-center">
+        <h3>Hello From My Modal!</h3>
+      </div>
       <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
     </b-modal>
   </div>
@@ -93,7 +98,7 @@ You can access modal using `ref` attribute and then call the `show()` or `hide()
   }
 </script>
 
-<!-- modal-methods-1.vue -->
+<!-- modal-methods.vue -->
 ```
 
 The `hide()` method accepts an optional argument. See section **Prevent Closing** below for details.
@@ -107,6 +112,7 @@ show/hide using `v-model`.
 <template>
   <div>
     <b-button @click="modalShow = !modalShow">Open Modal</b-button>
+
     <b-modal v-model="modalShow">Hello From Modal!</b-modal>
   </div>
 </template>
@@ -121,7 +127,7 @@ show/hide using `v-model`.
   }
 </script>
 
-<!-- modal-v-model-1.vue -->
+<!-- modal-v-model.vue -->
 ```
 
 When using the `v-model` property, do not use the `visible` property at the same time.
@@ -136,6 +142,7 @@ reference.
 ```html
 <div>
   <b-button @click="showModal" ref="btnShow">Open Modal</b-button>
+
   <b-modal id="modal1" @hidden="onHidden">
     <div class="d-block">Hello From My Modal!</div>
     <b-btn @click="hideModal">Close Me</b-btn>
@@ -170,6 +177,7 @@ called synchronously, as async is not supported.
 <template>
   <div>
     <b-btn v-b-modal.modalPrevent>Launch demo modal</b-btn>
+
     <!-- Main UI -->
     <div class="mt-3 mb-3">
       Submitted Names:
@@ -177,6 +185,7 @@ called synchronously, as async is not supported.
         <li v-for="n in names">{{ n }}</li>
       </ul>
     </div>
+
     <!-- Modal Component -->
     <b-modal
       id="modalPrevent"
@@ -222,7 +231,7 @@ called synchronously, as async is not supported.
   }
 </script>
 
-<!-- modal-prevent-1.vue -->
+<!-- modal-prevent-closing.vue -->
 ```
 
 **Note**: events `ok` and `cancel` are emitted by modal's built in **OK** and **Cancel** buttons
@@ -283,7 +292,7 @@ Vertically center your modal in the viewport by setting the `centered` prop.
   </b-modal>
 </div>
 
-<!-- modal-center-v.vue -->
+<!-- modal-center-vertically.vue -->
 ```
 
 ## Using the grid
@@ -302,6 +311,7 @@ are appended by specifying a container ID (refer to tooltip and popover docs for
 ```html
 <div>
   <b-btn v-b-modal.modalPopover>Show Modal</b-btn>
+
   <b-modal id="modalPopover" title="Modal with Popover" ok-only>
     <p>
       This
@@ -332,6 +342,7 @@ the `header-border-variant` and `footer-border-variant` props respectively.
 <template>
   <div>
     <b-btn @click="show=true" variant="primary">Show Modal</b-btn>
+
     <b-modal
       v-model="show"
       title="Modal Variants"
@@ -348,22 +359,26 @@ the `header-border-variant` and `footer-border-variant` props respectively.
           <b-col>Background</b-col>
           <b-col>Text</b-col>
         </b-row>
+
         <b-row class="mb-1">
           <b-col cols="3">Header</b-col>
           <b-col><b-form-select :options="variants" v-model="headerBgVariant"/></b-col>
           <b-col><b-form-select :options="variants" v-model="headerTextVariant"/></b-col>
         </b-row>
+
         <b-row class="mb-1">
           <b-col cols="3">Body</b-col>
           <b-col><b-form-select :options="variants" v-model="bodyBgVariant"/></b-col>
           <b-col><b-form-select :options="variants" v-model="bodyTextVariant"/></b-col>
         </b-row>
+
         <b-row>
           <b-col cols="3">Footer</b-col>
           <b-col><b-form-select :options="variants" v-model="footerBgVariant"/></b-col>
           <b-col><b-form-select :options="variants" v-model="footerTextVariant"/></b-col>
         </b-row>
       </b-container>
+
       <div slot="modal-footer" class="w-100">
         <p class="float-left">Modal Footer Content</p>
         <b-btn size="sm" class="float-right" variant="primary" @click="show=false">Close</b-btn>
@@ -389,7 +404,7 @@ the `header-border-variant` and `footer-border-variant` props respectively.
   }
 </script>
 
-<!-- modal-variant-1.vue -->
+<!-- modal-variants.vue -->
 ```
 
 You can also apply abritrary classes to the modal dialog container, content (modal window itself),
@@ -427,14 +442,17 @@ component. This will hide the modal before another modal is shown.
 ```html
 <div>
   <b-button v-b-modal.modal-multi-1>Open First Modal</b-button>
+
   <b-modal id="modal-multi-1" size="lg" title="First Modal" ok-only no-stacking>
-    <p class="my-5">First Modal</p>
+    <p class="my-2">First Modal</p>
     <b-button v-b-modal.modal-multi-2>Open Second Modal</b-button>
   </b-modal>
+
   <b-modal id="modal-multi-2" title="Second Modal" ok-only>
     <p class="my-2">Second Modal</p>
     <b-button v-b-modal.modal-multi-3 size="sm">Open Third Modal</b-button>
   </b-modal>
+
   <b-modal id="modal-multi-3" size="sm" title="Third Modal" ok-only>
     <p class="my-1">Third Modal</p>
   </b-modal>
@@ -458,10 +476,10 @@ component. This will hide the modal before another modal is shown.
 To listen to any modal opening, use:
 
 ```js
-mounted () {
-  this.$root.$on("bv::modal::show", (bvEvent, modalId) => {
-    console.log("Modal is about to be shown", bvEvent, modalId);
-  });
+mounted() {
+  this.$root.$on('bv::modal::show', (bvEvent, modalId) => {
+    console.log('Modal is about to be shown', bvEvent, modalId)
+  })
 }
 ```
 
@@ -487,20 +505,28 @@ already has focus within the `<b-modal>`.
 
 ```html
 <b-modal @shown="focusMyElement">
-  <b-button>I Don't Have Focus</b-button>
-  <br />
-  <b-form-input type="text" />
-  <br />
-  <!-- element to gain focus when modal is opened -->
-  <b-form-input ref="focusThis" type="text" />
-  <br />
-  <b-form-input type="text" />
+  <div>
+    <b-button>I Don't Have Focus</b-button>
+  </div>
+
+  <div>
+    <b-form-input type="text" />
+  </div>
+
+  <div>
+    <!-- Element to gain focus when modal is opened -->
+    <b-form-input ref="focusThis" type="text" />
+  </div>
+
+  <div>
+    <b-form-input type="text" />
+  </div>
 </b-modal>
 ```
 
 ```js
 methods: {
-  focusMyElement (e) {
+  focusMyElement(e) {
     this.$refs.focusThis.focus()
   }
 }
@@ -547,7 +573,9 @@ _Tip:_ if using a click event (or similar) to trigger modal to open, pass the ev
 property:
 
 ```html
-<b-btn @click="$root.$emit.('bv::show::modal', 'modal1', $event.target)">Open Modal</b-btn>
+<div>
+  <b-btn @click="$root.$emit.('bv::show::modal', 'modal1', $event.target)">Open Modal</b-btn>
+</div>
 ```
 
 **Note:** If the `<b-modal>` has the `return-focus` prop set, then the element specified via the
