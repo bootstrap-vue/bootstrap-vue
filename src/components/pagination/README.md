@@ -104,14 +104,14 @@ By default the pagination component is left aligned. Change the alignment to `ce
       <b-pagination :total-rows="100" v-model="currentPage" :per-page="10" />
     </div>
 
-    <div class="mt-3">
+    <div class="mt-3 text-center">
       <h6>Center alignment</h6>
-      <b-pagination align="center" :total-rows="100" v-model="currentPage" :per-page="10">
+      <b-pagination align="center" :total-rows="100" v-model="currentPage" :per-page="10" />
     </div>
 
-    <div class="mt-3">
+    <div class="mt-3 text-right">
       <h6>Right (end) alignment</h6>
-      <b-pagination align="right" :total-rows="100" v-model="currentPage" :per-page="10">
+      <b-pagination align="right" :total-rows="100" v-model="currentPage" :per-page="10" />
     </div>
 
     <div class="mt-3">Current Page: {{ currentPage }}</div>

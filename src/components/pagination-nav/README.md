@@ -105,7 +105,7 @@ should return a string.
     />
 
     <div class="mt-3">
-      Page #: {{ currentPage }}<br />
+      Page: {{ currentPage }}<br />
       Page Link: {{ pageLink }}
     </div>
   </div>
@@ -231,12 +231,12 @@ By default the pagination component is left aligned. Change the alignment to `ce
       <b-pagination-nav :number-of-pages="10" base-url="#" v-model="currentPage" />
     </div>
 
-    <div class="mt-3">
+    <div class="mt-3 text-center">
       <h6>Center alignment</h6>
       <b-pagination-nav align="center" :number-of-pages="10" base-url="#" v-model="currentPage" />
     </div>
 
-    <div class="mt-3">
+    <div class="mt-3 text-right">
       <h6>Right (end) alignment</h6>
       <b-pagination-nav align="right" :number-of-pages="10" base-url="#" v-model="currentPage" />
     </div>
