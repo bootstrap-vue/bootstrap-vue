@@ -1336,22 +1336,22 @@ remove the record from the original items array.
 
 ## Table body transition support
 
-Vue transitions and animations are optionally supported on the `<tbody>` element via the use of Vue's
-`<transition-group>` component internally. Three props are available for transitions support (all three
-default to undefined):
+Vue transitions and animations are optionally supported on the `<tbody>` element via the use of
+Vue's `<transition-group>` component internally. Three props are available for transitions support
+(all three default to undefined):
 
-| Prop                        | Type   | Description
+| Prop                        | Type   | Description                                                       |
 | --------------------------- | ------ | ----------------------------------------------------------------- |
 | `tbody-transition-props`    | Object | Object of transition-group properties                             |
 | `tbody-transition-handlers` | Object | Object of transition-group event handlers                         |
 | `primary-key`               | String | String specifying the field to use as a unique row key (required) |
 
-To enable transitons you need to specify `tbody-transition-props` and/or `tbody-transition-handlers`,
-and must specify which field key to use as a unique key via the `primary-key` prop. Your data **must
-have** a column (specified by the `primary-key` prop) that has a **unique value per row** in order for
-transitions to work properly. The `primary-key` field's _value_ can either be a unique string or number.
-The field specified does not need to appear in the rendered table output, but it **must** exist in each
-row of your items data.
+To enable transitons you need to specify `tbody-transition-props` and/or
+`tbody-transition-handlers`, and must specify which field key to use as a unique key via the
+`primary-key` prop. Your data **must have** a column (specified by the `primary-key` prop) that has
+a **unique value per row** in order for transitions to work properly. The `primary-key` field's
+_value_ can either be a unique string or number. The field specified does not need to appear in the
+rendered table output, but it **must** exist in each row of your items data.
 
 You must also provide CSS to handle your transitions (if using CSS transitions) in your project.
 
@@ -1368,38 +1368,39 @@ table#table-transition-example .flip-list-move {
 
 ```html
 <template>
-  <b-table id="table-transition-example"
-           :items="items"
-           :fields="fields"
-           striped
-           small
-           primary-key="a"
-           :tbody-transition-props="transProps"
+  <b-table
+    id="table-transition-example"
+    :items="items"
+    :fields="fields"
+    striped
+    small
+    primary-key="a"
+    :tbody-transition-props="transProps"
   />
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      transProps: {
-        // Transition name
-        name: 'flip-list'
-      },
-      items: [
-        {a: 2, b: 'Two', c: 'Moose'},
-        {a: 1, b: 'Three', c: 'Dog'},
-        {a: 3, b: 'Four', c: 'Cat'},
-        {a: 4, b: 'One', c: 'Mouse'}
-      ],
-      fields: [
-        { key: 'a', sortable: true },
-        { key: 'b', sortable: true },
-        { key: 'c', sortable: true }
-      ]
+  export default {
+    data() {
+      return {
+        transProps: {
+          // Transition name
+          name: 'flip-list'
+        },
+        items: [
+          { a: 2, b: 'Two', c: 'Moose' },
+          { a: 1, b: 'Three', c: 'Dog' },
+          { a: 3, b: 'Four', c: 'Cat' },
+          { a: 4, b: 'One', c: 'Mouse' }
+        ],
+        fields: [
+          { key: 'a', sortable: true },
+          { key: 'b', sortable: true },
+          { key: 'c', sortable: true }
+        ]
+      }
     }
   }
-}
 </script>
 
 <!-- table-transitions.vue -->

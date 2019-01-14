@@ -2,19 +2,10 @@
   <footer class="bd-footer text-muted">
     <div class="container">
       <ul class="bd-footer-links">
+        <li><router-link to="/">Home</router-link></li>
+        <li><router-link to="/docs/">Documentation</router-link></li>
         <li>
-          <router-link to="/">Home</router-link>
-        </li>
-        <li>
-          <router-link to="/docs/">Documentation</router-link>
-        </li>
-        <li>
-          <a
-            href="https://github.com/bootstrap-vue/bootstrap-vue"
-            target="_blank"
-          >
-            Fork on GitHub
-          </a>
+          <a href="https://github.com/bootstrap-vue/bootstrap-vue" target="_blank">Fork on GitHub</a>
         </li>
       </ul>
 

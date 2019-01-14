@@ -7,7 +7,9 @@
       tag="header"
       align-v="center"
     >
-      <b-col sm="9"><h2 :id="`comp-ref-${componentName}`"><code>{{ tag }}</code></h2></b-col>
+      <b-col sm="9">
+        <h2 :id="`comp-ref-${componentName}`"><code>{{ tag }}</code></h2>
+      </b-col>
       <b-col
         sm="3"
         class="text-sm-right"
@@ -77,8 +79,7 @@
             v-for="arg in field.value"
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <code v-if="arg.arg">{{ arg.arg }}</code> -
-            <span v-html="arg.description" />
+            <code v-if="arg.arg">{{ arg.arg }}</code> - <span v-html="arg.description" />
           </div>
         </template>
       </b-table>
@@ -101,8 +102,7 @@
             v-for="arg in field.value"
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <code v-if="arg.arg">{{ arg.arg }}</code> -
-            <span v-html="arg.description" />
+            <code v-if="arg.arg">{{ arg.arg }}</code> - <span v-html="arg.description" />
           </div>
         </template>
       </b-table>
