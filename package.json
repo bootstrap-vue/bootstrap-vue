@@ -131,7 +131,9 @@
     "standard-version": "^4.4.0",
     "terser": "^3.14.1",
     "vue": "^2.5.21",
-    "vue-jest": "^3.0.2"
+    "vue-jest": "^3.0.2",
+    "vue-server-renderer": "^2.5.21",
+	  "vue-template-compiler": "^2.5.21"
   },
   "jest": {
     "testRegex": "spec.js$",
