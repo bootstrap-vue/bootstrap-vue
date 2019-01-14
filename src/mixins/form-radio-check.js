@@ -70,8 +70,8 @@ export default {
       return this.is_BtnMode || this.is_Radio || this.is_Plain
         ? false
         : this.is_Group
-        ? this.bvGroup.switches
-        : this.switch
+          ? this.bvGroup.switches
+          : this.switch
     },
     is_Inline() {
       return this.bvGroup.inline
