@@ -24,7 +24,7 @@
   </b-button-toolbar>
 </div>
 
-<!-- button-toolbar-1.vue -->
+<!-- button-toolbar.vue -->
 ```
 
 **Example 2:** with mixture of small button group and small input group
@@ -42,7 +42,7 @@
   </b-button-toolbar>
 </div>
 
-<!-- button-toolbar-2.vue -->
+<!-- button-toolbar-input.vue -->
 ```
 
 **Example 3:** with button groups and dropdown menu
@@ -67,7 +67,7 @@
   </b-button-toolbar>
 </div>
 
-<!-- button-toolbar-3.vue -->
+<!-- button-toolbar-dropdown.vue -->
 ```
 
 ## Usage
