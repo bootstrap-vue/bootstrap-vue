@@ -1337,13 +1337,14 @@ remove the record from the original items array.
 ## Table body transition support
 
 Vue transitions and animations are optionally supported on the `<tbody>` element via the use of Vue's
-`<transition-group>` component internally. Three props are available for transitions support:
+`<transition-group>` component internally. Three props are available for transitions support (all three
+default to undefined):
 
-| Prop                        | Type     | Default   | Description
-| --------------------------- | -------- | --------- | ----------------------------------------------------------------- |
-| `tbody-transition-props`    | `Object` | undefined | Object of transition-group properties                             |
-| `tbody-transition-handlers` | `Object` | undefined | Object of transition-group event handlers                         |
-| `primary-key`               | `String` | undefined | String specifying the field to use as a unique row key (required) |
+| Prop                        | Type   | Description
+| --------------------------- | ------ | ----------------------------------------------------------------- |
+| `tbody-transition-props`    | Object | Object of transition-group properties                             |
+| `tbody-transition-handlers` | Object | Object of transition-group event handlers                         |
+| `primary-key`               | String | String specifying the field to use as a unique row key (required) |
 
 To enable transitons you need to specify `tbody-transition-props` and/or `tbody-transition-handlers`,
 and must specify which field key to use as a unique key via the `primary-key` prop. Your data **must
