@@ -79,14 +79,16 @@ You can limit the file types by setting the `accept` prop to a string containing
 type(s). To specify more than one type, separate the values with a comma.
 
 ```html
-<!-- Accept all image formats by IANA media type wildcard-->
-<b-form-file accept="image/*" />
+<div>
+  <!-- Accept all image formats by IANA media type wildcard-->
+  <b-form-file accept="image/*" />
 
-<!-- Accept specific image formats by IANA type -->
-<b-form-file accept="image/jpeg, image/png, image/gif" />
+  <!-- Accept specific image formats by IANA type -->
+  <b-form-file accept="image/jpeg, image/png, image/gif" />
 
-<!-- Accept specific image formats by extension -->
-<b-form-file accept=".jpg, .png, .gif" />
+  <!-- Accept specific image formats by extension -->
+  <b-form-file accept=".jpg, .png, .gif" />
+</div>
 ```
 
 To accept any file type, leave `accept` as null (default). You can mix and match IANA media types
@@ -158,8 +160,10 @@ input. To take advantage of the `reset()` method, you will need to obtain a refe
 <template>
   <div>
     <b-form-file v-model="file" ref="fileinput" class="mb-2" />
+
     <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
     <b-button @click="file = null">Reset via v-model</b-button>
+
     <p class="mt-2">Selected file: <b>{{ file ? file.name : '' }}</b></p>
   </div>
 </template>
