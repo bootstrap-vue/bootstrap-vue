@@ -21,6 +21,7 @@
         >
         </b-form-input>
       </b-form-group>
+
       <b-form-group id="exampleInputGroup2" label="Your Name:" label-for="exampleInput2">
         <b-form-input
           id="exampleInput2"
@@ -31,16 +32,18 @@
         >
         </b-form-input>
       </b-form-group>
+
       <b-form-group id="exampleInputGroup3" label="Food:" label-for="exampleInput3">
-        <b-form-select id="exampleInput3" :options="foods" required v-model="form.food">
-        </b-form-select>
+        <b-form-select id="exampleInput3" :options="foods" required v-model="form.food" />
       </b-form-group>
+
       <b-form-group id="exampleGroup4">
         <b-form-checkbox-group v-model="form.checked" id="exampleChecks">
           <b-form-checkbox value="me">Check me out</b-form-checkbox>
           <b-form-checkbox value="that">Check that out</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
+
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
@@ -83,7 +86,7 @@
   }
 </script>
 
-<!-- b-form-1.vue -->
+<!-- form.vue -->
 ```
 
 ## Inline form
@@ -108,17 +111,20 @@ visitors with class `.sr-only`.
     <b-form inline>
       <label class="sr-only" for="inlineFormInputName2">Name</label>
       <b-input class="mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName2" placeholder="Jane Doe" />
+
       <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
       <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
         <b-input id="inlineFormInputGroupUsername2" placeholder="Username" />
       </b-input-group>
+
       <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox>
+
       <b-button variant="primary">Save</b-button>
     </b-form>
   </div>
 </template>
 
-<!-- b-form-inline-1.vue -->
+<!-- form-inline.vue -->
 ```
 
 Custom form controls and selects are also supported.
@@ -136,13 +142,15 @@ Custom form controls and selects are also supported.
       >
         <option slot="first" :value="null">Choose...</option>
       </b-form-select>
+
       <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember my preference</b-form-checkbox>
+
       <b-button variant="primary">Save</b-button>
     </b-form>
   </div>
 </template>
 
-<!-- b-form-inline-2.vue -->
+<!-- form-inline-custom.vue -->
 ```
 
 **Note:** _`<b-form-group>` is not supported in `inline` forms due to layout conflicts._
