@@ -1347,8 +1347,10 @@ Vue transitions and animations are optionally supported on the `<tbody>` element
 
 To enable transitons you need to specify `tbody-transition-props` and/or `tbody-transition-handlers`,
 and must specify which field key to use as a unique key via the `primary-key` prop. Your data **must
-have** a column that has a unique value per row in order for transitions to work properly. The
-`primary-key` field's _value_ can either be a unique string or number.
+have** a column (specified by the `primary-key` prop) that has a **unique value per row** in order for
+transitions to work properly. The `primary-key` field's _value_ can either be a unique string or number.
+The field specified does not need to appear in the rendered table output, but it **must** exist in each
+row of your items data.
 
 You must also provide CSS to handle your transitions (if using CSS transitions) in your project.
 
@@ -1358,20 +1360,20 @@ For more information of Vue's list rendering transitions, see the
 In the example below, we have used the following custom CSS:
 
 ```css
-table#table-flip-list-example .table-flip-list-example-move {
+table#table-transition-example .flip-list-move {
   transition: transform 1s;
 }
 ```
 
 ```html
 <template>
-  <b-table id="table-flip-list-example"
+  <b-table id="table-transition-example"
            :items="items"
            :fields="fields"
            striped
            small
            primary-key="a"
-           tbody-transition-props="transProps"
+           :tbody-transition-props="transProps"
   />
 </template>
 
@@ -1380,13 +1382,14 @@ export default {
   data () {
     return {
       transProps: {
-        name: 'table-flip-list-example'
+        // Transition name
+        name: 'flip-list'
       },
       items: [
-        {a: 2, b: 2, c: 1},
-        {a: 1, b: 3, c: 3},
-        {a: 3, b: 4, c: 4},
-        {a: 4, b: 1, c: 2}
+        {a: 2, b: 'Two', c: 'Moose'},
+        {a: 1, b: 'Three', c: 'Dog'},
+        {a: 3, b: 'Four', c: 'Cat'},
+        {a: 4, b: 'One', c: 'Mouse'}
       ],
       fields: [
         { key: 'a', sortable: true },
