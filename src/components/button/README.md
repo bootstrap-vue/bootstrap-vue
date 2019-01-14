@@ -11,7 +11,7 @@
   <b-button variant="outline-primary">Button</b-button>
 </div>
 
-<!-- button-1.vue -->
+<!-- button.vue -->
 ```
 
 ## Button element type
@@ -26,7 +26,7 @@ when providing a value for the `to` prop (`vue-router` is required).
   <b-button href="#">I am a Link</b-button>
 </div>
 
-<!-- button-element.vue -->
+<!-- button-types.vue -->
 ```
 
 ## Button type
