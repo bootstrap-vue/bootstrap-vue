@@ -1,6 +1,4 @@
 {
   "extends": ["@nuxtjs"],
-  "packageRules": [{
-    "excludePackageNames": ["prettier"]
-  }]
+  "ignoreDeps": ["prettier"]
 }
