@@ -1,18 +1,10 @@
 <template>
   <div>
-    <main
-      id="content"
-      class="bd-masthead"
-      role="main"
-    >
+    <main id="content" class="bd-masthead" role="main">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-6 mx-auto col-md-6 order-md-2">
-            <img
-              src="~/static/icon.png"
-              alt="Logo"
-              class="img-fluid mx-auto d-block mb-3 mb-md-0"
-            >
+            <img src="~/static/icon.png" alt="Logo" class="img-fluid mx-auto d-block mb-3 mb-md-0" />
           </div>
           <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
             <h1 class="mb-3 bd-text-purple-bright">Bootstrap + Vue</h1>
@@ -52,12 +44,7 @@
                 Github
               </b-btn>
             </div>
-            <b-link
-              class="text-muted mb-0"
-              to="/docs/misc/changelog"
-            >
-              Currently v{{ version }}
-            </b-link>
+            <b-link class="text-muted mb-0" to="/docs/misc/changelog">Currently v{{ version }}</b-link>
           </div>
         </div>
       </div>
