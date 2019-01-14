@@ -1,5 +1,6 @@
 {
-  "extends": [
-    "@nuxtjs"
-  ]
+  "extends": ["@nuxtjs"],
+  "packageRules": [{
+    "excludePackageNames": ["prettier"]
+  }]
 }
