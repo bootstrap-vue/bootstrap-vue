@@ -24,7 +24,7 @@
           active-class="active"
         >
           {{ page.title }}
-          <b-badge v-if="page.new" tag="small" variant="success" >NEW</b-badge>
+          <b-badge v-if="page.new" tag="small" variant="success">NEW</b-badge>
           <b-badge v-if="page.experimental" tag="small" variant="warning">BETA</b-badge>
           <b-badge v-if="page.breaking" tag="small" variant="danger">CHANGE</b-badge>
           <b-badge v-if="page.features" tag="small" variant="info">ENHANCED</b-badge>
