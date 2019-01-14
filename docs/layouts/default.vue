@@ -1,9 +1,8 @@
 <template>
   <div class="bd-home">
     <m-nav />
-    <br>
+    <br />
     <nuxt />
-
     <m-footer />
   </div>
 </template>
