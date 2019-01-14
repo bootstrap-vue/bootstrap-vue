@@ -17,6 +17,7 @@
     >
       I accept the terms and use
     </b-form-checkbox>
+
     <div>State: <strong>{{ status }}</strong></div>
   </div>
 </template>
@@ -31,7 +32,7 @@
   }
 </script>
 
-<!-- form-checkbox-1.vue -->
+<!-- form-checkbox.vue -->
 ```
 
 **Example 2:** Multiple choice checkboxes
@@ -40,8 +41,12 @@
 <template>
   <div>
     <b-form-group label="Using options array:">
-      <b-form-checkbox-group id="checkboxes1" name="flavour1" v-model="selected" :options="options">
-      </b-form-checkbox-group>
+      <b-form-checkbox-group
+        id="checkboxes1"
+        name="flavour1"
+        v-model="selected"
+        :options="options"
+      />
     </b-form-group>
 
     <b-form-group label="Using sub-components:">
@@ -52,7 +57,7 @@
         <b-form-checkbox value="grape">Grape</b-form-checkbox>
       </b-form-checkbox-group>
     </b-form-group>
-    <hr />
+
     <div>Selected: <strong>{{ selected }}</strong></div>
   </div>
 </template>
@@ -73,7 +78,7 @@
   }
 </script>
 
-<!-- form-checkbox-2.vue -->
+<!-- form-checkbox-multiple.vue -->
 ```
 
 Feel free to mix and match `options` prop and `<b-form-checkbox>` in `<b-form-checkbox-group>`.
@@ -99,19 +104,18 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
 <template>
   <div>
     <b-form-group label="Form-checkbox-group inline checkboxes (default)">
-      <b-form-checkbox-group v-model="selected" name="flavour1" :options="options">
-      </b-form-checkbox-group>
+      <b-form-checkbox-group v-model="selected" name="flavour1" :options="options" />
     </b-form-group>
 
     <b-form-group label="Form-checkbox-group stacked checkboxes">
-      <b-form-checkbox-group stacked v-model="selected" name="flavour2" :options="options">
-      </b-form-checkbox-group>
+      <b-form-checkbox-group stacked v-model="selected" name="flavour2" :options="options" />
     </b-form-group>
 
     <b-form-group label="Individual stacked checkboxes (default)">
       <b-form-checkbox
-        v-for="(option) in options"
+        v-for="option in options"
         v-model="selected"
+        :key="option.value"
         :value="option.value"
         name="flavour3"
       >
@@ -121,11 +125,12 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
 
     <b-form-group label="Individual inline checkboxes">
       <b-form-checkbox
-        v-for="(option) in options"
+        v-for="option in options"
         v-model="selected"
-        inline
+        :key="option.value"
         :value="option.value"
         name="flavour4"
+        inline
       >
         {{ option.text }}
       </b-form-checkbox>
@@ -149,10 +154,10 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
   }
 </script>
 
-<!-- form-checkbox-stacked-1.vue -->
+<!-- form-checkbox-stacked.vue -->
 ```
 
-## Checkbox values and v-model
+## Checkbox values and `v-model`
 
 By default, `<b-form-checkbox>` value will be `true` when checked and `false` when unchecked. You
 can customize the checked and unchecked values by specifying the `value` and `unchecked-value`
@@ -273,7 +278,7 @@ variants). The default `button-variant` is `secondary`.
   }
 </script>
 
-<!-- form-checkboxs-button-group.vue -->
+<!-- form-checkbox-button-group.vue -->
 ```
 
 ## Switch style checkboxes
@@ -380,7 +385,7 @@ by setting the `plain` prop.
   }
 </script>
 
-<!-- form-checkbox-plain-1.vue -->
+<!-- form-checkbox-plain.vue -->
 ```
 
 **Note:** The `plain` prop has no effect when `button` or `buttons` is set.
@@ -436,6 +441,7 @@ modifier.
       Checked: <strong>{{ checked }}</strong><br />
       Indeterminate: <strong>{{ indeterminate }}</strong>
     </div>
+
     <b-btn @click="toggleIndeterminate">Toggle Indeterminate State</b-btn>
   </div>
 </template>
@@ -456,7 +462,7 @@ modifier.
   }
 </script>
 
-<!-- form-checkbox-indeterminate-1.vue -->
+<!-- form-checkbox-indeterminate.vue -->
 ```
 
 **Indeterminate checkbox use-case example:**
@@ -477,6 +483,7 @@ modifier.
           {{ allSelected ? 'Un-select All' : 'Select All' }}
         </b-form-checkbox>
       </template>
+
       <b-form-checkbox-group
         id="flavors"
         stacked
@@ -487,11 +494,12 @@ modifier.
         aria-label="Individual flavours"
       />
     </b-form-group>
-    <p>
+
+    <div>
       Selected: <strong>{{ selected }}</strong><br />
       All Selected: <strong>{{ allSelected }}</strong><br />
-      Indeterminate: <strong>{{ indeterminate }}</strong><br />
-    </p>
+      Indeterminate: <strong>{{ indeterminate }}</strong>
+    </div>
   </div>
 </template>
 
@@ -528,7 +536,7 @@ modifier.
   }
 </script>
 
-<!-- form-checkbox-indeterminate-2.vue -->
+<!-- form-checkbox-indeterminate-multiple.vue -->
 ```
 
 **Note:** indeterminate is not supported in `button` mode, nor in multiple checkbox mode.
