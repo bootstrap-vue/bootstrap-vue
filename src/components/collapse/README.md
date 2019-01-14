@@ -9,12 +9,14 @@ toggle content visibility on your pages. Includes support for making accordions.
     <b-card>
       <p class="card-text">Collapse contents Here</p>
       <b-btn v-b-toggle.collapse1_inner size="sm">Toggle Inner Collapse</b-btn>
-      <b-collapse id="collapse1_inner" class="mt-2"><b-card>Hello!</b-card></b-collapse>
+      <b-collapse id="collapse1_inner" class="mt-2">
+        <b-card>Hello!</b-card>
+      </b-collapse>
     </b-card>
   </b-collapse>
 </div>
 
-<!-- collapse-1.vue -->
+<!-- collapse.vue -->
 ```
 
 ## Usage
@@ -29,11 +31,13 @@ Other elements can easily toggle `<b-collapse>` components using the `v-b-toggle
   <!-- Using value -->
   <b-btn v-b-toggle="'collapse2'" class="m-1">Toggle Collapse</b-btn>
 
-  <!-- element to collapse -->
-  <b-collapse id="collapse2"><b-card>I am collapsable content!</b-card></b-collapse>
+  <!-- Element to collapse -->
+  <b-collapse id="collapse2">
+    <b-card>I am collapsable content!</b-card>
+  </b-collapse>
 </div>
 
-<!-- collapse-2.vue -->
+<!-- collapse-usage.vue -->
 ```
 
 ## Initial visibility (start expanded)
@@ -43,10 +47,12 @@ To make the `<b-collapse>` show initially, set the `visible` prop:
 ```html
 <div>
   <b-btn v-b-toggle.collapse3 class="m-1">Toggle Collapse</b-btn>
-  <b-collapse visible id="collapse3"><b-card>I should start open!</b-card></b-collapse>
+  <b-collapse visible id="collapse3">
+    <b-card>I should start open!</b-card>
+  </b-collapse>
 </div>
 
-<!-- collapse-3.vue -->
+<!-- collapse-visible.vue -->
 ```
 
 ## `v-model` support
@@ -54,7 +60,7 @@ To make the `<b-collapse>` show initially, set the `visible` prop:
 The component's collapsed (visible) state can also be set with `v-model` which binds internally to
 the `visible` prop.
 
-Note, when using v-model to control `<b-collapse>`, the `aria-*` attributes and class `collapsed`
+Note, when using `v-model` to control `<b-collapse>`, the `aria-*` attributes and class `collapsed`
 are not automaticaly placed on the trigger button (as is the case when using the `v-b-toggle`
 directive). In this example we must control them ourselves.
 
@@ -85,7 +91,7 @@ directive). In this example we must control them ourselves.
   }
 </script>
 
-<!-- collapse-4.vue -->
+<!-- collapse-v-model.vue -->
 ```
 
 ## Trigger multiple collapse elements
@@ -95,10 +101,10 @@ multiple target IDs using modifers:
 
 ```html
 <div>
-  <!-- Single button triggers two b-collapse components -->
+  <!-- Single button triggers two "<b-collapse>" components -->
   <b-btn v-b-toggle.collapseA.collapseB>Toggle Both Collapse A and B</b-btn>
 
-  <!-- elements to collapse -->
+  <!-- Elements to collapse -->
   <b-collapse id="collapseA" class="mt-2">
     <b-card>I am collapsable content A!</b-card>
   </b-collapse>
@@ -107,7 +113,7 @@ multiple target IDs using modifers:
   </b-collapse>
 </div>
 
-<!-- collapse-mult-1.vue -->
+<!-- collapse-trigger-multiple.vue -->
 ```
 
 ## Accordion Support
@@ -129,6 +135,7 @@ identifier via the `accordion` prop:
         </b-card-body>
       </b-collapse>
     </b-card>
+
     <b-card no-body class="mb-1">
       <b-card-header header-tag="header" class="p-1" role="tab">
         <b-btn block href="#" v-b-toggle.accordion2 variant="info">Accordion 2</b-btn>
@@ -137,6 +144,7 @@ identifier via the `accordion` prop:
         <b-card-body<p class="card-text">{{ text }}</p></b-card-body>
       </b-collapse>
     </b-card>
+
     <b-card no-body class="mb-1">
       <b-card-header header-tag="header" class="p-1" role="tab">
         <b-btn block href="#" v-b-toggle.accordion3 variant="info">Accordion 3</b-btn>
@@ -153,21 +161,21 @@ identifier via the `accordion` prop:
     data() {
       return {
         text: `
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-        tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-        wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
-        synth nesciunt you probably haven't heard of them accusamus labore VHS.
-      `
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+          richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
+          brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+          tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+          assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
+          wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+          vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
+          synth nesciunt you probably haven't heard of them accusamus labore VHS.
+        `
       }
     }
   }
 </script>
 
-<!-- accordion-1.vue -->
+<!-- accordion.vue -->
 ```
 
 **Notes:**
@@ -190,10 +198,14 @@ display or hide content within the toggle via custom CSS:
 **Example HTML markup:**
 
 ```html
-<b-btn v-b-toggle.myCollapse>
-  <span class="when-opened">Close</span> <span class="when-closed">Open</span> My Collapse
-</b-btn>
-<b-collapse id="myCollapse"><!-- content here --></b-collapse>
+<div>
+  <b-btn v-b-toggle.myCollapse>
+    <span class="when-opened">Close</span> <span class="when-closed">Open</span> My Collapse
+  </b-btn>
+  <b-collapse id="myCollapse">
+    <!-- content here -->
+  </b-collapse>
+</div>
 ```
 
 **Example Custom CSS:**
@@ -217,10 +229,10 @@ about `$root` instance can be found in
 To listen to any collapse state changes, use:
 
 ```js
-mounted () {
-  this.$root.$on("bv::collapse::state", function(collapseId, isJustShown) {
-    console.log("collapseId:", collapseId);
-    console.log("isJustShown:", isJustShown);
+mounted() {
+  this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
+    console.log('collapseId:', collapseId);
+    console.log('isJustShown:', isJustShown);
   });
 }
 ```
