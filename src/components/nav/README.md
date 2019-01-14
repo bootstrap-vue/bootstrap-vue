@@ -13,7 +13,7 @@
   </b-nav>
 </div>
 
-<!-- nav-default.vue -->
+<!-- nav.vue -->
 ```
 
 ## Overview
@@ -33,12 +33,14 @@ variants are mutually exclusive - use only one style or the other.
 Make the nav look like tabs by setting the prop `tabs`.
 
 ```html
-<b-nav tabs>
-  <b-nav-item active>Active</b-nav-item>
-  <b-nav-item>Link</b-nav-item>
-  <b-nav-item>Another Link</b-nav-item>
-  <b-nav-item disabled>Disabled</b-nav-item>
-</b-nav>
+<div>
+  <b-nav tabs>
+    <b-nav-item active>Active</b-nav-item>
+    <b-nav-item>Link</b-nav-item>
+    <b-nav-item>Another Link</b-nav-item>
+    <b-nav-item disabled>Disabled</b-nav-item>
+  </b-nav>
+</div>
 
 <!-- nav-tabs.vue -->
 ```
@@ -48,12 +50,14 @@ Make the nav look like tabs by setting the prop `tabs`.
 Use the pill style by setting the prop `pills`.
 
 ```html
-<b-nav pills>
-  <b-nav-item active>Active</b-nav-item>
-  <b-nav-item>Link</b-nav-item>
-  <b-nav-item>Another Link</b-nav-item>
-  <b-nav-item disabled>Disabled</b-nav-item>
-</b-nav>
+<div>
+  <b-nav pills>
+    <b-nav-item active>Active</b-nav-item>
+    <b-nav-item>Link</b-nav-item>
+    <b-nav-item>Another Link</b-nav-item>
+    <b-nav-item disabled>Disabled</b-nav-item>
+  </b-nav>
+</div>
 
 <!-- nav-pills.vue -->
 ```
@@ -68,12 +72,14 @@ To proportionately fill all available space with your `<b-nav-item>` components,
 prop. Notice that all horizontal space is occupied, but not every nav item has the same width.
 
 ```html
-<b-nav fill tabs>
-  <b-nav-item active>Active</b-nav-item>
-  <b-nav-item>Link</b-nav-item>
-  <b-nav-item>Link with a long name </b-nav-item>
-  <b-nav-item disabled>Disabled</b-nav-item>
-</b-nav>
+<div>
+  <b-nav fill tabs>
+    <b-nav-item active>Active</b-nav-item>
+    <b-nav-item>Link</b-nav-item>
+    <b-nav-item>Link with a long name </b-nav-item>
+    <b-nav-item disabled>Disabled</b-nav-item>
+  </b-nav>
+</div>
 
 <!-- nav-fill.vue -->
 ```
@@ -84,12 +90,14 @@ For equal-width elements, set prop `justified` instead. All horizontal space wil
 links, but unlike `fill` above, every `<b-nav-item>` will be the same width.
 
 ```html
-<b-nav justified tabs>
-  <b-nav-item active>Active</b-nav-item>
-  <b-nav-item>Link</b-nav-item>
-  <b-nav-item>Link with a long name </b-nav-item>
-  <b-nav-item disabled>Disabled</b-nav-item>
-</b-nav>
+<div>
+  <b-nav justified tabs>
+    <b-nav-item active>Active</b-nav-item>
+    <b-nav-item>Link</b-nav-item>
+    <b-nav-item>Link with a long name </b-nav-item>
+    <b-nav-item disabled>Disabled</b-nav-item>
+  </b-nav>
+</div>
 
 <!-- nav-justified.vue -->
 ```
@@ -100,12 +108,14 @@ By default `<b-nav>` appear on a horizontal line. Stack your navigation by setti
 prop.
 
 ```html
-<b-nav vertical class="w-25">
-  <b-nav-item active>Active</b-nav-item>
-  <b-nav-item>Link</b-nav-item>
-  <b-nav-item>Another Link</b-nav-item>
-  <b-nav-item disabled>Disabled</b-nav-item>
-</b-nav>
+<div>
+  <b-nav vertical class="w-25">
+    <b-nav-item active>Active</b-nav-item>
+    <b-nav-item>Link</b-nav-item>
+    <b-nav-item>Another Link</b-nav-item>
+    <b-nav-item disabled>Disabled</b-nav-item>
+  </b-nav>
+</div>
 
 <!-- nav-vertical.vue -->
 ```
@@ -115,16 +125,23 @@ prop.
 Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
 
 ```html
-<b-nav pills>
-  <b-nav-item active>Active</b-nav-item>
-  <b-nav-item>Link</b-nav-item>
-  <b-nav-item-dropdown id="nav7_ddown" text="Dropdown" extra-toggle-classes="nav-link-custom" right>
-    <b-dropdown-item>one</b-dropdown-item>
-    <b-dropdown-item>two</b-dropdown-item>
-    <b-dropdown-divider />
-    <b-dropdown-item>three</b-dropdown-item>
-  </b-nav-item-dropdown>
-</b-nav>
+<div>
+  <b-nav pills>
+    <b-nav-item active>Active</b-nav-item>
+    <b-nav-item>Link</b-nav-item>
+    <b-nav-item-dropdown
+      id="nav7_ddown"
+      text="Dropdown"
+      extra-toggle-classes="nav-link-custom"
+      right
+    >
+      <b-dropdown-item>one</b-dropdown-item>
+      <b-dropdown-item>two</b-dropdown-item>
+      <b-dropdown-divider />
+      <b-dropdown-item>three</b-dropdown-item>
+    </b-nav-item-dropdown>
+  </b-nav>
+</div>
 
 <!-- nav-dropdown.vue -->
 ```
