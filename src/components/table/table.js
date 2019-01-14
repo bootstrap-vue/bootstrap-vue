@@ -352,6 +352,14 @@ export default {
       // Passthrough prop. Passed to the context object. Not used by b-table directly
       type: String,
       default: ''
+    },
+    tbodyTransitionProps: {
+      type: Object
+      // default: undefined
+    },
+    tbodyTransitionHandlers: {
+      type: Object
+      // default: undefined
     }
   },
   data() {
@@ -1508,10 +1516,29 @@ export default {
       rows.push(h(false))
     }
 
+    // Is tbody transition enabled
+    const isTransGroup = this.tbodyTransitionProps || this.tbodyTransitionHandlers
+    let tbodyProps = {}
+    let tbodyOn = {}
+    if (isTransGroup) {
+      tbodyOn = this.tbodyTransitionHandlers || {}
+      tbodyProps = assign(
+        {},
+        this.tbodyTransitionProps || {},
+        // Always use tbody element as tag. Users can't override this.
+        { tag: 'tbody' }
+      )
+    }
+
     // Assemble the rows into the tbody
     const tbody = h(
-      'tbody',
-      { class: this.bodyClasses, attrs: this.isStacked ? { role: 'rowgroup' } : {} },
+      isTransGroup ? 'transition-group' : 'tbody',
+      {
+        props: tbodyProps,
+        on: tbodyOn,
+        class: this.bodyClasses,
+        attrs: this.isStacked ? { role: 'rowgroup' } : {}
+      },
       rows
     )
 

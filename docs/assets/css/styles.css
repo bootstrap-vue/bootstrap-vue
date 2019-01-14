@@ -13,12 +13,9 @@
   z-index: 999999;
 }
 
-
 * {
     -webkit-font-smoothing: antialiased;
 }
-
-
 
 .bd-toc-link, .bd-navbar .navbar-nav .nav-link.active {
   font-weight: normal;
@@ -117,4 +114,9 @@ pre.editable.error:after {
 .bv-example-row-flex-cols .row {
   min-height: 10rem;
   background-color: rgba(255, 0, 0, .1);
+}
+
+/* CSS for table transtion example */
+table#table-transition-example .flip-list-move {
+  transition: transform 1s;
 }
