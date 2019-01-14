@@ -25,11 +25,12 @@ auto-dismissing).
       @dismiss-count-down="countDownChanged"
     >
       <p>This alert will dismiss after {{ dismissCountDown }} seconds...</p>
-      <b-progress variant="warning" :max="dismissSecs" :value="dismissCountDown" height="4px">
-      </b-progress>
+      <b-progress variant="warning" :max="dismissSecs" :value="dismissCountDown" height="4px" />
     </b-alert>
 
-    <b-btn @click="showAlert" variant="info" class="m-1">Show alert with count-down timer</b-btn>
+    <b-btn @click="showAlert" variant="info" class="m-1">
+      Show alert with count-down timer
+    </b-btn>
     <b-btn @click="showDismissibleAlert=true" variant="info" class="m-1">
       Show dismissible alert ({{ showDismissibleAlert ? 'visible' : 'hidden' }})
     </b-btn>
@@ -56,7 +57,7 @@ auto-dismissing).
   }
 </script>
 
-<!-- alert-1.vue -->
+<!-- alert.vue -->
 ```
 
 ## Visible state
@@ -92,7 +93,7 @@ For proper styling of `<b-alert>`, use one of the four required contextual varia
   <b-alert show variant="dark">Dark Alert</b-alert>
 </div>
 
-<!-- alert-variants-1.vue -->
+<!-- alert-variants.vue -->
 ```
 
 ### Conveying meaning to assistive technologies:
@@ -120,7 +121,7 @@ styled with the appropriate color matching the variant.
   </p>
 </b-alert>
 
-<!-- alert-content-1.vue -->
+<!-- alert-content.vue -->
 ```
 
 ### Color of links within alerts
@@ -130,33 +131,17 @@ Use on `<a>` or `<b-link>`.
 
 ```html
 <div>
-  <b-alert show variant="primary">
-    Primary Alert with <a href="#" class="alert-link">an example link</a>.
-  </b-alert>
-  <b-alert show variant="secondary">
-    Secondary Alert with <a href="#" class="alert-link">an example link</a>.
-  </b-alert>
-  <b-alert show variant="success">
-    Success Alert with <a href="#" class="alert-link">an example link</a>.
-  </b-alert>
-  <b-alert show variant="danger">
-    Danger Alert with <a href="#" class="alert-link">an example link</a>.
-  </b-alert>
-  <b-alert show variant="warning">
-    Warning Alert with <a href="#" class="alert-link">an example link</a>.
-  </b-alert>
-  <b-alert show variant="info">
-    Info Alert with <a href="#" class="alert-link">an example link</a>.
-  </b-alert>
-  <b-alert show variant="light">
-    Light Alert with <a href="#" class="alert-link">an example link</a>.
-  </b-alert>
-  <b-alert show variant="dark">
-    Dark Alert with <b-link href="#" class="alert-link">an example link</b-link>.
-  </b-alert>
+  <b-alert show variant="primary">Primary Alert with <a href="#" class="alert-link">an example link</a>.</b-alert>
+  <b-alert show variant="secondary">Secondary Alert with <a href="#" class="alert-link">an example link</a>.</b-alert>
+  <b-alert show variant="success">Success Alert with <a href="#" class="alert-link">an example link</a>.</b-alert>
+  <b-alert show variant="danger">Danger Alert with <a href="#" class="alert-link">an example link</a>.</b-alert>
+  <b-alert show variant="warning">Warning Alert with <a href="#" class="alert-link">an example link</a>.</b-alert>
+  <b-alert show variant="info">Info Alert with <a href="#" class="alert-link">an example link</a>.</b-alert>
+  <b-alert show variant="light">Light Alert with <a href="#" class="alert-link">an example link</a>.</b-alert>
+  <b-alert show variant="dark">Dark Alert with <b-link href="#" class="alert-link">an example link</b-link>.</b-alert>
 </div>
 
-<!-- alert-links-1.vue -->
+<!-- alert-links.vue -->
 ```
 
 ## Dismissible alerts
@@ -193,7 +178,9 @@ integer number of seconds are supported.
     >
       This alert will dismiss after {{ dismissCountDown }} seconds...
     </b-alert>
-    <b-btn @click="showAlert" variant="info" class="m-1">Show alert with count-down timer</b-btn>
+    <b-btn @click="showAlert" variant="info" class="m-1">
+      Show alert with count-down timer
+    </b-btn>
   </div>
 </template>
 
@@ -216,7 +203,7 @@ integer number of seconds are supported.
   }
 </script>
 
-<!-- alert-auto-dismiss-1.vue -->
+<!-- alert-auto-dismissing.vue -->
 ```
 
 ## Fading alerts
@@ -249,7 +236,9 @@ Use the `fade` prop to enable animation. By default alerts are not animated.
       This alert will dismiss after {{ dismissCountDown }} seconds...
     </b-alert>
 
-    <b-btn @click="showAlert" variant="info" class="m-1">Show alert with count-down timer</b-btn>
+    <b-btn @click="showAlert" variant="info" class="m-1">
+      Show alert with count-down timer
+    </b-btn>
     <b-btn @click="showDismissibleAlert=true" variant="info" class="m-1">
       Show dismissible alert ({{ showDismissibleAlert ? 'visible' : 'hidden' }})
     </b-btn>
@@ -276,7 +265,7 @@ Use the `fade` prop to enable animation. By default alerts are not animated.
   }
 </script>
 
-<!-- alert-fade-1.vue -->
+<!-- alert-fade.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->
