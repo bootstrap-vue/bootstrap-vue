@@ -6,9 +6,11 @@
 `<b-link>` is the building block for most BootstrapVue components that offer link functionality.
 
 ```html
-<b-link href="#foo">Link</b-link>
+<div>
+  <b-link href="#foo">Link</b-link>
+</div>
 
-<!-- link-example.vue -->
+<!-- link.vue -->
 ```
 
 ## Link type
@@ -37,7 +39,9 @@ If you need scroll to top behaviour, use a standard `<a href="#">...</a>` tag.
 Disable link functionality by setting the `disabled` prop to true.
 
 ```html
-<b-link href="#foo" disabled>Disabled Link</b-link>
+<div>
+  <b-link href="#foo" disabled>Disabled Link</b-link>
+</div>
 
 <!-- link-disabled.vue -->
 ```
