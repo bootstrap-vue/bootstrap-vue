@@ -38,6 +38,7 @@ precedence.
     <b-dropdown-item href="#">An item</b-dropdown-item>
     <b-dropdown-item href="#">Another item</b-dropdown-item>
   </b-dropdown>
+
   <b-dropdown>
     <template slot="button-content">
       Custom <strong>Content</strong> with <em>HTML</em> via Slot
@@ -68,6 +69,7 @@ above it. To have the dropdown aligned on the right, set the `right` prop.
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
   </b-dropdown>
+
   <b-dropdown id="ddown-right" right text="Right align" variant="primary" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
@@ -109,6 +111,7 @@ drop-left menu by setting the `dropleft` right prop to true.
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
   </b-dropdown>
+
   <b-dropdown id="ddown-dropleft" dropleft text="Drop-Left" variant="primary" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
@@ -175,11 +178,13 @@ variants.
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
   </b-dropdown>
+
   <b-dropdown text="Success" variant="success" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
   </b-dropdown>
+
   <b-dropdown text="Outline Danger" variant="outline-danger" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
@@ -259,27 +264,32 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 
 ```html
 <div>
-  <b-dropdown size="lg" text="Large" class="m-2">
-    <b-dropdown-item-button>Action</b-dropdown-item-button>
-    <b-dropdown-item-button>Another action</b-dropdown-item-button>
-    <b-dropdown-item-button>Something else here</b-dropdown-item-button>
-  </b-dropdown>
-  <b-dropdown size="lg" split text="Large Split" class="m-2">
-    <b-dropdown-item-button>Action</b-dropdown-item-button>
-    <b-dropdown-item-button>Another action</b-dropdown-item-button>
-    <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
-  </b-dropdown>
-  <br />
-  <b-dropdown size="sm" text="Small" class="m-2">
-    <b-dropdown-item-button>Action</b-dropdown-item-button>
-    <b-dropdown-item-button>Another action</b-dropdown-item-button>
-    <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
-  </b-dropdown>
-  <b-dropdown size="sm" split text="Small Split" class="m-2">
-    <b-dropdown-item-button>Action</b-dropdown-item-button>
-    <b-dropdown-item-button>Another action</b-dropdown-item-button>
-    <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
-  </b-dropdown>
+  <div>
+    <b-dropdown size="lg" text="Large" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here</b-dropdown-item-button>
+    </b-dropdown>
+
+    <b-dropdown size="lg" split text="Large Split" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
+    </b-dropdown>
+  </div>
+  <div>
+    <b-dropdown size="sm" text="Small" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
+    </b-dropdown>
+
+    <b-dropdown size="sm" split text="Small Split" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
+    </b-dropdown>
+  </div>
 </div>
 
 <!-- dropdown-sizes.vue -->
@@ -295,9 +305,8 @@ to `true`. This is useful when the dropdown is to be displayed as an icon.
 ```html
 <div>
   <b-dropdown variant="link" size="lg" no-caret>
-    <template slot="button-content">
-      &#x1f50d;<span class="sr-only">Search</span>
-    </template>
+    <template slot="button-content">&#x1f50d;<span class="sr-only">Search</span></template>
+
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here...</b-dropdown-item>
@@ -435,17 +444,19 @@ regular form.
 
 ```html
 <template>
-  <div class="p-2">
-    <b-dropdown id="ddown-form" text="Dropdown with form" ref="ddown">
+  <div>
+    <b-dropdown id="ddown-form" text="Dropdown with form" ref="ddown" class="m-2">
       <b-dropdown-form>
         <b-form-group label="Email" label-for="ddown-form-email">
           <b-form-input size="sm" placeholder="email@example.com" id="ddown-form-email">
           </b-form-input>
         </b-form-group>
+
         <b-form-group label="Password" label-for="ddown-form-passwd">
           <b-form-input type="password" size="sm" placeholder="Password" id="ddown-form-passwd">
           </b-form-input>
         </b-form-group>
+
         <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
         <b-button variant="primary" size="sm" @click="onClick">Sign In</b-button>
       </b-dropdown-form>
