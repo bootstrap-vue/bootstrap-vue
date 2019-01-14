@@ -117,6 +117,6 @@ pre.editable.error:after {
 }
 
 /* CSS for table transtion example */
-table#table-flip-list-example .table-flip-list-example-move {
+table#table-transition-example .flip-list-move {
   transition: transform 1s;
 }
