@@ -15,7 +15,8 @@
         height="30"
         focusable="false"
       >
-        <title>Menu</title><path
+        <title>Menu</title>
+        <path
           stroke="currentColor"
           stroke-width="2"
           stroke-linecap="round"
@@ -26,8 +27,7 @@
     </button>
     <b-popover target="bd-search-input" placement="bottom" triggers="focus">
       <span v-if="search.length && Object.keys(results).length === 0">No results found</span>
-      <span v-else-if="search.length" />
-      <span v-else>Type something to start search</span>
+      <span v-else-if="search.length" /><span v-else>Type something to start search</span>
 
       <div v-for="(results, section, idx) in results" :key="section" :class="idx > 0 ? 'mt-2' : ''">
         <h6 class="bd-text-purple my-1" v-html="section" />
