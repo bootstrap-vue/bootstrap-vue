@@ -3,7 +3,6 @@
     <m-nav />
     <br>
     <nuxt />
-
     <m-footer />
   </div>
 </template>

@@ -1,13 +1,6 @@
 <template>
-  <nav
-    v-if="toc.toc && toc.toc.length > 0"
-    aria-label="Page table of contents"
-  >
-    <b-nav
-      v-b-scrollspy.72
-      vertical
-      class="m-toc section-nav"
-    >
+  <nav v-if="toc.toc && toc.toc.length > 0" aria-label="Page table of contents">
+    <b-nav v-b-scrollspy.72 vertical class="m-toc section-nav">
       <b-nav-item
         v-if="toc.title && toc.top"
         :href="toc.top"
@@ -18,12 +11,7 @@
       </b-nav-item>
 
       <template v-for="(h2, index) in toc.toc">
-        <b-nav
-          v-if="isArray(h2) && h2.length > 0"
-          :key="index"
-          vertical
-          class="mb-1"
-        >
+        <b-nav v-if="isArray(h2) && h2.length > 0" :key="index" vertical class="mb-1">
           <b-nav-item
             v-for="h3 in h2"
             :key="h3.href"

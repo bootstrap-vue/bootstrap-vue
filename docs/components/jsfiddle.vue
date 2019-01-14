@@ -9,22 +9,12 @@
       frameborder="0"
       :src="src"
     />
-    <div
-      v-if="height === 0"
-      class="text-center"
-    >
-      <img
-        src="//jsfiddle.net/img/embeddable/logo-dark.png"
-        alt="jsfiddle"
-      >
+    <div v-if="height === 0" class="text-center">
+      <img src="//jsfiddle.net/img/embeddable/logo-dark.png" alt="jsfiddle">
       <br>
       <small class="text-muted mt-1">
         <span> Loading JSFiddle </span>
-        <a
-          :href="url"
-          target="_blank"
-          class="text-muted"
-        >
+        <a :href="url" target="_blank" class="text-muted">
           (Edit in JSFiddle)
         </a>
       </small>

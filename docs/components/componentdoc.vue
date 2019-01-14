@@ -1,23 +1,13 @@
 <template>
-  <section
-    v-if="component"
-    class="bd-content"
-  >
-    <b-row
-      tag="header"
-      align-v="center"
-    >
-      <b-col sm="9"><h2 :id="`comp-ref-${componentName}`"><code>{{ tag }}</code></h2></b-col>
-      <b-col
-        sm="3"
-        class="text-sm-right"
-      >
-        <b-btn
-          variant="outline-secondary"
-          size="sm"
-          :href="githubURL"
-          target="_blank"
-        >
+  <section v-if="component" class="bd-content">
+    <b-row tag="header" align-v="center">
+      <b-col sm="9">
+        <h2 :id="`comp-ref-${componentName}`">
+          <code>{{ tag }}</code>
+        </h2>
+      </b-col>
+      <b-col sm="3" class="text-sm-right">
+        <b-btn variant="outline-secondary" size="sm" :href="githubURL" target="_blank">
           view source
         </b-btn>
       </b-col>
@@ -25,9 +15,13 @@
 
     <article v-if="aliases && aliases.length > 0">
       <h4 :id="`comp-ref-${componentName}-aliases`">Component aliases</h4>
-      <p><code>{{ tag }}</code> can also be used via the following aliases:</p>
+      <p>
+        <code>{{ tag }}</code> can also be used via the following aliases:
+      </p>
       <ul>
-        <li v-for="alias in aliases" :key="alias"><code>&lt;{{ kebabCase(alias) }}&gt;</code></li>
+        <li v-for="alias in aliases" :key="alias">
+          <code>&lt;{{ kebabCase(alias) }}&gt;</code>
+        </li>
       </ul>
     </article>
 
@@ -39,11 +33,8 @@
         small
         head-variant="default"
         striped
-      >
-        <template
-          slot="default"
-          slot-scope="field"
-        >
+          >
+        <template slot="default" slot-scope="field">
           <code v-if="field.value">{{ field.value }}</code>
         </template>
       </b-table>
@@ -68,17 +59,13 @@
         small
         head-variant="default"
         striped
-      >
-        <template
-          slot="args"
-          slot-scope="field"
-        >
+          >
+        <template slot="args" slot-scope="field">
           <div
             v-for="arg in field.value"
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <code v-if="arg.arg">{{ arg.arg }}</code> -
-            <span v-html="arg.description" />
+            <code v-if="arg.arg">{{ arg.arg }}</code> - <span v-html="arg.description" />
           </div>
         </template>
       </b-table>
@@ -93,16 +80,12 @@
         head-variant="default"
         striped
       >
-        <template
-          slot="args"
-          slot-scope="field"
-        >
+        <template slot="args" slot-scope="field">
           <div
             v-for="arg in field.value"
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <code v-if="arg.arg">{{ arg.arg }}</code> -
-            <span v-html="arg.description" />
+            <code v-if="arg.arg">{{ arg.arg }}</code> - <span v-html="arg.description" />
           </div>
         </template>
       </b-table>

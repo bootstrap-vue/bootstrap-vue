@@ -8,14 +8,16 @@
           <m-sidebar />
         </b-col>
 
-        <b-col xl="2" class="d-none d-xl-block bd-toc pt-4">
-          <m-toc />
-        </b-col>
+        <b-col xl="2" class="d-none d-xl-block bd-toc pt-4"><m-toc /></b-col>
 
         <b-col cols="12" md="9" xl="8" class="pb-md-3 pl-md-5 bd-content">
           <b-button-group class="my-2 float-right">
-            <b-btn size="sm" variant="light" :href="issueURL" target="_blank">Report an issue</b-btn>
-            <b-btn size="sm" variant="light" :href="editPageURL" target="_blank">Edit this page</b-btn>
+            <b-btn size="sm" variant="light" :href="issueURL" target="_blank">
+              Report an issue
+            </b-btn>
+            <b-btn size="sm" variant="light" :href="editPageURL" target="_blank">
+              Edit this page
+            </b-btn>
           </b-button-group>
 
           <nuxt />
