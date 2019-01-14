@@ -106,23 +106,21 @@ include a `<label>` with each form control, even if you need to hide it from non
 visitors with class `.sr-only`.
 
 ```html
-<template>
-  <div>
-    <b-form inline>
-      <label class="sr-only" for="inlineFormInputName2">Name</label>
-      <b-input class="mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName2" placeholder="Jane Doe" />
+<div>
+  <b-form inline>
+    <label class="sr-only" for="inlineFormInputName2">Name</label>
+    <b-input class="mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputName2" placeholder="Jane Doe" />
 
-      <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-      <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-        <b-input id="inlineFormInputGroupUsername2" placeholder="Username" />
-      </b-input-group>
+    <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+    <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
+      <b-input id="inlineFormInputGroupUsername2" placeholder="Username" />
+    </b-input-group>
 
-      <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox>
+    <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox>
 
-      <b-button variant="primary">Save</b-button>
-    </b-form>
-  </div>
-</template>
+    <b-button variant="primary">Save</b-button>
+  </b-form>
+</div>
 
 <!-- form-inline.vue -->
 ```
@@ -130,25 +128,23 @@ visitors with class `.sr-only`.
 Custom form controls and selects are also supported.
 
 ```html
-<template>
-  <div>
-    <b-form inline>
-      <label class="mr-sm-2" for="inlineFormCustomSelectPref">Preference</label>
-      <b-form-select
-        class="mb-2 mr-sm-2 mb-sm-0"
-        :value="null"
-        :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
-        id="inlineFormCustomSelectPref"
-      >
-        <option slot="first" :value="null">Choose...</option>
-      </b-form-select>
+<div>
+  <b-form inline>
+    <label class="mr-sm-2" for="inlineFormCustomSelectPref">Preference</label>
+    <b-form-select
+      class="mb-2 mr-sm-2 mb-sm-0"
+      :value="null"
+      :options="{ '1': 'One', '2': 'Two', '3': 'Three' }"
+      id="inlineFormCustomSelectPref"
+    >
+      <option slot="first" :value="null">Choose...</option>
+    </b-form-select>
 
-      <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember my preference</b-form-checkbox>
+    <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember my preference</b-form-checkbox>
 
-      <b-button variant="primary">Save</b-button>
-    </b-form>
-  </div>
-</template>
+    <b-button variant="primary">Save</b-button>
+  </b-form>
+</div>
 
 <!-- form-inline-custom.vue -->
 ```
