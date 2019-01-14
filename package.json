@@ -91,7 +91,7 @@
     "@nuxtjs/google-analytics": "^2.0.2",
     "@nuxtjs/pwa": "^2.6.0",
     "@vue/test-utils": "^1.0.0-beta.28",
-    "autoprefixer": "^9.4.4",
+    "autoprefixer": "^9.4.5",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
@@ -101,7 +101,7 @@
     "codemirror": "^5.42.2",
     "cross-env": "^5.2.0",
     "eslint": "^5.12.0",
-    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-prettier": "^3.4.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-import": "^2.14.0",
@@ -130,10 +130,10 @@
     "sass-loader": "^7.1.0",
     "standard-version": "^4.4.0",
     "terser": "^3.14.1",
-    "vue": "^2.5.21",
+    "vue": "^2.5.22",
     "vue-jest": "^3.0.2",
-    "vue-server-renderer": "^2.5.21",
-	  "vue-template-compiler": "^2.5.21"
+    "vue-server-renderer": "^2.5.22",
+    "vue-template-compiler": "^2.5.22"
   },
   "jest": {
     "testRegex": "spec.js$",
