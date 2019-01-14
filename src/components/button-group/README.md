@@ -68,11 +68,13 @@ prop. Split button dropdowns are not supported here.
 **Example 3:** Vertical button group
 
 ```html
-<b-button-group vertical>
-  <b-button>Top</b-button>
-  <b-button>Middle</b-button>
-  <b-button>Bottom</b-button>
-</b-button-group>
+<div>
+  <b-button-group vertical>
+    <b-button>Top</b-button>
+    <b-button>Middle</b-button>
+    <b-button>Bottom</b-button>
+  </b-button-group>
+</div>
 
 <!-- button-group-vertical.vue -->
 ```
@@ -85,21 +87,23 @@ dropdown menus are not supported when prop `vertical` is set.
 **Example 4:** button group with dropdown menus
 
 ```html
-<b-button-group>
-  <b-button>Button</b-button>
-  <b-dropdown right text="Menu">
-    <b-dropdown-item>Item 1</b-dropdown-item>
-    <b-dropdown-item>Item 2</b-dropdown-item>
-    <b-dropdown-divider />
-    <b-dropdown-item>Item 3</b-dropdown-item>
-  </b-dropdown>
-  <b-dropdown right split text="Split Menu">
-    <b-dropdown-item>Item 1</b-dropdown-item>
-    <b-dropdown-item>Item 2</b-dropdown-item>
-    <b-dropdown-divider />
-    <b-dropdown-item>Item 3</b-dropdown-item>
-  </b-dropdown>
-</b-button-group>
+<div>
+  <b-button-group>
+    <b-button>Button</b-button>
+    <b-dropdown right text="Menu">
+      <b-dropdown-item>Item 1</b-dropdown-item>
+      <b-dropdown-item>Item 2</b-dropdown-item>
+      <b-dropdown-divider />
+      <b-dropdown-item>Item 3</b-dropdown-item>
+    </b-dropdown>
+    <b-dropdown right split text="Split Menu">
+      <b-dropdown-item>Item 1</b-dropdown-item>
+      <b-dropdown-item>Item 2</b-dropdown-item>
+      <b-dropdown-divider />
+      <b-dropdown-item>Item 3</b-dropdown-item>
+    </b-dropdown>
+  </b-button-group>
+</div>
 
 <!-- button-group-menu.vue -->
 ```
