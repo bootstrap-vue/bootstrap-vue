@@ -6,18 +6,18 @@
 ```html
 <div>
   <!-- Using props -->
-  <b-input-group size="lg" prepend="$" append=".00"><b-form-input /></b-input-group>
-  <br />
+  <b-input-group size="lg" prepend="$" append=".00">
+    <b-form-input />
+  </b-input-group>
 
   <!-- Using slots -->
-  <b-input-group>
+  <b-input-group class="mt-3">
     <b-input-group-text slot="append"><strong class="text-danger">!</strong></b-input-group-text>
     <b-form-input />
   </b-input-group>
-  <br />
 
   <!-- Using components -->
-  <b-input-group prepend="Username">
+  <b-input-group prepend="Username" class="mt-3">
     <b-form-input />
     <b-input-group-append>
       <b-btn variant="outline-success">Button</b-btn>
@@ -26,7 +26,7 @@
   </b-input-group>
 </div>
 
-<!-- input-groups-1.vue -->
+<!-- input-group.vue -->
 ```
 
 ## Usage
@@ -39,8 +39,11 @@ Values will be internally wrapped by a `<b-input-group-text>` to display correct
 
 ```html
 <div>
-  <b-input-group prepend="$" append=".00" class="mb-2"><b-form-input /></b-input-group>
-  <b-input-group prepend="0" append="100">
+  <b-input-group prepend="$" append=".00">
+    <b-form-input />
+  </b-input-group>
+
+  <b-input-group prepend="0" append="100" class="mt-3">
     <b-form-input type="range" min="0" max="100" />
   </b-input-group>
 </div>
@@ -59,6 +62,7 @@ This slots will be wrapped by `<b-input-group-prepend|append>` to display correc
   <b-input-group>
     <b-input-group-text slot="prepend">Username</b-input-group-text>
     <b-form-input />
+
     <b-dropdown text="Dropdown" variant="success" slot="append">
       <b-dropdown-item>Action A</b-dropdown-item>
       <b-dropdown-item>Action B</b-dropdown-item>
