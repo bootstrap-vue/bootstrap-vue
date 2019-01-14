@@ -167,11 +167,11 @@ is **not used**. Only the value(s) of the checked checkboxes will be returned in
 array. You should provide a unique value for each checkbox's `value` prop (the default of `true`
 will not work when bound to an array)
 
-To pre-check any radios, set the v-model to the value(s) of the checks that you would like
+To pre-check any radios, set the `v-model` to the value(s) of the checks that you would like
 pre-selected.
 
 When placing individual `<b-form-checkbox>` components within a `<b-form-checkbox-group>`, most
-props and the v-model are inherited from the `<b-form-checkbox-group>`.
+props and the `v-model` are inherited from the `<b-form-checkbox-group>`.
 
 ### Multiple checkboxes and accessibility
 

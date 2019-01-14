@@ -188,7 +188,7 @@ Set the `<b-carousel>` `no-animation` prop to `true` to disable slide animation.
 On touch enabled devices, users can switch slides by swiping left or right on the carousel. To
 disable touch control, set the `no-touch` prop to `true`.
 
-## V-model support
+## `v-model` support
 
 Programmaticaly control which slide is showing via `v-model` (which binds to the `value` prop).
 Note, that slides are indexed starting at `0`.

@@ -128,7 +128,7 @@ options (value array) to `<b-form-radio-group>` via the `options` prop.
 ## Radio value and v-model
 
 `<b-form-radio>` and `<b-form-radio-group>` do not have a value by default. You must explicitly
-supply a value (to which the v-model is set to when the radio is checked) via the `value` prop.
+supply a value (to which the `v-model` is set to when the radio is checked) via the `value` prop.
 
 The `v-model` of both `<b-form-radio>` and `<b-form-radio-group>` binds to the `checked` prop. To
 pre-check a radio, you must set the `v-model` value to the radio's value. Do not use the `checked`

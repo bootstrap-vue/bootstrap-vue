@@ -1327,10 +1327,10 @@ If you bind a variable to the `v-model` prop, the contents of this variable will
 displayed item records (zero based index, up to `page-size` - 1). This variable (the `value` prop)
 should usually be treated as readonly.
 
-The records within the v-model are a filtered/paginated shallow copy of `items`, and hence any
-changes to a record's properties in the v-model will be reflected in the original `items` array
-(except when `items` is set to a provider function). Deleting a record from the v-model will **not**
-remove the record from the original items array.
+The records within the `v-model` are a filtered/paginated shallow copy of `items`, and hence any
+changes to a record's properties in the `v-model` will be reflected in the original `items` array
+(except when `items` is set to a provider function). Deleting a record from the `v-model` will
+**not** remove the record from the original items array.
 
 **Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
 

@@ -292,7 +292,7 @@ browser navigation with TAB key.
 
 ## Programatically activating and deactivating tabs
 
-Use the `<b-tabs>` v-model to control which tab is active by setting the v-model to the index
+Use the `<b-tabs>` `v-model` to control which tab is active by setting the `v-model` to the index
 (zero-based) of the tab to be shown (see example below).
 
 Alternatively, you can use the `active` prop on each `<b-tab>` with the `.sync` modifier to activate

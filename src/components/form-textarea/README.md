@@ -178,7 +178,7 @@ form field styling and preserve the correct text size, margin, padding and heigh
 <!-- form-textarea-plaintext.vue -->
 ```
 
-## V-model modifiers
+## `v-model` modifiers
 
 Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of custom
 component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
@@ -207,7 +207,7 @@ need for the `.native` modifier.
 The custom `input` and `change` events receive a single argument of the current `value` (after any
 formatting has been applied), and are triggerd by user interaction.
 
-The custom `update` event is passed the input value, and is emitted wehenever the v-model needs
+The custom `update` event is passed the input value, and is emitted wehenever the `v-model` needs
 updating (it is emitted before `input`, `change`. and `blur` as needed).
 
 You can always access the native `input` and `change` events by using the `.native` modifier.
