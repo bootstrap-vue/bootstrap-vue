@@ -27,9 +27,13 @@
 
     <article v-if="props_items && props_items.length > 0">
       <h4 :id="`comp-ref-${componentName}-props`">Properties</h4>
-      <b-table :items="props_items" :fields="props_fields" small head-variant="default"
+      <b-table
+        :items="props_items"
+        :fields="props_fields"
+        small
+        head-variant="default"
         striped
-      >
+          >
         <template slot="default" slot-scope="field">
           <code v-if="field.value">{{ field.value }}</code>
         </template>
@@ -38,16 +42,24 @@
 
     <article v-if="slots && slots.length > 0">
       <h4 :id="`comp-ref-${componentName}-slots`">Slots</h4>
-      <b-table :items="slots" :fields="slots_fields" small head-variant="default"
+      <b-table
+        :items="slots"
+        :fields="slots_fields"
+        small
+        head-variant="default"
         striped
       />
     </article>
 
     <article v-if="events && events.length > 0">
       <h4 :id="`comp-ref-${componentName}-events`">Events</h4>
-      <b-table :items="events" :fields="events_fields" small head-variant="default"
+      <b-table
+        :items="events"
+        :fields="events_fields"
+        small
+        head-variant="default"
         striped
-      >
+          >
         <template slot="args" slot-scope="field">
           <div
             v-for="arg in field.value"
