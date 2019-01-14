@@ -13,6 +13,7 @@
       rows="3"
       max-rows="6"
     />
+
     <pre class="mt-3">{{ text }}</pre>
   </div>
 </template>
@@ -27,7 +28,7 @@
   }
 </script>
 
-<!-- form-textarea-1.vue -->
+<!-- form-textarea.vue -->
 ```
 
 ## Control sizing
@@ -39,26 +40,34 @@ To control width, place the input inside standard Bootstrap grid column.
 ```html
 <b-container fluid>
   <b-row class="my-1">
-    <b-col sm="2"><label for="input-small">Small:</label></b-col>
+    <b-col sm="2">
+      <label for="input-small">Small:</label>
+    </b-col>
     <b-col sm="10">
       <b-form-textarea id="input-small" size="sm" type="text" placeholder="Small Textarea" />
     </b-col>
   </b-row>
+
   <b-row class="my-1">
-    <b-col sm="2"><label for="input-default">Default:</label></b-col>
+    <b-col sm="2">
+      <label for="input-default">Default:</label>
+    </b-col>
     <b-col sm="10">
       <b-form-textarea id="input-default" type="text" placeholder="Default Textarea" />
     </b-col>
   </b-row>
+
   <b-row class="my-1">
-    <b-col sm="2"><label for="input-large">Large:</label></b-col>
+    <b-col sm="2">
+      <label for="input-large">Large:</label>
+    </b-col>
     <b-col sm="10">
       <b-form-textarea id="input-large" size="lg" type="text" placeholder="Large Textarea" />
     </b-col>
   </b-row>
 </b-container>
 
-<!-- form-textarea-size-1.vue -->
+<!-- form-textarea-sizes.vue -->
 ```
 
 ## Displayed rows
@@ -104,13 +113,15 @@ To apply one of the contextual state icons on `<b-form-textarea>`, set the `stat
 
 ```html
 <template>
-  <b-form-textarea
-    id="textarea2"
-    :state="text.length >= 10"
-    v-model="text"
-    placeholder="Enter at least 10 characters"
-    rows="3"
-  />
+  <div>
+    <b-form-textarea
+      id="textarea2"
+      :state="text.length >= 10"
+      v-model="text"
+      placeholder="Enter at least 10 characters"
+      rows="3"
+    />
+  </div>
 </template>
 
 <script>
@@ -162,7 +173,9 @@ form field styling and preserve the correct text size, margin, padding and heigh
 
 ```html
 <template>
-  <b-form-textarea id="textarea3" plaintext :value="text" />
+  <div>
+    <b-form-textarea id="textarea3" plaintext :value="text" />
+  </div>
 </template>
 
 <script>
