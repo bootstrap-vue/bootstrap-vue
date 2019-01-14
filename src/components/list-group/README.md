@@ -91,15 +91,15 @@ prop.
 
 ```html
 <b-list-group>
-  <b-list-group-item>This is a default list group item</b-list-group-item>
-  <b-list-group-item variant="primary">This is a primary list group item</b-list-group-item>
-  <b-list-group-item variant="secondary">This is a secondary list group item</b-list-group-item>
-  <b-list-group-item variant="success">This is a success list group item</b-list-group-item>
-  <b-list-group-item variant="danger">This is a danger list group item</b-list-group-item>
-  <b-list-group-item variant="warning">This is a warning list group item</b-list-group-item>
-  <b-list-group-item variant="info">This is a info list group item</b-list-group-item>
-  <b-list-group-item variant="light">This is a light list group item</b-list-group-item>
-  <b-list-group-item variant="dark">This is a dark list group item</b-list-group-item>
+  <b-list-group-item>Default list group item</b-list-group-item>
+  <b-list-group-item variant="primary">Pprimary list group item</b-list-group-item>
+  <b-list-group-item variant="secondary">Secondary list group item</b-list-group-item>
+  <b-list-group-item variant="success">Success list group item</b-list-group-item>
+  <b-list-group-item variant="danger">Danger list group item</b-list-group-item>
+  <b-list-group-item variant="warning">Warning list group item</b-list-group-item>
+  <b-list-group-item variant="info">Info list group item</b-list-group-item>
+  <b-list-group-item variant="light">Light list group item</b-list-group-item>
+  <b-list-group-item variant="dark">Dark list group item</b-list-group-item>
 </b-list-group>
 
 <!-- list-group-variant.vue -->
@@ -111,23 +111,15 @@ selection on a contextual list group item.
 
 ```html
 <b-list-group>
-  <b-list-group-item href="#">This is a default list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="primary"
-    >This is a primary list group item</b-list-group-item
-  >
-  <b-list-group-item href="#" variant="secondary"
-    >This is a secondary list group item</b-list-group-item
-  >
-  <b-list-group-item href="#" variant="success"
-    >This is a success list group item</b-list-group-item
-  >
-  <b-list-group-item href="#" variant="danger">This is a danger list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="warning"
-    >This is a warning list group item</b-list-group-item
-  >
-  <b-list-group-item href="#" variant="info">This is a info list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="light">This is a light list group item</b-list-group-item>
-  <b-list-group-item href="#" variant="dark">This is a dark list group item</b-list-group-item>
+  <b-list-group-item href="#">Default list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="primary">Primary list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="secondary">Secondary list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="success">Success list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="danger">Danger list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="warning">Warning list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="info">Info list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="light">Light list group item</b-list-group-item>
+  <b-list-group-item href="#" variant="dark">Dark list group item</b-list-group-item>
 </b-list-group>
 
 <!-- list-group-variant-action.vue -->
@@ -170,10 +162,12 @@ more with the help of some [utility classes](http://getbootstrap.com/docs/4.0/ut
     Cras justo odio
     <b-badge variant="primary" pill>14</b-badge>
   </b-list-group-item>
+
   <b-list-group-item class="d-flex justify-content-between align-items-center">
     Dapibus ac facilisis in
     <b-badge variant="primary" pill>2</b-badge>
   </b-list-group-item>
+
   <b-list-group-item class="d-flex justify-content-between align-items-center">
     Morbi leo risus
     <b-badge variant="primary" pill>1</b-badge>
@@ -196,18 +190,21 @@ prop when using cards with `no-body` to make the sides of the list group flush w
       <b-list-group-item href="#">Dapibus ac facilisis in</b-list-group-item>
       <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
     </b-list-group>
+
     <p class="card-text mt-2">
       Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
       consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur
       mollit voluptate est in duis laboris ad sit ipsum anim Lorem.
     </p>
   </b-card>
+
   <b-card no-body header="<b>Card with flush list group</b>">
     <b-list-group flush>
       <b-list-group-item href="#">Cras justo odio</b-list-group-item>
       <b-list-group-item href="#">Dapibus ac facilisis in</b-list-group-item>
       <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
     </b-list-group>
+
     <b-card-body>
       Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
       consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur
@@ -231,29 +228,37 @@ help of [flexbox utility classes](http://getbootstrap.com/docs/4.0/utilities/fle
       <h5 class="mb-1">List group item heading</h5>
       <small>3 days ago</small>
     </div>
+
     <p class="mb-1">
       Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
     </p>
+
     <small>Donec id elit non mi porta.</small>
   </b-list-group-item>
+
   <b-list-group-item href="#" class="flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">List group item heading</h5>
       <small class="text-muted">3 days ago</small>
     </div>
+
     <p class="mb-1">
       Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
     </p>
+
     <small class="text-muted">Donec id elit non mi porta.</small>
   </b-list-group-item>
+
   <b-list-group-item href="#" disabled class="flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">Disabled List group item</h5>
       <small class="text-muted">3 days ago</small>
     </div>
+
     <p class="mb-1">
       Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
     </p>
+
     <small class="text-muted">Donec id elit non mi porta.</small>
   </b-list-group-item>
 </b-list-group>
