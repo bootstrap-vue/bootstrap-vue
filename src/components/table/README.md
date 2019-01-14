@@ -1334,6 +1334,73 @@ remove the record from the original items array.
 
 **Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
 
+## Table body transition support
+
+Vue transitions and animations are optionally supported on the `<tbody>` element via the use of Vue's
+`<transition-group>` component internally. Three props are available for transitions support:
+
+| Prop                        | Type     | Default   | Description
+| --------------------------- | -------- | --------- | ----------------------------------------------------------------- |
+| `tbody-transition-props`    | `Object` | undefined | Object of transition-group properties                             |
+| `tbody-transition-handlers` | `Object` | undefined | Object of transition-group event handlers                         |
+| `primary-key`               | `String` | undefined | String specifying the field to use as a unique row key (required) |
+
+To enable transitons you need to specify `tbody-transition-props` and/or `tbody-transition-handlers`,
+and must specify which field key to use as a unique key via the `primary-key` prop. Your data **must
+have** a column that has a unique value per row in order for transitions to work properly. The
+`primary-key` field's _value_ can either be a unique string or number.
+
+You must also provide CSS to handle your transitions (if using CSS transitions) in your project.
+
+For more information of Vue's list rendering transitions, see the
+[Vue JS official docs](https://vuejs.org/v2/guide/transitions.html#List-Move-Transitions).
+
+In the example below, we have used the following custom CSS:
+
+```css
+table#table-flip-list-example .table-flip-list-example-move {
+  transition: transform 1s;
+}
+```
+
+```html
+<template>
+  <b-table id="table-flip-list-example"
+           :items="items"
+           :fields="fields"
+           striped
+           small
+           primary-key="a"
+           tbody-transition-props="transProps"
+  />
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      transProps: {
+        name: 'table-flip-list-example'
+      },
+      items: [
+        {a: 2, b: 2, c: 1},
+        {a: 1, b: 3, c: 3},
+        {a: 3, b: 4, c: 4},
+        {a: 4, b: 1, c: 2}
+      ],
+      fields: [
+        { key: 'a', sortable: true },
+        { key: 'b', sortable: true },
+        { key: 'c', sortable: true }
+      ]
+    }
+  }
+}
+</script>
+
+<!-- table-transitions.vue -->
+```
+
 ## Using Items Provider Functions
 
 As mentioned under the [**Items**](#items-record-data-) prop section, it is possible to use a
