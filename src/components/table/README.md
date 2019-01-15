@@ -7,27 +7,27 @@
 
 ```html
 <template>
-  <b-table striped hover :items="items" />
+  <div>
+    <b-table striped hover :items="items" />
+  </div>
 </template>
 
 <script>
-  const items = [
-    { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-    { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-    { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-    { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
-  ]
-
   export default {
     data() {
       return {
-        items: items
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ]
       }
     }
   }
 </script>
 
-<!-- table-basic-1.vue -->
+<!-- table.vue -->
 ```
 
 ## Items (record data)
@@ -76,40 +76,40 @@ modifier properties (make sure your field keys do not conflict with these names)
 
 ```html
 <template>
-  <b-table hover :items="items" />
+  <div>
+    <b-table hover :items="items" />
+  </div>
 </template>
 
 <script>
-  const items = [
-    { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-    { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-    {
-      isActive: false,
-      age: 89,
-      first_name: 'Geneva',
-      last_name: 'Wilson',
-      _rowVariant: 'danger'
-    },
-    {
-      isActive: true,
-      age: 40,
-      first_name: 'Thor',
-      last_name: 'Macdonald',
-      _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
-    },
-    { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
-  ]
-
   export default {
     data() {
       return {
-        items: items
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          {
+            isActive: false,
+            age: 89,
+            first_name: 'Geneva',
+            last_name: 'Wilson',
+            _rowVariant: 'danger'
+          },
+          {
+            isActive: true,
+            age: 40,
+            first_name: 'Thor',
+            last_name: 'Macdonald',
+            _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
+          },
+          { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+        ]
       }
     }
   }
 </script>
 
-<!-- table-variants-1.vue -->
+<!-- table-variants.vue -->
 ```
 
 `items` can also be a reference to a _provider_ function, which returns an `Array` of items data.
@@ -143,14 +143,16 @@ Fields can be a simple array, for defining the order of the columns, and which c
 
 ```html
 <template>
-  <b-table striped hover :items="items" :fields="fields" />
+  <div>
+    <b-table striped hover :items="items" :fields="fields" />
+  </div>
 </template>
 
 <script>
   export default {
     data() {
       return {
-        // Note 'isActive' is left out and will not appear in the rendered table
+        // Note `isActive` is left out and will not appear in the rendered table
         fields: ['first_name', 'last_name', 'age'],
         items: [
           { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
@@ -176,7 +178,9 @@ is guaranteed)**:
 
 ```html
 <template>
-  <b-table striped hover :items="items" :fields="fields" />
+  <div>
+    <b-table striped hover :items="items" :fields="fields" />
+  </div>
 </template>
 
 <script>
@@ -226,7 +230,9 @@ typically be in the order they were defined in the object, although **field orde
 
 ```html
 <template>
-  <b-table striped hover :items="items" :fields="fields" />
+  <div>
+    <b-table striped hover :items="items" :fields="fields" />
+  </div>
 </template>
 
 <script>
@@ -338,7 +344,12 @@ For information and usage about scoped slots and formatters, refer to the
 Feel free to mix and match simple array and object array together:
 
 ```js
-fields: [{ key: 'first_name', label: 'First' }, { key: 'last_name', label: 'Last' }, 'age', 'sex']
+const fields = [
+  { key: 'first_name', label: 'First' },
+  { key: 'last_name', label: 'Last' },
+  'age',
+  'sex'
+]
 ```
 
 ### Primary key
@@ -398,6 +409,7 @@ In future releases of BootstrapVue, the `primary-key` may be used for additional
       <b-form-checkbox inline v-model="fixed">Fixed</b-form-checkbox>
       <b-form-checkbox inline v-model="footClone">Foot Clone</b-form-checkbox>
     </b-form-group>
+
     <b-table
       :striped="striped"
       :bordered="bordered"
@@ -453,7 +465,9 @@ You can also style every row using the `tbody-tr-class` prop
 
 ```html
 <template>
-  <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass" />
+  <div>
+    <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass" />
+  </div>
 </template>
 
 <script>
@@ -477,7 +491,7 @@ You can also style every row using the `tbody-tr-class` prop
   }
 </script>
 
-<!-- table-styled-row-basic.vue -->
+<!-- table-styled-row.vue -->
 ```
 
 ## Responsive tables
@@ -491,7 +505,9 @@ values: `sm`, `md`, `lg`, or `xl`.
 
 ```html
 <template>
-  <b-table responsive :items="items" />
+  <div>
+    <b-table responsive :items="items" />
+  </div>
 </template>
 
 <script>
@@ -567,7 +583,9 @@ The prop `stacked` takes precedence over the `responsive` prop.
 
 ```html
 <template>
-  <b-table stacked :items="items" />
+  <div>
+    <b-table stacked :items="items" />
+  </div>
 </template>
 
 <script>
@@ -609,11 +627,11 @@ bottom of the table:
 
 ```html
 <template>
-  <b-table :items="items" :fields="fields">
-    <template slot="table-caption">
-      This is a table caption.
-    </template>
-  </b-table>
+  <div>
+    <b-table :items="items" :fields="fields">
+      <template slot="table-caption">This is a table caption.</template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -638,11 +656,11 @@ You can have the caption placed at the top of the table by setting the `caption-
 
 ```html
 <template>
-  <b-table :items="items" :fields="fields" caption-top>
-    <template slot="table-caption">
-      This is a table caption at the top.
-    </template>
-  </b-table>
+  <div>
+    <b-table :items="items" :fields="fields" caption-top>
+      <template slot="table-caption">This is a table caption at the top.</template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -704,13 +722,15 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
 <template>
   <div>
     <b-button @click="toggleBusy">Toggle Busy State</b-button>
+
     <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
-      <div slot="table-busy" class="text-center text-danger">
-        <br /><strong>Loading...</strong><br /><br />
+      <div slot="table-busy" class="text-center text-danger my-2">
+        <strong>Loading...</strong>
       </div>
     </b-table>
   </div>
 </template>
+
 <script>
   export default {
     data() {
@@ -757,20 +777,24 @@ field(s) in the scoped slot(s).
 
 ```html
 <template>
-  <b-table :fields="fields" :items="items">
-    <!-- A virtual column -->
-    <template slot="index" slot-scope="data">
-      {{ data.index + 1 }}
-    </template>
-    <!-- A custom formatted column -->
-    <template slot="name" slot-scope="data">
-      {{ data.value.first }} {{ data.value.last }}
-    </template>
-    <!-- A virtual composite column -->
-    <template slot="nameage" slot-scope="data">
-      {{ data.item.name.first }} is {{ data.item.age }} years old
-    </template>
-  </b-table>
+  <div>
+    <b-table :fields="fields" :items="items">
+      <!-- A virtual column -->
+      <template slot="index" slot-scope="data">
+        {{ data.index + 1 }}
+      </template>
+
+      <!-- A custom formatted column -->
+      <template slot="name" slot-scope="data">
+        {{ data.value.first }} {{ data.value.last }}
+      </template>
+
+      <!-- A virtual composite column -->
+      <template slot="nameage" slot-scope="data">
+        {{ data.item.name.first }} is {{ data.item.age }} years old
+      </template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -830,7 +854,11 @@ scoped field slot
 
 ```html
 <template>
-  <b-table :items="items"><span slot="html" slot-scope="data" v-html="data.value"/></b-table>
+  <div>
+    <b-table :items="items">
+      <span slot="html" slot-scope="data" v-html="data.value"/>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -869,12 +897,14 @@ formatted value as a string (HTML strings are not supported)
 
 ```html
 <template>
-  <b-table :fields="fields" :items="items">
-    <template slot="name" slot-scope="data">
-      <!-- data.value is th value after formattetd by the Formatter -->
-      <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
-    </template>
-  </b-table>
+  <div>
+    <b-table :fields="fields" :items="items">
+      <template slot="name" slot-scope="data">
+        <!-- `data.value` is th value after formattetd by the Formatter -->
+        <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
+      </template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -936,20 +966,24 @@ and `FOOT_<fieldkey>` respectively. if a `FOOT_` slot for a field is not provide
 slot is provided, then the footer will use the `HEAD_` slot content.
 
 ```html
-<b-table :fields="fields" :items="items" foot-clone>
-  <template slot="name" slot-scope="data">
+<div>
+  <b-table :fields="fields" :items="items" foot-clone>
     <!-- A custom formatted data column cell -->
-    {{ data.value.first }} {{ data.value.last }}
-  </template>
-  <template slot="HEAD_name" slot-scope="data">
+    <template slot="name" slot-scope="data">
+      {{ data.value.first }} {{ data.value.last }}
+    </template>
+
     <!-- A custom formatted header cell for field 'name' -->
-    <em>{{ data.label }}</em>
-  </template>
-  <template slot="FOOT_name" slot-scope="data">
+    <template slot="HEAD_name" slot-scope="data">
+      <em>{{ data.label }}</em>
+    </template>
+
     <!-- A custom formatted footer cell  for field 'name' -->
-    <strong>{{ data.label }}</strong>
-  </template>
-</b-table>
+    <template slot="FOOT_name" slot-scope="data">
+      <strong>{{ data.label }}</strong>
+    </template>
+  </b-table>
+</div>
 ```
 
 The slot's scope variable (`data` in the above example) will have the following properties:
@@ -982,17 +1016,21 @@ as read-only.**
 
 ```html
 <template>
-  <b-form-group label="Selection mode:" label-cols-md="4">
-    <b-form-select v-model="selectMode" :options="modes" class="mb-3" />
-  </b-form-group>
-  <b-table
-    selectable
-    :select-mode="selectMode"
-    selectedVariant="success"
-    :items="items"
-    @row-selected="rowSelected"
-  />
-  {{ selected }}
+  <div>
+    <b-form-group label="Selection mode:" label-cols-md="4">
+      <b-form-select v-model="selectMode" :options="modes" class="mb-3" />
+    </b-form-group>
+
+    <b-table
+      selectable
+      :select-mode="selectMode"
+      selectedVariant="success"
+      :items="items"
+      @row-selected="rowSelected"
+    />
+
+    {{ selected }}
+  </div>
 </template>
 
 <script>
@@ -1063,30 +1101,36 @@ initially showing.
 
 ```html
 <template>
-  <b-table :items="items" :fields="fields" striped>
-    <template slot="show_details" slot-scope="row">
-      <b-button size="sm" @click="row.toggleDetails" class="mr-2">
-        {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
-      </b-button>
-      <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
-      <b-form-checkbox @change="row.toggleDetails" v-model="row.detailsShowing">
-        Details via check
-      </b-form-checkbox>
-    </template>
-    <template slot="row-details" slot-scope="row">
-      <b-card>
-        <b-row class="mb-2">
-          <b-col sm="3" class="text-sm-right"><b>Age:</b></b-col>
-          <b-col>{{ row.item.age }}</b-col>
-        </b-row>
-        <b-row class="mb-2">
-          <b-col sm="3" class="text-sm-right"><b>Is Active:</b></b-col>
-          <b-col>{{ row.item.isActive }}</b-col>
-        </b-row>
-        <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
-      </b-card>
-    </template>
-  </b-table>
+  <div>
+    <b-table :items="items" :fields="fields" striped>
+      <template slot="show_details" slot-scope="row">
+        <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+          {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
+        </b-button>
+
+        <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
+        <b-form-checkbox @change="row.toggleDetails" v-model="row.detailsShowing">
+          Details via check
+        </b-form-checkbox>
+      </template>
+
+      <template slot="row-details" slot-scope="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Age:</b></b-col>
+            <b-col>{{ row.item.age }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Is Active:</b></b-col>
+            <b-col>{{ row.item.isActive }}</b-col>
+          </b-row>
+
+          <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+        </b-card>
+      </template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -1140,12 +1184,12 @@ presentational data.
 ```html
 <template>
   <div>
-    <b-table :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :items="items" :fields="fields">
-    </b-table>
-    <p>
+    <b-table :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :items="items" :fields="fields" />
+
+    <div>
       Sorting By: <b>{{ sortBy }}</b>, Sort Direction:
       <b>{{ sortDesc ? 'Descending' : 'Ascending' }}</b>
-    </p>
+    </div>
   </div>
 </template>
 
@@ -1368,15 +1412,17 @@ table#table-transition-example .flip-list-move {
 
 ```html
 <template>
-  <b-table
-    id="table-transition-example"
-    :items="items"
-    :fields="fields"
-    striped
-    small
-    primary-key="a"
-    :tbody-transition-props="transProps"
-  />
+  <div>
+    <b-table
+      id="table-transition-example"
+      :items="items"
+      :fields="fields"
+      striped
+      small
+      primary-key="a"
+      :tbody-transition-props="transProps"
+    />
+  </div>
 </template>
 
 <script>
@@ -1438,7 +1484,7 @@ method.
 function myProvider(ctx) {
   let items = []
 
-  // perform any items processing needed
+  // Perform any items processing needed
 
   // Must return an array
   return items || []
@@ -1496,8 +1542,17 @@ function should handle errors from data sources and return an empty array to `<b
 
 ```html
 <template>
-  <b-table id="my-table" :busy.sync="isBusy" :items="myProvider" :fields="fields" ... />
+  <div>
+    <b-table
+      id="my-table"
+      :busy.sync="isBusy"
+      :items="myProvider"
+      :fields="fields"
+      ...
+    />
+  </div>
 </template>
+
 <script>
   export defailt {
     data () {
@@ -1575,7 +1630,9 @@ this.$root.$emit('bv::refresh::table', 'my-table')
 Or by calling the `refresh()` method on the table reference
 
 ```html
-<b-table ref="table" ... />
+<div>
+  <b-table ref="table" ... />
+</div>
 ```
 
 ```js
@@ -1592,7 +1649,9 @@ By listening on `<b-table>` `sort-changed` event, you can detect when the sortin
 have changed.
 
 ```html
-<b-table @sort-changed="sortingChanged" ... />
+<div>
+  <b-table @sort-changed="sortingChanged" ... />
+</div>
 ```
 
 The `sort-changed` event provides a single argument of the table's current state context object.
@@ -1612,7 +1671,9 @@ You can also obtain the current sortBy and sortDesc values by using the `:sort-b
 details).
 
 ```html
-<b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... />
+<div>
+  <b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... />
+</div>
 ```
 
 ### Server Side Rendering
@@ -1669,6 +1730,7 @@ differences between operating systems, this too is not a preventable default beh
           </b-input-group>
         </b-form-group>
       </b-col>
+
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Sort" class="mb-0">
           <b-input-group>
@@ -1681,6 +1743,7 @@ differences between operating systems, this too is not a preventable default beh
           </b-input-group>
         </b-form-group>
       </b-col>
+
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Sort direction" class="mb-0">
           <b-input-group>
@@ -1691,6 +1754,7 @@ differences between operating systems, this too is not a preventable default beh
           </b-input-group>
         </b-form-group>
       </b-col>
+
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
           <b-form-select :options="pageOptions" v-model="perPage" />
@@ -1715,9 +1779,11 @@ differences between operating systems, this too is not a preventable default beh
       <template slot="name" slot-scope="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
+
       <template slot="isActive" slot-scope="row">
         {{ row.value ? 'Yes :)' : 'No :(' }}
       </template>
+
       <template slot="actions" slot-scope="row">
         <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
@@ -1726,6 +1792,7 @@ differences between operating systems, this too is not a preventable default beh
           {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
         </b-button>
       </template>
+
       <template slot="row-details" slot-scope="row">
         <b-card>
           <ul>
@@ -1829,7 +1896,7 @@ differences between operating systems, this too is not a preventable default beh
   }
 </script>
 
-<!-- table-complete-1.vue -->
+<!-- table-complete.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->
