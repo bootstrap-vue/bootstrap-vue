@@ -158,6 +158,10 @@ export default {
       type: [String, Array],
       default: null
     },
+    dialogClass: {
+      type: [String, Array],
+      default: null
+    },
     contentClass: {
       type: [String, Array],
       default: null
@@ -278,10 +282,13 @@ export default {
       ]
     },
     dialogClasses() {
-      return {
-        [`modal-${this.size}`]: Boolean(this.size),
-        'modal-dialog-centered': this.centered
-      }
+      return [
+        {
+          [`modal-${this.size}`]: Boolean(this.size),
+          'modal-dialog-centered': this.centered
+        },
+        this.dialogClass
+      ]
     },
     backdropClasses() {
       return {
