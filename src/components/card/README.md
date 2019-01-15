@@ -31,7 +31,7 @@ Change the default `div` root tag to any other HTML element by specifying via th
   </b-card>
 </div>
 
-<!-- card.vue -->
+<!-- b-card.vue -->
 ```
 
 ## Content types
@@ -57,7 +57,7 @@ By default the `<b-card>` content is automatically placed in a`<b-card-body>` se
   </b-card>
 </div>
 
-<!-- card-body.vue -->
+<!-- b-card-body.vue -->
 ```
 
 Disable the automatic `<b-card-body>` section (and associated padding) by setting the prop `no-body`
@@ -73,7 +73,7 @@ on the `<b-card>`.
   </b-card>
 </div>
 
-<!-- card-body-no-body.vue -->
+<!-- b-card-body-no-body.vue -->
 ```
 
 Note that with `no-body` enabled, the content of the `title` and `sub-title` props will not be
@@ -110,7 +110,7 @@ Links can be added and placed next to each other by adding the `.card-link` clas
   </b-card>
 </div>
 
-<!-- card-text.vue -->
+<!-- b-card-text.vue -->
 ```
 
 ### Images
@@ -153,7 +153,7 @@ be responsive and will adjust it's width when the width of the card is changed.
   </div>
 </div>
 
-<!-- card-img.vue -->
+<!-- b-card-img.vue -->
 ```
 
 **Note:** For left and right images, you may need to apply additional styles to classes
@@ -182,7 +182,7 @@ Place the image in the background of the card by setting the boolean prop `overl
   </b-card>
 </div>
 
-<!-- card-overlay-img-.vue -->
+<!-- b-card-overlay-img-.vue -->
 ```
 
 ### Header and footer
@@ -214,7 +214,7 @@ You can control the wrapper element tags used by setting the `header-tag` and `f
   </b-card-group>
 </div>
 
-<!-- card-header-footer.vue -->
+<!-- b-card-header-footer.vue -->
 ```
 
 ### Kitchen sink Example
@@ -260,7 +260,7 @@ card.
   </b-card>
 </div>
 
-<!-- card-kitchen-sink.vue -->
+<!-- b-card-kitchen-sink.vue -->
 ```
 
 ## Horizontal card layout
@@ -293,7 +293,7 @@ may be needed depending on your card content.
   </b-card>
 </div>
 
-<!-- card-horizontal.vue -->
+<!-- b-card-horizontal.vue -->
 ```
 
 ## Text variants
@@ -310,7 +310,7 @@ Then, specify a dark background variant.
   <b-button href="#" variant="primary">Go somewhere</b-button>
 </b-card>
 
-<!-- card-text-variants.vue -->
+<!-- b-card-text-variants.vue -->
 ```
 
 ## Background and Border variants
@@ -370,7 +370,7 @@ the `bg-variant` and `border-variant` props. Darker solid variants my require se
   </div>
 </div>
 
-<!-- card-variants.vue -->
+<!-- b-card-variants.vue -->
 ```
 
 ### Bordered
@@ -442,7 +442,7 @@ the `bg-variant` and `border-variant` props. Darker solid variants my require se
   </div>
 </div>
 
-<!-- card-border-variants.vue -->
+<!-- b-card-border-variants.vue -->
 ```
 
 #### Variant to class mapping
@@ -474,7 +474,7 @@ You can also apply the solid and border variants individually to card headers an
   </b-card>
 </div>
 
-<!-- card-header-footer-variant.vue -->
+<!-- b-card-header-footer-variant.vue -->
 ```
 
 ### Conveying meaning to assistive technologies
@@ -524,7 +524,7 @@ When using card groups with footers, their content will automatically line up.
   </b-card-group>
 </div>
 
-<!-- card-group.vue -->
+<!-- b-card-group.vue -->
 ```
 
 ### Card deck groups
@@ -561,7 +561,7 @@ automatically line up.
   </b-card-group>
 </div>
 
-<!-- card-group-deck.vue -->
+<!-- b-card-group-deck.vue -->
 ```
 
 ### Card column groups
@@ -640,7 +640,7 @@ set them to display: inline-block as column-break-inside: avoid isn’t a bullet
   </b-card-group>
 </div>
 
-<!-- card-group-columns.vue -->
+<!-- b-card-group-columns.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

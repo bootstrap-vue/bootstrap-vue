@@ -86,7 +86,7 @@
   }
 </script>
 
-<!-- form.vue -->
+<!-- b-form.vue -->
 ```
 
 ## Inline form
@@ -122,7 +122,7 @@ visitors with class `.sr-only`.
   </b-form>
 </div>
 
-<!-- form-inline.vue -->
+<!-- b-form-inline.vue -->
 ```
 
 Custom form controls and selects are also supported.
@@ -146,7 +146,7 @@ Custom form controls and selects are also supported.
   </b-form>
 </div>
 
-<!-- form-inline-custom.vue -->
+<!-- b-form-inline-custom.vue -->
 ```
 
 **Note:** _`<b-form-group>` is not supported in `inline` forms due to layout conflicts._

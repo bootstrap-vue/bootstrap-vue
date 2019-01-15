@@ -18,7 +18,7 @@ busy slot.
   <b-spinner variant="success" type="grow" label="Spinning" />
 </div>
 
-<!-- spinners.vue -->
+<!-- b-spinners.vue -->
 ```
 
 ## Spinner types
@@ -35,7 +35,7 @@ Use the default `border` type spinners for a lightweight loading indicator.
   <b-spinner label="Loading..." />
 </div>
 
-<!-- spinner-border.vue -->
+<!-- b-spinner-border.vue -->
 ```
 
 ### Grow spinner
@@ -48,7 +48,7 @@ If you don't fancy a `border` spinner, switch to the `grow` spinner by setting t
   <b-spinner type="grow" label="Loading..." />
 </div>
 
-<!-- spinner-grow.vue -->
+<!-- b-spinner-grow.vue -->
 ```
 
 ## Spinner color variants
@@ -83,7 +83,7 @@ you have custom defined text color variants, feel free to use them via the `vari
   }
 </script>
 
-<!-- spinner-variants.vue -->
+<!-- b-spinner-variants.vue -->
 ```
 
 **Why not use `border-color` utilities?** Each `border` spinner specifies a `transparent` border for
@@ -100,7 +100,7 @@ components.
   <b-spinner small type="grow" label="Small Spinner" />
 </div>
 
-<!-- spinner-sizes.vue -->
+<!-- b-spinner-sizes.vue -->
 ```
 
 Or, use custom CSS or inline styles to change the dimensions as needed.
@@ -111,7 +111,7 @@ Or, use custom CSS or inline styles to change the dimensions as needed.
   <b-spinner style="width: 3rem; height: 3rem;" type="grow" label="Large Spinner" />
 </div>
 
-<!-- spinner-sizes-custom.vue -->
+<!-- b-spinner-sizes-custom.vue -->
 ```
 
 ## Alignment
@@ -128,7 +128,7 @@ Use margin utilities like `.m-5` for easy spacing.
   <b-spinner class="m-5" label="Busy" />
 </div>
 
-<!-- spinner-margin.vue -->
+<!-- b-spinner-margin.vue -->
 ```
 
 ## Placement
@@ -152,7 +152,7 @@ Using flex utility classes:
   </div>
 </div>
 
-<!-- spinner-flex.vue -->
+<!-- b-spinner-flex.vue -->
 ```
 
 ### Floats
@@ -164,7 +164,7 @@ Using float utility classes:
   <b-spinner class="float-right" label="Floated Right" />
 </div>
 
-<!-- spinner-floats.vue -->
+<!-- b-spinner-floats.vue -->
 ```
 
 ### Text align
@@ -176,7 +176,7 @@ Using text alignment utility classes:
   <b-spinner variant="primary" label="Text Centered" />
 </div>
 
-<!-- spinner-text-align.vue -->
+<!-- b-spinner-text-align.vue -->
 ```
 
 ## Spinners in buttons
@@ -197,7 +197,7 @@ also swap the label text out of the spinner element and utilize button text as n
   </b-button>
 </div>
 
-<!-- spinner-buttons.vue -->
+<!-- b-spinner-buttons.vue -->
 ```
 
 ## Spinner accessibility

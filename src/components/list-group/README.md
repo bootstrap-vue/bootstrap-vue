@@ -13,7 +13,7 @@
   <b-list-group-item>Vestibulum at eros</b-list-group-item>
 </b-list-group>
 
-<!-- list-group.vue -->
+<!-- b-list-group.vue -->
 ```
 
 ## Active items
@@ -29,7 +29,7 @@ Set the `active` prop on a `<b-list-group-item>` to indicate the current active 
   <b-list-group-item>Vestibulum at eros</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-active.vue -->
+<!-- b-list-group-active.vue -->
 ```
 
 ## Disabled items
@@ -46,7 +46,7 @@ actionalable items. see below).
   <b-list-group-item>Vestibulum at eros</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-disabled.vue -->
+<!-- b-list-group-disabled.vue -->
 ```
 
 ## Actionable list group items
@@ -62,7 +62,7 @@ Turn a `<b-list-group-item>` into an actionable link by specifying either an `hr
   <b-list-group-item href="#foobar" disabled>Disabled link</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-link.vue -->
+<!-- b-list-group-link.vue -->
 ```
 
 Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
@@ -75,7 +75,7 @@ Or if you prefer `<buttons>` over links, set the `button` prop to `true`.
   <b-list-group-item button>This is a button too</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-button.vue -->
+<!-- b-list-group-button.vue -->
 ```
 
 **Notes:**
@@ -102,7 +102,7 @@ prop.
   <b-list-group-item variant="dark">Dark list group item</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-variant.vue -->
+<!-- b-list-group-variant.vue -->
 ```
 
 Contextual variants also work with action items. Note the addition of the hover styling here not
@@ -122,7 +122,7 @@ selection on a contextual list group item.
   <b-list-group-item href="#" variant="dark">Dark list group item</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-variant-action.vue -->
+<!-- b-list-group-variant-action.vue -->
 ```
 
 ### Conveying meaning to assistive technologies
@@ -145,7 +145,7 @@ Alternate the background colors of list items with by adding the prop `striped`.
   <b-list-group-item>Vestibulum at eros</b-list-group-item>
 </b-list-group>
 
-<!-- list-group-striped.vue -->
+<!-- b-list-group-striped.vue -->
 ```
 
 **Note:** currently, the `striped` option will not work well with list group items which are
@@ -174,7 +174,7 @@ more with the help of some [utility classes](http://getbootstrap.com/docs/4.0/ut
   </b-list-group-item>
 </b-list-group>
 
-<!-- list-group-badges.vue -->
+<!-- b-list-group-badges.vue -->
 ```
 
 ## List groups inside cards
@@ -213,7 +213,7 @@ prop when using cards with `no-body` to make the sides of the list group flush w
   </b-card>
 </b-card-group>
 
-<!-- list-group-card.vue -->
+<!-- b-list-group-card.vue -->
 ```
 
 ## Custom content
@@ -263,7 +263,7 @@ help of [flexbox utility classes](http://getbootstrap.com/docs/4.0/utilities/fle
   </b-list-group-item>
 </b-list-group>
 
-<!-- list-group-content.vue -->
+<!-- b-list-group-content.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

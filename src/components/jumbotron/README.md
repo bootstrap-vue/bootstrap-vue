@@ -18,7 +18,7 @@ Anything else between the opening and closing tags will be rendered at the botto
   </b-jumbotron>
 </div>
 
-<!-- jumbotron.vue -->
+<!-- b-jumbotron.vue -->
 ```
 
 **Usage with slots:**
@@ -45,7 +45,7 @@ Anything else between the opening and closing tags will be rendered at the botto
   </b-jumbotron>
 </div>
 
-<!-- jumbotron-using-slots.vue -->
+<!-- b-jumbotron-using-slots.vue -->
 ```
 
 ## Options
@@ -103,7 +103,7 @@ jumbotron to use the default styling.
   </b-jumbotron>
 </div>
 
-<!-- jumbotron-variants.vue -->
+<!-- b-jumbotron-variants.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

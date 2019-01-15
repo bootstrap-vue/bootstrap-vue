@@ -57,7 +57,7 @@ auto-dismissing).
   }
 </script>
 
-<!-- alert.vue -->
+<!-- b-alert.vue -->
 ```
 
 ## Visible state
@@ -93,7 +93,7 @@ For proper styling of `<b-alert>`, use one of the four required contextual varia
   <b-alert show variant="dark">Dark Alert</b-alert>
 </div>
 
-<!-- alert-variants.vue -->
+<!-- b-alert-variants.vue -->
 ```
 
 ### Conveying meaning to assistive technologies:
@@ -124,7 +124,7 @@ styled with the appropriate color matching the variant.
   </b-alert>
 </div>
 
-<!-- alert-content.vue -->
+<!-- b-alert-content.vue -->
 ```
 
 ### Color of links within alerts
@@ -144,7 +144,7 @@ Use on `<a>` or `<b-link>`.
   <b-alert show variant="dark"><a href="#" class="alert-link">Dark Alert</a></b-alert>
 </div>
 
-<!-- alert-links.vue -->
+<!-- b-alert-links.vue -->
 ```
 
 ## Dismissible alerts
@@ -160,7 +160,7 @@ button.
   </b-alert>
 </div>
 
-<!-- alert-dismiss.vue -->
+<!-- b-alert-dismiss.vue -->
 ```
 
 ### Auto dismissing alerts
@@ -206,7 +206,7 @@ integer number of seconds are supported.
   }
 </script>
 
-<!-- alert-auto-dismissing.vue -->
+<!-- b-alert-auto-dismissing.vue -->
 ```
 
 ## Fading alerts
@@ -268,7 +268,7 @@ Use the `fade` prop to enable animation. By default alerts are not animated.
   }
 </script>
 
-<!-- alert-fade.vue -->
+<!-- b-alert-fade.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

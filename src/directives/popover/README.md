@@ -13,7 +13,7 @@ to appear.
   <b-btn v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
 </div>
 
-<!-- popover.vue -->
+<!-- b-popover.vue -->
 ```
 
 ## Overview
@@ -169,7 +169,7 @@ Positioning is relative to the trigger element.
   </b-container>
 </div>
 
-<!-- popover-positioning.vue -->
+<!-- b-popover-positioning.vue -->
 ```
 
 ## Triggers
@@ -202,7 +202,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
   </b-container>
 </div>
 
-<!-- popover-triggers.vue -->
+<!-- b-popover-triggers.vue -->
 ```
 
 ### Dismiss on next click (self dimissing)
@@ -241,7 +241,7 @@ via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismising_.
   </b-container>
 </div>
 
-<!-- popover-dismiss-next-click.vue -->
+<!-- b-popover-dismiss-next-click.vue -->
 ```
 
 ## Heading and content
@@ -343,7 +343,7 @@ Content can also be a function reference, which is called each time the popover 
   }
 </script>
 
-<!-- popover-content.vue -->
+<!-- b-popover-content.vue -->
 ```
 
 ## Directive syntax and usage

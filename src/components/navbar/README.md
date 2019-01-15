@@ -44,7 +44,7 @@
   </b-navbar>
 </div>
 
-<!-- navbar.vue -->
+<!-- b-navbar.vue -->
 ```
 
 ## Color schemes
@@ -100,7 +100,7 @@ the `tag` prop to the element you would like rendered:
   </b-navbar>
 </div>
 
-<!-- navbar-brand-link.vue -->
+<!-- b-navbar-brand-link.vue -->
 ```
 
 ```html
@@ -111,7 +111,7 @@ the `tag` prop to the element you would like rendered:
   </b-navbar>
 </div>
 
-<!-- navbar-brand-heading.vue -->
+<!-- b-navbar-brand-heading.vue -->
 ```
 
 Adding images to the `<b-navbar-brand>` will likely always require custom styles or utilities to
@@ -127,7 +127,7 @@ properly size. Here are some examples to demonstrate:
   </b-navbar>
 </div>
 
-<!-- navbar-brand-image.vue -->
+<!-- b-navbar-brand-image.vue -->
 ```
 
 ```html
@@ -141,7 +141,7 @@ properly size. Here are some examples to demonstrate:
   </b-navbar>
 </div>
 
-<!-- navbar-brand-image-and-text.vue -->
+<!-- b-navbar-brand-image-and-text.vue -->
 ```
 
 ### `<b-navbar-nav>`
@@ -191,7 +191,7 @@ alignment and horizontal spacing for strings of text.
   </b-navbar>
 </div>
 
-<!-- navbar-text.vue -->
+<!-- b-navbar-text.vue -->
 ```
 
 ### `<b-nav-item-dropdown>`
@@ -221,7 +221,7 @@ split dropdowns are not supported in `<b-navbar>` and `<b-navbar-nav>`.
   </b-navbar>
 </div>
 
-<!-- navbar-dropdown.vue -->
+<!-- b-navbar-dropdown.vue -->
 ```
 
 ### `<b-nav-form>`
@@ -238,7 +238,7 @@ Use `<b-nav-form>` to place inline form controls into your navbar
   </b-navbar>
 </div>
 
-<!-- navbar-form.vue -->
+<!-- b-navbar-form.vue -->
 ```
 
 Input groups work as well:
@@ -254,7 +254,7 @@ Input groups work as well:
   </b-navbar>
 </div>
 
-<!-- navbar-form-inputs.vue -->
+<!-- b-navbar-form-inputs.vue -->
 ```
 
 ### `<b-navbar-toggle>` and `<b-collapse is-nav>`

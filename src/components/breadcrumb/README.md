@@ -31,7 +31,7 @@
   }
 </script>
 
-<!-- breadcrumb.vue -->
+<!-- b-breadcrumb.vue -->
 ```
 
 ## Breadcrumb items

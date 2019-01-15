@@ -24,7 +24,7 @@ grid comes together.
   </b-row>
 </b-container>
 
-<!-- grid-how-it-works.vue -->
+<!-- b-grid-how-it-works.vue -->
 ```
 
 The above example creates three equal-width columns on small, medium, large, and extra large devices
@@ -150,7 +150,7 @@ width.
   </b-row>
 </b-container>
 
-<!-- grid-equal-width.vue -->
+<!-- b-grid-equal-width.vue -->
 ```
 
 Equal-width columns can be broken into multiple lines, but there is a
@@ -174,7 +174,7 @@ Both these fixes have been documented in a
   </b-row>
 </b-container>
 
-<!-- grid-equal-width-multiple-lines.vue -->
+<!-- b-grid-equal-width-multiple-lines.vue -->
 ```
 
 ### Setting one column width
@@ -199,7 +199,7 @@ of the center column.
   </b-row>
 </b-container>
 
-<!-- grid-one-width.vue -->
+<!-- b-grid-one-width.vue -->
 ```
 
 ### Variable width content
@@ -221,7 +221,7 @@ Use `${breakpoint}-auto` props to size columns based on the natural width of the
   </b-row>
 </b-container>
 
-<!-- grid-variable-width.vue -->
+<!-- b-grid-variable-width.vue -->
 ```
 
 ## Responsive classes
@@ -251,7 +251,7 @@ feel free to stick to `col` (which is applied automatically if no `cols` are spe
   </b-row>
 </b-container>
 
-<!-- grid-size-all-breakpoints.vue -->
+<!-- b-grid-size-all-breakpoints.vue -->
 ```
 
 ### Stacked to horizontal
@@ -274,7 +274,7 @@ grid system that starts out stacked on extra small devices before becoming horiz
   </b-row>
 </b-container>
 
-<!-- grid-horizontal-stacked.vue -->
+<!-- b-grid-horizontal-stacked.vue -->
 ```
 
 ### Mix and match
@@ -304,7 +304,7 @@ each tier as needed. See the example below for a better idea of how it all works
   </b-row>
 </b-container>
 
-<!-- grid-mix-and-match.vue -->
+<!-- b-grid-mix-and-match.vue -->
 ```
 
 ## Alignment
@@ -334,7 +334,7 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
   </b-row>
 </b-container>
 
-<!-- grid-vertical-alignment.vue -->
+<!-- b-grid-vertical-alignment.vue -->
 ```
 
 ```html
@@ -346,7 +346,7 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
   </b-row>
 </b-container>
 
-<!-- grid-align-self.vue -->
+<!-- b-grid-align-self.vue -->
 ```
 
 ### Horizontal Alignment
@@ -379,7 +379,7 @@ Use flexbox alignment utilities to vertically and horizontally align columns.
   </b-row>
 </b-container>
 
-<!-- grid-horizontal-alignment.vue -->
+<!-- b-grid-horizontal-alignment.vue -->
 ```
 
 ## Reordering
@@ -399,7 +399,7 @@ you can set the order by breakpoint (e.g., `order="1" order-md="2"`). Includes s
   </b-row>
 </b-container>
 
-<!-- grid-order.vue -->
+<!-- b-grid-order.vue -->
 ```
 
 ### Offsetting columns
@@ -426,7 +426,7 @@ offset is variable.
   </b-row>
 </b-container>
 
-<!-- grid-offset.vue -->
+<!-- b-grid-offset.vue -->
 ```
 
 In addition to column clearing at responsive breakpoints, you may need to reset offsets by setting
@@ -445,7 +445,7 @@ the offset to `0` at a larger breakpoint:
   </b-row>
 </b-container>
 
-<!-- grid-offset-reset.vue -->
+<!-- b-grid-offset-reset.vue -->
 ```
 
 ### Margin utilities on columns
@@ -472,7 +472,7 @@ sibling columns away from one another.
   </b-row>
 </b-container>
 
-<!-- grid-margins.vue -->
+<!-- b-grid-margins.vue -->
 ```
 
 ## Nesting grids
@@ -494,7 +494,7 @@ within an existing `<b-col>` component. Nested rows should include a set of colu
   </b-row>
 </b-container>
 
-<!-- grid-nesting.vue -->
+<!-- b-grid-nesting.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

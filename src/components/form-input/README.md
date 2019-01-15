@@ -21,7 +21,7 @@
   }
 </script>
 
-<!-- form-input.vue -->
+<!-- b-form-input.vue -->
 ```
 
 ## Input type
@@ -65,7 +65,7 @@ native browser HTML5 types: `text`, `password`, `email`, `number`, `url`, `tel`,
   }
 </script>
 
-<!-- form-input-types.vue -->
+<!-- b-form-input-types.vue -->
 ```
 
 If the `type` prop is set to an input type that is not supported (see above), a `text` input will be
@@ -120,7 +120,7 @@ new values for those using the `min` and `max` props.
   }
 </script>
 
-<!-- form-input-range.vue -->
+<!-- b-form-input-range.vue -->
 ```
 
 By default, range inputs “snap” to integer values. To change this, you can specify a `step` value.
@@ -145,7 +145,7 @@ In the example below, we double the number of steps by using step="0.5".
   }
 </script>
 
-<!-- form-input-range-step.vue -->
+<!-- b-form-input-range-step.vue -->
 ```
 
 **Note:** Range inputs (as do all input types) return their value as a string. You may need to
@@ -192,7 +192,7 @@ To control width, place the input inside standard Bootstrap grid column.
   </b-row>
 </b-container>
 
-<!-- form-input-size.vue -->
+<!-- b-form-input-size.vue -->
 ```
 
 **Note:** Input type `range` currently does not support control sizing unless it is placed inside a
@@ -250,7 +250,7 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
   </b-row>
 </b-container>
 
-<!-- form-input-states.vue -->
+<!-- b-form-input-states.vue -->
 ```
 
 **Live Example**
@@ -294,7 +294,7 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
   }
 </script>
 
-<!-- form-input-states-feedback.vue -->
+<!-- b-form-input-states-feedback.vue -->
 ```
 
 > **Tip:** Use the [`<b-form-group>`](/docs/components/form-group) component to automatically
@@ -390,7 +390,7 @@ Formatting does not occur if a `formatter` is not provided.
   }
 </script>
 
-<!-- form-input-formatter.vue -->
+<!-- b-form-input-formatter.vue -->
 ```
 
 **Note:** When using a non-text-like input (i.e. `color`, `range`, `date`, `number`, `email` etc),

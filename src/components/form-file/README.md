@@ -32,7 +32,7 @@
   }
 </script>
 
-<!-- form-file.vue -->
+<!-- b-form-file.vue -->
 ```
 
 For cross browser consistency, Form file defaults to the Bootstrap custom file input to replace the
@@ -183,7 +183,7 @@ input. To take advantage of the `reset()` method, you will need to obtain a refe
   }
 </script>
 
-<!-- form-file-reset.vue -->
+<!-- b-form-file-reset.vue -->
 ```
 
 **Implementation note:** As not all browsers allow setting a value of a file input (even to null or

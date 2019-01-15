@@ -27,7 +27,7 @@
   }
 </script>
 
-<!-- table.vue -->
+<!-- b-table.vue -->
 ```
 
 ## Items (record data)
@@ -109,7 +109,7 @@ modifier properties (make sure your field keys do not conflict with these names)
   }
 </script>
 
-<!-- table-variants.vue -->
+<!-- b-table-variants.vue -->
 ```
 
 `items` can also be a reference to a _provider_ function, which returns an `Array` of items data.
@@ -165,7 +165,7 @@ Fields can be a simple array, for defining the order of the columns, and which c
   }
 </script>
 
-<!-- table-fields-array.vue -->
+<!-- b-table-fields-array.vue -->
 ```
 
 ### Fields as an array of objects
@@ -216,7 +216,7 @@ is guaranteed)**:
   }
 </script>
 
-<!-- table-fields-array-of-objects.vue -->
+<!-- b-table-fields-array-of-objects.vue -->
 ```
 
 ### Fields as an object
@@ -299,7 +299,7 @@ typically be in the order they were defined in the object, although **field orde
   }
 </script>
 
-<!-- table-fields-object.vue -->
+<!-- b-table-fields-object.vue -->
 ```
 
 **Notes:**
@@ -450,7 +450,7 @@ In future releases of BootstrapVue, the `primary-key` may be used for additional
   }
 </script>
 
-<!-- table-bordered.vue -->
+<!-- b-table-bordered.vue -->
 ```
 
 ### Row Styling
@@ -491,7 +491,7 @@ You can also style every row using the `tbody-tr-class` prop
   }
 </script>
 
-<!-- table-styled-row.vue -->
+<!-- b-table-styled-row.vue -->
 ```
 
 ## Responsive tables
@@ -557,7 +557,7 @@ values: `sm`, `md`, `lg`, or `xl`.
   }
 </script>
 
-<!-- table-responsive.vue -->
+<!-- b-table-responsive.vue -->
 ```
 
 **Responsive table notes:**
@@ -602,7 +602,7 @@ The prop `stacked` takes precedence over the `responsive` prop.
   }
 </script>
 
-<!-- table-stacked.vue -->
+<!-- b-table-stacked.vue -->
 ```
 
 **Note: When the table is visually stacked:**
@@ -649,7 +649,7 @@ bottom of the table:
   }
 </script>
 
-<!-- table-caption.vue -->
+<!-- b-table-caption.vue -->
 ```
 
 You can have the caption placed at the top of the table by setting the `caption-top` prop to `true`:
@@ -678,7 +678,7 @@ You can have the caption placed at the top of the table by setting the `caption-
   }
 </script>
 
-<!-- table-caption-top.vue -->
+<!-- b-table-caption-top.vue -->
 ```
 
 You can also use [custom CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/caption-side) to
@@ -752,7 +752,7 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
   }
 </script>
 
-<!-- table-busy-slot.vue -->
+<!-- b-table-busy-slot.vue -->
 ```
 
 Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for
@@ -824,7 +824,7 @@ field(s) in the scoped slot(s).
   }
 </script>
 
-<!-- table-data-slots.vue -->
+<!-- b-table-data-slots.vue -->
 ```
 
 The slot's scope variable (`data` in the above sample) will have the following properties:
@@ -876,7 +876,7 @@ scoped field slot
   }
 </script>
 
-<!-- table-html-data-slots.vue -->
+<!-- b-table-html-data-slots.vue -->
 ```
 
 **Warning:** Be cautious of using this to display user supplied content, **as script tags could be
@@ -953,7 +953,7 @@ formatted value as a string (HTML strings are not supported)
   }
 </script>
 
-<!-- table-data-formatter.vue -->
+<!-- b-table-data-formatter.vue -->
 ```
 
 ## Header/Footer custom rendering via scoped slots
@@ -1056,7 +1056,7 @@ as read-only.**
   }
 </script>
 
-<!-- table-selectable.vue -->
+<!-- b-table-selectable.vue -->
 ```
 
 **Notes:**
@@ -1155,7 +1155,7 @@ initially showing.
   }
 </script>
 
-<!-- table-details.vue -->
+<!-- b-table-details.vue -->
 ```
 
 ## Sorting
@@ -1216,7 +1216,7 @@ presentational data.
   }
 </script>
 
-<!-- table-sorting.vue -->
+<!-- b-table-sorting.vue -->
 ```
 
 ### Sort-Compare routine
@@ -1449,7 +1449,7 @@ table#table-transition-example .flip-list-move {
   }
 </script>
 
-<!-- table-transitions.vue -->
+<!-- b-table-transitions.vue -->
 ```
 
 ## Using Items Provider Functions
@@ -1896,7 +1896,7 @@ differences between operating systems, this too is not a preventable default beh
   }
 </script>
 
-<!-- table-complete.vue -->
+<!-- b-table-complete.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

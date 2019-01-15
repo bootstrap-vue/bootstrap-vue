@@ -8,7 +8,7 @@
   <b-btn v-b-tooltip.hover title="Tooltip content">Hover Me</b-btn>
 </div>
 
-<!-- tooltip.vue -->
+<!-- b-tooltip.vue -->
 ```
 
 ## Overview
@@ -138,7 +138,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
   <b-tooltip :target="() => $refs.exButton3" title="Alternative!" />
 </b-container>
 
-<!-- tooltip-component.vue -->
+<!-- b-tooltip-component.vue -->
 ```
 
 ### Component Options
@@ -185,7 +185,7 @@ it to `true` will show the tooltip, while setting it to `false` will hide the to
   }
 </script>
 
-<!-- tooltip-show-sync.vue -->
+<!-- b-tooltip-show-sync.vue -->
 ```
 
 To make the tooltip shown on initial render, simply add the `show` prop on `<b-tooltip>`:
@@ -196,7 +196,7 @@ To make the tooltip shown on initial render, simply add the `show` prop on `<b-t
   <b-tooltip show target="tooltipButton-2">I start open</b-tooltip>
 </div>
 
-<!-- tooltip-show-open.vue -->
+<!-- b-tooltip-show-open.vue -->
 ```
 
 Programmatic control can also be affected by submitting `'open'` and `'close'` events to the tooltip
@@ -233,7 +233,7 @@ by reference.
   }
 </script>
 
-<!-- tooltip-show-ref-event.vue -->
+<!-- b-tooltip-show-ref-event.vue -->
 ```
 
 You can also use `$root` events to trigger the showing and hiding of tooltip(s). See the **Hiding
@@ -288,7 +288,7 @@ long as you have provided the `.sync` prop modifier.
   }
 </script>
 
-<!-- tooltip-disable.vue -->
+<!-- b-tooltip-disable.vue -->
 ```
 
 > **Note:** _In the above example, since we are using the default tooltip triggers of `focus hover`,
@@ -325,7 +325,7 @@ markup:
   </b-row>
 </b-container>
 
-<!-- tooltip-directive.vue -->
+<!-- b-tooltip-directive.vue -->
 ```
 
 Refer to the [`v-b-tooltip` documentation](/docs/directives/tooltip) for more information and

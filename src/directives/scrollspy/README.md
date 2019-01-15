@@ -94,7 +94,7 @@ as well.
   }
 </script>
 
-<!-- scrollspy-nav.vue -->
+<!-- b-scrollspy-nav.vue -->
 ```
 
 ### Example using nested navs
@@ -166,7 +166,7 @@ also be active. Scroll the area next to the navbar and watch the active class ch
   }
 </script>
 
-<!-- scrollspy-nested.vue -->
+<!-- b-scrollspy-nested.vue -->
 ```
 
 ### Example using list group
@@ -225,7 +225,7 @@ _local_ `href` . Scroll the area next to the list group and watch the active sta
   }
 </script>
 
-<!-- scrollspy-listgroup.vue -->
+<!-- b-scrollspy-listgroup.vue -->
 ```
 
 ## Directive syntax and usage

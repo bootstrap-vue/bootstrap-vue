@@ -9,7 +9,7 @@
   <b-btn v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
 </div>
 
-<!-- popover.vue -->
+<!-- b-popover.vue -->
 ```
 
 ## Overview
@@ -246,7 +246,7 @@ The special `blur` trigger must be used in combination with the `click` trigger.
   }
 </script>
 
-<!-- popover-placements.vue -->
+<!-- b-popover-placements.vue -->
 ```
 
 ### Component options via props
@@ -297,7 +297,7 @@ it to `true` will show the popover, while setting it to `false` will hide the po
   }
 </script>
 
-<!-- popover-show-sync.vue -->
+<!-- b-popover-show-sync.vue -->
 ```
 
 Programmatic control can also be affected by submitting `'open'` and `'close'` events to the popover
@@ -334,7 +334,7 @@ by reference.
   }
 </script>
 
-<!-- popover-show-event.vue -->
+<!-- b-popover-show-event.vue -->
 ```
 
 To make the popover shown on initial render, simply add the `show` prop on `<b-popover>`:
@@ -348,7 +348,7 @@ To make the popover shown on initial render, simply add the `show` prop on `<b-p
   </b-popover>
 </div>
 
-<!-- popover-show-open.vue -->
+<!-- b-popover-show-open.vue -->
 ```
 
 A popover which is opened programmatically via the 'show' property or by an event call can only be
@@ -413,7 +413,7 @@ Popover.
   }
 </script>
 
-<!-- popover-advanced-caution.vue -->
+<!-- b-popover-advanced-caution.vue -->
 ```
 
 You can also use `$root` events to trigger the showing and hiding of popover(s). See the **Hiding
@@ -473,7 +473,7 @@ have provided the `.sync` prop modifier.
   }
 </script>
 
-<!-- popover-disable.vue -->
+<!-- b-popover-disable.vue -->
 ```
 
 Programmatic control can also be affected by submitting `'enable'` and `'disable'` events to the
@@ -510,7 +510,7 @@ popover by reference.
   }
 </script>
 
-<!-- popover-disabled-event.vue -->
+<!-- b-popover-disabled-event.vue -->
 ```
 
 When disabled, the popover can be opened programmatically (either via the `show` prop, methods or
@@ -547,7 +547,7 @@ Just need quick popovers without too much markup? Use the
   </b-container>
 </div>
 
-<!-- popover-directive-placement.vue -->
+<!-- b-popover-directive-placement.vue -->
 ```
 
 Refer to the [`v-b-popover` directive](/docs/directives/popover) documentation for detailed
@@ -733,7 +733,7 @@ to deal with on mobile devices (such as smart-phones).
   }
 </script>
 
-<!-- popover-advanced.vue -->
+<!-- b-popover-advanced.vue -->
 ```
 
 ## 'Global' \$root instance events

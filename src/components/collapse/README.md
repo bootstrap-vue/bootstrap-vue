@@ -16,7 +16,7 @@ toggle content visibility on your pages. Includes support for making accordions.
   </b-collapse>
 </div>
 
-<!-- collapse.vue -->
+<!-- b-collapse.vue -->
 ```
 
 ## Usage
@@ -37,7 +37,7 @@ Other elements can easily toggle `<b-collapse>` components using the `v-b-toggle
   </b-collapse>
 </div>
 
-<!-- collapse-usage.vue -->
+<!-- b-collapse-usage.vue -->
 ```
 
 ## Initial visibility (start expanded)
@@ -52,7 +52,7 @@ To make the `<b-collapse>` show initially, set the `visible` prop:
   </b-collapse>
 </div>
 
-<!-- collapse-visible.vue -->
+<!-- b-collapse-visible.vue -->
 ```
 
 ## `v-model` support
@@ -91,7 +91,7 @@ directive). In this example we must control them ourselves.
   }
 </script>
 
-<!-- collapse-v-model.vue -->
+<!-- b-collapse-v-model.vue -->
 ```
 
 ## Trigger multiple collapse elements
@@ -113,7 +113,7 @@ multiple target IDs using modifers:
   </b-collapse>
 </div>
 
-<!-- collapse-trigger-multiple.vue -->
+<!-- b-collapse-trigger-multiple.vue -->
 ```
 
 ## Accordion Support
@@ -175,7 +175,7 @@ identifier via the `accordion` prop:
   }
 </script>
 
-<!-- accordion.vue -->
+<!-- b-accordion.vue -->
 ```
 
 **Notes:**

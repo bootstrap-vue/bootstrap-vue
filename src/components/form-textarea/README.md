@@ -28,7 +28,7 @@
   }
 </script>
 
-<!-- form-textarea.vue -->
+<!-- b-form-textarea.vue -->
 ```
 
 ## Control sizing
@@ -67,7 +67,7 @@ To control width, place the input inside standard Bootstrap grid column.
   </b-row>
 </b-container>
 
-<!-- form-textarea-sizes.vue -->
+<!-- b-form-textarea-sizes.vue -->
 ```
 
 ## Displayed rows
@@ -134,7 +134,7 @@ To apply one of the contextual state icons on `<b-form-textarea>`, set the `stat
   }
 </script>
 
-<!-- form-textarea-state.vue -->
+<!-- b-form-textarea-state.vue -->
 ```
 
 ### Conveying contextual state to assistive technologies and colorblind users
@@ -188,7 +188,7 @@ form field styling and preserve the correct text size, margin, padding and heigh
   }
 </script>
 
-<!-- form-textarea-plaintext.vue -->
+<!-- b-form-textarea-plaintext.vue -->
 ```
 
 ## `v-model` modifiers

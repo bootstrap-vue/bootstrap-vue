@@ -34,7 +34,7 @@
   }
 </script>
 
-<!-- progress.vue -->
+<!-- b-progress.vue -->
 ```
 
 ## Value
@@ -82,7 +82,7 @@ the decimal) via the `precision` prop (default is `0`digits after the decimal).
   }
 </script>
 
-<!-- progress-labels.vue -->
+<!-- b-progress-labels.vue -->
 ```
 
 ### Custom progress label
@@ -119,7 +119,7 @@ supported):
   }
 </script>
 
-<!-- progress-custom-labels.vue -->
+<!-- b-progress-custom-labels.vue -->
 ```
 
 Precedence order for label methods (top-most has precedence):
@@ -161,7 +161,7 @@ classes.
   }
 </script>
 
-<!-- progress-width.vue -->
+<!-- b-progress-width.vue -->
 ```
 
 The height of the progress bar can be controled with the `height` prop. The height value should be a
@@ -190,7 +190,7 @@ standard CSS dimension (`px`, `rem`, `em`, etc). The default height is `1rem`.
   }
 </script>
 
-<!-- progress-height.vue -->
+<!-- b-progress-height.vue -->
 ```
 
 ## Backgrounds
@@ -240,7 +240,7 @@ Use background variants to change the appearance of individual progress bars. Th
   }
 </script>
 
-<!-- progress-backgrounds.vue -->
+<!-- b-progress-backgrounds.vue -->
 ```
 
 ### Striped backgrounds
@@ -271,7 +271,7 @@ Set `striped` to apply a stripe via CSS gradient over the progress bar’s backg
   }
 </script>
 
-<!-- progress-striped.vue -->
+<!-- b-progress-striped.vue -->
 ```
 
 ### Animated backgrounds
@@ -302,7 +302,7 @@ The striped gradient can also be animated by setting the `animated`prop.
   }
 </script>
 
-<!-- progress-animated.vue -->
+<!-- b-progress-animated.vue -->
 ```
 
 Notes:
@@ -355,7 +355,7 @@ horizontally stacked set of progress bars.
   }
 </script>
 
-<!-- progress-multiple.vue -->
+<!-- b-progress-multiple.vue -->
 ```
 
 `<b-prgress-bar>` will inherit most of the props from the `<b-progress>` parent component, but you

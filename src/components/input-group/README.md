@@ -26,7 +26,7 @@
   </b-input-group>
 </div>
 
-<!-- input-group.vue -->
+<!-- b-input-group.vue -->
 ```
 
 ## Usage
@@ -48,7 +48,7 @@ Values will be internally wrapped by a `<b-input-group-text>` to display correct
   </b-input-group>
 </div>
 
-<!-- input-group-using-props.vue -->
+<!-- b-input-group-using-props.vue -->
 ```
 
 ### Using named slots
@@ -70,7 +70,7 @@ This slots will be wrapped by `<b-input-group-prepend|append>` to display correc
   </b-input-group>
 </div>
 
-<!-- input-group-using-slots.vue -->
+<!-- b-input-group-using-slots.vue -->
 ```
 
 ### Using components
@@ -93,7 +93,7 @@ wrapped in these components for proper styling.
   </b-input-group>
 </div>
 
-<!-- input-group-addons-placement.vue -->
+<!-- b-input-group-addons-placement.vue -->
 ```
 
 Set the `is-text` prop on `<b-input-group-prepend>` or `<b-input-group-append>` if the content is
@@ -130,7 +130,7 @@ include additional markup not required in input groups.
   </b-row>
 </b-container>
 
-<!-- input-group-checks-radios.vue -->
+<!-- b-input-group-checks-radios.vue -->
 ```
 
 ## Dropdowns
@@ -150,7 +150,7 @@ include additional markup not required in input groups.
   </b-dropdown>
 </b-input-group>
 
-<!-- input-group-dropdown.vue -->
+<!-- b-input-group-dropdown.vue -->
 ```
 
 ## Multiple addons
@@ -172,7 +172,7 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
   </b-row>
 </b-container>
 
-<!-- input-group-multiple.vue -->
+<!-- b-input-group-multiple.vue -->
 ```
 
 ## Control sizing
@@ -199,7 +199,7 @@ To control width, place the input inside standard Bootstrap grid column.
   </b-input-group>
 </div>
 
-<!-- input-group-size.vue -->
+<!-- b-input-group-size.vue -->
 ```
 
 ## Contextual states

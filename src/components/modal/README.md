@@ -14,7 +14,7 @@
   </b-modal>
 </div>
 
-<!-- modal.vue -->
+<!-- b-modal.vue -->
 ```
 
 ## Overview
@@ -58,7 +58,7 @@ Other elements can easily show modals using the `v-b-modal` directive.
   <b-modal id="myModal">Hello From My Modal!</b-modal>
 </div>
 
-<!-- modal-directive.vue -->
+<!-- b-modal-directive.vue -->
 ```
 
 This approach will automatically return focus to the trigger element once the modal closes (similar
@@ -98,7 +98,7 @@ You can access modal using `ref` attribute and then call the `show()` or `hide()
   }
 </script>
 
-<!-- modal-methods.vue -->
+<!-- b-modal-methods.vue -->
 ```
 
 The `hide()` method accepts an optional argument. See section **Prevent Closing** below for details.
@@ -127,7 +127,7 @@ show/hide using `v-model`.
   }
 </script>
 
-<!-- modal-v-model.vue -->
+<!-- b-modal-v-model.vue -->
 ```
 
 When using the `v-model` property, do not use the `visible` property at the same time.
@@ -231,7 +231,7 @@ called synchronously, as async is not supported.
   }
 </script>
 
-<!-- modal-prevent-closing.vue -->
+<!-- b-modal-prevent-closing.vue -->
 ```
 
 **Note**: events `ok` and `cancel` are emitted by modal's built in **OK** and **Cancel** buttons
@@ -273,7 +273,7 @@ breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional
   <b-modal id="modalsm" size="sm" title="Small Modal">Hello Small Modal!</b-modal>
 </div>
 
-<!-- modal-sizes.vue -->
+<!-- b-modal-sizes.vue -->
 ```
 
 The `size` prop maps the size to the `.modal-<size>` classes.
@@ -292,7 +292,7 @@ Vertically center your modal in the viewport by setting the `centered` prop.
   </b-modal>
 </div>
 
-<!-- modal-center-vertically.vue -->
+<!-- b-modal-center-vertically.vue -->
 ```
 
 ## Using the grid
@@ -325,7 +325,7 @@ are appended by specifying a container ID (refer to tooltip and popover docs for
   </b-modal>
 </div>
 
-<!-- modal-popover.vue -->
+<!-- b-modal-popover.vue -->
 ```
 
 ## Variants
@@ -404,7 +404,7 @@ the `header-border-variant` and `footer-border-variant` props respectively.
   }
 </script>
 
-<!-- modal-variants.vue -->
+<!-- b-modal-variants.vue -->
 ```
 
 You can also apply abritrary classes to the modal dialog container, content (modal window itself),
@@ -458,7 +458,7 @@ component. This will hide the modal before another modal is shown.
   </b-modal>
 </div>
 
-<!-- modal-multiple.vue -->
+<!-- b-modal-multiple.vue -->
 ```
 
 **Notes:**

@@ -15,7 +15,7 @@ Rules are directly applied to `<iframe>`, `<embed>`, `<video>`, and `<object>` e
   />
 </div>
 
-<!-- embed.vue -->
+<!-- b-embed.vue -->
 ```
 
 ## Embed types

@@ -11,7 +11,7 @@ appear.
   <b-btn v-b-tooltip.hover title="Tooltip content">Hover Me</b-btn>
 </div>
 
-<!-- tooltip.vue -->
+<!-- b-tooltip.vue -->
 ```
 
 ## Overview
@@ -108,7 +108,7 @@ The default position is `top`. Positioning is relative to the trigger element.
   </b-container>
 </div>
 
-<!-- tooltip-positioning.vue -->
+<!-- b-tooltip-positioning.vue -->
 ```
 
 ## Triggers
@@ -140,7 +140,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
   </b-container>
 </div>
 
-<!-- tooltip-triggers.vue -->
+<!-- b-tooltip-triggers.vue -->
 ```
 
 ### Dismiss on next click
@@ -212,7 +212,7 @@ Title can also be a function reference, which is called each time the tooltip is
   }
 </script>
 
-<!-- tooltip-content.vue -->
+<!-- b-tooltip-content.vue -->
 ```
 
 ## Directive syntax and usage

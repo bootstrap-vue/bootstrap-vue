@@ -23,7 +23,7 @@ the maximum native width of the image.
   <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
 </div>
 
-<!-- img-fluid.vue -->
+<!-- b-img-fluid.vue -->
 ```
 
 To make a fluid image that will grow to fill the width of it's container, use the `fluid-grow` prop.
@@ -38,7 +38,7 @@ Note this may cause bluring on small bitmap images.
   <b-img src="https://picsum.photos/300/150/?image=41" fluid-grow alt="Fluid-grow image" />
 </div>
 
-<!-- img-fluid-grow.vue -->
+<!-- b-img-fluid-grow.vue -->
 ```
 
 Use the `block` prop to force the image to display as a block element rather than the browser
@@ -67,7 +67,7 @@ You can use prop `thumbnail` to give an image a rounded light border appearance.
   </b-row>
 </b-container>
 
-<!-- img-thumbnail.vue -->
+<!-- b-img-thumbnail.vue -->
 ```
 
 ## Rounded corners
@@ -107,7 +107,7 @@ values:
   }
 </script>
 
-<!-- img-rounded.vue -->
+<!-- b-img-rounded.vue -->
 ```
 
 ## Aligning images
@@ -124,7 +124,7 @@ left+right margins). You can also center images by placing them in a container t
   <b-img right src="https://picsum.photos/125/125/?image=58" alt="Right image" />
 </div>
 
-<!-- img-left-right.vue -->
+<!-- b-img-left-right.vue -->
 ```
 
 **Center aligned (block):**
@@ -134,7 +134,7 @@ left+right margins). You can also center images by placing them in a container t
   <b-img center src="https://picsum.photos/125/125/?image=58" alt="Center image" />
 </div>
 
-<!-- img-center.vue -->
+<!-- b-img-center.vue -->
 ```
 
 Note: `left` takes precedence over `right` which takes precedence over `center`.
@@ -179,7 +179,7 @@ The default `blank-color` is `transparent`.
   }
 </script>
 
-<!-- img-blank.vue -->
+<!-- b-img-blank.vue -->
 ```
 
 **Notes:**
@@ -269,7 +269,7 @@ Once an image has come into view and is shown, the event listeners are removed.
   }
 </script>
 
-<!-- img-lazy.vue -->
+<!-- b-img-lazy.vue -->
 ```
 
 ### Force show of lazy loaded image

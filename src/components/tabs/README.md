@@ -17,7 +17,7 @@ For navigation based tabs (i.e. tabs that would change the URL), use the
   </b-tabs>
 </div>
 
-<!-- tabs.vue -->
+<!-- b-tabs.vue -->
 ```
 
 **Tip:** You should supply each child `<b-tab>` component a unique `key` value if dynamically adding
@@ -41,7 +41,7 @@ component in order to propertly decorate the card header and remove the extra pa
   </b-card>
 </div>
 
-<!-- tabs-card.vue -->
+<!-- b-tabs-card.vue -->
 ```
 
 When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatically have the
@@ -78,7 +78,7 @@ When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatical
   </b-card>
 </div>
 
-<!-- tabs-card-no-body.vue -->
+<!-- b-tabs-card-no-body.vue -->
 ```
 
 **Note:** Setting the `no-body` prop on `<b-tab>` will have no affect when `<b-tabs>` is not in
@@ -99,7 +99,7 @@ variant.
   </b-card>
 </div>
 
-<!-- tabs-pills.vue -->
+<!-- b-tabs-pills.vue -->
 ```
 
 ## Bottom placement of tab controls
@@ -116,7 +116,7 @@ Visually move the tab controls to the bottom by setting the prop `end`
   </b-card>
 </div>
 
-<!-- tabs-bottom.vue -->
+<!-- b-tabs-bottom.vue -->
 ```
 
 **Caveats:**
@@ -146,7 +146,7 @@ tabs work with or without `card` mode enabled.
   </b-card>
 </div>
 
-<!-- tabs-vertical.vue -->
+<!-- b-tabs-vertical.vue -->
 ```
 
 Visually move the tab controls to the right hand side by setting the `end` prop:
@@ -162,7 +162,7 @@ Visually move the tab controls to the right hand side by setting the `end` prop:
   </b-card>
 </div>
 
-<!-- tabs-vertical-end.vue -->
+<!-- b-tabs-vertical-end.vue -->
 ```
 
 The width of the vertical tab controls will expand to fit the width of the tab title. To control the
@@ -181,7 +181,7 @@ column classes such as `col-2`, `col-3`, etc.
   </b-card>
 </div>
 
-<!-- tabs-vertical-width.vue -->
+<!-- b-tabs-vertical-width.vue -->
 ```
 
 Vertical placement visually works best with the `pills` variant. When using the default `tabs`
@@ -209,7 +209,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
   </b-tabs>
 </div>
 
-<!-- tabs-item-slot.vue -->
+<!-- b-tabs-item-slot.vue -->
 ```
 
 **Note:** extra (contentless) tabs should be a `<b-nav-item>` or have the class `nav-item` with a
@@ -239,7 +239,7 @@ Vue component, this possible by using `title` slot
   </b-tabs>
 </div>
 
-<!-- tabs-title-slot.vue -->
+<!-- b-tabs-title-slot.vue -->
 ```
 
 **Do not** place interactive elements/components inside the title slot. The tab button is a link
@@ -288,7 +288,7 @@ need to accomodate your custom classes for this._
   }
 </script>
 
-<!-- tabs-with-classes.vue -->
+<!-- b-tabs-with-classes.vue -->
 ```
 
 ## Keyboard Navigation
@@ -372,7 +372,7 @@ order to use these methods.
   }
 </script>
 
-<!-- tabs-controls.vue -->
+<!-- b-tabs-controls.vue -->
 ```
 
 ### Dynamic Tabs + tabs slot
@@ -428,7 +428,7 @@ order to use these methods.
   }
 </script>
 
-<!-- tabs-dynamic.vue -->
+<!-- b-tabs-dynamic.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

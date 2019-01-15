@@ -34,7 +34,7 @@
   </b-card>
 </div>
 
-<!-- media.vue -->
+<!-- b-media.vue -->
 ```
 
 ## Usage
@@ -47,7 +47,7 @@
     <h2>Media Body</h2>
     <p>Some text</p>
 
-    <!-- [Optional: add media children here for nesting] -->
+    <!-- b-[Optional: add media children here for nesting] -->
   </b-media>
 </div>
 ```
@@ -85,7 +85,7 @@
   </b-card>
 </div>
 
-<!-- media-no-body.vue -->
+<!-- b-media-no-body.vue -->
 ```
 
 ## Order
@@ -106,7 +106,7 @@ Change the order of content in media objects by adding `right-align` property.
   </b-media>
 </div>
 
-<!-- media-order.vue -->
+<!-- b-media-order.vue -->
 ```
 
 ## Nesting
@@ -163,7 +163,7 @@ use spacing utilities wherever needed to fine tune.
   </ul>
 </div>
 
-<!-- media-list.vue -->
+<!-- b-media-list.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

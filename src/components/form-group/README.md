@@ -48,7 +48,7 @@
   }
 </script>
 
-<!-- form-group.vue -->
+<!-- b-form-group.vue -->
 ```
 
 ## Label
@@ -107,7 +107,7 @@ of the width of the rendered row (handy if you have custom Bootstrap with an odd
   </div>
 </div>
 
-<!-- form-group-horizontal.vue -->
+<!-- b-form-group-horizontal.vue -->
 ```
 
 **Deprecation warning:** The props `horizontal` and `breakpoint` have been deprecated in favour of
@@ -134,7 +134,7 @@ for both `horizontal` and non-horizontal form groups.
   </b-form-group>
 </div>
 
-<!-- form-group-label-size.vue -->
+<!-- b-form-group-label-size.vue -->
 ```
 
 ### Label text alignment
@@ -206,7 +206,7 @@ of related form controls:
   </b-card>
 </div>
 
-<!-- form-group-nested.vue -->
+<!-- b-form-group-nested.vue -->
 ```
 
 ## Disabled form-group

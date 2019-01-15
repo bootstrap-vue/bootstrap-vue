@@ -32,7 +32,7 @@ Generate your select options by passing an array or object to the `options` prop
   }
 </script>
 
-<!-- form-select-options.vue -->
+<!-- b-form-select-options.vue -->
 ```
 
 Or manually provide your options and optgroups:
@@ -64,7 +64,7 @@ Or manually provide your options and optgroups:
   }
 </script>
 
-<!-- form-select-manual.vue -->
+<!-- b-form-select-manual.vue -->
 ```
 
 Feel free to mix the `options` prop with `<option>` and `<optgroup>`. Manully placed options and
@@ -102,7 +102,7 @@ and optgroups _above_ the options specified by the `options` prop, use the named
   }
 </script>
 
-<!-- form-select-both.vue -->
+<!-- b-form-select-both.vue -->
 ```
 
 ## Options property
@@ -181,7 +181,7 @@ option.
   }
 </script>
 
-<!-- form-select-single.vue -->
+<!-- b-form-select-single.vue -->
 ```
 
 ### Select sizing (displayed rows)
@@ -222,7 +222,7 @@ Note: not all mobile browsers will show a the select as a list-box.
   }
 </script>
 
-<!-- form-select-size.vue -->
+<!-- b-form-select-size.vue -->
 ```
 
 ## Multiple select support
@@ -263,7 +263,7 @@ an array reference as your `v-model` when in `multiple` mode.
   }
 </script>
 
-<!-- form-select-multiple-mode.vue -->
+<!-- b-form-select-multiple-mode.vue -->
 ```
 
 ## Control sizing

@@ -13,7 +13,7 @@
   </b-nav>
 </div>
 
-<!-- nav.vue -->
+<!-- b-nav.vue -->
 ```
 
 ## Overview
@@ -42,7 +42,7 @@ Make the nav look like tabs by setting the prop `tabs`.
   </b-nav>
 </div>
 
-<!-- nav-tabs.vue -->
+<!-- b-nav-tabs.vue -->
 ```
 
 ### Pill style
@@ -59,7 +59,7 @@ Use the pill style by setting the prop `pills`.
   </b-nav>
 </div>
 
-<!-- nav-pills.vue -->
+<!-- b-nav-pills.vue -->
 ```
 
 ## Fill and justify
@@ -81,7 +81,7 @@ prop. Notice that all horizontal space is occupied, but not every nav item has t
   </b-nav>
 </div>
 
-<!-- nav-fill.vue -->
+<!-- b-nav-fill.vue -->
 ```
 
 ### Justified
@@ -99,7 +99,7 @@ links, but unlike `fill` above, every `<b-nav-item>` will be the same width.
   </b-nav>
 </div>
 
-<!-- nav-justified.vue -->
+<!-- b-nav-justified.vue -->
 ```
 
 ## Vertical variation
@@ -117,7 +117,7 @@ prop.
   </b-nav>
 </div>
 
-<!-- nav-vertical.vue -->
+<!-- b-nav-vertical.vue -->
 ```
 
 ## Dropdown support
@@ -143,7 +143,7 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
   </b-nav>
 </div>
 
-<!-- nav-dropdown.vue -->
+<!-- b-nav-dropdown.vue -->
 ```
 
 Sometimes you want to add your own class names to the generated dropdown toggle button, that by

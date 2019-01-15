@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<!-- button-group.vue -->
+<!-- b-button-group.vue -->
 ```
 
 ## Sizing
@@ -57,7 +57,7 @@ need to specify the size on the individual buttons.
   </div>
 </div>
 
-<!-- button-group-sizes.vue -->
+<!-- b-button-group-sizes.vue -->
 ```
 
 ## Vertical variation
@@ -76,7 +76,7 @@ prop. Split button dropdowns are not supported here.
   </b-button-group>
 </div>
 
-<!-- button-group-vertical.vue -->
+<!-- b-button-group-vertical.vue -->
 ```
 
 ## Dropdown menu support
@@ -105,7 +105,7 @@ dropdown menus are not supported when prop `vertical` is set.
   </b-button-group>
 </div>
 
-<!-- button-group-menu.vue -->
+<!-- b-button-group-menu.vue -->
 ```
 
 ## See also

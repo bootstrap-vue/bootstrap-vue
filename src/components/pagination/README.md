@@ -38,7 +38,7 @@ For pagination that navigates to a new URL, use the
   }
 </script>
 
-<!-- pagination.vue -->
+<!-- b-pagination.vue -->
 ```
 
 ## Overview
@@ -128,7 +128,7 @@ By default the pagination component is left aligned. Change the alignment to `ce
   }
 </script>
 
-<!-- pagination-alignment.vue -->
+<!-- b-pagination-alignment.vue -->
 ```
 
 ## Small screen support

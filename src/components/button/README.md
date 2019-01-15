@@ -11,7 +11,7 @@
   <b-button variant="outline-primary">Button</b-button>
 </div>
 
-<!-- button.vue -->
+<!-- b-button.vue -->
 ```
 
 ## Button element type
@@ -26,7 +26,7 @@ when providing a value for the `to` prop (`vue-router` is required).
   <b-button href="#">I am a Link</b-button>
 </div>
 
-<!-- button-types.vue -->
+<!-- b-button-types.vue -->
 ```
 
 ## Button type
@@ -47,7 +47,7 @@ Fancy larger or smaller buttons? Specify `lg` or `sm` via the `size` prop.
   <b-col lg="4" class="pb-2"><b-button size="lg">Large Button</b-button></b-col>
 </b-row>
 
-<!-- button-sizes.vue -->
+<!-- b-button-sizes.vue -->
 ```
 
 ### Block level buttons
@@ -60,7 +60,7 @@ prop.
   <b-button block variant="primary">Block Level Button</b-button>
 </div>
 
-<!-- button-block.vue -->
+<!-- b-button-block.vue -->
 ```
 
 ## Button contextual variants
@@ -85,7 +85,7 @@ By default `<b-button>` will render with the `secondary` variant.
   <b-button variant="dark">Dark</b-button>
 </div>
 
-<!-- button-solid.vue -->
+<!-- b-button-solid.vue -->
 ```
 
 ### Outline color variants
@@ -108,7 +108,7 @@ remove all background images and colors on any `<b-button>`:
   <b-button variant="outline-dark">Dark</b-button>
 </div>
 
-<!-- button-outline.vue -->
+<!-- b-button-outline.vue -->
 ```
 
 ### Link variant
@@ -121,7 +121,7 @@ padding and size of a button.
   <b-button variant="link">Link</b-button>
 </div>
 
-<!-- button-link.vue -->
+<!-- b-button-link.vue -->
 ```
 
 ## Disabled state
@@ -135,7 +135,7 @@ rendered as `<a>` elements and `<router-link>`.
   <b-button disabled size="lg">Also Disabled</b-button>
 </div>
 
-<!-- button-disabled.vue -->
+<!-- b-button-disabled.vue -->
 ```
 
 ## Button Pressed state and toggling
@@ -199,7 +199,7 @@ modifier (available in Vue 2.3+) on the `pressed` property
   }
 </script>
 
-<!-- button-toggles.vue -->
+<!-- b-button-toggles.vue -->
 ```
 
 If using toggle button style for a radio or checkbox style interface, it is best to use the built-in

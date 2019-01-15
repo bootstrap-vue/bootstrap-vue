@@ -39,7 +39,7 @@ pagination (such as table or list pagination), use the
   }
 </script>
 
-<!-- pagination-nav.vue -->
+<!-- b-pagination-nav.vue -->
 ```
 
 `<b-pagination-nav>` is a custom input component that provides navigational pagination. The current
@@ -135,7 +135,7 @@ should return a string.
   }
 </script>
 
-<!-- pagination-nav-links.vue -->
+<!-- b-pagination-nav-links.vue -->
 ```
 
 ## Button Size
@@ -175,7 +175,7 @@ buttons or `'lg'` for larger buttons.
   }
 </script>
 
-<!-- pagination-nav-size.vue -->
+<!-- b-pagination-nav-size.vue -->
 ```
 
 ## Customizing
@@ -255,7 +255,7 @@ By default the pagination component is left aligned. Change the alignment to `ce
   }
 </script>
 
-<!-- pagination-nav-alignment.vue -->
+<!-- b-pagination-nav-alignment.vue -->
 ```
 
 ## Small screen support

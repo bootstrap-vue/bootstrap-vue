@@ -84,7 +84,7 @@
   }
 </script>
 
-<!-- carousel.vue -->
+<!-- b-carousel.vue -->
 ```
 
 ## Sizing
@@ -156,7 +156,7 @@ default slide animation.
   </b-carousel>
 </div>
 
-<!-- carousel-fade.vue -->
+<!-- b-carousel-fade.vue -->
 ```
 
 ### Disable animation
@@ -180,7 +180,7 @@ Set the `<b-carousel>` `no-animation` prop to `true` to disable slide animation.
   </b-carousel>
 </div>
 
-<!-- carousel-no-animation.vue -->
+<!-- b-carousel-no-animation.vue -->
 ```
 
 ## Touch swipe support

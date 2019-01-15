@@ -32,7 +32,7 @@
   }
 </script>
 
-<!-- form-checkbox.vue -->
+<!-- b-form-checkbox.vue -->
 ```
 
 **Example 2:** Multiple choice checkboxes
@@ -78,7 +78,7 @@
   }
 </script>
 
-<!-- form-checkbox-multiple.vue -->
+<!-- b-form-checkbox-multiple.vue -->
 ```
 
 Feel free to mix and match `options` prop and `<b-form-checkbox>` in `<b-form-checkbox-group>`.
@@ -154,7 +154,7 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
   }
 </script>
 
-<!-- form-checkbox-stacked.vue -->
+<!-- b-form-checkbox-stacked.vue -->
 ```
 
 ## Checkbox values and `v-model`
@@ -226,7 +226,7 @@ variant is `secondary`.
   }
 </script>
 
-<!-- form-checkbox-button.vue -->
+<!-- b-form-checkbox-button.vue -->
 ```
 
 The `inline` prop has no effect on idividual button-style checkboxes.
@@ -278,7 +278,7 @@ variants). The default `button-variant` is `secondary`.
   }
 </script>
 
-<!-- form-checkbox-button-group.vue -->
+<!-- b-form-checkbox-button-group.vue -->
 ```
 
 ## Switch style checkboxes
@@ -311,7 +311,7 @@ A single checkbox can be rendered with a switch appearance by setting the prop `
   }
 </script>
 
-<!-- form-checkbox-switch.vue -->
+<!-- b-form-checkbox-switch.vue -->
 ```
 
 ### Grouped switch style checkboxes
@@ -348,7 +348,7 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
   }
 </script>
 
-<!-- form-checkboxs-switch-group.vue -->
+<!-- b-form-checkboxs-switch-group.vue -->
 ```
 
 ## Non custom check inputs (plain)
@@ -385,7 +385,7 @@ by setting the `plain` prop.
   }
 </script>
 
-<!-- form-checkbox-plain.vue -->
+<!-- b-form-checkbox-plain.vue -->
 ```
 
 **Note:** The `plain` prop has no effect when `button` or `buttons` is set.
@@ -462,7 +462,7 @@ modifier.
   }
 </script>
 
-<!-- form-checkbox-indeterminate.vue -->
+<!-- b-form-checkbox-indeterminate.vue -->
 ```
 
 **Indeterminate checkbox use-case example:**
@@ -536,7 +536,7 @@ modifier.
   }
 </script>
 
-<!-- form-checkbox-indeterminate-multiple.vue -->
+<!-- b-form-checkbox-indeterminate-multiple.vue -->
 ```
 
 **Note:** indeterminate is not supported in `button` mode, nor in multiple checkbox mode.
