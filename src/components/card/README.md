@@ -205,11 +205,7 @@ You can control the wrapper element tags used by setting the `header-tag` and `f
       <b-button href="#" variant="primary">Go somewhere</b-button>
     </b-card>
 
-    <b-card
-      title="Title"
-      header-tag="header"
-      footer-tag="footer"
-    >
+    <b-card title="Title" header-tag="header" footer-tag="footer">
       <h6 slot="header" class="mb-0">Header Slot</h6>
       <b-card-text>Header and footers using slots.</b-card-text>
       <b-button href="#" variant="primary">Go somewhere</b-button>
