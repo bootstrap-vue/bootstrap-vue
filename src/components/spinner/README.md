@@ -31,7 +31,9 @@ circle border), and the optional type `grow` (a throbber style indicator).
 Use the default `border` type spinners for a lightweight loading indicator.
 
 ```html
-<b-spinner label="Loading..." />
+<div>
+  <b-spinner label="Loading..." />
+</div>
 
 <!-- spinner-border.vue -->
 ```
@@ -42,7 +44,9 @@ If you don't fancy a `border` spinner, switch to the `grow` spinner by setting t
 `'grow'`. While it doesn't technically spin, it does repeatedly grow!
 
 ```html
-<b-spinner type="grow" label="Loading..." />
+<div>
+  <b-spinner type="grow" label="Loading..." />
+</div>
 
 <!-- spinner-grow.vue -->
 ```
@@ -59,9 +63,10 @@ you have custom defined text color variants, feel free to use them via the `vari
 ```html
 <template>
   <div>
-    <div class="text-center mb-2 d-flex justify-content-between">
+    <div class="text-center mb-3 d-flex justify-content-between">
       <b-spinner v-for="variant in variants" :variant="variant" :key="variant" />
     </div>
+
     <div class="text-center d-flex justify-content-between">
       <b-spinner v-for="variant in variants" :variant="variant" type="grow" :key="variant" />
     </div>
@@ -119,7 +124,9 @@ they can easily be resized, recolored, and quickly aligned.
 Use margin utilities like `.m-5` for easy spacing.
 
 ```html
-<b-spinner class="m-5" label="Busy" />
+<div>
+  <b-spinner class="m-5" label="Busy" />
+</div>
 
 <!-- spinner-margin.vue -->
 ```
@@ -135,7 +142,10 @@ Using flex utility classes:
 
 ```html
 <div>
-  <div class="d-flex justify-content-center mb-3"><b-spinner label="Loading..." /></div>
+  <div class="d-flex justify-content-center mb-3">
+    <b-spinner label="Loading..." />
+  </div>
+
   <div class="d-flex align-items-center">
     <strong>Loading...</strong>
     <b-spinner class="ml-auto" />
@@ -150,7 +160,9 @@ Using flex utility classes:
 Using float utility classes:
 
 ```html
-<div class="clearfix"><b-spinner class="float-right" label="Floated Right" /></div>
+<div class="clearfix">
+  <b-spinner class="float-right" label="Floated Right" />
+</div>
 
 <!-- spinner-floats.vue -->
 ```
@@ -160,7 +172,9 @@ Using float utility classes:
 Using text alignment utility classes:
 
 ```html
-<div class="text-center"><b-spinner variant="primary" label="Text Centered" /></div>
+<div class="text-center">
+  <b-spinner variant="primary" label="Text Centered" />
+</div>
 
 <!-- spinner-text-align.vue -->
 ```
@@ -176,6 +190,7 @@ also swap the label text out of the spinner element and utilize button text as n
     <b-spinner small />
     <span class="sr-only">Loading...</span>
   </b-button>
+
   <b-button variant="primary" disabled>
     <b-spinner small type="grow" />
     Loading...
