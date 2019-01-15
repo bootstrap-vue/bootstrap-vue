@@ -42,14 +42,14 @@ replacement for the default file input.
 ## Single file (default)
 
 On single file mode, when no file is selected or user cancels Browse dialog, `v-model` is `null`
-indicating no file selected. When a file is selected the return value will be a javascript
+indicating no file selected. When a file is selected the return value will be a JavaScript
 [`File`](https://developer.mozilla.org/en/docs/Web/API/File) object instance.
 
 ## Multiple files
 
 Multiple file uploading is supported by adding `multiple` prop to component. In this case `v-model`
 is _always_ an `Array`. When no files are selected, an empty array will be returned. When a file or
-files are selected the return value will be an array of javascript
+files are selected the return value will be an array of JavaScript
 [`File`](https://developer.mozilla.org/en/docs/Web/API/File) object instances.
 
 ## Directory mode

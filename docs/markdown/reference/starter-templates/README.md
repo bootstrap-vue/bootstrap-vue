@@ -9,7 +9,7 @@ Vue tutorials is [Laracasts](https://laracasts.com/search?q=vue).
 ## Basic example
 
 Get started quickly without the need for a build system, by using standard `<script>` and `<link>`
-tags to load the required javascript and CSS in your page.
+tags to load the required JavaScript and CSS in your page.
 
 ```html
 <!DOCTYPE html>
