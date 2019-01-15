@@ -10,7 +10,7 @@ to appear.
 
 ```html
 <div class="text-center my-3">
-  <b-btn v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
+  <b-button v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-button>
 </div>
 
 <!-- b-popover.vue -->
@@ -151,19 +151,19 @@ Positioning is relative to the trigger element.
   <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.hover.top="'Popover!'" variant="primary">Top</b-btn>
+        <b-button v-b-popover.hover.top="'Popover!'" variant="primary">Top</b-button>
       </b-col>
 
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.hover.right="'Popover!'" variant="primary">Right</b-btn>
+        <b-button v-b-popover.hover.right="'Popover!'" variant="primary">Right</b-button>
       </b-col>
 
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.hover.left="'Popover!'" variant="primary">Left</b-btn>
+        <b-button v-b-popover.hover.left="'Popover!'" variant="primary">Left</b-button>
       </b-col>
 
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
+        <b-button v-b-popover.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -187,16 +187,16 @@ then clicks the trigger element, they must click it again **and** move focus to 
     <h5>Triggers</h5>
     <b-row class="text-center">
       <b-col md="6" class="py-3">
-        <b-btn v-b-popover="'Popover!'" variant="outline-success">Click (default)</b-btn>
+        <b-button v-b-popover="'Popover!'" variant="outline-success">Click (default)</b-button>
       </b-col>
       <b-col md="6" class="py-3">
-        <b-btn v-b-popover.hover="'Popover!'" variant="outline-success">Hover</b-btn>
+        <b-button v-b-popover.hover="'Popover!'" variant="outline-success">Hover</b-button>
       </b-col>
       <b-col md="6" class="py-3">
-        <b-btn v-b-popover.focus="'Popover!'" variant="outline-success">Focus</b-btn>
+        <b-button v-b-popover.focus="'Popover!'" variant="outline-success">Focus</b-button>
       </b-col>
       <b-col md="6" class="py-3">
-        <b-btn v-b-popover.hover.focus="'Popover!'" variant="outline-success">Hover + Focus</b-btn>
+        <b-button v-b-popover.hover.focus="'Popover!'" variant="outline-success">Hover + Focus</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -226,16 +226,16 @@ via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismising_.
   <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-btn>
+        <b-button v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-btn>
+        <b-button v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-btn>
+        <b-button v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-btn>
+        <b-button v-b-popover.click.blur="'Content'" title="Popover" variant="primary">Click</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -278,30 +278,30 @@ Content can also be a function reference, which is called each time the popover 
   <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.hover="'Content!'" title="Title from title attribute" variant="success">
+        <b-button v-b-popover.hover="'Content!'" title="Title from title attribute" variant="success">
           Title + Content
-        </b-btn>
+        </b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn
+        <b-button
           v-b-popover.hover="{title:'Popover', content:'This is the content of popover'}"
           variant="success"
         >
           Config Object
-        </b-btn>
+        </b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.hover="popoverData" variant="success">Config from data</b-btn>
+        <b-button v-b-popover.hover="popoverData" variant="success">Config from data</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.hover.html="popoverMethod" title="Popover with HTML" variant="success">
+        <b-button v-b-popover.hover.html="popoverMethod" title="Popover with HTML" variant="success">
           Method
-        </b-btn>
+        </b-button>
       </b-col>
     </b-row>
     <b-row class="text-center">
       <b-col cols="12" class="py-3">
-        <b-btn v-b-popover.hover="popoverConfig" variant="success">Config Object</b-btn>
+        <b-button v-b-popover.hover="popoverConfig" variant="success">Config Object</b-button>
       </b-col>
     </b-row>
   </b-container>

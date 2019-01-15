@@ -353,8 +353,8 @@ order to use these methods.
     <!-- Control buttons-->
     <div class="text-center">
       <b-button-group class="mt-2">
-        <b-btn @click="tabIndex--">Previous</b-btn>
-        <b-btn @click="tabIndex++">Next</b-btn>
+        <b-button @click="tabIndex--">Previous</b-button>
+        <b-button @click="tabIndex++">Next</b-button>
       </b-button-group>
 
       <div class="text-muted">Current Tab: {{ tabIndex }}</div>
@@ -385,9 +385,9 @@ order to use these methods.
         <!-- Render Tabs, supply a unique `key` to each tab -->
         <b-tab v-for="i in tabs" :key="`dyntab-${i}`" :title="`Tab ${i}`">
           Tab Contents {{ i }}
-          <b-btn size="sm" variant="danger" class="float-right" @click="() => closeTab(i)">
+          <b-button size="sm" variant="danger" class="float-right" @click="() => closeTab(i)">
             Close tab
-          </b-btn>
+          </b-button>
         </b-tab>
 
         <!-- New Tab Button (Using tabs slot) -->

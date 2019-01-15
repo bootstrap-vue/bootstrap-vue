@@ -28,12 +28,12 @@ auto-dismissing).
       <b-progress variant="warning" :max="dismissSecs" :value="dismissCountDown" height="4px" />
     </b-alert>
 
-    <b-btn @click="showAlert" variant="info" class="m-1">
+    <b-button @click="showAlert" variant="info" class="m-1">
       Show alert with count-down timer
-    </b-btn>
-    <b-btn @click="showDismissibleAlert=true" variant="info" class="m-1">
+    </b-button>
+    <b-button @click="showDismissibleAlert=true" variant="info" class="m-1">
       Show dismissible alert ({{ showDismissibleAlert ? 'visible' : 'hidden' }})
-    </b-btn>
+    </b-button>
   </div>
 </template>
 
@@ -181,9 +181,9 @@ integer number of seconds are supported.
     >
       This alert will dismiss after {{ dismissCountDown }} seconds...
     </b-alert>
-    <b-btn @click="showAlert" variant="info" class="m-1">
+    <b-button @click="showAlert" variant="info" class="m-1">
       Show alert with count-down timer
-    </b-btn>
+    </b-button>
   </div>
 </template>
 
@@ -239,12 +239,12 @@ Use the `fade` prop to enable animation. By default alerts are not animated.
       This alert will dismiss after {{ dismissCountDown }} seconds...
     </b-alert>
 
-    <b-btn @click="showAlert" variant="info" class="m-1">
+    <b-button @click="showAlert" variant="info" class="m-1">
       Show alert with count-down timer
-    </b-btn>
-    <b-btn @click="showDismissibleAlert=true" variant="info" class="m-1">
+    </b-button>
+    <b-button @click="showDismissibleAlert=true" variant="info" class="m-1">
       Show dismissible alert ({{ showDismissibleAlert ? 'visible' : 'hidden' }})
-    </b-btn>
+    </b-button>
   </div>
 </template>
 

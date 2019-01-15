@@ -13,7 +13,7 @@
       <b-progress-bar :value="counter*(1.5/10)" variant="danger" />
     </b-progress>
 
-    <b-btn class="mt-3" @click="clicked">Click me</b-btn>
+    <b-button class="mt-3" @click="clicked">Click me</b-button>
   </div>
 </template>
 

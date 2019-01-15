@@ -4,11 +4,11 @@ toggle content visibility on your pages. Includes support for making accordions.
 
 ```html
 <div>
-  <b-btn v-b-toggle.collapse1 variant="primary">Toggle Collapse</b-btn>
+  <b-button v-b-toggle.collapse1 variant="primary">Toggle Collapse</b-button>
   <b-collapse id="collapse1" class="mt-2">
     <b-card>
       <p class="card-text">Collapse contents Here</p>
-      <b-btn v-b-toggle.collapse1_inner size="sm">Toggle Inner Collapse</b-btn>
+      <b-button v-b-toggle.collapse1_inner size="sm">Toggle Inner Collapse</b-button>
       <b-collapse id="collapse1_inner" class="mt-2">
         <b-card>Hello!</b-card>
       </b-collapse>
@@ -26,10 +26,10 @@ Other elements can easily toggle `<b-collapse>` components using the `v-b-toggle
 ```html
 <div>
   <!-- Using modifiers -->
-  <b-btn v-b-toggle.collapse2 class="m-1">Toggle Collapse</b-btn>
+  <b-button v-b-toggle.collapse2 class="m-1">Toggle Collapse</b-button>
 
   <!-- Using value -->
-  <b-btn v-b-toggle="'collapse2'" class="m-1">Toggle Collapse</b-btn>
+  <b-button v-b-toggle="'collapse2'" class="m-1">Toggle Collapse</b-button>
 
   <!-- Element to collapse -->
   <b-collapse id="collapse2">
@@ -46,7 +46,7 @@ To make the `<b-collapse>` show initially, set the `visible` prop:
 
 ```html
 <div>
-  <b-btn v-b-toggle.collapse3 class="m-1">Toggle Collapse</b-btn>
+  <b-button v-b-toggle.collapse3 class="m-1">Toggle Collapse</b-button>
   <b-collapse visible id="collapse3">
     <b-card>I should start open!</b-card>
   </b-collapse>
@@ -67,14 +67,14 @@ directive). In this example we must control them ourselves.
 ```html
 <template>
   <div>
-    <b-btn
+    <b-button
       @click="showCollapse = !showCollapse"
       :class="showCollapse ? 'collapsed' : null"
       aria-controls="collapse4"
       :aria-expanded="showCollapse ? 'true' : 'false'"
     >
       Toggle Collapse
-    </b-btn>
+    </b-button>
     <b-collapse class="mt-2" v-model="showCollapse" id="collapse4">
       <b-card>I should start open!</b-card>
     </b-collapse>
@@ -102,7 +102,7 @@ multiple target IDs using modifers:
 ```html
 <div>
   <!-- Single button triggers two "<b-collapse>" components -->
-  <b-btn v-b-toggle.collapseA.collapseB>Toggle Both Collapse A and B</b-btn>
+  <b-button v-b-toggle.collapseA.collapseB>Toggle Both Collapse A and B</b-button>
 
   <!-- Elements to collapse -->
   <b-collapse id="collapseA" class="mt-2">
@@ -126,7 +126,7 @@ identifier via the `accordion` prop:
   <div role="tablist">
     <b-card no-body class="mb-1">
       <b-card-header header-tag="header" class="p-1" role="tab">
-        <b-btn block href="#" v-b-toggle.accordion1 variant="info">Accordion 1</b-btn>
+        <b-button block href="#" v-b-toggle.accordion1 variant="info">Accordion 1</b-button>
       </b-card-header>
       <b-collapse id="accordion1" visible accordion="my-accordion" role="tabpanel">
         <b-card-body>
@@ -138,7 +138,7 @@ identifier via the `accordion` prop:
 
     <b-card no-body class="mb-1">
       <b-card-header header-tag="header" class="p-1" role="tab">
-        <b-btn block href="#" v-b-toggle.accordion2 variant="info">Accordion 2</b-btn>
+        <b-button block href="#" v-b-toggle.accordion2 variant="info">Accordion 2</b-button>
       </b-card-header>
       <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
         <b-card-body<p class="card-text">{{ text }}</p></b-card-body>
@@ -147,7 +147,7 @@ identifier via the `accordion` prop:
 
     <b-card no-body class="mb-1">
       <b-card-header header-tag="header" class="p-1" role="tab">
-        <b-btn block href="#" v-b-toggle.accordion3 variant="info">Accordion 3</b-btn>
+        <b-button block href="#" v-b-toggle.accordion3 variant="info">Accordion 3</b-button>
       </b-card-header>
       <b-collapse id="accordion3" accordion="my-accordion" role="tabpanel">
         <b-card-body><p class="card-text">{{ text }}</p></b-card-body>
@@ -199,9 +199,9 @@ display or hide content within the toggle via custom CSS:
 
 ```html
 <div>
-  <b-btn v-b-toggle.myCollapse>
+  <b-button v-b-toggle.myCollapse>
     <span class="when-opened">Close</span> <span class="when-closed">Open</span> My Collapse
-  </b-btn>
+  </b-button>
   <b-collapse id="myCollapse">
     <!-- Content here -->
   </b-collapse>

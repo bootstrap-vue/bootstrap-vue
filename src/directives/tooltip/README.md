@@ -8,7 +8,7 @@ appear.
 
 ```html
 <div class="text-center my-3">
-  <b-btn v-b-tooltip.hover title="Tooltip content">Hover Me</b-btn>
+  <b-button v-b-tooltip.hover title="Tooltip content">Hover Me</b-button>
 </div>
 
 <!-- b-tooltip.vue -->
@@ -93,16 +93,16 @@ The default position is `top`. Positioning is relative to the trigger element.
   <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.top="'ToolTip!'" variant="primary">Top</b-btn>
+        <b-button v-b-tooltip.hover.top="'ToolTip!'" variant="primary">Top</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.right="'ToolTip!'" variant="primary">Right</b-btn>
+        <b-button v-b-tooltip.hover.right="'ToolTip!'" variant="primary">Right</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.left="'ToolTip!'" variant="primary">Left</b-btn>
+        <b-button v-b-tooltip.hover.left="'ToolTip!'" variant="primary">Left</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
+        <b-button v-b-tooltip.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -125,16 +125,16 @@ then clicks the trigger element, they must click it again **and** move focus to 
   <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip="'ToolTip!'" variant="outline-success">Hover + Focus</b-btn>
+        <b-button v-b-tooltip="'ToolTip!'" variant="outline-success">Hover + Focus</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover="'ToolTip!'" variant="outline-success">Hover</b-btn>
+        <b-button v-b-tooltip.hover="'ToolTip!'" variant="outline-success">Hover</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.click="'ToolTip!'" variant="outline-success">Click</b-btn>
+        <b-button v-b-tooltip.click="'ToolTip!'" variant="outline-success">Click</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.focus="'ToolTip!'" variant="outline-success">Focus</b-btn>
+        <b-button v-b-tooltip.focus="'ToolTip!'" variant="outline-success">Focus</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -182,16 +182,16 @@ Title can also be a function reference, which is called each time the tooltip is
   <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover title="Tip from title attribute" variant="success">Title</b-btn>
+        <b-button v-b-tooltip.hover title="Tip from title attribute" variant="success">Title</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover="'String Tip'" variant="success">String</b-btn>
+        <b-button v-b-tooltip.hover="'String Tip'" variant="success">String</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.html="tipData" variant="success">Data</b-btn>
+        <b-button v-b-tooltip.hover.html="tipData" variant="success">Data</b-button>
       </b-col>
       <b-col md="3" class="py-3">
-        <b-btn v-b-tooltip.hover.html="tipMethod" variant="success">Method</b-btn>
+        <b-button v-b-tooltip.hover.html="tipMethod" variant="success">Method</b-button>
       </b-col>
     </b-row>
   </b-container>

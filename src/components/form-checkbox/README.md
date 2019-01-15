@@ -442,7 +442,7 @@ modifier.
       Indeterminate: <strong>{{ indeterminate }}</strong>
     </div>
 
-    <b-btn @click="toggleIndeterminate">Toggle Indeterminate State</b-btn>
+    <b-button @click="toggleIndeterminate">Toggle Indeterminate State</b-button>
   </div>
 </template>
 

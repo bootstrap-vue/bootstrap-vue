@@ -9,17 +9,17 @@
 <div>
   <b-button-toolbar key-nav aria-label="Toolbar with button groups">
     <b-button-group class="mx-1">
-      <b-btn>&laquo;</b-btn>
-      <b-btn>&lsaquo;</b-btn>
+      <b-button>&laquo;</b-button>
+      <b-button>&lsaquo;</b-button>
     </b-button-group>
     <b-button-group class="mx-1">
-      <b-btn>Edit</b-btn>
-      <b-btn>Undo</b-btn>
-      <b-btn>Redo</b-btn>
+      <b-button>Edit</b-button>
+      <b-button>Undo</b-button>
+      <b-button>Redo</b-button>
     </b-button-group>
     <b-button-group class="mx-1">
-      <b-btn>&rsaquo;</b-btn>
-      <b-btn>&raquo;</b-btn>
+      <b-button>&rsaquo;</b-button>
+      <b-button>&raquo;</b-button>
     </b-button-group>
   </b-button-toolbar>
 </div>
@@ -33,8 +33,8 @@
 <div>
   <b-button-toolbar aria-label="Toolbar with button groups and input groups">
     <b-button-group size="sm" class="mr-1">
-      <b-btn>Save</b-btn>
-      <b-btn>Cancel</b-btn>
+      <b-button>Save</b-button>
+      <b-button>Cancel</b-button>
     </b-button-group>
     <b-input-group size="sm" prepend="$" append=".00">
       <b-form-input value="100" class="text-right" />
@@ -51,9 +51,9 @@
 <div>
   <b-button-toolbar aria-label="Toolbar with button groups and dropdown menu">
     <b-button-group class="mx-1">
-      <b-btn>New</b-btn>
-      <b-btn>Edit</b-btn>
-      <b-btn>Undo</b-btn>
+      <b-button>New</b-button>
+      <b-button>Edit</b-button>
+      <b-button>Undo</b-button>
     </b-button-group>
     <b-dropdown class="mx-1" right text="menu">
       <b-dropdown-item>Item 1</b-dropdown-item>
@@ -61,8 +61,8 @@
       <b-dropdown-item>Item 3</b-dropdown-item>
     </b-dropdown>
     <b-button-group class="mx-1">
-      <b-btn>Save</b-btn>
-      <b-btn>Cancel</b-btn>
+      <b-button>Save</b-button>
+      <b-button>Cancel</b-button>
     </b-button-group>
   </b-button-toolbar>
 </div>

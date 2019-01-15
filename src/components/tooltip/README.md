@@ -5,7 +5,7 @@
 
 ```html
 <div class="text-center my-3">
-  <b-btn v-b-tooltip.hover title="Tooltip content">Hover Me</b-btn>
+  <b-button v-b-tooltip.hover title="Tooltip content">Hover Me</b-button>
 </div>
 
 <!-- b-tooltip.vue -->
@@ -116,13 +116,13 @@ then clicks the trigger element, they must click it again **and** move focus to 
 <b-container fluid>
   <b-row>
     <b-col md="4" class="py-4">
-      <b-btn id="exButton1" variant="outline-success">Live chat</b-btn>
+      <b-button id="exButton1" variant="outline-success">Live chat</b-button>
     </b-col>
     <b-col md="4" class="py-4">
-      <b-btn id="exButton2" variant="outline-success">Html chat</b-btn>
+      <b-button id="exButton2" variant="outline-success">Html chat</b-button>
     </b-col>
     <b-col md="4" class="py-4">
-      <b-btn ref="exButton3" variant="outline-success">Alternative chat</b-btn>
+      <b-button ref="exButton3" variant="outline-success">Alternative chat</b-button>
     </b-col>
   </b-row>
 
@@ -164,11 +164,11 @@ it to `true` will show the tooltip, while setting it to `false` will hide the to
 <template>
   <div class="text-center">
     <div>
-      <b-btn id="tooltipButton-1" variant="primary">I have a tooltip</b-btn>
+      <b-button id="tooltipButton-1" variant="primary">I have a tooltip</b-button>
     </div>
 
     <div class="mt-3">
-      <b-btn @click="show = !show">Toggle Tooltip</b-btn>
+      <b-button @click="show = !show">Toggle Tooltip</b-button>
     </div>
 
 
@@ -192,7 +192,7 @@ To make the tooltip shown on initial render, simply add the `show` prop on `<b-t
 
 ```html
 <div class="text-center">
-  <b-btn id="tooltipButton-2" variant="primary">Button</b-btn>
+  <b-button id="tooltipButton-2" variant="primary">Button</b-button>
   <b-tooltip show target="tooltipButton-2">I start open</b-tooltip>
 </div>
 
@@ -206,12 +206,12 @@ by reference.
 <template>
   <div class="d-flex flex-column text-md-center">
     <div class="p-2">
-      <b-btn id="tooltipButton-showEvent" variant="primary">I have a tooltip</b-btn>
+      <b-button id="tooltipButton-showEvent" variant="primary">I have a tooltip</b-button>
     </div>
 
     <div class="p-2">
-      <b-btn class="px-1" @click="onOpen">Open</b-btn>
-      <b-btn class="px-1" @click="onClose">Close</b-btn>
+      <b-button class="px-1" @click="onOpen">Open</b-button>
+      <b-button class="px-1" @click="onClose">Close</b-button>
     </div>
 
     <b-tooltip ref="tooltip" target="tooltipButton-showEvent">
@@ -251,16 +251,16 @@ long as you have provided the `.sync` prop modifier.
 <template>
   <div class="d-flex flex-column text-md-center">
     <div class="p-2">
-      <b-btn id="tooltipButton-disable" variant="primary">I have a tooltip</b-btn>
+      <b-button id="tooltipButton-disable" variant="primary">I have a tooltip</b-button>
     </div>
 
     <div class="p-2">
-      <b-btn @click="disabled = !disabled">
+      <b-button @click="disabled = !disabled">
         {{ disabled ? 'Enable' : 'Disable' }} Tooltip by prop
-      </b-btn>
-      <b-btn @click="disableByRef">
+      </b-button>
+      <b-button @click="disableByRef">
         {{ disabled ? 'Enable' : 'Disable' }} Tooltip by $ref event
-      </b-btn>
+      </b-button>
 
       <b-tooltip :disabled.sync="disabled" ref="tooltip" target="tooltipButton-disable">
         Hello <strong>World!</strong>
@@ -310,17 +310,17 @@ markup:
 <b-container fluid>
   <b-row>
     <b-col md="6" class="py-4">
-      <b-btn v-b-tooltip title="Online!" variant="outline-success">Live chat</b-btn>
+      <b-button v-b-tooltip title="Online!" variant="outline-success">Live chat</b-button>
     </b-col>
 
     <b-col md="6" class="py-4">
-      <b-btn
+      <b-button
         v-b-tooltip.html
         title="Hello <strong>World!</strong>"
         variant="outline-success"
       >
         Html chat
-      </b-btn>
+      </b-button>
     </b-col>
   </b-row>
 </b-container>

@@ -1725,7 +1725,7 @@ differences between operating systems, this too is not a preventable default beh
           <b-input-group>
             <b-form-input v-model="filter" placeholder="Type to Search" />
             <b-input-group-append>
-              <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+              <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>

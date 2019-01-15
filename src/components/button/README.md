@@ -204,7 +204,7 @@ modifier (available in Vue 2.3+) on the `pressed` property
 
 If using toggle button style for a radio or checkbox style interface, it is best to use the built-in
 `button` style support of [`<b-form-radio-group>`](/docs/components/form-radio) and
-[`<b-checkbox-group>`](/docs/components/form-checkbox).
+[`<b-form-checkbox-group>`](/docs/components/form-checkbox).
 
 ## Router link support
 

@@ -14,7 +14,7 @@ Anything else between the opening and closing tags will be rendered at the botto
 <div>
   <b-jumbotron header="Bootstrap Vue" lead="Bootstrap 4 Components for Vue.js 2">
     <p>For more information visit website</p>
-    <b-btn variant="primary" href="#">More Info</b-btn>
+    <b-button variant="primary" href="#">More Info</b-button>
   </b-jumbotron>
 </div>
 
@@ -40,8 +40,8 @@ Anything else between the opening and closing tags will be rendered at the botto
       container.
     </p>
 
-    <b-btn variant="primary" href="#">Do Something</b-btn>
-    <b-btn variant="success" href="#">Do Something Else</b-btn>
+    <b-button variant="primary" href="#">Do Something</b-button>
+    <b-button variant="success" href="#">Do Something Else</b-button>
   </b-jumbotron>
 </div>
 

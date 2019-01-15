@@ -6,7 +6,7 @@
 
 ```html
 <div class="text-center my-3">
-  <b-btn v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
+  <b-button v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-button>
 </div>
 
 <!-- b-popover.vue -->
@@ -188,7 +188,7 @@ The special `blur` trigger must be used in combination with the `click` trigger.
         md="4"
         class="py-4 text-center"
       >
-        <b-btn :id="'exPopover1-'+placement" variant="primary">{{ placement }}</b-btn>
+        <b-button :id="'exPopover1-'+placement" variant="primary">{{ placement }}</b-button>
         <b-popover
           :target="'exPopover1-'+placement"
           :placement="placement"
@@ -202,7 +202,7 @@ The special `blur` trigger must be used in combination with the `click` trigger.
     <h5 class="my-3">Content via properties or slots</h5>
     <b-row>
       <b-col md="6" class="py-4 text-center">
-        <b-btn id="exPopover2" variant="primary">Using properties</b-btn>
+        <b-button id="exPopover2" variant="primary">Using properties</b-button>
         <b-popover
           target="exPopover2"
           title="Prop Examples"
@@ -212,7 +212,7 @@ The special `blur` trigger must be used in combination with the `click` trigger.
       </b-col>
 
       <b-col md="6" class="py-4 text-center">
-        <b-btn id="exPopover3" variant="primary">Using slots</b-btn>
+        <b-button id="exPopover3" variant="primary">Using slots</b-button>
         <b-popover target="exPopover3" triggers="hover focus">
           <template slot="title">Content via Slots</template>
           Embedding content <span class="text-danger">using slots</span> affords you
@@ -274,11 +274,11 @@ it to `true` will show the popover, while setting it to `false` will hide the po
 <template>
   <div class="d-flex flex-column text-md-center">
     <div class="p-2">
-      <b-btn id="popoverButton-sync" variant="primary">I have a popover</b-btn>
+      <b-button id="popoverButton-sync" variant="primary">I have a popover</b-button>
     </div>
 
     <div class="p-2">
-      <b-btn class="px-1" @click="show = !show">Toggle Popover</b-btn>
+      <b-button class="px-1" @click="show = !show">Toggle Popover</b-button>
 
       <b-popover :show.sync="show" target="popoverButton-sync" title="Popover">
         Hello <strong>World!</strong>
@@ -307,12 +307,12 @@ by reference.
 <template>
   <div class="d-flex flex-column text-md-center">
     <div class="p-2">
-      <b-btn id="popoverButton-event" variant="primary">I have a popover</b-btn>
+      <b-button id="popoverButton-event" variant="primary">I have a popover</b-button>
     </div>
 
     <div class="p-2">
-      <b-btn class="px-1" @click="onOpen">Open</b-btn>
-      <b-btn class="px-1" @click="onClose">Close</b-btn>
+      <b-button class="px-1" @click="onOpen">Open</b-button>
+      <b-button class="px-1" @click="onClose">Close</b-button>
     </div>
 
     <b-popover ref="popover" target="popoverButton-event" title="Popover">
@@ -341,7 +341,7 @@ To make the popover shown on initial render, simply add the `show` prop on `<b-p
 
 ```html
 <div class="text-center">
-  <b-btn id="popoverButton-open" variant="primary">Button</b-btn>
+  <b-button id="popoverButton-open" variant="primary">Button</b-button>
 
   <b-popover show target="popoverButton-open" title="Popover">
     I start <strong>open</strong>
@@ -365,7 +365,7 @@ Popover.
 <template>
   <div class="d-flex flex-column text-md-center">
     <div class="p-2">
-      <b-btn id="exPopoverManual1" variant="primary" ref="button">Unreliable</b-btn>
+      <b-button id="exPopoverManual1" variant="primary" ref="button">Unreliable</b-button>
 
       <b-popover target="exPopoverManual1" :show.sync="pop1" triggers="click" ref="popover1">
         I can be stubborn sometimes.
@@ -373,9 +373,9 @@ Popover.
     </div>
 
     <div class="p-2">
-      <b-btn id="exPopoverManual2" variant="primary" ref="button" @click="pop2 = !pop2">
+      <b-button id="exPopoverManual2" variant="primary" ref="button" @click="pop2 = !pop2">
         Comfortably Numb
-      </b-btn>
+      </b-button>
 
       <b-popover target="exPopoverManual2" :show.sync="pop2" triggers="" ref="popover2">
         I do believe it's working, good.
@@ -383,9 +383,9 @@ Popover.
     </div>
 
     <div class="p-2">
-      <b-btn class="px-1" @click="popOpen">Open</b-btn>
-      <b-btn class="px-1" @click="popClose">Close</b-btn>
-      <b-btn class="px-1" @click="popToggle">Toggle</b-btn>
+      <b-button class="px-1" @click="popOpen">Open</b-button>
+      <b-button class="px-1" @click="popClose">Close</b-button>
+      <b-button class="px-1" @click="popToggle">Toggle</b-button>
     </div>
   </div>
 </template>
@@ -431,16 +431,16 @@ have provided the `.sync` prop modifier.
 <template>
   <div class="d-flex flex-column text-md-center">
     <div class="p-2">
-      <b-btn id="popoverButton-disable" variant="primary">I have a popover</b-btn>
+      <b-button id="popoverButton-disable" variant="primary">I have a popover</b-button>
     </div>
 
     <div class="p-2">
-      <b-btn @click="disabled = !disabled">
+      <b-button @click="disabled = !disabled">
         {{ disabled ? 'Enable' : 'Disable' }} Popover by prop
-      </b-btn>
-      <b-btn @click="disableByRef">
+      </b-button>
+      <b-button @click="disableByRef">
         {{ disabled ? 'Enable' : 'Disable' }} Popover by $ref event
-      </b-btn>
+      </b-button>
 
       <b-popover
         :disabled.sync="disabled"
@@ -483,12 +483,12 @@ popover by reference.
 <template>
   <div class="d-flex flex-column text-md-center">
     <div class="p-2">
-      <b-btn id="popoverButton-disableevent" variant="primary">I have a popover</b-btn>
+      <b-button id="popoverButton-disableevent" variant="primary">I have a popover</b-button>
     </div>
 
     <div class="p-2">
-      <b-btn class="px-1" @click="onEnable">Enable</b-btn>
-      <b-btn class="px-1" @click="onDisable">Disable</b-btn>
+      <b-button class="px-1" @click="onEnable">Enable</b-button>
+      <b-button class="px-1" @click="onDisable">Disable</b-button>
     </div>
 
     <b-popover ref="popover" target="popoverButton-disableevent" title="Popover">
@@ -529,19 +529,19 @@ Just need quick popovers without too much markup? Use the
   <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.hover.top="'Popover!'" variant="primary">Top</b-btn>
+        <b-button v-b-popover.hover.top="'Popover!'" variant="primary">Top</b-button>
       </b-col>
 
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.hover.right="'Popover!'" variant="primary">Right</b-btn>
+        <b-button v-b-popover.hover.right="'Popover!'" variant="primary">Right</b-button>
       </b-col>
 
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.hover.left="'Popover!'" variant="primary">Left</b-btn>
+        <b-button v-b-popover.hover.left="'Popover!'" variant="primary">Left</b-button>
       </b-col>
 
       <b-col md="3" class="py-3">
-        <b-btn v-b-popover.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
+        <b-button v-b-popover.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -576,9 +576,9 @@ to deal with on mobile devices (such as smart-phones).
   <div id="myContainer">
     <div class="my-3">
       <!-- Our triggering (target) element -->
-      <b-btn id="exPopoverReactive1" :disabled="popoverShow" variant="primary" ref="button">
+      <b-button id="exPopoverReactive1" :disabled="popoverShow" variant="primary" ref="button">
         Reactive Content Using Slots
-      </b-btn>
+      </b-button>
     </div>
 
     <!-- Output from the popover interaction -->
@@ -604,9 +604,9 @@ to deal with on mobile devices (such as smart-phones).
       @hidden="onHidden"
     >
       <template slot="title">
-        <b-btn @click="onClose" class="close" aria-label="Close">
+        <b-button @click="onClose" class="close" aria-label="Close">
           <span class="d-inline-block" aria-hidden="true">&times;</span>
-        </b-btn>
+        </b-button>
         Interactive Content
       </template>
 
@@ -647,8 +647,8 @@ to deal with on mobile devices (such as smart-phones).
           Color: <strong>{{ input2 }}</strong>
         </b-alert>
 
-        <b-btn @click="onClose" size="sm" variant="danger">Cancel</b-btn>
-        <b-btn @click="onOk" size="sm" variant="primary">Ok</b-btn>
+        <b-button @click="onClose" size="sm" variant="danger">Cancel</b-button>
+        <b-button @click="onOk" size="sm" variant="primary">Ok</b-button>
       </div>
     </b-popover>
   </div>

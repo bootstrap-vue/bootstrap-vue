@@ -20,8 +20,8 @@
   <b-input-group prepend="Username" class="mt-3">
     <b-form-input />
     <b-input-group-append>
-      <b-btn variant="outline-success">Button</b-btn>
-      <b-btn variant="info">Button</b-btn>
+      <b-button variant="outline-success">Button</b-button>
+      <b-button variant="info">Button</b-button>
     </b-input-group-append>
   </b-input-group>
 </div>
@@ -82,13 +82,13 @@ wrapped in these components for proper styling.
 ```html
 <div>
   <b-input-group>
-    <b-input-group-prepend<b-btn variant="outline-info">Button</b-btn></b-input-group-prepend>
+    <b-input-group-prepend<b-button variant="outline-info">Button</b-button></b-input-group-prepend>
 
     <b-form-input type="number" min="0.00" />
 
     <b-input-group-append>
-      <b-btn variant="outline-secondary">Button</b-btn>
-      <b-btn variant="outline-secondary">Button</b-btn>
+      <b-button variant="outline-secondary">Button</b-button>
+      <b-button variant="outline-secondary">Button</b-button>
     </b-input-group-append>
   </b-input-group>
 </div>
@@ -194,7 +194,7 @@ To control width, place the input inside standard Bootstrap grid column.
   >
     <b-form-input />
     <b-input-group-append>
-      <b-btn size="sm" text="Button" variant="success">Button</b-btn>
+      <b-button size="sm" text="Button" variant="success">Button</b-button>
     </b-input-group-append>
   </b-input-group>
 </div>

@@ -6,7 +6,7 @@
 
 ```html
 <div>
-  <b-btn v-b-modal.modal1>Launch demo modal</b-btn>
+  <b-button v-b-modal.modal1>Launch demo modal</b-button>
 
   <!-- Modal Component -->
   <b-modal id="modal1" title="BootstrapVue">
@@ -49,10 +49,10 @@ Other elements can easily show modals using the `v-b-modal` directive.
 ```html
 <div>
   <!-- Using modifiers -->
-  <b-btn v-b-modal.myModal>Show Modal</b-btn>
+  <b-button v-b-modal.myModal>Show Modal</b-button>
 
   <!-- Using value -->
-  <b-btn v-b-modal="'myModal'">Show Modal</b-btn>
+  <b-button v-b-modal="'myModal'">Show Modal</b-button>
 
   <!-- The modal -->
   <b-modal id="myModal">Hello From My Modal!</b-modal>
@@ -80,7 +80,7 @@ You can access modal using `ref` attribute and then call the `show()` or `hide()
       <div class="d-block text-center">
         <h3>Hello From My Modal!</h3>
       </div>
-      <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
+      <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-button>
     </b-modal>
   </div>
 </template>
@@ -145,7 +145,7 @@ reference.
 
   <b-modal id="modal1" @hidden="onHidden">
     <div class="d-block">Hello From My Modal!</div>
-    <b-btn @click="hideModal">Close Me</b-btn>
+    <b-button @click="hideModal">Close Me</b-button>
   </b-modal>
 </div>
 ```
@@ -176,7 +176,7 @@ called synchronously, as async is not supported.
 ```html
 <template>
   <div>
-    <b-btn v-b-modal.modalPrevent>Launch demo modal</b-btn>
+    <b-button v-b-modal.modalPrevent>Launch demo modal</b-button>
 
     <!-- Main UI -->
     <div class="mt-3 mb-3">
@@ -264,9 +264,9 @@ breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional
 
 ```html
 <div>
-  <b-btn v-b-modal.modalxl variant="primary">xl modal</b-btn>
-  <b-btn v-b-modal.modallg variant="primary">lg modal</b-btn>
-  <b-btn v-b-modal.modalsm variant="primary">sm modal</b-btn>
+  <b-button v-b-modal.modalxl variant="primary">xl modal</b-button>
+  <b-button v-b-modal.modallg variant="primary">lg modal</b-button>
+  <b-button v-b-modal.modalsm variant="primary">sm modal</b-button>
 
   <b-modal id="modalxl" size="xl" title="Extra Large Modal">Hello Extra Large Modal!</b-modal>
   <b-modal id="modallg" size="lg" title="Large Modal">Hello Large Modal!</b-modal>
@@ -284,7 +284,7 @@ Vertically center your modal in the viewport by setting the `centered` prop.
 
 ```html
 <div>
-  <b-btn v-b-modal.modal-center>Launch centered modal</b-btn>
+  <b-button v-b-modal.modal-center>Launch centered modal</b-button>
 
   <!-- Modal Component -->
   <b-modal id="modal-center" centered title="BootstrapVue">
@@ -310,12 +310,12 @@ are appended by specifying a container ID (refer to tooltip and popover docs for
 
 ```html
 <div>
-  <b-btn v-b-modal.modalPopover>Show Modal</b-btn>
+  <b-button v-b-modal.modalPopover>Show Modal</b-button>
 
   <b-modal id="modalPopover" title="Modal with Popover" ok-only>
     <p>
       This
-      <b-btn v-b-popover="'Popover inside a modal!'" title="Popover">Button</b-btn>
+      <b-button v-b-popover="'Popover inside a modal!'" title="Popover">Button</b-button>
       triggers a popover on click.
     </p>
     <p>
@@ -341,7 +341,7 @@ the `header-border-variant` and `footer-border-variant` props respectively.
 ```html
 <template>
   <div>
-    <b-btn @click="show=true" variant="primary">Show Modal</b-btn>
+    <b-button @click="show=true" variant="primary">Show Modal</b-button>
 
     <b-modal
       v-model="show"
@@ -381,7 +381,7 @@ the `header-border-variant` and `footer-border-variant` props respectively.
 
       <div slot="modal-footer" class="w-100">
         <p class="float-left">Modal Footer Content</p>
-        <b-btn size="sm" class="float-right" variant="primary" @click="show=false">Close</b-btn>
+        <b-button size="sm" class="float-right" variant="primary" @click="show=false">Close</b-button>
       </div>
     </b-modal>
   </div>
@@ -574,7 +574,7 @@ property:
 
 ```html
 <div>
-  <b-btn @click="$root.$emit.('bv::show::modal', 'modal1', $event.target)">Open Modal</b-btn>
+  <b-button @click="$root.$emit.('bv::show::modal', 'modal1', $event.target)">Open Modal</b-button>
 </div>
 ```
 
