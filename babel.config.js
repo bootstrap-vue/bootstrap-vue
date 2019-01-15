@@ -1,4 +1,9 @@
 module.exports = {
+  plugins: [
+    '@babel/proposal-object-rest-spread',
+    '@babel/transform-runtime',
+    'babel-plugin-lodash'
+  ],
   presets: [
     [
       '@babel/env',
@@ -7,13 +12,9 @@ module.exports = {
       }
     ]
   ],
-  plugins: [
-    '@babel/proposal-object-rest-spread',
-    '@babel/transform-runtime',
-    'babel-plugin-lodash'
-  ],
   env: {
     test: {
+      plugins: ['babel-plugin-istanbul'],
       presets: [
         [
           '@babel/env',
@@ -21,8 +22,7 @@ module.exports = {
             targets: { node: 'current' }
           }
         ]
-      ],
-      plugins: ['babel-plugin-istanbul']
+      ]
     }
   }
 }
