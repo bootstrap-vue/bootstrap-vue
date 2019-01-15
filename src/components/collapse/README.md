@@ -231,9 +231,9 @@ To listen to any collapse state changes, use:
 ```js
 mounted() {
   this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
-    console.log('collapseId:', collapseId);
-    console.log('isJustShown:', isJustShown);
-  });
+    console.log('collapseId:', collapseId)
+    console.log('isJustShown:', isJustShown)
+  })
 }
 ```
 
