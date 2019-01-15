@@ -31,7 +31,7 @@ export default {
     },
     onClick(evt) {
       this.$emit('click', evt)
-      this.closeDropdow()
+      this.closeDropdown()
     }
   },
   render(h) {
