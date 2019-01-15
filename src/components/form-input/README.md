@@ -270,7 +270,9 @@ To apply one of the contextual state icons on `<b-form-input>`, set the `state` 
     />
 
     <!-- This will only be shown if the preceeding input has an invalid state -->
-    <b-form-invalid-feedback id="inputLiveFeedback">Enter at least 3 letters</b-form-invalid-feedback>
+    <b-form-invalid-feedback id="inputLiveFeedback">
+      Enter at least 3 letters
+    </b-form-invalid-feedback>
 
     <!-- This is a form text block (formerly known as help block) -->
     <b-form-text id="inputLiveHelp">Your full name.</b-form-text>
