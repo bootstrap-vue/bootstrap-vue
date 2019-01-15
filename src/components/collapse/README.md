@@ -203,7 +203,7 @@ display or hide content within the toggle via custom CSS:
     <span class="when-opened">Close</span> <span class="when-closed">Open</span> My Collapse
   </b-btn>
   <b-collapse id="myCollapse">
-    <!-- content here -->
+    <!-- Content here -->
   </b-collapse>
 </div>
 ```
