@@ -212,3 +212,5 @@ label is provided. You can easily customize the role if required via prop `role`
 
 As well, when no label is provided, the spinner will automatically have the attribute
 `aria-hidden="true"` to hide the spinner from screen reader users.
+
+<!-- Component reference added automatically from component package.json -->
