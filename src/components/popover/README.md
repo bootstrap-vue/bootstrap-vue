@@ -5,11 +5,11 @@
 > directive.
 
 ```html
-<div class="my-3">
+<div class="text-center my-3">
   <b-btn v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
 </div>
 
-<!-- popover-example-1.vue -->
+<!-- popover.vue -->
 ```
 
 ## Overview
@@ -55,21 +55,24 @@ Positioning is relative to the trigger element.
     <div class="arrow" style="left: 6px"></div>
     <h3 class="popover-header">Popover top</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-top bs-popover-top-docs">
     <div class="arrow" style="right: 6px"></div>
     <h3 class="popover-header">Popover topleft</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-top bs-popover-top-docs">
     <div class="arrow" style="left: 6px"></div>
     <h3 class="popover-header">Popover topright</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
 
@@ -77,21 +80,24 @@ Positioning is relative to the trigger element.
     <div class="arrow" style="top: 4px"></div>
     <h3 class="popover-header">Popover right</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-right bs-popover-right-docs">
     <div class="arrow" style="bottom: 4px"></div>
     <h3 class="popover-header">Popover righttop</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-right bs-popover-right-docs">
     <div class="arrow" style="top: 4px"></div>
     <h3 class="popover-header">Popover rightbottom</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
 
@@ -99,21 +105,24 @@ Positioning is relative to the trigger element.
     <div class="arrow" style="left: 6px"></div>
     <h3 class="popover-header">Popover bottom</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-bottom bs-popover-bottom-docs">
     <div class="arrow" style="right: 6px"></div>
     <h3 class="popover-header">Popover bottomleft</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-bottom bs-popover-bottom-docs">
     <div class="arrow" style="left: 6px"></div>
     <h3 class="popover-header">Popover bottomright</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
 
@@ -121,21 +130,24 @@ Positioning is relative to the trigger element.
     <div class="arrow" style="top: 4px"></div>
     <h3 class="popover-header">Popover left</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-left bs-popover-left-docs">
     <div class="arrow" style="bottom: 4px"></div>
     <h3 class="popover-header">Popover lefttop</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-left bs-popover-left-docs">
     <div class="arrow" style="top: 4px"></div>
     <h3 class="popover-header">Popover leftbottom</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
 
@@ -170,7 +182,12 @@ The special `blur` trigger must be used in combination with the `click` trigger.
   <b-container fluid>
     <h5 class="my-3">Placement</h5>
     <b-row>
-      <b-col md="4" class="py-4 text-center" v-for="placement in placements" :key="placement">
+      <b-col
+        v-for="placement in placements"
+        :key="placement"
+        md="4"
+        class="py-4 text-center"
+      >
         <b-btn :id="'exPopover1-'+placement" variant="primary">{{ placement }}</b-btn>
         <b-popover
           :target="'exPopover1-'+placement"
@@ -178,8 +195,7 @@ The special `blur` trigger must be used in combination with the `click` trigger.
           title="Popover!"
           triggers="hover focus"
           :content="`Placement ${placement}`"
-        >
-        </b-popover>
+        />
       </b-col>
     </b-row>
 
@@ -192,15 +208,13 @@ The special `blur` trigger must be used in combination with the `click` trigger.
           title="Prop Examples"
           triggers="hover focus"
           content="Embedding content using properties is easy"
-        >
-        </b-popover>
+        />
       </b-col>
+
       <b-col md="6" class="py-4 text-center">
         <b-btn id="exPopover3" variant="primary">Using slots</b-btn>
         <b-popover target="exPopover3" triggers="hover focus">
-          <template slot="title"
-            >Content via Slots</template
-          >
+          <template slot="title">Content via Slots</template>
           Embedding content <span class="text-danger">using slots</span> affords you
           <em>greater <strong>control.</strong></em> and basic HTML support.
         </b-popover>
@@ -232,7 +246,7 @@ The special `blur` trigger must be used in combination with the `click` trigger.
   }
 </script>
 
-<!-- popover-1.vue -->
+<!-- popover-placements.vue -->
 ```
 
 ### Component options via props
@@ -259,7 +273,10 @@ it to `true` will show the popover, while setting it to `false` will hide the po
 ```html
 <template>
   <div class="d-flex flex-column text-md-center">
-    <div class="p-2"><b-btn id="popoverButton-sync" variant="primary">I have a popover</b-btn></div>
+    <div class="p-2">
+      <b-btn id="popoverButton-sync" variant="primary">I have a popover</b-btn>
+    </div>
+
     <div class="p-2">
       <b-btn class="px-1" @click="show = !show">Toggle Popover</b-btn>
 
@@ -269,6 +286,7 @@ it to `true` will show the popover, while setting it to `false` will hide the po
     </div>
   </div>
 </template>
+
 <script>
   export default {
     data() {
@@ -291,6 +309,7 @@ by reference.
     <div class="p-2">
       <b-btn id="popoverButton-event" variant="primary">I have a popover</b-btn>
     </div>
+
     <div class="p-2">
       <b-btn class="px-1" @click="onOpen">Open</b-btn>
       <b-btn class="px-1" @click="onClose">Close</b-btn>
@@ -347,18 +366,22 @@ Popover.
   <div class="d-flex flex-column text-md-center">
     <div class="p-2">
       <b-btn id="exPopoverManual1" variant="primary" ref="button">Unreliable</b-btn>
+
       <b-popover target="exPopoverManual1" :show.sync="pop1" triggers="click" ref="popover1">
         I can be stubborn sometimes.
       </b-popover>
     </div>
+
     <div class="p-2">
       <b-btn id="exPopoverManual2" variant="primary" ref="button" @click="pop2 = !pop2">
         Comfortably Numb
       </b-btn>
+
       <b-popover target="exPopoverManual2" :show.sync="pop2" triggers="" ref="popover2">
         I do believe it's working, good.
       </b-popover>
     </div>
+
     <div class="p-2">
       <b-btn class="px-1" @click="popOpen">Open</b-btn>
       <b-btn class="px-1" @click="popClose">Close</b-btn>
@@ -410,11 +433,11 @@ have provided the `.sync` prop modifier.
     <div class="p-2">
       <b-btn id="popoverButton-disable" variant="primary">I have a popover</b-btn>
     </div>
+
     <div class="p-2">
       <b-btn @click="disabled = !disabled">
         {{ disabled ? 'Enable' : 'Disable' }} Popover by prop
       </b-btn>
-
       <b-btn @click="disableByRef">
         {{ disabled ? 'Enable' : 'Disable' }} Popover by $ref event
       </b-btn>
@@ -462,6 +485,7 @@ popover by reference.
     <div class="p-2">
       <b-btn id="popoverButton-disableevent" variant="primary">I have a popover</b-btn>
     </div>
+
     <div class="p-2">
       <b-btn class="px-1" @click="onEnable">Enable</b-btn>
       <b-btn class="px-1" @click="onDisable">Disable</b-btn>
@@ -501,31 +525,29 @@ Just need quick popovers without too much markup? Use the
 [`v-b-popover` directive](/docs/directives/popover):
 
 ```html
-<template>
+<div>
   <b-container fluid>
-    <h4 class="mt-sm-4 ms-sm-4 text-muted">Placement</h4>
-    <b-row>
-      <b-col md="3" class="py-3 text-center">
-        <b-btn v-b-popover.hover.top="'I am Top'" title="Popover!" variant="primary">Top</b-btn>
+    <b-row class="text-center">
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.hover.top="'Popover!'" variant="primary">Top</b-btn>
       </b-col>
-      <b-col md="3" class="py-3 text-center">
-        <b-btn v-b-popover.hover.left="'I am Left'" title="Popover!" variant="primary">Left</b-btn>
+
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.hover.right="'Popover!'" variant="primary">Right</b-btn>
       </b-col>
-      <b-col md="3" class="py-3 text-center">
-        <b-btn v-b-popover.hover.right="'I am Right'" title="Popover!" variant="primary"
-          >Right</b-btn
-        >
+
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.hover.left="'Popover!'" variant="primary">Left</b-btn>
       </b-col>
-      <b-col md="3" class="py-3 text-center">
-        <b-btn v-b-popover.hover.bottom="'I am Bottom'" title="Popover!" variant="primary"
-          >Bottom</b-btn
-        >
+
+      <b-col md="3" class="py-3">
+        <b-btn v-b-popover.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
       </b-col>
     </b-row>
   </b-container>
-</template>
+</div>
 
-<!-- popover-directive-1.vue -->
+<!-- popover-directive-placement.vue -->
 ```
 
 Refer to the [`v-b-popover` directive](/docs/directives/popover) documentation for detailed
@@ -553,13 +575,13 @@ to deal with on mobile devices (such as smart-phones).
 <template>
   <div id="myContainer">
     <div class="my-3">
-      <!-- our triggering (target) element -->
+      <!-- Our triggering (target) element -->
       <b-btn id="exPopoverReactive1" :disabled="popoverShow" variant="primary" ref="button">
         Reactive Content Using Slots
       </b-btn>
     </div>
 
-    <!-- output from the popover interaction -->
+    <!-- Output from the popover interaction -->
     <b-card title="Returned values:" v-if="input1Return && input2Return">
       <p class="card-text" style="max-width:20rem;">
         Name: <strong>{{ input1Return }}</strong><br />
@@ -587,6 +609,7 @@ to deal with on mobile devices (such as smart-phones).
         </b-btn>
         Interactive Content
       </template>
+
       <div>
         <b-form-group
           label="Name"
@@ -599,6 +622,7 @@ to deal with on mobile devices (such as smart-phones).
         >
           <b-form-input ref="input1" id="pop1" :state="input1state" size="sm" v-model="input1" />
         </b-form-group>
+
         <b-form-group
           label="Color"
           label-for="pop2"
@@ -616,11 +640,13 @@ to deal with on mobile devices (such as smart-phones).
             :options="options"
           />
         </b-form-group>
+
         <b-alert show class="small">
           <strong>Current Values:</strong><br />
           Name: <strong>{{ input1 }}</strong><br />
           Color: <strong>{{ input2 }}</strong>
         </b-alert>
+
         <b-btn @click="onClose" size="sm" variant="danger">Cancel</b-btn>
         <b-btn @click="onOk" size="sm" variant="primary">Ok</b-btn>
       </div>
@@ -667,14 +693,14 @@ to deal with on mobile devices (such as smart-phones).
         }
         if (this.input1 && this.input2) {
           this.onClose()
-          /* "Return" our popover "form" results */
+          // Return our popover form results
           this.input1Return = this.input1
           this.input2Return = this.input2
         }
       },
       onShow() {
-        /* This is called just before the popover is shown */
-        /* Reset our popover "form" variables */
+        // This is called just before the popover is shown
+        // Reset our popover form variables
         this.input1 = ''
         this.input2 = ''
         this.input1state = null
@@ -683,19 +709,20 @@ to deal with on mobile devices (such as smart-phones).
         this.input2Return = ''
       },
       onShown() {
-        /* Called just after the popover has been shown */
-        /* Transfer focus to the first input */
+        // Called just after the popover has been shown
+        // Transfer focus to the first input
         this.focusRef(this.$refs.input1)
       },
       onHidden() {
-        /* Called just after the popover has finished hiding */
-        /* Bring focus back to the button */
+        // Called just after the popover has finished hiding
+        // Bring focus back to the button
         this.focusRef(this.$refs.button)
       },
       focusRef(ref) {
-        /* Some references may be a component, functional component, or plain element */
-        /* This handles that check before focusing, assuming a focus() method exists */
-        /* We do this in a double nextTick to ensure components have updated & popover positioned first */
+        // Some references may be a component, functional component, or plain element
+        // This handles that check before focusing, assuming a `focus()` method exists
+        // We do this in a double `$nextTick()` to ensure components have
+        // updated & popover positioned first
         this.$nextTick(() => {
           this.$nextTick(() => {
             ;(ref.$el || ref).focus()
@@ -706,7 +733,7 @@ to deal with on mobile devices (such as smart-phones).
   }
 </script>
 
-<!-- popover-advanced-1.vue -->
+<!-- popover-advanced.vue -->
 ```
 
 ## 'Global' \$root instance events
@@ -782,9 +809,9 @@ To listen to any popover opening, use:
 
 ```js
 mounted () {
-  this.$root.$on("bv::popover::show", function(bvEventObj) {
-    console.log("bvEventObj:", bvEventObj);
-  });
+  this.$root.$on('bv::popover::show', (bvEventObj) => {
+    console.log('bvEventObj:', bvEventObj);
+  })
 }
 ```
 
