@@ -117,39 +117,41 @@ Same example as above, just modified for VeeValidate:
 
 ```html
 <template>
-  <b-form @submit="onSubmit">
-    <b-form-group id="exampleInputGroup1" label="Name" label-for="exampleInput1">
-      <b-form-input
-        id="exampleInput1"
-        type="text"
-        v-model="form.name"
-        v-validate="{ required: true, min:2 }"
-        :state="validateState('form.name')"
-        aria-describedby="input1LiveFeedback"
-        placeholder="Enter name"
-      />
+  <div>
+    <b-form @submit="onSubmit">
+      <b-form-group id="exampleInputGroup1" label="Name" label-for="exampleInput1">
+        <b-form-input
+          id="exampleInput1"
+          type="text"
+          v-model="form.name"
+          v-validate="{ required: true, min:2 }"
+          :state="validateState('form.name')"
+          aria-describedby="input1LiveFeedback"
+          placeholder="Enter name"
+        />
 
-      <b-form-invalid-feedback id="input1LiveFeedback">
-        This is a required field and must be at least 3 characters
-      </b-form-invalid-feedback>
-    </b-form-group>
+        <b-form-invalid-feedback id="input1LiveFeedback">
+          This is a required field and must be at least 3 characters
+        </b-form-invalid-feedback>
+      </b-form-group>
 
-    <b-form-group id="exampleInputGroup2" label="Food" label-for="exampleInput2">
-      <b-form-select
-        id="exampleInput2"
-        :options="foods"
-        v-validate="{ required: true }"
-        :state="validateState('form.foods')"
-        v-model="form.food"
-      />
+      <b-form-group id="exampleInputGroup2" label="Food" label-for="exampleInput2">
+        <b-form-select
+          id="exampleInput2"
+          :options="foods"
+          v-validate="{ required: true }"
+          :state="validateState('form.foods')"
+          v-model="form.food"
+        />
 
-      <b-form-invalid-feedback id="input2LiveFeedback">
-        This is a required field
-      </b-form-invalid-feedback>
-    </b-form-group>
+        <b-form-invalid-feedback id="input2LiveFeedback">
+          This is a required field
+        </b-form-invalid-feedback>
+      </b-form-group>
 
-    <b-button type="submit" variant="primary" :disabled="form.errors.any()">Submit</b-button>
-  </b-form>
+      <b-button type="submit" variant="primary" :disabled="form.errors.any()">Submit</b-button>
+    </b-form>
+  </div>
 </template>
 
 <script>
