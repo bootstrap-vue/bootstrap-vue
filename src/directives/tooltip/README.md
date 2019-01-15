@@ -11,7 +11,7 @@ appear.
   <b-btn v-b-tooltip.hover title="Tooltip content">Hover Me</b-btn>
 </div>
 
-<!-- tooltip-example-sample.vue -->
+<!-- tooltip.vue -->
 ```
 
 ## Overview
@@ -38,82 +38,59 @@ The default position is `top`. Positioning is relative to the trigger element.
 <div class="bd-example bd-example-tooltip-static">
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the top
-    </div>
+    <div class="tooltip-inner">Tooltip on the top</div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
     <div class="arrow" style="right: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the topleft
-    </div>
+    <div class="tooltip-inner">Tooltip on the topleft</div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the topright
-    </div>
+    <div class="tooltip-inner">Tooltip on the topright</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the right
-    </div>
+    <div class="tooltip-inner">Tooltip on the right</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
     <div class="arrow" style="bottom: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the righttop
-    </div>
+    <div class="tooltip-inner">Tooltip on the righttop</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the rightbottom
-    </div>
+    <div class="tooltip-inner">Tooltip on the rightbottom</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the bottom
-    </div>
+    <div class="tooltip-inner">Tooltip on the bottom</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
     <div class="arrow" style="right: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the bottomleft
-    </div>
+    <div class="tooltip-inner">Tooltip on the bottomleft</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the bottomright
-    </div>
+    <div class="tooltip-inner">Tooltip on the bottomright</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the left
-    </div>
+    <div class="tooltip-inner">Tooltip on the left</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
     <div class="arrow" style="bottom: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the lefttop
-    </div>
+    <div class="tooltip-inner">Tooltip on the lefttop</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the leftbottom
-    </div>
+    <div class="tooltip-inner">Tooltip on the leftbottom</div>
   </div>
 </div>
 
 **Live example**
 
 ```html
-<template>
+<div>
+  <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
         <b-btn v-b-tooltip.hover.top="'ToolTip!'" variant="primary">Top</b-btn>
@@ -129,7 +106,7 @@ The default position is `top`. Positioning is relative to the trigger element.
       </b-col>
     </b-row>
   </b-container>
-</template>
+</div>
 
 <!-- tooltip-positioning.vue -->
 ```
@@ -144,7 +121,7 @@ close. I.e. if a tooltip has the trigger `focus click`, and it was opened by `fo
 then clicks the trigger element, they must click it again **and** move focus to close the tooltip.
 
 ```html
-<template>
+<div>
   <b-container>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
@@ -161,7 +138,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
       </b-col>
     </b-row>
   </b-container>
-</template>
+</div>
 
 <!-- tooltip-triggers.vue -->
 ```

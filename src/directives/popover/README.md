@@ -13,7 +13,7 @@ to appear.
   <b-btn v-b-popover.hover="'I am popover content!'" title="Popover Title">Hover Me</b-btn>
 </div>
 
-<!-- popover-example-sample.vue -->
+<!-- popover.vue -->
 ```
 
 ## Overview
@@ -45,21 +45,24 @@ Positioning is relative to the trigger element.
     <div class="arrow" style="left: 6px"></div>
     <h3 class="popover-header">Popover top</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-top bs-popover-top-docs">
     <div class="arrow" style="right: 6px"></div>
     <h3 class="popover-header">Popover topleft</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-top bs-popover-top-docs">
     <div class="arrow" style="left: 6px"></div>
     <h3 class="popover-header">Popover topright</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
 
@@ -67,21 +70,24 @@ Positioning is relative to the trigger element.
     <div class="arrow" style="top: 4px"></div>
     <h3 class="popover-header">Popover right</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-right bs-popover-right-docs">
     <div class="arrow" style="bottom: 4px"></div>
     <h3 class="popover-header">Popover righttop</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-right bs-popover-right-docs">
     <div class="arrow" style="top: 4px"></div>
     <h3 class="popover-header">Popover rightbottom</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
 
@@ -89,21 +95,24 @@ Positioning is relative to the trigger element.
     <div class="arrow" style="left: 6px"></div>
     <h3 class="popover-header">Popover bottom</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-bottom bs-popover-bottom-docs">
     <div class="arrow" style="right: 6px"></div>
     <h3 class="popover-header">Popover bottomleft</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-bottom bs-popover-bottom-docs">
     <div class="arrow" style="left: 6px"></div>
     <h3 class="popover-header">Popover bottomright</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
 
@@ -111,21 +120,24 @@ Positioning is relative to the trigger element.
     <div class="arrow" style="top: 4px"></div>
     <h3 class="popover-header">Popover left</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-left bs-popover-left-docs">
     <div class="arrow" style="bottom: 4px"></div>
     <h3 class="popover-header">Popover lefttop</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
   <div class="popover bs-popover-left bs-popover-left-docs">
     <div class="arrow" style="top: 4px"></div>
     <h3 class="popover-header">Popover leftbottom</h3>
     <div class="popover-body">
-      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia
+      quam venenatis vestibulum.
     </div>
   </div>
 
@@ -135,26 +147,29 @@ Positioning is relative to the trigger element.
 **Live example**
 
 ```html
-<template>
+<div>
   <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
         <b-btn v-b-popover.hover.top="'Popover!'" variant="primary">Top</b-btn>
       </b-col>
+
       <b-col md="3" class="py-3">
         <b-btn v-b-popover.hover.right="'Popover!'" variant="primary">Right</b-btn>
       </b-col>
+
       <b-col md="3" class="py-3">
         <b-btn v-b-popover.hover.left="'Popover!'" variant="primary">Left</b-btn>
       </b-col>
+
       <b-col md="3" class="py-3">
         <b-btn v-b-popover.hover.bottom="'ToolTip!'" variant="primary">Bottom</b-btn>
       </b-col>
     </b-row>
   </b-container>
-</template>
+</div>
 
-<!-- popover-positioning-live.vue -->
+<!-- popover-positioning.vue -->
 ```
 
 ## Triggers
@@ -167,7 +182,7 @@ close. I.e. if a popover has the trigger `focus click`, and it was opened by `fo
 then clicks the trigger element, they must click it again **and** move focus to close the popover.
 
 ```html
-<template>
+<div>
   <b-container fluid>
     <h5>Triggers</h5>
     <b-row class="text-center">
@@ -185,7 +200,7 @@ then clicks the trigger element, they must click it again **and** move focus to 
       </b-col>
     </b-row>
   </b-container>
-</template>
+</div>
 
 <!-- popover-triggers.vue -->
 ```
@@ -207,7 +222,7 @@ button, and will close either on click of the button, or a click anywhere else (
 via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismising_.
 
 ```html
-<template>
+<div>
   <b-container fluid>
     <b-row class="text-center">
       <b-col md="3" class="py-3">
@@ -224,7 +239,7 @@ via pressing the <kbd>TAB</kbd> key). Some call this behavior _self dismising_.
       </b-col>
     </b-row>
   </b-container>
-</template>
+</div>
 
 <!-- popover-dismiss-next-click.vue -->
 ```
