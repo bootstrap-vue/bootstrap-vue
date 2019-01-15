@@ -11,7 +11,7 @@ const BTabButtonHelper = {
     tab: { default: null, required: true },
     id: { type: String, default: null },
     controls: { type: String, default: null },
-    tabIndex: { type: Boolean, default: null },
+    tabIndex: { type: Number, default: -1 },
     posInSet: { type: Number, default: null },
     setSize: { type: Number, default: null },
     noKeyNav: { type: Boolean, default: false }
