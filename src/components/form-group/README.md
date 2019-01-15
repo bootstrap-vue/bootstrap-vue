@@ -169,7 +169,12 @@ of related form controls:
       label-class="font-weight-bold pt-0"
       class="mb-0"
     >
-      <b-form-group label-cols-sm="3" label="Street:" label-align-sm="right" label-for="nestedStreet">
+      <b-form-group
+        label-cols-sm="3"
+        label="Street:"
+        label-align-sm="right"
+        label-for="nestedStreet"
+      >
         <b-form-input id="nestedStreet" />
       </b-form-group>
 
