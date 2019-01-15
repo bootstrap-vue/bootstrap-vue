@@ -4,11 +4,17 @@
     class="bd-content"
   >
     <template v-if="components.length > 0">
-      <h3 id="importing-individual-components">Importing individual {{ pluginTitle }} Components</h3>
+      <h3 id="importing-individual-components">
+        Importing individual {{ pluginTitle }} Components
+      </h3>
 
       <b-table :items="componentImports" small head-variant="default" striped>
-        <template slot="component" slot-scope="field"><code>{{ field.value }}</code></template>
-        <template slot="importPath" slot-scope="field"><code>{{ field.value }}</code></template>
+        <template slot="component" slot-scope="field">
+          <code>{{ field.value }}</code>
+        </template>
+        <template slot="importPath" slot-scope="field">
+          <code>{{ field.value }}</code>
+        </template>
       </b-table>
 
       <p><strong>Example:</strong></p>
@@ -17,11 +23,17 @@
     </template>
 
     <template v-if="directives.length > 0">
-      <h3 id="importing-individual-directives">Importing individual {{ pluginTitle }} Directives</h3>
+      <h3 id="importing-individual-directives">
+        Importing individual {{ pluginTitle }} Directives
+      </h3>
 
       <b-table :items="directiveImports" small head-variant="default" striped>
-        <template slot="directive" slot-scope="field"><code>{{ field.value }}</code></template>
-        <template slot="importPath" slot-scope="field"><code>{{ field.value }}</code></template>
+        <template slot="directive" slot-scope="field">
+          <code>{{ field.value }}</code>
+        </template>
+        <template slot="importPath" slot-scope="field">
+          <code>{{ field.value }}</code>
+        </template>
       </b-table>
 
       <p><strong>Example:</strong></p>

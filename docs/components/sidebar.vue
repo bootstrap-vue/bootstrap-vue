@@ -1,10 +1,5 @@
 <template>
-  <b-collapse
-    id="bd-docs-nav"
-    tag="nav"
-    is-nav
-    class="bd-links"
-  >
+  <b-collapse id="bd-docs-nav" tag="nav" is-nav class="bd-links">
     <router-link
       v-for="group in nav"
       :key="group.base"

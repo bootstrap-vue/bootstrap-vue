@@ -1,9 +1,5 @@
 <template>
-  <b-navbar
-    toggleable="md"
-    class="navbar-dark bd-navbar"
-    sticky
-  >
+  <b-navbar toggleable="md" class="navbar-dark bd-navbar" sticky>
     <b-navbar-toggle target="bd-main-nav" />
 
     <b-navbar-brand to="/" exact>
@@ -34,11 +30,7 @@
       <span class="sr-only">Home</span>
     </b-navbar-brand>
 
-    <b-collapse
-      id="bd-main-nav"
-      is-nav
-      class="justify-content-between"
-    >
+    <b-collapse id="bd-main-nav" is-nav class="justify-content-between">
       <b-navbar-nav>
         <b-nav-item to="/docs" exact>Docs</b-nav-item>
         <b-nav-item to="/docs/components" active-class="active">Components</b-nav-item>
@@ -50,8 +42,12 @@
 
       <b-navbar-nav>
         <b-nav-item-dropdown :text="`v${version}`" right>
-          <b-dropdown-item href="http://dev.bootstrap-vue.netlify.com">Development</b-dropdown-item>
-          <b-dropdown-item href="https://bootstrap-vue.js.org">Latest (v{{ version }})</b-dropdown-item>
+          <b-dropdown-item href="http://dev.bootstrap-vue.netlify.com">
+            Development
+          </b-dropdown-item>
+          <b-dropdown-item href="https://bootstrap-vue.js.org">
+            Latest (v{{ version }})
+          </b-dropdown-item>
         </b-nav-item-dropdown>
 
         <b-nav-item href="https://github.com/bootstrap-vue/bootstrap-vue" target="_blank">
