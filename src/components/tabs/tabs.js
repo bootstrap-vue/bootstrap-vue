@@ -11,7 +11,7 @@ const BTabButtonHelper = {
     tab: { default: null, required: true },
     id: { type: String, default: null },
     controls: { type: String, default: null },
-    tabIndex: { type: Boolean, default: null },
+    tabIndex: { type: Number, default: null },
     posInSet: { type: Number, default: null },
     setSize: { type: Number, default: null },
     noKeyNav: { type: Boolean, default: false }
@@ -390,14 +390,14 @@ export default {
     // For each b-tab found create teh tab buttons
     const buttons = tabs.map((tab, index) => {
       const buttonId = tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`)
-      let tabindex = null
+      let tabIndex = null
       // Ensure at least one tab button is focusable when keynav enabled (if possible)
       if (!this.noKeyNav) {
         // Buttons are not in tab index unless active, or a fallback tab
-        tabindex = '-1'
+        tabIndex = -1
         if (activeTab === tab || (!activeTab && fallbackTab === tab)) {
           // Place tab button in tab sequence
-          tabindex = null
+          tabIndex = null
         }
       }
       return h(BTabButtonHelper, {
@@ -409,7 +409,7 @@ export default {
           tab: tab,
           id: buttonId,
           controls: this.safeId('_BV_tab_container_'),
-          tabIndex: tabindex,
+          tabIndex,
           setSize: tabs.length,
           posInSet: index + 1,
           noKeyNav: this.noKeyNav

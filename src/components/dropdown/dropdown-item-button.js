@@ -28,6 +28,10 @@ export default {
       if (this.dropdown) {
         this.dropdown.hide(true)
       }
+    },
+    onClick(evt) {
+      this.$emit('click', evt)
+      this.closeDropdown()
     }
   },
   render(h) {
@@ -37,7 +41,7 @@ export default {
         staticClass: 'dropdown-item',
         class: { [this.activeClass]: this.active },
         attrs: { role: 'menuitem', type: 'button', disabled: this.disabled },
-        on: { click: this.closeDropdown }
+        on: { click: this.onClick }
       },
       this.$slots.default
     )

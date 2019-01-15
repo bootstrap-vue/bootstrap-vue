@@ -17,6 +17,10 @@ export default {
       if (this.dropdown) {
         this.dropdown.hide(true)
       }
+    },
+    onClick(evt) {
+      this.$emit('click', evt)
+      this.closeDropdown()
     }
   },
   render(h) {
@@ -26,7 +30,7 @@ export default {
         props: this.$props,
         staticClass: 'dropdown-item',
         attrs: { role: 'menuitem' },
-        on: { click: this.closeDropdown }
+        on: { click: this.onClick }
       },
       this.$slots.default
     )
