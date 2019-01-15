@@ -9,13 +9,15 @@ For navigation based tabs (i.e. tabs that would change the URL), use the
 ## Basic usage
 
 ```html
-<b-tabs>
-  <b-tab title="first" active><p class="p-3">I'm the first fading tab</p></b-tab>
-  <b-tab title="second"><p class="p-3">I'm the second tab content</p></b-tab>
-  <b-tab title="disabled" disabled><p class="p-3">Disabled tab!</p></b-tab>
-</b-tabs>
+<div>
+  <b-tabs content-class="mt-3">
+    <b-tab title="first" active>I'm the first fading tab</b-tab>
+    <b-tab title="second">I'm the second tab content</p></b-tab>
+    <b-tab title="disabled" disabled>Disabled tab!></p></b-tab>
+  </b-tabs>
+</div>
 
-<!-- basic.vue -->
+<!-- tabs.vue -->
 ```
 
 **Tip:** You should supply each child `<b-tab>` component a unique `key` value if dynamically adding
@@ -30,14 +32,16 @@ component in order to propertly decorate the card header and remove the extra pa
 `card-body`.
 
 ```html
-<b-card no-body>
-  <b-tabs card>
-    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-    <b-tab title="Tab 2">Tab Contents 2</b-tab>
-  </b-tabs>
-</b-card>
+<div>
+  <b-card no-body>
+    <b-tabs card>
+      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+      <b-tab title="Tab 2">Tab Contents 2</b-tab>
+    </b-tabs>
+  </b-card>
+</div>
 
-<!-- with-card.vue -->
+<!-- tabs-card.vue -->
 ```
 
 When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatically have the
@@ -45,31 +49,36 @@ When `<b-tabs>` is in `card` mode, each `<b-tab>` sub-component will automatical
 `card-body` class, set the `no-body` prop on `<b-tab>` sub component.
 
 ```html
-<b-card no-body>
-  <b-tabs card>
-    <b-tab no-body title="Picture 1">
-      <b-card-img bottom src="https://picsum.photos/600/200/?image=21" />
-      <b-card-footer>Picture 1 footer</b-card-footer>
-    </b-tab>
-    <b-tab no-body title="Picture 2">
-      <b-card-img bottom src="https://picsum.photos/600/200/?image=25" />
-      <b-card-footer>Picture 2 footer</b-card-footer>
-    </b-tab>
-    <b-tab no-body title="Picture 3">
-      <b-card-img bottom src="https://picsum.photos/600/200/?image=26" />
-      <b-card-footer>Picture 3 footer</b-card-footer>
-    </b-tab>
-    <b-tab title="Text">
-      <h5>This tab does not have the <code>no-body</code> prop set</h5>
-      Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
-      consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur
-      mollit voluptate est in duis laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit
-      elit veniam Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure.
-    </b-tab>
-  </b-tabs>
-</b-card>
+<div>
+  <b-card no-body>
+    <b-tabs card>
+      <b-tab no-body title="Picture 1">
+        <b-card-img bottom src="https://picsum.photos/600/200/?image=21" />
+        <b-card-footer>Picture 1 footer</b-card-footer>
+      </b-tab>
 
-<!-- with-card-nobody.vue -->
+      <b-tab no-body title="Picture 2">
+        <b-card-img bottom src="https://picsum.photos/600/200/?image=25" />
+        <b-card-footer>Picture 2 footer</b-card-footer>
+      </b-tab>
+
+      <b-tab no-body title="Picture 3">
+        <b-card-img bottom src="https://picsum.photos/600/200/?image=26" />
+        <b-card-footer>Picture 3 footer</b-card-footer>
+      </b-tab>
+
+      <b-tab title="Text">
+        <h5>This tab does not have the <code>no-body</code> prop set</h5>
+        Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
+        consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex consectetur
+        mollit voluptate est in duis laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit
+        elit veniam Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure.
+      </b-tab>
+    </b-tabs>
+  </b-card>
+</div>
+
+<!-- tabs-card-no-body.vue -->
 ```
 
 **Note:** Setting the `no-body` prop on `<b-tab>` will have no affect when `<b-tabs>` is not in
@@ -81,12 +90,14 @@ Tabs use the `tabs` styling by default. Just add `pills` property to `<b-tabs>` 
 variant.
 
 ```html
-<b-card no-body>
-  <b-tabs pills card>
-    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-    <b-tab title="Tab 2">Tab Contents 2</b-tab>
-  </b-tabs>
-</b-card>
+<div>
+  <b-card no-body>
+    <b-tabs pills card>
+      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+      <b-tab title="Tab 2">Tab Contents 2</b-tab>
+    </b-tabs>
+  </b-card>
+</div>
 
 <!-- tabs-pills.vue -->
 ```
@@ -96,12 +107,14 @@ variant.
 Visually move the tab controls to the bottom by setting the prop `end`
 
 ```html
-<b-card no-body>
-  <b-tabs pills card end>
-    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-    <b-tab title="Tab 2">Tab Contents 2</b-tab>
-  </b-tabs>
-</b-card>
+<div>
+  <b-card no-body>
+    <b-tabs pills card end>
+      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+      <b-tab title="Tab 2">Tab Contents 2</b-tab>
+    </b-tabs>
+  </b-card>
+</div>
 
 <!-- tabs-bottom.vue -->
 ```
@@ -123,13 +136,15 @@ Have the tab controls placed on the lefthand side by setting the `vertical` prop
 tabs work with or without `card` mode enabled.
 
 ```html
-<b-card no-body>
-  <b-tabs pills card vertical>
-    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-    <b-tab title="Tab 2">Tab Contents 2</b-tab>
-    <b-tab title="Tab 3">Tab Contents 3</b-tab>
-  </b-tabs>
-</b-card>
+<div>
+  <b-card no-body>
+    <b-tabs pills card vertical>
+      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+      <b-tab title="Tab 2">Tab Contents 2</b-tab>
+      <b-tab title="Tab 3">Tab Contents 3</b-tab>
+    </b-tabs>
+  </b-card>
+</div>
 
 <!-- tabs-vertical.vue -->
 ```
@@ -137,13 +152,15 @@ tabs work with or without `card` mode enabled.
 Visually move the tab controls to the right hand side by setting the `end` prop:
 
 ```html
-<b-card no-body>
-  <b-tabs pills card vertical end>
-    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-    <b-tab title="Tab 2">Tab Contents 2</b-tab>
-    <b-tab title="Tab 3">Tab Contents 3 </b-tab>
-  </b-tabs>
-</b-card>
+<div>
+  <b-card no-body>
+    <b-tabs pills card vertical end>
+      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+      <b-tab title="Tab 2">Tab Contents 2</b-tab>
+      <b-tab title="Tab 3">Tab Contents 3 </b-tab>
+    </b-tabs>
+  </b-card>
+</div>
 
 <!-- tabs-vertical-end.vue -->
 ```
@@ -154,13 +171,15 @@ width, set a [width utility class](/docs/reference/size-props#sizing-utility-cla
 column classes such as `col-2`, `col-3`, etc.
 
 ```html
-<b-card no-body>
-  <b-tabs pills card vertical nav-wrapper-class="w-50">
-    <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
-    <b-tab title="Tab 2">Tab Contents 2</b-tab>
-    <b-tab title="Tab 3">Tab Contents 3</b-tab>
-  </b-tabs>
-</b-card>
+<div>
+  <b-card no-body>
+    <b-tabs pills card vertical nav-wrapper-class="w-50">
+      <b-tab title="Tab 1" active>Tab Contents 1</b-tab>
+      <b-tab title="Tab 2">Tab Contents 2</b-tab>
+      <b-tab title="Tab 3">Tab Contents 3</b-tab>
+    </b-tabs>
+  </b-card>
+</div>
 
 <!-- tabs-vertical-width.vue -->
 ```
@@ -181,12 +200,14 @@ Fade is enabled by default when changing tabs. It can disabled with `no-fade` pr
 If you want to add extra tabs that do not have any content, you can put them in `tabs` slot:
 
 ```html
-<b-tabs>
-  <!-- Add your b-tab components here-->
-  <template slot="tabs">
-    <b-nav-item href="#" @click="()=>{}">Another tab</b-nav-item>
-  </template>
-</b-tabs>
+<div>
+  <b-tabs>
+    <!-- Add your b-tab components here -->
+    <template slot="tabs">
+      <b-nav-item href="#" @click="() => {}">Another tab</b-nav-item>
+    </template>
+  </b-tabs>
+</div>
 
 <!-- tabs-item-slot.vue -->
 ```
@@ -200,20 +221,23 @@ If you want to add custom content to tab title, like HTML code, icons, or anothe
 Vue component, this possible by using `title` slot
 
 ```html
-<b-tabs>
-  <b-tab active>
-    <template slot="title">
-      <b-spinner type="grow" small /> I'm <i>Custom</i> <strong>Title</strong>
-    </template>
-    <p class="p-3">Tab Contents 1</p>
-  </b-tab>
-  <b-tab>
-    <template slot="title">
-      <b-spinner type="border" small /> Tab 2
-    </template>
-    <p class="p-3">Tab Contents 2</p>
-  </b-tab>
-</b-tabs>
+<div>
+  <b-tabs>
+    <b-tab active>
+      <template slot="title">
+        <b-spinner type="grow" small /> I'm <i>Custom</i> <strong>Title</strong>
+      </template>
+      <p class="p-3">Tab Contents 1</p>
+    </b-tab>
+
+    <b-tab>
+      <template slot="title">
+        <b-spinner type="border" small /> Tab 2
+      </template>
+      <p class="p-3">Tab Contents 2</p>
+    </b-tab>
+  </b-tabs>
+</div>
 
 <!-- tabs-title-slot.vue -->
 ```
@@ -234,13 +258,15 @@ need to accomodate your custom classes for this._
 
 ```html
 <template>
-  <b-card no-body>
-    <b-tabs card v-model="tabIndex">
-      <b-tab title="Tab 1" :title-link-class="linkClass(0)">Tab Contents 1</b-tab>
-      <b-tab title="Tab 2" :title-link-class="linkClass(1)">Tab Contents 2</b-tab>
-      <b-tab title="Tab 3" :title-link-class="linkClass(2)">Tab Contents 3</b-tab>
-    </b-tabs>
-  </b-card>
+  <div>
+    <b-card no-body>
+      <b-tabs card v-model="tabIndex">
+        <b-tab title="Tab 1" :title-link-class="linkClass(0)">Tab Contents 1</b-tab>
+        <b-tab title="Tab 2" :title-link-class="linkClass(1)">Tab Contents 2</b-tab>
+        <b-tab title="Tab 3" :title-link-class="linkClass(2)">Tab Contents 3</b-tab>
+      </b-tabs>
+    </b-card>
+  </div>
 </template>
 
 <script>
@@ -262,7 +288,7 @@ need to accomodate your custom classes for this._
   }
 </script>
 
-<!-- with-classes.vue -->
+<!-- tabs-with-classes.vue -->
 ```
 
 ## Keyboard Navigation
@@ -306,7 +332,7 @@ order to use these methods.
 
 ## Advanced Examples
 
-### External controls using v-model
+### External controls using `v-model`
 
 ```html
 <template>
@@ -330,8 +356,8 @@ order to use these methods.
         <b-btn @click="tabIndex--">Previous</b-btn>
         <b-btn @click="tabIndex++">Next</b-btn>
       </b-button-group>
-      <br />
-      <span class="text-muted">Current Tab: {{ tabIndex }}</span>
+
+      <div class="text-muted">Current Tab: {{ tabIndex }}</div>
     </div>
   </div>
 </template>
@@ -357,9 +383,9 @@ order to use these methods.
     <b-card no-body>
       <b-tabs card>
         <!-- Render Tabs, supply a unique `key` to each tab -->
-        <b-tab :title="`Tab ${i}`" v-for="i in tabs" :key="`dyntab-${i}`">
+        <b-tab v-for="i in tabs" :key="`dyntab-${i}`" :title="`Tab ${i}`">
           Tab Contents {{ i }}
-          <b-btn size="sm" variant="danger" class="float-right" @click="()=>closeTab(i)">
+          <b-btn size="sm" variant="danger" class="float-right" @click="() => closeTab(i)">
             Close tab
           </b-btn>
         </b-tab>
@@ -402,7 +428,7 @@ order to use these methods.
   }
 </script>
 
-<!-- dynamic-tabs.vue -->
+<!-- tabs-dynamic.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->
