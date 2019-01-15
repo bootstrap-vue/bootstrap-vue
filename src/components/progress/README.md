@@ -345,14 +345,14 @@ horizontally stacked set of progress bars.
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      max: 100,
-      values: [ 15, 30, 20 ]
+  export default {
+    data() {
+      return {
+        max: 100,
+        values: [15, 30, 20]
+      }
     }
   }
-}
 </script>
 
 <!-- progress-multiple.vue -->
