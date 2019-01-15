@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import debounce from 'lodash/debounce'
 import hljs from 'highlightjs'
+import { debounce } from 'lodash-es'
 import needsTranspiler from '../utils/needs-transpiler'
 
 const NAME_REGEX = /<!-- (.*)\.vue -->/

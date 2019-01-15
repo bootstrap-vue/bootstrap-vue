@@ -122,7 +122,7 @@ h5 {
 
 <script>
 import Vue from 'vue'
-import kebabCase from 'lodash/kebabCase'
+import { kebabCase } from 'lodash-es'
 
 export default {
   props: {
