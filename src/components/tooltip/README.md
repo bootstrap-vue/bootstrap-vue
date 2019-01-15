@@ -4,9 +4,11 @@
 > [`v-b-tooltip`](/docs/directives/tooltip) directive (preferred method).
 
 ```html
-<div class="text-center my-3"><b-btn v-b-tooltip.hover title="I'm a tooltip!">Hover Me</b-btn></div>
+<div class="text-center my-3">
+  <b-btn v-b-tooltip.hover title="Tooltip content">Hover Me</b-btn>
+</div>
 
-<!-- tooltip-example-1.vue -->
+<!-- tooltip.vue -->
 ```
 
 ## Overview
@@ -51,75 +53,51 @@ The default position is `top`. Positioning is relative to the trigger element.
 <div class="bd-example bd-example-tooltip-static">
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the top
-    </div>
+    <div class="tooltip-inner">Tooltip on the top</div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
     <div class="arrow" style="right: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the topleft
-    </div>
+    <div class="tooltip-inner">Tooltip on the topleft</div>
   </div>
   <div class="tooltip bs-tooltip-top bs-tooltip-top-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the topright
-    </div>
+    <div class="tooltip-inner">Tooltip on the topright</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the right
-    </div>
+    <div class="tooltip-inner">Tooltip on the right</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
     <div class="arrow" style="bottom: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the righttop
-    </div>
+    <div class="tooltip-inner">Tooltip on the righttop</div>
   </div>
   <div class="tooltip bs-tooltip-right bs-tooltip-right-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the rightbottom
-    </div>
+    <div class="tooltip-inner">Tooltip on the rightbottom</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the bottom
-    </div>
+    <div class="tooltip-inner">Tooltip on the bottom</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
     <div class="arrow" style="right: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the bottomleft
-    </div>
+    <div class="tooltip-inner">Tooltip on the bottomleft</div>
   </div>
   <div class="tooltip bs-tooltip-bottom bs-tooltip-bottom-docs" role="tooltip">
     <div class="arrow" style="left: 6px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the bottomright
-    </div>
+    <div class="tooltip-inner">Tooltip on the bottomright</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the left
-    </div>
+    <div class="tooltip-inner">Tooltip on the left</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
     <div class="arrow" style="bottom: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the lefttop
-    </div>
+    <div class="tooltip-inner">Tooltip on the lefttop</div>
   </div>
   <div class="tooltip bs-tooltip-left bs-tooltip-left-docs" role="tooltip">
     <div class="arrow" style="top: 4px"></div>
-    <div class="tooltip-inner">
-      Tooltip on the leftbottom
-    </div>
+    <div class="tooltip-inner">Tooltip on the leftbottom</div>
   </div>
 </div>
 
@@ -152,13 +130,15 @@ then clicks the trigger element, they must click it again **and** move focus to 
   <b-tooltip target="exButton1" title="Online!" />
 
   <!-- HTML title specified via default slot -->
-  <b-tooltip target="exButton2" placement="bottom">Hello <strong>World!</strong></b-tooltip>
+  <b-tooltip target="exButton2" placement="bottom">
+    Hello <strong>World!</strong>
+  </b-tooltip>
 
   <!-- Tooltip for an element identified by ref -->
   <b-tooltip :target="() => $refs.exButton3" title="Alternative!" />
 </b-container>
 
-<!-- tooltip-component-1.vue -->
+<!-- tooltip-component.vue -->
 ```
 
 ### Component Options
@@ -183,9 +163,14 @@ it to `true` will show the tooltip, while setting it to `false` will hide the to
 ```html
 <template>
   <div class="text-center">
-    <b-btn id="tooltipButton-1" variant="primary">I have a tooltip</b-btn>
-    <br /><br />
-    <b-btn @click="show = !show">Toggle Tooltip</b-btn>
+    <div>
+      <b-btn id="tooltipButton-1" variant="primary">I have a tooltip</b-btn>
+    </div>
+
+    <div class="mt-3">
+      <b-btn @click="show = !show">Toggle Tooltip</b-btn>
+    </div>
+
 
     <b-tooltip :show.sync="show" target="tooltipButton-1" placement="top">
       Hello <strong>World!</strong>
@@ -223,6 +208,7 @@ by reference.
     <div class="p-2">
       <b-btn id="tooltipButton-showEvent" variant="primary">I have a tooltip</b-btn>
     </div>
+
     <div class="p-2">
       <b-btn class="px-1" @click="onOpen">Open</b-btn>
       <b-btn class="px-1" @click="onClose">Close</b-btn>
@@ -267,11 +253,11 @@ long as you have provided the `.sync` prop modifier.
     <div class="p-2">
       <b-btn id="tooltipButton-disable" variant="primary">I have a tooltip</b-btn>
     </div>
+
     <div class="p-2">
       <b-btn @click="disabled = !disabled">
         {{ disabled ? 'Enable' : 'Disable' }} Tooltip by prop
       </b-btn>
-
       <b-btn @click="disableByRef">
         {{ disabled ? 'Enable' : 'Disable' }} Tooltip by $ref event
       </b-btn>
@@ -326,9 +312,10 @@ markup:
     <b-col md="6" class="py-4">
       <b-btn v-b-tooltip title="Online!" variant="outline-success">Live chat</b-btn>
     </b-col>
+
     <b-col md="6" class="py-4">
       <b-btn
-        v-b-tooltip.html.bottom
+        v-b-tooltip.html
         title="Hello <strong>World!</strong>"
         variant="outline-success"
       >
@@ -338,7 +325,7 @@ markup:
   </b-row>
 </b-container>
 
-<!-- tooltip-directive-1.vue -->
+<!-- tooltip-directive.vue -->
 ```
 
 Refer to the [`v-b-tooltip` documentation](/docs/directives/tooltip) for more information and
@@ -418,10 +405,10 @@ These events work for both the component **and** directive versions of tooltip.
 To listen to any tooltip opening, use:
 
 ```js
-mounted () {
-  this.$root.$on("bv::tooltip::show", function(bvEventObj) {
-    console.log("bvEventObj:", bvEventObj);
-  });
+mounted() {
+  this.$root.$on('bv::tooltip::show', (bvEventObj) => {
+    console.log('bvEventObj:', bvEventObj);
+  })
 }
 ```
 
