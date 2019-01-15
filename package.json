@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.2.1",
-    "lodash-es": "^4.17.11",
+    "lodash": "^4.17.11",
     "opencollective-postinstall": "^2.0.1",
     "popper.js": "^1.14.6",
     "vue-functional-data-merge": "^2.0.7"

@@ -1,4 +1,4 @@
-import { kebabCase, startCase } from 'lodash-es'
+import { kebabCase, startCase } from 'lodash'
 
 // Remove any HTML tags, but leave entities alone
 function stripHTML(str = '') {
