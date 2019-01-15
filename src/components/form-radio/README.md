@@ -282,7 +282,7 @@ by setting the `plain` prop.
   }
 </script>
 
-<!-- form-radio-plain-1.vue -->
+<!-- form-radio-plain.vue -->
 ```
 
 **Note:** `plain` will have no effect if `buttons`/`button` is set.

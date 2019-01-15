@@ -6,17 +6,19 @@
 
 ```html
 <template>
-  <b-form-group
-    id="fieldset1"
-    description="Let us know your name."
-    label="Enter your name"
-    label-for="input1"
-    :invalid-feedback="invalidFeedback"
-    :valid-feedback="validFeedback"
-    :state="state"
-  >
-    <b-form-input id="input1" :state="state" v-model="name" trim />
-  </b-form-group>
+  <div>
+    <b-form-group
+      id="fieldset1"
+      description="Let us know your name."
+      label="Enter your name"
+      label-for="input1"
+      :invalid-feedback="invalidFeedback"
+      :valid-feedback="validFeedback"
+      :state="state"
+    >
+      <b-form-input id="input1" :state="state" v-model="name" trim />
+    </b-form-group>
+  </div>
 </template>
 
 <script>
@@ -46,7 +48,7 @@
   }
 </script>
 
-<!-- form-group-1.vue -->
+<!-- form-group.vue -->
 ```
 
 ## Label
@@ -91,16 +93,18 @@ of the width of the rendered row (handy if you have custom Bootstrap with an odd
 
 ```html
 <div>
-  <b-form-group
-    id="fieldsetHorizontal"
-    label-cols-sm="4"
-    label-cols-lg="3"
-    description="Let us know your name."
-    label="Enter your name"
-    label-for="inputHorizontal"
-  >
-    <b-form-input id="inputHorizontal" />
-  </b-form-group>
+  <div>
+    <b-form-group
+      id="fieldsetHorizontal"
+      label-cols-sm="4"
+      label-cols-lg="3"
+      description="Let us know your name."
+      label="Enter your name"
+      label-for="inputHorizontal"
+    >
+      <b-form-input id="inputHorizontal" />
+    </b-form-group>
+  </div>
 </div>
 
 <!-- form-group-horizontal.vue -->

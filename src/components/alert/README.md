@@ -160,7 +160,7 @@ button.
   </b-alert>
 </div>
 
-<!-- alert-dismis-1.vue -->
+<!-- alert-dismiss.vue -->
 ```
 
 ### Auto dismissing alerts
