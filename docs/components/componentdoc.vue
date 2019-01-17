@@ -62,7 +62,8 @@
             v-for="arg in field.value"
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <code v-if="arg.arg">{{ arg.arg }}</code> - <span v-html="arg.description" />
+            <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
+            <span v-html="arg.description" />
           </div>
         </template>
       </b-table>
@@ -82,7 +83,8 @@
             v-for="arg in field.value"
             :key="`event-${field.item.event}-${arg.arg ? arg.arg : 'none'}`"
           >
-            <code v-if="arg.arg">{{ arg.arg }}</code> - <span v-html="arg.description" />
+            <template v-if="arg.arg"><code>{{ arg.arg }}</code> - </template>
+            <span v-html="arg.description" />
           </div>
         </template>
       </b-table>
