@@ -106,7 +106,9 @@ declare module 'bootstrap-vue' {
 
     export interface Nav extends Vue {}
     export interface Navbar extends Vue {}
-    export interface Pagination extends Vue {}
+    export interface Pagination extends Vue {
+        numberOfPages: number;
+    }
     export interface PaginationNav extends Vue {}
     export interface Popover extends Vue {
         createToolpop: () => void;
