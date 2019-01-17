@@ -1259,7 +1259,7 @@ possible to filter data based on custom rendering of virtual columns.
 
 ### Built in filtering
 
-The items row data values are stringified (see the sorting section above for how stringification is
+The item's row data values are stringified (see the sorting section above for how stringification is
 done) and the filter searches that stringified data (excluding any of the special properties that
 begin with an underscore `_`). The stringification also includes any data not shown in the presented
 columns.
