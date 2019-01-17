@@ -9,7 +9,7 @@
           <h1 class="mb-3 bd-text-purple-bright">Bootstrap + Vue</h1>
           <p class="lead">
             Build responsive, mobile-first projects on the web using Vue.js and the world's most
-            popular front-end CSS library &mdash; Bootstrap V4.1.
+            popular front-end CSS library &mdash; Bootstrap 4.
           </p>
           <p class="lead mb-3">
             <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
@@ -19,12 +19,12 @@
             markup.
           </p>
           <p class="mb-2 text-muted">
-            <a href="https://getbootstrap.com/docs/4.0">Bootstrap 4</a> is the world's most popular
-            framework for building responsive, mobile-first sites.
+            <a href="https://getbootstrap.com/docs/4.2" target="_blank">Bootstrap 4</a> is the
+            world's most popular framework for building responsive, mobile-first sites.
           </p>
           <p class="mb-4 text-muted">
-            <a href="https://vuejs.org"> Vue.js</a> (pronounced /vjuË, like view) is a progressive
-            framework for building user interfaces.
+            <a href="https://vuejs.org" target="_blank">Vue.js</a> (pronounced /vjuË, like view) is
+            a progressive framework for building user interfaces.
           </p>
           <div class="d-flex flex-column flex-md-row lead mb-3">
             <b-btn
