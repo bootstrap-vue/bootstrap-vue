@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import { groupBy, intersectionBy } from 'lodash'
+import groupBy from 'lodash/groupBy'
+import intersectionBy from 'lodash/intersectionBy'
 import { makeTOC } from '~/utils'
 import {
   components as _components,

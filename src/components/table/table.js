@@ -1,4 +1,5 @@
-import { get, startCase } from 'lodash'
+import get from 'lodash/get'
+import startCase from 'lodash/startCase'
 import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'

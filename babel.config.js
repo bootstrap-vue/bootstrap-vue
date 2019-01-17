@@ -1,9 +1,5 @@
 module.exports = {
-  plugins: [
-    '@babel/proposal-object-rest-spread',
-    '@babel/transform-runtime',
-    'babel-plugin-lodash'
-  ],
+  plugins: ['@babel/proposal-object-rest-spread', '@babel/transform-runtime'],
   presets: [
     [
       '@babel/env',

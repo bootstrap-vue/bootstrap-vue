@@ -96,7 +96,8 @@
 
 <script>
 import hljs from 'highlightjs'
-import { kebabCase, startCase } from 'lodash'
+import kebabCase from 'lodash/kebabCase'
+import startCase from 'lodash/startCase'
 
 export default {
   props: {
