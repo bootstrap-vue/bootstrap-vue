@@ -923,7 +923,10 @@ class ToolTip {
         offset: { offset: this.getOffset(placement, tip) },
         flip: { behavior: this.$config.fallbackPlacement },
         arrow: { element: '.arrow' },
-        preventOverflow: { boundariesElement: this.$config.boundary }
+        preventOverflow: {
+          padding: this.$config.boundaryPadding,
+          boundariesElement: this.$config.boundary
+        }
       },
       onCreate: data => {
         // Handle flipping arrow classes
