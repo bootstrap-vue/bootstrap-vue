@@ -42,6 +42,7 @@ function toString(v) {
     // Arrays are also object, and keys just returns the array indexes
     return keys(v)
       .sort() /* sort to prevent SSR issues on pre-rendered sorted tables */
+      .filter(k => v !== v[k])
       .map(k => toString(v[k]))
       .join(' ')
   }
