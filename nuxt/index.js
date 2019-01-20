@@ -23,7 +23,7 @@ module.exports = function nuxtBootstrapVue (moduleOptions) {
   this.addPlugin({
     src: resolve(__dirname, 'plugin.js'),
     fileName: 'bootstrap-vue.js',
-    moduleOptions
+    options: moduleOptions
   })
 }
 
