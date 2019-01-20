@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import startCase from 'lodash/startCase'
+import { startCase } from 'lodash'
 import componentdoc from '~/components/componentdoc.vue'
 import importdoc from '~/components/importdoc.vue'
 import { components as _meta } from '~/content'
