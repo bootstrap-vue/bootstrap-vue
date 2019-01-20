@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import startCase from 'lodash-es/startCase'
+import startCase from 'lodash/startCase'
 import importdoc from '~/components/importdoc.vue'
 import { directives as _meta } from '~/content'
 import docsMixin from '~/plugins/docs-mixin'
