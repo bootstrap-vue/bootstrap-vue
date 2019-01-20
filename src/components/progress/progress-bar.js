@@ -1,4 +1,4 @@
-import stripScripts from '../../utils/strip-scripts'
+import { CONTENT_PROP } from '../../utils/content'
 
 export default {
   render (h) {
@@ -6,7 +6,7 @@ export default {
     if (this.$slots.default) {
       childNodes = this.$slots.default
     } else if (this.label) {
-      childNodes = h('span', { domProps: { innerHTML: stripScripts(this.label) } })
+      childNodes = h('span', { domProps: { [CONTENT_PROP]: this.label } })
     } else if (this.computedShowProgress) {
       childNodes = this.progress.toFixed(this.computedPrecision)
     } else if (this.computedShowValue) {

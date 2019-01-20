@@ -1,5 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
-import stripScripts from '../../utils/strip-scripts'
+import { CONTENT_PROP } from '../../utils/content'
 import InputGroupPrepend from './input-group-prepend'
 import InputGroupAppend from './input-group-append'
 import InputGroupText from './input-group-text'
@@ -39,7 +39,7 @@ export default {
     if (props.prepend) {
       childNodes.push(
         h(InputGroupPrepend, [
-          h(InputGroupText, { domProps: { innerHTML: stripScripts(props.prepend) } })
+          h(InputGroupText, { domProps: { [CONTENT_PROP]: props.prepend } })
         ])
       )
     }
@@ -56,7 +56,7 @@ export default {
     if (props.append) {
       childNodes.push(
         h(InputGroupAppend, [
-          h(InputGroupText, { domProps: { innerHTML: stripScripts(props.append) } })
+          h(InputGroupText, { domProps: { [CONTENT_PROP]: props.append } })
         ])
       )
     }

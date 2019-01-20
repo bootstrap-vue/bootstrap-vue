@@ -1,6 +1,6 @@
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
-import stripScripts from '../../utils/strip-scripts'
+import { CONTENT_PROP } from '../../utils/content'
 import bButton from '../button/button'
 
 import './dropdown.css'

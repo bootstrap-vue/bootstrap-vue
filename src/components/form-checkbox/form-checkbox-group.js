@@ -4,7 +4,7 @@ import formOptionsMixin from '../../mixins/form-options'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
-import stripScripts from '../../utils/strip-scripts'
+import { CONTENT_PROP } from '../../utils/content'
 
 import bFormCheckbox from './form-checkbox'
 
@@ -34,7 +34,7 @@ export default {
             disabled: option.disabled
           }
         },
-        [h('span', { domProps: { innerHTML: stripScripts(option.text) } })]
+        [h('span', { domProps: { [CONTENT_PROP]: option.text } })]
       )
     })
     return h(

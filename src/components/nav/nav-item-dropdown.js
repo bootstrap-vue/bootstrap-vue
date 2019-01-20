@@ -1,6 +1,6 @@
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
-import stripScripts from '../../utils/strip-scripts'
+import { CONTENT_PROP } from '../../utils/content'
 
 export default {
   mixins: [idMixin, dropdownMixin],
@@ -25,7 +25,7 @@ export default {
       [
         this.$slots['button-content'] ||
           this.$slots.text ||
-          h('span', { domProps: { innerHTML: stripScripts(this.text) } })
+          h('span', { domProps: { [CONTENT_PROP]: this.text } })
       ]
     )
     const menu = h(

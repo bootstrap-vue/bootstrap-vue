@@ -121,7 +121,7 @@ export default {
           [
             h('span', {
               class: ['page-link'],
-              domProps: { innerHTML: stripScripts(btnText) }
+              domProps: { [CONTENT_PROP]: btnText }
             })
           ]
         )
@@ -160,7 +160,7 @@ export default {
               [
                 h('span', {
                   attrs: { 'aria-hidden': 'true' },
-                  domProps: { innerHTML: stripScripts(btnText) }
+                  domProps: { [CONTENT_PROP]: btnText }
                 })
               ]
             )
@@ -181,7 +181,7 @@ export default {
         [
           h('span', {
             class: ['page-link'],
-            domProps: { innerHTML: stripScripts(this.ellipsisText) }
+            domProps: { [CONTENT_PROP]: this.ellipsisText }
           })
         ]
       )

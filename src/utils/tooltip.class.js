@@ -1,5 +1,5 @@
 import Popper from 'popper.js'
-import stripScripts from '../../utils/strip-scripts'
+import { CONTENT_PROP } from '../../utils/content'
 import BvEvent from './bv-event.class'
 import { assign } from './object'
 import { from as arrayFrom } from './array'

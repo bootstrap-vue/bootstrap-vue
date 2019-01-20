@@ -4,7 +4,7 @@ import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
-import stripScripts from '../../utils/strip-scripts'
+import { CONTENT_PROP } from '../../utils/content'
 import { keys, assign } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
 import idMixin from '../../mixins/id'
@@ -80,7 +80,7 @@ export default {
     if (this.caption || $slots['table-caption']) {
       const data = { style: this.captionStyles }
       if (!$slots['table-caption']) {
-        data.domProps = { innerHTML: stripScripts(this.caption) }
+        data.domProps = { [CONTENT_PROP]: this.caption }
       }
       caption = h('caption', data, $slots['table-caption'])
     }
@@ -135,7 +135,7 @@ export default {
         if (slot) {
           slot = [slot({ label: field.label, column: field.key, field: field })]
         } else {
-          data.domProps = { innerHTML: stripScripts(field.label) }
+          data.domProps = { [CONTENT_PROP]: field.label }
         }
         return h('th', data, slot)
       })
@@ -300,7 +300,7 @@ export default {
       if (!empty) {
         empty = h('div', {
           class: ['text-center', 'my-2'],
-          domProps: { innerHTML: stripScripts(this.filter ? this.emptyFilteredText : this.emptyText) }
+          domProps: { [CONTENT_PROP]: this.filter ? this.emptyFilteredText : this.emptyText }
         })
       }
       empty = h(

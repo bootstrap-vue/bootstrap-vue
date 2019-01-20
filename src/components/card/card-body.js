@@ -2,7 +2,7 @@ import { mergeData } from 'vue-functional-data-merge'
 import prefixPropName from '../../utils/prefix-prop-name'
 import copyProps from '../../utils/copyProps'
 import { assign } from '../../utils/object'
-import stripScripts from '../../utils/strip-scripts'
+import { CONTENT_PROP } from '../../utils/content'
 import cardMixin from '../../mixins/card-mixin'
 
 export const props = assign(
@@ -45,7 +45,7 @@ export default {
       cardBodyChildren.push(
         h(props.titleTag, {
           staticClass: 'card-title',
-          domProps: { innerHTML: stripScripts(props.title) }
+          domProps: { [CONTENT_PROP]: props.title }
         })
       )
     }
@@ -53,7 +53,7 @@ export default {
       cardBodyChildren.push(
         h(props.subTitleTag, {
           staticClass: 'card-subtitle mb-2 text-muted',
-          domProps: { innerHTML: stripScripts(props.subTitle) }
+          domProps: { [CONTENT_PROP]: props.subTitle }
         })
       )
     }

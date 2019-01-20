@@ -1,5 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
-import stripScripts from '../../utils/strip-scripts'
+import { CONTENT_PROP } from '../../utils/content'
 import Container from '../layout/container'
 
 export const props = {

@@ -6,7 +6,7 @@ import observeDom from '../../utils/observe-dom'
 import warn from '../../utils/warn'
 import KeyCodes from '../../utils/key-codes'
 import BvEvent from '../../utils/bv-event.class'
-import stripScripts from '../../utils/strip-scripts'
+import { CONTENT_PROP } from '../../utils/content'
 
 import {
   isVisible,

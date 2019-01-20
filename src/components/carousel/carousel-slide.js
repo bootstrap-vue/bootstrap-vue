@@ -1,7 +1,7 @@
 import bImg from '../image/img'
 import warn from '../../utils/warn'
 import idMixin from '../../mixins/id'
-import stripScripts from '../../utils/strip-scripts'
+import { CONTENT_PROP } from '../../utils/content'
 
 export default {
   components: { bImg },
@@ -32,8 +32,8 @@ export default {
       this.contentTag,
       { class: this.contentClasses },
       [
-        this.caption ? h(this.captionTag, { domProps: { innerHTML: stripScripts(this.caption) } }) : h(false),
-        this.text ? h(this.textTag, { domProps: { innerHTML: stripScripts(this.text) } }) : h(false),
+        this.caption ? h(this.captionTag, { domProps: { [CONTENT_PROP]: this.caption } }) : h(false),
+        this.text ? h(this.textTag, { domProps: { [CONTENT_PROP]: this.text } }) : h(false),
         $slots.default
       ]
     )
