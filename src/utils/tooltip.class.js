@@ -1,4 +1,5 @@
 import Popper from 'popper.js'
+import stripScripts from '../../utils/strip-scripts'
 import BvEvent from './bv-event.class'
 import { assign } from './object'
 import { from as arrayFrom } from './array'
@@ -603,7 +604,11 @@ class ToolTip {
       }
     } else {
       // We have a plain HTML string or Text
-      container[allowHtml ? 'innerHTML' : 'innerText'] = content
+      if (allowHtml) {
+        container.innerHTML = stripScripts(content)
+      } else {
+        container.innerText = content
+      }
     }
   }
 

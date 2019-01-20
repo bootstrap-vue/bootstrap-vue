@@ -4,6 +4,7 @@ import prefixPropName from '../../utils/prefix-prop-name'
 import copyProps from '../../utils/copyProps'
 import { assign } from '../../utils/object'
 import cardMixin from '../../mixins/card-mixin'
+import stripScripts from '../../utils/strip-scripts'
 
 export const props = assign(
   {},
@@ -41,7 +42,7 @@ export default {
           }
         ]
       }),
-      children || [h('div', { domProps: { innerHTML: props.footer } })]
+      children || [h('div', { domProps: { innerHTML: stripScripts(props.footer) } })]
     )
   }
 }

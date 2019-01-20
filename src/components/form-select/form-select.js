@@ -4,6 +4,7 @@ import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
+import stripScripts from '../../utils/strip-scripts'
 import { from as arrayFrom } from '../../utils/array'
 
 export default {
@@ -21,7 +22,7 @@ export default {
       return h('option', {
         key: `option_${index}_opt`,
         attrs: { disabled: Boolean(option.disabled) },
-        domProps: { innerHTML: option.text, value: option.value }
+        domProps: { innerHTML: stripScripts(option.text), value: option.value }
       })
     })
     return h(

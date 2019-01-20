@@ -4,6 +4,7 @@ import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
+import stripScripts from '../../utils/strip-scripts'
 import bFormRadio from './form-radio'
 
 export default {
@@ -32,7 +33,7 @@ export default {
             disabled: option.disabled
           }
         },
-        [h('span', { domProps: { innerHTML: option.text } })]
+        [h('span', { domProps: { innerHTML: stripScripts(option.text) } })]
       )
     })
     return h(
