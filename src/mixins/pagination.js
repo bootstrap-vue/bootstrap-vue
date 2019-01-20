@@ -4,7 +4,7 @@
 
 import range from '../utils/range'
 import KeyCodes from '../utils/key-codes'
-import { CONTENT_PROP, stripTags } from '../../utils/content'
+import { CONTENT_PROP, stripTags } from '../utils/content'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import bLink from '../components/link/link'
 

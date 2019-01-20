@@ -1,6 +1,6 @@
 import { isArray } from '../utils/array'
 import { keys } from '../utils/object'
-import { stripTags } from '../../utils/content'
+import { stripTags } from '../utils/content'
 
 function isObject (obj) {
   return obj && ({}).toString.call(obj) === '[object Object]'
