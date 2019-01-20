@@ -209,7 +209,7 @@
 
 <script>
 import Vue from 'vue'
-import debounce from 'lodash/debounce'
+import debounce from 'lodash-es/debounce'
 import needsTranspiler from '../utils/needs-transpiler'
 
 const defaultJS = `{
