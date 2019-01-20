@@ -1,5 +1,4 @@
 import Popper from 'popper.js'
-import { CONTENT_PROP } from '../../utils/content'
 import BvEvent from './bv-event.class'
 import { assign } from './object'
 import { from as arrayFrom } from './array'
@@ -605,7 +604,7 @@ class ToolTip {
     } else {
       // We have a plain HTML string or Text
       if (allowHtml) {
-        container.innerHTML = stripScripts(content)
+        container.innerHTML = content
       } else {
         container.innerText = content
       }

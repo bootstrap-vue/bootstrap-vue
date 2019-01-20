@@ -4,7 +4,7 @@
 
 import range from '../utils/range'
 import KeyCodes from '../utils/key-codes'
-import stripScripts from '../utils/strip-scripts'
+import { CONTENT_PROP, stripTags } from '../../utils/content'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
 import bLink from '../components/link/link'
 
@@ -191,11 +191,11 @@ export default {
     buttons.push(
       this.hideGotoEndButtons
         ? h(false)
-        : makeEndBtns(1, this.labelFirstPage, stripScripts(this.firstText))
+        : makeEndBtns(1, this.labelFirstPage, stripTags(this.firstText))
     )
 
     // Goto Previous page button
-    buttons.push(makeEndBtns(this.currentPage - 1, this.labelPrevPage, stripScripts(this.prevText), 1))
+    buttons.push(makeEndBtns(this.currentPage - 1, this.labelPrevPage, stripTags(this.prevText), 1))
 
     // First Ellipsis Bookend
     buttons.push(this.showFirstDots ? makeEllipsis() : h(false))
@@ -203,7 +203,7 @@ export default {
     // Individual Page links
     this.pageList.forEach(page => {
       let inner
-      let pageNum = stripScripts(this.makePage(page.number))
+      let pageNum = this.makePage(page.number)
       if (this.disabled) {
         inner = h('span', {
           class: ['page-link'],

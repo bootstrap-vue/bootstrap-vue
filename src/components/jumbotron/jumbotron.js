@@ -1,5 +1,5 @@
 import { mergeData } from 'vue-functional-data-merge'
-import { CONTENT_PROP } from '../../utils/content'
+import { stripTags } from '../../utils/content'
 import Container from '../layout/container'
 
 export const props = {
@@ -67,7 +67,7 @@ export default {
             [`display-${props.headerLevel}`]: Boolean(props.headerLevel)
           }
         },
-        $slots.header || stripScripts(props.header)
+        $slots.header || stripTags(props.header)
       ))
     }
 
@@ -76,7 +76,7 @@ export default {
       childNodes.push(h(
         props.leadTag,
         { staticClass: 'lead' },
-        $slots.lead || stripScripts(props.lead)
+        $slots.lead || stripTags(props.lead)
       ))
     }
 
