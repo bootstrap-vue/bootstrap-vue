@@ -41,7 +41,7 @@ export default {
         }
       }
     }
-    // Careful not to override the default slot with textContent
+    // Careful not to override the default slot with innerHTML
     if (!slots().default) {
       componentData.domProps = { innerHTML: '&times;' }
     }
