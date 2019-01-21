@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://bootstrap-vue.js.org">
-    <img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/banner.png" width="300px">
+    <img src="https://github.com/bootstrap-vue/bootstrap-vue/raw/master/static/banner.png" width="300px">
 </a>
 
 <br>
