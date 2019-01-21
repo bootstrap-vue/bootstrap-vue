@@ -1,4 +1,4 @@
-import { stripTags } from '../../utils/strip-tags'
+import { stripTags } from '../../utils/html'
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
 import BButton from '../button/button'

@@ -6,7 +6,7 @@ import warn from '../utils/warn'
 import range from '../utils/range'
 import KeyCodes from '../utils/key-codes'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
-import { stripTags } from '../utils/strip-tags'
+import { stripTags } from '../utils/html'
 import BLink from '../components/link/link'
 
 // Threshold of limit size when we start/stop showing ellipsis

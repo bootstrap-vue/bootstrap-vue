@@ -6,7 +6,7 @@ import observeDom from '../../utils/observe-dom'
 import warn from '../../utils/warn'
 import KeyCodes from '../../utils/key-codes'
 import BvEvent from '../../utils/bv-event.class'
-import { stripTags } from '../../utils/strip-tags'
+import { stripTags } from '../../utils/html'
 
 import {
   addClass,
