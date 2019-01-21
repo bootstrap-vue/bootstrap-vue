@@ -1,3 +1,5 @@
+import { htmlOrContent } from '../utils/html'
+
 // @vue/component
 export default {
   model: {
@@ -91,7 +93,7 @@ export default {
             // required: Boolean(this.name && this.required),
           }
         },
-        [h('span', { domProps: { innerHTML: option.html, textContent: option.text } })]
+        [h('span', { domProps: htmlOrContent(option.html, option.text) })]
       )
     })
     return h(

@@ -2,6 +2,7 @@ import { mergeData } from 'vue-functional-data-merge'
 import InputGroupPrepend from './input-group-prepend'
 import InputGroupAppend from './input-group-append'
 import InputGroupText from './input-group-text'
+import { htmlOrContent } from '../../utils/html'
 
 export const props = {
   id: {
@@ -43,7 +44,7 @@ export default {
       childNodes.push(
         h(InputGroupPrepend, [
           h(InputGroupText, {
-            domProps: { innerHTML: props.prependHTML, textContent: props.prepend }
+            domProps: htmlOrContent(props.prependHTML, props.prepend)
           })
         ])
       )
@@ -70,7 +71,7 @@ export default {
       childNodes.push(
         h(InputGroupAppend, [
           h(InputGroupText, {
-            domProps: { innerHTML: props.appendHTML, textContent: props.append }
+            domProps: htmlOrContent(props.appendHTML, props.append)
           })
         ])
       )

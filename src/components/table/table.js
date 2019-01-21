@@ -6,6 +6,7 @@ import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
 import { keys, assign } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
+import { htmlOrContent } from '../../utils/html'
 import { closest, matches } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -1138,7 +1139,7 @@ export default {
         class: this.captionClasses
       }
       if (!$slots['table-caption']) {
-        data.domProps = { innerHTML: this.captionHTML, textContent: this.caption }
+        data.domProps = htmlOrContent(this.captionHTML, this.caption)
       }
       caption = h('caption', data, $slots['table-caption'])
     }
@@ -1204,7 +1205,7 @@ export default {
         if (slot) {
           slot = [slot({ label: field.label, column: field.key, field: field })]
         } else {
-          data.domProps = { innerHTML: field.labelHTML, textContent: field.label }
+          data.domProps = htmlOrContent(field.labelHTML, field.label)
         }
         return h('th', data, slot)
       })
@@ -1467,10 +1468,9 @@ export default {
       if (!empty) {
         empty = h('div', {
           class: ['text-center', 'my-2'],
-          domProps: {
-            textContent: this.isFiltered ? this.emptyFilteredText : this.emptyText,
-            innerHTML: this.isFiltered ? this.emptyFilteredHTML : this.emptyHTML
-          }
+          domProps: this.isFiltered
+            ? htmlOrContent(this.emptyFilteredHTML, this.emptyFilteredText)
+            : htmlOrContent(this.emptyHTML, this.emptyText)
         })
       }
       empty = h(

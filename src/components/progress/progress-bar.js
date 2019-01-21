@@ -1,3 +1,5 @@
+import { htmlOrContent } from '../../utils/html'
+
 // @vue/component
 export default {
   name: 'BProgressBar',
@@ -97,10 +99,8 @@ export default {
     let childNodes = h(false)
     if (this.$slots.default) {
       childNodes = this.$slots.default
-    } else if (this.labelHTML) {
-      childNodes = h('span', { domProps: { innerHTML: this.labelHTML } })
-    } else if (this.label) {
-      childNodes = h('span', { domProps: { textContent: this.label } })
+    } else if (this.label || this.labelHTML) {
+      childNodes = h('span', { domProps: htmlOrContent(this.labelHTML, this.label) })
     } else if (this.computedShowProgress) {
       childNodes = this.progress.toFixed(this.computedPrecision)
     } else if (this.computedShowValue) {

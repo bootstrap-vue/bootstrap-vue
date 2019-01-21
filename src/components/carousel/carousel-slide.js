@@ -1,6 +1,7 @@
 import BImg from '../image/img'
 import idMixin from '../../mixins/id'
 import { hasTouchSupport } from '../../utils/env'
+import { htmlOrContent } from '../../utils/html'
 
 // @vue/component
 export default {
@@ -130,11 +131,11 @@ export default {
       [
         this.caption || this.captionHTML
           ? h(this.captionTag, {
-              domProps: { innerHTML: this.captionHTML, textContent: this.caption }
+              domProps: htmlOrContent(this.captionHTML, this.caption)
             })
           : h(false),
         this.text || this.textHTML
-          ? h(this.textTag, { domProps: { innerHTML: this.textHTML, textContent: this.text } })
+          ? h(this.textTag, { domProps: htmlOrContent(this.textHTML, this.text) })
           : h(false),
         $slots.default
       ]

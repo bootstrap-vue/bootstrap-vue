@@ -3,6 +3,7 @@ import { mergeData } from 'vue-functional-data-merge'
 import prefixPropName from '../../utils/prefix-prop-name'
 import copyProps from '../../utils/copyProps'
 import { assign } from '../../utils/object'
+import { htmlOrContent } from '../../utils/html'
 import cardMixin from '../../mixins/card-mixin'
 
 export const props = assign({}, copyProps(cardMixin.props, prefixPropName.bind(null, 'footer')), {
@@ -39,9 +40,7 @@ export default {
           }
         ]
       }),
-      children || [
-        h('div', { domProps: { innerHTML: props.footerHTML, textContent: props.footer } })
-      ]
+      children || [h('div', { domProps: htmlOrContent(props.footerHTML, props.footer) })]
     )
   }
 }
