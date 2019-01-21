@@ -20,7 +20,7 @@ export function loadFixture(dirName, name) {
 
   return async () => {
     // Mount template
-    document.body.textContent = template
+    document.body.innerHTML = template
 
     // Eval js
     // eslint-disable-next-line no-eval
