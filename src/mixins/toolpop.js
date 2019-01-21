@@ -191,13 +191,13 @@ export default {
   methods: {
     getConfig() {
       const cfg = assign({}, this.baseConfig)
-      if (this.$refs.title && this.$refs.title.textContent.trim()) {
+      if (this.$refs.title && this.$refs.title.innerHTML.trim()) {
         // If slot has content, it overrides 'title' prop
         // We use the DOM node as content to allow components!
         cfg.title = this.$refs.title
         cfg.html = true
       }
-      if (this.$refs.content && this.$refs.content.textContent.trim()) {
+      if (this.$refs.content && this.$refs.content.innerHTML.trim()) {
         // If slot has content, it overrides 'content' prop
         // We use the DOM node as content to allow components!
         cfg.content = this.$refs.content

@@ -46,8 +46,8 @@ class PopOver extends ToolTip {
     if (!tip) {
       return false
     }
-    const hasTitle = Boolean((select(Selector.TITLE, tip) || {}).textContent)
-    const hasContent = Boolean((select(Selector.CONTENT, tip) || {}).textContent)
+    const hasTitle = Boolean((select(Selector.TITLE, tip) || {}).innerHTML)
+    const hasContent = Boolean((select(Selector.CONTENT, tip) || {}).innerHTML)
     return hasTitle || hasContent
   }
 
@@ -80,7 +80,7 @@ class PopOver extends ToolTip {
     if (typeof title === 'function') {
       title = title(this.$element)
     }
-    if (typeof title === 'object' && title.nodeType && !title.textContent.trim()) {
+    if (typeof title === 'object' && title.nodeType && !title.innerHTML.trim()) {
       // We have a dom node, but without inner content, so just return an empty string
       title = ''
     }
@@ -102,7 +102,7 @@ class PopOver extends ToolTip {
     if (typeof content === 'function') {
       content = content(this.$element)
     }
-    if (typeof content === 'object' && content.nodeType && !content.textContent.trim()) {
+    if (typeof content === 'object' && content.nodeType && !content.innerHTML.trim()) {
       // We have a dom node, but without inner content, so just return an empty string
       content = ''
     }
