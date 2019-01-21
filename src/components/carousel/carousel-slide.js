@@ -126,8 +126,8 @@ export default {
       this.contentTag,
       { staticClass: 'carousel-caption', class: this.contentClasses },
       [
-        this.caption ? h(this.captionTag, { domProps: { innerHTML: this.caption } }) : h(false),
-        this.text ? h(this.textTag, { domProps: { innerHTML: this.text } }) : h(false),
+        this.caption ? h(this.captionTag, { domProps: { textContent: this.caption } }) : h(false),
+        this.text ? h(this.textTag, { domProps: { textContent: this.text } }) : h(false),
         $slots.default
       ]
     )

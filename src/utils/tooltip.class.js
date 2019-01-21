@@ -576,7 +576,7 @@ class ToolTip {
     if (!tip) {
       return false
     }
-    return Boolean((select(Selector.TOOLTIP_INNER, tip) || {}).innerHTML)
+    return Boolean((select(Selector.TOOLTIP_INNER, tip) || {}).textContent)
   }
 
   // NOTE: Overridden by PopOver class
@@ -601,7 +601,7 @@ class ToolTip {
       return null
     }
     let div = document.createElement('div')
-    div.innerHTML = html.trim()
+    div.textContent = html.trim()
     const node = div.firstElementChild ? div.removeChild(div.firstElementChild) : null
     div = null
     return node
@@ -624,7 +624,7 @@ class ToolTip {
       // content is a DOM node
       if (allowHtml) {
         if (content.parentElement !== container) {
-          container.innerHtml = ''
+          container.textContent = ''
           container.appendChild(content)
         }
       } else {
@@ -632,7 +632,7 @@ class ToolTip {
       }
     } else {
       // We have a plain HTML string or Text
-      container[allowHtml ? 'innerHTML' : 'innerText'] = content
+      container[allowHtml ? 'textContent' : 'innerText'] = content
     }
   }
 
@@ -643,7 +643,7 @@ class ToolTip {
       // Call the function to get the title value
       title = title(this.$element)
     }
-    if (typeof title === 'object' && title.nodeType && !title.innerHTML.trim()) {
+    if (typeof title === 'object' && title.nodeType && !title.textContent.trim()) {
       // We have a DOM node, but without inner content, so just return empty string
       title = ''
     }

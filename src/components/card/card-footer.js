@@ -35,7 +35,7 @@ export default {
           }
         ]
       }),
-      children || [h('div', { domProps: { innerHTML: props.footer } })]
+      children || [h('div', { domProps: { textContent: props.footer } })]
     )
   }
 }

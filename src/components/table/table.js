@@ -4,7 +4,6 @@ import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
-import stripScripts from '../../utils/strip-scripts'
 import { keys, assign } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
 import { closest, matches } from '../../utils/dom'
@@ -1130,7 +1129,7 @@ export default {
         class: this.captionClasses
       }
       if (!$slots['table-caption']) {
-        data.domProps = { innerHTML: stripScripts(this.caption) }
+        data.domProps = { textContent: this.caption }
       }
       caption = h('caption', data, $slots['table-caption'])
     }
@@ -1196,7 +1195,7 @@ export default {
         if (slot) {
           slot = [slot({ label: field.label, column: field.key, field: field })]
         } else {
-          data.domProps = { innerHTML: stripScripts(field.label) }
+          data.domProps = { textContent: field.label }
         }
         return h('th', data, slot)
       })
@@ -1460,7 +1459,7 @@ export default {
         empty = h('div', {
           class: ['text-center', 'my-2'],
           domProps: {
-            innerHTML: stripScripts(this.isFiltered ? this.emptyFilteredText : this.emptyText)
+            textContent: this.isFiltered ? this.emptyFilteredText : this.emptyText
           }
         })
       }

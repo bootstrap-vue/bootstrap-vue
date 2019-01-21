@@ -41,9 +41,9 @@ export default {
         }
       }
     }
-    // Careful not to override the default slot with innerHTML
+    // Careful not to override the default slot with textContent
     if (!slots().default) {
-      componentData.domProps = { innerHTML: '&times;' }
+      componentData.domProps = { textContent: '&times;' }
     }
     return h('button', mergeData(data, componentData), slots().default)
   }

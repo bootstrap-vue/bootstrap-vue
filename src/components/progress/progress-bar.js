@@ -1,5 +1,3 @@
-import stripScripts from '../../utils/strip-scripts'
-
 // @vue/component
 export default {
   name: 'BProgressBar',
@@ -97,7 +95,7 @@ export default {
     if (this.$slots.default) {
       childNodes = this.$slots.default
     } else if (this.label) {
-      childNodes = h('span', { domProps: { innerHTML: stripScripts(this.label) } })
+      childNodes = h('span', { domProps: { textContent: this.label } })
     } else if (this.computedShowProgress) {
       childNodes = this.progress.toFixed(this.computedPrecision)
     } else if (this.computedShowValue) {
