@@ -91,7 +91,7 @@ export default {
             // required: Boolean(this.name && this.required),
           }
         },
-        [h('span', { domProps: { textContent: option.text } })]
+        [h('span', { domProps: { innerHTML: option.html, textContent: option.text } })]
       )
     })
     return h(

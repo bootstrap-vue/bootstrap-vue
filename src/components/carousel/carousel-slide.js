@@ -45,7 +45,6 @@ export default {
     },
     contentVisibleUp: {
       type: String
-      // default: undefined
     },
     contentTag: {
       type: String,
@@ -53,7 +52,9 @@ export default {
     },
     caption: {
       type: String
-      // default: undefined
+    },
+    captionHTML: {
+      type: String
     },
     captionTag: {
       type: String,
@@ -61,7 +62,9 @@ export default {
     },
     text: {
       type: String
-      // default: undefined
+    },
+    textHTML: {
+      type: String
     },
     textTag: {
       type: String,
@@ -69,7 +72,6 @@ export default {
     },
     background: {
       type: String
-      // default: undefined
     }
   },
   data() {
@@ -126,8 +128,14 @@ export default {
       this.contentTag,
       { staticClass: 'carousel-caption', class: this.contentClasses },
       [
-        this.caption ? h(this.captionTag, { domProps: { textContent: this.caption } }) : h(false),
-        this.text ? h(this.textTag, { domProps: { textContent: this.text } }) : h(false),
+        this.caption || this.captionHTML
+          ? h(this.captionTag, {
+              domProps: { innerHTML: this.captionHTML, textContent: this.caption }
+            })
+          : h(false),
+        this.text || this.textHTML
+          ? h(this.textTag, { domProps: { innerHTML: this.textHTML, textContent: this.text } })
+          : h(false),
         $slots.default
       ]
     )

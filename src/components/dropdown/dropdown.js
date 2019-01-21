@@ -139,7 +139,7 @@ export default {
             click: this.click
           }
         },
-        [this.$slots['button-content'] || this.$slots.text || stripTags(this.text)]
+        [this.$slots['button-content'] || this.$slots.text || this.html || stripTags(this.text)]
       )
     }
     const toggle = h(

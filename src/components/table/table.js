@@ -171,6 +171,9 @@ export default {
       type: String,
       default: null
     },
+    captionHTML: {
+      type: String
+    },
     captionTop: {
       type: Boolean,
       default: false
@@ -343,9 +346,15 @@ export default {
       type: String,
       default: 'There are no records to show'
     },
+    emptyHTML: {
+      type: String
+    },
     emptyFilteredText: {
       type: String,
       default: 'There are no records matching your request'
+    },
+    emptyFilteredHTML: {
+      type: String
     },
     apiUrl: {
       // Passthrough prop. Passed to the context object. Not used by b-table directly
@@ -1121,7 +1130,7 @@ export default {
     // Build the caption
     let caption = h(false)
     let captionId = null
-    if (this.caption || $slots['table-caption']) {
+    if (this.caption || this.captionHTML || $slots['table-caption']) {
       captionId = this.isStacked ? this.safeId('_caption_') : null
       const data = {
         key: 'caption',
@@ -1129,7 +1138,7 @@ export default {
         class: this.captionClasses
       }
       if (!$slots['table-caption']) {
-        data.domProps = { textContent: this.caption }
+        data.domProps = { innerHTML: this.captionHTML, textContent: this.caption }
       }
       caption = h('caption', data, $slots['table-caption'])
     }
@@ -1195,7 +1204,7 @@ export default {
         if (slot) {
           slot = [slot({ label: field.label, column: field.key, field: field })]
         } else {
-          data.domProps = { textContent: field.label }
+          data.domProps = { innerHTML: field.labelHTML, textContent: field.label }
         }
         return h('th', data, slot)
       })
@@ -1459,7 +1468,8 @@ export default {
         empty = h('div', {
           class: ['text-center', 'my-2'],
           domProps: {
-            textContent: this.isFiltered ? this.emptyFilteredText : this.emptyText
+            textContent: this.isFiltered ? this.emptyFilteredText : this.emptyText,
+            innerHTML: this.isFiltered ? this.emptyFilteredHTML : this.emptyHTML
           }
         })
       }

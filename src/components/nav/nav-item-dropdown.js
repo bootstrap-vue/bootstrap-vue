@@ -77,7 +77,7 @@ export default {
       [
         this.$slots['button-content'] ||
           this.$slots.text ||
-          h('span', { domProps: { textContent: this.text } })
+          h('span', { domProps: { innerHTML: this.html, textContent: this.text } })
       ]
     )
     const menu = h(

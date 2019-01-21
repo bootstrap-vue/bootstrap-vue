@@ -56,6 +56,10 @@ export default {
       type: String,
       default: ''
     },
+    html: {
+      // Button label
+      type: String
+    },
     dropup: {
       // place on top if possible
       type: Boolean,

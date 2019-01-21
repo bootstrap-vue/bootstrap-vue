@@ -94,6 +94,9 @@ export default {
       type: String,
       default: ''
     },
+    titleHTML: {
+      type: String
+    },
     titleTag: {
       type: String,
       default: 'h5'
@@ -230,9 +233,15 @@ export default {
       type: String,
       default: 'Cancel'
     },
+    cancelTitleHTML: {
+      type: String
+    },
     okTitle: {
       type: String,
       default: 'OK'
+    },
+    okTitleHTML: {
+      type: String
     },
     cancelVariant: {
       type: String,
@@ -802,7 +811,7 @@ export default {
         }
         modalHeader = [
           h(this.titleTag, { class: ['modal-title'] }, [
-            $slots['modal-title'] || stripTags(this.title)
+            $slots['modal-title'] || this.titleHTML || stripTags(this.title)
           ]),
           closeButton
         ]
@@ -850,7 +859,7 @@ export default {
                 }
               }
             },
-            [$slots['modal-cancel'] || stripTags(this.cancelTitle)]
+            [$slots['modal-cancel'] || this.cancelTitleHTML || stripTags(this.cancelTitle)]
           )
         }
         const okButton = h(
@@ -867,7 +876,7 @@ export default {
               }
             }
           },
-          [$slots['modal-ok'] || stripTags(this.okTitle)]
+          [$slots['modal-ok'] || this.okTitleHTML || stripTags(this.okTitle)]
         )
         modalFooter = [cancelButton, okButton]
       }

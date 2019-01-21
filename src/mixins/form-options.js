@@ -23,6 +23,10 @@ export default {
       type: String,
       default: 'text'
     },
+    htmlField: {
+      type: String,
+      default: 'html'
+    },
     disabledField: {
       type: String,
       default: 'disabled'
@@ -34,6 +38,7 @@ export default {
 
       const valueField = this.valueField
       const textField = this.textField
+      const htmlField = this.htmlField
       const disabledField = this.disabledField
 
       if (isArray(options)) {
@@ -43,6 +48,7 @@ export default {
             return {
               value: option[valueField],
               text: stripTags(String(option[textField])),
+              html: option[htmlField],
               disabled: option[disabledField] || false
             }
           }

@@ -10,6 +10,10 @@ export const props = assign({}, copyProps(cardMixin.props, prefixPropName.bind(n
     type: String,
     default: null
   },
+  footerHTML: {
+    type: String,
+    default: null
+  },
   footerClass: {
     type: [String, Object, Array],
     default: null
@@ -35,7 +39,9 @@ export default {
           }
         ]
       }),
-      children || [h('div', { domProps: { textContent: props.footer } })]
+      children || [
+        h('div', { domProps: { innerHTML: props.footerHTML, textContent: props.footer } })
+      ]
     )
   }
 }
