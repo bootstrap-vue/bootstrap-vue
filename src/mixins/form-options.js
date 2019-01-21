@@ -69,6 +69,7 @@ export default {
             return {
               value: typeof value === 'undefined' ? key : value,
               text: typeof text === 'undefined' ? key : stripTags(String(text)),
+              html: option[htmlField],
               disabled: option[disabledField] || false
             }
           }
