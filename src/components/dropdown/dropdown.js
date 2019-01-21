@@ -166,7 +166,7 @@ export default {
       [
         this.split
           ? h('span', { class: ['sr-only'] }, [this.toggleText])
-          : this.$slots['button-content'] || this.$slots.text || stripTags(this.text)
+          : this.$slots['button-content'] || this.$slots.text || this.html || stripTags(this.text)
       ]
     )
     const menu = h(
