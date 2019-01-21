@@ -70,7 +70,7 @@ export default {
               [`display-${props.headerLevel}`]: Boolean(props.headerLevel)
             }
           },
-          $slots.header || striptTags(props.header)
+          $slots.header || stripTags(props.header)
         )
       )
     }

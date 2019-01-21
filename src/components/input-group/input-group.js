@@ -39,9 +39,7 @@ export default {
     // Prepend prop
     if (props.prepend) {
       childNodes.push(
-        h(InputGroupPrepend, [
-          h(InputGroupText, { domProps: { textContent: props.prepend } })
-        ])
+        h(InputGroupPrepend, [h(InputGroupText, { domProps: { textContent: props.prepend } })])
       )
     } else {
       childNodes.push(h(false))
@@ -64,9 +62,7 @@ export default {
     // Append prop
     if (props.append) {
       childNodes.push(
-        h(InputGroupAppend, [
-          h(InputGroupText, { domProps: { textContent: props.append } })
-        ])
+        h(InputGroupAppend, [h(InputGroupText, { domProps: { textContent: props.append } })])
       )
     } else {
       childNodes.push(h(false))
