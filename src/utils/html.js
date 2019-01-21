@@ -1,3 +1,3 @@
-export function htmlOrContent(innerHTML, textContent) {
+export function htmlOrText(innerHTML, textContent) {
   return innerHTML ? { innerHTML } : { textContent }
 }

@@ -1,6 +1,6 @@
 import idMixin from '../../mixins/id'
 import dropdownMixin from '../../mixins/dropdown'
-import { htmlOrContent } from '../../utils/html'
+import { htmlOrText } from '../../utils/html'
 
 // @vue/component
 export default {
@@ -78,7 +78,7 @@ export default {
       [
         this.$slots['button-content'] ||
           this.$slots.text ||
-          h('span', { domProps: htmlOrContent(this.html, this.text) })
+          h('span', { domProps: htmlOrText(this.html, this.text) })
       ]
     )
     const menu = h(

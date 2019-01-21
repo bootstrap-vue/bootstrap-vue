@@ -1,4 +1,4 @@
-import { htmlOrContent } from '../../utils/html'
+import { htmlOrText } from '../../utils/html'
 
 // @vue/component
 export default {
@@ -100,7 +100,7 @@ export default {
     if (this.$slots.default) {
       childNodes = this.$slots.default
     } else if (this.label || this.labelHTML) {
-      childNodes = h('span', { domProps: htmlOrContent(this.labelHTML, this.label) })
+      childNodes = h('span', { domProps: htmlOrText(this.labelHTML, this.label) })
     } else if (this.computedShowProgress) {
       childNodes = this.progress.toFixed(this.computedPrecision)
     } else if (this.computedShowValue) {

@@ -1,4 +1,4 @@
-import { htmlOrContent } from '../utils/html'
+import { htmlOrText } from '../utils/html'
 
 // @vue/component
 export default {
@@ -93,7 +93,7 @@ export default {
             // required: Boolean(this.name && this.required),
           }
         },
-        [h('span', { domProps: htmlOrContent(option.html, option.text) })]
+        [h('span', { domProps: htmlOrText(option.html, option.text) })]
       )
     })
     return h(
