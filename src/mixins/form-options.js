@@ -1,6 +1,6 @@
 import { isArray } from '../utils/array'
 import { keys } from '../utils/object'
-import stripScripts from '../utils/strip-scripts'
+import { stripTags } from '../utils/html'
 
 function isObject(obj) {
   return obj && {}.toString.call(obj) === '[object Object]'
@@ -23,6 +23,10 @@ export default {
       type: String,
       default: 'text'
     },
+    htmlField: {
+      type: String,
+      default: 'html'
+    },
     disabledField: {
       type: String,
       default: 'disabled'
@@ -34,6 +38,7 @@ export default {
 
       const valueField = this.valueField
       const textField = this.textField
+      const htmlField = this.htmlField
       const disabledField = this.disabledField
 
       if (isArray(options)) {
@@ -42,13 +47,14 @@ export default {
           if (isObject(option)) {
             return {
               value: option[valueField],
-              text: stripScripts(String(option[textField])),
+              text: stripTags(String(option[textField])),
+              html: option[htmlField],
               disabled: option[disabledField] || false
             }
           }
           return {
             value: option,
-            text: stripScripts(String(option)),
+            text: stripTags(String(option)),
             disabled: false
           }
         })
@@ -62,13 +68,14 @@ export default {
             const text = option[textField]
             return {
               value: typeof value === 'undefined' ? key : value,
-              text: typeof text === 'undefined' ? key : stripScripts(String(text)),
+              text: typeof text === 'undefined' ? key : stripTags(String(text)),
+              html: option[htmlField],
               disabled: option[disabledField] || false
             }
           }
           return {
             value: key,
-            text: stripScripts(String(option)),
+            text: stripTags(String(option)),
             disabled: false
           }
         })

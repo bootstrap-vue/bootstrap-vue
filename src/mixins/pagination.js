@@ -5,8 +5,8 @@
 import warn from '../utils/warn'
 import range from '../utils/range'
 import KeyCodes from '../utils/key-codes'
-import stripScripts from '../utils/strip-scripts'
 import { isVisible, isDisabled, selectAll, getAttr } from '../utils/dom'
+import { stripTags } from '../utils/html'
 import BLink from '../components/link/link'
 
 // Threshold of limit size when we start/stop showing ellipsis
@@ -353,7 +353,7 @@ export default {
     // Factory function for prev/next/first/last buttons
     const makeEndBtn = (linkTo, ariaLabel, btnSlot, btnText, pageTest, key) => {
       let button
-      const domProps = btnSlot ? {} : { innerHTML: stripScripts(btnText) }
+      const domProps = btnSlot ? {} : { textContent: btnText }
       const staticClass = 'page-item'
       const attrs = {
         role: 'none presentation',
@@ -403,7 +403,7 @@ export default {
           this.$slots['ellipsis-text'] ||
             h('span', {
               class: ['page-link'],
-              domProps: { innerHTML: stripScripts(this.ellipsisText) }
+              domProps: { textContent: this.ellipsisText }
             })
         ]
       )
@@ -417,7 +417,7 @@ export default {
             1,
             this.labelFirstPage,
             this.$slots['first-text'],
-            this.firstText,
+            stripTags(this.firstText),
             1,
             'bookend-goto-first'
           )
@@ -429,7 +429,7 @@ export default {
         this.currentPage - 1,
         this.labelPrevPage,
         this.$slots['prev-text'],
-        this.prevText,
+        stripTags(this.prevText),
         1,
         'bookend-goto-prev'
       )

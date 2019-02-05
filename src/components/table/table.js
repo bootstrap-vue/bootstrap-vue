@@ -4,9 +4,9 @@ import looseEqual from '../../utils/loose-equal'
 import stableSort from '../../utils/stable-sort'
 import KeyCodes from '../../utils/key-codes'
 import warn from '../../utils/warn'
-import stripScripts from '../../utils/strip-scripts'
 import { keys, assign } from '../../utils/object'
 import { arrayIncludes, isArray } from '../../utils/array'
+import { htmlOrText } from '../../utils/html'
 import { closest, matches } from '../../utils/dom'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -171,6 +171,9 @@ export default {
     caption: {
       type: String,
       default: null
+    },
+    captionHTML: {
+      type: String
     },
     captionTop: {
       type: Boolean,
@@ -344,9 +347,15 @@ export default {
       type: String,
       default: 'There are no records to show'
     },
+    emptyHTML: {
+      type: String
+    },
     emptyFilteredText: {
       type: String,
       default: 'There are no records matching your request'
+    },
+    emptyFilteredHTML: {
+      type: String
     },
     apiUrl: {
       // Passthrough prop. Passed to the context object. Not used by b-table directly
@@ -1122,7 +1131,7 @@ export default {
     // Build the caption
     let caption = h(false)
     let captionId = null
-    if (this.caption || $slots['table-caption']) {
+    if (this.caption || this.captionHTML || $slots['table-caption']) {
       captionId = this.isStacked ? this.safeId('_caption_') : null
       const data = {
         key: 'caption',
@@ -1130,7 +1139,7 @@ export default {
         class: this.captionClasses
       }
       if (!$slots['table-caption']) {
-        data.domProps = { innerHTML: stripScripts(this.caption) }
+        data.domProps = htmlOrText(this.captionHTML, this.caption)
       }
       caption = h('caption', data, $slots['table-caption'])
     }
@@ -1196,7 +1205,7 @@ export default {
         if (slot) {
           slot = [slot({ label: field.label, column: field.key, field: field })]
         } else {
-          data.domProps = { innerHTML: stripScripts(field.label) }
+          data.domProps = htmlOrText(field.labelHTML, field.label)
         }
         return h('th', data, slot)
       })
@@ -1459,9 +1468,9 @@ export default {
       if (!empty) {
         empty = h('div', {
           class: ['text-center', 'my-2'],
-          domProps: {
-            innerHTML: stripScripts(this.isFiltered ? this.emptyFilteredText : this.emptyText)
-          }
+          domProps: this.isFiltered
+            ? htmlOrText(this.emptyFilteredHTML, this.emptyFilteredText)
+            : htmlOrText(this.emptyHTML, this.emptyText)
         })
       }
       empty = h(
