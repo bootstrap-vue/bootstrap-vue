@@ -547,7 +547,7 @@ _Tip:_ if using a click event (or similar) to trigger modal to open, pass the ev
 property:
 
 ```html
-<b-btn @click="$root.$emit.('bv::show::modal', 'modal1', $event.target)">Open Modal</b-btn>
+<b-btn @click="$root.$emit('bv::show::modal', 'modal1', $event.target)">Open Modal</b-btn>
 ```
 
 **Note:** If the `<b-modal>` has the `return-focus` prop set, then the element specified via the
