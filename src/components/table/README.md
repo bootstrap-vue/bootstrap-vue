@@ -49,7 +49,7 @@ data). Field names are automatically "humanized" by converting `kebab-case`, `sn
 
 - `first_name` becomes `First Name`
 - `last-name` becomes `Last Name`
-- `age` becoms `Age`
+- `age` becomes `Age`
 - `YEAR` remains `YEAR`
 - `isActive` becomes `Is Active`
 
@@ -126,7 +126,7 @@ more details.
 
 The `fields` prop is used to customize the table columns headings, and in which order the columns of
 data are displayed. The field object keys (i.e. `age` or `first_name` as shown below) are used to
-extract the value from each item (record) row, and to provide additional fetures such as enabling
+extract the value from each item (record) row, and to provide additional features such as enabling
 [**sorting**](#sorting) on the column, etc.
 
 Fields can be provided as a _simple array_, an _array of objects_, or an _object_. **Internally the
@@ -349,14 +349,14 @@ that uniquely identifies the row.
 This value is used by `<b-table>` to help Vue optimize the rendering of table rows. Internally, the
 the value of the field key specified by the `primary-key` prop is used as the Vue `:key` value for
 each rendered item row `<tr>` element. The value specified by the column key **must be** either a
-`string` or `number`, and **must be** unique accross all rows in the table.
+`string` or `number`, and **must be** unique across all rows in the table.
 
 If you are seeing rendering issue (i.e. tooltips hiding when item data changes or is
 sorted/filtered), setting the `primary-key` prop (if you have a unique identifier per row) can
 alleviate these issues.
 
 Specifying the `primary-key` column is handy if you are using 3rd party table transitions or drag
-and drop plugins, as they rely on having a consitent and unique per row `:key` value.
+and drop plugins, as they rely on having a consistent and unique per row `:key` value.
 
 In future releases of BootstrapVue, the `primary-key` may be used for additional features.
 
@@ -590,7 +590,7 @@ The prop `stacked` takes precedence over the `responsive` prop.
 **Note: When the table is visually stacked:**
 
 - The table header (and table footer) will be hidden.
-- Custom rendred header slots will not be shown, rather, the fields' `label` will be used.
+- Custom rendered header slots will not be shown, rather, the fields' `label` will be used.
 - The table **cannot** be sorted by clicking the rendered field labels. You will need to provide an
   external control to select the field to sort by and the sort direction. See the
   [**Sorting**](#sorting) section below for sorting control information, as well as the
@@ -736,7 +736,7 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
 ```
 
 Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for
-additional informaton on the `busy` state.
+additional information on the `busy` state.
 
 **Note:** All click related and hover events, and sort-changed events will **not** be emitted when
 the table is in the `busy` state.
@@ -809,7 +809,7 @@ The slot's scope variable (`data` in the above sample) will have the following p
 | ---------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `index`          | Number   | The row number (indexed from zero) relative to the displayed rows                                                                                                                                           |
 | `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                                                             |
-| `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's `formatter` function (see below for for information on field `formatter` callback functions) |
+| `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's `formatter` function (see below for information on field `formatter` callback functions) |
 | `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formatter` function                                                          |
 | `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [**Row details support**](#row-details-support) below for additional information                                              |
 | `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [**Row details support**](#row-details-support) below for additional information                                  |
@@ -871,7 +871,7 @@ formatted value as a string (HTML strings are not supported)
 <template>
   <b-table :fields="fields" :items="items">
     <template slot="name" slot-scope="data">
-      <!-- data.value is th value after formattetd by the Formatter -->
+      <!-- data.value is th value after formatted by the Formatter -->
       <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
     </template>
   </b-table>
@@ -1027,7 +1027,7 @@ as read-only.**
   with an empty array if needed._
 - _Selected rows will have a class of `b-row-selected` added to them._
 - _When the table is in `selectable` mode, all data item `<tr>` elements will be in the document tab
-  sequence (`tabindex="0"`) for accesibility reasons._
+  sequence (`tabindex="0"`) for accessibility reasons._
 
 ## Row details support
 
@@ -1058,7 +1058,7 @@ for proper reactive detection of changes to it's value. Read more about
 | `toggleDetails` | Function | Function to toggle visibility of the row's details slot                   |
 
 In the following example, we show two methods of toggling the visibility of the details: one via a
-button, and one via a checkbox. We also have the third row row details defaulting to have details
+button, and one via a checkbox. We also have the third row details defaulting to have details
 initially showing.
 
 ```html
@@ -1128,7 +1128,7 @@ default).
 
 The props `sort-by` and `sort-desc` can be turned into _two-way_ (syncable) props by adding the
 `.sync` modifier. Your bound variables will then be updated accordingly based on the current sort
-critera. See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details on
+criteria. See the [Vue docs](http://vuejs.org/v2/guide/components.html#sync-Modifier) for details on
 the `.sync` prop modifier
 
 **Note:** The built-in `sort-compare` routine **cannot** sort virtual columns, nor sort based on the
@@ -1243,7 +1243,7 @@ sort-changed event and the context object.
 ### Change sort direction
 
 Control the order in which ascending and descending sorting is applied when a sortable column header
-is clicked, by using the the `sort-direction` prop. The default value `'asc'` applies ascending sort
+is clicked, by using the `sort-direction` prop. The default value `'asc'` applies ascending sort
 first. To reverse the behavior and sort in descending direction first, set it to `'desc'`.
 
 If you don't want the sorting direction to change at all when clicking another sortable column
@@ -1268,7 +1268,7 @@ With the default built-in filter function, The `filter` prop value can either be
 `RegExp` object (regular expressions should _not_ have the `/g` global flag set).
 
 If the stringified row contains the provided string value or matches the RegExp expression then it
-is inclded in the displayed results.
+is included in the displayed results.
 
 Set the `filter` prop to `null` or the empty string to clear the current filter.
 
@@ -1284,10 +1284,10 @@ The function should return `true` if the record matches your criteria or `false`
 be filtered out.
 
 For proper reactive updates to the displayed data, when not filtering you should set the `filter`
-prop to `null` or an emtpy string (and not an empty object or array). The filter function will not
-be called when the `fitler` prop is a falsey value.
+prop to `null` or an empty string (and not an empty object or array). The filter function will not
+be called when the `filter` prop is a falsey value.
 
-The display of the `empty-filter-text` relies on the truthyness of the `filter` prop.
+The display of the `empty-filter-text` relies on the truthiness of the `filter` prop.
 
 **Deprecation Notice:** Passing a filter function via the `filter` prop is deprecated and should be
 avoided. Use the `filter-function` prop instead.
@@ -1305,7 +1305,7 @@ Setting the prop `filter` to null or an empty string will clear local items filt
 
 ### Filtering notes
 
-You can disable local filtering competely by setting the `no-local-filtering` prop to `true`.
+You can disable local filtering completely by setting the `no-local-filtering` prop to `true`.
 
 See the [Complete Example](#complete-example) below for an example of using the `filter` feature.
 
@@ -1346,7 +1346,7 @@ default to undefined):
 | `tbody-transition-handlers` | Object | Object of transition-group event handlers                         |
 | `primary-key`               | String | String specifying the field to use as a unique row key (required) |
 
-To enable transitons you need to specify `tbody-transition-props` and/or `tbody-transition-handlers`,
+To enable transitions you need to specify `tbody-transition-props` and/or `tbody-transition-handlers`,
 and must specify which field key to use as a unique key via the `primary-key` prop. Your data **must
 have** a column (specified by the `primary-key` prop) that has a **unique value per row** in order for
 transitions to work properly. The `primary-key` field's _value_ can either be a unique string or number.
@@ -1426,7 +1426,7 @@ properties:
 | `filter`      | String or RegExp or Function | the value of the `Filter` prop                                                    |
 | `sortBy`      | String                       | The current column key being sorted, or `null` if not sorting                     |
 | `sortDesc`    | Boolean                      | The current sort direction (`true` for descending, `false` for ascending)         |
-| `apiUrl`      | String                       | the value providedd to the `api-url` prop. `null` if none provided.               |
+| `apiUrl`      | String                       | the value provided to the `api-url` prop. `null` if none provided.               |
 
 The second argument `callback` is an optional parameter for when using the callback asynchronous
 method.
@@ -1498,7 +1498,7 @@ function should handle errors from data sources and return an empty array to `<b
   <b-table id="my-table" :busy.sync="isBusy" :items="myProvider" :fields="fields" ... />
 </template>
 <script>
-  export defailt {
+  export default {
     data () {
       return {
         isBusy: false
@@ -1628,7 +1628,7 @@ all data item rows (`<tr>` elements) will be placed into the document tab sequen
 `tabindex="0"`) to allow keyboard-only and screen reader users the ability to click the rows.
 
 When a column (field) is sortable, the header (and footer) heading cells will also be placed into
-the document tab sequence for accesibility.
+the document tab sequence for accessibility.
 
 Note the following row based events/actions are not considered accessible, and should only be used
 if the functionality is non critical or can be provided via other means:
