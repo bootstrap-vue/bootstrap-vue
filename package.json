@@ -70,13 +70,13 @@
     "lint": "eslint --ext .js,.vue ./",
     "prettify": "prettier --write '**/*.{js,md,scss,vue}'",
     "release": "npm run build && npm run test && standard-version",
-    "postinstall": "opencollective-postinstall || exit 0"
+    "postinstall": "opencollective || exit 0"
   },
   "dependencies": {
+    "@nuxt/opencollective": "^0.2.1",
     "bootstrap": "^4.2.1",
     "lodash.get": "^4.4.2",
     "lodash.startcase": "^4.4.0",
-    "opencollective-postinstall": "^2.0.2",
     "popper.js": "^1.14.7",
     "vue-functional-data-merge": "^2.0.7"
   },
