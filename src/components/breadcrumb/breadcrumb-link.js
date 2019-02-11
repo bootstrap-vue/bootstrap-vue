@@ -2,7 +2,6 @@ import { mergeData } from 'vue-functional-data-merge'
 import pluckProps from '../../utils/pluck-props'
 import { assign } from '../../utils/object'
 import BLink, { propsFactory as linkPropsFactory } from '../link/link'
-import { htmlOrText } from '../../utils/html'
 
 export const props = assign(linkPropsFactory(), {
   text: {
@@ -45,7 +44,7 @@ export default {
     return h(
       tag,
       mergeData(data, componentData),
-      children || htmlOrText(suppliedProps.html, suppliedProps.text)
+      children || suppliedProps.html || suppliedProps.text
     )
   }
 }
