@@ -78,17 +78,16 @@ describe('carousel', async () => {
 
     nextButton.click()
 
-    app.$nextTick(() => {
-      expect(spyBegin).toHaveBeenCalledWith(1)
-      expect(carousel.isSliding).toBe(true)
-    })
+    await nextTick()
 
-    jest.runAllTimers()
+    expect(spyBegin).toHaveBeenCalledWith(1)
+    expect(carousel.isSliding).toBe(true)
 
-    app.$nextTick(() => {
-      expect(spyEnd).toHaveBeenCalledWith(app.slide)
-      expect(carousel.isSliding).toBe(false)
-    })
+    jest.runOnlyPendingTimers()
+    await nextTick()
+
+    expect(spyEnd).toHaveBeenCalledWith(app.slide)
+    expect(carousel.isSliding).toBe(false)
   })
 
   it('Should scroll to prev slide', async () => {
@@ -104,17 +103,16 @@ describe('carousel', async () => {
 
     prevButton.click()
 
-    app.$nextTick(() => {
-      expect(spyBegin).toHaveBeenCalled()
-      expect(carousel.isSliding).toBe(true)
-    })
+    await nextTick()
+
+    expect(spyBegin).toHaveBeenCalled()
+    expect(carousel.isSliding).toBe(true)
 
     jest.runAllTimers()
+    await nextTick()
 
-    app.$nextTick(() => {
-      expect(spyEnd).toHaveBeenCalledWith(app.slide)
-      expect(carousel.isSliding).toBe(false)
-    })
+    expect(spyEnd).toHaveBeenCalledWith(app.slide)
+    expect(carousel.isSliding).toBe(false)
   })
 
   it('Should scroll to specified slide', async () => {
@@ -130,17 +128,16 @@ describe('carousel', async () => {
 
     indicators[2].click()
 
-    app.$nextTick(() => {
-      expect(spyBegin).toHaveBeenCalled()
-      expect(carousel.isSliding).toBe(true)
-    })
+    await nextTick()
+
+    expect(spyBegin).toHaveBeenCalled()
+    expect(carousel.isSliding).toBe(true)
 
     jest.runAllTimers()
+    await nextTick()
 
-    app.$nextTick(() => {
-      expect(spyEnd).toHaveBeenCalledWith(2)
-      expect(carousel.isSliding).toBe(false)
-    })
+    expect(spyEnd).toHaveBeenCalledWith(2)
+    expect(carousel.isSliding).toBe(false)
   })
 
   it('Next button works with keypress space', async () => {
@@ -157,17 +154,16 @@ describe('carousel', async () => {
     const event = new KeyboardEvent('keydown', { keyCode: 32 })
     nextButton.dispatchEvent(event)
 
-    app.$nextTick(() => {
-      expect(spyBegin).toHaveBeenCalledWith(1)
-      expect(carousel.isSliding).toBe(true)
-    })
+    await nextTick()
+
+    expect(spyBegin).toHaveBeenCalledWith(1)
+    expect(carousel.isSliding).toBe(true)
 
     jest.runAllTimers()
+    await nextTick()
 
-    app.$nextTick(() => {
-      expect(spyEnd).toHaveBeenCalledWith(app.slide)
-      expect(carousel.isSliding).toBe(false)
-    })
+    expect(spyEnd).toHaveBeenCalledWith(app.slide)
+    expect(carousel.isSliding).toBe(false)
   })
 
   it('Prev button works with keypress space', async () => {
@@ -184,17 +180,16 @@ describe('carousel', async () => {
     const event = new KeyboardEvent('keydown', { keyCode: 32 })
     prevButton.dispatchEvent(event)
 
-    app.$nextTick(() => {
-      expect(spyBegin).toHaveBeenCalled()
-      expect(carousel.isSliding).toBe(true)
-    })
+    await nextTick()
+
+    expect(spyBegin).toHaveBeenCalled()
+    expect(carousel.isSliding).toBe(true)
 
     jest.runAllTimers()
+    await nextTick()
 
-    app.$nextTick(() => {
-      expect(spyEnd).toHaveBeenCalledWith(app.slide)
-      expect(carousel.isSliding).toBe(false)
-    })
+    expect(spyEnd).toHaveBeenCalledWith(app.slide)
+    expect(carousel.isSliding).toBe(false)
   })
 
   it('Indicators work with keypress space', async () => {
@@ -211,17 +206,16 @@ describe('carousel', async () => {
     const event = new KeyboardEvent('keydown', { keyCode: 32 })
     indicators[2].dispatchEvent(event)
 
-    app.$nextTick(() => {
-      expect(spyBegin).toHaveBeenCalled()
-      expect(carousel.isSliding).toBe(true)
-    })
+    await nextTick()
+
+    expect(spyBegin).toHaveBeenCalled()
+    expect(carousel.isSliding).toBe(true)
 
     jest.runAllTimers()
+    await nextTick()
 
-    app.$nextTick(() => {
-      expect(spyEnd).toHaveBeenCalledWith(2)
-      expect(carousel.isSliding).toBe(false)
-    })
+    expect(spyEnd).toHaveBeenCalledWith(2)
+    expect(carousel.isSliding).toBe(false)
   })
 
   it('Arrow right keypress triggers next slide', async () => {
@@ -237,17 +231,16 @@ describe('carousel', async () => {
     const event = new KeyboardEvent('keydown', { keyCode: 39 })
     carousel.$el.dispatchEvent(event)
 
-    app.$nextTick(() => {
-      expect(spyBegin).toHaveBeenCalledWith(1)
-      expect(carousel.isSliding).toBe(true)
-    })
+    await nextTick()
+
+    expect(spyBegin).toHaveBeenCalledWith(1)
+    expect(carousel.isSliding).toBe(true)
 
     jest.runAllTimers()
+    await nextTick()
 
-    app.$nextTick(() => {
-      expect(spyEnd).toHaveBeenCalledWith(app.slide)
-      expect(carousel.isSliding).toBe(false)
-    })
+    expect(spyEnd).toHaveBeenCalledWith(app.slide)
+    expect(carousel.isSliding).toBe(false)
   })
 
   it('Arrow left keypress triggers prev slide', async () => {
@@ -263,16 +256,15 @@ describe('carousel', async () => {
     const event = new KeyboardEvent('keydown', { keyCode: 37 })
     carousel.$el.dispatchEvent(event)
 
-    app.$nextTick(() => {
-      expect(spyBegin).toHaveBeenCalled()
-      expect(carousel.isSliding).toBe(true)
-    })
+    await nextTick()
+
+    expect(spyBegin).toHaveBeenCalled()
+    expect(carousel.isSliding).toBe(true)
 
     jest.runAllTimers()
+    await nextTick()
 
-    app.$nextTick(() => {
-      expect(spyEnd).toHaveBeenCalledWith(app.slide)
-      expect(carousel.isSliding).toBe(false)
-    })
+    expect(spyEnd).toHaveBeenCalledWith(app.slide)
+    expect(carousel.isSliding).toBe(false)
   })
 })

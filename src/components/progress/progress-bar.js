@@ -1,4 +1,4 @@
-import stripScripts from '../../utils/strip-scripts'
+import { htmlOrText } from '../../utils/html'
 
 // @vue/component
 export default {
@@ -11,6 +11,9 @@ export default {
     label: {
       type: String,
       default: null
+    },
+    labelHTML: {
+      type: String
     },
     // $parent prop values take precedence over the following props
     // Which is why they are defaulted to null
@@ -96,8 +99,8 @@ export default {
     let childNodes = h(false)
     if (this.$slots.default) {
       childNodes = this.$slots.default
-    } else if (this.label) {
-      childNodes = h('span', { domProps: { innerHTML: stripScripts(this.label) } })
+    } else if (this.label || this.labelHTML) {
+      childNodes = h('span', { domProps: htmlOrText(this.labelHTML, this.label) })
     } else if (this.computedShowProgress) {
       childNodes = this.progress.toFixed(this.computedPrecision)
     } else if (this.computedShowValue) {
