@@ -6,7 +6,7 @@
 
         <br><br>
 
-        <b-pagination size="md" total-rows="100" v-model="currentPage"  limit="10" per-page="10">
+        <b-pagination size="md" total-rows="100" v-model="currentPage"  :limit="10" per-page="10">
         </b-pagination>
 
         <br><br>
@@ -37,11 +37,6 @@
           <template slot="next-text">Next</template>
           <template slot="last-text">Last</template>
           <template slot="ellipsis-text">...</template>
-        </b-pagination>
-
-        <br><br>
-
-        <b-pagination :total-rows="100" v-model="currentPage" limit="-1" :per-page="10">
         </b-pagination>
 
         <br><br>

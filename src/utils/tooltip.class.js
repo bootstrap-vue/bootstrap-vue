@@ -624,7 +624,7 @@ class ToolTip {
       // content is a DOM node
       if (allowHtml) {
         if (content.parentElement !== container) {
-          container.innerHtml = ''
+          container.innerHTML = ''
           container.appendChild(content)
         }
       } else {
