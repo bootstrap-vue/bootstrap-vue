@@ -574,7 +574,7 @@ property:
 
 ```html
 <div>
-  <b-button @click="$root.$emit.('bv::show::modal', 'modal1', $event.target)">Open Modal</b-button>
+  <b-button @click="$root.$emit('bv::show::modal', 'modal1', $event.target)">Open Modal</b-button>
 </div>
 ```
 

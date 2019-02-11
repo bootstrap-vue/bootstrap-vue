@@ -5,6 +5,7 @@ import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import formCustomMixin from '../../mixins/form-custom'
 import { from as arrayFrom } from '../../utils/array'
+import { htmlOrText } from '../../utils/html'
 
 // @vue/component
 export default {
@@ -78,7 +79,7 @@ export default {
       return h('option', {
         key: `option_${index}_opt`,
         attrs: { disabled: Boolean(option.disabled) },
-        domProps: { innerHTML: option.text, value: option.value }
+        domProps: { ...htmlOrText(option.html, option.text), value: option.value }
       })
     })
     return h(
