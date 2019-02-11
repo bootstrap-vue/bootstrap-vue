@@ -8,6 +8,7 @@ const Vue = require(`${VUE_VERSION}/dist/vue.common`)
 
 // Hide development mode warning
 Vue.config.productionTip = false
+Vue.config.devtools = false
 
 // Install Vue and BootstrapVue
 window.Vue = Vue

@@ -106,7 +106,7 @@ const props = {
   },
   firstText: {
     type: String,
-    default: '&laquo;'
+    default: '«'
   },
   labelPrevPage: {
     type: String,
@@ -114,7 +114,7 @@ const props = {
   },
   prevText: {
     type: String,
-    default: '&lsaquo;'
+    default: '‹'
   },
   labelNextPage: {
     type: String,
@@ -122,7 +122,7 @@ const props = {
   },
   nextText: {
     type: String,
-    default: '&rsaquo;'
+    default: '›'
   },
   labelLastPage: {
     type: String,
@@ -130,7 +130,7 @@ const props = {
   },
   lastText: {
     type: String,
-    default: '&raquo;'
+    default: '»'
   },
   labelPage: {
     type: String,
@@ -142,7 +142,7 @@ const props = {
   },
   ellipsisText: {
     type: String,
-    default: '&hellip;'
+    default: '…'
   }
 }
 
