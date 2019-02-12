@@ -128,10 +128,10 @@
     "sass-loader": "^7.1.0",
     "standard-version": "^4.4.0",
     "terser": "^3.16.1",
-    "vue": "^2.6.5",
+    "vue": "^2.6.6",
     "vue-jest": "^3.0.3",
-    "vue-server-renderer": "^2.6.5",
-    "vue-template-compiler": "^2.6.5"
+    "vue-server-renderer": "^2.6.6",
+    "vue-template-compiler": "^2.6.6"
   },
   "jest": {
     "testRegex": "spec.js$",
