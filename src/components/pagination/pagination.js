@@ -2,7 +2,7 @@ import paginationMixin from '../../mixins/pagination'
 import { isVisible } from '../../utils/dom'
 
 const DEFAULT_PER_PAGE = 20
-const DEFAULT_TOTAL_ROWS = 20
+const DEFAULT_TOTAL_ROWS = 0
 
 function sanitizePerPage(value) {
   const perPage = parseInt(value, 10) || DEFAULT_PER_PAGE
