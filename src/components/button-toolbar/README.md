@@ -103,7 +103,7 @@ it is not possble to use key presses to jump out of a text (or test-like) inputs
 
 ## See Also
 
-- [`<b-button-group>`](./button-group)
-- [`<b-dropdown>`](./dropdown)
+- [`<b-button-group>`](/docs/components/button-group)
+- [`<b-dropdown>`](/docs/components/dropdown)
 
 <!-- Component reference added automatically from component package.json -->

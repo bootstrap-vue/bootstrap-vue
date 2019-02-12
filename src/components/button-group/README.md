@@ -81,8 +81,8 @@ prop. Split button dropdowns are not supported here.
 
 ## Dropdown menu support
 
-Add [`<b-dropdown>`](./dropdown) menus directly inside your `<b-button-group>`. Note that split
-dropdown menus are not supported when prop `vertical` is set.
+Add [`<b-dropdown>`](/docs/components/dropdown) menus directly inside your `<b-button-group>`. Note
+that split dropdown menus are not supported when prop `vertical` is set.
 
 **Example 4:** button group with dropdown menus
 
@@ -110,7 +110,7 @@ dropdown menus are not supported when prop `vertical` is set.
 
 ## See also
 
-Also check out the [`<b-button-toolbar>`](./button-toolbar) component for generating toolbars
-containing button groups and input groups.
+Also check out the [`<b-button-toolbar>`](/docs/components/button-toolbar) component for generating
+toolbars containing button groups and input groups.
 
 <!-- Component reference added automatically from component package.json -->

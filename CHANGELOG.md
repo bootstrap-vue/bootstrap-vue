@@ -1346,8 +1346,8 @@ Released: 2017-08-21
 - **card:** change prop no-block to no-body
   ([#826](https://github.com/bootstrap-vue/bootstrap-vue/issues/826))
   ([664bc98](https://github.com/bootstrap-vue/bootstrap-vue/commit/664bc98))
-- **card:** Fix classes, variants, borders
-  [v4-beta](<[#815](https://github.com/bootstrap-vue/bootstrap-vue/issues/815)>)
+- **card:** Fix classes, variants, borders \[v4-beta\]
+  ([#815](https://github.com/bootstrap-vue/bootstrap-vue/issues/815))
   ([fc26811](https://github.com/bootstrap-vue/bootstrap-vue/commit/fc26811))
 - **carousel:** boolean typo
   ([6a95410](https://github.com/bootstrap-vue/bootstrap-vue/commit/6a95410))
