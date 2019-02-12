@@ -3,14 +3,13 @@
     <div class="mb-3 row">
       <div class="col-12 mb-3">
         <p class="mb-1">
-          Here you can interactively play and test components with a fresh vue instance.
-          Please refer to the <router-link to="/docs">Docs</router-link>
-          section for more info about available tags and usage.
+          Here you can interactively play and test components with a fresh vue instance. Please
+          refer to the <router-link to="/docs">Docs</router-link> section for more info about
+          available tags and usage.
         </p>
         <p class="mb-1">
-          <strong>TIP:</strong>
-          You can clone docs repo, to hack and develop components.
-          changes will be reflected and hot-reloaded instantly.
+          <strong>TIP:</strong> You can clone docs repo, to hack and develop components. changes
+          will be reflected and hot-reloaded instantly.
         </p>
       </div>
       <div class="col-12">
@@ -37,36 +36,17 @@
             <input type="hidden" name="js_wrap" value="l">
             <b-btn size="sm" type="submit" :disabled="!isOk">Export to JSFiddle</b-btn>
           </form>
-          <b-btn
-            size="sm"
-            variant="danger"
-            :disabled="isDefault"
-            @click="reset"
-          >
+          <b-btn size="sm" variant="danger" :disabled="isDefault" @click="reset">
             Reset to default
           </b-btn>
         </div>
       </div>
     </div>
 
-    <transition-group
-      class="row"
-      tag="div"
-      name="flip"
-    >
-      <div
-        key="A"
-        :class="full ? 'col-12' : 'col'"
-      >
-        <transition-group
-          class="row"
-          tag="div"
-          name="flip"
-        >
-          <div
-            key="A1"
-            :class="`col-md-${vertical && !full ? 6 : 12} col-sm-12`"
-          >
+    <transition-group class="row" tag="div" name="flip">
+      <div key="A" :class="full ? 'col-12' : 'col'">
+        <transition-group class="row" tag="div" name="flip">
+          <div key="A1" :class="`col-md-${vertical && !full ? 6 : 12} col-sm-12`">
             <!--Template-->
             <div class="card mt-2">
               <div class="card-header card-outline-info">
@@ -80,16 +60,10 @@
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
-              <codemirror
-                v-model="html"
-                mode="htmlmixed"
-              />
+              <codemirror v-model="html" mode="htmlmixed" />
             </div>
           </div>
-          <div
-            key="A2"
-            :class="`col-md-${vertical && !full ? 6 : 12} col-sm-12`"
-          >
+          <div key="A2" :class="`col-md-${vertical && !full ? 6 : 12} col-sm-12`">
             <!--JS-->
             <div class="card mt-2">
               <div class="card-header card-outline-warning">
@@ -103,19 +77,13 @@
                   <span>{{ full ? 'Split' : 'Full' }}</span>
                 </b-btn>
               </div>
-              <codemirror
-                v-model="js"
-                mode="javascript"
-              />
+              <codemirror v-model="js" mode="javascript" />
             </div>
           </div>
         </transition-group>
       </div>
 
-      <div
-        key="B"
-        :class="`col-md-${vertical || full ? 12 : 6} col-sm-12`"
-      >
+      <div key="B" :class="`col-md-${vertical || full ? 12 : 6} col-sm-12`">
         <!--Result-->
         <div class="card mt-2">
           <div class="card-header card-outline-success">
@@ -130,10 +98,7 @@
               <span>{{ vertical ? 'Horizontal' : 'Vertical' }}</span>
             </b-btn>
           </div>
-          <div
-            ref="result"
-            class="card-body"
-          />
+          <div ref="result" class="card-body" />
         </div>
 
         <!--Console-->
@@ -163,15 +128,11 @@
               &nbsp;
             </li>
             <li
-              v-for="(msg) in messages"
+              v-for="msg in messages"
               :key="`console-${msg[2]}`"
               class="list-group-item py-2 d-flex"
             >
-              <b-badge
-                :variant="msg[0]"
-                class="mr-1"
-                style="font-size:90%;"
-              >
+              <b-badge :variant="msg[0]" class="mr-1" style="font-size:90%;">
                 {{ msg[0] === 'danger' ? 'error' : msg[0] === 'warning' ? 'warn' : 'log' }}
               </b-badge>
               <div

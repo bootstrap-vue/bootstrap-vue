@@ -3,11 +3,7 @@
     v-if="toc.toc && toc.toc.length > 0"
     aria-label="Page table of contents"
   >
-    <b-nav
-      v-b-scrollspy.72
-      vertical
-      class="m-toc section-nav"
-    >
+    <b-nav v-b-scrollspy.72 vertical class="m-toc section-nav">
       <b-nav-item
         v-if="toc.title && toc.top"
         :href="toc.top"

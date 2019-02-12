@@ -7,27 +7,27 @@
 
 ```html
 <template>
-  <b-table striped hover :items="items" />
+  <div>
+    <b-table striped hover :items="items" />
+  </div>
 </template>
 
 <script>
-  const items = [
-    { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-    { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-    { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-    { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
-  ]
-
   export default {
     data() {
       return {
-        items: items
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+          { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ]
       }
     }
   }
 </script>
 
-<!-- table-basic-1.vue -->
+<!-- b-table.vue -->
 ```
 
 ## Items (record data)
@@ -76,40 +76,40 @@ modifier properties (make sure your field keys do not conflict with these names)
 
 ```html
 <template>
-  <b-table hover :items="items" />
+  <div>
+    <b-table hover :items="items" />
+  </div>
 </template>
 
 <script>
-  const items = [
-    { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-    { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-    {
-      isActive: false,
-      age: 89,
-      first_name: 'Geneva',
-      last_name: 'Wilson',
-      _rowVariant: 'danger'
-    },
-    {
-      isActive: true,
-      age: 40,
-      first_name: 'Thor',
-      last_name: 'Macdonald',
-      _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
-    },
-    { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
-  ]
-
   export default {
     data() {
       return {
-        items: items
+        items: [
+          { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          {
+            isActive: false,
+            age: 89,
+            first_name: 'Geneva',
+            last_name: 'Wilson',
+            _rowVariant: 'danger'
+          },
+          {
+            isActive: true,
+            age: 40,
+            first_name: 'Thor',
+            last_name: 'Macdonald',
+            _cellVariants: { isActive: 'success', age: 'info', first_name: 'warning' }
+          },
+          { isActive: false, age: 29, first_name: 'Dick', last_name: 'Dunlap' }
+        ]
       }
     }
   }
 </script>
 
-<!-- table-variants-1.vue -->
+<!-- b-table-variants.vue -->
 ```
 
 `items` can also be a reference to a _provider_ function, which returns an `Array` of items data.
@@ -143,14 +143,16 @@ Fields can be a simple array, for defining the order of the columns, and which c
 
 ```html
 <template>
-  <b-table striped hover :items="items" :fields="fields" />
+  <div>
+    <b-table striped hover :items="items" :fields="fields" />
+  </div>
 </template>
 
 <script>
   export default {
     data() {
       return {
-        // Note 'isActive' is left out and will not appear in the rendered table
+        // Note `isActive` is left out and will not appear in the rendered table
         fields: ['first_name', 'last_name', 'age'],
         items: [
           { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
@@ -163,7 +165,7 @@ Fields can be a simple array, for defining the order of the columns, and which c
   }
 </script>
 
-<!-- table-fields-array.vue -->
+<!-- b-table-fields-array.vue -->
 ```
 
 ### Fields as an array of objects
@@ -176,7 +178,9 @@ is guaranteed)**:
 
 ```html
 <template>
-  <b-table striped hover :items="items" :fields="fields" />
+  <div>
+    <b-table striped hover :items="items" :fields="fields" />
+  </div>
 </template>
 
 <script>
@@ -212,7 +216,7 @@ is guaranteed)**:
   }
 </script>
 
-<!-- table-fields-array-of-objects.vue -->
+<!-- b-table-fields-array-of-objects.vue -->
 ```
 
 ### Fields as an object
@@ -226,7 +230,9 @@ typically be in the order they were defined in the object, although **field orde
 
 ```html
 <template>
-  <b-table striped hover :items="items" :fields="fields" />
+  <div>
+    <b-table striped hover :items="items" :fields="fields" />
+  </div>
 </template>
 
 <script>
@@ -293,7 +299,7 @@ typically be in the order they were defined in the object, although **field orde
   }
 </script>
 
-<!-- table-fields-object.vue -->
+<!-- b-table-fields-object.vue -->
 ```
 
 **Notes:**
@@ -338,7 +344,12 @@ For information and usage about scoped slots and formatters, refer to the
 Feel free to mix and match simple array and object array together:
 
 ```js
-fields: [{ key: 'first_name', label: 'First' }, { key: 'last_name', label: 'Last' }, 'age', 'sex']
+const fields = [
+  { key: 'first_name', label: 'First' },
+  { key: 'last_name', label: 'Last' },
+  'age',
+  'sex'
+]
 ```
 
 ### Primary key
@@ -398,6 +409,7 @@ In future releases of BootstrapVue, the `primary-key` may be used for additional
       <b-form-checkbox inline v-model="fixed">Fixed</b-form-checkbox>
       <b-form-checkbox inline v-model="footClone">Foot Clone</b-form-checkbox>
     </b-form-group>
+
     <b-table
       :striped="striped"
       :bordered="bordered"
@@ -438,7 +450,7 @@ In future releases of BootstrapVue, the `primary-key` may be used for additional
   }
 </script>
 
-<!-- table-bordered.vue -->
+<!-- b-table-bordered.vue -->
 ```
 
 ### Row Styling
@@ -453,7 +465,9 @@ You can also style every row using the `tbody-tr-class` prop
 
 ```html
 <template>
-  <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass" />
+  <div>
+    <b-table :items="items" :fields="fields" :tbody-tr-class="rowClass" />
+  </div>
 </template>
 
 <script>
@@ -477,7 +491,7 @@ You can also style every row using the `tbody-tr-class` prop
   }
 </script>
 
-<!-- table-styled-row-basic.vue -->
+<!-- b-table-styled-row.vue -->
 ```
 
 ## Responsive tables
@@ -491,7 +505,9 @@ values: `sm`, `md`, `lg`, or `xl`.
 
 ```html
 <template>
-  <b-table responsive :items="items" />
+  <div>
+    <b-table responsive :items="items" />
+  </div>
 </template>
 
 <script>
@@ -541,7 +557,7 @@ values: `sm`, `md`, `lg`, or `xl`.
   }
 </script>
 
-<!-- table-responsive.vue -->
+<!-- b-table-responsive.vue -->
 ```
 
 **Responsive table notes:**
@@ -567,7 +583,9 @@ The prop `stacked` takes precedence over the `responsive` prop.
 
 ```html
 <template>
-  <b-table stacked :items="items" />
+  <div>
+    <b-table stacked :items="items" />
+  </div>
 </template>
 
 <script>
@@ -584,7 +602,7 @@ The prop `stacked` takes precedence over the `responsive` prop.
   }
 </script>
 
-<!-- table-stacked.vue -->
+<!-- b-table-stacked.vue -->
 ```
 
 **Note: When the table is visually stacked:**
@@ -609,11 +627,11 @@ bottom of the table:
 
 ```html
 <template>
-  <b-table :items="items" :fields="fields">
-    <template slot="table-caption">
-      This is a table caption.
-    </template>
-  </b-table>
+  <div>
+    <b-table :items="items" :fields="fields">
+      <template slot="table-caption">This is a table caption.</template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -631,18 +649,18 @@ bottom of the table:
   }
 </script>
 
-<!-- table-caption.vue -->
+<!-- b-table-caption.vue -->
 ```
 
 You can have the caption placed at the top of the table by setting the `caption-top` prop to `true`:
 
 ```html
 <template>
-  <b-table :items="items" :fields="fields" caption-top>
-    <template slot="table-caption">
-      This is a table caption at the top.
-    </template>
-  </b-table>
+  <div>
+    <b-table :items="items" :fields="fields" caption-top>
+      <template slot="table-caption">This is a table caption at the top.</template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -660,7 +678,7 @@ You can have the caption placed at the top of the table by setting the `caption-
   }
 </script>
 
-<!-- table-caption-top.vue -->
+<!-- b-table-caption-top.vue -->
 ```
 
 You can also use [custom CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/caption-side) to
@@ -704,13 +722,15 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
 <template>
   <div>
     <b-button @click="toggleBusy">Toggle Busy State</b-button>
+
     <b-table :items="items" :busy="isBusy" class="mt-3" outlined>
-      <div slot="table-busy" class="text-center text-danger">
-        <br /><strong>Loading...</strong><br /><br />
+      <div slot="table-busy" class="text-center text-danger my-2">
+        <strong>Loading...</strong>
       </div>
     </b-table>
   </div>
 </template>
+
 <script>
   export default {
     data() {
@@ -732,7 +752,7 @@ the table's busy state is `true`. The slot will be placed in a `<tr>` element wi
   }
 </script>
 
-<!-- table-busy-slot.vue -->
+<!-- b-table-busy-slot.vue -->
 ```
 
 Also see the [**Using Items Provider Functions**](#using-items-provider-functions) below for
@@ -757,20 +777,24 @@ field(s) in the scoped slot(s).
 
 ```html
 <template>
-  <b-table :fields="fields" :items="items">
-    <!-- A virtual column -->
-    <template slot="index" slot-scope="data">
-      {{ data.index + 1 }}
-    </template>
-    <!-- A custom formatted column -->
-    <template slot="name" slot-scope="data">
-      {{ data.value.first }} {{ data.value.last }}
-    </template>
-    <!-- A virtual composite column -->
-    <template slot="nameage" slot-scope="data">
-      {{ data.item.name.first }} is {{ data.item.age }} years old
-    </template>
-  </b-table>
+  <div>
+    <b-table :fields="fields" :items="items">
+      <!-- A virtual column -->
+      <template slot="index" slot-scope="data">
+        {{ data.index + 1 }}
+      </template>
+
+      <!-- A custom formatted column -->
+      <template slot="name" slot-scope="data">
+        {{ data.value.first }} {{ data.value.last }}
+      </template>
+
+      <!-- A virtual composite column -->
+      <template slot="nameage" slot-scope="data">
+        {{ data.item.name.first }} is {{ data.item.age }} years old
+      </template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -800,20 +824,20 @@ field(s) in the scoped slot(s).
   }
 </script>
 
-<!-- table-data-slots.vue -->
+<!-- b-table-data-slots.vue -->
 ```
 
 The slot's scope variable (`data` in the above sample) will have the following properties:
 
-| Property         | Type     | Description                                                                                                                                                                                                 |
-| ---------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `index`          | Number   | The row number (indexed from zero) relative to the displayed rows                                                                                                                                           |
-| `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                                                             |
+| Property         | Type     | Description                                                                                                                                                                                             |
+| ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index`          | Number   | The row number (indexed from zero) relative to the displayed rows                                                                                                                                       |
+| `item`           | Object   | The entire raw record data (i.e. `items[index]`) for this row (before any formatter is applied)                                                                                                         |
 | `value`          | Any      | The value for this key in the record (`null` or `undefined` if a virtual column), or the output of the field's `formatter` function (see below for information on field `formatter` callback functions) |
-| `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formatter` function                                                          |
-| `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [**Row details support**](#row-details-support) below for additional information                                              |
-| `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [**Row details support**](#row-details-support) below for additional information                                  |
-| `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [**Row select support**](#row-select-support) for additional information                                                                           |
+| `unformatted`    | Any      | The raw value for this key in the item record (`null` or `undefined` if a virtual column), before being passed to the field's `formatter` function                                                      |
+| `detailsShowing` | Boolean  | Will be `true` if the row's `row-details` scoped slot is visible. See section [**Row details support**](#row-details-support) below for additional information                                          |
+| `toggleDetails`  | Function | Can be called to toggle the visibility of the rows `row-details` scoped slot. See section [**Row details support**](#row-details-support) below for additional information                              |
+| `rowSelected`    | Boolean  | Will be `true` if the row has been selected. See section [**Row select support**](#row-select-support) for additional information                                                                       |
 
 **Notes:**
 
@@ -830,7 +854,11 @@ scoped field slot
 
 ```html
 <template>
-  <b-table :items="items"><span slot="html" slot-scope="data" v-html="data.value"/></b-table>
+  <div>
+    <b-table :items="items">
+      <span slot="html" slot-scope="data" v-html="data.value"/>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -848,7 +876,7 @@ scoped field slot
   }
 </script>
 
-<!-- table-html-data-slots.vue -->
+<!-- b-table-html-data-slots.vue -->
 ```
 
 **Warning:** Be cautious of using this to display user supplied content, **as script tags could be
@@ -869,12 +897,14 @@ formatted value as a string (HTML strings are not supported)
 
 ```html
 <template>
-  <b-table :fields="fields" :items="items">
-    <template slot="name" slot-scope="data">
-      <!-- data.value is th value after formatted by the Formatter -->
-      <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
-    </template>
-  </b-table>
+  <div>
+    <b-table :fields="fields" :items="items">
+      <template slot="name" slot-scope="data">
+        <!-- `data.value` is the value after formatted by the Formatter -->
+        <a :href="`#${data.value.replace(/[^a-z]+/i,'-').toLowerCase()}`">{{ data.value }}</a>
+      </template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -923,7 +953,7 @@ formatted value as a string (HTML strings are not supported)
   }
 </script>
 
-<!-- table-data-formatter.vue -->
+<!-- b-table-data-formatter.vue -->
 ```
 
 ## Header/Footer custom rendering via scoped slots
@@ -936,20 +966,24 @@ and `FOOT_<fieldkey>` respectively. if a `FOOT_` slot for a field is not provide
 slot is provided, then the footer will use the `HEAD_` slot content.
 
 ```html
-<b-table :fields="fields" :items="items" foot-clone>
-  <template slot="name" slot-scope="data">
+<div>
+  <b-table :fields="fields" :items="items" foot-clone>
     <!-- A custom formatted data column cell -->
-    {{ data.value.first }} {{ data.value.last }}
-  </template>
-  <template slot="HEAD_name" slot-scope="data">
+    <template slot="name" slot-scope="data">
+      {{ data.value.first }} {{ data.value.last }}
+    </template>
+
     <!-- A custom formatted header cell for field 'name' -->
-    <em>{{ data.label }}</em>
-  </template>
-  <template slot="FOOT_name" slot-scope="data">
+    <template slot="HEAD_name" slot-scope="data">
+      <em>{{ data.label }}</em>
+    </template>
+
     <!-- A custom formatted footer cell  for field 'name' -->
-    <strong>{{ data.label }}</strong>
-  </template>
-</b-table>
+    <template slot="FOOT_name" slot-scope="data">
+      <strong>{{ data.label }}</strong>
+    </template>
+  </b-table>
+</div>
 ```
 
 The slot's scope variable (`data` in the above example) will have the following properties:
@@ -982,17 +1016,21 @@ as read-only.**
 
 ```html
 <template>
-  <b-form-group label="Selection mode:" label-cols-md="4">
-    <b-form-select v-model="selectMode" :options="modes" class="mb-3" />
-  </b-form-group>
-  <b-table
-    selectable
-    :select-mode="selectMode"
-    selectedVariant="success"
-    :items="items"
-    @row-selected="rowSelected"
-  />
-  {{ selected }}
+  <div>
+    <b-form-group label="Selection mode:" label-cols-md="4">
+      <b-form-select v-model="selectMode" :options="modes" class="mb-3" />
+    </b-form-group>
+
+    <b-table
+      selectable
+      :select-mode="selectMode"
+      selectedVariant="success"
+      :items="items"
+      @row-selected="rowSelected"
+    />
+
+    {{ selected }}
+  </div>
 </template>
 
 <script>
@@ -1018,7 +1056,7 @@ as read-only.**
   }
 </script>
 
-<!-- table-selectable.vue -->
+<!-- b-table-selectable.vue -->
 ```
 
 **Notes:**
@@ -1063,30 +1101,36 @@ initially showing.
 
 ```html
 <template>
-  <b-table :items="items" :fields="fields" striped>
-    <template slot="show_details" slot-scope="row">
-      <b-button size="sm" @click="row.toggleDetails" class="mr-2">
-        {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
-      </b-button>
-      <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
-      <b-form-checkbox @change="row.toggleDetails" v-model="row.detailsShowing">
-        Details via check
-      </b-form-checkbox>
-    </template>
-    <template slot="row-details" slot-scope="row">
-      <b-card>
-        <b-row class="mb-2">
-          <b-col sm="3" class="text-sm-right"><b>Age:</b></b-col>
-          <b-col>{{ row.item.age }}</b-col>
-        </b-row>
-        <b-row class="mb-2">
-          <b-col sm="3" class="text-sm-right"><b>Is Active:</b></b-col>
-          <b-col>{{ row.item.isActive }}</b-col>
-        </b-row>
-        <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
-      </b-card>
-    </template>
-  </b-table>
+  <div>
+    <b-table :items="items" :fields="fields" striped>
+      <template slot="show_details" slot-scope="row">
+        <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+          {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
+        </b-button>
+
+        <!-- As `row.showDetails` is one-way, we call the toggleDetails function on @change -->
+        <b-form-checkbox @change="row.toggleDetails" v-model="row.detailsShowing">
+          Details via check
+        </b-form-checkbox>
+      </template>
+
+      <template slot="row-details" slot-scope="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Age:</b></b-col>
+            <b-col>{{ row.item.age }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Is Active:</b></b-col>
+            <b-col>{{ row.item.isActive }}</b-col>
+          </b-row>
+
+          <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+        </b-card>
+      </template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -1111,7 +1155,7 @@ initially showing.
   }
 </script>
 
-<!-- table-details.vue -->
+<!-- b-table-details.vue -->
 ```
 
 ## Sorting
@@ -1140,12 +1184,12 @@ presentational data.
 ```html
 <template>
   <div>
-    <b-table :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :items="items" :fields="fields">
-    </b-table>
-    <p>
+    <b-table :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :items="items" :fields="fields" />
+
+    <div>
       Sorting By: <b>{{ sortBy }}</b>, Sort Direction:
       <b>{{ sortDesc ? 'Descending' : 'Ascending' }}</b>
-    </p>
+    </div>
   </div>
 </template>
 
@@ -1172,7 +1216,7 @@ presentational data.
   }
 </script>
 
-<!-- table-sorting.vue -->
+<!-- b-table-sorting.vue -->
 ```
 
 ### Sort-Compare routine
@@ -1327,31 +1371,31 @@ If you bind a variable to the `v-model` prop, the contents of this variable will
 displayed item records (zero based index, up to `page-size` - 1). This variable (the `value` prop)
 should usually be treated as readonly.
 
-The records within the v-model are a filtered/paginated shallow copy of `items`, and hence any
-changes to a record's properties in the v-model will be reflected in the original `items` array
-(except when `items` is set to a provider function). Deleting a record from the v-model will **not**
-remove the record from the original items array.
+The records within the `v-model` are a filtered/paginated shallow copy of `items`, and hence any
+changes to a record's properties in the `v-model` will be reflected in the original `items` array
+(except when `items` is set to a provider function). Deleting a record from the `v-model` will
+**not** remove the record from the original items array.
 
 **Note:** _Do not bind any value directly to the `value` prop. Use the `v-model` binding._
 
 ## Table body transition support
 
-Vue transitions and animations are optionally supported on the `<tbody>` element via the use of Vue's
-`<transition-group>` component internally. Three props are available for transitions support (all three
-default to undefined):
+Vue transitions and animations are optionally supported on the `<tbody>` element via the use of
+Vue's `<transition-group>` component internally. Three props are available for transitions support
+(all three default to undefined):
 
-| Prop                        | Type   | Description
+| Prop                        | Type   | Description                                                       |
 | --------------------------- | ------ | ----------------------------------------------------------------- |
 | `tbody-transition-props`    | Object | Object of transition-group properties                             |
 | `tbody-transition-handlers` | Object | Object of transition-group event handlers                         |
 | `primary-key`               | String | String specifying the field to use as a unique row key (required) |
 
-To enable transitions you need to specify `tbody-transition-props` and/or `tbody-transition-handlers`,
-and must specify which field key to use as a unique key via the `primary-key` prop. Your data **must
-have** a column (specified by the `primary-key` prop) that has a **unique value per row** in order for
-transitions to work properly. The `primary-key` field's _value_ can either be a unique string or number.
-The field specified does not need to appear in the rendered table output, but it **must** exist in each
-row of your items data.
+To enable transitions you need to specify `tbody-transition-props` and/or
+`tbody-transition-handlers`, and must specify which field key to use as a unique key via the
+`primary-key` prop. Your data **must have** a column (specified by the `primary-key` prop) that has
+a **unique value per row** in order for transitions to work properly. The `primary-key` field's
+_value_ can either be a unique string or number. The field specified does not need to appear in the
+rendered table output, but it **must** exist in each row of your items data.
 
 You must also provide CSS to handle your transitions (if using CSS transitions) in your project.
 
@@ -1368,41 +1412,44 @@ table#table-transition-example .flip-list-move {
 
 ```html
 <template>
-  <b-table id="table-transition-example"
-           :items="items"
-           :fields="fields"
-           striped
-           small
-           primary-key="a"
-           :tbody-transition-props="transProps"
-  />
+  <div>
+    <b-table
+      id="table-transition-example"
+      :items="items"
+      :fields="fields"
+      striped
+      small
+      primary-key="a"
+      :tbody-transition-props="transProps"
+    />
+  </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      transProps: {
-        // Transition name
-        name: 'flip-list'
-      },
-      items: [
-        {a: 2, b: 'Two', c: 'Moose'},
-        {a: 1, b: 'Three', c: 'Dog'},
-        {a: 3, b: 'Four', c: 'Cat'},
-        {a: 4, b: 'One', c: 'Mouse'}
-      ],
-      fields: [
-        { key: 'a', sortable: true },
-        { key: 'b', sortable: true },
-        { key: 'c', sortable: true }
-      ]
+  export default {
+    data() {
+      return {
+        transProps: {
+          // Transition name
+          name: 'flip-list'
+        },
+        items: [
+          { a: 2, b: 'Two', c: 'Moose' },
+          { a: 1, b: 'Three', c: 'Dog' },
+          { a: 3, b: 'Four', c: 'Cat' },
+          { a: 4, b: 'One', c: 'Mouse' }
+        ],
+        fields: [
+          { key: 'a', sortable: true },
+          { key: 'b', sortable: true },
+          { key: 'c', sortable: true }
+        ]
+      }
     }
   }
-}
 </script>
 
-<!-- table-transitions.vue -->
+<!-- b-table-transitions.vue -->
 ```
 
 ## Using Items Provider Functions
@@ -1426,7 +1473,7 @@ properties:
 | `filter`      | String or RegExp or Function | the value of the `Filter` prop                                                    |
 | `sortBy`      | String                       | The current column key being sorted, or `null` if not sorting                     |
 | `sortDesc`    | Boolean                      | The current sort direction (`true` for descending, `false` for ascending)         |
-| `apiUrl`      | String                       | the value provided to the `api-url` prop. `null` if none provided.               |
+| `apiUrl`      | String                       | the value provided to the `api-url` prop. `null` if none provided.                |
 
 The second argument `callback` is an optional parameter for when using the callback asynchronous
 method.
@@ -1437,7 +1484,7 @@ method.
 function myProvider(ctx) {
   let items = []
 
-  // perform any items processing needed
+  // Perform any items processing needed
 
   // Must return an array
   return items || []
@@ -1495,8 +1542,17 @@ function should handle errors from data sources and return an empty array to `<b
 
 ```html
 <template>
-  <b-table id="my-table" :busy.sync="isBusy" :items="myProvider" :fields="fields" ... />
+  <div>
+    <b-table
+      id="my-table"
+      :busy.sync="isBusy"
+      :items="myProvider"
+      :fields="fields"
+      ...
+    />
+  </div>
 </template>
+
 <script>
   export default {
     data () {
@@ -1574,7 +1630,9 @@ this.$root.$emit('bv::refresh::table', 'my-table')
 Or by calling the `refresh()` method on the table reference
 
 ```html
-<b-table ref="table" ... />
+<div>
+  <b-table ref="table" ... />
+</div>
 ```
 
 ```js
@@ -1591,7 +1649,9 @@ By listening on `<b-table>` `sort-changed` event, you can detect when the sortin
 have changed.
 
 ```html
-<b-table @sort-changed="sortingChanged" ... />
+<div>
+  <b-table @sort-changed="sortingChanged" ... />
+</div>
 ```
 
 The `sort-changed` event provides a single argument of the table's current state context object.
@@ -1611,7 +1671,9 @@ You can also obtain the current sortBy and sortDesc values by using the `:sort-b
 details).
 
 ```html
-<b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... />
+<div>
+  <b-table :sort-by.sync="mySortBy" :sort-desc.sync="mySortDesc" ... />
+</div>
 ```
 
 ### Server Side Rendering
@@ -1663,11 +1725,12 @@ differences between operating systems, this too is not a preventable default beh
           <b-input-group>
             <b-form-input v-model="filter" placeholder="Type to Search" />
             <b-input-group-append>
-              <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+              <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
       </b-col>
+
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Sort" class="mb-0">
           <b-input-group>
@@ -1680,6 +1743,7 @@ differences between operating systems, this too is not a preventable default beh
           </b-input-group>
         </b-form-group>
       </b-col>
+
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Sort direction" class="mb-0">
           <b-input-group>
@@ -1690,6 +1754,7 @@ differences between operating systems, this too is not a preventable default beh
           </b-input-group>
         </b-form-group>
       </b-col>
+
       <b-col md="6" class="my-1">
         <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
           <b-form-select :options="pageOptions" v-model="perPage" />
@@ -1714,9 +1779,11 @@ differences between operating systems, this too is not a preventable default beh
       <template slot="name" slot-scope="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
+
       <template slot="isActive" slot-scope="row">
         {{ row.value ? 'Yes :)' : 'No :(' }}
       </template>
+
       <template slot="actions" slot-scope="row">
         <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
@@ -1725,6 +1792,7 @@ differences between operating systems, this too is not a preventable default beh
           {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
         </b-button>
       </template>
+
       <template slot="row-details" slot-scope="row">
         <b-card>
           <ul>
@@ -1828,7 +1896,7 @@ differences between operating systems, this too is not a preventable default beh
   }
 </script>
 
-<!-- table-complete-1.vue -->
+<!-- b-table-complete.vue -->
 ```
 
 <!-- Component reference added automatically from component package.json -->

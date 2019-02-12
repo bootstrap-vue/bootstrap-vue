@@ -76,4 +76,4 @@ needed.
 
 ## Additional Resources
 
-Refer to [Bootstrap V4](http://getbootstrap.com/) official documentation site for more information.
+Refer to [Bootstrap V4](https://getbootstrap.com/) official documentation site for more information.
