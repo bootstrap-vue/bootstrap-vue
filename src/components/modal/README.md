@@ -278,7 +278,44 @@ breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional
 
 The `size` prop maps the size to the `.modal-<size>` classes.
 
-## Vertically centering
+## Scrolling long content
+When modals become too long for the user’s viewport or device, they scroll independent of the
+page itself. Try the demo below to see what we mean.
+
+```html
+<div>
+  <b-button v-b-modal.modal-tall>Launch overflowing modal</b-button>
+
+  <b-modal id="modal-tall" title="Overflowing Content">
+    <p class="my-4" v-for="i in 20" :key="i">
+      Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+      in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+    </p>
+  </b-modal>
+</div>
+
+<!-- b-modal-scroll-overflow.vue -->
+```
+
+You can also create a scrollable modal that allows the scrolling of the modal body by setting
+the prop `scrollable` to `true`.
+
+```html
+<div>
+  <b-button v-b-modal.modal-scrollable>Launch scrolling modal</b-button>
+
+  <b-modal id="modal-scrollable" scrollable title="Scrollable Content">
+    <p class="my-4" v-for="i in 20" :key="i">
+      Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+      in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+    </p>
+  </b-modal>
+</div>
+
+<!-- b-modal-scrollable-content.vue -->
+```
+
+## Vertically centered modal
 
 Vertically center your modal in the viewport by setting the `centered` prop.
 
@@ -294,6 +331,8 @@ Vertically center your modal in the viewport by setting the `centered` prop.
 
 <!-- b-modal-center-vertically.vue -->
 ```
+
+Feel free to mix vertically `centered` with `scrollable`.
 
 ## Using the grid
 
