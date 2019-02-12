@@ -8,6 +8,10 @@ export const props = {
   flush: {
     type: Boolean,
     default: false
+  },
+  horizontal: {
+    type: Boolean,
+    default: false
   }
 }
 
@@ -20,7 +24,8 @@ export default {
     const componentData = {
       staticClass: 'list-group',
       class: {
-        'list-group-flush': props.flush
+        'list-group-flush': props.flush,
+        'list-group-horizontal': props.horizontal && !props.flush,
       }
     }
     return h(props.tag, mergeData(data, componentData), children)
