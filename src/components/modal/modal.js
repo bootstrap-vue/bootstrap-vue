@@ -109,6 +109,10 @@ export default {
       type: Boolean,
       default: false
     },
+    scrollable: {
+      type: Boolean,
+      default: false
+    },
     buttonSize: {
       type: String,
       default: ''
@@ -294,7 +298,8 @@ export default {
       return [
         {
           [`modal-${this.size}`]: Boolean(this.size),
-          'modal-dialog-centered': this.centered
+          'modal-dialog-centered': this.centered,
+          'modal-dialog-scrollable': this.scrollable
         },
         this.dialogClass
       ]
