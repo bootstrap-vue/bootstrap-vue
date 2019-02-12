@@ -10,7 +10,7 @@ export const props = {
     default: false
   },
   horizontal: {
-    type: Boolean,
+    type: [Boolean, String],
     default: false
   }
 }
