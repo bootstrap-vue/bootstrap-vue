@@ -146,7 +146,7 @@ add them (like above) which will produce something like:
 </li>
 ```
 
-Refer to [`<b-dropdown>`](../dropdown) for a list of supported sub-components.
+Refer to [`<b-dropdown>`](docs/components/dropdown) for a list of supported sub-components.
 
 ## Using in Navbar
 
@@ -154,8 +154,8 @@ Prop `is-nav-bar` has been deprecated and will be removed in a future release.
 
 ## Tabbed local content support
 
-See the [`<b-tabs>`](./tabs) component for creating tabbable panes of local content (not suited for
-navigation).
+See the [`<b-tabs>`](docs/components/tabs) component for creating tabbable panes of local content
+(not suited for navigation).
 
 ## Accessibility
 
