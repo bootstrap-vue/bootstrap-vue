@@ -16,7 +16,11 @@ describe('list-group', async () => {
   })
 
   it('should have tag ul then prop tag=ul', async () => {
-    const wrapper = mount(ListGroup)
+    const wrapper = mount(ListGroup, {
+      context: {
+        props: { tag: 'ul' }
+      }
+    })
     expect(wrapper.is('ul')).toBe(true)
   })
 
