@@ -196,10 +196,14 @@ export default {
       }
 
       this.whileOpenListen(true)
-      this.$emit('shown')
 
-      // Focus on the menu container on show
-      this.$nextTick(this.focusMenu)
+      // Wrap in nextTick to ensure menu is fully rendered/shown
+      this.$nextTick(() => {
+        // Focus on the menu container on show
+        this.focusMenu()
+        // Emit the shown event
+        this.$emit('shown')
+      })
     },
     hideMenu() {
       this.whileOpenListen(false)
