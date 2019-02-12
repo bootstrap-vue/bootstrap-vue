@@ -8,6 +8,10 @@ export const props = {
   flush: {
     type: Boolean,
     default: false
+  },
+  horizontal: {
+    type: [Boolean, String],
+    default: false
   }
 }
 
@@ -17,10 +21,14 @@ export default {
   functional: true,
   props,
   render(h, { props, data, children }) {
+    let horizontal = props.horizontal === '' ? true : props.horizontal
+    horizontal = props.flush ? false : horizontal
     const componentData = {
       staticClass: 'list-group',
       class: {
-        'list-group-flush': props.flush
+        'list-group-flush': props.flush,
+        'list-group-horizontal': horizontal === true,
+        [`list-group-horizontal-${horizontal}`]: typeof horizontal === 'string'
       }
     }
     return h(props.tag, mergeData(data, componentData), children)

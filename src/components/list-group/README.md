@@ -197,6 +197,44 @@ prop when using cards with `no-body` to make the sides of the list group flush w
 <!-- b-list-group-card.vue -->
 ```
 
+## Horizontal list groups
+
+Set the prop `horizontal` to `true` to change the layout of list group items from vertical to
+horizontal across all breakpoints. Alternatively, set `horizontal` to a responsive breakpoint
+(`sm`, `md`, `lg` or `xl`) to make a list group horizontal starting at that breakpoint’s min-width.
+Currently horizontal list groups cannot be combined with `flush` list groups.
+
+**ProTip:** Want equal-width list group items when horizontal? Add the class `flex-fill` to each
+list group item.
+
+**Always horizontal:**
+
+```html
+<div>
+  <b-list-group horizontal>
+    <b-list-group-item>Cras justo odio</b-list-group-item>
+    <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+    <b-list-group-item>Morbi leo risus</b-list-group-item>
+  </b-list-group>
+</div>
+
+<!-- b-list-group-horizontal.vue -->
+```
+
+**Horizontal at breakpoint md and above:**
+
+```html
+<div>
+  <b-list-group horizontal="md">
+    <b-list-group-item>Cras justo odio</b-list-group-item>
+    <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+    <b-list-group-item>Morbi leo risus</b-list-group-item>
+  </b-list-group>
+</div>
+
+<!-- b-list-group-horizontal-md.vue -->
+```
+
 ## Custom content
 
 Add nearly any HTML or component within, even for linked list groups like the one below, with the
