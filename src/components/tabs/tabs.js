@@ -345,7 +345,7 @@ export default {
     },
     // Emit a click event on a specified b-tab component instance
     emitTabClick(tab, evt) {
-      if (evt && (evt instanceof Event) && tab && tab.$emit && !tab.disabled) {
+      if (evt && evt instanceof Event && tab && tab.$emit && !tab.disabled) {
         tab.$emit('click', evt)
       }
     },
