@@ -149,7 +149,7 @@ Same example as above, just modified for VeeValidate:
         </b-form-invalid-feedback>
       </b-form-group>
 
-      <b-button type="submit" variant="primary" :disabled="form.errors.any()">Submit</b-button>
+      <b-button type="submit" variant="primary" :disabled="errors.any()">Submit</b-button>
     </b-form>
   </div>
 </template>
