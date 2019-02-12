@@ -196,7 +196,7 @@ export default {
       }
 
       this.whileOpenListen(true)
-      
+
       // Wrap in nextTick to ensure menu is fully rendered/shown
       this.$nextTick(() => {
         // Focus on the menu container on show
