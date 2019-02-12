@@ -351,7 +351,7 @@ export default {
     },
     // Click Handler
     clickTab(tab, evt) {
-      this.activateTab(tab))
+      this.activateTab(tab)
       this.emitTabClick(tab, evt)
     },
     // Move to first non-disabled tab
