@@ -63,6 +63,10 @@ export default {
       type: [String, HTMLElement],
       default: 'scrollParent'
     },
+    boundaryPadding: {
+      type: Number,
+      default: 5
+    },
     show: {
       type: Boolean,
       default: false
@@ -87,6 +91,8 @@ export default {
         container: cont ? (/^#/.test(cont) ? cont : `#${cont}`) : false,
         // boundariesElement passed to popper
         boundary: this.boundary,
+        // boundariesElement padding passed to popper
+        boundaryPadding: this.boundaryPadding,
         // Show/Hide delay
         delay: delay || 0,
         // Offset can be css distance. if no units, pixels are assumed

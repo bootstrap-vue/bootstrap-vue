@@ -140,25 +140,6 @@ assistive technologies – such as screen readers. Ensure that information denot
 either obvious from the content itself (e.g. the visible text), or is included through alternative
 means, such as additional text hidden using the `.sr-only` class.
 
-## Striped
-
-Alternate the background colors of list items with by adding the prop `striped`.
-
-```html
-<b-list-group striped>
-  <b-list-group-item>Cras justo odio</b-list-group-item>
-  <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
-  <b-list-group-item>Morbi leo risus</b-list-group-item>
-  <b-list-group-item>Porta ac consectetur ac</b-list-group-item>
-  <b-list-group-item>Vestibulum at eros</b-list-group-item>
-</b-list-group>
-
-<!-- list-group-striped.vue -->
-```
-
-**Note:** currently, the `striped` option will not work well with list group items which are
-`active`, or have a `variant` set.
-
 ## With badges
 
 Add [badges](/docs/components/badge) to any list group item to show unread counts, activity, and
