@@ -28,7 +28,7 @@ export default {
       class: {
         'list-group-flush': props.flush,
         'list-group-horizontal': horizontal === true,
-        [`list-group-horizontal-${horizontal}`]: typeof horizontal === 'string' 
+        [`list-group-horizontal-${horizontal}`]: typeof horizontal === 'string'
       }
     }
     return h(props.tag, mergeData(data, componentData), children)
