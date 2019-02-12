@@ -42,10 +42,10 @@ export default {
       componentData.attrs = { href: suppliedProps.href }
     }
 
-    return h(
-      tag,
-      mergeData(data, componentData),
-      children || htmlOrText(suppliedProps.html, suppliedProps.text)
-    )
+    if (!children) {
+      componentData.domProps = htmlOrText(suppliedProps.html, suppliedProps.text)
+    }
+
+    return h(tag, mergeData(data, componentData), children)
   }
 }
