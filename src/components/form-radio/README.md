@@ -180,7 +180,7 @@ render them inline.
 
 Render radios with the look of buttons by setting the prop `buttons` to `true` on
 `<b-form-radio-group>`. Set the button variant by setting the `button-variant` prop to one of the
-standard Bootstrap button variants (see [`<b-button>`](docs/components/button) for supported
+standard Bootstrap button variants (see [`<b-button>`](/docs/components/button) for supported
 variants). The default `button-variant` is `secondary`.
 
 The `buttons` prop has precedence over `plain`, and `button-variant` has no effect if `buttons` is
