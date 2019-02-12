@@ -25,7 +25,7 @@ export default {
       staticClass: 'list-group',
       class: {
         'list-group-flush': props.flush,
-        'list-group-horizontal': props.horizontal && !props.flush,
+        'list-group-horizontal': props.horizontal && !props.flush
       }
     }
     return h(props.tag, mergeData(data, componentData), children)
