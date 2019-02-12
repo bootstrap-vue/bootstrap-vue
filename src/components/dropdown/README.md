@@ -20,7 +20,7 @@ enter when focused), not by hovering; this is an
   </b-dropdown>
 </div>
 
-<!-- dropdown.vue -->
+<!-- b-dropdown.vue -->
 ```
 
 ## Dropdown button content
@@ -38,6 +38,7 @@ precedence.
     <b-dropdown-item href="#">An item</b-dropdown-item>
     <b-dropdown-item href="#">Another item</b-dropdown-item>
   </b-dropdown>
+
   <b-dropdown>
     <template slot="button-content">
       Custom <strong>Content</strong> with <em>HTML</em> via Slot
@@ -47,7 +48,7 @@ precedence.
   </b-dropdown>
 </div>
 
-<!-- dropdown-button-content.vue -->
+<!-- b-dropdown-button-content.vue -->
 ```
 
 ## Positioning
@@ -68,6 +69,7 @@ above it. To have the dropdown aligned on the right, set the `right` prop.
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
   </b-dropdown>
+
   <b-dropdown id="ddown-right" right text="Right align" variant="primary" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
@@ -75,7 +77,7 @@ above it. To have the dropdown aligned on the right, set the `right` prop.
   </b-dropdown>
 </div>
 
-<!-- dropdown-right.vue -->
+<!-- b-dropdown-right.vue -->
 ```
 
 ### Dropup
@@ -91,7 +93,7 @@ Turn your dropdown menu into a drop-up menu by setting the `dropup` prop.
   </b-dropdown>
 </div>
 
-<!-- dropdown-dropup.vue -->
+<!-- b-dropdown-dropup.vue -->
 ```
 
 ### Drop right or left
@@ -109,6 +111,7 @@ drop-left menu by setting the `dropleft` right prop to true.
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
   </b-dropdown>
+
   <b-dropdown id="ddown-dropleft" dropleft text="Drop-Left" variant="primary" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
@@ -116,7 +119,7 @@ drop-left menu by setting the `dropleft` right prop to true.
   </b-dropdown>
 </div>
 
-<!-- dropdown-droprightleft.vue -->
+<!-- b-dropdown-droprightleft.vue -->
 ```
 
 ### Auto "flipping"
@@ -141,7 +144,7 @@ number of pixels to push right (or left when negative) from the toggle button:
   </b-dropdown>
 </div>
 
-<!-- dropdown-offset.vue -->
+<!-- b-dropdown-offset.vue -->
 ```
 
 ### Boundary constraint
@@ -175,11 +178,13 @@ variants.
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
   </b-dropdown>
+
   <b-dropdown text="Success" variant="success" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here</b-dropdown-item>
   </b-dropdown>
+
   <b-dropdown text="Outline Danger" variant="outline-danger" class="m-2">
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
@@ -187,7 +192,7 @@ variants.
   </b-dropdown>
 </div>
 
-<!-- dropdown-variants.vue -->
+<!-- b-dropdown-variants.vue -->
 ```
 
 You can also apply abritrary classes to the toggle button via the `toggle-class` prop. This prop
@@ -207,7 +212,7 @@ support, while the right hand side is the dropdown menu toggle button.
   </b-dropdown>
 </div>
 
-<!-- dropdown-split.vue -->
+<!-- b-dropdown-split.vue -->
 ```
 
 ### Split button color variant
@@ -230,7 +235,7 @@ split button its own variant via the `split-variant` prop.
   </b-dropdown>
 </div>
 
-<!-- dropdown-split-variant.vue -->
+<!-- b-dropdown-split-variant.vue -->
 ```
 
 ### Split button link support
@@ -248,7 +253,7 @@ router link `to` value via the `split-to` prop, while manitaining the look of a 
   </b-dropdown>
 </div>
 
-<!-- dropdown-split-link.vue -->
+<!-- b-dropdown-split-link.vue -->
 ```
 
 ## Sizing
@@ -259,30 +264,35 @@ Set the `size` prop to either `sm` for small button(s), or `lg` for large button
 
 ```html
 <div>
-  <b-dropdown size="lg" text="Large" class="m-2">
-    <b-dropdown-item-button>Action</b-dropdown-item-button>
-    <b-dropdown-item-button>Another action</b-dropdown-item-button>
-    <b-dropdown-item-button>Something else here</b-dropdown-item-button>
-  </b-dropdown>
-  <b-dropdown size="lg" split text="Large Split" class="m-2">
-    <b-dropdown-item-button>Action</b-dropdown-item-button>
-    <b-dropdown-item-button>Another action</b-dropdown-item-button>
-    <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
-  </b-dropdown>
-  <br />
-  <b-dropdown size="sm" text="Small" class="m-2">
-    <b-dropdown-item-button>Action</b-dropdown-item-button>
-    <b-dropdown-item-button>Another action</b-dropdown-item-button>
-    <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
-  </b-dropdown>
-  <b-dropdown size="sm" split text="Small Split" class="m-2">
-    <b-dropdown-item-button>Action</b-dropdown-item-button>
-    <b-dropdown-item-button>Another action</b-dropdown-item-button>
-    <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
-  </b-dropdown>
+  <div>
+    <b-dropdown size="lg" text="Large" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here</b-dropdown-item-button>
+    </b-dropdown>
+
+    <b-dropdown size="lg" split text="Large Split" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
+    </b-dropdown>
+  </div>
+  <div>
+    <b-dropdown size="sm" text="Small" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
+    </b-dropdown>
+
+    <b-dropdown size="sm" split text="Small Split" class="m-2">
+      <b-dropdown-item-button>Action</b-dropdown-item-button>
+      <b-dropdown-item-button>Another action</b-dropdown-item-button>
+      <b-dropdown-item-button>Something else here...</b-dropdown-item-button>
+    </b-dropdown>
+  </div>
 </div>
 
-<!-- dropdown-sizes.vue -->
+<!-- b-dropdown-sizes.vue -->
 ```
 
 **Note:** _changing the size of the button(s) does not affect the size of the menu items!_
@@ -295,16 +305,15 @@ to `true`. This is useful when the dropdown is to be displayed as an icon.
 ```html
 <div>
   <b-dropdown variant="link" size="lg" no-caret>
-    <template slot="button-content">
-      &#x1f50d;<span class="sr-only">Search</span>
-    </template>
+    <template slot="button-content">&#x1f50d;<span class="sr-only">Search</span></template>
+
     <b-dropdown-item href="#">Action</b-dropdown-item>
     <b-dropdown-item href="#">Another action</b-dropdown-item>
     <b-dropdown-item href="#">Something else here...</b-dropdown-item>
   </b-dropdown>
 </div>
 
-<!-- dropdown-hidden-caret.vue -->
+<!-- b-dropdown-hidden-caret.vue -->
 ```
 
 **Note:** The caret will always be shown when using `split` mode.
@@ -354,7 +363,7 @@ Disabled the dropdown item button by setting the `disabled` prop.
   </b-dropdown>
 </div>
 
-<!-- dropdown-item-buttons.vue -->
+<!-- b-dropdown-item-buttons.vue -->
 ```
 
 When the menu item doesn't trigger navigation, it is recommended to use the
@@ -374,7 +383,7 @@ Separate groups of related menu items with `<b-dropdown-divider>`.
   </b-dropdown>
 </div>
 
-<!-- dropdown-item-divider.vue -->
+<!-- b-dropdown-item-divider.vue -->
 ```
 
 ### `<b-dropdown-item-header>`
@@ -390,7 +399,7 @@ Add a header to label sections of actions in any dropdown menu.
   </b-dropdown>
 </div>
 
-<!-- dropdown-item-header.vue -->
+<!-- b-dropdown-item-header.vue -->
 ```
 
 See Section [Dropdown headers and accessibility](#dropdown-headers-and-accessibility) for details on
@@ -415,7 +424,7 @@ constrain/set the menu width.
   </b-dropdown>
 </div>
 
-<!-- dropdown-text.vue -->
+<!-- b-dropdown-text.vue -->
 ```
 
 `<b-dropdown-text>` has the BootstrapVue custom class `.b-dropdown-text` applied to it which sets
@@ -435,17 +444,19 @@ regular form.
 
 ```html
 <template>
-  <div class="p-2">
-    <b-dropdown id="ddown-form" text="Dropdown with form" ref="ddown">
+  <div>
+    <b-dropdown id="ddown-form" text="Dropdown with form" ref="ddown" class="m-2">
       <b-dropdown-form>
         <b-form-group label="Email" label-for="ddown-form-email">
           <b-form-input size="sm" placeholder="email@example.com" id="ddown-form-email">
           </b-form-input>
         </b-form-group>
+
         <b-form-group label="Password" label-for="ddown-form-passwd">
           <b-form-input type="password" size="sm" placeholder="Password" id="ddown-form-passwd">
           </b-form-input>
         </b-form-group>
+
         <b-form-checkbox class="mb-3">Remember me</b-form-checkbox>
         <b-button variant="primary" size="sm" @click="onClick">Sign In</b-button>
       </b-dropdown-form>
@@ -467,7 +478,7 @@ regular form.
   }
 </script>
 
-<!-- dropdown-form.vue -->
+<!-- b-dropdown-form.vue -->
 ```
 
 `<b-dropdown-form>` has the BootstrapVue custom class `.b-dropdown-form` applied to it which sets
@@ -526,7 +537,7 @@ item:
   </b-dropdown>
 </div>
 
-<!-- dropdown-aria.vue -->
+<!-- b-dropdown-aria.vue -->
 ```
 
 ### Dropdown keyboard navigation

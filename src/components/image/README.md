@@ -19,9 +19,11 @@ Images in BootstrapVue can be made responsive with the `fluid` prop (which sets
 the maximum native width of the image.
 
 ```html
-<b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
+<div>
+  <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image" />
+</div>
 
-<!-- b-img-responsive-1.vue -->
+<!-- b-img-fluid.vue -->
 ```
 
 To make a fluid image that will grow to fill the width of it's container, use the `fluid-grow` prop.
@@ -31,11 +33,12 @@ Note this may cause bluring on small bitmap images.
 <div>
   <h5>Small image with <code>fluid</code>:</h5>
   <b-img src="https://picsum.photos/300/150/?image=41" fluid alt="Fluid image" />
+
   <h5 class="my-3">Small image with <code>fluid-grow</code>:</h5>
-  <b-img src="https://picsum.photos/300/150/?image=41" fluid-grow alt="Fluid-Grow image" />
+  <b-img src="https://picsum.photos/300/150/?image=41" fluid-grow alt="Fluid-grow image" />
 </div>
 
-<!-- b-img-responsive-2.vue -->
+<!-- b-img-fluid-grow.vue -->
 ```
 
 Use the `block` prop to force the image to display as a block element rather than the browser
@@ -53,13 +56,13 @@ You can use prop `thumbnail` to give an image a rounded light border appearance.
 <b-container fluid class="p-4 bg-dark">
   <b-row>
     <b-col>
-      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Thumbnail" />
+      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1" />
     </b-col>
     <b-col>
-      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=58" alt="Thumbnail" />
+      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=58" alt="Image 2" />
     </b-col>
     <b-col>
-      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=59" alt="Thumbnail" />
+      <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=59" alt="Image 3" />
     </b-col>
   </b-row>
 </b-container>
@@ -82,15 +85,27 @@ values:
 - `'0'`: explicity turn off rounding of corners
 
 ```html
-<div>
-  <b-img rounded blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
-  <b-img rounded="top" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
-  <b-img rounded="right" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
-  <b-img rounded="bottom" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
-  <b-img rounded="left" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
-  <b-img rounded="circle" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
-  <b-img rounded="0" blank width="75" height="75" blank-color="#777" alt="img" class="m-1" />
-</div>
+<template>
+  <div>
+    <b-img v-bind="mainProps" rounded alt="Rounded image" />
+    <b-img v-bind="mainProps" rounded="top" alt="Top-rounded image" />
+    <b-img v-bind="mainProps" rounded="right" alt="Right-rounded image" />
+    <b-img v-bind="mainProps" rounded="bottom" alt="Bottom-rounded image" />
+    <b-img v-bind="mainProps" rounded="left" alt="Left-rounded image" />
+    <b-img v-bind="mainProps" rounded="circle" alt="Circle image" />
+    <b-img v-bind="mainProps" rounded="0" alt="Not rounded image" />
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        mainProps: { blank: true, blankColor: '#777', width: 75, height: 75, class: 'm1' }
+      }
+    }
+  }
+</script>
 
 <!-- b-img-rounded.vue -->
 ```
@@ -105,8 +120,8 @@ left+right margins). You can also center images by placing them in a container t
 
 ```html
 <div class="clearfix">
-  <b-img left src="https://picsum.photos/125/125/?image=58" alt="left image" />
-  <b-img right src="https://picsum.photos/125/125/?image=58" alt="right image" />
+  <b-img left src="https://picsum.photos/125/125/?image=58" alt="Left image" />
+  <b-img right src="https://picsum.photos/125/125/?image=58" alt="Right image" />
 </div>
 
 <!-- b-img-left-right.vue -->
@@ -115,7 +130,9 @@ left+right margins). You can also center images by placing them in a container t
 **Center aligned (block):**
 
 ```html
-<b-img center src="https://picsum.photos/125/125/?image=58" alt="center image" />
+<div>
+  <b-img center src="https://picsum.photos/125/125/?image=58" alt="Center image" />
+</div>
 
 <!-- b-img-center.vue -->
 ```
@@ -140,22 +157,27 @@ color value:
 The default `blank-color` is `transparent`.
 
 ```html
-<div>
-  <b-img blank width="75" height="75" alt="transparent" class="m-1" />
-  <b-img blank width="75" height="75" blank-color="#777" alt="hex shorthand color" class="m-1" />
-  <b-img blank width="75" height="75" blank-color="red" alt="named color" class="m-1" />
-  <b-img blank width="75" height="75" blank-color="black" alt="named color" class="m-1" />
-  <b-img blank width="75" height="75" blank-color="#338833" alt="hex color" class="m-1" />
-  <b-img
-    blank
-    width="75"
-    height="75"
-    blank-color="rgba(128,255,255,0.5)"
-    alt="RGBa color"
-    class="m-1"
-  />
-  <b-img blank width="75" height="75" blank-color="#88f" alt="hex shorthand color" class="m-1" />
-</div>
+<template>
+  <div>
+    <b-img v-bind="mainProps" alt="Transparent image" />
+    <b-img v-bind="mainProps" blank-color="#777" alt="HEX shorthand color image (#777)" />
+    <b-img v-bind="mainProps" blank-color="red" alt="Named color image (red)" />
+    <b-img v-bind="mainProps" blank-color="black" alt="Named color image (black)" />
+    <b-img v-bind="mainProps" blank-color="#338833" alt="HEX color image" />
+    <b-img v-bind="mainProps" blank-color="rgba(128, 255, 255, 0.5)" alt="RGBa color image" />
+    <b-img v-bind="mainProps" blank-color="#88f" alt="HEX shorthand color (#88f)" />
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        mainProps: { blank: true, width: 75, height: 75, class: 'm1' }
+      }
+    }
+  }
+</script>
 
 <!-- b-img-blank.vue -->
 ```
@@ -210,98 +232,42 @@ Once an image has come into view and is shown, the event listeners are removed.
 **Example usage:**
 
 ```html
-<div>
-  <b-img-lazy
-    src="https://picsum.photos/600/400/?image=81"
-    center
-    fluid-grow
-    width="600"
-    height="400"
-    blank-color="#bbb"
-    alt="img"
-    class="my-5"
-  />
-  <b-img-lazy
-    src="https://picsum.photos/600/400/?image=83"
-    center
-    fluid-grow
-    width="600"
-    height="400"
-    blank-color="#bbb"
-    alt="img"
-    class="my-5"
-  />
-  <b-img-lazy
-    src="https://picsum.photos/600/400/?image=84"
-    center
-    fluid-grow
-    width="600"
-    height="400"
-    blank-color="#bbb"
-    alt="img"
-    class="my-5"
-  />
-  <b-img-lazy
-    src="https://picsum.photos/600/400/?image=85"
-    center
-    fluid-grow
-    width="600"
-    height="400"
-    blank-color="#bbb"
-    alt="img"
-    class="my-5"
-  />
-  <b-img-lazy
-    src="https://picsum.photos/600/400/?image=91"
-    center
-    fluid-grow
-    width="600"
-    height="400"
-    blank-color="#bbb"
-    alt="img"
-    class="my-5"
-  />
-  <b-img-lazy
-    src="https://picsum.photos/600/400/?image=87"
-    center
-    fluid-grow
-    width="600"
-    height="400"
-    blank-color="#bbb"
-    alt="img"
-    class="my-5"
-  />
-  <b-img-lazy
-    src="https://picsum.photos/600/400/?image=88"
-    center
-    fluid-grow
-    width="600"
-    height="400"
-    blank-color="#bbb"
-    alt="img"
-    class="my-5"
-  />
-  <b-img-lazy
-    src="https://picsum.photos/600/400/?image=89"
-    center
-    fluid-grow
-    width="600"
-    height="400"
-    blank-color="#bbb"
-    alt="img"
-    class="my-5"
-  />
-  <b-img-lazy
-    src="https://picsum.photos/600/400/?image=90"
-    center
-    fluid-grow
-    width="600"
-    height="400"
-    blank-color="#bbb"
-    alt="img"
-    class="my-5"
-  />
-</div>
+<template>
+  <div>
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(80)" alt="Image 1" />
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(82)" alt="Image 2" />
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(84)" alt="Image 3" />
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(85)" alt="Image 4" />
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(88)" alt="Image 5" />
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(90)" alt="Image 6" />
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(92)" alt="Image 7" />
+    <b-img-lazy v-bind="mainProps" :src="getImageUrl(94)" alt="Image 8" />
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        mainProps: {
+          center: true,
+          fluidGrow: true,
+          blank: true,
+          blankColor: '#bbb',
+          width: 600,
+          height: 400,
+          class: 'my-5'
+        }
+      }
+    },
+    methods: {
+      getImageUrl(imageId) {
+        const { width, height } = this.mainProps
+        return `https://picsum.photos/${width}/${height}/?image=${imageId}`
+      }
+    }
+  }
+</script>
 
 <!-- b-img-lazy.vue -->
 ```

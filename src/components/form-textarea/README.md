@@ -13,6 +13,7 @@
       rows="3"
       max-rows="6"
     />
+
     <pre class="mt-3">{{ text }}</pre>
   </div>
 </template>
@@ -27,7 +28,7 @@
   }
 </script>
 
-<!-- form-textarea-1.vue -->
+<!-- b-form-textarea.vue -->
 ```
 
 ## Control sizing
@@ -39,26 +40,34 @@ To control width, place the input inside standard Bootstrap grid column.
 ```html
 <b-container fluid>
   <b-row class="my-1">
-    <b-col sm="2"><label for="input-small">Small:</label></b-col>
+    <b-col sm="2">
+      <label for="input-small">Small:</label>
+    </b-col>
     <b-col sm="10">
       <b-form-textarea id="input-small" size="sm" type="text" placeholder="Small Textarea" />
     </b-col>
   </b-row>
+
   <b-row class="my-1">
-    <b-col sm="2"><label for="input-default">Default:</label></b-col>
+    <b-col sm="2">
+      <label for="input-default">Default:</label>
+    </b-col>
     <b-col sm="10">
       <b-form-textarea id="input-default" type="text" placeholder="Default Textarea" />
     </b-col>
   </b-row>
+
   <b-row class="my-1">
-    <b-col sm="2"><label for="input-large">Large:</label></b-col>
+    <b-col sm="2">
+      <label for="input-large">Large:</label>
+    </b-col>
     <b-col sm="10">
       <b-form-textarea id="input-large" size="lg" type="text" placeholder="Large Textarea" />
     </b-col>
   </b-row>
 </b-container>
 
-<!-- form-textarea-size-1.vue -->
+<!-- b-form-textarea-sizes.vue -->
 ```
 
 ## Displayed rows
@@ -104,13 +113,15 @@ To apply one of the contextual state icons on `<b-form-textarea>`, set the `stat
 
 ```html
 <template>
-  <b-form-textarea
-    id="textarea2"
-    :state="text.length >= 10"
-    v-model="text"
-    placeholder="Enter at least 10 characters"
-    rows="3"
-  />
+  <div>
+    <b-form-textarea
+      id="textarea2"
+      :state="text.length >= 10"
+      v-model="text"
+      placeholder="Enter at least 10 characters"
+      rows="3"
+    />
+  </div>
 </template>
 
 <script>
@@ -123,7 +134,7 @@ To apply one of the contextual state icons on `<b-form-textarea>`, set the `stat
   }
 </script>
 
-<!-- form-textarea-state.vue -->
+<!-- b-form-textarea-state.vue -->
 ```
 
 ### Conveying contextual state to assistive technologies and colorblind users
@@ -162,7 +173,9 @@ form field styling and preserve the correct text size, margin, padding and heigh
 
 ```html
 <template>
-  <b-form-textarea id="textarea3" plaintext :value="text" />
+  <div>
+    <b-form-textarea id="textarea3" plaintext :value="text" />
+  </div>
 </template>
 
 <script>
@@ -175,10 +188,10 @@ form field styling and preserve the correct text size, margin, padding and heigh
   }
 </script>
 
-<!-- form-textarea-plaintext.vue -->
+<!-- b-form-textarea-plaintext.vue -->
 ```
 
-## V-model modifiers
+## `v-model` modifiers
 
 Vue does not officially support `.lazy`, `.trim`, and `.number` modifiers on the `v-model` of custom
 component based inputs, and may generate a bad user experience. Avoid using Vue's native modifiers.
@@ -207,7 +220,7 @@ need for the `.native` modifier.
 The custom `input` and `change` events receive a single argument of the current `value` (after any
 formatting has been applied), and are triggerd by user interaction.
 
-The custom `update` event is passed the input value, and is emitted wehenever the v-model needs
+The custom `update` event is passed the input value, and is emitted wehenever the `v-model` needs
 updating (it is emitted before `input`, `change`. and `blur` as needed).
 
 You can always access the native `input` and `change` events by using the `.native` modifier.

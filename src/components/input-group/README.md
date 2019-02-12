@@ -6,27 +6,27 @@
 ```html
 <div>
   <!-- Using props -->
-  <b-input-group size="lg" prepend="$" append=".00"><b-form-input /></b-input-group>
-  <br />
+  <b-input-group size="lg" prepend="$" append=".00">
+    <b-form-input />
+  </b-input-group>
 
   <!-- Using slots -->
-  <b-input-group>
+  <b-input-group class="mt-3">
     <b-input-group-text slot="append"><strong class="text-danger">!</strong></b-input-group-text>
     <b-form-input />
   </b-input-group>
-  <br />
 
   <!-- Using components -->
-  <b-input-group prepend="Username">
+  <b-input-group prepend="Username" class="mt-3">
     <b-form-input />
     <b-input-group-append>
-      <b-btn variant="outline-success">Button</b-btn>
-      <b-btn variant="info">Button</b-btn>
+      <b-button variant="outline-success">Button</b-button>
+      <b-button variant="info">Button</b-button>
     </b-input-group-append>
   </b-input-group>
 </div>
 
-<!-- input-groups-1.vue -->
+<!-- b-input-group.vue -->
 ```
 
 ## Usage
@@ -39,13 +39,16 @@ Values will be internally wrapped by a `<b-input-group-text>` to display correct
 
 ```html
 <div>
-  <b-input-group prepend="$" append=".00" class="mb-2"><b-form-input /></b-input-group>
-  <b-input-group prepend="0" append="100">
+  <b-input-group prepend="$" append=".00">
+    <b-form-input />
+  </b-input-group>
+
+  <b-input-group prepend="0" append="100" class="mt-3">
     <b-form-input type="range" min="0" max="100" />
   </b-input-group>
 </div>
 
-<!-- input-group-using-props.vue -->
+<!-- b-input-group-using-props.vue -->
 ```
 
 ### Using named slots
@@ -59,6 +62,7 @@ This slots will be wrapped by `<b-input-group-prepend|append>` to display correc
   <b-input-group>
     <b-input-group-text slot="prepend">Username</b-input-group-text>
     <b-form-input />
+
     <b-dropdown text="Dropdown" variant="success" slot="append">
       <b-dropdown-item>Action A</b-dropdown-item>
       <b-dropdown-item>Action B</b-dropdown-item>
@@ -66,7 +70,7 @@ This slots will be wrapped by `<b-input-group-prepend|append>` to display correc
   </b-input-group>
 </div>
 
-<!-- input-group-using-slots.vue -->
+<!-- b-input-group-using-slots.vue -->
 ```
 
 ### Using components
@@ -78,18 +82,18 @@ wrapped in these components for proper styling.
 ```html
 <div>
   <b-input-group>
-    <b-input-group-prepend<b-btn variant="outline-info">Button</b-btn></b-input-group-prepend>
+    <b-input-group-prepend<b-button variant="outline-info">Button</b-button></b-input-group-prepend>
 
     <b-form-input type="number" min="0.00" />
 
     <b-input-group-append>
-      <b-btn variant="outline-secondary">Button</b-btn>
-      <b-btn variant="outline-secondary">Button</b-btn>
+      <b-button variant="outline-secondary">Button</b-button>
+      <b-button variant="outline-secondary">Button</b-button>
     </b-input-group-append>
   </b-input-group>
 </div>
 
-<!-- input-group-addons-placement.vue -->
+<!-- b-input-group-addons-placement.vue -->
 ```
 
 Set the `is-text` prop on `<b-input-group-prepend>` or `<b-input-group-append>` if the content is
@@ -126,7 +130,7 @@ include additional markup not required in input groups.
   </b-row>
 </b-container>
 
-<!-- input-group-checks-radios.vue -->
+<!-- b-input-group-checks-radios.vue -->
 ```
 
 ## Dropdowns
@@ -146,7 +150,7 @@ include additional markup not required in input groups.
   </b-dropdown>
 </b-input-group>
 
-<!-- input-group-dropdown.vue -->
+<!-- b-input-group-dropdown.vue -->
 ```
 
 ## Multiple addons
@@ -168,7 +172,7 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
   </b-row>
 </b-container>
 
-<!-- input-group-multiple.vue -->
+<!-- b-input-group-multiple.vue -->
 ```
 
 ## Control sizing
@@ -190,12 +194,12 @@ To control width, place the input inside standard Bootstrap grid column.
   >
     <b-form-input />
     <b-input-group-append>
-      <b-btn size="sm" text="Button" variant="success">Button</b-btn>
+      <b-button size="sm" text="Button" variant="success">Button</b-button>
     </b-input-group-append>
   </b-input-group>
 </div>
 
-<!-- input-group-size.vue -->
+<!-- b-input-group-size.vue -->
 ```
 
 ## Contextual states

@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="dropdown-select"
-    :class="{ open: show, dropdown: !dropup, dropup: dropup }"
-  >
+  <div class="dropdown-select" :class="{ open: show, dropdown: !dropup, dropup: dropup }">
     <button
       :id="id"
       :class="['btn', 'dropdown', dropdownToggle, btnVariant, btnSize]"
@@ -12,26 +9,15 @@
       :disabled="disabled"
       @click.prevent="toggle($event)"
     >
-      <span
-        class="checked-items"
-        v-html="displayItem"
-      />
+      <span class="checked-items" v-html="displayItem" />
     </button>
     <ul
       class="dropdown-menu"
       :class="{ 'dropdown-menu-right': position == 'right' }"
       aria-labelledby="dLabel"
     >
-      <li
-        v-for="item in list"
-        :key="item.text"
-      >
-        <button
-          class="dropdown-item"
-          @click.stop.prevent="select(item)"
-        >
-          {{ item.text }}
-        </button>
+      <li v-for="item in list" :key="item.text">
+        <button class="dropdown-item" @click.stop.prevent="select(item)">{{ item.text }}</button>
       </li>
     </ul>
   </div>
