@@ -7,23 +7,23 @@
         "slots": [
             {
               "name": "first-text",
-              "description": "The \"goto first page\" button text (html/sub-components supported)"
+              "description": "The \"go to first page\" button text (html/sub-components supported)"
             },
             {
               "name": "prev-text",
-              "description": "The \"goto previous page\" button text (html/sub-components supported)"
+              "description": "The \"go to previous page\" button text (html/sub-components supported)"
             },
             {
               "name": "next-text",
-              "description": "The \"goto next page\" button text (html/sub-components supported)"
+              "description": "The \"go to next page\" button text (html/sub-components supported)"
             },
             {
               "name": "last-text",
-              "description": "The \"goto last page\" button text (html/sub-components supported)"
+              "description": "The \"go to last page\" button text (html/sub-components supported)"
             },
             {
               "name": "ellipsis-text",
-              "description": " | the '...' indicator text (html/sub-components supported)"
+              "description": "The '...' indicator text (html/sub-components supported)"
             }
         ]
     }
