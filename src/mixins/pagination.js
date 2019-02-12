@@ -102,7 +102,7 @@ const props = {
   },
   labelFirstPage: {
     type: String,
-    default: 'Goto first page'
+    default: 'Go to first page'
   },
   firstText: {
     type: String,
@@ -110,7 +110,7 @@ const props = {
   },
   labelPrevPage: {
     type: String,
-    default: 'Goto previous page'
+    default: 'Go to previous page'
   },
   prevText: {
     type: String,
@@ -118,7 +118,7 @@ const props = {
   },
   labelNextPage: {
     type: String,
-    default: 'Goto next page'
+    default: 'Go to next page'
   },
   nextText: {
     type: String,
@@ -126,7 +126,7 @@ const props = {
   },
   labelLastPage: {
     type: String,
-    default: 'Goto last page'
+    default: 'Go to last page'
   },
   lastText: {
     type: String,
@@ -134,7 +134,7 @@ const props = {
   },
   labelPage: {
     type: String,
-    default: 'Goto page'
+    default: 'Go to page'
   },
   hideEllipsis: {
     type: Boolean,
