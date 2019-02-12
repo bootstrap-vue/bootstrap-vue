@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "@nuxt/opencollective": "^0.2.1",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.0",
     "popper.js": "^1.14.7",
     "vue-functional-data-merge": "^2.0.7"
   },
