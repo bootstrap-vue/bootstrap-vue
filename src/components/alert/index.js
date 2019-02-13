@@ -1,5 +1,5 @@
 import BAlert from './alert'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
   BAlert
@@ -10,7 +10,5 @@ const VuePlugin = {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
 
 export default VuePlugin
