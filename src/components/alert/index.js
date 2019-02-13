@@ -5,10 +5,8 @@ const components = {
   BAlert
 }
 
-const VuePlugin = {
+export default {
   install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-export default VuePlugin

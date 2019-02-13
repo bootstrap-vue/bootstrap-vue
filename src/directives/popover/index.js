@@ -5,12 +5,8 @@ const directives = {
   bPopover
 }
 
-const VuePlugin = {
+export default {
   install(Vue) {
     registerDirectives(Vue, directives)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

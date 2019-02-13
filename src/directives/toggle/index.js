@@ -5,12 +5,8 @@ const directives = {
   bToggle
 }
 
-const VuePlugin = {
+export default {
   install(Vue) {
     registerDirectives(Vue, directives)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin
