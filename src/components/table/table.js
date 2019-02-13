@@ -65,7 +65,8 @@ function recToString(row) {
 function defaultSortCompare(a, b, sortBy) {
   a = get(a, sortBy, '')
   b = get(b, sortBy, '')
-  if (typeof a === 'number' && typeof b === 'number') {
+  if ((a instanceof Date && b instanceof Date) || (typeof a === 'number' && typeof b === 'number')) {
+    // Special case for comparing Dates and Numbers
     return (a < b && -1) || (a > b && 1) || 0
   }
   return toString(a).localeCompare(toString(b), undefined, {
