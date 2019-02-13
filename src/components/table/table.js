@@ -35,11 +35,12 @@ function sanitizeRow(row) {
 // becomes
 //   'one 3 2 zzz 10 12 11'
 function toString(v) {
-  if (!v) {
+  if (typeof v === 'undefined' || v === null) {
     return ''
   }
-  if (v instanceof Object) {
+  if (v instanceof Object && !(v instanceof Date)) {
     // Arrays are also object, and keys just returns the array indexes
+    // Date objects we convert to strings
     return keys(v)
       .sort() /* sort to prevent SSR issues on pre-rendered sorted tables */
       .map(k => toString(v[k]))
