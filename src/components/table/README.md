@@ -856,7 +856,7 @@ scoped field slot
 <template>
   <div>
     <b-table :items="items">
-      <span slot="html" slot-scope="data" v-html="data.value"/>
+      <span slot="html" slot-scope="data" v-html="data.value" />
     </b-table>
   </div>
 </template>
