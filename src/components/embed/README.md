@@ -15,7 +15,7 @@ Rules are directly applied to `<iframe>`, `<embed>`, `<video>`, and `<object>` e
   />
 </div>
 
-<!-- b-embed-1.vue -->
+<!-- b-embed.vue -->
 ```
 
 ## Embed types
@@ -46,10 +46,12 @@ embeded element. Note that type `iframe` does not support any children.
 **Example: Responsive embedding of an HTML5 `<video>`**
 
 ```html
-<b-embed type="video" aspect="4by3" controls poster="poster.png">
-  <source src="devstories.webm" type="video/webm;codecs=&quot;vp8, vorbis&quot;" />
-  <source src="devstories.mp4" type="video/mp4;codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" />
-</b-embed>
+<div>
+  <b-embed type="video" aspect="4by3" controls poster="poster.png">
+    <source src="devstories.webm" type="video/webm;codecs=&quot;vp8, vorbis&quot;" />
+    <source src="devstories.mp4" type="video/mp4;codecs=&quot;avc1.42E01E, mp4a.40.2&quot;" />
+  </b-embed>
+</div>
 ```
 
 <!-- Component reference added automatically from component package.json -->

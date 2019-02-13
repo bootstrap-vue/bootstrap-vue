@@ -31,24 +31,26 @@
   }
 </script>
 
-<!-- breadcrumb.vue -->
+<!-- b-breadcrumb.vue -->
 ```
 
 ## Breadcrumb items
 
 Items are rendered using `:items` prop. It can be an array of objects to provide link and active
 state. Links can be `href`'s for anchor tags, or `to`'s for router-links. Active state of last
-element is automatically set if it is undefined.
+element is automatically set if it is `undefined`.
 
-```
-items = [
+```js
+const items = [
   {
     text: 'Home',
-    href: 'http://google.com',
-  }, {
+    href: 'http://google.com'
+  },
+  {
     text: 'Posts',
-    to: { name: 'home' },
-  }, {
+    to: { name: 'home' }
+  },
+  {
     text: 'Another Story',
     active: true
   }

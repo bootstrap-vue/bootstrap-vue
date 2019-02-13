@@ -31,6 +31,18 @@
       },
       { 
         "component": "BTab",
+        "events": [
+          {
+            "event": "click",
+            "description": "Emited when a tab is clicked, or is activated by keyboard navigation",
+            "args": [
+              { 
+                "arg": "evt",
+                "description": "Original event object"
+              }
+            ]
+          }
+        ],
         "slots": [
           {
             "name": "title",

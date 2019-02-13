@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "@nuxt/opencollective": "^0.2.1",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.1",
     "popper.js": "^1.14.7",
     "vue-functional-data-merge": "^2.0.7"
   },
@@ -95,9 +95,8 @@
     "babel-jest": "^24.1.0",
     "babel-plugin-istanbul": "^5.1.0",
     "clean-css-cli": "^4.2.1",
-    "codecov": "^3.1.0",
+    "codecov": "^3.2.0",
     "codemirror": "^5.43.0",
-    "cross-env": "^5.2.0",
     "eslint": "^5.13.0",
     "eslint-config-prettier": "^4.0.0",
     "eslint-config-standard": "^12.0.0",
@@ -117,7 +116,7 @@
     "lodash": "^4.17.11",
     "marked": "^0.6.0",
     "node-sass": "^4.11.0",
-    "nuxt-edge": "^2.4.0-25811407.6d8da0ed",
+    "nuxt": "^2.4.3",
     "postcss-cli": "^6.1.1",
     "prettier": "1.14.3",
     "rollup": "^1.1.2",
@@ -128,10 +127,10 @@
     "sass-loader": "^7.1.0",
     "standard-version": "^4.4.0",
     "terser": "^3.16.1",
-    "vue": "^2.6.4",
+    "vue": "^2.6.6",
     "vue-jest": "^3.0.3",
-    "vue-server-renderer": "^2.6.4",
-    "vue-template-compiler": "^2.6.4"
+    "vue-server-renderer": "^2.6.6",
+    "vue-template-compiler": "^2.6.6"
   },
   "jest": {
     "testRegex": "spec.js$",
