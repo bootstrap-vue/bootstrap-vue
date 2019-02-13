@@ -330,7 +330,7 @@ your project:
 ### CSS
 
 BootstrapVue is to be used with Bootstrap 4 CSS/SCSS. Please see
-[Browsers and devices](https://getbootstrap.com/docs/4.2/getting-started/browsers-devices) for more
+[Browsers and devices](https://getbootstrap.com/docs/4.3/getting-started/browsers-devices) for more
 information about browsers currently supported by Bootstrap 4.
 
 ### JS

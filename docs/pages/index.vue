@@ -19,7 +19,7 @@
             markup.
           </p>
           <p class="mb-2 text-muted">
-            <a href="https://getbootstrap.com/docs/4.2" target="_blank">Bootstrap 4</a> is the
+            <a href="https://getbootstrap.com/docs/4.3" target="_blank">Bootstrap 4</a> is the
             world's most popular framework for building responsive, mobile-first sites.
           </p>
           <p class="mb-4 text-muted">
