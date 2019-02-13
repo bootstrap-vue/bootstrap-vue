@@ -1,6 +1,6 @@
 import BFormRadio from './form-radio'
 import BFormRadioGroup from './form-radio-group'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
   BFormRadio,
@@ -9,12 +9,8 @@ const components = {
   BRadioGroup: BFormRadioGroup
 }
 
-const VuePlugin = {
+export default {
   install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin

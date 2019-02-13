@@ -1,7 +1,7 @@
 import BBreadcrumb from './breadcrumb'
 import BBreadcrumbItem from './breadcrumb-item'
 import BBreadcrumbLink from './breadcrumb-link'
-import { registerComponents, vueUse } from '../../utils/plugins'
+import { registerComponents } from '../../utils/plugins'
 
 const components = {
   BBreadcrumb,
@@ -9,12 +9,8 @@ const components = {
   BBreadcrumbLink
 }
 
-const VuePlugin = {
+export default {
   install(Vue) {
     registerComponents(Vue, components)
   }
 }
-
-vueUse(VuePlugin)
-
-export default VuePlugin
