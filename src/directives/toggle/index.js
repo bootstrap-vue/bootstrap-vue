@@ -1,5 +1,5 @@
 import bToggle from './toggle'
-import { registerDirectives, vueUse } from '../../utils/plugins'
+import { registerDirectives } from '../../utils/plugins'
 
 const directives = {
   bToggle
