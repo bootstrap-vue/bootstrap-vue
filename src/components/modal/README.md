@@ -279,8 +279,9 @@ breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional
 The `size` prop maps the size to the `.modal-<size>` classes.
 
 ## Scrolling long content
-When modals become too long for the user’s viewport or device, they scroll independent of the
-page itself. Try the demo below to see what we mean.
+
+When modals become too long for the user’s viewport or device, they scroll independent of the page
+itself. Try the demo below to see what we mean.
 
 ```html
 <div>
@@ -297,8 +298,8 @@ page itself. Try the demo below to see what we mean.
 <!-- b-modal-scroll-overflow.vue -->
 ```
 
-You can also create a scrollable modal that allows the scrolling of the modal body by setting
-the prop `scrollable` to `true`.
+You can also create a scrollable modal that allows the scrolling of the modal body by setting the
+prop `scrollable` to `true`.
 
 ```html
 <div>
@@ -401,20 +402,20 @@ the `header-border-variant` and `footer-border-variant` props respectively.
 
         <b-row class="mb-1">
           <b-col cols="3">Header</b-col>
-          <b-col><b-form-select :options="variants" v-model="headerBgVariant"/></b-col>
-          <b-col><b-form-select :options="variants" v-model="headerTextVariant"/></b-col>
+          <b-col><b-form-select :options="variants" v-model="headerBgVariant" /></b-col>
+          <b-col><b-form-select :options="variants" v-model="headerTextVariant" /></b-col>
         </b-row>
 
         <b-row class="mb-1">
           <b-col cols="3">Body</b-col>
-          <b-col><b-form-select :options="variants" v-model="bodyBgVariant"/></b-col>
-          <b-col><b-form-select :options="variants" v-model="bodyTextVariant"/></b-col>
+          <b-col><b-form-select :options="variants" v-model="bodyBgVariant" /></b-col>
+          <b-col><b-form-select :options="variants" v-model="bodyTextVariant" /></b-col>
         </b-row>
 
         <b-row>
           <b-col cols="3">Footer</b-col>
-          <b-col><b-form-select :options="variants" v-model="footerBgVariant"/></b-col>
-          <b-col><b-form-select :options="variants" v-model="footerTextVariant"/></b-col>
+          <b-col><b-form-select :options="variants" v-model="footerBgVariant" /></b-col>
+          <b-col><b-form-select :options="variants" v-model="footerTextVariant" /></b-col>
         </b-row>
       </b-container>
 

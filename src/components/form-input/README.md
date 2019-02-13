@@ -38,7 +38,7 @@ native browser HTML5 types: `text`, `password`, `email`, `number`, `url`, `tel`,
         <label :for="`type-${type}`">Type {{ type }}:</label>
       </b-col>
       <b-col sm="9">
-        <b-form-input :id="`type-${type}`" :type="type"/>
+        <b-form-input :id="`type-${type}`" :type="type" />
       </b-col>
     </b-row>
   </b-container>

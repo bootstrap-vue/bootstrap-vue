@@ -17,9 +17,7 @@
           type="email"
           v-model="form.email"
           required
-          placeholder="Enter email"
-        >
-        </b-form-input>
+          placeholder="Enter email" />
       </b-form-group>
 
       <b-form-group id="exampleInputGroup2" label="Your Name:" label-for="exampleInput2">
@@ -28,9 +26,7 @@
           type="text"
           v-model="form.name"
           required
-          placeholder="Enter name"
-        >
-        </b-form-input>
+          placeholder="Enter name" />
       </b-form-group>
 
       <b-form-group id="exampleInputGroup3" label="Food:" label-for="exampleInput3">
