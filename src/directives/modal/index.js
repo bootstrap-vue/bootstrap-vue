@@ -1,5 +1,5 @@
 import bModal from './modal'
-import { registerDirectives, vueUse } from '../../utils/plugins'
+import { registerDirectives } from '../../utils/plugins'
 
 const directives = {
   bModal
